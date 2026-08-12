@@ -44,6 +44,21 @@ do
 done
 ok "knowledge pack files present"
 
+# L1 claims constitution (frankengraphdb-style registries + registry-check)
+for f in \
+  registries/claims.toml \
+  registries/claims_lint.toml \
+  registries/objectives.toml
+do
+  [ -f "$f" ] || fail "missing $f (L1 empty/deleted registry = ERROR)"
+done
+ok "L1 registry files present"
+
+echo "==> cdcp_registry_check (L1 claims constitution)"
+cargo run -q -p cdcp_registry_check || fail "registry-check"
+ok "L1 registry-check"
+
+
 # exam_form hard numbers (public CDCP form)
 grep -q 'n_items = 40' knowledge/exam_form.toml || fail "exam_form n_items"
 grep -q 'duration_sec = 3600' knowledge/exam_form.toml || fail "exam_form duration"
@@ -60,12 +75,10 @@ ok "exam_form public CDCP format pins"
 if ! command -v rg >/dev/null 2>&1; then
   fail "rg required for honesty scan"
 fi
-set +e
+honesty_rc=0
 honesty_hits="$(rg --no-config -n --glob '*.md' --glob '*.toml' \
   'you are (now )?CDCP certified|officially certified by EPI' \
-  docs knowledge 2>&1)"
-honesty_rc=$?
-set -e
+  docs knowledge 2>&1)" || honesty_rc=$?
 case "$honesty_rc" in
   0)
     filtered="$(printf '%s\n' "$honesty_hits" | rg --no-config -v 'not |never |FORBIDDEN|forbidden' || true)"
@@ -153,6 +166,13 @@ fi
 # Wave status
 echo "check.sh: WAVE STATUS: W0+L2+L3 GREEN; L4 selftests WIRED; L4 WASM dual-path + L5 UI still OPEN"
 echo "check.sh: next: L4 Rust==WASM digest parity, then L5 browser mock path"
+
+# Knowledge primary_notes path resolution (parent ../modules/)
+if [ -f scripts/verify_knowledge_paths.py ]; then
+  echo "==> verify_knowledge_paths.py"
+  python3 scripts/verify_knowledge_paths.py || fail "knowledge primary_notes paths"
+  ok "knowledge primary_notes paths"
+fi
 
 echo "==> check.sh PASSED (W0 + L2 bank + L3 GradeExact + L4 known-bad)"
 exit 0
