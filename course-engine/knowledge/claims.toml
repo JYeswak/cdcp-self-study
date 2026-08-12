@@ -1,4 +1,5 @@
 # Claim strength lattice — weaker never justifies stronger
+# L1: every row must resolve to registries/claims.toml (same id + strength)
 schema_version = 1
 
 [[claim]]
@@ -36,6 +37,24 @@ id = "claim-interview-study-signal"
 strength = "benchmark"
 text = "Mock ≥27/40 is a study signal only"
 evidence = "exam_form.toml study_signal_label"
+
+[[claim]]
+id = "claim-study-signal-27"
+strength = "benchmark"
+text = "Mock ≥27/40 is a study signal only (interview study bar), not a credential"
+evidence = "exam_form.toml pass_correct + study_signal_label"
+
+[[claim]]
+id = "claim-interview-ready"
+strength = "benchmark"
+text = "interview_ready is a buyer outcome / study signal, never epi_certified"
+evidence = "CHARTER.md §1 buyer; practice mocks"
+
+[[claim]]
+id = "claim-domain-covered"
+strength = "slo"
+text = "domain_covered means public-syllabus domain has module + bank items; never exam_pass_probability"
+evidence = "domains.toml + topics.toml + bank pool"
 
 [[claim]]
 id = "claim-forbidden-dump-bank"

@@ -1,0 +1,56 @@
+{
+  "layer": "L1",
+  "name": "ClaimsConstitution",
+  "schema": "cdcp.scorecard.v1",
+  "date": "2026-08-12",
+  "outcome": "pass",
+  "meaningful": true,
+  "constitution": {
+    "charter": "CHARTER.md §5 L1 Claims constitution",
+    "registries": [
+      "registries/claims.toml",
+      "registries/claims_lint.toml",
+      "registries/objectives.toml"
+    ],
+    "knowledge_pack": "knowledge/claims.toml",
+    "checker": "crates/cdcp_registry_check"
+  },
+  "gates": {
+    "registry_files_present": true,
+    "empty_registry_is_error": true,
+    "strength_lattice_canonical": true,
+    "knowledge_claims_resolve": true,
+    "claims_lint_markers_resolve": true,
+    "load_bearing_prose_cited_or_excluded": true,
+    "cargo_test_cdcp_registry_check": true,
+    "check_sh_wires_registry_check": true
+  },
+  "lattice": {
+    "invariant": 6,
+    "proof": 5,
+    "bounded_model": 4,
+    "statistical": 3,
+    "slo": 2,
+    "benchmark": 1,
+    "law": "rank(justifier) >= rank(claim)"
+  },
+  "required_claims": [
+    "claim-not-epi-certified",
+    "claim-study-signal-27",
+    "claim-interview-ready",
+    "claim-domain-covered",
+    "claim-forbidden-dump-bank"
+  ],
+  "non_claims": [
+    "epi_certified is FORBIDDEN (never a product claim)",
+    "interview_ready ≠ epi_certified",
+    "domain_covered ≠ exam_pass_probability",
+    "study_signal_27 ≠ credential"
+  ],
+  "beads": ["bd-1jx"],
+  "open": [
+    "L4 WASM dual-path wiring of claim-grade-byte-exact",
+    "UI honesty banner (surface enforcement)"
+  ],
+  "next": "bd-dj8 refresh W0/L2 scorecards after gap fixes + L1 process stamp"
+}

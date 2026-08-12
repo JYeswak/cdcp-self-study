@@ -1,11 +1,11 @@
 # ORACLE · GAUNTLET — cdcp-course (stamp-in-stone)
 
 **Class:** Assessment-System (not ML-System).  
-**Product:** Browser mock exams + learn/drill; grade in WASM dual-path to Rust.
+**Product:** Browser mock exams + learn/drill; grade in WASM dual-path to Rust. [[claim:claim-grade-byte-exact]]
 
 ## One Rule
 
-No victory while grade paths disagree, required goldens are missing, or honesty claims inflate credentials.
+No victory while grade paths disagree, required goldens are missing, or honesty claims inflate credentials. [[claim:claim-not-epi-certified]]
 
 ## Subject / Oracle / Comparator
 
@@ -19,7 +19,7 @@ Assert identities distinct at comparator entry. Same `(bank_hash, exam_id, seed,
 
 ## Byte-exact law
 
-- `canonical_json(GradeReport)` + `sha256` — **oracle floor = 0**
+- `canonical_json(GradeReport)` + `sha256` — **oracle floor = 0** [[claim:claim-grade-byte-exact]]
 - Integers only for scores; sorted keys; no timestamps in digest body
 - `UPDATE_GOLDENS` local + human review only — never in CI auto-accept
 
@@ -28,7 +28,7 @@ Assert identities distinct at comparator entry. Same `(bank_hash, exam_id, seed,
 | Contract | Question |
 |----------|----------|
 | **GradeExact** | Unique lawful score? |
-| **PedagogySignal** | Coverage, explanations, weak modules? (cannot loosen Exact) |
+| **PedagogySignal** | Coverage, explanations, weak modules? (cannot loosen Exact) [[claim:claim-domain-covered]] |
 
 ## Ladder L0–L5
 
@@ -41,11 +41,14 @@ Assert identities distinct at comparator entry. Same `(bank_hash, exam_id, seed,
 
 ## Three pillars
 
-(a) Integrity/conformance · (b) Surface honesty · (c) Pedagogy + **standards family map**
+(a) Integrity/conformance · (b) Surface honesty · (c) Pedagogy + **standards family map** / **14-domain** coverage oracle [[claim:claim-domain-covered]] [[claim:claim-syllabus-mapped]]
 
 ## Known-bad (must trip)
 
-Empty bank · orphan item · flipped golden · dual-path lie · “certified” UI string · vacuous full-coverage
+Empty bank · orphan item · flipped golden · dual-path lie · “certified” UI string · vacuous full-coverage  
+[[claim:claim-not-epi-certified]] [[claim:claim-grade-byte-exact]]
+
+Study signal **27/40** is never a credential. [[claim:claim-study-signal-27]]
 
 ## Doctrine
 

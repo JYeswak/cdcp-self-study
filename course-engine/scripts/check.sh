@@ -164,7 +164,7 @@ else
 fi
 
 # Wave status
-echo "check.sh: WAVE STATUS: W0+L2+L3 GREEN; L4 selftests WIRED; L4 WASM dual-path + L5 UI still OPEN"
+echo "check.sh: WAVE STATUS: W0+L1+L2+L3 GREEN; L4 selftests WIRED; L4 WASM dual-path + L5 UI still OPEN"
 echo "check.sh: next: L4 Rust==WASM digest parity, then L5 browser mock path"
 
 # Knowledge primary_notes path resolution (parent ../modules/)
@@ -174,5 +174,5 @@ if [ -f scripts/verify_knowledge_paths.py ]; then
   ok "knowledge primary_notes paths"
 fi
 
-echo "==> check.sh PASSED (W0 + L2 bank + L3 GradeExact + L4 known-bad)"
+echo "==> check.sh PASSED (W0 + L1 claims + L2 bank + L3 GradeExact + L4 known-bad)"
 exit 0
