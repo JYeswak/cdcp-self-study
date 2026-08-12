@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m05-q205"
+module = 5
+stem = "Maintaining emergency lighting means more than installing it once; operators should also:"
+choices = [
+  "Never test batteries or transfer function",
+  "Perform periodic tests/inspections per applicable code and manufacturer guidance",
+  "Paint over exit luminaires to reduce distractions",
+  "Disconnect emergency circuits to save energy during occupancy"
+]
+correct = "B"
+explanation = "Life-safety lighting requires ongoing verification—install-and-forget is noncompliant and unsafe."
+topic_ids = ["m05-emergency", "m05-standards"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

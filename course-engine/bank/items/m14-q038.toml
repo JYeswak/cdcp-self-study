@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q38"
+module = 14
+stem = "A practical distinction between BMS and DCIM is:"
+choices = [
+  "BMS focuses on building plant control/monitoring; DCIM focuses on data-centre IT/facilities inventory, power, environment, and capacity views",
+  "They are always the same product with one logo",
+  "DCIM only controls diesel fuel valves",
+  "BMS replaces all network monitoring",
+]
+correct = "A"
+explanation = "BMS emphasizes building plant control; DCIM emphasizes DC inventory, power, environment, and capacity."
+topic_ids = ["m14-bms", "m14-dcim"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

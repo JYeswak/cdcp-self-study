@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q104"
+module = 9
+stem = "Delta-T across a server (or aisle) is useful operationally because it relates:"
+choices = [
+  "Airflow volume and heat removed for a given cooling capacity",
+  "Only to humidity, never temperature",
+  "Only generator fuel quality",
+  "Fiber attenuation exclusively"
+]
+correct = "A"
+explanation = "For a given heat load, larger temperature rise implies lower required airflow; delta-T is a core airflow/heat balance indicator."
+topic_ids = ["m09-principles"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q049"
+module = 6
+stem = "Break-before-make transfer behaviour on a genset ATS means:"
+choices = [
+  "The load is briefly disconnected from one source before connecting to the other (design-dependent timing)",
+  "Both sources are paralleled indefinitely for free capacity",
+  "UPS batteries are permanently removed",
+  "Neutral-ground bonds are created at every rack",
+]
+correct = "A"
+explanation = "Genset ATS designs are often break-before-make; seamless dual-live transfer is more an STS/online-UPS story."
+topic_ids = ["m06-ats-sts"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

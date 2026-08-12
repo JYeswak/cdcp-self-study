@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q068"
+module = 6
+stem = "For generator runtime planning, which factors are as important as nameplate kW?"
+choices = [
+  "Only the paint colour of the enclosure",
+  "Whether racks use blanking panels",
+  "The number of RJ45 patch panels",
+  "Fuel storage, delivery logistics, and hours at design load",
+]
+correct = "D"
+explanation = "Fuel and logistics determine real endurance; kW alone does not."
+topic_ids = ["m06-generators"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

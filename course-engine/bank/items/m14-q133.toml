@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q133"
+module = 14
+stem = "A minimum mental monitoring checklist for mission-critical sites includes power chain, cooling path, environment, leaks, and:"
+choices = [
+  "Fire/security supervisory points, capacity views, and health of the monitors themselves",
+  "Only social media uptime",
+  "Desktop wallpaper colors",
+  "Marketing campaign metrics only"
+]
+correct = "A"
+explanation = "Monitor the chains and the monitors—blind spots include dead sensors and capacity blindness."
+topic_ids = ["m14-monitoring-reqs"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

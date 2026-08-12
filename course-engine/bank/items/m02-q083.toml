@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q083"
+module = 2
+stem = "If an RFP requires “Uptime Tier III certification,” substituting “TIA Rated-3 design intent” without agreement is:"
+choices = [
+  "Always automatically accepted as identical",
+  "A naming and contractual mismatch that can fail bid evaluation or audit expectations",
+  "Required by ISO 22237",
+  "Preferred by all AHJs as code",
+]
+correct = "B"
+explanation = "Different frameworks and certification claims are not freely substitutable in contracts."
+topic_ids = ["m02-tia-vs-uptime"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

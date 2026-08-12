@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q251"
+module = 6
+stem = "For dual-corded IT, best practice power feeding is:"
+choices = [
+  "Both cords on one strip for neat cabling only",
+  "One cord energized and one decorative",
+  "Only generator output with no UPS",
+  "Independent A and B sources through separate distribution paths to the two cords"
+]
+correct = "D"
+explanation = "Independent paths to each cord are what make dual-cord topology meaningful."
+topic_ids = ["m06-redundancy", "m06-pdu"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

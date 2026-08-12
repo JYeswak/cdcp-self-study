@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q125"
+module = 4
+stem = "Leaving unnecessary open tiles in a pressurized underfloor supply can:"
+choices = [
+  "Always improve distant rack cooling",
+  "Increase copper category rating",
+  "Charge batteries faster",
+  "Bleed plenum pressure and short-circuit cold air near the opening",
+]
+correct = "D"
+explanation = "Uncontrolled openings dump pressure and waste supply air near the hole."
+topic_ids = ["m04-cooling-impact", "m04-guidelines"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

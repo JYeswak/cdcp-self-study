@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q201"
+module = 10
+stem = "On-site backup water storage is most valuable when:"
+choices = [
+  "The facility has zero water-dependent systems",
+  "Municipal supply is guaranteed never to fail",
+  "Utility water interruption would force derate or shutdown of water-dependent cooling or fire protection",
+  "IT load runs solely on battery chemistry"
+]
+correct = "C"
+explanation = "Stored water bridges utility interruptions for water-dependent mission systems."
+topic_ids = ["m10-backup", "m10-importance"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

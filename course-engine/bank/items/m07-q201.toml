@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m07-q201"
+module = 7
+stem = "Magnetic field strength is often discussed in units such as:"
+choices = [
+  "Lux and foot-candles only",
+  "Only dBm for sound",
+  "Only Pascals for air pressure",
+  "Teslas or gauss (and related A/m field quantities depending on quantity reported)"
+]
+correct = "D"
+explanation = "Magnetic fields use T/gauss (or related field units); do not confuse with photometric units."
+topic_ids = ["m07-units"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

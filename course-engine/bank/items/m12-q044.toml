@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q044"
+module = 12
+stem = "Many ASD systems support staged thresholds (e.g., alert then action then fire) so that operators can:"
+choices = [
+  "Skip annual testing forever",
+  "Use heat only and ignore smoke",
+  "Replace fire doors with cardboard",
+  "Investigate early smoke indications before full evacuation or discharge logic"
+]
+correct = "D"
+explanation = "Staged ASD thresholds create time to investigate dilute smoke before full fire alarm/suppression actions."
+topic_ids = ["m12-detection"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

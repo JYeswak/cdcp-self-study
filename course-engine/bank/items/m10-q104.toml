@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q104"
+module = 10
+stem = "Blowdown (bleed) from a cooling tower loop is performed mainly to:"
+choices = [
+  "Control concentration of dissolved solids and chemistry by removing concentrated water",
+  "Increase dissolved solids without limit",
+  "Eliminate the need for any water treatment chemicals always",
+  "Cool the UPS room directly"
+]
+correct = "A"
+explanation = "As water evaporates, minerals concentrate; blowdown limits scale and corrosion risk when paired with treatment."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

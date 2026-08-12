@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m03-q103"
+module = 3
+stem = "Which statement about site security perimeter planning is most accurate?"
+choices = [
+  "Security starts and ends at the rack door only",
+  "Fencing is always illegal",
+  "Site selection and layout should support controlled approach, vehicle management, and layered access",
+  "Cameras replace structural setbacks always",
+]
+correct = "C"
+explanation = "Physical security is a site and campus layout problem, not only a rack lock problem."
+topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

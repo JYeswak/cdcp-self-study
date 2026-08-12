@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q124"
+module = 9
+stem = "The common educational distinction between CRAC and CRAH units is:"
+choices = [
+  "CRAC typically uses DX/refrigerant refrigeration; CRAH typically uses chilled water coils",
+  "CRAH always includes a diesel generator",
+  "CRAC only cools network MMRs",
+  "They are identical acronyms with no difference"
+]
+correct = "A"
+explanation = "Industry shorthand: CRAC is typically a computer room air conditioner (often DX); CRAH is typically a computer room air handler (often chilled water)."
+topic_ids = ["m09-system-types"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

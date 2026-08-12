@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q072"
+module = 2
+stem = "Which is the most accurate “landscape” view of data-centre guidance?"
+choices = [
+  "One global document covers every jurisdiction and product",
+  "A mix of codes, facility series (TIA/ISO/EN), product standards, and owner specs—with AHJ as the legal floor",
+  "Only blog posts are authoritative",
+  "Only PUE marketing scores are required",
+]
+correct = "B"
+explanation = "Practitioners navigate codes, facility standards series, product standards, and contracts under AHJ authority."
+topic_ids = ["m02-standards-guidelines", "m02-code-vs-standard"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

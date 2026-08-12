@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 7)
+id = "m07-q057"
+module = 7
+stem = "A myth to reject in modern halls is:"
+choices = [
+  "Sustained high B near plant can still matter for some equipment and copper noise",
+  "Any phone magnet walking past a rack will wipe enterprise SAN storage",
+  "Product manuals may list environmental magnetic limits",
+  "Surveys can inform layout",
+]
+correct = "B"
+explanation = "Cinema magnet myths ≠ real risk model; focus on plant-scale fields, surge, and RF IEMI where relevant."
+topic_ids = ["m07-types", "m07-sources"]
+objective_ids = []
+bloom = "evaluate"
+source_class = "original"
+quantity_evidence = "qualitative_only"

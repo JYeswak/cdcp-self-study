@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q102"
+module = 13
+stem = "Camera coverage priorities commonly include perimeter, mantraps, docks, and:"
+choices = [
+  "Only under-desk office trash cans",
+  "Critical plant rooms and zone transitions where incidents and forced-door events occur",
+  "The inside of every sealed hard drive",
+  "Outdoor landscaping only with no doors"
+]
+correct = "B"
+explanation = "Surveillance concentrates on approach paths, portals, docks, plant, and sensitive transitions."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

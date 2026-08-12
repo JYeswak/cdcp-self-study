@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q059"
+module = 12
+stem = "Ordinary combustibles such as packaging cardboard and wooden pallets are typically Class:"
+choices = [
+  "D metal fires",
+  "K kitchen oils only",
+  "A ordinary combustibles",
+  "C energized electrical only"
+]
+correct = "C"
+explanation = "Class A covers paper, wood, fabric, and many plastics—common staging/fuel issues in DCs."
+topic_ids = ["m12-classes", "m12-causes"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

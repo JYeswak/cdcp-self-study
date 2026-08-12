@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q108"
+module = 11
+stem = "Copper twisted-pair categories (for example Cat 6/6A class awareness) primarily communicate:"
+choices = [
+  "Performance capability classes for the cabling channel under standardized testing assumptions",
+  "Only jacket color preferences",
+  "Exact switch ASIC generations",
+  "Fire suppression agent types"
+]
+correct = "A"
+explanation = "Category ratings indicate supported performance envelopes when installed and tested as a system—not magic regardless of workmanship."
+topic_ids = ["m11-copper"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

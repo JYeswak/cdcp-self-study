@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q091"
+module = 13
+stem = "The most common casual bypass of badge control on live sites is:"
+choices = [
+  "Quantum computing attacks on card crypto",
+  "EMF interference nullifying all cards simultaneously",
+  "Tailgating / piggybacking and propped doors",
+  "Incorrect PDU firmware versions"
+]
+correct = "C"
+explanation = "Social/process failures dominate real physical breaches more than exotic attacks."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

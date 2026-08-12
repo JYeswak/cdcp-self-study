@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q091"
+module = 6
+stem = "Power quality concerns relevant to IT loads include:"
+choices = [
+  "Only the colour of busway housings",
+  "Sags/swells, interruptions, frequency variation, harmonics, transients, and phase imbalance",
+  "Whether blanking panels are plastic or metal only",
+  "DNS TTL values",
+]
+correct = "B"
+explanation = "PQ is about voltage/frequency quality, distortion, and events that stress IT PSUs and plant."
+topic_ids = ["m06-power-quality"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

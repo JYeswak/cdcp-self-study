@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q40"
+module = 14
+stem = "Integrated Systems Testing (IST) is valuable because it:"
+choices = [
+  "Only tests a single breaker nameplate",
+  "Validates power, cooling, and controls failovers as a combined system under planned scenarios",
+  "Replaces daily backups of VMs",
+  "Is optional marketing text with no technical meaning",
+]
+correct = "B"
+explanation = "IST proves coupled power, cooling, and controls failovers as a combined system under planned scenarios."
+topic_ids = ["m14-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

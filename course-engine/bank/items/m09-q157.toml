@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q157"
+module = 9
+stem = "Direct-to-chip liquid cooling generally:"
+choices = [
+  "Immerses entire servers in dielectric fluid always",
+  "Uses cold plates on high-heat components with liquid loops removing heat at the source",
+  "Cools only the raised-floor plenum air",
+  "Eliminates all facility heat rejection needs"
+]
+correct = "B"
+explanation = "Cold plates target CPUs/GPUs and similar devices; residual heat may still need air, and plant still rejects heat outdoors."
+topic_ids = ["m09-liquid"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

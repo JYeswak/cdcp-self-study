@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q106"
+module = 6
+stem = "Metered or switched rack PDUs add operational value by:"
+choices = [
+  "Eliminating A/B dual feeds always",
+  "Replacing upstream UPS",
+  "Providing outlet/branch visibility and controlled power actions for capacity and remote ops",
+  "Removing need for labeling",
+]
+correct = "C"
+explanation = "Intelligent rPDUs support capacity management and remote power control—still respect dual-path design."
+topic_ids = ["m06-pdu"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

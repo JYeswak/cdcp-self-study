@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q060"
+module = 8
+stem = "Mounting depth planning must include:"
+choices = [
+  "Only the brochure external depth number with no service space",
+  "Ignoring rail adjustment ranges",
+  "Assuming all servers are 400 mm deep",
+  "Server chassis depth plus cable bend radius, PDU protrusion, and door clearance",
+]
+correct = "D"
+explanation = "Fit checks fail when cables, PDUs, and doors are ignored."
+topic_ids = ["m08-dimensions"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

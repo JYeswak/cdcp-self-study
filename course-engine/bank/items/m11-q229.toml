@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q229"
+module = 11
+stem = "Choosing plenum-rated versus riser-rated cable jackets is primarily about:"
+choices = [
+  "Network latency only",
+  "UPS battery chemistry",
+  "Fire and smoke performance requirements of the installation environment and applicable codes or AHJ",
+  "Cold-aisle temperature setpoints only"
+]
+correct = "C"
+explanation = "Jacket rating is a fire/smoke code issue for where the cable is installed."
+topic_ids = ["m11-planning", "m11-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

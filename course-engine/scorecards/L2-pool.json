@@ -1,0 +1,25 @@
+{
+  "wave": "L2-pool",
+  "schema": "cdcp.scorecard.v1",
+  "date": "2026-08-11",
+  "outcome": "pass",
+  "meaningful": true,
+  "items": 496,
+  "exam_n": 40,
+  "multiplier": 12.4,
+  "pool_min": 400,
+  "pool_target": 800,
+  "correct_dist": {"A": 121, "B": 149, "C": 114, "D": 112},
+  "modules": {
+    "1": 26, "2": 32, "3": 24, "4": 23, "5": 17,
+    "6": 79, "7": 19, "8": 24, "9": 70, "10": 18,
+    "11": 42, "12": 37, "13": 30, "14": 33, "15": 22
+  },
+  "sampling": {
+    "script": "scripts/sample_mock.py",
+    "seed42_vs_seed99_overlap": 4,
+    "stratified": true
+  },
+  "policy": "knowledge/bank_policy.toml",
+  "next": "Grow toward 800 (20x) optional; L3 grade + goldens for sampled mocks"
+}

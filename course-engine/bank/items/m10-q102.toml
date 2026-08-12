@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q102"
+module = 10
+stem = "A backup water supply for a water-dependent cooling plant is intended to:"
+choices = [
+  "Decorate the landscape only",
+  "Replace all chillers with tanks alone",
+  "Bridge utility water interruptions so heat rejection can continue within design intent",
+  "Feed only fire sprinklers and never cooling"
+]
+correct = "C"
+explanation = "Stored or alternate water sources support cooling continuity when municipal supply is interrupted."
+topic_ids = ["m10-backup"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

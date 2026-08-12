@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q155"
+module = 9
+stem = "Cable management at the rack rear affects containment because messy cabling can:"
+choices = [
+  "Always improve exhaust sealing",
+  "Increase plenum height automatically",
+  "Eliminate the need for blanking panels",
+  "Obstruct exhaust paths and force leakage or uneven airflow that defeats containment intent"
+]
+correct = "D"
+explanation = "Blocked exhaust and forced open pathways create leakage and hot spots even with doors installed."
+topic_ids = ["m09-containment"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

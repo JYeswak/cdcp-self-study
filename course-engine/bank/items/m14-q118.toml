@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q118"
+module = 14
+stem = "Leaving alarms in maintenance/bypass after work is a top failure mode because it:"
+choices = [
+  "Improves trending accuracy",
+  "Creates silent failure paths when real events no longer page",
+  "Automatically recalibrates sensors",
+  "Is required by all codes indefinitely"
+]
+correct = "B"
+explanation = "Bypass must time out and be logged; sticky inhibits hide faults."
+topic_ids = ["m14-alarms", "m14-monitoring-challenges"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

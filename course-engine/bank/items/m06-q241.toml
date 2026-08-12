@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q241"
+module = 6
+stem = "Line-interactive UPS designs are most often associated with:"
+choices = [
+  "Always pure double-conversion with zero efficiency difference",
+  "Voltage regulation with battery engagement for deeper disturbances, intermediate to standby and double-conversion",
+  "Generator paralleling only",
+  "Busway only"
+]
+correct = "B"
+explanation = "Line-interactive sits between offline and online in topology behavior."
+topic_ids = ["m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

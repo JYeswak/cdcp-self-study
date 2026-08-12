@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q063"
+module = 12
+stem = "CO2 portables near live electrical equipment are often favored over water because they:"
+choices = [
+  "Provide long continuous stream range like a hose",
+  "Are ideal as the only protection for kitchen Class K fires",
+  "Leave little residue and are suitable for many energized electrical uses when listed",
+  "Automatically restore room integrity"
+]
+correct = "C"
+explanation = "CO2 is common for electrical/B hazards with low residue; still short range and asphyxiation risk in pits."
+topic_ids = ["m12-extinguishers", "m12-classes"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

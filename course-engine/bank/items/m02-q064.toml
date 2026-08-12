@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q064"
+module = 2
+stem = "When a voluntary industry standard conflicts with the adopted electrical or fire code, who prevails?"
+choices = [
+  "The Authority Having Jurisdiction enforcing the adopted code",
+  "The equipment vendor’s blog",
+  "The marketing brochure",
+  "Whoever emailed last",
+]
+correct = "A"
+explanation = "AHJ-enforced adopted code takes precedence over voluntary guidance when they conflict."
+topic_ids = ["m02-code-vs-standard"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m05-q209"
+module = 5
+stem = "Exit signs and emergency luminaires are complementary because:"
+choices = [
+  "Only one or the other is ever used in any building",
+  "Exit signs mark egress routes while emergency luminaires provide usable light along those paths",
+  "Exit signs provide full task lighting for rack installs",
+  "Emergency luminaires replace fire alarm notification"
+]
+correct = "B"
+explanation = "Wayfinding (exit marking) and illumination are related but distinct life-safety functions."
+topic_ids = ["m05-emergency", "m05-emergency-types"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

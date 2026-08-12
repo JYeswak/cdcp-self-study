@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q29"
+module = 9
+stem = "A CDU in liquid-cooled designs typically:"
+choices = [
+  "Routes carrier fiber",
+  "Circulates/conditions coolant and exchanges heat between loops",
+  "Replaces access control",
+  "Measures only lux",
+]
+correct = "B"
+explanation = "A coolant distribution unit circulates/conditions coolant and exchanges heat between loops."
+topic_ids = ["m09-liquid"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

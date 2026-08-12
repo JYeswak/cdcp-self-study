@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q105"
+module = 9
+stem = "Which statement best reflects energy conversion in IT equipment for cooling design?"
+choices = [
+  "Most UPS output energy leaves the building as useful work with no heat",
+  "Nearly all power delivered to IT becomes heat that cooling must remove",
+  "Only CPUs produce heat; PSUs do not",
+  "Heat is only produced during boot"
+]
+correct = "B"
+explanation = "For cooling sizing, treat IT electrical power as heat load—the energy becomes thermal load in the white space."
+topic_ids = ["m09-principles"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

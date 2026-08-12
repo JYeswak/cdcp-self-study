@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q052"
+module = 12
+stem = "CO2 total flooding at design concentrations for occupied white space is generally:"
+choices = [
+  "The default preferred agent for all server rooms",
+  "Required by every network cabling standard",
+  "Used only to cool CRAC coils",
+  "Avoided because concentrations effective for fire can be lethal to people"
+]
+correct = "D"
+explanation = "CO2 total flood is typically for unoccupied/industrial hazards with strict personnel controls—not normally occupied IT white space."
+topic_ids = ["m12-gas-suppression"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

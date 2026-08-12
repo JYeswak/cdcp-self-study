@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q105"
+module = 14
+stem = "In data-centre auxiliary-system usage, EMS most nearly means:"
+choices = [
+  "Environmental monitoring of IT space conditions (temp/RH/leaks, etc.)",
+  "Energy market settlement systems",
+  "Exclusive replacement for listed fire detection",
+  "Only generator fuel gauging"
+]
+correct = "A"
+explanation = "EMS here is environmental monitoring; clarify vs energy-management naming collision in interviews."
+topic_ids = ["m14-ems"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

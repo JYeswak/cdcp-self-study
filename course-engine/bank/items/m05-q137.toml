@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m05-q137"
+module = 5
+stem = "Data-hall lighting design should balance:"
+choices = [
+  "Maximum glare and minimum maintenance access",
+  "Turning all lights off permanently to save energy regardless of safety",
+  "Only the reddest possible colour forever",
+  "Adequate task visibility, energy use, maintenance access, and minimal interference with airflow/cabling",
+]
+correct = "D"
+explanation = "Good design meets visual task needs without defeating cooling, cabling, or maintainability."
+topic_ids = ["m05-standards", "m05-fixtures"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

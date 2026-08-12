@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q253"
+module = 6
+stem = "When planning continuous IT loads on branch circuits, design discipline requires:"
+choices = [
+  "Always loading every breaker to its absolute trip point continuously",
+  "Respecting continuous-load and sizing rules so conductors and breakers are not chronically overloaded",
+  "Ignoring temperature ratings of conductors",
+  "Sizing only for lighting loads"
+]
+correct = "B"
+explanation = "Continuous IT loads demand proper continuous ratings and thermal design of circuits."
+topic_ids = ["m06-sizing", "m06-distribution"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

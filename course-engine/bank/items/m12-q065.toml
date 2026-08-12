@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q065"
+module = 12
+stem = "Hot work (welding, cutting) during fit-out increases fire risk mainly through:"
+choices = [
+  "Open ignition sources near combustibles—managed by permit-to-work, fire watch, and impairment controls",
+  "Improved cable Category ratings",
+  "Automatic improvement of gas integrity",
+  "Elimination of cardboard fuels"
+]
+correct = "A"
+explanation = "Hot work needs permits, watches, and controlled impairments—classic prevention culture."
+topic_ids = ["m12-causes", "m12-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

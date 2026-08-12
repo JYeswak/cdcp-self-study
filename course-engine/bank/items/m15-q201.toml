@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q201"
+module = 15
+stem = "As-built documentation that diverges from reality is dangerous because:"
+choices = [
+  "Operators and responders will trust wrong paths, loads, and isolation points under pressure",
+  "It is always more accurate than field inspection",
+  "It only affects interior design magazines",
+  "Version control is illegal for facilities"
+]
+correct = "A"
+explanation = "Stale drawings create false confidence during emergencies and maintenance."
+topic_ids = ["m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

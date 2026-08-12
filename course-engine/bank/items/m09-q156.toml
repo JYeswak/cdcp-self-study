@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q156"
+module = 9
+stem = "A Coolant Distribution Unit (CDU) in liquid-cooled designs typically:"
+choices = [
+  "Circulates and conditions coolant and exchanges heat between facility and IT loops",
+  "Routes only carrier fiber cross-connects",
+  "Replaces physical access control",
+  "Measures only illuminance in lux"
+]
+correct = "A"
+explanation = "CDUs manage secondary coolant loops, isolation, and heat exchange to the facility water or glycol plant."
+topic_ids = ["m09-liquid"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

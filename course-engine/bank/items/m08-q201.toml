@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m08-q201"
+module = 8
+stem = "Rack unit (U) height is used to:"
+choices = [
+  "Express vertical equipment height in standardized increments for planning density",
+  "Measure only cable AWG",
+  "Replace nameplate amperage",
+  "Indicate fire rating of the room"
+]
+correct = "A"
+explanation = "U-space planning is how operators inventory vertical capacity."
+topic_ids = ["m08-dimensions"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

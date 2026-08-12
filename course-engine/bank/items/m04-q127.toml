@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q127"
+module = 4
+stem = "Cable congestion under a raised floor can harm operations by:"
+choices = [
+  "Improving every airflow path",
+  "Raising clear height",
+  "Automatically bonding all racks",
+  "Blocking underfloor air, impeding tile removal, and complicating maintenance",
+]
+correct = "D"
+explanation = "Underfloor cable dams obstruct air and service access."
+topic_ids = ["m04-guidelines", "m04-cooling-impact"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

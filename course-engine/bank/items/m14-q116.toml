@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q116"
+module = 14
+stem = "Life-safety fire alarm logic should:"
+choices = [
+  "Be fully rewritten inside DCIM for convenience",
+  "Exist only as unauthenticated SNMP on the corporate Wi-Fi",
+  "Be muted during all maintenance without process",
+  "Remain on listed fire systems; ops tools may supervise status points"
+]
+correct = "D"
+explanation = "Supervisory integration ≠ replacing FACP listed logic."
+topic_ids = ["m14-alarms", "m14-monitoring-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,679 @@
+# source_id: src-epi-cdcp-page
+# url: https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# access: public_summary
+# fetched: 2026-08-11
+# title: Certified Data Centre Professional (CDCP) course page
+
+Certified Data Centre Professional Training Course | CDCP | EPI
+Sign In
+Toggle navigation
+Home
+About Us
+About Us
+Management Team
+Industry Partners
+Our Customers
+News
+Training
+EPI Training Solutions
+Data Centre
+IT
+Short Courses
+Why Choose EPI Training
+Customer Testimonials
+EPI-Academy/TOD
+Training Schedule
+Recertification Program
+Back-On-Track (BOT)
+Training FAQ
+Find a Partner
+Data Centre Training Partners
+IT Training Partner
+Audit
+Audit Certification Overview
+ANSI/TIA-942
+TIA-942 Design Certification (DCDV)
+TIA-942 Site/Facilities Certification (DCCC)
+TIA-942 Ready Certification
+Uptime Tier to ANSI/TIA-942 Upgrade
+ISO 22237
+ISO/IEC 22237 Design Certification (DCDV)
+ISO/IEC 22237 Site/Facilities Certification (DCCC)
+EN 50600
+EN 50600 Design Certification (DCDV)
+EN 50600 Site/Facilities Certification (DCCC)
+DCOS
+Hybrid Resiliency Rating
+International Standards
+ISO 9001
+ISO 14001
+ISO 14644
+ISO/IEC 20000-1
+ISO 22301
+ISO 27001
+Singapore Standards
+SS 506
+SS 507
+SS 564
+SS 584
+Find an audit partner
+DCOS Audit Partner
+ANSI/TIA-942 Audit Partner
+Standards
+MDCS - Modular Data Center Standard
+DCOS - Data Centre Operations Standard
+About DCOS®
+DCOS Testimonials
+Read DCOS online
+CRUR - Computer Room Utilization Ratio
+Scholarship
+Promotions/
+Events
+Articles/
+Webinars
+Articles
+Webinars
+Resources
+Frameworks
+EPI IT & Data Centre Framework
+Data Centre Competence Framework (DCCF®)
+Career Planning Tools
+Data Centre Training Quick Guide
+Data Centre Career Planning Tool (DCPT)
+IT Career Planning Tool (ITCPT)
+Data Center Maintenance Checklists
+eBook Instructions
+PC Windows
+Mac/OSX
+iPad/iPhone
+Android
+Student Resources
+Certification Logos
+Survey Reports
+Whitepapers
+Contact
+Contact EPI
+Find a Training Partner
+Data Centre Training Partner
+IT Training Partners
+Find an Audit Partner
+ANSI/TIA-942 Audit Partner
+DCOS Audit Partners
+Become a Partner
+File a Complaint
+Certified Data Centre Professional (CDCP®)
+CDCP
+®
+Overview
+In today's digital era, enterprises depend on IT infrastructure to deliver critical services. At the heart of this infrastructure is the data centre, where availability, efficiency, and resilience are non-negotiable. However, many data centres fall short of meeting the rigorous demands of modern workloads, from AI to high-performance computing, putting businesses at risk.
+Ensuring a high-availability environment demands expertise in power management, cooling strategies, fire protection, security, structured cabling, and industry best practices.
+The CDCP
+®
+(Certified Data Centre Professional) course is a comprehensive 2-day program designed to equip participants with essential knowledge of the data centre infrastructure’s vital components.
+This course provides insights into power and cooling systems, security measures, cabling structures, safety protocols, and efficiency enhancements; empowering data centre professionals to confidently support and enhance today’s data centres while preparing for future advancements.
+Need further assistance? Contact us for further information.
+Enquire Now
+Audience
+The primary audience for this course includes data centre specialists, facilities managers and IT professionals who work in and around data centres and are responsible for ensuring and enhancing their availability and manageability.
+Prerequisites
+There is no specific prerequisite for the CDCP
+®
+course. However, participants who already have at least one or two years’ experience in a data centre or facilities environment may be best suited. Those with no experience just yet are most welcome to participate.
+Course Benefits
+After completion of the course the participant will be able to:
+Explain different types of data centres, their impact on business continuity, and the key factors affecting availability.
+Examine international and national standards, industry guidelines, and compliance requirements for data centre design and sub-components.
+Identify site selection criteria, building requirements, and supporting facility needs to establish a high-performance, resilient data centre.
+Understand raised floors and suspended ceilings while considering cooling, grounding, load management, and airflow optimization.
+Design lighting layouts, emergency lighting systems, and positioning strategies to improve visibility, safety, and energy efficiency.
+Develop power redundancy strategies, configure UPS systems, microgrids, transformers, batteries, and optimize power distribution techniques.
+Assess EMF sources, shielding techniques, and best practices to protect critical IT equipment from interference and data corruption.
+Understand AI-driven cooling management, containment strategies, liquid cooling, and Seasonal Thermal Energy Storage (STER) to improve efficiency and reduce costs.
+Understand network cabling designs, redundancy strategies, and TIA-942 cabling topologies for a resilient and future-ready data centre.
+Install fire suppression systems, detection technologies, and safety signage while ensuring compliance with fire protection regulations.
+Understand physical security measures, access controls, surveillance systems, and safety protocols to protect data centre assets from threats.
+Understand BMS, DCIM, EMS, water leak detection, and alarm panels, ensuring continuous monitoring and proactive issue resolution.
+Course Syllabus
+The Mission Critical Site
+Business organization
+Types of data centres
+Importance of a data centre
+Elements of data centre
+Causes of unavailability
+Data Centre Standards
+Standards and guidelines
+Standards for sub-components
+International vs. national standards
+Data Centre Location,
+Building
+and Construction
+Criteria for selecting site location the data centre location
+Criteria for facility
+Supporting facilities and function
+Raised Access Flooring and Suspended Ceiling
+Standards
+Types of raised floors
+Loading factors
+General guidelines
+Grounding
+Ramp and landing platform
+Suspended ceiling
+Raised floor and suspended ceiling impact on cooling
+Light
+Measurements of light
+Standards
+Connecting and positioning of light fixtures
+Emergency light
+Types of emergency light
+Power Infrastructure
+Sustainability
+Microgrid
+Transformers
+Generators
+Automatic Transfer Switch (ATS) and Static Transfer Switch (STS)
+Power redundancy levels and techniques
+Power distribution / Busbar trunking
+Single phase and three phase power
+Grounding and bonding
+Isolation transformer
+PDU form factors
+Ingress Protection (IP) grades
+Power quality parameters
+Power sizing
+High Performance Computing
+UPS systems
+UPS parallel configurations
+Batteries
+Battery Energy Storage System (BESS)
+Thermographic scanning
+Electro Magnetic Fields (EMF)
+Types of EMF
+Units of measurements
+Standards and best practices
+Sources of EMF
+Shielding
+Equipment Racks
+Standards
+Dimensions
+Types of racks
+Security
+Power strips / rails
+Cooling Infrastructure
+Cooling principles
+Temperature and humidity
+Types of cooling systems
+Raised floor cooling
+Non-raised floor cooling
+Supplemental cooling
+Containment
+Liquid cooling
+Seasonal Thermal Energy Storage (STER)
+Water Supply
+Importance of water
+Backup water supply
+Designing a Scalable Network Infrastructure
+Importance network cabling infrastructure
+Planning considerations
+Copper cabling
+Fibre Cabling
+TIA-942 cabling system topology
+Testing and verification of cabling system
+Redundancy
+Site-to-site connectivity
+Fire Protection
+Common causes of fire
+Requirements for fire suppression systems
+Standards
+Fire detection systems
+Water based fire suppression systems
+Gas-based fire suppression systems
+Classes of fire
+Best practices
+Handheld fire extinguishers
+Requirements for signage and safety
+Regulatory requirements
+Physical Security and Safety
+Components for physical security
+Components for physical safety
+Auxiliary Systems
+Monitoring challenges
+Monitoring requirements
+Environmental Monitoring System (EMS)
+Building Management System (BMS)
+Data Centre Infrastructure Management (DCIM)
+Water leak detection
+Alarm panels
+Notification
+Best practices
+Delivery Structure and Methods
+The CDCP
+®
+course is lectured by an EPI Certified Instructor using a combination of lectures and question-and-answer sessions to discuss participants’ specific needs and issues experienced in their own environment.  Participants are able to tap into the trainer’s extensive experience to enable them to solve practical problems in their current environment, thus adding tremendous value.
+CDCP
+®
+course available in the following delivery methods:
+ILT – Instructor Led Training
+(Schedule)
+VILT – Virtual ILT
+(Schedule)
+TOD – Training On Demand
+(More)
+Exam
+Exam: Certified Data Centre Professional (CDCP
+®
+)
+Attendees will take a 1-hour CDCP
+®
+exam. The exam is 40 questions, multiple-choice, closed-book. The passing mark is 27 out of 40.
+Certification & Accreditation
+Attendees passing the exam will be awarded the internationally accredited and recognized 'Certified Data Centre Professional' (CDCP
+®
+) certificate.
+CDCP
+®
+is globally accredited by EXIN, a fully independent exam and certification institute.
+The CDCP
+®
+certificate is valid for 3 years, after which recertification is required.  Please see the
+EPI Recertification Program
+for available options.
+Download Brochure
+Click to download brochure in PDF format:
+English
+|
+Spanish
+CDCP
+®
+Sneak Peek
+CDCP
+®
+Resources
+1.
+CDCP, The Leading Globally Recognised Training and Certification for Data Centre Professionals
+2.
+Seven Things You Should Know About The Data Centre Facility Infrastructure
+3.
+Create your own personalised data centre career plan
+If you are wondering what is the next step in your career and how to prepare for it, use the DCPT (Data Centre Career Planning Tool) to help you create a data centre career plan! Click here >
+DCPT
+Find a Training Schedule
+Find a training schedule that suits you, click
+here
+. Or register for the
+TOD
+and learn anytime, anywhere.
+Need further assistance? Contact us for further information.
+Enquire Now
+Available now as TOD
+Training
+EPI Training Solutions
+EPI Data Center Training Framework
+• Foundation
+»
+Data Centre Foundation Certificate (DCFC®)
+»
+Certified Data Center Associate (CDCA®) - Academic
+•
+Design/Build
+»
+Certified Data Centre Professional (CDCP®)
+»
+Certified Data Centre Specialist (CDCS®)
+»
+Certified Data Centre Expert (CDCE®)
+»
+Certified Network Cabling Design Professional (CNCDP®)
+•
+Maintenance/Operations
+»
+Certified Data Centre Facilities Operations Specialist (CDFOS®)
+»
+Certified Data Center Facilities Operations Manager (CDFOM®)
+»
+Certified Data Centre Environmental Sustainability Specialist (CDESS®)
+•
+Risk
+»
+Certified Data Centre Risk Professional (CDRP®)
+»
+Certified Data Centre Migration Specialist (CDMS®)
+•
+Standards / Compliance
+»
+Certified DCOS Lead Implementer (CDLI®)
+»
+Certified DCOS Lead Auditor (CDLA®)
+»
+Certified TIA-942 Design Consultant (CTDC®)
+»
+Certified TIA-942 Internal Auditor (CTIA®)
+»
+Certified TIA-942 Lead Auditor (CTLA®)
+EPI IT Training Framework
+»
+Certified IT Operator (CITO®)
+»
+Certified IT Manager (CITM®)
+Short Courses
+•
+Digital Transformation (DT) Course
+Why Choose EPI Training
+Customer Testimonials
+Accreditation/Recognition
+Verify Certificate
+Recertification Program
+Anonymous Feedback
+Back-On-Track (BOT)
+UTAP Funding
+Training FAQ
+Home
+About Us
+Services
+Audit Certification
+Training Solutions
+Data Centre Training
+IT Training
+Short Courses
+Standards
+MDCS
+®
+DCOS
+®
+CRUR
+®
+News
+Promotions & Events
+Articles
+Webinars
+Whitepaper
+Industry Report
+Frameworks
+EPI IT & Data Centre Framework©
+EPI Data Centre Competence Framework (DCCF
+©
+)
+Contact Us
+Contact EPI
+Training Partners - DC
+Training Partners - IT
+Audit Partners
+Become a Partner
+Verify Certificate
+Anonymous Feedback
+File a Complaint
+Career Planning Tools
+Data Centre Training Quick Guide
+Data Centre Career Planning Tool (DCPT)
+IT Career Planning Tool (ITCPT)
+Copyright EPI Singapore 2026     
+								|
+Privacy Policy
+|
+Terms & Conditions
+Send message
+Message Us
+First Name
+*
+Last Name
+*
+Company
+*
+Email
+*
+Country
+*
+- Select your country -
+Afghanistan
+Aland Islands
+Albania
+Algeria
+American Samoa
+Andorra
+Angola
+Anguilla
+Antigua and Barbuda
+Argentina
+Armenia
+Aruba
+Australia
+Austria
+Azerbaijan
+Bahamas
+Bahrain
+Bangladesh
+Barbados
+Belarus
+Belgium
+Belize
+Benin
+Bermuda
+Bhutan
+Bolivia
+Bonaire, Sint Eustatius and Saba
+Bosnia and Herzegovina
+Botswana
+Brazil
+British Indian Ocean Territory
+Brunei Darussalam
+Bulgaria
+Burkina Faso
+Burundi
+Cambodia
+Cameroon
+Canada
+Cape Verde
+Cayman Islands
+Central African Republic
+Chad
+Channel Islands
+Chile
+China
+Christmas Island
+Cocos (Keeling) Islands
+Colombia
+Comoros
+Congo
+Congo, the Democratic Republic of the
+Cook Islands
+Costa Rica
+Cote d'Ivoire
+Croatia
+Cuba
+Curacao
+Cyprus
+Czech Republic
+Denmark
+Djibouti
+Dominica
+Dominican Republic
+Ecuador
+Egypt
+El Salvador
+Equatorial Guinea
+Eritrea
+Estonia
+Ethiopia
+Falkland Islands (Malvinas)
+Faroe Islands
+Fiji
+Finland
+France
+French Guiana
+French Polynesia
+French Southern Territories
+Gabon
+Gambia
+Georgia
+Germany
+Ghana
+Gibraltar
+Greece
+Greenland
+Grenada
+Guadeloupe
+Guam
+Guatemala
+Guernsey
+Guinea
+Guinea-Bissau
+Guyana
+Haiti
+Heard Island and McDonald Islands
+Holy See (Vatican City State)
+Honduras
+Hong Kong (SAR)
+Hungary
+Iceland
+India
+Indonesia
+Iran, Islamic Republic of
+Iraq
+Ireland
+Isle of Man
+Israel
+Italy
+Jamaica
+Japan
+Jersey
+Jordan
+Kazakhstan
+Kenya
+Kiribati
+Korea, Democratic People's Republic of
+Korea, Republic of
+Kosovo
+Kuwait
+Kyrgyzstan
+Lao People's Democratic Republic
+Latvia
+Lebanon
+Lesotho
+Liberia
+Libyan Arab Jamahiriya
+Liechtenstein
+Lithuania
+Luxembourg
+Macao
+Macedonia, the former Yugoslav Republic of
+Madagascar
+Malawi
+Malaysia
+Maldives
+Mali
+Malta
+Marshall Islands
+Martinique
+Mauritania
+Mauritius
+Mayotte
+Mexico
+Micronesia, Federated States of
+Moldova, Republic of
+Monaco
+Mongolia
+Montenegro
+Montserrat
+Morocco
+Mozambique
+Myanmar
+Namibia
+Nauru
+Nepal
+Netherlands
+New Caledonia
+New Zealand
+Nicaragua
+Niger
+Nigeria
+Niue
+Norfolk Island
+Northern Mariana Islands
+Norway
+Oman
+Pakistan
+Palau
+Palestine, State of
+Panama
+Papua New Guinea
+Paraguay
+Peru
+Philippines
+Pitcairn
+Poland
+Portugal
+Puerto Rico
+Qatar
+Reunion
+Romania
+Russian Federation
+Rwanda
+Saint Barthelemy
+Saint Helena
+Saint Kitts and Nevis
+Saint Lucia
+Saint Martin
+Saint Pierre and Miquelon
+Saint Vincent and the Grenadines
+Samoa
+San Marino
+Sao Tome and Principe
+Saudi Arabia
+Scotland
+Senegal
+Serbia
+Seychelles
+Sierra Leone
+Singapore
+Sint Maarten
+Slovakia
+Slovenia
+Solomon Islands
+Somalia
+South Africa
+South Georgia and the South Sandwich Islands
+South Sudan
+Spain
+Sri Lanka
+Sudan
+Suriname
+Svalbard and Jan Mayen
+Swaziland
+Sweden
+Switzerland
+Syrian Arab Republic
+Taiwan
+Tajikistan
+Tanzania, United Republic of
+Thailand
+Timor-Leste
+Togo
+Tokelau
+Tonga
+Trinidad and Tobago
+Tunisia
+Turkey
+Turkmenistan
+Turks and Caicos Islands
+Tuvalu
+Uganda
+Ukraine
+United Arab Emirates
+United Kingdom
+United States
+United States Minor Outlying Islands
+Uruguay
+Uzbekistan
+Vanuatu
+Venezuela
+Viet Nam
+Virgin Islands, British
+Virgin Islands, U.S.
+Wallis and Futuna
+Western Sahara
+Yemen
+Zambia
+Zimbabwe
+Message
+*
+Send
+Close

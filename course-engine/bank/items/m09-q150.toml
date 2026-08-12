@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q150"
+module = 9
+stem = "A shared benefit of well-executed containment strategies is:"
+choices = [
+  "Higher mixing and more random inlet temperatures",
+  "Elimination of the need for any filters",
+  "Better separation of supply and return streams, enabling higher return temperatures and efficiency",
+  "Automatic compliance with all network standards"
+]
+correct = "C"
+explanation = "Separation reduces recirculation/bypass and supports higher delta-T and economizer/plant efficiency."
+topic_ids = ["m09-containment"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

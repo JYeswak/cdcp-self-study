@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m12-q200"
+module = 12
+stem = "A common cause of data centre fire incidents historically includes:"
+choices = [
+  "Only fibre dust spontaneously igniting without oxygen",
+  "Electrical faults, hot work, and combustible storage/materials in technical spaces",
+  "Only LED lighting at low temperature",
+  "Only empty cable trays"
+]
+correct = "B"
+explanation = "Electrical energy, ignition sources, and fuel load drive fire risk in technical facilities."
+topic_ids = ["m12-causes"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

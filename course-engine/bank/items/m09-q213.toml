@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q213"
+module = 9
+stem = "Measuring underfloor static pressure helps operators:"
+choices = [
+  "Understand whether the plenum is delivering adequate, balanced supply airflow",
+  "Measure only copper DC resistance",
+  "Set generator fuel quality",
+  "Replace inlet temperature sensors entirely"
+]
+correct = "A"
+explanation = "Static pressure is a practical proxy for underfloor air delivery health."
+topic_ids = ["m09-raised-floor-cooling"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

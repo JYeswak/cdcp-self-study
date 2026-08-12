@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q211"
+module = 9
+stem = "Excessive underfloor cabling degrades cooling mainly by:"
+choices = [
+  "Improving delta-T always",
+  "Cooling transformers electrically",
+  "Obstructing the supply plenum and creating uneven airflow and static pressure",
+  "Raising UPS autonomy"
+]
+correct = "C"
+explanation = "Cable dams choke plenum distribution and create hot/cold imbalance."
+topic_ids = ["m09-raised-floor-cooling"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

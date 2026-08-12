@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q146"
+module = 15
+stem = "A maintenance contract SLA should specify measurable outcomes such as:"
+choices = [
+  "Vague best effort with no response definitions",
+  "Response/restore targets, coverage hours, escalation, and spare commitments as applicable",
+  "Only the vendor logo color",
+  "Unlimited silent impairments"
+]
+correct = "B"
+explanation = "SLAs make vendor support testable; vague contracts fail during incidents."
+topic_ids = ["m15-maintenance-sla"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

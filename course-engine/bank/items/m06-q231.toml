@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q231"
+module = 6
+stem = "Lithium-ion UPS battery systems are often attractive versus traditional VRLA because of:"
+choices = [
+  "Zero need for any battery management",
+  "Immunity from all fire and thermal concerns",
+  "Automatic 2N topology",
+  "Higher energy density and different footprint and lifecycle trade-offs that remain design-specific"
+]
+correct = "D"
+explanation = "Li-ion offers density and lifecycle trade-offs, not magic immunity from engineering."
+topic_ids = ["m06-batteries", "m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

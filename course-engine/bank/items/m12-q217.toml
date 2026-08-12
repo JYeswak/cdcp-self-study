@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m12-q217"
+module = 12
+stem = "Abort switches on gaseous systems, where provided, are intended to:"
+choices = [
+  "Mute the fire alarm forever",
+  "Bypass AHJ inspections",
+  "Provide a supervised means to delay discharge during investigation—not a casual permanent disable",
+  "Open all wet-pipe heads immediately"
+]
+correct = "C"
+explanation = "Abort is a controlled investigation tool under procedure, not system abandonment."
+topic_ids = ["m12-gas-suppression", "m12-signage", "m12-suppression-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

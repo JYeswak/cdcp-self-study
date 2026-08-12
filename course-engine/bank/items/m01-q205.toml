@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m01-q205"
+module = 1
+stem = "Edge or micro data centres compared with large central sites typically trade:"
+choices = [
+  "Zero need for power protection",
+  "Lower latency/locality against smaller scale, different staffing, and constrained physical plant",
+  "Automatic exemption from fire codes",
+  "Unlimited utility capacity everywhere"
+]
+correct = "B"
+explanation = "Edge deployments optimize locality/latency but inherit tighter physical, power, and operational constraints."
+topic_ids = ["m01-dc-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

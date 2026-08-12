@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q103"
+module = 6
+stem = "Renewables in critical-facility energy strategy typically:"
+choices = [
+  "Automatically replace firm capacity with no storage or risk analysis",
+  "Complement firm capacity (genset/contracts/storage) rather than magically erase 24×7 backup needs",
+  "Remove code requirements for grounding",
+  "Force N topology only",
+]
+correct = "B"
+explanation = "Firm capacity and risk analysis remain; renewables integrate—they do not wish away availability engineering."
+topic_ids = ["m06-sustainability", "m06-microgrid"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

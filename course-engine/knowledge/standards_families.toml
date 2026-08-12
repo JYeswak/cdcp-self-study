@@ -1,0 +1,81 @@
+# Standards / knowledge families (not full-text corpora)
+schema_version = 1
+
+[[family]]
+id = "iso-iec-22237"
+name = "ISO/IEC 22237 Data centre facilities and infrastructures"
+org = "ISO/IEC"
+access_default = "paid_full_text"
+public_structure_source = "src-tuv-22237"
+parts = [
+  { id = "1", title = "General concepts" },
+  { id = "2", title = "Building construction" },
+  { id = "3", title = "Power supply / distribution" },
+  { id = "4", title = "Environmental control" },
+  { id = "5", title = "Telecommunications cabling (TS)" },
+  { id = "6", title = "Security systems" },
+  { id = "7", title = "Management and operation (TS)" },
+]
+
+[[family]]
+id = "en-50600"
+name = "EN 50600 Data centre facilities and infrastructures"
+org = "CENELEC"
+access_default = "paid_full_text"
+public_structure_source = "src-en-50600-overview"
+parts = [
+  { id = "1", title = "General aspects" },
+  { id = "2-1", title = "Building construction" },
+  { id = "2-2", title = "Power supply" },
+  { id = "2-3", title = "Environmental conditions" },
+  { id = "2-4", title = "Telecommunications cabling" },
+  { id = "2-5", title = "Security systems" },
+  { id = "3-1", title = "Management and operation" },
+]
+
+[[family]]
+id = "tia-942"
+name = "ANSI/TIA-942 Telecommunications Infrastructure Standard for Data Centers"
+org = "TIA"
+access_default = "paid_full_text"
+public_structure_source = "src-tia-942"
+notes = "Use Rated 1–4 language; do not call them Uptime Tiers"
+
+[[family]]
+id = "uptime-tier"
+name = "Uptime Institute Tier Standard"
+org = "Uptime Institute"
+access_default = "public_summary"
+public_structure_source = "src-uptime-tiers"
+notes = "Proprietary topology/cert program; contrast with TIA Rated"
+
+[[family]]
+id = "ashrae-tc99"
+name = "ASHRAE TC 9.9 Mission Critical / Datacom"
+org = "ASHRAE"
+access_default = "mixed_free_and_paid"
+public_structure_source = "src-ashrae-datacom"
+free_examples = ["src-ashrae-power-wp"]
+
+[[family]]
+id = "nfpa"
+name = "NFPA codes (75/76/110 + related)"
+org = "NFPA"
+access_default = "paid_full_text"
+public_structure_source = "src-nfpa-75"
+notes = "Often enforceable when adopted; AHJ wins"
+
+[[family]]
+id = "ocp"
+name = "Open Compute Project facility / hardware culture"
+org = "OCP"
+access_default = "free"
+public_structure_source = "src-ocp-ready"
+notes = "Optional hyperscale lens; not EPI exam substitute"
+
+[[family]]
+id = "epi-cdcp-syllabus"
+name = "EPI CDCP public syllabus map"
+org = "EPI"
+access_default = "public_summary"
+public_structure_source = "src-epi-cdcp-page"

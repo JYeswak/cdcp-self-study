@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m07-q209"
+module = 7
+stem = "External EMF sources relevant to site/building planning can include:"
+choices = [
+  "Only the break-room microwave permanently off",
+  "Only LED desk lamps",
+  "Only fibre splice trays",
+  "Nearby rail electrification, high-voltage lines, broadcast transmitters, and large industrial loads"
+]
+correct = "D"
+explanation = "External high-power electrical and RF sources can couple into a campus environment."
+topic_ids = ["m07-sources"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

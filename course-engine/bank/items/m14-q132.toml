@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q132"
+module = 14
+stem = "Escalation ladders for unacked P1 alarms exist to:"
+choices = [
+  "Hope someone eventually sees an email",
+  "Delete the alarm from history",
+  "Lower all severities after five minutes automatically",
+  "Bound secondary on-call/manager response when primary does not acknowledge in time"
+]
+correct = "D"
+explanation = "Escalation is human reliability engineering for critical pages."
+topic_ids = ["m14-notification"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

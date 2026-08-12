@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q097"
+module = 13
+stem = "Colo multi-tenant zoning typically means a customer badge may open their cage but:"
+choices = [
+  "Does not open provider-critical plant or other tenants’ cages under shared responsibility",
+  "Always opens the provider UPS room and all neighbor cages",
+  "Disables all cameras by design",
+  "Grants roof hatch master keys automatically"
+]
+correct = "A"
+explanation = "Physical shared responsibility: customer zones vs provider common plant separation."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

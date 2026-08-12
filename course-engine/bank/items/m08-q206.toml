@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m08-q206"
+module = 8
+stem = "Bonding racks and cabinet assemblies into the facility grounding system supports:"
+choices = [
+  "Higher touch potentials intentionally",
+  "Safety and noise-control goals by reducing floating metal structures",
+  "Elimination of equipment grounding conductors inside every power cord by myth",
+  "Automatic seismic certification"
+]
+correct = "B"
+explanation = "Rack bonding is part of the protective/equipotential strategy—not optional décor."
+topic_ids = ["m08-standards", "m08-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

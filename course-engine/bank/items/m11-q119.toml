@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q119"
+module = 11
+stem = "Cabling redundancy in a data centre is intended to:"
+choices = [
+  "Create a single point of failure on purpose",
+  "Remove the need for logical routing protocols ever",
+  "Only duplicate patch cord colors",
+  "Provide alternate physical paths or media so a cut or failure does not isolate critical connectivity"
+]
+correct = "D"
+explanation = "Diverse routes and redundant distribution reduce shared fate from construction accidents and hardware faults."
+topic_ids = ["m11-redundancy"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

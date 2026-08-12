@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m12-q212"
+module = 12
+stem = "Cross-zoning or multi-criteria release logic is used mainly to:"
+choices = [
+  "Speed discharge on any single dirty sensor always without review",
+  "Reduce accidental discharge by requiring confirmatory detection conditions",
+  "Disable alarms permanently",
+  "Open all doors on first beep"
+]
+correct = "B"
+explanation = "Confirming detectors reduces false release while preserving protection intent."
+topic_ids = ["m12-detection", "m12-suppression-reqs"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

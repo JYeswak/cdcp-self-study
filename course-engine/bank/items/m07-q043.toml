@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 7)
+id = "m07-q043"
+module = 7
+stem = "Magnetic flux density is commonly discussed in data-centre EMF work using:"
+choices = [
+  "Tesla/microtesla (and sometimes milligauss, where 1 µT = 10 mG)",
+  "Only dBm on fibre OTDR",
+  "Lux and foot-candles",
+  "CFM only",
+]
+correct = "A"
+explanation = "B-field uses T/µT; older literature uses mG (1 µT = 10 mG)."
+topic_ids = ["m07-units"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

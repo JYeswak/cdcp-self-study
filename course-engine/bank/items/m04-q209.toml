@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m04-q209"
+module = 4
+stem = "Compared with slab-on-grade white space, raised-floor environments uniquely require ongoing attention to:"
+choices = [
+  "Never cleaning under equipment",
+  "Avoiding all bonding of metal parts",
+  "Eliminating load ratings from design reviews",
+  "Understructure integrity, tile condition, and plenum cleanliness/airflow management"
+]
+correct = "D"
+explanation = "The plenum and understructure are living systems needing inspection and housekeeping."
+topic_ids = ["m04-guidelines", "m04-floor-types"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m03-q110"
+module = 3
+stem = "Electromagnetic or RF environment near high-power transmitters is a site concern because:"
+choices = [
+  "It replaces grounding systems",
+  "It always improves PUE",
+  "It may interfere with sensitive equipment and require mitigation or site rejection",
+  "It only affects cafeteria microwaves",
+]
+correct = "C"
+explanation = "Strong external EMF/RF can disrupt equipment; siting must account for it."
+topic_ids = ["m03-site-selection"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

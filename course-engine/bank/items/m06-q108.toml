@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q108"
+module = 6
+stem = "Wet stacking risk is associated with diesel generators that:"
+choices = [
+  "Always operate at full nameplate with load banks daily",
+  "Use only natural gas",
+  "Have no exhaust system",
+  "Run extended periods at very light load without proper loaded exercise",
+]
+correct = "D"
+explanation = "Chronic light load can foul diesel exhaust systems—loaded testing/exercise disciplines matter."
+topic_ids = ["m06-generators"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

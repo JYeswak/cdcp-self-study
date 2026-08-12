@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q149"
+module = 9
+stem = "Cold-aisle containment (CAC) primarily aims to:"
+choices = [
+  "Flood the entire room with uncontrolled hot air",
+  "Keep cold supply air in the cold aisle and prevent mixing with room air",
+  "Replace humidity sensors with pressure only",
+  "Cool only generators"
+]
+correct = "B"
+explanation = "CAC encloses cold supply so IT intakes see intended air; the room becomes more like a warm-air return volume."
+topic_ids = ["m09-containment"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

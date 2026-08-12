@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q214"
+module = 13
+stem = "Duress alarms and secure communications for staff support safety/security by:"
+choices = [
+  "Replacing all CCTV",
+  "Enabling calls for help when a person cannot safely use normal channels",
+  "Automatically opening all doors campus-wide always",
+  "Increasing piggybacking"
+]
+correct = "B"
+explanation = "Duress capability is a people-protection control in high-security environments."
+topic_ids = ["m13-safety-components", "m13-security-components"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

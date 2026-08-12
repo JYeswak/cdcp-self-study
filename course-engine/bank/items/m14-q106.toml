@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q106"
+module = 14
+stem = "DCIM’s strongest differentiator versus pure EMS is usually:"
+choices = [
+  "Listed fire suppression release authority",
+  "Asset/capacity/workflow context tied to infrastructure telemetry",
+  "Replacing the automatic transfer switch",
+  "Providing utility medium-voltage protection relays"
+]
+correct = "B"
+explanation = "DCIM ties inventory, power capacity, and change workflows to facilities data—not just environment sensing."
+topic_ids = ["m14-dcim", "m14-ems"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q053"
+module = 8
+stem = "Zero-U rack PDUs are typically mounted:"
+choices = [
+  "In the vertical space at the rear/side of the cabinet without consuming horizontal U",
+  "Only as 2U horizontal shelves in the middle of servers",
+  "Outside the building exclusively",
+  "In the CRAH return plenum",
+]
+correct = "A"
+explanation = "Zero-U PDUs save mounting U for IT gear."
+topic_ids = ["m08-power-strips"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

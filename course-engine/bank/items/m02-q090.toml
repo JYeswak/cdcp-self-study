@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q090"
+module = 2
+stem = "Cabling performance categories and firestop product listings are examples of:"
+choices = [
+  "Uptime Tier certificates",
+  "Sub-component / product-system standards and listings supporting the facility",
+  "ISO 22237 entire-series replacements",
+  "AHJ organizational charts",
+]
+correct = "B"
+explanation = "They illustrate product and subsystem standards that feed the whole facility outcome."
+topic_ids = ["m02-subcomponent-standards"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

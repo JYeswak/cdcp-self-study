@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q242"
+module = 9
+stem = "IT electrical power is treated as a heat load for cooling design because:"
+choices = [
+  "IT power disappears without heat",
+  "Nearly all consumed IT energy becomes heat that must be removed",
+  "Only lighting creates heat",
+  "UPS heat cancels IT heat exactly always"
+]
+correct = "B"
+explanation = "Energy conservation: IT watts become thermal watts in the room."
+topic_ids = ["m09-principles"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q235"
+module = 9
+stem = "Chimney racks or vertical exhaust ducts help by:"
+choices = [
+  "Cooling batteries only",
+  "Providing dual power cords",
+  "Directing hot exhaust into a return path and reducing mixing in the room",
+  "Replacing leak detection"
+]
+correct = "C"
+explanation = "Chimneys are a directed form of exhaust containment."
+topic_ids = ["m09-containment", "m09-non-raised"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

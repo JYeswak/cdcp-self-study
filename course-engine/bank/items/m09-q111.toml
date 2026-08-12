@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q111"
+module = 9
+stem = "For cooling design, IT electrical power is often treated as a heat load because:"
+choices = [
+  "Power and heat are unrelated physically",
+  "Only lighting contributes heat",
+  "Heat load equals only battery float current",
+  "Electrical energy consumed by IT appears as heat in the space"
+]
+correct = "D"
+explanation = "Conservation of energy: IT power draw becomes thermal load the HVAC plant must remove (plus other room loads)."
+topic_ids = ["m09-principles"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q233"
+module = 6
+stem = "A microgrid concept around a data centre emphasizes:"
+choices = [
+  "Only a single utility feed with no controls",
+  "Coordinated local generation, storage, and loads that can island or optimize with the grid",
+  "Removing all UPS devices",
+  "Exclusive reliance on wireless power"
+]
+correct = "B"
+explanation = "Microgrids coordinate distributed energy resources with facility loads."
+topic_ids = ["m06-microgrid", "m06-sustainability"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

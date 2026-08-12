@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q207"
+module = 11
+stem = "A reason to prefer fiber for longer backbone runs is:"
+choices = [
+  "Distance and bandwidth capability with immunity to many EMI issues versus copper limits",
+  "Fiber cannot be tested",
+  "Fiber always costs nothing",
+  "Fiber replaces grounding entirely"
+]
+correct = "A"
+explanation = "Fiber wins long high-bandwidth EMI-prone backbones in many designs."
+topic_ids = ["m11-fibre", "m11-copper"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

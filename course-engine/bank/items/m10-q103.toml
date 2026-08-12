@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q103"
+module = 10
+stem = "Cooling tower makeup water is needed primarily because:"
+choices = [
+  "Towers create water from air continuously",
+  "Servers drink tower water",
+  "Makeup water powers CRAH fans",
+  "Evaporation, drift, and blowdown remove water that must be replaced"
+]
+correct = "D"
+explanation = "Evaporative rejection consumes water; blowdown controls chemistry—makeup restores the basin inventory."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q042"
+module = 12
+stem = "Which detection technology is generally too late as the primary protection strategy for electronics white space?"
+choices = [
+  "Aspirating early-warning smoke detection",
+  "Heat detection as the sole primary method",
+  "Photoelectric spot smoke as part of a layered design",
+  "Multi-threshold ASD alert stages"
+]
+correct = "B"
+explanation = "Heat detectors typically respond after significant fire growth; they are backup or specialty uses, not primary IT-space protection."
+topic_ids = ["m12-detection"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

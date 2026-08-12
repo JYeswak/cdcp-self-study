@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q01"
+module = 1
+stem = "A payment processor defines a site as mission-critical mainly because:"
+choices = [
+  "All racks exceed 10 kW",
+  "Sustained outage would cause severe business, legal, or safety impact",
+  "The building has a raised floor",
+  "PUE is below 1.4",
+]
+correct = "B"
+explanation = "Mission-critical is defined by impact of loss, not a single tech feature such as density or PUE."
+topic_ids = ["m01-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q214"
+module = 9
+stem = "CRAC versus CRAH at a conceptual level:"
+choices = [
+  "CRAH always means immersion tanks",
+  "CRAC typically has on-board refrigeration; CRAH typically uses facility chilled water with fans and coils",
+  "CRAC never cools air",
+  "They differ only in paint color"
+]
+correct = "B"
+explanation = "The crisp distinction is DX on board versus chilled-water air handlers."
+topic_ids = ["m09-system-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q112"
+module = 14
+stem = "Leak detection without known isolation valves and drills is incomplete because:"
+choices = [
+  "Alarms alone always shut valves magically",
+  "Water never damages IT equipment",
+  "BMS cannot display digital inputs",
+  "Sensing must pair with who can isolate and how, under time pressure"
+]
+correct = "D"
+explanation = "Response design (authority, labeled valves, runbooks) is as important as sensors."
+topic_ids = ["m14-leak", "m14-notification", "m14-best-practices"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q254"
+module = 6
+stem = "Grey space supporting the power plant is best thought of as:"
+choices = [
+  "Only the hot aisle",
+  "Only meet-me rooms",
+  "Electrical and mechanical support areas such as UPS, switchgear, and generators rather than IT white space",
+  "Only office space"
+]
+correct = "C"
+explanation = "Grey space hosts critical plant; white space hosts IT equipment."
+topic_ids = ["m06-distribution", "m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

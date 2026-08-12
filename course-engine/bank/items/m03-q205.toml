@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m03-q205"
+module = 3
+stem = "Airport flight paths, rail lines, and major highways near a site raise concerns about:"
+choices = [
+  "Guaranteed free dark fibre",
+  "Accident, vibration, pollution, and emergency-access interference risks",
+  "Automatic Tier certification",
+  "Zero electromagnetic environment"
+]
+correct = "B"
+explanation = "Transportation corridors bring external incident and environmental risk factors."
+topic_ids = ["m03-site-selection"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

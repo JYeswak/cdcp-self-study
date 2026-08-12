@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q248"
+module = 6
+stem = "Bonding is not a substitute for overcurrent protection because:"
+choices = [
+  "Bonding equalizes potential; breakers and fuses clear faults—different safety functions",
+  "Bonding trips breakers automatically always",
+  "Overcurrent devices only protect fiber",
+  "They are identical mechanisms"
+]
+correct = "A"
+explanation = "Equipotential bonding and overcurrent clearing solve different parts of electrical safety."
+topic_ids = ["m06-grounding-bonding"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

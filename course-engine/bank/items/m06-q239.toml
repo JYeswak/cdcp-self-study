@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q239"
+module = 6
+stem = "In a typical critical path teaching model after utility, which order is most representative?"
+choices = [
+  "Rack PDU, then generator, then fiber patch, then utility only",
+  "Batteries, then cooling tower, then copper only",
+  "Fire panel, then STS, then lighting only",
+  "Service entrance and switchgear, then UPS with generator and ATS path, then PDU or RPP, then rack PDU, then IT"
+]
+correct = "D"
+explanation = "The classic teaching path flows utility through plant and UPS into distributed IT power."
+topic_ids = ["m06-distribution", "m06-ups", "m06-ats-sts"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

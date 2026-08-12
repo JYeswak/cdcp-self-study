@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q228"
+module = 9
+stem = "Immersion cooling places IT hardware where?"
+choices = [
+  "Only in outdoor weather",
+  "Inside generator day tanks",
+  "Above suspended ceilings dry always",
+  "In dielectric fluid that absorbs heat from components"
+]
+correct = "D"
+explanation = "Immersion submerges electronics in a non-conductive heat transfer fluid."
+topic_ids = ["m09-liquid"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

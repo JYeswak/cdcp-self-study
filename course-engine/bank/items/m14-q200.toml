@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m14-q200"
+module = 14
+stem = "A core monitoring challenge in data centres is:"
+choices = [
+  "Integrating diverse systems (power, cooling, security, IT) without drowning operators in noise",
+  "Too few signals to ever cause alert fatigue",
+  "That nothing ever fails",
+  "That SNMP is illegal"
+]
+correct = "A"
+explanation = "Heterogeneous telemetry plus alert quality is the hard problem—not sensor scarcity alone."
+topic_ids = ["m14-monitoring-challenges"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

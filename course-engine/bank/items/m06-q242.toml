@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q242"
+module = 6
+stem = "A standby offline UPS typically:"
+choices = [
+  "Always regenerates output continuously like double-conversion",
+  "Is identical to an STS",
+  "Feeds load from utility until a disturbance causes transfer to inverter and battery",
+  "Only charges generators"
+]
+correct = "C"
+explanation = "Standby units transfer to inverter when the utility is unacceptable."
+topic_ids = ["m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

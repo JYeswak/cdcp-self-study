@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m08-q209"
+module = 8
+stem = "Cabinet perforation percentage and door design can affect cooling because:"
+choices = [
+  "Restricted doors can impede airflow into or out of equipment even if room supply is adequate",
+  "Doors never interact with airflow",
+  "Solid doors always improve inlet temperatures for front-to-back gear",
+  "Perforation only matters for security cameras"
+]
+correct = "A"
+explanation = "Door open area is part of the thermal path for air-cooled equipment."
+topic_ids = ["m08-types", "m08-dimensions"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

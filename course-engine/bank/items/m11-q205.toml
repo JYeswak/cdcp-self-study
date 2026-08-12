@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q205"
+module = 11
+stem = "Two diverse building entrances for carriers primarily reduce risk of:"
+choices = [
+  "All internal packet loss forever",
+  "Cooling failure",
+  "A single outside-plant or entrance incident isolating the facility",
+  "Battery aging"
+]
+correct = "C"
+explanation = "Separate entrances reduce single-point isolation at the building edge."
+topic_ids = ["m11-site-to-site", "m11-redundancy"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

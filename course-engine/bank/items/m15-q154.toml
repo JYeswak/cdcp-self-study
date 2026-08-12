@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q154"
+module = 15
+stem = "Post-incident documentation (timeline, root cause, corrective actions) is valuable because it:"
+choices = [
+  "Only blames individuals without system learning",
+  "Converts experience into prevention—procedure, design, and monitoring improvements",
+  "Is optional if the outage was short",
+  "Replaces the need for MOPs on future similar work"
+]
+correct = "B"
+explanation = "Learning loops turn incidents into durable ops improvements."
+topic_ids = ["m15-documentation"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

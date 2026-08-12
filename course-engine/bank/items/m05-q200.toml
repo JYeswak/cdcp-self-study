@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m05-q200"
+module = 5
+stem = "Illuminance (lux or foot-candles) measures:"
+choices = [
+  "The luminous flux incident on a surface per unit area",
+  "Only the color temperature of sunlight outdoors",
+  "Only electrical watts at the panel",
+  "Sound pressure in the white space"
+]
+correct = "A"
+explanation = "Illuminance is light level on a surface—key for task visibility in technical spaces."
+topic_ids = ["m05-measurements"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q202"
+module = 10
+stem = "Treating water as a non-critical utility in a tower-cooled site is a mistake because:"
+choices = [
+  "Water only affects landscaping",
+  "Servers drink water directly through Ethernet",
+  "Fire codes forbid any water storage",
+  "Heat rejection capacity can collapse without adequate water even if electrical power remains available"
+]
+correct = "D"
+explanation = "Power without heat rejection still yields thermal shutdown risk."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

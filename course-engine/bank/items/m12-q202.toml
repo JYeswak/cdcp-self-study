@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m12-q202"
+module = 12
+stem = "Water-based suppression in IT environments requires careful design because:"
+choices = [
+  "Water never interacts with electronics",
+  "Sprinklers always improve server MTBF",
+  "AHJs never allow any water systems near IT",
+  "Water can damage equipment even while controlling fire; pre-action and zoning strategies are often considered"
+]
+correct = "D"
+explanation = "Water is effective on many fires but is not consequence-free for electronics—design balances both."
+topic_ids = ["m12-water-suppression", "m12-suppression-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

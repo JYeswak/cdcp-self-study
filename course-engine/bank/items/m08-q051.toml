@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q051"
+module = 8
+stem = "In colocation, the primary tenant security boundary is often the:"
+choices = [
+  "Shared aisle lighting circuit",
+  "Cage (with cabinets possibly locked for dual-control or regulated workloads)",
+  "Public lobby Wi-Fi password",
+  "Only the UPS room door",
+]
+correct = "B"
+explanation = "Cage is the tenant boundary; cabinets may still lock inside."
+topic_ids = ["m08-security"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

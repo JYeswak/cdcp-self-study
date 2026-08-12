@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q088"
+module = 13
+stem = "Surveillance (CCTV/VMS) is most valuable when integrated so that a door-forced alarm can:"
+choices = [
+  "Only record offline tapes with no timestamps",
+  "Replace all mechanical locks",
+  "Increase chilled-water flow",
+  "Bookmark video, alert the SOC/guard, and support investigation with synchronized logs"
+]
+correct = "D"
+explanation = "Cameras without response/integration are weak; alarm-linked video + NTP-aligned logs enable forensics."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

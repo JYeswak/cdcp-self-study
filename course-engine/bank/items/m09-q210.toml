@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q210"
+module = 9
+stem = "Perforated tiles placed in the hot aisle of a classic raised-floor hot and cold design are generally:"
+choices = [
+  "Always required by liquid cooling",
+  "Counterproductive because they deliver cold air where exhaust should leave",
+  "The only correct placement always",
+  "Used only for network racks"
+]
+correct = "B"
+explanation = "Supply openings belong where cold air is needed—typically cold aisles."
+topic_ids = ["m09-raised-floor-cooling", "m09-containment"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

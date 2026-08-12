@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q210"
+module = 13
+stem = "Asset cages or demarcated customer spaces in colocation improve security by:"
+choices = [
+  "Removing the need for building perimeter controls",
+  "Providing tenant separation and controlled access within a shared building",
+  "Allowing unlimited shared keys across tenants",
+  "Eliminating CCTV needs"
+]
+correct = "B"
+explanation = "Colo security is multi-tenant compartmentalization on top of site controls."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

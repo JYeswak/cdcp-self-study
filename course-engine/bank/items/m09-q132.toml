@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q132"
+module = 9
+stem = "Evaporative cooling towers improve heat rejection efficiency primarily by:"
+choices = [
+  "Using evaporation so leaving water can approach wet-bulb-limited conditions",
+  "Eliminating all water use forever",
+  "Replacing chillers with fiber switches",
+  "Heating the condenser water intentionally always"
+]
+correct = "A"
+explanation = "Towers exploit evaporation; performance relates to wet-bulb, with water consumption and treatment as operational costs."
+topic_ids = ["m09-system-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

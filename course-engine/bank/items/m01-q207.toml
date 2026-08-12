@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m01-q207"
+module = 1
+stem = "Aligning facility investment with business criticality means:"
+choices = [
+  "Spending the same capital on every closet regardless of impact",
+  "Ignoring RTO/RPO when siting and designing",
+  "Using marketing slogans as the only design input",
+  "Matching redundancy and operating discipline to the impact of loss for the served services"
+]
+correct = "D"
+explanation = "Resilience spend should track business impact of outage, not one-size-fits-all prestige design."
+topic_ids = ["m01-importance", "m01-business-org"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

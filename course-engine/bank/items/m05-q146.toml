@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m05-q146"
+module = 5
+stem = "A common operational mistake with emergency lighting is:"
+choices = [
+  "Periodic testing and keeping egress paths clear",
+  "Keeping exit signs visible",
+  "Documenting monthly tests",
+  "Blocking fixtures or failing to test units so failures are discovered only during a real outage",
+]
+correct = "D"
+explanation = "Unmaintained or obstructed emergency lighting fails when it is needed most."
+topic_ids = ["m05-emergency"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

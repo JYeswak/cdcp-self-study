@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q136"
+module = 11
+stem = "Carrier diversity for site connectivity ideally includes:"
+choices = [
+  "Independent providers and physically diverse laterals or entrances where feasible",
+  "Two circuits that share one lateral and one POP risk",
+  "A single provider with one fiber only",
+  "Only satellite with no terrestrial path ever"
+]
+correct = "A"
+explanation = "Provider and path diversity reduce correlated failure—paper redundancy is not physical diversity."
+topic_ids = ["m11-site-to-site", "m11-redundancy"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

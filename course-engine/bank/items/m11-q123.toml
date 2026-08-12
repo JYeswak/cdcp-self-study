@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q123"
+module = 11
+stem = "Cross-connect versus interconnect concepts (educational) distinguish:"
+choices = [
+  "Identical terms with no operational difference ever",
+  "Only wireless mesh modes",
+  "Only power busway taps",
+  "How circuits are patched between parties or systems—cross-connect often via intermediate frames versus direct interconnect patterns"
+]
+correct = "D"
+explanation = "MMR and operations language uses cross-connect/interconnect patterns for how parties join circuits—planning implications follow."
+topic_ids = ["m11-planning", "m11-site-to-site"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

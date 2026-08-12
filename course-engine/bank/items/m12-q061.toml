@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q061"
+module = 12
+stem = "Portable extinguishers are intended for:"
+choices = [
+  "Incipient (just-started) fires by trained personnel only",
+  "Fully developed room fires instead of the fire department",
+  "Replacing automatic detection systems",
+  "Permanent impairment of gas systems"
+]
+correct = "A"
+explanation = "Hand extinguishers are first-aid for small fires; evacuate and use automatic systems/FD for growth beyond that."
+topic_ids = ["m12-extinguishers"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

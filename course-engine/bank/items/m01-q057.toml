@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m01-q057"
+module = 1
+stem = "Which scenario best illustrates cascading unavailability?"
+choices = [
+  "CRAC loss raises inlet temperatures until servers thermally throttle or trip, taking applications offline",
+  "A UPS fails over cleanly to generator with no load drop",
+  "A blanking panel is installed correctly",
+  "A dual-corded server remains powered from two live diverse sources",
+]
+correct = "A"
+explanation = "Cooling failure can cascade into thermal IT failure even when power is still present."
+topic_ids = ["m01-unavailability", "m01-elements"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

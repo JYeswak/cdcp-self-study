@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q114"
+module = 14
+stem = "Alarm severity tiers are useful because they:"
+choices = [
+  "Force every informational state change to page executives",
+  "Map response urgency (e.g., P1 multi-channel page vs P3 ticket) to human capacity",
+  "Eliminate the need for runbooks",
+  "Replace sensor calibration"
+]
+correct = "B"
+explanation = "Tiered severity, escalation, and role routing combat fatigue and clarify action."
+topic_ids = ["m14-notification", "m14-alarms"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m04-q200"
+module = 4
+stem = "Uniform, concentrated, and rolling load ratings for access floors differ because they describe:"
+choices = [
+  "Identical forces applied the same way",
+  "Only aesthetic tile patterns",
+  "Distributed area loads vs point loads vs loads from wheeled equipment movement",
+  "Only underfloor cable weight"
+]
+correct = "C"
+explanation = "Loading categories match different force patterns: area, point, and rolling traffic."
+topic_ids = ["m04-loading"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q207"
+module = 13
+stem = "Loading dock and delivery procedures are security-relevant because:"
+choices = [
+  "Docks never connect to technical space pathways",
+  "All deliveries are pre-trusted without inspection forever",
+  "Threats and contraband can enter with legitimate freight if materials and people are not controlled",
+  "Only digital threats matter"
+]
+correct = "C"
+explanation = "Supply chain and dock control are part of physical security, not only logistics."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,79 @@
+# Item bank pool policy — practice tests sample from a large library
+schema_version = 1
+
+# Official public exam form size (for mock assembly)
+exam_n_items = 40
+
+# Library size targets relative to exam_n_items
+pool_min_multiplier = 10   # hard gate: at least 10× exam size
+pool_target_multiplier = 20  # aspirational full library
+
+# Derived floors (keep in sync with exam_n_items)
+pool_min_items = 400
+pool_target_items = 800
+
+# Per-domain minimums so sampling cannot starve a module forever
+# (sum of mins should be << pool_min; leftover free across heavy domains)
+[[domain_min]]
+module = 1
+min_items = 20
+[[domain_min]]
+module = 2
+min_items = 28
+[[domain_min]]
+module = 3
+min_items = 20
+[[domain_min]]
+module = 4
+min_items = 18
+[[domain_min]]
+module = 5
+min_items = 14
+[[domain_min]]
+module = 6
+min_items = 55
+[[domain_min]]
+module = 7
+min_items = 14
+[[domain_min]]
+module = 8
+min_items = 18
+[[domain_min]]
+module = 9
+min_items = 48
+[[domain_min]]
+module = 10
+min_items = 12
+[[domain_min]]
+module = 11
+min_items = 30
+[[domain_min]]
+module = 12
+min_items = 28
+[[domain_min]]
+module = 13
+min_items = 22
+[[domain_min]]
+module = 14
+min_items = 24
+[[domain_min]]
+module = 15
+min_items = 16
+
+# Assembly (mock practice tests)
+[assembly]
+mode = "sample_without_replacement"
+seed_required = true
+# Stratified: try to pull from multiple modules so mocks are not all power
+stratify_by_module = true
+# Soft caps so one domain cannot dominate a 40-item mock
+max_per_module_in_mock = 8
+min_modules_represented = 8
+# Avoid recent items for the same learner when progress store exists (W6)
+cooldown_recent_n = 80
+
+[quality]
+require_explanation = true
+require_topic_ids = true
+source_class = "original"
+vary_correct_letter = true  # library should not be ~90% B

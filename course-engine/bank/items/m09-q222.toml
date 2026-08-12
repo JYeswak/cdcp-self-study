@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q222"
+module = 9
+stem = "Non-raised-floor halls typically rely more on:"
+choices = [
+  "Only underfloor perforated tiles",
+  "Overhead or close-coupled supply and return strategies rather than a floor plenum",
+  "No airflow management at all",
+  "Generators for cooling"
+]
+correct = "B"
+explanation = "Slab designs move air management above or beside the racks, not underfloor."
+topic_ids = ["m09-non-raised"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

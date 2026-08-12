@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q236"
+module = 9
+stem = "Cable mess at the rear of racks hurts containment because it can:"
+choices = [
+  "Improve blanking effectiveness always",
+  "Lower dew point automatically",
+  "Increase busway ampacity",
+  "Block exhaust paths and force leakage or recirculation around the intended airflow"
+]
+correct = "D"
+explanation = "Blocked exhaust forces air to escape through the wrong openings."
+topic_ids = ["m09-containment"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

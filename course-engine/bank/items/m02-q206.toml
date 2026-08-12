@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m02-q206"
+module = 2
+stem = "Using “Tier III” casually in a sales document when only an informal self-assessment was done is problematic mainly because:"
+choices = [
+  "Uptime Tier terminology implies a defined program; misuse creates false assurance",
+  "Self-assessment always equals formal certification",
+  "Tier labels never influence buyer risk perception",
+  "Standards forbid writing the word tier in any language"
+]
+correct = "A"
+explanation = "Resilience labels carry buyer expectations; informal claims create false assurance and contract risk."
+topic_ids = ["m02-tia-vs-uptime", "m02-standards-guidelines"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

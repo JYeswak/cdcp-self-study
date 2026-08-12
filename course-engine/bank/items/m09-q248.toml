@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q248"
+module = 9
+stem = "A practical airflow practice on a raised floor is to:"
+choices = [
+  "Open every tile randomly",
+  "Block all cold aisle tiles",
+  "Vent supply into generator exhaust",
+  "Place supply openings to serve cold aisles and seal unnecessary leakage paths"
+]
+correct = "D"
+explanation = "Supply where cold is needed; stop dumping air elsewhere."
+topic_ids = ["m09-raised-floor-cooling", "m09-containment"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

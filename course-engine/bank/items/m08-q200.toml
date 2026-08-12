@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m08-q200"
+module = 8
+stem = "The common 19-inch rack standard refers primarily to:"
+choices = [
+  "The guaranteed external cabinet width of every brand being identical including doors",
+  "The height of every rack being exactly 19 inches",
+  "The depth of PDUs only",
+  "The width of the mounting space for equipment flanges between rails"
+]
+correct = "D"
+explanation = "“19-inch” denotes the mounting aperture/flange standard—not every external dimension."
+topic_ids = ["m08-standards", "m08-dimensions"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

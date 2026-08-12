@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m14-q210"
+module = 14
+stem = "Thresholds set without hysteresis or seasonality awareness often cause:"
+choices = [
+  "Perfect silence forever",
+  "Automatic root-cause analysis",
+  "Chattering alarms and operator desensitization",
+  "Higher MTBF by definition"
+]
+correct = "C"
+explanation = "Poor threshold design creates alarm fatigue and missed real events."
+topic_ids = ["m14-alarms", "m14-monitoring-reqs"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

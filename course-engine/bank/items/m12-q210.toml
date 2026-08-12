@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m12-q210"
+module = 12
+stem = "Common electrical causes of data centre fires include:"
+choices = [
+  "Only fiber polarity errors",
+  "Only low humidity always",
+  "Only empty cable trays",
+  "Overloaded connections, failed components, and poor workmanship creating ignition sources"
+]
+correct = "D"
+explanation = "Electrical heat and defects are frequent ignition sources in facilities."
+topic_ids = ["m12-causes", "m12-best-practices"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

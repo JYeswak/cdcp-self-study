@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q060"
+module = 12
+stem = "Dry chemical ABC extinguishers are often discouraged as first choice inside white space because:"
+choices = [
+  "They are too quiet to hear",
+  "They only work on combustible metals",
+  "They increase humidity setpoints",
+  "Residue can severely damage electronics"
+]
+correct = "D"
+explanation = "Particulate/corrosive residue can destroy IT equipment; CO2 or clean-agent portables are often preferred in IT areas per policy."
+topic_ids = ["m12-extinguishers", "m12-best-practices"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

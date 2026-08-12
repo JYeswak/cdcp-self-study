@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q232"
+module = 6
+stem = "VRLA battery rooms still need thermal and environmental attention because:"
+choices = [
+  "Temperature and environment strongly affect life, performance, and safety",
+  "Batteries only care about network latency",
+  "VRLA never ages",
+  "Only outdoor IP rating matters"
+]
+correct = "A"
+explanation = "Battery life and reliability are strongly environment-dependent."
+topic_ids = ["m06-batteries"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

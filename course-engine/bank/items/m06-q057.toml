@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q057"
+module = 6
+stem = "A catcher or isolated-redundant UPS arrangement is best described as:"
+choices = [
+  "A primary capacity path with a shared reserve UPS that can catch load if a primary fails",
+  "Removing all batteries to improve PUE",
+  "Only for lighting inverters",
+  "Identical to a single non-redundant UPS",
+]
+correct = "A"
+explanation = "Isolated-redundant/catcher designs reserve capacity that can support another system’s load on failure."
+topic_ids = ["m06-ups-parallel", "m06-redundancy"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

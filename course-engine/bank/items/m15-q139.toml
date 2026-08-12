@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q139"
+module = 15
+stem = "A good MOP includes verification steps and backout because:"
+choices = [
+  "Failure is impossible if steps exist on paper",
+  "Backout is only for software, never facilities",
+  "You must detect incomplete success and reverse safely when the change goes wrong",
+  "Verification is optional if two people watch"
+]
+correct = "C"
+explanation = "MOPs are operational safety nets, not just task lists."
+topic_ids = ["m15-documentation"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

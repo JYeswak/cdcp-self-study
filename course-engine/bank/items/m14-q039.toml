@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q39"
+module = 14
+stem = "Underfloor leak detection is installed primarily to:"
+choices = [
+  "Measure EMF",
+  "Alarm on water near electrical/IT spaces before major damage",
+  "Increase humidity always",
+  "Unlock cages",
+]
+correct = "B"
+explanation = "Underfloor leak detection alarms on water near electrical/IT spaces before major damage."
+topic_ids = ["m14-leak"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

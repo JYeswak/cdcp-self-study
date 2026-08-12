@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q229"
+module = 9
+stem = "Facility water and IT coolant loops are often isolated via heat exchangers mainly so as to:"
+choices = [
+  "Protect IT loops from facility water quality issues and control leak domains",
+  "Increase copper near-end crosstalk",
+  "Eliminate all sensors",
+  "Disable CDUs"
+]
+correct = "A"
+explanation = "Isolation HX separates chemistries, pressures, and contamination domains."
+topic_ids = ["m09-liquid"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

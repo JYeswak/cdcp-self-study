@@ -1,0 +1,162 @@
+# source_id: src-nh-cdcp
+# url: https://courses.newhorizons.bg/cdcp/
+# access: public_summary
+# fetched: 2026-08-11
+# title: CDCP course page + outline bullets
+
+Certified Data Centre Professional (CDCP®) Course | New Horizons Bulgaria
+Home
+About
+Outline
+Trainer
+Price
+Contacts
+(pending)
+Certified Data Centre Professional (CDCP
+®
+)
+Learn More
+Register
+Dates
+(pending)
+Location
+New Horizons Bulgaria
+Speaker
+Simon Besteman
+Join the world of elite Certified Data Centre Professionals!
+Certified Data Centre Professional (CDCP
+®
+) is the leading globally recognised training course and certification for data centre professionals.
+If you are working in and around the data centre industry, the CDCP
+®
+training and certification is a must-have for you, whether you are a vendor/supplier, designer/builder, data centre owner/operator, involved in daily operations of a data centre or a data centre user/customer.
+The CDCP
+®
+course provides you with the knowledge of all aspects of the data centre, and enables you to talk confidently about the data centre with your colleagues, vendors, customers or your superiors.
+Register
+Course Benefits
+The Certified Data Centre Professional (CDCP
+®
+) training and certification are developed by EPI – the first and largest certified data centre professional training provider in the world. CDCP
+®
+is the first training in the EPI Design and Build training track under the
+EPI Data Centre Training Framework
+©
+.
+After completion of the course you will be able to:
+Choose an optimum site for mission-critical data centre based on current and future needs;
+Describe all components that are important for highavailability in a data centre and how to effectively setup the data centre;
+Name and apply the various industry standards;
+Describe the various technologies for UPS, fire suppression, cooling, monitoring systems, cabling standards, etc, and to select and apply them effectively to cost-efficiently enhance the high-availability of the data centre;
+Review the electrical distribution system to avoid costly downtime;
+Enhance cooling capabilities and efficiency in the data centre by using existing and new techniques and technologies for the increased cooling requirements of the future;
+Design a highly reliable and scalable network architecture and learn how to ensure installers apply proper testing techniques;
+Create effective maintenance contracts with equipment suppliers ensuring the best return on investment;
+Setup effective data centre monitoring ensuring the right people get the right message;
+Ensure proper security measures, both procedural and technical, are established to safeguard your company's valuable information in the data centre.
+Download the CDCP
+®
+Brochure
+Audience
+The primary audience for this CDCP
+®
+training course is an IT, Facilities or Data Centre Operations professional working in and around the data centre (representing both end-customers and/or service provider/facilitators) and having responsibility to achieve and improve the availability and manageability of the Data Centre, such as: Data centre managers, Operations / Floor / Facility managers, data centre engineers, network/system engineers/data centre sales/consultants.
+CDCP
+®
+Course Outline
+Duration: 2 days / 16 educational hours
+Hours: 09:00 – 16:30
+Language: English
+This 2-day course is designed to expose you to the key components of the data centre:
+The Data Centre, it’s Importance and Causes for Downtime
+Data Centre Standards and Best Practices
+Data Centre Location, Building and Construction
+Raised Floor/Suspended Ceiling
+Light
+Power Infrastructure
+Electro Magnetic Fields
+Equipment Racks
+Cooling Infrastructure
+Water Supply
+Designing a Scalable Network Infrastructure
+Fire Suppression
+Data Centre Monitoring
+Operational Security and Safety Practices
+Labelling
+Documentation
+Cleaning
+MTBF/MTTR
+Maintenance Contracts/SLA/O
+EXAM: Certified Data Centre Professional
+View the detailed course outline
+Global Accreditation & Recognition
+Join the data centre elites with your CDCP
+®
+certification.  The CDCP
+®
+certification is accredited by EXIN, an independent globally recognised accreditation and certification body which has certified more than 2 million IT and data centre professionals worldwide.
+EPI Data Centre Training Framework
+©
+The EPI Data Centre Training Framework
+©
+provides a structured course curriculum for individuals working in and around data centre facilities and data centre operational management. It addresses the various disciplines required to design and manage a high-availability, efficient data centre. EPI’s data centre course curriculum is not only the first in the world, it is also by far the largest in the industry. Many companies have specified these courses as prerequisites for their staff working in and around the data centre and use them as part of their career planning initiatives. Recognised globally, these certifications add value to both companies and individuals.
+Download EPI Data Centre Training Framework
+©
+Trainer
+/ learn from the best
+Simon Besteman
+Simon Besteman has over 20 years of experience working at ISPs, suppliers, and data centres and as a management consultant for a wide range of organizations. Simon has held various senior management positions in multinational companies in the areas of service, sales and marketing, operations management and strategic development.
+After years in management at Hewlett-Packard, Simon went on to develop the European activities of Demon Internet, one of the first ISP’s in Europe. In 1999 he was part of the founding team of Redbus Interhouse (later acquired by Telecity), developing the first carrier-neutral data centres in Europe, a revolutionary concept in those days.
+Currently, Simon is the CEO of ISPConnect, the Dutch coalition of hosting providers. As a leading representative of the industry he is a frequent blogger on industry and policy matters, a keynote speaker at congresses and conferences, and a participant at Dutch government round tables on telecommunication, data centre and internet regulatory matters. He sits on the boards of various industry groups, with a particular focus on education, employment and governance.
+Simon is also a trainer at EPI for the CDCP
+®
+, CDCS, CDFOM, CITS courses. Simon has many years of experience as a trainer and workshop facilitator. His varied and international background enables him to bridge cultural and knowledge gaps effectively. He knows how to keep candidates interested and motivated until the very end. Simon is a warm communicator, with a strong sense of humour who knows how to keep the training fun, without ever losing sight of the goals.
+Book your seat now!
+/ save the dates
+Certified Data Centre Professional (CDCP
+®
+)
+(pending)
+2,100
+€
+Certification Exam
+E-Book
+Coffee Breaks
+Register
+* VAT excluded
+Registration Form
+Accept
+Terms and Conditions
+and
+Privacy Policy
+Security code from the image:
+Register Now
+About EPI
+EPI, the world’s leading data centre course provider, offers a wide range of globally accredited training programmes aimed at developing knowledge, skills and competences for a resilient organization, covering the data centre facilities design and built, operations and maintenance, governance and risk, data centre migration, ANSI/TIA-942 compliance.
+The courses are delivered in more than 50 countries and over 120 cities. All EPI’s courses and certifications are independently accredited by EXIN, an established globally recognized organization, providing an assurance of its quality and impartial award of its certificates.
+EPI has been a trusted partner for organisations all over the globe, including: Accenture, Adobe, Amazon, Atos, Bank of America, Cisco, DELL, eBay, Ericssоn, HP, IBM, ING, Intel, J.P. Morgan, LG, Microsoft, Oracle, PwC, Salesforce, Samsung, Schneider Electric, ServiceNow, Shell, Siemens, Visa, Vodafone.
+New Horizons Bulgaria
+36 Dragan Tsankov blvd.
+Interpred, block A, floor 7
+1040 Sofia
+Training:
++359 885 666 815
+Exams:
++359 885 601 989
+office@newhorizons.bg
+Directions
+Why choose New Horizons Bulgaria?
+44 years of global presence and know-how
+More than 45 700 trained students in Bulgaria since 2002
+98% of our clients would recommend our trainings
+Best European Center in New Horizons Global Network for 2020, 2018, 2015, 2014, and 2012
+#1 Center for IT trainings in Bulgaria according to the Computerworld "ICT Top 100" ranking for 2020-2011 and 2008
+Have a question?
+/ write to us
+Accept
+Terms and Conditions
+and
+Privacy Policy
+Security code from the image:
+Newsletter
+All rights reserved. © 2026 New Horizons Bulgaria

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m12-q215"
+module = 12
+stem = "Clean-agent or gaseous suppression is chosen in many IT rooms primarily to:"
+choices = [
+  "Extinguish or control fire with less residue than many water or dry-chemical approaches",
+  "Increase particulate contamination intentionally",
+  "Replace all detection forever",
+  "Provide dual power paths"
+]
+correct = "A"
+explanation = "Clean agents aim to protect electronics-rich spaces with less collateral residue."
+topic_ids = ["m12-gas-suppression"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

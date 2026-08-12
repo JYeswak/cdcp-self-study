@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q247"
+module = 9
+stem = "Ducted returns in slab facilities help by:"
+choices = [
+  "Increasing underfloor leakage",
+  "Cooling only the UPS room forever without plant",
+  "Providing a defined path for hot air back to cooling units, reducing room mixing",
+  "Replacing humidity sensors"
+]
+correct = "C"
+explanation = "Defined returns reduce uncontrolled mixing in non-raised rooms."
+topic_ids = ["m09-non-raised"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

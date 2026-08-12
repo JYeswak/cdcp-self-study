@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q066"
+module = 6
+stem = "Load-bank testing of generators is valued because:"
+choices = [
+  "It permanently disables emissions controls",
+  "It removes the need for fuel contracts",
+  "It proves the set under real load conditions that no-load runs can miss",
+  "It replaces weekly UPS battery checks entirely",
+]
+correct = "C"
+explanation = "Loaded tests reveal problems (including light-load issues like wet stacking risk) that no-load tests miss."
+topic_ids = ["m06-generators"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

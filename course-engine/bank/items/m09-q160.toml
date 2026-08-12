@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q160"
+module = 9
+stem = "Facility water and IT coolant loops are often isolated via heat exchangers mainly to:"
+choices = [
+  "Protect IT loops from facility water quality issues while transferring heat",
+  "Maximize uncontrolled mixing of dirty tower water into servers",
+  "Increase latent load only",
+  "Replace network redundancy"
+]
+correct = "A"
+explanation = "Isolation protects clean secondary loops and equipment from primary loop contamination and pressure regimes."
+topic_ids = ["m09-liquid", "m09-system-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q134"
+module = 15
+stem = "Clear labelling of power circuits, breakers, and cables primarily reduces:"
+choices = [
+  "The need for any documentation forever",
+  "Human error during isolation, restoration, and incident response",
+  "Chilled-water approach temperature by physics",
+  "Camera retention requirements"
+]
+correct = "B"
+explanation = "Labels make the physical plant operable under stress; unlabeled gear invites wrong-breaker mistakes."
+topic_ids = ["m15-labelling"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

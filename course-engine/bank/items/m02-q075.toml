@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q075"
+module = 2
+stem = "A design specification that says “comply with applicable codes and referenced standards” implies:"
+choices = [
+  "Only the cheapest standard applies",
+  "Legal codes plus any standards the project or jurisdiction incorporates must be identified and followed",
+  "Standards never need listing",
+  "AHJ review is optional forever",
+]
+correct = "B"
+explanation = "Projects must identify adopted codes and which standards are contractually or legally referenced."
+topic_ids = ["m02-code-vs-standard", "m02-standards-guidelines"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q217"
+module = 6
+stem = "Multiple neutral-ground bonds downstream of the designated bonding point are a problem because they can:"
+choices = [
+  "Improve isolation of every circuit automatically",
+  "Create unintended neutral current paths and ground loops",
+  "Raise IP ratings",
+  "Eliminate harmonics"
+]
+correct = "B"
+explanation = "Extra N-G bonds parallel the neutral return and disturb equipotential design."
+topic_ids = ["m06-grounding-bonding"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

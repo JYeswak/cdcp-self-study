@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q121"
+module = 4
+stem = "Access-floor ramps and landings are provided primarily to:"
+choices = [
+  "Increase PUE",
+  "Store batteries under the ramp always",
+  "Allow safe wheeled and pedestrian transition between floor elevations",
+  "Replace stair egress requirements automatically",
+]
+correct = "C"
+explanation = "Ramps/landings manage elevation change for people and equipment safely."
+topic_ids = ["m04-ramp"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

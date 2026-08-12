@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q207"
+module = 15
+stem = "Change records and method-of-procedure (MOP) discipline matter because:"
+choices = [
+  "Changes never affect availability",
+  "Verbal hallway agreements are sufficient for dual-cord cutovers",
+  "Many outages are self-inflicted during poorly planned work",
+  "Only software needs change control"
+]
+correct = "C"
+explanation = "Facility changes are high-energy events; MOPs and records reduce self-harm."
+topic_ids = ["m15-documentation", "m15-ops-security"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

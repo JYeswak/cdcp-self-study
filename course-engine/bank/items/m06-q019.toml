@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q19"
+module = 6
+stem = "Standby generators typically:"
+choices = [
+  "Provide instantaneous power with zero transfer gap",
+  "Provide long-duration power after start/transfer; UPS covers the gap",
+  "Eliminate the need for fuel contracts",
+  "Are only used for lighting",
+]
+correct = "B"
+explanation = "Generators supply long-duration power after start/transfer; the UPS bridges the seconds-class gap."
+topic_ids = ["m06-generators", "m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

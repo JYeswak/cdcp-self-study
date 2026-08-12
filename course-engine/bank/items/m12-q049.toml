@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q049"
+module = 12
+stem = "Wet-pipe sprinklers keep water in the piping continuously, which means a broken fitting can:"
+choices = [
+  "Discharge water onto equipment without a fire heat event at a head",
+  "Only trigger aspirating detectors",
+  "Automatically seal room integrity for gas systems",
+  "Improve cable Category rating"
+]
+correct = "A"
+explanation = "Wet pipe is simple but accidental mechanical damage or leaks can flood spaces without fire."
+topic_ids = ["m12-water-suppression"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

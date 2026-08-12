@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m05-q147"
+module = 5
+stem = "Colour rendering and glare control matter in technical spaces because:"
+choices = [
+  "They replace cable testing",
+  "They set chiller approach temperature",
+  "They determine Tier rating",
+  "Technicians need to read labels, ports, and indicators without visual discomfort",
+]
+correct = "D"
+explanation = "Visual quality affects safe, accurate technical work on equipment."
+topic_ids = ["m05-measurements", "m05-fixtures"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

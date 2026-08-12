@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m04-q203"
+module = 4
+stem = "Ramps and landing platforms for raised floors exist primarily to:"
+choices = [
+  "Act as the main cooling supply plenum",
+  "Provide code-conscious, safe equipment and personnel access across the floor height change",
+  "Replace all freight elevators campus-wide",
+  "Store fuel for generators"
+]
+correct = "B"
+explanation = "Ramps/landings manage the elevation change safely for people and rolling loads."
+topic_ids = ["m04-ramp", "m04-guidelines"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

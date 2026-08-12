@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q101"
+module = 10
+stem = "WUE as a sustainability-oriented metric primarily tracks:"
+choices = [
+  "Copper pair utilization",
+  "Site water use relative to IT energy",
+  "Wi-Fi spectral efficiency",
+  "Window U-factor only"
+]
+correct = "B"
+explanation = "WUE relates water consumption to IT energy—an intensity metric for water-aware operations."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

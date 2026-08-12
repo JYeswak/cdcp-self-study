@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m05-q138"
+module = 5
+stem = "Fixture placement above cold/hot aisles should consider:"
+choices = [
+  "Only symmetry on a floor plan CAD layer",
+  "Powering fixtures from IT PDUs exclusively always",
+  "Hiding emergency lights behind solid walls only",
+  "Maintenance access, glare on work surfaces, and not blocking containment or airflow paths",
+]
+correct = "D"
+explanation = "Placement is an operations and airflow coordination problem, not pure geometry."
+topic_ids = ["m05-fixtures"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

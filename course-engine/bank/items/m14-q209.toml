@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m14-q209"
+module = 14
+stem = "Correlating BMS alarms with EMS temperature spikes helps operators because:"
+choices = [
+  "Correlation always proves the network team is at fault",
+  "Cross-domain correlation speeds root-cause isolation when cooling plant and room environment interact",
+  "Systems should never share timestamps",
+  "It replaces mechanical expertise entirely"
+]
+correct = "B"
+explanation = "Facility incidents cross subsystems; correlation beats siloed dashboards."
+topic_ids = ["m14-bms", "m14-ems", "m14-monitoring-challenges"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

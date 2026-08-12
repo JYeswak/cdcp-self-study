@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q215"
+module = 15
+stem = "Color-coding and standardized label templates across a campus help because they:"
+choices = [
+  "Are purely decorative with no ops effect",
+  "Replace the need for unique circuit IDs",
+  "Reduce cognitive load and misinterpretation when multiple teams and shifts work the plant",
+  "Allow deleting panel schedules"
+]
+correct = "C"
+explanation = "Standard visual language speeds correct action under stress."
+topic_ids = ["m15-labelling", "m15-documentation"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

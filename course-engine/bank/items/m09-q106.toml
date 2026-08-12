@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q106"
+module = 9
+stem = "Psychrometric awareness for data centres primarily helps operators understand:"
+choices = [
+  "Diesel cetane ratings",
+  "Only copper pair counts",
+  "How temperature and humidity interact (including dew point and wet-bulb effects)",
+  "Fire panel zoning only"
+]
+correct = "C"
+explanation = "Psychrometrics links dry-bulb, humidity, dew point, and wet-bulb—critical for economizers, condensation risk, and envelopes."
+topic_ids = ["m09-principles", "m09-temp-humidity"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q077"
+module = 2
+stem = "ISO/IEC 22237 awareness for CDCP learners mainly helps them:"
+choices = [
+  "Memorize every normative clause number without context",
+  "Recognize an international facility/infrastructure series exists alongside other frameworks",
+  "Ignore EN 50600 entirely always",
+  "Replace electrical code inspections",
+]
+correct = "B"
+explanation = "Awareness-level learning recognizes the series’ place in the landscape without treating it as a code dump."
+topic_ids = ["m02-iso22237-series"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

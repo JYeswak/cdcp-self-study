@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m08-q205"
+module = 8
+stem = "When planning rack depth, a common mistake is forgetting:"
+choices = [
+  "Cable bend radius, PDU placement, rail adjustability, and rear clearance for service",
+  "That servers have zero depth",
+  "That doors never need to open",
+  "That nameplates never list dimensions"
+]
+correct = "A"
+explanation = "Depth planning fails when cables, PDUs, and service clearances are ignored."
+topic_ids = ["m08-dimensions", "m08-types"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

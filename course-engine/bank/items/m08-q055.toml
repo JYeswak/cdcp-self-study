@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q055"
+module = 8
+stem = "Metered rack PDUs help operations mainly by:"
+choices = [
+  "Removing branch circuit breakers upstream",
+  "Providing load visibility for capacity management and avoiding silent overload",
+  "Eliminating phase balance concerns",
+  "Making grounding optional",
+]
+correct = "B"
+explanation = "Metering supports capacity and change control at the rack."
+topic_ids = ["m08-power-strips"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

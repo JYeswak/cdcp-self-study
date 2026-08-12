@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q129"
+module = 9
+stem = "Perimeter CRAC/CRAH layout with raised floor commonly supplies air:"
+choices = [
+  "Only from the ceiling into hot aisles exclusively",
+  "Underfloor into cold aisles via perforated tiles or grilles",
+  "Directly into diesel day tanks",
+  "Only through battery rooms"
+]
+correct = "B"
+explanation = "Classic underfloor supply: CRAH discharges to plenum; perforated tiles deliver cold air to cold aisles."
+topic_ids = ["m09-system-types", "m09-raised-floor-cooling"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

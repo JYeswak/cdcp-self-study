@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q041"
+module = 8
+stem = "The “19-inch” rack standard primarily specifies:"
+choices = [
+  "The horizontal mounting flange spacing for equipment ears—not the cabinet’s outer width",
+  "The outer width of every cabinet footprint worldwide",
+  "Exactly 19 kW per rack",
+  "Only two-post telecom frames",
+]
+correct = "A"
+explanation = "19″ is mounting rail spacing (EIA-310 / IEC 60297 family), not outer cabinet width."
+topic_ids = ["m08-standards", "m08-dimensions"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

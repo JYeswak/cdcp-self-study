@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m04-q206"
+module = 4
+stem = "Perforated or grillage tiles are placed with intent in cooling design so that:"
+choices = [
+  "Supply air is delivered where cold aisles and equipment inlets need it, not randomly for looks",
+  "Every hot aisle is flooded with cold air preferentially",
+  "Return air is forced under the floor always",
+  "Cable cutouts are unnecessary anywhere"
+]
+correct = "A"
+explanation = "Airflow tiles are part of the cooling distribution design, not decoration."
+topic_ids = ["m04-cooling-impact", "m04-guidelines"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

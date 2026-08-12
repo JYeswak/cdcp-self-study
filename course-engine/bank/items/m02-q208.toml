@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m02-q208"
+module = 2
+stem = "A practical CDCP takeaway on the standards landscape is to:"
+choices = [
+  "Memorize every clause number of every series before day one on site",
+  "Ignore all documents outside one country",
+  "Know major families (TIA/Uptime naming, ISO/IEC 22237, EN 50600, codes) and when each applies",
+  "Assume one brochure covers power, cooling, fire, and security completely"
+]
+correct = "C"
+explanation = "Operators need map-level literacy of which framework applies—not clause memorization of all series."
+topic_ids = ["m02-standards-guidelines", "m02-iso22237-series", "m02-en50600-series"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

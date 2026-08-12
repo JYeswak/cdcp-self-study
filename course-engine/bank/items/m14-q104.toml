@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q104"
+module = 14
+stem = "Which system most typically implements chiller lead/lag sequences and chilled-water setpoint control?"
+choices = [
+  "EMS environmental probes only",
+  "DCIM asset inventory alone",
+  "Fire alarm control panel logic",
+  "BMS/BAS plant control"
+]
+correct = "D"
+explanation = "BMS/BAS owns building plant sequences and setpoints; EMS senses space; DCIM manages capacity/assets."
+topic_ids = ["m14-bms"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

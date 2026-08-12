@@ -1,0 +1,47 @@
+{
+  "wave": "L3",
+  "name": "GradeExact",
+  "outcome": "pass",
+  "date": "2026-08-11",
+  "constitution": {
+    "charter": "CHARTER.md \u00a71 shipped means (3) byte-identical grade report",
+    "oracle": "docs/ORACLE-GAUNTLET.md L3",
+    "floor": 0,
+    "llm_grade": false
+  },
+  "bank_hash": "4c3c62a2aa1bba039ab966f33bb54d6d3babe836daf511a2e01a7728e7229d48",
+  "goldens": [
+    "mock40_seed42_all_correct.sha256",
+    "mock40_seed42_all_wrong.sha256",
+    "bank_hash.txt"
+  ],
+  "fixture": "goldens/fixtures/mock40_seed42.json",
+  "seed": 42,
+  "gates": {
+    "cargo_test_locked": true,
+    "goldens_check": true,
+    "known_bad_flipped_golden_red": true,
+    "check_sh_wires_goldens": true
+  },
+  "oq": {
+    "OQ-02": "VERIFIED",
+    "OQ-03": "VERIFIED"
+  },
+  "beads": [
+    "bd-1kk",
+    "bd-286",
+    "bd-1f8",
+    "bd-b09",
+    "bd-1kl",
+    "bd-2s2",
+    "bd-23s",
+    "bd-3mt"
+  ],
+  "non_claims": [
+    "Not browser WASM dual-path (L4)",
+    "Not product shipped (needs L5 UI)",
+    "Study signal 27/40 is not EPI certification"
+  ],
+  "all_correct_digest": "b77b34c2ceb5fa5771df4f95f1ef0f0f1919ec55efe21171d38b918d844114a8",
+  "all_wrong_digest": "e2f22955262ccfdb861ea698bfb5529dd2cafdfbe90d7f59f840ce229ca48e49"
+}

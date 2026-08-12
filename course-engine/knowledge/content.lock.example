@@ -1,0 +1,8 @@
+# Example content.lock (L7 optional; schema for L3 OQ-03)
+# After bank freeze: cargo run -p cdcp_cli -- bank-hash > value for bank_hash
+
+schema_version = 1
+canonical = "cdcp-bank-v1"
+hash_alg = "sha256"
+# bank_hash = "<hex from: cargo run -p cdcp_cli -- bank-hash>"
+# knowledge_hash = "<optional later>"

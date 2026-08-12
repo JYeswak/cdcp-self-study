@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q094"
+module = 13
+stem = "Lockout/Tagout (LOTO) is primarily a safety practice to:"
+choices = [
+  "Badge-share during maintenance",
+  "De-energize equipment and apply physical locks/tags before work so energy cannot be restored unexpectedly",
+  "Replace all CCTV with mirrors",
+  "Increase mantrap throughput"
+]
+correct = "B"
+explanation = "LOTO is electrical/mechanical energy control—not merely an access-control policy."
+topic_ids = ["m13-safety-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

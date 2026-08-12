@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q131"
+module = 14
+stem = "After raised-floor work, leak ropes should be:"
+choices = [
+  "Assumed intact without testing",
+  "Removed permanently to speed airflow",
+  "Verified reconnected and tested to avoid false negatives from cable breaks",
+  "Replaced with cardboard dams only"
+]
+correct = "C"
+explanation = "Floor work commonly breaks or disconnects sensing cable—retest is mandatory ops hygiene."
+topic_ids = ["m14-leak", "m14-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

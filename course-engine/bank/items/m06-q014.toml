@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q14"
+module = 6
+stem = "An STS is preferred over a mechanical ATS when the design need is:"
+choices = [
+  "Slow generator start only",
+  "Very fast transfer between two synchronized/toleranced live AC sources",
+  "Manual weekly switching with a wrench",
+  "Only DC bus switching",
+]
+correct = "B"
+explanation = "An STS provides very fast solid-state transfer between two live, synchronized AC sources."
+topic_ids = ["m06-ats-sts"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

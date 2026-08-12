@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m03-q204"
+module = 3
+stem = "Seismic and geotechnical risk assessment for a candidate site is important because:"
+choices = [
+  "Ground motion and soil conditions influence structural design, equipment anchorage, and outage risk",
+  "Seismic zones never affect data centres",
+  "Only network latency depends on soil type",
+  "Geotech reports only serve landscaping"
+]
+correct = "A"
+explanation = "Structure and equipment survival under ground motion depend on site geotech and seismic design."
+topic_ids = ["m03-site-selection", "m03-facility-criteria"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

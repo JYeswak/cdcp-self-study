@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q128"
+module = 4
+stem = "Which is a general raised-floor guideline for day-2 operations?"
+choices = [
+  "Remove tiles freely without airflow review",
+  "Never bond metallic structures",
+  "Ignore concentrated loads if uniform rating is high",
+  "Control openings, manage cable bulk, and respect load ratings during moves",
+]
+correct = "D"
+explanation = "Operational discipline preserves structural and airflow design intent."
+topic_ids = ["m04-guidelines", "m04-loading"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

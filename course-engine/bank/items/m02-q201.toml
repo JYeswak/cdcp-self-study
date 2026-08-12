@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m02-q201"
+module = 2
+stem = "TIA-942 “Rated” language versus Uptime Institute “Tier” language should be treated as:"
+choices = [
+  "Identical trademark-free synonyms usable interchangeably in contracts without care",
+  "Irrelevant to any design conversation",
+  "Only about cabling colors",
+  "Related resilience concepts that must not be mixed as if they were the same certification scheme"
+]
+correct = "D"
+explanation = "Both address resilience classes, but they are distinct programs/terminology—do not conflate them."
+topic_ids = ["m02-tia-vs-uptime"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

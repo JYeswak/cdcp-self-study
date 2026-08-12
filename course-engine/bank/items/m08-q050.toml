@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q050"
+module = 8
+stem = "Rack-level security (locks, side panels, door contacts) should be understood as:"
+choices = [
+  "A complete substitute for room access control",
+  "Unnecessary in multi-tenant colo",
+  "A last-resort zone and compliance control within layered facility security",
+  "Only cosmetic",
+]
+correct = "C"
+explanation = "Cabinet locks layer on top of room/cage controls—they do not replace them."
+topic_ids = ["m08-security"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

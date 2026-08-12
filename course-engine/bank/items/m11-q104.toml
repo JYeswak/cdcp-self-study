@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q104"
+module = 11
+stem = "In TIA-style topology awareness, an HDA is best described as:"
+choices = [
+  "A horizontal distribution area serving equipment in a zone or hall segment",
+  "The only place carriers may enter a campus",
+  "A type of immersion tank",
+  "A generator paralleling switchgear lineup"
+]
+correct = "A"
+explanation = "HDA (Horizontal Distribution Area) distributes connectivity outward from the main distribution concept to equipment zones."
+topic_ids = ["m11-tia942-topology"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

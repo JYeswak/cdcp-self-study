@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q083"
+module = 13
+stem = "Multi-factor physical access on high zones commonly combines:"
+choices = [
+  "Two cameras facing each other only",
+  "Shared generic contractor PIN posted on the door",
+  "Badge plus PIN or badge plus biometric",
+  "Unlocked doors during business hours only"
+]
+correct = "C"
+explanation = "Something you have + know/are raises assurance on white-space and critical plant."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

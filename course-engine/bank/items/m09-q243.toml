@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q243"
+module = 9
+stem = "Return-air path design matters because CRAH or CRAC performance depends on:"
+choices = [
+  "Only the color of return grilles",
+  "Fiber cable category",
+  "Capturing warm air efficiently so coils see expected temperatures and flow",
+  "STS transfer time only"
+]
+correct = "C"
+explanation = "Units need a proper return stream to operate as designed."
+topic_ids = ["m09-principles", "m09-system-types"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

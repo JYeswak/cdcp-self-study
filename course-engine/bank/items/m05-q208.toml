@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m05-q208"
+module = 5
+stem = "Color rendering and glare control matter in technical spaces because technicians need to:"
+choices = [
+  "Read labels, indicators, and workmanship details accurately without eye strain",
+  "Ignore labels and wire colors completely",
+  "Maximize reflective glare on LCD screens as a feature",
+  "Work only by flashlight permanently"
+]
+correct = "A"
+explanation = "Quality of light affects error rates in maintenance and operations—not only raw lux numbers."
+topic_ids = ["m05-measurements", "m05-standards"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

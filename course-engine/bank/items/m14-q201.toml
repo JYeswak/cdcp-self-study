@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m14-q201"
+module = 14
+stem = "Environmental Monitoring Systems (EMS) typically focus on:"
+choices = [
+  "Only stock prices",
+  "Temperature, humidity, leaks, and related facility environment points that threaten IT",
+  "Only application code deploys",
+  "Only outdoor traffic cameras"
+]
+correct = "B"
+explanation = "EMS watches the physical environment that makes IT survivable."
+topic_ids = ["m14-ems"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

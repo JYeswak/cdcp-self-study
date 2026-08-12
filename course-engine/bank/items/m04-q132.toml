@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q132"
+module = 4
+stem = "Using the ceiling plenum as a return path requires attention to:"
+choices = [
+  "Only paint sheen",
+  "Storing cardboard above tiles routinely",
+  "Ignoring all mechanical coordination",
+  "Fire separations, leakage, cleanliness, and coordination with detection/suppression design",
+]
+correct = "D"
+explanation = "Return plenums interact with fire and contamination controls—not just airflow convenience."
+topic_ids = ["m04-suspended-ceiling", "m04-cooling-impact"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

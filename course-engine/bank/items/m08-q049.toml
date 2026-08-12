@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q049"
+module = 8
+stem = "Blanking unused U-space mainly:"
+choices = [
+  "Prevents bypass airflow and improves containment effectiveness",
+  "Increases random mixing for comfort cooling",
+  "Removes need for CRAC filters",
+  "Grounds the cabinet automatically",
+]
+correct = "A"
+explanation = "Blanking stops air bypass around IT equipment."
+topic_ids = ["m08-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

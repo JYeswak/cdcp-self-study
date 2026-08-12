@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q115"
+module = 9
+stem = "Why might a designer intentionally raise cold-aisle temperature within an accepted envelope?"
+choices = [
+  "To force more latent dehumidification always",
+  "Because higher temperature always reduces IT power to zero",
+  "To dry out batteries faster",
+  "To improve cooling efficiency / economizer hours while respecting equipment guidance"
+]
+correct = "D"
+explanation = "Higher supply/inlet temperatures (within guidance) can cut mechanical cooling energy and extend free cooling—balanced against reliability."
+topic_ids = ["m09-ashrae-envelopes", "m09-temp-humidity"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

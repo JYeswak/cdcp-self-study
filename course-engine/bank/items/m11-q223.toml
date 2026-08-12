@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q223"
+module = 11
+stem = "Alien crosstalk concerns rise in dense copper bundles at high categories because:"
+choices = [
+  "Noise from neighboring cables can impair high-speed channels",
+  "Alien crosstalk only affects fiber",
+  "It only happens outdoors",
+  "It improves insertion loss"
+]
+correct = "A"
+explanation = "High-speed copper is sensitive to noise from adjacent cables."
+topic_ids = ["m11-copper"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

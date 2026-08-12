@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q204"
+module = 11
+stem = "Site-to-site connectivity planning should consider:"
+choices = [
+  "Only the color of patch cords",
+  "Carrier diversity, entrance facility separation, and pathway risk—not only port speed",
+  "Only indoor copper length",
+  "Only UPS brand"
+]
+correct = "B"
+explanation = "External connectivity risk is as much pathway and carrier as interface speed."
+topic_ids = ["m11-site-to-site", "m11-planning"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q087"
+module = 13
+stem = "Fail-secure locking on power loss means the lock:"
+choices = [
+  "Always unlocks for convenience",
+  "Turns off all CCTV",
+  "Remains locked (often used to protect entry from the unsecured side) while listed free egress from the secure side must still exist",
+  "Requires no mechanical exit path ever"
+]
+correct = "C"
+explanation = "Fail-secure protects perimeter entry on power loss; egress side still needs free-exit design."
+topic_ids = ["m13-safety-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

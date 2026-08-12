@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q074"
+module = 12
+stem = "Fire doors and rated barriers protect compartmentation; propping them open during ops:"
+choices = [
+  "Is always acceptable if cameras watch the door",
+  "Defeats fire compartmentation and is a serious life-safety/security failure mode",
+  "Improves ASD sampling automatically",
+  "Is required for mantrap interlocks"
+]
+correct = "B"
+explanation = "Rated doors must remain functional; propping is a classic fire and security defect."
+topic_ids = ["m12-best-practices", "m12-signage"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

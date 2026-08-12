@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q110"
+module = 9
+stem = "Air bypass (as opposed to recirculation) typically means:"
+choices = [
+  "Hot exhaust re-entering server inlets",
+  "Complete liquid immersion of servers",
+  "Cold supply air returning to cooling units without passing through IT loads",
+  "Loss of utility power only"
+]
+correct = "C"
+explanation = "Bypass wastes cold air around IT (open tiles, gaps); recirculation is hot air contamination of intakes."
+topic_ids = ["m09-principles", "m09-raised-floor-cooling"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

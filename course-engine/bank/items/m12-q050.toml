@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q050"
+module = 12
+stem = "Clean-agent or inert gas total flooding depends critically on:"
+choices = [
+  "Matching cylinder paint color to brand guidelines only",
+  "Enclosure integrity and designed agent hold time",
+  "Using cardboard to seal cable penetrations temporarily",
+  "Disabling EXIT signs to save power"
+]
+correct = "B"
+explanation = "Leakage paths defeat gaseous systems; room integrity testing and hold time are non-negotiable."
+topic_ids = ["m12-gas-suppression", "m12-suppression-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

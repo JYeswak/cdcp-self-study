@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q071"
+module = 12
+stem = "When a fire protection system is offline for maintenance, best practice includes:"
+choices = [
+  "Leaving it impaired indefinitely with no tags",
+  "Propping all fire doors open for convenience",
+  "Impairment tags, logging, and compensatory measures such as fire watch per policy/code",
+  "Muting EXIT signs"
+]
+correct = "C"
+explanation = "Impairments elevate risk and require formal controls and compensatory measures."
+topic_ids = ["m12-best-practices", "m12-regulatory", "m12-signage"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

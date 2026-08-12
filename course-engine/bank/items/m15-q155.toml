@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q155"
+module = 15
+stem = "Mixing cleaning chemicals or using conductive liquids carelessly near IT and electrical gear is hazardous because it can:"
+choices = [
+  "Only improve PUE",
+  "Automatically improve labels",
+  "Cause equipment damage, residues, and electrical safety incidents",
+  "Raise MTBF by definition"
+]
+correct = "C"
+explanation = "Cleaning is controlled work near energized systems—methods and chemistry matter."
+topic_ids = ["m15-cleaning", "m15-ops-security"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

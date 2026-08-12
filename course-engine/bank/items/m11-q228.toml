@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q228"
+module = 11
+stem = "Bonded and grounded metallic cable pathways, as applicable, support:"
+choices = [
+  "Automatic category upgrades",
+  "Safety and EMI control for metallic pathways—not a substitute for structured testing",
+  "Optical loss budgets only",
+  "Fire agent concentration"
+]
+correct = "B"
+explanation = "Pathway bonding is electrical safety and EMI hygiene, separate from cable tests."
+topic_ids = ["m11-planning", "m11-copper"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

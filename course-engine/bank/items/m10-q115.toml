@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q115"
+module = 10
+stem = "From a CDCP perspective, water is a critical utility for many data centres because:"
+choices = [
+  "IT servers run on water pressure alone",
+  "Water replaces electrical grounding",
+  "Network latency is determined by water hardness",
+  "Heat rejection, humidification, and sometimes fire systems depend on reliable water services"
+]
+correct = "D"
+explanation = "Water underpins cooling and other systems; treating it as non-critical is an availability mistake for water-dependent plants."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

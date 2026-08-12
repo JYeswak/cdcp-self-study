@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m05-q150"
+module = 5
+stem = "Selecting lighting controls (zoning/occupancy) in a data hall should avoid:"
+choices = [
+  "Thoughtful energy savings in low-occupancy support areas",
+  "Documenting control intent",
+  "Coordinating with emergency lighting design",
+  "Darkening egress paths or creating unsafe work conditions on live equipment aisles without a safety review",
+]
+correct = "D"
+explanation = "Controls must not compromise safe working light or life-safety egress illumination design."
+topic_ids = ["m05-fixtures", "m05-emergency", "m05-standards"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

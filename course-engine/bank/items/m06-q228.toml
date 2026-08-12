@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q228"
+module = 6
+stem = "Infrared thermography under load finds value mainly when it:"
+choices = [
+  "Reveals hot connections or overloaded components before failure",
+  "Measures network packet loss",
+  "Certifies fiber length",
+  "Sets humidity automatically"
+]
+correct = "A"
+explanation = "IR scanning finds thermal anomalies on energized gear as early warning."
+topic_ids = ["m06-thermo"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

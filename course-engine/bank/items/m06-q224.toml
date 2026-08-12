@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q224"
+module = 6
+stem = "Harmonic-rich nonlinear IT loads raise concern for transformers and generators because they can:"
+choices = [
+  "Increase heating, de-rate capacity, and stress neutral conductors",
+  "Always reduce losses to zero",
+  "Convert the site to DC distribution automatically",
+  "Improve wet stacking"
+]
+correct = "A"
+explanation = "Harmonics create extra heating and may force de-rating of magnetics and gensets."
+topic_ids = ["m06-power-quality", "m06-transformers", "m06-sizing"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q089"
+module = 6
+stem = "If BESS is proposed for both UPS-class ride-through and grid services, the safe design stance is:"
+choices = [
+  "Roles must be engineered and coordinated—not assumed interchangeable by marketing",
+  "One string always does everything without controls",
+  "Disable all UPS modules immediately",
+  "Ignore utility interconnection agreements",
+]
+correct = "A"
+explanation = "Dual-purpose storage requires deliberate controls, protection, and contractual design."
+topic_ids = ["m06-bess", "m06-ups"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

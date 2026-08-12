@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m02-q202"
+module = 2
+stem = "ISO/IEC 22237 series awareness for CDCP-level study mainly means recognizing that:"
+choices = [
+  "It is a multi-part international framework addressing data centre facilities and infrastructures",
+  "It replaces every national electrical code worldwide",
+  "It only covers office lighting aesthetics",
+  "It is a proprietary single-vendor product manual"
+]
+correct = "A"
+explanation = "22237 is an international series on DC facilities/infrastructures; it does not erase local codes."
+topic_ids = ["m02-iso22237-series", "m02-standards-guidelines"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

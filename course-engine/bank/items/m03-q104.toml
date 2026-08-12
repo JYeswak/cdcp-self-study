@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m03-q104"
+module = 3
+stem = "Inadequate staging and loading docks most often hurt operations by:"
+choices = [
+  "Improving change success rates",
+  "Increasing dual-utility diversity",
+  "Creating unsafe equipment moves, delayed installs, and blocked emergency paths during receiving",
+  "Raising ceiling clear height automatically",
+]
+correct = "C"
+explanation = "Poor logistics spaces create handling risk and operational friction for installs and maintenance."
+topic_ids = ["m03-supporting-facilities"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 7)
+id = "m07-q049"
+module = 7
+stem = "EMI means:"
+choices = [
+  "A type of raised floor pedestal",
+  "Unwanted electromagnetic energy that degrades a victim circuit’s performance",
+  "Emergency management inventory only",
+  "Exactly the same as intentional EMP hardening certification",
+]
+correct = "B"
+explanation = "EMI is interference; EMC is the compatibility discipline."
+topic_ids = ["m07-types"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

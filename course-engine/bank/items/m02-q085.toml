@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q085"
+module = 2
+stem = "Which pair correctly associates series awareness with region/context (at a high level)?"
+choices = [
+  "EN 50600 → only U.S. NEC article; ISO 22237 → only diesel ASTM grade",
+  "EN 50600 → commonly European context; ISO/IEC 22237 → international series awareness",
+  "Both only apply to residential attics",
+  "Neither ever appears in data centre RFPs",
+]
+correct = "B"
+explanation = "EN 50600 is European-series awareness; ISO/IEC 22237 is the international facilities series awareness."
+topic_ids = ["m02-en50600-series", "m02-iso22237-series", "m02-intl-vs-national"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

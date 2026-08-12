@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q221"
+module = 11
+stem = "Pre-terminated trunking systems are often chosen to:"
+choices = [
+  "Eliminate all polarity concerns forever without design",
+  "Avoid any labeling",
+  "Speed deployment and improve factory-controlled quality, still requiring field verification",
+  "Replace backbone design rules"
+]
+correct = "C"
+explanation = "Factory trunks help quality and speed but still need field validation."
+topic_ids = ["m11-fibre", "m11-planning", "m11-testing"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q221"
+module = 6
+stem = "Overhead busway is selected in a dense hall primarily to:"
+choices = [
+  "Replace all UPS systems",
+  "Support flexible, reconfigurable power delivery with reduced underfloor congestion",
+  "Eliminate fire detection needs",
+  "Provide humidification"
+]
+correct = "B"
+explanation = "Busway enables modular taps and keeps high-amp distribution out of crowded floor plenums."
+topic_ids = ["m06-distribution"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

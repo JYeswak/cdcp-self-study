@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q244"
+module = 6
+stem = "If all A-side and B-side feeds route through one congested pathway or room, a single event can:"
+choices = [
+  "Defeat intended dual-path diversity despite dual-corded servers",
+  "Guarantee concurrent maintainability",
+  "Improve isolation of failures",
+  "Only affect humidity"
+]
+correct = "A"
+explanation = "Physical concentration creates common-mode failure even with dual cords."
+topic_ids = ["m06-redundancy", "m06-distribution"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

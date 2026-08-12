@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q086"
+module = 6
+stem = "VRLA batteries in UPS rooms are commonly chosen historically for:"
+choices = [
+  "Zero maintenance forever with no monitoring",
+  "Unlimited cycle life equal to lithium always",
+  "Sealed/recombinant design trade-offs versus flooded cells (footprint, maintenance model)",
+  "Operating best at freezing temperatures only",
+]
+correct = "C"
+explanation = "VRLA vs flooded is a maintenance, space, and lifecycle trade-off—not magic."
+topic_ids = ["m06-batteries"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

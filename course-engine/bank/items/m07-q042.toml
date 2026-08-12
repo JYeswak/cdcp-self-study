@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 7)
+id = "m07-q042"
+module = 7
+stem = "Electric field strength is measured in:"
+choices = [
+  "Amperes only",
+  "Rack units (U)",
+  "PUE dimensionless only",
+  "Volts per metre (V/m)",
+]
+correct = "D"
+explanation = "E-field unit is V/m; strong near high voltage relative to local ground."
+topic_ids = ["m07-units"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

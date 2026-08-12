@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m07-q210"
+module = 7
+stem = "When unexplained equipment anomalies cluster near electrical plant, a reasoned next step is:"
+choices = [
+  "Consider EMF and power-quality investigation among other root-cause paths",
+  "Ignore location correlation forever",
+  "Immediately replace all servers without investigation",
+  "Paint the floor a different color"
+]
+correct = "A"
+explanation = "Spatial clustering near plant suggests environmental/electrical investigation—not superstition."
+topic_ids = ["m07-sources", "m07-standards"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

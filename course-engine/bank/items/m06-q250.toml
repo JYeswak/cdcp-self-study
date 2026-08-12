@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q250"
+module = 6
+stem = "A single common-mode failure in the control system that trips both UPS trains simultaneously would show that:"
+choices = [
+  "Hardware 2N makes software faults impossible",
+  "Only battery chemistry matters",
+  "Electrical 2N hardware can still share control and logic vulnerabilities",
+  "PUE prevents control faults"
+]
+correct = "C"
+explanation = "True resilience requires diversity in controls, not only power hardware copies."
+topic_ids = ["m06-redundancy", "m06-ups"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

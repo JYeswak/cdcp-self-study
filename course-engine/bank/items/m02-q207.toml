@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m02-q207"
+module = 2
+stem = "Guidelines (non-mandatory best-practice documents) differ from adopted codes in that guidelines:"
+choices = [
+  "Always carry criminal penalties",
+  "Provide recommended practice that may be adopted or referenced but are not law by themselves",
+  "Automatically supersede AHJ rulings",
+  "Are illegal to cite in design briefs"
+]
+correct = "B"
+explanation = "Guidelines advise; codes (when adopted) compel. Many good practices start as guidelines."
+topic_ids = ["m02-code-vs-standard", "m02-standards-guidelines"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

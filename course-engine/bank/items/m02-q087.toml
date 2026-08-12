@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q087"
+module = 2
+stem = "A key reason CDCP emphasizes standards literacy is to:"
+choices = [
+  "Memorize clause numbers for trivia",
+  "Communicate requirements precisely and avoid false equivalence between frameworks",
+  "Eliminate the need for engineers",
+  "Ignore local inspectors",
+]
+correct = "B"
+explanation = "Precise naming and framework literacy prevent costly contractual and design confusion."
+topic_ids = ["m02-standards-guidelines", "m02-tia-vs-uptime"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q215"
+module = 10
+stem = "Which statement best captures water’s role in many modern data centres?"
+choices = [
+  "Water can be a critical dependency for heat rejection, humidity control, and fire protection alongside electrical power",
+  "Water is irrelevant if the utility power feed is dual-path",
+  "Water is only a janitorial concern",
+  "Water quality never affects mechanical reliability"
+]
+correct = "A"
+explanation = "For water-dependent designs, water is a first-class availability input like power."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

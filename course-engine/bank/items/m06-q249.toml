@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q249"
+module = 6
+stem = "Metering at UPS output, RPP, and rack layers supports operations by:"
+choices = [
+  "Replacing the need for any labeling",
+  "Revealing where capacity is consumed and enabling balanced, evidence-based adds",
+  "Setting fire agent concentration",
+  "Defining IP grades"
+]
+correct = "B"
+explanation = "Layered metering shows real loading so capacity decisions are not guesses."
+topic_ids = ["m06-pdu", "m06-sizing", "m06-distribution"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

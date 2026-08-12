@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q208"
+module = 13
+stem = "Two-factor physical access (e.g., badge plus PIN/bio) is used to:"
+choices = [
+  "Slow only visitors but never staff",
+  "Eliminate the need for camera coverage at all portals",
+  "Replace visitor escort policies always",
+  "Reduce risk from lost/stolen single-factor credentials"
+]
+correct = "D"
+explanation = "Multi-factor physical access hardens against credential theft or loaning."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

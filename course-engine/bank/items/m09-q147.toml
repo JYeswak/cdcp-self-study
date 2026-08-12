@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q147"
+module = 9
+stem = "Ducted return or chimney systems in non-raised designs help by:"
+choices = [
+  "Mixing hot exhaust randomly across the entire room intentionally",
+  "Cooling only the UPS room forever",
+  "Increasing bypass under floor always",
+  "Guiding hot exhaust back to cooling units more directly"
+]
+correct = "D"
+explanation = "Directed returns and chimneys reduce mixing and improve capture of hot air for the cooling units."
+topic_ids = ["m09-non-raised", "m09-containment"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

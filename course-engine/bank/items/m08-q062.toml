@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q062"
+module = 8
+stem = "Hot-aisle/cold-aisle rack orientation places equipment so that:"
+choices = [
+  "All exhausts blow into the cold aisle intentionally",
+  "Side-breathing gear is preferred without design review",
+  "Front intakes face the cold supply aisle and exhausts face the hot return aisle",
+  "Racks face randomly for aesthetics",
+]
+correct = "C"
+explanation = "Front-to-rear gear faces cold aisle; exhausts feed the hot aisle."
+topic_ids = ["m08-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

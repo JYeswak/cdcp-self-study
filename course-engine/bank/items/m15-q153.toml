@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q153"
+module = 15
+stem = "When vendor SLA response time is four hours but your MTTR target is one hour, operations should:"
+choices = [
+  "Recognize contractual response may not meet internal restore goals—plan spares, skills, and bridging procedures",
+  "Ignore the mismatch",
+  "Assume the vendor teleports parts instantly",
+  "Delete the internal target"
+]
+correct = "A"
+explanation = "SLA ≠ automatic achievement of site MTTR; design around the gap."
+topic_ids = ["m15-maintenance-sla", "m15-mtbf-mttr"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

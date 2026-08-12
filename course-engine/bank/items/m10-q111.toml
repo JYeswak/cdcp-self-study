@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q111"
+module = 10
+stem = "Alternate water sources (wells, reclaimed water, dual feeds) are considered in design to:"
+choices = [
+  "Ignore availability risk",
+  "Eliminate all need for water chemistry control",
+  "Power generators directly",
+  "Improve resilience and/or sustainability of water-dependent cooling strategies"
+]
+correct = "D"
+explanation = "Diverse sources can reduce single-supplier risk and support water stewardship goals when properly treated."
+topic_ids = ["m10-backup", "m10-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

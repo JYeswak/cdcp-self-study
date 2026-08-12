@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q079"
+module = 2
+stem = "Product listing/marking expectations for electrical equipment typically come from:"
+choices = [
+  "Only internal runbooks",
+  "Product safety standards and AHJ/listing requirements—not from a facilities “tier” label alone",
+  "PUE contests",
+  "Hot-aisle poster guidelines only",
+]
+correct = "B"
+explanation = "Equipment listing and product standards are distinct from facility rating marketing language."
+topic_ids = ["m02-subcomponent-standards", "m02-code-vs-standard"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

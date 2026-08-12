@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q212"
+module = 10
+stem = "Shared campus water infrastructure with other tenants or buildings introduces risk when:"
+choices = [
+  "Isolation valves and metering are well designed",
+  "Failures or maintenance on shared mains correlate outages across users without clear isolation",
+  "Emergency procedures define coordination",
+  "Capacity is reserved contractually"
+]
+correct = "B"
+explanation = "Shared utilities need isolation and governance or they become correlated SPOFs."
+topic_ids = ["m10-importance", "m10-backup"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

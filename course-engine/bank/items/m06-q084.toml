@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q084"
+module = 6
+stem = "Selecting a higher IP rating for outdoor generator or switchgear enclosures mainly addresses:"
+choices = [
+  "Faster STS transfer times",
+  "Automatic 2N redundancy",
+  "Lower battery impedance always",
+  "Environmental dust/water exposure durability of the enclosure",
+]
+correct = "D"
+explanation = "Higher IP helps enclosure survival in harsher environments; it does not create electrical redundancy."
+topic_ids = ["m06-ip-grades", "m06-generators"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

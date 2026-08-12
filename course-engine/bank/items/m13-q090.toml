@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q090"
+module = 13
+stem = "Visitor management in restricted zones should typically include:"
+choices = [
+  "Permanent full white-space badges for all guests",
+  "ID check, temporary distinct badge, escort policy, and sign-in/out with badge return",
+  "Unlimited unescorted roaming after lobby coffee",
+  "Shared use of an employee’s badge"
+]
+correct = "B"
+explanation = "Visitors need controlled credentials and escort; shared badges destroy audit."
+topic_ids = ["m13-security-components", "m13-safety-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

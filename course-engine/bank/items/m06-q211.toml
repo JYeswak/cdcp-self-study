@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q211"
+module = 6
+stem = "A catcher UPS arrangement is best applied when:"
+choices = [
+  "Every rack must share one cord only",
+  "Generators are removed from the design",
+  "Thermography is not performed",
+  "A shared redundant UPS can backstop multiple primary UPS systems on failure"
+]
+correct = "D"
+explanation = "Isolated-redundant/catcher designs provide a shared spare UPS resource."
+topic_ids = ["m06-ups-parallel", "m06-redundancy"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

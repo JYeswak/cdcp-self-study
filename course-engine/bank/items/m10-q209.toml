@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q209"
+module = 10
+stem = "Cooling tower basin level and makeup controls are operationally important because:"
+choices = [
+  "Basin level only affects paint color",
+  "Makeup valves never fail",
+  "Loss of makeup control can force tower trip or poor thermal performance",
+  "Towers run indefinitely with zero water"
+]
+correct = "C"
+explanation = "Basin inventory is a real-time constraint on evaporative rejection."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

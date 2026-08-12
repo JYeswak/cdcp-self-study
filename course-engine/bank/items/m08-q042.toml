@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q042"
+module = 8
+stem = "One rack unit (RU/U) equals:"
+choices = [
+  "1 metre of vertical space",
+  "19 kW continuous",
+  "1.75 inches (44.45 mm) of vertical mounting space",
+  "One PDU phase",
+]
+correct = "C"
+explanation = "1U = 1.75 in / 44.45 mm."
+topic_ids = ["m08-dimensions"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

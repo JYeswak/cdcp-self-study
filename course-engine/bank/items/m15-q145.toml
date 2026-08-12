@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q145"
+module = 15
+stem = "Availability is improved not only by higher MTBF but also by:"
+choices = [
+  "Reducing MTTR through better diagnostics, spares, access, and procedures",
+  "Ignoring failures until total outage",
+  "Deleting monitoring to avoid pages",
+  "Removing all redundancy"
+]
+correct = "A"
+explanation = "Conceptual availability relates to uptime fraction—faster restore recovers lost minutes."
+topic_ids = ["m15-mtbf-mttr"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

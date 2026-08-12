@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q125"
+module = 14
+stem = "Correlation of related points (utility fail + ATS transfer + UPS on battery) before fan-out helps:"
+choices = [
+  "Present one coherent incident instead of alarm storms",
+  "Maximize duplicate texts for the same incident",
+  "Disable escalation ladders",
+  "Remove all P1 severity"
+]
+correct = "A"
+explanation = "Correlate related telemetry into incidents to protect on-call attention."
+topic_ids = ["m14-notification", "m14-alarms"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

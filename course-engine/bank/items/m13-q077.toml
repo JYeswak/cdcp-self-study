@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q077"
+module = 13
+stem = "A mantrap (security vestibule) is best described as:"
+choices = [
+  "Interlocking doors forming a controlled chamber so two doors are not open as a free path",
+  "A camera blind spot behind a rack",
+  "An emergency power-off station type",
+  "A raised-floor pedestal style"
+]
+correct = "A"
+explanation = "Mantraps interlock outer/inner doors to reduce tailgating and enable high-assurance checks."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

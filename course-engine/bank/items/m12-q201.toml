@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m12-q201"
+module = 12
+stem = "Very early smoke detection (e.g., aspirating systems) is valued in IT spaces because:"
+choices = [
+  "It extinguishes fires by vacuuming oxygen from the room completely",
+  "It replaces all suppression systems always",
+  "It can detect dilute smoke before large flaming fires develop, enabling investigation and staged response",
+  "It only monitors outdoor air pollution indexes"
+]
+correct = "C"
+explanation = "Early detection buys time—detection is not suppression."
+topic_ids = ["m12-detection"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

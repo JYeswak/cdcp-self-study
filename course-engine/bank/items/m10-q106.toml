@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q106"
+module = 10
+stem = "On-site water storage tanks for cooling support are sized conceptually against:"
+choices = [
+  "Only the number of network racks",
+  "Only indoor lux targets",
+  "Expected outage duration, makeup rates, and which plant modes need water",
+  "Fiber strand counts only"
+]
+correct = "C"
+explanation = "Backup water duration must match risk scenarios and plant water demand profiles."
+topic_ids = ["m10-backup"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

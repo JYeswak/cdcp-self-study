@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q216"
+module = 9
+stem = "In-row cooling is frequently selected when:"
+choices = [
+  "Only office areas need cooling",
+  "There is no IT heat",
+  "Generators require humidification",
+  "Heat density is high and cooling needs to be close-coupled to the aisle or rack row"
+]
+correct = "D"
+explanation = "Close-coupled in-row units target dense rows more directly than distant perimeter units."
+topic_ids = ["m09-system-types", "m09-supplemental"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

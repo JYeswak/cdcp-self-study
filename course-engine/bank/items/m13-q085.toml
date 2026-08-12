@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q085"
+module = 13
+stem = "In a conflict between asset security locks and life-safety egress on fire alarm, proper design prioritizes:"
+choices = [
+  "Free egress / code-compliant release even if that weakens asset security during the emergency",
+  "Maximum lock delay during fire to protect servers",
+  "Disabling all cameras permanently",
+  "Removing door position sensors"
+]
+correct = "A"
+explanation = "Life safety wins; maglocks release or free-exit as listed/code requires."
+topic_ids = ["m13-safety-components", "m13-security-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q064"
+module = 12
+stem = "Which ignition category is especially associated with UPS rooms and modern energy storage?"
+choices = [
+  "LED color temperature only",
+  "Raised-floor tile static alone",
+  "Fiber bend radius exclusively",
+  "Battery thermal events / energy storage hazards"
+]
+correct = "D"
+explanation = "VRLA thermal runaway and lithium energy storage create distinct fire risks needing dedicated strategies."
+topic_ids = ["m12-causes"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

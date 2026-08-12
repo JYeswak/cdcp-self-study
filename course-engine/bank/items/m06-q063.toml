@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q063"
+module = 6
+stem = "Redundant parallel (N+1) UPS modules mean:"
+choices = [
+  "Only one module may ever be online",
+  "Modules provide more than N so one can leave without dropping the load (if remaining ≥ N)",
+  "Utility feeds are optional",
+  "Parallel always equals 2N dual path",
+]
+correct = "B"
+explanation = "N+1 parallel keeps spare capacity in the parallel set; it is not automatically full dual-path 2N."
+topic_ids = ["m06-ups-parallel", "m06-redundancy"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

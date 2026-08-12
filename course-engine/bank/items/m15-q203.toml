@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q203"
+module = 15
+stem = "A maintenance contract SLA should clearly define:"
+choices = [
+  "Only the vendor logo color",
+  "That no one may ever touch equipment",
+  "Response/restore times, coverage hours, included assets, and escalation—not only a monthly price",
+  "Unlimited scope with zero measurement"
+]
+correct = "C"
+explanation = "SLAs without measurable service levels are procurement theatre."
+topic_ids = ["m15-maintenance-sla"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

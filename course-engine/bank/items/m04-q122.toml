@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q122"
+module = 4
+stem = "A poorly designed ramp transition most increases risk of:"
+choices = [
+  "Improved concurrent maintainability",
+  "Higher dual-utility diversity",
+  "Equipment tip-over, tile damage, and personnel injury during moves",
+  "Automatic code approval",
+]
+correct = "C"
+explanation = "Steep or abrupt transitions create handling and injury hazards."
+topic_ids = ["m04-ramp", "m04-loading"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

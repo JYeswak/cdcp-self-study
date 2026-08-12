@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q073"
+module = 12
+stem = "Manual pull stations are typically located so that:"
+choices = [
+  "Occupants can initiate alarm along egress paths as designed",
+  "Only security can reach them after biometric delay",
+  "They replace all automatic detection",
+  "They control only PDU branch breakers"
+]
+correct = "A"
+explanation = "Pull stations are life-safety interfaces placed for occupant use on egress, not security bottlenecks."
+topic_ids = ["m12-signage", "m12-suppression-reqs"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

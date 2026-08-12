@@ -1,0 +1,127 @@
+# domain_id → standards families (validation mode B)
+schema_version = 1
+
+[[map]]
+domain = "01-mission-critical"
+standards = [
+  { family = "iso-iec-22237", part = "1", role = "primary_family" },
+  { family = "en-50600", part = "1", role = "regional_family" },
+  { family = "epi-cdcp-syllabus", part = "01", role = "syllabus" },
+]
+
+[[map]]
+domain = "02-standards"
+standards = [
+  { family = "tia-942", part = "C", role = "primary_family" },
+  { family = "uptime-tier", part = "topology", role = "contrast_only" },
+  { family = "iso-iec-22237", part = "1", role = "primary_family" },
+  { family = "en-50600", part = "1", role = "regional_family" },
+  { family = "epi-cdcp-syllabus", part = "02", role = "syllabus" },
+]
+
+[[map]]
+domain = "03-site-building"
+standards = [
+  { family = "iso-iec-22237", part = "2", role = "primary_family" },
+  { family = "en-50600", part = "2-1", role = "regional_family" },
+  { family = "tia-942", part = "site-architecture", role = "primary_family" },
+]
+
+[[map]]
+domain = "04-floor-ceiling"
+standards = [
+  { family = "iso-iec-22237", part = "2", role = "primary_family" },
+  { family = "en-50600", part = "2-1", role = "regional_family" },
+  { family = "tia-942", part = "architecture", role = "primary_family" },
+]
+
+[[map]]
+domain = "05-lighting"
+standards = [
+  { family = "iso-iec-22237", part = "4", role = "supporting" },
+  { family = "en-50600", part = "2-3", role = "supporting" },
+  { family = "epi-cdcp-syllabus", part = "05", role = "syllabus" },
+]
+
+[[map]]
+domain = "06-power"
+standards = [
+  { family = "iso-iec-22237", part = "3", role = "primary_family" },
+  { family = "en-50600", part = "2-2", role = "regional_family" },
+  { family = "nfpa", part = "110", role = "code_adjacent" },
+  { family = "ashrae-tc99", part = "power-equipment-whitepaper", role = "free_primary" },
+  { family = "tia-942", part = "electrical", role = "primary_family" },
+]
+
+[[map]]
+domain = "07-emf"
+standards = [
+  { family = "epi-cdcp-syllabus", part = "07", role = "syllabus" },
+  { family = "iso-iec-22237", part = "3", role = "supporting" },
+]
+
+[[map]]
+domain = "08-racks"
+standards = [
+  { family = "tia-942", part = "architecture", role = "primary_family" },
+  { family = "iso-iec-22237", part = "2", role = "supporting" },
+  { family = "ocp", part = "rack", role = "optional" },
+]
+
+[[map]]
+domain = "09-cooling"
+standards = [
+  { family = "ashrae-tc99", part = "thermal-guidelines", role = "primary_family" },
+  { family = "iso-iec-22237", part = "4", role = "primary_family" },
+  { family = "en-50600", part = "2-3", role = "regional_family" },
+  { family = "tia-942", part = "mechanical", role = "primary_family" },
+]
+
+[[map]]
+domain = "10-water"
+standards = [
+  { family = "iso-iec-22237", part = "4", role = "primary_family" },
+  { family = "en-50600", part = "2-3", role = "regional_family" },
+  { family = "epi-cdcp-syllabus", part = "10", role = "syllabus" },
+]
+
+[[map]]
+domain = "11-network"
+standards = [
+  { family = "iso-iec-22237", part = "5", role = "primary_family" },
+  { family = "en-50600", part = "2-4", role = "regional_family" },
+  { family = "tia-942", part = "telecom", role = "primary_family" },
+]
+
+[[map]]
+domain = "12-fire"
+standards = [
+  { family = "nfpa", part = "75", role = "code_adjacent" },
+  { family = "nfpa", part = "76", role = "code_adjacent" },
+  { family = "tia-942", part = "fire", role = "primary_family" },
+  { family = "iso-iec-22237", part = "6", role = "supporting" },
+]
+
+[[map]]
+domain = "13-security"
+standards = [
+  { family = "iso-iec-22237", part = "6", role = "primary_family" },
+  { family = "en-50600", part = "2-5", role = "regional_family" },
+  { family = "tia-942", part = "security", role = "primary_family" },
+]
+
+[[map]]
+domain = "14-auxiliary"
+standards = [
+  { family = "iso-iec-22237", part = "7", role = "primary_family" },
+  { family = "en-50600", part = "3-1", role = "regional_family" },
+  { family = "epi-cdcp-syllabus", part = "14", role = "syllabus" },
+]
+
+[[map]]
+domain = "15-ops-adjacent"
+standards = [
+  { family = "iso-iec-22237", part = "7", role = "primary_family" },
+  { family = "en-50600", part = "3-1", role = "regional_family" },
+  { family = "ocp", part = "facility-ready", role = "optional" },
+]

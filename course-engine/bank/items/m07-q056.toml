@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 7)
+id = "m07-q056"
+module = 7
+stem = "Prefer fibre for long or noise-prone runs is an EMF-aware practice because:"
+choices = [
+  "Fibre requires no pathway planning",
+  "Fibre removes all need for bonding at equipment",
+  "Optical links are immune to magnetic induction the way copper loops are not",
+  "Fibre increases ELF B-fields",
+]
+correct = "C"
+explanation = "Media choice is part of the mitigation hierarchy for noisy environments."
+topic_ids = ["m07-shielding"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

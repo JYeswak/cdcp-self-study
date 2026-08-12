@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m01-q052"
+module = 1
+stem = "The “elements of a data centre” concept emphasizes that IT equipment alone is insufficient because:"
+choices = [
+  "IT depends on concurrent power, cooling, connectivity, and life-safety support systems",
+  "Software never fails",
+  "Racks do not need grounding",
+  "Cabling is optional in modern designs",
+]
+correct = "A"
+explanation = "IT loads require simultaneous supporting systems; failure of any critical support can take services offline."
+topic_ids = ["m01-elements"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

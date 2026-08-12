@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q109"
+module = 9
+stem = "Which best describes recirculation as a cooling airflow problem?"
+choices = [
+  "Cold supply air short-cycling back to CRAH without cooling IT",
+  "Hot exhaust mixing back into IT intakes instead of returning cleanly",
+  "Perfect isolation of hot and cold streams",
+  "Only a generator exhaust issue"
+]
+correct = "B"
+explanation = "Recirculation is hot exhaust re-entering intakes, elevating inlet temperatures; bypass is unused cold air short-cycling."
+topic_ids = ["m09-principles", "m09-containment"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

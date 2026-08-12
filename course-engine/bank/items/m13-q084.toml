@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q084"
+module = 13
+stem = "Anti-passback rules are intended to:"
+choices = [
+  "Cool the hot aisle automatically",
+  "Replace fire extinguishers",
+  "Increase UPS runtime",
+  "Reduce badge sharing and enforce enter/exit sequencing"
+]
+correct = "D"
+explanation = "Hard/soft anti-passback limits re-entry without recorded exit, fighting shared badges and some tailgate patterns."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

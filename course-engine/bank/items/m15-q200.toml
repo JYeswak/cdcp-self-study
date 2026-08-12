@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q200"
+module = 15
+stem = "Consistent labelling of power circuits, network ports, and assets primarily reduces:"
+choices = [
+  "The need for any documentation",
+  "Fire detection coverage needs",
+  "Utility entrance diversity",
+  "Mean time to identify and correct wiring/connectivity mistakes during incidents and changes"
+]
+correct = "D"
+explanation = "Labels cut human latency and error in live systems."
+topic_ids = ["m15-labelling"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

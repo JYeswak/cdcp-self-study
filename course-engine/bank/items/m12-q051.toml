@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q051"
+module = 12
+stem = "Compared with water sprinklers, gaseous clean-agent systems typically trade reduced water damage for:"
+choices = [
+  "No need for any life-safety egress planning",
+  "Elimination of all AHJ involvement",
+  "Room sealability, pre-discharge alarms/delays, HVAC interlock, and costly refill after discharge",
+  "Free unlimited discharges with zero downtime"
+]
+correct = "C"
+explanation = "Gas systems need integrity, egress timing, HVAC/damper interlocks, and agent logistics after use."
+topic_ids = ["m12-gas-suppression", "m12-water-suppression"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

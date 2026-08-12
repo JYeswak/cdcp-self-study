@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q114"
+module = 11
+stem = "Permanent link versus channel testing awareness means:"
+choices = [
+  "Only patch cords are ever tested",
+  "Testing is optional if cables look neat",
+  "Certification may distinguish fixed cabling (permanent link) from the complete channel including equipment cords",
+  "Only outdoor plant needs tests"
+]
+correct = "C"
+explanation = "Test configuration matters; standards-aware practice defines what is included in permanent link versus channel measurements."
+topic_ids = ["m11-testing"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

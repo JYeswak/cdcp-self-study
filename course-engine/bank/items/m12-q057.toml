@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q057"
+module = 12
+stem = "In common North American labeling, Class C relates primarily to:"
+choices = [
+  "Energized electrical equipment",
+  "Combustible metals only",
+  "Cooking oils in kitchens only",
+  "Ordinary paper and wood exclusively"
+]
+correct = "A"
+explanation = "US/NFPA-style Class C addresses energized electrical equipment; de-energize when safe, then treat residual fuels."
+topic_ids = ["m12-classes"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q061"
+module = 6
+stem = "UPS autonomy time is primarily sized to:"
+choices = [
+  "Cover generator start, transfer, and policy margin at design load",
+  "Run IT for weeks without generators or fuel",
+  "Eliminate the need for power quality monitoring",
+  "Heat the battery room intentionally",
+]
+correct = "A"
+explanation = "Minutes-class runtime bridges genset start/transfer (plus margin); load growth shortens real autonomy."
+topic_ids = ["m06-ups", "m06-batteries"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

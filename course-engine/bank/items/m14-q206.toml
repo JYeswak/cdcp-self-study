@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m14-q206"
+module = 14
+stem = "Notification paths (SMS, call tree, tickets) fail operationally when:"
+choices = [
+  "They are tested and have on-call rotations",
+  "Escalation is documented",
+  "They rely on a single person, untested call lists, or channels that do not work during the same outage",
+  "Duplicates are deduplicated thoughtfully"
+]
+correct = "C"
+explanation = "Notification resilience needs diversity, testing, and escalation—not hope."
+topic_ids = ["m14-notification", "m14-best-practices"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

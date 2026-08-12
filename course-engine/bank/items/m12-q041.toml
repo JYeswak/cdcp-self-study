@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q041"
+module = 12
+stem = "Aspirating smoke detection (ASD) is especially useful in data halls because high airflow tends to:"
+choices = [
+  "Dilute smoke so spot detectors may alarm later than desired",
+  "Concentrate smoke into one ceiling corner only",
+  "Eliminate all electrical ignition sources",
+  "Replace the need for egress signage"
+]
+correct = "A"
+explanation = "High air-change rates dilute smoke; ASD samples continuously at very low concentrations for earlier warning."
+topic_ids = ["m12-detection"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

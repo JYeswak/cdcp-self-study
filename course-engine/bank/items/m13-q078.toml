@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q078"
+module = 13
+stem = "Mantraps primarily reduce which casual security bypass?"
+choices = [
+  "UPS firmware exploits",
+  "Tailgating / piggybacking through a single open portal",
+  "Fiber macrobend loss",
+  "PUE calculation errors"
+]
+correct = "B"
+explanation = "Interlocked chambers stop unauthorized persons following authorized staff through one door."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

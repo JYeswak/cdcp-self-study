@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q205"
+module = 10
+stem = "A diversified water strategy might include:"
+choices = [
+  "Single municipal tap with no isolation valves ever",
+  "Ignoring drought restrictions in planning",
+  "On-site storage, alternate feeds where available, and operational conservation modes during shortage",
+  "Draining all storage to maximize truck traffic daily"
+]
+correct = "C"
+explanation = "Resilience combines storage, alternate supply where feasible, and load/process flexibility."
+topic_ids = ["m10-backup", "m10-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m03-q210"
+module = 3
+stem = "Climate extremes (temperature, humidity, snow load, wind) influence site and facility criteria mainly by driving:"
+choices = [
+  "Only interior paint selection",
+  "Automatic exemption from standards",
+  "Envelope, cooling plant sizing envelopes, and outdoor equipment survival requirements",
+  "Whether copper or fibre may be used indoors"
+]
+correct = "C"
+explanation = "Outdoor design conditions shape envelope and heat-rejection plant design."
+topic_ids = ["m03-facility-criteria", "m03-site-selection"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

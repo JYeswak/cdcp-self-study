@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q055"
+module = 12
+stem = "Water mist systems aim to suppress fire with fine droplets that:"
+choices = [
+  "Always replace detection entirely",
+  "Are identical to wet-pipe accidental leaks",
+  "Cool and help control fire with less total water volume than traditional sprinklers (engineered specialty)",
+  "Only work on Class D metal fires"
+]
+correct = "C"
+explanation = "Water mist is a growing engineered option with less water mass; still requires proper listing/design."
+topic_ids = ["m12-water-suppression"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

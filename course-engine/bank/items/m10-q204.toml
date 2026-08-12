@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q204"
+module = 10
+stem = "Humidification systems may depend on water infrastructure; operators should recognize that:"
+choices = [
+  "Humidifiers never need water",
+  "Humidity control can fail if RO/DI or feedwater systems are offline or contaminated",
+  "Humidity is unrelated to electrostatic and equipment environment concerns",
+  "Only outdoor relative humidity matters indoors always"
+]
+correct = "B"
+explanation = "Water treatment trains are part of environmental control continuity."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

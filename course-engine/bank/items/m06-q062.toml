@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q062"
+module = 6
+stem = "Capacity-parallel UPS modules without redundancy means:"
+choices = [
+  "One spare is always present by definition",
+  "2N is automatically achieved",
+  "Module outputs sum toward N, so a module failure can drop available capacity below need",
+  "Batteries are shared with CRAH units",
+]
+correct = "C"
+explanation = "Capacity parallel adds modules to meet N; without spare, loss of a module can overload the rest."
+topic_ids = ["m06-ups-parallel"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m07-q204"
+module = 7
+stem = "EMF best-practice posture for operators is typically to:"
+choices = [
+  "Ignore worker exposure questions entirely",
+  "Treat every field as harmless without measurement when symptoms or adjacency risk appear",
+  "Assess sources, apply exposure/equipment guidance as applicable, and mitigate by design and distance",
+  "Ban all electrical distribution indoors"
+]
+correct = "C"
+explanation = "Responsible practice is source-aware assessment and proportionate mitigation—not denial or panic."
+topic_ids = ["m07-standards", "m07-shielding"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

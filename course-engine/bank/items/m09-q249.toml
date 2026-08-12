@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q249"
+module = 9
+stem = "Close-coupled cooling approaches share the idea of:"
+choices = [
+  "Shortening the airflow path between heat source and heat removal",
+  "Maximizing uncontrolled room mixing",
+  "Cooling only offices",
+  "Eliminating filters and monitoring"
+]
+correct = "A"
+explanation = "Shorter paths improve capture efficiency at high density."
+topic_ids = ["m09-system-types", "m09-supplemental"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q207"
+module = 6
+stem = "Why is break-before-make on a genset ATS usually acceptable for UPS-protected IT, but less ideal for unprotected mechanical loads?"
+choices = [
+  "Generators never need transfer switches",
+  "Break-before-make removes the need for fuel",
+  "Open transition only affects fiber cabling",
+  "UPS covers the brief gap for IT; unprotected loads may drop during the open transition"
+]
+correct = "D"
+explanation = "Open transition gaps are bridged by UPS energy for IT, not for all plant loads."
+topic_ids = ["m06-ats-sts", "m06-ups", "m06-generators"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

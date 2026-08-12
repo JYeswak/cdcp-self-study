@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q076"
+module = 13
+stem = "Defense-in-depth for physical security primarily means:"
+choices = [
+  "Using the single strongest door possible and nothing else",
+  "Relying only on CCTV recording without locks",
+  "Outsourcing all responsibility to visitors",
+  "Stacking independent layers so compromise of one layer is not total facility compromise"
+]
+correct = "D"
+explanation = "Layered controls (perimeter → envelope → zones → cabinets → process) assume single-layer failure."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

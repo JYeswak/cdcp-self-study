@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m12-q220"
+module = 12
+stem = "CO2 or clean-agent portables may be preferred in IT areas per policy and training because:"
+choices = [
+  "They leave heavy corrosive powder always",
+  "They can be more suitable around electronics when used correctly, with oxygen-displacement and safety caveats for CO2",
+  "They replace building suppression entirely",
+  "They require no training"
+]
+correct = "B"
+explanation = "Agent choice balances equipment impact with personnel safety and training."
+topic_ids = ["m12-extinguishers", "m12-classes"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q116"
+module = 9
+stem = "Relative humidity control in white space is important partly because extremes can contribute to:"
+choices = [
+  "Electrostatic risk when too dry, and condensation/corrosion risk when too wet",
+  "Only brighter lighting",
+  "Faster copper oxidation exclusively when RH is perfect",
+  "Automatic generator start"
+]
+correct = "A"
+explanation = "Very low RH favors ESD risk; high RH raises condensation and corrosion concerns—hence humidity is managed with temperature."
+topic_ids = ["m09-temp-humidity"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

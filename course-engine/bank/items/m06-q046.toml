@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q046"
+module = 6
+stem = "An ATS is most characteristically used to:"
+choices = [
+  "Convert AC to DC for battery charging only",
+  "Measure PUE in real time",
+  "Automatically switch a load between sources such as utility and generator",
+  "Replace equipotential bonding",
+]
+correct = "C"
+explanation = "ATS = automatic transfer between sources (classic: utility ↔ generator)."
+topic_ids = ["m06-ats-sts"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

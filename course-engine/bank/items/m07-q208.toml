@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m07-q208"
+module = 7
+stem = "Placing a network operations desk directly against a large transformer room wall without assessment is risky because:"
+choices = [
+  "Transformers never produce fields",
+  "It always improves comfort heating in winter only",
+  "Occupants and any sensitive equipment may sit in a high-field region unnecessarily",
+  "It guarantees lower PUE"
+]
+correct = "C"
+explanation = "Adjacency without assessment can expose people and equipment to avoidable fields."
+topic_ids = ["m07-sources", "m07-standards"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

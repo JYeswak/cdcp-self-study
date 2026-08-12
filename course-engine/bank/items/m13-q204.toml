@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q204"
+module = 13
+stem = "CCTV coverage is most effective when it is:"
+choices = [
+  "Pointed only at the floor permanently",
+  "Recorded without time sync",
+  "Unmonitored with full storage forever and no retention policy",
+  "Designed for critical portals and sensitive areas with usable retention, lighting, and time sync"
+]
+correct = "D"
+explanation = "Cameras need design for usable evidence—not mere presence of a lens."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

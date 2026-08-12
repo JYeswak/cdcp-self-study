@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q220"
+module = 6
+stem = "Three-phase power is favored for high-density racks mainly because it:"
+choices = [
+  "Delivers higher power efficiently with better phase utilization than single-phase alone",
+  "Eliminates the need for PDUs",
+  "Removes grounding requirements",
+  "Converts AC heat into network bandwidth"
+]
+correct = "A"
+explanation = "Three-phase distribution supports high kW delivery more effectively than single-phase alone."
+topic_ids = ["m06-phase", "m06-hpc"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

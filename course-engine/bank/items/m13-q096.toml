@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q096"
+module = 13
+stem = "Loading dock material flow should ideally:"
+choices = [
+  "Open dock doors directly onto the data floor without staging",
+  "Skip ID checks for large shipments",
+  "Store unattended gear in public corridors overnight as normal",
+  "Use dock → staging/inspect → secure corridor → white space chain of custody"
+]
+correct = "D"
+explanation = "Separate goods paths and inspection reduce theft, contraband, and uncontrolled access."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

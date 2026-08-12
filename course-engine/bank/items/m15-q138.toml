@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q138"
+module = 15
+stem = "An MOP (Method of Procedure) is primarily used to:"
+choices = [
+  "Market the colo facility",
+  "Execute high-risk changes with sequenced steps, roles, verification, and backout",
+  "Calculate PUE only",
+  "Replace staff training forever"
+]
+correct = "B"
+explanation = "MOPs structure risky work: prerequisites, steps, checks, ownership, and recovery."
+topic_ids = ["m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

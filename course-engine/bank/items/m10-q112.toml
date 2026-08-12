@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q112"
+module = 10
+stem = "Why might a site choose dry coolers or adiabatic-limited designs despite higher peak energy?"
+choices = [
+  "To reduce water dependency where water is scarce, restricted, or costly",
+  "To maximize unrestricted water consumption",
+  "Because dry coolers never need electricity",
+  "To eliminate heat rejection entirely"
+]
+correct = "A"
+explanation = "Water-constrained regions often trade energy for lower WUE and less makeup risk."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

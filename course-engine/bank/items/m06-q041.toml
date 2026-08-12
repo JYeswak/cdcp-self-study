@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q041"
+module = 6
+stem = "Grey space in a data centre power context primarily refers to:"
+choices = [
+  "Mechanical and electrical plant areas (UPS rooms, switchgear, generators)",
+  "IT white space with server racks only",
+  "Public lobby and visitor parking",
+  "Only the raised-floor plenum under cold aisles",
+]
+correct = "A"
+explanation = "Grey space hosts plant—generators, UPS, switchgear—while white space is the IT floor."
+topic_ids = ["m06-distribution"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

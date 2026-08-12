@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m12-q224"
+module = 12
+stem = "A maintenance practice that improves fire readiness is:"
+choices = [
+  "Taping over strobes to reduce noise permanently",
+  "Keeping detection and suppression systems inspected, tested, and free of unauthorized disabled zones",
+  "Blocking egress with storage",
+  "Leaving agent cylinders empty until an emergency"
+]
+correct = "B"
+explanation = "Protection systems only work if maintained and not casually bypassed."
+topic_ids = ["m12-best-practices", "m12-suppression-reqs", "m12-detection"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

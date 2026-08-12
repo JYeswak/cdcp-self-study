@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q205"
+module = 9
+stem = "Bypass airflow typically means:"
+choices = [
+  "Cold supply returns to the cooling unit without doing useful work on IT heat",
+  "Hot exhaust always enters every inlet",
+  "Only underfloor cables bypass grounding",
+  "Liquid CDUs are offline"
+]
+correct = "A"
+explanation = "Bypass wastes conditioned air by short-circuiting past the IT load."
+topic_ids = ["m09-principles", "m09-raised-floor-cooling"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

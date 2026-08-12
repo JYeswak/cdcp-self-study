@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q076"
+module = 2
+stem = "Which statement about international vs national standards is most careful?"
+choices = [
+  "National always means weaker",
+  "Practitioners must check which document is adopted or specified in that jurisdiction and project",
+  "International always voids local law",
+  "Only U.S. documents exist",
+]
+correct = "B"
+explanation = "What binds is what is adopted or specified locally for that project—not brand prestige of a series name."
+topic_ids = ["m02-intl-vs-national"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q215"
+module = 11
+stem = "Over-subscribing a single top-of-rack uplink without fabric redesign primarily creates:"
+choices = [
+  "A capacity and failure domain problem at the network edge, independent of cable category",
+  "Better copper near-end crosstalk",
+  "Automatic path diversity outdoors",
+  "Lower optical loss"
+]
+correct = "A"
+explanation = "Uplink design is a topology capacity issue, not a media-category fix."
+topic_ids = ["m11-planning", "m11-importance"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

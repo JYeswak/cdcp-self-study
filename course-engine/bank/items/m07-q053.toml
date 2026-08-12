@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 7)
+id = "m07-q053"
+module = 7
+stem = "For RF/E-field style shielding effectiveness, performance is often limited by:"
+choices = [
+  "Only the colour of paint",
+  "Apertures, seams, doors, and cable entries more than bulk wall thickness once conductivity is adequate",
+  "The number of rack U available",
+  "Generator fuel type exclusively",
+]
+correct = "B"
+explanation = "Shielded rooms fail at penetrations and seams—not just material thickness slogans."
+topic_ids = ["m07-shielding"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

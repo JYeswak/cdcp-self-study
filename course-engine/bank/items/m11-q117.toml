@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q117"
+module = 11
+stem = "Labeling and administration of cabling are critical because:"
+choices = [
+  "Unlabeled plants speed emergency isolation",
+  "Accurate identification reduces human error during MACs and incident response",
+  "Labels replace the need for testing",
+  "Only aesthetics improve with labels"
+]
+correct = "B"
+explanation = "Administration systems (labels, records) are operational safety nets for complex physical layers."
+topic_ids = ["m11-planning", "m11-importance"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

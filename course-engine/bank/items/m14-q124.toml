@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q124"
+module = 14
+stem = "Notification best practice includes putting runbook links in alerts so that:"
+choices = [
+  "Operators must memorize every valve tag without aids",
+  "All informational logs page the CEO",
+  "Sensors stop needing calibration",
+  "The page names the next human action and procedure under stress"
+]
+correct = "D"
+explanation = "Actionable alerts beat naked point names during incidents."
+topic_ids = ["m14-notification", "m14-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

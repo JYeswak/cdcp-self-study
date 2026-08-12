@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q047"
+module = 6
+stem = "Compared with a mechanical ATS, an STS is chosen primarily for:"
+choices = [
+  "Cheaper fuel contracts",
+  "Very fast transfer between two live, suitable AC sources",
+  "Slower weekly manual exercise only",
+  "DC-only plants without AC",
+]
+correct = "B"
+explanation = "STS uses solid-state switching for sub-cycle/few-ms class transfer when sources are live and in tolerance."
+topic_ids = ["m06-ats-sts"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

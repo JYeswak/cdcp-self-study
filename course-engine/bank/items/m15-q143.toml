@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q143"
+module = 15
+stem = "MTBF (Mean Time Between Failures) is best described as:"
+choices = [
+  "How long repair takes after a failure",
+  "A contractual penalty fee only",
+  "A reliability metric reflecting average operating time between failures for a repairable item population (conceptual)",
+  "The same as SLA credits always"
+]
+correct = "C"
+explanation = "MTBF speaks to failure frequency/reliability; do not confuse with repair speed."
+topic_ids = ["m15-mtbf-mttr"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

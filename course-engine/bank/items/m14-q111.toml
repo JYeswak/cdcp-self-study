@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q111"
+module = 14
+stem = "Spot leak sensors are especially appropriate:"
+choices = [
+  "Only on the roof with no plant connection",
+  "Inside sealed fiber splice trays only",
+  "Under CRAH/CRAC bases, drip pans, and valve manifolds as point hazards",
+  "As a full replacement for all rope zones always"
+]
+correct = "C"
+explanation = "Spots catch known drip points; ropes cover distributed underfloor paths."
+topic_ids = ["m14-leak"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

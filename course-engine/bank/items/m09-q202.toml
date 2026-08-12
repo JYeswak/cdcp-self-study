@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q202"
+module = 9
+stem = "Operating continuously at the extreme edge of an allowable envelope versus recommended is generally associated with:"
+choices = [
+  "Guaranteed higher hardware reliability always",
+  "Greater risk of reduced reliability margins and less headroom for excursions",
+  "Elimination of all hot spots by definition",
+  "No impact on fans or component stress"
+]
+correct = "B"
+explanation = "Living at the edge leaves little margin when conditions drift."
+topic_ids = ["m09-ashrae-envelopes", "m09-temp-humidity"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

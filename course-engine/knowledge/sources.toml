@@ -1,0 +1,132 @@
+# Public / free sources only. Paid full-text standards: link to purchase page, access=paid.
+# fetch_date: 2026-08-11 research session
+
+schema_version = 1
+
+[[source]]
+id = "src-epi-cdcp-page"
+org = "EPI"
+title = "Certified Data Centre Professional (CDCP) course page"
+url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+access = "public_summary"
+fetch_date = "2026-08-11"
+used_for = ["syllabus_domains", "exam_form", "course_benefits"]
+
+[[source]]
+id = "src-exin-cdcp-page"
+org = "EXIN"
+title = "EXIN EPI Certified Data Centre Professional"
+url = "https://www.exin.com/technologies-software/exin-epi-data-centre-management/certified-data-centre-professional"
+access = "public_summary"
+fetch_date = "2026-08-11"
+used_for = ["exam_form", "credential_notes"]
+
+[[source]]
+id = "src-nh-cdcp"
+org = "New Horizons Bulgaria (EPI partner)"
+title = "CDCP course page + outline bullets"
+url = "https://courses.newhorizons.bg/cdcp/"
+access = "public_summary"
+fetch_date = "2026-08-11"
+used_for = ["ops_adjacent_topics", "benefits"]
+
+[[source]]
+id = "src-iso-22237-overview"
+org = "ISO / certifier public summaries"
+title = "ISO/IEC 22237 series structure (facilities and infrastructures)"
+url = "https://www.iso.org/standard/72925.html"
+access = "public_summary"
+fetch_date = "2026-08-11"
+used_for = ["standards_family_map"]
+
+[[source]]
+id = "src-tuv-22237"
+org = "TÜV NORD"
+title = "ISO/IEC 22237 parts overview"
+url = "https://www.tuev-nord.de/en/services/auditing-and-certification/iso-iec-22237/"
+access = "public_summary"
+fetch_date = "2026-08-11"
+used_for = ["standards_family_map"]
+
+[[source]]
+id = "src-en-50600-overview"
+org = "TÜV NORD / industry summaries"
+title = "EN 50600 European data centre standard structure"
+url = "https://www.tuev-nord.de/en/services/auditing-and-certification/en-50600/"
+access = "public_summary"
+fetch_date = "2026-08-11"
+used_for = ["standards_family_map"]
+
+[[source]]
+id = "src-tia-942"
+org = "TIA"
+title = "ANSI/TIA-942 standard overview"
+url = "https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/"
+access = "public_summary"
+fetch_date = "2026-08-11"
+used_for = ["standards_family_map", "tia_vs_uptime"]
+
+[[source]]
+id = "src-tia-942-c-fotc"
+org = "TIA FOTC"
+title = "ANSI/TIA-942-C scope notes"
+url = "https://www.tiafotc.org/tia-standards-update/tia-942-c/"
+access = "public_summary"
+fetch_date = "2026-08-11"
+used_for = ["standards_family_map"]
+
+[[source]]
+id = "src-uptime-tiers"
+org = "Uptime Institute"
+title = "Tier Classification System"
+url = "https://uptimeinstitute.com/tiers"
+access = "public_summary"
+fetch_date = "2026-08-11"
+used_for = ["tia_vs_uptime", "redundancy_concepts"]
+
+[[source]]
+id = "src-ashrae-datacom"
+org = "ASHRAE TC 9.9"
+title = "Datacom series and free white papers hub"
+url = "https://www.ashrae.org/technical-resources/bookstore/datacom-series"
+access = "free"
+fetch_date = "2026-08-11"
+used_for = ["cooling", "thermal"]
+
+[[source]]
+id = "src-ashrae-power-wp"
+org = "ASHRAE TC 9.9"
+title = "Data Center Power Equipment Thermal Guidelines and Best Practices (free PDF)"
+url = "https://www.ashrae.org/file%20library/technical%20resources/bookstore/ashrae_tc0909_power_white_paper_22_june_2016_revised.pdf"
+access = "free"
+fetch_date = "2026-08-11"
+used_for = ["power", "cooling"]
+note = "Link-only in-repo unless redistribution license confirmed (OQ-09)"
+
+[[source]]
+id = "src-nfpa-75"
+org = "NFPA"
+title = "NFPA 75 Fire Protection of Information Technology Equipment (catalog)"
+url = "https://www.nfpa.org/codes-and-standards/all-codes-and-standards/list-of-codes-and-standards/detail?code=75"
+access = "paid"
+fetch_date = "2026-08-11"
+used_for = ["fire"]
+license_note = "Full text not in repo; catalog URL only"
+
+[[source]]
+id = "src-ocp-ready"
+org = "Open Compute Project"
+title = "OCP-Ready Facility Recognition Program"
+url = "https://github.com/opencomputeproject/OCP-Ready-Facility-Recognition-Program"
+access = "free"
+fetch_date = "2026-08-11"
+used_for = ["optional_ocp_track"]
+
+[[source]]
+id = "src-curriculum-map-local"
+org = "cdcp-self-study"
+title = "Local 00-curriculum-map.md (original educational objectives)"
+url = "file://../00-curriculum-map.md"
+access = "local"
+fetch_date = "2026-08-11"
+used_for = ["learning_objectives"]

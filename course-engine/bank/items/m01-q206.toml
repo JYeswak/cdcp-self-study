@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m01-q206"
+module = 1
+stem = "A single point of failure in facility design is best characterized as:"
+choices = [
+  "Any dual-path system by definition",
+  "Any redundant UPS string",
+  "A component or path whose failure alone can interrupt the critical load",
+  "Any sensor that reports humidity"
+]
+correct = "C"
+explanation = "SPOFs are failure points without concurrent path diversity for the protected load."
+topic_ids = ["m01-unavailability", "m01-elements"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

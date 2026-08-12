@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q208"
+module = 15
+stem = "Labelling that includes circuit ID, source panel, and destination helps most during:"
+choices = [
+  "Only annual photo contests",
+  "Choosing paint colors",
+  "Marketing tours exclusively",
+  "Emergency isolation and load migration when time pressure is high"
+]
+correct = "D"
+explanation = "Crisis performance depends on instant physical identity of paths."
+topic_ids = ["m15-labelling"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

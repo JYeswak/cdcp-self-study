@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q047"
+module = 12
+stem = "Pre-action sprinkler systems are often preferred over wet pipe above white space mainly because they:"
+choices = [
+  "Always use twice as much water as deluge",
+  "Eliminate the need for any detection",
+  "Keep pipes dry (or supervised) until detection logic admits water, lowering accidental discharge risk",
+  "Are the only systems allowed on generators"
+]
+correct = "C"
+explanation = "Pre-action admits water only after detection (and often head operation), reducing random leak dumps on IT gear."
+topic_ids = ["m12-water-suppression"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

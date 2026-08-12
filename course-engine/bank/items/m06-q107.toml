@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q107"
+module = 6
+stem = "During a utility outage with healthy design, the expected sequence is closest to:"
+choices = [
+  "IT drops until generators finish a multi-hour warm-up with no UPS",
+  "UPS carries load; generators start; ATS transfers; UPS remains on conditioned path as designed",
+  "Fire system discharges immediately as the power path",
+  "Only lighting remains on generator forever",
+]
+correct = "B"
+explanation = "UPS ride-through → genset start → transfer is the textbook sequence."
+topic_ids = ["m06-ups", "m06-generators", "m06-ats-sts"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

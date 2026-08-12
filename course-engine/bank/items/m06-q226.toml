@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q226"
+module = 6
+stem = "Stranded power capacity in a hall usually means:"
+choices = [
+  "Power that is stored only in flywheels",
+  "Unlimited free capacity",
+  "Electrical capacity exists that cannot be used due to cooling, space, or distribution constraints",
+  "Only generator fuel reserves"
+]
+correct = "C"
+explanation = "Stranding is unused power headroom blocked by another resource limit."
+topic_ids = ["m06-sizing", "m06-hpc"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

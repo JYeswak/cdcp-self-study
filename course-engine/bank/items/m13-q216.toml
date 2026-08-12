@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q216"
+module = 13
+stem = "Balancing security strictness with maintenance access means:"
+choices = [
+  "Giving every vendor permanent full-site access for convenience",
+  "Prohibiting all maintenance forever",
+  "Removing locks during business hours only without logging",
+  "Authorizing time-bounded access with supervision and return of credentials rather than permanent over-privilege"
+]
+correct = "D"
+explanation = "Least privilege and time-bound access keep maintainability without open-door culture."
+topic_ids = ["m13-security-components", "m13-safety-components"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

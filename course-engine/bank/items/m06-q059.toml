@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q059"
+module = 6
+stem = "A standby (offline/VFD-class) UPS typically:"
+choices = [
+  "Is the universal gold standard for hyperscale IT halls",
+  "Keeps the load on utility and transfers to inverter/battery on failure",
+  "Eliminates transfer notches by design",
+  "Cannot use batteries",
+]
+correct = "B"
+explanation = "Offline/standby leaves the load on utility until a failure forces transfer—cheap but not preferred for critical core IT."
+topic_ids = ["m06-ups"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

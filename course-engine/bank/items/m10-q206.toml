@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q206"
+module = 10
+stem = "Leak detection and water system maintenance relate to availability because:"
+choices = [
+  "Leaks always improve grounding",
+  "Water on the floor cools servers optimally",
+  "Maintenance of water systems is purely cosmetic",
+  "Undetected leaks can damage IT and electrical plant and waste limited backup water"
+]
+correct = "D"
+explanation = "Water is both a resource and a hazard; control both scarcity and unintended release."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

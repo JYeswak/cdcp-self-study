@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q081"
+module = 13
+stem = "Grey space (UPS, generators, switchgear, chillers) should receive access rigor comparable to white space because:"
+choices = [
+  "Plant compromise can take down IT without touching a server",
+  "It only stores cardboard",
+  "It is always public parking",
+  "Cameras are illegal there"
+]
+correct = "A"
+explanation = "MEP sabotage or error is availability-critical; treat grey space as highly sensitive."
+topic_ids = ["m13-security-components", "m13-safety-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

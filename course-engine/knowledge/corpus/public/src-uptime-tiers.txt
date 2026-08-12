@@ -1,0 +1,290 @@
+# source_id: src-uptime-tiers
+# url: https://uptimeinstitute.com/tiers
+# access: public_summary
+# fetched: 2026-08-11
+# title: Tier Classification System
+
+Uptime Institute Tier Classification System - Uptime Institute
+About UI
+Business Partners
+Careers
+Contact Us
+News & Media
+Our Team
+Press Releases
+Branding Guidelines
+Blog
+SELECT YOUR LANGUAGE
+English
+Español
+French
+Português
+中文
+Home
+AI Services
+AI Infrastructure Advisory
+Tier Certification
+Overview
+Design
+Construction
+Operations
+Tier Gap Analysis
+Prefabricated/Modular
+Tier Certification List
+Professional Services
+Overview
+Server Decommissioning
+Efficient IT Awards
+Efficient IT Assessment
+M&O Criteria
+Infrastructure Services
+Management and Operations Services
+Energy and Sustainability Services
+Consulting Services
+IT Advisory Services
+Education
+Education Framework
+Design
+Executive
+Management & Operations
+Network Infrastructure
+Project Management
+Energy & Sustainability
+Custom Corporate L&D Programs
+Course Calendar
+Competency & Confidence Assessments
+Private Education
+Graduate Roster
+Events
+Industry Events
+Leadership Events
+Uptime Institute Leadership Conference - Perth
+Leadership Conference for Government Data Center Infrastructure 2025
+Uptime Institute Leadership Forum - March 2026 - Milan
+Network Events
+Uptime Network Americas Fall Conference 2026
+Uptime Network EMEA Fall Conference 2026
+Open House
+Network
+Overview
+Network Calendar
+Network Roster
+Request Corporate Access
+Request Guest Access
+Uptime Network Portal
+Intelligence
+Overview
+Clients
+Client Stories
+Resources
+Data Center Industry Surveys
+Ebooks
+Journal Blog
+Product Datasheets
+Research & Reports
+Tier Specification Documents
+Tools
+Webinars
+Tier Certification
+Home
+/
+Tier Classification System
+Tier Classification System
+Data Center Classifications
+Uptime Institute created the data center Tier classification levels over 30 years ago, and today, they remain the international standard for data center performance. Our data center Tier definitions explain the infrastructure required for data center operations. There are different Tiers according to the system availability needed. These classifications are objective and reliable methods for comparing the performance of one site infrastructure against another and aligning infrastructure investments to business goals.
+Because Uptime Institute is the founder and trusted source for data center Tier Certification, you can trust our Tier Certification ratings to measure your capability and meet your performance requirements. We are the only licensed firm that can provide these certifications, making us the sole source for this valuable ranking.
+Data Center Tier Classification
+Our data center classifications are divided into four Tiers that match a particular business function and define criteria for maintenance, power, cooling and fault capabilities. The Tiers are progressive, so each Tier incorporates the requirements of the lower Tiers. This progression does not mean that a Tier IV data center is better than a Tier II — it means that these levels fit differing business operations. The definitions and benefits of the Tiers are set in our
+topology standard
+and focus on the data center infrastructure.
+Operational sustainability is the second essential component of our data Tier classification. It refers to the behaviors and risks apart from infrastructure design that determine the ability of the data center to meet long-term business goals. Data center owners can align their management style to a Tier to achieve these goals, as management behavior is essential to operational sustainability.
+Together, topology and operational sustainability establish the performance criteria for data centers to follow. Data center owners may also want to consider other factors, such as building codes, regional weather, security and property usage. Our topology and operational sustainability standards do not cover these factors because they vary in every case. It is ultimately up to the owner to determine which Tier is best for their business needs.
+What a Tier Classification Means for a Data Center and Its Infrastructure
+The data center Tier definitions define criteria, but not specific technology options or design choices to meet the Tier. Tiers are flexible enough to allow for many solutions that meet performance goals and compliance regulations. Many solutions lead to engineering innovation and uniqueness across data centers. Each data center can decide the best way to meet the Tier criteria and business goals.
+Data center owners may want to reach a particular Tier level to meet their business demands. Uptime Institute can rate and certify your design and facility using the standards from our Tier classification requirements to give a Tier Certification. This certification means that the infrastructure has no weak areas, and the data center has worldwide accountability for excellence.
+Our Tier Certification process is an unbiased assessment that ensures all parties involved meet the given requirements and expectations. We will examine the infrastructure of your data center for our evaluation to consider your individual needs.
+Data Center Tier Levels
+The data center Tier levels are:
+Tier I
+A Tier I data center is the basic capacity level with infrastructure to support information technology for an office setting and beyond. The requirements for a Tier I facility include:
+An uninterruptible power supply (UPS) for power sags, outages, and spikes.
+An area for IT systems.
+Dedicated cooling equipment that runs outside office hours.
+An engine generator for power outages.
+Tier I protects against disruptions from human error, but not unexpected failure or outage. Redundant equipment includes chillers, pumps, UPS modules, and engine generators. The facility will have to shut down completely for preventive maintenance and repairs, and failure to do so increases the risk of unplanned disruptions and severe consequences from system failure.
+Tier II
+Tier II facilities cover redundant capacity components for power and cooling that provide better maintenance opportunities and safety against disruptions. These components include:
+Engine generators.
+Energy storage.
+Chillers.
+Cooling units.
+UPS modules.
+Pumps.
+Heat rejection equipment.
+Fuel tanks.
+Fuel cells.
+The distribution path of Tier II serves a critical environment, and the components can be removed without shutting it down. Like a Tier I facility, unexpected shutdown of a Tier II data center will affect the system.
+Tier III
+A Tier III data center is concurrently maintainable with redundant components as a key differentiator, with redundant distribution paths to serve the critical environment. Unlike Tier I and Tier II, these facilities require no shutdowns when equipment needs maintenance or replacement. The components of Tier III are added to Tier II components so that any part can be shut down without impacting IT operation.
+Tier IV
+A Tier IV data center has several independent and physically isolated systems that act as redundant capacity components and distribution paths. The separation is necessary to prevent an event from compromising both systems. The environment will not be affected by a disruption from planned and unplanned events. However, if the redundant components or distribution paths are shut down for maintenance, the environment may experience a higher risk of disruption if a failure occurs.
+Tier IV facilities add fault tolerance to the Tier III topology. When a piece of equipment fails, or there is an interruption in the distribution path, IT operations will not be affected. All of the IT equipment must have a fault-tolerant power design to be compatible. Tier IV data centers also require continuous cooling to make the environment stable.
+Contact Uptime Institute to Learn More About Our Data Center Tier Classification
+The data center Tier classifications created by Uptime Institute are recognizable in the industry as the standards to follow for data center performance.
+Investing in
+Tier Certification
+puts your data center infrastructure under review and proves compliance, reassuring your clients that your facility will meet their expectations.
+With
+over 4300 Tier Certifications issued
+in 120+ countries around the globe, Tier Certification is the data center industry standard for design, construction, and on-going operations.
+Contact our team today
+to learn more about our data center Tier classification and how it can improve your business's performance.
+UI Marketo Contact Us Form (with Oktopost) for Menu Assignments
+Contact Us
+Have questions or need help? Fill out the form and we will follow up with you right away.
+Thank You
+We will contact you soon regarding your inquiry.
+MS - Light - Tier Certification
+Tier Resources
+Tier Certification Overview
+Tier Classification System
+Tier Certified Site List
+Tier Specification Documents
+Explaining Tiers Article
+Home
+AI Services
+AI Infrastructure Advisory
+Tier Certification
+Overview
+Design
+Construction
+Operations
+Tier Gap Analysis
+Prefabricated/Modular
+Tier Certification List
+Professional Services
+Overview
+Infrastructure Services
+Management and Operations Services
+Energy and Sustainability Services
+Consulting Services
+Education
+Education Framework
+Course Calendar
+Competency & Confidence Assessments
+Private Education
+Graduate Roster
+Events
+Industry Events
+Leadership Events
+Network Events
+Network
+Overview
+Network Calendar
+Network Roster
+Request Corporate Access
+Request Guest Access
+Uptime Network Portal
+Intelligence
+Overview
+Clients
+Client Stories
+Resources
+Data Center Industry Surveys
+Ebooks
+Journal Blog
+Product Datasheets
+Research & Reports
+Tier Specification Documents
+Tools
+Webinars
+AI Infrastructure Advisory
+Tier Certification
+Design
+Construction
+Operations
+Prefabricated/Modular
+Professional Services
+Infrastructure Services
+Management and Operations Services
+Energy and Sustainability Services
+Consulting Services
+Education
+Course Calendar
+Private Education
+Graduate Roster
+Events
+Leadership Events
+Network
+Network Calendar
+Network Roster
+Request Corporate Access
+Request Guest Access
+Intelligence
+Clients
+Resources
+Ebooks
+Research & Reports
+Tools
+Home
+Contact
+Privacy Policy
+Terms of Use
+Site Map
+© 2013-2026 Uptime Institute, LLC. All Rights Reserved.
+About UI
+Business Partners
+Careers
+Contact Us
+News & Media
+Our Team
+Press Releases
+Branding Guidelines
+Blog
+Home
+AI Services
+AI Infrastructure Advisory
+Tier Certification
+Overview
+Design
+Construction
+Operations
+Tier Gap Analysis
+Prefabricated/Modular
+Tier Certification List
+Professional Services
+Overview
+Infrastructure Services
+Management and Operations Services
+Energy and Sustainability Services
+Consulting Services
+Education
+Education Framework
+Course Calendar
+Competency & Confidence Assessments
+Private Education
+Graduate Roster
+Events
+Industry Events
+Leadership Events
+Network Events
+Network
+Overview
+Network Calendar
+Network Roster
+Request Corporate Access
+Request Guest Access
+Uptime Network Portal
+Intelligence
+Overview
+Clients
+Client Stories
+Resources
+Data Center Industry Surveys
+Ebooks
+Journal Blog
+Product Datasheets
+Research & Reports
+Tier Specification Documents
+Tools
+Webinars

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m07-q212"
+module = 7
+stem = "Documentation of EMF survey methods and results supports operations by:"
+choices = [
+  "Replacing all electrical single-line diagrams",
+  "Eliminating the need for PPE policies",
+  "Providing a baseline and evidence trail if complaints, changes, or adjacent construction occur later",
+  "Guaranteeing zero fields forever"
+]
+correct = "C"
+explanation = "Surveys are snapshots; records enable comparison after plant or layout changes."
+topic_ids = ["m07-standards"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

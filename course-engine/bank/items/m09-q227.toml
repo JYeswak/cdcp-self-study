@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q227"
+module = 9
+stem = "Direct-to-chip liquid cooling generally involves:"
+choices = [
+  "Cools only the room air with no liquid near IT",
+  "Replaces all electrical grounding",
+  "Brings coolant close to high-heat components via cold plates or loops",
+  "Is identical to hot-aisle containment only"
+]
+correct = "C"
+explanation = "Cold plates remove heat at the component rather than only via room air."
+topic_ids = ["m09-liquid"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

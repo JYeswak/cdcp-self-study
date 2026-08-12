@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m01-q203"
+module = 1
+stem = "Core facility elements that typically define a data centre (beyond the IT load itself) include:"
+choices = [
+  "Only decorative lobby finishes",
+  "Only the CRM software stack",
+  "Only outdoor landscaping",
+  "Power, cooling, space/structure, connectivity, and supporting life-safety systems"
+]
+correct = "D"
+explanation = "Mission-critical space is defined by power, cooling, structure, connectivity, and life-safety support—not aesthetics alone."
+topic_ids = ["m01-elements"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

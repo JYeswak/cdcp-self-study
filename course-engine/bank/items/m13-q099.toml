@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q099"
+module = 13
+stem = "A lock without detection mainly provides:"
+choices = [
+  "Guaranteed real-time response",
+  "Automatic badge revocation",
+  "Delay only—without alarms/monitoring, compromise may go unnoticed until after the fact",
+  "Fire suppression release"
+]
+correct = "C"
+explanation = "Delay alone is incomplete; detection and response close the loop."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

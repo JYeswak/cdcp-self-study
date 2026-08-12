@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m14-q202"
+module = 14
+stem = "Building Management Systems (BMS) are primarily used to:"
+choices = [
+  "Replace all DCIM asset databases automatically without configuration",
+  "Route BGP sessions",
+  "Supervise and control building mechanical/electrical plant such as HVAC and related equipment",
+  "Issue visitor badges only"
+]
+correct = "C"
+explanation = "BMS is plant-centric control/monitoring of building systems."
+topic_ids = ["m14-bms"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

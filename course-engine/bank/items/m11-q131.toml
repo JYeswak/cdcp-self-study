@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q131"
+module = 11
+stem = "Which is a sound educational statement about TIA-942 topology learning for CDCP?"
+choices = [
+  "Memorize fabricated numeric SHALLs as if quoting sealed standards text",
+  "Ignore topology and only memorize RJ45 colors",
+  "Treat TIA topology as identical to UPS Tier naming",
+  "Learn the named spaces (MDA/HDA/EDA/ZDA/ER concepts) and hierarchical intent without inventing clause mandates"
+]
+correct = "D"
+explanation = "Awareness-level learning: spaces and hierarchy—avoid fabricating standard clause text."
+topic_ids = ["m11-tia942-topology"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

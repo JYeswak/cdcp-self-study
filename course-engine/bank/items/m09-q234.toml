@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q234"
+module = 9
+stem = "Dehumidification often occurs in a CRAC or CRAH when:"
+choices = [
+  "Fans reverse polarity",
+  "Coil temperatures drop moisture out of the airstream as a side effect of cooling",
+  "UPS transfers to battery",
+  "Only fiber is installed"
+]
+correct = "B"
+explanation = "Cold coils can condense moisture while providing sensible cooling."
+topic_ids = ["m09-temp-humidity", "m09-system-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

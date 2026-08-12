@@ -1,0 +1,11 @@
+[package]
+name = "cdcp_grade"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+cdcp_core = { workspace = true }
+cdcp_bank = { workspace = true }
+thiserror = { workspace = true }
+serde = { workspace = true }

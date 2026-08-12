@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q209"
+module = 15
+stem = "Preventive maintenance windows scheduled without rollback criteria are weak because:"
+choices = [
+  "Teams may not know when to abort and restore a known-good state if the procedure goes wrong",
+  "Rollback is never useful",
+  "Maintenance always succeeds on first try",
+  "Monitoring should be off during all maintenance"
+]
+correct = "A"
+explanation = "Abort criteria and rollback are part of safe maintenance design."
+topic_ids = ["m15-maintenance-sla", "m15-documentation"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

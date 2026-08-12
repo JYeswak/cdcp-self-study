@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q133"
+module = 9
+stem = "Close-coupled cooling approaches (in-row, overhead, rear-door) share the idea of:"
+choices = [
+  "Cooling only the parking lot",
+  "Moving cooling nearer the IT heat source to improve capture and reduce mixing",
+  "Removing all fans from the facility",
+  "Using only natural convection with zero design"
+]
+correct = "B"
+explanation = "Close-coupled designs shorten airflow paths and target high-density heat more effectively than distant perimeter-only cooling."
+topic_ids = ["m09-system-types", "m09-supplemental"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

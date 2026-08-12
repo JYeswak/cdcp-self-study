@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q205"
+module = 13
+stem = "Piggybacking/tailgating controls matter at data hall doors because:"
+choices = [
+  "Unauthorized persons can otherwise enter on an authorized user’s credentials without leaving a clear access event",
+  "Everyone in the building is equally authorized always",
+  "Tailgating improves evacuation time metrics only",
+  "Doors should never close for fire rating reasons"
+]
+correct = "A"
+explanation = "Tailgating breaks the identity-to-entry binding security depends on."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

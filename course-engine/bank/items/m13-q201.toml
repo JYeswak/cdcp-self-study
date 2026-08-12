@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q201"
+module = 13
+stem = "Mantraps / interlocks are used primarily to:"
+choices = [
+  "Control single-person entry and reduce tailgating into sensitive zones",
+  "Speed unlimited group entry",
+  "Cool the lobby air",
+  "Replace all identity proofing"
+]
+correct = "A"
+explanation = "Anti-passback/mantrap patterns mitigate tailgating into critical spaces."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

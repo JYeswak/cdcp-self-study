@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q24"
+module = 8
+stem = "One RU equals:"
+choices = [
+  "1 meter",
+  "1.75 inches (44.45 mm) of vertical mounting space",
+  "19 kW",
+  "One PDU phase",
+]
+correct = "B"
+explanation = "One rack unit (RU) is 1.75 inches (44.45 mm) of vertical mounting space."
+topic_ids = ["m08-dimensions"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

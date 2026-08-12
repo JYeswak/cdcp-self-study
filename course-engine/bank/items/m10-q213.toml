@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q213"
+module = 10
+stem = "Freezing climate sites must protect water systems because:"
+choices = [
+  "Ice always improves pump efficiency",
+  "Cold weather eliminates biological risk forever without programs",
+  "Frozen pipes and basins can disable makeup, fire water, and tower operation",
+  "Water expands when frozen in a helpful way for storage tanks always"
+]
+correct = "C"
+explanation = "Winterization is part of water-dependent availability in cold climates."
+topic_ids = ["m10-importance", "m10-backup"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

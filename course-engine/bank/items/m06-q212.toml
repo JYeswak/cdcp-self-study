@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q212"
+module = 6
+stem = "During generator load-bank testing, the operational goal is mainly to:"
+choices = [
+  "Exercise the set under real thermal and electrical load and verify performance",
+  "Drain UPS batteries to zero intentionally",
+  "Disable all ATS transfers permanently",
+  "Replace bonding jumpers with fiber"
+]
+correct = "A"
+explanation = "Load banks prove the generator can carry meaningful load, not just start and idle."
+topic_ids = ["m06-generators"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

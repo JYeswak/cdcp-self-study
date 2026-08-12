@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q058"
+module = 6
+stem = "Double-conversion (online/VFI) UPS operation primarily:"
+choices = [
+  "Passes utility straight through with no inverter in normal mode",
+  "Only works on single-phase edge sites",
+  "Continuously regenerates AC via rectifier/inverter for high isolation from many disturbances",
+  "Replaces chilled-water plants",
+]
+correct = "C"
+explanation = "VFI/online continuously AC→DC→AC, isolating the load from many upstream issues."
+topic_ids = ["m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

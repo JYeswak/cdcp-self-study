@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q078"
+module = 2
+stem = "EN 50600 awareness is especially relevant when:"
+choices = [
+  "Working only with purely North American code questions and no EU touchpoints",
+  "Projects, suppliers, or customers in Europe reference the EN data centre series",
+  "Designing only residential lighting",
+  "Selecting office chair ergonomics exclusively",
+]
+correct = "B"
+explanation = "EN 50600 commonly appears in European project and procurement contexts."
+topic_ids = ["m02-en50600-series"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

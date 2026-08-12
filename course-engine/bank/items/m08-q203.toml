@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m08-q203"
+module = 8
+stem = "Rack-level security (doors, locks, sensors) is most relevant when:"
+choices = [
+  "The building has no perimeter at all and racks replace site security completely",
+  "Only outdoor generators need locks",
+  "Multi-tenant or mixed-sensitivity equipment shares a room and needs compartmentalized access control",
+  "All staff should share one master key left in the door"
+]
+correct = "C"
+explanation = "Cabinet locks complement—not replace—facility access control, especially in multi-tenant spaces."
+topic_ids = ["m08-security"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

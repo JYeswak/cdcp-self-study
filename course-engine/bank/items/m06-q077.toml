@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q077"
+module = 6
+stem = "Severe phase imbalance on a three-phase feeder can cause:"
+choices = [
+  "Wasted capacity and earlier tripping on the overloaded phase",
+  "Free extra capacity on all phases",
+  "Automatic dual-path creation",
+  "Zero impact on breakers",
+]
+correct = "A"
+explanation = "Unbalanced phases waste headroom and trip the loaded leg first."
+topic_ids = ["m06-phase", "m06-sizing"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

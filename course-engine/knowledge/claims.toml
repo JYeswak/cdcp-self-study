@@ -1,0 +1,50 @@
+# Claim strength lattice — weaker never justifies stronger
+schema_version = 1
+
+[[claim]]
+id = "claim-not-epi-certified"
+strength = "invariant"
+text = "This product does not grant EPI/EXIN CDCP certification"
+enforcement = "claims-lint + UI honesty banner"
+
+[[claim]]
+id = "claim-exam-form-public"
+strength = "slo"
+text = "Mock UI uses public form 40 questions / 60 minutes / study bar 27 correct"
+evidence = "exam_form.toml + src-epi-cdcp-page + src-exin-cdcp-page"
+
+[[claim]]
+id = "claim-syllabus-mapped"
+strength = "slo"
+text = "Topic atoms map public EPI CDCP domain headings"
+evidence = "topics.toml + domains.toml"
+
+[[claim]]
+id = "claim-standards-family-mapped"
+strength = "slo"
+text = "Each domain has ≥1 standards family in crosswalk with public source"
+evidence = "standards_crosswalk.toml"
+
+[[claim]]
+id = "claim-grade-byte-exact"
+strength = "invariant"
+text = "Browser grade digest equals Rust oracle for frozen attempts (L4)"
+evidence = "goldens + dual-path (when implemented)"
+
+[[claim]]
+id = "claim-interview-study-signal"
+strength = "benchmark"
+text = "Mock ≥27/40 is a study signal only"
+evidence = "exam_form.toml study_signal_label"
+
+[[claim]]
+id = "claim-forbidden-dump-bank"
+strength = "invariant"
+text = "Item bank must not use exam dump provenance"
+enforcement = "fact_policy.toml forbidden_source_class"
+
+[[claim]]
+id = "claim-forbidden-iec-clause-without-license"
+strength = "invariant"
+text = "Normative SHALL quotes from paid full-text standards require licensed_note"
+enforcement = "fact_policy"

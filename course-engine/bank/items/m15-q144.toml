@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q144"
+module = 15
+stem = "MTTR (Mean Time To Repair/Restore) focuses on:"
+choices = [
+  "How rarely a component fails",
+  "Only marketing uptime claims",
+  "Generator fuel energy content",
+  "How long recovery takes after a failure—process, spares, access, and skill dependent"
+]
+correct = "D"
+explanation = "MTTR is maintainability/ops speed; spares and MOPs often dominate more than the part itself."
+topic_ids = ["m15-mtbf-mttr"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

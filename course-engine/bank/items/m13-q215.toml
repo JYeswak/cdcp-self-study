@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q215"
+module = 13
+stem = "Periodic access rights reviews are important because:"
+choices = [
+  "Access lists never go stale",
+  "Contractors never leave projects",
+  "Role changes and terminations leave residual access if never recertified",
+  "Reviews only matter for software admin rights, never doors"
+]
+correct = "C"
+explanation = "Joiner-mover-leaver hygiene applies to physical credentials too."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

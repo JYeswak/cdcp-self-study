@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q234"
+module = 6
+stem = "A sustainability program that lengthens generator test intervals without engineering review may:"
+choices = [
+  "Always improve availability with no trade-offs",
+  "Convert diesel to free cooling",
+  "Improve short-term emissions metrics while risking start reliability if maintenance discipline erodes",
+  "Replace grounding systems"
+]
+correct = "C"
+explanation = "Emissions goals must not silently weaken proven readiness testing."
+topic_ids = ["m06-sustainability", "m06-generators"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

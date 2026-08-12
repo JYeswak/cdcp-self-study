@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q113"
+module = 9
+stem = "Qualitatively, operating continuously at the extreme edge of an ASHRAE allowable envelope (versus recommended) is generally associated with:"
+choices = [
+  "Guaranteed free cooling year-round with no tradeoffs",
+  "Potential reliability or life tradeoffs versus staying nearer recommended conditions",
+  "Automatic compliance with every electrical code",
+  "Elimination of humidity control forever"
+]
+correct = "B"
+explanation = "Allowable is wider; long-term operation at extremes can trade reliability/life against energy—guidance awareness, not a fixed law."
+topic_ids = ["m09-ashrae-envelopes"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

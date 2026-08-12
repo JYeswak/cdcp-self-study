@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q110"
+module = 6
+stem = "If IT load grows without refreshing UPS battery capacity, a likely result is:"
+choices = [
+  "Longer measured autonomy at design load",
+  "Automatic free 2N upgrade",
+  "Shorter real autonomy and risk of load drop before generator is online",
+  "PUE becoming an availability Tier",
+]
+correct = "C"
+explanation = "Autonomy collapses as kW rises against fixed storage energy."
+topic_ids = ["m06-batteries", "m06-sizing", "m06-ups"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

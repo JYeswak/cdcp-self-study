@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m12-q213"
+module = 12
+stem = "Pre-action sprinkler systems are often discussed for IT spaces because:"
+choices = [
+  "They never use water under any circumstance",
+  "They replace smoke detection",
+  "They keep pipes dry until detection conditions are met, reducing accidental water release risk versus wet pipe alone",
+  "They cool CRAHs only"
+]
+correct = "C"
+explanation = "Pre-action adds detection interlocks before water enters the pipes to heads."
+topic_ids = ["m12-water-suppression"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q126"
+module = 9
+stem = "A DX CRAC unit characteristically:"
+choices = [
+  "Never has fans",
+  "Can only cool using pure nitrogen",
+  "Uses a refrigeration circuit with compressor and refrigerant at the unit (or close-coupled DX)",
+  "Eliminates all need for outdoor heat rejection"
+]
+correct = "C"
+explanation = "DX systems refrigerate at the unit/remote condenser; heat still rejects outdoors via the condenser path."
+topic_ids = ["m09-system-types"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

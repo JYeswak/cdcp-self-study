@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q043"
+module = 12
+stem = "Cross-zoning or double-knock before automatic suppression primarily aims to:"
+choices = [
+  "Speed agent refill after discharge",
+  "Disable abort switches permanently",
+  "Reduce accidental discharge from a single dirty or failed detector",
+  "Increase cardboard storage in white space"
+]
+correct = "C"
+explanation = "Requiring two independent detectors/zones reduces false automatic release risk."
+topic_ids = ["m12-detection", "m12-suppression-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

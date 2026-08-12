@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m05-q201"
+module = 5
+stem = "Emergency lighting is provided primarily so that:"
+choices = [
+  "Normal decorative lighting can run brighter",
+  "Occupants can evacuate safely and critical egress paths remain usable during power loss",
+  "IT servers receive extra photons for performance",
+  "Fire detection is no longer required"
+]
+correct = "B"
+explanation = "Emergency lighting is a life-safety function for egress and emergency operations—not IT performance."
+topic_ids = ["m05-emergency", "m05-emergency-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

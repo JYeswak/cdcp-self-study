@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q211"
+module = 11
+stem = "After moves, adds, and changes, failing to retest altered copper links most risks:"
+choices = [
+  "Undetected performance defects that only appear under production traffic",
+  "Automatic improvement of category rating",
+  "Higher underfloor static pressure",
+  "Longer UPS runtime"
+]
+correct = "A"
+explanation = "Changed links need verification; assumptions age poorly."
+topic_ids = ["m11-testing", "m11-copper"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

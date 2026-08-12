@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m05-q202"
+module = 5
+stem = "Positioning light fixtures in cold/hot aisle layouts should consider:"
+choices = [
+  "Only mounting as many fixtures as possible on the floor",
+  "Only matching the UPS brand",
+  "Glare, maintenance access, cable pathways, and interference with containment or airflow devices",
+  "Hiding all labels in shadow permanently"
+]
+correct = "C"
+explanation = "Lighting must support safe work without fighting cooling containment or blocking maintenance."
+topic_ids = ["m05-fixtures"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

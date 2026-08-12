@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q203"
+module = 13
+stem = "Badge access that lacks logging or unique identity assignment is weak because:"
+choices = [
+  "Logging always slows doors unacceptably",
+  "Unique IDs are illegal",
+  "Shared or unlogged credentials destroy accountability and forensic reconstruction",
+  "Cameras make identity unnecessary in all investigations"
+]
+correct = "C"
+explanation = "Authentication without attribution fails audit and incident response."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q222"
+module = 11
+stem = "Maximum permanent link length discipline for copper exists mainly to:"
+choices = [
+  "Increase heat load intentionally",
+  "Satisfy only aesthetic cable managers",
+  "Define generator sizing",
+  "Keep channels within application standards so performance limits are met"
+]
+correct = "D"
+explanation = "Length budgets are part of meeting channel performance limits."
+topic_ids = ["m11-copper", "m11-testing"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

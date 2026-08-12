@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q053"
+module = 12
+stem = "On gas discharge countdown, maglocks on egress paths should:"
+choices = [
+  "Release or free-exit as designed so life safety is not blocked",
+  "Stay locked to protect servers at all costs",
+  "Require a second biometric only after agent dump",
+  "Randomly unlock only after refill completes"
+]
+correct = "A"
+explanation = "Life safety overrides asset security; fire/gas interfaces free egress doors."
+topic_ids = ["m12-gas-suppression", "m12-signage", "m12-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

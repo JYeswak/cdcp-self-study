@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q238"
+module = 9
+stem = "A dry cooler typically rejects heat through:"
+choices = [
+  "Boiling IT coolant in the white space",
+  "Sensible heat exchange to outdoor air without relying on water evaporation as the primary mechanism",
+  "Using only geothermal always",
+  "Charging UPS batteries"
+]
+correct = "B"
+explanation = "Dry coolers are sensible air-cooled heat exchangers."
+topic_ids = ["m09-system-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

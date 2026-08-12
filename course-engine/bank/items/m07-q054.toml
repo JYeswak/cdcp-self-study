@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 7)
+id = "m07-q054"
+module = 7
+stem = "HEMP awareness at CDCP level correctly includes that:"
+choices = [
+  "Standard commercial colo designs are automatically HEMP-hardened",
+  "E1/E2/E3 are cooling set points",
+  "Fibre eliminates all EMP coupling concerns always",
+  "True HEMP/IEMI hardening is specialist scope; ordinary designs should not claim military-grade protection",
+]
+correct = "D"
+explanation = "Recognize EMP vocabulary and do not over-claim hardening without a real program."
+topic_ids = ["m07-standards", "m07-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

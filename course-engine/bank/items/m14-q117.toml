@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q117"
+module = 14
+stem = "Point naming like CHW-VALVE-ROW12-LEAK instead of DI_047 mainly improves:"
+choices = [
+  "Human response speed and reduces mis-isolation errors",
+  "Modbus baud rate",
+  "Camera megapixels",
+  "Copper Category rating"
+]
+correct = "A"
+explanation = "Human-readable points turn alarms into action; cryptic DIs waste incident time."
+topic_ids = ["m14-alarms", "m14-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

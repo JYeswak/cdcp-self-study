@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q145"
+module = 9
+stem = "Overhead busway power and overhead cooling can coexist, but planners must still:"
+choices = [
+  "Ignore airflow because power always wins",
+  "Coordinate clearances, airflow paths, and service access so infrastructure does not defeat cooling",
+  "Place all cables as underfloor blockages intentionally",
+  "Eliminate aisle containment always when busway is used"
+]
+correct = "B"
+explanation = "Mechanical and electrical overhead systems compete for space; coordination protects airflow and maintainability."
+topic_ids = ["m09-non-raised", "m09-supplemental"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

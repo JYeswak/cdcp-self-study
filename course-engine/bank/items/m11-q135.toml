@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q135"
+module = 11
+stem = "When validating a new copper horizontal run before turn-up, the preferred practice is:"
+choices = [
+  "Skip tests if the cable snapped into place",
+  "Only ping a public DNS address as the sole copper test",
+  "Heat the cable until soft",
+  "Perform standards-appropriate certification or verification and remediate failures before production use"
+]
+correct = "D"
+explanation = "Field certification catches workmanship and component issues before they become intermittent production faults."
+topic_ids = ["m11-testing"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

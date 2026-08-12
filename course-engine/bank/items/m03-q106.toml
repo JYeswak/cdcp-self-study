@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m03-q106"
+module = 3
+stem = "A building with limited roof/yard space for heat rejection may force:"
+choices = [
+  "Unlimited chiller capacity with no trade-offs",
+  "Automatic dual utility feeds",
+  "Design compromises on cooling plant placement, capacity, or even site rejection",
+  "Elimination of fire detection",
+]
+correct = "C"
+explanation = "Heat rejection real estate is a hard facility constraint on cooling architecture."
+topic_ids = ["m03-facility-criteria", "m03-supporting-facilities"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q136"
+module = 15
+stem = "Labels should remain accurate after changes because stale labels:"
+choices = [
+  "Are harmless decoration",
+  "Automatically update via magnetism",
+  "Only matter for marketing tours",
+  "Are worse than no labels when they create false confidence"
+]
+correct = "D"
+explanation = "Wrong labels drive incorrect isolations; label hygiene is part of change close-out."
+topic_ids = ["m15-labelling", "m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

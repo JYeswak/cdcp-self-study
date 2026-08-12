@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m12-q214"
+module = 12
+stem = "Wet-pipe sprinklers in some support areas may be acceptable while white space uses different protection because:"
+choices = [
+  "All rooms must use identical agents always",
+  "IT rooms never need any detection",
+  "Sprinklers set humidity setpoints",
+  "Risk profiles and water sensitivity differ by space—design is space-specific under AHJ and standards"
+]
+correct = "D"
+explanation = "Fire protection strategy is tailored by room risk and content sensitivity."
+topic_ids = ["m12-water-suppression", "m12-regulatory"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

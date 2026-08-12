@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m01-q047"
+module = 1
+stem = "Which is a common systemic cause of unavailability beyond pure equipment MTBF?"
+choices = [
+  "Single points of failure in path design combined with change error",
+  "Documented method-of-procedure with peer review",
+  "Redundant dual-corded servers on diverse UPS buses",
+  "Routine preventive maintenance performed under change control",
+]
+correct = "A"
+explanation = "Path SPOFs plus human/process error during change are classic availability killers beyond component life."
+topic_ids = ["m01-unavailability"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

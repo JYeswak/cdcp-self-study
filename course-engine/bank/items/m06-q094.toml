@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q094"
+module = 6
+stem = "The relationship kW = kVA × power factor means:"
+choices = [
+  "kVA and kW are always identical with no exceptions",
+  "PF is always zero in data centres",
+  "Real power is apparent power scaled by PF; UPS/distribution ratings often speak in kVA",
+  "Generators rate only in lux",
+]
+correct = "C"
+explanation = "Designers track both kW (real) and kVA (apparent) with PF."
+topic_ids = ["m06-sizing"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

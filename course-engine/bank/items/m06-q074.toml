@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q074"
+module = 6
+stem = "Overhead busway in white space is often selected to:"
+choices = [
+  "Increase intentional EMF exposure",
+  "Replace fire detection systems",
+  "Enable flexible tap-off power along a row without full recabling of every change",
+  "Cool GPU cold plates directly",
+]
+correct = "C"
+explanation = "Busway/tap-offs support reconfiguration agility for row power."
+topic_ids = ["m06-distribution"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

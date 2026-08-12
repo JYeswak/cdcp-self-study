@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q208"
+module = 11
+stem = "OM versus OS fiber discussions mainly distinguish:"
+choices = [
+  "Only jacket color without performance meaning",
+  "Multimode versus single-mode fiber systems with different distance and transceiver ecosystems",
+  "Power cable types",
+  "CRAC refrigerants"
+]
+correct = "B"
+explanation = "OM is multimode family; OS is single-mode family in common shorthand."
+topic_ids = ["m11-fibre"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

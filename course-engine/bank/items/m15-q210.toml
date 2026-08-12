@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q210"
+module = 15
+stem = "Cleaning under raised floors and inside perforated tiles should be coordinated with cooling operations because:"
+choices = [
+  "Floor cleaning never affects cooling",
+  "Disturbing dust and opening tiles can affect airflow and contaminant distribution if unmanaged",
+  "CRAH units improve when clogged with dust",
+  "Containment doors should be removed permanently for cleaning access"
+]
+correct = "B"
+explanation = "Housekeeping is an operational event with thermal side effects."
+topic_ids = ["m15-cleaning"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

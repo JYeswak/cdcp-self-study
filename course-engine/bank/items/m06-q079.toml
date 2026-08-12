@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q079"
+module = 6
+stem = "Grounding (earthing) in electrical safety terms primarily means:"
+choices = [
+  "Isolating every rack from any conductive path",
+  "Connecting systems to earth for safety reference and fault path",
+  "Removing equipment grounding conductors",
+  "Bonding neutrals at every receptacle intentionally",
+]
+correct = "B"
+explanation = "Grounding ties systems to earth for safety/reference per code design."
+topic_ids = ["m06-grounding-bonding"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

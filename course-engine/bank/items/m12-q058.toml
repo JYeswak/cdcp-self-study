@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q058"
+module = 12
+stem = "European EN 2 fire classes notably differ from North American labeling because EN:"
+choices = [
+  "Uses a separate Class C only for energized electrical equipment",
+  "Has no separate electrical class; electrical risk is handled via agent suitability and isolation guidance",
+  "Eliminates Class A ordinary combustibles",
+  "Requires dry chemical on every server"
+]
+correct = "B"
+explanation = "EN classes focus on fuel types; electrical safety is agent selection and de-energization, not a separate class letter."
+topic_ids = ["m12-classes"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

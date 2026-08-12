@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q214"
+module = 10
+stem = "Integrating water alarms (level, leak, pressure) into the monitoring stack helps because:"
+choices = [
+  "Alarms replace the need for any water system",
+  "Only energy meters matter",
+  "Silent failures are desirable",
+  "Operators can respond before thermal or water-damage incidents fully develop"
+]
+correct = "D"
+explanation = "Early warning converts latent water risk into actionable ops response."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q252"
+module = 6
+stem = "Power quality events that double-conversion UPS is meant to mitigate include:"
+choices = [
+  "Sags, swells, and many input disturbances by regenerating output from the DC link",
+  "Only fire smoke density",
+  "Only underfloor static pressure",
+  "Only copper near-end crosstalk"
+]
+correct = "A"
+explanation = "Double-conversion isolates the load from many upstream disturbances."
+topic_ids = ["m06-power-quality", "m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

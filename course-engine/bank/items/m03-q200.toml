@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m03-q200"
+module = 3
+stem = "Flood plain and historical flood data matter in site selection primarily because:"
+choices = [
+  "Flooding can disable power, cooling, access, and life-safety systems for extended periods",
+  "Water always improves electrical insulation",
+  "Flood plains never affect insurance",
+  "Raised floors make flooding irrelevant everywhere"
+]
+correct = "A"
+explanation = "Site hydrology risk threatens multi-system availability and recovery time."
+topic_ids = ["m03-site-selection"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

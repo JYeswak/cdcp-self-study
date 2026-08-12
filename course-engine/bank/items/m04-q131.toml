@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q131"
+module = 4
+stem = "Pedestal adhesion/attachment and understructure stability matter because:"
+choices = [
+  "They replace fire dampers",
+  "They only affect Wi-Fi channels",
+  "They set generator frequency",
+  "Loose pedestals can cause panel rock, safety hazards, and load-path failure",
+]
+correct = "D"
+explanation = "Understructure integrity is foundational to access-floor safety and performance."
+topic_ids = ["m04-floor-types", "m04-guidelines"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

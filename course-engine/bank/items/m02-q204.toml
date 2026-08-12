@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m02-q204"
+module = 2
+stem = "International standards versus national/local requirements often create tension because:"
+choices = [
+  "National documents never exist",
+  "International documents are always less detailed",
+  "Local codes, climate, grid practice, and AHJ interpretation still govern what may be built and operated",
+  "Only vendors write national rules"
+]
+correct = "C"
+explanation = "Global frameworks inform design, but local mandatory rules and practice still control compliance."
+topic_ids = ["m02-intl-vs-national", "m02-code-vs-standard"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

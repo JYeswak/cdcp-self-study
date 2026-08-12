@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m12-q204"
+module = 12
+stem = "Portable extinguisher class selection near electrical equipment should prioritize:"
+choices = [
+  "Only water extinguishers on live switchgear",
+  "Agents suitable for energized electrical fires as required by policy and applicable standards, with trained use",
+  "Any random extinguisher regardless of class label",
+  "No extinguishers if a gas system exists anywhere on campus"
+]
+correct = "B"
+explanation = "Extinguisher class must match hazard; electrical spaces need appropriate agent types and training."
+topic_ids = ["m12-extinguishers", "m12-classes"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

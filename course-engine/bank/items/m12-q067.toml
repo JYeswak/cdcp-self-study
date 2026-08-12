@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q067"
+module = 12
+stem = "Electrical ignition risk is reduced operationally by practices such as:"
+choices = [
+  "Ignoring thermal imaging of panels",
+  "Propping fire doors for cable pulls permanently",
+  "Torque discipline, load management, and thermographic scanning of critical connections",
+  "Disabling smoke detection overnight"
+]
+correct = "C"
+explanation = "Loose lugs, overload, and arc faults remain leading electrical fire causes; maintenance culture matters."
+topic_ids = ["m12-causes", "m12-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

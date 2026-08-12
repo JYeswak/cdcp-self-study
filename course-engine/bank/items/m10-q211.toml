@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q211"
+module = 10
+stem = "Water usage effectiveness (WUE) style thinking is useful operationally because it:"
+choices = [
+  "Encourages measuring and managing water consumed relative to IT work done, alongside energy metrics",
+  "Replaces all electrical metering",
+  "Proves water is unnecessary for all plants",
+  "Is only a marketing acronym with no ops use"
+]
+correct = "A"
+explanation = "What gets measured gets managed—water intensity is a real ops and sustainability lever."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

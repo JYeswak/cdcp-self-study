@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m05-q213"
+module = 5
+stem = "Battery-backed emergency lighting that is past test intervals without records is a problem because:"
+choices = [
+  "Records are optional for life-safety systems always",
+  "Failed lamps or batteries may only be discovered during a real outage",
+  "Emergency lights improve with age without maintenance",
+  "Codes forbid any testing"
+]
+correct = "B"
+explanation = "Unverified emergency lighting is a latent life-safety failure."
+topic_ids = ["m05-emergency", "m05-standards"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q101"
+module = 9
+stem = "Sensible cooling capacity is the portion of a CRAC/CRAH capacity that:"
+choices = [
+  "Only dehumidifies the air",
+  "Removes heat without changing moisture content of the air",
+  "Only heats the supply air",
+  "Is always equal to latent capacity"
+]
+correct = "B"
+explanation = "Sensible capacity removes heat at constant moisture; latent capacity addresses moisture. IT loads are mostly sensible."
+topic_ids = ["m09-principles"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

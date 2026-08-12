@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q101"
+module = 6
+stem = "A site can have excellent PUE and still be:"
+choices = [
+  "Single-path N with weak availability design",
+  "Automatically 2N fault tolerant",
+  "Immune to utility failures without UPS",
+  "Free of all transformers",
+]
+correct = "A"
+explanation = "Efficiency metrics do not create dual paths or concurrent maintainability."
+topic_ids = ["m06-sustainability", "m06-redundancy"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

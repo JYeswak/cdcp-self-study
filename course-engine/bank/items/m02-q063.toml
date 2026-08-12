@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q063"
+module = 2
+stem = "In CDCP awareness language, a “code” is best distinguished from a “standard” by:"
+choices = [
+  "Codes are adopted and enforced by an AHJ; many standards are voluntary unless referenced into code",
+  "Codes are always free PDF white papers",
+  "Standards always supersede local law",
+  "Codes never address electrical safety",
+]
+correct = "A"
+explanation = "AHJ-adopted codes are enforceable; voluntary standards bind only when adopted by contract, policy, or code reference."
+topic_ids = ["m02-code-vs-standard"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q135"
+module = 15
+stem = "Cable and port labelling standards help operations by:"
+choices = [
+  "Hiding patch destinations from auditors",
+  "Increasing bit error rates intentionally",
+  "Making moves/adds/changes traceable without guesswork tracing",
+  "Replacing link tests entirely"
+]
+correct = "C"
+explanation = "Consistent labels cut outage risk during MAC work and fault isolation."
+topic_ids = ["m15-labelling"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

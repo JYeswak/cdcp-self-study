@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q215"
+module = 9
+stem = "A chilled-water CRAH depends on upstream plant primarily to:"
+choices = [
+  "Generate IT power",
+  "Terminate fiber only",
+  "Provide chilled water and ultimately reject heat outdoors via chillers, towers, or dry coolers",
+  "Store seasonal network capacity"
+]
+correct = "C"
+explanation = "CRAH coils need a plant that makes and rejects chilled-water heat."
+topic_ids = ["m09-system-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

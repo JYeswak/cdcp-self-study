@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q066"
+module = 12
+stem = "Bulk cardboard and wooden pallets stored in white space are a fire control problem primarily because they:"
+choices = [
+  "Improve airflow containment",
+  "Add ordinary combustible fuel load near high-value IT",
+  "Reduce the need for detection",
+  "Are required by TIA cabling topology"
+]
+correct = "B"
+explanation = "Housekeeping and staging discipline are fire engineering controls, not mere tidiness."
+topic_ids = ["m12-causes", "m12-best-practices"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

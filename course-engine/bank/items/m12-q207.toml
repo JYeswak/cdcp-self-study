@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m12-q207"
+module = 12
+stem = "Signage for extinguishers, exits, and agent discharge warnings supports safety by:"
+choices = [
+  "Guiding occupants and responders under stress and meeting typical life-safety expectations",
+  "Replacing training completely",
+  "Increasing confusion intentionally",
+  "Only decorating for customer tours"
+]
+correct = "A"
+explanation = "Clear signage is part of usable life-safety systems."
+topic_ids = ["m12-signage", "m12-best-practices"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

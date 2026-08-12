@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 7)
+id = "m07-q046"
+module = 7
+stem = "Ordinary aluminium sheet is a poor choice when the goal is:"
+choices = [
+  "Some RF/E-field related shielding applications with proper design",
+  "Thermal reflection in some architectural uses",
+  "Cosmetic covers with no field claim",
+  "Low-frequency (50/60 Hz) magnetic-field shielding",
+]
+correct = "D"
+explanation = "ELF magnetic shielding is hard; aluminium is weak for 50 Hz B—steel/mu-metal/move the source are real options."
+topic_ids = ["m07-shielding"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

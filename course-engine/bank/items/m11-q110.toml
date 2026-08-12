@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q110"
+module = 11
+stem = "Compared with multimode fiber, single-mode fiber is generally chosen when:"
+choices = [
+  "Only very short rack jumpers under 1 m are needed always",
+  "The goal is maximum modal dispersion deliberately",
+  "Longer reach and higher bandwidth headroom for backbone or campus links are required",
+  "No connectors are allowed ever"
+]
+correct = "C"
+explanation = "Single-mode supports long reach and high capacity backbone roles; multimode is common for shorter structured runs depending on design."
+topic_ids = ["m11-fibre"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

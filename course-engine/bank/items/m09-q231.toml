@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q231"
+module = 9
+stem = "Liquid cooling interest for AI and HPC density grows because:"
+choices = [
+  "Liquids eliminate electrical power need",
+  "Immersion raises PUE definitionally to zero",
+  "Air delivery alone may not remove extreme heat fluxes economically or reliably",
+  "CDUs replace fire codes"
+]
+correct = "C"
+explanation = "Extreme watts per rack push beyond practical air-only removal."
+topic_ids = ["m09-liquid", "m09-system-types"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

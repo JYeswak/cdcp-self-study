@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q114"
+module = 10
+stem = "A dual municipal water service (two feeds) for a critical plant is best described as:"
+choices = [
+  "A guarantee that chemistry will never need control",
+  "A replacement for on-site storage in all cases",
+  "A form of supply redundancy reducing single-path water outage risk",
+  "Only a landscaping irrigation feature"
+]
+correct = "C"
+explanation = "Two utility feeds improve availability but local storage and treatment may still be required."
+topic_ids = ["m10-backup"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q240"
+module = 6
+stem = "Flywheel energy storage paired with UPS-class systems is typically characterized by:"
+choices = [
+  "Short-duration kinetic energy bridging, often alongside generators rather than long battery banks",
+  "Multi-day autonomy as a default",
+  "Replacement for all grounding",
+  "Only outdoor evaporative cooling"
+]
+correct = "A"
+explanation = "Flywheels bridge short gaps; they are not multi-day energy stores by default."
+topic_ids = ["m06-ups", "m06-batteries"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

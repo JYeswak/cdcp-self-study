@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q108"
+module = 9
+stem = "Free cooling / economization concepts aim to:"
+choices = [
+  "Use favorable outdoor conditions to reduce mechanical refrigeration work",
+  "Always run compressors at maximum load",
+  "Replace all redundancy with a single fan",
+  "Eliminate the need for any heat rejection path"
+]
+correct = "A"
+explanation = "Economizers leverage cool outdoor air or water conditions to cut compressor energy while still rejecting IT heat."
+topic_ids = ["m09-principles", "m09-system-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

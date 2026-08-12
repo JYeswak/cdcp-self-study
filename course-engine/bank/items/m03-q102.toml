@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m03-q102"
+module = 3
+stem = "Water availability for cooling (where water-cooled plant is planned) is a site factor because:"
+choices = [
+  "UPS batteries require city water flow continuously",
+  "Servers drink municipal water directly",
+  "Cooling towers and some plants depend on reliable makeup water quantity and quality",
+  "Fibre optics need daily washing",
+]
+correct = "C"
+explanation = "Water-cooled designs depend on sustainable makeup water—both volume and chemistry/quality."
+topic_ids = ["m03-site-selection", "m03-facility-criteria"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q062"
+module = 12
+stem = "The PASS method for portable extinguishers stands for the operational sequence that includes:"
+choices = [
+  "Power off all UPS units first always",
+  "Pull, Aim, Squeeze, Sweep (at the base of the fire)",
+  "Page, Announce, Silence, Suppress only via BMS",
+  "Prop doors, Abort forever, Seal exits, Stay put"
+]
+correct = "B"
+explanation = "PASS is the standard portable technique: pull pin, aim at base, squeeze, sweep."
+topic_ids = ["m12-extinguishers"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

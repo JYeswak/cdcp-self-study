@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q208"
+module = 9
+stem = "Gaps in containment doors, brushes, or missing blanking panels typically cause:"
+choices = [
+  "Automatic environmental compliance",
+  "Higher free cooling without any downside",
+  "Network latency reduction",
+  "Leakage that reintroduces mixing and undermines separation benefits"
+]
+correct = "D"
+explanation = "Containment performance depends on sealing the intended airflow boundaries."
+topic_ids = ["m09-containment"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

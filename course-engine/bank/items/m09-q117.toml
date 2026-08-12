@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q117"
+module = 9
+stem = "Dew point is often a more useful moisture metric than RH alone because:"
+choices = [
+  "Dew point ignores moisture completely",
+  "It indicates absolute moisture content related to condensation risk independent of dry-bulb alone",
+  "It only measures raised-floor height",
+  "It is identical to wet-bulb always in every climate"
+]
+correct = "B"
+explanation = "Dew point reflects moisture amount; RH depends on temperature, so dew point better tracks condensation risk as air moves and cools."
+topic_ids = ["m09-temp-humidity"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

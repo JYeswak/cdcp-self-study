@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q111"
+module = 11
+stem = "Multimode fiber (OM-class awareness) is commonly associated with:"
+choices = [
+  "Only submarine cables across oceans",
+  "Exclusive use for power distribution",
+  "Replacing all copper permanently in every closet",
+  "Shorter-reach data centre and building links with cost-effective transceivers in many designs"
+]
+correct = "D"
+explanation = "MMF serves many intra-facility links; selection depends on distance, speed, and optics strategy."
+topic_ids = ["m11-fibre"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

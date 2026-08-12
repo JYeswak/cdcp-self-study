@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q056"
+module = 8
+stem = "Switched rack PDU outlets are useful when:"
+choices = [
+  "You want to defeat dual-path redundancy silently",
+  "Utility generators should not be tested",
+  "Blanking panels are unavailable",
+  "Remote power cycling of outlets is an approved operational need",
+]
+correct = "D"
+explanation = "Switched PDUs enable remote outlet control under change control—use carefully."
+topic_ids = ["m08-power-strips"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

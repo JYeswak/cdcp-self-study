@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q080"
+module = 13
+stem = "Progressive zoning means access should generally:"
+choices = [
+  "Jump from parking lot to white space with one uncontrolled door whenever convenient",
+  "Ignore grey-space plant rooms as low value",
+  "Use the same master key under every doormat",
+  "Increase restriction through successive checkpoints (public → controlled → restricted → highly restricted)"
+]
+correct = "D"
+explanation = "Least privilege by space uses staged zones rather than single-door deep access."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

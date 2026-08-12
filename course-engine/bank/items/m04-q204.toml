@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m04-q204"
+module = 4
+stem = "Suspended ceilings in technical spaces may be used to:"
+choices = [
+  "Only hide structural defects from inspectors permanently",
+  "Replace fire detection entirely",
+  "Conceal services, support lighting, and in some designs form a return-air plenum when listed/approved for that use",
+  "Eliminate all cable trays forever"
+]
+correct = "C"
+explanation = "Ceilings can organize services and airflow return—but plenum use must match listing and design intent."
+topic_ids = ["m04-suspended-ceiling", "m04-cooling-impact"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

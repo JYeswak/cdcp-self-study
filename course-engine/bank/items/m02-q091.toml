@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q091"
+module = 2
+stem = "If local code is silent on a data-centre-specific topic, a common professional approach is to:"
+choices = [
+  "Ignore all voluntary standards",
+  "Apply owner-approved voluntary standards and good engineering practice while still meeting all code minimums that do apply",
+  "Assume no requirements exist for life safety",
+  "Copy a blog’s PUE number into the permit set",
+]
+correct = "B"
+explanation = "Where code is silent, voluntary standards and engineering practice guide design—without undercutting applicable code."
+topic_ids = ["m02-code-vs-standard", "m02-standards-guidelines"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

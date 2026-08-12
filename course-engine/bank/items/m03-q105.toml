@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m03-q105"
+module = 3
+stem = "Climate and free-cooling potential influence site selection mainly through:"
+choices = [
+  "Only tax incentives for murals",
+  "USB cable lengths",
+  "HVAC energy, plant type options, and outdoor design conditions for capacity",
+  "Badge colours",
+]
+correct = "C"
+explanation = "Outdoor climate drives HVAC sizing and free-cooling opportunity."
+topic_ids = ["m03-site-selection", "m03-facility-criteria"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

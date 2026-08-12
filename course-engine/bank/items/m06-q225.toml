@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q225"
+module = 6
+stem = "kW versus kVA planning matters because:"
+choices = [
+  "They are always identical numbers",
+  "Real power and apparent power differ by power factor; equipment may be limited on either",
+  "Only kVA appears on every nameplate worldwide",
+  "kW only applies to cooling towers"
+]
+correct = "B"
+explanation = "Power factor links kW and kVA; designs must respect both limits."
+topic_ids = ["m06-sizing", "m06-power-quality"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

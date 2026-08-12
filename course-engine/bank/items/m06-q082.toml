@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q082"
+module = 6
+stem = "Equipotential bonding of racks and cable tray supports:"
+choices = [
+  "Floating every chassis with no ground path",
+  "Disabling SPD devices permanently",
+  "Safer fault/ transient behaviour and cleaner reference practice when designed to code",
+  "Using water pipes as the only earthing electrode always",
+]
+correct = "C"
+explanation = "Bonded infrastructure supports safety and EMC practice; freestyle grounds are not acceptable."
+topic_ids = ["m06-grounding-bonding"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

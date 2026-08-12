@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q07"
+module = 3
+stem = "Which site factor most directly threatens long-term dual-utility feasibility?"
+choices = [
+  "Paint color of the lobby",
+  "Single substation/path geography with no realistic second feed",
+  "Having too many conference rooms",
+  "Using 19-inch racks",
+]
+correct = "B"
+explanation = "True dual utility needs independent upstream paths, not two cables on one geographic feed."
+topic_ids = ["m03-site-selection"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

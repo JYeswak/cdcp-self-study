@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q203"
+module = 10
+stem = "Backup water planning should consider not only volume but also:"
+choices = [
+  "How water is delivered to the process (pumps, piping, power to transfer pumps, and usable storage quality)",
+  "Only the color of the tank",
+  "Only whether the tank is visible from the highway",
+  "Whether staff like bottled water brands"
+]
+correct = "A"
+explanation = "Unusable or undeliverable stored water is false capacity."
+topic_ids = ["m10-backup"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

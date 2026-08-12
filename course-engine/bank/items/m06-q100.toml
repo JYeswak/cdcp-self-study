@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q100"
+module = 6
+stem = "PUE (Power Usage Effectiveness) is defined as:"
+choices = [
+  "IT energy ÷ total facility energy",
+  "Water liters ÷ staff headcount",
+  "Generator kW ÷ rack count",
+  "Total facility energy ÷ IT equipment energy",
+]
+correct = "D"
+explanation = "PUE = total facility energy / IT energy; lower overhead is better. It is not an availability design."
+topic_ids = ["m06-sustainability"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

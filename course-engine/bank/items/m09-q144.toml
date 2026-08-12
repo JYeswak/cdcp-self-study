@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q144"
+module = 9
+stem = "Supplemental cooling generally means:"
+choices = [
+  "Adding local capacity (in-row, rear-door, liquid, and similar) where room systems are insufficient",
+  "Removing all primary plant and relying on outdoor air only with no design",
+  "Only painting CRAHs a different color",
+  "Disabling monitoring to save energy"
+]
+correct = "A"
+explanation = "Supplemental cooling targets hot spots or dense zones that the base system cannot serve adequately alone."
+topic_ids = ["m09-supplemental"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

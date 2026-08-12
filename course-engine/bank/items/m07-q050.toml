@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 7)
+id = "m07-q050"
+module = 7
+stem = "A practical trigger to commission an EMF survey includes:"
+choices = [
+  "Every time a fibre connector is cleaned",
+  "Only when PUE exceeds 2.0",
+  "Whenever blanking panels are installed",
+  "Unexplained I/O errors clustered near electrical plant, exposure complaints, or white space next to high-current gear/rail/substation",
+]
+correct = "D"
+explanation = "Surveys follow symptoms, adjacency risk, or due diligence—not random ritual."
+topic_ids = ["m07-sources", "m07-standards"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m05-q207"
+module = 5
+stem = "Connecting lighting to appropriate electrical panels and emergency systems requires coordination so that:"
+choices = [
+  "All lights share a single non-backed UPS outlet under a desk",
+  "Emergency lights only work when the building is fully powered",
+  "Lighting never appears on any single-line diagram",
+  "Normal and emergency paths meet design intent and code for continued egress illumination"
+]
+correct = "D"
+explanation = "Circuiting and emergency transfer must match the life-safety design, not ad-hoc plug strips."
+topic_ids = ["m05-fixtures", "m05-emergency"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

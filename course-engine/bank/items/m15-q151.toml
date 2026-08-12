@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q151"
+module = 15
+stem = "Documenting who is on-call and how to escalate is operationally important because:"
+choices = [
+  "Incidents wait politely until morning always",
+  "Monitoring replaces people entirely",
+  "Clear ownership reduces delayed response when multi-system failures occur",
+  "SLAs forbid human contacts"
+]
+correct = "C"
+explanation = "Human response paths are part of the availability design."
+topic_ids = ["m15-documentation", "m15-ops-security"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m01-q202"
+module = 1
+stem = "Colocation, enterprise, and hyperscale facilities primarily differ in:"
+choices = [
+  "Whether fire detection is ever required",
+  "Whether electricity is used at all",
+  "Ownership model, multi-tenancy, scale economics, and governance boundaries",
+  "Whether racks can be grounded"
+]
+correct = "C"
+explanation = "DC types share many engineering needs but differ in ownership, tenancy, scale, and who controls what."
+topic_ids = ["m01-dc-types", "m01-business-org"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

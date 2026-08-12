@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q099"
+module = 6
+stem = "Stranded power in capacity planning means:"
+choices = [
+  "Extra free UPS modules with no cost",
+  "Power capacity that cannot be used because cooling, space, or distribution cannot support it",
+  "Only renewable PPAs",
+  "Ground conductors that are oversized",
+]
+correct = "B"
+explanation = "Power without matching cooling/distribution/space is stranded capital."
+topic_ids = ["m06-hpc", "m06-sizing"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

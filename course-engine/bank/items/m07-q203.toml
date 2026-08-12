@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m07-q203"
+module = 7
+stem = "A practical mitigation that often helps before exotic shielding is:"
+choices = [
+  "Stacking servers against the transformer wall for shorter power cords always",
+  "Distance, orientation, and routing high-current paths away from sensitive equipment and occupied zones",
+  "Increasing current deliberately on all feeders",
+  "Removing all bonding"
+]
+correct = "B"
+explanation = "Separation and geometry are first-line mitigations; shielding is costlier and application-specific."
+topic_ids = ["m07-shielding", "m07-sources"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

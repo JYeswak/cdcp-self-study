@@ -1,0 +1,664 @@
+# Topic atoms from public EPI CDCP syllabus + NH ops expansions
+# source: src-epi-cdcp-page, src-nh-cdcp — educational reconstruction only
+schema_version = 1
+min_items_default = 1
+
+# --- 01 Mission Critical ---
+[[topic]]
+id = "m01-business-org"
+domain = "01-mission-critical"
+label = "Business organization / DC in the business"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m01-dc-types"
+domain = "01-mission-critical"
+label = "Types of data centres"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m01-importance"
+domain = "01-mission-critical"
+label = "Importance of a data centre"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m01-elements"
+domain = "01-mission-critical"
+label = "Elements of a data centre"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m01-unavailability"
+domain = "01-mission-critical"
+label = "Causes of unavailability"
+source = "src-epi-cdcp-page"
+
+# --- 02 Standards ---
+[[topic]]
+id = "m02-standards-guidelines"
+domain = "02-standards"
+label = "Standards and guidelines landscape"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m02-subcomponent-standards"
+domain = "02-standards"
+label = "Standards for sub-components"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m02-intl-vs-national"
+domain = "02-standards"
+label = "International vs national standards"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m02-tia-vs-uptime"
+domain = "02-standards"
+label = "TIA-942 Rated vs Uptime Tier (naming discipline)"
+source = "src-tia-942"
+tension = "tia-vs-uptime"
+
+[[topic]]
+id = "m02-iso22237-series"
+domain = "02-standards"
+label = "ISO/IEC 22237 series awareness"
+source = "src-tuv-22237"
+
+[[topic]]
+id = "m02-en50600-series"
+domain = "02-standards"
+label = "EN 50600 series awareness"
+source = "src-en-50600-overview"
+
+[[topic]]
+id = "m02-code-vs-standard"
+domain = "02-standards"
+label = "AHJ/code vs voluntary standard"
+source = "src-epi-cdcp-page"
+tension = "code-vs-standard"
+
+# --- 03 Site building ---
+[[topic]]
+id = "m03-site-selection"
+domain = "03-site-building"
+label = "Site location selection criteria"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m03-facility-criteria"
+domain = "03-site-building"
+label = "Facility criteria"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m03-supporting-facilities"
+domain = "03-site-building"
+label = "Supporting facilities and function"
+source = "src-epi-cdcp-page"
+
+# --- 04 Floor ceiling ---
+[[topic]]
+id = "m04-floor-standards"
+domain = "04-floor-ceiling"
+label = "Raised floor standards"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m04-floor-types"
+domain = "04-floor-ceiling"
+label = "Types of raised floors"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m04-loading"
+domain = "04-floor-ceiling"
+label = "Loading factors (uniform/concentrated/rolling)"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m04-guidelines"
+domain = "04-floor-ceiling"
+label = "General raised-floor guidelines"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m04-grounding"
+domain = "04-floor-ceiling"
+label = "Grounding / SRG"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m04-ramp"
+domain = "04-floor-ceiling"
+label = "Ramp and landing platform"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m04-suspended-ceiling"
+domain = "04-floor-ceiling"
+label = "Suspended ceiling"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m04-cooling-impact"
+domain = "04-floor-ceiling"
+label = "Floor/ceiling impact on cooling"
+source = "src-epi-cdcp-page"
+
+# --- 05 Light ---
+[[topic]]
+id = "m05-measurements"
+domain = "05-lighting"
+label = "Measurements of light"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m05-standards"
+domain = "05-lighting"
+label = "Lighting standards"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m05-fixtures"
+domain = "05-lighting"
+label = "Connecting and positioning light fixtures"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m05-emergency"
+domain = "05-lighting"
+label = "Emergency light"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m05-emergency-types"
+domain = "05-lighting"
+label = "Types of emergency light"
+source = "src-epi-cdcp-page"
+
+# --- 06 Power ---
+[[topic]]
+id = "m06-sustainability"
+domain = "06-power"
+label = "Power sustainability"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-microgrid"
+domain = "06-power"
+label = "Microgrid"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-transformers"
+domain = "06-power"
+label = "Transformers"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-generators"
+domain = "06-power"
+label = "Generators"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-ats-sts"
+domain = "06-power"
+label = "ATS and STS"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-redundancy"
+domain = "06-power"
+label = "Power redundancy levels and techniques"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-distribution"
+domain = "06-power"
+label = "Power distribution / busbar trunking"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-phase"
+domain = "06-power"
+label = "Single phase and three phase power"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-grounding-bonding"
+domain = "06-power"
+label = "Grounding and bonding"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-isolation-xfmr"
+domain = "06-power"
+label = "Isolation transformer"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-pdu"
+domain = "06-power"
+label = "PDU form factors"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-ip-grades"
+domain = "06-power"
+label = "Ingress Protection (IP) grades"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-power-quality"
+domain = "06-power"
+label = "Power quality parameters"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-sizing"
+domain = "06-power"
+label = "Power sizing"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-hpc"
+domain = "06-power"
+label = "High Performance Computing power notes"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-ups"
+domain = "06-power"
+label = "UPS systems"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-ups-parallel"
+domain = "06-power"
+label = "UPS parallel configurations"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-batteries"
+domain = "06-power"
+label = "Batteries"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-bess"
+domain = "06-power"
+label = "Battery Energy Storage System (BESS)"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m06-thermo"
+domain = "06-power"
+label = "Thermographic scanning"
+source = "src-epi-cdcp-page"
+
+# --- 07 EMF ---
+[[topic]]
+id = "m07-types"
+domain = "07-emf"
+label = "Types of EMF"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m07-units"
+domain = "07-emf"
+label = "Units of measurements"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m07-standards"
+domain = "07-emf"
+label = "EMF standards and best practices"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m07-sources"
+domain = "07-emf"
+label = "Sources of EMF"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m07-shielding"
+domain = "07-emf"
+label = "Shielding"
+source = "src-epi-cdcp-page"
+
+# --- 08 Racks ---
+[[topic]]
+id = "m08-standards"
+domain = "08-racks"
+label = "Rack standards"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m08-dimensions"
+domain = "08-racks"
+label = "Rack dimensions"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m08-types"
+domain = "08-racks"
+label = "Types of racks"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m08-security"
+domain = "08-racks"
+label = "Rack security"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m08-power-strips"
+domain = "08-racks"
+label = "Power strips / rails"
+source = "src-epi-cdcp-page"
+
+# --- 09 Cooling ---
+[[topic]]
+id = "m09-principles"
+domain = "09-cooling"
+label = "Cooling principles"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m09-temp-humidity"
+domain = "09-cooling"
+label = "Temperature and humidity"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m09-ashrae-envelopes"
+domain = "09-cooling"
+label = "ASHRAE TC 9.9 recommended vs allowable awareness"
+source = "src-ashrae-datacom"
+tension = "ashrae-recommended-vs-allowable"
+
+[[topic]]
+id = "m09-system-types"
+domain = "09-cooling"
+label = "Types of cooling systems"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m09-raised-floor-cooling"
+domain = "09-cooling"
+label = "Raised floor cooling"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m09-non-raised"
+domain = "09-cooling"
+label = "Non-raised floor cooling"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m09-supplemental"
+domain = "09-cooling"
+label = "Supplemental cooling"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m09-containment"
+domain = "09-cooling"
+label = "Containment"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m09-liquid"
+domain = "09-cooling"
+label = "Liquid cooling"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m09-ster"
+domain = "09-cooling"
+label = "Seasonal Thermal Energy Storage (STER)"
+source = "src-epi-cdcp-page"
+
+# --- 10 Water ---
+[[topic]]
+id = "m10-importance"
+domain = "10-water"
+label = "Importance of water"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m10-backup"
+domain = "10-water"
+label = "Backup water supply"
+source = "src-epi-cdcp-page"
+
+# --- 11 Network ---
+[[topic]]
+id = "m11-importance"
+domain = "11-network"
+label = "Importance of network cabling infrastructure"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m11-planning"
+domain = "11-network"
+label = "Planning considerations"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m11-copper"
+domain = "11-network"
+label = "Copper cabling"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m11-fibre"
+domain = "11-network"
+label = "Fibre cabling"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m11-tia942-topology"
+domain = "11-network"
+label = "TIA-942 cabling system topology"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m11-testing"
+domain = "11-network"
+label = "Testing and verification of cabling system"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m11-redundancy"
+domain = "11-network"
+label = "Cabling redundancy"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m11-site-to-site"
+domain = "11-network"
+label = "Site-to-site connectivity"
+source = "src-epi-cdcp-page"
+
+# --- 12 Fire ---
+[[topic]]
+id = "m12-causes"
+domain = "12-fire"
+label = "Common causes of fire"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m12-suppression-reqs"
+domain = "12-fire"
+label = "Requirements for fire suppression systems"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m12-standards"
+domain = "12-fire"
+label = "Fire standards"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m12-detection"
+domain = "12-fire"
+label = "Fire detection systems"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m12-water-suppression"
+domain = "12-fire"
+label = "Water-based fire suppression"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m12-gas-suppression"
+domain = "12-fire"
+label = "Gas-based fire suppression"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m12-classes"
+domain = "12-fire"
+label = "Classes of fire"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m12-best-practices"
+domain = "12-fire"
+label = "Fire best practices"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m12-extinguishers"
+domain = "12-fire"
+label = "Handheld fire extinguishers"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m12-signage"
+domain = "12-fire"
+label = "Signage and safety requirements"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m12-regulatory"
+domain = "12-fire"
+label = "Regulatory requirements / AHJ"
+source = "src-epi-cdcp-page"
+
+# --- 13 Security ---
+[[topic]]
+id = "m13-security-components"
+domain = "13-security"
+label = "Components for physical security"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m13-safety-components"
+domain = "13-security"
+label = "Components for physical safety"
+source = "src-epi-cdcp-page"
+
+# --- 14 Auxiliary ---
+[[topic]]
+id = "m14-monitoring-challenges"
+domain = "14-auxiliary"
+label = "Monitoring challenges"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m14-monitoring-reqs"
+domain = "14-auxiliary"
+label = "Monitoring requirements"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m14-ems"
+domain = "14-auxiliary"
+label = "Environmental Monitoring System (EMS)"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m14-bms"
+domain = "14-auxiliary"
+label = "Building Management System (BMS)"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m14-dcim"
+domain = "14-auxiliary"
+label = "Data Centre Infrastructure Management (DCIM)"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m14-leak"
+domain = "14-auxiliary"
+label = "Water leak detection"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m14-alarms"
+domain = "14-auxiliary"
+label = "Alarm panels"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m14-notification"
+domain = "14-auxiliary"
+label = "Notification"
+source = "src-epi-cdcp-page"
+
+[[topic]]
+id = "m14-best-practices"
+domain = "14-auxiliary"
+label = "Auxiliary systems best practices"
+source = "src-epi-cdcp-page"
+
+# --- 15 Ops adjacent (NH) ---
+[[topic]]
+id = "m15-labelling"
+domain = "15-ops-adjacent"
+label = "Labelling"
+source = "src-nh-cdcp"
+exam_weight_unknown = true
+
+[[topic]]
+id = "m15-documentation"
+domain = "15-ops-adjacent"
+label = "Documentation"
+source = "src-nh-cdcp"
+exam_weight_unknown = true
+
+[[topic]]
+id = "m15-cleaning"
+domain = "15-ops-adjacent"
+label = "Cleaning"
+source = "src-nh-cdcp"
+exam_weight_unknown = true
+
+[[topic]]
+id = "m15-mtbf-mttr"
+domain = "15-ops-adjacent"
+label = "MTBF / MTTR"
+source = "src-nh-cdcp"
+exam_weight_unknown = true
+
+[[topic]]
+id = "m15-maintenance-sla"
+domain = "15-ops-adjacent"
+label = "Maintenance contracts / SLA"
+source = "src-nh-cdcp"
+exam_weight_unknown = true
+
+[[topic]]
+id = "m15-ops-security"
+domain = "15-ops-adjacent"
+label = "Operational security and safety practices"
+source = "src-nh-cdcp"
+exam_weight_unknown = true

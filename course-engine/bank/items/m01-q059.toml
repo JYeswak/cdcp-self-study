@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m01-q059"
+module = 1
+stem = "Which best distinguishes reliability culture from pure hardware spend?"
+choices = [
+  "Documented change control, training, and tested recovery procedures complement engineered redundancy",
+  "Buying more kW always fixes process gaps",
+  "Ignoring MOPs if dual path exists",
+  "Skipping incident reviews after near-misses",
+]
+correct = "A"
+explanation = "People and process maturity complement hardware redundancy; spend alone does not create reliability."
+topic_ids = ["m01-unavailability", "m01-business-org"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q216"
+module = 15
+stem = "Operational safety near live electrical and mechanical plant requires:"
+choices = [
+  "Disabling safety interlocks for speed",
+  "Working alone on unfamiliar switchgear without briefing",
+  "Using water freely on electrical faults",
+  "LOTO where applicable, PPE, training, and respect for energized boundaries—not heroics"
+]
+correct = "D"
+explanation = "Ops security includes occupational safety discipline around energy sources."
+topic_ids = ["m15-ops-security"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

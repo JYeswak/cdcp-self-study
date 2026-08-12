@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q122"
+module = 11
+stem = "Site-to-site connectivity planning for multi-building or multi-site DCs should consider:"
+choices = [
+  "Only indoor patch colors",
+  "Only CRAH filter MERV ratings",
+  "Diverse carrier entrances, pathway risks, latency, and failover behavior",
+  "Only raised floor pedestal spacing"
+]
+correct = "C"
+explanation = "Inter-site links are availability and performance critical—physical diversity and provider strategy matter."
+topic_ids = ["m11-site-to-site", "m11-redundancy"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

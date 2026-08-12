@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q107"
+module = 10
+stem = "A qualitative tradeoff of evaporative cooling versus dry heat rejection is often:"
+choices = [
+  "Evaporative methods use no water and always use more energy",
+  "Dry coolers always use more water than towers",
+  "There is never an energy/water tradeoff",
+  "Evaporative methods can be more energy-efficient but consume water; dry methods save water but may use more energy in heat"
+]
+correct = "D"
+explanation = "Water versus energy is a classic plant design tension—site climate and policy drive choices."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

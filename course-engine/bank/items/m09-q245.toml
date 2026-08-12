@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q245"
+module = 9
+stem = "When containment raises return temperatures, a plant-level benefit can be:"
+choices = [
+  "Higher delta-T and more efficient heat rejection or economizer operation",
+  "Lower coil effectiveness always",
+  "Mandatory removal of filters",
+  "Automatic dual utility feeds"
+]
+correct = "A"
+explanation = "Cleaner, hotter returns improve thermodynamic efficiency of many plants."
+topic_ids = ["m09-containment", "m09-system-types"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

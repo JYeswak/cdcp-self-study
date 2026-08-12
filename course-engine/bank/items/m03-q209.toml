@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m03-q209"
+module = 3
+stem = "Adequate generator yard and fuel logistics planning is part of supporting facilities because:"
+choices = [
+  "Generators never need fuel",
+  "Long-duration utility loss requires space, access, and resupply paths for on-site generation",
+  "Yards are only for employee barbecues",
+  "Fuel logistics are purely a marketing concern"
+]
+correct = "B"
+explanation = "On-site generation is only useful if space, fuel, and access logistics are designed in."
+topic_ids = ["m03-supporting-facilities", "m03-facility-criteria"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

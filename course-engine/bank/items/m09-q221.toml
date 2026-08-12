@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q221"
+module = 9
+stem = "Free cooling or economization aims to:"
+choices = [
+  "Use favorable outdoor conditions to reduce mechanical refrigeration energy",
+  "Always eliminate all heat rejection equipment forever",
+  "Heat the data hall intentionally in summer only",
+  "Replace dual power paths"
+]
+correct = "A"
+explanation = "Economizers leverage cool outdoor conditions to cut compressor work."
+topic_ids = ["m09-system-types", "m09-principles"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

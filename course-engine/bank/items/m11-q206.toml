@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q206"
+module = 11
+stem = "Copper cabling category or class selection is driven mainly by:"
+choices = [
+  "Only rack paint color",
+  "Only generator fuel type",
+  "Only fire agent type",
+  "Required application bandwidth, distance, and alien crosstalk or noise environment"
+]
+correct = "D"
+explanation = "Media grade follows application needs and environment, not cosmetics."
+topic_ids = ["m11-copper", "m11-planning"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

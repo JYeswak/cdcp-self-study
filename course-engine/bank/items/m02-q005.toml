@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q05"
+module = 2
+stem = "Which is generally enforceable as code rather than a voluntary industry standard?"
+choices = [
+  "A vendor white paper on airflow",
+  "Local electrical and fire codes enforced by the AHJ",
+  "An internal runbook preference",
+  "A blog post comparing PUE",
+]
+correct = "B"
+explanation = "AHJ-enforced electrical and fire codes are binding; voluntary guides and white papers are not code."
+topic_ids = ["m02-code-vs-standard"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

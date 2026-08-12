@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q068"
+module = 12
+stem = "Who typically has final acceptance authority over fire protection design and variances in a jurisdiction?"
+choices = [
+  "The social media marketing team",
+  "Only the network vendor systems engineer",
+  "The cabling contractor alone",
+  "The Authority Having Jurisdiction (AHJ), e.g. fire marshal, with applicable codes"
+]
+correct = "D"
+explanation = "AHJ and code govern acceptance; insurers/owner standards may add stricter requirements."
+topic_ids = ["m12-regulatory"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

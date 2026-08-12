@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q086"
+module = 13
+stem = "Fail-safe locking hardware on power loss typically:"
+choices = [
+  "Remains locked to block all movement",
+  "Unlocks (common on maglocked egress paths so people are not trapped)",
+  "Deletes all access logs",
+  "Disables emergency lighting"
+]
+correct = "B"
+explanation = "Fail-safe unlocks on power loss; fail-secure stays locked—do not reverse the terms casually."
+topic_ids = ["m13-safety-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

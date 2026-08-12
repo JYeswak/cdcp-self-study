@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q217"
+module = 9
+stem = "The primary role of rear-door heat exchangers is to:"
+choices = [
+  "Remove heat at the rack exhaust before it enters the room air stream",
+  "Generate three-phase power",
+  "Replace fire detection",
+  "Act as PDUs"
+]
+correct = "A"
+explanation = "Rear-door HX captures exhaust heat at the rack boundary."
+topic_ids = ["m09-supplemental", "m09-system-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

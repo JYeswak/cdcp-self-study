@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q211"
+module = 15
+stem = "Spare-parts strategy linked to MTTR targets should prioritize:"
+choices = [
+  "Only cosmetic bezels",
+  "Random consumer parts with no BOM match",
+  "Long-lead critical components whose failure would strand the site without a plan",
+  "Zero inventory to maximize accounting metrics only"
+]
+correct = "C"
+explanation = "Spares are insurance matched to failure impact and lead time."
+topic_ids = ["m15-mtbf-mttr", "m15-maintenance-sla"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

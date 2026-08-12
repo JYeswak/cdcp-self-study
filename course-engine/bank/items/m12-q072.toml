@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q072"
+module = 12
+stem = "Suppression warning signage for clean-agent rooms typically communicates that occupants should:"
+choices = [
+  "Stay and watch discharge for training value",
+  "Disable strobes to reduce noise",
+  "Open all dampers manually",
+  "Evacuate on alarm and understand agent/system warnings"
+]
+correct = "D"
+explanation = "Signage supports life safety: evacuate-on-alarm messaging, agent type, and control locations."
+topic_ids = ["m12-signage"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

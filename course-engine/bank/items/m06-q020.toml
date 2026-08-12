@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q20"
+module = 6
+stem = "Overhead busway in white space is often chosen to:"
+choices = [
+  "Increase EMF intentionally",
+  "Enable flexible tap-off power distribution along a row without full recabling",
+  "Replace fire detection",
+  "Cool chips directly",
+]
+correct = "B"
+explanation = "Overhead busway enables flexible tap-off distribution along a row without full recabling."
+topic_ids = ["m06-distribution"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

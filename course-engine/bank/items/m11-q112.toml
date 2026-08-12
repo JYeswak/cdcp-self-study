@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q112"
+module = 11
+stem = "Polarity management for duplex and MPO fiber systems matters because incorrect polarity:"
+choices = [
+  "Can prevent links from coming up even when loss budgets are fine",
+  "Always increases electrical UPS capacity",
+  "Only affects cable jacket printing",
+  "Is irrelevant for data centres"
+]
+correct = "A"
+explanation = "Transmit must land on receive. Polarity schemes and labeling prevent silent connectivity failures."
+topic_ids = ["m11-fibre", "m11-testing"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

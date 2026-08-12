@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m12-q208"
+module = 12
+stem = "A discharge of clean agent without investigating cause and restoring readiness is incomplete because:"
+choices = [
+  "Systems automatically self-refill forever without service",
+  "Agent quantity, room integrity, and detection/control systems may need restoration before returning to protected state",
+  "One discharge means fire can never recur",
+  "Post-discharge actions are optional if PUE is low"
+]
+correct = "B"
+explanation = "After discharge, the protection system is compromised until serviced and verified."
+topic_ids = ["m12-gas-suppression", "m12-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

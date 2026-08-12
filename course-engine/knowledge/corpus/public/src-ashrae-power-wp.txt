@@ -1,0 +1,10 @@
+# source_id: src-ashrae-power-wp
+# url: https://www.ashrae.org/file%20library/technical%20resources/bookstore/ashrae_tc0909_power_white_paper_22_june_2016_revised.pdf
+# access: free
+# fetched: 2026-08-11
+# title: Data Center Power Equipment Thermal Guidelines and Best Practices (free PDF)
+
+[PDF not extracted in-repo]
+url=https://www.ashrae.org/file%20library/technical%20resources/bookstore/ashrae_tc0909_power_white_paper_22_june_2016_revised.pdf
+title=Data Center Power Equipment Thermal Guidelines and Best Practices (free PDF)
+note=Use link-only for grounding; binary not stored.

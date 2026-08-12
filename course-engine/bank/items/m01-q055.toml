@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m01-q055"
+module = 1
+stem = "A managed services / hosted model typically means:"
+choices = [
+  "A provider operates infrastructure or applications under contract SLAs for the customer",
+  "The customer always owns generators on their balance sheet",
+  "There is never a shared responsibility model",
+  "Fire codes do not apply",
+]
+correct = "A"
+explanation = "Managed/hosted models shift operational responsibility to a provider under contractual SLAs, with shared-responsibility nuances."
+topic_ids = ["m01-dc-types", "m01-business-org"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

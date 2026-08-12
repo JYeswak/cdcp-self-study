@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q070"
+module = 6
+stem = "A step-down transformer at a data centre service entrance commonly:"
+choices = [
+  "Converts fibre optic signals to copper",
+  "Provides chilled water free cooling",
+  "Changes voltage level (e.g. MV to LV plant voltage) for site use",
+  "Meters only humidity",
+]
+correct = "C"
+explanation = "Transformers change voltage via magnetic coupling; MV→LV is the classic site role."
+topic_ids = ["m06-transformers"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

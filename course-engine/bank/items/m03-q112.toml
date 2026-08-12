@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m03-q112"
+module = 3
+stem = "A “supporting facility” gap that can undermine a well-designed white space is:"
+choices = [
+  "Documented MOPs",
+  "Presence of dual power paths",
+  "Lack of secure, maintainable space for electrical and mechanical plant and ops staff",
+  "Adequate clear height",
+]
+correct = "C"
+explanation = "Without plant and ops support spaces, white-space design is not operationally complete."
+topic_ids = ["m03-supporting-facilities"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

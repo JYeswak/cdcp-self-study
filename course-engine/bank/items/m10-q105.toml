@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q105"
+module = 10
+stem = "Poor water treatment in condenser or tower systems can lead to:"
+choices = [
+  "Improved heat transfer forever",
+  "Scale, corrosion, or biological fouling that reduces heat-rejection capacity",
+  "Automatic free fiber upgrades",
+  "Higher battery amp-hour ratings"
+]
+correct = "B"
+explanation = "Fouled exchangers and towers lose effectiveness—risking IT thermal margins."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

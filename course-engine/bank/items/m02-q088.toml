@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q088"
+module = 2
+stem = "Which is NOT a sound practice when citing facility resilience frameworks?"
+choices = [
+  "State which framework and assessment path the owner actually requires",
+  "Invent a hybrid “Tier-Rated-5” label to impress auditors without defined criteria",
+  "Keep TIA Rated and Uptime Tier labels distinct",
+  "Map design features to the chosen framework’s concepts carefully",
+]
+correct = "B"
+explanation = "Hybrid marketing labels without defined criteria create confusion and false assurance."
+topic_ids = ["m02-tia-vs-uptime"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

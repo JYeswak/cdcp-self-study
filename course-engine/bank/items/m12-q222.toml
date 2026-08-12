@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m12-q222"
+module = 12
+stem = "AHJ influence on fire design means:"
+choices = [
+  "Only vendor preference matters",
+  "AHJ never reviews data centres",
+  "Standards always override codes",
+  "Local code officials can require measures beyond or differing from a voluntary standard alone"
+]
+correct = "D"
+explanation = "Codes and AHJ decisions govern; voluntary standards do not waive them."
+topic_ids = ["m12-regulatory", "m12-standards"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m07-q206"
+module = 7
+stem = "Shielding for magnetic fields at power frequencies is generally:"
+choices = [
+  "More difficult than many expect; materials, thickness, and seams matter and distance is often preferred",
+  "Trivial with any plastic sheet",
+  "Identical to RF shielding with thin foil always",
+  "Achieved only by painting racks white"
+]
+correct = "A"
+explanation = "Low-frequency magnetic shielding is engineering-heavy; separation is often the practical first step."
+topic_ids = ["m07-shielding"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

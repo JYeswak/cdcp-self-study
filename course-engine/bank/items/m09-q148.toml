@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q148"
+module = 9
+stem = "Hot-aisle containment (HAC) primarily aims to:"
+choices = [
+  "Capture and isolate hot exhaust so return air is hotter and more predictable",
+  "Heat the cold aisle on purpose with exhaust",
+  "Eliminate all CRAH fans",
+  "Store condensate under the floor"
+]
+correct = "A"
+explanation = "HAC encloses the hot aisle, improving return temperature and reducing hot air contamination of cold aisles."
+topic_ids = ["m09-containment"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

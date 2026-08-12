@@ -1,0 +1,21 @@
+# Rules for quantitative / load-bearing claims in items and modules
+
+schema_version = 1
+
+# Allowed quantity_evidence values on items
+allowed_quantity_evidence = [
+  "free_url",          # citable free public page or free PDF
+  "licensed_note",     # author holds paid standard; note only, no full text in repo
+  "qualitative_only",  # no number claimed
+  "exam_form_public",  # 40/60/27 from EPI/EXIN public pages
+]
+
+# Forbidden without licensed_note
+forbid_uncited_numeric = true
+
+# Never allow these source classes on items
+forbidden_source_class = [
+  "exam_dump",
+  "brain_dump",
+  "unofficial_paid_pdf_mirror",
+]

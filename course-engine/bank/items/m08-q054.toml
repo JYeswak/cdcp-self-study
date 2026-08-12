@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q054"
+module = 8
+stem = "A/B rack PDU discipline means:"
+choices = [
+  "Both strips feed from the same single upstream breaker by design",
+  "Only path A is ever energized",
+  "Separate PDUs fed from independent paths so dual-corded gear keeps diversity to the outlet",
+  "PDUs replace STS and UPS",
+]
+correct = "C"
+explanation = "A/B strips preserve dual-path design at the rack."
+topic_ids = ["m08-power-strips"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

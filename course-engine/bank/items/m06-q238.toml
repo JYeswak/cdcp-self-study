@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q238"
+module = 6
+stem = "Transformer heat losses must be accounted for in facility design because they:"
+choices = [
+  "Never produce heat",
+  "Only affect fiber attenuation",
+  "Add to room or plant heat load and reduce delivered efficiency",
+  "Cancel UPS heat exactly"
+]
+correct = "C"
+explanation = "I2R and core losses appear as heat the facility must handle."
+topic_ids = ["m06-transformers", "m06-sizing"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

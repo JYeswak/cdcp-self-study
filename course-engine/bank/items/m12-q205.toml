@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m12-q205"
+module = 12
+stem = "When local fire code requirements differ from a preferred international guideline, the operator should:"
+choices = [
+  "Ignore the fire marshal if a vendor PDF disagrees",
+  "Remove all detection to simplify inspections",
+  "Follow the AHJ/adopted code path for compliance while documenting design intent",
+  "Assume guidelines always override law"
+]
+correct = "C"
+explanation = "Fire protection is heavily AHJ-driven; voluntary guides inform but do not legalize noncompliance."
+topic_ids = ["m12-regulatory", "m12-standards"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

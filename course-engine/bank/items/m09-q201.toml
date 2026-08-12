@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q201"
+module = 9
+stem = "ASHRAE recommended versus allowable envelopes are best taught as:"
+choices = [
+  "Recommended targets for long-term operation; allowable is a wider band for short-term or exceptional conditions—not a free permanent setpoint",
+  "Allowable is always colder than recommended",
+  "Recommended and allowable are identical forever",
+  "Only humidity has envelopes, never temperature"
+]
+correct = "A"
+explanation = "Recommended is the preferred operating region; allowable is wider with different risk posture."
+topic_ids = ["m09-ashrae-envelopes"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

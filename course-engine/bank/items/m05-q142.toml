@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m05-q142"
+module = 5
+stem = "Exit signage lighting is intended to:"
+choices = [
+  "Replace fire detection",
+  "Measure PUE",
+  "Provide sole illumination for detailed circuit board rework",
+  "Indicate egress path identification under normal and emergency conditions as required",
+]
+correct = "D"
+explanation = "Exit signs mark the means of egress; they are life-safety devices."
+topic_ids = ["m05-emergency", "m05-emergency-types"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

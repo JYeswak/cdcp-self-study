@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q083"
+module = 6
+stem = "Ingress Protection (IP) grades on electrical enclosures describe:"
+choices = [
+  "UPS runtime in minutes",
+  "Resistance to solid-object and liquid ingress (dust/water), not cyber IP addressing",
+  "Internet Protocol version only",
+  "Generator fuel octane",
+]
+correct = "B"
+explanation = "IP codes rate enclosure protection against solids/liquids."
+topic_ids = ["m06-ip-grades"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

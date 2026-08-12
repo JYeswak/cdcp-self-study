@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m02-q205"
+module = 2
+stem = "Sub-component standards (e.g., cabling performance, firestop listings, equipment safety marks) matter because:"
+choices = [
+  "They replace the need for any system-level design",
+  "They only apply to furniture",
+  "They forbid all redundant paths",
+  "They help ensure assemblies and products meet defined performance/safety criteria used in the facility"
+]
+correct = "D"
+explanation = "System reliability depends on listed/qualified products and installation practices, not only topology sketches."
+topic_ids = ["m02-subcomponent-standards"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

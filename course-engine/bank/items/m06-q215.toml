@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q215"
+module = 6
+stem = "Fuel quality, day-tank design, and transfer pumps matter as much as genset kW because:"
+choices = [
+  "Fuel systems set the UPS inverter topology",
+  "Fuel only affects network latency",
+  "Day tanks define thermal envelopes for IT",
+  "A generator cannot support the facility if fuel delivery or quality fails"
+]
+correct = "D"
+explanation = "Runtime depends on the entire fuel chain, not only the engine nameplate."
+topic_ids = ["m06-generators", "m06-sizing"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

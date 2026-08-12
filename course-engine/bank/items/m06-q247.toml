@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q247"
+module = 6
+stem = "Natural-gas versus diesel generators is primarily a trade-off involving:"
+choices = [
+  "Only the color of the enclosure",
+  "Whether fiber or copper is used",
+  "Only recommended thermal envelopes for IT",
+  "Fuel supply reliability, emissions, runtime continuity, and infrastructure constraints"
+]
+correct = "D"
+explanation = "Fuel choice is a multi-factor reliability and compliance trade-off."
+topic_ids = ["m06-generators"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

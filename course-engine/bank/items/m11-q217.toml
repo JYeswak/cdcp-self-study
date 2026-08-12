@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q217"
+module = 11
+stem = "A main distribution area concept is best described as:"
+choices = [
+  "Only the generator paralleling gear",
+  "Only the cold aisle",
+  "A central cross-connect or distribution hub in the structured cabling hierarchy",
+  "Only the fire riser"
+]
+correct = "C"
+explanation = "The MDA is the primary structured cabling distribution hub."
+topic_ids = ["m11-tia942-topology"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

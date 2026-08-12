@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q130"
+module = 14
+stem = "DCIM quality in practice equals:"
+choices = [
+  "The marketing brochure page count",
+  "Data hygiene, integration depth, and process discipline—not the license alone",
+  "Automatic replacement of BMS plant control always",
+  "Guaranteed correct dashboards without inventory updates"
+]
+correct = "B"
+explanation = "Bought DCIM without clean data and live feeds is a pretty CMDB."
+topic_ids = ["m14-dcim", "m14-monitoring-challenges"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

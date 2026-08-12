@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q061"
+module = 8
+stem = "Cage nuts and matching screws matter because:"
+choices = [
+  "Random partial-thread fasteners strip rails and create unreliable mounts",
+  "Any screw size works in every rail",
+  "Tool-less rails forbid all fasteners forever",
+  "Grounding is achieved only by paint",
+]
+correct = "A"
+explanation = "Match rail type (square/threaded) and hardware; half-engaged screws are a defect."
+topic_ids = ["m08-standards", "m08-dimensions"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

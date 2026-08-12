@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q213"
+module = 6
+stem = "Wet stacking concerns on diesel generators typically arise when sets:"
+choices = [
+  "Always run at continuous overload",
+  "Run lightly loaded for long periods without adequate loaded exercise",
+  "Use only natural gas",
+  "Feed only lighting panels"
+]
+correct = "B"
+explanation = "Chronic light load can foul exhaust paths; loaded exercise mitigates the risk."
+topic_ids = ["m06-generators"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

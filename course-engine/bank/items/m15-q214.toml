@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q214"
+module = 15
+stem = "An SLA that promises four-hour onsite response but stocks no critical spares may still yield long outages because:"
+choices = [
+  "Onsite presence always equals immediate repair",
+  "Response time ≠ restore time without parts, tools, and access readiness",
+  "MTTR ignores logistics",
+  "Vendors can fabricate breakers from scrap instantly always"
+]
+correct = "B"
+explanation = "Response clocks and restore clocks are different; design both."
+topic_ids = ["m15-maintenance-sla", "m15-mtbf-mttr"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

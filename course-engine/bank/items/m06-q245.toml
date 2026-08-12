@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q245"
+module = 6
+stem = "UPS module N+1 is valuable mainly when:"
+choices = [
+  "All modules must fail together",
+  "Any one module can fail or be maintained while remaining modules carry the load",
+  "Batteries are removed",
+  "Only generators are N+1"
+]
+correct = "B"
+explanation = "N+1 means one spare relative to required module count."
+topic_ids = ["m06-ups-parallel", "m06-redundancy"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

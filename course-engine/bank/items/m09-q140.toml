@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q140"
+module = 9
+stem = "Blanking panels in racks support cooling mainly by:"
+choices = [
+  "Blocking empty rack openings so cold air is forced through equipment, not open chassis paths",
+  "Increasing hot exhaust recirculation through empty U-spaces",
+  "Storing spare hard drives",
+  "Acting as fire suppression nozzles"
+]
+correct = "A"
+explanation = "Blanking panels stop internal rack recirculation and help maintain front-to-back airflow discipline."
+topic_ids = ["m09-raised-floor-cooling", "m09-containment"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,132 @@
+# =============================================================================
+# registries/claims.toml — L1 Claims constitution (Assessment-System)
+# =============================================================================
+# Charter §5 L1. Strength lattice: weaker may never justify stronger.
+# Validated by crates/cdcp_registry_check. Empty registry = ERROR.
+# =============================================================================
+
+schema_version = 1
+
+[registry]
+name = "claims"
+description = "Honesty, coverage, and study-signal claims for cdcp-course"
+
+# -----------------------------------------------------------------------------
+# Claim classes — rank(justifier) >= rank(claim) on every justified_by edge
+# -----------------------------------------------------------------------------
+
+[[claim_class]]
+name = "invariant"
+rank = 6
+definition = "Must hold on every execution / product surface"
+
+[[claim_class]]
+name = "proof"
+rank = 5
+definition = "Theorem within a named formal model (reserved; unused in v1)"
+
+[[claim_class]]
+name = "bounded_model"
+rank = 4
+definition = "Checked only within declared bounds"
+
+[[claim_class]]
+name = "statistical"
+rank = 3
+definition = "Confidence statement under named assumptions"
+
+[[claim_class]]
+name = "slo"
+rank = 2
+definition = "Empirical operational or coverage target — never an invariant"
+
+[[claim_class]]
+name = "benchmark"
+rank = 1
+definition = "Measured on a pinned fixture or study signal only"
+
+# -----------------------------------------------------------------------------
+# Honesty constitution (Charter §2)
+# -----------------------------------------------------------------------------
+
+[[claim]]
+id = "claim-not-epi-certified"
+strength = "invariant"
+text = "This product does not grant EPI/EXIN CDCP certification"
+enforcement = "claims-lint + UI honesty banner + exam_form credential_claim=forbidden"
+forbidden_surface = "epi_certified"
+
+[[claim]]
+id = "claim-forbidden-dump-bank"
+strength = "invariant"
+text = "Item bank must not use exam dump provenance"
+enforcement = "fact_policy.toml forbidden_source_class"
+
+[[claim]]
+id = "claim-forbidden-iec-clause-without-license"
+strength = "invariant"
+text = "Normative SHALL quotes from paid full-text standards require licensed_note"
+enforcement = "fact_policy"
+
+[[claim]]
+id = "claim-grade-byte-exact"
+strength = "invariant"
+text = "Browser grade digest equals Rust oracle for frozen attempts (L4 dual-path)"
+evidence = "goldens + dual-path (when implemented)"
+
+# -----------------------------------------------------------------------------
+# Coverage / pedagogy (weaker than credential claims)
+# -----------------------------------------------------------------------------
+
+[[claim]]
+id = "claim-domain-covered"
+strength = "slo"
+text = "domain_covered means public-syllabus domain has module + bank items; never exam_pass_probability"
+evidence = "domains.toml + topics.toml + bank pool"
+# domain_covered ≠ exam_pass_probability (Charter §2)
+
+[[claim]]
+id = "claim-syllabus-mapped"
+strength = "slo"
+text = "Topic atoms map public EPI CDCP domain headings"
+evidence = "topics.toml + domains.toml"
+justified_by = ["claim-domain-covered"]
+
+[[claim]]
+id = "claim-standards-family-mapped"
+strength = "slo"
+text = "Each domain has ≥1 standards family in crosswalk with public source"
+evidence = "standards_crosswalk.toml"
+justified_by = ["claim-domain-covered"]
+
+[[claim]]
+id = "claim-exam-form-public"
+strength = "slo"
+text = "Mock UI uses public form 40 questions / 60 minutes / study bar 27 correct"
+evidence = "exam_form.toml + src-epi-cdcp-page + src-exin-cdcp-page"
+
+# -----------------------------------------------------------------------------
+# Study signals (benchmark only — never credential)
+# -----------------------------------------------------------------------------
+
+[[claim]]
+id = "claim-study-signal-27"
+strength = "benchmark"
+text = "Mock ≥27/40 is a study signal only (interview study bar), not a credential"
+evidence = "exam_form.toml pass_correct + study_signal_label"
+# study_signal_27 ≠ epi_certified
+
+[[claim]]
+id = "claim-interview-ready"
+strength = "benchmark"
+text = "interview_ready is a buyer outcome / study signal, never epi_certified"
+evidence = "CHARTER.md §1 buyer; practice mocks"
+justified_by = ["claim-study-signal-27"]
+# interview_ready ≠ epi_certified (Charter §2)
+
+[[claim]]
+id = "claim-interview-study-signal"
+strength = "benchmark"
+text = "Mock ≥27/40 is a study signal only (alias for knowledge pack row)"
+evidence = "exam_form.toml study_signal_label"
+justified_by = ["claim-study-signal-27"]

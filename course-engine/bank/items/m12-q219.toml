@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m12-q219"
+module = 12
+stem = "Dry chemical ABC extinguishers are often discouraged as first choice in white space because:"
+choices = [
+  "Residue can severely damage electronics",
+  "They are too quiet",
+  "They only work on combustible metals",
+  "They increase humidity setpoints"
+]
+correct = "A"
+explanation = "Particulate residue from dry chemical can destroy IT equipment."
+topic_ids = ["m12-extinguishers", "m12-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m01-q049"
+module = 1
+stem = "Business continuity planning for the data centre should primarily align with:"
+choices = [
+  "Recovery time and recovery point objectives derived from business impact",
+  "Maximum rack U available regardless of service impact",
+  "Lobby aesthetics only",
+  "The cheapest diesel grade available",
+]
+correct = "A"
+explanation = "RTO/RPO driven by business impact analysis should shape continuity design, not cosmetics or pure cost."
+topic_ids = ["m01-business-org", "m01-importance"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q109"
+module = 11
+stem = "A practical reason many designs still use copper to the rack edge is:"
+choices = [
+  "Copper always outruns single-mode fiber at campus distances",
+  "Cost, power delivery options (PoE contexts), and equipment interfaces often favor short copper runs",
+  "Copper is immune to all interference always",
+  "Copper never needs testing"
+]
+correct = "B"
+explanation = "Short horizontal copper remains common for NICs and some power-over-ethernet use cases; fiber dominates longer and high-bandwidth spines."
+topic_ids = ["m11-copper", "m11-planning"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

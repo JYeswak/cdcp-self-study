@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q35"
+module = 12
+stem = "Clean-agent (gaseous) suppression is often discussed for white space because:"
+choices = [
+  "It is always cheaper than any other option",
+  "It can extinguish without the water damage profile of wet systems (with design trade-offs)",
+  "It increases PUE deliberately",
+  "It eliminates detection needs",
+]
+correct = "B"
+explanation = "Gaseous agents can extinguish without wet-system water damage, with design-specific trade-offs."
+topic_ids = ["m12-gas-suppression"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

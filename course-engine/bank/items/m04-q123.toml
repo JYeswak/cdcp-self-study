@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q123"
+module = 4
+stem = "Suspended ceilings in data halls may be used to:"
+choices = [
+  "Act as a UPS",
+  "Replace all fire suppression",
+  "Hide return-air paths, lighting, and some services—or be omitted in open designs",
+  "Store diesel",
+]
+correct = "C"
+explanation = "Ceilings can form return plenums and host services, but designs vary including open ceilings."
+topic_ids = ["m04-suspended-ceiling"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

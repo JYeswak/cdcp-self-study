@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q233"
+module = 9
+stem = "Humidification may be needed when:"
+choices = [
+  "Indoor air becomes too dry relative to the environmental control strategy",
+  "Only when temperature is high",
+  "Only during generator tests",
+  "Never, if containment exists"
+]
+correct = "A"
+explanation = "Very dry air can violate the moisture side of the environmental strategy."
+topic_ids = ["m09-temp-humidity"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

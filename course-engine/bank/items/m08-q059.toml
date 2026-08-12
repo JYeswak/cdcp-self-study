@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q059"
+module = 8
+stem = "Wall-mount cabinets are typically limited by:"
+choices = [
+  "Unlimited U and weight for full GPU trains",
+  "U capacity, weight, wall structure, and swing clearance—edge/IDF use cases",
+  "Mandatory use in all hyperscale halls",
+  "Replacing row containment",
+]
+correct = "B"
+explanation = "Wall-mount is for small edge/IDF deployments with real weight limits."
+topic_ids = ["m08-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

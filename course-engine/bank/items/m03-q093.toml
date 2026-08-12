@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m03-q093"
+module = 3
+stem = "Which site-selection factor most directly affects multi-path electrical utility diversity?"
+choices = [
+  "Lobby artwork style",
+  "Proximity and independence of utility substations/feeds and right-of-way constraints",
+  "Colour of exterior cladding only",
+  "Number of conference rooms",
+]
+correct = "B"
+explanation = "True utility diversity depends on independent upstream infrastructure and routing, not cosmetics."
+topic_ids = ["m03-site-selection"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

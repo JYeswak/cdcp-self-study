@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q210"
+module = 10
+stem = "Truck-delivered water as an emergency measure requires advance planning for:"
+choices = [
+  "No site access roads",
+  "Using any roadside puddle without checks",
+  "Disconnecting all level sensors permanently",
+  "Access routes, fill connections, water quality acceptance, and time-to-deploy logistics"
+]
+correct = "D"
+explanation = "Emergency water logistics fail without engineered connections and quality rules."
+topic_ids = ["m10-backup"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

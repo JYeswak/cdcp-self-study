@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q125"
+module = 11
+stem = "ToR (top-of-rack) switching architectures influence cabling by:"
+choices = [
+  "Removing all need for any horizontal cabling design thought",
+  "Shortening copper within the rack while increasing structured fiber or copper uplinks to aggregation layers",
+  "Forcing all servers onto wireless only",
+  "Eliminating MDA/HDA planning concepts entirely in every standard"
+]
+correct = "B"
+explanation = "ToR shifts copper to short rack runs and pushes uplink media into the structured backbone hierarchy."
+topic_ids = ["m11-planning", "m11-fibre", "m11-copper"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

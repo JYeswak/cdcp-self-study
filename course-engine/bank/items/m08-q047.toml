@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q047"
+module = 8
+stem = "Four-post open frames offer excellent airflow/access but typically provide:"
+choices = [
+  "Better locks than any enclosure",
+  "Minimal physical security compared with locked cabinets",
+  "No need for floor loading checks",
+  "Built-in fire suppression only",
+]
+correct = "B"
+explanation = "Open frames need perimeter/cage security if the room is multi-access."
+topic_ids = ["m08-types", "m08-security"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

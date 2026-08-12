@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q096"
+module = 6
+stem = "Infrared thermographic scanning of electrical gear under load is used to:"
+choices = [
+  "Measure optical fibre loss",
+  "Replace generator fuel testing completely",
+  "Calibrate humidity sensors only",
+  "Find hot connections, overloaded phases, and failing components before failure",
+]
+correct = "D"
+explanation = "IR under representative load is predictive maintenance for switchgear, UPS, PDUs, and joints."
+topic_ids = ["m06-thermo"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

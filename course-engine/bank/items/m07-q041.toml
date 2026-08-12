@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 7)
+id = "m07-q041"
+module = 7
+stem = "At power frequency inside a building, the dominant practical EMF concern for IT adjacency is usually:"
+choices = [
+  "Far-field RF radiation behaving like Wi-Fi multipath only",
+  "Quasi-static magnetic fields driven by high current in plant gear",
+  "Ionizing nuclear radiation from CRAC units",
+  "Optical laser safety from fibre only",
+]
+correct = "B"
+explanation = "50/60 Hz problems are quasi-static B-fields from current—not room-scale far-field radiation."
+topic_ids = ["m07-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

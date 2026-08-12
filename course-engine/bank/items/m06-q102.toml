@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q102"
+module = 6
+stem = "A microgrid concept for data centres emphasizes:"
+choices = [
+  "Deleting all generators permanently",
+  "Using only public Wi-Fi for controls",
+  "Local orchestration of multiple sources (utility, gens, renewables, BESS) with possible islanding under defined rules",
+  "Ignoring utility interconnection agreements",
+]
+correct = "C"
+explanation = "Microgrids actively manage multi-source energy and may island; backup gens+UPS alone are continuity, not full microgrid controls."
+topic_ids = ["m06-microgrid"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

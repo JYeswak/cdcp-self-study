@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q159"
+module = 9
+stem = "A key facility concern when introducing liquid cooling is:"
+choices = [
+  "There are never leak, water quality, or material compatibility considerations",
+  "Liquid cooling removes all need for electrical safety",
+  "Only copper cabling is affected",
+  "Leak detection, fluid chemistry, isolation, and maintainability of liquid loops near IT"
+]
+correct = "D"
+explanation = "Liquids near electronics demand engineering controls: detection, materials, filtration, and procedures."
+topic_ids = ["m09-liquid"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

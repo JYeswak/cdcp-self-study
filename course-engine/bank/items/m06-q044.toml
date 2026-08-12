@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q044"
+module = 6
+stem = "In the utility-to-rack teaching path, which order is most representative after the utility feed?"
+choices = [
+  "Rack PDU → generator → transformer → UPS",
+  "IT PSU → busway → utility meter → generator",
+  "BESS only → fibre MMRs → CRAH → rack",
+  "Main switchgear/transformers → transfer → UPS → distribution/PDU → rack",
+]
+correct = "D"
+explanation = "Plant path: switchgear/transformers, source transfer, UPS conditioning, then distribution to the rack."
+topic_ids = ["m06-distribution", "m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,37 @@
+# =============================================================================
+# objectives.toml — learning objectives linked to claim lattice (L1)
+# =============================================================================
+# Lightweight map: product outcomes → registered claim ids.
+# Empty objectives array = ERROR (never vacuous green).
+# =============================================================================
+
+schema_version = 1
+
+[registry]
+name = "objectives"
+description = "Learner-facing objectives that may only cite registered claims"
+
+[[objective]]
+id = "obj-honesty-not-credential"
+text = "Learner understands mock results are not EPI/EXIN certification"
+claim_ids = ["claim-not-epi-certified", "claim-study-signal-27"]
+
+[[objective]]
+id = "obj-interview-fluency"
+text = "Buyer outcome: interview-ready data-centre fluency (study signal)"
+claim_ids = ["claim-interview-ready", "claim-study-signal-27"]
+
+[[objective]]
+id = "obj-domain-map"
+text = "Public 14-domain syllabus coverage with standards family crosswalk"
+claim_ids = ["claim-domain-covered", "claim-syllabus-mapped", "claim-standards-family-mapped"]
+
+[[objective]]
+id = "obj-grade-integrity"
+text = "Deterministic grade path with byte-exact goldens"
+claim_ids = ["claim-grade-byte-exact"]
+
+[[objective]]
+id = "obj-clean-bank"
+text = "Original items only; no dump provenance; licensed standards quotes only"
+claim_ids = ["claim-forbidden-dump-bank", "claim-forbidden-iec-clause-without-license"]

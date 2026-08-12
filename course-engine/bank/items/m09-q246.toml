@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q246"
+module = 9
+stem = "Overhead cooling and overhead busway can coexist if planners:"
+choices = [
+  "Always place busway inside CRAH coils",
+  "Coordinate spatial clearances, service access, and airflow so neither system blocks the other",
+  "Ignore structural loads",
+  "Remove all cable trays"
+]
+correct = "B"
+explanation = "Multi-trade overhead design requires coordinated geometry and access."
+topic_ids = ["m09-non-raised", "m09-supplemental"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

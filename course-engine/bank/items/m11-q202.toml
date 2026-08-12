@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q202"
+module = 11
+stem = "Diverse pathway routing for redundant fiber means:"
+choices = [
+  "Both fibers in one conduit the entire way for neatness only",
+  "Logical VLANs with one physical strand",
+  "Wireless only",
+  "Physically separated routes so one incident is less likely to cut all copies"
+]
+correct = "D"
+explanation = "True diversity is physical separation of failure domains."
+topic_ids = ["m11-redundancy", "m11-planning"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

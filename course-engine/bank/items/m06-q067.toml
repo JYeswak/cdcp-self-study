@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q067"
+module = 6
+stem = "Paralleling multiple generators primarily enables:"
+choices = [
+  "Eliminating switchgear",
+  "Sharing load and implementing plant-level N+1 or capacity growth",
+  "Removing ATS devices always",
+  "Running without any cooling for the engines",
+]
+correct = "B"
+explanation = "Paralleling gear lets multiple sets share load and support redundancy/capacity."
+topic_ids = ["m06-generators", "m06-redundancy"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

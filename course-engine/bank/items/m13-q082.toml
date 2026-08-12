@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q082"
+module = 13
+stem = "Authentication differs from authorization in access control because authentication:"
+choices = [
+  "Assigns door schedules while authorization checks biometrics only",
+  "Proves identity, whereas authorization decides which doors/zones that identity may open",
+  "Is a synonym of authorization in all ACS designs",
+  "Only applies to mechanical keys"
+]
+correct = "B"
+explanation = "AuthN = who you are; AuthZ = what you may open; accounting logs the attempt."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

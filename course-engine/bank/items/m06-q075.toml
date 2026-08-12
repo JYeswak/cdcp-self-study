@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q075"
+module = 6
+stem = "Cable-in-tray distribution versus busway is best framed as:"
+choices = [
+  "One is always universally better in every site",
+  "A trade-off of agility, density, failure domains, and site standards—not a slogan",
+  "Cable eliminates all labeling needs",
+  "Busway removes all need for breakers",
+]
+correct = "B"
+explanation = "Neither is always superior; density, AHJ, maintainability, and change rate drive the choice."
+topic_ids = ["m06-distribution"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

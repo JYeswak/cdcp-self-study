@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m01-q050"
+module = 1
+stem = "Which statement about enterprise vs multi-tenant facilities is most accurate?"
+choices = [
+  "Governance, shared risk, and SLA boundaries differ; both still need robust facility design",
+  "Only multi-tenant sites need fire detection",
+  "Enterprise sites never need redundant power",
+  "Multi-tenant sites never meter power",
+]
+correct = "A"
+explanation = "Ownership and SLA boundaries differ by model, but both require engineered facility resilience."
+topic_ids = ["m01-dc-types", "m01-business-org"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

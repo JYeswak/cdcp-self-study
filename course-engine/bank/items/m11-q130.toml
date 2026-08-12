@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q130"
+module = 11
+stem = "Horizontal cabling in data centre topology education generally runs:"
+choices = [
+  "Only between distant campuses over 80 km always",
+  "Exclusively as outdoor aerial plant",
+  "From distribution areas to equipment outlets or racks in the served zone",
+  "Only as temporary jumpers never documented"
+]
+correct = "C"
+explanation = "Horizontal segments serve the equipment zone from HDA or ZDA-type distribution points."
+topic_ids = ["m11-tia942-topology"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

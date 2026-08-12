@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q048"
+module = 6
+stem = "A single-corded critical device in a dual-path hall often needs an STS (or transfer PDU) because:"
+choices = [
+  "It draws zero current on path B by design",
+  "Fibre uplinks eliminate power SPOFs",
+  "Generators cannot start without STS",
+  "It cannot natively take two independent AC feeds like dual-PSU gear",
+]
+correct = "D"
+explanation = "Single-corded gear remains a SPOF unless an automatic transfer device selects a healthy source."
+topic_ids = ["m06-ats-sts", "m06-redundancy"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

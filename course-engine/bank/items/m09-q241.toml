@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q241"
+module = 9
+stem = "A hot spot typically indicates:"
+choices = [
+  "Local inlet or equipment temperature elevated versus design due to airflow or capacity issues",
+  "Perfectly uniform cooling",
+  "Only a network naming error",
+  "Excess generator fuel"
+]
+correct = "A"
+explanation = "Hot spots are local thermal failures of air or capacity delivery."
+topic_ids = ["m09-temp-humidity", "m09-principles"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q054"
+module = 6
+stem = "Concurrent maintainability as a design intent means:"
+choices = [
+  "All maintenance is forbidden forever",
+  "Only software can be patched",
+  "Any single capacity component can be maintained without interrupting the critical load (if procedures match design)",
+  "Fuel deliveries never require planning",
+]
+correct = "C"
+explanation = "Concurrent maintainability is the ability to service one capacity element without dropping the load—must be proven in MOPs, not slides alone."
+topic_ids = ["m06-redundancy"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

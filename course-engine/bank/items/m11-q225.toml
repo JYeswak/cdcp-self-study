@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q225"
+module = 11
+stem = "Documentation of as-built pathways and panel schedules is critical because:"
+choices = [
+  "Networks self-document under load",
+  "Only logical configs matter",
+  "Physical infrastructure is unmanageable at scale without accurate records",
+  "Photos of blanking panels suffice"
+]
+correct = "C"
+explanation = "As-builts are the map operators use during incidents and changes."
+topic_ids = ["m11-importance", "m11-planning"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

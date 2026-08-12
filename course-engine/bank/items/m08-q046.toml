@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q046"
+module = 8
+stem = "A two-post open relay rack is most appropriate for:"
+choices = [
+  "Deep heavy GPU servers without rear support",
+  "Maximum physical security without a cage",
+  "Shallow network/patch gear in telecom/IDF contexts",
+  "Replacing all four-post cabinets in AI halls",
+]
+correct = "C"
+explanation = "Two-post suits shallow gear; deep/heavy servers need four-post support."
+topic_ids = ["m08-types"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

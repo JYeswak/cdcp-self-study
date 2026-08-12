@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q070"
+module = 12
+stem = "NFPA 2001 is associated at awareness level with:"
+choices = [
+  "Portable extinguisher placement only",
+  "Clean-agent fire extinguishing systems",
+  "Generator fuel sulfur content",
+  "Fiber polarity methods"
+]
+correct = "B"
+explanation = "NFPA 2001 is the named standard family for clean-agent systems in US practice awareness."
+topic_ids = ["m12-standards", "m12-gas-suppression"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

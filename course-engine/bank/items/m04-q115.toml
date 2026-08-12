@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q115"
+module = 4
+stem = "Raised-access floors in data centres are commonly used to:"
+choices = [
+  "Store bulk diesel under every tile",
+  "Eliminate all need for grounding",
+  "Create a service space for airflow and/or cable distribution beneath the IT floor",
+  "Replace fire detection",
+]
+correct = "C"
+explanation = "Access floors provide underfloor pathways for air and/or services."
+topic_ids = ["m04-guidelines", "m04-floor-types"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

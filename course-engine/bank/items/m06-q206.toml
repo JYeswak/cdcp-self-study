@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q206"
+module = 6
+stem = "A design claims 2N to the rack, but A and B busways share one upstream switchboard. The teaching takeaway is:"
+choices = [
+  "Downstream dual cords always guarantee site-wide fault tolerance",
+  "Shared switchboards improve isolation",
+  "Redundancy must be traced through the entire path; shared upstream gear can collapse 2N claims",
+  "Only battery chemistry determines redundancy"
+]
+correct = "C"
+explanation = "Path diversity fails if independent-looking feeds share a common upstream device."
+topic_ids = ["m06-redundancy", "m06-distribution"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

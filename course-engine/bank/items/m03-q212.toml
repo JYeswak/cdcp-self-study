@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m03-q212"
+module = 3
+stem = "A facility criterion that often limits future growth more than day-one IT load is:"
+choices = [
+  "Insufficient expandable power, cooling, and white-space/plant real estate",
+  "Having too many spare conduits",
+  "Documented spare capacity pathways",
+  "Modular expansion provisions"
+]
+correct = "A"
+explanation = "Growth is gated by expandable utilities and space, not only initial rack count."
+topic_ids = ["m03-facility-criteria"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

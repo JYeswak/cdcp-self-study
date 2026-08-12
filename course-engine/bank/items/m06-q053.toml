@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q053"
+module = 6
+stem = "In conceptual terms, a 2N power architecture provides:"
+choices = [
+  "Two complete independent capacity paths each able to carry the full load",
+  "A single path with thicker cable only",
+  "N capacity with no path diversity",
+  "Generator redundancy without any UPS",
+]
+correct = "A"
+explanation = "2N is dual independent systems/paths, each sized for N."
+topic_ids = ["m06-redundancy"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

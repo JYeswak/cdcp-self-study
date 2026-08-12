@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q067"
+module = 2
+stem = "ISO/IEC 22237 is best described for CDCP awareness as:"
+choices = [
+  "A series addressing data centre facilities and infrastructures at an international standards level",
+  "A single Uptime certificate number",
+  "A diesel fuel chemical formula",
+  "A U.S.-only fire code article",
+]
+correct = "A"
+explanation = "ISO/IEC 22237 is the international series for data centre facilities and infrastructures (awareness-level)."
+topic_ids = ["m02-iso22237-series"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

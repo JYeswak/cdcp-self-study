@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q219"
+module = 6
+stem = "Severe phase imbalance on a three-phase UPS output feeding mixed single-phase rack loads most often risks:"
+choices = [
+  "Automatic perfect balancing by the generator only",
+  "Higher battery amp-hours",
+  "Lower heat in transformers always",
+  "Overloaded phases, nuisance trips, or degraded UPS behavior"
+]
+correct = "D"
+explanation = "Unbalanced phase loading concentrates current and can trip protection or stress the UPS."
+topic_ids = ["m06-phase", "m06-ups", "m06-sizing"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

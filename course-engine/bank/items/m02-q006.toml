@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q06"
+module = 2
+stem = "The most careful interview answer about TIA-942 and Uptime Tier is:"
+choices = [
+  "They are identical rating systems",
+  "TIA-942 Rated concepts and Uptime Institute Tier are separate frameworks; do not treat brand names as interchangeable",
+  "Only ISO rates data centres",
+  "ASHRAE issues Tier certificates",
+]
+correct = "B"
+explanation = "TIA-942 Rated and Uptime Institute Tier are separate frameworks; brand names are not interchangeable."
+topic_ids = ["m02-tia-vs-uptime"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

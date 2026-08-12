@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q052"
+module = 6
+stem = "N+1 at a UPS module layer implies:"
+choices = [
+  "Two complete geographically separate data centres",
+  "No maintenance is ever allowed",
+  "Batteries are optional",
+  "Capacity for the load plus one spare module so one unit can fail or be maintained",
+]
+correct = "D"
+explanation = "N+1 = N needed capacity + one redundant unit/module at that layer."
+topic_ids = ["m06-redundancy", "m06-ups-parallel"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

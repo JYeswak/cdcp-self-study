@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q158"
+module = 9
+stem = "Immersion cooling places IT hardware:"
+choices = [
+  "Only in outdoor weather without any fluid",
+  "Inside diesel day tanks",
+  "In a dielectric fluid bath that absorbs heat for transfer out of the tank",
+  "Above the ceiling tiles dry always"
+]
+correct = "C"
+explanation = "Immersion uses dielectric fluid contact for heat capture; heat still leaves via heat exchangers to facility loops."
+topic_ids = ["m09-liquid"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

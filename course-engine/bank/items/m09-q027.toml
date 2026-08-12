@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q27"
+module = 9
+stem = "Hot-aisle containment (HAC) focuses on:"
+choices = [
+  "Capturing and isolating hot exhaust for return",
+  "Heating the cold aisle on purpose",
+  "Eliminating need for any fans",
+  "Storing water under floor",
+]
+correct = "A"
+explanation = "HAC captures and isolates hot exhaust so it can return cleanly to the cooling units."
+topic_ids = ["m09-containment"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q101"
+module = 13
+stem = "Propping a secure door open for a maintenance window is risky because:"
+choices = [
+  "Temporary exceptions become permanent habits and create alarm fatigue or silent bypass",
+  "It always improves anti-passback",
+  "It increases mantrap throughput safely forever",
+  "It is required by life-safety codes at all times"
+]
+correct = "A"
+explanation = "Door-held and propped-door culture collapses layered security."
+topic_ids = ["m13-security-components", "m13-safety-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

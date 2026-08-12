@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q04"
+module = 1
+stem = "Which factor is frequently cited as a major contributor to data-centre outages in industry analyses?"
+choices = [
+  "Excess blanking panels",
+  "Human error during change/maintenance",
+  "Using LED lighting",
+  "Over-documenting MOPs",
+]
+correct = "B"
+explanation = "Process and human error during change/maintenance work is a classic major outage driver."
+topic_ids = ["m01-unavailability"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

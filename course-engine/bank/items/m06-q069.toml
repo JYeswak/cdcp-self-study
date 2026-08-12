@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q069"
+module = 6
+stem = "Natural-gas or dual-fuel generators vs diesel is primarily a trade-off involving:"
+choices = [
+  "Fuel supply continuity, emissions/permitting, and site constraints—not a free lunch",
+  "Complete elimination of UPS systems",
+  "Guaranteed higher UPS efficiency only",
+  "No need for transfer switches",
+]
+correct = "A"
+explanation = "Fuel type choices are constrained by utility gas reliability, emissions, noise, and permitting."
+topic_ids = ["m06-generators"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

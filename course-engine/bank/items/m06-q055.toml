@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q055"
+module = 6
+stem = "UPS module N+1 is of limited value if all modules share:"
+choices = [
+  "Separate battery strings and dual outputs",
+  "A single upstream feed, ATS, or downstream bus that is a single point of failure",
+  "Independent utility feeds and dual downstream buses",
+  "Diverse A and B rack PDUs",
+]
+correct = "B"
+explanation = "Redundancy only helps if failure domains are actually independent end-to-end."
+topic_ids = ["m06-redundancy"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

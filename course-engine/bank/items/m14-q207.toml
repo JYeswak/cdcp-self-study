@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m14-q207"
+module = 14
+stem = "Monitoring requirements should be derived from:"
+choices = [
+  "Only whichever free sensor was in a marketing kit",
+  "Ignoring mechanical systems entirely",
+  "Measuring only PUE once a year",
+  "What operators need to detect degradation and failures in time to protect SLAs and safety"
+]
+correct = "D"
+explanation = "Requirements trace to failure modes and response time needs."
+topic_ids = ["m14-monitoring-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q133"
+module = 11
+stem = "A cable tray overload risk includes:"
+choices = [
+  "Improved bend radius always",
+  "Mechanical stress, heat buildup for copper bundles, and violation of fill or design assumptions",
+  "Automatic category upgrades",
+  "Higher optical power budgets magically"
+]
+correct = "B"
+explanation = "Overloaded trays threaten media integrity and maintainability—capacity planning is part of cabling design."
+topic_ids = ["m11-planning"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

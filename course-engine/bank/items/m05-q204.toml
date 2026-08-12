@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m05-q204"
+module = 5
+stem = "Lighting standards and guidance for workplaces exist to help ensure:"
+choices = [
+  "Adequate visibility for safe operations, inspection, and maintenance tasks",
+  "Maximum glare on every screen always",
+  "Zero energy use regardless of safety",
+  "That only one lamp type is legal worldwide"
+]
+correct = "A"
+explanation = "Standards target task visibility and safety; energy goals are balanced against that duty."
+topic_ids = ["m05-standards", "m05-measurements"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

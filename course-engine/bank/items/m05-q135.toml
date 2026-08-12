@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m05-q135"
+module = 5
+stem = "Illuminance (often discussed in lux or foot-candles) primarily measures:"
+choices = [
+  "Network throughput",
+  "Sound pressure in the generator yard",
+  "UPS battery state of charge",
+  "How much luminous flux falls on a surface per unit area",
+]
+correct = "D"
+explanation = "Illuminance is luminous flux density on a surface—the usual work-plane light level metric."
+topic_ids = ["m05-measurements"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

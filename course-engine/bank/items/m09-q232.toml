@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q232"
+module = 9
+stem = "Delta-T across servers or coils is operationally useful because it relates:"
+choices = [
+  "Only to fiber polarity",
+  "Only to battery amp-hours",
+  "Only to IP rating",
+  "Heat removed to airflow or fluid flow—low delta-T can signal bypass or excess flow"
+]
+correct = "D"
+explanation = "Delta-T is a quick diagnostic of whether flow is doing useful thermal work."
+topic_ids = ["m09-principles"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

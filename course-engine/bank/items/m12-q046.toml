@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q046"
+module = 12
+stem = "Flame detectors (IR/UV optical) are more typical in which data-centre-related spaces?"
+choices = [
+  "Over every server aisle as the only white-space detector",
+  "Generator rooms and fuel-hazard areas rather than typical server aisles",
+  "Inside every copper patch panel",
+  "Only above raised-floor ramps"
+]
+correct = "B"
+explanation = "Optical flame detection suits open flame/fuel hazards; server aisles usually rely on smoke (often ASD)."
+topic_ids = ["m12-detection"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

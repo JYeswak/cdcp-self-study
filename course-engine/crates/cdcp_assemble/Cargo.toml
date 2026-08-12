@@ -1,0 +1,17 @@
+[package]
+name = "cdcp_assemble"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "ORACLE L2: seeded stratified exam assemble + choice shuffle remap"
+
+[dependencies]
+cdcp_core = { workspace = true }
+cdcp_bank = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+rand = { workspace = true }
+
+[dev-dependencies]
+cdcp_grade = { workspace = true }

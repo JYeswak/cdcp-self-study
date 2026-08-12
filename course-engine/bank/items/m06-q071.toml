@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q071"
+module = 6
+stem = "An isolation transformer provides:"
+choices = [
+  "Unlimited fault current always",
+  "Galvanic isolation between circuits and can help certain noise/ground issues—not a UPS substitute",
+  "Automatic generator start",
+  "PUE below 0.5 by definition",
+]
+correct = "B"
+explanation = "Isolation is galvanic separation; still need proper UPS, grounding, and distribution design."
+topic_ids = ["m06-isolation-xfmr", "m06-transformers"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

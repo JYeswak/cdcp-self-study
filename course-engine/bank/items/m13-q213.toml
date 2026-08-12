@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q213"
+module = 13
+stem = "Visitor escorts in white space are a control that primarily reduces:"
+choices = [
+  "Unsupervised access, accidental contact with critical systems, and incomplete audit of guest activity",
+  "The need for any badge system",
+  "Fire detection sensitivity",
+  "Utility power quality issues"
+]
+correct = "A"
+explanation = "Escorts bind guest presence to a responsible host and limit unsupervised risk."
+topic_ids = ["m13-security-components", "m13-safety-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

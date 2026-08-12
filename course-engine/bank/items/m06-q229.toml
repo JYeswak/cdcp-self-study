@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q229"
+module = 6
+stem = "A useful thermography program practice is to:"
+choices = [
+  "Scan only de-energized empty panels",
+  "Scan under representative load with baselines and follow-up on anomalies",
+  "Ignore trend history",
+  "Thermograph only after catastrophic failure"
+]
+correct = "B"
+explanation = "Comparable loaded baselines turn IR from snapshots into a maintenance program."
+topic_ids = ["m06-thermo"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

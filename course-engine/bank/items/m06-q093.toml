@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q093"
+module = 6
+stem = "Harmonic distortion in facility power discussions is often linked to:"
+choices = [
+  "Non-linear loads and the need for monitoring/mitigation per design practice",
+  "Fibre attenuation only",
+  "Raised-floor tile thickness only",
+  "Emergency lighting lux levels",
+]
+correct = "A"
+explanation = "Non-linear currents create harmonics; IEEE 519-type discussions appear in design/ops conversations."
+topic_ids = ["m06-power-quality"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

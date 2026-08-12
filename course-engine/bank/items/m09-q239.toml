@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q239"
+module = 9
+stem = "Evaporative cooling towers improve rejection efficiency primarily by:"
+choices = [
+  "Compressing air into raised floors",
+  "Storing only kinetic energy",
+  "Using evaporation to reject heat to the atmosphere when water and climate allow",
+  "Bonding racks"
+]
+correct = "C"
+explanation = "Evaporation enhances heat rejection compared with dry rejection alone."
+topic_ids = ["m09-system-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

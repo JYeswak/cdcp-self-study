@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q108"
+module = 10
+stem = "Humidification water quality matters because mineral-laden water can:"
+choices = [
+  "Foul humidifiers and deposit minerals that affect equipment and air quality",
+  "Improve server corrosion resistance always",
+  "Increase UPS runtime",
+  "Replace the need for filtration on CRAHs"
+]
+correct = "A"
+explanation = "Hard water and contaminants cause scale and white-dust issues; treatment or RO is common practice."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

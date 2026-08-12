@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q200"
+module = 11
+stem = "Structured cabling matters in a data centre primarily because:"
+choices = [
+  "It replaces all logical routing protocols",
+  "It provides a planned, manageable, testable physical layer that supports moves, adds, and reliability",
+  "It eliminates the need for dual power",
+  "It cools the hot aisle"
+]
+correct = "B"
+explanation = "The physical layer must be engineered and operable, not ad hoc wiring."
+topic_ids = ["m11-importance", "m11-planning"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q09"
+module = 4
+stem = "A raised-floor plenum is often used to:"
+choices = [
+  "Store diesel fuel",
+  "Deliver cold air and/or route cabling beneath the IT floor",
+  "Replace the need for UPS",
+  "Eliminate grounding",
+]
+correct = "B"
+explanation = "A raised-floor plenum classically delivers supply air and/or routes cabling under the IT floor."
+topic_ids = ["m04-guidelines", "m04-cooling-impact"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m03-q213"
+module = 3
+stem = "Water availability and wastewater discharge rights can be decisive site factors when:"
+choices = [
+  "The facility uses only passive cooling with no outdoor plant ever",
+  "Evaporative or water-dependent heat rejection and fire water supplies are part of the design concept",
+  "IT load is zero",
+  "The site is purely a dry storage warehouse with no IT"
+]
+correct = "B"
+explanation = "Water-dependent cooling and fire protection make water rights and infrastructure first-class site criteria."
+topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

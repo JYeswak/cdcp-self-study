@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q081"
+module = 6
+stem = "A classic field defect is creating extra neutral-ground bonds downstream of the designated point because:"
+choices = [
+  "It can create circulating currents and nuisance issues",
+  "It always improves PUE",
+  "Codes require a bond at every rack PDU",
+  "It removes all harmonics",
+]
+correct = "A"
+explanation = "Neutral-ground bonding belongs only at designated points; extras cause circulating currents."
+topic_ids = ["m06-grounding-bonding"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

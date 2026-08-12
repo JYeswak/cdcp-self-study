@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q107"
+module = 14
+stem = "A practical BMS vs DCIM distinction is that BMS focuses on plant control/monitoring while DCIM focuses on:"
+choices = [
+  "Only diesel fuel valve control",
+  "Replacing all network monitoring tools",
+  "Data-centre IT/facilities inventory, power, environment overlays, and capacity views",
+  "Being always the identical product with one logo"
+]
+correct = "C"
+explanation = "BMS = building plant; DCIM = DC capacity/assets/ops picture (integrations vary)."
+topic_ids = ["m14-bms", "m14-dcim"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

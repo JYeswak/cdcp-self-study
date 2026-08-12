@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q216"
+module = 11
+stem = "Labeling both ends of every critical circuit supports operations by:"
+choices = [
+  "Increasing alien crosstalk intentionally",
+  "Enabling fast, correct isolation and repair under stress",
+  "Replacing test results",
+  "Cooling the rack"
+]
+correct = "B"
+explanation = "Labels turn physical plant into something humans can operate under pressure."
+topic_ids = ["m11-importance", "m11-planning"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

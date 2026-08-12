@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m03-q096"
+module = 3
+stem = "A facility criterion for floor-to-floor height / clear height is important mainly because it affects:"
+choices = [
+  "Only exterior signage fonts",
+  "Air distribution, cable pathways, and equipment clearances in white space",
+  "Diesel cetane rating",
+  "Badge printer toner choice",
+]
+correct = "B"
+explanation = "Vertical clearances constrain cooling architecture, cable plant, and equipment handling."
+topic_ids = ["m03-facility-criteria"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

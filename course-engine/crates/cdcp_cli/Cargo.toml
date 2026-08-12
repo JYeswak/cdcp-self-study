@@ -1,0 +1,21 @@
+[package]
+name = "cdcp_cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "cdcp"
+path = "src/main.rs"
+
+[dependencies]
+cdcp_core = { workspace = true }
+cdcp_bank = { workspace = true }
+cdcp_grade = { workspace = true }
+clap = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+[dev-dependencies]
+assert_cmd = "2"
+serde_json = { workspace = true }

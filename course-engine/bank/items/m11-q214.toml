@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q214"
+module = 11
+stem = "Separating power and data pathways reduces risk of:"
+choices = [
+  "All logical routing loops",
+  "Generator wet stacking",
+  "Thermal envelope violations only",
+  "EMI coupling and physical congestion that complicates both trades"
+]
+correct = "D"
+explanation = "Physical separation improves EMI control and serviceability."
+topic_ids = ["m11-planning"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

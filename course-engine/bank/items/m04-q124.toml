@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q124"
+module = 4
+stem = "How can floor/ceiling choices impact cooling effectiveness?"
+choices = [
+  "They never interact with airflow",
+  "Grounding bonds set CRAC setpoints",
+  "Only paint colour changes CFM",
+  "Plenum integrity, leakage, and tile/ceiling openings strongly affect supply/return air paths",
+]
+correct = "D"
+explanation = "Air path integrity of floor and ceiling systems is central to cooling performance."
+topic_ids = ["m04-cooling-impact"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

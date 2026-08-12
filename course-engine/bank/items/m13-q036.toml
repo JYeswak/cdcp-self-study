@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q36"
+module = 13
+stem = "A mantrap is designed to:"
+choices = [
+  "Cool people",
+  "Enforce controlled, interlocked entry so two doors are not open as a free path",
+  "Store copper spools",
+  "Bypass badge logs",
+]
+correct = "B"
+explanation = "A mantrap enforces interlocked entry so two doors are not open as a free path."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

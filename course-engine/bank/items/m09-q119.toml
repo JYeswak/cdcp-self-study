@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q119"
+module = 9
+stem = "A hot spot in a data hall typically means:"
+choices = [
+  "A deliberately heated cold aisle",
+  "Only an outdoor weather station reading",
+  "A battery room at float voltage",
+  "Localized elevated inlet temperatures from poor airflow management"
+]
+correct = "D"
+explanation = "Hot spots are local thermal problems—often recirculation, blocked tiles, or uneven loads—not necessarily whole-room average failure."
+topic_ids = ["m09-temp-humidity", "m09-raised-floor-cooling"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

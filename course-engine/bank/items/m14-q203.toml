@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m14-q203"
+module = 14
+stem = "DCIM tools add most value when asset, power, and capacity data are:"
+choices = [
+  "Entered once and never updated",
+  "Invented by marketing",
+  "Stored only on paper under a random desk",
+  "Kept accurate through process so decisions use real inventory and load information"
+]
+correct = "D"
+explanation = "DCIM quality equals data hygiene plus workflow, not the logo on the UI."
+topic_ids = ["m14-dcim", "m14-monitoring-challenges"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

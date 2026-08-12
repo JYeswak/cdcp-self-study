@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q128"
+module = 9
+stem = "Rear-door heat exchangers primarily:"
+choices = [
+  "Remove heat at the rack exhaust using a cooled door heat exchanger",
+  "Replace all UPS modules",
+  "Provide only humidification steam",
+  "Route carrier fiber only"
+]
+correct = "A"
+explanation = "Rear-door heat exchangers capture rack exhaust heat before it enters the room air volume."
+topic_ids = ["m09-system-types", "m09-supplemental", "m09-liquid"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

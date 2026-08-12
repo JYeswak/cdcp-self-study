@@ -1,0 +1,95 @@
+# 14 public EPI CDCP domains + ops_adjacent partner expansions
+schema_version = 1
+
+[[domain]]
+id = "01-mission-critical"
+order = 1
+epi_heading = "The Mission Critical Site"
+primary_notes = "../modules/01-mission-critical.md"
+
+[[domain]]
+id = "02-standards"
+order = 2
+epi_heading = "Data Centre Standards"
+primary_notes = "../modules/02-standards.md"
+
+[[domain]]
+id = "03-site-building"
+order = 3
+epi_heading = "Data Centre Location, Building and Construction"
+primary_notes = "../modules/03-site-building.md"
+
+[[domain]]
+id = "04-floor-ceiling"
+order = 4
+epi_heading = "Raised Access Flooring and Suspended Ceiling"
+primary_notes = "../modules/04-floor-ceiling.md"
+
+[[domain]]
+id = "05-lighting"
+order = 5
+epi_heading = "Light"
+primary_notes = "../modules/05-lighting.md"
+
+[[domain]]
+id = "06-power"
+order = 6
+epi_heading = "Power Infrastructure"
+primary_notes = "../modules/06-power.md"
+
+[[domain]]
+id = "07-emf"
+order = 7
+epi_heading = "Electro Magnetic Fields (EMF)"
+primary_notes = "../modules/07-emf.md"
+
+[[domain]]
+id = "08-racks"
+order = 8
+epi_heading = "Equipment Racks"
+primary_notes = "../modules/08-racks.md"
+
+[[domain]]
+id = "09-cooling"
+order = 9
+epi_heading = "Cooling Infrastructure"
+primary_notes = "../modules/09-cooling.md"
+
+[[domain]]
+id = "10-water"
+order = 10
+epi_heading = "Water Supply"
+primary_notes = "../modules/10-water.md"
+
+[[domain]]
+id = "11-network"
+order = 11
+epi_heading = "Designing a Scalable Network Infrastructure"
+primary_notes = "../modules/11-network.md"
+
+[[domain]]
+id = "12-fire"
+order = 12
+epi_heading = "Fire Protection"
+primary_notes = "../modules/12-fire.md"
+
+[[domain]]
+id = "13-security"
+order = 13
+epi_heading = "Physical Security and Safety"
+primary_notes = "../modules/13-security.md"
+
+[[domain]]
+id = "14-auxiliary"
+order = 14
+epi_heading = "Auxiliary Systems"
+primary_notes = "../modules/14-auxiliary.md"
+
+# Partner-expanded ops topics (New Horizons outline) — exam_weight_unknown
+[[domain]]
+id = "15-ops-adjacent"
+order = 15
+epi_heading = "Operations practices (partner outline expansions)"
+primary_notes = ""
+exam_weight_unknown = true
+source = "src-nh-cdcp"

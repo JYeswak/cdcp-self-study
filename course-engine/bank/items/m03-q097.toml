@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m03-q097"
+module = 3
+stem = "Supporting facilities that enable operations typically include:"
+choices = [
+  "Only the CEO office artwork",
+  "Only hot-aisle posters",
+  "Security/NOC spaces, loading/staging, generator/fuel yard, and utility intake areas",
+  "A single shared restroom with no other spaces",
+]
+correct = "C"
+explanation = "Operable sites need yards, logistics, and ops spaces—not just white space aesthetics."
+topic_ids = ["m03-supporting-facilities"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q244"
+module = 9
+stem = "Seasonal thermal energy storage concepts generally involve:"
+choices = [
+  "Storing packets on disk only",
+  "Replacing all chillers with batteries only",
+  "Only network call detail records",
+  "Storing cold or heat across seasons to shift cooling energy use when climate and design allow"
+]
+correct = "D"
+explanation = "STER stores seasonal thermal capacity; it is site-specific engineering."
+topic_ids = ["m09-ster"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

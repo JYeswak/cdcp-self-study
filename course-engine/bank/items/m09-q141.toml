@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q141"
+module = 9
+stem = "Measuring underfloor static pressure can help operators:"
+choices = [
+  "Replace all humidity sensors permanently",
+  "Tune delivery consistency and detect plenum problems affecting tile airflow",
+  "Certify fiber loss budgets",
+  "Size only generator day tanks"
+]
+correct = "B"
+explanation = "Plenum pressure indicates how hard the floor is pushing; low or uneven pressure signals leaks, congestion, or fan issues."
+topic_ids = ["m09-raised-floor-cooling"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

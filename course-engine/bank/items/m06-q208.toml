@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q208"
+module = 6
+stem = "An operator sees UPS on bypass for an extended period. The most important availability concern is:"
+choices = [
+  "Critical load may sit unprotected from utility disturbances while bypassed",
+  "Bypass always improves double-conversion filtering",
+  "Bypass automatically starts the generator",
+  "Bypass raises battery state of charge forever"
+]
+correct = "A"
+explanation = "Static/maintenance bypass can leave IT exposed to raw input quality issues."
+topic_ids = ["m06-ups", "m06-power-quality"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

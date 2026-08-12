@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m01-q058"
+module = 1
+stem = "Colocation customers should still understand facility design because:"
+choices = [
+  "Contractual SLAs, power/cooling limits, and concurrent maintainability affect their own availability",
+  "They never share risk with the landlord",
+  "AHJ rules never apply in colo",
+  "Customers never own any IT risk",
+]
+correct = "A"
+explanation = "Customer availability still depends on hall design limits, SLAs, and maintainability even when plant is landlord-owned."
+topic_ids = ["m01-dc-types", "m01-business-org"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

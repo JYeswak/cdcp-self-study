@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q220"
+module = 11
+stem = "When both network fabrics are dual-homed but share one meet-me rack with one pathway, risk remains because:"
+choices = [
+  "Logical dual-homing always equals geographic diversity",
+  "Physical concentration can still create a common failure domain",
+  "High category copper prevents building fires",
+  "Testing alone creates path separation"
+]
+correct = "B"
+explanation = "Logical dual-home does not fix a shared physical choke point."
+topic_ids = ["m11-redundancy", "m11-site-to-site"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

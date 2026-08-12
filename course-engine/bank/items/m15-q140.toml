@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q140"
+module = 15
+stem = "Runbooks differ from one-off MOPs in that runbooks typically:"
+choices = [
+  "Are never tested",
+  "Only exist as verbal tribal knowledge",
+  "Replace all engineering design docs",
+  "Capture repeatable incident/response procedures for recurring classes of events"
+]
+correct = "D"
+explanation = "Runbooks codify known responses; MOPs plan specific high-risk changes."
+topic_ids = ["m15-documentation"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

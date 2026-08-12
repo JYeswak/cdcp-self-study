@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q10"
+module = 4
+stem = "Which loading concept matters when rolling a heavy UPS battery cart across tiles?"
+choices = [
+  "Only uniform load rating",
+  "Rolling load (and concentrated load) ratings of the floor system",
+  "PUE only",
+  "Lux level",
+]
+correct = "B"
+explanation = "Rolling and concentrated load ratings govern cart and equipment moves on access floors."
+topic_ids = ["m04-loading"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

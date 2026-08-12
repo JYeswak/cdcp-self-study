@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q224"
+module = 9
+stem = "Supplemental cooling means:"
+choices = [
+  "Turning off all CRAHs",
+  "Only seasonal ice storage always",
+  "Replacing UPS with fans",
+  "Additional localized cooling capacity beyond the base room system for hot spots or dense zones"
+]
+correct = "D"
+explanation = "Supplemental capacity targets local deficits the base system cannot cover."
+topic_ids = ["m09-supplemental"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

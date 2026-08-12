@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m03-q107"
+module = 3
+stem = "Which is a facility criterion related to human operations, not only equipment?"
+choices = [
+  "Hypervisor license SKU",
+  "CPU clock speed only",
+  "Presence of suitable NOC, security, storage, and maintenance access spaces",
+  "BGP AS number",
+]
+correct = "C"
+explanation = "People need operable spaces for monitoring, security, spares, and maintenance."
+topic_ids = ["m03-supporting-facilities", "m03-facility-criteria"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

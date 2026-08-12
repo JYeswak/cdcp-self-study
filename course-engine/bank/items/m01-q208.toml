@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m01-q208"
+module = 1
+stem = "Which statement about causes of unavailability is most balanced?"
+choices = [
+  "Utility events, equipment failures, human error, and environmental hazards all contribute; dominance varies by site",
+  "Only utility events ever matter",
+  "Only cyber attacks cause facility downtime",
+  "Cooling never contributes to outages"
+]
+correct = "A"
+explanation = "Real portfolios see mixed root causes—power, cooling, people, and environment—site by site."
+topic_ids = ["m01-unavailability"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q078"
+module = 6
+stem = "Single-phase utilization circuits in a DC typically appear as:"
+choices = [
+  "The only plant medium-voltage feed",
+  "Proof that three-phase is banned",
+  "Branch outlets/rack strips for lower-power gear, while plant remains three-phase",
+  "A replacement for neutral conductors always",
+]
+correct = "C"
+explanation = "Plant is almost always three-phase; single-phase shows up at utilization edges."
+topic_ids = ["m06-phase"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

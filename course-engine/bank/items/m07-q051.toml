@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 7)
+id = "m07-q051"
+module = 7
+stem = "Placing a network core against a UPS/transformer room wall is often discouraged because of:"
+choices = [
+  "Magnetic field, heat, and access/traffic risks adjacent to plant",
+  "Improved dual-path power automatically",
+  "Lower latency to batteries",
+  "Mandatory code requirement to co-locate always",
+]
+correct = "A"
+explanation = "Adjacency to plant brings B-field, thermal, and operational traffic issues."
+topic_ids = ["m07-sources"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

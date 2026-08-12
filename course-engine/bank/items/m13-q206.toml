@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q206"
+module = 13
+stem = "Physical safety signage (high voltage, confined space, hearing protection) complements security by:"
+choices = [
+  "Replacing lockout/tagout procedures entirely",
+  "Warning authorized workers about hazards they may legally access",
+  "Granting visitors unrestricted plant access",
+  "Disabling emergency lighting"
+]
+correct = "B"
+explanation = "Security grants entry; safety communications reduce harm to those who enter."
+topic_ids = ["m13-safety-components"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q134"
+module = 4
+stem = "Bonding of access-floor metallic components is generally intended to:"
+choices = [
+  "Increase air leakage deliberately",
+  "Eliminate AHJ inspections",
+  "Replace the need for UPS",
+  "Support electrical safety and noise-control practices as part of the grounding/bonding design",
+]
+correct = "D"
+explanation = "Metallic floor systems are included in bonding strategies for safety and reference integrity."
+topic_ids = ["m04-grounding"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

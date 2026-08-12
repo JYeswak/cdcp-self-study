@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q02"
+module = 1
+stem = "Which statement is most accurate?"
+choices = [
+  "Availability and reliability are identical metrics",
+  "Reliability is about how often failures occur; availability includes uptime fraction considering repair",
+  "Five-nines always means dual utility feeds",
+  "Availability only applies to network links, not power",
+]
+correct = "B"
+explanation = "Reliability concerns failure frequency; availability also accounts for downtime and repair (MTTR) effects."
+topic_ids = ["m15-mtbf-mttr", "m01-unavailability"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,134 @@
+# source_id: src-tia-942
+# url: https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/
+# access: public_summary
+# fetched: 2026-08-11
+# title: ANSI/TIA-942 standard overview
+
+TIA's ANSI/TIA-942 Standard | TIA Online
+Skip to content
+MEID Lookup
+MEID
+TIA Connect
+TIA Portal
+Contact Us
+Menu
+What We Do
+Technology Programs
+Data Centers
+OneM2M
+FOTC
+Single Pair Ethernet Consortium (SPEC)
+TIA QuEST Forum
+Data Center Quality Management
+Quality Management
+Supply Chain Security
+Working Groups
+Portal Login
+Standards
+Committees
+Numbering Resources
+U.S. Technical Advisory Groups
+Buy Standards
+Standards Education and Resources
+Procedures & Guidelines
+Partnerships & Projects
+Government Advocacy
+Policy Issues
+Policy Filings
+Resources
+Federal Advisory Councils & Coalitions
+Products & Services
+MEID Database
+TIA-942 Certification
+TL 9000
+SCS 9001
+Standards
+News & Publications
+TIA WaveLength Blog
+Press Releases
+Reports & Publications
+Standards Announcements
+Events
+Events
+Broadband Nation Expo
+Webinars On-Demand
+Membership
+Our Members
+Become a Member
+Membership Options
+Join TIA
+Awards
+TIA Awards
+QuEST Forum Awards
+Login
+About
+Contact Us
+Staff
+Board
+Careers
+History
+Sponsorship & Advertising
+Search for:
+ANSI/TIA-942 Standard
+TIA-942 Data Center Infrastructure Standard Keeps Pace with the Evolving Digital World
+TIA is dedicated to staying ahead of technology trends by continuously updating ANSI standards. The latest revision of the TIA-942 standard now includes enhancements to accommodate the increasing data growth, advancements in AI, and the growing focus on sustainability. Purchase your copy
+here
+.
+By 2025, global data generation is expected to reach 181 trillion gigabytes, with a significant portion processed at the edge [i]. This aligns with the growth of data-intensive AI applications, driving the need for high-bandwidth transmission and increased power densities. Data centers are under pressure to reduce environmental impact, prompting upgrades to infrastructure. The revised TIA-942-C standard addresses these evolving demands. To learn more about these trends and the resulting updates within version C, download our
+white paper
+.
+To get involved with TIA's
+TR-42
+Standards Committee and Data Center Technology Program, contact us at
+datacenterinfo@tiaonline.org
+The Leading Global Data Center Standard
+The globally-adopted ANSI/TIA-942 Telecommunications Infrastructure Standard for Data Centers specifies the minimum requirements for data centers and covers all physical infrastructure including, but not limited to, site location, architectural, electrical, mechanical, fire safety, telecommunication, security and other requirements.
+TIA-942 offers the following advantages over other data center standards:
+Accredited by ANSI and issued by an unbiased non-profit organization
+Objective, industry driven and publicly available for greater transparency
+Utilizes standard nomenclature applicable to any size or type of data center
+Offers a more extensive scope with international specifications needed to design and build a data center
+Covers architecture and topologies, as well as electrical design, mechanical design, fire protection, physical security, monitoring, and system redundancy
+Ensures fail-safe operations, robust protection against disaster, maintainability, scalability reliability, and availability
+Continually and pro-actively updated to support evolving data center design principles and technologies
+Download TIA-942 Overview
+Buy TIA-942 Standard
+TIA-942 Certification
+TIA-942 Auditing and certification services allow data centers to be reviewed and certified to the TIA-942 standard to demonstrate quality assurance to customers and stakeholders.
+Learn More
+Webinar: TIA-942-C Data Center Standard: What’s New?
+The recent revision to ANSI/TIA-942-C addresses the evolving needs and challenges of modern data center infrastructure by incorporating new technologies that will lead to improved data center performance and efficiencies and ensure that data center designs remain robust, scalable, and resilient in the face of technological advancements and changing demands. The newly authorized TIA-942-C standard will include several significant modifications from the TIA-942-B version, including the incorporation of previously published standards documents, recognition of a new media type and connectivity, new requirements, new recommendations, and more.
+Watch Now >>
+The TIA-942 standard is developed and maintained by the TIA Engineering Committee TR-42.
+CLICK HERE
+to learn more about TIA standards and participate in their development.
+Contact Us
+1201 Wilson Boulevard, Floor 9
+Arlington, VA 22209
+Email Us
+TiA's Facebook
+TiA's Twitter
+TiA's LinkedIn
+TiA's YouTube
+© 2026 TIA Online. All Rights Reserved. |
+Privacy Policy
+Website by
+Yoko Co
+.
+TIA uses cookies to give users the best experience on our website. Learn more about which cookies TIA uses or switch them off in
+settings
+.
+Accept
+Scroll To Top
+Close GDPR Cookie Settings
+Privacy Overview
+Strictly Necessary Cookies
+Privacy Overview
+This website uses cookies so that we can provide you with the best user experience possible. Cookie information is stored in your browser and performs functions such as recognising you when you return to our website and helping our team to understand which sections of the website you find most interesting and useful.
+Strictly Necessary Cookies
+Strictly Necessary Cookie should be enabled at all times so that we can save your preferences for cookie settings.
+Enable or Disable Cookies
+Enabled
+Disabled
+Enable All
+Save Changes

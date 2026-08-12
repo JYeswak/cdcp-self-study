@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q32"
+module = 11
+stem = "A meet-me room (MMR) is primarily for:"
+choices = [
+  "Battery watering",
+  "Carrier and customer interconnection / cross-connects",
+  "Diesel polishing",
+  "CRAH filter storage only",
+]
+correct = "B"
+explanation = "An MMR is the interconnection hub for carrier and customer cross-connects."
+topic_ids = ["m11-planning", "m11-site-to-site"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

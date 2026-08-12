@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q119"
+module = 14
+stem = "Sensor offline / missing heartbeat on a critical row should be treated as:"
+choices = [
+  "Safe to ignore if the last value looked fine",
+  "Proof that cooling is healthy",
+  "A monitoring fault that can hide real conditions—ticket/page per policy",
+  "A reason to disable all alarms site-wide"
+]
+correct = "C"
+explanation = "Blindness is itself a fault mode; dead sensors create false confidence."
+topic_ids = ["m14-monitoring-challenges", "m14-ems"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

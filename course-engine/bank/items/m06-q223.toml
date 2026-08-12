@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q223"
+module = 6
+stem = "Switched or metered rack PDUs add most value when operators need to:"
+choices = [
+  "Bypass grounding codes",
+  "Disable generator testing forever",
+  "Replace STS devices in all cases",
+  "See branch utilization and remotely manage outlets for capacity and recovery tasks"
+]
+correct = "D"
+explanation = "Metering and switching improve visibility and controlled recovery at the rack edge."
+topic_ids = ["m06-pdu"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

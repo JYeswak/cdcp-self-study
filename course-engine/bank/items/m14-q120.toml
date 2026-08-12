@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q120"
+module = 14
+stem = "Best first instrumentation for IT thermal risk at the rack is typically:"
+choices = [
+  "Only outdoor wet-bulb temperature",
+  "Only generator jacket water temperature",
+  "Only UPS battery room ambient",
+  "Cold-aisle / equipment inlet temperature aligned to thermal guideline practice"
+]
+correct = "D"
+explanation = "Inlet conditions drive equipment risk; plant-only metrics can miss local hotspots."
+topic_ids = ["m14-ems", "m14-monitoring-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q109"
+module = 10
+stem = "If municipal water is lost and no backup exists for a tower-dependent plant, a likely operational impact is:"
+choices = [
+  "Unlimited continued full-capacity evaporative rejection",
+  "Progressive loss of tower capability as basin levels drop, threatening cooling capacity",
+  "Immediate increase in fiber bandwidth",
+  "Automatic switch to infinite dry capacity with no design change"
+]
+correct = "B"
+explanation = "Without makeup, evaporative systems cannot sustain operation—hence backup water planning."
+topic_ids = ["m10-backup", "m10-importance"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q212"
+module = 11
+stem = "Fiber verification after installation is valued because:"
+choices = [
+  "Fiber never needs testing",
+  "It confirms loss, continuity, and workmanship before services depend on the path",
+  "It measures only PUE",
+  "It replaces pathway diversity"
+]
+correct = "B"
+explanation = "Prove the optical path before it becomes production-critical."
+topic_ids = ["m11-testing", "m11-fibre"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

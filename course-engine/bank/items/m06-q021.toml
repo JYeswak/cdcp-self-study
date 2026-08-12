@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q21"
+module = 6
+stem = "PUE is defined as:"
+choices = [
+  "IT energy ÷ total facility energy",
+  "Total facility energy ÷ IT equipment energy",
+  "Water liters ÷ staff headcount",
+  "Generator kW ÷ rack count",
+]
+correct = "B"
+explanation = "PUE = total facility energy ÷ IT equipment energy; lower overhead is better."
+topic_ids = ["m06-sustainability"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

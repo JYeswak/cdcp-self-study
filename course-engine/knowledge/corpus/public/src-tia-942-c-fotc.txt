@@ -1,0 +1,121 @@
+# source_id: src-tia-942-c-fotc
+# url: https://www.tiafotc.org/tia-standards-update/tia-942-c/
+# access: public_summary
+# fetched: 2026-08-11
+# title: ANSI/TIA-942-C scope notes
+
+ANSI/TIA-942-C: Telecommunications Infrastructure Standard for Data Centers - Fiber Optics Tech Consortium
+TIA
+Contact Us
+Webinars
+FAQS
+Not a member? Join Now!
+About
+FOTC Officers
+FOTC Membership
+About the TIA
+Standards
+Standards Update
+FOTC Standards Explorer
+TIA Family of Standards
+IEEE Std 802.3™-2022 Standard for Ethernet
+TR-42 Engineering Committee
+Resources
+News
+FAQS
+White Papers
+Ethernet Alliance 2026 Roadmap
+Articles
+Presentations
+Podcasts
+Technology
+Optical Fiber Types
+Fiber Testing
+Select Page
+ANSI/TIA-942-C: Telecommunications Infrastructure  Standard for Data Centers
+by
+Valerie Maguire, BSEE
+ANSI/TIA-942-C
+“Telecommunications Infrastructure Standard for Data Centers” was developed by the TIA TR‑42.1 Premises Telecommunications Infrastructure Subcommittee and published in May, 2024.
+Scope:
+This Standard specifies the minimum requirements for telecommunications infrastructure in data centers and computer rooms, including single tenant enterprise, multi‑tenant, and micro edge data centers. Data centers may serve the private domain (e.g., “enterprise” data centers) or the public domain (e.g., internet data centers, co-location data centers, and other service provider data centers). The topology specified in this Standard is intended to be applicable to any size data center in either domain.
+Significant changes
+from the previous edition include:
+Balanced single twisted-pair cabling added as recognized horizontal cabling media
+Requirement to deploy a minimum of two category 6A or higher performing cabling runs when balanced twisted-pair cabling is used for wireless access points added
+Micro edge data center (µEDC) terminology introduced
+Changed requirement so that any
+TIA‑568.3
+compliant optical fiber connector may be specified outside the equipment outlet (LC and MPO connectors are still the only optical fiber connectors specified for use at the EO)
+Recommendation that multimode and single‑mode cables be 2- or higher fiber count added to the recognized media for horizontal and backbone cabling
+Temperature and humidity guidelines aligned with ASHRAE TC 9.9 Thermal Guidelines for Data Processing Environments, 5th edition and ASHRAE TC 9.9 Technical Bulletin on Edge Computing
+Requirement for high density air‑cooled ICT equipment to meet the recommended temperature and humidity ranges for class H1 per ASHRAE TC 9.9 added
+Requirement that minimum 800 mm wide cabinets be used in the main distribution area (MDA), intermediate distribution area (IDA), and horizontal distribution area (HDA) added
+Minimum floor loading capacity for computer rooms less than 20 m
+2
+(220 ft
+2
+) reduced to 5 KPA (100 lbf/ft
+2
+)
+Annex on Coordination of Equipment Plans with Other Engineers changed from informative to normative
+Annex on Data Center Space Considerations changed from informative to normative
+Annex on Data Center Site Selection and Building Design Considerations changed from informative to normative
+Annex on Data Center Infrastructure Rating changed from informative to normative; however, use of the data center rating classification specified in this Standard is not required
+Data Center Infrastructure Rating 1, 2, 3, and 4 tables updated to reflect the current state of data center technology and make them normative if the TIA‑942‑C data center rating system is used
+Annex on Micro Edge Data Center Infrastructure Type changed from informative to normative; however, use of the micro edge data center infrastructure type classification specified in this Standard is not required
+Micro Edge Data Center Infrastructure Type A and B tables updated to reflect the current state of data center technology and make them normative if the TIA-942-C micro edge data center infrastructure type system is used
+Informative annex on Immersion Cooling Systems added
+Content of TIA‑942‑B‑1 (Edge Data Centers) incorporated
+ANSI/TIA-942-C Content
+:
+Data Center Design Overview
+Data Center Cabling System Infrastructure
+Data Center Telecommunications Spaces and Related Topologies
+Data Center Cabling Systems
+Data Center Cabling Pathways
+Data Center Redundancy
+Cabling Installation Requirements
+Cabling Performance Requirements
+Cabling for Intelligent Building Systems
+Cabling for Wireless Access Points
+Cabling for Distributed Antenna Systems
+Power Delivery over Balanced Twisted-Pair Cabling
+Grounding and Bonding
+Firestopping
+Physical Security
+Administration
+Annexes addressing Coordination of Equipment Plans with Other Engineers, Data Center Space Considerations, Data Center Site Selection and Building Design Considerations, Data Center Infrastructure Rating, Micro Edge Data Centers, Micro Edge Data Center Infrastructure Type, Cabling Design Considerations, Access Provider Information, Data Center Design Examples, Cabling Guidelines for Data Center Fabrics, and Immersion Cooling Considerations and Ratings
+ANSI/TIA-942-C Example of a Basic Data Center Topology:
+ANSI/TIA-942-C Data Center Infrastructure Rating:
+This Standard specifies four ratings related to the resiliency of the data center facility infrastructure. Higher ratings not only correspond to higher resiliency, but also lead to higher construction costs. In all cases, higher ratings are inclusive of lower level requirements unless otherwise specified. The key subsystems of the data center resiliency rating are: telecommunications, electrical, architectural infrastructure, and mechanical infrastructure.
+Rated‑1 Data Center: Basic
+A Basic data center is susceptible to disruptions from both planned and unplanned activity on the distribution path and/or equipment (e.g., building power shutdown, maintenance/failure of a distribution path, or maintenance/failure of equipment). Rated‑1 data centers have a single path for distribution of power, cooling, and telecommunications.
+Rated‑2 Data Center: Redundant Component
+A Redundant Component data center is susceptible to disruptions from both planned and unplanned activity on the distribution path (e.g., building power shutdown or maintenance/failure of a distribution path). Rated‑2 data centers have component/equipment redundancy and a single path for distribution of power, cooling and telecommunications.
+Rated‑3 Data Center: Concurrently Maintainable
+A Concurrently Maintainable data center is able to handle planned maintenance on any part of the distribution path or any single piece of equipment or component without causing interruption to the data center operations. Rated‑3 data centers have, at a minimum, one active (N) and one standby (+1) path for distribution of power, cooling, and telecommunications.
+Rated‑4 Data Center: Fault Tolerant
+A Fault Tolerant data center is able to handle planned maintenance or a single fault on any part of the distribution path or any single piece of equipment or component without causing interruption to the data center operations. Rated‑4 data centers have, at a minimum, dual active (2N / N+N) paths for distribution of power, cooling, and telecommunications.
+ANSI/TIA-942-C Micro Edge Data Centers:
+A micro edge data center (µEDC) is a small data center in a pre-manufactured enclosure that is capable of being remotely monitored. Enclosures are standalone and may be in the form of a hut, pedestal, cabinet, container, or other pre-manufactured housing. µEDCs support equipment and applications at the network edge and are continuously monitored. A µEDC may be located outside or within a building.
+This Standard specifies two types addressing µEDC reliability, security, latency, and survivability. The key subsystems of the µEDC resiliency rating are: telecommunications, architectural, electrical, and mechanical infrastructure.
+Type A µEDC
+Type A µEDCs rely on other µEDCs to provide high availability. Availability can be provided by virtualization of functions in multiple µEDCs with automatic transparent transfer of a functionality to an alternative µEDC.
+Type B µEDC
+Type B µEDCs rely on a combination of measures internal to the µEDC, in addition to external networking with other µEDCs, to provide high availability.
+Back
+to the FOTC TIA Standards Explorer
+Telecommunications
+industry association
+1320 North Courthouse Road, Suite 200
+Arlington, VA 22201
+Main: +1.703.907.7700
+Fax: +1.703.907.7727
+CONTACT US
+FOLLOW US!
+BECOME A MEMBER
+Privacy Policy
+Antitrust Policy
+Terms and Conditions
+Copyright 2026 All Rights Reserved

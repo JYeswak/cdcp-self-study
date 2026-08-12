@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q210"
+module = 11
+stem = "Permanent link versus channel testing concepts matter because:"
+choices = [
+  "They are identical to generator load tests",
+  "They only apply to wireless",
+  "They replace labeling",
+  "They define what portion of the cabling system is measured and against which limits"
+]
+correct = "D"
+explanation = "Test configurations must match the intended compliance model."
+topic_ids = ["m11-testing"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

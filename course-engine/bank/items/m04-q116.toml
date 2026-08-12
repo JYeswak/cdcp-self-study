@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q116"
+module = 4
+stem = "Uniform load rating of an access floor primarily describes:"
+choices = [
+  "Lux at the work plane",
+  "Only the weight of a single caster wheel",
+  "The load assumed spread over a large area of the floor system",
+  "Generator kVA",
+]
+correct = "C"
+explanation = "Uniform load is distributed loading over area—distinct from concentrated or rolling loads."
+topic_ids = ["m04-loading"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

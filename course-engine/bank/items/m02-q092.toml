@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q092"
+module = 2
+stem = "Which statement best reflects CDCP-level awareness of multiple facility series?"
+choices = [
+  "Only one series exists worldwide",
+  "TIA, ISO/IEC 22237, and EN 50600 are among the named series learners should not conflate with Uptime Tier branding",
+  "EN 50600 is a type of UPS battery",
+  "ISO 22237 is a lux meter brand",
+]
+correct = "B"
+explanation = "Multiple facility-oriented series exist; none should be casually equated to Uptime Tier branding."
+topic_ids = ["m02-standards-guidelines", "m02-tia-vs-uptime", "m02-iso22237-series", "m02-en50600-series"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

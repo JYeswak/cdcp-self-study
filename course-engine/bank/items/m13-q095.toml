@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q095"
+module = 13
+stem = "EPO stations must balance security and safety by:"
+choices = [
+  "Being completely inaccessible even to trained staff",
+  "Being pressed daily as a health check without procedure",
+  "Limiting casual/public access while remaining reachable to trained personnel under procedure",
+  "Controlling only decorative lighting"
+]
+correct = "C"
+explanation = "Accidental EPO is a major outage cause; over-locking can also block emergency response."
+topic_ids = ["m13-safety-components", "m13-security-components"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

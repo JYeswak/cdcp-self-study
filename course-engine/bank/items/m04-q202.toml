@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m04-q202"
+module = 4
+stem = "Signal Reference Grid (SRG) / floor grounding practices are intended to help:"
+choices = [
+  "Provide a low-impedance reference plane and bonding path for equipment and floor systems",
+  "Replace all circuit breakers",
+  "Increase electrostatic charge on every tile",
+  "Eliminate the need for equipment grounding conductors"
+]
+correct = "A"
+explanation = "Floor bonding/SRG concepts support equipotential referencing—not a substitute for protective grounding rules."
+topic_ids = ["m04-grounding"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

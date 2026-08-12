@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m04-q205"
+module = 4
+stem = "Choosing among access-floor stringer systems and tile types should consider:"
+choices = [
+  "Only the cheapest tile without load data",
+  "Only color matching the logo",
+  "Whether the vendor refuses to publish ratings",
+  "Load ratings, understructure stability, airflow/cutout needs, and maintenance practices"
+]
+correct = "D"
+explanation = "Floor selection is an engineered choice: strength, understructure, and operational use."
+topic_ids = ["m04-floor-types", "m04-loading", "m04-floor-standards"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

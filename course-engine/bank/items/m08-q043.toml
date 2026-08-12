@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q043"
+module = 8
+stem = "Common full-height enclosure usable heights are often marketed around:"
+choices = [
+  "5U only for all server halls",
+  "42U to roughly 45U–48U usable—always confirm usable U after accessories",
+  "200U as the industry default",
+  "U counts that ignore rail and door hardware",
+]
+correct = "B"
+explanation = "42U/45–48U class is common; verify usable U on the BOM."
+topic_ids = ["m08-dimensions"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

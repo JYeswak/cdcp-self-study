@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q122"
+module = 14
+stem = "Heterogeneous protocols (BACnet, Modbus, SNMP, dry contacts) contribute to monitoring challenges by:"
+choices = [
+  "Guaranteeing a single vendor forever",
+  "Creating integration and multi-truth-source complexity across plant and IT tools",
+  "Eliminating the need for time sync",
+  "Making alarm fatigue impossible"
+]
+correct = "B"
+explanation = "Multiple protocols/owners produce conflicting truths and integration debt."
+topic_ids = ["m14-monitoring-challenges"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

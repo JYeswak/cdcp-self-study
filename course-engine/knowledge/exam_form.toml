@@ -1,0 +1,20 @@
+# Public EXIN/EPI CDCP exam form — study UI only (not official exam)
+# Sources: EPI CDCP page; EXIN CDCP details (fetch 2026-08-11)
+
+exam_form_id = "cdcp-public-format-v1"
+schema_version = 1
+
+n_items = 40
+duration_sec = 3600
+pass_correct = 27
+pass_ratio = 0.68
+open_book = false
+training_mandatory_for_official_credential = true
+
+# UI must never claim official certification from this product
+credential_claim = "forbidden"
+study_signal_label = "Study signal (≥27/40) — not a credential"
+
+[sources]
+epi_exam = "src-epi-cdcp-page"
+exin_exam = "src-exin-cdcp-page"

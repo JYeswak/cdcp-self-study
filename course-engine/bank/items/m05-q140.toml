@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m05-q140"
+module = 5
+stem = "Self-contained emergency luminaires typically:"
+choices = [
+  "Rely only on the normal lighting branch with no backup",
+  "Meter rack kW",
+  "Cool servers with forced air",
+  "Include local battery/inverter provisions to remain lit for a required duration after normal power loss",
+]
+correct = "D"
+explanation = "Unit equipment carries local emergency power for required egress lighting duration."
+topic_ids = ["m05-emergency-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

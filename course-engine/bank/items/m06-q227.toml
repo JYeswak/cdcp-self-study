@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q227"
+module = 6
+stem = "High-density AI and HPC racks change power design most by:"
+choices = [
+  "Eliminating dual-cord needs always",
+  "Making UPS unnecessary",
+  "Removing phase balance concerns",
+  "Concentrating very high kW per rack and stressing distribution, redundancy, and thermal coupling"
+]
+correct = "D"
+explanation = "Extreme rack densities push feeder design, redundancy, and cooling together."
+topic_ids = ["m06-hpc", "m06-sizing", "m06-distribution"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

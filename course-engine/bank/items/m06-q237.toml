@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q237"
+module = 6
+stem = "Step-down service transformers commonly:"
+choices = [
+  "Store kinetic energy like flywheels",
+  "Convert utility medium voltage to facility utilization voltages for plant and IT distribution",
+  "Act as STS devices",
+  "Provide containment for hot aisles"
+]
+correct = "B"
+explanation = "Service transformers step voltage down for facility use."
+topic_ids = ["m06-transformers"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

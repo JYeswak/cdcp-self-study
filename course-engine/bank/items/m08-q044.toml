@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q044"
+module = 8
+stem = "Industry practice for numbering U positions is typically:"
+choices = [
+  "Random per rack with no labels",
+  "Only even U numbers exist",
+  "Top-down is the only legal method worldwide",
+  "Bottom-up with U1 at the bottom (confirm and standardize site labels)",
+]
+correct = "D"
+explanation = "Bottom-up is common; pick one convention and keep DCIM/labels consistent."
+topic_ids = ["m08-dimensions"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

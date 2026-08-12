@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q056"
+module = 12
+stem = "Deluge sprinkler systems with open heads delivering large water volumes are:"
+choices = [
+  "Typical over every IT white-space aisle",
+  "Required under every raised floor tile",
+  "The only AHJ-accepted system worldwide",
+  "High-hazard industrial solutions, not typical server-hall protection"
+]
+correct = "D"
+explanation = "Deluge suits special hazards; IT spaces more often use pre-action, gas, mist, or other engineered choices."
+topic_ids = ["m12-water-suppression"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q227"
+module = 11
+stem = "Growth spares in trays and panels should be planned because:"
+choices = [
+  "Future adds without pathway capacity force risky workarounds and congestion",
+  "Spares always violate standards",
+  "Empty pathways cool air better if sealed shut permanently",
+  "Spares replace testing"
+]
+correct = "A"
+explanation = "Spare pathway capacity is how facilities absorb growth safely."
+topic_ids = ["m11-planning"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

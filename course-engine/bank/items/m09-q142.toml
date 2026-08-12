@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q142"
+module = 9
+stem = "Non-raised-floor (slab) cooling designs typically rely more on:"
+choices = [
+  "Underfloor plenums as the only supply method",
+  "Flooding the slab with water weekly",
+  "Overhead supply, ducting, or close-coupled units rather than an underfloor plenum",
+  "Eliminating all airflow management"
+]
+correct = "C"
+explanation = "Without a floor plenum, supply is usually overhead or local/close-coupled—containment and aisle design still matter."
+topic_ids = ["m09-non-raised"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

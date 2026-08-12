@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q161"
+module = 9
+stem = "Liquid cooling is increasingly discussed for high-density AI/HPC racks because:"
+choices = [
+  "Air has infinite heat-carrying capacity at any density",
+  "Air delivery becomes impractical or inefficient as rack power density rises",
+  "Liquids eliminate all electrical power draw",
+  "Only lighting needs liquid assist"
+]
+correct = "B"
+explanation = "As kW per rack rises, air volume and delta-T limits push designs toward liquid-assisted heat removal."
+topic_ids = ["m09-liquid", "m09-supplemental"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,10 @@
+# bv (beads viewer) local config and caches
+.bv/
+
+# beads compliance audit (own .git; never pollute product history)
+beads_compliance_audit/
+
+# Build / tooling
+/target/
+**/*.rs.bk
+.DS_Store

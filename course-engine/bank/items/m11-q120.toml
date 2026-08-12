@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q120"
+module = 11
+stem = "Diverse pathway routing for redundant fiber or copper means:"
+choices = [
+  "Paths are separated so a single incident is less likely to cut all copies",
+  "Both redundant cables share one conduit the entire route",
+  "Redundancy is only logical VLANs with one physical cable",
+  "Paths must always be wireless"
+]
+correct = "A"
+explanation = "True path diversity separates failure domains; shared conduits defeat physical redundancy."
+topic_ids = ["m11-redundancy", "m11-planning"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

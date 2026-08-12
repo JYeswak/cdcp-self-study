@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q106"
+module = 11
+stem = "A ZDA (zone distribution area) concept is used to:"
+choices = [
+  "Eliminate all patching flexibility",
+  "Store only fire extinguishers",
+  "Provide an intermediate flexible consolidation point within a zone",
+  "Meter only chilled water"
+]
+correct = "C"
+explanation = "Zone distribution points support flexible horizontal connectivity without restretching all permanent links for every change."
+topic_ids = ["m11-tia942-topology", "m11-planning"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

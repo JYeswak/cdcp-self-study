@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q064"
+module = 6
+stem = "Flywheel energy storage on UPS-class systems is typically associated with:"
+choices = [
+  "Multi-day islanded operation alone",
+  "Replacing all transformers",
+  "Only RF shielding",
+  "Short ride-through paired with generators, as an alternative or complement to chemical batteries",
+]
+correct = "D"
+explanation = "Flywheels cover short gaps; long outages still need generators (or large BESS by design)."
+topic_ids = ["m06-ups", "m06-batteries"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

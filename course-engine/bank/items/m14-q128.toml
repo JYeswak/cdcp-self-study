@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q128"
+module = 14
+stem = "Local annunciation at plant panels still matters because:"
+choices = [
+  "Cloud dashboards always work without power",
+  "FACP logic should move entirely to email",
+  "NTP is unnecessary if LEDs exist",
+  "Network outages must not silence critical local alarms"
+]
+correct = "D"
+explanation = "Life/availability critical spaces need local indication when northbound links fail."
+topic_ids = ["m14-alarms", "m14-best-practices"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

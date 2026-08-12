@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q203"
+module = 6
+stem = "If an ATS fails to transfer during a utility outage while UPS batteries deplete, the next failure mode is typically:"
+choices = [
+  "Automatic free upgrade to 2N generators",
+  "PUE improves indefinitely",
+  "Transformers reverse polarity",
+  "Load drop when battery autonomy is exhausted"
+]
+correct = "D"
+explanation = "UPS bridges the gap; without generator path and with empty batteries, the load falls."
+topic_ids = ["m06-ats-sts", "m06-ups", "m06-generators"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

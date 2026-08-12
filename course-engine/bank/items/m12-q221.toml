@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m12-q221"
+module = 12
+stem = "Fire safety signage and egress paths matter because:"
+choices = [
+  "Signage cools hot aisles",
+  "Signs replace detection",
+  "People must evacuate and responders must understand system status under stress",
+  "Only exterior monument signs matter"
+]
+correct = "C"
+explanation = "Human factors and egress are integral to fire protection performance."
+topic_ids = ["m12-signage", "m12-best-practices"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

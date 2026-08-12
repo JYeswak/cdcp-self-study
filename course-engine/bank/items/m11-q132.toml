@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q132"
+module = 11
+stem = "Pre-terminated trunk cables are often used in DCs to:"
+choices = [
+  "Speed installation and improve consistency when factory-tested assemblies fit the design",
+  "Slow deployment and maximize field polishing always",
+  "Eliminate all need for polarity planning",
+  "Avoid any pathway design"
+]
+correct = "A"
+explanation = "Factory trunks reduce field termination variability—still require correct design, pathways, and acceptance tests."
+topic_ids = ["m11-fibre", "m11-planning", "m11-testing"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

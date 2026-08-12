@@ -1,0 +1,26 @@
+{
+  "wave": "L2-pool-20x",
+  "schema": "cdcp.scorecard.v1",
+  "date": "2026-08-11",
+  "outcome": "pass",
+  "items": 798,
+  "exam_n": 40,
+  "multiplier": 19.9,
+  "pool_min": 400,
+  "pool_target": 800,
+  "grounding": {
+    "high_severity": 0,
+    "validate_grounding": "PASS",
+    "public_corpus_snapshots": 12,
+    "corpus_chars": 567557
+  },
+  "correct_dist": {"A": 197, "B": 225, "C": 189, "D": 187},
+  "tooling": [
+    "scripts/verify_bank.py",
+    "scripts/validate_grounding.py",
+    "scripts/fetch_public_corpus.py",
+    "scripts/sample_mock.py",
+    "docs/GROUNDING.md"
+  ],
+  "next": "L3 grade + goldens for sampled mocks; optional embedding grounding later"
+}

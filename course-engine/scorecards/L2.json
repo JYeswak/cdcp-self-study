@@ -1,0 +1,39 @@
+{
+  "wave": "L2",
+  "schema": "cdcp.scorecard.v1",
+  "date": "2026-08-11",
+  "outcome": "pass",
+  "meaningful": true,
+  "checks": {
+    "item_count": 40,
+    "item_count_match_exam_form": true,
+    "all_correct_in_A_D": true,
+    "all_topic_ids_resolve": true,
+    "no_empty_stem": true,
+    "source_class_original": true,
+    "quantity_evidence_policy": true,
+    "manifest_schema_version_1": true,
+    "generated_from": "../practice/PRACTICE-EXAM.md",
+    "verify_bank_py": "PASS"
+  },
+  "counts": {
+    "items": 40,
+    "unique_ids": 40,
+    "modules_covered": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+    "topics_registry": 106,
+    "files_under_bank_items": 40
+  },
+  "answer_key_distribution": {
+    "A": 5,
+    "B": 35,
+    "C": 0,
+    "D": 0
+  },
+  "open": [
+    "L3 grade goldens (mock40_seed42)",
+    "L4 WASM dual-path",
+    "L5 UI",
+    "seeded assemble + choice shuffle remap (engine crate)"
+  ],
+  "next": "Build cdcp_grade single-item + seeded assemble; write goldens/mock40_seed42"
+}

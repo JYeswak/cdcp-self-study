@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q080"
+module = 6
+stem = "Bonding of conductive parts is intended to:"
+choices = [
+  "Maximize touch voltage during faults",
+  "Create multiple neutral-ground bonds randomly",
+  "Eliminate the need for overcurrent protection",
+  "Keep metalwork at essentially the same potential to reduce shock/arc risk",
+]
+correct = "D"
+explanation = "Bonding equalizes potential among exposed conductive parts."
+topic_ids = ["m06-grounding-bonding"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

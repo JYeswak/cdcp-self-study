@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q100"
+module = 11
+stem = "Structured cabling infrastructure matters in a data centre primarily because:"
+choices = [
+  "It provides the physical foundation for connectivity, growth, and maintainable moves/adds/changes",
+  "Cabling never affects availability or change risk",
+  "It replaces electrical power distribution",
+  "It is only decorative"
+]
+correct = "A"
+explanation = "Poor cabling becomes an operational bottleneck and failure domain; planned infrastructure scales cleanly."
+topic_ids = ["m11-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q098"
+module = 13
+stem = "Deterrence, delay, detection, response, recovery describes:"
+choices = [
+  "Only network QoS classes",
+  "A classic physical-security control sequence",
+  "UPS battery chemistries",
+  "ASHRAE thermal envelopes"
+]
+correct = "B"
+explanation = "Physical security programs stack deter→delay→detect→respond→recover functions."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

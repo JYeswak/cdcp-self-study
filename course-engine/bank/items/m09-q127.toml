@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q127"
+module = 9
+stem = "In-row cooling is often chosen when:"
+choices = [
+  "The site has no electrical power",
+  "Only outdoor weather stations need cooling",
+  "Cabling pathways must be eliminated",
+  "Heat density is high and cooling is needed closer to the load"
+]
+correct = "D"
+explanation = "In-row units sit near racks to handle higher density and shorter airflow paths than room-only perimeter cooling."
+topic_ids = ["m09-system-types", "m09-supplemental"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

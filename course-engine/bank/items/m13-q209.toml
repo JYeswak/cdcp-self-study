@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q209"
+module = 13
+stem = "Emergency egress design must ensure that security hardware:"
+choices = [
+  "Does not prevent free egress as required for life safety even while controlling ingress",
+  "Can trap occupants during fire alarm conditions as a feature",
+  "Always requires two badges to exit any space",
+  "Never unlocks under any life-safety condition"
+]
+correct = "A"
+explanation = "Life safety egress requirements constrain how security locks may behave in emergencies."
+topic_ids = ["m13-safety-components", "m13-security-components"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

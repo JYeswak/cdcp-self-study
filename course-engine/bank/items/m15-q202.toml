@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q202"
+module = 15
+stem = "MTBF and MTTR are most useful when teams remember that:"
+choices = [
+  "MTBF promises zero failures in that period",
+  "They are statistical reliability/maintainability concepts—not guarantees for a single asset this week",
+  "MTTR is unrelated to spare parts and procedures",
+  "Only software uses these terms"
+]
+correct = "B"
+explanation = "MTBF/MTTR guide design and process; they are not talismans against failure."
+topic_ids = ["m15-mtbf-mttr"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m10-q200"
+module = 10
+stem = "Makeup water quality for cooling towers matters because poor quality can drive:"
+choices = [
+  "Only higher network throughput",
+  "Scaling, corrosion, and biological growth that degrade heat rejection and reliability",
+  "Automatic improvement in UPS runtime",
+  "Lower fan energy always without tradeoffs"
+]
+correct = "B"
+explanation = "Water chemistry is a reliability issue for evaporative heat rejection, not a janitorial footnote."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

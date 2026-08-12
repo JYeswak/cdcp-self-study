@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q085"
+module = 6
+stem = "UPS batteries are primarily:"
+choices = [
+  "Short-duration, high-reliability storage tightly coupled to the UPS DC bus",
+  "Multi-day grid services assets by default",
+  "Used only for CRAH humidifiers",
+  "A substitute for all grounding",
+]
+correct = "A"
+explanation = "UPS strings bridge minutes-class events; BESS is a different plant-scale concept."
+topic_ids = ["m06-batteries", "m06-ups"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

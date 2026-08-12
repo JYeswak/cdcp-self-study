@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q202"
+module = 6
+stem = "An STS feeds a single-corded appliance from A and B sources. A technician opens the upstream A breaker for work. Expected healthy STS behavior is:"
+choices = [
+  "Immediate permanent blackout of the appliance",
+  "Automatic conversion of the appliance to dual-corded hardware",
+  "Near-seamless transfer to the alternate source so the load remains powered",
+  "A multi-second open gap every transfer with no ride-through"
+]
+correct = "C"
+explanation = "STS exists to switch preferred sources quickly for single-cord loads."
+topic_ids = ["m06-ats-sts", "m06-redundancy"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

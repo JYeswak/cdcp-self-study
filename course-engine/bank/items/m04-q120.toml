@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q120"
+module = 4
+stem = "Signal reference grounding (SRG) concepts for raised floors relate to:"
+choices = [
+  "Cooling tower chemical treatment only",
+  "A way to avoid all AHJ electrical rules",
+  "Bonding practices that help control noise and provide a reference plane—not a substitute for electrical safety earthing code compliance",
+  "Fibre bend radius exclusively",
+]
+correct = "C"
+explanation = "SRG addresses bonding/reference practices; safety grounding still follows electrical code."
+topic_ids = ["m04-grounding"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

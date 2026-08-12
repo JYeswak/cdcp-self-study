@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q138"
+module = 11
+stem = "A point of demarcation (demarc) with a carrier is best understood as:"
+choices = [
+  "The hot aisle temperature setpoint",
+  "The UPS battery float voltage",
+  "The boundary where provider responsibility transitions toward customer or facility responsibility",
+  "The CRAH filter differential pressure alarm only"
+]
+correct = "C"
+explanation = "Demarc defines operational and contractual handoff for circuits—critical in MMR and entrance planning."
+topic_ids = ["m11-site-to-site", "m11-planning"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

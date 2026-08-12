@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q212"
+module = 9
+stem = "Brush grommets at cable cutouts help raised-floor cooling by:"
+choices = [
+  "Increasing recirculation intentionally",
+  "Bonding only fiber sheaths",
+  "Humidifying the plenum",
+  "Reducing uncontrolled leakage of supply air outside the cold aisle path"
+]
+correct = "D"
+explanation = "Sealed cutouts keep pressurized supply air from dumping randomly."
+topic_ids = ["m09-raised-floor-cooling"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

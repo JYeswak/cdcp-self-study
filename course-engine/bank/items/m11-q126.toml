@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q126"
+module = 11
+stem = "EoR/MoR (end or middle of row) designs typically:"
+choices = [
+  "Never use any fiber uplinks",
+  "Abolish patch panels",
+  "Place more horizontal copper from racks to row switches compared with pure ToR",
+  "Only apply to outdoor plant"
+]
+correct = "C"
+explanation = "Row-based switching concentrates more horizontal runs to a row location versus per-rack ToR switches."
+topic_ids = ["m11-planning"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

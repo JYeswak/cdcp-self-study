@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q089"
+module = 13
+stem = "ACS and VMS clocks must be time-synchronized primarily so that:"
+choices = [
+  "Access events and video can be correlated during investigations",
+  "PUE decreases automatically",
+  "Biometrics enroll faster",
+  "Mantraps mechanically close harder"
+]
+correct = "A"
+explanation = "NTP alignment across ACS/VMS/syslog is foundational for incident reconstruction."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

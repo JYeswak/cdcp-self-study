@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q226"
+module = 9
+stem = "In liquid-cooled designs, a CDU typically:"
+choices = [
+  "Routes copper only",
+  "Controls and exchanges heat between IT coolant loops and facility water loops",
+  "Is a type of ATS",
+  "Measures PUE exclusively"
+]
+correct = "B"
+explanation = "CDUs are the hydraulic and thermal interface for liquid IT cooling."
+topic_ids = ["m09-liquid"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

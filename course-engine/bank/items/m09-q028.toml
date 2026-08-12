@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q28"
+module = 9
+stem = "IT equipment heat is primarily:"
+choices = [
+  "Latent",
+  "Sensible",
+  "Nuclear",
+  "Only radiative into space vacuum",
+]
+correct = "B"
+explanation = "Servers produce primarily dry (sensible) heat, not latent moisture load."
+topic_ids = ["m09-principles"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

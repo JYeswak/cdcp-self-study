@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q121"
+module = 14
+stem = "Integrated Systems Testing (IST) is valuable primarily because it:"
+choices = [
+  "Validates power, cooling, and controls failovers as a combined system under planned scenarios",
+  "Only tests a single breaker nameplate in isolation forever",
+  "Replaces daily VM backups",
+  "Is optional marketing text with no technical meaning"
+]
+correct = "A"
+explanation = "IST proves coupled system behavior—not just component bench tests."
+topic_ids = ["m14-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m01-q041"
+module = 1
+stem = "From a business-organization view, treating the data centre only as a facilities silo most often leads to:"
+choices = [
+  "Misaligned capacity, change windows, and risk decisions between IT and operations",
+  "Clearer SLA ownership between IT and facilities",
+  "Automatic compliance with every international standard",
+  "Elimination of the need for a recovery strategy",
+]
+correct = "A"
+explanation = "Siloed facilities vs IT ownership commonly misaligns capacity planning, change control, and risk appetite."
+topic_ids = ["m01-business-org"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

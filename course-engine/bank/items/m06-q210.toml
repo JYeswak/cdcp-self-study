@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q210"
+module = 6
+stem = "Battery autonomy is sized for a short design window at design load, but present load is substantially higher. Qualitatively, autonomy will:"
+choices = [
+  "Increase proportionally with load",
+  "Become infinite",
+  "Decrease, risking load drop before generator readiness",
+  "Only affect PUE, not runtime"
+]
+correct = "C"
+explanation = "Higher kW against fixed stored energy shortens runtime."
+topic_ids = ["m06-batteries", "m06-sizing", "m06-ups"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

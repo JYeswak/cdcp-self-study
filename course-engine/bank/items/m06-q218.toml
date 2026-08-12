@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q218"
+module = 6
+stem = "Equipotential bonding of racks and trays is intended to:"
+choices = [
+  "Replace the need for circuit breakers",
+  "Store UPS energy",
+  "Keep exposed conductive parts near the same potential and support safety and EMI control",
+  "Define generator fuel type"
+]
+correct = "C"
+explanation = "Bonding reduces touch potential differences and supports a controlled reference."
+topic_ids = ["m06-grounding-bonding"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

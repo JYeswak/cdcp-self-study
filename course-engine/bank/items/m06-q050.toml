@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q050"
+module = 6
+stem = "Preferential dual-source feed to a sensitive bus with near-seamless switching points to:"
+choices = [
+  "A manual knife switch only",
+  "Removing the UPS entirely",
+  "A static transfer switch (STS) between two independent AC sources",
+  "Using lighting contactors as the critical path",
+]
+correct = "C"
+explanation = "STS is the classic answer for fast preference switching between two live AC sources."
+topic_ids = ["m06-ats-sts"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

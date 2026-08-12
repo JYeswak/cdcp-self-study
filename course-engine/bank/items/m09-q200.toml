@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q200"
+module = 9
+stem = "An operator raises cold-aisle supply temperature modestly within an accepted envelope. A primary efficiency reason is:"
+choices = [
+  "Higher temperature always voids all hardware warranties without study",
+  "Cooling plant capacity becomes infinite",
+  "Containment is no longer needed",
+  "Higher supply and return temperatures can improve chiller or economizer efficiency and free-cooling hours"
+]
+correct = "D"
+explanation = "Warmer operation within guidance can expand economizer opportunity and plant efficiency."
+topic_ids = ["m09-temp-humidity", "m09-ashrae-envelopes"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

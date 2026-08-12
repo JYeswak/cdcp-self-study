@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q204"
+module = 15
+stem = "Data centre cleaning programs should emphasize:"
+choices = [
+  "Wet mopping every PDU interior weekly with unknown chemicals",
+  "Using compressed air to blow debris into equipment intakes as routine",
+  "Never cleaning under raised floors",
+  "Methods and materials that control dust/contaminants without damaging equipment or creating electrical hazards"
+]
+correct = "D"
+explanation = "Cleaning is controlled work near electronics—technique matters."
+topic_ids = ["m15-cleaning", "m15-ops-security"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

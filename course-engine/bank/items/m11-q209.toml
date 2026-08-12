@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q209"
+module = 11
+stem = "Polarity management in multi-fiber MPO systems is critical because:"
+choices = [
+  "Polarity only affects copper near-end crosstalk",
+  "Polarity sets UPS autonomy",
+  "Mismatched polarity yields dark links even when fibers are intact",
+  "Polarity controls humidity"
+]
+correct = "C"
+explanation = "MPO ecosystems fail closed on polarity mistakes despite good fiber."
+topic_ids = ["m11-fibre", "m11-testing"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

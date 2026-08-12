@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m12-q054"
+module = 12
+stem = "HVAC/CRAH interlock on fire alarm is important for gaseous systems mainly to:"
+choices = [
+  "Increase free cooling hours during a fire",
+  "Avoid venting agent into returns and avoid feeding the fire with continued air movement as designed",
+  "Charge wet-pipe sprinklers with air",
+  "Disable all temperature sensors permanently"
+]
+correct = "B"
+explanation = "Fan stop/smoke-control modes and dampers preserve agent concentration and limit smoke spread per design."
+topic_ids = ["m12-gas-suppression", "m12-suppression-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

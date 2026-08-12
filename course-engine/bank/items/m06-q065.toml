@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q065"
+module = 6
+stem = "Standby diesel generators are best characterized as:"
+choices = [
+  "Long-duration on-site power after start and transfer; UPS covers the gap",
+  "Instantaneous zero-gap power with no transfer delay",
+  "A full substitute for UPS batteries in all designs",
+  "Used only for decorative lighting",
+]
+correct = "A"
+explanation = "Gensets need start/transfer time; UPS bridges that interval."
+topic_ids = ["m06-generators", "m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

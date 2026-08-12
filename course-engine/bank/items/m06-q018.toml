@@ -1,0 +1,17 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+id = "mock40-q18"
+module = 6
+stem = "Double-conversion (online/VFI) UPS primarily:"
+choices = [
+  "Passes utility straight through with no battery ever",
+  "Continuously regenerates AC via rectifier/inverter path for high isolation from many disturbances",
+  "Only works on single-phase sites",
+  "Replaces chillers",
+]
+correct = "B"
+explanation = "Online/VFI double-conversion continuously regenerates AC (AC-DC-AC) for isolation from many disturbances."
+topic_ids = ["m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

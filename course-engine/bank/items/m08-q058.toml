@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q058"
+module = 8
+stem = "Seismic-rated racks are relevant when:"
+choices = [
+  "Only coastal humidity is high",
+  "PUE must be below 1.1",
+  "Earthquake zones and structural/anchoring requirements apply",
+  "Fibre counts exceed copper",
+]
+correct = "C"
+explanation = "Seismic frames and floor anchors follow structural design and local requirements."
+topic_ids = ["m08-types", "m08-standards"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

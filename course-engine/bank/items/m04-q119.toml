@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m04-q119"
+module = 4
+stem = "Stringered vs corner-lock (or similar) access-floor systems differ mainly in:"
+choices = [
+  "The brand of UPS exclusively",
+  "Whether copper or fibre may be used in the building",
+  "How panels are laterally supported and how the understructure behaves under load and access",
+  "The colour of emergency lights only",
+]
+correct = "C"
+explanation = "Understructure type changes lateral stability, access patterns, and structural behaviour."
+topic_ids = ["m04-floor-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

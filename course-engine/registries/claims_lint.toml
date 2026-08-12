@@ -1,0 +1,89 @@
+# =============================================================================
+# claims_lint.toml — prose ⇄ registry claim check (Assessment-System L1)
+# =============================================================================
+# Every [[claim:ID]] marker in scanned prose must resolve to registries/claims.toml.
+# Load-bearing phrase classes about coverage / ready / certified / study signal
+# must cite a claim marker in the same file, OR the file is [[exclude]]d with reason.
+# Empty scan set with no excludes covering all files is an ERROR (never vacuous).
+# =============================================================================
+
+schema_version = 1
+
+[scan]
+# Marker shape: [[claim:claim-id-here]]
+marker_prefix = "[[claim:"
+marker_suffix = "]]"
+roots = ["README.md", "docs"]
+# Recursive under dirs; files listed as roots are scanned as single files
+extensions = [".md"]
+
+# Paths (relative to repo root) excluded from load-bearing phrase obligations.
+# Exclusion without a non-empty reason is a schema error.
+
+[[exclude]]
+path = "docs/research/FRANKEN-EXTRACT.md"
+reason = "Upstream research extract; not product claim surface"
+
+[[exclude]]
+path = "docs/research/STANDARDS-TENSIONS.md"
+reason = "Standards research notes; not product honesty claims"
+
+[[exclude]]
+path = "docs/PHASE-L3.md"
+reason = "Historical phase notes; claim surface is ORACLE-GAUNTLET + README"
+
+[[exclude]]
+path = "docs/FEATURE_SURFACE.md"
+reason = "Feature inventory; honesty claims live in ORACLE-GAUNTLET + README"
+
+[[exclude]]
+path = "docs/CANONICAL.md"
+reason = "Serialization contract only; no coverage/ready claims"
+
+[[exclude]]
+path = "docs/VISUAL.md"
+reason = "Visual tokens only"
+
+[[exclude]]
+path = "docs/OQ_REGISTER.md"
+reason = "Open questions ledger; not claim assertions"
+
+[[exclude]]
+path = "docs/TESTING.md"
+reason = "Testing epistemology; claim markers live in ORACLE-GAUNTLET"
+
+[[exclude]]
+path = "docs/GROUNDING.md"
+reason = "Grounding heuristics doc; not product shipped-means claims"
+
+[[exclude]]
+path = "docs/STANDARDS-KB.md"
+reason = "Citation graph doctrine; domain_covered claimed in ORACLE-GAUNTLET"
+
+# Load-bearing phrase classes. If a non-excluded scanned file matches the
+# pattern, it must also contain at least one of must_cite markers.
+
+[[load_bearing]]
+id = "not-certified-honesty"
+pattern = "(?i)not.*(EPI|EXIN|CDCP).*certif|does not grant.*certif|not a credential|credential_claim"
+must_cite = ["claim-not-epi-certified"]
+
+[[load_bearing]]
+id = "interview-ready"
+pattern = "(?i)interview[- ]ready"
+must_cite = ["claim-interview-ready"]
+
+[[load_bearing]]
+id = "study-signal-27"
+pattern = "(?i)study signal|27/40|pass_correct\\s*=\\s*27"
+must_cite = ["claim-study-signal-27", "claim-interview-study-signal"]
+
+[[load_bearing]]
+id = "domain-coverage"
+pattern = "(?i)domain.?cover|coverage oracle|14-domain|domains 01-14|syllabus.?map"
+must_cite = ["claim-domain-covered", "claim-syllabus-mapped"]
+
+[[load_bearing]]
+id = "grade-exact"
+pattern = "(?i)byte-exact|GradeExact|grade digest|dual-path"
+must_cite = ["claim-grade-byte-exact"]

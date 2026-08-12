@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m13-q079"
+module = 13
+stem = "When designing a mantrap for people, equipment moves still need:"
+choices = [
+  "The mantrap permanently propped open",
+  "Shared visitor badges left at the dock",
+  "A separate material path or material airlock so interlocks are not defeated for large loads",
+  "Cameras only, with no process"
+]
+correct = "C"
+explanation = "If only a person mantrap exists, ops will prop doors for gear—design must include material flow."
+topic_ids = ["m13-security-components", "m13-safety-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

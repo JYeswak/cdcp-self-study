@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m10-q100"
+module = 10
+stem = "Process water for cooling towers and humidification matters to uptime because:"
+choices = [
+  "Quality, availability, or treatment failures can force cooling derates or shutdowns",
+  "It is unrelated to facility availability",
+  "It powers the UPS inverter directly",
+  "It replaces fire suppression in all designs"
+]
+correct = "A"
+explanation = "Cooling plant often depends on water; loss or poor quality can reduce heat rejection capacity."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

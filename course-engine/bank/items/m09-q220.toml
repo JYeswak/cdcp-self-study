@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m09-q220"
+module = 9
+stem = "Dew point is often preferred over relative humidity alone because:"
+choices = [
+  "Relative humidity never changes",
+  "Dew point only applies outdoors",
+  "Dew point measures amperage",
+  "It better represents absolute moisture content independent of local temperature swings"
+]
+correct = "D"
+explanation = "RH moves with temperature; dew point tracks moisture content more cleanly."
+topic_ids = ["m09-temp-humidity"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

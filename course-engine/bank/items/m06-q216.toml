@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q216"
+module = 6
+stem = "An isolation transformer is specified ahead of a sensitive bus mainly to:"
+choices = [
+  "Galvanically separate circuits and help manage noise and grounding relationships",
+  "Increase UPS battery amp-hours without batteries",
+  "Act as an ATS",
+  "Provide free cooling"
+]
+correct = "A"
+explanation = "Isolation transformers separate circuits and support power quality/grounding design."
+topic_ids = ["m06-isolation-xfmr", "m06-grounding-bonding"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

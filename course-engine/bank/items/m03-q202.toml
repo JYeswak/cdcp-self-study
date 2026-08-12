@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m03-q202"
+module = 3
+stem = "Which facility criterion most directly affects whether heavy power and cooling plant can be installed and maintained?"
+choices = [
+  "Only the color of exterior cladding",
+  "Only the brand of lobby coffee",
+  "Structural loading, clearances, delivery paths, and service access for large equipment",
+  "Only the number of visitor parking stickers"
+]
+correct = "C"
+explanation = "Plant installability and maintainability hinge on structure, access, and clearances."
+topic_ids = ["m03-facility-criteria"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

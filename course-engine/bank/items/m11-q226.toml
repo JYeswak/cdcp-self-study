@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q226"
+module = 11
+stem = "For emergency isolation of a compromised circuit, the best enabler is:"
+choices = [
+  "Unlabeled bundles and tribal knowledge only",
+  "Random recabling each shift",
+  "Disabling monitoring",
+  "Clear labeling, accurate records, and pre-planned separation of critical paths"
+]
+correct = "D"
+explanation = "Administration turns cables into an operable system under stress."
+topic_ids = ["m11-importance", "m11-planning"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

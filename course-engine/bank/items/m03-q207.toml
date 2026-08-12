@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m03-q207"
+module = 3
+stem = "Multi-path fibre and diverse telecom Points of Entry support site selection goals by:"
+choices = [
+  "Removing all need for on-site network design",
+  "Eliminating physical security",
+  "Cooling the white space automatically",
+  "Reducing correlated communications failure risk for the campus"
+]
+correct = "D"
+explanation = "Diverse carrier entrances reduce single-path connectivity risk into the facility."
+topic_ids = ["m03-supporting-facilities", "m03-site-selection"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

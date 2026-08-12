@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q127"
+module = 14
+stem = "Electrical Power Monitoring System (EPMS) is most associated with:"
+choices = [
+  "Only underfloor rope leak zones",
+  "Visitor badge printing",
+  "Meters, power quality events, and electrical distribution status—often separate from pure BMS",
+  "Fiber OTDR only"
+]
+correct = "C"
+explanation = "EPMS focuses on electrical telemetry; may integrate to DCIM/BMS but is a distinct panel family."
+topic_ids = ["m14-alarms", "m14-monitoring-reqs"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

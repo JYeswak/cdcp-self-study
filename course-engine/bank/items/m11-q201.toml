@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q201"
+module = 11
+stem = "TIA-942-style topology concepts emphasize spaces such as:"
+choices = [
+  "Only a single giant patch field with no hierarchy",
+  "Power-only rooms without cabling spaces",
+  "Entrance rooms, main distribution areas, intermediate or horizontal distribution, and zone or equipment outlets as a hierarchy",
+  "Generators as network hubs"
+]
+correct = "C"
+explanation = "Structured DC cabling uses hierarchical spaces, not random home-runs only."
+topic_ids = ["m11-tia942-topology"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

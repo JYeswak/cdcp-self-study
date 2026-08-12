@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q222"
+module = 6
+stem = "A floor PDU or RPP sits between the UPS output and rack PDUs. Its role is best described as:"
+choices = [
+  "Battery energy storage only",
+  "Generator starting battery charger only",
+  "Distribution and protection or monitoring at room or zone scale before rack-level strips",
+  "Fire suppression control panel"
+]
+correct = "C"
+explanation = "PDUs/RPPs intermediate distribute and protect between UPS plant and racks."
+topic_ids = ["m06-pdu", "m06-distribution"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

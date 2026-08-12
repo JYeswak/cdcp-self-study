@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m15-q212"
+module = 15
+stem = "Security-aware operations include controlling photographs and publicly posted rack layouts because:"
+choices = [
+  "Photos never have information value",
+  "All layouts must be posted on social media for transparency of breakers",
+  "Only cyber teams care about physical layouts",
+  "Detailed internals can aid physical or social-engineering attacks if leaked"
+]
+correct = "D"
+explanation = "Information control is part of physical security hygiene."
+topic_ids = ["m15-ops-security"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

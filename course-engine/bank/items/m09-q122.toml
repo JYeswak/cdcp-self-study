@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q122"
+module = 9
+stem = "Dehumidification in a CRAC/CRAH often occurs when:"
+choices = [
+  "Fans are turned off permanently",
+  "Only when free cooling is disabled by law",
+  "Coil surface temperature is below the dew point of the airstream",
+  "Servers produce large amounts of steam"
+]
+correct = "C"
+explanation = "Moisture condenses on cold coils when surface temperature is below dew point—linking latent capacity to coil control."
+topic_ids = ["m09-temp-humidity", "m09-system-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

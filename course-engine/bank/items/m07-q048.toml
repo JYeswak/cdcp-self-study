@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 7)
+id = "m07-q048"
+module = 7
+stem = "Human exposure guidance (e.g. ICNIRP-class discussions) and product EMC immunity limits should be treated as:"
+choices = [
+  "Identical interchangeable number sets for every design",
+  "Irrelevant to data centres",
+  "Separate concerns—people protection vs equipment immunity—both can drive layout",
+  "Replaced entirely by PUE targets",
+]
+correct = "C"
+explanation = "Keep health exposure language separate from IEC 61000-class equipment immunity."
+topic_ids = ["m07-standards"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

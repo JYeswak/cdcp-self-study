@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q141"
+module = 15
+stem = "White-space cleaning programs matter because dust and debris can:"
+choices = [
+  "Impair cooling airflow, contaminate equipment, and increase fire fuel/ignition risk",
+  "Only improve aesthetics with no operational impact",
+  "Raise copper Category ratings",
+  "Eliminate the need for leak detection"
+]
+correct = "A"
+explanation = "Controlled cleaning is availability and fire hygiene, not hotel housekeeping alone."
+topic_ids = ["m15-cleaning"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

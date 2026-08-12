@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m15-q148"
+module = 15
+stem = "Preventive maintenance windows should be managed with change control because:"
+choices = [
+  "Maintenance never affects production",
+  "Vendors prefer no documentation",
+  "SLAs forbid all maintenance",
+  "Work on live critical systems can cause outages if steps, isolation, and backout are uncontrolled"
+]
+correct = "D"
+explanation = "PM is necessary risk—controlled via MOP/change process, not ad-hoc tinkering."
+topic_ids = ["m15-maintenance-sla", "m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

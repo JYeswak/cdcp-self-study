@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m09-q102"
+module = 9
+stem = "Why does a high sensible heat ratio (SHR) matter when selecting room cooling for IT?"
+choices = [
+  "IT rooms need mostly dehumidification, not temperature control",
+  "SHR is only used for kitchen design",
+  "IT loads are mostly dry heat, so oversizing latent capacity can over-dry the space",
+  "Higher SHR always means worse PUE"
+]
+correct = "C"
+explanation = "Servers produce primarily sensible heat; cooling with excess latent capacity can over-cool coils and over-dehumidify."
+topic_ids = ["m09-principles"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

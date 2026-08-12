@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 8)
+id = "m08-q048"
+module = 8
+stem = "Highly perforated front/rear doors on air-cooled IT cabinets support:"
+choices = [
+  "Blocking all airflow intentionally in every design",
+  "Chimney exhaust when solid doors are mandatory always",
+  "Elimination of blanking panels",
+  "Front-to-rear airflow designs in classic hot/cold aisle layouts",
+]
+correct = "D"
+explanation = "Perforated doors pass supply/exhaust air; solid doors belong with contained/chimney designs."
+topic_ids = ["m08-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

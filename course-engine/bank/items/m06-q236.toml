@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q236"
+module = 6
+stem = "IP rating selection for outdoor switchgear or generator enclosures primarily addresses:"
+choices = [
+  "Protection against solid object and water ingress appropriate to the environment",
+  "UPS topology class",
+  "Fiber polarity",
+  "Fire class of materials only"
+]
+correct = "A"
+explanation = "IP codes rate enclosure ingress protection, not electrical topology."
+topic_ids = ["m06-ip-grades"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

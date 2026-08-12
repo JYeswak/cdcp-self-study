@@ -1,0 +1,17 @@
+# Original CDCP educational item — bank expansion (module 6)
+id = "m06-q051"
+module = 6
+stem = "In redundancy language, N means:"
+choices = [
+  "Twice the required capacity on every feeder",
+  "Exactly the capacity needed to serve the design critical load (no spare)",
+  "One spare module always running unloaded",
+  "Network-only dual-homing",
+]
+correct = "B"
+explanation = "N is the capacity required for the full design load; spares and dual paths are expressed as +1, 2N, etc."
+topic_ids = ["m06-redundancy"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

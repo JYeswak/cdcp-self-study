@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m02-q071"
+module = 2
+stem = "Sub-component standards (e.g., for cabling, fire detection devices, or electrical equipment) matter because:"
+choices = [
+  "The facility standard alone specifies every device model",
+  "Facility performance depends on equipment and systems that are themselves covered by product/system standards",
+  "They replace the need for an AHJ",
+  "They only apply to residential kitchens",
+]
+correct = "B"
+explanation = "Data centres assemble many product systems; sub-component standards govern those building blocks."
+topic_ids = ["m02-subcomponent-standards"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

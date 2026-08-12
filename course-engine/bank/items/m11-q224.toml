@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m11-q224"
+module = 11
+stem = "A media conversion strategy at the edge may be used when:"
+choices = [
+  "All copper must be removed always",
+  "Different segments require different media while preserving structured demarcation",
+  "Only wireless is allowed indoors",
+  "UPS topology changes weekly"
+]
+correct = "B"
+explanation = "Media conversion is a planned boundary, not random adapters everywhere."
+topic_ids = ["m11-planning", "m11-fibre", "m11-copper"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"

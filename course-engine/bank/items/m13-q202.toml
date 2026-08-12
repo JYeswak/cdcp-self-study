@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m13-q202"
+module = 13
+stem = "Safety components such as emergency power-off (EPO) interfaces, clear egress, and eye-wash where required differ from security locks because they primarily protect:"
+choices = [
+  "Marketing secrets only",
+  "People from injury and enable emergency response, even when that conflicts with convenience",
+  "Only package delivery SLAs",
+  "Shareholder branding colors"
+]
+correct = "B"
+explanation = "Safety systems prioritize human life and emergency response over access convenience."
+topic_ids = ["m13-safety-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+id = "m05-q203"
+module = 5
+stem = "Self-contained emergency luminaires differ conceptually from centrally supplied emergency lighting in that:"
+choices = [
+  "They never need testing",
+  "They always use outdoor solar only",
+  "They replace all normal lighting permanently",
+  "Battery/inverter function is local to the fixture versus a central emergency power source feeding remote heads"
+]
+correct = "D"
+explanation = "Architecture differs: local battery units vs central emergency supply—both need maintenance and testing."
+topic_ids = ["m05-emergency-types", "m05-emergency"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"

@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+id = "m05-q149"
+module = 5
+stem = "Fixture support and seismic restraint (where required) exist to:"
+choices = [
+  "Improve PUE only",
+  "Replace firestops",
+  "Increase underfloor static pressure",
+  "Keep luminaires from becoming falling hazards during events and maintain egress lighting integrity",
+]
+correct = "D"
+explanation = "Supports/restraints are life-safety and property-protection measures for overhead equipment."
+topic_ids = ["m05-fixtures", "m05-standards"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"

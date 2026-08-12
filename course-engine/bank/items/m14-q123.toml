@@ -1,0 +1,17 @@
+# Original educational bank item — modules expansion (not mock40)
+id = "bank-m14-q123"
+module = 14
+stem = "A 15-minute averaged temperature trend can hide risk because:"
+choices = [
+  "Averages always equal peak inlet temperatures",
+  "EMS cannot sample faster than daily",
+  "Short thermal spikes that stress equipment may not appear in long averages",
+  "BMS forbids sub-hour data by physics"
+]
+correct = "C"
+explanation = "Sampling/latency choices can mask brief but damaging events."
+topic_ids = ["m14-monitoring-challenges"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

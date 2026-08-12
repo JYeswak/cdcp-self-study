@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — not an exam dump
+id = "m11-q124"
+module = 11
+stem = "Separating storage, network, and out-of-band management cabling conceptually helps by:"
+choices = [
+  "Reducing operational risk and clarifying pathways, though design must still prevent congestion",
+  "Increasing accidental mispatch blast radius always",
+  "Eliminating all need for redundancy",
+  "Making testing impossible"
+]
+correct = "A"
+explanation = "Functional separation improves operability; still requires pathway capacity and clear administration."
+topic_ids = ["m11-planning"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"

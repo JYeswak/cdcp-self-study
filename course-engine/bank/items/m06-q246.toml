@@ -1,0 +1,17 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+id = "m06-q246"
+module = 6
+stem = "During utility loss with healthy design, the closest expected sequence is:"
+choices = [
+  "Generator first, then UPS batteries must discharge fully before any transfer",
+  "All IT shuts down until manual restart next day",
+  "UPS carries load on storage while generator starts and transfer completes, then UPS recharges",
+  "Only CRAH units transfer automatically"
+]
+correct = "C"
+explanation = "Storage bridges start/transfer time; generators then sustain the plant."
+topic_ids = ["m06-ups", "m06-generators", "m06-ats-sts"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
