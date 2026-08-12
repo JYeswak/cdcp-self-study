@@ -41,7 +41,7 @@ fn bank_hash_prints_64_hex_chars() {
 
 #[test]
 fn goldens_check_exit_0() {
-    cdcp()
+    let assert = cdcp()
         .args([
             "goldens",
             "check",
@@ -51,17 +51,16 @@ fn goldens_check_exit_0() {
             "goldens",
         ])
         .assert()
-        .success()
-        .stdout(predicates_contains_ok_golden);
-}
-
-/// assert_cmd has no built-in contains without `predicates`; check manually.
-fn predicates_contains_ok_golden(stdout: &str) -> Result<(), String> {
-    if stdout.contains("ok golden all-correct") && stdout.contains("ok golden all-wrong") {
-        Ok(())
-    } else {
-        Err(format!("expected ok golden lines, got: {stdout}"))
-    }
+        .success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("ok golden all-correct"),
+        "missing ok golden all-correct: {stdout}"
+    );
+    assert!(
+        stdout.contains("ok golden all-wrong"),
+        "missing ok golden all-wrong: {stdout}"
+    );
 }
 
 #[test]
@@ -160,7 +159,7 @@ fn grade_json_rejects_bad_letter_and_unknown_item() {
         r#"[{"item_id":"m01-q045","chosen":"E"}]"#,
     )
     .unwrap();
-    cdcp()
+    let assert = cdcp()
         .args([
             "grade",
             "--bank",
@@ -173,8 +172,12 @@ fn grade_json_rejects_bad_letter_and_unknown_item() {
             bad_letter.to_str().unwrap(),
         ])
         .assert()
-        .failure()
-        .stderr(contains_substr("invalid chosen"));
+        .failure();
+    let stderr = String::from_utf8_lossy(&assert.get_output().stderr);
+    assert!(
+        stderr.contains("invalid chosen"),
+        "expected invalid chosen error, got: {stderr}"
+    );
 
     let unknown = dir.join("unknown.json");
     fs::write(
@@ -182,7 +185,7 @@ fn grade_json_rejects_bad_letter_and_unknown_item() {
         r#"[{"item_id":"does-not-exist-xyz","chosen":"A"}]"#,
     )
     .unwrap();
-    cdcp()
+    let assert = cdcp()
         .args([
             "grade",
             "--bank",
@@ -195,19 +198,12 @@ fn grade_json_rejects_bad_letter_and_unknown_item() {
             unknown.to_str().unwrap(),
         ])
         .assert()
-        .failure()
-        .stderr(contains_substr("unknown item_id"));
+        .failure();
+    let stderr = String::from_utf8_lossy(&assert.get_output().stderr);
+    assert!(
+        stderr.contains("unknown item_id"),
+        "expected unknown item_id error, got: {stderr}"
+    );
 
     let _ = fs::remove_dir_all(&dir);
-}
-
-/// Custom predicate helper for assert_cmd `.stderr(...)`.
-fn contains_substr(expected: &'static str) -> impl Fn(&str) -> Result<(), String> {
-    move |s: &str| {
-        if s.contains(expected) {
-            Ok(())
-        } else {
-            Err(format!("expected stderr to contain {expected:?}, got: {s}"))
-        }
-    }
 }
