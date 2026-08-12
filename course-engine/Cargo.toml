@@ -4,8 +4,10 @@ members = [
   "crates/cdcp_core",
   "crates/cdcp_bank",
   "crates/cdcp_grade",
+  "crates/cdcp_assemble",
   "crates/cdcp_cli",
   "crates/cdcp_registry_check",
+  "crates/cdcp_wasm",
 ]
 exclude = ["fuzz"]
 
@@ -22,7 +24,10 @@ hex = "0.4"
 thiserror = "1"
 toml = "0.8"
 clap = { version = "4", features = ["derive"] }
+rand = "0.8"
 cdcp_core = { path = "crates/cdcp_core" }
 cdcp_bank = { path = "crates/cdcp_bank" }
 cdcp_grade = { path = "crates/cdcp_grade" }
+cdcp_wasm = { path = "crates/cdcp_wasm" }
+cdcp_assemble = { path = "crates/cdcp_assemble" }
 proptest = { version = "1", default-features = false, features = ["std"] }

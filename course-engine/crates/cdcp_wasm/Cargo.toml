@@ -1,0 +1,20 @@
+[package]
+name = "cdcp_wasm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "WASM dual-path grade export (ORACLE L4) — native digest == wasm digest"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+cdcp_core = { workspace = true }
+cdcp_bank = { workspace = true }
+cdcp_grade = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+[dev-dependencies]
+wasmtime = { version = "26", default-features = true }

@@ -40,6 +40,8 @@ pub enum BankError {
     Io(#[from] std::io::Error),
     #[error("toml: {0}")]
     Toml(String),
+    #[error("json: {0}")]
+    Json(String),
     #[error("empty bank")]
     Empty,
     #[error("item {0}: {1}")]
@@ -96,10 +98,7 @@ impl BankItem {
             ));
         }
         if self.choices.iter().any(|c| c.trim().is_empty()) {
-            return Err(BankError::Item(
-                self.id.clone(),
-                "empty choice text".into(),
-            ));
+            return Err(BankError::Item(self.id.clone(), "empty choice text".into()));
         }
 
         // Uppercase A–D only (verify_bank ALLOWED_CORRECT); reject lowercase.
@@ -129,10 +128,7 @@ impl BankItem {
         if self.source_class != "original" {
             return Err(BankError::Item(
                 self.id.clone(),
-                format!(
-                    "source_class must be original, got {:?}",
-                    self.source_class
-                ),
+                format!("source_class must be original, got {:?}", self.source_class),
             ));
         }
 
@@ -218,6 +214,46 @@ impl Bank {
 
     pub fn get(&self, id: &str) -> Option<&BankItem> {
         self.items.get(id)
+    }
+
+    /// Build a bank from an in-memory item list (WASM / JSON dual-path).
+    /// Validates each item, rejects duplicates and empty sets, recomputes `bank_hash`.
+    pub fn from_items(items: impl IntoIterator<Item = BankItem>) -> Result<Self, BankError> {
+        let mut map: BTreeMap<String, BankItem> = BTreeMap::new();
+        for item in items {
+            item.validate()?;
+            if map.insert(item.id.clone(), item.clone()).is_some() {
+                return Err(BankError::Item(item.id, "duplicate id".into()));
+            }
+        }
+        if map.is_empty() {
+            return Err(BankError::Empty);
+        }
+        let bank_hash = compute_bank_hash(&map)?;
+        Ok(Self {
+            items: map,
+            bank_hash,
+        })
+    }
+
+    /// Deserialize bank items from JSON (array of items, or `{"items":[...]}`).
+    pub fn from_json_str(json: &str) -> Result<Self, BankError> {
+        #[derive(Deserialize)]
+        struct Wrapper {
+            items: Vec<BankItem>,
+        }
+        let items: Vec<BankItem> = match serde_json::from_str::<Wrapper>(json) {
+            Ok(w) => w.items,
+            Err(_) => serde_json::from_str(json)
+                .map_err(|e| BankError::Json(format!("bank json: {e}")))?,
+        };
+        Self::from_items(items)
+    }
+
+    /// Export items as a JSON array (stable BTreeMap key order).
+    pub fn to_json_items(&self) -> Result<String, BankError> {
+        let list: Vec<&BankItem> = self.items.values().collect();
+        serde_json::to_string(&list).map_err(|e| BankError::Json(format!("bank json encode: {e}")))
     }
 }
 
@@ -407,9 +443,7 @@ quantity_evidence = "made_up"
 "#,
         );
         let err = Bank::load_dir(&dir).unwrap_err();
-        assert!(
-            matches!(err, BankError::Item(_, msg) if msg.contains("bad quantity_evidence"))
-        );
+        assert!(matches!(err, BankError::Item(_, msg) if msg.contains("bad quantity_evidence")));
         let _ = fs::remove_dir_all(&dir);
     }
 

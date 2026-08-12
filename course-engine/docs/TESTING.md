@@ -78,3 +78,50 @@ and still pass `scripts/verify_bank.py` (or the reverse for shared fields).
 
 Filesystem visit order for `Bank::load_dir` is already sorted before insert; the BTreeMap property is the load-bearing invariant under that.
 
+## L4 — gates proven to trip (`scripts/selftest_known_bad.sh`)
+
+Wired from `scripts/check.sh` after a clean goldens pass. Each case injects a
+known-bad fixture, asserts non-zero exit, then restores the tree (trap +
+explicit restore). Vacuous green is a failure.
+
+| Case | Injection | Gate that must RED |
+|------|-----------|--------------------|
+| a flipped golden | rewrite `goldens/mock40_seed42_all_correct.sha256` | `cdcp goldens check` |
+| b empty bank | temp empty `--bank` dir | `Bank::load_dir` / goldens check |
+| c bank_hash drift | rewrite `goldens/bank_hash.txt` pin | `cdcp goldens check` pin compare |
+| d honesty plant | `docs/_selftest_known_bad_planted.md` with the FORBIDDEN credential-inflation phrase | honesty scan |
+
+### Honesty scan must not fail-open (bd-1tw)
+
+`~/.ripgreprc` may contain `--type-not=video` (types not registered → `rg` exit 2).
+Piping a failed `rg` under `set -eu` without `pipefail` used to leave the honesty
+gate green. Fix:
+
+1. Always invoke `rg --no-config` for honesty (ignore broken global type filters).
+2. Treat `rg` exit ≥2 as hard FAIL (never green on scanner error).
+
+Plant proof lives in selftest case (d); clean tree still exits 0 from `./scripts/check.sh`.
+
+
+## Fuzz (cargo-fuzz) — crash-only floor
+
+| Target | Path | Claim |
+|--------|------|-------|
+| `choice_letter_parse` | `fuzz/fuzz_targets/choice_letter_parse.rs` | `ChoiceLetter::parse` never panics on arbitrary UTF-8 |
+| `canonical_json_bytes` | `fuzz/fuzz_targets/canonical_json_bytes.rs` | `canonical_json` never panics on arbitrary JSON Values |
+
+**Commands:** `cargo fuzz run choice_letter_parse` · `cargo fuzz run canonical_json_bytes`  
+Requires nightly + `cargo install cargo-fuzz`. Package is workspace-`exclude`d (`fuzz/`).
+
+Crash-only fuzz is **insufficient alone** (see oracle hierarchy). Property tests cover digest stability / bank_hash reorder.
+
+
+## L4 dual-path (`cdcp_wasm`)
+
+| True iff | Command |
+|----------|---------|
+| native digest == wasm digest for mock40_seed42 all-correct/all-wrong | `CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test dual_path` |
+| EngineIdentity labels distinct at comparator | unit test in `crates/cdcp_wasm` |
+
+Build subject: `cargo build -p cdcp_wasm --target wasm32-unknown-unknown`.  
+Host runtime: wasmtime (dev-dep). Missing toolchain → skip-honest receipt in `check.sh`, not full L4 green.

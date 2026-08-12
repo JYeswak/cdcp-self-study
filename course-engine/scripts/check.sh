@@ -163,9 +163,32 @@ else
   fail "missing scripts/selftest_known_bad.sh (L4 required)"
 fi
 
+# L4 WASM dual-path (optional until toolchain present — skip-honest, not full L4 green)
+echo "==> L4 WASM dual-path (optional)"
+L4_WASM="SKIP"
+if command -v rustup >/dev/null 2>&1   && rustup target list --installed 2>/dev/null | grep -q '^wasm32-unknown-unknown$'
+then
+  if cargo build -p cdcp_wasm --target wasm32-unknown-unknown --locked \
+    && CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test dual_path --locked -- --nocapture
+  then
+    ok "L4 WASM dual-path native==wasm (mock40_seed42)"
+    L4_WASM="GREEN"
+  else
+    fail "L4 WASM dual-path failed (toolchain present but digests disagree or test/build error)"
+  fi
+else
+  echo "check.sh: SKIP wasm: toolchain missing"
+  echo "check.sh: L4 dual-path is NOT full green — install: rustup target add wasm32-unknown-unknown"
+  L4_WASM="SKIP"
+fi
+
 # Wave status
-echo "check.sh: WAVE STATUS: W0+L1+L2+L3 GREEN; L4 selftests WIRED; L4 WASM dual-path + L5 UI still OPEN"
-echo "check.sh: next: L4 Rust==WASM digest parity, then L5 browser mock path"
+echo "check.sh: WAVE STATUS: W0+L1+L2+L3 GREEN; L4 known-bad WIRED; L4 WASM=$L4_WASM; L5 UI still OPEN"
+if [ "$L4_WASM" = "GREEN" ]; then
+  echo "check.sh: next: L5 browser mock path (UI e2e digest match)"
+else
+  echo "check.sh: next: enable wasm32 target for L4 dual-path GREEN, then L5 UI"
+fi
 
 # Knowledge primary_notes path resolution (parent ../modules/)
 if [ -f scripts/verify_knowledge_paths.py ]; then
@@ -174,5 +197,5 @@ if [ -f scripts/verify_knowledge_paths.py ]; then
   ok "knowledge primary_notes paths"
 fi
 
-echo "==> check.sh PASSED (W0 + L1 claims + L2 bank + L3 GradeExact + L4 known-bad)"
+echo "==> check.sh PASSED (W0+L1+L2+L3 + L4 known-bad; L4 WASM=$L4_WASM; L5 open)"
 exit 0

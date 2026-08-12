@@ -54,6 +54,24 @@ Study signal **27/40** is never a credential. [[claim:claim-study-signal-27]]
 
 G1>G2 (correctness > UI) · no counterfeit green · Doctrine #0 (artifacts only if gates branch) · skip-honest receipts
 
+## L4 — Rust == WASM dual-path (EngineIdentity)
+
+| Role | Label (`cdcp_wasm`) | Implementation |
+|------|---------------------|----------------|
+| **Oracle** | `cdcp_grade-native` | Host `cdcp_grade::grade_digest` / `grade_digest_json` |
+| **Subject** | `cdcp_wasm-wasm32` | Same pure path compiled to `wasm32-unknown-unknown` (`crates/cdcp_wasm`) |
+| **Comparator** | assert identities **distinct**, digests **equal** | `cargo test -p cdcp_wasm --test dual_path` via wasmtime |
+
+**Contract:** same `(bank_json, attempt_json)` → same hex SHA-256 of `canonical_json(GradeReport)`.
+
+**Fixtures (wired):** `goldens/fixtures/mock40_seed42` × all-correct / all-wrong against full `bank/items` (digests must also pin to L3 goldens).
+
+**Surface:** `cdcp_wasm::grade_digest_json` + C ABI (`cdcp_alloc` / `cdcp_grade_digest` / `cdcp_last_ptr`) for host runtimes. Fixed-bank grade only — assemble/shuffle dual-path waits on OQ-01 / L2 assemble readiness.
+
+**check.sh:** optional stage — if `wasm32-unknown-unknown` + wasm build succeed, runs dual-path with `CDCP_REQUIRE_WASM=1`. Otherwise prints `SKIP wasm: toolchain missing` and does **not** claim full L4 green.
+
+**Not L5:** browser UI e2e digest match remains open.
+
 ## Related
 
 - [`STANDARDS-KB.md`](./STANDARDS-KB.md) — citation graph vs SDO full text  
