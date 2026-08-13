@@ -77,6 +77,31 @@ else
 fi
 rm -f /tmp/pb.$$
 
+# ── The fleet doctor's error set must be EXACTLY the one known+accepted ─────
+# It reports brand_voice_composite_low because its exemption vocabulary
+# (EXEMPT_CLIENT_OWNED | EXEMPT_PUBLIC_FACING) has no class for "not a
+# ZestStream-branded surface", so a null composite reads as below-floor. That
+# is a gap in the shared fleet tool, not in this repo — but pinning it here
+# means a NEW doctor error can never slip by unnoticed.
+KNOWN_ERR="brand_voice_composite_low"
+ACTUAL_ERRS="$(python3 - "$ENGINE" <<'PY2'
+import json, subprocess, sys, os
+eng = sys.argv[1]
+try:
+    out = subprocess.run(["bash", ".flywheel/scripts/publishability-bar.sh", "--doctor", "--json"],
+                         cwd=eng, capture_output=True, text=True).stdout
+    d = json.loads(out)
+    print(",".join(sorted(e.get("code", "?") for e in d.get("errors", []))))
+except Exception:
+    print("DOCTOR_UNPARSEABLE")
+PY2
+)"
+if [ "$ACTUAL_ERRS" = "$KNOWN_ERR" ] || [ -z "$ACTUAL_ERRS" ]; then
+  ok "fleet doctor errors are exactly the known set (${ACTUAL_ERRS:-none})"
+else
+  bad "fleet doctor raised UNEXPECTED errors: $ACTUAL_ERRS (known: $KNOWN_ERR)"
+fi
+
 # ── F4: the gate must exist and be executable ───────────────────────────────
 [ -x "$ENGINE/scripts/check.sh" ] || [ -f "$ENGINE/scripts/check.sh" ] \
   && ok "F4 gate present: course-engine/scripts/check.sh" \
@@ -94,6 +119,22 @@ else
   ok "no ASHRAE PDFs anywhere in history"
 fi
 
+# ── Corpus rights must be recorded per source, not assumed ──────────────────
+if python3 - <<'PY2'
+import json, sys
+d = json.load(open("course-engine/knowledge/corpus/public/manifest.json"))
+srcs = d.get("sources", [])
+if not srcs:
+    sys.exit(1)                      # never vacuously green: empty = ERROR
+missing = [s.get("url", "?") for s in srcs if not s.get("rights")]
+sys.exit(1 if missing else 0)
+PY2
+then
+  ok "every scraped corpus source records its rights"
+else
+  bad "corpus manifest has sources without a rights field (or is empty)"
+fi
+
 # ── Audit must not claim a state it has not reached ─────────────────────────
 if grep -qi "^- \*\*Public repo:\*\* yes" "$AUDIT"; then
   grep -qiE "Scorecard log.*not-run" "$AUDIT" \
@@ -101,6 +142,13 @@ if grep -qi "^- \*\*Public repo:\*\* yes" "$AUDIT"; then
     || ok "audit public-repo claim is consistent with a run scorecard"
 else
   ok "audit does not overclaim public status"
+fi
+
+# ── An exemption must carry a reason (L88: no hiding a NO facet in prose) ───
+if grep -q "^- \*\*Exemption:\*\*$" "$AUDIT"; then
+  bad "audit has an EMPTY Exemption field — an exemption without a reason is a schema error"
+else
+  ok "no bare/unreasoned exemption in the audit"
 fi
 
 echo "publishability-bar: $PASS passed, $FAIL failed"

@@ -7,6 +7,9 @@
       "bytes": 15278,
       "id": "src-epi-cdcp-page",
       "path": "knowledge/corpus/public/src-epi-cdcp-page.txt",
+      "redistribution": "not-licensed",
+      "retention_basis": "short public-summary capture retained for citation grounding only; url + fetch_date recorded so the claim can be re-verified at source",
+      "rights": "publisher-retains-copyright",
       "sha256": "21396401c74348a426f7fd559a3f885b06c2fdcf9eb3a385e65290ecd4ee0172",
       "url": "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
     },
@@ -15,6 +18,9 @@
       "bytes": 3759,
       "id": "src-exin-cdcp-page",
       "path": "knowledge/corpus/public/src-exin-cdcp-page.txt",
+      "redistribution": "not-licensed",
+      "retention_basis": "short public-summary capture retained for citation grounding only; url + fetch_date recorded so the claim can be re-verified at source",
+      "rights": "publisher-retains-copyright",
       "sha256": "3de1d5bbb9f123283f6f341310cbe0b7081b8fc4e08ed87c1e7d6b4c0b765e82",
       "url": "https://www.exin.com/technologies-software/exin-epi-data-centre-management/certified-data-centre-professional"
     },
@@ -23,6 +29,9 @@
       "bytes": 8629,
       "id": "src-nh-cdcp",
       "path": "knowledge/corpus/public/src-nh-cdcp.txt",
+      "redistribution": "not-licensed",
+      "retention_basis": "short public-summary capture retained for citation grounding only; url + fetch_date recorded so the claim can be re-verified at source",
+      "rights": "publisher-retains-copyright",
       "sha256": "86021862df925abbb24767ecbdaeb24e3a3a334daac33bb3d640b767767187db",
       "url": "https://courses.newhorizons.bg/cdcp/"
     },
@@ -31,6 +40,9 @@
       "bytes": 17677,
       "id": "src-tuv-22237",
       "path": "knowledge/corpus/public/src-tuv-22237.txt",
+      "redistribution": "not-licensed",
+      "retention_basis": "short public-summary capture retained for citation grounding only; url + fetch_date recorded so the claim can be re-verified at source",
+      "rights": "publisher-retains-copyright",
       "sha256": "59fe9ac755d8132f2e64c463b20d63022b83c71b300819a09c5b97165a08f413",
       "url": "https://www.tuev-nord.de/en/services/auditing-and-certification/iso-iec-22237/"
     },
@@ -39,6 +51,9 @@
       "bytes": 19259,
       "id": "src-en-50600-overview",
       "path": "knowledge/corpus/public/src-en-50600-overview.txt",
+      "redistribution": "not-licensed",
+      "retention_basis": "short public-summary capture retained for citation grounding only; url + fetch_date recorded so the claim can be re-verified at source",
+      "rights": "publisher-retains-copyright",
       "sha256": "0d9f7bdd9251fa51e3067528ca7312b49c6b5c21ea740b65aabe55ae7d8886b0",
       "url": "https://www.tuev-nord.de/en/services/auditing-and-certification/en-50600/"
     },
@@ -47,6 +62,9 @@
       "bytes": 5602,
       "id": "src-tia-942",
       "path": "knowledge/corpus/public/src-tia-942.txt",
+      "redistribution": "not-licensed",
+      "retention_basis": "short public-summary capture retained for citation grounding only; url + fetch_date recorded so the claim can be re-verified at source",
+      "rights": "publisher-retains-copyright",
       "sha256": "63e7969b2b3d355075bd95511162481aa09b183325229666780c7e218021020e",
       "url": "https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/"
     },
@@ -55,6 +73,9 @@
       "bytes": 8614,
       "id": "src-tia-942-c-fotc",
       "path": "knowledge/corpus/public/src-tia-942-c-fotc.txt",
+      "redistribution": "not-licensed",
+      "retention_basis": "short public-summary capture retained for citation grounding only; url + fetch_date recorded so the claim can be re-verified at source",
+      "rights": "publisher-retains-copyright",
       "sha256": "c7df8410b3e72260355976fa4fa4270517287cc17be7800b2504973f2dc856ca",
       "url": "https://www.tiafotc.org/tia-standards-update/tia-942-c/"
     },
@@ -63,6 +84,9 @@
       "bytes": 11169,
       "id": "src-uptime-tiers",
       "path": "knowledge/corpus/public/src-uptime-tiers.txt",
+      "redistribution": "not-licensed",
+      "retention_basis": "short public-summary capture retained for citation grounding only; url + fetch_date recorded so the claim can be re-verified at source",
+      "rights": "publisher-retains-copyright",
       "sha256": "7dfa5907d73d4a0698f257bab766e9271b1454ea42ffde32ba05f507de547634",
       "url": "https://uptimeinstitute.com/tiers"
     },
@@ -71,6 +95,9 @@
       "bytes": 11257,
       "id": "src-ashrae-datacom",
       "path": "knowledge/corpus/public/src-ashrae-datacom.txt",
+      "redistribution": "not-licensed",
+      "retention_basis": "short public-summary capture retained for citation grounding only; url + fetch_date recorded so the claim can be re-verified at source",
+      "rights": "publisher-retains-copyright",
       "sha256": "4203e210a5ae2763df6e229bddeba6cc7866854d930bf82b60816a00d6e7121e",
       "url": "https://www.ashrae.org/technical-resources/bookstore/datacom-series"
     },
@@ -79,6 +106,9 @@
       "bytes": 586,
       "id": "src-ashrae-power-wp",
       "path": "knowledge/corpus/public/src-ashrae-power-wp.txt",
+      "redistribution": "not-licensed",
+      "retention_basis": "short public-summary capture retained for citation grounding only; url + fetch_date recorded so the claim can be re-verified at source",
+      "rights": "publisher-retains-copyright",
       "sha256": "d4bfb8f07a3e30d387765018b3159468f17f5a4bd791deb6aba029f8c8658c2c",
       "url": "https://www.ashrae.org/file%20library/technical%20resources/bookstore/ashrae_tc0909_power_white_paper_22_june_2016_revised.pdf"
     },
@@ -87,6 +117,9 @@
       "bytes": 5622,
       "id": "src-ocp-ready",
       "path": "knowledge/corpus/public/src-ocp-ready.txt",
+      "redistribution": "not-licensed",
+      "retention_basis": "short public-summary capture retained for citation grounding only; url + fetch_date recorded so the claim can be re-verified at source",
+      "rights": "publisher-retains-copyright",
       "sha256": "0d034c5b002813bb61949d69558a44aac1b659f24670e89e6480311e31d08916",
       "url": "https://github.com/opencomputeproject/OCP-Ready-Facility-Recognition-Program"
     },
@@ -95,6 +128,9 @@
       "bytes": 18221,
       "id": "src-curriculum-map-local",
       "path": "knowledge/corpus/public/src-curriculum-map-local.txt",
+      "redistribution": "not-licensed",
+      "retention_basis": "short public-summary capture retained for citation grounding only; url + fetch_date recorded so the claim can be re-verified at source",
+      "rights": "publisher-retains-copyright",
       "sha256": "3212804f5ded13b035f1d4c3d22078356d5a512e1333cb2bc9d00497579aa4c8",
       "url": "file://../00-curriculum-map.md"
     }

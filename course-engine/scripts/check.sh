@@ -307,6 +307,12 @@ if [ -f scripts/selftest_reconstructed.sh ] && [ "${CDCP_IN_SELFTEST:-0}" != "1"
   ok "L5–V11 reconstructed stages proven to trip RED"
 fi
 
+if [ -f tests/voice-slop.sh ]; then
+  echo "==> tests/voice-slop.sh (applicable slice of the ZS voice gate)"
+  sh tests/voice-slop.sh >/dev/null || fail "voice slop / honesty in public copy"
+  ok "public copy free of marketing slop; honesty note intact"
+fi
+
 if [ -f tests/publishability-bar.sh ]; then
   echo "==> tests/publishability-bar.sh (L88 — audit claims must be true)"
   sh tests/publishability-bar.sh >/dev/null || fail "publishability bar (audit claim is false)"
