@@ -307,6 +307,12 @@ if [ -f scripts/selftest_reconstructed.sh ] && [ "${CDCP_IN_SELFTEST:-0}" != "1"
   ok "L5–V11 reconstructed stages proven to trip RED"
 fi
 
+if [ -f tests/publishability-bar.sh ]; then
+  echo "==> tests/publishability-bar.sh (L88 — audit claims must be true)"
+  sh tests/publishability-bar.sh >/dev/null || fail "publishability bar (audit claim is false)"
+  ok "L88 publishability bar (audit claims verified against the repo)"
+fi
+
 echo "==> V11 stretch surfaces"
 python3 scripts/export_anki.py --check >/dev/null 2>&1 || python3 scripts/export_anki.py >/dev/null 2>&1 || fail "V11 Anki export"
 ok "V11 Anki export"

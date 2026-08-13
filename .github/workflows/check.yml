@@ -1,0 +1,82 @@
+name: check
+
+# The gate is ONE ordered chain (course-engine/scripts/check.sh). CI runs that
+# script and nothing else — never duplicate gate commands here, or CI and local
+# drift apart and only one of them is the truth.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust + wasm32 target
+        run: |
+          rustup toolchain install stable --profile minimal \
+            --component rustfmt,clippy
+          rustup target add wasm32-unknown-unknown
+          rustup default stable
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            course-engine/target
+          key: cargo-${{ runner.os }}-${{ hashFiles('course-engine/Cargo.lock') }}
+          restore-keys: cargo-${{ runner.os }}-
+
+      # THE gate. Fail-closed: 51 ordered steps (W0-L7 + V11) including five
+      # known-bad selftest suites that inject faults and assert RED.
+      - name: check.sh
+        working-directory: course-engine
+        run: ./scripts/check.sh
+
+      # Anti-vacuous: prove the gate can still FAIL. If a known-bad injection
+      # does not turn the gate red, the green above meant nothing.
+      - name: Gates proven to trip
+        working-directory: course-engine
+        run: |
+          set -eu
+          cp web/data/mock40_seed42.json /tmp/pack.bak
+          python3 - <<'PY'
+          import json, pathlib
+          p = pathlib.Path('web/data/mock40_seed42.json')
+          d = json.load(open(p)); d['n_items'] = 39
+          p.write_text(json.dumps(d, indent=2, sort_keys=True) + '\n')
+          PY
+          if ./scripts/check.sh >/dev/null 2>&1; then
+            cp /tmp/pack.bak web/data/mock40_seed42.json
+            echo "::error::gate stayed GREEN under a known-bad injection"
+            exit 1
+          fi
+          cp /tmp/pack.bak web/data/mock40_seed42.json
+          echo "gate tripped RED on known-bad, as required"
+
+      - name: Tree must be clean after the gate
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::gate left the tree dirty"
+            git status --porcelain
+            exit 1
+          fi

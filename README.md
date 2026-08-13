@@ -29,7 +29,7 @@ If your goal is the **credential**, take an authorized CDCP course and exam. If 
 ### Path A — Interactive engine (recommended)
 
 ```bash
-cd /Users/josh/cdcp-self-study/course-engine
+cd course-engine
 cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
 # open http://127.0.0.1:8766/  (use a free port; 8765 may be Agent Mail)
 ```
@@ -39,7 +39,7 @@ Hub → **Learn** Module 01 → quiz / Learn-15. Charter: [`CHARTER.md`](./CHART
 ### Path B — Markdown-only (offline notes)
 
 ```bash
-cd /Users/josh/cdcp-self-study
+cd cdcp-self-study
 ```
 
 1. Read this honesty note (above).
@@ -248,7 +248,9 @@ Stick to standard until you can teach each module in plain language; only then d
 ## Getting started (copy-paste)
 
 ```bash
-cd /Users/josh/cdcp-self-study
+git clone <this-repo> cdcp-self-study
+cd cdcp-self-study
+
 less 00-curriculum-map.md
 less STUDY-PLAN-14-DAY.md
 less modules/01-mission-critical.md
@@ -256,6 +258,49 @@ ls modules practice reference
 ```
 
 Then follow **Day 1** in [`STUDY-PLAN-14-DAY.md`](./STUDY-PLAN-14-DAY.md).
+
+---
+
+## Run the course engine
+
+The engine serves the Learn / Drill / Mock surfaces locally and grades in the
+browser via WASM. Requires a Rust toolchain.
+
+```bash
+cd course-engine
+cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
+# → http://127.0.0.1:8766/
+```
+
+Do **not** open `web/` as a `file://` URL if you need the quiz or WASM grading —
+browsers block `fetch` on `file://`.
+
+## Gate
+
+Every change is fail-closed behind one ordered chain:
+
+```bash
+cd course-engine && ./scripts/check.sh
+```
+
+It runs 51 steps (W0–L7 + V11) and, critically, includes five known-bad
+selftest suites that inject deliberate faults and assert the gate goes **RED** —
+so a green run means the gates demonstrably trip, not merely that nothing ran.
+
+## Licence
+
+Dual-licensed — see [`LICENSE`](./LICENSE):
+
+- **Software** (`course-engine/crates`, `scripts`, `web`) — MIT
+- **Curriculum content** (`modules/`, `practice/`, `reference/`, question bank) —
+  CC BY-NC-SA 4.0
+
+Studying this yourself, including for a job or interview, is not a commercial
+use. Reselling the curriculum as paid training is.
+
+Contributions: [`CONTRIBUTING.md`](./CONTRIBUTING.md) ·
+Security: [`SECURITY.md`](./SECURITY.md) ·
+Conduct: [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)
 
 ---
 

@@ -193,7 +193,7 @@ Markdown self-study remains valid **without** the engine. The engine makes pract
 
 | Step | Status |
 |------|--------|
-| Corpus saved | **DONE** (`/Users/josh/cdcp-self-study`) |
+| Corpus saved | **DONE** (`<repo root>`) |
 | Product CHARTER drafted | **DONE** (`CHARTER.md`) |
 | Process documented | **DONE** (this file) |
 | Joshua ACK (P8) | **PENDING** |

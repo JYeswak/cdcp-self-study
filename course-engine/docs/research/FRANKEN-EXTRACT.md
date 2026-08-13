@@ -14,7 +14,7 @@ This is **not** an ML ULP/CER port. Class assignment is fixed in
 | **franken_ocr** (primary) | `/Volumes/ZestData/dicklesworthstone-mirror/franken_ocr` | `AGENTS.md`, `docs/conformance/PARITY_LADDER.md`, `GOLDEN.md`, `LADDER_HARNESS.md`, `docs/gauntlet/METHODOLOGY.md`, `scripts/check.sh`, `tests/parity_ladder.rs`, `tests/support/parity_harness.rs` | AGENTS.md mtime 2026-07-16; git head observed 2026-08-11 |
 | **franken_tts** | `…/franken_tts` | `AGENTS.md` Doctrine #0, `docs/CONFORMANCE_AND_LISTENING.md`, plan §9 ConformanceExact / ProductionQuality, `scripts/check.sh` skip-honest | AGENTS.md mtime 2026-08-08; git head observed 2026-08-11 |
 | **franken_markdown** | `…/franken_markdown` | `AGENTS.md` WASM/determinism, `scripts/check-determinism.sh`, `check-wasm-package.sh` native parity, `SOURCE_DATE_EPOCH`, self-contained HTML (inlined CSS, no CDN asset path) | AGENTS.md mtime 2026-07-08; git head observed 2026-08-11 |
-| **cdcp local stamp** | `/Users/josh/cdcp-self-study/course-engine` | `docs/ORACLE-GAUNTLET.md`, `docs/TESTING.md`, `scripts/check.sh` | W0 knowledge scaffold; GradeExact/WASM open |
+| **cdcp local stamp** | `<repo>/course-engine` | `docs/ORACLE-GAUNTLET.md`, `docs/TESTING.md`, `scripts/check.sh` | W0 knowledge scaffold; GradeExact/WASM open |
 
 **Access path for this extract (2026-08-11):** MacBook `/Volumes/ZestData` absent → SSH `studio` read of the Dicklesworthstone mirror. SocratiCode semantic search against `franken_ocr` (EngineIdentity, parity ladder, UPDATE_GOLDENS, skip-with-SUCCESS) confirmed the same design docs.
 

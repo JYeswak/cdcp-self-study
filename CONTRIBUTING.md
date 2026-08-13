@@ -4,9 +4,9 @@ Thanks for interest in the CDCP course-engine study tool.
 
 ## Before you start
 
-1. Read `README.md` (start path + honesty banners).
-2. Read `AGENTS.md` / parent `CHARTER.md` if changing gates or claims.
-3. Run `./scripts/check.sh` and keep W0–L7 + V11 + M8 smokes green.
+1. Read `README.md` (start path + honesty banners) and `LICENSE` (code is MIT; curriculum content is CC BY-NC-SA 4.0).
+2. Read `course-engine/AGENTS.md` / `CHARTER.md` if changing gates or claims.
+3. Run `cd course-engine && ./scripts/check.sh` and keep W0–L7 + V11 + M8 green.
 
 ## Local setup
 

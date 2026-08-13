@@ -1,0 +1,90 @@
+# Licences
+
+This repository is **dual-licensed**. Which licence applies depends on whether
+a file is software or curriculum content.
+
+| Part | Paths | Licence |
+|------|-------|---------|
+| **Software** | `course-engine/crates/`, `course-engine/scripts/`, `course-engine/web/`, `course-engine/fuzz/`, build and config files | **MIT** (below) |
+| **Curriculum content** | `modules/`, `practice/`, `reference/`, `00-curriculum-map.md`, `STUDY-PLAN-14-DAY.md`, `HOW-TO-USE.md`, `course-engine/bank/`, `course-engine/knowledge/` | **CC BY-NC-SA 4.0** (below) |
+
+When a file could plausibly fall under either, the **content** licence governs
+if it is prose written to teach, and the **software** licence governs if it is
+executable or machine-consumed.
+
+---
+
+## Software — MIT License
+
+Copyright (c) 2026 Joshua Nowak
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Curriculum content — CC BY-NC-SA 4.0
+
+Copyright (c) 2026 Joshua Nowak
+
+The curriculum content in this repository is licensed under the
+**Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International**
+licence (CC BY-NC-SA 4.0).
+
+You are free to **share** (copy and redistribute in any medium or format) and
+**adapt** (remix, transform, and build upon the material), under these terms:
+
+- **Attribution** — give appropriate credit, link to this licence, and indicate
+  if changes were made.
+- **NonCommercial** — you may not use the material for commercial purposes.
+  Selling this curriculum, or a derivative of it, as paid training is not
+  permitted.
+- **ShareAlike** — if you remix or build upon the material, you must distribute
+  your contributions under the same licence.
+
+Full text: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+Summary:   https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+Studying this material yourself — including to prepare for a job, an interview,
+or paid employment — is **not** a commercial use. The NonCommercial term
+restricts selling or monetising the material itself.
+
+---
+
+## Third-party marks and sources
+
+Third-party trademarks (EPI®, EXIN®, CDCP®, ASHRAE, TIA, etc.) remain the
+property of their respective owners. This project is an independent study tool
+and is **not affiliated with, endorsed by, or certified by EPI or EXIN**.
+Marks are used only for domain identification.
+
+Completing this program does not grant any certification.
+
+`course-engine/knowledge/corpus/` contains references to publicly available
+material. Only sources that permit redistribution are stored in this
+repository:
+
+- `free-pdfs/nist_sp800_123_server_security.pdf` — NIST SP 800-123, a
+  US Government work in the public domain.
+- ASHRAE TC 9.9 white papers and technical bulletins are **not** redistributed
+  here. Their `*.meta.toml` sidecars record the source URL and a SHA-256 so
+  grounding still verifies; fetch them yourself from ashrae.org, or run
+  `python3 course-engine/scripts/fetch_public_corpus.py`.
+- `public/*.txt` are short public-summary captures retained for citation
+  grounding, each recording its source URL and fetch date. They remain the
+  property of their respective publishers.

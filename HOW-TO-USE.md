@@ -26,7 +26,7 @@ If you need **competence** for jobs, interviews, and white-space tours, continue
 Constitution: [`CHARTER.md`](./CHARTER.md). Product: `course-engine/`.
 
 ```bash
-cd /Users/josh/cdcp-self-study/course-engine
+cd cdcp-self-study/course-engine
 # 8765 is often Agent Mail (uvicorn) — if bind fails or browser shows {"detail":"Not Found"}, use 8766
 cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
 ```
@@ -39,7 +39,7 @@ Loop #3 external signal: [`course-engine/docs/loop3/PROTOCOL.md`](./course-engin
 ### B) Markdown corpus (fallback / deep reading)
 
 ```bash
-cd /Users/josh/cdcp-self-study
+cd cdcp-self-study
 ```
 
 1. Read the disclaimer above (and the honesty note in [`README.md`](./README.md)).
