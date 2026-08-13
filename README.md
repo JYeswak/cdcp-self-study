@@ -1,307 +1,419 @@
-# CDCP Self-Study Program (Educational Reconstruction)
+# CDCP Self-Study Program
 
-**Free, open self-study** covering the same *substance* as the publicly advertised EPI® CDCP® (Certified Data Centre Professional) syllabus domains.
+<div align="center">
+  <img src="visual/hero.jpg" alt="Professor Yuzu in a data hall cold aisle, inspection sheet in hand">
+</div>
 
-| | |
-|---|---|
-| **Depth mode** | Standard (interview-ready) |
-| **Official course duration** | 2 days instructor-led |
-| **This program estimate** | ~28–40 hours self-paced |
-| **14-day capstone plan** | ~1–2 h/day → [`STUDY-PLAN-14-DAY.md`](./STUDY-PLAN-14-DAY.md) |
-| **Official affiliation** | **None** — not EPI, not EXIN, not a cert path |
+<div align="center">
 
----
+[![License: MIT (code)](https://img.shields.io/badge/code-MIT-blue.svg)](./LICENSE)
+[![Content: CC BY-NC-SA 4.0](https://img.shields.io/badge/content-CC_BY--NC--SA_4.0-blue.svg)](./LICENSE)
+[![gate: 53 steps](https://img.shields.io/badge/gate-53_ordered_steps-success.svg)](#the-gate)
+[![known-bad: 21 injections](https://img.shields.io/badge/known--bad-20_injections_all_RED-success.svg)](#gates-proven-to-trip)
+[![grading: byte-exact](https://img.shields.io/badge/grading-Rust_%3D%3D_WASM_byte--exact-success.svg)](#how-grading-works)
+[![unsafe: forbidden](https://img.shields.io/badge/unsafe-forbidden-success.svg)](https://github.com/rust-secure-code/safety-dance/)
+[![offline](https://img.shields.io/badge/runtime-fully_offline-teal.svg)](#running-it)
+[![not a certification](https://img.shields.io/badge/not_a_certification-read_this-critical.svg)](#the-honesty-constitution)
 
-## Honesty note (read this first)
+</div>
 
-- This is **not** an official EPI course, exam prep pack, or certification.
-- It does **not** copy EPI textbooks, slides, or exam questions.
-- It reconstructs **publicly known syllabus topics** (from EPI marketing pages, authorized training partners, and industry-standard knowledge) so you can learn the domain for **jobs, interviews, and on-the-floor competence**.
-- Completing this program does **not** make you “CDCP certified.” Only passing the official EXIN/EPI exam after authorized training does that.
-- Trademarks: EPI®, CDCP®, and related marks belong to their owners. Used here only for domain identification.
+**A free, offline, self-hosted course that teaches the data-centre facilities domain — and a Rust engine that grades you the same way twice.** Fourteen modules of original writing (~54,000 words) covering the publicly advertised EPI® CDCP® syllabus domains, an 804-question bank, and a browser course whose grader is a pure-Rust core compiled to WASM, pinned so the native and browser paths produce **byte-identical** result digests. No account, no telemetry, no network at runtime, no LLM in the grading path.
 
-If your goal is the **credential**, take an authorized CDCP course and exam. If your goal is **knowing how data centres work**, this program is for you.
+**This does not certify you.** It is a study tool. Only the official EXIN/EPI exam after authorised training grants the credential. That sentence is not boilerplate — it is a registered claim (`claim-not-epi-certified`) that a linter enforces across every document in this repository, and the build fails if a load-bearing page asserts it without citation.
 
----
-
-## Start here — Day 1 (5 minutes to launch)
-
-### Path A — Interactive engine (recommended)
+<div align="center">
+<h3>Run it</h3>
 
 ```bash
-cd course-engine
-cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
-# open http://127.0.0.1:8766/  (use a free port; 8765 may be Agent Mail)
-```
-
-Hub → **Learn** Module 01 → quiz / Learn-15. Charter: [`CHARTER.md`](./CHARTER.md). Engine docs: [`course-engine/README.md`](./course-engine/README.md).
-
-### Path B — Markdown-only (offline notes)
-
-```bash
-cd cdcp-self-study
-```
-
-1. Read this honesty note (above).
-2. Skim [`00-curriculum-map.md`](./00-curriculum-map.md) once (14 domains + objectives).
-3. Open the **14-day plan**: [`STUDY-PLAN-14-DAY.md`](./STUDY-PLAN-14-DAY.md).
-4. **Day 1 work:** study Module 1 notes:
-   - [`modules/01-mission-critical.md`](./modules/01-mission-critical.md)
-   - folder [`modules/01-mission-critical-site/`](./modules/01-mission-critical-site/)
-5. Keep nearby: [`reference/GLOSSARY.md`](./reference/GLOSSARY.md) (look up terms; don’t memorize the whole list yet).
-
-**Day 1 exit check:** Explain “mission-critical” without only saying “because it has servers.”
-
-Prefer a denser calendar? Follow Week 1/Week 2 tables below. Prefer paced interview prep? Use the 14-day plan (interview mode vs exam mode built in). Full how-to: [`HOW-TO-USE.md`](./HOW-TO-USE.md).
-
----
-
-## Purpose
-
-Build interview-ready fluency in the facilities and infrastructure domains that CDCP-level roles discuss daily:
-
-- Why data centres fail (availability, business impact)
-- Standards landscape (TIA-942, ISO, EN, ASHRAE, local codes)
-- Site, building, floor, lighting
-- Power chain (utility → UPS → PDU → rack)
-- EMF, racks, cooling (including liquid), water
-- Structured cabling and TIA-942 topologies
-- Fire, physical security/safety, monitoring (BMS / DCIM / EMS)
-
-After finishing, you should be able to walk a white-space tour, explain trade-offs (N vs N+1, hot aisle vs containment, gas vs water suppression), and answer mid-level facilities/IT hybrid interview questions with correct terminology.
-
----
-
-## Directory layout
-
-```text
-cdcp-self-study/
-├── README.md                          ← you are here
-├── 00-curriculum-map.md               ← 14 modules + learning objectives
-├── STUDY-PLAN-14-DAY.md               ← day-by-day capstone schedule
-├── modules/                           ← study notes (flat .md + topic folders)
-├── practice/
-│   ├── PRACTICE-EXAM.md               ← 40 original MCQs + answer key
-│   └── DRILL-CARDS.md                 ← 40 flash-style prompts
-└── reference/
-    ├── GLOSSARY.md                    ← 100+ terms
-    └── POWER-AND-REDUNDANCY-CHEATSHEET.md
-```
-
----
-
-## Module index (all lesson files)
-
-Each domain has a **primary notes file** (`.md`) and often a **topic folder** for extras. Study the `.md` first; use the folder for expansions.
-
-| # | Domain | Primary notes | Folder |
-|---|---|---|---|
-| 01 | The Mission Critical Site | [`modules/01-mission-critical.md`](./modules/01-mission-critical.md) | [`modules/01-mission-critical-site/`](./modules/01-mission-critical-site/) |
-| 02 | Data Centre Standards | [`modules/02-standards.md`](./modules/02-standards.md) | [`modules/02-data-centre-standards/`](./modules/02-data-centre-standards/) |
-| 03 | Location, Building & Construction | [`modules/03-site-building.md`](./modules/03-site-building.md) | [`modules/03-location-building-construction/`](./modules/03-location-building-construction/) |
-| 04 | Raised Floor & Suspended Ceiling | [`modules/04-floor-ceiling.md`](./modules/04-floor-ceiling.md) | [`modules/04-raised-floor-suspended-ceiling/`](./modules/04-raised-floor-suspended-ceiling/) |
-| 05 | Light | [`modules/05-lighting.md`](./modules/05-lighting.md) | [`modules/05-light/`](./modules/05-light/) |
-| 06 | Power Infrastructure | [`modules/06-power.md`](./modules/06-power.md) | [`modules/06-power-infrastructure/`](./modules/06-power-infrastructure/) |
-| 07 | Electro Magnetic Fields (EMF) | [`modules/07-emf.md`](./modules/07-emf.md) | [`modules/07-emf/`](./modules/07-emf/) |
-| 08 | Equipment Racks | [`modules/08-racks.md`](./modules/08-racks.md) | [`modules/08-equipment-racks/`](./modules/08-equipment-racks/) |
-| 09 | Cooling Infrastructure | [`modules/09-cooling.md`](./modules/09-cooling.md) | [`modules/09-cooling-infrastructure/`](./modules/09-cooling-infrastructure/) |
-| 10 | Water Supply | [`modules/10-water.md`](./modules/10-water.md) | [`modules/10-water-supply/`](./modules/10-water-supply/) |
-| 11 | Scalable Network Infrastructure | [`modules/11-network.md`](./modules/11-network.md) | [`modules/11-scalable-network-infrastructure/`](./modules/11-scalable-network-infrastructure/) |
-| 12 | Fire Protection | [`modules/12-fire.md`](./modules/12-fire.md) | [`modules/12-fire-protection/`](./modules/12-fire-protection/) |
-| 13 | Physical Security & Safety | [`modules/13-security.md`](./modules/13-security.md) | [`modules/13-physical-security-safety/`](./modules/13-physical-security-safety/) |
-| 14 | Auxiliary Systems | [`modules/14-auxiliary.md`](./modules/14-auxiliary.md) | [`modules/14-auxiliary-systems/`](./modules/14-auxiliary-systems/) |
-
-**Curriculum map (objectives for every module):** [`00-curriculum-map.md`](./00-curriculum-map.md)
-
----
-
-## Capstone materials
-
-| Path | What it is |
-|---|---|
-| [`STUDY-PLAN-14-DAY.md`](./STUDY-PLAN-14-DAY.md) | Day-by-day plan (~1–2 h/day); **interview mode** vs **exam mode** |
-| [`reference/GLOSSARY.md`](./reference/GLOSSARY.md) | 100+ crisp terms (ATS, STS, UPS, PDU, CRAH, PUE, N+1, MOP, IST, …) |
-| [`reference/POWER-AND-REDUNDANCY-CHEATSHEET.md`](./reference/POWER-AND-REDUNDANCY-CHEATSHEET.md) | Power path, redundancy table, UPS types, cooling at a glance |
-| [`practice/DRILL-CARDS.md`](./practice/DRILL-CARDS.md) | 40 front/back flash prompts |
-| [`practice/PRACTICE-EXAM.md`](./practice/PRACTICE-EXAM.md) | 40 original MCQs + answer key (study signal only; not official exam) |
-
----
-
-## How to use
-
-1. **Read** [`00-curriculum-map.md`](./00-curriculum-map.md) once end-to-end — map the 14 domains.
-2. **Pick a schedule:**
-   - **14-day plan** → [`STUDY-PLAN-14-DAY.md`](./STUDY-PLAN-14-DAY.md) (**recommended for capstone**)
-   - **2-week outline** → tables below (slightly denser weekdays)
-3. **Study in order** (modules 1→14). Power (M6) and cooling (M9) are heavy; budget extra time.
-4. For each module:
-   - Read objectives in the curriculum map
-   - Study the primary `.md` (and folder extras)
-   - Drill matching cards in [`practice/DRILL-CARDS.md`](./practice/DRILL-CARDS.md)
-   - Look up terms in [`reference/GLOSSARY.md`](./reference/GLOSSARY.md)
-5. **Weekly self-check:** explain the module out loud in 5 minutes without notes (**interview mode**).
-6. **Capstone exam day:** timed [`practice/PRACTICE-EXAM.md`](./practice/PRACTICE-EXAM.md) (**exam mode**); remediate misses.
-7. **Tour narrative:** one-page white-space sketch — power path, cooling path, cabling pathways, fire zones, security layers, monitoring points (BMS/DCIM/EMS).
-
-**Suggested study rhythm (standard depth):** 1.5–3 hours per module; 4–6 hours each for Power (M6) and Cooling (M9).
-
----
-
-## How this maps to paid CDCP
-
-| Dimension | Official EPI CDCP® (public info) | This self-study |
-|---|---|---|
-| Format | 2-day ILT / VILT / TOD | Self-paced reading + practice |
-| Classroom hours | ~14–16 hours instruction | — |
-| Self-study hours (this program) | — | **~28–40 hours** total |
-| Exam | 40 MCQ, 60 min, pass 27/40, closed-book | Self-check only: [`practice/PRACTICE-EXAM.md`](./practice/PRACTICE-EXAM.md) (original Qs) |
-| Certificate | EXIN-accredited CDCP® (3-year validity) | None |
-| Content basis | Proprietary EPI materials | Public syllabus domains + industry knowledge |
-| Best for | Credential + structured instructor Q&A | Cost-free domain literacy / interview prep |
-
-### Hours estimate (2-day course → self-study)
-
-A 2-day instructor course packs dense content with little dwell time. Self-study that reaches **interview-ready** depth typically needs **~2–2.5×** classroom hours because you supply your own examples, diagrams, and recall practice.
-
-| Block | Official (approx.) | Self-study (standard) |
-|---|---|---|
-| M1–M5 (site, standards, floor, light) | ~3–4 h | 6–8 h |
-| M6 Power | ~3–4 h | 6–8 h |
-| M7–M8 EMF, racks | ~1–1.5 h | 2–3 h |
-| M9 Cooling | ~2–3 h | 5–7 h |
-| M10 Water | ~0.5 h | 1 h |
-| M11 Network / cabling | ~1.5–2 h | 3–4 h |
-| M12–M14 Fire, security, auxiliary | ~2–3 h | 4–6 h |
-| Integration / review | residual | 3–4 h |
-| **Total** | **~14–16 h** | **~28–40 h** |
-
-If you later sit an official course, this prep makes the 2 days reinforcement instead of first exposure.
-
----
-
-## 2-week study plan outline
-
-Assume ~2–3 hours/day on weekdays, light review on weekends (**~30–35 hours**). For a tighter **1–2 h/day** track with exam day built in, use [`STUDY-PLAN-14-DAY.md`](./STUDY-PLAN-14-DAY.md) instead.
-
-### Week 1 — Foundation + power path
-
-| Day | Focus | Modules | Target hours |
-|---|---|---|---|
-| Mon | Mission-critical mindset; availability & downtime cost | M1 | 2 |
-| Tue | Standards landscape (TIA / ISO / EN / ASHRAE / local) | M2 | 2 |
-| Wed | Site selection, building, supporting facilities | M3 | 2–2.5 |
-| Thu | Raised floor, suspended ceiling, grounding, cooling impact | M4 | 2 |
-| Fri | Lighting + emergency lighting | M5 | 1.5 |
-| Sat | **Power deep dive** (utility → transformer → gen → ATS/STS → UPS → PDU) | M6 (part 1) | 3 |
-| Sun | Power cont. (redundancy N/N+1/2N, batteries, BESS, thermography) + review | M6 (part 2) | 3 |
-
-### Week 2 — Thermal, network, life safety, ops
-
-| Day | Focus | Modules | Target hours |
-|---|---|---|---|
-| Mon | EMF sources, units, shielding | M7 | 1.5 |
-| Tue | Racks, dimensions, security, PDUs/rails | M8 | 1.5–2 |
-| Wed | Cooling principles, CRAC/CRAH, containment, liquid, STER | M9 | 3–4 |
-| Thu | Water supply + scalable cabling / TIA-942 topologies | M10, M11 | 3 |
-| Fri | Fire protection (detection, water/gas, classes, signage) | M12 | 2–2.5 |
-| Sat | Physical security & safety + BMS/DCIM/EMS/leaks/alarms | M13, M14 | 3 |
-| Sun | Full walkthrough + practice exam + weak-topic drill | All | 2–3 |
-
-### After two weeks
-
-- [ ] Can draw a one-line power path and cooling path from memory  
-- [ ] Can name 3–5 standards bodies and what each covers  
-- [ ] Can contrast containment vs raised-floor flooded cooling  
-- [ ] Can list fire detection vs suppression choices and when wet systems are avoided  
-- [ ] Can explain BMS vs DCIM vs EMS in one sentence each  
-- [ ] Practice exam self-score recorded; misses remediated  
-
----
-
-## Depth modes
-
-| Mode | Goal | Hours (guide) |
-|---|---|---|
-| **Standard** (this program default) | Interview-ready vocabulary + system-level trade-offs | 28–40 h |
-| **Deep** (optional later) | Exam-max detail, edge cases, sizing drills, multi-standard comparison tables | 50–70 h |
-
-**Study modes inside the 14-day plan**
-
-| Mode | Goal |
-|---|---|
-| **Interview mode** | Trade-offs, failure stories, tour narrative (primary through Day 12) |
-| **Exam mode** | Timed MCQ + crisp definitions (Days 13–14, mini-drills after heavy modules) |
-
-Stick to standard until you can teach each module in plain language; only then deepen.
-
----
-
-## What this program will not do
-
-- Grant or substitute for CDCP® certification  
-- Provide real exam questions or dumps  
-- Replace licensed engineering (electrical, fire, structural) or local code authority  
-- Cover full CDCS® / CDCE® design depth (those are advanced design tracks)
-
----
-
-## Getting started (copy-paste)
-
-```bash
-git clone <this-repo> cdcp-self-study
-cd cdcp-self-study
-
-less 00-curriculum-map.md
-less STUDY-PLAN-14-DAY.md
-less modules/01-mission-critical.md
-ls modules practice reference
-```
-
-Then follow **Day 1** in [`STUDY-PLAN-14-DAY.md`](./STUDY-PLAN-14-DAY.md).
-
----
-
-## Run the course engine
-
-The engine serves the Learn / Drill / Mock surfaces locally and grades in the
-browser via WASM. Requires a Rust toolchain.
-
-```bash
-cd course-engine
+git clone <this-repo> cdcp-self-study && cd cdcp-self-study/course-engine
 cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
 # → http://127.0.0.1:8766/
 ```
 
-Do **not** open `web/` as a `file://` URL if you need the quiz or WASM grading —
-browsers block `fetch` on `file://`.
+</div>
 
-## Gate
+`serve` is a local-only static server written on Rust's standard library — zero added dependencies, loopback bind, GET/HEAD only, path-traversal guarded. After the clone, nothing in this project talks to the network again.
 
-Every change is fail-closed behind one ordered chain:
+---
+
+## TL;DR
+
+| | |
+|---|---|
+| **What** | 14-module data-centre facilities curriculum + offline course engine |
+| **Who it's for** | Someone who wants to walk a white-space tour and explain trade-offs — TPM, deploy engineer, ops, or a career switcher |
+| **What it is not** | A certification, an exam dump, a paid course, an LLM tutor |
+| **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
+| **Bank** | 804 original questions across 15 module buckets, 106 topics |
+| **Engine** | 7 Rust crates, 3,763 lines, `#![forbid(unsafe_code)]`, 281 KB WASM |
+| **Gate** | 53 ordered steps; 6 selftest suites; 20 known-bad injections that must all go RED |
+| **Runtime deps** | None. Rust toolchain to build; a browser to use |
+
+---
+
+## The problem this solves
+
+Data-centre facilities knowledge sits behind a paywall and a classroom door. The EPI CDCP course is two instructor-led days; the syllabus domains are public, the teaching is not. If you're a network deploy engineer who can pull fibre and configure a switch but has never had to explain why the UPS is upstream of the PDU, or what containment actually buys you, there is no good free path from "I work in this building" to "I can hold a conversation about how this building works."
+
+The second problem is subtler and it is the reason this repo is built the way it is. **Self-study tools lie to you.** A quiz app that shuffles questions and shows a score is trivially fooled — by a stale question bank, by a grading bug, by a rubric that drifted from the material, by the tool cheerfully reporting success when it did nothing at all. You cannot tell a green screen that means "you learned this" from a green screen that means "the check never ran."
+
+So this project treats *its own honesty* as the engineering problem. The curriculum is the product; the machinery exists to make the curriculum's claims checkable.
+
+---
+
+## The honesty constitution
+
+Four rules, enforced mechanically rather than promised in prose:
+
+1. **This is not a certification.** Completing anything here grants no credential. The claim `claim-not-epi-certified` is registered in `course-engine/registries/claims.toml`, and `claims-lint` fails the build if any document makes a certification-adjacent statement without citing it. Measured: five documents were caught asserting it uncited and had to be fixed before the gate would pass.
+2. **No exam dumps, ever.** All 804 questions are original, written against public syllabus domains and industry-standard references. `source_class=original` is verified for every item on every run.
+3. **A score is a study signal, not a pass mark.** 27/40 is the internal bar. It is registered as `claim-study-signal-27` and the phrase "study signal" is a load-bearing marker the linter tracks.
+4. **Third-party material is not redistributed.** Standards bodies own their standards. The corpus records each source's URL, fetch date, SHA-256, and rights — and the ASHRAE white papers this project *grounds against* are deliberately **not** in this repository. Their metadata sidecars are, so grounding still verifies; fetch the PDFs yourself.
+
+The last one has teeth: `tests/publishability-bar.sh` fails if any corpus source lacks a rights field, and treats an empty source list as an error rather than a pass.
+
+---
+
+## Why it exists the way it does
+
+### Why Rust, and why the grader is pure
+
+The grader is the one component that must never be wrong, because a wrong grader silently teaches you the wrong thing. So `cdcp_grade` is a pure function — bank plus attempt in, digest out — with no I/O, no clock, no randomness, and `#![forbid(unsafe_code)]`. That purity is what makes the next decision possible.
+
+### Why the browser and the CLI must agree byte-for-byte
+
+The course runs in your browser; the gate runs in CI. If those two graders can disagree, every claim the gate makes about the product is void. So the same Rust core is compiled twice — natively and to `wasm32-unknown-unknown` — and the gate asserts the two paths produce **identical digests** on pinned fixtures, with the two engines carrying deliberately *distinct* identity strings so a test cannot accidentally compare a path against itself.
+
+That is the `claim-grade-byte-exact` claim, and it is checked on every run against `goldens/mock40_seed42_all_correct.sha256` and its all-wrong twin.
+
+### Why there is no LLM in the product
+
+An LLM grader cannot be pinned to a golden. It would make the byte-exactness claim meaningless and turn every score into an unfalsifiable opinion. LLMs were used to *help build* this — that's what the `.planning/` trail records — but nothing in the shipped path calls a model. Grading is deterministic arithmetic over a hashed bank.
+
+### Why claims are a registry and not a style guide
+
+Prose drifts. A README says "byte-exact" long after the property stopped holding, and nobody notices because prose has no build step. So load-bearing claims live in `registries/claims.toml` on a strength lattice — `invariant`(6) > `proof`(5) > `bounded_model`(4) > `statistical`(3) > `slo`(2) > `benchmark`(1) — and a weaker claim may never justify a stronger one. `cdcp_registry_check` is a dedicated crate **with its own test suite**: the checker is itself checked. An empty registry is an error, never a pass.
+---
+
+## System map
+
+```text
+cdcp-self-study/
+├── modules/                  14 domains · ~55k words · original writing
+├── practice/                 40-question practice exam · 40 drill cards
+├── reference/                glossary (100+ terms) · power & redundancy cheatsheet
+├── 00-curriculum-map.md      every module's learning objectives
+├── STUDY-PLAN-14-DAY.md      day-by-day capstone schedule
+├── CHARTER.md                what this is, what "done" means, what gates it
+└── course-engine/
+    ├── crates/
+    │   ├── cdcp_core         types: items, attempts, choice letters
+    │   ├── cdcp_bank         load + validate bank/items/*.toml → bank_hash
+    │   ├── cdcp_assemble     seeded stratified sampling + choice shuffle
+    │   ├── cdcp_grade        THE ORACLE — pure grade() → digest
+    │   ├── cdcp_wasm         same core, wasm32 — the dual-path subject
+    │   ├── cdcp_cli          bank-hash · grade · goldens · export-web · serve
+    │   └── cdcp_registry_check  L1 claims constitution (tested checker)
+    ├── bank/items/           804 original questions, one TOML each
+    ├── knowledge/            curriculum + standards citation graph (git truth)
+    ├── registries/           claims.toml · claims_lint.toml · objectives.toml
+    ├── goldens/              pinned digests — the byte-exactness evidence
+    ├── web/                  static course: Hub · Learn · Drill · Mock · Reference
+    ├── scripts/              42 scripts; check.sh is THE gate
+    └── tests/                publishability + voice gates
+```
+
+**Data flow, once:**
+
+```text
+bank/items/*.toml ──► cdcp_bank ──► bank_hash (SHA-256 over the sorted bank)
+                                        │
+              seed ──► cdcp_assemble ────┤ stratified 40 of 804, module floors
+                                        ▼
+                              cdcp_grade (pure) ──► result digest
+                                   ║        ║
+                        native ────╝        ╚──── wasm32
+                                   ╚═ MUST BE EQUAL ═╝
+                                        │
+                                   goldens/*.sha256
+```
+
+---
+
+## Running it
+
+### Study without the engine
+
+The curriculum is plain Markdown and stands alone.
+
+```bash
+less 00-curriculum-map.md          # the 14 domains and their objectives
+less STUDY-PLAN-14-DAY.md          # ~1–2 h/day capstone plan
+less modules/01-mission-critical.md
+```
+
+### Run the course
+
+Requires a Rust toolchain (`rustup`). Nothing else.
+
+```bash
+cd course-engine
+cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
+```
+
+Then open `http://127.0.0.1:8766/`. Hub → **Learn** for a module walkthrough,
+**Drill** for spaced repetition, **Mock** for a timed 40-question exam.
+
+> Do **not** open `web/index.html` as a `file://` URL if you want the quiz or
+> WASM grading. Browsers block `fetch` on `file://`, so the question packs never
+> load. Use `serve`. Port 8765 is often taken — 8766 is the documented default.
+
+### Command reference
+
+```bash
+# Print the bank fingerprint. Every pack and golden is keyed to this.
+cargo run -p cdcp_cli -- bank-hash
+
+# Grade a fixture without a browser. Modes: all-correct | all-wrong | json answers.
+cargo run -p cdcp_cli -- grade \
+  --bank bank/items \
+  --fixture goldens/fixtures/mock40_seed42.json \
+  --mode all-correct
+
+# Verify the pinned digests still hold (this is the byte-exactness check).
+cargo run -p cdcp_cli -- goldens check --bank bank/items --dir goldens
+
+# Regenerate browser exam packs. Seed 42 is golden-pinned; any other seed is
+# practice-only variety and must never be used to refresh a golden.
+cargo run -p cdcp_cli -- export-web --bank bank/items --seed 42 --out web/data
+cargo run -p cdcp_cli -- export-web --seed 7 --out web/data
+
+# Serve the course locally (loopback only, GET/HEAD, traversal-guarded).
+cargo run -p cdcp_cli -- serve --root web --bind 127.0.0.1:8766
+```
+
+`export-web` writes three files per seed, and the split is deliberate:
+
+| File | Audience | Contains |
+|---|---|---|
+| `mock40_seed{N}.json` | the learner UI | stems + choices **only** — no answer letters |
+| `keys_seed{N}.json` | e2e tests + post-grade explanations | correct letters + explanations |
+| `bank_items_seed{N}.json` | WASM grader | full bank incl. `correct` — required for offline GradeExact |
+
+The learner pack omits answers by design, and the gate asserts it: strip that
+property and `L5 learner pack answer-key leak` turns the build red.
+
+---
+
+## The gate
+
+One ordered chain. It is the only definition of "done" in this project.
 
 ```bash
 cd course-engine && ./scripts/check.sh
 ```
 
-It runs 51 steps (W0–L7 + V11) and, critically, includes five known-bad
-selftest suites that inject deliberate faults and assert the gate goes **RED** —
-so a green run means the gates demonstrably trip, not merely that nothing ran.
+53 steps, fail-closed, each naming the script that failed so the repair is
+obvious. Roughly: constitution docs → knowledge pack → **L1 claims registry** →
+bank validation → **L3 GradeExact + goldens** → **L4 known-bad selftests** →
+**L4 Rust==WASM dual path** → L5 browser surface + e2e digests → L6 coverage,
+mastery, multi-seed stability → L7 SLO budgets, `content.lock`, a11y,
+objectives → V11 Anki, diagrams, serve, runbooks → publishability + voice gates.
+
+CI runs exactly this script and nothing else. Duplicating gate commands in a
+workflow file is how CI and local drift apart until only one of them is true.
+
+### Gates proven to trip
+
+A green gate is worthless unless it can go red. Six selftest suites inject
+**20 known-bad faults** and assert the build fails, then restore the tree:
+
+| Suite | Injections |
+|---|---|
+| `selftest_known_bad` | flipped golden · empty bank · bank_hash drift · planted honesty violation |
+| `selftest_l5_honesty` | credential-inflation string planted in web copy |
+| `selftest_l6_coverage` | empty bank · single-module bank · live coverage |
+| `selftest_l7_objectives` | empty objectives · missing claim ref · empty claim_ids · empty bank · live |
+| `selftest_reconstructed` | learner-pack shape · answer-key leak · export byte-stability · session shapes · CLI verb presence |
+| `tests/publishability-bar.sh` | hidden LICENSE · false README evidence · missing corpus rights · bare exemption |
+
+Anti-vacuous discipline runs throughout: an **empty input set is an error, not a
+pass**. A scan that finds zero files fails, because a deliverable that was never
+checked reports identically to one that passed.
+
+### How grading works
+
+`cdcp_grade::grade_digest` is pure. Same bank, same attempt, same digest —
+forever. The WASM build compiles that identical code to `wasm32-unknown-unknown`
+and the dual-path test asserts:
+
+- the two engines report **distinct identity strings** (so the test cannot
+  compare a path against itself), and
+- their digests are **equal** on the pinned all-correct and all-wrong fixtures.
+
+Fixtures are pinned by `content.lock`, which covers `bank_hash`, the knowledge
+pack, and module markdown. Change a question and the lock breaks until you
+regenerate it deliberately — content drift cannot slip in unnoticed.
+---
+
+## How it was built
+
+The engine was written by AI agents under a human charter, in a loop designed so
+the agents could not grade their own homework.
+
+**The charter came first.** `CHARTER.md` fixes the buyer, the product, the
+honesty constitution, the value bar, and which irreversible actions require a
+human. It is edited in place, never superseded — a charter that spawns successor
+charters is a project that has stopped shipping.
+
+**Claims before code.** Load-bearing properties were registered in
+`registries/claims.toml` with a strength rank before the code that would justify
+them existed. `claims-lint` then refuses to let prose outrun the registry: write
+"byte-exact" in a document without citing a registered claim and the build
+fails, naming the file and line.
+
+**Gates before features.** Each wave (W0 → L7 → V11 → M8) landed with its own
+known-bad selftest, so "this wave is green" always meant "and here is the
+injection proving it can go red."
+
+**The recovery test.** On 2026-08-12 an agent ran `git reset --hard` and
+destroyed a day of uncommitted work in this repo. That incident is why several
+things here look the way they do:
+
+- The `export-web` verb was lost and **reimplemented from the specs alone**
+  (`web/data/README.md`, `docs/PHASE-L6.md`). It now reproduces all three
+  committed seed-42 packs byte-for-byte — which is how we know the
+  reimplementation is faithful and not merely plausible.
+- A latent bug surfaced: `0xC_DCP_5UFF_1E` is not valid hexadecimal (`P` and `U`
+  are not hex digits). It had never compiled, and a stale `cargo` cache had
+  masked it for days while the gate reported green.
+- `selftest_known_bad.sh` had a `set -e` leak that aborted the script before its
+  fourth check ever ran — a gate silently testing three of four things.
+
+Both defects existed before the incident and were found by *forcing a rebuild*,
+not by reading. That is the argument for gates that trip over gates that pass.
+
+The full trail — decisions, waves, scorecards, open questions — lives in
+`course-engine/docs/` and `course-engine/scorecards/`.
+
+---
+
+## Rigor: which layers apply
+
+This project adopts a subset of a seven-layer artifact-rigor standard. Claiming
+a layer you have not wired is worse than not claiming it, so here is the honest
+table:
+
+| Layer | Applies | Evidence |
+|---|---|---|
+| **L1 — claims constitution** | ✅ | `registries/*.toml` + `cdcp_registry_check` (tested crate) + claims-lint over README/docs |
+| **L2 — SLO as code** | ✅ partial | `slo.toml` + `smoke_slo.sh` walls on grade / export / bank-verify |
+| **L3 — external oracle** | ⚠️ **weakest link** | The oracle is the *native* grader and the public syllabus domains. There is no independent third-party conformance suite for "did we teach this correctly" |
+| **L4 — gates proven to trip** | ✅ strongest | 6 suites, 21 injections, anti-vacuous throughout |
+| **L5 — adversarial input floor** | ✅ partial | `cargo-fuzz` targets present; property tests on assemble/grade |
+| **L6 — formal lane** | ❌ | Not warranted at this gauntlet tier |
+| **L7 — ecosystem lock** | ✅ scoped | `content.lock` pins bank_hash + knowledge + module markdown |
+
+**L3 is the honest gap.** Byte-exact grading proves the engine is
+self-consistent; it says nothing about whether Module 09 teaches cooling
+correctly. The only real external oracle for that is a reader who knows the
+domain telling us we got it wrong — which is what the issue tracker is for.
+
+---
+
+## Roadmap
+
+Tracked in `CHARTER.md` §9 and `course-engine/docs/PHASE-NEXT.md`; this is a
+summary, those are the source of truth.
+
+| ID | Milestone | Status |
+|---|---|---|
+| M0–M7 | Charter · registries · bank · grade/goldens · web mock · learn · SRS · WASM | **done** |
+| V11 | Anki export · power-path diagram · `serve` · runbooks | **done** |
+| M8 | Learn v2 — 127 units · TOC · micro-checks · diagram system · glossary | **done** |
+| M9 | Publishability bar · OSS meta · visibility flip | **agent-side done; flip is a human call** |
+| M10 | Free/public corpus expansion | **ongoing** — 4 free PDFs referenced, rights recorded |
+| P1 | More diagrams: fire sequence, standards map, cooling topologies | planned (`DIAGRAM-REGISTRY.md`) |
+| — | **L3 external oracle** | **open, and the most valuable thing to fix** |
+
+Charter §10 lists what an agent may never do alone: spend, publish, sign, or
+flip repository visibility. Those stay human.
+
+---
+
+## Limitations
+
+- **It cannot certify you, and it will not pretend to.** No credential, no CEUs.
+- **Facilities knowledge is regional.** Codes, fire regulation, and electrical
+  practice vary by jurisdiction. This teaches concepts and vocabulary, not your
+  local code. It does not replace a licensed engineer.
+- **The standards themselves are not here.** TIA-942, EN 50600, and the ASHRAE
+  guidelines are paid documents. This teaches *around* them from public
+  descriptions and free material; it is not a substitute for the standards.
+- **No CDCS/CDCE depth.** Those are advanced design tracks and out of scope.
+- **The question bank is unaudited by a third party.** 804 original questions,
+  self-reviewed. Errors are likely; report them.
+- **L3 is thin** (see the rigor table). Self-consistency is proven; pedagogical
+  correctness is not externally validated.
+
+---
+
+## FAQ
+
+**Will this get me the CDCP certification?** No. Take an authorised EPI/EXIN
+course and sit the official exam. This builds the underlying knowledge.
+
+**Are these real exam questions?** No, and that would be both illegal and
+useless. All 804 are original, written against public syllabus domains.
+
+**Why is 27/40 the bar?** It is the internal study signal this project uses to
+say "this domain is probably solid" — a threshold for your own review loop, not
+a pass mark, and not affiliated with any official cut score.
+
+**Can I use this commercially?** The engine, yes (MIT). The curriculum, no —
+CC BY-NC-SA 4.0. Studying it yourself for a job or interview is *not* commercial
+use; reselling it as paid training is.
+
+**Does it phone home?** No. There is no telemetry, no account, no network call
+at runtime. `serve` binds loopback and serves static files.
+
+**Why is a citrus fruit teaching me about UPS topologies?** Yuzu is the
+ZestStream mascot — a craftsman who carries receipts. The joke is the thesis:
+claims are worth what their evidence proves.
+
+---
+
+## Contributing
+
+Corrections to the curriculum are the most valuable contribution, especially
+from people who do this work. See [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+
+The one hard rule: **the gate must stay green, and it must stay able to go red.**
+A change that makes `check.sh` pass by weakening a check will be rejected. Add
+the known-bad injection alongside the feature.
+
+---
 
 ## Licence
 
-Dual-licensed — see [`LICENSE`](./LICENSE):
+Dual-licensed — see [`LICENSE`](./LICENSE).
 
-- **Software** (`course-engine/crates`, `scripts`, `web`) — MIT
-- **Curriculum content** (`modules/`, `practice/`, `reference/`, question bank) —
+- **Software** (`course-engine/{crates,scripts,web,fuzz}`) — MIT
+- **Curriculum** (`modules/`, `practice/`, `reference/`, bank, knowledge) —
   CC BY-NC-SA 4.0
 
-Studying this yourself, including for a job or interview, is not a commercial
-use. Reselling the curriculum as paid training is.
-
-Contributions: [`CONTRIBUTING.md`](./CONTRIBUTING.md) ·
-Security: [`SECURITY.md`](./SECURITY.md) ·
-Conduct: [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)
+Third-party trademarks (EPI®, EXIN®, CDCP®, ASHRAE, TIA) belong to their owners.
+This project is independent and **not affiliated with, endorsed by, or certified
+by EPI or EXIN**. Marks are used for domain identification only.
 
 ---
+
+## See also
+
+- [`CHARTER.md`](./CHARTER.md) — what this is and what "done" means
+- [`course-engine/docs/ORACLE-GAUNTLET.md`](./course-engine/docs/ORACLE-GAUNTLET.md) — the testing constitution
+- [`course-engine/docs/FEATURE_SURFACE.md`](./course-engine/docs/FEATURE_SURFACE.md) — what is actually built vs planned
+- [`course-engine/docs/TESTING.md`](./course-engine/docs/TESTING.md) — skip policy and honest receipts
+- [`SECURITY.md`](./SECURITY.md) · [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)
 
 *Educational reconstruction of public CDCP syllabus domains. Independent project. No warranty.*
