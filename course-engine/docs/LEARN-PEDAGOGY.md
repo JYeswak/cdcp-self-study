@@ -2,7 +2,7 @@
 
 **Status:** doctrine (2026-08-12) · product Waves A–D **planned** · not false-shipped  
 **Charter:** parent `CHARTER.md` §4 · M8 Learn v2  
-**Honesty:** study signals only — never EPI/EXIN certification [[claim:claim-not-epi-certified]]
+**Honesty:** study signals only — never EPI/EXIN certification [[claim:claim-not-epi-certified]] [[claim:claim-study-signal-27]]
 
 ---
 
@@ -10,7 +10,7 @@
 
 | Observation | Detail |
 |-------------|--------|
-| Content quality | High — interview-ready LO → why → concepts → drills |
+| Content quality | High — interview-ready LO → why → concepts → drills [[claim:claim-interview-ready]] |
 | Size | ~3.5–4.3k words **per** module (~55k+ words total) |
 | Images | **0** in module markdown |
 | Diagrams | ASCII in some modules; **one** interactive (`power-path`) not embedded in M06 |

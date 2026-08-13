@@ -223,6 +223,7 @@ name = "cdcp_cli"
 version = "0.1.0"
 dependencies = [
  "assert_cmd",
+ "cdcp_assemble",
  "cdcp_bank",
  "cdcp_core",
  "cdcp_grade",

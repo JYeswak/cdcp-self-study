@@ -6,7 +6,7 @@
 
 | Wave | Outcome |
 |------|---------|
-| W0–L4 | knowledge · claims · bank · GradeExact · WASM dual-path |
+| W0–L4 | knowledge · claims · bank · GradeExact · WASM dual-path [[claim:claim-grade-byte-exact]] |
 | L5 | browser Hub/Learn/Quiz/Drill/Mock/Results + e2e digests |
 | L6 | coverage · mastery · weak→learn · multi-seed · sessions |
 | L7 | closed-notes · reference · Learn-15 · SLO · content.lock · CLI · a11y |

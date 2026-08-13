@@ -2,7 +2,7 @@
 
 **Status:** P0 set **present** (2026-08-12 Wave C)  
 **Stack:** static SVG/HTML + vanilla JS · franken visual tokens · no React  
-**Honesty:** study aids only — not EPI/EXIN certification
+**Honesty:** study aids only — not EPI/EXIN certification [[claim:claim-not-epi-certified]]
 
 ---
 

@@ -1,8 +1,20 @@
-# Example content.lock (L7 optional; schema for L3 OQ-03)
-# After bank freeze: cargo run -p cdcp_cli -- bank-hash > value for bank_hash
+# Example content.lock schema (L7-S9 / OQ-03)
+# Real lock lives at course-engine/content.lock (generated, not hand-edited).
+#
+# Generate:  python3 scripts/gen_content_lock.py
+# Verify:    python3 scripts/verify_content_lock.py
+# Regen:     UPDATE_CONTENT_LOCK=1 python3 scripts/gen_content_lock.py
 
 schema_version = 1
 canonical = "cdcp-bank-v1"
 hash_alg = "sha256"
 # bank_hash = "<hex from: cargo run -p cdcp_cli -- bank-hash>"
-# knowledge_hash = "<optional later>"
+
+# [knowledge]
+# "knowledge/exam_form.toml" = "<sha256>"
+# …
+
+# [modules]
+# "web/content/modules/01-mission-critical.md" = "<sha256>"
+# "modules/01-mission-critical.md" = "<sha256>"
+# …

@@ -47,7 +47,7 @@ Three-judges pass (`/flywheel:plan` Phase 3): Jeff substrate · Donella feedback
 2. OSS meta: LICENSE, SECURITY, CONTRIBUTING, CODE_OF_CONDUCT, CHANGELOG (zscast has all)  
 3. PII/private-context scrub (zscast: operator names → placeholders)  
 4. Secrets scan — no Infisical values; free/public corpus only (OQ-09/10)  
-5. Honesty: not EPI certified  
+5. Honesty: not EPI certified [[claim:claim-not-epi-certified]]  
 6. Score audit ≥5/7 (target 7/7)  
 7. Optional ALPS-style PB receipts only if we want lock-grade; **not required for a study tool** unless Josh wants that rigor  
 8. **Visibility flip** (`gh repo create --public` or make public) — only after audit PASS + Josh if still escalated

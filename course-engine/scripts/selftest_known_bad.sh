@@ -41,10 +41,8 @@ assert_nonzero() {
   # usage: assert_nonzero "label" cmd...
   label="$1"
   shift
-  set +e
-  out="$("$@" 2>&1)"
-  rc=$?
-  set -e
+  rc=0
+  out="$("$@" 2>&1)" || rc=$?
   if [ "$rc" -eq 0 ]; then
     printf '%s\n' "$out" >&2
     fail "expected RED for $label but command exited 0"
@@ -53,32 +51,42 @@ assert_nonzero() {
 }
 
 # ── honesty_scan: same contract as check.sh (must stay in sync) ─────────────
-# exit 0 = clean, 1 = inflation found, 2+ = scanner error
-honesty_scan() {
+# Prints nothing on success. Prints hits on inflation.
+# Sets global HONESTY_RC: 0=clean, 1=inflation found, 2=scanner error
+# (Avoid `return N` under set -e — non-zero return aborts the script.)
+run_honesty_scan() {
+  HONESTY_RC=0
   if ! command -v rg >/dev/null 2>&1; then
     echo "rg required for honesty scan" >&2
-    return 2
+    HONESTY_RC=2
+    return 0
   fi
   # --no-config: ignore ~/.ripgreprc --type-not=video (would exit 2 and fail-open)
-  set +e
+  hits=""
+  rc=0
   hits="$(rg --no-config -n --glob '*.md' --glob '*.toml' \
     'you are (now )?CDCP certified|officially certified by EPI' \
-    docs knowledge 2>&1)"
-  rc=$?
-  set -e
+    docs knowledge 2>&1)" || rc=$?
   case "$rc" in
     0)
+      filtered=""
       filtered="$(printf '%s\n' "$hits" | rg --no-config -v 'not |never |FORBIDDEN|forbidden' || true)"
       if [ -n "$filtered" ]; then
         printf '%s\n' "$filtered"
-        return 1
+        HONESTY_RC=1
+        return 0
       fi
+      HONESTY_RC=0
       return 0
       ;;
-    1) return 0 ;; # no matches
+    1)
+      HONESTY_RC=0
+      return 0
+      ;;
     *)
       printf '%s\n' "$hits" >&2
-      return 2
+      HONESTY_RC=2
+      return 0
       ;;
   esac
 }
@@ -95,7 +103,7 @@ command -v rg >/dev/null 2>&1 || fail "rg required"
 # ── (a) flipped golden content ──────────────────────────────────────────────
 _GOLDEN_BAK="$(mktemp "${TMPDIR:-/tmp}/golden_correct.XXXXXX")"
 cp "$GOLDEN_CORRECT" "$_GOLDEN_BAK"
-# Flip: replace first hex nibble so digest cannot match
+# Flip: replace digest so it cannot match live GradeExact output
 printf '%s\n' "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" >"$GOLDEN_CORRECT"
 assert_nonzero "flipped-golden" \
   cargo run -q -p cdcp_cli -- goldens check --bank bank/items --dir goldens
@@ -123,10 +131,8 @@ ok "restored $BANK_HASH_PIN"
 
 # ── (d) planted credential inflation under docs/ ────────────────────────────
 printf '%s\n' "you are CDCP certified" >"$HONESTY_PLANT"
-set +e
-honesty_scan >/dev/null 2>&1
-h_rc=$?
-set -e
+run_honesty_scan >/dev/null
+h_rc="$HONESTY_RC"
 rm -f "$HONESTY_PLANT"
 if [ "$h_rc" -eq 0 ]; then
   fail "honesty scan stayed green with planted 'you are CDCP certified' in docs/"
@@ -137,10 +143,8 @@ fi
 ok "planted honesty string trips RED (rc=$h_rc)"
 
 # ── clean-tree recheck (honesty alone; goldens restored above) ──────────────
-set +e
-honesty_scan >/dev/null 2>&1
-h_rc=$?
-set -e
+run_honesty_scan >/dev/null
+h_rc="$HONESTY_RC"
 [ "$h_rc" -eq 0 ] || fail "honesty scan not clean after restore (rc=$h_rc)"
 ok "honesty clean after restore"
 

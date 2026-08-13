@@ -250,19 +250,13 @@ pub fn assemble(
     seed: u64,
     cfg: AssembleConfig,
 ) -> Result<AssembledExam, AssembleError> {
-    let ids = sample_item_ids(
-        bank,
-        cfg.n_items,
-        seed,
-        cfg.max_per_module,
-        cfg.min_modules,
-    )?;
+    let ids = sample_item_ids(bank, cfg.n_items, seed, cfg.max_per_module, cfg.min_modules)?;
 
     // Derive per-item shuffle stream from the same seed family:
     // after sampling consumes rng draws, we re-seed a dedicated shuffle rng
     // as seed XOR a fixed domain tag so shuffle is deterministic & independent
     // of sampling draw count drift.
-    let mut shuffle_rng = rng_from_seed(seed ^ 0xC_DCP_5UFF_1Eu64);
+    let mut shuffle_rng = rng_from_seed(seed ^ 0xCDC5_FF1E_u64);
 
     let mut items: Vec<AssembledItem> = Vec::with_capacity(ids.len());
     let mut modules_set: BTreeMap<u32, ()> = BTreeMap::new();
@@ -435,8 +429,7 @@ mod tests {
             "delta".into(),
         ];
         let mut rng = rng_from_seed(7);
-        let (shuffled, new_correct) =
-            shuffle_choices(&choices, ChoiceLetter::B, &mut rng).unwrap();
+        let (shuffled, new_correct) = shuffle_choices(&choices, ChoiceLetter::B, &mut rng).unwrap();
         assert_eq!(shuffled.len(), 4);
         assert_eq!(
             &shuffled[letter_index(new_correct)],
@@ -458,8 +451,7 @@ mod tests {
         let mut saw_change = false;
         for seed in 0..200u64 {
             let mut rng = rng_from_seed(seed);
-            let (shuffled, new_c) =
-                shuffle_choices(&choices, ChoiceLetter::A, &mut rng).unwrap();
+            let (shuffled, new_c) = shuffle_choices(&choices, ChoiceLetter::A, &mut rng).unwrap();
             if shuffled != choices {
                 saw_change = true;
                 // If order changed, letter may or may not move; text identity holds.

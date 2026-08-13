@@ -213,11 +213,7 @@ mod tests {
     #[test]
     fn bank_hash_mismatch() {
         let path = bank_path();
-        assert!(
-            path.is_dir(),
-            "bank/items required at {}",
-            path.display()
-        );
+        assert!(path.is_dir(), "bank/items required at {}", path.display());
         let bank = Bank::load_dir(&path).unwrap();
         let ids: Vec<String> = bank.items.keys().take(1).cloned().collect();
         let mut att = all_correct_attempt(&bank, "t", 0, &ids).unwrap();
@@ -231,11 +227,7 @@ mod tests {
     #[test]
     fn all_wrong_zero() {
         let path = bank_path();
-        assert!(
-            path.is_dir(),
-            "bank/items required at {}",
-            path.display()
-        );
+        assert!(path.is_dir(), "bank/items required at {}", path.display());
         let bank = Bank::load_dir(&path).unwrap();
         let ids: Vec<String> = bank.items.keys().take(3).cloned().collect();
         let att = all_wrong_attempt(&bank, "t", 0, &ids).unwrap();

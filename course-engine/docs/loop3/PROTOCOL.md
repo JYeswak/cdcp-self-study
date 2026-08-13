@@ -4,7 +4,7 @@
 **Product:** CDCP course-engine study tool  
 **Hard rule:** No log, README, or scorecard may claim EPI/EXIN certification or official exam pass.
 
-Loop #3 is the signal **outside** `./scripts/check.sh` that the product changed interview-ready fluency. Internal green gates are Loop #1 only.
+Loop #3 is the signal **outside** `./scripts/check.sh` that the product changed interview-ready fluency [[claim:claim-interview-ready]]. Internal green gates are Loop #1 only.
 
 ## Hybrid design
 

@@ -22,6 +22,9 @@ course-engine/knowledge/corpus/free-pdfs/ashrae_*.pdf
 *.absorbed-*
 *.git.absorbed*
 
+# --- generated build output (regenerate: python3 scripts/export_anki.py) ---
+/course-engine/dist/
+
 # --- local scratch ---------------------------------------------------------
 .tmp-*
 *.tmp

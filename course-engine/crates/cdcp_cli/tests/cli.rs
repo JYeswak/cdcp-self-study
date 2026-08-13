@@ -110,10 +110,7 @@ fn grade_json_all_correct_from_fixture_answers() {
         .collect();
     assert_eq!(answers.len(), 40);
 
-    let dir = std::env::temp_dir().join(format!(
-        "cdcp_cli_test_answers_{}",
-        std::process::id()
-    ));
+    let dir = std::env::temp_dir().join(format!("cdcp_cli_test_answers_{}", std::process::id()));
     let _ = fs::create_dir_all(&dir);
     let answers_path = dir.join("all_correct.json");
     fs::write(
@@ -147,18 +144,11 @@ fn grade_json_all_correct_from_fixture_answers() {
 
 #[test]
 fn grade_json_rejects_bad_letter_and_unknown_item() {
-    let dir = std::env::temp_dir().join(format!(
-        "cdcp_cli_test_bad_{}",
-        std::process::id()
-    ));
+    let dir = std::env::temp_dir().join(format!("cdcp_cli_test_bad_{}", std::process::id()));
     let _ = fs::create_dir_all(&dir);
 
     let bad_letter = dir.join("bad_letter.json");
-    fs::write(
-        &bad_letter,
-        r#"[{"item_id":"m01-q045","chosen":"E"}]"#,
-    )
-    .unwrap();
+    fs::write(&bad_letter, r#"[{"item_id":"m01-q045","chosen":"E"}]"#).unwrap();
     let assert = cdcp()
         .args([
             "grade",
