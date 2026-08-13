@@ -1,0 +1,46 @@
+{
+  "schema_version": "yuzu_identity_grader.v1",
+  "graded_at": "2026-08-13T04:34:56.271752+00:00",
+  "canonical_path": "/tmp/TRUE-canonical.jpg",
+  "canonical_sha256": "52fb1b09922f9892e53e290279253e07eeb2a6452dc4464c10efbbfe9891f918",
+  "judge": "phash_only",
+  "judge_model": "gpt-4o-mini",
+  "threshold": 70,
+  "total_grades": 2,
+  "total_judge_cost_usd": 0.0,
+  "counts": {
+    "pass": 0,
+    "marginal": 1,
+    "reject": 1
+  },
+  "grades": [
+    {
+      "candidate_path": "/tmp/yuzu-ctl/archetype-teacher.png",
+      "candidate_sha256": "423c5088816ec3274b16e24f1cc3343d249d03a56bf23d31ac754d498acdb91d",
+      "phash_distance": 34,
+      "phash_score": 0.0,
+      "palette_cosine": 0.9217,
+      "palette_score": 92.9,
+      "vision_judge": {},
+      "combined_score": 55.7,
+      "identity_pass": false,
+      "verdict": "marginal",
+      "judge_used": "phash_only",
+      "judge_cost_usd": 0.0
+    },
+    {
+      "candidate_path": "/tmp/yuzu-ctl/cdcp-hero-v4.png",
+      "candidate_sha256": "29b3442bab669ba1dced0deb1e2406120601ab1cf1d3a077477d92240759699a",
+      "phash_distance": 27,
+      "phash_score": 0.0,
+      "palette_cosine": 0.8624,
+      "palette_score": 78.1,
+      "vision_judge": {},
+      "combined_score": 46.9,
+      "identity_pass": false,
+      "verdict": "reject",
+      "judge_used": "phash_only",
+      "judge_cost_usd": 0.0
+    }
+  ]
+}
