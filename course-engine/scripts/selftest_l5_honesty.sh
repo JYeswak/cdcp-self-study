@@ -17,6 +17,15 @@ cd "$ROOT"
 fail() { echo "selftest_l5_honesty: FAIL: $*" >&2; exit 2; }
 ok() { echo "selftest_l5_honesty: ok: $*"; }
 
+# -- L4 drift guard: self-reported RED-injection count ----------------------
+# INJ counts the injections this run actually asserted RED (green controls are
+# NOT counted). Emitted once, on the success path only, as a machine-readable
+# line that scripts/verify_injection_count.py aggregates. A suite that stops
+# emitting the line is an ERROR to that gate, never a silent zero.
+INJ=0
+SUITE_NAME="selftest_l5_honesty"
+inject_counted() { INJ=$((INJ + 1)); }
+
 PLANT="web/_selftest_l5_honesty_planted.html"
 
 restore_all() {
@@ -98,6 +107,7 @@ fi
 if [ "$plant_rc" -ge 2 ]; then
   fail "honesty scan error (rc=$plant_rc) — scanner must not fail-open"
 fi
+inject_counted
 ok "planted certified claim trips RED (rc=$plant_rc)"
 
 # Restore + recheck
@@ -106,5 +116,6 @@ after_rc="$SCAN_RC"
 [ "$after_rc" -eq 0 ] || fail "web/ honesty not clean after restore (rc=$after_rc)"
 ok "web/ honesty clean after restore"
 
+echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
 echo "selftest_l5_honesty: PASSED (tokens · banner · plant RED · restore clean)"
 exit 0

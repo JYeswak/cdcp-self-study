@@ -15,6 +15,15 @@ cd "$ROOT"
 fail() { echo "selftest_l6_coverage: FAIL: $*" >&2; exit 2; }
 ok() { echo "selftest_l6_coverage: ok: $*"; }
 
+# -- L4 drift guard: self-reported RED-injection count ----------------------
+# INJ counts the injections this run actually asserted RED (green controls are
+# NOT counted). Emitted once, on the success path only, as a machine-readable
+# line that scripts/verify_injection_count.py aggregates. A suite that stops
+# emitting the line is an ERROR to that gate, never a silent zero.
+INJ=0
+SUITE_NAME="selftest_l6_coverage"
+inject_counted() { INJ=$((INJ + 1)); }
+
 TMP_ROOT=""
 restore_all() {
   if [ -n "${TMP_ROOT:-}" ] && [ -d "${TMP_ROOT}" ]; then
@@ -34,7 +43,10 @@ assert_fails_with() {
     fail "expected RED for $label but command exited 0"
   fi
   case "$out" in
-    *"$needle"*) ok "$label trips RED (rc=$rc, saw: $needle)" ;;
+    *"$needle"*)
+      inject_counted
+      ok "$label trips RED (rc=$rc, saw: $needle)"
+      ;;
     *)
       printf '%s\n' "$out" >&2
       fail "$label exited $rc but missing expected signal '$needle'"
@@ -97,5 +109,6 @@ if [ -f bank/items/planted-m01.toml ]; then
   fail "planted file leaked into live bank/items"
 fi
 
+echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
 echo "selftest_l6_coverage: PASSED (a empty RED · b missing-module RED · c live GREEN)"
 exit 0

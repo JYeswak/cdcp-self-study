@@ -17,6 +17,15 @@ cd "$ROOT"
 fail() { echo "selftest_reconstructed: FAIL: $*" >&2; exit 1; }
 ok()   { echo "selftest_reconstructed: ok: $*"; }
 
+# -- L4 drift guard: self-reported RED-injection count ----------------------
+# INJ counts the injections this run actually asserted RED (green controls are
+# NOT counted). Emitted once, on the success path only, as a machine-readable
+# line that scripts/verify_injection_count.py aggregates. A suite that stops
+# emitting the line is an ERROR to that gate, never a silent zero.
+INJ=0
+SUITE_NAME="selftest_reconstructed"
+inject_counted() { INJ=$((INJ + 1)); }
+
 BAK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_recon.XXXXXX")"
 RESTORE_LIST=""
 
@@ -49,6 +58,7 @@ assert_red() {
   set -e
   unstash "$target"
   [ "$rc" -eq 0 ] && fail "$label stayed GREEN under known-bad injection"
+  inject_counted
   ok "$label trips RED (rc=$rc)"
 }
 
@@ -94,5 +104,6 @@ sed 's/^    ExportWeb {/    ExportWebHidden {/' "$M" > "$M.tmp" && mv "$M.tmp" "
 sed 's/Cmd::ExportWeb {/Cmd::ExportWebHidden {/' "$M" > "$M.tmp" && mv "$M.tmp" "$M"
 assert_red "L7 CLI product verbs (export-web renamed away)" "$M"
 
+echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
 echo "selftest_reconstructed: PASSED (a learner shape · b key leak · c export byte-stability · d session shapes · e CLI verbs)"
 exit 0

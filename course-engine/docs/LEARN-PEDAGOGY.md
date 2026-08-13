@@ -1,6 +1,6 @@
 # LEARN PEDAGOGY — teaching atoms & edtech map
 
-**Status:** doctrine (2026-08-12) · product Waves A–D **planned** · not false-shipped  
+**Status:** doctrine (2026-08-12) · M8 shipped with 127 units, Waves A–D **mostly shipped** · P0 diagrams present, P1 diagrams planned · not false-shipped  
 **Charter:** parent `CHARTER.md` §4 · M8 Learn v2  
 **Honesty:** study signals only — never EPI/EXIN certification [[claim:claim-not-epi-certified]] [[claim:claim-study-signal-27]]
 

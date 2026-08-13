@@ -9,7 +9,7 @@
 [![License: MIT (code)](https://img.shields.io/badge/code-MIT-blue.svg)](./LICENSE)
 [![Content: CC BY-NC-SA 4.0](https://img.shields.io/badge/content-CC_BY--NC--SA_4.0-blue.svg)](./LICENSE)
 [![gate: 53 steps](https://img.shields.io/badge/gate-53_ordered_steps-success.svg)](#the-gate)
-[![known-bad: 21 injections](https://img.shields.io/badge/known--bad-20_injections_all_RED-success.svg)](#gates-proven-to-trip)
+[![known-bad: 36 injections](https://img.shields.io/badge/known--bad-36_injections_all_RED-success.svg)](#gates-proven-to-trip)
 [![grading: byte-exact](https://img.shields.io/badge/grading-Rust_%3D%3D_WASM_byte--exact-success.svg)](#how-grading-works)
 [![unsafe: forbidden](https://img.shields.io/badge/unsafe-forbidden-success.svg)](https://github.com/rust-secure-code/safety-dance/)
 [![offline](https://img.shields.io/badge/runtime-fully_offline-teal.svg)](#running-it)
@@ -46,7 +46,7 @@ cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
 | **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
 | **Bank** | 804 original questions across 15 module buckets, 106 topics |
 | **Engine** | 7 Rust crates, 3,763 lines, `#![forbid(unsafe_code)]`, 281 KB WASM |
-| **Gate** | 53 ordered steps; 6 selftest suites; 20 known-bad injections that must all go RED |
+| **Gate** | 58 ordered steps; 9 selftest suites; 36 known-bad injections that must all go RED |
 | **Runtime deps** | None. Rust toolchain to build; a browser to use |
 
 ---
@@ -225,17 +225,32 @@ workflow file is how CI and local drift apart until only one of them is true.
 
 ### Gates proven to trip
 
-A green gate is worthless unless it can go red. Six selftest suites inject
-**20 known-bad faults** and assert the build fails, then restore the tree:
+A green gate is worthless unless it can go red. Nine selftest suites inject
+**36 known-bad faults** and assert the build fails, then restore the tree:
 
-| Suite | Injections |
-|---|---|
-| `selftest_known_bad` | flipped golden · empty bank · bank_hash drift · planted honesty violation |
-| `selftest_l5_honesty` | credential-inflation string planted in web copy |
-| `selftest_l6_coverage` | empty bank · single-module bank · live coverage |
-| `selftest_l7_objectives` | empty objectives · missing claim ref · empty claim_ids · empty bank · live |
-| `selftest_reconstructed` | learner-pack shape · answer-key leak · export byte-stability · session shapes · CLI verb presence |
-| `tests/publishability-bar.sh` | hidden LICENSE · false README evidence · missing corpus rights · bare exemption |
+| Suite | n | Injections |
+|---|---|---|
+| `selftest_known_bad` | 4 | flipped golden · empty bank · bank_hash drift · planted honesty violation |
+| `selftest_l5` | 2 | flipped golden pins (GOLDEN MISMATCH) · empty golden dir (zero fixtures) |
+| `selftest_l5_honesty` | 1 | credential-inflation string planted in web copy |
+| `selftest_l6_coverage` | 2 | empty bank · single-module bank |
+| `selftest_l7_objectives` | 4 | empty objectives · missing claim ref · empty claim_ids · empty bank |
+| `selftest_reconstructed` | 5 | learner-pack shape · answer-key leak · export byte-stability · session shapes · CLI verb presence |
+| `selftest_orphan` | 5 | empty bank · empty topic registry · unknown `topic_id` · empty `topic_ids` · orphan topic |
+| `selftest_doc_consistency` | 6 | duplicate milestone row · cross-doc status conflict · unreadable status vocabulary · stale pre-flip visibility claim · zero markdown scanned · roadmap doc missing |
+| `selftest_injection_count` | 7 | off-by-one count · deleted receipt (MISSING, never zero) · suite reporting 0 · unregistered suite · empty log · README advertising nothing · wrong suite count |
+
+**These numbers are enforced, not maintained.** Each suite counts only the
+injections it *observed* go RED and prints `INJECTIONS=<n> SUITE=<name>` on its
+success path; `verify_injection_count.py` sums those receipts and fails the build
+if the total disagrees with any number this README advertises. Editing a count
+here without changing the suites turns the gate red. A suite that emits no
+receipt is an **error, never a silent zero** — otherwise a suite that stopped
+reporting would read exactly like a suite with nothing to report.
+
+`tests/publishability-bar.sh` is deliberately excluded from that total: it
+asserts facts about the repo and plants no known-bad, so counting it would
+inflate the number.
 
 Anti-vacuous discipline runs throughout: an **empty input set is an error, not a
 pass**. A scan that finds zero files fails, because a deliverable that was never
@@ -309,7 +324,7 @@ table:
 | **L1 — claims constitution** | ✅ | `registries/*.toml` + `cdcp_registry_check` (tested crate) + claims-lint over README/docs |
 | **L2 — SLO as code** | ✅ partial | `slo.toml` + `smoke_slo.sh` walls on grade / export / bank-verify |
 | **L3 — external oracle** | ⚠️ **weakest link** | The oracle is the *native* grader and the public syllabus domains. There is no independent third-party conformance suite for "did we teach this correctly" |
-| **L4 — gates proven to trip** | ✅ strongest | 6 suites, 21 injections, anti-vacuous throughout |
+| **L4 — gates proven to trip** | ✅ strongest | 9 suites, 36 injections, count drift-guarded, anti-vacuous throughout |
 | **L5 — adversarial input floor** | ✅ partial | `cargo-fuzz` targets present; property tests on assemble/grade |
 | **L6 — formal lane** | ❌ | Not warranted at this gauntlet tier |
 | **L7 — ecosystem lock** | ✅ scoped | `content.lock` pins bank_hash + knowledge + module markdown |
@@ -331,8 +346,8 @@ summary, those are the source of truth.
 | M0–M7 | Charter · registries · bank · grade/goldens · web mock · learn · SRS · WASM | **done** |
 | V11 | Anki export · power-path diagram · `serve` · runbooks | **done** |
 | M8 | Learn v2 — 127 units · TOC · micro-checks · diagram system · glossary | **done** |
-| M9 | Publishability bar · OSS meta · visibility flip | **agent-side done; flip is a human call** |
-| M10 | Free/public corpus expansion | **ongoing** — 4 free PDFs referenced, rights recorded |
+| M9 | Publishability bar · OSS meta · visibility flip | **DONE** (2026-08-12; public at github.com/JYeswak/cdcp-self-study) |
+| M10 | Free/public corpus expansion | **done** — 4 free PDFs referenced, rights recorded (further sourcing tracked as OQ-09/10, not M10) |
 | P1 | More diagrams: fire sequence, standards map, cooling topologies | planned (`DIAGRAM-REGISTRY.md`) |
 | — | **L3 external oracle** | **open, and the most valuable thing to fix** |
 

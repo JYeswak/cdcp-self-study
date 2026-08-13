@@ -48,6 +48,23 @@ Assert identities distinct at comparator entry. Same `(bank_hash, exam_id, seed,
 Empty bank · orphan item · flipped golden · dual-path lie · “certified” UI string · vacuous full-coverage  
 [[claim:claim-not-epi-certified]] [[claim:claim-grade-byte-exact]]
 
+Each name above resolves to a wired suite — a list of known-bads nobody
+implemented is a fooled certificate, so this table is the receipt:
+
+| Known-bad | Wired by | Detector |
+|-----------|----------|----------|
+| Empty bank | `scripts/selftest_known_bad.sh` · `selftest_l6_coverage.sh` · `selftest_l7_objectives.sh` · `selftest_orphan.sh` | empty scan set is an ERROR, never a pass |
+| Orphan item | `scripts/selftest_orphan.sh` | `scripts/verify_orphans.py` — bidirectional: a topic no item assesses, an item pointing at an unknown topic, an item anchored to nothing |
+| Flipped golden | `scripts/selftest_known_bad.sh` · `selftest_l5.sh` | `cdcp goldens check` / e2e digest mismatch |
+| Dual-path lie | `crates/cdcp_wasm` `dual_path` test | identities distinct, digests equal |
+| “Certified” UI string | `scripts/selftest_l5_honesty.sh` · `selftest_known_bad.sh` | planted credential-inflation phrase must trip the honesty scan |
+| Vacuous full-coverage | `scripts/selftest_l6_coverage.sh` · `selftest_l7_objectives.sh` | zero items / zero objectives are ERRORs |
+
+Two gates guard the machinery itself rather than the product:
+`scripts/selftest_doc_consistency.sh` (the roadmap docs may not contradict each
+other) and `scripts/selftest_injection_count.sh` (the count this repo advertises
+must equal the count the suites self-report at runtime).
+
 Study signal **27/40** is never a credential. [[claim:claim-study-signal-27]]
 
 ## Doctrine

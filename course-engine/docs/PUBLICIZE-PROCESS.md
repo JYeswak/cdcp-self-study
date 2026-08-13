@@ -14,7 +14,10 @@
 | **Heavyweight private-client lock** | ALPS `docs/operator/publishability-checklist.md` PB-001…PB-020 | Binary receipts; **repo_lock_ready** ≠ visibility flip; still not auto-publish |
 | **skillos** | private Studio repo | Same quality bar for “would Jeff publish”; skill registry publish ≠ GitHub public |
 
-Local copies for agents on MacBook: `docs/flywheel/L88-PUBLISHABILITY-BAR-CANONICAL.md`, `docs/flywheel/PUBLISHABILITY-BAR.md`.
+**Single-copy rule (`bd-1sd.6`):** the rubric and the L88 canonical live at
+`.flywheel/PUBLISHABILITY-BAR.md` and `.flywheel/L88-PUBLISHABILITY-BAR-CANONICAL.md` — **there is no
+second copy.** Duplicates previously existed under `docs/flywheel/` and were deleted 2026-08-12; two
+copies of a rubric drift silently and the stale one is indistinguishable from the live one.
 
 ## L88 — what “publishable” means
 
@@ -66,7 +69,7 @@ Three-judges pass (`/flywheel:plan` Phase 3): Jeff substrate · Donella feedback
   - OSS meta present (LICENSE · SECURITY · CONTRIBUTING · CoC · CHANGELOG) — `bd-2nj.1` closed  
   - `.flywheel` bar + audit + doctor **7/7 pass** (`public_repo=false`) — `bd-2nj.2` closed  
   - Working-tree secrets scrub receipt: `docs/flywheel/PREPUBLISH-SCRUB-2026-08-12.md`  
-  - **Visibility flip still Josh-only** (`bd-2nj.3` open until flip or explicit deferral)
+  - **Visibility flip DONE** (2026-08-12; `bd-2nj.3` closed; public at github.com/JYeswak/cdcp-self-study)
 
 
 ## Studio research addendum (2026-08-12)

@@ -16,6 +16,15 @@ cd "$ROOT"
 fail() { echo "selftest_l7_objectives: FAIL: $*" >&2; exit 2; }
 ok() { echo "selftest_l7_objectives: ok: $*"; }
 
+# -- L4 drift guard: self-reported RED-injection count ----------------------
+# INJ counts the injections this run actually asserted RED (green controls are
+# NOT counted). Emitted once, on the success path only, as a machine-readable
+# line that scripts/verify_injection_count.py aggregates. A suite that stops
+# emitting the line is an ERROR to that gate, never a silent zero.
+INJ=0
+SUITE_NAME="selftest_l7_objectives"
+inject_counted() { INJ=$((INJ + 1)); }
+
 TMP_ROOT=""
 restore_all() {
   if [ -n "${TMP_ROOT:-}" ] && [ -d "${TMP_ROOT}" ]; then
@@ -35,7 +44,10 @@ assert_fails_with() {
     fail "expected RED for $label but command exited 0"
   fi
   case "$out" in
-    *"$needle"*) ok "$label trips RED (rc=$rc, saw: $needle)" ;;
+    *"$needle"*)
+      inject_counted
+      ok "$label trips RED (rc=$rc, saw: $needle)"
+      ;;
     *)
       printf '%s\n' "$out" >&2
       fail "$label exited $rc but missing expected signal '$needle'"
@@ -147,5 +159,6 @@ if [ -f registries/objectives_empty.toml ] || [ -f bank/items/planted-obj.toml ]
   fail "planted file leaked into live tree"
 fi
 
+echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
 echo "selftest_l7_objectives: PASSED (a empty RED · b missing-claim RED · b2 empty-claims RED · c empty-bank RED · d live GREEN)"
 exit 0

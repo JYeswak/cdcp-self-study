@@ -3,7 +3,7 @@
 - **Repo:** cdcp-self-study (single repo; `course-engine/` is a subtree, not a separate repo)
 - **Date:** 2026-08-12
 - **Auditor:** agent (post-recovery pass)
-- **Public repo:** no
+- **Public repo:** yes (2026-08-12; github.com/JYeswak/cdcp-self-study)
 - **Exemption:** ZestStream public-voice gate — **does not apply**. This is a
   personal educational repo, not a ZS-branded product surface (`grep -i
   zeststream README.md` returns nothing; the only ZS mention in public copy is
@@ -17,7 +17,7 @@
   are exempt. **The applicable slice is still enforced mechanically** by
   `tests/voice-slop.sh` (marketing slop minus domain terms · honesty note ·
   no certification overclaim), wired into `scripts/check.sh` and bite-verified.
-- **Target:** public — all agent-side gates closed; awaiting Josh's visibility flip
+- **Status:** public (2026-08-12); all gates closed
 
 > **How to read this file.** `.flywheel/scripts/publishability-bar.sh` PARSES this
 > markdown — it does not compute the score. A number typed here is therefore a
@@ -70,7 +70,7 @@ Each verdict names evidence that `tests/publishability-bar.sh` checks mechanical
 | F1 | README front-door | YES | Root `README.md` (307 lines): honesty note first, `cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766` start path, `check.sh` gate, `LICENSE` pointer, 14-module index, all relative links resolve |
 | F2 | Doctrine clarity | YES | `CHARTER.md` · `course-engine/AGENTS.md` · `docs/ORACLE-GAUNTLET.md` · `docs/TESTING.md` · `docs/FEATURE_SURFACE.md` · `docs/PUBLICIZE-PROCESS.md` · `docs/loop3/PROTOCOL.md` |
 | F3 | Doctor/health/repair triad | YES | `scripts/check.sh` (52 ordered steps, fail-closed, names the failing script); `.flywheel/scripts/publishability-bar.sh --doctor --json` emits `publishability_bar_score`; repair = re-run the named script |
-| F4 | Executable tests | YES | `./scripts/check.sh` = 52 steps. **6 known-bad selftest suites / 21 injections, all proven RED**: `selftest_known_bad` (4), `selftest_l5_honesty`, `selftest_l6_coverage` (3), `selftest_l7_objectives` (5), `selftest_reconstructed` (5), `tests/publishability-bar.sh` (bite-verified) |
+| F4 | Executable tests | YES | `./scripts/check.sh` = 53 steps. **6 known-bad selftest suites / 20 injections, all proven RED**: `selftest_known_bad` (4), `selftest_l5_honesty` (1), `selftest_l6_coverage` (2), `selftest_l7_objectives` (4), `selftest_reconstructed` (5), `tests/publishability-bar.sh` (bite-verified) |
 | F5 | Idempotent install + uninstall | YES | Clone + rustup + `cargo build`; no global install, no daemon, no writes outside the tree; `serve` binds loopback only; uninstall = delete the directory |
 | F6 | Code aesthetic | YES | Named crates (`cdcp_core`/`bank`/`assemble`/`grade`/`wasm`/`cli`/`registry_check`); `#![forbid(unsafe_code)]`; TOML registries as constitution; `serve` on pure std with zero added deps |
 | F7 | Demo-ability | YES | One command: `cd course-engine && cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766` → Hub/Learn/Drill/Mock, offline, WASM grading |
@@ -79,11 +79,10 @@ Each verdict names evidence that `tests/publishability-bar.sh` checks mechanical
 
 **7 / 7** on the seven facets (≥5 = readiness pass).
 
-**Status: agent-side gates CLOSED; visibility is Josh's call.** The facet score
-is a quality signal, not permission to publish. The ZS voice gate is exempt with
-the reason recorded above and its applicable slice enforced in CI. Per L88, a NO
-facet or an unmet gate must be surfaced rather than hidden in prose — there is
-currently no NO facet and no unmet applicable gate.
+**Status: COMPLETE; repo public (2026-08-12).** All agent-side gates were closed, the
+visibility flip was executed. The facet score remained a quality signal throughout,
+and the ZS voice gate remains exempt with the reason recorded above and its applicable
+slice enforced in CI. Per L88, all facets are YES and all applicable gates are met.
 
 ## Licensing (verified by test)
 
@@ -112,7 +111,7 @@ them.
 |------|-------|--------|
 | ZS voice scorecard | agent | **closed — exempt, reason recorded, applicable slice enforced by `tests/voice-slop.sh`** |
 | Corpus per-source rights column (M5) | agent | open (low) |
-| `gh repo create --public` / visibility flip | **Josh** | blocked |
+| `gh repo create --public` / visibility flip | **Josh** | **DONE** (2026-08-12) |
 
 ## Three judges
 

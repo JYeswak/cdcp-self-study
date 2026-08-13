@@ -19,6 +19,15 @@ cd "$ROOT"
 fail() { echo "selftest_known_bad: FAIL: $*" >&2; exit 2; }
 ok() { echo "selftest_known_bad: ok: $*"; }
 
+# -- L4 drift guard: self-reported RED-injection count ----------------------
+# INJ counts the injections this run actually asserted RED (green controls are
+# NOT counted). Emitted once, on the success path only, as a machine-readable
+# line that scripts/verify_injection_count.py aggregates. A suite that stops
+# emitting the line is an ERROR to that gate, never a silent zero.
+INJ=0
+SUITE_NAME="selftest_known_bad"
+inject_counted() { INJ=$((INJ + 1)); }
+
 # Restore helpers (idempotent)
 GOLDEN_CORRECT="goldens/mock40_seed42_all_correct.sha256"
 BANK_HASH_PIN="goldens/bank_hash.txt"
@@ -47,6 +56,7 @@ assert_nonzero() {
     printf '%s\n' "$out" >&2
     fail "expected RED for $label but command exited 0"
   fi
+  inject_counted
   ok "$label trips RED (rc=$rc)"
 }
 
@@ -140,6 +150,7 @@ fi
 if [ "$h_rc" -ge 2 ]; then
   fail "honesty scan error (rc=$h_rc) — scanner must not fail-open on config"
 fi
+inject_counted
 ok "planted honesty string trips RED (rc=$h_rc)"
 
 # ── clean-tree recheck (honesty alone; goldens restored above) ──────────────
@@ -148,5 +159,6 @@ h_rc="$HONESTY_RC"
 [ "$h_rc" -eq 0 ] || fail "honesty scan not clean after restore (rc=$h_rc)"
 ok "honesty clean after restore"
 
+echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
 echo "selftest_known_bad: PASSED (a golden flip · b empty bank · c bank_hash drift · d honesty plant)"
 exit 0

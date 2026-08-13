@@ -13,6 +13,32 @@ fail() { echo "check.sh: FAIL: $*" >&2; exit 2; }
 GAPS=""
 ok() { echo "check.sh: ok: $*"; }
 
+
+# ── L4 drift guard plumbing ────────────────────────────────────────────────
+# Every selftest suite prints one `INJECTIONS=<n> SUITE=<name>` receipt on its
+# success path. run_selftest runs the suite for real, forwards its output, and
+# tees the receipts into INJ_LOG. scripts/verify_injection_count.py then sums
+# them and compares against the count README.md advertises — so the badge can
+# never drift from the machinery it describes.
+INJ_LOG="$(mktemp "${TMPDIR:-/tmp}/cdcp_injections.XXXXXX")"
+trap 'rm -f "$INJ_LOG"' EXIT INT TERM HUP
+
+run_selftest() {
+  _lbl="$1"
+  shift
+  # Output is captured so the receipt can be teed; it therefore appears only
+  # once the suite finishes. selftest_reconstructed.sh runs the full gate five
+  # times and can sit here for minutes — say so rather than look hung.
+  echo "check.sh: running $_lbl (output shown when it completes)"
+  _out=""
+  if ! _out="$("$@" 2>&1)"; then
+    printf '%s\n' "$_out" >&2
+    fail "$_lbl"
+  fi
+  printf '%s\n' "$_out"
+  printf '%s\n' "$_out" | grep '^INJECTIONS=' >>"$INJ_LOG" || true
+}
+
 echo "==> cdcp-course check (W0 knowledge scaffold)"
 
 # Required constitution docs
@@ -127,6 +153,18 @@ if [ -f scripts/validate_grounding.py ] && [ -d bank/items ]; then
   ok "grounding heuristics"
 fi
 
+# Orphan referential integrity (topics <-> bank) — ORACLE-GAUNTLET "orphan item".
+# Hard-required: an absent checker is a fooled certificate, not a skip.
+[ -f scripts/verify_orphans.py ] || fail "missing scripts/verify_orphans.py (orphan gate required)"
+echo "==> verify_orphans.py (topic<->item referential integrity)"
+python3 scripts/verify_orphans.py || fail "orphan referential integrity"
+ok "no orphan topics · no orphan item refs · no unanchored items"
+
+[ -f scripts/selftest_orphan.sh ] || fail "missing scripts/selftest_orphan.sh (L4 orphan known-bad required)"
+echo "==> selftest_orphan.sh (L4 orphan known-bad)"
+run_selftest "orphan known-bad selftest" sh scripts/selftest_orphan.sh
+ok "orphan selftest (empty bank/topics ERROR · orphan ref RED · unanchored RED · orphan topic RED · live GREEN)"
+
 # L3 GradeExact — cargo + goldens (BUILT must be WIRED here)
 if [ ! -f Cargo.toml ]; then
   fail "Cargo.toml missing (L3 workspace required)"
@@ -158,7 +196,7 @@ ok "GradeExact goldens"
 # L4 — gates proven to trip (inject known-bad → assert RED → restore)
 if [ -x scripts/selftest_known_bad.sh ] || [ -f scripts/selftest_known_bad.sh ]; then
   echo "==> selftest_known_bad.sh (L4)"
-  sh scripts/selftest_known_bad.sh || fail "known-bad selftests"
+  run_selftest "known-bad selftests" sh scripts/selftest_known_bad.sh
   ok "known-bad selftests (gates trip, tree clean)"
 else
   fail "missing scripts/selftest_known_bad.sh (L4 required)"
@@ -216,7 +254,7 @@ assert all('correct' not in i for i in d['items']), 'learner pack leaks correct 
 ok "L5 learner pack n_items=40"
 
 echo "==> selftest_l5.sh (honesty + e2e digest known-bad)"
-sh scripts/selftest_l5.sh || fail "L5 selftest"
+run_selftest "L5 selftest" sh scripts/selftest_l5.sh
 ok "L5 selftest (honesty plant RED · digest match · flipped golden RED · empty fixtures ERROR)"
 
 echo "==> e2e_l5_digest.sh (UI dual-path digest match)"
@@ -254,7 +292,7 @@ echo "==> L6 domain coverage oracle"
 python3 scripts/verify_coverage.py || fail "L6 coverage"
 ok "L6 coverage GREEN (modules 1–14 ≥ domain_min)"
 echo "==> selftest_l6_coverage.sh"
-sh scripts/selftest_l6_coverage.sh || fail "L6 coverage selftest"
+run_selftest "L6 coverage selftest" sh scripts/selftest_l6_coverage.sh
 ok "L6 coverage selftest (empty RED · missing-module RED · live GREEN)"
 
 # ─── L7 product surfaces ────────────────────────────────────────────────────
@@ -284,7 +322,7 @@ echo "==> verify_objectives.py"
 python3 scripts/verify_objectives.py || fail "L7 objective coverage"
 ok "L7 objective coverage"
 echo "==> selftest_l7_objectives.sh"
-sh scripts/selftest_l7_objectives.sh || fail "L7 objectives selftest"
+run_selftest "L7 objectives selftest" sh scripts/selftest_l7_objectives.sh
 ok "L7 objectives known-bad selftest"
 
 echo "==> smoke_slo.sh"
@@ -303,7 +341,7 @@ ok "L7 content.lock"
 # ─── V11 stretch surfaces ───────────────────────────────────────────────────
 if [ -f scripts/selftest_reconstructed.sh ] && [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then
   echo "==> selftest_reconstructed.sh (L5–V11 reconstructed stages)"
-  CDCP_IN_SELFTEST=1 sh scripts/selftest_reconstructed.sh || fail "reconstructed-stage selftests"
+  run_selftest "reconstructed-stage selftests" env CDCP_IN_SELFTEST=1 sh scripts/selftest_reconstructed.sh
   ok "L5–V11 reconstructed stages proven to trip RED"
 fi
 
@@ -312,6 +350,18 @@ if [ -f tests/voice-slop.sh ]; then
   sh tests/voice-slop.sh >/dev/null || fail "voice slop / honesty in public copy"
   ok "public copy free of marketing slop; honesty note intact"
 fi
+
+# Roadmap doc truth — the prose a stranger reads first must not contradict
+# itself. Hard-required: an absent checker is a fooled certificate, not a skip.
+[ -f scripts/verify_doc_consistency.py ] || fail "missing scripts/verify_doc_consistency.py (roadmap-truth gate required)"
+echo "==> verify_doc_consistency.py (CHARTER §9 · README roadmap · PHASE-NEXT)"
+python3 scripts/verify_doc_consistency.py || fail "roadmap doc consistency"
+ok "roadmap milestone status agrees across docs; publication truth holds"
+
+[ -f scripts/selftest_doc_consistency.sh ] || fail "missing scripts/selftest_doc_consistency.sh (L4 roadmap known-bad required)"
+echo "==> selftest_doc_consistency.sh (L4 roadmap known-bad)"
+run_selftest "roadmap doc consistency selftest" sh scripts/selftest_doc_consistency.sh
+ok "roadmap selftest (dup row RED · cross-doc conflict RED · unreadable status RED · pending-publication RED · zero markdown ERROR)"
 
 if [ -f tests/publishability-bar.sh ]; then
   echo "==> tests/publishability-bar.sh (L88 — audit claims must be true)"
@@ -332,6 +382,24 @@ else
 fi
 ls bank/items/*.toml >/dev/null 2>&1 || fail "V11 runbook bank items"
 ok "V11 runbook bank items present"
+
+
+# ── L4 drift guard: the advertised known-bad count must be the measured one ──
+# Skipped inside a nested check.sh (CDCP_IN_SELFTEST=1) because that run
+# deliberately omits selftest_reconstructed.sh: aggregating a knowingly partial
+# roster would turn every nested run RED for the wrong reason and mask the
+# stage the nested run exists to prove.
+if [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then
+  [ -f scripts/verify_injection_count.py ] || fail "missing scripts/verify_injection_count.py (drift guard required)"
+  echo "==> selftest_injection_count.sh (L4 drift-guard known-bad)"
+  run_selftest "injection-count selftest" sh scripts/selftest_injection_count.sh
+  ok "drift-guard selftest (off-by-one RED · missing receipt RED · zero RED · unregistered RED · empty log ERROR)"
+
+  echo "==> verify_injection_count.py (advertised known-bad count)"
+  python3 scripts/verify_injection_count.py --log "$INJ_LOG" \
+    || fail "known-bad injection count drift (README vs suites)"
+  ok "advertised known-bad injection count == suites' self-reported total"
+fi
 
 if [ -n "$GAPS" ]; then
   echo "check.sh: KNOWN GAPS (not green, not silent): $GAPS" >&2

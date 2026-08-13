@@ -1,6 +1,6 @@
 # CHARTER — CDCP Interactive Course Engine
 
-**Status:** ACTIVE — **W0–L7 + V11 + M8 Learn v2 GREEN** (2026-08-12) · next: **M9 visibility flip (Josh)**  
+**Status:** ACTIVE — **W0–L7 + V11 + M8 Learn v2 + M9 GREEN** (2026-08-12) · repo public at github.com/JYeswak/cdcp-self-study  
 **Product codename:** `cdcp-course` (engine at `cdcp-self-study/course-engine/`)  
 **Operator:** Joshua Nowak  
 **Date:** 2026-08-12 (constitution refresh; edit in place)
@@ -220,10 +220,8 @@ RED: markdown without import; unlinked AI items; goldens mutated without root ca
 | **M0–M7** | Charter · registries · bank · grade/goldens · web mock · learn · SRS · polish · WASM | **DONE** (maps W0–L7) |
 | **V11** | Anki · power-path diagram · serve · runbooks | **DONE** |
 | **M8** | **Learn v2** — units · TOC · micro-checks · diagram system · formulas | **GREEN** |
-| **M9** | Publicize L88 bar · OSS meta · visibility flip | **quality PASS · flip Josh** |
+| **M9** | Publicize — L88 bar ≥5/7 · OSS meta · then visibility flip | **DONE** |
 | **M10** | Free/public corpus expansion (OQ-09) | **GREEN** (4 free PDFs) |
-| **M9** | Publicize — L88 bar ≥5/7 · OSS meta · then visibility flip | Process ready |
-| **M10** | Corpus deep research — expand free/public sources | Ongoing (OQ-09) |
 
 Ambition: M8 makes Learn feel like Coursera/Duolingo-class **packaging** without losing offline/static integrity.
 
@@ -279,7 +277,7 @@ Process detail: [`docs/CHARTER-PROCESS.md`](./docs/CHARTER-PROCESS.md).
 
 ```text
 shipped_means: offline hub + 14-module Learn + drill/SRS + mock40 + WASM dual-path goldens + check.sh W0–L7/V11
-next: M9-S3 Josh visibility flip (bar 7/7; scrub receipt done)
+next: P1 diagrams (bd-1sd.9.1); OQ-09/10 corpus research remains open (M10 itself is DONE)
 non_goals: official EPI cert, LLM-as-grader-of-record, SaaS, React LMS
 layers: L1 L2 L3 L4 L5 L7 wired; L6 no; Learn-surface gates M8 wired
 oracle: public 14-domain map (coverage) + frozen grade reports (scoring)

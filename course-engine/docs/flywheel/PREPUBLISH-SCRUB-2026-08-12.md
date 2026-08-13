@@ -2,7 +2,7 @@
 
 **Bead:** `bd-2nj.3` (partial — scrub only)  
 **Scope:** working tree text assets under `course-engine/` (not git history rewrite)  
-**Visibility flip:** **not performed** (Josh escalation)
+**Visibility flip:** **PERFORMED** (2026-08-12; public at github.com/JYeswak/cdcp-self-study)
 
 ## Scans run
 
@@ -15,8 +15,7 @@
 
 ## Corpus policy check
 
-- `knowledge/corpus/free-pdfs/` — free/public ASHRAE power white paper + meta (OQ-09)
-- No paid SDO bodies observed in tree (OQ-10)
+- `knowledge/corpus/free-pdfs/` — 3 ASHRAE TC 9.9 PDFs (power, storage, edge) purged from HEAD and history; NIST SP 800-123 ships (US Government public domain); `.meta.toml` sidecars retained for url + sha256 grounding (OQ-09/10)
 
 ## Honesty check
 
@@ -31,16 +30,16 @@
 → status=pass score=7/7 public_repo=false
 ```
 
-## Remaining for full S3 close
+## Completion outcome
 
 | Step | Owner | Status |
 |------|-------|--------|
 | Working-tree scrub | agent | **done** this receipt |
 | Optional `git log`/`gitleaks` on full history before first public remote | agent/Josh | optional |
-| `gh` public create / visibility flip | **Josh** | blocked |
-| Set audit `Public repo: yes` + re-score voice after flip | agent after flip | deferred |
+| `gh` public create / visibility flip | **Josh** | **DONE** (2026-08-12) |
+| Set audit `Public repo: yes` + re-score voice after flip | agent after flip | **DONE** (reflected in PUBLISHABILITY-AUDIT.md) |
 
-## Verdict (partial)
+## Verdict
 
 - **Scrub + prepublish quality:** PASS for local tree  
-- **Visibility flip:** DEFERRED — human decision required
+- **Visibility flip:** DONE (2026-08-12; public at github.com/JYeswak/cdcp-self-study)
