@@ -32,9 +32,17 @@ of someone about to explain something, mid-gesture toward the racks.
   tile lifted a few inches to show the plenum beneath. Racks with cable
   management arms and neat structured cabling — believable, not a
   chrome-and-neon fantasy.
-- **Lighting:** cool white overhead task lighting from the aisle, warm rim light
-  on Yuzu so the character stays warm against a cool room. Shallow depth of
+- **Lighting:** cool white overhead task lighting from the aisle. Yuzu is lit
+  with **soft, even, flat light exactly as in the canonical reference** — no rim
+  light, no halo, no glow, no outline separation. He reads warm because of his
+  own colour, not because he is lit differently from the room. Shallow depth of
   field; racks fall off softly into the background.
+
+  > **Why this is called out:** the first generated attempt (2026-08-12) asked
+  > for a "warm rim light so the character stays warm against a cool room" and
+  > the model rendered a literal glowing halo around his head. The canonical
+  > Yuzu has no such effect. Warmth comes from the rind and the apron, never
+  > from a light source behind him.
 - **Palette:** cool greys and blues in the room; Yuzu's yellow-green and the tan
   apron are the only warm notes. This contrast is the point of the image.
 - **Clipboard:** the checklist reads as a **site inspection sheet** — legible
@@ -54,6 +62,9 @@ where a rendered Yuzu sits in a believable room.
 
 ## Avoid
 
+- **Any halo, rim glow, backlight bloom, or luminous outline around Yuzu.** He
+  is not lit from behind and does not emit light. Match the canonical reference's
+  flat, even lighting on the character
 - Blue-neon "cyber" data centre clichés, glowing floors, holograms
 - Hard hat or hi-vis vest — the apron is the character; safety costume breaks it
 - Any readable brand, logo, or vendor name on racks or hardware
