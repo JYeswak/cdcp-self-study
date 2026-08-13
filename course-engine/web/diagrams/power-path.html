@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP study diagram — N vs 2N power path self-check. Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Power path N vs 2N</title>
+  <link rel="stylesheet" href="../assets/css/course.css">
+  <style>
+    /* Page-local diagram styles (tokens from course.css) */
+    .diagram-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    @media (min-width: 900px) {
+      .diagram-layout {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .path-panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      padding: 1rem 1.1rem 1.25rem;
+    }
+    .path-panel h2 {
+      margin: 0 0 0.35rem;
+      font-size: 1.15rem;
+    }
+    .path-panel__tag {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--violet);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 0 0 0.85rem;
+    }
+    .path-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.35rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .path-node {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: var(--touch-min);
+      padding: 0.55rem 0.75rem;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--fg-mid);
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+    .path-node:hover,
+    .path-node:focus-visible {
+      border-color: rgba(52, 211, 153, 0.45);
+      color: var(--fg);
+    }
+    .path-node[data-revealed="1"] {
+      border-style: solid;
+      border-color: rgba(52, 211, 153, 0.55);
+      color: var(--fg);
+      background: rgba(52, 211, 153, 0.08);
+    }
+    .path-node.is-wrong-flash {
+      border-color: rgba(248, 113, 113, 0.7);
+      background: rgba(248, 113, 113, 0.1);
+      color: var(--red);
+    }
+    .path-arrow {
+      text-align: center;
+      color: var(--fg-faint);
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      line-height: 1;
+      user-select: none;
+    }
+    .dual-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    .dual-row .path-node {
+      font-size: 0.85rem;
+    }
+    .join-label {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--fg-dim);
+      margin: 0.15rem 0;
+    }
+    .selfcheck {
+      margin-top: 1.75rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      padding: 1.15rem 1.25rem 1.35rem;
+    }
+    .selfcheck h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.15rem;
+    }
+    .mcq {
+      margin: 1rem 0 0;
+      padding: 0;
+      border: 0;
+    }
+    .mcq legend {
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: var(--fg);
+    }
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .mcq-options label {
+      display: flex;
+      gap: 0.65rem;
+      align-items: flex-start;
+      min-height: var(--touch-min);
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+    .mcq-options label:hover {
+      border-color: rgba(52, 211, 153, 0.35);
+    }
+    .mcq-options input {
+      margin-top: 0.25rem;
+      flex-shrink: 0;
+    }
+    .mcq-feedback {
+      margin-top: 0.85rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      display: none;
+    }
+    .mcq-feedback.is-visible {
+      display: block;
+    }
+    .mcq-feedback.is-correct {
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      color: var(--accent);
+    }
+    .mcq-feedback.is-incorrect {
+      background: rgba(248, 113, 113, 0.08);
+      border: 1px solid rgba(248, 113, 113, 0.35);
+      color: var(--red);
+    }
+    .hint-bar {
+      margin: 0.75rem 0 0;
+      font-size: 0.85rem;
+      color: var(--fg-dim);
+    }
+    .label-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.75rem 0 0;
+    }
+    .label-chip {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--fg-mid);
+      cursor: pointer;
+      min-height: 36px;
+    }
+    .label-chip:hover,
+    .label-chip:focus-visible {
+      border-color: rgba(167, 139, 250, 0.5);
+      color: var(--fg);
+    }
+    .label-chip.is-used {
+      opacity: 0.4;
+      cursor: default;
+    }
+    .path-node.is-target {
+      outline: 2px dashed var(--violet);
+      outline-offset: 2px;
+    }
+    .actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="../learn.html">Learn</a></li>
+          <li><a href="../drill.html">Drill</a></li>
+          <li><a href="../mock.html">Mock</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" tabindex="-1">
+    <h1>Power path: N vs 2N</h1>
+    <p class="lede">
+      Interactive self-check for critical power topology language.
+      Click blank nodes to place labels, or answer the multiple-choice checks below.
+      Scores here are study signals only — never a certification claim.
+    </p>
+
+    <p class="meta" style="margin-top:0;border:0;padding:0">
+      <a href="../index.html">← Hub</a>
+      · <a href="../learn/06-power.html">Learn · Power</a>
+      · <a href="../quiz.html?module=6">Module 6 quiz</a>
+      · <a href="../runbooks.html">Runbook vignettes</a>
+    </p>
+
+    <p class="hint-bar" id="place-hint" role="status">
+      Select a label chip, then click a dashed node to place it. Or click a node to cycle the correct reveal.
+    </p>
+    <div class="label-bank" id="label-bank" aria-label="Labels to place"></div>
+    <div class="actions-row">
+      <button type="button" class="btn" id="btn-reset">Reset labels</button>
+      <button type="button" class="btn btn--ghost" id="btn-reveal">Reveal all</button>
+    </div>
+
+    <div class="diagram-layout" style="margin-top:1.25rem">
+      <!-- N path -->
+      <section class="path-panel" aria-labelledby="n-title">
+        <p class="path-panel__tag">Single path · capacity N</p>
+        <h2 id="n-title">N topology (conceptual)</h2>
+        <p class="meta" style="margin:0 0 0.85rem;border:0;padding:0">
+          One complete chain sized for full design load. A single failure or maintenance on the chain can drop IT.
+        </p>
+        <ol class="path-flow" id="flow-n" data-path="n">
+          <li><button type="button" class="path-node" data-slot="n-0" data-answer="Utility feed" data-revealed="0">?</button></li>
+          <li class="path-arrow" aria-hidden="true">↓</li>
+          <li><button type="button" class="path-node" data-slot="n-1" data-answer="ATS / transfer" data-revealed="0">?</button></li>
+          <li class="path-arrow" aria-hidden="true">↓</li>
+          <li><button type="button" class="path-node" data-slot="n-2" data-answer="UPS (N capacity)" data-revealed="0">?</button></li>
+          <li class="path-arrow" aria-hidden="true">↓</li>
+          <li><button type="button" class="path-node" data-slot="n-3" data-answer="PDU / distribution" data-revealed="0">?</button></li>
+          <li class="path-arrow" aria-hidden="true">↓</li>
+          <li><button type="button" class="path-node" data-slot="n-4" data-answer="Rack (single source risk)" data-revealed="0">?</button></li>
+        </ol>
+      </section>
+
+      <!-- 2N path -->
+      <section class="path-panel" aria-labelledby="two-n-title">
+        <p class="path-panel__tag">Dual path · each path can carry N</p>
+        <h2 id="two-n-title">2N topology (conceptual)</h2>
+        <p class="meta" style="margin:0 0 0.85rem;border:0;padding:0">
+          Two independent systems, each able to serve the full critical load. Dual-corded IT lands on separate paths (A + B).
+        </p>
+        <div class="dual-row">
+          <div>
+            <p class="join-label mono">Path A</p>
+            <ol class="path-flow" id="flow-a">
+              <li><button type="button" class="path-node" data-slot="a-0" data-answer="Source A (utility/plant)" data-revealed="0">?</button></li>
+              <li class="path-arrow" aria-hidden="true">↓</li>
+              <li><button type="button" class="path-node" data-slot="a-1" data-answer="UPS system A" data-revealed="0">?</button></li>
+              <li class="path-arrow" aria-hidden="true">↓</li>
+              <li><button type="button" class="path-node" data-slot="a-2" data-answer="Distro / rPDU A" data-revealed="0">?</button></li>
+            </ol>
+          </div>
+          <div>
+            <p class="join-label mono">Path B</p>
+            <ol class="path-flow" id="flow-b">
+              <li><button type="button" class="path-node" data-slot="b-0" data-answer="Source B (independent)" data-revealed="0">?</button></li>
+              <li class="path-arrow" aria-hidden="true">↓</li>
+              <li><button type="button" class="path-node" data-slot="b-1" data-answer="UPS system B" data-revealed="0">?</button></li>
+              <li class="path-arrow" aria-hidden="true">↓</li>
+              <li><button type="button" class="path-node" data-slot="b-2" data-answer="Distro / rPDU B" data-revealed="0">?</button></li>
+            </ol>
+          </div>
+        </div>
+        <p class="join-label" style="margin-top:0.75rem">Dual-corded IT equipment</p>
+        <button type="button" class="path-node" data-slot="ab-join" data-answer="Server PSUs on A + B cords" data-revealed="0" style="width:100%">?</button>
+      </section>
+    </div>
+
+    <section class="selfcheck" aria-labelledby="selfcheck-title">
+      <h2 id="selfcheck-title">Self-check (multiple choice)</h2>
+      <p class="meta" style="margin:0 0 0.5rem;border:0;padding:0">
+        Immediate feedback only — not graded into mastery or mock digests.
+      </p>
+
+      <fieldset class="mcq" data-correct="B">
+        <legend>1. What does “N” mean in power redundancy language?</legend>
+        <ul class="mcq-options">
+          <li><label><input type="radio" name="q1" value="A"> Always twice the IT load for safety margin</label></li>
+          <li><label><input type="radio" name="q1" value="B"> The capacity required to serve the full design critical load</label></li>
+          <li><label><input type="radio" name="q1" value="C"> Number of generators only, ignoring UPS</label></li>
+          <li><label><input type="radio" name="q1" value="D"> A vendor-specific brand of transfer switch</label></li>
+        </ul>
+        <div class="mcq-feedback" role="status"></div>
+      </fieldset>
+
+      <fieldset class="mcq" data-correct="C">
+        <legend>2. In a true 2N design intent, which statement is most accurate?</legend>
+        <ul class="mcq-options">
+          <li><label><input type="radio" name="q2" value="A"> Two UPS modules sharing one upstream feed and one downstream bus are always 2N</label></li>
+          <li><label><input type="radio" name="q2" value="B"> Single-corded servers automatically get path diversity</label></li>
+          <li><label><input type="radio" name="q2" value="C"> Two independent systems each sized for N, with dual-corded loads on separate paths</label></li>
+          <li><label><input type="radio" name="q2" value="D"> Generators alone make the entire chain 2N even with one PDU</label></li>
+        </ul>
+        <div class="mcq-feedback" role="status"></div>
+      </fieldset>
+
+      <fieldset class="mcq" data-correct="A">
+        <legend>3. Dual-corded gear with both cords on the same path-A PDU is best described as:</legend>
+        <ul class="mcq-options">
+          <li><label><input type="radio" name="q3" value="A"> Lost path diversity at the rack edge — a path-A outage still drops the load</label></li>
+          <li><label><input type="radio" name="q3" value="B"> Automatic upgrade to 2N+1 end-to-end</label></li>
+          <li><label><input type="radio" name="q3" value="C"> Elimination of all single points of failure upstream</label></li>
+          <li><label><input type="radio" name="q3" value="D"> Proof that N capacity was oversized</label></li>
+        </ul>
+        <div class="mcq-feedback" role="status"></div>
+      </fieldset>
+
+      <fieldset class="mcq" data-correct="D">
+        <legend>4. N+1 (module-level) is different from 2N primarily because:</legend>
+        <ul class="mcq-options">
+          <li><label><input type="radio" name="q4" value="A"> N+1 always means two full sites</label></li>
+          <li><label><input type="radio" name="q4" value="B"> 2N never uses UPS batteries</label></li>
+          <li><label><input type="radio" name="q4" value="C"> N+1 forbids concurrent maintenance of any unit</label></li>
+          <li><label><input type="radio" name="q4" value="D"> N+1 adds spare module capacity on a system; 2N provides two full independent paths</label></li>
+        </ul>
+        <div class="mcq-feedback" role="status"></div>
+      </fieldset>
+    </section>
+
+    <p class="meta">
+      <a href="../index.html">← Hub</a>
+      · <a href="../learn/06-power.html">Module 06 notes</a>
+      · <a href="../quiz.html?module=6">Power quiz</a>
+      · Conceptual teaching diagram — not a site design document and not a cert claim.
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var LABELS = [
+        "Utility feed",
+        "ATS / transfer",
+        "UPS (N capacity)",
+        "PDU / distribution",
+        "Rack (single source risk)",
+        "Source A (utility/plant)",
+        "UPS system A",
+        "Distro / rPDU A",
+        "Source B (independent)",
+        "UPS system B",
+        "Distro / rPDU B",
+        "Server PSUs on A + B cords"
+      ];
+
+      var selectedLabel = null;
+      var bank = document.getElementById("label-bank");
+      var hint = document.getElementById("place-hint");
+      var nodes = Array.prototype.slice.call(document.querySelectorAll(".path-node[data-answer]"));
+
+      function usedLabels() {
+        var used = {};
+        nodes.forEach(function (n) {
+          if (n.getAttribute("data-revealed") === "1" && n.textContent !== "?") {
+            used[n.textContent] = true;
+          }
+        });
+        return used;
+      }
+
+      function renderBank() {
+        var used = usedLabels();
+        bank.innerHTML = "";
+        LABELS.forEach(function (lab) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "label-chip" + (used[lab] ? " is-used" : "");
+          btn.textContent = lab;
+          btn.disabled = !!used[lab];
+          if (!used[lab]) {
+            btn.addEventListener("click", function () {
+              selectedLabel = lab;
+              hint.textContent = "Selected: “" + lab + "”. Click a dashed node to place it.";
+              Array.prototype.forEach.call(bank.querySelectorAll(".label-chip"), function (c) {
+                c.style.outline = "";
+              });
+              btn.style.outline = "2px solid var(--violet)";
+            });
+          }
+          bank.appendChild(btn);
+        });
+      }
+
+      function setNode(node, text, ok) {
+        node.textContent = text;
+        node.setAttribute("data-revealed", ok ? "1" : "0");
+        node.classList.toggle("is-wrong-flash", false);
+      }
+
+      nodes.forEach(function (node) {
+        node.addEventListener("click", function () {
+          var answer = node.getAttribute("data-answer");
+          if (selectedLabel) {
+            if (selectedLabel === answer) {
+              setNode(node, answer, true);
+              selectedLabel = null;
+              hint.textContent = "Correct placement. Select another label or try the self-check below.";
+              renderBank();
+            } else {
+              node.classList.add("is-wrong-flash");
+              hint.textContent = "Not that slot — try a different node (or reveal).";
+              setTimeout(function () {
+                node.classList.remove("is-wrong-flash");
+              }, 450);
+            }
+            return;
+          }
+          // No chip selected: toggle reveal of correct label
+          if (node.getAttribute("data-revealed") === "1") {
+            setNode(node, "?", false);
+          } else {
+            setNode(node, answer, true);
+          }
+          renderBank();
+        });
+      });
+
+      document.getElementById("btn-reset").addEventListener("click", function () {
+        nodes.forEach(function (n) {
+          setNode(n, "?", false);
+        });
+        selectedLabel = null;
+        hint.textContent = "Labels reset. Select a chip, then a node.";
+        renderBank();
+      });
+
+      document.getElementById("btn-reveal").addEventListener("click", function () {
+        nodes.forEach(function (n) {
+          setNode(n, n.getAttribute("data-answer"), true);
+        });
+        selectedLabel = null;
+        hint.textContent = "All labels revealed (study aid only).";
+        renderBank();
+      });
+
+      // MCQ immediate feedback
+      Array.prototype.forEach.call(document.querySelectorAll(".mcq"), function (fs) {
+        var correct = fs.getAttribute("data-correct");
+        var feedback = fs.querySelector(".mcq-feedback");
+        Array.prototype.forEach.call(fs.querySelectorAll('input[type="radio"]'), function (input) {
+          input.addEventListener("change", function () {
+            var ok = input.value === correct;
+            feedback.className =
+              "mcq-feedback is-visible " + (ok ? "is-correct" : "is-incorrect");
+            if (ok) {
+              feedback.textContent =
+                "Correct — study signal only. Review the N vs 2N panels if the path still feels fuzzy.";
+            } else {
+              feedback.textContent =
+                "Not quite. Re-read the path panels: N is full-load capacity; 2N is two independent full paths.";
+            }
+          });
+        });
+      });
+
+      renderBank();
+    })();
+  </script>
+</body>
+</html>

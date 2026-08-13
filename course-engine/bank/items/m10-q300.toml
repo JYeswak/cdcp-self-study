@@ -1,0 +1,18 @@
+# Original runbook vignette — operational scenario (not an exam dump)
+id = "m10-q300"
+module = 10
+stem = "Runbook vignette: A zone leak detector under a CRAC/CRAH hydronic connection alarms during a humid weekend. Visual inspection shows a slow drip at a valve packing, not a ruptured pipe. What is the best immediate sequence?"
+choices = [
+  "Ignore the alarm until Monday because the drip is small and IT is still online",
+  "Contain and isolate the leak per site procedure, protect nearby electrical/IT assets, escalate per notification tree, and document actions — do not wait for a full rupture",
+  "Open all floor tiles in the hall to evaporate water faster with CRAH airflow",
+  "Discharge the fire pre-action system to wash the drip toward floor drains"
+]
+correct = "B"
+explanation = "Small hydronic leaks escalate into electrical and slip hazards. A runbook prioritizes contain/isolate, protect critical equipment, notify, and record — waiting for a rupture is not an ops strategy."
+topic_ids = ["m10-importance", "m10-backup"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+tags = ["runbook", "vignette"]

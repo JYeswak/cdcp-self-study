@@ -1,0 +1,18 @@
+# Original runbook vignette — operational scenario (not an exam dump)
+id = "m09-q300"
+module = 9
+stem = "Runbook vignette: Night ops reports rising inlet temperatures on one cold aisle after a network team opened several blanking panels and containment doors for a cable pull. CRAH setpoints are unchanged. What should the first operational response prioritize?"
+choices = [
+  "Restore containment integrity (doors, blanks, seals) and verify airflow paths before changing plant setpoints or declaring a cooling design failure",
+  "Immediately raise the entire hall supply setpoint by a large margin so the aisle looks cooler on one sensor",
+  "Shut down half the CRAHs to increase delta-T as an efficiency experiment during the pull",
+  "Flood the hot aisle with outdoor air without filtration to equalize temperatures quickly"
+]
+correct = "A"
+explanation = "Open containment mixes supply and return and can create hot spots even when plant capacity is fine. Runbooks should restore the air path first; setpoint thrashing masks the root cause and can stress the plant."
+topic_ids = ["m09-containment", "m09-principles"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+tags = ["runbook", "vignette"]

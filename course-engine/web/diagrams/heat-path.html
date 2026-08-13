@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP study diagram — heat path chip to outdoors. Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Heat path</title>
+  <link rel="stylesheet" href="../assets/css/course.css">
+  <style>
+    .stepper { max-width: 40rem; margin: 0 auto; }
+    .step {
+      display: none;
+      padding: 1.1rem 1.2rem;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--surface);
+      min-height: 8rem;
+    }
+    .step.is-active { display: block; border-color: rgba(52, 211, 153, 0.45); }
+    .step__n { font-family: var(--mono); color: var(--violet); font-size: 0.75rem; letter-spacing: 0.06em; }
+    .step__title { margin: 0.35rem 0; color: var(--fg); font-size: 1.2rem; }
+    .step__body { margin: 0; color: var(--fg-dim); }
+    .step-controls { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+    .step-controls button {
+      min-height: var(--touch-min);
+      padding: 0.5rem 1rem;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--fg);
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .step-controls button.primary {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: transparent;
+    }
+    .dots { display: flex; gap: 0.35rem; margin: 1rem 0; justify-content: center; }
+    .dots span {
+      width: 0.55rem; height: 0.55rem; border-radius: 999px;
+      background: var(--line);
+    }
+    .dots span.is-on { background: var(--accent); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="../learn.html">Learn</a></li>
+          <li><a href="../learn/09-cooling.html">M09</a></li>
+          <li><a href="../reference.html">Reference</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="wrap" tabindex="-1">
+    <h1>Heat path — chip → outdoors</h1>
+    <p class="lede"><strong>Interview one-liner:</strong> every watt to IT becomes heat that must leave the building, or equipment fails.</p>
+    <div class="stepper" id="heat-path" data-diagram="heat-path">
+      <div class="dots" id="heat-dots" aria-hidden="true"></div>
+      <div class="step is-active" data-i="0">
+        <div class="step__n">STEP 1 / 5</div>
+        <h2 class="step__title">Chip / IT load</h2>
+        <p class="step__body">Servers convert electrical energy almost entirely into sensible heat. Density (kW/rack) sets how fast temperature rises if cooling stops.</p>
+      </div>
+      <div class="step" data-i="1">
+        <div class="step__n">STEP 2 / 5</div>
+        <h2 class="step__title">Air or liquid at the rack</h2>
+        <p class="step__body">Cold aisle / rear-door HX / direct-to-chip / immersion — first transport of heat away from silicon.</p>
+      </div>
+      <div class="step" data-i="2">
+        <div class="step__n">STEP 3 / 5</div>
+        <h2 class="step__title">Room terminals (CRAC / CRAH / in-row)</h2>
+        <p class="step__body">Precision units move heat into refrigerant or chilled-water loops. Containment keeps streams from mixing.</p>
+      </div>
+      <div class="step" data-i="3">
+        <div class="step__n">STEP 4 / 5</div>
+        <h2 class="step__title">Plant (chillers, pumps, towers)</h2>
+        <p class="step__body">Central plant rejects heat toward the outdoor environment; economizers help when weather allows.</p>
+      </div>
+      <div class="step" data-i="4">
+        <div class="step__n">STEP 5 / 5</div>
+        <h2 class="step__title">Outdoors</h2>
+        <p class="step__body">Ultimate sink. Anything that breaks this chain — power loss to plant, valve fail, blocked airflow — is a cooling incident.</p>
+      </div>
+      <div class="step-controls">
+        <button type="button" id="heat-prev">← Prev</button>
+        <button type="button" class="primary" id="heat-next">Next →</button>
+      </div>
+    </div>
+    <p class="meta" style="margin-top:1.5rem">
+      <a href="../learn/09-cooling.html">← Module 09</a>
+      · Study diagram only — not a certification claim
+    </p>
+  </main>
+  <script>
+    (function () {
+      var steps = Array.prototype.slice.call(document.querySelectorAll("#heat-path .step"));
+      var dots = document.getElementById("heat-dots");
+      var i = 0;
+      steps.forEach(function (_, idx) {
+        var d = document.createElement("span");
+        if (idx === 0) d.className = "is-on";
+        dots.appendChild(d);
+      });
+      function paint() {
+        steps.forEach(function (s, idx) {
+          s.classList.toggle("is-active", idx === i);
+        });
+        Array.prototype.forEach.call(dots.children, function (d, idx) {
+          d.classList.toggle("is-on", idx === i);
+        });
+        document.getElementById("heat-prev").disabled = i === 0;
+        document.getElementById("heat-next").textContent =
+          i === steps.length - 1 ? "Done" : "Next →";
+      }
+      document.getElementById("heat-prev").onclick = function () {
+        if (i > 0) { i--; paint(); }
+      };
+      document.getElementById("heat-next").onclick = function () {
+        if (i < steps.length - 1) { i++; paint(); }
+      };
+      paint();
+    })();
+  </script>
+</body>
+</html>

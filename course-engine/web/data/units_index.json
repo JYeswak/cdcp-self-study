@@ -1,0 +1,6428 @@
+{
+  "bank_item_count": 804,
+  "by_module": {
+    "01-mission-critical": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m01-q041",
+          "m01-q042",
+          "m01-q044"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "01-mission-critical__learning-objectives",
+        "module_id": "01-mission-critical",
+        "module_num": 1,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m01-business-org",
+          "m01-dc-types",
+          "m01-importance",
+          "m01-elements",
+          "m01-unavailability"
+        ],
+        "word_count": 120
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m01-q044",
+          "m01-q045",
+          "m01-q047"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
+        "id": "01-mission-critical__why-it-matters-ops-design-tpm-interview-angle",
+        "module_id": "01-mission-critical",
+        "module_num": 1,
+        "order": 2,
+        "title": "Why it matters (ops / design / TPM interview angle)",
+        "topic_ids": [
+          "m01-business-org",
+          "m01-dc-types",
+          "m01-importance",
+          "m01-elements",
+          "m01-unavailability"
+        ],
+        "word_count": 202
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m01-q048",
+          "m01-q051",
+          "m01-q053"
+        ],
+        "estimate_minutes": 11,
+        "heading_id": "core-concepts",
+        "id": "01-mission-critical__core-concepts",
+        "module_id": "01-mission-critical",
+        "module_num": 1,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m01-business-org",
+          "m01-dc-types",
+          "m01-importance",
+          "m01-elements",
+          "m01-unavailability"
+        ],
+        "word_count": 1585
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m01-q053",
+          "m01-q054",
+          "m01-q061"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams",
+        "id": "01-mission-critical__key-diagrams",
+        "module_id": "01-mission-critical",
+        "module_num": 1,
+        "order": 4,
+        "title": "Key diagrams",
+        "topic_ids": [
+          "m01-business-org",
+          "m01-dc-types",
+          "m01-importance",
+          "m01-elements",
+          "m01-unavailability"
+        ],
+        "word_count": 209
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m01-q057",
+          "m01-q061",
+          "m01-q200"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "01-mission-critical__formulas-rules-of-thumb",
+        "module_id": "01-mission-critical",
+        "module_num": 1,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m01-business-org",
+          "m01-dc-types",
+          "m01-importance",
+          "m01-elements",
+          "m01-unavailability"
+        ],
+        "word_count": 189
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m01-q200",
+          "m01-q201",
+          "m01-q204"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "01-mission-critical__common-failure-modes-and-misconceptions",
+        "module_id": "01-mission-critical",
+        "module_num": 1,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m01-business-org",
+          "m01-dc-types",
+          "m01-importance",
+          "m01-elements",
+          "m01-unavailability"
+        ],
+        "word_count": 180
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m01-q206",
+          "m01-q209",
+          "m01-q046"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "01-mission-critical__interview-drills",
+        "module_id": "01-mission-critical",
+        "module_num": 1,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m01-business-org",
+          "m01-dc-types",
+          "m01-importance",
+          "m01-elements",
+          "m01-unavailability"
+        ],
+        "word_count": 282
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "mock40-q04",
+          "m01-q046",
+          "m01-q049"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "01-mission-critical__self-check-quiz",
+        "module_id": "01-mission-critical",
+        "module_num": 1,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m01-business-org",
+          "m01-dc-types",
+          "m01-importance",
+          "m01-elements",
+          "m01-unavailability"
+        ],
+        "word_count": 387
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m01-q052",
+          "m01-q055",
+          "m01-q060"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "01-mission-critical__further-free-resources",
+        "module_id": "01-mission-critical",
+        "module_num": 1,
+        "order": 9,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m01-business-org",
+          "m01-dc-types",
+          "m01-importance",
+          "m01-elements",
+          "m01-unavailability"
+        ],
+        "word_count": 272
+      }
+    ],
+    "02-standards": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m02-q063",
+          "m02-q067",
+          "m02-q068"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "02-standards__learning-objectives",
+        "module_id": "02-standards",
+        "module_num": 2,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m02-standards-guidelines",
+          "m02-subcomponent-standards",
+          "m02-intl-vs-national",
+          "m02-tia-vs-uptime",
+          "m02-iso22237-series",
+          "m02-en50600-series",
+          "m02-code-vs-standard"
+        ],
+        "word_count": 142
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m02-q068",
+          "m02-q069",
+          "m02-q072"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+        "id": "02-standards__why-it-matters-opsdesigntpm-interview-angle",
+        "module_id": "02-standards",
+        "module_num": 2,
+        "order": 2,
+        "title": "Why it matters (ops/design/TPM interview angle)",
+        "topic_ids": [
+          "m02-standards-guidelines",
+          "m02-subcomponent-standards",
+          "m02-intl-vs-national",
+          "m02-tia-vs-uptime",
+          "m02-iso22237-series",
+          "m02-en50600-series",
+          "m02-code-vs-standard"
+        ],
+        "word_count": 192
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m02-q073",
+          "m02-q076",
+          "m02-q078"
+        ],
+        "estimate_minutes": 10,
+        "heading_id": "core-concepts",
+        "id": "02-standards__core-concepts",
+        "module_id": "02-standards",
+        "module_num": 2,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m02-standards-guidelines",
+          "m02-subcomponent-standards",
+          "m02-intl-vs-national",
+          "m02-tia-vs-uptime",
+          "m02-iso22237-series",
+          "m02-en50600-series",
+          "m02-code-vs-standard"
+        ],
+        "word_count": 1438
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m02-q080",
+          "m02-q081",
+          "m02-q082"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams",
+        "id": "02-standards__key-diagrams",
+        "module_id": "02-standards",
+        "module_num": 2,
+        "order": 4,
+        "title": "Key diagrams",
+        "topic_ids": [
+          "m02-standards-guidelines",
+          "m02-subcomponent-standards",
+          "m02-intl-vs-national",
+          "m02-tia-vs-uptime",
+          "m02-iso22237-series",
+          "m02-en50600-series",
+          "m02-code-vs-standard"
+        ],
+        "word_count": 249
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m02-q085",
+          "m02-q088",
+          "m02-q092"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "02-standards__formulas-rules-of-thumb",
+        "module_id": "02-standards",
+        "module_num": 2,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m02-standards-guidelines",
+          "m02-subcomponent-standards",
+          "m02-intl-vs-national",
+          "m02-tia-vs-uptime",
+          "m02-iso22237-series",
+          "m02-en50600-series",
+          "m02-code-vs-standard"
+        ],
+        "word_count": 136
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m02-q200",
+          "m02-q203",
+          "m02-q206"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "02-standards__common-failure-modes-and-misconceptions",
+        "module_id": "02-standards",
+        "module_num": 2,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m02-standards-guidelines",
+          "m02-subcomponent-standards",
+          "m02-intl-vs-national",
+          "m02-tia-vs-uptime",
+          "m02-iso22237-series",
+          "m02-en50600-series",
+          "m02-code-vs-standard"
+        ],
+        "word_count": 187
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m02-q207",
+          "mock40-q06",
+          "m02-q071"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "02-standards__interview-drills",
+        "module_id": "02-standards",
+        "module_num": 2,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m02-standards-guidelines",
+          "m02-subcomponent-standards",
+          "m02-intl-vs-national",
+          "m02-tia-vs-uptime",
+          "m02-iso22237-series",
+          "m02-en50600-series",
+          "m02-code-vs-standard"
+        ],
+        "word_count": 375
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m02-q065",
+          "m02-q071",
+          "m02-q075"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "02-standards__self-check-quiz",
+        "module_id": "02-standards",
+        "module_num": 2,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m02-standards-guidelines",
+          "m02-subcomponent-standards",
+          "m02-intl-vs-national",
+          "m02-tia-vs-uptime",
+          "m02-iso22237-series",
+          "m02-en50600-series",
+          "m02-code-vs-standard"
+        ],
+        "word_count": 427
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m02-q074",
+          "m02-q075",
+          "m02-q077"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources-public-no-paywalled-epi-content",
+        "id": "02-standards__further-free-resources-public-no-paywalled-epi-content",
+        "module_id": "02-standards",
+        "module_num": 2,
+        "order": 9,
+        "title": "Further free resources (public; no paywalled EPI content)",
+        "topic_ids": [
+          "m02-standards-guidelines",
+          "m02-subcomponent-standards",
+          "m02-intl-vs-national",
+          "m02-tia-vs-uptime",
+          "m02-iso22237-series",
+          "m02-en50600-series",
+          "m02-code-vs-standard"
+        ],
+        "word_count": 203
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m02-q079",
+          "m02-q083",
+          "m02-q084"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "module-close-out",
+        "id": "02-standards__module-close-out",
+        "module_id": "02-standards",
+        "module_num": 2,
+        "order": 10,
+        "title": "Module close-out",
+        "topic_ids": [
+          "m02-standards-guidelines",
+          "m02-subcomponent-standards",
+          "m02-intl-vs-national",
+          "m02-tia-vs-uptime",
+          "m02-iso22237-series",
+          "m02-en50600-series",
+          "m02-code-vs-standard"
+        ],
+        "word_count": 74
+      }
+    ],
+    "03-site-building": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m03-q093",
+          "m03-q101",
+          "m03-q114"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "03-site-building__learning-objectives",
+        "module_id": "03-site-building",
+        "module_num": 3,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m03-site-selection",
+          "m03-facility-criteria",
+          "m03-supporting-facilities"
+        ],
+        "word_count": 137
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m03-q099",
+          "m03-q101",
+          "m03-q114"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
+        "id": "03-site-building__why-it-matters-ops-design-tpm-interview-angle",
+        "module_id": "03-site-building",
+        "module_num": 3,
+        "order": 2,
+        "title": "Why it matters (ops / design / TPM interview angle)",
+        "topic_ids": [
+          "m03-site-selection",
+          "m03-facility-criteria",
+          "m03-supporting-facilities"
+        ],
+        "word_count": 195
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m03-q104",
+          "m03-q109",
+          "m03-q114"
+        ],
+        "estimate_minutes": 11,
+        "heading_id": "core-concepts",
+        "id": "03-site-building__core-concepts",
+        "module_id": "03-site-building",
+        "module_num": 3,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m03-site-selection",
+          "m03-facility-criteria",
+          "m03-supporting-facilities"
+        ],
+        "word_count": 1598
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m03-q111",
+          "m03-q114",
+          "mock40-q08"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams",
+        "id": "03-site-building__key-diagrams",
+        "module_id": "03-site-building",
+        "module_num": 3,
+        "order": 4,
+        "title": "Key diagrams",
+        "topic_ids": [
+          "m03-site-selection",
+          "m03-facility-criteria",
+          "m03-supporting-facilities"
+        ],
+        "word_count": 257
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m03-q204",
+          "m03-q206",
+          "mock40-q08"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "03-site-building__formulas-rules-of-thumb",
+        "module_id": "03-site-building",
+        "module_num": 3,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m03-site-selection",
+          "m03-facility-criteria",
+          "m03-supporting-facilities"
+        ],
+        "word_count": 194
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "mock40-q07",
+          "mock40-q08",
+          "m03-q096"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "03-site-building__common-failure-modes-and-misconceptions",
+        "module_id": "03-site-building",
+        "module_num": 3,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m03-site-selection",
+          "m03-facility-criteria",
+          "m03-supporting-facilities"
+        ],
+        "word_count": 197
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m03-q096",
+          "m03-q097",
+          "m03-q102"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "03-site-building__interview-drills",
+        "module_id": "03-site-building",
+        "module_num": 3,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m03-site-selection",
+          "m03-facility-criteria",
+          "m03-supporting-facilities"
+        ],
+        "word_count": 334
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m03-q102",
+          "m03-q106",
+          "m03-q112"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "03-site-building__self-check-quiz",
+        "module_id": "03-site-building",
+        "module_num": 3,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m03-site-selection",
+          "m03-facility-criteria",
+          "m03-supporting-facilities"
+        ],
+        "word_count": 404
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m03-q108",
+          "m03-q112",
+          "m03-q210"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "03-site-building__further-free-resources",
+        "module_id": "03-site-building",
+        "module_num": 3,
+        "order": 9,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m03-site-selection",
+          "m03-facility-criteria",
+          "m03-supporting-facilities"
+        ],
+        "word_count": 294
+      }
+    ],
+    "04-floor-ceiling": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m04-q117",
+          "m04-q122",
+          "m04-q128"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "04-floor-ceiling__learning-objectives",
+        "module_id": "04-floor-ceiling",
+        "module_num": 4,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m04-floor-standards",
+          "m04-floor-types",
+          "m04-loading",
+          "m04-guidelines",
+          "m04-grounding",
+          "m04-ramp",
+          "m04-suspended-ceiling",
+          "m04-cooling-impact"
+        ],
+        "word_count": 104
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m04-q130",
+          "m04-q133",
+          "m04-q115"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+        "id": "04-floor-ceiling__why-it-matters-opsdesigntpm-interview-angle",
+        "module_id": "04-floor-ceiling",
+        "module_num": 4,
+        "order": 2,
+        "title": "Why it matters (ops/design/TPM interview angle)",
+        "topic_ids": [
+          "m04-floor-standards",
+          "m04-floor-types",
+          "m04-loading",
+          "m04-guidelines",
+          "m04-grounding",
+          "m04-ramp",
+          "m04-suspended-ceiling",
+          "m04-cooling-impact"
+        ],
+        "word_count": 181
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "mock40-q10",
+          "m04-q115",
+          "m04-q119"
+        ],
+        "estimate_minutes": 12,
+        "heading_id": "core-concepts",
+        "id": "04-floor-ceiling__core-concepts",
+        "module_id": "04-floor-ceiling",
+        "module_num": 4,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m04-floor-standards",
+          "m04-floor-types",
+          "m04-loading",
+          "m04-guidelines",
+          "m04-grounding",
+          "m04-ramp",
+          "m04-suspended-ceiling",
+          "m04-cooling-impact"
+        ],
+        "word_count": 1788
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m04-q118",
+          "m04-q119",
+          "m04-q120"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams",
+        "id": "04-floor-ceiling__key-diagrams",
+        "module_id": "04-floor-ceiling",
+        "module_num": 4,
+        "order": 4,
+        "title": "Key diagrams",
+        "topic_ids": [
+          "m04-floor-standards",
+          "m04-floor-types",
+          "m04-loading",
+          "m04-guidelines",
+          "m04-grounding",
+          "m04-ramp",
+          "m04-suspended-ceiling",
+          "m04-cooling-impact"
+        ],
+        "word_count": 176
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m04-q121",
+          "m04-q123",
+          "m04-q124"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "04-floor-ceiling__formulas-rules-of-thumb",
+        "module_id": "04-floor-ceiling",
+        "module_num": 4,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m04-floor-standards",
+          "m04-floor-types",
+          "m04-loading",
+          "m04-guidelines",
+          "m04-grounding",
+          "m04-ramp",
+          "m04-suspended-ceiling",
+          "m04-cooling-impact"
+        ],
+        "word_count": 215
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m04-q125",
+          "m04-q126",
+          "m04-q129"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "04-floor-ceiling__common-failure-modes-and-misconceptions",
+        "module_id": "04-floor-ceiling",
+        "module_num": 4,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m04-floor-standards",
+          "m04-floor-types",
+          "m04-loading",
+          "m04-guidelines",
+          "m04-grounding",
+          "m04-ramp",
+          "m04-suspended-ceiling",
+          "m04-cooling-impact"
+        ],
+        "word_count": 171
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m04-q129",
+          "m04-q132",
+          "m04-q134"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "04-floor-ceiling__interview-drills",
+        "module_id": "04-floor-ceiling",
+        "module_num": 4,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m04-floor-standards",
+          "m04-floor-types",
+          "m04-loading",
+          "m04-guidelines",
+          "m04-grounding",
+          "m04-ramp",
+          "m04-suspended-ceiling",
+          "m04-cooling-impact"
+        ],
+        "word_count": 385
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m04-q134",
+          "m04-q200",
+          "m04-q201"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "04-floor-ceiling__self-check-quiz",
+        "module_id": "04-floor-ceiling",
+        "module_num": 4,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m04-floor-standards",
+          "m04-floor-types",
+          "m04-loading",
+          "m04-guidelines",
+          "m04-grounding",
+          "m04-ramp",
+          "m04-suspended-ceiling",
+          "m04-cooling-impact"
+        ],
+        "word_count": 353
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m04-q202",
+          "m04-q203",
+          "m04-q204"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "04-floor-ceiling__further-free-resources",
+        "module_id": "04-floor-ceiling",
+        "module_num": 4,
+        "order": 9,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m04-floor-standards",
+          "m04-floor-types",
+          "m04-loading",
+          "m04-guidelines",
+          "m04-grounding",
+          "m04-ramp",
+          "m04-suspended-ceiling",
+          "m04-cooling-impact"
+        ],
+        "word_count": 214
+      }
+    ],
+    "05-lighting": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m05-q143",
+          "m05-q145",
+          "m05-q148"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "05-lighting__learning-objectives",
+        "module_id": "05-lighting",
+        "module_num": 5,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m05-measurements",
+          "m05-standards",
+          "m05-fixtures",
+          "m05-emergency",
+          "m05-emergency-types"
+        ],
+        "word_count": 164
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m05-q135",
+          "m05-q137",
+          "m05-q138"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
+        "id": "05-lighting__why-it-matters-ops-design-tpm-interview-angle",
+        "module_id": "05-lighting",
+        "module_num": 5,
+        "order": 2,
+        "title": "Why it matters (ops / design / TPM interview angle)",
+        "topic_ids": [
+          "m05-measurements",
+          "m05-standards",
+          "m05-fixtures",
+          "m05-emergency",
+          "m05-emergency-types"
+        ],
+        "word_count": 217
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m05-q138",
+          "m05-q140",
+          "m05-q146"
+        ],
+        "estimate_minutes": 14,
+        "heading_id": "core-concepts",
+        "id": "05-lighting__core-concepts",
+        "module_id": "05-lighting",
+        "module_num": 5,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m05-measurements",
+          "m05-standards",
+          "m05-fixtures",
+          "m05-emergency",
+          "m05-emergency-types"
+        ],
+        "word_count": 2123
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m05-q144",
+          "m05-q146",
+          "m05-q147"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams",
+        "id": "05-lighting__key-diagrams",
+        "module_id": "05-lighting",
+        "module_num": 5,
+        "order": 4,
+        "title": "Key diagrams",
+        "topic_ids": [
+          "m05-measurements",
+          "m05-standards",
+          "m05-fixtures",
+          "m05-emergency",
+          "m05-emergency-types"
+        ],
+        "word_count": 188
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m05-q149",
+          "m05-q200",
+          "m05-q201"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "05-lighting__formulas-rules-of-thumb",
+        "module_id": "05-lighting",
+        "module_num": 5,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m05-measurements",
+          "m05-standards",
+          "m05-fixtures",
+          "m05-emergency",
+          "m05-emergency-types"
+        ],
+        "word_count": 162
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m05-q201",
+          "m05-q202",
+          "m05-q203"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "05-lighting__common-failure-modes-and-misconceptions",
+        "module_id": "05-lighting",
+        "module_num": 5,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m05-measurements",
+          "m05-standards",
+          "m05-fixtures",
+          "m05-emergency",
+          "m05-emergency-types"
+        ],
+        "word_count": 225
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m05-q204",
+          "m05-q205",
+          "m05-q206"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "05-lighting__interview-drills",
+        "module_id": "05-lighting",
+        "module_num": 5,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m05-measurements",
+          "m05-standards",
+          "m05-fixtures",
+          "m05-emergency",
+          "m05-emergency-types"
+        ],
+        "word_count": 351
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m05-q207",
+          "m05-q208",
+          "m05-q209"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "05-lighting__self-check-quiz",
+        "module_id": "05-lighting",
+        "module_num": 5,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m05-measurements",
+          "m05-standards",
+          "m05-fixtures",
+          "m05-emergency",
+          "m05-emergency-types"
+        ],
+        "word_count": 354
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m05-q210",
+          "m05-q211",
+          "m05-q212"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "05-lighting__further-free-resources",
+        "module_id": "05-lighting",
+        "module_num": 5,
+        "order": 9,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m05-measurements",
+          "m05-standards",
+          "m05-fixtures",
+          "m05-emergency",
+          "m05-emergency-types"
+        ],
+        "word_count": 286
+      }
+    ],
+    "06-power": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m06-q042",
+          "m06-q044",
+          "m06-q046"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "06-power__learning-objectives",
+        "module_id": "06-power",
+        "module_num": 6,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m06-sustainability",
+          "m06-microgrid",
+          "m06-transformers",
+          "m06-generators",
+          "m06-ats-sts",
+          "m06-redundancy",
+          "m06-distribution",
+          "m06-phase",
+          "m06-grounding-bonding",
+          "m06-isolation-xfmr",
+          "m06-pdu",
+          "m06-ip-grades",
+          "m06-power-quality",
+          "m06-sizing",
+          "m06-hpc",
+          "m06-ups",
+          "m06-ups-parallel",
+          "m06-batteries",
+          "m06-bess",
+          "m06-thermo"
+        ],
+        "word_count": 105
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m06-q057",
+          "m06-q060",
+          "m06-q065"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters",
+        "id": "06-power__why-it-matters",
+        "module_id": "06-power",
+        "module_num": 6,
+        "order": 2,
+        "title": "Why it matters",
+        "topic_ids": [
+          "m06-sustainability",
+          "m06-microgrid",
+          "m06-transformers",
+          "m06-generators",
+          "m06-ats-sts",
+          "m06-redundancy",
+          "m06-distribution",
+          "m06-phase",
+          "m06-grounding-bonding",
+          "m06-isolation-xfmr",
+          "m06-pdu",
+          "m06-ip-grades",
+          "m06-power-quality",
+          "m06-sizing",
+          "m06-hpc",
+          "m06-ups",
+          "m06-ups-parallel",
+          "m06-batteries",
+          "m06-bess",
+          "m06-thermo"
+        ],
+        "word_count": 155
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m06-q068",
+          "m06-q075",
+          "m06-q104"
+        ],
+        "estimate_minutes": 16,
+        "heading_id": "core-concepts",
+        "id": "06-power__core-concepts",
+        "module_id": "06-power",
+        "module_num": 6,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m06-sustainability",
+          "m06-microgrid",
+          "m06-transformers",
+          "m06-generators",
+          "m06-ats-sts",
+          "m06-redundancy",
+          "m06-distribution",
+          "m06-phase",
+          "m06-grounding-bonding",
+          "m06-isolation-xfmr",
+          "m06-pdu",
+          "m06-ip-grades",
+          "m06-power-quality",
+          "m06-sizing",
+          "m06-hpc",
+          "m06-ups",
+          "m06-ups-parallel",
+          "m06-batteries",
+          "m06-bess",
+          "m06-thermo"
+        ],
+        "word_count": 2425
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m06-q108",
+          "m06-q109",
+          "m06-q205"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams",
+        "id": "06-power__key-diagrams",
+        "module_id": "06-power",
+        "module_num": 6,
+        "order": 4,
+        "title": "Key diagrams",
+        "topic_ids": [
+          "m06-sustainability",
+          "m06-microgrid",
+          "m06-transformers",
+          "m06-generators",
+          "m06-ats-sts",
+          "m06-redundancy",
+          "m06-distribution",
+          "m06-phase",
+          "m06-grounding-bonding",
+          "m06-isolation-xfmr",
+          "m06-pdu",
+          "m06-ip-grades",
+          "m06-power-quality",
+          "m06-sizing",
+          "m06-hpc",
+          "m06-ups",
+          "m06-ups-parallel",
+          "m06-batteries",
+          "m06-bess",
+          "m06-thermo"
+        ],
+        "word_count": 127
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m06-q205",
+          "m06-q207",
+          "m06-q208"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "06-power__formulas-rules-of-thumb",
+        "module_id": "06-power",
+        "module_num": 6,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m06-pdu",
+          "m06-sustainability",
+          "m06-microgrid",
+          "m06-transformers",
+          "m06-generators",
+          "m06-ats-sts",
+          "m06-redundancy",
+          "m06-distribution",
+          "m06-phase",
+          "m06-grounding-bonding",
+          "m06-isolation-xfmr",
+          "m06-ip-grades",
+          "m06-power-quality",
+          "m06-sizing",
+          "m06-hpc",
+          "m06-ups",
+          "m06-ups-parallel",
+          "m06-batteries",
+          "m06-bess",
+          "m06-thermo"
+        ],
+        "word_count": 151
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m06-q211",
+          "m06-q213",
+          "m06-q219"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "06-power__common-failure-modes-and-misconceptions",
+        "module_id": "06-power",
+        "module_num": 6,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m06-sustainability",
+          "m06-microgrid",
+          "m06-transformers",
+          "m06-generators",
+          "m06-ats-sts",
+          "m06-redundancy",
+          "m06-distribution",
+          "m06-phase",
+          "m06-grounding-bonding",
+          "m06-isolation-xfmr",
+          "m06-pdu",
+          "m06-ip-grades",
+          "m06-power-quality",
+          "m06-sizing",
+          "m06-hpc",
+          "m06-ups",
+          "m06-ups-parallel",
+          "m06-batteries",
+          "m06-bess",
+          "m06-thermo"
+        ],
+        "word_count": 177
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m06-q222",
+          "m06-q227",
+          "m06-q228"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "06-power__interview-drills",
+        "module_id": "06-power",
+        "module_num": 6,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m06-sustainability",
+          "m06-microgrid",
+          "m06-transformers",
+          "m06-generators",
+          "m06-ats-sts",
+          "m06-redundancy",
+          "m06-distribution",
+          "m06-phase",
+          "m06-grounding-bonding",
+          "m06-isolation-xfmr",
+          "m06-pdu",
+          "m06-ip-grades",
+          "m06-power-quality",
+          "m06-sizing",
+          "m06-hpc",
+          "m06-ups",
+          "m06-ups-parallel",
+          "m06-batteries",
+          "m06-bess",
+          "m06-thermo"
+        ],
+        "word_count": 266
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m06-q228",
+          "m06-q235",
+          "m06-q239"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "06-power__self-check-quiz",
+        "module_id": "06-power",
+        "module_num": 6,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m06-sustainability",
+          "m06-microgrid",
+          "m06-transformers",
+          "m06-generators",
+          "m06-ats-sts",
+          "m06-redundancy",
+          "m06-distribution",
+          "m06-phase",
+          "m06-grounding-bonding",
+          "m06-isolation-xfmr",
+          "m06-pdu",
+          "m06-ip-grades",
+          "m06-power-quality",
+          "m06-sizing",
+          "m06-hpc",
+          "m06-ups",
+          "m06-ups-parallel",
+          "m06-batteries",
+          "m06-bess",
+          "m06-thermo"
+        ],
+        "word_count": 350
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m06-q241",
+          "m06-q243",
+          "m06-q250"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "06-power__further-free-resources",
+        "module_id": "06-power",
+        "module_num": 6,
+        "order": 9,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m06-sustainability",
+          "m06-microgrid",
+          "m06-transformers",
+          "m06-generators",
+          "m06-ats-sts",
+          "m06-redundancy",
+          "m06-distribution",
+          "m06-phase",
+          "m06-grounding-bonding",
+          "m06-isolation-xfmr",
+          "m06-pdu",
+          "m06-ip-grades",
+          "m06-power-quality",
+          "m06-sizing",
+          "m06-hpc",
+          "m06-ups",
+          "m06-ups-parallel",
+          "m06-batteries",
+          "m06-bess",
+          "m06-thermo"
+        ],
+        "word_count": 219
+      }
+    ],
+    "07-emf": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m07-q044",
+          "m07-q046",
+          "m07-q204"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "07-emf__learning-objectives",
+        "module_id": "07-emf",
+        "module_num": 7,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m07-types",
+          "m07-units",
+          "m07-standards",
+          "m07-sources",
+          "m07-shielding"
+        ],
+        "word_count": 95
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m07-q204",
+          "m07-q208",
+          "m07-q041"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+        "id": "07-emf__why-it-matters-opsdesigntpm-interview-angle",
+        "module_id": "07-emf",
+        "module_num": 7,
+        "order": 2,
+        "title": "Why it matters (ops/design/TPM interview angle)",
+        "topic_ids": [
+          "m07-types",
+          "m07-units",
+          "m07-standards",
+          "m07-sources",
+          "m07-shielding"
+        ],
+        "word_count": 216
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m07-q041",
+          "m07-q043",
+          "m07-q045"
+        ],
+        "estimate_minutes": 11,
+        "heading_id": "core-concepts",
+        "id": "07-emf__core-concepts",
+        "module_id": "07-emf",
+        "module_num": 7,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m07-types",
+          "m07-units",
+          "m07-standards",
+          "m07-sources",
+          "m07-shielding"
+        ],
+        "word_count": 1608
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m07-q047",
+          "m07-q048",
+          "m07-q050"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams-in-ascii-or-mermaid-where-helpful",
+        "id": "07-emf__key-diagrams-in-ascii-or-mermaid-where-helpful",
+        "module_id": "07-emf",
+        "module_num": 7,
+        "order": 4,
+        "title": "Key diagrams in ASCII or mermaid where helpful",
+        "topic_ids": [
+          "m07-types",
+          "m07-units",
+          "m07-standards",
+          "m07-sources",
+          "m07-shielding"
+        ],
+        "word_count": 176
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m07-q051",
+          "m07-q052",
+          "m07-q053"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "07-emf__formulas-rules-of-thumb",
+        "module_id": "07-emf",
+        "module_num": 7,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m07-types",
+          "m07-units",
+          "m07-standards",
+          "m07-sources",
+          "m07-shielding"
+        ],
+        "word_count": 175
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m07-q054",
+          "m07-q055",
+          "m07-q056"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "07-emf__common-failure-modes-and-misconceptions",
+        "module_id": "07-emf",
+        "module_num": 7,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m07-types",
+          "m07-units",
+          "m07-standards",
+          "m07-sources",
+          "m07-shielding"
+        ],
+        "word_count": 159
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m07-q200",
+          "m07-q201",
+          "m07-q202"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills-5-qa-pairs-with-model-answers",
+        "id": "07-emf__interview-drills-5-qa-pairs-with-model-answers",
+        "module_id": "07-emf",
+        "module_num": 7,
+        "order": 7,
+        "title": "Interview drills (5 Q&A pairs with model answers)",
+        "topic_ids": [
+          "m07-types",
+          "m07-units",
+          "m07-standards",
+          "m07-sources",
+          "m07-shielding"
+        ],
+        "word_count": 341
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m07-q203",
+          "m07-q205",
+          "m07-q209"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "07-emf__self-check-quiz",
+        "module_id": "07-emf",
+        "module_num": 7,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m07-types",
+          "m07-units",
+          "m07-standards",
+          "m07-sources",
+          "m07-shielding"
+        ],
+        "word_count": 343
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m07-q207",
+          "m07-q209",
+          "m07-q212"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources-public-standards-names-vendor-primers-no-paywalled-epi-content",
+        "id": "07-emf__further-free-resources-public-standards-names-vendor-primers-no-paywalled-epi-content",
+        "module_id": "07-emf",
+        "module_num": 7,
+        "order": 9,
+        "title": "Further free resources (public standards names, vendor primers \u2014 no paywalled EPI content)",
+        "topic_ids": [
+          "m07-standards",
+          "m07-sources",
+          "m07-types",
+          "m07-units",
+          "m07-shielding"
+        ],
+        "word_count": 273
+      }
+    ],
+    "08-racks": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m08-q046",
+          "m08-q056",
+          "m08-q203"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "08-racks__learning-objectives",
+        "module_id": "08-racks",
+        "module_num": 8,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m08-standards",
+          "m08-dimensions",
+          "m08-types",
+          "m08-security",
+          "m08-power-strips"
+        ],
+        "word_count": 139
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m08-q203",
+          "m08-q205",
+          "m08-q041"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+        "id": "08-racks__why-it-matters-opsdesigntpm-interview-angle",
+        "module_id": "08-racks",
+        "module_num": 8,
+        "order": 2,
+        "title": "Why it matters (ops/design/TPM interview angle)",
+        "topic_ids": [
+          "m08-standards",
+          "m08-dimensions",
+          "m08-types",
+          "m08-security",
+          "m08-power-strips"
+        ],
+        "word_count": 203
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m08-q043",
+          "m08-q047",
+          "m08-q050"
+        ],
+        "estimate_minutes": 14,
+        "heading_id": "core-concepts",
+        "id": "08-racks__core-concepts",
+        "module_id": "08-racks",
+        "module_num": 8,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m08-standards",
+          "m08-dimensions",
+          "m08-types",
+          "m08-security",
+          "m08-power-strips"
+        ],
+        "word_count": 2106
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m08-q047",
+          "m08-q050",
+          "m08-q055"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams-in-ascii-or-mermaid-where-helpful",
+        "id": "08-racks__key-diagrams-in-ascii-or-mermaid-where-helpful",
+        "module_id": "08-racks",
+        "module_num": 8,
+        "order": 4,
+        "title": "Key diagrams in ASCII or mermaid where helpful",
+        "topic_ids": [
+          "m08-standards",
+          "m08-dimensions",
+          "m08-types",
+          "m08-security",
+          "m08-power-strips"
+        ],
+        "word_count": 94
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m08-q051",
+          "m08-q055",
+          "m08-q059"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "08-racks__formulas-rules-of-thumb",
+        "module_id": "08-racks",
+        "module_num": 8,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m08-standards",
+          "m08-dimensions",
+          "m08-types",
+          "m08-security",
+          "m08-power-strips"
+        ],
+        "word_count": 223
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m08-q059",
+          "m08-q061",
+          "m08-q204"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "08-racks__common-failure-modes-and-misconceptions",
+        "module_id": "08-racks",
+        "module_num": 8,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m08-standards",
+          "m08-dimensions",
+          "m08-types",
+          "m08-security",
+          "m08-power-strips"
+        ],
+        "word_count": 220
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m08-q200",
+          "m08-q202",
+          "m08-q204"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "08-racks__interview-drills",
+        "module_id": "08-racks",
+        "module_num": 8,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m08-standards",
+          "m08-dimensions",
+          "m08-types",
+          "m08-security",
+          "m08-power-strips"
+        ],
+        "word_count": 287
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m08-q206",
+          "m08-q207",
+          "m08-q208"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "08-racks__self-check-quiz",
+        "module_id": "08-racks",
+        "module_num": 8,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m08-standards",
+          "m08-dimensions",
+          "m08-types",
+          "m08-security",
+          "m08-power-strips"
+        ],
+        "word_count": 362
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m08-q209",
+          "m08-q042",
+          "m08-q053"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "08-racks__further-free-resources",
+        "module_id": "08-racks",
+        "module_num": 8,
+        "order": 9,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m08-standards",
+          "m08-dimensions",
+          "m08-types",
+          "m08-security",
+          "m08-power-strips"
+        ],
+        "word_count": 266
+      }
+    ],
+    "09-cooling": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m09-q100",
+          "m09-q115",
+          "m09-q121"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "09-cooling__learning-objectives",
+        "module_id": "09-cooling",
+        "module_num": 9,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m09-principles",
+          "m09-temp-humidity",
+          "m09-ashrae-envelopes",
+          "m09-system-types",
+          "m09-raised-floor-cooling",
+          "m09-non-raised",
+          "m09-supplemental",
+          "m09-containment",
+          "m09-liquid",
+          "m09-ster"
+        ],
+        "word_count": 151
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m09-q107",
+          "m09-q115",
+          "m09-q121"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters",
+        "id": "09-cooling__why-it-matters",
+        "module_id": "09-cooling",
+        "module_num": 9,
+        "order": 2,
+        "title": "Why it matters",
+        "topic_ids": [
+          "m09-principles",
+          "m09-temp-humidity",
+          "m09-ashrae-envelopes",
+          "m09-system-types",
+          "m09-raised-floor-cooling",
+          "m09-non-raised",
+          "m09-supplemental",
+          "m09-containment",
+          "m09-liquid",
+          "m09-ster"
+        ],
+        "word_count": 172
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m09-q120",
+          "m09-q121",
+          "m09-q125"
+        ],
+        "estimate_minutes": 12,
+        "heading_id": "core-concepts",
+        "id": "09-cooling__core-concepts",
+        "module_id": "09-cooling",
+        "module_num": 9,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m09-principles",
+          "m09-temp-humidity",
+          "m09-ashrae-envelopes",
+          "m09-system-types",
+          "m09-raised-floor-cooling",
+          "m09-non-raised",
+          "m09-supplemental",
+          "m09-containment",
+          "m09-liquid",
+          "m09-ster"
+        ],
+        "word_count": 1748
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m09-q125",
+          "m09-q146",
+          "m09-q151"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams",
+        "id": "09-cooling__key-diagrams",
+        "module_id": "09-cooling",
+        "module_num": 9,
+        "order": 4,
+        "title": "Key diagrams",
+        "topic_ids": [
+          "m09-principles",
+          "m09-temp-humidity",
+          "m09-ashrae-envelopes",
+          "m09-system-types",
+          "m09-raised-floor-cooling",
+          "m09-non-raised",
+          "m09-supplemental",
+          "m09-containment",
+          "m09-liquid",
+          "m09-ster"
+        ],
+        "word_count": 85
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m09-q153",
+          "m09-q159",
+          "m09-q201"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "09-cooling__formulas-rules-of-thumb",
+        "module_id": "09-cooling",
+        "module_num": 9,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m09-principles",
+          "m09-temp-humidity",
+          "m09-ashrae-envelopes",
+          "m09-system-types",
+          "m09-raised-floor-cooling",
+          "m09-non-raised",
+          "m09-supplemental",
+          "m09-containment",
+          "m09-liquid",
+          "m09-ster"
+        ],
+        "word_count": 262
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m09-q216",
+          "m09-q218",
+          "m09-q219"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "09-cooling__common-failure-modes-and-misconceptions",
+        "module_id": "09-cooling",
+        "module_num": 9,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m09-principles",
+          "m09-temp-humidity",
+          "m09-ashrae-envelopes",
+          "m09-system-types",
+          "m09-raised-floor-cooling",
+          "m09-non-raised",
+          "m09-supplemental",
+          "m09-containment",
+          "m09-liquid",
+          "m09-ster"
+        ],
+        "word_count": 202
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m09-q230",
+          "m09-q234",
+          "m09-q245"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "09-cooling__interview-drills",
+        "module_id": "09-cooling",
+        "module_num": 9,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m09-principles",
+          "m09-temp-humidity",
+          "m09-ashrae-envelopes",
+          "m09-system-types",
+          "m09-raised-floor-cooling",
+          "m09-non-raised",
+          "m09-supplemental",
+          "m09-containment",
+          "m09-liquid",
+          "m09-ster"
+        ],
+        "word_count": 347
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "mock40-q30",
+          "m09-q101",
+          "m09-q116"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "09-cooling__self-check-quiz",
+        "module_id": "09-cooling",
+        "module_num": 9,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m09-principles",
+          "m09-temp-humidity",
+          "m09-ashrae-envelopes",
+          "m09-system-types",
+          "m09-raised-floor-cooling",
+          "m09-non-raised",
+          "m09-supplemental",
+          "m09-containment",
+          "m09-liquid",
+          "m09-ster"
+        ],
+        "word_count": 337
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m09-q104",
+          "m09-q112",
+          "m09-q116"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "09-cooling__further-free-resources",
+        "module_id": "09-cooling",
+        "module_num": 9,
+        "order": 9,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m09-principles",
+          "m09-temp-humidity",
+          "m09-ashrae-envelopes",
+          "m09-system-types",
+          "m09-raised-floor-cooling",
+          "m09-non-raised",
+          "m09-supplemental",
+          "m09-containment",
+          "m09-liquid",
+          "m09-ster"
+        ],
+        "word_count": 251
+      }
+    ],
+    "10-water": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m10-q112",
+          "m10-q114",
+          "m10-q201"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "10-water__learning-objectives",
+        "module_id": "10-water",
+        "module_num": 10,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m10-importance",
+          "m10-backup"
+        ],
+        "word_count": 125
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m10-q212",
+          "m10-q102",
+          "m10-q215"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+        "id": "10-water__why-it-matters-opsdesigntpm-interview-angle",
+        "module_id": "10-water",
+        "module_num": 10,
+        "order": 2,
+        "title": "Why it matters (ops/design/TPM interview angle)",
+        "topic_ids": [
+          "m10-importance",
+          "m10-backup"
+        ],
+        "word_count": 266
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m10-q100",
+          "m10-q102",
+          "m10-q101"
+        ],
+        "estimate_minutes": 9,
+        "heading_id": "core-concepts",
+        "id": "10-water__core-concepts",
+        "module_id": "10-water",
+        "module_num": 10,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m10-importance",
+          "m10-backup"
+        ],
+        "word_count": 1284
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m10-q103",
+          "m10-q106",
+          "m10-q104"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams",
+        "id": "10-water__key-diagrams",
+        "module_id": "10-water",
+        "module_num": 10,
+        "order": 4,
+        "title": "Key diagrams",
+        "topic_ids": [
+          "m10-importance",
+          "m10-backup"
+        ],
+        "word_count": 170
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m10-q106",
+          "m10-q107",
+          "m10-q108"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "10-water__formulas-rules-of-thumb",
+        "module_id": "10-water",
+        "module_num": 10,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m10-importance",
+          "m10-backup"
+        ],
+        "word_count": 226
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m10-q109",
+          "m10-q110",
+          "m10-q111"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "10-water__common-failure-modes-and-misconceptions",
+        "module_id": "10-water",
+        "module_num": 10,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m10-importance",
+          "m10-backup"
+        ],
+        "word_count": 203
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m10-q113",
+          "m10-q203",
+          "m10-q115"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "10-water__interview-drills",
+        "module_id": "10-water",
+        "module_num": 10,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m10-importance",
+          "m10-backup"
+        ],
+        "word_count": 383
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m10-q202",
+          "m10-q203",
+          "m10-q204"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "10-water__self-check-quiz",
+        "module_id": "10-water",
+        "module_num": 10,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m10-importance",
+          "m10-backup"
+        ],
+        "word_count": 329
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m10-q205",
+          "m10-q206",
+          "m10-q207"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "10-water__further-free-resources",
+        "module_id": "10-water",
+        "module_num": 10,
+        "order": 9,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m10-importance",
+          "m10-backup"
+        ],
+        "word_count": 240
+      }
+    ],
+    "11-network": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m11-q103",
+          "m11-q110",
+          "m11-q135"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "11-network__learning-objectives",
+        "module_id": "11-network",
+        "module_num": 11,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m11-importance",
+          "m11-planning",
+          "m11-copper",
+          "m11-fibre",
+          "m11-tia942-topology",
+          "m11-testing",
+          "m11-redundancy",
+          "m11-site-to-site"
+        ],
+        "word_count": 138
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m11-q110",
+          "m11-q131",
+          "m11-q135"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
+        "id": "11-network__why-it-matters-ops-design-tpm-interview-angle",
+        "module_id": "11-network",
+        "module_num": 11,
+        "order": 2,
+        "title": "Why it matters (ops / design / TPM interview angle)",
+        "topic_ids": [
+          "m11-importance",
+          "m11-planning",
+          "m11-copper",
+          "m11-fibre",
+          "m11-tia942-topology",
+          "m11-testing",
+          "m11-redundancy",
+          "m11-site-to-site"
+        ],
+        "word_count": 214
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m11-q138",
+          "m11-q139",
+          "m11-q211"
+        ],
+        "estimate_minutes": 12,
+        "heading_id": "core-concepts",
+        "id": "11-network__core-concepts",
+        "module_id": "11-network",
+        "module_num": 11,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m11-importance",
+          "m11-planning",
+          "m11-copper",
+          "m11-fibre",
+          "m11-tia942-topology",
+          "m11-testing",
+          "m11-redundancy",
+          "m11-site-to-site"
+        ],
+        "word_count": 1751
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m11-q211",
+          "m11-q214",
+          "m11-q217"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams",
+        "id": "11-network__key-diagrams",
+        "module_id": "11-network",
+        "module_num": 11,
+        "order": 4,
+        "title": "Key diagrams",
+        "topic_ids": [
+          "m11-importance",
+          "m11-planning",
+          "m11-copper",
+          "m11-fibre",
+          "m11-tia942-topology",
+          "m11-testing",
+          "m11-redundancy",
+          "m11-site-to-site"
+        ],
+        "word_count": 173
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m11-q220",
+          "m11-q224",
+          "m11-q226"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "11-network__formulas-rules-of-thumb",
+        "module_id": "11-network",
+        "module_num": 11,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m11-importance",
+          "m11-planning",
+          "m11-copper",
+          "m11-fibre",
+          "m11-tia942-topology",
+          "m11-testing",
+          "m11-redundancy",
+          "m11-site-to-site"
+        ],
+        "word_count": 280
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m11-q100",
+          "m11-q101",
+          "m11-q105"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "11-network__common-failure-modes-and-misconceptions",
+        "module_id": "11-network",
+        "module_num": 11,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m11-importance",
+          "m11-planning",
+          "m11-copper",
+          "m11-fibre",
+          "m11-tia942-topology",
+          "m11-testing",
+          "m11-redundancy",
+          "m11-site-to-site"
+        ],
+        "word_count": 196
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m11-q105",
+          "m11-q108",
+          "m11-q111"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "11-network__interview-drills",
+        "module_id": "11-network",
+        "module_num": 11,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m11-importance",
+          "m11-planning",
+          "m11-copper",
+          "m11-fibre",
+          "m11-tia942-topology",
+          "m11-testing",
+          "m11-redundancy",
+          "m11-site-to-site"
+        ],
+        "word_count": 284
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m11-q109",
+          "m11-q111",
+          "m11-q114"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "11-network__self-check-quiz",
+        "module_id": "11-network",
+        "module_num": 11,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m11-importance",
+          "m11-planning",
+          "m11-copper",
+          "m11-fibre",
+          "m11-tia942-topology",
+          "m11-testing",
+          "m11-redundancy",
+          "m11-site-to-site"
+        ],
+        "word_count": 349
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m11-q113",
+          "m11-q114",
+          "m11-q117"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "11-network__further-free-resources",
+        "module_id": "11-network",
+        "module_num": 11,
+        "order": 9,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m11-importance",
+          "m11-planning",
+          "m11-copper",
+          "m11-fibre",
+          "m11-tia942-topology",
+          "m11-testing",
+          "m11-redundancy",
+          "m11-site-to-site"
+        ],
+        "word_count": 292
+      }
+    ],
+    "12-fire": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m12-q042",
+          "bank-m12-q049",
+          "bank-m12-q064"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "12-fire__learning-objectives",
+        "module_id": "12-fire",
+        "module_num": 12,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m12-causes",
+          "m12-suppression-reqs",
+          "m12-standards",
+          "m12-detection",
+          "m12-water-suppression",
+          "m12-gas-suppression",
+          "m12-classes",
+          "m12-best-practices",
+          "m12-extinguishers",
+          "m12-signage",
+          "m12-regulatory"
+        ],
+        "word_count": 133
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m12-q064",
+          "bank-m12-q069",
+          "bank-m12-q071"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
+        "id": "12-fire__why-it-matters-ops-design-tpm-interview-angle",
+        "module_id": "12-fire",
+        "module_num": 12,
+        "order": 2,
+        "title": "Why it matters (ops / design / TPM interview angle)",
+        "topic_ids": [
+          "m12-causes",
+          "m12-suppression-reqs",
+          "m12-standards",
+          "m12-detection",
+          "m12-water-suppression",
+          "m12-gas-suppression",
+          "m12-classes",
+          "m12-best-practices",
+          "m12-extinguishers",
+          "m12-signage",
+          "m12-regulatory"
+        ],
+        "word_count": 193
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m12-q069",
+          "bank-m12-q071",
+          "m12-q205"
+        ],
+        "estimate_minutes": 13,
+        "heading_id": "core-concepts",
+        "id": "12-fire__core-concepts",
+        "module_id": "12-fire",
+        "module_num": 12,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m12-causes",
+          "m12-suppression-reqs",
+          "m12-standards",
+          "m12-detection",
+          "m12-water-suppression",
+          "m12-gas-suppression",
+          "m12-classes",
+          "m12-best-practices",
+          "m12-extinguishers",
+          "m12-signage",
+          "m12-regulatory"
+        ],
+        "word_count": 1901
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m12-q209",
+          "bank-m12-q041",
+          "bank-m12-q047"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams",
+        "id": "12-fire__key-diagrams",
+        "module_id": "12-fire",
+        "module_num": 12,
+        "order": 4,
+        "title": "Key diagrams",
+        "topic_ids": [
+          "m12-causes",
+          "m12-suppression-reqs",
+          "m12-standards",
+          "m12-detection",
+          "m12-water-suppression",
+          "m12-gas-suppression",
+          "m12-classes",
+          "m12-best-practices",
+          "m12-extinguishers",
+          "m12-signage",
+          "m12-regulatory"
+        ],
+        "word_count": 194
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m12-q044",
+          "bank-m12-q047",
+          "bank-m12-q050"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "12-fire__formulas-rules-of-thumb",
+        "module_id": "12-fire",
+        "module_num": 12,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m12-causes",
+          "m12-suppression-reqs",
+          "m12-standards",
+          "m12-detection",
+          "m12-water-suppression",
+          "m12-gas-suppression",
+          "m12-classes",
+          "m12-best-practices",
+          "m12-extinguishers",
+          "m12-signage",
+          "m12-regulatory"
+        ],
+        "word_count": 161
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m12-q048",
+          "bank-m12-q050",
+          "bank-m12-q057"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "12-fire__common-failure-modes-and-misconceptions",
+        "module_id": "12-fire",
+        "module_num": 12,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m12-causes",
+          "m12-suppression-reqs",
+          "m12-standards",
+          "m12-detection",
+          "m12-water-suppression",
+          "m12-gas-suppression",
+          "m12-classes",
+          "m12-best-practices",
+          "m12-extinguishers",
+          "m12-signage",
+          "m12-regulatory"
+        ],
+        "word_count": 221
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m12-q052",
+          "bank-m12-q055",
+          "bank-m12-q057"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "12-fire__interview-drills",
+        "module_id": "12-fire",
+        "module_num": 12,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m12-causes",
+          "m12-suppression-reqs",
+          "m12-standards",
+          "m12-detection",
+          "m12-water-suppression",
+          "m12-gas-suppression",
+          "m12-classes",
+          "m12-best-practices",
+          "m12-extinguishers",
+          "m12-signage",
+          "m12-regulatory"
+        ],
+        "word_count": 355
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m12-q055",
+          "bank-m12-q057",
+          "bank-m12-q060"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "12-fire__self-check-quiz",
+        "module_id": "12-fire",
+        "module_num": 12,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m12-causes",
+          "m12-suppression-reqs",
+          "m12-standards",
+          "m12-detection",
+          "m12-water-suppression",
+          "m12-gas-suppression",
+          "m12-classes",
+          "m12-best-practices",
+          "m12-extinguishers",
+          "m12-signage",
+          "m12-regulatory"
+        ],
+        "word_count": 391
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m12-q058",
+          "bank-m12-q060",
+          "bank-m12-q066"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "12-fire__further-free-resources",
+        "module_id": "12-fire",
+        "module_num": 12,
+        "order": 9,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m12-causes",
+          "m12-suppression-reqs",
+          "m12-standards",
+          "m12-detection",
+          "m12-water-suppression",
+          "m12-gas-suppression",
+          "m12-classes",
+          "m12-best-practices",
+          "m12-extinguishers",
+          "m12-signage",
+          "m12-regulatory"
+        ],
+        "word_count": 265
+      }
+    ],
+    "13-security": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m13-q077",
+          "bank-m13-q086",
+          "bank-m13-q078"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "13-security__learning-objectives",
+        "module_id": "13-security",
+        "module_num": 13,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m13-security-components",
+          "m13-safety-components"
+        ],
+        "word_count": 125
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m13-q086",
+          "bank-m13-q088",
+          "bank-m13-q087"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
+        "id": "13-security__why-it-matters-ops-design-tpm-interview-angle",
+        "module_id": "13-security",
+        "module_num": 13,
+        "order": 2,
+        "title": "Why it matters (ops / design / TPM interview angle)",
+        "topic_ids": [
+          "m13-security-components",
+          "m13-safety-components"
+        ],
+        "word_count": 280
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m13-q091",
+          "bank-m13-q100",
+          "bank-m13-q101"
+        ],
+        "estimate_minutes": 13,
+        "heading_id": "core-concepts",
+        "id": "13-security__core-concepts",
+        "module_id": "13-security",
+        "module_num": 13,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m13-security-components",
+          "m13-safety-components"
+        ],
+        "word_count": 1891
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m13-q204",
+          "bank-m13-q085",
+          "m13-q211"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams",
+        "id": "13-security__key-diagrams",
+        "module_id": "13-security",
+        "module_num": 13,
+        "order": 4,
+        "title": "Key diagrams",
+        "topic_ids": [
+          "m13-security-components",
+          "m13-safety-components"
+        ],
+        "word_count": 176
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m13-q080",
+          "bank-m13-q085",
+          "bank-m13-q081"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "13-security__formulas-rules-of-thumb",
+        "module_id": "13-security",
+        "module_num": 13,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m13-security-components",
+          "m13-safety-components"
+        ],
+        "word_count": 208
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m13-q083",
+          "bank-m13-q085",
+          "bank-m13-q089"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "13-security__common-failure-modes-and-misconceptions",
+        "module_id": "13-security",
+        "module_num": 13,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m13-security-components",
+          "m13-safety-components"
+        ],
+        "word_count": 242
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m13-q090",
+          "bank-m13-q094",
+          "bank-m13-q092"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "13-security__interview-drills",
+        "module_id": "13-security",
+        "module_num": 13,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m13-security-components",
+          "m13-safety-components"
+        ],
+        "word_count": 404
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m13-q094",
+          "bank-m13-q096",
+          "bank-m13-q095"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "13-security__self-check-quiz",
+        "module_id": "13-security",
+        "module_num": 13,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m13-security-components",
+          "m13-safety-components"
+        ],
+        "word_count": 348
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m13-q097",
+          "m13-q202",
+          "bank-m13-q098"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "13-security__further-free-resources",
+        "module_id": "13-security",
+        "module_num": 13,
+        "order": 9,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m13-security-components",
+          "m13-safety-components"
+        ],
+        "word_count": 333
+      }
+    ],
+    "14-auxiliary": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m14-q104",
+          "bank-m14-q105",
+          "bank-m14-q113"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "14-auxiliary__learning-objectives",
+        "module_id": "14-auxiliary",
+        "module_num": 14,
+        "order": 1,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m14-monitoring-challenges",
+          "m14-monitoring-reqs",
+          "m14-ems",
+          "m14-bms",
+          "m14-dcim",
+          "m14-leak",
+          "m14-alarms",
+          "m14-notification",
+          "m14-best-practices"
+        ],
+        "word_count": 136
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m14-q115",
+          "bank-m14-q118",
+          "bank-m14-q120"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+        "id": "14-auxiliary__why-it-matters-opsdesigntpm-interview-angle",
+        "module_id": "14-auxiliary",
+        "module_num": 14,
+        "order": 2,
+        "title": "Why it matters (ops/design/TPM interview angle)",
+        "topic_ids": [
+          "m14-monitoring-challenges",
+          "m14-monitoring-reqs",
+          "m14-ems",
+          "m14-bms",
+          "m14-dcim",
+          "m14-leak",
+          "m14-alarms",
+          "m14-notification",
+          "m14-best-practices"
+        ],
+        "word_count": 250
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m14-q123",
+          "bank-m14-q124",
+          "bank-m14-q127"
+        ],
+        "estimate_minutes": 13,
+        "heading_id": "core-concepts",
+        "id": "14-auxiliary__core-concepts",
+        "module_id": "14-auxiliary",
+        "module_num": 14,
+        "order": 3,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m14-monitoring-challenges",
+          "m14-monitoring-reqs",
+          "m14-ems",
+          "m14-bms",
+          "m14-dcim",
+          "m14-leak",
+          "m14-alarms",
+          "m14-notification",
+          "m14-best-practices"
+        ],
+        "word_count": 1911
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m14-q127",
+          "m14-q203",
+          "m14-q206"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "key-diagrams",
+        "id": "14-auxiliary__key-diagrams",
+        "module_id": "14-auxiliary",
+        "module_num": 14,
+        "order": 4,
+        "title": "Key diagrams",
+        "topic_ids": [
+          "m14-monitoring-challenges",
+          "m14-monitoring-reqs",
+          "m14-ems",
+          "m14-bms",
+          "m14-dcim",
+          "m14-leak",
+          "m14-alarms",
+          "m14-notification",
+          "m14-best-practices"
+        ],
+        "word_count": 93
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m14-q208",
+          "bank-m14-q106",
+          "bank-m14-q107"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "formulas-rules-of-thumb",
+        "id": "14-auxiliary__formulas-rules-of-thumb",
+        "module_id": "14-auxiliary",
+        "module_num": 14,
+        "order": 5,
+        "title": "Formulas / rules of thumb",
+        "topic_ids": [
+          "m14-monitoring-challenges",
+          "m14-monitoring-reqs",
+          "m14-ems",
+          "m14-bms",
+          "m14-dcim",
+          "m14-leak",
+          "m14-alarms",
+          "m14-notification",
+          "m14-best-practices"
+        ],
+        "word_count": 206
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m14-q108",
+          "bank-m14-q109",
+          "bank-m14-q114"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "common-failure-modes-and-misconceptions",
+        "id": "14-auxiliary__common-failure-modes-and-misconceptions",
+        "module_id": "14-auxiliary",
+        "module_num": 14,
+        "order": 6,
+        "title": "Common failure modes and misconceptions",
+        "topic_ids": [
+          "m14-monitoring-challenges",
+          "m14-monitoring-reqs",
+          "m14-ems",
+          "m14-bms",
+          "m14-dcim",
+          "m14-leak",
+          "m14-alarms",
+          "m14-notification",
+          "m14-best-practices"
+        ],
+        "word_count": 175
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m14-q111",
+          "bank-m14-q114",
+          "bank-m14-q117"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "14-auxiliary__interview-drills",
+        "module_id": "14-auxiliary",
+        "module_num": 14,
+        "order": 7,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m14-monitoring-challenges",
+          "m14-monitoring-reqs",
+          "m14-ems",
+          "m14-bms",
+          "m14-dcim",
+          "m14-leak",
+          "m14-alarms",
+          "m14-notification",
+          "m14-best-practices"
+        ],
+        "word_count": 332
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m14-q117",
+          "bank-m14-q119",
+          "bank-m14-q121"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check-quiz",
+        "id": "14-auxiliary__self-check-quiz",
+        "module_id": "14-auxiliary",
+        "module_num": 14,
+        "order": 8,
+        "title": "Self-check quiz",
+        "topic_ids": [
+          "m14-monitoring-challenges",
+          "m14-monitoring-reqs",
+          "m14-ems",
+          "m14-bms",
+          "m14-dcim",
+          "m14-leak",
+          "m14-alarms",
+          "m14-notification",
+          "m14-best-practices"
+        ],
+        "word_count": 368
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m14-q122",
+          "bank-m14-q128",
+          "bank-m14-q129"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "14-auxiliary__further-free-resources",
+        "module_id": "14-auxiliary",
+        "module_num": 14,
+        "order": 9,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m14-monitoring-challenges",
+          "m14-monitoring-reqs",
+          "m14-ems",
+          "m14-bms",
+          "m14-dcim",
+          "m14-leak",
+          "m14-alarms",
+          "m14-notification",
+          "m14-best-practices"
+        ],
+        "word_count": 260
+      }
+    ]
+  },
+  "generated_by": "scripts/build_units.py",
+  "module_count": 14,
+  "schema_version": 2,
+  "shortfalls": [],
+  "unit_count": 127,
+  "units": [
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m01-q041",
+        "m01-q042",
+        "m01-q044"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "01-mission-critical__learning-objectives",
+      "module_id": "01-mission-critical",
+      "module_num": 1,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m01-business-org",
+        "m01-dc-types",
+        "m01-importance",
+        "m01-elements",
+        "m01-unavailability"
+      ],
+      "word_count": 120
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m01-q044",
+        "m01-q045",
+        "m01-q047"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
+      "id": "01-mission-critical__why-it-matters-ops-design-tpm-interview-angle",
+      "module_id": "01-mission-critical",
+      "module_num": 1,
+      "order": 2,
+      "title": "Why it matters (ops / design / TPM interview angle)",
+      "topic_ids": [
+        "m01-business-org",
+        "m01-dc-types",
+        "m01-importance",
+        "m01-elements",
+        "m01-unavailability"
+      ],
+      "word_count": 202
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m01-q048",
+        "m01-q051",
+        "m01-q053"
+      ],
+      "estimate_minutes": 11,
+      "heading_id": "core-concepts",
+      "id": "01-mission-critical__core-concepts",
+      "module_id": "01-mission-critical",
+      "module_num": 1,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m01-business-org",
+        "m01-dc-types",
+        "m01-importance",
+        "m01-elements",
+        "m01-unavailability"
+      ],
+      "word_count": 1585
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m01-q053",
+        "m01-q054",
+        "m01-q061"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams",
+      "id": "01-mission-critical__key-diagrams",
+      "module_id": "01-mission-critical",
+      "module_num": 1,
+      "order": 4,
+      "title": "Key diagrams",
+      "topic_ids": [
+        "m01-business-org",
+        "m01-dc-types",
+        "m01-importance",
+        "m01-elements",
+        "m01-unavailability"
+      ],
+      "word_count": 209
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m01-q057",
+        "m01-q061",
+        "m01-q200"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "01-mission-critical__formulas-rules-of-thumb",
+      "module_id": "01-mission-critical",
+      "module_num": 1,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m01-business-org",
+        "m01-dc-types",
+        "m01-importance",
+        "m01-elements",
+        "m01-unavailability"
+      ],
+      "word_count": 189
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m01-q200",
+        "m01-q201",
+        "m01-q204"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "01-mission-critical__common-failure-modes-and-misconceptions",
+      "module_id": "01-mission-critical",
+      "module_num": 1,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m01-business-org",
+        "m01-dc-types",
+        "m01-importance",
+        "m01-elements",
+        "m01-unavailability"
+      ],
+      "word_count": 180
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m01-q206",
+        "m01-q209",
+        "m01-q046"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "01-mission-critical__interview-drills",
+      "module_id": "01-mission-critical",
+      "module_num": 1,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m01-business-org",
+        "m01-dc-types",
+        "m01-importance",
+        "m01-elements",
+        "m01-unavailability"
+      ],
+      "word_count": 282
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "mock40-q04",
+        "m01-q046",
+        "m01-q049"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "01-mission-critical__self-check-quiz",
+      "module_id": "01-mission-critical",
+      "module_num": 1,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m01-business-org",
+        "m01-dc-types",
+        "m01-importance",
+        "m01-elements",
+        "m01-unavailability"
+      ],
+      "word_count": 387
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m01-q052",
+        "m01-q055",
+        "m01-q060"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "01-mission-critical__further-free-resources",
+      "module_id": "01-mission-critical",
+      "module_num": 1,
+      "order": 9,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m01-business-org",
+        "m01-dc-types",
+        "m01-importance",
+        "m01-elements",
+        "m01-unavailability"
+      ],
+      "word_count": 272
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m02-q063",
+        "m02-q067",
+        "m02-q068"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "02-standards__learning-objectives",
+      "module_id": "02-standards",
+      "module_num": 2,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m02-standards-guidelines",
+        "m02-subcomponent-standards",
+        "m02-intl-vs-national",
+        "m02-tia-vs-uptime",
+        "m02-iso22237-series",
+        "m02-en50600-series",
+        "m02-code-vs-standard"
+      ],
+      "word_count": 142
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m02-q068",
+        "m02-q069",
+        "m02-q072"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+      "id": "02-standards__why-it-matters-opsdesigntpm-interview-angle",
+      "module_id": "02-standards",
+      "module_num": 2,
+      "order": 2,
+      "title": "Why it matters (ops/design/TPM interview angle)",
+      "topic_ids": [
+        "m02-standards-guidelines",
+        "m02-subcomponent-standards",
+        "m02-intl-vs-national",
+        "m02-tia-vs-uptime",
+        "m02-iso22237-series",
+        "m02-en50600-series",
+        "m02-code-vs-standard"
+      ],
+      "word_count": 192
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m02-q073",
+        "m02-q076",
+        "m02-q078"
+      ],
+      "estimate_minutes": 10,
+      "heading_id": "core-concepts",
+      "id": "02-standards__core-concepts",
+      "module_id": "02-standards",
+      "module_num": 2,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m02-standards-guidelines",
+        "m02-subcomponent-standards",
+        "m02-intl-vs-national",
+        "m02-tia-vs-uptime",
+        "m02-iso22237-series",
+        "m02-en50600-series",
+        "m02-code-vs-standard"
+      ],
+      "word_count": 1438
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m02-q080",
+        "m02-q081",
+        "m02-q082"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams",
+      "id": "02-standards__key-diagrams",
+      "module_id": "02-standards",
+      "module_num": 2,
+      "order": 4,
+      "title": "Key diagrams",
+      "topic_ids": [
+        "m02-standards-guidelines",
+        "m02-subcomponent-standards",
+        "m02-intl-vs-national",
+        "m02-tia-vs-uptime",
+        "m02-iso22237-series",
+        "m02-en50600-series",
+        "m02-code-vs-standard"
+      ],
+      "word_count": 249
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m02-q085",
+        "m02-q088",
+        "m02-q092"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "02-standards__formulas-rules-of-thumb",
+      "module_id": "02-standards",
+      "module_num": 2,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m02-standards-guidelines",
+        "m02-subcomponent-standards",
+        "m02-intl-vs-national",
+        "m02-tia-vs-uptime",
+        "m02-iso22237-series",
+        "m02-en50600-series",
+        "m02-code-vs-standard"
+      ],
+      "word_count": 136
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m02-q200",
+        "m02-q203",
+        "m02-q206"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "02-standards__common-failure-modes-and-misconceptions",
+      "module_id": "02-standards",
+      "module_num": 2,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m02-standards-guidelines",
+        "m02-subcomponent-standards",
+        "m02-intl-vs-national",
+        "m02-tia-vs-uptime",
+        "m02-iso22237-series",
+        "m02-en50600-series",
+        "m02-code-vs-standard"
+      ],
+      "word_count": 187
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m02-q207",
+        "mock40-q06",
+        "m02-q071"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "02-standards__interview-drills",
+      "module_id": "02-standards",
+      "module_num": 2,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m02-standards-guidelines",
+        "m02-subcomponent-standards",
+        "m02-intl-vs-national",
+        "m02-tia-vs-uptime",
+        "m02-iso22237-series",
+        "m02-en50600-series",
+        "m02-code-vs-standard"
+      ],
+      "word_count": 375
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m02-q065",
+        "m02-q071",
+        "m02-q075"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "02-standards__self-check-quiz",
+      "module_id": "02-standards",
+      "module_num": 2,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m02-standards-guidelines",
+        "m02-subcomponent-standards",
+        "m02-intl-vs-national",
+        "m02-tia-vs-uptime",
+        "m02-iso22237-series",
+        "m02-en50600-series",
+        "m02-code-vs-standard"
+      ],
+      "word_count": 427
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m02-q074",
+        "m02-q075",
+        "m02-q077"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources-public-no-paywalled-epi-content",
+      "id": "02-standards__further-free-resources-public-no-paywalled-epi-content",
+      "module_id": "02-standards",
+      "module_num": 2,
+      "order": 9,
+      "title": "Further free resources (public; no paywalled EPI content)",
+      "topic_ids": [
+        "m02-standards-guidelines",
+        "m02-subcomponent-standards",
+        "m02-intl-vs-national",
+        "m02-tia-vs-uptime",
+        "m02-iso22237-series",
+        "m02-en50600-series",
+        "m02-code-vs-standard"
+      ],
+      "word_count": 203
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m02-q079",
+        "m02-q083",
+        "m02-q084"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "module-close-out",
+      "id": "02-standards__module-close-out",
+      "module_id": "02-standards",
+      "module_num": 2,
+      "order": 10,
+      "title": "Module close-out",
+      "topic_ids": [
+        "m02-standards-guidelines",
+        "m02-subcomponent-standards",
+        "m02-intl-vs-national",
+        "m02-tia-vs-uptime",
+        "m02-iso22237-series",
+        "m02-en50600-series",
+        "m02-code-vs-standard"
+      ],
+      "word_count": 74
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m03-q093",
+        "m03-q101",
+        "m03-q114"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "03-site-building__learning-objectives",
+      "module_id": "03-site-building",
+      "module_num": 3,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m03-site-selection",
+        "m03-facility-criteria",
+        "m03-supporting-facilities"
+      ],
+      "word_count": 137
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m03-q099",
+        "m03-q101",
+        "m03-q114"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
+      "id": "03-site-building__why-it-matters-ops-design-tpm-interview-angle",
+      "module_id": "03-site-building",
+      "module_num": 3,
+      "order": 2,
+      "title": "Why it matters (ops / design / TPM interview angle)",
+      "topic_ids": [
+        "m03-site-selection",
+        "m03-facility-criteria",
+        "m03-supporting-facilities"
+      ],
+      "word_count": 195
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m03-q104",
+        "m03-q109",
+        "m03-q114"
+      ],
+      "estimate_minutes": 11,
+      "heading_id": "core-concepts",
+      "id": "03-site-building__core-concepts",
+      "module_id": "03-site-building",
+      "module_num": 3,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m03-site-selection",
+        "m03-facility-criteria",
+        "m03-supporting-facilities"
+      ],
+      "word_count": 1598
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m03-q111",
+        "m03-q114",
+        "mock40-q08"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams",
+      "id": "03-site-building__key-diagrams",
+      "module_id": "03-site-building",
+      "module_num": 3,
+      "order": 4,
+      "title": "Key diagrams",
+      "topic_ids": [
+        "m03-site-selection",
+        "m03-facility-criteria",
+        "m03-supporting-facilities"
+      ],
+      "word_count": 257
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m03-q204",
+        "m03-q206",
+        "mock40-q08"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "03-site-building__formulas-rules-of-thumb",
+      "module_id": "03-site-building",
+      "module_num": 3,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m03-site-selection",
+        "m03-facility-criteria",
+        "m03-supporting-facilities"
+      ],
+      "word_count": 194
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "mock40-q07",
+        "mock40-q08",
+        "m03-q096"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "03-site-building__common-failure-modes-and-misconceptions",
+      "module_id": "03-site-building",
+      "module_num": 3,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m03-site-selection",
+        "m03-facility-criteria",
+        "m03-supporting-facilities"
+      ],
+      "word_count": 197
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m03-q096",
+        "m03-q097",
+        "m03-q102"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "03-site-building__interview-drills",
+      "module_id": "03-site-building",
+      "module_num": 3,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m03-site-selection",
+        "m03-facility-criteria",
+        "m03-supporting-facilities"
+      ],
+      "word_count": 334
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m03-q102",
+        "m03-q106",
+        "m03-q112"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "03-site-building__self-check-quiz",
+      "module_id": "03-site-building",
+      "module_num": 3,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m03-site-selection",
+        "m03-facility-criteria",
+        "m03-supporting-facilities"
+      ],
+      "word_count": 404
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m03-q108",
+        "m03-q112",
+        "m03-q210"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "03-site-building__further-free-resources",
+      "module_id": "03-site-building",
+      "module_num": 3,
+      "order": 9,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m03-site-selection",
+        "m03-facility-criteria",
+        "m03-supporting-facilities"
+      ],
+      "word_count": 294
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m04-q117",
+        "m04-q122",
+        "m04-q128"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "04-floor-ceiling__learning-objectives",
+      "module_id": "04-floor-ceiling",
+      "module_num": 4,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m04-floor-standards",
+        "m04-floor-types",
+        "m04-loading",
+        "m04-guidelines",
+        "m04-grounding",
+        "m04-ramp",
+        "m04-suspended-ceiling",
+        "m04-cooling-impact"
+      ],
+      "word_count": 104
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m04-q130",
+        "m04-q133",
+        "m04-q115"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+      "id": "04-floor-ceiling__why-it-matters-opsdesigntpm-interview-angle",
+      "module_id": "04-floor-ceiling",
+      "module_num": 4,
+      "order": 2,
+      "title": "Why it matters (ops/design/TPM interview angle)",
+      "topic_ids": [
+        "m04-floor-standards",
+        "m04-floor-types",
+        "m04-loading",
+        "m04-guidelines",
+        "m04-grounding",
+        "m04-ramp",
+        "m04-suspended-ceiling",
+        "m04-cooling-impact"
+      ],
+      "word_count": 181
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "mock40-q10",
+        "m04-q115",
+        "m04-q119"
+      ],
+      "estimate_minutes": 12,
+      "heading_id": "core-concepts",
+      "id": "04-floor-ceiling__core-concepts",
+      "module_id": "04-floor-ceiling",
+      "module_num": 4,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m04-floor-standards",
+        "m04-floor-types",
+        "m04-loading",
+        "m04-guidelines",
+        "m04-grounding",
+        "m04-ramp",
+        "m04-suspended-ceiling",
+        "m04-cooling-impact"
+      ],
+      "word_count": 1788
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m04-q118",
+        "m04-q119",
+        "m04-q120"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams",
+      "id": "04-floor-ceiling__key-diagrams",
+      "module_id": "04-floor-ceiling",
+      "module_num": 4,
+      "order": 4,
+      "title": "Key diagrams",
+      "topic_ids": [
+        "m04-floor-standards",
+        "m04-floor-types",
+        "m04-loading",
+        "m04-guidelines",
+        "m04-grounding",
+        "m04-ramp",
+        "m04-suspended-ceiling",
+        "m04-cooling-impact"
+      ],
+      "word_count": 176
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m04-q121",
+        "m04-q123",
+        "m04-q124"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "04-floor-ceiling__formulas-rules-of-thumb",
+      "module_id": "04-floor-ceiling",
+      "module_num": 4,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m04-floor-standards",
+        "m04-floor-types",
+        "m04-loading",
+        "m04-guidelines",
+        "m04-grounding",
+        "m04-ramp",
+        "m04-suspended-ceiling",
+        "m04-cooling-impact"
+      ],
+      "word_count": 215
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m04-q125",
+        "m04-q126",
+        "m04-q129"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "04-floor-ceiling__common-failure-modes-and-misconceptions",
+      "module_id": "04-floor-ceiling",
+      "module_num": 4,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m04-floor-standards",
+        "m04-floor-types",
+        "m04-loading",
+        "m04-guidelines",
+        "m04-grounding",
+        "m04-ramp",
+        "m04-suspended-ceiling",
+        "m04-cooling-impact"
+      ],
+      "word_count": 171
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m04-q129",
+        "m04-q132",
+        "m04-q134"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "04-floor-ceiling__interview-drills",
+      "module_id": "04-floor-ceiling",
+      "module_num": 4,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m04-floor-standards",
+        "m04-floor-types",
+        "m04-loading",
+        "m04-guidelines",
+        "m04-grounding",
+        "m04-ramp",
+        "m04-suspended-ceiling",
+        "m04-cooling-impact"
+      ],
+      "word_count": 385
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m04-q134",
+        "m04-q200",
+        "m04-q201"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "04-floor-ceiling__self-check-quiz",
+      "module_id": "04-floor-ceiling",
+      "module_num": 4,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m04-floor-standards",
+        "m04-floor-types",
+        "m04-loading",
+        "m04-guidelines",
+        "m04-grounding",
+        "m04-ramp",
+        "m04-suspended-ceiling",
+        "m04-cooling-impact"
+      ],
+      "word_count": 353
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m04-q202",
+        "m04-q203",
+        "m04-q204"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "04-floor-ceiling__further-free-resources",
+      "module_id": "04-floor-ceiling",
+      "module_num": 4,
+      "order": 9,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m04-floor-standards",
+        "m04-floor-types",
+        "m04-loading",
+        "m04-guidelines",
+        "m04-grounding",
+        "m04-ramp",
+        "m04-suspended-ceiling",
+        "m04-cooling-impact"
+      ],
+      "word_count": 214
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m05-q143",
+        "m05-q145",
+        "m05-q148"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "05-lighting__learning-objectives",
+      "module_id": "05-lighting",
+      "module_num": 5,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m05-measurements",
+        "m05-standards",
+        "m05-fixtures",
+        "m05-emergency",
+        "m05-emergency-types"
+      ],
+      "word_count": 164
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m05-q135",
+        "m05-q137",
+        "m05-q138"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
+      "id": "05-lighting__why-it-matters-ops-design-tpm-interview-angle",
+      "module_id": "05-lighting",
+      "module_num": 5,
+      "order": 2,
+      "title": "Why it matters (ops / design / TPM interview angle)",
+      "topic_ids": [
+        "m05-measurements",
+        "m05-standards",
+        "m05-fixtures",
+        "m05-emergency",
+        "m05-emergency-types"
+      ],
+      "word_count": 217
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m05-q138",
+        "m05-q140",
+        "m05-q146"
+      ],
+      "estimate_minutes": 14,
+      "heading_id": "core-concepts",
+      "id": "05-lighting__core-concepts",
+      "module_id": "05-lighting",
+      "module_num": 5,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m05-measurements",
+        "m05-standards",
+        "m05-fixtures",
+        "m05-emergency",
+        "m05-emergency-types"
+      ],
+      "word_count": 2123
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m05-q144",
+        "m05-q146",
+        "m05-q147"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams",
+      "id": "05-lighting__key-diagrams",
+      "module_id": "05-lighting",
+      "module_num": 5,
+      "order": 4,
+      "title": "Key diagrams",
+      "topic_ids": [
+        "m05-measurements",
+        "m05-standards",
+        "m05-fixtures",
+        "m05-emergency",
+        "m05-emergency-types"
+      ],
+      "word_count": 188
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m05-q149",
+        "m05-q200",
+        "m05-q201"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "05-lighting__formulas-rules-of-thumb",
+      "module_id": "05-lighting",
+      "module_num": 5,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m05-measurements",
+        "m05-standards",
+        "m05-fixtures",
+        "m05-emergency",
+        "m05-emergency-types"
+      ],
+      "word_count": 162
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m05-q201",
+        "m05-q202",
+        "m05-q203"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "05-lighting__common-failure-modes-and-misconceptions",
+      "module_id": "05-lighting",
+      "module_num": 5,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m05-measurements",
+        "m05-standards",
+        "m05-fixtures",
+        "m05-emergency",
+        "m05-emergency-types"
+      ],
+      "word_count": 225
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m05-q204",
+        "m05-q205",
+        "m05-q206"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "05-lighting__interview-drills",
+      "module_id": "05-lighting",
+      "module_num": 5,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m05-measurements",
+        "m05-standards",
+        "m05-fixtures",
+        "m05-emergency",
+        "m05-emergency-types"
+      ],
+      "word_count": 351
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m05-q207",
+        "m05-q208",
+        "m05-q209"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "05-lighting__self-check-quiz",
+      "module_id": "05-lighting",
+      "module_num": 5,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m05-measurements",
+        "m05-standards",
+        "m05-fixtures",
+        "m05-emergency",
+        "m05-emergency-types"
+      ],
+      "word_count": 354
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m05-q210",
+        "m05-q211",
+        "m05-q212"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "05-lighting__further-free-resources",
+      "module_id": "05-lighting",
+      "module_num": 5,
+      "order": 9,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m05-measurements",
+        "m05-standards",
+        "m05-fixtures",
+        "m05-emergency",
+        "m05-emergency-types"
+      ],
+      "word_count": 286
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m06-q042",
+        "m06-q044",
+        "m06-q046"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "06-power__learning-objectives",
+      "module_id": "06-power",
+      "module_num": 6,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m06-sustainability",
+        "m06-microgrid",
+        "m06-transformers",
+        "m06-generators",
+        "m06-ats-sts",
+        "m06-redundancy",
+        "m06-distribution",
+        "m06-phase",
+        "m06-grounding-bonding",
+        "m06-isolation-xfmr",
+        "m06-pdu",
+        "m06-ip-grades",
+        "m06-power-quality",
+        "m06-sizing",
+        "m06-hpc",
+        "m06-ups",
+        "m06-ups-parallel",
+        "m06-batteries",
+        "m06-bess",
+        "m06-thermo"
+      ],
+      "word_count": 105
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m06-q057",
+        "m06-q060",
+        "m06-q065"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters",
+      "id": "06-power__why-it-matters",
+      "module_id": "06-power",
+      "module_num": 6,
+      "order": 2,
+      "title": "Why it matters",
+      "topic_ids": [
+        "m06-sustainability",
+        "m06-microgrid",
+        "m06-transformers",
+        "m06-generators",
+        "m06-ats-sts",
+        "m06-redundancy",
+        "m06-distribution",
+        "m06-phase",
+        "m06-grounding-bonding",
+        "m06-isolation-xfmr",
+        "m06-pdu",
+        "m06-ip-grades",
+        "m06-power-quality",
+        "m06-sizing",
+        "m06-hpc",
+        "m06-ups",
+        "m06-ups-parallel",
+        "m06-batteries",
+        "m06-bess",
+        "m06-thermo"
+      ],
+      "word_count": 155
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m06-q068",
+        "m06-q075",
+        "m06-q104"
+      ],
+      "estimate_minutes": 16,
+      "heading_id": "core-concepts",
+      "id": "06-power__core-concepts",
+      "module_id": "06-power",
+      "module_num": 6,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m06-sustainability",
+        "m06-microgrid",
+        "m06-transformers",
+        "m06-generators",
+        "m06-ats-sts",
+        "m06-redundancy",
+        "m06-distribution",
+        "m06-phase",
+        "m06-grounding-bonding",
+        "m06-isolation-xfmr",
+        "m06-pdu",
+        "m06-ip-grades",
+        "m06-power-quality",
+        "m06-sizing",
+        "m06-hpc",
+        "m06-ups",
+        "m06-ups-parallel",
+        "m06-batteries",
+        "m06-bess",
+        "m06-thermo"
+      ],
+      "word_count": 2425
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m06-q108",
+        "m06-q109",
+        "m06-q205"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams",
+      "id": "06-power__key-diagrams",
+      "module_id": "06-power",
+      "module_num": 6,
+      "order": 4,
+      "title": "Key diagrams",
+      "topic_ids": [
+        "m06-sustainability",
+        "m06-microgrid",
+        "m06-transformers",
+        "m06-generators",
+        "m06-ats-sts",
+        "m06-redundancy",
+        "m06-distribution",
+        "m06-phase",
+        "m06-grounding-bonding",
+        "m06-isolation-xfmr",
+        "m06-pdu",
+        "m06-ip-grades",
+        "m06-power-quality",
+        "m06-sizing",
+        "m06-hpc",
+        "m06-ups",
+        "m06-ups-parallel",
+        "m06-batteries",
+        "m06-bess",
+        "m06-thermo"
+      ],
+      "word_count": 127
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m06-q205",
+        "m06-q207",
+        "m06-q208"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "06-power__formulas-rules-of-thumb",
+      "module_id": "06-power",
+      "module_num": 6,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m06-pdu",
+        "m06-sustainability",
+        "m06-microgrid",
+        "m06-transformers",
+        "m06-generators",
+        "m06-ats-sts",
+        "m06-redundancy",
+        "m06-distribution",
+        "m06-phase",
+        "m06-grounding-bonding",
+        "m06-isolation-xfmr",
+        "m06-ip-grades",
+        "m06-power-quality",
+        "m06-sizing",
+        "m06-hpc",
+        "m06-ups",
+        "m06-ups-parallel",
+        "m06-batteries",
+        "m06-bess",
+        "m06-thermo"
+      ],
+      "word_count": 151
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m06-q211",
+        "m06-q213",
+        "m06-q219"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "06-power__common-failure-modes-and-misconceptions",
+      "module_id": "06-power",
+      "module_num": 6,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m06-sustainability",
+        "m06-microgrid",
+        "m06-transformers",
+        "m06-generators",
+        "m06-ats-sts",
+        "m06-redundancy",
+        "m06-distribution",
+        "m06-phase",
+        "m06-grounding-bonding",
+        "m06-isolation-xfmr",
+        "m06-pdu",
+        "m06-ip-grades",
+        "m06-power-quality",
+        "m06-sizing",
+        "m06-hpc",
+        "m06-ups",
+        "m06-ups-parallel",
+        "m06-batteries",
+        "m06-bess",
+        "m06-thermo"
+      ],
+      "word_count": 177
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m06-q222",
+        "m06-q227",
+        "m06-q228"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "06-power__interview-drills",
+      "module_id": "06-power",
+      "module_num": 6,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m06-sustainability",
+        "m06-microgrid",
+        "m06-transformers",
+        "m06-generators",
+        "m06-ats-sts",
+        "m06-redundancy",
+        "m06-distribution",
+        "m06-phase",
+        "m06-grounding-bonding",
+        "m06-isolation-xfmr",
+        "m06-pdu",
+        "m06-ip-grades",
+        "m06-power-quality",
+        "m06-sizing",
+        "m06-hpc",
+        "m06-ups",
+        "m06-ups-parallel",
+        "m06-batteries",
+        "m06-bess",
+        "m06-thermo"
+      ],
+      "word_count": 266
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m06-q228",
+        "m06-q235",
+        "m06-q239"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "06-power__self-check-quiz",
+      "module_id": "06-power",
+      "module_num": 6,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m06-sustainability",
+        "m06-microgrid",
+        "m06-transformers",
+        "m06-generators",
+        "m06-ats-sts",
+        "m06-redundancy",
+        "m06-distribution",
+        "m06-phase",
+        "m06-grounding-bonding",
+        "m06-isolation-xfmr",
+        "m06-pdu",
+        "m06-ip-grades",
+        "m06-power-quality",
+        "m06-sizing",
+        "m06-hpc",
+        "m06-ups",
+        "m06-ups-parallel",
+        "m06-batteries",
+        "m06-bess",
+        "m06-thermo"
+      ],
+      "word_count": 350
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m06-q241",
+        "m06-q243",
+        "m06-q250"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "06-power__further-free-resources",
+      "module_id": "06-power",
+      "module_num": 6,
+      "order": 9,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m06-sustainability",
+        "m06-microgrid",
+        "m06-transformers",
+        "m06-generators",
+        "m06-ats-sts",
+        "m06-redundancy",
+        "m06-distribution",
+        "m06-phase",
+        "m06-grounding-bonding",
+        "m06-isolation-xfmr",
+        "m06-pdu",
+        "m06-ip-grades",
+        "m06-power-quality",
+        "m06-sizing",
+        "m06-hpc",
+        "m06-ups",
+        "m06-ups-parallel",
+        "m06-batteries",
+        "m06-bess",
+        "m06-thermo"
+      ],
+      "word_count": 219
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m07-q044",
+        "m07-q046",
+        "m07-q204"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "07-emf__learning-objectives",
+      "module_id": "07-emf",
+      "module_num": 7,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m07-types",
+        "m07-units",
+        "m07-standards",
+        "m07-sources",
+        "m07-shielding"
+      ],
+      "word_count": 95
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m07-q204",
+        "m07-q208",
+        "m07-q041"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+      "id": "07-emf__why-it-matters-opsdesigntpm-interview-angle",
+      "module_id": "07-emf",
+      "module_num": 7,
+      "order": 2,
+      "title": "Why it matters (ops/design/TPM interview angle)",
+      "topic_ids": [
+        "m07-types",
+        "m07-units",
+        "m07-standards",
+        "m07-sources",
+        "m07-shielding"
+      ],
+      "word_count": 216
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m07-q041",
+        "m07-q043",
+        "m07-q045"
+      ],
+      "estimate_minutes": 11,
+      "heading_id": "core-concepts",
+      "id": "07-emf__core-concepts",
+      "module_id": "07-emf",
+      "module_num": 7,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m07-types",
+        "m07-units",
+        "m07-standards",
+        "m07-sources",
+        "m07-shielding"
+      ],
+      "word_count": 1608
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m07-q047",
+        "m07-q048",
+        "m07-q050"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams-in-ascii-or-mermaid-where-helpful",
+      "id": "07-emf__key-diagrams-in-ascii-or-mermaid-where-helpful",
+      "module_id": "07-emf",
+      "module_num": 7,
+      "order": 4,
+      "title": "Key diagrams in ASCII or mermaid where helpful",
+      "topic_ids": [
+        "m07-types",
+        "m07-units",
+        "m07-standards",
+        "m07-sources",
+        "m07-shielding"
+      ],
+      "word_count": 176
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m07-q051",
+        "m07-q052",
+        "m07-q053"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "07-emf__formulas-rules-of-thumb",
+      "module_id": "07-emf",
+      "module_num": 7,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m07-types",
+        "m07-units",
+        "m07-standards",
+        "m07-sources",
+        "m07-shielding"
+      ],
+      "word_count": 175
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m07-q054",
+        "m07-q055",
+        "m07-q056"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "07-emf__common-failure-modes-and-misconceptions",
+      "module_id": "07-emf",
+      "module_num": 7,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m07-types",
+        "m07-units",
+        "m07-standards",
+        "m07-sources",
+        "m07-shielding"
+      ],
+      "word_count": 159
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m07-q200",
+        "m07-q201",
+        "m07-q202"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills-5-qa-pairs-with-model-answers",
+      "id": "07-emf__interview-drills-5-qa-pairs-with-model-answers",
+      "module_id": "07-emf",
+      "module_num": 7,
+      "order": 7,
+      "title": "Interview drills (5 Q&A pairs with model answers)",
+      "topic_ids": [
+        "m07-types",
+        "m07-units",
+        "m07-standards",
+        "m07-sources",
+        "m07-shielding"
+      ],
+      "word_count": 341
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m07-q203",
+        "m07-q205",
+        "m07-q209"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "07-emf__self-check-quiz",
+      "module_id": "07-emf",
+      "module_num": 7,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m07-types",
+        "m07-units",
+        "m07-standards",
+        "m07-sources",
+        "m07-shielding"
+      ],
+      "word_count": 343
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m07-q207",
+        "m07-q209",
+        "m07-q212"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources-public-standards-names-vendor-primers-no-paywalled-epi-content",
+      "id": "07-emf__further-free-resources-public-standards-names-vendor-primers-no-paywalled-epi-content",
+      "module_id": "07-emf",
+      "module_num": 7,
+      "order": 9,
+      "title": "Further free resources (public standards names, vendor primers \u2014 no paywalled EPI content)",
+      "topic_ids": [
+        "m07-standards",
+        "m07-sources",
+        "m07-types",
+        "m07-units",
+        "m07-shielding"
+      ],
+      "word_count": 273
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m08-q046",
+        "m08-q056",
+        "m08-q203"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "08-racks__learning-objectives",
+      "module_id": "08-racks",
+      "module_num": 8,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m08-standards",
+        "m08-dimensions",
+        "m08-types",
+        "m08-security",
+        "m08-power-strips"
+      ],
+      "word_count": 139
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m08-q203",
+        "m08-q205",
+        "m08-q041"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+      "id": "08-racks__why-it-matters-opsdesigntpm-interview-angle",
+      "module_id": "08-racks",
+      "module_num": 8,
+      "order": 2,
+      "title": "Why it matters (ops/design/TPM interview angle)",
+      "topic_ids": [
+        "m08-standards",
+        "m08-dimensions",
+        "m08-types",
+        "m08-security",
+        "m08-power-strips"
+      ],
+      "word_count": 203
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m08-q043",
+        "m08-q047",
+        "m08-q050"
+      ],
+      "estimate_minutes": 14,
+      "heading_id": "core-concepts",
+      "id": "08-racks__core-concepts",
+      "module_id": "08-racks",
+      "module_num": 8,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m08-standards",
+        "m08-dimensions",
+        "m08-types",
+        "m08-security",
+        "m08-power-strips"
+      ],
+      "word_count": 2106
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m08-q047",
+        "m08-q050",
+        "m08-q055"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams-in-ascii-or-mermaid-where-helpful",
+      "id": "08-racks__key-diagrams-in-ascii-or-mermaid-where-helpful",
+      "module_id": "08-racks",
+      "module_num": 8,
+      "order": 4,
+      "title": "Key diagrams in ASCII or mermaid where helpful",
+      "topic_ids": [
+        "m08-standards",
+        "m08-dimensions",
+        "m08-types",
+        "m08-security",
+        "m08-power-strips"
+      ],
+      "word_count": 94
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m08-q051",
+        "m08-q055",
+        "m08-q059"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "08-racks__formulas-rules-of-thumb",
+      "module_id": "08-racks",
+      "module_num": 8,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m08-standards",
+        "m08-dimensions",
+        "m08-types",
+        "m08-security",
+        "m08-power-strips"
+      ],
+      "word_count": 223
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m08-q059",
+        "m08-q061",
+        "m08-q204"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "08-racks__common-failure-modes-and-misconceptions",
+      "module_id": "08-racks",
+      "module_num": 8,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m08-standards",
+        "m08-dimensions",
+        "m08-types",
+        "m08-security",
+        "m08-power-strips"
+      ],
+      "word_count": 220
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m08-q200",
+        "m08-q202",
+        "m08-q204"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "08-racks__interview-drills",
+      "module_id": "08-racks",
+      "module_num": 8,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m08-standards",
+        "m08-dimensions",
+        "m08-types",
+        "m08-security",
+        "m08-power-strips"
+      ],
+      "word_count": 287
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m08-q206",
+        "m08-q207",
+        "m08-q208"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "08-racks__self-check-quiz",
+      "module_id": "08-racks",
+      "module_num": 8,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m08-standards",
+        "m08-dimensions",
+        "m08-types",
+        "m08-security",
+        "m08-power-strips"
+      ],
+      "word_count": 362
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m08-q209",
+        "m08-q042",
+        "m08-q053"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "08-racks__further-free-resources",
+      "module_id": "08-racks",
+      "module_num": 8,
+      "order": 9,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m08-standards",
+        "m08-dimensions",
+        "m08-types",
+        "m08-security",
+        "m08-power-strips"
+      ],
+      "word_count": 266
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m09-q100",
+        "m09-q115",
+        "m09-q121"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "09-cooling__learning-objectives",
+      "module_id": "09-cooling",
+      "module_num": 9,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m09-principles",
+        "m09-temp-humidity",
+        "m09-ashrae-envelopes",
+        "m09-system-types",
+        "m09-raised-floor-cooling",
+        "m09-non-raised",
+        "m09-supplemental",
+        "m09-containment",
+        "m09-liquid",
+        "m09-ster"
+      ],
+      "word_count": 151
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m09-q107",
+        "m09-q115",
+        "m09-q121"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters",
+      "id": "09-cooling__why-it-matters",
+      "module_id": "09-cooling",
+      "module_num": 9,
+      "order": 2,
+      "title": "Why it matters",
+      "topic_ids": [
+        "m09-principles",
+        "m09-temp-humidity",
+        "m09-ashrae-envelopes",
+        "m09-system-types",
+        "m09-raised-floor-cooling",
+        "m09-non-raised",
+        "m09-supplemental",
+        "m09-containment",
+        "m09-liquid",
+        "m09-ster"
+      ],
+      "word_count": 172
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m09-q120",
+        "m09-q121",
+        "m09-q125"
+      ],
+      "estimate_minutes": 12,
+      "heading_id": "core-concepts",
+      "id": "09-cooling__core-concepts",
+      "module_id": "09-cooling",
+      "module_num": 9,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m09-principles",
+        "m09-temp-humidity",
+        "m09-ashrae-envelopes",
+        "m09-system-types",
+        "m09-raised-floor-cooling",
+        "m09-non-raised",
+        "m09-supplemental",
+        "m09-containment",
+        "m09-liquid",
+        "m09-ster"
+      ],
+      "word_count": 1748
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m09-q125",
+        "m09-q146",
+        "m09-q151"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams",
+      "id": "09-cooling__key-diagrams",
+      "module_id": "09-cooling",
+      "module_num": 9,
+      "order": 4,
+      "title": "Key diagrams",
+      "topic_ids": [
+        "m09-principles",
+        "m09-temp-humidity",
+        "m09-ashrae-envelopes",
+        "m09-system-types",
+        "m09-raised-floor-cooling",
+        "m09-non-raised",
+        "m09-supplemental",
+        "m09-containment",
+        "m09-liquid",
+        "m09-ster"
+      ],
+      "word_count": 85
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m09-q153",
+        "m09-q159",
+        "m09-q201"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "09-cooling__formulas-rules-of-thumb",
+      "module_id": "09-cooling",
+      "module_num": 9,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m09-principles",
+        "m09-temp-humidity",
+        "m09-ashrae-envelopes",
+        "m09-system-types",
+        "m09-raised-floor-cooling",
+        "m09-non-raised",
+        "m09-supplemental",
+        "m09-containment",
+        "m09-liquid",
+        "m09-ster"
+      ],
+      "word_count": 262
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m09-q216",
+        "m09-q218",
+        "m09-q219"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "09-cooling__common-failure-modes-and-misconceptions",
+      "module_id": "09-cooling",
+      "module_num": 9,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m09-principles",
+        "m09-temp-humidity",
+        "m09-ashrae-envelopes",
+        "m09-system-types",
+        "m09-raised-floor-cooling",
+        "m09-non-raised",
+        "m09-supplemental",
+        "m09-containment",
+        "m09-liquid",
+        "m09-ster"
+      ],
+      "word_count": 202
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m09-q230",
+        "m09-q234",
+        "m09-q245"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "09-cooling__interview-drills",
+      "module_id": "09-cooling",
+      "module_num": 9,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m09-principles",
+        "m09-temp-humidity",
+        "m09-ashrae-envelopes",
+        "m09-system-types",
+        "m09-raised-floor-cooling",
+        "m09-non-raised",
+        "m09-supplemental",
+        "m09-containment",
+        "m09-liquid",
+        "m09-ster"
+      ],
+      "word_count": 347
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "mock40-q30",
+        "m09-q101",
+        "m09-q116"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "09-cooling__self-check-quiz",
+      "module_id": "09-cooling",
+      "module_num": 9,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m09-principles",
+        "m09-temp-humidity",
+        "m09-ashrae-envelopes",
+        "m09-system-types",
+        "m09-raised-floor-cooling",
+        "m09-non-raised",
+        "m09-supplemental",
+        "m09-containment",
+        "m09-liquid",
+        "m09-ster"
+      ],
+      "word_count": 337
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m09-q104",
+        "m09-q112",
+        "m09-q116"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "09-cooling__further-free-resources",
+      "module_id": "09-cooling",
+      "module_num": 9,
+      "order": 9,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m09-principles",
+        "m09-temp-humidity",
+        "m09-ashrae-envelopes",
+        "m09-system-types",
+        "m09-raised-floor-cooling",
+        "m09-non-raised",
+        "m09-supplemental",
+        "m09-containment",
+        "m09-liquid",
+        "m09-ster"
+      ],
+      "word_count": 251
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m10-q112",
+        "m10-q114",
+        "m10-q201"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "10-water__learning-objectives",
+      "module_id": "10-water",
+      "module_num": 10,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m10-importance",
+        "m10-backup"
+      ],
+      "word_count": 125
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m10-q212",
+        "m10-q102",
+        "m10-q215"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+      "id": "10-water__why-it-matters-opsdesigntpm-interview-angle",
+      "module_id": "10-water",
+      "module_num": 10,
+      "order": 2,
+      "title": "Why it matters (ops/design/TPM interview angle)",
+      "topic_ids": [
+        "m10-importance",
+        "m10-backup"
+      ],
+      "word_count": 266
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m10-q100",
+        "m10-q102",
+        "m10-q101"
+      ],
+      "estimate_minutes": 9,
+      "heading_id": "core-concepts",
+      "id": "10-water__core-concepts",
+      "module_id": "10-water",
+      "module_num": 10,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m10-importance",
+        "m10-backup"
+      ],
+      "word_count": 1284
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m10-q103",
+        "m10-q106",
+        "m10-q104"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams",
+      "id": "10-water__key-diagrams",
+      "module_id": "10-water",
+      "module_num": 10,
+      "order": 4,
+      "title": "Key diagrams",
+      "topic_ids": [
+        "m10-importance",
+        "m10-backup"
+      ],
+      "word_count": 170
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m10-q106",
+        "m10-q107",
+        "m10-q108"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "10-water__formulas-rules-of-thumb",
+      "module_id": "10-water",
+      "module_num": 10,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m10-importance",
+        "m10-backup"
+      ],
+      "word_count": 226
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m10-q109",
+        "m10-q110",
+        "m10-q111"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "10-water__common-failure-modes-and-misconceptions",
+      "module_id": "10-water",
+      "module_num": 10,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m10-importance",
+        "m10-backup"
+      ],
+      "word_count": 203
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m10-q113",
+        "m10-q203",
+        "m10-q115"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "10-water__interview-drills",
+      "module_id": "10-water",
+      "module_num": 10,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m10-importance",
+        "m10-backup"
+      ],
+      "word_count": 383
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m10-q202",
+        "m10-q203",
+        "m10-q204"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "10-water__self-check-quiz",
+      "module_id": "10-water",
+      "module_num": 10,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m10-importance",
+        "m10-backup"
+      ],
+      "word_count": 329
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m10-q205",
+        "m10-q206",
+        "m10-q207"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "10-water__further-free-resources",
+      "module_id": "10-water",
+      "module_num": 10,
+      "order": 9,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m10-importance",
+        "m10-backup"
+      ],
+      "word_count": 240
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m11-q103",
+        "m11-q110",
+        "m11-q135"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "11-network__learning-objectives",
+      "module_id": "11-network",
+      "module_num": 11,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m11-importance",
+        "m11-planning",
+        "m11-copper",
+        "m11-fibre",
+        "m11-tia942-topology",
+        "m11-testing",
+        "m11-redundancy",
+        "m11-site-to-site"
+      ],
+      "word_count": 138
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m11-q110",
+        "m11-q131",
+        "m11-q135"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
+      "id": "11-network__why-it-matters-ops-design-tpm-interview-angle",
+      "module_id": "11-network",
+      "module_num": 11,
+      "order": 2,
+      "title": "Why it matters (ops / design / TPM interview angle)",
+      "topic_ids": [
+        "m11-importance",
+        "m11-planning",
+        "m11-copper",
+        "m11-fibre",
+        "m11-tia942-topology",
+        "m11-testing",
+        "m11-redundancy",
+        "m11-site-to-site"
+      ],
+      "word_count": 214
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m11-q138",
+        "m11-q139",
+        "m11-q211"
+      ],
+      "estimate_minutes": 12,
+      "heading_id": "core-concepts",
+      "id": "11-network__core-concepts",
+      "module_id": "11-network",
+      "module_num": 11,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m11-importance",
+        "m11-planning",
+        "m11-copper",
+        "m11-fibre",
+        "m11-tia942-topology",
+        "m11-testing",
+        "m11-redundancy",
+        "m11-site-to-site"
+      ],
+      "word_count": 1751
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m11-q211",
+        "m11-q214",
+        "m11-q217"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams",
+      "id": "11-network__key-diagrams",
+      "module_id": "11-network",
+      "module_num": 11,
+      "order": 4,
+      "title": "Key diagrams",
+      "topic_ids": [
+        "m11-importance",
+        "m11-planning",
+        "m11-copper",
+        "m11-fibre",
+        "m11-tia942-topology",
+        "m11-testing",
+        "m11-redundancy",
+        "m11-site-to-site"
+      ],
+      "word_count": 173
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m11-q220",
+        "m11-q224",
+        "m11-q226"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "11-network__formulas-rules-of-thumb",
+      "module_id": "11-network",
+      "module_num": 11,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m11-importance",
+        "m11-planning",
+        "m11-copper",
+        "m11-fibre",
+        "m11-tia942-topology",
+        "m11-testing",
+        "m11-redundancy",
+        "m11-site-to-site"
+      ],
+      "word_count": 280
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m11-q100",
+        "m11-q101",
+        "m11-q105"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "11-network__common-failure-modes-and-misconceptions",
+      "module_id": "11-network",
+      "module_num": 11,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m11-importance",
+        "m11-planning",
+        "m11-copper",
+        "m11-fibre",
+        "m11-tia942-topology",
+        "m11-testing",
+        "m11-redundancy",
+        "m11-site-to-site"
+      ],
+      "word_count": 196
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m11-q105",
+        "m11-q108",
+        "m11-q111"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "11-network__interview-drills",
+      "module_id": "11-network",
+      "module_num": 11,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m11-importance",
+        "m11-planning",
+        "m11-copper",
+        "m11-fibre",
+        "m11-tia942-topology",
+        "m11-testing",
+        "m11-redundancy",
+        "m11-site-to-site"
+      ],
+      "word_count": 284
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m11-q109",
+        "m11-q111",
+        "m11-q114"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "11-network__self-check-quiz",
+      "module_id": "11-network",
+      "module_num": 11,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m11-importance",
+        "m11-planning",
+        "m11-copper",
+        "m11-fibre",
+        "m11-tia942-topology",
+        "m11-testing",
+        "m11-redundancy",
+        "m11-site-to-site"
+      ],
+      "word_count": 349
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m11-q113",
+        "m11-q114",
+        "m11-q117"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "11-network__further-free-resources",
+      "module_id": "11-network",
+      "module_num": 11,
+      "order": 9,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m11-importance",
+        "m11-planning",
+        "m11-copper",
+        "m11-fibre",
+        "m11-tia942-topology",
+        "m11-testing",
+        "m11-redundancy",
+        "m11-site-to-site"
+      ],
+      "word_count": 292
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m12-q042",
+        "bank-m12-q049",
+        "bank-m12-q064"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "12-fire__learning-objectives",
+      "module_id": "12-fire",
+      "module_num": 12,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m12-causes",
+        "m12-suppression-reqs",
+        "m12-standards",
+        "m12-detection",
+        "m12-water-suppression",
+        "m12-gas-suppression",
+        "m12-classes",
+        "m12-best-practices",
+        "m12-extinguishers",
+        "m12-signage",
+        "m12-regulatory"
+      ],
+      "word_count": 133
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m12-q064",
+        "bank-m12-q069",
+        "bank-m12-q071"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
+      "id": "12-fire__why-it-matters-ops-design-tpm-interview-angle",
+      "module_id": "12-fire",
+      "module_num": 12,
+      "order": 2,
+      "title": "Why it matters (ops / design / TPM interview angle)",
+      "topic_ids": [
+        "m12-causes",
+        "m12-suppression-reqs",
+        "m12-standards",
+        "m12-detection",
+        "m12-water-suppression",
+        "m12-gas-suppression",
+        "m12-classes",
+        "m12-best-practices",
+        "m12-extinguishers",
+        "m12-signage",
+        "m12-regulatory"
+      ],
+      "word_count": 193
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m12-q069",
+        "bank-m12-q071",
+        "m12-q205"
+      ],
+      "estimate_minutes": 13,
+      "heading_id": "core-concepts",
+      "id": "12-fire__core-concepts",
+      "module_id": "12-fire",
+      "module_num": 12,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m12-causes",
+        "m12-suppression-reqs",
+        "m12-standards",
+        "m12-detection",
+        "m12-water-suppression",
+        "m12-gas-suppression",
+        "m12-classes",
+        "m12-best-practices",
+        "m12-extinguishers",
+        "m12-signage",
+        "m12-regulatory"
+      ],
+      "word_count": 1901
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m12-q209",
+        "bank-m12-q041",
+        "bank-m12-q047"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams",
+      "id": "12-fire__key-diagrams",
+      "module_id": "12-fire",
+      "module_num": 12,
+      "order": 4,
+      "title": "Key diagrams",
+      "topic_ids": [
+        "m12-causes",
+        "m12-suppression-reqs",
+        "m12-standards",
+        "m12-detection",
+        "m12-water-suppression",
+        "m12-gas-suppression",
+        "m12-classes",
+        "m12-best-practices",
+        "m12-extinguishers",
+        "m12-signage",
+        "m12-regulatory"
+      ],
+      "word_count": 194
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m12-q044",
+        "bank-m12-q047",
+        "bank-m12-q050"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "12-fire__formulas-rules-of-thumb",
+      "module_id": "12-fire",
+      "module_num": 12,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m12-causes",
+        "m12-suppression-reqs",
+        "m12-standards",
+        "m12-detection",
+        "m12-water-suppression",
+        "m12-gas-suppression",
+        "m12-classes",
+        "m12-best-practices",
+        "m12-extinguishers",
+        "m12-signage",
+        "m12-regulatory"
+      ],
+      "word_count": 161
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m12-q048",
+        "bank-m12-q050",
+        "bank-m12-q057"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "12-fire__common-failure-modes-and-misconceptions",
+      "module_id": "12-fire",
+      "module_num": 12,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m12-causes",
+        "m12-suppression-reqs",
+        "m12-standards",
+        "m12-detection",
+        "m12-water-suppression",
+        "m12-gas-suppression",
+        "m12-classes",
+        "m12-best-practices",
+        "m12-extinguishers",
+        "m12-signage",
+        "m12-regulatory"
+      ],
+      "word_count": 221
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m12-q052",
+        "bank-m12-q055",
+        "bank-m12-q057"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "12-fire__interview-drills",
+      "module_id": "12-fire",
+      "module_num": 12,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m12-causes",
+        "m12-suppression-reqs",
+        "m12-standards",
+        "m12-detection",
+        "m12-water-suppression",
+        "m12-gas-suppression",
+        "m12-classes",
+        "m12-best-practices",
+        "m12-extinguishers",
+        "m12-signage",
+        "m12-regulatory"
+      ],
+      "word_count": 355
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m12-q055",
+        "bank-m12-q057",
+        "bank-m12-q060"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "12-fire__self-check-quiz",
+      "module_id": "12-fire",
+      "module_num": 12,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m12-causes",
+        "m12-suppression-reqs",
+        "m12-standards",
+        "m12-detection",
+        "m12-water-suppression",
+        "m12-gas-suppression",
+        "m12-classes",
+        "m12-best-practices",
+        "m12-extinguishers",
+        "m12-signage",
+        "m12-regulatory"
+      ],
+      "word_count": 391
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m12-q058",
+        "bank-m12-q060",
+        "bank-m12-q066"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "12-fire__further-free-resources",
+      "module_id": "12-fire",
+      "module_num": 12,
+      "order": 9,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m12-causes",
+        "m12-suppression-reqs",
+        "m12-standards",
+        "m12-detection",
+        "m12-water-suppression",
+        "m12-gas-suppression",
+        "m12-classes",
+        "m12-best-practices",
+        "m12-extinguishers",
+        "m12-signage",
+        "m12-regulatory"
+      ],
+      "word_count": 265
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m13-q077",
+        "bank-m13-q086",
+        "bank-m13-q078"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "13-security__learning-objectives",
+      "module_id": "13-security",
+      "module_num": 13,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m13-security-components",
+        "m13-safety-components"
+      ],
+      "word_count": 125
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m13-q086",
+        "bank-m13-q088",
+        "bank-m13-q087"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
+      "id": "13-security__why-it-matters-ops-design-tpm-interview-angle",
+      "module_id": "13-security",
+      "module_num": 13,
+      "order": 2,
+      "title": "Why it matters (ops / design / TPM interview angle)",
+      "topic_ids": [
+        "m13-security-components",
+        "m13-safety-components"
+      ],
+      "word_count": 280
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m13-q091",
+        "bank-m13-q100",
+        "bank-m13-q101"
+      ],
+      "estimate_minutes": 13,
+      "heading_id": "core-concepts",
+      "id": "13-security__core-concepts",
+      "module_id": "13-security",
+      "module_num": 13,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m13-security-components",
+        "m13-safety-components"
+      ],
+      "word_count": 1891
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m13-q204",
+        "bank-m13-q085",
+        "m13-q211"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams",
+      "id": "13-security__key-diagrams",
+      "module_id": "13-security",
+      "module_num": 13,
+      "order": 4,
+      "title": "Key diagrams",
+      "topic_ids": [
+        "m13-security-components",
+        "m13-safety-components"
+      ],
+      "word_count": 176
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m13-q080",
+        "bank-m13-q085",
+        "bank-m13-q081"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "13-security__formulas-rules-of-thumb",
+      "module_id": "13-security",
+      "module_num": 13,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m13-security-components",
+        "m13-safety-components"
+      ],
+      "word_count": 208
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m13-q083",
+        "bank-m13-q085",
+        "bank-m13-q089"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "13-security__common-failure-modes-and-misconceptions",
+      "module_id": "13-security",
+      "module_num": 13,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m13-security-components",
+        "m13-safety-components"
+      ],
+      "word_count": 242
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m13-q090",
+        "bank-m13-q094",
+        "bank-m13-q092"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "13-security__interview-drills",
+      "module_id": "13-security",
+      "module_num": 13,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m13-security-components",
+        "m13-safety-components"
+      ],
+      "word_count": 404
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m13-q094",
+        "bank-m13-q096",
+        "bank-m13-q095"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "13-security__self-check-quiz",
+      "module_id": "13-security",
+      "module_num": 13,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m13-security-components",
+        "m13-safety-components"
+      ],
+      "word_count": 348
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m13-q097",
+        "m13-q202",
+        "bank-m13-q098"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "13-security__further-free-resources",
+      "module_id": "13-security",
+      "module_num": 13,
+      "order": 9,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m13-security-components",
+        "m13-safety-components"
+      ],
+      "word_count": 333
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m14-q104",
+        "bank-m14-q105",
+        "bank-m14-q113"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "14-auxiliary__learning-objectives",
+      "module_id": "14-auxiliary",
+      "module_num": 14,
+      "order": 1,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m14-monitoring-challenges",
+        "m14-monitoring-reqs",
+        "m14-ems",
+        "m14-bms",
+        "m14-dcim",
+        "m14-leak",
+        "m14-alarms",
+        "m14-notification",
+        "m14-best-practices"
+      ],
+      "word_count": 136
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m14-q115",
+        "bank-m14-q118",
+        "bank-m14-q120"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+      "id": "14-auxiliary__why-it-matters-opsdesigntpm-interview-angle",
+      "module_id": "14-auxiliary",
+      "module_num": 14,
+      "order": 2,
+      "title": "Why it matters (ops/design/TPM interview angle)",
+      "topic_ids": [
+        "m14-monitoring-challenges",
+        "m14-monitoring-reqs",
+        "m14-ems",
+        "m14-bms",
+        "m14-dcim",
+        "m14-leak",
+        "m14-alarms",
+        "m14-notification",
+        "m14-best-practices"
+      ],
+      "word_count": 250
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m14-q123",
+        "bank-m14-q124",
+        "bank-m14-q127"
+      ],
+      "estimate_minutes": 13,
+      "heading_id": "core-concepts",
+      "id": "14-auxiliary__core-concepts",
+      "module_id": "14-auxiliary",
+      "module_num": 14,
+      "order": 3,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m14-monitoring-challenges",
+        "m14-monitoring-reqs",
+        "m14-ems",
+        "m14-bms",
+        "m14-dcim",
+        "m14-leak",
+        "m14-alarms",
+        "m14-notification",
+        "m14-best-practices"
+      ],
+      "word_count": 1911
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m14-q127",
+        "m14-q203",
+        "m14-q206"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "key-diagrams",
+      "id": "14-auxiliary__key-diagrams",
+      "module_id": "14-auxiliary",
+      "module_num": 14,
+      "order": 4,
+      "title": "Key diagrams",
+      "topic_ids": [
+        "m14-monitoring-challenges",
+        "m14-monitoring-reqs",
+        "m14-ems",
+        "m14-bms",
+        "m14-dcim",
+        "m14-leak",
+        "m14-alarms",
+        "m14-notification",
+        "m14-best-practices"
+      ],
+      "word_count": 93
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m14-q208",
+        "bank-m14-q106",
+        "bank-m14-q107"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "formulas-rules-of-thumb",
+      "id": "14-auxiliary__formulas-rules-of-thumb",
+      "module_id": "14-auxiliary",
+      "module_num": 14,
+      "order": 5,
+      "title": "Formulas / rules of thumb",
+      "topic_ids": [
+        "m14-monitoring-challenges",
+        "m14-monitoring-reqs",
+        "m14-ems",
+        "m14-bms",
+        "m14-dcim",
+        "m14-leak",
+        "m14-alarms",
+        "m14-notification",
+        "m14-best-practices"
+      ],
+      "word_count": 206
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m14-q108",
+        "bank-m14-q109",
+        "bank-m14-q114"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "common-failure-modes-and-misconceptions",
+      "id": "14-auxiliary__common-failure-modes-and-misconceptions",
+      "module_id": "14-auxiliary",
+      "module_num": 14,
+      "order": 6,
+      "title": "Common failure modes and misconceptions",
+      "topic_ids": [
+        "m14-monitoring-challenges",
+        "m14-monitoring-reqs",
+        "m14-ems",
+        "m14-bms",
+        "m14-dcim",
+        "m14-leak",
+        "m14-alarms",
+        "m14-notification",
+        "m14-best-practices"
+      ],
+      "word_count": 175
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m14-q111",
+        "bank-m14-q114",
+        "bank-m14-q117"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "14-auxiliary__interview-drills",
+      "module_id": "14-auxiliary",
+      "module_num": 14,
+      "order": 7,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m14-monitoring-challenges",
+        "m14-monitoring-reqs",
+        "m14-ems",
+        "m14-bms",
+        "m14-dcim",
+        "m14-leak",
+        "m14-alarms",
+        "m14-notification",
+        "m14-best-practices"
+      ],
+      "word_count": 332
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m14-q117",
+        "bank-m14-q119",
+        "bank-m14-q121"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check-quiz",
+      "id": "14-auxiliary__self-check-quiz",
+      "module_id": "14-auxiliary",
+      "module_num": 14,
+      "order": 8,
+      "title": "Self-check quiz",
+      "topic_ids": [
+        "m14-monitoring-challenges",
+        "m14-monitoring-reqs",
+        "m14-ems",
+        "m14-bms",
+        "m14-dcim",
+        "m14-leak",
+        "m14-alarms",
+        "m14-notification",
+        "m14-best-practices"
+      ],
+      "word_count": 368
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m14-q122",
+        "bank-m14-q128",
+        "bank-m14-q129"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "14-auxiliary__further-free-resources",
+      "module_id": "14-auxiliary",
+      "module_num": 14,
+      "order": 9,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m14-monitoring-challenges",
+        "m14-monitoring-reqs",
+        "m14-ems",
+        "m14-bms",
+        "m14-dcim",
+        "m14-leak",
+        "m14-alarms",
+        "m14-notification",
+        "m14-best-practices"
+      ],
+      "word_count": 260
+    }
+  ],
+  "units_with_checks": 127,
+  "units_zero_checks": 0
+}

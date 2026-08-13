@@ -1,0 +1,55 @@
+{
+  "wave": "LEARN-v2",
+  "title": "M8 Learn v2 pedagogy packaging",
+  "date": "2026-08-12",
+  "outcome": "pass",
+  "epic": "bd-1t3",
+  "notes": "Waves A–D shipped; smoke_learn_v2 + smoke_diagrams + check.sh GREEN. Study signal only — not EPI certified.",
+  "gates": {
+    "wave_a_toc_progress": true,
+    "wave_a_formula_render": true,
+    "wave_a_power_path_embed_m06": true,
+    "wave_a_continue_eta": true,
+    "wave_a_smoke_learn_chrome": true,
+    "wave_b_units": true,
+    "wave_b_micro_checks": true,
+    "wave_b_unit_reader": true,
+    "wave_c_site_stack": true,
+    "wave_c_heat_path": true,
+    "wave_c_smoke_diagrams": true,
+    "wave_d_concept_card": true,
+    "wave_d_glossary": true,
+    "check_sh_green": true,
+    "smoke_learn_v2": true
+  },
+  "evidence": {
+    "unit_count": 127,
+    "m01_units": 9,
+    "m06_units": 9,
+    "glossary_terms": 156,
+    "diagrams_present": ["power-path", "site-stack", "heat-path"],
+    "smokes": ["smoke_learn_chrome", "smoke_learn_v2", "smoke_diagrams"],
+    "check_sh": "PASSED W0–L7 + V11 + M8 hooks"
+  },
+  "stories": [
+    "bd-1t3.1",
+    "bd-1t3.2",
+    "bd-1t3.3",
+    "bd-1t3.4",
+    "bd-1t3.5",
+    "bd-1t3.6",
+    "bd-1t3.7",
+    "bd-1t3.8",
+    "bd-1t3.9",
+    "bd-1t3.10",
+    "bd-1t3.11",
+    "bd-1t3.12",
+    "bd-1t3.13",
+    "bd-1t3.14"
+  ],
+  "non_claims": [
+    "not EPI certified",
+    "unit micro-check is study signal only",
+    "P1 diagrams (fire-sequence etc.) remain planned"
+  ]
+}

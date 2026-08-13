@@ -1,0 +1,56 @@
+{
+  "wave": "L5",
+  "title": "Browser course + UI e2e digest match",
+  "date": "2026-08-12",
+  "outcome": "pass",
+  "oracle": "ORACLE-GAUNTLET.md L5",
+  "plan": "docs/PHASE-L5.md",
+  "epic": "bd-y7v",
+  "stories_closed": [
+    "bd-2d9",
+    "bd-174",
+    "bd-38o",
+    "bd-1an",
+    "bd-38i",
+    "bd-3ro",
+    "bd-ca8",
+    "bd-39j"
+  ],
+  "gates": {
+    "web_index_present": true,
+    "course_css_visual_tokens": true,
+    "honesty_banner_non_grant": true,
+    "selftest_l5_honesty_plant_red": true,
+    "export_web_n_items_40": true,
+    "export_bank_hash_match": true,
+    "wasm_grade_all_correct_digest_match": true,
+    "wasm_grade_all_wrong_digest_match": true,
+    "e2e_l5_digest": true,
+    "selftest_l5_flipped_golden_red": true,
+    "selftest_l5_empty_fixtures_error": true,
+    "learn_14_modules_smoke": true,
+    "quiz_drill_srs_smoke": true,
+    "check_sh_l5_wired": true
+  },
+  "digests": {
+    "all_correct": "0e12171b04f6037b13b2990c7a679c06fb768c8ee1cc7243e40d56a3f9a4be16",
+    "all_wrong": "bad672a0c81512e252390ed7974e18dcf17e882b884dff361288f12743e358bc",
+    "bank_hash_live": "e82817572a82d13fad699393aab97613bdc0cf4c8503e264af490dc8dd7b71db",
+    "bank_hash_at_l5_ship": "4df4f517d8112867a41b9eddc6b82a5c948bc3f85062b729ee22a8d08f4fa28b",
+    "note": "seed42 goldens pin attempt digests; live bank_hash drifts with bank growth (804 items). Gate = goldens check + e2e fixtures, not live hash freeze."
+  },
+  "non_claims": [
+    "L5 complete is not EPI/EXIN certification",
+    "Study signal 27 is study-only, not a credential",
+    "Browser grade must match Rust goldens for frozen fixtures"
+  ],
+  "product_paths": {
+    "hub": "web/index.html",
+    "mock": "web/mock.html",
+    "results": "web/results.html",
+    "learn": "web/learn.html",
+    "quiz": "web/quiz.html",
+    "drill": "web/drill.html",
+    "serve": "cd web && python3 -m http.server 8765"
+  }
+}

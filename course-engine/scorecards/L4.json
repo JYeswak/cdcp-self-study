@@ -1,0 +1,16 @@
+{
+  "wave": "L4",
+  "schema": "cdcp.scorecard.v1",
+  "date": "2026-08-12",
+  "outcome": "pass",
+  "name": "WASM dual-path + known-bad selftests",
+  "gates": {
+    "selftest_known_bad": true,
+    "native_equals_wasm_mock40_seed42": true,
+    "check_sh_wired": true
+  },
+  "crate": "cdcp_wasm",
+  "non_claims": [
+    "L5 UI e2e"
+  ]
+}

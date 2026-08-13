@@ -1,0 +1,410 @@
+{
+  "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
+  "bank_hash": "e82817572a82d13fad699393aab97613bdc0cf4c8503e264af490dc8dd7b71db",
+  "exam_id": "mock40",
+  "items": [
+    {
+      "choices": [
+        "Blow dust freely into CRAH intakes with unfiltered air movers always",
+        "Control particulates (appropriate vacuums/procedures) so contamination is not redistributed onto IT gear",
+        "Soak tiles with unlimited free water under live busways",
+        "Ignore manufacturer and site ESD/particulate rules"
+      ],
+      "id": "bank-m15-q142",
+      "stem": "Cleaning in raised-floor environments should use methods that:"
+    },
+    {
+      "choices": [
+        "Only the break-room microwave permanently off",
+        "Only LED desk lamps",
+        "Only fibre splice trays",
+        "Nearby rail electrification, high-voltage lines, broadcast transmitters, and large industrial loads"
+      ],
+      "id": "m07-q209",
+      "stem": "External EMF sources relevant to site/building planning can include:"
+    },
+    {
+      "choices": [
+        "Being completely inaccessible even to trained staff",
+        "Being pressed daily as a health check without procedure",
+        "Limiting casual/public access while remaining reachable to trained personnel under procedure",
+        "Controlling only decorative lighting"
+      ],
+      "id": "bank-m13-q095",
+      "stem": "EPO stations must balance security and safety by:"
+    },
+    {
+      "choices": [
+        "Painting aisle stripes",
+        "Measuring only whole-room average kW",
+        "A heavy point load from equipment feet or pedestals bears on a small contact area",
+        "Choosing DNS providers"
+      ],
+      "id": "m04-q117",
+      "stem": "Concentrated load rating matters most when:"
+    },
+    {
+      "choices": [
+        "Only record offline tapes with no timestamps",
+        "Replace all mechanical locks",
+        "Increase chilled-water flow",
+        "Bookmark video, alert the SOC/guard, and support investigation with synchronized logs"
+      ],
+      "id": "bank-m13-q088",
+      "stem": "Surveillance (CCTV/VMS) is most valuable when integrated so that a door-forced alarm can:"
+    },
+    {
+      "choices": [
+        "Evaporative methods use no water and always use more energy",
+        "Dry coolers always use more water than towers",
+        "There is never an energy/water tradeoff",
+        "Evaporative methods can be more energy-efficient but consume water; dry methods save water but may use more energy in heat"
+      ],
+      "id": "m10-q107",
+      "stem": "A qualitative tradeoff of evaporative cooling versus dry heat rejection is often:"
+    },
+    {
+      "choices": [
+        "Electrostatic risk when too dry, and condensation/corrosion risk when too wet",
+        "Only brighter lighting",
+        "Faster copper oxidation exclusively when RH is perfect",
+        "Automatic generator start"
+      ],
+      "id": "m09-q116",
+      "stem": "Relative humidity control in white space is important partly because extremes can contribute to:"
+    },
+    {
+      "choices": [
+        "Magnetic fields always destroy fibre optics",
+        "EMF always improves packet loss",
+        "Standards forbid any current above 1 A",
+        "Some equipment, cabling, and human-exposure policies can still be affected by strong local fields"
+      ],
+      "id": "m07-q205",
+      "stem": "CRT-era displays were famously field-sensitive; modern IT is generally more robust, yet facility designers still care about EMF because:"
+    },
+    {
+      "choices": [
+        "They replace fire dampers",
+        "They only affect Wi-Fi channels",
+        "They set generator frequency",
+        "Loose pedestals can cause panel rock, safety hazards, and load-path failure"
+      ],
+      "id": "m04-q131",
+      "stem": "Pedestal adhesion/attachment and understructure stability matter because:"
+    },
+    {
+      "choices": [
+        "It is always cheaper than any other option",
+        "It can extinguish without the water damage profile of wet systems (with design trade-offs)",
+        "It increases PUE deliberately",
+        "It eliminates detection needs"
+      ],
+      "id": "mock40-q35",
+      "stem": "Clean-agent (gaseous) suppression is often discussed for white space because:"
+    },
+    {
+      "choices": [
+        "Only the color of patch cords",
+        "Carrier diversity, entrance facility separation, and pathway risk—not only port speed",
+        "Only indoor copper length",
+        "Only UPS brand"
+      ],
+      "id": "m11-q204",
+      "stem": "Site-to-site connectivity planning should consider:"
+    },
+    {
+      "choices": [
+        "Optical absorption in multimode fibre cores",
+        "DNS cache poisoning",
+        "Faraday induction in loops—large cable loops and poor power/data separation worsen pick-up",
+        "CRAH humidification cycles alone"
+      ],
+      "id": "m07-q052",
+      "stem": "Time-varying magnetic fields can induce noise on copper primarily via:"
+    },
+    {
+      "choices": [
+        "Power, cooling, space, cabling, fire protection, and security layers supporting IT loads",
+        "Only application source code repositories",
+        "Only office furniture and parking",
+        "Only marketing dashboards"
+      ],
+      "id": "m01-q045",
+      "stem": "Which set best represents core physical elements of a data centre facility?"
+    },
+    {
+      "choices": [
+        "Alarms replace the need for any water system",
+        "Only energy meters matter",
+        "Silent failures are desirable",
+        "Operators can respond before thermal or water-damage incidents fully develop"
+      ],
+      "id": "m10-q214",
+      "stem": "Integrating water alarms (level, leak, pressure) into the monitoring stack helps because:"
+    },
+    {
+      "choices": [
+        "Diverse carriers and utilities are available",
+        "Floor loading is adequate",
+        "Deed restrictions, easements, or landlord constraints block generator fuel or antenna rights needed for resilience",
+        "Security screening exists"
+      ],
+      "id": "m03-q109",
+      "stem": "Shared multi-tenant campuses can still fail a “good site” test if:"
+    },
+    {
+      "choices": [
+        "EN 50600 → only U.S. NEC article; ISO 22237 → only diesel ASTM grade",
+        "EN 50600 → commonly European context; ISO/IEC 22237 → international series awareness",
+        "Both only apply to residential attics",
+        "Neither ever appears in data centre RFPs"
+      ],
+      "id": "m02-q085",
+      "stem": "Which pair correctly associates series awareness with region/context (at a high level)?"
+    },
+    {
+      "choices": [
+        "Only exterior signage fonts",
+        "Air distribution, cable pathways, and equipment clearances in white space",
+        "Diesel cetane rating",
+        "Badge printer toner choice"
+      ],
+      "id": "m03-q096",
+      "stem": "A facility criterion for floor-to-floor height / clear height is important mainly because it affects:"
+    },
+    {
+      "choices": [
+        "1 metre of vertical space",
+        "19 kW continuous",
+        "1.75 inches (44.45 mm) of vertical mounting space",
+        "One PDU phase"
+      ],
+      "id": "m08-q042",
+      "stem": "One rack unit (RU/U) equals:"
+    },
+    {
+      "choices": [
+        "UPS batteries always need 100% RH",
+        "Outdoor conditions or cooling processes drive indoor moisture too low for the site humidity strategy",
+        "Fiber only works when fog is present",
+        "Raised floors must be flooded"
+      ],
+      "id": "m09-q121",
+      "stem": "Humidification may be required in a data centre when:"
+    },
+    {
+      "choices": [
+        "Correlation always proves the network team is at fault",
+        "Cross-domain correlation speeds root-cause isolation when cooling plant and room environment interact",
+        "Systems should never share timestamps",
+        "It replaces mechanical expertise entirely"
+      ],
+      "id": "m14-q209",
+      "stem": "Correlating BMS alarms with EMS temperature spikes helps operators because:"
+    },
+    {
+      "choices": [
+        "Only dehumidifies the air",
+        "Removes heat without changing moisture content of the air",
+        "Only heats the supply air",
+        "Is always equal to latent capacity"
+      ],
+      "id": "m09-q101",
+      "stem": "Sensible cooling capacity is the portion of a CRAC/CRAH capacity that:"
+    },
+    {
+      "choices": [
+        "Cable bend radius, PDU placement, rail adjustability, and rear clearance for service",
+        "That servers have zero depth",
+        "That doors never need to open",
+        "That nameplates never list dimensions"
+      ],
+      "id": "m08-q205",
+      "stem": "When planning rack depth, a common mistake is forgetting:"
+    },
+    {
+      "choices": [
+        "Working only with purely North American code questions and no EU touchpoints",
+        "Projects, suppliers, or customers in Europe reference the EN data centre series",
+        "Designing only residential lighting",
+        "Selecting office chair ergonomics exclusively"
+      ],
+      "id": "m02-q078",
+      "stem": "EN 50600 awareness is especially relevant when:"
+    },
+    {
+      "choices": [
+        "The facility uses only passive cooling with no outdoor plant ever",
+        "Evaporative or water-dependent heat rejection and fire water supplies are part of the design concept",
+        "IT load is zero",
+        "The site is purely a dry storage warehouse with no IT"
+      ],
+      "id": "m03-q213",
+      "stem": "Water availability and wastewater discharge rights can be decisive site factors when:"
+    },
+    {
+      "choices": [
+        "How long repair takes after a failure",
+        "A contractual penalty fee only",
+        "A reliability metric reflecting average operating time between failures for a repairable item population (conceptual)",
+        "The same as SLA credits always"
+      ],
+      "id": "bank-m15-q143",
+      "stem": "MTBF (Mean Time Between Failures) is best described as:"
+    },
+    {
+      "choices": [
+        "Utility events, equipment failures, human error, and environmental hazards all contribute; dominance varies by site",
+        "Only utility events ever matter",
+        "Only cyber attacks cause facility downtime",
+        "Cooling never contributes to outages"
+      ],
+      "id": "m01-q208",
+      "stem": "Which statement about causes of unavailability is most balanced?"
+    },
+    {
+      "choices": [
+        "Rely only on the normal lighting branch with no backup",
+        "Meter rack kW",
+        "Cool servers with forced air",
+        "Include local battery/inverter provisions to remain lit for a required duration after normal power loss"
+      ],
+      "id": "m05-q140",
+      "stem": "Self-contained emergency luminaires typically:"
+    },
+    {
+      "choices": [
+        "Copper utilization",
+        "Site water use relative to IT energy",
+        "Wi-Fi efficiency",
+        "Window U-factor only"
+      ],
+      "id": "mock40-q22",
+      "stem": "WUE primarily tracks:"
+    },
+    {
+      "choices": [
+        "Only that LEDs are cheaper than fluorescents",
+        "That lux meters replace all other commissioning",
+        "That emergency testing is unnecessary",
+        "As-built illuminance meets the intended design for tasks and safety, not just that fixtures powered on"
+      ],
+      "id": "m05-q211",
+      "stem": "Measuring light levels after installation verifies that:"
+    },
+    {
+      "choices": [
+        "Blocking all airflow intentionally in every design",
+        "Chimney exhaust when solid doors are mandatory always",
+        "Elimination of blanking panels",
+        "Front-to-rear airflow designs in classic hot/cold aisle layouts"
+      ],
+      "id": "m08-q048",
+      "stem": "Highly perforated front/rear doors on air-cooled IT cabinets support:"
+    },
+    {
+      "choices": [
+        "Delivers higher power efficiently with better phase utilization than single-phase alone",
+        "Eliminates the need for PDUs",
+        "Removes grounding requirements",
+        "Converts AC heat into network bandwidth"
+      ],
+      "id": "m06-q220",
+      "stem": "Three-phase power is favored for high-density racks mainly because it:"
+    },
+    {
+      "choices": [
+        "Teams may not know when to abort and restore a known-good state if the procedure goes wrong",
+        "Rollback is never useful",
+        "Maintenance always succeeds on first try",
+        "Monitoring should be off during all maintenance"
+      ],
+      "id": "m15-q209",
+      "stem": "Preventive maintenance windows scheduled without rollback criteria are weak because:"
+    },
+    {
+      "choices": [
+        "Mute the fire alarm forever",
+        "Bypass AHJ inspections",
+        "Provide a supervised means to delay discharge during investigation—not a casual permanent disable",
+        "Open all wet-pipe heads immediately"
+      ],
+      "id": "m12-q217",
+      "stem": "Abort switches on gaseous systems, where provided, are intended to:"
+    },
+    {
+      "choices": [
+        "Removing the need for building perimeter controls",
+        "Providing tenant separation and controlled access within a shared building",
+        "Allowing unlimited shared keys across tenants",
+        "Eliminating CCTV needs"
+      ],
+      "id": "m13-q210",
+      "stem": "Asset cages or demarcated customer spaces in colocation improve security by:"
+    },
+    {
+      "choices": [
+        "Environmental monitoring of IT space conditions (temp/RH/leaks, etc.)",
+        "Energy market settlement systems",
+        "Exclusive replacement for listed fire detection",
+        "Only generator fuel gauging"
+      ],
+      "id": "bank-m14-q105",
+      "stem": "In data-centre auxiliary-system usage, EMS most nearly means:"
+    },
+    {
+      "choices": [
+        "Safe to ignore if the last value looked fine",
+        "Proof that cooling is healthy",
+        "A monitoring fault that can hide real conditions—ticket/page per policy",
+        "A reason to disable all alarms site-wide"
+      ],
+      "id": "bank-m14-q119",
+      "stem": "Sensor offline / missing heartbeat on a critical row should be treated as:"
+    },
+    {
+      "choices": [
+        "Cheaper CAPEX only",
+        "Ignoring human procedures",
+        "Using N topology exclusively",
+        "Surviving a defined worst-case single failure without interrupting the load"
+      ],
+      "id": "m06-q056",
+      "stem": "Fault tolerance is generally a stronger claim than concurrent maintainability alone because it emphasizes:"
+    },
+    {
+      "choices": [
+        "Only hide structural defects from inspectors permanently",
+        "Replace fire detection entirely",
+        "Conceal services, support lighting, and in some designs form a return-air plenum when listed/approved for that use",
+        "Eliminate all cable trays forever"
+      ],
+      "id": "m04-q204",
+      "stem": "Suspended ceilings in technical spaces may be used to:"
+    },
+    {
+      "choices": [
+        "All modules must fail together",
+        "Any one module can fail or be maintained while remaining modules carry the load",
+        "Batteries are removed",
+        "Only generators are N+1"
+      ],
+      "id": "m06-q245",
+      "stem": "UPS module N+1 is valuable mainly when:"
+    },
+    {
+      "choices": [
+        "Maximize crushing of cables for density at any cost",
+        "Heat cables to reduce attenuation always",
+        "Protect transmission performance and mechanical integrity of installed media",
+        "Eliminate need for firestopping"
+      ],
+      "id": "m11-q118",
+      "stem": "Pathway fill and bend-radius discipline exist to:"
+    }
+  ],
+  "n_items": 40,
+  "schema_version": 1,
+  "seed": 42
+}

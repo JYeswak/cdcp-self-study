@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP reference — glossary and power/redundancy cheatsheet. Study tool only; does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Reference</title>
+  <link rel="stylesheet" href="assets/css/course.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="learn.html">Learn</a></li>
+          <li><a href="drill.html">Drill</a></li>
+          <li><a href="mock.html">Mock</a></li>
+          <li><a href="reference.html" aria-current="page">Reference</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap wrap-learn" tabindex="-1">
+    <h1>Reference</h1>
+    <p class="lede">
+      Offline glossary and power/redundancy cheatsheet from the parent study corpus.
+      Interview-ready shorthand only — not an official EPI dictionary and not a design manual.
+    </p>
+
+    <div class="ref-tabs" role="tablist" aria-label="Reference documents">
+        <button type="button" class="ref-tabs__btn" role="tab"
+          id="tab-glossary" data-ref-id="glossary"
+          aria-controls="panel-glossary" aria-selected="true">
+          Glossary
+        </button>
+        <button type="button" class="ref-tabs__btn" role="tab"
+          id="tab-power" data-ref-id="power"
+          aria-controls="panel-power" aria-selected="false">
+          Power & redundancy
+        </button>
+    </div>
+
+      <section class="ref-panel" role="tabpanel"
+        id="panel-glossary" data-ref-id="glossary"
+        aria-labelledby="tab-glossary"
+        data-content-href="content/reference/GLOSSARY.md">
+        <article class="prose" id="prose-glossary" aria-busy="true">
+          <p class="lede">Loading glossary…</p>
+        </article>
+      </section>
+      <section class="ref-panel" role="tabpanel"
+        id="panel-power" data-ref-id="power"
+        aria-labelledby="tab-power" hidden
+        data-content-href="content/reference/POWER-AND-REDUNDANCY-CHEATSHEET.md">
+        <article class="prose" id="prose-power" aria-busy="true">
+          <p class="lede">Loading power & redundancy…</p>
+        </article>
+      </section>
+
+    <p class="meta">
+      <a href="index.html">← Hub</a>
+      · <a href="learn.html">Learn</a>
+      · <a href="learn/06-power.html">Module 06 power</a>
+      · source <span class="mono">web/content/reference/</span>
+      · study notes only · not an EPI/EXIN credential.
+    </p>
+  </main>
+
+  <script src="assets/js/learn_md.js"></script>
+  <script src="assets/js/reference.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP study runbook vignettes — scenario stems for practice. Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Runbook vignettes</title>
+  <link rel="stylesheet" href="assets/css/course.css">
+  <style>
+    .vignette-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .vignette {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      padding: 1rem 1.15rem 1.1rem;
+    }
+    .vignette__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.75rem;
+      align-items: center;
+      margin: 0 0 0.55rem;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--fg-dim);
+    }
+    .vignette__tag {
+      color: var(--violet);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .vignette__stem {
+      margin: 0 0 0.75rem;
+      color: var(--fg);
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+    .vignette__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+    .vignette__actions a {
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="learn.html">Learn</a></li>
+          <li><a href="drill.html">Drill</a></li>
+          <li><a href="mock.html">Mock</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" tabindex="-1">
+    <h1>Runbook vignettes</h1>
+    <p class="lede">
+      Scenario-style stems for operational judgment practice (tagged <span class="mono">runbook</span> /
+      <span class="mono">vignette</span> in the bank). Open a module quiz or mock for graded MCQ practice.
+      These are original educational scenarios — not exam dumps and not site procedures for a live facility.
+    </p>
+
+    <p class="meta" style="margin-top:0;border:0;padding:0">
+      <a href="index.html">← Hub</a>
+      · <a href="diagrams/power-path.html">Power path diagram (N vs 2N)</a>
+      · <a href="quiz.html">Module quiz</a>
+      · <a href="mock.html">Mock exam</a>
+    </p>
+
+    <ol class="vignette-list">
+      <li class="vignette" id="m06-q300">
+        <p class="vignette__meta">
+          <span class="vignette__tag">runbook · vignette</span>
+          <span>module 06 · power</span>
+          <span class="mono">m06-q300</span>
+        </p>
+        <p class="vignette__stem">
+          During a planned UPS battery string replacement on path A of a dual-path hall, a tech notices
+          both cords of several dual-corded servers land on the same path-A rPDU. Before continuing
+          isolation of path A, what is the most appropriate first action?
+        </p>
+        <div class="vignette__actions">
+          <a class="btn btn--primary" href="quiz.html?module=6">Practice module 6 quiz</a>
+          <a class="btn btn--ghost" href="learn/06-power.html">Learn · Power</a>
+          <a class="btn btn--ghost" href="diagrams/power-path.html">N vs 2N diagram</a>
+        </div>
+      </li>
+
+      <li class="vignette" id="m06-q301">
+        <p class="vignette__meta">
+          <span class="vignette__tag">runbook · vignette</span>
+          <span>module 06 · power</span>
+          <span class="mono">m06-q301</span>
+        </p>
+        <p class="vignette__stem">
+          Utility voltage sags; generators start and the ATS transfers the critical bus as designed.
+          After utility stabilizes, a junior tech wants to force an immediate retransfer to utility
+          without checking sync/return timers or load state. What should the runbook emphasize?
+        </p>
+        <div class="vignette__actions">
+          <a class="btn btn--primary" href="quiz.html?module=6">Practice module 6 quiz</a>
+          <a class="btn btn--ghost" href="learn/06-power.html">Learn · Power</a>
+          <a class="btn btn--ghost" href="mock.html">Mock exam</a>
+        </div>
+      </li>
+
+      <li class="vignette" id="m09-q300">
+        <p class="vignette__meta">
+          <span class="vignette__tag">runbook · vignette</span>
+          <span>module 09 · cooling</span>
+          <span class="mono">m09-q300</span>
+        </p>
+        <p class="vignette__stem">
+          Night ops reports rising inlet temperatures on one cold aisle after a network team opened
+          several blanking panels and containment doors for a cable pull. CRAH setpoints are unchanged.
+          What should the first operational response prioritize?
+        </p>
+        <div class="vignette__actions">
+          <a class="btn btn--primary" href="quiz.html?module=9">Practice module 9 quiz</a>
+          <a class="btn btn--ghost" href="learn/09-cooling.html">Learn · Cooling</a>
+          <a class="btn btn--ghost" href="mock.html">Mock exam</a>
+        </div>
+      </li>
+
+      <li class="vignette" id="m10-q300">
+        <p class="vignette__meta">
+          <span class="vignette__tag">runbook · vignette</span>
+          <span>module 10 · water</span>
+          <span class="mono">m10-q300</span>
+        </p>
+        <p class="vignette__stem">
+          A zone leak detector under a CRAC/CRAH hydronic connection alarms during a humid weekend.
+          Visual inspection shows a slow drip at a valve packing, not a ruptured pipe. What is the best
+          immediate sequence?
+        </p>
+        <div class="vignette__actions">
+          <a class="btn btn--primary" href="quiz.html?module=10">Practice module 10 quiz</a>
+          <a class="btn btn--ghost" href="learn/10-water.html">Learn · Water</a>
+          <a class="btn btn--ghost" href="mock.html">Mock exam</a>
+        </div>
+      </li>
+
+      <li class="vignette" id="m12-q300">
+        <p class="vignette__meta">
+          <span class="vignette__tag">runbook · vignette</span>
+          <span>module 12 · fire</span>
+          <span class="mono">m12-q300</span>
+        </p>
+        <p class="vignette__stem">
+          ASD indicates a low-level alert in a dense white-space zone. Spot detectors have not reached
+          alarm; no visible smoke. The night operator is alone. Per a layered-detection runbook mindset,
+          what is the preferred next step?
+        </p>
+        <div class="vignette__actions">
+          <a class="btn btn--primary" href="quiz.html?module=12">Practice module 12 quiz</a>
+          <a class="btn btn--ghost" href="learn/12-fire.html">Learn · Fire</a>
+          <a class="btn btn--ghost" href="mock.html">Mock exam</a>
+        </div>
+      </li>
+
+      <li class="vignette" id="m13-q300">
+        <p class="vignette__meta">
+          <span class="vignette__tag">runbook · vignette</span>
+          <span>module 13 · security</span>
+          <span class="mono">m13-q300</span>
+        </p>
+        <p class="vignette__stem">
+          A vendor arrives for emergency breaker work. Their escort badge is valid, but a second person
+          without credentials tries to tailgate through the mantrap behind them carrying tools. Security
+          cameras are recording. What should the escort/runbook response be?
+        </p>
+        <div class="vignette__actions">
+          <a class="btn btn--primary" href="quiz.html?module=13">Practice module 13 quiz</a>
+          <a class="btn btn--ghost" href="learn/13-security.html">Learn · Security</a>
+          <a class="btn btn--ghost" href="mock.html">Mock exam</a>
+        </div>
+      </li>
+    </ol>
+
+    <p class="meta">
+      Bank tags: <span class="mono">tags = ["runbook", "vignette"]</span> on items
+      <span class="mono">m06-q300</span>, <span class="mono">m06-q301</span>,
+      <span class="mono">m09-q300</span>, <span class="mono">m10-q300</span>,
+      <span class="mono">m12-q300</span>, <span class="mono">m13-q300</span>.
+      Graded practice uses the module quiz or full mock sampler — not this listing alone.
+      Completing vignettes is a study signal only.
+    </p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "wave": "L6",
+  "title": "Pedagogy mastery + coverage oracle",
+  "date": "2026-08-12",
+  "outcome": "pass",
+  "plan": "docs/PHASE-L6.md",
+  "epic": "bd-3js",
+  "stories_closed": [
+    "bd-3rs",
+    "bd-iwp",
+    "bd-f6t",
+    "bd-qyi",
+    "bd-wkh",
+    "bd-3dd",
+    "bd-2jb"
+  ],
+  "gates": {
+    "coverage_verify_1_14": true,
+    "coverage_selftest_known_bad": true,
+    "mastery_smoke": true,
+    "hub_mastery_recommend": true,
+    "weak_links_smoke": true,
+    "session_shapes_drill_due_miss": true,
+    "multi_seed_export_seed42_fixture": true,
+    "seed42_goldens_still_green": true,
+    "check_sh_l6_wired": true
+  },
+  "non_claims": [
+    "mastery/practiced is not EPI certification",
+    "domain coverage is not exam pass probability",
+    "study signal 27 remains mock-only"
+  ]
+}

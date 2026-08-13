@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://flywheel.zeststream.ai/schemas/PUBLISH-POLICY.schema.json",
+  "title": "PUBLISH-POLICY",
+  "description": "Per-repo publish policy declaring the freshness invariant for the public default branch, the merge-to-main path, and the feature-branch push cadence. Universal fleet doctrine: every public repo in the fleet (and private repos that aspire to publishability) declares one of these at .flywheel/PUBLISH-POLICY.json. Authority: bead flywheel-jrpfn research (.flywheel/PLANS/auto-publish-doctrine-2026-05-20/00-research.md). Mission Duty 3 (substrate-published).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "repo_slug",
+    "default_branch",
+    "max_main_staleness_hours",
+    "auto_merge_policy",
+    "feature_branch_push_policy"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "flywheel.publish_policy.v1"
+    },
+    "repo_slug": {
+      "type": "string",
+      "description": "Canonical owner/name slug (e.g. 'JYeswak/flywheel'). Used by the fleet probe to correlate against gh repo list."
+    },
+    "default_branch": {
+      "type": "string",
+      "default": "main",
+      "description": "The branch whose staleness the public-repo-freshness probe measures. Almost always 'main'."
+    },
+    "max_main_staleness_hours": {
+      "type": "number",
+      "minimum": 0,
+      "default": 24,
+      "description": "Freshness invariant. If origin/<default_branch>'s last commit is older than this, the probe degrades. >2x this value = critical. Public-facing repos default to 24h; doc-only repos may extend to 168h (1w)."
+    },
+    "auto_merge_policy": {
+      "enum": ["enabled", "gated", "disabled"],
+      "default": "disabled",
+      "description": "enabled = gh pr merge --auto fires when required_checks_before_merge pass (no human gate); gated = audit_bot_identity approval + required checks required, then auto-merge; disabled = humans merge manually OR direct push to main (Jeff-style solo-trust default)."
+    },
+    "audit_bot_identity": {
+      "type": "string",
+      "description": "Which agent identity may approve PRs in 'gated' mode (e.g. 'flywheel:1', 'cm-flywheel'). For 'enabled' or 'disabled' modes this field is unused. For repos accepting external contributions, set to a sentinel like 'external-collaborator-review-required'.",
+      "examples": ["flywheel:1", "external-collaborator-review-required", "skillos:orch"]
+    },
+    "required_checks_before_merge": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [],
+      "description": "List of gh check names that MUST be green before auto-merge fires. Only consulted when auto_merge_policy != 'disabled'. Names match the GitHub Actions job display-name, e.g. 'CI / lint', 'CI / test'."
+    },
+    "feature_branch_push_policy": {
+      "enum": ["per-commit", "every-15-min", "every-60-min", "manual"],
+      "default": "per-commit",
+      "description": "Cadence at which .flywheel/scripts/auto-push.sh pushes feature branches to origin. per-commit = post-commit hook; every-N-min = launchd/cron; manual = no automatic push. per-commit is canonical for flywheel-class repos."
+    },
+    "last_merge_to_main_ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Recorded by the freshness probe each tick. NOT authored by humans. Used to detect drift trends and to seed the doctor surface dashboard line."
+    },
+    "pr_template_path": {
+      "type": "string",
+      "default": ".github/pull_request_template.md",
+      "description": "Path to the PR template within the repo. Empty/absent = no template enforced."
+    },
+    "external_contributors_expected": {
+      "type": "boolean",
+      "default": false,
+      "description": "If true, branch protection should be ON for default_branch and auto_merge_policy SHOULD NOT be 'disabled' (humans + bots both need a review surface). Flywheel/SkillOS today: false (solo-trust). zeststream-brand-voice eventually: true."
+    },
+    "doc_freshness_carveout": {
+      "type": "object",
+      "description": "Optional: declare specific paths whose staleness is tracked separately (e.g. docs/, README.md). Useful for *-docs repos.",
+      "additionalProperties": false,
+      "properties": {
+        "paths": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "max_staleness_hours": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-form operator notes — why this policy was chosen, exceptions, links to incidents."
+    }
+  },
+  "examples": [
+    {
+      "schema_version": "flywheel.publish_policy.v1",
+      "repo_slug": "JYeswak/flywheel",
+      "default_branch": "main",
+      "max_main_staleness_hours": 24,
+      "auto_merge_policy": "disabled",
+      "feature_branch_push_policy": "per-commit",
+      "external_contributors_expected": false,
+      "notes": "Solo-trust pattern matches Dicklesworthstone/ntm. Joshua + agents direct-push to main; PRs are review surface only."
+    },
+    {
+      "schema_version": "flywheel.publish_policy.v1",
+      "repo_slug": "JYeswak/zeststream-brand-voice",
+      "default_branch": "main",
+      "max_main_staleness_hours": 168,
+      "auto_merge_policy": "gated",
+      "audit_bot_identity": "flywheel:1",
+      "required_checks_before_merge": ["voice-lint"],
+      "feature_branch_push_policy": "per-commit",
+      "external_contributors_expected": false,
+      "notes": "Doc-class repo; weekly freshness floor acceptable."
+    },
+    {
+      "schema_version": "flywheel.publish_policy.v1",
+      "repo_slug": "JYeswak/100minds-mcp",
+      "default_branch": "main",
+      "max_main_staleness_hours": 720,
+      "auto_merge_policy": "disabled",
+      "feature_branch_push_policy": "manual",
+      "external_contributors_expected": false,
+      "notes": "Archival/dormant. 30d freshness floor. Either revive cadence or archive on GitHub."
+    }
+  ]
+}

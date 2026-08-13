@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP module quiz — study signal only. Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Module quiz</title>
+  <link rel="stylesheet" href="assets/css/course.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="learn.html">Learn</a></li>
+          <li><a href="drill.html">Drill</a></li>
+          <li><a href="mock.html">Mock</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap-exam" tabindex="-1">
+    <div class="exam-toolbar">
+      <div class="exam-toolbar__left">
+        <h1 class="exam-title">Module quiz</h1>
+        <p class="exam-form-meta mono">8–12 items · one module · study only</p>
+      </div>
+      <div class="exam-toolbar__right">
+        <div class="exam-stat">
+          <span class="exam-stat__label">Progress</span>
+          <span id="quiz-progress" class="exam-stat__value mono" aria-live="polite">—</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="lede exam-lede">
+      Sample items from one bank module (<span class="mono">BankItem.module</span>).
+      Prefer WASM grade (same letter law as mock); if WASM is offline, score uses key-compare only
+      and <strong>never</strong> claims a GradeExact cert digest.
+      Missed items feed <a href="drill.html">Drill / SRS</a>.
+    </p>
+
+    <div id="quiz-status" class="exam-status" role="status">Loading…</div>
+
+    <section id="quiz-picker" class="question-card" hidden>
+      <h2 class="question-card__stem" style="font-size:1.1rem">Choose module</h2>
+      <p class="meta" style="margin:0 0 0.75rem;border:0;padding:0">
+        Deep-link: <span class="mono">quiz.html?module=6</span>
+      </p>
+      <div class="quiz-picker-row">
+        <label for="module-select" class="quiz-picker-label">Module</label>
+        <select id="module-select" class="quiz-select mono"></select>
+        <button type="button" id="btn-start-quiz" class="btn btn--primary">Start quiz</button>
+      </div>
+    </section>
+
+    <div id="quiz-exam" hidden>
+      <article id="question-card" class="question-card">
+        <p class="question-card__meta mono" aria-hidden="true"></p>
+        <h2 id="q-stem" class="question-card__stem"> </h2>
+        <div id="q-choices" class="choices"></div>
+      </article>
+
+      <div class="exam-nav">
+        <button type="button" id="btn-prev" class="btn btn--ghost">Previous</button>
+        <button type="button" id="btn-next" class="btn btn--ghost">Next</button>
+      </div>
+
+      <div class="exam-submit-bar">
+        <p id="unanswered-hint" class="unanswered-hint" tabindex="-1">
+          Answer all items to enable grade.
+        </p>
+        <button type="button" id="btn-submit" class="btn btn--primary" disabled>
+          Grade quiz
+        </button>
+      </div>
+    </div>
+
+    <section id="quiz-results" class="question-card" hidden>
+      <h2 class="question-card__stem" style="font-size:1.1rem">Quiz results</h2>
+      <p class="results-score-line">
+        <span id="quiz-score" class="results-score-value mono">—</span>
+        <span class="results-score-label">correct / total</span>
+      </p>
+      <p class="meta" style="margin:0 0 0.5rem;border:0;padding:0">
+        Digest: <span id="quiz-digest" class="mono results-hash">—</span>
+      </p>
+      <p id="quiz-mode" class="study-signal" role="status"></p>
+      <div id="quiz-item-list"></div>
+      <div class="exam-nav" style="margin-top:1rem">
+        <button type="button" id="btn-quiz-again" class="btn btn--ghost">Retake module</button>
+        <a class="btn btn--primary" href="drill.html">Open Drill / SRS</a>
+      </div>
+    </section>
+
+    <p class="meta">
+      <a href="learn.html">← Learn</a>
+      · <a href="drill.html">Drill</a>
+      · <a href="index.html">Hub</a>
+    </p>
+  </main>
+
+  <script type="module" src="assets/js/quiz.js"></script>
+</body>
+</html>

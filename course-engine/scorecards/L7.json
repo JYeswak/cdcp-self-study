@@ -1,0 +1,36 @@
+{
+  "wave": "L7",
+  "title": "v1 completion polish (charter M6 + remaining in-scope)",
+  "date": "2026-08-12",
+  "outcome": "pass",
+  "epic": "bd-y1r",
+  "plan": "docs/PHASE-REMAINING.md",
+  "stories": [
+    "bd-30j",
+    "bd-cgx",
+    "bd-28p",
+    "bd-1qm",
+    "bd-1dw",
+    "bd-2xa",
+    "bd-3o9",
+    "bd-3pz",
+    "bd-llj",
+    "bd-2km"
+  ],
+  "gates": {
+    "closed_notes_mock": true,
+    "feedback_section_links": true,
+    "learn15_session": true,
+    "reference_panel": true,
+    "a11y_smoke": true,
+    "cli_bank_verify_site_export_check": true,
+    "objective_coverage": true,
+    "slo_smoke": true,
+    "content_lock": true,
+    "check_sh_l7_wired": true
+  },
+  "non_claims": [
+    "not EPI certified",
+    "objective coverage ≠ exam pass probability"
+  ]
+}

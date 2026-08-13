@@ -1,0 +1,18 @@
+# Original runbook vignette — operational scenario (not an exam dump)
+id = "m06-q300"
+module = 6
+stem = "Runbook vignette: During a planned UPS battery string replacement on path A of a dual-path hall, a tech notices both cords of several dual-corded servers land on the same path-A rPDU. Before continuing isolation of path A, what is the most appropriate first action?"
+choices = [
+  "Proceed with path-A isolation immediately — dual cords guarantee ride-through regardless of landing",
+  "Stop and restore true A+B diversity (or migrate single-source loads) before de-energizing path A so isolation does not drop IT",
+  "Disable the generator ATS permanently so only utility remains during the work window",
+  "Remove all grounding bonds in the row to reduce touch voltage risk during battery work"
+]
+correct = "B"
+explanation = "Dual cords only protect the load when they land on independent sources. Same-path landing is a shared failure point; path-A isolation would outage those servers. A runbook should halt isolation until diversity is verified or loads are moved."
+topic_ids = ["m06-redundancy", "m06-pdu"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+tags = ["runbook", "vignette"]

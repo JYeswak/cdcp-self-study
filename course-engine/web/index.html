@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP self-study hub — local practice tool. Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Hub</title>
+  <link rel="stylesheet" href="assets/css/course.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="learn.html">Learn</a></li>
+          <li><a href="drill.html">Drill</a></li>
+          <li><a href="mock.html">Mock</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" tabindex="-1">
+    <h1>Course hub</h1>
+    <p class="lede">
+      Local-first practice for CDCP topics. Open any surface below.
+      Scores and digests are study signals — never a certification claim.
+    </p>
+
+    <div class="card-grid">
+      <a class="card" href="learn.html">
+        <span class="card__label">Modules</span>
+        <span class="card__title">Learn</span>
+        <p class="card__desc">14 curriculum modules + ops expansions — offline reader.</p>
+      </a>
+      <a class="card" href="drill.html">
+        <span class="card__label">Practice</span>
+        <span class="card__title">Drill</span>
+        <p class="card__desc">Missed-item review + minimal SRS (1d/3d). Module quiz at quiz.html.</p>
+      </a>
+      <a class="card" href="drill.html?mode=due">
+        <span class="card__label">Session · Drill-10</span>
+        <span class="card__title">Drill due</span>
+        <p class="card__desc">SRS cards due now — first 10 only. Empty queue means take a mock or quiz.</p>
+      </a>
+      <a class="card" href="drill.html?mode=miss">
+        <span class="card__label">Session · Miss-review</span>
+        <span class="card__title">Miss review</span>
+        <p class="card__desc">Only incorrect items from the last graded mock or module quiz.</p>
+      </a>
+      <a class="card" href="mock.html">
+        <span class="card__label">Exam form</span>
+        <span class="card__title">Mock</span>
+        <p class="card__desc">40 questions · 60:00 · study bar 27 — take in-browser, submit for study grade.</p>
+      </a>
+      <a class="card" href="reference.html">
+        <span class="card__label">Cheatsheet</span>
+        <span class="card__title">Reference</span>
+        <p class="card__desc">Glossary + power/redundancy one-pager — offline interview shorthand.</p>
+      </a>
+      <a class="card" href="diagrams/power-path.html">
+        <span class="card__label">Diagram</span>
+        <span class="card__title">Power path N vs 2N</span>
+        <p class="card__desc">Interactive label quiz + self-check for single-path vs dual-path topology.</p>
+      </a>
+      <a class="card" href="runbooks.html">
+        <span class="card__label">Scenarios</span>
+        <span class="card__title">Runbook vignettes</span>
+        <p class="card__desc">Ops-style stems with links into module quiz and mock practice.</p>
+      </a>
+    </div>
+
+    <section class="mastery-dashboard" id="mastery-dashboard" aria-labelledby="mastery-heading">
+      <h2 id="mastery-heading">Module mastery</h2>
+      <p class="mastery-dashboard__lede">
+        Practiced (≥80% on a module quiz) and mastered (90%×2, ≥24h apart) are
+        <strong>study signals in this browser only</strong> — never a CDCP credential.
+      </p>
+      <div id="mastery-recommend" class="recommend-card" aria-live="polite"></div>
+      <ol class="mastery-grid" id="mastery-grid"></ol>
+    </section>
+
+    <p class="meta">
+      Static shell · relative assets · no CDN required.
+      Honesty banner is always visible and never uses a green “certified” treatment.
+    </p>
+  </main>
+  <script type="module" src="assets/js/hub_mastery.js"></script>
+</body>
+</html>

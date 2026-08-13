@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP Mock exam practice (40Q / 60:00). Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Mock</title>
+  <link rel="stylesheet" href="assets/css/course.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="learn.html" data-closed-notes-block="study">Learn</a></li>
+          <li><a href="drill.html" data-closed-notes-block="study">Drill</a></li>
+          <li><a href="mock.html" aria-current="page">Mock</a></li>
+          <li><a href="reference.html" data-closed-notes-block="study">Reference</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap-exam" tabindex="-1">
+    <div class="exam-toolbar">
+      <div class="exam-toolbar__left">
+        <h1 class="exam-title">Mock exam</h1>
+        <p class="exam-form-meta mono">40Q · 60:00 · study bar 27</p>
+      </div>
+      <div class="exam-toolbar__right">
+        <div class="exam-stat exam-stat--toggle">
+          <span class="exam-stat__label" id="closed-notes-label">Mode</span>
+          <label class="closed-notes-toggle" for="closed-notes-toggle">
+            <input
+              type="checkbox"
+              id="closed-notes-toggle"
+              aria-describedby="closed-notes-hint"
+            >
+            <span class="closed-notes-toggle__text">Closed notes</span>
+          </label>
+        </div>
+        <div class="exam-stat">
+          <span class="exam-stat__label">Seed</span>
+          <label class="visually-hidden" for="seed-select">Mock seed</label>
+          <select id="seed-select" class="exam-stat__value mono seed-select" aria-label="Mock sample seed">
+            <option value="42" selected>42</option>
+            <option value="7">7</option>
+            <option value="1">1</option>
+            <option value="99">99</option>
+          </select>
+        </div>
+        <div class="exam-stat">
+          <span class="exam-stat__label">Progress</span>
+          <span id="exam-progress" class="exam-stat__value mono" aria-live="polite">— / 40</span>
+        </div>
+        <div class="exam-stat">
+          <span class="exam-stat__label">Timer</span>
+          <time id="exam-timer" class="exam-stat__value exam-timer mono" aria-live="polite">60:00</time>
+        </div>
+      </div>
+    </div>
+
+    <p id="closed-notes-hint" class="closed-notes-banner" role="status" hidden>
+      <strong>Closed-notes mode.</strong>
+      Learn, Drill, and Reference are locked during this attempt.
+      Leaving the page shows a soft warning — draft answers stay in
+      <span class="mono">sessionStorage</span> until submit.
+    </p>
+
+    <p class="lede exam-lede">
+      One question at a time. Keys: <kbd>A</kbd>–<kbd>D</kbd> or <kbd>1</kbd>–<kbd>4</kbd> to answer;
+      <kbd>←</kbd>/<kbd>→</kbd> or <kbd>P</kbd>/<kbd>N</kbd> to move.
+      Timer is a study aid — expired time does <strong>not</strong> block submit.
+      Answers stay in this browser tab until you submit.
+      Seed <span class="mono">42</span> is golden-pinned; other seeds need
+      <span class="mono">export-web --seed N</span> first.
+      Optional <strong>Closed notes</strong> locks study nav for a timed-exam feel.
+    </p>
+
+    <div id="exam-status" class="exam-status" role="status" hidden>Loading…</div>
+
+    <article id="question-card" class="question-card" hidden>
+      <p class="question-card__meta mono" aria-hidden="true"></p>
+      <h2 id="q-stem" class="question-card__stem"> </h2>
+      <div id="q-choices" class="choices"></div>
+    </article>
+
+    <div class="exam-nav">
+      <button type="button" id="btn-prev" class="btn btn--ghost">Previous</button>
+      <button type="button" id="btn-next" class="btn btn--ghost">Next</button>
+    </div>
+
+    <div class="jump-panel">
+      <p class="jump-panel__label" id="jump-label">Jump to question</p>
+      <div id="jump-strip" class="jump-strip" role="navigation" aria-labelledby="jump-label"></div>
+    </div>
+
+    <div class="exam-submit-bar">
+      <p id="unanswered-hint" class="unanswered-hint" tabindex="-1">
+        Answer all 40 items to enable submit.
+      </p>
+      <button type="button" id="btn-submit" class="btn btn--primary" disabled>
+        Submit attempt
+      </button>
+    </div>
+
+    <p class="meta">
+      <a href="index.html" data-closed-notes-leave="1">← Hub</a>
+      · Pack <span class="mono" id="pack-meta">data/mock40_seed42.json</span>
+      · Draft in <span class="mono">sessionStorage</span>
+    </p>
+  </main>
+
+  <script src="assets/js/mock.js" defer></script>
+</body>
+</html>

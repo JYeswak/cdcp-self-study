@@ -1,0 +1,2550 @@
+{
+  "generated_by": "scripts/build_learn.py",
+  "modules": {
+    "01-mission-critical": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-ops-design-tpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops / design / TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "what-is-a-data-centre",
+          "level": 3,
+          "text": "What is a data centre?"
+        },
+        {
+          "id": "types-of-data-centres",
+          "level": 3,
+          "text": "Types of data centres"
+        },
+        {
+          "id": "business-impact-of-downtime",
+          "level": 3,
+          "text": "Business impact of downtime"
+        },
+        {
+          "id": "elements-of-a-data-centre",
+          "level": 3,
+          "text": "Elements of a data centre"
+        },
+        {
+          "id": "availability-vs-reliability",
+          "level": 3,
+          "text": "Availability vs reliability"
+        },
+        {
+          "id": "availability-nines-and-annual-downtime",
+          "level": 3,
+          "text": "Availability \u201cnines\u201d and annual downtime"
+        },
+        {
+          "id": "primary-causes-of-unavailability",
+          "level": 3,
+          "text": "Primary causes of unavailability"
+        },
+        {
+          "id": "how-mission-critical-is-expressed-in-design",
+          "level": 3,
+          "text": "How \u201cmission-critical\u201d is expressed in design"
+        },
+        {
+          "id": "key-diagrams",
+          "level": 2,
+          "text": "Key diagrams"
+        },
+        {
+          "id": "1-site-dependency-stack-why-white-space-is-not-enough",
+          "level": 3,
+          "text": "1) Site dependency stack (why white space is not enough)"
+        },
+        {
+          "id": "2-simplified-power-path-it-load",
+          "level": 3,
+          "text": "2) Simplified power path (IT load)"
+        },
+        {
+          "id": "3-simplified-cooling-loop-air-cooled-hall-mental-model",
+          "level": 3,
+          "text": "3) Simplified cooling loop (air-cooled hall mental model)"
+        },
+        {
+          "id": "4-cabling-hierarchy-structured-cabling-mental-model",
+          "level": 3,
+          "text": "4) Cabling hierarchy (structured cabling mental model)"
+        },
+        {
+          "id": "5-availability-math-concept",
+          "level": 3,
+          "text": "5) Availability math (concept)"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 1
+    },
+    "02-standards": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-opsdesigntpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops/design/TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "0-vocabulary-standard-guideline-code-rating",
+          "level": 3,
+          "text": "0. Vocabulary: standard, guideline, code, rating"
+        },
+        {
+          "id": "1-ansitia-942-telecommunications-infrastructure-standard-for-data-centers",
+          "level": 3,
+          "text": "1. ANSI/TIA-942 (Telecommunications Infrastructure Standard for Data Centers)"
+        },
+        {
+          "id": "2-uptime-institute-tier-concepts-iiv-awareness-only",
+          "level": 3,
+          "text": "2. Uptime Institute Tier concepts (I\u2013IV) \u2014 awareness only"
+        },
+        {
+          "id": "3-isoiec-22237-overview",
+          "level": 3,
+          "text": "3. ISO/IEC 22237 overview"
+        },
+        {
+          "id": "4-ashrae-thermal-guidelines",
+          "level": 3,
+          "text": "4. ASHRAE thermal guidelines"
+        },
+        {
+          "id": "5-national-vs-international-standards-and-when-each-applies",
+          "level": 3,
+          "text": "5. National vs international standards \u2014 and when each applies"
+        },
+        {
+          "id": "key-diagrams",
+          "level": 2,
+          "text": "Key diagrams"
+        },
+        {
+          "id": "a-standards-stack-who-overrides-whom",
+          "level": 3,
+          "text": "A. Standards stack (who overrides whom)"
+        },
+        {
+          "id": "b-mapping-redundancy-language-conceptualnot-11-equivalence",
+          "level": 3,
+          "text": "B. Mapping redundancy language (conceptual\u2014not 1:1 equivalence)"
+        },
+        {
+          "id": "c-cabling-hierarchy-tia-oriented-sketch",
+          "level": 3,
+          "text": "C. Cabling hierarchy (TIA-oriented sketch)"
+        },
+        {
+          "id": "d-thermal-envelope-concept",
+          "level": 3,
+          "text": "D. Thermal envelope (concept)"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources-public-no-paywalled-epi-content",
+          "level": 2,
+          "text": "Further free resources (public; no paywalled EPI content)"
+        },
+        {
+          "id": "module-close-out",
+          "level": 2,
+          "text": "Module close-out"
+        }
+      ],
+      "order": 2
+    },
+    "03-site-building": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-ops-design-tpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops / design / TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "site-vs-facility-vs-white-space",
+          "level": 3,
+          "text": "Site vs facility vs white space"
+        },
+        {
+          "id": "site-selection-criteria-what-to-score",
+          "level": 3,
+          "text": "Site selection criteria (what to score)"
+        },
+        {
+          "id": "flood-seismic-and-other-risk-treatments",
+          "level": 3,
+          "text": "Flood, seismic, and other risk treatments"
+        },
+        {
+          "id": "building-requirements-for-high-availability",
+          "level": 3,
+          "text": "Building requirements for high availability"
+        },
+        {
+          "id": "supporting-facilities-and-functions",
+          "level": 3,
+          "text": "Supporting facilities and functions"
+        },
+        {
+          "id": "common-location-mistakes",
+          "level": 3,
+          "text": "Common location mistakes"
+        },
+        {
+          "id": "how-location-feeds-high-availability-design",
+          "level": 3,
+          "text": "How location feeds high-availability design"
+        },
+        {
+          "id": "key-diagrams",
+          "level": 2,
+          "text": "Key diagrams"
+        },
+        {
+          "id": "dual-path-building-layout-conceptual-plan",
+          "level": 3,
+          "text": "Dual-path building layout (conceptual plan)"
+        },
+        {
+          "id": "cooling-plant-vs-building-envelope-conceptual",
+          "level": 3,
+          "text": "Cooling plant vs building envelope (conceptual)"
+        },
+        {
+          "id": "vertical-hierarchy-multi-story-caution",
+          "level": 3,
+          "text": "Vertical hierarchy (multi-story caution)"
+        },
+        {
+          "id": "cabling-and-pathway-hierarchy-building-level",
+          "level": 3,
+          "text": "Cabling and pathway hierarchy (building-level)"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 3
+    },
+    "04-floor-ceiling": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-opsdesigntpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops/design/TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "raised-access-floor-what-it-is",
+          "level": 3,
+          "text": "Raised access floor \u2014 what it is"
+        },
+        {
+          "id": "load-types-uniform-concentrated-rolling",
+          "level": 3,
+          "text": "Load types \u2014 uniform, concentrated, rolling"
+        },
+        {
+          "id": "floor-standards-and-guidelines-public-names",
+          "level": 3,
+          "text": "Floor standards and guidelines (public names)"
+        },
+        {
+          "id": "grounding-bonding-and-the-signal-reference-grid-srg",
+          "level": 3,
+          "text": "Grounding, bonding, and the Signal Reference Grid (SRG)"
+        },
+        {
+          "id": "ramps-landings-and-accessibility",
+          "level": 3,
+          "text": "Ramps, landings, and accessibility"
+        },
+        {
+          "id": "suspended-ceiling-use-in-the-data-centre",
+          "level": 3,
+          "text": "Suspended ceiling \u2014 use in the data centre"
+        },
+        {
+          "id": "impact-on-cooling-and-airflow",
+          "level": 3,
+          "text": "Impact on cooling and airflow"
+        },
+        {
+          "id": "key-diagrams",
+          "level": 2,
+          "text": "Key diagrams"
+        },
+        {
+          "id": "raised-floor-cross-section-supply-plenum",
+          "level": 3,
+          "text": "Raised floor cross-section (supply plenum)"
+        },
+        {
+          "id": "airflow-loop-raised-floor-ceiling-return",
+          "level": 3,
+          "text": "Airflow loop (raised floor + ceiling return)"
+        },
+        {
+          "id": "cabling-hierarchy-vs-floor-choice-conceptual",
+          "level": 3,
+          "text": "Cabling hierarchy vs floor choice (conceptual)"
+        },
+        {
+          "id": "bonding-sketch-simplified-not-a-design-drawing",
+          "level": 3,
+          "text": "Bonding sketch (simplified \u2014 not a design drawing)"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 4
+    },
+    "05-lighting": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-ops-design-tpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops / design / TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "1-photometric-language-define-every-term-on-first-use",
+          "level": 3,
+          "text": "1. Photometric language (define every term on first use)"
+        },
+        {
+          "id": "2-lighting-standards-and-lux-levels",
+          "level": 3,
+          "text": "2. Lighting standards and lux levels"
+        },
+        {
+          "id": "3-fixture-placement",
+          "level": 3,
+          "text": "3. Fixture placement"
+        },
+        {
+          "id": "4-emergency-lighting-types-and-roles",
+          "level": 3,
+          "text": "4. Emergency lighting (types and roles)"
+        },
+        {
+          "id": "5-power-for-emergency-lights",
+          "level": 3,
+          "text": "5. Power for emergency lights"
+        },
+        {
+          "id": "key-diagrams",
+          "level": 2,
+          "text": "Key diagrams"
+        },
+        {
+          "id": "a-normal-vs-emergency-lighting-in-the-white-space-concept",
+          "level": 3,
+          "text": "A. Normal vs emergency lighting in the white space (concept)"
+        },
+        {
+          "id": "b-power-hierarchy-do-not-conflate-branches",
+          "level": 3,
+          "text": "B. Power hierarchy (do not conflate branches)"
+        },
+        {
+          "id": "c-fixture-aisle-coordination-ascii-plan",
+          "level": 3,
+          "text": "C. Fixture / aisle coordination (ASCII plan)"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 5
+    },
+    "06-power": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters",
+          "level": 2,
+          "text": "Why it matters"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "utility-to-rack-the-power-path",
+          "level": 3,
+          "text": "Utility to rack \u2014 the power path"
+        },
+        {
+          "id": "transformers",
+          "level": 3,
+          "text": "Transformers"
+        },
+        {
+          "id": "generators",
+          "level": 3,
+          "text": "Generators"
+        },
+        {
+          "id": "ats-vs-sts",
+          "level": 3,
+          "text": "ATS vs STS"
+        },
+        {
+          "id": "redundancy-n-n1-2n-2n1",
+          "level": 3,
+          "text": "Redundancy: N, N+1, 2N, 2N+1"
+        },
+        {
+          "id": "single-phase-vs-three-phase",
+          "level": 3,
+          "text": "Single-phase vs three-phase"
+        },
+        {
+          "id": "pdus",
+          "level": 3,
+          "text": "PDUs"
+        },
+        {
+          "id": "busbar-vs-cable",
+          "level": 3,
+          "text": "Busbar vs cable"
+        },
+        {
+          "id": "grounding-and-bonding",
+          "level": 3,
+          "text": "Grounding and bonding"
+        },
+        {
+          "id": "ups-types-and-parallel-configs",
+          "level": 3,
+          "text": "UPS types and parallel configs"
+        },
+        {
+          "id": "batteries-and-bess",
+          "level": 3,
+          "text": "Batteries and BESS"
+        },
+        {
+          "id": "power-quality",
+          "level": 3,
+          "text": "Power quality"
+        },
+        {
+          "id": "power-sizing-basics",
+          "level": 3,
+          "text": "Power sizing basics"
+        },
+        {
+          "id": "thermographic-scanning",
+          "level": 3,
+          "text": "Thermographic scanning"
+        },
+        {
+          "id": "high-density-hpc-power-notes",
+          "level": 3,
+          "text": "High-density / HPC power notes"
+        },
+        {
+          "id": "sustainability-microgrids-and-energy-context",
+          "level": 3,
+          "text": "Sustainability, microgrids, and energy context"
+        },
+        {
+          "id": "ip-ratings-enclosure-protection",
+          "level": 3,
+          "text": "IP ratings (enclosure protection)"
+        },
+        {
+          "id": "key-diagrams",
+          "level": 2,
+          "text": "Key diagrams"
+        },
+        {
+          "id": "end-to-end-path-dual-utility-concept",
+          "level": 3,
+          "text": "End-to-end path (dual utility concept)"
+        },
+        {
+          "id": "redundancy-sketch",
+          "level": 3,
+          "text": "Redundancy sketch"
+        },
+        {
+          "id": "cabling-distribution-hierarchy-typical",
+          "level": 3,
+          "text": "Cabling / distribution hierarchy (typical)"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 6
+    },
+    "07-emf": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-opsdesigntpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops/design/TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "what-emf-means-in-a-data-centre",
+          "level": 3,
+          "text": "What \u201cEMF\u201d means in a data centre"
+        },
+        {
+          "id": "near-field-vs-far-field-intuition",
+          "level": 3,
+          "text": "Near field vs far field (intuition)"
+        },
+        {
+          "id": "static-elf-and-rf",
+          "level": 3,
+          "text": "Static, ELF, and RF"
+        },
+        {
+          "id": "sources-inside-and-outside-the-site",
+          "level": 3,
+          "text": "Sources inside and outside the site"
+        },
+        {
+          "id": "effects-on-equipment-evidence-based",
+          "level": 3,
+          "text": "Effects on equipment (evidence-based)"
+        },
+        {
+          "id": "units-and-how-strong-is-strong",
+          "level": 3,
+          "text": "Units and \u201chow strong is strong?\u201d"
+        },
+        {
+          "id": "mitigation-hierarchy-best-practices",
+          "level": 3,
+          "text": "Mitigation hierarchy (best practices)"
+        },
+        {
+          "id": "hemp-awareness",
+          "level": 3,
+          "text": "(H)EMP awareness"
+        },
+        {
+          "id": "key-diagrams-in-ascii-or-mermaid-where-helpful",
+          "level": 2,
+          "text": "Key diagrams in ASCII or mermaid where helpful"
+        },
+        {
+          "id": "separation-beats-shielding-elf-magnetic",
+          "level": 3,
+          "text": "Separation beats shielding (ELF magnetic)"
+        },
+        {
+          "id": "mitigation-decision-flow",
+          "level": 3,
+          "text": "Mitigation decision flow"
+        },
+        {
+          "id": "cabling-hierarchy-noise-hygiene",
+          "level": 3,
+          "text": "Cabling hierarchy (noise hygiene)"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills-5-qa-pairs-with-model-answers",
+          "level": 2,
+          "text": "Interview drills (5 Q&A pairs with model answers)"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources-public-standards-names-vendor-primers-no-paywalled-epi-content",
+          "level": 2,
+          "text": "Further free resources (public standards names, vendor primers \u2014 no paywalled EPI content)"
+        }
+      ],
+      "order": 7
+    },
+    "08-racks": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-opsdesigntpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops/design/TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "1-rack-standards-and-dimensions",
+          "level": 3,
+          "text": "1. Rack standards and dimensions"
+        },
+        {
+          "id": "2-types-of-racks-and-enclosures",
+          "level": 3,
+          "text": "2. Types of racks and enclosures"
+        },
+        {
+          "id": "3-security",
+          "level": 3,
+          "text": "3. Security"
+        },
+        {
+          "id": "4-power-strips-and-rails-rack-pdus",
+          "level": 3,
+          "text": "4. Power strips and rails (rack PDUs)"
+        },
+        {
+          "id": "5-airflow-and-mounting-considerations",
+          "level": 3,
+          "text": "5. Airflow and mounting considerations"
+        },
+        {
+          "id": "key-diagrams-in-ascii-or-mermaid-where-helpful",
+          "level": 2,
+          "text": "Key diagrams in ASCII or mermaid where helpful"
+        },
+        {
+          "id": "cabinet-dimensions-conceptual",
+          "level": 3,
+          "text": "Cabinet dimensions (conceptual)"
+        },
+        {
+          "id": "hot-aisle-cold-aisle-row",
+          "level": 3,
+          "text": "Hot aisle / cold aisle row"
+        },
+        {
+          "id": "dual-path-power-at-the-rack",
+          "level": 3,
+          "text": "Dual-path power at the rack"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 8
+    },
+    "09-cooling": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters",
+          "level": 2,
+          "text": "Why it matters"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "heat-and-the-data-centre-job",
+          "level": 3,
+          "text": "Heat and the data centre job"
+        },
+        {
+          "id": "precision-cooling-vs-comfort-cooling",
+          "level": 3,
+          "text": "Precision cooling vs comfort cooling"
+        },
+        {
+          "id": "the-cooling-chain-air-cooled-baseline",
+          "level": 3,
+          "text": "The cooling chain (air-cooled baseline)"
+        },
+        {
+          "id": "crac-vs-crah",
+          "level": 3,
+          "text": "CRAC vs CRAH"
+        },
+        {
+          "id": "raised-floor-vs-non-raised-hard-floor-cooling",
+          "level": 3,
+          "text": "Raised-floor vs non-raised (hard-floor) cooling"
+        },
+        {
+          "id": "airflow-management-and-containment",
+          "level": 3,
+          "text": "Airflow management and containment"
+        },
+        {
+          "id": "temperature-humidity-and-controls",
+          "level": 3,
+          "text": "Temperature, humidity, and controls"
+        },
+        {
+          "id": "ashrae-envelopes-conceptual",
+          "level": 3,
+          "text": "ASHRAE envelopes (conceptual)"
+        },
+        {
+          "id": "liquid-cooling-overview",
+          "level": 3,
+          "text": "Liquid cooling overview"
+        },
+        {
+          "id": "stes-ster-awareness",
+          "level": 3,
+          "text": "STES / STER awareness"
+        },
+        {
+          "id": "ai-density-cooling-challenges",
+          "level": 3,
+          "text": "AI density cooling challenges"
+        },
+        {
+          "id": "key-diagrams",
+          "level": 2,
+          "text": "Key diagrams"
+        },
+        {
+          "id": "cooling-loop-chilled-water-crah",
+          "level": 3,
+          "text": "Cooling loop (chilled water + CRAH)"
+        },
+        {
+          "id": "raised-floor-supply-path",
+          "level": 3,
+          "text": "Raised-floor supply path"
+        },
+        {
+          "id": "liquid-cooled-rack-sketch",
+          "level": 3,
+          "text": "Liquid-cooled rack sketch"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "1-sensible-vs-latentwhy-do-tpms-care",
+          "level": 3,
+          "text": "1) Sensible vs latent\u2014why do TPMs care?"
+        },
+        {
+          "id": "2-crac-vs-crah",
+          "level": 3,
+          "text": "2) CRAC vs CRAH"
+        },
+        {
+          "id": "3-containment-vs-more-tons",
+          "level": 3,
+          "text": "3) Containment vs more tons"
+        },
+        {
+          "id": "4-ashrae-envelopes",
+          "level": 3,
+          "text": "4) ASHRAE envelopes"
+        },
+        {
+          "id": "5-ai-density",
+          "level": 3,
+          "text": "5) AI density"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 9
+    },
+    "10-water": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-opsdesigntpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops/design/TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "1-why-water-matters-in-a-data-centre",
+          "level": 3,
+          "text": "1. Why water matters in a data centre"
+        },
+        {
+          "id": "2-cooling-plant-dependency-how-water-keeps-chillers-alive",
+          "level": 3,
+          "text": "2. Cooling plant dependency (how water keeps chillers alive)"
+        },
+        {
+          "id": "3-backup-water-supply-techniques",
+          "level": 3,
+          "text": "3. Backup water supply techniques"
+        },
+        {
+          "id": "4-related-facility-terms-define-once-glossary",
+          "level": 3,
+          "text": "4. Related facility terms (define-once glossary)"
+        },
+        {
+          "id": "5-standards-and-guidance-public-namesnot-exam-banks",
+          "level": 3,
+          "text": "5. Standards and guidance (public names\u2014not exam banks)"
+        },
+        {
+          "id": "key-diagrams",
+          "level": 2,
+          "text": "Key diagrams"
+        },
+        {
+          "id": "a-where-water-supports-cooling-conceptual",
+          "level": 3,
+          "text": "A. Where water supports cooling (conceptual)"
+        },
+        {
+          "id": "b-failure-cascade-water-outage-it-risk",
+          "level": 3,
+          "text": "B. Failure cascade (water outage \u2192 IT risk)"
+        },
+        {
+          "id": "c-backup-water-options-decision-sketch",
+          "level": 3,
+          "text": "C. Backup water options (decision sketch)"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 10
+    },
+    "11-network": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-ops-design-tpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops / design / TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "structured-cabling-definition-first",
+          "level": 3,
+          "text": "Structured cabling (definition first)"
+        },
+        {
+          "id": "copper-vs-fibre",
+          "level": 3,
+          "text": "Copper vs fibre"
+        },
+        {
+          "id": "tia-942-cabling-topology-conceptual",
+          "level": 3,
+          "text": "TIA-942 cabling topology (conceptual)"
+        },
+        {
+          "id": "pathways-separation-and-building-fabric",
+          "level": 3,
+          "text": "Pathways, separation, and building fabric"
+        },
+        {
+          "id": "testing-and-verification",
+          "level": 3,
+          "text": "Testing and verification"
+        },
+        {
+          "id": "network-redundancy-physical-first-then-logical",
+          "level": 3,
+          "text": "Network redundancy (physical first, then logical)"
+        },
+        {
+          "id": "building-connectivity-site-and-campus",
+          "level": 3,
+          "text": "Building connectivity (site and campus)"
+        },
+        {
+          "id": "monitoring-requirements",
+          "level": 3,
+          "text": "Monitoring requirements"
+        },
+        {
+          "id": "key-diagrams",
+          "level": 2,
+          "text": "Key diagrams"
+        },
+        {
+          "id": "cabling-hierarchy-tia-942-style-spaces",
+          "level": 3,
+          "text": "Cabling hierarchy (TIA-942-style spaces)"
+        },
+        {
+          "id": "pathway-redundancy-good-vs-bad",
+          "level": 3,
+          "text": "Pathway redundancy (good vs bad)"
+        },
+        {
+          "id": "copper-channel-vs-permanent-link-conceptual",
+          "level": 3,
+          "text": "Copper channel vs permanent link (conceptual)"
+        },
+        {
+          "id": "tor-vs-eor-cable-bulk-why-architecture-matters",
+          "level": 3,
+          "text": "ToR vs EoR cable bulk (why architecture matters)"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 11
+    },
+    "12-fire": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-ops-design-tpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops / design / TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "causes-of-fire-in-data-centres",
+          "level": 3,
+          "text": "Causes of fire in data centres"
+        },
+        {
+          "id": "classes-of-fire",
+          "level": 3,
+          "text": "Classes of fire"
+        },
+        {
+          "id": "detection",
+          "level": 3,
+          "text": "Detection"
+        },
+        {
+          "id": "water-based-vs-gas-suppression",
+          "level": 3,
+          "text": "Water-based vs gas suppression"
+        },
+        {
+          "id": "handheld-extinguishers",
+          "level": 3,
+          "text": "Handheld extinguishers"
+        },
+        {
+          "id": "signage-and-life-safety-interfaces",
+          "level": 3,
+          "text": "Signage and life safety interfaces"
+        },
+        {
+          "id": "regulatory-notes-high-levelverify-locally",
+          "level": 3,
+          "text": "Regulatory notes (high level\u2014verify locally)"
+        },
+        {
+          "id": "best-practices",
+          "level": 3,
+          "text": "Best practices"
+        },
+        {
+          "id": "key-diagrams",
+          "level": 2,
+          "text": "Key diagrams"
+        },
+        {
+          "id": "detection-decision-suppress",
+          "level": 3,
+          "text": "Detection \u2192 decision \u2192 suppress"
+        },
+        {
+          "id": "cabling-space-hierarchy-where-fire-risk-hides",
+          "level": 3,
+          "text": "Cabling / space hierarchy (where fire risk hides)"
+        },
+        {
+          "id": "pre-action-vs-wet-pipe-mental-model",
+          "level": 3,
+          "text": "Pre-action vs wet pipe (mental model)"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 12
+    },
+    "13-security": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-ops-design-tpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops / design / TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "1-layers-of-physical-security-defense-in-depth",
+          "level": 3,
+          "text": "1. Layers of physical security (defense-in-depth)"
+        },
+        {
+          "id": "2-zoning-awareness",
+          "level": 3,
+          "text": "2. Zoning awareness"
+        },
+        {
+          "id": "3-access-control",
+          "level": 3,
+          "text": "3. Access control"
+        },
+        {
+          "id": "4-mantraps-and-portal-design",
+          "level": 3,
+          "text": "4. Mantraps and portal design"
+        },
+        {
+          "id": "5-surveillance",
+          "level": 3,
+          "text": "5. Surveillance"
+        },
+        {
+          "id": "6-safety-protocols-where-security-meets-life-safety",
+          "level": 3,
+          "text": "6. Safety protocols (where security meets life safety)"
+        },
+        {
+          "id": "7-people-process-and-the-soft-layer",
+          "level": 3,
+          "text": "7. People, process, and the \u201csoft\u201d layer"
+        },
+        {
+          "id": "key-diagrams",
+          "level": 2,
+          "text": "Key diagrams"
+        },
+        {
+          "id": "layered-security-conceptual",
+          "level": 3,
+          "text": "Layered security (conceptual)"
+        },
+        {
+          "id": "mantrap-logic-happy-path",
+          "level": 3,
+          "text": "Mantrap logic (happy path)"
+        },
+        {
+          "id": "access-control-stack-analogy-to-network",
+          "level": 3,
+          "text": "Access control stack (analogy to network)"
+        },
+        {
+          "id": "zoning-flow-for-people-vs-materials",
+          "level": 3,
+          "text": "Zoning flow for people vs materials"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 13
+    },
+    "14-auxiliary": {
+      "headings": [
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-opsdesigntpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops/design/TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "monitoring-challenges-why-this-is-hard",
+          "level": 3,
+          "text": "Monitoring challenges (why this is hard)"
+        },
+        {
+          "id": "ems-vs-bms-vs-dcim",
+          "level": 3,
+          "text": "EMS vs BMS vs DCIM"
+        },
+        {
+          "id": "what-must-be-monitored-minimum-mental-checklist",
+          "level": 3,
+          "text": "What must be monitored (minimum mental checklist)"
+        },
+        {
+          "id": "water-leak-detection",
+          "level": 3,
+          "text": "Water leak detection"
+        },
+        {
+          "id": "alarm-panels",
+          "level": 3,
+          "text": "Alarm panels"
+        },
+        {
+          "id": "notification-best-practices",
+          "level": 3,
+          "text": "Notification best practices"
+        },
+        {
+          "id": "change-control-calibration-and-single-pane-of-glass",
+          "level": 3,
+          "text": "Change control, calibration, and \u201csingle pane of glass\u201d"
+        },
+        {
+          "id": "key-diagrams",
+          "level": 2,
+          "text": "Key diagrams"
+        },
+        {
+          "id": "power-environment-sensing-where-systems-attach",
+          "level": 3,
+          "text": "Power + environment sensing (where systems attach)"
+        },
+        {
+          "id": "cabling-integration-hierarchy-conceptual",
+          "level": 3,
+          "text": "Cabling / integration hierarchy (conceptual)"
+        },
+        {
+          "id": "formulas-rules-of-thumb",
+          "level": 2,
+          "text": "Formulas / rules of thumb"
+        },
+        {
+          "id": "common-failure-modes-and-misconceptions",
+          "level": 2,
+          "text": "Common failure modes and misconceptions"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check-quiz",
+          "level": 2,
+          "text": "Self-check quiz"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 14
+    }
+  },
+  "schema_version": 1,
+  "slug_algorithm": "learn_md.js CdcpLearnMd.slugify / slugify_heading",
+  "topic_count": 106,
+  "topics": {
+    "m01-business-org": {
+      "anchor": null,
+      "domain": "01-mission-critical",
+      "href": "learn/01-mission-critical.html",
+      "label": "Business organization / DC in the business",
+      "module": 1,
+      "slug": "01-mission-critical",
+      "topic_id": "m01-business-org"
+    },
+    "m01-dc-types": {
+      "anchor": "types-of-data-centres",
+      "domain": "01-mission-critical",
+      "href": "learn/01-mission-critical.html#types-of-data-centres",
+      "label": "Types of data centres",
+      "module": 1,
+      "slug": "01-mission-critical",
+      "topic_id": "m01-dc-types"
+    },
+    "m01-elements": {
+      "anchor": "elements-of-a-data-centre",
+      "domain": "01-mission-critical",
+      "href": "learn/01-mission-critical.html#elements-of-a-data-centre",
+      "label": "Elements of a data centre",
+      "module": 1,
+      "slug": "01-mission-critical",
+      "topic_id": "m01-elements"
+    },
+    "m01-importance": {
+      "anchor": null,
+      "domain": "01-mission-critical",
+      "href": "learn/01-mission-critical.html",
+      "label": "Importance of a data centre",
+      "module": 1,
+      "slug": "01-mission-critical",
+      "topic_id": "m01-importance"
+    },
+    "m01-unavailability": {
+      "anchor": "primary-causes-of-unavailability",
+      "domain": "01-mission-critical",
+      "href": "learn/01-mission-critical.html#primary-causes-of-unavailability",
+      "label": "Causes of unavailability",
+      "module": 1,
+      "slug": "01-mission-critical",
+      "topic_id": "m01-unavailability"
+    },
+    "m02-code-vs-standard": {
+      "anchor": "0-vocabulary-standard-guideline-code-rating",
+      "domain": "02-standards",
+      "href": "learn/02-standards.html#0-vocabulary-standard-guideline-code-rating",
+      "label": "AHJ/code vs voluntary standard",
+      "module": 2,
+      "slug": "02-standards",
+      "topic_id": "m02-code-vs-standard"
+    },
+    "m02-en50600-series": {
+      "anchor": null,
+      "domain": "02-standards",
+      "href": "learn/02-standards.html",
+      "label": "EN 50600 series awareness",
+      "module": 2,
+      "slug": "02-standards",
+      "topic_id": "m02-en50600-series"
+    },
+    "m02-intl-vs-national": {
+      "anchor": "5-national-vs-international-standards-and-when-each-applies",
+      "domain": "02-standards",
+      "href": "learn/02-standards.html#5-national-vs-international-standards-and-when-each-applies",
+      "label": "International vs national standards",
+      "module": 2,
+      "slug": "02-standards",
+      "topic_id": "m02-intl-vs-national"
+    },
+    "m02-iso22237-series": {
+      "anchor": null,
+      "domain": "02-standards",
+      "href": "learn/02-standards.html",
+      "label": "ISO/IEC 22237 series awareness",
+      "module": 2,
+      "slug": "02-standards",
+      "topic_id": "m02-iso22237-series"
+    },
+    "m02-standards-guidelines": {
+      "anchor": null,
+      "domain": "02-standards",
+      "href": "learn/02-standards.html",
+      "label": "Standards and guidelines landscape",
+      "module": 2,
+      "slug": "02-standards",
+      "topic_id": "m02-standards-guidelines"
+    },
+    "m02-subcomponent-standards": {
+      "anchor": null,
+      "domain": "02-standards",
+      "href": "learn/02-standards.html",
+      "label": "Standards for sub-components",
+      "module": 2,
+      "slug": "02-standards",
+      "topic_id": "m02-subcomponent-standards"
+    },
+    "m02-tia-vs-uptime": {
+      "anchor": null,
+      "domain": "02-standards",
+      "href": "learn/02-standards.html",
+      "label": "TIA-942 Rated vs Uptime Tier (naming discipline)",
+      "module": 2,
+      "slug": "02-standards",
+      "topic_id": "m02-tia-vs-uptime"
+    },
+    "m03-facility-criteria": {
+      "anchor": null,
+      "domain": "03-site-building",
+      "href": "learn/03-site-building.html",
+      "label": "Facility criteria",
+      "module": 3,
+      "slug": "03-site-building",
+      "topic_id": "m03-facility-criteria"
+    },
+    "m03-site-selection": {
+      "anchor": "site-selection-criteria-what-to-score",
+      "domain": "03-site-building",
+      "href": "learn/03-site-building.html#site-selection-criteria-what-to-score",
+      "label": "Site location selection criteria",
+      "module": 3,
+      "slug": "03-site-building",
+      "topic_id": "m03-site-selection"
+    },
+    "m03-supporting-facilities": {
+      "anchor": "supporting-facilities-and-functions",
+      "domain": "03-site-building",
+      "href": "learn/03-site-building.html#supporting-facilities-and-functions",
+      "label": "Supporting facilities and function",
+      "module": 3,
+      "slug": "03-site-building",
+      "topic_id": "m03-supporting-facilities"
+    },
+    "m04-cooling-impact": {
+      "anchor": "impact-on-cooling-and-airflow",
+      "domain": "04-floor-ceiling",
+      "href": "learn/04-floor-ceiling.html#impact-on-cooling-and-airflow",
+      "label": "Floor/ceiling impact on cooling",
+      "module": 4,
+      "slug": "04-floor-ceiling",
+      "topic_id": "m04-cooling-impact"
+    },
+    "m04-floor-standards": {
+      "anchor": "floor-standards-and-guidelines-public-names",
+      "domain": "04-floor-ceiling",
+      "href": "learn/04-floor-ceiling.html#floor-standards-and-guidelines-public-names",
+      "label": "Raised floor standards",
+      "module": 4,
+      "slug": "04-floor-ceiling",
+      "topic_id": "m04-floor-standards"
+    },
+    "m04-floor-types": {
+      "anchor": null,
+      "domain": "04-floor-ceiling",
+      "href": "learn/04-floor-ceiling.html",
+      "label": "Types of raised floors",
+      "module": 4,
+      "slug": "04-floor-ceiling",
+      "topic_id": "m04-floor-types"
+    },
+    "m04-grounding": {
+      "anchor": "grounding-bonding-and-the-signal-reference-grid-srg",
+      "domain": "04-floor-ceiling",
+      "href": "learn/04-floor-ceiling.html#grounding-bonding-and-the-signal-reference-grid-srg",
+      "label": "Grounding / SRG",
+      "module": 4,
+      "slug": "04-floor-ceiling",
+      "topic_id": "m04-grounding"
+    },
+    "m04-guidelines": {
+      "anchor": "floor-standards-and-guidelines-public-names",
+      "domain": "04-floor-ceiling",
+      "href": "learn/04-floor-ceiling.html#floor-standards-and-guidelines-public-names",
+      "label": "General raised-floor guidelines",
+      "module": 4,
+      "slug": "04-floor-ceiling",
+      "topic_id": "m04-guidelines"
+    },
+    "m04-loading": {
+      "anchor": null,
+      "domain": "04-floor-ceiling",
+      "href": "learn/04-floor-ceiling.html",
+      "label": "Loading factors (uniform/concentrated/rolling)",
+      "module": 4,
+      "slug": "04-floor-ceiling",
+      "topic_id": "m04-loading"
+    },
+    "m04-ramp": {
+      "anchor": "ramps-landings-and-accessibility",
+      "domain": "04-floor-ceiling",
+      "href": "learn/04-floor-ceiling.html#ramps-landings-and-accessibility",
+      "label": "Ramp and landing platform",
+      "module": 4,
+      "slug": "04-floor-ceiling",
+      "topic_id": "m04-ramp"
+    },
+    "m04-suspended-ceiling": {
+      "anchor": "suspended-ceiling-use-in-the-data-centre",
+      "domain": "04-floor-ceiling",
+      "href": "learn/04-floor-ceiling.html#suspended-ceiling-use-in-the-data-centre",
+      "label": "Suspended ceiling",
+      "module": 4,
+      "slug": "04-floor-ceiling",
+      "topic_id": "m04-suspended-ceiling"
+    },
+    "m05-emergency": {
+      "anchor": "5-power-for-emergency-lights",
+      "domain": "05-lighting",
+      "href": "learn/05-lighting.html#5-power-for-emergency-lights",
+      "label": "Emergency light",
+      "module": 5,
+      "slug": "05-lighting",
+      "topic_id": "m05-emergency"
+    },
+    "m05-emergency-types": {
+      "anchor": "4-emergency-lighting-types-and-roles",
+      "domain": "05-lighting",
+      "href": "learn/05-lighting.html#4-emergency-lighting-types-and-roles",
+      "label": "Types of emergency light",
+      "module": 5,
+      "slug": "05-lighting",
+      "topic_id": "m05-emergency-types"
+    },
+    "m05-fixtures": {
+      "anchor": null,
+      "domain": "05-lighting",
+      "href": "learn/05-lighting.html",
+      "label": "Connecting and positioning light fixtures",
+      "module": 5,
+      "slug": "05-lighting",
+      "topic_id": "m05-fixtures"
+    },
+    "m05-measurements": {
+      "anchor": null,
+      "domain": "05-lighting",
+      "href": "learn/05-lighting.html",
+      "label": "Measurements of light",
+      "module": 5,
+      "slug": "05-lighting",
+      "topic_id": "m05-measurements"
+    },
+    "m05-standards": {
+      "anchor": "2-lighting-standards-and-lux-levels",
+      "domain": "05-lighting",
+      "href": "learn/05-lighting.html#2-lighting-standards-and-lux-levels",
+      "label": "Lighting standards",
+      "module": 5,
+      "slug": "05-lighting",
+      "topic_id": "m05-standards"
+    },
+    "m06-ats-sts": {
+      "anchor": "ats-vs-sts",
+      "domain": "06-power",
+      "href": "learn/06-power.html#ats-vs-sts",
+      "label": "ATS and STS",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-ats-sts"
+    },
+    "m06-batteries": {
+      "anchor": "batteries-and-bess",
+      "domain": "06-power",
+      "href": "learn/06-power.html#batteries-and-bess",
+      "label": "Batteries",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-batteries"
+    },
+    "m06-bess": {
+      "anchor": "batteries-and-bess",
+      "domain": "06-power",
+      "href": "learn/06-power.html#batteries-and-bess",
+      "label": "Battery Energy Storage System (BESS)",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-bess"
+    },
+    "m06-distribution": {
+      "anchor": "cabling-distribution-hierarchy-typical",
+      "domain": "06-power",
+      "href": "learn/06-power.html#cabling-distribution-hierarchy-typical",
+      "label": "Power distribution / busbar trunking",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-distribution"
+    },
+    "m06-generators": {
+      "anchor": "generators",
+      "domain": "06-power",
+      "href": "learn/06-power.html#generators",
+      "label": "Generators",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-generators"
+    },
+    "m06-grounding-bonding": {
+      "anchor": "grounding-and-bonding",
+      "domain": "06-power",
+      "href": "learn/06-power.html#grounding-and-bonding",
+      "label": "Grounding and bonding",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-grounding-bonding"
+    },
+    "m06-hpc": {
+      "anchor": "high-density-hpc-power-notes",
+      "domain": "06-power",
+      "href": "learn/06-power.html#high-density-hpc-power-notes",
+      "label": "High Performance Computing power notes",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-hpc"
+    },
+    "m06-ip-grades": {
+      "anchor": null,
+      "domain": "06-power",
+      "href": "learn/06-power.html",
+      "label": "Ingress Protection (IP) grades",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-ip-grades"
+    },
+    "m06-isolation-xfmr": {
+      "anchor": null,
+      "domain": "06-power",
+      "href": "learn/06-power.html",
+      "label": "Isolation transformer",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-isolation-xfmr"
+    },
+    "m06-microgrid": {
+      "anchor": "sustainability-microgrids-and-energy-context",
+      "domain": "06-power",
+      "href": "learn/06-power.html#sustainability-microgrids-and-energy-context",
+      "label": "Microgrid",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-microgrid"
+    },
+    "m06-pdu": {
+      "anchor": "pdus",
+      "domain": "06-power",
+      "href": "learn/06-power.html#pdus",
+      "label": "PDU form factors",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-pdu"
+    },
+    "m06-phase": {
+      "anchor": "single-phase-vs-three-phase",
+      "domain": "06-power",
+      "href": "learn/06-power.html#single-phase-vs-three-phase",
+      "label": "Single phase and three phase power",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-phase"
+    },
+    "m06-power-quality": {
+      "anchor": "power-quality",
+      "domain": "06-power",
+      "href": "learn/06-power.html#power-quality",
+      "label": "Power quality parameters",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-power-quality"
+    },
+    "m06-redundancy": {
+      "anchor": "redundancy-sketch",
+      "domain": "06-power",
+      "href": "learn/06-power.html#redundancy-sketch",
+      "label": "Power redundancy levels and techniques",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-redundancy"
+    },
+    "m06-sizing": {
+      "anchor": "power-sizing-basics",
+      "domain": "06-power",
+      "href": "learn/06-power.html#power-sizing-basics",
+      "label": "Power sizing",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-sizing"
+    },
+    "m06-sustainability": {
+      "anchor": "sustainability-microgrids-and-energy-context",
+      "domain": "06-power",
+      "href": "learn/06-power.html#sustainability-microgrids-and-energy-context",
+      "label": "Power sustainability",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-sustainability"
+    },
+    "m06-thermo": {
+      "anchor": "thermographic-scanning",
+      "domain": "06-power",
+      "href": "learn/06-power.html#thermographic-scanning",
+      "label": "Thermographic scanning",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-thermo"
+    },
+    "m06-transformers": {
+      "anchor": "transformers",
+      "domain": "06-power",
+      "href": "learn/06-power.html#transformers",
+      "label": "Transformers",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-transformers"
+    },
+    "m06-ups": {
+      "anchor": "ups-types-and-parallel-configs",
+      "domain": "06-power",
+      "href": "learn/06-power.html#ups-types-and-parallel-configs",
+      "label": "UPS systems",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-ups"
+    },
+    "m06-ups-parallel": {
+      "anchor": "ups-types-and-parallel-configs",
+      "domain": "06-power",
+      "href": "learn/06-power.html#ups-types-and-parallel-configs",
+      "label": "UPS parallel configurations",
+      "module": 6,
+      "slug": "06-power",
+      "topic_id": "m06-ups-parallel"
+    },
+    "m07-shielding": {
+      "anchor": "separation-beats-shielding-elf-magnetic",
+      "domain": "07-emf",
+      "href": "learn/07-emf.html#separation-beats-shielding-elf-magnetic",
+      "label": "Shielding",
+      "module": 7,
+      "slug": "07-emf",
+      "topic_id": "m07-shielding"
+    },
+    "m07-sources": {
+      "anchor": "sources-inside-and-outside-the-site",
+      "domain": "07-emf",
+      "href": "learn/07-emf.html#sources-inside-and-outside-the-site",
+      "label": "Sources of EMF",
+      "module": 7,
+      "slug": "07-emf",
+      "topic_id": "m07-sources"
+    },
+    "m07-standards": {
+      "anchor": "further-free-resources-public-standards-names-vendor-primers-no-paywalled-epi-content",
+      "domain": "07-emf",
+      "href": "learn/07-emf.html#further-free-resources-public-standards-names-vendor-primers-no-paywalled-epi-content",
+      "label": "EMF standards and best practices",
+      "module": 7,
+      "slug": "07-emf",
+      "topic_id": "m07-standards"
+    },
+    "m07-types": {
+      "anchor": null,
+      "domain": "07-emf",
+      "href": "learn/07-emf.html",
+      "label": "Types of EMF",
+      "module": 7,
+      "slug": "07-emf",
+      "topic_id": "m07-types"
+    },
+    "m07-units": {
+      "anchor": "units-and-how-strong-is-strong",
+      "domain": "07-emf",
+      "href": "learn/07-emf.html#units-and-how-strong-is-strong",
+      "label": "Units of measurements",
+      "module": 7,
+      "slug": "07-emf",
+      "topic_id": "m07-units"
+    },
+    "m08-dimensions": {
+      "anchor": "1-rack-standards-and-dimensions",
+      "domain": "08-racks",
+      "href": "learn/08-racks.html#1-rack-standards-and-dimensions",
+      "label": "Rack dimensions",
+      "module": 8,
+      "slug": "08-racks",
+      "topic_id": "m08-dimensions"
+    },
+    "m08-power-strips": {
+      "anchor": "4-power-strips-and-rails-rack-pdus",
+      "domain": "08-racks",
+      "href": "learn/08-racks.html#4-power-strips-and-rails-rack-pdus",
+      "label": "Power strips / rails",
+      "module": 8,
+      "slug": "08-racks",
+      "topic_id": "m08-power-strips"
+    },
+    "m08-security": {
+      "anchor": "3-security",
+      "domain": "08-racks",
+      "href": "learn/08-racks.html#3-security",
+      "label": "Rack security",
+      "module": 8,
+      "slug": "08-racks",
+      "topic_id": "m08-security"
+    },
+    "m08-standards": {
+      "anchor": "1-rack-standards-and-dimensions",
+      "domain": "08-racks",
+      "href": "learn/08-racks.html#1-rack-standards-and-dimensions",
+      "label": "Rack standards",
+      "module": 8,
+      "slug": "08-racks",
+      "topic_id": "m08-standards"
+    },
+    "m08-types": {
+      "anchor": "2-types-of-racks-and-enclosures",
+      "domain": "08-racks",
+      "href": "learn/08-racks.html#2-types-of-racks-and-enclosures",
+      "label": "Types of racks",
+      "module": 8,
+      "slug": "08-racks",
+      "topic_id": "m08-types"
+    },
+    "m09-ashrae-envelopes": {
+      "anchor": "4-ashrae-envelopes",
+      "domain": "09-cooling",
+      "href": "learn/09-cooling.html#4-ashrae-envelopes",
+      "label": "ASHRAE TC 9.9 recommended vs allowable awareness",
+      "module": 9,
+      "slug": "09-cooling",
+      "topic_id": "m09-ashrae-envelopes"
+    },
+    "m09-containment": {
+      "anchor": "3-containment-vs-more-tons",
+      "domain": "09-cooling",
+      "href": "learn/09-cooling.html#3-containment-vs-more-tons",
+      "label": "Containment",
+      "module": 9,
+      "slug": "09-cooling",
+      "topic_id": "m09-containment"
+    },
+    "m09-liquid": {
+      "anchor": "liquid-cooling-overview",
+      "domain": "09-cooling",
+      "href": "learn/09-cooling.html#liquid-cooling-overview",
+      "label": "Liquid cooling",
+      "module": 9,
+      "slug": "09-cooling",
+      "topic_id": "m09-liquid"
+    },
+    "m09-non-raised": {
+      "anchor": "raised-floor-vs-non-raised-hard-floor-cooling",
+      "domain": "09-cooling",
+      "href": "learn/09-cooling.html#raised-floor-vs-non-raised-hard-floor-cooling",
+      "label": "Non-raised floor cooling",
+      "module": 9,
+      "slug": "09-cooling",
+      "topic_id": "m09-non-raised"
+    },
+    "m09-principles": {
+      "anchor": null,
+      "domain": "09-cooling",
+      "href": "learn/09-cooling.html",
+      "label": "Cooling principles",
+      "module": 9,
+      "slug": "09-cooling",
+      "topic_id": "m09-principles"
+    },
+    "m09-raised-floor-cooling": {
+      "anchor": "raised-floor-vs-non-raised-hard-floor-cooling",
+      "domain": "09-cooling",
+      "href": "learn/09-cooling.html#raised-floor-vs-non-raised-hard-floor-cooling",
+      "label": "Raised floor cooling",
+      "module": 9,
+      "slug": "09-cooling",
+      "topic_id": "m09-raised-floor-cooling"
+    },
+    "m09-ster": {
+      "anchor": "stes-ster-awareness",
+      "domain": "09-cooling",
+      "href": "learn/09-cooling.html#stes-ster-awareness",
+      "label": "Seasonal Thermal Energy Storage (STER)",
+      "module": 9,
+      "slug": "09-cooling",
+      "topic_id": "m09-ster"
+    },
+    "m09-supplemental": {
+      "anchor": null,
+      "domain": "09-cooling",
+      "href": "learn/09-cooling.html",
+      "label": "Supplemental cooling",
+      "module": 9,
+      "slug": "09-cooling",
+      "topic_id": "m09-supplemental"
+    },
+    "m09-system-types": {
+      "anchor": null,
+      "domain": "09-cooling",
+      "href": "learn/09-cooling.html",
+      "label": "Types of cooling systems",
+      "module": 9,
+      "slug": "09-cooling",
+      "topic_id": "m09-system-types"
+    },
+    "m09-temp-humidity": {
+      "anchor": "temperature-humidity-and-controls",
+      "domain": "09-cooling",
+      "href": "learn/09-cooling.html#temperature-humidity-and-controls",
+      "label": "Temperature and humidity",
+      "module": 9,
+      "slug": "09-cooling",
+      "topic_id": "m09-temp-humidity"
+    },
+    "m10-backup": {
+      "anchor": "3-backup-water-supply-techniques",
+      "domain": "10-water",
+      "href": "learn/10-water.html#3-backup-water-supply-techniques",
+      "label": "Backup water supply",
+      "module": 10,
+      "slug": "10-water",
+      "topic_id": "m10-backup"
+    },
+    "m10-importance": {
+      "anchor": null,
+      "domain": "10-water",
+      "href": "learn/10-water.html",
+      "label": "Importance of water",
+      "module": 10,
+      "slug": "10-water",
+      "topic_id": "m10-importance"
+    },
+    "m11-copper": {
+      "anchor": "copper-vs-fibre",
+      "domain": "11-network",
+      "href": "learn/11-network.html#copper-vs-fibre",
+      "label": "Copper cabling",
+      "module": 11,
+      "slug": "11-network",
+      "topic_id": "m11-copper"
+    },
+    "m11-fibre": {
+      "anchor": "copper-vs-fibre",
+      "domain": "11-network",
+      "href": "learn/11-network.html#copper-vs-fibre",
+      "label": "Fibre cabling",
+      "module": 11,
+      "slug": "11-network",
+      "topic_id": "m11-fibre"
+    },
+    "m11-importance": {
+      "anchor": null,
+      "domain": "11-network",
+      "href": "learn/11-network.html",
+      "label": "Importance of network cabling infrastructure",
+      "module": 11,
+      "slug": "11-network",
+      "topic_id": "m11-importance"
+    },
+    "m11-planning": {
+      "anchor": null,
+      "domain": "11-network",
+      "href": "learn/11-network.html",
+      "label": "Planning considerations",
+      "module": 11,
+      "slug": "11-network",
+      "topic_id": "m11-planning"
+    },
+    "m11-redundancy": {
+      "anchor": "pathway-redundancy-good-vs-bad",
+      "domain": "11-network",
+      "href": "learn/11-network.html#pathway-redundancy-good-vs-bad",
+      "label": "Cabling redundancy",
+      "module": 11,
+      "slug": "11-network",
+      "topic_id": "m11-redundancy"
+    },
+    "m11-site-to-site": {
+      "anchor": "building-connectivity-site-and-campus",
+      "domain": "11-network",
+      "href": "learn/11-network.html#building-connectivity-site-and-campus",
+      "label": "Site-to-site connectivity",
+      "module": 11,
+      "slug": "11-network",
+      "topic_id": "m11-site-to-site"
+    },
+    "m11-testing": {
+      "anchor": "testing-and-verification",
+      "domain": "11-network",
+      "href": "learn/11-network.html#testing-and-verification",
+      "label": "Testing and verification of cabling system",
+      "module": 11,
+      "slug": "11-network",
+      "topic_id": "m11-testing"
+    },
+    "m11-tia942-topology": {
+      "anchor": null,
+      "domain": "11-network",
+      "href": "learn/11-network.html",
+      "label": "TIA-942 cabling system topology",
+      "module": 11,
+      "slug": "11-network",
+      "topic_id": "m11-tia942-topology"
+    },
+    "m12-best-practices": {
+      "anchor": "best-practices",
+      "domain": "12-fire",
+      "href": "learn/12-fire.html#best-practices",
+      "label": "Fire best practices",
+      "module": 12,
+      "slug": "12-fire",
+      "topic_id": "m12-best-practices"
+    },
+    "m12-causes": {
+      "anchor": "causes-of-fire-in-data-centres",
+      "domain": "12-fire",
+      "href": "learn/12-fire.html#causes-of-fire-in-data-centres",
+      "label": "Common causes of fire",
+      "module": 12,
+      "slug": "12-fire",
+      "topic_id": "m12-causes"
+    },
+    "m12-classes": {
+      "anchor": "classes-of-fire",
+      "domain": "12-fire",
+      "href": "learn/12-fire.html#classes-of-fire",
+      "label": "Classes of fire",
+      "module": 12,
+      "slug": "12-fire",
+      "topic_id": "m12-classes"
+    },
+    "m12-detection": {
+      "anchor": "detection",
+      "domain": "12-fire",
+      "href": "learn/12-fire.html#detection",
+      "label": "Fire detection systems",
+      "module": 12,
+      "slug": "12-fire",
+      "topic_id": "m12-detection"
+    },
+    "m12-extinguishers": {
+      "anchor": "handheld-extinguishers",
+      "domain": "12-fire",
+      "href": "learn/12-fire.html#handheld-extinguishers",
+      "label": "Handheld fire extinguishers",
+      "module": 12,
+      "slug": "12-fire",
+      "topic_id": "m12-extinguishers"
+    },
+    "m12-gas-suppression": {
+      "anchor": "water-based-vs-gas-suppression",
+      "domain": "12-fire",
+      "href": "learn/12-fire.html#water-based-vs-gas-suppression",
+      "label": "Gas-based fire suppression",
+      "module": 12,
+      "slug": "12-fire",
+      "topic_id": "m12-gas-suppression"
+    },
+    "m12-regulatory": {
+      "anchor": "regulatory-notes-high-levelverify-locally",
+      "domain": "12-fire",
+      "href": "learn/12-fire.html#regulatory-notes-high-levelverify-locally",
+      "label": "Regulatory requirements / AHJ",
+      "module": 12,
+      "slug": "12-fire",
+      "topic_id": "m12-regulatory"
+    },
+    "m12-signage": {
+      "anchor": "signage-and-life-safety-interfaces",
+      "domain": "12-fire",
+      "href": "learn/12-fire.html#signage-and-life-safety-interfaces",
+      "label": "Signage and safety requirements",
+      "module": 12,
+      "slug": "12-fire",
+      "topic_id": "m12-signage"
+    },
+    "m12-standards": {
+      "anchor": null,
+      "domain": "12-fire",
+      "href": "learn/12-fire.html",
+      "label": "Fire standards",
+      "module": 12,
+      "slug": "12-fire",
+      "topic_id": "m12-standards"
+    },
+    "m12-suppression-reqs": {
+      "anchor": null,
+      "domain": "12-fire",
+      "href": "learn/12-fire.html",
+      "label": "Requirements for fire suppression systems",
+      "module": 12,
+      "slug": "12-fire",
+      "topic_id": "m12-suppression-reqs"
+    },
+    "m12-water-suppression": {
+      "anchor": "water-based-vs-gas-suppression",
+      "domain": "12-fire",
+      "href": "learn/12-fire.html#water-based-vs-gas-suppression",
+      "label": "Water-based fire suppression",
+      "module": 12,
+      "slug": "12-fire",
+      "topic_id": "m12-water-suppression"
+    },
+    "m13-safety-components": {
+      "anchor": null,
+      "domain": "13-security",
+      "href": "learn/13-security.html",
+      "label": "Components for physical safety",
+      "module": 13,
+      "slug": "13-security",
+      "topic_id": "m13-safety-components"
+    },
+    "m13-security-components": {
+      "anchor": null,
+      "domain": "13-security",
+      "href": "learn/13-security.html",
+      "label": "Components for physical security",
+      "module": 13,
+      "slug": "13-security",
+      "topic_id": "m13-security-components"
+    },
+    "m14-alarms": {
+      "anchor": "alarm-panels",
+      "domain": "14-auxiliary",
+      "href": "learn/14-auxiliary.html#alarm-panels",
+      "label": "Alarm panels",
+      "module": 14,
+      "slug": "14-auxiliary",
+      "topic_id": "m14-alarms"
+    },
+    "m14-best-practices": {
+      "anchor": "notification-best-practices",
+      "domain": "14-auxiliary",
+      "href": "learn/14-auxiliary.html#notification-best-practices",
+      "label": "Auxiliary systems best practices",
+      "module": 14,
+      "slug": "14-auxiliary",
+      "topic_id": "m14-best-practices"
+    },
+    "m14-bms": {
+      "anchor": "ems-vs-bms-vs-dcim",
+      "domain": "14-auxiliary",
+      "href": "learn/14-auxiliary.html#ems-vs-bms-vs-dcim",
+      "label": "Building Management System (BMS)",
+      "module": 14,
+      "slug": "14-auxiliary",
+      "topic_id": "m14-bms"
+    },
+    "m14-dcim": {
+      "anchor": "ems-vs-bms-vs-dcim",
+      "domain": "14-auxiliary",
+      "href": "learn/14-auxiliary.html#ems-vs-bms-vs-dcim",
+      "label": "Data Centre Infrastructure Management (DCIM)",
+      "module": 14,
+      "slug": "14-auxiliary",
+      "topic_id": "m14-dcim"
+    },
+    "m14-ems": {
+      "anchor": "ems-vs-bms-vs-dcim",
+      "domain": "14-auxiliary",
+      "href": "learn/14-auxiliary.html#ems-vs-bms-vs-dcim",
+      "label": "Environmental Monitoring System (EMS)",
+      "module": 14,
+      "slug": "14-auxiliary",
+      "topic_id": "m14-ems"
+    },
+    "m14-leak": {
+      "anchor": "water-leak-detection",
+      "domain": "14-auxiliary",
+      "href": "learn/14-auxiliary.html#water-leak-detection",
+      "label": "Water leak detection",
+      "module": 14,
+      "slug": "14-auxiliary",
+      "topic_id": "m14-leak"
+    },
+    "m14-monitoring-challenges": {
+      "anchor": "monitoring-challenges-why-this-is-hard",
+      "domain": "14-auxiliary",
+      "href": "learn/14-auxiliary.html#monitoring-challenges-why-this-is-hard",
+      "label": "Monitoring challenges",
+      "module": 14,
+      "slug": "14-auxiliary",
+      "topic_id": "m14-monitoring-challenges"
+    },
+    "m14-monitoring-reqs": {
+      "anchor": null,
+      "domain": "14-auxiliary",
+      "href": "learn/14-auxiliary.html",
+      "label": "Monitoring requirements",
+      "module": 14,
+      "slug": "14-auxiliary",
+      "topic_id": "m14-monitoring-reqs"
+    },
+    "m14-notification": {
+      "anchor": "notification-best-practices",
+      "domain": "14-auxiliary",
+      "href": "learn/14-auxiliary.html#notification-best-practices",
+      "label": "Notification",
+      "module": 14,
+      "slug": "14-auxiliary",
+      "topic_id": "m14-notification"
+    },
+    "m15-cleaning": {
+      "anchor": null,
+      "domain": "15-ops-adjacent",
+      "href": null,
+      "label": "Cleaning",
+      "module": null,
+      "slug": null,
+      "topic_id": "m15-cleaning"
+    },
+    "m15-documentation": {
+      "anchor": null,
+      "domain": "15-ops-adjacent",
+      "href": null,
+      "label": "Documentation",
+      "module": null,
+      "slug": null,
+      "topic_id": "m15-documentation"
+    },
+    "m15-labelling": {
+      "anchor": null,
+      "domain": "15-ops-adjacent",
+      "href": null,
+      "label": "Labelling",
+      "module": null,
+      "slug": null,
+      "topic_id": "m15-labelling"
+    },
+    "m15-maintenance-sla": {
+      "anchor": null,
+      "domain": "15-ops-adjacent",
+      "href": null,
+      "label": "Maintenance contracts / SLA",
+      "module": null,
+      "slug": null,
+      "topic_id": "m15-maintenance-sla"
+    },
+    "m15-mtbf-mttr": {
+      "anchor": null,
+      "domain": "15-ops-adjacent",
+      "href": null,
+      "label": "MTBF / MTTR",
+      "module": null,
+      "slug": null,
+      "topic_id": "m15-mtbf-mttr"
+    },
+    "m15-ops-security": {
+      "anchor": null,
+      "domain": "15-ops-adjacent",
+      "href": null,
+      "label": "Operational security and safety practices",
+      "module": null,
+      "slug": null,
+      "topic_id": "m15-ops-security"
+    }
+  },
+  "topics_with_anchor": 73
+}

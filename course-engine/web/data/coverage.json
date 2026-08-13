@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "gate": "l6-domain-coverage",
+  "status": "pass",
+  "bank": "bank/items",
+  "item_count": 798,
+  "primary_modules": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+  "domain_min": {
+    "1": 20,
+    "2": 28,
+    "3": 20,
+    "4": 18,
+    "5": 14,
+    "6": 55,
+    "7": 14,
+    "8": 18,
+    "9": 48,
+    "10": 12,
+    "11": 30,
+    "12": 28,
+    "13": 22,
+    "14": 24
+  },
+  "counts": {
+    "1": 36,
+    "2": 42,
+    "3": 38,
+    "4": 33,
+    "5": 31,
+    "6": 134,
+    "7": 32,
+    "8": 34,
+    "9": 120,
+    "10": 34,
+    "11": 72,
+    "12": 62,
+    "13": 46,
+    "14": 44
+  },
+  "extra_counts": {
+    "15": 40
+  },
+  "shortfalls": [],
+  "oq05_default_n": 1,
+  "note": "Coverage ≠ exam pass probability; study signal only. Regenerate via: python3 scripts/verify_coverage.py --write-json web/data/coverage.json"
+}

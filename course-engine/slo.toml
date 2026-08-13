@@ -1,0 +1,19 @@
+# slo.toml — light SLO-as-code for course-engine (charter Artifact L2)
+#
+# Budgets are wall-clock ceilings for smoke_slo.sh (not continuous prod monitoring).
+# Charter starting floors were tighter (grade p95 <50ms pure, export <5s, verify <2s);
+# CI/local smoke uses generous margins so cold cargo + full bank never flaky-green.
+#
+# Override skip (local thermal only — not the default CI story):
+#   CDCP_SKIP_SLO=1 ./scripts/smoke_slo.sh
+
+schema_version = 1
+
+# Wall budgets in milliseconds (smoke_slo.sh fail-closed if exceeded).
+[budgets]
+# cargo run grade --mode all-correct (post-build; includes process spawn)
+grade_ms = 5000
+# cargo run export-web --seed 42 (writes pack under a temp or --out dir)
+export_ms = 15000
+# python3 scripts/verify_bank.py over full bank/items
+bank_verify_ms = 10000

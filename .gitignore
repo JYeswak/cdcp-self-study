@@ -1,0 +1,37 @@
+# --- build output ---------------------------------------------------------
+/course-engine/target/
+**/target/
+*.rs.bk
+
+# --- PRIVATE: never publish -----------------------------------------------
+# Personal job-hunt research: candidate profile, employer shortlist,
+# compensation ranges. Intentionally excluded from the public repo.
+/job-research/
+
+# --- THIRD-PARTY PDFs: do not redistribute --------------------------------
+# ASHRAE TC 9.9 white papers / technical bulletins are free to DOWNLOAD from
+# ashrae.org but ASHRAE retains copyright; free-to-download is not a
+# redistribution licence. OQ-09 ("store free PDFs in-repo") was decided while
+# this repo was PRIVATE (personal study copy); publishing changes the question.
+# The .meta.toml sidecars stay tracked, so url + sha256 grounding still
+# verifies and `scripts/fetch_public_corpus.py` can re-fetch locally.
+# NIST SP 800-123 is a US Government work (public domain) and DOES ship.
+course-engine/knowledge/corpus/free-pdfs/ashrae_*.pdf
+
+# --- absorbed/backup git dirs ---------------------------------------------
+*.absorbed-*
+*.git.absorbed*
+
+# --- local scratch ---------------------------------------------------------
+.tmp-*
+*.tmp
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# --- editor ----------------------------------------------------------------
+.idea/
+.vscode/
+*.swp

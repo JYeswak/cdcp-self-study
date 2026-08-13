@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP Mock results — study signal only. Not EPI/EXIN certification.">
+  <title>CDCP Study — Results</title>
+  <link rel="stylesheet" href="assets/css/course.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="learn.html">Learn</a></li>
+          <li><a href="drill.html">Drill</a></li>
+          <li><a href="mock.html">Mock</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap-exam" tabindex="-1">
+    <h1>Results</h1>
+    <p class="lede">
+      Graded in-browser via WASM dual-path (<span class="mono">cdcp_wasm</span>).
+      Numbers below are a <strong>study signal</strong> only — never a credential.
+      Digest matches the Rust GradeExact oracle for frozen fixtures.
+    </p>
+
+    <div id="results-status" class="exam-status" role="status">Reading attempt…</div>
+
+    <section id="results-summary" class="question-card" hidden>
+      <h2 class="question-card__stem" style="font-size:1.1rem">Attempt</h2>
+      <dl class="results-dl">
+        <div><dt>Exam</dt><dd id="r-exam" class="mono">—</dd></div>
+        <div><dt>Seed</dt><dd id="r-seed" class="mono">—</dd></div>
+        <div><dt>Bank hash</dt><dd id="r-hash" class="mono results-hash">—</dd></div>
+        <div><dt>Answers</dt><dd id="r-count" class="mono">—</dd></div>
+        <div><dt>Engine</dt><dd id="r-engine" class="mono">—</dd></div>
+      </dl>
+      <p class="meta" style="margin-top:1rem;border:0;padding:0">
+        Storage key: <span class="mono">cdcp_mock_attempt_v1</span>
+      </p>
+    </section>
+
+    <section id="results-score" class="question-card results-score-card" hidden>
+      <h2 class="question-card__stem" style="font-size:1.1rem">Score</h2>
+      <p class="results-score-line">
+        <span id="r-score" class="results-score-value mono">—</span>
+        <span class="results-score-label">correct / total</span>
+      </p>
+      <dl class="results-dl">
+        <div>
+          <dt>Digest</dt>
+          <dd id="r-digest" class="mono results-hash">—</dd>
+        </div>
+      </dl>
+      <p class="meta" style="margin-top:0.75rem;border:0;padding:0">
+        Digest = SHA-256 of canonical GradeReport (GradeExact). Exposed as
+        <span class="mono">window.__cdcp_last_digest</span> for e2e.
+      </p>
+    </section>
+
+    <div id="results-study-signal" class="study-signal" hidden role="status"></div>
+
+    <section id="results-weak" class="question-card" hidden></section>
+
+    <section id="results-items" class="question-card" hidden></section>
+
+    <p class="meta">
+      <a href="mock.html">← Back to mock</a>
+      · <a id="results-drill-link" href="drill.html">Open Drill / SRS →</a>
+      · <a href="index.html">Hub</a>
+    </p>
+  </main>
+
+  <script type="module" src="assets/js/results.js"></script>
+</body>
+</html>

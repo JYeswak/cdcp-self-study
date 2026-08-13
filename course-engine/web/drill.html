@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP Drill / SRS — practice missed items. Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Drill</title>
+  <link rel="stylesheet" href="assets/css/course.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="learn.html">Learn</a></li>
+          <li><a href="drill.html" aria-current="page">Drill</a></li>
+          <li><a href="mock.html">Mock</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap wrap-exam" tabindex="-1">
+    <h1>Drill / SRS</h1>
+    <p class="lede">
+      Review items you missed on the last mock or module quiz.
+      Explanations come from the keys/bank export — never from an LLM grader.
+      Spaced schedule is minimal (1d → 3d) in this browser only.
+    </p>
+
+    <div id="drill-status" class="exam-status" role="status">Loading…</div>
+
+    <p class="meta">
+      <a class="btn btn--primary" href="quiz.html">Start module quiz</a>
+      · <a href="drill.html?mode=due">Drill due</a>
+      · <a href="drill.html?mode=miss">Miss review</a>
+      · <a href="mock.html">Mock exam</a>
+      · <a href="learn.html">Learn</a>
+    </p>
+
+    <section id="section-missed" class="question-card" aria-labelledby="missed-title">
+      <h2 id="missed-title" class="results-section-title">Missed from last attempt</h2>
+      <p id="missed-meta" class="meta" style="margin:0 0 0.75rem;border:0;padding:0"></p>
+      <div id="missed-list"></div>
+    </section>
+
+    <section id="section-srs-due" class="question-card" aria-labelledby="srs-due-title">
+      <h2 id="srs-due-title" class="results-section-title">SRS due now</h2>
+      <p id="srs-all-meta" class="meta" style="margin:0 0 0.75rem;border:0;padding:0"></p>
+      <div id="srs-due-list"></div>
+    </section>
+
+    <section id="section-srs-all" class="question-card" aria-labelledby="srs-all-title">
+      <h2 id="srs-all-title" class="results-section-title">All SRS cards</h2>
+      <p class="meta" style="margin:0 0 0.75rem;border:0;padding:0">
+        Survives reload via <span class="mono">localStorage</span>.
+        Schema documented in <span class="mono">web/README.md</span>.
+      </p>
+      <div id="srs-all-list"></div>
+    </section>
+
+    <p class="meta">
+      <a href="index.html">← Hub</a>
+      · <a href="drill.html">Full drill</a>
+      · <a href="drill.html?mode=due">Drill due</a>
+      · <a href="drill.html?mode=miss">Miss review</a>
+      · Storage: <span class="mono">cdcp.drill.missed.v1</span>,
+      <span class="mono">cdcp.srs.v1</span>
+    </p>
+  </main>
+
+  <script src="assets/js/concept_card.js"></script>
+  <script type="module" src="assets/js/drill.js"></script>
+</body>
+</html>

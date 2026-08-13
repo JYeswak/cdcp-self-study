@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP study diagram — site dependency stack. Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Site dependency stack</title>
+  <link rel="stylesheet" href="../assets/css/course.css">
+  <style>
+    .stack { max-width: 36rem; margin: 0 auto; display: flex; flex-direction: column; gap: 0.4rem; }
+    .stack-layer {
+      min-height: var(--touch-min);
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--surface);
+      cursor: pointer;
+      text-align: left;
+    }
+    .stack-layer[aria-expanded="true"] {
+      border-color: rgba(52, 211, 153, 0.5);
+      background: rgba(52, 211, 153, 0.08);
+    }
+    .stack-layer__name { font-weight: 700; color: var(--fg); display: block; }
+    .stack-layer__hint { color: var(--fg-dim); font-size: 0.9rem; margin: 0.35rem 0 0; display: none; }
+    .stack-layer[aria-expanded="true"] .stack-layer__hint { display: block; }
+    .stack-arrow { text-align: center; color: var(--fg-faint); font-family: var(--mono); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="../learn.html">Learn</a></li>
+          <li><a href="../learn/01-mission-critical.html">M01</a></li>
+          <li><a href="../reference.html">Reference</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="wrap" tabindex="-1">
+    <h1>Site dependency stack</h1>
+    <p class="lede">Click each layer to reveal why it depends on the layer below.
+      <strong>Interview one-liner:</strong> white space is not enough — availability is manufactured in grey space.</p>
+    <div class="stack" id="site-stack" data-diagram="site-stack">
+      <button type="button" class="stack-layer" data-layer="biz" aria-expanded="false">
+        <span class="stack-layer__name">Business services / users</span>
+        <span class="stack-layer__hint">Checkout, payments, care delivery — impact language lives here.</span>
+      </button>
+      <div class="stack-arrow" aria-hidden="true">↓ depends on</div>
+      <button type="button" class="stack-layer" data-layer="apps" aria-expanded="false">
+        <span class="stack-layer__name">Apps / data / identity</span>
+        <span class="stack-layer__hint">Software fails without compute, network paths, and auth.</span>
+      </button>
+      <div class="stack-arrow" aria-hidden="true">↓ depends on</div>
+      <button type="button" class="stack-layer" data-layer="it" aria-expanded="false">
+        <span class="stack-layer__name">IT + network (white space)</span>
+        <span class="stack-layer__hint">Racks, servers, fabric — what tours show; not self-sufficient.</span>
+      </button>
+      <div class="stack-arrow" aria-hidden="true">↓ needs</div>
+      <button type="button" class="stack-layer" data-layer="mep" aria-expanded="false">
+        <span class="stack-layer__name">Power · cooling · fire · security (grey + ops)</span>
+        <span class="stack-layer__hint">MEP and process manufacture uptime; SPOFs here kill IT above.</span>
+      </button>
+    </div>
+    <p class="meta" style="margin-top:1.5rem">
+      <a href="../learn/01-mission-critical.html">← Module 01</a>
+      · Study diagram only — not a certification claim
+    </p>
+  </main>
+  <script>
+    (function () {
+      var root = document.getElementById("site-stack");
+      if (!root) return;
+      root.querySelectorAll(".stack-layer").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var open = btn.getAttribute("aria-expanded") === "true";
+          btn.setAttribute("aria-expanded", open ? "false" : "true");
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
