@@ -46,7 +46,7 @@ cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
 | **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
 | **Bank** | 804 original questions across 15 module buckets, 106 topics |
 | **Engine** | 7 Rust crates, 3,763 lines, `#![forbid(unsafe_code)]`, 281 KB WASM |
-| **Gate** | 58 ordered steps; 9 selftest suites; 36 known-bad injections that must all go RED |
+| **Gate** | 59 ordered steps; 9 selftest suites; 36 known-bad injections that must all go RED |
 | **Runtime deps** | None. Rust toolchain to build; a browser to use |
 
 ---
