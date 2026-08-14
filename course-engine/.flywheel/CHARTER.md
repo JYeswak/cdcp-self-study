@@ -46,8 +46,20 @@ value_bar:      A tick is GREEN iff EITHER
 
 gauntlet:       L1 claims constitution (registry-check, WIRED) · L2 slo.toml · L4 gates-proven-to-
                 trip: 9 suites / 36 injections, drift-guarded, every new gate ships a known-bad
-                injection AND a meta-test (delete the assertion -> selftest non-zero) AND a
-                known-GOOD leg · L5 property/fuzz floor · L7 content.lock.
+                injection AND a meta-test AND a known-GOOD leg · L5 property/fuzz floor ·
+                L7 content.lock.
+                META-TEST, STATED CORRECTLY (corrected in place 2026-08-14): the earlier wording
+                here — "delete the assertion -> selftest non-zero" — is INCOHERENT for a
+                differential or oracle-backed test, and two port agents refused it on the same
+                day rather than fake the result. Deleting an assertion WEAKENS a test; it cannot
+                make it fail. On an unmutated tree there is nothing left for it to catch.
+                The meaningful form is a PAIR: (1) MUTATE THE GATE — one byte of its output, its
+                exit code, or its anti-vacuous branch — and confirm the suite goes non-zero;
+                (2) with that mutation STILL IN PLACE, delete the assertion and confirm the suite
+                returns to zero. Leg (1) proves the guard bites. Leg (2) proves THAT assertion is
+                what bit, rather than some neighbour. Record both TRUE exit codes; never read an
+                exit code through a pipe. A bead whose acceptance says only "delete the assertion"
+                has not specified a meta-test and must not be closed on one.
                 L3 IS CURRENTLY **NO** (CHARTER §5a) — F3 is the tick that flips it, and the
                 capability-maturity row must point at F3's test.
                 CLAIM DISCIPLINE: every gate states its claim as a FLOOR-RAISE plus what it

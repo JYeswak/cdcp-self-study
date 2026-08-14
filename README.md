@@ -40,7 +40,7 @@ cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
 
 | | |
 |---|---|
-| **What** | 14-module data-centre facilities curriculum + offline course engine |
+| **What** | 15-module data-centre facilities curriculum (14 public EPI domains + 1 ops-adjacent supplement) + offline course engine |
 | **Who it's for** | Someone who wants to walk a white-space tour and explain trade-offs — TPM, deploy engineer, ops, or a career switcher |
 | **What it is not** | A certification, an exam dump, a paid course, an LLM tutor |
 | **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
@@ -99,7 +99,7 @@ Prose drifts. A README says "byte-exact" long after the property stopped holding
 
 ```text
 cdcp-self-study/
-├── modules/                  14 domains · ~55k words · original writing
+├── modules/                  14 EPI domains + ops-adjacent · ~62k words · original writing
 ├── practice/                 40-question practice exam · 40 drill cards
 ├── reference/                glossary (100+ terms) · power & redundancy cheatsheet
 ├── 00-curriculum-map.md      every module's learning objectives

@@ -3,124 +3,44 @@
   "exam_id": "mock40",
   "keys": [
     {
-      "correct": "B",
-      "explanation": "Wrong cleaning methods can create the contamination problem they aim to solve.",
-      "item_id": "bank-m15-q142"
-    },
-    {
       "correct": "D",
-      "explanation": "External high-power electrical and RF sources can couple into a campus environment.",
-      "item_id": "m07-q209"
+      "explanation": "Panels must meet structural and ESD/cleanliness needs of the IT environment.",
+      "item_id": "m04-q129"
     },
     {
       "correct": "C",
-      "explanation": "Accidental EPO is a major outage cause; over-locking can also block emergency response.",
-      "item_id": "bank-m13-q095"
+      "explanation": "Media choice is part of the mitigation hierarchy for noisy environments.",
+      "item_id": "m07-q056"
+    },
+    {
+      "correct": "D",
+      "explanation": "Particulate/corrosive residue can destroy IT equipment; CO2 or clean-agent portables are often preferred in IT areas per policy.",
+      "item_id": "bank-m12-q060"
     },
     {
       "correct": "C",
-      "explanation": "Concentrated loads are point/small-area forces that can govern panel and pedestal design.",
-      "item_id": "m04-q117"
+      "explanation": "DC types share many engineering needs but differ in ownership, tenancy, scale, and who controls what.",
+      "item_id": "m01-q202"
+    },
+    {
+      "correct": "B",
+      "explanation": "Total tons can look fine while local recirculation still overheats inlets—management quality matters.",
+      "item_id": "m09-q153"
     },
     {
       "correct": "D",
-      "explanation": "Cameras without response/integration are weak; alarm-linked video + NTP-aligned logs enable forensics.",
-      "item_id": "bank-m13-q088"
+      "explanation": "Liquids near electronics demand engineering controls: detection, materials, filtration, and procedures.",
+      "item_id": "m09-q159"
     },
     {
       "correct": "D",
-      "explanation": "Water versus energy is a classic plant design tension—site climate and policy drive choices.",
-      "item_id": "m10-q107"
-    },
-    {
-      "correct": "A",
-      "explanation": "Very low RH favors ESD risk; high RH raises condensation and corrosion concerns—hence humidity is managed with temperature.",
-      "item_id": "m09-q116"
-    },
-    {
-      "correct": "D",
-      "explanation": "Legacy myths fade, but strong local fields can still matter for certain gear, analog paths, and people.",
-      "item_id": "m07-q205"
-    },
-    {
-      "correct": "D",
-      "explanation": "Understructure integrity is foundational to access-floor safety and performance.",
-      "item_id": "m04-q131"
+      "explanation": "Visual quality affects safe, accurate technical work on equipment.",
+      "item_id": "m05-q147"
     },
     {
       "correct": "B",
-      "explanation": "Gaseous agents can extinguish without wet-system water damage, with design-specific trade-offs.",
-      "item_id": "mock40-q35"
-    },
-    {
-      "correct": "B",
-      "explanation": "External connectivity risk is as much pathway and carrier as interface speed.",
-      "item_id": "m11-q204"
-    },
-    {
-      "correct": "C",
-      "explanation": "Induced voltage in loops is the classic copper EMI mechanism at ELF.",
-      "item_id": "m07-q052"
-    },
-    {
-      "correct": "A",
-      "explanation": "Facility elements centre on power, cooling, space, connectivity, life safety, and security that enable IT operation.",
-      "item_id": "m01-q045"
-    },
-    {
-      "correct": "D",
-      "explanation": "Early warning converts latent water risk into actionable ops response.",
-      "item_id": "m10-q214"
-    },
-    {
-      "correct": "C",
-      "explanation": "Legal and landlord constraints can block critical plant rights even on otherwise attractive campuses.",
-      "item_id": "m03-q109"
-    },
-    {
-      "correct": "B",
-      "explanation": "EN 50600 is European-series awareness; ISO/IEC 22237 is the international facilities series awareness.",
-      "item_id": "m02-q085"
-    },
-    {
-      "correct": "B",
-      "explanation": "Vertical clearances constrain cooling architecture, cable plant, and equipment handling.",
-      "item_id": "m03-q096"
-    },
-    {
-      "correct": "C",
-      "explanation": "1U = 1.75 in / 44.45 mm.",
-      "item_id": "m08-q042"
-    },
-    {
-      "correct": "B",
-      "explanation": "Dry outdoor air or dehumidifying coils can drop indoor moisture; humidification restores the site humidity control band.",
-      "item_id": "m09-q121"
-    },
-    {
-      "correct": "B",
-      "explanation": "Facility incidents cross subsystems; correlation beats siloed dashboards.",
-      "item_id": "m14-q209"
-    },
-    {
-      "correct": "B",
-      "explanation": "Sensible capacity removes heat at constant moisture; latent capacity addresses moisture. IT loads are mostly sensible.",
-      "item_id": "m09-q101"
-    },
-    {
-      "correct": "A",
-      "explanation": "Depth planning fails when cables, PDUs, and service clearances are ignored.",
-      "item_id": "m08-q205"
-    },
-    {
-      "correct": "B",
-      "explanation": "EN 50600 commonly appears in European project and procurement contexts.",
-      "item_id": "m02-q078"
-    },
-    {
-      "correct": "B",
-      "explanation": "Water-dependent cooling and fire protection make water rights and infrastructure first-class site criteria.",
-      "item_id": "m03-q213"
+      "explanation": "Fan stop/smoke-control modes and dampers preserve agent concentration and limit smoke spread per design.",
+      "item_id": "bank-m12-q054"
     },
     {
       "correct": "C",
@@ -129,43 +49,148 @@
     },
     {
       "correct": "A",
-      "explanation": "Real portfolios see mixed root causes—power, cooling, people, and environment—site by site.",
-      "item_id": "m01-q208"
-    },
-    {
-      "correct": "D",
-      "explanation": "Unit equipment carries local emergency power for required egress lighting duration.",
-      "item_id": "m05-q140"
+      "explanation": "Siloed facilities vs IT ownership commonly misaligns capacity planning, change control, and risk appetite.",
+      "item_id": "m01-q041"
     },
     {
       "correct": "B",
-      "explanation": "WUE is a water-intensity metric relating site water use to IT energy.",
-      "item_id": "mock40-q22"
-    },
-    {
-      "correct": "D",
-      "explanation": "Commissioning checks actual illuminance against design intent.",
-      "item_id": "m05-q211"
-    },
-    {
-      "correct": "D",
-      "explanation": "Perforated doors pass supply/exhaust air; solid doors belong with contained/chimney designs.",
-      "item_id": "m08-q048"
-    },
-    {
-      "correct": "A",
-      "explanation": "Three-phase distribution supports high kW delivery more effectively than single-phase alone.",
-      "item_id": "m06-q220"
-    },
-    {
-      "correct": "A",
-      "explanation": "Abort criteria and rollback are part of safe maintenance design.",
-      "item_id": "m15-q209"
+      "explanation": "Guides recommend practice; binding force comes from adoption into law, contract, or policy.",
+      "item_id": "m02-q081"
     },
     {
       "correct": "C",
-      "explanation": "Abort is a controlled investigation tool under procedure, not system abandonment.",
-      "item_id": "m12-q217"
+      "explanation": "Lighting must support safe work without fighting cooling containment or blocking maintenance.",
+      "item_id": "m05-q202"
+    },
+    {
+      "correct": "B",
+      "explanation": "Safety systems prioritize human life and emergency response over access convenience.",
+      "item_id": "m13-q202"
+    },
+    {
+      "correct": "D",
+      "explanation": "Media grade follows application needs and environment, not cosmetics.",
+      "item_id": "m11-q206"
+    },
+    {
+      "correct": "B",
+      "explanation": "Shared utilities need isolation and governance or they become correlated SPOFs.",
+      "item_id": "m10-q212"
+    },
+    {
+      "correct": "A",
+      "explanation": "Documentation is a controlled product of change, not an annual archaeology project.",
+      "item_id": "m15-q213"
+    },
+    {
+      "correct": "D",
+      "explanation": "The plenum and understructure are living systems needing inspection and housekeeping.",
+      "item_id": "m04-q209"
+    },
+    {
+      "correct": "A",
+      "explanation": "Managed/hosted models shift operational responsibility to a provider under contractual SLAs, with shared-responsibility nuances.",
+      "item_id": "m01-q055"
+    },
+    {
+      "correct": "C",
+      "explanation": "Poor logistics spaces create handling risk and operational friction for installs and maintenance.",
+      "item_id": "m03-q104"
+    },
+    {
+      "correct": "C",
+      "explanation": "Logistics and emergency access are site-level operability factors.",
+      "item_id": "m03-q108"
+    },
+    {
+      "correct": "B",
+      "explanation": "EN 50600 is European-series awareness; ISO/IEC 22237 is the international facilities series awareness.",
+      "item_id": "m02-q085"
+    },
+    {
+      "correct": "B",
+      "explanation": "Water chemistry is a reliability issue for evaporative heat rejection, not a janitorial footnote.",
+      "item_id": "m10-q200"
+    },
+    {
+      "correct": "A",
+      "explanation": "As-builts and living diagrams prevent operating from fiction.",
+      "item_id": "bank-m15-q137"
+    },
+    {
+      "correct": "D",
+      "explanation": "Emergency lighting is a life-safety system with dedicated design expectations.",
+      "item_id": "m05-q148"
+    },
+    {
+      "correct": "D",
+      "explanation": "Life/availability critical spaces need local indication when northbound links fail.",
+      "item_id": "bank-m14-q128"
+    },
+    {
+      "correct": "B",
+      "explanation": "NFPA 2001 is the named standard family for clean-agent systems in US practice awareness.",
+      "item_id": "bank-m12-q070"
+    },
+    {
+      "correct": "D",
+      "explanation": "Environment is multi-parameter; temperature alone misses moisture-driven risks and control interactions.",
+      "item_id": "m09-q123"
+    },
+    {
+      "correct": "C",
+      "explanation": "Spots catch known drip points; ropes cover distributed underfloor paths.",
+      "item_id": "bank-m14-q111"
+    },
+    {
+      "correct": "A",
+      "explanation": "RPPs move branch breakers nearer white-space loads.",
+      "item_id": "m06-q105"
+    },
+    {
+      "correct": "B",
+      "explanation": "N+1 means N capacity for the load plus one spare unit/module at that layer.",
+      "item_id": "mock40-q15"
+    },
+    {
+      "correct": "A",
+      "explanation": "Physical shared responsibility: customer zones vs provider common plant separation.",
+      "item_id": "bank-m13-q097"
+    },
+    {
+      "correct": "B",
+      "explanation": "Awareness-level learning recognizes the series’ place in the landscape without treating it as a code dump.",
+      "item_id": "m02-q077"
+    },
+    {
+      "correct": "C",
+      "explanation": "Surveys are snapshots; records enable comparison after plant or layout changes.",
+      "item_id": "m07-q212"
+    },
+    {
+      "correct": "C",
+      "explanation": "Jacket rating is a fire/smoke code issue for where the cable is installed.",
+      "item_id": "m11-q229"
+    },
+    {
+      "correct": "D",
+      "explanation": "Rack dual-cording must map to true upstream diversity or it is cosmetic.",
+      "item_id": "m08-q208"
+    },
+    {
+      "correct": "B",
+      "explanation": "Pathway bonding is electrical safety and EMI hygiene, separate from cable tests.",
+      "item_id": "m11-q228"
+    },
+    {
+      "correct": "A",
+      "explanation": "Value is in load-representative, skilled, trended programs—not a one-off photo op.",
+      "item_id": "m06-q097"
+    },
+    {
+      "correct": "C",
+      "explanation": "A/B strips preserve dual-path design at the rack.",
+      "item_id": "m08-q054"
     },
     {
       "correct": "B",
@@ -174,33 +199,8 @@
     },
     {
       "correct": "A",
-      "explanation": "EMS here is environmental monitoring; clarify vs energy-management naming collision in interviews.",
-      "item_id": "bank-m14-q105"
-    },
-    {
-      "correct": "C",
-      "explanation": "Blindness is itself a fault mode; dead sensors create false confidence.",
-      "item_id": "bank-m14-q119"
-    },
-    {
-      "correct": "D",
-      "explanation": "Fault tolerance targets uninterrupted service through a worst-case single failure, not only planned maintenance windows.",
-      "item_id": "m06-q056"
-    },
-    {
-      "correct": "C",
-      "explanation": "Ceilings can organize services and airflow return—but plenum use must match listing and design intent.",
-      "item_id": "m04-q204"
-    },
-    {
-      "correct": "B",
-      "explanation": "N+1 means one spare relative to required module count.",
-      "item_id": "m06-q245"
-    },
-    {
-      "correct": "C",
-      "explanation": "Overstuffed pathways and tight bends damage performance and reliability of copper and fiber.",
-      "item_id": "m11-q118"
+      "explanation": "IST proves coupled system behavior—not just component bench tests.",
+      "item_id": "bank-m14-q121"
     }
   ],
   "n_items": 40,

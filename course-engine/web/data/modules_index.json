@@ -1,5 +1,5 @@
 {
-  "empty_ok_count": 1,
+  "empty_ok_count": 0,
   "generated_by": "scripts/build_learn.py",
   "module_count": 15,
   "modules": [
@@ -186,16 +186,19 @@
       "word_count": 3767
     },
     {
-      "content_path": null,
-      "empty": true,
+      "content_path": "content/modules/15-ops-adjacent.md",
+      "empty": false,
       "epi_heading": "Operations practices (partner outline expansions)",
+      "estimate_minutes": 48,
       "exam_weight_unknown": true,
-      "href": null,
+      "href": "learn/15-ops-adjacent.html",
       "id": "15-ops-adjacent",
       "order": 15,
-      "primary_notes": ""
+      "primary_notes": "../modules/15-ops-adjacent.md",
+      "source_path": "../modules/15-ops-adjacent.md",
+      "word_count": 7183
     }
   ],
-  "navigable_count": 14,
+  "navigable_count": 15,
   "schema_version": 1
 }

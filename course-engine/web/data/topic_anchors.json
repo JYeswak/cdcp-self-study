@@ -1585,6 +1585,111 @@
         }
       ],
       "order": 14
+    },
+    "15-ops-adjacent": {
+      "headings": [
+        {
+          "id": "scope-note-read-this-first",
+          "level": 2,
+          "text": "Scope note \u2014 read this first"
+        },
+        {
+          "id": "learning-objectives",
+          "level": 2,
+          "text": "Learning objectives"
+        },
+        {
+          "id": "why-it-matters-opsdesigntpm-interview-angle",
+          "level": 2,
+          "text": "Why it matters (ops/design/TPM interview angle)"
+        },
+        {
+          "id": "core-concepts",
+          "level": 2,
+          "text": "Core concepts"
+        },
+        {
+          "id": "procedure-discipline-mop-sop-eop-swms",
+          "level": 3,
+          "text": "Procedure discipline \u2014 MOP, SOP, EOP, SWMS"
+        },
+        {
+          "id": "documentation",
+          "level": 3,
+          "text": "Documentation"
+        },
+        {
+          "id": "labelling",
+          "level": 3,
+          "text": "Labelling"
+        },
+        {
+          "id": "cleaning",
+          "level": 3,
+          "text": "Cleaning"
+        },
+        {
+          "id": "mtbf-mttr",
+          "level": 3,
+          "text": "MTBF / MTTR"
+        },
+        {
+          "id": "maintenance-contracts-sla",
+          "level": 3,
+          "text": "Maintenance contracts / SLA"
+        },
+        {
+          "id": "operational-security-and-safety-practices",
+          "level": 3,
+          "text": "Operational security and safety practices"
+        },
+        {
+          "id": "monitoring-alarms-and-the-failure-that-hides-itself",
+          "level": 3,
+          "text": "Monitoring, alarms, and the failure that hides itself"
+        },
+        {
+          "id": "incident-management",
+          "level": 3,
+          "text": "Incident management"
+        },
+        {
+          "id": "human-factors",
+          "level": 3,
+          "text": "Human factors"
+        },
+        {
+          "id": "the-electrical-safety-boundary-most-of-the-industry-gets-wrong",
+          "level": 3,
+          "text": "The electrical-safety boundary most of the industry gets wrong"
+        },
+        {
+          "id": "evidence-hygiene-the-habit-that-outlives-this-module",
+          "level": 3,
+          "text": "Evidence hygiene \u2014 the habit that outlives this module"
+        },
+        {
+          "id": "interview-drills",
+          "level": 2,
+          "text": "Interview drills"
+        },
+        {
+          "id": "self-check",
+          "level": 2,
+          "text": "Self-check"
+        },
+        {
+          "id": "answers",
+          "level": 3,
+          "text": "Answers"
+        },
+        {
+          "id": "further-free-resources",
+          "level": 2,
+          "text": "Further free resources"
+        }
+      ],
+      "order": 15
     }
   },
   "schema_version": 1,
@@ -2492,59 +2597,59 @@
       "topic_id": "m14-notification"
     },
     "m15-cleaning": {
-      "anchor": null,
+      "anchor": "cleaning",
       "domain": "15-ops-adjacent",
-      "href": null,
+      "href": "learn/15-ops-adjacent.html#cleaning",
       "label": "Cleaning",
-      "module": null,
-      "slug": null,
+      "module": 15,
+      "slug": "15-ops-adjacent",
       "topic_id": "m15-cleaning"
     },
     "m15-documentation": {
-      "anchor": null,
+      "anchor": "documentation",
       "domain": "15-ops-adjacent",
-      "href": null,
+      "href": "learn/15-ops-adjacent.html#documentation",
       "label": "Documentation",
-      "module": null,
-      "slug": null,
+      "module": 15,
+      "slug": "15-ops-adjacent",
       "topic_id": "m15-documentation"
     },
     "m15-labelling": {
-      "anchor": null,
+      "anchor": "labelling",
       "domain": "15-ops-adjacent",
-      "href": null,
+      "href": "learn/15-ops-adjacent.html#labelling",
       "label": "Labelling",
-      "module": null,
-      "slug": null,
+      "module": 15,
+      "slug": "15-ops-adjacent",
       "topic_id": "m15-labelling"
     },
     "m15-maintenance-sla": {
-      "anchor": null,
+      "anchor": "maintenance-contracts-sla",
       "domain": "15-ops-adjacent",
-      "href": null,
+      "href": "learn/15-ops-adjacent.html#maintenance-contracts-sla",
       "label": "Maintenance contracts / SLA",
-      "module": null,
-      "slug": null,
+      "module": 15,
+      "slug": "15-ops-adjacent",
       "topic_id": "m15-maintenance-sla"
     },
     "m15-mtbf-mttr": {
-      "anchor": null,
+      "anchor": "mtbf-mttr",
       "domain": "15-ops-adjacent",
-      "href": null,
+      "href": "learn/15-ops-adjacent.html#mtbf-mttr",
       "label": "MTBF / MTTR",
-      "module": null,
-      "slug": null,
+      "module": 15,
+      "slug": "15-ops-adjacent",
       "topic_id": "m15-mtbf-mttr"
     },
     "m15-ops-security": {
-      "anchor": null,
+      "anchor": "operational-security-and-safety-practices",
       "domain": "15-ops-adjacent",
-      "href": null,
+      "href": "learn/15-ops-adjacent.html#operational-security-and-safety-practices",
       "label": "Operational security and safety practices",
-      "module": null,
-      "slug": null,
+      "module": 15,
+      "slug": "15-ops-adjacent",
       "topic_id": "m15-ops-security"
     }
   },
-  "topics_with_anchor": 73
+  "topics_with_anchor": 79
 }

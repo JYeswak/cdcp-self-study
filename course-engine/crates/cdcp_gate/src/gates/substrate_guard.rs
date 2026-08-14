@@ -102,8 +102,7 @@ pub struct Row {
 // ── pure logic (unit-tested without git, without a filesystem) ─────────────
 
 pub fn parse_allowlist(text: &str) -> Result<Allowlist, String> {
-    let a: Allowlist =
-        toml::from_str(text).map_err(|e| format!("parse {REGISTRY_PATH}: {e}"))?;
+    let a: Allowlist = toml::from_str(text).map_err(|e| format!("parse {REGISTRY_PATH}: {e}"))?;
     if a.schema_version != 1 {
         return Err(format!(
             "{REGISTRY_PATH}: schema_version {} unsupported (expected 1)",
@@ -658,13 +657,19 @@ expires = "2099-01-01"
     #[test]
     fn stale_row_for_a_deleted_file_is_red() {
         let v = validate_rows(&[row("scripts/gone.py")], &scan(), TODAY, &|_| false);
-        assert!(v.iter().any(|m| m.contains("no file at this path")), "{v:?}");
+        assert!(
+            v.iter().any(|m| m.contains("no file at this path")),
+            "{v:?}"
+        );
     }
 
     #[test]
     fn row_outside_scope_is_red() {
         let v = validate_rows(&[row("docs/a.py")], &scan(), TODAY, &always());
-        assert!(v.iter().any(|m| m.contains("outside the scanned surface")), "{v:?}");
+        assert!(
+            v.iter().any(|m| m.contains("outside the scanned surface")),
+            "{v:?}"
+        );
     }
 
     #[test]
@@ -784,7 +789,10 @@ expires = "2099-01-01"
             .take_while(|l| l.starts_with("//!"))
             .collect::<Vec<_>>()
             .join("\n");
-        assert!(header.contains("FLOOR-RAISE"), "header must state the claim class");
+        assert!(
+            header.contains("FLOOR-RAISE"),
+            "header must state the claim class"
+        );
         assert!(
             header.contains("CANNOT"),
             "header must state what the gate cannot decide"

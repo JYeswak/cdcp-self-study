@@ -16,6 +16,50 @@ stops being a guess. **Most of the grounding gap closes at $0.**
 
 ---
 
+## Standing notes — read before capturing anything
+
+These are not tips. They are the rules the corpus gate enforces; the machine-readable
+form is `knowledge/corpus/rights-policy.toml`.
+
+**SN-1 · `access` is a PRICE fact. It is never a permission.**
+`access = "free"` means the publisher serves the bytes without charge. It says nothing
+about whether *this* repository may republish them, and nothing about whether an AI tool
+may read them. Rights live in `rights` / `redistribution` / `ai_ingestion`, recorded
+per source. A free download is still copyrighted.
+
+**SN-2 · Retaining is not publishing. This repo is PUBLIC.**
+Keeping a capture on a laptop for grounding and committing it to
+`github.com/JYeswak/cdcp-self-study` are different acts. The second is redistribution.
+Any source recorded `redistribution != permitted` gets a **citation row** — `{url, title,
+publisher, fetched_at, rights, redistribution}` and zero publisher-derived prose. A
+citation row fully serves the stated retention basis ("so the claim can be re-verified at
+source"); the body adds nothing to that purpose and adds all of the exposure.
+
+**SN-3 · Government-PUBLISHED is not government-AUTHORED throughout.**
+17 USC 105 puts the government-authored portions of a work in the public domain — not the
+third-party tables, figures and photographs reproduced inside it under attribution.
+**Check the figure credits, not the cover.** Before marking any government PDF
+`rights = "public-domain"`, scan every table/figure caption and credit line and record what
+you find in `third_party_figures`. Contractor authorship (NREL, national-lab subcontracts)
+weakens a blanket 17 USC 105 reading further. A record that declares `third_party_figures`
+may never be marked `public-domain` or `redistribution = "permitted"` — the gate rejects it.
+Worked case: `free-pdfs/lbnl_femp_best_practice_guide_dc_design.meta.toml` (§5 below).
+
+**SN-4 · ASHRAE is AI-prohibited, not merely unlicensed.**
+ASHRAE's published AI policy prohibits entering content from any ASHRAE publication or
+related ASHRAE IP into any AI tool, and prohibits AI-created derivative works without
+express written permission. The policy binds on **content, not container** — the prohibition
+follows an ASHRAE table into a government PDF, a vendor slide deck, or a third-party
+summary. This project is AI-built end to end, so *vendoring* ASHRAE material *is* ingesting
+it. ASHRAE-sourced content is human-read-only, cited by locator, forever.
+
+**SN-5 · A missing rights field is an ERROR, never a default-permissive.**
+No field ⇒ no permission ⇒ the gate fails and names the file. Absence must never read as
+"probably fine". An exception needs `rights_review = "OPEN"` plus a reason string plus a
+bead — a bare exemption is a schema error.
+
+---
+
 ## 1 · NFPA free access — **RO**, needs free account
 
 > ⚠️ **NFPA LiNK® is NOT the free tier.** LiNK is the paid subscription (~1,700 standards,
@@ -180,11 +224,26 @@ an open secondary source or the book is purchased.
 failures. Guideline 36 specifies the layer that actually failed. Commissioning (202) is the
 process that would have caught it.
 
-## 3 · ASHRAE free resources — **mixed**
+## 3 · ASHRAE free resources — **RESOLVED: RO, human-read-only, never vendor**
 `ashrae.org/technical-resources/free-resources`
 
-- [ ] Note anything datacom-related that is genuinely free to download vs read-only
-- [ ] Record the licence line verbatim for anything downloadable
+**Verdict (2026-08-14, `bd-ashrae-redistribution-contradiction-p5n`): no ASHRAE bytes live in
+this repo, in any format, regardless of price.** Not "check the licence" — the answer is
+already known and does not vary per document (SN-4).
+
+- **2026-08-12:** three ASHRAE TC 9.9 PDFs purged from HEAD **and git history**; only the
+  `.meta.toml` sidecars remain, for url + sha256 grounding.
+- **2026-08-14:** two text captures that survived that purge —
+  `public/src-ashrae-datacom.txt`, `public/src-ashrae-power-wp.txt` — removed from HEAD and
+  replaced with `capture = "citation-only"` rows in `public/manifest.json`.
+
+**Do not re-capture.** `access = "free"` on an ASHRAE page is a price fact and authorises
+nothing (SN-1). ASHRAE's AI policy makes this stricter than ordinary "unlicensed": an agent
+may not *read* the material, so it may not summarise, paraphrase, or extract from it either.
+Only a human may read it, and only a clause/table locator comes back.
+
+- [x] Datacom-related free downloads identified → all are RO for our purposes
+- [x] Licence posture recorded per source in `free-pdfs/*.meta.toml` and `public/manifest.json`
 
 ## 4 · Uptime Tier Standard: Topology — **REG**, free download
 `uptimeinstitute.com/resources/asset/tier-standard-topology`
@@ -200,16 +259,41 @@ process that would have caught it.
 the highest-value curriculum content in the whole research wave.
 **Note:** repo already holds `corpus/public/src-uptime-tiers.txt` — reconcile, don't duplicate.
 
-## 5 · LBNL / DOE-FEMP Best Practices Guide (rev. 2024-07) — **PD-ish, VERIFY**
+## 5 · LBNL / DOE-FEMP Best Practices Guide (rev. 2024-07) — **RESOLVED: DO NOT VENDOR**
 `datacenters.lbl.gov/…/best-practice-guide-data-center-design.pdf`
 
-- [ ] Download
-- [ ] **Check the authorship/credits page before assuming public domain.** Review round 2
-      flagged this: NREL *contractor* authorship plus embedded ASHRAE-sourced figures means
-      17 U.S.C. §105 does **not** automatically apply. Third-party figures inside a government
-      document are not public domain.
-- [ ] Record: authors, contract number, and any third-party figure credits
-- [ ] Verdict → `UNRESOLVED` until that page is read
+**Verdict (2026-08-14, `bd-doe-guide-embeds-ashrae-p54`): cite by URL and section locator
+only. Never vendor.** Decision record:
+`free-pdfs/lbnl_femp_best_practice_guide_dc_design.meta.toml`.
+
+Round 2's suspicion is now **confirmed** by an attribution-line scan (credit lines read;
+table and figure *content* deliberately not read):
+
+- "Table 3-1. ASHRAE 2021 Thermal Guidelines for Air Cooling"
+- "Source: Thermal Guidelines for Data Processing Environments, ASHRAE" (×3)
+- "Source: Emergence and Expansion of Liquid Cooling in Mainstream Data Centers, ASHRAE" (×2)
+
+Two independent blockers, either sufficient (SN-3, SN-4):
+
+1. **Rights.** 17 USC 105 covers the government-*authored* portions only. Vendoring the PDF
+   into this public repo republishes ASHRAE tables. `rights` is recorded as
+   `mixed-us-government-work-with-third-party-material`, **not** bare `public-domain`.
+2. **AI policy.** ASHRAE prohibits entry of ASHRAE IP into any AI tool. The prohibition binds
+   on content, not container — reading Table 3-1 violates it through the government wrapper
+   just the same.
+
+**A redacted extract was considered and rejected for agents.** Producing one requires
+locating the ASHRAE pages in order to exclude them, i.e. opening them. The redaction act is
+itself the violation. A human may do it; an AI tool may not.
+
+**Consequence, accepted deliberately:** Table 3-1 is the A1–A4 thermal envelope this project
+marks `UNGROUNDED`. This guide is a side-door to exactly that data. It stays ungrounded until
+a **human** reads the source and supplies the values. `Gap_rci-unusable-without-the-envelope`
+stays open on purpose — that gap is honest, and closing it via this PDF would not be.
+
+**Still usable:** the DOE-authored chapters, cited by section number with nothing vendored.
+The graph already does this correctly — 25 nodes cite §4.x air management, §5.x cooling and
+§6.x electrical. **§3.x / Table 3-1 is off limits to any AI reader.**
 
 **Serves:** modules 04, 06, 09, 10 (design/energy). **Scope limit:** energy-efficient *design*
 only — it cannot validate fire, structural, security, or Tier terminology.

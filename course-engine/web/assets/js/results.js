@@ -51,9 +51,13 @@ function keysUrl(seed) {
 const STUDY_PASS_CORRECT = 27;
 
 /**
- * Bank module number (1–14) → learn page slug (basename without .html).
+ * Bank module number (1–15) → learn page slug (basename without .html).
  * Matches web/data/modules_index.json `order` → `id` and web/learn/*.html.
- * Module 15 (ops-adjacent) is empty-ok and has no learn page.
+ * Module 15 (ops-adjacent) is TAUGHT as of 2026-08-15 (CHARTER §11 row 8) — it
+ * was previously empty-ok with no learn page, which meant a learner who missed
+ * an ops-adjacent item got no "Review in Learn" link at all. Any module that can
+ * appear on a form must be mapped here; see
+ * crates/cdcp_assemble/tests/learn_surface_coverage.rs.
  */
 export const MODULE_LEARN_SLUGS = Object.freeze({
   1: "01-mission-critical",
@@ -70,11 +74,12 @@ export const MODULE_LEARN_SLUGS = Object.freeze({
   12: "12-fire",
   13: "13-security",
   14: "14-auxiliary",
+  15: "15-ops-adjacent",
 });
 
 /**
  * Relative href from results.html to a Learn module page.
- * @param {number} moduleNum bank module 1–14
+ * @param {number} moduleNum bank module 1–15
  * @returns {string|null} e.g. "learn/06-power.html" or null if unmapped
  */
 export function moduleLearnHref(moduleNum) {

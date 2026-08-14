@@ -3221,13 +3221,183 @@
         ],
         "word_count": 260
       }
+    ],
+    "15-ops-adjacent": [
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m15-q143",
+          "bank-m15-q152",
+          "bank-m15-q153"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "scope-note-read-this-first",
+        "id": "15-ops-adjacent__scope-note-read-this-first",
+        "module_id": "15-ops-adjacent",
+        "module_num": 15,
+        "order": 1,
+        "title": "Scope note \u2014 read this first",
+        "topic_ids": [
+          "m15-labelling",
+          "m15-documentation",
+          "m15-cleaning",
+          "m15-mtbf-mttr",
+          "m15-maintenance-sla",
+          "m15-ops-security"
+        ],
+        "word_count": 213
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "m15-q202",
+          "m15-q208",
+          "bank-m15-q137"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "learning-objectives",
+        "id": "15-ops-adjacent__learning-objectives",
+        "module_id": "15-ops-adjacent",
+        "module_num": 15,
+        "order": 2,
+        "title": "Learning objectives",
+        "topic_ids": [
+          "m15-labelling",
+          "m15-documentation",
+          "m15-cleaning",
+          "m15-mtbf-mttr",
+          "m15-maintenance-sla",
+          "m15-ops-security"
+        ],
+        "word_count": 241
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m15-q135",
+          "bank-m15-q137",
+          "bank-m15-q141"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+        "id": "15-ops-adjacent__why-it-matters-opsdesigntpm-interview-angle",
+        "module_id": "15-ops-adjacent",
+        "module_num": 15,
+        "order": 3,
+        "title": "Why it matters (ops/design/TPM interview angle)",
+        "topic_ids": [
+          "m15-labelling",
+          "m15-documentation",
+          "m15-cleaning",
+          "m15-mtbf-mttr",
+          "m15-maintenance-sla",
+          "m15-ops-security"
+        ],
+        "word_count": 212
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m15-q138",
+          "bank-m15-q141",
+          "bank-m15-q144"
+        ],
+        "estimate_minutes": 20,
+        "heading_id": "core-concepts",
+        "id": "15-ops-adjacent__core-concepts",
+        "module_id": "15-ops-adjacent",
+        "module_num": 15,
+        "order": 4,
+        "title": "Core concepts",
+        "topic_ids": [
+          "m15-labelling",
+          "m15-documentation",
+          "m15-cleaning",
+          "m15-mtbf-mttr",
+          "m15-maintenance-sla",
+          "m15-ops-security"
+        ],
+        "word_count": 5444
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m15-q141",
+          "bank-m15-q144",
+          "bank-m15-q146"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "interview-drills",
+        "id": "15-ops-adjacent__interview-drills",
+        "module_id": "15-ops-adjacent",
+        "module_num": 15,
+        "order": 5,
+        "title": "Interview drills",
+        "topic_ids": [
+          "m15-labelling",
+          "m15-documentation",
+          "m15-cleaning",
+          "m15-mtbf-mttr",
+          "m15-maintenance-sla",
+          "m15-ops-security"
+        ],
+        "word_count": 174
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m15-q145",
+          "bank-m15-q146",
+          "bank-m15-q149"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "self-check",
+        "id": "15-ops-adjacent__self-check",
+        "module_id": "15-ops-adjacent",
+        "module_num": 15,
+        "order": 6,
+        "title": "Self-check",
+        "topic_ids": [
+          "m15-labelling",
+          "m15-documentation",
+          "m15-cleaning",
+          "m15-mtbf-mttr",
+          "m15-maintenance-sla",
+          "m15-ops-security"
+        ],
+        "word_count": 475
+      },
+      {
+        "check_count": 3,
+        "check_item_ids": [
+          "bank-m15-q148",
+          "bank-m15-q149",
+          "bank-m15-q151"
+        ],
+        "estimate_minutes": 3,
+        "heading_id": "further-free-resources",
+        "id": "15-ops-adjacent__further-free-resources",
+        "module_id": "15-ops-adjacent",
+        "module_num": 15,
+        "order": 7,
+        "title": "Further free resources",
+        "topic_ids": [
+          "m15-labelling",
+          "m15-documentation",
+          "m15-cleaning",
+          "m15-mtbf-mttr",
+          "m15-maintenance-sla",
+          "m15-ops-security"
+        ],
+        "word_count": 396
+      }
     ]
   },
   "generated_by": "scripts/build_units.py",
-  "module_count": 14,
+  "module_count": 15,
   "schema_version": 2,
   "shortfalls": [],
-  "unit_count": 127,
+  "unit_count": 134,
   "units": [
     {
       "check_count": 3,
@@ -6421,8 +6591,176 @@
         "m14-best-practices"
       ],
       "word_count": 260
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m15-q143",
+        "bank-m15-q152",
+        "bank-m15-q153"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "scope-note-read-this-first",
+      "id": "15-ops-adjacent__scope-note-read-this-first",
+      "module_id": "15-ops-adjacent",
+      "module_num": 15,
+      "order": 1,
+      "title": "Scope note \u2014 read this first",
+      "topic_ids": [
+        "m15-labelling",
+        "m15-documentation",
+        "m15-cleaning",
+        "m15-mtbf-mttr",
+        "m15-maintenance-sla",
+        "m15-ops-security"
+      ],
+      "word_count": 213
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "m15-q202",
+        "m15-q208",
+        "bank-m15-q137"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "learning-objectives",
+      "id": "15-ops-adjacent__learning-objectives",
+      "module_id": "15-ops-adjacent",
+      "module_num": 15,
+      "order": 2,
+      "title": "Learning objectives",
+      "topic_ids": [
+        "m15-labelling",
+        "m15-documentation",
+        "m15-cleaning",
+        "m15-mtbf-mttr",
+        "m15-maintenance-sla",
+        "m15-ops-security"
+      ],
+      "word_count": 241
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m15-q135",
+        "bank-m15-q137",
+        "bank-m15-q141"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
+      "id": "15-ops-adjacent__why-it-matters-opsdesigntpm-interview-angle",
+      "module_id": "15-ops-adjacent",
+      "module_num": 15,
+      "order": 3,
+      "title": "Why it matters (ops/design/TPM interview angle)",
+      "topic_ids": [
+        "m15-labelling",
+        "m15-documentation",
+        "m15-cleaning",
+        "m15-mtbf-mttr",
+        "m15-maintenance-sla",
+        "m15-ops-security"
+      ],
+      "word_count": 212
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m15-q138",
+        "bank-m15-q141",
+        "bank-m15-q144"
+      ],
+      "estimate_minutes": 20,
+      "heading_id": "core-concepts",
+      "id": "15-ops-adjacent__core-concepts",
+      "module_id": "15-ops-adjacent",
+      "module_num": 15,
+      "order": 4,
+      "title": "Core concepts",
+      "topic_ids": [
+        "m15-labelling",
+        "m15-documentation",
+        "m15-cleaning",
+        "m15-mtbf-mttr",
+        "m15-maintenance-sla",
+        "m15-ops-security"
+      ],
+      "word_count": 5444
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m15-q141",
+        "bank-m15-q144",
+        "bank-m15-q146"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "interview-drills",
+      "id": "15-ops-adjacent__interview-drills",
+      "module_id": "15-ops-adjacent",
+      "module_num": 15,
+      "order": 5,
+      "title": "Interview drills",
+      "topic_ids": [
+        "m15-labelling",
+        "m15-documentation",
+        "m15-cleaning",
+        "m15-mtbf-mttr",
+        "m15-maintenance-sla",
+        "m15-ops-security"
+      ],
+      "word_count": 174
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m15-q145",
+        "bank-m15-q146",
+        "bank-m15-q149"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "self-check",
+      "id": "15-ops-adjacent__self-check",
+      "module_id": "15-ops-adjacent",
+      "module_num": 15,
+      "order": 6,
+      "title": "Self-check",
+      "topic_ids": [
+        "m15-labelling",
+        "m15-documentation",
+        "m15-cleaning",
+        "m15-mtbf-mttr",
+        "m15-maintenance-sla",
+        "m15-ops-security"
+      ],
+      "word_count": 475
+    },
+    {
+      "check_count": 3,
+      "check_item_ids": [
+        "bank-m15-q148",
+        "bank-m15-q149",
+        "bank-m15-q151"
+      ],
+      "estimate_minutes": 3,
+      "heading_id": "further-free-resources",
+      "id": "15-ops-adjacent__further-free-resources",
+      "module_id": "15-ops-adjacent",
+      "module_num": 15,
+      "order": 7,
+      "title": "Further free resources",
+      "topic_ids": [
+        "m15-labelling",
+        "m15-documentation",
+        "m15-cleaning",
+        "m15-mtbf-mttr",
+        "m15-maintenance-sla",
+        "m15-ops-security"
+      ],
+      "word_count": 396
     }
   ],
-  "units_with_checks": 127,
+  "units_with_checks": 134,
   "units_zero_checks": 0
 }

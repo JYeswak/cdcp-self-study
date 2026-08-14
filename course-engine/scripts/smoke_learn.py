@@ -179,9 +179,18 @@ def main() -> int:
             errors.append("web/learn.html missing honesty non-grant banner")
         if 'href="assets/css/course.css"' not in hub and "href='assets/css/course.css'" not in hub:
             errors.append("web/learn.html css must be relative assets/css/course.css")
-        # empty-ok must not be a dead link to learn/15-...
-        if re.search(r'href=["\']learn/15-ops-adjacent\.html["\']', hub):
-            errors.append("hub must not link to empty-ok ops-adjacent module page")
+        # An empty-ok domain has no page, so linking to it would 404. Derived
+        # from the index rather than hardcoded to one module id: 15-ops-adjacent
+        # was the only empty-ok domain until it was taught (bd-hardening-c-status-hzs.4),
+        # and a gate naming one id cannot notice the next one.
+        empty_ids = sorted(
+            str(m.get("id"))
+            for m in ((index or {}).get("modules") or [])
+            if m.get("empty") is True
+        )
+        for eid in empty_ids:
+            if re.search(rf'href=["\']learn/{re.escape(eid)}\.html["\']', hub):
+                errors.append(f"hub must not link to empty-ok module page {eid}")
         # navigable modules should appear
         for mid, dom in domain_by_id.items():
             pn = str(dom.get("primary_notes") or "").strip()

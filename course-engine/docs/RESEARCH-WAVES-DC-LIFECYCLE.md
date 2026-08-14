@@ -19,8 +19,10 @@ proposal is not a finding.
 CDCP's 14 modules are **operate**-weighted. This scenario spans **select → design →
 procure → build → commission → operate**, which maps to CDCS/CDCE, Uptime ATD/ATS/AOS,
 BICSI DCDC, and PMP/PRINCE2 territory. That is intentional: the repo's own bank already
-contains 39 `15-ops-adjacent` items with no Learn surface, which is evidence the 14-module
-frame is already too small for what is being assessed.
+contained 39 `15-ops-adjacent` items that the 14-module frame did not teach — evidence the
+frame was already too small for what is being assessed. Lineage L9 of this wave supplied the
+curriculum that closed it (`modules/15-ops-adjacent.md`, CHARTER §11 row 8, 2026-08-15); the
+scope argument stands, and the module-15 instance of it is now resolved.
 
 ---
 

@@ -2,8 +2,11 @@
 """smoke_feedback_links.py — L7-S2: item review → Learn module/section links.
 
 For seed42 keys pack:
-  1. Every item with bank module 1–14 has a non-404 module-level Learn href
-     (web/learn/{slug}.html exists; MODULE_LEARN_SLUGS map agrees).
+  1. Every item with bank module 1–15 has a non-404 module-level Learn href
+     (web/learn/{slug}.html exists; MODULE_LEARN_SLUGS map agrees). Module 15
+     was exempted here until 2026-08-15 ("ops-adjacent: no Learn page
+     required") — that exemption was a restatement of the C5 fairness defect,
+     not a reason, and it is gone now that the module is taught.
   2. Section-anchor hit rate is reported (items that resolve to an existing
      heading id on that module's markdown via topic_anchors / topic_ids).
   3. learn_md heading ids must be present in the slug algorithm (h2/h3).
@@ -42,6 +45,7 @@ EXPECTED_SLUGS: dict[int, str] = {
     12: "12-fire",
     13: "13-security",
     14: "14-auxiliary",
+    15: "15-ops-adjacent",
 }
 
 
@@ -250,7 +254,7 @@ def main() -> int:
     section_linked = 0
     missing_module: list[str] = []
     no_bank: list[str] = []
-    module_15_or_other = 0
+    unmapped_modules: list[str] = []
 
     topics_map = (
         topic_anchors.get("topics") if topic_anchors and isinstance(topic_anchors, dict) else None
@@ -272,9 +276,11 @@ def main() -> int:
         except (TypeError, ValueError):
             mod_n = None
 
-        if mod_n is None or mod_n < 1 or mod_n > 14:
-            # ops-adjacent / unmapped: no Learn page required
-            module_15_or_other += 1
+        if mod_n is None or mod_n not in EXPECTED_SLUGS:
+            # A module on a real form with no Learn surface is the C5 defect.
+            # Do not skip it — name it. (Anti-vacuous: an unmapped module must
+            # not report like a linked one.)
+            unmapped_modules.append(f"{iid}: module {mod_n!r} has no Learn surface")
             continue
 
         slug = EXPECTED_SLUGS.get(mod_n)
@@ -319,8 +325,17 @@ def main() -> int:
         if len(missing_module) > 15:
             errors.append(f"… and {len(missing_module) - 15} more module-link failures")
 
-    # Hard gate: every mappable (1–14) seed42 key has a non-404 module page
-    navigable_keys = total - module_15_or_other - len(no_bank)
+    # Hard gate: an item on a real form whose module has no Learn surface is
+    # the C5 defect and is now an ERROR, not a silently-skipped row.
+    if unmapped_modules:
+        for msg in unmapped_modules[:15]:
+            errors.append(f"assessed but untaught: {msg}")
+        if len(unmapped_modules) > 15:
+            errors.append(
+                f"… and {len(unmapped_modules) - 15} more items in untaught modules"
+            )
+
+    navigable_keys = total - len(unmapped_modules) - len(no_bank)
     # recompute navigable from loop outcomes more carefully
     # module_linked + len(missing_module) should equal keys with modules 1–14 that had bank rows
     if navigable_keys > 0 and module_linked < navigable_keys:
@@ -351,7 +366,7 @@ def main() -> int:
         print(
             f"  stats: keys={total} module_linked={module_linked} "
             f"section_linked={section_linked} hit_rate={hit_rate:.1f}% "
-            f"unmapped_mod={module_15_or_other}"
+            f"unmapped_mod={len(unmapped_modules)}"
         )
         return 1
 
@@ -360,7 +375,7 @@ def main() -> int:
     print(f"  module_level_links={module_linked} (non-404 learn/{{slug}}.html)")
     print(f"  section_anchor_links={section_linked}")
     print(f"  section_anchor_hit_rate={hit_rate:.1f}% ({section_linked}/{module_linked})")
-    print(f"  unmapped_or_mod15={module_15_or_other}")
+    print(f"  untaught_module_items={len(unmapped_modules)} (must be 0)")
     if topic_anchors:
         print(
             f"  topic_anchors topics_with_anchor="

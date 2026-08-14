@@ -34,7 +34,7 @@ and “the software scored me” are both machine-checkable.
 |---|---|
 | **Buyer (loop #3)** | Joshua: interview-ready DC fluency (Fluidstack / facilities hybrid seats); secondary: future self on cold recall [[claim:claim-interview-ready]] |
 | **Product surface** | Browser UI (static HTML/CSS/JS + WASM) for learn + drill + timed mock; CLI for bank verify, export, goldens, serve |
-| **Shipped means (2026-08-12)** | (1) Open offline hub → Learn 14 modules → module quiz / Learn-15 / Drill-SRS / Mock-40 → score + explanations + weak modules; (2) `./scripts/check.sh` green (W0–L7 + V11); (3) fixed seed exam → **byte-identical** grade digest vs golden (native==WASM); (4) Loop#3 hybrid protocol + ≥1 T1 run log; (5) free/public corpus store policy |
+| **Shipped means (2026-08-12)** | (1) Open offline hub → Learn 15 modules (14 EPI domains + ops-adjacent) → module quiz / Learn-15 / Drill-SRS / Mock-40 → score + explanations + weak modules; (2) `./scripts/check.sh` green (W0–L7 + V11); (3) fixed seed exam → **byte-identical** grade digest vs golden (native==WASM); (4) Loop#3 hybrid protocol + ≥1 T1 run log; (5) free/public corpus store policy |
 | **Not shipped yet** | Public GitHub remote (L88 bar quality PASS; flip is Josh); P1 diagrams beyond P0 set; KaTeX full (offline subset shipped) |
 | **Not shipped ever (forbidden)** | Pretty markdown only as “done”; AI essay grade-of-record; official EPI affiliation; claim of being CDCP certified |
 
@@ -63,7 +63,7 @@ and “the software scored me” are both machine-checkable.
 
 | Surface | Behavior |
 |---------|----------|
-| **Learn** | 14 modules from notes; offline reader; visit progress; Learn-15 + module quiz. **Known gap:** the bank additionally holds **39 items under `15-ops-adjacent`, a module with no Learn surface** — assembly samples every loaded module, so a learner can be assessed on material this course does not teach. Disclosed 2026-08-14; resolution (teach it or exclude it from assembly) tracked in `ROADMAP-PHASES.md` P1. |
+| **Learn** | **15 modules** from notes (14 public EPI domains + 1 ops-adjacent supplement); offline reader; visit progress; Learn-15 + module quiz. **Resolved 2026-08-15 — the assessed/taught gap is closed.** The bank's 39 `15-ops-adjacent` items were **taught, not excluded**: `modules/15-ops-adjacent.md` is a full Learn surface covering all six assessed topics, grounded in freely redistributable primary sources (29 CFR, 10 CFR, DOE, NASA, NIST, FEMA, HSE, public post-incident reports). Enforced by `crates/cdcp_assemble/tests/learn_surface_coverage.rs`: every module holding an approved bank item must carry a navigable Learn surface, anti-vacuous. Module 15 stays `exam_weight_unknown = true` — it is **not** an EPI syllabus domain. |
 | **Drill / short-interval review** | Missed-item review; **1-day/3-day ladder capped at 3 days**; Drill-10 due mode. **Not spaced repetition** — no expanding interval, no forgetting curve, no scheduler state beyond the cap. Calling it SRS overstates it (`web/assets/js/srs.js`). |
 | **Practice test** | Module quizzes + full 40-item mock; soft timer; closed-notes mode |
 | **Feedback** | Correct/incorrect + explanation + module/section links |
@@ -114,7 +114,7 @@ Borrow mechanisms, not skins. Browser audit 2026-08-12: content is strong; packa
 
 ```text
 L1  Knowledge graph     domains · topics · claims · bank          SHIPPED
-L2  Lesson narrative    14 module markdown files                  SHIPPED
+L2  Lesson narrative    15 module markdown files (14 EPI + ops)   SHIPPED
 L3  Teaching atoms      units · diagrams · micro-checks           SHIPPED M8
 L4  Practice atoms      quiz · drill · mock · SRS                 SHIPPED
 L5  Progress model      visited · practiced · mastered            SHIPPED (basic)
@@ -281,6 +281,7 @@ Local builds, bank, UI, tests, free corpus fetch: **autonomous**.
 | 5 | OQ-10 paid SDO | **Defer spend**; public-first research (ASSUMED) |
 | 6 | Loop #3 | **Hybrid** protocol; T1 log required (filed 2026-08-12) |
 | 7 | Credential track | Self-study until interview signal; official CDCP separate |
+| 8 | **Module 15 — assessed but untaught** (`bd-hardening-c-status-hzs.4`, 2026-08-15) | **TEACH, not exclude.** `modules/15-ops-adjacent.md` now teaches all six assessed topics. Reasoning: (a) both options close the fairness defect, but only teaching also *improves* the product — the buyer's target seat (facilities hybrid) probes operations discipline harder than any other body of knowledge, so excluding would have made the exam fair by deleting the material the buyer is hired for; (b) the cost was bounded, not open-ended — research lineage L9 had already read 20 primary documents and emitted a 28-unit curriculum with a named free-to-redistribute source per unit, so this was curation, not original research; (c) C1's `status` field made *exclude* cheap, which is precisely why the decision had to be argued on product value rather than on implementation cost. Module 15 remains `exam_weight_unknown` and is labelled in-page as **not** one of the 14 public EPI domains. Enforced by `learn_surface_coverage.rs`, which also keeps the exclude branch lawful for any future module. |
 
 Ledger: `course-engine/docs/OQ_REGISTER.md` · HUMAN beads closed under epic `bd-1z2`.
 
@@ -306,7 +307,7 @@ Process detail: [`docs/CHARTER-PROCESS.md`](./docs/CHARTER-PROCESS.md).
 ## 13. Sign-off
 
 ```text
-shipped_means: offline hub + 14-module Learn + drill/short-interval-review + mock40 + WASM cross-target-conformance goldens + check.sh W0–L7/V11
+shipped_means: offline hub + 15-module Learn (14 EPI domains + ops-adjacent) + drill/short-interval-review + mock40 + WASM cross-target-conformance goldens + check.sh W0–L7/V11
 next: P1 diagrams (bd-1sd.9.1); OQ-09/10 corpus research remains open (M10 itself is DONE)
 non_goals: official EPI cert, LLM-as-grader-of-record, SaaS, React LMS
 layers: L1 L2 L3 L4 L5 L7 wired; L6 no; Learn-surface gates M8 wired

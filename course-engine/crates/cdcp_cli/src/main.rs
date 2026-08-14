@@ -45,7 +45,8 @@ enum Cmd {
         seed: u64,
         #[arg(long, default_value = "web/data")]
         out: PathBuf,
-        /// Override the golden fixture (seed 42 uses goldens/fixtures/mock40_seed42.json)
+        /// EXPLICIT fixture replay: skip the sampler and export exactly these item_ids.
+        /// There is no implicit fixture at any seed (bd-golden-sampler-divergence-09q).
         #[arg(long)]
         fixture: Option<PathBuf>,
     },
@@ -78,6 +79,20 @@ enum GoldensCmd {
         dir: PathBuf,
         #[arg(long, default_value = "goldens/fixtures/mock40_seed42.json")]
         fixture: PathBuf,
+    },
+    /// Regenerate the seed fixture FROM the Rust sampler (requires UPDATE_GOLDENS=1).
+    ///
+    /// This is the authoritative regeneration path for
+    /// `goldens/fixtures/mock40_seed42.json` (bd-golden-sampler-divergence-09q).
+    /// It replaces `python3 scripts/sample_mock.py`, whose MT19937 stream disagrees
+    /// with `cdcp_assemble` and left the golden unreproducible.
+    Fixture {
+        #[arg(long, default_value = "bank/items")]
+        bank: PathBuf,
+        #[arg(long, default_value_t = 42)]
+        seed: u64,
+        #[arg(long, default_value = "goldens/fixtures/mock40_seed42.json")]
+        out: PathBuf,
     },
 }
 
@@ -156,6 +171,15 @@ fn run(cli: Cli) -> Result<(), String> {
                     );
                 }
                 goldens_generate(&bank, &dir, &fixture)
+            }
+            GoldensCmd::Fixture { bank, seed, out } => {
+                if std::env::var("UPDATE_GOLDENS").ok().as_deref() != Some("1") {
+                    return Err(
+                        "refusing to regenerate the fixture without UPDATE_GOLDENS=1 (human review)"
+                            .into(),
+                    );
+                }
+                goldens_fixture(&bank, seed, &out)
             }
         },
     }
@@ -287,11 +311,77 @@ fn goldens_generate(bank: &Path, dir: &Path, fixture: &Path) -> Result<(), Strin
     Ok(())
 }
 
+/// Regenerate the seed fixture from the **Rust** sampler (bd-golden-sampler-divergence-09q).
+///
+/// The fixture used to be produced by `scripts/sample_mock.py` (CPython MT19937). That stream
+/// disagrees with `cdcp_assemble` (StdRng/ChaCha12) — measured at seed 42: 37 of 40 ids differed,
+/// and the committed fixture no longer reproduced under *either* implementation because the bank
+/// had drifted underneath it. `cdcp_assemble` is the authoritative sampler: it is the shipped
+/// path, it enforces the C1 approved-only pool, and it is the only one that survives the Python
+/// substrate migration.
+///
+/// `shuffle_choices` is false so `items[].correct` stays the raw bank letter — the fixture is an
+/// assembly record, not a presented form. (Choice shuffling uses an independent rng, so
+/// `item_ids` are identical either way.)
+fn goldens_fixture(bank_dir: &Path, seed: u64, out: &Path) -> Result<(), String> {
+    let b = Bank::load_dir(bank_dir).map_err(|e| e.to_string())?;
+    let cfg = cdcp_assemble::AssembleConfig {
+        shuffle_choices: false,
+        ..Default::default()
+    };
+    let exam = cdcp_assemble::assemble(&b, seed, cfg).map_err(|e| e.to_string())?;
+
+    let items: Vec<serde_json::Value> = exam
+        .items
+        .iter()
+        .map(|it| {
+            let bank_item = b.get(&it.id).expect("assembled id is in bank");
+            serde_json::json!({
+                "id": it.id,
+                "module": it.module,
+                "stem": it.stem,
+                "choices": it.choices,
+                "correct": it.correct,
+                "topic_ids": bank_item.topic_ids,
+            })
+        })
+        .collect();
+
+    let payload = serde_json::json!({
+        "exam_id": exam.exam_id,
+        "seed": exam.seed,
+        "n_items": exam.n_items,
+        "bank_hash": exam.bank_hash,
+        "item_ids": exam.item_ids,
+        "modules": exam.modules,
+        "items": items,
+        "provenance": "cdcp goldens fixture (cdcp_assemble::assemble) — NOT scripts/sample_mock.py",
+    });
+
+    if let Some(parent) = out.parent() {
+        fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+    write_json(out, &payload)?;
+    println!(
+        "goldens fixture: seed={seed} n_items={} bank_hash={} -> {}",
+        exam.n_items,
+        exam.bank_hash,
+        out.display()
+    );
+    Ok(())
+}
+
 // ── export-web (L6-S5) ──────────────────────────────────────────────────────
 // Contract: web/data/README.md.
-//   seed 42 → prefers goldens/fixtures/mock40_seed42.json when present (golden-pinned)
-//   seed N  → cdcp_assemble stratified sample, shuffle_choices = false (practice only)
+//   EVERY seed → cdcp_assemble stratified sample, shuffle_choices = false.
+//   --fixture <path> → EXPLICIT replay of a recorded item_ids list (opt-in only).
 // Emits mock40_seed{N}.json (no correct letters), keys_seed{N}.json, bank_items_seed{N}.json.
+//
+// bd-golden-sampler-divergence-09q: seed 42 formerly PREFERRED
+// goldens/fixtures/mock40_seed42.json whenever that path existed, so the sampler was never
+// exercised at the one seed every gate pins. That implicit preference is deleted. The golden
+// fixture is now regenerated FROM this sampler (`cdcp goldens fixture`), and
+// crates/cdcp_cli/tests/cli.rs::golden_fixture_is_the_rust_sampler_output asserts the two agree.
 
 #[derive(Debug, Deserialize)]
 struct GoldenFixture {
@@ -308,12 +398,9 @@ fn export_web(
 ) -> Result<(), String> {
     let b = Bank::load_dir(bank_dir).map_err(|e| e.to_string())?;
 
-    // Seed 42 is golden-pinned: prefer the fixture so browser packs match GradeExact digests.
-    let default_fixture = PathBuf::from("goldens/fixtures/mock40_seed42.json");
-    let pinned = fixture
-        .or_else(|| (seed == 42 && default_fixture.is_file()).then(|| default_fixture.clone()));
-
-    let (exam_id, item_ids, golden_pinned) = match pinned {
+    // No implicit fixture at any seed. `--fixture` is an explicit, caller-chosen replay;
+    // absent it, the sampler runs — including at seed 42.
+    let (exam_id, item_ids, golden_pinned) = match fixture {
         Some(fp) => {
             let g: GoldenFixture =
                 serde_json::from_str(&fs::read_to_string(&fp).map_err(|e| e.to_string())?)

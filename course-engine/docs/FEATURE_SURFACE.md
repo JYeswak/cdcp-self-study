@@ -15,5 +15,5 @@
 | WASM dual-path | **present** | `web/assets/wasm/cdcp_wasm.wasm`; exercises `cdcp_wasm` crate |
 | Hub UI | **present** | `web/index.html` + routing; served by `cdcp serve` |
 | Mock exam UI | **present** | `web/mock.html`; byte-exact digest match with native grader |
-| Learn reader | **present** | `web/learn.html` + `web/data/units_index.json`; 127 Learn units with TOC and micro-checks |
+| Learn reader | **present** | `web/learn.html` + `web/data/units_index.json`; 15 modules / 134 Learn units with TOC and micro-checks |
 | Drill/SRS | **present** | `web/drill.html`; SRS scheduling + drill miss concept cards |

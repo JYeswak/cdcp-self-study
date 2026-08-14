@@ -1,11 +1,37 @@
 #!/usr/bin/env python3
 """sample_mock.py — build a 40-item mock exam from the pool (seeded, stratified).
 
-Usage:
+################################################################################
+# NOT THE SAMPLER OF RECORD.  DO NOT REGENERATE ANY GOLDEN WITH THIS FILE.
+#
+# bd-golden-sampler-divergence-09q (resolved): `cdcp_assemble::assemble()` is the
+# AUTHORITATIVE sampler. This script's CPython MT19937 stream disagrees with it —
+# measured at seed 42, 37 of 40 item ids differed, and 0 of the 3 shared ids sat
+# at the same index. Stratification quality was identical (15 modules, peak 3
+# per module, both inside policy), so the divergence is purely the PRNG stream.
+#
+# Regenerate goldens/fixtures/mock40_seed42.json with the RUST path:
+#     UPDATE_GOLDENS=1 cargo run -p cdcp_cli -- goldens fixture --seed 42
+#     UPDATE_GOLDENS=1 cargo run -p cdcp_cli -- goldens generate
+# Pointing this script's --out at the golden would silently reinstate the fooled
+# certificate this bead removed; crates/cdcp_cli/tests/cli.rs
+# ::golden_fixture_is_the_rust_sampler_output goes RED if you do.
+#
+# PINNED, NOT LIVE: this file is the historical reference implementation that
+# explains what the pre-2026-08-13 fixture contained. It may not be deleted by
+# the substrate migration until that provenance question is dead. It is
+# registered in registries/substrate_allowlist.toml.
+################################################################################
+
+Usage (ad-hoc exploration only — never to write a golden):
   python3 scripts/sample_mock.py --seed 42
   python3 scripts/sample_mock.py --seed 42 --out /tmp/mock.json
 
-Does not grade; assembly only. Deterministic for a given seed + bank snapshot.
+Does not grade; assembly only. Deterministic for a given seed + bank snapshot —
+but note the bank drifts: this script no longer reproduces the fixture it
+originally wrote, because bank_fingerprint moved from 0557953e8a49a3cf to a
+later snapshot while the fixture stayed frozen. That drift is the second half of
+the fooled certificate.
 """
 from __future__ import annotations
 

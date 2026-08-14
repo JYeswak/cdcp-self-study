@@ -151,25 +151,29 @@ ok "topics.toml count=$topic_count"
 grep -q 'fetch_date' knowledge/sources.toml || fail "sources need fetch_date"
 ok "sources fetch_date present"
 
-# L2 bank (when present)
-if [ -f scripts/verify_bank.py ] && [ -d bank/items ]; then
-  echo "==> verify_bank.py"
-  python3 scripts/verify_bank.py || fail "bank verify"
-  ok "bank pool"
-fi
+# L2 bank pool floors — Rust gate [bd-substrate-rust-migration-jhd.7]
+# The `if [ -f ... ]` guard this replaces was FAIL-OPEN: deleting the script made
+# the gate vanish silently, and an unchecked bank reports exactly like a clean one.
+[ -d bank/items ] || fail "missing bank/items (bank pool gate required)"
+echo "==> cdcp_gate verify-bank (bank pool floors)"
+cargo run -q -p cdcp_gate -- verify-bank || fail "bank verify"
+ok "bank pool"
+
 
 # Anti-hallucination heuristics + corpus overlap
-if [ -f scripts/validate_grounding.py ] && [ -d bank/items ]; then
-  echo "==> validate_grounding.py"
-  python3 scripts/validate_grounding.py || fail "grounding"
-  ok "grounding heuristics"
-fi
+# NOT YET PORTED (bd-substrate-rust-migration-jhd.9). The fail-open guard is
+# closed ahead of the port: a missing checker is a fooled certificate, not a skip.
+[ -f scripts/validate_grounding.py ] || fail "missing scripts/validate_grounding.py (grounding gate required)"
+[ -d bank/items ] || fail "missing bank/items (grounding gate required)"
+echo "==> validate_grounding.py"
+python3 scripts/validate_grounding.py || fail "grounding"
+ok "grounding heuristics"
 
 # Orphan referential integrity (topics <-> bank) — ORACLE-GAUNTLET "orphan item".
 # Hard-required: an absent checker is a fooled certificate, not a skip.
 [ -f scripts/verify_orphans.py ] || fail "missing scripts/verify_orphans.py (orphan gate required)"
-echo "==> verify_orphans.py (topic<->item referential integrity)"
-python3 scripts/verify_orphans.py || fail "orphan referential integrity"
+echo "==> cdcp_gate verify-orphans (topic<->item referential integrity)"
+cargo run -q -p cdcp_gate -- verify-orphans || fail "orphan referential integrity"
 ok "no orphan topics · no orphan item refs · no unanchored items"
 
 [ -f scripts/selftest_orphan.sh ] || fail "missing scripts/selftest_orphan.sh (L4 orphan known-bad required)"
@@ -184,7 +188,33 @@ fi
 
 echo "==> cargo fmt/clippy/test"
 cargo fmt --check || fail "cargo fmt"
-cargo clippy --locked --workspace -- -D warnings || fail "clippy"
+
+# `cargo fmt` CANNOT SEE crates/cdcp_gate/src/gates/*.rs. Those modules are pulled
+# in by `#[path = ...]` from a build.rs-generated OUT_DIR file, and cargo fmt walks
+# the module tree from src/lib.rs — it never resolves that indirection. Measured
+# 2026-08-14: a deliberately misformatted substrate_guard.rs returned `cargo fmt
+# --check` exit 0 while `rustfmt --check` on the same file returned 1 with a
+# 47-line diff. Three gate files were in fact unformatted and had never been
+# checked by anything, including two already committed.
+#
+# This is the cost of the glob-based registration that lets N port agents each add
+# one file with no shared-file collision. The parallelism is worth keeping; the
+# unchecked surface it created is not. A green fmt leg over files it never opened
+# is the same vacuous-scan pattern this script hard-fails on elsewhere.
+_gate_fmt_n=0
+for _f in crates/cdcp_gate/src/gates/*.rs; do
+  [ -f "$_f" ] || continue
+  rustfmt --edition 2021 --check "$_f" || fail "rustfmt: $_f"
+  _gate_fmt_n=$((_gate_fmt_n + 1))
+done
+[ "$_gate_fmt_n" -gt 0 ] || fail "rustfmt scanned 0 gate files — a vacuous scan is an ERROR, not a pass"
+ok "rustfmt over $_gate_fmt_n gate module(s) cargo fmt cannot reach"
+# --all-targets is load-bearing, not cosmetic. Without it clippy never compiles
+# test targets, so a deleted assertion leaves an unused binding that nothing
+# complains about — measured 2026-08-14: the golden-sampler meta-test went RED
+# under `clippy --all-targets` and GREEN under this line as it stood. A gate
+# suite whose own meta-tests can be silently gutted is a fooled certificate.
+cargo clippy --locked --workspace --all-targets -- -D warnings || fail "clippy"
 cargo test --locked --workspace || fail "cargo test"
 ok "cargo fmt + clippy -D warnings + test"
 
@@ -242,11 +272,10 @@ else
 fi
 
 # Knowledge primary_notes path resolution (parent ../modules/)
-if [ -f scripts/verify_knowledge_paths.py ]; then
-  echo "==> verify_knowledge_paths.py"
-  python3 scripts/verify_knowledge_paths.py || fail "knowledge primary_notes paths"
-  ok "knowledge primary_notes paths"
-fi
+# The `if [ -f ... ]` guard this replaces was FAIL-OPEN. [bd-...-jhd.5]
+echo "==> cdcp_gate verify-knowledge-paths (knowledge primary_notes resolve)"
+cargo run -q -p cdcp_gate -- verify-knowledge-paths || fail "knowledge primary_notes paths"
+ok "knowledge primary_notes paths"
 
 # ─── L5 browser surface ─────────────────────────────────────────────────────
 echo "==> L5 browser surface (require product files)"
@@ -346,8 +375,8 @@ else
   GAPS="${GAPS}L7-SLO "
 fi
 
-echo "==> verify_content_lock.py"
-python3 scripts/verify_content_lock.py || fail "L7 content.lock"
+echo "==> cdcp_gate verify-content-lock (L7 content.lock)"
+cargo run -q -p cdcp_gate -- verify-content-lock || fail "L7 content.lock"
 ok "L7 content.lock"
 
 # ─── V11 stretch surfaces ───────────────────────────────────────────────────
@@ -366,8 +395,8 @@ fi
 # Roadmap doc truth — the prose a stranger reads first must not contradict
 # itself. Hard-required: an absent checker is a fooled certificate, not a skip.
 [ -f scripts/verify_doc_consistency.py ] || fail "missing scripts/verify_doc_consistency.py (roadmap-truth gate required)"
-echo "==> verify_doc_consistency.py (CHARTER §9 · README roadmap · PHASE-NEXT)"
-python3 scripts/verify_doc_consistency.py || fail "roadmap doc consistency"
+echo "==> cdcp_gate verify-doc-consistency (CHARTER §9 · README roadmap · PHASE-NEXT)"
+cargo run -q -p cdcp_gate -- verify-doc-consistency || fail "roadmap doc consistency"
 ok "roadmap milestone status agrees across docs; publication truth holds"
 
 [ -f scripts/selftest_doc_consistency.sh ] || fail "missing scripts/selftest_doc_consistency.sh (L4 roadmap known-bad required)"
@@ -407,8 +436,8 @@ if [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then
   run_selftest "injection-count selftest" sh scripts/selftest_injection_count.sh
   ok "drift-guard selftest (off-by-one RED · missing receipt RED · zero RED · unregistered RED · empty log ERROR)"
 
-  echo "==> verify_injection_count.py (advertised known-bad count)"
-  python3 scripts/verify_injection_count.py --log "$INJ_LOG" \
+  echo "==> cdcp_gate verify-injection-count (advertised known-bad count)"
+  cargo run -q -p cdcp_gate -- verify-injection-count --log "$INJ_LOG" \
     || fail "known-bad injection count drift (README vs suites)"
   ok "advertised known-bad injection count == suites' self-reported total"
 fi

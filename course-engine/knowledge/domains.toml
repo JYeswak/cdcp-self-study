@@ -90,6 +90,6 @@ primary_notes = "../modules/14-auxiliary.md"
 id = "15-ops-adjacent"
 order = 15
 epi_heading = "Operations practices (partner outline expansions)"
-primary_notes = ""
+primary_notes = "../modules/15-ops-adjacent.md"
 exam_weight_unknown = true
 source = "src-nh-cdcp"

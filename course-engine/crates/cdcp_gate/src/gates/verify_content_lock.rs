@@ -1,0 +1,1183 @@
+//! verify-content-lock — Rust port of `scripts/verify_content_lock.py`
+//! (bd-substrate-rust-migration-jhd.8).
+//!
+//! # CLAIM: FLOOR-RAISE
+//!
+//! This gate raises one floor: **the content pinned in `content.lock` is still
+//! the content on disk.** Concretely it goes RED when any of these is true —
+//!
+//!   1. `content.lock` is absent (nothing is pinned at all);
+//!   2. `schema_version` is not `1` (the pin was written by a shape this reader
+//!      does not understand);
+//!   3. `bank_hash` is absent or empty;
+//!   4. the live bank digest differs from the pinned `bank_hash`;
+//!   5. `[knowledge]` or `[modules]` is empty — a lock that pins nothing must
+//!      not report like a lock whose pins all held (L4 anti-vacuous);
+//!   6. a pinned path no longer resolves to a file;
+//!   7. a pinned path's sha256 differs from the recorded digest.
+//!
+//! # WHAT THIS GATE CANNOT DECIDE
+//!
+//! It is a *closed-world* check over the rows the lock already contains, so it
+//! says nothing about files the lock never mentioned. **A new knowledge or
+//! module file added to the tree and never added to `content.lock` passes this
+//! gate silently** — there is no tree-side enumeration anywhere in the oracle,
+//! and this port does not add one (adding it would be a behaviour change, not a
+//! port). It cannot decide that a pinned digest is the *right* digest: a lock
+//! regenerated over corrupted content is internally consistent and reports
+//! green. It cannot decide that the content is correct, current, accurate, or
+//! well written — only that it is byte-for-byte what someone pinned. It cannot
+//! decide anything about a file whose row was deleted from the lock, because a
+//! deleted row simply stops being checked. And when it falls back to
+//! `goldens/bank_hash.txt` for the live bank digest (see `live_bank_hash`) it is
+//! comparing a pin against another pin, which is weaker than comparing a pin
+//! against a freshly computed digest — that fallback is inherited from the
+//! oracle, not introduced here.
+//!
+//! The floor moves from *silence* to *every row that exists in the lock still
+//! resolves and still matches*. That is the whole claim.
+//!
+//! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
+//!
+//! `scripts/verify_content_lock.py` stays in the tree as the differential
+//! oracle; `tests/diff_verify_content_lock.rs` runs both sides on every case and
+//! asserts stdout, stderr, and exit code match byte for byte.
+//!
+//! That contract is why this module:
+//!
+//!   * writes its failure report to **stderr and exits 1** instead of routing
+//!     through `GateError` — the dispatcher's `report()` uses a different prefix
+//!     and maps to exit 2/4, which the oracle never produces. Same knowing,
+//!     single-file deviation `verify_orphans` records; `crate::exit`'s
+//!     VIOLATION code is deliberately not used on the RED path here.
+//!   * carries hand-written emulations of `repr()`, `str()`, truthiness,
+//!     `str.strip()`, `str.splitlines()`, character slicing, and sha256, rather
+//!     than the idiomatic Rust nearest-neighbour.
+//!   * spells the truncation marker as U+2026 HORIZONTAL ELLIPSIS (bytes
+//!     `e2 80 a6`), which is what the oracle's source actually contains — not
+//!     three ASCII dots.
+//!
+//! Ordering is not a fragility here: the oracle iterates `sorted(mapping.items())`,
+//! so both sides walk the rows in Python code-point order, which for `String`
+//! keys is identical to Rust's `Ord` (UTF-8 byte order). Nothing in this gate
+//! reads a directory, so `read_dir` order never enters the picture.
+//!
+//! ## Behaviours of the oracle this port does NOT reproduce byte for byte
+//!
+//! Each of these makes CPython raise an uncaught exception and print a traceback
+//! (exit 1). A traceback embeds interpreter version, file paths, and line
+//! numbers; it is not reproducible from Rust, so this port reports an ERROR
+//! (exit 4) instead — never a pass — and the divergence is recorded here rather
+//! than hidden:
+//!
+//!   * `content.lock` is not valid TOML (`tomllib.TOMLDecodeError`);
+//!   * `content.lock` or `goldens/bank_hash.txt` is not valid UTF-8
+//!     (`UnicodeDecodeError`);
+//!   * a pinned file exists but cannot be read (`PermissionError`);
+//!   * the bank-hash subprocess exits 0 with output that strips to the empty
+//!     string — the oracle then does `[][-1]` and raises `IndexError`. This port
+//!     treats that as "candidate produced no hash" and moves to the next
+//!     candidate, which is the verdict a non-crashing oracle would reach;
+//!   * the bank-hash subprocess exceeds the oracle's `timeout=300`
+//!     (`subprocess.TimeoutExpired`). This port imposes no timeout.
+//!
+//! Two more, narrower, gaps: `repr()` of a float is emulated without CPython's
+//! exponent thresholds (`1e17` prints as `100000000000000000` here), and
+//! `repr()`/`str()` of a TOML datetime prints its TOML spelling rather than
+//! `datetime.date(...)`. Both are reachable only from a hand-edited
+//! `schema_version` or a hand-edited digest value.
+//!
+//! Finally, the dispatcher rejects unknown arguments with USAGE (exit 3) while
+//! the oracle ignores `sys.argv` entirely. `check.sh` passes no arguments, so
+//! the differential surface is unaffected; the crate-wide rule that a typo must
+//! not read as a pass wins here.
+
+use crate::registry::{GateCtx, GateError};
+use std::fs;
+use std::io::{Read, Write};
+use std::path::{Path, PathBuf};
+use std::process::{Command, Stdio};
+use toml::Value;
+
+pub const NAME: &str = "verify-content-lock";
+pub const SUMMARY: &str =
+    "L7 content.lock: pinned bank_hash and knowledge/module digests still match the tree";
+
+/// Engine-root-relative lock file. Mirrors the oracle's `LOCK_PATH`.
+pub const LOCK_REL: &str = "content.lock";
+/// Fallback source for the live bank digest. Mirrors `GOLDEN_BANK_HASH`.
+pub const GOLDEN_REL: &str = "goldens/bank_hash.txt";
+/// The bank directory handed to `cdcp bank-hash`.
+pub const BANK_ARG: &str = "bank/items";
+/// U+2026, the marker the oracle's source really contains.
+const ELLIPSIS: char = '\u{2026}';
+/// Env switch for the oracle's optional mutate-selftest.
+pub const SELFTEST_ENV: &str = "CDCP_CONTENT_LOCK_SELFTEST";
+
+/// Everything one invocation writes plus the status it leaves with.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Outcome {
+    pub stdout: String,
+    pub stderr: String,
+    pub code: i32,
+}
+
+/// The result of `verify()`: either the oracle's error list (possibly empty,
+/// which is GREEN), or a state the oracle reaches only by raising.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum Verdict {
+    Errors(Vec<String>),
+    Undecidable(String),
+}
+
+// ── entry point ────────────────────────────────────────────────────────────
+
+pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
+    ctx.reject_unknown_flags(&[])?;
+
+    // The oracle resolves its own location (`Path(__file__).resolve()`), so its
+    // ROOT is symlink-free and the `missing content.lock at <path>` message
+    // prints a real path. Do the same to the engine root.
+    let root = ctx.root.canonicalize().unwrap_or_else(|_| ctx.root.clone());
+
+    let selftest = std::env::var(SELFTEST_ENV).unwrap_or_default() == "1";
+    let outcome = if selftest {
+        selftest_mutate(&root)
+    } else {
+        evaluate(&root)
+    };
+
+    print!("{}", outcome.stdout);
+    let _ = std::io::stdout().flush();
+    eprint!("{}", outcome.stderr);
+    let _ = std::io::stderr().flush();
+
+    if outcome.code != 0 {
+        // See the module header: the oracle exits 1 with this exact stderr, and
+        // this port's acceptance bar is byte-identical output. Routing through
+        // `GateError` would rewrite the text and change the code.
+        std::process::exit(outcome.code);
+    }
+    Ok(())
+}
+
+/// The oracle's `main()` minus the selftest branch.
+pub fn evaluate(root: &Path) -> Outcome {
+    let lock = root.join(LOCK_REL);
+
+    let errors = match verify(root, &lock) {
+        Verdict::Undecidable(m) => return undecidable(m),
+        Verdict::Errors(e) => e,
+    };
+
+    if !errors.is_empty() {
+        let mut s = String::from("verify_content_lock: FAIL\n");
+        for e in &errors {
+            s.push_str(&format!("  - {e}\n"));
+        }
+        s.push_str(
+            "Regenerate (human review): UPDATE_CONTENT_LOCK=1 python3 scripts/gen_content_lock.py\n",
+        );
+        return Outcome {
+            stdout: String::new(),
+            stderr: s,
+            code: 1,
+        };
+    }
+
+    // Count pins for receipt — the oracle re-reads and re-parses the lock here.
+    let data = match read_table(&lock) {
+        Ok(d) => d,
+        Err(m) => return undecidable(m),
+    };
+    let nk = py_len(or_empty(data.get("knowledge")));
+    let nm = py_len(or_empty(data.get("modules")));
+    let bh_full = match data.get("bank_hash") {
+        Some(v) if py_truthy(v) => py_str(v),
+        _ => String::new(),
+    };
+    let bh = py_slice(&bh_full, 12);
+    Outcome {
+        stdout: format!(
+            "verify_content_lock: PASS bank_hash={bh}{ELLIPSIS} knowledge={nk} modules={nm}\n"
+        ),
+        stderr: String::new(),
+        code: 0,
+    }
+}
+
+fn undecidable(m: String) -> Outcome {
+    Outcome {
+        stdout: String::new(),
+        stderr: format!("verify_content_lock: ERROR: {m}\n"),
+        code: crate::exit::ERROR as i32,
+    }
+}
+
+// ── the oracle's verify() ──────────────────────────────────────────────────
+
+/// Port of `verify(lock_path)`. Returns the error list in the oracle's order.
+pub fn verify(root: &Path, lock_path: &Path) -> Verdict {
+    let mut errors: Vec<String> = Vec::new();
+
+    if !lock_path.is_file() {
+        return Verdict::Errors(vec![format!(
+            "missing content.lock at {}",
+            lock_path.display()
+        )]);
+    }
+
+    let data = match read_table(lock_path) {
+        Ok(d) => d,
+        Err(m) => return Verdict::Undecidable(m),
+    };
+
+    let schema = data.get("schema_version");
+    if !py_eq_one(schema) {
+        errors.push(format!(
+            "unsupported schema_version={} (want 1)",
+            py_repr_opt(schema)
+        ));
+    }
+
+    // `if not pinned_bank or not isinstance(pinned_bank, str)`
+    let pinned_bank: Option<&str> = match data.get("bank_hash") {
+        Some(Value::String(s)) if !s.is_empty() => Some(s.as_str()),
+        _ => None,
+    };
+    match pinned_bank {
+        None => errors.push("content.lock missing bank_hash".to_string()),
+        Some(pinned) => match live_bank_hash(root) {
+            Ok(live) => {
+                if live != pinned {
+                    errors.push(format!(
+                        "bank_hash drift: lock={}{ELLIPSIS} live={}{ELLIPSIS}",
+                        py_slice(pinned, 16),
+                        py_slice(&live, 16)
+                    ));
+                }
+            }
+            Err(msg) => errors.push(msg),
+        },
+    }
+
+    // `knowledge = data.get("knowledge") or {}` — None here stands for `{}`.
+    let knowledge = or_empty(data.get("knowledge"));
+    let modules = or_empty(data.get("modules"));
+    if knowledge.is_none() {
+        errors.push("content.lock [knowledge] empty (vacuous ERROR)".to_string());
+    }
+    if modules.is_none() {
+        errors.push("content.lock [modules] empty (vacuous ERROR)".to_string());
+    }
+
+    for (section, mapping) in [("knowledge", knowledge), ("modules", modules)] {
+        let Some(value) = mapping else {
+            // The substituted `{}` IS a dict; the oracle iterates it and finds
+            // nothing. Not an error, not a skip of the type check.
+            continue;
+        };
+        let Value::Table(table) = value else {
+            errors.push(format!("[{section}] must be a table of path = hash"));
+            continue;
+        };
+        // `sorted(mapping.items())`: Python orders str keys by code point, which
+        // for UTF-8 is byte order, which is Rust's `String: Ord`.
+        let mut keys: Vec<&String> = table.keys().collect();
+        keys.sort();
+        for rel in keys {
+            let expected = &table[rel];
+            let path = resolve_pinned(root, rel);
+            if !path.is_file() {
+                errors.push(format!("[{section}] missing file: {rel}"));
+                continue;
+            }
+            let actual = match sha256_file(&path) {
+                Ok(h) => h,
+                Err(e) => {
+                    return Verdict::Undecidable(format!("cannot read {}: {e}", path.display()))
+                }
+            };
+            let matches = matches!(expected, Value::String(s) if *s == actual);
+            if !matches {
+                errors.push(format!(
+                    "[{section}] hash mismatch: {rel} lock={}{ELLIPSIS} live={}{ELLIPSIS}",
+                    py_slice(&py_str(expected), 12),
+                    py_slice(&actual, 12)
+                ));
+            }
+        }
+    }
+
+    Verdict::Errors(errors)
+}
+
+/// Port of `resolve_pinned`: engine root first, then the parent corpus.
+pub fn resolve_pinned(root: &Path, rel: &str) -> PathBuf {
+    let p = Path::new(rel);
+    if p.is_absolute() {
+        return p.to_path_buf();
+    }
+    let cand = root.join(p);
+    if cand.exists() {
+        return cand.canonicalize().unwrap_or(cand);
+    }
+    let parent = root.parent().unwrap_or(root);
+    let cand2 = parent.join(p);
+    cand2.canonicalize().unwrap_or(cand2)
+}
+
+// ── live bank hash ─────────────────────────────────────────────────────────
+
+/// Port of `live_bank_hash()`.
+///
+/// Candidate order is the oracle's: the prebuilt `target/debug/cdcp` when it is
+/// a file, then `cargo run -q -p cdcp_cli --locked`. A candidate that cannot be
+/// spawned, exits non-zero, or whose last output line is not 64 lowercase hex
+/// characters is skipped. If neither yields a digest, `goldens/bank_hash.txt`
+/// is read verbatim (the oracle does not hex-validate that fallback, and
+/// neither does this).
+///
+/// On error the string returned is the oracle's `RuntimeError` message, because
+/// the caller appends `str(e)` to the error list.
+pub fn live_bank_hash(root: &Path) -> Result<String, String> {
+    let mut candidates: Vec<Vec<String>> = Vec::new();
+    let bin_path = root.join("target").join("debug").join("cdcp");
+    if bin_path.is_file() {
+        candidates.push(vec![
+            bin_path.to_string_lossy().into_owned(),
+            "bank-hash".to_string(),
+            "--bank".to_string(),
+            BANK_ARG.to_string(),
+        ]);
+    }
+    candidates.push(
+        [
+            "cargo",
+            "run",
+            "-q",
+            "-p",
+            "cdcp_cli",
+            "--locked",
+            "--",
+            "bank-hash",
+            "--bank",
+            BANK_ARG,
+        ]
+        .iter()
+        .map(|s| s.to_string())
+        .collect(),
+    );
+
+    for cmd in &candidates {
+        let Some(raw) = capture_merged(cmd, root) else {
+            continue;
+        };
+        let Some(hx) = last_stripped_line(&raw) else {
+            continue;
+        };
+        // `len(hx) == 64 and all(c in "0123456789abcdef" for c in hx)`
+        if hx.chars().count() == 64 && hx.chars().all(|c| matches!(c, '0'..='9' | 'a'..='f')) {
+            return Ok(hx);
+        }
+    }
+
+    let golden = root.join(GOLDEN_REL);
+    if golden.is_file() {
+        return match fs::read(&golden) {
+            Ok(bytes) => match String::from_utf8(bytes) {
+                Ok(s) => Ok(py_strip(&s)),
+                Err(_) => Err(format!("{} is not valid UTF-8", golden.display())),
+            },
+            Err(e) => Err(format!("cannot read {}: {e}", golden.display())),
+        };
+    }
+    Err("cannot obtain live bank_hash".to_string())
+}
+
+/// Run `cmd` with stdout and stderr pointed at ONE file description, which is
+/// how `subprocess.check_output(..., stderr=subprocess.STDOUT)` merges the two
+/// streams. `None` means the oracle would have caught the exception and moved
+/// on (spawn failure, or a non-zero exit, which raises `CalledProcessError`).
+fn capture_merged(cmd: &[String], cwd: &Path) -> Option<Vec<u8>> {
+    let mut sink = std::env::temp_dir();
+    let nonce = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_nanos())
+        .unwrap_or(0);
+    sink.push(format!(
+        "cdcp_gate_verify_content_lock_{}_{nonce}.out",
+        std::process::id()
+    ));
+
+    let file = fs::File::create(&sink).ok()?;
+    let dup = file.try_clone().ok()?;
+    let status = Command::new(&cmd[0])
+        .args(&cmd[1..])
+        .current_dir(cwd)
+        .stdin(Stdio::inherit())
+        .stdout(Stdio::from(file))
+        .stderr(Stdio::from(dup))
+        .status();
+
+    let data = fs::read(&sink).unwrap_or_default();
+    let _ = fs::remove_file(&sink);
+
+    match status {
+        Ok(s) if s.success() => Some(data),
+        // Non-zero exit -> CalledProcessError; spawn failure -> OSError. The
+        // oracle catches both and tries the next candidate.
+        _ => None,
+    }
+}
+
+/// `out.strip().splitlines()[-1].strip()` with `text=True` universal newlines.
+/// `None` stands for the oracle's uncaught `IndexError` on empty output.
+fn last_stripped_line(raw: &[u8]) -> Option<String> {
+    let decoded = String::from_utf8_lossy(raw);
+    let unified = decoded.replace("\r\n", "\n").replace('\r', "\n");
+    let stripped = py_strip(&unified);
+    let lines = py_splitlines(&stripped);
+    lines.last().map(|l| py_strip(l))
+}
+
+// ── the oracle's selftest_mutate() ─────────────────────────────────────────
+
+/// Port of `selftest_mutate()`, reached only via `CDCP_CONTENT_LOCK_SELFTEST=1`.
+pub fn selftest_mutate(root: &Path) -> Outcome {
+    let lock = root.join(LOCK_REL);
+    if !lock.is_file() {
+        return Outcome {
+            stdout: String::new(),
+            stderr: "FAIL: content.lock missing; cannot selftest\n".to_string(),
+            code: 1,
+        };
+    }
+    let text = match fs::read(&lock).map(String::from_utf8) {
+        Ok(Ok(t)) => t,
+        Ok(Err(_)) => return undecidable(format!("{} is not valid UTF-8", lock.display())),
+        Err(e) => return undecidable(format!("cannot read {}: {e}", lock.display())),
+    };
+
+    let mut mutated = false;
+    let mut new_lines: Vec<String> = Vec::new();
+    for line in py_splitlines(&text) {
+        let mut line = line.to_string();
+        if line.starts_with("bank_hash = ") && !mutated && line.ends_with('"') {
+            let body: Vec<char> = line.chars().collect();
+            // `body = line[:-1]` then `body[-1]`
+            let body = &body[..body.len() - 1];
+            if let Some(&last) = body.last() {
+                let flip = if last != '0' { '0' } else { '1' };
+                let mut rebuilt: String = body[..body.len() - 1].iter().collect();
+                rebuilt.push(flip);
+                rebuilt.push('"');
+                line = rebuilt;
+                mutated = true;
+            }
+        }
+        new_lines.push(line);
+    }
+    if !mutated {
+        return Outcome {
+            stdout: String::new(),
+            stderr: "FAIL: selftest could not locate bank_hash line\n".to_string(),
+            code: 1,
+        };
+    }
+
+    let mut tmp = std::env::temp_dir();
+    let nonce = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_nanos())
+        .unwrap_or(0);
+    tmp.push(format!(
+        "cdcp_gate_content_selftest_{}_{nonce}.lock",
+        std::process::id()
+    ));
+    let body = new_lines.join("\n") + "\n";
+    if let Err(e) = fs::write(&tmp, body.as_bytes()) {
+        return undecidable(format!("cannot write {}: {e}", tmp.display()));
+    }
+
+    let verdict = verify(root, &tmp);
+    let _ = fs::remove_file(&tmp);
+
+    let errs = match verdict {
+        Verdict::Undecidable(m) => return undecidable(m),
+        Verdict::Errors(e) => e,
+    };
+    if errs.is_empty() {
+        return Outcome {
+            stdout: String::new(),
+            stderr: "FAIL: expected RED on mutated bank_hash but verify was green\n".to_string(),
+            code: 1,
+        };
+    }
+    if !errs.iter().any(|e| e.contains("bank_hash drift")) {
+        let mut s = String::from("FAIL: expected bank_hash drift signal; got:\n");
+        for e in &errs {
+            s.push_str(&format!("  - {e}\n"));
+        }
+        return Outcome {
+            stdout: String::new(),
+            stderr: s,
+            code: 1,
+        };
+    }
+    Outcome {
+        stdout: "verify_content_lock: ok: mutate-selftest trips RED (bank_hash drift)\n"
+            .to_string(),
+        stderr: String::new(),
+        code: 0,
+    }
+}
+
+// ── TOML reading ───────────────────────────────────────────────────────────
+
+fn read_table(path: &Path) -> Result<toml::Table, String> {
+    let bytes = fs::read(path).map_err(|e| format!("cannot read {}: {e}", path.display()))?;
+    let text =
+        String::from_utf8(bytes).map_err(|_| format!("{} is not valid UTF-8", path.display()))?;
+    text.parse::<toml::Table>()
+        .map_err(|e| format!("{} is not valid TOML: {e}", path.display()))
+}
+
+// ── Python semantics emulated ──────────────────────────────────────────────
+
+/// `bool(value)` for the types `tomllib` can produce.
+pub fn py_truthy(v: &Value) -> bool {
+    match v {
+        Value::String(s) => !s.is_empty(),
+        Value::Integer(i) => *i != 0,
+        Value::Float(f) => *f != 0.0,
+        Value::Boolean(b) => *b,
+        Value::Array(a) => !a.is_empty(),
+        Value::Table(t) => !t.is_empty(),
+        Value::Datetime(_) => true,
+    }
+}
+
+/// `data.get(k) or {}` — `None` here stands for the substituted empty dict.
+fn or_empty(v: Option<&Value>) -> Option<&Value> {
+    match v {
+        Some(x) if py_truthy(x) => Some(x),
+        _ => None,
+    }
+}
+
+/// `len(x)` for the receipt counters. `None` is the substituted `{}`.
+fn py_len(v: Option<&Value>) -> usize {
+    match v {
+        None => 0,
+        Some(Value::Table(t)) => t.len(),
+        Some(Value::Array(a)) => a.len(),
+        Some(Value::String(s)) => s.chars().count(),
+        Some(_) => 0,
+    }
+}
+
+/// `value == 1` under Python's numeric tower (`True == 1`, `1.0 == 1`).
+pub fn py_eq_one(v: Option<&Value>) -> bool {
+    match v {
+        Some(Value::Integer(i)) => *i == 1,
+        Some(Value::Float(f)) => *f == 1.0,
+        Some(Value::Boolean(b)) => *b,
+        _ => false,
+    }
+}
+
+/// `repr(x)`; `None` renders as Python's `None`.
+pub fn py_repr_opt(v: Option<&Value>) -> String {
+    match v {
+        None => "None".to_string(),
+        Some(x) => py_repr(x),
+    }
+}
+
+/// `repr(x)` for the types `tomllib` can produce.
+pub fn py_repr(v: &Value) -> String {
+    match v {
+        Value::String(s) => py_str_repr(s),
+        Value::Integer(i) => i.to_string(),
+        Value::Float(f) => py_float_repr(*f),
+        Value::Boolean(b) => {
+            if *b {
+                "True".to_string()
+            } else {
+                "False".to_string()
+            }
+        }
+        Value::Array(a) => {
+            let parts: Vec<String> = a.iter().map(py_repr).collect();
+            format!("[{}]", parts.join(", "))
+        }
+        Value::Table(t) => {
+            let parts: Vec<String> = t
+                .iter()
+                .map(|(k, val)| format!("{}: {}", py_str_repr(k), py_repr(val)))
+                .collect();
+            format!("{{{}}}", parts.join(", "))
+        }
+        // Documented gap: CPython would print `datetime.date(2020, 1, 1)`.
+        Value::Datetime(d) => d.to_string(),
+    }
+}
+
+/// `str(x)` — differs from `repr` only for `str` itself.
+pub fn py_str(v: &Value) -> String {
+    match v {
+        Value::String(s) => s.clone(),
+        other => py_repr(other),
+    }
+}
+
+/// CPython's `repr()` quoting for `str`.
+fn py_str_repr(s: &str) -> String {
+    let has_single = s.contains('\'');
+    let has_double = s.contains('"');
+    let quote = if has_single && !has_double { '"' } else { '\'' };
+    let mut out = String::new();
+    out.push(quote);
+    for c in s.chars() {
+        match c {
+            '\\' => out.push_str("\\\\"),
+            '\n' => out.push_str("\\n"),
+            '\r' => out.push_str("\\r"),
+            '\t' => out.push_str("\\t"),
+            c if c == quote => {
+                out.push('\\');
+                out.push(c);
+            }
+            c if (c as u32) < 0x20 || c as u32 == 0x7f => {
+                out.push_str(&format!("\\x{:02x}", c as u32));
+            }
+            c => out.push(c),
+        }
+    }
+    out.push(quote);
+    out
+}
+
+/// `repr()` of a float, minus CPython's exponent thresholds (see header).
+fn py_float_repr(f: f64) -> String {
+    if f.is_nan() {
+        return "nan".to_string();
+    }
+    if f.is_infinite() {
+        return if f > 0.0 { "inf" } else { "-inf" }.to_string();
+    }
+    let s = format!("{f}");
+    if s.contains('.') || s.contains('e') || s.contains('E') {
+        s
+    } else {
+        format!("{s}.0")
+    }
+}
+
+/// `s[:n]` — Python slices by character, not by byte.
+pub fn py_slice(s: &str, n: usize) -> String {
+    s.chars().take(n).collect()
+}
+
+/// True for the code points `str.isspace()` accepts.
+fn py_is_space(c: char) -> bool {
+    c.is_whitespace() || matches!(c, '\u{1c}'..='\u{1f}')
+}
+
+/// `str.strip()` with no argument.
+pub fn py_strip(s: &str) -> String {
+    s.trim_matches(py_is_space).to_string()
+}
+
+/// `str.splitlines()` — CPython's full separator set, `\r\n` counted once.
+pub fn py_splitlines(s: &str) -> Vec<String> {
+    let chars: Vec<char> = s.chars().collect();
+    let mut out: Vec<String> = Vec::new();
+    let mut cur = String::new();
+    let mut i = 0;
+    while i < chars.len() {
+        let c = chars[i];
+        let is_sep = matches!(
+            c,
+            '\n' | '\r'
+                | '\u{b}'
+                | '\u{c}'
+                | '\u{1c}'
+                | '\u{1d}'
+                | '\u{1e}'
+                | '\u{85}'
+                | '\u{2028}'
+                | '\u{2029}'
+        );
+        if is_sep {
+            out.push(std::mem::take(&mut cur));
+            if c == '\r' && i + 1 < chars.len() && chars[i + 1] == '\n' {
+                i += 1;
+            }
+        } else {
+            cur.push(c);
+        }
+        i += 1;
+    }
+    if !cur.is_empty() {
+        out.push(cur);
+    }
+    out
+}
+
+// ── sha256 ─────────────────────────────────────────────────────────────────
+//
+// `cdcp_gate` depends on `serde` and `toml` only. Adding `sha2` would mean
+// editing `crates/cdcp_gate/Cargo.toml`, a file three sibling migration beads
+// are also touching this hour; a self-contained implementation keeps this bead
+// to the single new file the registration contract promises. It is pinned by
+// the NIST vectors in this module's tests and, more usefully, by a test that
+// recomputes every digest already recorded in the committed `content.lock` —
+// digests produced by CPython's `hashlib`, i.e. an oracle this code did not
+// write.
+
+const K256: [u32; 64] = [
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
+];
+
+/// Streaming SHA-256, FIPS 180-4.
+pub struct Sha256 {
+    state: [u32; 8],
+    block: [u8; 64],
+    filled: usize,
+    bits: u64,
+}
+
+impl Default for Sha256 {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Sha256 {
+    pub fn new() -> Self {
+        Self {
+            state: [
+                0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab,
+                0x5be0cd19,
+            ],
+            block: [0u8; 64],
+            filled: 0,
+            bits: 0,
+        }
+    }
+
+    pub fn update(&mut self, mut data: &[u8]) {
+        self.bits = self.bits.wrapping_add((data.len() as u64) * 8);
+        if self.filled > 0 {
+            let want = 64 - self.filled;
+            let take = want.min(data.len());
+            self.block[self.filled..self.filled + take].copy_from_slice(&data[..take]);
+            self.filled += take;
+            data = &data[take..];
+            if self.filled == 64 {
+                let b = self.block;
+                self.compress(&b);
+                self.filled = 0;
+            }
+        }
+        while data.len() >= 64 {
+            let mut b = [0u8; 64];
+            b.copy_from_slice(&data[..64]);
+            self.compress(&b);
+            data = &data[64..];
+        }
+        if !data.is_empty() {
+            self.block[..data.len()].copy_from_slice(data);
+            self.filled = data.len();
+        }
+    }
+
+    pub fn finalize(mut self) -> [u8; 32] {
+        let bits = self.bits;
+        self.update_raw_pad(bits);
+        let mut out = [0u8; 32];
+        for (i, w) in self.state.iter().enumerate() {
+            out[i * 4..i * 4 + 4].copy_from_slice(&w.to_be_bytes());
+        }
+        out
+    }
+
+    fn update_raw_pad(&mut self, bits: u64) {
+        // 0x80 then zeros then the 64-bit big-endian length.
+        self.block[self.filled] = 0x80;
+        self.filled += 1;
+        if self.filled > 56 {
+            for i in self.filled..64 {
+                self.block[i] = 0;
+            }
+            let b = self.block;
+            self.compress(&b);
+            self.filled = 0;
+        }
+        for i in self.filled..56 {
+            self.block[i] = 0;
+        }
+        self.block[56..64].copy_from_slice(&bits.to_be_bytes());
+        let b = self.block;
+        self.compress(&b);
+        self.filled = 0;
+    }
+
+    fn compress(&mut self, block: &[u8; 64]) {
+        let mut w = [0u32; 64];
+        for i in 0..16 {
+            w[i] = u32::from_be_bytes([
+                block[i * 4],
+                block[i * 4 + 1],
+                block[i * 4 + 2],
+                block[i * 4 + 3],
+            ]);
+        }
+        for i in 16..64 {
+            let s0 = w[i - 15].rotate_right(7) ^ w[i - 15].rotate_right(18) ^ (w[i - 15] >> 3);
+            let s1 = w[i - 2].rotate_right(17) ^ w[i - 2].rotate_right(19) ^ (w[i - 2] >> 10);
+            w[i] = w[i - 16]
+                .wrapping_add(s0)
+                .wrapping_add(w[i - 7])
+                .wrapping_add(s1);
+        }
+        let [mut a, mut b, mut c, mut d, mut e, mut f, mut g, mut h] = self.state;
+        for i in 0..64 {
+            let s1 = e.rotate_right(6) ^ e.rotate_right(11) ^ e.rotate_right(25);
+            let ch = (e & f) ^ ((!e) & g);
+            let t1 = h
+                .wrapping_add(s1)
+                .wrapping_add(ch)
+                .wrapping_add(K256[i])
+                .wrapping_add(w[i]);
+            let s0 = a.rotate_right(2) ^ a.rotate_right(13) ^ a.rotate_right(22);
+            let maj = (a & b) ^ (a & c) ^ (b & c);
+            let t2 = s0.wrapping_add(maj);
+            h = g;
+            g = f;
+            f = e;
+            e = d.wrapping_add(t1);
+            d = c;
+            c = b;
+            b = a;
+            a = t1.wrapping_add(t2);
+        }
+        for (slot, delta) in self.state.iter_mut().zip([a, b, c, d, e, f, g, h]) {
+            *slot = slot.wrapping_add(delta);
+        }
+    }
+}
+
+pub fn sha256_hex_bytes(data: &[u8]) -> String {
+    let mut h = Sha256::new();
+    h.update(data);
+    hex_lower(&h.finalize())
+}
+
+fn hex_lower(bytes: &[u8]) -> String {
+    const D: &[u8; 16] = b"0123456789abcdef";
+    let mut s = String::with_capacity(bytes.len() * 2);
+    for b in bytes {
+        s.push(D[(b >> 4) as usize] as char);
+        s.push(D[(b & 0x0f) as usize] as char);
+    }
+    s
+}
+
+/// Port of `sha256_file`, chunked at 1 MiB like the oracle.
+pub fn sha256_file(path: &Path) -> Result<String, std::io::Error> {
+    let mut f = fs::File::open(path)?;
+    let mut h = Sha256::new();
+    let mut buf = vec![0u8; 1 << 20];
+    loop {
+        let n = f.read(&mut buf)?;
+        if n == 0 {
+            break;
+        }
+        h.update(&buf[..n]);
+    }
+    Ok(hex_lower(&h.finalize()))
+}
+
+// ── tests ──────────────────────────────────────────────────────────────────
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // ── sha256 against published vectors ──────────────────────────────────
+
+    #[test]
+    fn sha256_nist_vectors() {
+        assert_eq!(
+            sha256_hex_bytes(b""),
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        );
+        assert_eq!(
+            sha256_hex_bytes(b"abc"),
+            "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        );
+        assert_eq!(
+            sha256_hex_bytes(b"abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"),
+            "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"
+        );
+        assert_eq!(
+            sha256_hex_bytes(&[b'a'; 1_000_000]),
+            "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"
+        );
+    }
+
+    #[test]
+    fn sha256_is_block_boundary_correct() {
+        // 55/56/57/63/64/65 bytes exercise every padding branch.
+        let expect = [
+            (
+                55usize,
+                "9f4390f8d30c2dd92ec9f095b65e2b9ae9b0a925a5258e241c9f1e910f734318",
+            ),
+            (
+                56,
+                "b35439a4ac6f0948b6d6f9e3c6af0f5f590ce20f1bde7090ef7970686ec6738a",
+            ),
+            (
+                57,
+                "f13b2d724659eb3bf47f2dd6af1accc87b81f09f59f2b75e5c0bed6589dfe8c6",
+            ),
+            (
+                63,
+                "7d3e74a05d7db15bce4ad9ec0658ea98e3f06eeecf16b4c6fff2da457ddc2f34",
+            ),
+            (
+                64,
+                "ffe054fe7ae0cb6dc65c3af9b61d5209f439851db43d0ba5997337df154668eb",
+            ),
+            (
+                65,
+                "635361c48bb9eab14198e76ea8ab7f1a41685d6ad62aa9146d301d4f17eb0ae0",
+            ),
+            (
+                119,
+                "31eba51c313a5c08226adf18d4a359cfdfd8d2e816b13f4af952f7ea6584dcfb",
+            ),
+            (
+                120,
+                "2f3d335432c70b580af0e8e1b3674a7c020d683aa5f73aaaedfdc55af904c21c",
+            ),
+            (
+                127,
+                "c57e9278af78fa3cab38667bef4ce29d783787a2f731d4e12200270f0c32320a",
+            ),
+            (
+                128,
+                "6836cf13bac400e9105071cd6af47084dfacad4e5e302c94bfed24e013afb73e",
+            ),
+        ];
+        for (n, want) in expect {
+            assert_eq!(sha256_hex_bytes(&vec![b'a'; n]), want, "len {n}");
+        }
+    }
+
+    #[test]
+    fn sha256_streaming_matches_one_shot() {
+        let data: Vec<u8> = (0u32..5000).map(|i| (i % 251) as u8).collect();
+        let one = sha256_hex_bytes(&data);
+        let mut h = Sha256::new();
+        for chunk in data.chunks(7) {
+            h.update(chunk);
+        }
+        assert_eq!(hex_lower(&h.finalize()), one);
+    }
+
+    // ── Python emulations ─────────────────────────────────────────────────
+
+    #[test]
+    fn truthiness_matches_python() {
+        let t = |s: &str| -> Value { s.parse::<toml::Table>().unwrap()["x"].clone() };
+        assert!(!py_truthy(&t("x = \"\"")));
+        assert!(py_truthy(&t("x = \"a\"")));
+        assert!(!py_truthy(&t("x = 0")));
+        assert!(py_truthy(&t("x = 1")));
+        assert!(!py_truthy(&t("x = 0.0")));
+        assert!(!py_truthy(&t("x = false")));
+        assert!(py_truthy(&t("x = true")));
+        assert!(!py_truthy(&t("x = []")));
+        assert!(py_truthy(&t("x = [1]")));
+        assert!(!py_truthy(&t("x = {}")));
+        assert!(py_truthy(&t("x = {a = 1}")));
+    }
+
+    #[test]
+    fn schema_version_uses_pythons_numeric_tower() {
+        let t = |s: &str| -> Value { s.parse::<toml::Table>().unwrap()["x"].clone() };
+        assert!(py_eq_one(Some(&t("x = 1"))));
+        // In Python `True == 1` and `1.0 == 1`, so both slip past `schema != 1`.
+        assert!(py_eq_one(Some(&t("x = true"))));
+        assert!(py_eq_one(Some(&t("x = 1.0"))));
+        assert!(!py_eq_one(Some(&t("x = 2"))));
+        assert!(!py_eq_one(Some(&t("x = \"1\""))));
+        assert!(!py_eq_one(None));
+    }
+
+    #[test]
+    fn repr_matches_cpython_quoting_rules() {
+        assert_eq!(py_repr_opt(None), "None");
+        let t = |s: &str| -> Value { s.parse::<toml::Table>().unwrap()["x"].clone() };
+        assert_eq!(py_repr(&t("x = 2")), "2");
+        assert_eq!(py_repr(&t("x = true")), "True");
+        assert_eq!(py_repr(&t("x = false")), "False");
+        assert_eq!(py_repr(&t("x = \"1\"")), "'1'");
+        assert_eq!(py_repr(&t("x = 2.5")), "2.5");
+        assert_eq!(py_repr(&t("x = 2.0")), "2.0");
+        assert_eq!(py_repr(&t("x = [1, \"a\"]")), "[1, 'a']");
+        assert_eq!(py_str_repr("it's"), "\"it's\"");
+        assert_eq!(py_str_repr("say \"hi\""), "'say \"hi\"'");
+        assert_eq!(py_str_repr("both ' and \""), "'both \\' and \"'");
+        assert_eq!(py_str_repr("a\\b"), "'a\\\\b'");
+        assert_eq!(py_str_repr("a\nb\tc"), "'a\\nb\\tc'");
+        assert_eq!(py_str_repr("\u{7}"), "'\\x07'");
+    }
+
+    #[test]
+    fn slicing_counts_characters_not_bytes() {
+        assert_eq!(py_slice("abcdef", 3), "abc");
+        assert_eq!(py_slice("abc", 12), "abc");
+        assert_eq!(py_slice("é\u{2026}xyz", 2), "é\u{2026}");
+    }
+
+    #[test]
+    fn splitlines_uses_the_full_cpython_separator_set() {
+        assert_eq!(py_splitlines("a\nb"), vec!["a", "b"]);
+        assert_eq!(py_splitlines("a\r\nb"), vec!["a", "b"]);
+        assert_eq!(py_splitlines("a\rb"), vec!["a", "b"]);
+        assert_eq!(py_splitlines("a\u{b}b"), vec!["a", "b"]);
+        assert_eq!(py_splitlines("a\u{2028}b"), vec!["a", "b"]);
+        assert_eq!(py_splitlines("a\n"), vec!["a"]);
+        assert!(py_splitlines("").is_empty());
+    }
+
+    #[test]
+    fn strip_matches_python_whitespace() {
+        assert_eq!(py_strip("  a b \n\t"), "a b");
+        assert_eq!(py_strip("\u{1c}x\u{85}"), "x");
+        assert_eq!(py_strip("   "), "");
+    }
+
+    #[test]
+    fn the_truncation_marker_is_u2026_not_three_dots() {
+        assert_eq!(ELLIPSIS.to_string().as_bytes(), &[0xe2, 0x80, 0xa6]);
+    }
+
+    // ── the shipped lock is the oracle for the digest code ────────────────
+
+    /// Every hash in the committed `content.lock` was produced by CPython's
+    /// `hashlib.sha256`. Recomputing them here checks this module's digest and
+    /// its path resolution against an artifact this code did not write.
+    #[test]
+    fn recomputes_every_digest_in_the_committed_lock() {
+        let root = crate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR")))
+            .expect("engine root")
+            .canonicalize()
+            .expect("canonical root");
+        let table = read_table(&root.join(LOCK_REL)).expect("content.lock parses");
+        let mut checked = 0usize;
+        for section in ["knowledge", "modules"] {
+            let Some(Value::Table(t)) = table.get(section) else {
+                panic!("[{section}] missing from content.lock");
+            };
+            for (rel, expected) in t {
+                let p = resolve_pinned(&root, rel);
+                if !p.is_file() {
+                    // A pinned file genuinely missing is the gate's own RED, not
+                    // this test's business; the differential suite covers it.
+                    continue;
+                }
+                let got = sha256_file(&p).expect("hash");
+                assert_eq!(
+                    Value::String(got.clone()),
+                    *expected,
+                    "{section}/{rel} recomputed to {got}"
+                );
+                checked += 1;
+            }
+        }
+        assert!(
+            checked >= 30,
+            "only {checked} pinned digests recomputed — a vacuous digest check is an ERROR"
+        );
+    }
+
+    #[test]
+    fn the_live_tree_is_green_and_the_receipt_names_the_counts() {
+        let root = crate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR")))
+            .expect("engine root")
+            .canonicalize()
+            .expect("canonical root");
+        let out = evaluate(&root);
+        assert_eq!(out.code, 0, "stderr: {}", out.stderr);
+        assert!(out.stderr.is_empty(), "{}", out.stderr);
+        assert!(
+            out.stdout
+                .starts_with("verify_content_lock: PASS bank_hash="),
+            "{}",
+            out.stdout
+        );
+        assert!(out.stdout.contains('\u{2026}'), "{}", out.stdout);
+    }
+
+    #[test]
+    fn a_missing_lock_is_red_and_names_the_path() {
+        let td = tempfile::tempdir().unwrap();
+        let root = td.path().canonicalize().unwrap();
+        let out = evaluate(&root);
+        assert_eq!(out.code, 1);
+        assert!(out.stdout.is_empty());
+        assert!(
+            out.stderr.contains(&format!(
+                "missing content.lock at {}",
+                root.join(LOCK_REL).display()
+            )),
+            "{}",
+            out.stderr
+        );
+    }
+
+    #[test]
+    fn an_empty_lock_is_red_on_all_four_counts_never_a_pass() {
+        let td = tempfile::tempdir().unwrap();
+        let root = td.path().canonicalize().unwrap();
+        fs::write(root.join(LOCK_REL), "").unwrap();
+        let out = evaluate(&root);
+        assert_eq!(out.code, 1, "{}", out.stdout);
+        for want in [
+            "unsupported schema_version=None (want 1)",
+            "content.lock missing bank_hash",
+            "content.lock [knowledge] empty (vacuous ERROR)",
+            "content.lock [modules] empty (vacuous ERROR)",
+        ] {
+            assert!(
+                out.stderr.contains(want),
+                "missing {want:?} in:\n{}",
+                out.stderr
+            );
+        }
+    }
+
+    #[test]
+    fn malformed_toml_is_error_not_pass() {
+        let td = tempfile::tempdir().unwrap();
+        let root = td.path().canonicalize().unwrap();
+        fs::write(root.join(LOCK_REL), "this is not toml = = =\n").unwrap();
+        let out = evaluate(&root);
+        assert_eq!(out.code, crate::exit::ERROR as i32);
+        assert!(out.stdout.is_empty());
+    }
+}

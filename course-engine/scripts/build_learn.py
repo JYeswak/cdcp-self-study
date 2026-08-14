@@ -626,8 +626,12 @@ def main() -> int:
         if stale.name not in keep:
             stale.unlink()
 
-    # Drop orphaned content copies
-    keep_md = {f"{m['id']}.md" for m in navigable}
+    # Drop orphaned content copies.
+    # README.md is hand-written documentation for this directory, not a generated
+    # copy — it is tracked in git and must survive the sweep. Without this guard
+    # every build_learn.py run silently deletes it (observed 2026-08-15 while
+    # adding module 15); the deletion then rides along in whatever commit follows.
+    keep_md = {f"{m['id']}.md" for m in navigable} | {"README.md"}
     for stale in CONTENT_DIR.glob("*.md"):
         if stale.name not in keep_md:
             stale.unlink()

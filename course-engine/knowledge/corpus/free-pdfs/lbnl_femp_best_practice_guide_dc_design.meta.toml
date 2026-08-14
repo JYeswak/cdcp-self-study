@@ -1,0 +1,79 @@
+source_id = "src-doe-femp-bpg-dc-design"
+org = "DOE / FEMP / LBNL / NREL"
+title = "Best Practices Guide for Energy-Efficient Data Center Design"
+url = "https://datacenters.lbl.gov/sites/default/files/2025-07/best-practice-guide-data-center-design.pdf"
+revision = "rev. 2024-07 (file served under /2025-07/)"
+pages = 48
+access = "free"
+fetch_date = "2026-08-14"
+
+# --- VENDORING DECISION (bd-doe-guide-embeds-ashrae-p54, 2026-08-14) ---------
+# Options considered per the bead: (a) do not vendor, cite by URL only;
+# (b) vendor a redacted extract excluding all ASHRAE-sourced tables/figures;
+# (c) seek ASHRAE written permission.
+capture = "not-vendored"
+decision = "a-do-not-vendor"
+decision_date = "2026-08-14"
+decision_by = "agent, closing bd-doe-guide-embeds-ashrae-p54"
+decision_rationale = '''Option (a). Two independent reasons, either sufficient.
+
+RIGHTS. The guide carries the standard US Government disclaimer, but 17 USC 105
+places only the government-AUTHORED portions in the public domain. This guide
+reproduces ASHRAE material under attribution (see third_party_figures). Third-party
+material embedded in a government work does not become public domain by being
+bound into it. Vendoring the PDF into this PUBLIC repository would republish those
+ASHRAE tables and figures worldwide.
+
+AI POLICY. ASHRAE prohibits entering content from any ASHRAE publication or
+related ASHRAE IP into any AI tool. That policy binds on CONTENT, not on
+container: reading Table 3-1 violates it whether the bytes arrive from ashrae.org
+or from a government wrapper. Because this repository is AI-built end to end,
+vendoring the PDF means ingesting it.
+
+Option (b) rejected: producing a redacted extract requires an agent to locate the
+ASHRAE-sourced pages in order to exclude them, which means opening them. The
+redaction act is itself the violation. A human may perform (b) later; an AI tool
+may not.
+
+Option (c) not pursued: seeking written permission is Josh's call and is an
+external, irreversible action (correspondence in the project's name). Escalated,
+not assumed.
+
+CONSEQUENCE ACCEPTED: Table 3-1 is the A1-A4 thermal envelope data this project
+deliberately marks UNGROUNDED. The guide is a side-door to exactly that material.
+It stays ungrounded until a HUMAN reads the source and enters the values. Gap
+node Gap_rci-unusable-without-the-envelope stays open on purpose.'''
+
+# --- RIGHTS POSTURE ----------------------------------------------------------
+# NOT bare "public-domain": that would be false for the embedded third-party
+# material and would trip CORPUS-R3 in knowledge/corpus/rights-policy.toml.
+rights = "mixed-us-government-work-with-third-party-material"
+redistribution = "not-licensed"
+ai_ingestion = "PROHIBITED"
+rights_note = '''US Government work as to the DOE/FEMP/LBNL-authored text (17 USC 105),
+BUT with third-party ASHRAE tables and figures reproduced under attribution.
+NREL contractor authorship further weakens a blanket 17 USC 105 reading. The
+composite work is therefore NOT redistributable by this project and NOT
+AI-ingestible. Cite by URL and section locator only.'''
+
+# --- THIRD-PARTY MATERIAL ----------------------------------------------------
+# Identified 2026-08-14 by ATTRIBUTION-LINE SCAN ONLY. The ASHRAE-sourced table
+# and figure CONTENT was deliberately NOT read, per ASHRAE's AI policy. These are
+# credit lines, not reproduced material.
+third_party_figures = [
+  "Table 3-1. ASHRAE 2021 Thermal Guidelines for Air Cooling",
+  "Source: Thermal Guidelines for Data Processing Environments, ASHRAE (x3)",
+  "Source: Emergence and Expansion of Liquid Cooling in Mainstream Data Centers, ASHRAE (x2)",
+]
+third_party_owner = "ASHRAE TC 9.9"
+third_party_scan_method = "attribution/credit-line scan; figure and table content NOT read"
+
+# --- WHAT MAY STILL BE USED --------------------------------------------------
+# Citation by locator into the DOE-authored chapters is permitted and is already
+# how the graph uses this document: 25 nodes cite sections 4.x-6.x (air
+# management, air handlers, chilled water, economisers, liquid cooling, UPS).
+# Those sections are government-authored prose, cited by section number, with no
+# text vendored. Section 3 (thermal guidelines) is OFF LIMITS to any AI reader.
+citable_sections = "4.x Air Management, 5.x Cooling, 6.x Electrical — DOE-authored"
+off_limits_sections = "3.x Environmental Conditions / Table 3-1 — ASHRAE-sourced"
+graph_nodes_citing = 25

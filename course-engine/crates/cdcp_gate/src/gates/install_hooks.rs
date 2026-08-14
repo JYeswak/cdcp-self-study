@@ -18,7 +18,8 @@ use std::fs;
 use std::path::Path;
 
 pub const NAME: &str = "install-hooks";
-pub const SUMMARY: &str = "install (or --check) the committed hooks/ shims into this clone's git dir";
+pub const SUMMARY: &str =
+    "install (or --check) the committed hooks/ shims into this clone's git dir";
 
 const KNOWN_FLAGS: &[&str] = &["--check", "--force", "--quiet"];
 
@@ -53,7 +54,9 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
             root.display()
         )));
     }
-    let hooks_dir = vcs::common_dir(root).map_err(GateError::error)?.join("hooks");
+    let hooks_dir = vcs::common_dir(root)
+        .map_err(GateError::error)?
+        .join("hooks");
 
     if MANAGED.is_empty() {
         return Err(GateError::error(
@@ -119,10 +122,16 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         return Err(GateError::Violation(problems));
     }
     if !quiet && !check_only {
-        println!("{NAME}: ok: {} managed hook(s), {installed} written", MANAGED.len());
+        println!(
+            "{NAME}: ok: {} managed hook(s), {installed} written",
+            MANAGED.len()
+        );
     }
     if !quiet && check_only {
-        println!("{NAME}: ok: all {} managed hook(s) installed and current", MANAGED.len());
+        println!(
+            "{NAME}: ok: all {} managed hook(s) installed and current",
+            MANAGED.len()
+        );
     }
     Ok(())
 }
@@ -183,8 +192,8 @@ mod tests {
                 }
                 for word in l.split_whitespace() {
                     for banned in [
-                        "if", "then", "else", "elif", "fi", "case", "esac", "for", "while", "until",
-                        "test", "[", "[[", "grep", "sed", "awk", "python", "python3",
+                        "if", "then", "else", "elif", "fi", "case", "esac", "for", "while",
+                        "until", "test", "[", "[[", "grep", "sed", "awk", "python", "python3",
                     ] {
                         assert!(
                             word != banned,

@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
-"""smoke_weak_links.py — L6-S3: bank module 1–14 map to existing Learn pages.
+"""smoke_weak_links.py — L6-S3: every navigable module maps to a Learn page.
 
 Asserts:
-  1. MODULE_LEARN_SLUGS in web/assets/js/results.js covers modules 1–14
+  1. MODULE_LEARN_SLUGS in web/assets/js/results.js covers every navigable module
   2. Each mapped slug has web/learn/{slug}.html
   3. modules_index.json order→id agrees with the JS map (when index present)
-  4. moduleLearnHref shape is learn/XX-slug.html for 1–14; null outside
+  4. moduleLearnHref shape is learn/XX-slug.html for mapped modules; null outside
+
+The range was 1–14 until 2026-08-15, when module 15 (ops-adjacent) was taught
+rather than excluded (bd-hardening-c-status-hzs.4, CHARTER §11 row 8). A hard
+1–14 bound here would have rejected the fix as "unexpected keys", which is what
+it did on first run — so the bound now follows EXPECTED_SLUGS.
 
 Exit 0 PASS · non-zero FAIL. Empty/missing map = ERROR (no vacuous green).
 """
@@ -37,6 +42,7 @@ EXPECTED_SLUGS: dict[int, str] = {
     12: "12-fire",
     13: "13-security",
     14: "14-auxiliary",
+    15: "15-ops-adjacent",
 }
 
 
@@ -81,8 +87,8 @@ def main() -> int:
     if not slugs:
         errors.append("MODULE_LEARN_SLUGS is empty — refusing vacuous green")
 
-    # --- cover 1–14 exactly (navigable modules) ---
-    for n in range(1, 15):
+    # --- cover every navigable module exactly ---
+    for n in EXPECTED_SLUGS:
         if n not in slugs:
             errors.append(f"module {n}: missing from MODULE_LEARN_SLUGS")
         elif slugs[n] != EXPECTED_SLUGS[n]:
@@ -90,7 +96,7 @@ def main() -> int:
                 f"module {n}: map slug {slugs[n]!r} != expected {EXPECTED_SLUGS[n]!r}"
             )
 
-    extra = set(slugs) - set(range(1, 15))
+    extra = set(slugs) - set(EXPECTED_SLUGS)
     if extra:
         errors.append(f"unexpected MODULE_LEARN_SLUGS keys: {sorted(extra)}")
 
@@ -134,7 +140,11 @@ def main() -> int:
                     n = int(order)
                 except (TypeError, ValueError):
                     continue
-                if n < 1 or n > 14:
+                if n not in EXPECTED_SLUGS:
+                    errors.append(
+                        f"modules_index has navigable order={n} id={mid!r} with no "
+                        f"MODULE_LEARN_SLUGS entry — a learner cannot reach it from results"
+                    )
                     continue
                 if EXPECTED_SLUGS.get(n) != mid:
                     errors.append(
@@ -158,9 +168,9 @@ def main() -> int:
         return 1
 
     print("PASS: smoke_weak_links")
-    print(f"  modules_mapped=1..14 ({len(EXPECTED_SLUGS)})")
+    print(f"  modules_mapped={len(EXPECTED_SLUGS)}")
     print(f"  learn_dir={LEARN_DIR.relative_to(ROOT)}")
-    for n in range(1, 15):
+    for n in sorted(EXPECTED_SLUGS):
         print(f"  M{n:02d} → learn/{EXPECTED_SLUGS[n]}.html")
     return 0
 

@@ -40,7 +40,7 @@ Rule 4 says prefer steppers / toggles / label-the-node. What each present diagra
 | `fire-sequence` | stepper + jump rail + suppression branch toggle | steps origin → detect → confirm → interlock → suppress → recover, and switches the water/gas branch so the same detection event ends two ways |
 | `standards-map` | click-to-expand authority ladder + pairwise scheme comparator | expands what force each rung carries, then picks two classification schemes and reads the axis on which they genuinely disagree |
 | `floor-airflow` | paradigm toggle + defect injection | switches raised ↔ hard floor, injects a defect, sees which element of the cross-section fails and whether it is bypass, recirculation, distribution or ride-through |
-| `dual-cord-spof` | scenario picker + node-state map | runs a real public incident against a dual-path facility, classifies it as independent / common-cause / antecedent violation, and sees which shared node the one-line never drew |
+| `dual-cord-spof` | scenario picker + node-state map | runs a real public incident against a dual-corded facility, classifies it as independent / common-cause / antecedent violation, and sees which shared node the one-line never drew |
 
 ## Content grounding (P1 set)
 

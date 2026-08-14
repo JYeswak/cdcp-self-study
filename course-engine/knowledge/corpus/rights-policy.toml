@@ -1,0 +1,186 @@
+# Corpus rights policy — the machine-checkable invariants for everything under
+# knowledge/corpus/.
+#
+# This file is the ENFORCEMENT TARGET. It exists so the rule survives the agent
+# that wrote it. Prose in README.md and FREE-ACCESS-CAPTURE.md explains the rule;
+# this file *is* the rule, and the corpus-rights gate (bead D4) reads it.
+#
+# Written 2026-08-14 closing bd-ashrae-redistribution-contradiction-p5n and
+# bd-doe-guide-embeds-ashrae-p54.
+
+schema = "cdcp.corpus.rights-policy.v1"
+date = "2026-08-14"
+
+# ---------------------------------------------------------------------------
+# Vocabulary. These are the ONLY legal values. An unrecognised value is an
+# ERROR, not a pass — a typo must never read as permission.
+# ---------------------------------------------------------------------------
+
+[vocabulary]
+# What the repository physically holds for a source.
+capture = [
+  "body-retained",   # publisher-derived prose/binary is stored in-tree
+  "citation-only",   # ONLY {url, title, publisher, fetched_at, rights, redistribution}
+  "not-vendored",    # nothing stored; registered so the decision is not re-litigated
+]
+
+# Who owns the copyright. NOT a price fact.
+rights = [
+  "public-domain",                 # e.g. 17 USC 105, government-AUTHORED portions only
+  "open-licence",                  # named permissive/reciprocal licence, recorded per document
+  "publisher-retains-copyright",
+  "publisher-copyright",           # legacy spelling used by free-pdfs/*.meta.toml sidecars
+  "unknown",                       # ERROR-equivalent: blocks body-retained
+]
+
+# Whether THIS repository may republish the bytes to the world.
+redistribution = [
+  "permitted",
+  "not-licensed",
+  "NOT-licensed",   # legacy spelling used by free-pdfs/*.meta.toml sidecars
+  "unknown",        # ERROR-equivalent: blocks body-retained
+]
+
+# Whether the bytes may be entered into an AI tool at all.
+ai_ingestion = ["permitted", "PROHIBITED", "unknown"]
+
+# ---------------------------------------------------------------------------
+# The published tree. Everything under these paths is world-readable at
+# github.com/JYeswak/cdcp-self-study. Committing here IS publication.
+# ---------------------------------------------------------------------------
+
+[published_tree]
+roots = [
+  "course-engine/knowledge/corpus/public",
+  "course-engine/knowledge/corpus/free-pdfs",
+]
+note = """Retaining a capture for internal grounding and pushing it to a public
+remote are different acts. The second is redistribution. `access = "free"` is a
+PRICE fact about the publisher's own site; it authorises neither."""
+
+# ---------------------------------------------------------------------------
+# INVARIANTS. Each one is a gate assertion. `severity = "error"` means the gate
+# exits non-zero and names the offending file. No invariant here may be
+# satisfied vacuously.
+# ---------------------------------------------------------------------------
+
+[[invariant]]
+id = "CORPUS-R1"
+severity = "error"
+title = "No unlicensed body may live inside the published tree"
+rule = """For every corpus source record (manifest.json `sources[]` and every
+free-pdfs/*.meta.toml sidecar): if redistribution != "permitted", then capture
+MUST NOT be "body-retained" and no `path` under published_tree.roots may exist
+on disk."""
+rationale = """The manifest's own retention_basis says the purpose of a capture
+is "so the claim can be re-verified at source". A citation row serves that
+purpose completely. Publishing the publisher's prose serves it no better and is
+an act the manifest itself records as unlicensed."""
+generalises = "Not an ASHRAE special case. Applies to every publisher, every format, forever."
+
+[[invariant]]
+id = "CORPUS-R2"
+severity = "error"
+title = "Missing rights fields are an ERROR, never default-permissive"
+rule = """Every corpus source record MUST carry non-empty `rights`,
+`redistribution` and `capture`. A record missing any of the three FAILS. A value
+outside [vocabulary] FAILS. Absence must never be read as permission."""
+
+[[invariant]]
+id = "CORPUS-R3"
+severity = "error"
+title = "Third-party material inside a government work is not public domain"
+rule = """If a record declares a non-empty `third_party_figures` list, then
+`rights` MUST NOT be "public-domain" and `redistribution` MUST NOT be
+"permitted"."""
+rationale = """17 USC 105 covers the government-AUTHORED portions of a work only.
+A US Government PDF that reproduces ASHRAE tables under attribution does not
+launder those tables into the public domain. Government-PUBLISHED is not
+government-AUTHORED throughout: check the figure credits, not the cover."""
+
+[[invariant]]
+id = "CORPUS-R4"
+severity = "error"
+title = "An exception must carry a reason and a bead"
+rule = """A record may be exempted from R1 only by carrying
+rights_review = "OPEN" AND a non-empty rights_review_bead AND a non-empty
+rights_review_reason. A bare exemption, an empty reason string, or an exemption
+without a bead is a SCHEMA ERROR, not a pass."""
+
+[[invariant]]
+id = "CORPUS-R5"
+severity = "error"
+title = "Never vacuously green"
+rule = """If the gate scans zero corpus records, zero manifest sources, or zero
+.meta.toml sidecars, it MUST exit non-zero. An empty input set is an ERROR. A
+corpus that was never checked must never report identically to one that passed."""
+
+[[invariant]]
+id = "CORPUS-R6"
+severity = "error"
+title = "AI-ingestion-prohibited sources may not be body-retained"
+rule = """If ai_ingestion = "PROHIBITED", capture MUST be "citation-only" or
+"not-vendored"."""
+rationale = """ASHRAE's published AI policy prohibits entering content from any
+ASHRAE publication or related ASHRAE IP into any AI tool, and prohibits
+AI-created derivative works without express written permission. This repository
+is AI-built end to end, so an in-tree ASHRAE body is ingested by construction."""
+
+# ---------------------------------------------------------------------------
+# Known-bad fixtures. The gate must be PROVEN TO TRIP (artifact-rigor L4).
+# Each fixture is injected, the gate must go RED and name the file; deleting the
+# corresponding assertion must turn the gate's own selftest RED.
+# ---------------------------------------------------------------------------
+
+[[known_bad]]
+invariant = "CORPUS-R1"
+fixture = """manifest source {id="src-fixture-bad", capture="body-retained",
+redistribution="not-licensed", path="knowledge/corpus/public/src-fixture-bad.txt"}"""
+expect = "gate exits non-zero and names src-fixture-bad"
+
+[[known_bad]]
+invariant = "CORPUS-R2"
+fixture = 'manifest source {id="src-fixture-norights"} with no rights key'
+expect = "gate exits non-zero; absence must NOT be treated as permitted"
+
+[[known_bad]]
+invariant = "CORPUS-R3"
+fixture = 'meta.toml with third_party_figures = ["Table 3-1"] and rights = "public-domain"'
+expect = "gate exits non-zero and names the sidecar"
+
+[[known_bad]]
+invariant = "CORPUS-R4"
+fixture = 'record with rights_review = "OPEN" and rights_review_reason = ""'
+expect = "gate exits non-zero: bare exemption is a schema error"
+
+[[known_bad]]
+invariant = "CORPUS-R5"
+fixture = "manifest with sources = []"
+expect = "gate exits non-zero; must not report pass"
+
+[[known_bad]]
+invariant = "CORPUS-R6"
+fixture = 'record with ai_ingestion = "PROHIBITED" and capture = "body-retained"'
+expect = "gate exits non-zero and names the record"
+
+# ---------------------------------------------------------------------------
+# Open violations. Recorded here so the gate can be WIRED TODAY without going
+# red on work that is already tracked. Every entry needs a bead. This table
+# shrinks to empty; it must never grow without a bead.
+# ---------------------------------------------------------------------------
+
+[[open_violation]]
+invariant = "CORPUS-R1"
+bead = "bd-corpus-public-captures-not-licensed-class-kej"
+records = [
+  "src-epi-cdcp-page", "src-exin-cdcp-page", "src-nh-cdcp", "src-tuv-22237",
+  "src-en-50600-overview", "src-tia-942", "src-tia-942-c-fotc",
+  "src-uptime-tiers", "src-ocp-ready", "src-curriculum-map-local",
+]
+reason = """Ten public-page body captures carry rights="publisher-retains-copyright",
+redistribution="not-licensed" and are committed to the public tree — the same
+defect class as the two ASHRAE rows, minus the AI-policy aggravation. They are
+NOT removed in this pass because scripts/validate_grounding.py consumes these
+bodies as its grounding corpus (601k chars); deleting them without a replacement
+grounding source would take the build red across four concurrently active
+agents. Tracked, not tolerated."""
