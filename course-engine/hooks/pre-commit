@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+# cdcp pre-commit — THIN SHIM. Install with:
+#   cargo run -q -p cdcp_gate -- install-hooks
+#
+# There is no decision logic in this file, and there must never be any. Every
+# assertion — which paths are scanned, what counts as an addition, whether an
+# allowlist row is well formed or expired — lives in Rust, in
+# crates/cdcp_gate/src/gates/substrate_guard.rs, under `cargo test -p cdcp_gate`.
+# The guard that bans shell does not get to be shell.
+#
+# The body below is one exec. If you find yourself wanting an `if` here, the
+# thing you want belongs in the gate.
+#
+# Fail-closed by construction: `set -e` plus `exec` means a missing cargo, a
+# build error, or any non-zero gate exit all block the commit.
+#
+# Git runs hooks with the working tree root as cwd, so the paths below are
+# relative to cdcp-self-study/.
+set -eu
+exec cargo run --quiet --manifest-path course-engine/Cargo.toml -p cdcp_gate -- --root course-engine substrate-guard --staged

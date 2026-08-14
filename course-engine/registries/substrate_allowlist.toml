@@ -1,0 +1,343 @@
+# =============================================================================
+# substrate_allowlist.toml — the non-Rust exemption register (S0)
+# =============================================================================
+# Enforced by `cdcp_gate substrate-guard` (crates/cdcp_gate/src/gates/substrate_guard.rs)
+# from scripts/check.sh and from the pre-commit hook.
+#
+# WHAT THE GATE ENFORCES (floor-raise, nothing more): a `.py` or `.sh` file
+# tracked or staged under scripts/, crates/, or the engine root must appear here
+# with a non-empty `reason`, a `migration_bead`, and an `expires` date that has
+# not passed. Blank is never permissive — a missing or empty field is a schema
+# ERROR, not permission.
+#
+# WHAT IT CANNOT DO: decide whether a `reason` is honest, whether a
+# `migration_bead` names real work, or whether an `expires` was picked to be far
+# away. Those are review's job. The gate only makes the exemption exist, be
+# dated, be attributed, and show up in a diff.
+#
+# THIS FILE IS THE MIGRATION WORKLIST. Every row is a debt. The row count is the
+# progress metric for epic bd-substrate-rust-migration-jhd and its target is 0.
+# Porting a script to Rust means DELETING its row; a row whose file is gone is
+# itself an error.
+#
+# Measured 2026-08-14: 3,763 lines of Rust against 6,624 Python and 2,155 shell,
+# with 17 Python scripts wired into check.sh as load-bearing gates — three of
+# them added the day after the Rust pattern was written down. Doctrine did not
+# stop it. Rows below are grandfathered EXPLICITLY and visibly; none of them
+# arrived silently, and none of them can stay past its date without someone
+# re-affirming it in a reviewable diff.
+# =============================================================================
+
+schema_version = 1
+
+[scan]
+# The gate compiles in a floor (roots scripts+crates, extensions py+sh, engine
+# root files ON). This section may WIDEN that floor; narrowing it is an ERROR,
+# so the gate cannot be switched off by a one-word edit here.
+roots = ["scripts", "crates"]
+extensions = ["py", "sh"]
+include_engine_root_files = true
+
+[wiring]
+# BUILT != WIRED. `status = "pending"` means the check.sh step has not landed
+# yet: the gate reports the gap on stderr but does not fail, so the very commit
+# that wires it is not blocked by its own absence. Once the orchestrator adds the
+# step, flip this to "wired" in the same commit — from then on, deleting the step
+# is RED. Empty or unknown status is a schema ERROR.
+status = "wired"
+check_sh = "scripts/check.sh"
+invocation = "cargo run -q -p cdcp_gate -- substrate-guard || fail \"substrate guard\""
+bead = "bd-substrate-rust-migration-jhd.1"
+
+# =============================================================================
+# WAVE 1 — check.sh referential-integrity + drift gates (bd-…jhd.2 … .4)
+# =============================================================================
+
+[[allow]]
+path = "scripts/verify_orphans.py"
+reason = "Load-bearing check.sh gate: topic<->item referential integrity. Grandfathered pending the byte-exact Rust port; check.sh hard-fails if it is absent, so it cannot simply be deleted."
+migration_bead = "bd-substrate-rust-migration-jhd.2"
+expires = "2026-10-31"
+
+[[allow]]
+path = "scripts/verify_injection_count.py"
+reason = "Load-bearing check.sh gate: the L4 drift guard that keeps the advertised known-bad count equal to the measured one. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.3"
+expires = "2026-10-31"
+
+[[allow]]
+path = "scripts/verify_doc_consistency.py"
+reason = "Load-bearing check.sh gate: roadmap/publication truth across CHARTER, README and PHASE-NEXT. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.4"
+expires = "2026-10-31"
+
+# =============================================================================
+# WAVE 2 — check.sh verifiers (bd-…jhd.5 … .10)
+# =============================================================================
+
+[[allow]]
+path = "scripts/verify_knowledge_paths.py"
+reason = "Load-bearing check.sh gate: knowledge primary_notes path resolution into ../modules/. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.5"
+expires = "2026-11-30"
+
+[[allow]]
+path = "scripts/verify_coverage.py"
+reason = "Load-bearing check.sh gate: L6 domain coverage oracle for modules 1-14 against domain_min. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.6"
+expires = "2026-11-30"
+
+[[allow]]
+path = "scripts/verify_bank.py"
+reason = "Load-bearing check.sh gate: L2 item-bank pool validation. Grandfathered pending the byte-exact Rust port; the bank is the product's primary data surface."
+migration_bead = "bd-substrate-rust-migration-jhd.7"
+expires = "2026-11-30"
+
+[[allow]]
+path = "scripts/verify_content_lock.py"
+reason = "Load-bearing check.sh gate: content.lock integrity for published web data. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.8"
+expires = "2026-11-30"
+
+[[allow]]
+path = "scripts/validate_grounding.py"
+reason = "Load-bearing check.sh gate: anti-hallucination heuristics and corpus overlap for bank items. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.9"
+expires = "2026-11-30"
+
+[[allow]]
+path = "scripts/verify_objectives.py"
+reason = "Load-bearing check.sh gate: L7 objective coverage against registries/objectives.toml. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.10"
+expires = "2026-11-30"
+
+# =============================================================================
+# WAVE 3 — check.sh builders (bd-…jhd.11 … .13)
+# =============================================================================
+
+[[allow]]
+path = "scripts/build_glossary_json.py"
+reason = "Load-bearing check.sh step: generates web/data glossary.json consumed by the learner surface. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.11"
+expires = "2026-12-31"
+
+[[allow]]
+path = "scripts/build_units.py"
+reason = "Load-bearing check.sh step: generates the units_index the Learn surface reads. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.12"
+expires = "2026-12-31"
+
+[[allow]]
+path = "scripts/export_anki.py"
+reason = "Load-bearing check.sh step: V11 Anki export, a shipped learner artifact. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.13"
+expires = "2026-12-31"
+
+# =============================================================================
+# WAVE 4 — check.sh smokes (bd-…jhd.14 … .18)
+# =============================================================================
+
+[[allow]]
+path = "scripts/smoke_diagrams.py"
+reason = "Load-bearing check.sh smoke: M8-C diagram presence and honesty on the learner surface. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.14"
+expires = "2026-12-31"
+
+[[allow]]
+path = "scripts/smoke_learn_chrome.py"
+reason = "Load-bearing check.sh smoke: M8-A Learn chrome and navigation shell. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.15"
+expires = "2026-12-31"
+
+[[allow]]
+path = "scripts/smoke_weak_links.py"
+reason = "Load-bearing check.sh smoke: L6 weak-links recommendation surface. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.16"
+expires = "2026-12-31"
+
+[[allow]]
+path = "scripts/smoke_learn.py"
+reason = "Load-bearing check.sh smoke: L5 Learn surface baseline. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.17"
+expires = "2026-12-31"
+
+[[allow]]
+path = "scripts/smoke_feedback_links.py"
+reason = "Load-bearing check.sh smoke: L7-S2 feedback section-anchor links. Grandfathered pending the byte-exact Rust port."
+migration_bead = "bd-substrate-rust-migration-jhd.18"
+expires = "2026-12-31"
+
+# =============================================================================
+# ON THE check.sh PATH BUT WITH NO PORT BEAD YET
+# These two run inside check.sh and are load-bearing, but the epic's .2-.18
+# breakdown does not cover them. Short fuse on purpose: the first thing owed
+# here is a bead, not a port.
+# =============================================================================
+
+[[allow]]
+path = "scripts/smoke_a11y.py"
+reason = "Load-bearing check.sh smoke (L7 a11y baseline) that the .2-.18 port breakdown missed. Owed a port bead under the epic before this date; the fuse is short because an untracked gate is how the last three Python gates arrived."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2026-10-31"
+
+[[allow]]
+path = "scripts/smoke_learn_v2.py"
+reason = "Load-bearing check.sh smoke (M8-B/D Learn v2) that the .2-.18 port breakdown missed. Owed a port bead under the epic before this date."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2026-10-31"
+
+# =============================================================================
+# AUTHORING / REGENERATION SCRIPTS — not on the check.sh path
+# Run by hand to produce content, then their output is gated. Lower blast radius
+# than a gate, so a longer fuse; they are still debt and still expire.
+# =============================================================================
+
+[[allow]]
+path = "scripts/_regen_manifest.py"
+reason = "Manual authoring helper: regenerates the content manifest. Not on the check.sh path; ports after the gates, since a broken authoring script fails loudly at author time."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/build_learn.py"
+reason = "Manual authoring step: builds the Learn pages from module content. Not on the check.sh path; ports after the gates."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/build_reference.py"
+reason = "Manual authoring step: builds the closed-notes reference surface. Not on the check.sh path; ports after the gates."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/copy_module_content.py"
+reason = "Manual import step: copies parent-corpus module content into the engine. Not on the check.sh path; ports after the gates."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/fetch_public_corpus.py"
+reason = "Manual corpus fetch for grounding overlap. Network-touching and run by hand; not on the check.sh path. Ports after the gates."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/gen_content_lock.py"
+reason = "Manual generator for content.lock, whose OUTPUT is gated by verify_content_lock. Ports alongside its verifier rather than before it."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/gen_learn_pages.py"
+reason = "Manual generator for the per-unit Learn pages. Not on the check.sh path; ports after the gates."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/regen_goldens_after_bank.py"
+reason = "Manual golden regeneration after a bank edit. Deliberately awkward to run; its output is gated by the Rust goldens check, which is the real assertion."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/sample_mock.py"
+reason = "Manual mock-form sampling helper used while authoring the bank. Superseded in the product by cdcp_cli export-web; kept until the authoring flow stops calling it."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+# =============================================================================
+# L4 SELFTEST HARNESSES (shell)
+# These inject known-bad fixtures, assert RED, and restore. They orchestrate the
+# real gates rather than deciding anything themselves, but they are shell that
+# runs inside check.sh, so they are debt and they expire. Each ports with, or
+# just after, the gate it exercises.
+# =============================================================================
+
+[[allow]]
+path = "scripts/selftest_known_bad.sh"
+reason = "L4 known-bad harness: injects fixtures, asserts the gates trip, restores the tree. Orchestrator over the real gates; ports with the gates it exercises."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/selftest_orphan.sh"
+reason = "L4 known-bad harness for the orphan gate (empty bank ERROR, orphan ref RED, live GREEN). Ports with bd-substrate-rust-migration-jhd.2."
+migration_bead = "bd-substrate-rust-migration-jhd.2"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/selftest_injection_count.sh"
+reason = "L4 known-bad harness for the drift guard (off-by-one RED, empty log ERROR). Ports with bd-substrate-rust-migration-jhd.3."
+migration_bead = "bd-substrate-rust-migration-jhd.3"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/selftest_doc_consistency.sh"
+reason = "L4 known-bad harness for the roadmap-truth gate (dup row RED, cross-doc conflict RED). Ports with bd-substrate-rust-migration-jhd.4."
+migration_bead = "bd-substrate-rust-migration-jhd.4"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/selftest_l6_coverage.sh"
+reason = "L4 known-bad harness for the coverage oracle (empty RED, missing-module RED). Ports with bd-substrate-rust-migration-jhd.6."
+migration_bead = "bd-substrate-rust-migration-jhd.6"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/selftest_l7_objectives.sh"
+reason = "L4 known-bad harness for the objective-coverage gate. Ports with bd-substrate-rust-migration-jhd.10."
+migration_bead = "bd-substrate-rust-migration-jhd.10"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/selftest_l5.sh"
+reason = "L4 known-bad harness for the L5 browser surface: honesty plant RED, digest match, flipped golden RED, empty fixtures ERROR. Ports with the L5 e2e digest path."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/selftest_l5_honesty.sh"
+reason = "L4 known-bad harness for the credential-honesty scan on the learner surface. The honesty claim is the product's load-bearing one; ports with the L5 path."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/selftest_reconstructed.sh"
+reason = "L4 harness that reconstructs the L5-V11 stages and asserts each trips RED. Runs the full gate repeatedly; ports last, once the stages it drives are Rust."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+# =============================================================================
+# THIN ORCHESTRATORS AND BUILD DRIVERS (shell that stays, for now)
+# =============================================================================
+
+[[allow]]
+path = "scripts/check.sh"
+reason = "THIS ONE LEGITIMATELY STAYS SHELL: check.sh is the thin ordered orchestrator, not an assertion. It sequences gates and maps their exit codes; every assertion it reports belongs to the Rust or Python gate it invoked. A thin orchestrator is endorsed; the day it starts deciding things, it becomes a port. Dated for annual re-affirmation rather than never, because there are no permanent exemptions here, only renewed ones."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-06-30"
+
+[[allow]]
+path = "scripts/e2e_l5_digest.sh"
+reason = "Thin driver: runs the native and browser grade paths and compares digests. The comparison itself is the Rust CLI's; this sequences the two invocations. Ports when the L5 e2e path moves into cdcp_gate."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-06-30"
+
+[[allow]]
+path = "scripts/smoke_slo.sh"
+reason = "Thin driver for the L7 SLO budget smoke: times cdcp_cli invocations against slo.toml. Ports when SLO enforcement moves into cdcp_gate."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-06-30"
+
+[[allow]]
+path = "scripts/build_web_wasm.sh"
+reason = "Thin build driver: invokes the wasm32 toolchain and stages the artifact under web/assets/wasm/. Toolchain orchestration, no assertions of its own."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-06-30"
+
+[[allow]]
+path = "scripts/_run_build_learn.sh"
+reason = "Thin wrapper that invokes build_learn.py with the right working directory. Disappears when build_learn.py ports; tracked with it rather than separately."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"

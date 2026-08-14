@@ -85,6 +85,18 @@ echo "==> cdcp_registry_check (L1 claims constitution)"
 cargo run -q -p cdcp_registry_check || fail "registry-check"
 ok "L1 registry-check"
 
+# S0 substrate floor. Placed next to the L1 registry gate because it is the same
+# kind of thing — a registry constitution over what may exist in the tree — and it
+# fails fast (only serde+toml compile).
+echo "==> cdcp_gate substrate-guard (S0 substrate floor)"
+cargo run -q -p cdcp_gate -- substrate-guard || fail "substrate guard (unreasoned .py/.sh)"
+ok "S0 substrate floor (no unreasoned non-Rust file in scripts/ · crates/ · repo root)"
+
+echo "==> cdcp_gate install-hooks --check (BUILT != WIRED)"
+cargo run -q -p cdcp_gate -- install-hooks --check \
+  || fail "pre-commit shim not installed (run: cargo run -q -p cdcp_gate -- install-hooks)"
+ok "pre-commit shim installed and current"
+
 
 # exam_form hard numbers (public CDCP form)
 grep -q 'n_items = 40' knowledge/exam_form.toml || fail "exam_form n_items"

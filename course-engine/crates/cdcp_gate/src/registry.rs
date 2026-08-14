@@ -58,7 +58,9 @@ impl GateError {
 impl fmt::Display for GateError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::Violation(items) => write!(f, "{} violation(s): {}", items.len(), items.join("; ")),
+            Self::Violation(items) => {
+                write!(f, "{} violation(s): {}", items.len(), items.join("; "))
+            }
             Self::Usage(m) => write!(f, "usage: {m}"),
             Self::Error(m) => write!(f, "error: {m}"),
         }
@@ -125,7 +127,11 @@ mod tests {
         assert_eq!(crate::exit::OK, 0);
         assert_ne!(crate::exit::VIOLATION, crate::exit::ERROR);
         assert_ne!(crate::exit::VIOLATION, crate::exit::USAGE);
-        for c in [crate::exit::VIOLATION, crate::exit::USAGE, crate::exit::ERROR] {
+        for c in [
+            crate::exit::VIOLATION,
+            crate::exit::USAGE,
+            crate::exit::ERROR,
+        ] {
             assert_ne!(c, crate::exit::OK, "failure code must not be 0");
         }
     }

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP study diagram — fire sequence: detect, interlock, suppress, recover. Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Fire sequence</title>
+  <link rel="stylesheet" href="../assets/css/course.css">
+  <style>
+    /* Page-local diagram styles (tokens from course.css) */
+    .seq { max-width: 46rem; margin: 0 auto; }
+    .seq-rail {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin: 0 0 1rem;
+      padding: 0;
+      list-style: none;
+    }
+    .seq-rail li { flex: 1 1 6rem; }
+    .seq-rail button {
+      width: 100%;
+      min-height: 40px;
+      padding: 0.4rem 0.5rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--fg-dim);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .seq-rail button:hover,
+    .seq-rail button:focus-visible { color: var(--fg); border-color: rgba(52, 211, 153, 0.4); }
+    .seq-rail button[aria-current="step"] {
+      color: var(--fg);
+      border-color: rgba(52, 211, 153, 0.55);
+      background: rgba(52, 211, 153, 0.1);
+    }
+    .step {
+      display: none;
+      padding: 1.1rem 1.2rem 1.25rem;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--surface);
+      min-height: 15rem;
+    }
+    .step.is-active { display: block; border-color: rgba(52, 211, 153, 0.45); }
+    .step__n { font-family: var(--mono); color: var(--violet); font-size: 0.75rem; letter-spacing: 0.06em; }
+    .step__title { margin: 0.35rem 0 0.6rem; color: var(--fg); font-size: 1.2rem; }
+    .step__body { margin: 0 0 0.8rem; color: var(--fg-mid); }
+    .step__list { margin: 0 0 0.8rem; padding-left: 1.1rem; color: var(--fg-dim); }
+    .step__list li { margin-bottom: 0.35rem; }
+    .callout {
+      margin: 0.9rem 0 0;
+      padding: 0.7rem 0.85rem;
+      border-left: 3px solid var(--amber);
+      border-radius: 0 8px 8px 0;
+      background: rgba(251, 191, 36, 0.07);
+      color: var(--fg-mid);
+      font-size: 0.92rem;
+    }
+    .callout strong { color: var(--honesty-fg); }
+    .branch-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0 0 0.85rem; }
+    .branch-tabs button {
+      min-height: var(--touch-min);
+      padding: 0.5rem 0.9rem;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--fg-dim);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .branch-tabs button[aria-pressed="true"] {
+      background: rgba(167, 139, 250, 0.14);
+      border-color: rgba(167, 139, 250, 0.55);
+      color: var(--fg);
+    }
+    .branch-panel { display: none; }
+    .branch-panel.is-active { display: block; }
+    .step-controls { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+    .step-controls button {
+      min-height: var(--touch-min);
+      padding: 0.5rem 1rem;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--fg);
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .step-controls button.primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+    .step-controls button:disabled { opacity: 0.4; cursor: default; }
+    .tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+      color: var(--fg-dim);
+      margin: 0 0.3rem 0.3rem 0;
+    }
+    .tag--life { border-color: rgba(248, 113, 113, 0.5); color: var(--red); }
+    .tag--asset { border-color: rgba(52, 211, 153, 0.45); color: var(--accent); }
+    .tag--ops { border-color: rgba(167, 139, 250, 0.5); color: var(--violet); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="../learn.html">Learn</a></li>
+          <li><a href="../learn/12-fire.html">M12</a></li>
+          <li><a href="../reference.html">Reference</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" tabindex="-1">
+    <h1>Fire sequence — detect → interlock → suppress</h1>
+    <p class="lede">Step the white-space fire chain and switch the suppression branch to see how the same detection event ends two different ways.
+      <strong>Interview one-liner:</strong> detection buys the time, the interlocks decide what the event costs — and the suppression water is inside the damage you were protecting against, not outside it.</p>
+
+    <div class="seq" id="fire-sequence" data-diagram="fire-sequence">
+      <ol class="seq-rail" id="fire-rail" aria-label="Sequence steps"></ol>
+
+      <!-- 1 -->
+      <section class="step is-active" data-i="0" aria-label="Step 1">
+        <div class="step__n">STEP 1 / 6 · ORIGIN</div>
+        <h2 class="step__title">Ignition and the fuel you actually have</h2>
+        <p class="step__body">Fire still needs fuel, oxygen and heat. What is distinctive in a data centre is <em>where</em> those live: energised electrical gear, energy storage, and the combustibles operations quietly leaves behind.</p>
+        <ul class="step__list">
+          <li><strong>Electrical</strong> — overheated PDUs, loose lugs, overloaded circuits, failing PSUs, arc faults.</li>
+          <li><strong>Energy storage</strong> — VRLA thermal events and lithium-ion battery rooms; a Li-ion string also adds a battery management system, so the battery acquires a control dependency and the room acquires an installation standard (NFPA 855).</li>
+          <li><strong>Hot work</strong> — welding, cutting and soldering during fit-out, under permit and fire watch, usually with detection impaired.</li>
+          <li><strong>Housekeeping</strong> — cardboard, pallets and foam in white space. Staging discipline is a fire control, not tidiness.</li>
+          <li><strong>Adjacent plant</strong> — generator yards, day tanks and fuel systems carry the Class B risk and are usually separated by rated construction.</li>
+        </ul>
+        <p class="callout"><strong>Prevention is the only step with no trade-off.</strong> Everything after this point costs you either water, agent, downtime, or all three.</p>
+      </section>
+
+      <!-- 2 -->
+      <section class="step" data-i="1" aria-label="Step 2">
+        <div class="step__n">STEP 2 / 6 · DETECT</div>
+        <h2 class="step__title">Detection, against a room designed to move air</h2>
+        <p class="step__body">A data hall is a wind tunnel. High air-change rates dilute smoke before it reaches a ceiling spot detector, which is exactly why aspirating (early-warning) smoke detection is the common primary layer in white space and spot detection is the baseline behind it.</p>
+        <ul class="step__list">
+          <li><strong>Aspirating smoke detection</strong> — pipes continuously sample air to a central detector that senses very low particulate concentrations. Typically staged <span class="mono">Alert → Action → Fire</span> so a human can investigate before anything discharges.</li>
+          <li><strong>Spot smoke</strong> — photoelectric is the usual choice for smouldering cable and plastic. Placed at ceiling, in the ceiling void, and under the raised floor, because the plenum is both a cable route and a smoke path.</li>
+          <li><strong>Heat</strong> — fixed-temperature or rate-of-rise. Reliable, and generally too late to be the primary protection for electronics.</li>
+          <li><strong>Flame</strong> — optical, for generator and fuel spaces rather than server aisles.</li>
+        </ul>
+        <p class="callout">The detection layer you can name in an interview is <strong>staged alarm plus a human investigation window</strong>. "We have smoke detectors" is not an answer; "ASD at Alert, who walks the aisle, and what they are allowed to do before Action" is.</p>
+      </section>
+
+      <!-- 3 -->
+      <section class="step" data-i="2" aria-label="Step 3">
+        <div class="step__n">STEP 3 / 6 · CONFIRM</div>
+        <h2 class="step__title">Confirmation — two signals before anything dumps</h2>
+        <p class="step__body">Critical spaces normally require two independent detectors, or two zones, in alarm before automatic release. Cross-zoning (double-knock) exists because a single dirty, failed or bumped device should never be able to empty a cylinder bank over a live hall.</p>
+        <ul class="step__list">
+          <li>One device in alarm → notification and investigation.</li>
+          <li>Two devices / two zones in alarm → release logic is armed.</li>
+          <li>Detection zone maps to suppression zone. If nobody can state that mapping, the release logic is undocumented.</li>
+        </ul>
+        <p class="callout">Confirmation is where a false-alarm culture becomes a safety problem: <strong>an abort switch is a supervised delay for investigation, never a mute button</strong>, and an impairment is a logged, compensated, time-boxed state with a fire watch.</p>
+      </section>
+
+      <!-- 4 -->
+      <section class="step" data-i="3" aria-label="Step 4">
+        <div class="step__n">STEP 4 / 6 · INTERLOCK</div>
+        <h2 class="step__title">Interlocks — the fire alarm reaches out and moves the building</h2>
+        <p class="step__body">This is the step IT people miss, and the one that makes fire an availability topic rather than only a life-safety topic. On alarm the fire system commands other systems, and those commands are design-specific — read your own cause-and-effect matrix.</p>
+        <ul class="step__list">
+          <li><span class="tag tag--ops">cooling</span> AHU / CRAC fans stop or shift to smoke-control mode. Cooling "failing" during a fire event is usually the interlock working, not a mechanical fault — the runbook must say which.</li>
+          <li><span class="tag tag--ops">ducts</span> Smoke and fire dampers close where ducts cross rated walls, so smoke and any gaseous agent are not distributed through the return path.</li>
+          <li><span class="tag tag--life">egress</span> Access-control maglocks release. Security never overrides life safety on an egress path.</li>
+          <li><span class="tag tag--life">building</span> Elevator recall and stair pressurisation in multi-storey buildings.</li>
+          <li><span class="tag tag--asset">power</span> Emergency Power Off, where the design has it, can take the load down as designed.</li>
+        </ul>
+        <p class="callout"><strong>Redundancy does not cover this.</strong> Uptime's own Tier summary lists the Tier IV single points of failure as "none <em>plus fire and EPO</em>", and states that operation of the fire alarm, fire suppression or EPO may cause a data-centre disruption. Life-safety systems sit outside the fault-tolerance envelope by design and can command the whole load off. A resilience model that omits the fire-alarm and EPO circuits reports a fault tolerance the standard itself does not claim.</p>
+      </section>
+
+      <!-- 5 -->
+      <section class="step" data-i="4" aria-label="Step 5">
+        <div class="step__n">STEP 5 / 6 · SUPPRESS</div>
+        <h2 class="step__title">Suppression — pick the branch</h2>
+        <p class="step__body">Same detection event, two engineering worlds. The choice is driven by occupancy, room sealability, asset value, environmental and agent regulation, refill cost, the building's water strategy, and what the insurer and the Authority Having Jurisdiction will accept.</p>
+        <div class="branch-tabs" role="group" aria-label="Suppression branch">
+          <button type="button" data-branch="water" aria-pressed="true">Water path (pre-action)</button>
+          <button type="button" data-branch="gas" aria-pressed="false">Gas path (clean agent / inert)</button>
+        </div>
+        <div class="branch-panel is-active" data-branch-panel="water">
+          <ul class="step__list">
+            <li><strong>Wet pipe</strong> keeps water charged above the room permanently — a fitting failure or mechanical damage floods equipment with no fire at all. That is why it is common in offices and corridors and usually avoided over white space.</li>
+            <li><strong>Pre-action</strong> keeps the pipe dry or supervised; detection admits water, and a head must still open for water to leave. <strong>Single-interlock</strong>: detection fills the pipe. <strong>Double-interlock</strong>: detection <em>and</em> head operation are both required before fill — maximum resistance to accidental discharge, slightly more to go wrong.</li>
+            <li><strong>Water mist</strong> uses far less total water to cool and locally displace oxygen; an engineered specialty — verify the listing against the occupancy.</li>
+            <li>Water is cheap to restore, excellent at protecting structure, and the fire brigade's medium. It is also conductive, heavy, and gravity-fed into every cable path below it.</li>
+          </ul>
+        </div>
+        <div class="branch-panel" data-branch-panel="gas">
+          <ul class="step__list">
+            <li><strong>Inert blends</strong> (nitrogen / argon mixtures) lower oxygen below what combustion supports while staying breathable at design concentration for the egress period.</li>
+            <li><strong>Chemical clean agents</strong> interrupt combustion and cool, with agent chemistry increasingly constrained by environmental regulation.</li>
+            <li><strong>CO₂ total flooding</strong> is lethal at design concentration and is not used for normally occupied white space.</li>
+            <li><strong>Non-negotiables:</strong> enclosure integrity (door-fan) test and a designed hold time, pre-discharge alarm and delay, a supervised abort, HVAC shutdown and damper closure, and pressure-relief venting so the discharge does not blow out the walls it was protecting.</li>
+            <li>Gas leaves the equipment intact — and gives you nothing at all if the room does not hold. Gas without an integrity test is theatre.</li>
+          </ul>
+        </div>
+        <p class="callout">Gas is not a substitute for the building's sprinkler strategy. Codes frequently still require water-based protection for the structure; the gas system is often supplemental or zone-specific, and <strong>the AHJ decides</strong>.</p>
+      </section>
+
+      <!-- 6 -->
+      <section class="step" data-i="5" aria-label="Step 6">
+        <div class="step__n">STEP 6 / 6 · RECOVER</div>
+        <h2 class="step__title">Recovery — and the damage most fire content forgets</h2>
+        <p class="step__body">The event does not end at extinguishment. It ends when the room is re-occupied, the system is re-armed, and someone has signed that the impairment is closed.</p>
+        <div class="branch-panel is-active" data-branch-panel="water">
+          <ul class="step__list">
+            <li>Dry-out, corrosion control, and a decision per asset on what is safe to re-energise.</li>
+            <li>Drainage, leak trays and rope leak detection are recovery equipment, not decoration.</li>
+            <li>Insurance and forensics need the pre-event state — impairment logs and cause-and-effect matrices become evidence.</li>
+          </ul>
+        </div>
+        <div class="branch-panel" data-branch-panel="gas">
+          <ul class="step__list">
+            <li>Agent refill lead time is the real outage clock — the room is unprotected until the cylinders are back.</li>
+            <li>Enclosure integrity must be re-tested; the discharge itself, and anything opened during response, may have changed the room.</li>
+            <li>Root cause before re-occupancy, not after.</li>
+          </ul>
+        </div>
+        <p class="callout"><strong>The scope point almost everyone misses:</strong> NFPA 75 — the standard for fire protection of information technology equipment — is written to protect ITE from fire <em>or its associated effects</em>: smoke, corrosion, heat, <em>and water</em>. Water damage from your own suppression is inside the standard's scope, not a regrettable side effect outside it. That reframes the whole water-versus-gas conversation: you are not choosing between damage and no damage, you are choosing which damage you have planned a recovery for.</p>
+        <p class="callout">Certification-axis honesty: NFPA documents are <em>model</em> standards. They bind only where an Authority Having Jurisdiction adopts them, and the adopted edition typically lags the current one. "Per NFPA 75" without naming the adopting jurisdiction and edition is a soft claim. Never quote a clause number from memory — this page names standards and does not reproduce their text.</p>
+      </section>
+
+      <div class="step-controls">
+        <button type="button" id="fire-prev">← Prev</button>
+        <button type="button" class="primary" id="fire-next">Next →</button>
+      </div>
+    </div>
+
+    <p class="meta" style="margin-top:1.5rem">
+      <a href="../learn/12-fire.html">← Module 12</a>
+      · <a href="../quiz.html?module=12">Module 12 quiz</a>
+      · <a href="dual-cord-spof.html">Dual-cord SPOF diagram</a>
+      · Conceptual teaching diagram — not a fire-protection design document and not a certification claim.
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var root = document.getElementById("fire-sequence");
+      if (!root) return;
+
+      var steps = Array.prototype.slice.call(root.querySelectorAll(".step"));
+      var rail = document.getElementById("fire-rail");
+      var prev = document.getElementById("fire-prev");
+      var next = document.getElementById("fire-next");
+      var LABELS = ["Origin", "Detect", "Confirm", "Interlock", "Suppress", "Recover"];
+      var i = 0;
+      var branch = "water";
+
+      LABELS.forEach(function (label, idx) {
+        var li = document.createElement("li");
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = (idx + 1) + " " + label;
+        btn.addEventListener("click", function () { i = idx; paint(); });
+        li.appendChild(btn);
+        rail.appendChild(li);
+      });
+
+      function paintBranch() {
+        Array.prototype.forEach.call(root.querySelectorAll("[data-branch-panel]"), function (p) {
+          p.classList.toggle("is-active", p.getAttribute("data-branch-panel") === branch);
+        });
+        Array.prototype.forEach.call(root.querySelectorAll("[data-branch]"), function (b) {
+          b.setAttribute("aria-pressed", b.getAttribute("data-branch") === branch ? "true" : "false");
+        });
+      }
+
+      function paint() {
+        steps.forEach(function (s, idx) { s.classList.toggle("is-active", idx === i); });
+        Array.prototype.forEach.call(rail.querySelectorAll("button"), function (b, idx) {
+          if (idx === i) { b.setAttribute("aria-current", "step"); }
+          else { b.removeAttribute("aria-current"); }
+        });
+        prev.disabled = i === 0;
+        next.disabled = i === steps.length - 1;
+        next.textContent = i === steps.length - 1 ? "End of sequence" : "Next →";
+      }
+
+      prev.addEventListener("click", function () { if (i > 0) { i--; paint(); } });
+      next.addEventListener("click", function () { if (i < steps.length - 1) { i++; paint(); } });
+
+      Array.prototype.forEach.call(root.querySelectorAll("[data-branch]"), function (b) {
+        b.addEventListener("click", function () {
+          branch = b.getAttribute("data-branch");
+          paintBranch();
+        });
+      });
+
+      paintBranch();
+      paint();
+    })();
+  </script>
+</body>
+</html>

@@ -7,6 +7,7 @@ members = [
   "crates/cdcp_assemble",
   "crates/cdcp_cli",
   "crates/cdcp_registry_check",
+  "crates/cdcp_gate",
   "crates/cdcp_wasm",
 ]
 exclude = ["fuzz"]

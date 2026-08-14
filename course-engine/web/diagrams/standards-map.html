@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP study diagram — standards authority map: who owns what, and where the schemes genuinely disagree. Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Standards map</title>
+  <link rel="stylesheet" href="../assets/css/course.css">
+  <style>
+    /* Page-local diagram styles (tokens from course.css) */
+    .ladder { max-width: 46rem; margin: 0 auto 2rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .rung {
+      min-height: var(--touch-min);
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--surface);
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+    }
+    .rung[aria-expanded="true"] { border-color: rgba(52, 211, 153, 0.5); background: rgba(52, 211, 153, 0.07); }
+    .rung__force {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .rung__force--binds { color: var(--red); }
+    .rung__force--signed { color: var(--amber); }
+    .rung__force--market { color: var(--violet); }
+    .rung__force--voluntary { color: var(--fg-faint); }
+    .rung__name { font-weight: 700; color: var(--fg); display: block; }
+    .rung__hint { color: var(--fg-dim); font-size: 0.92rem; margin: 0.4rem 0 0; display: none; }
+    .rung[aria-expanded="true"] .rung__hint { display: block; }
+    .ladder-arrow { text-align: center; color: var(--fg-faint); font-family: var(--mono); font-size: 0.75rem; }
+
+    .compare { max-width: 52rem; margin: 0 auto; }
+    .scheme-row { display: grid; grid-template-columns: 1fr; gap: 0.5rem; margin: 0 0 1rem; }
+    @media (min-width: 760px) { .scheme-row { grid-template-columns: repeat(3, 1fr); } }
+    .scheme-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.22);
+      padding: 0.7rem 0.85rem;
+    }
+    .scheme-card h3 { margin: 0 0 0.25rem; font-size: 0.98rem; color: var(--fg); }
+    .scheme-card p { margin: 0; font-size: 0.85rem; color: var(--fg-dim); }
+    .scheme-card .owner { font-family: var(--mono); font-size: 0.7rem; color: var(--violet); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.3rem; }
+
+    .pair-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1rem; }
+    .pair-bar button {
+      min-height: var(--touch-min);
+      padding: 0.5rem 0.9rem;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--fg-dim);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .pair-bar button:hover, .pair-bar button:focus-visible { color: var(--fg); border-color: rgba(52, 211, 153, 0.4); }
+    .pair-bar button[aria-pressed="true"] {
+      background: rgba(52, 211, 153, 0.1);
+      border-color: rgba(52, 211, 153, 0.55);
+      color: var(--fg);
+    }
+    .axis-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--surface);
+      padding: 1.1rem 1.2rem 1.25rem;
+      min-height: 16rem;
+      display: none;
+    }
+    .axis-panel.is-active { display: block; border-color: rgba(167, 139, 250, 0.45); }
+    .axis-panel h2 { margin: 0 0 0.2rem; font-size: 1.15rem; color: var(--fg); }
+    .axis-panel .verdict {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin: 0 0 0.9rem;
+    }
+    .axis { margin: 0 0 1rem; padding: 0 0 0 0.9rem; border-left: 2px solid rgba(167, 139, 250, 0.4); }
+    .axis__name { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--violet); margin: 0 0 0.25rem; }
+    .axis__body { margin: 0; color: var(--fg-mid); font-size: 0.94rem; }
+    .callout {
+      margin: 1rem 0 0;
+      padding: 0.7rem 0.85rem;
+      border-left: 3px solid var(--amber);
+      border-radius: 0 8px 8px 0;
+      background: rgba(251, 191, 36, 0.07);
+      color: var(--fg-mid);
+      font-size: 0.92rem;
+    }
+    .callout strong { color: var(--honesty-fg); }
+    .section-title { margin: 2.25rem 0 0.35rem; font-size: 1.05rem; color: var(--fg); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="../learn.html">Learn</a></li>
+          <li><a href="../learn/02-standards.html">M02</a></li>
+          <li><a href="../reference.html">Reference</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" tabindex="-1" data-diagram="standards-map">
+    <h1>Standards map — who owns what</h1>
+    <p class="lede">Click a rung to see what force it actually carries, then compare two classification schemes to see the axis on which they genuinely disagree.
+      <strong>Interview one-liner:</strong> Tier, Rated and Availability Class are three instruments from three owners measuring three different things — mapping them one-to-one is the field's signature competence failure.</p>
+
+    <h2 class="section-title">1 · The authority ladder — what beats what</h2>
+    <p class="meta" style="border:0;padding:0;margin:0 0 0.9rem">Top rung wins. Nothing below can authorise a violation of anything above it.</p>
+
+    <div class="ladder" id="authority-ladder">
+      <button type="button" class="rung" aria-expanded="false">
+        <span class="rung__force rung__force--binds">binds · enforceable</span>
+        <span class="rung__name">Law and code, as enforced by the Authority Having Jurisdiction</span>
+        <span class="rung__hint">Building code, fire code, electrical code, environmental and air permits, occupational safety rules. The AHJ — fire marshal, building department, electrical inspector — controls energisation and occupancy. No contract, rating or guideline can override it.
+        <br><br><strong>The trap:</strong> NFPA and EN documents are <em>model</em> or consensus documents. They bind only where a jurisdiction adopts them, and the adopted edition usually lags the current edition. "Per NFPA 75" without naming the adopting jurisdiction and the adopted edition is a soft claim, not a compliance statement.</span>
+      </button>
+      <div class="ladder-arrow" aria-hidden="true">▲ overrides everything below</div>
+
+      <button type="button" class="rung" aria-expanded="false">
+        <span class="rung__force rung__force--signed">binds · because you signed it</span>
+        <span class="rung__name">Contract and owner standard</span>
+        <span class="rung__hint">ANSI/TIA-942, the ISO/IEC 22237 series, EN 50600, corporate design guides, and any certification scope written into the deal. These are voluntary consensus documents that acquire teeth the moment a contract, RFP or SLA references them.
+        <br><br>Pin the <em>edition year</em>. "Per TIA-942" with no year is unenforceable in a dispute, and the editions differ.</span>
+      </button>
+      <div class="ladder-arrow" aria-hidden="true">▲</div>
+
+      <button type="button" class="rung" aria-expanded="false">
+        <span class="rung__force rung__force--market">signals · does not permit</span>
+        <span class="rung__name">Rating and certification schemes</span>
+        <span class="rung__hint">Uptime Institute Tier Certification, the ANSI/TIA-942 certification scheme, EN 50600 availability classes, DCOS. These produce an award or a class — a market and procurement signal, and in some schemes a genuine third-party conformity assessment.
+        <br><br>A certificate is never a permit. It also does not describe the operating configuration in force on any given night: a certificate is a claim about documented or constructed topology, and outages have happened at certified sites because the configuration actually running was not the configuration assessed.</span>
+      </button>
+      <div class="ladder-arrow" aria-hidden="true">▲</div>
+
+      <button type="button" class="rung" aria-expanded="false">
+        <span class="rung__force rung__force--voluntary">voluntary · until an RFP quotes it</span>
+        <span class="rung__name">Industry guidelines and insurer standards</span>
+        <span class="rung__hint">ASHRAE TC 9.9 is the environmental-envelope authority for IT intake conditions; BICSI-002 for design and implementation practice; insurer loss-prevention data sheets, which are often stricter than minimum code.
+        <br><br>Guidelines are not law and are contractually powerful anyway — they land in colocation handbooks, SLAs and OEM support positions.
+        <br><br><strong>Reading note:</strong> this study tool <em>names</em> ASHRAE publications and deliberately does not reproduce their contents. Envelope values must be read from the publication itself.</span>
+      </button>
+      <div class="ladder-arrow" aria-hidden="true">▲</div>
+
+      <button type="button" class="rung" aria-expanded="false">
+        <span class="rung__force rung__force--voluntary">binds · your warranty</span>
+        <span class="rung__name">OEM and vendor specification</span>
+        <span class="rung__hint">The environmental and electrical limits of the hardware you actually bought, plus the listing of the actual fire, electrical and cooling products installed. A design can satisfy every document above and still void support because a specific unit was operated outside its listed conditions.</span>
+      </button>
+    </div>
+
+    <p class="callout" style="max-width:46rem;margin:0 auto"><strong>Accreditation is not what most people think.</strong> ANSI accredits standards <em>developers</em> and approves documents as American National Standards. It accredits neither documents nor data centres. "ANSI-accredited data centre" is not a thing, and the compression of "ANSI/TIA-942 is accredited by ANSI" into that phrase is the direct source of the error.</p>
+
+    <h2 class="section-title">2 · Three schemes that are not synonyms</h2>
+    <div class="compare">
+      <div class="scheme-row">
+        <div class="scheme-card">
+          <span class="owner">Uptime Institute · private</span>
+          <h3>Tier I – IV</h3>
+          <p>One site rating for topology, awarded by the standard's owner. Deliberately not a checklist or design manual.</p>
+        </div>
+        <div class="scheme-card">
+          <span class="owner">TIA · ANSI-approved SDO</span>
+          <h3>ANSI/TIA-942 Rated-1 – 4</h3>
+          <p>Ratings over facility subsystems, assessed by separately licensed Certification Bodies.</p>
+        </div>
+        <div class="scheme-card">
+          <span class="owner">CEN-CENELEC / ISO-IEC</span>
+          <h3>EN 50600 · ISO/IEC 22237 Availability Class 1 – 4</h3>
+          <p>Per-subsystem classes plus protection classes and granularity levels, conditional on the operator's risk analysis.</p>
+        </div>
+      </div>
+
+      <div class="pair-bar" role="group" aria-label="Choose a pair to compare">
+        <button type="button" data-pair="tier-rated" aria-pressed="true">Tier vs Rated</button>
+        <button type="button" data-pair="tier-ac" aria-pressed="false">Tier vs Availability Class</button>
+        <button type="button" data-pair="rated-ac" aria-pressed="false">Rated vs Availability Class</button>
+        <button type="button" data-pair="retired" aria-pressed="false">The retired downtime table</button>
+        <button type="button" data-pair="adjective" aria-pressed="false">"Tier III" as a market adjective</button>
+      </div>
+
+      <section class="axis-panel is-active" data-panel="tier-rated" aria-label="Tier versus Rated">
+        <h2>Uptime Tier vs ANSI/TIA-942 Rated</h2>
+        <p class="verdict">Not synonyms — different evaluation philosophy, different assessor, different decay clock</p>
+
+        <div class="axis">
+          <p class="axis__name">Axis 1 · evaluation philosophy</p>
+          <p class="axis__body">Uptime characterises the TIA approach as availability "in terms of a checklist / component count, which does not ensure how the subsystems are tied together to deliver uptime in multiple operation modes (standard, maintenance, post-fault)", and states it has intentionally refrained from developing a design manual or checklist for achieving a Tier level. One scheme evaluates the outcome; the other assesses conformity against prescribed content. A design can pass one and fail the other without either being wrong.</p>
+        </div>
+
+        <div class="axis">
+          <p class="axis__name">Axis 2 · who assesses, and whose impartiality is checked</p>
+          <p class="axis__body">TIA owns the standard and licenses <em>separate</em> Certification Bodies, evaluated against ISO/IEC 17020 / 17021 for impartiality, competency and consistency, and does not permit individual auditors to certify. Uptime owns the standard and issues the awards itself, with no external accreditation body named. Both arrangements are coherent. They are not the same kind of assurance and should not be priced as if they were.</p>
+        </div>
+
+        <div class="axis">
+          <p class="axis__name">Axis 3 · how fast the paper decays</p>
+          <p class="axis__body">Uptime's Tier Certification of Design Documents expires two years after award. ANSI/TIA-942 Design certification is valid one year, extendable while the facility is non-operational. For constructed facilities the disagreement is sharper: TIA-942 Facilities runs three years with mandatory surveillance audits at years one and two, while no expiry is published for Tier Certification of Constructed Facility. That is not a disagreement about the building — it is a disagreement about whether a constructed-facility attestation is a point-in-time fact or a maintained state.</p>
+        </div>
+
+        <p class="callout">A buyer who treats "Tier III" and "Rated-3" as interchangeable has silently inherited a different assessor, a different philosophy and roughly a 2× difference in how fast the certificate goes stale.</p>
+      </section>
+
+      <section class="axis-panel" data-panel="tier-ac" aria-label="Tier versus Availability Class">
+        <h2>Uptime Tier vs EN 50600 / ISO/IEC 22237 Availability Class</h2>
+        <p class="verdict">Not synonyms — one site rating versus a vector of subsystem classes</p>
+
+        <div class="axis">
+          <p class="axis__name">Axis 1 · one rating vs many</p>
+          <p class="axis__body">EN 50600 defines availability classes <em>separately</em> for power distribution, environmental control and telecommunications cabling, so "AC4 electrical, AC2 mechanical" is a well-formed statement about a facility. Uptime awards one site rating, governed by the weakest relevant subsystem — its own guidance warns that a concurrently maintainable electrical infrastructure paired with a single-path mechanical system "can only lead to ultimate disappointment" if called Tier III. A bare "Class 4" discards qualifiers that "Tier IV" would not.</p>
+        </div>
+
+        <div class="axis">
+          <p class="axis__name">Axis 2 · what happens during maintenance</p>
+          <p class="axis__body">EN 50600 AC4 is described as fault tolerant <em>except during maintenance</em> — it concedes the maintenance state up front and says nothing about physical separation. Tier IV requires fault tolerance <em>and</em> physical compartmentalization of complementary paths. Reading the two as equivalent simultaneously overstates AC4 and understates what Tier IV costs in civil works.</p>
+        </div>
+
+        <div class="axis">
+          <p class="axis__name">Axis 3 · the shared blind spot — a class is a state, not a plaque</p>
+          <p class="axis__body">Both schemes label the facility, and the facility changes hourly. Even at Tier IV, "during maintenance activities, the risk of disruption may be elevated." The moment a component is pulled, an N+1 group is running at N and a 2N pair is running at N. A single static label cannot express that — which is precisely why topologies such as 2(N+1) and N+2 exist. Report the class per operating state: normal, each maintenance state, each post-fault state.</p>
+        </div>
+
+        <p class="callout">Interview move: when someone states a class, ask <strong>"of which subsystem, in which operating state, and who assessed it?"</strong> All three schemes have an answer. Marketing usually does not.</p>
+      </section>
+
+      <section class="axis-panel" data-panel="rated-ac" aria-label="Rated versus Availability Class">
+        <h2>ANSI/TIA-942 Rated vs EN 50600 / ISO/IEC 22237 Availability Class</h2>
+        <p class="verdict">Not synonyms — an ordinal versus a vector; they cannot be equated element-wise</p>
+
+        <div class="axis">
+          <p class="axis__name">Axis 1 · classification geometry</p>
+          <p class="axis__body">TIA-942 issues Rating levels over four facility subsystems under a licensed Certification Body scheme. EN 50600 splits the same question into three <em>orthogonal</em> dimensions — Availability Classes, Protection Classes and Granularity Levels — with requirements conditional on the operator's own risk analysis. "Rated-3" is a single ordinal; the EN 50600 equivalent is a vector. There is no element-wise mapping between them, and any crosswalk table that offers one is discarding the dimensions it cannot represent.</p>
+        </div>
+
+        <div class="axis">
+          <p class="axis__name">Axis 2 · what triggers the requirement</p>
+          <p class="axis__body">A Rated level is a target you design to. An EN 50600 class is conditional on a documented risk analysis, which means two facilities with identical hardware can legitimately carry different classes because their risk analyses differ. The document is not describing the same kind of object.</p>
+        </div>
+
+        <div class="axis">
+          <p class="axis__name">Axis 3 · level of assembly</p>
+          <p class="axis__body">Inside the TIA scheme alone, "TIA-942 certified" can mean a <em>Ready</em> certification — that a modular product was <em>designed</em> in accordance with the standard, valid one year with yearly recertification — or a <em>Facilities</em> certification requiring physical onsite inspection, valid three years with surveillance. A modular product's design attestation on a twelve-month clock is not an inspected facility. Uptime has the same split, between Tier-Ready for a manufacturer's product and Tier Certification of Constructed Facility for the site the product lands on.</p>
+        </div>
+      </section>
+
+      <section class="axis-panel" data-panel="retired" aria-label="The retired downtime table">
+        <h2>The four-number availability table that will not die</h2>
+        <p class="verdict">A retired claim, still in circulation, contradicted by its own purported authority</p>
+
+        <div class="axis">
+          <p class="axis__name">The claim</p>
+          <p class="axis__body">Tables mapping Tier I–IV to roughly 99.67 / 99.75 / 99.98 / 99.99 percent site availability (and matching "minutes of downtime per year") appear in slide decks, RFPs, blogs and training material, and were read verbatim in a document uploaded as recently as 2023.</p>
+        </div>
+
+        <div class="axis">
+          <p class="axis__name">What the authority says</p>
+          <p class="axis__body">Uptime states that in 2009 it removed all references to expected downtime per year when using the Tier Standard, and that the current Tier Standard of Topology does not assign availability predictions to Tier levels. The number being quoted is attributed to an organisation that says it withdrew it.</p>
+        </div>
+
+        <div class="axis">
+          <p class="axis__name">Why it matters more than a footnote</p>
+          <p class="axis__body">A topology classification and an availability prediction are different kinds of claim. Topology is structural and inspectable; predicted availability is a statistical claim requiring a failure model, a population and a measurement period. Quoting the second as though the first delivered it is how a design review ends up with an availability commitment nobody can defend.</p>
+        </div>
+
+        <p class="callout">If you are asked for a Tier-to-availability number in an interview, the strong answer is: <strong>"Uptime withdrew those figures in 2009 — the Tier Standard classifies topology, not predicted availability. If you want an availability number, we have to model it."</strong></p>
+      </section>
+
+      <section class="axis-panel" data-panel="adjective" aria-label="Tier III as a market adjective">
+        <h2>"Tier III" as a market adjective — five products, one word</h2>
+        <p class="verdict">Self-declaration versus awarded conformity — different objects, identical marketing</p>
+
+        <div class="axis">
+          <p class="axis__name">What the adjective omits</p>
+          <p class="axis__body">"Tier III" used in marketing names no award, no issuer, no date and no register entry. It gets applied indiscriminately to design-only certifications, to sites deploying pre-validated modular products, and to engagements that produced no award at all.</p>
+        </div>
+
+        <div class="axis">
+          <p class="axis__name">The document that looks like an award and is not</p>
+          <p class="axis__body">A Tier Gap Analysis delivers the same review as the first pass of a design-document certification — same reviewers, same first pass, same letterhead — and produces a deficiency report carrying no Tier designation. In an evidence pack, a gap-analysis report and a design certification are near-indistinguishable and mean close to opposite things. Read the award line, not the logo.</p>
+        </div>
+
+        <div class="axis">
+          <p class="axis__name">Prerequisites differ inside a single scheme</p>
+          <p class="axis__body">Uptime's Management &amp; Operations criteria identify behaviours "independent of Tiers and the installed infrastructure" and require no Tier award at all; Tier Certification of Operational Sustainability requires both design-document and constructed-facility certification first. Two operations products from one owner, with incompatible prerequisites and different meanings in a data room.</p>
+        </div>
+
+        <div class="axis">
+          <p class="axis__name">Who owns which hat (disclosed, permitted, and worth knowing)</p>
+          <p class="axis__body">Roles in this market concentrate. EPI authors DCOS — an operations standard it also certifies against — trains the TIA-942 auditor credentials, has its exams administered by EXIN, and operates as one of TIA's licensed Certification Bodies. Uptime owns the Tier Standard, issues Tier awards, endorses its own accredited-individual credentials, and since acquiring CNet Training in 2023 also sells the training that was previously the market's independent alternative. None of this is improper — the licensing schemes exist to manage exactly this concentration — but any guidance describing these bodies as mutually independent is stale.</p>
+        </div>
+
+        <p class="callout">This page is a study aid built from public sources. It names schemes, owners and disagreements; it does not reproduce paywalled standard text, and it is <strong>not</strong> a certification, an audit, or advice on which scheme to buy.</p>
+      </section>
+    </div>
+
+    <p class="meta" style="margin-top:1.75rem">
+      <a href="../learn/02-standards.html">← Module 02</a>
+      · <a href="../quiz.html?module=2">Module 02 quiz</a>
+      · <a href="dual-cord-spof.html">Dual-cord SPOF diagram</a>
+      · Study diagram only — not a certification claim and not a compliance determination.
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var ladder = document.getElementById("authority-ladder");
+      if (ladder) {
+        Array.prototype.forEach.call(ladder.querySelectorAll(".rung"), function (btn) {
+          btn.addEventListener("click", function () {
+            var open = btn.getAttribute("aria-expanded") === "true";
+            btn.setAttribute("aria-expanded", open ? "false" : "true");
+          });
+        });
+      }
+
+      var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-pair]"));
+      var panels = Array.prototype.slice.call(document.querySelectorAll("[data-panel]"));
+
+      function show(key) {
+        panels.forEach(function (p) {
+          p.classList.toggle("is-active", p.getAttribute("data-panel") === key);
+        });
+        buttons.forEach(function (b) {
+          b.setAttribute("aria-pressed", b.getAttribute("data-pair") === key ? "true" : "false");
+        });
+      }
+
+      buttons.forEach(function (b) {
+        b.addEventListener("click", function () { show(b.getAttribute("data-pair")); });
+      });
+
+      show("tier-rated");
+    })();
+  </script>
+</body>
+</html>

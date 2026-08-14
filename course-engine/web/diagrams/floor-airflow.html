@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP study diagram — raised floor vs hard floor airflow, and the defects that starve a rack. Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Floor airflow</title>
+  <link rel="stylesheet" href="../assets/css/course.css">
+  <style>
+    /* Page-local diagram styles (tokens from course.css) */
+    .mode-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1.25rem; }
+    .mode-bar button {
+      min-height: var(--touch-min);
+      padding: 0.55rem 1rem;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--fg-dim);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .mode-bar button[aria-pressed="true"] {
+      background: rgba(52, 211, 153, 0.12);
+      border-color: rgba(52, 211, 153, 0.55);
+      color: var(--fg);
+    }
+
+    .air-layout { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+    @media (min-width: 960px) { .air-layout { grid-template-columns: 1.05fr 1fr; align-items: start; } }
+
+    .section-box {
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--surface);
+      padding: 1rem 1.1rem 1.15rem;
+    }
+    .section-box h2 { margin: 0 0 0.15rem; font-size: 1.1rem; color: var(--fg); }
+    .section-box .sub { margin: 0 0 0.9rem; font-size: 0.85rem; color: var(--fg-dim); }
+
+    .band {
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      padding: 0.45rem 0.6rem;
+      margin-bottom: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--fg-dim);
+      font-family: var(--mono);
+      text-align: center;
+      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+    .band.is-hot { color: var(--red); border-color: rgba(248, 113, 113, 0.6); background: rgba(248, 113, 113, 0.09); }
+    .aisles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.3rem; margin-bottom: 0.35rem; }
+    .cell {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0.7rem 0.2rem;
+      text-align: center;
+      font-size: 0.7rem;
+      font-family: var(--mono);
+      color: var(--fg-dim);
+      line-height: 1.25;
+      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+    .cell--rack { background: rgba(255, 255, 255, 0.04); color: var(--fg-mid); font-weight: 700; }
+    .cell--cold { background: rgba(52, 211, 153, 0.07); }
+    .cell--hot { background: rgba(248, 113, 113, 0.06); }
+    .floor-line {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.3rem;
+      margin-bottom: 0.35rem;
+    }
+    .tile {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 0.35rem 0.2rem;
+      text-align: center;
+      font-size: 0.62rem;
+      font-family: var(--mono);
+      color: var(--fg-faint);
+      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+    .tile--perf { color: var(--accent); border-color: rgba(52, 211, 153, 0.4); }
+    .slab {
+      border-top: 3px solid var(--line);
+      margin-top: 0.35rem;
+      padding-top: 0.3rem;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--fg-faint);
+    }
+    .is-hot { color: var(--red) !important; border-color: rgba(248, 113, 113, 0.65) !important; background: rgba(248, 113, 113, 0.1) !important; }
+    .is-cool { color: var(--accent) !important; border-color: rgba(52, 211, 153, 0.55) !important; background: rgba(52, 211, 153, 0.1) !important; }
+    .is-dim { opacity: 0.35; }
+
+    .defect-bank { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1rem; }
+    .defect-chip {
+      font-size: 0.8rem;
+      padding: 0.45rem 0.7rem;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--fg-mid);
+      cursor: pointer;
+      min-height: 38px;
+      text-align: left;
+    }
+    .defect-chip:hover, .defect-chip:focus-visible { border-color: rgba(167, 139, 250, 0.5); color: var(--fg); }
+    .defect-chip[aria-pressed="true"] {
+      border-color: rgba(248, 113, 113, 0.6);
+      background: rgba(248, 113, 113, 0.1);
+      color: var(--fg);
+    }
+
+    .verdict-box { min-height: 20rem; }
+    .verdict-class {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--r-pill);
+      margin-bottom: 0.6rem;
+    }
+    .vc-bypass { color: var(--amber); border: 1px solid rgba(251, 191, 36, 0.5); }
+    .vc-recirc { color: var(--red); border: 1px solid rgba(248, 113, 113, 0.5); }
+    .vc-dist { color: var(--violet); border: 1px solid rgba(167, 139, 250, 0.5); }
+    .vc-ride { color: var(--accent); border: 1px solid rgba(52, 211, 153, 0.5); }
+    .verdict-box h3 { margin: 0 0 0.5rem; font-size: 1.05rem; color: var(--fg); }
+    .verdict-box dl { margin: 0; }
+    .verdict-box dt {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--fg-faint);
+      margin-top: 0.85rem;
+    }
+    .verdict-box dd { margin: 0.2rem 0 0; color: var(--fg-mid); font-size: 0.93rem; }
+    .callout {
+      margin: 1.25rem 0 0;
+      padding: 0.7rem 0.85rem;
+      border-left: 3px solid var(--amber);
+      border-radius: 0 8px 8px 0;
+      background: rgba(251, 191, 36, 0.07);
+      color: var(--fg-mid);
+      font-size: 0.92rem;
+    }
+    .callout strong { color: var(--honesty-fg); }
+    .legend { margin: 0.8rem 0 0; font-size: 0.78rem; color: var(--fg-faint); font-family: var(--mono); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="../learn.html">Learn</a></li>
+          <li><a href="../learn/04-floor-ceiling.html">M04</a></li>
+          <li><a href="../learn/09-cooling.html">M09</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" tabindex="-1">
+    <h1>Floor airflow — raised floor vs hard floor</h1>
+    <p class="lede">Switch the floor paradigm, then inject a defect and watch which part of the section goes wrong.
+      <strong>Interview one-liner:</strong> cooling is a distribution problem wearing a capacity problem's clothes — installed tons against IT kW cannot see a starved rack.</p>
+
+    <div class="mode-bar" role="group" aria-label="Floor paradigm">
+      <button type="button" data-mode="raised" aria-pressed="true">Raised floor · underfloor supply</button>
+      <button type="button" data-mode="hard" aria-pressed="false">Hard floor · overhead / in-row</button>
+    </div>
+
+    <div class="air-layout" id="floor-airflow" data-diagram="floor-airflow">
+      <section class="section-box" aria-label="Cross-section">
+        <h2 id="sec-title">Raised floor cross-section</h2>
+        <p class="sub" id="sec-sub">CRAH discharges into a pressurised plenum; perforated tiles feed the cold aisle only.</p>
+
+        <div class="band" id="el-return">CEILING RETURN PLENUM / HIGH RETURN → CRAH intake</div>
+
+        <div class="aisles">
+          <div class="cell cell--hot" id="el-hot-a">HOT<br>AISLE</div>
+          <div class="cell cell--rack" id="el-rack-a">RACK<br>front→back</div>
+          <div class="cell cell--cold" id="el-cold">COLD<br>AISLE</div>
+          <div class="cell cell--rack" id="el-rack-b">RACK<br>front→back</div>
+          <div class="cell cell--hot" id="el-hot-b">HOT<br>AISLE</div>
+        </div>
+
+        <div class="floor-line" id="el-floor">
+          <div class="tile" id="el-tile-1">solid</div>
+          <div class="tile" id="el-tile-2">solid</div>
+          <div class="tile tile--perf" id="el-tile-perf">perforated</div>
+          <div class="tile" id="el-tile-4">solid</div>
+          <div class="tile" id="el-tile-5">solid</div>
+        </div>
+
+        <div class="band" id="el-plenum">UNDERFLOOR SUPPLY PLENUM — positive static pressure</div>
+        <div class="band" id="el-cables">pedestals · stringers · power whips · data cable</div>
+        <div class="slab" id="el-slab">═══ STRUCTURAL SLAB ═══</div>
+
+        <p class="legend">Red = the element the selected defect breaks. Dimmed = element not present in this paradigm.</p>
+      </section>
+
+      <section class="section-box verdict-box" aria-label="Defect detail">
+        <h2>Inject a defect</h2>
+        <p class="sub">Every one of these is a real, common, survivable-until-it-isn't operating condition.</p>
+        <div class="defect-bank" id="defect-bank" role="group" aria-label="Defects"></div>
+        <div id="verdict" role="status">
+          <span class="verdict-class vc-dist">select a defect</span>
+          <h3>Nothing injected yet</h3>
+          <dl>
+            <dt>The baseline</dt>
+            <dd>Cold air reaches every rack inlet at the design condition, hot exhaust returns without mixing, and the pressure in the plenum (or the containment) is uniform enough that the worst rack is still inside the envelope. That last clause is the whole job.</dd>
+            <dt>How cooling health should be reported</dt>
+            <dd>As a distribution metric across the rack population — worst-rack inlet, or an index over all inlets — never as installed tons versus IT kW. The aggregate number is green in almost every incident on record.</dd>
+          </dl>
+        </div>
+      </section>
+    </div>
+
+    <p class="callout"><strong>The two defects that get confused, forever.</strong> Bypass is supply air returning to the cooling unit without doing work: it wastes fan energy, wastes cooling capacity and depresses the temperature difference across the coil. Recirculation is hot exhaust reaching an equipment inlet: it raises server inlet temperature. Their causes are opposite — bypass comes from too much supply airflow, misplaced perforated tiles, leaky penetrations and too-high tile exit velocity; recirculation comes from too little supply airflow, missing blanking panels, gaps between racks and short rows. They coexist in the same room, and <strong>the fix for one worsens the other</strong>: turning up supply airflow to rescue a recirculating aisle manufactures bypass elsewhere and hides the original defect behind higher fan power. Diagnose per aisle, never per room.</p>
+
+    <p class="meta" style="margin-top:1.5rem">
+      <a href="../learn/04-floor-ceiling.html">← Module 04</a>
+      · <a href="../learn/09-cooling.html">Module 09</a>
+      · <a href="heat-path.html">Heat path diagram</a>
+      · Conceptual teaching diagram — not a mechanical design document and not a certification claim.
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var root = document.getElementById("floor-airflow");
+      if (!root) return;
+
+      var DEFECTS = [
+        {
+          id: "open-tile",
+          mode: "raised",
+          chip: "Tile left out / open cutout",
+          title: "A tile is out, or a cutout was never sealed",
+          cls: "bypass",
+          hot: ["el-tile-4", "el-plenum"],
+          what: "Every uncontrolled opening bleeds the plenum. Think of it as a tyre: each leak lowers the pressure available at the far end of the room, so the racks that lose air are not the ones next to the hole.",
+          backfire: "The local symptom disappears the moment the tile is lifted — which is exactly why lifting a tile is the most common undocumented modification to a cooling system.",
+          fix: "Brush grommets on every cable penetration, blanking of unused cutouts, and an 'open floor' discipline that says a tile out is a change, not a convenience."
+        },
+        {
+          id: "perf-hot",
+          mode: "raised",
+          chip: "Perforated tile in a hot aisle",
+          title: "Perforated tile placed in the hot aisle",
+          cls: "bypass",
+          hot: ["el-tile-1", "el-hot-a", "el-return"],
+          what: "Cold supply is delivered straight into the exhaust stream. It never passes through a server, mixes with hot air, and returns to the coil at a lower temperature.",
+          backfire: "The room looks well cooled and the CRAH works harder for less: return temperature falls, the temperature rise across the coil collapses, and capacity is consumed producing nothing.",
+          fix: "Perforated tiles in cold aisles only. Tile layout belongs under change control with the same seriousness as a patch panel — every unrecorded move is an undocumented modification to the cooling system."
+        },
+        {
+          id: "cable-dam",
+          mode: "raised",
+          chip: "Cable congestion in the plenum",
+          title: "The plenum has become a cable store",
+          cls: "dist",
+          hot: ["el-cables", "el-plenum"],
+          what: "Congestion sharply reduces total airflow AND degrades its distribution through the perforated tiles. Both effects promote hot spots, and abandoned cable does it silently for years.",
+          backfire: "Nothing on the capacity dashboard changes. This is a slow, invisible derate of a system whose nameplate still reads the same number it did at handover.",
+          fix: "Specify and defend a minimum clear plenum height (LBNL recommends at least 24 inches of effective clear height for raised-floor installations), move heavy data cabling overhead, and run a standing cable-mining programme to remove abandoned cable. Plenum clear height is a thermal control, not cable hygiene."
+        },
+        {
+          id: "near-crah",
+          mode: "raised",
+          chip: "Racks nearest the CRAH starve",
+          title: "The racks closest to the cooling unit get the least air",
+          cls: "dist",
+          hot: ["el-tile-perf", "el-rack-a"],
+          what: "High air velocity in the underfloor plenum can create localised negative static pressure and draw room air back down into the plenum. Equipment nearest the downflow CRAC/CRAH units can therefore receive too little cooling air — the exact opposite of the intuition that proximity means capacity.",
+          backfire: "Operators respond by adding cooling units near the hot spot, which raises plenum velocity and can deepen the negative-pressure zone that caused it.",
+          fix: "Accept that capacity accounting in kW or tons is not a cooling model. Only a pressure-and-flow model — measured, or CFD — can tell you whether a given rack is fed. Deeper plenums and CRAH placement are the design-time controls; after handover your options are much worse."
+        },
+        {
+          id: "tile-move",
+          mode: "raised",
+          chip: "Undocumented tile move",
+          title: "Someone moved tiles to fix a hot spot",
+          cls: "dist",
+          hot: ["el-tile-2", "el-tile-perf", "el-plenum"],
+          what: "Tile placement is a global variable. Adding or removing tiles to fix one hot spot redistributes pressure across the whole floor and can cause problems anywhere in the system, including short-circuiting of supply air.",
+          backfire: "It works. Locally, immediately, and visibly — which is why it is done again next week, by someone else, with no record of either change.",
+          fix: "Tile maps under change control, re-balanced whenever IT or HVAC equipment changes, and checked periodically wherever users can reconfigure them."
+        },
+        {
+          id: "blanking",
+          mode: "both",
+          chip: "No blanking panels / gaps between racks",
+          title: "Open U-space and gaps between cabinets",
+          cls: "recirc",
+          hot: ["el-rack-b", "el-hot-b"],
+          what: "Hot exhaust takes the shortest path back to an inlet — through the empty rack units, around the row ends, over the top of short rows. Inlet temperature rises at the racks nowhere near the heat source.",
+          backfire: "The instinctive response is more supply airflow, which manufactures bypass elsewhere and buys the recirculating rack very little, because the recirculation path is inside the rack.",
+          fix: "Blanking panels, side-seal kits, row-end treatment, and containment. This is cheap, it is boring, and it is the single highest-yield airflow intervention in most existing halls."
+        },
+        {
+          id: "no-containment",
+          mode: "hard",
+          chip: "No containment at all",
+          title: "Open room, overhead supply, no aisle containment",
+          cls: "recirc",
+          hot: ["el-hot-a", "el-hot-b", "el-rack-a", "el-rack-b"],
+          what: "Without separation, supply and exhaust streams mix continuously. With proper isolation the hot aisle stops influencing rack intake temperature and becomes, in effect, a heat exhaust — return air temperature rises sharply, which is what makes higher chilled-water temperatures and economiser hours available at all.",
+          backfire: "Mixing is invisible on a room-average temperature reading. The room average can sit comfortably inside spec while individual inlets do not.",
+          fix: "Contain. Containment is upstream of the economiser business case, not parallel to it."
+        },
+        {
+          id: "containment-decay",
+          mode: "hard",
+          chip: "Containment that has quietly degraded",
+          title: "The containment is installed — and leaking",
+          cls: "recirc",
+          hot: ["el-rack-a", "el-hot-a"],
+          what: "Operator experience is blunt: the panel system works, but it requires manual adjustment during heat events, leaks at panel and rack gaps, and is difficult to balance against IT equipment maintenance and reconfiguration. Building-management automation of it has proved difficult and expensive.",
+          backfire: "Containment is almost always justified on efficiency, so its resilience contribution is invisible in the business case — and is therefore the first thing value-engineered out, and the last thing anyone re-inspects.",
+          fix: "Budget recurring labour for containment integrity and put leakage inspection on a schedule. Containment installed and never re-inspected converges toward no containment."
+        },
+        {
+          id: "ride-through",
+          mode: "both",
+          chip: "Density collapses the ride-through",
+          title: "Density has quietly reclassified cooling as a critical load",
+          cls: "ride",
+          hot: ["el-rack-a", "el-rack-b", "el-return"],
+          what: "In traditional facilities under about 10 kW per rack, loss of cooling gave operators several — sometimes tens of — minutes before inlet temperatures exceeded IT tolerances. IT systems on cold plates typically cannot tolerate loss of circulation for more than a few seconds; immersion tanks ride through several minutes. Room volume roughly scales ride-through: double the room height and you roughly double the time.",
+          backfire: "Running the hall colder feels like buying resilience. The effect of a lower setpoint on ride-through is linear and small — starting 5 °C lower leaves you about 5 °C lower throughout the excursion, buying seconds on the trajectory, while the operating-cost penalty is paid every hour of every year.",
+          fix: "State a numeric thermal ride-through budget and name how it is bought: containment, room volume, UPS-backed pumps and air handlers, or thermal storage. A density decision silently makes the cooling plant a UPS-backed critical load with generator-start-time constraints — raise it in the electrical design review, not the mechanical one."
+        },
+        {
+          id: "aggregate",
+          mode: "both",
+          chip: "\"We have plenty of cooling capacity\"",
+          title: "Aggregate capacity is sufficient and racks are still starving",
+          cls: "dist",
+          hot: ["el-rack-b"],
+          what: "Airflow is not fungible. Every mechanism on this page — plenum negative pressure near the CRAH, cable congestion, tile moves, recirculation through unblanked slots, a single coolant distribution unit losing flow — is a distribution failure that an aggregate capacity number cannot see.",
+          backfire: "Because the aggregate number is green, the incident gets attributed to the IT load, the weather, or the last change ticket — anything except the distribution model nobody built.",
+          fix: "Report cooling health as a distribution metric across the rack population. If the only number you have is installed tons versus IT kW, you do not yet have a cooling model."
+        }
+      ];
+
+      var CLS_META = {
+        bypass: { label: "bypass", css: "vc-bypass" },
+        recirc: { label: "recirculation", css: "vc-recirc" },
+        dist: { label: "distribution failure", css: "vc-dist" },
+        ride: { label: "ride-through", css: "vc-ride" }
+      };
+
+      var RAISED_ONLY = ["el-tile-1", "el-tile-2", "el-tile-perf", "el-tile-4", "el-tile-5", "el-plenum", "el-cables"];
+
+      var bank = document.getElementById("defect-bank");
+      var verdict = document.getElementById("verdict");
+      var title = document.getElementById("sec-title");
+      var sub = document.getElementById("sec-sub");
+      var mode = "raised";
+      var selected = null;
+
+      function clearHot() {
+        Array.prototype.forEach.call(root.querySelectorAll(".is-hot"), function (el) {
+          el.classList.remove("is-hot");
+        });
+      }
+
+      function paintMode() {
+        var raised = mode === "raised";
+        title.textContent = raised ? "Raised floor cross-section" : "Hard floor cross-section";
+        sub.textContent = raised
+          ? "CRAH discharges into a pressurised plenum; perforated tiles feed the cold aisle only."
+          : "Slab floor with overhead or in-row supply; containment does the work the plenum used to do.";
+        RAISED_ONLY.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.classList.toggle("is-dim", !raised);
+        });
+        document.getElementById("el-slab").textContent = raised
+          ? "═══ STRUCTURAL SLAB ═══"
+          : "═══ STRUCTURAL SLAB — racks sit directly on it; power and data run overhead ═══";
+        Array.prototype.forEach.call(document.querySelectorAll("[data-mode]"), function (b) {
+          b.setAttribute("aria-pressed", b.getAttribute("data-mode") === mode ? "true" : "false");
+        });
+        renderBank();
+      }
+
+      function renderBank() {
+        bank.innerHTML = "";
+        DEFECTS.forEach(function (d) {
+          if (d.mode !== "both" && d.mode !== mode) return;
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "defect-chip";
+          btn.textContent = d.chip;
+          btn.setAttribute("aria-pressed", selected === d.id ? "true" : "false");
+          btn.addEventListener("click", function () { select(d.id); });
+          bank.appendChild(btn);
+        });
+      }
+
+      function select(id) {
+        var d = null;
+        DEFECTS.forEach(function (x) { if (x.id === id) d = x; });
+        if (!d) return;
+        selected = id;
+        clearHot();
+        d.hot.forEach(function (el) {
+          var node = document.getElementById(el);
+          if (node && !node.classList.contains("is-dim")) node.classList.add("is-hot");
+        });
+        var meta = CLS_META[d.cls];
+        verdict.innerHTML = "";
+        var badge = document.createElement("span");
+        badge.className = "verdict-class " + meta.css;
+        badge.textContent = meta.label;
+        var h3 = document.createElement("h3");
+        h3.textContent = d.title;
+        var dl = document.createElement("dl");
+        [["What it actually does", d.what], ["Why the obvious fix backfires", d.backfire], ["The corrective", d.fix]].forEach(function (pair) {
+          var dt = document.createElement("dt");
+          dt.textContent = pair[0];
+          var dd = document.createElement("dd");
+          dd.textContent = pair[1];
+          dl.appendChild(dt);
+          dl.appendChild(dd);
+        });
+        verdict.appendChild(badge);
+        verdict.appendChild(h3);
+        verdict.appendChild(dl);
+        renderBank();
+      }
+
+      Array.prototype.forEach.call(document.querySelectorAll("[data-mode]"), function (b) {
+        b.addEventListener("click", function () {
+          mode = b.getAttribute("data-mode");
+          selected = null;
+          clearHot();
+          paintMode();
+        });
+      });
+
+      paintMode();
+    })();
+  </script>
+</body>
+</html>

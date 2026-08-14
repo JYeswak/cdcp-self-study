@@ -245,6 +245,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "cdcp_gate"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "tempfile",
+ "toml",
+]
+
+[[package]]
 name = "cdcp_grade"
 version = "0.1.0"
 dependencies = [

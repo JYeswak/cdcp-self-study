@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP study diagram — dual-cord single point of failure: find the shared upstream node. Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Dual-cord SPOF</title>
+  <link rel="stylesheet" href="../assets/css/course.css">
+  <style>
+    /* Page-local diagram styles (tokens from course.css) */
+    .antecedent {
+      max-width: 60rem;
+      margin: 0 0 1.5rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(167, 139, 250, 0.45);
+      border-left: 3px solid var(--violet);
+      border-radius: 0 var(--r) var(--r) 0;
+      background: rgba(167, 139, 250, 0.07);
+      color: var(--fg-mid);
+      font-size: 0.95rem;
+    }
+    .antecedent strong { color: var(--fg); }
+
+    .spof-layout { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+    @media (min-width: 1000px) { .spof-layout { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--surface);
+      padding: 1rem 1.1rem 1.15rem;
+    }
+    .panel h2 { margin: 0 0 0.2rem; font-size: 1.1rem; color: var(--fg); }
+    .panel .sub { margin: 0 0 0.9rem; font-size: 0.85rem; color: var(--fg-dim); }
+
+    .node {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 0.5rem 0.55rem;
+      text-align: center;
+      font-size: 0.74rem;
+      font-family: var(--mono);
+      color: var(--fg-dim);
+      line-height: 1.3;
+      background: rgba(0, 0, 0, 0.22);
+      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+    .node--shared {
+      border-style: dashed;
+      background: rgba(255, 255, 255, 0.035);
+      color: var(--fg-mid);
+    }
+    .node--shared .node__tag {
+      display: block;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-faint);
+      margin-bottom: 0.15rem;
+    }
+    .node.is-failed {
+      border-color: rgba(248, 113, 113, 0.75);
+      background: rgba(248, 113, 113, 0.13);
+      color: var(--red);
+    }
+    .node.is-coupled {
+      border-color: rgba(251, 191, 36, 0.75);
+      background: rgba(251, 191, 36, 0.12);
+      color: var(--honesty-fg);
+      border-style: solid;
+    }
+    .node.is-held {
+      border-color: rgba(52, 211, 153, 0.6);
+      background: rgba(52, 211, 153, 0.1);
+      color: var(--accent);
+    }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; margin-bottom: 0.3rem; }
+    .path-head {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-faint);
+      text-align: center;
+    }
+    .stack-gap { margin-bottom: 0.3rem; }
+    .arrow { text-align: center; color: var(--fg-faint); font-family: var(--mono); font-size: 0.72rem; margin: 0.05rem 0 0.2rem; }
+    .undrawn {
+      margin: 0.8rem 0 0.3rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--fg-faint);
+      border-top: 1px dashed var(--line);
+      padding-top: 0.6rem;
+    }
+    .legend { margin: 0.9rem 0 0; font-size: 0.75rem; color: var(--fg-faint); font-family: var(--mono); line-height: 1.7; }
+    .legend .sw { display: inline-block; width: 0.65rem; height: 0.65rem; border-radius: 3px; margin-right: 0.3rem; vertical-align: baseline; }
+    .sw-fail { background: rgba(248, 113, 113, 0.6); }
+    .sw-coup { background: rgba(251, 191, 36, 0.6); }
+    .sw-held { background: rgba(52, 211, 153, 0.55); }
+
+    .scenario-bank { display: flex; flex-direction: column; gap: 0.35rem; margin: 0 0 1.1rem; }
+    .scenario-chip {
+      text-align: left;
+      min-height: 40px;
+      padding: 0.5rem 0.7rem;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.24);
+      color: var(--fg-mid);
+      cursor: pointer;
+      font-size: 0.86rem;
+    }
+    .scenario-chip:hover, .scenario-chip:focus-visible { border-color: rgba(167, 139, 250, 0.5); color: var(--fg); }
+    .scenario-chip[aria-pressed="true"] { border-color: rgba(167, 139, 250, 0.7); background: rgba(167, 139, 250, 0.1); color: var(--fg); }
+    .scenario-chip .idx { font-family: var(--mono); font-size: 0.7rem; color: var(--violet); margin-right: 0.4rem; }
+
+    .verdict { min-height: 22rem; }
+    .badges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.7rem; }
+    .badge {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.6rem;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+      color: var(--fg-dim);
+    }
+    .badge--survived { color: var(--accent); border-color: rgba(52, 211, 153, 0.55); }
+    .badge--dropped { color: var(--red); border-color: rgba(248, 113, 113, 0.6); }
+    .badge--independent { color: var(--accent); border-color: rgba(52, 211, 153, 0.45); }
+    .badge--common { color: var(--honesty-fg); border-color: rgba(251, 191, 36, 0.6); }
+    .badge--antecedent { color: var(--violet); border-color: rgba(167, 139, 250, 0.6); }
+    .verdict h3 { margin: 0 0 0.5rem; font-size: 1.05rem; color: var(--fg); }
+    .verdict dl { margin: 0; }
+    .verdict dt {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--fg-faint);
+      margin-top: 0.85rem;
+    }
+    .verdict dd { margin: 0.2rem 0 0; color: var(--fg-mid); font-size: 0.93rem; }
+    .verdict .src { font-size: 0.8rem; color: var(--fg-faint); }
+    .callout {
+      margin: 1.5rem 0 0;
+      padding: 0.75rem 0.9rem;
+      border-left: 3px solid var(--amber);
+      border-radius: 0 8px 8px 0;
+      background: rgba(251, 191, 36, 0.07);
+      color: var(--fg-mid);
+      font-size: 0.92rem;
+    }
+    .callout strong { color: var(--honesty-fg); }
+    .coupling {
+      margin: 1.5rem 0 0;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--surface);
+      padding: 1rem 1.1rem 1.15rem;
+    }
+    .coupling h2 { margin: 0 0 0.3rem; font-size: 1.05rem; color: var(--fg); }
+    .coupling ul { margin: 0.8rem 0 0; padding-left: 1.1rem; color: var(--fg-dim); font-size: 0.9rem; columns: 1; }
+    @media (min-width: 760px) { .coupling ul { columns: 2; column-gap: 2rem; } }
+    .coupling li { margin-bottom: 0.4rem; break-inside: avoid; }
+    .coupling li strong { color: var(--fg-mid); font-family: var(--mono); font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · offline</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="../learn.html">Learn</a></li>
+          <li><a href="../learn/01-mission-critical.html">M01</a></li>
+          <li><a href="../learn/06-power.html">M06</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" tabindex="-1">
+    <h1>Dual-cord SPOF — find the shared node</h1>
+    <p class="lede">Run a real failure scenario against a dual-path facility and classify what actually happened.
+      <strong>Interview one-liner:</strong> two cords are not two paths — every large public power postmortem turns on a node the one-line diagram does not draw.</p>
+
+    <p class="antecedent">
+      <strong>The antecedent, stated once and carried everywhere.</strong>
+      "Tolerates one failure" means <strong>one INDEPENDENT failure, from the normal operating state</strong>.
+      A common-cause failure needs two ingredients: a failure cause, and a <em>coupling factor</em> that lets that cause reach several components at once.
+      Almost every public incident where redundancy "failed" is a violation of the antecedent, not a counterexample to N+1 or 2N —
+      and confusing the two drives the wrong spend (more modules) instead of the right one (independent controls, separated enclosures, decorrelated demand).
+    </p>
+
+    <div class="spof-layout" id="dual-cord-spof" data-diagram="dual-cord-spof">
+      <section class="panel" aria-label="Facility one-line and what it omits">
+        <h2>The facility</h2>
+        <p class="sub">Above the divider: what the one-line shows. Below it: what it doesn't.</p>
+
+        <div class="node node--shared stack-gap" id="n-grid">
+          <span class="node__tag">shared · environment</span>
+          Utility network / grid — both feeds hang off it
+        </div>
+        <div class="arrow" aria-hidden="true">↓ &nbsp;&nbsp;&nbsp;&nbsp; ↓</div>
+
+        <div class="pair">
+          <div class="path-head">Path A</div>
+          <div class="path-head">Path B</div>
+        </div>
+        <div class="pair">
+          <div class="node" id="n-feedA">Utility feed A</div>
+          <div class="node" id="n-feedB">Utility feed B</div>
+        </div>
+        <div class="pair">
+          <div class="node" id="n-xferA">Transfer A (ATS / breaker)</div>
+          <div class="node" id="n-xferB">Transfer B (ATS / breaker)</div>
+        </div>
+        <div class="pair">
+          <div class="node" id="n-genA">Standby A (generator / DRUPS)</div>
+          <div class="node" id="n-genB">Standby B (generator / DRUPS)</div>
+        </div>
+        <div class="pair">
+          <div class="node" id="n-upsA">UPS system A</div>
+          <div class="node" id="n-upsB">UPS system B</div>
+        </div>
+        <div class="pair">
+          <div class="node" id="n-distA">Distro / rPDU A</div>
+          <div class="node" id="n-distB">Distro / rPDU B</div>
+        </div>
+
+        <p class="undrawn">▼ shared by construction · rarely on the one-line</p>
+
+        <div class="node node--shared stack-gap" id="n-control">
+          <span class="node__tag">shared · control</span>
+          Paralleling board &amp; controls · ATS logic · source synchroniser · BMS sequences · fuel control panel
+        </div>
+        <div class="node node--shared stack-gap" id="n-cool">
+          <span class="node__tag">shared · mechanical + its signalling</span>
+          Chillers, pumps, valves — and the run signals and permissives that command them
+        </div>
+        <div class="node node--shared stack-gap" id="n-life">
+          <span class="node__tag">shared · life safety</span>
+          Fire alarm · suppression release · Emergency Power Off
+        </div>
+        <div class="node node--shared stack-gap" id="n-rack">
+          <span class="node__tag">shared · rack edge (as-built)</span>
+          Cord map: which PSU is actually on A and which on B · any static transfer switch
+        </div>
+        <div class="node" id="n-load">IT LOAD</div>
+
+        <p class="legend">
+          <span class="sw sw-fail"></span>failed or lost &nbsp;
+          <span class="sw sw-coup"></span>the coupling — how one cause reached both paths &nbsp;
+          <span class="sw sw-held"></span>held / worked as designed
+        </p>
+      </section>
+
+      <section class="panel verdict" aria-label="Scenario and verdict">
+        <h2>Run a scenario</h2>
+        <p class="sub">Six are drawn from public incident reports. Classify each one before you read the verdict.</p>
+        <div class="scenario-bank" id="scenario-bank" role="group" aria-label="Scenarios"></div>
+        <div id="verdict" role="status">
+          <div class="badges"><span class="badge">no scenario selected</span></div>
+          <h3>Start with scenario 1</h3>
+          <dl>
+            <dt>Why that order matters</dt>
+            <dd>Scenario 1 is the case redundancy is actually designed for. Read it first, so the rest are recognisable as departures from it rather than as evidence that redundancy does not work.</dd>
+          </dl>
+        </div>
+      </section>
+    </div>
+
+    <section class="coupling" aria-label="Coupling mechanisms">
+      <h2>The classifier — nine coupling mechanisms</h2>
+      <p class="sub" style="margin-bottom:0">Common-cause failure analysis is mature, openly published, and largely absent from data-centre training — which is why common-mode events keep getting reported as "redundancy failed". When you study an outage, name the coupling before you name a fix.</p>
+      <ul>
+        <li><strong>design</strong> — identical modules, identical firmware, the same defect in both.</li>
+        <li><strong>hardware</strong> — same manufacturer, rating and batch across the redundant group.</li>
+        <li><strong>function</strong> — one command starts both; a shared start signal is a shared failure.</li>
+        <li><strong>installation</strong> — both paths commissioned by the same crew, with the same error.</li>
+        <li><strong>maintenance</strong> — the same procedure, applied to both sides, in the same window.</li>
+        <li><strong>procedures</strong> — one wrong step in one runbook reaches every unit that runbook governs.</li>
+        <li><strong>interfaces</strong> — the control plane, the network between controllers, the permissives.</li>
+        <li><strong>locations</strong> — one room, one riser, one conduit, one shared proven pathway.</li>
+        <li><strong>environment</strong> — the utility transient, the heat, the flood, the smoke.</li>
+      </ul>
+    </section>
+
+    <p class="callout"><strong>The practical output.</strong> Draw a second diagram — the control-dependency graph — and require it at design review with the same seriousness as the one-line. Chiller controllers, paralleling boards, source synchronisers, ATS logic, BMS sequences, fuel control panels and EPO circuits are shared by construction and invisible on a power one-line. Every incident on this page turns on one of them.</p>
+
+    <p class="meta" style="margin-top:1.5rem">
+      <a href="../learn/01-mission-critical.html">← Module 01</a>
+      · <a href="../learn/06-power.html">Module 06</a>
+      · <a href="power-path.html">N vs 2N power path</a>
+      · <a href="standards-map.html">Standards map</a>
+      · Conceptual teaching diagram built from public incident reports — not a site design document and not a certification claim.
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var root = document.getElementById("dual-cord-spof");
+      if (!root) return;
+
+      var SCENARIOS = [
+        {
+          id: "independent",
+          chip: "One UPS module fails, nothing else is wrong",
+          title: "The case redundancy is designed for",
+          survived: true,
+          klass: "independent",
+          klassLabel: "independent failure",
+          states: { "n-upsA": "failed", "n-upsB": "held", "n-distB": "held", "n-load": "held" },
+          coupling: "None. The failure is independent and the facility was in its normal state — both antecedents hold.",
+          drew: "The one-line is a complete and correct model of this event. This is the only class of event for which that is true.",
+          detail: "UPS system A fails. Path B is carrying its share, the dual-corded load rides through on B alone, and the maintenance window to replace the module is a planned activity rather than an incident. Nothing here is remarkable — which is the point. This is the antecedent satisfied, and it is what a redundancy claim actually promises.",
+          watch: "Note what changed the instant A failed: the facility is now running at N. A 2N pair with one side down is a single path, and an N+1 group with a module out is N. Resilience class is a property of the current operating state, not of the plaque — which is exactly why topologies such as 2(N+1) and N+2 exist.",
+          src: "Baseline case — no incident."
+        },
+        {
+          id: "transient",
+          chip: "A utility transient reaches both feeds",
+          title: "Google Cloud europe-west4-a, 15 July 2026",
+          survived: false,
+          klass: "common",
+          klassLabel: "common-mode initiating event",
+          states: { "n-grid": "coupled", "n-feedA": "failed", "n-feedB": "failed", "n-genB": "held", "n-genA": "failed", "n-load": "failed" },
+          coupling: "environment — the utility network is a shared disturbance source, not two independent sources.",
+          drew: "The one-line drew two feeds and was right about that. It could not draw the fact that both feeds hang off one upstream network, and a disturbance is not the same event as a loss.",
+          detail: "A 3 ms voltage drop in the utility feed, and the subsequent utility breaker protective action, produced an upstream voltage transient affecting BOTH utility feeds A and B. Side B transferred to its rotary UPS cleanly. Side A's system failed to take over the facility load due to electrical component failures — a standby unit failing at the moment of demand, which is the fragile step in every public generator postmortem.",
+          watch: "Dual utility feeds are redundant against feed LOSS. Against a disturbance propagating on the common upstream network they are one node. Model the utility as a shared disturbance source separate from the per-feed availability node, and make a simultaneous both-side transfer a tested, survivable state rather than an assumed one.",
+          src: "Google Cloud Service Health incident report (public)."
+        },
+        {
+          id: "control",
+          chip: "Redundant cooling, healthy, and unreachable",
+          title: "Control dependency crosses the power/cooling boundary",
+          survived: false,
+          klass: "common",
+          klassLabel: "common-cause · control dependency",
+          states: { "n-grid": "coupled", "n-control": "coupled", "n-cool": "failed", "n-load": "failed" },
+          coupling: "interfaces and function — the controller, the run signal and the permissive are shared by construction, and they fail on the same disturbance that creates the demand for them.",
+          drew: "Nothing. The controller, its power source and its permissives appear on no power one-line, and the mechanical schematic shows the pumps without showing what commands them.",
+          detail: "Two operators, two continents, one shape. At Azure Australia East (30 August 2023) a utility voltage sag faulted five operating chillers simultaneously in a plant described as seven chillers, five running and two standby (N+2). Automatic restart failed because \"the corresponding pumps did not get the run signal from the chillers\". At Google europe-west4-a the chiller controller dropped offline during the voltage transient and failed to signal the chilled-water distribution pumps to restart. In both cases the mechanical redundancy was present, healthy, and unreachable.",
+          watch: "N+2 chillers that cannot receive a run signal are N+0. Count mechanical redundancy only together with its control path and its control power — controllers, VFDs, actuators, BMS field controllers and the network between them belong on protected power and inside the transient test, not just the pumps and fans they command. Azure then hit the second trap: manual restart failed because the chilled-water loop temperature had already exceeded the restart threshold, and recovery required shutting down servers to let the loop cool. If the only exit from a thermal lockout is shedding IT load, that is the recovery plan whether or not anyone wrote it down.",
+          src: "Microsoft PIR as reported by itnews.com.au; Google Cloud Service Health incident report."
+        },
+        {
+          id: "start-command",
+          chip: "Standby generation fails in the transition",
+          title: "AWS sa-east-1 (São Paulo), 17 December 2013",
+          survived: false,
+          klass: "common",
+          klassLabel: "common-cause · shared demand + recovery propagation",
+          states: { "n-grid": "coupled", "n-xferA": "failed", "n-genA": "failed", "n-genB": "failed", "n-load": "failed" },
+          coupling: "function — one utility event issues one start command to the whole standby group, so their failures are demand-correlated rather than independent.",
+          drew: "The one-line drew N+1 generation. It did not draw the breaker in front of each generator, or the fact that all of them are asked to prove themselves in the same second.",
+          detail: "The Availability Zone lost utility power due to a fault at the local utility substation. The load switched over to backup generators as designed. During that failover a breaker in front of one of the generators opened, rendering that generator unavailable, and a second generator independently failed due to a mechanical issue. Recovery then propagated the damage: a network technician brought a device up manually in the power-impacted zone and introduced a bad configuration that degraded connectivity across both zones.",
+          watch: "Across three public postmortems the failed element was a breaker or a control, not the prime mover, in two of three. Model generation as {engine, alternator, starting system, breaker, control} with the breaker and control as separate nodes, weight commissioning and load-bank testing on the TRANSFER rather than the run, and treat standby-group failures as demand-correlated. Then notice the second lesson: the recovery action itself became a cross-domain failure path. Fatigue, pressure and a degraded environment are part of the failure model.",
+          src: "AWS post-event summary (public)."
+        },
+        {
+          id: "mis-corded",
+          chip: "Both cords land on the A distribution",
+          title: "The as-built graph is not the as-designed graph",
+          survived: false,
+          klass: "antecedent",
+          klassLabel: "antecedent violation · as-built defect",
+          states: { "n-distA": "failed", "n-rack": "coupled", "n-load": "failed", "n-distB": "held" },
+          coupling: "installation — path diversity is defeated at the rack by an installation error the drawings do not record.",
+          drew: "The one-line drew two paths and they exist. What it cannot show is which physical PSU is plugged into which one.",
+          detail: "Anecdotal evidence recorded by Uptime puts the figure at 1–10% of servers in a data centre being improperly corded — both cords plugged into the A distribution. A path-A outage then drops that equipment while every drawing and every certificate still says 2N. The same specification also requires full equipment functionality on A and B together, on A alone, or on B alone, with no loss of data, hardware functionality, performance, capacity or cooling — and that the normal load on each source be shared within 10% of the average.",
+          watch: "Unbalanced A/B is the quieter half of this defect: when one side fails, the survivor is asked to carry a load it was not sized for, at the worst possible instant. Treat the cord map as a first-class data-quality asset with continuous verification, and enforce and monitor the ±10% balance rule. A 2N facility with an unverified cord map is a 2N claim, not a 2N facility.",
+          src: "Uptime Institute journal, dual-corded power (public)."
+        },
+        {
+          id: "sts",
+          chip: "A static transfer switch joins A and B",
+          title: "The device sold as redundancy that couples the paths",
+          survived: false,
+          klass: "antecedent",
+          klassLabel: "antecedent violation · structural coupling",
+          states: { "n-distA": "failed", "n-rack": "coupled", "n-distB": "failed", "n-load": "failed" },
+          coupling: "design and hardware — a transfer device inserted between the paths is a shared vertex joining them, not a node that adds redundancy.",
+          drew: "The one-line drew the STS as a box that improves availability. Structurally it is the opposite: it is the point at which A and B stop being independent.",
+          detail: "Schneider's white paper is explicit: a best practice for redundant dual-path architectures is to isolate both paths so that a failure on one side cannot propagate to the other — and the use of static transfer switches in dual-path architectures prevents that isolation. Uptime independently records a site where an STS-PDU fault affecting one third of its IT equipment made the whole facility unavailable, and states that the large-STS approach does not meet Tier III or Tier IV criteria. Rack-mount transfer switches are reported not to exhibit the failure modes that propagate faults upstream to multiple UPS systems.",
+          watch: "Model an STS as a shared-failure vertex joining A and B, never as a redundancy-adding node. Where single-corded load is unavoidable, push the transfer switching down to the rack. Note also that two public sources give opposite answers to whether distributed-redundant-with-STS is a Tier III topology — a live disagreement, not a settled fact.",
+          src: "Schneider Electric WP75; Uptime Institute journal (public)."
+        },
+        {
+          id: "life-safety",
+          chip: "Life safety commands the load off",
+          title: "The single point of failure the standard admits to",
+          survived: false,
+          klass: "antecedent",
+          klassLabel: "outside the fault-tolerance envelope by design",
+          states: { "n-life": "coupled", "n-load": "failed" },
+          coupling: "function — one alarm or one button commands every path off simultaneously, by design and for good reason.",
+          drew: "The fire-alarm and EPO circuits appear on the fire cause-and-effect matrix, and almost never on the resilience model that produced the availability claim.",
+          detail: "Uptime's own tier summary lists the Tier IV single points of failure as \"none plus fire and EPO\", and its Tier IV operational impact states that operation of the fire alarm, fire suppression or Emergency Power Off may cause a data-centre disruption. Life-safety systems sit outside the fault-tolerance envelope and can take the whole load down. That is not a defect — it is the correct priority ordering.",
+          watch: "Include EPO and fire-alarm circuits as control nodes in the resilience model. A model that omits them reports a fault tolerance the standard itself does not claim. See the fire-sequence diagram for what else the alarm commands: fans, dampers, maglocks, elevators.",
+          src: "Uptime tier material, via a publicly posted third-party rendition (the Tier Standard itself is paywalled)."
+        },
+        {
+          id: "maintenance",
+          chip: "It is Tuesday and a component is out for service",
+          title: "The maintenance state nobody puts on the certificate",
+          survived: true,
+          klass: "antecedent",
+          klassLabel: "antecedent violation waiting to happen",
+          states: { "n-upsB": "coupled", "n-upsA": "held", "n-load": "held" },
+          coupling: "maintenance — the redundant element is removed from service on purpose, so the next single failure is no longer tolerated.",
+          drew: "The one-line drew the normal state. The facility spends a meaningful fraction of the year in some other state.",
+          detail: "UPS system B is out for planned service. The load is fine — right now. But the facility is running on a single path, and the same single failure that scenario 1 absorbed would now drop the load. Even at Tier IV the language is explicit: during maintenance activities, the risk of disruption may be elevated. EN 50600's AC4 concedes the same thing in its own wording — fault tolerant except during maintenance.",
+          watch: "Model and report the resilience class per operating state: normal, each maintenance state, each post-fault state. Make the maintenance-state class an explicit design requirement rather than a discovered fact, and pay attention to the paralleling bus, board and controls — the residual single point of failure in an N+1 UPS system, where servicing the parallel board or its controls exposes the load to unprotected power.",
+          src: "Uptime tier material (third-party rendition); Schneider Electric WP75; EN 50600 comparison material."
+        }
+      ];
+
+      var ALL_NODES = ["n-grid", "n-feedA", "n-feedB", "n-xferA", "n-xferB", "n-genA", "n-genB",
+        "n-upsA", "n-upsB", "n-distA", "n-distB", "n-control", "n-cool", "n-life", "n-rack", "n-load"];
+
+      var STATE_CLASS = { failed: "is-failed", coupled: "is-coupled", held: "is-held" };
+
+      var bank = document.getElementById("scenario-bank");
+      var verdict = document.getElementById("verdict");
+      var selected = null;
+
+      function resetNodes() {
+        ALL_NODES.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          el.classList.remove("is-failed", "is-coupled", "is-held");
+        });
+      }
+
+      function renderBank() {
+        bank.innerHTML = "";
+        SCENARIOS.forEach(function (s, idx) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "scenario-chip";
+          btn.setAttribute("aria-pressed", selected === s.id ? "true" : "false");
+          var num = document.createElement("span");
+          num.className = "idx";
+          num.textContent = String(idx + 1);
+          btn.appendChild(num);
+          btn.appendChild(document.createTextNode(s.chip));
+          btn.addEventListener("click", function () { select(s.id); });
+          bank.appendChild(btn);
+        });
+      }
+
+      function addRow(dl, term, body) {
+        var dt = document.createElement("dt");
+        dt.textContent = term;
+        var dd = document.createElement("dd");
+        dd.textContent = body;
+        dl.appendChild(dt);
+        dl.appendChild(dd);
+        return dd;
+      }
+
+      function select(id) {
+        var s = null;
+        SCENARIOS.forEach(function (x) { if (x.id === id) s = x; });
+        if (!s) return;
+        selected = id;
+
+        resetNodes();
+        Object.keys(s.states).forEach(function (nodeId) {
+          var el = document.getElementById(nodeId);
+          if (el) el.classList.add(STATE_CLASS[s.states[nodeId]]);
+        });
+
+        verdict.innerHTML = "";
+        var badges = document.createElement("div");
+        badges.className = "badges";
+
+        var b1 = document.createElement("span");
+        b1.className = "badge " + (s.survived ? "badge--survived" : "badge--dropped");
+        b1.textContent = s.survived ? "load survived" : "load dropped";
+        badges.appendChild(b1);
+
+        var b2 = document.createElement("span");
+        b2.className = "badge badge--" + s.klass;
+        b2.textContent = s.klassLabel;
+        badges.appendChild(b2);
+
+        var h3 = document.createElement("h3");
+        h3.textContent = s.title;
+
+        var dl = document.createElement("dl");
+        addRow(dl, "What happened", s.detail);
+        addRow(dl, "The coupling", s.coupling);
+        addRow(dl, "What the one-line showed", s.drew);
+        addRow(dl, "What to do about it", s.watch);
+        addRow(dl, "Source", s.src).className = "src";
+
+        verdict.appendChild(badges);
+        verdict.appendChild(h3);
+        verdict.appendChild(dl);
+        renderBank();
+      }
+
+      renderBank();
+    })();
+  </script>
+</body>
+</html>

@@ -21,7 +21,8 @@ fn run(root: &Path, args: &[&str]) -> Result<String, String> {
             String::from_utf8_lossy(&out.stderr).trim()
         ));
     }
-    String::from_utf8(out.stdout).map_err(|e| format!("git {}: non-utf8 output: {e}", args.join(" ")))
+    String::from_utf8(out.stdout)
+        .map_err(|e| format!("git {}: non-utf8 output: {e}", args.join(" ")))
 }
 
 fn split_nul(s: &str) -> Vec<String> {
@@ -68,7 +69,10 @@ pub fn staged_additions(root: &Path) -> Result<Vec<String>, String> {
 
 /// The shared git directory (worktree-safe), absolute.
 pub fn common_dir(root: &Path) -> Result<PathBuf, String> {
-    let s = run(root, &["rev-parse", "--path-format=absolute", "--git-common-dir"])?;
+    let s = run(
+        root,
+        &["rev-parse", "--path-format=absolute", "--git-common-dir"],
+    )?;
     let p = PathBuf::from(s.trim());
     if p.as_os_str().is_empty() {
         return Err("git rev-parse --git-common-dir returned nothing".to_string());
