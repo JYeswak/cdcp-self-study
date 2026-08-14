@@ -8,3 +8,9 @@ sha256 = "182ae5d23011108fba08c3a56c5029b8a26a428480ae38ac61877f6f3365db41"
 path = "knowledge/corpus/free-pdfs/nist_sp800_123_server_security.pdf"
 oq09 = "VERIFIED store free PDFs in-repo (Josh 2026-08-12)"
 note = "US government public domain / free publication; server security grounding for domain 13; not a DC facilities standard"
+
+# --- rights posture added 2026-08-14 (P0). access= is PRICE only. ---
+rights = "public-domain"
+redistribution = "permitted"
+ai_ingestion = "permitted"
+rights_note = "US Government work, 17 USC 105. Freely redistributable and AI-ingestible."

@@ -6,5 +6,11 @@ access = "free"
 fetch_date = "2026-08-12"
 sha256 = "e011deb1291e49b34c9be5faba67eb9848c473cae1df2ad5c8e707697749f71b"
 path = "knowledge/corpus/free-pdfs/ashrae_edge_computing_tb_2020.pdf"
-oq09 = "VERIFIED store free PDFs in-repo (Josh 2026-08-12)"
+oq09 = "SUPERSEDED 2026-08-14 — free-to-download does not authorise in-repo storage for ASHRAE; PDFs already purged from HEAD and history 2026-08-12"
 note = "Free technical bulletin posted by ASHRAE; study grounding only"
+
+# --- rights posture added 2026-08-14 (P0). access= is PRICE only. ---
+rights = "publisher-copyright"
+redistribution = "NOT-licensed"
+ai_ingestion = "PROHIBITED"
+rights_note = '''ASHRAE AI policy (read 2026-08-13) prohibits entering content from any ASHRAE publication or related ASHRAE IP into any AI tool, and prohibits creating derivative works of ASHRAE IP using AI without express written permission. access= is a PRICE fact and does NOT authorise redistribution or ingestion. Human reading only; cite by locator.'''
