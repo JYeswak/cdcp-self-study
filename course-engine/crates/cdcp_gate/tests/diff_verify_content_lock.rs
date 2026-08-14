@@ -215,6 +215,31 @@ impl Fixture {
         fs::write(self.lock(), body).expect("write fixture lock");
     }
 
+    /// The `bank_hash` this fixture's lock actually pins — DERIVED, never typed.
+    ///
+    /// bd-5sp5: these three cases used to carry the 64-hex literal by hand, and
+    /// it went stale the moment C2 changed what `hash_payload` covers. A test
+    /// that pins a value by hand is a doc with a compiler; deriving it means the
+    /// next bank_hash move cannot leave a false literal behind.
+    ///
+    /// Anti-vacuous: a lock with no `bank_hash`, or one that is not 64 hex
+    /// characters, is an ERROR here — otherwise a malformed lock would silently
+    /// make every mutation below a no-op that still reported green.
+    fn bank_hash(&self) -> String {
+        let text = self.read_lock();
+        let table: toml::Table = text.parse().expect("fixture lock parses");
+        let hash = table
+            .get("bank_hash")
+            .and_then(|v| v.as_str())
+            .expect("fixture lock pins a bank_hash")
+            .to_string();
+        assert!(
+            hash.len() == 64 && hash.chars().all(|c| c.is_ascii_hexdigit()),
+            "fixture lock's bank_hash is not 64 hex characters: {hash:?}"
+        );
+        hash
+    }
+
     /// Replace the first occurrence of `needle` in the lock with `sub`.
     fn edit_lock(&self, needle: &str, sub: &str) {
         let text = self.read_lock();
@@ -346,8 +371,9 @@ fn tampered_module_content_is_red_in_both() {
 #[test]
 fn tampered_bank_hash_is_drift_in_both() {
     let f = Fixture::green();
+    let live = f.bank_hash();
     f.edit_lock(
-        "bank_hash = \"e82817572a82d13fad699393aab97613bdc0cf4c8503e264af490dc8dd7b71db\"",
+        &format!("bank_hash = \"{live}\""),
         "bank_hash = \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
     );
     let got = assert_identical(&f.engine, false, "tampered bank_hash");
@@ -356,9 +382,10 @@ fn tampered_bank_hash_is_drift_in_both() {
     // 16 characters of each side, then U+2026 — the wider truncation the drift
     // message uses, distinct from the 12 the receipt and the mismatch use.
     assert!(
-        err.contains(
-            "  - bank_hash drift: lock=aaaaaaaaaaaaaaaa\u{2026} live=e82817572a82d13f\u{2026}\n"
-        ),
+        err.contains(&format!(
+            "  - bank_hash drift: lock=aaaaaaaaaaaaaaaa\u{2026} live={}\u{2026}\n",
+            &live[..16]
+        )),
         "{err}"
     );
 }
@@ -726,7 +753,7 @@ fn boolean_true_schema_version_passes_the_check_in_both() {
 fn empty_bank_hash_is_red_in_both() {
     let f = Fixture::green();
     f.edit_lock(
-        "bank_hash = \"e82817572a82d13fad699393aab97613bdc0cf4c8503e264af490dc8dd7b71db\"",
+        &format!("bank_hash = \"{}\"", f.bank_hash()),
         "bank_hash = \"\"",
     );
     let got = assert_identical(&f.engine, false, "empty bank_hash");
@@ -777,13 +804,15 @@ fn a_non_hex_golden_is_compared_verbatim_in_both() {
     // The oracle does NOT hex-validate the golden fallback; this port does not
     // either. Pinning that here keeps a later "improvement" honest.
     let f = Fixture::green();
+    let live = f.bank_hash();
     fs::write(f.engine.join("goldens/bank_hash.txt"), "  not-a-hash  \n").unwrap();
     let got = assert_identical(&f.engine, false, "non-hex golden");
     assert_eq!(got.code, 1, "{}", show(&got));
     assert!(
-        String::from_utf8_lossy(&got.stderr).contains(
-            "  - bank_hash drift: lock=e82817572a82d13f\u{2026} live=not-a-hash\u{2026}\n"
-        ),
+        String::from_utf8_lossy(&got.stderr).contains(&format!(
+            "  - bank_hash drift: lock={}\u{2026} live=not-a-hash\u{2026}\n",
+            &live[..16]
+        )),
         "{}",
         show(&got)
     );

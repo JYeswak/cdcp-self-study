@@ -46,6 +46,11 @@ fn item(id: &str, module: u32, status: ItemStatus) -> BankItem {
         correct: "A".into(),
         explanation: "because reasons here".into(),
         topic_ids: vec![format!("topic-{id}")],
+        // C2 (bd-hardening-c-status-hzs.2): these three fields joined BankItem
+        // and the hash payload. Empty here — this fixture varies `status` only.
+        objective_ids: Vec::new(),
+        citation_ids: Vec::new(),
+        tags: Vec::new(),
         bloom: "understand".into(),
         source_class: "original".into(),
         quantity_evidence: "qualitative_only".into(),
@@ -307,21 +312,22 @@ fn c6_min_modules_is_still_unenforced_over_the_selected_items() {
 #[test]
 fn real_bank_is_all_approved_and_seed42_holds() {
     let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../bank/items");
-    if !dir.is_dir() {
-        eprintln!("skip: real bank missing at {}", dir.display());
-        return;
-    }
-    let bank = Bank::load_dir(&dir).expect("real bank loads under the status schema");
-    let not_approved: Vec<&str> = bank
-        .items
-        .values()
-        .filter(|i| !i.is_approved())
-        .map(|i| i.id.as_str())
-        .collect();
+    // Anti-vacuous: this test's whole value is that it reads the REAL corpus.
+    // A missing bank used to print "skip" and return green, which is the same
+    // observable outcome as having checked it.
     assert!(
-        not_approved.is_empty(),
-        "C1 migration marked every shipped item approved; these are not: {not_approved:?}"
+        dir.is_dir(),
+        "the real bank must be present for this anchoring test; expected {} \
+         (a missing corpus is an ERROR here, never a skip)",
+        dir.display()
     );
+    let bank = Bank::load_dir(&dir).expect("real bank loads under the status schema");
+
+    // Approved-only EXCEPT the deliberate retirements, adjudicated by the one
+    // predicate cdcp_bank owns — see cdcp_bank::SANCTIONED_RETIRED.
+    if let Err(msg) = cdcp_bank::sanctioned_retirement_report(&bank) {
+        panic!("{msg}");
+    }
 
     let exam = assemble(&bank, 42, AssembleConfig::default()).expect("seed 42 assembles");
     assert_eq!(exam.n_items, 40);

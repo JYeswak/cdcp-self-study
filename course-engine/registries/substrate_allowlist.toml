@@ -123,13 +123,13 @@ expires = "2026-11-30"
 
 [[allow]]
 path = "scripts/build_glossary_json.py"
-reason = "Load-bearing check.sh step: generates web/data glossary.json consumed by the learner surface. Grandfathered pending the byte-exact Rust port."
+reason = "Differential oracle for `cdcp_gate build-glossary-json` (bd-substrate-rust-migration-jhd.11, ported 2026-08-14). Retained so tests/diff_build_glossary_json.rs can compare stdout, stderr, exit code and the bytes written byte for byte."
 migration_bead = "bd-substrate-rust-migration-jhd.11"
 expires = "2026-12-31"
 
 [[allow]]
 path = "scripts/build_units.py"
-reason = "Load-bearing check.sh step: generates the units_index the Learn surface reads. Grandfathered pending the byte-exact Rust port."
+reason = "Differential oracle for `cdcp_gate build-units` (bd-substrate-rust-migration-jhd.12, ported 2026-08-14). Module set derived from web/data/modules_index.json. Retained so tests/diff_build_units.rs can compare stdout, stderr, exit code and the bytes written byte for byte."
 migration_bead = "bd-substrate-rust-migration-jhd.12"
 expires = "2026-12-31"
 

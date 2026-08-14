@@ -292,7 +292,7 @@ evidence = [
 [[capability]]
 id = "ledger.capability-maturity"
 title = "Capability claims are attributed, dated, and point at something that exists"
-level = "test-backed"
+level = "proven-to-trip"
 owner = "josh"
 last_review = "2026-08-14"
 claim = "Every row of this file names a level from a fixed lattice, an owner, a review date that expires after the policy window, and evidence that resolves to a real file, a real named test function or a real commit; the level's evidence obligation and the quoted CHARTER cell are both checked."
@@ -301,17 +301,27 @@ evidence = [
   { kind = "known_bad", ref = "crates/cdcp_gate/tests/capability_maturity_e2e.rs::bad_expired_row_is_red_and_names_the_row_and_its_age" },
   { kind = "known_bad", ref = "crates/cdcp_gate/tests/capability_maturity_e2e.rs::bad_dangling_test_ref_is_red_and_names_row_and_ref" },
   { kind = "contract", ref = "registries/capability-maturity.toml" },
+  # Raised test-backed -> proven-to-trip 2026-08-14, when the check.sh step landed.
+  # It was HONESTLY test-backed while written, because the gate existed and nothing
+  # called it (decalogue 10). The lattice reads this level off the evidence: a test,
+  # a contract, and >=1 known_bad. What it does NOT assert is that check.sh's
+  # `|| fail` propagates — that is the same claim --prove-wired had to settle
+  # behaviourally for the substrate guard, and nothing settles it here yet.
+  { kind = "contract", ref = "scripts/check.sh" },
 ]
 
 # ── recorded absences (PLAN milestones not yet built) ──────────────────────
 [[capability]]
 id = "goldens.coupling-registry"
 title = "Goldens declare the semantic surfaces they were frozen against"
-level = "absent"
+level = "gate-wired"
 owner = "josh"
 last_review = "2026-08-14"
-claim = "NO. Nothing records which semantic surfaces a frozen golden depends on, so UPDATE_GOLDENS can re-freeze after a grader-semantics change with no artifact noting that a surface moved. PLAN §B2 calls this a live defect."
+claim = "YES. registries/goldens-couplings.toml pins 13 surfaces / 28 pins under 7 goldens with 34 declared couplings, every pin re-extracted from source on each run, and scripts/check.sh fails on any surface move, unbumped version, unaffirmed dependency or re-freeze. Proven not vacuous by its own first run: it found ten violations — C2 redefining bank_hash under all seven frozen artifacts, all seven re-frozen the same hour with nothing naming the surface. It does NOT decide that a golden is CORRECT, that a justification is honest, or that anyone re-read a row before re-affirming it."
 evidence = [
-  { kind = "contract", ref = "docs/PLAN-A-TO-Z.md" },
-  { kind = "contract", ref = "docs/FRANKENSIM-ADOPTION.md" },
+  { kind = "contract", ref = "registries/goldens-couplings.toml" },
+  { kind = "test", ref = "crates/cdcp_gate/tests/goldens_couplings_e2e.rs::the_live_ledger_is_schema_clean_and_its_findings_are_the_named_debts" },
+  { kind = "known_bad", ref = "crates/cdcp_gate/tests/goldens_couplings_e2e.rs::bad_a_re_frozen_golden_is_red_even_when_every_surface_held" },
+  { kind = "known_bad", ref = "crates/cdcp_gate/tests/goldens_couplings_e2e.rs::bad_a_field_added_to_a_pinned_struct_is_red_and_names_both_sides" },
+  { kind = "contract", ref = "scripts/check.sh" },
 ]

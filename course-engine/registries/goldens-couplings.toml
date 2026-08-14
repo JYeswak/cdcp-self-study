@@ -1,0 +1,491 @@
+# =============================================================================
+# goldens-couplings.toml — what each frozen artifact was frozen AGAINST
+# (bd-hardening-b-ledgers-gvm.2 · milestone B · pattern: frankensim
+# golden-couplings.json, whose note states the rule exactly: "an upstream
+# semantic change must point at every downstream golden to re-freeze
+# deliberately, never silently")
+# =============================================================================
+#
+# WHY THIS FILE EXISTS
+#
+# PLAN §B2 calls this a LIVE DEFECT, and it was: `UPDATE_GOLDENS=1 cargo run -p
+# cdcp_cli -- goldens generate` rewrites the digests, `goldens check` recomputes
+# them from the same code that just changed, and the pair agrees again. A grader
+# semantics change and a bank typo fix produce the same diff — two hex strings —
+# and nothing anywhere recorded that a SURFACE had moved.
+#
+# HOW THE HOLE IS CLOSED — four steps, in this order, none of them optional
+#
+#   1. A `[[surface]]` pin is re-extracted from source on every run. Source
+#      moves  ->  RED, naming the registry value and the source value.
+#   2. `version` is DERIVED from the surface's own pin block (a hand-written
+#      label can be left alone while the thing it names moves — that is the
+#      defect, not the cure). Repairing a pin  ->  RED until the version is
+#      re-derived.
+#   3. Every `[[golden]]` affirms each surface AT A VERSION. A bumped version
+#      ->  RED on every golden that had not re-affirmed.
+#   4. `frozen` is the sha256 of the golden's bytes. A re-freeze  ->  RED on its
+#      own row, whatever else held.
+#
+# So a semantics change now costs a walk of this file, and a re-freeze cannot
+# happen without the walk. That cost is the deliverable.
+#
+# WHAT THIS FILE DOES NOT DO — read `crates/cdcp_gate/src/gates/goldens_couplings.rs`
+# for the full ceiling. It cannot decide that a golden is CORRECT (a digest over
+# a wrong answer key is pinned exactly as firmly as a right one), that a
+# justification is honest, or that anybody re-read anything before re-dating a
+# row. It decides that a coupling is declared, resolvable, and current.
+#
+# A ROW THAT IS RED IS NOT A BUG IN THIS FILE. It is the repo telling you a
+# surface moved under a frozen artifact. Fix the pin and re-affirm, or restore
+# the source — never both-ways, and never by deleting the row.
+#
+# WHAT THE PINS DESCRIBE
+#
+# The COMMITTED tree, always — the state in which the artifacts below and the
+# source above them last agreed. A working tree that has moved either side is
+# supposed to be red here; that is the whole signal. Never re-pin from a tree
+# whose own gates disagree with each other, because a coupling recorded from an
+# inconsistent state is worse than none: it reads exactly like one that held.
+#
+# HOW TO REPAIR A ROW (the whole procedure)
+#   1. Run `cargo run -p cdcp_gate -- goldens-couplings`. Every finding prints
+#      the registry side and the source side; there is nothing to compute.
+#   2. Decide what the source change MEANT for each golden below it. That is the
+#      step this file exists to force. Write it into `justification`.
+#   3. Re-freeze the goldens with the four-command block in
+#      `goldens/PROVENANCE.md` — that block is still the only regeneration path.
+#   4. Paste the new pin values, the derived `version`, the new `frozen`
+#      digests, and today's date into the rows this touched.
+# =============================================================================
+
+schema_version = 1
+
+[policy]
+# A golden unaffirmed for longer than this is RED. The gate compiles this value
+# in as a CEILING: the registry may tighten it, never loosen it.
+affirmation_days = 365
+
+# ── semantic surfaces ──────────────────────────────────────────────────────
+# Each surface is a thing that, when it moves, changes what a golden should
+# contain. `version` is derived; do not invent one.
+
+[[surface]]
+id = "core.schema-version"
+title = "The schema version stamped into every GradeReport"
+version = "ve1cc74b2e52b"
+justification = "cdcp_grade writes SCHEMA_VERSION into the report body, so canonical_json covers it and every grade digest below moves when it is bumped. It is the only version constant in the tree, which is exactly why a golden must name it rather than assume it."
+[[surface.pin]]
+kind = "const"
+file = "crates/cdcp_core/src/lib.rs"
+symbol = "SCHEMA_VERSION"
+expect = ["1"]
+
+[[surface]]
+id = "core.grade-report-shape"
+title = "The serialised shape of GradeReport and its members"
+version = "v0e105134e087"
+justification = "The grade goldens are sha256 over canonical_json(GradeReport). Adding, removing, renaming or reordering a field changes those bytes for every attempt, so the frozen digests are a function of this shape and of nothing else about the type."
+[[surface.pin]]
+kind = "fields"
+file = "crates/cdcp_core/src/lib.rs"
+symbol = "GradeReport"
+expect = [
+  "schema_version",
+  "bank_hash",
+  "exam_id",
+  "seed",
+  "item_results",
+  "score_correct",
+  "score_total",
+  "by_module",
+  "weak_modules",
+  "passed_study_signal",
+]
+[[surface.pin]]
+kind = "fields"
+file = "crates/cdcp_core/src/lib.rs"
+symbol = "ItemResult"
+expect = ["item_id", "chosen", "correct", "is_correct"]
+[[surface.pin]]
+kind = "fields"
+file = "crates/cdcp_core/src/lib.rs"
+symbol = "ModuleScore"
+expect = ["module", "correct", "total"]
+
+[[surface]]
+id = "core.canonical-json"
+title = "The canonical-JSON rules the digests are taken over"
+version = "v33d390defeb4"
+justification = "Key ordering, array handling and the serialisation of the sorted value decide the exact bytes hashed. A change here moves every digest in this repo while every type and every value stays identical, which is the least visible way a golden can go stale."
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_core/src/lib.rs"
+symbol = "canonical_json"
+digest = "c6668c6e762b520086d7f1bf5f71cc8ef3c6dab1c7a09c6e12afef0dedb2239a"
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_core/src/lib.rs"
+symbol = "sort_value"
+digest = "b68bd222ab8328ab8395e73b39f2194da4c8255c99c520112516b08d1ea8fa41"
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_core/src/lib.rs"
+symbol = "digest_report"
+digest = "ce3fa9e2067caea39c55c9877bea09d965638f166c0f5a7b623f47b77153a393"
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_core/src/lib.rs"
+symbol = "sha256_hex"
+digest = "1ee552d8ede3ac488a90ee6df82162a83bc16496f69b7bf114f7978d6064024d"
+
+[[surface]]
+id = "core.choice-letter"
+title = "Choice letters, their parse, and the deterministic wrong letter"
+version = "vd7fc50f64ee4"
+justification = "The all-wrong golden is defined as correct.wrong_letter() for all forty items, so the A->B->C->D cycle is load-bearing content of that digest. ChoiceLetter::parse also decides which answer files are refused rather than silently scored."
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_core/src/lib.rs"
+symbol = "impl ChoiceLetter"
+digest = "cbc53a525306fba3e6af4833f79b0d2e7ad34d0d2cd77bdae8740649764720d3"
+
+# WAS RED ON PURPOSE — this is the record of the first walk, kept because it is
+# the evidence the ledger was never vacuous.
+#
+# Seeded 2026-08-14 from the COMMITTED tree, and RED on its first run with ten
+# violations, because C2 (bd-hardening-c-status-hzs.2) was moving BOTH bank
+# surfaces in the working tree while this file was being written: `objective_ids`,
+# `citation_ids` and `tags` joined BankItem; those three plus `status` joined
+# hash_payload; compute_bank_hash gained an empty-bank guard. All seven artifacts
+# below were re-frozen on disk at 15:44 with nothing recording that a surface had
+# moved — the defect PLAN §B2 describes, caught in the act rather than argued for.
+#
+# CLEARED 2026-08-14 by the walk this file exists to impose, in PROVENANCE's
+# order: C2 and C3 landed, the four-command regeneration block ran, then every
+# pin was re-extracted, both versions re-derived, all seven `frozen` digests
+# re-taken and every `depends_on` re-affirmed. Nothing here was cleared by
+# pasting in what the tree said; each row was walked, and the two rows whose
+# MEANING changed are rewritten below rather than re-dated.
+[[surface]]
+id = "bank.item-schema"
+title = "The BankItem struct — what a bank file may carry and what serialises"
+version = "ve4a98becddb0"
+justification = "web/data/bank_items_seed42.json is serde_json over these fields verbatim, so the pack's shape IS this list. C2 also closed the gap this pin was written to expose: `objective_ids`, `citation_ids` and `tags` are now on the struct AND in hash_payload, so no modelled field is content the bank_hash misses. `objective_ids` in particular had never been a field at all — all 804 files carried it on disk and serde discarded it on load — so this list is now the first place that records it exists."
+[[surface.pin]]
+kind = "fields"
+file = "crates/cdcp_bank/src/lib.rs"
+symbol = "BankItem"
+expect = [
+  "id",
+  "module",
+  "stem",
+  "choices",
+  "correct",
+  "explanation",
+  "topic_ids",
+  "objective_ids",
+  "citation_ids",
+  "tags",
+  "bloom",
+  "source_class",
+  "quantity_evidence",
+  "status",
+]
+
+# WHAT THE C2 CHANGE MEANT, since this is the surface that moved furthest.
+#
+# `status` entering the payload INVERTS a documented property. PROVENANCE §"Bank
+# drift" was built on status being absent: a selection-only edit — approving or
+# retiring an item — moved the fixture while this hash held. It no longer does.
+# Retiring m14-q040 (C3) now moves bank_hash by itself, which is why the two
+# beads had to re-freeze together and why the domain string is wrong until
+# bd-6ycw bumps it: two different definitions are both still labelled v1.
+#
+# The `const` pin below is therefore RIGHT and WRONG at once — it faithfully
+# records what the source says, and what the source says is stale. That is the
+# correct state for a ledger: it pins reality, and bd-6ycw is the bead that moves
+# reality. When it lands, this surface goes RED again and the walk repeats — one
+# deliberate move rather than two silent ones.
+[[surface]]
+id = "bank.hash-payload"
+title = "The bank_hash content address — which item fields it covers"
+version = "vb16701344b7e"
+justification = "bank_hash is pinned by goldens/bank_hash.txt, embedded in the fixture and in every web pack, and compared inside grade() before a report is produced. Which keys enter this payload decides which bank edits are visible to any of them. Since C2 that set includes `status`, so the content address now covers the approved/retired selection itself — the property PROVENANCE §\"Bank drift\" was written against. deny_unknown_fields plus hash_payload_covers_every_modelled_field keep the two sides equal, so a field cannot be added to the struct and quietly sit outside the address again."
+[[surface.pin]]
+kind = "keys"
+file = "crates/cdcp_bank/src/lib.rs"
+symbol = "hash_payload"
+expect = [
+  "id",
+  "module",
+  "stem",
+  "choices",
+  "correct",
+  "explanation",
+  "topic_ids",
+  "objective_ids",
+  "citation_ids",
+  "tags",
+  "bloom",
+  "source_class",
+  "quantity_evidence",
+  "status",
+]
+[[surface.pin]]
+kind = "const"
+file = "crates/cdcp_core/src/lib.rs"
+symbol = "BANK_HASH_DOMAIN"
+expect = ['b"cdcp-bank-v1\0"']
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_bank/src/lib.rs"
+symbol = "compute_bank_hash"
+digest = "f3bc025977b558e2173865be7ca4a7cc8a1c2e7e67e5908d7ccd156efbc3d01c"
+
+[[surface]]
+id = "grade.scoring-semantics"
+title = "grade() — scoring, per-module rollup, weak-module rule and study signal"
+version = "v5431626fe9cc"
+justification = "score_correct, by_module, weak_modules and passed_study_signal are all fields of the hashed report, so the weak-module ratio and the study-pass threshold are content of the frozen digests rather than presentation applied afterwards."
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_grade/src/lib.rs"
+symbol = "grade"
+digest = "68bbd52e7cb21a54f2be415cd2cd7f4b58c4b72bce9def85ab115a24922430fe"
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_grade/src/lib.rs"
+symbol = "is_weak_module"
+digest = "46d9d957bed7db4d052060eec8bc54c87e5667fde2409ee7593c9de4dc6f9f7d"
+[[surface.pin]]
+kind = "const"
+file = "crates/cdcp_core/src/lib.rs"
+symbol = "STUDY_PASS_CORRECT"
+expect = ["27"]
+
+[[surface]]
+id = "grade.attempt-builders"
+title = "The all-correct and all-wrong attempt builders the goldens are named for"
+version = "v92df4e677b98"
+justification = "The two grade goldens are not arbitrary attempts: they are exactly what these two builders produce over the fixture's item_ids, so a change in how either builds an attempt re-defines what the digest below it means."
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_grade/src/lib.rs"
+symbol = "all_correct_attempt"
+digest = "67ddd9a0d28631e08c834d2aa09fd6378002cfa68c04698a86d1a6646b62abe8"
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_grade/src/lib.rs"
+symbol = "all_wrong_attempt"
+digest = "44159f42e66492e75875ae1c23f37e34a23d4ac2ce999dcda6f09e69a6e273d2"
+
+[[surface]]
+id = "assemble.sampler"
+title = "The seed-42 sampler: stratification, the approved-only pool, and the PRNG derivation"
+version = "vf3adc799b61e"
+justification = "The fixture's forty item_ids are this function's output at seed 42, in order, and every web pack replays them. PROVENANCE measures the cost of getting this wrong: when the sampler and the fixture diverged, 37 of 40 ids differed and no gate noticed for months."
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_assemble/src/lib.rs"
+symbol = "sample_item_ids"
+digest = "c4363d24ab7240b59c9f4a227e868a91bbb4ea567fd50d11dd7eea3b21f65063"
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_assemble/src/lib.rs"
+symbol = "rng_from_seed"
+digest = "46c7cd9f3c602e4264ed3f5ad26f58149545aa6d34cfd63096c80037b2fd4058"
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_assemble/src/lib.rs"
+symbol = "assemble"
+digest = "12130d0b009f342424c46502c5f42f044ceb5d2c4a218080f66d4ebcdf367620"
+[[surface.pin]]
+kind = "fields"
+file = "crates/cdcp_assemble/src/lib.rs"
+symbol = "AssembleConfig"
+expect = ["n_items", "max_per_module", "min_modules", "shuffle_choices"]
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_assemble/src/lib.rs"
+symbol = "impl Default for AssembleConfig"
+digest = "210a26264e3f49acce637540c2141a2294bdc270b0f783ce855189c9a6b84c1c"
+
+[[surface]]
+id = "assemble.prng-crate"
+title = "The rand version whose stream the seed-42 fixture was frozen under"
+version = "vad2647d779f9"
+justification = "StdRng is ChaCha12 and is NOT portable across rand versions; PROVENANCE §PRNG says so and names the re-freeze C4 will owe. The workspace declares a caret range, so cargo may move this without any file in the tree changing — this pin is the only place that would notice."
+[[surface.pin]]
+kind = "lockdep"
+file = "Cargo.lock"
+symbol = "rand"
+via = "cdcp_assemble"
+expect = ["0.8.7"]
+
+[[surface]]
+id = "fixture.writer-shape"
+title = "The keys `goldens fixture` writes into the seed fixture"
+version = "v02e7a266d012"
+justification = "The fixture is not only a list of ids: it carries an embedded projection of each item, and goldens check reads item_ids out of it to build both graded attempts. A key added or dropped here changes the artifact every other golden is derived from."
+[[surface.pin]]
+kind = "keys"
+file = "crates/cdcp_cli/src/main.rs"
+symbol = "goldens_fixture"
+expect = [
+  "id",
+  "module",
+  "stem",
+  "choices",
+  "correct",
+  "topic_ids",
+  "exam_id",
+  "seed",
+  "n_items",
+  "bank_hash",
+  "item_ids",
+  "modules",
+  "items",
+  "provenance",
+]
+
+[[surface]]
+id = "export.pack-shapes"
+title = "The keys export-web writes into the three browser packs"
+version = "vf5bd9ce1819c"
+justification = "scripts/check.sh L6 cmps all three committed packs byte-for-byte against a fresh export, so their shapes are frozen artifacts in every sense except where they are stored. The learner pack's key set is also the answer-key policy: correct letters are omitted there on purpose."
+[[surface.pin]]
+kind = "keys"
+file = "crates/cdcp_cli/src/main.rs"
+symbol = "export_web"
+expect = [
+  # learner projection
+  "id", "stem", "choices",
+  # key projection
+  "item_id", "correct", "explanation",
+  # learner pack envelope
+  "schema_version", "exam_id", "seed", "bank_hash", "n_items", "items",
+  "answer_key_policy",
+  # keys pack envelope
+  "schema_version", "exam_id", "seed", "bank_hash", "n_items", "keys",
+  "policy",
+]
+
+[[surface]]
+id = "goldens.regeneration-path"
+title = "The commands that write and check goldens/"
+version = "v2ddd2f43a9d5"
+justification = "PROVENANCE names exactly one regeneration path and one checker. If goldens_check stops comparing something — the bank_hash pin is already conditional on the file existing — the artifact keeps its digest here while nothing recomputes it, so the checker is itself a surface the goldens depend on."
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_cli/src/main.rs"
+symbol = "goldens_check"
+digest = "1f28d64fc388e92b5bfc68822050db2c080f993313d00768e91afcf90b2db120"
+[[surface.pin]]
+kind = "region"
+file = "crates/cdcp_cli/src/main.rs"
+symbol = "goldens_generate"
+digest = "a796fce9e69cb4ffc8cf30fe2710091d05eb2678f7f3451cdd7df0106c43275f"
+
+# ── the frozen artifacts ───────────────────────────────────────────────────
+# `frozen` is the sha256 of the file's bytes. Every file under goldens/ that is
+# not prose must appear here; the three web/data packs are goldens by function —
+# check.sh L6 cmps them against a fresh export — so they are declared too.
+
+[[golden]]
+id = "fixture.mock40-seed42"
+file = "goldens/fixtures/mock40_seed42.json"
+frozen = "3313001b83f12590a0118d3791c6c55cde06ff1356a7f84919850515771657c3"
+affirmed = "2026-08-14"
+justification = "The seed-42 assembly record: forty ids in presentation order, plus an embedded six-field projection of each item and the bank_hash they were drawn under. Every other golden here is computed FROM this file, so it is re-frozen first and re-affirmed first. Bank CONTENT drift is not this file's job — content.lock pins the item files and goldens check regrades them; what is pinned here is the shape and the code that produced it."
+depends_on = [
+  { surface = "assemble.sampler", version = "vf3adc799b61e" },
+  { surface = "assemble.prng-crate", version = "vad2647d779f9" },
+  { surface = "fixture.writer-shape", version = "v02e7a266d012" },
+  { surface = "bank.item-schema", version = "ve4a98becddb0" },
+  { surface = "bank.hash-payload", version = "vb16701344b7e" },
+]
+
+[[golden]]
+id = "grade.all-correct"
+file = "goldens/mock40_seed42_all_correct.sha256"
+frozen = "b5171c948c3542a21566ab0563e5763481fbd724b6f077617aaf64cba02e87ba"
+affirmed = "2026-08-14"
+justification = "hex(SHA-256(canonical_json(GradeReport))) for an attempt answering every fixture item with its correct letter. It moves when the report shape moves, when canonical JSON moves, when scoring moves, when the schema version moves, or when the fixture's ids move — which is five surfaces, and was previously recorded nowhere."
+depends_on = [
+  { surface = "core.schema-version", version = "ve1cc74b2e52b" },
+  { surface = "core.grade-report-shape", version = "v0e105134e087" },
+  { surface = "core.canonical-json", version = "v33d390defeb4" },
+  { surface = "grade.scoring-semantics", version = "v5431626fe9cc" },
+  { surface = "grade.attempt-builders", version = "v92df4e677b98" },
+  { surface = "bank.hash-payload", version = "vb16701344b7e" },
+  { surface = "goldens.regeneration-path", version = "v2ddd2f43a9d5" },
+]
+
+[[golden]]
+id = "grade.all-wrong"
+file = "goldens/mock40_seed42_all_wrong.sha256"
+frozen = "1ed9ac38193f2585f2009c8b114f950b9b8571894e85eb87c2b59c9aa06302c7"
+affirmed = "2026-08-14"
+justification = "The all-correct golden's counterpart, answering correct.wrong_letter() for all forty items. It carries one dependency the other does not: the wrong-letter cycle itself, which is content of this digest and nothing else in the tree pins."
+depends_on = [
+  { surface = "core.schema-version", version = "ve1cc74b2e52b" },
+  { surface = "core.grade-report-shape", version = "v0e105134e087" },
+  { surface = "core.canonical-json", version = "v33d390defeb4" },
+  { surface = "core.choice-letter", version = "vd7fc50f64ee4" },
+  { surface = "grade.scoring-semantics", version = "v5431626fe9cc" },
+  { surface = "grade.attempt-builders", version = "v92df4e677b98" },
+  { surface = "bank.hash-payload", version = "vb16701344b7e" },
+  { surface = "goldens.regeneration-path", version = "v2ddd2f43a9d5" },
+]
+
+[[golden]]
+id = "bank.hash-pin"
+file = "goldens/bank_hash.txt"
+const = "crates/cdcp_gate/src/gates/verify_content_lock.rs::GOLDEN_REL"
+frozen = "1a3019f90453a7eafbe5a9e4002e4ba875ca06507a5f851e4f04db9007c102f2"
+affirmed = "2026-08-14"
+justification = "The bank content address for this snapshot, and the fallback verify-content-lock reads when it cannot recompute one. goldens check compares it only when the file exists, so this row is also what makes deleting it a finding rather than a silent pass."
+depends_on = [
+  { surface = "bank.hash-payload", version = "vb16701344b7e" },
+  { surface = "bank.item-schema", version = "ve4a98becddb0" },
+  { surface = "core.canonical-json", version = "v33d390defeb4" },
+]
+
+[[golden]]
+id = "web.learner-pack"
+file = "web/data/mock40_seed42.json"
+frozen = "991e563f4840033ef25ca740a2229bd4d02023ca3eb7a291fedf3790f8e8a0c3"
+affirmed = "2026-08-14"
+justification = "The learner exam pack the browser loads, cmp'd byte-for-byte by check.sh L6 against a fresh export-web at seed 42. It replays the sampler rather than the fixture, so it moves with the sampler even when the fixture is untouched — the divergence bd-golden-sampler-divergence-09q was made of."
+depends_on = [
+  { surface = "assemble.sampler", version = "vf3adc799b61e" },
+  { surface = "assemble.prng-crate", version = "vad2647d779f9" },
+  { surface = "export.pack-shapes", version = "vf5bd9ce1819c" },
+  { surface = "bank.hash-payload", version = "vb16701344b7e" },
+]
+
+[[golden]]
+id = "web.keys-pack"
+file = "web/data/keys_seed42.json"
+frozen = "13cdd765993dc278b2af740b48794999a2a763b4cf775069e24baff37d6480f6"
+affirmed = "2026-08-14"
+justification = "The answer keys and explanations for the same forty items, held apart from the learner pack on purpose. Its key set is a policy boundary, not a convenience, which is why the shape it was frozen under is named here rather than assumed."
+depends_on = [
+  { surface = "assemble.sampler", version = "vf3adc799b61e" },
+  { surface = "assemble.prng-crate", version = "vad2647d779f9" },
+  { surface = "export.pack-shapes", version = "vf5bd9ce1819c" },
+  { surface = "bank.hash-payload", version = "vb16701344b7e" },
+]
+
+[[golden]]
+id = "web.bank-items-pack"
+file = "web/data/bank_items_seed42.json"
+frozen = "00acfede145a4a8fd9f22b64e87911a12a12aed184ee249cb21548eb8a096bf0"
+affirmed = "2026-08-14"
+justification = "The full 804-item array the WASM grade path needs, serialised straight off BankItem. Its element shape IS bank.item-schema, so a field added to that struct re-writes this file for every item while bank_hash — which hash_payload governs separately — can hold still. That asymmetry is the reason both surfaces are named here."
+depends_on = [
+  { surface = "bank.item-schema", version = "ve4a98becddb0" },
+  { surface = "bank.hash-payload", version = "vb16701344b7e" },
+  { surface = "export.pack-shapes", version = "vf5bd9ce1819c" },
+]

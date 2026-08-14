@@ -1,4 +1,27 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-near-duplicate-item-gate-i5v (C3).
+# This item and bank-m14-q121 (bank/items/m14-q121.toml) are one item entered
+# twice: identical key text, key moved from B to A, two distractors reworded
+# ("Replaces daily backups of VMs" / "Replaces daily VM backups"). Measured by
+# `cdcp_gate near-duplicate-items`: answer 100%, distractors 73%, stem 88%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT bank-m14-q121:
+#   1. bank-m14-q121 is the copy the seed-42 form actually draws
+#      (goldens/fixtures/mock40_seed42.json, web/data/keys_seed42.json);
+#      retiring it would pull an item out of the published form.
+#   2. This item's explanation restates its own key verbatim and teaches
+#      nothing; q121's names the contrast being tested ("not just component
+#      bench tests").
+#   3. Provenance: 20 of the 25 pairs the gate flags have a mock40-* item on
+#      one side. The wholesale import of practice/PRACTICE-EXAM.md into the
+#      module pool is the root cause of the class, so the import-side copy is
+#      the consistent one to withdraw.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file
+# would lose the provenance of the duplication.
 id = "mock40-q40"
 module = 14
 stem = "Integrated Systems Testing (IST) is valuable because it:"
@@ -15,4 +38,4 @@ objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "retired"

@@ -112,9 +112,12 @@ measures outline shape, not depth. v1 selected the metric that supported its the
   material the Learn surface does not contain. This is a live fairness defect.
 - **All 804 items have `objective_ids = []`.** Zero populated. `verify_objectives.py` admits
   there is no objective→item matrix. Bloom labels are self-asserted.
-- **`bank_hash` omits load-bearing fields.** `hash_payload()` covers id/module/stem/choices/
-  correct/explanation/topic_ids — **not** `objective_ids`, citation ids, or item status. Adding
-  evidence would not change the supposedly content-addressed hash.
+- **~~`bank_hash` omits load-bearing fields.~~ FIXED 2026-08-14 (C2).** `hash_payload()` now
+  covers `objective_ids`, `citation_ids`, `tags` and `status` alongside the original seven, and a
+  test asserts the payload key set equals the serde field set so the two cannot drift again. Note
+  the consequence: because `status` is now covered, retiring an item moves `bank_hash` by itself —
+  which inverts the property `goldens/PROVENANCE.md` §"Bank drift" was written against. Residual:
+  the domain string still reads `cdcp-bank-v1` under the v2 definition (`bd-6ycw`).
 - **`StdRng` is not portable.** `cdcp_assemble` documents it as "frozen (currently ChaCha12)",
   but Rand documents `StdRng` as explicitly non-reproducible across versions/platforms. The
   word "currently" is the tell. Determinism is this repo's crown jewel; it rests on an RNG whose

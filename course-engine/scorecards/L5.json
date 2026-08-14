@@ -33,11 +33,11 @@
     "check_sh_l5_wired": true
   },
   "digests": {
-    "all_correct": "0e12171b04f6037b13b2990c7a679c06fb768c8ee1cc7243e40d56a3f9a4be16",
-    "all_wrong": "bad672a0c81512e252390ed7974e18dcf17e882b884dff361288f12743e358bc",
-    "bank_hash_live": "e82817572a82d13fad699393aab97613bdc0cf4c8503e264af490dc8dd7b71db",
+    "all_correct_at_l5_ship": "0e12171b04f6037b13b2990c7a679c06fb768c8ee1cc7243e40d56a3f9a4be16",
+    "all_wrong_at_l5_ship": "bad672a0c81512e252390ed7974e18dcf17e882b884dff361288f12743e358bc",
     "bank_hash_at_l5_ship": "4df4f517d8112867a41b9eddc6b82a5c948bc3f85062b729ee22a8d08f4fa28b",
-    "note": "seed42 goldens pin attempt digests; live bank_hash drifts with bank growth (804 items). Gate = goldens check + e2e fixtures, not live hash freeze."
+    "note": "HISTORICAL RECORD, frozen at L5 ship. Every value here is suffixed _at_l5_ship because a scorecard is a dated record, not a live view. A field named bank_hash_live used to sit here and was DELETED 2026-08-14 (bd-5sp5) rather than re-frozen: it was two bank_hash definitions out of date (e828... , pre-C2), no gate read it, and re-freezing a live-claiming field in a static file only schedules the next drift. For the current address read goldens/bank_hash.txt or content.lock, both of which ARE gated. Interpreting these three requires knowing which hash_payload definition produced them; see goldens/PROVENANCE.md and registries/goldens-couplings.toml.",
+    "gated_by": "nothing — this file is a record, not a pin. scripts/check.sh does not read it."
   },
   "non_claims": [
     "L5 complete is not EPI/EXIN certification",

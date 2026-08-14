@@ -56,6 +56,12 @@ and still pass `scripts/verify_bank.py` (or the reverse for shared fields).
 | pool_min / domain_min / letter diversity | — (corpus policy; py-only) | yes |
 | MANIFEST item_count | — | yes if present |
 | `read_dir` IO errors | fail closed (no `e.ok()` swallow) | N/A |
+| `status` ∈ {draft,approved,retired} | **yes** — unknown value is a load error, absent = draft (C1) | — (not checked) |
+| unknown / unmodelled field | **yes** — load error naming the field (`deny_unknown_fields`, C2) | — (silently ignored) |
+
+The last two rows are the recorded **divergences**: the Rust side is strictly stricter, so this
+table is a floor, not an equality. A green `verify_bank.py` is not evidence that item statuses are
+well-formed, nor that a bank file carries no content outside `bank_hash`.
 
 **Commands:** `cargo test -p cdcp_bank` (includes real `bank/items` load) and
 `python3 scripts/verify_bank.py`.

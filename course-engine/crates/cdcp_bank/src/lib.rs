@@ -1,11 +1,16 @@
 //! Load bank items and compute bank_hash (OQ-03).
 //!
 //! Item schema floors match `scripts/verify_bank.py` (see docs/TESTING.md parity table)
-//! with ONE recorded divergence as of C1: `status` is loaded and enforced here
-//! (unknown value = load error, default = draft) and is NOT checked by
-//! `verify_bank.py`. The Rust side is the stricter one, so the parity table is
-//! a floor, not an equality — do not read a green `verify_bank.py` as evidence
-//! that item statuses are well-formed.
+//! with TWO recorded divergences, both in the strict direction:
+//!
+//! 1. **C1** — `status` is loaded and enforced here (unknown value = load
+//!    error, default = draft) and is NOT checked by `verify_bank.py`.
+//! 2. **C2** — unknown fields are a load error here (`deny_unknown_fields`);
+//!    `verify_bank.py` ignores any key it does not know about.
+//!
+//! The Rust side is the stricter one in both, so the parity table is a floor,
+//! not an equality — do not read a green `verify_bank.py` as evidence that item
+//! statuses are well-formed or that a bank file carries no unmodelled content.
 #![forbid(unsafe_code)]
 
 use cdcp_core::{canonical_json, sha256_hex, ChoiceLetter, BANK_HASH_DOMAIN};
@@ -14,6 +19,81 @@ use std::collections::BTreeMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 use thiserror::Error;
+
+/// The shipped bank's DELIBERATE exclusions — every item id that is knowingly
+/// not `approved`, and why.
+///
+/// # This list is an allowlist, not a mute button
+///
+/// Two tests read it — `cdcp_bank::load_real_bank_items` and
+/// `cdcp_assemble::real_bank_is_all_approved_and_seed42_holds` — and both assert
+/// set EQUALITY in **both** directions:
+///
+///   * a non-approved item that is not listed here is RED (an unexplained
+///     retirement, or an item that silently lost its status line);
+///   * an id listed here that is missing from the bank, or that is actually
+///     `approved`, is **also** RED.
+///
+/// The second leg is the one that matters. An allowlist checked in only one
+/// direction rots into a blanket: entries accumulate, nothing ever forces one
+/// out, and eventually it excuses a retirement nobody decided on. Here a stale
+/// entry is a build failure, so the list can only describe the bank as it is.
+///
+/// Adding a row is a bank decision, not a test fix: state which copy survives
+/// and why in the retired file's own header before you add it here.
+pub const SANCTIONED_RETIRED: &[(&str, &str)] = &[(
+    "mock40-q40",
+    "bd-near-duplicate-item-gate-i5v (C3): duplicate of bank-m14-q121 — same \
+     proposition, key moved B->A, two distractors reworded. The import-side copy \
+     from practice/PRACTICE-EXAM.md is withdrawn; the module-bank copy is what \
+     the published seed-42 form draws. bank/items/m14-q040.toml carries the \
+     three-part argument.",
+)];
+
+/// Adjudicate a loaded bank against [`SANCTIONED_RETIRED`], both directions.
+///
+/// `Ok(())` means: every non-approved item is a listed, deliberate retirement,
+/// AND every listed id is present and genuinely non-approved. Returns the
+/// discrepancy as a message otherwise.
+///
+/// Both anchoring tests call THIS, rather than each re-implementing the check.
+/// Two lookalike implementations of one predicate is the bd-n1aj defect; the
+/// point of the allowlist is undone if one caller checks a direction the other
+/// does not.
+pub fn sanctioned_retirement_report(bank: &Bank) -> Result<(), String> {
+    let listed: BTreeMap<&str, &str> = SANCTIONED_RETIRED.iter().copied().collect();
+    if listed.len() != SANCTIONED_RETIRED.len() {
+        return Err("SANCTIONED_RETIRED contains a duplicate id".to_string());
+    }
+
+    let mut unexplained: Vec<&str> = bank
+        .items
+        .values()
+        .filter(|i| !i.is_approved() && !listed.contains_key(i.id.as_str()))
+        .map(|i| i.id.as_str())
+        .collect();
+    unexplained.sort_unstable();
+
+    let mut stale: Vec<String> = Vec::new();
+    for id in listed.keys() {
+        match bank.get(id) {
+            None => stale.push(format!("{id} (listed, but no such item in the bank)")),
+            Some(item) if item.is_approved() => {
+                stale.push(format!("{id} (listed, but it is approved)"))
+            }
+            Some(_) => {}
+        }
+    }
+
+    if unexplained.is_empty() && stale.is_empty() {
+        return Ok(());
+    }
+    Err(format!(
+        "bank retirements disagree with cdcp_bank::SANCTIONED_RETIRED\n  \
+         not approved and NOT listed (decide it, then list it): {unexplained:?}\n  \
+         listed but no longer true (remove the row): {stale:?}"
+    ))
+}
 
 /// Allowed `correct` letters — same as verify_bank.py `ALLOWED_CORRECT` (uppercase only).
 const ALLOWED_CORRECT: &[&str] = &["A", "B", "C", "D"];
@@ -98,7 +178,21 @@ impl std::fmt::Display for ItemStatus {
     }
 }
 
+/// A bank item.
+///
+/// # Unknown-field policy: REJECT (C2)
+///
+/// `deny_unknown_fields` is deliberate and load-bearing. `bank_hash` is a
+/// content address over `hash_payload()`; a field serde silently dropped would
+/// be file content that no hash covers, which is exactly the C2 defect at a
+/// smaller scale. Measured 2026-08-14 before this bead: all 804 items carried
+/// `objective_ids` and six carried `tags`, and **neither field existed on this
+/// struct** — serde discarded both on load, so no hash, no gate, and no test
+/// could ever see them. Under this policy a new field in a bank file is a load
+/// error naming the field until someone models it here and decides, explicitly,
+/// whether it belongs in the content address.
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct BankItem {
     pub id: String,
     pub module: u32,
@@ -109,6 +203,15 @@ pub struct BankItem {
     pub explanation: String,
     #[serde(default)]
     pub topic_ids: Vec<String>,
+    /// Learning-objective ids this item assesses (C2). Hashed.
+    #[serde(default)]
+    pub objective_ids: Vec<String>,
+    /// Evidence backing this item — ids into the citation registry (C2). Hashed.
+    #[serde(default)]
+    pub citation_ids: Vec<String>,
+    /// Free-form editorial labels (C2). Hashed: they are file content.
+    #[serde(default)]
+    pub tags: Vec<String>,
     #[serde(default)]
     pub bloom: String,
     #[serde(default)]
@@ -206,14 +309,40 @@ impl BankItem {
         Ok(())
     }
 
-    /// Canonical fields for hashing (stable subset).
+    /// Canonical fields for hashing — **every** modelled field (C2).
     ///
-    /// `status` is deliberately **NOT** hashed here. Folding it in would move
-    /// `bank_hash` for all 804 items and invalidate every pinned golden in one
-    /// step; that migration is its own bead (C2, blocked on B2). Until then
-    /// `bank_hash` content-addresses the *item text*, not its editorial state —
-    /// which means it cannot detect a status flip. Recorded, not hidden.
+    /// # What changed and why (C2, bd-hardening-c-status-hzs.2)
+    ///
+    /// This payload used to omit `objective_ids`, evidence/citation ids and
+    /// `status`, so `bank_hash` was a content address that could not see the
+    /// evidence behind an item nor whether that item was allowed to reach a
+    /// learner. C1 made the second one load-bearing: assembly draws
+    /// `approved` items only, so flipping one item `approved` → `draft`
+    /// changes what a learner is assessed on. Measured 2026-08-14 on
+    /// `m04-q129`: that flip left `bank_hash` **byte-identical** while moving
+    /// 38 of 40 positions in the seed-42 exam. A hash that misses that is not
+    /// a content address; it is a decoration.
+    ///
+    /// # Invariants
+    ///
+    /// * **Total over modelled fields.** Every field of [`BankItem`] appears
+    ///   here. Combined with `deny_unknown_fields` on the struct, no content
+    ///   in a bank file can be outside the hash.
+    /// * **Set-valued lists are sorted** (`topic_ids`, `objective_ids`,
+    ///   `citation_ids`, `tags`) — reordering them is a cosmetic edit and must
+    ///   not move the hash. `choices` is **not** sorted: its order is the
+    ///   presentation order that `correct` indexes into, so permuting it is a
+    ///   semantic change.
+    /// * **Deterministic.** `BTreeMap` keys plus `canonical_json` — no
+    ///   iteration over an unordered container anywhere on this path.
     pub fn hash_payload(&self) -> BTreeMap<String, serde_json::Value> {
+        /// Set-valued list → sorted, so reordering is not a content change.
+        fn sorted(v: &[String]) -> Vec<String> {
+            let mut out = v.to_vec();
+            out.sort();
+            out
+        }
+
         let mut m = BTreeMap::new();
         m.insert("id".into(), serde_json::json!(self.id));
         m.insert("module".into(), serde_json::json!(self.module));
@@ -221,15 +350,26 @@ impl BankItem {
         m.insert("choices".into(), serde_json::json!(self.choices));
         m.insert("correct".into(), serde_json::json!(self.correct));
         m.insert("explanation".into(), serde_json::json!(self.explanation));
-        let mut topics = self.topic_ids.clone();
-        topics.sort();
-        m.insert("topic_ids".into(), serde_json::json!(topics));
+        m.insert(
+            "topic_ids".into(),
+            serde_json::json!(sorted(&self.topic_ids)),
+        );
+        m.insert(
+            "objective_ids".into(),
+            serde_json::json!(sorted(&self.objective_ids)),
+        );
+        m.insert(
+            "citation_ids".into(),
+            serde_json::json!(sorted(&self.citation_ids)),
+        );
+        m.insert("tags".into(), serde_json::json!(sorted(&self.tags)));
         m.insert("bloom".into(), serde_json::json!(self.bloom));
         m.insert("source_class".into(), serde_json::json!(self.source_class));
         m.insert(
             "quantity_evidence".into(),
             serde_json::json!(self.quantity_evidence),
         );
+        m.insert("status".into(), serde_json::json!(self.status.as_str()));
         m
     }
 }
@@ -320,7 +460,20 @@ impl Bank {
     }
 }
 
+/// Content address of a bank.
+///
+/// # Anti-vacuous
+///
+/// An empty item set is an **ERROR**, not a hash. It used to return
+/// `sha256(BANK_HASH_DOMAIN)` — a well-formed 64-hex string that any caller
+/// would pin, compare, and report green, certifying a bank that contains
+/// nothing. `Bank::load_dir` and `Bank::from_items` already refused empty
+/// inputs, so the hole was only reachable through this function directly; it is
+/// closed here so the guarantee belongs to the hash, not to its two callers.
 pub fn compute_bank_hash(items: &BTreeMap<String, BankItem>) -> Result<String, BankError> {
+    if items.is_empty() {
+        return Err(BankError::Empty);
+    }
     let mut buf: Vec<u8> = Vec::new();
     buf.extend_from_slice(BANK_HASH_DOMAIN);
     // BTreeMap values() iteration is sorted by key (item id)
@@ -583,14 +736,11 @@ quantity_evidence = "qualitative_only"
             "items relying on the implicit draft default (explicit status required): {:?}",
             &missing_explicit[..missing_explicit.len().min(5)]
         );
-        for item in bank.items.values() {
-            assert_eq!(
-                item.status,
-                ItemStatus::Approved,
-                "item {} is {} — the shipped bank is approved-only until C3/C5 retire specific items",
-                item.id,
-                item.status
-            );
+        // The shipped bank is approved-only EXCEPT for the deliberate
+        // retirements named in SANCTIONED_RETIRED. Checked both directions, so
+        // neither an unexplained retirement nor a stale allowlist row passes.
+        if let Err(msg) = sanctioned_retirement_report(&bank) {
+            panic!("{msg}");
         }
     }
 
@@ -682,6 +832,408 @@ status = "published"
         }
     }
 
+    // --- C2: bank_hash covers every load-bearing field ---------------------
+    //
+    // bd-hardening-c-status-hzs.2. Before this bead `hash_payload` omitted
+    // `objective_ids`, evidence/citation ids and `status`, so two banks that
+    // differ in what a learner is assessed on — and in what backs it — hashed
+    // identically. The known-bad legs below are the assertions that defect
+    // could not survive; the known-GOOD legs are what stops the cure from
+    // becoming a hash that moves on cosmetic edits, which is how a pin decays
+    // into something people regenerate reflexively.
+
+    /// One item file, every field explicit, so a leg can vary exactly one thing.
+    #[allow(clippy::too_many_arguments)]
+    fn item_toml(
+        id: &str,
+        topic_ids: &str,
+        objective_ids: &str,
+        citation_ids: &str,
+        tags: &str,
+        status: &str,
+    ) -> String {
+        format!(
+            r#"
+id = "{id}"
+module = 3
+stem = "A valid stem for testing"
+choices = ["a","b","c","d"]
+correct = "B"
+explanation = "because reasons here"
+topic_ids = {topic_ids}
+objective_ids = {objective_ids}
+citation_ids = {citation_ids}
+tags = {tags}
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "{status}"
+"#
+        )
+    }
+
+    /// Load a one-item bank from a fresh temp dir and return its `bank_hash`.
+    fn hash_of(tag: &str, body: &str) -> String {
+        let dir = std::env::temp_dir().join(format!("cdcp-c2-{tag}-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&dir);
+        fs::create_dir_all(&dir).unwrap();
+        write_item(&dir, "t.toml", body);
+        let h = Bank::load_dir(&dir).expect("bank should load").bank_hash;
+        let _ = fs::remove_dir_all(&dir);
+        h
+    }
+
+    /// **THE C2 ASSERTION.** Flipping one item `approved` → `draft` MUST move
+    /// `bank_hash`.
+    ///
+    /// C1 restricted assembly to `approved` items, so this flip changes what
+    /// can reach a learner. Measured 2026-08-14 on the live bank, before this
+    /// bead: the flip produced a byte-identical `bank_hash` while changing the
+    /// seed-42 selection in **38 of 40 positions**. Remove `status` from
+    /// `hash_payload` and this test goes RED — that pair is the meta-test.
+    #[test]
+    fn status_flip_moves_bank_hash() {
+        let approved = hash_of(
+            "st-approved",
+            &item_toml("s1", "[\"t1\"]", "[]", "[]", "[]", "approved"),
+        );
+        let draft = hash_of(
+            "st-draft",
+            &item_toml("s1", "[\"t1\"]", "[]", "[]", "[]", "draft"),
+        );
+        let retired = hash_of(
+            "st-retired",
+            &item_toml("s1", "[\"t1\"]", "[]", "[]", "[]", "retired"),
+        );
+
+        assert_ne!(
+            approved, draft,
+            "approved -> draft MUST move bank_hash: assembly draws approved items only (C1), \
+             so this flip changes what a learner can be assessed on. A content address that \
+             cannot see it is not a content address."
+        );
+        assert_ne!(
+            approved, retired,
+            "approved -> retired MUST move bank_hash (withdrawn from assessment)"
+        );
+        assert_ne!(
+            draft, retired,
+            "draft and retired are distinct editorial states and must hash distinctly"
+        );
+    }
+
+    /// Evidence changes must reach the content address: objective ids.
+    #[test]
+    fn objective_ids_change_moves_bank_hash() {
+        let none = hash_of(
+            "obj-none",
+            &item_toml("o1", "[\"t1\"]", "[]", "[]", "[]", "approved"),
+        );
+        let one = hash_of(
+            "obj-one",
+            &item_toml("o1", "[\"t1\"]", "[\"lo-01\"]", "[]", "[]", "approved"),
+        );
+        let other = hash_of(
+            "obj-other",
+            &item_toml("o1", "[\"t1\"]", "[\"lo-02\"]", "[]", "[]", "approved"),
+        );
+        assert_ne!(none, one, "adding an objective_id must move bank_hash");
+        assert_ne!(one, other, "changing an objective_id must move bank_hash");
+    }
+
+    /// Evidence changes must reach the content address: citation ids.
+    #[test]
+    fn citation_ids_change_moves_bank_hash() {
+        let none = hash_of(
+            "cit-none",
+            &item_toml("c1", "[\"t1\"]", "[]", "[]", "[]", "approved"),
+        );
+        let one = hash_of(
+            "cit-one",
+            &item_toml(
+                "c1",
+                "[\"t1\"]",
+                "[]",
+                "[\"uptime-tier-topology-2026\"]",
+                "[]",
+                "approved",
+            ),
+        );
+        let other = hash_of(
+            "cit-other",
+            &item_toml(
+                "c1",
+                "[\"t1\"]",
+                "[]",
+                "[\"some-other-citation\"]",
+                "[]",
+                "approved",
+            ),
+        );
+        assert_ne!(none, one, "attaching evidence must move bank_hash");
+        assert_ne!(
+            one, other,
+            "swapping the evidence behind an item must move bank_hash"
+        );
+    }
+
+    /// `tags` is file content too — six shipped items carry it, and before C2
+    /// the struct did not even model it.
+    #[test]
+    fn tags_change_moves_bank_hash() {
+        let none = hash_of(
+            "tag-none",
+            &item_toml("g1", "[\"t1\"]", "[]", "[]", "[]", "approved"),
+        );
+        let tagged = hash_of(
+            "tag-some",
+            &item_toml(
+                "g1",
+                "[\"t1\"]",
+                "[]",
+                "[]",
+                "[\"runbook\",\"vignette\"]",
+                "approved",
+            ),
+        );
+        assert_ne!(none, tagged, "adding tags must move bank_hash");
+    }
+
+    /// Unknown-field policy is **REJECT**, on both load paths.
+    ///
+    /// An ignored field is file content outside the hash — the C2 defect in
+    /// miniature. Removing `deny_unknown_fields` turns this RED.
+    #[test]
+    fn unknown_field_is_a_load_error() {
+        let dir = std::env::temp_dir().join(format!("cdcp-c2-unknown-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&dir);
+        fs::create_dir_all(&dir).unwrap();
+        let mut body = item_toml("u1", "[\"t1\"]", "[]", "[]", "[]", "approved");
+        body.push_str("evidence_url = \"https://example.invalid/spec\"\n");
+        write_item(&dir, "t.toml", &body);
+        let err = Bank::load_dir(&dir).unwrap_err();
+        let msg = err.to_string();
+        assert!(
+            msg.contains("unknown field") && msg.contains("evidence_url"),
+            "an unmodelled field must be a load error naming the field \
+             (silently ignoring it puts file content outside bank_hash), got: {msg}"
+        );
+        let _ = fs::remove_dir_all(&dir);
+
+        let jerr = Bank::from_json_str(
+            r#"[{"id":"x","module":1,"stem":"stem text","choices":["a","b","c","d"],
+                 "correct":"A","explanation":"because reasons here","topic_ids":["t"],
+                 "bloom":"understand","source_class":"original",
+                 "quantity_evidence":"qualitative_only","status":"approved",
+                 "evidence_url":"https://example.invalid/spec"}]"#,
+        )
+        .unwrap_err();
+        assert!(
+            jerr.to_string().contains("unknown field"),
+            "the JSON dual path (WASM bank packs) must reject unknown fields too, got: {jerr}"
+        );
+    }
+
+    /// **Structural**: the hash payload covers every modelled field.
+    ///
+    /// Compares `hash_payload`'s key set against the item's own serde field
+    /// set, so adding a field to [`BankItem`] without adding it to
+    /// `hash_payload` is a RED test rather than a silent hole. This is the
+    /// assertion that makes "C2 is fixed" durable instead of a one-time edit.
+    #[test]
+    fn hash_payload_covers_every_modelled_field() {
+        let item = sample_item("x1", 1, "A");
+        let serialized = serde_json::to_value(&item).unwrap();
+        let mut struct_fields: Vec<String> = serialized
+            .as_object()
+            .expect("BankItem serializes to an object")
+            .keys()
+            .cloned()
+            .collect();
+        struct_fields.sort();
+        let mut payload_fields: Vec<String> = item.hash_payload().keys().cloned().collect();
+        payload_fields.sort();
+
+        assert!(
+            !struct_fields.is_empty(),
+            "anti-vacuous: zero fields scanned is an ERROR, not a pass"
+        );
+        assert_eq!(
+            payload_fields, struct_fields,
+            "every modelled BankItem field must be in hash_payload — a field outside the \
+             content address is content the bank_hash pin cannot see (C2)"
+        );
+    }
+
+    /// Known-GOOD: cosmetic file edits must NOT move `bank_hash`.
+    ///
+    /// Key order, whitespace, array formatting, and comments are not content.
+    /// A hash that moves on these is a hash people learn to regenerate
+    /// reflexively, and a reflexively regenerated pin means nothing.
+    #[test]
+    fn cosmetic_edits_do_not_move_bank_hash() {
+        let plain = hash_of(
+            "cos-plain",
+            &item_toml("k1", "[\"t1\",\"t2\"]", "[]", "[]", "[]", "approved"),
+        );
+        let reformatted = hash_of(
+            "cos-reformatted",
+            r#"
+# A comment that is not content.
+status   =    "approved"
+quantity_evidence = "qualitative_only"
+source_class = "original"
+bloom = "understand"
+
+tags = []
+citation_ids = []
+objective_ids = []
+topic_ids = [
+  "t1",
+  "t2",
+]
+explanation = "because reasons here"
+correct = "B"
+choices = [
+  "a",
+  "b",
+  "c",
+  "d",
+]
+stem  =  "A valid stem for testing"
+module = 3
+id = "k1"
+"#,
+        );
+        assert_eq!(
+            plain, reformatted,
+            "reordering keys, re-wrapping arrays, adding comments and whitespace are cosmetic; \
+             bank_hash must not move"
+        );
+    }
+
+    /// Known-GOOD: set-valued lists are sets — permuting them is cosmetic.
+    #[test]
+    fn reordering_set_valued_lists_does_not_move_bank_hash() {
+        let a = hash_of(
+            "perm-a",
+            &item_toml(
+                "p1",
+                "[\"t1\",\"t2\"]",
+                "[\"lo-01\",\"lo-02\"]",
+                "[\"c-a\",\"c-b\"]",
+                "[\"runbook\",\"vignette\"]",
+                "approved",
+            ),
+        );
+        let b = hash_of(
+            "perm-b",
+            &item_toml(
+                "p1",
+                "[\"t2\",\"t1\"]",
+                "[\"lo-02\",\"lo-01\"]",
+                "[\"c-b\",\"c-a\"]",
+                "[\"vignette\",\"runbook\"]",
+                "approved",
+            ),
+        );
+        assert_eq!(
+            a, b,
+            "topic_ids / objective_ids / citation_ids / tags are sets; permuting them must not \
+             move bank_hash"
+        );
+    }
+
+    /// Known-GOOD: item order on disk is not content.
+    ///
+    /// `load_dir` reads files in sorted path order but keys them by item id, so
+    /// renaming the files that carry the items must not move the hash. This is
+    /// the on-disk twin of `bank_hash_independent_of_insert_order`.
+    #[test]
+    fn item_file_order_does_not_move_bank_hash() {
+        let one = item_toml("z-second", "[\"t1\"]", "[]", "[]", "[]", "approved");
+        let two = item_toml("a-first", "[\"t2\"]", "[]", "[]", "[]", "approved");
+
+        let mk = |tag: &str, first: (&str, &str), second: (&str, &str)| {
+            let dir = std::env::temp_dir().join(format!("cdcp-c2-{tag}-{}", std::process::id()));
+            let _ = fs::remove_dir_all(&dir);
+            fs::create_dir_all(&dir).unwrap();
+            write_item(&dir, first.0, first.1);
+            write_item(&dir, second.0, second.1);
+            let h = Bank::load_dir(&dir).unwrap().bank_hash;
+            let _ = fs::remove_dir_all(&dir);
+            h
+        };
+
+        let forward = mk("ord-fwd", ("01.toml", &one), ("02.toml", &two));
+        let reverse = mk("ord-rev", ("01.toml", &two), ("02.toml", &one));
+        assert_eq!(
+            forward, reverse,
+            "which file an item lives in is not content; bank_hash must not move"
+        );
+    }
+
+    /// `choices` order IS content — it must NOT be sorted away.
+    ///
+    /// `correct` indexes into the presentation order, so permuting `choices`
+    /// changes which answer is right. Guards against "sort everything".
+    #[test]
+    fn choices_order_moves_bank_hash() {
+        let a = hash_of(
+            "ch-a",
+            r#"
+id = "h1"
+module = 3
+stem = "A valid stem for testing"
+choices = ["a","b","c","d"]
+correct = "B"
+explanation = "because reasons here"
+topic_ids = ["t1"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
+"#,
+        );
+        let b = hash_of(
+            "ch-b",
+            r#"
+id = "h1"
+module = 3
+stem = "A valid stem for testing"
+choices = ["b","a","c","d"]
+correct = "B"
+explanation = "because reasons here"
+topic_ids = ["t1"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
+"#,
+        );
+        assert_ne!(
+            a, b,
+            "choices order is the presentation order `correct` indexes into — permuting it \
+             changes the right answer and must move bank_hash"
+        );
+    }
+
+    /// Anti-vacuous: hashing an empty bank is an ERROR, not a hash.
+    #[test]
+    fn empty_bank_is_an_error_not_a_hash() {
+        let empty: BTreeMap<String, BankItem> = BTreeMap::new();
+        let err = compute_bank_hash(&empty).unwrap_err();
+        assert!(
+            matches!(err, BankError::Empty),
+            "an empty item set must not produce a well-formed 64-hex digest that a caller \
+             would pin and report green, got: {err}"
+        );
+        assert!(matches!(
+            Bank::from_items(Vec::new()).unwrap_err(),
+            BankError::Empty
+        ));
+    }
+
     // --- proptest (bd-334): bank_hash independent of BTreeMap insert order ---
 
     use proptest::prelude::*;
@@ -695,6 +1247,9 @@ status = "published"
             correct: correct.to_string(),
             explanation: "because reasons here".into(),
             topic_ids: vec![format!("t-{id}")],
+            objective_ids: Vec::new(),
+            citation_ids: Vec::new(),
+            tags: Vec::new(),
             bloom: "understand".into(),
             source_class: "original".into(),
             quantity_evidence: "qualitative_only".into(),

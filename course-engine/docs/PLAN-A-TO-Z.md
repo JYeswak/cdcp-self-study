@@ -56,8 +56,12 @@ Each ships with a known-bad injection and a meta-test (delete the assertion → 
 ## C · Status & filter — the gate everything else waits on
 
 - **C1** `status: draft|approved|retired` on `BankItem`; `cdcp_assemble` samples **approved only**.
-- **C2** `bank_hash` repaired to cover `objective_ids`, citation ids, and status. Today
-  `hash_payload()` omits them, so evidence changes do not change the content address.
+- **C2** `bank_hash` repaired to cover `objective_ids`, citation ids, `tags` and `status` —
+  **LANDED 2026-08-14**. `hash_payload()` now covers every modelled field, asserted by
+  `hash_payload_covers_every_modelled_field`, and `deny_unknown_fields` makes a stray field a
+  load error rather than a silent discard. `objective_ids` had never been a field on `BankItem`
+  at all: all 804 files carried it on disk and serde dropped it. Residual: the domain string is
+  still `cdcp-bank-v1` under a v2 definition (`bd-6ycw`).
 - **C3** near-duplicate detector (`bd-near-duplicate-item-gate-i5v`). Exact-stem hashing finds
   **0** duplicates; `m14-q040`/`m14-q121` are one item twice with different keys.
 - **C4** portable PRNG — `cdcp_assemble` calls `StdRng` "frozen"; Rand documents it as

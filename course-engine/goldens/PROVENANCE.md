@@ -1,7 +1,8 @@
 # Goldens provenance (L3 GradeExact)
 
 **Generated:** 2026-08-13 (re-frozen from the Rust sampler — bd-golden-sampler-divergence-09q)
-**Last audited:** 2026-08-14 (regeneration path reduced to one — bd-z3x)
+**Last audited:** 2026-08-14 (bank_hash re-frozen to cover objective_ids/citation_ids/tags/status
+— bd-hardening-c-status-hzs.2; regeneration path reduced to one — bd-z3x)
 **Law:** `docs/CANONICAL.md` · `docs/ORACLE-GAUNTLET.md` · floor = 0
 
 ## Which tool regenerates these files
@@ -155,21 +156,43 @@ certificate; the Rust assertion above will catch it.
 If `bank/items` change hashed fields, `bank_hash` changes and goldens must be regenerated with an
 explicit commit reason (not silent).
 
-**But an unchanged `bank_hash` proves nothing about the fixture.** `BankItem::hash_payload`
-deliberately excludes `status` (`crates/cdcp_bank/src/lib.rs` — folding it in would move the hash
-for all 804 items; that migration is C2). So a *selection-only* change — flipping one item
-`approved` → `draft` — changes which items the sampler may draw while leaving `bank_hash`
-byte-identical. Measured 2026-08-14 on `m04-q129`:
+**An unchanged `bank_hash` still proves nothing about the fixture** — but for a narrower reason
+than it used to. C2 (below) closed the `status` hole, so a status flip now *does* move the hash.
+What `bank_hash` still cannot see is the **sampler**: it addresses the pool, not the draw. A
+`rand` bump, a change in `sample_item_ids`, or a stale fixture leaves `bank_hash` byte-identical
+while moving `item_ids`. `golden_fixture_is_the_rust_sampler_output` — and nothing else — catches
+that, which is why `goldens fixture` must run before `goldens generate`. After **any**
+`bank/items` edit, run the full block above.
 
-| Quantity | Before | After |
-|----------|--------|-------|
-| `bank_hash` | `e82817572a82d13f…` | `e82817572a82d13f…` (**identical**) |
+### C2 re-freeze — `bd-hardening-c-status-hzs.2`, 2026-08-14
+
+`BankItem::hash_payload` used to exclude `status`, and did not model `objective_ids`,
+`citation_ids` or `tags` at all — serde silently discarded those three on load, across all 804
+items. C1 made the first one load-bearing: assembly draws `approved` items only, so flipping one
+item `approved` → `draft` changes what a learner can be assessed on. Measured 2026-08-14 on
+`m04-q129`, **before** C2:
+
+| Quantity | Before flip | After flip |
+|----------|-------------|------------|
+| `bank_hash` | `e82817572a82d13f…` | `e82817572a82d13f…` (**identical** — the defect) |
 | fixture `item_ids` positions changed | — | **38 of 40** |
 | ids entering/leaving the set | — | 10 (symmetric difference); `m04-q129` dropped out |
 
-This is the blind spot the deleted script institutionalised: it recomputed `bank_hash`, saw the
-class of change it could see, and re-pinned digests around `item_ids` it never recomputed. After
-**any** `bank/items` edit — including one that touches only `status` — run the full block above.
+C2 folded `objective_ids`, `citation_ids`, `tags` and `status` into the payload, made the payload
+total over the modelled fields (`deny_unknown_fields` + `hash_payload_covers_every_modelled_field`),
+and made an empty bank an ERROR rather than a hash. Every pinned copy below was re-frozen in one
+commit through the four-command block above plus
+`UPDATE_CONTENT_LOCK=1 python3 scripts/gen_content_lock.py`:
+
+| Pin | Before | After |
+|-----|--------|-------|
+| `goldens/bank_hash.txt` · fixture `bank_hash` · `content.lock` · `web/data/*_seed42.json` | `e82817572a82d13f…` | `a413d32593c954fe…` |
+| `mock40_seed42_all_correct.sha256` | `7bb20d74e6308304…` | `f8d43ed62fc58bc5…` |
+| `mock40_seed42_all_wrong.sha256` | `deb1de3b023c0d65…` | `ca3208b866f803f7…` |
+
+`item_ids` are **unchanged**: the sampler's seed derivation does not read `bank_hash`, and no
+item's `status` moved. Only the content address and the two grade digests (which carry
+`bank_hash`) re-froze — the smallest re-freeze this change can produce.
 
 ## PRNG (C4 interaction)
 

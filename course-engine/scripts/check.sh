@@ -38,8 +38,8 @@ ok() { echo "check.sh: ok: $*"; }
 #                              web/data/keys_seed42.json                [S] restored
 #                              web/drill.html                           [S] restored
 #                              crates/cdcp_cli/src/main.rs              [S] restored
-#   build_units.py             web/data/units_index.json                [M] regenerated
-#   build_glossary_json.py     web/data/glossary.json                   [M] regenerated
+#   cdcp_gate build-units          web/data/units_index.json            [M] regenerated
+#   cdcp_gate build-glossary-json  web/data/glossary.json               [M] regenerated
 #   smoke_feedback_links.py    web/data/topic_anchors.json              [M] regenerated
 #   export_anki.py             dist/anki/**                             [M] untracked output
 # The three regenerated files are byte-identical today, so `git status` stays
@@ -326,6 +326,19 @@ echo "==> cdcp_gate capability-maturity (B1 capability ledger: attributed, dated
 cargo run -q -p cdcp_gate -- capability-maturity || fail "capability maturity ledger"
 ok "capability claims attributed, dated, unexpired, and pointed at evidence that resolves"
 
+# B2 (bd-hardening-b-ledgers-gvm.2): what each frozen artifact was frozen AGAINST.
+# Every [[surface]] pin in registries/goldens-couplings.toml is re-extracted from
+# source here; a surface that moved, a version left unbumped, a golden that did
+# not re-affirm, or a golden re-frozen at all is RED. Before this step, a grader
+# semantics change and a bank typo fix produced the same diff — two hex strings —
+# and UPDATE_GOLDENS=1 could re-freeze both without recording that anything moved.
+# It found ten violations on its first run: C2 redefining bank_hash under all
+# seven frozen artifacts, and all seven re-frozen the same hour with nothing
+# naming the surface. Paid off by the walk, not by striking the rows.
+echo "==> cdcp_gate goldens-couplings (B2 coupling ledger: no silent re-freeze)"
+cargo run -q -p cdcp_gate -- goldens-couplings || fail "goldens coupling ledger"
+ok "every golden names the surfaces it was frozen against, and both sides agree"
+
 
 # exam_form hard numbers (public CDCP form)
 grep -q 'n_items = 40' knowledge/exam_form.toml || fail "exam_form n_items"
@@ -579,8 +592,8 @@ done
 ok "L7 surfaces (reference · closed-notes · Learn-15)"
 
 echo "==> smoke_learn_chrome.py (M8-A)"; python3 scripts/smoke_learn_chrome.py || fail "M8-A learn chrome"; ok "M8-A learn chrome smoke"
-echo "==> build_units.py";               python3 scripts/build_units.py         || fail "M8-B units_index"; ok "M8-B units_index"
-echo "==> build_glossary_json.py";       python3 scripts/build_glossary_json.py || fail "M8-D glossary";    ok "M8-D glossary.json"
+echo "==> cdcp_gate build-units (M8-B units_index)";         cargo run -q -p cdcp_gate -- build-units         || fail "M8-B units_index"; ok "M8-B units_index"
+echo "==> cdcp_gate build-glossary-json (M8-D glossary)";    cargo run -q -p cdcp_gate -- build-glossary-json || fail "M8-D glossary";    ok "M8-D glossary.json"
 echo "==> smoke_learn_v2.py";            python3 scripts/smoke_learn_v2.py      || fail "M8-B/D learn v2";  ok "M8-B/D learn v2 smoke"
 echo "==> smoke_diagrams.py";            python3 scripts/smoke_diagrams.py      || fail "M8-C diagrams";    ok "M8-C diagrams smoke"
 echo "==> smoke_a11y.py";                python3 scripts/smoke_a11y.py          || fail "L7 a11y";          ok "L7 a11y baseline"
