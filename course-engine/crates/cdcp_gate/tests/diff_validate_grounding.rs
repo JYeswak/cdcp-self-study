@@ -16,23 +16,33 @@
 //!   d) the same item with free evidence       -> the finding disappears
 //!   e) a synthetic item with zero overlap     -> WARN, and RED under strict
 //!   f) each clause pattern, each dump phrase, the fake multi-level cite
-//!   g) anti-vacuous: zero items, zero corpus characters, a missing
-//!      `knowledge/corpus/public` — each PINNED AS A DEFECT, see below
+//!   g) anti-vacuous: zero items, a bank one item short of the floor, zero
+//!      corpus characters, a corpus of seven characters, and each missing corpus
+//!      root — every one of them RED and NAMED, plus the known-GOOD leg where
+//!      the smallest legitimate tree is still green
 //!   h) ordering and formatting: the sample list's stable sort, the
 //!      `--sample-report` slice with a negative bound, `%.3f` on real scores
 //!   i) argparse: `--help` at two widths, abbreviation, ambiguity, bad values,
 //!      a missing value, `--`, and a token containing a space
 //!
-//! # ANTI-VACUOUS IS PINNED, NOT SATISFIED
+//! # ANTI-VACUOUS IS SATISFIED (bd-yje7), NOT PINNED
 //!
-//! Measured 2026-08-14, the oracle exits 0 with a `PASS` banner on a bank
-//! directory holding zero items, on a corpus of zero characters, and on a
-//! missing `knowledge/corpus/public`. Only a missing `bank/items` DIRECTORY is
-//! caught. That is a real defect in the gate and it is reported as one; it is
-//! NOT fixed here, because a port that fixes a bug is an unreviewed behaviour
-//! change that blinds the very comparison this file exists to make. The cases
-//! below assert the defective exit status explicitly, so whoever fixes it has to
-//! edit both sides and this ledger at once.
+//! Until 2026-08-14 the oracle exited 0 with a `PASS` banner on a bank holding
+//! zero items, on a corpus of zero characters, and on a missing
+//! `knowledge/corpus/public`; three cases here pinned that defect so fixing it
+//! would have to be a deliberate edit on the oracle, the port and this ledger at
+//! once. It was fixed in that order — oracle first, this harness red, then the
+//! port — and the pins are gone, replaced by cases that assert the ERROR and the
+//! text that names it.
+//!
+//! Two consequences for every fixture below. First, `Fixture::grounded()` now
+//! carries `MIN_SCANNED_ITEMS` filler items and a corpus over `MIN_CORPUS_CHARS`
+//! — a fixture under the floors is RED for a reason that has nothing to do with
+//! the case it is testing. The filler items are built from the padding corpus's
+//! own invented vocabulary, so they score 1.000 and never enter a low-overlap
+//! sample list. Second, the floors themselves need a known-GOOD leg, because an
+//! attack-only suite would pass just as well with the floors set absurdly high:
+//! `the_smallest_legitimate_tree_is_still_green` is that leg.
 //!
 //! # HARNESS DISCIPLINE
 //!
@@ -56,6 +66,14 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 const BIN: &str = env!("CARGO_BIN_EXE_cdcp_gate");
 const ORACLE_REL: &str = "scripts/validate_grounding.py";
 const GATE: &str = "validate-grounding";
+
+use cdcp_gate::gates::validate_grounding::{MIN_CORPUS_CHARS, MIN_SCANNED_ITEMS};
+
+/// Invented vocabulary for the padding corpus and the padding items. Nothing
+/// here comes from `knowledge/corpus/**`, and nothing here collides with the
+/// invented tokens `unmoored_item` relies on scoring zero.
+const PAD_WORDS: &str = "chiller plenum containment aisle rack economiser humidity \
+                         envelope inlet redundancy topology maintainability concurrent";
 
 /// Cases actually compared, so "the harness ran" is itself checked.
 static COMPARED: AtomicUsize = AtomicUsize::new(0);
@@ -192,7 +210,8 @@ impl Fixture {
         f
     }
 
-    /// `bare()` plus a small invented corpus and a topic registry.
+    /// `bare()` plus a small invented corpus, a topic registry, and enough
+    /// padding to clear the anti-vacuous floors.
     fn grounded() -> Self {
         let f = Self::bare();
         f.write(
@@ -211,7 +230,32 @@ impl Fixture {
             "engine/knowledge/corpus/public/src-invented.txt",
             "redundancy topology maintainability concurrent sustained\n",
         );
+        f.pad_to_floor();
         f
+    }
+
+    /// The four corpus roots present, a corpus over `MIN_CORPUS_CHARS`, and
+    /// `MIN_SCANNED_ITEMS` filler items — the smallest tree the gate will call
+    /// non-vacuous, and nothing more.
+    ///
+    /// Every filler item's whole text is drawn from `PAD_WORDS`, which is also
+    /// the padding corpus, so each scores exactly 1.000: the padding cannot add
+    /// a low-overlap warn, a sample-list row, or a finding to any case below.
+    fn pad_to_floor(&self) {
+        let line = format!("{PAD_WORDS}\n");
+        let reps = MIN_CORPUS_CHARS / line.len() + 2;
+        self.write("modules/pad-corpus.md", &line.repeat(reps));
+        self.write("reference/pad-glossary.md", &line);
+        self.write("engine/knowledge/corpus/public/pad-invented.txt", &line);
+        for i in 0..MIN_SCANNED_ITEMS {
+            self.item(
+                &format!("pad-{i:03}.toml"),
+                &format!(
+                    "id = \"pad-{i:03}\"\nstem = \"{PAD_WORDS}\"\nchoices = []\n\
+                     explanation = \"\"\ntopic_ids = []\n"
+                ),
+            );
+        }
     }
 
     fn engine(&self) -> PathBuf {
@@ -506,62 +550,184 @@ fn every_clause_dump_and_multilevel_pattern_matches_byte_for_byte() {
     assert!(rs.out().contains("high_severity=0\n"), "{}", rs.out());
 }
 
-// ── g) anti-vacuous: PINNED DEFECTS ────────────────────────────────────────
+// ── g) anti-vacuous: each condition is RED and NAMES ITSELF ────────────────
 
+/// The known-GOOD leg for the floors. Without it, the floors could be set to a
+/// million and every RED case below would still pass — and an over-strict gate
+/// gets routed around, which is a slower death than no gate.
 #[test]
-fn zero_items_is_a_vacuous_pass_in_the_oracle_and_the_port_reproduces_it() {
-    let f = Fixture::grounded();
-    let rs = compare("empty bank", &f.engine(), &[]);
-    assert_eq!(
-        rs.code,
-        0,
-        "PINNED DEFECT: the oracle exits 0 on a bank it never scanned. If this \
-         now fails, the oracle was fixed — fix the port and this ledger too:\n{}",
+fn the_smallest_legitimate_tree_is_still_green() {
+    let f = Fixture::bare();
+    f.pad_to_floor();
+    let rs = compare("smallest legitimate tree", &f.engine(), &[]);
+    assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out()
+            .starts_with(&format!("scanned_items={MIN_SCANNED_ITEMS}\n")),
+        "{}",
         rs.out()
     );
-    assert!(rs.out().starts_with("scanned_items=0\n"), "{}", rs.out());
     assert!(rs.out().contains("\nPASS\n"), "{}", rs.out());
+    assert!(rs.out().contains("low_overlap_warns=0\n"), "{}", rs.out());
 }
 
 #[test]
-fn zero_corpus_characters_is_a_vacuous_pass_in_the_oracle_too() {
-    // No `modules/`, no `reference/`, and a `knowledge/` with nothing readable.
+fn zero_items_is_an_error_that_names_itself() {
+    let f = Fixture::grounded();
+    for e in std::fs::read_dir(f.engine().join("bank/items"))
+        .unwrap()
+        .flatten()
+    {
+        std::fs::remove_file(e.path()).unwrap();
+    }
+    let rs = compare("empty bank", &f.engine(), &[]);
+    assert_eq!(rs.code, 1, "a bank that was never scanned is not a pass");
+    assert!(rs.out().starts_with("scanned_items=0\n"), "{}", rs.out());
+    assert!(!rs.out().contains("PASS"), "{}", rs.out());
+    assert!(
+        rs.out().contains(&format!(
+            "FAIL: vacuous grounding check\n  - scanned_items=0 < floor {MIN_SCANNED_ITEMS} "
+        )),
+        "{}",
+        rs.out()
+    );
+}
+
+/// A DELIBERATE floor, not `> 0`: one item short is still RED, and the message
+/// prints both the count and the threshold.
+#[test]
+fn a_bank_one_item_short_of_the_floor_is_still_an_error() {
+    let f = Fixture::grounded();
+    let last = MIN_SCANNED_ITEMS - 1;
+    std::fs::remove_file(f.engine().join(format!("bank/items/pad-{last:03}.toml"))).unwrap();
+    let rs = compare("one item short", &f.engine(), &[]);
+    assert_eq!(rs.code, 1, "{}", rs.out());
+    assert!(
+        rs.out().contains(&format!(
+            "  - scanned_items={last} < floor {MIN_SCANNED_ITEMS} "
+        )),
+        "{}",
+        rs.out()
+    );
+}
+
+#[test]
+fn zero_corpus_characters_is_an_error_that_names_itself() {
+    // No `modules/`, no `reference/`, and a `knowledge/` with nothing readable:
+    // three missing roots AND an empty corpus, every one of them named.
     let f = Fixture::bare();
     f.item("a01.toml", &grounded_item("syn-ok"));
     let rs = compare("empty corpus", &f.engine(), &[]);
-    assert_eq!(
-        rs.code,
-        0,
-        "PINNED DEFECT: the oracle exits 0 with an empty corpus:\n{}",
+    assert_eq!(rs.code, 1, "an empty corpus can contradict nothing");
+    assert!(!rs.out().contains("PASS"), "{}", rs.out());
+    assert!(
+        rs.out()
+            .contains(&format!("  - corpus_chars=0 < floor {MIN_CORPUS_CHARS} ")),
+        "{}",
         rs.out()
     );
-    assert!(rs.out().contains("corpus_chars=0\n"), "{}", rs.out());
-    assert!(rs.out().contains("\nPASS\n"), "{}", rs.out());
+    for label in ["../modules", "../reference", "knowledge/corpus/public"] {
+        assert!(
+            rs.out()
+                .contains(&format!("  - corpus root missing: {label}\n")),
+            "[{label}] {}",
+            rs.out()
+        );
+    }
 }
 
+/// Seven characters clear "non-empty" and are still RED. This is the case that
+/// separates a recorded floor from a hole moved one byte to the left.
 #[test]
-fn a_missing_corpus_public_directory_is_silently_skipped() {
+fn a_corpus_of_seven_characters_does_not_satisfy_the_floor() {
     let f = Fixture::grounded();
+    for (rel, body) in [
+        ("modules/m01-cooling.md", "a"),
+        ("modules/pad-corpus.md", "b"),
+        ("reference/glossary.md", "c"),
+        ("reference/pad-glossary.md", "d"),
+    ] {
+        f.write(rel, body);
+    }
+    std::fs::remove_file(f.engine().join("knowledge/topics.toml")).unwrap();
     std::fs::remove_file(f.engine().join("knowledge/corpus/public/src-invented.txt")).unwrap();
-    std::fs::remove_dir(f.engine().join("knowledge/corpus/public")).unwrap();
-    std::fs::remove_dir(f.engine().join("knowledge/corpus")).unwrap();
-    f.item("a01.toml", &grounded_item("syn-ok"));
-    let rs = compare("missing corpus/public", &f.engine(), &[]);
-    assert_eq!(
-        rs.code,
-        0,
-        "PINNED DEFECT: a missing capture directory is not an ERROR:\n{}",
+    std::fs::remove_file(f.engine().join("knowledge/corpus/public/pad-invented.txt")).unwrap();
+    let rs = compare("seven-character corpus", &f.engine(), &[]);
+    assert_eq!(rs.code, 1, "{}", rs.out());
+    // Four one-character chunks joined by "\n".
+    assert!(
+        rs.out()
+            .contains(&format!("  - corpus_chars=7 < floor {MIN_CORPUS_CHARS} ")),
+        "{}",
         rs.out()
     );
-    assert!(rs.out().contains("\nPASS\n"), "{}", rs.out());
 }
 
 #[test]
-fn a_missing_bank_directory_is_the_one_guard_the_oracle_does_have() {
+fn every_missing_corpus_root_is_named() {
+    for (rel, label, sibling) in [
+        ("modules", "../modules", true),
+        ("reference", "../reference", true),
+        ("knowledge/corpus/public", "knowledge/corpus/public", false),
+    ] {
+        let f = Fixture::grounded();
+        let dir = if sibling {
+            f.dir.path().join(rel)
+        } else {
+            f.engine().join(rel)
+        };
+        for e in std::fs::read_dir(&dir).unwrap().flatten() {
+            std::fs::remove_file(e.path()).unwrap();
+        }
+        std::fs::remove_dir(&dir).unwrap();
+        let rs = compare(&format!("missing {label}"), &f.engine(), &[]);
+        assert_eq!(rs.code, 1, "[{label}] {}", rs.out());
+        assert!(
+            rs.out()
+                .contains(&format!("  - corpus root missing: {label}\n")),
+            "[{label}] {}",
+            rs.out()
+        );
+    }
+}
+
+/// A root that exists but cannot be listed contributes zero characters in
+/// silence, exactly like a missing one. Both sides must call it unreadable.
+#[cfg(unix)]
+#[test]
+fn an_unlistable_corpus_root_is_named_too() {
+    use std::os::unix::fs::PermissionsExt;
     let f = Fixture::grounded();
-    std::fs::remove_dir(f.engine().join("bank/items")).unwrap();
+    let dir = f.engine().join("knowledge/corpus/public");
+    std::fs::set_permissions(&dir, std::fs::Permissions::from_mode(0o000)).unwrap();
+    let enforced = std::fs::read_dir(&dir).is_err();
+    let rs = compare("unlistable corpus/public", &f.engine(), &[]);
+    // The byte-for-byte comparison above is the acceptance bar and holds either
+    // way; the assertion below only applies where the mode bits actually bite
+    // (never for a process running as root).
+    if enforced {
+        assert_eq!(rs.code, 1, "{}", rs.out());
+        assert!(
+            rs.out()
+                .contains("  - corpus root unreadable: knowledge/corpus/public\n"),
+            "{}",
+            rs.out()
+        );
+    }
+    std::fs::set_permissions(&dir, std::fs::Permissions::from_mode(0o755)).unwrap();
+}
+
+#[test]
+fn a_missing_bank_directory_short_circuits_before_every_other_check() {
+    let f = Fixture::grounded();
+    let items = f.engine().join("bank/items");
+    for e in std::fs::read_dir(&items).unwrap().flatten() {
+        std::fs::remove_file(e.path()).unwrap();
+    }
+    std::fs::remove_dir(&items).unwrap();
     let rs = compare("missing bank dir", &f.engine(), &[]);
     assert_eq!(rs.code, 1, "{}", rs.out());
+    // Still the FIRST thing checked: no counters, no vacuity block, one line.
     assert_eq!(rs.out(), "FAIL: bank/items missing\n");
 }
 
@@ -623,6 +789,7 @@ fn corpus_character_counting_matches_on_the_awkward_inputs() {
     // a wrong-suffix file, and the `corpus/public` split — all at once, because
     // every one of them moves `corpus_chars` and none of them moves the verdict.
     let f = Fixture::bare();
+    f.pad_to_floor();
     f.item("a01.toml", &grounded_item("syn-ok"));
     f.write("modules/crlf.md", "ab\r\ncd\re\n");
     f.write("modules/nested/deep.txt", "deeper corpus text\n");
@@ -658,6 +825,7 @@ fn corpus_character_counting_matches_on_the_awkward_inputs() {
 fn symlink_handling_in_the_corpus_walk_matches() {
     use std::os::unix::fs::symlink;
     let f = Fixture::bare();
+    f.pad_to_floor();
     f.item("a01.toml", &grounded_item("syn-ok"));
     f.write("outside/linked.md", "text reached through a link\n");
     f.write("modules/real.md", "text reached directly\n");
@@ -684,7 +852,59 @@ fn dotfile_bank_items_are_scanned_the_way_pathlib_globs_them() {
     f.item(".hidden.toml", &grounded_item("hidden"));
     f.item("not-an-item.txt", "id = \"ignored\"\n");
     let rs = compare("dotfile bank item", &f.engine(), &[]);
-    assert!(rs.out().starts_with("scanned_items=2\n"), "{}", rs.out());
+    // The two written here plus the padding; the `.txt` is not an item.
+    assert!(
+        rs.out()
+            .starts_with(&format!("scanned_items={}\n", MIN_SCANNED_ITEMS + 2)),
+        "{}",
+        rs.out()
+    );
+}
+
+/// `id = ""` is present-but-empty. It used to prefix every finding for the item
+/// with nothing at all; both sides now fall back to the filename, the shape
+/// `verify_orphans` already had (bd-yje7).
+#[test]
+fn an_empty_id_falls_back_to_the_filename_on_both_sides() {
+    let f = Fixture::grounded();
+    f.item(
+        "blank-id.toml",
+        "id = \"\"\nstem = \"see clause 5.2.1 for the containment rule\"\n\
+         choices = [\"cooling\", \"airflow\"]\nexplanation = \"\"\ntopic_ids = []\n",
+    );
+    let rs = compare("empty item id", &f.engine(), &[]);
+    assert_eq!(rs.code, 1, "{}", rs.out());
+    assert!(
+        rs.out().contains("  - blank-id.toml: hallucinated-clause"),
+        "{}",
+        rs.out()
+    );
+}
+
+/// A `topics.toml` whose very FIRST byte opens a block used to lose that label
+/// silently — the raw id was tokenised in its place and the score degraded with
+/// no finding printed. Both sides now read it (bd-yje7).
+#[test]
+fn a_first_line_topic_block_is_read_on_both_sides() {
+    let f = Fixture::grounded();
+    // No header line, and a label whose words appear nowhere in the corpus, so
+    // the item can only clear the bar if the LABEL was read.
+    f.write(
+        "engine/knowledge/topics.toml",
+        "[[topic]]\nid = \"t-first\"\nlabel = \"qqqqzz wwwwzz\"\n",
+    );
+    f.item(
+        "a01.toml",
+        "id = \"first-block\"\nstem = \"qqqqzz wwwwzz\"\nchoices = []\n\
+         explanation = \"\"\ntopic_ids = [\"t-first\"]\n",
+    );
+    let rs = compare(
+        "first-line topic block",
+        &f.engine(),
+        &["--min-overlap", "0.9"],
+    );
+    assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().contains("low_overlap_warns=0\n"), "{}", rs.out());
 }
 
 // ── i) argparse ────────────────────────────────────────────────────────────

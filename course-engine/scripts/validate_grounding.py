@@ -4,7 +4,17 @@
 Fail-closed on high-severity patterns. Soft-fail (WARN) on low module overlap
 when --strict-overlap is set (default: WARN only until library curated).
 
-Exit 0 if no high-severity failures; 1 otherwise.
+Anti-vacuous (L4, bd-yje7): this gate checks bank claims against a grounding
+corpus, so with zero items it checks nothing and with zero corpus there is
+nothing that could contradict any claim — every item then scores clean and the
+banner reads at its most reassuring exactly when the gate is blindest. Zero
+items, a corpus below the recorded floor, and a missing or unlistable corpus
+ROOT are therefore each an ERROR that NAMES ITSELF, never a pass. The floors are
+deliberate minima with recorded reasons (see MIN_SCANNED_ITEMS /
+MIN_CORPUS_CHARS below), not `> 0` — "non-empty" would move the hole rather than
+close it.
+
+Exit 0 if nothing vacuous and no high-severity failures; 1 otherwise.
 """
 from __future__ import annotations
 
@@ -25,6 +35,45 @@ REFERENCE = ROOT.parent / "reference"
 TOPICS = ROOT / "knowledge" / "topics.toml"
 CORPUS_PUBLIC = ROOT / "knowledge" / "corpus" / "public"
 KNOWLEDGE = ROOT / "knowledge"
+
+# ── ANTI-VACUOUS FLOORS (bd-yje7) ────────────────────────────────────────────
+# Recorded thresholds, each with its reason, because "greater than zero" moves
+# the hole rather than closing it: a one-byte corpus and a one-item bank both
+# clear a non-emptiness test while telling a reader nothing.
+#
+# MIN_SCANNED_ITEMS = 40 — one full exam form. knowledge/bank_policy.toml sets
+#   exam_n_items = 40, so a bank that cannot fill a single form cannot produce
+#   the artifact this course ships, and "no heuristic fired" over it says nothing
+#   about the product. Deliberately ONE TENTH of verify_bank's
+#   pool_min_items = 400: the pool floor belongs to that gate, and enforcing it
+#   twice would turn a legitimately-still-growing bank RED here for a reason
+#   another gate already owns. Live tree 2026-08-14: 804 items, 20x this floor.
+#
+# MIN_CORPUS_CHARS = 20000 — one module's worth of prose. Measured 2026-08-14,
+#   the 29 live modules run 749..47651 characters, median 23870, so this sits
+#   just under one median module. Below it there is not enough text for
+#   whole-word overlap to mean anything, and the only ways to get there are a
+#   corpus that was never found, was emptied, or was truncated. Live tree:
+#   659149 characters, 33x this floor — and 545885 of those come from OUTSIDE
+#   knowledge/corpus/public, so the licensing remediation
+#   (bd-corpus-public-captures-not-licensed-class-kej) can delete every capture
+#   and this floor still clears at 27x, while an actual disappearance of the
+#   corpus goes RED instead of green on the way down.
+MIN_SCANNED_ITEMS = 40
+MIN_CORPUS_CHARS = 20_000
+
+# The directories load_corpus_text() reads. Each must EXIST and be LISTABLE: a
+# missing root is not "no findings", it is "no evidence" — the walk silently
+# contributes zero characters and the gate reports as though it had looked.
+# Per-root emptiness is deliberately NOT checked; MIN_CORPUS_CHARS governs total
+# volume, and the licensing remediation may legitimately leave
+# knowledge/corpus/public empty while the rest of the tree still grounds the bank.
+CORPUS_ROOTS = [
+    ("../modules", MODULES),
+    ("../reference", REFERENCE),
+    ("knowledge", KNOWLEDGE),
+    ("knowledge/corpus/public", CORPUS_PUBLIC),
+]
 
 # High severity — invented normative precision
 CLAUSE_PATTERNS = [
@@ -50,13 +99,6 @@ DUMP_PHRASES = [
     re.compile(r"real EPI exam", re.I),
     re.compile(r"guaranteed pass", re.I),
 ]
-
-# Standard family names that are OK to mention without clause numbers
-OK_FAMILY = re.compile(
-    r"\b(?:TIA-?942|ISO/?IEC\s*22237|EN\s*50600|ASHRAE|NFPA|Uptime|AHJ|DCIM|BMS|UPS|ATS|STS|CRAC|CRAH|PUE|WUE)\b",
-    re.I,
-)
-
 
 def load_item(path: Path) -> dict:
     with path.open("rb") as f:
@@ -85,10 +127,33 @@ def load_corpus_text() -> str:
     return "\n".join(chunks).lower()
 
 
+def corpus_root_errors() -> list[str]:
+    """Every declared corpus root that is missing or cannot be listed.
+
+    `load_corpus_text` skips both cases in silence, which is precisely how a
+    gate ends up reporting PASS over a corpus it never opened.
+    """
+    errs: list[str] = []
+    for label, path in CORPUS_ROOTS:
+        if not path.is_dir():
+            errs.append(f"corpus root missing: {label}")
+            continue
+        try:
+            next(iter(path.iterdir()), None)
+        except OSError:
+            errs.append(f"corpus root unreadable: {label}")
+    return errs
+
+
 def topic_labels() -> dict[str, str]:
     text = TOPICS.read_text(encoding="utf-8") if TOPICS.is_file() else ""
     labels: dict[str, str] = {}
-    blocks = re.split(r"\n\[\[topic\]\]\n", text)
+    # The split pattern needs a NEWLINE before the block header, so a registry
+    # whose very first byte opens a block used to lose that topic silently: the
+    # raw id was tokenised in place of its label and every score built on it
+    # degraded with no finding printed. Prepending "\n" makes the first block
+    # reachable and changes nothing for a file that has a header line (bd-yje7).
+    blocks = re.split(r"\n\[\[topic\]\]\n", "\n" + text)
     for b in blocks[1:]:
         mid = re.search(r'(?m)^id\s*=\s*"([^"]+)"', b)
         lab = re.search(r'(?m)^label\s*=\s*"([^"]+)"', b)
@@ -154,7 +219,10 @@ def main() -> int:
             high.append(f"{path.name}: parse error {e}")
             continue
         n += 1
-        iid = it.get("id", path.name)
+        # `or`, not `get(..., default)`: `id = ""` is present-but-empty and used
+        # to prefix every finding for this item with nothing at all. Same shape
+        # as verify_orphans.py (bd-yje7).
+        iid = it.get("id") or path.name
         text = " ".join(
             [
                 str(it.get("stem", "")),
@@ -196,6 +264,21 @@ def main() -> int:
             else:
                 warns.append(msg)
 
+    # Anti-vacuous (bd-yje7). Each condition names ITSELF, because "PASS" over
+    # an empty bank and "PASS" over a clean one are otherwise the same bytes.
+    vacuous: list[str] = corpus_root_errors()
+    if n < MIN_SCANNED_ITEMS:
+        vacuous.append(
+            f"scanned_items={n} < floor {MIN_SCANNED_ITEMS} "
+            f"(fewer items than one exam form — nothing was meaningfully checked)"
+        )
+    corpus_chars = len(corpus)
+    if corpus_chars < MIN_CORPUS_CHARS:
+        vacuous.append(
+            f"corpus_chars={corpus_chars} < floor {MIN_CORPUS_CHARS} "
+            f"(no grounding text to contradict a claim with)"
+        )
+
     print(f"scanned_items={n}")
     print(f"high_severity={len(high)}")
     print(f"low_overlap_warns={len(low_overlap)}")
@@ -205,19 +288,26 @@ def main() -> int:
         for iid, sc in low_overlap[: args.sample_report]:
             print(f"  {sc:.3f}  {iid}")
 
+    if vacuous:
+        print("FAIL: vacuous grounding check")
+        for e in vacuous:
+            print(f"  - {e}")
+
     if high:
         print("FAIL")
         for e in high[:60]:
             print(f"  - {e}")
         if len(high) > 60:
             print(f"  ... +{len(high) - 60} more")
+
+    if vacuous or high:
         return 1
 
     print("PASS")
     print("  no high-severity hallucination heuristics")
     if warns:
         print(f"  warns={len(warns)} (use --strict-overlap to fail)")
-    print(f"  corpus_chars={len(corpus)}")
+    print(f"  corpus_chars={corpus_chars}")
     return 0
 
 

@@ -74,6 +74,32 @@
 //! *a string appears in check.sh* to *a planted known-bad stops check.sh*. That
 //! is the whole of the claim; this header will not pretend otherwise.
 //!
+//! # ONE WIDENING, STATED (bd-n1aj, 2026-08-14)
+//!
+//! On 2026-08-14 this gate PERMITS something it used to reject: an `[[allow]]`
+//! row whose `path` carries two dots or a backslash inside a FILENAME —
+//! `scripts/payload..py`, `scripts/a\b.py`. Rows with a `.` or `..` path
+//! COMPONENT, and absolute paths, are rejected exactly as before; that is
+//! traversal and it stays out.
+//!
+//! This is a widening, so it is written down rather than slipped in. It was not
+//! a policy the gate held on purpose: `is_in_scope` was moved from a substring
+//! test to a component test in tick 4 and `validate_rows` was not, so those two
+//! files were IN SCOPE — the gate demanded a row for them — while every row that
+//! could authorise them was rejected as malformed at exit 4. Both legs measured.
+//! Nothing was getting through (the state was fail-closed both ways), so the harm
+//! was not exposure; the harm was that an author who did exactly what the gate
+//! asked still could not go green, and a gate nobody can satisfy is a gate that
+//! gets routed around. The widening is therefore bounded to precisely the paths
+//! the gate itself says need a row.
+//!
+//! The two halves now call ONE function, `normalisation_defect`. What that buys
+//! is checked directly rather than asserted: over a corpus of paths, every path
+//! `unlisted` would demand a row for must accept a well-formed row
+//! (`no_in_scope_path_can_be_un_allowlistable`). What it does not settle is in
+//! that function's own doc — backslash-as-Windows-separator and whitespace
+//! padding are both left to other legs.
+//!
 //! # WHY IT IS RUST
 //!
 //! The guard that bans shell is not itself shell. `hooks/pre-commit` is a shim
@@ -294,6 +320,60 @@ pub fn looks_like_bead_id(s: &str) -> bool {
             .all(|c| c.is_ascii_alphanumeric() || c == '-' || c == '_' || c == '.')
 }
 
+/// THE traversal test. One implementation, called by both halves of the gate.
+///
+/// Returns why `path` is not a normalised engine-root-relative path, or `None`
+/// when it is. `.`/`..` are only traversal as whole COMPONENTS; a dot inside a
+/// filename is a filename.
+///
+/// # WHY THIS IS A SHARED FUNCTION AND NOT TWO SIMILAR CHECKS
+///
+/// This gate asks the same structural question in two places, and the two
+/// answers have to be the same answer:
+///
+/// * `is_in_scope` decides that a file NEEDS an `[[allow]]` row.
+/// * `validate_rows` decides that a row is WELL-FORMED.
+///
+/// When those disagree, a path can be in scope and un-allowlistable at the same
+/// time — nothing gets through (the gate is fail-closed either way), but the
+/// author cannot comply, and a rule nobody can comply with is the rule that gets
+/// routed around. That state existed here from 2026-08-14 (tick 4) to
+/// 2026-08-14 (bd-n1aj): `is_in_scope` was moved to a component test while
+/// `validate_rows` kept `path.contains("..")` and `path.contains('\\')`, so
+/// `scripts/payload..py` and `scripts/a\b.py` — ordinary files in a mandatory
+/// root, both measured as demanding a row — had every row that could authorise
+/// them rejected at exit 4, "`path` must be a normalised engine-root-relative
+/// path". Both halves had been consistently wrong before tick 4, which is why
+/// nothing tripped until one of them was fixed alone.
+///
+/// Rewriting the second test to look like the first would have left two
+/// implementations that a later edit can separate again. There is now one, and
+/// the property that matters — every path the gate demands a row for can be
+/// given one — is asserted directly over a corpus in
+/// `no_in_scope_path_can_be_un_allowlistable`.
+///
+/// # WHAT THIS DOES NOT SETTLE
+///
+/// A backslash is an ordinary byte in a POSIX filename and is treated as one, so
+/// this does not decide anything about Windows-shaped paths: a row for
+/// `scripts\foo.py` is caught instead by the leg that requires a file to exist at
+/// the path. Nor does it settle whitespace: `validate_rows` trims a row's `path`
+/// before comparing, so a file whose name is padded with spaces cannot be given a
+/// row. That trim stays, because it is what makes `path = "   "` the schema ERROR
+/// it should be, and a padded filename is the rarer harm.
+pub fn normalisation_defect(path: &str) -> Option<&'static str> {
+    if path.is_empty() {
+        return Some("empty");
+    }
+    if path.starts_with('/') {
+        return Some("absolute; paths here are relative to the engine root");
+    }
+    if path.split('/').any(|c| c == ".." || c == ".") {
+        return Some("has a `.` or `..` path COMPONENT, which is traversal");
+    }
+    None
+}
+
 /// Is this engine-root-relative path inside the scanned surface?
 ///
 /// SECURITY NOTE (adversarial review 2026-08-14, confirmed by injection): this
@@ -301,13 +381,10 @@ pub fn looks_like_bead_id(s: &str) -> bool {
 /// ANYWHERE in it. `scripts/payload..py` is an ordinary Python file in a
 /// mandatory root, and it fell straight out of scope — measured exit 0 on both
 /// the presence and staged legs. The traversal guard must test path COMPONENTS,
-/// not a substring; a filename is not a traversal.
+/// not a substring; a filename is not a traversal. That test now lives in
+/// `normalisation_defect`, which `validate_rows` calls too.
 pub fn is_in_scope(path: &str, scan: &ScanCfg) -> bool {
-    if path.is_empty() || path.starts_with('/') {
-        return false;
-    }
-    // `.` and `..` only mean traversal as whole components.
-    if path.split('/').any(|c| c == ".." || c == ".") {
+    if normalisation_defect(path).is_some() {
         return false;
     }
     match path.split_once('/') {
@@ -349,18 +426,14 @@ pub fn validate_rows(
             continue;
         }
         let path = r.path.trim();
-        // SWEEP NOTE (bd-ip10, 2026-08-14): this `contains("..")` is the SAME
-        // substring-for-structure shape `is_in_scope` was fixed for above, and it
-        // contradicts that fix. `scripts/payload..py` is an ordinary Python file:
-        // `is_in_scope` (component test) puts it in scope, so it REQUIRES a row —
-        // and this line rejects every row that could authorise it. Reproduced at
-        // exit 4, "`path` must be a normalised engine-root-relative path", with
-        // the file tracked and a well-formed row present. Fail-closed, so it is a
-        // trap and not a bypass, and unpicking it WIDENS what the gate permits —
-        // a different decision from bd-ip10's, deliberately not taken here.
-        if path.starts_with('/') || path.contains("..") || path.contains('\\') {
+        // SWEEP RESOLVED (bd-ip10 -> bd-n1aj, 2026-08-14): this used to be its own
+        // substring test — `contains("..") || contains('\\')` — which contradicted
+        // the component test in `is_in_scope` and made every in-scope path with two
+        // dots or a backslash in its NAME un-allowlistable. It now calls the same
+        // function `is_in_scope` calls, so the two cannot answer differently.
+        if let Some(why) = normalisation_defect(path) {
             v.push(format!(
-                "{where_}: `path` must be a normalised engine-root-relative path"
+                "{where_}: `path` must be a normalised engine-root-relative path ({why})"
             ));
         }
         if !seen.insert(path) {
@@ -1205,6 +1278,168 @@ mod tests {
                 "{p} contains a traversal COMPONENT and must stay out of scope"
             );
         }
+    }
+
+    // ── bd-n1aj: the two halves cannot disagree ───────────────────────────
+    //
+    // MEASURED 2026-08-14, before the fix, in a throwaway repo: `scripts/payload..py`
+    // TRACKED with a well-formed [[allow]] row present ->
+    //   substrate-guard: ERROR: 1 schema error(s) ... [[allow]] scripts/payload..py:
+    //   `path` must be a normalised engine-root-relative path
+    //   exit 4, on the presence leg AND on --staged.
+    // The same at exit 4 for `scripts/a\b.py`. Without a row both were exit 2,
+    // named — so the gate demanded a row it would then refuse to accept.
+
+    /// Paths the two halves are asked about. Ordinary, adversarial, and the two
+    /// filenames that were un-allowlistable.
+    const AGREEMENT_CORPUS: &[&str] = &[
+        // ordinary, in scope, scanned
+        "scripts/verify_bank.py",
+        "scripts/check.sh",
+        "crates/cdcp_gate/gen.py",
+        "stray.sh",
+        // in scope and scanned, and formerly un-allowlistable
+        "scripts/payload..py",
+        "scripts/a..b..c.sh",
+        "crates/x..y.py",
+        "weird..name.py",
+        "scripts/a\\b.py",
+        "scripts/a\\\\b.sh",
+        "back\\slash.py",
+        // in scope, not scanned — no row is demanded and none is wanted
+        "scripts/README",
+        "scripts/smoke.mjs",
+        "crates/cdcp_gate/src/main.rs",
+        // out of scope
+        "docs/a.py",
+        "tests/a.sh",
+        // traversal and absolute: out of scope, and a row is still malformed
+        "../outside.py",
+        "scripts/../../etc/passwd.sh",
+        "scripts/./x.py",
+        "./x.py",
+        "..",
+        "/abs/path.py",
+        "/etc/passwd.sh",
+        // degenerate
+        "",
+    ];
+
+    /// THE bd-n1aj ASSERTION, and the reason this cannot recur quietly.
+    ///
+    /// The gate must never demand a row it would then reject. Stated over the
+    /// corpus: if `unlisted` reports a path as needing an `[[allow]]` row, then a
+    /// well-formed row for that exact path must produce no schema finding.
+    ///
+    /// This is asserted, rather than left to two implementations that look alike,
+    /// because looking alike is what failed: the substring test and the component
+    /// test read as the same rule right up until one of them was corrected.
+    #[test]
+    fn no_in_scope_path_can_be_un_allowlistable() {
+        let s = scan();
+        let mut demanded = 0usize;
+        for p in AGREEMENT_CORPUS {
+            let demands_row = !unlisted(&[(*p).to_string()], &[], &s).is_empty();
+            if !demands_row {
+                continue;
+            }
+            demanded += 1;
+            let v = validate_rows(&[row(p)], &s, TODAY, &always());
+            assert!(
+                v.is_empty(),
+                "{p}: the gate demands a row for this path and then rejects the row: {v:?}"
+            );
+        }
+        // Anti-vacuous: a corpus that demands nothing asserts nothing.
+        assert!(
+            demanded >= 10,
+            "only {demanded} corpus paths demanded a row — this test proved nothing"
+        );
+    }
+
+    /// The other direction, so the widening stays bounded: a path the gate does
+    /// NOT scan must not become quietly row-able. Traversal and absolute paths
+    /// are still malformed, and out-of-scope rows are still dead weight.
+    #[test]
+    fn traversal_and_absolute_rows_are_still_rejected() {
+        let s = scan();
+        for p in [
+            "../outside.py",
+            "scripts/../../etc/passwd.sh",
+            "scripts/./x.py",
+            "/abs/path.py",
+        ] {
+            let v = validate_rows(&[row(p)], &s, TODAY, &always());
+            assert!(
+                v.iter()
+                    .any(|m| m.contains("normalised engine-root-relative path")),
+                "{p} must still be rejected as a malformed row: {v:?}"
+            );
+            assert!(
+                !is_in_scope(p, &s),
+                "{p} must also stay out of scope — the two answers are one answer"
+            );
+        }
+    }
+
+    /// The leg the fix is FOR, at the row level.
+    #[test]
+    fn a_dotted_or_backslashed_filename_can_be_allowlisted() {
+        let s = scan();
+        for p in ["scripts/payload..py", "scripts/a\\b.py", "weird..name.py"] {
+            let v = validate_rows(&[row(p)], &s, TODAY, &always());
+            assert!(
+                v.is_empty(),
+                "{p} is an ordinary file in a mandatory root; its row must be accepted: {v:?}"
+            );
+        }
+    }
+
+    /// Anti-vacuous, unchanged by the widening: nothing above turns a blank path
+    /// into a row.
+    #[test]
+    fn an_empty_or_whitespace_path_row_is_still_a_schema_error() {
+        for blank in ["", "   ", "\t\n"] {
+            let mut r = row("scripts/a.py");
+            r.path = blank.into();
+            let v = validate_rows(&[r], &scan(), TODAY, &always());
+            assert!(
+                v.iter().any(|m| m.contains("empty `path`")),
+                "{blank:?} must stay a schema ERROR: {v:?}"
+            );
+        }
+        // A row with no `path` field at all lands the same way.
+        let text = r#"
+schema_version = 1
+[scan]
+roots = ["scripts", "crates"]
+extensions = ["py", "sh"]
+include_engine_root_files = true
+[wiring]
+status = "pending"
+check_sh = "scripts/check.sh"
+invocation = "cargo run -q -p cdcp_gate -- substrate-guard"
+bead = "bd-substrate-rust-migration-jhd.1"
+[[allow]]
+reason = "Grandfathered load-bearing gate; port tracked by the migration epic"
+migration_bead = "bd-x"
+expires = "2099-01-01"
+"#;
+        let al = parse_allowlist(text).expect("parses; the field is missing, not malformed");
+        let v = validate_rows(&al.allow, &al.scan, TODAY, &always());
+        assert!(v.iter().any(|m| m.contains("empty `path`")), "{v:?}");
+    }
+
+    #[test]
+    fn normalisation_defect_names_only_traversal_and_absolute() {
+        assert!(normalisation_defect("scripts/payload..py").is_none());
+        assert!(normalisation_defect("scripts/a\\b.py").is_none());
+        assert!(normalisation_defect("a.py").is_none());
+        assert!(normalisation_defect("").is_some());
+        assert!(normalisation_defect("/abs.py").is_some());
+        assert!(normalisation_defect("../a.py").is_some());
+        assert!(normalisation_defect("a/./b.py").is_some());
+        assert!(normalisation_defect("a/../b.py").is_some());
     }
 
     // ── the assertion this gate exists for ────────────────────────────────

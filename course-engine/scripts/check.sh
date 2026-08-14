@@ -13,6 +13,65 @@ fail() { echo "check.sh: FAIL: $*" >&2; exit 2; }
 GAPS=""
 ok() { echo "check.sh: ok: $*"; }
 
+# ── Concurrency lock [bd-gl4j] ─────────────────────────────────────────────
+# Measured 2026-08-14, four concurrent runs live during a six-agent wave: one
+# run exited 2 on `L5 learner pack shape (n_items=39)` because another run was
+# inside selftest_reconstructed.sh, which mutates web/data/mock40_seed42.json IN
+# THE WORKING TREE and restores it afterwards. The second run read the mutated
+# state and reported a product defect that did not exist.
+#
+# The cost is not the failed run, it is the FALSE VERDICT. A red from a
+# concurrency artifact is indistinguishable from a red from a real regression,
+# and the natural response — re-run it — makes it disappear, which teaches the
+# reader to dismiss reds. That is the fooled-certificate failure arriving through
+# the harness instead of through a gate.
+#
+# STEPS THAT MUTATE TRACKED FILES while this script runs. Every one is now
+# serialised behind this lock. [M] = observed 2026-08-14 by polling
+# `git status --porcelain` while the step ran; [S] = read from the writing
+# script's source, not yet observed under a poller.
+#   selftest_known_bad.sh      goldens/mock40_seed42_all_correct.sha256 [M] restored
+#                              goldens/bank_hash.txt                    [M] restored
+#                              docs/_selftest_known_bad_planted.md      [S] planted/removed
+#   selftest_l5.sh             web/_selftest_l5_honesty_planted.html    [S] planted/removed
+#   selftest_reconstructed.sh  web/data/mock40_seed42.json              [S] restored
+#                              web/data/keys_seed42.json                [S] restored
+#                              web/drill.html                           [S] restored
+#                              crates/cdcp_cli/src/main.rs              [S] restored
+#   build_units.py             web/data/units_index.json                [M] regenerated
+#   build_glossary_json.py     web/data/glossary.json                   [M] regenerated
+#   smoke_feedback_links.py    web/data/topic_anchors.json              [M] regenerated
+#   export_anki.py             dist/anki/**                             [M] untracked output
+# The three regenerated files are byte-identical today, so `git status` stays
+# clean — but the WRITE still happens (mtime moves), and a concurrent reader can
+# still catch a truncated file. Rewritten-identical is not the same as untouched.
+# Everything else writes only under $TMPDIR or target/ (gitignored): the
+# substrate-guard behavioural probe, the content.lock mutate-selftest,
+# smoke_slo.sh, the L6 multi-seed export-web, and every selftest's TMP_ROOT.
+#
+# The lock is a DIRECTORY: mkdir is the only atomic create-or-fail primitive
+# POSIX sh has. A stale lock (recorded holder pid gone) is reclaimed and SAYS SO
+# — a lock that can wedge the build is worse than the race it prevents. An
+# unwritable lock path is an ERROR, never a green run without a lock; a lock that
+# quietly does nothing is the same fooled certificate as a gate that quietly
+# scans nothing.
+#
+# Re-entrancy: selftest_reconstructed.sh runs this script again in the SAME root,
+# five times. CDCP_CHECK_LOCK_HELD carries the held lock path to those
+# descendants so they run under the ancestor's lock instead of deadlocking on it.
+# `substrate-guard --prove-wired` runs check.sh from a tree materialised under
+# target/ — a different ROOT, hence a different lock, taken independently.
+LOCK_DIR="$ROOT/target/check.lock"
+LOCK_HELD=0
+# CDCP_CHECK_LOCK_DIR relocates the lock for the L4 selftest below and NOWHERE
+# ELSE: it is honoured only in probe mode, which exits before any gate runs, so
+# it cannot be used to run two real gate chains side by side.
+if [ "${CDCP_CHECK_LOCK_PROBE:-0}" = "1" ]; then
+  CDCP_CHECK_LOCK_HELD=""
+  if [ -n "${CDCP_CHECK_LOCK_DIR:-}" ]; then
+    LOCK_DIR="$CDCP_CHECK_LOCK_DIR"
+  fi
+fi
 
 # ── L4 drift guard plumbing ────────────────────────────────────────────────
 # Every selftest suite prints one `INJECTIONS=<n> SUITE=<name>` receipt on its
@@ -20,8 +79,152 @@ ok() { echo "check.sh: ok: $*"; }
 # tees the receipts into INJ_LOG. scripts/verify_injection_count.py then sums
 # them and compares against the count README.md advertises — so the badge can
 # never drift from the machinery it describes.
+INJ_LOG=""
+
+# Single cleanup for both resources. Installed BEFORE the lock is taken, so a
+# signal arriving between mkdir and the first gate still releases it. It cannot
+# survive SIGKILL — hence stale reclamation below. Explicit `if` blocks and a
+# terminal `return 0`: an `&&` chain whose test is false would return non-zero
+# from an EXIT trap under `set -e`.
+cleanup() {
+  if [ -n "$INJ_LOG" ]; then rm -f "$INJ_LOG"; fi
+  if [ "$LOCK_HELD" = "1" ]; then rm -rf "$LOCK_DIR"; fi
+  return 0
+}
+trap 'cleanup' EXIT INT TERM HUP
+
+lock_error() { echo "check.sh: LOCK ERROR: $*" >&2; exit 2; }
+
+lock_acquire() {
+  _lk_parent="$(dirname "$LOCK_DIR")"
+  mkdir -p "$_lk_parent" 2>/dev/null || true
+  if [ ! -d "$_lk_parent" ]; then
+    lock_error "cannot create $_lk_parent to hold the lock; an unwritable lock path is an ERROR, not a silent skip"
+  fi
+  _lk_try=0
+  while [ "$_lk_try" -lt 4 ]; do
+    _lk_try=$((_lk_try + 1))
+    if mkdir "$LOCK_DIR" 2>/dev/null; then
+      LOCK_HELD=1
+      if ! printf '%s\n' "$$" >"$LOCK_DIR/pid" 2>/dev/null; then
+        lock_error "took $LOCK_DIR but cannot record the holder pid; an unnamed holder can be neither reported nor reclaimed — ERROR, not a silent skip"
+      fi
+      if ! date -u +%Y-%m-%dT%H:%M:%SZ >"$LOCK_DIR/started" 2>/dev/null; then
+        lock_error "took $LOCK_DIR but cannot record the start time — ERROR, not a silent skip"
+      fi
+      return 0
+    fi
+    if [ ! -d "$LOCK_DIR" ]; then
+      lock_error "mkdir $LOCK_DIR failed and no lock is present there; the lock path is unusable — ERROR, not a silent skip"
+    fi
+    _lk_pid=""
+    if [ -f "$LOCK_DIR/pid" ]; then
+      _lk_pid="$(cat "$LOCK_DIR/pid" 2>/dev/null || true)"
+    fi
+    _lk_started="unknown"
+    if [ -f "$LOCK_DIR/started" ]; then
+      _lk_started="$(cat "$LOCK_DIR/started" 2>/dev/null || true)"
+    fi
+    if [ -z "$_lk_pid" ]; then
+      # The holder may be between mkdir and the pid write. Give it a moment; if
+      # the pid never appears, the holder died inside that window — stale.
+      if [ "$_lk_try" -lt 3 ]; then
+        sleep 1
+        continue
+      fi
+      echo "check.sh: reclaimed stale lock $LOCK_DIR (no holder pid recorded after ${_lk_try}s)" >&2
+      rm -rf "$LOCK_DIR"
+      continue
+    fi
+    if kill -0 "$_lk_pid" 2>/dev/null; then
+      echo "check.sh: REFUSING TO START: scripts/check.sh is already running." >&2
+      echo "check.sh:   lock:      $LOCK_DIR" >&2
+      echo "check.sh:   held by pid $_lk_pid, started $_lk_started" >&2
+      echo "check.sh: Concurrent runs corrupt each other: several steps mutate tracked files" >&2
+      echo "check.sh: under web/ · goldens/ · crates/ and restore them afterwards, so a second" >&2
+      echo "check.sh: run reads half-injected state and reports a defect that does not exist." >&2
+      echo "check.sh: Wait for pid $_lk_pid, or kill it if it is wedged — the lock is then" >&2
+      echo "check.sh: reclaimed automatically by the next run." >&2
+      exit 2
+    fi
+    echo "check.sh: reclaimed stale lock $LOCK_DIR (recorded holder pid $_lk_pid, started $_lk_started, is gone)" >&2
+    rm -rf "$LOCK_DIR"
+  done
+  lock_error "could not settle $LOCK_DIR after $_lk_try attempts (contended and repeatedly reclaimed)"
+}
+
+if [ "${CDCP_CHECK_LOCK_HELD:-}" = "$LOCK_DIR" ]; then
+  echo "check.sh: running under the lock an ancestor run already holds ($LOCK_DIR)"
+else
+  lock_acquire
+  CDCP_CHECK_LOCK_HELD="$LOCK_DIR"
+  export CDCP_CHECK_LOCK_HELD
+fi
+
+# Probe mode exists only to exercise the acquisition path above from a child
+# process. It runs no gate: it reports the outcome and leaves.
+if [ "${CDCP_CHECK_LOCK_PROBE:-0}" = "1" ]; then
+  echo "check.sh: lock probe: acquired $LOCK_DIR"
+  exit 0
+fi
+
+# ── L4: the lock is proven to trip ─────────────────────────────────────────
+# BUILT != WIRED applies to the lock too. Nothing readable above establishes
+# that a second run is actually refused — `mkdir` could be pointed at a path that
+# never collides, the pid file could go unwritten, the refusal branch could be
+# unreachable. These three legs run the real acquisition path in a child and
+# require the observable outcome:
+#   (1) while this run holds the lock, a second acquisition is REFUSED and names
+#       the holder pid;
+#   (2) a lock whose recorded holder is dead is RECLAIMED and says so;
+#   (3) an unwritable lock path is an ERROR, not a green run with no lock.
+# NOT via run_selftest: it emits no INJECTIONS= receipt and must not move the
+# advertised known-bad count.
+if [ "$LOCK_HELD" = "1" ]; then
+  echo "==> check.sh lock selftest (L4: second run refused · stale lock reclaimed · unwritable path ERRORs)"
+  _lk_self="$ROOT/scripts/check.sh"
+  _lk_scratch="$ROOT/target/cdcp-lock-selftest"
+  rm -rf "$_lk_scratch"
+  mkdir -p "$_lk_scratch" || fail "lock selftest: cannot create $_lk_scratch"
+
+  _lk_rc=0
+  _lk_out="$(CDCP_CHECK_LOCK_PROBE=1 sh "$_lk_self" 2>&1)" || _lk_rc=$?
+  [ "$_lk_rc" -ne 0 ] \
+    || fail "lock selftest: a second run started while pid $$ holds $LOCK_DIR"
+  printf '%s\n' "$_lk_out" | grep -q "held by pid $$" \
+    || fail "lock selftest: the refusal never named the holder pid $$: $_lk_out"
+
+  # (2) A holder pid that is provably gone: reap a child, then claim its pid.
+  sh -c 'exit 0' &
+  _lk_dead=$!
+  wait "$_lk_dead" 2>/dev/null || true
+  mkdir -p "$_lk_scratch/stale"
+  printf '%s\n' "$_lk_dead" >"$_lk_scratch/stale/pid"
+  printf '%s\n' "1970-01-01T00:00:00Z" >"$_lk_scratch/stale/started"
+  _lk_rc=0
+  _lk_out="$(CDCP_CHECK_LOCK_PROBE=1 CDCP_CHECK_LOCK_DIR="$_lk_scratch/stale" \
+    sh "$_lk_self" 2>&1)" || _lk_rc=$?
+  [ "$_lk_rc" -eq 0 ] \
+    || fail "lock selftest: a stale lock (dead holder pid $_lk_dead) wedged the run (rc=$_lk_rc): $_lk_out"
+  printf '%s\n' "$_lk_out" | grep -q "reclaimed stale lock" \
+    || fail "lock selftest: the stale lock was taken silently; reclamation must be stated: $_lk_out"
+
+  # (3) Anti-vacuous. The lock's parent is a regular FILE, so mkdir -p fails with
+  # ENOTDIR for every user including root — no chmod trick a root CI defeats.
+  : >"$_lk_scratch/notadir"
+  _lk_rc=0
+  _lk_out="$(CDCP_CHECK_LOCK_PROBE=1 CDCP_CHECK_LOCK_DIR="$_lk_scratch/notadir/lock" \
+    sh "$_lk_self" 2>&1)" || _lk_rc=$?
+  [ "$_lk_rc" -ne 0 ] \
+    || fail "lock selftest: an unwritable lock path ran GREEN with no lock held — a lock that silently does nothing is a fooled certificate"
+  printf '%s\n' "$_lk_out" | grep -q "LOCK ERROR" \
+    || fail "lock selftest: the unwritable lock path failed without naming the lock as the reason: $_lk_out"
+
+  rm -rf "$_lk_scratch"
+  ok "concurrency lock proven (second run refused naming pid $$ · dead holder reclaimed · unwritable lock path ERRORs)"
+fi
+
 INJ_LOG="$(mktemp "${TMPDIR:-/tmp}/cdcp_injections.XXXXXX")"
-trap 'rm -f "$INJ_LOG"' EXIT INT TERM HUP
 
 run_selftest() {
   _lbl="$1"
@@ -112,6 +315,17 @@ cargo run -q -p cdcp_gate -- install-hooks --check \
   || fail "pre-commit shim not installed (run: cargo run -q -p cdcp_gate -- install-hooks)"
 ok "pre-commit shim installed and current"
 
+# B1 (bd-hardening-b-ledgers-gvm.1): the machine ledger of capability claims.
+# A row whose last_review has aged past registries/capability-maturity.toml's
+# staleness_days, whose evidence names a test function nothing defines, or whose
+# published CHARTER cell outruns the level its evidence can carry, is RED.
+# It found two on its first run — L2 and L5 both published "YES · wired" over
+# capabilities that no named test asserted. That is the L3 failure's shape, and
+# this ledger exists so it cannot survive in a table nobody can falsify.
+echo "==> cdcp_gate capability-maturity (B1 capability ledger: attributed, dated, expiring)"
+cargo run -q -p cdcp_gate -- capability-maturity || fail "capability maturity ledger"
+ok "capability claims attributed, dated, unexpired, and pointed at evidence that resolves"
+
 
 # exam_form hard numbers (public CDCP form)
 grep -q 'n_items = 40' knowledge/exam_form.toml || fail "exam_form n_items"
@@ -179,9 +393,10 @@ ok "bank pool"
 # PORTED (bd-substrate-rust-migration-jhd.9). scripts/validate_grounding.py stays
 # as the differential oracle for tests/diff_validate_grounding.rs; an absent
 # checker is a fooled certificate, not a skip.
-# KNOWN DEFECT, tracked as bd-yje7: this gate currently passes GREEN on an empty
-# corpus — it is greenest when it is checking nothing. Do not read its PASS as
-# evidence that grounding was verified until that bead closes.
+# Anti-vacuous (bd-yje7, closed 2026-08-14): zero items, a sub-floor corpus, and a
+# missing corpus root are each RED and named. Floors are 40 items (one exam form)
+# and 20000 corpus chars (one median module), recorded with their reasons in the
+# oracle and mirrored in the port.
 [ -f scripts/validate_grounding.py ] || fail "missing scripts/validate_grounding.py (differential oracle for validate-grounding)"
 [ -d bank/items ] || fail "missing bank/items (grounding gate required)"
 echo "==> cdcp_gate validate-grounding (anti-hallucination heuristics + corpus overlap)"

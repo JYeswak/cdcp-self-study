@@ -26,6 +26,13 @@
 //!      overlap the corpus below `--min-overlap` (default 0.08). Without that
 //!      flag the same finding is a WARN and the gate stays green.
 //!
+//! It also goes RED, under a separate `FAIL: vacuous grounding check` banner,
+//! when it had too little to check at all: fewer than `MIN_SCANNED_ITEMS` items,
+//! fewer than `MIN_CORPUS_CHARS` corpus characters, or a corpus root that is
+//! missing or unlistable. See ANTI-VACUOUS below — those are conditions of the
+//! INPUT, not findings about an item, which is why they are counted and printed
+//! apart from `high_severity`.
+//!
 //! # WHAT THIS GATE CANNOT DECIDE
 //!
 //! Every leg above is a HEURISTIC over surface text, and the overlap leg is the
@@ -50,23 +57,31 @@
 //! absent and the vocabulary is shared*. That is the whole claim, and a
 //! heuristic gate has no stronger one available.
 //!
-//! # ANTI-VACUOUS: A KNOWN DEFECT, DELIBERATELY PRESERVED
+//! # ANTI-VACUOUS (L4) — FIXED IN THE ORACLE FIRST, THEN HERE (bd-yje7)
 //!
-//! This port does NOT satisfy the L4 anti-vacuous floor, because the oracle does
-//! not. Measured 2026-08-14, all three of these exit 0 with a `PASS` banner:
+//! Until 2026-08-14 all three of these exited 0 with a `PASS` banner, in the
+//! oracle and therefore in this port: an EMPTY `bank/items` directory; a corpus
+//! of zero characters; and a missing `knowledge/corpus/public`. That inverted
+//! the meaning of green — with no corpus there is nothing that could contradict
+//! any claim, so every item scored clean and the gate emitted its most
+//! reassuring output exactly when it was blindest.
 //!
-//!   - an EMPTY `bank/items` directory — `scanned_items=0`, then PASS;
-//!   - an empty corpus (`modules/`, `reference/`, `knowledge/` all absent) —
-//!     `corpus_chars=0`, every item warned, then PASS;
-//!   - a missing `knowledge/corpus/public` — silently skipped, then PASS.
+//! Each is now an ERROR that NAMES ITSELF, printed under `FAIL: vacuous
+//! grounding check` with exit 1. The oracle was changed first and this port
+//! second, so the differential went red on the fix and green again on the port —
+//! the sequence that keeps the harness honest.
 //!
-//! Only a missing `bank/items` DIRECTORY is caught (`FAIL: bank/items missing`,
-//! exit 1). A port that added the missing checks would no longer be a port: the
-//! differential harness would go red on the very cases it exists to compare, and
-//! the behaviour change would ship unreviewed. The defect is recorded here and
-//! in `tests/diff_validate_grounding.rs`, which pins the vacuous PASS as the
-//! oracle's current behaviour so that fixing it is a visible, deliberate edit on
-//! both sides at once.
+//! The floors are DELIBERATE MINIMA, not `> 0`; a one-byte corpus would satisfy
+//! `> 0` and move the hole rather than close it. Both thresholds and their
+//! reasons live beside the constants (`MIN_SCANNED_ITEMS`, `MIN_CORPUS_CHARS`)
+//! and are mirrored from the oracle, which owns them.
+//!
+//! Not checked, deliberately: per-root EMPTINESS. `MIN_CORPUS_CHARS` governs
+//! total volume, and the licensing remediation
+//! (`bd-corpus-public-captures-not-licensed-class-kej`) may legitimately leave
+//! `knowledge/corpus/public` empty while the rest of the tree still grounds the
+//! bank. Its DISAPPEARANCE is still an error, because a walk over a directory
+//! that is not there contributes zero characters in silence.
 //!
 //! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
 //!
@@ -157,6 +172,30 @@ pub const CORPUS_PUBLIC_MARKER: &str = "corpus/public";
 
 /// How many findings the report prints before it truncates.
 pub const MAX_REPORT: usize = 60;
+
+/// Anti-vacuous floor on items scanned — one full exam form.
+///
+/// `knowledge/bank_policy.toml` sets `exam_n_items = 40`, so a bank that cannot
+/// fill a single form cannot produce the artifact this course ships, and "no
+/// heuristic fired" over it says nothing about the product. Deliberately ONE
+/// TENTH of `verify_bank`'s `pool_min_items = 400`: the pool floor belongs to
+/// that gate, and enforcing it twice would turn a legitimately-still-growing
+/// bank RED here for a reason another gate already owns. Live tree 2026-08-14:
+/// 804 items, 20x this floor. Mirrored from the oracle, which owns the value.
+pub const MIN_SCANNED_ITEMS: usize = 40;
+
+/// Anti-vacuous floor on corpus size — one module's worth of prose.
+///
+/// Measured 2026-08-14, the 29 live modules run 749..47651 characters, median
+/// 23870, so this sits just under one median module. Below it there is not
+/// enough text for whole-word overlap to mean anything, and the only ways to get
+/// there are a corpus that was never found, was emptied, or was truncated. Live
+/// tree: 659149 characters, 33x this floor — and 545885 of those come from
+/// OUTSIDE `knowledge/corpus/public`, so every capture can be deleted for the
+/// licensing remediation and this floor still clears at 27x, while an actual
+/// disappearance of the corpus goes RED instead of green on the way down.
+/// Mirrored from the oracle, which owns the value.
+pub const MIN_CORPUS_CHARS: usize = 20_000;
 
 /// `STOP` — dropped from every token set.
 pub const STOP: &[&str] = &[
@@ -790,6 +829,41 @@ pub fn load_corpus_text(root: &Path) -> String {
     chunks.join("\n").to_lowercase()
 }
 
+/// The corpus roots in the oracle's order, as `(label, path)`.
+///
+/// The labels are what the report prints, so they are engine-root-relative and
+/// spell the two siblings with a leading `../`.
+pub fn corpus_roots(root: &Path) -> Vec<(&'static str, PathBuf)> {
+    let parent = root.parent().unwrap_or(root);
+    vec![
+        ("../modules", parent.join("modules")),
+        ("../reference", parent.join("reference")),
+        ("knowledge", root.join(KNOWLEDGE_REL)),
+        ("knowledge/corpus/public", root.join(CORPUS_PUBLIC_REL)),
+    ]
+}
+
+/// `corpus_root_errors()` — every declared corpus root that is missing or
+/// cannot be listed.
+///
+/// `load_corpus_text` skips both cases in silence, which is precisely how a gate
+/// ends up reporting PASS over a corpus it never opened. The oracle detects
+/// "unlistable" by taking the first entry of `path.iterdir()` and catching
+/// `OSError`; `read_dir` returning `Err` is the same condition.
+pub fn corpus_root_errors(root: &Path) -> Vec<String> {
+    let mut errs = Vec::new();
+    for (label, path) in corpus_roots(root) {
+        if !path.is_dir() {
+            errs.push(format!("corpus root missing: {label}"));
+            continue;
+        }
+        if std::fs::read_dir(&path).is_err() {
+            errs.push(format!("corpus root unreadable: {label}"));
+        }
+    }
+    errs
+}
+
 /// `topic_labels()` — `id` -> `label` for every `[[topic]]` block.
 pub fn topic_labels(topics: &Path) -> HashMap<String, String> {
     let mut labels = HashMap::new();
@@ -802,7 +876,12 @@ pub fn topic_labels(topics: &Path) -> HashMap<String, String> {
     else {
         return labels;
     };
-    // `re.split(r"\n\[\[topic\]\]\n", text)`, then every block after the first.
+    // `re.split(r"\n\[\[topic\]\]\n", "\n" + text)`, then every block after the
+    // first. The oracle prepends the newline (bd-yje7) so a registry whose very
+    // first byte opens a block still yields that label; without it the raw id
+    // was tokenised in place of its label and every score built on it degraded
+    // with no finding printed.
+    let text = format!("\n{text}");
     for block in text.split("\n[[topic]]\n").skip(1) {
         let chars: Vec<char> = block.chars().collect();
         let (Some(id), Some(lab)) = (
@@ -1367,9 +1446,12 @@ pub fn evaluate(root: &Path, args: &Args) -> Outcome {
             }
         };
         scanned += 1;
+        // `it.get("id") or path.name` — TRUTHINESS, not merely presence, so an
+        // `id = ""` falls back to the filename instead of prefixing every
+        // finding for this item with nothing at all (bd-yje7).
         let iid = match it.get("id") {
-            Some(v) => py_str(v),
-            None => name.clone(),
+            Some(v) if py_truthy(v) => py_str(v),
+            _ => name.clone(),
         };
         let Some(choices) = join_choices(it.get("choices")) else {
             return Outcome {
@@ -1436,6 +1518,22 @@ pub fn evaluate(root: &Path, args: &Args) -> Outcome {
         }
     }
 
+    // Anti-vacuous (bd-yje7). Each condition names ITSELF, because "PASS" over
+    // an empty bank and "PASS" over a clean one are otherwise the same bytes.
+    let mut vacuous: Vec<String> = corpus_root_errors(root);
+    if scanned < MIN_SCANNED_ITEMS {
+        vacuous.push(format!(
+            "scanned_items={scanned} < floor {MIN_SCANNED_ITEMS} \
+             (fewer items than one exam form \u{2014} nothing was meaningfully checked)"
+        ));
+    }
+    if corpus_chars < MIN_CORPUS_CHARS {
+        vacuous.push(format!(
+            "corpus_chars={corpus_chars} < floor {MIN_CORPUS_CHARS} \
+             (no grounding text to contradict a claim with)"
+        ));
+    }
+
     let mut out = String::new();
     out.push_str(&format!("scanned_items={scanned}\n"));
     out.push_str(&format!("high_severity={}\n", high.len()));
@@ -1450,6 +1548,13 @@ pub fn evaluate(root: &Path, args: &Args) -> Outcome {
         }
     }
 
+    if !vacuous.is_empty() {
+        out.push_str("FAIL: vacuous grounding check\n");
+        for e in &vacuous {
+            out.push_str(&format!("  - {e}\n"));
+        }
+    }
+
     if !high.is_empty() {
         out.push_str("FAIL\n");
         for e in high.iter().take(MAX_REPORT) {
@@ -1458,6 +1563,9 @@ pub fn evaluate(root: &Path, args: &Args) -> Outcome {
         if high.len() > MAX_REPORT {
             out.push_str(&format!("  ... +{} more\n", high.len() - MAX_REPORT));
         }
+    }
+
+    if !vacuous.is_empty() || !high.is_empty() {
         return Outcome {
             stdout: out,
             stderr: String::new(),
@@ -1768,6 +1876,13 @@ mod tests {
         dir: tempfile::TempDir,
     }
 
+    /// Invented vocabulary for the padding corpus and the padding items. None of
+    /// it comes from `knowledge/corpus/**`, whose captures this crate never
+    /// renders, and none of it collides with the invented tokens the overlap
+    /// cases below rely on scoring zero.
+    const PAD_WORDS: &str = "chiller plenum containment aisle rack economiser humidity \
+                             envelope inlet redundancy topology maintainability concurrent";
+
     impl Tree {
         fn new() -> Self {
             let t = Tree {
@@ -1777,11 +1892,44 @@ mod tests {
             std::fs::create_dir_all(t.root().join("knowledge")).unwrap();
             t
         }
+
+        /// `new()` plus the smallest tree that clears every anti-vacuous floor:
+        /// all four corpus roots present, a corpus over `MIN_CORPUS_CHARS`, and
+        /// exactly `MIN_SCANNED_ITEMS` well-grounded items. Tests that assert a
+        /// PASS start here, so "green" means the heuristics were satisfied
+        /// rather than that the floors were dodged.
+        fn grounded() -> Self {
+            let t = Tree::new();
+            std::fs::create_dir_all(t.dir.path().join("reference")).unwrap();
+            let line = format!("{PAD_WORDS}\n");
+            let reps = MIN_CORPUS_CHARS / line.len() + 2;
+            t.write_sibling("modules/m01.md", &line.repeat(reps));
+            t.write_sibling("reference/glossary.md", &line);
+            t.write("knowledge/corpus/public/src-invented.txt", &line);
+            for i in 0..MIN_SCANNED_ITEMS {
+                t.write(
+                    &format!("bank/items/pad-{i:03}.toml"),
+                    &format!(
+                        "id = \"pad-{i:03}\"\nstem = \"{PAD_WORDS}\"\nchoices = []\n\
+                         explanation = \"\"\ntopic_ids = []\n"
+                    ),
+                );
+            }
+            t
+        }
+
         fn root(&self) -> PathBuf {
             self.dir.path().join("engine")
         }
         fn write(&self, rel: &str, body: &str) {
             let p = self.root().join(rel);
+            std::fs::create_dir_all(p.parent().unwrap()).unwrap();
+            std::fs::write(p, body).unwrap();
+        }
+        /// Write beside the engine root, where `../modules` and `../reference`
+        /// live.
+        fn write_sibling(&self, rel: &str, body: &str) {
+            let p = self.dir.path().join(rel);
             std::fs::create_dir_all(p.parent().unwrap()).unwrap();
             std::fs::write(p, body).unwrap();
         }
@@ -1808,25 +1956,164 @@ mod tests {
         assert_eq!(o.stdout, "FAIL: bank/items missing\n");
     }
 
-    /// PINNED DEFECT, not an endorsement: the oracle passes a bank it never
-    /// scanned. The port reproduces it so the differential stays honest, and
-    /// the module header records it. See also `tests/diff_validate_grounding.rs`.
+    /// The smallest legitimate tree is GREEN. Without this leg the floors could
+    /// be set anywhere at all and every "it goes RED" test below would still
+    /// pass — an over-strict gate is routed around, which is a slower death than
+    /// no gate.
     #[test]
-    fn zero_items_is_a_vacuous_pass_in_the_oracle_and_therefore_here() {
-        let t = Tree::new();
+    fn a_small_but_legitimate_tree_still_passes() {
+        let t = Tree::grounded();
         let o = t.run(&Args::default());
-        assert_eq!(o.code, 0, "the oracle exits 0 on an empty bank");
-        assert!(o.stdout.starts_with("scanned_items=0\n"));
-        assert!(o.stdout.contains("PASS\n"));
+        assert_eq!(o.code, 0, "{}", o.stdout);
+        assert!(
+            o.stdout
+                .starts_with(&format!("scanned_items={MIN_SCANNED_ITEMS}\n")),
+            "{}",
+            o.stdout
+        );
+        assert!(o.stdout.contains("\nPASS\n"), "{}", o.stdout);
+        assert!(o.stdout.contains("low_overlap_warns=0\n"), "{}", o.stdout);
     }
 
     #[test]
-    fn zero_corpus_chars_is_also_a_vacuous_pass() {
+    fn zero_items_is_an_error_that_names_itself() {
+        let t = Tree::grounded();
+        for i in 0..MIN_SCANNED_ITEMS {
+            std::fs::remove_file(t.root().join(format!("bank/items/pad-{i:03}.toml"))).unwrap();
+        }
+        let o = t.run(&Args::default());
+        assert_eq!(o.code, 1, "a bank that was never scanned is not a pass");
+        assert!(o.stdout.starts_with("scanned_items=0\n"), "{}", o.stdout);
+        assert!(!o.stdout.contains("PASS"), "{}", o.stdout);
+        assert!(
+            o.stdout.contains("FAIL: vacuous grounding check\n"),
+            "{}",
+            o.stdout
+        );
+        assert!(
+            o.stdout
+                .contains(&format!("  - scanned_items=0 < floor {MIN_SCANNED_ITEMS} ")),
+            "{}",
+            o.stdout
+        );
+    }
+
+    /// One item under the floor is still RED: the bar is a recorded minimum, not
+    /// a non-emptiness test.
+    #[test]
+    fn one_item_short_of_the_floor_is_still_an_error() {
+        let t = Tree::grounded();
+        let last = MIN_SCANNED_ITEMS - 1;
+        std::fs::remove_file(t.root().join(format!("bank/items/pad-{last:03}.toml"))).unwrap();
+        let o = t.run(&Args::default());
+        assert_eq!(o.code, 1, "{}", o.stdout);
+        assert!(
+            o.stdout.contains(&format!(
+                "  - scanned_items={last} < floor {MIN_SCANNED_ITEMS} "
+            )),
+            "{}",
+            o.stdout
+        );
+    }
+
+    #[test]
+    fn zero_corpus_chars_is_an_error_that_names_itself() {
         let t = Tree::new();
         t.write("bank/items/a.toml", &item("a", "a stem about cooling"));
         let o = t.run(&Args::default());
-        assert_eq!(o.code, 0);
-        assert!(o.stdout.contains("corpus_chars=0\n"), "{}", o.stdout);
+        assert_eq!(o.code, 1, "an empty corpus can contradict nothing");
+        assert!(!o.stdout.contains("PASS"), "{}", o.stdout);
+        assert!(
+            o.stdout
+                .contains(&format!("  - corpus_chars=0 < floor {MIN_CORPUS_CHARS} ")),
+            "{}",
+            o.stdout
+        );
+    }
+
+    /// A three-byte corpus clears `> 0` and is still RED, which is the whole
+    /// point of recording a floor rather than a non-emptiness check.
+    #[test]
+    fn a_corpus_of_a_few_characters_does_not_satisfy_the_floor() {
+        let t = Tree::grounded();
+        // Every root stays in place; only the text shrinks.
+        t.write_sibling("modules/m01.md", "x");
+        t.write_sibling("reference/glossary.md", "y");
+        t.write("knowledge/corpus/public/src-invented.txt", "z");
+        let o = t.run(&Args::default());
+        assert_eq!(o.code, 1, "{}", o.stdout);
+        assert!(
+            o.stdout
+                .contains(&format!("  - corpus_chars=5 < floor {MIN_CORPUS_CHARS} ")),
+            "{}",
+            o.stdout
+        );
+    }
+
+    #[test]
+    fn each_missing_corpus_root_is_named() {
+        for (rel, label, sibling) in [
+            ("modules", "../modules", true),
+            ("reference", "../reference", true),
+            ("knowledge/corpus/public", "knowledge/corpus/public", false),
+        ] {
+            let t = Tree::grounded();
+            let dir = if sibling {
+                t.dir.path().join(rel)
+            } else {
+                t.root().join(rel)
+            };
+            for e in std::fs::read_dir(&dir).unwrap().flatten() {
+                std::fs::remove_file(e.path()).unwrap();
+            }
+            std::fs::remove_dir(&dir).unwrap();
+            let o = t.run(&Args::default());
+            assert_eq!(o.code, 1, "[{label}] {}", o.stdout);
+            assert!(
+                o.stdout
+                    .contains(&format!("  - corpus root missing: {label}\n")),
+                "[{label}] {}",
+                o.stdout
+            );
+        }
+    }
+
+    /// The floor is not a number someone typed: it is `exam_n_items` from the
+    /// live bank policy, so the recorded reason is machine-checked rather than
+    /// asserted in a comment.
+    #[test]
+    fn the_item_floor_is_one_exam_form_from_the_bank_policy() {
+        let root =
+            crate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root");
+        let policy = std::fs::read_to_string(root.join("knowledge/bank_policy.toml"))
+            .expect("knowledge/bank_policy.toml");
+        let exam_n: usize = policy
+            .lines()
+            .find_map(|l| l.strip_prefix("exam_n_items"))
+            .and_then(|r| r.split('=').nth(1))
+            .and_then(|v| v.trim().parse().ok())
+            .expect("exam_n_items in knowledge/bank_policy.toml");
+        assert_eq!(
+            MIN_SCANNED_ITEMS, exam_n,
+            "MIN_SCANNED_ITEMS must stay one full exam form"
+        );
+    }
+
+    #[test]
+    fn an_empty_id_falls_back_to_the_filename() {
+        let t = Tree::grounded();
+        t.write(
+            "bank/items/blank-id.toml",
+            "id = \"\"\nstem = \"see clause 5.2.1 for detail\"\nchoices = []\n\
+             explanation = \"\"\ntopic_ids = []\n",
+        );
+        let o = t.run(&Args::default());
+        assert_eq!(o.code, 1, "{}", o.stdout);
+        assert!(
+            o.stdout.contains("  - blank-id.toml: hallucinated-clause"),
+            "an empty id must not prefix findings with nothing:\n{}",
+            o.stdout
+        );
     }
 
     #[test]
@@ -1849,7 +2136,7 @@ mod tests {
 
     #[test]
     fn a_numeric_setpoint_is_excused_by_free_evidence_and_not_otherwise() {
-        let t = Tree::new();
+        let t = Tree::grounded();
         t.write(
             "bank/items/a.toml",
             "id = \"n1\"\nstem = \"inlet must be 22 C\"\nchoices = []\n\
@@ -1867,7 +2154,7 @@ mod tests {
 
     #[test]
     fn overlap_is_a_warn_by_default_and_a_failure_under_strict() {
-        let t = Tree::new();
+        let t = Tree::grounded();
         t.write("bank/items/a.toml", &item("o1", "zzzz yyyy xxxx wwww"));
         let o = t.run(&Args::default());
         assert_eq!(o.code, 0);
@@ -1896,10 +2183,12 @@ mod tests {
     fn the_corpus_is_counted_in_characters_after_newline_translation() {
         let t = Tree::new();
         t.write("bank/items/a.toml", &item("c1", "cooling and airflow"));
-        // "ab\r\ncd" decodes to 5 characters, not 6.
+        // "ab\r\ncd" decodes to 5 characters, not 6. The tree is under the
+        // corpus floor, so the count is read out of the vacuity finding —
+        // which is the only place a sub-floor count is ever printed.
         t.write("knowledge/x.md", "ab\r\ncd");
         let o = t.run(&Args::default());
-        assert!(o.stdout.contains("corpus_chars=5\n"), "{}", o.stdout);
+        assert!(o.stdout.contains("  - corpus_chars=5 < "), "{}", o.stdout);
     }
 
     #[test]
@@ -1909,7 +2198,7 @@ mod tests {
         t.write("knowledge/corpus/public/skipped.md", "0123456789");
         t.write("knowledge/corpus/public/taken.txt", "abcde");
         let o = t.run(&Args::default());
-        assert!(o.stdout.contains("corpus_chars=5\n"), "{}", o.stdout);
+        assert!(o.stdout.contains("  - corpus_chars=5 < "), "{}", o.stdout);
     }
 
     #[test]
@@ -1947,17 +2236,24 @@ mod tests {
         );
     }
 
-    /// PINNED QUIRK: the split pattern is `\n[[topic]]\n`, so a registry whose
-    /// very first byte starts the first block has no preceding newline and that
-    /// topic's label is never read. The oracle does this; so does this port.
+    /// FIXED (bd-yje7): the split pattern needs a newline before the block
+    /// header, so a registry whose very first byte opens a block used to lose
+    /// that label silently — the raw id was tokenised in its place and every
+    /// score built on it degraded with no finding printed. Both sides now
+    /// prepend the newline.
     #[test]
-    fn a_first_line_topic_block_is_invisible_to_the_label_reader() {
+    fn a_first_line_topic_block_is_read_like_any_other() {
         let t = Tree::new();
         t.write(
             "knowledge/topics.toml",
             "[[topic]]\nid = \"t-one\"\nlabel = \"cooling airflow\"\n",
         );
-        assert!(topic_labels(&t.root().join(TOPICS_REL)).is_empty());
+        assert_eq!(
+            topic_labels(&t.root().join(TOPICS_REL))
+                .get("t-one")
+                .map(String::as_str),
+            Some("cooling airflow")
+        );
     }
 
     #[test]

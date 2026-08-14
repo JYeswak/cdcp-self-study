@@ -308,6 +308,79 @@ fn bad_missing_check_sh_step_is_red_when_wiring_is_declared_wired() {
     assert!(out.contains("BUILT != WIRED"), "{out}");
 }
 
+// ─── bd-n1aj: a path the gate demands a row for must be able to have one ───
+//
+// REPRODUCED 2026-08-14 in a throwaway repo, before the fix, with a well-formed
+// row present and the file tracked:
+//   substrate-guard: ERROR: 1 schema error(s) in registries/substrate_allowlist.toml:
+//   [[allow]] scripts/payload..py: `path` must be a normalised engine-root-relative path
+//   exit 4 on the presence leg, exit 4 on --staged.
+// Without the row the same file was exit 2 and named. So the gate demanded a row
+// and then rejected every row that could satisfy it: the file could not be made
+// green by complying. `scripts/a\b.py` measured identically — the `contains('\\')`
+// leg of the same line. Fail-closed both ways, so the harm was never exposure; it
+// was that the only way out was to route around the gate.
+
+/// KNOWN-GOOD leg. Both files are ordinary sources in a mandatory root.
+#[test]
+fn good_a_filename_with_two_dots_or_a_backslash_can_be_allowlisted() {
+    for path in ["scripts/payload..py", "scripts/a\\b.py", "weird..name.sh"] {
+        let f = Fixture::new();
+        f.write(path, "print('ordinary file, unusual name')\n");
+        f.set_allowlist(&(f.read_allowlist() + &good_row(path)));
+        f.git(&["add", "-A"]);
+
+        let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+        assert_eq!(
+            code, OK,
+            "{path}: the gate demands a row for this file; the row must be accepted: {out}"
+        );
+        let (code, out) = f.gate(&["substrate-guard"]);
+        assert_eq!(code, OK, "{path}: {out}");
+    }
+}
+
+/// KNOWN-BAD leg, and the half that must NOT move: dropping the row is still RED,
+/// by name. A widening that also stopped the file being caught would have traded
+/// a trap for a hole.
+#[test]
+fn bad_a_filename_with_two_dots_and_no_row_is_still_red_and_named() {
+    for path in ["scripts/payload..py", "scripts/a\\b.py", "weird..name.sh"] {
+        let f = Fixture::new();
+        f.write(path, "print('no row for me')\n");
+        f.git(&["add", "-A"]);
+
+        let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+        assert_eq!(code, VIOLATION, "{path}: {out}");
+        assert!(out.contains(path), "{path} must be named: {out}");
+        let (code, out) = f.gate(&["substrate-guard"]);
+        assert_eq!(code, VIOLATION, "{path}: {out}");
+        assert!(out.contains(path), "{out}");
+    }
+}
+
+/// The widening is bounded: a `.`/`..` COMPONENT, and an absolute path, are still
+/// malformed in a row. That is traversal, and a filename is not a traversal.
+#[test]
+fn bad_a_traversal_or_absolute_row_is_still_a_schema_error() {
+    for path in [
+        "../outside.py",
+        "scripts/../../etc/passwd.sh",
+        "scripts/./x.py",
+        "/abs/path.py",
+    ] {
+        let f = Fixture::new();
+        f.set_allowlist(&(f.read_allowlist() + &good_row(path)));
+        f.git(&["add", "-A"]);
+        let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+        assert_eq!(code, ERROR, "{path} must stay rejected: {out}");
+        assert!(
+            out.contains("normalised engine-root-relative path"),
+            "{path}: rejected for the traversal reason, not incidentally: {out}"
+        );
+    }
+}
+
 // ───────── bd-bo6i: inert shell is not wiring ──────────────────────────────
 
 /// All three of these were measured at `wired=yes`, exit 0, on 2026-08-14.
