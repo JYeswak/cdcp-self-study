@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """verify_objectives.py — L7-S7 objective coverage gate (honest scope).
 
+# CLAIM: FLOOR-RAISE
+
 What this gates (product-true today):
 
 1. registries/objectives.toml
@@ -8,18 +10,61 @@ What this gates (product-true today):
    - each objective has non-empty claim_ids
    - every claim_id resolves in registries/claims.toml
 
-2. Domain bank coverage (modules 1–14)
-   - every primary domain has ≥1 bank item (module field)
-   - empty bank = ERROR
+2. Domain bank coverage over the DECLARED module set
+   - the module set is DERIVED from knowledge/domains.toml — the same registry
+     build_learn.py turns into web/data/modules_index.json (the Learn index),
+     the same one verify_coverage.py derives its floors from, and the same one
+     bank_policy.toml's [[domain_min]] rows are keyed against. It is not a
+     range literal.
+   - every required module has ≥1 bank item (module field); empty bank = ERROR
+   - a module may be held out ONLY by a recorded
+     `[[coverage_exempt]] module = N, reason = "…"` row in
+     knowledge/bank_policy.toml — the same one ledger verify_coverage.py reads.
+     An exemption without a reason, for an undeclared module, or contradicting
+     a [[domain_min]] floor, is an ERROR, not an exemption.
 
 3. Topic coverage via bank topic_ids (practical / soft by default)
-   - Count how many primary-domain (01–14) topics.toml rows have ≥ min items
-     via bank topic_ids; report shortfalls always.
+   - Count how many topics.toml rows in a REQUIRED domain have ≥ min items via
+     bank topic_ids; report shortfalls always.
    - Default: shortfalls are WARNINGS (not RED) — full topic×item matrix is
      incomplete / not the same as product objectives. Use --strict-topics to
      hard-fail on primary-topic shortfalls when that floor is intentional.
-   - Domain-15 (ops-adjacent) topics are reported only, never required.
+   - Topics in a RECORDED-EXEMPT domain are reported only, never required.
+   - A topic whose domain the registry never declared is cross-source DRIFT and
+     an ERROR: the two sources disagreeing about which modules exist is exactly
+     how module 15 came to be assessed without being taught.
    - Vacuous: topics.toml with zero primary topics = ERROR when file present.
+
+## Why the derivation, and not `range(1, 15)` (bd-lt7)
+
+Until 2026-08-14 this gate read `PRIMARY_MODULES = range(1, 15)` and skipped
+module 15 as "ops-adjacent, reported only, never required". Module 15 was, at
+that time, assessed but never taught — so this gate had written a KNOWN DEFECT
+down as a rule. It did not go red when the defect was fixed; it stayed green,
+because an exemption cannot fail. That is the worse failure: a gate that cannot
+notice the thing it exists to check.
+
+The defect was never "someone hardcoded 14". It was that the bound came from
+OBSERVED STATE rather than from a stated contract. domains.toml is the contract.
+
+The old `domains_listed < 14` soft warning went with it. It was a FLOOR, so it
+never held a module out — but its comparand was the same observed count, and
+once the module set is derived from domains.toml the check is tautological:
+it compares the registry against itself. It is replaced by drift checks that
+the registry can actually correct — an undeclared [[domain_min]] row, a topic in
+an undeclared domain — and by the anti-vacuous floor below.
+
+## Anti-vacuous
+
+Zero declared modules, zero required modules after exemptions, zero bank items,
+zero objectives, or a missing/unparseable domain registry are each an ERROR. An
+empty scan set must never report like a scan that ran and came back clean.
+
+## Verdict discipline
+
+Every check is COLLECTED first; the report — verdict line included — is composed
+and printed once, after the optional --write-json write. No PASS is ever emitted
+before a path that can still raise.
 
 What this does NOT claim (documented gap):
 
@@ -29,10 +74,23 @@ What this does NOT claim (documented gap):
   LO × item matrix. When objective_ids is non-empty, ids must resolve.
 - Soft topic coverage is intentional honesty: domain floor is hard; per-topic
   LO completeness is aspirational until bank tags catch up.
+- A bank item in a module the registry never declared is REPORTED here, not
+  failed: verify_coverage.py reports it the same way, and the hard gate on
+  "assessed but untaught" is smoke_feedback_links.py, which fails any item on a
+  real form whose module has no Learn surface.
 - Objective coverage ≠ exam pass probability; study signal only.
 
 Known-bad selftests (scripts/selftest_l7_objectives.sh):
-  missing claim ref · empty objectives · empty bank · live GREEN
+  missing claim ref · empty objectives · empty claim_ids · empty bank · live GREEN
+
+GAP (bd-lt7, 2026-08-14): that suite predates the derivation and asserts nothing
+about it. The rules added here — a DECLARED module with no items goes RED naming
+the module, an exemption without a reason is an ERROR, a recorded exemption with
+a reason is honoured, a topic in an undeclared domain is drift, an empty registry
+is anti-vacuous — are covered only by legs run by hand. They belong in the suite
+(whose INJECTIONS= count is drift-guarded by verify_injection_count.py, so the
+advertised total moves with them) or alongside the verify_coverage legs in
+crates/cdcp_gate/tests/rebase_module_bounds.rs.
 
 Exit 0 on PASS; non-zero on FAIL.
 """
@@ -55,14 +113,149 @@ DEFAULT_CLAIMS = ROOT / "registries" / "claims.toml"
 DEFAULT_TOPICS = ROOT / "knowledge" / "topics.toml"
 DEFAULT_DOMAINS = ROOT / "knowledge" / "domains.toml"
 DEFAULT_BANK = ROOT / "bank" / "items"
-
-PRIMARY_MODULES = range(1, 15)  # 1–14 inclusive
-PRIMARY_DOMAIN_PREFIXES = tuple(f"{m:02d}-" for m in PRIMARY_MODULES)
+DEFAULT_POLICY = ROOT / "knowledge" / "bank_policy.toml"
 
 
 def load_toml(path: Path) -> dict:
     with path.open("rb") as f:
         return tomllib.load(f)
+
+
+def load_declared_modules(domains_path: Path) -> tuple[dict[int, str], list[str]]:
+    """The module set, derived from the domain registry. Never a range literal.
+
+    Returns ({order: domain_id}, errors). A registry that is missing, malformed
+    or empty yields zero modules AND an error — never a silent empty set that
+    would make every floor below vacuously satisfied.
+
+    Kept deliberately identical in shape to verify_coverage.load_declared_modules:
+    two gates that disagree about which modules exist are two gates that can be
+    played off against each other.
+    """
+    errors: list[str] = []
+    declared: dict[int, str] = {}
+    if not domains_path.is_file():
+        return declared, [f"domain registry missing: {domains_path}"]
+    try:
+        data = load_toml(domains_path)
+    except Exception as e:  # noqa: BLE001 — fail-closed on a bad registry
+        return declared, [f"domain registry parse error: {e}"]
+
+    for row in data.get("domain") or []:
+        if not isinstance(row, dict):
+            errors.append(f"domains.toml: [[domain]] row is not a table: {row!r}")
+            continue
+        did = str(row.get("id") or "").strip()
+        try:
+            order = int(row["order"])
+        except (KeyError, TypeError, ValueError):
+            errors.append(f"domains.toml: {did or row!r} has no usable order")
+            continue
+        if order in declared:
+            errors.append(
+                f"domains.toml: duplicate order {order} ({declared[order]} and {did})"
+            )
+            continue
+        declared[order] = did or f"module-{order}"
+
+    if not declared:
+        errors.append(
+            "domain registry declares zero modules (vacuous coverage is ERROR)"
+        )
+    return declared, errors
+
+
+def load_exemptions(
+    policy_path: Path, declared: dict[int, str]
+) -> tuple[dict[int, str], list[str]]:
+    """Recorded coverage exemptions: `[[coverage_exempt]] module, reason`.
+
+    The ONE ledger, shared with verify_coverage.py. An exemption is the only
+    sanctioned way to hold a declared module out of a floor, and it must say why.
+    A row without a non-empty reason, for an undeclared module, or contradicting
+    an explicit [[domain_min]] floor, is an ERROR — the escape hatch may not be
+    quieter than the rule it escapes.
+    """
+    errors: list[str] = []
+    exempt: dict[int, str] = {}
+    if not policy_path.is_file():
+        return exempt, errors
+    try:
+        bp = load_toml(policy_path)
+    except Exception as e:  # noqa: BLE001 — fail-closed on a bad policy
+        return exempt, [f"bank_policy.toml parse error: {e}"]
+    floors = {
+        int(r["module"])
+        for r in (bp.get("domain_min") or [])
+        if isinstance(r, dict)
+        and str(r.get("module", "")).strip().lstrip("-").isdigit()
+    }
+    for row in bp.get("coverage_exempt") or []:
+        if not isinstance(row, dict):
+            errors.append(
+                f"bank_policy.toml: coverage_exempt row is not a table: {row!r}"
+            )
+            continue
+        try:
+            mod = int(row["module"])
+        except (KeyError, TypeError, ValueError):
+            errors.append(
+                f"bank_policy.toml: coverage_exempt row has no usable module: {row!r}"
+            )
+            continue
+        reason = str(row.get("reason") or "").strip()
+        if not reason:
+            errors.append(
+                f"bank_policy.toml: coverage_exempt module {mod} has no reason "
+                f"(an exemption without a reason is a schema error)"
+            )
+            continue
+        if mod not in declared:
+            errors.append(
+                f"bank_policy.toml: coverage_exempt module {mod} is not in the "
+                f"domain registry"
+            )
+            continue
+        if mod in floors:
+            errors.append(
+                f"bank_policy.toml: module {mod} is both coverage_exempt and has a "
+                f"[[domain_min]] floor — pick one"
+            )
+            continue
+        exempt[mod] = reason
+    return exempt, errors
+
+
+def domain_min_drift(policy_path: Path, declared: dict[int, str]) -> list[str]:
+    """A [[domain_min]] row for a module the registry never declared is DRIFT.
+
+    This gate applies its own floor of ≥1 item per required module — the sized
+    floors are verify_coverage.py's job — but it reads the same policy file for
+    exemptions, so it says so when the two sources disagree about which modules
+    exist. That disagreement is how module 15 came to be assessed but untaught.
+    """
+    errors: list[str] = []
+    if not policy_path.is_file():
+        return errors
+    try:
+        bp = load_toml(policy_path)
+    except Exception as e:  # noqa: BLE001
+        return [f"bank_policy.toml parse error: {e}"]
+    for row in bp.get("domain_min") or []:
+        if not isinstance(row, dict):
+            errors.append(f"bank_policy.toml: unusable [[domain_min]] row {row!r}")
+            continue
+        try:
+            mod = int(row["module"])
+        except (KeyError, TypeError, ValueError):
+            errors.append(f"bank_policy.toml: unusable [[domain_min]] row {row!r}")
+            continue
+        if mod not in declared:
+            errors.append(
+                f"bank_policy.toml: [[domain_min]] module {mod} is not declared in "
+                f"the domain registry"
+            )
+    return errors
 
 
 def load_items(bank_dir: Path) -> tuple[list[tuple[str, dict]], list[str]]:
@@ -98,10 +291,6 @@ def claim_ids_from_registry(claims: dict) -> set[str]:
     return ids
 
 
-def is_primary_domain(domain_id: str) -> bool:
-    return any(domain_id.startswith(p) for p in PRIMARY_DOMAIN_PREFIXES)
-
-
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(
         description="L7-S7 objective coverage gate (registry objectives + domain/topic coverage)"
@@ -129,6 +318,12 @@ def main(argv: list[str] | None = None) -> int:
         type=Path,
         default=DEFAULT_DOMAINS,
         help=f"domains.toml path (default: {DEFAULT_DOMAINS})",
+    )
+    ap.add_argument(
+        "--policy",
+        type=Path,
+        default=DEFAULT_POLICY,
+        help=f"bank_policy.toml path — the exemption ledger (default: {DEFAULT_POLICY})",
     )
     ap.add_argument(
         "--bank",
@@ -167,6 +362,7 @@ def main(argv: list[str] | None = None) -> int:
     claims_path = resolve(args.claims)
     topics_path = resolve(args.topics)
     domains_path = resolve(args.domains)
+    policy_path = resolve(args.policy)
     bank_dir = resolve(args.bank)
     min_topic = max(0, int(args.min_items_per_topic))
 
@@ -242,7 +438,29 @@ def main(argv: list[str] | None = None) -> int:
 
     known_objectives = set(obj_ids)
 
-    # --- 2) Bank load + domain coverage (modules 1–14) ---
+    # --- 2) The module set, derived from the domain registry ---
+    declared, declared_errors = load_declared_modules(domains_path)
+    errors.extend(declared_errors)
+    exempt, exempt_errors = load_exemptions(policy_path, declared)
+    errors.extend(exempt_errors)
+    errors.extend(domain_min_drift(policy_path, declared))
+
+    required = sorted(m for m in declared if m not in exempt)
+    # …and a run with nothing left to require reports exactly like one that
+    # checked everything and found it sound, which is the failure this rebase
+    # exists to remove.
+    if declared and not required:
+        errors.append(
+            "zero required modules after exemptions (vacuous coverage is ERROR)"
+        )
+    required_domain_ids = {declared[m] for m in required}
+    exempt_domain_ids = {declared[m] for m in exempt if m in declared}
+
+    def is_primary_domain(domain_id: str) -> bool:
+        """A domain the registry declares and no recorded row exempts."""
+        return str(domain_id or "").strip() in required_domain_ids
+
+    # --- 3) Bank load + domain coverage over the required set ---
     loaded, load_errors = load_items(bank_dir)
     errors.extend(load_errors)
     n_items = len(loaded)
@@ -285,14 +503,20 @@ def main(argv: list[str] | None = None) -> int:
                     )
 
     domain_shortfalls: list[dict] = []
-    for mod in PRIMARY_MODULES:
+    for mod in required:
         have = module_counts.get(mod, 0)
         if have < 1:
             msg = f"domain module {mod}: {have} items < min 1"
             errors.append(msg)
             domain_shortfalls.append({"module": mod, "have": have, "min": 1})
 
-    # --- 3) Topic coverage (primary domains) ---
+    # Modules the bank carries that the registry never declared: reported, not
+    # failed — same as verify_coverage.py. The hard gate on "assessed but
+    # untaught" is smoke_feedback_links.py, which fails any item on a real form
+    # whose module has no Learn surface.
+    extra_modules = sorted(m for m in module_counts if m not in declared)
+
+    # --- 4) Topic coverage (required domains) ---
     topics: list[dict] = []
     primary_topics: list[dict] = []
     optional_topics: list[dict] = []
@@ -306,6 +530,7 @@ def main(argv: list[str] | None = None) -> int:
     else:
         errors.append(f"missing topics registry: {topics_path}")
 
+    undeclared_topic_domains: list[str] = []
     for t in topics:
         tid = t.get("id")
         dom = t.get("domain") or ""
@@ -313,10 +538,17 @@ def main(argv: list[str] | None = None) -> int:
             errors.append("topic with empty/missing id")
             continue
         tid = tid.strip()
-        if isinstance(dom, str) and is_primary_domain(dom):
+        dom = str(dom).strip() if isinstance(dom, str) else ""
+        if is_primary_domain(dom):
             primary_topics.append(t)
-        else:
+        elif dom in exempt_domain_ids:
             optional_topics.append(t)
+        else:
+            # Cross-source drift: topics.toml and domains.toml disagree about
+            # which modules exist. That disagreement is how module 15 came to be
+            # assessed without being taught, so it is an ERROR and it names the
+            # topic and the domain.
+            undeclared_topic_domains.append(f"{tid} (domain={dom!r})")
 
     uncovered_primary = 0
     if not args.skip_topic_coverage and min_topic > 0 and primary_topics:
@@ -341,11 +573,12 @@ def main(argv: list[str] | None = None) -> int:
                     errors.append(msg)
                 else:
                     warnings.append(msg)
-    elif not primary_topics and topics_path.is_file():
-        # topics file exists but zero primary topics = ERROR (anti-vacuous)
-        errors.append("topics.toml has zero primary-domain (01–14) topics")
+    elif not primary_topics and topics_path.is_file() and declared:
+        # topics file exists but zero topics in a required domain = ERROR
+        # (anti-vacuous: an empty topic set must not pass like a covered one)
+        errors.append("topics.toml has zero topics in a required domain")
 
-    # Optional domain-15 topics: report only
+    # Topics in a RECORDED-EXEMPT domain: report only, never required.
     optional_uncovered = 0
     for t in optional_topics:
         tid = str(t.get("id") or "").strip()
@@ -354,67 +587,70 @@ def main(argv: list[str] | None = None) -> int:
         if topic_item_counts.get(tid, 0) < 1:
             optional_uncovered += 1
 
-    # Domains file: soft consistency (primary domains listed)
-    domains_listed = 0
-    if domains_path.is_file():
-        try:
-            dom_doc = load_toml(domains_path)
-            for d in dom_doc.get("domain") or []:
-                did = d.get("id") if isinstance(d, dict) else None
-                if isinstance(did, str) and is_primary_domain(did):
-                    domains_listed += 1
-        except Exception as e:  # noqa: BLE001
-            warnings.append(f"domains.toml parse warning: {e}")
-        if domains_listed < 14:
-            warnings.append(
-                f"domains.toml primary domains listed={domains_listed} (expected 14)"
+    # Drift is only meaningful against a registry that loaded; a missing or
+    # empty domains.toml is already an ERROR above and must not also bury the
+    # report under one line per topic.
+    if undeclared_topic_domains and declared:
+        for msg in undeclared_topic_domains[:20]:
+            errors.append(f"topics.toml: topic in an undeclared domain: {msg}")
+        if len(undeclared_topic_domains) > 20:
+            errors.append(
+                f"… and {len(undeclared_topic_domains) - 20} more topics in "
+                f"undeclared domains"
             )
-    else:
-        warnings.append(f"domains.toml missing at {domains_path} (soft)")
 
-    # --- Report ---
-    status = "PASS" if not errors else "FAIL"
-    print(status)
-    print("  gate=l7-objective-coverage")
-    print(f"  objectives={objectives_path}")
-    print(f"  claims={claims_path}")
-    print(f"  bank={bank_dir}")
-    print(f"  items={n_items}")
-    print(f"  registry_objectives={len(obj_ids)} claim_resolve_ok={obj_claim_ok}")
-    print(f"  known_claims={len(known_claims)}")
-    print("  domain modules (1–14, min 1 item each):")
-    for mod in PRIMARY_MODULES:
-        have = module_counts.get(mod, 0)
-        flag = "ok" if have >= 1 and n_items > 0 else "SHORT"
-        print(f"    m{mod:02d}: {have} [{flag}]")
+    # --- Report (composed once; the verdict is decided last) ---
     topic_mode = (
         "skipped"
         if args.skip_topic_coverage
         else ("strict" if args.strict_topics else "soft-warn")
     )
-    print(
-        f"  primary_topics={len(primary_topics)} "
-        f"covered={len(primary_topics) - uncovered_primary} "
-        f"shortfalls={uncovered_primary} "
-        f"min_per_topic={min_topic} mode={topic_mode}"
+    body: list[str] = [
+        "  gate=l7-objective-coverage",
+        f"  objectives={objectives_path}",
+        f"  claims={claims_path}",
+        f"  registry={domains_path} declares={len(declared)}",
+        f"  policy={'present' if policy_path.is_file() else 'absent'}",
+        f"  bank={bank_dir}",
+        f"  items={n_items}",
+        f"  registry_objectives={len(obj_ids)} claim_resolve_ok={obj_claim_ok}",
+        f"  known_claims={len(known_claims)}",
+        f"  modules ({len(required)} required, derived from {domains_path.name}; "
+        f"min 1 item each):",
+    ]
+    for mod in required:
+        have = module_counts.get(mod, 0)
+        flag = "ok" if have >= 1 and n_items > 0 else "SHORT"
+        body.append(f"    m{mod:02d}: {have} [{flag}]")
+    if exempt:
+        body.append("  recorded exemptions (bank_policy.toml [[coverage_exempt]]):")
+        for mod in sorted(exempt):
+            body.append(f"    m{mod:02d}: {module_counts.get(mod, 0)} — exempt: {exempt[mod]}")
+    if extra_modules:
+        body.append("  undeclared modules present in the bank (not required for green):")
+        for mod in extra_modules:
+            body.append(f"    m{mod:02d}: {module_counts[mod]} (not in the domain registry)")
+    body.extend(
+        [
+            f"  primary_topics={len(primary_topics)} "
+            f"covered={len(primary_topics) - uncovered_primary} "
+            f"shortfalls={uncovered_primary} "
+            f"min_per_topic={min_topic} mode={topic_mode}",
+            f"  exempt_domain_topics={len(optional_topics)} "
+            f"uncovered={optional_uncovered} (not required)",
+            f"  bank_items_with_objective_ids={items_with_objective_ids} "
+            f"(of {n_items}; product-level objectives, not per-module LOs)",
+            "  gap: no full LO×item matrix — objectives.toml is product outcomes + claim_ids",
+            "  note: coverage ≠ exam pass probability; study signal only",
+        ]
     )
-    print(
-        f"  optional_topics(domain15+)={len(optional_topics)} "
-        f"uncovered={optional_uncovered} (not required)"
-    )
-    print(
-        f"  bank_items_with_objective_ids={items_with_objective_ids} "
-        f"(of {n_items}; product-level objectives, not per-module LOs)"
-    )
-    print("  gap: no full LO×item matrix — objectives.toml is product outcomes + claim_ids")
-    print("  note: coverage ≠ exam pass probability; study signal only")
 
     if warnings:
-        print("  warnings:")
+        body.append("  warnings:")
         for w in warnings[:20]:
-            print(f"    - {w}")
+            body.append(f"    - {w}")
         if len(warnings) > 20:
-            print(f"    ... +{len(warnings) - 20} more")
+            body.append(f"    ... +{len(warnings) - 20} more")
 
     # JSON summary
     try:
@@ -422,65 +658,89 @@ def main(argv: list[str] | None = None) -> int:
     except ValueError:
         bank_rel = str(bank_dir)
 
-    summary = {
-        "schema_version": 1,
-        "gate": "l7-objective-coverage",
-        "status": status.lower(),
-        "bank": bank_rel,
-        "item_count": n_items,
-        "registry_objectives": {
-            "count": len(obj_ids),
-            "ids": obj_ids,
-            "claim_resolve_ok": obj_claim_ok,
-        },
-        "known_claims": len(known_claims),
-        "domain_counts": {str(m): module_counts.get(m, 0) for m in PRIMARY_MODULES},
-        "domain_shortfalls": domain_shortfalls,
-        "primary_topics": len(primary_topics),
-        "primary_topic_shortfalls": topic_shortfalls[:100],
-        "primary_topic_shortfall_count": uncovered_primary,
-        "optional_topics_uncovered": optional_uncovered,
-        "items_with_objective_ids": items_with_objective_ids,
-        "min_items_per_topic": min_topic,
-        "strict_topics": bool(args.strict_topics),
-        "skip_topic_coverage": bool(args.skip_topic_coverage),
-        "topic_mode": topic_mode,
-        "gap": (
-            "objectives.toml holds product-level outcomes with claim_ids, "
-            "not per-module learning objectives; bank topic_ids are the LO proxy; "
-            "primary topic shortfalls soft-warn unless --strict-topics"
-        ),
-        "note": "Objective coverage ≠ exam pass probability; study signal only.",
-        "errors": errors[:80],
-        "warnings": warnings,
-    }
+    def summary_for(status_word: str) -> dict:
+        return {
+            "schema_version": 2,
+            "gate": "l7-objective-coverage",
+            "status": status_word.lower(),
+            "bank": bank_rel,
+            "item_count": n_items,
+            "module_source": domains_path.name,
+            "declared_modules": sorted(declared),
+            "required_modules": required,
+            "exemptions": {str(k): v for k, v in sorted(exempt.items())},
+            "registry_objectives": {
+                "count": len(obj_ids),
+                "ids": obj_ids,
+                "claim_resolve_ok": obj_claim_ok,
+            },
+            "known_claims": len(known_claims),
+            "domain_counts": {str(m): module_counts.get(m, 0) for m in required},
+            "extra_counts": {str(m): module_counts[m] for m in extra_modules},
+            "domain_shortfalls": domain_shortfalls,
+            "primary_topics": len(primary_topics),
+            "primary_topic_shortfalls": topic_shortfalls[:100],
+            "primary_topic_shortfall_count": uncovered_primary,
+            "exempt_domain_topics_uncovered": optional_uncovered,
+            "items_with_objective_ids": items_with_objective_ids,
+            "min_items_per_topic": min_topic,
+            "strict_topics": bool(args.strict_topics),
+            "skip_topic_coverage": bool(args.skip_topic_coverage),
+            "topic_mode": topic_mode,
+            "gap": (
+                "objectives.toml holds product-level outcomes with claim_ids, "
+                "not per-module learning objectives; bank topic_ids are the LO proxy; "
+                "primary topic shortfalls soft-warn unless --strict-topics"
+            ),
+            "note": "Objective coverage ≠ exam pass probability; study signal only.",
+            "errors": errors[:80],
+            "warnings": warnings,
+        }
 
+    # The write happens BEFORE any verdict is printed, and a failed write is a
+    # failure of this gate — not a traceback under a PASS someone already read.
     if args.write_json is not None:
         out = args.write_json
         if not out.is_absolute():
             out = (ROOT / out).resolve()
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-        print(f"  wrote {out}")
+        try:
+            out.parent.mkdir(parents=True, exist_ok=True)
+            provisional = "PASS" if not errors else "FAIL"
+            out.write_text(
+                json.dumps(summary_for(provisional), indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            body.append(f"  wrote {out}")
+        except OSError as e:
+            errors.append(f"could not write summary to {out}: {e}")
 
+    # The verdict is the LAST thing decided and the first thing on a report that
+    # is printed exactly once, after every path that could still raise.
+    status = "PASS" if not errors else "FAIL"
+    report = [status]
+    report.extend(body)
     if errors:
-        print("  failures:")
+        report.append("  failures:")
         for e in errors[:50]:
-            print(f"    - {e}")
+            report.append(f"    - {e}")
         if len(errors) > 50:
-            print(f"    ... +{len(errors) - 50} more")
-        return 1
-
-    if uncovered_primary and not args.strict_topics and not args.skip_topic_coverage:
-        print(
-            f"  objective coverage GREEN "
-            f"(registry claims + domains 1–14; {uncovered_primary} topic shortfalls soft-warn)"
-        )
+            report.append(f"    ... +{len(errors) - 50} more")
     else:
-        print(
-            "  objective coverage GREEN (registry claims + domains 1–14 + primary topics)"
-        )
-    return 0
+        span = " ".join(f"m{m:02d}" for m in required)
+        if uncovered_primary and not args.strict_topics and not args.skip_topic_coverage:
+            report.append(
+                f"  objective coverage GREEN "
+                f"(registry claims + {len(required)} required modules: {span}; "
+                f"{uncovered_primary} topic shortfalls soft-warn)"
+            )
+        else:
+            report.append(
+                f"  objective coverage GREEN "
+                f"(registry claims + {len(required)} required modules: {span} "
+                f"+ primary topics)"
+            )
+    print("\n".join(report))
+    return 1 if errors else 0
 
 
 def _selftest_known_bad() -> int:

@@ -115,42 +115,53 @@ const INVENTORY: &[(&str, &str, Verdict, &str)] = &[
         Verdict::Prose,
         "comment at the rebased site, naming what used to be there",
     ),
-    // ── open bd-lt7 instances in files this bead's owner does not own ──────
+    // ── bd-lt7: ZERO open instances as of 2026-08-14 ──────────────────────
+    //
+    // All five OpenInstanceNotMine rows that lived here are gone: two agents
+    // closed verify_objectives.py, smoke_feedback_links.py and
+    // smoke_hub_mastery.mjs in the same wave. Every bound below is now PROSE in
+    // a docstring recording what was removed and why — which is exactly the
+    // shape this inventory is for, because a grep for the old literal still
+    // hits and a reader must be able to tell documentation from live code.
+    // (The controller grepped these five and briefly read them as unfixed.)
     (
         "scripts/verify_objectives.py",
-        "PRIMARY_MODULES = range(1, 15)  # 1–14 inclusive",
-        Verdict::OpenInstanceNotMine,
-        "same defect, same shape: the L7 objectives gate excludes module 15 from \
-         its primary-domain set by literal. Needs the domains.toml derivation.",
+        "## Why the derivation, and not `range(1, 15)` (bd-lt7)",
+        Verdict::Prose,
+        "docstring heading recording the removed PRIMARY_MODULES literal",
     ),
     (
         "scripts/verify_objectives.py",
-        "if domains_listed < 14:",
-        Verdict::OpenInstanceNotMine,
-        "asserts domains.toml lists 14 primary domains — a count observed before \
-         module 15 shipped, now a soft warning that can never be satisfied \
-         honestly. Derive the expected count from the registry.",
+        "Until 2026-08-14 this gate read `PRIMARY_MODULES = range(1, 15)` and skipped",
+        Verdict::Prose,
+        "docstring recording the removed literal and the domains.toml derivation",
     ),
     (
-        "scripts/smoke_hub_mastery.mjs",
-        "assert(MODULE_CATALOG.length === 14, \"MODULE_CATALOG has 14 modules\");",
-        Verdict::OpenInstanceNotMine,
-        "the web hub's module catalog is pinned at 14, so module 15 cannot be \
-         surfaced by the hub at all. This is the product-facing leg of the same \
-         defect and is the most consequential remaining instance.",
-    ),
-    (
-        "scripts/smoke_hub_mastery.mjs",
-        "for (let m = 1; m <= 14; m++) {",
-        Verdict::OpenInstanceNotMine,
-        "mastery sweep skips module 15; paired with the clamp on the line below.",
+        "scripts/verify_objectives.py",
+        "The old `domains_listed < 14` soft warning went with it. It was a FLOOR, so it",
+        Verdict::Prose,
+        "docstring recording the removed soft warning and WHY removing it was safe: \
+         it was a floor whose comparand was the same observed count, so once the \
+         module set derives from domains.toml the check compares the registry \
+         against itself",
     ),
     (
         "scripts/smoke_feedback_links.py",
-        "for n in range(1, 15):",
-        Verdict::OpenInstanceNotMine,
-        "report-only: prints M01..M14 Learn links, silently omitting module 15. \
-         Cosmetic, but a leftover in a file otherwise rebased on 2026-08-14.",
+        "`for n in range(1, 15)` report loop. The table happened to be right; the loop",
+        Verdict::Prose,
+        "docstring recording the removed report-loop bound",
+    ),
+    (
+        "scripts/smoke_hub_mastery.mjs",
+        "* Until 2026-08-14 this gate asserted `MODULE_CATALOG.length === 14` and swept",
+        Verdict::Prose,
+        "docstring recording the removed catalog-length bound",
+    ),
+    (
+        "scripts/smoke_hub_mastery.mjs",
+        "* modules with two `m <= 14` loops. Module 15 is assessed AND taught, so those",
+        Verdict::Prose,
+        "docstring recording the two removed sweep bounds",
     ),
     // ── live comparisons that are not module bounds ────────────────────────
     (
@@ -355,8 +366,10 @@ fn the_open_instances_are_named_and_counted() {
         .collect();
     assert_eq!(
         open.len(),
-        5,
-        "open bd-lt7 instances changed: {open:?} — update this count deliberately"
+        0,
+        "open bd-lt7 instances changed: {open:?} — update this count deliberately. \
+         It reached 0 on 2026-08-14; a NEW hardcoded module bound anywhere in the \
+         tree must be inventoried with a verdict, not silently added here."
     );
 }
 

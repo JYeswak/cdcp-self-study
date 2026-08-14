@@ -43,8 +43,12 @@ include_engine_root_files = true
 # schema ERROR — pointing it at a decoy file used to satisfy the wiring leg.
 # status is a RATCHET: once a commit says "wired", a later commit saying
 # "pending" is RED, not an edit.
-# NEVER add a row for scripts/__cdcp_probe_unlisted__.py — that is the plant
-# --prove-wired uses, and listing it makes the probe vacuous (the gate ERRORs).
+# NEVER add a row for the file --prove-wired plants (its name is compiled into
+# the gate as PROBE_PLANT). Listing it makes the probe vacuous and the gate ERRORs.
+# The path is deliberately NOT written out here: the probe's vacuity check scans
+# this file as TEXT, not as parsed rows, so naming it in a comment trips the very
+# error the comment warns about. Measured 2026-08-14 — it took check.sh RED with
+# zero actual [[allow]] rows for that path. Tracked as a detector defect.
 # BUILT != WIRED. `status = "pending"` means the check.sh step has not landed
 # yet: the gate reports the gap on stderr but does not fail, so the very commit
 # that wires it is not blocked by its own absence. Once the orchestrator adds the
@@ -89,7 +93,7 @@ expires = "2026-11-30"
 
 [[allow]]
 path = "scripts/verify_coverage.py"
-reason = "Load-bearing check.sh gate: L6 domain coverage oracle for modules 1-14 against domain_min. Grandfathered pending the byte-exact Rust port."
+reason = "Differential oracle for `cdcp_gate verify-coverage` (bd-substrate-rust-migration-jhd.6, ported 2026-08-14). Module set derived from knowledge/domains.toml, not a numeric bound. Retained so tests/diff_verify_coverage.rs can compare both implementations byte for byte."
 migration_bead = "bd-substrate-rust-migration-jhd.6"
 expires = "2026-11-30"
 
@@ -239,13 +243,6 @@ path = "scripts/gen_learn_pages.py"
 reason = "Manual generator for the per-unit Learn pages. Not on the check.sh path; ports after the gates."
 migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-02-28"
-
-[[allow]]
-path = "scripts/regen_goldens_after_bank.py"
-reason = "Manual golden regeneration after a bank edit. Deliberately awkward to run; its output is gated by the Rust goldens check, which is the real assertion."
-migration_bead = "bd-substrate-rust-migration-jhd"
-expires = "2027-02-28"
-
 [[allow]]
 path = "scripts/sample_mock.py"
 reason = "DO NOT RUN AGAINST THE GOLDEN PATH. This is not a benign authoring helper — it generated goldens/fixtures/mock40_seed42.json with CPython MT19937, and cdcp_cli preferred that fixture whenever seed==42, so `goldens check` never once exercised the Rust sampler. Measured 2026-08-14: 37 of 40 ids differ between this script and cdcp_assemble, and re-running it today reproduces neither, because the bank drifted while regen_goldens_after_bank.py froze item_ids. The Rust sampler is now authoritative and the fixture is asserted against it. Retained ONLY as provenance for how the orphaned artifact arose; running it re-manufactures the fooled certificate."

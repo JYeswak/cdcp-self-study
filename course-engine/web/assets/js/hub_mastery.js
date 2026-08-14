@@ -1,11 +1,43 @@
 /**
- * Hub mastery dashboard + next-module recommend (L6-S4 / bd-qyi).
+ * Hub mastery dashboard + next-module recommend (L6-S4 / bd-qyi, bd-61ey).
  *
- * Surfaces practiced / mastered badges for modules 1–14 and a recommend card
- * that prefers: last-attempt weak module → first unpracticed → first unmastered
- * → "all practiced" message. Links always resolve to learn/*.html or quiz.html.
+ * Surfaces practiced / mastered badges for EVERY module the Learn registry
+ * declares, plus a recommend card that prefers: last-attempt weak module →
+ * first unpracticed → first unmastered → "all practiced" message. Links always
+ * resolve to learn/&#42;.html or quiz.html.
  *
  * Study signal only — never a CDCP / EPI credential claim.
+ *
+ * ## Why the catalog is DERIVED, and not a literal (bd-61ey / bd-lt7 class)
+ *
+ * Until 2026-08-14 `MODULE_CATALOG` was a hand-maintained array of fourteen
+ * frozen objects, and `scripts/smoke_hub_mastery.mjs` asserted its length was
+ * fourteen. Module 15 (`15-ops-adjacent`) is assessed and, since C5, taught —
+ * it has a Learn page and an approved bank — yet a learner could not see any
+ * module-15 progress, because this file did not know the module existed. The
+ * defect was never "someone typed 14"; it was that the catalog was an
+ * OBSERVATION of the curriculum rather than a PROJECTION of it. Bumping the
+ * literal to fifteen would re-encode the same defect one module later.
+ *
+ * The registry is `web/data/modules_index.json`, imported statically so the
+ * catalog exists synchronously with no fetch and no network:
+ *
+ *   - `scripts/build_learn.py` generates it from `knowledge/domains.toml`, and
+ *     `scripts/smoke_learn.py` gates the two against each other, so it cannot
+ *     drift from the authoring registry.
+ *   - It is what the Learn surface itself is built from: every
+ *     `web/learn/{id}.html`, the `#module-list` on `web/learn.html`, and the
+ *     `#modules-index` blob that page embeds all come out of the same rows.
+ *   - It already ships inside `web/`, unlike `knowledge/domains.toml`, and it
+ *     already carries the fields this catalog needs (`order`, `id`,
+ *     `epi_heading`, `href`) — `domains.toml` carries authoring paths instead.
+ *   - `scripts/build_units.py` and `crates/cdcp_assemble/tests/learn_surface_coverage.rs`
+ *     were rebased onto this same file, so there is one registry for the Learn
+ *     surface rather than one per consumer.
+ *
+ * A module declared in that registry is ALWAYS in this catalog. There is no
+ * filter to be wrong about, and `scripts/smoke_hub_mastery.mjs` asserts the
+ * two agree by id — naming any module the catalog dropped.
  *
  * localStorage:
  *   cdcp.mastery.v1     — owned by mastery.js
@@ -13,6 +45,8 @@
  *
  * @module hub_mastery
  */
+
+import MODULES_INDEX from "../../data/modules_index.json" with { type: "json" };
 
 import {
   isPracticed,
@@ -26,109 +60,119 @@ export const WEAK_STORAGE_KEY = "cdcp.last_weak.v1";
 export const WEAK_SCHEMA_VERSION = 1;
 
 /**
- * Bank module 1–14 catalog (matches modules_index.json order → id / href).
- * Module 15 is empty-ok and intentionally omitted from the dashboard.
+ * Projection of one Learn-registry row onto a mastery-dashboard entry.
+ *
+ * @typedef {{
+ *   order: number,
+ *   id: string,
+ *   title: string,
+ *   learnHref: string,
+ *   quizHref: string
+ * }} CatalogEntry
  */
-export const MODULE_CATALOG = Object.freeze([
-  {
-    order: 1,
-    id: "01-mission-critical",
-    title: "The Mission Critical Site",
-    learnHref: "learn/01-mission-critical.html",
-    quizHref: "quiz.html?module=1",
-  },
-  {
-    order: 2,
-    id: "02-standards",
-    title: "Data Centre Standards",
-    learnHref: "learn/02-standards.html",
-    quizHref: "quiz.html?module=2",
-  },
-  {
-    order: 3,
-    id: "03-site-building",
-    title: "Data Centre Location, Building and Construction",
-    learnHref: "learn/03-site-building.html",
-    quizHref: "quiz.html?module=3",
-  },
-  {
-    order: 4,
-    id: "04-floor-ceiling",
-    title: "Raised Access Flooring and Suspended Ceiling",
-    learnHref: "learn/04-floor-ceiling.html",
-    quizHref: "quiz.html?module=4",
-  },
-  {
-    order: 5,
-    id: "05-lighting",
-    title: "Light",
-    learnHref: "learn/05-lighting.html",
-    quizHref: "quiz.html?module=5",
-  },
-  {
-    order: 6,
-    id: "06-power",
-    title: "Power Infrastructure",
-    learnHref: "learn/06-power.html",
-    quizHref: "quiz.html?module=6",
-  },
-  {
-    order: 7,
-    id: "07-emf",
-    title: "Electro Magnetic Fields (EMF)",
-    learnHref: "learn/07-emf.html",
-    quizHref: "quiz.html?module=7",
-  },
-  {
-    order: 8,
-    id: "08-racks",
-    title: "Equipment Racks",
-    learnHref: "learn/08-racks.html",
-    quizHref: "quiz.html?module=8",
-  },
-  {
-    order: 9,
-    id: "09-cooling",
-    title: "Cooling Infrastructure",
-    learnHref: "learn/09-cooling.html",
-    quizHref: "quiz.html?module=9",
-  },
-  {
-    order: 10,
-    id: "10-water",
-    title: "Water Supply",
-    learnHref: "learn/10-water.html",
-    quizHref: "quiz.html?module=10",
-  },
-  {
-    order: 11,
-    id: "11-network",
-    title: "Designing a Scalable Network Infrastructure",
-    learnHref: "learn/11-network.html",
-    quizHref: "quiz.html?module=11",
-  },
-  {
-    order: 12,
-    id: "12-fire",
-    title: "Fire Protection",
-    learnHref: "learn/12-fire.html",
-    quizHref: "quiz.html?module=12",
-  },
-  {
-    order: 13,
-    id: "13-security",
-    title: "Physical Security and Safety",
-    learnHref: "learn/13-security.html",
-    quizHref: "quiz.html?module=13",
-  },
-  {
-    order: 14,
-    id: "14-auxiliary",
-    title: "Auxiliary Systems",
-    learnHref: "learn/14-auxiliary.html",
-    quizHref: "quiz.html?module=14",
-  },
-]);
+
+/**
+ * Derive the module catalog from a Learn registry document.
+ *
+ * EVERY declared module becomes an entry — there is deliberately no filter, no
+ * skip and no upper bound here, because a filter is exactly what hid module 15
+ * from the learner. If a module must not be surfaced, it must not be declared.
+ *
+ * Anti-vacuous: a registry with no `modules` array, or with zero modules, is an
+ * ERROR and throws. A dashboard that silently renders nothing looks the same as
+ * one whose learner has simply not started, which is how a missing catalog goes
+ * unnoticed for a whole wave.
+ *
+ * @param {unknown} indexDoc parsed `web/data/modules_index.json`
+ * @returns {readonly CatalogEntry[]} frozen, ordered by `order`
+ * @throws {Error} on a malformed, empty, or self-contradictory registry
+ */
+export function buildCatalog(indexDoc) {
+  if (!indexDoc || typeof indexDoc !== "object") {
+    throw new Error(
+      "hub_mastery: Learn registry is missing or not an object — refusing to " +
+        "build a module catalog from nothing"
+    );
+  }
+  const rows = /** @type {Record<string, unknown>} */ (indexDoc).modules;
+  if (!Array.isArray(rows)) {
+    throw new Error(
+      "hub_mastery: Learn registry has no `modules` array — refusing to build " +
+        "a module catalog from nothing"
+    );
+  }
+  if (rows.length === 0) {
+    throw new Error(
+      "hub_mastery: Learn registry declares zero modules — an empty catalog is " +
+        "an ERROR, not an empty dashboard"
+    );
+  }
+
+  /** @type {CatalogEntry[]} */
+  const out = [];
+  const seenOrder = new Set();
+  const seenId = new Set();
+  for (let i = 0; i < rows.length; i++) {
+    const r = /** @type {Record<string, unknown>} */ (rows[i] || {});
+    const id = typeof r.id === "string" ? r.id : "";
+    const order = Number(r.order);
+    const href = typeof r.href === "string" ? r.href : "";
+    const title = typeof r.epi_heading === "string" ? r.epi_heading : "";
+    if (!id) {
+      throw new Error("hub_mastery: Learn registry row " + i + " has no `id`");
+    }
+    if (!isFinite(order) || order < 1 || Math.floor(order) !== order) {
+      throw new Error(
+        "hub_mastery: Learn registry row " + id + " has no usable `order`"
+      );
+    }
+    if (!href) {
+      throw new Error(
+        "hub_mastery: Learn registry row " + id + " has no `href`"
+      );
+    }
+    if (seenOrder.has(order)) {
+      throw new Error(
+        "hub_mastery: Learn registry declares order " + order + " twice"
+      );
+    }
+    if (seenId.has(id)) {
+      throw new Error("hub_mastery: Learn registry declares id " + id + " twice");
+    }
+    seenOrder.add(order);
+    seenId.add(id);
+    out.push({
+      order: order,
+      id: id,
+      title: title || id,
+      learnHref: href,
+      quizHref: "quiz.html?module=" + order,
+    });
+  }
+  out.sort(function (a, b) {
+    return a.order - b.order;
+  });
+  if (out.length !== rows.length) {
+    throw new Error(
+      "hub_mastery: derived " +
+        out.length +
+        " entries from " +
+        rows.length +
+        " declared modules — the catalog must project every declared module"
+    );
+  }
+  return Object.freeze(out);
+}
+
+/**
+ * The live catalog: one entry per module declared by the Learn registry.
+ *
+ * DERIVED — see the module header. Never edit this by hand; edit
+ * `knowledge/domains.toml` and re-run `scripts/build_learn.py`.
+ *
+ * @type {readonly CatalogEntry[]}
+ */
+export const MODULE_CATALOG = buildCatalog(MODULES_INDEX);
 
 /** @type {Map<number, typeof MODULE_CATALOG[0]>} */
 const BY_ORDER = (function () {
@@ -183,9 +227,11 @@ export function normalizeLastWeak(raw) {
   const seen = Object.create(null);
   for (let i = 0; i < arr.length; i++) {
     const n = Number(arr[i]);
-    if (!isFinite(n) || n < 1 || n > 14) continue;
+    if (!isFinite(n)) continue;
     if (seen[n]) continue;
-    // Only catalog modules (1–14 with learn pages).
+    // Catalog membership IS the bound. A numeric ceiling here used to hold
+    // module 15 out of the weak list even once the catalog knew about it, so
+    // the only test is "does the registry declare a module at this order".
     if (!BY_ORDER.has(n)) continue;
     seen[n] = true;
     weak.push(n);
@@ -261,7 +307,7 @@ export function saveLastWeak(weakModules, opts) {
  *
  * Priority:
  *  1. First weak module from last mock attempt (if still in catalog)
- *  2. First unpracticed module (order 1→14)
+ *  2. First unpracticed module, in registry order
  *  3. First unmastered module
  *  4. All practiced (and mastered) message — no required link
  *
@@ -333,14 +379,23 @@ export function recommendNext(opts) {
     }
   }
 
-  // 4) All practiced (and mastered under our laws).
+  // 4) All practiced (and mastered under our laws). The module range is read
+  // off the catalog, so this copy can never advertise a curriculum smaller
+  // than the one the learner was actually assessed on.
+  const first = MODULE_CATALOG[0];
+  const last = MODULE_CATALOG[MODULE_CATALOG.length - 1];
   return {
     kind: "all_practiced",
     module: null,
     href: null,
     title: "All modules practiced",
     reason:
-      "Every curriculum module (1-14) is practiced and mastered in this browser. Keep drilling or take another mock — study signal only, not a credential.",
+      "Every curriculum module (" +
+      first.order +
+      "-" +
+      last.order +
+      ") is practiced and mastered in this browser. Keep drilling or take " +
+      "another mock — study signal only, not a credential.",
     label: "All practiced",
   };
 }
@@ -604,6 +659,7 @@ if (typeof globalThis !== "undefined") {
     WEAK_STORAGE_KEY,
     WEAK_SCHEMA_VERSION,
     MODULE_CATALOG,
+    buildCatalog,
     catalogEntry,
     normalizeLastWeak,
     loadLastWeak,

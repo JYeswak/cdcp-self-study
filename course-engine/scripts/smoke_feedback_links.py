@@ -1,18 +1,53 @@
 #!/usr/bin/env python3
 """smoke_feedback_links.py — L7-S2: item review → Learn module/section links.
 
+# CLAIM: FLOOR-RAISE
+
 For seed42 keys pack:
-  1. Every item with bank module 1–15 has a non-404 module-level Learn href
-     (web/learn/{slug}.html exists; MODULE_LEARN_SLUGS map agrees). Module 15
-     was exempted here until 2026-08-15 ("ops-adjacent: no Learn page
-     required") — that exemption was a restatement of the C5 fairness defect,
-     not a reason, and it is gone now that the module is taught.
+  1. Every item whose bank module the course DECLARES has a non-404
+     module-level Learn href (web/learn/{slug}.html exists; results.js
+     MODULE_LEARN_SLUGS agrees with the registry). An item on a real form whose
+     module has no Learn surface is the C5 "assessed but untaught" defect and is
+     an ERROR, named, never a skipped row.
   2. Section-anchor hit rate is reported (items that resolve to an existing
      heading id on that module's markdown via topic_anchors / topic_ids).
   3. learn_md heading ids must be present in the slug algorithm (h2/h3).
   4. results.js must expose itemLearnHref + render Review * Learn links.
 
-Exit 0 PASS · non-zero FAIL. Empty keys / empty map = ERROR (no vacuous green).
+## Where the module set comes from (bd-lt7)
+
+From knowledge/domains.toml — the same registry build_learn.py turns into
+web/data/modules_index.json (the Learn index), verify_coverage.py derives its
+floors from, and verify_objectives.py derives its required set from. A domain
+row's `id` IS the Learn slug (`06-power` → `web/learn/06-power.html`) and its
+`order` IS the bank module number, so the map is read, not restated.
+
+Until 2026-08-14 this file carried a hand-written module→slug table and a
+`for n in range(1, 15)` report loop. The table happened to be right; the loop
+printed M01–M14 and silently omitted module 15 — a leftover of the same defect
+class this file's hard gate was rebased to catch. A gate written by observing
+what the tree currently does encodes the tree's current defects as requirements.
+
+The registry and results.js must agree in BOTH directions:
+  - a declared module missing from MODULE_LEARN_SLUGS, or mapped to a different
+    slug, or without a Learn page / content file → RED, naming the module;
+  - a MODULE_LEARN_SLUGS entry for a module the registry does not declare → RED,
+    naming the module. Drift either way is how a module gets assessed without
+    being taught, or taught after it was retired.
+
+## Anti-vacuous
+
+Zero declared modules, zero keys, an empty MODULE_LEARN_SLUGS, an empty bank
+export, or zero resolved module links is an ERROR. An empty scan set must never
+report like a scan that ran and came back clean.
+
+## Verdict discipline
+
+Every check is COLLECTED first; the report — verdict line included — is composed
+and printed once, at the end. No PASS is emitted ahead of work that can still
+fail.
+
+Exit 0 PASS · non-zero FAIL.
 """
 from __future__ import annotations
 
@@ -20,6 +55,11 @@ import json
 import re
 import sys
 from pathlib import Path
+
+try:
+    import tomllib
+except ImportError:  # pragma: no cover
+    import tomli as tomllib  # type: ignore
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS_JS = ROOT / "web" / "assets" / "js" / "results.js"
@@ -29,24 +69,51 @@ CONTENT_DIR = ROOT / "web" / "content" / "modules"
 KEYS_JSON = ROOT / "web" / "data" / "keys_seed42.json"
 BANK_JSON = ROOT / "web" / "data" / "bank_items_seed42.json"
 TOPIC_ANCHORS_JSON = ROOT / "web" / "data" / "topic_anchors.json"
+DOMAINS_TOML = ROOT / "knowledge" / "domains.toml"
 
-EXPECTED_SLUGS: dict[int, str] = {
-    1: "01-mission-critical",
-    2: "02-standards",
-    3: "03-site-building",
-    4: "04-floor-ceiling",
-    5: "05-lighting",
-    6: "06-power",
-    7: "07-emf",
-    8: "08-racks",
-    9: "09-cooling",
-    10: "10-water",
-    11: "11-network",
-    12: "12-fire",
-    13: "13-security",
-    14: "14-auxiliary",
-    15: "15-ops-adjacent",
-}
+
+def load_declared_modules(domains_path: Path) -> tuple[dict[int, str], list[str]]:
+    """{module_number: learn_slug}, derived from the domain registry.
+
+    `order` is the bank module number and `id` is the Learn slug. A registry
+    that is missing, malformed or empty yields zero modules AND an error —
+    never a silent empty set that would make every check below vacuous.
+    """
+    errors: list[str] = []
+    declared: dict[int, str] = {}
+    if not domains_path.is_file():
+        return declared, [f"domain registry missing: {domains_path}"]
+    try:
+        with domains_path.open("rb") as f:
+            data = tomllib.load(f)
+    except Exception as e:  # noqa: BLE001 — fail-closed on a bad registry
+        return declared, [f"domain registry parse error: {e}"]
+
+    for row in data.get("domain") or []:
+        if not isinstance(row, dict):
+            errors.append(f"domains.toml: [[domain]] row is not a table: {row!r}")
+            continue
+        did = str(row.get("id") or "").strip()
+        try:
+            order = int(row["order"])
+        except (KeyError, TypeError, ValueError):
+            errors.append(f"domains.toml: {did or row!r} has no usable order")
+            continue
+        if not did:
+            errors.append(f"domains.toml: module {order} has no id (no Learn slug)")
+            continue
+        if order in declared:
+            errors.append(
+                f"domains.toml: duplicate order {order} ({declared[order]} and {did})"
+            )
+            continue
+        declared[order] = did
+
+    if not declared:
+        errors.append(
+            "domain registry declares zero modules (vacuous link check is ERROR)"
+        )
+    return declared, errors
 
 
 def slugify_heading(text: str) -> str:
@@ -119,6 +186,11 @@ def load_bank_by_id(path: Path) -> dict[str, dict]:
 
 def main() -> int:
     errors: list[str] = []
+    notes: list[str] = []
+
+    # --- the module set, derived from the domain registry (bd-lt7) ---
+    module_slugs, registry_errors = load_declared_modules(DOMAINS_TOML)
+    errors.extend(registry_errors)
 
     # --- product surface checks ---
     if not RESULTS_JS.is_file():
@@ -153,15 +225,28 @@ def main() -> int:
     if not slugs:
         errors.append("MODULE_LEARN_SLUGS empty — refusing vacuous green")
 
-    for n, expect in EXPECTED_SLUGS.items():
+    # Registry → product: every declared module must be mapped and reachable.
+    for n, expect in sorted(module_slugs.items()):
         if slugs.get(n) != expect:
-            errors.append(f"module {n}: slug map {slugs.get(n)!r} != {expect!r}")
+            errors.append(
+                f"module {n}: results.js slug map {slugs.get(n)!r} != "
+                f"{expect!r} (knowledge/domains.toml)"
+            )
         page = LEARN_DIR / f"{expect}.html"
         if not page.is_file():
             errors.append(f"missing learn page {page.relative_to(ROOT)}")
         content = CONTENT_DIR / f"{expect}.md"
         if not content.is_file():
             errors.append(f"missing content {content.relative_to(ROOT)}")
+
+    # Product → registry: the other direction of the same drift. A Learn link
+    # for a module the course no longer declares is as much a disagreement
+    # between the two sources as a declared module with no link.
+    for n in sorted(set(slugs) - set(module_slugs)):
+        errors.append(
+            f"module {n}: results.js maps {slugs[n]!r} but knowledge/domains.toml "
+            f"does not declare that module"
+        )
 
     # --- seed42 keys + bank ---
     if not KEYS_JSON.is_file():
@@ -199,7 +284,7 @@ def main() -> int:
         spec.loader.exec_module(bl)
         navigable = [
             {"id": slug, "order": n, "epi_heading": slug}
-            for n, slug in EXPECTED_SLUGS.items()
+            for n, slug in sorted(module_slugs.items())
         ]
         topic_anchors = bl.build_topic_anchors(navigable)
         TOPIC_ANCHORS_JSON.parent.mkdir(parents=True, exist_ok=True)
@@ -214,7 +299,9 @@ def main() -> int:
                 topic_anchors = json.loads(
                     TOPIC_ANCHORS_JSON.read_text(encoding="utf-8")
                 )
-                print(f"  note: using existing topic_anchors.json (regen failed: {e})")
+                notes.append(
+                    f"  note: using existing topic_anchors.json (regen failed: {e})"
+                )
             except json.JSONDecodeError as je:
                 errors.append(f"topic_anchors.json invalid: {je}")
         else:
@@ -224,7 +311,7 @@ def main() -> int:
             )
 
     heading_ids_by_slug: dict[str, set[str]] = {}
-    for n, slug in EXPECTED_SLUGS.items():
+    for n, slug in sorted(module_slugs.items()):
         md_path = CONTENT_DIR / f"{slug}.md"
         if md_path.is_file():
             heading_ids_by_slug[slug] = extract_heading_ids(
@@ -276,14 +363,17 @@ def main() -> int:
         except (TypeError, ValueError):
             mod_n = None
 
-        if mod_n is None or mod_n not in EXPECTED_SLUGS:
+        if mod_n is None or mod_n not in module_slugs:
             # A module on a real form with no Learn surface is the C5 defect.
             # Do not skip it — name it. (Anti-vacuous: an unmapped module must
             # not report like a linked one.)
-            unmapped_modules.append(f"{iid}: module {mod_n!r} has no Learn surface")
+            unmapped_modules.append(
+                f"{iid}: module {mod_n!r} is not declared in knowledge/domains.toml "
+                f"— assessed with no Learn surface"
+            )
             continue
 
-        slug = EXPECTED_SLUGS.get(mod_n)
+        slug = module_slugs.get(mod_n)
         if not slug:
             missing_module.append(f"{iid}: module {mod_n} unmapped")
             continue
@@ -336,11 +426,8 @@ def main() -> int:
             )
 
     navigable_keys = total - len(unmapped_modules) - len(no_bank)
-    # recompute navigable from loop outcomes more carefully
-    # module_linked + len(missing_module) should equal keys with modules 1–14 that had bank rows
-    if navigable_keys > 0 and module_linked < navigable_keys:
-        # missing_module already listed
-        pass
+    # module_linked + len(missing_module) equals the keys whose module the
+    # registry declares and which had a bank row.
     if total == 0:
         errors.append("zero keys — vacuous")
     if module_linked == 0 and navigable_keys > 0:
@@ -359,31 +446,39 @@ def main() -> int:
 
     hit_rate = (100.0 * section_linked / module_linked) if module_linked else 0.0
 
+    # The verdict is decided last and the report is printed once.
     if errors:
-        print("FAIL: smoke_feedback_links")
-        for e in errors:
-            print(f"  - {e}")
-        print(
+        report = ["FAIL: smoke_feedback_links"]
+        report.extend(f"  - {e}" for e in errors)
+        report.extend(notes)
+        report.append(
             f"  stats: keys={total} module_linked={module_linked} "
             f"section_linked={section_linked} hit_rate={hit_rate:.1f}% "
             f"unmapped_mod={len(unmapped_modules)}"
         )
+        print("\n".join(report))
         return 1
 
-    print("PASS: smoke_feedback_links")
-    print(f"  keys_seed42={total}")
-    print(f"  module_level_links={module_linked} (non-404 learn/{{slug}}.html)")
-    print(f"  section_anchor_links={section_linked}")
-    print(f"  section_anchor_hit_rate={hit_rate:.1f}% ({section_linked}/{module_linked})")
-    print(f"  untaught_module_items={len(unmapped_modules)} (must be 0)")
+    report = [
+        "PASS: smoke_feedback_links",
+        f"  modules={len(module_slugs)} (derived from knowledge/domains.toml)",
+        f"  keys_seed42={total}",
+        f"  module_level_links={module_linked} (non-404 learn/{{slug}}.html)",
+        f"  section_anchor_links={section_linked}",
+        f"  section_anchor_hit_rate={hit_rate:.1f}% ({section_linked}/{module_linked})",
+        f"  untaught_module_items={len(unmapped_modules)} (must be 0)",
+    ]
+    report.extend(notes)
     if topic_anchors:
-        print(
+        report.append(
             f"  topic_anchors topics_with_anchor="
             f"{topic_anchors.get('topics_with_anchor')}/"
             f"{topic_anchors.get('topic_count')}"
         )
-    for n in range(1, 15):
-        print(f"  M{n:02d} → learn/{EXPECTED_SLUGS[n]}.html")
+    # Every declared module, not the first fourteen of them.
+    for n, slug in sorted(module_slugs.items()):
+        report.append(f"  M{n:02d} → learn/{slug}.html")
+    print("\n".join(report))
     return 0
 
 

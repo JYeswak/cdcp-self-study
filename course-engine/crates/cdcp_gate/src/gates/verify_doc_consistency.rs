@@ -11,8 +11,9 @@
 //!    `(milestone id -> status)` rows. RED when one id carries conflicting
 //!    statuses across or within docs, when one id appears twice in a single
 //!    table, when a status cell uses vocabulary the gate cannot read
-//!    (fail-closed: an unreadable status is not a passing status), or when a
-//!    cell asserts DONE and OPEN at once.
+//!    (fail-closed: an unreadable status is not a passing status), when a
+//!    cell asserts DONE and OPEN at once, or when a row in a table that HAS a
+//!    Status column is too short to reach it (see the DECISION below).
 //! 2. **Publication truth.** The repository is public (`REPO_PUBLIC`). RED when
 //!    any scanned markdown still asserts that publication is pending, blocked,
 //!    deferred, or awaiting a human.
@@ -28,6 +29,38 @@
 //!   stale, or contradictory narrative text is out of scope by construction.
 //! - Any claim in a doc it never read: a markdown file that is not valid UTF-8
 //!   is reported as unreadable and refused, never silently skipped.
+//!
+//! # DECISION (bd-hw3, 2026-08-14): a row shorter than its Status column is RED
+//!
+//! Both implementations used to fall back to the section heading's status when a
+//! data row had fewer cells than the Status column index. When the heading was
+//! not itself a status word that fallback was `None`; the oracle then printed
+//! `PASS`, most of the summary, and died with a `TypeError` in
+//! `",".join(sorted({r["status"] for r in rows}))`, while this port completed the
+//! report and rendered the missing status as the literal string `None`. Both
+//! output shapes were wrong, in opposite directions.
+//!
+//! The resolution is to fail closed, in both, for three reasons:
+//!
+//! - Every OTHER unreadable status here already fails closed — empty cell,
+//!   unrecognised word, DONE-and-OPEN at once. A status cell that is ABSENT
+//!   ENTIRELY is strictly less readable than one present and unrecognised, so it
+//!   cannot be the single case that passes. The old behaviour was fail-OPEN by
+//!   accident, not by design.
+//! - It corrupted the anti-vacuous counters: the row still counted toward
+//!   `milestone_rows` and `milestone_ids`, so the gate reported having read a row
+//!   it could not read.
+//! - Rendering `None` MINTS A THIRD STATUS VALUE. A milestone DONE in one doc and
+//!   ragged in another would surface as a cross-doc conflict `…=DONE · …=None`,
+//!   which names the wrong defect: the docs do not disagree, one row is malformed.
+//!
+//! Kept deliberately: the heading-supplied status. A milestone table with NO
+//! Status column at all, under a status-bearing heading (the PHASE-NEXT shape),
+//! still takes its status from the heading — a table-level declaration, and
+//! legitimate. The defect was conflating that with a row-level SHORTFALL inside a
+//! table that does declare a Status column. Separating the two is the whole fix,
+//! and it is why `Row::status` is now a plain `&'static str`: after the change no
+//! row can carry an absent status, so the summary join has nothing to render.
 //!
 //! # Anti-vacuous
 //!
@@ -55,9 +88,11 @@
 //! still go through `GateError::Usage`, because the oracle's argparse surface is
 //! not a verdict on the tree and is not part of the differential.
 //!
-//! The one input class with no byte-exact target is recorded in
-//! `recorded_divergence_ragged_row_crashes_the_oracle`: a ragged milestone row
-//! makes the oracle print `PASS` and then die with a `TypeError` traceback.
+//! Every input class the suite exercises now has a byte-exact target. The one
+//! that did not — the ragged milestone row, which made the oracle print `PASS`
+//! and then die with a `TypeError` traceback — was repaired on both sides under
+//! bd-hw3; see the DECISION above, and `ragged_row_is_red_in_both` for the pin
+//! that replaced the recorded divergence.
 
 use crate::registry::{GateCtx, GateError};
 use std::io::Write;
@@ -607,15 +642,45 @@ pub fn crate_exit_code(findings: &[Finding]) -> u8 {
 
 struct Row {
     id: String,
-    status: Option<&'static str>,
+    /// Never absent. A row whose status could not be read is an error, not a
+    /// row — see the DECISION in the module header (bd-hw3).
+    status: &'static str,
     doc: &'static str,
     line: usize,
 }
 
-fn status_text(s: Option<&'static str>) -> &'static str {
-    // The Python stores `None` here and formats it as "None" in the conflict
-    // line — see the recorded defect note in the diff test.
-    s.unwrap_or("None")
+/// The status a milestone row declares, or the reason it declares none.
+///
+/// Keeping these three cases apart IS the bd-hw3 fix. The old code had two
+/// branches and let the third fall through the second:
+///
+/// - the table has a Status column and this row REACHES it → classify the cell;
+/// - the table has a Status column and this row is TOO SHORT → RED. The row
+///   declares no status, and borrowing the heading's would be a guess;
+/// - the table has NO Status column → the status-bearing heading declares it for
+///   every row (the PHASE-NEXT shape). The guard in `parse_doc` has already
+///   `continue`d the table when the heading is not a status either, so the
+///   `ok_or_else` below is unreachable — and fails closed if that ever changes.
+fn row_status(
+    cells: &[String],
+    status_col: Option<usize>,
+    heading_status: Option<&'static str>,
+    raw_line: &str,
+) -> Result<&'static str, String> {
+    match status_col {
+        Some(c) if c < cells.len() => match classify_status(&cells[c]) {
+            (Some(s), _) => Ok(s),
+            (None, Some(e)) => Err(e),
+            (None, None) => Err("unclassifiable status cell".to_string()),
+        },
+        Some(c) => Err(format!(
+            "row is shorter than its Status column (has {} cell(s), Status is column {}): {}",
+            cells.len(),
+            c + 1,
+            py_repr(raw_line.trim())
+        )),
+        None => heading_status.ok_or_else(|| "table declares no status".to_string()),
+    }
 }
 
 fn parse_doc(path: &Path, rel: &'static str) -> (Vec<Row>, Vec<Finding>) {
@@ -705,14 +770,13 @@ fn parse_doc(path: &Path, rel: &'static str) -> (Vec<Row>, Vec<Finding>) {
             if ids.is_empty() {
                 continue;
             }
-            let (status, err) = match status_col {
-                Some(c) if c < cells.len() => classify_status(&cells[c]),
-                _ => (heading_status, None),
+            let status = match row_status(&cells, status_col, heading_status, raw_line) {
+                Ok(s) => s,
+                Err(e) => {
+                    errors.push(Finding::violation(format!("{rel}:{lineno}: {e}")));
+                    continue;
+                }
             };
-            if let Some(e) = err {
-                errors.push(Finding::violation(format!("{rel}:{lineno}: {e}")));
-                continue;
-            }
             for mid in ids {
                 if let Some((_, first)) = seen_in_table.iter().find(|(k, _)| *k == mid) {
                     errors.push(Finding::violation(format!(
@@ -1152,14 +1216,14 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
 
     let mut conflicts = 0usize;
     for (mid, rows) in &by_id {
-        let mut statuses: Vec<&str> = rows.iter().map(|r| status_text(r.status)).collect();
+        let mut statuses: Vec<&str> = rows.iter().map(|r| r.status).collect();
         statuses.sort_unstable();
         statuses.dedup();
         if statuses.len() > 1 {
             conflicts += 1;
             let where_: Vec<String> = rows
                 .iter()
-                .map(|r| format!("{}:{}={}", r.doc, r.line, status_text(r.status)))
+                .map(|r| format!("{}:{}={}", r.doc, r.line, r.status))
                 .collect();
             errors.push(Finding::violation(format!(
                 "milestone {mid} has conflicting status across the roadmap docs: {}",
@@ -1186,7 +1250,7 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         if REPO_PUBLIC { "True" } else { "False" }
     ));
     for (mid, rows) in &by_id {
-        let mut seen: Vec<&str> = rows.iter().map(|r| status_text(r.status)).collect();
+        let mut seen: Vec<&str> = rows.iter().map(|r| r.status).collect();
         seen.sort_unstable();
         seen.dedup();
         out.push_str(&format!(
@@ -1258,6 +1322,42 @@ mod tests {
         assert!(classify_status("mostly there").1.is_some());
         assert!(classify_status("").1.is_some());
         assert!(classify_status("done but blocked").1.is_some());
+    }
+
+    /// bd-hw3: the three row-status cases, kept apart. The middle one is the
+    /// repaired defect — it used to silently borrow the heading's status (or
+    /// `None`, when the heading was not a status word) and record a row the gate
+    /// had not read.
+    #[test]
+    fn a_row_too_short_for_its_status_column_is_red() {
+        let cells = ["M2".to_string(), "ragged row".to_string()];
+        let raw = "| M2 | ragged row |";
+
+        // Reaches the Status column: classified normally.
+        let full = ["M1".to_string(), "a".to_string(), "DONE".to_string()];
+        assert_eq!(
+            row_status(&full, Some(2), None, "| M1 | a | DONE |"),
+            Ok("DONE")
+        );
+
+        // Too short, non-status heading — the crash input. Names the shortfall
+        // and the row, and does NOT fall back to the heading.
+        let err = row_status(&cells, Some(2), None, raw).unwrap_err();
+        assert_eq!(
+            err,
+            "row is shorter than its Status column (has 2 cell(s), Status is column 3): \
+             '| M2 | ragged row |'"
+        );
+
+        // Too short under a status-BEARING heading is equally RED: the table
+        // declares a Status column, so the row owes one. Borrowing is a guess.
+        assert!(row_status(&cells, Some(2), Some("DONE"), raw).is_err());
+
+        // No Status column at all: the heading declares it. Preserved.
+        assert_eq!(row_status(&cells, None, Some("DONE"), raw), Ok("DONE"));
+
+        // Unreachable in `parse_doc`, but fail-closed if the guard ever moves.
+        assert!(row_status(&cells, None, None, raw).is_err());
     }
 
     #[test]

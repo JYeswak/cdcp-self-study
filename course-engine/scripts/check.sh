@@ -178,10 +178,10 @@ ok "bank pool"
 # Anti-hallucination heuristics + corpus overlap
 # NOT YET PORTED (bd-substrate-rust-migration-jhd.9). The fail-open guard is
 # closed ahead of the port: a missing checker is a fooled certificate, not a skip.
-[ -f scripts/validate_grounding.py ] || fail "missing scripts/validate_grounding.py (grounding gate required)"
+[ -f scripts/validate_grounding.py ] || fail "missing scripts/validate_grounding.py (differential oracle for validate-grounding)"
 [ -d bank/items ] || fail "missing bank/items (grounding gate required)"
-echo "==> validate_grounding.py"
-python3 scripts/validate_grounding.py || fail "grounding"
+echo "==> cdcp_gate validate-grounding (anti-hallucination heuristics + corpus overlap)"
+cargo run -q -p cdcp_gate -- validate-grounding || fail "grounding"
 ok "grounding heuristics"
 
 # Orphan referential integrity (topics <-> bank) — ORACLE-GAUNTLET "orphan item".
@@ -344,8 +344,9 @@ for _shape in "Drill due" "Miss review"; do
 done
 ok "L6 session shapes (Drill due · Miss review) present"
 
-echo "==> L6 domain coverage oracle"
-python3 scripts/verify_coverage.py || fail "L6 coverage"
+[ -f scripts/verify_coverage.py ] || fail "missing scripts/verify_coverage.py (differential oracle for verify-coverage)"
+echo "==> cdcp_gate verify-coverage (L6 domain coverage)"
+cargo run -q -p cdcp_gate -- verify-coverage || fail "L6 coverage"
 ok "L6 coverage GREEN (every module the domain registry declares ≥ domain_min)"
 echo "==> selftest_l6_coverage.sh"
 run_selftest "L6 coverage selftest" sh scripts/selftest_l6_coverage.sh

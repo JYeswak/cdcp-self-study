@@ -19,7 +19,52 @@ WHAT IT CHECKS
       * one milestone id appears twice in a single table;
       * a status cell uses vocabulary the gate does not recognise (fail-closed:
         an unreadable status is not a passing status);
-      * a status cell asserts DONE and OPEN at once.
+      * a status cell asserts DONE and OPEN at once;
+      * a row in a table that HAS a Status column is too short to reach it
+        (see DECISION below).
+
+DECISION (bd-hw3, 2026-08-14): A ROW SHORTER THAN ITS STATUS COLUMN IS RED
+--------------------------------------------------------------------------
+This function used to fall back to the section heading's status whenever a data
+row had fewer cells than the Status column index. When the heading was not
+itself a status word that fallback was ``None``, the row was recorded with
+``status=None`` and NO error, and main() later died in
+``",".join(sorted({r["status"] for r in rows}))`` with a TypeError — AFTER
+printing the word PASS and most of the summary. A verdict followed by a crash is
+the worst possible output shape: a reader skimming stdout sees PASS, CI sees
+non-zero, and which one wins depends on whether anyone looked.
+
+The fix is not to render the missing status as the string "None". It is to fail
+closed, because:
+
+  * Every OTHER unreadable status here already fails closed — an empty cell, an
+    unrecognised word, a cell asserting DONE and OPEN at once. A status cell
+    that is ABSENT ENTIRELY is strictly less readable than one that is present
+    and unrecognised, so it cannot be the single case that passes. The old
+    behaviour was fail-OPEN by accident (a None leaking into a join), not by
+    design.
+  * It corrupts the anti-vacuous counters. The row still counted toward
+    ``milestone_rows`` and ``milestone_ids``, so the gate reported having read a
+    row it could not read — exactly what "a doc that was never parsed must never
+    report like one that agreed" forbids.
+  * Rendering "None" would MINT A THIRD STATUS VALUE. A milestone that is DONE
+    in one doc and ragged in another would then be reported as a cross-doc
+    conflict "…=DONE · …=None", which names the wrong defect: the docs do not
+    disagree, one row is malformed.
+
+Kept deliberately: the heading-supplied status. A milestone table with NO Status
+column at all, under a status-bearing heading (the PHASE-NEXT shape), still
+takes its status from the heading. That is a table-level declaration and is
+legitimate. The defect was conflating it with a row-level SHORTFALL inside a
+table that does declare a Status column; separating those two is the whole fix.
+Consequence worth stating: after this change ``row["status"]`` is always a str,
+never None, so the summary join cannot raise.
+
+STRUCTURAL RULE
+---------------
+The verdict is the LAST thing written, or it is not written. main() renders the
+entire report into a buffer and prints it in one call, so no path that can still
+raise runs after "PASS" has reached stdout.
 
 (2) Publication truth. The repository is public (see REPO_PUBLIC below). It
     FAILS if any tracked markdown still asserts that publication is pending,
@@ -241,10 +286,23 @@ def parse_doc(path: Path, rel: str) -> tuple[list[dict], list[str]]:
             ids = milestone_ids(cells[0])
             if not ids:
                 continue
+            # Four branches, all fail-closed: `status is None` implies
+            # `err is not None`, so no row is ever recorded without a status.
+            # See DECISION in the module docstring (bd-hw3).
             if status_col is not None and status_col < len(cells):
                 status, err = classify_status(cells[status_col])
-            else:
+            elif status_col is not None:
+                status, err = None, (
+                    f"row is shorter than its Status column "
+                    f"(has {len(cells)} cell(s), Status is column "
+                    f"{status_col + 1}): {raw.strip()!r}"
+                )
+            elif heading_status is not None:
+                # No Status column anywhere in the table; the status-bearing
+                # heading declares it for every row. The PHASE-NEXT shape.
                 status, err = heading_status, None
+            else:  # pragma: no cover - the guard above already `continue`d
+                status, err = None, "table declares no status"
             if err is not None:
                 errors.append(f"{rel}:{lineno}: {err}")
                 continue
@@ -372,28 +430,33 @@ def main(argv: list[str] | None = None) -> int:
     n_md, pub_errors = scan_publication(root)
     errors.extend(pub_errors)
 
-    status = "PASS" if not errors else "FAIL"
-    print(status)
-    print(f"  root={root}")
-    print(f"  roadmap_docs={len(MILESTONE_DOCS)}")
-    print(f"  milestone_rows={len(all_rows)}")
-    print(f"  milestone_ids={len(by_id)}")
-    print(f"  conflicts={conflicts}")
-    print(f"  markdown_scanned={n_md}")
-    print(f"  repo_public={REPO_PUBLIC} since {REPO_PUBLIC_SINCE}")
+    # The verdict is the LAST thing written, or it is not written. Everything
+    # below renders into `out` and reaches stdout in a single call at the end,
+    # so a raise anywhere in report construction prints nothing at all rather
+    # than a PASS followed by a traceback. (bd-hw3)
+    out: list[str] = ["PASS" if not errors else "FAIL"]
+    out.append(f"  root={root}")
+    out.append(f"  roadmap_docs={len(MILESTONE_DOCS)}")
+    out.append(f"  milestone_rows={len(all_rows)}")
+    out.append(f"  milestone_ids={len(by_id)}")
+    out.append(f"  conflicts={conflicts}")
+    out.append(f"  markdown_scanned={n_md}")
+    out.append(f"  repo_public={REPO_PUBLIC} since {REPO_PUBLIC_SINCE}")
     for mid, rows in sorted(by_id.items(), key=lambda kv: (kv[1][0]["id"])):
         seen = ",".join(sorted({r["status"] for r in rows}))
-        print(f"    {mid}: {seen} ({len(rows)} row(s))")
+        out.append(f"    {mid}: {seen} ({len(rows)} row(s))")
 
     if errors:
-        print("  failures:")
+        out.append("  failures:")
         for e in errors[:MAX_REPORT]:
-            print(f"    - {e}")
+            out.append(f"    - {e}")
         if len(errors) > MAX_REPORT:
-            print(f"    ... +{len(errors) - MAX_REPORT} more")
+            out.append(f"    ... +{len(errors) - MAX_REPORT} more")
+        print("\n".join(out))
         return 1
 
-    print("  roadmap GREEN (milestone status agrees; publication truth holds)")
+    out.append("  roadmap GREEN (milestone status agrees; publication truth holds)")
+    print("\n".join(out))
     return 0
 
 

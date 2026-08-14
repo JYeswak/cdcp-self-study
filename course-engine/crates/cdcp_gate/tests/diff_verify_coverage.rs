@@ -1,0 +1,1331 @@
+//! Differential harness: `cdcp_gate verify-coverage` against
+//! `scripts/verify_coverage.py` (bd-substrate-rust-migration-jhd.6).
+//!
+//! The Python script is the oracle for this port and stays in the tree for
+//! exactly that reason. Every case below runs BOTH implementations on the same
+//! inputs and asserts stdout, stderr, and exit code match byte for byte. A
+//! disagreement on any byte fails the port, not the oracle.
+//!
+//! The case list starts from the enumeration of `scripts/selftest_l6_coverage.sh`,
+//! which is the L4 known-bad suite `check.sh` already runs —
+//!
+//!   a) empty bank dir                       -> ERROR (anti-vacuous)
+//!   b) bank holding only module-1 items     -> RED (every other module SHORT)
+//!   c) live bank                            -> GREEN
+//!
+//! and adds the legs the rebase (bd-lt7) introduced, which that shell suite
+//! predates and does not reach —
+//!
+//!   d) a declared module with zero items    -> RED, naming the module
+//!   e) an exemption with a blank reason     -> schema ERROR, and the module
+//!                                              STAYS REQUIRED so the shortfall
+//!                                              still reports
+//!   f) `[[domain_min]]` for an undeclared module -> ERROR (cross-source drift)
+//!   g) empty registry / missing registry / every module exempted -> ERROR
+//!   h) emission ORDER: required modules, then recorded exemptions, then
+//!      undeclared extras, then the failure list, each numerically ascending
+//!   i) `--write-json`, whose summary bytes are compared as well as its stdout
+//!
+//! ANTI-VACUOUS DISCIPLINE. A differential that silently compares nothing passes
+//! exactly like one that compared everything, so: a missing `python3` is a
+//! FAILURE and never a skip; a specimen bank that copied zero files is a
+//! FAILURE; a fixture registry that declares zero modules when it meant to
+//! declare several is a FAILURE; and every case increments a counter that is
+//! asserted at the end.
+//!
+//! NOTHING HERE HARDCODES A MODULE COUNT. The live-tree expectations are
+//! derived from `knowledge/domains.toml` at run time, because a test that
+//! writes today's registry size down as a constant is the same defect bd-lt7
+//! was opened for, one level up.
+
+use std::path::{Path, PathBuf};
+use std::process::Command;
+use std::sync::atomic::{AtomicUsize, Ordering};
+
+const BIN: &str = env!("CARGO_BIN_EXE_cdcp_gate");
+const ORACLE: &str = "scripts/verify_coverage.py";
+const GATE: &str = "verify-coverage";
+
+/// Cases actually compared, so "the harness ran" is itself checked.
+static COMPARED: AtomicUsize = AtomicUsize::new(0);
+
+fn engine_root() -> PathBuf {
+    cdcp_gate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
+}
+
+struct Run {
+    code: i32,
+    stdout: Vec<u8>,
+    stderr: Vec<u8>,
+}
+
+impl Run {
+    fn out(&self) -> String {
+        String::from_utf8_lossy(&self.stdout).into_owned()
+    }
+    fn err(&self) -> String {
+        String::from_utf8_lossy(&self.stderr).into_owned()
+    }
+}
+
+fn python(root: &Path, args: &[&str]) -> Run {
+    let out = Command::new("python3")
+        .current_dir(root)
+        .arg(ORACLE)
+        .args(args)
+        .output()
+        .unwrap_or_else(|e| {
+            panic!(
+                "python3 {ORACLE} could not run ({e}). The oracle is REQUIRED: a differential \
+                 that cannot run its reference is a failure, never a skip."
+            )
+        });
+    Run {
+        code: out.status.code().unwrap_or(-1),
+        stdout: out.stdout,
+        stderr: out.stderr,
+    }
+}
+
+/// The BUILT binary, never `cargo run`: cargo writes build diagnostics to
+/// stderr, and a sibling gate's warning would land in the captured stream and
+/// read as a divergence.
+fn rust(root: &Path, args: &[&str]) -> Run {
+    let out = Command::new(BIN)
+        .current_dir(root)
+        .arg("--root")
+        .arg(root)
+        .arg(GATE)
+        .args(args)
+        .output()
+        .expect("run cdcp_gate");
+    Run {
+        code: out.status.code().unwrap_or(-1),
+        stdout: out.stdout,
+        stderr: out.stderr,
+    }
+}
+
+/// The whole acceptance bar in one function. Returns the (identical) run so a
+/// case can additionally assert *what* the shared output says.
+fn assert_byte_identical(label: &str, root: &Path, args: &[&str]) -> Run {
+    let py = python(root, args);
+    let rs = rust(root, args);
+
+    assert_eq!(
+        py.stdout,
+        rs.stdout,
+        "[{label}] STDOUT differs.\n--- python ---\n{}\n--- rust ---\n{}",
+        py.out(),
+        rs.out()
+    );
+    assert_eq!(
+        py.stderr,
+        rs.stderr,
+        "[{label}] STDERR differs.\n--- python ---\n{}\n--- rust ---\n{}",
+        py.err(),
+        rs.err()
+    );
+    assert_eq!(
+        py.code, rs.code,
+        "[{label}] EXIT CODE differs: python {} vs rust {}",
+        py.code, rs.code
+    );
+
+    COMPARED.fetch_add(1, Ordering::SeqCst);
+    rs
+}
+
+fn write(path: &Path, body: &str) {
+    if let Some(p) = path.parent() {
+        std::fs::create_dir_all(p).unwrap();
+    }
+    std::fs::write(path, body).unwrap();
+}
+
+/// A synthetic domain registry declaring exactly `orders`, in the order given —
+/// which is deliberately NOT always ascending, so the report's own ordering is
+/// under test rather than inherited from the fixture.
+fn domains_registry(orders: &[i64]) -> String {
+    let mut s = String::from("schema_version = 1\n");
+    for o in orders {
+        s.push_str(&format!(
+            "\n[[domain]]\nid = \"d{o:02}-fixture\"\norder = {o}\n"
+        ));
+    }
+    s
+}
+
+/// One bank item, in the single-table `id = ...` form the oracle accepts.
+fn item(id: &str, module: i64) -> String {
+    format!("id = {id:?}\nmodule = {module}\n")
+}
+
+/// A bank directory holding `(id, module)` items, and the count planted.
+fn plant_bank(dir: &Path, items: &[(&str, i64)]) -> usize {
+    std::fs::create_dir_all(dir).unwrap();
+    for (id, m) in items {
+        write(&dir.join(format!("{id}.toml")), &item(id, *m));
+    }
+    items.len()
+}
+
+/// Copy the live bank into TEMP so a fixture never mutates `bank/items`.
+fn specimen_bank(root: &Path, into: &Path) -> usize {
+    std::fs::create_dir_all(into).unwrap();
+    let mut n = 0usize;
+    for e in std::fs::read_dir(root.join("bank/items"))
+        .expect("live bank/items")
+        .flatten()
+    {
+        let name = e.file_name().to_string_lossy().into_owned();
+        if name.ends_with(".toml") {
+            std::fs::copy(e.path(), into.join(&name)).unwrap();
+            n += 1;
+        }
+    }
+    assert!(
+        n > 0,
+        "copied zero bank items into TEMP — a vacuous specimen is an ERROR, not a pass"
+    );
+    n
+}
+
+/// How many modules `knowledge/domains.toml` declares, read from the registry
+/// rather than written down here. See the module header.
+fn declared_module_count(root: &Path) -> usize {
+    let text = std::fs::read_to_string(root.join("knowledge/domains.toml")).expect("domains.toml");
+    let n = text
+        .lines()
+        .map(str::trim)
+        .filter(|l| l.starts_with("order ="))
+        .count();
+    assert!(
+        n > 1,
+        "the live domain registry parsed to {n} module(s) — a vacuous derivation is an ERROR"
+    );
+    n
+}
+
+/// The item `selftest_l6_coverage.sh` plants for its case (b), byte for byte.
+const SELFTEST_M01_ITEM: &str = r#"id = "selftest-m01-only"
+module = 1
+stem = "selftest planted item — not for exam use"
+choices = ["A", "B", "C", "D"]
+correct = "A"
+explanation = "planted for coverage selftest only"
+topic_ids = ["m01-importance"]
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+"#;
+
+// ── the oracle must exist at all ───────────────────────────────────────────
+
+#[test]
+fn the_oracle_is_present_and_runnable() {
+    let root = engine_root();
+    assert!(
+        root.join(ORACLE).is_file(),
+        "{ORACLE} is the differential oracle for this port; without it the port is unverified"
+    );
+    // Not `--help`: run the real thing on the real tree, so a Python that
+    // imports but cannot execute is caught here rather than read as agreement.
+    let py = python(&root, &[]);
+    assert_eq!(
+        py.code,
+        0,
+        "the oracle is RED on the live tree, so no differential below can be trusted:\n{}\n{}",
+        py.out(),
+        py.err()
+    );
+}
+
+// ── (c) the GREEN case, and the rebase's own signals ───────────────────────
+
+#[test]
+fn live_tree_is_byte_identical_and_green() {
+    let root = engine_root();
+    let declared = declared_module_count(&root);
+
+    let rs = assert_byte_identical("c live tree", &root, &[]);
+    assert_eq!(rs.code, 0, "live tree must be GREEN: {}", rs.out());
+    assert!(rs.out().starts_with("PASS\n"), "{}", rs.out());
+    assert!(rs.out().contains("coverage GREEN"), "{}", rs.out());
+    assert!(
+        rs.err().is_empty(),
+        "the oracle writes nothing to stderr on the green path: {:?}",
+        rs.err()
+    );
+
+    // The module set is DERIVED, and the report says so with the registry's own
+    // count. Both numbers come from domains.toml, never from a literal here.
+    assert!(
+        rs.out()
+            .contains(&format!("registry=domains.toml declares={declared}")),
+        "the report must name the registry it derived from: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains(&format!(
+            "modules ({declared} required, derived from the domain registry)"
+        )),
+        "every declared module must be required on the live tree: {}",
+        rs.out()
+    );
+    // …and the last-declared module is inside the required set, which is the
+    // property the rebase existed to restore. Derived, not named.
+    let last = format!("m{declared:02}: ");
+    assert!(
+        rs.out().contains(&last),
+        "the highest declared module is missing from the report: {}",
+        rs.out()
+    );
+
+    // The explicit `--bank bank/items` spelling selftest_l6_coverage.sh case (c)
+    // uses is a distinct code path (relative argument, resolved) and must agree
+    // too.
+    let rs = assert_byte_identical(
+        "c live tree, explicit bank",
+        &root,
+        &["--bank", "bank/items"],
+    );
+    assert_eq!(rs.code, 0, "{}", rs.out());
+}
+
+// ── (a)(b) exactly what selftest_l6_coverage.sh exercises ─────────────────
+
+#[test]
+fn the_shell_selftest_cases_are_byte_identical() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+
+    // (a) empty bank directory → vacuous ERROR
+    let empty_bank = td.path().join("empty_bank");
+    std::fs::create_dir_all(&empty_bank).unwrap();
+    let rs = assert_byte_identical(
+        "a empty bank",
+        &root,
+        &["--bank", empty_bank.to_str().unwrap()],
+    );
+    assert_ne!(rs.code, 0, "an empty bank must never pass: {}", rs.out());
+    assert!(
+        rs.out().contains("empty bank"),
+        "the suite's needle must survive the port: {}",
+        rs.out()
+    );
+
+    // (b) a bank holding only the planted module-1 item → every other declared
+    // module is SHORT. The suite's needle is the module-2 shortfall line.
+    let filt = td.path().join("m01_only");
+    std::fs::create_dir_all(&filt).unwrap();
+    write(&filt.join("planted-m01.toml"), SELFTEST_M01_ITEM);
+    let rs = assert_byte_identical(
+        "b m01-only bank",
+        &root,
+        &["--bank", filt.to_str().unwrap()],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out().contains("module 2:"),
+        "the suite's needle must survive the port: {}",
+        rs.out()
+    );
+
+    // nothing planted may leak into the live tree
+    assert!(
+        !root.join("bank/items/planted-m01.toml").exists(),
+        "specimen leaked into the live bank"
+    );
+}
+
+// ── (d) a declared module with zero items ─────────────────────────────────
+
+#[test]
+fn a_declared_module_with_zero_items_is_red_and_named() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(&[1, 2, 3]));
+    let bank = td.path().join("bank");
+    let planted = plant_bank(&bank, &[("a", 1), ("b", 1), ("c", 3)]);
+    assert!(planted > 0, "a vacuous fixture bank is an ERROR");
+    let missing_policy = td.path().join("no_policy.toml");
+
+    let rs = assert_byte_identical(
+        "d declared module with zero items",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            missing_policy.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out().contains("module 2: 0 items"),
+        "the starved module must be NAMED, not merely counted: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("    m02: 0 (min 1) [SHORT]"),
+        "the per-module line must flag it too: {}",
+        rs.out()
+    );
+    // The known-GOOD leg: the stocked modules are not dragged red with it.
+    assert!(rs.out().contains("m01: 2 (min 1) [ok]"), "{}", rs.out());
+    assert!(rs.out().contains("m03: 1 (min 1) [ok]"), "{}", rs.out());
+}
+
+// ── (e) an exemption without a reason is a SCHEMA ERROR, and does not exempt ─
+
+#[test]
+fn a_reasonless_exemption_is_an_error_and_leaves_the_module_required() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(&[1, 2]));
+    let bank = td.path().join("bank");
+    plant_bank(&bank, &[("a", 1)]);
+
+    for (label, body) in [
+        (
+            "blank reason",
+            "[[coverage_exempt]]\nmodule = 2\nreason = \"\"\n",
+        ),
+        (
+            "whitespace reason",
+            "[[coverage_exempt]]\nmodule = 2\nreason = \"   \"\n",
+        ),
+        ("absent reason", "[[coverage_exempt]]\nmodule = 2\n"),
+    ] {
+        let policy = td
+            .path()
+            .join(format!("policy_{}.toml", label.replace(' ', "_")));
+        write(&policy, body);
+        let rs = assert_byte_identical(
+            &format!("e exemption, {label}"),
+            &root,
+            &[
+                "--domains",
+                reg.to_str().unwrap(),
+                "--bank",
+                bank.to_str().unwrap(),
+                "--policy",
+                policy.to_str().unwrap(),
+            ],
+        );
+        assert_ne!(rs.code, 0, "[{label}] {}", rs.out());
+        assert!(
+            rs.out().contains(
+                "bank_policy.toml: coverage_exempt module 2 has no reason \
+                 (an exemption without a reason is a schema error)"
+            ),
+            "[{label}] the schema error must be stated: {}",
+            rs.out()
+        );
+        // THE POINT OF THIS CASE. A rejected exemption must not quietly
+        // exempt: module 2 stays in the required set, so its shortfall still
+        // reports and the module still appears in the per-module block.
+        assert!(
+            rs.out().contains("module 2: 0 items"),
+            "[{label}] the rejected exemption suppressed the shortfall: {}",
+            rs.out()
+        );
+        assert!(
+            rs.out().contains("    m02: 0 (min 1) [SHORT]"),
+            "[{label}] the module left the required set: {}",
+            rs.out()
+        );
+        assert!(
+            !rs.out().contains("recorded exemptions"),
+            "[{label}] a malformed row must not be recorded as an exemption: {}",
+            rs.out()
+        );
+    }
+
+    // The known-GOOD leg the schema check must not break: a row WITH a reason
+    // does exempt, is recorded in the report, and the run is GREEN.
+    let good = td.path().join("policy_good.toml");
+    write(
+        &good,
+        "[[coverage_exempt]]\nmodule = 2\nreason = \"assessed elsewhere, see bd-fixture\"\n",
+    );
+    let rs = assert_byte_identical(
+        "e exemption, recorded with a reason",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            good.to_str().unwrap(),
+        ],
+    );
+    assert_eq!(
+        rs.code,
+        0,
+        "a well-formed exemption must still be honoured: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("    m02: 0 — exempt: assessed elsewhere, see bd-fixture"),
+        "{}",
+        rs.out()
+    );
+
+    // …and an exemption may not ALSO carry a floor. Picking one is the rule.
+    let both = td.path().join("policy_both.toml");
+    write(
+        &both,
+        "[[domain_min]]\nmodule = 2\nmin_items = 3\n\
+         [[coverage_exempt]]\nmodule = 2\nreason = \"conflicting\"\n",
+    );
+    let rs = assert_byte_identical(
+        "e exemption conflicting with a floor",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            both.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out().contains(
+            "bank_policy.toml: module 2 is both coverage_exempt and has a \
+             [[domain_min]] floor — pick one"
+        ),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("module 2: 0 items"),
+        "the conflicted module must stay required: {}",
+        rs.out()
+    );
+
+    // An exemption naming a module the registry never declared is drift too.
+    let undeclared = td.path().join("policy_undeclared.toml");
+    write(
+        &undeclared,
+        "[[coverage_exempt]]\nmodule = 9\nreason = \"never declared\"\n",
+    );
+    let rs = assert_byte_identical(
+        "e exemption for an undeclared module",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            undeclared.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out()
+            .contains("bank_policy.toml: coverage_exempt module 9 is not in the domain registry"),
+        "{}",
+        rs.out()
+    );
+}
+
+// ── (f) cross-source drift ────────────────────────────────────────────────
+
+#[test]
+fn a_domain_min_row_for_an_undeclared_module_is_an_error() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(&[1, 2]));
+    let bank = td.path().join("bank");
+    plant_bank(&bank, &[("a", 1), ("b", 2)]);
+
+    let policy = td.path().join("policy_drift.toml");
+    write(&policy, "[[domain_min]]\nmodule = 9\nmin_items = 3\n");
+    let rs = assert_byte_identical(
+        "f domain_min for an undeclared module",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            policy.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(
+        rs.code,
+        0,
+        "two sources of truth disagreeing must never be a pass: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains(
+            "bank_policy.toml: [[domain_min]] module 9 is not a required \
+             module in the domain registry"
+        ),
+        "{}",
+        rs.out()
+    );
+
+    // The known-GOOD leg: a floor keyed to a DECLARED module raises the bar and
+    // is not itself a drift error.
+    let aligned = td.path().join("policy_aligned.toml");
+    write(&aligned, "[[domain_min]]\nmodule = 2\nmin_items = 4\n");
+    let rs = assert_byte_identical(
+        "f aligned domain_min raises the floor",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            aligned.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().contains("m02: 1 (min 4) [SHORT]"), "{}", rs.out());
+    assert!(
+        !rs.out().contains("is not a required module"),
+        "an aligned floor must not report as drift: {}",
+        rs.out()
+    );
+
+    // A malformed floor row is named rather than skipped.
+    let unusable = td.path().join("policy_unusable.toml");
+    write(&unusable, "[[domain_min]]\nmodule = 1\n");
+    let rs = assert_byte_identical(
+        "f unusable domain_min row",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            unusable.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out()
+            .contains("bank_policy.toml: unusable [[domain_min]] row {'module': 1}"),
+        "{}",
+        rs.out()
+    );
+}
+
+// ── (g) anti-vacuous: an empty input set is an ERROR, never a pass ────────
+
+#[test]
+fn empty_and_missing_input_sets_are_errors_in_both() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let bank = td.path().join("bank");
+    plant_bank(&bank, &[("a", 1)]);
+    let bank_arg = bank.to_str().unwrap().to_string();
+
+    // a registry that parses but declares nothing
+    let empty_reg = td.path().join("empty_domains.toml");
+    write(&empty_reg, "schema_version = 1\n");
+    let rs = assert_byte_identical(
+        "g registry declaring zero modules",
+        &root,
+        &[
+            "--domains",
+            empty_reg.to_str().unwrap(),
+            "--bank",
+            &bank_arg,
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out()
+            .contains("domain registry declares zero modules (vacuous coverage is ERROR)"),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("zero required modules after exemptions (vacuous coverage is ERROR)"),
+        "an emptied required set must be named too: {}",
+        rs.out()
+    );
+
+    // a registry that is not there at all — reported once, and NOT also as
+    // "declares zero modules", because that leg returns early
+    let missing_reg = td.path().join("no_such_domains.toml");
+    let rs = assert_byte_identical(
+        "g missing registry",
+        &root,
+        &[
+            "--domains",
+            missing_reg.to_str().unwrap(),
+            "--bank",
+            &bank_arg,
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out().contains("domain registry missing:"),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("declares zero modules"),
+        "the missing leg must not double-report: {}",
+        rs.out()
+    );
+
+    // a bank directory that is not there at all
+    let missing_bank = td.path().join("no_such_bank");
+    let rs = assert_byte_identical(
+        "g missing bank dir",
+        &root,
+        &["--bank", missing_bank.to_str().unwrap()],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().contains("bank dir missing:"), "{}", rs.out());
+    assert!(
+        rs.out().contains("empty bank: zero items loaded"),
+        "{}",
+        rs.out()
+    );
+
+    // every declared module exempted → zero required → ERROR, never a green
+    // report of a check that had nothing left to check
+    let reg = td.path().join("two.toml");
+    write(&reg, &domains_registry(&[1, 2]));
+    let all_exempt = td.path().join("policy_all_exempt.toml");
+    write(
+        &all_exempt,
+        "[[coverage_exempt]]\nmodule = 1\nreason = \"a\"\n\
+         [[coverage_exempt]]\nmodule = 2\nreason = \"b\"\n",
+    );
+    let rs = assert_byte_identical(
+        "g every module exempted",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--policy",
+            all_exempt.to_str().unwrap(),
+            "--bank",
+            &bank_arg,
+        ],
+    );
+    assert_ne!(
+        rs.code,
+        0,
+        "a required set emptied by exemptions must never be a pass: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("zero required modules after exemptions (vacuous coverage is ERROR)"),
+        "{}",
+        rs.out()
+    );
+
+    // an empty bank AND an empty registry at once — still an ERROR, still identical
+    let empty_bank = td.path().join("empty_bank");
+    std::fs::create_dir_all(&empty_bank).unwrap();
+    let rs = assert_byte_identical(
+        "g empty bank and empty registry",
+        &root,
+        &[
+            "--bank",
+            empty_bank.to_str().unwrap(),
+            "--domains",
+            empty_reg.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+}
+
+// ── (h) emission ORDER ────────────────────────────────────────────────────
+
+#[test]
+fn emission_order_is_reproduced_exactly() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+
+    // The registry declares its modules OUT of numeric order on purpose, and
+    // the bank carries two modules the registry never declared. Python dict
+    // order and Rust map order differ, so this pins the sort rather than luck.
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(&[3, 1, 22, 2]));
+    let bank = td.path().join("bank");
+    plant_bank(
+        &bank,
+        &[("a", 1), ("b", 3), ("c", 22), ("z9", 9), ("z7", 7)],
+    );
+    let policy = td.path().join("policy.toml");
+    write(
+        &policy,
+        "[[coverage_exempt]]\nmodule = 22\nreason = \"later\"\n\
+         [[coverage_exempt]]\nmodule = 3\nreason = \"earlier\"\n",
+    );
+
+    let rs = assert_byte_identical(
+        "h emission order",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            policy.to_str().unwrap(),
+        ],
+    );
+    let out = rs.out();
+    let at = |needle: &str| {
+        out.find(needle)
+            .unwrap_or_else(|| panic!("missing {needle:?} in:\n{out}"))
+    };
+
+    // header block, in the oracle's fixed order
+    let (bank_at, items_at) = (at("  bank="), at("  items="));
+    let (policy_at, registry_at) = (at("  policy="), at("  registry="));
+    let modules_at = at("  modules (");
+    assert!(
+        bank_at < items_at && items_at < policy_at && policy_at < registry_at,
+        "header order drifted:\n{out}"
+    );
+    assert!(registry_at < modules_at, "header order drifted:\n{out}");
+
+    // required modules ascending, then exemptions ascending, then extras ascending
+    let m01 = at("    m01: ");
+    let m02 = at("    m02: ");
+    let exempt_hdr = at("  recorded exemptions");
+    let e03 = at("    m03: 1 — exempt: earlier");
+    let e22 = at("    m22: 1 — exempt: later");
+    let extras_hdr = at("  undeclared modules present in the bank");
+    let x07 = at("    m07: 1 (not in the domain registry)");
+    let x09 = at("    m09: 1 (not in the domain registry)");
+    assert!(
+        modules_at < m01 && m01 < m02,
+        "required order drifted:\n{out}"
+    );
+    assert!(m02 < exempt_hdr, "block order drifted:\n{out}");
+    assert!(
+        exempt_hdr < e03 && e03 < e22,
+        "exemption order drifted:\n{out}"
+    );
+    assert!(e22 < extras_hdr, "block order drifted:\n{out}");
+    assert!(
+        extras_hdr < x07 && x07 < x09,
+        "extras order drifted:\n{out}"
+    );
+
+    // the failure list comes last, and its own order is
+    // registry → exemption → floor → bank → shortfalls
+    let reg2 = td.path().join("messy.toml");
+    write(
+        &reg2,
+        &format!(
+            "{}\n[[domain]]\nid = \"\"\norder = \"nope\"\n",
+            domains_registry(&[1, 2])
+        ),
+    );
+    let policy2 = td.path().join("messy_policy.toml");
+    write(
+        &policy2,
+        "[[coverage_exempt]]\nmodule = 2\nreason = \"\"\n\
+         [[domain_min]]\nmodule = 8\nmin_items = 2\n",
+    );
+    let bank2 = td.path().join("messy_bank");
+    plant_bank(&bank2, &[("ok", 1)]);
+    write(&bank2.join("zz-junk.toml"), "label = \"nothing useful\"\n");
+    write(
+        &bank2.join("zz-badmod.toml"),
+        "id = \"zz-badmod\"\nmodule = \"nope\"\n",
+    );
+
+    let rs = assert_byte_identical(
+        "h failure-list order",
+        &root,
+        &[
+            "--domains",
+            reg2.to_str().unwrap(),
+            "--bank",
+            bank2.to_str().unwrap(),
+            "--policy",
+            policy2.to_str().unwrap(),
+        ],
+    );
+    let out = rs.out();
+    let at = |needle: &str| {
+        out.find(needle)
+            .unwrap_or_else(|| panic!("missing {needle:?} in:\n{out}"))
+    };
+    let f_registry = at("    - domains.toml: {'id': '', 'order': 'nope'} has no usable order");
+    let f_exempt = at("    - bank_policy.toml: coverage_exempt module 2 has no reason");
+    let f_floor = at("    - bank_policy.toml: [[domain_min]] module 8 is not a required");
+    let f_load = at("    - zz-junk.toml: no id or items[]");
+    let f_badmod = at("    - zz-badmod: bad module 'nope'");
+    let f_short = at("    - module 2: 0 items < min 1");
+    assert!(
+        f_registry < f_exempt
+            && f_exempt < f_floor
+            && f_floor < f_load
+            && f_load < f_badmod
+            && f_badmod < f_short,
+        "failure-list order drifted:\n{out}"
+    );
+}
+
+#[test]
+fn the_failure_list_truncates_identically() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+
+    // Enough declared-but-unstocked modules to overrun the oracle's report
+    // slice, so the truncation footer is compared too.
+    let orders: Vec<i64> = (1..=60).collect();
+    let reg = td.path().join("many.toml");
+    write(&reg, &domains_registry(&orders));
+    let bank = td.path().join("bank");
+    plant_bank(&bank, &[("a", 1)]);
+    let no_policy = td.path().join("absent.toml");
+
+    let rs = assert_byte_identical(
+        "h truncation footer",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            no_policy.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out().contains(" more\n"),
+        "the truncation footer must be reached: {}",
+        rs.out()
+    );
+}
+
+// ── (i) --write-json, compared as bytes ───────────────────────────────────
+
+#[test]
+fn the_written_summary_is_byte_identical() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let target = td.path().join("out/coverage.json");
+    let target_arg = target.to_str().unwrap().to_string();
+
+    // Both sides write to the SAME path, so the `wrote <path>` line is directly
+    // comparable; the python bytes are copied aside before the rust run.
+    let py = python(&root, &["--write-json", &target_arg]);
+    let py_json = std::fs::read(&target).expect("the oracle wrote no summary");
+    assert!(!py_json.is_empty(), "an empty summary is a vacuous compare");
+    std::fs::remove_file(&target).unwrap();
+
+    let rs = rust(&root, &["--write-json", &target_arg]);
+    let rs_json = std::fs::read(&target).expect("the port wrote no summary");
+
+    assert_eq!(py.stdout, rs.stdout, "STDOUT differs:\n{}", py.out());
+    assert_eq!(py.stderr, rs.stderr, "STDERR differs:\n{}", py.err());
+    assert_eq!(py.code, rs.code, "EXIT CODE differs");
+    assert_eq!(
+        String::from_utf8_lossy(&py_json),
+        String::from_utf8_lossy(&rs_json),
+        "the written coverage summary differs"
+    );
+    COMPARED.fetch_add(1, Ordering::SeqCst);
+    assert!(
+        rs.out().contains("  wrote "),
+        "the write must be announced: {}",
+        rs.out()
+    );
+
+    // …and on a RED run, where the summary is still written and the `wrote`
+    // line still precedes the failure list.
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(&[1, 2]));
+    let bank = td.path().join("bank");
+    plant_bank(&bank, &[("a", 1)]);
+    let policy = td.path().join("policy.toml");
+    write(
+        &policy,
+        "[[domain_min]]\nmodule = 1\nmin_items = 9\n\
+         [[coverage_exempt]]\nmodule = 2\nreason = \"held out\"\n",
+    );
+    let red_target = td.path().join("out/red.json");
+    let red_arg = red_target.to_str().unwrap().to_string();
+    let args = [
+        "--domains",
+        reg.to_str().unwrap(),
+        "--bank",
+        bank.to_str().unwrap(),
+        "--policy",
+        policy.to_str().unwrap(),
+        "--write-json",
+        &red_arg,
+    ];
+    let py = python(&root, &args);
+    let py_json = std::fs::read(&red_target).expect("the oracle wrote no summary on the red path");
+    std::fs::remove_file(&red_target).unwrap();
+    let rs = rust(&root, &args);
+    let rs_json = std::fs::read(&red_target).expect("the port wrote no summary on the red path");
+
+    assert_eq!(py.stdout, rs.stdout, "STDOUT differs:\n{}", py.out());
+    assert_eq!(py.stderr, rs.stderr, "STDERR differs:\n{}", py.err());
+    assert_eq!(py.code, rs.code, "EXIT CODE differs");
+    assert_eq!(
+        String::from_utf8_lossy(&py_json),
+        String::from_utf8_lossy(&rs_json),
+        "the written summary differs on the red path"
+    );
+    COMPARED.fetch_add(1, Ordering::SeqCst);
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    let out = rs.out();
+    assert!(
+        out.find("  wrote ").unwrap() < out.find("  failures:").unwrap(),
+        "the summary must be announced before the failure list:\n{out}"
+    );
+    // the summary is a MACHINE ledger: the shortfall it records must be there
+    let text = String::from_utf8_lossy(&rs_json);
+    assert!(text.contains("\"shortfalls\""), "{text}");
+    assert!(text.contains("\"exemptions\""), "{text}");
+    assert!(
+        text.contains("\"status\": \"fail\""),
+        "the ledger must record the verdict: {text}"
+    );
+}
+
+// ── shapes the shell suite never reaches ──────────────────────────────────
+
+#[test]
+fn path_and_option_shapes_are_byte_identical() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+
+    // engine-root-relative arguments, including untidy spellings the printed
+    // header must normalise the same way on both sides
+    assert_byte_identical("relative bank", &root, &["--bank", "bank/items"]);
+    assert_byte_identical("untidy relative bank", &root, &["--bank", "./bank//items/"]);
+    assert_byte_identical(
+        "relative registry",
+        &root,
+        &["--domains", "knowledge/domains.toml"],
+    );
+    assert_byte_identical(
+        "relative policy",
+        &root,
+        &["--policy", "knowledge/bank_policy.toml"],
+    );
+
+    // `--opt=value` and argparse's unambiguous prefixes
+    assert_byte_identical("equals form", &root, &["--bank=bank/items"]);
+    assert_byte_identical("abbreviated option", &root, &["--ban", "bank/items"]);
+    assert_byte_identical("shortest prefix", &root, &["--d", "knowledge/domains.toml"]);
+
+    // a missing policy is NOT an error — it falls back to the OQ-05 floor, and
+    // both sides must say so in the header
+    let absent = td.path().join("absent_policy.toml");
+    let rs = assert_byte_identical(
+        "absent policy falls back to the OQ-05 floor",
+        &root,
+        &["--policy", absent.to_str().unwrap()],
+    );
+    assert!(
+        rs.out().contains("policy=absent (N=1 OQ-05)"),
+        "{}",
+        rs.out()
+    );
+
+    // all four options at once, absolute and relative mixed
+    let bank = td.path().join("bank");
+    plant_bank(&bank, &[("a", 1), ("b", 2)]);
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(&[1, 2]));
+    let json = td.path().join("summary.json");
+    assert_byte_identical(
+        "all options at once",
+        &root,
+        &[
+            "--bank",
+            bank.to_str().unwrap(),
+            "--domains",
+            reg.to_str().unwrap(),
+            "--policy",
+            "knowledge/bank_policy.toml",
+            "--write-json",
+            json.to_str().unwrap(),
+        ],
+    );
+}
+
+#[test]
+fn malformed_registry_rows_and_bank_files_are_byte_identical() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let bank = td.path().join("bank");
+    plant_bank(&bank, &[("a", 1)]);
+    let bank_arg = bank.to_str().unwrap().to_string();
+    let no_policy = td.path().join("absent.toml");
+    let no_policy_arg = no_policy.to_str().unwrap().to_string();
+
+    // a [[domain]] row whose order cannot be coerced
+    let bad_order = td.path().join("bad_order.toml");
+    write(
+        &bad_order,
+        "[[domain]]\nid = \"01-alpha\"\norder = \"x\"\n\n[[domain]]\nid = \"02-beta\"\norder = 2\n",
+    );
+    let rs = assert_byte_identical(
+        "domain row with no usable order",
+        &root,
+        &[
+            "--domains",
+            bad_order.to_str().unwrap(),
+            "--bank",
+            &bank_arg,
+            "--policy",
+            &no_policy_arg,
+        ],
+    );
+    assert!(
+        rs.out()
+            .contains("domains.toml: '01-alpha' has no usable order"),
+        "the id is printed through repr(), quotes and all: {}",
+        rs.out()
+    );
+
+    // two rows claiming one order
+    let dup = td.path().join("dup.toml");
+    write(
+        &dup,
+        "[[domain]]\nid = \"01-alpha\"\norder = 1\n\n[[domain]]\nid = \"01-again\"\norder = 1\n",
+    );
+    let rs = assert_byte_identical(
+        "duplicate order",
+        &root,
+        &[
+            "--domains",
+            dup.to_str().unwrap(),
+            "--bank",
+            &bank_arg,
+            "--policy",
+            &no_policy_arg,
+        ],
+    );
+    assert!(
+        rs.out()
+            .contains("domains.toml: duplicate order 1 (01-alpha and 01-again)"),
+        "{}",
+        rs.out()
+    );
+
+    // a [[domain]] key that is a list of scalars rather than a table array
+    let not_table = td.path().join("not_table.toml");
+    write(&not_table, "domain = [\"justastring\"]\n");
+    let rs = assert_byte_identical(
+        "domain row is not a table",
+        &root,
+        &[
+            "--domains",
+            not_table.to_str().unwrap(),
+            "--bank",
+            &bank_arg,
+            "--policy",
+            &no_policy_arg,
+        ],
+    );
+    assert!(
+        rs.out()
+            .contains("domains.toml: [[domain]] row is not a table: 'justastring'"),
+        "{}",
+        rs.out()
+    );
+
+    // bank files: junk, an uncoercible module, and a missing module key
+    let reg = td.path().join("two.toml");
+    write(&reg, &domains_registry(&[1, 2]));
+    let messy = td.path().join("messy_bank");
+    plant_bank(&messy, &[("good", 1), ("also", 2)]);
+    write(&messy.join("zz-junk.toml"), "label = \"nothing useful\"\n");
+    write(
+        &messy.join("zz-badmod.toml"),
+        "id = \"zz-badmod\"\nmodule = \"nope\"\n",
+    );
+    write(&messy.join("zz-nomod.toml"), "id = \"zz-nomod\"\n");
+    let rs = assert_byte_identical(
+        "malformed bank files",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            messy.to_str().unwrap(),
+            "--policy",
+            &no_policy_arg,
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    for needle in [
+        "zz-junk.toml: no id or items[]",
+        "zz-badmod: bad module 'nope'",
+        "zz-nomod: bad module None",
+    ] {
+        assert!(
+            rs.out().contains(needle),
+            "missing {needle:?}: {}",
+            rs.out()
+        );
+    }
+
+    // A behaviour reproduced ON PURPOSE rather than fixed: this oracle lets an
+    // `items = []` file contribute nothing and says nothing about it (unlike
+    // verify_orphans.py, which was given a file-granular anti-vacuous leg by
+    // bd-2kr). A port that "fixed" it here would stop being a port and would
+    // blind this differential. Recorded, not corrected.
+    let quiet = td.path().join("quiet_bank");
+    plant_bank(&quiet, &[("good", 1), ("also", 2)]);
+    write(&quiet.join("zz-silently-empty.toml"), "items = []\n");
+    let rs = assert_byte_identical(
+        "items[] yielding zero items stays quiet in both",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            quiet.to_str().unwrap(),
+            "--policy",
+            &no_policy_arg,
+        ],
+    );
+    assert_eq!(
+        rs.code,
+        0,
+        "the oracle passes here, so the port must too: {}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("zz-silently-empty"),
+        "the oracle names no such file; naming it would be an unreviewed fix: {}",
+        rs.out()
+    );
+
+    // the `items[]` table-array form, which IS the shape most of the live bank
+    // would use, must still be counted
+    let nested = td.path().join("nested_bank");
+    std::fs::create_dir_all(&nested).unwrap();
+    write(
+        &nested.join("multi.toml"),
+        "[[items]]\nid = \"n1\"\nmodule = 1\n\n[[items]]\nid = \"n2\"\nmodule = 2\n",
+    );
+    let rs = assert_byte_identical(
+        "items[] table array is counted",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            nested.to_str().unwrap(),
+            "--policy",
+            &no_policy_arg,
+        ],
+    );
+    assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().contains("items=2"), "{}", rs.out());
+}
+
+/// The oracle does not guard either of its `bank_policy.toml` loads, so a
+/// malformed policy raises: CPython flushes what it printed (nothing — the
+/// raise happens before the first `print`), writes a traceback, and exits 1.
+/// The port reproduces stdout and the exit code exactly; the traceback text is
+/// the single surface it does not reproduce, which is asserted here rather than
+/// left implicit.
+#[test]
+fn a_malformed_policy_raises_identically_except_for_the_traceback() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let bad = td.path().join("bad_policy.toml");
+    write(&bad, "this is not toml =\n");
+
+    let args = ["--policy", bad.to_str().unwrap()];
+    let py = python(&root, &args);
+    let rs = rust(&root, &args);
+
+    assert_eq!(
+        py.stdout,
+        rs.stdout,
+        "STDOUT must still match byte for byte on the raise path:\n--- python ---\n{}\n--- rust ---\n{}",
+        py.out(),
+        rs.out()
+    );
+    assert!(
+        py.stdout.is_empty(),
+        "the raise precedes the first print: {:?}",
+        py.out()
+    );
+    assert_eq!(py.code, rs.code, "EXIT CODE differs on the raise path");
+    assert_eq!(py.code, 1, "the oracle exits 1 on an uncaught exception");
+    assert!(
+        !py.stderr.is_empty() && !rs.stderr.is_empty(),
+        "both sides must say something on stderr: python {:?} rust {:?}",
+        py.err(),
+        rs.err()
+    );
+    COMPARED.fetch_add(1, Ordering::SeqCst);
+}
+
+/// A full copy of the live bank, checked against the live registry, is GREEN —
+/// the control that keeps every planted needle above provably attributable to
+/// the thing planted rather than to the copy.
+#[test]
+fn a_specimen_copy_of_the_live_bank_is_clean() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let bank = td.path().join("bank_items");
+    let copied = specimen_bank(&root, &bank);
+    let rs = assert_byte_identical(
+        "specimen bank clean",
+        &root,
+        &["--bank", bank.to_str().unwrap()],
+    );
+    assert_eq!(
+        rs.code,
+        0,
+        "specimen bank of {copied} files is not clean: {}",
+        rs.out()
+    );
+}
+
+// ── the harness must not be vacuously green ───────────────────────────────
+
+#[test]
+fn the_harness_compared_something() {
+    // Runs a case itself rather than reading a counter another test may or may
+    // not have incremented — test order and parallelism are not a contract, and
+    // "0 cases compared" must never report like "all passed".
+    let root = engine_root();
+    let before = COMPARED.load(Ordering::SeqCst);
+    assert_byte_identical("harness self-check", &root, &[]);
+    assert!(
+        COMPARED.load(Ordering::SeqCst) > before,
+        "the differential harness compared nothing"
+    );
+}

@@ -15,11 +15,14 @@
 //! the suite able to distinguish a port BUG from an intended FIX: any delta at
 //! all is a delta.
 //!
-//! There is exactly ONE input class with no byte-exact target, and it is not
-//! waved past — it is pinned by
-//! `recorded_divergence_ragged_row_crashes_the_oracle`, which asserts the
-//! oracle's crash text and the port's output separately, because the oracle
-//! prints `PASS` and then raises `TypeError`.
+//! EVERY input class now has a byte-exact target. The one that did not — a
+//! ragged milestone row, on which the oracle printed `PASS` and then raised
+//! `TypeError`, while the port completed the report and rendered `None` — was
+//! repaired in both implementations under bd-hw3. Its recorded-divergence pin
+//! was DELETED rather than amended (a pin exists to make a repair deliberate,
+//! not permanent) and replaced by the ordinary equality case
+//! `ragged_row_is_red_in_both`. If a future divergence is ever recorded here,
+//! it must assert both sides separately and say why no byte-exact target exists.
 //!
 //! # Anti-vacuous
 //!
@@ -729,31 +732,27 @@ fn repo_root_without_a_value_is_usage() {
     assert_eq!(out.status.code().unwrap_or(-1), USAGE);
 }
 
-// ═══════ 7. THE ONE RECORDED DIVERGENCE — a defect in the oracle ═══════════
+// ══ 7. THE REPAIRED DEFECT — was the one recorded divergence (bd-hw3) ═══════
 
-/// FINDING (not fixed by this port): the Python crashes on a ragged milestone
-/// row, and prints `PASS` before it does.
+/// A milestone row too short to reach its table's Status column is RED in both,
+/// byte for byte.
 ///
-/// `parse_doc` falls back to the heading's status when a data row has FEWER
-/// cells than the Status column index. If the heading is not itself a status
-/// word, that fallback is `None`, and the row is recorded with `status=None`
-/// and no error. `main` then reaches
-/// `",".join(sorted({r["status"] for r in rows}))` at line 385 and raises
-/// `TypeError: sequence item 0: expected str instance, NoneType found` — after
-/// it has already printed the word `PASS` and most of the summary to stdout.
+/// This case used to be the suite's single recorded divergence: `parse_doc` fell
+/// back to the heading's status for a short row, that fallback was `None` under a
+/// non-status heading, the row was recorded with `status=None` and NO error, and
+/// `main` then died in `",".join(sorted({r["status"] for r in rows}))` with
+/// `TypeError: sequence item 0: expected str instance, NoneType found` — AFTER
+/// printing `PASS` and most of the summary. The port meanwhile completed the
+/// report and rendered the missing status as the string `None`. The divergence
+/// was pinned rather than fixed because fixing it is a behaviour change.
 ///
-/// So on this input class the oracle emits a truncated report that SAYS PASS,
-/// writes a traceback to stderr, and exits 1. There is no byte-exact port of a
-/// traceback, and a port that "fixed" the crash would no longer be a port. This
-/// test therefore PINS the divergence instead of asserting equality: if anyone
-/// repairs the Python, this goes RED and forces the decision to be made
-/// deliberately rather than absorbed silently.
-///
-/// The open question for whoever retires the Python: `status=None` should
-/// almost certainly be fail-closed ("row is shorter than its Status column"),
-/// not a rendered `None`. That is a behaviour change, so it is not made here.
+/// bd-hw3 made that change deliberately in both implementations (see the gate's
+/// module header for the argument), so the pin is DELETED, not amended — it
+/// existed to force the repair to be a decision, and the decision has been made.
+/// What replaces it is an ordinary equality case, which is the point: the input
+/// class now has a byte-exact target like every other.
 #[test]
-fn recorded_divergence_ragged_row_crashes_the_oracle() {
+fn ragged_row_is_red_in_both() {
     let s = Spec::bare();
     let doc = "# Notes on the waves\n\n\
                | ID | Milestone | Status |\n\
@@ -764,39 +763,69 @@ fn recorded_divergence_ragged_row_crashes_the_oracle() {
     s.write("README.md", doc);
     s.write("course-engine/docs/PHASE-NEXT.md", doc);
 
-    let py = run_python(Some(s.path()));
-    let rs = run_rust(Some(s.path()));
-    let py_out = String::from_utf8_lossy(&py.stdout).into_owned();
-    let py_err = String::from_utf8_lossy(&py.stderr).into_owned();
-    let rs_out = String::from_utf8_lossy(&rs.stdout).into_owned();
+    let out = assert_byte_exact("ragged-row", Some(s.path()));
 
-    // The oracle: says PASS, then dies.
-    assert_eq!(py.code, 1, "oracle no longer exits 1 here: {py_err}");
-    assert!(py_out.starts_with("PASS\n"), "{py_out}");
+    // The verdict is FAIL, and it is on line one — never a PASS that a later
+    // path retracts.
+    assert!(out.starts_with("FAIL\n"), "{out}");
+    assert!(!out.contains("roadmap GREEN"), "{out}");
+
+    // The finding names the file, the line, and the row itself.
     assert!(
-        py_err.contains("TypeError: sequence item 0: expected str instance, NoneType found"),
-        "the oracle defect changed shape — re-derive this finding: {py_err}"
-    );
-    assert!(
-        !py_out.contains("roadmap GREEN"),
-        "the oracle died before its receipt: {py_out}"
+        out.contains(
+            "    - CHARTER.md:6: row is shorter than its Status column \
+             (has 2 cell(s), Status is column 3): '| M2 | ragged row |'\n"
+        ),
+        "{out}"
     );
 
-    // The port: completes the report, renders the missing status as `None`.
-    assert_eq!(rs.code, OK, "{rs_out}");
+    // `None` is never rendered as a status, and the unread row is not counted
+    // among the rows the gate claims to have read.
     assert!(
-        rs.stderr.is_empty(),
-        "{}",
-        String::from_utf8_lossy(&rs.stderr)
+        !out.contains("None"),
+        "a status was rendered as None: {out}"
     );
-    assert!(rs_out.contains("    M2: None (3 row(s))"), "{rs_out}");
-    assert!(rs_out.contains("roadmap GREEN"), "{rs_out}");
+    assert!(out.contains("  milestone_rows=3\n"), "{out}");
+    assert!(out.contains("    M1: DONE (3 row(s))\n"), "{out}");
+    assert!(!out.contains("    M2:"), "{out}");
+}
 
-    // Everything the oracle DID manage to print is byte-identical.
+/// The same shortfall under a status-BEARING heading. The table still declares a
+/// Status column, so the row still owes one; borrowing the heading's status would
+/// be a guess, and a guess is what fail-closed forbids. This is the leg that
+/// would silently survive if the fix had only special-cased a `None` heading.
+#[test]
+fn ragged_row_under_a_status_heading_is_also_red_in_both() {
+    let s = Spec::clean();
+    s.append("CHARTER.md", "| M10 | ragged under a DONE heading |\n");
+    let out = assert_byte_exact("ragged-row-status-heading", Some(s.path()));
     assert!(
-        rs_out.starts_with(&py_out),
-        "the port diverges before the oracle's crash point\n--- python ---\n{py_out}\n--- rust ---\n{rs_out}"
+        out.contains("row is shorter than its Status column"),
+        "{out}"
     );
+    assert!(
+        !out.contains("    M10:"),
+        "the unread row was counted: {out}"
+    );
+}
+
+/// KNOWN-GOOD, and the reason the fix is a scalpel rather than a hammer: a
+/// milestone table with NO Status column at all, under a status-bearing heading,
+/// is untouched. Every row there is legitimately "short" — there is no Status
+/// column to fall short of — and the heading declares the status for the table.
+/// An over-strict gate gets routed around, which is a slower death than no gate.
+#[test]
+fn short_rows_in_a_table_without_a_status_column_stay_green() {
+    let s = Spec::clean();
+    // PHASE-NEXT's `| Wave | Outcome |` table has two columns and no Status.
+    s.append(
+        "course-engine/docs/PHASE-NEXT.md",
+        "| **M12** | one cell short |\n",
+    );
+    let out = assert_byte_exact("no-status-column-short-rows", Some(s.path()));
+    assert!(out.starts_with("PASS\n"), "{out}");
+    assert!(out.contains("roadmap GREEN"), "{out}");
+    assert!(out.contains("    M12: DONE (1 row(s))"), "{out}");
 }
 
 // ══════════════════ 8. L4: the comparator, proven to trip ══════════════════
