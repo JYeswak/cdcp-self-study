@@ -15,7 +15,10 @@ This is the gate that makes that claim true. It is bidirectional:
 
 Anti-vacuous discipline (L4): an empty input set is an ERROR, not a pass.
 Zero topics, zero items, or a missing directory all exit non-zero. A registry
-that was never scanned must never report like one that passed.
+that was never scanned must never report like one that passed. That rule holds
+at FILE granularity too: a single bank file that yields zero items is named and
+is RED, because the aggregate count would otherwise stay healthy on the strength
+of the files around it (bd-2kr).
 
 Exit 0 only when both directions are clean over a non-empty input set.
 
@@ -83,9 +86,22 @@ def load_items(bank_dir: Path) -> tuple[list[tuple[str, dict]], list[str]]:
             errors.append(f"{path.name}: parse error: {e}")
             continue
         if "items" in data and isinstance(data["items"], list):
+            before = len(loaded)
             for it in data["items"]:
                 if isinstance(it, dict):
                     loaded.append((path.name, it))
+            if len(loaded) == before:
+                # Anti-vacuous at FILE granularity. `items = []` — or an items[]
+                # holding nothing this loop can read as an item — takes the list
+                # branch, adds nothing, and never reaches the `no id or items[]`
+                # leg below, because `elif` cannot run once `if` has. Without
+                # this line a file that was never really checked reports exactly
+                # like one that passed, and the aggregate item count stays
+                # healthy because the other files carry it.
+                errors.append(
+                    f"{path.name}: items[] yielded zero items "
+                    "(vacuous file scan is ERROR)"
+                )
         elif "id" in data:
             loaded.append((path.name, data))
         else:

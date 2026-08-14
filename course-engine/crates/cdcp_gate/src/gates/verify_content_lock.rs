@@ -3,39 +3,53 @@
 //!
 //! # CLAIM: FLOOR-RAISE
 //!
-//! This gate raises one floor: **the content pinned in `content.lock` is still
-//! the content on disk.** Concretely it goes RED when any of these is true —
+//! This gate raises one floor: **the content under the locked roots is exactly
+//! the content `content.lock` pins, in both directions.** Concretely it goes RED
+//! when any of these is true —
 //!
 //!   1. `content.lock` is absent (nothing is pinned at all);
 //!   2. `schema_version` is not `1` (the pin was written by a shape this reader
 //!      does not understand);
 //!   3. `bank_hash` is absent or empty;
-//!   4. the live bank digest differs from the pinned `bank_hash`;
+//!   4. the live bank digest differs from the pinned `bank_hash`, cannot be
+//!      obtained, or the bank-hash subprocess exits 0 saying nothing / hangs
+//!      past its budget (bd-hw3 — those two used to escape as a traceback);
 //!   5. `[knowledge]` or `[modules]` is empty — a lock that pins nothing must
 //!      not report like a lock whose pins all held (L4 anti-vacuous);
 //!   6. a pinned path no longer resolves to a file;
-//!   7. a pinned path's sha256 differs from the recorded digest.
+//!   7. a pinned path's sha256 differs from the recorded digest;
+//!   8. a file exists under a locked root and NO row pins it. This is the
+//!      tree-side walk (bd-z3v). Without it the gate's coverage was defined by
+//!      the artifact the gate is checking, so deleting a row deleted the check
+//!      and the removal was indistinguishable from a pass;
+//!   9. a locked root is missing, or matches zero files — a root that checked
+//!      nothing must not report like a root whose every file matched.
+//!
+//! The locked roots are `knowledge/*.toml`, `web/content/modules/*.md`, and
+//! `../modules/*.md`: exactly the roots `scripts/gen_content_lock.py` writes
+//! rows from. They are named on stdout on the GREEN path with their file counts,
+//! so a reader of a green verdict is told what the verdict does not mean.
 //!
 //! # WHAT THIS GATE CANNOT DECIDE
 //!
-//! It is a *closed-world* check over the rows the lock already contains, so it
-//! says nothing about files the lock never mentioned. **A new knowledge or
-//! module file added to the tree and never added to `content.lock` passes this
-//! gate silently** — there is no tree-side enumeration anywhere in the oracle,
-//! and this port does not add one (adding it would be a behaviour change, not a
-//! port). It cannot decide that a pinned digest is the *right* digest: a lock
-//! regenerated over corrupted content is internally consistent and reports
-//! green. It cannot decide that the content is correct, current, accurate, or
-//! well written — only that it is byte-for-byte what someone pinned. It cannot
-//! decide anything about a file whose row was deleted from the lock, because a
-//! deleted row simply stops being checked. And when it falls back to
+//! It says nothing about any path outside those three globs. `bank/items` is
+//! covered only transitively through `bank_hash`; the `knowledge/`
+//! subdirectories (`corpus`, `citations`, `graph`, `schema`), non-`.md` files
+//! under the module roots, `scripts/`, `registries/`, and the rest of `web/` are
+//! not walked at all. It cannot decide that a pinned digest is the *right*
+//! digest: a lock regenerated over corrupted content is internally consistent
+//! and reports green. It cannot decide that the content is correct, current,
+//! accurate, or well written — only that it is byte-for-byte what someone
+//! pinned. It does not look inside subdirectories of a locked root, so it cannot
+//! see a file smuggled one level down. And when it falls back to
 //! `goldens/bank_hash.txt` for the live bank digest (see `live_bank_hash`) it is
 //! comparing a pin against another pin, which is weaker than comparing a pin
 //! against a freshly computed digest — that fallback is inherited from the
 //! oracle, not introduced here.
 //!
-//! The floor moves from *silence* to *every row that exists in the lock still
-//! resolves and still matches*. That is the whole claim.
+//! The floor moves from *every row that exists in the lock still matches* to
+//! *the set of pinned rows and the set of files under the locked roots are the
+//! same set, and every digest in it holds*. That is the whole claim.
 //!
 //! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
 //!
@@ -73,19 +87,24 @@
 //!   * `content.lock` is not valid TOML (`tomllib.TOMLDecodeError`);
 //!   * `content.lock` or `goldens/bank_hash.txt` is not valid UTF-8
 //!     (`UnicodeDecodeError`);
-//!   * a pinned file exists but cannot be read (`PermissionError`);
-//!   * the bank-hash subprocess exits 0 with output that strips to the empty
-//!     string — the oracle then does `[][-1]` and raises `IndexError`. This port
-//!     treats that as "candidate produced no hash" and moves to the next
-//!     candidate, which is the verdict a non-crashing oracle would reach;
-//!   * the bank-hash subprocess exceeds the oracle's `timeout=300`
-//!     (`subprocess.TimeoutExpired`). This port imposes no timeout.
+//!   * a pinned file exists but cannot be read (`PermissionError`).
 //!
-//! Two more, narrower, gaps: `repr()` of a float is emulated without CPython's
-//! exponent thresholds (`1e17` prints as `100000000000000000` here), and
+//! Two of the former entries on that list are gone as of bd-hw3: an empty
+//! bank-hash output and a bank-hash timeout are now typed errors on BOTH sides
+//! (`bank-hash exited 0 with no output …`, `bank-hash timed out …`), so the two
+//! implementations agree byte for byte on them instead of one crashing.
+//!
+//! Three narrower gaps remain: `repr()` of a float is emulated without CPython's
+//! exponent thresholds (`1e17` prints as `100000000000000000` here);
 //! `repr()`/`str()` of a TOML datetime prints its TOML spelling rather than
-//! `datetime.date(...)`. Both are reachable only from a hand-edited
-//! `schema_version` or a hand-edited digest value.
+//! `datetime.date(...)`; and `CDCP_BANK_HASH_TIMEOUT_S` is parsed with Rust's
+//! `f64::from_str` rather than CPython's `float()`, which differ on exotic
+//! spellings (`1_000`) and on a non-UTF-8 environment value. The first two are
+//! reachable only from a hand-edited `schema_version` or digest; the third only
+//! from a deliberately malformed env var. A locked-root filename that is not
+//! valid UTF-8 is RED on both sides but renders differently (CPython
+//! surrogateescape vs U+FFFD), which is a divergence in the *text* of a RED, not
+//! in the verdict.
 //!
 //! Finally, the dispatcher rejects unknown arguments with USAGE (exit 3) while
 //! the oracle ignores `sys.argv` entirely. `check.sh` passes no arguments, so
@@ -93,10 +112,12 @@
 //! not read as a pass wins here.
 
 use crate::registry::{GateCtx, GateError};
+use std::collections::BTreeSet;
 use std::fs;
 use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
+use std::time::{Duration, Instant};
 use toml::Value;
 
 pub const NAME: &str = "verify-content-lock";
@@ -113,6 +134,53 @@ pub const BANK_ARG: &str = "bank/items";
 const ELLIPSIS: char = '\u{2026}';
 /// Env switch for the oracle's optional mutate-selftest.
 pub const SELFTEST_ENV: &str = "CDCP_CONTENT_LOCK_SELFTEST";
+/// The bank-hash subprocess budget, in seconds. Mirrors the oracle's `timeout=`.
+pub const BANK_HASH_TIMEOUT_S: f64 = 300.0;
+/// Env var that may SHORTEN that budget. It cannot turn a RED into a pass; an
+/// unparseable or non-positive value is an error, never a silent default.
+pub const TIMEOUT_ENV: &str = "CDCP_BANK_HASH_TIMEOUT_S";
+
+/// One root the tree-side walk enumerates.
+pub struct LockedRoot {
+    /// Which lock section a file found here must be pinned in.
+    pub section: &'static str,
+    /// How the root is spelled in the receipt and in RED messages.
+    pub label: &'static str,
+    /// `true` = under the engine root; `false` = under the engine root's parent.
+    pub under_engine: bool,
+    /// Slash-separated directory, relative to whichever base `under_engine` picks.
+    pub rel_dir: &'static str,
+    /// Filename suffix the glob `*<suffix>` accepts.
+    pub suffix: &'static str,
+}
+
+/// EXACTLY the roots `scripts/gen_content_lock.py` enumerates when it writes the
+/// lock. Keeping the two lists identical is what makes "present in the tree but
+/// absent from the lock" decidable rather than an opinion: a freshly regenerated
+/// lock is green here by construction, so any divergence is a real unpinned file.
+pub const LOCKED_ROOTS: [LockedRoot; 3] = [
+    LockedRoot {
+        section: "knowledge",
+        label: "knowledge/*.toml",
+        under_engine: true,
+        rel_dir: "knowledge",
+        suffix: ".toml",
+    },
+    LockedRoot {
+        section: "modules",
+        label: "web/content/modules/*.md",
+        under_engine: true,
+        rel_dir: "web/content/modules",
+        suffix: ".md",
+    },
+    LockedRoot {
+        section: "modules",
+        label: "../modules/*.md",
+        under_engine: false,
+        rel_dir: "modules",
+        suffix: ".md",
+    },
+];
 
 /// Everything one invocation writes plus the status it leaves with.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -197,10 +265,25 @@ pub fn evaluate(root: &Path) -> Outcome {
         _ => String::new(),
     };
     let bh = py_slice(&bh_full, 12);
+    let counts: Vec<String> = root_counts(root)
+        .into_iter()
+        .map(|(label, n)| format!("{label}={n}"))
+        .collect();
+    let mut stdout =
+        format!("verify_content_lock: PASS bank_hash={bh}{ELLIPSIS} knowledge={nk} modules={nm}\n");
+    // A green verdict must say what it ranges over, or the reader supplies their
+    // own optimistic scope. These are the roots that were walked file by file.
+    stdout.push_str(&format!(
+        "verify_content_lock: covered roots (every file found under these is pinned and matched): {}\n",
+        counts.join(" ")
+    ));
+    stdout.push_str(
+        "verify_content_lock: NOT covered: anything outside those roots \u{2014} bank/items only \
+         through bank_hash, the knowledge/ subdirectories (corpus, citations, graph, schema), \
+         non-.md files under the module roots, scripts/, registries/, and the rest of web/\n",
+    );
     Outcome {
-        stdout: format!(
-            "verify_content_lock: PASS bank_hash={bh}{ELLIPSIS} knowledge={nk} modules={nm}\n"
-        ),
+        stdout,
         stderr: String::new(),
         code: 0,
     }
@@ -271,6 +354,12 @@ pub fn verify(root: &Path, lock_path: &Path) -> Verdict {
         errors.push("content.lock [modules] empty (vacuous ERROR)".to_string());
     }
 
+    // The rows each section pins, for the tree-side walk below. A section that
+    // is absent, empty, or not a table pins NOTHING, which is what makes every
+    // file under its root unpinned — the fail-closed direction.
+    let mut pinned_knowledge: BTreeSet<String> = BTreeSet::new();
+    let mut pinned_modules: BTreeSet<String> = BTreeSet::new();
+
     for (section, mapping) in [("knowledge", knowledge), ("modules", modules)] {
         let Some(value) = mapping else {
             // The substituted `{}` IS a dict; the oracle iterates it and finds
@@ -281,6 +370,12 @@ pub fn verify(root: &Path, lock_path: &Path) -> Verdict {
             errors.push(format!("[{section}] must be a table of path = hash"));
             continue;
         };
+        let sink = if section == "knowledge" {
+            &mut pinned_knowledge
+        } else {
+            &mut pinned_modules
+        };
+        sink.extend(table.keys().cloned());
         // `sorted(mapping.items())`: Python orders str keys by code point, which
         // for UTF-8 is byte order, which is Rust's `String: Ord`.
         let mut keys: Vec<&String> = table.keys().collect();
@@ -309,7 +404,123 @@ pub fn verify(root: &Path, lock_path: &Path) -> Verdict {
         }
     }
 
+    errors.extend(tree_side_errors(root, &pinned_knowledge, &pinned_modules));
+
     Verdict::Errors(errors)
+}
+
+// ── the tree-side walk (bd-z3v) ────────────────────────────────────────────
+
+/// Absolute directory for a locked root.
+fn root_dir(root: &Path, r: &LockedRoot) -> PathBuf {
+    let mut p = if r.under_engine {
+        root.to_path_buf()
+    } else {
+        root.parent().unwrap_or(root).to_path_buf()
+    };
+    for seg in r.rel_dir.split('/') {
+        p.push(seg);
+    }
+    p
+}
+
+/// The spelling a `content.lock` row would use for a discovered file. Inverse of
+/// [`resolve_pinned`]: engine-relative when the file is under the engine root,
+/// else parent-relative, else absolute — and an absolute key matches no row, so
+/// a symlink pointing out of the tree goes RED rather than quietly passing.
+fn lock_key(root: &Path, path: &Path) -> String {
+    let p = path.canonicalize().unwrap_or_else(|_| path.to_path_buf());
+    let engine = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
+    if let Ok(rel) = p.strip_prefix(&engine) {
+        return rel.to_string_lossy().into_owned();
+    }
+    let parent = engine.parent().unwrap_or(engine.as_path());
+    if let Ok(rel) = p.strip_prefix(parent) {
+        return rel.to_string_lossy().into_owned();
+    }
+    p.to_string_lossy().into_owned()
+}
+
+/// Files matching `*<suffix>` DIRECTLY under `dir` — the oracle uses
+/// `Path.glob`, which does not recurse and does not skip dotfiles. `is_file()`
+/// follows symlinks on both sides, so a symlink to a regular file is walked.
+fn discover(dir: &Path, suffix: &str) -> Vec<PathBuf> {
+    let Ok(rd) = fs::read_dir(dir) else {
+        return Vec::new();
+    };
+    let mut out: Vec<PathBuf> = Vec::new();
+    for e in rd.flatten() {
+        let p = e.path();
+        let Some(name) = p.file_name() else {
+            continue;
+        };
+        // Lossy on purpose: an undecodable name still has to be REPORTED, not
+        // skipped. Skipping it would be the same vacuity this walk exists to end.
+        if !name.to_string_lossy().ends_with(suffix) {
+            continue;
+        }
+        if !p.is_file() {
+            continue;
+        }
+        out.push(p);
+    }
+    out
+}
+
+/// `(label, file count)` per locked root, for the GREEN receipt.
+fn root_counts(root: &Path) -> Vec<(&'static str, usize)> {
+    LOCKED_ROOTS
+        .iter()
+        .map(|r| (r.label, discover(&root_dir(root, r), r.suffix).len()))
+        .collect()
+}
+
+/// The walk the lock cannot narrow: every file under a locked root must be
+/// pinned by a row, and a root that matched nothing is an ERROR rather than a
+/// quiet pass.
+fn tree_side_errors(
+    root: &Path,
+    pinned_knowledge: &BTreeSet<String>,
+    pinned_modules: &BTreeSet<String>,
+) -> Vec<String> {
+    let mut errors: Vec<String> = Vec::new();
+    for r in LOCKED_ROOTS.iter() {
+        let dir = root_dir(root, r);
+        let section = r.section;
+        let label = r.label;
+        if !dir.is_dir() {
+            errors.push(format!(
+                "[{section}] locked root is not a directory: {label} \
+                 (nothing was checked there \u{2014} vacuous ERROR)"
+            ));
+            continue;
+        }
+        let mut found: Vec<String> = discover(&dir, r.suffix)
+            .iter()
+            .map(|p| lock_key(root, p))
+            .collect();
+        found.sort();
+        if found.is_empty() {
+            errors.push(format!(
+                "[{section}] locked root matched zero files: {label} \
+                 (nothing was checked there \u{2014} vacuous ERROR)"
+            ));
+            continue;
+        }
+        let pinned = if section == "knowledge" {
+            pinned_knowledge
+        } else {
+            pinned_modules
+        };
+        for key in found {
+            if !pinned.contains(&key) {
+                errors.push(format!(
+                    "[{section}] in the tree but not pinned in content.lock: {key}"
+                ));
+            }
+        }
+    }
+    errors
 }
 
 /// Port of `resolve_pinned`: engine root first, then the parent corpus.
@@ -329,6 +540,32 @@ pub fn resolve_pinned(root: &Path, rel: &str) -> PathBuf {
 
 // ── live bank hash ─────────────────────────────────────────────────────────
 
+/// Seconds this gate will wait on the bank-hash subprocess. Fail closed on
+/// garbage: an env value that does not parse to a positive number is an error,
+/// not a silent fall back to the default.
+pub fn bank_hash_timeout() -> Result<f64, String> {
+    let raw = std::env::var(TIMEOUT_ENV).unwrap_or_default();
+    if raw.is_empty() {
+        return Ok(BANK_HASH_TIMEOUT_S);
+    }
+    match raw.parse::<f64>() {
+        Ok(v) if v > 0.0 => Ok(v),
+        _ => Err(format!(
+            "invalid {TIMEOUT_ENV} (want a positive number of seconds)"
+        )),
+    }
+}
+
+/// `Duration::from_secs_f64` panics on a non-finite or overflowing value, and
+/// `inf` is a legal budget on the oracle's side, so clamp instead of panicking.
+fn budget(secs: f64) -> Duration {
+    if !secs.is_finite() || secs > 1e9 {
+        Duration::from_secs(1_000_000_000)
+    } else {
+        Duration::from_secs_f64(secs)
+    }
+}
+
 /// Port of `live_bank_hash()`.
 ///
 /// Candidate order is the oracle's: the prebuilt `target/debug/cdcp` when it is
@@ -338,9 +575,15 @@ pub fn resolve_pinned(root: &Path, rel: &str) -> PathBuf {
 /// is read verbatim (the oracle does not hex-validate that fallback, and
 /// neither does this).
 ///
+/// Two candidate outcomes are NOT skipped, because a broken hash oracle must not
+/// be able to read as a pass (bd-hw3): a candidate that exits 0 having written
+/// nothing, and a candidate that outlives its budget. Both end the whole lookup
+/// with an error.
+///
 /// On error the string returned is the oracle's `RuntimeError` message, because
 /// the caller appends `str(e)` to the error list.
 pub fn live_bank_hash(root: &Path) -> Result<String, String> {
+    let timeout = bank_hash_timeout()?;
     let mut candidates: Vec<Vec<String>> = Vec::new();
     let bin_path = root.join("target").join("debug").join("cdcp");
     if bin_path.is_file() {
@@ -370,11 +613,17 @@ pub fn live_bank_hash(root: &Path) -> Result<String, String> {
     );
 
     for cmd in &candidates {
-        let Some(raw) = capture_merged(cmd, root) else {
-            continue;
+        let raw = match capture_merged(cmd, root, timeout) {
+            Capture::TimedOut => {
+                return Err("bank-hash timed out (cannot obtain live bank_hash)".to_string())
+            }
+            Capture::Skip => continue,
+            Capture::Output(d) => d,
         };
         let Some(hx) = last_stripped_line(&raw) else {
-            continue;
+            return Err(
+                "bank-hash exited 0 with no output (cannot obtain live bank_hash)".to_string(),
+            );
         };
         // `len(hx) == 64 and all(c in "0123456789abcdef" for c in hx)`
         if hx.chars().count() == 64 && hx.chars().all(|c| matches!(c, '0'..='9' | 'a'..='f')) {
@@ -439,39 +688,78 @@ fn create_exclusive(stem: &str, ext: &str) -> Option<(fs::File, std::path::PathB
     None
 }
 
+/// What one candidate invocation produced.
+enum Capture {
+    /// Exited 0. The merged stdout+stderr bytes.
+    Output(Vec<u8>),
+    /// Spawn failure or non-zero exit — the oracle catches both and tries the
+    /// next candidate.
+    Skip,
+    /// Outlived its budget. Not skippable: see `live_bank_hash`.
+    TimedOut,
+}
+
 /// Run `cmd` with stdout and stderr pointed at ONE file description, which is
 /// how `subprocess.check_output(..., stderr=subprocess.STDOUT)` merges the two
-/// streams. `None` means the oracle would have caught the exception and moved
-/// on (spawn failure, or a non-zero exit, which raises `CalledProcessError`).
-fn capture_merged(cmd: &[String], cwd: &Path) -> Option<Vec<u8>> {
+/// streams, and give up after `timeout_s` the way `timeout=` does.
+fn capture_merged(cmd: &[String], cwd: &Path, timeout_s: f64) -> Capture {
     // The shared file description is deliberate — it is what reproduces Python's
     // stream INTERLEAVING. Capturing the two streams separately and concatenating
     // would diverge byte-for-byte whenever both write, which is exactly what the
     // differential test exists to catch. So the temp file stays; it is created
     // safely instead (see `create_exclusive`).
-    let (file, sink) = create_exclusive("cdcp_gate_verify_content_lock", "out")?;
-    let dup = file.try_clone().ok()?;
-    let status = Command::new(&cmd[0])
+    let Some((file, sink)) = create_exclusive("cdcp_gate_verify_content_lock", "out") else {
+        return Capture::Skip;
+    };
+    let Ok(dup) = file.try_clone() else {
+        let _ = fs::remove_file(&sink);
+        return Capture::Skip;
+    };
+    let spawned = Command::new(&cmd[0])
         .args(&cmd[1..])
         .current_dir(cwd)
         .stdin(Stdio::inherit())
         .stdout(Stdio::from(file))
         .stderr(Stdio::from(dup))
-        .status();
+        .spawn();
+    let mut child = match spawned {
+        Ok(c) => c,
+        Err(_) => {
+            let _ = fs::remove_file(&sink);
+            return Capture::Skip;
+        }
+    };
+
+    let deadline = Instant::now() + budget(timeout_s);
+    let status = loop {
+        match child.try_wait() {
+            Ok(Some(st)) => break Some(st),
+            Ok(None) => {}
+            Err(_) => break None,
+        }
+        if Instant::now() >= deadline {
+            // `subprocess` kills the child before raising TimeoutExpired; leaving
+            // it running would leak a process per invocation.
+            let _ = child.kill();
+            let _ = child.wait();
+            let _ = fs::remove_file(&sink);
+            return Capture::TimedOut;
+        }
+        std::thread::sleep(Duration::from_millis(5));
+    };
 
     let data = fs::read(&sink).unwrap_or_default();
     let _ = fs::remove_file(&sink);
 
     match status {
-        Ok(s) if s.success() => Some(data),
-        // Non-zero exit -> CalledProcessError; spawn failure -> OSError. The
-        // oracle catches both and tries the next candidate.
-        _ => None,
+        Some(s) if s.success() => Capture::Output(data),
+        _ => Capture::Skip,
     }
 }
 
 /// `out.strip().splitlines()[-1].strip()` with `text=True` universal newlines.
-/// `None` stands for the oracle's uncaught `IndexError` on empty output.
+/// `None` stands for empty output, which is a typed error at the call site
+/// rather than the oracle's former `IndexError`.
 fn last_stripped_line(raw: &[u8]) -> Option<String> {
     let decoded = String::from_utf8_lossy(raw);
     let unified = decoded.replace("\r\n", "\n").replace('\r', "\n");
@@ -1229,6 +1517,22 @@ mod tests {
             out.stdout
         );
         assert!(out.stdout.contains('\u{2026}'), "{}", out.stdout);
+        // A green verdict that does not say what it ranges over invites the
+        // reader to supply their own scope. Pin the coverage receipt.
+        assert!(
+            out.stdout.contains(
+                "verify_content_lock: covered roots (every file found under these is pinned \
+                 and matched): knowledge/*.toml=9 web/content/modules/*.md=16 ../modules/*.md=15\n"
+            ),
+            "{}",
+            out.stdout
+        );
+        assert!(
+            out.stdout
+                .contains("verify_content_lock: NOT covered: anything outside those roots"),
+            "{}",
+            out.stdout
+        );
     }
 
     #[test]
@@ -1267,6 +1571,178 @@ mod tests {
                 out.stderr
             );
         }
+    }
+
+    // ── the tree-side walk (bd-z3v) ───────────────────────────────────────
+
+    /// Build `<tmp>/engine` with all three locked roots populated, plus the
+    /// matching pinned key sets. Returns (tempdir, engine root, keys).
+    fn walkable_root() -> (
+        tempfile::TempDir,
+        PathBuf,
+        BTreeSet<String>,
+        BTreeSet<String>,
+    ) {
+        let td = tempfile::tempdir().unwrap();
+        let base = td.path().canonicalize().unwrap();
+        let engine = base.join("engine");
+        fs::create_dir_all(engine.join("knowledge")).unwrap();
+        fs::create_dir_all(engine.join("web/content/modules")).unwrap();
+        fs::create_dir_all(base.join("modules")).unwrap();
+        fs::write(engine.join("knowledge/a.toml"), "x = 1\n").unwrap();
+        fs::write(engine.join("web/content/modules/01.md"), "# a\n").unwrap();
+        fs::write(base.join("modules/01.md"), "# b\n").unwrap();
+        // Files the roots must NOT pick up: wrong suffix, and one level down.
+        fs::write(engine.join("knowledge/notes.txt"), "ignored\n").unwrap();
+        fs::create_dir_all(engine.join("knowledge/corpus")).unwrap();
+        fs::write(engine.join("knowledge/corpus/deep.toml"), "y = 1\n").unwrap();
+
+        let k: BTreeSet<String> = ["knowledge/a.toml".to_string()].into();
+        let m: BTreeSet<String> = [
+            "web/content/modules/01.md".to_string(),
+            "modules/01.md".to_string(),
+        ]
+        .into();
+        (td, engine, k, m)
+    }
+
+    #[test]
+    fn a_fully_pinned_tree_produces_no_tree_side_errors() {
+        let (_td, engine, k, m) = walkable_root();
+        assert!(
+            tree_side_errors(&engine, &k, &m).is_empty(),
+            "{:?}",
+            tree_side_errors(&engine, &k, &m)
+        );
+    }
+
+    #[test]
+    fn a_file_with_no_row_behind_it_is_named() {
+        let (_td, engine, k, m) = walkable_root();
+        fs::write(engine.join("knowledge/smuggled.toml"), "z = 1\n").unwrap();
+        fs::write(engine.parent().unwrap().join("modules/99.md"), "# no\n").unwrap();
+        let errs = tree_side_errors(&engine, &k, &m);
+        assert_eq!(
+            errs,
+            vec![
+                "[knowledge] in the tree but not pinned in content.lock: knowledge/smuggled.toml"
+                    .to_string(),
+                "[modules] in the tree but not pinned in content.lock: modules/99.md".to_string(),
+            ]
+        );
+    }
+
+    /// The bd-z3v shape: the lock is the only thing that changed, and the file
+    /// it stopped pinning is still sitting there.
+    #[test]
+    fn deleting_a_row_leaves_its_file_unpinned() {
+        let (_td, engine, _k, m) = walkable_root();
+        let none: BTreeSet<String> = BTreeSet::new();
+        let errs = tree_side_errors(&engine, &none, &m);
+        assert_eq!(
+            errs,
+            vec![
+                "[knowledge] in the tree but not pinned in content.lock: knowledge/a.toml"
+                    .to_string()
+            ],
+            "a row that stops existing must not make its file stop being checked"
+        );
+    }
+
+    #[test]
+    fn a_root_that_matched_nothing_is_an_error_not_a_pass() {
+        let (_td, engine, k, m) = walkable_root();
+        fs::remove_file(engine.join("knowledge/a.toml")).unwrap();
+        let errs = tree_side_errors(&engine, &k, &m);
+        assert_eq!(
+            errs,
+            vec![
+                "[knowledge] locked root matched zero files: knowledge/*.toml \
+                  (nothing was checked there \u{2014} vacuous ERROR)"
+                    .to_string()
+            ]
+        );
+    }
+
+    #[test]
+    fn a_root_that_is_absent_is_an_error_not_a_pass() {
+        let (_td, engine, k, m) = walkable_root();
+        fs::remove_file(engine.join("knowledge/a.toml")).unwrap();
+        fs::remove_file(engine.join("knowledge/notes.txt")).unwrap();
+        fs::remove_file(engine.join("knowledge/corpus/deep.toml")).unwrap();
+        fs::remove_dir(engine.join("knowledge/corpus")).unwrap();
+        fs::remove_dir(engine.join("knowledge")).unwrap();
+        let errs = tree_side_errors(&engine, &k, &m);
+        assert_eq!(
+            errs,
+            vec![
+                "[knowledge] locked root is not a directory: knowledge/*.toml \
+                  (nothing was checked there \u{2014} vacuous ERROR)"
+                    .to_string()
+            ]
+        );
+    }
+
+    /// The walk is one level deep and suffix-exact, matching `Path.glob`.
+    #[test]
+    fn the_walk_does_not_recurse_and_does_not_widen_the_suffix() {
+        let (_td, engine, ..) = walkable_root();
+        let found: Vec<String> = discover(&engine.join("knowledge"), ".toml")
+            .iter()
+            .map(|p| lock_key(&engine, p))
+            .collect();
+        assert_eq!(found, vec!["knowledge/a.toml".to_string()]);
+    }
+
+    /// `lock_key` must invert `resolve_pinned`, or "in the tree but not pinned"
+    /// would fire on files that ARE pinned.
+    #[test]
+    fn lock_key_inverts_resolve_pinned() {
+        let (_td, engine, k, m) = walkable_root();
+        for key in k.iter().chain(m.iter()) {
+            let p = resolve_pinned(&engine, key);
+            assert!(p.is_file(), "{key} did not resolve");
+            assert_eq!(&lock_key(&engine, &p), key, "round trip failed for {key}");
+        }
+    }
+
+    #[test]
+    fn counts_are_reported_per_root() {
+        let (_td, engine, ..) = walkable_root();
+        assert_eq!(
+            root_counts(&engine),
+            vec![
+                ("knowledge/*.toml", 1),
+                ("web/content/modules/*.md", 1),
+                ("../modules/*.md", 1),
+            ]
+        );
+    }
+
+    // ── the bank-hash budget (bd-hw3) ─────────────────────────────────────
+
+    #[test]
+    fn budget_never_panics_on_a_hostile_value() {
+        assert_eq!(budget(1.5), Duration::from_millis(1500));
+        assert_eq!(budget(f64::INFINITY), Duration::from_secs(1_000_000_000));
+        assert_eq!(budget(f64::NAN), Duration::from_secs(1_000_000_000));
+        assert_eq!(budget(1e300), Duration::from_secs(1_000_000_000));
+    }
+
+    #[test]
+    fn the_default_budget_matches_the_oracles_timeout() {
+        // The oracle's `timeout=` literal. If one moves, both must.
+        assert_eq!(BANK_HASH_TIMEOUT_S, 300.0);
+        let src = fs::read_to_string(
+            crate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR")))
+                .expect("engine root")
+                .join("scripts/verify_content_lock.py"),
+        )
+        .expect("oracle readable");
+        assert!(
+            src.contains("BANK_HASH_TIMEOUT_S = 300.0"),
+            "the oracle's budget no longer matches this port's"
+        );
     }
 
     #[test]

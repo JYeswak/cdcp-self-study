@@ -39,6 +39,12 @@ extensions = ["py", "sh"]
 include_engine_root_files = true
 
 [wiring]
+# check_sh is PINNED to "scripts/check.sh" in the gate; any other value is a
+# schema ERROR — pointing it at a decoy file used to satisfy the wiring leg.
+# status is a RATCHET: once a commit says "wired", a later commit saying
+# "pending" is RED, not an edit.
+# NEVER add a row for scripts/__cdcp_probe_unlisted__.py — that is the plant
+# --prove-wired uses, and listing it makes the probe vacuous (the gate ERRORs).
 # BUILT != WIRED. `status = "pending"` means the check.sh step has not landed
 # yet: the gate reports the gap on stderr but does not fail, so the very commit
 # that wires it is not blocked by its own absence. Once the orchestrator adds the

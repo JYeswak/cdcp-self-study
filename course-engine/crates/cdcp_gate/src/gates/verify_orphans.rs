@@ -16,6 +16,10 @@
 //! Anti-vacuous (L4): zero topics, zero items, a missing bank directory, or a
 //! missing topics registry are each an ERROR, never a pass. A registry that was
 //! never scanned must not report like one that was scanned and came back clean.
+//! The same rule holds one level down, at FILE granularity: a bank file whose
+//! `items[]` yields zero items is named and is RED (bd-2kr). Aggregate counts
+//! are not a substitute — 804 healthy items will carry an 805th file that was
+//! never really read, and the report would look exactly the same.
 //!
 //! # WHAT THIS GATE CANNOT DO
 //!
@@ -27,6 +31,11 @@
 //! nothing about item quality, difficulty, or grounding. It does not decide that
 //! the topic registry itself is complete — a syllabus that omits a topic
 //! entirely is invisible here, because nothing dangles.
+//!
+//! The file-granular anti-vacuous leg is narrower than it may read: it names a
+//! file that yielded *nothing*, and says nothing about a file that yielded
+//! *fewer items than it should have*. A bank file silently truncated from twenty
+//! items to one still reports as scanned, because one is not zero.
 //!
 //! The floor moves from *silence* to *every declared id is exercised and every
 //! reference resolves*. That is the whole claim; a referential-integrity check
@@ -451,6 +460,10 @@ fn read_topic_ids(path: &Path, disp: &str) -> (Vec<String>, Vec<String>) {
 }
 
 /// `load_items()` — every `*.toml` under the bank dir, in `sorted()` order.
+///
+/// A file must contribute at least one item or produce an error line naming it;
+/// there is no third outcome, which is what keeps a never-checked file from
+/// reporting like a checked one.
 fn read_items(dir: &Path, disp: &str) -> (Vec<Item>, Vec<String>) {
     let mut errors = Vec::new();
     let mut loaded: Vec<Item> = Vec::new();
@@ -499,6 +512,14 @@ fn read_items(dir: &Path, disp: &str) -> (Vec<Item>, Vec<String>) {
             _ => None,
         };
         match nested {
+            // Anti-vacuous at FILE granularity (bd-2kr). An `items[]` that
+            // yields nothing took this branch and can never reach the
+            // `no id or items[]` leg — Python's `elif` cannot run once the `if`
+            // has — so without this arm the file is scanned, contributes zero
+            // items, and is never named.
+            Some(tables) if tables.is_empty() => errors.push(format!(
+                "{name}: items[] yielded zero items (vacuous file scan is ERROR)"
+            )),
             Some(tables) => loaded.extend(tables.into_iter().map(|t| (name.clone(), t))),
             None if data.contains_key("id") => loaded.push((name.clone(), data)),
             None => errors.push(format!("{name}: no id or items[]")),
@@ -919,6 +940,72 @@ mod tests {
         assert!(
             out.stdout.contains("junk.toml: no id or items[]"),
             "{}",
+            out.stdout
+        );
+    }
+
+    #[test]
+    fn a_file_yielding_zero_items_is_named_and_red() {
+        // bd-2kr: `items = []` used to take the list branch, add nothing, and
+        // never reach the `no id or items[]` leg. It reported exactly like a
+        // file that passed, because the two clean items carried the count.
+        let t = good_tree();
+        t.item("silently-empty.toml", "items = []\n");
+        let out = t.run();
+        assert_eq!(out.code, 1, "{}", out.stdout);
+        assert!(
+            out.stdout.contains(
+                "silently-empty.toml: items[] yielded zero items (vacuous file scan is ERROR)"
+            ),
+            "the file that contributed nothing must be named: {}",
+            out.stdout
+        );
+        // the aggregate stayed healthy on its own — which is the whole point
+        assert!(out.stdout.contains("items=2"), "{}", out.stdout);
+    }
+
+    #[test]
+    fn an_items_array_of_non_tables_yields_zero_and_is_red() {
+        // Same branch, reached without an empty literal: the entries exist but
+        // none of them is a table, so the loop still loads nothing.
+        let t = good_tree();
+        t.item("scalars.toml", "items = [1, 2, 3]\n");
+        let out = t.run();
+        assert_eq!(out.code, 1, "{}", out.stdout);
+        assert!(
+            out.stdout
+                .contains("scalars.toml: items[] yielded zero items"),
+            "{}",
+            out.stdout
+        );
+    }
+
+    #[test]
+    fn the_single_item_id_form_still_passes() {
+        // Known-GOOD leg. The `elif "id" in data` branch must survive the fix:
+        // a legitimate one-item file has no `items` key at all and is not empty.
+        let t = Tree::new();
+        t.topics("[[topic]]\nid = \"t-one\"\n");
+        t.item("solo.toml", "id = \"i-solo\"\ntopic_ids = [\"t-one\"]\n");
+        let out = t.run();
+        assert_eq!(out.code, 0, "{}", out.stdout);
+        assert!(out.stdout.starts_with("PASS\n"), "{}", out.stdout);
+        assert!(out.stdout.contains("items=1"), "{}", out.stdout);
+    }
+
+    #[test]
+    fn a_non_empty_items_array_is_not_flagged_as_vacuous() {
+        let t = Tree::new();
+        t.topics("[[topic]]\nid = \"t-one\"\n");
+        t.item(
+            "multi.toml",
+            "[[items]]\nid = \"i-1\"\ntopic_ids = [\"t-one\"]\n",
+        );
+        let out = t.run();
+        assert_eq!(out.code, 0, "{}", out.stdout);
+        assert!(
+            !out.stdout.contains("yielded zero items"),
+            "a file that did contribute must not be flagged: {}",
             out.stdout
         );
     }

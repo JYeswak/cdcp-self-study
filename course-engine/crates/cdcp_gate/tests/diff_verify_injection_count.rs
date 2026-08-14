@@ -12,7 +12,13 @@
 //!   * anti-vacuous: an empty log and a missing log must be RED in both, because
 //!     a drift guard that reports green on zero receipts is the exact failure it
 //!     exists to prevent;
-//!   * drift in both directions — advertised above actual and below actual.
+//!   * drift in both directions — advertised above actual and below actual;
+//!   * the three bd-wf2 holes: a duplicate `--require` entry, a finding naming a
+//!     file other than the one scanned, and a count spelled in words — plus the
+//!     partial-coverage floor that catches a site dropping out for any other
+//!     reason;
+//!   * `--write-readme` regeneration, which cannot use `assert_identical` (each
+//!     side rewrites its own copy) and so has its own comparator below.
 //!
 //! The harness is itself anti-vacuous: it fails if `python3` or the oracle script
 //! is missing (a differential test that silently skips reports exactly like one
@@ -480,10 +486,16 @@ fn a_repeated_identical_receipt_is_identical_and_not_double_counted() {
     );
 }
 
+// ──────────────────── bd-wf2: the three holes, both sides ───────────────────
+//
+// Each case is a hole the original port reproduced faithfully. The Python was
+// fixed first and this file went red against the unpatched port; these cases are
+// what stayed red until the Rust matched.
+
 #[test]
-fn a_suite_named_twice_in_require_double_counts_in_both() {
-    // The Python double-counts here. The port reproduces it rather than fixing
-    // it; the assertion pins that they agree, not that the behaviour is good.
+fn a_suite_named_twice_in_require_is_identical_and_an_error() {
+    // Formerly: summed twice, inflating measured_total — the one direction that
+    // turns real drift GREEN. Now a usage ERROR in both, with no total printed.
     let dir = scratch("dup_require");
     let log = write(&dir, "injections.log", GOOD_LOG);
     let readme = write(&dir, "README.md", &specimen_readme(7, 2));
@@ -499,6 +511,263 @@ fn a_suite_named_twice_in_require_double_counts_in_both() {
         ],
     );
     assert_eq!(code, 1);
+
+    // The sharp shape: ONE suite reporting 3 must not certify a README that
+    // advertises 6 across two suites.
+    let solo = write(&dir, "solo.log", "INJECTIONS=3 SUITE=spec_alpha\n");
+    let six = write(&dir, "SIX.md", &specimen_readme(6, 2));
+    let code = assert_identical(
+        "duplicate-require-inflation",
+        &[
+            "--log",
+            &solo,
+            "--readme",
+            &six,
+            "--require",
+            "spec_alpha,spec_alpha",
+        ],
+    );
+    assert_eq!(code, 1, "an inflated total must never certify a README");
+}
+
+#[test]
+fn a_finding_names_the_file_that_was_scanned_in_both() {
+    // Formerly: findings said `README.md:<lineno>` whatever --readme pointed at,
+    // sending the next reader to an innocent file.
+    let dir = scratch("finding_path");
+    let log = write(&dir, "injections.log", GOOD_LOG);
+    let readme = write(&dir, "README_off.md", &specimen_readme(8, 2));
+    let code = assert_identical(
+        "finding-names-scanned-file",
+        &["--log", &log, "--readme", &readme, "--require", REQUIRE],
+    );
+    assert_eq!(code, 1);
+
+    let root = engine_root();
+    let py = exec(
+        "python3",
+        &[
+            root.join(ORACLE).to_string_lossy().into_owned(),
+            "--log".into(),
+            log.clone(),
+            "--readme".into(),
+            readme.clone(),
+            "--require".into(),
+            REQUIRE.into(),
+        ],
+        &root,
+    );
+    let text = show(&py.stdout);
+    assert!(
+        text.contains("README_off.md:3 advertises 8"),
+        "the finding must name the file under test:\n{text}"
+    );
+    assert!(
+        !text.contains("\n    - README.md:"),
+        "no finding may point at an innocent README.md:\n{text}"
+    );
+}
+
+/// The selftest's specimen with the prose site's count spelled in words.
+fn specimen_readme_prose(digits: u32, suites: u32, spelled: &str) -> String {
+    specimen_readme(digits, suites).replace(
+        &format!("**{digits} known-bad faults**"),
+        &format!("**{spelled} known-bad faults**"),
+    )
+}
+
+#[test]
+fn a_word_spelled_count_is_identical_and_no_longer_invisible() {
+    // The dangerous MIDDLE case: three sites in digits still parse, so the gate
+    // reported GREEN while the fourth site advertised something else entirely.
+    let dir = scratch("word_count");
+    let log = write(&dir, "injections.log", GOOD_LOG);
+
+    let drifted = write(
+        &dir,
+        "DRIFTED.md",
+        &specimen_readme_prose(7, 2, "thirty-six"),
+    );
+    let code = assert_identical(
+        "word-count-drifted",
+        &["--log", &log, "--readme", &drifted, "--require", REQUIRE],
+    );
+    assert_eq!(code, 1, "a word-spelled site that disagrees must be RED");
+
+    let agreeing = write(&dir, "AGREEING.md", &specimen_readme_prose(7, 2, "seven"));
+    let code = assert_identical(
+        "word-count-agreeing",
+        &["--log", &log, "--readme", &agreeing, "--require", REQUIRE],
+    );
+    assert_eq!(code, 0, "a word-spelled site that agrees must stay GREEN");
+
+    // Every word shape both implementations must agree on, drift or not.
+    for (i, spelled) in [
+        "seven",
+        "SEVEN",
+        "Thirty-Six",
+        "thirty six",
+        "eighteen",
+        "eight",
+        "ninety-nine",
+        "zero",
+        "three dozen", // outside the vocabulary: the site drops out entirely
+        "freighter",   // the word branch carries a \b
+    ]
+    .iter()
+    .enumerate()
+    {
+        let r = write(
+            &dir,
+            &format!("W{i}.md"),
+            &specimen_readme_prose(7, 2, spelled),
+        );
+        let _ = assert_identical(
+            &format!("word-shape-{i}"),
+            &["--log", &log, "--readme", &r, "--require", REQUIRE],
+        );
+    }
+}
+
+#[test]
+fn a_readme_that_loses_an_advertisement_site_is_identical_and_red() {
+    // Partial coverage must not report identically to full coverage. Dropping the
+    // prose site leaves four parseable sites, all of which still agree.
+    let dir = scratch("lost_site");
+    let log = write(&dir, "injections.log", GOOD_LOG);
+    let body: String = specimen_readme(7, 2)
+        .lines()
+        .filter(|l| !l.contains("known-bad faults"))
+        .map(|l| format!("{l}\n"))
+        .collect();
+    assert!(
+        !body.contains("known-bad faults"),
+        "the fixture must actually drop the site"
+    );
+    let readme = write(&dir, "README.md", &body);
+    let code = assert_identical(
+        "lost-advertisement-site",
+        &["--log", &log, "--readme", &readme, "--require", REQUIRE],
+    );
+    assert_eq!(code, 1, "four of five sites parsing is a loss of coverage");
+}
+
+// ────────────── bd-wf2: regenerated, never hand-maintained ──────────────────
+
+/// Write mode cannot use [`assert_identical`]: each implementation must rewrite
+/// its OWN copy, so the two runs necessarily print two different paths. This runs
+/// both against byte-identical fixtures, compares stdout with the fixture path
+/// elided, and then compares the two rewritten files byte-for-byte.
+fn assert_identical_write_mode(label: &str, log: &str, body: &str, require: &str) -> (i32, String) {
+    let root = engine_root();
+    let dir = scratch(&format!("write_{label}"));
+    let py_readme = write(&dir, "PY.md", body);
+    let rs_readme = write(&dir, "RS.md", body);
+
+    let py = exec(
+        "python3",
+        &[
+            root.join(ORACLE).to_string_lossy().into_owned(),
+            "--log".into(),
+            log.to_string(),
+            "--readme".into(),
+            py_readme.clone(),
+            "--require".into(),
+            require.to_string(),
+            "--write-readme".into(),
+        ],
+        &root,
+    );
+    let rs = exec(
+        BIN,
+        &[
+            "verify-injection-count".into(),
+            "--log".into(),
+            log.to_string(),
+            "--readme".into(),
+            rs_readme.clone(),
+            "--require".into(),
+            require.to_string(),
+            "--write-readme".into(),
+        ],
+        &root,
+    );
+
+    let norm = |b: &[u8], p: &str| show(b).replace(p, "<README>");
+    assert_eq!(
+        norm(&py.stdout, &py_readme),
+        norm(&rs.stdout, &rs_readme),
+        "[{label}] STDOUT differs once the fixture path is elided"
+    );
+    assert_eq!(
+        norm(&py.stderr, &py_readme),
+        norm(&rs.stderr, &rs_readme),
+        "[{label}] STDERR differs"
+    );
+    assert_eq!(py.code, rs.code, "[{label}] EXIT CODE differs");
+
+    let py_after = std::fs::read(&py_readme).expect("read python's rewrite");
+    let rs_after = std::fs::read(&rs_readme).expect("read rust's rewrite");
+    assert_eq!(
+        String::from_utf8_lossy(&py_after),
+        String::from_utf8_lossy(&rs_after),
+        "[{label}] the two rewritten READMEs differ"
+    );
+    assert_eq!(
+        py_after, rs_after,
+        "[{label}] rewrites differ at byte level"
+    );
+    (py.code, String::from_utf8_lossy(&py_after).into_owned())
+}
+
+#[test]
+fn write_readme_regenerates_identically_in_both() {
+    let dir = scratch("write_good");
+    let log = write(&dir, "injections.log", GOOD_LOG);
+
+    // Drifted README, sound receipts: every site is rewritten to the measured 7.
+    let (code, after) =
+        assert_identical_write_mode("drifted", &log, &specimen_readme(9, 2), REQUIRE);
+    assert_eq!(code, 0, "after regeneration the tree must be GREEN");
+    assert_eq!(
+        after,
+        specimen_readme(7, 2),
+        "regeneration must produce exactly the agreeing README"
+    );
+
+    // Word-spelled site: regeneration normalises it to the checkable digit form.
+    let (code, after) = assert_identical_write_mode(
+        "prose",
+        &log,
+        &specimen_readme_prose(7, 2, "thirty-six"),
+        REQUIRE,
+    );
+    assert_eq!(code, 0);
+    assert_eq!(after, specimen_readme(7, 2));
+
+    // Already correct: idempotent, and it says so.
+    let (code, after) =
+        assert_identical_write_mode("idempotent", &log, &specimen_readme(7, 2), REQUIRE);
+    assert_eq!(code, 0);
+    assert_eq!(after, specimen_readme(7, 2));
+}
+
+#[test]
+fn write_readme_refuses_to_launder_an_unsound_total_in_both() {
+    let dir = scratch("write_unsound");
+    let before = specimen_readme(9, 2);
+
+    // spec_beta never reported — the total is not a number worth writing.
+    let solo = write(&dir, "solo.log", "INJECTIONS=3 SUITE=spec_alpha\n");
+    let (code, after) = assert_identical_write_mode("missing-receipt", &solo, &before, REQUIRE);
+    assert_eq!(code, 1);
+    assert_eq!(after, before, "an unsound run must leave README untouched");
+
+    // Empty log — the anti-vacuous case, with a writer attached.
+    let empty = write(&dir, "empty.log", "");
+    let (code, after) = assert_identical_write_mode("empty-log", &empty, &before, REQUIRE);
+    assert_eq!(code, 1);
+    assert_eq!(after, before);
 }
 
 #[test]

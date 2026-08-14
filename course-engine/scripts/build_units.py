@@ -6,9 +6,38 @@ Emits web/data/units_index.json.
 Units = each ATX ## section. Each unit gets:
   - topic_ids: domain topics (title match preferred, then full domain fill)
   - check_item_ids: 2–3 real bank item ids for mid-unit Quick check
-  - module_num: 1–14 for JS fallbacks
+  - module_num: the module's order, for JS fallbacks
 
 Deterministic: same content + bank → same JSON (sorted keys).
+
+# CLAIM: FLOOR-RAISE
+
+Every module the Learn index carries must reach the micro-check floor: at least
+80% of its units carry ≥2 real bank items. The module set is DERIVED from
+web/data/modules_index.json — the Learn index this script already reads to find
+its content — and not from a numeric bound.
+
+## Why the derivation, and not `int(m[:2]) <= 14` (bd-lt7)
+
+Until 2026-08-14 the primary set was `[m for m in by_module if ... int(m[:2])
+<= 14]`, which held module 15 out of the floor. Module 15 was, at that time,
+assessed but never taught, so the exemption looked harmless. It was not: the
+bound was derived from OBSERVED STATE rather than from a stated contract, so
+when module 15 was taught the floor stayed silent about it and this gate went on
+reporting PASS by luck rather than by check. The Learn index is the contract —
+if a module is in it, its units are subject to the floor.
+
+## Anti-vacuous
+
+Zero modules, zero units, or zero primary units is an ERROR. A run that
+discovered nothing must not report like a run that checked everything.
+
+## What this gate cannot decide
+
+It counts units and attached item ids. It cannot tell whether a unit teaches
+anything, whether its Quick check items are RELEVANT to the heading they sit
+under, or whether the topic match that attached them was right. 80% of units
+carrying two ids each is a floor against silence, not a claim about quality.
 """
 from __future__ import annotations
 
@@ -425,23 +454,40 @@ def main() -> int:
         encoding="utf-8",
         newline="\n",
     )
-    print(f"PASS: build_units units={len(all_units)} modules={len(by_module)}")
-    print(f"  bank_items={len(bank)} units_with_checks≥2={units_with_checks} zero={units_zero_checks}")
-    print(f"  out={OUT.relative_to(ROOT)}")
-    if shortfalls:
-        print(f"  WARN shortfalls: {shortfalls}")
-    for need, n in (("01-mission-critical", 4), ("06-power", 3)):
+    # Everything below is COLLECTED, then reported once. This block used to
+    # print "PASS: build_units …" first and emit "FAIL: …" underneath it on the
+    # way to returning 1 — a reader skimming stdout saw PASS, CI saw non-zero,
+    # and which one won depended on whether anyone looked. The verdict is now
+    # the first line of a report that is only composed once every check is done.
+    failures: list[str] = []
+    detail: list[str] = []
+
+    # Anti-vacuous: a run that discovered nothing must not report like a run
+    # that checked everything and found it sound.
+    if not by_module:
+        failures.append("zero modules discovered (vacuous unit build is ERROR)")
+    if not all_units:
+        failures.append("zero units discovered (vacuous unit build is ERROR)")
+
+    # A named spot-check on two specific modules, not the general floor: these
+    # two carry the heaviest syllabus weight and are the ones a content
+    # regression shows up in first. The general floor below covers every module.
+    for need, want in (("01-mission-critical", 4), ("06-power", 3)):
         got = len(by_module.get(need) or [])
-        if got < n:
-            print(f"FAIL: {need} has {got} units, need ≥{n}")
-            return 1
+        if got < want:
+            failures.append(f"{need} has {got} units, need ≥{want}")
+            continue
         checks = [u.get("check_count") or 0 for u in by_module.get(need) or []]
         if any(c < 2 for c in checks):
-            print(f"FAIL: {need} has units with <2 check items: {checks}")
-            return 1
-        print(f"  ok: {need} units={got} check_counts={checks}")
-    # Primary modules 01–14: ≥80% of units must have ≥2 checks
-    primary = [m for m in by_module if re.match(r"^\d{2}-", m) and int(m[:2]) <= 14]
+            failures.append(f"{need} has units with <2 check items: {checks}")
+            continue
+        detail.append(f"  ok: {need} units={got} check_counts={checks}")
+
+    # The general floor: ≥80% of the units of EVERY module the Learn index
+    # carries must have ≥2 check items. The set is derived from by_module — i.e.
+    # from modules_index.json — and not from a numeric bound. See the header:
+    # `int(m[:2]) <= 14` here silently exempted module 15 from this floor.
+    primary = sorted(m for m in by_module if re.match(r"^\d{2}-", m))
     total_u = sum(len(by_module[m]) for m in primary)
     good_u = sum(
         1
@@ -449,11 +495,41 @@ def main() -> int:
         for u in by_module[m]
         if (u.get("check_count") or 0) >= 2
     )
-    if total_u and good_u / total_u < 0.8:
-        print(f"FAIL: only {good_u}/{total_u} primary units have ≥2 checks")
-        return 1
-    print(f"  ok: primary check coverage {good_u}/{total_u}")
-    return 0
+    if not primary:
+        failures.append(
+            "zero modules matched the module-id shape (vacuous check floor is ERROR)"
+        )
+    elif not total_u:
+        failures.append(
+            f"{len(primary)} modules carry zero units between them "
+            f"(vacuous check floor is ERROR)"
+        )
+    elif good_u / total_u < 0.8:
+        failures.append(
+            f"only {good_u}/{total_u} units across {len(primary)} modules have ≥2 checks"
+        )
+    else:
+        detail.append(
+            f"  ok: check coverage {good_u}/{total_u} across {len(primary)} modules "
+            f"({' '.join(primary)})"
+        )
+
+    head = (
+        f"PASS: build_units units={len(all_units)} modules={len(by_module)}"
+        if not failures
+        else f"FAIL: build_units units={len(all_units)} modules={len(by_module)}"
+    )
+    report = [
+        head,
+        f"  bank_items={len(bank)} units_with_checks≥2={units_with_checks} zero={units_zero_checks}",
+        f"  out={OUT.relative_to(ROOT)}",
+    ]
+    if shortfalls:
+        report.append(f"  WARN shortfalls: {shortfalls}")
+    report.extend(detail)
+    report.extend(f"  - {f}" for f in failures)
+    print("\n".join(report))
+    return 1 if failures else 0
 
 
 if __name__ == "__main__":

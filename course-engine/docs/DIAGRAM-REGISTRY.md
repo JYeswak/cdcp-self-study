@@ -8,9 +8,18 @@
 
 ## Rules
 
-1. Live under `web/diagrams/{id}.html`.  
-2. Honesty banner + interview one-liner.  
-3. `scripts/smoke_diagrams.py` fail-closed for present rows.  
+1. Live at exactly `web/diagrams/{id}.html`. A **present** row may name no other path —
+   `scripts/smoke_diagrams.py` treats a mismatch as an ERROR, not a skip, because a row that
+   redirects the check at some other existing file is how this gate was fooled on 2026-08-14.
+2. Carry a `class="honesty-banner"` element that disclaims certification, and a
+   `data-diagram="{id}"` element as the diagram root. Both are parsed structurally; a file that
+   merely contains the words does not pass. Plus an interview one-liner.
+3. `scripts/smoke_diagrams.py` is fail-closed for present rows and derives its set from the
+   Inventory table below. The `Status` column is a closed enum — `**present**` or `planned`. Any
+   other spelling is an ERROR, never a silent exclusion. The ID and path cells must be backticked.
+   The present-row count is pinned in that script (`EXPECTED_PRESENT`); shipping a new diagram means
+   raising the pin in the same commit, and a row leaving the present set is RED rather than
+   invisible.
 4. Prefer steppers / toggles / label-the-node.
 
 ---
@@ -72,15 +81,12 @@ python3 scripts/smoke_diagrams.py
 
 ### Wiring still owed (not owned by the P1 diagram work)
 
-The four P1 files satisfy every assertion `scripts/smoke_diagrams.py` makes about a present row
-(file exists · honesty + certification language · `data-diagram="{id}"` root marker), but the
-checker's `PRESENT` list is hard-coded and still names only the three P0 rows. **Until those four
-rows are added, `smoke_diagrams` is green without having looked at them** — a present row this
-registry advertises that the gate does not cover.
-
-1. `scripts/smoke_diagrams.py` — add to `PRESENT`:
-   `("fire-sequence", WEB / "diagrams/fire-sequence.html", "fire-sequence")` and the same shape for
-   `standards-map`, `floor-airflow`, `dual-cord-spof`.
+1. ~~`scripts/smoke_diagrams.py` — add the four P1 rows to its hard-coded `PRESENT` list.~~
+   **Closed 2026-08-14 (bd-hngz).** The list is gone: the checker now derives its set from the
+   Inventory table above and binds each present row to `web/diagrams/{id}.html`, so all seven are
+   covered and an eighth row is covered the moment it is added. Fixing this also surfaced a real
+   artifact defect the old checker had a hard-coded exemption for — `power-path.html` was shipped
+   with no `data-diagram="power-path"` root marker, and the exemption meant nobody found out.
 2. Module CTA links (`.diagram-cta`), matching the M01/M06/M09 pattern:
    `12-fire.html` → `fire-sequence`, `02-standards.html` → `standards-map`,
    `04-floor-ceiling.html` and `09-cooling.html` → `floor-airflow`,

@@ -226,7 +226,9 @@ workflow file is how CI and local drift apart until only one of them is true.
 ### Gates proven to trip
 
 A green gate is worthless unless it can go red. Nine selftest suites inject
-**36 known-bad faults** and assert the build fails, then restore the tree:
+**36 known-bad faults** — shell suites only; the Rust ports' own known-bad cases
+emit no `INJECTIONS=` receipt, so they are not in this total — and assert the
+build fails, then restore the tree:
 
 | Suite | n | Injections |
 |---|---|---|
@@ -324,7 +326,7 @@ table:
 | **L1 — claims constitution** | ✅ | `registries/*.toml` + `cdcp_registry_check` (tested crate) + claims-lint over README/docs |
 | **L2 — SLO as code** | ✅ partial | `slo.toml` + `smoke_slo.sh` walls on grade / export / bank-verify |
 | **L3 — external oracle** | ⚠️ **weakest link** | The oracle is the *native* grader and the public syllabus domains. There is no independent third-party conformance suite for "did we teach this correctly" |
-| **L4 — gates proven to trip** | ✅ strongest | 9 suites, 36 injections, count drift-guarded, anti-vacuous throughout |
+| **L4 — gates proven to trip** | ✅ strongest | 9 suites, 36 injections (shell receipts only; Rust legs uncounted), count drift-guarded, anti-vacuous throughout |
 | **L5 — adversarial input floor** | ✅ partial | `cargo-fuzz` targets present; property tests on assemble/grade |
 | **L6 — formal lane** | ❌ | Not warranted at this gauntlet tier |
 | **L7 — ecosystem lock** | ✅ scoped | `content.lock` pins bank_hash + knowledge + module markdown |

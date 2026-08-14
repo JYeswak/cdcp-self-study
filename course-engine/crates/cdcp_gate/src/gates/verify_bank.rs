@@ -23,6 +23,25 @@
 //!      above 70%, or fewer than three distinct letters used at all.
 //!   6. *manifest drift* — `bank/MANIFEST.toml`'s `item_count` disagreeing with
 //!      the number of items actually loaded.
+//!   7. *unusable policy* — a `pool_min_items` or `exam_n_items` present in
+//!      `knowledge/bank_policy.toml` that is not an integer above zero.
+//!
+//! # TWO OUTPUT-SHAPE CONTRACTS (bd-hw3, fixed 2026-08-14 in the oracle first)
+//!
+//! - **A policy floor is a positive integer or the key is absent.** The oracle
+//!   read these as `int(bp.get(key) or default)` until 2026-08-14. `or` treats
+//!   `0` as absent, so `exam_n_items = 0` silently became 40, while the truthy
+//!   `exam_n_items = "0"` survived to `n / exam_n` and raised ZeroDivisionError
+//!   *after three lines of a PASS report had already been written*. A negative
+//!   floor was worse again: it disabled the pool check and reported PASS. All of
+//!   those spellings are now the same recorded finding on both sides, and
+//!   [`PolicyInt::Bad`] is what carries it.
+//! - **The verdict is composed before it is written.** Both sides build every
+//!   line of the report and only then emit it, so a raise can cost you the
+//!   verdict but can never leave a wrong one on stdout with a non-zero exit
+//!   behind it. `evaluate` still returns whatever `Outcome.stdout` holds at the
+//!   moment of a raise; the point of the restructure is that the verdict is
+//!   never among it.
 //!
 //! Anti-vacuous (L4): a missing `bank/items/`, a missing `knowledge/topics.toml`,
 //! a topics registry with zero ids, and an **empty** `bank/items/` are each a
@@ -645,6 +664,62 @@ pub struct Outcome {
     pub code: i32,
 }
 
+/// The outcome of reading one `bank_policy.toml` floor, mirroring the oracle's
+/// `policy_positive_int`.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum PolicyInt {
+    /// The key was absent, so the built-in default stands.
+    Default(i128),
+    /// The key held an integer above zero.
+    Given(i128),
+    /// The key held something else. A finding was recorded; the check that
+    /// consumes this value must be skipped, never defaulted.
+    Bad,
+}
+
+impl PolicyInt {
+    /// The usable value, or `None` when the policy was rejected.
+    pub fn value(self) -> Option<i128> {
+        match self {
+            PolicyInt::Default(v) | PolicyInt::Given(v) => Some(v),
+            PolicyInt::Bad => None,
+        }
+    }
+}
+
+/// `policy_positive_int(bp, key, default, errors)`.
+///
+/// Absent → `default`. Present → coerced with Python's `int()` and required to
+/// be above zero; `0`, `"0"`, a negative and non-numeric junk are one and the
+/// same finding. An `OverflowError` (a float infinity) escapes the oracle's
+/// `except (TypeError, ValueError)` and so raises here too.
+pub fn policy_positive_int(
+    table: &toml::Table,
+    key: &str,
+    default: i128,
+    errors: &mut Vec<String>,
+) -> R<PolicyInt> {
+    let Some(raw) = table.get(key) else {
+        return Ok(PolicyInt::Default(default));
+    };
+    let val = match py_int(Some(raw)) {
+        Ok(v) => v,
+        Err(IntErr::Caught(_)) => {
+            errors.push(format!(
+                "bank_policy.toml: {key} must be an integer, got {}",
+                py_repr_value(Some(raw))
+            ));
+            return Ok(PolicyInt::Bad);
+        }
+        Err(IntErr::Uncaught(m)) => return Err(Raise(m)),
+    };
+    if val <= 0 {
+        errors.push(format!("bank_policy.toml: {key} must be > 0, got {val}"));
+        return Ok(PolicyInt::Bad);
+    }
+    Ok(PolicyInt::Given(val))
+}
+
 /// Run the whole check against `root` and render the oracle's report.
 pub fn evaluate(root: &Path) -> Outcome {
     let mut out = String::new();
@@ -706,21 +781,15 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
     }
 
     // bank_policy.toml may replace the pool floors and add domain minimums.
-    let mut pool_min = DEFAULT_POOL_MIN;
-    let mut exam_n = DEFAULT_EXAM_N;
+    let mut pool_min = PolicyInt::Default(DEFAULT_POOL_MIN);
+    let mut exam_n = PolicyInt::Default(DEFAULT_EXAM_N);
     let mut domain_mins: BTreeMap<i128, i128> = BTreeMap::new();
     if bank_policy_path.is_file() {
         let bp = load_toml(&bank_policy_path)?;
-        if let Some(v) = bp.get("pool_min_items") {
-            if py_truthy(v) {
-                pool_min = py_int_uncaught(Some(v))?;
-            }
-        }
-        if let Some(v) = bp.get("exam_n_items") {
-            if py_truthy(v) {
-                exam_n = py_int_uncaught(Some(v))?;
-            }
-        }
+        // Source order matters: these two findings land between the topics
+        // check and the per-file load errors, exactly as the oracle's do.
+        pool_min = policy_positive_int(&bp, "pool_min_items", DEFAULT_POOL_MIN, &mut errors)?;
+        exam_n = policy_positive_int(&bp, "exam_n_items", DEFAULT_EXAM_N, &mut errors)?;
         if let Some(v) = bp.get("domain_min") {
             if py_truthy(v) {
                 for row in py_iter(v)? {
@@ -772,11 +841,15 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
     if n == 0 {
         errors.push("zero items loaded".to_string());
     }
-    if (n as i128) < pool_min {
-        let multiple = py_floordiv(pool_min, exam_n)?;
-        errors.push(format!(
-            "pool too small: {n} < pool_min_items {pool_min} (need ≥{multiple}× exam size {exam_n})"
-        ));
+    // Skipped only when the floor itself is unusable — that config error is
+    // already recorded above, so this can never turn a bad policy into a pass.
+    if let (Some(floor), Some(size)) = (pool_min.value(), exam_n.value()) {
+        if (n as i128) < floor {
+            let multiple = py_floordiv(floor, size)?;
+            errors.push(format!(
+                "pool too small: {n} < pool_min_items {floor} (need ≥{multiple}× exam size {size})"
+            ));
+        }
     }
 
     // ── per-item schema ────────────────────────────────────────────────────
@@ -942,10 +1015,12 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
 
     // ── correct-letter diversity ───────────────────────────────────────────
     if n >= DIVERSITY_MIN_POOL {
-        // The oracle iterates a frozenset, whose order is hash-dependent. At
-        // most one letter can exceed 70% (two would sum above 140%), so at most
-        // one line can be emitted here and the iteration order cannot change
-        // the output bytes. A–D order is used for determinism.
+        // The oracle iterated a frozenset here until 2026-08-14, so its
+        // emission order was PYTHONHASHSEED-dependent; it now iterates its own
+        // `CORRECT_LETTERS` tuple, matching this A–D order by construction
+        // rather than by the arithmetic accident that no two letters can both
+        // exceed 70%. `tests/diff_verify_bank.rs` pins both the tuple and the
+        // cross-seed byte-equality of the oracle's stdout.
         for letter in ALLOWED_CORRECT {
             let count = letter_counts.get(letter).copied().unwrap_or(0);
             let frac = count as f64 / n as f64;
@@ -980,35 +1055,38 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
     }
 
     // ── report ─────────────────────────────────────────────────────────────
+    // Composed in full before a single byte of it is written. A gate that
+    // prints PASS and then dies leaves stdout and CI disagreeing, and which one
+    // wins depends on whether anyone looked.
     if !errors.is_empty() {
-        out.push_str("FAIL\n");
+        let mut report = String::from("FAIL\n");
         for e in errors.iter().take(MAX_REPORT) {
-            out.push_str(&format!("  - {e}\n"));
+            report.push_str(&format!("  - {e}\n"));
         }
         if errors.len() > MAX_REPORT {
-            out.push_str(&format!("  ... +{} more\n", errors.len() - MAX_REPORT));
+            report.push_str(&format!("  ... +{} more\n", errors.len() - MAX_REPORT));
         }
+        out.push_str(&report);
         return Ok(1);
     }
 
-    out.push_str("PASS\n");
-    out.push_str(&format!("  items={n}\n"));
-    out.push_str(&format!("  unique_ids={}\n", unique_ids.len()));
-    if exam_n == 0 {
-        // The oracle reaches `n / exam_n` only here, after three lines printed.
-        return Err(Raise("ZeroDivisionError: division by zero".to_string()));
-    }
-    out.push_str(&format!(
-        "  pool_min={pool_min} exam_n={exam_n} multiplier≈{}x\n",
-        py_fixed1(n as f64 / exam_n as f64)
-    ));
-    out.push_str(&format!("  topics_registry={}\n", known.len()));
-    out.push_str(&format!(
-        "  correct_dist={}\n",
-        py_dict_str_keys(&letter_counts)
-    ));
-    out.push_str(&format!("  modules={}\n", py_dict_int_keys(&module_counts)));
-    out.push_str("  source_class=original\n");
+    // Unreachable with a rejected policy: `PolicyInt::Bad` recorded a finding,
+    // and a non-empty `errors` returned above.
+    let (Some(floor), Some(size)) = (pool_min.value(), exam_n.value()) else {
+        return Err(Raise(
+            "AssertionError: pool_min/exam_n rejected but no finding recorded".to_string(),
+        ));
+    };
+    let report = format!(
+        "PASS\n  items={n}\n  unique_ids={}\n  pool_min={floor} exam_n={size} multiplier≈{}x\n  \
+         topics_registry={}\n  correct_dist={}\n  modules={}\n  source_class=original\n",
+        unique_ids.len(),
+        py_fixed1(n as f64 / size as f64),
+        known.len(),
+        py_dict_str_keys(&letter_counts),
+        py_dict_int_keys(&module_counts),
+    );
+    out.push_str(&report);
     Ok(0)
 }
 
@@ -1411,21 +1489,85 @@ mod tests {
         );
     }
 
+    /// bd-hw3. Both spellings of a zero exam size are the SAME finding, and
+    /// neither reaches stdout behind a verdict. Before 2026-08-14 `= 0` was
+    /// falsy and silently became 40, while `= "0"` printed three lines of a
+    /// PASS report and then raised ZeroDivisionError.
     #[test]
-    fn a_zero_exam_size_raises_only_after_three_lines_are_printed() {
+    fn both_spellings_of_a_zero_exam_size_are_one_finding_and_no_verdict_precedes_them() {
+        for spelling in ["0", "\"0\""] {
+            let f = Fx::new();
+            f.write(
+                "knowledge/bank_policy.toml",
+                &format!("exam_n_items = {spelling}\npool_min_items = 1\n"),
+            );
+            f.write("bank/items/pool.toml", &good("i-one"));
+            let out = f.eval();
+            assert_eq!(out.code, 1, "[{spelling}] {}", out.stdout);
+            assert_eq!(
+                out.stdout, "FAIL\n  - bank_policy.toml: exam_n_items must be > 0, got 0\n",
+                "[{spelling}] stdout"
+            );
+            assert!(out.stderr.is_empty(), "[{spelling}] {}", out.stderr);
+            assert!(
+                !out.stdout.starts_with("PASS"),
+                "[{spelling}] a verdict was written before the failure"
+            );
+        }
+    }
+
+    /// A negative floor used to DISABLE the pool check and report PASS: `-1` is
+    /// truthy, so `int(... or default)` kept it, and `n < -1` is never true.
+    #[test]
+    fn a_negative_pool_floor_is_a_finding_not_a_disabled_check() {
         let f = Fx::new();
-        // `exam_n_items = 0` would be FALSY and fall back to the default 40, so
-        // the divide-by-zero is reachable only through a truthy value that
-        // `int()` maps to zero.
         f.write(
             "knowledge/bank_policy.toml",
-            "exam_n_items = \"0\"\npool_min_items = 1\n",
+            "exam_n_items = 1\npool_min_items = -1\n",
         );
         f.write("bank/items/pool.toml", &good("i-one"));
         let out = f.eval();
-        assert_eq!(out.code, 1);
-        assert_eq!(out.stdout, "PASS\n  items=1\n  unique_ids=1\n");
-        assert!(out.stderr.contains("ZeroDivisionError"), "{}", out.stderr);
+        assert_eq!(out.code, 1, "{}", out.stdout);
+        assert_eq!(
+            out.stdout,
+            "FAIL\n  - bank_policy.toml: pool_min_items must be > 0, got -1\n"
+        );
+    }
+
+    /// Non-numeric junk is the same finding, not an uncaught `ValueError`.
+    #[test]
+    fn a_non_numeric_policy_floor_is_a_finding_not_a_traceback() {
+        let f = Fx::new();
+        f.write(
+            "knowledge/bank_policy.toml",
+            "exam_n_items = 1\npool_min_items = \"lots\"\n",
+        );
+        f.write("bank/items/pool.toml", &good("i-one"));
+        let out = f.eval();
+        assert_eq!(out.code, 1, "{}", out.stdout);
+        assert_eq!(
+            out.stdout,
+            "FAIL\n  - bank_policy.toml: pool_min_items must be an integer, got 'lots'\n"
+        );
+        assert!(out.stderr.is_empty(), "{}", out.stderr);
+    }
+
+    /// An absent key still takes the built-in default — this is the known-GOOD
+    /// leg of the policy rebase, proving it does not refuse legitimate config.
+    #[test]
+    fn an_absent_policy_key_still_defaults() {
+        let mut errors = Vec::new();
+        let table: toml::Table = "other = 1\n".parse().unwrap();
+        assert_eq!(
+            policy_positive_int(&table, "exam_n_items", 40, &mut errors),
+            Ok(PolicyInt::Default(40))
+        );
+        let given: toml::Table = "exam_n_items = 7\n".parse().unwrap();
+        assert_eq!(
+            policy_positive_int(&given, "exam_n_items", 40, &mut errors),
+            Ok(PolicyInt::Given(7))
+        );
+        assert!(errors.is_empty(), "{errors:?}");
     }
 
     #[test]

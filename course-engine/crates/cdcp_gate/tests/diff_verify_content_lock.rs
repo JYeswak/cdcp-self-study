@@ -15,6 +15,8 @@
 //! `Cargo.toml`, so both fall through the same two candidates to
 //! `goldens/bank_hash.txt`. That is a property of the fixture layout, not of
 //! either implementation, and it is the same for both sides by construction.
+//! Two cases deliberately break that property by planting a stub `cdcp` (see
+//! `plant_bank_hash_stub`) to exercise the bank-hash failure paths of bd-hw3.
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -46,12 +48,22 @@ fn show(r: &Run) -> String {
     )
 }
 
-fn run_oracle(engine: &Path, selftest: bool) -> Run {
+/// Every env var either side reads. Cleared on BOTH before each run so an
+/// ambient value in the developer's shell cannot make the two sides disagree —
+/// or, worse, agree for the wrong reason.
+const READ_ENV: [&str; 2] = ["CDCP_CONTENT_LOCK_SELFTEST", "CDCP_BANK_HASH_TIMEOUT_S"];
+
+fn run_oracle(engine: &Path, selftest: bool, env: &[(&str, &str)]) -> Run {
     let mut c = Command::new("python3");
     c.arg(engine.join(ORACLE_REL)).current_dir(engine);
-    c.env_remove("CDCP_CONTENT_LOCK_SELFTEST");
+    for k in READ_ENV {
+        c.env_remove(k);
+    }
     if selftest {
         c.env("CDCP_CONTENT_LOCK_SELFTEST", "1");
+    }
+    for (k, v) in env {
+        c.env(k, v);
     }
     let out = c.output().expect("spawn python3");
     Run {
@@ -61,15 +73,20 @@ fn run_oracle(engine: &Path, selftest: bool) -> Run {
     }
 }
 
-fn run_gate(engine: &Path, selftest: bool) -> Run {
+fn run_gate(engine: &Path, selftest: bool, env: &[(&str, &str)]) -> Run {
     let mut c = Command::new(BIN);
     c.arg("--root")
         .arg(engine)
         .arg("verify-content-lock")
         .current_dir(engine);
-    c.env_remove("CDCP_CONTENT_LOCK_SELFTEST");
+    for k in READ_ENV {
+        c.env_remove(k);
+    }
     if selftest {
         c.env("CDCP_CONTENT_LOCK_SELFTEST", "1");
+    }
+    for (k, v) in env {
+        c.env(k, v);
     }
     let out = c.output().expect("spawn cdcp_gate");
     Run {
@@ -91,8 +108,12 @@ fn run_gate(engine: &Path, selftest: bool) -> Run {
 /// stderr comparison removed, a truncation defect planted in the gate went
 /// undetected by the whole suite.
 fn assert_identical(engine: &Path, selftest: bool, case: &str) -> Run {
-    let py = run_oracle(engine, selftest);
-    let rs = run_gate(engine, selftest);
+    assert_identical_env(engine, selftest, &[], case)
+}
+
+fn assert_identical_env(engine: &Path, selftest: bool, env: &[(&str, &str)], case: &str) -> Run {
+    let py = run_oracle(engine, selftest, env);
+    let rs = run_gate(engine, selftest, env);
     assert_eq!(
         rs.code,
         py.code,
@@ -373,15 +394,17 @@ fn missing_parent_relative_pinned_file_is_red_in_both() {
     );
 }
 
-// ── case 4: a file in the tree that the lock never mentions ────────────────
+// ── case 4: the tree-side walk (bd-z3v) ────────────────────────────────────
+//
+// These two replace `an_unlisted_file_slips_past_both_implementations` and
+// `deleting_a_row_silently_stops_checking_that_file_in_both`, which pinned the
+// two directions of the hole as agreed behaviour. The behaviour they pinned no
+// longer exists, so they were deleted rather than amended.
 
-/// FINDING, not a fix: the oracle enumerates only the rows already in the lock,
-/// so a knowledge file added to the tree and never pinned is invisible to it.
-/// This case asserts the two implementations agree on that hole rather than
-/// closing it — closing it in the port would be a behaviour change, not a port.
-/// The hole is stated in the gate's "WHAT THIS GATE CANNOT DECIDE" header.
+/// A file under a locked root that no row pins is RED, on both sides, in both
+/// the engine-relative root and the parent-relative one.
 #[test]
-fn an_unlisted_file_slips_past_both_implementations() {
+fn an_unlisted_file_is_red_in_both() {
     let f = Fixture::green();
     fs::write(
         f.engine.join("knowledge/smuggled_policy.toml"),
@@ -392,28 +415,203 @@ fn an_unlisted_file_slips_past_both_implementations() {
 
     let got = assert_identical(&f.engine, false, "unlisted file");
     assert_eq!(
-        got.code, 0,
-        "documenting the hole: an unpinned file is NOT detected by either side"
+        got.code,
+        1,
+        "an unpinned file under a locked root must be RED: {}",
+        show(&got)
     );
-    // Counts unchanged: the gate counts lock rows, never tree files.
-    assert!(String::from_utf8_lossy(&got.stdout).contains("knowledge=9 modules=31"));
+    let err = String::from_utf8_lossy(&got.stderr);
+    assert!(
+        err.contains(
+            "  - [knowledge] in the tree but not pinned in content.lock: \
+             knowledge/smuggled_policy.toml\n"
+        ),
+        "{err}"
+    );
+    assert!(
+        err.contains(
+            "  - [modules] in the tree but not pinned in content.lock: modules/99-smuggled.md\n"
+        ),
+        "{err}"
+    );
 }
 
-/// The same hole from the other end: deleting a ROW (not a file) silently stops
-/// that file being checked, and the receipt's count is the only tell.
+/// The dangerous direction: deleting a ROW used to delete the CHECK, and the
+/// removal looked exactly like a pass. Now the tree-side walk finds the file
+/// with no row behind it.
 #[test]
-fn deleting_a_row_silently_stops_checking_that_file_in_both() {
+fn deleting_a_row_is_red_in_both() {
     let f = Fixture::green();
     let text = f.read_lock();
     let line = "\"knowledge/claims.toml\" = \"f38eaf89f3bd61bfc7d1a4f5d6a0757e7a2a0399000afae2fc0e3182c78df867\"\n";
     assert!(text.contains(line));
     f.write_lock(&text.replacen(line, "", 1));
-    // Now corrupt the file the row used to pin.
+    // Corrupt the file the row used to pin: before the fix this stayed GREEN.
     fs::write(f.engine.join("knowledge/claims.toml"), "corrupted\n").unwrap();
 
     let got = assert_identical(&f.engine, false, "deleted row");
-    assert_eq!(got.code, 0, "documenting the hole: {}", show(&got));
-    assert!(String::from_utf8_lossy(&got.stdout).contains("knowledge=8 modules=31"));
+    assert_eq!(got.code, 1, "deleting a pin must be RED: {}", show(&got));
+    assert!(
+        String::from_utf8_lossy(&got.stderr).contains(
+            "  - [knowledge] in the tree but not pinned in content.lock: knowledge/claims.toml\n"
+        ),
+        "{}",
+        show(&got)
+    );
+}
+
+/// The receipt names the roots it walked and their counts, so a reader of a
+/// GREEN verdict is told what the verdict ranges over.
+#[test]
+fn the_green_receipt_names_its_coverage_in_both() {
+    let f = Fixture::green();
+    let got = assert_identical(&f.engine, false, "coverage receipt");
+    assert_eq!(got.code, 0, "{}", show(&got));
+    let out = String::from_utf8_lossy(&got.stdout);
+    assert!(
+        out.contains(
+            "verify_content_lock: covered roots (every file found under these is pinned and \
+             matched): knowledge/*.toml=9 web/content/modules/*.md=16 ../modules/*.md=15\n"
+        ),
+        "{out}"
+    );
+    assert!(
+        out.contains("verify_content_lock: NOT covered: anything outside those roots"),
+        "{out}"
+    );
+}
+
+/// Anti-vacuous, tree side: a locked root that matched zero files must not
+/// report like a root whose every file matched.
+#[test]
+fn a_locked_root_with_zero_files_is_red_in_both() {
+    let f = Fixture::green();
+    let dir = f.base.join("modules");
+    let mut removed = 0usize;
+    for e in fs::read_dir(&dir).unwrap().flatten() {
+        fs::remove_file(e.path()).unwrap();
+        removed += 1;
+    }
+    assert!(removed >= 15, "emptied only {removed} files");
+    let got = assert_identical(&f.engine, false, "root matched zero files");
+    assert_ne!(got.code, 0, "a root that checked nothing is not a pass");
+    assert!(
+        String::from_utf8_lossy(&got.stderr).contains(
+            "  - [modules] locked root matched zero files: ../modules/*.md \
+             (nothing was checked there \u{2014} vacuous ERROR)\n"
+        ),
+        "{}",
+        show(&got)
+    );
+}
+
+#[test]
+fn a_missing_locked_root_is_red_in_both() {
+    let f = Fixture::green();
+    let dir = f.base.join("modules");
+    for e in fs::read_dir(&dir).unwrap().flatten() {
+        fs::remove_file(e.path()).unwrap();
+    }
+    fs::remove_dir(&dir).unwrap();
+    let got = assert_identical(&f.engine, false, "locked root absent");
+    assert_ne!(got.code, 0);
+    assert!(
+        String::from_utf8_lossy(&got.stderr).contains(
+            "  - [modules] locked root is not a directory: ../modules/*.md \
+             (nothing was checked there \u{2014} vacuous ERROR)\n"
+        ),
+        "{}",
+        show(&got)
+    );
+}
+
+// ── case 4b: the bank-hash subprocess (bd-hw3) ─────────────────────────────
+//
+// Both of these used to be uncaught exceptions in the oracle — a traceback where
+// a verdict belonged — and a silent skip-to-the-next-candidate in the port.
+
+/// Install a fake `target/debug/cdcp` that both sides prefer over `cargo run`.
+fn plant_bank_hash_stub(engine: &Path, body: &str) {
+    use std::os::unix::fs::PermissionsExt;
+    let dir = engine.join("target/debug");
+    fs::create_dir_all(&dir).unwrap();
+    let p = dir.join("cdcp");
+    fs::write(&p, body).unwrap();
+    fs::set_permissions(&p, fs::Permissions::from_mode(0o755)).unwrap();
+}
+
+#[test]
+fn a_bank_hash_that_says_nothing_is_red_in_both() {
+    let f = Fixture::green();
+    plant_bank_hash_stub(&f.engine, "#!/bin/sh\nexit 0\n");
+    let got = assert_identical(&f.engine, false, "bank-hash exits 0 with no output");
+    assert_eq!(
+        got.code,
+        1,
+        "a hash oracle that says nothing must not read as a pass: {}",
+        show(&got)
+    );
+    assert!(
+        String::from_utf8_lossy(&got.stderr)
+            .contains("  - bank-hash exited 0 with no output (cannot obtain live bank_hash)\n"),
+        "{}",
+        show(&got)
+    );
+}
+
+#[test]
+fn a_bank_hash_that_hangs_is_red_in_both() {
+    let f = Fixture::green();
+    plant_bank_hash_stub(&f.engine, "#!/bin/sh\nsleep 60\n");
+    let got = assert_identical_env(
+        &f.engine,
+        false,
+        &[("CDCP_BANK_HASH_TIMEOUT_S", "1")],
+        "bank-hash hangs",
+    );
+    assert_eq!(got.code, 1, "{}", show(&got));
+    assert!(
+        String::from_utf8_lossy(&got.stderr)
+            .contains("  - bank-hash timed out (cannot obtain live bank_hash)\n"),
+        "{}",
+        show(&got)
+    );
+}
+
+#[test]
+fn an_unparseable_timeout_is_red_in_both() {
+    let f = Fixture::green();
+    let got = assert_identical_env(
+        &f.engine,
+        false,
+        &[("CDCP_BANK_HASH_TIMEOUT_S", "banana")],
+        "unparseable timeout",
+    );
+    assert_eq!(got.code, 1, "{}", show(&got));
+    assert!(
+        String::from_utf8_lossy(&got.stderr)
+            .contains("  - invalid CDCP_BANK_HASH_TIMEOUT_S (want a positive number of seconds)\n"),
+        "{}",
+        show(&got)
+    );
+}
+
+#[test]
+fn a_non_positive_timeout_is_red_in_both() {
+    let f = Fixture::green();
+    let got = assert_identical_env(
+        &f.engine,
+        false,
+        &[("CDCP_BANK_HASH_TIMEOUT_S", "0")],
+        "zero timeout",
+    );
+    assert_eq!(got.code, 1, "{}", show(&got));
+    assert!(
+        String::from_utf8_lossy(&got.stderr)
+            .contains("  - invalid CDCP_BANK_HASH_TIMEOUT_S (want a positive number of seconds)\n"),
+        "{}",
+        show(&got)
+    );
 }
 
 // ── case 5: anti-vacuous — empty or missing lock is never a pass ───────────
@@ -653,6 +851,17 @@ fn the_oracle_is_present_and_runnable() {
     assert!(
         text.contains("bank_hash drift"),
         "oracle lost the drift message this port reproduces"
+    );
+    // bd-z3v: the tree-side walk is the half of the gate whose coverage the lock
+    // cannot narrow. If it leaves the oracle, every case above compares two
+    // closed-world checks and the differential suite stops meaning what it says.
+    assert!(
+        text.contains("def tree_side_errors("),
+        "oracle lost its tree-side walk"
+    );
+    assert!(
+        text.contains("LOCKED_ROOTS"),
+        "oracle lost its locked-root list"
     );
     // The marker really is U+2026 in the oracle's source, not three dots.
     assert!(

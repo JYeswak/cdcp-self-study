@@ -435,27 +435,52 @@ fn defect_shapes_beyond_the_shell_suite_are_byte_identical() {
     );
     std::fs::remove_file(bank.join("zz-multi.toml")).unwrap();
 
-    // ── KNOWN ORACLE DEFECT, reproduced deliberately and NOT fixed ─────────
-    // `items = []` takes the `isinstance(data["items"], list)` branch, adds
-    // nothing, and never reaches the `no id or items[]` error. A bank file
-    // emptied this way is scanned and silently contributes nothing — a file
-    // that was never checked reports exactly like one that passed. Fixing it
-    // here would stop this being a port, so the behaviour is pinned instead,
-    // and the divergence is filed for a separate bead.
+    // ── anti-vacuous at FILE granularity (bd-2kr) ──────────────────────────
+    // `items = []` takes the `isinstance(data["items"], list)` branch and adds
+    // nothing, so it can never reach the `no id or items[]` leg — Python's
+    // `elif` cannot run once the `if` has. Both sides must now name the file and
+    // go RED. Note what the surrounding numbers do: `items=` stays at the full
+    // specimen count, because the 804 real items carry the aggregate. Only the
+    // named failure line distinguishes a file that was never really checked from
+    // one that passed, which is why the assertion is on the name and not on a
+    // count.
     write(&bank.join("zz-silently-empty.toml"), "items = []\n");
-    let rs = assert_byte_identical("oracle defect: items = []", &root, &["--bank", &bank_arg]);
-    assert_eq!(
+    let rs = assert_byte_identical("file yielding zero items", &root, &["--bank", &bank_arg]);
+    assert_ne!(
         rs.code,
         0,
-        "pinning the oracle's behaviour, not endorsing it: {}",
+        "a bank file that contributed nothing must never be a pass: {}",
         rs.out()
     );
     assert!(
-        !rs.out().contains("zz-silently-empty"),
-        "the oracle says nothing about this file; if that ever changes, this port must change with it: {}",
+        rs.out().contains(
+            "zz-silently-empty.toml: items[] yielded zero items (vacuous file scan is ERROR)"
+        ),
+        "the file that yielded nothing must be named: {}",
         rs.out()
     );
     std::fs::remove_file(bank.join("zz-silently-empty.toml")).unwrap();
+
+    // The known-GOOD leg the fix must not break: a legitimate single-item file
+    // in `id = ...` form, with no `items` key at all, is still a pass. A fix
+    // that turned every zero-`items[]` file RED by widening the else-branch
+    // would take this file with it.
+    write(
+        &bank.join("zz-single-item-good.toml"),
+        "id = \"zz-single-item-good\"\ntopic_ids = [\"m01-importance\"]\n",
+    );
+    let rs = assert_byte_identical(
+        "single-item id form still green",
+        &root,
+        &["--bank", &bank_arg],
+    );
+    assert_eq!(
+        rs.code,
+        0,
+        "the `elif \"id\" in data` branch must survive the fix: {}",
+        rs.out()
+    );
+    std::fs::remove_file(bank.join("zz-single-item-good.toml")).unwrap();
 
     // duplicate topic ids in the registry
     let dup_topics = td.path().join("topics_dup.toml");

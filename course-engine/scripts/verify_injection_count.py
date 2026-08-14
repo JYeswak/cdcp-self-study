@@ -10,6 +10,37 @@ twice in one session. A hand-typed count that nobody checks is a self-signed
 certificate about the very machinery that exists to stop self-signed
 certificates.
 
+WHAT THE ADVERTISED NUMBER COUNTS (decided 2026-08-14, bd-wf2)
+--------------------------------------------------------------
+It counts EXACTLY ONE population: the `INJECTIONS=<n> SUITE=<name>` receipts
+emitted by the registered SHELL selftest suites (`scripts/selftest_*.sh`) during
+a real `check.sh` run — one increment per injection that suite observed go RED.
+
+The Rust known-bad legs (the `#[cfg(test)]` cases inside `crates/cdcp_gate`, and
+the per-gate ports that follow) are deliberately NOT in this total. The reason,
+stated because an exclusion without a reason is a schema error:
+
+  * they emit no receipt — `cargo test` reports pass/fail, not a count, so there
+    is nothing for `check.sh` to tee into the log and nothing for this gate to
+    sum. Their number would have to be hand-typed somewhere, which reintroduces
+    the exact defect this gate exists to remove;
+  * they are internal to a test binary's own accounting, which this gate cannot
+    observe, so a Rust leg that silently stopped asserting would be invisible
+    here while inflating the advertised number.
+
+Consequence, and it is the honest reading: the advertised number is a floor on
+the repo's known-bad population, not its total. README must therefore say what
+it counts ("shell selftest suites"), so a reader cannot mistake it for "every
+known-bad in the repo". Folding the Rust legs in is a real option later, but it
+is a mechanism change, not a number change: those legs must first emit receipts
+that `check.sh` aggregates and be registered in REGISTERED_SUITES below. Until
+they do, counting them would be a claim with no receipt behind it.
+
+The number is REGENERATED, never hand-maintained: `--write-readme` rewrites every
+advertised site from the receipts that were actually collected. It refuses to
+write when the receipts themselves are unsound, so a bogus log cannot launder a
+wrong number into README.
+
 WHY NOT THE OBVIOUS IMPLEMENTATIONS (measured, do not re-derive)
 ---------------------------------------------------------------
 * Counting "# a)" style header comments does not work: three suites declare
@@ -34,9 +65,24 @@ suite that stopped reporting reads exactly like a suite with nothing to report.
 An empty log, a suite reporting zero injections, an unregistered suite name, and
 a README advertising no number at all are all errors.
 
+PARTIAL COVERAGE IS ALSO AN ERROR (bd-wf2)
+------------------------------------------
+The subtler failure is not "no sites parse" — that is already caught. It is ONE
+site quietly falling out of the scanner while the others still parse: coverage
+drops and the gate reports identically to full coverage. Two defences, because
+either alone leaves a gap:
+
+ 1. Counts spelled in English words parse (zero..ninety-nine), so rewriting a
+    site as "thirty-six known-bad injections" keeps it under the gate instead of
+    removing it from the gate.
+ 2. MIN_ADVERTISEMENT_SITES is a floor on how many sites must parse at all. A
+    site that becomes unreadable in any OTHER way — "three dozen", a number
+    above the word vocabulary, a deleted line — drops the count and trips it.
+
 Usage:
   python3 scripts/verify_injection_count.py --log /tmp/injections.txt
   python3 scripts/verify_injection_count.py --log L --readme R --require A,B
+  python3 scripts/verify_injection_count.py --log L --write-readme
 """
 
 from __future__ import annotations
@@ -59,6 +105,9 @@ DEFAULT_README = ENGINE.parent / "README.md"
 #     claims are true of the repo. It asserts facts; it plants no known-bad and
 #     asserts no RED, so counting it as an "injection" suite would inflate the
 #     advertised number with checks that never proved they can trip.
+#   crates/*/src/**/#[cfg(test)] known-bad legs — see the module header. They
+#     emit no receipt, so they cannot be summed; registering them without a
+#     receipt mechanism would put a hand-typed number back in the badge.
 REGISTERED_SUITES = (
     "selftest_known_bad",
     "selftest_l5",
@@ -71,23 +120,73 @@ REGISTERED_SUITES = (
     "selftest_injection_count",
 )
 
+# How many advertisement sites must parse before the comparison is worth
+# anything. The shipped README advertises the count at five sites (the badge
+# markup contributes two), and the selftest's specimen README also writes five.
+# This is a FLOOR, not an equality: adding an advertisement is free, removing or
+# obscuring one is a deliberate decision that has to edit this constant. Without
+# it, a README where one site stopped parsing reports exactly like a README
+# where all of them still do.
+MIN_ADVERTISEMENT_SITES = 5
+
 _LINE = re.compile(r"^INJECTIONS=(\d+)\s+SUITE=(\S+)\s*$")
+
+
+def _cardinals() -> dict[str, int]:
+    """English cardinals zero..ninety-nine, both hyphen and space compounds.
+
+    Bounded on purpose. A count above ninety-nine spelled in words is not
+    recognised — it drops the site out of `advertised`, which trips the
+    MIN_ADVERTISEMENT_SITES floor rather than passing silently.
+    """
+    ones = (
+        "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
+        "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+        "sixteen", "seventeen", "eighteen", "nineteen",
+    )
+    tens = (
+        "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy",
+        "eighty", "ninety",
+    )
+    words = {w: i for i, w in enumerate(ones)}
+    for t in range(2, 10):
+        words[tens[t]] = t * 10
+        for u in range(1, 10):
+            for sep in ("-", " "):
+                words[f"{tens[t]}{sep}{ones[u]}"] = t * 10 + u
+    return words
+
+
+WORD_NUM = _cardinals()
+
+# Alternation order is part of the pattern: `re` is leftmost-first, not
+# longest-match, so "eighteen" must be offered before "eight" and "twenty-one"
+# before "twenty". Longest first, ties broken lexicographically so the Rust port
+# can rebuild the identical ordering.
+_WORD_ALT = "|".join(sorted(WORD_NUM, key=lambda w: (-len(w), w)))
 
 # Numbers README advertises about injections. Badge markup writes them as
 # "20_injections"; prose writes "20 known-bad injections" / "20 known-bad
-# faults" / "6 suites, 20 injections".
+# faults" / "6 suites, 20 injections" / "twenty known-bad injections".
+#
+# The `\b` guards the WORD branch only: a digit run after a dot ("v1.7
+# injections") is still a number, but "eight" inside "freighter" is not.
 _ADVERTISED = re.compile(
-    r"(\d+)[\s_]+(?:known-bad[\s_]+)?(?:injections?|faults)", re.IGNORECASE
-)
-
-_WORD_NUM = {
-    "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
-    "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12,
-}
-_SUITE_COUNT = re.compile(
-    r"\b(\d+|" + "|".join(_WORD_NUM) + r")\s+(?:selftest\s+)?suites?\b",
+    r"(\d+|\b(?:" + _WORD_ALT + r"))"
+    r"[\s_]+(?:known-bad[\s_]+)?(?:injections?|faults)",
     re.IGNORECASE,
 )
+
+_SUITE_COUNT = re.compile(
+    r"\b(\d+|" + _WORD_ALT + r")\s+(?:selftest\s+)?suites?\b",
+    re.IGNORECASE,
+)
+
+
+def count_value(tok: str) -> int:
+    """The integer a matched count token denotes, digits or words."""
+    t = tok.lower()
+    return int(t) if t.isdigit() else WORD_NUM[t]
 
 
 def parse_log(path: Path) -> tuple[dict[str, int], list[str]]:
@@ -116,6 +215,35 @@ def parse_log(path: Path) -> tuple[dict[str, int], list[str]]:
     return counts, errors
 
 
+def regenerate(text: str, total: int) -> tuple[str, int]:
+    """Rewrite every advertised injection count to `total`.
+
+    Returns the new text and the number of sites rewritten. Line terminators are
+    preserved exactly (`keepends=True`), and only the count token itself is
+    replaced, so surrounding markup and prose are untouched. A word-spelled site
+    is normalised to digits — regeneration produces the checkable form.
+
+    Suite counts are NOT rewritten: the suite roster changes only when a suite is
+    added or removed, which is already a deliberate edit to REGISTERED_SUITES,
+    and rewriting them would rewrite prose ("Nine selftest suites") that no
+    caller asked this gate to author.
+    """
+    lines = text.splitlines(keepends=True)
+    rewritten = 0
+    for i, line in enumerate(lines):
+        parts: list[str] = []
+        last = 0
+        for m in _ADVERTISED.finditer(line):
+            parts.append(line[last : m.start(1)])
+            parts.append(str(total))
+            last = m.end(1)
+            rewritten += 1
+        if parts:
+            parts.append(line[last:])
+            lines[i] = "".join(parts)
+    return "".join(lines), rewritten
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="known-bad injection count drift guard")
     ap.add_argument("--log", type=Path, required=True)
@@ -125,12 +253,31 @@ def main(argv: list[str] | None = None) -> int:
         default=",".join(REGISTERED_SUITES),
         help="comma-separated suite names that MUST self-report",
     )
+    ap.add_argument(
+        "--write-readme",
+        action="store_true",
+        help="regenerate the advertised counts in README from the receipts",
+    )
     args = ap.parse_args(argv)
 
     required = tuple(s.strip() for s in args.require.split(",") if s.strip())
     if not required:
         print("FAIL")
         print("  - no suites required (a gate over an empty registry is vacuous)")
+        return 1
+
+    # A suite named twice would be summed twice, inflating measured_total — the
+    # one direction that turns real drift GREEN. Silently de-duplicating would
+    # accept a caller that does not know its own roster, so this is an ERROR.
+    duplicated = sorted({s for s in required if required.count(s) > 1})
+    if duplicated:
+        print("FAIL")
+        print(
+            "  - --require names "
+            + ", ".join(repr(s) for s in duplicated)
+            + " more than once; a repeated suite is summed twice, which inflates "
+            "measured_total and is the direction that turns real drift GREEN"
+        )
         return 1
 
     counts, errors = parse_log(args.log)
@@ -154,7 +301,43 @@ def main(argv: list[str] | None = None) -> int:
                 f"count) rather than letting the total drift"
             )
 
+    # `required` is duplicate-free by the check above, so this is a plain sum.
     total = sum(counts.get(s, 0) for s in required)
+
+    # Regeneration runs BEFORE the comparison, and only when the receipts
+    # themselves are sound. A missing suite, a zero suite, an unparseable line or
+    # an unregistered suite means the total is not trustworthy, and writing an
+    # untrustworthy number into README would launder it into a certificate.
+    receipts_sound = not errors
+    regen_note: str | None = None
+
+    if args.write_readme:
+        if not receipts_sound:
+            regen_note = (
+                "regeneration SKIPPED: the receipts are not sound, so the total "
+                "is not a number worth writing"
+            )
+        elif not args.readme.is_file():
+            regen_note = "regeneration SKIPPED: README is not readable"
+        else:
+            before = args.readme.read_text(encoding="utf-8")
+            after, sites = regenerate(before, total)
+            if sites == 0:
+                regen_note = (
+                    f"regeneration wrote nothing: {args.readme} advertises no "
+                    f"parseable count to rewrite"
+                )
+            elif after == before:
+                regen_note = (
+                    f"regenerated {args.readme}: {sites} site(s) already "
+                    f"advertise {total}"
+                )
+            else:
+                args.readme.write_text(after, encoding="utf-8")
+                regen_note = (
+                    f"regenerated {args.readme}: {sites} site(s) now advertise "
+                    f"{total}"
+                )
 
     advertised: list[tuple[int, int]] = []
     suite_claims: list[tuple[int, int]] = []
@@ -165,27 +348,34 @@ def main(argv: list[str] | None = None) -> int:
             args.readme.read_text(encoding="utf-8").splitlines(), 1
         ):
             for m in _ADVERTISED.finditer(line):
-                advertised.append((lineno, int(m.group(1))))
+                advertised.append((lineno, count_value(m.group(1))))
             for m in _SUITE_COUNT.finditer(line):
-                tok = m.group(1).lower()
-                suite_claims.append(
-                    (lineno, int(tok) if tok.isdigit() else _WORD_NUM[tok])
-                )
+                suite_claims.append((lineno, count_value(m.group(1))))
         if not advertised:
             errors.append(
                 "README advertises no known-bad injection count at all "
                 "(nothing to check is an ERROR, not a pass)"
             )
+        elif len(advertised) < MIN_ADVERTISEMENT_SITES:
+            errors.append(
+                f"only {len(advertised)} advertisement site(s) parsed in "
+                f"{args.readme}; at least {MIN_ADVERTISEMENT_SITES} are expected "
+                f"— a site that stopped parsing loses coverage while reporting "
+                f"exactly like full coverage"
+            )
+        # Findings name the file that was actually scanned. Hardcoding
+        # "README.md" sent the next reader to an innocent file whenever
+        # --readme pointed elsewhere.
         for lineno, n in advertised:
             if n != total:
                 errors.append(
-                    f"README.md:{lineno} advertises {n} known-bad injections; "
-                    f"the suites self-reported {total}"
+                    f"{args.readme}:{lineno} advertises {n} known-bad "
+                    f"injections; the suites self-reported {total}"
                 )
         for lineno, n in suite_claims:
             if n != len(required):
                 errors.append(
-                    f"README.md:{lineno} advertises {n} selftest suites; "
+                    f"{args.readme}:{lineno} advertises {n} selftest suites; "
                     f"{len(required)} are registered"
                 )
 
@@ -198,6 +388,8 @@ def main(argv: list[str] | None = None) -> int:
     for suite in required:
         got = counts.get(suite)
         print(f"    {suite}: {'MISSING' if got is None else got}")
+    if regen_note is not None:
+        print(f"  {regen_note}")
 
     if errors:
         print("  failures:")

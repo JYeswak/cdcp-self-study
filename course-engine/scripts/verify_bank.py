@@ -3,6 +3,15 @@
 
 Library mode: pool must be ≥ pool_min_items (default 10× exam size).
 Validates schema, topics, source_class, domain floors, correct-letter diversity.
+
+Two output-shape contracts this gate keeps, both fixed 2026-08-14 (bd-hw3):
+
+  - `pool_min_items` and `exam_n_items` are POSITIVE INTEGERS or the key is
+    absent. 0, "0", a negative, and non-numeric junk are all the same recorded
+    finding — never a silent fallback and never a crash. See
+    `policy_positive_int`.
+  - The verdict line is composed with the rest of the report and written last.
+    Nothing that can raise runs between "PASS" and the end of stdout.
 """
 from __future__ import annotations
 
@@ -23,7 +32,23 @@ MANIFEST_PATH = ROOT / "bank" / "MANIFEST.toml"
 FACT_POLICY_PATH = ROOT / "knowledge" / "fact_policy.toml"
 BANK_POLICY_PATH = ROOT / "knowledge" / "bank_policy.toml"
 
-ALLOWED_CORRECT = frozenset({"A", "B", "C", "D"})
+# Emission order is part of this gate's output contract.
+#
+# `ALLOWED_CORRECT` was a bare frozenset until 2026-08-14 and the diversity loop
+# below iterated it directly, so the order of any "correct=X is N% of pool" lines
+# was PYTHONHASHSEED-dependent. That was harmless only by arithmetic accident:
+# two letters cannot both exceed 70% without summing past 140%, so at most one
+# such line is ever emitted. Lower that threshold below 50% and this gate's
+# stdout becomes nondeterministic run to run — which would silently break every
+# byte-exact differential test built against it, and would look like a port bug
+# rather than an oracle bug.
+#
+# CORRECT_LETTERS pins the emission order. ALLOWED_CORRECT stays a frozenset
+# because membership (`correct in ALLOWED_CORRECT`) must keep Python set
+# semantics exactly, including raising TypeError on an unhashable value; a tuple
+# would quietly answer False there and change the report.
+CORRECT_LETTERS = ("A", "B", "C", "D")
+ALLOWED_CORRECT = frozenset(CORRECT_LETTERS)
 ALLOWED_BLOOM = frozenset(
     {"remember", "understand", "apply", "analyze", "evaluate", "create"}
 )
@@ -32,6 +57,38 @@ ALLOWED_BLOOM = frozenset(
 def load_toml(path: Path) -> dict:
     with path.open("rb") as f:
         return tomllib.load(f)
+
+
+def policy_positive_int(
+    bp: dict, key: str, default: int, errors: list[str]
+) -> int | None:
+    """A policy value that must be a positive integer. Absent → `default`.
+
+    Present → coerced with `int()` and required to be > 0. Zero, negatives and
+    non-numeric junk are all recorded findings and return None; the caller must
+    then skip whatever check consumed the value, because the config error IS the
+    finding.
+
+    This was `int(bp.get(key) or default)` until 2026-08-14. `or` treats 0 as
+    absent, so `exam_n_items = 0` silently became 40 while `exam_n_items = "0"`
+    is truthy, survived to `n / exam_n`, and raised ZeroDivisionError AFTER three
+    lines of a PASS report had already been written — two spellings of the same
+    value, two different wrong behaviours, neither an error. A negative floor was
+    worse still: it disabled the pool check outright and reported PASS. All of
+    those are now the same fail-closed finding.
+    """
+    if key not in bp:
+        return default
+    raw = bp[key]
+    try:
+        val = int(raw)
+    except (TypeError, ValueError):
+        errors.append(f"bank_policy.toml: {key} must be an integer, got {raw!r}")
+        return None
+    if val <= 0:
+        errors.append(f"bank_policy.toml: {key} must be > 0, got {val}")
+        return None
+    return val
 
 
 def topic_ids_from_registry() -> set[str]:
@@ -63,13 +120,13 @@ def main() -> int:
         pol = load_toml(FACT_POLICY_PATH)
         allowed_qe = set(pol.get("allowed_quantity_evidence") or allowed_qe)
 
-    pool_min = 400
-    exam_n = 40
+    pool_min: int | None = 400
+    exam_n: int | None = 40
     domain_mins: dict[int, int] = {}
     if BANK_POLICY_PATH.is_file():
         bp = load_toml(BANK_POLICY_PATH)
-        pool_min = int(bp.get("pool_min_items") or pool_min)
-        exam_n = int(bp.get("exam_n_items") or exam_n)
+        pool_min = policy_positive_int(bp, "pool_min_items", pool_min, errors)
+        exam_n = policy_positive_int(bp, "exam_n_items", exam_n, errors)
         for row in bp.get("domain_min") or []:
             domain_mins[int(row["module"])] = int(row["min_items"])
 
@@ -89,7 +146,9 @@ def main() -> int:
     n = len(loaded)
     if n == 0:
         errors.append("zero items loaded")
-    if n < pool_min:
+    # Skipped only when the floor itself is unusable — that config error is
+    # already recorded above, so this can never turn a bad policy into a pass.
+    if pool_min is not None and exam_n is not None and n < pool_min:
         errors.append(
             f"pool too small: {n} < pool_min_items {pool_min} "
             f"(need ≥{pool_min // exam_n}× exam size {exam_n})"
@@ -179,14 +238,16 @@ def main() -> int:
 
     # Correct-letter diversity: no letter > 70% of pool (avoid all-B libraries)
     if n >= 40:
-        for L in ALLOWED_CORRECT:
+        # CORRECT_LETTERS, not ALLOWED_CORRECT: see the note at the top. Any
+        # line emitted from this loop reaches stdout, so its order is contract.
+        for L in CORRECT_LETTERS:
             frac = letter_counts.get(L, 0) / n
             if frac > 0.70:
                 errors.append(
                     f"correct={L} is {frac:.0%} of pool (max 70% for diversity)"
                 )
         # At least 3 letters used
-        if len([L for L in ALLOWED_CORRECT if letter_counts.get(L, 0) > 0]) < 3:
+        if len([L for L in CORRECT_LETTERS if letter_counts.get(L, 0) > 0]) < 3:
             errors.append("need at least 3 distinct correct letters in the pool")
 
     # MANIFEST optional but if present should match count
@@ -196,22 +257,33 @@ def main() -> int:
         if mc is not None and int(mc) != n:
             errors.append(f"MANIFEST item_count {mc} != loaded {n}")
 
+    # The verdict is composed in full BEFORE a single byte of it is written. A
+    # gate that prints PASS and then dies leaves stdout and CI disagreeing, and
+    # which one wins depends on whether anyone looked; every line below is
+    # therefore built first, so a raise here means no verdict at all rather than
+    # a verdict that is wrong.
     if errors:
-        print("FAIL")
-        for e in errors[:80]:
-            print(f"  - {e}")
+        report = ["FAIL"]
+        report.extend(f"  - {e}" for e in errors[:80])
         if len(errors) > 80:
-            print(f"  ... +{len(errors) - 80} more")
+            report.append(f"  ... +{len(errors) - 80} more")
+        print("\n".join(report))
         return 1
 
-    print("PASS")
-    print(f"  items={n}")
-    print(f"  unique_ids={len(set(ids))}")
-    print(f"  pool_min={pool_min} exam_n={exam_n} multiplier≈{n / exam_n:.1f}x")
-    print(f"  topics_registry={len(known_topics)}")
-    print(f"  correct_dist={dict(sorted(letter_counts.items()))}")
-    print(f"  modules={dict(sorted(module_counts.items()))}")
-    print("  source_class=original")
+    # Unreachable with a bad policy: `pool_min`/`exam_n` are None only when
+    # `policy_positive_int` recorded a finding, and `errors` returned above.
+    assert pool_min is not None and exam_n is not None
+    report = [
+        "PASS",
+        f"  items={n}",
+        f"  unique_ids={len(set(ids))}",
+        f"  pool_min={pool_min} exam_n={exam_n} multiplier≈{n / exam_n:.1f}x",
+        f"  topics_registry={len(known_topics)}",
+        f"  correct_dist={dict(sorted(letter_counts.items()))}",
+        f"  modules={dict(sorted(module_counts.items()))}",
+        "  source_class=original",
+    ]
+    print("\n".join(report))
     return 0
 
 

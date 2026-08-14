@@ -640,23 +640,217 @@ fn module_coercion_matches_python_int_identically() {
     );
 }
 
-/// A `pool_min_items` of `0` is FALSY in Python and falls back to the default
-/// 400 — it does not disable the floor. Easy to "fix" by accident in a port.
+// The test that used to sit here — `a_falsy_pool_minimum_falls_back_to_the_
+// default_identically` — pinned the bd-hw3 defect: `pool_min_items = 0` and
+// `exam_n_items = 0` were FALSY, so `int(bp.get(key) or default)` substituted
+// 400/40 and the gate reported on floors nobody had configured. The pin existed
+// to make repairing that deliberate, not permanent, so it is DELETED rather
+// than amended, and the five cases below take its place.
+
+/// bd-hw3, known-bad #1. Both spellings of a zero exam size are now the SAME
+/// finding on both sides. `= 0` used to default silently to 40; `= "0"` used to
+/// print three lines of a PASS report and then die on `n / exam_n`.
 #[test]
-fn a_falsy_pool_minimum_falls_back_to_the_default_identically() {
+fn both_spellings_of_a_zero_exam_size_report_identically_and_fail_closed() {
+    for (label, spelling) in [("int-zero", "0"), ("str-zero", "\"0\"")] {
+        let f = Fixture::new();
+        f.write(
+            "knowledge/bank_policy.toml",
+            &format!("exam_n_items = {spelling}\npool_min_items = 2\n"),
+        );
+        f.write("bank/items/pool.toml", &pool(4, &["A", "B"]));
+        let run = f.check(label);
+        assert_ne!(run.code, 0, "[{label}] {}", run.stdout);
+        assert_eq!(
+            run.stdout, "FAIL\n  - bank_policy.toml: exam_n_items must be > 0, got 0\n",
+            "[{label}] the two spellings must produce one message"
+        );
+        assert!(
+            run.stderr.is_empty(),
+            "[{label}] nothing may raise: {}",
+            run.stderr
+        );
+    }
+}
+
+/// bd-hw3, known-bad #2. A negative floor used to DISABLE the pool check —
+/// truthy, so it survived `or`, and `n < -1` is never true — and report PASS.
+#[test]
+fn a_negative_pool_floor_reports_identically_and_does_not_disable_the_check() {
     let f = Fixture::new();
     f.write(
         "knowledge/bank_policy.toml",
-        "exam_n_items = 0\npool_min_items = 0\n",
+        "exam_n_items = 4\npool_min_items = -1\n",
     );
     f.write("bank/items/pool.toml", &pool(4, &["A", "B"]));
-    let run = f.check("falsy-policy-values");
+    let run = f.check("negative-pool-floor");
+    assert_ne!(run.code, 0, "{}", run.stdout);
+    assert_eq!(
+        run.stdout,
+        "FAIL\n  - bank_policy.toml: pool_min_items must be > 0, got -1\n"
+    );
+}
+
+/// bd-hw3, known-bad #3. Junk in a floor is a finding, not an uncaught
+/// `ValueError` whose only trace is a traceback on stderr.
+#[test]
+fn non_numeric_policy_floors_report_identically_and_do_not_raise() {
+    let f = Fixture::new();
+    f.write(
+        "knowledge/bank_policy.toml",
+        "exam_n_items = \"forty\"\npool_min_items = [1]\n",
+    );
+    f.write("bank/items/pool.toml", &pool(4, &["A", "B"]));
+    let run = f.check("non-numeric-policy-floors");
+    assert_ne!(run.code, 0, "{}", run.stdout);
+    // Source order: pool_min_items is read first, so it reports first.
+    assert_eq!(
+        run.stdout,
+        concat!(
+            "FAIL\n",
+            "  - bank_policy.toml: pool_min_items must be an integer, got [1]\n",
+            "  - bank_policy.toml: exam_n_items must be an integer, got 'forty'\n",
+        )
+    );
+    assert!(run.stderr.is_empty(), "{}", run.stderr);
+}
+
+/// bd-hw3, known-GOOD leg. A policy that omits both keys still takes the
+/// built-in 400/40 defaults, and a policy that sets them legitimately is
+/// honoured. The rebase must not refuse valid configuration — an over-strict
+/// gate gets routed around, which is a slower death than no gate.
+#[test]
+fn legitimate_and_absent_policy_floors_are_still_honoured_identically() {
+    let f = Fixture::new();
+    f.write("knowledge/bank_policy.toml", "# no floors declared here\n");
+    f.write("bank/items/pool.toml", &pool(4, &["A", "B"]));
+    let absent = f.check("policy-floors-absent");
     assert!(
-        run.stdout
+        absent
+            .stdout
             .contains("  - pool too small: 4 < pool_min_items 400 (need ≥10× exam size 40)\n"),
+        "the built-in defaults must still apply:\n{}",
+        absent.stdout
+    );
+
+    let g = Fixture::new();
+    g.write(
+        "knowledge/bank_policy.toml",
+        "exam_n_items = 2\npool_min_items = 4\n",
+    );
+    g.write("bank/items/pool.toml", &pool(4, &["A", "B"]));
+    let ok = g.check("policy-floors-legitimate");
+    assert_eq!(ok.code, 0, "{}{}", ok.stdout, ok.stderr);
+    assert!(
+        ok.stdout
+            .contains("  pool_min=4 exam_n=2 multiplier≈2.0x\n"),
         "{}",
+        ok.stdout
+    );
+}
+
+/// bd-hw3, the latent nondeterminism. `ALLOWED_CORRECT` was a frozenset and the
+/// diversity loop iterated it, so emission order rode on PYTHONHASHSEED. Two
+/// pins, because either alone is weak: the oracle's stdout must be byte-equal
+/// across seeds, AND the ordered tuple must exist in the source and be the thing
+/// the loops iterate. The behavioural pin is currently satisfiable by accident
+/// (at most one line is reachable at a 70% threshold); the structural pin is
+/// what survives someone lowering that threshold.
+#[test]
+fn the_correct_letter_order_is_pinned_and_hash_seed_independent() {
+    let f = Fixture::new();
+    // 29/41 = 71% of B, which is the one diversity line reachable today.
+    let mut body = String::new();
+    for i in 0..29 {
+        body.push_str(&good_item(&format!("b-{i:03}"), 1, "B", "t-one"));
+    }
+    for i in 0..6 {
+        body.push_str(&good_item(&format!("a-{i:03}"), 1, "A", "t-one"));
+    }
+    for i in 0..6 {
+        body.push_str(&good_item(&format!("c-{i:03}"), 1, "C", "t-one"));
+    }
+    f.write("bank/items/pool.toml", &body);
+
+    let script = f.root.join("scripts/verify_bank.py");
+    let mut seen: Option<String> = None;
+    for seed in ["0", "1", "42", "12345"] {
+        let run = capture(
+            Command::new("python3")
+                .env("PYTHONHASHSEED", seed)
+                .arg(&script),
+        );
+        assert!(
+            run.stdout
+                .contains("  - correct=B is 71% of pool (max 70% for diversity)\n"),
+            "seed {seed}:\n{}",
+            run.stdout
+        );
+        match &seen {
+            None => seen = Some(run.stdout),
+            Some(first) => assert_eq!(
+                *first, run.stdout,
+                "oracle stdout varies with PYTHONHASHSEED={seed}"
+            ),
+        }
+    }
+
+    // Structural pin: the ordered tuple exists and is what the loops iterate.
+    let src = std::fs::read_to_string(engine_root().join("scripts/verify_bank.py")).unwrap();
+    assert!(
+        src.contains("CORRECT_LETTERS = (\"A\", \"B\", \"C\", \"D\")"),
+        "the ordered tuple must be declared verbatim"
+    );
+    assert!(
+        src.contains("for L in CORRECT_LETTERS:"),
+        "the diversity loop must iterate the ordered tuple"
+    );
+    assert!(
+        !src.contains("for L in ALLOWED_CORRECT"),
+        "no loop may iterate the frozenset: its order is PYTHONHASHSEED-dependent"
+    );
+    // ALLOWED_CORRECT must survive as a frozenset — membership on an unhashable
+    // value has to keep raising, which a tuple would silently answer False.
+    assert!(
+        src.contains("ALLOWED_CORRECT = frozenset(CORRECT_LETTERS)"),
+        "membership must keep set semantics"
+    );
+}
+
+/// bd-hw3 acceptance, stated as its own case: no verdict may be written ahead of
+/// a path that can still raise. Every RED fixture in this suite is checked for a
+/// stdout that begins with a verdict it then contradicts.
+#[test]
+fn no_red_case_writes_pass_before_dying() {
+    // A pool that passes every structural rule but has an unusable exam size —
+    // the exact shape that used to print "PASS\n  items=1\n  unique_ids=1\n"
+    // and then raise.
+    let f = Fixture::new();
+    f.write(
+        "knowledge/bank_policy.toml",
+        "exam_n_items = \"0\"\npool_min_items = 1\n",
+    );
+    f.write("bank/items/pool.toml", &pool(4, &["A", "B"]));
+    let run = f.check("verdict-last");
+    assert_ne!(run.code, 0);
+    assert!(
+        !run.stdout.contains("PASS"),
+        "a PASS reached stdout on a failing run:\n{}",
         run.stdout
     );
+
+    // And the raise path that remains (a non-string stem) still writes nothing.
+    let g = Fixture::new();
+    g.write(
+        "bank/items/pool.toml",
+        "[[items]]\nid = \"x\"\nmodule = 1\nstem = 5\n",
+    );
+    let py = python(&g.root);
+    assert_eq!(
+        py.stdout, "",
+        "the oracle must write no verdict before a raise"
+    );
+    assert_eq!(py.code, 1);
 }
 
 /// The oracle's uncaught-exception path. CPython flushes the stdout written so

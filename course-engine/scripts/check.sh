@@ -92,6 +92,21 @@ echo "==> cdcp_gate substrate-guard (S0 substrate floor)"
 cargo run -q -p cdcp_gate -- substrate-guard || fail "substrate guard (unreasoned .py/.sh)"
 ok "S0 substrate floor (no unreasoned non-Rust file in scripts/ · crates/ · repo root)"
 
+# L4 for the wiring claim ITSELF. Nothing read out of this file can establish that
+# the line above executes (bd-bo6i): `: "cargo run ..."` is a no-op, `true # ...`
+# is a comment, and `cargo run ... || true` runs the gate and throws the verdict
+# away — all three read as an invocation. --prove-wired materialises the INDEX,
+# plants an unlisted .py, runs this script for real, and requires it to exit
+# non-zero. An inert line cannot satisfy that. Measured cost: ~16s.
+# Terminates at depth 1: the copy dies on the plant above this line, and
+# CDCP_SUBSTRATE_PROBE=1 in the child makes a nested probe an ERROR.
+# NOT via run_selftest — it emits no INJECTIONS= receipt and must not move the
+# advertised known-bad count.
+echo "==> cdcp_gate substrate-guard --prove-wired (L4: the wiring is proven to trip)"
+cargo run -q -p cdcp_gate -- substrate-guard --prove-wired \
+  || fail "substrate-guard wiring does not stop check.sh"
+ok "S0 wiring proven behaviourally (a planted unlisted .py stops check.sh)"
+
 echo "==> cdcp_gate install-hooks --check (BUILT != WIRED)"
 cargo run -q -p cdcp_gate -- install-hooks --check \
   || fail "pre-commit shim not installed (run: cargo run -q -p cdcp_gate -- install-hooks)"
@@ -331,7 +346,7 @@ ok "L6 session shapes (Drill due · Miss review) present"
 
 echo "==> L6 domain coverage oracle"
 python3 scripts/verify_coverage.py || fail "L6 coverage"
-ok "L6 coverage GREEN (modules 1–14 ≥ domain_min)"
+ok "L6 coverage GREEN (every module the domain registry declares ≥ domain_min)"
 echo "==> selftest_l6_coverage.sh"
 run_selftest "L6 coverage selftest" sh scripts/selftest_l6_coverage.sh
 ok "L6 coverage selftest (empty RED · missing-module RED · live GREEN)"
@@ -378,6 +393,16 @@ fi
 echo "==> cdcp_gate verify-content-lock (L7 content.lock)"
 cargo run -q -p cdcp_gate -- verify-content-lock || fail "L7 content.lock"
 ok "L7 content.lock"
+
+# L4: the content-lock gate must be proven to TRIP, not merely to pass. This
+# selftest already existed on both sides, fully implemented and fully unwired —
+# nothing in check.sh ran it. BUILT != WIRED, found 2026-08-14. It flips the
+# pinned bank_hash in a TEMP copy (the committed content.lock is never touched)
+# and asserts the RED path is reached.
+echo "==> cdcp_gate verify-content-lock selftest (L4 content.lock known-bad)"
+CDCP_CONTENT_LOCK_SELFTEST=1 cargo run -q -p cdcp_gate -- verify-content-lock \
+  || fail "L7 content.lock mutate-selftest did not reach RED"
+ok "L7 content.lock selftest (mutated bank_hash trips RED)"
 
 # ─── V11 stretch surfaces ───────────────────────────────────────────────────
 if [ -f scripts/selftest_reconstructed.sh ] && [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then

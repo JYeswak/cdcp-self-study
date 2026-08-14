@@ -11,6 +11,36 @@
 //! suite that emits no receipt is an ERROR, never a silent zero, and an empty log
 //! is an ERROR, never a pass.
 //!
+//! ## What the advertised number counts (decided 2026-08-14, bd-wf2)
+//!
+//! Exactly one population: the receipts emitted by the registered SHELL selftest
+//! suites (`scripts/selftest_*.sh`) during a real `check.sh` run. The Rust
+//! known-bad legs in this crate's `#[cfg(test)]` modules are deliberately NOT in
+//! the total, and the reason is stated because an exclusion without a reason is a
+//! schema error: they emit no receipt, so there is nothing for `check.sh` to tee
+//! into the log and nothing here to sum, and their number would have to be
+//! hand-typed somewhere — which is the defect this gate exists to remove.
+//!
+//! The honest consequence: the advertised number is a FLOOR on the repo's
+//! known-bad population, not its total, so README names the population it counts
+//! ("shell selftest suites"). Folding the Rust legs in later is a mechanism
+//! change, not a number change — they would first have to emit receipts that
+//! `check.sh` aggregates and be registered in [`REGISTERED_SUITES`].
+//!
+//! The number is REGENERATED, never hand-maintained: `--write-readme` rewrites
+//! every advertisement site from the receipts that were actually collected, and
+//! refuses to write when those receipts are unsound, so a bogus log cannot
+//! launder a wrong number into README.
+//!
+//! ## Partial coverage is an error too (bd-wf2)
+//!
+//! "No site parses" was already caught. The subtler shape is ONE site quietly
+//! falling out of the scanner while the others still parse — coverage drops and
+//! the report is indistinguishable from full coverage. Two defences: counts
+//! spelled in English words parse (zero..ninety-nine), and
+//! [`MIN_ADVERTISEMENT_SITES`] is a floor on how many sites must parse at all, so
+//! a site that becomes unreadable in any other way still trips the gate.
+//!
 //! ## What it cannot decide
 //!
 //! * Whether a receipt is **honest**. The counter is incremented by the suite's
@@ -19,8 +49,11 @@
 //! * Whether the log came from **this** run. It reads whatever file it is handed;
 //!   freshness is `check.sh`'s job (it mktemps a new log per invocation).
 //! * Whether README's **prose** is accurate about anything other than the two
-//!   numbers it scans (injection count, selftest-suite count). A count spelled in
-//!   words instead of digits is not seen at all.
+//!   numbers it scans (injection count, selftest-suite count).
+//! * Whether a count spelled in a form outside the word vocabulary ("three
+//!   dozen", anything above ninety-nine in words) means what it says. Such a site
+//!   is not read as a number at all; the site floor is what keeps that fail-closed
+//!   rather than silent.
 //! * Whether the registry itself is right. `--require` names the suites that must
 //!   report; a suite nobody registered and nobody runs is outside its reach.
 //!
@@ -28,14 +61,12 @@
 //!
 //! It replaces `scripts/verify_injection_count.py` byte-for-byte on stdout and on
 //! the exit code, verified case-by-case against the Python original by
-//! `tests/diff_verify_injection_count.rs`. Behaviour that looked like a bug in the
-//! Python was reproduced, not corrected — a port that fixes a bug is an unreviewed
-//! behaviour change. Two reproduced quirks worth knowing:
-//!
-//! * A `--require` list containing the same suite twice **double-counts** that
-//!   suite's receipt into `measured_total`. Reproduced deliberately.
-//! * Failure findings name `README.md:<lineno>` literally, even when `--readme`
-//!   pointed somewhere else. Reproduced deliberately.
+//! `tests/diff_verify_injection_count.rs`. The Python is the oracle: three defects
+//! found during the original port were fixed **in the Python first**, and this
+//! file was then changed to match, so the differential flags a divergence rather
+//! than blessing one. The three, for the record — a duplicate `--require` entry no
+//! longer double-counts (it is a usage ERROR), findings name the file actually
+//! scanned instead of a hardcoded `README.md`, and word-spelled counts parse.
 //!
 //! ## Exit codes: 0 / 1, not the crate's 0 / 2 / 3 / 4
 //!
@@ -48,7 +79,7 @@
 //! therefore returns `GateError::Usage` (exit 3, message on stderr) instead.
 
 use crate::registry::{GateCtx, GateError};
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use std::io::Write as _;
 use std::path::{Path, PathBuf};
 
@@ -64,6 +95,9 @@ pub const SUMMARY: &str =
 ///   tests/publishability-bar.sh — asserts facts about the repo. It plants no
 ///     known-bad and asserts no RED, so counting it would inflate the advertised
 ///     number with checks that never showed they can trip.
+///   the Rust `#[cfg(test)]` known-bad legs — see the module header. They emit no
+///     receipt, so they cannot be summed; registering them without a receipt
+///     mechanism would put a hand-typed number back in the badge.
 pub const REGISTERED_SUITES: &[&str] = &[
     "selftest_known_bad",
     "selftest_l5",
@@ -75,6 +109,16 @@ pub const REGISTERED_SUITES: &[&str] = &[
     "selftest_doc_consistency",
     "selftest_injection_count",
 ];
+
+/// How many advertisement sites must parse before the comparison is worth
+/// anything. The shipped README advertises the count at five sites (the badge
+/// markup contributes two), and the selftest's specimen README also writes five.
+///
+/// A FLOOR, not an equality: adding an advertisement is free, removing or
+/// obscuring one is a deliberate decision that has to edit this constant. Without
+/// it, a README where one site stopped parsing reports exactly like a README where
+/// all of them still do. Mirrors `MIN_ADVERTISEMENT_SITES` in the Python original.
+pub const MIN_ADVERTISEMENT_SITES: usize = 5;
 
 // ───────────────────────── Python runtime emulation ────────────────────────
 //
@@ -127,6 +171,47 @@ fn py_splitlines(s: &str) -> Vec<&str> {
             it.next();
             end += 1;
         }
+        start = end;
+    }
+    if start < s.len() {
+        out.push(&s[start..]);
+    }
+    out
+}
+
+/// CPython `str.splitlines(keepends=True)`: the same boundaries as
+/// [`py_splitlines`], with each terminator kept on the line it ends. Used only by
+/// `--write-readme`, where the file has to come back out byte-for-byte apart from
+/// the count tokens themselves — reassembling from `lines()` would rewrite every
+/// `\r\n` in the file as `\n`.
+fn py_splitlines_keepends(s: &str) -> Vec<&str> {
+    fn is_boundary(c: char) -> bool {
+        matches!(
+            c,
+            '\n' | '\r'
+                | '\u{0b}'
+                | '\u{0c}'
+                | '\u{1c}'
+                | '\u{1d}'
+                | '\u{1e}'
+                | '\u{85}'
+                | '\u{2028}'
+                | '\u{2029}'
+        )
+    }
+    let mut out = Vec::new();
+    let mut start = 0usize;
+    let mut it = s.char_indices().peekable();
+    while let Some((i, c)) = it.next() {
+        if !is_boundary(c) {
+            continue;
+        }
+        let mut end = i + c.len_utf8();
+        if c == '\r' && it.peek().map(|&(_, n)| n) == Some('\n') {
+            it.next();
+            end += 1;
+        }
+        out.push(&s[start..end]);
         start = end;
     }
     if start < s.len() {
@@ -334,13 +419,81 @@ fn advertised_tail(s: &str, p: usize) -> Option<usize> {
     lit_ci(s, p, "faults")
 }
 
-/// `finditer` of `(\d+)[\s_]+(?:known-bad[\s_]+)?(?:injections?|faults)`,
-/// IGNORECASE, over one line. Returns each group-1 value, normalized.
+/// English cardinals zero..ninety-nine, hyphen and space compounds both, in the
+/// alternation order the Python builds: longest first, ties broken
+/// lexicographically. Order is part of the pattern — `re` alternation is
+/// leftmost-first, not longest-match, so "eighteen" must be offered before
+/// "eight" and "twenty-one" before "twenty".
+///
+/// Bounded on purpose. A count above ninety-nine spelled in words is not
+/// recognised; it drops the site out of `advertised`, which trips the
+/// [`MIN_ADVERTISEMENT_SITES`] floor rather than passing silently.
+pub fn cardinals() -> &'static [(String, u128)] {
+    static TABLE: std::sync::OnceLock<Vec<(String, u128)>> = std::sync::OnceLock::new();
+    TABLE.get_or_init(|| {
+        const ONES: [&str; 20] = [
+            "zero",
+            "one",
+            "two",
+            "three",
+            "four",
+            "five",
+            "six",
+            "seven",
+            "eight",
+            "nine",
+            "ten",
+            "eleven",
+            "twelve",
+            "thirteen",
+            "fourteen",
+            "fifteen",
+            "sixteen",
+            "seventeen",
+            "eighteen",
+            "nineteen",
+        ];
+        // The Python's TENS is indexed 0..9 with two unused leading holes; this
+        // drops them and carries the +2 offset, which builds the same 172 words.
+        const TENS: [&str; 8] = [
+            "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety",
+        ];
+        let mut v: Vec<(String, u128)> = Vec::with_capacity(172);
+        for (i, w) in ONES.iter().enumerate() {
+            v.push(((*w).to_string(), i as u128));
+        }
+        for (ti, tw) in TENS.iter().enumerate() {
+            let t = ti + 2;
+            v.push(((*tw).to_string(), (t * 10) as u128));
+            for (u, one) in ONES.iter().enumerate().take(10).skip(1) {
+                for sep in ['-', ' '] {
+                    v.push((format!("{tw}{sep}{one}"), (t * 10 + u) as u128));
+                }
+            }
+        }
+        // CPython: sorted(WORD_NUM, key=lambda w: (-len(w), w)). Rust's `str` Ord
+        // is byte-wise, which agrees with CPython's code-point order on ASCII.
+        v.sort_by(|a, b| b.0.len().cmp(&a.0.len()).then_with(|| a.0.cmp(&b.0)));
+        v
+    })
+}
+
+/// `finditer` of
+/// `(\d+|\b(?:<cardinal>))[\s_]+(?:known-bad[\s_]+)?(?:injections?|faults)`,
+/// IGNORECASE, over one line. Returns `(start, end, value)` for group 1 — the
+/// span so `--write-readme` can rewrite exactly the count token, the value
+/// normalized to decimal.
 ///
 /// Greedy runs are again forced: `[\s_]+` is followed by `k`, `i` or `f`, none of
 /// which is whitespace or underscore. The optional `known-bad` group is tried
-/// first (greedy `?`) and falls back to being skipped.
-pub fn scan_advertised(line: &str) -> Vec<String> {
+/// first (greedy `?`) and falls back to being skipped. Alternatives are tried in
+/// pattern order and the first that completes the whole match wins, which is what
+/// leftmost-first alternation with backtracking does.
+///
+/// The `\b` guards the WORD branch only, exactly as in the Python: a digit run
+/// after a dot ("v1.7 injections") is still a number, but "eight" inside
+/// "freighter" is not.
+pub fn scan_advertised_spans(line: &str) -> Vec<(usize, usize, String)> {
     let mut out = Vec::new();
     let mut p = 0usize;
     while p < line.len() {
@@ -348,28 +501,41 @@ pub fn scan_advertised(line: &str) -> Vec<String> {
             p += 1;
             continue;
         }
-        let end = (|| {
+        let hit = (|| {
+            let mut alts: Vec<(usize, String)> = Vec::new();
             let d_end = digits_end(line, p);
-            if d_end == p {
-                return None;
+            if d_end > p {
+                alts.push((d_end, norm_digits(&line[p..d_end])));
             }
-            let w_end = run_end(line, d_end, |c| py_is_space(c) || c == '_');
-            if w_end == d_end {
-                return None;
-            }
-            if let Some(k_end) = lit_ci(line, w_end, "known-bad") {
-                let k2 = run_end(line, k_end, |c| py_is_space(c) || c == '_');
-                if k2 > k_end {
-                    if let Some(e) = advertised_tail(line, k2) {
-                        return Some((d_end, e));
+            if at_word_boundary(line, p) {
+                for (w, v) in cardinals() {
+                    if let Some(e) = lit_ci(line, p, w) {
+                        alts.push((e, v.to_string()));
                     }
                 }
             }
-            advertised_tail(line, w_end).map(|e| (d_end, e))
+            for (c_end, value) in alts {
+                let w_end = run_end(line, c_end, |c| py_is_space(c) || c == '_');
+                if w_end == c_end {
+                    continue;
+                }
+                if let Some(k_end) = lit_ci(line, w_end, "known-bad") {
+                    let k2 = run_end(line, k_end, |c| py_is_space(c) || c == '_');
+                    if k2 > k_end {
+                        if let Some(e) = advertised_tail(line, k2) {
+                            return Some((c_end, e, value));
+                        }
+                    }
+                }
+                if let Some(e) = advertised_tail(line, w_end) {
+                    return Some((c_end, e, value));
+                }
+            }
+            None
         })();
-        match end {
-            Some((d_end, e)) => {
-                out.push(norm_digits(&line[p..d_end]));
+        match hit {
+            Some((c_end, e, value)) => {
+                out.push((p, c_end, value));
                 p = e;
             }
             None => {
@@ -380,22 +546,13 @@ pub fn scan_advertised(line: &str) -> Vec<String> {
     out
 }
 
-/// The word-number alternatives, in the original dict's insertion order — regex
-/// alternation is leftmost-first, so the order is part of the pattern.
-const WORD_NUM: &[(&str, u128)] = &[
-    ("one", 1),
-    ("two", 2),
-    ("three", 3),
-    ("four", 4),
-    ("five", 5),
-    ("six", 6),
-    ("seven", 7),
-    ("eight", 8),
-    ("nine", 9),
-    ("ten", 10),
-    ("eleven", 11),
-    ("twelve", 12),
-];
+/// The advertised counts on one line, without their spans.
+pub fn scan_advertised(line: &str) -> Vec<String> {
+    scan_advertised_spans(line)
+        .into_iter()
+        .map(|(_, _, v)| v)
+        .collect()
+}
 
 /// `suites?\b` at `p`, with the greedy `s?` tried first and backtracked.
 fn suites_tail(s: &str, p: usize) -> Option<usize> {
@@ -411,7 +568,8 @@ fn suites_tail(s: &str, p: usize) -> Option<usize> {
     None
 }
 
-/// `finditer` of `\b(\d+|one|…|twelve)\s+(?:selftest\s+)?suites?\b`, IGNORECASE.
+/// `finditer` of `\b(\d+|<cardinal>)\s+(?:selftest\s+)?suites?\b`, IGNORECASE.
+/// Here the `\b` precedes the whole alternation, digits included.
 pub fn scan_suite_counts(line: &str) -> Vec<u128> {
     let mut out = Vec::new();
     let mut p = 0usize;
@@ -433,7 +591,7 @@ pub fn scan_suite_counts(line: &str) -> Vec<u128> {
                     norm_digits(&line[p..d_end]).parse().unwrap_or(u128::MAX),
                 ));
             }
-            for (w, v) in WORD_NUM {
+            for (w, v) in cardinals() {
                 if let Some(e) = lit_ci(line, p, w) {
                     alts.push((e, *v));
                 }
@@ -472,7 +630,42 @@ pub fn scan_suite_counts(line: &str) -> Vec<u128> {
 
 // ────────────────────────────── the gate ───────────────────────────────────
 
-/// The whole gate as a pure function: bodies in, exact stdout and exit code out.
+/// Rewrite every advertised injection count in `text` to `total`.
+///
+/// Returns the new text and the number of sites rewritten. Line terminators are
+/// preserved exactly, and only the count token itself is replaced, so surrounding
+/// markup and prose are untouched. A word-spelled site is normalised to digits —
+/// regeneration produces the checkable form.
+///
+/// Suite counts are NOT rewritten: the roster changes only when a suite is added
+/// or removed, which is already a deliberate edit to [`REGISTERED_SUITES`], and
+/// rewriting them would rewrite prose ("Nine selftest suites") that no caller
+/// asked this gate to author.
+pub fn regenerate(text: &str, total: &str) -> (String, usize) {
+    let mut out = String::with_capacity(text.len());
+    let mut rewritten = 0usize;
+    for line in py_splitlines_keepends(text) {
+        let spans = scan_advertised_spans(line);
+        if spans.is_empty() {
+            out.push_str(line);
+            continue;
+        }
+        let mut last = 0usize;
+        for (s, e, _) in spans {
+            out.push_str(&line[last..s]);
+            out.push_str(total);
+            last = e;
+            rewritten += 1;
+        }
+        out.push_str(&line[last..]);
+    }
+    (out, rewritten)
+}
+
+/// The whole gate as a pure function: bodies in, exact stdout and exit code out,
+/// plus the new README body when `--write-readme` asked for one (the caller does
+/// the writing, so this stays testable without a filesystem).
+///
 /// `None` for a body means "not a regular file", which is what `Path.is_file()`
 /// reports for a missing path, a directory, and `/dev/null` alike.
 pub fn render(
@@ -481,7 +674,8 @@ pub fn render(
     readme_display: &str,
     readme_body: Option<&str>,
     require_raw: &str,
-) -> (String, i32) {
+    write_readme: bool,
+) -> (String, i32, Option<String>) {
     let required: Vec<&str> = require_raw
         .split(',')
         .map(py_strip)
@@ -491,6 +685,30 @@ pub fn render(
         return (
             "FAIL\n  - no suites required (a gate over an empty registry is vacuous)\n".to_string(),
             1,
+            None,
+        );
+    }
+
+    // A suite named twice would be summed twice, inflating measured_total — the
+    // one direction that turns real drift GREEN. Silently de-duplicating would
+    // accept a caller that does not know its own roster, so this is an ERROR.
+    // BTreeSet ordering == CPython's `sorted({...})` on ASCII suite names.
+    let mut seen: BTreeSet<&str> = BTreeSet::new();
+    let mut duplicated: BTreeSet<&str> = BTreeSet::new();
+    for s in required.iter().copied() {
+        if !seen.insert(s) {
+            duplicated.insert(s);
+        }
+    }
+    if !duplicated.is_empty() {
+        let listed: Vec<String> = duplicated.iter().map(|s| py_repr(s)).collect();
+        return (
+            format!(
+                "FAIL\n  - --require names {} more than once; a repeated suite is summed twice, which inflates measured_total and is the direction that turns real drift GREEN\n",
+                listed.join(", ")
+            ),
+            1,
+            None,
         );
     }
 
@@ -557,16 +775,56 @@ pub fn render(
         }
     }
 
-    // Iterating `required`, not `counts`: a suite listed twice in --require is
-    // summed twice. Reproduced from the original on purpose.
+    // `required` is duplicate-free by the check above, so this is a plain sum.
     let total: u128 = required
         .iter()
         .map(|s| counts.get(s).copied().unwrap_or(0))
         .sum();
     let total_norm = total.to_string();
 
+    // Regeneration runs BEFORE the comparison, and only when the receipts
+    // themselves are sound. A missing suite, a zero suite, an unparseable line or
+    // an unregistered suite means the total is not trustworthy, and writing an
+    // untrustworthy number into README would launder it into a certificate.
+    let receipts_sound = errors.is_empty();
+    let mut regen_note: Option<String> = None;
+    let mut new_readme: Option<String> = None;
+    let mut readme_text: Option<String> = readme_body.map(str::to_string);
+
+    if write_readme {
+        match readme_body {
+            _ if !receipts_sound => {
+                regen_note = Some(
+                    "regeneration SKIPPED: the receipts are not sound, so the total is not a number worth writing"
+                        .to_string(),
+                );
+            }
+            None => {
+                regen_note = Some("regeneration SKIPPED: README is not readable".to_string());
+            }
+            Some(before) => {
+                let (after, sites) = regenerate(before, &total_norm);
+                if sites == 0 {
+                    regen_note = Some(format!(
+                        "regeneration wrote nothing: {readme_display} advertises no parseable count to rewrite"
+                    ));
+                } else if after == before {
+                    regen_note = Some(format!(
+                        "regenerated {readme_display}: {sites} site(s) already advertise {total}"
+                    ));
+                } else {
+                    regen_note = Some(format!(
+                        "regenerated {readme_display}: {sites} site(s) now advertise {total}"
+                    ));
+                    new_readme = Some(after.clone());
+                    readme_text = Some(after);
+                }
+            }
+        }
+    }
+
     let mut advertised: Vec<(usize, String)> = Vec::new();
-    match readme_body {
+    match readme_text.as_deref() {
         None => errors.push(format!("README missing: {readme_display}")),
         Some(text) => {
             let mut suite_claims: Vec<(usize, u128)> = Vec::new();
@@ -584,18 +842,26 @@ pub fn render(
                     "README advertises no known-bad injection count at all (nothing to check is an ERROR, not a pass)"
                         .to_string(),
                 );
+            } else if advertised.len() < MIN_ADVERTISEMENT_SITES {
+                errors.push(format!(
+                    "only {} advertisement site(s) parsed in {readme_display}; at least {MIN_ADVERTISEMENT_SITES} are expected — a site that stopped parsing loses coverage while reporting exactly like full coverage",
+                    advertised.len()
+                ));
             }
+            // Findings name the file that was actually scanned. Hardcoding
+            // "README.md" sent the next reader to an innocent file whenever
+            // --readme pointed elsewhere.
             for (lineno, n) in &advertised {
                 if *n != total_norm {
                     errors.push(format!(
-                        "README.md:{lineno} advertises {n} known-bad injections; the suites self-reported {total}"
+                        "{readme_display}:{lineno} advertises {n} known-bad injections; the suites self-reported {total}"
                     ));
                 }
             }
             for (lineno, n) in &suite_claims {
                 if *n != required.len() as u128 {
                     errors.push(format!(
-                        "README.md:{lineno} advertises {n} selftest suites; {} are registered",
+                        "{readme_display}:{lineno} advertises {n} selftest suites; {} are registered",
                         required.len()
                     ));
                 }
@@ -623,6 +889,9 @@ pub fn render(
             Some(c) => out.push_str(&format!("    {suite}: {c}\n")),
         }
     }
+    if let Some(note) = &regen_note {
+        out.push_str(&format!("  {note}\n"));
+    }
 
     if !errors.is_empty() {
         out.push_str("  failures:\n");
@@ -632,19 +901,20 @@ pub fn render(
         if errors.len() > 40 {
             out.push_str(&format!("    ... +{} more\n", errors.len() - 40));
         }
-        return (out, 1);
+        return (out, 1, new_readme);
     }
 
     out.push_str(&format!(
         "  injection count GREEN (README and the suites both say {total})\n"
     ));
-    (out, 0)
+    (out, 0, new_readme)
 }
 
 struct Args {
     log: String,
     readme: Option<String>,
     require: String,
+    write_readme: bool,
 }
 
 /// `--flag value` and `--flag=value`, both forms. Anything else is USAGE — a
@@ -655,6 +925,7 @@ fn parse_args(argv: &[String]) -> Result<Args, GateError> {
     let mut log: Option<String> = None;
     let mut readme: Option<String> = None;
     let mut require: Option<String> = None;
+    let mut write_readme = false;
     let mut i = 0usize;
     while i < argv.len() {
         let a = &argv[i];
@@ -662,13 +933,25 @@ fn parse_args(argv: &[String]) -> Result<Args, GateError> {
             Some((k, v)) => (k, Some(v.to_string())),
             None => (a.as_str(), None),
         };
+        // The one store_true flag: it takes no value, and argparse rejects
+        // `--write-readme=x` too ("ignored explicit argument").
+        if key == "--write-readme" {
+            if inline.is_some() {
+                return Err(GateError::usage(format!(
+                    "argument --write-readme: ignored explicit argument in {a:?}"
+                )));
+            }
+            write_readme = true;
+            i += 1;
+            continue;
+        }
         let slot = match key {
             "--log" => &mut log,
             "--readme" => &mut readme,
             "--require" => &mut require,
             _ => {
                 return Err(GateError::usage(format!(
-                    "unknown argument {a:?}; known: --log <path> --readme <path> --require <a,b,c>"
+                    "unknown argument {a:?}; known: --log <path> --readme <path> --require <a,b,c> --write-readme"
                 )))
             }
         };
@@ -698,6 +981,7 @@ fn parse_args(argv: &[String]) -> Result<Args, GateError> {
         log,
         readme,
         require: require.unwrap_or_else(|| REGISTERED_SUITES.join(",")),
+        write_readme,
     })
 }
 
@@ -738,13 +1022,25 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     let log_body = read_if_file(Path::new(&log_display))?;
     let readme_body = read_if_file(Path::new(&readme_display))?;
 
-    let (text, code) = render(
+    let (text, code, new_readme) = render(
         &log_display,
         log_body.as_deref(),
         &readme_display,
         readme_body.as_deref(),
         &args.require,
+        args.write_readme,
     );
+
+    // Write before reporting, so a failed write can never be reported as a PASS.
+    // CPython would raise here and die with a traceback carrying absolute paths,
+    // which is not a byte-exact target; refusing to report is the substitute.
+    if let Some(body) = new_readme {
+        std::fs::write(Path::new(&readme_display), body).map_err(|e| {
+            GateError::error(format!(
+                "--write-readme: could not rewrite {readme_display}: {e}"
+            ))
+        })?;
+    }
 
     print!("{text}");
     std::io::stdout().flush().ok();
@@ -766,9 +1062,29 @@ mod tests {
     const GOOD_LOG: &str = "INJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n";
     const REQ: &str = "spec_alpha,spec_beta";
 
+    /// `render` without the write leg, which is what almost every case wants.
+    fn check(
+        log_display: &str,
+        log_body: Option<&str>,
+        readme_display: &str,
+        readme_body: Option<&str>,
+        require_raw: &str,
+    ) -> (String, i32) {
+        let (out, code, written) = render(
+            log_display,
+            log_body,
+            readme_display,
+            readme_body,
+            require_raw,
+            false,
+        );
+        assert!(written.is_none(), "no --write-readme, no rewrite");
+        (out, code)
+    }
+
     #[test]
     fn baseline_is_green() {
-        let (out, code) = render("L", Some(GOOD_LOG), "R", Some(R7), REQ);
+        let (out, code) = check("L", Some(GOOD_LOG), "R", Some(R7), REQ);
         assert_eq!(code, 0, "{out}");
         assert!(out.starts_with("PASS\n"), "{out}");
         assert!(out.contains("  readme_claims=[7]\n"), "{out}");
@@ -780,7 +1096,7 @@ mod tests {
 
     #[test]
     fn a_missing_log_is_red_never_a_silent_zero() {
-        let (out, code) = render("L", None, "R", Some(R7), REQ);
+        let (out, code) = check("L", None, "R", Some(R7), REQ);
         assert_eq!(code, 1);
         assert!(out.contains("    - injection log missing: L\n"), "{out}");
     }
@@ -788,7 +1104,7 @@ mod tests {
     #[test]
     fn an_empty_log_is_red_not_a_pass() {
         for body in ["", "\n\n   \n"] {
-            let (out, code) = render("L", Some(body), "R", Some(R7), REQ);
+            let (out, code) = check("L", Some(body), "R", Some(R7), REQ);
             assert_eq!(code, 1, "{out}");
             assert!(out.contains("injection log is empty"), "{out}");
         }
@@ -797,7 +1113,7 @@ mod tests {
     #[test]
     fn a_suite_reporting_zero_is_red() {
         let log = "INJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=0 SUITE=spec_beta\n";
-        let (out, code) = render("L", Some(log), "R", Some(R7), REQ);
+        let (out, code) = check("L", Some(log), "R", Some(R7), REQ);
         assert_eq!(code, 1);
         assert!(out.contains("is not a gate"), "{out}");
     }
@@ -806,13 +1122,13 @@ mod tests {
     fn drift_is_caught_in_both_directions() {
         let under = "INJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=1 SUITE=spec_beta\n";
         let over = "INJECTIONS=9 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n";
-        let (o1, c1) = render("L", Some(under), "R", Some(R7), REQ);
+        let (o1, c1) = check("L", Some(under), "R", Some(R7), REQ);
         assert_eq!(c1, 1);
         assert!(
             o1.contains("advertises 7 known-bad injections; the suites self-reported 4"),
             "{o1}"
         );
-        let (o2, c2) = render("L", Some(over), "R", Some(R7), REQ);
+        let (o2, c2) = check("L", Some(over), "R", Some(R7), REQ);
         assert_eq!(c2, 1);
         assert!(
             o2.contains("advertises 7 known-bad injections; the suites self-reported 13"),
@@ -822,7 +1138,7 @@ mod tests {
 
     #[test]
     fn an_empty_require_list_is_red() {
-        let (out, code) = render("L", Some(GOOD_LOG), "R", Some(R7), ",, ,");
+        let (out, code) = check("L", Some(GOOD_LOG), "R", Some(R7), ",, ,");
         assert_eq!(code, 1);
         assert_eq!(
             out,
@@ -830,11 +1146,133 @@ mod tests {
         );
     }
 
+    // ─────────────────────── bd-wf2: the three holes ───────────────────────
+
     #[test]
-    fn duplicate_require_double_counts_as_the_original_does() {
-        // Reproduced quirk, not endorsed: one suite reporting 3 totals 6.
-        let (out, _) = render("L", Some(GOOD_LOG), "R", Some(R7), "spec_alpha,spec_alpha");
-        assert!(out.contains("  measured_total=6\n"), "{out}");
+    fn duplicate_require_is_an_error_not_an_inflated_total() {
+        // Formerly double-counted: one suite reporting 3 totalled 6, and an
+        // inflated measured_total is the direction that turns real drift GREEN.
+        let (out, code) = check("L", Some(GOOD_LOG), "R", Some(R7), "spec_alpha,spec_alpha");
+        assert_eq!(code, 1, "{out}");
+        // No report block at all: there is no total worth reporting.
+        assert!(!out.contains("\n  measured_total="), "{out}");
+        assert!(
+            out.contains("--require names 'spec_alpha' more than once"),
+            "{out}"
+        );
+
+        // The sharp shape: one suite reporting 3 must not certify a README
+        // advertising 6 across "two suites".
+        let r6 = R7.replace('7', "6");
+        let (out, code) = check(
+            "L",
+            Some("INJECTIONS=3 SUITE=spec_alpha\n"),
+            "R",
+            Some(&r6),
+            "spec_alpha,spec_alpha",
+        );
+        assert_eq!(code, 1, "{out}");
+    }
+
+    #[test]
+    fn findings_name_the_file_that_was_actually_scanned() {
+        let r8 = R7.replace('7', "8");
+        let (out, code) = check("L", Some(GOOD_LOG), "README_off.md", Some(&r8), REQ);
+        assert_eq!(code, 1);
+        assert!(out.contains("README_off.md:3 advertises 8"), "{out}");
+        assert!(
+            !out.contains("\n    - README.md:"),
+            "a finding must not send the reader to an innocent file: {out}"
+        );
+    }
+
+    #[test]
+    fn a_word_spelled_count_is_read_not_skipped() {
+        // The middle case: three sites in digits, one in prose. Before bd-wf2 the
+        // prose site was invisible and the drift on it reported as GREEN.
+        let drifted = R7.replace("**7 known-bad faults**", "**thirty-six known-bad faults**");
+        let (out, code) = check("L", Some(GOOD_LOG), "R", Some(&drifted), REQ);
+        assert_eq!(code, 1, "{out}");
+        assert!(
+            out.contains("advertises 36 known-bad injections; the suites self-reported 7"),
+            "{out}"
+        );
+
+        // ...and a word-spelled site that AGREES stays green.
+        let agreeing = R7.replace("**7 known-bad faults**", "**seven known-bad faults**");
+        let (out, code) = check("L", Some(GOOD_LOG), "R", Some(&agreeing), REQ);
+        assert_eq!(code, 0, "{out}");
+    }
+
+    #[test]
+    fn a_site_that_stops_parsing_trips_the_floor() {
+        // A count outside the word vocabulary ("three dozen") removes the site
+        // from the scanner entirely. Partial coverage must not report like full.
+        let obscured = R7.replace("**7 known-bad faults**", "**three dozen known-bad faults**");
+        let (out, code) = check("L", Some(GOOD_LOG), "R", Some(&obscured), REQ);
+        assert_eq!(code, 1, "{out}");
+        assert!(
+            out.contains("only 4 advertisement site(s) parsed in R; at least 5 are expected"),
+            "{out}"
+        );
+    }
+
+    #[test]
+    fn the_site_floor_is_a_floor_not_an_equality() {
+        // An EXTRA advertisement is not drift; only losing one is.
+        let extra = format!("{R7}\nand 7 injections mentioned elsewhere\n");
+        let (out, code) = check("L", Some(GOOD_LOG), "R", Some(&extra), REQ);
+        assert_eq!(code, 0, "{out}");
+    }
+
+    // ───────────────────── bd-wf2: regenerated, not typed ──────────────────
+
+    #[test]
+    fn write_readme_regenerates_every_site_from_the_receipts() {
+        let r8 = R7.replace('7', "8");
+        let (out, code, written) = render("L", Some(GOOD_LOG), "R", Some(&r8), REQ, true);
+        assert_eq!(code, 0, "{out}");
+        assert!(
+            out.contains("  regenerated R: 5 site(s) now advertise 7\n"),
+            "{out}"
+        );
+        assert_eq!(written.as_deref(), Some(R7), "the rewrite must land on 7");
+    }
+
+    #[test]
+    fn write_readme_normalises_a_word_spelled_site_to_digits() {
+        let prose = R7.replace("**7 known-bad faults**", "**eight known-bad faults**");
+        let (out, code, written) = render("L", Some(GOOD_LOG), "R", Some(&prose), REQ, true);
+        assert_eq!(code, 0, "{out}");
+        assert_eq!(written.as_deref(), Some(R7));
+    }
+
+    #[test]
+    fn write_readme_refuses_to_launder_an_unsound_total() {
+        // spec_beta never reported: the total is not a number worth writing.
+        let r8 = R7.replace('7', "8");
+        let (out, code, written) = render(
+            "L",
+            Some("INJECTIONS=3 SUITE=spec_alpha\n"),
+            "R",
+            Some(&r8),
+            REQ,
+            true,
+        );
+        assert_eq!(code, 1, "{out}");
+        assert!(out.contains("regeneration SKIPPED"), "{out}");
+        assert!(written.is_none(), "a bogus log must not rewrite README");
+    }
+
+    #[test]
+    fn write_readme_preserves_line_terminators_and_untouched_bytes() {
+        let src = "8 injections\r\n8 known-bad faults\rtrailing 8 faults";
+        let (after, sites) = regenerate(src, "7");
+        assert_eq!(sites, 3);
+        assert_eq!(
+            after,
+            "7 injections\r\n7 known-bad faults\rtrailing 7 faults"
+        );
     }
 
     #[test]
@@ -873,18 +1311,74 @@ mod tests {
         );
         assert_eq!(scan_advertised("7 known-bad faults"), vec!["7".to_string()]);
         assert_eq!(scan_advertised("07 injections"), vec!["7".to_string()]);
+
+        // bd-wf2: word-spelled counts are read, not skipped.
         assert_eq!(
             scan_advertised("thirty-six injections"),
+            vec!["36".to_string()]
+        );
+        assert_eq!(
+            scan_advertised("thirty six known-bad faults"),
+            vec!["36".to_string()]
+        );
+        assert_eq!(scan_advertised("SEVEN INJECTIONS"), vec!["7".to_string()]);
+        // Longest-first alternation: "eighteen" must win over "eight".
+        assert_eq!(scan_advertised("eighteen faults"), vec!["18".to_string()]);
+        assert_eq!(scan_advertised("twenty-one faults"), vec!["21".to_string()]);
+        // The word branch carries a `\b`; the digit branch does not.
+        assert_eq!(
+            scan_advertised("freighter injections"),
             Vec::<String>::new()
+        );
+        assert_eq!(scan_advertised("v1.7 injections"), vec!["7".to_string()]);
+        // Outside the vocabulary the site is not read at all — the site floor,
+        // not the scanner, is what keeps that fail-closed.
+        assert_eq!(
+            scan_advertised("three dozen injections"),
+            Vec::<String>::new()
+        );
+        assert_eq!(scan_advertised("zero injections"), vec!["0".to_string()]);
+
+        // The spans are what --write-readme rewrites: group 1 only.
+        assert_eq!(
+            scan_advertised_spans("say thirty-six injections"),
+            vec![(4usize, 14usize, "36".to_string())]
         );
 
         assert_eq!(scan_suite_counts("9 selftest suites;"), vec![9]);
         assert_eq!(scan_suite_counts("Nine selftest suites inject"), vec![9]);
         assert_eq!(scan_suite_counts("2 suites, 7 injections"), vec![2]);
+        assert_eq!(scan_suite_counts("forty-two suites"), vec![42]);
         assert_eq!(
             scan_suite_counts("suitesx and 3 suitesy"),
             Vec::<u128>::new()
         );
+    }
+
+    #[test]
+    fn the_cardinal_vocabulary_is_complete_and_ordered() {
+        let t = cardinals();
+        // zero..nineteen + eight tens + 8*9*2 compounds
+        assert_eq!(t.len(), 20 + 8 + 144);
+        let mut seen = std::collections::BTreeSet::new();
+        for (w, _) in t {
+            assert!(seen.insert(w.clone()), "duplicate cardinal {w}");
+        }
+        // Longest first, ties lexicographic — the alternation order the Python
+        // builds with sorted(key=lambda w: (-len(w), w)).
+        for pair in t.windows(2) {
+            let (a, b) = (&pair[0].0, &pair[1].0);
+            assert!(
+                a.len() > b.len() || (a.len() == b.len() && a < b),
+                "ordering broken at {a:?} / {b:?}"
+            );
+        }
+        let by_word = |w: &str| t.iter().find(|(k, _)| k == w).map(|(_, v)| *v);
+        assert_eq!(by_word("zero"), Some(0));
+        assert_eq!(by_word("nineteen"), Some(19));
+        assert_eq!(by_word("ninety-nine"), Some(99));
+        assert_eq!(by_word("ninety nine"), Some(99));
+        assert_eq!(by_word("one hundred"), None, "bounded at ninety-nine");
     }
 
     #[test]
@@ -911,5 +1405,11 @@ mod tests {
         assert_eq!(a.log, "x");
         assert_eq!(a.require, REGISTERED_SUITES.join(","));
         assert!(a.readme.is_none());
+        assert!(!a.write_readme);
+
+        let a = parse_args(&["--log".into(), "x".into(), "--write-readme".into()]).unwrap();
+        assert!(a.write_readme);
+        assert_eq!(a.log, "x");
+        assert!(parse_args(&["--log=x".into(), "--write-readme=1".into()]).is_err());
     }
 }
