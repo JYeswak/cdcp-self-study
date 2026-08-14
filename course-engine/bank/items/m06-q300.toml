@@ -15,4 +15,5 @@ objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
+status = "approved"
 tags = ["runbook", "vignette"]

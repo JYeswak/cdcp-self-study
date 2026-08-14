@@ -183,3 +183,11 @@ be satisfied.
 
 **Churn tripwire:** if >30% of materialized beads are rewritten or obsoleted before they are
 ever touched, plan-space was not converged — stop draining and re-review the affected epic.
+
+---
+
+## Claims referenced
+
+This plan discusses byte-exact grading analytically — including in §A/§F where it records that the
+property does NOT extend to factual correctness. The claim itself is registered, not asserted here:
+[[claim:claim-grade-byte-exact]].

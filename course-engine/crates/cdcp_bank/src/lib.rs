@@ -1,6 +1,11 @@
 //! Load bank items and compute bank_hash (OQ-03).
 //!
-//! Item schema floors match `scripts/verify_bank.py` (see docs/TESTING.md parity table).
+//! Item schema floors match `scripts/verify_bank.py` (see docs/TESTING.md parity table)
+//! with ONE recorded divergence as of C1: `status` is loaded and enforced here
+//! (unknown value = load error, default = draft) and is NOT checked by
+//! `verify_bank.py`. The Rust side is the stricter one, so the parity table is
+//! a floor, not an equality — do not read a green `verify_bank.py` as evidence
+//! that item statuses are well-formed.
 #![forbid(unsafe_code)]
 
 use cdcp_core::{canonical_json, sha256_hex, ChoiceLetter, BANK_HASH_DOMAIN};
@@ -50,6 +55,49 @@ pub enum BankError {
     Core(#[from] cdcp_core::CoreError),
 }
 
+/// Editorial lifecycle of a bank item (C1).
+///
+/// # Why the default is `Draft`
+///
+/// The default is the status that CANNOT reach a learner. Before C1 every
+/// loaded item was eligible for assembly, so anything authored — a stub, a
+/// near-duplicate, a retired item kept for reference — landed in the same
+/// undifferentiated pool a mock exam draws from. Defaulting to `Approved`
+/// would preserve exactly that defect behind a new field name: forgetting the
+/// field would silently publish the item. Approval is therefore a positive,
+/// recorded act in the item file; silence means draft.
+///
+/// An unrecognised value is a **load error**, never a coerced default —
+/// serde rejects unknown variants, so `status = "published"` fails the load
+/// rather than quietly becoming something else.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum ItemStatus {
+    /// Authored but not cleared for assessment. Never assembled.
+    #[default]
+    Draft,
+    /// Cleared for assessment. The only status `cdcp_assemble` may draw.
+    Approved,
+    /// Withdrawn from assessment; kept for history/regeneration. Never assembled.
+    Retired,
+}
+
+impl ItemStatus {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ItemStatus::Draft => "draft",
+            ItemStatus::Approved => "approved",
+            ItemStatus::Retired => "retired",
+        }
+    }
+}
+
+impl std::fmt::Display for ItemStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BankItem {
     pub id: String,
@@ -67,9 +115,18 @@ pub struct BankItem {
     pub source_class: String,
     #[serde(default)]
     pub quantity_evidence: String,
+    /// Editorial lifecycle (C1). Defaults to [`ItemStatus::Draft`]; only
+    /// `approved` items are eligible for assembly.
+    #[serde(default)]
+    pub status: ItemStatus,
 }
 
 impl BankItem {
+    /// True iff this item may be drawn into an assessment (C1).
+    pub fn is_approved(&self) -> bool {
+        self.status == ItemStatus::Approved
+    }
+
     pub fn correct_letter(&self) -> Result<ChoiceLetter, BankError> {
         ChoiceLetter::parse(&self.correct)
             .map_err(|e| BankError::Item(self.id.clone(), e.to_string()))
@@ -150,6 +207,12 @@ impl BankItem {
     }
 
     /// Canonical fields for hashing (stable subset).
+    ///
+    /// `status` is deliberately **NOT** hashed here. Folding it in would move
+    /// `bank_hash` for all 804 items and invalidate every pinned golden in one
+    /// step; that migration is its own bead (C2, blocked on B2). Until then
+    /// `bank_hash` content-addresses the *item text*, not its editorial state —
+    /// which means it cannot detect a status flip. Recorded, not hidden.
     pub fn hash_payload(&self) -> BTreeMap<String, serde_json::Value> {
         let mut m = BTreeMap::new();
         m.insert("id".into(), serde_json::json!(self.id));
@@ -288,6 +351,7 @@ topic_ids = ["m01-importance"]
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
+status = "approved"
 "#
         )
     }
@@ -499,6 +563,123 @@ quantity_evidence = "qualitative_only"
             assert!(!item.topic_ids.is_empty());
             assert_eq!(item.source_class, "original");
         }
+        // C1 migration: every shipped item carries an EXPLICIT status line.
+        // This is the anchoring assertion — it reads the real 804-item corpus,
+        // not a fixture we wrote for ourselves.
+        let text_dir = &dir;
+        let mut missing_explicit: Vec<String> = Vec::new();
+        for entry in fs::read_dir(text_dir).unwrap() {
+            let path = entry.unwrap().path();
+            if path.extension().and_then(|x| x.to_str()) != Some("toml") {
+                continue;
+            }
+            let text = fs::read_to_string(&path).unwrap();
+            if !text.lines().any(|l| l.trim_start().starts_with("status")) {
+                missing_explicit.push(path.display().to_string());
+            }
+        }
+        assert!(
+            missing_explicit.is_empty(),
+            "items relying on the implicit draft default (explicit status required): {:?}",
+            &missing_explicit[..missing_explicit.len().min(5)]
+        );
+        for item in bank.items.values() {
+            assert_eq!(
+                item.status,
+                ItemStatus::Approved,
+                "item {} is {} — the shipped bank is approved-only until C3/C5 retire specific items",
+                item.id,
+                item.status
+            );
+        }
+    }
+
+    // --- C1: item status ---------------------------------------------------
+
+    #[test]
+    fn status_defaults_to_draft_when_absent() {
+        // Fail-safe direction: an item file that forgets the field must NOT be
+        // assessable. Silence means draft, never approved.
+        let dir = std::env::temp_dir().join(format!("cdcp-status-default-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&dir);
+        fs::create_dir_all(&dir).unwrap();
+        write_item(
+            &dir,
+            "t.toml",
+            r#"
+id = "no-status"
+module = 1
+stem = "stem text here"
+choices = ["a","b","c","d"]
+correct = "A"
+explanation = "because reasons here"
+topic_ids = ["m01-importance"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+"#,
+        );
+        let bank = Bank::load_dir(&dir).unwrap();
+        let item = bank.get("no-status").unwrap();
+        assert_eq!(item.status, ItemStatus::Draft);
+        assert!(!item.is_approved());
+        let _ = fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn unknown_status_is_a_load_error_not_a_silent_default() {
+        let dir = std::env::temp_dir().join(format!("cdcp-status-bad-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&dir);
+        fs::create_dir_all(&dir).unwrap();
+        write_item(
+            &dir,
+            "t.toml",
+            r#"
+id = "bad-status"
+module = 1
+stem = "stem text here"
+choices = ["a","b","c","d"]
+correct = "A"
+explanation = "because reasons here"
+topic_ids = ["m01-importance"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "published"
+"#,
+        );
+        let err = Bank::load_dir(&dir).unwrap_err();
+        let msg = err.to_string();
+        assert!(
+            msg.contains("unknown variant") && msg.contains("published"),
+            "expected an unknown-variant load error naming the bad value, got: {msg}"
+        );
+        // And the same rejection on the JSON dual path (WASM bank packs).
+        let jerr = Bank::from_json_str(
+            r#"[{"id":"x","module":1,"stem":"s","choices":["a","b","c","d"],
+                 "correct":"A","explanation":"because reasons here",
+                 "topic_ids":["t"],"bloom":"understand","source_class":"original",
+                 "quantity_evidence":"qualitative_only","status":"published"}]"#,
+        )
+        .unwrap_err();
+        assert!(
+            jerr.to_string().contains("unknown variant"),
+            "json path must reject unknown status too, got: {jerr}"
+        );
+        let _ = fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn status_roundtrips_through_json_lowercase() {
+        for (s, txt) in [
+            (ItemStatus::Draft, "\"draft\""),
+            (ItemStatus::Approved, "\"approved\""),
+            (ItemStatus::Retired, "\"retired\""),
+        ] {
+            assert_eq!(serde_json::to_string(&s).unwrap(), txt);
+            assert_eq!(serde_json::from_str::<ItemStatus>(txt).unwrap(), s);
+            assert_eq!(s.as_str(), txt.trim_matches('"'));
+        }
     }
 
     // --- proptest (bd-334): bank_hash independent of BTreeMap insert order ---
@@ -517,6 +698,7 @@ quantity_evidence = "qualitative_only"
             bloom: "understand".into(),
             source_class: "original".into(),
             quantity_evidence: "qualitative_only".into(),
+            status: ItemStatus::Approved,
         }
     }
 

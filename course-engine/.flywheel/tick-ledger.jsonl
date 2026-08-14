@@ -1,0 +1,1 @@
+{"schema":"zs.tick-receipt","tick":"T0","class":"SETUP","bead":null,"value_added":"none","verdict":"RED","cause":"setup tick — no product moved, no guard denied. Logged, not counted.","utc":"2026-08-14"}

@@ -31,8 +31,29 @@ pub fn rng_from_seed(seed: u64) -> AssembleRng {
 
 #[derive(Debug, Error, PartialEq, Eq)]
 pub enum AssembleError {
-    #[error("pool size {pool} < requested n={n}")]
-    PoolTooSmall { pool: usize, n: usize },
+    #[error("approved pool {approved} < requested n={n} ({total} items loaded, {not_approved} not approved)")]
+    PoolTooSmall {
+        approved: usize,
+        n: usize,
+        total: usize,
+        not_approved: usize,
+    },
+    /// Anti-vacuous (CHARTER decalogue §3): an empty eligible pool is an
+    /// ERROR, never an empty exam.
+    #[error("no approved items in bank ({total} items loaded, 0 approved) — an empty approved pool is an ERROR, not an empty exam")]
+    NoApprovedItems { total: usize },
+    /// The approved-only pool cannot span the required breadth. This is a
+    /// POOL precondition introduced by C1: filtering to `approved` can starve
+    /// module coverage that the full pool satisfied. Enforcing `min_modules`
+    /// over the *selected* items remains open (C6).
+    #[error("approved pool spans {modules} modules < min_modules={min_modules} ({approved} approved of {total} items) — shortfall {shortfall} modules")]
+    ApprovedTooFewModules {
+        modules: usize,
+        min_modules: usize,
+        approved: usize,
+        total: usize,
+        shortfall: usize,
+    },
     #[error("item {0}: choices must be length 4")]
     BadChoices(String),
     #[error("item {0}: {1}")]
@@ -88,22 +109,58 @@ pub struct AssembledExam {
 }
 
 /// Stratified sample of item ids (presentation order), matching sample_mock flow.
+///
+/// # APPROVED ONLY (C1)
+///
+/// The eligible pool is `status == approved`. A `draft` or `retired` item is
+/// never drawn — not in the first pass, not in the round-robin fill, and not
+/// in the `max_per_module` relaxation fallback (that last path is the one a
+/// naive filter misses, because it re-reads the whole bank).
+///
+/// Deleting the `approved` filter below turns `crates/cdcp_assemble/tests/status_filter.rs`
+/// RED; that is the meta-test for this gate.
 pub fn sample_item_ids(
     bank: &Bank,
     n: usize,
     seed: u64,
     max_per_module: usize,
-    _min_modules: usize,
+    min_modules: usize,
 ) -> Result<Vec<String>, AssembleError> {
-    let pool = bank.items.len();
+    let total = bank.items.len();
+
+    // ── C1 APPROVED-ONLY FILTER (the gate) ──────────────────────────────────
+    let approved: Vec<&BankItem> = bank.items.values().filter(|i| i.is_approved()).collect();
+
+    if approved.is_empty() {
+        return Err(AssembleError::NoApprovedItems { total });
+    }
+    let pool = approved.len();
     if pool < n {
-        return Err(AssembleError::PoolTooSmall { pool, n });
+        return Err(AssembleError::PoolTooSmall {
+            approved: pool,
+            n,
+            total,
+            not_approved: total - pool,
+        });
     }
 
     // Group by module; sort each group by id (BTreeMap keys already sorted when collected).
     let mut by_mod: BTreeMap<u32, Vec<&BankItem>> = BTreeMap::new();
-    for item in bank.items.values() {
+    for item in &approved {
         by_mod.entry(item.module).or_default().push(item);
+    }
+
+    // Breadth precondition: the approved-only pool may span fewer modules than
+    // the full pool did. Report the shortfall rather than quietly assembling a
+    // narrower exam than the form asks for.
+    if by_mod.len() < min_modules {
+        return Err(AssembleError::ApprovedTooFewModules {
+            modules: by_mod.len(),
+            min_modules,
+            approved: pool,
+            total,
+            shortfall: min_modules - by_mod.len(),
+        });
     }
     // Ensure each module list is sorted by id (defensive; values() is id-ordered but group is not).
     for list in by_mod.values_mut() {
@@ -172,8 +229,11 @@ pub fn sample_item_ids(
             }
         }
         if !progress {
-            // Relax max_per_module: take remaining pool in bank id order.
-            for it in bank.items.values() {
+            // Relax max_per_module: take the remaining APPROVED pool in bank id
+            // order. `approved` is collected from `bank.items.values()`, which
+            // BTreeMap yields in id order, so this preserves the previous
+            // ordering contract while staying inside the eligible pool.
+            for it in &approved {
                 if used.contains(&it.id) {
                     continue;
                 }
