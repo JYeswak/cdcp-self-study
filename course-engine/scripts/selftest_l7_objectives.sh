@@ -6,6 +6,20 @@
 #   b) planted missing claim_id ref → RED
 #   c) empty bank → RED (vacuous domain coverage)
 #   d) live tree still GREEN
+#   e) DECLARED module with zero items → RED, naming the module
+#   f) exemption without a reason → RED, and the module STAYS required
+#   g) [[domain_min]] for an undeclared module → RED (cross-source drift)
+#   h) topic in an undeclared domain → RED (cross-source drift)
+#   i) recorded exemption WITH a reason → GREEN control, NOT counted
+#
+# (e)–(i) are the bd-lt7 rebase: this gate's module set is DERIVED from
+# knowledge/domains.toml instead of `range(1, 15)`. (e) is the regression
+# itself — under the old literal a registry declaring module 15 with an empty
+# bank for it was GREEN — and it must never be dropped.
+#
+# (i) is a known-GOOD control and is deliberately checked with a plain rc/grep
+# rather than assert_fails_with, so it cannot increment INJ. An attack-only
+# suite ships an over-strict gate, and over-strict gates get routed around.
 #
 # Trap cleans TEMP. Never leaves registries/bank dirty.
 set -eu
@@ -33,12 +47,19 @@ restore_all() {
 }
 trap restore_all EXIT INT TERM HUP
 
+# The output of the most recent assert_fails_with, so a case can make a SECOND
+# assertion about the same RED run without paying for a second run and without
+# counting a second injection. Used by (f): "has no reason" is the finding, and
+# "the module stays required" is the consequence that makes the finding matter.
+LAST_OUT=""
+
 assert_fails_with() {
   label="$1"
   needle="$2"
   shift 2
   rc=0
   out="$("$@" 2>&1)" || rc=$?
+  LAST_OUT="$out"
   if [ "$rc" -eq 0 ]; then
     printf '%s\n' "$out" >&2
     fail "expected RED for $label but command exited 0"
@@ -53,6 +74,64 @@ assert_fails_with() {
       fail "$label exited $rc but missing expected signal '$needle'"
       ;;
   esac
+}
+
+# ── fixture builders for (e)–(i) ───────────────────────────────────────────
+# The gate already takes --domains --policy --topics --bank, so every case
+# below is a real registry written into TEMP; nothing is patched and nothing
+# live is touched. registries/objectives.toml and registries/claims.toml stay
+# LIVE on purpose: these cases are about the MODULE SET, and a fixture
+# objectives registry would only add a second thing that could be wrong.
+
+# write_domains <path> <order>...
+write_domains() {
+  _out="$1"
+  shift
+  printf 'schema_version = 1\n' >"$_out"
+  for _o in "$@"; do
+    printf '\n[[domain]]\nid = "%02d-fixture"\norder = %d\nepi_heading = "Fixture domain %d"\n' \
+      "$_o" "$_o" "$_o" >>"$_out"
+  done
+}
+
+# write_topics <path> <domain-id>...  (one topic per domain, in order)
+write_topics() {
+  _out="$1"
+  shift
+  printf 'schema_version = 1\n' >"$_out"
+  _n=0
+  for _d in "$@"; do
+    _n=$((_n + 1))
+    printf '\n[[topic]]\nid = "t-fixture-%d"\ndomain = "%s"\nlabel = "fixture topic %d"\n' \
+      "$_n" "$_d" "$_n" >>"$_out"
+  done
+}
+
+# write_bank <dir> <module>...
+write_bank() {
+  _dir="$1"
+  shift
+  rm -rf "$_dir"
+  mkdir -p "$_dir"
+  for _m in "$@"; do
+    printf 'id = "sel-m%02d"\nmodule = %d\ntopic_ids = ["t-fixture-1"]\n' \
+      "$_m" "$_m" >"$_dir/m$_m.toml"
+  done
+}
+
+# run_objectives <domains> <topics> <bank> <policy>
+# Every case passes its own policy file — defaulting to the LIVE
+# knowledge/bank_policy.toml would make its [[domain_min]] rows drift against
+# a fixture registry and turn each case RED for a reason it did not plant.
+run_objectives() {
+  python3 scripts/verify_objectives.py \
+    --objectives registries/objectives.toml \
+    --claims registries/claims.toml \
+    --domains "$1" \
+    --topics "$2" \
+    --bank "$3" \
+    --policy "$4" \
+    --skip-topic-coverage
 }
 
 echo "==> selftest_l7_objectives (L7-S7 objective coverage known-bad)"
@@ -154,11 +233,86 @@ printf '%s\n' "$live_out" | grep -q 'objective coverage GREEN' \
   || fail "live output missing 'objective coverage GREEN'"
 ok "live tree still GREEN"
 
+# ── (e)–(i): the bd-lt7 rebase, in the suite instead of in a scratchpad ─────
+# Shared fixture pieces. An "empty" policy is a real file with no rows, so the
+# exemption ledger is READ and found to hold nothing — not absent, which is a
+# different code path.
+empty_policy="$TMP_ROOT/policy_empty.toml"
+printf '# fixture policy: no rows\n' >"$empty_policy"
+topics_ok="$TMP_ROOT/topics_ok.toml"
+write_topics "$topics_ok" "01-fixture"
+
+# --- (e) a DECLARED module with zero bank items → RED, naming the module ---
+# THE bd-lt7 regression. Under `PRIMARY_MODULES = range(1, 15)` this exact
+# tree was GREEN: module 15 was declared, assessed nowhere, and exempt by a
+# literal nobody had written down as a decision.
+echo "==> (e) declared module starved of items → RED"
+dom_1_15="$TMP_ROOT/domains_1_15.toml"
+write_domains "$dom_1_15" 1 15
+bank_1="$TMP_ROOT/bank_m1"
+write_bank "$bank_1" 1
+assert_fails_with "declared-module-starved" "domain module 15: 0 items < min 1" \
+  run_objectives "$dom_1_15" "$topics_ok" "$bank_1" "$empty_policy"
+
+# --- (f) an exemption without a reason → RED, and the module stays required ---
+echo "==> (f) exemption without a reason → RED"
+pol_no_reason="$TMP_ROOT/policy_no_reason.toml"
+printf '[[coverage_exempt]]\nmodule = 15\n' >"$pol_no_reason"
+assert_fails_with "exemption-without-reason" \
+  "coverage_exempt module 15 has no reason" \
+  run_objectives "$dom_1_15" "$topics_ok" "$bank_1" "$pol_no_reason"
+# The finding alone is not the guarantee. A rejected exemption that still held
+# the module out of the floor would be the escape hatch working while being
+# reported as broken — quieter than the rule it escapes.
+printf '%s\n' "$LAST_OUT" | grep -q 'domain module 15: 0 items < min 1' \
+  || fail "(f) a rejected exemption silently held module 15 out of the floor"
+ok "(f) rejected exemption leaves module 15 REQUIRED (not a second injection)"
+
+# --- (g) a [[domain_min]] floor for an undeclared module → RED ---
+echo "==> (g) [[domain_min]] for an undeclared module → RED"
+dom_1="$TMP_ROOT/domains_1.toml"
+write_domains "$dom_1" 1
+pol_stray_min="$TMP_ROOT/policy_stray_min.toml"
+printf '[[domain_min]]\nmodule = 1\nmin_items = 1\n\n[[domain_min]]\nmodule = 15\nmin_items = 16\n' \
+  >"$pol_stray_min"
+assert_fails_with "domain-min-undeclared" \
+  "[[domain_min]] module 15 is not declared in the domain registry" \
+  run_objectives "$dom_1" "$topics_ok" "$bank_1" "$pol_stray_min"
+
+# --- (h) a topic in a domain the registry never declared → RED ---
+# The fixture carries one GOOD topic as well, so the finding proves the drift
+# detector fired rather than the "zero topics in a required domain" floor.
+echo "==> (h) topic in an undeclared domain → RED"
+topics_drift="$TMP_ROOT/topics_drift.toml"
+write_topics "$topics_drift" "01-fixture" "99-never-declared"
+assert_fails_with "topic-undeclared-domain" \
+  "topics.toml: topic in an undeclared domain" \
+  run_objectives "$dom_1" "$topics_drift" "$bank_1" "$empty_policy"
+
+# --- (i) a RECORDED exemption WITH a reason → GREEN control, NOT counted ---
+# Plain rc/grep by design: assert_fails_with is the only thing that increments
+# INJ, and a green leg must never inflate the advertised known-bad count.
+echo "==> (i) recorded exemption with a reason → GREEN (control, not counted)"
+pol_with_reason="$TMP_ROOT/policy_with_reason.toml"
+printf '[[coverage_exempt]]\nmodule = 15\nreason = "fixture: module not yet authored"\n' \
+  >"$pol_with_reason"
+rc=0
+exempt_out="$(run_objectives "$dom_1_15" "$topics_ok" "$bank_1" "$pol_with_reason" 2>&1)" || rc=$?
+if [ "$rc" -ne 0 ]; then
+  printf '%s\n' "$exempt_out" >&2
+  fail "(i) a recorded exemption with a reason must be honoured, exited $rc"
+fi
+printf '%s\n' "$exempt_out" | grep -q 'objective coverage GREEN' \
+  || fail "(i) exited 0 without the 'objective coverage GREEN' receipt"
+printf '%s\n' "$exempt_out" | grep -q 'exempt: fixture: module not yet authored' \
+  || fail "(i) the exemption must be PRINTED, so the hole is visible"
+ok "(i) recorded exemption honoured and printed (GREEN control, NOT counted)"
+
 # Confirm no planted files under live registries/bank
 if [ -f registries/objectives_empty.toml ] || [ -f bank/items/planted-obj.toml ]; then
   fail "planted file leaked into live tree"
 fi
 
 echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
-echo "selftest_l7_objectives: PASSED (a empty RED · b missing-claim RED · b2 empty-claims RED · c empty-bank RED · d live GREEN)"
+echo "selftest_l7_objectives: PASSED (a empty RED · b missing-claim RED · b2 empty-claims RED · c empty-bank RED · d live GREEN · e starved-module RED · f reasonless-exemption RED · g stray domain_min RED · h undeclared topic domain RED · i recorded exemption GREEN)"
 exit 0

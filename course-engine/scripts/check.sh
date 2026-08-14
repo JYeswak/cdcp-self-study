@@ -176,8 +176,12 @@ ok "bank pool"
 
 
 # Anti-hallucination heuristics + corpus overlap
-# NOT YET PORTED (bd-substrate-rust-migration-jhd.9). The fail-open guard is
-# closed ahead of the port: a missing checker is a fooled certificate, not a skip.
+# PORTED (bd-substrate-rust-migration-jhd.9). scripts/validate_grounding.py stays
+# as the differential oracle for tests/diff_validate_grounding.rs; an absent
+# checker is a fooled certificate, not a skip.
+# KNOWN DEFECT, tracked as bd-yje7: this gate currently passes GREEN on an empty
+# corpus — it is greenest when it is checking nothing. Do not read its PASS as
+# evidence that grounding was verified until that bead closes.
 [ -f scripts/validate_grounding.py ] || fail "missing scripts/validate_grounding.py (differential oracle for validate-grounding)"
 [ -d bank/items ] || fail "missing bank/items (grounding gate required)"
 echo "==> cdcp_gate validate-grounding (anti-hallucination heuristics + corpus overlap)"
@@ -375,9 +379,10 @@ for v in bank-hash grade goldens export-web serve; do
 done
 ok "L7 CLI product verbs listed"
 
-echo "==> verify_objectives.py"
-python3 scripts/verify_objectives.py || fail "L7 objective coverage"
-ok "L7 objective coverage"
+[ -f scripts/verify_objectives.py ] || fail "missing scripts/verify_objectives.py (differential oracle for verify-objectives)"
+echo "==> cdcp_gate verify-objectives (L7-S7 objective coverage)"
+cargo run -q -p cdcp_gate -- verify-objectives || fail "L7 objective coverage"
+ok "L7 objective coverage (registry objectives resolve · every declared module carries items)"
 echo "==> selftest_l7_objectives.sh"
 run_selftest "L7 objectives selftest" sh scripts/selftest_l7_objectives.sh
 ok "L7 objectives known-bad selftest"

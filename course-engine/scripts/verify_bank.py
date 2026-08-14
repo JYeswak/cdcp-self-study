@@ -12,6 +12,11 @@ Two output-shape contracts this gate keeps, both fixed 2026-08-14 (bd-hw3):
     `policy_positive_int`.
   - The verdict line is composed with the rest of the report and written last.
     Nothing that can raise runs between "PASS" and the end of stdout.
+
+Anti-vacuous (L4): an empty input set is an ERROR, never a pass. That holds at
+FILE granularity as well as at whole-bank granularity — a single bank file whose
+`items[]` yields zero items is named and is RED, because `zero items loaded`
+would otherwise stay satisfied on the strength of the files around it (bd-0czh).
 """
 from __future__ import annotations
 
@@ -135,8 +140,21 @@ def main() -> int:
     for path in item_files:
         data = load_toml(path)
         if "items" in data and isinstance(data["items"], list):
+            before = len(loaded)
             for it in data["items"]:
                 loaded.append((path.name, it))
+            if len(loaded) == before:
+                # Anti-vacuous at FILE granularity (bd-0czh, the class sweep of
+                # bd-2kr). `items = []` takes the list branch, adds nothing, and
+                # never reaches the `no id or items[]` leg below, because `elif`
+                # cannot run once `if` has. Without this line a file that was
+                # never really checked reports exactly like one that passed, and
+                # the aggregate `zero items loaded` check stays satisfied because
+                # the other files carry the count.
+                errors.append(
+                    f"{path.name}: items[] yielded zero items "
+                    "(vacuous file scan is ERROR)"
+                )
         elif "id" in data:
             loaded.append((path.name, data))
         else:

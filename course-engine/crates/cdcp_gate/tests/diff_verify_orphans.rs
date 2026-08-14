@@ -15,9 +15,18 @@
 //!   d) item with empty topic_ids       -> RED (unanchored item)
 //!   e) topic referenced by zero items  -> RED (orphan topic, reverse direction)
 //!   f) live tree                       -> GREEN
+//!   g) file whose items[] yields none  -> RED (vacuous at FILE granularity)
 //!
 //! plus the suite's intermediate "specimen bank is clean again" assertion and a
 //! handful of argument/path shapes the suite does not reach.
+//!
+//! (g) is the newest of them and is the reason this list has to be maintained:
+//! `defect_shapes_beyond_the_shell_suite_are_byte_identical` had compared the
+//! `items = []` shape since bd-2kr, but the enumeration above claimed to mirror
+//! the suite while the suite did not yet assert it — so the case sat here as a
+//! shape "beyond the shell suite" rather than as one of its legs. A case list
+//! that is only *nearly* the suite's is how the two drift apart without either
+//! one going red.
 //!
 //! ANTI-VACUOUS DISCIPLINE. A differential that silently compares nothing passes
 //! exactly like one that compared everything, so: a missing `python3` is a

@@ -17,6 +17,7 @@
 #   e) "publication is blocked" line        → RED (repo is public)
 #   f) root with zero markdown              → ERROR (anti-vacuous)
 #   g) roadmap doc missing                  → ERROR (cannot verify agreement)
+#   h) row too short to reach its Status    → RED (ragged row, fail-closed)
 #
 # The live-tree run is check.sh's own preceding step; this script proves the
 # checker bites. If ANY injection stays GREEN, this exits non-zero.
@@ -195,11 +196,22 @@ rm -f "$SPEC/course-engine/docs/PHASE-NEXT.md"
 assert_fails_with "missing-roadmap-doc" "roadmap doc missing" \
   run_checker "$SPEC"
 
+# ── (h) a row too short to reach its own Status column ──────────────────────
+# The table declares a Status column; this row has two cells and never reaches
+# it. Until bd-hw3 that row read as `None` and the gate printed PASS and then
+# raised. A row whose status cannot be read is RED, never a row without a
+# status — the escape hatch may not be quieter than the rule.
+echo "==> (h) ragged milestone row → RED"
+write_specimen
+printf '%s\n' '| **M10** | ragged row |' >>"$SPEC/CHARTER.md"
+assert_fails_with "ragged-row" "row is shorter than its Status column" \
+  run_checker "$SPEC"
+
 # ── nothing may have leaked out of TEMP ─────────────────────────────────────
 write_specimen
 assert_green "specimen-restored" run_checker "$SPEC"
 [ -d "$TMP_ROOT" ] || fail "TEMP root vanished mid-run"
 
 echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
-echo "selftest_doc_consistency: PASSED (a clean GREEN · b duplicate row · c cross-doc conflict · d unreadable status · e publication pending · f zero markdown · g missing doc)"
+echo "selftest_doc_consistency: PASSED (a clean GREEN · b duplicate row · c cross-doc conflict · d unreadable status · e publication pending · f zero markdown · g missing doc · h ragged row)"
 exit 0

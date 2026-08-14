@@ -366,6 +366,64 @@ fn a_file_with_neither_id_nor_items_reports_identically() {
     );
 }
 
+/// Anti-vacuous at FILE granularity (bd-0czh, the class sweep of bd-2kr).
+///
+/// `items = []` takes the `isinstance(data["items"], list)` branch and adds
+/// nothing, so it can never reach the `no id or items[]` leg above — Python's
+/// `elif` cannot run once the `if` has. Before the fix this file was scanned,
+/// contributed nothing, and was never named, on BOTH sides, at exit 0.
+///
+/// Note what the aggregate does here: `pool.toml` carries two items, so `n = 2`
+/// clears `pool_min_items = 2` and the whole-bank `zero items loaded` check can
+/// never fire. The healthy total is exactly what hid a file that was never
+/// checked, which is why this asserts on the NAME and not on a count.
+#[test]
+fn a_file_whose_items_yield_nothing_is_named_and_red_in_both() {
+    let f = Fixture::new();
+    f.write("bank/items/pool.toml", &pool(2, &["A", "B"]));
+    f.write("bank/items/zz-silently-empty.toml", "items = []\n");
+    let run = f.check("items[] yielding zero items");
+    assert_ne!(
+        run.code, 0,
+        "a bank file that contributed nothing must never be a pass:\n{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout.contains(
+            "  - zz-silently-empty.toml: items[] yielded zero items (vacuous file scan is ERROR)\n"
+        ),
+        "the file that yielded nothing must be named:\n{}",
+        run.stdout
+    );
+    assert!(
+        !run.stdout.contains("zero items loaded"),
+        "the aggregate check is satisfied by the other file — if it fired, this \
+         case would be testing the whole-bank rule instead of the file rule:\n{}",
+        run.stdout
+    );
+}
+
+/// The known-GOOD leg the bd-0czh fix must not break, stated separately from the
+/// `id = …` shape test below because it is the leg a too-wide fix would eat: a
+/// file with NO `items` key never takes the list branch, so it is never named.
+#[test]
+fn a_single_item_id_file_is_untouched_by_the_zero_yield_rule() {
+    let f = Fixture::new();
+    for (name, id) in [("a-first.toml", "i-one"), ("b-second.toml", "i-two")] {
+        f.write(
+            &format!("bank/items/{name}"),
+            &good_item(id, 1, "A", "t-one").replace("[[items]]\n", ""),
+        );
+    }
+    let run = f.check("single-item `id =` files survive the fix");
+    assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
+    assert!(
+        !run.stdout.contains("yielded zero items"),
+        "a file with no items key never took the list branch:\n{}",
+        run.stdout
+    );
+}
+
 /// A single-item file (the live bank's shape) loads the same way as an array.
 #[test]
 fn single_item_files_load_identically_and_sort_by_name() {

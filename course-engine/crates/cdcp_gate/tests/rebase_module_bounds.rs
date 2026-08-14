@@ -4,10 +4,11 @@
 //!
 //! Three things are held here, and nothing more:
 //!
-//!   1. `scripts/verify_coverage.py` and `scripts/build_units.py` derive their
-//!      module set from a registry (`knowledge/domains.toml` and
-//!      `web/data/modules_index.json` respectively) rather than from a numeric
-//!      bound, and each still trips on a real defect after the rebase.
+//!   1. `scripts/verify_coverage.py`, `scripts/build_units.py` and
+//!      `scripts/smoke_feedback_links.py` derive their module set from a
+//!      registry (`knowledge/domains.toml`, `web/data/modules_index.json`, and
+//!      `knowledge/domains.toml` again) rather than from a numeric bound, and
+//!      each still trips on a real defect after the rebase.
 //!   2. Neither refuses legitimate work — every rebased gate has a known-GOOD
 //!      leg here, because an attack-only suite ships an over-strict gate, and
 //!      over-strict gates get routed around.
@@ -150,6 +151,22 @@ const INVENTORY: &[(&str, &str, Verdict, &str)] = &[
         "`for n in range(1, 15)` report loop. The table happened to be right; the loop",
         Verdict::Prose,
         "docstring recording the removed report-loop bound",
+    ),
+    // The suite that now ASSERTS the verify_objectives rebase has to name the
+    // literal it protects against, so the sweep sees it too. Both rows are
+    // header prose in the selftest, not a bound in effect anywhere.
+    (
+        "scripts/selftest_l7_objectives.sh",
+        "# knowledge/domains.toml instead of `range(1, 15)`. (e) is the regression",
+        Verdict::Prose,
+        "selftest header naming the removed literal its case (e) guards against",
+    ),
+    (
+        "scripts/selftest_l7_objectives.sh",
+        "# THE bd-lt7 regression. Under `PRIMARY_MODULES = range(1, 15)` this exact",
+        Verdict::Prose,
+        "comment at case (e), recording the bound under which that exact fixture \
+         tree was GREEN",
     ),
     (
         "scripts/smoke_hub_mastery.mjs",
@@ -772,4 +789,284 @@ fn build_units_never_writes_a_verdict_it_then_contradicts() {
         "the first line written was {first:?}"
     );
     assert!(run.stderr.is_empty(), "{}", run.stderr);
+}
+
+// ── 4. smoke_feedback_links.py: known-bad and known-GOOD ──────────────────
+//
+// This gate takes NO path flags — every input is `Path(__file__).parents[1] /
+// …` — so the only way to inject a known-bad into it is to give it a whole
+// tree of its own. That is what `feedback_fixture` builds. The alternative
+// considered and rejected was adding `--domains` / `--root` to the script:
+// the gate's Python is correct, and widening its argument surface to make it
+// testable would be changing the thing under test in order to test it.
+//
+// The fixture also has to exist for a second reason. The script WRITES
+// `web/data/topic_anchors.json` on every run; pointed at the live tree it
+// would dirty the working copy, and a leg that dirties the tree cannot be a
+// CI leg. Inside the fixture the write lands on the copy.
+
+/// A tree `smoke_feedback_links.py` can run in: a copy of the script and of
+/// every input it resolves off its own location. Copied, not synthesised —
+/// results.js, the Learn pages and the seed42 packs are the real product
+/// surfaces, and a hand-written stand-in would let this leg pass while the
+/// shipped ones diverged.
+fn feedback_fixture() -> Fixture {
+    let root = engine_root();
+    let f = Fixture::new();
+
+    let copy = |rel: &str| {
+        let dst = f.path(rel);
+        std::fs::create_dir_all(dst.parent().unwrap()).unwrap();
+        std::fs::copy(root.join(rel), &dst)
+            .unwrap_or_else(|e| panic!("copy {rel} into the fixture: {e}"));
+    };
+    // The gate, and the module it imports at runtime to rebuild topic anchors.
+    copy("scripts/smoke_feedback_links.py");
+    copy("scripts/build_learn.py");
+    // The registry under test, and the topic registry the anchor builder reads.
+    copy("knowledge/domains.toml");
+    copy("knowledge/topics.toml");
+    // The product surfaces the gate checks the registry against.
+    copy("web/assets/js/results.js");
+    copy("web/assets/js/learn_md.js");
+    copy("web/data/keys_seed42.json");
+    copy("web/data/bank_items_seed42.json");
+    // A pre-existing anchor map, so a fixture in which the rebuild cannot run
+    // degrades to the gate's documented fallback instead of to a spurious
+    // failure that would look like the injection firing.
+    copy("web/data/topic_anchors.json");
+
+    let mut copied = 0usize;
+    for (dir, ext) in [("web/learn", "html"), ("web/content/modules", "md")] {
+        std::fs::create_dir_all(f.path(dir)).unwrap();
+        for e in std::fs::read_dir(root.join(dir)).unwrap().flatten() {
+            let p = e.path();
+            if p.extension().and_then(|s| s.to_str()) == Some(ext) {
+                let name = p.file_name().unwrap().to_string_lossy().into_owned();
+                std::fs::copy(&p, f.path(&format!("{dir}/{name}"))).unwrap();
+                copied += 1;
+            }
+        }
+    }
+    // Anti-vacuous: a fixture that copied no Learn surface would make every
+    // "missing learn page" finding below fire for the wrong reason.
+    assert!(
+        copied >= 30,
+        "fixture copied only {copied} Learn/content files — a vacuous fixture \
+         would make every injection below fire for the wrong reason"
+    );
+    f
+}
+
+fn feedback_links(f: &Fixture) -> Run {
+    capture(Command::new("python3").arg(f.path("scripts/smoke_feedback_links.py")))
+}
+
+/// Rewrite the fixture's domain registry, dropping every `[[domain]]` block
+/// whose `order` is in `drop`. Text surgery rather than a TOML round-trip
+/// because the point is to change ONE fact and leave the file otherwise as
+/// shipped.
+fn drop_domains(f: &Fixture, drop: &[u32]) {
+    let path = f.path("knowledge/domains.toml");
+    let text = std::fs::read_to_string(&path).unwrap();
+    let mut out = String::new();
+    let mut removed = 0usize;
+    for (i, chunk) in text.split("[[domain]]").enumerate() {
+        if i == 0 {
+            out.push_str(chunk);
+            continue;
+        }
+        if drop
+            .iter()
+            .any(|o| chunk.lines().any(|l| l.trim() == format!("order = {o}")))
+        {
+            removed += 1;
+            continue;
+        }
+        out.push_str("[[domain]]");
+        out.push_str(chunk);
+    }
+    assert_eq!(
+        removed,
+        drop.len(),
+        "the fixture registry did not contain every module this case removes — \
+         the injection would not have applied"
+    );
+    std::fs::write(path, out).unwrap();
+}
+
+/// Known-GOOD. The shipped tree passes, and module 15 is INSIDE the swept set:
+/// under `for n in range(1, 15)` the report printed M01–M14 and module 15 was
+/// simply absent from the surface this gate describes.
+#[test]
+fn feedback_links_known_good_the_shipped_tree_passes_with_module_15_reported() {
+    let f = feedback_fixture();
+    let run = feedback_links(&f);
+    assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
+    assert!(
+        run.stdout.starts_with("PASS: smoke_feedback_links"),
+        "{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout
+            .contains("modules=15 (derived from knowledge/domains.toml)"),
+        "the module count must be derived, and must be 15:\n{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout.contains("M15 → learn/15-ops-adjacent.html"),
+        "module 15 must appear in the report loop, not stop at M14:\n{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout.contains("untaught_module_items=0 (must be 0)"),
+        "{}",
+        run.stdout
+    );
+}
+
+/// Known-BAD, the bd-lt7 regression from the product side. Retire module 15
+/// from the registry while `results.js` still links it and the bank still
+/// assesses it: the gate must report the drift in BOTH directions — a Learn
+/// link for a module nobody declares, and items on a real form whose module has
+/// no Learn surface.
+#[test]
+fn feedback_links_known_bad_a_module_the_registry_stops_declaring_is_drift() {
+    let f = feedback_fixture();
+    drop_domains(&f, &[15]);
+    let run = feedback_links(&f);
+    assert_ne!(
+        run.code, 0,
+        "a Learn link for an undeclared module passed:\n{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout.contains(
+            "module 15: results.js maps '15-ops-adjacent' but knowledge/domains.toml \
+             does not declare that module"
+        ),
+        "the product→registry direction must name the module:\n{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout.contains("assessed but untaught: ")
+            && run
+                .stdout
+                .contains("module 15 is not declared in knowledge/domains.toml"),
+        "an item on a real form with no Learn surface is the C5 defect and must \
+         be named, never a silently skipped row:\n{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout.starts_with("FAIL: smoke_feedback_links"),
+        "the verdict must lead the report:\n{}",
+        run.stdout
+    );
+    assert!(
+        !run.stdout.contains("PASS"),
+        "no PASS may appear anywhere on a failing run:\n{}",
+        run.stdout
+    );
+}
+
+/// Known-BAD, the registry→product direction. A module the registry declares
+/// with no Learn surface behind it must go RED naming the module. `range(1,
+/// 15)` could not have seen this for module 15 at all.
+#[test]
+fn feedback_links_known_bad_a_declared_module_with_no_learn_surface_trips() {
+    let f = feedback_fixture();
+    let path = f.path("knowledge/domains.toml");
+    let mut text = std::fs::read_to_string(&path).unwrap();
+    text.push_str(
+        "\n[[domain]]\nid = \"16-fixture-only\"\norder = 16\n\
+         epi_heading = \"Fixture domain with no Learn surface\"\n\
+         exam_weight_unknown = true\n",
+    );
+    std::fs::write(&path, text).unwrap();
+
+    let run = feedback_links(&f);
+    assert_ne!(run.code, 0, "{}", run.stdout);
+    assert!(
+        run.stdout.contains(
+            "module 16: results.js slug map None != '16-fixture-only' \
+             (knowledge/domains.toml)"
+        ),
+        "the slug-map gap must name the module:\n{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout
+            .contains("missing learn page web/learn/16-fixture-only.html"),
+        "the missing Learn page must be named:\n{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout
+            .contains("missing content web/content/modules/16-fixture-only.md"),
+        "the missing content file must be named:\n{}",
+        run.stdout
+    );
+}
+
+/// Known-BAD. Anti-vacuous: a registry that declares nothing is an ERROR, not a
+/// green run over an empty module set. This is the failure that reports exactly
+/// like a clean one if nobody writes the check.
+#[test]
+fn feedback_links_known_bad_an_empty_registry_is_an_error() {
+    let f = feedback_fixture();
+    std::fs::write(f.path("knowledge/domains.toml"), "schema_version = 1\n").unwrap();
+    let run = feedback_links(&f);
+    assert_ne!(run.code, 0, "{}", run.stdout);
+    assert!(
+        run.stdout
+            .contains("domain registry declares zero modules (vacuous link check is ERROR)"),
+        "{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout.starts_with("FAIL: smoke_feedback_links"),
+        "{}",
+        run.stdout
+    );
+}
+
+/// Known-GOOD, the other half of the drift rule. Retiring a module from BOTH
+/// sources at once is a legitimate edit, not drift, and must stay green — an
+/// attack-only suite would make the registry uneditable.
+#[test]
+fn feedback_links_known_good_retiring_a_module_from_both_sources_is_not_drift() {
+    let f = feedback_fixture();
+    // 14 is chosen over 15 only because the bank has items in both; the point
+    // is that the two sources agree after the edit, whichever module it is.
+    drop_domains(&f, &[14]);
+    let js_path = f.path("web/assets/js/results.js");
+    let js = std::fs::read_to_string(&js_path).unwrap();
+    let stripped: String = js
+        .lines()
+        .filter(|l| !l.contains("14: '14-auxiliary'") && !l.contains("14: \"14-auxiliary\""))
+        .collect::<Vec<_>>()
+        .join("\n");
+    assert_ne!(
+        stripped.len(),
+        js.len(),
+        "the fixture's slug map did not contain module 14 on its own line — this \
+         case would otherwise assert nothing"
+    );
+    std::fs::write(&js_path, stripped + "\n").unwrap();
+
+    let run = feedback_links(&f);
+    // The two sources now agree about module 14, so neither drift direction
+    // fires. Items still assessed in module 14 are the C5 defect and are
+    // REPORTED — this leg asserts only that the drift rules stayed quiet.
+    assert!(
+        !run.stdout.contains("module 14: results.js maps"),
+        "an agreed retirement must not be reported as product→registry drift:\n{}",
+        run.stdout
+    );
+    assert!(
+        !run.stdout.contains("module 14: results.js slug map"),
+        "an agreed retirement must not be reported as registry→product drift:\n{}",
+        run.stdout
+    );
 }

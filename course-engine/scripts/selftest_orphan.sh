@@ -15,6 +15,10 @@
 #   d) item with empty topic_ids       → RED (unanchored item)
 #   e) topic referenced by zero items  → RED (orphan topic, reverse direction)
 #   f) live tree                       → GREEN and un-dirtied
+#   g) file whose items[] yields none  → RED (vacuous at FILE granularity)
+#
+# (g) is planted between (d) and the specimen-clean control, because it shares
+# their specimen bank; the letter records when it was added, not where it runs.
 #
 # A gate that cannot fail is not a gate: if any injection stays GREEN this
 # script exits non-zero and check.sh fails.
@@ -146,6 +150,18 @@ assert_fails_with "unanchored-item" "missing/empty topic_ids" \
   python3 scripts/verify_orphans.py --bank "$plant_bank"
 rm -f "$plant_bank/zz-selftest-unanchored.toml"
 
+# ── (g) a file whose items[] yields nothing: vacuous at FILE granularity ────
+# `items = []` takes the `isinstance(data["items"], list)` branch, adds nothing,
+# and never reaches the `no id or items[]` leg below it — an `elif` cannot run
+# once its `if` has. Without the per-file check, a file that was never really
+# read reports exactly like one that passed, because the surrounding files keep
+# the aggregate item count healthy.
+echo "==> (g) file whose items[] yields zero items → RED"
+printf 'items = []\n' >"$plant_bank/zz-selftest-silently-empty.toml"
+assert_fails_with "silently-empty-file" "items[] yielded zero items" \
+  python3 scripts/verify_orphans.py --bank "$plant_bank"
+rm -f "$plant_bank/zz-selftest-silently-empty.toml"
+
 # specimen bank must now be back to a clean copy → GREEN against live topics
 rc=0
 python3 scripts/verify_orphans.py --bank "$plant_bank" >/dev/null 2>&1 || rc=$?
@@ -177,7 +193,8 @@ printf '%s\n' "$live_out" | grep -q 'orphan integrity GREEN' \
   || fail "live output missing 'orphan integrity GREEN'"
 
 for leaked in bank/items/zz-selftest-orphan-ref.toml \
-              bank/items/zz-selftest-unanchored.toml; do
+              bank/items/zz-selftest-unanchored.toml \
+              bank/items/zz-selftest-silently-empty.toml; do
   [ -f "$leaked" ] && fail "specimen leaked into the live tree: $leaked"
 done
 grep -q 'zz-selftest-orphan-topic' knowledge/topics.toml \
@@ -185,5 +202,5 @@ grep -q 'zz-selftest-orphan-topic' knowledge/topics.toml \
 ok "live tree clean (no specimen leaked)"
 
 echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
-echo "selftest_orphan: PASSED (a empty bank · b empty topics · c orphan ref · d unanchored · e orphan topic · f live GREEN)"
+echo "selftest_orphan: PASSED (a empty bank · b empty topics · c orphan ref · d unanchored · e orphan topic · f live GREEN · g silently-empty file)"
 exit 0

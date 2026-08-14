@@ -874,10 +874,10 @@ fn load_domain_mins(
 
 /// `load_items()` — every `*.toml` under the bank dir, in `sorted()` order.
 ///
-/// Deliberately NOT the file-granular anti-vacuous rule `verify_orphans` grew
-/// (bd-2kr): this oracle lets an `items = []` file contribute nothing silently,
-/// and a port that fixed that would stop being a port. It is recorded in the
-/// differential as a Python behaviour reproduced on purpose.
+/// Carries the file-granular anti-vacuous rule the oracle grew in bd-0czh (the
+/// class sweep of bd-2kr): an `items[]` that yields zero items is named and is
+/// RED. Ported AFTER the Python, so the differential stayed the judge of the
+/// change rather than being reshaped by it.
 fn read_items(disp: &str) -> (Vec<Item>, Vec<String>) {
     let dir = Path::new(disp);
     let mut errors: Vec<String> = Vec::new();
@@ -907,10 +907,23 @@ fn read_items(disp: &str) -> (Vec<Item>, Vec<String>) {
         };
         match data.get("items") {
             Some(Value::Array(items)) => {
+                let before = loaded.len();
                 for it in items {
                     if let Value::Table(t) = it {
                         loaded.push((name.clone(), t.clone()));
                     }
+                }
+                if loaded.len() == before {
+                    // Anti-vacuous at FILE granularity (bd-0czh). An `items[]`
+                    // that yields nothing took this branch and can never reach
+                    // the `no id or items[]` leg — Python's `elif` cannot run
+                    // once the `if` has — so without this the file is scanned,
+                    // contributes zero items, and is never named while the
+                    // aggregate `empty bank` check stays satisfied by its
+                    // neighbours.
+                    errors.push(format!(
+                        "{name}: items[] yielded zero items (vacuous file scan is ERROR)"
+                    ));
                 }
             }
             _ if data.contains_key("id") => loaded.push((name.clone(), data)),

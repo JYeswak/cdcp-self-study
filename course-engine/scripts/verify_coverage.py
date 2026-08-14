@@ -31,7 +31,10 @@ reason string — and an exemption without a reason is an ERROR, not a default.
 ## Anti-vacuous
 
 Zero modules discovered is an ERROR. Zero items loaded is an ERROR. An empty
-scan set must never report like a scan that ran and came back clean.
+scan set must never report like a scan that ran and came back clean. That rule
+holds at FILE granularity too: a single bank file whose `items[]` yields zero
+items is named and is RED, because the aggregate count would otherwise stay
+healthy on the strength of the files around it (bd-0czh).
 
 ## What this gate cannot decide
 
@@ -211,9 +214,23 @@ def load_items(bank_dir: Path) -> tuple[list[tuple[str, dict]], list[str]]:
             errors.append(f"{path.name}: parse error: {e}")
             continue
         if "items" in data and isinstance(data["items"], list):
+            before = len(loaded)
             for it in data["items"]:
                 if isinstance(it, dict):
                     loaded.append((path.name, it))
+            if len(loaded) == before:
+                # Anti-vacuous at FILE granularity (bd-0czh, the class sweep of
+                # bd-2kr). `items = []` — or an items[] holding nothing this loop
+                # can read as an item — takes the list branch, adds nothing, and
+                # never reaches the `no id or items[]` leg below, because `elif`
+                # cannot run once `if` has. Without this line a file that was
+                # never really checked reports exactly like one that passed, and
+                # the aggregate `empty bank` check below stays satisfied because
+                # the other files carry the count.
+                errors.append(
+                    f"{path.name}: items[] yielded zero items "
+                    "(vacuous file scan is ERROR)"
+                )
         elif "id" in data:
             loaded.append((path.name, data))
         else:

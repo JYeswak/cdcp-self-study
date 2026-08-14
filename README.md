@@ -9,7 +9,7 @@
 [![License: MIT (code)](https://img.shields.io/badge/code-MIT-blue.svg)](./LICENSE)
 [![Content: CC BY-NC-SA 4.0](https://img.shields.io/badge/content-CC_BY--NC--SA_4.0-blue.svg)](./LICENSE)
 [![gate: 53 steps](https://img.shields.io/badge/gate-53_ordered_steps-success.svg)](#the-gate)
-[![known-bad: 36 injections](https://img.shields.io/badge/known--bad-36_injections_all_RED-success.svg)](#gates-proven-to-trip)
+[![known-bad: 47 injections](https://img.shields.io/badge/known--bad-47_injections_all_RED-success.svg)](#gates-proven-to-trip)
 [![grading: byte-exact](https://img.shields.io/badge/grading-Rust_%3D%3D_WASM_byte--exact-success.svg)](#how-grading-works)
 [![unsafe: forbidden](https://img.shields.io/badge/unsafe-forbidden-success.svg)](https://github.com/rust-secure-code/safety-dance/)
 [![offline](https://img.shields.io/badge/runtime-fully_offline-teal.svg)](#running-it)
@@ -46,7 +46,7 @@ cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
 | **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
 | **Bank** | 804 original questions across 15 module buckets, 106 topics |
 | **Engine** | 7 Rust crates, 3,763 lines, `#![forbid(unsafe_code)]`, 281 KB WASM |
-| **Gate** | 59 ordered steps; 9 selftest suites; 36 known-bad injections that must all go RED |
+| **Gate** | 59 ordered steps; 9 selftest suites; 47 known-bad injections that must all go RED |
 | **Runtime deps** | None. Rust toolchain to build; a browser to use |
 
 ---
@@ -226,7 +226,7 @@ workflow file is how CI and local drift apart until only one of them is true.
 ### Gates proven to trip
 
 A green gate is worthless unless it can go red. Nine selftest suites inject
-**36 known-bad faults** — shell suites only; the Rust ports' own known-bad cases
+**47 known-bad faults** — shell suites only; the Rust ports' own known-bad cases
 emit no `INJECTIONS=` receipt, so they are not in this total — and assert the
 build fails, then restore the tree:
 
@@ -236,11 +236,11 @@ build fails, then restore the tree:
 | `selftest_l5` | 2 | flipped golden pins (GOLDEN MISMATCH) · empty golden dir (zero fixtures) |
 | `selftest_l5_honesty` | 1 | credential-inflation string planted in web copy |
 | `selftest_l6_coverage` | 2 | empty bank · single-module bank |
-| `selftest_l7_objectives` | 4 | empty objectives · missing claim ref · empty claim_ids · empty bank |
+| `selftest_l7_objectives` | 8 | empty objectives · missing claim ref · empty claim_ids · empty bank · declared module starved of items · exemption without a reason (module stays required) · `[[domain_min]]` for an undeclared module · topic in an undeclared domain |
 | `selftest_reconstructed` | 5 | learner-pack shape · answer-key leak · export byte-stability · session shapes · CLI verb presence |
-| `selftest_orphan` | 5 | empty bank · empty topic registry · unknown `topic_id` · empty `topic_ids` · orphan topic |
-| `selftest_doc_consistency` | 6 | duplicate milestone row · cross-doc status conflict · unreadable status vocabulary · stale pre-flip visibility claim · zero markdown scanned · roadmap doc missing |
-| `selftest_injection_count` | 7 | off-by-one count · deleted receipt (MISSING, never zero) · suite reporting 0 · unregistered suite · empty log · README advertising nothing · wrong suite count |
+| `selftest_orphan` | 6 | empty bank · empty topic registry · unknown `topic_id` · empty `topic_ids` · orphan topic · file whose `items[]` yields nothing |
+| `selftest_doc_consistency` | 7 | duplicate milestone row · cross-doc status conflict · unreadable status vocabulary · stale pre-flip visibility claim · zero markdown scanned · roadmap doc missing · row too short to reach its Status column |
+| `selftest_injection_count` | 12 | off-by-one count · deleted receipt (MISSING, never zero) · suite reporting 0 · unregistered suite · empty log · README advertising nothing · wrong suite count · word-spelled site drifted · a finding naming a file it did not scan · a suite named twice in `--require` · an advertisement site removed (site floor) · `--write-readme` refusing to write an unsound total |
 
 **These numbers are enforced, not maintained.** Each suite counts only the
 injections it *observed* go RED and prints `INJECTIONS=<n> SUITE=<name>` on its
@@ -326,7 +326,7 @@ table:
 | **L1 — claims constitution** | ✅ | `registries/*.toml` + `cdcp_registry_check` (tested crate) + claims-lint over README/docs |
 | **L2 — SLO as code** | ✅ partial | `slo.toml` + `smoke_slo.sh` walls on grade / export / bank-verify |
 | **L3 — external oracle** | ⚠️ **weakest link** | The oracle is the *native* grader and the public syllabus domains. There is no independent third-party conformance suite for "did we teach this correctly" |
-| **L4 — gates proven to trip** | ✅ strongest | 9 suites, 36 injections (shell receipts only; Rust legs uncounted), count drift-guarded, anti-vacuous throughout |
+| **L4 — gates proven to trip** | ✅ strongest | 9 suites, 47 injections (shell receipts only; Rust legs uncounted), count drift-guarded, anti-vacuous throughout |
 | **L5 — adversarial input floor** | ✅ partial | `cargo-fuzz` targets present; property tests on assemble/grade |
 | **L6 — formal lane** | ❌ | Not warranted at this gauntlet tier |
 | **L7 — ecosystem lock** | ✅ scoped | `content.lock` pins bank_hash + knowledge + module markdown |

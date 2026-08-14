@@ -512,6 +512,90 @@ fn probe_refuses_to_nest_rather_than_recursing() {
     );
 }
 
+// ───────── bd-ip10: the vacuity check reads ROWS, not bytes ────────────────
+//
+// `--prove-wired` refuses to run when the registry the snapshot carries already
+// exempts the plant — otherwise the known-bad is not bad and the run certifies
+// nothing. That precondition used to be `reg_text.contains(PROBE_PLANT)`, a raw
+// byte scan. Measured 2026-08-14: it took scripts/check.sh RED with ZERO
+// [[allow]] rows for the plant, over the registry's OWN COMMENT warning nobody
+// to add one. It now reads parsed [[allow]] rows.
+//
+// The probe reads the INDEX, so every fixture here stages its registry.
+
+const PLANT: &str = "scripts/__cdcp_probe_unlisted__.py";
+
+/// THE bd-ip10 PROOF, end to end: the registry documents the rule in the very
+/// words that used to trip it, and the probe runs anyway.
+#[test]
+fn probe_runs_when_a_comment_names_the_plant() {
+    let f = probe_fixture(&live_step());
+    f.set_allowlist(&format!(
+        "# NEVER add a row for {PLANT} — that is the plant\n\
+         # --prove-wired uses, and listing it makes the probe vacuous (the gate ERRORs).\n{}",
+        f.read_allowlist()
+    ));
+    f.git(&["add", "-A"]);
+    assert!(
+        std::fs::read_to_string(f.path("registries/substrate_allowlist.toml"))
+            .unwrap()
+            .contains(PLANT),
+        "the fixture must actually name the plant, or it tests nothing"
+    );
+
+    let (code, out) = f.gate(&["substrate-guard", "--prove-wired"]);
+    assert_eq!(
+        code, OK,
+        "a comment is not an [[allow]] row — a gate that cannot be described in its own registry has documentation for a liability: {out}"
+    );
+    assert!(out.contains("PROVEN"), "{out}");
+}
+
+/// Known-bad, unchanged: a real row really would make the run vacuous.
+#[test]
+fn probe_errors_when_an_allow_row_lists_the_plant() {
+    let f = probe_fixture(&live_step());
+    f.set_allowlist(&(f.read_allowlist() + &good_row(PLANT)));
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--prove-wired"]);
+    assert_eq!(code, ERROR, "an exempt known-bad certifies nothing: {out}");
+    assert!(out.contains("vacuous"), "{out}");
+    assert!(out.contains(PLANT), "must name it: {out}");
+}
+
+/// Known-bad, NEW. Bytes stay readable when rows do not: a parse without this
+/// branch would let a malformed registry make the plant exempt in silence, which
+/// is the one thing the byte scan could not do.
+#[test]
+fn probe_errors_when_the_staged_registry_does_not_parse() {
+    let f = probe_fixture(&live_step());
+    f.set_allowlist("schema_version = 1\n[scan\nroots = [\n");
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--prove-wired"]);
+    assert_eq!(
+        code, ERROR,
+        "a registry that will not parse must never clear the plant: {out}"
+    );
+    assert!(out.contains("does not parse"), "{out}");
+    assert!(out.contains("ERROR, not a pass"), "{out}");
+}
+
+/// The other route to a meaningless plant: leave it unlisted but put it out of
+/// scope. The gate's compiled-in floor already makes that RED elsewhere; here it
+/// must stop the probe rather than let it certify against a plant nothing scans.
+#[test]
+fn probe_errors_when_the_staged_scan_excludes_the_plant() {
+    let f = probe_fixture(&live_step());
+    f.set_allowlist(
+        &f.read_allowlist()
+            .replace("extensions = [\"py\", \"sh\"]", "extensions = [\"sh\"]"),
+    );
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--prove-wired"]);
+    assert_eq!(code, ERROR, "{out}");
+    assert!(out.contains("outside the scanned surface"), "{out}");
+}
+
 // ───────────────────────── ANTI-VACUOUS ───────────────────────────────────
 
 #[test]

@@ -48,7 +48,9 @@
 //! non-zero exit, never a pass. An empty bank exits non-zero on two counts at
 //! once — `zero items loaded` and `pool too small: 0 < pool_min_items N` — so a
 //! bank that was never populated can never report like one that was checked and
-//! came back clean.
+//! came back clean. The rule holds at FILE granularity too (bd-0czh): a single
+//! bank file whose `items[]` yields zero items is named and is RED, because
+//! `zero items loaded` would otherwise stay satisfied by its neighbours.
 //!
 //! # WHAT THIS GATE CANNOT DECIDE
 //!
@@ -823,8 +825,21 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
         let data = load_toml(&path)?;
         match data.get("items") {
             Some(Value::Array(arr)) => {
+                let before = loaded.len();
                 for it in arr {
                     loaded.push((name.clone(), it.clone()));
+                }
+                if loaded.len() == before {
+                    // Anti-vacuous at FILE granularity (bd-0czh). An `items[]`
+                    // that yields nothing took this branch and can never reach
+                    // the `no id or items[]` leg — Python's `elif` cannot run
+                    // once the `if` has — so without this the file is scanned,
+                    // contributes zero items, and is never named while the
+                    // aggregate `zero items loaded` check stays satisfied by
+                    // its neighbours.
+                    errors.push(format!(
+                        "{name}: items[] yielded zero items (vacuous file scan is ERROR)"
+                    ));
                 }
             }
             _ => {

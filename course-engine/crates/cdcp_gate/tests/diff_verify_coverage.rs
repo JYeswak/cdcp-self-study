@@ -1196,16 +1196,20 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
         );
     }
 
-    // A behaviour reproduced ON PURPOSE rather than fixed: this oracle lets an
-    // `items = []` file contribute nothing and says nothing about it (unlike
-    // verify_orphans.py, which was given a file-granular anti-vacuous leg by
-    // bd-2kr). A port that "fixed" it here would stop being a port and would
-    // blind this differential. Recorded, not corrected.
+    // ── anti-vacuous at FILE granularity (bd-0czh) ─────────────────────────
+    // `items = []` takes the `isinstance(data["items"], list)` branch and adds
+    // nothing, so it can never reach the `no id or items[]` leg — Python's
+    // `elif` cannot run once the `if` has. Both sides must now name the file and
+    // go RED. Note what the surrounding numbers do: `items=` stays at the count
+    // the other files carry, and every module still clears its floor, so the
+    // aggregate `empty bank` check can never fire on this. Only the named
+    // failure line distinguishes a file that was never really checked from one
+    // that passed, which is why the assertion is on the name and not on a count.
     let quiet = td.path().join("quiet_bank");
     plant_bank(&quiet, &[("good", 1), ("also", 2)]);
     write(&quiet.join("zz-silently-empty.toml"), "items = []\n");
     let rs = assert_byte_identical(
-        "items[] yielding zero items stays quiet in both",
+        "file yielding zero items",
         &root,
         &[
             "--domains",
@@ -1216,15 +1220,61 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
             &no_policy_arg,
         ],
     );
-    assert_eq!(
+    assert_ne!(
         rs.code,
         0,
-        "the oracle passes here, so the port must too: {}",
+        "a bank file that contributed nothing must never be a pass: {}",
         rs.out()
     );
     assert!(
-        !rs.out().contains("zz-silently-empty"),
-        "the oracle names no such file; naming it would be an unreviewed fix: {}",
+        rs.out().contains("  items=2\n"),
+        "the healthy aggregate is exactly what hides this defect; it must survive \
+         the fix so the case keeps testing what it claims to: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains(
+            "zz-silently-empty.toml: items[] yielded zero items (vacuous file scan is ERROR)"
+        ),
+        "the file that yielded nothing must be named: {}",
+        rs.out()
+    );
+
+    // The known-GOOD leg the fix must not break: a legitimate single-item file
+    // in `id = ...` form, with no `items` key at all, is still counted and still
+    // passes. A fix that turned every zero-yield file RED by widening the
+    // else-branch would take this file with it.
+    let single = td.path().join("single_item_bank");
+    std::fs::create_dir_all(&single).unwrap();
+    write(
+        &single.join("solo-one.toml"),
+        "id = \"solo-one\"\nmodule = 1\n",
+    );
+    write(
+        &single.join("solo-two.toml"),
+        "id = \"solo-two\"\nmodule = 2\n",
+    );
+    let rs = assert_byte_identical(
+        "single-item `id =` files, no items key, still pass",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            single.to_str().unwrap(),
+            "--policy",
+            &no_policy_arg,
+        ],
+    );
+    assert_eq!(
+        rs.code,
+        0,
+        "the elif branch must survive the fix: {}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("yielded zero items"),
+        "a file with no items key never took the list branch: {}",
         rs.out()
     );
 
@@ -1327,5 +1377,303 @@ fn the_harness_compared_something() {
     assert!(
         COMPARED.load(Ordering::SeqCst) > before,
         "the differential harness compared nothing"
+    );
+}
+
+// ── no fourth instance: the class scan (bd-0czh) ───────────────────────────
+//
+// bd-2kr fixed ONE `items = []` fail-open. Three more were sitting in the tree,
+// byte-identical, for a week. The reason they survived an audit is recorded in
+// the bead and is the reason this scan exists at all: every one of those files
+// ALREADY had an anti-vacuous check at whole-bank granularity, so grepping any
+// of them for "zero items" returned a hit and read as guarded. The controller
+// made exactly that call on verify_coverage.py — GUARDED off a grep — then read
+// the branch and found the hole, with the matching message sitting eighty lines
+// away in a different scope. A healthy total is what hides a file that was never
+// checked, and a message-keyed test would be fooled by the same string that
+// fooled the grep.
+//
+// So this keys on the BRANCH. It finds every Python branch that iterates an
+// `items` collection into an accumulator, and requires each one to carry a
+// zero-yield guard in its own body. A NEW loader written tomorrow in the same
+// shape fails here before it can reach the bank.
+//
+// It lives in this file because this is where the deliberately-quiet pin lived.
+
+/// A branch that iterates an `items` collection, and whether its own body
+/// carries the zero-yield guard.
+#[derive(Debug)]
+struct ItemsBranch {
+    file: String,
+    line: usize,
+    guarded: bool,
+}
+
+/// Leading indent, or `None` if the line is indented with tabs. A scanner that
+/// guessed at mixed indentation would be a scanner that can be fooled, so a tab
+/// is an unsupported shape and fails the scan rather than being skipped.
+fn leading_indent(line: &str) -> Option<usize> {
+    let ws: String = line.chars().take_while(|c| c.is_whitespace()).collect();
+    if ws.contains('\t') {
+        return None;
+    }
+    Some(ws.len())
+}
+
+/// The lines of the suite a header at `start` (0-based) opens: everything more
+/// deeply indented, blank lines included, up to the first dedent.
+fn block_of(lines: &[&str], start: usize, header_indent: usize) -> Vec<(usize, String)> {
+    let mut body = Vec::new();
+    for (i, raw) in lines.iter().enumerate().skip(start + 1) {
+        if raw.trim().is_empty() {
+            continue;
+        }
+        match leading_indent(raw) {
+            None => break,
+            Some(ind) if ind <= header_indent => break,
+            Some(_) => body.push((i, (*raw).to_string())),
+        }
+    }
+    body
+}
+
+/// `NAME = len(COLL)` -> `(NAME, COLL)`.
+fn parse_snapshot(t: &str) -> Option<(String, String)> {
+    let (lhs, rhs) = t.split_once('=')?;
+    let (lhs, rhs) = (lhs.trim(), rhs.trim());
+    if lhs.is_empty() || !lhs.chars().all(|c| c.is_alphanumeric() || c == '_') {
+        return None;
+    }
+    let inner = rhs.strip_prefix("len(")?.strip_suffix(')')?;
+    Some((lhs.to_string(), inner.trim().to_string()))
+}
+
+/// `if len(COLL) == NAME:` -> `(COLL, NAME)`.
+fn parse_zero_yield_guard(t: &str) -> Option<(String, String)> {
+    let cond = t.strip_prefix("if ")?.strip_suffix(':')?;
+    let (lhs, rhs) = cond.split_once("==")?;
+    let inner = lhs.trim().strip_prefix("len(")?.strip_suffix(')')?;
+    Some((inner.trim().to_string(), rhs.trim().to_string()))
+}
+
+/// Every `items`-iterating branch in one Python source, with its guard verdict.
+///
+/// The shape it keys on, and the only shape it accepts as guarded:
+///
+///   if <cond mentioning items>:      <- branch header
+///       before = len(loaded)         <- snapshot of the accumulator
+///       for it in data["items"]:     <- the iteration
+///           loaded.append(...)
+///       if len(loaded) == before:    <- the zero-yield guard, same accumulator
+///           errors.append(...)       <- and it must RECORD, not just branch
+///
+/// A loader that guards differently still fails here. That is deliberate: the
+/// four bank loaders read identically on purpose, and "guarded, but in a shape
+/// this scan cannot verify" must not be indistinguishable from "guarded".
+fn items_branches(name: &str, src: &str) -> Vec<ItemsBranch> {
+    let lines: Vec<&str> = src.lines().collect();
+    let mut found = Vec::new();
+
+    for (i, raw) in lines.iter().enumerate() {
+        let t = raw.trim_start();
+        let is_branch_header = t.starts_with("if ") || t.starts_with("elif ");
+        if !is_branch_header || !t.contains("items") {
+            continue;
+        }
+        assert!(
+            t.ends_with(':'),
+            "{name}:{}: a multi-line `items` condition is a shape this scan \
+             cannot follow. Fix the scanner, never the loader — an unreadable \
+             branch must not read as a guarded one.",
+            i + 1
+        );
+        let Some(header_indent) = leading_indent(raw) else {
+            panic!("{name}:{}: tab-indented branch, unsupported shape", i + 1);
+        };
+        let body = block_of(&lines, i, header_indent);
+
+        // Is this an ITEMS-ITERATING branch — the defect shape — or just some
+        // other conditional that happens to say "items"?
+        let iterates = body.iter().any(|(_, l)| {
+            let bt = l.trim_start();
+            match (bt.starts_with("for "), bt.find(" in ")) {
+                (true, Some(at)) => bt[at + 4..].contains("items"),
+                _ => false,
+            }
+        });
+        if !iterates {
+            continue;
+        }
+
+        // The guard, in this branch's own body, on the accumulator the loop fed.
+        let mut snapshots: Vec<(String, String)> = Vec::new();
+        let mut guarded = false;
+        for (j, l) in &body {
+            let bt = l.trim_start();
+            if let Some(pair) = parse_snapshot(bt) {
+                snapshots.push(pair);
+                continue;
+            }
+            if let Some((coll, cmp)) = parse_zero_yield_guard(bt) {
+                let matches_snapshot = snapshots.iter().any(|(nm, cl)| *nm == cmp && *cl == coll);
+                if !matches_snapshot {
+                    continue;
+                }
+                // A guard that branches but records nothing is a guard that
+                // still lets the file report like one that passed.
+                let g_indent = leading_indent(l).expect("guard indent");
+                let records = block_of(&lines, *j, g_indent)
+                    .iter()
+                    .any(|(_, gl)| gl.contains("errors.append"));
+                if records {
+                    guarded = true;
+                }
+            }
+        }
+
+        found.push(ItemsBranch {
+            file: name.to_string(),
+            line: i + 1,
+            guarded,
+        });
+    }
+    found
+}
+
+#[test]
+fn no_bank_loader_iterates_items_without_a_zero_yield_guard() {
+    let scripts = engine_root().join("scripts");
+    let mut sources: Vec<(String, String)> = std::fs::read_dir(&scripts)
+        .expect("scripts/ must be readable")
+        .flatten()
+        .map(|e| e.path())
+        .filter(|p| p.extension().and_then(|x| x.to_str()) == Some("py"))
+        .map(|p| {
+            let name = p.file_name().unwrap().to_string_lossy().into_owned();
+            let body = std::fs::read_to_string(&p)
+                .unwrap_or_else(|e| panic!("unreadable {}: {e}", p.display()));
+            (name, body)
+        })
+        .collect();
+    sources.sort();
+
+    // Anti-vacuous, twice over. A scan that read no files, or found no branches
+    // to check, reports exactly like one that checked everything and found it
+    // sound — which is the defect this whole bead is about, one level up.
+    assert!(
+        sources.len() >= 8,
+        "scanned only {} python sources under {}; a scan that read almost \
+         nothing must not report like one that read everything",
+        sources.len(),
+        scripts.display()
+    );
+
+    let branches: Vec<ItemsBranch> = sources
+        .iter()
+        .flat_map(|(n, s)| items_branches(n, s))
+        .collect();
+
+    for expected in [
+        "verify_bank.py",
+        "verify_coverage.py",
+        "verify_objectives.py",
+        "verify_orphans.py",
+    ] {
+        assert!(
+            branches.iter().any(|b| b.file == expected),
+            "the scan found no items-iterating branch in {expected}. Either the \
+             loader was rewritten into a shape this scan cannot see — fix the \
+             scan — or the file moved. Silence here is not evidence."
+        );
+    }
+    assert!(
+        branches.len() >= 4,
+        "expected at least the four bank loaders, found {}",
+        branches.len()
+    );
+
+    let unguarded: Vec<String> = branches
+        .iter()
+        .filter(|b| !b.guarded)
+        .map(|b| format!("scripts/{}:{}", b.file, b.line))
+        .collect();
+    assert!(
+        unguarded.is_empty(),
+        "these branches iterate an `items` collection with no zero-yield guard \
+         in the branch body, so a bank file yielding zero items is scanned, \
+         contributes nothing, and is never named (bd-2kr, bd-0czh):\n  {}\n\
+         Add, inside the branch:\n    before = len(loaded)\n    ...\n    \
+         if len(loaded) == before:\n        errors.append(\n            \
+         f\"{{path.name}}: items[] yielded zero items \"\n            \
+         \"(vacuous file scan is ERROR)\"\n        )",
+        unguarded.join("\n  ")
+    );
+}
+
+/// L4: the scan above is proven to trip, on fixtures, without touching the tree.
+/// A detector that has never returned "unguarded" is indistinguishable from one
+/// that cannot.
+#[test]
+fn the_zero_yield_scan_fires_on_the_known_bad_and_stays_quiet_on_the_known_good() {
+    let known_bad = r#"
+def load_items(bank_dir):
+    for path in sorted(bank_dir.glob("*.toml")):
+        data = load_toml(path)
+        if "items" in data and isinstance(data["items"], list):
+            for it in data["items"]:
+                loaded.append((path.name, it))
+        elif "id" in data:
+            loaded.append((path.name, data))
+        else:
+            errors.append(f"{path.name}: no id or items[]")
+"#;
+    let bad = items_branches("known_bad.py", known_bad);
+    assert_eq!(bad.len(), 1, "the branch must be seen at all: {bad:?}");
+    assert!(!bad[0].guarded, "the known-bad must read as UNGUARDED");
+
+    let known_good = r#"
+def load_items(bank_dir):
+    for path in sorted(bank_dir.glob("*.toml")):
+        data = load_toml(path)
+        if "items" in data and isinstance(data["items"], list):
+            before = len(loaded)
+            for it in data["items"]:
+                loaded.append((path.name, it))
+            if len(loaded) == before:
+                errors.append(f"{path.name}: items[] yielded zero items")
+        elif "id" in data:
+            loaded.append((path.name, data))
+        else:
+            errors.append(f"{path.name}: no id or items[]")
+"#;
+    let good = items_branches("known_good.py", known_good);
+    assert_eq!(good.len(), 1, "the branch must be seen at all: {good:?}");
+    assert!(good[0].guarded, "the known-good must read as GUARDED");
+
+    // A guard that branches on the right thing but records nothing still lets
+    // the file report like one that passed, so it must NOT read as guarded.
+    let silent_guard = known_good.replace(
+        "errors.append(f\"{path.name}: items[] yielded zero items\")",
+        "pass",
+    );
+    let silent = items_branches("silent_guard.py", &silent_guard);
+    assert_eq!(silent.len(), 1);
+    assert!(
+        !silent[0].guarded,
+        "a guard that records nothing must not count as a guard"
+    );
+
+    // And the elif leg must not be mistaken for an items-iterating branch: it
+    // mentions no items collection and iterates nothing.
+    let single_item_only = r#"
+def load_items(bank_dir):
+    for path in sorted(bank_dir.glob("*.toml")):
+        data = load_toml(path)
+        if "id" in data:
+            loaded.append((path.name, data))
+"#;
+    assert!(
+        items_branches("single.py", single_item_only).is_empty(),
+        "a plain `id =` loader has no items branch to guard"
     );
 }

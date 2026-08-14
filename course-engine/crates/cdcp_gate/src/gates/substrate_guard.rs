@@ -51,6 +51,25 @@
 //! every OTHER step in check.sh propagates its own failures, and that the tree
 //! outside the index (unstaged edits, untracked files) is clean.
 //!
+//! `--prove-wired` first asks whether planting the known-bad is still meaningful
+//! against the registry the snapshot carries — see `probe_plant_vacuity`. That
+//! precondition reads PARSED `[[allow]]` rows, not the registry's bytes: a
+//! substring scan answered "do these characters occur in this file", which is a
+//! different question from "is this path exempt", and on 2026-08-14 it took
+//! check.sh RED over the file's OWN COMMENT warning nobody to add such a row
+//! (bd-ip10). A registry that will not parse is an ERROR there, because bytes stay
+//! readable when rows do not, and the plant must never go quietly exempt.
+//!
+//! # WHERE TEXT IS STILL READ AS TEXT, DELIBERATELY
+//!
+//! The check.sh wiring leg above matches shell lines by substring, and the probe
+//! attributes a transcript to this gate by substring. Those stay text tests
+//! because no parse of a shell script or of a build log settles what they are
+//! asked. They are therefore worded so that only SUBTRACTION is claimed — ABSENT,
+//! INERT, UNPROVEN, `Unattributable` — never "wired". A `.contains` deciding a
+//! fact about STRUCTURE (which paths a registry exempts) is a defect; a
+//! `.contains` forming a subtractive HEURISTIC about text is the honest ceiling.
+//!
 //! The floor moves from *silence* to *a signed, expiring exemption*, and from
 //! *a string appears in check.sh* to *a planted known-bad stops check.sh*. That
 //! is the whole of the claim; this header will not pretend otherwise.
@@ -330,6 +349,15 @@ pub fn validate_rows(
             continue;
         }
         let path = r.path.trim();
+        // SWEEP NOTE (bd-ip10, 2026-08-14): this `contains("..")` is the SAME
+        // substring-for-structure shape `is_in_scope` was fixed for above, and it
+        // contradicts that fix. `scripts/payload..py` is an ordinary Python file:
+        // `is_in_scope` (component test) puts it in scope, so it REQUIRES a row —
+        // and this line rejects every row that could authorise it. Reproduced at
+        // exit 4, "`path` must be a normalised engine-root-relative path", with
+        // the file tracked and a well-formed row present. Fail-closed, so it is a
+        // trap and not a bypass, and unpicking it WIDENS what the gate permits —
+        // a different decision from bd-ip10's, deliberately not taken here.
         if path.starts_with('/') || path.contains("..") || path.contains('\\') {
             v.push(format!(
                 "{where_}: `path` must be a normalised engine-root-relative path"
@@ -494,6 +522,14 @@ fn shorten(line: &str) -> String {
 
 /// Read `scripts/check.sh` and report the STRONGEST honest statement the text
 /// supports. Never returns "wired" — see `WiringEvidence`.
+///
+/// SWEEP VERDICT (bd-ip10): the `.contains` calls below stay substring tests, and
+/// so do the disqualifiers. This leg is asked a question no parse of a shell
+/// script answers — "does this line execute" — so it is a HEURISTIC, not a fact
+/// about structure. It is kept honest by being purely SUBTRACTIVE: matching adds
+/// nothing, and the strongest thing it returns is `Unproven`. Making it stricter
+/// would only move lines from `Inert` to `Unproven`, which is the same non-claim.
+/// The claim that check.sh stops lives in `--prove-wired`, not here.
 pub fn check_sh_wiring(text: &str) -> WiringEvidence {
     let mut inert: Vec<String> = Vec::new();
     let mut live = 0usize;
@@ -551,6 +587,63 @@ pub fn check_sh_wires_guard(text: &str) -> bool {
 
 // ── the wiring BEHAVIOURAL leg ─────────────────────────────────────────────
 
+/// Is the probe's plant genuinely a known-bad for the registry the snapshot
+/// carries? `Ok(())` only when it is: unlisted, in scope, and scanned.
+///
+/// # WHY THIS PARSES INSTEAD OF SCANNING
+///
+/// Until 2026-08-14 this was `reg_text.contains(PROBE_PLANT)` — a raw substring
+/// scan of the registry file. Exemption is not conferred by a byte sequence
+/// appearing somewhere in a file; it is conferred by an `[[allow]]` row whose
+/// `path` matches, which is exactly what `unlisted` tests. The scan therefore
+/// answered a different question than the one that matters, and it answered it
+/// wrong in both directions:
+///
+/// * FALSE POSITIVE, measured: the file's own comment warning nobody to add such
+///   a row named the path, and took `scripts/check.sh` RED with ZERO `[[allow]]`
+///   rows for it. Documenting the rule tripped the rule.
+/// * FALSE NEGATIVE, by construction: TOML escapes (`"scripts/__…"`)
+///   spell the same parsed string with different bytes, so a real exemption
+///   could be written past a substring scan.
+///
+/// This function mirrors `unlisted`'s notion of "listed" EXACTLY — trimmed
+/// `path`, compared for equality — so the parent's vacuity verdict and the
+/// child gate's exemption decision cannot disagree.
+///
+/// # WHAT AN UNREADABLE REGISTRY MEANS HERE
+///
+/// A registry that does not parse is an ERROR, never a pass. That is the leg the
+/// substring scan covered by accident: bytes are readable when rows are not, so
+/// swapping in a parse without this branch would let a malformed registry make
+/// the plant silently exempt with the gate saying nothing. Rows this function
+/// cannot read are rows it cannot clear.
+///
+/// # WHAT IT CANNOT DECIDE
+///
+/// Whether the child `scripts/check.sh` propagates the verdict — that is the
+/// probe's job, not this function's. It reads one snapshot's registry text and
+/// says only whether planting the known-bad is still meaningful against it.
+pub fn probe_plant_vacuity(reg_text: &str) -> Result<(), String> {
+    let al = parse_allowlist(reg_text).map_err(|e| {
+        format!(
+            "the {REGISTRY_PATH} this probe would judge does not parse ({e}). The vacuity check reads PARSED [[allow]] rows, and rows it cannot read are rows it cannot clear — a malformed registry must never make the probe's own known-bad silently exempt. ERROR, not a pass"
+        )
+    })?;
+    if let Some(i) = al.allow.iter().position(|r| r.path.trim() == PROBE_PLANT) {
+        return Err(format!(
+            "{REGISTRY_PATH} carries an [[allow]] row (#{}) whose `path` is {PROBE_PLANT}; the probe's own known-bad would be exempt and the run would be vacuous. ERROR, not a pass. (A COMMENT naming that path is not a row and does not trip this.)",
+            i + 1
+        ));
+    }
+    if !is_in_scope(PROBE_PLANT, &al.scan) || !has_scanned_extension(PROBE_PLANT, &al.scan) {
+        return Err(format!(
+            "{REGISTRY_PATH}'s [scan] block puts {PROBE_PLANT} outside the scanned surface (roots {:?}, extensions {:?}), so planting it would prove nothing. ERROR, not a pass",
+            al.scan.roots, al.scan.extensions
+        ));
+    }
+    Ok(())
+}
+
 /// What running `scripts/check.sh` against a planted known-bad showed.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum ProbeVerdict {
@@ -575,6 +668,14 @@ fn describe_exit(code: Option<i32>) -> String {
 ///
 /// Pure so it can be unit-tested against transcripts of all four shapes without
 /// running anything.
+///
+/// SWEEP VERDICT (bd-ip10): the `.contains` calls here stay substring tests. A
+/// build transcript has no schema to parse — it is the artifact under test, not a
+/// registry — so attribution is a heuristic and is worded as one: the only PASS
+/// (`Propagates`) additionally requires check.sh to have exited non-zero, and
+/// everything the text leaves open lands in `Unattributable`, which is an ERROR
+/// rather than a pass. What it cannot decide: a check.sh that printed the plant
+/// and "FAIL" for its own reasons would be read as this gate's verdict.
 pub fn classify_probe(log: &str, exit_code: Option<i32>, plant: &str) -> ProbeVerdict {
     let lines: Vec<&str> = log.lines().collect();
     let verdict_at = lines
@@ -695,11 +796,7 @@ fn prove_wired(ctx: &GateCtx) -> Result<(), GateError> {
             "the index carries no readable {REGISTRY_PATH} ({e}); the probe would be vacuous. ERROR, not a pass"
         ))
     })?;
-    if reg_text.contains(PROBE_PLANT) {
-        return Err(GateError::error(format!(
-            "{REGISTRY_PATH} lists {PROBE_PLANT}; the probe's own known-bad would be exempt and the run would be vacuous. ERROR, not a pass"
-        )));
-    }
+    probe_plant_vacuity(&reg_text).map_err(GateError::error)?;
 
     let plant = engine.join(PROBE_PLANT);
     if let Some(parent) = plant.parent() {
@@ -1579,6 +1676,123 @@ expires = "2099-01-01"
         assert!(!looks_like_bead_id("bd-"));
         assert!(!looks_like_bead_id("xx-1"));
         assert!(!looks_like_bead_id(""));
+    }
+
+    // ── bd-ip10: the vacuity check reads ROWS, not bytes ──────────────────
+    //
+    // MEASURED 2026-08-14, before the fix: `reg_text.contains(PROBE_PLANT)` took
+    // scripts/check.sh RED with ZERO [[allow]] rows for that path — the only
+    // occurrence was the comment warning nobody to add one. Reproduction:
+    //   ./target/debug/cdcp_gate --root . substrate-guard --prove-wired -> exit 4
+    // with the clear comment in the judged snapshot.
+
+    /// A registry body with `extra` spliced in after `[scan]`.
+    fn reg(extra: &str) -> String {
+        format!(
+            "schema_version = 1\n\n\
+             [scan]\n\
+             roots = [\"scripts\", \"crates\"]\n\
+             extensions = [\"py\", \"sh\"]\n\
+             include_engine_root_files = true\n\n\
+             {extra}\n\
+             [wiring]\n\
+             status = \"wired\"\n\
+             check_sh = \"scripts/check.sh\"\n\
+             invocation = \"cargo run -q -p cdcp_gate -- substrate-guard\"\n\
+             bead = \"bd-substrate-rust-migration-jhd.1\"\n"
+        )
+    }
+
+    fn plant_row(path: &str) -> String {
+        format!(
+            "[[allow]]\npath = {path:?}\nreason = \"Grandfathered load-bearing gate; port tracked by the migration epic\"\nmigration_bead = \"bd-substrate-rust-migration-jhd.7\"\nexpires = \"2099-12-31\"\n"
+        )
+    }
+
+    /// THE bd-ip10 ASSERTION. A comment naming the plant is documentation, not
+    /// an exemption, and the probe must run. Deleting this line is exactly what
+    /// the CHARTER meta-test asks to be tried; with the check mutated back to a
+    /// byte scan, this is the assertion that goes red.
+    #[test]
+    fn vacuity_a_comment_naming_the_plant_is_not_a_row() {
+        let text = reg(&format!(
+            "# NEVER add a row for {PROBE_PLANT} — that is the plant\n\
+             # --prove-wired uses, and listing it makes the probe vacuous.\n"
+        ));
+        assert!(
+            text.contains(PROBE_PLANT),
+            "the fixture must actually name the path, or it tests nothing"
+        );
+        assert_eq!(
+            probe_plant_vacuity(&text),
+            Ok(()),
+            "a comment is not an [[allow]] row; the gate must be describable in its own registry"
+        );
+    }
+
+    /// Known-bad, unchanged from the substring era: a real row is a real exemption.
+    #[test]
+    fn vacuity_an_allow_row_for_the_plant_is_an_error() {
+        let e = probe_plant_vacuity(&reg(&plant_row(PROBE_PLANT))).unwrap_err();
+        assert!(e.contains(PROBE_PLANT), "{e}");
+        assert!(e.contains("vacuous"), "{e}");
+    }
+
+    /// Known-bad the parse is STRONGER on: TOML escapes spell the same path in
+    /// different bytes, so a substring scan could be written straight past.
+    #[test]
+    fn vacuity_a_row_whose_path_is_escaped_is_still_caught() {
+        let escaped = "scripts/\\u005F\\u005Fcdcp_probe_unlisted\\u005F\\u005F.py";
+        let body = reg(&format!(
+            "[[allow]]\npath = \"{escaped}\"\nreason = \"Grandfathered load-bearing gate; port tracked by the migration epic\"\nmigration_bead = \"bd-x\"\nexpires = \"2099-12-31\"\n"
+        ));
+        assert!(
+            !body.contains(PROBE_PLANT),
+            "the fixture must NOT contain the plant as bytes, or it does not test the escape"
+        );
+        let e = probe_plant_vacuity(&body).unwrap_err();
+        assert!(e.contains("vacuous"), "{e}");
+    }
+
+    /// Known-bad, NEW, and the reason this change is not a narrowing: bytes stay
+    /// readable when rows do not. Swapping a byte scan for a parse without this
+    /// branch would let a malformed registry exempt the plant in silence.
+    #[test]
+    fn vacuity_an_unparseable_registry_is_an_error_not_a_silent_pass() {
+        for broken in [
+            "schema_version = 1\n[scan\nroots = [",
+            "this is not toml at all {{{",
+            "",
+            "schema_version = 2\n[scan]\nroots = [\"scripts\", \"crates\"]\nextensions = [\"py\", \"sh\"]\ninclude_engine_root_files = true\n[wiring]\nstatus = \"wired\"\ncheck_sh = \"scripts/check.sh\"\ninvocation = \"x\"\nbead = \"b\"\n",
+        ] {
+            let e = probe_plant_vacuity(broken)
+                .expect_err("an unreadable registry must never clear the plant");
+            assert!(
+                e.contains("ERROR, not a pass"),
+                "{broken:?} -> {e}: must say so in the words the rest of this gate uses"
+            );
+        }
+    }
+
+    /// The other way to make the plant harmless: leave the row out and put the
+    /// path out of scope instead.
+    #[test]
+    fn vacuity_a_scan_that_excludes_the_plant_is_an_error() {
+        let narrowed = reg("").replace("extensions = [\"py\", \"sh\"]", "extensions = [\"sh\"]");
+        let e = probe_plant_vacuity(&narrowed).unwrap_err();
+        assert!(e.contains("outside the scanned surface"), "{e}");
+
+        let rerooted = reg("").replace("roots = [\"scripts\", \"crates\"]", "roots = [\"crates\"]");
+        let e = probe_plant_vacuity(&rerooted).unwrap_err();
+        assert!(e.contains("outside the scanned surface"), "{e}");
+    }
+
+    #[test]
+    fn vacuity_an_ordinary_registry_clears_the_plant() {
+        assert_eq!(
+            probe_plant_vacuity(&reg(&plant_row("scripts/other.py"))),
+            Ok(())
+        );
     }
 
     // ── the header's own honesty ─────────────────────────────────────────
