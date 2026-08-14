@@ -31,12 +31,31 @@ pub enum State {
     Installed,
     Missing,
     Drifted,
+    /// Present and byte-correct, but git will not execute it.
+    NotExecutable,
 }
 
+/// SECURITY NOTE (adversarial review 2026-08-14, confirmed end-to-end): this
+/// used to compare TEXT ONLY. `chmod -x` on the installed hook left this
+/// reporting "installed and current" (exit 0) while git silently ignored the
+/// hook — git refuses to run a non-executable hook — and a real `git commit`
+/// carrying an unlisted `.py` LANDED. An installation certificate that cannot
+/// tell "installed" from "installed and inert" is a fooled certificate, which is
+/// worse than no certificate: it tells the reader to stop looking.
 pub fn state_of(target: &Path, want: &str) -> State {
+    use std::os::unix::fs::PermissionsExt;
     match fs::read_to_string(target) {
         Err(_) => State::Missing,
-        Ok(have) if have == want => State::Installed,
+        Ok(have) if have == want => {
+            let executable = fs::metadata(target)
+                .map(|m| m.permissions().mode() & 0o111 != 0)
+                .unwrap_or(false);
+            if executable {
+                State::Installed
+            } else {
+                State::NotExecutable
+            }
+        }
         Ok(_) => State::Drifted,
     }
 }
@@ -88,6 +107,11 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
                 )),
                 State::Drifted => problems.push(format!(
                     "{}: differs from the committed {src_rel}. Run: cargo run -q -p cdcp_gate -- install-hooks --force",
+                    target.display()
+                )),
+                State::NotExecutable => problems.push(format!(
+                    "{}: byte-correct but NOT EXECUTABLE — git silently skips a non-executable hook, so this is an installed gate that never runs. Run: chmod +x {}",
+                    target.display(),
                     target.display()
                 )),
             }
@@ -161,9 +185,55 @@ mod tests {
         let t = td.path().join("pre-commit");
         assert_eq!(state_of(&t, "body"), State::Missing);
         fs::write(&t, "body").unwrap();
+        // NOTE: this line used to assert Installed. It was wrong, and it was the
+        // defect written down as a requirement — see the regression test below.
+        assert_eq!(state_of(&t, "body"), State::NotExecutable);
+        make_executable(&t).unwrap();
         assert_eq!(state_of(&t, "body"), State::Installed);
         fs::write(&t, "other").unwrap();
         assert_eq!(state_of(&t, "body"), State::Drifted);
+    }
+
+    // ── regression: "installed" must mean "git will run it" ───────────────
+    //
+    // Adversarial review 2026-08-14 (codex) predicted this and an end-to-end
+    // injection confirmed it: with the hook chmod -x, `install-hooks --check`
+    // reported "all 1 managed hook(s) installed and current" at exit 0, AND a
+    // real `git commit` carrying an unlisted .py LANDED. Git refuses to execute
+    // a non-executable hook, so text equality alone certified an inert gate.
+    //
+    // This is the Sev-0 shape: not a missing check, but a PASSING one that means
+    // nothing. A reader who sees "installed and current" stops looking.
+    #[test]
+    fn a_non_executable_hook_is_not_installed() {
+        use std::os::unix::fs::PermissionsExt;
+        let td = tempfile::tempdir().unwrap();
+        let t = td.path().join("pre-commit");
+        fs::write(&t, "body").unwrap();
+        make_executable(&t).unwrap();
+        assert_eq!(state_of(&t, "body"), State::Installed, "baseline");
+
+        let mut perms = fs::metadata(&t).unwrap().permissions();
+        perms.set_mode(perms.mode() & !0o111);
+        fs::set_permissions(&t, perms).unwrap();
+
+        assert_eq!(
+            state_of(&t, "body"),
+            State::NotExecutable,
+            "byte-identical but git will skip it — that is not installed"
+        );
+
+        // Any executable bit is enough for git; don't over-strict on 0o755.
+        for bit in [0o100u32, 0o010, 0o001] {
+            let mut p = fs::metadata(&t).unwrap().permissions();
+            p.set_mode(0o600 | bit);
+            fs::set_permissions(&t, p).unwrap();
+            assert_eq!(
+                state_of(&t, "body"),
+                State::Installed,
+                "mode {bit:o} is executable to someone; must not be called uninstalled"
+            );
+        }
     }
 
     #[test]

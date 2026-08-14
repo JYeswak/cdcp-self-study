@@ -180,8 +180,19 @@ pub fn looks_like_bead_id(s: &str) -> bool {
 }
 
 /// Is this engine-root-relative path inside the scanned surface?
+///
+/// SECURITY NOTE (adversarial review 2026-08-14, confirmed by injection): this
+/// used to reject `path.contains("..")`, which excluded any path with two dots
+/// ANYWHERE in it. `scripts/payload..py` is an ordinary Python file in a
+/// mandatory root, and it fell straight out of scope — measured exit 0 on both
+/// the presence and staged legs. The traversal guard must test path COMPONENTS,
+/// not a substring; a filename is not a traversal.
 pub fn is_in_scope(path: &str, scan: &ScanCfg) -> bool {
-    if path.is_empty() || path.starts_with('/') || path.contains("..") {
+    if path.is_empty() || path.starts_with('/') {
+        return false;
+    }
+    // `.` and `..` only mean traversal as whole components.
+    if path.split('/').any(|c| c == ".." || c == ".") {
         return false;
     }
     match path.split_once('/') {
@@ -475,6 +486,47 @@ mod tests {
     }
 
     const TODAY: Ymd = (2026, 8, 13);
+
+    // ── regression: a filename is not a path traversal ────────────────────
+    //
+    // Adversarial review 2026-08-14 (codex, read-only) found `is_in_scope`
+    // rejecting `path.contains("..")`, which put ORDINARY files out of scope.
+    // Confirmed by injection before the fix: `scripts/payload..py` staged and
+    // tracked returned exit 0 on BOTH the presence and staged legs. The dots are
+    // in the filename; nothing traverses anywhere.
+
+    #[test]
+    fn a_double_dot_in_the_filename_is_still_in_scope() {
+        for p in [
+            "scripts/payload..py",
+            "scripts/a..b..c.sh",
+            "crates/x..y.py",
+            "weird..name.py",
+        ] {
+            assert!(
+                is_in_scope(p, &scan()),
+                "{p} is an ordinary file in a mandatory root, not a traversal"
+            );
+        }
+        let v = unlisted(&["scripts/payload..py".to_string()], &[], &scan());
+        assert_eq!(v.len(), 1, "and it must actually go RED");
+        assert!(v[0].contains("scripts/payload..py"), "must name it: {v:?}");
+    }
+
+    #[test]
+    fn real_traversal_components_are_still_out_of_scope() {
+        for p in [
+            "../outside.py",
+            "scripts/../../etc/passwd.sh",
+            "scripts/./x.py",
+            "/abs/path.py",
+        ] {
+            assert!(
+                !is_in_scope(p, &scan()),
+                "{p} contains a traversal COMPONENT and must stay out of scope"
+            );
+        }
+    }
 
     // ── the assertion this gate exists for ────────────────────────────────
     #[test]

@@ -395,22 +395,61 @@ pub fn live_bank_hash(root: &Path) -> Result<String, String> {
     Err("cannot obtain live bank_hash".to_string())
 }
 
+/// Create a fresh 0600 file under the temp dir that CANNOT be an attacker's
+/// pre-planted symlink.
+///
+/// `File::create` (O_CREAT|O_TRUNC) FOLLOWS a symlink at the target path. In a
+/// world-writable temp dir with a guessable name — pid plus a nanosecond stamp is
+/// guessable — a local attacker plants a symlink and this process truncates and
+/// writes whatever the symlink points at, with the invoking user's authority.
+///
+/// The fix is `create_new(true)` (O_CREAT|O_EXCL), which makes an existing path
+/// a hard ERROR rather than something to follow. Name predictability then buys an
+/// attacker only denial of service, never a write. `mode(0o600)` keeps the
+/// contents unreadable by other local users. Retried a few times so an
+/// unlucky-or-hostile collision does not fail the gate outright.
+///
+/// FLOOR-RAISE, and what this CANNOT decide: it does not make the temp directory
+/// itself trustworthy. If `TMPDIR` points somewhere an attacker fully controls,
+/// they can still deny service. It removes the symlink-following WRITE, not every
+/// hazard of using a shared directory.
+fn create_exclusive(stem: &str, ext: &str) -> Option<(fs::File, std::path::PathBuf)> {
+    use std::os::unix::fs::OpenOptionsExt;
+    let dir = std::env::temp_dir();
+    for attempt in 0..8u32 {
+        let nonce = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_nanos())
+            .unwrap_or(0);
+        let path = dir.join(format!(
+            "{stem}_{}_{nonce}_{attempt}.{ext}",
+            std::process::id()
+        ));
+        match fs::OpenOptions::new()
+            .read(true)
+            .write(true)
+            .create_new(true)
+            .mode(0o600)
+            .open(&path)
+        {
+            Ok(f) => return Some((f, path)),
+            Err(_) => continue,
+        }
+    }
+    None
+}
+
 /// Run `cmd` with stdout and stderr pointed at ONE file description, which is
 /// how `subprocess.check_output(..., stderr=subprocess.STDOUT)` merges the two
 /// streams. `None` means the oracle would have caught the exception and moved
 /// on (spawn failure, or a non-zero exit, which raises `CalledProcessError`).
 fn capture_merged(cmd: &[String], cwd: &Path) -> Option<Vec<u8>> {
-    let mut sink = std::env::temp_dir();
-    let nonce = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .map(|d| d.as_nanos())
-        .unwrap_or(0);
-    sink.push(format!(
-        "cdcp_gate_verify_content_lock_{}_{nonce}.out",
-        std::process::id()
-    ));
-
-    let file = fs::File::create(&sink).ok()?;
+    // The shared file description is deliberate — it is what reproduces Python's
+    // stream INTERLEAVING. Capturing the two streams separately and concatenating
+    // would diverge byte-for-byte whenever both write, which is exactly what the
+    // differential test exists to catch. So the temp file stays; it is created
+    // safely instead (see `create_exclusive`).
+    let (file, sink) = create_exclusive("cdcp_gate_verify_content_lock", "out")?;
     let dup = file.try_clone().ok()?;
     let status = Command::new(&cmd[0])
         .args(&cmd[1..])
@@ -486,19 +525,16 @@ pub fn selftest_mutate(root: &Path) -> Outcome {
         };
     }
 
-    let mut tmp = std::env::temp_dir();
-    let nonce = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .map(|d| d.as_nanos())
-        .unwrap_or(0);
-    tmp.push(format!(
-        "cdcp_gate_content_selftest_{}_{nonce}.lock",
-        std::process::id()
-    ));
+    let (mut handle, tmp) = match create_exclusive("cdcp_gate_content_selftest", "lock") {
+        Some(pair) => pair,
+        None => return undecidable("cannot create a private temp file".to_string()),
+    };
     let body = new_lines.join("\n") + "\n";
-    if let Err(e) = fs::write(&tmp, body.as_bytes()) {
+    if let Err(e) = std::io::Write::write_all(&mut handle, body.as_bytes()) {
+        let _ = fs::remove_file(&tmp);
         return undecidable(format!("cannot write {}: {e}", tmp.display()));
     }
+    drop(handle);
 
     let verdict = verify(root, &tmp);
     let _ = fs::remove_file(&tmp);
@@ -913,6 +949,68 @@ pub fn sha256_file(path: &Path) -> Result<String, std::io::Error> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    // ── temp-file creation refuses a planted symlink ──────────────────────
+    //
+    // The property under test is O_EXCL, not name entropy. A guessable name is
+    // survivable; a followed symlink is not. These assert the mechanism directly
+    // rather than trying to win a race against ourselves.
+
+    #[test]
+    fn create_new_refuses_to_follow_a_planted_symlink() {
+        use std::os::unix::fs::OpenOptionsExt;
+        let td = tempfile::tempdir().unwrap();
+        let victim = td.path().join("victim.txt");
+        fs::write(&victim, b"ORIGINAL CONTENTS - MUST SURVIVE").unwrap();
+        let planted = td.path().join("planted.out");
+        std::os::unix::fs::symlink(&victim, &planted).unwrap();
+
+        // This is exactly the call create_exclusive makes.
+        let res = fs::OpenOptions::new()
+            .read(true)
+            .write(true)
+            .create_new(true)
+            .mode(0o600)
+            .open(&planted);
+        assert!(
+            res.is_err(),
+            "create_new must REFUSE an existing path, symlink or not — following it \
+             is the vulnerability"
+        );
+        assert_eq!(
+            fs::read(&victim).unwrap(),
+            b"ORIGINAL CONTENTS - MUST SURVIVE",
+            "the symlink target must be untouched"
+        );
+
+        // Contrast: the old File::create would have truncated the victim. Proving
+        // the negative here is what makes the fix legible to the next reader.
+        let _ = fs::File::create(&planted).unwrap();
+        assert_eq!(
+            fs::read(&victim).unwrap(),
+            b"",
+            "File::create FOLLOWS the symlink and truncates — this is what was fixed"
+        );
+    }
+
+    #[test]
+    fn create_exclusive_yields_a_private_file_and_cleans_up() {
+        use std::os::unix::fs::PermissionsExt;
+        let (f, p) = create_exclusive("cdcp_gate_unit_probe", "tmp")
+            .expect("create_exclusive must succeed in a sane temp dir");
+        assert!(p.exists(), "the file must exist at the returned path");
+        let mode = f.metadata().unwrap().permissions().mode() & 0o777;
+        assert_eq!(
+            mode, 0o600,
+            "temp contents must not be world/group readable"
+        );
+        assert!(
+            !fs::symlink_metadata(&p).unwrap().file_type().is_symlink(),
+            "the created path must be a real file, never a symlink"
+        );
+        drop(f);
+        fs::remove_file(&p).unwrap();
+    }
 
     // ── sha256 against published vectors ──────────────────────────────────
 
