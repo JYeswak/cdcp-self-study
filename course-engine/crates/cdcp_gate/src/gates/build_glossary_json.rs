@@ -46,19 +46,35 @@
 //! break the differential on the very first case. It changes when the Python is
 //! deleted, not before.
 //!
-//! # DEFECTS IN THE ORACLE THAT ARE REPRODUCED, NOT FIXED (findings, bd-.11)
+//! # THE TWO FINDINGS OF bd-.11, NOW FIXED IN THE ORACLE FIRST
 //!
-//!   * VERDICT SHAPE. On the below-floor path the oracle prints
-//!     `PASS: glossary terms=N → …` FIRST and only then `FAIL: need ≥…`, on its
-//!     way to returning 1. A reader skimming stdout sees PASS; CI sees non-zero.
-//!     This is the same defect bd-lt7 fixed in `build_units.py`, still live
-//!     here. It is REPRODUCED byte for byte: a port that fixes a bug is an
-//!     unreviewed behaviour change that blinds the differential.
-//!   * WRITE-BEFORE-VERDICT. The artifact is written BEFORE the term floor is
-//!     evaluated, so a below-floor run still leaves a short `glossary.json` in
-//!     `web/data/`. Also reproduced.
+//! Both were reported and DELIBERATELY not repaired when this port landed: a
+//! port stricter than its oracle blinds the whole differential. They were fixed
+//! in `scripts/build_glossary_json.py` first, the differential was watched go
+//! RED on them, and only then were they moved here
+//! (bd-builder-verdict-shape-qm65). Measured 2026-08-14 before the fix, on an
+//! empty glossary, both implementations byte-identical:
 //!
-//! Neither is repaired here. Both are reported on the bead.
+//! ```text
+//! PASS: glossary terms=0 → web/data/glossary.json
+//! FAIL: need ≥15 terms
+//! (exit 1, and a 161-byte glossary.json left behind)
+//! ```
+//!
+//!   * VERDICT SHAPE. The success line was printed FIRST and the failure
+//!     underneath it, on the way to exit 1. A reader skimming stdout saw PASS;
+//!     CI saw non-zero; which one won depended on whether anyone looked. This
+//!     is the same defect bd-lt7 fixed in `build_units.py`, which makes it a
+//!     CLASS: a verdict printed before the checks that decide it. The verdict
+//!     is now the first line of a report composed once, after every check.
+//!   * WRITE-BEFORE-VERDICT. The artifact was written BEFORE the term floor was
+//!     evaluated, so a below-floor run left a short `glossary.json` in
+//!     `web/data/` and a later reader could not tell a passing artifact from
+//!     the residue of a failed run. The write is now on the GREEN path only.
+//!
+//! The GREEN bytes — both the `PASS:` line and the artifact — are unchanged, so
+//! the live-tree tie-back in `tests/diff_build_glossary_json.rs` still holds
+//! against the tracked `web/data/glossary.json`.
 //!
 //! # DEVIATIONS THAT REMAIN (each unreachable from the live tree)
 //!
@@ -396,6 +412,21 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     let terms = extract_terms(&text);
     let body = render(&source_field(&root, &src), &terms.sorted());
 
+    // The verdict is decided BEFORE anything is printed and before anything is
+    // written. See the header: this used to write, then print PASS, then print
+    // FAIL underneath it on the way to exit 1.
+    let failures = failures_for(terms.len());
+    if !failures.is_empty() {
+        let mut report = vec![format!("FAIL: glossary terms={}", terms.len())];
+        report.extend(failures.iter().map(|f| format!("  - {f}")));
+        report.push(format!(
+            "  out={OUT_REL} NOT WRITTEN (a failing build leaves no artifact)"
+        ));
+        println!("{}", report.join("\n"));
+        let _ = std::io::stdout().flush();
+        std::process::exit(1);
+    }
+
     if let Some(parent) = out.parent() {
         std::fs::create_dir_all(parent)
             .map_err(|e| GateError::error(format!("mkdir {}: {e}", parent.display())))?;
@@ -403,16 +434,21 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     std::fs::write(&out, body.as_bytes())
         .map_err(|e| GateError::error(format!("write {}: {e}", out.display())))?;
 
-    // The oracle prints the PASS line unconditionally, BEFORE the floor is
-    // evaluated. See the header: reproduced, not repaired.
     println!("PASS: glossary terms={} → {OUT_REL}", terms.len());
     let _ = std::io::stdout().flush();
-    if terms.len() < MIN_TERMS {
-        println!("FAIL: need ≥{MIN_TERMS} terms");
-        let _ = std::io::stdout().flush();
-        std::process::exit(1);
-    }
     Ok(())
+}
+
+/// Every reason this build is RED, as the report prints them. Factored out of
+/// `run` so the floor can be asserted without running the process — `run` calls
+/// `std::process::exit`, which a unit test cannot survive, and a floor that is
+/// only reachable through a process boundary tends to end up untested.
+pub fn failures_for(term_count: usize) -> Vec<String> {
+    let mut failures: Vec<String> = Vec::new();
+    if term_count < MIN_TERMS {
+        failures.push(format!("need ≥{MIN_TERMS} terms, got {term_count}"));
+    }
+    failures
 }
 
 // ── tests ──────────────────────────────────────────────────────────────────
@@ -567,11 +603,47 @@ mod tests {
         let parsed_nothing = extract_terms("");
         assert!(parsed_nothing.is_empty());
         assert!(
-            parsed_nothing.len() < MIN_TERMS,
+            !failures_for(parsed_nothing.len()).is_empty(),
             "an empty glossary would report GREEN"
         );
-        // and the artifact it would still write is the empty one.
-        let body = render("x.md", &parsed_nothing.sorted());
-        assert!(body.contains("\"term_count\": 0,"), "{body}");
+    }
+
+    #[test]
+    fn the_floor_is_the_only_thing_that_can_turn_this_build_red() {
+        // `failures_for` is the whole verdict, so the report `run` composes
+        // cannot disagree with the exit code — there is no second source of
+        // truth to fall out of step with the first.
+        assert!(
+            failures_for(MIN_TERMS).is_empty(),
+            "the floor itself is GREEN"
+        );
+        assert!(failures_for(MIN_TERMS + 1).is_empty());
+        for n in 0..MIN_TERMS {
+            let f = failures_for(n);
+            assert_eq!(f.len(), 1, "{n} terms: {f:?}");
+            assert!(
+                f[0].contains(&format!("{MIN_TERMS}")) && f[0].contains(&format!("{n}")),
+                "the finding must name both the floor and what was measured: {f:?}"
+            );
+        }
+    }
+
+    #[test]
+    fn a_red_verdict_is_decided_before_anything_is_written_or_printed() {
+        // The shape bd-lt7 fixed in build_units.py and
+        // bd-builder-verdict-shape-qm65 fixed here: the success token may not be
+        // emitted on a path that returns non-zero. `run` calls
+        // `std::process::exit`, so this asserts the predicate `run` branches on
+        // rather than the process; `tests/diff_build_glossary_json.rs` asserts
+        // the stdout bytes and the absent artifact across the process boundary.
+        let below = extract_terms("| **A** | one |\n");
+        assert!(
+            !failures_for(below.len()).is_empty(),
+            "a one-term glossary must be RED"
+        );
+        // The artifact this run would have written is computable, and is
+        // exactly what must NOT reach the disk.
+        let body = render("x.md", &below.sorted());
+        assert!(body.contains("\"term_count\": 1,"), "{body}");
     }
 }

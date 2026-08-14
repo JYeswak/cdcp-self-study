@@ -1,8 +1,9 @@
 # Goldens provenance (L3 GradeExact)
 
 **Generated:** 2026-08-13 (re-frozen from the Rust sampler — bd-golden-sampler-divergence-09q)
-**Last audited:** 2026-08-14 (bank_hash re-frozen to cover objective_ids/citation_ids/tags/status
-— bd-hardening-c-status-hzs.2; regeneration path reduced to one — bd-z3x)
+**Last audited:** 2026-08-14 — 24 duplicate items retired and the draw itself re-frozen for the
+first time (bd-tetz); bank_hash re-frozen to cover objective_ids/citation_ids/tags/status
+(bd-hardening-c-status-hzs.2); regeneration path reduced to one (bd-z3x)
 **Law:** `docs/CANONICAL.md` · `docs/ORACLE-GAUNTLET.md` · floor = 0
 
 ## Which tool regenerates these files
@@ -193,6 +194,58 @@ commit through the four-command block above plus
 `item_ids` are **unchanged**: the sampler's seed derivation does not read `bank_hash`, and no
 item's `status` moved. Only the content address and the two grade digests (which carry
 `bank_hash`) re-froze — the smallest re-freeze this change can produce.
+
+### C3 residual re-freeze — `bd-tetz`, 2026-08-14 — **the draw moved**
+
+24 near-duplicate items retired (`cdcp_gate near-duplicate-items` 24 pairs → 0; the rule and the
+import decision are in `bank/IMPORT-POLICY.md`). The approved pool went **803 → 779**; the file
+count is unchanged at 804, because retirement never deletes.
+
+| Pin | Before | After |
+|-----|--------|-------|
+| `goldens/bank_hash.txt` · fixture `bank_hash` · `content.lock` · `web/data/*_seed42.json` | `173057eb9385cfc5…` | `3404d85437e3ad47…` |
+| `mock40_seed42_all_correct.sha256` | `68d670e0d5c2b3d1…` | `2b0eacc9db0fe872…` |
+| `mock40_seed42_all_wrong.sha256` | `81937bf032800987…` | `229ffe3daaa7467b…` |
+| `web/assets/wasm/cdcp_wasm.wasm` | `d7459b7d525dc757…` | `51b45211767aaf92…` |
+
+**Unlike C2 and unlike the single C3 retirement, `item_ids` MOVED**: all 40 positions differ, 33
+ids left and 33 entered, and only 7 survived (`bank-m14-q121`, `m02-q077`, `m02-q081`, `m02-q085`,
+`m05-q148`, `m09-q123`, `m13-q202`). Verified by parsing the fixture JSON and comparing the id
+lists, never by counting diff lines. No retired id appears in the drawn form.
+
+#### Why retiring `mock40-q40` alone had moved nothing — measured, not guessed
+
+The previous wave retired one item, the pool went 804 → 803, and the fixture diff was exactly one
+line. That looked like the sampler ignoring the approved filter. It is not. Measured 2026-08-14 by
+re-running `export-web --bank <temp copy> --seed 42` over single-item perturbations of the live
+bank and diffing the parsed `items[].id` arrays:
+
+| Retired item | Sorted position in its module's approved list | Drawn positions changed | Ids swapped |
+|---|---|---|---|
+| `bank-m13-q077` | 1 of 48 | 3 of 40 | 3 |
+| `bank-m14-q109` | 5 of 43 | 3 of 40 | 3 |
+| `m06-q047` | 6 of 136 | 3 of 40 | 3 |
+| `m09-q108` | 8 of 121 | 3 of 40 | 3 |
+| `mock40-q02` | 33 of 36 | 2 of 40 | 2 |
+| `m12-q219` | 54 of 63 | **0** | 0 |
+| `mock40-q40` | **43 of 44 — last** | **0** | 0 |
+
+Two facts fall out, and both matter more than the anomaly did.
+
+1. **The filter is fine; the draw is just narrow.** `sample_item_ids` sorts each module's approved
+   items by id, shuffles, and then reads only the first two or three entries of each list. A
+   removal perturbs its own module's permutation from its sorted position onward, so a removal near
+   the TAIL of a long list usually cannot reach the front — and `mock40-q40` sat at the very end of
+   module 14's list. Zero change was the likely outcome, not a surprising one.
+2. **A single removal does not shift the global PRNG stream.** If it did, every downstream module
+   shuffle and the final presentation shuffle would change and essentially all 40 positions would
+   move. They do not: single removals move 0–3 positions. Twenty-four removals across eleven
+   modules move all 40. So the blast radius scales with the perturbation, which is what a correct
+   stratified sampler should do.
+
+**A one-line fixture diff after a bank edit is therefore not evidence that the sampler ignored the
+edit.** Read `item_ids` out of the parsed JSON and compare the lists; the diff line count answers a
+different question.
 
 ## PRNG (C4 interaction)
 

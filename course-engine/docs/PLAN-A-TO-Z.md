@@ -56,18 +56,25 @@ Each ships with a known-bad injection and a meta-test (delete the assertion → 
 ## C · Status & filter — the gate everything else waits on
 
 - **C1** `status: draft|approved|retired` on `BankItem`; `cdcp_assemble` samples **approved only**.
-- **C2** `bank_hash` repaired to cover `objective_ids`, citation ids, `tags` and `status` —
+- **C2** `bank_hash` repaired to cover `objective_ids` [[fact:fact-hash-payload-covers-objective-ids=yes]],
+  citation ids, `tags` and `status` [[fact:fact-hash-payload-covers-status=yes]] —
   **LANDED 2026-08-14**. `hash_payload()` now covers every modelled field, asserted by
-  `hash_payload_covers_every_modelled_field`, and `deny_unknown_fields` makes a stray field a
-  load error rather than a silent discard. `objective_ids` had never been a field on `BankItem`
-  at all: all 804 files carried it on disk and serde dropped it. Residual: the domain string is
-  still `cdcp-bank-v1` under a v2 definition (`bd-6ycw`).
+  `hash_payload_covers_every_modelled_field` [[fact:fact-hash-payload-parity-test-exists=yes]],
+  and `deny_unknown_fields` [[fact:fact-bank-item-denies-unknown-fields=yes]] makes a stray
+  field a load error rather than a silent discard. `objective_ids` had never been a field on
+  `BankItem` at all: all 804 files carried it on disk and serde dropped it. Residual: the
+  domain string is still `cdcp-bank-v1` under a v2 definition (`bd-6ycw`).
 - **C3** near-duplicate detector (`bd-near-duplicate-item-gate-i5v`). Exact-stem hashing finds
   **0** duplicates; `m14-q040`/`m14-q121` are one item twice with different keys.
-- **C4** portable PRNG — `cdcp_assemble` calls `StdRng` "frozen"; Rand documents it as
-  non-portable across versions and platforms. Name a portable algorithm and pin it.
+- **C4** portable PRNG — `cdcp_assemble` calls `StdRng` "frozen"
+  [[fact:fact-assemble-uses-stdrng=yes]]; Rand documents it as non-portable across versions and
+  platforms. Name a portable algorithm and pin it.
 - **C5** module 15 decision — teach it or exclude it from assembly. Record which and why.
-- **C6** `min_modules` is accepted and ignored (`_min_modules`). Enforce or delete.
+- **C6** `min_modules` is no longer accepted and discarded — the parameter reaches
+  `sample_item_ids` and a pool spanning too few modules is a `ModuleShortfall` error, so the
+  binding is not `_min_modules` any more [[fact:fact-assemble-discards-min-modules=no]]. It is
+  enforced as a **precondition on the approved pool only**; whether the 40 *selected* items span
+  `min_modules` is still unchecked. Close that half, or state the weaker guarantee.
 
 ## D · Evidence spine — `cdcp_evidence`
 

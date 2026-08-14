@@ -1,4 +1,25 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 1 of 24).
+# Duplicate of bank-m12-q060 (bank/items/m12-q060.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 100% · distractors 85% · stem 86%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT bank-m12-q060:
+#   1. FORM — the seed-42 published form draws bank-m12-q060 at position 3 of 40. Retiring
+#      the survivor would pull an item out of the published form; this copy is drawn
+#      by no form.
+#   2. EXPLANATION — bank-m12-q060 names the remedy the item exists to teach ("CO2 or clean-agent
+#      portables are often preferred in IT areas per policy"); this copy stops at the
+#      symptom.
+#   3. PROVENANCE — this copy is from the q2xx "bank expansion (depth/apply)" wave — the later bulk
+#      add, and the second of the two wholesale additions that produced this class.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
 id = "m12-q219"
 module = 12
 stem = "Dry chemical ABC extinguishers are often discouraged as first choice in white space because:"
@@ -15,4 +36,4 @@ objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "retired"

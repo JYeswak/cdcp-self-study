@@ -1,4 +1,24 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 3 of 24).
+# Duplicate of bank-m13-q077 (bank/items/m13-q077.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 64% · distractors 0% · stem 30%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT bank-m13-q077:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — bank-m13-q077 names the threat the interlock defeats ("reduce tailgating and
+#      enable high-assurance checks"); this copy's explanation restates its own key
+#      verbatim and teaches nothing. Two of this copy's distractors ("Cool people",
+#      "Store copper spools") are answerable by spotting absurdity.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
 id = "mock40-q36"
 module = 13
 stem = "A mantrap is designed to:"
@@ -15,4 +35,4 @@ objective_ids = []
 bloom = "remember"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "retired"

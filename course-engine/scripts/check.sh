@@ -293,7 +293,7 @@ ok "L1 registry-check"
 # fails fast (only serde+toml compile).
 echo "==> cdcp_gate substrate-guard (S0 substrate floor)"
 cargo run -q -p cdcp_gate -- substrate-guard || fail "substrate guard (unreasoned .py/.sh)"
-ok "S0 substrate floor (no unreasoned non-Rust file in scripts/ · crates/ · repo root)"
+ok "S0 substrate floor (no unreasoned py/sh-family file, shebang script, symlink or submodule anywhere in the engine tree)"
 
 # L4 for the wiring claim ITSELF. Nothing read out of this file can establish that
 # the line above executes (bd-bo6i): `: "cargo run ..."` is a no-op, `true # ...`
@@ -309,6 +309,14 @@ echo "==> cdcp_gate substrate-guard --prove-wired (L4: the wiring is proven to t
 cargo run -q -p cdcp_gate -- substrate-guard --prove-wired \
   || fail "substrate-guard wiring does not stop check.sh"
 ok "S0 wiring proven behaviourally (a planted unlisted .py stops check.sh)"
+
+# bd-m67m: a FRESH CLONE HAS NO HOOK, and CI is a fresh clone — so the --check
+# below was RED on every CI run and green on every developer machine, which is
+# the worst possible split. install-hooks is idempotent, so this is a no-op
+# locally and the thing that makes the next line meaningful in CI.
+echo "==> cdcp_gate install-hooks (a fresh clone has no hook; CI is a fresh clone)"
+cargo run -q -p cdcp_gate -- install-hooks || fail "install-hooks"
+ok "pre-commit shim installed (idempotent)"
 
 echo "==> cdcp_gate install-hooks --check (BUILT != WIRED)"
 cargo run -q -p cdcp_gate -- install-hooks --check \
@@ -338,6 +346,18 @@ ok "capability claims attributed, dated, unexpired, and pointed at evidence that
 echo "==> cdcp_gate goldens-couplings (B2 coupling ledger: no silent re-freeze)"
 cargo run -q -p cdcp_gate -- goldens-couplings || fail "goldens coupling ledger"
 ok "every golden names the surfaces it was frozen against, and both sides agree"
+
+# B3 (bd-hardening-b-ledgers-gvm.3): present-tense claims about code, in prose,
+# carry a yes/no the tree recomputes. verify-doc-consistency reads milestone
+# TABLES and stayed exit 0 while PLAN §C2 said "hash_payload() omits them" and
+# ROADMAP-WAVES said bank_hash covers "not objective_ids, citation ids, or item
+# status" — both false, both narrative, both structurally invisible to a table
+# parser. Every [[fact:id=yes|no]] marker is re-answered from the tree here.
+# The polarity lives in the PROSE, not the registry, so no single registry edit
+# can relicense every site at once.
+echo "==> cdcp_gate doc-facts (B3 doc-truth: prose claims about code match the tree)"
+cargo run -q -p cdcp_gate -- doc-facts || fail "prose claims about code disagree with the tree"
+ok "every registered prose claim about code agrees with the artifact that answers it"
 
 
 # exam_form hard numbers (public CDCP form)
@@ -427,6 +447,24 @@ ok "no orphan topics · no orphan item refs · no unanchored items"
 echo "==> selftest_orphan.sh (L4 orphan known-bad)"
 run_selftest "orphan known-bad selftest" sh scripts/selftest_orphan.sh
 ok "orphan selftest (empty bank/topics ERROR · orphan ref RED · unanchored RED · orphan topic RED · live GREEN)"
+
+# C3 near-duplicate items — no two assembly-eligible items may read as the same
+# question twice (bd-near-duplicate-item-gate-i5v; the 25 pairs it found were
+# adjudicated in bd-tetz). Jaccard over CORRECT-ANSWER token sets, not stems:
+# the decisive pair m11-q226/m11-q139 is 100% answer overlap at 16% stem, which
+# no stem-based detector could ever find. Anti-vacuous: zero items, zero
+# approved, or fewer than 2 approved is an ERROR (exit 4).
+[ -d bank/items ] || fail "missing bank/items (near-duplicate gate required)"
+echo "==> cdcp_gate near-duplicate-items (C3 near-duplicates in the approved pool)"
+cargo run -q -p cdcp_gate -- near-duplicate-items || fail "near-duplicate items in the approved pool"
+ok "no cosmetic near-duplicates in the approved pool (NOT a distinct-proposition count)"
+
+# L4: proven to TRIP, not merely to pass. Plants a cosmetically-reworded clone
+# of a real approved item in memory and asserts it is flagged against its source.
+echo "==> cdcp_gate near-duplicate-items selftest (L4 known-bad injection)"
+CDCP_NEAR_DUPLICATE_SELFTEST=1 cargo run -q -p cdcp_gate -- near-duplicate-items \
+  || fail "near-duplicate selftest did not reach RED on its planted clone"
+ok "near-duplicate selftest (planted clone trips RED)"
 
 # L3 GradeExact — cargo + goldens (BUILT must be WIRED here)
 if [ ! -f Cargo.toml ]; then

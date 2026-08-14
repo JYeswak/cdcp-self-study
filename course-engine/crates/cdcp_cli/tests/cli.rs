@@ -315,6 +315,232 @@ fn export_web_seed42_runs_the_sampler_not_the_fixture() {
     let _ = fs::remove_dir_all(&out);
 }
 
+// ── bd-goldens-check-is-file-hole-7v9p ──────────────────────────────────────
+// `goldens check` guarded its bank_hash comparison with `if bh_path.is_file()`.
+// Measured before the fix, against a byte-identical temp copy of goldens/ with
+// bank_hash.txt removed: exit 0, stdout `ok golden all-correct / ok golden
+// all-wrong`. The only evidence of the skipped comparison was one MISSING
+// stdout line. That is the absent-input-reads-as-success shape.
+//
+// FLOOR RAISED, not a proof: these tests establish that a required golden which
+// is absent, empty, or unreachable exits non-zero, and that the command cannot
+// report ok having compared fewer than EXPECTED_COMPARISONS legs. They CANNOT
+// decide whether a present, matching pin was frozen against a correct bank — a
+// deliberate re-freeze of a wrong value still passes here. That is the coupling
+// ledger's question (cdcp_gate goldens-couplings) and PROVENANCE.md review.
+//
+// Every case below runs against a TEMP COPY. goldens/ is never mutated: another
+// agent owns that surface, and its bank_hash content changes under this test.
+
+/// Byte-copy `goldens/` into a fresh temp dir and return the copy's path.
+///
+/// The copy is compared against the LIVE bank, so it exercises exactly the
+/// artifacts `goldens check --dir goldens` would.
+fn goldens_copy(tag: &str) -> PathBuf {
+    let dst = std::env::temp_dir().join(format!(
+        "cdcp_goldens_{tag}_{}_{:?}",
+        std::process::id(),
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos()
+    ));
+    fs::create_dir_all(&dst).expect("create temp goldens dir");
+    copy_tree(&workspace_root().join("goldens"), &dst);
+    // Anti-vacuous: a copy helper that silently copied nothing would make every
+    // known-bad case below pass for the wrong reason.
+    assert!(
+        dst.join("bank_hash.txt").is_file(),
+        "temp copy is missing bank_hash.txt — the copy helper copied nothing"
+    );
+    dst
+}
+
+fn copy_tree(src: &std::path::Path, dst: &std::path::Path) {
+    for entry in fs::read_dir(src).expect("read goldens dir") {
+        let entry = entry.expect("dir entry");
+        let from = entry.path();
+        let to = dst.join(entry.file_name());
+        if from.is_dir() {
+            fs::create_dir_all(&to).expect("mkdir");
+            copy_tree(&from, &to);
+        } else {
+            fs::copy(&from, &to).expect("copy golden");
+        }
+    }
+}
+
+fn check_goldens_dir(dir: &std::path::Path) -> assert_cmd::assert::Assert {
+    cdcp()
+        .args([
+            "goldens",
+            "check",
+            "--bank",
+            "bank/items",
+            "--dir",
+            dir.to_str().expect("temp path is utf-8"),
+        ])
+        .assert()
+}
+
+/// KNOWN-GOOD: a faithful copy still passes, and reports how much it compared.
+///
+/// The count line is the anti-vacuous surface: before the fix, a run that
+/// compared 2 legs and a run that compared 3 differed only by an absent line.
+#[test]
+fn goldens_check_passes_on_a_faithful_copy_and_reports_its_coverage() {
+    let dir = goldens_copy("good");
+    let assert = check_goldens_dir(&dir).success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("ok bank_hash pin"),
+        "faithful copy must compare the bank_hash pin: {stdout}"
+    );
+    assert!(
+        stdout.contains("3 comparison(s)"),
+        "goldens check must report the number of comparisons it performed: {stdout}"
+    );
+    let _ = fs::remove_dir_all(&dir);
+}
+
+/// KNOWN-BAD, the bead's headline case plus its siblings: deleting ANY required
+/// golden exits non-zero and names the file. Deleting `bank_hash.txt` used to
+/// exit 0.
+#[test]
+fn goldens_check_errors_when_any_required_golden_is_absent() {
+    let required = [
+        "fixtures/mock40_seed42.json",
+        "mock40_seed42_all_correct.sha256",
+        "mock40_seed42_all_wrong.sha256",
+        "bank_hash.txt",
+    ];
+    // Anti-vacuous: a zero-length loop would make this test pass by testing
+    // nothing, which is the exact bug under repair.
+    assert_eq!(
+        required.len(),
+        4,
+        "the required-golden list must not shrink"
+    );
+
+    for rel in required {
+        let dir = goldens_copy("absent");
+        fs::remove_file(dir.join(rel)).expect("delete the golden under test");
+        let assert = check_goldens_dir(&dir).failure();
+        let stderr = String::from_utf8_lossy(&assert.get_output().stderr);
+        assert!(
+            stderr.contains(rel.rsplit('/').next().expect("basename")),
+            "deleting {rel} must produce an error naming it, got: {stderr}"
+        );
+        let _ = fs::remove_dir_all(&dir);
+    }
+}
+
+/// KNOWN-BAD: a 0-byte pin file satisfies `is_file()` and pins nothing.
+/// `exists()` is not the same claim as `a value was compared`.
+#[test]
+fn goldens_check_errors_on_a_zero_byte_pin() {
+    for rel in ["bank_hash.txt", "mock40_seed42_all_correct.sha256"] {
+        let dir = goldens_copy("zerobyte");
+        let target = dir.join(rel);
+        fs::write(&target, b"").expect("truncate pin to 0 bytes");
+        assert_eq!(
+            fs::metadata(&target).expect("stat pin").len(),
+            0,
+            "the planted pin must really be 0 bytes"
+        );
+        assert!(target.is_file(), "a 0-byte file still satisfies is_file()");
+
+        let assert = check_goldens_dir(&dir).failure();
+        let stderr = String::from_utf8_lossy(&assert.get_output().stderr);
+        assert!(
+            stderr.contains("empty pin file"),
+            "a 0-byte {rel} must be an error, got: {stderr}"
+        );
+        let _ = fs::remove_dir_all(&dir);
+    }
+}
+
+/// ANTI-VACUOUS: a goldens dir with nothing to check is an ERROR. An empty scan
+/// must not report the way a scan that checked everything reports.
+#[test]
+fn goldens_check_errors_when_zero_goldens_are_discovered() {
+    // (a) genuinely empty directory
+    let empty = std::env::temp_dir().join(format!("cdcp_goldens_empty_{}", std::process::id()));
+    let _ = fs::remove_dir_all(&empty);
+    fs::create_dir_all(&empty).expect("create empty dir");
+    let assert = check_goldens_dir(&empty).failure();
+    let stderr = String::from_utf8_lossy(&assert.get_output().stderr);
+    assert!(
+        stderr.contains("discovered 0 golden files"),
+        "an empty goldens dir must fail as a vacuous scan, got: {stderr}"
+    );
+
+    // (b) prose only. PROVENANCE.md is documentation, not a pinned artifact, so
+    // a directory holding only prose has still discovered nothing.
+    fs::write(empty.join("PROVENANCE.md"), "# prose only\n").expect("write prose");
+    let assert = check_goldens_dir(&empty).failure();
+    let stderr = String::from_utf8_lossy(&assert.get_output().stderr);
+    assert!(
+        stderr.contains("discovered 0 golden files"),
+        "prose alone is not a golden, got: {stderr}"
+    );
+
+    // (c) a missing directory is an error that names it, not a silent pass.
+    let gone = empty.join("does-not-exist");
+    let assert = check_goldens_dir(&gone).failure();
+    let stderr = String::from_utf8_lossy(&assert.get_output().stderr);
+    assert!(
+        stderr.contains("goldens dir not found"),
+        "an absent --dir must be named, got: {stderr}"
+    );
+
+    let _ = fs::remove_dir_all(&empty);
+}
+
+/// ANTI-VACUOUS: a fixture pinning zero items grades nothing. Both attempts
+/// would digest the empty case and `goldens generate` would freeze that.
+#[test]
+fn goldens_check_errors_on_a_fixture_that_pins_no_items() {
+    let dir = goldens_copy("nofixtureids");
+    let fixture_path = dir.join("fixtures/mock40_seed42.json");
+    let mut fixture: Value =
+        serde_json::from_str(&fs::read_to_string(&fixture_path).expect("read fixture"))
+            .expect("parse fixture");
+    fixture["item_ids"] = json!([]);
+    fs::write(&fixture_path, serde_json::to_string(&fixture).unwrap()).expect("write fixture");
+
+    let assert = check_goldens_dir(&dir).failure();
+    let stderr = String::from_utf8_lossy(&assert.get_output().stderr);
+    assert!(
+        stderr.contains("item_ids is empty"),
+        "a fixture with no ids must be named as the cause, got: {stderr}"
+    );
+    let _ = fs::remove_dir_all(&dir);
+}
+
+/// KNOWN-GOOD, over-strictness leg: a legitimately-optional input must NOT fail.
+/// `goldens/PROVENANCE.md` is prose the CLI does not consume, and an extra
+/// unrelated `.md` is not a golden. A gate that reddens on documentation gets
+/// routed around, so absence and addition of prose are both green here.
+#[test]
+fn goldens_check_ignores_prose_alongside_the_artifacts() {
+    let dir = goldens_copy("prose");
+    let provenance = dir.join("PROVENANCE.md");
+    if provenance.is_file() {
+        fs::remove_file(&provenance).expect("remove prose");
+    }
+    check_goldens_dir(&dir).success();
+
+    fs::write(dir.join("NOTES.md"), "# scratch prose\n").expect("write extra prose");
+    let assert = check_goldens_dir(&dir).success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("3 comparison(s)"),
+        "adding prose must not change what is compared: {stdout}"
+    );
+    let _ = fs::remove_dir_all(&dir);
+}
+
 /// The retained bypass is EXPLICIT and TESTED: `--fixture <path>` still replays a recorded
 /// item_ids list and says so (`golden_pinned=true`). Only the implicit seed-42 preference died.
 #[test]

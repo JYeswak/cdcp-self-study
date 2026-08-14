@@ -29,9 +29,9 @@ bank_hash = hex( SHA-256(
 ) )
 ```
 
-Implemented in `cdcp_bank::compute_bank_hash` (`crates/cdcp_bank/src/lib.rs`). `BankItem::hash_payload` builds a `BTreeMap` with: id, module, stem, choices, correct, explanation, topic_ids (**sorted**), objective_ids (**sorted**), citation_ids (**sorted**), tags (**sorted**), bloom, source_class, quantity_evidence, status — then `canonical_json` on that map.
+Implemented in `cdcp_bank::compute_bank_hash` (`crates/cdcp_bank/src/lib.rs`). `BankItem::hash_payload` builds a `BTreeMap` with: id, module, stem, choices, correct, explanation, topic_ids (**sorted**), objective_ids (**sorted**) [[fact:fact-hash-payload-covers-objective-ids=yes]], citation_ids (**sorted**), tags (**sorted**), bloom, source_class, quantity_evidence, status [[fact:fact-hash-payload-covers-status=yes]] — then `canonical_json` on that map.
 
-The payload is **total over the modelled fields**: every field of `BankItem` appears in it, and `BankItem` carries `deny_unknown_fields`, so no content in a bank file sits outside the content address. `hash_payload_covers_every_modelled_field` asserts the two field sets are equal, so adding a field without hashing it is RED rather than silent.
+The payload is **total over the modelled fields**: every field of `BankItem` appears in it, and `BankItem` carries `deny_unknown_fields` [[fact:fact-bank-item-denies-unknown-fields=yes]], so no content in a bank file sits outside the content address. `hash_payload_covers_every_modelled_field` [[fact:fact-hash-payload-parity-test-exists=yes]] asserts the two field sets are equal, so adding a field without hashing it is RED rather than silent.
 
 Set-valued lists (`topic_ids`, `objective_ids`, `citation_ids`, `tags`) are sorted: reordering them is cosmetic and must **not** move the hash. `choices` is **not** sorted — its order is the presentation order `correct` indexes into, so permuting it is a semantic change and **does** move the hash.
 

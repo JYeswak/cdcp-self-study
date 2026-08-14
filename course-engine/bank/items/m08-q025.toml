@@ -1,4 +1,24 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 15 of 24).
+# Duplicate of m08-q049 (bank/items/m08-q049.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 100% · distractors 92% · stem 83%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT m08-q049:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — parity — both explanations state the same mechanism in one line. Provenance
+#      decides. Recorded loss: this copy also carried topic m09-containment, which the
+#      survivor does not; m09-containment keeps 24 other approved items, so no topic is
+#      orphaned by the retirement.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
 id = "mock40-q25"
 module = 8
 stem = "Blanking unused rack U-space mainly:"
@@ -15,4 +35,4 @@ objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "retired"

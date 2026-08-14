@@ -2,18 +2,31 @@
 # substrate_allowlist.toml — the non-Rust exemption register (S0)
 # =============================================================================
 # Enforced by `cdcp_gate substrate-guard` (crates/cdcp_gate/src/gates/substrate_guard.rs)
-# from scripts/check.sh and from the pre-commit hook.
+# from scripts/check.sh, and — for the ONE commit path git runs a hook on — from
+# hooks/pre-commit.
 #
-# WHAT THE GATE ENFORCES (floor-raise, nothing more): a `.py` or `.sh` file
-# tracked or staged under scripts/, crates/, or the engine root must appear here
-# with a non-empty `reason`, a `migration_bead`, and an `expires` date that has
-# not passed. Blank is never permissive — a missing or empty field is a schema
-# ERROR, not permission.
+# WHAT THE GATE ENFORCES (floor-raise, nothing more): an entry git tracks
+# ANYWHERE under the engine root that the gate identifies as non-Rust source
+# must appear here with a non-empty `reason`, a `migration_bead`, and an
+# `expires` date that has not passed. Four identification shapes: a scanned
+# extension (case-insensitive), a shebang on a file the extension rule cannot
+# classify, a tracked symlink, and a submodule gitlink. Blank is never
+# permissive — a missing or empty field is a schema ERROR, not permission.
 #
 # WHAT IT CANNOT DO: decide whether a `reason` is honest, whether a
 # `migration_bead` names real work, or whether an `expires` was picked to be far
 # away. Those are review's job. The gate only makes the exemption exist, be
-# dated, be attributed, and show up in a diff.
+# dated, be attributed, and show up in a diff. It also cannot decide that a .rs
+# file is not shelling out to python3 — this is a path-and-shebang policy, not a
+# statement about what runs.
+#
+# WHERE IT IS ENFORCED (bd-xmn5, measured 2026-08-14 on git 2.53.0): the
+# pre-commit hook fires for `git commit` and for nothing else. Merge,
+# cherry-pick, rebase, `git am`, `git commit-tree` and `--no-verify` all created
+# commits carrying an unlisted .py with the hook never invoked, and a fresh
+# clone has no hook at all. What actually holds is the PRESENCE scan in
+# check.sh, one build later. See bd-efm7 for the missing server-side boundary
+# and bd-m67m for the hook that CI never installs.
 #
 # THIS FILE IS THE MIGRATION WORKLIST. Every row is a debt. The row count is the
 # progress metric for epic bd-substrate-rust-migration-jhd and its target is 0.
@@ -31,11 +44,21 @@
 schema_version = 1
 
 [scan]
-# The gate compiles in a floor (roots scripts+crates, extensions py+sh, engine
-# root files ON). This section may WIDEN that floor; narrowing it is an ERROR,
-# so the gate cannot be switched off by a one-word edit here.
+# The gate compiles in a floor. This section may WIDEN that floor; narrowing it
+# is an ERROR, so the gate cannot be switched off by a one-word edit here.
+#
+# SCOPE, since bd-xmn5 (2026-08-14): the scanned surface is the WHOLE ENGINE
+# TREE, not these roots. `roots` is retained as a floor-checked MINIMUM — if
+# whole-tree scanning is ever narrowed, scripts/ and crates/ still cannot be
+# dropped in the same edit. Measured before the change: docs/payload.py was
+# exit 0, and four real shell files (.flywheel x2, tests/ x2 — two of them
+# invoked as gates by check.sh) had never been inside the floor at all.
+#
+# EXTENSIONS are matched CASE-INSENSITIVELY (scripts/payload.PY was exit 0) and
+# cover the shell and python family, not two spellings (scripts/payload.bash was
+# exit 0). `js`/`mjs` are deliberately NOT here — see bd-yp9x.
 roots = ["scripts", "crates"]
-extensions = ["py", "sh"]
+extensions = ["py", "pyw", "sh", "bash", "zsh", "ksh"]
 include_engine_root_files = true
 
 [wiring]
@@ -340,3 +363,42 @@ path = "scripts/_run_build_learn.sh"
 reason = "Thin wrapper that invokes build_learn.py with the right working directory. Disappears when build_learn.py ports; tracked with it rather than separately."
 migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-02-28"
+
+# =============================================================================
+# BROUGHT INTO SCOPE BY bd-xmn5 (2026-08-14) — WHOLE-TREE SCAN + SHEBANG LEG
+# Every row below is for a file that was ALREADY IN THE TREE and that the gate
+# could not see. None of them is new debt; what is new is that the debt is now
+# visible, dated and reviewable. Two of them are check.sh gates, which is the
+# uncomfortable part: the substrate floor did not cover two of the gates the
+# substrate floor's own orchestrator runs.
+# =============================================================================
+
+[[allow]]
+path = "tests/voice-slop.sh"
+reason = "Load-bearing check.sh gate (line 650): the applicable slice of the ZS public-voice/honesty scan over the published copy. Outside the old scripts+crates floor since the gate was written, so it was never grandfathered — it was invisible. Ports with the doc-consistency family, which reads the same surfaces."
+migration_bead = "bd-substrate-rust-migration-jhd.4"
+expires = "2027-02-28"
+
+[[allow]]
+path = "tests/publishability-bar.sh"
+reason = "Load-bearing check.sh gate (line 668, L88): re-derives the publishability score from the repo instead of trusting the hand-typed number in the audit markdown. A gate against a fooled certificate that was itself outside the substrate floor. Ports with the doc-consistency family."
+migration_bead = "bd-substrate-rust-migration-jhd.4"
+expires = "2027-02-28"
+
+[[allow]]
+path = ".flywheel/watchdog.sh"
+reason = "Loop watchdog: detects a stalled tick loop and writes an alert. Never dispatches work and is not on the check.sh path, so a lower blast radius than a gate — but it is bash in the tree and it expires like everything else here."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-06-30"
+
+[[allow]]
+path = ".flywheel/scripts/publishability-bar.sh"
+reason = "378-line bash reporter that PARSES .flywheel/PUBLISHABILITY-AUDIT.md and echoes what the markdown claims; tests/publishability-bar.sh exists because this one cannot be trusted as a gate. Retained as the human-facing doctor view, not as an assertion. Ports or dies with the audit surface."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-06-30"
+
+[[allow]]
+path = "hooks/pre-commit"
+reason = "THE SHIM, and it legitimately stays shell: git executes a file at .git/hooks/pre-commit, so the entry point cannot itself be a cargo target. Its whole body is one exec of the Rust gate and it holds no decision logic — asserted mechanically by install_hooks::tests::committed_shim_exists_and_is_thin, which rejects if/case/for/test/grep/sed/awk/python and any &&, ||, pipe or subshell. Caught here by the shebang leg (no extension), not by a filename rule. Dated for annual re-affirmation; there are no permanent exemptions, only renewed ones."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-06-30"

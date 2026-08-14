@@ -58,6 +58,30 @@ fn run(root: &Path, args: &[&str]) -> Result<String, String> {
     run_with(root, args, false)
 }
 
+/// Raw stdout bytes, for blobs that are not necessarily UTF-8.
+///
+/// `run` returns `Err` on non-UTF-8 output, which is right for the text it reads
+/// (registries, shell scripts) and wrong for an arbitrary tracked blob: a gate
+/// that wants to look at a file's first two bytes must not be turned into an
+/// ERROR by a tracked `.wasm`. Same environment rules as `run` — the caller's
+/// `GIT_*` is inherited deliberately.
+fn run_bytes(root: &Path, args: &[&str]) -> Result<Vec<u8>, String> {
+    let out = Command::new("git")
+        .current_dir(root)
+        .args(args)
+        .output()
+        .map_err(|e| format!("git {}: {e}", args.join(" ")))?;
+    if !out.status.success() {
+        return Err(format!(
+            "git {} failed (status {:?}): {}",
+            args.join(" "),
+            out.status.code(),
+            String::from_utf8_lossy(&out.stderr).trim()
+        ));
+    }
+    Ok(out.stdout)
+}
+
 fn run_isolated(root: &Path, args: &[&str]) -> Result<String, String> {
     run_with(root, args, true)
 }
@@ -96,6 +120,51 @@ fn rev_path(rev: &str, path: &str) -> String {
 /// bleeding starts.
 pub fn tracked_files(root: &Path) -> Result<Vec<String>, String> {
     Ok(split_nul(&run(root, &["ls-files", "-z"])?))
+}
+
+/// One index entry: git's own MODE plus the path.
+///
+/// The mode is the part `tracked_files` throws away, and it is the part that
+/// says whether the entry is an ordinary file (`100644`), an executable
+/// (`100755`), a SYMLINK (`120000`) or a SUBMODULE gitlink (`160000`). A gate
+/// that only sees paths cannot tell a directory symlink from a directory, and
+/// git reports the link — never the tree beneath it.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct IndexEntry {
+    pub mode: String,
+    pub path: String,
+}
+
+/// `git ls-files -s -z`, parsed. Records are `<mode> SP <sha> SP <stage> TAB <path>`.
+pub fn tracked_entries(root: &Path) -> Result<Vec<IndexEntry>, String> {
+    let raw = run(root, &["ls-files", "-s", "-z"])?;
+    let mut out = Vec::new();
+    for rec in raw.split('\0').filter(|r| !r.is_empty()) {
+        let (meta, path) = rec
+            .split_once('\t')
+            .ok_or_else(|| format!("git ls-files -s: record has no TAB: {rec:?}"))?;
+        let mode = meta
+            .split_whitespace()
+            .next()
+            .ok_or_else(|| format!("git ls-files -s: record has no mode: {rec:?}"))?;
+        out.push(IndexEntry {
+            mode: mode.to_string(),
+            path: path.to_string(),
+        });
+    }
+    Ok(out)
+}
+
+/// The BYTES of `path` as the index holds them. `Ok(None)` means the path is not
+/// in the index — a real answer, not an error. Unlike `index_text` this survives
+/// a binary blob, because "what are this file's first two bytes" is a question
+/// that must be answerable about a `.wasm` as well as about a shell script.
+pub fn index_bytes(root: &Path, path: &str) -> Result<Option<Vec<u8>>, String> {
+    let spec = rev_path("", path);
+    if !run_ok(root, &["cat-file", "-e", &spec]) {
+        return Ok(None);
+    }
+    run_bytes(root, &["show", &spec]).map(Some)
 }
 
 /// Files this commit would ADD (or copy/rename into place), relative to `root`.

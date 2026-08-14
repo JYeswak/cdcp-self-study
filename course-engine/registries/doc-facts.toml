@@ -1,0 +1,132 @@
+# =============================================================================
+# doc-facts.toml — present-tense prose claims about code, and the probe that
+# recomputes each one from the tree
+# (bd-hardening-b-ledgers-gvm.3 · milestone B3 · gate: cdcp_gate doc-facts)
+# =============================================================================
+#
+# WHY THIS FILE EXISTS
+#
+# `verify-doc-consistency` reads MILESTONE TABLES. It stayed exit 0 through all
+# of these, each measured on 2026-08-13/14:
+#
+#   docs/PLAN-A-TO-Z.md  "Today `hash_payload()` omits them, so evidence changes
+#                         do not change the content address."  — fixed hours
+#                         earlier; the sentence was false when it was read.
+#   docs/ROADMAP-WAVES.md "`bank_hash` omits load-bearing fields ... **not**
+#                         `objective_ids`, citation ids, or item status."  — same.
+#
+# Neither sentence lives in a table. Both are PRESENT-TENSE CLAIMS ABOUT CODE
+# sitting in prose, and a milestone-table parser structurally cannot see them.
+#
+# WHAT A ROW HERE IS
+#
+# A row is NOT the claim. A row is a QUESTION about the tree plus a PROBE that
+# answers it yes or no. The claim lives in the prose, and the prose carries the
+# ANSWER it is asserting, inline, as a marker:
+#
+#     ... `hash_payload()` now covers every modelled field
+#     [[fact:fact-hash-payload-covers-objective-ids=yes]]
+#
+# The gate recomputes the probe against the tree and compares it to the polarity
+# written at each marker site. When code moves and prose does not, every site
+# asserting the old polarity goes RED with its own file:line and BOTH sides
+# printed. That is the whole mechanism.
+#
+# THIS REGISTRY HOLDS NO VERDICTS ON PURPOSE. There is no `expect` field. If the
+# expected answer lived here, one edit here would relicense every prose site at
+# once — which is the single-cell edit the ledgers exist to stop. The verdict is
+# written where the reader reads it, once per site, and every site is checked.
+#
+# `trigger` IS THE ANTI-OMISSION LEG. Omission, not malice, is the default
+# failure: an author simply does not write a marker. So the gate walks EVERY
+# markdown file it can find under the corpus root — not a list this file
+# supplies — and any non-excluded file whose text contains a row's `trigger`
+# must carry a marker for that row. You cannot hide a claim by leaving its file
+# off a list, because there is no list.
+#
+# EXCLUSIONS NARROW ONE OBLIGATION ONLY. An `[[exclude]]` releases a file from
+# the trigger→must-cite obligation. It NEVER releases a marker from being
+# resolved and polarity-checked: a lying marker in an excluded file is still RED.
+# An exclusion without a non-empty reason is a schema error, and an exclusion
+# whose path matches no scanned file is an ERROR too — a dead exclusion is how a
+# scan quietly loses a directory. A `path` ending in `/` is a directory prefix;
+# it may not name a top-level directory, and it may not shadow anything under
+# `docs/`, `README.md` or `CHARTER.md` — the gate compiles that surface in as
+# un-excludable and measures it against the files the walk produced, not against
+# the exclusion's spelling.
+#
+# HOW TO REVIEW A ROW
+#   1. Run the probe by hand. Does it still ask the question `question` states?
+#   2. Read every marker site (`grep -rn '[[fact:<id>' `). Does the sentence at
+#      each site really assert the polarity written there?
+#   3. A row whose probe drifted away from its question is worse than no row:
+#      it is a green light with a citation.
+# =============================================================================
+
+schema_version = 1
+
+# ── the motivating pair: bank_hash field coverage (C2) ──────────────────────
+# Both instances quoted at the top of this file are this claim, in opposite
+# polarities, in two documents.
+
+[[fact]]
+id = "fact-hash-payload-covers-objective-ids"
+question = "Does the body of `BankItem::hash_payload` put `objective_ids` into the hashed payload?"
+probe = { kind = "symbol_body_contains", path = "crates/cdcp_bank/src/lib.rs", symbol = "hash_payload", needle = '"objective_ids".into()' }
+trigger = "hash_payload"
+
+[[fact]]
+id = "fact-hash-payload-covers-status"
+question = "Does the body of `BankItem::hash_payload` put the item `status` into the hashed payload?"
+probe = { kind = "symbol_body_contains", path = "crates/cdcp_bank/src/lib.rs", symbol = "hash_payload", needle = '"status".into()' }
+trigger = "hash_payload"
+
+[[fact]]
+id = "fact-hash-payload-parity-test-exists"
+question = "Is a test function named `hash_payload_covers_every_modelled_field` defined in the bank crate?"
+probe = { kind = "fn_defined", path = "crates/cdcp_bank/src/lib.rs", symbol = "hash_payload_covers_every_modelled_field" }
+trigger = "hash_payload_covers_every_modelled_field"
+
+[[fact]]
+id = "fact-bank-item-denies-unknown-fields"
+question = "Does `BankItem` carry `#[serde(deny_unknown_fields)]`, so an unmodelled field in a bank file is a load error rather than a silent discard?"
+probe = { kind = "file_contains", path = "crates/cdcp_bank/src/lib.rs", needle = "#[serde(deny_unknown_fields)]" }
+trigger = "deny_unknown_fields"
+
+# ── claims whose truth is a PLANNED change (C4, C6) ─────────────────────────
+# These are the rows that earn their keep. Each states what the code does TODAY
+# and is scheduled to become false; when the bead lands, every document still
+# describing the old behaviour turns RED naming itself.
+
+[[fact]]
+id = "fact-assemble-uses-stdrng"
+question = "Does `cdcp_assemble` still seed its sampler from `rand`'s non-portable `StdRng`?"
+probe = { kind = "file_contains", path = "crates/cdcp_assemble/src/lib.rs", needle = "StdRng::seed_from_u64" }
+trigger = "StdRng"
+
+[[fact]]
+id = "fact-assemble-discards-min-modules"
+question = "Does `cdcp_assemble` still bind the module-coverage parameter as `_min_modules` — accepted and discarded?"
+probe = { kind = "file_contains", path = "crates/cdcp_assemble/src/lib.rs", needle = "_min_modules" }
+trigger = "_min_modules"
+
+# ── the L5 workspace-membership claim ───────────────────────────────────────
+# CHARTER §5 records that `fuzz/` sits outside the workspace, so nothing in
+# check.sh, CI, or `cargo test --workspace` ever builds those targets. That is a
+# structural fact about Cargo.toml and it is answerable exactly.
+
+[[fact]]
+id = "fact-fuzz-is-a-workspace-member"
+question = "Is the `fuzz` package a member of the Cargo workspace, so that a workspace-wide build or test reaches it?"
+probe = { kind = "toml_array_contains", path = "Cargo.toml", key = "workspace.members", value = "fuzz" }
+trigger = "cargo fuzz"
+
+# ── exclusions (trigger→must-cite only; markers are still checked) ──────────
+
+[[exclude]]
+path = "course-engine/beads_compliance_audit/"
+reason = "Dated audit snapshots. Every file under it carries a `**Date:**` header and records the tree as it was on that date, so its sentences are past-tense by construction and re-marking them would falsify the record. New passes land here continuously, and an exact-path list over a growing directory would break the build on work that has nothing to do with it. COST, stated so it is not a surprise: a genuinely present-tense claim written into this directory is invisible to this gate. Tracked as bd-doc-facts-uncovered-surfaces-plzm."
+
+[[exclude]]
+path = "course-engine/goldens/PROVENANCE.md"
+reason = "Single-owner file: `goldens/` has exactly one regeneration path and a sibling bead is re-freezing bank_hash through it right now. Forcing marker edits into it would put this gate and the re-freeze workflow in the same file. Its hash_payload/StdRng/deny_unknown_fields sentences are real present-tense claims and are NOT covered — tracked as bd-doc-facts-uncovered-surfaces-plzm."

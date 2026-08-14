@@ -1,4 +1,26 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 5 of 24).
+# Duplicate of bank-m15-q138 (bank/items/m15-q138.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 90% · distractors 81% · stem 80%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT bank-m15-q138:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — bank-m15-q138 enumerates what a MOP actually structures ("prerequisites, steps,
+#      checks, ownership, and recovery"); this copy restates its own key.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md — AND MISFILED. This copy carries
+#      module = 13 with topic m13-safety-components while the surviving copy of the same
+#      proposition is module 15 / m15-documentation. Retiring it removes the duplicate
+#      but NOT the topic-assignment defect, which is tracked separately as
+#      bd-mock40-q37-cross-module-topic-76vs.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
 id = "mock40-q37"
 module = 13
 stem = "An MOP (Method of Procedure) is used mainly to:"
@@ -15,4 +37,4 @@ objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "retired"

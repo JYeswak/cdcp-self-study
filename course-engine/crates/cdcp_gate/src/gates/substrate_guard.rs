@@ -2,11 +2,65 @@
 //!
 //! # CLAIM: FLOOR-RAISE
 //!
-//! This gate raises a floor. It enforces exactly one property: **no unreasoned
-//! non-Rust source file enters the tree.** Concretely — a `.py` or `.sh` file
-//! tracked or staged under `scripts/`, `crates/`, or the engine root must have a
-//! row in `registries/substrate_allowlist.toml` carrying a non-empty `reason`, a
-//! bead id, and an `expires` date that has not passed.
+//! This gate raises a floor. It enforces one property over one snapshot pair:
+//! **an entry git tracks that this gate can identify as non-Rust source carries
+//! a reasoned, dated, bead-linked row in `registries/substrate_allowlist.toml`,
+//! or the gate is RED.** Four shapes are identified (see `scan_reason`): a
+//! scanned EXTENSION (case-insensitively — `.PY` is `.py`), a SHEBANG on a file
+//! the extension rule cannot classify, a tracked SYMLINK, and a SUBMODULE
+//! gitlink. The scanned surface is the WHOLE engine tree.
+//!
+//! # WHAT IT IS AND IS NOT: A PATH-AND-BYTES POLICY, ON THE PATHS GIT REPORTS
+//!
+//! This is a filename-and-path policy with one two-byte content probe. It cannot
+//! decide that a `.rs` file is not secretly shelling out to Python —
+//! `std::process::Command::new("python3")` is invisible here, and so is a Rust
+//! `include_str!` of a script, and so is a script emitted at runtime. It reads
+//! none of the code it permits and none of the code it clears. Anyone who states
+//! the claim as "no Python runs in this project" has stated something this gate
+//! never measured; what it measured is that no unreasoned non-Rust FILE is
+//! tracked under a name or shape it recognises.
+//!
+//! # WHERE IT IS ENFORCED, AND WHERE IT IS NOT (bd-xmn5, measured 2026-08-14)
+//!
+//! Enforcement has two legs with very different strengths, and they are not
+//! interchangeable:
+//!
+//! * **PRESENCE (strong).** Every run scans the whole index and the whole
+//!   working tree. This is the leg `scripts/check.sh` runs, and it catches a
+//!   violation no matter HOW the file arrived — ordinary commit, merge,
+//!   cherry-pick, rebase, `git am`, `git commit-tree`, `--no-verify`, or a push
+//!   from a clone that never installed a hook. It is retrospective: the file is
+//!   already committed by then, and it stops the BUILD rather than the commit.
+//! * **PRE-COMMIT (weak, and advisory by nature).** `hooks/pre-commit` runs the
+//!   `--staged` leg. Git runs that hook for `git commit` only. MEASURED on git
+//!   2.53.0, all with the hook installed and firing on an ordinary commit: a
+//!   merge commit, a cherry-pick, a rebase, `git am`, and
+//!   `git commit-tree $(git write-tree) -p HEAD` each created a commit carrying
+//!   an unlisted `.py` with the hook NEVER INVOKED, as did
+//!   `git -c core.hooksPath=/dev/null commit`. Hooks are also never cloned: a
+//!   fresh clone has no `.git/hooks/pre-commit` at all until someone runs
+//!   `cdcp_gate install-hooks`.
+//!
+//! So the honest sentence is: **the pre-commit leg raises the cost of CASUALLY
+//! adding a script through `git commit` in a clone where the hook is installed;
+//! the presence leg is what actually holds, one build later.** Neither is a
+//! containment boundary against someone who does not want to be stopped — a
+//! client-side hook cannot be, and the presence leg only bites where check.sh or
+//! the test suite runs. A real boundary lives server-side (a required CI job on
+//! the pushed ref, or a pre-receive hook) and this repo does not have one:
+//! **bd-efm7**. Worse, the hook CI would need is one CI never installs, so
+//! `install-hooks --check` is RED on every CI run today: **bd-m67m**. Commit
+//! messages and docs must not say "refused at commit" without saying which
+//! commit path.
+//!
+//! The test suite is now one of the places the presence leg bites, which it was
+//! not before bd-xmn5:
+//! `substrate_guard_e2e::the_live_repo_tree_has_no_unlisted_non_rust_file` runs
+//! the scan against THIS repository, so `cargo test` goes red on an unlisted
+//! script. Until that test existed, neither `cargo build --workspace` nor
+//! `cargo test --workspace` scanned the tree at all, and only `scripts/check.sh`
+//! did — so "it fails the build" was true of one shell orchestrator.
 //!
 //! # ONE SNAPSHOT PER VERDICT (bd-how)
 //!
@@ -37,6 +91,21 @@
 //! permits, so it says nothing about what they do. An author who wants a script
 //! in this tree can still get one in by writing a sentence — the change is that
 //! the sentence is now dated, attributed, reviewable in a diff, and it rots.
+//!
+//! The identification legs have named blind spots, kept here rather than in a
+//! bead so they are read by whoever edits the rule:
+//!
+//! * A script under an extension that is neither scanned nor absent —
+//!   `scripts/payload.txt` holding Python — is caught ONLY if git records it
+//!   executable or it has a shebang AND no extension. `has_no_extension` tests
+//!   the BASENAME, so `scripts/.hidden` counts as extensioned and is not sniffed.
+//! * The shebang probe reads the first two bytes of the blob. It says "this is
+//!   an executable text script", not "this is Python". Any interpreter counts,
+//!   deliberately: the substrate law is about non-Rust source, not about which
+//!   non-Rust language.
+//! * A symlink and a gitlink are reported as needing a row because the gate
+//!   CANNOT see through them, not because it found anything. A row for one is a
+//!   human saying they looked.
 //!
 //! It also cannot decide, by reading `scripts/check.sh`, that the step invoking
 //! this gate EXECUTES. No text test can (bd-bo6i): `: "cargo run … "` is a no-op,
@@ -100,6 +169,46 @@
 //! that function's own doc — backslash-as-Windows-separator and whitespace
 //! padding are both left to other legs.
 //!
+//! # THE SCOPE DECISION (bd-xmn5, 2026-08-14) — RECORDED, WITH ITS REASONS
+//!
+//! Adversarial review found the floor was a filename policy over two directories,
+//! and every gap below was confirmed by injection against the built binary before
+//! it was closed. Each answer is written down here because the next reader will
+//! otherwise re-litigate it.
+//!
+//! * **Extensions are matched CASE-INSENSITIVELY.** `scripts/payload.PY` and
+//!   `scripts/payload.Py` were measured at exit 0. Cost of the fix: zero — the
+//!   tree tracks no upper-case `.py`/`.sh` today. A rule that a rename defeats is
+//!   not a rule.
+//! * **The extension floor is the SHELL AND PYTHON FAMILY**, not two spellings:
+//!   `py`, `pyw`, `sh`, `bash`, `zsh`, `ksh`. `scripts/payload.bash` was measured
+//!   at exit 0. `.js`/`.mjs` are NOT in the floor: `web/assets/js` is 16 tracked
+//!   browser files with their own wasm migration, and quietly folding them in
+//!   here would be a different project wearing this gate's name (bd-yp9x).
+//! * **Shebang sniffing: YES, but only where the extension rule is blind** —
+//!   a basename with no extension, or an entry git records `100755`.
+//!   `scripts/payload` holding `#!/usr/bin/env python3` was measured at exit 0.
+//!   Sniffing every tracked file would mean one `git show` per file per snapshot;
+//!   the chosen predicate costs 21 blob reads in this tree and catches the shape
+//!   an author actually uses for a script. What it misses is written above, in
+//!   the CANNOT section, rather than left for someone to discover.
+//! * **Roots: the WHOLE ENGINE TREE, with no ignore list.** `docs/payload.py`
+//!   was measured at exit 0, and four real shell files had been living outside
+//!   the floor since the gate was written —
+//!   `.flywheel/scripts/publishability-bar.sh`, `.flywheel/watchdog.sh`,
+//!   `tests/publishability-bar.sh`, `tests/voice-slop.sh`, the last two of which
+//!   `scripts/check.sh` INVOKES as gates. An ignore list was rejected on purpose:
+//!   it is a widening surface with a one-line diff, which is the thing
+//!   `check_floor` exists to stop. `[scan].roots` is retained as a floor-checked
+//!   MINIMUM so that if whole-tree scanning is ever narrowed, `scripts/` and
+//!   `crates/` cannot be dropped in the same edit.
+//! * **Symlinks and gitlinks need a row.** A tracked directory symlink
+//!   `scripts/linkdir -> /elsewhere` holding `hidden.py` was measured at exit 0,
+//!   with `hidden.py` readable through it on disk. git reports mode `120000` and
+//!   one path; the tree beneath is not in this repository at all. The gate cannot
+//!   see through it, so it refuses to be silent about it. Cost today: zero, the
+//!   tree tracks no symlink and no submodule.
+//!
 //! # WHY IT IS RUST
 //!
 //! The guard that bans shell is not itself shell. `hooks/pre-commit` is a shim
@@ -134,10 +243,28 @@ pub const REGISTRY_PATH: &str = "registries/substrate_allowlist.toml";
 /// It is now pinned; a different value is a schema ERROR.
 pub const CHECK_SH_PATH: &str = "scripts/check.sh";
 
-/// Extensions the registry may WIDEN but may never narrow below.
-pub const FLOOR_EXTENSIONS: &[&str] = &["py", "sh"];
+/// Extensions the registry may WIDEN but may never narrow below. Matched
+/// case-insensitively, so `.PY` is not a second spelling of an escape hatch.
+pub const FLOOR_EXTENSIONS: &[&str] = &["py", "pyw", "sh", "bash", "zsh", "ksh"];
 /// Directories the registry may ADD to but may never drop.
+///
+/// Since bd-xmn5 the scanned surface is the whole engine tree, so this list is a
+/// retained MINIMUM rather than the boundary: if `WHOLE_TREE_SCOPE` is ever
+/// turned off, these roots are still mandatory and cannot go in the same edit.
 pub const FLOOR_ROOTS: &[&str] = &["scripts", "crates"];
+
+/// The scanned surface is every normalised path git reports under the engine
+/// root. See the SCOPE DECISION section; an ignore list was rejected because it
+/// is a one-line widening surface.
+pub const WHOLE_TREE_SCOPE: bool = true;
+
+/// git's mode for a symlink blob. The link is what is tracked; the tree beneath
+/// it is not in this repository.
+pub const SYMLINK_MODE: &str = "120000";
+/// git's mode for a submodule gitlink — a commit id, opaque from here.
+pub const GITLINK_MODE: &str = "160000";
+/// git's mode for a file with the executable bit set.
+pub const EXECUTABLE_MODE: &str = "100755";
 /// A reason shorter than this is not a reason.
 pub const MIN_REASON_LEN: usize = 24;
 
@@ -237,7 +364,7 @@ pub fn parse_allowlist(text: &str) -> Result<Allowlist, String> {
 pub fn check_floor(scan: &ScanCfg) -> Vec<String> {
     let mut v = Vec::new();
     for ext in FLOOR_EXTENSIONS {
-        if !scan.extensions.iter().any(|e| e == ext) {
+        if !scan.extensions.iter().any(|e| e.eq_ignore_ascii_case(ext)) {
             v.push(format!(
                 "{REGISTRY_PATH}: [scan].extensions is missing the compiled-in floor {ext:?} — the registry may widen the scan, never narrow it"
             ));
@@ -383,9 +510,23 @@ pub fn normalisation_defect(path: &str) -> Option<&'static str> {
 /// the presence and staged legs. The traversal guard must test path COMPONENTS,
 /// not a substring; a filename is not a traversal. That test now lives in
 /// `normalisation_defect`, which `validate_rows` calls too.
+/// SCOPE (bd-xmn5, 2026-08-14): the whole engine tree.
+///
+/// It used to be `scripts/` + `crates/` + engine-root files, and `docs/payload.py`
+/// was measured at exit 0 while four real shell files — two of them invoked as
+/// gates by `scripts/check.sh` — had never been inside the floor at all. A floor
+/// with a listed inside is a floor with a much larger listed OUTSIDE, and nothing
+/// tells you when something moves there.
+///
+/// `roots` / `include_engine_root_files` are still schema-checked against
+/// `FLOOR_ROOTS` (see `check_floor`) so that narrowing the scan stays a
+/// multi-line, reviewable act rather than a one-word edit.
 pub fn is_in_scope(path: &str, scan: &ScanCfg) -> bool {
     if normalisation_defect(path).is_some() {
         return false;
+    }
+    if WHOLE_TREE_SCOPE {
+        return true;
     }
     match path.split_once('/') {
         // Engine-root file: no directory component.
@@ -394,11 +535,134 @@ pub fn is_in_scope(path: &str, scan: &ScanCfg) -> bool {
     }
 }
 
+/// The last dot-separated component of the BASENAME, lower-cased, or `None` when
+/// the basename carries no dot at all.
+pub fn extension_of(path: &str) -> Option<String> {
+    let base = basename(path);
+    base.rsplit_once('.').map(|(_, e)| e.to_ascii_lowercase())
+}
+
+pub fn basename(path: &str) -> &str {
+    match path.rsplit_once('/') {
+        Some((_, b)) => b,
+        None => path,
+    }
+}
+
+/// A basename with no dot at all — the shape an executable script takes when it
+/// is meant to be typed rather than imported. `scripts/.hidden` does NOT qualify:
+/// the test is on the basename, dot and all, and that limit is stated in the
+/// header rather than papered over.
+pub fn has_no_extension(path: &str) -> bool {
+    !basename(path).contains('.')
+}
+
+/// Case-insensitive since bd-xmn5. `scripts/payload.PY` was measured at exit 0
+/// on both the presence and the staged legs; a policy a `mv` defeats is not one.
 pub fn has_scanned_extension(path: &str, scan: &ScanCfg) -> bool {
-    let Some((_, ext)) = path.rsplit_once('.') else {
+    let Some(ext) = extension_of(path) else {
         return false;
     };
-    !ext.contains('/') && scan.extensions.iter().any(|e| e == ext)
+    scan.extensions.iter().any(|e| e.eq_ignore_ascii_case(&ext))
+}
+
+/// Does this blob begin with a `#!` line? Bytes, not text: a tracked `.wasm` is
+/// mode 100755 in this very repo, and turning "is this a script" into an ERROR
+/// over a UTF-8 decode would be a gate failing on the wrong question.
+pub fn shebang_line(bytes: &[u8]) -> Option<String> {
+    if !bytes.starts_with(b"#!") {
+        return None;
+    }
+    let end = bytes
+        .iter()
+        .position(|b| *b == b'\n')
+        .unwrap_or(bytes.len());
+    let line = String::from_utf8_lossy(&bytes[..end.min(200)])
+        .trim()
+        .to_string();
+    Some(line)
+}
+
+/// Is this entry one whose CONTENT the gate needs to look at?
+///
+/// Only where the extension rule is blind: a basename with no extension, or an
+/// entry git records executable. Everything else is decided from the path, and
+/// the cost stays at ~20 blob reads per snapshot instead of one per tracked file.
+pub fn needs_content_probe(path: &str, mode: &str, scan: &ScanCfg) -> bool {
+    if has_scanned_extension(path, scan) {
+        return false;
+    }
+    has_no_extension(path) || mode == EXECUTABLE_MODE
+}
+
+/// One tracked entry, as ONE snapshot sees it. `shebang` is `None` both when the
+/// content was not a script and when the content was never probed — the two are
+/// the same answer here, and `needs_content_probe` decides which files get asked.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Entry {
+    pub path: String,
+    pub mode: String,
+    pub shebang: Option<String>,
+}
+
+impl Entry {
+    /// An ordinary non-executable file, judged on its path alone.
+    pub fn plain(path: &str) -> Entry {
+        Entry {
+            path: path.to_string(),
+            mode: "100644".to_string(),
+            shebang: None,
+        }
+    }
+}
+
+/// WHY this entry must carry an `[[allow]]` row, or `None` when it need not.
+///
+/// This is the one place the four identification shapes live. Adding a fifth
+/// means adding it here and nowhere else.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum ScanReason {
+    /// A scanned extension, matched case-insensitively.
+    Extension(String),
+    /// A `#!` line on a file the extension rule could not classify.
+    Shebang(String),
+    /// git tracks the LINK; whatever it points at is not in this repository.
+    Symlink,
+    /// A submodule: a commit id in another repository.
+    Gitlink,
+}
+
+impl ScanReason {
+    /// The phrase that goes in the violation, chosen so the reader can tell
+    /// which leg fired without reading this file.
+    pub fn describe(&self) -> String {
+        match self {
+            ScanReason::Extension(e) => format!("non-Rust file (.{e})"),
+            ScanReason::Shebang(l) => format!(
+                "executable text script — no scanned extension, but its first line is {l:?}"
+            ),
+            ScanReason::Symlink => "tracked SYMLINK — git records the link, not the tree beneath it, so this gate cannot see what it admits".to_string(),
+            ScanReason::Gitlink => "tracked SUBMODULE gitlink — a commit id in another repository, opaque to this gate".to_string(),
+        }
+    }
+}
+
+pub fn scan_reason(e: &Entry, scan: &ScanCfg) -> Option<ScanReason> {
+    if !is_in_scope(&e.path, scan) {
+        return None;
+    }
+    if e.mode == GITLINK_MODE {
+        return Some(ScanReason::Gitlink);
+    }
+    if e.mode == SYMLINK_MODE {
+        return Some(ScanReason::Symlink);
+    }
+    if has_scanned_extension(&e.path, scan) {
+        return Some(ScanReason::Extension(
+            extension_of(&e.path).unwrap_or_default(),
+        ));
+    }
+    e.shebang.clone().map(ScanReason::Shebang)
 }
 
 /// Schema validation of the rows themselves. `exists` answers "is there a file at
@@ -445,12 +709,14 @@ pub fn validate_rows(
                 scan.roots.join("/, ")
             ));
         }
-        if !has_scanned_extension(path, scan) {
-            v.push(format!(
-                "{where_}: extension is not one this gate scans ({}) — delete the row",
-                scan.extensions.join(", ")
-            ));
-        }
+        // NOTE (bd-xmn5): the "extension is not one this gate scans" test used to
+        // live here. It could not survive the shebang and symlink legs — a row for
+        // `hooks/pre-commit` (no extension) or for a tracked symlink named
+        // `x.md` is a row the gate DEMANDS, and this function would have rejected
+        // every one of them. That is precisely the bd-n1aj shape: in scope and
+        // un-allowlistable at the same time. Dead-weight detection moved to
+        // `dead_rows`, which asks `scan_reason` — the same function `unlisted_entries`
+        // asks — so the two answers are one answer.
 
         // reason — the whole point of the row
         let reason = r.reason.trim();
@@ -504,21 +770,64 @@ pub fn validate_rows(
     v
 }
 
-/// Scanned files with no row. `rows` is assumed already schema-checked.
-pub fn unlisted(candidates: &[String], rows: &[Row], scan: &ScanCfg) -> Vec<String> {
+/// Entries the gate identified as non-Rust, with no row. `rows` is assumed
+/// already schema-checked.
+pub fn unlisted_entries(entries: &[Entry], rows: &[Row], scan: &ScanCfg) -> Vec<String> {
     let listed: BTreeSet<&str> = rows.iter().map(|r| r.path.trim()).collect();
     let mut out = Vec::new();
-    for c in candidates {
-        if !is_in_scope(c, scan) || !has_scanned_extension(c, scan) {
+    for e in entries {
+        let Some(reason) = scan_reason(e, scan) else {
             continue;
-        }
-        if !listed.contains(c.as_str()) {
+        };
+        if !listed.contains(e.path.as_str()) {
             out.push(format!(
-                "{c}: non-Rust file with no row in {REGISTRY_PATH}. Port it to Rust (see epic bd-substrate-rust-migration-jhd), or add a row with a real `reason`, a `migration_bead`, and an `expires` date"
+                "{}: {} with no row in {REGISTRY_PATH}. Port it to Rust (see epic bd-substrate-rust-migration-jhd), or add a row with a real `reason`, a `migration_bead`, and an `expires` date",
+                e.path,
+                reason.describe()
             ));
         }
     }
     out
+}
+
+/// Rows for entries this snapshot tracks but does NOT identify as non-Rust.
+///
+/// The allowlist is the worklist, so a row that exempts nothing is litter — and
+/// worse, it is litter that reads like tracked debt. This is the exact
+/// complement of `unlisted_entries`: that one demands a row wherever
+/// `scan_reason` is `Some`, this one rejects a row wherever it is `None`. Both
+/// call the SAME function, which is the property bd-n1aj was about; a row for a
+/// path the snapshot does not track at all is left to `validate_rows`'s "no file
+/// at this path", so the two never both fire on one row.
+pub fn dead_rows(rows: &[Row], entries: &[Entry], scan: &ScanCfg) -> Vec<String> {
+    let mut tracked: BTreeSet<&str> = BTreeSet::new();
+    let mut identified: BTreeSet<&str> = BTreeSet::new();
+    for e in entries {
+        tracked.insert(e.path.as_str());
+        if scan_reason(e, scan).is_some() {
+            identified.insert(e.path.as_str());
+        }
+    }
+    let mut out = Vec::new();
+    for r in rows {
+        let p = r.path.trim();
+        if p.is_empty() || !tracked.contains(p) || identified.contains(p) {
+            continue;
+        }
+        out.push(format!(
+            "[[allow]] {p}: this snapshot tracks the path but does not identify it as non-Rust source (no scanned extension, no shebang, not a symlink or submodule) — an exemption for something the gate never demands is dead weight; delete the row"
+        ));
+    }
+    out
+}
+
+/// Path-only view, for the callers and tests that only have names. Every entry
+/// is treated as an ordinary non-executable file with no shebang, so this leg
+/// decides on extension alone — which is exactly what a bare list of paths can
+/// support.
+pub fn unlisted(candidates: &[String], rows: &[Row], scan: &ScanCfg) -> Vec<String> {
+    let entries: Vec<Entry> = candidates.iter().map(|c| Entry::plain(c)).collect();
+    unlisted_entries(&entries, rows, scan)
 }
 
 // ── the wiring TEXT leg: a subtractive test, never a certificate ───────────
@@ -1031,6 +1340,44 @@ fn merge(worktree: Vec<String>, index: Vec<String>) -> Vec<String> {
     out
 }
 
+/// What the WORKING TREE says this path is, or `None` when it is not on disk.
+///
+/// `symlink_metadata`, never `metadata`: a symlink is the thing being classified
+/// here, and following it would report the target's shape — including reporting
+/// a dangling link as absent, which is how a symlink walks out of the candidate
+/// list entirely.
+fn worktree_mode(root: &Path, path: &str) -> Option<String> {
+    let md = std::fs::symlink_metadata(root.join(path)).ok()?;
+    let ft = md.file_type();
+    if ft.is_symlink() {
+        return Some(SYMLINK_MODE.to_string());
+    }
+    if ft.is_dir() {
+        // git only ever tracks a directory as a submodule gitlink.
+        return Some(GITLINK_MODE.to_string());
+    }
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        if md.permissions().mode() & 0o111 != 0 {
+            return Some(EXECUTABLE_MODE.to_string());
+        }
+    }
+    Some("100644".to_string())
+}
+
+/// First `n` bytes of a file, or empty when it cannot be read. Only ever called
+/// for entries `needs_content_probe` selected, and only to ask whether the first
+/// two bytes are `#!`.
+fn head_bytes(p: &Path, n: usize) -> Vec<u8> {
+    use std::io::Read;
+    let mut buf = Vec::new();
+    if let Ok(f) = std::fs::File::open(p) {
+        let _ = f.take(n as u64).read_to_end(&mut buf);
+    }
+    buf
+}
+
 pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     ctx.reject_unknown_flags(KNOWN_FLAGS)?;
     if ctx.has_flag("--prove-wired") {
@@ -1057,7 +1404,10 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         )));
     }
 
-    let tracked = vcs::tracked_files(root).map_err(GateError::error)?;
+    // The index, WITH MODES. `tracked_files` throws the mode away, and the mode is
+    // what tells a symlink from a file (bd-xmn5).
+    let ix_raw = vcs::tracked_entries(root).map_err(GateError::error)?;
+    let tracked: Vec<String> = ix_raw.iter().map(|e| e.path.clone()).collect();
 
     // ── anti-vacuous ────────────────────────────────────────────────────────
     // Zero files scanned is an ERROR. A never-scanned tree reports exactly like a
@@ -1072,9 +1422,12 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         .filter(|p| is_in_scope(p, &wt_al.scan))
         .collect();
     if in_scope.is_empty() {
+        // Since bd-xmn5 the scan is the whole tree, so reaching this needs every
+        // tracked path to be malformed. It stays as the floor for the case where
+        // `WHOLE_TREE_SCOPE` is ever turned back off: a scan whose roots resolve
+        // to nothing must never report like a scan that found nothing wrong.
         return Err(GateError::error(format!(
-            "0 files in scope under {:?} (+ engine-root files) out of {} tracked — the scan roots resolve to nothing; ERROR, not a pass",
-            wt_al.scan.roots,
+            "0 files in scope out of {} tracked — the scanned surface resolves to nothing; ERROR, not a pass",
             tracked.len()
         )));
     }
@@ -1122,16 +1475,67 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         .and_then(|t| parse_allowlist(&t).ok())
         .map(|a| a.wiring.status.trim().to_string());
 
+    // ── entries: the SUBJECT and the POLICY come from the same snapshot ─────
+    //
+    // Each snapshot supplies its OWN modes and its OWN bytes. The working tree's
+    // modes come from `symlink_metadata` and its shebangs from disk; the index's
+    // modes come from `git ls-files -s` and its shebangs from `git show :./…`.
+    // Borrowing either across the boundary would reintroduce bd-how in a new
+    // place: a file chmod +x on the desk but not staged, or a script whose
+    // shebang was added after `git add`, would be judged against content no
+    // commit ever had.
+    let wt_entries: Vec<Entry> = tracked
+        .iter()
+        .filter_map(|p| {
+            let mode = worktree_mode(root, p)?;
+            let shebang = if needs_content_probe(p, &mode, &wt_al.scan) {
+                shebang_line(&head_bytes(&root.join(p), 256))
+            } else {
+                None
+            };
+            Some(Entry {
+                path: p.clone(),
+                mode,
+                shebang,
+            })
+        })
+        .collect();
+
+    let mut ix_entries: Vec<Entry> = Vec::with_capacity(ix_raw.len());
+    for e in &ix_raw {
+        let shebang = if needs_content_probe(&e.path, &e.mode, &ix_al.scan) {
+            // A blob the index cannot produce is an ERROR, never a silent "not a
+            // script": an unread file must not report like a read one.
+            let bytes = vcs::index_bytes(root, &e.path).map_err(|err| {
+                GateError::error(format!(
+                    "{}: the index blob could not be read ({err}); the shebang leg was not evaluated for it. ERROR, not a pass",
+                    e.path
+                ))
+            })?;
+            bytes.as_deref().and_then(shebang_line)
+        } else {
+            None
+        };
+        ix_entries.push(Entry {
+            path: e.path.clone(),
+            mode: e.mode.clone(),
+            shebang,
+        });
+    }
+
     // ── rows: each snapshot answers "does this file exist" for ITSELF ───────
     let today = date::today();
     let index_set: BTreeSet<&str> = tracked.iter().map(String::as_str).collect();
-    let wt_exists = |p: &str| root.join(p).exists();
+    // symlink_metadata, so a row for a DANGLING symlink is not reported as a row
+    // for a file that is gone. The link is tracked; its target is not our business.
+    let wt_exists = |p: &str| std::fs::symlink_metadata(root.join(p)).is_ok();
     let ix_exists = |p: &str| index_set.contains(p);
 
-    let schema_errs = merge(
-        validate_rows(&wt_al.allow, &wt_al.scan, today, &wt_exists),
-        validate_rows(&ix_al.allow, &ix_al.scan, today, &ix_exists),
-    );
+    let mut wt_schema = validate_rows(&wt_al.allow, &wt_al.scan, today, &wt_exists);
+    wt_schema.extend(dead_rows(&wt_al.allow, &wt_entries, &wt_al.scan));
+    let mut ix_schema_rows = validate_rows(&ix_al.allow, &ix_al.scan, today, &ix_exists);
+    ix_schema_rows.extend(dead_rows(&ix_al.allow, &ix_entries, &ix_al.scan));
+    let schema_errs = merge(wt_schema, ix_schema_rows);
     if !schema_errs.is_empty() {
         // Schema errors are ERROR-class: the registry could not be honestly read
         // as a set of exemptions, so no file is exempt on its strength.
@@ -1142,24 +1546,29 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         )));
     }
 
-    // ── presence: the SUBJECT and the POLICY come from the same snapshot ────
-    let wt_candidates: Vec<String> = tracked
-        .iter()
-        .filter(|p| root.join(p).exists())
-        .cloned()
-        .collect();
+    // ── presence ────────────────────────────────────────────────────────────
     let mut violations = merge(
-        unlisted(&wt_candidates, &wt_al.allow, &wt_al.scan),
-        unlisted(&tracked, &ix_al.allow, &ix_al.scan),
+        unlisted_entries(&wt_entries, &wt_al.allow, &wt_al.scan),
+        unlisted_entries(&ix_entries, &ix_al.allow, &ix_al.scan),
     );
 
     // Staged leg: what THIS commit would add, phrased as such. Judged by the
-    // index's allowlist, because that is the allowlist the commit carries.
+    // index's allowlist AND the index's entry, because that is what the commit
+    // carries.
     let mut staged_count = 0usize;
     if ctx.has_flag("--staged") {
         let staged = vcs::staged_additions(root).map_err(GateError::error)?;
         staged_count = staged.len();
-        for s in unlisted(&staged, &ix_al.allow, &ix_al.scan) {
+        let by_path: std::collections::BTreeMap<&str, &Entry> =
+            ix_entries.iter().map(|e| (e.path.as_str(), e)).collect();
+        let staged_entries: Vec<Entry> = staged
+            .iter()
+            .map(|p| match by_path.get(p.as_str()) {
+                Some(e) => (*e).clone(),
+                None => Entry::plain(p),
+            })
+            .collect();
+        for s in unlisted_entries(&staged_entries, &ix_al.allow, &ix_al.scan) {
             if !violations.iter().any(|v: &String| v.ends_with(&s)) {
                 violations.push(format!("staged for commit — {s}"));
             }
@@ -1188,8 +1597,12 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         } else {
             format!("worktree={} index={}", wt_ev.tag(), ix_ev.tag())
         };
+        let identified = ix_entries
+            .iter()
+            .filter(|e| scan_reason(e, &ix_al.scan).is_some())
+            .count();
         println!(
-            "{NAME}: ok: scanned={} in_scope={} staged_adds={} exemptions={} wiring={wiring}",
+            "{NAME}: ok: scanned={} in_scope={} identified_non_rust={identified} staged_adds={} exemptions={} wiring={wiring}",
             tracked.len(),
             in_scope.len(),
             staged_count,
@@ -1206,6 +1619,9 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         println!(
             "{NAME}: the wiring leg above is TEXT ONLY — reading a shell line cannot establish that it executes. Run `cdcp_gate {NAME} --prove-wired` for the behavioural leg."
         );
+        println!(
+            "{NAME}: scope: this is a path-and-shebang policy over the whole engine tree. It cannot decide that a .rs file does not shell out to python3. The pre-commit hook covers `git commit` ONLY — merge, cherry-pick, rebase, `git am`, `commit-tree` and `--no-verify` create commits without it (measured, git 2.53.0); THIS presence scan is what catches those, one build later."
+        );
     }
     Ok(())
 }
@@ -1219,8 +1635,16 @@ mod tests {
     fn scan() -> ScanCfg {
         ScanCfg {
             roots: vec!["scripts".into(), "crates".into()],
-            extensions: vec!["py".into(), "sh".into()],
+            extensions: FLOOR_EXTENSIONS.iter().map(|e| (*e).to_string()).collect(),
             include_engine_root_files: true,
+        }
+    }
+
+    fn entry(path: &str, mode: &str, shebang: Option<&str>) -> Entry {
+        Entry {
+            path: path.into(),
+            mode: mode.into(),
+            shebang: shebang.map(str::to_string),
         }
     }
 
@@ -1494,14 +1918,244 @@ expires = "2099-01-01"
         assert!(v.is_empty(), "{v:?}");
     }
 
+    // ── bd-xmn5: the scope is now the whole engine tree ───────────────────
+    //
+    // MEASURED 2026-08-14 against the built binary, in a clone, BEFORE the fix:
+    //   docs/payload.py staged   -> exit 0
+    //   tests/payload.sh staged  -> exit 0
+    // and four real shell files had been living outside the floor since the gate
+    // was written, two of them invoked as gates by scripts/check.sh itself.
+    // This test is the inverse of the one that used to stand here and assert
+    // that tests/ and docs/ PASS. It was not rewritten; the rule changed.
     #[test]
-    fn files_outside_the_scanned_surface_pass() {
-        // tests/ and docs/ are not in scope; the gate is a floor, not a dragnet.
+    fn every_directory_is_in_scope_now() {
+        for p in [
+            "tests/voice-slop.sh",
+            "docs/x.py",
+            ".flywheel/watchdog.sh",
+            "web/assets/deploy.sh",
+            "job-research/scrape.py",
+        ] {
+            let v = unlisted(&[p.to_string()], &[], &scan());
+            assert_eq!(v.len(), 1, "{p} must demand a row now: {v:?}");
+            assert!(v[0].contains(p), "must name it: {v:?}");
+        }
+    }
+
+    /// ...and the widening stays bounded to what the floor is ABOUT. `.js`/`.mjs`
+    /// are 16 tracked browser files with their own wasm migration; folding them
+    /// in here would be a different project wearing this gate's name (bd-yp9x).
+    #[test]
+    fn non_script_files_still_pass_anywhere() {
         let v = unlisted(
-            &["tests/voice-slop.sh".to_string(), "docs/x.py".to_string()],
+            &[
+                "docs/notes.md".to_string(),
+                "web/data/x.json".to_string(),
+                "scripts/smoke_srs.mjs".to_string(),
+                "web/assets/js/app.js".to_string(),
+                "web/index.html".to_string(),
+            ],
             &[],
             &scan(),
         );
+        assert!(
+            v.is_empty(),
+            "the floor is py/sh-family, not a dragnet: {v:?}"
+        );
+    }
+
+    // ── bd-xmn5: extensions are case-insensitive, and are a FAMILY ────────
+    //
+    // MEASURED before the fix, staged in a clone: scripts/payload.PY -> exit 0,
+    // scripts/payload.Py -> exit 0, scripts/payload.bash -> exit 0,
+    // scripts/payload.zsh -> exit 0.
+    #[test]
+    fn an_upper_case_extension_is_the_same_extension() {
+        for p in [
+            "scripts/payload.PY",
+            "scripts/payload.Py",
+            "scripts/payload.pY",
+            "stray.SH",
+            "crates/x/y.Sh",
+        ] {
+            let v = unlisted(&[p.to_string()], &[], &scan());
+            assert_eq!(v.len(), 1, "{p} must be RED: {v:?}");
+        }
+    }
+
+    #[test]
+    fn the_scanned_family_is_shell_and_python_not_two_spellings() {
+        for p in [
+            "scripts/payload.bash",
+            "scripts/payload.zsh",
+            "scripts/payload.ksh",
+            "scripts/payload.pyw",
+        ] {
+            let v = unlisted(&[p.to_string()], &[], &scan());
+            assert_eq!(v.len(), 1, "{p} must be RED: {v:?}");
+        }
+    }
+
+    #[test]
+    fn extension_of_reads_the_basename_only() {
+        assert_eq!(extension_of("a/b.c/d").as_deref(), None);
+        assert_eq!(extension_of("scripts/x.PY").as_deref(), Some("py"));
+        assert_eq!(extension_of("scripts/x").as_deref(), None);
+        assert_eq!(extension_of("scripts/.hidden").as_deref(), Some("hidden"));
+        assert!(has_no_extension("scripts/x"));
+        assert!(!has_no_extension("scripts/.hidden"));
+    }
+
+    // ── bd-xmn5: the shebang leg ──────────────────────────────────────────
+    //
+    // MEASURED before the fix: scripts/payload, no extension, first line
+    // `#!/usr/bin/env python3`, staged -> exit 0.
+    #[test]
+    fn an_extensionless_shebang_file_demands_a_row() {
+        for (p, line) in [
+            ("scripts/payload", "#!/usr/bin/env python3"),
+            ("docs/payload", "#!/bin/sh"),
+            ("tool", "#!/usr/bin/env bash"),
+        ] {
+            let e = entry(p, "100644", Some(line));
+            let v = unlisted_entries(&[e], &[], &scan());
+            assert_eq!(v.len(), 1, "{p} must be RED: {v:?}");
+            assert!(v[0].contains("executable text script"), "{v:?}");
+        }
+    }
+
+    #[test]
+    fn an_extensionless_file_with_no_shebang_is_not_a_script() {
+        let v = unlisted_entries(
+            &[
+                entry("LICENSE", "100644", None),
+                entry(".flywheel/ALERT", "100644", None),
+                entry("Makefile", "100644", None),
+            ],
+            &[],
+            &scan(),
+        );
+        assert!(v.is_empty(), "a data file is not a script: {v:?}");
+    }
+
+    #[test]
+    fn shebang_line_reads_bytes_and_survives_a_binary() {
+        assert_eq!(
+            shebang_line(b"#!/usr/bin/env python3\nprint(1)\n").as_deref(),
+            Some("#!/usr/bin/env python3")
+        );
+        assert_eq!(shebang_line(b"print(1)\n"), None);
+        assert_eq!(shebang_line(b""), None);
+        // A tracked .wasm is mode 100755 in this very repo. Asking "are the first
+        // two bytes #!" must not become an ERROR over a UTF-8 decode.
+        assert_eq!(shebang_line(&[0x00, 0x61, 0x73, 0x6d, 0xff, 0xfe]), None);
+        // Invalid UTF-8 AFTER a real shebang is still a shebang.
+        let mut mixed = b"#!/bin/sh".to_vec();
+        mixed.extend_from_slice(&[0xff, 0xfe, b'\n']);
+        assert!(shebang_line(&mixed).is_some());
+    }
+
+    /// The probe is narrow on purpose: one `git show` per selected file per
+    /// snapshot. Widening it to every tracked file is a cost decision, not a
+    /// safety one, and the blind spot it leaves is named in the header.
+    #[test]
+    fn only_extensionless_or_executable_entries_are_content_probed() {
+        let s = scan();
+        assert!(needs_content_probe("scripts/payload", "100644", &s));
+        assert!(needs_content_probe("docs/notes.txt", EXECUTABLE_MODE, &s));
+        assert!(!needs_content_probe("docs/notes.txt", "100644", &s));
+        assert!(
+            !needs_content_probe("scripts/a.py", EXECUTABLE_MODE, &s),
+            "the extension already decided it; do not pay for a blob read"
+        );
+    }
+
+    // ── bd-xmn5: what the gate cannot see through ─────────────────────────
+    //
+    // MEASURED before the fix: a tracked directory symlink scripts/linkdir ->
+    // an outside directory holding hidden.py was staged at exit 0, with
+    // hidden.py readable through it on disk.
+    #[test]
+    fn a_symlink_demands_a_row_whatever_it_is_called() {
+        for p in ["scripts/linkdir", "docs/linkfile", "notes.md"] {
+            let v = unlisted_entries(&[entry(p, SYMLINK_MODE, None)], &[], &scan());
+            assert_eq!(v.len(), 1, "{p} must be RED: {v:?}");
+            assert!(v[0].contains("SYMLINK"), "{v:?}");
+        }
+    }
+
+    #[test]
+    fn a_submodule_gitlink_demands_a_row() {
+        let v = unlisted_entries(&[entry("vendor/sub", GITLINK_MODE, None)], &[], &scan());
+        assert_eq!(v.len(), 1, "{v:?}");
+        assert!(v[0].contains("SUBMODULE"), "{v:?}");
+    }
+
+    /// A row silences the finding — including for the shapes the gate cannot see
+    /// through. That is the whole bargain: a human says they looked, and the
+    /// sentence rots.
+    #[test]
+    fn a_row_clears_every_identification_shape() {
+        let s = scan();
+        for e in [
+            entry("scripts/a.PY", "100644", None),
+            entry("scripts/tool", "100755", Some("#!/bin/sh")),
+            entry("scripts/linkdir", SYMLINK_MODE, None),
+            entry("vendor/sub", GITLINK_MODE, None),
+        ] {
+            let rows = [row(&e.path)];
+            assert!(
+                unlisted_entries(std::slice::from_ref(&e), &rows, &s).is_empty(),
+                "{e:?} must be clearable by a row"
+            );
+        }
+    }
+
+    // ── bd-xmn5: dead_rows is the exact complement of unlisted_entries ─────
+    //
+    // The bd-n1aj failure mode, generalised: if the two halves can disagree, a
+    // path can be simultaneously demanded and refused. They call one function.
+    #[test]
+    fn dead_rows_and_unlisted_entries_cannot_both_fire() {
+        let s = scan();
+        let entries = vec![
+            entry("scripts/a.py", "100644", None),
+            entry("scripts/tool", "100755", Some("#!/bin/sh")),
+            entry("scripts/linkdir", SYMLINK_MODE, None),
+            entry("vendor/sub", GITLINK_MODE, None),
+            entry("README.md", "100644", None),
+            entry("LICENSE", "100644", None),
+            entry("crates/x/src/main.rs", "100644", None),
+        ];
+        let mut demanded = 0usize;
+        let mut dead = 0usize;
+        for e in &entries {
+            let rows = [row(&e.path)];
+            let demands = !unlisted_entries(std::slice::from_ref(e), &[], &s).is_empty();
+            let is_dead = !dead_rows(&rows, std::slice::from_ref(e), &s).is_empty();
+            assert!(
+                !(demands && is_dead),
+                "{}: demanded a row AND called the row dead weight",
+                e.path
+            );
+            assert!(
+                demands || is_dead,
+                "{}: neither demanded nor rejected — the two are meant to partition",
+                e.path
+            );
+            demanded += usize::from(demands);
+            dead += usize::from(is_dead);
+        }
+        assert!(
+            demanded >= 4 && dead >= 3,
+            "demanded={demanded} dead={dead}"
+        );
+    }
+
+    #[test]
+    fn a_row_for_an_untracked_path_is_left_to_the_exists_leg() {
+        // dead_rows must not double-report what `validate_rows` already says.
+        let v = dead_rows(&[row("scripts/gone.py")], &[], &scan());
         assert!(v.is_empty(), "{v:?}");
     }
 
@@ -1629,12 +2283,19 @@ expires = "2099-01-01"
         );
     }
 
+    /// bd-xmn5 flipped this one: `docs/` is inside the scanned surface now, so a
+    /// row for `docs/a.py` is an ORDINARY row and must be accepted. What stays
+    /// outside is traversal, and that is asserted in
+    /// `traversal_and_absolute_rows_are_still_rejected`.
     #[test]
-    fn row_outside_scope_is_red() {
+    fn a_row_for_a_formerly_out_of_scope_directory_is_now_ordinary() {
         let v = validate_rows(&[row("docs/a.py")], &scan(), TODAY, &always());
+        assert!(v.is_empty(), "{v:?}");
+        let v = validate_rows(&[row("../outside.py")], &scan(), TODAY, &always());
         assert!(
-            v.iter().any(|m| m.contains("outside the scanned surface")),
-            "{v:?}"
+            v.iter().any(|m| m.contains("outside the scanned surface")
+                || m.contains("normalised engine-root-relative path")),
+            "traversal must still be refused: {v:?}"
         );
     }
 
@@ -1899,9 +2560,14 @@ expires = "2099-01-01"
         assert!(is_in_scope("scripts/a.py", &s));
         assert!(is_in_scope("crates/x/y/a.sh", &s));
         assert!(is_in_scope("a.sh", &s));
-        assert!(!is_in_scope("docs/a.py", &s));
+        // bd-xmn5: docs/ used to be outside, and docs/payload.py was measured at
+        // exit 0 because of it. The whole tree is in scope now.
+        assert!(is_in_scope("docs/a.py", &s));
+        assert!(is_in_scope(".flywheel/watchdog.sh", &s));
+        // What stays out is traversal and absolutes, and only that.
         assert!(!is_in_scope("/etc/a.sh", &s));
         assert!(!is_in_scope("../a.sh", &s));
+        assert!(!is_in_scope("scripts/./a.sh", &s));
     }
 
     #[test]
@@ -2011,14 +2677,18 @@ expires = "2099-01-01"
 
     /// The other way to make the plant harmless: leave the row out and put the
     /// path out of scope instead.
+    /// bd-xmn5 note: the ROOTS half of this test is gone, because roots no longer
+    /// bound the scan — re-rooting cannot push the plant out any more, so a test
+    /// asserting that it does would have been asserting a rule that had stopped
+    /// existing. Narrowing the EXTENSIONS still can, and still must be an ERROR.
     #[test]
     fn vacuity_a_scan_that_excludes_the_plant_is_an_error() {
-        let narrowed = reg("").replace("extensions = [\"py\", \"sh\"]", "extensions = [\"sh\"]");
+        let narrowed = reg("").replace("\"py\",", "");
+        assert!(
+            !narrowed.contains("\"py\""),
+            "the fixture must actually drop py, or it tests nothing"
+        );
         let e = probe_plant_vacuity(&narrowed).unwrap_err();
-        assert!(e.contains("outside the scanned surface"), "{e}");
-
-        let rerooted = reg("").replace("roots = [\"scripts\", \"crates\"]", "roots = [\"crates\"]");
-        let e = probe_plant_vacuity(&rerooted).unwrap_err();
         assert!(e.contains("outside the scanned surface"), "{e}");
     }
 

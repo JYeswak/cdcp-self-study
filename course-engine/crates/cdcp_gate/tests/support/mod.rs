@@ -25,7 +25,7 @@ pub fn header(wiring_status: &str) -> String {
         "schema_version = 1\n\n\
          [scan]\n\
          roots = [\"scripts\", \"crates\"]\n\
-         extensions = [\"py\", \"sh\"]\n\
+         extensions = [\"py\", \"pyw\", \"sh\", \"bash\", \"zsh\", \"ksh\"]\n\
          include_engine_root_files = true\n\n\
          [wiring]\n\
          status = {wiring_status:?}\n\

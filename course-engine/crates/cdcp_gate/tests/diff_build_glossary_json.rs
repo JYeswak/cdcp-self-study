@@ -247,6 +247,37 @@ fn compare(label: &str, f: &Fixture) -> Run {
         );
     }
 
+    // VERDICT SHAPE and WRITE-AFTER-VERDICT, asserted on EVERY case rather than
+    // on the handful that happen to be RED, and asserted PER SIDE rather than
+    // only across the two — a differential only catches a regression that lands
+    // on one side, and two implementations that both regress agree with each
+    // other perfectly. bd-builder-verdict-shape-qm65.
+    for (side, r) in [("python", &py), ("rust", &rs)] {
+        if r.code != 0 {
+            assert!(
+                !r.out().contains("PASS"),
+                "[{label}] {side} exited {} with a success token on stdout. This is the \
+                 defect itself: a reader skimming stdout would see PASS while CI saw \
+                 non-zero, and which one wins depends on whether anyone looked:\n{}",
+                r.code,
+                r.out()
+            );
+            assert!(
+                r.artifact.is_none(),
+                "[{label}] {side} exited {} but left {ARTIFACT_REL} behind; a failing \
+                 build must leave no artifact, or a later reader cannot tell a passing \
+                 artifact from the residue of a failed run",
+                r.code
+            );
+        } else {
+            assert!(
+                r.artifact.is_some(),
+                "[{label}] {side} exited 0 without writing {ARTIFACT_REL}; a green \
+                 build that produced no artifact is not a build"
+            );
+        }
+    }
+
     COMPARED.fetch_add(1, Ordering::SeqCst);
     rs
 }
@@ -346,22 +377,32 @@ fn an_empty_glossary_is_an_error_in_both() {
     assert_ne!(rs.code, 0, "zero terms must never be a pass: {}", rs.out());
     assert!(rs.out().contains("terms=0"), "{}", rs.out());
 
-    // THE VERDICT-SHAPE DEFECT, witnessed rather than repaired. The oracle
-    // prints PASS first and FAIL underneath on its way to exit 1 — the same
-    // shape bd-lt7 fixed in build_units.py, still live here. Reported on the
-    // bead as a finding; asserted here so the port cannot "improve" it and
-    // silently blind the differential.
+    // THE VERDICT-SHAPE DEFECT, now fixed rather than witnessed
+    // (bd-builder-verdict-shape-qm65). This case used to pin the defect in
+    // place so the port could not quietly improve it and blind the
+    // differential; measured 2026-08-14 both sides emitted, byte for byte:
+    //
+    //     PASS: glossary terms=0 → web/data/glossary.json
+    //     FAIL: need ≥15 terms
+    //     (exit 1, 161-byte glossary.json left behind)
+    //
+    // The verdict now LEADS a report composed once, after every check.
     assert!(
-        rs.out().starts_with("PASS: glossary terms=0"),
-        "the reproduced defect changed shape: {}",
+        rs.out().starts_with("FAIL: glossary terms=0"),
+        "the verdict must lead the report and must be FAIL: {}",
         rs.out()
     );
-    assert!(rs.out().contains("\nFAIL: need ≥"), "{}", rs.out());
-
-    // WRITE-BEFORE-VERDICT, also reproduced: the artifact lands anyway.
     assert!(
-        rs.artifact.is_some(),
-        "the oracle writes the artifact before it evaluates the floor"
+        rs.out().contains("need ≥"),
+        "the finding must name the floor: {}",
+        rs.out()
+    );
+    // `compare` asserts the no-PASS-on-RED and no-artifact-on-RED legs for both
+    // sides; restated here because this is the case the defect was found on.
+    assert!(!rs.out().contains("PASS"), "{}", rs.out());
+    assert!(
+        rs.artifact.is_none(),
+        "a below-floor build must not leave a short glossary.json behind"
     );
 }
 
@@ -383,7 +424,14 @@ fn one_term_below_the_floor_is_red_and_the_floor_itself_is_green() {
     f.put_source(&table(MIN_TERMS - 1));
     let rs = compare("one below the floor", &f);
     assert_ne!(rs.code, 0, "{}", rs.out());
-    assert!(rs.out().contains("\nFAIL: need ≥"), "{}", rs.out());
+    assert!(
+        rs.out()
+            .starts_with(&format!("FAIL: glossary terms={}", MIN_TERMS - 1)),
+        "{}",
+        rs.out()
+    );
+    assert!(rs.out().contains("need ≥"), "{}", rs.out());
+    assert!(rs.artifact.is_none(), "one term short still writes nothing");
 
     f.put_source(&table(MIN_TERMS));
     let rs = compare("exactly the floor", &f);

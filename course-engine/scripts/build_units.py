@@ -32,6 +32,36 @@ if a module is in it, its units are subject to the floor.
 Zero modules, zero units, or zero primary units is an ERROR. A run that
 discovered nothing must not report like a run that checked everything.
 
+The same law applies one level up, to the INPUTS (bd-build-units-vacuous-registries-9153).
+Measured 2026-08-14, both implementations byte-identical, before the fix:
+
+  * `knowledge/topics.toml` deleted   -> exit 0, `PASS: build_units units=134 modules=15`.
+    `load_topics_by_domain` returned `{}`, every unit got `topic_ids: []`, and
+    `pick_check_items` reads an empty topic set as "no preference" rather than
+    as "nothing to match", so it still filled each unit from the module pool.
+    A registry that vanished entirely produced a report indistinguishable from
+    one that checked everything.
+  * `web/data/modules_index.json` deleted -> exit 0, `PASS: … units=134 modules=16`.
+    The build silently globbed `web/content/modules/*.md` instead, which swept
+    in `README.md` and emitted `"README": []` into `by_module`. That is worse
+    than silent: a GREEN verdict carrying a WRONG number (16 where the Learn
+    index says 15).
+
+Both are now hard errors that NAME the absent file, and the glob fallback is
+DELETED rather than flagged. A flag would leave the wrong answer reachable and
+would widen the argument surface of a script that deliberately takes none; the
+header above states the module set is DERIVED from the Learn index, and a
+silent second derivation that disagrees with it is not a fallback, it is a
+second gate nobody reviewed.
+
+## Write-after-verdict
+
+The artifact is written only on the GREEN path (bd-builder-verdict-shape-qm65).
+This script used to write `units_index.json` BEFORE evaluating any threshold, so
+a RED run left a file behind and a later reader could not tell a passing artifact
+from the residue of a failed one. The verdict is computed first; the side effect
+depends on the verdict, never the reverse.
+
 ## What this gate cannot decide
 
 It counts units and attached item ids. It cannot tell whether a unit teaches
@@ -150,9 +180,13 @@ def split_h2_units(md: str) -> list[dict]:
 
 
 def load_topics_by_domain() -> dict[str, list[dict]]:
+    """Domain -> topics. The caller has already refused to run without the file.
+
+    The `is_file` guard that used to sit here returned an empty map for an
+    absent registry, which the picker then read as "no preference". `main`
+    checks for the file instead, so an absent registry can no longer reach here.
+    """
     by: dict[str, list[dict]] = {}
-    if not TOPICS.is_file():
-        return by
     data = tomllib.loads(TOPICS.read_text(encoding="utf-8"))
     for t in data.get("topic") or []:
         dom = str(t.get("domain") or "").strip()
@@ -363,16 +397,31 @@ def main() -> int:
         print("FAIL: missing web/content/modules — run build_learn.py first")
         return 1
 
-    domain_ids: list[str] = []
-    if MOD_INDEX.is_file():
-        mi = json.loads(MOD_INDEX.read_text(encoding="utf-8"))
-        domain_ids = [
-            m["id"]
-            for m in mi.get("modules") or []
-            if not m.get("empty") and m.get("id")
-        ]
-    if not domain_ids:
-        domain_ids = sorted(p.stem for p in CONTENT.glob("*.md"))
+    # ANTI-VACUOUS, ON THE INPUTS. Each of these registries could vanish and the
+    # build stayed GREEN — one by degrading to an empty topic map, the other by
+    # globbing a different module set. Refuse, name the file, write nothing.
+    missing_registries: list[str] = []
+    if not TOPICS.is_file():
+        missing_registries.append(
+            f"{TOPICS.relative_to(ROOT)} (topic registry; absent, every unit "
+            f"gets topic_ids=[] and the picker reads that as 'no preference')"
+        )
+    if not MOD_INDEX.is_file():
+        missing_registries.append(
+            f"{MOD_INDEX.relative_to(ROOT)} (Learn index; the module set is "
+            f"DERIVED from it — there is no glob fallback)"
+        )
+    if missing_registries:
+        print("FAIL: build_units missing required input registries")
+        for m in missing_registries:
+            print(f"  - {m}")
+        print(f"  out={OUT.relative_to(ROOT)} NOT WRITTEN (a failing build leaves no artifact)")
+        return 1
+
+    mi = json.loads(MOD_INDEX.read_text(encoding="utf-8"))
+    domain_ids: list[str] = [
+        m["id"] for m in mi.get("modules") or [] if not m.get("empty") and m.get("id")
+    ]
 
     topics_by = load_topics_by_domain()
     bank = load_bank()
@@ -436,7 +485,6 @@ def main() -> int:
             if weak:
                 shortfalls.append(f"{mid}: {weak}/{len(us)} units with <2 check items")
 
-    OUT.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "schema_version": 2,
         "generated_by": "scripts/build_units.py",
@@ -449,11 +497,8 @@ def main() -> int:
         "by_module": by_module,
         "shortfalls": shortfalls,
     }
-    OUT.write_text(
-        json.dumps(payload, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-        newline="\n",
-    )
+    body = json.dumps(payload, indent=2, sort_keys=True) + "\n"
+
     # Everything below is COLLECTED, then reported once. This block used to
     # print "PASS: build_units …" first and emit "FAIL: …" underneath it on the
     # way to returning 1 — a reader skimming stdout saw PASS, CI saw non-zero,
@@ -514,6 +559,14 @@ def main() -> int:
             f"({' '.join(primary)})"
         )
 
+    # THE SIDE EFFECT DEPENDS ON THE VERDICT, never the reverse. This used to
+    # write unconditionally, hundreds of lines above, so a RED run left a
+    # units_index.json behind and a later reader could not tell a passing
+    # artifact from the residue of a failed run.
+    if not failures:
+        OUT.parent.mkdir(parents=True, exist_ok=True)
+        OUT.write_text(body, encoding="utf-8", newline="\n")
+
     head = (
         f"PASS: build_units units={len(all_units)} modules={len(by_module)}"
         if not failures
@@ -522,7 +575,9 @@ def main() -> int:
     report = [
         head,
         f"  bank_items={len(bank)} units_with_checks≥2={units_with_checks} zero={units_zero_checks}",
-        f"  out={OUT.relative_to(ROOT)}",
+        f"  out={OUT.relative_to(ROOT)}"
+        if not failures
+        else f"  out={OUT.relative_to(ROOT)} NOT WRITTEN (a failing build leaves no artifact)",
     ]
     if shortfalls:
         report.append(f"  WARN shortfalls: {shortfalls}")

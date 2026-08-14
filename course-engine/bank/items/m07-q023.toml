@@ -1,4 +1,23 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 13 of 24).
+# Duplicate of m07-q044 (bank/items/m07-q044.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 100% · distractors 50% · stem 81%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT m07-q044:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — m07-q044 generalises to the underlying property ("High current plant ... are
+#      classic strong B sources"), and its stem asks the learner to discriminate a SET
+#      rather than recall one example; this copy restates its own key.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
 id = "mock40-q23"
 module = 7
 stem = "A common strong magnetic-field source near IT is:"
@@ -15,4 +34,4 @@ objective_ids = []
 bloom = "remember"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "retired"

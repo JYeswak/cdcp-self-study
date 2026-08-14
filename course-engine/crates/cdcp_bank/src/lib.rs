@@ -41,14 +41,186 @@ use thiserror::Error;
 ///
 /// Adding a row is a bank decision, not a test fix: state which copy survives
 /// and why in the retired file's own header before you add it here.
-pub const SANCTIONED_RETIRED: &[(&str, &str)] = &[(
-    "mock40-q40",
-    "bd-near-duplicate-item-gate-i5v (C3): duplicate of bank-m14-q121 — same \
-     proposition, key moved B->A, two distractors reworded. The import-side copy \
-     from practice/PRACTICE-EXAM.md is withdrawn; the module-bank copy is what \
-     the published seed-42 form draws. bank/items/m14-q040.toml carries the \
-     three-part argument.",
-)];
+///
+/// # Why every row below says the same thing
+///
+/// Twenty-five of these are one decision, not twenty-five. `cdcp_gate
+/// near-duplicate-items` flagged 25 pairs in the approved pool; all 25 were read
+/// by hand and all 25 were genuine (bd-near-duplicate-item-gate-i5v). Eighteen
+/// put a `mock40-*` item — the wholesale import of `practice/PRACTICE-EXAM.md` —
+/// against a module-bank item, and six put the `q2xx` "bank expansion" wave
+/// against the items it duplicated. Two ungated bulk writes, not 25 authoring
+/// slips, so the retirement rule is mechanical: **withdraw the copy from the bulk
+/// wave, unless the published seed-42 form draws it, in which case the form
+/// wins.** `m12-q219` is the one row where that second clause bit.
+///
+/// The rule, and what stops the next import regrowing the class, is recorded in
+/// `bank/IMPORT-POLICY.md`. Each retired file's own header carries the three-part
+/// argument for its pair (which copy the form draws, which explanation teaches,
+/// provenance); the reasons here are the index, not the argument.
+pub const SANCTIONED_RETIRED: &[(&str, &str)] = &[
+    (
+        "mock40-q40",
+        "bd-near-duplicate-item-gate-i5v (C3): duplicate of bank-m14-q121 — same \
+         proposition, key moved B->A, two distractors reworded. The import-side copy \
+         from practice/PRACTICE-EXAM.md is withdrawn; the module-bank copy is what \
+         the published seed-42 form draws. bank/items/m14-q040.toml carries the \
+         three-part argument.",
+    ),
+    (
+        "m12-q219",
+        "bd-tetz pair 1/24: duplicate of bank-m12-q060 (answer 100%). THE ONE PAIR THE \
+         FORM DECIDED — the seed-42 published form draws bank-m12-q060 at position 3, so \
+         the survivor is fixed by the form and the q2xx expansion copy goes. \
+         bank/items/m12-q219.toml.",
+    ),
+    (
+        "m12-q217",
+        "bd-tetz pair 2/24: duplicate of bank-m12-q075 (answer 92%, distractors 93%). \
+         Neither is drawn; the q2xx expansion copy is withdrawn and the module-bank copy, \
+         whose key and explanation both name the misuse being excluded, survives. \
+         bank/items/m12-q217.toml.",
+    ),
+    (
+        "mock40-q36",
+        "bd-tetz pair 3/24: duplicate of bank-m13-q077 (answer 64%). Import copy from \
+         practice/PRACTICE-EXAM.md withdrawn; its explanation restates its own key and two \
+         of its distractors are answerable by absurdity. bank/items/m13-q036.toml.",
+    ),
+    (
+        "mock40-q39",
+        "bd-tetz pair 4/24: duplicate of bank-m14-q109 (answer 100%). Import copy \
+         withdrawn; the survivor explains why leak detection is worth installing rather \
+         than restating the key. bank/items/m14-q039.toml.",
+    ),
+    (
+        "mock40-q37",
+        "bd-tetz pair 5/24: duplicate of bank-m15-q138 (answer 90%). Import copy \
+         withdrawn. ALSO MISFILED — module = 13 with topic m13-safety-components against \
+         the survivor's module 15 / m15-documentation; retiring it hides that, so the \
+         topic assignment is tracked on bd-mock40-q37-cross-module-topic-76vs. \
+         bank/items/m13-q037.toml.",
+    ),
+    (
+        "m05-q200",
+        "bd-tetz pair 6/24: duplicate of m05-q135 (answer 61% — the loosest pair on the \
+         list, at the calibrated cut). q2xx expansion copy withdrawn; the survivor's \
+         explanation gives the physical definition rather than restating the key. \
+         bank/items/m05-q200.toml.",
+    ),
+    (
+        "mock40-q14",
+        "bd-tetz pair 7/24: duplicate of m06-q047 (answer 72%). Import copy withdrawn; \
+         the survivor quantifies the transfer and states the precondition that makes an \
+         STS applicable. bank/items/m06-q014.toml.",
+    ),
+    (
+        "mock40-q16",
+        "bd-tetz pair 8/24: duplicate of m06-q053 (answer 91%). Import copy withdrawn; \
+         the survivor states 2N in the sizing language the exam uses. \
+         bank/items/m06-q016.toml.",
+    ),
+    (
+        "mock40-q18",
+        "bd-tetz pair 9/24: duplicate of m06-q058 (answer 92%). Import copy withdrawn; \
+         the survivor names the AC->DC->AC mechanism and its first distractor is a real \
+         VFD misconception rather than an absurdity. bank/items/m06-q018.toml.",
+    ),
+    (
+        "mock40-q19",
+        "bd-tetz pair 10/24: duplicate of m06-q065 (answer 71%). Import copy withdrawn; \
+         the survivor states the causal reason a UPS is paired with a genset. \
+         bank/items/m06-q019.toml.",
+    ),
+    (
+        "mock40-q20",
+        "bd-tetz pair 11/24: duplicate of m06-q074 (answer 73%). Import copy withdrawn; \
+         the survivor names the operational benefit (reconfiguration agility) rather than \
+         restating the key. bank/items/m06-q020.toml.",
+    ),
+    (
+        "mock40-q21",
+        "bd-tetz pair 12/24: duplicate of m06-q100 — answer 100% AND distractors 100%, \
+         identical wrong answers with the key moved D->B. Import copy withdrawn; the \
+         survivor adds the correction that PUE is not an availability design. \
+         bank/items/m06-q021.toml.",
+    ),
+    (
+        "mock40-q23",
+        "bd-tetz pair 13/24: duplicate of m07-q044 (answer 100%). Import copy withdrawn; \
+         the survivor asks the learner to discriminate a set and generalises to the \
+         underlying property. bank/items/m07-q023.toml.",
+    ),
+    (
+        "mock40-q24",
+        "bd-tetz pair 14/24: duplicate of m08-q042 (answer 100%). THE ONE PAIR THE \
+         EXPLANATION LEG DID NOT SEPARATE — both explanations are a bare restatement of \
+         1U = 1.75 in. Decided by provenance (import copy withdrawn) plus the survivor's \
+         fuller stem term. bank/items/m08-q024.toml.",
+    ),
+    (
+        "mock40-q25",
+        "bd-tetz pair 15/24: duplicate of m08-q049 (answer 100%, distractors 92%). Import \
+         copy withdrawn on provenance; explanations are at parity. It also carried topic \
+         m09-containment, which keeps 24 other approved items — no topic is orphaned. \
+         bank/items/m08-q025.toml.",
+    ),
+    (
+        "m09-q221",
+        "bd-tetz pair 16/24: duplicate of m09-q108 (answer 80%). q2xx expansion copy \
+         withdrawn; the survivor names the constraint that survives economization (heat \
+         still has to be rejected). bank/items/m09-q221.toml.",
+    ),
+    (
+        "mock40-q26",
+        "bd-tetz pair 17/24: duplicate of m09-q124, and the only [reshuffled-clone] leg-2 \
+         catch on the list (answer 46%, distractors 63%). Import copy withdrawn; the \
+         survivor expands both acronyms, which is the entire content of the CRAC/CRAH \
+         distinction. bank/items/m09-q026.toml.",
+    ),
+    (
+        "m09-q226",
+        "bd-tetz pair 18/24: duplicate of m09-q156 (answer 66%) with the keys on DIFFERENT \
+         letters (A vs B) — the subclass a reviewer scanning answer keys cannot see. q2xx \
+         expansion copy withdrawn. bank/items/m09-q226.toml.",
+    ),
+    (
+        "mock40-q29",
+        "bd-tetz pair 19/24: duplicate of m09-q156 (answer 80%), which is also the survivor \
+         of pair 18 — one proposition entered three times. Import copy withdrawn. \
+         bank/items/m09-q029.toml.",
+    ),
+    (
+        "mock40-q31",
+        "bd-tetz pair 20/24: duplicate of m10-q100 (answer 90%). Import copy withdrawn; the \
+         survivor states the dependency chain from water quality to heat rejection. \
+         bank/items/m10-q031.toml.",
+    ),
+    (
+        "mock40-q22",
+        "bd-tetz pair 21/24: duplicate of m10-q101 (answer 100%). Import copy withdrawn; \
+         the survivor says what kind of metric WUE is. It also carried topic \
+         m06-sustainability, which keeps 7 other approved items. bank/items/m10-q022.toml.",
+    ),
+    (
+        "mock40-q32",
+        "bd-tetz pair 22/24: duplicate of m11-q101 (answer 100%). Import copy withdrawn; \
+         the survivor states the contrast its distractors probe. bank/items/m11-q032.toml.",
+    ),
+    (
+        "mock40-q33",
+        "bd-tetz pair 23/24: duplicate of m11-q102 (answer 100%). Import copy withdrawn; \
+         the survivor names the failure mode of not planning pathways. \
+         bank/items/m11-q033.toml.",
+    ),
+    (
+        "m11-q226",
+        "bd-tetz pair 24/24: duplicate of m11-q139 (answer 100%, distractors 92%) at 16% \
+         STEM similarity — the pair a stem-based detector could never have found. q2xx \
+         expansion copy withdrawn; the survivor keeps both halves of the practice and is \
+         bloom = evaluate. bank/items/m11-q226.toml.",
+    ),
+];
 
 /// Adjudicate a loaded bank against [`SANCTIONED_RETIRED`], both directions.
 ///

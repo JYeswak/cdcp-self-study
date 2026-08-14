@@ -9,6 +9,8 @@
 #   b) empty bank directory (temp) → Bank::load / goldens check fails
 #   c) bank_hash pin drift → goldens check fails
 #   d) planted credential-inflation string under docs/ → honesty scan fails
+#   e) bank_hash pin ABSENT → goldens check fails (was a skipped comparison)
+#   f) goldens dir discovering nothing → goldens check fails (vacuous scan)
 #
 # Invoked from scripts/check.sh after the clean goldens path is green.
 set -eu
@@ -153,6 +155,29 @@ fi
 inject_counted
 ok "planted honesty string trips RED (rc=$h_rc)"
 
+# ── (e) bank_hash pin ABSENT (bd-goldens-check-is-file-hole-7v9p) ───────────
+# Distinct from (c): (c) proves a WRONG pin is caught. This proves a MISSING
+# one is, which it was not — `goldens check` guarded the comparison with
+# `if bh_path.is_file()`, so deleting the file skipped the check and the step
+# reported ok. The only evidence was one absent stdout line. Temp copy: this
+# case mutates nothing in the tree.
+_G_ABS="$(mktemp -d "${TMPDIR:-/tmp}/goldens_absent.XXXXXX")"
+cp -R goldens "$_G_ABS/g"
+rm -f "$_G_ABS/g/bank_hash.txt"
+assert_nonzero "bank_hash-absent" \
+  cargo run -q -p cdcp_cli -- goldens check --bank bank/items --dir "$_G_ABS/g"
+rm -rf "$_G_ABS"
+ok "absent bank_hash pin is an ERROR, not a skipped comparison"
+
+# ── (f) goldens dir that discovers nothing (vacuous scan) ───────────────────
+# An empty input set is an ERROR, never a pass. A goldens check that discovered
+# zero files used to report exactly like one that compared every pin.
+_G_EMPTY="$(mktemp -d "${TMPDIR:-/tmp}/goldens_empty.XXXXXX")"
+assert_nonzero "goldens-vacuous-scan" \
+  cargo run -q -p cdcp_cli -- goldens check --bank bank/items --dir "$_G_EMPTY"
+rmdir "$_G_EMPTY" 2>/dev/null || rm -rf "$_G_EMPTY"
+ok "zero discovered goldens is an ERROR, not a vacuous pass"
+
 # ── clean-tree recheck (honesty alone; goldens restored above) ──────────────
 run_honesty_scan >/dev/null
 h_rc="$HONESTY_RC"
@@ -160,5 +185,5 @@ h_rc="$HONESTY_RC"
 ok "honesty clean after restore"
 
 echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
-echo "selftest_known_bad: PASSED (a golden flip · b empty bank · c bank_hash drift · d honesty plant)"
+echo "selftest_known_bad: PASSED (a golden flip · b empty bank · c bank_hash drift · d honesty plant · e absent pin · f vacuous scan)"
 exit 0

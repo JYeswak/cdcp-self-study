@@ -6345,7 +6345,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "Illuminance (lux or foot-candles) measures:",
     "tags": [],
     "topic_ids": [
@@ -13173,7 +13173,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "Free cooling or economization aims to:",
     "tags": [],
     "topic_ids": [
@@ -13291,7 +13291,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "In liquid-cooled designs, a CDU typically:",
     "tags": [],
     "topic_ids": [
@@ -16219,7 +16219,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "For emergency isolation of a compromised circuit, the best enabler is:",
     "tags": [],
     "topic_ids": [
@@ -16716,7 +16716,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "Abort switches on gaseous systems, where provided, are intended to:",
     "tags": [],
     "topic_ids": [
@@ -16764,7 +16764,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "Dry chemical ABC extinguishers are often discouraged as first choice in white space because:",
     "tags": [],
     "topic_ids": [
@@ -18321,7 +18321,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "An STS is preferred over a mechanical ATS when the design need is:",
     "tags": [],
     "topic_ids": [
@@ -18367,7 +18367,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "2N power architecture conceptually provides:",
     "tags": [],
     "topic_ids": [
@@ -18413,7 +18413,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "Double-conversion (online/VFI) UPS primarily:",
     "tags": [],
     "topic_ids": [
@@ -18436,7 +18436,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "Standby generators typically:",
     "tags": [],
     "topic_ids": [
@@ -18460,7 +18460,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "Overhead busway in white space is often chosen to:",
     "tags": [],
     "topic_ids": [
@@ -18483,7 +18483,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "PUE is defined as:",
     "tags": [],
     "topic_ids": [
@@ -18506,7 +18506,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "WUE primarily tracks:",
     "tags": [],
     "topic_ids": [
@@ -18530,7 +18530,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "A common strong magnetic-field source near IT is:",
     "tags": [],
     "topic_ids": [
@@ -18553,7 +18553,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "One RU equals:",
     "tags": [],
     "topic_ids": [
@@ -18576,7 +18576,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "Blanking unused rack U-space mainly:",
     "tags": [],
     "topic_ids": [
@@ -18600,7 +18600,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "The crisp distinction between CRAC and CRAH is:",
     "tags": [],
     "topic_ids": [
@@ -18669,7 +18669,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "A CDU in liquid-cooled designs typically:",
     "tags": [],
     "topic_ids": [
@@ -18715,7 +18715,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "Process water for cooling towers/humidification matters because:",
     "tags": [],
     "topic_ids": [
@@ -18738,7 +18738,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "A meet-me room (MMR) is primarily for:",
     "tags": [],
     "topic_ids": [
@@ -18762,7 +18762,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "Scalable network design in a DC emphasizes:",
     "tags": [],
     "topic_ids": [
@@ -18832,7 +18832,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "A mantrap is designed to:",
     "tags": [],
     "topic_ids": [
@@ -18855,7 +18855,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "An MOP (Method of Procedure) is used mainly to:",
     "tags": [],
     "topic_ids": [
@@ -18903,7 +18903,7 @@
     "objective_ids": [],
     "quantity_evidence": "qualitative_only",
     "source_class": "original",
-    "status": "approved",
+    "status": "retired",
     "stem": "Underfloor leak detection is installed primarily to:",
     "tags": [],
     "topic_ids": [

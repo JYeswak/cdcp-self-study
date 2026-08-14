@@ -1,4 +1,24 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 14 of 24).
+# Duplicate of m08-q042 (bank/items/m08-q042.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 100% · distractors 50% · stem 50%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT m08-q042:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — this leg does NOT separate the pair — both explanations are a bare restatement of
+#      the same measurement. m08-q042 is kept on the thinner margin that its stem uses the
+#      full term ("One rack unit (RU/U)") a learner has to recognise on the exam. Legs 1
+#      and 3 decide this one.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
 id = "mock40-q24"
 module = 8
 stem = "One RU equals:"
@@ -15,4 +35,4 @@ objective_ids = []
 bloom = "remember"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "retired"

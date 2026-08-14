@@ -43,12 +43,22 @@
 //! a FAILURE and never a skip; a fixture that copied no module is a FAILURE;
 //! and every case increments a counter that is asserted by its own case.
 //!
-//! Two of the cases below exist to WITNESS a defect rather than to hold a
-//! floor — a missing `knowledge/topics.toml` and a missing
-//! `web/data/modules_index.json` are each degraded silently by the oracle and
-//! the build stays GREEN. Those are findings on bd-.12, reported and NOT fixed:
-//! adding the check here would make the Rust stricter than its own oracle and
-//! blind every other case in this file.
+//! # THE TWO WITNESS CASES BECAME FLOOR CASES (bd-build-units-vacuous-registries-9153)
+//!
+//! `a_missing_topic_registry_…` and `a_missing_learn_index_…` used to WITNESS a
+//! defect rather than hold a floor: each registry could vanish entirely and the
+//! build stayed GREEN, and the cases asserted `code == 0` so that the port
+//! could not quietly become stricter than its own oracle and blind every other
+//! case in this file. The oracle was fixed FIRST, these two were watched go RED
+//! against the unported Rust, and only then did the port follow. They now
+//! assert `code == 1` and that the named file appears in the report.
+//!
+//! `compare` additionally asserts a property that holds for EVERY case in this
+//! file, GREEN or RED: a run that exits non-zero writes no artifact. That leg
+//! is what catches a regression of WRITE-BEFORE-VERDICT in either
+//! implementation, and it is checked on both sides independently rather than
+//! only across them — two implementations that both regress agree with each
+//! other perfectly.
 
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -287,6 +297,39 @@ fn compare(label: &str, f: &Fixture) -> Run {
         );
     }
 
+    // VERDICT SHAPE and WRITE-AFTER-VERDICT, asserted on EVERY case rather than
+    // on the handful that happen to be RED, and asserted PER SIDE rather than
+    // only across the two — a differential only catches a regression that lands
+    // on one side, and two implementations that both regress agree with each
+    // other perfectly. bd-builder-verdict-shape-qm65.
+    for (side, r) in [("python", &py), ("rust", &rs)] {
+        if r.code != 0 {
+            assert!(
+                !r.out().contains("PASS"),
+                "[{label}] {side} exited {} with a success token on stdout. A reader \
+                 skimming stdout would see PASS while CI saw non-zero, and which one \
+                 wins depends on whether anyone looked:\n{}",
+                r.code,
+                r.out()
+            );
+        }
+        if r.code == 0 {
+            assert!(
+                r.artifact.is_some(),
+                "[{label}] {side} exited 0 without writing {ARTIFACT_REL}; a green \
+                 build that produced no artifact is not a build"
+            );
+        } else {
+            assert!(
+                r.artifact.is_none(),
+                "[{label}] {side} exited {} but left {ARTIFACT_REL} behind; a failing \
+                 build must leave no artifact, or a later reader cannot tell a passing \
+                 artifact from the residue of a failed run",
+                r.code
+            );
+        }
+    }
+
     COMPARED.fetch_add(1, Ordering::SeqCst);
     rs
 }
@@ -321,6 +364,13 @@ fn bank_json(items: &[(&str, i64, &str)]) -> String {
 /// corpus does not reach: a registry-declared module with no file, an
 /// `empty: true` module, duplicate headings, a fenced block, a short section,
 /// and a non-ASCII title.
+///
+/// It carries BOTH named spot-check modules and enough bank items behind them
+/// to clear the coverage floor, so the tree is GREEN and therefore HAS an
+/// artifact. That is load-bearing since bd-builder-verdict-shape-qm65: a RED run
+/// now writes nothing, so a case that inspects `units_index.json` has to be a
+/// case that passes. The RED shapes get their own fixtures below, each of which
+/// starves exactly the thing it is testing.
 fn synthetic(f: &Fixture) {
     f.put(
         "web/data/modules_index.json",
@@ -329,6 +379,7 @@ fn synthetic(f: &Fixture) {
   "modules": [
     {"id": "01-mission-critical", "empty": false},
     {"id": "02-standards", "empty": false},
+    {"id": "06-power", "empty": false},
     {"id": "03-ghost", "empty": false},
     {"id": "99-hidden", "empty": true}
   ]
@@ -352,6 +403,11 @@ label = "Data centre types"
 id = "m02-standards"
 domain = "02-standards"
 label = "Standards bodies"
+
+[[topic]]
+id = "m06-ups"
+domain = "06-power"
+label = "UPS topologies"
 "#,
     );
     f.put(
@@ -365,6 +421,10 @@ label = "Standards bodies"
             ("m02-q001", 2, "m02-standards"),
             ("m02-q002", 2, "m02-standards"),
             ("m02-q003", 2, "m02-standards"),
+            ("m06-q001", 6, "m06-ups"),
+            ("m06-q002", 6, "m06-ups"),
+            ("m06-q003", 6, "m06-ups"),
+            ("m06-q004", 6, "m06-ups"),
         ]),
     );
 
@@ -384,6 +444,14 @@ label = "Standards bodies"
     let mut m2 = String::from("# Module 2\n\n");
     m2.push_str(&section("Standards bodies", 60));
     f.put("web/content/modules/02-standards.md", &m2);
+
+    // The second named spot check. Present so the synthetic tree is GREEN and
+    // therefore writes an artifact for the structural cases to read.
+    let mut m6 = String::from("# Module 6\n\n");
+    m6.push_str(&section("UPS topologies", 60));
+    m6.push_str(&section("Generators", 60));
+    m6.push_str(&section("Distribution", 60));
+    f.put("web/content/modules/06-power.md", &m6);
 
     // 03-ghost is declared by the registry and has NO file. 99-hidden DOES
     // have a file and real sections — the `empty: true` flag is the only thing
@@ -505,12 +573,14 @@ fn zero_modules_and_zero_units_are_errors_in_both() {
             rs.out()
         );
     }
-    // WRITE-BEFORE-VERDICT, reproduced: the empty artifact lands anyway.
+    // WRITE-AFTER-VERDICT: the empty artifact used to land anyway, which meant
+    // a reader of web/data/units_index.json could not tell this run from a
+    // passing one. `compare` asserts this for both sides; restated here because
+    // this is the case where the residue was a `"unit_count": 0` artifact.
     assert!(
-        rs.artifact.is_some(),
-        "the oracle writes the artifact before it evaluates any failure"
+        rs.artifact.is_none(),
+        "a vacuous build must not leave a units_index.json behind"
     );
-    assert!(rs.body().contains("\"unit_count\": 0"), "{}", rs.body());
 }
 
 #[test]
@@ -518,12 +588,15 @@ fn modules_that_carry_no_units_between_them_are_an_error_in_both() {
     let f = Fixture::new();
     synthetic(&f);
     // Every section is now too short to survive, so the modules exist and hold
-    // nothing — a different vacuous shape from "no modules at all".
+    // nothing — a different vacuous shape from "no modules at all". Every
+    // module-shaped id has to be starved, or a survivor keeps `total_u`
+    // non-zero and this leg never fires.
     f.put(
         "web/content/modules/01-mission-critical.md",
         "## A\n\nshort\n",
     );
     f.put("web/content/modules/02-standards.md", "## B\n\nshort\n");
+    f.put("web/content/modules/06-power.md", "## C\n\nshort\n");
     let rs = compare("modules with zero units", &f);
     assert_ne!(rs.code, 0, "{}", rs.out());
     assert!(
@@ -573,19 +646,12 @@ fn a_declared_module_with_no_file_and_a_declared_empty_module_are_byte_identical
         "the empty-module filter must be tested against a module that HAS a file"
     );
     assert!(!rs.body().contains("99-hidden"), "{}", rs.body());
-    assert!(rs.out().contains("modules=2"), "{}", rs.out());
+    // 01, 02 and 06 survive; 03-ghost and 99-hidden do not.
+    assert!(rs.out().contains("modules=3"), "{}", rs.out());
 
-    // Whatever the oracle does with them, it does byte for byte — the two
+    // Whatever the oracle does with them, it does byte for byte — the
     // assertions above only describe what `compare` already proved identical.
-    assert_ne!(
-        rs.code, 0,
-        "the synthetic tree has no 06-power, so the spot check must fire"
-    );
-    assert!(
-        rs.out().contains("06-power has 0 units, need ≥3"),
-        "{}",
-        rs.out()
-    );
+    assert_eq!(rs.code, 0, "{}", rs.out());
 }
 
 #[test]
@@ -640,44 +706,104 @@ fn structural_parsing_edges_are_byte_identical() {
     );
 }
 
-// ── case 5: the two inputs whose absence the oracle SURVIVES (findings) ───
+// ── case 5: the two input registries that used to be able to vanish ───────
+//
+// Measured 2026-08-14, before bd-build-units-vacuous-registries-9153 and
+// byte-identical on both sides, these two cases were GREEN:
+//
+//   no topics.toml       -> exit 0, "PASS: build_units units=134 modules=15"
+//   no modules_index.json-> exit 0, "PASS: build_units units=134 modules=16"
+//
+// The first is the anti-vacuous law broken on an input: an empty topic map
+// reads to the picker as "no preference" rather than "nothing to match", so
+// every unit still drew its items and the report was indistinguishable from one
+// that checked everything. The second is worse than silent — a GREEN verdict
+// carrying a WRONG number, because the glob fallback swept in README.md and
+// emitted `"README": []` into `by_module`. Both are now exit 1, and the glob
+// fallback is DELETED rather than flagged.
 
 #[test]
-fn a_missing_topic_registry_is_not_an_error_in_either_side() {
+fn a_missing_topic_registry_is_an_error_in_both_and_writes_nothing() {
     let f = Fixture::new();
     f.seed_live();
     f.rm("knowledge/topics.toml");
     let rs = compare("no topics.toml", &f);
-    // FINDING, witnessed rather than repaired: an absent registry silently
-    // yields empty `topic_ids`, the picker treats that as "no preference"
-    // rather than "nothing to match", and the build stays GREEN. Adding the
-    // check here would make the Rust stricter than its oracle.
-    assert_eq!(
+    assert_ne!(
         rs.code,
         0,
-        "the oracle's behaviour changed; re-open the finding on bd-.12: {}",
+        "a topic registry that vanished must never be a pass: {}",
         rs.out()
     );
-    assert!(rs.body().contains("\"topic_ids\": []"), "{}", rs.out());
+    assert!(
+        rs.out()
+            .starts_with("FAIL: build_units missing required input registries"),
+        "the verdict must lead the report: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("knowledge/topics.toml"),
+        "the absent file must be NAMED, not merely counted: {}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("PASS"),
+        "no PASS may appear anywhere on a failing run: {}",
+        rs.out()
+    );
+    assert!(
+        rs.artifact.is_none(),
+        "nothing may be written when a required registry is missing"
+    );
 }
 
 #[test]
-fn a_missing_learn_index_falls_back_to_globbing_in_both() {
+fn a_missing_learn_index_is_an_error_in_both_and_never_globs() {
     let f = Fixture::new();
     f.seed_live();
     f.rm("web/data/modules_index.json");
     let rs = compare("no modules_index.json", &f);
-    // FINDING, witnessed rather than repaired: the module set the header calls
-    // DERIVED can be absent without anyone hearing about it.
-    assert_eq!(
+    assert_ne!(
         rs.code,
         0,
-        "the oracle's behaviour changed; re-open the finding on bd-.12: {}",
+        "a Learn index that vanished must never be a pass: {}",
         rs.out()
     );
-    // The glob picks up README.md too, which the Learn index excludes — the
-    // observable difference the fallback introduces.
-    assert!(rs.out().contains("modules="), "{}", rs.out());
+    assert!(
+        rs.out().contains("web/data/modules_index.json"),
+        "the absent file must be NAMED: {}",
+        rs.out()
+    );
+    // The whole point of deleting the fallback: the module set is never
+    // recomputed from a glob, so README.md can never be counted as a module and
+    // `modules=16` can never be printed over a 15-module Learn index.
+    assert!(
+        !rs.out().contains("modules=16") && !rs.out().contains("modules="),
+        "the glob fallback must be gone, not merely warned about: {}",
+        rs.out()
+    );
+    assert!(
+        rs.artifact.is_none(),
+        "nothing may be written when the Learn index is missing"
+    );
+}
+
+#[test]
+fn both_registries_missing_are_named_in_one_report() {
+    // An operator fixing one absent registry only to discover the next on the
+    // re-run is a gate reporting less than it knows. Both are collected.
+    let f = Fixture::new();
+    f.seed_live();
+    f.rm("knowledge/topics.toml");
+    f.rm("web/data/modules_index.json");
+    let rs = compare("no registries at all", &f);
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().contains("knowledge/topics.toml"), "{}", rs.out());
+    assert!(
+        rs.out().contains("web/data/modules_index.json"),
+        "{}",
+        rs.out()
+    );
+    assert!(rs.artifact.is_none());
 }
 
 // ── case 6: the per-item TOML bank fallback ───────────────────────────────

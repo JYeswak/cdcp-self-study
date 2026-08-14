@@ -1,4 +1,23 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 19 of 24).
+# Duplicate of m09-q156 (bank/items/m09-q156.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 80% · distractors 64% · stem 70%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT m09-q156:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — m09-q156 names the facility water/glycol plant on the far side of the exchange;
+#      this copy restates its own key. m09-q156 is the survivor of pair 18 as well — it is
+#      the single proposition that was entered three times.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
 id = "mock40-q29"
 module = 9
 stem = "A CDU in liquid-cooled designs typically:"
@@ -15,4 +34,4 @@ objective_ids = []
 bloom = "remember"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "retired"

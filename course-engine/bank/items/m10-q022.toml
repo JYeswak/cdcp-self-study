@@ -1,4 +1,23 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 21 of 24).
+# Duplicate of m10-q101 (bank/items/m10-q101.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 100% · distractors 81% · stem 37%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT m10-q101:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — m10-q101 says what KIND of metric WUE is ("an intensity metric for water-aware
+#      operations"); this copy restates its key. Recorded loss: this copy also carried
+#      topic m06-sustainability, which keeps 7 other approved items.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
 id = "mock40-q22"
 module = 10
 stem = "WUE primarily tracks:"
@@ -15,4 +34,4 @@ objective_ids = []
 bloom = "remember"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "retired"

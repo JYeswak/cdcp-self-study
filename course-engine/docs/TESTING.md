@@ -57,7 +57,7 @@ and still pass `scripts/verify_bank.py` (or the reverse for shared fields).
 | MANIFEST item_count | — | yes if present |
 | `read_dir` IO errors | fail closed (no `e.ok()` swallow) | N/A |
 | `status` ∈ {draft,approved,retired} | **yes** — unknown value is a load error, absent = draft (C1) | — (not checked) |
-| unknown / unmodelled field | **yes** — load error naming the field (`deny_unknown_fields`, C2) | — (silently ignored) |
+| unknown / unmodelled field | **yes** — load error naming the field (`deny_unknown_fields` [[fact:fact-bank-item-denies-unknown-fields=yes]], C2) | — (silently ignored) |
 
 The last two rows are the recorded **divergences**: the Rust side is strictly stricter, so this
 table is a floor, not an equality. A green `verify_bank.py` is not evidence that item statuses are
@@ -117,7 +117,9 @@ Plant proof lives in selftest case (d); clean tree still exits 0 from `./scripts
 | `canonical_json_bytes` | `fuzz/fuzz_targets/canonical_json_bytes.rs` | `canonical_json` never panics on arbitrary JSON Values |
 
 **Commands:** `cargo fuzz run choice_letter_parse` · `cargo fuzz run canonical_json_bytes`  
-Requires nightly + `cargo install cargo-fuzz`. Package is workspace-`exclude`d (`fuzz/`).
+Requires nightly + `cargo install cargo-fuzz`. Package is workspace-`exclude`d (`fuzz/`), so it
+is **not** a workspace member [[fact:fact-fuzz-is-a-workspace-member=no]] and no `check.sh` step,
+CI job or `cargo test --workspace` ever builds or runs these targets.
 
 Crash-only fuzz is **insufficient alone** (see oracle hierarchy). Property tests cover digest stability / bank_hash reorder.
 

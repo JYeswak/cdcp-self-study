@@ -9,7 +9,7 @@
 [![License: MIT (code)](https://img.shields.io/badge/code-MIT-blue.svg)](./LICENSE)
 [![Content: CC BY-NC-SA 4.0](https://img.shields.io/badge/content-CC_BY--NC--SA_4.0-blue.svg)](./LICENSE)
 [![gate: 53 steps](https://img.shields.io/badge/gate-53_ordered_steps-success.svg)](#the-gate)
-[![known-bad: 47 injections](https://img.shields.io/badge/known--bad-47_injections_all_RED-success.svg)](#gates-proven-to-trip)
+[![known-bad: 49 injections](https://img.shields.io/badge/known--bad-49_injections_all_RED-success.svg)](#gates-proven-to-trip)
 [![grading: byte-exact](https://img.shields.io/badge/grading-Rust_%3D%3D_WASM_byte--exact-success.svg)](#how-grading-works)
 [![unsafe: forbidden](https://img.shields.io/badge/unsafe-forbidden-success.svg)](https://github.com/rust-secure-code/safety-dance/)
 [![offline](https://img.shields.io/badge/runtime-fully_offline-teal.svg)](#running-it)
@@ -46,7 +46,7 @@ cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
 | **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
 | **Bank** | 804 original questions across 15 module buckets, 106 topics |
 | **Engine** | 7 Rust crates, 3,763 lines, `#![forbid(unsafe_code)]`, 281 KB WASM |
-| **Gate** | 59 ordered steps; 9 selftest suites; 47 known-bad injections that must all go RED |
+| **Gate** | 76 ordered steps; 9 selftest suites; 49 known-bad injections that must all go RED |
 | **Runtime deps** | None. Rust toolchain to build; a browser to use |
 
 ---
@@ -226,7 +226,7 @@ workflow file is how CI and local drift apart until only one of them is true.
 ### Gates proven to trip
 
 A green gate is worthless unless it can go red. Nine selftest suites inject
-**47 known-bad faults** — shell suites only; the Rust ports' own known-bad cases
+**49 known-bad faults** — shell suites only; the Rust ports' own known-bad cases
 emit no `INJECTIONS=` receipt, so they are not in this total — and assert the
 build fails, then restore the tree:
 
@@ -326,7 +326,7 @@ table:
 | **L1 — claims constitution** | ✅ | `registries/*.toml` + `cdcp_registry_check` (tested crate) + claims-lint over README/docs |
 | **L2 — SLO as code** | ✅ partial | `slo.toml` + `smoke_slo.sh` walls on grade / export / bank-verify |
 | **L3 — external oracle** | ⚠️ **weakest link** | The oracle is the *native* grader and the public syllabus domains. There is no independent third-party conformance suite for "did we teach this correctly" |
-| **L4 — gates proven to trip** | ✅ strongest | 9 suites, 47 injections (shell receipts only; Rust legs uncounted), count drift-guarded, anti-vacuous throughout |
+| **L4 — gates proven to trip** | ✅ strongest | 9 suites, 49 injections (shell receipts only; Rust legs uncounted), count drift-guarded, anti-vacuous throughout |
 | **L5 — adversarial input floor** | ✅ partial | `cargo-fuzz` targets present; property tests on assemble/grade |
 | **L6 — formal lane** | ❌ | Not warranted at this gauntlet tier |
 | **L7 — ecosystem lock** | ✅ scoped | `content.lock` pins bank_hash + knowledge + module markdown |

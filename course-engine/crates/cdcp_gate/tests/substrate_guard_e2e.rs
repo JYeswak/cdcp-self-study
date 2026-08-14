@@ -94,13 +94,199 @@ fn good_adding_a_rust_file_anywhere_passes() {
 
 #[test]
 fn good_non_scanned_surfaces_pass() {
+    // bd-xmn5 SPLIT THIS TEST. It used to assert that docs/notes.py and
+    // tests/voice-slop.sh PASS, which was true and was the bug: both were
+    // measured at exit 0 while `scripts/check.sh` was invoking two real shell
+    // gates from tests/. What survives here is the half that is still the rule —
+    // the floor is the shell/python family, not a dragnet over every file.
     let f = Fixture::new();
-    f.write("docs/notes.py", "x=1\n");
-    f.write("tests/voice-slop.sh", "echo hi\n");
     f.write("scripts/smoke.mjs", "console.log(1)\n");
+    f.write("docs/notes.md", "# notes\n");
+    f.write("web/data/x.json", "{}\n");
+    f.write("web/assets/js/app.js", "console.log(1)\n");
     f.git(&["add", "-A"]);
     let (code, out) = f.gate(&["substrate-guard", "--staged"]);
     assert_eq!(code, OK, "the gate is a floor, not a dragnet: {out}");
+}
+
+/// The other half, inverted. MEASURED against the built binary in a clone before
+/// the fix: `docs/payload.py` staged -> exit 0, `tests/payload.sh` staged ->
+/// exit 0.
+#[test]
+fn bad_a_script_outside_scripts_and_crates_is_red_now() {
+    for p in [
+        "docs/payload.py",
+        "tests/payload.sh",
+        ".flywheel/payload.sh",
+        "web/payload.py",
+    ] {
+        let f = Fixture::new();
+        f.write(p, "x = 1\n");
+        f.git(&["add", "-A"]);
+        let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+        assert_eq!(code, VIOLATION, "{p}: {out}");
+        assert!(out.contains(p), "must name it: {out}");
+    }
+}
+
+/// MEASURED before the fix, staged in a clone: `scripts/payload.PY` -> exit 0,
+/// `scripts/payload.Py` -> exit 0, `scripts/payload.bash` -> exit 0,
+/// `scripts/payload.zsh` -> exit 0. A rule a rename defeats is not a rule.
+#[test]
+fn bad_an_upper_case_or_other_family_extension_is_red_now() {
+    for p in [
+        "scripts/payload.PY",
+        "scripts/payload.Py",
+        "stray.SH",
+        "scripts/payload.bash",
+        "scripts/payload.zsh",
+        "scripts/payload.ksh",
+        "scripts/payload.pyw",
+    ] {
+        let f = Fixture::new();
+        f.write(p, "x = 1\n");
+        f.git(&["add", "-A"]);
+        let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+        assert_eq!(code, VIOLATION, "{p}: {out}");
+        assert!(out.contains(p), "must name it: {out}");
+    }
+}
+
+/// MEASURED before the fix: `scripts/payload`, no extension, first line
+/// `#!/usr/bin/env python3`, staged -> exit 0.
+#[test]
+fn bad_an_extensionless_shebang_script_is_red_now() {
+    let f = Fixture::new();
+    f.write("scripts/payload", "#!/usr/bin/env python3\nprint('pwn')\n");
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+    assert_eq!(code, VIOLATION, "{out}");
+    assert!(out.contains("scripts/payload"), "{out}");
+    assert!(out.contains("executable text script"), "{out}");
+}
+
+/// KNOWN-GOOD for the same leg: an extensionless DATA file is not a script, and
+/// a gate that cannot tell them apart gets routed around.
+#[test]
+fn good_an_extensionless_data_file_is_not_a_script() {
+    let f = Fixture::new();
+    f.write("LICENSE", "All rights reserved.\n");
+    f.write("scripts/FIXTURES", "one\ntwo\n");
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+    assert_eq!(code, OK, "{out}");
+}
+
+/// The shebang leg reads BYTES. This repo tracks a mode-100755 `.wasm`; asking
+/// "are the first two bytes `#!`" must not become an ERROR over a UTF-8 decode.
+#[test]
+fn good_a_tracked_executable_binary_is_not_an_error() {
+    let f = Fixture::new();
+    std::fs::write(
+        f.path("scripts/blob.bin"),
+        [0u8, 0x61, 0x73, 0x6d, 0xff, 0xfe],
+    )
+    .unwrap();
+    f.git(&["add", "-A"]);
+    f.git(&["update-index", "--chmod=+x", "scripts/blob.bin"]);
+    let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+    assert_eq!(code, OK, "a binary is not a shebang script: {out}");
+}
+
+/// MEASURED before the fix: a tracked directory symlink `scripts/linkdir` ->
+/// an outside directory holding `hidden.py` was staged at exit 0, and
+/// `hidden.py` was readable through it on disk. git reports mode 120000 and one
+/// path; the tree beneath is not in this repository.
+#[cfg(unix)]
+#[test]
+fn bad_a_tracked_symlink_is_red_because_the_gate_cannot_see_through_it() {
+    let f = Fixture::new();
+    let outside = tempfile::tempdir().unwrap();
+    std::fs::write(outside.path().join("hidden.py"), "print('hidden')\n").unwrap();
+    std::os::unix::fs::symlink(outside.path(), f.path("scripts/linkdir")).unwrap();
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+    assert_eq!(code, VIOLATION, "{out}");
+    assert!(out.contains("scripts/linkdir"), "{out}");
+    assert!(out.contains("SYMLINK"), "{out}");
+}
+
+/// ...and the bargain holds: a row clears it, because a row is a human saying
+/// they looked at what the gate cannot.
+#[cfg(unix)]
+#[test]
+fn good_a_tracked_symlink_with_a_row_passes() {
+    let f = Fixture::new();
+    let outside = tempfile::tempdir().unwrap();
+    std::fs::write(outside.path().join("hidden.py"), "print('hidden')\n").unwrap();
+    std::os::unix::fs::symlink(outside.path(), f.path("scripts/linkdir")).unwrap();
+    f.set_allowlist(&(f.read_allowlist() + &good_row("scripts/linkdir")));
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+    assert_eq!(code, OK, "{out}");
+}
+
+/// A row that exempts nothing is litter that reads like tracked debt.
+#[test]
+fn bad_a_row_for_a_file_the_gate_never_demands_is_dead_weight() {
+    let f = Fixture::new();
+    f.write("docs/notes.md", "# notes\n");
+    f.set_allowlist(&(f.read_allowlist() + &good_row("docs/notes.md")));
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+    assert_eq!(code, ERROR, "{out}");
+    assert!(out.contains("dead weight"), "{out}");
+}
+
+/// ANTI-VACUOUS, and the leg the bead says `cargo build` does not have: the
+/// presence scan must run against THIS repository under `cargo test`, not only
+/// under `scripts/check.sh`. Measured 2026-08-14: neither
+/// `cargo build --workspace` nor `cargo test --workspace` scanned the tree, so
+/// an unlisted `.py` could be committed and every Rust test still passed.
+#[test]
+fn the_live_repo_tree_has_no_unlisted_non_rust_file() {
+    use cdcp_gate::gates::substrate_guard as sg;
+    let root = cdcp_gate::root::resolve(std::path::Path::new(env!("CARGO_MANIFEST_DIR")))
+        .expect("engine root");
+    let text = std::fs::read_to_string(root.join(sg::REGISTRY_PATH)).expect("registry");
+    let al = sg::parse_allowlist(&text).expect("parses");
+    let entries = cdcp_gate::vcs::tracked_entries(&root).expect("git ls-files -s");
+    assert!(
+        entries.len() > 100,
+        "scanned {} tracked files — a vacuous scan is an ERROR, not a pass",
+        entries.len()
+    );
+    let entries: Vec<sg::Entry> = entries
+        .into_iter()
+        .map(|e| {
+            let shebang = if sg::needs_content_probe(&e.path, &e.mode, &al.scan) {
+                let bytes = std::fs::read(root.join(&e.path)).unwrap_or_default();
+                sg::shebang_line(&bytes[..bytes.len().min(256)])
+            } else {
+                None
+            };
+            sg::Entry {
+                path: e.path,
+                mode: e.mode,
+                shebang,
+            }
+        })
+        .collect();
+    let identified = entries
+        .iter()
+        .filter(|e| sg::scan_reason(e, &al.scan).is_some())
+        .count();
+    assert!(
+        identified >= 40,
+        "only {identified} entries identified as non-Rust — the scan found nothing to judge"
+    );
+    let v = sg::unlisted_entries(&entries, &al.allow, &al.scan);
+    assert!(
+        v.is_empty(),
+        "{} unlisted non-Rust file(s) in this repo:\n  {}",
+        v.len(),
+        v.join("\n  ")
+    );
 }
 
 #[test]
@@ -277,9 +463,11 @@ fn bad_backdated_expires_is_red() {
 fn bad_registry_that_narrows_the_scan_is_an_error() {
     // The one-word disable attempt: drop "py" from the scanned extensions.
     let f = Fixture::new();
-    let narrowed = f
-        .read_allowlist()
-        .replace("extensions = [\"py\", \"sh\"]", "extensions = [\"sh\"]");
+    let narrowed = f.read_allowlist().replace("\"py\", ", "");
+    assert!(
+        !narrowed.contains("\"py\""),
+        "the fixture must actually drop py, or it tests nothing"
+    );
     f.set_allowlist(&narrowed);
     f.write("scripts/foo.py", "print('now invisible?')\n");
     f.git(&["add", "-A"]);
@@ -659,10 +847,7 @@ fn probe_errors_when_the_staged_registry_does_not_parse() {
 #[test]
 fn probe_errors_when_the_staged_scan_excludes_the_plant() {
     let f = probe_fixture(&live_step());
-    f.set_allowlist(
-        &f.read_allowlist()
-            .replace("extensions = [\"py\", \"sh\"]", "extensions = [\"sh\"]"),
-    );
+    f.set_allowlist(&f.read_allowlist().replace("\"py\", ", ""));
     f.git(&["add", "-A"]);
     let (code, out) = f.gate(&["substrate-guard", "--prove-wired"]);
     assert_eq!(code, ERROR, "{out}");
@@ -682,14 +867,33 @@ fn zero_files_scanned_is_an_error_not_a_pass() {
     assert!(out.contains("scanned 0 files"), "{out}");
 }
 
+/// bd-xmn5 RETIRED the old shape of this test rather than rewriting it. It used
+/// to stage `docs/only-this.md` into an otherwise empty repo and assert ERROR,
+/// because `docs/` was outside the scan roots and so the whole tree resolved to
+/// nothing in scope. The scan is the whole tree now, so that state is no longer
+/// constructible — the branch survives in `run` as the floor for the case where
+/// `WHOLE_TREE_SCOPE` is ever turned off, and the vacuity property that is still
+/// constructible is asserted directly above and here.
+///
+/// The anti-vacuous claim that remains, and that this asserts: a tree with files
+/// in it must be REPORTED as scanned, so a run that scanned nothing cannot read
+/// like a run that found nothing wrong.
 #[test]
-fn zero_in_scope_files_is_an_error_not_a_pass() {
-    let f = Fixture::empty();
-    f.write("docs/only-this.md", "# nothing in scope\n");
+fn the_receipt_states_how_much_was_actually_scanned() {
+    let f = Fixture::new();
+    f.write("docs/only-this.md", "# ordinary content\n");
     f.git(&["add", "-A"]);
-    let (code, out) = f.gate(&["substrate-guard"]);
-    assert_eq!(code, ERROR, "{out}");
-    assert!(out.contains("in scope"), "{out}");
+    let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+    assert_eq!(code, OK, "{out}");
+    assert!(out.contains("scanned="), "{out}");
+    assert!(
+        out.contains("identified_non_rust="),
+        "the receipt must say how many entries it judged, not just that it ran: {out}"
+    );
+    assert!(
+        !out.contains("scanned=0") && !out.contains("identified_non_rust=0"),
+        "a scan that judged nothing must not report like a clean one: {out}"
+    );
 }
 
 #[test]

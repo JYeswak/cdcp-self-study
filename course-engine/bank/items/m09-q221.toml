@@ -1,4 +1,23 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 16 of 24).
+# Duplicate of m09-q108 (bank/items/m09-q108.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 80% · distractors 21% · stem 50%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT m09-q108:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — m09-q108 names the constraint that survives economization ("while still rejecting
+#      IT heat") — the thing a learner gets wrong; this copy stops at "cut compressor
+#      work".
+#   3. PROVENANCE — q2xx "bank expansion (depth/apply)" wave.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
 id = "m09-q221"
 module = 9
 stem = "Free cooling or economization aims to:"
@@ -15,4 +34,4 @@ objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "retired"

@@ -17,6 +17,12 @@
 //! shape, or zero units across those modules are each an ERROR. A run that
 //! discovered nothing must not report like a run that checked everything.
 //!
+//! The same law applies one level up, to the INPUTS
+//! (bd-build-units-vacuous-registries-9153). `knowledge/topics.toml` and
+//! `web/data/modules_index.json` are each REQUIRED: absent, the gate exits 1
+//! naming the file and writes nothing. There is no glob fallback for the Learn
+//! index — see the finding below for what it used to do.
+//!
 //! ## Why the derivation, and not a two-digit ceiling (bd-lt7)
 //!
 //! Until 2026-08-14 the primary set was filtered by a hardcoded two-digit
@@ -39,9 +45,10 @@
 //! therefore carry item ids no matter what their heading says. A floor of two
 //! ids per unit is a floor against silence, not a claim about quality.
 //!
-//! It also says nothing about inputs it can survive without: a missing topic
-//! registry and a missing Learn index are each degraded silently by the oracle
-//! rather than reported (see the findings below).
+//! It also says nothing about the CONTENT of the registries it now requires: it
+//! checks that `topics.toml` and `modules_index.json` exist and parse, not that
+//! they are right. A present-but-wrong Learn index produces a confident report
+//! over the wrong module set.
 //!
 //! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
 //!
@@ -65,27 +72,42 @@
 //! the differential on the very first case. It changes when the Python is
 //! deleted, not before.
 //!
-//! # DEFECTS IN THE ORACLE THAT ARE REPRODUCED, NOT FIXED (findings, bd-.12)
+//! # THE THREE FINDINGS OF bd-.12, NOW FIXED IN THE ORACLE FIRST
 //!
-//!   * WRITE-BEFORE-VERDICT. `units_index.json` is written BEFORE any failure
-//!     is evaluated, so a RED run still leaves its artifact behind. Reproduced.
-//!   * A MISSING TOPIC REGISTRY IS NOT AN ERROR. With `knowledge/topics.toml`
-//!     absent, `load_topics_by_domain` returns an empty map, every unit gets an
+//! These were reported and DELIBERATELY not repaired when this port landed: a
+//! port stricter than its oracle blinds the whole differential. They were fixed
+//! in `scripts/build_units.py` first, the differential was watched go RED on
+//! them, and only then were they moved here. Measured 2026-08-14 before the
+//! fix, both implementations byte-identical:
+//!
+//!   * WRITE-BEFORE-VERDICT. `units_index.json` was written BEFORE any failure
+//!     was evaluated, so a RED run left its artifact behind and a later reader
+//!     could not tell a passing artifact from the residue of a failed run. The
+//!     write is now on the GREEN path only: `Outcome::artifact` is `None`
+//!     whenever `code != 0`, which is asserted rather than assumed — see
+//!     `a_red_outcome_never_carries_an_artifact`.
+//!   * A MISSING TOPIC REGISTRY WAS NOT AN ERROR. With `knowledge/topics.toml`
+//!     absent, `load_topics_by_domain` returned an empty map, every unit got an
 //!     empty `topic_ids`, and the item picker — which treats an empty topic set
-//!     as "no preference" rather than as "nothing to match" — still fills each
-//!     unit from the module pool. The build stays GREEN. That is an
-//!     anti-vacuous leg the oracle does NOT have. It is NOT added here.
-//!   * A MISSING LEARN INDEX IS NOT AN ERROR either: `modules_index.json`
-//!     absent silently falls back to globbing the content directory. Defensible
-//!     as a fallback, but it means the derivation the header claims can be
-//!     absent without anyone hearing about it.
+//!     as "no preference" rather than as "nothing to match" — still filled each
+//!     unit from the module pool: `exit 0, PASS: build_units units=134
+//!     modules=15`, indistinguishable from a run that checked everything.
+//!   * A MISSING LEARN INDEX WAS NOT AN ERROR either: `modules_index.json`
+//!     absent fell back to globbing `web/content/modules/*.md`, which swept in
+//!     `README.md` and emitted `"README": []` into `by_module`:
+//!     `exit 0, PASS: … units=134 modules=16`. A GREEN verdict carrying a WRONG
+//!     number — 16 where the Learn index says 15. THE FALLBACK IS DELETED, not
+//!     put behind a flag: a flag leaves the wrong answer reachable, and the
+//!     header above states the module set is DERIVED from the Learn index, so a
+//!     silent second derivation that disagrees with it is not a fallback but a
+//!     second gate nobody reviewed.
+//!
+//! # DEFECTS IN THE ORACLE THAT ARE STILL REPRODUCED, NOT FIXED
+//!
 //!   * `bank_by_id` is built and never read.
 //!   * The picker's `require_new_topic` leg carries a `len(picked) < n` term
 //!     that is always true where it is evaluated — the loop has already broken
 //!     otherwise. Kept, because removing it is a behaviour change.
-//!
-//! None are repaired here. A port that fixes a bug is an unreviewed behaviour
-//! change that blinds the differential. All are reported on the bead.
 //!
 //! # DEVIATIONS THAT REMAIN (each unreachable from the live tree)
 //!
@@ -1212,15 +1234,12 @@ fn toml_seq_len(v: Option<&toml::Value>) -> usize {
     }
 }
 
-/// `load_topics_by_domain`. A missing registry yields an EMPTY map and no
-/// error — see the findings in the header; that is the oracle's behaviour and
-/// it is reproduced, not repaired.
+/// `load_topics_by_domain`. The caller has already refused to run without the
+/// file: the `is_file` guard that used to sit here returned an empty map for an
+/// absent registry, which the picker then read as "no preference".
 pub fn load_topics_by_domain(root: &Path) -> Result<HashMap<String, Vec<Topic>>, GateError> {
     let mut by: HashMap<String, Vec<Topic>> = HashMap::new();
     let path = join_rel(root, TOPICS_REL);
-    if !path.is_file() {
-        return Ok(by);
-    }
     let text = read_utf8(&path)?;
     let data: toml::Value = text
         .parse()
@@ -1345,34 +1364,48 @@ pub fn evaluate(root: &Path) -> Result<Outcome, GateError> {
         });
     }
 
-    let mut domain_ids: Vec<String> = Vec::new();
+    // ANTI-VACUOUS, ON THE INPUTS. Each of these registries could vanish and
+    // the build stayed GREEN — one by degrading to an empty topic map, the
+    // other by globbing a different module set. Refuse, name the file, write
+    // nothing.
+    let topics_path = join_rel(root, TOPICS_REL);
     let mod_index = join_rel(root, MOD_INDEX_REL);
-    if mod_index.is_file() {
-        let text = read_utf8(&mod_index)?;
-        let mi = json_parse(&text)
-            .map_err(|e| GateError::error(format!("{}: {e}", mod_index.display())))?;
-        if let Some(Json::Arr(modules)) = obj_get(&mi, "modules") {
-            for m in modules {
-                if !truthy(obj_get(m, "empty")) && truthy(obj_get(m, "id")) {
-                    domain_ids.push(py_str_or(obj_get(m, "id"), ""));
-                }
-            }
-        }
+    let mut missing_registries: Vec<String> = Vec::new();
+    if !topics_path.is_file() {
+        missing_registries.push(format!(
+            "{TOPICS_REL} (topic registry; absent, every unit gets topic_ids=[] \
+             and the picker reads that as 'no preference')"
+        ));
     }
-    if domain_ids.is_empty() {
-        let mut stems: Vec<String> = Vec::new();
-        if let Ok(rd) = std::fs::read_dir(&content) {
-            for e in rd.flatten() {
-                let p = e.path();
-                if let Some(name) = p.file_name().and_then(|n| n.to_str()) {
-                    if let Some(stem) = name.strip_suffix(".md") {
-                        stems.push(stem.to_string());
-                    }
-                }
+    if !mod_index.is_file() {
+        missing_registries.push(format!(
+            "{MOD_INDEX_REL} (Learn index; the module set is DERIVED from it — \
+             there is no glob fallback)"
+        ));
+    }
+    if !missing_registries.is_empty() {
+        let mut report = vec!["FAIL: build_units missing required input registries".to_string()];
+        report.extend(missing_registries.iter().map(|m| format!("  - {m}")));
+        report.push(format!(
+            "  out={OUT_REL} NOT WRITTEN (a failing build leaves no artifact)"
+        ));
+        return Ok(Outcome {
+            stdout: format!("{}\n", report.join("\n")),
+            code: 1,
+            artifact: None,
+        });
+    }
+
+    let mut domain_ids: Vec<String> = Vec::new();
+    let text = read_utf8(&mod_index)?;
+    let mi =
+        json_parse(&text).map_err(|e| GateError::error(format!("{}: {e}", mod_index.display())))?;
+    if let Some(Json::Arr(modules)) = obj_get(&mi, "modules") {
+        for m in modules {
+            if !truthy(obj_get(m, "empty")) && truthy(obj_get(m, "id")) {
+                domain_ids.push(py_str_or(obj_get(m, "id"), ""));
             }
         }
-        stems.sort();
-        domain_ids = stems;
     }
 
     let topics_by = load_topics_by_domain(root)?;
@@ -1589,7 +1622,11 @@ pub fn evaluate(root: &Path) -> Result<Outcome, GateError> {
             "  bank_items={} units_with_checks≥2={units_with_checks} zero={units_zero_checks}",
             bank.len()
         ),
-        format!("  out={OUT_REL}"),
+        if failures.is_empty() {
+            format!("  out={OUT_REL}")
+        } else {
+            format!("  out={OUT_REL} NOT WRITTEN (a failing build leaves no artifact)")
+        },
     ];
     if !shortfalls.is_empty() {
         report.push(format!(
@@ -1600,10 +1637,17 @@ pub fn evaluate(root: &Path) -> Result<Outcome, GateError> {
     report.extend(detail);
     report.extend(failures.iter().map(|f| format!("  - {f}")));
 
+    // THE SIDE EFFECT DEPENDS ON THE VERDICT, never the reverse. This used to
+    // hand back `Some(..)` unconditionally and `run` wrote it before printing,
+    // so a RED run left a units_index.json behind.
     Ok(Outcome {
         stdout: format!("{}\n", report.join("\n")),
         code: i32::from(!failures.is_empty()),
-        artifact: Some((join_rel(root, OUT_REL), body)),
+        artifact: if failures.is_empty() {
+            Some((join_rel(root, OUT_REL), body))
+        } else {
+            None
+        },
     })
 }
 
@@ -1616,15 +1660,23 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     let root = ctx.root.canonicalize().unwrap_or_else(|_| ctx.root.clone());
     let outcome = evaluate(&root)?;
 
-    // Write BEFORE the verdict is printed, because the oracle does. See the
-    // WRITE-BEFORE-VERDICT finding in the header.
-    if let Some((path, body)) = &outcome.artifact {
-        if let Some(parent) = path.parent() {
-            std::fs::create_dir_all(parent)
-                .map_err(|e| GateError::error(format!("mkdir {}: {e}", parent.display())))?;
+    // A RED outcome carries NO artifact — `evaluate` decides the verdict before
+    // it decides whether there is anything to write, and this is the belt to
+    // that braces: a non-zero code with an artifact attached is a contradiction
+    // and must not be resolvable by writing the file.
+    debug_assert!(
+        outcome.code == 0 || outcome.artifact.is_none(),
+        "a failing run must not carry an artifact"
+    );
+    if outcome.code == 0 {
+        if let Some((path, body)) = &outcome.artifact {
+            if let Some(parent) = path.parent() {
+                std::fs::create_dir_all(parent)
+                    .map_err(|e| GateError::error(format!("mkdir {}: {e}", parent.display())))?;
+            }
+            std::fs::write(path, body.as_bytes())
+                .map_err(|e| GateError::error(format!("write {}: {e}", path.display())))?;
         }
-        std::fs::write(path, body.as_bytes())
-            .map_err(|e| GateError::error(format!("write {}: {e}", path.display())))?;
     }
 
     print!("{}", outcome.stdout);
@@ -1890,6 +1942,104 @@ mod tests {
         bank.insert(1, vec![item("q1", 1, &[]), item("q2", 1, &[])]);
         let picked = pick_check_items(&bank, Some(1), &[], 1, CHECK_N);
         assert_eq!(picked.len(), 2, "{picked:?}");
+    }
+
+    /// A tree `evaluate` can run against, written into a temp dir.
+    fn tree(dir: &Path, with_topics: bool, with_index: bool) {
+        let put = |rel: &str, body: &str| {
+            let p = join_rel(dir, rel);
+            std::fs::create_dir_all(p.parent().unwrap()).unwrap();
+            std::fs::write(&p, body).unwrap();
+        };
+        let long: String = (0..MIN_UNIT_WORDS + 5)
+            .map(|i| format!("word{i} "))
+            .collect();
+        put(
+            "web/content/modules/01-mission-critical.md",
+            &format!("## A\n\n{long}\n\n## B\n\n{long}\n"),
+        );
+        if with_topics {
+            put(
+                TOPICS_REL,
+                "[[topic]]\nid = \"m01-a\"\ndomain = \"01-mission-critical\"\nlabel = \"A\"\n",
+            );
+        }
+        if with_index {
+            put(
+                MOD_INDEX_REL,
+                "{\"modules\": [{\"id\": \"01-mission-critical\", \"empty\": false}]}\n",
+            );
+        }
+    }
+
+    #[test]
+    fn a_red_outcome_never_carries_an_artifact() {
+        // WRITE-AFTER-VERDICT as an invariant of `evaluate` itself, not merely
+        // of `run`: the artifact is `None` on every RED path, so `run` has
+        // nothing it *could* write even if its guard were removed. The three
+        // RED shapes below are the three doors into a failing build.
+        let td = tempfile::tempdir().unwrap();
+
+        // (a) a missing content tree — the earliest return.
+        let a = td.path().join("a");
+        std::fs::create_dir_all(&a).unwrap();
+        let o = evaluate(&a).unwrap();
+        assert_ne!(o.code, 0);
+        assert!(o.artifact.is_none(), "{}", o.stdout);
+        assert!(!o.stdout.contains("PASS"), "{}", o.stdout);
+
+        // (b) a missing input registry — the new anti-vacuous leg. Each
+        // registry is dropped on its own so neither can be the one doing the
+        // work for both.
+        for (with_topics, with_index, want) in [
+            (false, true, TOPICS_REL),
+            (true, false, MOD_INDEX_REL),
+            (false, false, TOPICS_REL),
+        ] {
+            let d = td.path().join(format!("b{with_topics}{with_index}"));
+            tree(&d, with_topics, with_index);
+            let o = evaluate(&d).unwrap();
+            assert_eq!(o.code, 1, "{}", o.stdout);
+            assert!(
+                o.stdout.contains(want),
+                "the absent registry must be NAMED: {}",
+                o.stdout
+            );
+            assert!(o.artifact.is_none(), "{}", o.stdout);
+            assert!(!o.stdout.contains("PASS"), "{}", o.stdout);
+        }
+
+        // (c) a complete tree that fails a threshold — the report path, which
+        // is the one that used to hand back an artifact anyway. 06-power is
+        // absent, so the spot check fires.
+        let c = td.path().join("c");
+        tree(&c, true, true);
+        let o = evaluate(&c).unwrap();
+        assert_ne!(o.code, 0, "{}", o.stdout);
+        assert!(o.stdout.starts_with("FAIL: build_units"), "{}", o.stdout);
+        assert!(o.stdout.contains("NOT WRITTEN"), "{}", o.stdout);
+        assert!(
+            o.artifact.is_none(),
+            "a failing build must not carry an artifact: {}",
+            o.stdout
+        );
+        assert!(!o.stdout.contains("PASS"), "{}", o.stdout);
+    }
+
+    #[test]
+    fn there_is_no_glob_fallback_left_to_find_a_module_the_learn_index_omits() {
+        // The fallback is DELETED, not gated: with the Learn index absent there
+        // is no second derivation that could sweep in a README.md and print
+        // `modules=16` over a 15-module index. Measured 2026-08-14, that is
+        // exactly what it did.
+        let td = tempfile::tempdir().unwrap();
+        let d = td.path().join("noindex");
+        tree(&d, true, false);
+        std::fs::write(join_rel(&d, "web/content/modules/README.md"), "## R\n\nx\n").unwrap();
+        let o = evaluate(&d).unwrap();
+        assert_eq!(o.code, 1, "{}", o.stdout);
+        assert!(!o.stdout.contains("modules="), "{}", o.stdout);
+        assert!(!o.stdout.contains("README"), "{}", o.stdout);
     }
 
     #[test]
