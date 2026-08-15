@@ -18,8 +18,8 @@
   "tooling": [
     "scripts/verify_bank.py",
     "scripts/validate_grounding.py",
-    "scripts/fetch_public_corpus.py",
-    "scripts/sample_mock.py",
+    "cdcp fetch-corpus",
+    "cdcp goldens fixture",
     "docs/GROUNDING.md"
   ],
   "next": "L3 grade + goldens for sampled mocks; optional embedding grounding later"
