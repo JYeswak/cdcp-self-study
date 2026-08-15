@@ -33,13 +33,17 @@
 
 Mock dual-path · silent UPDATE_GOLDENS · vacuous empty pass · dump PDFs as oracle · LLM as grade-of-record
 
-## Bank validation parity (Rust ⇔ verify_bank.py)
+## Bank validation parity (item schema vs live pool gate)
 
-Item floors are enforced in both places so a bad item cannot load in `Bank::load_dir`
-and still pass `scripts/verify_bank.py` (or the reverse for shared fields).
+`scripts/check.sh` runs `cargo run -q -p cdcp_gate -- verify-bank` as the live
+bank-pool gate. `scripts/verify_bank.py` is the differential oracle for
+`tests/diff_verify_bank.rs` — it is not the command to run.
 
-| Check | `Bank::load_dir` / `BankItem::validate` | `scripts/verify_bank.py` |
-|-------|-------------------------------------------|---------------------------|
+Item floors are enforced so a bad item cannot load in `Bank::load_dir`
+and still pass `cdcp_gate verify-bank` (or the reverse for shared fields).
+
+| Check | `Bank::load_dir` / `BankItem::validate` | `cdcp_gate verify-bank` (check.sh live) |
+|-------|-------------------------------------------|------------------------------------------|
 | empty bank / zero items | **ERROR** (`BankError::Empty`) | **ERROR** |
 | non-empty `stem` | yes (trim) | yes (trim) |
 | `choices` length 4 | yes | yes |
@@ -47,24 +51,25 @@ and still pass `scripts/verify_bank.py` (or the reverse for shared fields).
 | `correct` ∈ {A,B,C,D} uppercase | yes | yes (`ALLOWED_CORRECT`) |
 | `explanation` min length 12 | yes | yes |
 | `topic_ids` non-empty | yes | yes (required) |
-| `topic_ids` ∈ topics.toml | — (pool/registry; py-only) | yes |
+| `topic_ids` ∈ topics.toml | — (not an item-schema check) | yes |
 | `source_class` == `original` | yes | yes |
 | `quantity_evidence` allowlist | yes (default fact_policy set) | yes (+ fact_policy.toml) |
 | `bloom` ∈ taxonomy | yes | yes (`ALLOWED_BLOOM`) |
 | `module` parseable int | yes (serde `u32`) | yes |
 | duplicate ids | yes | yes |
-| pool_min / domain_min / letter diversity | — (corpus policy; py-only) | yes |
+| pool_min / domain_min / letter diversity | — (not an item-schema check) | yes (approved pool) |
 | MANIFEST item_count | — | yes if present |
-| `read_dir` IO errors | fail closed (no `e.ok()` swallow) | N/A |
-| `status` ∈ {draft,approved,retired} | **yes** — unknown value is a load error, absent = draft (C1) | — (not checked) |
-| unknown / unmodelled field | **yes** — load error naming the field (`deny_unknown_fields` [[fact:fact-bank-item-denies-unknown-fields=yes]], C2) | — (silently ignored) |
+| `read_dir` IO errors | fail closed (no `e.ok()` swallow) | fail closed |
+| `status` ∈ {draft,approved,retired} | **yes** — unknown value is a load error, absent = draft (C1) | **yes** — unknown status is ERROR; absent = draft |
+| unknown / unmodelled field | **yes** — load error naming the field (`deny_unknown_fields` [[fact:fact-bank-item-denies-unknown-fields=yes]], C2) | — (silently ignored; same as the oracle) |
 
-The last two rows are the recorded **divergences**: the Rust side is strictly stricter, so this
-table is a floor, not an equality. A green `verify_bank.py` is not evidence that item statuses are
-well-formed, nor that a bank file carries no content outside `bank_hash`.
+The last row is a recorded **divergence**: `Bank::load_dir` is stricter on
+unknown fields. A green `cdcp_gate verify-bank` is not evidence that a bank
+file carries no content outside `bank_hash`. Status *is* checked on the live
+path (the retired "py-only" reading was false after the port).
 
 **Commands:** `cargo test -p cdcp_bank` (includes real `bank/items` load) and
-`python3 scripts/verify_bank.py`.
+`cargo run -q -p cdcp_gate -- verify-bank`.
 
 ## Skip policy (honest receipts)
 

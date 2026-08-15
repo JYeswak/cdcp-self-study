@@ -47,7 +47,10 @@ KNOWLEDGE = ROOT / "knowledge"
 #   about the product. Deliberately ONE TENTH of verify_bank's
 #   pool_min_items = 400: the pool floor belongs to that gate, and enforcing it
 #   twice would turn a legitimately-still-growing bank RED here for a reason
-#   another gate already owns. Live tree 2026-08-14: 804 items, 20x this floor.
+#   another gate already owns. Live tree 2026-08-14: 804 FILES scanned
+#   (this gate's population is the file set, not verify_bank's 779-item
+#   approved pool). 20x this scan-set floor. The two populations differ
+#   on purpose.
 #
 # MIN_CORPUS_CHARS = 20000 — one module's worth of prose. Measured 2026-08-14,
 #   the 29 live modules run 749..47651 characters, median 23870, so this sits

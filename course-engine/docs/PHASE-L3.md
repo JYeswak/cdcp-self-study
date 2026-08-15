@@ -13,7 +13,7 @@
 ## Preconditions (already done)
 
 - W0 knowledge pack + standards graph
-- L2 bank library ~798 items + `verify_bank` + `validate_grounding`
+- L2 bank library 804 files / 779 approved / 25 retired (~19.5× exam on the approved pool) + `cdcp_gate verify-bank` + `validate_grounding` [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] [[fact:fact-approved-pool-multiplier-19-5=yes]]
 - `sample_mock.py` assembly
 
 ## OQs to resolve before/with L3

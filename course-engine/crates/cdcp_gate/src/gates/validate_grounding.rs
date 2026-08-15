@@ -181,7 +181,7 @@ pub const MAX_REPORT: usize = 60;
 /// TENTH of `verify_bank`'s `pool_min_items = 400`: the pool floor belongs to
 /// that gate, and enforcing it twice would turn a legitimately-still-growing
 /// bank RED here for a reason another gate already owns. Live tree 2026-08-14:
-/// 804 items, 20x this floor. Mirrored from the oracle, which owns the value.
+/// 804 files scanned (file set, not the 779 approved pool). Populations differ on purpose; 20x is this scan-set floor.
 pub const MIN_SCANNED_ITEMS: usize = 40;
 
 /// Anti-vacuous floor on corpus size — one module's worth of prose.

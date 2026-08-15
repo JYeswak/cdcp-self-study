@@ -131,6 +131,20 @@ question = "Does the generated units index report `unit_count` 134?"
 probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"unit_count": 134' }
 trigger = "134 Learn units"
 
+# Sampling claims must quote the approved pool (bd-docs-advertise-file-count-as-pool-99sw).
+# 779/40 = 19.475, advertised as ~19.5×. The file set is 804 (~20.1×) and is
+# not the drawable pool. A site that writes "~20× exam" without this marker
+# is quoting the file set; the trigger is the approved-pool multiplier so a
+# stale ~20× cannot satisfy it.
+
+[[fact]]
+id = "fact-approved-pool-multiplier-19-5"
+class = "pool_size"
+artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
+question = "Does the generated units index report `approved_item_count` 779, i.e. the drawable pool whose exam multiplier is ~19.5× (779/40)?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 779' }
+trigger = "19.5× exam"
+
 [[fact]]
 id = "fact-assemble-rng-is-chacha12"
 class = "prng"
