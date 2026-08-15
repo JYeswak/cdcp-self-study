@@ -1,0 +1,449 @@
+schema_version = 1
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE BLIND SPOT, MEASURED.  (bd-differential-shared-blindspot-4qje, bd-j8b2)
+#
+# A differential harness asserts that two implementations AGREE. Agreement is a
+# NECESSARY condition for a correct port and is NOT a SUFFICIENT condition for a
+# correct gate: a defect present in BOTH sides agrees with itself. Every case
+# that asserts only agreement is silent about whether the shared behaviour is
+# right.
+#
+# That is not theoretical. Measured 2026-08-14 in verify_objectives:
+#
+#     PASS ... primary_topics=106 covered=106 shortfalls=0 min_per_topic=0
+#              mode=strict ... EXIT 0
+#
+# 106 of 106 topics "covered", in STRICT mode, with not one comparison
+# performed — `--min-items-per-topic 0` fell straight through the comparison
+# guard. diff_verify_objectives.rs had been running that exact case
+# (`m min topic 0`) and PASSING it for weeks, because both sides produced the
+# same wrong answer. The harness header already said "a defect faithfully
+# ported is still a defect", and the defect landed in its own blind spot.
+#
+# This file is the census of that blind spot and the ratchet that stops it
+# growing. It is re-derived from the harness sources on every run by
+# crates/cdcp_gate/tests/differential_verdict_census.rs — the numbers below are
+# a BUDGET, not a record; the measurement is what the test does.
+#
+# SECOND USE: THE RETIREMENT COST SHEET. The standing policy is to retire an
+# oracle at port time — change the Rust, delete the .py, convert its
+# differential cases into direct tests that assert the VERDICT. `agreement_only`
+# is exactly the number of cases that EVAPORATE under that conversion, because a
+# case saying only "the two sides agree" says nothing at all once there is only
+# one side.
+#
+# RETIREMENT HAS TWO INDEPENDENT BLOCKERS, and this file supplies the second.
+#
+#   A. IS THE ORACLE STILL INVOKED? If check.sh still runs it, it cannot be
+#      retired at any price until the invocation is repointed.
+#   B. WHAT DOES RETIRING COST? = `agreement_only`.
+#
+# BLOCKER A, MEASURED TRANSITIVELY 2026-08-14 — and `grep python3 check.sh` DOES
+# NOT ANSWER IT. check.sh calls other shell scripts, and those invoke the
+# oracles; two more hide behind a variable (`python3 "$CHECKER"`) that no grep
+# for a .py filename can see. Resolved by following check.sh's own
+# `run_selftest`/`sh scripts/*.sh` calls into each script:
+#
+#   oracle                      invoked?  via
+#   verify_orphans.py           YES (8)   check.sh:508  -> selftest_orphan.sh
+#   verify_objectives.py        YES (6)   check.sh:714  -> selftest_l7_objectives.sh
+#   verify_coverage.py          YES (3)   check.sh:683  -> selftest_l6_coverage.sh
+#   verify_bank.py              YES (2)   check.sh:719  -> smoke_slo.sh
+#   verify_doc_consistency.py   YES (1)   check.sh:767  -> selftest_doc_consistency.sh, as $CHECKER
+#   verify_injection_count.py   YES (1)   check.sh:802  -> selftest_injection_count.sh, as $CHECKER
+#   validate_grounding.py       no        check.sh:493 is a `-f` PRESENCE check, never a run
+#   verify_content_lock.py      no        not referenced by any script
+#   verify_knowledge_paths.py   no        not referenced by any script
+#   build_glossary_json.py      no        not referenced by any script
+#   build_units.py              RETIRED   file deleted; no surviving invocation
+#
+# READING THE TWO TOGETHER — the only rows where BOTH blockers are already
+# clear, i.e. retirable TODAY at zero cost: verify_content_lock.py and
+# verify_knowledge_paths.py (0 agreement-only, never invoked). verify_bank.py
+# and verify_orphans.py are blocked on the INVOCATION only — their harnesses
+# would lose nothing. Everything else is blocked on both.
+# ─────────────────────────────────────────────────────────────────────────────
+
+[census]
+measured_on = "2026-08-14"
+methodology = """
+A CASE is one invocation, from inside a #[test] fn, of the harness's own
+byte-comparison helper (the function that runs both implementations and asserts
+stdout/stderr/exit-code equality). That is the unit the harnesses already count
+in their own COMPARED counters.
+
+A case carries an INDEPENDENT VERDICT if, at that call site, the harness also
+asserts something about WHAT the shared output is — the exit code, or a
+required substring of stdout/stderr — i.e. a claim that would still be
+checkable if only ONE implementation existed. A case that binds the comparison
+result and never asserts on it counts as agreement-only, same as a bare call.
+
+Otherwise the case is AGREEMENT-ONLY, and it is blind by construction: no
+defect that both implementations share can make it fail, and nothing at all
+survives when its oracle is retired.
+"""
+
+# Anti-vacuous floors, derived from what the tree contained when this file was
+# written. A census that discovers nothing must be an ERROR, never a pass.
+registered_harness_floor = 11   # rows below; monotone — rows stay after retirement
+active_harness_floor = 1        # diff_*.rs files still holding comparator calls
+
+# THE RATCHET. The total number of agreement-only cases across the tree may
+# fall and may never rise. Enforcement is on the TOTAL, deliberately, and not
+# per harness: four of these files were owned by other agents mid-wave, and a
+# gate that goes red on a file its owner may not touch gets disabled — and a
+# disabled detector is worth less than none, because it also carries the belief
+# that the class is covered. Per-harness numbers below are reported every run,
+# and are the input to the retirement decision; the total is what is enforced.
+#
+# 36 when first measured. 28 after diff_verify_orphans.rs was converted in the
+# same wave (7 to 0) and diff_build_units.rs was converted by its owner (1 to
+# 0). 18 after bd-diff-coverage-agreement-only-25ux converted
+# diff_verify_coverage.rs (9 to 0). Set to the MEASURED value, not a value
+# with headroom: a ratchet with slack is not a ratchet.
+#
+# IF THIS FIRED ON YOUR FILE: the fix is to give your new case an independent
+# verdict, not to raise this number. Raising it is a gate bypass and is
+# escalation-only. Lowering it after a conversion is expected and autonomous.
+agreement_only_total_budget = 18
+
+# If every differential harness is eventually retired, `active` legitimately
+# reaches zero. That end state must be DECLARED, not inferred from an empty
+# scan — an empty scan set is an ERROR.
+all_harnesses_retired = false
+all_harnesses_retired_reason = ""
+
+# ── the eleven harnesses, measured 2026-08-14 ────────────────────────────────
+#
+# `owner_bead` is set where a sibling agent held the file during the 2026-08-14
+# wave; those rows were audited read-only and not edited.
+
+[[harness]]
+file = "diff_build_glossary_json.rs"
+gate = "build-glossary-json"
+comparators = ["compare"]
+cases = 9
+agreement_only = 1
+
+[[harness]]
+file = "diff_build_units.rs"
+gate = "build-units"
+comparators = ["compare"]
+# CONVERTED by its owner during the same wave: the file now holds ZERO
+# differential comparator calls (18 #[test] fns, direct tests of the Rust).
+# The row stays — rows are monotone, so the census can tell retirement from
+# erasure.
+cases = 0
+agreement_only = 0
+owner_bead = "bd-7big/bd-qqwc"
+
+[[harness]]
+file = "diff_validate_grounding.rs"
+gate = "validate-grounding"
+comparators = ["compare_env", "compare"]
+cases = 35
+agreement_only = 2
+
+[[harness]]
+file = "diff_verify_bank.rs"
+gate = "verify-bank"
+comparators = ["assert_byte_identical", "check"]
+# 42 cases as of 2026-08-14 evening, its owner having expanded it mid-wave.
+# Zero agreement-only throughout: this oracle can be retired today, losing
+# nothing.
+cases = 42
+agreement_only = 0
+owner_bead = "bd-8exw"
+
+[[harness]]
+file = "diff_verify_content_lock.rs"
+gate = "verify-content-lock"
+comparators = ["assert_identical_env", "assert_identical"]
+cases = 31
+agreement_only = 0
+
+[[harness]]
+file = "diff_verify_coverage.rs"
+gate = "verify-coverage"
+comparators = ["assert_byte_identical"]
+cases = 44
+agreement_only = 0
+owner_bead = "bd-coverage-counts-retired-items-49jh"
+
+[[harness]]
+file = "diff_verify_doc_consistency.rs"
+gate = "verify-doc-consistency"
+comparators = ["assert_byte_exact"]
+cases = 28
+agreement_only = 1
+
+[[harness]]
+file = "diff_verify_injection_count.rs"
+gate = "verify-injection-count"
+comparators = ["assert_identical", "check"]
+cases = 37
+agreement_only = 5
+owner_bead = "bd-1sd.13"
+
+[[harness]]
+file = "diff_verify_knowledge_paths.rs"
+gate = "verify-knowledge-paths"
+comparators = ["assert_identical"]
+cases = 25
+agreement_only = 0
+
+[[harness]]
+file = "diff_verify_objectives.rs"
+gate = "verify-objectives"
+comparators = ["assert_byte_identical"]
+cases = 58
+agreement_only = 10
+
+[[harness]]
+file = "diff_verify_orphans.rs"
+gate = "verify-orphans"
+comparators = ["assert_byte_identical"]
+# CONVERTED 2026-08-14 (bd-differential-shared-blindspot-4qje): 26 cases / 7
+# agreement-only became 23 cases / 0. The six option-spelling cases were not
+# merely given assertions — they were repointed at a bank holding a KNOWN
+# planted orphan, because asserting "this spelling still passes" against the
+# green live tree is worth nothing. Each now asserts that the spelling
+# normalises to the one resolved path, that the run scanned THAT tree (the item
+# count, which is what catches a silent fallback to a default), and that it
+# still reaches the planted finding and goes RED for it.
+cases = 25
+agreement_only = 0
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE VERDICT-SHAPE LEG (bd-j8b2), relocated from the harnesses onto the GATES.
+#
+# bd-j8b2 proposed a meta-gate asserting that every diff_*.rs CARRIES a leg
+# checking "no success token on a path that exited non-zero", and recorded that
+# only 3 of 11 did. That design has two problems this file avoids. It is a
+# source scan for the presence of a string, which is the shape bd-0czh already
+# measured being fooled — three fail-opens survived an audit because grepping
+# for the message returned a hit and READ AS GUARDED. And it needed eight
+# sibling-owned test files edited in one wave.
+#
+# The leg is per-CASE and unbounded; the DEFECT is per-GATE and there are
+# nineteen gates. So the check runs against the gate BINARY: for every gate the
+# dispatcher lists, on both a live root and an empty root, exit == 0 must be
+# equivalent to "stdout carries this gate's success token". That is the same
+# claim, proven by execution rather than by grep, over the whole roster at once,
+# and it needs no edit to any file another agent owns.
+#
+# The token differs per gate — PASS, `ok:`, a prefixed spelling — which is
+# exactly why it is a registry row and not a literal in a scanner.
+# ─────────────────────────────────────────────────────────────────────────────
+
+[probe]
+# Anti-vacuous on the probe itself: if no gate is ever observed GREEN carrying
+# its token, the token side of the equivalence was never exercised and a
+# "no token on failure" check passes for free.
+green_with_token_floor = 1
+# The known token vocabulary, used to prove that a gate registered as
+# token-free really prints nothing that reads as a verdict.
+token_vocabulary = ["PASS", "GREEN", ": ok:", ": OK:"]
+
+[[harness]]
+file = "diff_smoke_a11y.rs"
+gate = "smoke-a11y"
+comparators = ["cmp", "compare_crash"]
+# bd-substrate-rust-migration-jhd.19. The 19 adversarial HTML rows are the
+# valuable part: the oracle runs nine regexes over raw text, so a permissive
+# HTML crate would "correct" it on six of them. Also pinned: class="skip-linK"
+# with U+017F/U+212A is GREEN under re.IGNORECASE, which a to_lowercase() port
+# fails.
+cases = 15
+agreement_only = 0
+
+[[harness]]
+file = "diff_smoke_learn_v2.rs"
+gate = "smoke-learn-v2"
+comparators = ["cmp", "compare_crash"]
+# bd-substrate-rust-migration-jhd.20.
+cases = 32
+agreement_only = 0
+
+[[harness]]
+file = "diff_export_anki.rs"
+gate = "export-anki"
+comparators = ["compare"]
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.13 EXTRACT-THEN-DELETE).
+# The file is gone; the row stays (rows are monotone). Product is cdcp_anki /
+# `cdcp export-anki`.
+cases = 0
+agreement_only = 0
+
+[[gate]]
+name = "build-glossary-json"
+success_token = "PASS: glossary"
+live_probe = false
+live_probe_skip_reason = "writes web/data/glossary.json; a probe must never mutate a tracked artifact"
+
+[[gate]]
+name = "build-units"
+success_token = "PASS: build_units"
+live_probe = false
+live_probe_skip_reason = "writes web/data/units_index.json; a probe must never mutate a tracked artifact"
+
+[[gate]]
+name = "smoke-a11y"
+success_token = "PASS: smoke_a11y"
+live_probe = true
+
+[[gate]]
+name = "smoke-learn-v2"
+success_token = "smoke_learn_v2: PASS"
+live_probe = true
+
+# RETIRED 2026-08-15: export-anki is no longer a cdcp_gate subcommand. The
+# product lives at `cdcp export-anki`. The [[gate]] row is gone because LEG C
+# keys on the dispatcher roster; a leftover row for a missing gate is noise.
+
+[[gate]]
+name = "validate-grounding"
+success_token = "PASS"
+
+[[gate]]
+name = "capability-maturity"
+success_token = "capability-maturity: ok:"
+
+[[gate]]
+name = "corpus-redistribution"
+success_token = "corpus-redistribution: ok:"
+
+[[gate]]
+name = "doc-facts"
+success_token = "doc-facts: ok:"
+
+[[gate]]
+name = "goldens-couplings"
+success_token = "goldens-couplings: ok:"
+
+[[gate]]
+name = "install-hooks"
+success_token = "install-hooks: ok:"
+live_probe = false
+live_probe_skip_reason = "writes into this clone's .git; a probe must never mutate the working clone"
+empty_probe = false
+empty_probe_skip_reason = "installs shims into whatever root it is given; an empty root is still a write target"
+
+[[gate]]
+name = "near-duplicate-items"
+token_free = true
+token_free_reason = "prints a counted receipt and no verdict word on the green path; immune to the verdict-shape class because it has no token to misplace, and the probe proves the absence rather than asserting it"
+
+[[gate]]
+name = "substrate-guard"
+success_token = "substrate-guard: ok:"
+
+[[gate]]
+name = "verify-bank"
+success_token = "PASS"
+
+[[gate]]
+name = "verify-content-lock"
+success_token = "verify_content_lock: PASS"
+
+[[gate]]
+name = "verify-coverage"
+success_token = "PASS"
+
+[[gate]]
+name = "verify-doc-consistency"
+success_token = "PASS"
+
+[[gate]]
+name = "verify-injection-count"
+success_token = "PASS"
+live_probe = false
+live_probe_skip_reason = "requires --log/--readme; there is no argument-free live invocation, and a USAGE exit is not a verdict"
+
+[[gate]]
+name = "verify-knowledge-paths"
+success_token = "PASS"
+
+[[gate]]
+name = "verify-objectives"
+success_token = "PASS"
+
+[[gate]]
+name = "verify-orphans"
+success_token = "PASS"
+
+[[gate]]
+name = "verify-step-count"
+# `out.push_str(if failed { "FAIL\n" } else { "PASS\n" })` — verify_step_count.rs:658.
+# Registered as "<gate>: ok:" on first pass by pattern-matching the gates around
+# it, and caught by reading the source rather than by any probe: this gate has no
+# argument-free invocation, so no probe would ever have exercised the token side
+# and the wrong row would have sat here reading as covered. Which is the whole
+# argument for LEG F.
+success_token = "PASS"
+live_probe = false
+live_probe_skip_reason = "requires --measured; there is no argument-free live invocation, and a USAGE exit is not a verdict"
+
+# ── bd-substrate-rust-migration-jhd.17 / .18 (wave 4 learner-surface smokes) ──
+#
+# Both harnesses were written to the post-blind-spot standard: every call site
+# binds the comparator's result and asserts what the shared output IS, so both
+# contribute ZERO to the ratchet. `.18`'s comparator additionally compares the
+# BYTES WRITTEN — smoke_feedback_links regenerates web/data/topic_anchors.json,
+# and a builder whose artifact is never compared is a differential with a hole
+# exactly the size of its output.
+
+[[harness]]
+file = "diff_smoke_learn.rs"
+gate = "smoke-learn"
+comparators = ["assert_identical"]
+cases = 30
+agreement_only = 0
+
+[[harness]]
+file = "diff_smoke_feedback_links.rs"
+gate = "smoke-feedback-links"
+comparators = ["assert_identical"]
+cases = 27
+agreement_only = 0
+
+[[gate]]
+name = "smoke-learn"
+success_token = "PASS: smoke_learn"
+
+[[gate]]
+name = "smoke-feedback-links"
+success_token = "PASS: smoke_feedback_links"
+live_probe = false
+live_probe_skip_reason = "regenerates web/data/topic_anchors.json before it decides a verdict; a probe must never mutate a tracked artifact, and this gate writes on RED as well as GREEN (bd-feedback-links-builder-red-write-2vqx)"
+
+# ── bd-substrate-rust-migration-jhd.14 (wave 4, M8-C diagram smoke) ──────────
+#
+# Written to the post-blind-spot standard: every call site binds the
+# comparator's result and asserts BOTH the exit code and a required substring of
+# stdout, so the harness contributes ZERO to the ratchet and loses nothing on
+# the day `scripts/smoke_diagrams.py` is retired.
+#
+# TWO COMPARATORS, and the second is not a variant spelling. `compare_with`
+# takes a mutation closure that runs against each freshly materialised copy, for
+# the one case a byte map cannot express: a diagram file chmod-ed 000, which is
+# the only input that reaches the oracle's `OSError` arm. It is registered so
+# that case is CENSUSED rather than invisible.
+#
+# This harness runs its two copies SEQUENTIALLY AT ONE PATH (materialise, run,
+# wipe, re-materialise, run) instead of side by side in `py/` and `rs/`. Five of
+# this gate's messages print an absolute path, so side-by-side copies differ in
+# exactly those bytes and the tuple could only be compared after normalising the
+# path away — which would also mask a port that printed the WRONG path.
+
+[[harness]]
+file = "diff_smoke_diagrams.rs"
+gate = "smoke-diagrams"
+comparators = ["compare_four_tuple", "compare_with"]
+cases = 13
+agreement_only = 0
+
+[[gate]]
+name = "smoke-diagrams"
+success_token = "smoke_diagrams: PASS"
