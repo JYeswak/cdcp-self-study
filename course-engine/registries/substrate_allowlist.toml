@@ -126,8 +126,8 @@ bead = "bd-substrate-rust-migration-jhd.1"
 
 [[oracle_inventory.file]]
 path = "scripts/verify_orphans.py"
-disposition = "live_selftest"
-why = "selftest_orphan.sh still invokes python3; rust is the check.sh gate"
+disposition = "cargo_test_differential"
+why = "check.sh/selftest_orphan.sh no longer invoke python3; cargo test still diffs vs tests/diff_verify_orphans.rs (bd-substrate-rust-migration-jhd.22)"
 
 [[oracle_inventory.file]]
 path = "scripts/verify_injection_count.py"
@@ -175,7 +175,7 @@ why = "selftest_l7_objectives.sh still invokes python3; rust is the check.sh gat
 
 [[allow]]
 path = "scripts/verify_orphans.py"
-reason = "Differential oracle for `cdcp_gate verify-orphans` (bd-substrate-rust-migration-jhd.2, ported 2026-08-14). Topic<->item referential integrity. Retained so tests/diff_verify_orphans.rs can compare both implementations. Invoked transitively by selftest_orphan.sh (bd-check-sh-transitive-invocation-gzvb)."
+reason = "Differential oracle for `cdcp_gate verify-orphans` (bd-substrate-rust-migration-jhd.2, ported 2026-08-14). Topic<->item referential integrity. Retained so tests/diff_verify_orphans.rs can compare both implementations. check.sh presence-checks only; cargo test still diffs. Known-bad plants run via $CDCP_BIN_DIR/cdcp_gate verify-orphans (bd-substrate-rust-migration-jhd.22)."
 migration_bead = "bd-substrate-rust-migration-jhd.2"
 expires = "2026-10-31"
 
@@ -371,7 +371,7 @@ expires = "2027-02-28"
 
 [[allow]]
 path = "scripts/selftest_orphan.sh"
-reason = "L4 known-bad harness for the orphan gate (empty bank ERROR, orphan ref RED, live GREEN). Ports with bd-substrate-rust-migration-jhd.2."
+reason = "L4 known-bad harness for the orphan gate (empty bank ERROR, orphan ref RED, live GREEN). Plants run $CDCP_BIN_DIR/cdcp_gate verify-orphans (bd-substrate-rust-migration-jhd.22); the .py is cargo-test-only."
 migration_bead = "bd-substrate-rust-migration-jhd.2"
 expires = "2027-02-28"
 

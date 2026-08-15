@@ -3,10 +3,14 @@
 # proven to trip.
 #
 # Contract (mirrors scripts/selftest_l6_coverage.sh):
-#   inject an in-tree known-bad specimen into TEMP, assert verify_orphans.py
-#   goes RED with the expected signal, restore. The live bank/ and knowledge/
-#   are NEVER mutated — the specimens are real TOML files this script writes,
-#   not a patch applied to the working tree.
+#   inject an in-tree known-bad specimen into TEMP, assert
+#   `$CDCP_BIN_DIR/cdcp_gate verify-orphans` goes RED with the expected
+#   signal, restore. The live bank/ and knowledge/ are NEVER mutated —
+#   the specimens are real TOML files this script writes, not a patch
+#   applied to the working tree.
+#
+# Plants run the Rust binary (same helper contract as check.sh).
+# scripts/verify_orphans.py is the cargo-test differential oracle only.
 #
 # Cases:
 #   a) empty bank dir                  → ERROR (anti-vacuous)
@@ -72,10 +76,26 @@ assert_fails_with() {
 
 echo "==> selftest_orphan (ORACLE-GAUNTLET known-bad: orphan item)"
 
-[ -f scripts/verify_orphans.py ] || fail "missing scripts/verify_orphans.py"
+# Same binary contract as check.sh: honour CARGO_TARGET_DIR, never cargo run.
+if [ -z "${CDCP_BIN_DIR:-}" ]; then
+  if [ -n "${CARGO_TARGET_DIR:-}" ]; then
+    CDCP_BIN_DIR="${CARGO_TARGET_DIR%/}/debug"
+  else
+    CDCP_BIN_DIR="$ROOT/target/debug"
+  fi
+fi
+[ -n "$CDCP_BIN_DIR" ] \
+  || fail "CDCP_BIN_DIR unset — cargo build -p cdcp_gate -p cdcp_cli --locked must run first (no fallback to cargo run)"
+[ -x "$CDCP_BIN_DIR/cdcp_gate" ] \
+  || fail "cdcp_gate binary absent at $CDCP_BIN_DIR/cdcp_gate — cargo build -p cdcp_gate -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
+
+verify_orphans() {
+  "$CDCP_BIN_DIR/cdcp_gate" verify-orphans "$@"
+}
+
 [ -d bank/items ] || fail "missing bank/items"
 [ -f knowledge/topics.toml ] || fail "missing knowledge/topics.toml"
-command -v python3 >/dev/null 2>&1 || fail "python3 required"
+command -v python3 >/dev/null 2>&1 || fail "python3 required (topic-id extract only)"
 
 TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/selftest_orphan.XXXXXX")"
 
@@ -95,14 +115,14 @@ echo "==> (a) empty bank → ERROR"
 empty_bank="$TMP_ROOT/empty_bank"
 mkdir -p "$empty_bank"
 assert_fails_with "empty-bank" "empty bank" \
-  python3 scripts/verify_orphans.py --bank "$empty_bank"
+  verify_orphans --bank "$empty_bank"
 
 # ── (b) empty topics registry → anti-vacuous ERROR ──────────────────────────
 echo "==> (b) empty topics registry → ERROR"
 empty_topics="$TMP_ROOT/empty_topics.toml"
 : >"$empty_topics"
 assert_fails_with "empty-topics" "empty topic registry" \
-  python3 scripts/verify_orphans.py --topics "$empty_topics"
+  verify_orphans --topics "$empty_topics"
 
 # ── shared specimen bank: a faithful copy of the live bank ──────────────────
 # Copying (rather than filtering) means the ONLY defect in each case below is
@@ -129,7 +149,7 @@ source_class = "original"
 quantity_evidence = "qualitative_only"
 EOF
 assert_fails_with "orphan-item-ref" "unknown topic_id" \
-  python3 scripts/verify_orphans.py --bank "$plant_bank"
+  verify_orphans --bank "$plant_bank"
 rm -f "$plant_bank/zz-selftest-orphan-ref.toml"
 
 # ── (d) unanchored item: topic_ids present but empty ────────────────────────
@@ -147,7 +167,7 @@ source_class = "original"
 quantity_evidence = "qualitative_only"
 EOF
 assert_fails_with "unanchored-item" "missing/empty topic_ids" \
-  python3 scripts/verify_orphans.py --bank "$plant_bank"
+  verify_orphans --bank "$plant_bank"
 rm -f "$plant_bank/zz-selftest-unanchored.toml"
 
 # ── (g) a file whose items[] yields nothing: vacuous at FILE granularity ────
@@ -159,12 +179,12 @@ rm -f "$plant_bank/zz-selftest-unanchored.toml"
 echo "==> (g) file whose items[] yields zero items → RED"
 printf 'items = []\n' >"$plant_bank/zz-selftest-silently-empty.toml"
 assert_fails_with "silently-empty-file" "items[] yielded zero items" \
-  python3 scripts/verify_orphans.py --bank "$plant_bank"
+  verify_orphans --bank "$plant_bank"
 rm -f "$plant_bank/zz-selftest-silently-empty.toml"
 
 # specimen bank must now be back to a clean copy → GREEN against live topics
 rc=0
-python3 scripts/verify_orphans.py --bank "$plant_bank" >/dev/null 2>&1 || rc=$?
+verify_orphans --bank "$plant_bank" >/dev/null 2>&1 || rc=$?
 [ "$rc" -eq 0 ] || fail "specimen bank not clean after removing planted items (rc=$rc)"
 ok "specimen bank clean after (c)(d) removal"
 
@@ -181,12 +201,12 @@ label = "selftest planted orphan topic — assessed by zero bank items"
 source = "src-epi-cdcp-page"
 EOF
 assert_fails_with "orphan-topic" "orphan topic 'zz-selftest-orphan-topic'" \
-  python3 scripts/verify_orphans.py --topics "$plant_topics"
+  verify_orphans --topics "$plant_topics"
 
 # ── (f) live tree still GREEN, and nothing planted leaked into it ───────────
 echo "==> (f) live tree GREEN"
 rc=0
-live_out="$(python3 scripts/verify_orphans.py 2>&1)" || rc=$?
+live_out="$(verify_orphans 2>&1)" || rc=$?
 printf '%s\n' "$live_out"
 [ "$rc" -eq 0 ] || fail "live orphan check exited $rc (selftest must not dirty the tree)"
 printf '%s\n' "$live_out" | grep -q 'orphan integrity GREEN' \
@@ -200,6 +220,12 @@ done
 grep -q 'zz-selftest-orphan-topic' knowledge/topics.toml \
   && fail "specimen topic leaked into knowledge/topics.toml"
 ok "live tree clean (no specimen leaked)"
+
+# Anti-vacuous: a suite that discovered zero plants reports like a pass.
+# Six RED plants are the contract (a,b,c,d,e,g). Dropping one is RED here,
+# not a quieter receipt for verify_injection_count to notice later.
+[ "$INJ" -gt 0 ] || fail "zero plants discovered (vacuous known-bad suite is ERROR)"
+[ "$INJ" -eq 6 ] || fail "expected 6 RED plants, got $INJ (do not drop a plant)"
 
 echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
 echo "selftest_orphan: PASSED (a empty bank · b empty topics · c orphan ref · d unanchored · e orphan topic · f live GREEN · g silently-empty file)"
