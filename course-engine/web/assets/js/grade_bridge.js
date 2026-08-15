@@ -27,10 +27,10 @@
  * If WASM is not built or loadWasm fails, gradeDigest rejects. Headless CI should use
  * the Rust oracle instead:
  *
- *   cargo run -q -p cdcp_cli -- grade \
+ *   cdcp grade \
  *     --fixture goldens/fixtures/mock40_seed42.json --mode all-correct
  *
- *   cargo run -q -p cdcp_cli -- goldens check
+ *   cdcp goldens check
  *
  * Build + install WASM artifact
  * -----------------------------
@@ -175,7 +175,7 @@ async function instantiateFromPath(url, imports, priorErr) {
       `loadWasm failed for ${url}: ${errMsg(e)}${detail}. ` +
         `Build with: cargo build -p cdcp_wasm --target wasm32-unknown-unknown ` +
         `and copy cdcp_wasm.wasm to web/assets/wasm/. ` +
-        `Headless e2e without wasm: cargo run -p cdcp_cli -- grade …`
+        `Headless e2e without wasm: cdcp grade …`
     );
   }
 }
@@ -222,7 +222,7 @@ export async function gradeDigest(bankJson, attemptJson) {
   if (!isWasmReady()) {
     throw new Error(
       "WASM not loaded. Call await loadWasm() first, or use CLI oracle: " +
-        "`cargo run -p cdcp_cli -- grade --fixture … --mode all-correct`"
+        "`cdcp grade --fixture … --mode all-correct`"
     );
   }
 
