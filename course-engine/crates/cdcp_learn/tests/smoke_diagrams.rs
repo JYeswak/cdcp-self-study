@@ -19,7 +19,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 static RAN: AtomicUsize = AtomicUsize::new(0);
 
 /// Raise when you add a `#[test]`. A DROP means a case was deleted.
-const EXPECTED_CASES: usize = 32;
+const EXPECTED_CASES: usize = 35;
 
 const LIVE_IDS: &[&str] = &[
     "power-path",
@@ -94,10 +94,9 @@ fn present_row(id: &str) -> String {
     format!("| `{id}` | T | 01 | P0 | **present** | `web/diagrams/{id}.html` |")
 }
 
-fn registry_md(rows: &[String]) -> String {
+fn table_md(rows: &[String]) -> String {
     let mut s = String::from(
-        "## Inventory\n\n\
-         | ID | Title | Modules | Priority | Status | Path |\n\
+        "| ID | Title | Modules | Priority | Status | Path |\n\
          |----|-------|---------|----------|--------|------|\n",
     );
     for r in rows {
@@ -105,6 +104,18 @@ fn registry_md(rows: &[String]) -> String {
         s.push('\n');
     }
     s
+}
+
+fn registry_md(rows: &[String]) -> String {
+    format!("## Inventory\n\n{}", table_md(rows))
+}
+
+fn decoy_ids() -> Vec<String> {
+    (1..=7).map(|i| format!("decoy-{i}")).collect()
+}
+
+fn decoy_rows() -> Vec<String> {
+    decoy_ids().iter().map(|id| present_row(id)).collect()
 }
 
 fn good_rows() -> Vec<String> {
@@ -252,6 +263,105 @@ fn heading_without_table_is_error() {
     assert_eq!(o.code, 2, "{}", o.stdout);
     assert!(
         o.stdout.contains("no table under '## Inventory'"),
+        "{}",
+        o.stdout
+    );
+}
+
+/// bd-smoke-diagrams-fenced-table-adopted-ahgn.
+/// A fenced table whose columns match EXPECTED_COLUMNS is the fooling
+/// certificate: today that would become the check set. The hunt must skip
+/// the fence and bind the unfenced table. Decoy pages are written so
+/// adopting the fence would be GREEN — missing files must not be what
+/// saves us.
+#[test]
+fn fenced_matching_table_is_not_the_inventory() {
+    tick();
+    let t = green_tree();
+    let decoys = decoy_rows();
+    let md = format!(
+        "## Inventory\n\n```\n{}```\n\n{}",
+        table_md(&decoys),
+        table_md(&good_rows()),
+    );
+    t.write("docs/DIAGRAM-REGISTRY.md", &md);
+    for id in decoy_ids() {
+        t.write(&format!("web/diagrams/{id}.html"), &page(&id));
+    }
+    let o = run(&t.root);
+    assert_eq!(o.code, 0, "real table must win:\n{}", o.stdout);
+    for id in IDS {
+        assert!(
+            o.stdout.contains(&format!("  ok: {id}\n")),
+            "real id {id} missing:\n{}",
+            o.stdout
+        );
+    }
+    assert!(
+        !o.stdout.contains("decoy-"),
+        "fenced matching table became the inventory:\n{}",
+        o.stdout
+    );
+}
+
+/// Same bead: a matching-column fence with no real table is ERROR, not a
+/// check set of seven decoys. Pages are written so adoption would PASS.
+#[test]
+fn fenced_matching_table_alone_is_error() {
+    tick();
+    let t = green_tree();
+    let md = format!("## Inventory\n\n```\n{}```\n", table_md(&decoy_rows()));
+    t.write("docs/DIAGRAM-REGISTRY.md", &md);
+    for id in decoy_ids() {
+        t.write(&format!("web/diagrams/{id}.html"), &page(&id));
+    }
+    let o = run(&t.root);
+    assert_eq!(o.code, 2, "{}", o.stdout);
+    assert!(
+        o.stdout.contains("no table under '## Inventory'"),
+        "{}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("smoke_diagrams: PASS"),
+        "PASS must not appear: {}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("ok: decoy-"),
+        "fenced table became the inventory:\n{}",
+        o.stdout
+    );
+}
+
+/// Measured 2026-08-14: a two-column fenced example after ## Inventory
+/// used to ERROR "inventory columns changed" and never read the real
+/// table. Fail-closed, but the real seven-row table must win.
+#[test]
+fn fenced_two_column_example_does_not_hide_real_table() {
+    tick();
+    let t = green_tree();
+    let md = format!(
+        "## Inventory\n\n\
+         ```\n\
+         | ID | Title |\n\
+         |----|-------|\n\
+         | `example` | illustrative |\n\
+         ```\n\n\
+         {}",
+        table_md(&good_rows()),
+    );
+    t.write("docs/DIAGRAM-REGISTRY.md", &md);
+    let o = run(&t.root);
+    assert_eq!(o.code, 0, "{}", o.stdout);
+    assert!(
+        !o.stdout.contains("inventory columns changed"),
+        "fenced two-column example was adopted:\n{}",
+        o.stdout
+    );
+    assert!(
+        o.stdout
+            .contains("smoke_diagrams: PASS (7 present diagrams from the registry)"),
         "{}",
         o.stdout
     );

@@ -8,6 +8,9 @@
 //! # Contract
 //!
 //! * the inventory table of [`REGISTRY_REL`] is parsed structurally
+//! * fenced code blocks are skipped when locating that table — a fenced
+//!   example whose columns match [`EXPECTED_COLUMNS`] is not the check set
+//!   (`bd-smoke-diagrams-fenced-table-adopted-ahgn`)
 //! * every `present` row is bound to exactly `web/diagrams/<id>.html`
 //! * that file is HTML (at least one element)
 //! * it carries a `class` token `honesty-banner` whose OWN text disclaims
@@ -165,17 +168,42 @@ fn parse_registry(root: &Path) -> RegistryRead {
     };
     let lines: Vec<&str> = text.split('\n').collect();
 
-    let start = lines.iter().position(|ln| ln.trim() == INVENTORY_HEADING);
-    let Some(start) = start else {
+    // Hunt the first unfenced `## Inventory` and the first unfenced pipe row
+    // after it. A ``` toggle swallows every line until the closer, so a
+    // fenced example table (even one whose columns match EXPECTED_COLUMNS)
+    // cannot become the check set. An unclosed fence fail-closes: the rest
+    // of the file is invisible and we ERROR if the heading or table was
+    // inside it.
+    let mut in_fence = false;
+    let mut start = None;
+    let mut head = None;
+    for (i, ln) in lines.iter().enumerate() {
+        if ln.trim().starts_with("```") {
+            in_fence = !in_fence;
+            continue;
+        }
+        if in_fence {
+            continue;
+        }
+        if start.is_none() {
+            if ln.trim() == INVENTORY_HEADING {
+                start = Some(i);
+            }
+            continue;
+        }
+        if split_row(ln).is_some() {
+            head = Some(i);
+            break;
+        }
+    }
+    if start.is_none() {
         return RegistryRead::Unreadable {
             message: format!(
                 "smoke_diagrams: ERROR: no '{INVENTORY_HEADING}' heading in {REGISTRY_REL}\n"
             ),
             code: 2,
         };
-    };
-
-    let head = (start + 1..lines.len()).find(|&i| split_row(lines[i]).is_some());
+    }
     let Some(head) = head else {
         return RegistryRead::Unreadable {
             message: format!("smoke_diagrams: ERROR: no table under '{INVENTORY_HEADING}'\n"),
