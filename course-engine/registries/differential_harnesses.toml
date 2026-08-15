@@ -150,6 +150,8 @@ gate = "validate-grounding"
 comparators = ["compare_env", "compare"]
 cases = 35
 agreement_only = 0
+verdict_shape_leg = false
+verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"
 
 [[harness]]
 file = "diff_verify_bank.rs"
@@ -161,6 +163,8 @@ comparators = ["assert_byte_identical", "check"]
 cases = 46
 agreement_only = 0
 owner_bead = "bd-8exw"
+verdict_shape_leg = false
+verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"
 
 [[harness]]
 file = "diff_verify_content_lock.rs"
@@ -176,6 +180,9 @@ comparators = ["assert_byte_identical"]
 cases = 44
 agreement_only = 0
 owner_bead = "bd-coverage-counts-retired-items-49jh"
+# Live positive for LEG I: the per-side helper lives here (rk9n). Deleting
+# those two calls must turn the meta-gate RED and name this file.
+verdict_shape_leg = true
 
 [[harness]]
 file = "diff_verify_doc_consistency.rs"
@@ -183,6 +190,8 @@ gate = "verify-doc-consistency"
 comparators = ["assert_byte_exact"]
 cases = 28
 agreement_only = 0
+verdict_shape_leg = false
+verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"
 
 [[harness]]
 file = "diff_verify_injection_count.rs"
@@ -191,6 +200,8 @@ comparators = ["assert_identical", "check"]
 cases = 37
 agreement_only = 5
 owner_bead = "bd-1sd.13"
+verdict_shape_leg = false
+verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"
 
 [[harness]]
 file = "diff_verify_knowledge_paths.rs"
@@ -198,6 +209,8 @@ gate = "verify-knowledge-paths"
 comparators = ["assert_identical"]
 cases = 25
 agreement_only = 0
+verdict_shape_leg = false
+verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"
 
 [[harness]]
 file = "diff_verify_objectives.rs"
@@ -216,6 +229,8 @@ comparators = ["assert_byte_identical"]
 # untouched.
 cases = 54
 agreement_only = 0
+verdict_shape_leg = false
+verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"
 
 [[harness]]
 file = "diff_verify_orphans.rs"
@@ -231,28 +246,38 @@ comparators = ["assert_byte_identical"]
 # still reaches the planted finding and goes RED for it.
 cases = 25
 agreement_only = 0
+verdict_shape_leg = false
+verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"
 
 # ─────────────────────────────────────────────────────────────────────────────
-# THE VERDICT-SHAPE LEG (bd-j8b2), relocated from the harnesses onto the GATES.
+# THE VERDICT-SHAPE LEG (bd-j8b2) — TWO CHECKS, NOT A RELOCATION.
 #
-# bd-j8b2 proposed a meta-gate asserting that every diff_*.rs CARRIES a leg
-# checking "no success token on a path that exited non-zero", and recorded that
-# only 3 of 11 did. That design has two problems this file avoids. It is a
-# source scan for the presence of a string, which is the shape bd-0czh already
-# measured being fooled — three fail-opens survived an audit because grepping
-# for the message returned a hit and READ AS GUARDED. And it needed eight
-# sibling-owned test files edited in one wave.
+# LEG D (kept): the gate BINARY, on empty and (where safe) live roots, must
+# have exit == 0 equivalent to "stdout opens a line with this gate's success
+# token". That covers gates that never had a harness.
 #
-# The leg is per-CASE and unbounded; the DEFECT is per-GATE and there are
-# nineteen gates. So the check runs against the gate BINARY: for every gate the
-# dispatcher lists, on both a live root and an empty root, exit == 0 must be
-# equivalent to "stdout carries this gate's success token". That is the same
-# claim, proven by execution rather than by grep, over the whole roster at once,
-# and it needs no edit to any file another agent owns.
+# LEG I (the mechanism this bead named): a META-GATE over the harnesses. Every
+# active crates/cdcp_gate/tests/diff_*.rs must CARRY a per-side
+# "nonzero ⇒ no registered success token" check in each core comparator, or
+# declare a skip with a reason. The detector is structural (the comparator
+# applies the check to both sides) and the token is THIS FILE's [[gate]] row,
+# never a scanner keyed on the literal PASS. A comment containing a helper
+# name cannot satisfy it. An empty enumeration is an ERROR. A skip without a
+# reason is a schema error.
+#
+# The eight-file instance-patch is still rejected. Harnesses that were never
+# one of the three measured instances (lt7 / qm65 / rk9n) declare a skip;
+# installing the helper there is the fourth-patch shape this bead forbids.
+# The class of unregistered missing legs is closed at zero.
 #
 # The token differs per gate — PASS, `ok:`, a prefixed spelling — which is
 # exactly why it is a registry row and not a literal in a scanner.
 # ─────────────────────────────────────────────────────────────────────────────
+
+[verdict_shape]
+# Anti-vacuous: at least one live harness must be observed CARRYING the
+# per-side leg, or every missing leg being declared is a vacuous pass.
+carrying_floor = 1
 
 [probe]
 # Anti-vacuous on the probe itself: if no gate is ever observed GREEN carrying

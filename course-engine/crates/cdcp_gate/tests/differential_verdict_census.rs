@@ -1,161 +1,23 @@
 //! META-GATE over the differential harnesses and the gate roster.
 //!
-//! ─── WHY THIS FILE EXISTS ────────────────────────────────────────────────────
+//! Agreement is necessary for a port and not sufficient for a gate: a defect
+//! on both sides agrees with itself. Measured 2026-08-14: verify_objectives
+//! printed covered=106 shortfalls=0 min_per_topic=0 in STRICT mode (exit 0);
+//! `m min topic 0` had been passing for weeks. Live census numbers live in
+//! `registries/differential_harnesses.toml` and are re-derived every run.
+//! CHARTER pair: `census_charter_pair.rs` (bd-census-mutation-pair-unproven-pi0v).
 //!
-//! A differential harness proves that two implementations AGREE. Agreement is a
-//! NECESSARY condition for a correct port. It is NOT a SUFFICIENT condition for
-//! a correct gate, because a defect present in BOTH sides agrees with itself.
-//! Every case that asserts only agreement is silent about whether the shared
-//! behaviour is right.
-//!
-//! Measured 2026-08-14 in `verify_objectives`:
-//!
-//!     PASS ... primary_topics=106 covered=106 shortfalls=0 min_per_topic=0
-//!              mode=strict ... EXIT 0
-//!
-//! 106 of 106 topics reported covered, in STRICT mode, with not one comparison
-//! performed. `diff_verify_objectives.rs` had been running that exact case
-//! (`m min topic 0`) and PASSING it for weeks. The harness header already said
-//! "a defect faithfully ported is still a defect"; the defect landed in the
-//! harness's own blind spot.
-//!
-//! ─── THE CENSUS, MEASURED 2026-08-14 ────────────────────────────────────────
-//!
-//! Derived by reading the code, not estimated. A CASE is one invocation, from
-//! inside a `#[test]` fn, of the harness's own byte-comparison helper. A case
-//! carries an INDEPENDENT VERDICT if it also asserts what the shared output IS
-//! — a claim that would still be checkable if only ONE implementation existed.
-//!
-//!   harness                          cases  indep  agreement-only   blind
-//!   ---------------------------------------------------------------------
-//!   diff_build_glossary_json.rs          9      8         1         11.1%
-//!   diff_build_units.rs                 14     13         1          7.1%
-//!   diff_validate_grounding.rs          35     33         2          5.7%
-//!   diff_verify_bank.rs                 31     31         0          0.0%
-//!   diff_verify_content_lock.rs         31     31         0          0.0%
-//!   diff_verify_coverage.rs             42     33         9         21.4%
-//!   diff_verify_doc_consistency.rs      28     27         1          3.6%
-//!   diff_verify_injection_count.rs      31     26         5         16.1%
-//!   diff_verify_knowledge_paths.rs      25     25         0          0.0%
-//!   diff_verify_objectives.rs           54     44        10         18.5%
-//!   diff_verify_orphans.rs              26     19         7         26.9%
-//!   ---------------------------------------------------------------------
-//!   OVERALL                            326    290        36         11.0%
-//!
-//! AFTER THIS WAVE, re-measured the same evening: 28 of 320. Two harnesses
-//! moved. `diff_verify_orphans.rs` went 26/7 to 23/0 by the conversion recipe
-//! below. `diff_build_units.rs` went to zero differential cases at all — its
-//! owner converted it to direct tests of the Rust, which is the retirement
-//! policy working.
-//!
-//! Re-measured 2026-08-15 after bd-diff-coverage-agreement-only-25ux:
-//! coverage went 9 agreement-only to 0. The ratchet is set to 18, the
-//! measured total, not 28 with headroom: a ratchet with slack is not a
-//! ratchet. The CHARTER mutate/delete pair that proves the budget assert is
-//! load-bearing lives in `census_charter_pair.rs` (bd-census-mutation-pair-unproven-pi0v).
-//!
-//! THE SHAPE OF THE 36 IS THE FINDING, NOT THE COUNT. They are not spread
-//! evenly. Twenty-three of them — nearly two thirds — sit in one test per
-//! harness, `path_and_option_shapes_are_byte_identical`, which was built to
-//! check ARGUMENT PARSING and then quietly accumulated cases that change the
-//! gate's SEMANTICS. `m min topic 0` was filed there. So were `m strict flag`,
-//! `m skip flag`, `m both flags`. A semantic case in an option-shape costume
-//! gets an option-shape assertion, which is agreement and nothing else.
-//!
-//! Five more are the `the_harness_compared_something` self-checks, which are
-//! agreement-only on purpose — their job is to increment a counter.
-//!
-//! A SECOND AXIS, worth more than the first for the retirement decision:
-//! of the 290 cases that do carry a verdict, 52 assert ONLY the exit code and
-//! not one byte of what the gate said. So 88 of 326 cases (27.0%) hold no
-//! independent claim about output at all. (Four of the 52 — the emission-order
-//! cases in coverage and objectives — assert content through derived offsets
-//! rather than a substring and are strong in substance; the machine count is
-//! left at 52 rather than quietly adjusted.)
-//!
-//! Twenty-six of the 52 are in `diff_verify_injection_count.rs`, and they
-//! cannot be otherwise: that harness's comparator returns `i32`, so stdout is
-//! unreachable from every call site in the file. Zero of its 31 cases can
-//! assert what the gate said. Tracked as bd-diff-injection-i32-comparator-fo1l.
-//!
-//! ─── WHAT THIS MEANS FOR RETIRING THE ORACLES ───────────────────────────────
-//!
-//! An oracle's job is to prove the port FAITHFUL, and that job completes at
-//! port time; the standing policy is to retire it then — change the Rust,
-//! delete the .py, convert the differential cases into direct tests that assert
-//! the verdict.
-//!
-//! RETIREMENT HAS TWO INDEPENDENT BLOCKERS. (A) Is the oracle still invoked? If
-//! check.sh still runs it, it cannot be retired at any price. (B) What does
-//! retiring cost? That is the `agreement-only` column above.
-//!
-//! BLOCKER A, MEASURED TRANSITIVELY 2026-08-14 — and note that
-//! `grep python3 check.sh` DOES NOT ANSWER IT: check.sh calls other shell
-//! scripts and THOSE invoke the oracles, and two more hide behind
-//! `python3 "$CHECKER"`, which no grep for a .py filename can see. Six oracles
-//! are still invoked: verify_orphans (check.sh:508 -> selftest_orphan.sh),
-//! verify_objectives (:714), verify_coverage (:683), verify_bank
-//! (:719 -> smoke_slo.sh), and — behind $CHECKER — verify_doc_consistency
-//! (:767) and verify_injection_count (:802). validate_grounding has only a `-f`
-//! presence check at :493. verify_content_lock, verify_knowledge_paths and
-//! build_glossary_json are referenced by no script. build_units.py is gone.
-//!
-//! READING THE TWO TOGETHER: retirable TODAY at zero cost — verify_content_lock
-//! and verify_knowledge_paths (0 agreement-only, never invoked). Blocked on the
-//! INVOCATION only, their harnesses losing nothing — verify_bank and, since
-//! this wave, verify_orphans. Everything else is blocked on both.
-//!
-//! `agreement_only` is exactly the number of cases that EVAPORATE under
-//! conversion. A case that says only "the two sides agree" says nothing at all
-//! when there is only one side. So the column is a conversion cost sheet:
-//!
-//!   * 0 agreement-only  -> the oracle can be retired today, losing nothing.
-//!     (verify_bank, verify_content_lock, verify_knowledge_paths.)
-//!   * n agreement-only  -> retiring costs n cases unless they are converted
-//!     first, and CONVERSION IS NOT REWRITING THE ASSERTION. Every one of the
-//!     23 option-shape cases runs against the GREEN live tree. Asserting "this
-//!     spelling still passes" on a tree that passes is worth nothing: no
-//!     suppression defect can show up in it. The conversion must change the
-//!     INPUT to one whose verdict is non-trivial — run the spelling against a
-//!     tree with a KNOWN planted finding and assert the spelling still reaches
-//!     it. That is done for `diff_verify_orphans.rs` in this wave and is the
-//!     recipe for the rest.
-//!   * harnesses that are ALL agreement-only: NONE. Measured, and reported as a
-//!     measured zero rather than passed over in silence.
-//!
-//! ─── WHAT THIS FILE ENFORCES, AND WHAT IT DELIBERATELY DOES NOT ─────────────
-//!
-//! LEG A  the census exists at all: diff_*.rs discovered from the TREE, every
-//!        discovered file registered, the registry itself above its floor. An
-//!        empty discovery is an ERROR unless retirement is DECLARED.
-//! LEG B  THE RATCHET: total agreement-only cases may fall and may never rise.
-//!        Enforced on the TOTAL, not per harness, and that is a deliberate
-//!        choice — four of these files were owned by other agents mid-wave, and
-//!        a gate that goes red on a file its owner may not touch gets disabled.
-//!        A disabled detector is worth LESS than none, because it also carries
-//!        the belief that the class is covered. Per-harness numbers are printed
-//!        every run; the total is what fails the build.
-//! LEG C  every gate the dispatcher lists carries a registry row, so a new gate
-//!        cannot ship unregistered.
-//! LEG D  bd-j8b2's verdict-shape leg, moved off the harnesses and onto the
-//!        GATES: for every gate, on an empty root and (where safe) on the live
-//!        root, `exit == 0` is EQUIVALENT to "stdout carries this gate's
-//!        success token". Proven by execution, not by grep — bd-0czh already
-//!        measured a message-keyed scan being fooled by the same string that
-//!        fooled the auditor.
-//! LEG E  anti-vacuous on the empty root: no gate may pass over an empty tree.
-//! LEG F  anti-vacuous on the PROBE: at least one gate must be observed GREEN
-//!        carrying its token, or leg D's token side never ran.
-//! LEG G  a gate registered token-free really is: neither probe may print any
-//!        word from the known verdict vocabulary.
-//! LEG H  the classifier is proven to trip on a planted known-bad, and proven
-//!        NOT to trip on the three known-GOOD shapes around it.
-//!
-//! NOT ENFORCED, on purpose: that each harness carries its own per-case leg.
-//! bd-j8b2 proposed that and measured 3 of 11 carrying it. The leg is per-CASE
-//! and unbounded; the defect is per-GATE and there are nineteen gates. Checking
-//! the gates covers every case at once and needs no edit to any file another
-//! agent owns.
+//! LEG A  every tree `diff_*.rs` is registered; empty discovery is ERROR
+//!        unless retirement is declared.
+//! LEG B  agreement-only total may fall, never rise (enforced on the total).
+//! LEG C  every dispatched gate has a registry row.
+//! LEG D  gate binary: exit==0 iff stdout carries the registered token.
+//! LEG E  no gate may pass over an empty root.
+//! LEG F  at least one gate observed GREEN carrying its token.
+//! LEG G  token-free gates print no vocabulary word.
+//! LEG H  classifier proven on planted known-bad and known-good.
+//! LEG I  harness meta-gate (bd-j8b2): every active `diff_*.rs` carries a
+//!        per-side nonzero⇒no-registered-token check, or a skip with reason.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
@@ -184,6 +46,7 @@ struct Registry {
     schema_version: u32,
     census: Census,
     probe: Probe,
+    verdict_shape: VerdictShape,
     harness: Vec<HarnessRow>,
     gate: Vec<GateRow>,
 }
@@ -204,6 +67,11 @@ struct Probe {
 }
 
 #[derive(Deserialize)]
+struct VerdictShape {
+    carrying_floor: usize,
+}
+
+#[derive(Deserialize)]
 struct HarnessRow {
     file: String,
     #[allow(dead_code)]
@@ -214,6 +82,10 @@ struct HarnessRow {
     agreement_only: usize,
     #[serde(default)]
     owner_bead: Option<String>,
+    #[serde(default = "yes")]
+    verdict_shape_leg: bool,
+    #[serde(default)]
+    verdict_shape_skip_reason: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -1022,4 +894,95 @@ fn every_dispatched_gate_is_registered_and_holds_the_verdict_shape() {
          GREEN carrying their token",
         roster.len()
     );
+}
+
+// LEG I — harness meta-gate (bd-j8b2). Token = registry row, not a PASS-grep.
+#[rustfmt::skip]
+mod leg_i {
+    use super::*;
+    struct Leg { per_side: bool, token_ok: bool, detail: String }
+    fn fns(b: &str) -> BTreeMap<String, (usize, usize)> {
+        fn_spans(b).into_iter().filter(|(t, _, _)| !*t).filter_map(|(_, s, e)| {
+            let r = b[s..].lines().next().unwrap_or("").trim_start();
+            let r = r.strip_prefix("pub fn ").unwrap_or(r);
+            let n = r.strip_prefix("fn ").unwrap_or(r).split(|c: char| !is_ident_byte(c as u8)).next().unwrap_or("");
+            (!n.is_empty()).then_some((n.to_string(), (s, e)))
+        }).collect()
+    }
+    fn calls(body: &str, name: &str) -> usize {
+        body.match_indices(name).filter(|(i, _)| {
+            let a = i + name.len();
+            (*i == 0 || !is_ident_byte(body.as_bytes()[i - 1]))
+                && (a >= body.len() || !is_ident_byte(body.as_bytes()[a]))
+                && body[a..].trim_start().starts_with('(')
+        }).count()
+    }
+    fn guard(body: &str) -> bool {
+        mentions(body, "code") && (body.contains("== 0") || body.contains("!= 0"))
+            && (mentions(body, "out") || mentions(body, "stdout")) && body.contains("assert")
+    }
+    fn sides(body: &str) -> usize {
+        usize::from(mentions(body, "py") || mentions(body, "python"))
+            + usize::from(mentions(body, "rs") || mentions(body, "rust"))
+    }
+    fn token_ok(src: &str, token: &str) -> bool {
+        let n = format!("\"{token}\"");
+        (src.contains("differential_harnesses.toml") && src.contains("success_token"))
+            || src.lines().any(|l| { let t = l.trim_start(); (t.starts_with("const ") || t.starts_with("pub const ")) && t.contains(&n) })
+    }
+    fn scan(src: &str, comparators: &[String], token: &str) -> Leg {
+        let b = blank(src);
+        let fns = fns(&b);
+        let helpers: Vec<String> = fns.iter().filter(|(_, (s, e))| guard(&b[*s..=*e])).map(|(n, _)| n.clone()).collect();
+        let mut seen = false;
+        let mut missing = Vec::new();
+        for c in comparators {
+            let Some((s, e)) = fns.get(c) else { continue };
+            let body = &b[*s..=*e];
+            if sides(body) >= 2 {
+                seen = true;
+                let n: usize = helpers.iter().map(|h| calls(body, h)).sum();
+                if n < 2 && !guard(body) { missing.push(c.clone()); }
+            } else if !comparators.iter().any(|o| o != c && mentions(body, o)) && !helpers.iter().any(|h| mentions(body, h)) {
+                missing.push(c.clone());
+            }
+        }
+        let per_side = seen && missing.is_empty();
+        Leg { token_ok: per_side && token_ok(src, token), detail: format!("seen={seen} missing={missing:?} helpers={helpers:?}"), per_side }
+    }
+    #[test]
+    fn the_harness_verdict_shape_meta_gate() {
+        let tok = "PASS";
+        let cmp = vec!["compare".to_string()];
+        let good = "const SUCCESS_TOKENS: &[&str] = &[\"PASS\"];\nfn assert_no_success_token_on_a_failing_path(l: &str, s: &str, r: &Run) {\n    if r.code == 0 { return; }\n    for t in SUCCESS_TOKENS { assert!(!r.out().contains(t)); }\n}\nfn compare(l: &str, root: &Path) -> Run {\n    let py = python(root); let rs = rust(root);\n    assert_no_success_token_on_a_failing_path(l, \"python\", &py);\n    assert_no_success_token_on_a_failing_path(l, \"rust\", &rs);\n    assert_eq!(py.code, rs.code); rs\n}\n";
+        let g = scan(good, &cmp, tok);
+        assert!(g.per_side && g.token_ok, "good {}", g.detail);
+        let deleted = good.replace("assert_no_success_token_on_a_failing_path(l, \"python\", &py);\n    assert_no_success_token_on_a_failing_path(l, \"rust\", &rs);\n", "");
+        let d = scan(&deleted, &cmp, tok);
+        assert!(!d.per_side, "deleted leg must name diff_planted.rs: {}", d.detail);
+        let w = scan(&good.replace("\"PASS\"", "\"GREEN\""), &cmp, tok);
+        assert!(w.per_side && !w.token_ok, "wrong token {}", w.detail);
+        let reg = registry();
+        let found = discovered_harnesses();
+        assert!(!found.is_empty(), "empty harness enumeration is an ERROR");
+        let gates: BTreeMap<&str, &GateRow> = reg.gate.iter().map(|g| (g.name.as_str(), g)).collect();
+        let rows: BTreeMap<&str, &HarnessRow> = reg.harness.iter().map(|h| (h.file.as_str(), h)).collect();
+        let mut carrying = 0usize;
+        let mut remaining = Vec::new();
+        for file in &found {
+            let row = rows[file.as_str()];
+            let src = std::fs::read_to_string(tests_dir().join(file)).unwrap();
+            if census_of(&src, &row.comparators).cases == 0 { continue; }
+            let token = gates.get(row.gate.as_str()).and_then(|g| g.success_token.as_deref()).unwrap_or("");
+            assert!(!token.is_empty() || !row.verdict_shape_leg, "{file}: no registered token");
+            let s = scan(&src, &row.comparators, token);
+            if row.verdict_shape_leg {
+                if s.per_side && s.token_ok { carrying += 1; } else { remaining.push(format!("{file} {}", s.detail)); }
+            } else {
+                assert!(row.verdict_shape_skip_reason.as_deref().is_some_and(|r| !r.is_empty()), "{file}: skip without a reason is a schema error");
+            }
+        }
+        assert!(remaining.is_empty(), "HARNESS META-GATE names: {}", remaining.join(", "));
+        assert!(carrying >= reg.verdict_shape.carrying_floor, "carrying={carrying} < floor {}", reg.verdict_shape.carrying_floor);
+    }
 }
