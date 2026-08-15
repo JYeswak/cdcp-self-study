@@ -20,6 +20,7 @@ This is a **study tool only**. It does **not** grant EPI/EXIN certification. Com
 | `reference.html` | Glossary + power/redundancy cheatsheet (L7-S4) |
 | `content/reference/*.md` | Shipped parent `reference/` copies (`scripts/build_reference.py`) |
 | `diagrams/power-path.html` | Interactive N vs 2N power path self-check (V11-S2) |
+| `diagrams/security-layers.html` | Perimeter → white space layers + fail-safe/fail-secure door toggle (bd-1sd.9.2) |
 | `runbooks.html` | Runbook vignette stems → quiz/mock links (V11-S4) |
 | `data/modules_index.json` | Machine index of domains / hrefs |
 | `assets/js/learn_*.js` | Progress (localStorage), markdown render, reader |

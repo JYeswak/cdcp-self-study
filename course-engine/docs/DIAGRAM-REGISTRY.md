@@ -22,7 +22,7 @@
    ERROR, never a silent exclusion. The ID and path cells must be backticked.
    The present-row count is pinned by this registry's own unfenced line:
 
-   present_count = 7
+   present_count = 8
 
    Shipping a new diagram means raising that pin in the same commit as the new row. A row leaving
    the present set without lowering the pin is RED rather than invisible. A fenced, missing, zero,
@@ -42,7 +42,7 @@
 | `standards-map` | Who owns what | 02 | P1 | **present** | `web/diagrams/standards-map.html` |
 | `floor-airflow` | Raised vs hard floor | 04, 09 | P1 | **present** | `web/diagrams/floor-airflow.html` |
 | `dual-cord-spof` | Shared upstream SPOF | 01, 06 | P1 | **present** | `web/diagrams/dual-cord-spof.html` |
-| `security-layers` | Perimeter → white space | 13 | P2 | planned | — |
+| `security-layers` | Perimeter → white space | 13 | P2 | **present** | `web/diagrams/security-layers.html` |
 
 ## Interaction model per diagram
 
@@ -57,6 +57,7 @@ Rule 4 says prefer steppers / toggles / label-the-node. What each present diagra
 | `standards-map` | click-to-expand authority ladder + pairwise scheme comparator | expands what force each rung carries, then picks two classification schemes and reads the axis on which they genuinely disagree |
 | `floor-airflow` | paradigm toggle + defect injection | switches raised ↔ hard floor, injects a defect, sees which element of the cross-section fails and whether it is bypass, recirculation, distribution or ride-through |
 | `dual-cord-spof` | scenario picker + node-state map | runs a real public incident against a dual-corded facility, classifies it as independent / common-cause / antecedent violation, and sees which shared node the one-line never drew |
+| `security-layers` | click-to-expand layers + life-safety door toggle | expands perimeter → envelope → lobby → zoning → room/cage/grey → ops, then picks egress / perimeter-entry / EPO and reads fail-safe vs fail-secure |
 
 ## Content grounding (P1 set)
 
@@ -98,5 +99,6 @@ cargo run -q -p cdcp_cli -- smoke-diagrams
 2. Module CTA links (`.diagram-cta`), matching the M01/M06/M09 pattern:
    `12-fire.html` → `fire-sequence`, `02-standards.html` → `standards-map`,
    `04-floor-ceiling.html` and `09-cooling.html` → `floor-airflow`,
-   `01-mission-critical.html` and `06-power.html` → `dual-cord-spof`.
+   `01-mission-critical.html` and `06-power.html` → `dual-cord-spof`,
+   `13-security.html` → `security-layers` (bd-1sd.9.2).
 3. `web/README.md` diagram inventory rows, and hub/index cards if the P1 set should surface there.

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CDCP study diagram — physical security layers from perimeter to white space. Does not grant EPI/EXIN certification.">
+  <title>CDCP Study — Security layers</title>
+  <link rel="stylesheet" href="../assets/css/course.css">
+  <style>
+    .stack { max-width: 40rem; margin: 0 auto; display: flex; flex-direction: column; gap: 0.4rem; }
+    .stack-layer {
+      min-height: var(--touch-min);
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--surface);
+      cursor: pointer;
+      text-align: left;
+    }
+    .stack-layer[aria-expanded="true"] {
+      border-color: rgba(52, 211, 153, 0.5);
+      background: rgba(52, 211, 153, 0.08);
+    }
+    .stack-layer__name { font-weight: 700; color: var(--fg); display: block; }
+    .stack-layer__owner { font-family: var(--mono); font-size: 0.72rem; color: var(--fg-faint); letter-spacing: 0.04em; }
+    .stack-layer__hint { color: var(--fg-dim); font-size: 0.9rem; margin: 0.35rem 0 0; display: none; }
+    .stack-layer[aria-expanded="true"] .stack-layer__hint { display: block; }
+    .stack-arrow { text-align: center; color: var(--fg-faint); font-family: var(--mono); font-size: 0.8rem; }
+
+    .conflict {
+      max-width: 40rem;
+      margin: 1.75rem auto 0;
+      padding: 1rem 1.1rem 1.15rem;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--surface);
+    }
+    .conflict h2 { margin: 0 0 0.25rem; font-size: 1.1rem; }
+    .conflict .sub { margin: 0 0 0.85rem; font-size: 0.85rem; color: var(--fg-dim); }
+    .toggles { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+    .toggles button {
+      min-height: var(--touch-min);
+      padding: 0.4rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: transparent;
+      color: var(--fg-mid);
+      cursor: pointer;
+      font: inherit;
+    }
+    .toggles button[aria-pressed="true"] {
+      border-color: rgba(167, 139, 250, 0.65);
+      background: rgba(167, 139, 250, 0.12);
+      color: var(--fg);
+    }
+    .verdict { margin: 0; font-size: 0.95rem; color: var(--fg-mid); }
+    .verdict strong { color: var(--fg); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="honesty-banner" role="status">
+      <strong>Study tool only.</strong>
+      This tool does <strong>not</strong> grant EPI/EXIN certification.
+      Completing practice here is not a CDCP credential.
+    </div>
+    <div class="site-header__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__title">CDCP Study</span>
+        <span class="brand__sub">Self-study · local HTTP</span>
+      </a>
+      <nav aria-label="Hub">
+        <ul class="hub-nav">
+          <li><a href="../learn.html">Learn</a></li>
+          <li><a href="../learn/13-security.html">M13</a></li>
+          <li><a href="../reference.html">Reference</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="wrap" tabindex="-1">
+    <h1>Security layers — perimeter to white space</h1>
+    <p class="lede">Click each layer. Compromise of one must not equal free run of the floor.
+      <strong>Interview one-liner:</strong> one strong door is not a program — grey space is as sensitive as white space, and life safety wins the egress door.</p>
+
+    <div class="stack" id="security-layers" data-diagram="security-layers">
+      <button type="button" class="stack-layer" data-layer="perimeter" aria-expanded="false">
+        <span class="stack-layer__name">Site / perimeter</span>
+        <span class="stack-layer__owner">security ops · site</span>
+        <span class="stack-layer__hint">Fence, vehicle barriers, lighting, setback, approach CCTV. Delay and detect; do not hide the approach behind landscaping.</span>
+      </button>
+      <div class="stack-arrow" aria-hidden="true">↓ then</div>
+      <button type="button" class="stack-layer" data-layer="envelope" aria-expanded="false">
+        <span class="stack-layer__name">Building envelope</span>
+        <span class="stack-layer__owner">facilities · design</span>
+        <span class="stack-layer__hint">Hardened façade, limited glazing on critical rooms, roof/hatch control, dock doors, shell intrusion detection. Force entry through known portals.</span>
+      </button>
+      <div class="stack-arrow" aria-hidden="true">↓ then</div>
+      <button type="button" class="stack-layer" data-layer="lobby" aria-expanded="false">
+        <span class="stack-layer__name">Site entry / reception</span>
+        <span class="stack-layer__owner">security ops</span>
+        <span class="stack-layer__hint">Guard or lobby, visitor management, package screening, photo ID. Authenticate people before any deeper zone.</span>
+      </button>
+      <div class="stack-arrow" aria-hidden="true">↓ then</div>
+      <button type="button" class="stack-layer" data-layer="zoning" aria-expanded="false">
+        <span class="stack-layer__name">Internal zoning + mantrap</span>
+        <span class="stack-layer__owner">security ops · design</span>
+        <span class="stack-layer__hint">Public → controlled → restricted → highly restricted. Badge + PIN / biometric on high zones. Mantrap: door A must lock before door B opens. Anti-passback. You should not badge from the car park into white space in one hop.</span>
+      </button>
+      <div class="stack-arrow" aria-hidden="true">↓ then</div>
+      <button type="button" class="stack-layer" data-layer="room" aria-expanded="false">
+        <span class="stack-layer__name">Room / cage / cabinet + grey space</span>
+        <span class="stack-layer__owner">colo / IT / facilities</span>
+        <span class="stack-layer__hint">Room readers, cage locks, cabinet sensors. Grey space (UPS, switchgear, batteries, chillers) is as sensitive as white space — sabotage here takes down IT without touching a server.</span>
+      </button>
+      <div class="stack-arrow" aria-hidden="true">↓ held by</div>
+      <button type="button" class="stack-layer" data-layer="ops" aria-expanded="false">
+        <span class="stack-layer__name">Operational controls</span>
+        <span class="stack-layer__owner">security + facilities + IT</span>
+        <span class="stack-layer__hint">Escort policy, two-person rule where used, change windows, CCTV review, access-log audit. Hardware without process is how tailgating and propped doors win.</span>
+      </button>
+    </div>
+
+    <section class="conflict" aria-labelledby="conflict-title">
+      <h2 id="conflict-title">Life safety vs security — pick a door</h2>
+      <p class="sub">Maglocks and egress are where the two programs collide. Toggle the door. The AHJ owns the listed hardware schedule; this is the interview model, not a spec.</p>
+      <div class="toggles" role="group" aria-label="Door type">
+        <button type="button" data-door="egress" aria-pressed="true">Egress / fire path</button>
+        <button type="button" data-door="perimeter" aria-pressed="false">Perimeter entry</button>
+        <button type="button" data-door="epo" aria-pressed="false">EPO / plant room</button>
+      </div>
+      <p class="verdict" id="door-verdict"></p>
+    </section>
+
+    <p class="meta" style="margin-top:1.5rem">
+      <a href="../learn/13-security.html">← Module 13</a>
+      · Study diagram only — not a certification claim
+    </p>
+  </main>
+  <script>
+    (function () {
+      var root = document.getElementById("security-layers");
+      if (root) {
+        root.querySelectorAll(".stack-layer").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var open = btn.getAttribute("aria-expanded") === "true";
+            btn.setAttribute("aria-expanded", open ? "false" : "true");
+          });
+        });
+      }
+
+      var verdicts = {
+        egress:
+          "<strong>Fail-safe (unlock).</strong> Loss of power or a fire alarm must free the egress path. A maglock that stays locked on alarm is a life-safety defect, not a security win. Security doors must not impede evacuation or suppression egress time.",
+        perimeter:
+          "<strong>Fail-secure (stay locked) on the inbound leaf.</strong> Loss of power keeps the perimeter from opening inward. The egress side still needs a listed free-exit path. Do not casually reverse fail-safe / fail-secure in an interview.",
+        epo:
+          "<strong>Reachable, not casual.</strong> EPO and critical plant must be reachable by trained staff and not a tourist button. Over-locking EPO is an outage mode; badge-to-EPO with no procedure is the other. Grey-space rigor matches white space."
+      };
+      var out = document.getElementById("door-verdict");
+      var group = document.querySelector(".toggles");
+      if (!out || !group) return;
+      function show(key) {
+        out.innerHTML = verdicts[key] || "";
+        group.querySelectorAll("button").forEach(function (b) {
+          b.setAttribute("aria-pressed", b.getAttribute("data-door") === key ? "true" : "false");
+        });
+      }
+      group.querySelectorAll("button").forEach(function (b) {
+        b.addEventListener("click", function () { show(b.getAttribute("data-door")); });
+      });
+      show("egress");
+    })();
+  </script>
+</body>
+</html>

@@ -20,7 +20,7 @@
 
 ```text
 M9-S3  Secrets scrub receipt DONE · visibility flip → Josh only (bd-2nj.3)
-P1     More diagrams (fire-sequence, standards-map, …) — DIAGRAM-REGISTRY planned rows
+P1     diagrams shipped (bd-1sd.9.1). P2 `security-layers` shipped (bd-1sd.9.2).
 ```
 
 ## Gate
