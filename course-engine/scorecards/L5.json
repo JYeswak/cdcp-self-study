@@ -51,6 +51,6 @@
     "learn": "web/learn.html",
     "quiz": "web/quiz.html",
     "drill": "web/drill.html",
-    "serve": "cd web && python3 -m http.server 8765"
+    "serve": "./target/debug/cdcp serve"
   }
 }
