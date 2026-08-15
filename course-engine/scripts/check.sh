@@ -49,7 +49,7 @@ skipped_step() { STEP_SKIPPED=$((STEP_SKIPPED + 1)); echo "check.sh: skip: $*"; 
 #                              crates/cdcp_cli/src/main.rs              [S] restored
 #   cdcp build-units               web/data/units_index.json            [M] regenerated
 #   cdcp build-glossary            web/data/glossary.json               [M] regenerated
-#   export_anki.py / export-anki   dist/anki/**                         [M] untracked output
+#   cdcp export-anki               dist/anki/**                         [M] untracked output
 # The two regenerated files are byte-identical today, so `git status` stays
 # clean — but the WRITE still happens (mtime moves), and a concurrent reader can
 # still catch a truncated file. Rewritten-identical is not the same as untouched.
@@ -674,7 +674,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(cargo run -q -p cdcp_cli -- --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-units build-glossary smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2; do
+for v in bank-hash grade goldens export-web serve build-units build-glossary smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"
@@ -750,15 +750,14 @@ fi
 
 echo "==> V11 Anki planted all-retired (must print FAIL: and write no deck)"
 _anki_plant=$(mktemp -d)
-mkdir -p "$_anki_plant/bank/items" "$_anki_plant/scripts"
-cp scripts/export_anki.py "$_anki_plant/scripts/export_anki.py"
+mkdir -p "$_anki_plant/bank/items"
 printf '%s\n' \
   'id = "r1"' 'status = "retired"' 'module = 1' \
   'stem = "retired-only-planted-stem"' \
   'choices = ["a"]' 'correct = "A"' \
   > "$_anki_plant/bank/items/r1.toml"
 set +e
-_anki_plant_out=$(python3 "$_anki_plant/scripts/export_anki.py" --format tsv --out "$_anki_plant/dist/anki" 2>&1)
+_anki_plant_out=$(cargo run -q -p cdcp_cli -- export-anki --root "$_anki_plant" --format tsv --out "$_anki_plant/dist/anki" 2>&1)
 _anki_plant_rc=$?
 set -e
 printf '%s\n' "$_anki_plant_out"
@@ -775,11 +774,11 @@ fi
 rm -rf "$_anki_plant"
 ok "V11 Anki planted all-retired is RED and writes nothing"
 
-echo "==> cdcp_gate export-anki (V11 · deterministic export surface, byte-exact vs scripts/export_anki.py)"
-cargo run -q -p cdcp_gate -- export-anki --format tsv,csv --out dist/anki || fail "V11 Anki export (tsv/csv)"
-ok "V11 Anki export tsv/csv (byte-exact with the oracle)"
-echo "==> V11 Anki .apkg deck (oracle; port blocked on bd-anki-apkg-not-reproducible-e13a)"
-python3 scripts/export_anki.py --format apkg --out dist/anki || fail "V11 Anki .apkg deck"
+echo "==> cdcp export-anki (V11 · learner .apkg, pinned clock, approved-only)"
+cargo run -q -p cdcp_cli -- export-anki --format tsv,csv,apkg --out dist/anki || fail "V11 Anki export"
+ok "V11 Anki export tsv/csv/apkg (779 approved, pinned crt)"
+echo "==> cdcp export-anki --check (planted clock leak RED, two-run identity GREEN)"
+cargo run -q -p cdcp_cli -- export-anki --check || fail "V11 Anki .apkg not byte-reproducible"
 ok "V11 Anki .apkg deck"
 grep -q "study aid" web/reference.html 2>/dev/null || grep -rq "not.*certif" web/ 2>/dev/null || fail "V11 diagram honesty"
 ok "V11 diagram honesty present"

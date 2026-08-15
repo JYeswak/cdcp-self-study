@@ -38,15 +38,14 @@
 # Porting a script to Rust means DELETING its row; a row whose file is gone is
 # itself an error.
 #
-# Measured 2026-08-15 (bd-allowlist-stale-load-bearing-seq9, updated jhd.20):
-# check.sh's remaining `python3 scripts/` invocation is export_anki.py
-# (bd-substrate-rust-migration-jhd.13). smoke_learn_v2.py retired with
-# bd-substrate-rust-migration-jhd.20. Ported verify_*.py / validate_*.py rows
-# are differential oracles, not check.sh gates. A reason that claims
-# "load-bearing check.sh" for a path check.sh does not invoke is RED. Rows
-# below are grandfathered EXPLICITLY and visibly; none of them arrived silently,
-# and none of them can stay past its date without someone re-affirming it in a
-# reviewable diff.
+# Measured 2026-08-15 (bd-allowlist-stale-load-bearing-seq9, updated jhd.13):
+# export_anki.py is DELETED (product is `cdcp export-anki` / cdcp_anki).
+# smoke_learn_v2.py retired with bd-substrate-rust-migration-jhd.20.
+# Ported verify_*.py / validate_*.py rows are differential oracles, not
+# check.sh gates. A reason that claims "load-bearing check.sh" for a path
+# check.sh does not invoke is RED. Rows below are grandfathered EXPLICITLY
+# and visibly; none of them arrived silently, and none of them can stay past
+# its date without someone re-affirming it in a reviewable diff.
 # =============================================================================
 
 schema_version = 1
@@ -173,11 +172,10 @@ expires = "2026-11-30"
 # Do NOT re-add a row for it. If a build_units oracle is ever wanted again, the
 # oracle is the committed artifact, not a second implementation.
 
-[[allow]]
-path = "scripts/export_anki.py"
-reason = "Load-bearing check.sh step: V11 Anki export, a shipped learner artifact. Grandfathered pending the byte-exact Rust port."
-migration_bead = "bd-substrate-rust-migration-jhd.13"
-expires = "2026-12-31"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.13): scripts/export_anki.py
+# is DELETED, not allowlisted. The product is `cdcp_anki` / `cdcp export-anki`.
+# Empty bank / empty approved pool is ERROR. Two-run .apkg identity and a
+# planted clock leak are `cdcp export-anki --check`. Do NOT re-add a row for it.
 
 # =============================================================================
 # WAVE 4 — check.sh smokes (bd-…jhd.14 … .18)

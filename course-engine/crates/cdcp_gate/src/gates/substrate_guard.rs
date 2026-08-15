@@ -2993,8 +2993,8 @@ python3 "$_anki_plant/scripts/export_anki.py"
     }
 
     /// Anti-vacuous for the parser: the live orchestrator is what this
-    /// tripwire reads, and a parser that finds none of the two remaining
-    /// python3 steps (or invents invokes for ported oracles) is broken.
+    /// tripwire reads, and a parser that invents invokes for retired
+    /// scripts (or finds none of the remaining shell gates) is broken.
     #[test]
     fn live_check_sh_invokes_the_two_remaining_python_gates_only() {
         let root = crate::root::resolve(std::path::Path::new(env!("CARGO_MANIFEST_DIR")))
@@ -3010,14 +3010,14 @@ python3 "$_anki_plant/scripts/export_anki.py"
             "check.sh always calls something; a parser that found none did not parse"
         );
         for must in [
-            "scripts/smoke_learn_v2.py",
-            "scripts/export_anki.py",
             "tests/voice-slop.sh",
             "tests/publishability-bar.sh",
         ] {
             assert!(set.contains(must), "missing invoke {must}: {set:?}");
         }
         for retired in [
+            "scripts/export_anki.py",
+            "scripts/smoke_learn_v2.py",
             "scripts/smoke_weak_links.py",
             "scripts/verify_orphans.py",
             "scripts/verify_injection_count.py",

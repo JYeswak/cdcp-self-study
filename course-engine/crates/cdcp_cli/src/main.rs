@@ -38,7 +38,39 @@ enum Cmd {
         #[arg(long)]
         answers: Option<PathBuf>,
     },
-    /// Check or regenerate grade goldens
+    /// Export approved bank items to Anki TSV/CSV/.apkg (learner product)
+    ExportAnki {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// bank=all items; seed42=web bank_items export; keys=seed42 mock+keys
+        #[arg(long, default_value = "bank", value_parser = ["bank", "seed42", "keys"])]
+        source: String,
+        /// Output directory (default: <root>/dist/anki)
+        #[arg(long)]
+        out: Option<PathBuf>,
+        /// comma-separated: tsv,csv,apkg (default: tsv,apkg)
+        #[arg(long, default_value = "tsv,apkg")]
+        format: String,
+        /// Filter by module number
+        #[arg(long)]
+        module: Option<i64>,
+        /// Filter by tag or topic_id substring
+        #[arg(long)]
+        tag: Option<String>,
+        /// Max cards
+        #[arg(long)]
+        limit: Option<i64>,
+        /// Shuffle seed when --limit is set
+        #[arg(long)]
+        seed: Option<i64>,
+        /// Anki deck name for .apkg
+        #[arg(long, default_value = "CDCP Study")]
+        deck_name: String,
+        /// Export twice to temp and FAIL if .apkg bytes differ (does not write --out)
+        #[arg(long)]
+        check: bool,
+    },
     /// Export browser exam packs (see web/data/README.md)
     ExportWeb {
         #[arg(long, default_value = "bank/items")]
@@ -140,6 +172,7 @@ enum Cmd {
         #[arg(long, default_value_t = 42)]
         seed: u64,
     },
+    /// Check or regenerate grade goldens
     Goldens {
         #[command(subcommand)]
         sub: GoldensCmd,
@@ -280,6 +313,29 @@ fn run(cli: Cli) -> Result<(), String> {
             );
             Ok(())
         }
+        Cmd::ExportAnki {
+            root,
+            source,
+            out,
+            format,
+            module,
+            tag,
+            limit,
+            seed,
+            deck_name,
+            check,
+        } => export_anki(
+            root.as_deref(),
+            &source,
+            out.as_deref(),
+            &format,
+            module,
+            tag.as_deref(),
+            limit,
+            seed,
+            &deck_name,
+            check,
+        ),
         Cmd::ExportWeb {
             bank,
             seed,
@@ -829,6 +885,53 @@ fn smoke_learn_chrome(root: Option<&Path>) -> Result<(), String> {
     print!("{}", report.stdout);
     if report.code != 0 {
         std::process::exit(report.code);
+    }
+    Ok(())
+}
+
+fn export_anki(
+    root: Option<&Path>,
+    source: &str,
+    out: Option<&Path>,
+    format: &str,
+    module: Option<i64>,
+    tag: Option<&str>,
+    limit: Option<i64>,
+    seed: Option<i64>,
+    deck_name: &str,
+    check: bool,
+) -> Result<(), String> {
+    // An explicit --root is the tree under test (including the all-retired
+    // plant). Walking up would find the live engine and export the live bank.
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_anki::resolve_engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    let mut req = cdcp_anki::Request::default_for(&resolved);
+    req.source = match source {
+        "bank" => cdcp_anki::Source::Bank,
+        "seed42" => cdcp_anki::Source::Seed42,
+        "keys" => cdcp_anki::Source::Keys,
+        other => return Err(format!("unsupported --source {other}")),
+    };
+    if let Some(p) = out {
+        req.out = p.to_path_buf();
+    }
+    req.format = format.to_string();
+    req.module = module;
+    req.tag = tag.map(|s| s.to_string());
+    req.limit = limit;
+    req.seed = seed;
+    req.deck_name = deck_name.to_string();
+    req.check = check;
+    let outcome = cdcp_anki::run(&req);
+    print!("{}", outcome.stdout);
+    eprint!("{}", outcome.stderr);
+    if outcome.code != 0 {
+        std::process::exit(outcome.code);
     }
     Ok(())
 }
