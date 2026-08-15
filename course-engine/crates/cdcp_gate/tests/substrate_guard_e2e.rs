@@ -276,12 +276,13 @@ fn the_live_repo_tree_has_no_unlisted_non_rust_file() {
         .iter()
         .filter(|e| sg::scan_reason(e, &al.scan).is_some())
         .collect();
-    // Floor tracks the live worklist (38 rows / 38 identified after
-    // bd-substrate-rust-migration-jhd.20 retired smoke_learn_v2.py). A
-    // scan that judges nothing still reports like a clean one; do not
-    // lower this without a matching port.
+    // Floor tracks the live worklist (37 identified after
+    // bd-retire-oracle-on-behaviour-change-gna0 retired
+    // verify_content_lock.py; jhd.13 retired export_anki.py). A scan
+    // that judges nothing still reports like a clean one; do not lower
+    // this without a matching port.
     assert!(
-        identified.len() >= 38,
+        identified.len() >= 37,
         "only {} entries identified as non-Rust — the scan found nothing to judge; \
          root={} tracked={} scan.exts={:?} sample_paths={:?} identified={:?}",
         identified.len(),
@@ -979,6 +980,32 @@ fn bad_load_bearing_check_sh_reason_for_an_uninvoked_file_is_red() {
     );
     assert!(
         planted.contains("Load-bearing check.sh gate"),
+        "the plant must land or this test is vacuous"
+    );
+    f.set_allowlist(&planted);
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+    assert_eq!(code, VIOLATION, "{out}");
+    assert!(
+        out.contains("scripts/verify_bank.py"),
+        "must name the file: {out}"
+    );
+    assert!(out.contains("does not invoke"), "must name the lie: {out}");
+}
+
+/// bd-retire-oracle-on-behaviour-change-gna0. A row that still says
+/// "byte-exact oracle" for a file the fixture's check.sh does not invoke
+/// is the stale-claim the tripwire exists to catch.
+#[test]
+fn bad_byte_exact_oracle_reason_for_an_uninvoked_file_is_red() {
+    let f = Fixture::new();
+    let planted = f.read_allowlist().replacen(
+        "reason = \"Grandfathered load-bearing gate; port tracked by the migration epic\"",
+        "reason = \"Retained as the byte-exact oracle after the port\"",
+        1,
+    );
+    assert!(
+        planted.contains("byte-exact oracle"),
         "the plant must land or this test is vacuous"
     );
     f.set_allowlist(&planted);

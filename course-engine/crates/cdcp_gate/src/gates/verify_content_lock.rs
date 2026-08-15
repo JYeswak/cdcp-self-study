@@ -51,13 +51,14 @@
 //! *the set of pinned rows and the set of files under the locked roots are the
 //! same set, and every digest in it holds*. That is the whole claim.
 //!
-//! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
+//! # EXTRACT-THEN-DELETE (bd-retire-oracle-on-behaviour-change-gna0)
 //!
-//! `scripts/verify_content_lock.py` stays in the tree as the differential
-//! oracle; `tests/diff_verify_content_lock.rs` runs both sides on every case and
-//! asserts stdout, stderr, and exit code match byte for byte.
+//! `scripts/verify_content_lock.py` and `tests/diff_verify_content_lock.rs`
+//! are deleted. check.sh never invoked the .py. The gate is this module;
+//! known-bad is the tests below plus `CDCP_CONTENT_LOCK_SELFTEST=1`. A
+//! behaviour change lands here only.
 //!
-//! That contract is why this module:
+//! The port still:
 //!
 //!   * writes its failure report to **stderr and exits 1** instead of routing
 //!     through `GateError` — the dispatcher's `report()` uses a different prefix
@@ -1730,19 +1731,44 @@ mod tests {
     }
 
     #[test]
-    fn the_default_budget_matches_the_oracles_timeout() {
-        // The oracle's `timeout=` literal. If one moves, both must.
+    fn the_default_budget_is_five_minutes() {
+        // EXTRACT-THEN-DELETE: the Python timeout literal is gone. This
+        // constant is the budget.
         assert_eq!(BANK_HASH_TIMEOUT_S, 300.0);
-        let src = fs::read_to_string(
-            crate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR")))
-                .expect("engine root")
-                .join("scripts/verify_content_lock.py"),
+    }
+
+    /// Known-bad that replaces the retired differential
+    /// `tampered_knowledge_hash_is_red_in_both`.
+    #[test]
+    fn tampered_knowledge_hash_is_red() {
+        let (_td, engine, ..) = walkable_root();
+        let modules_a = sha256_hex_bytes(b"# a\n");
+        let modules_b = sha256_hex_bytes(b"# b\n");
+        let bh = "aa".repeat(32);
+        fs::create_dir_all(engine.join("goldens")).unwrap();
+        fs::write(engine.join("goldens/bank_hash.txt"), &bh).unwrap();
+        // Stop `live_bank_hash` walking out of the fixture and `cargo run`-ing
+        // the real workspace (slow, and a different digest).
+        fs::write(engine.join("Cargo.toml"), "# not a package\n").unwrap();
+        fs::write(
+            engine.join(LOCK_REL),
+            format!(
+                "schema_version = 1\nbank_hash = \"{bh}\"\n\n[knowledge]\n\
+                 \"knowledge/a.toml\" = \"0000000000000000000000000000000000000000000000000000000000000000\"\n\n\
+                 [modules]\n\
+                 \"web/content/modules/01.md\" = \"{modules_a}\"\n\
+                 \"modules/01.md\" = \"{modules_b}\"\n"
+            ),
         )
-        .expect("oracle readable");
+        .unwrap();
+        let out = evaluate(&engine);
+        assert_eq!(out.code, 1, "tampered pin must be RED:\n{}", out.stderr);
         assert!(
-            src.contains("BANK_HASH_TIMEOUT_S = 300.0"),
-            "the oracle's budget no longer matches this port's"
+            out.stderr.contains("hash mismatch: knowledge/a.toml"),
+            "tampered pin must be named:\n{}",
+            out.stderr
         );
+        assert!(out.stderr.contains("lock=000000000000"), "{}", out.stderr);
     }
 
     #[test]

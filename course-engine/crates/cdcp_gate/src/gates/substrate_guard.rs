@@ -86,16 +86,24 @@
 //! # WHAT THIS GATE CANNOT DO
 //!
 //! It cannot decide whether a stated `reason` is honest English. One mechanical
-//! exception (bd-allowlist-stale-load-bearing-seq9): a reason that claims
-//! check.sh invokes the path ("load-bearing check.sh", "check.sh invokes",
-//! "check.sh hard-fails if") is checked against the invocation set derived from
-//! `scripts/check.sh`. Presence tests (`[ -f path ]`) and comments are not
-//! invocations. The rest of the sentence is still prose. It cannot tell a real
-//! migration bead from a plausible-looking id. It cannot tell an achievable
-//! `expires` from a date chosen to be far away. It reads none of the scripts it
-//! permits, so it says nothing about what they do. An author who wants a script
-//! in this tree can still get one in by writing a sentence — the change is that
-//! the sentence is now dated, attributed, reviewable in a diff, and it rots.
+//! exception (bd-allowlist-stale-load-bearing-seq9, extended
+//! bd-retire-oracle-on-behaviour-change-gna0): a reason that claims this path
+//! is still the live oracle ("load-bearing check.sh", "check.sh invokes",
+//! "check.sh hard-fails if", "byte-exact oracle", "oracle required") is checked
+//! against the invocation set derived from `scripts/check.sh`. Presence tests
+//! (`[ -f path ]`) and comments are not invocations. The rest of the sentence
+//! is still prose. It cannot tell a real migration bead from a plausible-looking
+//! id. It cannot tell an achievable `expires` from a date chosen to be far away.
+//! It reads none of the scripts it permits, so it says nothing about what they
+//! do. An author who wants a script in this tree can still get one in by
+//! writing a sentence — the change is that the sentence is now dated,
+//! attributed, reviewable in a diff, and it rots.
+//!
+//! `[oracle_inventory]` (same bead) is the remaining
+//! `scripts/{verify,validate,smoke}_*.py` table. When that table is present,
+//! an empty scan of those names is an ERROR, a row whose file is gone is an
+//! ERROR, and an unlisted remaining oracle is an ERROR. Fixtures omit the
+//! table and the leg does not run.
 //!
 //! The identification legs have named blind spots, kept here rather than in a
 //! bead so they are read by whoever edits the rule:
@@ -296,6 +304,27 @@ pub struct Allowlist {
     pub wiring: Wiring,
     #[serde(default)]
     pub allow: Vec<Row>,
+    /// Present only on the live registry. Fixtures omit it and the inventory
+    /// leg does not run (bd-retire-oracle-on-behaviour-change-gna0).
+    #[serde(default)]
+    pub oracle_inventory: Option<OracleInventory>,
+}
+
+/// Remaining `scripts/{verify,validate,smoke}_*.py` after EXTRACT-THEN-DELETE.
+#[derive(Debug, Clone, Deserialize, Default)]
+pub struct OracleInventory {
+    #[serde(default, rename = "file")]
+    pub files: Vec<OracleInventoryFile>,
+}
+
+#[derive(Debug, Clone, Deserialize, Default)]
+pub struct OracleInventoryFile {
+    #[serde(default)]
+    pub path: String,
+    #[serde(default)]
+    pub disposition: String,
+    #[serde(default)]
+    pub why: String,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -988,12 +1017,15 @@ pub fn check_sh_wires_guard(text: &str) -> bool {
 // authoring-helper reason that is lying about being an authoring helper is
 // still prose.
 
-/// Phrases that assert `scripts/check.sh` RUNS this path. Case-insensitive.
+/// Phrases that assert this path is still the live check.sh oracle.
+/// Case-insensitive. "Differential oracle … Not a check.sh step" must not match.
 pub fn reason_claims_check_sh_invoke(reason: &str) -> bool {
     let r = reason.to_ascii_lowercase();
     r.contains("load-bearing check.sh")
         || r.contains("check.sh invokes")
         || r.contains("check.sh hard-fails if")
+        || r.contains("byte-exact oracle")
+        || r.contains("oracle required")
 }
 
 /// Executors whose next token is treated as an invoked path.
@@ -1127,9 +1159,126 @@ pub fn reason_honesty_findings(rows: &[Row], check_sh_text: Option<&str>) -> Hon
         }
         if reason_claims_check_sh_invoke(&r.reason) && !invoked.contains(path) {
             out.violations.push(format!(
-                "[[allow]] {path}: reason claims check.sh invokes this (\"load-bearing check.sh\" / \"check.sh invokes\" / \"check.sh hard-fails if\"), but {CHECK_SH_PATH} does not invoke that path"
+                "[[allow]] {path}: reason claims this is a live check.sh oracle (\"load-bearing check.sh\" / \"check.sh invokes\" / \"check.sh hard-fails if\" / \"byte-exact oracle\" / \"oracle required\"), but {CHECK_SH_PATH} does not invoke that path"
             ));
         }
+    }
+    out
+}
+
+// ── remaining-oracle inventory (bd-retire-oracle-on-behaviour-change-gna0) ─
+//
+// After EXTRACT-THEN-DELETE the leftover scripts/{verify,validate,smoke}_*.py
+// must be listed. An empty scan while the table exists is an ERROR (the scan
+// judged nothing). A row whose file is gone is a stale ledger. An unlisted
+// remaining oracle is a lie. Fixtures omit `[oracle_inventory]` and this
+// function is not called.
+
+const ORACLE_INVENTORY_PREFIXES: &[&str] = &["verify_", "validate_", "smoke_"];
+const ORACLE_DISPOSITIONS: &[&str] = &[
+    "live_selftest",
+    "live_check_sh",
+    "cargo_test_differential",
+    "honesty_ledger",
+];
+
+pub fn is_inventoried_oracle_script(rel: &str) -> bool {
+    let Some(name) = rel.strip_prefix("scripts/") else {
+        return false;
+    };
+    if name.contains('/') {
+        return false;
+    }
+    let lower = name.to_ascii_lowercase();
+    lower.ends_with(".py")
+        && ORACLE_INVENTORY_PREFIXES
+            .iter()
+            .any(|p| lower.starts_with(p))
+}
+
+pub fn discover_oracle_scripts(scripts_dir: &Path) -> Result<BTreeSet<String>, String> {
+    let mut out = BTreeSet::new();
+    if !scripts_dir.is_dir() {
+        return Ok(out);
+    }
+    let rd = std::fs::read_dir(scripts_dir).map_err(|e| format!("read scripts/: {e}"))?;
+    for ent in rd {
+        let ent = ent.map_err(|e| format!("scripts/ dirent: {e}"))?;
+        let name = ent.file_name();
+        let name = name.to_string_lossy();
+        let rel = format!("scripts/{name}");
+        if is_inventoried_oracle_script(&rel) && ent.path().is_file() {
+            out.insert(rel);
+        }
+    }
+    Ok(out)
+}
+
+/// Anti-vacuous inventory of remaining verify/validate/smoke oracles.
+///
+/// `None` means the snapshot's registry does not claim to inventory them
+/// (fixtures). `Some` with zero rows, or a scan that found nothing, is ERROR.
+pub fn inventory_findings(
+    inv: Option<&OracleInventory>,
+    discovered: &BTreeSet<String>,
+) -> HonestyFindings {
+    let mut out = HonestyFindings::default();
+    let Some(inv) = inv else {
+        return out;
+    };
+    if inv.files.is_empty() {
+        out.errors.push(format!(
+            "{REGISTRY_PATH}: [oracle_inventory] has zero files — a scan that inventories nothing is an ERROR, not a pass"
+        ));
+        return out;
+    }
+    let mut registered = BTreeSet::new();
+    for (i, f) in inv.files.iter().enumerate() {
+        let path = f.path.trim();
+        let disp = f.disposition.trim();
+        let why = f.why.trim();
+        if path.is_empty() {
+            out.errors.push(format!(
+                "{REGISTRY_PATH}: [oracle_inventory] file #{} has empty path",
+                i + 1
+            ));
+            continue;
+        }
+        if !is_inventoried_oracle_script(path) {
+            out.errors.push(format!(
+                "{REGISTRY_PATH}: [oracle_inventory] {path} is not a scripts/{{verify,validate,smoke}}_*.py"
+            ));
+        }
+        if disp.is_empty() || !ORACLE_DISPOSITIONS.contains(&disp) {
+            out.errors.push(format!(
+                "{REGISTRY_PATH}: [oracle_inventory] {path}: disposition {disp:?} is empty or unknown"
+            ));
+        }
+        if why.is_empty() {
+            out.errors.push(format!(
+                "{REGISTRY_PATH}: [oracle_inventory] {path}: empty `why` — blank is never permissive"
+            ));
+        }
+        if !registered.insert(path.to_string()) {
+            out.errors.push(format!(
+                "{REGISTRY_PATH}: [oracle_inventory] duplicate path {path}"
+            ));
+        }
+    }
+    if discovered.is_empty() {
+        out.errors.push(format!(
+            "{REGISTRY_PATH}: [oracle_inventory] scan found 0 scripts/{{verify,validate,smoke}}_*.py — a scan that judged nothing is an ERROR, not a pass"
+        ));
+    }
+    for p in discovered.difference(&registered) {
+        out.errors.push(format!(
+            "{REGISTRY_PATH}: [oracle_inventory] uninventoried remaining oracle {p}"
+        ));
+    }
+    for p in registered.difference(discovered) {
+        out.errors.push(format!(
+            "{REGISTRY_PATH}: [oracle_inventory] stale row {p} — the file is gone; delete the row in the same change that deleted the file"
+        ));
     }
     out
 }
@@ -1728,6 +1877,24 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         )));
     }
     let honesty_viols = merge(wt_honesty.violations, ix_honesty.violations);
+
+    // ── remaining-oracle inventory (absent table = skip; fixtures) ────────
+    let wt_disc = discover_oracle_scripts(&root.join("scripts")).map_err(GateError::error)?;
+    let ix_disc: BTreeSet<String> = tracked
+        .iter()
+        .filter(|p| is_inventoried_oracle_script(p))
+        .cloned()
+        .collect();
+    let wt_inv = inventory_findings(wt_al.oracle_inventory.as_ref(), &wt_disc);
+    let ix_inv = inventory_findings(ix_al.oracle_inventory.as_ref(), &ix_disc);
+    let inv_errs = merge(wt_inv.errors, ix_inv.errors);
+    if !inv_errs.is_empty() {
+        return Err(GateError::error(format!(
+            "{} oracle-inventory error(s) in {REGISTRY_PATH}: {}",
+            inv_errs.len(),
+            inv_errs.join(" | ")
+        )));
+    }
 
     // ── presence ────────────────────────────────────────────────────────────
     let mut violations = merge(
@@ -2908,6 +3075,19 @@ expires = "2099-01-01"
         assert!(!reason_claims_check_sh_invoke(
             "Differential oracle for cdcp_gate verify-orphans. Not a check.sh step."
         ));
+        assert!(reason_claims_check_sh_invoke(
+            "Retained as the byte-exact oracle for verify-orphans"
+        ));
+        assert!(reason_claims_check_sh_invoke(
+            "check.sh hard-fails: orphan gate / oracle required"
+        ));
+        // "byte for byte" is the cargo-test differential, not a live-oracle claim.
+        assert!(!reason_claims_check_sh_invoke(
+            "compare both implementations byte for byte. Not a check.sh step."
+        ));
+        assert!(!reason_claims_check_sh_invoke(
+            "Grandfathered pending the byte-exact Rust port."
+        ));
     }
 
     #[test]
@@ -3010,6 +3190,7 @@ python3 "$_anki_plant/scripts/export_anki.py"
             "check.sh always calls something; a parser that found none did not parse"
         );
         for must in [
+            "scripts/verify_paraphrase_pairs.py",
             "tests/voice-slop.sh",
             "tests/publishability-bar.sh",
         ] {
@@ -3051,6 +3232,155 @@ python3 "$_anki_plant/scripts/export_anki.py"
         assert!(
             h.errors.is_empty() && h.violations.is_empty(),
             "live allowlist reasons must be honest today: {h:?}"
+        );
+    }
+
+    #[test]
+    fn a_byte_exact_oracle_claim_for_an_uninvoked_path_is_red() {
+        let mut r = row("scripts/verify_orphans.py");
+        r.reason = "Retained as the byte-exact oracle after the port".into();
+        let sh = "#!/bin/sh\npython3 scripts/verify_paraphrase_pairs.py\n";
+        let h = reason_honesty_findings(&[r], Some(sh));
+        assert!(h.errors.is_empty(), "{h:?}");
+        assert_eq!(h.violations.len(), 1, "{h:?}");
+        assert!(
+            h.violations[0].contains("scripts/verify_orphans.py"),
+            "{h:?}"
+        );
+        assert!(h.violations[0].contains("does not invoke"), "{h:?}");
+    }
+
+    #[test]
+    fn an_oracle_required_claim_for_an_uninvoked_path_is_red() {
+        let mut r = row("scripts/validate_grounding.py");
+        r.reason = "differential oracle required for validate-grounding".into();
+        let sh = "#!/bin/sh\n[ -f scripts/validate_grounding.py ] || exit 2\n";
+        let h = reason_honesty_findings(&[r], Some(sh));
+        assert!(h.errors.is_empty(), "{h:?}");
+        assert_eq!(h.violations.len(), 1, "{h:?}");
+    }
+
+    fn inv_row(path: &str, disp: &str, why: &str) -> OracleInventoryFile {
+        OracleInventoryFile {
+            path: path.into(),
+            disposition: disp.into(),
+            why: why.into(),
+        }
+    }
+
+    #[test]
+    fn inventory_absent_is_quiet() {
+        let mut disc = BTreeSet::new();
+        disc.insert("scripts/verify_orphans.py".into());
+        let h = inventory_findings(None, &disc);
+        assert!(h.errors.is_empty() && h.violations.is_empty(), "{h:?}");
+    }
+
+    #[test]
+    fn inventory_of_zero_files_is_an_error() {
+        let inv = OracleInventory { files: vec![] };
+        let disc = BTreeSet::new();
+        let h = inventory_findings(Some(&inv), &disc);
+        assert!(h.errors.iter().any(|e| e.contains("zero files")), "{h:?}");
+    }
+
+    #[test]
+    fn empty_oracle_scan_is_an_error_not_a_pass() {
+        let inv = OracleInventory {
+            files: vec![inv_row(
+                "scripts/verify_orphans.py",
+                "live_selftest",
+                "selftest still runs it",
+            )],
+        };
+        let h = inventory_findings(Some(&inv), &BTreeSet::new());
+        assert!(h.errors.iter().any(|e| e.contains("scan found 0")), "{h:?}");
+        assert!(h.errors.iter().any(|e| e.contains("stale row")), "{h:?}");
+    }
+
+    #[test]
+    fn uninventoried_remaining_oracle_is_an_error() {
+        let inv = OracleInventory {
+            files: vec![inv_row(
+                "scripts/verify_orphans.py",
+                "live_selftest",
+                "selftest still runs it",
+            )],
+        };
+        let mut disc = BTreeSet::new();
+        disc.insert("scripts/verify_orphans.py".into());
+        disc.insert("scripts/verify_bank.py".into());
+        let h = inventory_findings(Some(&inv), &disc);
+        assert!(
+            h.errors
+                .iter()
+                .any(|e| e.contains("uninventoried remaining oracle scripts/verify_bank.py")),
+            "{h:?}"
+        );
+    }
+
+    #[test]
+    fn matching_inventory_is_quiet() {
+        let inv = OracleInventory {
+            files: vec![inv_row(
+                "scripts/verify_orphans.py",
+                "live_selftest",
+                "selftest still runs it",
+            )],
+        };
+        let mut disc = BTreeSet::new();
+        disc.insert("scripts/verify_orphans.py".into());
+        let h = inventory_findings(Some(&inv), &disc);
+        assert!(h.errors.is_empty() && h.violations.is_empty(), "{h:?}");
+    }
+
+    #[test]
+    fn empty_why_or_unknown_disposition_is_an_error() {
+        let inv = OracleInventory {
+            files: vec![inv_row("scripts/verify_orphans.py", "vibes", "")],
+        };
+        let mut disc = BTreeSet::new();
+        disc.insert("scripts/verify_orphans.py".into());
+        let h = inventory_findings(Some(&inv), &disc);
+        assert!(h.errors.iter().any(|e| e.contains("disposition")), "{h:?}");
+        assert!(h.errors.iter().any(|e| e.contains("empty `why`")), "{h:?}");
+    }
+
+    #[test]
+    fn live_oracle_inventory_matches_the_scripts_dir() {
+        let root = crate::root::resolve(std::path::Path::new(env!("CARGO_MANIFEST_DIR")))
+            .expect("engine root");
+        let al_text = std::fs::read_to_string(root.join(REGISTRY_PATH)).expect("allowlist");
+        let al = parse_allowlist(&al_text).expect("parses");
+        let inv = al
+            .oracle_inventory
+            .as_ref()
+            .expect("live allowlist must carry [oracle_inventory]");
+        assert!(
+            !inv.files.is_empty(),
+            "live inventory of remaining oracles must not be empty"
+        );
+        let disc = discover_oracle_scripts(&root.join("scripts")).expect("scan scripts/");
+        assert!(
+            !disc.is_empty(),
+            "a scan of remaining verify/validate/smoke .py that found nothing is an ERROR"
+        );
+        let h = inventory_findings(Some(inv), &disc);
+        assert!(
+            h.errors.is_empty() && h.violations.is_empty(),
+            "live oracle inventory must match the scripts/ scan: {h:?}"
+        );
+        assert!(
+            !disc.contains("scripts/verify_content_lock.py"),
+            "retired content-lock oracle leaked back into the scan: {disc:?}"
+        );
+        assert!(
+            disc.contains("scripts/verify_knowledge_paths.py"),
+            "knowledge-paths oracle is still a live cargo-test differential: {disc:?}"
+        );
+        assert!(
+            !disc.iter().any(|p| p.contains("smoke_")),
+            "EXTRACT-THEN-DELETE left a smoke_*.py: {disc:?}"
         );
     }
 

@@ -30,7 +30,7 @@
 //! from a stated contract. A gate rebased onto a registry can still be wrong,
 //! but it is wrong in a way the registry can correct.
 //!
-//! # WHAT THE COUNT COVERS — TWO SHAPES, AND WHY THERE ARE TWO (bd-ggs7)
+//! # WHAT THE COUNT COVERS — THREE SHAPES, AND WHY THERE ARE THREE
 //!
 //! Until 2026-08-14 this sweep saw ONE shape: a numeric comparison or range
 //! against 13–16. It reported "0 open instances" while
@@ -55,13 +55,50 @@
 //!     fixture in the tree stops at a run of three; the only runs of four or
 //!     more were the two real module tables.
 //!
+//!   - `Shape::NamedBound` — a bare 13–16 BOUND TO A NAME, and the whole line
+//!     is that binding: `MIN_TERMS = 15`, `pub const MAX: usize = 14;`. Added
+//!     for bd-8mjs, below.
+//!
+//! # THE THIRD SHAPE, AND WHY IT IS A DETECTOR AND NOT A DISCLAIMER (bd-8mjs)
+//!
+//! On 2026-08-14 a sibling rebased `scripts/build_glossary_json.py`'s floor
+//! from `if len(terms) < 15:` onto `MIN_TERMS = 15`. The floor did not move.
+//! The LITERAL moved behind a named constant, the `NumericBound` row stopped
+//! matching, and the row was deleted — the ledger shrank while nothing was
+//! fixed. Harmless for a glossary term count; not harmless as a mechanism,
+//! because it means any live module bound can be made invisible to this sweep
+//! by naming it, and the open count would fall on its own.
+//!
+//! The choice was between DETECTING the shape and NARROWING the claim in
+//! writing at the count. The detector won on one measured fact: widening
+//! surfaced `pub const MIN_TERMS: usize = 15;` in the Rust port of the same
+//! gate, and `const REPR_FIXED_MAX: i32 = 16;` in `validate_grounding.rs` —
+//! neither of which anyone had in mind when the blind spot was written up. A
+//! narrowed CLAIM would have been accurate about the line that prompted it and
+//! silent about the two it did not know existed. A written narrowing describes
+//! the hole; only a detector finds what is in it.
+//!
+//! The cost is the over-match risk, and it is the real one: this tree is full
+//! of legitimate 12–16 constants (a 15-minute reading-time floor, a 15-term
+//! glossary floor, `>>> 15` in a mulberry32 PRNG, a 16-character hash
+//! truncation, `default=15` on an argparse flag, `module = 15` inside dozens of
+//! fixture strings). An over-strict gate gets routed around, which is a slower
+//! death than no gate. The whole-line-is-the-binding rule is what buys the
+//! narrowness, every excluded shape above has a known-GOOD leg, and the
+//! measured result over the three scanned trees is three hits, all three
+//! inventoried, none of them a module bound.
+//!
 //! # WHAT THIS TEST STILL CANNOT DECIDE
 //!
 //! The inventory is a text scan. It cannot tell a live bound from one quoted in
 //! a docstring — it only insists that every match was looked at once and given
 //! a verdict — and it will not see a module bound spelled some way the patterns
-//! below do not match (a named constant, a value read from config, arithmetic,
-//! a table split across four files with three modules each). It says nothing
+//! below do not match. After bd-8mjs the named-constant hole is closed for the
+//! form `NAME = 15`; what remains uncovered, and is stated at the count itself
+//! as well as here: a bound computed rather than written (`len(x) - 1`,
+//! `MAX - 1`), a bound read from a config file or an environment variable, a
+//! bound assembled from a name bound to something other than a bare integer,
+//! and a table split across four files with three modules each. It says nothing
 //! about whether the registries themselves are right: if `domains.toml` omits a
 //! module the course teaches, every gate downstream of it is confidently wrong
 //! together, and no assertion here would notice.
@@ -106,6 +143,9 @@ enum Shape {
     NumericBound,
     /// Four or more consecutive module ids enumerated as literals in one file.
     FrozenTable,
+    /// A bare integer 13–16 BOUND TO A NAME: `MIN_TERMS = 15`,
+    /// `pub const MAX: usize = 14;`, `let n = 13;`.
+    NamedBound,
 }
 
 impl Shape {
@@ -113,6 +153,7 @@ impl Shape {
         match self {
             Shape::NumericBound => "numeric-bound",
             Shape::FrozenTable => "frozen-module-table",
+            Shape::NamedBound => "named-bound",
         }
     }
 }
@@ -154,8 +195,21 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
         Verdict::Prose,
         "docstring recording the removed bound",
     ),
-    // ── bd-qqwc / bd-engine-not-gate-ar39.2: three build_units.py rows
-    //    RETIRED WITH THEIR FILE. The compiler is now cdcp_learn::units. ──
+    // ── bd-qqwc: three build_units.py rows RETIRED WITH THEIR FILE ────────
+    //
+    // `scripts/build_units.py` carried three Prose instances of the bd-lt7
+    // bound (`int(m[:2]) <= 14`) in its docstring and at the rebased site. The
+    // oracle was retired on 2026-08-14 once `tests/diff_build_units.rs` stopped
+    // being a differential, so the file those rows named no longer exists and
+    // the rows went with it — a row whose file is gone fails the `stale` leg
+    // below, which is exactly the mechanism working.
+    //
+    // THE HISTORY DID NOT GO WITH THEM. `crates/cdcp_gate/src/gates/build_units.rs`
+    // carries the same finding under the heading "Why the derivation, and not a
+    // two-digit ceiling (bd-lt7)". It PARAPHRASES the literal deliberately:
+    // spelling the old bound out in a scanned `.rs` would trip the
+    // numeric-bound detector and need a row of its own, which is ceremony for a
+    // bound that no longer exists anywhere in the tree.
     // ── bd-lt7: ZERO open instances as of 2026-08-14 ──────────────────────
     //
     // All five OpenInstanceNotMine rows that lived here are gone: two agents
@@ -228,16 +282,49 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
         Verdict::Prose,
         "docstring recording the two removed sweep bounds",
     ),
+    // ── bd-8mjs: the floor that walked out of the ledger, back under a shape
+    //             that can hold a verdict on it ──────────────────────────────
+    //
+    // On 2026-08-14 `scripts/build_glossary_json.py` had `if len(terms) < 15:`
+    // rebased onto `MIN_TERMS = 15`. The FLOOR did not move; the LITERAL moved
+    // behind a name, the `NumericBound` row stopped matching, and the row was
+    // deleted — a ledger shrinking with nothing fixed. The `NamedBound`
+    // detector exists so that the same floor is inventoried again, in the
+    // spelling it now wears, in BOTH implementations of the gate.
+    (
+        "crates/cdcp_learn/src/glossary.rs",
+        "pub const MIN_TERMS: usize = 15;",
+        Shape::NamedBound,
+        Verdict::NotAModuleBound,
+        "the glossary term-count floor, now in cdcp_learn (product). The Python \
+         oracle and the gate copy were deleted with bd-engine-not-gate-ar39.2. \
+         Not a module bound: it counts TERMS, and a floor cannot hold a module out.",
+    ),
+    (
+        "crates/cdcp_gate/src/gates/smoke_learn_v2.rs",
+        "pub const MIN_GLOSSARY_TERMS: i64 = 15;",
+        Shape::NamedBound,
+        Verdict::NotAModuleBound,
+        "the SAME glossary term-count floor again, now in a third spelling — the \
+         smoke that reads the built glossary. Three copies of one number in \
+         three files is the argument for bd-we5a-style derivation, not for a \
+         fourth inventory row; recorded on bd-inventory-row-smoke-learn-v2-42hk. \
+         Not a module bound: it counts TERMS, and a floor cannot hold a module out.",
+    ),
+    // RETIRED 2026-08-15 with crates/cdcp_gate/src/gates/export_anki.rs
+    // (bd-substrate-rust-migration-jhd.13 EXTRACT-THEN-DELETE). The MT19937
+    // tempering constant left with the byte-exact gate port. The product
+    // crate does not carry it.
+    (
+        "crates/cdcp_gate/src/gates/validate_grounding.rs",
+        "const REPR_FIXED_MAX: i32 = 16;",
+        Shape::NamedBound,
+        Verdict::NotAModuleBound,
+        "CPython float repr: the exponent-notation cutoff, named. The same \
+         constant is inventoried unnamed as `decpt > 16` in verify_bank.rs \
+         below — the pair is what a `NumericBound`-only sweep saw half of.",
+    ),
     // ── live comparisons that are not module bounds ────────────────────────
-    // scripts/build_glossary_json.py's `if len(terms) < 15:` row was DELETED on
-    // 2026-08-14: a sibling rebased that floor onto `MIN_TERMS = 15`, and a
-    // named constant is one of the spellings the header says this sweep cannot
-    // see. The line is genuinely gone, so the row had to go with it — but the
-    // FLOOR did not go anywhere, and the sweep can no longer hold a verdict on
-    // it. That is the blind spot, not a clean-up; bd-8mjs tracks it. It was
-    // the stricter "every row matched something" assertion below that noticed,
-    // mid-wave, hours after the old count-based assertion had gone green over
-    // the same tree.
     (
         "crates/cdcp_learn/src/learn_v2.rs",
         "if n < 15.0 {",
@@ -282,13 +369,9 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
         Verdict::NotAModuleBound,
         "CPython float repr: the exponent-notation cutoff",
     ),
-    (
-        "crates/cdcp_gate/tests/diff_verify_content_lock.rs",
-        "assert!(removed >= 15, \"emptied only {removed} files\");",
-        Shape::NumericBound,
-        Verdict::NotAModuleBound,
-        "fixture file count in an unrelated differential case",
-    ),
+    // RETIRED 2026-08-15 with the file (bd-retire-oracle-on-behaviour-change-gna0):
+    // diff_verify_content_lock.rs (fixture `removed >= 15`). A row whose file
+    // is gone fails the stale leg.
     // ── live module bounds deliberately kept ──────────────────────────────
     (
         "crates/cdcp_gate/tests/diff_verify_knowledge_paths.rs",
@@ -385,13 +468,17 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
 /// The trees this sweep reads, their extensions, and a DELIBERATE per-tree file
 /// floor. Per-tree and not a single total, because a total large enough to
 /// survive ordinary churn is still reachable after an entire small tree has
-/// vanished from the scan — measured 2026-08-14 the three trees held 45, 55 and
+/// vanished from the scan — measured 2026-08-14 the three trees held 45, 63 and
 /// 16 files, so a total floor of 90 would not have noticed `web/assets/js`
-/// disappearing. Each floor is set a deliberate margin under today's count:
+/// disappearing. (`crates/` was 55 earlier the same day; it is the tree that
+/// churns, which is exactly why its floor is not pinned to its count.) The scan
+/// SET is unchanged by bd-8mjs — that bead added a third detector, not a fourth
+/// tree — so the floors below are re-measured, not re-derived. Each is set a
+/// deliberate margin under today's count:
 /// enough room for files to be retired, not enough to be met by a tree that is
 /// missing, misspelled, or filtered out by a broken extension list.
 const SCANNED: &[(&str, &[&str], usize)] = &[
-    ("scripts", &["py", "mjs", "js", "sh"], 40),
+    ("scripts", &["py", "mjs", "js", "sh"], 38),
     ("crates", &["rs"], 45),
     ("web/assets/js", &["js", "mjs"], 12),
 ];
@@ -430,6 +517,151 @@ fn bound_hits(line: &str) -> bool {
 
 fn find_after<'a>(hay: &'a str, needle: &str) -> Option<&'a str> {
     hay.find(needle).map(|i| &hay[i + needle.len()..])
+}
+
+// ── the third detector: a bound BOUND TO A NAME (bd-8mjs) ──────────────────
+//
+// `bound_hits` keys on an OPERATOR next to the number, so it sees `< 15` and is
+// blind to `MIN_TERMS = 15` two lines above the comparison. That blindness is
+// not theoretical: on 2026-08-14 `scripts/build_glossary_json.py` had
+// `if len(terms) < 15:` rebased onto `MIN_TERMS = 15`, its INVENTORY row went
+// stale, and the sweep's open count would have shrunk with nothing fixed. The
+// evasion needs no intent — it is indistinguishable from ordinary refactoring
+// hygiene, which is exactly why a detector has to carry it rather than a rule.
+//
+// THE WHOLE LINE MUST BE THE BINDING. That single constraint is what keeps this
+// detector from becoming the over-strict gate that gets routed around, and it
+// is worth naming what it excludes, because each of these is real and live in
+// this tree today:
+//
+//   ap.add_argument("--sample-report", type=int, default=15)   a call argument
+//   "[[domain_min]]\nmodule = 15\nmin_items = 16\n"            a fixture string
+//   //! `primary_notes_checked=15`. Nothing was fixed here     a comment
+//   if (min < 15) min = 15;                                    a guarded floor
+//   return h.length > 16 ? h.slice(0, 12) + "…" : h;           a truncation
+//   let r = Math.imul(t ^ (t >>> 15), 1 | t);                  a PRNG shift
+//
+// A leading comment marker (`#`, `//`, `//!`, `*`) is also not a binding: a
+// commented-out constant is not live code, and reading prose as live code is
+// the error this suite has now made three times.
+//
+// Measured 2026-08-14 across `scripts/`, `crates/` and `web/assets/js/`: this
+// detector finds exactly three lines, all three inventoried below, none of them
+// a module bound. That ratio is the point — a detector that fired on the six
+// shapes above would be a detector nobody could keep green.
+
+/// The bound this line binds to a name, if the line is nothing but that
+/// binding. Handles the spellings this tree uses: Python `NAME = 15`, Rust
+/// `pub const NAME: usize = 15;`, JS/TS `const name = 14;`, shell `NAME=13`.
+fn named_bound(line: &str) -> Option<u32> {
+    let t = line.trim();
+    let b = t.as_bytes();
+    // Comment and prose lines are not bindings.
+    if t.is_empty() || t.starts_with('#') || t.starts_with("//") || t.starts_with('*') {
+        return None;
+    }
+
+    let mut i = 0usize;
+    // Declaration keywords, any number of them, in any of the four languages.
+    loop {
+        let rest = &t[i..];
+        let word_len = rest
+            .bytes()
+            .take_while(|c| c.is_ascii_alphanumeric() || *c == b'_' || *c == b'(' || *c == b')')
+            .count();
+        let word = &rest[..word_len];
+        if matches!(
+            word,
+            "pub"
+                | "pub(crate)"
+                | "const"
+                | "static"
+                | "let"
+                | "mut"
+                | "var"
+                | "final"
+                | "readonly"
+                | "export"
+                | "declare"
+                | "local"
+                | "my"
+        ) {
+            i += word_len;
+            i += t[i..].bytes().take_while(|c| *c == b' ').count();
+            if i >= t.len() {
+                return None;
+            }
+            continue;
+        }
+        break;
+    }
+
+    // The name. Dotted so `self.max_module = 14` is a binding too; no `(` or
+    // `[`, because `f(x) = …` and `d["k"] = …` are not name bindings.
+    let start = i;
+    if !matches!(b.get(i), Some(c) if c.is_ascii_alphabetic() || *c == b'_') {
+        return None;
+    }
+    while matches!(b.get(i), Some(c) if c.is_ascii_alphanumeric() || *c == b'_' || *c == b'.') {
+        i += 1;
+    }
+    if i == start {
+        return None;
+    }
+    let skip_ws = |i: &mut usize| {
+        while matches!(b.get(*i), Some(b' ') | Some(b'\t')) {
+            *i += 1;
+        }
+    };
+    skip_ws(&mut i);
+
+    // An optional `: TYPE` annotation (Rust, TypeScript). `::` inside a path is
+    // fine; anything outside the type alphabet is not an annotation.
+    if b.get(i) == Some(&b':') {
+        i += 1;
+        while matches!(b.get(i), Some(c)
+            if c.is_ascii_alphanumeric()
+                || matches!(c, b'_' | b':' | b'<' | b'>' | b',' | b' ' | b'\'' | b'&'))
+        {
+            i += 1;
+        }
+    }
+    skip_ws(&mut i);
+
+    // A plain `=`. Not `==`, not `=>`, and not the tail of `<=`/`!=`/`+=`,
+    // which the name scan above would already have refused.
+    if b.get(i) != Some(&b'=') {
+        return None;
+    }
+    if matches!(b.get(i + 1), Some(b'=') | Some(b'>')) {
+        return None;
+    }
+    i += 1;
+    skip_ws(&mut i);
+
+    // Exactly the two digits, and nothing that makes them part of a longer
+    // number: `150` and `15.5` are not this bound.
+    let ds = i;
+    while matches!(b.get(i), Some(c) if c.is_ascii_digit()) {
+        i += 1;
+    }
+    if i - ds != 2 || b.get(i) == Some(&b'.') {
+        return None;
+    }
+    let n: u32 = t[ds..i].parse().ok()?;
+    if !(13..=16).contains(&n) {
+        return None;
+    }
+
+    // The binding must END here: end of line, a terminator, or a comment.
+    let tail = t[i..].trim();
+    let ends = tail.is_empty()
+        || tail.starts_with(';')
+        || tail.starts_with(',')
+        || tail.starts_with("//")
+        || tail.starts_with('#')
+        || tail.starts_with("/*");
+    ends.then_some(n)
 }
 
 // ── the second detector: hand-frozen module TABLES (bd-ggs7) ───────────────
@@ -613,6 +845,15 @@ fn sweep(root: &Path) -> (Vec<usize>, Vec<Hit>) {
                         detail: String::new(),
                     });
                 }
+                if let Some(n) = named_bound(line) {
+                    hits.push(Hit {
+                        rel: rel.clone(),
+                        line: i + 1,
+                        text: line.trim().to_string(),
+                        shape: Shape::NamedBound,
+                        detail: format!(" [binds {n} to a name]"),
+                    });
+                }
             }
             if let Some((line, text, len, first, last)) = frozen_table_run(&text) {
                 hits.push(Hit {
@@ -728,14 +969,30 @@ fn the_open_instances_are_named_and_counted() {
     assert_eq!(
         open.len(),
         0,
-        "open bd-lt7/bd-ggs7 instances changed: {open:?} — update this count \
-         deliberately. It reached 0 on 2026-08-14 for numeric bounds and stayed \
-         at 0 on 2026-08-14 when the frozen-table detector was added and its two \
-         finds were adjudicated (smoke_weak_links.py derived; results.js \
-         justified as product with a bidirectional drift guard). The count now \
-         covers BOTH shapes in SCANNED; a NEW hardcoded module bound or module \
-         table there must be inventoried with a verdict, not silently added \
-         here."
+        "open bd-lt7/bd-ggs7/bd-8mjs instances changed: {open:?} — update this \
+         count deliberately.\n\
+         \n\
+         HISTORY. It reached 0 on 2026-08-14 for numeric bounds; stayed at 0 \
+         when the frozen-table detector was added and its two finds were \
+         adjudicated (smoke_weak_links.py derived; results.js justified as \
+         product with a bidirectional drift guard); and stayed at 0 again when \
+         the NAMED-BOUND detector was added for bd-8mjs and its three finds \
+         were adjudicated (build_glossary_json.py and its Rust port both bind \
+         a glossary TERM-count floor; validate_grounding.rs binds the CPython \
+         float-repr cutoff). None of the three is a module bound.\n\
+         \n\
+         WHAT THIS ZERO COVERS, stated here and not only in the header, because \
+         a count reads broader than its detectors: the three shapes \
+         (numeric-bound, frozen-module-table, named-bound) over the three trees \
+         in SCANNED. A NEW hardcoded module bound or module table there must be \
+         inventoried with a verdict, not silently added.\n\
+         \n\
+         WHAT THIS ZERO DOES NOT COVER: a bound COMPUTED rather than written \
+         (`MAX - 1`, `len(rows) - 1`), a bound read from config or the \
+         environment, a name bound to something other than a bare integer, a \
+         module table split across files at three ids each, and every tree \
+         outside SCANNED. Those can move without this number changing, which is \
+         how the named-constant hole opened in the first place."
     );
 }
 
@@ -799,6 +1056,116 @@ fn the_numeric_bound_detector_still_trips_and_still_discriminates() {
     // A longer number that merely starts with one of the four is not a hit.
     assert!(!bound_hits("if x > 150:"));
     assert!(!bound_hits("total < 1400"));
+}
+
+#[test]
+fn the_named_bound_detector_sees_every_spelling_a_bound_can_hide_behind() {
+    // The line that produced bd-8mjs, and the port the widening found.
+    assert_eq!(named_bound("MIN_TERMS = 15"), Some(15));
+    assert_eq!(named_bound("pub const MIN_TERMS: usize = 15;"), Some(15));
+    assert_eq!(named_bound("    const REPR_FIXED_MAX: i32 = 16;"), Some(16));
+    // The evasion this detector exists to make impossible, in each language
+    // the scanned trees are written in.
+    assert_eq!(named_bound("MAX_MODULE = 14"), Some(14));
+    assert_eq!(named_bound("const MAX_MODULE = 14;"), Some(14));
+    assert_eq!(named_bound("let maxModule = 13;"), Some(13));
+    assert_eq!(named_bound("static MAX_MODULE: usize = 14;"), Some(14));
+    assert_eq!(
+        named_bound("MAX_MODULE=14"),
+        Some(14),
+        "shell has no spaces"
+    );
+    assert_eq!(named_bound("readonly MAX_MODULE=14"), Some(14));
+    // Indentation, an attribute target, and a trailing comment are all still
+    // the same binding.
+    assert_eq!(named_bound("        self.max_module = 14"), Some(14));
+    assert_eq!(
+        named_bound("MAX_MODULE = 14  # the public EPI domains"),
+        Some(14)
+    );
+    assert_eq!(named_bound("MAX_MODULE = 14,"), Some(14));
+}
+
+/// Known-GOOD, and the leg that decides whether this detector is shippable.
+/// Every case here is a REAL line from this tree, and every one of them would
+/// make the sweep an over-strict gate that gets routed around.
+#[test]
+fn the_named_bound_detector_does_not_fire_on_the_legitimate_constants_in_this_tree() {
+    for (line, why) in [
+        // web/assets/js/learn_chrome.js — a reading-time floor in minutes.
+        ("if (min < 15) min = 15;", "a guarded floor, not a binding"),
+        // web/assets/js/quiz.js — mulberry32.
+        (
+            "let r = Math.imul(t ^ (t >>> 15), 1 | t);",
+            "a PRNG bit shift",
+        ),
+        (
+            "return ((r ^ (r >>> 14)) >>> 0) / 4294967296;",
+            "a PRNG bit shift",
+        ),
+        // web/assets/js/results.js — display truncation of a hash.
+        (
+            "return h.length > 16 ? h.slice(0, 12) + \"…\" : h;",
+            "a string truncation",
+        ),
+        // scripts/validate_grounding.py — an argparse default.
+        (
+            "ap.add_argument(\"--sample-report\", type=int, default=15)",
+            "a call argument, not a line-level binding",
+        ),
+        // scripts/smoke_learn_v2.py — the term-count floor, unnamed.
+        (
+            "if (g.get(\"term_count\") or 0) < 15:",
+            "a comparison; NumericBound already holds it",
+        ),
+        // crates/…/diff_verify_objectives.rs — a TOML fixture inside a Rust
+        // string literal. Dozens of these exist; every one is a false positive.
+        (
+            "\"[[domain_min]]\\nmodule = 15\\nmin_items = 16\\n\",",
+            "a quoted fixture, not code",
+        ),
+        (
+            "        \"[[coverage_exempt]]\\nmodule = 15\\nreason = \\\"\\\"\\n\",",
+            "a quoted fixture, not code",
+        ),
+        // PROSE IS NOT LIVE CODE — the error this suite has now made three
+        // times. A commented-out constant is not a bound in effect.
+        ("# MIN_TERMS = 15", "a Python comment"),
+        ("// MAX_MODULE = 14;", "a Rust comment"),
+        (
+            "//! `primary_notes_checked=15`. Nothing was fixed here",
+            "a Rust doc comment",
+        ),
+        ("* modules = 15 in the report loop", "a JSDoc continuation"),
+        // Comparisons and match arms are not bindings.
+        ("if x == 15:", "an equality test"),
+        (
+            "assert!(removed >= 15, \"emptied only {removed} files\");",
+            "a macro call",
+        ),
+        ("15 => ChoiceLetter::P,", "a match arm"),
+        (
+            "let body = if decpt <= -4 || decpt > 16 {",
+            "a bound expression",
+        ),
+        // A number that merely starts with the digits is not the bound.
+        ("SAMPLE = 150", "a longer number"),
+        ("RATIO = 15.5", "a float"),
+        ("TOTAL = 1400", "a longer number"),
+        // Structure, not assignment.
+        ("line: 14,", "a struct field"),
+        (
+            "(\"web/assets/js\", &[\"js\", \"mjs\"], 12),",
+            "a tuple element",
+        ),
+    ] {
+        assert_eq!(
+            named_bound(line),
+            None,
+            "over-match on {line:?} — {why}. An over-strict sweep gets routed \
+             around, which is slower than no sweep at all."
+        );
+    }
 }
 
 // ── 2. verify_coverage.py: known-bad and known-GOOD ───────────────────────
@@ -914,7 +1281,10 @@ fn verify_coverage_known_bad_a_declared_module_with_no_items_trips() {
         run.stdout
     );
     assert!(
-        run.stdout.contains("module 15: 0 items < min 1"),
+        // The floor here comes from the LIVE bank_policy.toml, so the needle
+        // names the module and the approved count and leaves the floor to the
+        // policy — a test that wrote today's floor down would rot with it.
+        run.stdout.contains("module 15: 0 approved < min "),
         "the finding must name the module:\n{}",
         run.stdout
     );
@@ -977,7 +1347,8 @@ fn verify_coverage_known_bad_an_exemption_without_a_reason_is_an_error() {
     );
     // And the module stays required, so the shortfall is still reported.
     assert!(
-        run.stdout.contains("module 15: 0 items < min 1"),
+        run.stdout
+            .contains("module 15: 0 approved < min 1 (0 scanned, 0 not approved)"),
         "a rejected exemption must not silently hold the module out:\n{}",
         run.stdout
     );
@@ -998,7 +1369,7 @@ fn verify_coverage_known_good_a_recorded_exemption_with_a_reason_is_honoured() {
     assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
     assert!(
         run.stdout
-            .contains("m15: 0 — exempt: fixture: not yet authored"),
+            .contains("m15: 0 approved of 0 scanned — exempt: fixture: not yet authored"),
         "an exemption must be printed, not silent:\n{}",
         run.stdout
     );
@@ -1049,8 +1420,13 @@ fn module_markdown(title: &str, n: usize) -> String {
     s
 }
 
-/// A tree `cdcp_learn::units` can run in: a Learn index, module markdown, and a bank.
-/// The Python oracle is gone (bd-qqwc / bd-engine-not-gate-ar39.2).
+/// A tree `cdcp_gate build-units` can run in: a Learn index, module markdown,
+/// and a bank.
+///
+/// Until 2026-08-14 this also copied `scripts/build_units.py` in, because the
+/// gate under test WAS that script. The oracle was retired with bd-qqwc; the
+/// Rust takes its root from `--root`, so the fixture no longer needs to host a
+/// copy of the implementation.
 fn units_fixture(modules: &[(&str, usize)], bank_modules: &[u32]) -> Fixture {
     let f = Fixture::new();
     f.write("knowledge/topics.toml", "# no topics in this fixture\n");
@@ -1081,6 +1457,11 @@ fn units_fixture(modules: &[(&str, usize)], bank_modules: &[u32]) -> Fixture {
     f
 }
 
+/// Run the Learn compiler against a fixture root.
+///
+/// Library call, not `cdcp_gate build-units`: the compiler left the gate
+/// (bd-engine-not-gate-ar39.2). write_units writes only on GREEN, matching
+/// the old process contract the cases below assert.
 fn build_units(f: &Fixture) -> Run {
     let outcome = cdcp_learn::units::write_units(&f.path("")).expect("write_units");
     Run {
@@ -1090,22 +1471,23 @@ fn build_units(f: &Fixture) -> Run {
     }
 }
 
-/// Known-GOOD. A copy of the live inputs passes, and its check floor covers
-/// all 15 modules rather than the 14 that `int(m[:2]) <= 14` admitted.
-/// NEVER run the builder against the live tree (it mutates units_index.json).
-#[test]
-fn build_units_known_good_the_live_tree_passes_over_all_declared_modules() {
+/// Byte-copy every input `build-units` resolves off its root, into a fixture.
+/// The gate derives all six paths from the root it is handed, so `--root
+/// <fixture>` is what keeps its WRITE inside the fixture.
+fn live_units_fixture() -> Fixture {
     let root = engine_root();
     let f = Fixture::new();
     let copy = |rel: &str| {
         let dst = f.path(rel);
         std::fs::create_dir_all(dst.parent().unwrap()).unwrap();
         std::fs::copy(root.join(rel), &dst)
-            .unwrap_or_else(|e| panic!("copy {rel}: {e}"));
+            .unwrap_or_else(|e| panic!("copy {rel} into the fixture: {e}"));
     };
     copy("knowledge/topics.toml");
     copy("web/data/modules_index.json");
     copy("web/data/bank_items_seed42.json");
+
+    let mut copied = 0usize;
     std::fs::create_dir_all(f.path("web/content/modules")).unwrap();
     for e in std::fs::read_dir(root.join("web/content/modules"))
         .unwrap()
@@ -1115,8 +1497,53 @@ fn build_units_known_good_the_live_tree_passes_over_all_declared_modules() {
         if p.extension().and_then(|s| s.to_str()) == Some("md") {
             let name = p.file_name().unwrap().to_string_lossy().into_owned();
             std::fs::copy(&p, f.path(&format!("web/content/modules/{name}"))).unwrap();
+            copied += 1;
         }
     }
+    // Anti-vacuous: a fixture that copied no module would build zero units and
+    // still exit 0 on the wrong thing. The floor is the fifteen declared
+    // modules with a module of slack, deliberately BELOW today's count and not
+    // equal to it, so retiring one module does not fail this for the wrong
+    // reason while an empty copy still cannot pass.
+    assert!(
+        copied >= 14,
+        "fixture copied only {copied} module files — a vacuous fixture would let \
+         every assertion below pass over an empty tree"
+    );
+    f
+}
+
+/// Known-GOOD, and bd-rebase-bounds-live-tree-write-ohgr's fix in one test.
+///
+/// The claim is the same as before — the check floor now covers all 15 modules
+/// rather than the 14 that `int(m[:2]) <= 14` admitted — but it is now made
+/// against a TREE COPY, and it is STRONGER for it.
+///
+/// Until 2026-08-14 this ran `python3 scripts/build_units.py` against the LIVE
+/// tree. `build_units.py` is a BUILDER: on the green path it writes
+/// `web/data/units_index.json`, a TRACKED artifact. Three things follow, and
+/// none of them is hypothetical in a repo that runs six agents at once:
+/// `git status` becomes a function of whether you ran the tests; a stale
+/// committed artifact is silently refreshed instead of reported; and every
+/// concurrent reader and writer of `web/data/` is raced.
+///
+/// MEASURED 2026-08-14, and the reason the fix is not "assert the tree stayed
+/// clean": on a clean HEAD clone the whole suite left `git status --porcelain`
+/// EMPTY, while the mtime of `web/data/units_index.json` moved. The write
+/// happened; it was invisible because the artifact was already current. A
+/// tree-cleanliness assertion cannot see this class of write, and the write is
+/// no less a race for being idempotent today.
+///
+/// The last assertion is what makes the read-only form strictly stronger than
+/// the live one. Running live MAKES the artifact current and therefore proves
+/// nothing about it; comparing the fixture's bytes to the tracked file PROVES
+/// the committed artifact is current, without touching it. (`diff_build_units`
+/// holds the same tie-back for the Python/Rust pair; here it is what turns
+/// "the gate ran green" into "the gate ran green over the fifteen modules that
+/// are actually committed".)
+#[test]
+fn build_units_known_good_a_copy_of_the_live_tree_passes_over_all_declared_modules() {
+    let f = live_units_fixture();
     let run = build_units(&f);
     assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
     assert!(
@@ -1128,6 +1555,22 @@ fn build_units_known_good_the_live_tree_passes_over_all_declared_modules() {
         run.stdout.contains("15-ops-adjacent"),
         "module 15 must be inside the check floor, not exempt from it:\n{}",
         run.stdout
+    );
+
+    let produced = std::fs::read(f.path("web/data/units_index.json"))
+        .expect("the green path must have written the artifact into the FIXTURE");
+    assert!(
+        !produced.is_empty(),
+        "a zero-byte artifact is an ERROR, not a pass"
+    );
+    let tracked = std::fs::read(engine_root().join("web/data/units_index.json"))
+        .expect("the tracked web/data/units_index.json must exist");
+    assert_eq!(
+        produced, tracked,
+        "the live inputs do not reproduce the tracked web/data/units_index.json, \
+         so the committed artifact is stale. Regenerate it deliberately — this \
+         test will NOT regenerate it for you, which is the whole point of the \
+         bead that removed the live-tree run."
     );
 }
 
@@ -1840,6 +2283,58 @@ fn the_sweep_goes_red_on_a_planted_frozen_table_naming_file_and_line() {
     );
 }
 
+/// Known-BAD for the sweep, bd-8mjs's own regression: plant the EXACT evasion
+/// — a live module bound moved behind a named constant, with the comparison
+/// left reading against the name — and the sweep must name the FILE and the
+/// LINE. Under the two-shape sweep this file was invisible: the comparison
+/// carries no literal and the binding carries no operator.
+#[test]
+fn the_sweep_goes_red_on_a_module_bound_hidden_behind_a_name() {
+    let f = Fixture::new();
+    f.write(
+        "scripts/planted_named_bound.py",
+        "#!/usr/bin/env python3\n\
+         \"\"\"a gate that froze the module ceiling behind a name.\"\"\"\n\
+         MAX_MODULE = 14\n\
+         \n\
+         for m in modules:\n\
+         \x20   if int(m[:2]) <= MAX_MODULE:\n\
+         \x20       check(m)\n",
+    );
+    let (counts, hits) = sweep(&f.root);
+    assert_eq!(counts[0], 1, "the fixture's scripts/ tree holds one file");
+
+    // The two-shape sweep saw NOTHING here, and that is the whole bead.
+    assert!(
+        !hits.iter().any(|h| h.shape == Shape::NumericBound),
+        "the planted file carries no numeric literal to match: {hits:?}"
+    );
+    let named: Vec<&Hit> = hits
+        .iter()
+        .filter(|h| h.shape == Shape::NamedBound)
+        .collect();
+    assert_eq!(
+        named.len(),
+        1,
+        "the planted binding must produce exactly one hit, got {named:?}"
+    );
+    let h = named[0];
+    assert_eq!(h.rel, "scripts/planted_named_bound.py");
+    assert_eq!(h.line, 3, "the hit must name the line the binding is on");
+    assert_eq!(h.text, "MAX_MODULE = 14");
+    assert!(
+        h.detail.contains("binds 14 to a name"),
+        "the finding must say what it saw: {}",
+        h.detail
+    );
+    assert!(
+        !INVENTORY
+            .iter()
+            .any(|(file, src, shape, _, _)| *file == h.rel && *src == h.text && *shape == h.shape),
+        "a planted binding must be un-inventoried"
+    );
+}
+
 /// Known-GOOD for the sweep: an ordinary gate that DERIVES its module set is
 /// not a hit, however many times it mentions a module. An over-strict sweep
 /// gets routed around.
@@ -1897,4 +2392,118 @@ fn the_per_tree_file_floors_reject_a_tree_that_vanished() {
             live[i]
         );
     }
+}
+
+// ── 7. the live-tree runs, ledgered (bd-rebase-bounds-live-tree-write-ohgr) ─
+//
+// A live-tree run is not forbidden here, because forbidding it outright would
+// be over-strict: three of the legs above are CHECKERS, which read a tree and
+// write nothing, and running them against the shipped tree is the strongest
+// form of those legs. What is forbidden is an UNARGUED one. The instance this
+// bead removed — `python3 scripts/build_units.py` against the engine root —
+// entered this file without anyone writing down that build_units is a BUILDER
+// and writes `web/data/units_index.json` on its green path.
+//
+// So every live run is ledgered with the answer to one question: DOES IT WRITE?
+// A new live run cannot be added without answering it, which is precisely the
+// step that was skipped.
+//
+// WHAT THIS LEDGER DOES NOT COVER, stated because a ledger reads broader than
+// its scan: it sees THIS FILE, and it sees a script path spelled as
+// `.join("scripts/…")` inside a command. A run reached through a helper that
+// hides the path (`python_script()` in `diff_verify_doc_consistency.rs` is a
+// real example, in a file this bead does not own) is invisible to it. The
+// suite-wide property — a full run leaves the tree clean — is not a unit test
+// and is not asserted here; it was MEASURED on a clean HEAD clone instead, and
+// the measurement is recorded on the build_units leg above, including the part
+// a `git status` assertion cannot see.
+
+/// `(script, writes?, why the live run is safe)`.
+const LIVE_RUNS: &[(&str, bool, &str)] = &[(
+    "scripts/verify_coverage.py",
+    false,
+    "a CHECKER. Its only write is behind `--write-json`, an explicit flag \
+         neither call site passes; without it the script prints and exits.",
+)];
+
+/// Every command in this file that runs something resolved off the ENGINE root
+/// is in `LIVE_RUNS`, with the write question answered.
+#[test]
+fn every_live_tree_run_in_this_file_is_ledgered_with_the_write_question_answered() {
+    // Compile-time, so the scan cannot drift from the file it claims to read.
+    let src = include_str!("rebase_module_bounds.rs");
+
+    let mut found: Vec<String> = Vec::new();
+    let mut at = 0usize;
+    while let Some(i) = src[at..].find("Command::new(") {
+        let start = at + i;
+        let end = (start + 300).min(src.len());
+        // Byte offsets from `find` are char boundaries; walk `end` back to one.
+        let mut end = end;
+        while !src.is_char_boundary(end) {
+            end -= 1;
+        }
+        let window = &src[start..end];
+        let mut w = 0usize;
+        while let Some(j) = window[w..].find(".join(\"scripts/") {
+            let s = w + j + ".join(\"".len();
+            let Some(q) = window[s..].find('"') else {
+                break;
+            };
+            found.push(window[s..s + q].to_string());
+            w = s + q;
+        }
+        at = start + "Command::new(".len();
+    }
+    found.sort();
+    found.dedup();
+
+    // Anti-vacuous from both sides. A scan that matched nothing reports exactly
+    // like a file with no live runs, and this file has some.
+    assert!(
+        found.len() >= 1,
+        "the live-run scan found {} command(s) — it has gone dead, or the file \
+         was reformatted past the shapes it reads. A scan that finds nothing is \
+         an ERROR, not a clean bill: {found:?}",
+        found.len()
+    );
+
+    let unledgered: Vec<&String> = found
+        .iter()
+        .filter(|s| !LIVE_RUNS.iter().any(|(script, _, _)| *script == s.as_str()))
+        .collect();
+    assert!(
+        unledgered.is_empty(),
+        "{} live-tree run(s) are not in LIVE_RUNS: {unledgered:?}. Add a row \
+         answering whether the script WRITES — and if it does, run it in a tree \
+         copy instead, the shape `live_units_fixture` and \
+         `tests/diff_build_units.rs` both use.",
+        unledgered.len()
+    );
+
+    let stale: Vec<&str> = LIVE_RUNS
+        .iter()
+        .map(|(s, _, _)| *s)
+        .filter(|s| !found.iter().any(|f| f == s))
+        .collect();
+    assert!(
+        stale.is_empty(),
+        "{} LIVE_RUNS row(s) matched no command — the run is gone (delete the \
+         row) or the scan is broken: {stale:?}",
+        stale.len()
+    );
+
+    // The ledger's whole content: nothing that writes may run live.
+    let writers: Vec<&str> = LIVE_RUNS
+        .iter()
+        .filter(|(_, writes, _)| *writes)
+        .map(|(s, _, _)| *s)
+        .collect();
+    assert!(
+        writers.is_empty(),
+        "{writers:?} are ledgered as WRITING and are still run against the live \
+         tree. A test that writes a tracked artifact makes `git status` a \
+         function of whether you ran the tests, refreshes a stale artifact \
+         instead of reporting it, and races every concurrent agent."
+    );
 }
