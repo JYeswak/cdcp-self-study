@@ -38,6 +38,15 @@
 # the full check.sh from a HEAD snapshot is mid-wave RED before L5 (measured
 # 2026-08-15: registry-check, clippy doc lints, goldens-couplings) and would
 # make every assert_red vacuous. The predicates are the proof.
+#
+# EXTRACT-THEN-DELETE (bd-extract-reconstructed-python-dxgj): first-level
+# python3 -c helpers and live `cargo run` are retired. Isolation / JSON /
+# archive / mtime jobs are `cdcp recon …`; CHARTER replace-once is
+# `cdcp snap-rewrite replace-once`; learner-pack asserts are
+# `cdcp check-learner-pack`. Missing $CDCP_BIN_DIR/cdcp (or
+# $LIVE_ROOT/target/debug/cdcp) is RED — no compile-and-run fallback.
+# The private snapshot is git archive HEAD and may not contain these verbs;
+# helpers therefore run the already-built LIVE binary.
 set -eu
 
 LIVE_ROOT="$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)"
@@ -48,6 +57,22 @@ GIT_TOP=""
 
 fail() { echo "selftest_reconstructed: FAIL: $*" >&2; exit 1; }
 ok()   { echo "selftest_reconstructed: ok: $*"; }
+
+# Resolve the LIVE helper binary BEFORE materialise_private_tree clobbers
+# CARGO_TARGET_DIR. Honour an inherited CDCP_BIN_DIR, else CARGO_TARGET_DIR,
+# else the live debug dir. Missing is RED.
+if [ -z "${CDCP_BIN_DIR:-}" ]; then
+  if [ -n "${CARGO_TARGET_DIR:-}" ]; then
+    CDCP_BIN_DIR="${CARGO_TARGET_DIR%/}/debug"
+  else
+    CDCP_BIN_DIR="$LIVE_ROOT/target/debug"
+  fi
+fi
+CDCP="$CDCP_BIN_DIR/cdcp"
+[ -n "$CDCP_BIN_DIR" ] \
+  || fail "CDCP_BIN_DIR unset — cargo build -p cdcp_cli --locked must run first (no fallback to cargo run)"
+[ -x "$CDCP" ] \
+  || fail "cdcp binary absent at $CDCP — cargo build -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
 
 # -- L4 drift guard: self-reported RED-injection count ----------------------
 # INJ counts the injections this run actually asserted RED (green controls are
@@ -81,52 +106,20 @@ crates/cdcp_cli/src/main.rs"
 
 snapshot_live() {
   # shellcheck disable=SC2086
-  python3 -c '
-import hashlib, os, subprocess, sys
-root, out, clean_out = sys.argv[1], sys.argv[2], sys.argv[3]
-rels = sys.argv[4:]
-missing = [r for r in rels if not os.path.isfile(os.path.join(root, r))]
-if missing:
-    sys.stderr.write("live snapshot missing: %s\n" % " ".join(missing))
-    sys.exit(2)
-top = subprocess.check_output(["git", "-C", root, "rev-parse", "--show-toplevel"], text=True).strip()
-prefix = os.path.relpath(root, top)
-if prefix == ".":
-    prefix = ""
-with open(out, "w") as fh, open(clean_out, "w") as cfh:
-    for rel in rels:
-        p = os.path.join(root, rel)
-        digest = hashlib.sha256(open(p, "rb").read()).hexdigest()
-        fh.write("%s %s\n" % (digest, rel))
-        repo_rel = os.path.join(prefix, rel) if prefix else rel
-        st = subprocess.check_output(
-            ["git", "-C", top, "status", "--porcelain", "--", repo_rel], text=True
-        )
-        if not st.strip():
-            cfh.write(rel + "\n")
-' "$LIVE_ROOT" "$BAK_DIR/live.fp" "$BAK_DIR/live.clean" $WATCH
+  "$CDCP" recon snapshot-live \
+    --root "$LIVE_ROOT" \
+    --fp "$BAK_DIR/live.fp" \
+    --clean-out "$BAK_DIR/live.clean" \
+    $WATCH \
+    || fail "snapshot-live of watched files failed"
 }
 
 assert_live_unmoved() {
   _label="$1"
-  python3 -c '
-import hashlib, os, sys
-root, fp, label = sys.argv[1], sys.argv[2], sys.argv[3]
-bad = 0
-for line in open(fp):
-    digest, rel = line.split(None, 1)
-    rel = rel.strip()
-    p = os.path.join(root, rel)
-    if not os.path.isfile(p):
-        sys.stderr.write("live %s vanished during %s\n" % (rel, label))
-        bad += 1
-        continue
-    now = hashlib.sha256(open(p, "rb").read()).hexdigest()
-    if now != digest:
-        sys.stderr.write("live %s bytes moved during %s\n" % (rel, label))
-        bad += 1
-sys.exit(1 if bad else 0)
-' "$LIVE_ROOT" "$BAK_DIR/live.fp" "$_label" \
+  "$CDCP" recon assert-unmoved \
+    --root "$LIVE_ROOT" \
+    --fp "$BAK_DIR/live.fp" \
+    --label "$_label" \
     || fail "ANTI-VACUOUS: live tracked file moved ($_label) — isolation broken"
 }
 
@@ -136,25 +129,10 @@ assert_live_git_unmoved() {
   # isolation property (assert_live_unmoved). For files that started CLEAN,
   # porcelain must stay empty — that is the "git status is clean" proof.
   _label="$1"
-  python3 -c '
-import os, subprocess, sys
-live, clean_path, label = sys.argv[1], sys.argv[2], sys.argv[3]
-started = set(x.strip() for x in open(clean_path) if x.strip())
-top = subprocess.check_output(["git", "-C", live, "rev-parse", "--show-toplevel"], text=True).strip()
-prefix = os.path.relpath(live, top)
-if prefix == ".":
-    prefix = ""
-bad = 0
-for rel in started:
-    repo_rel = os.path.join(prefix, rel) if prefix else rel
-    out = subprocess.check_output(
-        ["git", "-C", top, "status", "--porcelain", "--", repo_rel], text=True
-    )
-    if out.strip():
-        sys.stderr.write("live %s was clean and is now dirty (%s): %r\n" % (rel, label, out))
-        bad += 1
-sys.exit(1 if bad else 0)
-' "$LIVE_ROOT" "$BAK_DIR/live.clean" "$_label" \
+  "$CDCP" recon assert-git-unmoved \
+    --root "$LIVE_ROOT" \
+    --clean "$BAK_DIR/live.clean" \
+    --label "$_label" \
     || fail "ANTI-VACUOUS: a live file that started clean is now dirty ($_label)"
 }
 
@@ -195,12 +173,7 @@ assert_private_path() {
   esac
   _rel="${_p#"$ROOT"/}"
   if [ -n "$_rel" ] && [ -f "$LIVE_ROOT/$_rel" ] && [ -f "$_p" ]; then
-    _same="$(python3 -c 'import os,sys
-try:
-    print(int(os.path.samefile(sys.argv[1], sys.argv[2])))
-except OSError:
-    print(0)
-' "$_p" "$LIVE_ROOT/$_rel")"
+    _same="$("$CDCP" recon samefile "$_p" "$LIVE_ROOT/$_rel")"
     [ "$_same" != "1" ] || fail "ANTI-VACUOUS: $_p is the same inode as the live file"
   fi
 }
@@ -230,24 +203,7 @@ materialise_private_tree() {
   # goldens/registry drift and an in-flight check.sh (bd-o4bc). Copying
   # those bytes made the unmutated snapshot RED and vacated every injection.
   _copy_report="$(
-    python3 -c '
-import os, subprocess, sys, time, tarfile
-from io import BytesIO
-top, snap = sys.argv[1], sys.argv[2]
-t0 = time.time()
-blob = subprocess.check_output(["git", "-C", top, "archive", "--format=tar", "HEAD"])
-n = 0
-with tarfile.open(fileobj=BytesIO(blob), mode="r:") as tf:
-    for m in tf.getmembers():
-        if m.isfile():
-            n += 1
-    tf.extractall(snap)
-dt = time.time() - t0
-if n < 1:
-    sys.stderr.write("git archive HEAD was empty\n")
-    sys.exit(2)
-sys.stdout.write("PRIVATE_TREE_COPY_S=%.2f FILES=%d REV=HEAD\n" % (dt, n))
-' "$GIT_TOP" "$SNAP"
+    "$CDCP" recon archive-head --top "$GIT_TOP" --snap "$SNAP"
   )" || fail "git archive HEAD into private snapshot failed"
   printf '%s\n' "$_copy_report"
   # Belt: even if archive were somehow the index, the orchestrator is HEAD.
@@ -285,12 +241,9 @@ sys.stdout.write("PRIVATE_TREE_COPY_S=%.2f FILES=%d REV=HEAD\n" % (dt, n))
       "$ROOT/beads_compliance_audit/" \
       || fail "cannot copy beads_compliance_audit into the private tree"
   fi
-  _same="$(python3 -c 'import os,sys
-try:
-    print(int(os.path.samefile(sys.argv[1], sys.argv[2])))
-except OSError:
-    print(0)
-' "$ROOT/crates/cdcp_cli/src/main.rs" "$LIVE_ROOT/crates/cdcp_cli/src/main.rs")"
+  _same="$("$CDCP" recon samefile \
+    "$ROOT/crates/cdcp_cli/src/main.rs" \
+    "$LIVE_ROOT/crates/cdcp_cli/src/main.rs")"
   [ "$_same" != "1" ] || fail "ANTI-VACUOUS: private main.rs is the live inode"
   mkdir -p "$ROOT/target"
   unset CARGO_BUILD_TARGET CARGO_BUILD_TARGET_DIR || true
@@ -367,34 +320,21 @@ materialise_private_tree
 prove_sigkill_leaves_live_clean
 
 # ── (a) L5 learner pack shape ───────────────────────────────────────────────
-# Same python predicate check.sh uses.
+# Same check-learner-pack predicate check.sh uses.
 F=web/data/mock40_seed42.json
 stash "$F"
-python3 -c "
-import json,pathlib
-p=pathlib.Path('$F'); d=json.load(open(p)); d['n_items']=39
-p.write_text(json.dumps(d,indent=2,sort_keys=True)+chr(10))"
-if python3 -c "
-import json
-d=json.load(open('$F'))
-assert d['n_items']==40, 'n_items=%r' % d['n_items']
-assert len(d['items'])==40, 'items=%d' % len(d['items'])
-"; then
+"$CDCP" recon json-set --file "$F" --n-items 39 \
+  || fail "could not plant n_items=39"
+if "$CDCP" check-learner-pack --pack "$F"; then
   fail "L5 learner pack shape stayed GREEN under n_items=39"
 fi
 finish_case "L5 learner pack shape (n_items drift)" "$F"
 
 # ── (b) L5 learner pack must not leak answer letters ────────────────────────
 stash "$F"
-python3 -c "
-import json,pathlib
-p=pathlib.Path('$F'); d=json.load(open(p)); d['items'][0]['correct']='A'
-p.write_text(json.dumps(d,indent=2,sort_keys=True)+chr(10))"
-if python3 -c "
-import json
-d=json.load(open('$F'))
-assert all('correct' not in i for i in d['items']), 'learner pack leaks correct letters'
-"; then
+"$CDCP" recon json-set --file "$F" --plant-correct A \
+  || fail "could not plant leaked correct letter"
+if "$CDCP" check-learner-pack --pack "$F"; then
   fail "L5 learner pack answer-key leak stayed GREEN"
 fi
 finish_case "L5 learner pack answer-key leak" "$F"
@@ -402,19 +342,16 @@ finish_case "L5 learner pack answer-key leak" "$F"
 # ── (c) L6 multi-seed export-web byte-stability ─────────────────────────────
 K=web/data/keys_seed42.json
 stash "$K"
-python3 -c "
-import json,pathlib
-p=pathlib.Path('$K'); d=json.load(open(p))
-d['keys'][0]['correct']='A' if d['keys'][0]['correct']!='A' else 'B'
-p.write_text(json.dumps(d,indent=2,sort_keys=True)+chr(10))"
+"$CDCP" recon json-set --file "$K" --flip-first-key \
+  || fail "could not flip keys[0].correct"
 _ms="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_recon_ms.XXXXXX")"
 _c0="$(date +%s)"
 set +e
-cargo run -q -p cdcp_cli --offline -- export-web --bank bank/items --seed 42 --out "$_ms" >/dev/null 2>"$BAK_DIR/export_web.err"
+"$CDCP" export-web --bank bank/items --seed 42 --out "$_ms" >/dev/null 2>"$BAK_DIR/export_web.err"
 _ex=$?
 set -e
 COLD_CARGO_S=$(( $(date +%s) - _c0 ))
-echo "selftest_reconstructed: COLD_CARGO_S=$COLD_CARGO_S (private target, cargo run -p cdcp_cli export-web)"
+echo "selftest_reconstructed: COLD_CARGO_S=$COLD_CARGO_S (live $CDCP export-web against the private copy)"
 [ "$_ex" -eq 0 ] || fail "L6 export-web failed to run on the copy: $(cat "$BAK_DIR/export_web.err")"
 if cmp -s "$_ms/keys_seed42.json" "$K"; then
   rm -rf "$_ms"
@@ -447,11 +384,22 @@ sed 's/^    ExportWeb {/    ExportWebHidden {/' "$M" > "$M.tmp" && mv "$M.tmp" "
 sed 's/Cmd::ExportWeb {/Cmd::ExportWebHidden {/' "$M" > "$M.tmp" && mv "$M.tmp" "$M"
 grep -q ExportWebHidden "$M" || fail "CLI-verb injection did not land in the copy"
 _help_log="$BAK_DIR/cli_help.log"
+# Compile the MUTATED private tree. The live $CDCP still lists export-web;
+# case (e) is the proof that this copy's binary lost the verb. cargo build
+# is not cargo run; missing private binary after the build is RED.
 set +e
-cargo run -q -p cdcp_cli --offline -- --help >"$_help_log" 2>&1
+cargo build -q -p cdcp_cli --offline >"$_help_log" 2>&1
+_build_rc=$?
+set -e
+[ "$_build_rc" -eq 0 ] || fail "copy cargo build failed after ExportWeb rename: $(cat "$_help_log")"
+_PRIV_CDCP="$ROOT/target/debug/cdcp"
+[ -x "$_PRIV_CDCP" ] \
+  || fail "copy cdcp binary absent at $_PRIV_CDCP after cargo build (no fallback to cargo run)"
+set +e
+"$_PRIV_CDCP" --help >"$_help_log" 2>&1
 _help_rc=$?
 set -e
-[ "$_help_rc" -eq 0 ] || fail "copy cargo run --help failed after ExportWeb rename: $(cat "$_help_log")"
+[ "$_help_rc" -eq 0 ] || fail "copy $ROOT/target/debug/cdcp --help failed after ExportWeb rename: $(cat "$_help_log")"
 # clap kebab-cases ExportWebHidden to export-web-hidden, which CONTAINS
 # the substring export-web. Match the subcommand token, not a prefix.
 if grep -E '^[[:space:]]+export-web[[:space:]]' "$_help_log" >/dev/null; then
@@ -494,18 +442,8 @@ replace_once() {
   _old="$2"
   _new="$3"
   assert_private_path "$ROOT/$_file"
-  python3 -c '
-from pathlib import Path
-import sys
-p = Path(sys.argv[1])
-old, new = sys.argv[2], sys.argv[3]
-text = p.read_text()
-n = text.count(old)
-if n != 1:
-    sys.stderr.write("CHARTER pair: needle count %d in %s (want 1)\n" % (n, p))
-    sys.exit(2)
-p.write_text(text.replace(old, new, 1))
-' "$_file" "$_old" "$_new" || fail "CHARTER pair: could not mutate $_file"
+  "$CDCP" snap-rewrite replace-once --file "$_file" --from "$_old" --to "$_new" \
+    || fail "CHARTER pair: could not mutate $_file"
 }
 
 # cargo test → SUITE_RC. Redirect to a file so the exit code is the child's,
@@ -521,23 +459,11 @@ run_pair_suite() {
 }
 
 newest_pair_bin() {
-  python3 -c '
-import glob, os, sys
-name = sys.argv[1]
-cands = []
-for p in glob.glob(os.path.join("target", "debug", "deps", name + "-*")):
-    if os.path.splitext(p)[1]:
-        continue
-    if os.path.isfile(p) and os.access(p, os.X_OK):
-        cands.append((os.stat(p).st_mtime_ns, p))
-if not cands:
-    sys.exit(0)
-print(max(cands)[1])
-' "$1"
+  "$CDCP" recon newest-bin --name "$1" --dir "$CARGO_TARGET_DIR/debug/deps"
 }
 
 mtime_ns() {
-  python3 -c 'import os,sys; print(os.stat(sys.argv[1]).st_mtime_ns)' "$1"
+  "$CDCP" recon mtime-ns "$1"
 }
 
 # After cdcp_restore_safe: prove cargo actually rebuilt the test artifact.

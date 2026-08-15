@@ -1,4 +1,4 @@
-//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics / slo / snap-rewrite / first-topic-id
+//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics / slo / snap-rewrite / recon / first-topic-id
 #![forbid(unsafe_code)]
 
 mod assemble;
@@ -6,6 +6,7 @@ mod first_topic;
 mod metrics;
 mod operator;
 mod oracle;
+mod recon;
 mod site;
 mod slo;
 mod snap_rewrite;
@@ -345,6 +346,11 @@ enum Cmd {
         #[arg(long, default_value = "knowledge/topics.toml")]
         file: PathBuf,
     },
+    /// Helpers for scripts/selftest_reconstructed.sh. Not a gate.
+    Recon {
+        #[command(subcommand)]
+        sub: ReconCmd,
+    },
     /// Check or regenerate grade goldens
     Goldens {
         #[command(subcommand)]
@@ -383,6 +389,68 @@ enum SnapRewriteCmd {
         #[arg(long, value_parser = ["skip-exec", "delete-assert"])]
         kind: String,
     },
+}
+
+#[derive(Subcommand)]
+enum ReconCmd {
+    /// Hash watched live files; write fingerprint + porcelain-clean list.
+    SnapshotLive {
+        #[arg(long)]
+        root: PathBuf,
+        #[arg(long)]
+        fp: PathBuf,
+        #[arg(long)]
+        clean_out: PathBuf,
+        #[arg(required = true, num_args = 1..)]
+        files: Vec<String>,
+    },
+    /// Re-hash the fingerprint and require every path's bytes unchanged.
+    AssertUnmoved {
+        #[arg(long)]
+        root: PathBuf,
+        #[arg(long)]
+        fp: PathBuf,
+        #[arg(long)]
+        label: String,
+    },
+    /// Files that started porcelain-clean must stay clean.
+    AssertGitUnmoved {
+        #[arg(long)]
+        root: PathBuf,
+        #[arg(long)]
+        clean: PathBuf,
+        #[arg(long)]
+        label: String,
+    },
+    /// Print 1 if both paths are the same inode, else 0. OS errors print 0.
+    Samefile { a: PathBuf, b: PathBuf },
+    /// `git archive HEAD` into --snap. Prints PRIVATE_TREE_COPY_S=… FILES=… REV=HEAD.
+    ArchiveHead {
+        #[arg(long)]
+        top: PathBuf,
+        #[arg(long)]
+        snap: PathBuf,
+    },
+    /// Plant a known-bad JSON mutation. Exactly one job per call.
+    JsonSet {
+        #[arg(long)]
+        file: PathBuf,
+        #[arg(long)]
+        n_items: Option<u64>,
+        #[arg(long)]
+        plant_correct: Option<String>,
+        #[arg(long)]
+        flip_first_key: bool,
+    },
+    /// Newest extensionless executable matching `--name-*` under --dir.
+    NewestBin {
+        #[arg(long)]
+        name: String,
+        #[arg(long, default_value = "target/debug/deps")]
+        dir: PathBuf,
+    },
+    /// Print path mtime as nanoseconds since epoch.
+    MtimeNs { path: PathBuf },
 }
 
 #[derive(Subcommand)]
@@ -628,6 +696,43 @@ fn run(cli: Cli) -> Result<(), String> {
             }
         },
         Cmd::FirstTopicId { file } => first_topic::emit(&file),
+        Cmd::Recon { sub } => match sub {
+            ReconCmd::SnapshotLive {
+                root,
+                fp,
+                clean_out,
+                files,
+            } => recon::snapshot_live(&root, &fp, &clean_out, &files),
+            ReconCmd::AssertUnmoved { root, fp, label } => {
+                recon::assert_unmoved(&root, &fp, &label)
+            }
+            ReconCmd::AssertGitUnmoved { root, clean, label } => {
+                recon::assert_git_unmoved(&root, &clean, &label)
+            }
+            ReconCmd::Samefile { a, b } => recon::emit_samefile(&a, &b),
+            ReconCmd::ArchiveHead { top, snap } => recon::archive_head(&top, &snap),
+            ReconCmd::JsonSet {
+                file,
+                n_items,
+                plant_correct,
+                flip_first_key,
+            } => {
+                let job = match (n_items, plant_correct, flip_first_key) {
+                    (Some(n), None, false) => recon::JsonJob::SetNItems(n),
+                    (None, Some(letter), false) => recon::JsonJob::PlantCorrect(letter),
+                    (None, None, true) => recon::JsonJob::FlipFirstKey,
+                    _ => {
+                        return Err(
+                            "recon json-set: want exactly one of --n-items / --plant-correct / --flip-first-key"
+                                .into(),
+                        );
+                    }
+                };
+                recon::json_set(&file, &job)
+            }
+            ReconCmd::NewestBin { name, dir } => recon::emit_newest_bin(&dir, &name),
+            ReconCmd::MtimeNs { path } => recon::emit_mtime_ns(&path),
+        },
         Cmd::Goldens { sub } => match sub {
             GoldensCmd::Check { bank, dir } => goldens_check(&bank, &dir),
             // `.ok()` here is fail-CLOSED, the opposite of the goldens-check

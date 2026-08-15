@@ -1254,7 +1254,7 @@ ok "L7 content.lock selftest (mutated bank_hash trips RED)"
 # ─── V11 stretch surfaces ───────────────────────────────────────────────────
 if [ -f scripts/selftest_reconstructed.sh ] && [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then
   echo "==> selftest_reconstructed.sh (L5–V11 reconstructed stages)"
-  run_selftest "reconstructed-stage selftests" env CDCP_IN_SELFTEST=1 sh scripts/selftest_reconstructed.sh
+  run_selftest "reconstructed-stage selftests" env CDCP_IN_SELFTEST=1 CDCP_BIN_DIR="$CDCP_BIN_DIR" sh scripts/selftest_reconstructed.sh
   ok "L5–V11 reconstructed stages proven to trip RED"
 else
   skipped_step "L5–V11 reconstructed stages (nested run or missing script)"
