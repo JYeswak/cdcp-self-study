@@ -71,8 +71,10 @@
 # table. An empty scan of those names is an ERROR while the table exists.
 # EXTRACT-THEN-DELETE already took every smoke_*.py. 2026-08-15 also retired
 # verify_content_lock.py (never invoked, rust is CI, known-bad rust tests
-# replace the differential). verify_knowledge_paths.py stays: its harness
-# is the plant target for bd-census-mutation-pair-unproven-pi0v.
+# replace the differential). 2026-08-15 retired verify_knowledge_paths.py
+# (bd-substrate-rust-migration-jhd.33): check.sh never invoked it; rust
+# `verify-knowledge-paths` is CI; known-bad lives on the rust module.
+# pi0v is closed; its plant target is now another remaining harness.
 # =============================================================================
 
 schema_version = 1
@@ -155,11 +157,6 @@ disposition = "cargo_test_differential"
 why = "check.sh only presence-checks; cargo test still diffs vs tests/diff_validate_grounding.rs"
 
 [[oracle_inventory.file]]
-path = "scripts/verify_knowledge_paths.py"
-disposition = "cargo_test_differential"
-why = "check.sh never invokes it; cargo test still diffs vs tests/diff_verify_knowledge_paths.rs (pi0v plants into that harness)"
-
-[[oracle_inventory.file]]
 path = "scripts/verify_objectives.py"
 disposition = "cargo_test_differential"
 why = "check.sh/selftest_l7_objectives.sh no longer invoke python3; cargo test still diffs vs tests/diff_verify_objectives.rs (bd-substrate-rust-migration-jhd.24)"
@@ -195,11 +192,12 @@ expires = "2026-10-31"
 # WAVE 2 — ported verifiers; retained as differential oracles (bd-…jhd.5 … .10)
 # =============================================================================
 
-[[allow]]
-path = "scripts/verify_knowledge_paths.py"
-reason = "Differential oracle for `cdcp_gate verify-knowledge-paths` (bd-substrate-rust-migration-jhd.5, ported 2026-08-14). knowledge primary_notes path resolution into ../modules/. Retained so tests/diff_verify_knowledge_paths.rs can compare both implementations (pi0v plants into that harness). Not a check.sh step."
-migration_bead = "bd-substrate-rust-migration-jhd.5"
-expires = "2026-11-30"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.33):
+# scripts/verify_knowledge_paths.py and tests/diff_verify_knowledge_paths.rs
+# are DELETED, not allowlisted. check.sh never invoked the .py; CI runs
+# `cdcp_gate verify-knowledge-paths`. Known-bad lives on the Rust module
+# (missing target, missing domains.toml, zero rows, stray engine-local copy).
+# Do NOT re-add a row for it.
 
 [[allow]]
 path = "scripts/verify_coverage.py"

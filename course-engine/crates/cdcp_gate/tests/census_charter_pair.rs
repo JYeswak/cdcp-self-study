@@ -91,7 +91,7 @@ fn registry_src() -> PathBuf {
 }
 
 fn plant_src() -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/diff_verify_knowledge_paths.rs")
+    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/diff_verify_injection_count.rs")
 }
 
 fn restore_safe(dest: &Path, original: &[u8]) {

@@ -54,15 +54,14 @@ schema_version = 1
 #   verify_injection_count.py   YES (1)   check.sh:802  -> selftest_injection_count.sh, as $CHECKER
 #   validate_grounding.py       no        check.sh:493 is a `-f` PRESENCE check, never a run
 #   verify_content_lock.py      no        not referenced by any script
-#   verify_knowledge_paths.py   no        not referenced by any script
+#   verify_knowledge_paths.py   RETIRED   file deleted (jhd.33); rust is CI
 #   build_glossary_json.py      RETIRED   file deleted; no surviving invocation
 #   build_units.py              RETIRED   file deleted; no surviving invocation
 #
-# READING THE TWO TOGETHER — the only rows where BOTH blockers are already
-# clear, i.e. retirable TODAY at zero cost: verify_content_lock.py and
-# verify_knowledge_paths.py (0 agreement-only, never invoked). verify_bank.py
-# and verify_orphans.py are blocked on the INVOCATION only — their harnesses
-# would lose nothing. Everything else is blocked on both.
+# READING THE TWO TOGETHER — verify_content_lock.py and
+# verify_knowledge_paths.py are RETIRED (never invoked; rust is CI).
+# verify_bank.py and verify_orphans.py are blocked on the INVOCATION only —
+# their harnesses would lose nothing. Everything else is blocked on both.
 # ─────────────────────────────────────────────────────────────────────────────
 
 [census]
@@ -225,6 +224,9 @@ verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D cove
 file = "diff_verify_knowledge_paths.rs"
 gate = "verify-knowledge-paths"
 comparators = ["assert_identical"]
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.33): file deleted.
+# Row kept (registered_harness_floor is monotone). Known-bad lives on
+# crates/cdcp_gate/src/gates/verify_knowledge_paths.rs.
 cases = 25
 agreement_only = 0
 verdict_shape_leg = false

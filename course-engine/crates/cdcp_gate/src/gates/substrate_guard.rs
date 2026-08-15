@@ -3864,6 +3864,7 @@ python3 "$_anki_plant/scripts/export_anki.py"
             "scripts/smoke_learn_v2.py",
             "scripts/smoke_weak_links.py",
             "scripts/verify_content_lock.py",
+            "scripts/verify_knowledge_paths.py",
             "scripts/verify_paraphrase_pairs.py",
         ] {
             assert!(
@@ -4046,8 +4047,8 @@ python3 "$_anki_plant/scripts/export_anki.py"
             "retired content-lock oracle leaked back into the scan: {disc:?}"
         );
         assert!(
-            disc.contains("scripts/verify_knowledge_paths.py"),
-            "knowledge-paths oracle is still a live cargo-test differential: {disc:?}"
+            !disc.contains("scripts/verify_knowledge_paths.py"),
+            "retired knowledge-paths oracle leaked back into the scan: {disc:?}"
         );
         assert!(
             !disc.iter().any(|p| p.contains("smoke_")),
@@ -4295,6 +4296,7 @@ python3 "$_anki_plant/scripts/export_anki.py"
         for retired in [
             "scripts/export_anki.py",
             "scripts/verify_content_lock.py",
+            "scripts/verify_knowledge_paths.py",
             "scripts/smoke_learn_v2.py",
         ] {
             assert!(

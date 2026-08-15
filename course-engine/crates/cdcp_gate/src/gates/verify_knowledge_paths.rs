@@ -31,31 +31,28 @@
 //! nothing dangles. It says nothing about the reverse direction either — a file
 //! under `../modules/` that no domain references is not its business.
 //!
-//! Two vacuity holes are inherited from the oracle deliberately and are NOT closed
-//! here (see `evaluate`): a registry whose every row is an `exam_weight_unknown`
-//! empty passes with `primary_notes_checked=0`, and the second-leg line scan is
-//! silent when it scans zero files. Porting those out would make the differential
-//! test unable to tell a port bug from an intended behaviour change. They are
-//! reported as findings against the oracle instead.
+//! Two vacuity holes are inherited from the retired oracle deliberately and are
+//! NOT closed here (see `evaluate`): a registry whose every row is an
+//! `exam_weight_unknown` empty passes with `primary_notes_checked=0`, and the
+//! second-leg line scan is silent when it scans zero files. The rust module
+//! tests pin both holes so closing them later is a visible, reviewed change.
 //!
 //! The floor moves from *silence* to *every declared pointer resolves*. That is
 //! the whole claim, and this header will not stretch it.
 //!
-//! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
+//! # BYTE-EXACTNESS WITH THE RETIRED PYTHON ORACLE
 //!
-//! `scripts/verify_knowledge_paths.py` stays in the tree as the differential
-//! oracle; `tests/diff_verify_knowledge_paths.rs` runs both binaries over the live
-//! repo and over a dozen synthetic trees and asserts stdout, stderr, and exit code
-//! match byte for byte. That contract is why this module carries hand-written
-//! emulations of CPython behaviour (`repr()` of a `str`, `str.strip()`,
-//! `str.splitlines()`, `posixpath.realpath`, `PurePath.relative_to`) rather than
-//! the idiomatic Rust nearest-neighbour, and why the failure report goes to
-//! **stdout with exit status 1** instead of through `GateError`: the dispatcher's
-//! `report()` writes to stderr and maps to exit 2 or 4, which the oracle never
-//! produces, so routing through it would make the two sides differ on every RED
-//! case. `crate::exit`'s codes are therefore deliberately not used on the RED
-//! path. Same knowing, single-file deviation `verify_orphans` records, recorded
-//! here rather than made quietly.
+//! `scripts/verify_knowledge_paths.py` and `tests/diff_verify_knowledge_paths.rs`
+//! were deleted (bd-substrate-rust-migration-jhd.33). check.sh never invoked
+//! the `.py`; CI is `cdcp_gate verify-knowledge-paths`; known-bad lives here.
+//! This module still carries hand-written emulations of CPython behaviour
+//! (`repr()` of a `str`, `str.strip()`, `str.splitlines()`, `posixpath.realpath`,
+//! `PurePath.relative_to`) rather than the idiomatic Rust nearest-neighbour,
+//! and the failure report still goes to **stdout with exit status 1** instead
+//! of through `GateError`: the dispatcher's `report()` writes to stderr and
+//! maps to exit 2 or 4. `crate::exit`'s codes are therefore deliberately not
+//! used on the RED path. Same knowing, single-file deviation `verify_orphans`
+//! records, recorded here rather than made quietly.
 //!
 //! Two further deviations, both outside the oracle's agreeing surface:
 //!

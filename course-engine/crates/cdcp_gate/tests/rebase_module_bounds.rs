@@ -391,15 +391,10 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
     // RETIRED 2026-08-15 with the file (bd-retire-oracle-on-behaviour-change-gna0):
     // diff_verify_content_lock.rs (fixture `removed >= 15`). A row whose file
     // is gone fails the stale leg.
+    // RETIRED 2026-08-15 with the file (bd-substrate-rust-migration-jhd.33):
+    // diff_verify_knowledge_paths.rs (bound-literal detector). A row whose
+    // file is gone fails the stale leg.
     // ── live module bounds deliberately kept ──────────────────────────────
-    (
-        "crates/cdcp_gate/tests/diff_verify_knowledge_paths.rs",
-        "for bound in [\"range(1, 15)\", \"range(1,15)\", \"<= 14\", \"< 15\"] {",
-        Shape::NumericBound,
-        Verdict::Justified,
-        "a sibling gate's own detector for these bounds — the literals are the \
-         thing being searched for, not a bound in effect",
-    ),
     (
         "crates/cdcp_gate/src/gates/verify_knowledge_paths.rs",
         "//! bd-lt7 tracks gates that hardcode a module bound (`range(1, 15)`, `<= 14`) and",
@@ -486,7 +481,7 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
 /// enough room for files to be retired, not enough to be met by a tree that is
 /// missing, misspelled, or filtered out by a broken extension list.
 const SCANNED: &[(&str, &[&str], usize)] = &[
-    ("scripts", &["py", "mjs", "js", "sh"], 30),
+    ("scripts", &["py", "mjs", "js", "sh"], 29),
     ("crates", &["rs"], 45),
     ("web/assets/js", &["js", "mjs"], 12),
 ];
