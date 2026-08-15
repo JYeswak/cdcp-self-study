@@ -18,7 +18,7 @@ static-server model as mock). Re-run after corpus changes:
 
   python3 scripts/build_learn.py
   cargo run -q -p cdcp_cli -- smoke-learn
-  python3 scripts/smoke_feedback_links.py
+  cargo run -q -p cdcp_cli -- smoke-feedback-links
 """
 from __future__ import annotations
 

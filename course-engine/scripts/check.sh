@@ -40,9 +40,8 @@ ok() { echo "check.sh: ok: $*"; }
 #                              crates/cdcp_cli/src/main.rs              [S] restored
 #   cdcp build-units               web/data/units_index.json            [M] regenerated
 #   cdcp build-glossary            web/data/glossary.json               [M] regenerated
-#   smoke_feedback_links.py    web/data/topic_anchors.json              [M] regenerated
 #   export_anki.py / export-anki   dist/anki/**                         [M] untracked output
-# The three regenerated files are byte-identical today, so `git status` stays
+# The two regenerated files are byte-identical today, so `git status` stays
 # clean — but the WRITE still happens (mtime moves), and a concurrent reader can
 # still catch a truncated file. Rewritten-identical is not the same as untouched.
 # Everything else writes only under $TMPDIR or target/ (gitignored): the
@@ -639,12 +638,12 @@ echo "==> smoke_quiz_approved.mjs"; node scripts/smoke_quiz_approved.mjs || fail
 echo "==> smoke_learn_v2.py";            python3 scripts/smoke_learn_v2.py      || fail "M8-B/D learn v2";  ok "M8-B/D learn v2 smoke"
 echo "==> smoke_diagrams.py";            python3 scripts/smoke_diagrams.py      || fail "M8-C diagrams";    ok "M8-C diagrams smoke"
 echo "==> smoke_a11y.py";                python3 scripts/smoke_a11y.py          || fail "L7 a11y";          ok "L7 a11y baseline"
-echo "==> smoke_feedback_links.py";      python3 scripts/smoke_feedback_links.py || fail "L7 feedback links"; ok "L7-S2 feedback section-anchor links smoke"
+echo "==> cdcp smoke-feedback-links (L7-S2)"; cargo run -q -p cdcp_cli -- smoke-feedback-links || fail "L7 feedback links"; ok "L7-S2 feedback section-anchor links smoke"
 ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(cargo run -q -p cdcp_cli -- --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-units build-glossary smoke-learn smoke-learn-chrome; do
+for v in bank-hash grade goldens export-web serve build-units build-glossary smoke-learn smoke-learn-chrome smoke-feedback-links; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"

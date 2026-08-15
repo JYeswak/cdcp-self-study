@@ -1,0 +1,984 @@
+//! Item-review → Learn module/section links (L7-S2).
+//!
+//! Extracted from `scripts/smoke_feedback_links.py` by
+//! `bd-substrate-rust-migration-jhd.18`. The Python is DELETED. This is
+//! product, not a gate file: a learner follows Review → Learn from
+//! `results.js`. If they can see it, it is not a `cdcp_gate` concern.
+//!
+//! # Contract
+//!
+//! * every module `knowledge/domains.toml` declares is mapped in
+//!   `MODULE_LEARN_SLUGS` and has an on-disk Learn page + content copy
+//! * every `MODULE_LEARN_SLUGS` entry is a module the registry still declares
+//! * an item on the seed42 form whose module has no Learn surface is the
+//!   C5 "assessed but untaught" defect and is an ERROR, named, never skipped
+//! * `knowledge/topics.toml` exists and declares topics (the registry is
+//!   not optional)
+//! * `web/data/topic_anchors.json` exists, has topics, and has at least one
+//!   resolved section anchor when modules are declared
+//! * those anchors still exist as heading ids in the shipped markdown
+//!
+//! # This is a READER
+//!
+//! It writes nothing. The retired script imported `build_learn.py` and
+//! regenerated `topic_anchors.json` on every run — including RED. That
+//! write-before-verdict shape is `bd-feedback-links-builder-red-write-2vqx`.
+//! The builder stays in `scripts/build_learn.py`. This smoke checks the
+//! committed artifact.
+//!
+//! # Empty / absent topics is an ERROR
+//!
+//! The retired script derived its only section-anchor guard from the same
+//! `topics_with_anchor` number the builder produced. Delete or empty
+//! `knowledge/topics.toml` and the builder emitted `topics_with_anchor=0`,
+//! which switched the guard OFF, and the run printed
+//! `section_anchor_hit_rate=0.0%` and PASSED. That hole is
+//! `bd-feedback-links-vacuous-topics-ilad`. Closed here: a missing or empty
+//! topic registry is RED, a missing or empty anchors file is RED, and
+//! `topics_with_anchor == 0` with declared modules present is RED. The
+//! floor is not computed by the thing it guards.
+//!
+//! # What this cannot decide
+//!
+//! It does not open a browser. A Learn page that exists and 404s at runtime
+//! is green here. It does not check that an anchor is the RIGHT section —
+//! only that a heading with that id exists. A hit rate that silently halves
+//! is invisible; only the degenerate zero case is an error once anchors
+//! exist. `results.js` checks are substring scans, not execution.
+
+#![forbid(unsafe_code)]
+
+use crate::{join_rel, BuildOutcome};
+use serde_json::Value as Json;
+use std::collections::{BTreeMap, BTreeSet};
+use std::path::Path;
+use toml::Value as Toml;
+
+pub const NAME: &str = "smoke-feedback-links";
+pub const SUMMARY: &str =
+    "L7-S2: item review → Learn module/section links resolve in both directions";
+
+pub const RESULTS_JS_REL: &str = "web/assets/js/results.js";
+pub const LEARN_MD_JS_REL: &str = "web/assets/js/learn_md.js";
+pub const LEARN_DIR_REL: &str = "web/learn";
+pub const CONTENT_DIR_REL: &str = "web/content/modules";
+pub const KEYS_JSON_REL: &str = "web/data/keys_seed42.json";
+pub const BANK_JSON_REL: &str = "web/data/bank_items_seed42.json";
+pub const TOPIC_ANCHORS_JSON_REL: &str = "web/data/topic_anchors.json";
+pub const DOMAINS_TOML_REL: &str = "knowledge/domains.toml";
+pub const TOPICS_TOML_REL: &str = "knowledge/topics.toml";
+
+/// How many failure rows of one class the report prints before it summarises
+/// the rest. Ten is a report window, not a module bound.
+pub const MAX_REPORT_ROWS: usize = 10;
+
+/// Run the feedback-link smoke against `root` (the course-engine directory).
+///
+/// This is a reader: it writes nothing. `BuildOutcome.artifact` is always
+/// `None`. `code != 0` is RED.
+pub fn run(root: &Path) -> BuildOutcome {
+    let mut errors: Vec<String> = Vec::new();
+
+    let (module_slugs, registry_errors) = load_declared_modules(&join_rel(root, DOMAINS_TOML_REL));
+    errors.extend(registry_errors);
+
+    check_topic_registry(&join_rel(root, TOPICS_TOML_REL), &mut errors);
+
+    let results_path = join_rel(root, RESULTS_JS_REL);
+    let js = if !results_path.is_file() {
+        errors.push(format!("missing {RESULTS_JS_REL}"));
+        None
+    } else {
+        match std::fs::read_to_string(&results_path) {
+            Ok(text) => {
+                if !text.contains("itemLearnHref") {
+                    errors.push("results.js missing itemLearnHref".into());
+                }
+                if !text.contains("learn_href") {
+                    errors.push("results.js must set learn_href on item rows".into());
+                }
+                if !text.contains("Review section in Learn")
+                    && !text.contains("Review module in Learn")
+                {
+                    errors.push("results.js missing \"Review … in Learn\" link copy".into());
+                }
+                if !text.contains("topic_anchors.json") {
+                    errors.push("results.js should load data/topic_anchors.json".into());
+                }
+                Some(text)
+            }
+            Err(e) => {
+                errors.push(format!("{RESULTS_JS_REL} unreadable: {e}"));
+                None
+            }
+        }
+    };
+
+    let mdjs_path = join_rel(root, LEARN_MD_JS_REL);
+    if !mdjs_path.is_file() {
+        errors.push(format!("missing {LEARN_MD_JS_REL}"));
+    } else {
+        match std::fs::read_to_string(&mdjs_path) {
+            Ok(mdjs) => {
+                if !mdjs.contains("function slugify") && !mdjs.contains("slugify:") {
+                    errors.push("learn_md.js missing slugify (stable heading anchors)".into());
+                }
+                if !mdjs.contains("uniqueSlug")
+                    && !mdjs.contains("id=\"")
+                    && !mdjs.contains("id=\\\"")
+                {
+                    errors.push("learn_md.js does not appear to emit heading id attributes".into());
+                }
+            }
+            Err(e) => errors.push(format!("{LEARN_MD_JS_REL} unreadable: {e}")),
+        }
+    }
+
+    let mut slugs: BTreeMap<i64, String> = BTreeMap::new();
+    if let Some(js) = js.as_ref() {
+        match parse_module_learn_slugs(js) {
+            Ok(found) => {
+                if found.is_empty() {
+                    errors.push("MODULE_LEARN_SLUGS empty — refusing vacuous green".into());
+                }
+                slugs = found;
+            }
+            Err(e) => errors.push(e),
+        }
+    }
+
+    for (n, expect) in &module_slugs {
+        match slugs.get(n) {
+            Some(got) if got == expect => {}
+            other => {
+                let got = other
+                    .map(|s| format!("'{s}'"))
+                    .unwrap_or_else(|| "None".into());
+                errors.push(format!(
+                    "module {n}: results.js slug map {got} != '{expect}' ({DOMAINS_TOML_REL})"
+                ));
+            }
+        }
+        let page = join_rel(root, LEARN_DIR_REL).join(format!("{expect}.html"));
+        if !page.is_file() {
+            errors.push(format!("missing learn page {LEARN_DIR_REL}/{expect}.html"));
+        }
+        let content = join_rel(root, CONTENT_DIR_REL).join(format!("{expect}.md"));
+        if !content.is_file() {
+            errors.push(format!("missing content {CONTENT_DIR_REL}/{expect}.md"));
+        }
+    }
+
+    for n in slugs.keys().filter(|n| !module_slugs.contains_key(*n)) {
+        errors.push(format!(
+            "module {n}: results.js maps '{}' but {DOMAINS_TOML_REL} does not declare that module",
+            slugs[n]
+        ));
+    }
+
+    let keys_path = join_rel(root, KEYS_JSON_REL);
+    let bank_path = join_rel(root, BANK_JSON_REL);
+    let keys = load_keys(&keys_path, &mut errors);
+    let bank_by_id = load_bank(&bank_path, &mut errors);
+
+    let topic_anchors = load_topic_anchors(
+        &join_rel(root, TOPIC_ANCHORS_JSON_REL),
+        !module_slugs.is_empty(),
+        &mut errors,
+    );
+
+    let mut heading_ids_by_slug: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
+    for slug in module_slugs.values() {
+        let md_path = join_rel(root, CONTENT_DIR_REL).join(format!("{slug}.md"));
+        if md_path.is_file() {
+            match std::fs::read_to_string(&md_path) {
+                Ok(text) => {
+                    heading_ids_by_slug.insert(slug.clone(), extract_heading_ids(&text));
+                }
+                Err(e) => {
+                    errors.push(format!("{CONTENT_DIR_REL}/{slug}.md unreadable: {e}"));
+                    heading_ids_by_slug.insert(slug.clone(), BTreeSet::new());
+                }
+            }
+        } else {
+            heading_ids_by_slug.insert(slug.clone(), BTreeSet::new());
+        }
+    }
+
+    if let Some(anchors) = topic_anchors.as_ref() {
+        if let Some(topics) = anchors.get("topics").and_then(Json::as_object) {
+            for (tid, row) in topics {
+                let Some(row) = row.as_object() else {
+                    continue;
+                };
+                let Some(anchor) = row
+                    .get("anchor")
+                    .and_then(Json::as_str)
+                    .filter(|s| !s.is_empty())
+                else {
+                    continue;
+                };
+                let Some(slug) = row
+                    .get("slug")
+                    .and_then(Json::as_str)
+                    .filter(|s| !s.is_empty())
+                else {
+                    continue;
+                };
+                let ids = heading_ids_by_slug.get(slug);
+                if ids.map(|s| !s.contains(anchor)).unwrap_or(true) {
+                    errors.push(format!(
+                        "topic {tid}: anchor '{anchor}' not in headings of {slug}"
+                    ));
+                }
+            }
+        }
+    }
+
+    let mut total = 0usize;
+    let mut module_linked = 0usize;
+    let mut section_linked = 0usize;
+    let mut missing_module: Vec<String> = Vec::new();
+    let mut no_bank: Vec<String> = Vec::new();
+    let mut unmapped_modules: Vec<String> = Vec::new();
+
+    let topics_map = topic_anchors
+        .as_ref()
+        .and_then(|a| a.get("topics"))
+        .cloned()
+        .unwrap_or(Json::Object(Default::default()));
+
+    if let Some(keys) = keys.as_ref() {
+        for k in keys {
+            let iid = k
+                .get("item_id")
+                .and_then(Json::as_str)
+                .unwrap_or("")
+                .to_string();
+            if iid.is_empty() {
+                errors.push("key entry missing item_id".into());
+                continue;
+            }
+            total += 1;
+            let Some(item) = bank_by_id.as_ref().and_then(|b| b.get(&iid)) else {
+                no_bank.push(iid);
+                continue;
+            };
+            let mod_n = json_module(item.get("module"));
+            let Some(n) = mod_n.filter(|n| module_slugs.contains_key(n)) else {
+                unmapped_modules.push(format!(
+                    "{iid}: module {} is not declared in {DOMAINS_TOML_REL} \
+                     — assessed with no Learn surface",
+                    match mod_n {
+                        Some(n) => n.to_string(),
+                        None => "None".into(),
+                    }
+                ));
+                continue;
+            };
+            let slug = &module_slugs[&n];
+            let page = join_rel(root, LEARN_DIR_REL).join(format!("{slug}.html"));
+            if !page.is_file() {
+                missing_module.push(format!("{iid}: 404 {LEARN_DIR_REL}/{slug}.html"));
+                continue;
+            }
+            module_linked += 1;
+
+            let topic_ids = item
+                .get("topic_ids")
+                .and_then(Json::as_array)
+                .cloned()
+                .unwrap_or_default();
+            let mut anchor: Option<String> = None;
+            for tid in &topic_ids {
+                let tid = match tid {
+                    Json::String(s) => s.clone(),
+                    other => other.to_string(),
+                };
+                let Some(row) = topics_map.get(&tid).and_then(Json::as_object) else {
+                    continue;
+                };
+                let Some(a) = row
+                    .get("anchor")
+                    .and_then(Json::as_str)
+                    .filter(|s| !s.is_empty())
+                else {
+                    continue;
+                };
+                let row_mod = json_module(row.get("module"));
+                if row_mod.is_some() && row_mod != Some(n) {
+                    continue;
+                }
+                if heading_ids_by_slug
+                    .get(slug)
+                    .map(|s| s.contains(a))
+                    .unwrap_or(false)
+                {
+                    anchor = Some(a.to_string());
+                    break;
+                }
+            }
+            if anchor.is_some() {
+                section_linked += 1;
+            }
+        }
+    }
+
+    push_truncated(
+        &mut errors,
+        &no_bank,
+        |iid| format!("key item_id not in bank_items_seed42: {iid}"),
+        "more missing bank rows",
+    );
+    push_truncated(
+        &mut errors,
+        &missing_module,
+        |msg| format!("module link: {msg}"),
+        "more module-link failures",
+    );
+    push_truncated(
+        &mut errors,
+        &unmapped_modules,
+        |msg| format!("assessed but untaught: {msg}"),
+        "more items in untaught modules",
+    );
+
+    let navigable_keys = total.saturating_sub(unmapped_modules.len() + no_bank.len());
+    if keys.is_some() && total == 0 {
+        errors.push("zero keys — vacuous".into());
+    }
+    if module_linked == 0 && navigable_keys > 0 {
+        errors.push("zero module-level links resolved — refusing vacuous green".into());
+    }
+
+    let topics_with_anchor = topic_anchors
+        .as_ref()
+        .and_then(|a| a.get("topics_with_anchor"))
+        .and_then(json_u64)
+        .unwrap_or(0);
+    if topics_with_anchor > 0 && module_linked > 0 && section_linked == 0 {
+        errors
+            .push("section-anchor hit rate 0% despite topics_with_anchor>0 — check matcher".into());
+    }
+
+    let hit_rate = if module_linked == 0 {
+        0.0
+    } else {
+        100.0 * section_linked as f64 / module_linked as f64
+    };
+
+    if !errors.is_empty() {
+        let mut report = vec!["FAIL: smoke_feedback_links".to_string()];
+        for e in &errors {
+            report.push(format!("  - {e}"));
+        }
+        report.push(format!(
+            "  stats: keys={total} module_linked={module_linked} \
+             section_linked={section_linked} hit_rate={hit_rate:.1}% \
+             unmapped_mod={}",
+            unmapped_modules.len()
+        ));
+        return outcome(1, report.join("\n") + "\n");
+    }
+
+    let mut report = vec![
+        "PASS: smoke_feedback_links".to_string(),
+        format!(
+            "  modules={} (derived from {DOMAINS_TOML_REL})",
+            module_slugs.len()
+        ),
+        format!("  keys_seed42={total}"),
+        format!("  module_level_links={module_linked} (non-404 learn/{{slug}}.html)"),
+        format!("  section_anchor_links={section_linked}"),
+        format!("  section_anchor_hit_rate={hit_rate:.1}% ({section_linked}/{module_linked})"),
+        format!(
+            "  untaught_module_items={} (must be 0)",
+            unmapped_modules.len()
+        ),
+    ];
+    if let Some(anchors) = topic_anchors.as_ref() {
+        report.push(format!(
+            "  topic_anchors topics_with_anchor={}/{}",
+            anchors
+                .get("topics_with_anchor")
+                .and_then(json_u64)
+                .unwrap_or(0),
+            anchors.get("topic_count").and_then(json_u64).unwrap_or(0)
+        ));
+    }
+    for (n, slug) in &module_slugs {
+        report.push(format!("  M{n:02} → learn/{slug}.html"));
+    }
+    outcome(0, report.join("\n") + "\n")
+}
+
+/// `{module_number: learn_slug}` from the domain registry.
+///
+/// A missing, malformed or empty registry yields zero modules AND an error —
+/// never a silent empty set.
+pub fn load_declared_modules(domains_path: &Path) -> (BTreeMap<i64, String>, Vec<String>) {
+    let mut errors = Vec::new();
+    let mut declared = BTreeMap::new();
+    if !domains_path.is_file() {
+        return (
+            declared,
+            vec![format!("domain registry missing: {DOMAINS_TOML_REL}")],
+        );
+    }
+    let text = match std::fs::read_to_string(domains_path) {
+        Ok(t) => t,
+        Err(e) => {
+            return (declared, vec![format!("domain registry unreadable: {e}")]);
+        }
+    };
+    let parsed: Toml = match text.parse() {
+        Ok(v) => v,
+        Err(e) => {
+            return (declared, vec![format!("domain registry parse error: {e}")]);
+        }
+    };
+    let rows = match parsed.get("domain") {
+        Some(Toml::Array(rows)) => rows.as_slice(),
+        None => &[][..],
+        Some(_) => {
+            errors.push("domains.toml `domain` is not an array of tables".into());
+            &[][..]
+        }
+    };
+    for row in rows {
+        let Some(table) = row.as_table() else {
+            errors.push("domains.toml: [[domain]] row is not a table".into());
+            continue;
+        };
+        let did = table
+            .get("id")
+            .map(toml_as_string)
+            .unwrap_or_default()
+            .trim()
+            .to_string();
+        let Some(order) = toml_order(table.get("order")) else {
+            errors.push(format!(
+                "domains.toml: {} has no usable order",
+                if did.is_empty() { "<missing-id>" } else { &did }
+            ));
+            continue;
+        };
+        if did.is_empty() {
+            errors.push(format!(
+                "domains.toml: module {order} has no id (no Learn slug)"
+            ));
+            continue;
+        }
+        if declared.contains_key(&order) {
+            errors.push(format!(
+                "domains.toml: duplicate order {order} ({} and {did})",
+                declared[&order]
+            ));
+            continue;
+        }
+        declared.insert(order, did);
+    }
+    if declared.is_empty() {
+        errors.push("domain registry declares zero modules (vacuous link check is ERROR)".into());
+    }
+    (declared, errors)
+}
+
+fn check_topic_registry(path: &Path, errors: &mut Vec<String>) {
+    if !path.is_file() {
+        errors.push(format!(
+            "topic registry missing: {TOPICS_TOML_REL} — the section-anchor registry is not optional"
+        ));
+        return;
+    }
+    let text = match std::fs::read_to_string(path) {
+        Ok(t) => t,
+        Err(e) => {
+            errors.push(format!("{TOPICS_TOML_REL} unreadable: {e}"));
+            return;
+        }
+    };
+    let parsed: Toml = match text.parse() {
+        Ok(v) => v,
+        Err(e) => {
+            errors.push(format!("{TOPICS_TOML_REL} invalid TOML: {e}"));
+            return;
+        }
+    };
+    let n = match parsed.get("topic") {
+        Some(Toml::Array(rows)) => rows
+            .iter()
+            .filter(|r| {
+                r.get("id")
+                    .map(toml_as_string)
+                    .map(|s| !s.trim().is_empty())
+                    .unwrap_or(false)
+            })
+            .count(),
+        _ => 0,
+    };
+    if n == 0 {
+        errors.push(
+            "topic registry declares zero topics (vacuous section-anchor check is ERROR)".into(),
+        );
+    }
+}
+
+fn load_keys(path: &Path, errors: &mut Vec<String>) -> Option<Vec<Json>> {
+    if !path.is_file() {
+        errors.push(format!("missing {KEYS_JSON_REL}"));
+        return None;
+    }
+    let text = match std::fs::read_to_string(path) {
+        Ok(t) => t,
+        Err(e) => {
+            errors.push(format!("{KEYS_JSON_REL} unreadable: {e}"));
+            return None;
+        }
+    };
+    let pack: Json = match serde_json::from_str(&text) {
+        Ok(v) => v,
+        Err(e) => {
+            errors.push(format!("keys JSON: {e}"));
+            return None;
+        }
+    };
+    let keys = pack.get("keys").and_then(Json::as_array).cloned();
+    match keys {
+        Some(k) if !k.is_empty() => Some(k),
+        _ => {
+            errors.push("keys_seed42 has zero keys (vacuous)".into());
+            None
+        }
+    }
+}
+
+fn load_bank(path: &Path, errors: &mut Vec<String>) -> Option<BTreeMap<String, Json>> {
+    if !path.is_file() {
+        errors.push(format!("missing {BANK_JSON_REL}"));
+        return None;
+    }
+    let text = match std::fs::read_to_string(path) {
+        Ok(t) => t,
+        Err(e) => {
+            errors.push(format!("{BANK_JSON_REL} unreadable: {e}"));
+            return None;
+        }
+    };
+    let raw: Json = match serde_json::from_str(&text) {
+        Ok(v) => v,
+        Err(e) => {
+            errors.push(format!("bank_items_seed42 JSON: {e}"));
+            return None;
+        }
+    };
+    let items: Vec<Json> = if let Some(arr) = raw.as_array() {
+        arr.clone()
+    } else {
+        raw.get("items")
+            .and_then(Json::as_array)
+            .cloned()
+            .unwrap_or_default()
+    };
+    let mut out = BTreeMap::new();
+    for it in items {
+        if let Some(id) = it
+            .get("id")
+            .and_then(Json::as_str)
+            .filter(|s| !s.is_empty())
+        {
+            out.insert(id.to_string(), it);
+        }
+    }
+    if out.is_empty() {
+        errors.push("bank_items_seed42 empty".into());
+        None
+    } else {
+        Some(out)
+    }
+}
+
+fn load_topic_anchors(
+    path: &Path,
+    modules_declared: bool,
+    errors: &mut Vec<String>,
+) -> Option<Json> {
+    if !path.is_file() {
+        errors.push(format!(
+            "topic_anchors missing: {TOPIC_ANCHORS_JSON_REL} — run python3 scripts/build_learn.py"
+        ));
+        return None;
+    }
+    let text = match std::fs::read_to_string(path) {
+        Ok(t) => t,
+        Err(e) => {
+            errors.push(format!("{TOPIC_ANCHORS_JSON_REL} unreadable: {e}"));
+            return None;
+        }
+    };
+    let parsed: Json = match serde_json::from_str(&text) {
+        Ok(v) => v,
+        Err(e) => {
+            errors.push(format!("topic_anchors.json invalid: {e}"));
+            return None;
+        }
+    };
+    let topics = parsed.get("topics").and_then(Json::as_object);
+    let topic_n = topics.map(|t| t.len()).unwrap_or(0);
+    if topic_n == 0 {
+        errors.push(
+            "topic_anchors.json has zero topics (vacuous section-anchor check is ERROR)".into(),
+        );
+    }
+    let with_anchor = parsed
+        .get("topics_with_anchor")
+        .and_then(json_u64)
+        .unwrap_or(0);
+    if modules_declared && with_anchor == 0 {
+        errors.push(
+            "topics_with_anchor=0 with declared modules present — a dead section-anchor matcher is an ERROR"
+                .into(),
+        );
+    }
+    Some(parsed)
+}
+
+/// Must match `learn_md.js` `CdcpLearnMd.slugify` / `build_learn.slugify_heading`.
+pub fn slugify_heading(text: &str) -> String {
+    let lower = text.to_lowercase();
+    let no_md: String = lower
+        .chars()
+        .filter(|c| !matches!(c, '*' | '_' | '`'))
+        .collect();
+    let kept: String = no_md
+        .chars()
+        .filter(|c| c.is_alphanumeric() || c.is_whitespace() || *c == '-')
+        .collect();
+    let trimmed = kept.trim();
+    let mut out = String::new();
+    let mut last_dash = false;
+    for c in trimmed.chars() {
+        if c.is_whitespace() || c == '-' {
+            if !last_dash {
+                out.push('-');
+                last_dash = true;
+            }
+        } else {
+            out.push(c);
+            last_dash = false;
+        }
+    }
+    let out = out.trim_matches('-').to_string();
+    if out.is_empty() {
+        "section".into()
+    } else {
+        out
+    }
+}
+
+/// Heading ids for a markdown body (ATX, fences skipped, unique suffixes).
+pub fn extract_heading_ids(md_text: &str) -> BTreeSet<String> {
+    let mut used: BTreeMap<String, u32> = BTreeMap::new();
+    let mut ids = BTreeSet::new();
+    let mut in_fence = false;
+    let norm = md_text.replace("\r\n", "\n").replace('\r', "\n");
+    for raw in norm.lines() {
+        let stripped = raw.trim();
+        if stripped.starts_with("```") {
+            in_fence = !in_fence;
+            continue;
+        }
+        if in_fence {
+            continue;
+        }
+        let Some((_level, title)) = parse_atx(stripped) else {
+            continue;
+        };
+        let title = strip_closing_hashes(&title);
+        let plain = unwrap_md_links(title);
+        let plain: String = plain
+            .chars()
+            .filter(|c| !matches!(c, '*' | '_' | '`'))
+            .collect();
+        let base = slugify_heading(&plain);
+        let hid = unique_slug(&base, &mut used);
+        ids.insert(hid);
+    }
+    ids
+}
+
+/// Parse `MODULE_LEARN_SLUGS = Object.freeze({ N: "slug", ... })`.
+pub fn parse_module_learn_slugs(js_text: &str) -> Result<BTreeMap<i64, String>, String> {
+    let Some(idx) = js_text.find("MODULE_LEARN_SLUGS") else {
+        return Err("MODULE_LEARN_SLUGS not found in results.js".into());
+    };
+    let rest = &js_text[idx..];
+    let Some(brace) = rest.find('{') else {
+        return Err("MODULE_LEARN_SLUGS not found in results.js".into());
+    };
+    let body = &rest[brace + 1..];
+    let Some(end) = body.find('}') else {
+        return Err("MODULE_LEARN_SLUGS not found in results.js".into());
+    };
+    let inner = &body[..end];
+    let mut found = BTreeMap::new();
+    let chars: Vec<char> = inner.chars().collect();
+    let mut i = 0;
+    while i < chars.len() {
+        while i < chars.len() && !chars[i].is_ascii_digit() {
+            i += 1;
+        }
+        if i >= chars.len() {
+            break;
+        }
+        let start = i;
+        while i < chars.len() && chars[i].is_ascii_digit() {
+            i += 1;
+        }
+        let n: i64 = inner[start..start + (i - start)]
+            .parse()
+            .map_err(|_| "MODULE_LEARN_SLUGS has a non-integer key".to_string())?;
+        while i < chars.len() && chars[i].is_whitespace() {
+            i += 1;
+        }
+        if i >= chars.len() || chars[i] != ':' {
+            continue;
+        }
+        i += 1;
+        while i < chars.len() && chars[i].is_whitespace() {
+            i += 1;
+        }
+        if i >= chars.len() {
+            break;
+        }
+        let quote = chars[i];
+        if quote != '"' && quote != '\'' {
+            continue;
+        }
+        i += 1;
+        let mut slug = String::new();
+        while i < chars.len() && chars[i] != quote {
+            slug.push(chars[i]);
+            i += 1;
+        }
+        if i < chars.len() {
+            i += 1;
+        }
+        found.insert(n, slug);
+    }
+    Ok(found)
+}
+
+fn unique_slug(base: &str, used: &mut BTreeMap<String, u32>) -> String {
+    if !used.contains_key(base) {
+        used.insert(base.to_string(), 1);
+        return base.to_string();
+    }
+    let mut n = used.get(base).copied().unwrap_or(1) + 1;
+    while used.contains_key(&format!("{base}-{n}")) {
+        n += 1;
+    }
+    used.insert(base.to_string(), n);
+    used.insert(format!("{base}-{n}"), 1);
+    format!("{base}-{n}")
+}
+
+fn parse_atx(stripped: &str) -> Option<(usize, String)> {
+    if !stripped.starts_with('#') {
+        return None;
+    }
+    let mut level = 0usize;
+    for c in stripped.chars() {
+        if c == '#' && level < 6 {
+            level += 1;
+        } else {
+            break;
+        }
+    }
+    if level == 0 {
+        return None;
+    }
+    let rest = &stripped[level..];
+    if !rest.starts_with(|c: char| c.is_whitespace()) {
+        return None;
+    }
+    Some((level, rest.trim().to_string()))
+}
+
+fn strip_closing_hashes(s: &str) -> &str {
+    let t = s.trim_end();
+    let without = t.trim_end_matches('#');
+    if without.len() == t.len() {
+        return t;
+    }
+    let trimmed = without.trim_end();
+    if trimmed.len() == without.len() {
+        t
+    } else {
+        trimmed
+    }
+}
+
+fn unwrap_md_links(s: &str) -> String {
+    let chars: Vec<char> = s.chars().collect();
+    let mut out = String::new();
+    let mut i = 0;
+    while i < chars.len() {
+        if chars[i] == '[' {
+            if let Some((text, next)) = parse_md_link(&chars, i) {
+                out.push_str(&text);
+                i = next;
+                continue;
+            }
+        }
+        out.push(chars[i]);
+        i += 1;
+    }
+    out
+}
+
+fn parse_md_link(chars: &[char], start: usize) -> Option<(String, usize)> {
+    let mut i = start + 1;
+    let mut text = String::new();
+    while i < chars.len() && chars[i] != ']' {
+        text.push(chars[i]);
+        i += 1;
+    }
+    if text.is_empty() || i >= chars.len() || chars[i] != ']' {
+        return None;
+    }
+    i += 1;
+    if i >= chars.len() || chars[i] != '(' {
+        return None;
+    }
+    i += 1;
+    let url_at = i;
+    while i < chars.len() && chars[i] != ')' {
+        i += 1;
+    }
+    if i >= chars.len() || i == url_at {
+        return None;
+    }
+    Some((text, i + 1))
+}
+
+fn push_truncated(
+    errors: &mut Vec<String>,
+    rows: &[String],
+    fmt: impl Fn(&str) -> String,
+    more: &str,
+) {
+    for msg in rows.iter().take(MAX_REPORT_ROWS) {
+        errors.push(fmt(msg));
+    }
+    if rows.len() > MAX_REPORT_ROWS {
+        errors.push(format!("… and {} {more}", rows.len() - MAX_REPORT_ROWS));
+    }
+}
+
+fn json_module(v: Option<&Json>) -> Option<i64> {
+    match v {
+        Some(Json::Number(n)) => n.as_i64().or_else(|| n.as_u64().map(|u| u as i64)),
+        Some(Json::String(s)) => s.trim().parse().ok(),
+        _ => None,
+    }
+}
+
+fn json_u64(v: &Json) -> Option<u64> {
+    match v {
+        Json::Number(n) => n
+            .as_u64()
+            .or_else(|| n.as_i64().and_then(|i| u64::try_from(i).ok())),
+        Json::String(s) => s.trim().parse().ok(),
+        _ => None,
+    }
+}
+
+fn toml_as_string(v: &Toml) -> String {
+    match v {
+        Toml::String(s) => s.clone(),
+        Toml::Integer(i) => i.to_string(),
+        Toml::Float(f) => f.to_string(),
+        Toml::Boolean(b) => b.to_string(),
+        Toml::Datetime(d) => d.to_string(),
+        other => other.to_string(),
+    }
+}
+
+fn toml_order(v: Option<&Toml>) -> Option<i64> {
+    match v {
+        Some(Toml::Integer(i)) => Some(*i),
+        Some(Toml::String(s)) => s.trim().parse().ok(),
+        Some(Toml::Float(f)) if f.is_finite() => Some(*f as i64),
+        _ => None,
+    }
+}
+
+fn outcome(code: i32, stdout: impl Into<String>) -> BuildOutcome {
+    BuildOutcome {
+        stdout: stdout.into(),
+        code,
+        artifact: None,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn slugify_matches_curriculum_english() {
+        assert_eq!(
+            slugify_heading("Types of data centres"),
+            "types-of-data-centres"
+        );
+        assert_eq!(
+            slugify_heading("Elements of a data centre"),
+            "elements-of-a-data-centre"
+        );
+        assert_eq!(
+            slugify_heading("Availability “nines” and annual downtime"),
+            "availability-nines-and-annual-downtime"
+        );
+        assert_eq!(slugify_heading("***"), "section");
+        assert_eq!(slugify_heading(""), "section");
+        assert_eq!(slugify_heading("  Foo   Bar  "), "foo-bar");
+    }
+
+    #[test]
+    fn heading_ids_skip_fences_and_suffix_dupes() {
+        let ids = extract_heading_ids("# Title\n```\n# not a heading\n```\n## Title\n## Title\n");
+        assert!(ids.contains("title"));
+        assert!(ids.contains("title-2"));
+        assert!(!ids.contains("not-a-heading"));
+    }
+
+    #[test]
+    fn heading_ids_unwrap_markdown_links() {
+        let ids = extract_heading_ids("## See [Types of data centres](https://example)\n");
+        assert!(ids.contains("see-types-of-data-centres"));
+    }
+
+    #[test]
+    fn parse_slugs_reads_the_frozen_object() {
+        let js = r#"
+export const MODULE_LEARN_SLUGS = Object.freeze({
+  1: "01-mission-critical",
+  6: '06-power',
+});
+"#;
+        let slugs = parse_module_learn_slugs(js).unwrap();
+        assert_eq!(
+            slugs.get(&1).map(String::as_str),
+            Some("01-mission-critical")
+        );
+        assert_eq!(slugs.get(&6).map(String::as_str), Some("06-power"));
+        assert!(parse_module_learn_slugs("no map here").is_err());
+    }
+
+    #[test]
+    fn report_window_is_not_a_module_bound() {
+        assert_eq!(MAX_REPORT_ROWS, 10);
+        assert!(MAX_REPORT_ROWS > 0);
+    }
+}

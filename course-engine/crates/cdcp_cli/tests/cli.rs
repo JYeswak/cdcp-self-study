@@ -24,7 +24,13 @@ fn cdcp() -> Command {
 fn help_lists_learn_compilers() {
     let assert = cdcp().arg("--help").assert().success();
     let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
-    for verb in ["build-units", "build-glossary", "smoke-learn", "smoke-learn-chrome"] {
+    for verb in [
+        "build-units",
+        "build-glossary",
+        "smoke-learn",
+        "smoke-learn-chrome",
+        "smoke-feedback-links",
+    ] {
         assert!(
             stdout.contains(verb),
             "cdcp --help must list {verb}: {stdout}"
@@ -39,6 +45,16 @@ fn smoke_learn_chrome_live_tree_passes() {
     assert!(
         stdout.contains("smoke_learn_chrome: PASS"),
         "live Learn chrome smoke must PASS: {stdout}"
+    );
+}
+
+#[test]
+fn smoke_feedback_links_live_tree_passes() {
+    let assert = cdcp().arg("smoke-feedback-links").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("PASS: smoke_feedback_links"),
+        "live feedback-link smoke must PASS: {stdout}"
     );
 }
 

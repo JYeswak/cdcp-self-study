@@ -196,11 +196,10 @@ expires = "2026-12-31"
 # Empty input is an ERROR (bd-smoke-learn-vacuous-empty-ok-9d3n closed, not reproduced).
 # Do NOT re-add a row for it.
 
-[[allow]]
-path = "scripts/smoke_feedback_links.py"
-reason = "Load-bearing check.sh smoke: L7-S2 feedback section-anchor links. Grandfathered pending the byte-exact Rust port."
-migration_bead = "bd-substrate-rust-migration-jhd.18"
-expires = "2026-12-31"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.18): scripts/smoke_feedback_links.py
+# is DELETED, not allowlisted. The smoke is `cdcp_learn::feedback` / `cdcp smoke-feedback-links`.
+# Empty/absent topics is an ERROR (bd-feedback-links-vacuous-topics-ilad closed, not reproduced).
+# Do NOT re-add a row for it.
 
 # =============================================================================
 # ON THE check.sh PATH BUT WITH NO PORT BEAD YET

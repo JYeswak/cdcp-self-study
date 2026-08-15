@@ -22,6 +22,7 @@ use std::path::{Path, PathBuf};
 use thiserror::Error;
 
 pub mod chrome;
+pub mod feedback;
 pub mod glossary;
 pub mod smoke;
 pub mod units;
