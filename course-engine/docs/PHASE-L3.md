@@ -14,7 +14,7 @@
 
 - W0 knowledge pack + standards graph
 - L2 bank library 804 files / 779 approved / 25 retired (~19.5× exam on the approved pool) + `cdcp_gate verify-bank` + `validate_grounding` [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] [[fact:fact-approved-pool-multiplier-19-5=yes]]
-- `sample_mock.py` assembly
+- `cdcp_assemble` / `cdcp goldens fixture` assembly
 
 ## OQs to resolve before/with L3
 
@@ -51,7 +51,7 @@ Promote both to VERIFIED when implemented + tested.
 
 ### S6 — Goldens + known-bad
 **AC:**  
-- Fixture attempt from `sample_mock --seed 42` with all-correct answers → golden `.sha256`  
+- Fixture attempt from `cdcp goldens fixture --seed 42` (`cdcp_assemble`) with all-correct answers → golden `.sha256`  
 - Fixture with 0 correct → golden  
 - Flipped golden → `goldens check` RED  
 - `UPDATE_GOLDENS=1` regenerates locally only  
