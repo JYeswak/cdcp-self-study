@@ -21,6 +21,10 @@
 # rather than assert_fails_with, so it cannot increment INJ. An attack-only
 # suite ships an over-strict gate, and over-strict gates get routed around.
 #
+# Plants run the Rust binary (same helper contract as check.sh):
+#   $CDCP_BIN_DIR/cdcp_gate verify-objectives
+# scripts/verify_objectives.py is the cargo-test differential oracle only.
+#
 # Trap cleans TEMP. Never leaves registries/bank dirty.
 set -eu
 
@@ -124,7 +128,7 @@ write_bank() {
 # knowledge/bank_policy.toml would make its [[domain_min]] rows drift against
 # a fixture registry and turn each case RED for a reason it did not plant.
 run_objectives() {
-  python3 scripts/verify_objectives.py \
+  verify_objectives \
     --objectives registries/objectives.toml \
     --claims registries/claims.toml \
     --domains "$1" \
@@ -136,11 +140,26 @@ run_objectives() {
 
 echo "==> selftest_l7_objectives (L7-S7 objective coverage known-bad)"
 
-[ -f scripts/verify_objectives.py ] || fail "missing scripts/verify_objectives.py"
+# Same binary contract as check.sh: honour CARGO_TARGET_DIR, never cargo run.
+if [ -z "${CDCP_BIN_DIR:-}" ]; then
+  if [ -n "${CARGO_TARGET_DIR:-}" ]; then
+    CDCP_BIN_DIR="${CARGO_TARGET_DIR%/}/debug"
+  else
+    CDCP_BIN_DIR="$ROOT/target/debug"
+  fi
+fi
+[ -n "$CDCP_BIN_DIR" ] \
+  || fail "CDCP_BIN_DIR unset — cargo build -p cdcp_gate -p cdcp_cli --locked must run first (no fallback to cargo run)"
+[ -x "$CDCP_BIN_DIR/cdcp_gate" ] \
+  || fail "cdcp_gate binary absent at $CDCP_BIN_DIR/cdcp_gate — cargo build -p cdcp_gate -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
+
+verify_objectives() {
+  "$CDCP_BIN_DIR/cdcp_gate" verify-objectives "$@"
+}
+
 [ -f registries/objectives.toml ] || fail "missing registries/objectives.toml"
 [ -f registries/claims.toml ] || fail "missing registries/claims.toml"
 [ -d bank/items ] || fail "missing bank/items"
-command -v python3 >/dev/null 2>&1 || fail "python3 required"
 
 TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/selftest_l7_objectives.XXXXXX")"
 
@@ -155,7 +174,7 @@ name = "objectives"
 description = "selftest empty — must RED"
 EOF
 assert_fails_with "empty-objectives" "zero [[objective]]" \
-  python3 scripts/verify_objectives.py \
+  verify_objectives \
     --objectives "$empty_obj" \
     --claims registries/claims.toml \
     --bank bank/items \
@@ -178,7 +197,7 @@ text = "planted objective with missing claim ref"
 claim_ids = ["claim-does-not-exist-selftest-only"]
 EOF
 assert_fails_with "missing-claim-ref" "unresolved claim_id" \
-  python3 scripts/verify_objectives.py \
+  verify_objectives \
     --objectives "$bad_obj" \
     --claims registries/claims.toml \
     --bank bank/items \
@@ -201,7 +220,7 @@ text = "planted objective with empty claim_ids"
 claim_ids = []
 EOF
 assert_fails_with "empty-claim-ids" "claim_ids empty" \
-  python3 scripts/verify_objectives.py \
+  verify_objectives \
     --objectives "$empty_claims_obj" \
     --claims registries/claims.toml \
     --bank bank/items \
@@ -213,7 +232,7 @@ echo "==> (c) empty bank → ERROR"
 empty_bank="$TMP_ROOT/empty_bank"
 mkdir -p "$empty_bank"
 assert_fails_with "empty-bank" "empty bank" \
-  python3 scripts/verify_objectives.py \
+  verify_objectives \
     --objectives registries/objectives.toml \
     --claims registries/claims.toml \
     --bank "$empty_bank" \
@@ -223,7 +242,7 @@ ok "empty bank trips RED"
 # --- (d) live tree GREEN ---
 echo "==> (d) live tree objective coverage GREEN"
 rc=0
-live_out="$(python3 scripts/verify_objectives.py \
+live_out="$(verify_objectives \
   --objectives registries/objectives.toml \
   --claims registries/claims.toml \
   --bank bank/items 2>&1)" || rc=$?
@@ -312,6 +331,12 @@ ok "(i) recorded exemption honoured and printed (GREEN control, NOT counted)"
 if [ -f registries/objectives_empty.toml ] || [ -f bank/items/planted-obj.toml ]; then
   fail "planted file leaked into live tree"
 fi
+
+# Anti-vacuous: a suite that discovered zero plants reports like a pass.
+# Eight RED plants are the contract (a,b,b2,c,e,f,g,h). Dropping one is RED here,
+# not a quieter receipt for verify_injection_count to notice later.
+[ "$INJ" -gt 0 ] || fail "zero plants discovered (vacuous known-bad suite is ERROR)"
+[ "$INJ" -eq 8 ] || fail "expected 8 RED plants, got $INJ (do not drop a plant)"
 
 echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
 echo "selftest_l7_objectives: PASSED (a empty RED · b missing-claim RED · b2 empty-claims RED · c empty-bank RED · d live GREEN · e starved-module RED · f reasonless-exemption RED · g stray domain_min RED · h undeclared topic domain RED · i recorded exemption GREEN)"

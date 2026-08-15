@@ -161,8 +161,8 @@ why = "check.sh never invokes it; cargo test still diffs vs tests/diff_verify_kn
 
 [[oracle_inventory.file]]
 path = "scripts/verify_objectives.py"
-disposition = "live_selftest"
-why = "selftest_l7_objectives.sh still invokes python3; rust is the check.sh gate"
+disposition = "cargo_test_differential"
+why = "check.sh/selftest_l7_objectives.sh no longer invoke python3; cargo test still diffs vs tests/diff_verify_objectives.rs (bd-substrate-rust-migration-jhd.24)"
 
 # scripts/verify_paraphrase_pairs.py RETIRED (bd-substrate-rust-migration-jhd.21).
 # Product is `cdcp verify-paraphrase-pairs` / cdcp_bank::paraphrase. Rust
@@ -228,7 +228,7 @@ expires = "2026-11-30"
 
 [[allow]]
 path = "scripts/verify_objectives.py"
-reason = "Differential oracle for `cdcp_gate verify-objectives` (bd-substrate-rust-migration-jhd.10, ported 2026-08-14). Module set derived from knowledge/domains.toml, exemptions from knowledge/bank_policy.toml. Retained so tests/diff_verify_objectives.rs can compare both implementations byte for byte."
+reason = "Differential oracle for `cdcp_gate verify-objectives` (bd-substrate-rust-migration-jhd.10, ported 2026-08-14). Module set derived from knowledge/domains.toml, exemptions from knowledge/bank_policy.toml. Retained so tests/diff_verify_objectives.rs can compare both implementations byte for byte. check.sh presence-checks only; cargo test still diffs. Known-bad plants run via $CDCP_BIN_DIR/cdcp_gate verify-objectives (bd-substrate-rust-migration-jhd.24)."
 migration_bead = "bd-substrate-rust-migration-jhd.10"
 expires = "2026-11-30"
 
@@ -395,7 +395,7 @@ expires = "2027-02-28"
 
 [[allow]]
 path = "scripts/selftest_l7_objectives.sh"
-reason = "L4 known-bad harness for the objective-coverage gate. Ports with bd-substrate-rust-migration-jhd.10."
+reason = "L4 known-bad harness for the objective-coverage gate (empty registry ERROR, missing claim RED, empty bank ERROR). Plants run $CDCP_BIN_DIR/cdcp_gate verify-objectives (bd-substrate-rust-migration-jhd.24); the .py is cargo-test-only."
 migration_bead = "bd-substrate-rust-migration-jhd.10"
 expires = "2027-02-28"
 
