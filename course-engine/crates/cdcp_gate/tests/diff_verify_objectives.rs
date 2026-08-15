@@ -1482,6 +1482,124 @@ fn an_unwritable_summary_target_fails_first_with_no_pass_on_stdout() {
     }
 }
 
+/// Files under `dir` whose contents carry `"status": "pass"`. A failed
+/// `--write-json` must leave this empty (bd-objectives-json-provisional-mrnu).
+fn pass_receipts_under(dir: &Path) -> Vec<PathBuf> {
+    let mut hits = Vec::new();
+    let Ok(rd) = std::fs::read_dir(dir) else {
+        return hits;
+    };
+    for e in rd.flatten() {
+        let p = e.path();
+        if p.is_dir() {
+            hits.extend(pass_receipts_under(&p));
+            continue;
+        }
+        if let Ok(text) = std::fs::read_to_string(&p) {
+            if text.contains("\"status\": \"pass\"") || text.contains("\"status\":\"pass\"") {
+                hits.push(p);
+            }
+        }
+    }
+    hits
+}
+
+/// bd-objectives-json-provisional-mrnu. `mkdir` SUCCEEDS; the write then
+/// fails. The target is itself a directory, so the atomic rename is the step
+/// that refuses. The live tree is otherwise GREEN — a leftover receipt would
+/// say `status=pass` under exit 1, which is the planted disagreement.
+///
+/// Each side is inspected before the other runs so one implementation cannot
+/// clean up (or overwrite) the other's residue.
+#[test]
+fn a_write_json_that_fails_after_the_parent_exists_leaves_no_pass_receipt() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let target = td.path().join("out/objectives.json");
+    std::fs::create_dir_all(&target).unwrap();
+    let target_arg = target.to_str().unwrap().to_string();
+    let tmp_residue = PathBuf::from(format!("{}.tmp", target.display()));
+    let args = ["--write-json", target_arg.as_str()];
+
+    let py = python(&root, &args);
+    assert_ne!(py.code, 0, "python stayed GREEN:\n{}", py.out());
+    assert!(
+        !tmp_residue.exists(),
+        "python left its atomic-write temp: {}",
+        tmp_residue.display()
+    );
+    let py_leftovers = pass_receipts_under(td.path());
+    assert!(
+        py_leftovers.is_empty(),
+        "python left a pass receipt under exit {}: {py_leftovers:?}\n{}",
+        py.code,
+        py.out()
+    );
+
+    // Re-plant: a leftover from python must not change what rust sees.
+    assert!(
+        target.is_dir(),
+        "python must not have replaced the planted directory"
+    );
+    let _ = std::fs::remove_file(&tmp_residue);
+
+    let rs = rust(&root, &args);
+    assert_ne!(rs.code, 0, "rust stayed GREEN:\n{}", rs.out());
+    assert!(
+        !tmp_residue.exists(),
+        "rust left its atomic-write temp: {}",
+        tmp_residue.display()
+    );
+    let rs_leftovers = pass_receipts_under(td.path());
+    assert!(
+        rs_leftovers.is_empty(),
+        "rust left a pass receipt under exit {}: {rs_leftovers:?}\n{}",
+        rs.code,
+        rs.out()
+    );
+
+    assert_eq!(
+        py.stdout,
+        rs.stdout,
+        "STDOUT differs.\n--- python ---\n{}\n--- rust ---\n{}",
+        py.out(),
+        rs.out()
+    );
+    assert_eq!(
+        py.stderr,
+        rs.stderr,
+        "STDERR differs.\n--- python ---\n{}\n--- rust ---\n{}",
+        py.err(),
+        rs.err()
+    );
+    assert_eq!(py.code, rs.code, "EXIT CODE differs");
+    COMPARED.fetch_add(1, Ordering::SeqCst);
+
+    for (side, run) in [("python", &py), ("rust", &rs)] {
+        assert!(
+            run.out().contains("could not write summary to "),
+            "{side} must name the write: {}",
+            run.out()
+        );
+        assert_eq!(
+            run.out().matches("PASS").count(),
+            0,
+            "{side} printed a verdict the exit code contradicted:\n{}",
+            run.out()
+        );
+        assert!(
+            run.out().starts_with("FAIL\n") || run.out().starts_with("FAIL"),
+            "{side} verdict must lead the report: {}",
+            run.out()
+        );
+        assert!(
+            !run.out().contains("  wrote "),
+            "{side} announced a write that failed: {}",
+            run.out()
+        );
+    }
+}
+
 // ── (m) shapes the shell suite never reaches ──────────────────────────────
 
 #[test]

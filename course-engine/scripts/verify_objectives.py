@@ -104,6 +104,12 @@ Every check is COLLECTED first; the report — verdict line included — is comp
 and printed once, after the optional --write-json write. No PASS is ever emitted
 before a path that can still raise.
 
+The write is atomic (temp beside the target, then `Path.replace`). The summary's
+`status` is chosen from the errors collected so far; if the write succeeds
+nothing else appends, so that word equals the printed verdict. If the write
+fails the file is not left behind — a receipt cannot say `status=pass` while
+the process exits non-zero (bd-objectives-json-provisional-mrnu).
+
 What this does NOT claim (documented gap):
 
 - registries/objectives.toml holds product-level outcomes (honesty, fluency,
@@ -365,6 +371,32 @@ def load_items(bank_dir: Path) -> tuple[list[tuple[str, dict]], list[str]]:
         else:
             errors.append(f"{path.name}: no id or items[]")
     return loaded, errors
+
+
+def write_summary(out: Path, body: str) -> None:
+    """Write the `--write-json` summary so a FAILED write leaves NOTHING.
+
+    Temp file in the destination directory, then `Path.replace`, which is
+    atomic on the same filesystem. A torn or refused write therefore never
+    leaves a partial summary behind whose `"status": "pass"` a later reader
+    would trust under a FAIL verdict.
+
+    Any exception is re-raised after the temp file is removed. The removal is
+    best-effort: if the directory is unwritable the temp file was never created
+    in the first place, and if it cannot be unlinked the original exception is
+    still the one that reaches the caller.
+    """
+    out.parent.mkdir(parents=True, exist_ok=True)
+    tmp = out.with_name(out.name + ".tmp")
+    try:
+        tmp.write_text(body, encoding="utf-8")
+        tmp.replace(out)
+    except BaseException:
+        try:
+            tmp.unlink()
+        except OSError:
+            pass
+        raise
 
 
 def claim_ids_from_registry(claims: dict) -> set[str]:
@@ -903,16 +935,17 @@ def main(argv: list[str] | None = None) -> int:
 
     # The write happens BEFORE any verdict is printed, and a failed write is a
     # failure of this gate — not a traceback under a PASS someone already read.
+    # Atomic: the file exists only when the write succeeded, and when it
+    # succeeded the pre-write status word is the final one.
     if args.write_json is not None:
         out = args.write_json
         if not out.is_absolute():
             out = (ROOT / out).resolve()
         try:
-            out.parent.mkdir(parents=True, exist_ok=True)
-            provisional = "PASS" if not errors else "FAIL"
-            out.write_text(
-                json.dumps(summary_for(provisional), indent=2, sort_keys=True) + "\n",
-                encoding="utf-8",
+            status_word = "PASS" if not errors else "FAIL"
+            write_summary(
+                out,
+                json.dumps(summary_for(status_word), indent=2, sort_keys=True) + "\n",
             )
             body.append(f"  wrote {out}")
         except OSError as e:
@@ -1037,6 +1070,35 @@ def _selftest_known_bad() -> int:
             print("SELFTEST FAIL: live tree not GREEN", file=sys.stderr)
             return 2
         print("selftest: live GREEN ok")
+
+        # (e) --write-json fails AFTER the parent exists (bd-mrnu).
+        # Target is a directory so mkdir succeeds and the atomic rename is
+        # what refuses. The live tree is GREEN, so a leftover receipt would
+        # say status=pass under exit 1 — the planted disagreement.
+        parent = tmp / "write_json_parent"
+        parent.mkdir()
+        out = parent / "objectives.json"
+        out.mkdir()
+        rc = main(["--write-json", str(out)])
+        if rc == 0:
+            print(
+                "SELFTEST FAIL: write-json onto a directory stayed GREEN",
+                file=sys.stderr,
+            )
+            return 2
+        leftovers = []
+        for p in (out, parent / "objectives.json.tmp", Path(str(out) + ".tmp")):
+            if p.is_file():
+                text = p.read_text(encoding="utf-8", errors="replace")
+                if '"status": "pass"' in text or '"status":"pass"' in text:
+                    leftovers.append(p)
+        if leftovers:
+            print(
+                f"SELFTEST FAIL: write-fail left pass receipt(s): {leftovers}",
+                file=sys.stderr,
+            )
+            return 2
+        print("selftest: write-json fail-after-parent leaves no pass receipt ok")
         print("CDCP_OBJECTIVES_SELFTEST: PASSED")
         return 0
     finally:

@@ -90,10 +90,14 @@
 //!   RED on the same file; only the words differ.
 //! - An unwritable `--write-json` target is CAUGHT by the oracle
 //!   (`except OSError`) and reported as
-//!   `could not write summary to <path>: [Errno N] <strerror>: '<path>'`. That
+//!   `could not write summary to <path>: [Errno N] <strerror>: '<path>'`
+//!   (mkdir / temp-write) or
+//!   `…: [Errno N] <strerror>: '<tmp>' -> '<path>'` (`Path.replace`). That
 //!   string is reconstructed here from `raw_os_error()`, so the common shapes
 //!   match; an exotic failure whose failing path CPython names differently
 //!   (a partially-creatable parent chain) may name a different component.
+//!   The write is atomic: a failed write leaves no summary, so a receipt
+//!   cannot say `status=pass` under a FAIL verdict.
 //! - `{row!r}` of a multi-key table renders its keys in sorted order here and in
 //!   insertion order in CPython, because `toml::Table` is a `BTreeMap`.
 //! - `str.isdigit()` is true for some non-ASCII digits that `int()` then rejects;
@@ -467,6 +471,17 @@ fn py_int_uncaught(v: Option<&Value>) -> H<i128> {
 /// os errors as `"<strerror> (os error N)"`, so the strerror is recovered by
 /// stripping that suffix — the two come from the same `strerror_r`.
 fn py_oserror(e: &std::io::Error, filename: &str) -> String {
+    py_oserror_paths(e, filename, None)
+}
+
+/// `str(e)` of an `OSError` with `filename` and `filename2` set — CPython's
+/// `os.replace` / `Path.replace` shape:
+/// `[Errno N] <strerror>: '<src>' -> '<dst>'`.
+fn py_oserror2(e: &std::io::Error, filename: &str, filename2: &str) -> String {
+    py_oserror_paths(e, filename, Some(filename2))
+}
+
+fn py_oserror_paths(e: &std::io::Error, filename: &str, filename2: Option<&str>) -> String {
     match e.raw_os_error() {
         Some(code) => {
             let rendered = std::io::Error::from_raw_os_error(code).to_string();
@@ -475,10 +490,39 @@ fn py_oserror(e: &std::io::Error, filename: &str) -> String {
                 .next()
                 .unwrap_or(&rendered)
                 .to_string();
-            format!("[Errno {code}] {strerror}: {}", py_repr(filename))
+            match filename2 {
+                Some(f2) => format!(
+                    "[Errno {code}] {strerror}: {} -> {}",
+                    py_repr(filename),
+                    py_repr(f2)
+                ),
+                None => format!("[Errno {code}] {strerror}: {}", py_repr(filename)),
+            }
         }
         None => e.to_string(),
     }
+}
+
+/// Write the `--write-json` summary so a FAILED write leaves NOTHING behind.
+///
+/// Temp file beside the target (`<target>.tmp`), then rename — the oracle's
+/// `write_summary`. The caller still catches the error: a failed write becomes
+/// a collected FAIL, never a leftover receipt that says pass.
+fn write_summary(out_path: &str, body: &str) -> Result<(), String> {
+    let parent = path_parent(out_path);
+    if let Err(e) = std::fs::create_dir_all(&parent) {
+        return Err(py_oserror(&e, &parent));
+    }
+    let tmp = format!("{out_path}.tmp");
+    if let Err(e) = std::fs::write(&tmp, body) {
+        let _ = std::fs::remove_file(&tmp);
+        return Err(py_oserror(&e, &tmp));
+    }
+    if let Err(e) = std::fs::rename(&tmp, out_path) {
+        let _ = std::fs::remove_file(&tmp);
+        return Err(py_oserror2(&e, &tmp, out_path));
+    }
+    Ok(())
 }
 
 // ── path emulations ────────────────────────────────────────────────────────
@@ -1624,15 +1668,17 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
 
     // The write happens BEFORE any verdict is printed, and a failed write is a
     // failure of this gate — not a traceback under a PASS someone already read.
+    // Atomic: the file exists only when the write succeeded, and when it
+    // succeeded the pre-write status word is the final one.
     if let Some(target) = &args.write_json {
         let out_path = if target.starts_with('/') {
             norm_posix(target)
         } else {
             py_resolve(&join_posix(root_str, target))
         };
-        let provisional = if errors.is_empty() { "PASS" } else { "FAIL" };
+        let status_word = if errors.is_empty() { "PASS" } else { "FAIL" };
         let summary = summary_json(
-            provisional,
+            status_word,
             &bank_rel,
             n_items,
             approved_n,
@@ -1660,23 +1706,9 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
             &errors,
             &warnings,
         )?;
-        let parent = path_parent(&out_path);
-        let mut wrote = true;
-        if let Err(e) = std::fs::create_dir_all(&parent) {
-            errors.push(format!(
-                "could not write summary to {out_path}: {}",
-                py_oserror(&e, &parent)
-            ));
-            wrote = false;
-        }
-        if wrote {
-            match std::fs::write(&out_path, format!("{}\n", json_dumps(&summary))) {
-                Ok(()) => body.push(format!("  wrote {out_path}")),
-                Err(e) => errors.push(format!(
-                    "could not write summary to {out_path}: {}",
-                    py_oserror(&e, &out_path)
-                )),
-            }
+        match write_summary(&out_path, &format!("{}\n", json_dumps(&summary))) {
+            Ok(()) => body.push(format!("  wrote {out_path}")),
+            Err(e) => errors.push(format!("could not write summary to {out_path}: {e}")),
         }
     }
 
@@ -2142,5 +2174,56 @@ mod tests {
         let doc: toml::Table = "claim = [\"justastring\"]\n".parse().unwrap();
         let err = claim_ids_from_registry(&doc).unwrap_err();
         assert!(err.0.contains("AttributeError"), "{err:?}");
+    }
+
+    #[test]
+    fn write_summary_replaces_atomically_on_success() {
+        let td = tempfile::tempdir().unwrap();
+        let target = td.path().join("out/summary.json");
+        let body = "{\n  \"status\": \"pass\"\n}\n";
+        write_summary(target.to_str().unwrap(), body).expect("write");
+        assert_eq!(std::fs::read_to_string(&target).unwrap(), body);
+        assert!(
+            !PathBuf::from(format!("{}.tmp", target.display())).exists(),
+            "the temp file must not survive a successful write"
+        );
+    }
+
+    #[test]
+    fn write_summary_leaves_nothing_when_rename_refuses() {
+        // Parent exists; the target is itself a directory so the temp write
+        // succeeds and rename is the step that fails. That is the planted
+        // "write fails after the parent exists" shape.
+        let td = tempfile::tempdir().unwrap();
+        let target = td.path().join("out/summary.json");
+        std::fs::create_dir_all(&target).unwrap();
+        let body = "{\n  \"status\": \"pass\"\n}\n";
+        let err = write_summary(target.to_str().unwrap(), body).expect_err("must fail");
+        assert!(
+            err.contains("Is a directory"),
+            "rename-onto-directory must name the refusal: {err}"
+        );
+        assert!(
+            err.contains(" -> "),
+            "CPython's Path.replace names both paths: {err}"
+        );
+        let tmp = PathBuf::from(format!("{}.tmp", target.display()));
+        assert!(!tmp.exists(), "atomic-write temp must be cleaned up");
+        assert!(target.is_dir(), "the planted directory target must remain");
+        let leftovers: Vec<_> = std::fs::read_dir(td.path().join("out"))
+            .unwrap()
+            .flatten()
+            .filter(|e| e.path().is_file())
+            .filter(|e| {
+                std::fs::read_to_string(e.path())
+                    .map(|t| t.contains("\"status\": \"pass\""))
+                    .unwrap_or(false)
+            })
+            .map(|e| e.path())
+            .collect();
+        assert!(
+            leftovers.is_empty(),
+            "a failed write left a pass receipt: {leftovers:?}"
+        );
     }
 }
