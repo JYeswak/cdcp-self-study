@@ -1160,13 +1160,8 @@ done
 ok "L5 product files present"
 [ -f web/assets/wasm/cdcp_wasm.wasm ] || fail "L5 wasm artifact missing under web/assets/wasm/"
 ok "L5 wasm artifact present under web/assets/wasm/"
-python3 -c "
-import json,sys
-d=json.load(open('web/data/mock40_seed42.json'))
-assert d['n_items']==40, 'n_items=%r' % d['n_items']
-assert len(d['items'])==40, 'items=%d' % len(d['items'])
-assert all('correct' not in i for i in d['items']), 'learner pack leaks correct letters'
-" || fail "L5 learner pack shape"
+echo "==> cdcp check-learner-pack (L5 learner pack shape)"
+run_cdcp_cli check-learner-pack || fail "L5 learner pack shape"
 ok "L5 learner pack n_items=40"
 
 echo "==> selftest_l5.sh (honesty + e2e digest known-bad)"
@@ -1242,7 +1237,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(run_cdcp_cli --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-learn build-reference build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence load-snapshots check-osha verify-data-lock; do
+for v in bank-hash grade goldens export-web serve build-learn build-reference build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence load-snapshots check-osha verify-data-lock check-learner-pack; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"

@@ -45,12 +45,53 @@ fn help_lists_learn_compilers() {
         "verify-data-lock",
         "oracle-check",
         "content-lock",
+        "check-learner-pack",
     ] {
         assert!(
             stdout.contains(verb),
             "cdcp --help must list {verb}: {stdout}"
         );
     }
+}
+
+#[test]
+fn check_learner_pack_live_tree_passes() {
+    let assert = cdcp().arg("check-learner-pack").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("check_learner_pack: PASS"),
+        "live learner pack must PASS: {stdout}"
+    );
+}
+
+#[test]
+fn check_learner_pack_planted_correct_is_red() {
+    let root = workspace_root();
+    let src = root.join("web/data/mock40_seed42.json");
+    let raw = fs::read_to_string(&src).expect("read live learner pack");
+    let mut pack: Value = serde_json::from_str(&raw).expect("live pack is JSON");
+    pack["items"][0]["correct"] = json!("A");
+    let dir =
+        std::env::temp_dir().join(format!("cdcp_cli_learner_pack_leak_{}", std::process::id()));
+    let _ = fs::remove_dir_all(&dir);
+    fs::create_dir_all(&dir).unwrap();
+    let planted = dir.join("mock40_seed42.json");
+    fs::write(&planted, serde_json::to_string(&pack).unwrap()).unwrap();
+    let assert = cdcp()
+        .args(["check-learner-pack", "--pack"])
+        .arg(&planted)
+        .assert()
+        .failure();
+    let out = format!(
+        "{}{}",
+        String::from_utf8_lossy(&assert.get_output().stdout),
+        String::from_utf8_lossy(&assert.get_output().stderr)
+    );
+    let _ = fs::remove_dir_all(&dir);
+    assert!(
+        out.contains("learner pack leaks correct letters"),
+        "planted correct letter must RED: {out}"
+    );
 }
 
 #[test]
