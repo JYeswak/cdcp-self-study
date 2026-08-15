@@ -26,7 +26,7 @@
 //!      nothing must not report like a root whose every file matched.
 //!
 //! The locked roots are `knowledge/*.toml`, `web/content/modules/*.md`, and
-//! `../modules/*.md`: exactly the roots `scripts/gen_content_lock.py` writes
+//! `../modules/*.md`: exactly the roots `cdcp content-lock` writes
 //! rows from. They are named on stdout on the GREEN path with their file counts,
 //! so a reader of a green verdict is told what the verdict does not mean.
 //!
@@ -155,7 +155,7 @@ pub struct LockedRoot {
     pub suffix: &'static str,
 }
 
-/// EXACTLY the roots `scripts/gen_content_lock.py` enumerates when it writes the
+/// EXACTLY the roots `cdcp content-lock` enumerates when it writes the
 /// lock. Keeping the two lists identical is what makes "present in the tree but
 /// absent from the lock" decidable rather than an opinion: a freshly regenerated
 /// lock is green here by construction, so any divergence is a real unpinned file.
@@ -245,7 +245,7 @@ pub fn evaluate(root: &Path) -> Outcome {
             s.push_str(&format!("  - {e}\n"));
         }
         s.push_str(
-            "Regenerate (human review): UPDATE_CONTENT_LOCK=1 python3 scripts/gen_content_lock.py\n",
+            "Regenerate (human review): cdcp content-lock\n",
         );
         return Outcome {
             stdout: String::new(),

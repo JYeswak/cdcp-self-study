@@ -21,12 +21,18 @@
 #![forbid(unsafe_code)]
 
 mod data_lock;
+mod gen_lock;
 mod oracle;
 mod osha;
 mod quantities;
 pub use data_lock::{
     load_pins_from_disk, parse_data_section, referenced_data_paths, selftest_flip_one_byte,
     verify_data_lock, DataLockReport, DATA_SECTION, LOCK_REL, SNAPSHOTS_REL,
+};
+pub use gen_lock::{
+    generate_content_lock, lock_pin_body, lock_section, write_content_lock,
+    write_content_lock_at_root, GenLockReport, CANONICAL, HASH_ALG, KNOWLEDGE_DIR_REL,
+    KNOWLEDGE_SUFFIX, MODULE_SUFFIX, PARENT_MODULES_REL, SCHEMA_VERSION, WEB_MODULES_REL,
 };
 pub use oracle::{
     agrees, check_oracle, check_oracle_with, compiled_references, parse_references,
@@ -250,6 +256,21 @@ pub enum DataError {
     /// Flip-selftest did not reach RED.
     #[error("expected RED on flipped vendored body but verify-data-lock was green")]
     DataLockSelftestMissed,
+    /// Zero knowledge/*.toml files to pin.
+    #[error("zero knowledge/*.toml files to pin")]
+    EmptyKnowledge,
+    /// Zero module markdown files to pin.
+    #[error("zero module markdown files to pin")]
+    EmptyModules,
+    /// `snapshots.toml` names files that are not on disk.
+    #[error("snapshots.toml names missing files: {paths}")]
+    SnapshotFilesMissing {
+        /// Engine-root-relative paths that were missing.
+        paths: String,
+    },
+    /// `bank_hash` is not 64 hex characters.
+    #[error("bank_hash is not 64 hex chars")]
+    InvalidBankHash,
 }
 
 /// SHA-256 of `bytes` as lowercase hex.
@@ -484,6 +505,14 @@ mod unit {
         assert!(
             !include_str!("quantities.rs").contains("unsafe "),
             "no unsafe token in quantities.rs"
+        );
+        assert!(
+            !include_str!("gen_lock.rs").contains("unsafe "),
+            "no unsafe token in gen_lock.rs"
+        );
+        assert!(
+            !include_str!("data_lock.rs").contains("unsafe "),
+            "no unsafe token in data_lock.rs"
         );
     }
 

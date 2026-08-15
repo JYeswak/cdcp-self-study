@@ -333,11 +333,10 @@ reason = "Manual corpus fetch for grounding overlap. Network-touching and run by
 migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-02-28"
 
-[[allow]]
-path = "scripts/gen_content_lock.py"
-reason = "Manual generator for content.lock, whose OUTPUT is gated by verify_content_lock. Ports alongside its verifier rather than before it."
-migration_bead = "bd-substrate-rust-migration-jhd"
-expires = "2027-02-28"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.30): scripts/gen_content_lock.py
+# is DELETED, not allowlisted. The writer is `cdcp_data::gen_lock` /
+# `cdcp content-lock`. Identity is the live lock's pin tables. Do NOT
+# re-add a row for it.
 
 # RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.31): scripts/gen_learn_pages.py
 # is DELETED, not allowlisted. It was a 9-line FAIL tombstone after jhd.28

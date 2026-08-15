@@ -195,25 +195,30 @@ fn content_lock_walk_is_one_level_and_the_limit_is_pinned() {
     );
 
     let gate = read(&engine_root().join("crates/cdcp_gate/src/gates/verify_content_lock.rs"));
-    let gen = read(&engine_root().join("scripts/gen_content_lock.py"));
+    let gen = read(&engine_root().join("crates/cdcp_data/src/gen_lock.rs"));
 
-    // Generator: Path.glob, not rglob. Anti-vacuous: the needles must be
-    // present (a file that never mentioned glob would pass a negative check).
+    // Generator: list_one_level, not a recursive walk. Anti-vacuous: the
+    // needles must be present (a file that never mentioned the walk would
+    // pass a negative check).
     assert!(
-        gen.contains("KNOWLEDGE_DIR.glob(\"*.toml\")"),
-        "gen_content_lock.py lost the one-level knowledge glob"
+        gen.contains("fn list_one_level"),
+        "gen_lock.rs lost the one-level walk"
     );
     assert!(
-        gen.contains("WEB_MODULES.glob(\"*.md\")"),
-        "gen_content_lock.py lost the one-level web-modules glob"
+        gen.contains("KNOWLEDGE_DIR_REL") && gen.contains("KNOWLEDGE_SUFFIX"),
+        "gen_lock.rs lost the one-level knowledge glob"
     );
     assert!(
-        gen.contains("PARENT_MODULES.glob(\"*.md\")"),
-        "gen_content_lock.py lost the one-level parent-modules glob"
+        gen.contains("WEB_MODULES_REL") && gen.contains("MODULE_SUFFIX"),
+        "gen_lock.rs lost the one-level web-modules glob"
     );
     assert!(
-        !gen.contains(".rglob("),
-        "gen_content_lock.py grew a recursive rglob — that silently deepens the walk"
+        gen.contains("PARENT_MODULES_REL"),
+        "gen_lock.rs lost the one-level parent-modules glob"
+    );
+    assert!(
+        !gen.contains("WalkDir") && !gen.contains("rglob"),
+        "gen_lock.rs grew a recursive walk — that silently deepens the walk"
     );
 
     // Verifier: discover is read_dir of one directory. The in-gate test

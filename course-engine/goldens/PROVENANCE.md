@@ -201,7 +201,7 @@ payload is still total over the modelled fields is the live claim in
 `fact-bank-item-denies-unknown-fields`, `fact-hash-payload-parity-test-exists`)
 — this section is the re-freeze receipt, not the law. Every pinned copy below
 was re-frozen in one commit through the four-command block above plus
-`UPDATE_CONTENT_LOCK=1 python3 scripts/gen_content_lock.py`:
+`cdcp content-lock` (was `UPDATE_CONTENT_LOCK=1 python3 scripts/gen_content_lock.py`):
 
 | Pin | Before | After |
 |-----|--------|-------|

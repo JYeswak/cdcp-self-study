@@ -44,6 +44,7 @@ fn help_lists_learn_compilers() {
         "check-osha",
         "verify-data-lock",
         "oracle-check",
+        "content-lock",
     ] {
         assert!(
             stdout.contains(verb),
@@ -214,6 +215,71 @@ fn verify_data_lock_selftest_trips_red() {
         stdout.contains("flip-selftest trips RED"),
         "selftest must report the RED trip: {stdout}"
     );
+}
+
+#[test]
+fn content_lock_writes_pin_tables_matching_live_lock() {
+    let root = workspace_root();
+    let dest = root.join("target/cdcp-content-lock-identity.lock");
+    let _ = fs::remove_file(&dest);
+    let assert = cdcp()
+        .args(["content-lock", "--out"])
+        .arg(&dest)
+        .assert()
+        .success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("content_lock: wrote"),
+        "writer must report the write: {stdout}"
+    );
+    let generated = fs::read_to_string(&dest).expect("generated lock");
+    let live = fs::read_to_string(root.join("content.lock")).expect("live lock");
+    for section in ["knowledge", "modules", "data"] {
+        let live_keys = section_keys(&section_of(&live, section));
+        let gen_keys = section_keys(&section_of(&generated, section));
+        assert_eq!(
+            live_keys, gen_keys,
+            "[{section}] path set must match the live lock"
+        );
+        assert!(
+            !gen_keys.is_empty(),
+            "[{section}] writer emitted zero rows — a lock that pins nothing certifies nothing"
+        );
+    }
+    let _ = fs::remove_file(&dest);
+}
+
+fn section_of(text: &str, name: &str) -> String {
+    let header = format!("[{name}]");
+    let mut lines = text.lines();
+    for line in lines.by_ref() {
+        if line.trim() == header {
+            break;
+        }
+    }
+    let mut out = vec![header];
+    for line in lines {
+        if line.starts_with('[') {
+            break;
+        }
+        out.push(line.to_string());
+    }
+    while out.last().is_some_and(|s| s.is_empty()) {
+        out.pop();
+    }
+    out.join("\n")
+}
+
+fn section_keys(section: &str) -> Vec<String> {
+    section
+        .lines()
+        .filter_map(|line| {
+            let line = line.trim();
+            let rest = line.strip_prefix('"')?;
+            let end = rest.find('"')?;
+            Some(rest[..end].to_string())
+        })
+        .collect()
 }
 
 #[test]

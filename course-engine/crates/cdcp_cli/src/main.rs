@@ -56,6 +56,18 @@ enum Cmd {
         #[arg(long)]
         selftest: bool,
     },
+    /// Write content.lock (bank + knowledge + modules + snapshot data).
+    ContentLock {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// Destination (default: <root>/content.lock).
+        #[arg(long)]
+        out: Option<PathBuf>,
+        /// Bank items directory (default: <root>/bank/items).
+        #[arg(long)]
+        bank: Option<PathBuf>,
+    },
     /// Computed site quantities vs published references. Vendored snapshots only; no network.
     #[command(visible_alias = "oracle")]
     OracleCheck {
@@ -393,6 +405,9 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::LoadSnapshots { root } => load_snapshots(root.as_deref()),
         Cmd::CheckOsha { root } => check_osha(root.as_deref()),
         Cmd::VerifyDataLock { root, selftest } => verify_data_lock(root.as_deref(), selftest),
+        Cmd::ContentLock { root, out, bank } => {
+            content_lock(root.as_deref(), out.as_deref(), bank.as_deref())
+        }
         Cmd::OracleCheck { root, selftest } => oracle::run(root.as_deref(), selftest),
         Cmd::Site {
             root,
@@ -605,6 +620,65 @@ fn verify_data_lock(root: Option<&Path>, selftest: bool) -> Result<(), String> {
             ))
         }
         Err(e) => Err(e.to_string()),
+    }
+}
+
+/// Author `content.lock`. Bank hash is computed in-process; goldens/bank_hash.txt
+/// is the fallback the retired Python used when a live hash could not be obtained.
+fn content_lock(
+    root: Option<&Path>,
+    out: Option<&Path>,
+    bank: Option<&Path>,
+) -> Result<(), String> {
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_data::engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    let bank_hash = resolve_bank_hash(&resolved, bank)?;
+    let dest = match out {
+        Some(p) => p.to_path_buf(),
+        None => resolved.join(cdcp_data::LOCK_REL),
+    };
+    let report =
+        cdcp_data::write_content_lock(&resolved, &bank_hash, &dest).map_err(|e| e.to_string())?;
+    println!("{report}");
+    Ok(())
+}
+
+fn resolve_bank_hash(root: &Path, bank: Option<&Path>) -> Result<String, String> {
+    let bank_dir = bank
+        .map(Path::to_path_buf)
+        .unwrap_or_else(|| root.join("bank/items"));
+    match Bank::load_dir(&bank_dir) {
+        Ok(b) => {
+            if b.bank_hash.len() == 64 && b.bank_hash.chars().all(|c| c.is_ascii_hexdigit()) {
+                return Ok(b.bank_hash);
+            }
+            Err(format!(
+                "live bank-hash is not 64 hex chars (got {:?})",
+                &b.bank_hash.chars().take(16).collect::<String>()
+            ))
+        }
+        Err(e) => {
+            let golden = root.join("goldens/bank_hash.txt");
+            if golden.is_file() {
+                let hx = fs::read_to_string(&golden)
+                    .map_err(|ge| format!("read {}: {ge}", golden.display()))?
+                    .trim()
+                    .to_string();
+                if hx.len() == 64 && hx.chars().all(|c| c.is_ascii_hexdigit()) {
+                    eprintln!(
+                        "content-lock: WARN: live bank-hash failed ({e}); \
+                         using goldens/bank_hash.txt"
+                    );
+                    return Ok(hx);
+                }
+            }
+            Err(format!("cannot obtain bank_hash: {e}"))
+        }
     }
 }
 

@@ -1,9 +1,9 @@
 # Example content.lock schema (L7-S9 / OQ-03)
 # Real lock lives at course-engine/content.lock (generated, not hand-edited).
 #
-# Generate:  python3 scripts/gen_content_lock.py
-# Verify:    python3 scripts/verify_content_lock.py
-# Regen:     UPDATE_CONTENT_LOCK=1 python3 scripts/gen_content_lock.py
+# Generate:  cdcp content-lock
+# Verify:    cdcp_gate verify-content-lock
+# Regen:     cdcp content-lock
 
 schema_version = 1
 canonical = "cdcp-bank-v1"

@@ -223,19 +223,22 @@ fn live_flip_selftest_trips_red_without_touching_the_tree() {
 }
 
 #[test]
-fn gen_content_lock_writes_the_data_section() {
-    let gen = fs::read_to_string(engine().join("scripts/gen_content_lock.py"))
-        .expect("gen_content_lock.py");
+fn gen_lock_writer_emits_the_data_section() {
+    let gen = include_str!("../src/gen_lock.rs");
     assert!(
         gen.contains("[data]"),
         "generator must emit the [data] section or a regen wipes the pin"
     );
     assert!(
-        gen.contains("snapshot_files"),
+        gen.contains("hash_snapshot_files"),
         "generator must collect snapshots.toml paths"
     );
+    let production = gen
+        .split("#[cfg(test)]")
+        .next()
+        .expect("production source precedes tests");
     assert!(
-        !gen.contains(".rglob("),
+        !production.contains("WalkDir") && !production.contains("rglob"),
         "do not recurse the corpus; pin only snapshot-referenced files"
     );
 }
