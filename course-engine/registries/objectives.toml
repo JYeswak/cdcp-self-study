@@ -121,3 +121,8 @@ id = "obj-m02-kill-99982"
 text = "Learner name-and-kills 99.982% = Tier III (and the withdrawn I–IV downtime table) and will not replace it with a new percentage: Tier is topology, not a nine"
 claim_ids = ["claim-interview-ready", "claim-domain-covered"]
 
+[[objective]]
+id = "obj-m11-gpu-fabric-availability"
+text = "Learner treats GPU-cluster east-west fabric (InfiniBand / RoCE, 400/800G) as an availability path equal to power: one fabric cut is one training job; interconnect in this module still means fewer patch points"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+

@@ -12,11 +12,12 @@ By the end of this module you can:
 
 1. Explain why **structured cabling** is a multi-decade facility asset, not a one-time “network install.”
 2. Compare **copper** and **fibre** (multimode / single-mode) for reach, bandwidth, density, and cost trade-offs.
-3. Describe **TIA-942-style cabling topology** at conceptual level: spaces (entrance, MDA, HDA, EDA, optional ZDA), hierarchical distribution, and pathway redundancy.
+3. Describe **TIA-942-style cabling topology** at conceptual level: spaces (entrance, MDA, HDA, EDA, optional ZDA), hierarchical distribution, and pathway redundancy — as previewed in Module 01; this module is the home.
 4. List **testing and verification** basics: certification vs qualification, copper parameters, optical loss/polarity, labeling, and as-builts.
 5. Design for **network redundancy**: dual paths, dual carriers, dual meet-me / carrier entry, and logical diversity that actually maps to physical diversity.
-6. Relate **building connectivity** (campus, metro, dark fibre, waves, IP transit) to site selection and SLA risk.
+6. Relate **building connectivity** (campus, metro, dark fibre, waves, IP transit) to site selection, SLA risk, and the 2026 **IT-service availability path** (Modules 01 / 03 own the outage clock; this file owns the design).
 7. State **monitoring requirements** for the physical and logical network layers that facilities and network teams share.
+8. Treat **GPU-cluster east-west fabric** (InfiniBand / RoCE, 400/800G) as an **availability path** equal to power: one fabric cut is one training job. In this file, **interconnect** still means fewer patch points.
 
 ---
 
@@ -30,9 +31,11 @@ Power and cooling get the drama; **cabling kills projects quietly**. A data cent
 - nobody can find the as-built, so every change is exploratory surgery;
 - monitoring covers BGP and SNMP, but not tray temperature, door alarms on the entrance room, or fibre OTDR baselines.
 
+That project-hygiene truth stays. In 2026, **fibre / connectivity is also a first-class IT-service availability path**, not only a tray-and-label problem. Public outage trackers treat metro and provider cuts as **long-duration** events while the hall still has power and cooling. **Module 01** owns the per-service vs per-site **outage clock**; **Module 03** owns fibre as a site / walk-away fact. **This module owns the design** (entries, rooms, trays, and the GPU-cluster fabric below). Do not invent an outage percentage.
+
 **Ops angle:** Structured cabling is change-control heavy. Patching without process creates “spaghetti” that raises mean-time-to-repair (MTTR) and human-error risk.  
 **Design angle:** Trays, shafts, firestops, separation from power, and entrance facilities are **building** decisions locked in early—often before the first switch PO.  
-**TPM / interview angle:** You will be asked how you scale from 50 to 500 racks without recabling the spine, what “diverse fibre entry” means on a site plan, and how you prove the plant still meets the design after five years of moves-adds-changes (MACs).
+**TPM / interview angle:** You will be asked how you scale from 50 to 500 racks without recabling the spine, what “diverse fibre entry” means on a site plan, and how you prove the plant still meets the design after five years of moves-adds-changes (MACs). A 2026 GPU-hall oral adds a second availability question: treat the **east-west fabric** (IB / RoCE, 400/800G) as equal to power — **one cut = one training job**.
 
 Structured cabling is typically planned for **10–15+ years**. Switches refresh in 3–7 years. Design the **permanent plant** for the longer horizon; design **active gear** for refresh cycles.
 
@@ -77,7 +80,7 @@ Common categories in DC work (conceptual; always verify project specs and curren
 
 #### Optical fibre
 
-- **Multimode fibre (MMF)** — larger core; cheaper optics historically for short–medium reaches inside a hall or building. OM3/OM4/OM5 grades support successive Ethernet speeds over limited distances (exact metres depend on speed, optic type, and standard—**do not memorize a single number as universal**).
+- **Multimode fibre (MMF)** — larger core; cheaper optics historically for short–medium reaches inside a hall or building. OM3/OM4/OM5 grades support successive Ethernet speeds over limited distances (exact metres depend on speed, optic type, and standard—**do not memorize a single number as universal**). **15-second OM4 / 100G oral:** “It is **application-and-optic specific**; I will not quote a single metre as universal; I will look up the Ethernet reach table.” Same refusal for OM3 / OM5 / OS2 at any speed. Do not invent a reach statute.
 - **Single-mode fibre (SMF)** — small core; preferred for long reach, campus, metro, and increasingly **inside** large DCs because optics and density economics shifted (especially 100G+ and beyond). OS2 is a common designation for indoor/outdoor single-mode plant.
 
 Connectors you will hear: **LC** (very common duplex), **MPO/MTP** multi-fibre for parallel optics and high-density trunks, **SC** still in some plants.
@@ -90,6 +93,8 @@ Connectors you will hear: **LC** (very common duplex), **MPO/MTP** multi-fibre f
 ### TIA-942 cabling topology (conceptual)
 
 **ANSI/TIA-942** is a data centre infrastructure standard covering site, architectural, electrical, mechanical, and **telecommunications** aspects. For cabling, think in **spaces + hierarchy + redundancy**—not clause memorization.
+
+MDA / HDA / EDA (and optional ZDA) — as previewed in Module 01; this module is the home.
 
 #### Core spaces (vocabulary)
 
@@ -161,13 +166,40 @@ Redundancy fails when logical diversity hides **shared risk**.
 Checklist for real diversity:
 
 1. **Dual building entries** separated geographically (different sides of the building / different vaults / different streets)—not two conduits in one trench for the entire lateral.
-2. **Dual entrance rooms** or dual pathways into a single entrance with clear separation (higher-tier designs push dual rooms).
+2. **Dual entrance rooms** or dual pathways into a single entrance with clear separation (higher-tier designs push dual rooms — *higher-tier* here is **colloquial room-count English**, not an Uptime plaque and not a TIA Rated number; no nines-to-Tier or Rated=Tier crosswalk).
 3. **Dual paths MDA↔HDA↔EDA** in separate trays/risers so maintenance or a tray failure does not take both.
 4. **Dual meet-me / carrier ecosystems** (in colo: dual MMRs if offered); dual providers that do not lease the same last-mile dark fibre without disclosure.
 5. **Equipment diversity:** dual ToRs or dual NICs **only help** if upstream leaves, spines, power feeds, and pathways are also diverse.
 6. **Control plane:** routing (e.g. BGP multi-homing), MLAG/ECMP designs, and DNS/anycast strategies must match the physical map—or failover is fictional.
 
 **Common shared-fate traps:** same manhole; same riser; same cable tray “A and B” painted on one ladder; same optical distribution frame shelf; same UPS room for both “diverse” network racks; same software image bug on all leaves.
+
+### GPU-cluster east-west fabric (availability path)
+
+The two-laterals oral above stays the **building** oral. Do not flatten it. This section is a different 2026 availability path: the **cluster fabric** inside the hall.
+
+In this file, **interconnect** still means a patching term — direct connection of equipment into a termination field (**fewer patch points**; less flexible). Do not reuse that word for the AI campus.
+
+A 2026 GPU / AI-factory / neocloud hall (Module 01 owns the type nouns) has an **east-west fabric** — GPU-to-GPU and GPU-to-storage — that is as load-bearing as the UPS:
+
+- **InfiniBand (IB)** and **RoCE** (RDMA over Converged Ethernet) are the two names you will hear. Treat them as *low-latency cluster fabrics*, not as “just another LAN.”
+- **400G / 800G** (and climbing) is the current speed class. Density, MPO, SMF vs MMF, and polarity from earlier in this file are how that plant is actually built. Do not invent a reach table here.
+- **Blast radius:** one fabric cut, one shared tray, one polarity mistake on a spine trunk, or one over-subscribed leaf can take **a training job**, not “a NIC.” Power-green and cooling-green with a dark east-west fabric is still a failed job. Treat the fabric as an **availability path equal to power**.
+
+```text
+BUILDING PATH (Q2 — keep it)         CLUSTER PATH (this section)
+Street W ──► Entry-A                 GPU ══ 400/800G IB/RoCE ══ GPU
+Street E ──► Entry-B                 one shared tray / one trunk cut
+two logos ≠ two laterals             = one training job
+```
+
+Design implications (this file’s job):
+
+- Dual building laterals do **not** protect a single-path GPU fabric inside the hall.
+- Pathway diversity MDA↔HDA↔EDA / leaf–spine still applies — a 400/800G mesh collapsed onto one tray is one cut.
+- Spine-leaf plant demand (strand count, MPO, length consistency) is how you keep the fabric *maintainable*. The availability claim is the **job**, not the logo on the NIC.
+
+**Module 01** / **Module 03** own the *clock* (IT-service vs hall; fibre as a long-duration public-tracker event). This module owns the *plant*.
 
 ### Building connectivity (site and campus)
 
@@ -180,6 +212,8 @@ A scalable DC network includes **outside plant** thinking:
 - **Campus backbone** — between halls or buildings: treat as backbone cabling with outdoor-rated media, lightning/surge protection at entrances, and diverse routes around single points (loading dock digs, generator yards).
 
 **Site selection** should score fibre routes as carefully as power feeds: how many carriers on-net, duct ownership, historical dig-ups, latency to user clusters and cloud regions.
+
+**2026 clock (owned elsewhere; designed here):** a metro fibre cut is a long-duration **IT-service** outage with the building still up. Public trackers treat connectivity that way; do not invent a share. **Module 01** owns whose clock; **Module 03** owns the site / walk-away fact. This file owns diverse entries, rooms, trays, and the fabric section above.
 
 ### Monitoring requirements
 
@@ -284,6 +318,7 @@ These are **interview and planning heuristics**, not substitutes for engineered 
 8. **Optics dirt:** assume contamination until inspection proves clean—especially MPO.  
 9. **PoE heat:** high PoE bundle counts raise cable temperature and can affect insertion loss; bundle sizing is an engineering input, not an afterthought.  
 10. **Documentation lag SLA:** treat “as-built older than last MAC window” as a **P2 process defect**.
+11. **OM4 / 100G (15 seconds):** “**Application-and-optic specific**; I will not quote a single metre as universal; I will look up the Ethernet reach table.” Same refusal at any speed / grade. Copper 90+10=100 m (item 1) is the one length oral that *is* scoped.
 
 ---
 
@@ -303,6 +338,9 @@ These are **interview and planning heuristics**, not substitutes for engineered 
 | “Network monitoring is only SNMP on switches” | Entrance facilities, environmental sensors, and optical levels catch failures SNMP sees late. |
 | “TIA-942 is only about tiers/ratings” | It is a multi-discipline DC standard; cabling topology is one major piece. |
 | “COLO ‘redundant MMR’ guarantees my diversity” | Still verify **your** cross-connect paths and provider laterals. |
+| “One IB/RoCE cut is just a link” | On a GPU cluster it is **one training job**. East-west fabric is an availability path equal to power. Dual laterals do not save a single-path fabric. |
+| “OM4 is always N metres at 100G” | **Application-and-optic specific.** Do not quote a single metre as universal; look up the Ethernet reach table. |
+| “Higher-tier dual rooms means Uptime Tier III” | *Higher-tier* in the dual-rooms line is **colloquial room-count English**, not an Uptime plaque and not a TIA Rated number. No nines crosswalk. |
 
 ---
 
@@ -322,6 +360,12 @@ These are **interview and planning heuristics**, not substitutes for engineered 
 
 **Q5. Spine-leaf is an active design—what does it demand of the physical plant?**  
 **A:** High strand-count fibre, clean MPO/LC management, pathway capacity for dense leaf–spine meshes, consistent practices for length/polarity, and dual-path options so fabric redundancy is not collapsed onto one tray or one intermediate panel.
+
+**Q6. Why is a GPU-cluster fabric an availability path, not just a faster LAN?**  
+**A:** East-west **InfiniBand / RoCE** at **400/800G** carries the training job. One cut, one shared tray, or one polarity miss is **one job** — the hall can still have power and cooling. Treat that fabric as equal to power. In this file, **interconnect** still means fewer patch points. Dual laterals remain a different oral (Q2). Module 01 / 03 own the outage clock.
+
+**Q7. How far is OM4 at 100G?**  
+**A:** **Application-and-optic specific.** I will not quote a single metre as universal. I will look up the Ethernet reach table.
 
 ---
 
@@ -375,6 +419,18 @@ These are **interview and planning heuristics**, not substitutes for engineered 
    c) Increases fibre core size  
    d) Removes the need for HDAs  
 
+9. **A single cut on a GPU-cluster east-west fabric (IB / RoCE, 400/800G) is best treated as:**  
+   a) A LAN upgrade inconvenience; dual building laterals already cover it  
+   b) An **availability-path** failure equal to power — **one cut = one training job**  
+   c) Proof the hall has no UPS  
+   d) An Uptime Tier change  
+
+10. **Asked “how far is OM4 at 100G?” the 15-second answer is:**  
+    a) A single universal metre you memorized  
+    b) Always the same as the copper 100 m channel  
+    c) **Application-and-optic specific**; do not quote a single metre as universal; look up the Ethernet reach table  
+    d) Irrelevant because multimode has no reach limit  
+
 ### Answers
 
 <details>
@@ -387,7 +443,9 @@ These are **interview and planning heuristics**, not substitutes for engineered 
 5. **b** — Field certification against limits.  
 6. **c** — Polarity/method errors break links or lanes.  
 7. **b** — Physical spaces are often under-monitored.  
-8. **b** — Capacity, damage, compliance, and future pulls suffer.
+8. **b** — Capacity, damage, compliance, and future pulls suffer.  
+9. **b** — Fabric is an availability path; laterals are a different oral.  
+10. **c** — Look up the Ethernet reach table; no invented metre.
 
 </details>
 
@@ -410,7 +468,7 @@ Public standards and primers (names / free entry points—not paywalled EPI cour
 - **FCC / local AHJ** — pathway and firestop are also code issues; know your authority having jurisdiction.  
 - Cloud provider **public** regions/colo interconnect docs — useful for “building connectivity” interview stories (on-ramps, diversity language).
 
-**Study tip:** Pair this module with **02-data-centre-standards** (who governs what) and **08-equipment-racks** (where EDA patching and ToR/EoR actually land). For power diversity parallels, compare pathway diversity here with dual cords/PDUs in the power module—same shared-fate logic.
+**Study tip:** Pair this module with **02-data-centre-standards** (who governs what) and **08-equipment-racks** (where EDA patching and ToR/EoR actually land). For power diversity parallels, compare pathway diversity here with dual cords/PDUs in the power module—same shared-fate logic. For the 2026 **IT-service clock** on a fibre cut, read **Module 01** (whose clock) and **Module 03** (site / walk-away); this file is the design home, including the GPU-cluster fabric.
 
 ---
 
