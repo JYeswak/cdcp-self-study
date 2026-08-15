@@ -168,9 +168,10 @@ skipped_step() { STEP_SKIPPED=$((STEP_SKIPPED + 1)); echo "check.sh: skip: $*"; 
 # scans nothing.
 #
 # Re-entrancy: selftest_reconstructed.sh used to re-enter this script in the
-# SAME root, five times. As of bd-791t it re-enters from a private tree
-# (different ROOT, different lock, taken independently) and unsets
-# CDCP_CHECK_LOCK_HELD so the child cannot mistake the live lock for its own.
+# SAME root, five times (and then from a private tree). As of bd-791t it
+# mutates a private snapshot under target/cdcp-recon-*/snap and runs the
+# same per-stage predicates; it does not re-enter this script. Live tracked
+# files, including crates/cdcp_cli/src/main.rs, are not written.
 # CDCP_CHECK_LOCK_HELD still exists for any same-root descendant.
 # `substrate-guard --prove-wired` also runs check.sh from a tree materialised
 # under target/ — a different ROOT, hence a different lock, taken independently.
@@ -547,8 +548,8 @@ run_selftest() {
   _lbl="$1"
   shift
   # Output is captured so the receipt can be teed; it therefore appears only
-  # once the suite finishes. selftest_reconstructed.sh runs the full gate five
-  # times and can sit here for minutes — say so rather than look hung.
+  # once the suite finishes. selftest_reconstructed.sh used to re-enter the
+  # full gate five times; as of bd-791t it runs against a private snapshot.
   echo "check.sh: running $_lbl (output shown when it completes)"
   _out=""
   if ! _out="$("$@" 2>&1)"; then
