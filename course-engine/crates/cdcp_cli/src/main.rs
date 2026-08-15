@@ -374,6 +374,18 @@ enum SloCmd {
     },
     /// Print unix-epoch milliseconds.
     NowMs,
+    /// Judge one elapsed sample against one slo.toml wall. Over budget is RED.
+    Check {
+        /// slo.toml path (default: ./slo.toml).
+        #[arg(long, default_value = "slo.toml")]
+        file: PathBuf,
+        /// Wall key: grade_ms, export_ms, or bank_verify_ms.
+        #[arg(long)]
+        key: String,
+        /// Observed elapsed milliseconds.
+        #[arg(long)]
+        elapsed: u64,
+    },
 }
 
 #[derive(Subcommand)]
@@ -707,6 +719,7 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::Slo { sub } => match sub {
             SloCmd::Budgets { file } => slo::emit_budgets(&file),
             SloCmd::NowMs => slo::emit_now_ms(),
+            SloCmd::Check { file, key, elapsed } => slo::emit_check(&file, &key, elapsed),
         },
         Cmd::SnapRewrite { sub } => match sub {
             SnapRewriteCmd::ReplaceOnce { file, from, to } => {

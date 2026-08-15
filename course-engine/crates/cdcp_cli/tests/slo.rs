@@ -1,8 +1,10 @@
-//! Product CLI for `cdcp slo` (`bd-extract-smoke-slo-python-l5ke`).
+//! Product CLI for `cdcp slo` (`bd-extract-smoke-slo-python-l5ke`, `bd-kog9`).
 //!
 //! `slo budgets` prints three integers from `[budgets]`. `slo now-ms`
-//! prints one epoch-ms integer. A missing table, a missing key, or a
-//! non-integer wall is non-zero. Root-level keys are not a fallback.
+//! prints one epoch-ms integer. `slo check` judges one elapsed sample
+//! against one named wall from slo.toml: under/equal is GREEN, over is
+//! RED. A missing table, a missing key, or a non-integer wall is
+//! non-zero. Root-level keys are not a fallback.
 
 use assert_cmd::Command;
 use std::fs;
@@ -78,7 +80,7 @@ fn help_lists_slo() {
 fn slo_help_lists_budgets_and_now_ms() {
     let assert = cdcp().args(["slo", "--help"]).assert().success();
     let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
-    for verb in ["budgets", "now-ms"] {
+    for verb in ["budgets", "now-ms", "check"] {
         assert!(
             stdout.contains(verb),
             "cdcp slo --help must list {verb}: {stdout}"
@@ -244,6 +246,101 @@ fn now_ms_prints_one_recent_integer() {
         .unwrap_or_else(|_| panic!("now-ms is not an integer: {stdout:?}"));
     assert!(got >= before, "got {got} < before {before}");
     assert!(got <= after, "got {got} > after {after}");
+}
+
+/// Named L2 assertion (bd-kog9): the live `grade_ms` ceiling in slo.toml
+/// is judged, not merely printed. Zero elapsed must be GREEN.
+#[test]
+fn live_slo_toml_grade_budget_accepts_zero_elapsed() {
+    let live = fs::read_to_string(workspace_root().join("slo.toml")).expect("read live slo.toml");
+    let grade = assigned_u64(&live, "grade_ms");
+    assert!(
+        grade > 0,
+        "live grade_ms must be a real ceiling, not 0: a zero wall cannot be the published budget"
+    );
+    let assert = cdcp()
+        .args([
+            "slo",
+            "check",
+            "--file",
+            "slo.toml",
+            "--key",
+            "grade_ms",
+            "--elapsed",
+            "0",
+        ])
+        .assert()
+        .success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("grade_ms"),
+        "check must name the wall: {stdout}"
+    );
+    assert!(
+        stdout.contains(&format!("≤ {grade}ms")),
+        "check must name the live budget {grade}: {stdout}"
+    );
+}
+
+/// Fires-on-known-bad (bd-kog9): inject elapsed = live grade_ms + 1 and
+/// require the product binary to go RED with both sides named.
+#[test]
+fn injected_elapsed_over_live_grade_budget_is_red() {
+    let live = fs::read_to_string(workspace_root().join("slo.toml")).expect("read live slo.toml");
+    let grade = assigned_u64(&live, "grade_ms");
+    assert!(
+        grade < u64::MAX,
+        "live grade_ms is u64::MAX — a ceiling that cannot be exceeded cannot trip"
+    );
+    let elapsed = grade + 1;
+    let assert = cdcp()
+        .args([
+            "slo",
+            "check",
+            "--file",
+            "slo.toml",
+            "--key",
+            "grade_ms",
+            "--elapsed",
+            &elapsed.to_string(),
+        ])
+        .assert()
+        .failure();
+    let out = combined(&assert);
+    assert!(
+        out.contains("over budget"),
+        "over-budget sample must RED with the rule named: {out}"
+    );
+    assert!(
+        out.contains(&format!("{elapsed}ms > {grade}ms")),
+        "over-budget sample must name both sides from the live slo.toml wall: {out}"
+    );
+}
+
+/// Planted too-slow fixture: a 1ms grade_ms wall must refuse a 2ms sample.
+#[test]
+fn planted_one_ms_budget_file_rejects_two_ms_elapsed() {
+    let dir = uniq("tiny_budget");
+    fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("slo.toml");
+    fs::write(
+        &path,
+        "[budgets]\ngrade_ms = 1\nexport_ms = 1\nbank_verify_ms = 1\n",
+    )
+    .unwrap();
+    let assert = cdcp()
+        .args(["slo", "check", "--file"])
+        .arg(&path)
+        .args(["--key", "grade_ms", "--elapsed", "2"])
+        .assert()
+        .failure();
+    let out = combined(&assert);
+    let _ = fs::remove_dir_all(&dir);
+    assert!(
+        out.contains("over budget"),
+        "1ms wall must RED at 2ms: {out}"
+    );
+    assert!(out.contains("2ms > 1ms"), "must name both sides: {out}");
 }
 
 /// Meta: delete the verb or the planted RED tokens → this file is non-zero.

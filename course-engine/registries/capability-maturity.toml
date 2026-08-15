@@ -71,23 +71,24 @@ evidence = [
 ]
 
 # ── L2 ─────────────────────────────────────────────────────────────────────
-# RED ON PURPOSE. CHARTER §5 publishes "YES · wired"; the honest level is two
-# rungs lower. slo.toml's budgets are enforced by one shell script that carries a
-# documented CDCP_SKIP_SLO=1 bypass, runs only when `export-web --help` succeeds,
-# and has no known-bad proving it can go red. NO NAMED TEST FUNCTION ANYWHERE IN
-# THIS TREE ASSERTS AN SLO BUDGET, so this row cannot honestly name one, and the
-# gate refuses to let the CHARTER cell stand unbacked.
-# Fix in either direction, deliberately: write the test and raise the level, or
-# correct the CHARTER cell to what the machinery actually does.
+# Raised smoke-checked → proven-to-trip 2026-08-15 (bd-kog9). A named test
+# now judges an elapsed sample against the live slo.toml grade_ms wall, and
+# injected_elapsed_over_live_grade_budget_is_red plants elapsed=budget+1 and
+# requires RED. CHARTER §5 still publishes "PARTIAL · smoke-checked" — that
+# cell is an underclaim, not an overclaim, so this gate stays green. The
+# shell driver (smoke_slo.sh + CDCP_SKIP_SLO=1) is unchanged.
 [[capability]]
 id = "l2.slo-as-code"
 title = "Wall-clock performance budgets enforced as code"
-level = "smoke-checked"
+level = "proven-to-trip"
 owner = "josh"
-last_review = "2026-08-14"
-claim = "slo.toml records grade/export/bank-verify wall budgets and scripts/smoke_slo.sh fails check.sh when one is exceeded; no named test asserts a budget, the step is conditional on the export-web verb, and CDCP_SKIP_SLO=1 turns it off."
+last_review = "2026-08-15"
+claim = "slo.toml records grade/export/bank-verify wall budgets; cdcp slo check judges an elapsed sample against a named wall; crates/cdcp_cli/tests/slo.rs::live_slo_toml_grade_budget_accepts_zero_elapsed asserts the live grade_ms ceiling, injected_elapsed_over_live_grade_budget_is_red plants elapsed=grade_ms+1 and requires RED, and scripts/smoke_slo.sh still fails check.sh when a product wall exceeds its budget."
 charter_claim = { file = "CHARTER.md", row = "L2 SLO-as-code", status = "PARTIAL · smoke-checked" }
 evidence = [
+  { kind = "test", ref = "crates/cdcp_cli/tests/slo.rs::live_slo_toml_grade_budget_accepts_zero_elapsed" },
+  { kind = "known_bad", ref = "crates/cdcp_cli/tests/slo.rs::injected_elapsed_over_live_grade_budget_is_red" },
+  { kind = "known_bad", ref = "crates/cdcp_cli/src/slo.rs::injected_elapsed_over_live_grade_budget_is_red" },
   { kind = "contract", ref = "slo.toml" },
   { kind = "contract", ref = "scripts/smoke_slo.sh" },
   { kind = "contract", ref = "scripts/check.sh" },

@@ -12,7 +12,9 @@
 //!
 //! stdout of `slo budgets` is exactly three lines of integers, in
 //! [`REQUIRED_BUDGET_KEYS`] order. stdout of `slo now-ms` is one
-//! integer. The shell times product walls against those numbers.
+//! integer. `slo check` judges one elapsed sample against one named
+//! wall (same `-gt` predicate as the shell). The shell still times the
+//! product paths; this crate now owns the comparison a test can trip.
 
 use std::fs;
 use std::path::Path;
@@ -49,6 +51,47 @@ pub(crate) fn emit_budgets(path: &Path) -> Result<(), String> {
 /// `cdcp slo now-ms`.
 pub(crate) fn emit_now_ms() -> Result<(), String> {
     println!("{}", epoch_ms()?);
+    Ok(())
+}
+
+/// Same predicate as `scripts/smoke_slo.sh` (`elapsed -gt budget`).
+///
+/// Equal-to-budget is GREEN. One millisecond over is RED. This is the
+/// named comparison a test can call: parsing slo.toml is not asserting
+/// a budget; judging an elapsed sample against one is.
+pub(crate) fn judge_wall(label: &str, elapsed_ms: u64, budget_ms: u64) -> Result<(), String> {
+    if elapsed_ms > budget_ms {
+        Err(format!(
+            "{label} over budget: {elapsed_ms}ms > {budget_ms}ms"
+        ))
+    } else {
+        Ok(())
+    }
+}
+
+/// `cdcp slo check --file <path> --key <wall> --elapsed <ms>`.
+///
+/// Reads the named wall from slo.toml and judges `elapsed` against it.
+/// An unknown key is RED (not a silently skipped wall).
+pub(crate) fn emit_check(path: &Path, key: &str, elapsed_ms: u64) -> Result<(), String> {
+    if path.as_os_str().is_empty() {
+        return Err("slo check: --file is empty".into());
+    }
+    if key.is_empty() {
+        return Err("slo check: --key is empty".into());
+    }
+    let raw =
+        fs::read_to_string(path).map_err(|e| format!("slo check: read {}: {e}", path.display()))?;
+    let values = budgets_from_text(&raw)?;
+    let Some(idx) = REQUIRED_BUDGET_KEYS.iter().position(|k| *k == key) else {
+        return Err(format!(
+            "slo check: unknown budget key {key:?} (want one of {})",
+            REQUIRED_BUDGET_KEYS.join(", ")
+        ));
+    };
+    let budget = values[idx];
+    judge_wall(key, elapsed_ms, budget)?;
+    println!("{key} {elapsed_ms}ms ≤ {budget}ms");
     Ok(())
 }
 
@@ -265,5 +308,57 @@ bank_verify_ms = 3
             src.contains("doc.get(\"budgets\")"),
             "delete the [budgets] lookup → selftest non-zero"
         );
+        assert!(
+            src.contains("elapsed_ms > budget_ms"),
+            "delete the wall comparison → selftest non-zero"
+        );
+    }
+
+    fn live_slo_text() -> String {
+        let path = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../slo.toml");
+        fs::read_to_string(&path).unwrap_or_else(|e| panic!("read {}: {e}", path.display()))
+    }
+
+    /// Named L2 assertion: the live `grade_ms` ceiling accepts an on-budget
+    /// sample. Parsing the file is not enough — this goes through
+    /// [`super::judge_wall`].
+    #[test]
+    fn live_slo_toml_grade_budget_accepts_on_budget_sample() {
+        let [grade, _, _] = budgets_from_text(&live_slo_text()).expect("live slo.toml");
+        assert!(
+            grade > 0,
+            "live grade_ms must be a real ceiling, not 0 (a zero wall makes every positive sample RED and cannot be the published budget)"
+        );
+        judge_wall("grade_ms", 0, grade).expect("zero elapsed must be under the live grade_ms");
+        judge_wall("grade_ms", grade, grade)
+            .expect("elapsed == budget is GREEN (smoke_slo.sh uses -gt, not -ge)");
+    }
+
+    /// Fires-on-known-bad: inject elapsed = live grade_ms + 1 and require RED.
+    #[test]
+    fn injected_elapsed_over_live_grade_budget_is_red() {
+        let [grade, _, _] = budgets_from_text(&live_slo_text()).expect("live slo.toml");
+        assert!(
+            grade < u64::MAX,
+            "live grade_ms is u64::MAX — a ceiling that cannot be exceeded cannot trip"
+        );
+        let elapsed = grade + 1;
+        let err = judge_wall("grade_ms", elapsed, grade)
+            .expect_err("elapsed = live grade_ms + 1 must be RED");
+        assert!(
+            err.contains("over budget"),
+            "RED must name the over-budget rule: {err}"
+        );
+        assert!(
+            err.contains(&format!("{elapsed}ms > {grade}ms")),
+            "RED must name both sides from the live slo.toml budget: {err}"
+        );
+    }
+
+    #[test]
+    fn planted_one_ms_budget_rejects_two_ms_sample() {
+        let err = judge_wall("grade_ms", 2, 1).expect_err("2ms > 1ms must be RED");
+        assert!(err.contains("over budget"), "{err}");
+        assert!(err.contains("2ms > 1ms"), "{err}");
     }
 }
