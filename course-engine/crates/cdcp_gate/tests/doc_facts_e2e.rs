@@ -775,6 +775,52 @@ fn every_known_debt_carries_a_reason() {
     }
 }
 
+/// The two surfaces this residual named. The audit prefix stays excluded and
+/// must keep naming its COST. `goldens/PROVENANCE.md` was rewritten to dated
+/// measurements + registry pointers and is back in the scan — re-excluding it
+/// recreates the hole.
+#[test]
+fn live_exclusions_are_permanent_and_name_their_cost() {
+    let root = engine_root();
+    let text = std::fs::read_to_string(root.join("registries/doc-facts.toml"))
+        .expect("read live doc-facts registry");
+    let reg = cdcp_gate::gates::doc_facts::parse_registry(&text).expect("parse live registry");
+    assert!(
+        !reg.exclude.is_empty(),
+        "the live registry must still name the dated-audit prefix"
+    );
+    let mut saw_audit = false;
+    for e in &reg.exclude {
+        let path = e.path.trim();
+        let reason = e.reason.trim();
+        assert!(
+            reason.contains("COST"),
+            "{path}: a permanent exclusion must name the COST of what the gate cannot see:\n{reason}"
+        );
+        let lower = reason.to_ascii_lowercase();
+        assert!(
+            !lower.contains("right now") && !lower.contains("re-freezing bank_hash through it"),
+            "{path}: a temporary deferral is not a reason, it is a parked bead:\n{reason}"
+        );
+        assert!(
+            !path.contains("PROVENANCE.md"),
+            "goldens/PROVENANCE.md is in the scan (dated measurements + registry pointers). \
+             Re-excluding it recreates the unguarded-claim hole"
+        );
+        if path.contains("beads_compliance_audit") {
+            saw_audit = true;
+            assert!(
+                path.ends_with('/'),
+                "{path}: the audit exclusion is a prefix because new passes land continuously"
+            );
+        }
+    }
+    assert!(
+        saw_audit,
+        "the dated-audit prefix is the remaining uncovered surface and must stay named"
+    );
+}
+
 #[test]
 fn the_gate_is_registered_and_listed() {
     let root = engine_root();

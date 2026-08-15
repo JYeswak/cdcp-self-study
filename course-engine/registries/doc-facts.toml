@@ -193,8 +193,4 @@ trigger = "cargo fuzz"
 
 [[exclude]]
 path = "course-engine/beads_compliance_audit/"
-reason = "Dated audit snapshots. Every file under it carries a `**Date:**` header and records the tree as it was on that date, so its sentences are past-tense by construction and re-marking them would falsify the record. New passes land here continuously, and an exact-path list over a growing directory would break the build on work that has nothing to do with it. COST, stated so it is not a surprise: a genuinely present-tense claim written into this directory is invisible to this gate. Tracked as bd-doc-facts-uncovered-surfaces-plzm."
-
-[[exclude]]
-path = "course-engine/goldens/PROVENANCE.md"
-reason = "Single-owner file: `goldens/` has exactly one regeneration path and a sibling bead is re-freezing bank_hash through it right now. Forcing marker edits into it would put this gate and the re-freeze workflow in the same file. Its hash_payload/StdRng/deny_unknown_fields sentences are real present-tense claims and are NOT covered — tracked as bd-doc-facts-uncovered-surfaces-plzm."
+reason = "Dated audit snapshots, not live law. Every file under this prefix is a pass record (passes/<UTC>/) or a rollup of one; sentences are past-tense by construction (Date/Pass headers, or quoted bead text from that date). New passes land continuously, so an exact-path list or an as-of-stamp walk would break the build on unrelated work. This prefix is therefore permanent — not a parked bead. COST: a genuinely present-tense claim about code written into this directory is invisible to this gate. Write live claims in docs/ (un-excludable) with a [[fact:]] marker; do not write them here."

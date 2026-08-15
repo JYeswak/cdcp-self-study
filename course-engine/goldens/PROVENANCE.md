@@ -6,6 +6,14 @@ first time (bd-tetz); bank_hash re-frozen to cover objective_ids/citation_ids/ta
 (bd-hardening-c-status-hzs.2); regeneration path reduced to one (bd-z3x)
 **Law:** `docs/CANONICAL.md` · `docs/ORACLE-GAUNTLET.md` · floor = 0
 
+**Not live law.** This file is the dated re-freeze ledger for `goldens/`.
+Present-tense claims about the bank content address, unknown-field reject, and
+the sampler PRNG live in `docs/CANONICAL.md` / `docs/PLAN-A-TO-Z.md` and are
+polarity-checked by `cdcp_gate doc-facts` against `registries/doc-facts.toml`
+(`fact-hash-payload-*`, `fact-bank-item-denies-unknown-fields`,
+`fact-assemble-uses-stdrng`, `fact-assemble-rng-is-chacha12`). Sentences below
+are receipts of what was measured on a date.
+
 ## Which tool regenerates these files
 
 There is exactly **one** regeneration path. It is the four-command block under
@@ -79,11 +87,14 @@ Measured before the fix, at seed 42 against the live 804-item bank:
 | Stratification | **identical quality**: both spanned all 15 modules, both peaked at 3 items/module, both inside `max_per_module=8` / `min_modules=8` |
 | Reproducibility | the committed fixture was reproducible by **neither** side — `sample_mock.py` re-run yielded 23/40 different ids, because the bank had drifted (fixture `bank_fingerprint` `0557953e8a49a3cf` vs live `5ff22c310349b2bd`) while `regen_goldens_after_bank.py` deliberately froze `item_ids` |
 
-Because stratification quality was equal, the divergence was purely the PRNG stream (MT19937 vs
-`StdRng`/ChaCha12) and there was nothing to trade away by choosing Rust. `cdcp_assemble` wins on
-every other axis: it is the shipped path, it enforces the C1 approved-only pool with anti-vacuous
-errors, and it survives the Python substrate migration. `scripts/sample_mock.py` is pinned as a
-historical reference, not a regeneration path.
+Because stratification quality was equal, the divergence measured 2026-08-13 was
+purely the PRNG stream (CPython MT19937 vs rand 0.8.7's then-default generator,
+which happened to be ChaCha12) and there was nothing to trade away by choosing
+Rust. `cdcp_assemble` wins on every other axis: it is the shipped path, it
+enforces the C1 approved-only pool with anti-vacuous errors, and it survives the
+Python substrate migration. `scripts/sample_mock.py` is pinned as a historical
+reference, not a regeneration path. Live PRNG law is `registries/doc-facts.toml`
+(`fact-assemble-uses-stdrng`, `fact-assemble-rng-is-chacha12`).
 
 ## Digests
 
@@ -167,11 +178,12 @@ that, which is why `goldens fixture` must run before `goldens generate`. After *
 
 ### C2 re-freeze — `bd-hardening-c-status-hzs.2`, 2026-08-14
 
-`BankItem::hash_payload` used to exclude `status`, and did not model `objective_ids`,
-`citation_ids` or `tags` at all — serde silently discarded those three on load, across all 804
-items. C1 made the first one load-bearing: assembly draws `approved` items only, so flipping one
-item `approved` → `draft` changes what a learner can be assessed on. Measured 2026-08-14 on
-`m04-q129`, **before** C2:
+The bank content-address function used to exclude `status`, and did not model
+`objective_ids`, `citation_ids` or `tags` at all — serde silently discarded those
+three on load, across all 804 items. C1 made the first one load-bearing: assembly
+draws `approved` items only, so flipping one item `approved` → `draft` changes
+what a learner can be assessed on. Measured 2026-08-14 on `m04-q129`, **before**
+C2:
 
 | Quantity | Before flip | After flip |
 |----------|-------------|------------|
@@ -179,10 +191,14 @@ item `approved` → `draft` changes what a learner can be assessed on. Measured 
 | fixture `item_ids` positions changed | — | **38 of 40** |
 | ids entering/leaving the set | — | 10 (symmetric difference); `m04-q129` dropped out |
 
-C2 folded `objective_ids`, `citation_ids`, `tags` and `status` into the payload, made the payload
-total over the modelled fields (`deny_unknown_fields` + `hash_payload_covers_every_modelled_field`),
-and made an empty bank an ERROR rather than a hash. Every pinned copy below was re-frozen in one
-commit through the four-command block above plus
+C2 (2026-08-14) folded `objective_ids`, `citation_ids`, `tags` and `status` into
+the payload and made an empty bank an ERROR rather than a hash. Whether the
+payload is still total over the modelled fields is the live claim in
+`docs/CANONICAL.md` and `registries/doc-facts.toml`
+(`fact-hash-payload-covers-objective-ids`, `fact-hash-payload-covers-status`,
+`fact-bank-item-denies-unknown-fields`, `fact-hash-payload-parity-test-exists`)
+— this section is the re-freeze receipt, not the law. Every pinned copy below
+was re-frozen in one commit through the four-command block above plus
 `UPDATE_CONTENT_LOCK=1 python3 scripts/gen_content_lock.py`:
 
 | Pin | Before | After |
@@ -251,17 +267,19 @@ different question.
 
 | | v1 (pre-C4) | v2 (C4) |
 |---|---|---|
-| Generator | `rand::rngs::StdRng` as of rand **0.8.7** | `rand_chacha::ChaCha12Rng` |
+| Generator | rand 0.8.7 default (happened to be ChaCha12) | named ChaCha12 (`rand_chacha` 0.3.1) |
 | Crate pin | workspace caret `rand = "0.8"` | `rand = "=0.8.7"` + `rand_chacha = "=0.3.1"` |
 | Seed | `SeedableRng::seed_from_u64` | same seeder |
 | seed-42 first 8 `u64`s | `crates/cdcp_assemble` `SEED42_FIRST_8_U64` | **identical** (measured) |
 | fixture `item_ids` | then-current bank | **did not move** |
 
-v1 happened to be ChaCha12. v2 names ChaCha12 and pins the crate that owns the
-stream, so a `rand` minor bump cannot quietly change `StdRng` under the goldens.
+v1 happened to be ChaCha12. v2 (2026-08-14) named ChaCha12 and pinned the crate
+that owns the stream. Whether the sampler still uses that named generator — and
+no longer seeds from rand's non-portable default — is the live claim in
+`registries/doc-facts.toml` (`fact-assemble-rng-is-chacha12`,
+`fact-assemble-uses-stdrng`) and `crates/cdcp_assemble/tests/prng_c4_migration.rs`.
 The known-bad is swapping the algorithm (ChaCha20 at the same seed differs on
-the first `u64`). The v1==v2 receipt is
-`crates/cdcp_assemble/tests/prng_c4_migration.rs`.
+the first `u64`).
 
 **No four-command re-freeze was required for C4.** A future algorithm change
 would move `item_ids` and then this fixture is re-frozen once, through the
