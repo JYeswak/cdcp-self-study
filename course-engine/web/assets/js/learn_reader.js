@@ -128,7 +128,7 @@
         prose.innerHTML =
           '<p class="lede">' +
           msg +
-          "</p><p class=\"meta\">Run <span class=\"mono\">python3 scripts/build_learn.py</span> " +
+          "</p><p class=\"meta\">Run <span class=\"mono\">cdcp build-learn</span> " +
           "from course-engine to copy notes into <span class=\"mono\">web/content/modules/</span>, " +
           "then serve <span class=\"mono\">web/</span> (see web/README.md).</p>";
         prose.setAttribute("aria-busy", "false");

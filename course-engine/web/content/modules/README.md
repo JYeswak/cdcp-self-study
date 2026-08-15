@@ -5,7 +5,7 @@ generated from `knowledge/domains.toml` via:
 
 ```bash
 # from course-engine/
-python3 scripts/build_learn.py
+cdcp build-learn
 cargo run -q -p cdcp_cli -- smoke-learn
 ```
 
