@@ -1,80 +1,66 @@
 /**
- * Minimal SRS (L5-S7 / bd-ca8) — 1d / 3d interval steps in localStorage.
+ * Short-interval review (L5-S7 / bd-ca8 · bd-engine-not-gate-ar39.5).
  *
- * Schema (localStorage key `cdcp.srs.v1`):
+ * NOT spaced repetition. The interval ladder lives in `cdcp_schedule`
+ * (`INTERVAL_STEPS = [1, 3]`, 3-day cap) and is decided by WASM. This module
+ * renders and persists. Calling it SRS overstates it.
+ *
+ * Schema (localStorage key `cdcp.srs.v1` — historical name; law is not SRS):
  * {
  *   schema_version: 1,
  *   cards: {
  *     [item_id]: {
  *       item_id: string,
- *       interval_days: number,  // 0 | 1 | 3 (minimal ladder)
- *       due_at: number,         // epoch ms when card is due
- *       reps: number,           // successful reviews
- *       lapses: number,         // failed reviews after first schedule
- *       updated_at: number      // epoch ms
+ *       interval_days: number,
+ *       due_at: number,
+ *       reps: number,
+ *       lapses: number,
+ *       updated_at: number
  *     }
  *   }
  * }
  *
- * Interval law (pure, unit-tested in scripts/smoke_srs.mjs):
- *   nextIntervalDays(current, correct):
- *     wrong  → 1
- *     correct && current < 1 → 1   (first success after new / reset)
- *     correct && current < 3 → 3
- *     correct && current >= 3 → 3  (cap; re-schedule at 3d)
- *
- * Drill-10 (L6-S6): selectDueOnly(cards, nowMs, limit=10) /
- * listDueDrill — due_at ≤ now, earliest first, cap 10.
- *
- * Missed-item feed (localStorage key `cdcp.drill.missed.v1`):
- * {
- *   schema_version: 1,
- *   source: "mock" | "quiz",
- *   exam_id: string,
- *   seed: number | null,
- *   bank_hash: string,
- *   saved_at: number,
- *   item_ids: string[]
- * }
+ * Interval law: `cdcp_schedule::next_interval_days` via schedule_bridge.
+ * Drill-10: selectDueOnly / listDueDrill — due_at ≤ now, earliest first, cap 10.
  *
  * No LLM. Pedagogy-only — never a cert claim.
  *
- * @module srs
+ * @module review
  */
 
-export const SRS_STORAGE_KEY = "cdcp.srs.v1";
+import {
+  nextIntervalDays as wasmNextIntervalDays,
+  dayMs as wasmDayMs,
+  firstStepDays,
+} from "./schedule_bridge.js";
+
+/** Historical localStorage key. Do not treat the name as an algorithm claim. */
+export const REVIEW_STORAGE_KEY = "cdcp.srs.v1";
 export const MISSED_STORAGE_KEY = "cdcp.drill.missed.v1";
-export const SRS_SCHEMA_VERSION = 1;
+export const REVIEW_SCHEMA_VERSION = 1;
 export const MISSED_SCHEMA_VERSION = 1;
 
-/** Day length in ms (fixed 86400000 — no DST logic for study tool). */
-export const DAY_MS = 24 * 60 * 60 * 1000;
-
-/** Allowed interval steps for the minimal ladder. */
-export const INTERVAL_STEPS = Object.freeze([1, 3]);
-
 /**
- * Pure interval step function.
+ * Next interval in days. WASM decides (`cdcp_next_interval_days`).
  *
- * @param {number} currentIntervalDays — last scheduled interval (0 if new)
- * @param {boolean} correct — review outcome
- * @returns {number} next interval in days (1 or 3)
+ * @param {number} currentIntervalDays
+ * @param {boolean} correct
+ * @returns {number}
  */
 export function nextIntervalDays(currentIntervalDays, correct) {
-  const cur =
-    typeof currentIntervalDays === "number" &&
-    isFinite(currentIntervalDays) &&
-    currentIntervalDays > 0
-      ? currentIntervalDays
-      : 0;
-  if (!correct) return 1;
-  if (cur < 1) return 1;
-  if (cur < 3) return 3;
-  return 3;
+  return wasmNextIntervalDays(currentIntervalDays, correct);
 }
 
 /**
- * Compute due_at from now + interval_days.
+ * Day length in ms from the schedule crate (no DST).
+ * @returns {number}
+ */
+export function dayMs() {
+  return wasmDayMs();
+}
+
+/**
+ * Compute due_at from now + interval_days. Day length comes from WASM.
  *
  * @param {number} intervalDays
  * @param {number} [nowMs]
@@ -84,15 +70,18 @@ export function dueAtFromInterval(intervalDays, nowMs) {
   const now = typeof nowMs === "number" ? nowMs : Date.now();
   const d =
     typeof intervalDays === "number" && intervalDays > 0 ? intervalDays : 0;
-  return now + d * DAY_MS;
+  return now + d * dayMs();
 }
 
 /**
  * @param {unknown} raw
  * @returns {{ schema_version: number, cards: Record<string, object> }}
  */
-export function normalizeSrsState(raw) {
-  const empty = { schema_version: SRS_SCHEMA_VERSION, cards: Object.create(null) };
+export function normalizeReviewState(raw) {
+  const empty = {
+    schema_version: REVIEW_SCHEMA_VERSION,
+    cards: Object.create(null),
+  };
   if (!raw || typeof raw !== "object") return empty;
   const cardsIn = /** @type {{cards?: unknown}} */ (raw).cards;
   if (!cardsIn || typeof cardsIn !== "object") return empty;
@@ -119,22 +108,22 @@ export function normalizeSrsState(raw) {
       updated_at: typeof c.updated_at === "number" ? c.updated_at : 0,
     };
   }
-  return { schema_version: SRS_SCHEMA_VERSION, cards: cards };
+  return { schema_version: REVIEW_SCHEMA_VERSION, cards: cards };
 }
 
 /**
  * @param {Storage} [store]
  * @returns {{ schema_version: number, cards: Record<string, object> }}
  */
-export function loadSrsState(store) {
+export function loadReviewState(store) {
   const s = store || (typeof localStorage !== "undefined" ? localStorage : null);
-  if (!s) return normalizeSrsState(null);
+  if (!s) return normalizeReviewState(null);
   try {
-    const raw = s.getItem(SRS_STORAGE_KEY);
-    if (!raw) return normalizeSrsState(null);
-    return normalizeSrsState(JSON.parse(raw));
+    const raw = s.getItem(REVIEW_STORAGE_KEY);
+    if (!raw) return normalizeReviewState(null);
+    return normalizeReviewState(JSON.parse(raw));
   } catch (_) {
-    return normalizeSrsState(null);
+    return normalizeReviewState(null);
   }
 }
 
@@ -143,15 +132,15 @@ export function loadSrsState(store) {
  * @param {Storage} [store]
  * @returns {boolean}
  */
-export function saveSrsState(state, store) {
+export function saveReviewState(state, store) {
   const s = store || (typeof localStorage !== "undefined" ? localStorage : null);
   if (!s) return false;
   try {
     const payload = {
-      schema_version: SRS_SCHEMA_VERSION,
+      schema_version: REVIEW_SCHEMA_VERSION,
       cards: state && state.cards ? state.cards : Object.create(null),
     };
-    s.setItem(SRS_STORAGE_KEY, JSON.stringify(payload));
+    s.setItem(REVIEW_STORAGE_KEY, JSON.stringify(payload));
     return true;
   } catch (_) {
     return false;
@@ -159,8 +148,7 @@ export function saveSrsState(state, store) {
 }
 
 /**
- * Schedule or re-schedule a missed item (default interval = 1d from now).
- * Does not advance reps; use reviewCard for outcomes.
+ * Schedule or re-schedule a missed item (default = first ladder step).
  *
  * @param {string} itemId
  * @param {{ nowMs?: number, intervalDays?: number, store?: Storage }} [opts]
@@ -173,8 +161,8 @@ export function scheduleMissed(itemId, opts) {
   const interval =
     typeof o.intervalDays === "number" && o.intervalDays > 0
       ? o.intervalDays
-      : 1;
-  const state = loadSrsState(o.store);
+      : firstStepDays();
+  const state = loadReviewState(o.store);
   const prev = state.cards[itemId];
   const card = {
     item_id: itemId,
@@ -185,12 +173,12 @@ export function scheduleMissed(itemId, opts) {
     updated_at: now,
   };
   state.cards[itemId] = card;
-  saveSrsState(state, o.store);
+  saveReviewState(state, o.store);
   return card;
 }
 
 /**
- * Schedule many missed ids (idempotent re-schedule to 1d when newly missed).
+ * Schedule many missed ids (new miss → first step; re-miss → wrong-step).
  *
  * @param {string[]} itemIds
  * @param {{ nowMs?: number, store?: Storage }} [opts]
@@ -200,25 +188,24 @@ export function scheduleMissedMany(itemIds, opts) {
   if (!Array.isArray(itemIds)) return 0;
   const o = opts || {};
   const now = typeof o.nowMs === "number" ? o.nowMs : Date.now();
-  const state = loadSrsState(o.store);
+  const state = loadReviewState(o.store);
+  const first = firstStepDays();
   let n = 0;
   for (let i = 0; i < itemIds.length; i++) {
     const id = itemIds[i];
     if (typeof id !== "string" || !id) continue;
     const prev = state.cards[id];
-    // New miss: schedule 1d. Already scheduled: leave due_at unless overdue / no card.
     if (!prev) {
       state.cards[id] = {
         item_id: id,
-        interval_days: 1,
-        due_at: dueAtFromInterval(1, now),
+        interval_days: first,
+        due_at: dueAtFromInterval(first, now),
         reps: 0,
         lapses: 0,
         updated_at: now,
       };
       n += 1;
     } else {
-      // Re-missed: bump lapses and reset to 1d from now.
       const next = nextIntervalDays(prev.interval_days, false);
       state.cards[id] = {
         item_id: id,
@@ -231,7 +218,7 @@ export function scheduleMissedMany(itemIds, opts) {
       n += 1;
     }
   }
-  saveSrsState(state, o.store);
+  saveReviewState(state, o.store);
   return n;
 }
 
@@ -247,7 +234,7 @@ export function reviewCard(itemId, correct, opts) {
   if (typeof itemId !== "string" || !itemId) return null;
   const o = opts || {};
   const now = typeof o.nowMs === "number" ? o.nowMs : Date.now();
-  const state = loadSrsState(o.store);
+  const state = loadReviewState(o.store);
   const prev = state.cards[itemId] || {
     item_id: itemId,
     interval_days: 0,
@@ -267,7 +254,7 @@ export function reviewCard(itemId, correct, opts) {
     updated_at: now,
   };
   state.cards[itemId] = card;
-  saveSrsState(state, o.store);
+  saveReviewState(state, o.store);
   return card;
 }
 
@@ -276,11 +263,10 @@ export const DRILL10_LIMIT = 10;
 
 /**
  * Pure due-only filter for Drill-10 (charter session shape).
- * Cards with due_at ≤ nowMs, sorted earliest-due first, capped at `limit`.
  *
  * @param {Array<{ due_at?: number, item_id?: string } | null | undefined>} cards
  * @param {number} [nowMs]
- * @param {number} [limit] — default DRILL10_LIMIT (10)
+ * @param {number} [limit]
  * @returns {object[]}
  */
 export function selectDueOnly(cards, nowMs, limit) {
@@ -304,15 +290,13 @@ export function selectDueOnly(cards, nowMs, limit) {
 }
 
 /**
- * Cards due at or before nowMs (all due; no Drill-10 cap).
- *
  * @param {{ nowMs?: number, store?: Storage }} [opts]
  * @returns {object[]}
  */
 export function listDue(opts) {
   const o = opts || {};
   const now = typeof o.nowMs === "number" ? o.nowMs : Date.now();
-  const state = loadSrsState(o.store);
+  const state = loadReviewState(o.store);
   const out = [];
   const ids = Object.keys(state.cards);
   for (let i = 0; i < ids.length; i++) {
@@ -328,8 +312,6 @@ export function listDue(opts) {
 }
 
 /**
- * Drill-10 queue: due cards from storage, earliest first, max 10.
- *
  * @param {{ nowMs?: number, store?: Storage, limit?: number }} [opts]
  * @returns {object[]}
  */
@@ -343,14 +325,14 @@ export function listDueDrill(opts) {
 }
 
 /**
- * All SRS cards.
+ * All review cards.
  *
  * @param {{ store?: Storage }} [opts]
  * @returns {object[]}
  */
 export function listAllCards(opts) {
   const o = opts || {};
-  const state = loadSrsState(o.store);
+  const state = loadReviewState(o.store);
   const out = [];
   const ids = Object.keys(state.cards);
   for (let i = 0; i < ids.length; i++) {
@@ -436,7 +418,7 @@ export function loadMissed(store) {
 }
 
 /**
- * After a graded attempt: store wrongs + schedule SRS.
+ * After a graded attempt: store wrongs + schedule short-interval review.
  *
  * @param {{
  *   source: string,
@@ -474,21 +456,19 @@ export function recordGradedWrongs(graded, opts) {
   return { missed_ids: missed, scheduled: scheduled };
 }
 
-// Browser global for non-module script tags / console.
 if (typeof globalThis !== "undefined") {
-  globalThis.CdcpSrs = {
-    SRS_STORAGE_KEY,
+  globalThis.CdcpReview = {
+    REVIEW_STORAGE_KEY,
     MISSED_STORAGE_KEY,
-    SRS_SCHEMA_VERSION,
+    REVIEW_SCHEMA_VERSION,
     MISSED_SCHEMA_VERSION,
-    DAY_MS,
-    INTERVAL_STEPS,
+    dayMs,
     DRILL10_LIMIT,
     nextIntervalDays,
     dueAtFromInterval,
-    normalizeSrsState,
-    loadSrsState,
-    saveSrsState,
+    normalizeReviewState,
+    loadReviewState,
+    saveReviewState,
     scheduleMissed,
     scheduleMissedMany,
     reviewCard,

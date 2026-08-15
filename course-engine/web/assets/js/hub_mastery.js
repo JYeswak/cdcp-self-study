@@ -23,7 +23,7 @@
  * catalog exists synchronously with no fetch and no network:
  *
  *   - `scripts/build_learn.py` generates it from `knowledge/domains.toml`, and
- *     `scripts/smoke_learn.py` gates the two against each other, so it cannot
+ *     `cdcp smoke-learn` gates the two against each other, so it cannot
  *     drift from the authoring registry.
  *   - It is what the Learn surface itself is built from: every
  *     `web/learn/{id}.html`, the `#module-list` on `web/learn.html`, and the
@@ -48,6 +48,7 @@
 
 import MODULES_INDEX from "../../data/modules_index.json" with { type: "json" };
 
+import { loadWasm } from "./grade_bridge.js";
 import {
   isPracticed,
   isMastered,
@@ -642,9 +643,19 @@ export function paintLearnBadges(opts) {
 
 /**
  * Boot: paint hub and/or learn surfaces present on the page.
+ * WASM must load first — mastery bars live in cdcp_schedule.
  */
-export function boot() {
+export async function boot() {
   if (typeof document === "undefined") return;
+  try {
+    await loadWasm();
+  } catch (e) {
+    console.warn(
+      "hub_mastery: WASM required for mastery law (cdcp_schedule):",
+      e
+    );
+    return;
+  }
   const hasHub =
     document.getElementById("mastery-grid") ||
     document.getElementById("mastery-recommend") ||
@@ -677,8 +688,14 @@ if (typeof globalThis !== "undefined") {
 // Auto-paint when loaded as a module on a real page.
 if (typeof document !== "undefined") {
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
+    document.addEventListener("DOMContentLoaded", function () {
+      boot().catch(function (e) {
+        console.warn("hub_mastery boot failed:", e);
+      });
+    });
   } else {
-    boot();
+    boot().catch(function (e) {
+      console.warn("hub_mastery boot failed:", e);
+    });
   }
 }

@@ -1,28 +1,48 @@
 #!/usr/bin/env node
 /**
- * Pure-function smoke for mastery state machine (L6-S2 / bd-iwp).
+ * Smoke for mastery state machine (L6-S2 / bd-iwp).
+ *
+ * Thresholds come from WASM (`cdcp_schedule`). This smoke loads wasm first.
  *
  * Usage (from course-engine/):
  *   node scripts/smoke_mastery.mjs
- *
- * Exit 0 only if practiced / mastered laws hold under an in-memory Storage mock.
- * No browser required.
  */
+import { existsSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
+
+function findWasm() {
+  const candidates = [
+    join(ROOT, "web/assets/wasm/cdcp_wasm.wasm"),
+    join(ROOT, "target/wasm32-unknown-unknown/release/cdcp_wasm.wasm"),
+    join(ROOT, "target/wasm32-unknown-unknown/debug/cdcp_wasm.wasm"),
+  ];
+  for (const p of candidates) {
+    if (existsSync(p)) return p;
+  }
+  throw new Error(
+    "no cdcp_wasm.wasm — cargo build -p cdcp_wasm --target wasm32-unknown-unknown"
+  );
+}
+
+const { loadWasm } = await import(
+  pathToFileURL(join(ROOT, "web/assets/js/grade_bridge.js")).href
+);
+await loadWasm(findWasm());
+
 const masteryPath = pathToFileURL(join(ROOT, "web/assets/js/mastery.js")).href;
 
 const {
   STORAGE_KEY,
   SCHEMA_VERSION,
-  DAY_MS,
-  PRACTICED_RATIO,
-  MASTERED_RATIO,
-  MASTERED_MIN_GAP_MS,
+  dayMs,
+  practicedRatio,
+  masteredRatio,
+  masteredMinGapMs,
   moduleKey,
   ratioOf,
   normalizeState,
@@ -35,6 +55,11 @@ const {
   listPracticed,
   listMastered,
 } = await import(masteryPath);
+
+const DAY_MS = dayMs();
+const PRACTICED_RATIO = practicedRatio();
+const MASTERED_RATIO = masteredRatio();
+const MASTERED_MIN_GAP_MS = masteredMinGapMs();
 
 let failed = 0;
 

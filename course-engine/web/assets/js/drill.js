@@ -1,17 +1,18 @@
 /**
- * Drill + SRS surface (L5-S7 / L6-S6).
+ * Drill + short-interval review surface (L5-S7 / L6-S6).
  *
  * Modes via ?mode= query (charter session shapes):
- *   due  — Drill-10: SRS cards with due_at ≤ now, first 10 only
+ *   due  — Drill-10: review cards with due_at ≤ now, first 10 only
  *   miss — Miss-review: list from cdcp.drill.missed.v1 only
  *   (default / omitted) — full dashboard: missed + due + all cards
  *
  * Explanations from keys/bank export — never from an LLM grader.
- * Spaced schedule is minimal (1d → 3d) in this browser only.
+ * Interval ladder is 1d → 3d (cap) via cdcp_schedule / WASM — not SRS.
  *
  * @module drill
  */
 
+import { loadWasm } from "./grade_bridge.js";
 import {
   loadMissed,
   listDue,
@@ -21,8 +22,8 @@ import {
   selectDueOnly,
   DRILL10_LIMIT,
   MISSED_STORAGE_KEY,
-  SRS_STORAGE_KEY,
-} from "./srs.js";
+  REVIEW_STORAGE_KEY,
+} from "./review.js";
 
 const BANK_URL = "data/bank_items_seed42.json";
 const KEYS_URL = "data/keys_seed42.json";
@@ -140,7 +141,7 @@ function applyModeChrome(mode) {
     if (title) title.textContent = "Drill-10 (due only)";
     if (lede) {
       lede.textContent =
-        "SRS queue only — up to " +
+        "Due queue only — up to " +
         DRILL10_LIMIT +
         " cards with due_at ≤ now. Study signal only; not a credential.";
     }
@@ -159,13 +160,13 @@ function applyModeChrome(mode) {
     if (missedSec) missedSec.hidden = false;
     if (dueSec) dueSec.hidden = false;
     if (allSec) allSec.hidden = false;
-    if (title) title.textContent = "Drill / SRS";
+    if (title) title.textContent = "Drill / short-interval review";
     if (lede) {
       lede.textContent =
-        "Review items you missed on the last mock or module quiz. Explanations come from the keys/bank export — never from an LLM grader. Spaced schedule is minimal (1d → 3d) in this browser only.";
+        "Review items you missed on the last mock or module quiz. Explanations come from the keys/bank export — never from an LLM grader. Short-interval ladder is 1d → 3d (cap) — not spaced repetition.";
     }
     const dueTitle = $("srs-due-title");
-    if (dueTitle) dueTitle.textContent = "SRS due now";
+    if (dueTitle) dueTitle.textContent = "Due now";
   }
 }
 
@@ -295,7 +296,7 @@ function renderSrs(mode) {
     allHost.textContent =
       all.length +
       " card(s) in " +
-      SRS_STORAGE_KEY +
+      REVIEW_STORAGE_KEY +
       " · " +
       due.length +
       (mode === "due" ? " in this Drill-10" : " due now") +
@@ -446,6 +447,16 @@ async function init() {
   pageMode = parseDrillMode();
   applyModeChrome(pageMode);
 
+  try {
+    await loadWasm();
+  } catch (err) {
+    setStatus(
+      "error",
+      "Schedule law requires WASM (cdcp_schedule). " + errMsg(err)
+    );
+    return;
+  }
+
   setStatus("", "Loading bank + keys for stems/explanations…");
   try {
     await loadBank();
@@ -487,7 +498,7 @@ async function init() {
       "ok",
       "Drill ready · missed " +
         (missed ? missed.item_ids.length : 0) +
-        " · SRS due " +
+        " · due " +
         due.length +
         ". Study only — not a credential."
     );
@@ -506,7 +517,7 @@ if (typeof window !== "undefined") {
     DRILL10_LIMIT,
     EMPTY_DUE_MESSAGE,
     MISSED_STORAGE_KEY,
-    SRS_STORAGE_KEY,
+    REVIEW_STORAGE_KEY,
   };
 }
 

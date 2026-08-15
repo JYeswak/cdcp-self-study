@@ -15,7 +15,7 @@
 | Images | **0** in module markdown |
 | Diagrams | ASCII in some modules; **one** interactive (`power-path`) not embedded in M06 |
 | Math | Raw LaTeX `\[…\]` not rendered |
-| Practice | Strong end-of-module quiz / Learn-15 / SRS — **end-loaded** |
+| Practice | Strong end-of-module quiz / Learn-15 / short-interval review — **end-loaded** |
 | Progress | Visited + practiced/mastered — not section/unit level |
 
 **Verdict:** strong **study engine**; weak **lesson packaging** vs Coursera / LinkedIn Learning / Duolingo.
@@ -28,7 +28,7 @@
 L1  Knowledge graph     domains · topics · claims · bank     SHIPPED
 L2  Lesson narrative    14 module .md files                  SHIPPED
 L3  Teaching atoms      units · diagrams · micro-checks      PLANNED
-L4  Practice atoms      quiz · drill · mock · SRS            SHIPPED
+L4  Practice atoms      quiz · drill · mock · short-interval review  SHIPPED
 L5  Progress            visited · practiced · mastered       SHIPPED (basic)
 ```
 
@@ -82,4 +82,4 @@ Offline static HTML + WASM remains non-negotiable (VISUAL.md / Substrate Law).
 - [`VISUAL.md`](./VISUAL.md)  
 - [`FEATURE_SURFACE.md`](./FEATURE_SURFACE.md)  
 - [`ORACLE-GAUNTLET.md`](./ORACLE-GAUNTLET.md)  
-- Bank `topic_ids` · mastery.js · srs.js  
+- Bank `topic_ids` · mastery.js · review.js (`cdcp_schedule` via WASM)

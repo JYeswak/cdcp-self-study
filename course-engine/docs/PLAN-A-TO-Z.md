@@ -142,9 +142,10 @@ the same recognition interface.**
 
 ## I · Scheduling — `cdcp_schedule`
 
-Pure scheduling, injected time, versioned state, migration rules, reference fixtures. Compiled
-to WASM; removes the duplicated JS scheduling law. Either adopt a versioned reference
-implementation with conformance fixtures or keep calling it short-interval review.
+**Landed (bd-engine-not-gate-ar39.5):** interval ladder + mastery thresholds as Rust constants
+and functions; WASM exports; `review.js` / `mastery.js` call rather than reimplement.
+`INTERVAL_STEPS=[1,3]` is short-interval review, not SRS. Residual (injected time, versioned
+state, migration rules, reference fixtures) stays future work.
 
 ## J · PX — plant model, gated
 

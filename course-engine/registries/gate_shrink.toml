@@ -21,6 +21,7 @@ min_rs_files = 2
 product_crates = [
   "cdcp_core",
   "cdcp_grade",
+  "cdcp_schedule",
   "cdcp_bank",
   "cdcp_assemble",
   "cdcp_learn",

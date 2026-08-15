@@ -1,10 +1,12 @@
-//! WASM dual-path grade surface (ORACLE-GAUNTLET L4).
+//! WASM dual-path surface (ORACLE-GAUNTLET L4 + schedule law).
 //!
-//! **Oracle** = native `cdcp_grade` on the host.  
-//! **Subject** = this crate compiled to `wasm32-unknown-unknown`.  
-//! **Comparator** = hex digest equality for the same `(bank_json, attempt_json)`.
+//! **Oracle** = native `cdcp_grade` / `cdcp_schedule` on the host.
+//! **Subject** = this crate compiled to `wasm32-unknown-unknown`.
+//! **Comparator** = hex digest equality for grade; numeric equality for schedule.
 //!
 //! Fixed-bank grade path only (no assemble / shuffle) — valid L4 for frozen fixtures.
+//! Schedule exports the short-interval ladder and mastery thresholds so the
+//! browser cannot keep a second, unpinned implementation of those laws.
 //!
 //! Unsafe is confined to the wasm32 C ABI (`abi` module). Native builds forbid it.
 #![cfg_attr(not(target_arch = "wasm32"), forbid(unsafe_code))]
@@ -12,6 +14,13 @@
 use cdcp_bank::Bank;
 use cdcp_core::ExamAttempt;
 use cdcp_grade::grade_digest;
+use cdcp_schedule::{self, ReviewAttempt};
+
+pub use cdcp_schedule::{
+    cap_days, first_step_days, is_mastered, is_practiced_milli, is_practiced_ratio,
+    next_interval_days, ratio_to_milli, validate_schedule, validate_steps, validate_thresholds,
+    DAY_MS, INTERVAL_STEPS, MASTERED_MILLI, MASTERED_MIN_GAP_MS, PRACTICED_MILLI,
+};
 
 /// Engine identity labels asserted at the dual-path comparator (docs/ORACLE-GAUNTLET.md).
 pub const ENGINE_IDENTITY_ORACLE: &str = "cdcp_grade-native";
@@ -33,6 +42,38 @@ pub fn grade_digest_json(bank_json: &str, attempt_json: &str) -> Result<String, 
 /// Subject/oracle identity pair for comparator entry checks.
 pub fn engine_identities() -> (&'static str, &'static str) {
     (ENGINE_IDENTITY_ORACLE, ENGINE_IDENTITY_SUBJECT)
+}
+
+/// JSON mastery payload: `[{"ratio":0.9,"at_ms":…}, …]` or `ratio_milli`.
+#[derive(serde::Deserialize)]
+struct AttemptIn {
+    #[serde(default)]
+    ratio: Option<f64>,
+    #[serde(default)]
+    ratio_milli: Option<u32>,
+    #[serde(default)]
+    at_ms: i64,
+}
+
+fn attempt_milli(a: &AttemptIn) -> u32 {
+    if let Some(m) = a.ratio_milli {
+        return m;
+    }
+    a.ratio.map(ratio_to_milli).unwrap_or(0)
+}
+
+/// Mastered verdict from JSON attempts. Empty array is not mastered (not an error).
+pub fn is_mastered_json(json: &str) -> Result<bool, String> {
+    let raw: Vec<AttemptIn> =
+        serde_json::from_str(json).map_err(|e| format!("mastered json: {e}"))?;
+    let attempts: Vec<ReviewAttempt> = raw
+        .iter()
+        .map(|a| ReviewAttempt {
+            ratio_milli: attempt_milli(a),
+            at_ms: a.at_ms,
+        })
+        .collect();
+    Ok(is_mastered(&attempts))
 }
 
 #[cfg(target_arch = "wasm32")]
@@ -119,6 +160,98 @@ mod abi {
         let n = bytes.len() as i32;
         LAST.with(|c| *c.borrow_mut() = bytes);
         -n
+    }
+
+    /// 1 if the compiled schedule is valid; 0 if empty/zero (cannot happen
+    /// unless the crate was built against a broken constant).
+    #[no_mangle]
+    pub extern "C" fn cdcp_schedule_ok() -> i32 {
+        i32::from(cdcp_schedule::validate_schedule().is_ok())
+    }
+
+    #[no_mangle]
+    pub extern "C" fn cdcp_interval_step_count() -> i32 {
+        match cdcp_schedule::validate_steps(&cdcp_schedule::INTERVAL_STEPS) {
+            Ok(()) => cdcp_schedule::INTERVAL_STEPS.len() as i32,
+            Err(_) => -1,
+        }
+    }
+
+    /// Step at `index`, or -1 if out of range / invalid ladder.
+    #[no_mangle]
+    pub extern "C" fn cdcp_interval_step(index: i32) -> i32 {
+        if index < 0 {
+            return -1;
+        }
+        cdcp_schedule::INTERVAL_STEPS
+            .get(index as usize)
+            .copied()
+            .map(|s| s as i32)
+            .unwrap_or(-1)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn cdcp_next_interval_days(current: i32, correct: i32) -> i32 {
+        cdcp_schedule::next_interval_days(current, correct != 0) as i32
+    }
+
+    #[no_mangle]
+    pub extern "C" fn cdcp_day_ms() -> i32 {
+        cdcp_schedule::DAY_MS as i32
+    }
+
+    #[no_mangle]
+    pub extern "C" fn cdcp_practiced_milli() -> i32 {
+        match cdcp_schedule::validate_thresholds(
+            cdcp_schedule::PRACTICED_MILLI,
+            cdcp_schedule::MASTERED_MILLI,
+        ) {
+            Ok(()) => cdcp_schedule::PRACTICED_MILLI as i32,
+            Err(_) => -1,
+        }
+    }
+
+    #[no_mangle]
+    pub extern "C" fn cdcp_mastered_milli() -> i32 {
+        match cdcp_schedule::validate_thresholds(
+            cdcp_schedule::PRACTICED_MILLI,
+            cdcp_schedule::MASTERED_MILLI,
+        ) {
+            Ok(()) => cdcp_schedule::MASTERED_MILLI as i32,
+            Err(_) => -1,
+        }
+    }
+
+    #[no_mangle]
+    pub extern "C" fn cdcp_mastered_min_gap_ms() -> i32 {
+        cdcp_schedule::MASTERED_MIN_GAP_MS as i32
+    }
+
+    /// 1 if `ratio_milli` meets practiced; 0 otherwise.
+    #[no_mangle]
+    pub extern "C" fn cdcp_is_practiced(ratio_milli: i32) -> i32 {
+        if ratio_milli < 0 {
+            return 0;
+        }
+        i32::from(cdcp_schedule::is_practiced_milli(ratio_milli as u32))
+    }
+
+    /// 1 = mastered, 0 = not, <0 = parse error (`-err_len`, bytes at last_ptr).
+    ///
+    /// # Safety
+    /// `ptr` must refer to `len` bytes of UTF-8 JSON in wasm linear memory.
+    #[no_mangle]
+    pub unsafe extern "C" fn cdcp_is_mastered(ptr: *const u8, len: usize) -> i32 {
+        let bytes = std::slice::from_raw_parts(ptr, len);
+        let json = match std::str::from_utf8(bytes) {
+            Ok(s) => s,
+            Err(e) => return store_err(format!("mastered utf8: {e}")),
+        };
+        match super::is_mastered_json(json) {
+            Ok(true) => 1,
+            Ok(false) => 0,
+            Err(e) => store_err(e),
+        }
     }
 }
 

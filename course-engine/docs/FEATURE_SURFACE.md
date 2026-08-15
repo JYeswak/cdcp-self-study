@@ -17,4 +17,4 @@
 | Hub UI | **present** | `web/index.html` + routing; served by `cdcp serve` |
 | Mock exam UI | **present** | `web/mock.html`; byte-exact digest match with native grader |
 | Learn reader | **present** | `web/learn.html` + `web/data/units_index.json`; 15 modules / 134 Learn units [[fact:fact-learn-unit-count-134=yes]] with TOC and micro-checks |
-| Drill / short-interval review | **present** | `web/drill.html`; 1-day/3-day ladder capped at 3 days (not Anki-like SRS) + miss concept cards |
+| Drill / short-interval review | **present** | `cdcp_schedule` via WASM; `web/drill.html` + `web/assets/js/review.js`; `INTERVAL_STEPS=[1,3]` cap 3 days (not SRS). JS renders, WASM decides. |

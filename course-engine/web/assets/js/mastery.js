@@ -6,38 +6,51 @@
  *   schema_version: 1,
  *   modules: {
  *     [moduleKey]: {
- *       module: number | string,   // bank module id / order number
+ *       module: number | string,
  *       attempts: [
  *         { correct: number, total: number, ratio: number, at_ms: number }
  *       ],
- *       best_ratio: number         // max ratio across attempts (0..1)
+ *       best_ratio: number
  *     }
  *   }
  * }
  *
- * Laws (pure, unit-tested in scripts/smoke_mastery.mjs):
- *   practiced: best_ratio ≥ 0.80
- *   mastered:  ≥2 attempts with ratio ≥ 0.90 whose timestamps are ≥ 24h apart
+ * Laws live in `cdcp_schedule` and are decided by WASM (schedule_bridge).
+ * This module persists attempts and renders. JS does not hold the bars.
  *
  * Study signal only — never a CDCP / EPI credential claim.
  *
  * @module mastery
  */
 
+import {
+  dayMs as wasmDayMs,
+  practicedRatio as wasmPracticedRatio,
+  masteredRatio as wasmMasteredRatio,
+  masteredMinGapMs as wasmMasteredMinGapMs,
+  isPracticedRatio,
+  isMasteredAttempts,
+} from "./schedule_bridge.js";
+
 export const STORAGE_KEY = "cdcp.mastery.v1";
 export const SCHEMA_VERSION = 1;
 
-/** Day length in ms (fixed 86400000 — no DST logic). */
-export const DAY_MS = 24 * 60 * 60 * 1000;
+/** Day length in ms from `cdcp_schedule` (no DST). */
+export function dayMs() {
+  return wasmDayMs();
+}
 
-/** Best ratio threshold for practiced. */
-export const PRACTICED_RATIO = 0.8;
+export function practicedRatio() {
+  return wasmPracticedRatio();
+}
 
-/** Per-attempt ratio threshold for mastery-qualifying attempts. */
-export const MASTERED_RATIO = 0.9;
+export function masteredRatio() {
+  return wasmMasteredRatio();
+}
 
-/** Minimum spacing between two mastery-qualifying attempts. */
-export const MASTERED_MIN_GAP_MS = DAY_MS;
+export function masteredMinGapMs() {
+  return wasmMasteredMinGapMs();
+}
 
 /**
  * Normalize a module identifier to a stable string map key.
@@ -289,17 +302,17 @@ export function bestRatio(module, opts) {
 }
 
 /**
- * practiced: best ratio ≥ 0.80
+ * practiced: WASM `cdcp_is_practiced` on best ratio.
  * @param {number|string} module
  * @param {{ store?: Storage, state?: object }} [opts]
  * @returns {boolean}
  */
 export function isPracticed(module, opts) {
-  return bestRatio(module, opts) >= PRACTICED_RATIO;
+  return isPracticedRatio(bestRatio(module, opts));
 }
 
 /**
- * mastered: ≥2 attempts with ratio ≥ 0.90 and timestamps ≥ 24h apart.
+ * mastered: WASM `cdcp_is_mastered` on stored attempts.
  * @param {number|string} module
  * @param {{ store?: Storage, state?: object }} [opts]
  * @returns {boolean}
@@ -311,23 +324,7 @@ export function isMastered(module, opts) {
   const state = o.state || loadState(o.store);
   const entry = state.modules[key];
   if (!entry || !Array.isArray(entry.attempts)) return false;
-
-  /** @type {number[]} */
-  const times = [];
-  for (let i = 0; i < entry.attempts.length; i++) {
-    const a = entry.attempts[i];
-    if (!a) continue;
-    const r = typeof a.ratio === "number" ? a.ratio : 0;
-    if (r < MASTERED_RATIO) continue;
-    const t = typeof a.at_ms === "number" ? a.at_ms : 0;
-    times.push(t);
-  }
-  if (times.length < 2) return false;
-  times.sort(function (a, b) {
-    return a - b;
-  });
-  // Any pair ≥24h apart ⇔ earliest vs latest among qualifying attempts.
-  return times[times.length - 1] - times[0] >= MASTERED_MIN_GAP_MS;
+  return isMasteredAttempts(entry.attempts);
 }
 
 /**
@@ -387,10 +384,10 @@ if (typeof globalThis !== "undefined") {
   globalThis.CdcpMastery = {
     STORAGE_KEY,
     SCHEMA_VERSION,
-    DAY_MS,
-    PRACTICED_RATIO,
-    MASTERED_RATIO,
-    MASTERED_MIN_GAP_MS,
+    dayMs,
+    practicedRatio,
+    masteredRatio,
+    masteredMinGapMs,
     moduleKey,
     ratioOf,
     normalizeState,

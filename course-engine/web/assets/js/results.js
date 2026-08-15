@@ -31,7 +31,7 @@ import {
   DEFAULT_WASM_URL,
   ENGINE_IDENTITY_SUBJECT,
 } from "./grade_bridge.js";
-import { recordGradedWrongs } from "./srs.js";
+import { recordGradedWrongs } from "./review.js";
 import { saveLastWeak } from "./hub_mastery.js";
 
 const STORAGE_ATTEMPT = "cdcp_mock_attempt_v1";
@@ -667,7 +667,7 @@ async function run() {
     console.warn("last_weak persist failed:", errMsg(weakErr));
   }
 
-  // L5-S7: feed Drill / SRS with missed item_ids (localStorage).
+  // L5-S7: feed Drill / short-interval review with missed item_ids.
   try {
     const rec = recordGradedWrongs({
       source: "mock",
@@ -682,10 +682,10 @@ async function run() {
       drillLink.textContent =
         rec.missed_ids.length > 0
           ? "Drill " + rec.missed_ids.length + " missed item(s) →"
-          : "Open Drill / SRS →";
+          : "Open Drill →";
     }
   } catch (srsErr) {
-    console.warn("SRS/missed record failed:", errMsg(srsErr));
+    console.warn("review/missed record failed:", errMsg(srsErr));
   }
 
   setStatus(

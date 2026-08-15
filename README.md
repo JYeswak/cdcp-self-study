@@ -111,6 +111,7 @@ cdcp-self-study/
     │   ├── cdcp_bank         load + validate bank/items/*.toml → bank_hash
     │   ├── cdcp_assemble     seeded stratified sampling + choice shuffle
     │   ├── cdcp_grade        THE ORACLE — pure grade() → digest
+    │   ├── cdcp_schedule     short-interval ladder + mastery bars (not SRS)
     │   ├── cdcp_wasm         same core, wasm32 — the dual-path subject
     │   ├── cdcp_cli          bank-hash · grade · goldens · export-web · serve
     │   └── cdcp_registry_check  L1 claims constitution (tested checker)
@@ -345,7 +346,7 @@ summary, those are the source of truth.
 
 | ID | Milestone | Status |
 |---|---|---|
-| M0–M7 | Charter · registries · bank · grade/goldens · web mock · learn · SRS · WASM | **done** |
+| M0–M7 | Charter · registries · bank · grade/goldens · web mock · learn · short-interval review · WASM | **done** |
 | V11 | Anki export · power-path diagram · `serve` · runbooks | **done** |
 | M8 | Learn v2 — 127 units · TOC · micro-checks · diagram system · glossary | **done** |
 | M9 | Publishability bar · OSS meta · visibility flip | **DONE** (2026-08-12; public at github.com/JYeswak/cdcp-self-study) |

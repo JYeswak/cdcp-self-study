@@ -229,9 +229,11 @@ dependencies = [
  "cdcp_core",
  "cdcp_grade",
  "cdcp_learn",
+ "cdcp_wasm",
  "clap",
  "serde",
  "serde_json",
+ "toml",
 ]
 
 [[package]]
@@ -289,12 +291,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "cdcp_schedule"
+version = "0.1.0"
+dependencies = [
+ "thiserror 1.0.69",
+]
+
+[[package]]
 name = "cdcp_wasm"
 version = "0.1.0"
 dependencies = [
  "cdcp_bank",
  "cdcp_core",
  "cdcp_grade",
+ "cdcp_schedule",
  "serde",
  "serde_json",
  "wasmtime",

@@ -124,8 +124,8 @@ measures outline shape, not depth. v1 selected the metric that supported its the
   seeds from it [[fact:fact-assemble-uses-stdrng=no]]. It is `ChaCha12Rng` [[fact:fact-assemble-rng-is-chacha12=yes]] from
   `rand_chacha = "=0.3.1"`. The word "currently" was the tell; the named
   algorithm is the fix.
-- **SRS is oversold.** `web/assets/js/srs.js` is a 1-day/3-day ladder capped at 3 days. That is
-  short-interval review, not Anki-like long-term scheduling.
+- **SRS is oversold.** `web/assets/js/review.js` (was `srs.js`) is a 1-day/3-day ladder capped at 3 days. That is
+  short-interval review, not Anki-like long-term scheduling. Law is now `cdcp_schedule`.
 - **The public-domain assumption was too casual.** The DOE/FEMP guide has NREL contractor
   authors and embeds ASHRAE-sourced figures. 17 U.S.C. §105 does not automatically place
   contractor work in the public domain. Redistribution is **UNRESOLVED**, not "yes".

@@ -1,6 +1,6 @@
 # PHASE L6 — Pedagogy mastery + coverage oracle (charter §3–4)
 
-**North star:** Joshua can follow a mastery path — module practiced bars, weak-module → learn links, SRS due drills, and multi-seed mocks — without any EPI/cert claim. [[claim:claim-not-epi-certified]] [[claim:claim-study-signal-27]] [[claim:claim-domain-covered]] [[claim:claim-interview-ready]]
+**North star:** Joshua can follow a mastery path — module practiced bars, weak-module → learn links, short-interval due drills, and multi-seed mocks — without any EPI/cert claim. [[claim:claim-not-epi-certified]] [[claim:claim-study-signal-27]] [[claim:claim-domain-covered]] [[claim:claim-interview-ready]]
 
 **Constitution:** parent `CHARTER.md` §3–4 session shapes · `ORACLE-GAUNTLET` pillar (c) · OQ-05 ASSUMED min_items≥1 (ratchet later).
 

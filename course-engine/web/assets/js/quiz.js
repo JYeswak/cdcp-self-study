@@ -10,7 +10,7 @@
  * grade_digest engine when WASM loads.
  *
  * URL: quiz.html?module=6  (module number 1–15)
- * Storage: session draft `cdcp_quiz_draft_v1`; wrongs → srs.recordGradedWrongs;
+ * Storage: session draft `cdcp_quiz_draft_v1`; wrongs → review.recordGradedWrongs;
  * score → mastery.recordQuizResult (`cdcp.mastery.v1`).
  *
  * @module quiz
@@ -23,7 +23,7 @@ import {
   DEFAULT_WASM_URL,
   ENGINE_IDENTITY_SUBJECT,
 } from "./grade_bridge.js";
-import { recordGradedWrongs } from "./srs.js";
+import { recordGradedWrongs } from "./review.js";
 import { recordQuizResult } from "./mastery.js";
 
 const BANK_URL = "data/bank_items_seed42.json";
@@ -156,7 +156,7 @@ export function isApproved(it) {
  * is deterministic (mulberry32, seed `42 + module*1000`), the exposure was exact
  * rather than probabilistic: 8 retired items were served across the 30 module
  * quizzes, and each was counted by `gradeByKeys`, digested by the WASM
- * `gradeDigest`, pushed into the SRS schedule by `recordGradedWrongs`, and
+ * `gradeDigest`, pushed into the short-interval review schedule by `recordGradedWrongs`, and
  * weighted into mastery by `recordQuizResult`. An item is retired because a
  * BETTER COPY OF THE SAME PROPOSITION exists, so serving the retired copy drills
  * the copy that lost.
@@ -579,7 +579,7 @@ async function onSubmit(ev) {
     gradeMode = "key-compare";
   }
 
-  // Persist wrongs + SRS regardless of grade path (letter law is the same).
+  // Persist wrongs + short-interval review regardless of grade path.
   recordGradedWrongs({
     source: "quiz",
     exam_id: pack.exam_id,
@@ -608,8 +608,8 @@ async function onSubmit(ev) {
   setStatus(
     "ok",
     gradeMode === "wasm"
-      ? "Quiz graded (WASM). Missed items sent to Drill / SRS."
-      : "Quiz scored (key-compare). Missed items sent to Drill / SRS."
+      ? "Quiz graded (WASM). Missed items sent to Drill."
+      : "Quiz scored (key-compare). Missed items sent to Drill."
   );
   try {
     sessionStorage.removeItem(STORAGE_DRAFT);

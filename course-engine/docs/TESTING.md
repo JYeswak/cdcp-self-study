@@ -129,6 +129,7 @@ Crash-only fuzz is **insufficient alone** (see oracle hierarchy). Property tests
 | True iff | Command |
 |----------|---------|
 | native digest == wasm digest for mock40_seed42 all-correct/all-wrong | `CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test dual_path` |
+| native schedule == wasm schedule (interval + mastery) | `CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test schedule` |
 | EngineIdentity labels distinct at comparator | unit test in `crates/cdcp_wasm` |
 
 Build subject: `cargo build -p cdcp_wasm --target wasm32-unknown-unknown`.  

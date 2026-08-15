@@ -1,11 +1,13 @@
 # cdcp_wasm
 
-WASM dual-path grade surface (ORACLE-GAUNTLET L4 / L5 browser grade).
+WASM dual-path grade + schedule surface (ORACLE-GAUNTLET L4 / L5 browser grade).
 
 ## API
 
 - Rust: `grade_digest_json(bank_json, attempt_json) -> Result<String, String>`
+- Rust: `cdcp_schedule` re-exports + `is_mastered_json`
 - wasm32 C ABI: `cdcp_alloc` / `cdcp_free` / `cdcp_grade_digest` / `cdcp_last_ptr` / `cdcp_last_len`
+- wasm32 schedule ABI: `cdcp_next_interval_days` / `cdcp_interval_step*` / `cdcp_is_practiced` / `cdcp_is_mastered`
 
 Browser glue: [`../../web/assets/js/grade_bridge.js`](../../web/assets/js/grade_bridge.js).
 

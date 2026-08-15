@@ -19,7 +19,7 @@ This is a **study tool only**. It does **not** grant EPI/EXIN certification. Com
 | `data/modules_index.json` | Machine index of domains / hrefs |
 | `assets/js/learn_*.js` | Progress (localStorage), markdown render, reader |
 | `quiz.html` | Module quiz 8–12 items (L5-S7) |
-| `drill.html` | Missed + SRS; `?mode=due` Drill-10 · `?mode=miss` Miss-review (L6-S6) |
+| `drill.html` | Missed + short-interval review; `?mode=due` Drill-10 · `?mode=miss` Miss-review (L6-S6) |
 | `mock.html` | 40Q mock take flow (L5-S3; multi-seed L6-S5; closed-notes L7-S1) |
 | `results.html` | WASM grade results (score, study signal, weak modules, digest) |
 | `assets/css/course.css` | Design tokens + exam UI |
@@ -28,8 +28,9 @@ This is a **study tool only**. It does **not** grant EPI/EXIN certification. Com
 | `assets/js/results.js` | Results: loadWasm + gradeDigest, keys explanations, missed feed |
 | `assets/js/quiz.js` | Module sample + WASM/key-compare grade |
 | `assets/js/drill.js` | Mode-aware missed stems + Drill-10 due queue |
-| `assets/js/srs.js` | Pure 1d/3d + `selectDueOnly` / `listDueDrill` |
-| `assets/js/mastery.js` | Practiced / mastered state from quiz scores (L6-S2) |
+| `assets/js/review.js` | Persist/render for 1d/3d ladder; law is `cdcp_schedule` via WASM |
+| `assets/js/schedule_bridge.js` | WASM glue for interval + mastery thresholds |
+| `assets/js/mastery.js` | Persist/render practiced / mastered; thresholds from WASM |
 | `assets/wasm/cdcp_wasm.wasm` | Built via `./scripts/build_web_wasm.sh` |
 | `data/mock40_seed{N}.json` | Learner packs (stems + choices, no keys); seed42 golden-pinned |
 
@@ -117,18 +118,18 @@ Threat model: static files only, **no auth / no TLS**. Default bind is localhost
 | `cdcp_mock_closed_notes_v1` | Mock mode pref | `"1"` = closed notes preferred; `"0"` / absent = open |
 | `cdcp_quiz_draft_v1` | During module quiz | module, item_ids, answers, index |
 
-## localStorage keys (Learn + Drill / SRS + Mastery)
+## localStorage keys (Learn + Drill / short-interval review + Mastery)
 
 | Key | When | Payload |
 |-----|------|---------|
 | `cdcp.learn.visited.v1` | Learn hub/reader | `string[]` module ids |
 | `cdcp.drill.missed.v1` | After mock/quiz grade | missed feed (see schema below) |
-| `cdcp.srs.v1` | After wrongs + reviews | SRS cards map (see schema below) |
+| `cdcp.srs.v1` | After wrongs + reviews | review cards map (historical key name; law is not SRS) |
 | `cdcp.mastery.v1` | After module quiz grade | per-module quiz attempts (see schema below) |
 
 ### Missed feed schema (`cdcp.drill.missed.v1`)
 
-Written by `results.js` (mock) and `quiz.js` (module quiz) via `srs.recordGradedWrongs`.
+Written by `results.js` (mock) and `quiz.js` (module quiz) via `review.recordGradedWrongs`.
 
 ```json
 {
@@ -146,9 +147,9 @@ Written by `results.js` (mock) and `quiz.js` (module quiz) via `srs.recordGraded
 - `item_ids`: incorrect item ids from the last graded attempt (overwrites previous feed)
 - Drill lists these ids, loads stems from `data/bank_items_seed42.json`, flips explanations from keys/bank
 
-### SRS schema (`cdcp.srs.v1`)
+### Review schema (`cdcp.srs.v1`)
 
-Minimal ladder: **1 day → 3 days** (cap). Pure step function: `nextIntervalDays(current, correct)`.
+Short-interval ladder: **1 day → 3 days** (cap). Law is `cdcp_schedule::next_interval_days` via WASM. Not SRS.
 
 ```json
 {
@@ -182,7 +183,7 @@ Minimal ladder: **1 day → 3 days** (cap). Pure step function: `nextIntervalDay
 | 3d | correct | 3d (cap) |
 | any | wrong | 1d |
 
-Missed items from mock/quiz are scheduled at 1d (re-miss resets to 1d and increments `lapses`). State survives reload. Pure tests: `node scripts/smoke_srs.mjs`.
+Missed items from mock/quiz are scheduled at 1d (re-miss resets to 1d and increments `lapses`). State survives reload. Tests: `node scripts/smoke_srs.mjs` (loads WASM).
 
 ### Mastery schema (`cdcp.mastery.v1`)
 
@@ -239,17 +240,17 @@ cd web && python3 -m http.server 8765
 - Filters `data/bank_items_seed42.json` by numeric **`module`** field (`BankItem.module`).
 - Samples **8–12** items (or all if the module pool is smaller than 8); deterministic seed `42 + module*1000`.
 - **Grading:** prefers WASM `grade_bridge.gradeDigest` (same GradeExact letter law as mock). If WASM fails to load, falls back to **key-compare pedagogy score only** — no invented GradeExact digest, no cert claim.
-- Wrong item_ids → `cdcp.drill.missed.v1` + SRS schedule.
+- Wrong item_ids → `cdcp.drill.missed.v1` + short-interval review schedule.
 - Score → `cdcp.mastery.v1` (`recordQuizResult`) for practiced / mastered study state.
 - **No LLM grading.**
 
-## Drill / SRS (L5-S7)
+## Drill / short-interval review (L5-S7)
 
 ```bash
 # After a mock with wrongs (or a quiz):
 open http://127.0.0.1:8765/drill.html
 # Missed list shows item_ids + stems; flip for explanation from keys/bank.
-# SRS due queue: Again (1d) / Good (next step). Reload keeps cards.
+# Due queue: Again (1d) / Good (next step). Reload keeps cards.
 ```
 
 Headless interval + mastery smoke:

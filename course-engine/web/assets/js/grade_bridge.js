@@ -75,8 +75,26 @@ export function isWasmReady() {
   return !!(
     _instance &&
     _memory &&
-    typeof _instance.exports.cdcp_grade_digest === "function"
+    typeof _instance.exports.cdcp_grade_digest === "function" &&
+    typeof _instance.exports.cdcp_next_interval_days === "function" &&
+    typeof _instance.exports.cdcp_is_mastered === "function"
   );
+}
+
+/** Live wasm exports. Throws if not loaded. */
+export function wasmExports() {
+  if (!isWasmReady()) {
+    throw new Error("WASM not loaded. Call await loadWasm() first.");
+  }
+  return _instance.exports;
+}
+
+/** Live linear memory. Throws if not loaded. */
+export function wasmMemory() {
+  if (!_memory) {
+    throw new Error("WASM not loaded. Call await loadWasm() first.");
+  }
+  return _memory;
 }
 
 /**
@@ -170,6 +188,16 @@ function assertExports(instance) {
     "cdcp_last_ptr",
     "cdcp_last_len",
     "cdcp_grade_digest",
+    "cdcp_schedule_ok",
+    "cdcp_interval_step_count",
+    "cdcp_interval_step",
+    "cdcp_next_interval_days",
+    "cdcp_day_ms",
+    "cdcp_practiced_milli",
+    "cdcp_mastered_milli",
+    "cdcp_mastered_min_gap_ms",
+    "cdcp_is_practiced",
+    "cdcp_is_mastered",
     "memory",
   ];
   for (const name of need) {
@@ -271,6 +299,8 @@ if (typeof globalThis !== "undefined") {
     gradeDigestValue,
     isWasmReady,
     resetWasm,
+    wasmExports,
+    wasmMemory,
     ENGINE_IDENTITY_SUBJECT,
     DEFAULT_WASM_URL,
   };

@@ -500,9 +500,9 @@ depends_on = [
 [[golden]]
 id = "web.wasm-grade"
 file = "web/assets/wasm/cdcp_wasm.wasm"
-frozen = "51b45211767aaf92e1437e49b753acf77b58e9a9423ca177050492595216435d"
+frozen = "678bf3a267ca59fe29da822e6675d9d2823fcfe4d2a8e8ba9f887ad7c456e771"
 affirmed = "2026-08-15"
-justification = "The wasm32 grade binary the browser loads. check.sh L5 only `[ -f ]`s it — a G1 presence check, not a pin — so this row is the B2 tripwire: `frozen` is the measured sha256 of the 299556-byte file COMMITTED at a224839 (git show HEAD:web/assets/wasm/cdcp_wasm.wasm), not a dirty rebuild sitting in the worktree. The binary compiles cdcp_core + cdcp_bank + cdcp_grade, so a rebuild that moves these bytes without a walk here is the silent re-freeze B2 exists to catch. Surfaces named because they are compiled in: bank.hash-payload (grade_digest compares the attempt's bank_hash to compute_bank_hash), bank.item-schema (Bank::from_json_str deserialises BankItem), core.canonical-json (the digest is sha256 of canonical_json(GradeReport)), core.grade-report-shape (the hashed type), core.choice-letter (answer parse), core.schema-version (stamped into every report), grade.scoring-semantics (grade() itself). Discovery still only sweeps goldens/; this row is declared, not discovered. Rebuilding via scripts/build_web_wasm.sh without re-taking `frozen` is RED."
+justification = "The wasm32 grade+schedule binary the browser loads. check.sh L5 only `[ -f ]`s it — a G1 presence check, not a pin — so this row is the B2 tripwire. RE-FROZEN 2026-08-15 (bd-engine-not-gate-ar39.5): cdcp_wasm now compiles cdcp_schedule and exports the short-interval ladder + mastery thresholds (cdcp_next_interval_days, cdcp_is_practiced, cdcp_is_mastered, …). Grade digest semantics are unchanged (dual_path still pins mock40_seed42). Bytes moved 299556 → 316970; sha256 51b45211… → 678bf3a2…. Surfaces named because they are compiled in: bank.hash-payload, bank.item-schema, core.canonical-json, core.grade-report-shape, core.choice-letter, core.schema-version, grade.scoring-semantics. Rebuilding via scripts/build_web_wasm.sh without re-taking `frozen` is RED."
 depends_on = [
   { surface = "bank.hash-payload", version = "vb16701344b7e" },
   { surface = "bank.item-schema", version = "ve4a98becddb0" },

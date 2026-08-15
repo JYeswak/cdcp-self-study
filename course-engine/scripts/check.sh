@@ -535,9 +535,10 @@ L4_WASM="SKIP"
 if command -v rustup >/dev/null 2>&1   && rustup target list --installed 2>/dev/null | grep -q '^wasm32-unknown-unknown$'
 then
   if cargo build -p cdcp_wasm --target wasm32-unknown-unknown --locked \
-    && CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test dual_path --locked -- --nocapture
+    && CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test dual_path --locked -- --nocapture \
+    && CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test schedule --locked -- --nocapture
   then
-    ok "L4 WASM dual-path native==wasm (mock40_seed42)"
+    ok "L4 WASM dual-path native==wasm (mock40_seed42 + schedule)"
     L4_WASM="GREEN"
   else
     fail "L4 WASM dual-path failed (toolchain present but digests disagree or test/build error)"
@@ -592,7 +593,7 @@ cargo run -q -p cdcp_cli -- smoke-learn || fail "L5 learn smoke"
 ok "L5 learn smoke"
 
 # ─── L6 mastery / coverage ──────────────────────────────────────────────────
-echo "==> smoke_srs.mjs";        node scripts/smoke_srs.mjs        || fail "L6 srs smoke";        ok "L5 srs smoke"
+echo "==> smoke_srs.mjs";        node scripts/smoke_srs.mjs        || fail "L6 review smoke";     ok "L6 short-interval review smoke"
 echo "==> smoke_mastery.mjs";    node scripts/smoke_mastery.mjs    || fail "L6 mastery smoke";    ok "L6 mastery smoke"
 echo "==> smoke_weak_links.py";  python3 scripts/smoke_weak_links.py || fail "L6 weak-links smoke"; ok "L6 weak-links smoke"
 echo "==> smoke_hub_mastery.mjs"; node scripts/smoke_hub_mastery.mjs || fail "L6-S4 hub mastery"; ok "L6 hub mastery + recommend smoke"

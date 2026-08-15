@@ -72,10 +72,31 @@ declared.sort(function (a, b) {
   return Number(a.order) - Number(b.order);
 });
 
+function findWasm() {
+  const candidates = [
+    join(ROOT, "web/assets/wasm/cdcp_wasm.wasm"),
+    join(ROOT, "target/wasm32-unknown-unknown/release/cdcp_wasm.wasm"),
+    join(ROOT, "target/wasm32-unknown-unknown/debug/cdcp_wasm.wasm"),
+  ];
+  for (const p of candidates) {
+    if (existsSync(p)) return p;
+  }
+  abort("no cdcp_wasm.wasm — cargo build -p cdcp_wasm --target wasm32-unknown-unknown");
+}
+const { loadWasm } = await import(
+  pathToFileURL(join(WEB, "assets/js/grade_bridge.js")).href
+);
+try {
+  await loadWasm(findWasm());
+} catch (e) {
+  abort("WASM required for mastery law: " + (e && e.message));
+}
+
 const masteryPath = pathToFileURL(join(WEB, "assets/js/mastery.js")).href;
 const hubPath = pathToFileURL(join(WEB, "assets/js/hub_mastery.js")).href;
 
-const { recordQuizResult, isPracticed, DAY_MS } = await import(masteryPath);
+const { recordQuizResult, isPracticed, dayMs } = await import(masteryPath);
+const DAY_MS = dayMs();
 const {
   WEAK_STORAGE_KEY,
   MODULE_CATALOG,

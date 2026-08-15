@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="CDCP Drill / SRS — practice missed items. Does not grant EPI/EXIN certification.">
+  <meta name="description" content="CDCP Drill / short-interval review — practice missed items. Does not grant EPI/EXIN certification.">
   <title>CDCP Study — Drill</title>
   <link rel="stylesheet" href="assets/css/course.css">
 </head>
@@ -33,11 +33,11 @@
   </header>
 
   <main id="main" class="wrap wrap-exam" tabindex="-1">
-    <h1>Drill / SRS</h1>
+    <h1>Drill / short-interval review</h1>
     <p class="lede">
       Review items you missed on the last mock or module quiz.
       Explanations come from the keys/bank export — never from an LLM grader.
-      Spaced schedule is minimal (1d → 3d) in this browser only.
+      Short-interval ladder is 1d → 3d (cap) — not spaced repetition.
     </p>
 
     <div id="drill-status" class="exam-status" role="status">Loading…</div>
@@ -57,13 +57,13 @@
     </section>
 
     <section id="section-srs-due" class="question-card" aria-labelledby="srs-due-title">
-      <h2 id="srs-due-title" class="results-section-title">SRS due now</h2>
+      <h2 id="srs-due-title" class="results-section-title">Due now</h2>
       <p id="srs-all-meta" class="meta" style="margin:0 0 0.75rem;border:0;padding:0"></p>
       <div id="srs-due-list"></div>
     </section>
 
     <section id="section-srs-all" class="question-card" aria-labelledby="srs-all-title">
-      <h2 id="srs-all-title" class="results-section-title">All SRS cards</h2>
+      <h2 id="srs-all-title" class="results-section-title">All review cards</h2>
       <p class="meta" style="margin:0 0 0.75rem;border:0;padding:0">
         Survives reload via <span class="mono">localStorage</span>.
         Schema documented in <span class="mono">web/README.md</span>.

@@ -34,7 +34,7 @@ L1 claims constitution: `registries/claims.toml` + `cargo run -p cdcp_registry_c
 knowledge/     # curriculum + standards citation graph (git truth)
 registries/    # L1 claims constitution + claims-lint config
 bank/          # MCQ items (content-addressed)
-crates/        # Rust: core, bank, grade, registry_check, cli
+crates/        # Rust: core, bank, grade, schedule, registry_check, cli
 web/           # static HTML/CSS/JS + WASM glue
 goldens/       # GradeReport digests
 scripts/       # check.sh

@@ -1,29 +1,49 @@
 #!/usr/bin/env node
 /**
- * Pure-function smoke for minimal SRS intervals + Drill-10 due filter
- * (L5-S7 / bd-ca8 · L6-S6 / bd-3dd).
+ * Smoke for short-interval review + Drill-10 due filter
+ * (L5-S7 / bd-ca8 · L6-S6 / bd-3dd · bd-engine-not-gate-ar39.5).
+ *
+ * The interval law is WASM (`cdcp_schedule`). This smoke loads wasm, then
+ * exercises the JS persist/render path.
  *
  * Usage (from course-engine/):
  *   node scripts/smoke_srs.mjs
- *
- * Exit 0 only if nextIntervalDays is monotonic on the 1d→3d ladder,
- * in-memory schedule/review round-trip works, and selectDueOnly /
- * listDueDrill honor due_at ≤ now + cap 10.
  */
+import { existsSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
-const srsPath = pathToFileURL(join(ROOT, "web/assets/js/srs.js")).href;
+
+function findWasm() {
+  const candidates = [
+    join(ROOT, "web/assets/wasm/cdcp_wasm.wasm"),
+    join(ROOT, "target/wasm32-unknown-unknown/release/cdcp_wasm.wasm"),
+    join(ROOT, "target/wasm32-unknown-unknown/debug/cdcp_wasm.wasm"),
+  ];
+  for (const p of candidates) {
+    if (existsSync(p)) return p;
+  }
+  throw new Error(
+    "no cdcp_wasm.wasm — cargo build -p cdcp_wasm --target wasm32-unknown-unknown"
+  );
+}
+
+const { loadWasm } = await import(
+  pathToFileURL(join(ROOT, "web/assets/js/grade_bridge.js")).href
+);
+await loadWasm(findWasm());
+
+const reviewPath = pathToFileURL(join(ROOT, "web/assets/js/review.js")).href;
 
 const {
   nextIntervalDays,
   dueAtFromInterval,
-  DAY_MS,
+  dayMs,
   DRILL10_LIMIT,
-  normalizeSrsState,
+  normalizeReviewState,
   scheduleMissed,
   scheduleMissedMany,
   reviewCard,
@@ -32,11 +52,13 @@ const {
   listDueDrill,
   recordGradedWrongs,
   loadMissed,
-  loadSrsState,
-  saveSrsState,
-  SRS_STORAGE_KEY,
+  loadReviewState,
+  saveReviewState,
+  REVIEW_STORAGE_KEY,
   MISSED_STORAGE_KEY,
-} = await import(srsPath);
+} = await import(reviewPath);
+
+const DAY_MS = dayMs();
 
 let failed = 0;
 
@@ -153,20 +175,20 @@ assert(graded.missed_ids[0] === "w1" && graded.missed_ids[1] === "w2", "wrong or
 const missed = loadMissed(store);
 assert(missed && missed.item_ids.join(",") === "w1,w2", "missed feed persists");
 assert(missed.source === "mock", "missed source=mock");
-const srs = loadSrsState(store);
-assert(srs.cards["w1"] && srs.cards["w2"], "wrong cards scheduled in SRS");
+const srs = loadReviewState(store);
+assert(srs.cards["w1"] && srs.cards["w2"], "wrong cards scheduled in review");
 
 // scheduleMissedMany on existing re-misses
 const n = scheduleMissedMany(["w1"], { nowMs: now + 999, store });
 assert(n === 1, "re-miss schedules");
-assert(loadSrsState(store).cards["w1"].interval_days === 1, "re-miss resets to 1d");
+assert(loadReviewState(store).cards["w1"].interval_days === 1, "re-miss resets to 1d");
 
 // normalize rejects garbage
-const empty = normalizeSrsState({ cards: "nope" });
+const empty = normalizeReviewState({ cards: "nope" });
 assert(Object.keys(empty.cards).length === 0, "normalize rejects bad cards");
 
 // Keys exist (schema documentation surface)
-assert(typeof SRS_STORAGE_KEY === "string" && SRS_STORAGE_KEY.length > 0, "SRS key");
+assert(typeof REVIEW_STORAGE_KEY === "string" && REVIEW_STORAGE_KEY.length > 0, "review key");
 assert(
   typeof MISSED_STORAGE_KEY === "string" && MISSED_STORAGE_KEY.length > 0,
   "missed key"
@@ -234,7 +256,7 @@ cardsMap["future-x"] = {
   lapses: 0,
   updated_at: t0,
 };
-saveSrsState({ schema_version: 1, cards: cardsMap }, store2);
+saveReviewState({ schema_version: 1, cards: cardsMap }, store2);
 const drill10 = listDueDrill({ nowMs: t0, store: store2 });
 assert(drill10.length === 10, "listDueDrill returns at most 10");
 assert(drill10[0].item_id === "due-0", "listDueDrill earliest first");
