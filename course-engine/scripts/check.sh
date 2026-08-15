@@ -41,7 +41,7 @@ ok() { echo "check.sh: ok: $*"; }
 #   cdcp build-units               web/data/units_index.json            [M] regenerated
 #   cdcp build-glossary            web/data/glossary.json               [M] regenerated
 #   smoke_feedback_links.py    web/data/topic_anchors.json              [M] regenerated
-#   export_anki.py             dist/anki/**                             [M] untracked output
+#   export_anki.py / export-anki   dist/anki/**                         [M] untracked output
 # The three regenerated files are byte-identical today, so `git status` stays
 # clean — but the WRITE still happens (mtime moves), and a concurrent reader can
 # still catch a truncated file. Rewritten-identical is not the same as untouched.

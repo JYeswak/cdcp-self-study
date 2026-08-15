@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""export_anki.py — export bank items to Anki-compatible TSV and minimal .apkg.
+"""export_anki.py — export approved bank items to Anki TSV and minimal .apkg.
 
 V11-S1 (bd-j54). Study aid only — not a credential and not an exam dump.
+bank/seed42 sources drop retired and draft (bd-anki-ships-retired-bbdr).
+Receipt names both populations: "N scanned, M exported".
 
 Usage:
   python3 scripts/export_anki.py
@@ -647,12 +649,13 @@ def main() -> int:
         print("FAIL: zero items to export", file=sys.stderr)
         return 1
 
+    scanned = len(items)
     # Bank and seed42 packs carry `status`. The keys/mock40 source is already
     # the approved-only draw and often has no status field — do not strip it.
     if args.source in ("bank", "seed42"):
         items = approved_only(items)
         if not items:
-            print("FAIL: zero items to export", file=sys.stderr)
+            print("FAIL: zero approved items to export", file=sys.stderr)
             return 1
 
     items = filter_items(
@@ -710,6 +713,7 @@ def main() -> int:
 
     print("export_anki ok")
     print(f"  cards={len(items)}")
+    print(f"  {scanned} scanned, {len(items)} exported")
     print(f"  source={args.source}")
     for w in written:
         print(f"  wrote {w}")

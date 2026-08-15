@@ -1,81 +1,16 @@
-//! Differential harness: `cdcp_gate export-anki` against `scripts/export_anki.py`
+//! Differential harness: `cdcp_gate export-anki` vs `scripts/export_anki.py`
 //! (bd-substrate-rust-migration-jhd.13).
 //!
-//! # THIS ONE PRODUCES THE PRODUCT
+//! `dist/` is untracked, so ground truth is NOT the live tree: oracle and
+//! rust each run in their own temp copy of the same fixture. `compare`
+//! asserts stdout, stderr, exit, the FILE SET under `dist/anki/`, and the
+//! bytes of every file. The one permitted normalisation is `Norm::RootPrefix`
+//! (each side's root -> `<ROOT>`), and it fails if it does not fire.
 //!
-//! Twelve ports landed before this pair. Ten were CHECKERS. Two were BUILDERS
-//! that wrote a tracked artifact, so `diff_build_units.rs` could tie its fixture
-//! result back to the committed `web/data/units_index.json` and prove a live run
-//! would be a no-op write.
-//!
-//! **THAT TIE-BACK DOES NOT EXIST HERE.** `dist/` is untracked build output.
-//! There is no committed deck to compare against, so "assert the produced bytes
-//! equal the tracked artifact" is unavailable. The GROUND TRUTH is therefore
-//! neither side and neither the live tree:
-//!
-//!   > **Ground truth = the ORACLE run into its own temp tree, compared against
-//!   > the RUST run into a different temp tree seeded from the same template.**
-//!
-//! Neither copy is privileged, neither is the repo, and the live `dist/anki/**`
-//! is never touched by this suite. The live INPUTS are byte-copied in, so the
-//! live answer is computed without a live run.
-//!
-//! # THE FOUR-TUPLE, PLUS THE FILE SET
-//!
-//! `compare` asserts, for every case:
-//!
-//!   1. stdout, byte for byte
-//!   2. stderr, byte for byte
-//!   3. exit code
-//!   4. the SET of files under `dist/anki/`, by relative path
-//!   5. the BYTES of every file in that set
-//!
-//! Leg 4 is not decoration. A port that writes the right bytes into the wrong
-//! filename, or writes two files where the oracle writes three, produces a
-//! BROKEN DECK while every byte it did write matches. Comparing only the files
-//! both sides happened to produce would report that as a pass.
-//!
-//! # THE ONE PERMITTED NORMALISATION, AND WHY IT IS NOT A LOOPHOLE
-//!
-//! The oracle prints ABSOLUTE paths (`wrote /…/dist/anki/cdcp_bank.tsv`) because
-//! its default `--out` is `Path(__file__).resolve().parents[1] / "dist" / "anki"`.
-//! Rule 4 forces the two implementations into DIFFERENT temp trees, so those two
-//! absolute paths are necessarily different strings — the root is an INPUT, and
-//! the two runs are given different ones.
-//!
-//! So `compare` takes an explicit `Norm`:
-//!
-//!   * `Norm::Raw` — no substitution at all. Every case that passes an explicit
-//!     relative `--out` uses this, and stdout is compared as literal bytes. This
-//!     is the majority of the suite.
-//!   * `Norm::RootPrefix` — each side's own root is replaced by the literal
-//!     `<ROOT>` before comparison, and the substitution is asserted to have
-//!     FIRED on both sides and to have been TOTAL (no temp path survives). Used
-//!     only by the cases that exercise the DEFAULT invocation, which is the one
-//!     `check.sh` uses and therefore the one that must be covered.
-//!
-//! A normalisation that could silently match nothing is a normalisation that
-//! hides divergence, which is why `RootPrefix` fails when it does not fire.
-//!
-//! # THE `.apkg` LEG IS ABSENT FROM THE DIFFERENTIAL BECAUSE IT IS UNSATISFIABLE
-//!
-//! `the_oracle_apkg_is_not_byte_reproducible_against_itself` runs the ORACLE
-//! TWICE and asserts the two decks DIFFER. That test is not a curiosity; it is
-//! the proof that a byte-exact `.apkg` differential cannot exist against this
-//! oracle, and it is written as a PINNED DEFECT so that the day someone makes
-//! `export_anki.py` reproducible, this test goes RED and forces the `.apkg` leg
-//! to be turned on. bd-anki-apkg-not-reproducible-e13a.
-//!
-//! # ANTI-VACUOUS DISCIPLINE
-//!
-//! The failure mode this gate has that no previous gate had is A SHIPPED EMPTY
-//! DECK, so the empty-input legs are the load-bearing ones, not the boring ones.
-//! Zero items, a missing bank, an empty bank, a bank of files with no `id`, and
-//! a filter that removes everything are each asserted to be exit 1 with NO FILE
-//! WRITTEN in BOTH implementations. In addition: a missing `python3` is a
-//! FAILURE and never a skip, a fixture that copied zero bank files is a FAILURE,
-//! and `the_harness_compared_something` runs its own case rather than reading a
-//! counter another test may not have incremented.
+//! `.apkg` is absent: two oracle runs on identical inputs differ (pinned
+//! by `the_oracle_apkg_is_not_byte_reproducible_against_itself`).
+//! Empty decks (missing/empty/no-id bank, emptying filter, empty format)
+//! are exit 1 and write nothing on BOTH sides. Missing python3 is FAILURE.
 
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
@@ -530,15 +465,17 @@ fn the_oracle_is_present_and_green_on_a_copy_of_the_live_bank() {
 fn live_bank_tsv_is_byte_identical() {
     let f = Fixture::new();
     f.seed_live_bank();
-    let approved = std::fs::read_dir(f.at(ITEMS_DIR_REL))
-        .unwrap()
-        .flatten()
-        .filter(|e| {
-            std::fs::read_to_string(e.path())
-                .map(|b| b.contains("status = \"approved\""))
-                .unwrap_or(false)
-        })
-        .count();
+    let mut approved = 0usize;
+    let mut scanned = 0usize;
+    for e in std::fs::read_dir(f.at(ITEMS_DIR_REL)).unwrap().flatten() {
+        scanned += 1;
+        if std::fs::read_to_string(e.path())
+            .map(|b| b.contains("status = \"approved\""))
+            .unwrap_or(false)
+        {
+            approved += 1;
+        }
+    }
     let rs = compare(
         "live bank tsv",
         &f,
@@ -550,6 +487,12 @@ fn live_bank_tsv_is_byte_identical() {
     assert!(
         rs.out().contains(&format!("  cards={approved}\n")),
         "the card count must be the approved pool ({approved}): {}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains(&format!("  {scanned} scanned, {approved} exported\n")),
+        "receipt must name both populations: {}",
         rs.out()
     );
     assert!(rs.err().is_empty(), "stderr must be empty: {:?}", rs.err());
@@ -806,6 +749,20 @@ fn the_seed42_source_is_byte_identical_on_the_live_pack() {
     );
     assert_eq!(rs.code, 0, "{}\n{}", rs.out(), rs.err());
     assert!(rs.out().contains("  source=seed42\n"), "{}", rs.out());
+    let approved = std::fs::read_dir(f.at(ITEMS_DIR_REL))
+        .unwrap()
+        .flatten()
+        .filter(|e| {
+            std::fs::read_to_string(e.path())
+                .map(|b| b.contains("status = \"approved\""))
+                .unwrap_or(false)
+        })
+        .count();
+    assert!(
+        rs.out().contains(&format!("  cards={approved}\n")),
+        "seed42 must export the approved pool ({approved}), not the file count: {}",
+        rs.out()
+    );
     assert_eq!(
         rs.names(),
         vec![
@@ -1210,6 +1167,40 @@ fn the_shipped_deck_excludes_every_retired_item() {
          deck built after deleting {n_retired} retired TOMLs. If this fails, \
          a withdrawn item is shipping again."
     );
+    assert!(
+        all.out().contains(&format!(
+            "  {} scanned, {approved} exported\n",
+            approved + n_retired
+        )),
+        "receipt must name both populations: {}",
+        all.out()
+    );
+}
+
+#[test]
+fn an_all_retired_bank_is_error_in_both_and_writes_nothing() {
+    // p45d / bbdr.1: zero approved is DISTINCT from an empty bank, and must
+    // not write a retired deck.
+    let f = Fixture::new();
+    for i in 0..3 {
+        f.put(
+            &format!("bank/items/r{i}.toml"),
+            &format!(
+                "id = \"r{i}\"\nstatus = \"retired\"\nmodule = 1\n\
+                 stem = \"retired-only-{i}\"\nchoices = [\"a\"]\ncorrect = \"A\"\n"
+            ),
+        );
+    }
+    let rs = compare(
+        "all retired bank",
+        &f,
+        &["--format", "tsv", "--out", OUT_DIR_REL],
+        Norm::Raw,
+    );
+    assert_ne!(rs.code, 0, "all-retired must never ship a deck");
+    assert_eq!(rs.err(), "FAIL: zero approved items to export\n");
+    assert!(rs.out().is_empty(), "nothing on stdout: {:?}", rs.out());
+    assert!(rs.files.is_empty(), "must not write a retired deck");
 }
 
 // ── case 7: THE `.apkg` LEG — pinned as unsatisfiable, not skipped ─────────

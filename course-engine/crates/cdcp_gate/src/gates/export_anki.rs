@@ -1,140 +1,34 @@
 //! export-anki — Rust port of `scripts/export_anki.py`
 //! (bd-substrate-rust-migration-jhd.13).
 //!
-//! Reads the item bank, filters it, and writes a learner-facing Anki export into
-//! `dist/anki/`: a tab-separated `*.tsv`, optionally a `*.csv`, optionally a
-//! `*.apkg` deck, and a `README.txt` operator note.
+//! PRODUCES the learner artifact (`dist/anki/**`): TSV, optional CSV, README.
+//! Field order, `\x1f`, newline flattening and the trailing newline decide
+//! whether a re-import MERGES or DUPLICATES. `tests/diff_export_anki.rs`
+//! compares stdout, stderr, exit, file set and bytes against the oracle.
 //!
-//! # WHAT MAKES THIS PORT DIFFERENT FROM THE TWELVE BEFORE IT
-//!
-//! Every other gate in this crate CHECKS something. This one PRODUCES THE
-//! PRODUCT — `dist/anki/**` is the file a learner downloads and imports. The
-//! bytes are the deliverable, not a testing convenience: Anki matches an
-//! incoming note against an existing collection by its GUID and by the first
-//! field, so field order, the `\x1f` field separator, the newline handling
-//! inside a field and the trailing newline all decide whether a re-import
-//! MERGES or DUPLICATES a learner's existing cards.
-//!
-//! # CLAIM: FLOOR-RAISE
-//!
-//! This gate raises a floor and states its boundary in the same breath.
-//!
-//! WHAT IT CAN DECIDE: that the deterministic bytes of the export — the TSV, the
-//! CSV, `README.txt`, the set of files produced, stdout, stderr and the exit
-//! code — are IDENTICAL to those `scripts/export_anki.py` produces from the same
-//! inputs. `tests/diff_export_anki.rs` runs both implementations on separate
-//! copies of every fixture and compares that four-tuple plus the file set. That
-//! is a measured equivalence, not a judgement.
-//!
-//! WHAT IT CANNOT DECIDE — and no amount of green here decides it:
-//!
-//!   * **Whether the deck imports correctly into Anki.** Nothing in this repo
-//!     runs Anki. Byte-equality with the oracle means the port did not change
-//!     the artifact; it says nothing about whether the artifact was right in the
-//!     first place. If `export_anki.py` emits a deck Anki rejects, this gate is
-//!     green while the product is broken. The external oracle (L3) for that
-//!     claim is Anki itself and it is NOT wired.
-//!   * **Whether the cards are pedagogically sound, current, or even
-//!     ADMISSIBLE.** See the retired-items finding below: this gate ships every
-//!     item the bank holds, including the withdrawn ones, and reports success.
-//!   * **Whether a re-import merges.** That depends on the learner's existing
-//!     collection, which is not an input here.
-//!
-//! It therefore makes no strong claim of any kind about the learner's
-//! experience — not that the deck is correct, not that it imports cleanly, not
-//! that a card teaches what it should. It fixes one thing: the port cannot
-//! silently change the artifact.
-//!
-//! (Phrased without quoting the banned words. `repo_surface`'s honesty scan is
-//! a substring match over the shipped region, so a header DISCLAIMING an
-//! overclaim reads to it exactly like the overclaim — see
+//! CAN DECIDE: those deterministic bytes match the oracle. CANNOT: whether
+//! Anki imports the deck (Anki is not wired), whether cards are sound, or
+//! whether a re-import merges. Status filter drops retired/draft; it cannot
+//! judge quality. (Honesty scan is a substring match — see
 //! bd-overclaim-scan-hits-disclaimers-xidi.)
 //!
-//! # THE `.apkg` LEG IS BLOCKED, NOT SKIPPED (bd-anki-apkg-not-reproducible-e13a)
+//! `.apkg` is BLOCKED, not skipped (bd-anki-apkg-not-reproducible-e13a).
+//! Measured 2026-08-14: two oracle runs 2s apart, TSV identical, `.apkg`
+//! 209382/212731 bytes different (98.4%) — `int(time.time())` in col/notes/
+//! cards + zip mtimes, DEFLATE avalanches. A byte-exact `.apkg` differential
+//! is UNSATISFIABLE. Pin `now` in the oracle first, then port the leg.
 //!
-//! `--format` including `apkg` returns ERROR here rather than writing a deck,
-//! and that is a deliberate refusal with a measurement behind it.
+//! Defects: RETIRED ITEMS FIXED (bd-anki-ships-retired-bbdr) — bank/seed42
+//! drop retired+draft; keys/mock40 is already the approved draw. Still
+//! reproduced: `correct in "ABCD"` is a SUBSTRING test (bd-anki-correct-
+//! substring-crash-bstu); `int(module or -1)` hides module 0; `--limit`
+//! without `--seed` takes the alphabetically-first N.
 //!
-//! MEASURED 2026-08-14, two runs of THE ORACLE ITSELF two seconds apart on
-//! byte-identical inputs: `cdcp_bank.tsv` identical, `README.txt` identical,
-//! `cdcp_bank.apkg` **209,382 of 212,731 bytes different (98.4%)**. The `.apkg`
-//! embeds `int(time.time())` in `col.crt`, `col.mod`, `col.scm`, every
-//! `notes.mod` and every `cards.mod`, and the zip entries carry the temp file's
-//! mtime; because the zip is DEFLATE-compressed, a two-second shift avalanches
-//! through the whole stream.
-//!
-//! The consequence is not "the port is hard". It is that **a byte-exact
-//! differential on the `.apkg` is UNSATISFIABLE against this oracle** — the
-//! oracle is not byte-exact against itself. Writing an unverified hand-rolled
-//! SQLite-file writer for a SHIPPED LEARNER ARTIFACT, with no oracle able to
-//! check it, would be worse than not porting it: it would put unchecked bytes in
-//! front of learners and report green. So the leg refuses, names the bead, and
-//! the oracle keeps producing the shipped deck until it is made reproducible.
-//! Fix the ORACLE first — pin `now` (e.g. `SOURCE_DATE_EPOCH`) and the zip
-//! dates — then this leg lands against a real oracle, exactly as
-//! bd-build-units-vacuous-registries-9153 was fixed in the Python before the
-//! Rust followed.
-//!
-//! # DEFECTS REPRODUCED, NOT FIXED
-//!
-//! A port stricter than its oracle blinds the whole differential, so every one
-//! of these is faithfully reproduced and filed instead:
-//!
-//!   * **RETIRED ITEMS — FIXED 2026-08-14 (bd-anki-ships-retired-bbdr).**
-//!     Default `bank` / `seed42` sources keep only `status == approved`.
-//!     The keys/mock40 source is already the approved draw and is not
-//!     re-filtered (those rows often carry no status field). Both sides
-//!     of the differential apply the same filter.
-//!   * **`correct in "ABCD"` IS A SUBSTRING TEST, NOT MEMBERSHIP.** `""` and
-//!     `"AB"` are both substrings of `"ABCD"`, so an item with a missing or
-//!     two-letter answer key reaches `ord()` and the oracle dies with a
-//!     `TypeError` traceback. Reachable from `--source keys` whenever the key
-//!     map misses an id. bd-anki-correct-substring-crash-bstu.
-//!   * **`int(it.get("module") or -1)`** maps module `0` to `-1`, so
-//!     `--module 0` can never match a module-0 item. Harmless today (there is no
-//!     module 0) and reproduced anyway.
-//!   * **`--limit` without `--seed` truncates after an id sort**, so it always
-//!     returns the alphabetically-first N rather than a sample. Documented
-//!     behaviour of the flag pair, kept.
-//!
-//! # DEVIATIONS THAT REMAIN, EACH UNREACHABLE FROM `check.sh`
-//!
-//! `check.sh` invokes the oracle with NO arguments, so no live invocation
-//! differs. Recorded for review rather than made quietly:
-//!
-//!   * A bad flag value (`--source bogus`, `--limit x`) is `GateError::Usage`
-//!     (exit 3) here; `argparse` prints its own usage block and exits 2. An
-//!     argparse usage block is not portable output.
-//!   * The Python paths that end in a TRACEBACK — the `ord()` crash above, an
-//!     unparseable `module` string, an unreadable or malformed input file, a
-//!     `--out` that names an existing file — end as `GateError::Error` (exit 4)
-//!     here. A traceback is not portable output. Same knowing deviation
-//!     `build_units.rs` and `verify_orphans.rs` record.
-//!   * `str.strip()` strips every character `str.isspace()` accepts, which
-//!     includes `\x1c`–`\x1f`; `str::trim` uses `White_Space`, which does not.
-//!     No bank field contains those.
-//!   * The oracle's `by_id` / `key_map` are Python DICT comprehensions, so a
-//!     duplicate id means the LAST row wins. The lookups here iterate in
-//!     reverse for that reason; a `find()` would silently take the first and
-//!     diverge only on malformed input, which is the worst place to diverge.
-//!   * A JSON float is re-rendered with Rust's shortest-roundtrip formatting
-//!     plus a forced `.0` on integral values, which agrees with `repr(float)`
-//!     for every value the packs contain.
-//!
-//! The RED report path deliberately does NOT go through `GateError`: the oracle
-//! writes `FAIL: …` to **stderr** and exits **1**, while `GateError::report`
-//! writes a `export-anki: FAIL:` prefix to stderr and maps to exit 2. Routing
-//! through it would make the two sides differ on every RED case, which is the
-//! one thing this port may not do. bd-2m9 flips the whole crate later.
-//!
-//! # ANTI-VACUOUS
-//!
-//! A SHIPPED EMPTY DECK is this gate's characteristic failure, so every road to
-//! one is an ERROR in both implementations and is asserted as such in the
-//! differential: a missing `bank/items`, an empty `bank/items`, a bank whose
-//! files carry no `id`, a `--module`/`--tag` filter that removes everything, and
-//! an empty `--format` list. None of them writes a file. A deck with zero cards
-//! never exits 0.
+//! Deviations (check.sh uses `--format tsv,csv` here and python for `.apkg`):
+//! bad flags are Usage/3 vs argparse/2; tracebacks are Error/4; `str::trim`
+//! vs `str.isspace`; last-key-wins dicts via reverse find; float shortest-
+//! roundtrip + `.0`. RED does NOT go through `GateError` (oracle: `FAIL:`
+//! on stderr, exit 1). Empty decks never exit 0.
 
 use crate::registry::{GateCtx, GateError};
 use std::io::Write;
@@ -1281,10 +1175,7 @@ pub struct Outcome {
 }
 
 fn is_drawable(it: &Val) -> bool {
-    let s = it
-        .get("status")
-        .map(|v| v.py_str())
-        .unwrap_or_default();
+    let s = it.get("status").map(|v| v.py_str()).unwrap_or_default();
     let s = s.trim().to_ascii_lowercase();
     s != "retired" && s != "draft"
 }
@@ -1315,18 +1206,18 @@ pub fn evaluate(root: &Path, argv: &[String]) -> Result<Outcome, GateError> {
         },
     };
 
-    if items.is_empty() {
+    let scanned = items.len();
+    if scanned == 0 {
         let mut o = fail("FAIL: zero items to export");
         o.stderr = format!("{stderr_pre}{}", o.stderr);
         return Ok(o);
     }
 
-    // Bank and seed42 packs carry `status`. The keys/mock40 source is already
-    // the approved-only draw and often has no status field — do not strip it.
+    // Bank/seed42 carry status. keys/mock40 is already the approved draw.
     if args.source == "bank" || args.source == "seed42" {
         items.retain(is_drawable);
         if items.is_empty() {
-            let mut o = fail("FAIL: zero items to export");
+            let mut o = fail("FAIL: zero approved items to export");
             o.stderr = format!("{stderr_pre}{}", o.stderr);
             return Ok(o);
         }
@@ -1427,6 +1318,7 @@ pub fn evaluate(root: &Path, argv: &[String]) -> Result<Outcome, GateError> {
     let mut stdout = String::new();
     stdout.push_str("export_anki ok\n");
     stdout.push_str(&format!("  cards={}\n", items.len()));
+    stdout.push_str(&format!("  {scanned} scanned, {} exported\n", items.len()));
     stdout.push_str(&format!("  source={}\n", args.source));
     for w in &written {
         stdout.push_str(&format!("  wrote {w}\n"));
@@ -1648,6 +1540,23 @@ mod tests {
         assert_eq!(o.code, 1);
         assert_eq!(o.stderr, "FAIL: zero items to export\n");
         assert!(o.files.is_empty());
+    }
+
+    #[test]
+    fn an_all_retired_bank_is_error_and_writes_nothing() {
+        // Distinct from "zero items": files were scanned, the approved pool is empty.
+        let td = tempfile::tempdir().unwrap();
+        std::fs::create_dir_all(td.path().join(ITEMS_DIR_REL)).unwrap();
+        std::fs::write(
+            td.path().join(ITEMS_DIR_REL).join("r.toml"),
+            "id = \"r\"\nstatus = \"retired\"\nstem = \"gone\"\ncorrect = \"A\"\nchoices = [\"x\"]\n",
+        )
+        .unwrap();
+        let o = evaluate(td.path(), &["--format".into(), "tsv".into()]).unwrap();
+        assert_eq!(o.code, 1);
+        assert_eq!(o.stderr, "FAIL: zero approved items to export\n");
+        assert!(o.files.is_empty(), "must not write a retired deck");
+        assert!(!o.stdout.contains("ok"));
     }
 
     #[test]
