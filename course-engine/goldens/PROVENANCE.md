@@ -21,9 +21,9 @@ There is exactly **one** regeneration path. It is the four-command block under
 
 | Tool | Status | What happens if you use it |
 |------|--------|----------------------------|
-| `cargo run -p cdcp_cli -- goldens fixture` | **AUTHORITATIVE** — the only writer of `item_ids` | Calls `cdcp_assemble::assemble()`, the shipped sampler |
-| `cargo run -p cdcp_cli -- goldens generate` | **AUTHORITATIVE** — the only writer of the digests and `bank_hash.txt` | Grades the fixture's `item_ids` with `cdcp_grade`, the shipped grader |
-| `cargo run -p cdcp_cli -- export-web` | **AUTHORITATIVE** — the only writer of `web/data/*_seed42.json` | Runs the sampler; `scripts/check.sh` L6 `cmp`s its output against the committed packs |
+| `cargo build -p cdcp_cli --locked` then `./target/debug/cdcp goldens fixture` | **AUTHORITATIVE** — the only writer of `item_ids` | Calls `cdcp_assemble::assemble()`, the shipped sampler |
+| `cargo build -p cdcp_cli --locked` then `./target/debug/cdcp goldens generate` | **AUTHORITATIVE** — the only writer of the digests and `bank_hash.txt` | Grades the fixture's `item_ids` with `cdcp_grade`, the shipped grader |
+| `cargo build -p cdcp_cli --locked` then `./target/debug/cdcp export-web` | **AUTHORITATIVE** — the only writer of `web/data/*_seed42.json` | Runs the sampler; `scripts/check.sh` L6 `cmp`s its output against the committed packs |
 | `scripts/sample_mock.py` | **DELETED 2026-08-15 (bd-sample-mock-draws-retired-1qv9)** — do not restore it from git history | Drew from the unfiltered file set (retired included). A second sampler that disagrees with `cdcp_assemble` is a liability. Measurements below |
 | `scripts/regen_goldens_after_bank.py` | **DELETED 2026-08-14 (bd-z3x)** — do not restore it from git history | It manufactured the divergence it was checked against. Measurements below |
 
@@ -63,7 +63,7 @@ land. The two cannot drift apart.
 |-------|--------|
 | Path | `goldens/fixtures/mock40_seed42.json` |
 | Seed | 42 |
-| Assembly | `UPDATE_GOLDENS=1 cargo run -p cdcp_cli -- goldens fixture --seed 42` |
+| Assembly | `cargo build -p cdcp_cli --locked` then `UPDATE_GOLDENS=1 ./target/debug/cdcp goldens fixture --seed 42` |
 | Sampler | `cdcp_assemble::assemble()` — **authoritative** |
 | n_items | 40 |
 | exam_id | mock40 |
@@ -133,12 +133,13 @@ covered by `cargo test`, which `scripts/check.sh` runs immediately before `golde
 Run all four, **in this order**. Order is load-bearing, see below.
 
 ```sh
-UPDATE_GOLDENS=1 cargo run -p cdcp_cli -- goldens fixture --seed 42
-UPDATE_GOLDENS=1 cargo run -p cdcp_cli -- goldens generate \
+cargo build -p cdcp_cli --locked
+UPDATE_GOLDENS=1 ./target/debug/cdcp goldens fixture --seed 42
+UPDATE_GOLDENS=1 ./target/debug/cdcp goldens generate \
   --fixture goldens/fixtures/mock40_seed42.json
-cargo run -p cdcp_cli -- export-web --bank bank/items --seed 42 --out web/data
+./target/debug/cdcp export-web --bank bank/items --seed 42 --out web/data
 # Review: git diff goldens/ web/data/
-cargo run -p cdcp_cli -- goldens check
+./target/debug/cdcp goldens check
 cargo test --workspace
 ```
 
