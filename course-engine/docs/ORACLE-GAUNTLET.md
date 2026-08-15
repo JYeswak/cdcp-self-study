@@ -77,7 +77,7 @@ G1>G2 (correctness > UI) · no counterfeit green · Doctrine #0 (artifacts only 
 |------|---------------------|----------------|
 | **Oracle** | `cdcp_grade-native` | Host `cdcp_grade::grade_digest` / `grade_digest_json` |
 | **Subject** | `cdcp_wasm-wasm32` | Same pure path compiled to `wasm32-unknown-unknown` (`crates/cdcp_wasm`) |
-| **Comparator** | assert identities **distinct**, digests **equal** | `cargo test -p cdcp_wasm --test dual_path` via wasmtime |
+| **Comparator** | assert identities **distinct**, digests **equal** | `cargo test -p cdcp_wasm --test dual_path -- --include-ignored` via wasmtime |
 
 **Contract:** same `(bank_json, attempt_json)` → same hex SHA-256 of `canonical_json(GradeReport)`.
 

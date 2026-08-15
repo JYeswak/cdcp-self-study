@@ -7,9 +7,11 @@
 //! - `wasm32-unknown-unknown` rustup target
 //! - buildable `cdcp_wasm` as wasm32 cdylib
 //!
-//! If the wasm toolchain/build is missing and `CDCP_REQUIRE_WASM` is unset, the
-//! dual-path assertion returns early (check.sh records SKIP-honest, not full L4 green).
-//! Set `CDCP_REQUIRE_WASM=1` to hard-fail when wasm is unavailable.
+//! Skip policy (TESTING.md): the native==wasm comparison is `#[ignore]`. A missing
+//! artifact must not score as PASS — `cargo test` prints `ignored`, not `ok`.
+//! check.sh L4 runs `--include-ignored` with `CDCP_REQUIRE_WASM=1` when the wasm32
+//! target is installed. Running the ignored test without an artifact panics.
+//! `CDCP_FORCE_WASM_MISSING=1` forces that panic (anti-vacuous plant).
 
 use cdcp_bank::Bank;
 use cdcp_grade::{all_correct_attempt, all_wrong_attempt, grade_digest};
@@ -50,6 +52,9 @@ fn load_fixture_bank() -> (Bank, SampleFixture) {
 }
 
 fn ensure_wasm_built() -> Result<PathBuf, String> {
+    if std::env::var("CDCP_FORCE_WASM_MISSING").ok().as_deref() == Some("1") {
+        return Err("CDCP_FORCE_WASM_MISSING=1 (anti-vacuous: no artifact)".into());
+    }
     let root = repo_root();
     let candidates = [
         root.join("target/wasm32-unknown-unknown/debug/cdcp_wasm.wasm"),
@@ -87,6 +92,17 @@ fn ensure_wasm_built() -> Result<PathBuf, String> {
             built.display()
         ))
     }
+}
+
+/// Missing wasm is a failed comparison, never a passed one.
+fn wasm_artifact_or_fail(result: Result<PathBuf, String>) -> PathBuf {
+    result.unwrap_or_else(|e| {
+        panic!(
+            "native==wasm unproven: no wasm artifact ({e}). \
+             This test is #[ignore] so `cargo test` reports ignored, not ok. \
+             Run with --include-ignored (check.sh L4 sets CDCP_REQUIRE_WASM=1)."
+        );
+    })
 }
 
 /// Call guest `cdcp_grade_digest` via wasmtime linear memory.
@@ -208,17 +224,15 @@ fn native_json_path_matches_goldens() {
 }
 
 #[test]
+#[should_panic(expected = "native==wasm unproven")]
+fn absent_wasm_artifact_is_not_a_passing_comparison() {
+    let _ = wasm_artifact_or_fail(Err("no artifact".into()));
+}
+
+#[test]
+#[ignore = "requires wasm32 artifact; cargo test -- --include-ignored (check.sh L4)"]
 fn native_equals_wasm_mock40_seed42() {
-    let wasm_path = match ensure_wasm_built() {
-        Ok(p) => p,
-        Err(e) => {
-            eprintln!("SKIP wasm dual-path: {e}");
-            if std::env::var("CDCP_REQUIRE_WASM").ok().as_deref() == Some("1") {
-                panic!("CDCP_REQUIRE_WASM=1 but wasm unavailable: {e}");
-            }
-            return;
-        }
-    };
+    let wasm_path = wasm_artifact_or_fail(ensure_wasm_built());
 
     eprintln!("using wasm subject: {}", wasm_path.display());
     let (oracle, subject) = engine_identities();

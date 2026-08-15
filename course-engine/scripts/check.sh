@@ -667,8 +667,11 @@ echo "==> L4 WASM dual-path (optional)"
 L4_WASM="SKIP"
 if command -v rustup >/dev/null 2>&1   && rustup target list --installed 2>/dev/null | grep -q '^wasm32-unknown-unknown$'
 then
+  # --include-ignored is load-bearing on dual_path: native_equals_wasm_mock40_seed42
+  # is #[ignore] so `cargo test --workspace` cannot score a silent skip as PASS.
+  # Without this flag L4 would go GREEN having compared nothing.
   if cargo build -p cdcp_wasm --target wasm32-unknown-unknown --locked \
-    && CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test dual_path --locked -- --nocapture \
+    && CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test dual_path --locked -- --nocapture --include-ignored \
     && CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test schedule --locked -- --nocapture
   then
     ok "L4 WASM dual-path native==wasm (mock40_seed42 + schedule)"
