@@ -3,67 +3,26 @@
 //!
 //! # CLAIM: FLOOR-RAISE
 //!
-//! This gate raises one floor: **the syllabus and the bank must point at each
-//! other.** Concretely, it goes RED when any of three things is true —
-//!
-//!   1. *orphan topic* — a `[[topic]]` id declared in `knowledge/topics.toml`
-//!      that zero bank items reference. Coverage prose outran the bank.
-//!   2. *orphan ref* — a bank item whose `topic_ids` names an id absent from the
-//!      registry. The item is anchored to nothing.
-//!   3. *unanchored item* — a bank item with missing, empty, non-list, or blank
-//!      `topic_ids`. Same defect as (2) with the dangling pointer left implicit.
-//!
-//! Anti-vacuous (L4): zero topics, zero items, a missing bank directory, or a
-//! missing topics registry are each an ERROR, never a pass. A registry that was
-//! never scanned must not report like one that was scanned and came back clean.
-//! The same rule holds one level down, at FILE granularity: a bank file whose
-//! `items[]` yields zero items is named and is RED (bd-2kr). Aggregate counts
-//! are not a substitute — 804 healthy items will carry an 805th file that was
-//! never really read, and the report would look exactly the same.
+//! Syllabus and bank must point at each other, measured on the **approved**
+//! pool (`status == "approved"`), never the file set. C1 draws only approved
+//! items, so a topic whose only refs are retired is unreachable
+//! (bd-orphans-counts-retired-items-farl). RED: orphan topic (0 approved refs
+//! of N referencing), orphan ref, unanchored item. Anti-vacuous: zero topics,
+//! zero items, zero approved, missing bank/registry. Empty-bank stays a
+//! scan-set property. File granularity (bd-2kr): empty `items[]` is named RED.
 //!
 //! # WHAT THIS GATE CANNOT DO
 //!
-//! It cannot tell whether a topic is assessed *well* — one throwaway item
-//! referencing a topic clears the reverse direction exactly as a rigorous item
-//! does. It cannot tell whether a `topic_id` that resolves is the *right* topic
-//! for that item; it checks that the pointer lands, not where it should have
-//! pointed. It reads no stems, no explanations, and no objectives, so it says
-//! nothing about item quality, difficulty, or grounding. It does not decide that
-//! the topic registry itself is complete — a syllabus that omits a topic
-//! entirely is invisible here, because nothing dangles.
-//!
-//! The file-granular anti-vacuous leg is narrower than it may read: it names a
-//! file that yielded *nothing*, and says nothing about a file that yielded
-//! *fewer items than it should have*. A bank file silently truncated from twenty
-//! items to one still reports as scanned, because one is not zero.
-//!
-//! The floor moves from *silence* to *every declared id is exercised and every
-//! reference resolves*. That is the whole claim; a referential-integrity check
-//! has no stronger one available and this header will not pretend otherwise.
+//! It cannot tell whether a topic is assessed well, or whether a resolving
+//! `topic_id` is the right topic. A syllabus that omits a topic is invisible.
 //!
 //! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
 //!
-//! `scripts/verify_orphans.py` stays in the tree as the differential oracle for
-//! this port; `tests/diff_verify_orphans.rs` runs both on every case the
-//! `scripts/selftest_orphan.sh` known-bad suite exercises and asserts stdout,
-//! stderr, and exit code match byte for byte. That contract is why this module
-//! carries hand-written emulations of a few Python behaviours (the `\s`-class of
-//! `re`, `repr()` of a `str`, `PurePosixPath` normalisation, truthiness) rather
-//! than the idiomatic Rust nearest-neighbour, and why the failure report is
-//! written to **stdout with exit status 1** instead of going through
-//! `GateError`: the dispatcher's `report()` writes to stderr and maps to exit 2
-//! or 4, which the oracle never produces, so routing through it would make the
-//! two sides differ on every RED case. The exit-code mapping in `crate::exit` is
-//! therefore deliberately NOT used by this gate. That is a knowing, single-file
-//! deviation from the shared convention, recorded here for review rather than
-//! made quietly.
-//!
-//! Deviations that remain (each unreachable from the live tree and from every
-//! selftest case, and each one a wrong-bytes risk rather than a wrong-verdict
-//! risk) are listed on `evaluate`.
+//! Oracle: `scripts/verify_orphans.py`. Differential asserts stdout/stderr/exit
+//! byte for byte. RED reports go to stdout with exit 1, not `GateError`.
 
 use crate::registry::{GateCtx, GateError};
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 use std::io::Write;
 use std::path::Path;
 use toml::Value;
@@ -71,6 +30,18 @@ use toml::Value;
 pub const NAME: &str = "verify-orphans";
 pub const SUMMARY: &str =
     "topic<->bank referential integrity: no orphan topics, orphan refs, or unanchored items";
+
+const APPROVED: &str = "approved";
+fn is_approved(it: &toml::Table) -> bool {
+    matches!(it.get("status"), Some(Value::String(s)) if s == APPROVED)
+}
+fn status_is_known(it: &toml::Table) -> bool {
+    match it.get("status") {
+        None => true,
+        Some(Value::String(s)) => matches!(s.as_str(), "approved" | "draft" | "retired"),
+        Some(_) => false,
+    }
+}
 
 /// Engine-root-relative defaults, matching the Python module constants.
 pub const DEFAULT_BANK: &str = "bank/items";
@@ -330,6 +301,24 @@ pub fn evaluate(root_str: &str, bank_arg: &str, topics_arg: &str) -> Outcome {
     let (loaded, load_errors) = read_items(Path::new(&bank_disp), &bank_disp);
     errors.extend(load_errors);
 
+    let mut approved_n = 0usize;
+    for (fname, it) in &loaded {
+        if is_approved(it) {
+            approved_n += 1;
+        } else if !status_is_known(it) {
+            let iid = match it.get("id") {
+                Some(v) if py_truthy(v) => py_str(v),
+                _ => fname.clone(),
+            };
+            let sr = match it.get("status") {
+                Some(Value::String(s)) => py_repr(s),
+                Some(v) => py_str(v),
+                None => py_repr("draft"),
+            };
+            errors.push(format!("{iid}: unknown status {sr}"));
+        }
+    }
+
     // ── anti-vacuous: an empty scan set is an ERROR, never a pass ───────────
     if known.is_empty() {
         errors.push(
@@ -339,9 +328,13 @@ pub fn evaluate(root_str: &str, bank_arg: &str, topics_arg: &str) -> Outcome {
     }
     if loaded.is_empty() {
         errors.push("empty bank: zero items loaded (vacuous orphan scan is ERROR)".to_string());
+    } else if approved_n == 0 {
+        errors.push(format!("zero approved items ({} scanned): the orphan predicate measures a pool no learner can be assessed from (vacuous orphan scan is ERROR)", loaded.len()));
     }
 
     let mut referenced: BTreeSet<String> = BTreeSet::new();
+    let mut approved_referenced: BTreeSet<String> = BTreeSet::new();
+    let mut ref_count: BTreeMap<String, usize> = BTreeMap::new();
     let mut orphan_refs: Vec<String> = Vec::new();
     let mut unanchored: Vec<String> = Vec::new();
 
@@ -350,6 +343,7 @@ pub fn evaluate(root_str: &str, bank_arg: &str, topics_arg: &str) -> Outcome {
             Some(v) if py_truthy(v) => py_str(v),
             _ => fname.clone(),
         };
+        let approved = is_approved(it);
         let tids = it
             .get("topic_ids")
             .filter(|v| py_truthy(v))
@@ -362,6 +356,10 @@ pub fn evaluate(root_str: &str, bank_arg: &str, topics_arg: &str) -> Outcome {
             match t.as_str() {
                 Some(s) if !py_strip(s).is_empty() => {
                     referenced.insert(s.to_string());
+                    *ref_count.entry(s.to_string()).or_insert(0) += 1;
+                    if approved {
+                        approved_referenced.insert(s.to_string());
+                    }
                     if !known.contains(s) {
                         orphan_refs.push(format!(
                             "{iid}: unknown topic_id {} (orphan item)",
@@ -378,22 +376,17 @@ pub fn evaluate(root_str: &str, bank_arg: &str, topics_arg: &str) -> Outcome {
     // is reported once per declaration, as the Python does.
     let orphan_topics: Vec<&String> = declared
         .iter()
-        .filter(|t| !referenced.contains(*t))
+        .filter(|t| !approved_referenced.contains(*t))
         .collect();
 
     errors.extend(unanchored.iter().cloned());
     errors.extend(orphan_refs.iter().cloned());
     errors.extend(orphan_topics.iter().map(|t| {
-        format!(
-            "orphan topic {}: declared in topics.toml, referenced by zero bank items",
-            py_repr(t)
-        )
+        format!("orphan topic {}: declared in topics.toml, referenced by 0 approved items of {} referencing", py_repr(t), ref_count.get(*t).copied().unwrap_or(0))
     }));
 
-    let referenced_known = referenced
-        .iter()
-        .filter(|t| known.contains(t.as_str()))
-        .count();
+    let referenced_known = referenced.iter().filter(|t| known.contains(t.as_str())).count();
+    let approved_known = approved_referenced.iter().filter(|t| known.contains(t.as_str())).count();
 
     let mut out = String::new();
     out.push_str(if errors.is_empty() {
@@ -404,8 +397,8 @@ pub fn evaluate(root_str: &str, bank_arg: &str, topics_arg: &str) -> Outcome {
     out.push_str(&format!("  topics={topics_disp}\n"));
     out.push_str(&format!("  bank={bank_disp}\n"));
     out.push_str(&format!("  topics_declared={}\n", known.len()));
-    out.push_str(&format!("  items={}\n", loaded.len()));
-    out.push_str(&format!("  topics_referenced={referenced_known}\n"));
+    out.push_str(&format!("  items={} scanned, {approved_n} approved (orphan predicate counts the approved pool only)\n", loaded.len()));
+    out.push_str(&format!("  topics_referenced={approved_known} approved of {referenced_known} referencing\n"));
     out.push_str(&format!("  orphan_topics={}\n", orphan_topics.len()));
     out.push_str(&format!("  orphan_item_refs={}\n", orphan_refs.len()));
     out.push_str(&format!("  unanchored_items={}\n", unanchored.len()));
@@ -424,7 +417,7 @@ pub fn evaluate(root_str: &str, bank_arg: &str, topics_arg: &str) -> Outcome {
         };
     }
 
-    out.push_str("  orphan integrity GREEN (every topic assessed; every ref resolves)\n");
+    out.push_str("  orphan integrity GREEN (every topic assessed by an approved item; every ref resolves)\n");
     Outcome {
         stdout: out,
         code: 0,
@@ -723,8 +716,8 @@ mod tests {
     fn good_tree() -> Tree {
         let t = Tree::new();
         t.topics("[[topic]]\nid = \"t-one\"\n\n[[topic]]\nid = \"t-two\"\n");
-        t.item("a.toml", "id = \"i-a\"\ntopic_ids = [\"t-one\"]\n");
-        t.item("b.toml", "id = \"i-b\"\ntopic_ids = [\"t-two\"]\n");
+        t.item("a.toml", "id = \"i-a\"\ntopic_ids = [\"t-one\"]\nstatus = \"approved\"\n");
+        t.item("b.toml", "id = \"i-b\"\ntopic_ids = [\"t-two\"]\nstatus = \"approved\"\n");
         t
     }
 
@@ -739,7 +732,7 @@ mod tests {
             out.stdout
         );
         assert!(out.stdout.contains("topics_declared=2"), "{}", out.stdout);
-        assert!(out.stdout.contains("items=2"), "{}", out.stdout);
+        assert!(out.stdout.contains("items=2 scanned, 2 approved"), "{}", out.stdout);
     }
 
     #[test]
@@ -803,7 +796,7 @@ mod tests {
         assert_eq!(out.code, 1);
         assert!(
             out.stdout.contains(
-                "orphan topic 't-lonely': declared in topics.toml, referenced by zero bank items"
+                "orphan topic 't-lonely': declared in topics.toml, referenced by 0 approved items of 0 referencing"
             ),
             "{}",
             out.stdout
@@ -906,7 +899,7 @@ mod tests {
             topics.push_str(&format!("[[topic]]\nid = \"t{i:03}\"\n"));
         }
         t.topics(&topics);
-        t.item("a.toml", "id = \"i-a\"\ntopic_ids = [\"t000\"]\n");
+        t.item("a.toml", "id = \"i-a\"\ntopic_ids = [\"t000\"]\nstatus = \"approved\"\n");
         let out = t.run();
         assert_eq!(out.code, 1);
         let shown = out
@@ -924,7 +917,7 @@ mod tests {
         t.topics("[[topic]]\nid = \"t-one\"\n");
         t.item(
             "multi.toml",
-            "[[items]]\nid = \"i-1\"\ntopic_ids = [\"t-one\"]\n\n[[items]]\nid = \"i-2\"\ntopic_ids = [\"t-one\"]\n",
+            "[[items]]\nid = \"i-1\"\ntopic_ids = [\"t-one\"]\nstatus = \"approved\"\n\n[[items]]\nid = \"i-2\"\ntopic_ids = [\"t-one\"]\nstatus = \"approved\"\n",
         );
         let out = t.run();
         assert_eq!(out.code, 0, "{}", out.stdout);
@@ -986,7 +979,7 @@ mod tests {
         // a legitimate one-item file has no `items` key at all and is not empty.
         let t = Tree::new();
         t.topics("[[topic]]\nid = \"t-one\"\n");
-        t.item("solo.toml", "id = \"i-solo\"\ntopic_ids = [\"t-one\"]\n");
+        t.item("solo.toml", "id = \"i-solo\"\ntopic_ids = [\"t-one\"]\nstatus = \"approved\"\n");
         let out = t.run();
         assert_eq!(out.code, 0, "{}", out.stdout);
         assert!(out.stdout.starts_with("PASS\n"), "{}", out.stdout);
@@ -999,7 +992,7 @@ mod tests {
         t.topics("[[topic]]\nid = \"t-one\"\n");
         t.item(
             "multi.toml",
-            "[[items]]\nid = \"i-1\"\ntopic_ids = [\"t-one\"]\n",
+            "[[items]]\nid = \"i-1\"\ntopic_ids = [\"t-one\"]\nstatus = \"approved\"\n",
         );
         let out = t.run();
         assert_eq!(out.code, 0, "{}", out.stdout);

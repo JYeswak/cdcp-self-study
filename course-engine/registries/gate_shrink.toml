@@ -128,7 +128,7 @@ lines = 2189
 
 [[file]]
 path = "src/gates/verify_orphans.rs"
-lines = 1111
+lines = 1104
 
 [[file]]
 path = "src/gates/verify_step_count.rs"
@@ -220,7 +220,7 @@ lines = 2032
 
 [[file]]
 path = "tests/diff_verify_orphans.rs"
-lines = 704
+lines = 728
 
 [[file]]
 path = "tests/differential_verdict_census.rs"

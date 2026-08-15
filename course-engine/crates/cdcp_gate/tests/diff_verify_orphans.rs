@@ -353,7 +353,7 @@ fn planted_known_bads_are_byte_identical_and_red() {
     assert_ne!(rs.code, 0, "{}", rs.out());
     assert!(
         rs.out().contains(
-            "orphan topic 'zz-selftest-orphan-topic': declared in topics.toml, referenced by zero bank items"
+            "orphan topic 'zz-selftest-orphan-topic': declared in topics.toml, referenced by 0 approved items of 0 referencing"
         ),
         "the reverse-direction detector must name the topic: {}",
         rs.out()
@@ -476,7 +476,7 @@ fn defect_shapes_beyond_the_shell_suite_are_byte_identical() {
     // would take this file with it.
     write(
         &bank.join("zz-single-item-good.toml"),
-        "id = \"zz-single-item-good\"\ntopic_ids = [\"m01-importance\"]\n",
+        "id = \"zz-single-item-good\"\ntopic_ids = [\"m01-importance\"]\nstatus = \"approved\"\n",
     );
     let rs = assert_byte_identical(
         "single-item id form still green",
@@ -526,7 +526,7 @@ fn defect_shapes_beyond_the_shell_suite_are_byte_identical() {
 }
 
 #[test]
-fn path_and_option_shapes_are_byte_identical() {
+fn path_and_option_shapes_are_byte_identical_and_still_reach_the_finding() {
     let root = engine_root();
     let td = tempfile::tempdir().unwrap();
     let missing_bank = td.path().join("no_such_bank");
@@ -553,22 +553,108 @@ fn path_and_option_shapes_are_byte_identical() {
         rs.out()
     );
 
-    // engine-root-relative arguments, including the untidy spellings the printed
-    // header must normalise the same way on both sides
-    assert_byte_identical("relative bank", &root, &["--bank", "bank/items"]);
-    assert_byte_identical(
+    // ── engine-root-relative spellings ────────────────────────────────────
+    //
+    // WHY THESE CASES NOW ASSERT A VERDICT (bd-differential-shared-blindspot-4qje).
+    // Every spelling below used to be a bare `assert_byte_identical(..)` — the
+    // two sides agree, full stop. That is blind by construction: a defect
+    // present in BOTH implementations agrees with itself, and six of this
+    // harness's seven agreement-only cases lived right here. It is the same
+    // shape that let `m min topic 0` pass in diff_verify_objectives.rs for
+    // weeks while both sides reported 106 of 106 topics covered having compared
+    // none of them.
+    //
+    // AND REWRITING THE ASSERTION IS NOT ENOUGH. Every spelling here ran
+    // against the LIVE tree, which is green. Asserting "this spelling still
+    // passes" on a tree that passes is worth nothing: no defect that suppresses
+    // a finding can show up in a run that has no finding to suppress. So the
+    // INPUT changes too — each spelling is pointed at a bank with a KNOWN
+    // planted orphan, and each must still reach it, and must report the item
+    // count of THAT bank rather than of some default it silently fell back to.
+    //
+    // The specimen lives under `target/`, which is build output, because a
+    // *relative* --bank has to resolve under the engine root to be exercised at
+    // all. The live content tree is still never written to.
+    let rel_dir = format!("target/zz-diff-orphans-{}", std::process::id());
+    let scratch = root.join(&rel_dir);
+    let _ = std::fs::remove_dir_all(&scratch);
+    let bank_abs = scratch.join("items");
+    let copied = specimen_bank(&root, &bank_abs);
+    write(
+        &bank_abs.join("zz-selftest-orphan-ref.toml"),
+        ORPHAN_REF_SPECIMEN,
+    );
+    let planted_items = copied + 1;
+
+    let rel_bank = format!("{rel_dir}/items");
+    let untidy_bank = format!("./{rel_dir}//items/");
+    let equals_bank = format!("--bank={rel_bank}");
+    let resolved = root.join(&rel_bank);
+
+    for (label, args) in [
+        ("relative bank", vec!["--bank", rel_bank.as_str()]),
+        ("untidy relative path", vec!["--bank", untidy_bank.as_str()]),
+        ("equals form", vec![equals_bank.as_str()]),
+        ("abbreviated option", vec!["--ban", rel_bank.as_str()]),
+        (
+            "relative bank + relative topics",
+            vec![
+                "--bank",
+                rel_bank.as_str(),
+                "--topics",
+                "knowledge/topics.toml",
+            ],
+        ),
+    ] {
+        let rs = assert_byte_identical(label, &root, &args);
+        let out = rs.out();
+
+        // 1. the spelling normalises to the one resolved path, on both sides
+        assert!(
+            out.contains(&format!("  bank={}\n", resolved.display())),
+            "[{label}] the spelling did not normalise to {}: {out}",
+            resolved.display()
+        );
+        // 2. it scanned THAT bank and not a default it fell back to. This is
+        //    the assertion a shared defect cannot survive: a fallback prints a
+        //    perfectly plausible report over the wrong tree, and both sides
+        //    print the same plausible report.
+        let items_line = out
+            .lines()
+            .find(|l| l.starts_with("  items="))
+            .unwrap_or("<no items= line>");
+        assert!(
+            out.contains(&format!("  items={planted_items} scanned, ")),
+            "[{label}] the run reported `{items_line}`, not items={planted_items} scanned \
+             — the spelling reached a different tree than the one it named: {out}"
+        );
+        // 3. it still reaches the planted finding and goes RED for it
+        assert_ne!(rs.code, 0, "[{label}] planted orphan not caught: {out}");
+        assert!(
+            out.contains(
+                "selftest-orphan-ref: unknown topic_id 'zz-topic-that-does-not-exist' (orphan item)"
+            ),
+            "[{label}] the detector did not name the planted orphan: {out}"
+        );
+    }
+
+    // the relative-topics spelling, on the live (green) bank: the header must
+    // normalise it and the tree must still be GREEN
+    let rs = assert_byte_identical(
         "relative topics",
         &root,
         &["--topics", "knowledge/topics.toml"],
     );
-    assert_byte_identical("untidy relative path", &root, &["--bank", "./bank//items/"]);
-
-    // `--opt=value` and argparse's unambiguous prefixes
-    assert_byte_identical("equals form", &root, &["--bank=bank/items"]);
-    assert_byte_identical("abbreviated option", &root, &["--ban", "bank/items"]);
+    assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out()
+            .contains(&format!("  topics={}\n", root.join("knowledge/topics.toml").display())),
+        "the relative topics spelling did not normalise: {}",
+        rs.out()
+    );
 
     // both options at once, absolute + relative mixed
-    assert_byte_identical(
+    let rs = assert_byte_identical(
         "both options",
         &root,
         &[
@@ -578,6 +664,44 @@ fn path_and_option_shapes_are_byte_identical() {
             "knowledge/topics.toml",
         ],
     );
+    assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out()
+            .contains(&format!("  bank={}\n", root.join("bank/items").display())),
+        "{}",
+        rs.out()
+    );
+
+    let _ = std::fs::remove_dir_all(&scratch);
+    assert!(
+        !scratch.exists(),
+        "the specimen bank leaked at {}",
+        scratch.display()
+    );
+}
+
+// ── bd-orphans-counts-retired-items-farl: approved-pool reachability ──────
+
+#[test]
+fn retired_only_refs_and_zero_approved_are_red_and_name_both_populations() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let bank = td.path().join("b");
+    let topics = td.path().join("t.toml");
+    std::fs::create_dir_all(&bank).unwrap();
+    write(&topics, "[[topic]]\nid = \"keep\"\n[[topic]]\nid = \"gone\"\n");
+    write(&bank.join("k.toml"), "id = \"k\"\ntopic_ids = [\"keep\"]\nstatus = \"approved\"\n");
+    write(&bank.join("g.toml"), "id = \"g\"\ntopic_ids = [\"gone\"]\nstatus = \"retired\"\n");
+    let args = ["--bank", bank.to_str().unwrap(), "--topics", topics.to_str().unwrap()];
+    let rs = assert_byte_identical("retired-only topic", &root, &args);
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().contains("orphan topic 'gone': declared in topics.toml, referenced by 0 approved items of 1 referencing"), "{}", rs.out());
+    assert!(rs.out().contains("items=2 scanned, 1 approved"), "{}", rs.out());
+    assert!(rs.out().contains("topics_referenced=1 approved of 2 referencing"), "{}", rs.out());
+
+    write(&bank.join("k.toml"), "id = \"k\"\ntopic_ids = [\"keep\"]\nstatus = \"retired\"\n");
+    let rs = assert_byte_identical("zero approved", &root, &args);
+    assert!(rs.out().contains("zero approved items (2 scanned)"), "{}", rs.out());
 }
 
 // ── the harness must not be vacuously green ───────────────────────────────
@@ -589,9 +713,16 @@ fn the_harness_compared_something() {
     // contract, and "0 cases compared" must never report like "all passed".
     let root = engine_root();
     let before = COMPARED.load(Ordering::SeqCst);
-    assert_byte_identical("harness self-check", &root, &[]);
+    let rs = assert_byte_identical("harness self-check", &root, &[]);
     assert!(
         COMPARED.load(Ordering::SeqCst) > before,
         "the differential harness compared nothing"
     );
+    // A counter that ticked proves a comparison HAPPENED, not that it said
+    // anything. Both sides could agree on a vacuous report and this test would
+    // still be green, which is the whole of bd-differential-shared-blindspot-4qje
+    // in one line. So the self-check states the verdict too.
+    assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().starts_with("PASS\n"), "{}", rs.out());
+    assert!(rs.out().contains("orphan integrity GREEN"), "{}", rs.out());
 }

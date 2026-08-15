@@ -4,23 +4,47 @@
 ORACLE-GAUNTLET.md lists "orphan item" among the known-bads that MUST trip.
 This is the gate that makes that claim true. It is bidirectional:
 
-  1. orphan topic  — a topic id declared in knowledge/topics.toml that NO bank
-                     item references. The syllabus asserts a thing we never
-                     assess: coverage prose outruns the bank.
+  1. orphan topic  — a topic id declared in knowledge/topics.toml that NO
+                     APPROVED bank item references. The syllabus asserts a
+                     thing no learner can be drawn on: coverage prose outran
+                     the drawable pool.
   2. orphan ref    — a bank item whose topic_ids names an id that does not
                      exist in topics.toml. The item is anchored to nothing;
                      weak-links / micro-checks / Learn routing silently drop it.
   3. unanchored    — a bank item with missing or empty topic_ids. Same defect
                      as (2) with the dangling pointer left implicit.
 
-Anti-vacuous discipline (L4): an empty input set is an ERROR, not a pass.
-Zero topics, zero items, or a missing directory all exit non-zero. A registry
-that was never scanned must never report like one that passed. That rule holds
-at FILE granularity too: a single bank file that yields zero items is named and
-is RED, because the aggregate count would otherwise stay healthy on the strength
-of the files around it (bd-2kr).
+WHICH POOL THE ORPHAN PREDICATE MEASURES (bd-orphans-counts-retired-items-farl)
+------------------------------------------------------------------------------
+Reachability is measured against `status == "approved"` and never against the
+file set. C1 restricts assembly to approved items
+(`cdcp_assemble::sample_item_ids` filters `is_approved()`), so a topic whose
+only referencing items are retired is exactly as unreachable as a topic nobody
+references — and a file-set floor reports GREEN on it by construction.
 
-Exit 0 only when both directions are clean over a non-empty input set.
+Until this fix neither side of the twin read `status`. The report printed
+`items=804` and `topics_referenced=106` about a pool the sampler never draws
+from. A topic referenced only by retired items was not an orphan. The error
+can only ever run one way: the file set is a superset of the drawable pool.
+
+The report names BOTH populations on every line that carries a count
+(`items=N scanned, M approved`; `topics_referenced=X approved of Y
+referencing`). A topic that is an orphan because its refs are all retired
+says so: `referenced by 0 approved items of N referencing`.
+
+A status outside `approved`/`draft`/`retired` is an ERROR naming the item,
+never a silent drop into "not approved". An absent `status` is `draft`,
+matching `cdcp_bank`'s fail-closed default: silence is never approval.
+
+Anti-vacuous discipline (L4): an empty input set is an ERROR, not a pass.
+Zero topics, zero items, or a missing directory all exit non-zero. The
+empty-bank leg (`zero items loaded`) is a scan-set property and stays.
+Zero approved items in a non-empty bank is a different failure with the
+same verdict: the predicate would otherwise measure a pool no learner can
+be assessed from. That rule holds at FILE granularity too: a single bank
+file that yields zero items is named and is RED (bd-2kr).
+
+Exit 0 only when both directions are clean over a non-empty approved pool.
 
 Usage:
   python3 scripts/verify_orphans.py
@@ -49,6 +73,18 @@ DEFAULT_TOPICS = ROOT / "knowledge" / "topics.toml"
 _ID_RE = re.compile(r'(?m)^\s*id\s*=\s*"([^"]+)"')
 
 MAX_REPORT = 40
+
+# C1 lifecycle. `APPROVED` is the ONLY status `cdcp_assemble` may draw, so it is
+# the only population the orphan predicate may be measured against. A missing
+# status is `draft` — fail-closed, matching `cdcp_bank::ItemStatus`'s serde
+# default — because silence must never read as approval.
+APPROVED = "approved"
+KNOWN_STATUSES = ("approved", "draft", "retired")
+
+
+def is_approved(it: dict) -> bool:
+    """Is this item in the pool `cdcp_assemble` may draw from?"""
+    return it.get("status", "draft") == APPROVED
 
 
 def load_toml(path: Path) -> dict:
@@ -129,6 +165,18 @@ def main(argv: list[str] | None = None) -> int:
     loaded, load_errors = load_items(bank_dir)
     errors.extend(load_errors)
 
+    approved_n = 0
+    for fname, it in loaded:
+        status = it.get("status", "draft")
+        if status == APPROVED:
+            approved_n += 1
+        elif status not in KNOWN_STATUSES:
+            # Fail-closed AND loud. Dropping an unmodelled status silently into
+            # "not approved" would be a bucket decided by guess rather than by
+            # the recorded lifecycle.
+            iid = it.get("id") or fname
+            errors.append(f"{iid}: unknown status {status!r}")
+
     # ── anti-vacuous: an empty scan set is an ERROR, never a pass ────────────
     if not known:
         errors.append(
@@ -137,13 +185,25 @@ def main(argv: list[str] | None = None) -> int:
         )
     if not loaded:
         errors.append("empty bank: zero items loaded (vacuous orphan scan is ERROR)")
+    elif approved_n == 0:
+        # A bank FULL of files and empty of drawable items is the exact state
+        # a file-set orphan scan reported green on. Named separately from the
+        # empty-bank leg because it is a different failure with the same verdict.
+        errors.append(
+            f"zero approved items ({len(loaded)} scanned): the orphan predicate "
+            "measures a pool no learner can be assessed from "
+            "(vacuous orphan scan is ERROR)"
+        )
 
     referenced: set[str] = set()
+    approved_referenced: set[str] = set()
+    ref_count: dict[str, int] = {}
     orphan_refs: list[str] = []
     unanchored: list[str] = []
 
     for fname, it in loaded:
         iid = it.get("id") or fname
+        approved = is_approved(it)
         tids = it.get("topic_ids")
         if not tids or not isinstance(tids, list):
             unanchored.append(f"{iid}: missing/empty topic_ids (orphan item)")
@@ -153,15 +213,19 @@ def main(argv: list[str] | None = None) -> int:
                 unanchored.append(f"{iid}: blank topic_id entry (orphan item)")
                 continue
             referenced.add(t)
+            ref_count[t] = ref_count.get(t, 0) + 1
+            if approved:
+                approved_referenced.add(t)
             if t not in known:
                 orphan_refs.append(f"{iid}: unknown topic_id {t!r} (orphan item)")
 
-    orphan_topics = [t for t in declared if t not in referenced]
+    orphan_topics = [t for t in declared if t not in approved_referenced]
 
     errors.extend(unanchored)
     errors.extend(orphan_refs)
     errors.extend(
-        f"orphan topic {t!r}: declared in topics.toml, referenced by zero bank items"
+        f"orphan topic {t!r}: declared in topics.toml, "
+        f"referenced by 0 approved items of {ref_count.get(t, 0)} referencing"
         for t in orphan_topics
     )
 
@@ -170,8 +234,14 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  topics={topics_path}")
     print(f"  bank={bank_dir}")
     print(f"  topics_declared={len(known)}")
-    print(f"  items={len(loaded)}")
-    print(f"  topics_referenced={len(referenced & known)}")
+    print(
+        f"  items={len(loaded)} scanned, {approved_n} approved "
+        "(orphan predicate counts the approved pool only)"
+    )
+    print(
+        f"  topics_referenced={len(approved_referenced & known)} approved "
+        f"of {len(referenced & known)} referencing"
+    )
     print(f"  orphan_topics={len(orphan_topics)}")
     print(f"  orphan_item_refs={len(orphan_refs)}")
     print(f"  unanchored_items={len(unanchored)}")
@@ -184,7 +254,10 @@ def main(argv: list[str] | None = None) -> int:
             print(f"    ... +{len(errors) - MAX_REPORT} more")
         return 1
 
-    print("  orphan integrity GREEN (every topic assessed; every ref resolves)")
+    print(
+        "  orphan integrity GREEN "
+        "(every topic assessed by an approved item; every ref resolves)"
+    )
     return 0
 
 
