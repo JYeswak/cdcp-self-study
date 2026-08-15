@@ -16,7 +16,7 @@
     "11": 42, "12": 37, "13": 30, "14": 33, "15": 22
   },
   "sampling": {
-    "script": "scripts/sample_mock.py",
+    "script": "cdcp goldens fixture (cdcp_assemble)",
     "seed42_vs_seed99_overlap": 4,
     "stratified": true
   },
