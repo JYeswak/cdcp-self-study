@@ -70,6 +70,13 @@ raise runs after "PASS" has reached stdout.
     FAILS if any tracked markdown still asserts that publication is pending,
     blocked, deferred, or awaiting a human.
 
+    DESCRIBING the detector is not asserting (bd-1sd.12). A line is skipped
+    when it (a) carries ``<!-- doc-truth: describes-detector -->``, (b) names
+    the detector (``scan_publication``, ``selftest_doc_consistency``, …), or
+    (c) sits inside a CLOSED fenced code block. An unmarked "going public is
+    pending" still fails. An unclosed fence is not an exemption (fail-closed).
+    The ``_FLIP`` / ``_STUCK`` alternations are not narrowed.
+
 ANTI-VACUOUS
 ------------
 An empty input set is an ERROR, not a pass. Zero markdown files, a missing
@@ -150,6 +157,19 @@ PENDING_PUBLICATION_PATTERNS: tuple[tuple[str, str], ...] = (
     (r"\bawaiting josh\b", "work parked on a human that already happened"),
     (r"\bflip is a human call\b", "visibility flip described as still to come"),
 )
+
+# Names of THIS scanner. A line that mentions one is documenting the detector,
+# not claiming the repo is unpublished. Keep in lockstep with the Rust port.
+_DETECTOR_NAMES = (
+    "scan_publication",
+    "selftest_doc_consistency",
+    "verify_doc_consistency",
+    "verify-doc-consistency",
+    "_flip",
+    "_stuck",
+    "pending_publication_patterns",
+)
+_FENCE = re.compile(r"^[ \t]{0,3}(`{3,}|~{3,})")
 
 MAX_REPORT = 40
 _EMPH = re.compile(r"[*`_]+")
@@ -363,6 +383,94 @@ def markdown_files(root: Path) -> list[Path]:
     return sorted(p for p in root.rglob("*.md") if p.is_file())
 
 
+def _is_word_char(c: str) -> bool:
+    return c.isalnum() or c == "_"
+
+
+def _has_word(text: str, word: str) -> bool:
+    """Same boundary rule as the Rust `has_word`: non-word on both sides."""
+    start = 0
+    n = len(word)
+    while True:
+        i = text.find(word, start)
+        if i < 0:
+            return False
+        before = text[i - 1] if i else ""
+        after_i = i + n
+        after = text[after_i] if after_i < len(text) else ""
+        if (not before or not _is_word_char(before)) and (
+            not after or not _is_word_char(after)
+        ):
+            return True
+        start = i + 1
+
+
+def fence_mark(line: str) -> tuple[str, int] | None:
+    """Opening/closing fence opener: 0–3 spaces/tabs then 3+ backticks or tildes."""
+    m = _FENCE.match(line)
+    if not m:
+        return None
+    mark = m.group(1)
+    return mark[0], len(mark)
+
+
+def closed_fence_mask(lines: list[str]) -> list[bool]:
+    """True for lines inside a CLOSED fence, including the delimiters.
+
+    An unclosed opener is NOT an exemption — fail-closed. A doc that starts a
+    fence and never ends it cannot hide "going public is pending".
+    """
+    n = len(lines)
+    mask = [False] * n
+    i = 0
+    while i < n:
+        mark = fence_mark(lines[i])
+        if mark is None:
+            i += 1
+            continue
+        j = i + 1
+        found = False
+        while j < n:
+            other = fence_mark(lines[j])
+            if other is not None and other[0] == mark[0] and other[1] >= mark[1]:
+                for k in range(i, j + 1):
+                    mask[k] = True
+                i = j + 1
+                found = True
+                break
+            j += 1
+        if not found:
+            i += 1
+    return mask
+
+
+def has_describes_detector_marker(line: str) -> bool:
+    """Honour ``<!-- doc-truth: describes-detector -->`` (optional whitespace)."""
+    low = line.lower()
+    pos = 0
+    while True:
+        i = low.find("<!--", pos)
+        if i < 0:
+            return False
+        j = low.find("-->", i + 4)
+        if j < 0:
+            return False
+        inner = low[i + 4 : j].strip()
+        if inner.startswith("doc-truth:") and inner[len("doc-truth:") :].strip() == (
+            "describes-detector"
+        ):
+            return True
+        pos = j + 3
+
+
+def describes_detector(line: str) -> bool:
+    """True when the line is documenting this scanner, not asserting a stall."""
+    if has_describes_detector_marker(line):
+        return True
+    low = line.lower()
+    return any(_has_word(low, name) for name in _DETECTOR_NAMES)
+
+
 def scan_publication(root: Path) -> tuple[int, list[str]]:
     errors: list[str] = []
     files = markdown_files(root)
@@ -381,7 +489,11 @@ def scan_publication(root: Path) -> tuple[int, list[str]]:
             errors.append(f"{path}: unreadable ({e}) — refusing to pass unscanned")
             continue
         rel = path.relative_to(root)
-        for lineno, line in enumerate(text.splitlines(), 1):
+        lines = text.splitlines()
+        fenced = closed_fence_mask(lines)
+        for lineno, line in enumerate(lines, 1):
+            if fenced[lineno - 1] or describes_detector(line):
+                continue
             for rx, why in compiled:
                 if rx.search(line):
                     errors.append(

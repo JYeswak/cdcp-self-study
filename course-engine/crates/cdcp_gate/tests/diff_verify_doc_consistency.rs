@@ -420,6 +420,54 @@ fn e_publication_pending_is_red_in_both() {
     assert!(out.contains("publication described as not done"), "{out}");
 }
 
+/// bd-1sd.12: describing the detector stays GREEN; an unmarked assertion RED.
+/// The marker is per-line, not a blanket bypass. An unclosed fence is not
+/// an exemption. `_FLIP`/`_STUCK` are not narrowed (the RED legs still fire).
+#[test]
+fn describing_the_detector_is_green_asserting_is_red() {
+    let table = Spec::clean();
+    table.append(
+        "README.md",
+        "\n| Suite | n | Injections |\n|---|---|---|\n\
+         | `selftest_doc_consistency` | 7 | publication described as pending |\n",
+    );
+    let out = assert_byte_exact("describe-detector-table", Some(table.path()));
+    assert!(out.starts_with("PASS\n"), "{out}");
+
+    let marked = Spec::clean();
+    marked.append(
+        "README.md",
+        "\nGoing public is pending. <!-- doc-truth: describes-detector -->\n",
+    );
+    let out = assert_byte_exact("describe-detector-marker", Some(marked.path()));
+    assert!(out.starts_with("PASS\n"), "{out}");
+
+    let fenced = Spec::clean();
+    fenced.append("README.md", "\n```\nGoing public is pending.\n```\n");
+    let out = assert_byte_exact("describe-detector-fence", Some(fenced.path()));
+    assert!(out.starts_with("PASS\n"), "{out}");
+
+    let bad = Spec::clean();
+    bad.append("README.md", "\nGoing public is pending.\n");
+    let out = assert_byte_exact("going-public-is-pending", Some(bad.path()));
+    assert!(out.contains("publication described as not done"), "{out}");
+
+    let sibling = Spec::clean();
+    sibling.append(
+        "README.md",
+        "\nGoing public is pending. <!-- doc-truth: describes-detector -->\n\
+         Going public is pending.\n",
+    );
+    let out = assert_byte_exact("marker-not-blanket", Some(sibling.path()));
+    assert!(out.contains("publication described as not done"), "{out}");
+    assert_eq!(finding_count(&out), 1, "marker must not blanket-bypass: {out}");
+
+    let unclosed = Spec::clean();
+    unclosed.append("README.md", "\n```\nGoing public is pending.\n");
+    let out = assert_byte_exact("unclosed-fence-not-exempt", Some(unclosed.path()));
+    assert!(out.contains("publication described as not done"), "{out}");
+}
+
 /// (f) anti-vacuous: a root with zero markdown is an ERROR, not a pass.
 #[test]
 fn f_zero_markdown_is_an_error_in_both() {

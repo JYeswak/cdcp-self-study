@@ -14,10 +14,14 @@
 #   b) one milestone twice in one table     → RED (duplicate row)
 #   c) same milestone, two statuses         → RED (cross-doc contradiction)
 #   d) status cell in unknown vocabulary    → RED (fail-closed, not fail-open)
-#   e) "publication is blocked" line        → RED (repo is public)
+#   e) "going public is pending" line       → RED (repo is public; unmarked)
 #   f) root with zero markdown              → ERROR (anti-vacuous)
 #   g) roadmap doc missing                  → ERROR (cannot verify agreement)
 #   h) row too short to reach its Status    → RED (ragged row, fail-closed)
+#   i) table that names the detector        → GREEN (bd-1sd.12; not counted)
+#   j) <!-- doc-truth: describes-detector --> → GREEN (not counted)
+#   k) closed fence quoting the trigger     → GREEN (not counted)
+# GREEN controls do not increment INJ.
 #
 # The live-tree run is check.sh's own preceding step; this script proves the
 # checker bites. If ANY injection stays GREEN, this exits non-zero.
@@ -177,7 +181,7 @@ assert_fails_with "unreadable-status" "unrecognised status vocabulary" \
 # ── (e) a doc that still calls publication pending ──────────────────────────
 echo "==> (e) publication-pending assertion → RED"
 write_specimen
-printf '\n%s\n' 'The visibility flip is blocked pending a human decision.' \
+printf '\n%s\n' 'Going public is pending.' \
   >>"$SPEC/course-engine/docs/PHASE-NEXT.md"
 assert_fails_with "publication-pending" "publication described as not done" \
   run_checker "$SPEC"
@@ -207,11 +211,42 @@ printf '%s\n' '| **M10** | ragged row |' >>"$SPEC/CHARTER.md"
 assert_fails_with "ragged-row" "row is shorter than its Status column" \
   run_checker "$SPEC"
 
+# ── (i) a table that NAMES the detector must stay GREEN (bd-1sd.12) ─────────
+# This is the measured false positive: README listed the injection as
+# "publication described as pending" next to `selftest_doc_consistency`.
+echo "==> (i) table naming the detector → GREEN"
+write_specimen
+cat >>"$SPEC/README.md" <<'EOF'
+
+| Suite | n | Injections |
+|---|---|---|
+| `selftest_doc_consistency` | 7 | publication described as pending |
+EOF
+assert_green "describe-detector-table" run_checker "$SPEC"
+
+# ── (j) explicit per-line opt-out; unmarked sibling still trips in (e) ──────
+echo "==> (j) describes-detector marker → GREEN"
+write_specimen
+printf '\n%s\n' 'Going public is pending. <!-- doc-truth: describes-detector -->' \
+  >>"$SPEC/README.md"
+assert_green "describe-detector-marker" run_checker "$SPEC"
+
+# ── (k) a CLOSED fence quoting the trigger is a quotation, not a claim ──────
+echo "==> (k) fenced trigger phrase → GREEN"
+write_specimen
+cat >>"$SPEC/README.md" <<'EOF'
+
+```
+Going public is pending.
+```
+EOF
+assert_green "describe-detector-fence" run_checker "$SPEC"
+
 # ── nothing may have leaked out of TEMP ─────────────────────────────────────
 write_specimen
 assert_green "specimen-restored" run_checker "$SPEC"
 [ -d "$TMP_ROOT" ] || fail "TEMP root vanished mid-run"
 
 echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
-echo "selftest_doc_consistency: PASSED (a clean GREEN · b duplicate row · c cross-doc conflict · d unreadable status · e publication pending · f zero markdown · g missing doc · h ragged row)"
+echo "selftest_doc_consistency: PASSED (a clean GREEN · b duplicate row · c cross-doc conflict · d unreadable status · e publication pending · f zero markdown · g missing doc · h ragged row · i describe-detector table GREEN · j marker GREEN · k fence GREEN)"
 exit 0

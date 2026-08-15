@@ -16,7 +16,11 @@
 //!    Status column is too short to reach it (see the DECISION below).
 //! 2. **Publication truth.** The repository is public (`REPO_PUBLIC`). RED when
 //!    any scanned markdown still asserts that publication is pending, blocked,
-//!    deferred, or awaiting a human.
+//!    deferred, or awaiting a human. Describing this detector is not a claim
+//!    (bd-1sd.12): a line is skipped when it carries
+//!    `<!-- doc-truth: describes-detector -->`, names the detector, or sits
+//!    inside a CLOSED fence. An unmarked assertion still fails; an unclosed
+//!    fence is not an exemption. `_FLIP`/`_STUCK` are not narrowed.
 //!
 //! # What this gate CANNOT decide
 //!
@@ -179,6 +183,18 @@ const WHY_NOT_DONE: &str = "publication described as not done";
 const WHY_AUDIT_NO: &str = "audit says the repo is not public";
 const WHY_AWAITING_JOSH: &str = "work parked on a human that already happened";
 const WHY_HUMAN_CALL: &str = "visibility flip described as still to come";
+
+/// Identifiers of THIS scanner. A line that mentions one is documenting the
+/// detector, not claiming the repo is unpublished. Lockstep with the oracle.
+const DETECTOR_NAMES: [&str; 7] = [
+    "scan_publication",
+    "selftest_doc_consistency",
+    "verify_doc_consistency",
+    "verify-doc-consistency",
+    "_flip",
+    "_stuck",
+    "pending_publication_patterns",
+];
 
 const MAX_REPORT: usize = 40;
 
@@ -1079,6 +1095,77 @@ fn py_utf8_error(bytes: &[u8]) -> String {
     }
 }
 
+/// 0–3 spaces/tabs then 3+ backticks or tildes. Lockstep with the oracle.
+fn fence_mark(line: &str) -> Option<(char, usize)> {
+    let cs: Vec<char> = line.chars().collect();
+    let mut i = 0;
+    while i < cs.len() && i < 3 && (cs[i] == ' ' || cs[i] == '\t') {
+        i += 1;
+    }
+    let ch = *cs.get(i)?;
+    if ch != '`' && ch != '~' {
+        return None;
+    }
+    let start = i;
+    while i < cs.len() && cs[i] == ch {
+        i += 1;
+    }
+    let n = i - start;
+    (n >= 3).then_some((ch, n))
+}
+
+/// True for lines inside a CLOSED fence, including the delimiters.
+/// An unclosed opener is NOT an exemption (fail-closed).
+fn closed_fence_mask(lines: &[&str]) -> Vec<bool> {
+    let n = lines.len();
+    let mut mask = vec![false; n];
+    let mut i = 0;
+    while i < n {
+        let Some(mark) = fence_mark(lines[i]) else {
+            i += 1;
+            continue;
+        };
+        if let Some(j) = ((i + 1)..n).find(|&j| {
+            fence_mark(lines[j]).is_some_and(|o| o.0 == mark.0 && o.1 >= mark.1)
+        }) {
+            for slot in mask.iter_mut().take(j + 1).skip(i) {
+                *slot = true;
+            }
+            i = j + 1;
+        } else {
+            i += 1;
+        }
+    }
+    mask
+}
+
+/// `<!-- doc-truth: describes-detector -->` with optional inner whitespace.
+fn has_describes_detector_marker(line: &str) -> bool {
+    let low = line.to_ascii_lowercase();
+    let mut rest = low.as_str();
+    while let Some(start) = rest.find("<!--") {
+        let after = &rest[start + 4..];
+        let Some(end) = after.find("-->") else {
+            break;
+        };
+        if let Some(tail) = after[..end].trim().strip_prefix("doc-truth:") {
+            if tail.trim() == "describes-detector" {
+                return true;
+            }
+        }
+        rest = &after[end + 3..];
+    }
+    false
+}
+
+fn describes_detector(line: &str) -> bool {
+    if has_describes_detector_marker(line) {
+        return true;
+    }
+    let low = line.to_ascii_lowercase();
+    DETECTOR_NAMES.iter().copied().any(|n| has_word(&low, n))
+}
+
 fn scan_publication(root: &Path) -> (usize, Vec<Finding>) {
     let mut errors: Vec<Finding> = Vec::new();
     let files = markdown_files(root);
@@ -1116,7 +1203,12 @@ fn scan_publication(root: &Path) -> (usize, Vec<Finding>) {
             }
         };
         let rel = path.strip_prefix(root).unwrap_or(path);
-        for (idx, line) in py_splitlines(&text).into_iter().enumerate() {
+        let lines = py_splitlines(&text);
+        let fenced = closed_fence_mask(&lines);
+        for (idx, line) in lines.into_iter().enumerate() {
+            if fenced[idx] || describes_detector(line) {
+                continue;
+            }
             if let Some(why) = publication_hit(line) {
                 errors.push(Finding::violation(format!(
                     "{}:{}: {why} — repo has been public since {REPO_PUBLIC_SINCE} ({REPO_PUBLIC_EVIDENCE}): {}",
@@ -1384,6 +1476,38 @@ mod tests {
             Some(WHY_HUMAN_CALL)
         );
         assert_eq!(publication_hit("the repo is public and that is that"), None);
+        assert_eq!(
+            publication_hit("Going public is pending."),
+            Some(WHY_NOT_DONE)
+        );
+    }
+
+    /// bd-1sd.12: describing the detector is not asserting a stall.
+    #[test]
+    fn detector_prose_is_exempt_assertions_are_not() {
+        assert!(describes_detector(
+            "| `selftest_doc_consistency` | publication described as pending |"
+        ));
+        assert!(describes_detector(
+            "Going public is pending. <!-- doc-truth: describes-detector -->"
+        ));
+        assert!(describes_detector(
+            "x <!--doc-truth:  describes-detector--> y"
+        ));
+        assert!(!describes_detector("Going public is pending."));
+        assert_eq!(
+            publication_hit("Going public is pending."),
+            Some(WHY_NOT_DONE)
+        );
+        assert_eq!(
+            closed_fence_mask(&["```", "Going public is pending.", "```"]),
+            vec![true, true, true]
+        );
+        // Unclosed fence is NOT an exemption (fail-closed).
+        assert_eq!(
+            closed_fence_mask(&["```", "Going public is pending."]),
+            vec![false, false]
+        );
     }
 
     /// bd-2m9: the deferred classification, kept honest while `run` still exits
