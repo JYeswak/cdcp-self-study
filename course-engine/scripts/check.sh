@@ -149,6 +149,10 @@ skipped_step() { STEP_SKIPPED=$((STEP_SKIPPED + 1)); echo "check.sh: skip: $*"; 
 #   selftest_l5.sh             web/_selftest_l5_honesty_planted.html    [S] planted/removed
 #   selftest_reconstructed.sh  (bd-791t) private tree under target/cdcp-recon-*/
 #                              live tracked files are not written
+#   cdcp build-learn               web/data/modules_index.json          [M] regenerated
+#                                  web/data/topic_anchors.json          [M] regenerated
+#                                  web/learn.html + web/learn/*.html    [M] regenerated
+#                                  web/content/modules/*.md             [M] recopied
 #   cdcp build-units               web/data/units_index.json            [M] regenerated
 #   cdcp build-glossary            web/data/glossary.json               [M] regenerated
 #   cdcp build-learn-slugs         web/data/module_learn_slugs.js       [M] regenerated
@@ -1162,6 +1166,10 @@ echo "==> e2e_l5_digest.sh (UI dual-path digest match)"
 sh scripts/e2e_l5_digest.sh || fail "L5 e2e digest"
 ok "L5 e2e digest match (seed42 all-correct/all-wrong)"
 
+echo "==> cdcp build-learn (Learn surface)"
+run_cdcp_cli build-learn || fail "build-learn"
+ok "Learn surface (modules_index · topic_anchors · pages · copies)"
+
 echo "==> cdcp smoke-learn (L5 learn surface)"
 run_cdcp_cli smoke-learn || fail "L5 learn smoke"
 ok "L5 learn smoke"
@@ -1219,7 +1227,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(run_cdcp_cli --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence load-snapshots check-osha; do
+for v in bank-hash grade goldens export-web serve build-learn build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence load-snapshots check-osha; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"

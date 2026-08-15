@@ -1,24 +1,22 @@
 //! Learn content-copy orphan sweep (bd-zhnd).
 //!
-//! `scripts/build_learn.py` writes `web/content/modules/{id}.md` and then
+//! `cdcp_learn::build` writes `web/content/modules/{id}.md` and then
 //! deletes names that look like leftover generated copies. Until 2026-08-14
 //! that sweep matched **any** `*.md`, so a tracked doc (`README.md`) was
 //! deleted on every run. The keep set is the product: a non-module `.md` is
 //! documentation and must survive.
 //!
-//! This module is the live rust compiler for that keep set. The python
-//! builder (still the page generator) implements the same predicate; the
-//! CHARTER pair in `tests/build_learn_charter_pair.rs` runs whichever path
-//! is live and asserts a planted non-module `.md` SURVIVES. Deleting a
-//! tracked doc is RED.
+//! This module is the live rust compiler for that keep set. The CHARTER
+//! pair in `tests/build_learn_charter_pair.rs` runs the rust builder and
+//! asserts a planted non-module `.md` SURVIVES. Deleting a tracked doc is
+//! RED.
 //!
 //! # What it cannot decide
 //!
-//! It does not generate Learn pages, the hub, or `modules_index.json`.
-//! Those stay with `scripts/build_learn.py` until that compiler is ported.
-//! It cannot decide that a surviving file is *correct* — only that it was
-//! not unlinked. It cannot see files one directory down (the python glob
-//! is one level; this walk matches).
+//! Page / hub / index generation lives in `crate::build`. This module
+//! cannot decide that a surviving file is *correct* — only that it was
+//! not unlinked. It cannot see files one directory down (the walk is one
+//! level).
 
 #![forbid(unsafe_code)]
 

@@ -983,7 +983,8 @@ fn load_topics_for_builder(path: &Path, errors: &mut Vec<String>) -> Vec<(String
     out
 }
 
-fn render_topic_anchors(
+/// Render `web/data/topic_anchors.json` bytes. `generated_by` is [`crate::GENERATED_BY`].
+pub fn render_topic_anchors(
     topic_map: &BTreeMap<String, Map<String, Json>>,
     matched: usize,
     navigable: &[(i64, String)],

@@ -1258,7 +1258,8 @@ pub fn evaluate(root: &Path) -> Result<Outcome, LearnError> {
     let content = join_rel(root, CONTENT_REL);
     if !content.is_dir() {
         return Ok(Outcome {
-            stdout: "FAIL: missing web/content/modules — run build_learn.py first\n".to_string(),
+            stdout: "FAIL: missing web/content/modules — run `cdcp build-learn` first\n"
+                .to_string(),
             code: 1,
             artifact: None,
         });
@@ -1389,10 +1390,7 @@ pub fn evaluate(root: &Path) -> Result<Outcome, LearnError> {
 
     let payload = Jv::Obj(vec![
         ("schema_version".into(), Jv::Int(2)),
-        (
-            "generated_by".into(),
-            Jv::Str(GENERATED_BY.into()),
-        ),
+        ("generated_by".into(), Jv::Str(GENERATED_BY.into())),
         ("unit_count".into(), Jv::Int(all_units.len() as i64)),
         ("module_count".into(), Jv::Int(by_module.len() as i64)),
         ("approved_item_count".into(), Jv::Int(approved.len() as i64)),

@@ -1,5 +1,5 @@
 {
-  "generated_by": "scripts/build_learn.py",
+  "generated_by": "cdcp_learn",
   "modules": {
     "01-mission-critical": {
       "headings": [
@@ -46,7 +46,7 @@
         {
           "id": "availability-nines-and-annual-downtime",
           "level": 3,
-          "text": "Availability \u201cnines\u201d and annual downtime"
+          "text": "Availability “nines” and annual downtime"
         },
         {
           "id": "primary-causes-of-unavailability",
@@ -56,7 +56,7 @@
         {
           "id": "how-mission-critical-is-expressed-in-design",
           "level": 3,
-          "text": "How \u201cmission-critical\u201d is expressed in design"
+          "text": "How “mission-critical” is expressed in design"
         },
         {
           "id": "key-diagrams",
@@ -151,7 +151,7 @@
         {
           "id": "2-uptime-institute-tier-concepts-iiv-awareness-only",
           "level": 3,
-          "text": "2. Uptime Institute Tier concepts (I\u2013IV) \u2014 awareness only"
+          "text": "2. Uptime Institute Tier concepts (I–IV) — awareness only"
         },
         {
           "id": "3-isoiec-22237-overview",
@@ -166,7 +166,7 @@
         {
           "id": "5-national-vs-international-standards-and-when-each-applies",
           "level": 3,
-          "text": "5. National vs international standards \u2014 and when each applies"
+          "text": "5. National vs international standards — and when each applies"
         },
         {
           "id": "key-diagrams",
@@ -181,7 +181,7 @@
         {
           "id": "b-mapping-redundancy-language-conceptualnot-11-equivalence",
           "level": 3,
-          "text": "B. Mapping redundancy language (conceptual\u2014not 1:1 equivalence)"
+          "text": "B. Mapping redundancy language (conceptual—not 1:1 equivalence)"
         },
         {
           "id": "c-cabling-hierarchy-tia-oriented-sketch",
@@ -361,12 +361,12 @@
         {
           "id": "raised-access-floor-what-it-is",
           "level": 3,
-          "text": "Raised access floor \u2014 what it is"
+          "text": "Raised access floor — what it is"
         },
         {
           "id": "load-types-uniform-concentrated-rolling",
           "level": 3,
-          "text": "Load types \u2014 uniform, concentrated, rolling"
+          "text": "Load types — uniform, concentrated, rolling"
         },
         {
           "id": "floor-standards-and-guidelines-public-names",
@@ -386,7 +386,7 @@
         {
           "id": "suspended-ceiling-use-in-the-data-centre",
           "level": 3,
-          "text": "Suspended ceiling \u2014 use in the data centre"
+          "text": "Suspended ceiling — use in the data centre"
         },
         {
           "id": "impact-on-cooling-and-airflow",
@@ -416,7 +416,7 @@
         {
           "id": "bonding-sketch-simplified-not-a-design-drawing",
           "level": 3,
-          "text": "Bonding sketch (simplified \u2014 not a design drawing)"
+          "text": "Bonding sketch (simplified — not a design drawing)"
         },
         {
           "id": "formulas-rules-of-thumb",
@@ -566,7 +566,7 @@
         {
           "id": "utility-to-rack-the-power-path",
           "level": 3,
-          "text": "Utility to rack \u2014 the power path"
+          "text": "Utility to rack — the power path"
         },
         {
           "id": "transformers",
@@ -721,7 +721,7 @@
         {
           "id": "what-emf-means-in-a-data-centre",
           "level": 3,
-          "text": "What \u201cEMF\u201d means in a data centre"
+          "text": "What “EMF” means in a data centre"
         },
         {
           "id": "near-field-vs-far-field-intuition",
@@ -746,7 +746,7 @@
         {
           "id": "units-and-how-strong-is-strong",
           "level": 3,
-          "text": "Units and \u201chow strong is strong?\u201d"
+          "text": "Units and “how strong is strong?”"
         },
         {
           "id": "mitigation-hierarchy-best-practices",
@@ -806,7 +806,7 @@
         {
           "id": "further-free-resources-public-standards-names-vendor-primers-no-paywalled-epi-content",
           "level": 2,
-          "text": "Further free resources (public standards names, vendor primers \u2014 no paywalled EPI content)"
+          "text": "Further free resources (public standards names, vendor primers — no paywalled EPI content)"
         }
       ],
       "order": 7
@@ -1016,7 +1016,7 @@
         {
           "id": "1-sensible-vs-latentwhy-do-tpms-care",
           "level": 3,
-          "text": "1) Sensible vs latent\u2014why do TPMs care?"
+          "text": "1) Sensible vs latent—why do TPMs care?"
         },
         {
           "id": "2-crac-vs-crah",
@@ -1096,7 +1096,7 @@
         {
           "id": "5-standards-and-guidance-public-namesnot-exam-banks",
           "level": 3,
-          "text": "5. Standards and guidance (public names\u2014not exam banks)"
+          "text": "5. Standards and guidance (public names—not exam banks)"
         },
         {
           "id": "key-diagrams",
@@ -1111,7 +1111,7 @@
         {
           "id": "b-failure-cascade-water-outage-it-risk",
           "level": 3,
-          "text": "B. Failure cascade (water outage \u2192 IT risk)"
+          "text": "B. Failure cascade (water outage → IT risk)"
         },
         {
           "id": "c-backup-water-options-decision-sketch",
@@ -1316,7 +1316,7 @@
         {
           "id": "regulatory-notes-high-levelverify-locally",
           "level": 3,
-          "text": "Regulatory notes (high level\u2014verify locally)"
+          "text": "Regulatory notes (high level—verify locally)"
         },
         {
           "id": "best-practices",
@@ -1331,7 +1331,7 @@
         {
           "id": "detection-decision-suppress",
           "level": 3,
-          "text": "Detection \u2192 decision \u2192 suppress"
+          "text": "Detection → decision → suppress"
         },
         {
           "id": "cabling-space-hierarchy-where-fire-risk-hides",
@@ -1426,7 +1426,7 @@
         {
           "id": "7-people-process-and-the-soft-layer",
           "level": 3,
-          "text": "7. People, process, and the \u201csoft\u201d layer"
+          "text": "7. People, process, and the “soft” layer"
         },
         {
           "id": "key-diagrams",
@@ -1536,7 +1536,7 @@
         {
           "id": "change-control-calibration-and-single-pane-of-glass",
           "level": 3,
-          "text": "Change control, calibration, and \u201csingle pane of glass\u201d"
+          "text": "Change control, calibration, and “single pane of glass”"
         },
         {
           "id": "key-diagrams",
@@ -1591,7 +1591,7 @@
         {
           "id": "scope-note-read-this-first",
           "level": 2,
-          "text": "Scope note \u2014 read this first"
+          "text": "Scope note — read this first"
         },
         {
           "id": "learning-objectives",
@@ -1611,7 +1611,7 @@
         {
           "id": "procedure-discipline-mop-sop-eop-swms",
           "level": 3,
-          "text": "Procedure discipline \u2014 MOP, SOP, EOP, SWMS"
+          "text": "Procedure discipline — MOP, SOP, EOP, SWMS"
         },
         {
           "id": "documentation",
@@ -1666,7 +1666,7 @@
         {
           "id": "evidence-hygiene-the-habit-that-outlives-this-module",
           "level": 3,
-          "text": "Evidence hygiene \u2014 the habit that outlives this module"
+          "text": "Evidence hygiene — the habit that outlives this module"
         },
         {
           "id": "interview-drills",

@@ -13,26 +13,20 @@
 //! never deletes anything makes the meta-test RED. A sweep that deletes
 //! README.md makes the survival test RED.
 //!
-//! Live compiler: rust `sweep_content_copies` always. If
-//! `scripts/build_learn.py` is still present, the same plant is also
-//! run through python (CDCP_ENGINE_ROOT retarget). Python-gone is the
-//! extracted path; rust-only is not a skip.
+//! Live compiler: rust `cdcp_learn::build` (EXTRACT-THEN-DELETE of
+//! `scripts/build_learn.py`, bd-substrate-rust-migration-jhd.28). The
+//! sweep predicate is also asserted in-process.
 
 use cdcp_learn::content::{
     should_unlink_content_copy, sweep_content_copies, PROTECTED_CONTENT_DOCS,
 };
 use std::collections::BTreeSet;
-use std::path::{Path, PathBuf};
-use std::process::Command;
+use std::path::Path;
 
 const PLANTED_DOC: &str = "README.md";
 const PLANTED_NOTES: &str = "NOTES.md";
 const STALE_COPY: &str = "99-stale.md";
 const LIVE_COPY: &str = "01-mission-critical.md";
-
-fn engine_root() -> PathBuf {
-    cdcp_learn::resolve_engine_root(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
-}
 
 fn nav(ids: &[&str]) -> BTreeSet<String> {
     ids.iter().map(|s| (*s).to_string()).collect()
@@ -149,27 +143,10 @@ fn unguarded_sweep_deletes_the_planted_doc_and_that_is_the_known_bad() {
     );
 }
 
-// ── live python builder, when still present ───────────────────────────────
-
-fn python3() -> Option<&'static str> {
-    for bin in ["python3", "python"] {
-        if Command::new(bin)
-            .arg("-c")
-            .arg("import sys; sys.exit(0)")
-            .status()
-            .map(|s| s.success())
-            .unwrap_or(false)
-        {
-            return Some(bin);
-        }
-    }
-    None
-}
+// ── live rust builder ─────────────────────────────────────────────────────
 
 #[test]
 fn live_builder_leaves_a_planted_non_module_md_in_place() {
-    let engine = engine_root();
-    let script = engine.join("scripts/build_learn.py");
     let td = tempfile::tempdir().unwrap();
     let root = td.path();
 
@@ -210,37 +187,22 @@ fn live_builder_leaves_a_planted_non_module_md_in_place() {
         root.join("web/content/modules/README.md").is_file(),
         "plant must exist before the builder runs"
     );
+    assert!(
+        !root.join("scripts/build_learn.py").exists(),
+        "EXTRACT-THEN-DELETE: scripts/build_learn.py must stay gone"
+    );
 
-    if script.is_file() {
-        let py = python3().expect(
-            "scripts/build_learn.py is present but python3 is not — \
-             cannot decide the live python path; rust-only is the extracted path \
-             and is tested below",
-        );
-        let out = Command::new(py)
-            .arg(&script)
-            .env("CDCP_ENGINE_ROOT", root)
-            .current_dir(root)
-            .output()
-            .unwrap_or_else(|e| panic!("spawn {py} {}: {e}", script.display()));
-        let stdout = String::from_utf8_lossy(&out.stdout);
-        let stderr = String::from_utf8_lossy(&out.stderr);
-        assert!(
-            out.status.success(),
-            "build_learn.py failed (rc={:?}):\nstdout:\n{stdout}\nstderr:\n{stderr}",
-            out.status.code()
-        );
-        assert!(
-            stdout.contains("PASS: build_learn"),
-            "builder printed no success token:\n{stdout}"
-        );
-    } else {
-        // Extracted path: rust sweep is the live compiler.
-        let content = root.join("web/content/modules");
-        write(&content, LIVE_COPY, "# copied\n");
-        let report = sweep_content_copies(&content, &nav(&[LIVE_COPY])).expect("rust sweep");
-        assert!(report.scanned >= 3, "empty rust sweep: {report:?}");
-    }
+    let outcome = cdcp_learn::build::write_learn(root).expect("build");
+    assert_eq!(
+        outcome.code, 0,
+        "live rust builder failed:\n{}",
+        outcome.stdout
+    );
+    assert!(
+        outcome.stdout.contains("PASS: build_learn"),
+        "builder printed no success token:\n{}",
+        outcome.stdout
+    );
 
     assert!(
         root.join("web/content/modules/README.md").is_file(),
@@ -255,5 +217,10 @@ fn live_builder_leaves_a_planted_non_module_md_in_place() {
         !root.join("web/content/modules/99-stale.md").exists(),
         "live builder must still delete leftover generated copies; \
          a no-op sweep would keep README.md by never deleting anything"
+    );
+    assert!(
+        root.join("web/content/modules/01-mission-critical.md")
+            .is_file(),
+        "live builder must copy the navigable module notes"
     );
 }

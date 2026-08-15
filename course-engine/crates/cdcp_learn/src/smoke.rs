@@ -138,9 +138,7 @@ pub fn run(root: &Path) -> BuildOutcome {
 
     let index_path = join_rel(root, INDEX_REL);
     let index: Option<Json> = if !index_path.is_file() {
-        errors.push(format!(
-            "missing {INDEX_REL} — run scripts/build_learn.py"
-        ));
+        errors.push(format!("missing {INDEX_REL} — run `cdcp build-learn`"));
         None
     } else {
         match std::fs::read_to_string(&index_path) {
@@ -178,19 +176,13 @@ pub fn run(root: &Path) -> BuildOutcome {
             errors.push("modules_index.json has zero modules".into());
         }
 
-        let index_ids: BTreeSet<String> = mods
-            .iter()
-            .map(|m| json_id(m))
-            .collect();
+        let index_ids: BTreeSet<String> = mods.iter().map(|m| json_id(m)).collect();
         let domain_ids: BTreeSet<String> = domain_by_id.keys().cloned().collect();
         if index_ids != domain_ids {
             let missing: Vec<&String> = domain_ids.difference(&index_ids).collect();
             let extra: Vec<&String> = index_ids.difference(&domain_ids).collect();
             if !missing.is_empty() {
-                errors.push(format!(
-                    "index missing domain ids: {}",
-                    join_ids(&missing)
-                ));
+                errors.push(format!("index missing domain ids: {}", join_ids(&missing)));
             }
             if !extra.is_empty() {
                 errors.push(format!(
@@ -232,7 +224,9 @@ pub fn run(root: &Path) -> BuildOutcome {
 
             let page = join_rel(root, LEARN_DIR_REL).join(format!("{mid}.html"));
             if !page.is_file() {
-                errors.push(format!("{mid}: missing learn page {LEARN_DIR_REL}/{mid}.html"));
+                errors.push(format!(
+                    "{mid}: missing learn page {LEARN_DIR_REL}/{mid}.html"
+                ));
             } else {
                 match std::fs::read_to_string(&page) {
                     Ok(text) => check_page(&mid, &text, &mut errors),
@@ -263,7 +257,7 @@ pub fn run(root: &Path) -> BuildOutcome {
                 if !src_ok {
                     errors.push(format!(
                         "{mid}: missing content copy and primary_notes source \
-                         (run scripts/build_learn.py)"
+                         (run `cdcp build-learn`)"
                     ));
                 }
             }
@@ -304,7 +298,9 @@ pub fn run(root: &Path) -> BuildOutcome {
 
 fn check_page(mid: &str, text: &str, errors: &mut Vec<String>) {
     if !has_honesty_banner(text) {
-        errors.push(format!("{mid}: learn page missing honesty non-grant banner"));
+        errors.push(format!(
+            "{mid}: learn page missing honesty non-grant banner"
+        ));
     }
     if !has_quoted_attr(text, "href", "../assets/css/course.css") {
         errors.push(format!(
@@ -488,12 +484,8 @@ mod tests {
         assert!(has_honesty_banner(
             "This tool does <strong>not</strong> grant EPI/EXIN certification."
         ));
-        assert!(has_honesty_banner(
-            "does not grant EPI/EXIN certification"
-        ));
-        assert!(has_honesty_banner(
-            "DOES NOT GRANT epi/exin CERTIFICATION"
-        ));
+        assert!(has_honesty_banner("does not grant EPI/EXIN certification"));
+        assert!(has_honesty_banner("DOES NOT GRANT epi/exin CERTIFICATION"));
         assert!(!has_honesty_banner("does grant EPI/EXIN certification"));
         assert!(!has_honesty_banner("not a credential"));
         assert!(!has_honesty_banner(""));

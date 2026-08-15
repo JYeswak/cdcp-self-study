@@ -1,4 +1,5 @@
-//! `cdcp_learn` — the Learn compilers, chrome / Learn / diagram / a11y / weak-link / v2 smokes are product, not gate.
+//! `cdcp_learn` — the Learn compilers (surface, units, glossary, slugs) and
+//! chrome / Learn / diagram / a11y / weak-link / v2 smokes are product, not gate.
 //!
 //! `web/data/units_index.json` and `web/data/glossary.json` are LEARNER-VISIBLE.
 //! A learner reads the glossary and is scored against unit `check_item_ids`.
@@ -22,6 +23,7 @@ use std::path::{Path, PathBuf};
 use thiserror::Error;
 
 pub mod a11y;
+pub mod build;
 pub mod chrome;
 pub mod content;
 pub mod diagrams;

@@ -148,7 +148,11 @@ impl Fixture {
             n > 0,
             "copied zero module files — a vacuous fixture is an ERROR, not a pass"
         );
-        for rel in ["knowledge/topics.toml", "web/data/modules_index.json", PACK_REL] {
+        for rel in [
+            "knowledge/topics.toml",
+            "web/data/modules_index.json",
+            PACK_REL,
+        ] {
             let dst = self.at(rel);
             std::fs::create_dir_all(dst.parent().unwrap()).unwrap();
             std::fs::copy(root.join(rel), &dst).unwrap_or_else(|e| panic!("copy {rel}: {e}"));
@@ -369,8 +373,8 @@ label = "UPS topologies"
 /// Derived from the pack rather than hard-coded, so a retirement wave cannot
 /// walk past this suite.
 fn live_withheld_ids() -> Vec<String> {
-    let bank = cdcp_learn::units::load_bank(&engine_root())
-        .expect("the tracked bank pack must load");
+    let bank =
+        cdcp_learn::units::load_bank(&engine_root()).expect("the tracked bank pack must load");
     assert!(!bank.is_empty(), "an empty pack is an ERROR, not a pass");
     bank.iter()
         .filter(|it| !it.is_approved())
@@ -594,7 +598,7 @@ fn a_missing_content_directory_is_an_error_and_writes_nothing() {
     assert_ne!(rs.code, 0, "a missing content tree must never be a pass");
     assert_eq!(
         rs.out(),
-        "FAIL: missing web/content/modules — run build_learn.py first\n"
+        "FAIL: missing web/content/modules — run `cdcp build-learn` first\n"
     );
     assert!(
         rs.artifact.is_none(),

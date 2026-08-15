@@ -314,11 +314,10 @@ reason = "Manual authoring helper: regenerates the content manifest. Not on the 
 migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-02-28"
 
-[[allow]]
-path = "scripts/build_learn.py"
-reason = "Manual authoring step: builds the Learn pages from module content. Not on the check.sh path; ports after the gates."
-migration_bead = "bd-substrate-rust-migration-jhd"
-expires = "2027-02-28"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.28): scripts/build_learn.py
+# is DELETED, not allowlisted. The compiler is `cdcp_learn::build` / `cdcp build-learn`.
+# Empty domains / empty primary_notes without exam_weight_unknown / empty content
+# sweep is ERROR. Write-after-verdict. Do NOT re-add a row for it.
 
 [[allow]]
 path = "scripts/build_reference.py"
@@ -328,8 +327,8 @@ expires = "2027-02-28"
 
 [[allow]]
 path = "scripts/copy_module_content.py"
-reason = "Manual import step: copies parent-corpus module content into the engine. Not on the check.sh path; ports after the gates."
-migration_bead = "bd-substrate-rust-migration-jhd"
+reason = "Retired alias: prints `use cdcp build-learn` and exits 1. Not on the check.sh path. Delete with the remaining authoring-script sweep."
+migration_bead = "bd-substrate-rust-migration-jhd.28"
 expires = "2027-02-28"
 
 [[allow]]
@@ -346,8 +345,8 @@ expires = "2027-02-28"
 
 [[allow]]
 path = "scripts/gen_learn_pages.py"
-reason = "Manual generator for the per-unit Learn pages. Not on the check.sh path; ports after the gates."
-migration_bead = "bd-substrate-rust-migration-jhd"
+reason = "Retired alias: prints `use cdcp build-learn` and exits 1. Not on the check.sh path. Delete with the remaining authoring-script sweep."
+migration_bead = "bd-substrate-rust-migration-jhd.28"
 expires = "2027-02-28"
 
 # scripts/sample_mock.py DELETED 2026-08-15 (bd-sample-mock-draws-retired-1qv9).
@@ -453,8 +452,8 @@ expires = "2027-06-30"
 
 [[allow]]
 path = "scripts/_run_build_learn.sh"
-reason = "Thin wrapper that invokes build_learn.py with the right working directory. Disappears when build_learn.py ports; tracked with it rather than separately."
-migration_bead = "bd-substrate-rust-migration-jhd"
+reason = "Thin convenience wrapper: invokes the prebuilt $CDCP_BIN_DIR/cdcp build-learn + smokes. No python3, no cargo run. Not a check.sh step (check.sh calls run_cdcp_cli build-learn directly)."
+migration_bead = "bd-substrate-rust-migration-jhd.28"
 expires = "2027-02-28"
 
 # =============================================================================

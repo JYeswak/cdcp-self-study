@@ -54,7 +54,7 @@ function abort(msg) {
 // This gate must not learn the module set from the same object hub_mastery.js
 // built its catalog out of, or the comparison below would be a tautology.
 if (!existsSync(INDEX_PATH)) {
-  abort("no Learn registry at web/data/modules_index.json — run scripts/build_learn.py");
+  abort("no Learn registry at web/data/modules_index.json — run `cdcp build-learn`");
 }
 let declared = null;
 try {

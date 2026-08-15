@@ -158,7 +158,7 @@ pub fn smoke(root: &Path) -> SmokeReport {
 
     let m01 = join_rel(root, M01);
     if !m01.is_file() {
-        run.fail("missing learn/01-mission-critical.html — run build_learn.py");
+        run.fail("missing learn/01-mission-critical.html — run `cdcp build-learn`");
     } else {
         match read_utf8(&m01) {
             Ok(h) => needles(&mut run, &h, "M01 page", M01_NEEDLES),

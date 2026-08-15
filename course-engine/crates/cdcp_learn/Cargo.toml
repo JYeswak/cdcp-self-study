@@ -3,7 +3,7 @@ name = "cdcp_learn"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "LEARN compilers: units_index.json, glossary.json, module_learn_slugs.js (learner-visible product, not a gate)"
+description = "LEARN compilers: Learn surface, units_index.json, glossary.json, module_learn_slugs.js (learner-visible product, not a gate)"
 
 [dependencies]
 serde = { workspace = true }

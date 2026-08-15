@@ -129,9 +129,7 @@ fn index_json(rows: &[(&str, bool)]) -> String {
             if *empty {
                 format!("    {{\"id\": \"{id}\", \"empty\": true, \"href\": null}}")
             } else {
-                format!(
-                    "    {{\"id\": \"{id}\", \"empty\": false, \"href\": \"learn/{id}.html\"}}"
-                )
+                format!("    {{\"id\": \"{id}\", \"empty\": false, \"href\": \"learn/{id}.html\"}}")
             }
         })
         .collect();
@@ -235,11 +233,7 @@ fn live_copy_is_green_and_checked_something() {
     let t = live_copy();
     let o = run(&t.root);
     assert_eq!(o.code, 0, "{}", o.stdout);
-    assert!(
-        o.stdout.starts_with("PASS: smoke_learn\n"),
-        "{}",
-        o.stdout
-    );
+    assert!(o.stdout.starts_with("PASS: smoke_learn\n"), "{}", o.stdout);
     let n: u32 = o
         .stdout
         .lines()
@@ -348,7 +342,8 @@ fn unresolvable_primary_notes_names_the_path() {
     let o = run(&t.root);
     assert_eq!(o.code, 1);
     assert!(
-        o.stdout.contains("primary_notes does not resolve: ../modules/nope.md"),
+        o.stdout
+            .contains("primary_notes does not resolve: ../modules/nope.md"),
         "{}",
         o.stdout
     );
@@ -363,11 +358,7 @@ fn missing_index_is_red_and_names_the_builder() {
     t.remove("web/data/modules_index.json");
     let o = run(&t.root);
     assert_eq!(o.code, 1);
-    assert!(
-        o.stdout.contains("run scripts/build_learn.py"),
-        "{}",
-        o.stdout
-    );
+    assert!(o.stdout.contains("run `cdcp build-learn`"), "{}", o.stdout);
 }
 
 #[test]
@@ -441,12 +432,21 @@ fn an_empty_ok_module_carrying_an_href_is_red() {
     let o = run(&t.root);
     assert_eq!(o.code, 1);
     assert!(
-        o.stdout.contains("empty-ok domain must not have href (got learn/alpha.html)"),
+        o.stdout
+            .contains("empty-ok domain must not have href (got learn/alpha.html)"),
         "{}",
         o.stdout
     );
-    assert!(!o.stdout.contains("beta: empty-ok"), "null href is allowed: {}", o.stdout);
-    assert!(!o.stdout.contains("gamma: empty-ok"), "empty href is allowed: {}", o.stdout);
+    assert!(
+        !o.stdout.contains("beta: empty-ok"),
+        "null href is allowed: {}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("gamma: empty-ok"),
+        "empty href is allowed: {}",
+        o.stdout
+    );
 }
 
 #[test]
@@ -459,7 +459,11 @@ fn href_shape_legs() {
             "href must be relative offline path",
             "absolute-https",
         ),
-        ("/learn/alpha.html", "href must be relative offline path", "root-relative"),
+        (
+            "/learn/alpha.html",
+            "href must be relative offline path",
+            "root-relative",
+        ),
         ("pages/alpha.html", "unexpected href shape", "wrong-prefix"),
         ("learn/alpha.htm", "unexpected href shape", "wrong-suffix"),
     ] {
@@ -472,11 +476,7 @@ fn href_shape_legs() {
         );
         let o = run(&t.root);
         assert_eq!(o.code, 1, "[{case}] {}", o.stdout);
-        assert!(
-            o.stdout.contains(needle),
-            "[{case}] {}",
-            o.stdout
-        );
+        assert!(o.stdout.contains(needle), "[{case}] {}", o.stdout);
     }
 }
 
@@ -540,18 +540,23 @@ fn a_page_with_neither_reader_nor_embed_reports_both_legs() {
     let t = green_tree();
     let body = page("alpha")
         .replace("<div id=\"module-md\"></div>\n", "")
-        .replace("<script src=\"../assets/js/learn_reader.js\"></script>\n", "")
+        .replace(
+            "<script src=\"../assets/js/learn_reader.js\"></script>\n",
+            "",
+        )
         .replace("<!-- content/modules/alpha.md -->\n", "");
     t.write("web/learn/alpha.html", &body);
     let o = run(&t.root);
     assert_eq!(o.code, 1);
     assert!(
-        o.stdout.contains("must load learn_reader.js or embed #module-md"),
+        o.stdout
+            .contains("must load learn_reader.js or embed #module-md"),
         "{}",
         o.stdout
     );
     assert!(
-        o.stdout.contains("must embed #module-md or fetch content/modules/alpha.md"),
+        o.stdout
+            .contains("must embed #module-md or fetch content/modules/alpha.md"),
         "{}",
         o.stdout
     );
@@ -589,7 +594,8 @@ fn a_missing_content_copy_with_no_source_is_red() {
     let o = run(&t.root);
     assert_eq!(o.code, 1);
     assert!(
-        o.stdout.contains("missing content copy and primary_notes source"),
+        o.stdout
+            .contains("missing content copy and primary_notes source"),
         "{}",
         o.stdout
     );
@@ -635,8 +641,10 @@ fn hub_shape_legs() {
 fn single_quoted_hub_css_is_accepted() {
     tick();
     let t = green_tree();
-    let body = hub(&["alpha", "beta", "gamma"])
-        .replace("href=\"assets/css/course.css\"", "href='assets/css/course.css'");
+    let body = hub(&["alpha", "beta", "gamma"]).replace(
+        "href=\"assets/css/course.css\"",
+        "href='assets/css/course.css'",
+    );
     t.write("web/learn.html", &body);
     let o = run(&t.root);
     assert_eq!(o.code, 0, "{}", o.stdout);
@@ -665,7 +673,8 @@ fn the_hub_must_not_link_an_empty_ok_module() {
     let o = run(&t.root);
     assert_eq!(o.code, 1);
     assert!(
-        o.stdout.contains("hub must not link to empty-ok module page omega"),
+        o.stdout
+            .contains("hub must not link to empty-ok module page omega"),
         "{}",
         o.stdout
     );
@@ -679,7 +688,8 @@ fn a_navigable_module_absent_from_the_hub_is_red() {
     let o = run(&t.root);
     assert_eq!(o.code, 1);
     assert!(
-        o.stdout.contains("hub does not list navigable module gamma"),
+        o.stdout
+            .contains("hub does not list navigable module gamma"),
         "{}",
         o.stdout
     );
@@ -689,10 +699,8 @@ fn a_navigable_module_absent_from_the_hub_is_red() {
 fn a_data_module_id_attribute_satisfies_the_hub_listing() {
     tick();
     let t = green_tree();
-    let body = hub(&["alpha", "beta"]).replace(
-        "</body>",
-        "  <li data-module-id=\"gamma\"></li>\n</body>",
-    );
+    let body =
+        hub(&["alpha", "beta"]).replace("</body>", "  <li data-module-id=\"gamma\"></li>\n</body>");
     t.write("web/learn.html", &body);
     let o = run(&t.root);
     assert_eq!(o.code, 0, "{}", o.stdout);
@@ -710,7 +718,10 @@ fn an_all_empty_ok_registry_is_an_error_not_a_vacuous_pass() {
         "knowledge/domains.toml",
         "[[domain]]\nid = \"omega\"\norder = 1\nprimary_notes = \"\"\nexam_weight_unknown = true\n",
     );
-    t.write("web/data/modules_index.json", &index_json(&[("omega", true)]));
+    t.write(
+        "web/data/modules_index.json",
+        &index_json(&[("omega", true)]),
+    );
     t.write("web/learn.html", &hub(&[]));
     let o = run(&t.root);
     assert_ne!(o.code, 0, "vacuous PASS is forbidden: {}", o.stdout);
@@ -720,11 +731,7 @@ fn an_all_empty_ok_registry_is_an_error_not_a_vacuous_pass() {
         "{}",
         o.stdout
     );
-    assert!(
-        o.stdout.contains("zero navigable modules"),
-        "{}",
-        o.stdout
-    );
+    assert!(o.stdout.contains("zero navigable modules"), "{}", o.stdout);
     assert!(
         !o.stdout.contains("PASS: smoke_learn"),
         "PASS must not appear on the empty-input path: {}",
@@ -751,10 +758,9 @@ fn a_tree_with_no_learn_inputs_at_all_is_an_error() {
 #[test]
 fn this_suite_has_not_shrunk() {
     tick();
-    let this = std::fs::read_to_string(
-        Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/smoke_learn.rs"),
-    )
-    .expect("this test file");
+    let this =
+        std::fs::read_to_string(Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/smoke_learn.rs"))
+            .expect("this test file");
     let cases = this.matches("#[test]").count();
     assert!(
         cases >= EXPECTED_CASES,
@@ -763,8 +769,5 @@ fn this_suite_has_not_shrunk() {
     );
     let ran = RAN.load(Ordering::SeqCst);
     // This test itself has ticked; others may have run in parallel.
-    assert!(
-        ran >= 1,
-        "this file's own tick must have fired"
-    );
+    assert!(ran >= 1, "this file's own tick must have fired");
 }

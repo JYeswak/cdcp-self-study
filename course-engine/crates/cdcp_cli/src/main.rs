@@ -139,6 +139,12 @@ enum Cmd {
         #[arg(long, default_value = "127.0.0.1:8766")]
         bind: String,
     },
+    /// Compile the offline Learn surface (pages, hub, modules_index, topic_anchors)
+    BuildLearn {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+    },
     /// Compile web/data/units_index.json (learner-visible Learn units)
     BuildUnits {
         /// Engine root (directory holding registries/). Default: walk up from cwd.
@@ -417,6 +423,7 @@ fn run(cli: Cli) -> Result<(), String> {
             fixture,
         } => export_web(&bank, seed, &out, fixture),
         Cmd::Serve { root, bind } => serve(&root, &bind),
+        Cmd::BuildLearn { root } => compile_learn(root.as_deref(), LearnKind::Learn),
         Cmd::BuildUnits { root } => compile_learn(root.as_deref(), LearnKind::Units),
         Cmd::BuildGlossary { root } => compile_learn(root.as_deref(), LearnKind::Glossary),
         Cmd::BuildLearnSlugs { root } => compile_learn(root.as_deref(), LearnKind::Slugs),
@@ -953,6 +960,7 @@ pub(crate) fn export_web(
 }
 
 enum LearnKind {
+    Learn,
     Units,
     Glossary,
     Slugs,
@@ -1109,6 +1117,7 @@ fn compile_learn(root: Option<&Path>, kind: LearnKind) -> Result<(), String> {
     };
     let resolved = cdcp_learn::resolve_engine_root(&start).map_err(|e| e.to_string())?;
     let outcome = match kind {
+        LearnKind::Learn => cdcp_learn::build::write_learn(&resolved).map_err(|e| e.to_string())?,
         LearnKind::Units => cdcp_learn::units::write_units(&resolved).map_err(|e| e.to_string())?,
         LearnKind::Glossary => {
             cdcp_learn::glossary::write_glossary(&resolved).map_err(|e| e.to_string())?

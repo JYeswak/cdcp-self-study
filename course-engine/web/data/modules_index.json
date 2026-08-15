@@ -1,6 +1,6 @@
 {
   "empty_ok_count": 0,
-  "generated_by": "scripts/build_learn.py",
+  "generated_by": "cdcp_learn",
   "module_count": 15,
   "modules": [
     {
