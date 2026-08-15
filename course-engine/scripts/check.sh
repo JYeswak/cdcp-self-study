@@ -511,18 +511,116 @@ cargo fmt --check || fail "cargo fmt"
 # 47-line diff. Three gate files were in fact unformatted and had never been
 # checked by anything, including two already committed.
 #
-# This is the cost of the glob-based registration that lets N port agents each add
-# one file with no shared-file collision. The parallelism is worth keeping; the
-# unchecked surface it created is not. A green fmt leg over files it never opened
-# is the same vacuous-scan pattern this script hard-fails on elsewhere.
-_gate_fmt_n=0
-for _f in crates/cdcp_gate/src/gates/*.rs; do
-  [ -f "$_f" ] || continue
-  rustfmt --edition 2021 --check "$_f" || fail "rustfmt: $_f"
-  _gate_fmt_n=$((_gate_fmt_n + 1))
-done
-[ "$_gate_fmt_n" -gt 0 ] || fail "rustfmt scanned 0 gate files — a vacuous scan is an ERROR, not a pass"
-ok "rustfmt over $_gate_fmt_n gate module(s) cargo fmt cannot reach"
+# SHAPE A (bd-u2x): keep the #[path] + glob registration. Shape B (a committed
+# mod.rs cargo fmt can walk) reintroduces the six-way shared-file collision
+# build.rs exists to prevent, and fights gate_shrink. The parallelism is worth
+# keeping; the unchecked surface is not. A green fmt leg over files it never
+# opened is the same vacuous-scan pattern this script hard-fails on elsewhere.
+#
+# #[path] / OUT_DIR tool reach, MEASURED 2026-08-15 (bd-u2x), not inferred:
+#   cargo fmt                  BLIND  — plant in install_hooks.rs: rustfmt
+#                                       --check rc=1; cargo fmt --check -p
+#                                       cdcp_gate rc=0, zero mention of the
+#                                       file. THIS function is the compensating
+#                                       leg.
+#   rustfmt --edition 2021     REACH  — filesystem glob, this function.
+#   clippy -p cdcp_gate --lib  REACH  — unused-binding plant named
+#                                       src/gates/install_hooks.rs:64 under
+#                                       `-D warnings`. No compensating clippy
+#                                       leg. (clippy compiles #[path].)
+#   rustdoc / cargo test --doc REACH  — broken doctest plant FAILED as
+#                                       gates::install_hooks::run. Doctests
+#                                       run under `cargo test --workspace`
+#                                       below. `cargo doc` HTML is NOT a
+#                                       check.sh step — recorded: not required.
+#   cargo-mutants              NOT in check.sh, not installed — not required.
+#   cargo-tarpaulin / llvm-cov NOT in check.sh (tarpaulin is on PATH, unused)
+#                                       — not required.
+#   cargo-udeps                NOT in check.sh, not installed; udeps walks
+#                                       the dep graph, not source modules —
+#                                       not required.
+#
+# rustfmt_gate_modules DIR
+#   rustfmt --check every *.rs in DIR. rustfmt missing from PATH is ERROR,
+#   not a skip. Files cargo fmt can already see (mod.rs) are still checked
+#   (harmless) but do NOT satisfy the anti-vacuous floor — a directory that
+#   holds only mod.rs is the same defect as an empty glob.
+rustfmt_gate_modules() {
+  _rgm_dir="$1"
+  if ! command -v rustfmt >/dev/null 2>&1; then
+    echo "rustfmt_gate_modules: rustfmt not on PATH" >&2
+    return 2
+  fi
+  if [ ! -d "$_rgm_dir" ]; then
+    echo "rustfmt_gate_modules: not a directory: $_rgm_dir" >&2
+    return 2
+  fi
+  _rgm_n=0
+  for _rgm_f in "$_rgm_dir"/*.rs; do
+    [ -f "$_rgm_f" ] || continue
+    rustfmt --edition 2021 --check "$_rgm_f" || {
+      echo "rustfmt_gate_modules: rustfmt --check failed: $_rgm_f" >&2
+      return 2
+    }
+    case "${_rgm_f##*/}" in
+      mod.rs) ;;
+      *) _rgm_n=$((_rgm_n + 1)) ;;
+    esac
+  done
+  if [ "$_rgm_n" -eq 0 ]; then
+    echo "rustfmt_gate_modules: scanned 0 #[path] gate files in $_rgm_dir — a vacuous scan is an ERROR, not a pass" >&2
+    return 2
+  fi
+  echo "$_rgm_n"
+  return 0
+}
+
+_gate_fmt_n="$(rustfmt_gate_modules crates/cdcp_gate/src/gates)" \
+  || fail "rustfmt over crates/cdcp_gate/src/gates (cargo fmt cannot see these)"
+
+# L4 meta-test of THIS function (same code path as the live scan).
+# Three known-bads must RED; one formatted specimen must GREEN.
+# A function that always fails would pass the plants; the green control
+# is what makes a crash distinguishable from a pass.
+_fmt_plant="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_gate_fmt_plant.XXXXXX")"
+_fmt_empty="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_gate_fmt_empty.XXXXXX")"
+_fmt_modonly="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_gate_fmt_modonly.XXXXXX")"
+_fmt_green="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_gate_fmt_green.XXXXXX")"
+_fmt_selftest_cleanup() {
+  rm -rf "$_fmt_plant" "$_fmt_empty" "$_fmt_modonly" "$_fmt_green"
+}
+
+# (a) planted space/indent in a gate-shaped file
+printf '%s\n' 'fn plant( ){let     x=1 ;}' > "$_fmt_plant/plant.rs"
+if rustfmt_gate_modules "$_fmt_plant" >/dev/null; then
+  _fmt_selftest_cleanup
+  fail "rustfmt_gate_modules stayed GREEN on a planted space/indent in a gate file"
+fi
+
+# (b) empty glob
+if rustfmt_gate_modules "$_fmt_empty" >/dev/null; then
+  _fmt_selftest_cleanup
+  fail "rustfmt_gate_modules stayed GREEN on an empty glob — vacuous scan must be ERROR"
+fi
+
+# (c) only mod.rs (the one file cargo fmt can see) is still vacuous
+printf '%s\n' '//! decoy' > "$_fmt_modonly/mod.rs"
+rustfmt --edition 2021 "$_fmt_modonly/mod.rs"
+if rustfmt_gate_modules "$_fmt_modonly" >/dev/null; then
+  _fmt_selftest_cleanup
+  fail "rustfmt_gate_modules stayed GREEN on only-mod.rs — that is the file cargo fmt already sees"
+fi
+
+# (d) green control: a formatted non-mod.rs file must pass
+printf '%s\n' 'pub fn plant() {}' > "$_fmt_green/ok.rs"
+rustfmt --edition 2021 "$_fmt_green/ok.rs"
+if ! rustfmt_gate_modules "$_fmt_green" >/dev/null; then
+  _fmt_selftest_cleanup
+  fail "rustfmt_gate_modules went RED on a formatted gate-shaped file (always-fail would spoof the plants)"
+fi
+
+_fmt_selftest_cleanup
+ok "rustfmt over $_gate_fmt_n #[path] gate module(s) cargo fmt cannot reach (L4 plant RED · empty glob ERROR · only-mod.rs ERROR · formatted GREEN)"
 # --all-targets is load-bearing, not cosmetic. Without it clippy never compiles
 # test targets, so a deleted assertion leaves an unused binding that nothing
 # complains about — measured 2026-08-14: the golden-sampler meta-test went RED

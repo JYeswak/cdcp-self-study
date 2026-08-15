@@ -1691,12 +1691,12 @@ mod tests {
             write_json: None,
         };
         let out = evaluate(&live.to_string_lossy(), &args);
-        assert_ne!(out.code, 0, "missing local policy must be RED:\n{}", out.stdout);
-        assert!(
-            out.stdout.contains("policy=absent"),
-            "{}",
+        assert_ne!(
+            out.code, 0,
+            "missing local policy must be RED:\n{}",
             out.stdout
         );
+        assert!(out.stdout.contains("policy=absent"), "{}", out.stdout);
         assert!(
             !out.stdout.contains("policy=absent (N=1 OQ-05)"),
             "N=1 must not be claimed as a fallback:\n{}",

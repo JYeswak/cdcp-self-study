@@ -915,9 +915,7 @@ pub fn render(
                     });
                 } else {
                     regen_note = Some(if sites == 0 {
-                        format!(
-                            "regenerated {readme_display}: per-suite cells now match receipts"
-                        )
+                        format!("regenerated {readme_display}: per-suite cells now match receipts")
                     } else {
                         format!(
                             "regenerated {readme_display}: {sites} site(s) now advertise {total}"

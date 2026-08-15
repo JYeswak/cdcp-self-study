@@ -385,8 +385,14 @@ pub fn evaluate(root_str: &str, bank_arg: &str, topics_arg: &str) -> Outcome {
         format!("orphan topic {}: declared in topics.toml, referenced by 0 approved items of {} referencing", py_repr(t), ref_count.get(*t).copied().unwrap_or(0))
     }));
 
-    let referenced_known = referenced.iter().filter(|t| known.contains(t.as_str())).count();
-    let approved_known = approved_referenced.iter().filter(|t| known.contains(t.as_str())).count();
+    let referenced_known = referenced
+        .iter()
+        .filter(|t| known.contains(t.as_str()))
+        .count();
+    let approved_known = approved_referenced
+        .iter()
+        .filter(|t| known.contains(t.as_str()))
+        .count();
 
     let mut out = String::new();
     out.push_str(if errors.is_empty() {
@@ -398,7 +404,9 @@ pub fn evaluate(root_str: &str, bank_arg: &str, topics_arg: &str) -> Outcome {
     out.push_str(&format!("  bank={bank_disp}\n"));
     out.push_str(&format!("  topics_declared={}\n", known.len()));
     out.push_str(&format!("  items={} scanned, {approved_n} approved (orphan predicate counts the approved pool only)\n", loaded.len()));
-    out.push_str(&format!("  topics_referenced={approved_known} approved of {referenced_known} referencing\n"));
+    out.push_str(&format!(
+        "  topics_referenced={approved_known} approved of {referenced_known} referencing\n"
+    ));
     out.push_str(&format!("  orphan_topics={}\n", orphan_topics.len()));
     out.push_str(&format!("  orphan_item_refs={}\n", orphan_refs.len()));
     out.push_str(&format!("  unanchored_items={}\n", unanchored.len()));
@@ -417,7 +425,9 @@ pub fn evaluate(root_str: &str, bank_arg: &str, topics_arg: &str) -> Outcome {
         };
     }
 
-    out.push_str("  orphan integrity GREEN (every topic assessed by an approved item; every ref resolves)\n");
+    out.push_str(
+        "  orphan integrity GREEN (every topic assessed by an approved item; every ref resolves)\n",
+    );
     Outcome {
         stdout: out,
         code: 0,
@@ -716,8 +726,14 @@ mod tests {
     fn good_tree() -> Tree {
         let t = Tree::new();
         t.topics("[[topic]]\nid = \"t-one\"\n\n[[topic]]\nid = \"t-two\"\n");
-        t.item("a.toml", "id = \"i-a\"\ntopic_ids = [\"t-one\"]\nstatus = \"approved\"\n");
-        t.item("b.toml", "id = \"i-b\"\ntopic_ids = [\"t-two\"]\nstatus = \"approved\"\n");
+        t.item(
+            "a.toml",
+            "id = \"i-a\"\ntopic_ids = [\"t-one\"]\nstatus = \"approved\"\n",
+        );
+        t.item(
+            "b.toml",
+            "id = \"i-b\"\ntopic_ids = [\"t-two\"]\nstatus = \"approved\"\n",
+        );
         t
     }
 
@@ -732,7 +748,11 @@ mod tests {
             out.stdout
         );
         assert!(out.stdout.contains("topics_declared=2"), "{}", out.stdout);
-        assert!(out.stdout.contains("items=2 scanned, 2 approved"), "{}", out.stdout);
+        assert!(
+            out.stdout.contains("items=2 scanned, 2 approved"),
+            "{}",
+            out.stdout
+        );
     }
 
     #[test]
@@ -899,7 +919,10 @@ mod tests {
             topics.push_str(&format!("[[topic]]\nid = \"t{i:03}\"\n"));
         }
         t.topics(&topics);
-        t.item("a.toml", "id = \"i-a\"\ntopic_ids = [\"t000\"]\nstatus = \"approved\"\n");
+        t.item(
+            "a.toml",
+            "id = \"i-a\"\ntopic_ids = [\"t000\"]\nstatus = \"approved\"\n",
+        );
         let out = t.run();
         assert_eq!(out.code, 1);
         let shown = out
@@ -979,7 +1002,10 @@ mod tests {
         // a legitimate one-item file has no `items` key at all and is not empty.
         let t = Tree::new();
         t.topics("[[topic]]\nid = \"t-one\"\n");
-        t.item("solo.toml", "id = \"i-solo\"\ntopic_ids = [\"t-one\"]\nstatus = \"approved\"\n");
+        t.item(
+            "solo.toml",
+            "id = \"i-solo\"\ntopic_ids = [\"t-one\"]\nstatus = \"approved\"\n",
+        );
         let out = t.run();
         assert_eq!(out.code, 0, "{}", out.stdout);
         assert!(out.stdout.starts_with("PASS\n"), "{}", out.stdout);

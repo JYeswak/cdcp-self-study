@@ -1777,8 +1777,9 @@ mod tests {
         // The two populations are both named and they DIFFER: 804 files, 779
         // drawable. Asserting only the file count is what let bd-8exw hide.
         assert!(
-            out.stdout
-                .contains("  items=804 scanned, 779 approved (floors count the approved pool only)\n"),
+            out.stdout.contains(
+                "  items=804 scanned, 779 approved (floors count the approved pool only)\n"
+            ),
             "{}",
             out.stdout
         );
@@ -1861,8 +1862,9 @@ mod tests {
         let out = f.eval();
         assert_eq!(out.code, 1, "{}", out.stdout);
         assert!(
-            out.stdout
-                .contains("  - module 1: 2 approved items < domain_min 3 (4 scanned, 2 not approved)\n"),
+            out.stdout.contains(
+                "  - module 1: 2 approved items < domain_min 3 (4 scanned, 2 not approved)\n"
+            ),
             "{}",
             out.stdout
         );
@@ -1907,11 +1909,15 @@ mod tests {
     #[test]
     fn an_unmodelled_status_is_a_named_finding_not_a_silent_non_approval() {
         let f = Fx::new();
-        f.write("bank/items/pool.toml", &good_with_status("i-odd", "published"));
+        f.write(
+            "bank/items/pool.toml",
+            &good_with_status("i-odd", "published"),
+        );
         let out = f.eval();
         assert_eq!(out.code, 1, "{}", out.stdout);
         assert!(
-            out.stdout.contains("  - i-odd: unknown status 'published'\n"),
+            out.stdout
+                .contains("  - i-odd: unknown status 'published'\n"),
             "{}",
             out.stdout
         );
@@ -1962,7 +1968,9 @@ mod tests {
         let f = Fx::new();
         let mut body = String::new();
         for i in 0..40 {
-            body.push_str(&good(&format!("b-{i:03}")).replace("correct = \"A\"", "correct = \"B\""));
+            body.push_str(
+                &good(&format!("b-{i:03}")).replace("correct = \"A\"", "correct = \"B\""),
+            );
         }
         for i in 0..5 {
             body.push_str(&good_with_status(&format!("a-{i:03}"), "retired"));
@@ -1987,7 +1995,9 @@ mod tests {
         let g = Fx::new();
         let mut body = String::new();
         for i in 0..39 {
-            body.push_str(&good(&format!("b-{i:03}")).replace("correct = \"A\"", "correct = \"B\""));
+            body.push_str(
+                &good(&format!("b-{i:03}")).replace("correct = \"A\"", "correct = \"B\""),
+            );
         }
         for i in 0..6 {
             body.push_str(&good_with_status(&format!("a-{i:03}"), "retired"));
@@ -2031,7 +2041,9 @@ mod tests {
         let drift = f.eval();
         assert_eq!(drift.code, 1, "{}", drift.stdout);
         assert!(
-            drift.stdout.contains("  - MANIFEST item_count 1 != loaded 2\n"),
+            drift
+                .stdout
+                .contains("  - MANIFEST item_count 1 != loaded 2\n"),
             "{}",
             drift.stdout
         );
