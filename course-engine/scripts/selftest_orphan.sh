@@ -88,6 +88,8 @@ fi
   || fail "CDCP_BIN_DIR unset — cargo build -p cdcp_gate -p cdcp_cli --locked must run first (no fallback to cargo run)"
 [ -x "$CDCP_BIN_DIR/cdcp_gate" ] \
   || fail "cdcp_gate binary absent at $CDCP_BIN_DIR/cdcp_gate — cargo build -p cdcp_gate -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
+[ -x "$CDCP_BIN_DIR/cdcp" ] \
+  || fail "cdcp binary absent at $CDCP_BIN_DIR/cdcp — cargo build -p cdcp_gate -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
 
 verify_orphans() {
   "$CDCP_BIN_DIR/cdcp_gate" verify-orphans "$@"
@@ -95,18 +97,13 @@ verify_orphans() {
 
 [ -d bank/items ] || fail "missing bank/items"
 [ -f knowledge/topics.toml ] || fail "missing knowledge/topics.toml"
-command -v python3 >/dev/null 2>&1 || fail "python3 required (topic-id extract only)"
 
 TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/selftest_orphan.XXXXXX")"
 
 # A known-good topic id, taken from the live registry (never hard-coded blind).
-GOOD_TOPIC="$(python3 - <<'PY'
-import re, pathlib
-text = pathlib.Path("knowledge/topics.toml").read_text(encoding="utf-8")
-ids = re.findall(r'(?m)^\s*id\s*=\s*"([^"]+)"', text)
-print(ids[0] if ids else "")
-PY
-)"
+# EXTRACT-THEN-DELETE: python3 topic-id extract retired; this calls `cdcp first-topic-id`.
+GOOD_TOPIC="$("$CDCP_BIN_DIR/cdcp" first-topic-id --file knowledge/topics.toml)" \
+  || fail "could not read a topic id from knowledge/topics.toml"
 [ -n "$GOOD_TOPIC" ] || fail "could not read a topic id from knowledge/topics.toml"
 ok "anchor topic for specimens: $GOOD_TOPIC"
 

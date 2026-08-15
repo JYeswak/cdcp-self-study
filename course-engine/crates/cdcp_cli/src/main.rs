@@ -1,7 +1,8 @@
-//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics / slo / snap-rewrite
+//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics / slo / snap-rewrite / first-topic-id
 #![forbid(unsafe_code)]
 
 mod assemble;
+mod first_topic;
 mod metrics;
 mod operator;
 mod oracle;
@@ -338,6 +339,12 @@ enum Cmd {
         #[command(subcommand)]
         sub: SnapRewriteCmd,
     },
+    /// Print the first topic id from a topics.toml (orphan selftest anchor). Not a gate.
+    FirstTopicId {
+        /// topics.toml path (default: knowledge/topics.toml, relative to cwd).
+        #[arg(long, default_value = "knowledge/topics.toml")]
+        file: PathBuf,
+    },
     /// Check or regenerate grade goldens
     Goldens {
         #[command(subcommand)]
@@ -620,6 +627,7 @@ fn run(cli: Cli) -> Result<(), String> {
                 snap_rewrite::apply(&file, &snap_rewrite::Job::Charter(leg))
             }
         },
+        Cmd::FirstTopicId { file } => first_topic::emit(&file),
         Cmd::Goldens { sub } => match sub {
             GoldensCmd::Check { bank, dir } => goldens_check(&bank, &dir),
             // `.ok()` here is fail-CLOSED, the opposite of the goldens-check
