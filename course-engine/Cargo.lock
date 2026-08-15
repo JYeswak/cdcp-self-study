@@ -269,6 +269,7 @@ dependencies = [
  "cdcp_assemble",
  "cdcp_bank",
  "cdcp_core",
+ "cdcp_data",
  "cdcp_evidence",
  "cdcp_grade",
  "cdcp_learn",
@@ -289,6 +290,17 @@ dependencies = [
  "serde_json",
  "sha2",
  "thiserror 1.0.69",
+]
+
+[[package]]
+name = "cdcp_data"
+version = "0.1.0"
+dependencies = [
+ "cdcp_evidence",
+ "hex",
+ "sha2",
+ "thiserror 1.0.69",
+ "toml",
 ]
 
 [[package]]
