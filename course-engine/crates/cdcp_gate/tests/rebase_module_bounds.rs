@@ -30,7 +30,7 @@
 //! from a stated contract. A gate rebased onto a registry can still be wrong,
 //! but it is wrong in a way the registry can correct.
 //!
-//! # WHAT THE COUNT COVERS — THREE SHAPES, AND WHY THERE ARE THREE
+//! # WHAT THE COUNT COVERS — FOUR SHAPES, AND WHY THERE ARE FOUR
 //!
 //! Until 2026-08-14 this sweep saw ONE shape: a numeric comparison or range
 //! against 13–16. It reported "0 open instances" while
@@ -42,7 +42,7 @@
 //! instances that share the defect, and "0 open" meant only "no numeric bound
 //! outside the inventory".
 //!
-//! So `Shape` is now explicit and the sweep runs two detectors:
+//! So `Shape` is now explicit and the sweep runs four detectors:
 //!
 //!   - `Shape::NumericBound` — a comparison or range against 13–16.
 //!   - `Shape::FrozenTable` — four or more CONSECUTIVE module ids enumerated as
@@ -58,6 +58,13 @@
 //!   - `Shape::NamedBound` — a bare 13–16 BOUND TO A NAME, and the whole line
 //!     is that binding: `MIN_TERMS = 15`, `pub const MAX: usize = 14;`. Added
 //!     for bd-8mjs, below.
+//!
+//!   - `Shape::ComputedBound` — a module-ceiling name bound to something other
+//!     than a bare integer (`MAX_MODULE = len(x) - 1`,
+//!     `MAX_MODULE = os.environ.get(...)`, `MAX_MODULE = cfg["max"]`), or a
+//!     Python `range(1, NAME)` over a simple identifier. Added for bd-ob8i.
+//!     The name test is the narrowness: `last = xs.len() - 1` is last-index
+//!     arithmetic, not a module bound, and this tree is full of it.
 //!
 //! # THE THIRD SHAPE, AND WHY IT IS A DETECTOR AND NOT A DISCLAIMER (bd-8mjs)
 //!
@@ -94,14 +101,15 @@
 //! a docstring — it only insists that every match was looked at once and given
 //! a verdict — and it will not see a module bound spelled some way the patterns
 //! below do not match. After bd-8mjs the named-constant hole is closed for the
-//! form `NAME = 15`; what remains uncovered, and is stated at the count itself
-//! as well as here: a bound computed rather than written (`len(x) - 1`,
-//! `MAX - 1`), a bound read from a config file or an environment variable, a
-//! bound assembled from a name bound to something other than a bare integer,
-//! and a table split across four files with three modules each. It says nothing
-//! about whether the registries themselves are right: if `domains.toml` omits a
-//! module the course teaches, every gate downstream of it is confidently wrong
-//! together, and no assertion here would notice.
+//! form `NAME = 15`. After bd-ob8i a module-ceiling name bound to a non-literal
+//! (computed, env, config, tuple) is closed, and so is `range(1, NAME)`. What
+//! remains uncovered, and is stated at the count itself as well as here: a
+//! one-letter or non-ceiling name bound to a computed value then compared
+//! (`n = len(x) - 1`; `if m <= n` — that is data-flow), a table split across
+//! four files with three modules each, and every tree outside SCANNED. It says
+//! nothing about whether the registries themselves are right: if `domains.toml`
+//! omits a module the course teaches, every gate downstream of it is
+//! confidently wrong together, and no assertion here would notice.
 //!
 //! The scanned set is `scripts/`, `crates/` and `web/assets/js/` — named in
 //! `SCANNED`, each with its own anti-vacuous file floor, so that a scan which
@@ -146,6 +154,8 @@ enum Shape {
     /// A bare integer 13–16 BOUND TO A NAME: `MIN_TERMS = 15`,
     /// `pub const MAX: usize = 14;`, `let n = 13;`.
     NamedBound,
+    /// A module-ceiling name bound to a non-literal, or `range(1, NAME)`.
+    ComputedBound,
 }
 
 impl Shape {
@@ -154,6 +164,7 @@ impl Shape {
             Shape::NumericBound => "numeric-bound",
             Shape::FrozenTable => "frozen-module-table",
             Shape::NamedBound => "named-bound",
+            Shape::ComputedBound => "computed-bound",
         }
     }
 }
@@ -329,6 +340,15 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
         "chrome smoke check-count floor so an emptied list cannot go green. \
          Counts CHECKS, not modules, and a floor cannot hold a module out.",
     ),
+    (
+        "crates/cdcp_learn/tests/stale_contract_prose.rs",
+        "order = 15",
+        Shape::NamedBound,
+        Verdict::Prose,
+        "a planted domains.toml fixture inside a raw string. named_bound cannot \
+         see that the line is quoted; it is not a live module bound. Found when \
+         bd-ob8i re-ran the sweep; the line has been in the tree since bd-smvb.",
+    ),
     // ── live comparisons that are not module bounds ────────────────────────
     // The two NumericBound rows for learn_v2 retired when the floor moved
     // behind MIN_GLOSSARY_TERMS (bd-inventory-row-smoke-learn-v2-42hk). The
@@ -460,8 +480,8 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
 /// 16 files, so a total floor of 90 would not have noticed `web/assets/js`
 /// disappearing. (`crates/` was 55 earlier the same day; it is the tree that
 /// churns, which is exactly why its floor is not pinned to its count.) The scan
-/// SET is unchanged by bd-8mjs — that bead added a third detector, not a fourth
-/// tree — so the floors below are re-measured, not re-derived. Each is set a
+/// SET is unchanged by bd-8mjs / bd-ob8i — those beads added detectors, not a
+/// fourth tree — so the floors below are re-measured, not re-derived. Each is set a
 /// deliberate margin under today's count:
 /// enough room for files to be retired, not enough to be met by a tree that is
 /// missing, misspelled, or filtered out by a broken extension list.
@@ -652,6 +672,195 @@ fn named_bound(line: &str) -> Option<u32> {
     ends.then_some(n)
 }
 
+// ── the fourth detector: a computed / external module ceiling (bd-ob8i) ──
+//
+// `named_bound` keys on a BARE INTEGER. `MAX_MODULE = 14` is visible;
+// `MAX_MODULE = len(declared) - 1` is not, nor is `range(1, MAX)`, nor is
+// `MAX_MODULE = os.environ.get("MAX_MODULE")`. Those three are the shapes
+// bd-ob8i named. They are not something a refactor does by accident — they
+// are deliberate — but a detector that can see them is still the 8mjs
+// lesson: a written narrowing describes the hole; only a detector finds
+// what is in it.
+//
+// NARROWING is the shippable half. This tree is full of `len(x) - 1` that
+// is last-index arithmetic (`let last = items.len() - 1`) and of env reads
+// that are not module bounds (`CDCP_ENGINE_ROOT`, `UPDATE_GOLDENS`). A
+// detector that fired on those would be the over-strict gate that gets
+// routed around. Two constraints buy the narrowness:
+//
+//   1. A binding is a hit only when the NAME looks like a module ceiling
+//      (`max`/`last`/`ceil`/`bound`/`limit` AND `module`) AND the RHS is
+//      not a bare integer (the integer case is NamedBound's).
+//   2. `range(1, NAME)` is a hit only for a simple identifier, not
+//      `range(1, 15)` (NumericBound) and not `range(1, max + 1)` (the
+//      correct exclusive end). Rust `1..=count` is inclusive over a
+//      derived count and is not this shape.
+//
+// Comments are not bindings, same rule as named_bound. Measured against
+// the three scanned trees at landing: zero live hits. The plants below
+// are what prove the detector trips; an empty live set is not a pass by
+// itself.
+
+/// Last path segment of a binding name (`self.max_module` → `max_module`).
+fn binding_basename(name: &str) -> &str {
+    name.rsplit('.').next().unwrap_or(name)
+}
+
+/// `MAX_MODULE`, `max_module`, `MODULE_MAX`, `CDCP_MAX_MODULE`.
+/// Not `module_count`, not `min_modules`, not `MIN_TERMS`, not `primary_modules`.
+fn is_module_ceiling_name(name: &str) -> bool {
+    let base = binding_basename(name);
+    let n: String = base
+        .chars()
+        .filter(|c| c.is_ascii_alphanumeric())
+        .map(|c| c.to_ascii_lowercase())
+        .collect();
+    let has_module = n.contains("module");
+    let has_ceiling = n.contains("max")
+        || n.contains("last")
+        || n.contains("ceil")
+        || n.contains("bound")
+        || n.contains("limit");
+    has_module && has_ceiling
+}
+
+/// RHS after stripping a trailing terminator or comment. A bare integer is
+/// NamedBound's job even when it is outside 13–16.
+fn rhs_is_bare_integer(rhs: &str) -> bool {
+    let mut t = rhs.trim();
+    if let Some(i) = t.find("//") {
+        t = t[..i].trim();
+    }
+    if let Some(i) = t.find('#') {
+        t = t[..i].trim();
+    }
+    t = t.trim_end_matches([';', ',']).trim();
+    !t.is_empty() && t.bytes().all(|b| b.is_ascii_digit())
+}
+
+/// The name and RHS of a whole-line binding, if the line is one. Same
+/// keyword / name / `=` shape as [`named_bound`], but the RHS is returned
+/// rather than required to be two digits.
+fn binding_name_and_rhs(line: &str) -> Option<(String, String)> {
+    let t = line.trim();
+    let b = t.as_bytes();
+    if t.is_empty() || t.starts_with('#') || t.starts_with("//") || t.starts_with('*') {
+        return None;
+    }
+
+    let mut i = 0usize;
+    loop {
+        let rest = &t[i..];
+        let word_len = rest
+            .bytes()
+            .take_while(|c| c.is_ascii_alphanumeric() || *c == b'_' || *c == b'(' || *c == b')')
+            .count();
+        let word = &rest[..word_len];
+        if matches!(
+            word,
+            "pub"
+                | "pub(crate)"
+                | "const"
+                | "static"
+                | "let"
+                | "mut"
+                | "var"
+                | "final"
+                | "readonly"
+                | "export"
+                | "declare"
+                | "local"
+                | "my"
+        ) {
+            i += word_len;
+            i += t[i..].bytes().take_while(|c| *c == b' ').count();
+            if i >= t.len() {
+                return None;
+            }
+            continue;
+        }
+        break;
+    }
+
+    let start = i;
+    if !matches!(b.get(i), Some(c) if c.is_ascii_alphabetic() || *c == b'_') {
+        return None;
+    }
+    while matches!(b.get(i), Some(c) if c.is_ascii_alphanumeric() || *c == b'_' || *c == b'.') {
+        i += 1;
+    }
+    if i == start {
+        return None;
+    }
+    let name = t[start..i].to_string();
+    let skip_ws = |i: &mut usize| {
+        while matches!(b.get(*i), Some(b' ') | Some(b'\t')) {
+            *i += 1;
+        }
+    };
+    skip_ws(&mut i);
+    if b.get(i) == Some(&b':') {
+        i += 1;
+        while matches!(b.get(i), Some(c)
+            if c.is_ascii_alphanumeric()
+                || matches!(c, b'_' | b':' | b'<' | b'>' | b',' | b' ' | b'\'' | b'&'))
+        {
+            i += 1;
+        }
+    }
+    skip_ws(&mut i);
+    if b.get(i) != Some(&b'=') {
+        return None;
+    }
+    if matches!(b.get(i + 1), Some(b'=') | Some(b'>')) {
+        return None;
+    }
+    i += 1;
+    let rhs = t[i..].trim();
+    if rhs.is_empty() {
+        return None;
+    }
+    Some((name, rhs.to_string()))
+}
+
+/// `range(1, NAME)` / `range(1,NAME)` where NAME is a simple identifier, not
+/// a literal and not an expression (`range(1, max+1)` is the correct end).
+fn range_over_simple_name(compact: &str) -> bool {
+    let Some(rest) = compact.split_once("range(1,").map(|(_, r)| r) else {
+        return false;
+    };
+    let ident_len = rest
+        .bytes()
+        .take_while(|c| c.is_ascii_alphanumeric() || *c == b'_')
+        .count();
+    if ident_len == 0 {
+        return false;
+    }
+    let ident = &rest[..ident_len];
+    if ident.bytes().all(|c| c.is_ascii_digit()) {
+        return false;
+    }
+    matches!(rest.as_bytes().get(ident_len), Some(b')') | Some(b','))
+}
+
+/// The computed / external ceiling this line is, if any.
+fn computed_bound(line: &str) -> Option<&'static str> {
+    let t = line.trim();
+    if t.is_empty() || t.starts_with('#') || t.starts_with("//") || t.starts_with('*') {
+        return None;
+    }
+    let compact: String = t.chars().filter(|c| !c.is_whitespace()).collect();
+    if range_over_simple_name(&compact) {
+        return Some("range-over-name");
+    }
+    if let Some((name, rhs)) = binding_name_and_rhs(t) {
+        if is_module_ceiling_name(&name) && !rhs_is_bare_integer(&rhs) {
+            return Some("non-literal-ceiling");
+        }
+    }
+    None
+}
+
 // ── the second detector: hand-frozen module TABLES (bd-ggs7) ───────────────
 //
 // A frozen module table has to spell the module ids out; that is the only thing
@@ -800,7 +1009,7 @@ fn frozen_table_run(text: &str) -> Option<(usize, String, usize, u32, u32)> {
     Some((line, text, best_len, first, last))
 }
 
-/// Run both detectors over one root. Returns the per-tree file counts in
+/// Run the four detectors over one root. Returns the per-tree file counts in
 /// `SCANNED` order alongside every hit, so the caller decides which floors to
 /// enforce — the live tree enforces them, a fixture cannot.
 fn sweep(root: &Path) -> (Vec<usize>, Vec<Hit>) {
@@ -840,6 +1049,15 @@ fn sweep(root: &Path) -> (Vec<usize>, Vec<Hit>) {
                         text: line.trim().to_string(),
                         shape: Shape::NamedBound,
                         detail: format!(" [binds {n} to a name]"),
+                    });
+                }
+                if let Some(kind) = computed_bound(line) {
+                    hits.push(Hit {
+                        rel: rel.clone(),
+                        line: i + 1,
+                        text: line.trim().to_string(),
+                        shape: Shape::ComputedBound,
+                        detail: format!(" [{kind}]"),
                     });
                 }
             }
@@ -967,20 +1185,23 @@ fn the_open_instances_are_named_and_counted() {
          the NAMED-BOUND detector was added for bd-8mjs and its three finds \
          were adjudicated (build_glossary_json.py and its Rust port both bind \
          a glossary TERM-count floor; validate_grounding.rs binds the CPython \
-         float-repr cutoff). None of the three is a module bound.\n\
+         float-repr cutoff). None of the three is a module bound. Stayed at 0 \
+         again when COMPUTED-BOUND was added for bd-ob8i: the live trees had \
+         zero ceiling-name-to-non-literal bindings and zero `range(1, NAME)` \
+         (the plants below are what prove that detector trips).\n\
          \n\
          WHAT THIS ZERO COVERS, stated here and not only in the header, because \
-         a count reads broader than its detectors: the three shapes \
-         (numeric-bound, frozen-module-table, named-bound) over the three trees \
-         in SCANNED. A NEW hardcoded module bound or module table there must be \
-         inventoried with a verdict, not silently added.\n\
+         a count reads broader than its detectors: the four shapes \
+         (numeric-bound, frozen-module-table, named-bound, computed-bound) over \
+         the three trees in SCANNED. A NEW hardcoded module bound or module \
+         table there must be inventoried with a verdict, not silently added.\n\
          \n\
-         WHAT THIS ZERO DOES NOT COVER: a bound COMPUTED rather than written \
-         (`MAX - 1`, `len(rows) - 1`), a bound read from config or the \
-         environment, a name bound to something other than a bare integer, a \
-         module table split across files at three ids each, and every tree \
-         outside SCANNED. Those can move without this number changing, which is \
-         how the named-constant hole opened in the first place."
+         WHAT THIS ZERO DOES NOT COVER: a one-letter or non-ceiling name bound \
+         to a computed value then compared (`n = len(x) - 1`; `if m <= n` — \
+         that is data-flow), a module table split across files at three ids \
+         each, and every tree outside SCANNED. Those can move without this \
+         number changing. bd-ob8i closed the ceiling-name-to-non-literal and \
+         `range(1, NAME)` spellings; it did not close data-flow."
     );
 }
 
@@ -1149,6 +1370,112 @@ fn the_named_bound_detector_does_not_fire_on_the_legitimate_constants_in_this_tr
     ] {
         assert_eq!(
             named_bound(line),
+            None,
+            "over-match on {line:?} — {why}. An over-strict sweep gets routed \
+             around, which is slower than no sweep at all."
+        );
+    }
+}
+
+#[test]
+fn the_computed_bound_detector_sees_the_three_spellings_ob8i_named() {
+    assert_eq!(
+        computed_bound("MAX_MODULE = len(declared) - 1"),
+        Some("non-literal-ceiling")
+    );
+    assert_eq!(
+        computed_bound("let max_module = declared.len() - 1;"),
+        Some("non-literal-ceiling")
+    );
+    assert_eq!(
+        computed_bound("self.max_module = os.environ.get(\"MAX_MODULE\")"),
+        Some("non-literal-ceiling")
+    );
+    assert_eq!(
+        computed_bound("MAX_MODULE = cfg[\"max\"]"),
+        Some("non-literal-ceiling")
+    );
+    assert_eq!(
+        computed_bound("MAX_MODULE = (14,)"),
+        Some("non-literal-ceiling")
+    );
+    assert_eq!(
+        computed_bound("for n in range(1, MAX):"),
+        Some("range-over-name")
+    );
+    assert_eq!(
+        computed_bound("PRIMARY_MODULES = range(1, n)"),
+        Some("range-over-name")
+    );
+    assert_eq!(
+        computed_bound("MAX_MODULE=14"),
+        None,
+        "a bare integer is NamedBound's, not this shape"
+    );
+    assert_eq!(named_bound("MAX_MODULE=14"), Some(14));
+}
+
+/// Known-GOOD: every case is a REAL line (or the correct exclusive-range
+/// spelling). A detector that fired here would be over-strict.
+#[test]
+fn the_computed_bound_detector_does_not_fire_on_the_legitimate_expressions_in_this_tree() {
+    for (line, why) in [
+        (
+            "let last = sorted_terms.len() - 1;",
+            "glossary last-index, name is not a module ceiling",
+        ),
+        (
+            "let last = items.len() - 1;",
+            "units last-index, name is not a module ceiling",
+        ),
+        (
+            "let mut line_len = PREFIX.len() - 1;",
+            "prefix length, name is not a module ceiling",
+        ),
+        (
+            "Score::new(earned, (key.len() - 1) as u64)",
+            "adjacent-pairs denominator, not an assignment",
+        ),
+        (
+            "root_env = os.environ.get(\"CDCP_ENGINE_ROOT\", \"\").strip()",
+            "engine-root env, name is not a module ceiling",
+        ),
+        (
+            "if std::env::var(\"UPDATE_GOLDENS\").ok().as_deref() != Some(\"1\") {",
+            "goldens env, not a module ceiling",
+        ),
+        (
+            "if (g.get(\"term_count\") or 0) < 15:",
+            "term-count floor; NumericBound already holds it",
+        ),
+        (
+            "PRIMARY_MODULES = range(1, 15)",
+            "literal end is NumericBound, not range-over-name",
+        ),
+        ("for u in range(1, 10):", "literal end is not a name"),
+        (
+            "for n in range(1, max_module + 1):",
+            "the correct exclusive end is an expression, not a name",
+        ),
+        (
+            "for n in 1..=count {",
+            "Rust inclusive range over a derived count is not Python range(1, NAME)",
+        ),
+        ("module_count = len(modules)", "a count, not a ceiling name"),
+        ("min_modules: 8,", "a floor, not a ceiling binding"),
+        (
+            "(\"primary_modules\".into(), ints(required)),",
+            "a report key, not a ceiling binding",
+        ),
+        ("# MAX_MODULE = len(x) - 1", "a Python comment"),
+        ("// let max_module = n - 1;", "a Rust comment"),
+        (
+            "for n in sorted(declared):",
+            "a derived iteration, not a range over a name",
+        ),
+    ] {
+        assert_eq!(
+            computed_bound(line),
             None,
             "over-match on {line:?} — {why}. An over-strict sweep gets routed \
              around, which is slower than no sweep at all."
@@ -2310,6 +2637,66 @@ fn the_sweep_goes_red_on_a_module_bound_hidden_behind_a_name() {
             .iter()
             .any(|(file, src, shape, _, _)| *file == h.rel && *src == h.text && *shape == h.shape),
         "a planted binding must be un-inventoried"
+    );
+}
+
+/// Known-BAD for the sweep, bd-ob8i's own regression: plant the EXACT evasion
+/// — a module ceiling computed from a length, plus `range(1, NAME)` — and
+/// the sweep must name the FILE and the LINE. Under the three-shape sweep
+/// this file was invisible: there is no 13–16 literal and no name-to-integer
+/// binding.
+#[test]
+fn the_sweep_goes_red_on_a_module_bound_computed_or_read_from_config() {
+    let f = Fixture::new();
+    f.write(
+        "scripts/planted_computed_bound.py",
+        "#!/usr/bin/env python3\n\
+         \"\"\"a gate that computed the module ceiling instead of iterating the registry.\"\"\"\n\
+         MAX_MODULE = len(declared) - 1\n\
+         \n\
+         for n in range(1, MAX_MODULE):\n\
+         \x20   check(n)\n",
+    );
+    let (counts, hits) = sweep(&f.root);
+    assert_eq!(counts[0], 1, "the fixture's scripts/ tree holds one file");
+
+    assert!(
+        !hits.iter().any(|h| h.shape == Shape::NumericBound),
+        "the planted file carries no numeric literal to match: {hits:?}"
+    );
+    assert!(
+        !hits.iter().any(|h| h.shape == Shape::NamedBound),
+        "the planted file binds no bare integer: {hits:?}"
+    );
+    let computed: Vec<&Hit> = hits
+        .iter()
+        .filter(|h| h.shape == Shape::ComputedBound)
+        .collect();
+    assert_eq!(
+        computed.len(),
+        2,
+        "len-minus-one binding AND range-over-name must both hit, got {computed:?}"
+    );
+    assert_eq!(computed[0].rel, "scripts/planted_computed_bound.py");
+    assert_eq!(computed[0].text, "MAX_MODULE = len(declared) - 1");
+    assert!(
+        computed[0].detail.contains("non-literal-ceiling"),
+        "the binding must say what it saw: {}",
+        computed[0].detail
+    );
+    assert_eq!(computed[1].text, "for n in range(1, MAX_MODULE):");
+    assert!(
+        computed[1].detail.contains("range-over-name"),
+        "the range must say what it saw: {}",
+        computed[1].detail
+    );
+    assert!(
+        computed
+            .iter()
+            .all(|h| !INVENTORY.iter().any(|(file, src, shape, _, _)| {
+                *file == h.rel && *src == h.text && *shape == h.shape
+            })),
+        "a planted computed bound must be un-inventoried"
     );
 }
 
