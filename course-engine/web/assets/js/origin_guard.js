@@ -6,7 +6,7 @@
  * module graph. This file is the only JS that is guaranteed to run when
  * a learner double-clicks web/index.html.
  *
- * Product contract: local HTTP via `cdcp_cli serve`.
+ * Product contract: local HTTP via `cdcp serve`.
  * file:// is not a supported origin.
  *
  * @file
@@ -64,7 +64,7 @@
         CODE +
         ": unsupported origin protocol " +
         p +
-        ". Supported: local HTTP via `cdcp_cli serve` (http://127.0.0.1:8766/).",
+        ". Supported: local HTTP via `cdcp serve` (http://127.0.0.1:8766/).",
     };
   }
 
