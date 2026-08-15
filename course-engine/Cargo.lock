@@ -321,6 +321,7 @@ dependencies = [
 name = "cdcp_gate"
 version = "0.1.0"
 dependencies = [
+ "cdcp_anki",
  "cdcp_learn",
  "serde",
  "serde_json",

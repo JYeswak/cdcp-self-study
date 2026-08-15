@@ -312,31 +312,45 @@ token_vocabulary = ["PASS", "GREEN", ": ok:", ": OK:"]
 file = "diff_smoke_a11y.rs"
 gate = "smoke-a11y"
 comparators = ["cmp", "compare_crash"]
-# bd-substrate-rust-migration-jhd.19. The 19 adversarial HTML rows are the
-# valuable part: the oracle runs nine regexes over raw text, so a permissive
-# HTML crate would "correct" it on six of them. Also pinned: class="skip-linK"
-# with U+017F/U+212A is GREEN under re.IGNORECASE, which a to_lowercase() port
-# fails.
-cases = 15
+# CONVERTED 2026-08-15 (bd-wave8-ports-agreement-only-debt-idns). EXTRACT-THEN-DELETE
+# (jhd.19) retired the python and the gate file; product is cdcp_learn::a11y.
+# The one agreement-only call site is now pointed at a planted skip-link and
+# asserts the named page, the finding COUNT, and the finding. Budget stays 0.
+cases = 2
 agreement_only = 0
+owner_bead = "bd-wave8-ports-agreement-only-debt-idns"
+verdict_shape_leg = false
+verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers leftover gate rows; product is cdcp_learn::a11y, not a cdcp_gate subcommand"
 
 [[harness]]
 file = "diff_smoke_learn_v2.rs"
 gate = "smoke-learn-v2"
 comparators = ["cmp", "compare_crash"]
-# bd-substrate-rust-migration-jhd.20.
-cases = 32
+# CONVERTED 2026-08-15 (bd-wave8-ports-agreement-only-debt-idns). EXTRACT-THEN-DELETE
+# (jhd.20) retired the python and the gate file; product is cdcp_learn::learn_v2.
+# The five crash-class compare_crash sites now plant the malformed / non-UTF-8 /
+# non-object input and assert the FAIL row, a fixture marker (unit_count=77 /
+# terms=41), and the verdict line. Budget stays 0.
+cases = 7
 agreement_only = 0
+owner_bead = "bd-wave8-ports-agreement-only-debt-idns"
+verdict_shape_leg = false
+verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers leftover gate rows; product is cdcp_learn::learn_v2, not a cdcp_gate subcommand"
 
 [[harness]]
 file = "diff_export_anki.rs"
 gate = "export-anki"
 comparators = ["compare"]
-# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.13 EXTRACT-THEN-DELETE).
-# The file is gone; the row stays (rows are monotone). Product is cdcp_anki /
-# `cdcp export-anki`.
-cases = 0
+# CONVERTED 2026-08-15 (bd-wave8-ports-agreement-only-debt-idns). EXTRACT-THEN-DELETE
+# (jhd.13) retired the python and the gate file; product is cdcp_anki. The one
+# agreement-only call site is now pointed at a planted all-retired bank and
+# asserts scanned=3, the named finding, and that nothing was written.
+# Row stays (rows are monotone). Budget stays 0.
+cases = 2
 agreement_only = 0
+owner_bead = "bd-wave8-ports-agreement-only-debt-idns"
+verdict_shape_leg = false
+verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); export-anki is no longer a cdcp_gate subcommand; product is cdcp_anki"
 
 # RETIRED 2026-08-15: build-glossary-json is no longer a cdcp_gate subcommand.
 # The product lives at `cdcp build-glossary` / cdcp_learn::glossary. The
