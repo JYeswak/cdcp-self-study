@@ -1366,6 +1366,12 @@ fn manifest_drift_is_measured_against_the_file_set_on_purpose_in_both() {
         "4 files and a manifest of 4 is in sync even though 1 is retired:\n{}{}",
         ok.stdout, ok.stderr
     );
+    assert!(ok.stdout.starts_with("PASS\n"), "{}", ok.stdout);
+    assert!(
+        !ok.stdout.contains("MANIFEST item_count"),
+        "an in-sync file-set manifest must not report drift:\n{}",
+        ok.stdout
+    );
 
     // A manifest that tracked the APPROVED pool would read 3 and be green;
     // here it is drift, which is the reading this test pins.

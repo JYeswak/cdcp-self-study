@@ -110,6 +110,24 @@ active_harness_floor = 1        # diff_*.rs files still holding comparator calls
 # escalation-only. Lowering it after a conversion is expected and autonomous.
 agreement_only_total_budget = 5
 
+# EXIT-ONLY AXIS (bd-diff-exit-code-only-verdicts-t6kv, measured 2026-08-15).
+# The first axis is agreement-only (above). This second axis counts cases that
+# already assert a verdict but only the EXIT CODE — not one byte of what the
+# gate said. Those evaporate into "something failed" the day the .py oracle is
+# retired.
+#
+# First-slice conversion (this bead): every anti-vacuous/floor call site plus
+# the remaining named GREEN/RED controls outside injection_count now assert a
+# named substring or structured field. Converted 20 of the 52 originally
+# counted. Remaining:
+#   32  diff_verify_injection_count.rs — STRUCTURAL: the comparator returns
+#       i32, so stdout is unreachable at every call site
+#       (bd-diff-injection-i32-comparator-fo1l).
+#    0  every other live harness (content_lock retired with its file).
+# The four emission-order cases (coverage / objectives) stay strong-via-offsets
+# and were never in the convertible 20. The census.rs strong/weak split is
+# sibling bd-j8b2's meta-gate; this file records the remaining count honestly.
+
 # If every differential harness is eventually retired, `active` legitimately
 # reaches zero. That end state must be DECLARED, not inferred from an empty
 # scan — an empty scan set is an ERROR.

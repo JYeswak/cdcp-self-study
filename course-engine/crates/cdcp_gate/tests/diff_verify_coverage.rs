@@ -459,6 +459,8 @@ fn live_tree_is_byte_identical_and_green() {
         &["--bank", "bank/items"],
     );
     assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().starts_with("PASS\n"), "{}", rs.out());
+    assert!(rs.out().contains("coverage GREEN"), "{}", rs.out());
 }
 
 // ── (a)(b) exactly what selftest_l6_coverage.sh exercises ─────────────────
@@ -1270,6 +1272,20 @@ fn empty_and_missing_input_sets_are_errors_in_both() {
         ],
     );
     assert_ne!(rs.code, 0, "{}", rs.out());
+    // Exit-only cannot see silence (bd-diff-exit-code-only-verdicts-t6kv):
+    // both anti-vacuous legs must still be named when they fire together.
+    assert!(
+        rs.out()
+            .contains("empty bank: zero items loaded (vacuous coverage is ERROR)"),
+        "combined empty input must still name the bank: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("domain registry declares zero modules (vacuous coverage is ERROR)"),
+        "combined empty input must still name the registry: {}",
+        rs.out()
+    );
 }
 
 // ── (h) emission ORDER ────────────────────────────────────────────────────
@@ -2011,6 +2027,13 @@ fn a_specimen_copy_of_the_live_bank_is_clean() {
         rs.code,
         0,
         "specimen bank of {copied} files is not clean: {}",
+        rs.out()
+    );
+    assert!(rs.out().starts_with("PASS\n"), "{}", rs.out());
+    assert!(rs.out().contains("coverage GREEN"), "{}", rs.out());
+    assert!(
+        !rs.out().contains("items=0 scanned"),
+        "specimen-clean must not be a silent empty scan: {}",
         rs.out()
     );
 }

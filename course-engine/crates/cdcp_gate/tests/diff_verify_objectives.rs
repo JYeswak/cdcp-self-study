@@ -362,6 +362,12 @@ fn live_tree_is_byte_identical_and_green() {
         ],
     );
     assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().starts_with("PASS\n"), "{}", rs.out());
+    assert!(
+        rs.out().contains("objective coverage GREEN"),
+        "{}",
+        rs.out()
+    );
 }
 
 // ── (a)(b)(b2)(c) the objectives/claims/bank legs of the shell suite ──────
@@ -2428,6 +2434,17 @@ fn a_specimen_copy_of_the_live_bank_is_clean() {
         rs.code,
         0,
         "specimen bank of {copied} files is not clean: {}",
+        rs.out()
+    );
+    assert!(rs.out().starts_with("PASS\n"), "{}", rs.out());
+    assert!(
+        rs.out().contains("objective coverage GREEN"),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("items=0 scanned"),
+        "specimen-clean must not be a silent empty scan: {}",
         rs.out()
     );
 }

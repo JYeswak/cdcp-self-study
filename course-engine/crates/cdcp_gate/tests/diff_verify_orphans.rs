@@ -286,6 +286,18 @@ fn empty_bank_and_empty_topics_are_errors_in_both() {
         ],
     );
     assert_ne!(rs.code, 0, "{}", rs.out());
+    // Exit-only cannot see silence (bd-diff-exit-code-only-verdicts-t6kv):
+    // both anti-vacuous legs must still be named when they fire together.
+    assert!(
+        rs.out().contains("empty bank"),
+        "combined empty input must still name the bank: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("empty topic registry"),
+        "combined empty input must still name the registry: {}",
+        rs.out()
+    );
 }
 
 // ── (c)(d)(e) every injection selftest_orphan.sh exercises ────────────────
@@ -306,6 +318,15 @@ fn planted_known_bads_are_byte_identical_and_red() {
         rs.code,
         0,
         "specimen bank of {copied} files is not clean: {}",
+        rs.out()
+    );
+    // A gate that stopped checking would still exit 0. Name the GREEN signal
+    // and prove the specimen was actually scanned (bd-diff-exit-code-only-verdicts-t6kv).
+    assert!(rs.out().starts_with("PASS\n"), "{}", rs.out());
+    assert!(rs.out().contains("orphan integrity GREEN"), "{}", rs.out());
+    assert!(
+        !rs.out().contains("items=0 scanned"),
+        "specimen-clean must not be a silent empty scan: {}",
         rs.out()
     );
 
@@ -339,6 +360,13 @@ fn planted_known_bads_are_byte_identical_and_red() {
     // the suite's own control: removing the specimens returns the bank to GREEN
     let rs = assert_byte_identical("specimen bank clean (post)", &root, &["--bank", &bank_arg]);
     assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().starts_with("PASS\n"), "{}", rs.out());
+    assert!(rs.out().contains("orphan integrity GREEN"), "{}", rs.out());
+    assert!(
+        !rs.out().contains("items=0 scanned"),
+        "post-clean must not be a silent empty scan: {}",
+        rs.out()
+    );
 
     // (e) orphan topic: declared in the registry, referenced by zero items
     let topics = td.path().join("topics_plus_orphan.toml");
@@ -487,6 +515,13 @@ fn defect_shapes_beyond_the_shell_suite_are_byte_identical() {
         rs.code,
         0,
         "the `elif \"id\" in data` branch must survive the fix: {}",
+        rs.out()
+    );
+    assert!(rs.out().starts_with("PASS\n"), "{}", rs.out());
+    assert!(rs.out().contains("orphan integrity GREEN"), "{}", rs.out());
+    assert!(
+        !rs.out().contains("yielded zero items"),
+        "the known-GOOD single-item file must not be flagged as vacuous: {}",
         rs.out()
     );
     std::fs::remove_file(bank.join("zz-single-item-good.toml")).unwrap();

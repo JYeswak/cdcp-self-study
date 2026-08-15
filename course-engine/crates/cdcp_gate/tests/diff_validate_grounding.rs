@@ -765,6 +765,16 @@ fn the_sample_list_ordering_and_slicing_match() {
         let label = format!("sample slice {args:?}");
         let rs = compare(&label, &f.engine(), &args);
         assert_eq!(rs.code, 0, "[{label}]:\n{}", rs.out());
+        assert!(
+            rs.out().contains("\nPASS\n"),
+            "[{label}] a sliced sample list is still a verdict, not silence:\n{}",
+            rs.out()
+        );
+        assert!(
+            rs.out().contains("low_overlap_warns=6\n"),
+            "[{label}] the header count must survive the slice:\n{}",
+            rs.out()
+        );
     }
 
     // `--sample-report 0` slices to nothing while the header still reports the
@@ -843,6 +853,12 @@ fn symlink_handling_in_the_corpus_walk_matches() {
     .unwrap();
     let rs = compare("symlinked corpus entries", &f.engine(), &[]);
     assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().contains("\nPASS\n"), "{}", rs.out());
+    assert!(
+        !rs.out().contains("corpus_chars=0\n"),
+        "a linked file must still contribute corpus bytes:\n{}",
+        rs.out()
+    );
 }
 
 #[test]
@@ -931,6 +947,16 @@ fn the_argument_parser_matches_byte_for_byte() {
         let label = format!("accepted {args:?}");
         let rs = compare(&label, &e, &args);
         assert_eq!(rs.code, 0, "[{label}]:\n{}\n{}", rs.out(), rs.err());
+        assert!(
+            rs.out().contains("\nPASS\n"),
+            "[{label}] an accepted spelling must still run the gate:\n{}",
+            rs.out()
+        );
+        assert!(
+            rs.out().starts_with("scanned_items="),
+            "[{label}] an accepted spelling must still scan:\n{}",
+            rs.out()
+        );
     }
 
     // Rejected spellings, all of which must be argparse's status 2 with the
@@ -971,8 +997,12 @@ fn the_argument_parser_matches_byte_for_byte() {
     // Values Python's `float()`/`int()` accept and Rust's `parse` does not.
     let rs = compare("infinite bar", &e, &["--min-overlap", "inf"]);
     assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().contains("\nPASS\n"), "{}", rs.out());
+    assert!(rs.out().starts_with("scanned_items="), "{}", rs.out());
     let rs = compare("nan bar", &e, &["--min-overlap", "nan"]);
     assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().contains("\nPASS\n"), "{}", rs.out());
+    assert!(rs.out().starts_with("scanned_items="), "{}", rs.out());
 }
 
 #[test]
@@ -994,6 +1024,16 @@ fn help_output_matches_at_several_widths() {
             Some(cols),
         );
         assert_eq!(rs.code, 0, "{}", rs.err());
+        assert!(
+            rs.out().starts_with("usage: validate_grounding.py"),
+            "COLUMNS={cols} must still print help: {}",
+            rs.out()
+        );
+        assert!(
+            rs.out().contains("\noptions:\n"),
+            "COLUMNS={cols} must still list options: {}",
+            rs.out()
+        );
     }
     // An unusable COLUMNS falls back the same way on both sides.
     // Agreement is not enough (bd-diff-remaining-agreement-only-qgy9): the
@@ -1049,4 +1089,6 @@ fn the_harness_compared_something() {
         COMPARED.load(Ordering::SeqCst) > before,
         "the differential harness compared nothing"
     );
+    assert!(rs.out().starts_with("scanned_items="), "{}", rs.out());
+    assert!(rs.out().contains("\nPASS\n"), "{}", rs.out());
 }

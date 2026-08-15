@@ -250,6 +250,12 @@ fn a_symlink_to_a_real_note_resolves_through() {
     let t = t.domains("[[domain]]\nid = \"01-a\"\nprimary_notes = \"../modules/link.md\"\n");
     let r = assert_identical(&t.root, "symlinked note");
     assert_eq!(r.code, 0, "{}", show(&r.stdout));
+    let s = show(&r.stdout);
+    assert!(s.starts_with("PASS\n"), "{s}");
+    assert!(
+        s.contains("primary_notes_checked=1"),
+        "the symlink must be followed and counted:\n{s}"
+    );
 }
 
 #[test]
@@ -308,6 +314,11 @@ fn a_truthy_but_non_boolean_licence_does_not_count_in_either() {
         .domains("[[domain]]\nid = \"01-a\"\nprimary_notes = \"\"\nexam_weight_unknown = 1\n");
     let r = assert_identical(&t.root, "non-boolean licence");
     assert_eq!(r.code, 1, "`is True` rejects 1:\n{}", show(&r.stdout));
+    assert!(
+        show(&r.stdout).contains("01-a: empty primary_notes without exam_weight_unknown=true"),
+        "`exam_weight_unknown = 1` must not license an empty pointer:\n{}",
+        show(&r.stdout)
+    );
 }
 
 #[test]
@@ -539,6 +550,16 @@ fn domains_toml_is_skipped_by_the_second_leg_in_both() {
     let t = green_tree();
     let r = assert_identical(&t.root, "domains.toml skipped");
     assert_eq!(r.code, 0, "{}", show(&r.stdout));
+    let s = show(&r.stdout);
+    assert!(s.starts_with("PASS\n"), "{s}");
+    assert!(
+        s.contains("primary_notes_checked=2"),
+        "the first-leg pointers must still be counted:\n{s}"
+    );
+    assert!(
+        !s.contains("  - "),
+        "a lost skip would double-report domains.toml as second-leg findings:\n{s}"
+    );
 }
 
 #[test]
