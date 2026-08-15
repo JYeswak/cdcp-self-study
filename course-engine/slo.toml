@@ -11,9 +11,9 @@ schema_version = 1
 
 # Wall budgets in milliseconds (smoke_slo.sh fail-closed if exceeded).
 [budgets]
-# cargo run grade --mode all-correct (post-build; includes process spawn)
+# cdcp grade --mode all-correct (post-build; includes process spawn)
 grade_ms = 5000
-# cargo run export-web --seed 42 (writes pack under a temp or --out dir)
+# cdcp export-web --seed 42 (writes pack under a temp or --out dir)
 export_ms = 15000
 # cdcp_gate verify-bank over full bank/items (Rust gate; not the python oracle)
 bank_verify_ms = 10000

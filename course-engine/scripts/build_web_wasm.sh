@@ -12,7 +12,7 @@
 #   web/assets/wasm/cdcp_wasm.wasm
 #
 # Headless grade without browser WASM (oracle only):
-#   cargo run -q -p cdcp_cli -- grade \
+#   cdcp grade \
 #     --fixture goldens/fixtures/mock40_seed42.json --mode all-correct
 set -eu
 

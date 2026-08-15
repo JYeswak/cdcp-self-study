@@ -16,7 +16,7 @@
  *
  * Headless / offline without wasm
  * --------------------------------
- *   cargo run -q -p cdcp_cli -- grade \
+ *   cdcp grade \
  *     --fixture goldens/fixtures/mock40_seed42.json --mode all-correct
  *
  * E2e hook: window.__cdcp_last_digest (lowercase hex, 64 chars) after success.
@@ -556,7 +556,7 @@ async function run() {
         BANK_URL +
         " / " +
         KEYS_URL +
-        "). Serve web/ over HTTP. If the pack is missing: cargo run -q -p cdcp_cli -- export-web --seed " +
+        "). Serve web/ over HTTP. If the pack is missing: cdcp export-web --seed " +
         seed +
         " --out web/data. " +
         errMsg(err)
@@ -604,7 +604,7 @@ async function run() {
         errMsg(err) +
         " Build with ./scripts/build_web_wasm.sh and ensure " +
         WASM_URL +
-        " is served. CLI oracle: cargo run -q -p cdcp_cli -- grade " +
+        " is served. CLI oracle: cdcp grade " +
         "--fixture goldens/fixtures/mock40_seed42.json --mode all-correct"
     );
     return;
