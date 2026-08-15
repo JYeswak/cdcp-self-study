@@ -23,6 +23,8 @@ import {
   DRILL10_LIMIT,
   MISSED_STORAGE_KEY,
   REVIEW_STORAGE_KEY,
+  pruneNonApprovedFromStorage,
+  formatPruneNotice,
 } from "./review.js";
 
 const BANK_URL = "data/bank_items_seed42.json";
@@ -92,6 +94,32 @@ function setStatus(kind, text) {
       : kind === "ok"
         ? " exam-status--ok"
         : "");
+  el.textContent = text;
+}
+
+/**
+ * Surface a withdrawal sweep. A no-op (nothing dropped) must not
+ * paint a "cards removed" banner.
+ * @param {{ dropped?: string[], emptied?: boolean }} report
+ */
+function showPruneNotice(report) {
+  const text = formatPruneNotice(report);
+  const existing = $("drill-prune-notice");
+  if (!text) {
+    if (existing) existing.remove();
+    return;
+  }
+  let el = existing;
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "drill-prune-notice";
+    el.className = "exam-status exam-status--ok";
+    el.setAttribute("role", "status");
+    const status = $("drill-status");
+    if (!status || !status.parentNode) return;
+    status.parentNode.insertBefore(el, status.nextSibling);
+  }
+  el.hidden = false;
   el.textContent = text;
 }
 
@@ -432,6 +460,10 @@ async function loadBank() {
   const bank = await bankRes.json();
   const keysPack = await keysRes.json();
   const arr = Array.isArray(bank) ? bank : bank.items || [];
+  // Index EVERY manifest row, including retired. Filtering byId by
+  // status would blank the stem of a legitimately-answered withdrawn
+  // card instead of removing it from the schedule
+  // (bd-srs-residue-retired-ids-k3vs).
   byId = Object.create(null);
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] && arr[i].id) byId[arr[i].id] = arr[i];
@@ -460,12 +492,21 @@ async function init() {
   setStatus("", "Loading bank + keys for stems/explanations…");
   try {
     await loadBank();
+    // Sweep residue AFTER the pack is in byId. Do not filter byId —
+    // that map resolves already-answered ids, including withdrawn ones
+    // if we ever render a "withdrawn" card. The schedule/missed stores
+    // are what must not keep a retired id due.
+    const rows = [];
+    const ids = Object.keys(byId);
+    for (let i = 0; i < ids.length; i++) rows.push(byId[ids[i]]);
+    showPruneNotice(pruneNonApprovedFromStorage(rows));
   } catch (err) {
     setStatus(
       "error",
       "Failed to load bank/keys. Serve web/ over HTTP. " + errMsg(err)
     );
     // Still render storage-backed lists without stems.
+    // Do NOT prune against an empty pack — that would wipe a live queue.
   }
 
   if (pageMode === "due") {
@@ -514,6 +555,8 @@ if (typeof window !== "undefined") {
     reviewCard,
     selectDueOnly,
     parseDrillMode,
+    pruneNonApprovedFromStorage,
+    formatPruneNotice,
     DRILL10_LIMIT,
     EMPTY_DUE_MESSAGE,
     MISSED_STORAGE_KEY,

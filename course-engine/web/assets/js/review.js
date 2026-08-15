@@ -23,6 +23,12 @@
  * Interval law: `cdcp_schedule::next_interval_days` via schedule_bridge.
  * Drill-10: selectDueOnly / listDueDrill — due_at ≤ now, earliest first, cap 10.
  *
+ * Residue sweep (bd-srs-residue-retired-ids-k3vs): pre-bd-7big quiz draws wrote
+ * retired ids into these stores. On load, `pruneNonApprovedFromStorage` drops
+ * any id whose pack row is not status=approved. Do not filter drill's byId
+ * map — that map resolves already-answered ids so a withdrawn card can still
+ * be rendered; it must not stay due on the 1d/3d ladder.
+ *
  * No LLM. Pedagogy-only — never a cert claim.
  *
  * @module review
@@ -39,6 +45,13 @@ export const REVIEW_STORAGE_KEY = "cdcp.srs.v1";
 export const MISSED_STORAGE_KEY = "cdcp.drill.missed.v1";
 export const REVIEW_SCHEMA_VERSION = 1;
 export const MISSED_SCHEMA_VERSION = 1;
+
+/**
+ * The one BankItem.status that may stay on the 1d/3d ladder or in the
+ * missed feed. Same rule as quiz.js `isApproved`: absent status is
+ * WITHHELD. This module cannot import quiz.js (quiz imports us).
+ */
+export const APPROVED_STATUS = "approved";
 
 /**
  * Next interval in days. WASM decides (`cdcp_next_interval_days`).
@@ -418,6 +431,209 @@ export function loadMissed(store) {
 }
 
 /**
+ * True when a pack row may remain in missed / short-interval storage.
+ * Absent status is withheld — never guessed in the learner's favour.
+ *
+ * @param {{status?: string, id?: string}|null|undefined} it
+ * @returns {boolean}
+ */
+export function isApprovedRow(it) {
+  return !!it && it.status === APPROVED_STATUS;
+}
+
+/**
+ * @param {unknown} pack
+ * @returns {Array}
+ */
+export function packRows(pack) {
+  if (Array.isArray(pack)) return pack;
+  if (pack && typeof pack === "object") {
+    const items = /** @type {{items?: unknown}} */ (pack).items;
+    if (Array.isArray(items)) return items;
+  }
+  return [];
+}
+
+/**
+ * @param {string | null} [skipped]
+ * @returns {{
+ *   dropped: string[],
+ *   dropped_missed: string[],
+ *   dropped_srs: string[],
+ *   emptied: boolean,
+ *   emptied_missed: boolean,
+ *   emptied_srs: boolean,
+ *   persisted: boolean,
+ *   skipped: string | null
+ * }}
+ */
+function emptyPruneReport(skipped) {
+  return {
+    dropped: [],
+    dropped_missed: [],
+    dropped_srs: [],
+    emptied: false,
+    emptied_missed: false,
+    emptied_srs: false,
+    persisted: false,
+    skipped: skipped || null,
+  };
+}
+
+/**
+ * Learner-facing copy. Empty string iff nothing was pruned — a no-op
+ * must not read like a withdrawal (bd-srs-residue-retired-ids-k3vs).
+ *
+ * @param {{ dropped?: string[], emptied?: boolean } | null | undefined} report
+ * @returns {string}
+ */
+export function formatPruneNotice(report) {
+  if (!report || !Array.isArray(report.dropped) || report.dropped.length === 0) {
+    return "";
+  }
+  const n = report.dropped.length;
+  const noun = n === 1 ? "card" : "cards";
+  const head =
+    n +
+    " " +
+    noun +
+    " removed: these questions were withdrawn from the bank (" +
+    report.dropped.join(", ") +
+    ").";
+  if (report.emptied) {
+    return head + " The review queue is now empty.";
+  }
+  return head;
+}
+
+/**
+ * Drop ids that are not status=approved from missed + SRS storage.
+ *
+ * Driven by the pack's `status` field, never by a hardcoded id list.
+ * An id missing from the pack is not in the approved pool and is dropped.
+ *
+ * Fail-closed on a pack we cannot trust:
+ *   - empty pack / failed load → do not touch storage
+ *   - pack rows carry no `status` (e.g. the learner mock40 pack) → do not
+ *     treat every id as withdrawn and wipe the queue
+ *
+ * Persist only when something was removed, so a second load is a no-op
+ * (not re-pruned every load).
+ *
+ * @param {unknown} pack bank_items rows (array or {items})
+ * @param {Storage} [store]
+ * @returns {{
+ *   dropped: string[],
+ *   dropped_missed: string[],
+ *   dropped_srs: string[],
+ *   emptied: boolean,
+ *   emptied_missed: boolean,
+ *   emptied_srs: boolean,
+ *   persisted: boolean,
+ *   skipped: string | null
+ * }}
+ */
+export function pruneNonApprovedFromStorage(pack, store) {
+  const rows = packRows(pack);
+  if (!rows.length) return emptyPruneReport("empty-pack");
+
+  /** @type {Record<string, boolean>} */
+  const approved = Object.create(null);
+  let withStatus = 0;
+  for (let i = 0; i < rows.length; i++) {
+    const it = rows[i];
+    if (!it || typeof it.id !== "string" || !it.id) continue;
+    if (typeof it.status === "string") withStatus += 1;
+    if (isApprovedRow(it)) approved[it.id] = true;
+  }
+  if (withStatus === 0) return emptyPruneReport("pack-has-no-status");
+
+  const s = store || (typeof localStorage !== "undefined" ? localStorage : null);
+  const missed = loadMissed(s);
+  const state = loadReviewState(s);
+
+  const droppedMissed = [];
+  let nextMissedIds = null;
+  if (missed && Array.isArray(missed.item_ids) && missed.item_ids.length) {
+    nextMissedIds = [];
+    for (let i = 0; i < missed.item_ids.length; i++) {
+      const id = missed.item_ids[i];
+      if (approved[id]) nextMissedIds.push(id);
+      else droppedMissed.push(id);
+    }
+  }
+
+  const droppedSrs = [];
+  const nextCards = Object.create(null);
+  const cardIds = Object.keys(state.cards);
+  for (let i = 0; i < cardIds.length; i++) {
+    const id = cardIds[i];
+    const card = state.cards[id];
+    const itemId =
+      card && typeof card.item_id === "string" && card.item_id
+        ? card.item_id
+        : id;
+    if (approved[itemId]) nextCards[itemId] = card;
+    else droppedSrs.push(itemId);
+  }
+
+  /** @type {Record<string, boolean>} */
+  const seen = Object.create(null);
+  for (let i = 0; i < droppedMissed.length; i++) seen[droppedMissed[i]] = true;
+  for (let i = 0; i < droppedSrs.length; i++) seen[droppedSrs[i]] = true;
+  const dropped = Object.keys(seen).sort();
+
+  if (dropped.length === 0) return emptyPruneReport(null);
+
+  const hadMissed = !!(missed && missed.item_ids.length);
+  const hadSrs = cardIds.length > 0;
+  const remainMissed = nextMissedIds
+    ? nextMissedIds.length
+    : missed
+      ? missed.item_ids.length
+      : 0;
+  const remainSrs = Object.keys(nextCards).length;
+  const emptiedMissed = hadMissed && remainMissed === 0;
+  const emptiedSrs = hadSrs && remainSrs === 0;
+  const emptied =
+    (hadMissed || hadSrs) && remainMissed === 0 && remainSrs === 0;
+
+  let persisted = false;
+  if (missed && droppedMissed.length > 0) {
+    const savedMissed = saveMissed(
+      {
+        source: missed.source,
+        exam_id: missed.exam_id,
+        seed: missed.seed,
+        bank_hash: missed.bank_hash,
+        saved_at: missed.saved_at,
+        item_ids: nextMissedIds || [],
+      },
+      s
+    );
+    persisted = persisted || savedMissed;
+  }
+  if (droppedSrs.length > 0) {
+    const savedSrs = saveReviewState(
+      { schema_version: REVIEW_SCHEMA_VERSION, cards: nextCards },
+      s
+    );
+    persisted = persisted || savedSrs;
+  }
+
+  return {
+    dropped: dropped,
+    dropped_missed: droppedMissed,
+    dropped_srs: droppedSrs,
+    emptied: emptied,
+    emptied_missed: emptiedMissed,
+    emptied_srs: emptiedSrs,
+    persisted: persisted,
+    skipped: null,
+  };
+}
+
+/**
  * After a graded attempt: store wrongs + schedule short-interval review.
  *
  * @param {{
@@ -462,6 +678,7 @@ if (typeof globalThis !== "undefined") {
     MISSED_STORAGE_KEY,
     REVIEW_SCHEMA_VERSION,
     MISSED_SCHEMA_VERSION,
+    APPROVED_STATUS,
     dayMs,
     DRILL10_LIMIT,
     nextIntervalDays,
@@ -478,6 +695,10 @@ if (typeof globalThis !== "undefined") {
     listAllCards,
     saveMissed,
     loadMissed,
+    isApprovedRow,
+    packRows,
+    formatPruneNotice,
+    pruneNonApprovedFromStorage,
     recordGradedWrongs,
   };
 }

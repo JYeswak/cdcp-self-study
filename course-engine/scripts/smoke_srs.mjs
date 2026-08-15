@@ -9,7 +9,7 @@
  * Usage (from course-engine/):
  *   node scripts/smoke_srs.mjs
  */
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -54,6 +54,13 @@ const {
   loadMissed,
   loadReviewState,
   saveReviewState,
+  saveMissed,
+  listAllCards,
+  isApprovedRow,
+  packRows,
+  formatPruneNotice,
+  pruneNonApprovedFromStorage,
+  APPROVED_STATUS,
   REVIEW_STORAGE_KEY,
   MISSED_STORAGE_KEY,
 } = await import(reviewPath);
@@ -288,6 +295,325 @@ try {
   // drill.js may touch document on import; pure srs tests above still cover filter.
   console.log("ok: skip drill.js mode parse (import side-effect): " + (e && e.message));
 }
+
+// --- bd-srs-residue-retired-ids-k3vs: drop retired residue from stores ---
+
+function cardAt(id, dueAt) {
+  return {
+    item_id: id,
+    interval_days: 1,
+    due_at: dueAt,
+    reps: 0,
+    lapses: 1,
+    updated_at: t0,
+  };
+}
+
+function seedStores(store, ids) {
+  const cards = Object.create(null);
+  for (let i = 0; i < ids.length; i++) {
+    cards[ids[i]] = cardAt(ids[i], t0);
+  }
+  saveReviewState({ schema_version: 1, cards: cards }, store);
+  saveMissed(
+    { source: "quiz", exam_id: "m05", seed: 42, item_ids: ids.slice() },
+    store
+  );
+}
+
+const plantPack = [
+  { id: "keep-me", status: "approved", stem: "live" },
+  { id: "m05-q200", status: "retired", stem: "withdrawn" },
+  { id: "planted-retired-xyz", status: "retired", stem: "not in the 8-id list" },
+  { id: "drafty", status: "draft", stem: "draft" },
+  { id: "nostatus-row", stem: "no status field" },
+];
+
+assert(APPROVED_STATUS === "approved", "APPROVED_STATUS is approved");
+assert(isApprovedRow({ status: "approved" }) === true, "isApprovedRow approved");
+assert(isApprovedRow({ status: "retired" }) === false, "isApprovedRow retired");
+assert(isApprovedRow({ status: "draft" }) === false, "isApprovedRow draft");
+assert(isApprovedRow({}) === false, "isApprovedRow absent status is withheld");
+assert(isApprovedRow(null) === false, "isApprovedRow null");
+assert(packRows(plantPack).length === 5, "packRows array");
+assert(packRows({ items: plantPack }).length === 5, "packRows {items}");
+assert(packRows(null).length === 0, "packRows null → empty");
+assert(packRows({}).length === 0, "packRows {} → empty");
+
+assert(formatPruneNotice(null) === "", "notice null → empty");
+assert(formatPruneNotice({ dropped: [] }) === "", "notice nothing → empty");
+assert(
+  formatPruneNotice({ dropped: [], emptied: true }) === "",
+  "notice emptied-but-dropped-empty is still empty (no-op must not look like a prune)"
+);
+const noticePartial = formatPruneNotice({
+  dropped: ["planted-retired-xyz"],
+  emptied: false,
+});
+const noticeEmptyQ = formatPruneNotice({
+  dropped: ["m05-q200", "planted-retired-xyz"],
+  emptied: true,
+});
+assert(noticePartial.length > 0, "notice that pruned is non-empty");
+assert(
+  noticePartial.indexOf("planted-retired-xyz") >= 0,
+  "notice names the withdrawn id"
+);
+assert(
+  noticePartial.indexOf("1 card removed") >= 0,
+  "notice singular card copy"
+);
+assert(
+  noticePartial.indexOf("empty") < 0,
+  "partial prune must not claim the queue is empty"
+);
+assert(
+  noticeEmptyQ.indexOf("2 cards removed") >= 0,
+  "notice plural cards copy"
+);
+assert(
+  noticeEmptyQ.indexOf("empty") >= 0,
+  "a prune that empties the whole queue must say so"
+);
+assert(
+  formatPruneNotice({ dropped: [] }) !== noticePartial,
+  "a prune that finds nothing must not report like one that pruned"
+);
+
+// Empty pack must not wipe a store that happens to hold residue.
+const storeEmptyPack = makeStore();
+seedStores(storeEmptyPack, ["m05-q200", "keep-me"]);
+const skipEmpty = pruneNonApprovedFromStorage([], storeEmptyPack);
+assert(skipEmpty.skipped === "empty-pack", "empty pack is skipped");
+assert(skipEmpty.dropped.length === 0, "empty pack drops nothing");
+assert(skipEmpty.persisted === false, "empty pack does not persist");
+assert(
+  loadMissed(storeEmptyPack).item_ids.join(",") === "m05-q200,keep-me",
+  "empty pack leaves missed untouched"
+);
+assert(
+  !!loadReviewState(storeEmptyPack).cards["m05-q200"],
+  "empty pack leaves SRS untouched"
+);
+
+// Learner mock40 pack has no status field — must not wipe the queue.
+const storeNoStatus = makeStore();
+seedStores(storeNoStatus, ["m05-q200", "keep-me"]);
+const skipNoStatus = pruneNonApprovedFromStorage(
+  { items: [{ id: "m05-q200", stem: "x", choices: [] }] },
+  storeNoStatus
+);
+assert(
+  skipNoStatus.skipped === "pack-has-no-status",
+  "pack without status is skipped"
+);
+assert(
+  loadMissed(storeNoStatus).item_ids.join(",") === "m05-q200,keep-me",
+  "no-status pack leaves missed untouched"
+);
+
+// Mixed store: keep approved, drop retired / draft / missing-status / unknown.
+const storeMix = makeStore();
+const mixIds = [
+  "keep-me",
+  "m05-q200",
+  "planted-retired-xyz",
+  "drafty",
+  "nostatus-row",
+  "ghost-not-in-pack",
+];
+seedStores(storeMix, mixIds);
+const rMix = pruneNonApprovedFromStorage(plantPack, storeMix);
+assert(rMix.skipped === null, "mixed prune is not skipped");
+assert(rMix.persisted === true, "mixed prune persists");
+assert(
+  rMix.dropped.join(",") ===
+    "drafty,ghost-not-in-pack,m05-q200,nostatus-row,planted-retired-xyz",
+  "mixed prune drops every non-approved id (status-driven, not a hardcoded list)"
+);
+assert(
+  rMix.dropped.indexOf("planted-retired-xyz") >= 0,
+  "a later retirement wave id is covered without a code change"
+);
+assert(rMix.emptied === false, "mixed prune leaves the approved card");
+assert(rMix.emptied_missed === false, "missed still has keep-me");
+assert(rMix.emptied_srs === false, "SRS still has keep-me");
+const missedMix = loadMissed(storeMix);
+const srsMix = loadReviewState(storeMix);
+assert(
+  missedMix.item_ids.join(",") === "keep-me",
+  "missed keeps only approved"
+);
+assert(
+  Object.keys(srsMix.cards).join(",") === "keep-me",
+  "SRS keeps only approved"
+);
+assert(
+  formatPruneNotice(rMix).indexOf("planted-retired-xyz") >= 0,
+  "mixed notice names a dropped id"
+);
+assert(
+  formatPruneNotice(rMix).indexOf("empty") < 0,
+  "mixed notice does not claim empty"
+);
+
+// Second load is a no-op — pruned state persisted, not re-pruned every load.
+const rMix2 = pruneNonApprovedFromStorage(plantPack, storeMix);
+assert(rMix2.dropped.length === 0, "second load drops nothing");
+assert(rMix2.persisted === false, "second load does not persist");
+assert(
+  formatPruneNotice(rMix2) === "",
+  "second load must not report like a prune"
+);
+assert(
+  loadMissed(storeMix).item_ids.join(",") === "keep-me",
+  "second load leaves the approved remainder"
+);
+
+// ANTI-VACUOUS: a store that contains ONLY retired ids must end empty,
+// not look like a live review queue.
+const storeOnlyRetired = makeStore();
+const onlyRetired = ["m05-q200", "planted-retired-xyz"];
+seedStores(storeOnlyRetired, onlyRetired);
+const rOnly = pruneNonApprovedFromStorage(plantPack, storeOnlyRetired);
+assert(rOnly.dropped.length === 2, "only-retired drops both");
+assert(rOnly.emptied === true, "only-retired empties the whole queue");
+assert(rOnly.emptied_missed === true, "only-retired empties missed");
+assert(rOnly.emptied_srs === true, "only-retired empties SRS");
+assert(rOnly.persisted === true, "only-retired persists the empty stores");
+assert(
+  loadMissed(storeOnlyRetired).item_ids.length === 0,
+  "only-retired missed ends empty"
+);
+assert(
+  Object.keys(loadReviewState(storeOnlyRetired).cards).length === 0,
+  "only-retired SRS cards end empty"
+);
+assert(
+  listDue({ nowMs: t0, store: storeOnlyRetired }).length === 0,
+  "only-retired listDue is not a live queue"
+);
+assert(
+  listAllCards({ store: storeOnlyRetired }).length === 0,
+  "only-retired listAllCards is empty"
+);
+assert(
+  listDueDrill({ nowMs: t0, store: storeOnlyRetired }).length === 0,
+  "only-retired Drill-10 is empty"
+);
+const onlyNotice = formatPruneNotice(rOnly);
+assert(onlyNotice.indexOf("empty") >= 0, "only-retired notice says empty");
+assert(onlyNotice.indexOf("m05-q200") >= 0, "only-retired notice names an id");
+
+// Clean store of only approved: find-nothing must not look like a prune.
+const storeClean = makeStore();
+seedStores(storeClean, ["keep-me"]);
+const rClean = pruneNonApprovedFromStorage(plantPack, storeClean);
+assert(rClean.dropped.length === 0, "clean store drops nothing");
+assert(rClean.persisted === false, "clean store does not persist");
+assert(rClean.emptied === false, "clean store is not reported emptied");
+assert(formatPruneNotice(rClean) === "", "clean store has no notice");
+assert(
+  loadMissed(storeClean).item_ids.join(",") === "keep-me",
+  "clean store missed untouched"
+);
+
+// Committed pack: the 8 residue ids 7big named, plus one live approved.
+const bankPack = JSON.parse(
+  readFileSync(join(ROOT, "web/data/bank_items_seed42.json"), "utf8")
+);
+const bankRows = packRows(bankPack);
+const bankRetired = bankRows.filter(function (r) {
+  return r && r.status === "retired";
+});
+const bankApproved = bankRows.filter(function (r) {
+  return r && r.status === APPROVED_STATUS;
+});
+assert(bankRows.length > 0, "committed bank pack is non-empty");
+assert(
+  bankRetired.length > 0,
+  "committed pack has retired rows — else this residue sweep is vacuous"
+);
+assert(
+  bankApproved.length > 0 && bankApproved.length < bankRows.length,
+  "committed pack has an approved pool distinct from the file set"
+);
+const residueNamed = [
+  "m05-q200",
+  "mock40-q18",
+  "mock40-q24",
+  "mock40-q22",
+  "m12-q219",
+  "mock40-q37",
+  "mock40-q40",
+];
+for (let i = 0; i < residueNamed.length; i++) {
+  const row = bankRows.find(function (r) {
+    return r && r.id === residueNamed[i];
+  });
+  assert(
+    !!row && row.status === "retired",
+    residueNamed[i] + " is retired in the committed pack"
+  );
+}
+const liveId = bankApproved[0].id;
+const storePack = makeStore();
+seedStores(storePack, residueNamed.concat([liveId]));
+const rPack = pruneNonApprovedFromStorage(bankPack, storePack);
+assert(
+  rPack.dropped.length === residueNamed.length,
+  "committed-pack prune drops the 7 named residue ids"
+);
+assert(
+  residueNamed.every(function (id) {
+    return rPack.dropped.indexOf(id) >= 0;
+  }),
+  "committed-pack prune names every 7big residue id"
+);
+assert(
+  loadMissed(storePack).item_ids.join(",") === liveId,
+  "committed-pack prune keeps a live approved id"
+);
+assert(
+  !!loadReviewState(storePack).cards[liveId] &&
+    !loadReviewState(storePack).cards["m05-q200"],
+  "committed-pack SRS keeps live and drops retired"
+);
+assert(
+  listDue({ nowMs: t0, store: storePack }).every(function (c) {
+    return c.item_id === liveId;
+  }),
+  "committed-pack due queue is only the live id"
+);
+
+// The prune implementation is not a hardcoded id list.
+const reviewSrc = readFileSync(join(ROOT, "web/assets/js/review.js"), "utf8");
+assert(
+  reviewSrc.indexOf("m05-q200") < 0 &&
+    reviewSrc.indexOf("mock40-q18") < 0 &&
+    reviewSrc.indexOf("planted-retired-xyz") < 0,
+  "review.js prune is not a hardcoded residue id list"
+);
+const drillSrc = readFileSync(join(ROOT, "web/assets/js/drill.js"), "utf8");
+const loadBankSlice = drillSrc.slice(
+  drillSrc.indexOf("async function loadBank"),
+  drillSrc.indexOf("async function init")
+);
+assert(
+  loadBankSlice.indexOf("status ===") < 0 &&
+    loadBankSlice.indexOf("status ==") < 0 &&
+    loadBankSlice.indexOf("status !==") < 0 &&
+    loadBankSlice.indexOf("isApproved") < 0,
+  "loadBank must not filter byId on status"
+);
+assert(
+  loadBankSlice.indexOf("byId[arr[i].id] = arr[i]") >= 0,
+  "loadBank indexes every manifest row"
+);
+assert(
+  drillSrc.indexOf("pruneNonApprovedFromStorage") >= 0,
+  "drill.js calls the storage sweep on load"
+);
 
 if (failed > 0) {
   console.error("\nsmoke_srs: " + failed + " failure(s)");
