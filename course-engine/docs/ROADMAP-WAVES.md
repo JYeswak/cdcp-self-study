@@ -99,8 +99,9 @@ v1 claimed 13 modules × 9 units proved quota-driven content. Measured properly:
 | 12 fire | 63 | | 08 racks | 34 |
 
 The bank **is** weighted toward power and cooling, ~4× over lighting/EMF. Unit count is a
-packaging artifact: `build_units.py` mechanically emits one unit per `##` heading, so it
-measures outline shape, not depth. v1 selected the metric that supported its thesis.
+packaging artifact: `cdcp_learn` (`crates/cdcp_learn/src/units.rs`) mechanically emits one
+unit per `##` heading, so it measures outline shape, not depth. v1 selected the metric that
+supported its thesis.
 
 **W3 (rebalance) is therefore CUT.** The premise was false.
 

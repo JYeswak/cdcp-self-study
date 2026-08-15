@@ -31,8 +31,8 @@
  *   - It already ships inside `web/`, unlike `knowledge/domains.toml`, and it
  *     already carries the fields this catalog needs (`order`, `id`,
  *     `epi_heading`, `href`) — `domains.toml` carries authoring paths instead.
- *   - `scripts/build_units.py` and `crates/cdcp_assemble/tests/learn_surface_coverage.rs`
- *     were rebased onto this same file, so there is one registry for the Learn
+ *   - `cdcp_learn::units` and `crates/cdcp_assemble/tests/learn_surface_coverage.rs`
+ *     read this same file, so there is one registry for the Learn
  *     surface rather than one per consumer.
  *
  * A module declared in that registry is ALWAYS in this catalog. There is no
