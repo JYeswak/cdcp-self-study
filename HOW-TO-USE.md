@@ -26,9 +26,10 @@ If you need **competence** for jobs, interviews, and white-space tours, continue
 Constitution: [`CHARTER.md`](./CHARTER.md). Product: `course-engine/`.
 
 ```bash
-cd cdcp-self-study/course-engine
+cd cdcp-self-study
 # 8765 is often Agent Mail (uvicorn) — if bind fails or browser shows {"detail":"Not Found"}, use 8766
-cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
+cargo build --manifest-path course-engine/Cargo.toml -p cdcp_cli --locked
+./course-engine/target/debug/cdcp serve --bind 127.0.0.1:8766
 ```
 
 Open **http://127.0.0.1:8766/** → Learn · Drill · Mock · Reference.
