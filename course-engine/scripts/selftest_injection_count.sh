@@ -62,6 +62,11 @@
 # (cc) --write-readme regenerating a drifted README are known-GOOD legs and are
 # NOT counted, on the same terms as (i)'s control and (m).
 #
+# Live-tree pin (wire), not counted: check.sh honours
+# CDCP_INJECTION_COUNT_WRITE_README=1 as the only path to --write-readme
+# [bd-injection-count-regen-unreachable-lu45]. (wire-unsound) re-proves the
+# (n) refusal through that if/else so the flag cannot launder a bogus total.
+#
 # (i)'s agreeing-word control and (m) are known-GOOD legs and are NOT counted:
 # only assert_fails_with and assert_fails_without increment INJ. A suite that
 # only ever attacks ships an over-strict gate, and over-strict gates get routed
@@ -675,6 +680,84 @@ grep -q 'gate-2_ordered_steps' "$step_regen" \
 grep -q '3 ordered steps' "$step_regen" \
   && fail "(cc) a drifted step count survived regeneration"
 ok "(cc) every step advertisement site now carries the measured total"
+
+# ── check.sh snippet: --write-readme is reachable only via the env flag ────
+# [bd-injection-count-regen-unreachable-lu45]
+# Live-tree pin plus an executed extract of the if/else. Not counted: (n) already
+# owns the unsound-write injection, (b) owns drift-without-write, (m) owns
+# regeneration. This pin fails THIS suite if the reachable caller is deleted.
+echo "==> (wire) check.sh honours CDCP_INJECTION_COUNT_WRITE_README"
+
+inj_block=$(awk '
+  /cdcp_gate verify-injection-count \(advertised known-bad count\)/ {p=1}
+  p {print}
+  p && /advertised known-bad injection count ==/ {exit}
+' scripts/check.sh)
+[ -n "$inj_block" ] || fail "(wire) could not extract the verify-injection-count block from check.sh"
+printf '%s\n' "$inj_block" | grep -q 'CDCP_INJECTION_COUNT_WRITE_README:-0' \
+  || fail "(wire) check.sh does not test CDCP_INJECTION_COUNT_WRITE_README"
+
+inj_if=$(printf '%s\n' "$inj_block" | awk '
+  /CDCP_INJECTION_COUNT_WRITE_README/ {p=1}
+  p {print}
+  p && /^  fi$/ {exit}
+')
+[ -n "$inj_if" ] || fail "(wire) could not extract the env-flag if/else from check.sh"
+
+probe_dir="$TMP_ROOT/wire"
+mkdir -p "$probe_dir"
+
+run_inj_snippet() {
+  _flag="$1"
+  _out="$2"
+  (
+    set -eu
+    INJ_LOG="$probe_dir/unused.log"
+    cargo() { printf '%s\n' "$*" > "$_out"; return 0; }
+    fail() { echo "snippet fail: $*" >&2; exit 2; }
+    CDCP_INJECTION_COUNT_WRITE_README="$_flag"
+    eval "$inj_if"
+  )
+}
+
+run_inj_snippet "0" "$probe_dir/off.argv"
+grep -q 'verify-injection-count' "$probe_dir/off.argv" \
+  || fail "(wire) flag=0 did not invoke verify-injection-count"
+if grep -q -- '--write-readme' "$probe_dir/off.argv"; then
+  fail "(wire) flag=0 passed --write-readme — drift would be auto-rewritten, not RED"
+fi
+ok "(wire) without the flag, --write-readme is not passed (drift stays RED)"
+
+run_inj_snippet "1" "$probe_dir/on.argv"
+grep -q 'verify-injection-count' "$probe_dir/on.argv" \
+  || fail "(wire) flag=1 did not invoke verify-injection-count"
+grep -q -- '--write-readme' "$probe_dir/on.argv" \
+  || fail "(wire) flag=1 did not pass --write-readme — regeneration is still unreachable"
+ok "(wire) CDCP_INJECTION_COUNT_WRITE_README=1 passes --write-readme"
+
+# Same if/else shape, real checker: the flag cannot launder an unsound total.
+# Not counted — (n) already owns this injection. Reached here so a future
+# change that makes the flag skip the refusal is visible next to the wiring.
+echo "==> (wire-unsound) flag=1 cannot launder an unsound total"
+wire_unsound="$TMP_ROOT/README_wire_unsound.md"
+write_readme "$wire_unsound" 8 2
+cp "$wire_unsound" "$TMP_ROOT/README_wire_unsound.before"
+wire_rc=0
+wire_out="$(
+  CDCP_INJECTION_COUNT_WRITE_README=1
+  INJ_LOG="$missing_log"
+  if [ "${CDCP_INJECTION_COUNT_WRITE_README:-0}" = "1" ]; then
+    python3 "$CHECKER" --log "$INJ_LOG" --readme "$wire_unsound" --require "$REQUIRE" --write-readme
+  else
+    python3 "$CHECKER" --log "$INJ_LOG" --readme "$wire_unsound" --require "$REQUIRE"
+  fi
+)" || wire_rc=$?
+[ "$wire_rc" -ne 0 ] || fail "(wire-unsound) flag=1 + unsound log exited 0"
+printf '%s\n' "$wire_out" | grep -q 'regeneration SKIPPED' \
+  || fail "(wire-unsound) missing SKIPPED note"
+cmp -s "$TMP_ROOT/README_wire_unsound.before" "$wire_unsound" \
+  || fail "(wire-unsound) flag=1 rewrote README from an unsound log"
+ok "(wire-unsound) flag cannot launder an unsound total (not counted)"
 
 # ── baseline still GREEN (specimens were the only defect) ───────────────────
 assert_green "baseline-restored" run_checker "$GOOD_LOG" "$GOOD_README"

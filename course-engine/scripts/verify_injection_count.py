@@ -42,6 +42,11 @@ advertised site from the receipts that were actually collected. It refuses to
 write when the receipts themselves are unsound, so a bogus log cannot launder a
 wrong number into README.
 
+The reachable caller is `check.sh` with `CDCP_INJECTION_COUNT_WRITE_README=1`
+(bd-injection-count-regen-unreachable-lu45). Without that flag the same
+invocation is still a drift check (RED on disagreement). The flag cannot
+launder an unsound total.
+
 PER-SUITE COLUMN (bd-per-suite-injection-column-unguarded-aop9)
 --------------------------------------------------------------
 The "Gates proven to trip" table carries a per-suite `n` cell
@@ -105,6 +110,7 @@ Usage:
   python3 scripts/verify_injection_count.py --log /tmp/injections.txt
   python3 scripts/verify_injection_count.py --log L --readme R --require A,B
   python3 scripts/verify_injection_count.py --log L --write-readme
+  CDCP_INJECTION_COUNT_WRITE_README=1 sh scripts/check.sh
 """
 
 from __future__ import annotations

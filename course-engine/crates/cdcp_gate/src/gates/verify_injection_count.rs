@@ -36,6 +36,12 @@
 //! that were actually collected, and refuses to write when those receipts are
 //! unsound, so a bogus log cannot launder a wrong number into README.
 //!
+//! The reachable caller is `check.sh` with `CDCP_INJECTION_COUNT_WRITE_README=1`
+//! [bd-injection-count-regen-unreachable-lu45]. Without that flag the same
+//! invocation is still a drift check (RED on disagreement). The flag cannot
+//! launder an unsound total: `--write-readme` refuses to write when the
+//! receipts are not sound.
+//!
 //! ## Partial coverage is an error too (bd-wf2)
 //!
 //! "No site parses" was already caught. The subtler shape is ONE site quietly
@@ -1673,5 +1679,51 @@ mod tests {
         assert!(a.write_readme);
         assert_eq!(a.log, "x");
         assert!(parse_args(&["--log=x".into(), "--write-readme=1".into()]).is_err());
+    }
+
+    #[test]
+    fn check_sh_wires_write_readme_behind_the_env_flag() {
+        // BUILT ≠ WIRED [bd-injection-count-regen-unreachable-lu45]:
+        // --write-readme is reachable from check.sh only through
+        // CDCP_INJECTION_COUNT_WRITE_README=1. Without the flag, drift stays
+        // RED. Always-passing --write-readme would rewrite on every run and
+        // hide drift.
+        let root = crate::root::resolve(std::path::Path::new(env!("CARGO_MANIFEST_DIR")))
+            .expect("engine root");
+        let text = std::fs::read_to_string(root.join("scripts/check.sh"))
+            .expect("scripts/check.sh must exist");
+        let block = injection_count_invoke_block(&text)
+            .expect("check.sh must invoke verify-injection-count");
+        assert!(
+            block.contains("CDCP_INJECTION_COUNT_WRITE_README:-0"),
+            "check.sh must honour CDCP_INJECTION_COUNT_WRITE_README; \
+             --write-readme is otherwise unreachable\n{block}"
+        );
+        let write_lines: Vec<&str> = block
+            .lines()
+            .filter(|l| l.contains("verify-injection-count") && l.contains("--write-readme"))
+            .collect();
+        assert_eq!(
+            write_lines.len(),
+            1,
+            "exactly one verify-injection-count invocation may pass --write-readme \
+             (the flag=1 path)\n{block}"
+        );
+        let default_lines: Vec<&str> = block
+            .lines()
+            .filter(|l| l.contains("verify-injection-count") && !l.contains("--write-readme"))
+            .collect();
+        assert!(
+            !default_lines.is_empty(),
+            "without the flag, check.sh must still invoke verify-injection-count \
+             (drift stays RED)\n{block}"
+        );
+    }
+
+    fn injection_count_invoke_block(text: &str) -> Option<String> {
+        let start = text.find("cdcp_gate verify-injection-count (advertised known-bad count)")?;
+        let rest = &text[start..];
+        let end = rest.find("advertised known-bad injection count ==")?;
+        Some(rest[..end].to_string())
     }
 }

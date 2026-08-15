@@ -84,9 +84,14 @@ fi
 # ── L4 drift guard plumbing ────────────────────────────────────────────────
 # Every selftest suite prints one `INJECTIONS=<n> SUITE=<name>` receipt on its
 # success path. run_selftest runs the suite for real, forwards its output, and
-# tees the receipts into INJ_LOG. scripts/verify_injection_count.py then sums
+# tees the receipts into INJ_LOG. cdcp_gate verify-injection-count then sums
 # them and compares against the count README.md advertises — so the badge can
 # never drift from the machinery it describes.
+#
+# CDCP_INJECTION_COUNT_WRITE_README=1 is the reachable caller of --write-readme
+# [bd-injection-count-regen-unreachable-lu45]. Without it, drift is still RED.
+# The flag cannot launder an unsound total: the gate refuses to write when the
+# receipts themselves are not sound.
 #
 # STEP_LOG is the sibling receipt for the chain's own length [bd-1sd.13].
 # check.sh writes one CHECK_STEPS= line on the success path; verify-step-count
@@ -903,8 +908,13 @@ if [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then
   ok "drift-guard selftest (off-by-one RED · missing receipt RED · zero RED · unregistered RED · empty log ERROR)"
 
   echo "==> cdcp_gate verify-injection-count (advertised known-bad count)"
-  cargo run -q -p cdcp_gate -- verify-injection-count --log "$INJ_LOG" \
-    || fail "known-bad injection count drift (README vs suites)"
+  if [ "${CDCP_INJECTION_COUNT_WRITE_README:-0}" = "1" ]; then
+    cargo run -q -p cdcp_gate -- verify-injection-count --log "$INJ_LOG" --write-readme \
+      || fail "known-bad injection count drift (README vs suites)"
+  else
+    cargo run -q -p cdcp_gate -- verify-injection-count --log "$INJ_LOG" \
+      || fail "known-bad injection count drift (README vs suites); re-run with CDCP_INJECTION_COUNT_WRITE_README=1 to regenerate"
+  fi
   ok "advertised known-bad injection count == suites' self-reported total"
 
   # STEP-COUNT-RECEIPT-BOUNDARY
