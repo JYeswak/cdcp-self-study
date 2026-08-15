@@ -151,7 +151,7 @@
         if (loc && loc.protocol === "file:") {
           fail(
             "CDCP_FILE_ORIGIN: cannot fetch module notes over file://. " +
-              "Serve with <span class=\"mono\">cargo run -p cdcp_cli -- serve</span> " +
+              "Serve with <span class=\"mono\">cdcp serve</span> " +
               "and open <span class=\"mono\">http://127.0.0.1:8766/</span>."
           );
           return;

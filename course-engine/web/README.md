@@ -51,11 +51,6 @@ See [`data/README.md`](data/README.md) for export-web packs and answer-key polic
 cargo build -p cdcp_cli --locked
 ./target/debug/cdcp serve
 # open http://127.0.0.1:8766/
-
-# Or classic Python static server from this directory (same contract, different port):
-cd web
-python3 -m http.server 8766
-# open http://127.0.0.1:8766/
 ```
 
 Prove the fail-closed: `node scripts/smoke_file_origin.mjs` (from `course-engine/`).
@@ -238,7 +233,9 @@ Written by `quiz.js` after every graded module quiz (WASM or key-compare path) v
 ## Module quiz (L5-S7)
 
 ```bash
-cd web && python3 -m http.server 8766
+# From course-engine/
+cargo build -p cdcp_cli --locked
+./target/debug/cdcp serve
 # open http://127.0.0.1:8766/quiz.html?module=6
 # or Learn → module page → "Module NN quiz"
 ```
@@ -276,7 +273,7 @@ cargo build -p cdcp_cli --locked
 ./target/debug/cdcp smoke-learn
 
 # Serve web/ (fetch needs http)
-cd web && python3 -m http.server 8766
+./target/debug/cdcp serve
 # open http://127.0.0.1:8766/learn.html
 ```
 
@@ -292,10 +289,11 @@ cd web && python3 -m http.server 8766
 
 ```bash
 # From course-engine/: copy parent reference/*.md + regenerate panel
-cdcp build-reference
+cargo build -p cdcp_cli --locked
+./target/debug/cdcp build-reference
 
 # Serve web/ (fetch needs http)
-cd web && python3 -m http.server 8766
+./target/debug/cdcp serve
 # open http://127.0.0.1:8766/reference.html
 # tabs: #glossary · #power
 ```
@@ -311,7 +309,8 @@ cd web && python3 -m http.server 8766
 ```bash
 # From course-engine/
 ./scripts/build_web_wasm.sh
-cd web && python3 -m http.server 8766
+cargo build -p cdcp_cli --locked
+./target/debug/cdcp serve
 # open mock → submit → results, or inject all-correct attempt in console:
 #   const keys = await (await fetch('data/keys_seed42.json')).json();
 #   sessionStorage.setItem('cdcp_mock_attempt_v1',
