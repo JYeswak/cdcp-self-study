@@ -22,7 +22,14 @@
 //! pass → round-robin fill → final order shuffle. Choice shuffle uses a
 //! dedicated generator `seed ^ 0xCDC5_FF1E`. Byte streams will not match
 //! CPython `random.Random` (MT19937); the L2 contract is this crate's stream.
+//!
+//! Typed `cdcp_assess` kinds are **not** flattened to A–D. Put them on
+//! [`assemble_input`]; a non-letter kind is [`AssembleError::NotLetterMcq`].
 #![forbid(unsafe_code)]
+
+mod kind;
+
+pub use kind::{admit_assemble_kind, assemble_input, AssembleInput, LETTER_ASSEMBLE_KINDS};
 
 use cdcp_bank::{Bank, BankItem};
 use cdcp_core::ChoiceLetter;
@@ -86,6 +93,16 @@ pub enum AssembleError {
     Item(String, String),
     #[error("could not fill exam: need {n}, got {got}")]
     Undersampled { n: usize, got: usize },
+    /// Typed assess kind that is not letter-mcq / single-select. Assemble
+    /// must not flatten these back to four shuffled A–D strings.
+    #[error(
+        "item {id}: kind {kind} is not letter-mcq/single-select — assemble will not flatten it to A–D"
+    )]
+    NotLetterMcq { id: String, kind: String },
+    /// Anti-vacuous: an empty typed assemble input is an ERROR, never an
+    /// empty exam (same floor as [`AssembleError::NoApprovedItems`]).
+    #[error("empty assemble input is an ERROR, not an empty exam")]
+    EmptyInput,
 }
 
 /// Defaults aligned with `knowledge/bank_policy.toml` + `exam_form.toml`.
@@ -312,6 +329,9 @@ pub fn sample_item_ids(
 }
 
 /// Fisher–Yates shuffle of 4 choices; remaps correct letter to the new index.
+///
+/// Letter-MCQ only. Typed assess kinds (multi-select, numeric-range, …)
+/// must go through [`assemble_input`], which refuses to flatten them here.
 ///
 /// Invariant: `shuffled[new_correct] == choices[old_correct]` (same answer text).
 pub fn shuffle_choices(

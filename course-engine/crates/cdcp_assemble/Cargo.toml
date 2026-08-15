@@ -8,6 +8,7 @@ description = "ORACLE L2: seeded stratified exam assemble + choice shuffle remap
 [dependencies]
 cdcp_core = { workspace = true }
 cdcp_bank = { workspace = true }
+cdcp_assess = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
 thiserror = { workspace = true }
