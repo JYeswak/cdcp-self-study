@@ -47,7 +47,7 @@
 //! `scripts/check.sh` is the floor (bd-efm7).** It trips no matter how the file
 //! arrived — merge, cherry-pick, rebase, `git am`, `commit-tree`, `--no-verify`,
 //! `core.hooksPath=/dev/null`, or a clone that never installed a hook. A client
-//! flag cannot be made impossible; this repo has no required GitHub check and
+//! flag cannot be ruled out; this repo has no required GitHub check and
 //! no pre-receive hook (written decision). The presence scan + `cargo test`
 //! live-tree test are the enforcement a client cannot skip. `install-hooks` is
 //! how a clone gets the courtesy shim; check.sh installs it so `--check` is
@@ -104,6 +104,17 @@
 //! an empty scan of those names is an ERROR, a row whose file is gone is an
 //! ERROR, and an unlisted remaining oracle is an ERROR. Fixtures omit the
 //! table and the leg does not run.
+//!
+//! The invocation set itself is TRANSITIVE (bd-check-sh-transitive-invocation-gzvb).
+//! A grep of `scripts/check.sh` does not enumerate what that file runs:
+//! `sh scripts/smoke_slo.sh` hides `python3 scripts/verify_bank.py`, and
+//! `CHECKER="scripts/verify_doc_consistency.py"` then `python3 "$CHECKER"` is
+//! invisible to a filename grep. `walk_invocations` follows sourced / `sh`
+//! children, resolves single-assignment `$VAR` targets for `python3` / `node` /
+//! `cargo run`, and treats an empty walk as an ERROR on the live orchestrator.
+//! A reason that says "not a check.sh step" / "not on the check.sh path" for a
+//! path the walk reaches is RED. Presence tests and comments are still not
+//! invokes. This walk cannot decide that a Rust `Command::new("python3")` runs.
 //!
 //! The identification legs have named blind spots, kept here rather than in a
 //! bead so they are read by whoever edits the rule:
@@ -237,7 +248,7 @@ use crate::date::{self, Ymd};
 use crate::registry::{GateCtx, GateError};
 use crate::vcs;
 use serde::Deserialize;
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::time::{Duration, Instant};
@@ -1028,11 +1039,18 @@ pub fn reason_claims_check_sh_invoke(reason: &str) -> bool {
         || r.contains("oracle required")
 }
 
+/// Phrases that assert this path is *not* reachable from check.sh.
+/// Checked against the transitive walk — the inverse of the load-bearing lie.
+pub fn reason_claims_not_on_check_sh(reason: &str) -> bool {
+    let r = reason.to_ascii_lowercase();
+    r.contains("not a check.sh step") || r.contains("not on the check.sh path")
+}
+
 /// Executors whose next token is treated as an invoked path.
 ///
-/// Longer names first so `python3` is not read as `python` and `bash`/`zsh`
-/// are not read as `sh`.
-const INVOKE_EXECS: &[&str] = &["python3", "python", "bash", "zsh", "sh"];
+/// Longer names first so `python3` is not read as `python`, `nodejs` is not
+/// read as `node`, and `bash`/`zsh` are not read as `sh`.
+const INVOKE_EXECS: &[&str] = &["python3", "python", "nodejs", "node", "bash", "zsh", "sh"];
 
 fn is_word_start(text: &str, i: usize) -> bool {
     if i == 0 {
@@ -1044,22 +1062,25 @@ fn is_word_start(text: &str, i: usize) -> bool {
     !b.is_ascii_alphanumeric() && b != b'_' && b != b'.'
 }
 
-fn next_invoked_path(after_exec: &str) -> Option<String> {
-    let s = after_exec.trim_start();
+fn next_shell_token(after: &str) -> Option<&str> {
+    let s = after.trim_start();
     if s.is_empty() {
         return None;
     }
-    let tok = if let Some(q) = s.chars().next().filter(|c| *c == '"' || *c == '\'') {
+    if let Some(q) = s.chars().next().filter(|c| *c == '"' || *c == '\'') {
         let rest = &s[q.len_utf8()..];
         let end = rest.find(q)?;
-        &rest[..end]
+        Some(&rest[..end])
     } else {
         let end = s
             .find(|c: char| c.is_ascii_whitespace() || matches!(c, ';' | '|' | '&' | ')'))
             .unwrap_or(s.len());
-        &s[..end]
-    };
-    let tok = tok.trim();
+        Some(&s[..end])
+    }
+}
+
+fn next_invoked_path(after_exec: &str) -> Option<String> {
+    let tok = next_shell_token(after_exec)?.trim();
     if tok.is_empty()
         || tok.starts_with('-')
         || tok.starts_with('$')
@@ -1068,7 +1089,12 @@ fn next_invoked_path(after_exec: &str) -> Option<String> {
     {
         return None;
     }
-    if !(tok.contains('/') || tok.ends_with(".py") || tok.ends_with(".sh")) {
+    if !(tok.contains('/')
+        || tok.ends_with(".py")
+        || tok.ends_with(".sh")
+        || tok.ends_with(".mjs")
+        || tok.ends_with(".js"))
+    {
         return None;
     }
     Some(tok.strip_prefix("./").unwrap_or(tok).to_string())
@@ -1131,7 +1157,18 @@ pub struct HonestyFindings {
 /// it claims to have read). Empty invocation set is an ANSWER, not an error
 /// — a fixture check.sh that only runs this gate invokes nothing, and that
 /// is how a planted "load-bearing check.sh" reason is shown to be a lie.
+///
+/// Pass `invoked_override` (the transitive walk) to judge membership against
+/// what check.sh actually reaches, not a grep of check.sh itself.
 pub fn reason_honesty_findings(rows: &[Row], check_sh_text: Option<&str>) -> HonestyFindings {
+    reason_honesty_with_set(rows, check_sh_text, None)
+}
+
+pub fn reason_honesty_with_set(
+    rows: &[Row],
+    check_sh_text: Option<&str>,
+    invoked_override: Option<&BTreeSet<String>>,
+) -> HonestyFindings {
     let mut out = HonestyFindings::default();
     if rows.is_empty() {
         out.errors.push(format!(
@@ -1151,7 +1188,14 @@ pub fn reason_honesty_findings(rows: &[Row], check_sh_text: Option<&str>) -> Hon
         ));
         return out;
     }
-    let invoked = check_sh_invocation_set(text);
+    let owned;
+    let invoked = match invoked_override {
+        Some(s) => s,
+        None => {
+            owned = check_sh_invocation_set(text);
+            &owned
+        }
+    };
     for r in rows {
         let path = r.path.trim();
         if path.is_empty() {
@@ -1160,6 +1204,11 @@ pub fn reason_honesty_findings(rows: &[Row], check_sh_text: Option<&str>) -> Hon
         if reason_claims_check_sh_invoke(&r.reason) && !invoked.contains(path) {
             out.violations.push(format!(
                 "[[allow]] {path}: reason claims this is a live check.sh oracle (\"load-bearing check.sh\" / \"check.sh invokes\" / \"check.sh hard-fails if\" / \"byte-exact oracle\" / \"oracle required\"), but {CHECK_SH_PATH} does not invoke that path"
+            ));
+        }
+        if reason_claims_not_on_check_sh(&r.reason) && invoked.contains(path) {
+            out.violations.push(format!(
+                "[[allow]] {path}: reason claims this is not a check.sh step / not on the check.sh path, but the transitive invocation walk reaches that path"
             ));
         }
     }
@@ -1281,6 +1330,347 @@ pub fn inventory_findings(
         ));
     }
     out
+}
+
+// ── transitive invocation walk (bd-check-sh-transitive-invocation-gzvb) ────
+//
+// A grep of check.sh does not enumerate what check.sh runs. This walk follows
+// `sh` / `source` / `.` children and resolves single-assignment `$VAR` targets
+// for python3 / node / cargo run. Presence tests and comments are not invokes.
+
+/// What `scripts/check.sh` transitively reaches.
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct InvocationWalk {
+    /// Repo-relative script paths (`scripts/foo.py`, `tests/voice-slop.sh`, …).
+    pub paths: BTreeSet<String>,
+    /// `cargo run -p <pkg> -- <cmd>` records. Not followed into Rust.
+    pub cargo: BTreeSet<String>,
+    /// Shell files whose bodies were opened. Cycle-breaking, not an inventory.
+    pub followed: BTreeSet<String>,
+}
+
+impl InvocationWalk {
+    pub fn is_empty(&self) -> bool {
+        self.paths.is_empty() && self.cargo.is_empty()
+    }
+
+    pub fn python(&self) -> Vec<&str> {
+        self.paths
+            .iter()
+            .filter(|p| p.ends_with(".py"))
+            .map(String::as_str)
+            .collect()
+    }
+}
+
+/// Empty inventory is an ERROR, not a pass. Check.sh always runs something.
+pub fn require_nonempty_inventory(walk: &InvocationWalk) -> Result<(), String> {
+    if walk.is_empty() {
+        return Err(
+            "transitive invocation inventory is empty — a scan that found nothing is an ERROR, not a pass"
+                .into(),
+        );
+    }
+    Ok(())
+}
+
+fn is_followable_shell(path: &str) -> bool {
+    let lower = path.to_ascii_lowercase();
+    lower.ends_with(".sh") || lower.ends_with(".bash") || lower.ends_with(".zsh")
+}
+
+fn normalize_repo_path(tok: &str) -> Option<String> {
+    let t = tok.trim();
+    let t = t.strip_prefix("./").unwrap_or(t);
+    let t = t
+        .strip_prefix("$ROOT/")
+        .or_else(|| t.strip_prefix("${ROOT}/"))
+        .unwrap_or(t);
+    if t.is_empty() || t.starts_with('$') || t.starts_with('/') || t.contains("..") {
+        return None;
+    }
+    if !(t.contains('/')
+        || t.ends_with(".py")
+        || t.ends_with(".sh")
+        || t.ends_with(".mjs")
+        || t.ends_with(".js")
+        || t.ends_with(".bash")
+        || t.ends_with(".zsh"))
+    {
+        return None;
+    }
+    Some(t.to_string())
+}
+
+fn var_name(tok: &str) -> Option<&str> {
+    let t = tok
+        .strip_prefix("${")
+        .and_then(|s| s.strip_suffix('}'))
+        .or_else(|| tok.strip_prefix('$'))?;
+    if !t.is_empty() && t.chars().all(|c| c.is_ascii_alphanumeric() || c == '_') {
+        Some(t)
+    } else {
+        None
+    }
+}
+
+fn resolve_invoke_token(tok: &str, vars: &BTreeMap<String, BTreeSet<String>>) -> Vec<String> {
+    if let Some(name) = var_name(tok) {
+        return vars
+            .get(name)
+            .into_iter()
+            .flatten()
+            .filter_map(|v| normalize_repo_path(v))
+            .collect();
+    }
+    normalize_repo_path(tok).into_iter().collect()
+}
+
+fn collect_assignments(text: &str) -> BTreeMap<String, BTreeSet<String>> {
+    let mut vars: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
+    for raw in text.lines() {
+        let line = raw.trim();
+        if line.starts_with('#') {
+            continue;
+        }
+        let code = code_part(line);
+        for (i, _) in code.char_indices() {
+            if !is_word_start(code, i) {
+                continue;
+            }
+            let rest = &code[i..];
+            let Some(eq) = rest.find('=') else {
+                continue;
+            };
+            let name = &rest[..eq];
+            if name.is_empty()
+                || !name
+                    .chars()
+                    .next()
+                    .is_some_and(|c| c.is_ascii_alphabetic() || c == '_')
+                || !name.chars().all(|c| c.is_ascii_alphanumeric() || c == '_')
+            {
+                continue;
+            }
+            let after = &rest[eq + 1..];
+            if after.starts_with('$') || after.starts_with('`') {
+                continue;
+            }
+            if let Some(val) = next_shell_token(after) {
+                if !val.is_empty() && !val.contains('$') && !val.contains('`') {
+                    vars.entry(name.to_string())
+                        .or_default()
+                        .insert(val.to_string());
+                }
+            }
+        }
+    }
+    vars
+}
+
+fn collect_sourced_tokens(code: &str, out: &mut Vec<String>) {
+    for (i, _) in code.char_indices() {
+        if !is_word_start(code, i) {
+            continue;
+        }
+        let rest = &code[i..];
+        let after = if rest.starts_with("source") {
+            let tail = &rest["source".len()..];
+            if tail.chars().next().is_some_and(|c| c.is_ascii_whitespace()) {
+                Some(tail)
+            } else {
+                None
+            }
+        } else if rest.starts_with('.') {
+            let tail = &rest[1..];
+            if tail.chars().next().is_some_and(|c| c.is_ascii_whitespace()) {
+                Some(tail)
+            } else {
+                None
+            }
+        } else {
+            None
+        };
+        if let Some(tail) = after {
+            if let Some(tok) = next_shell_token(tail) {
+                if !tok.is_empty() && !tok.starts_with('-') {
+                    out.push(tok.to_string());
+                }
+            }
+        }
+    }
+}
+
+fn collect_exec_tokens(code: &str, out: &mut Vec<String>) {
+    for (i, _) in code.char_indices() {
+        if !is_word_start(code, i) {
+            continue;
+        }
+        let rest = &code[i..];
+        let Some(exec) = INVOKE_EXECS.iter().copied().find(|e| rest.starts_with(e)) else {
+            continue;
+        };
+        let after = &rest[exec.len()..];
+        let boundary = match after.chars().next() {
+            None => true,
+            Some(c) => c.is_ascii_whitespace() || c == '"' || c == '\'',
+        };
+        if !boundary {
+            continue;
+        }
+        if let Some(tok) = next_shell_token(after) {
+            let tok = tok.trim();
+            if !tok.is_empty()
+                && !tok.starts_with('-')
+                && !tok.starts_with('>')
+                && !tok.starts_with('<')
+            {
+                out.push(tok.to_string());
+            }
+        }
+    }
+}
+
+fn flag_value<'a>(s: &'a str, flag: &str) -> Option<&'a str> {
+    let mut search = s;
+    loop {
+        let i = search.find(flag)?;
+        if !is_word_start(search, i) {
+            search = &search[i + flag.len()..];
+            continue;
+        }
+        let after = &search[i + flag.len()..];
+        if !after
+            .chars()
+            .next()
+            .is_some_and(|c| c.is_ascii_whitespace())
+        {
+            search = &search[i + flag.len()..];
+            continue;
+        }
+        return next_shell_token(after);
+    }
+}
+
+fn extract_cargo_runs(code: &str, out: &mut BTreeSet<String>) {
+    for (i, _) in code.char_indices() {
+        if !is_word_start(code, i) {
+            continue;
+        }
+        let rest = &code[i..];
+        if !rest.starts_with("cargo") {
+            continue;
+        }
+        let after = &rest["cargo".len()..];
+        if !after
+            .chars()
+            .next()
+            .map(|c| c.is_ascii_whitespace())
+            .unwrap_or(true)
+        {
+            continue;
+        }
+        if !after.split_whitespace().any(|w| w == "run") {
+            continue;
+        }
+        let pkg = flag_value(after, "-p").unwrap_or("");
+        let cmd = after
+            .split_once(" -- ")
+            .and_then(|(_, c)| c.split_whitespace().next())
+            .unwrap_or("");
+        let rec = match (pkg.is_empty(), cmd.is_empty()) {
+            (false, false) => format!("cargo run -p {pkg} -- {cmd}"),
+            (false, true) => format!("cargo run -p {pkg}"),
+            (true, false) => format!("cargo run -- {cmd}"),
+            (true, true) => "cargo run".into(),
+        };
+        out.insert(rec);
+    }
+}
+
+/// Derive the transitive invocation set from `entry_text` (`scripts/check.sh`).
+///
+/// `read` opens a child script. An invoked followable shell that cannot be
+/// read is an ERROR — an incomplete walk must not report like a complete one.
+/// Empty walk is `Ok` (fixtures); `require_nonempty_inventory` is the live gate.
+pub fn walk_invocations(
+    entry_text: &str,
+    mut read: impl FnMut(&str) -> Option<String>,
+) -> Result<InvocationWalk, String> {
+    let mut walk = InvocationWalk::default();
+    let mut queue: Vec<(String, String)> =
+        vec![("scripts/check.sh".into(), entry_text.to_string())];
+    let mut seen = BTreeSet::new();
+
+    while let Some((from, text)) = queue.pop() {
+        if !seen.insert(from.clone()) {
+            continue;
+        }
+        walk.followed.insert(from.clone());
+        let vars = collect_assignments(&text);
+        for raw in text.lines() {
+            let line = raw.trim();
+            if line.starts_with('#') {
+                continue;
+            }
+            let code = code_part(line);
+            extract_cargo_runs(code, &mut walk.cargo);
+            let mut tokens = Vec::new();
+            collect_exec_tokens(code, &mut tokens);
+            collect_sourced_tokens(code, &mut tokens);
+            for tok in tokens {
+                for path in resolve_invoke_token(&tok, &vars) {
+                    walk.paths.insert(path.clone());
+                    if is_followable_shell(&path) && !seen.contains(&path) {
+                        match read(&path) {
+                            Some(body) => queue.push((path, body)),
+                            None => {
+                                return Err(format!(
+                                    "invoked {path} from {from} but could not read it — transitive inventory is incomplete. ERROR, not a pass"
+                                ));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    Ok(walk)
+}
+
+/// Non-comment body still names `python3 <path>` or assigns that path to a
+/// variable later used as `python3 "$VAR"`. Used by the live tripwire so a
+/// gna0 deletion of the call does not hard-fail this bead.
+pub fn script_still_invokes_py(text: &str, path: &str) -> bool {
+    let vars = collect_assignments(text);
+    let names: BTreeSet<&str> = vars
+        .iter()
+        .filter(|(_, vs)| {
+            vs.iter()
+                .any(|v| v == path || normalize_repo_path(v).as_deref() == Some(path))
+        })
+        .map(|(k, _)| k.as_str())
+        .collect();
+    for raw in text.lines() {
+        let line = raw.trim();
+        if line.starts_with('#') {
+            continue;
+        }
+        let code = code_part(line);
+        let mut tokens = Vec::new();
+        collect_exec_tokens(code, &mut tokens);
+        for tok in tokens {
+            if normalize_repo_path(&tok).as_deref() == Some(path) {
+                return true;
+            }
+            if let Some(name) = var_name(&tok) {
+                if names.contains(name) {
+                    return true;
+                }
+            }
+        }
+    }
+    false
 }
 
 // ── the wiring BEHAVIOURAL leg ─────────────────────────────────────────────
@@ -1862,12 +2252,18 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         )));
     }
 
+    // ── transitive invocation walk (both snapshots, bd-how) ──────────────
+    let wt_walk = walk_invocations(&wt_check, |p| std::fs::read_to_string(root.join(p)).ok())
+        .map_err(GateError::error)?;
+    let ix_walk = walk_invocations(&ix_check, |p| vcs::index_text(root, p).ok().flatten())
+        .map_err(|e| GateError::error(format!("{} — {e}", Snapshot::Index.label())))?;
+
     // ── reason honesty: "load-bearing check.sh" must be an actual invoke ──
-    // Each snapshot answers against ITS OWN check.sh. A planted claim on the
-    // desk and a clean index (or the reverse) is the bd-how shape for this
-    // field, so both sides are judged.
-    let wt_honesty = reason_honesty_findings(&wt_al.allow, Some(&wt_check));
-    let ix_honesty = reason_honesty_findings(&ix_al.allow, Some(&ix_check));
+    // Each snapshot answers against ITS OWN check.sh AND the transitive
+    // walk of that snapshot's children. A planted claim on the desk and a
+    // clean index (or the reverse) is the bd-how shape for this field.
+    let wt_honesty = reason_honesty_with_set(&wt_al.allow, Some(&wt_check), Some(&wt_walk.paths));
+    let ix_honesty = reason_honesty_with_set(&ix_al.allow, Some(&ix_check), Some(&ix_walk.paths));
     let honesty_errs = merge(wt_honesty.errors, ix_honesty.errors);
     if !honesty_errs.is_empty() {
         return Err(GateError::error(format!(
@@ -1941,6 +2337,24 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         return Err(GateError::Violation(violations));
     }
 
+    // Empty inventory is ERROR on the live orchestrator and on any check.sh
+    // that names this gate (the cargo-run line must appear in the walk).
+    // echo-nothing fixtures fail wiring first and never reach this.
+    let live = wt_al.oracle_inventory.is_some() || ix_al.oracle_inventory.is_some();
+    let claims_to_run =
+        matches!(wt_ev, WiringEvidence::Unproven) || matches!(ix_ev, WiringEvidence::Unproven);
+    if live || claims_to_run {
+        if let Err(e) = require_nonempty_inventory(&wt_walk) {
+            return Err(GateError::error(e));
+        }
+        if let Err(e) = require_nonempty_inventory(&ix_walk) {
+            return Err(GateError::error(format!(
+                "{} — {e}",
+                Snapshot::Index.label()
+            )));
+        }
+    }
+
     if !quiet {
         let listed = ix_al.allow.len();
         let wiring = if wt_ev == ix_ev {
@@ -1958,6 +2372,19 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
             in_scope.len(),
             staged_count,
             listed,
+        );
+        let py = wt_walk.python();
+        println!(
+            "{NAME}: invocation inventory (transitive): paths={} cargo_run={} python={}: {}",
+            wt_walk.paths.len(),
+            wt_walk.cargo.len(),
+            py.len(),
+            if py.is_empty() {
+                "(none — remaining py would be listed here; do not read this as a retirement claim)"
+                    .to_string()
+            } else {
+                py.join(", ")
+            }
         );
         if wt_text != ix_text || wt_check != ix_check {
             println!(
@@ -3088,6 +3515,15 @@ expires = "2099-01-01"
         assert!(!reason_claims_check_sh_invoke(
             "Grandfathered pending the byte-exact Rust port."
         ));
+        assert!(reason_claims_not_on_check_sh(
+            "Manual authoring step. Not on the check.sh path; ports after the gates."
+        ));
+        assert!(reason_claims_not_on_check_sh(
+            "Retained so tests can compare both implementations. Not a check.sh step."
+        ));
+        assert!(!reason_claims_not_on_check_sh(
+            "Invoked transitively by selftest_orphan.sh"
+        ));
     }
 
     #[test]
@@ -3172,11 +3608,11 @@ python3 "$_anki_plant/scripts/export_anki.py"
         );
     }
 
-    /// Anti-vacuous for the parser: the live orchestrator is what this
-    /// tripwire reads, and a parser that invents invokes for retired
-    /// scripts (or finds none of the remaining shell gates) is broken.
+    /// Anti-vacuous for the shallow parser: check.sh itself still names
+    /// the remaining first-level scripts. Nested oracles belong to the
+    /// transitive walk, not this grep.
     #[test]
-    fn live_check_sh_invokes_the_two_remaining_python_gates_only() {
+    fn live_check_sh_names_the_first_level_scripts() {
         let root = crate::root::resolve(std::path::Path::new(env!("CARGO_MANIFEST_DIR")))
             .expect("engine root");
         let text = std::fs::read_to_string(root.join(CHECK_SH_PATH)).expect("check.sh");
@@ -3200,21 +3636,18 @@ python3 "$_anki_plant/scripts/export_anki.py"
             "scripts/export_anki.py",
             "scripts/smoke_learn_v2.py",
             "scripts/smoke_weak_links.py",
-            "scripts/verify_orphans.py",
-            "scripts/verify_injection_count.py",
-            "scripts/verify_doc_consistency.py",
-            "scripts/verify_knowledge_paths.py",
-            "scripts/verify_bank.py",
             "scripts/verify_content_lock.py",
-            "scripts/validate_grounding.py",
-            "scripts/verify_coverage.py",
-            "scripts/verify_objectives.py",
         ] {
             assert!(
                 !set.contains(retired),
-                "{retired} is a presence-check or an oracle, not an invoke: {set:?}"
+                "{retired} is gone from check.sh itself: {set:?}"
             );
         }
+        // Do not claim "zero python": paraphrase_pairs is still a first-level invoke.
+        assert!(
+            set.iter().any(|p| p.ends_with(".py")),
+            "check.sh still runs python; a zero-python claim is a lie: {set:?}"
+        );
     }
 
     #[test]
@@ -3228,10 +3661,13 @@ python3 "$_anki_plant/scripts/export_anki.py"
             !al.allow.is_empty(),
             "zero allowlist rows is an ERROR, not a pass"
         );
-        let h = reason_honesty_findings(&al.allow, Some(&check));
+        let walk = walk_invocations(&check, |p| std::fs::read_to_string(root.join(p)).ok())
+            .expect("live walk");
+        require_nonempty_inventory(&walk).expect("empty inventory is ERROR");
+        let h = reason_honesty_with_set(&al.allow, Some(&check), Some(&walk.paths));
         assert!(
             h.errors.is_empty() && h.violations.is_empty(),
-            "live allowlist reasons must be honest today: {h:?}"
+            "live allowlist reasons must be honest against the transitive walk: {h:?}"
         );
     }
 
@@ -3381,6 +3817,149 @@ python3 "$_anki_plant/scripts/export_anki.py"
         assert!(
             !disc.iter().any(|p| p.contains("smoke_")),
             "EXTRACT-THEN-DELETE left a smoke_*.py: {disc:?}"
+        );
+    }
+
+    // ── bd-check-sh-transitive-invocation-gzvb ────────────────────────────
+
+    #[test]
+    fn empty_inventory_is_an_error_not_a_pass() {
+        let w = walk_invocations("#!/bin/sh\ntrue\n", |_| None).expect("walk");
+        assert!(w.is_empty(), "{w:?}");
+        let e = require_nonempty_inventory(&w).unwrap_err();
+        assert!(e.contains("empty"), "{e}");
+    }
+
+    #[test]
+    fn plant_gzvb_behind_a_variable_in_a_temp_copy_must_appear() {
+        // TEMP copy — not the live tree. Hide python3 scripts/plant_gzvb.py
+        // behind $HIDDEN so a grep of the entry file cannot see the path.
+        let mut files: BTreeMap<String, String> = BTreeMap::new();
+        files.insert(
+            "scripts/check.sh".to_string(),
+            "#!/bin/sh\nHIDDEN=\"scripts/plant_gzvb.py\"\npython3 \"$HIDDEN\"\nsh scripts/child_gzvb.sh\n"
+                .to_string(),
+        );
+        files.insert(
+            "scripts/child_gzvb.sh".to_string(),
+            "#!/bin/sh\nCHECKER=\"scripts/nested_oracle.py\"\npython3 \"$CHECKER\"\nnode scripts/smoke.mjs\n"
+                .to_string(),
+        );
+        let walk = walk_invocations(files.get("scripts/check.sh").unwrap(), |p| {
+            files.get(p).cloned()
+        })
+        .expect("walk");
+        require_nonempty_inventory(&walk).expect("plant walk must not be empty");
+        assert!(
+            walk.paths.contains("scripts/plant_gzvb.py"),
+            "plant RED: $HIDDEN hid plant_gzvb.py and the walk missed it: {walk:?}"
+        );
+        assert!(
+            walk.paths.contains("scripts/nested_oracle.py"),
+            "child $CHECKER missed: {walk:?}"
+        );
+        assert!(
+            walk.paths.contains("scripts/child_gzvb.sh"),
+            "child script missed: {walk:?}"
+        );
+        assert!(
+            walk.paths.contains("scripts/smoke.mjs"),
+            "node child missed: {walk:?}"
+        );
+    }
+
+    #[test]
+    fn unread_followable_child_is_an_error_not_a_silent_skip() {
+        let e = walk_invocations("#!/bin/sh\nsh scripts/missing.sh\n", |_| None).unwrap_err();
+        assert!(e.contains("scripts/missing.sh"), "{e}");
+        assert!(e.contains("incomplete"), "{e}");
+    }
+
+    #[test]
+    fn not_on_check_sh_path_claim_for_a_reached_path_is_red() {
+        let mut r = row("scripts/verify_bank.py");
+        r.reason = "Differential oracle. Not a check.sh step.".into();
+        let mut invoked = BTreeSet::new();
+        invoked.insert("scripts/verify_bank.py".into());
+        let h = reason_honesty_with_set(
+            &[r],
+            Some("#!/bin/sh\nsh scripts/smoke_slo.sh\n"),
+            Some(&invoked),
+        );
+        assert!(h.errors.is_empty(), "{h:?}");
+        assert_eq!(h.violations.len(), 1, "{h:?}");
+        assert!(h.violations[0].contains("scripts/verify_bank.py"), "{h:?}");
+        assert!(
+            h.violations[0].contains("not on the check.sh path")
+                || h.violations[0].contains("not a check.sh step"),
+            "{h:?}"
+        );
+    }
+
+    #[test]
+    fn live_transitive_inventory_names_remaining_py_and_conditional_oracles() {
+        let root = crate::root::resolve(std::path::Path::new(env!("CARGO_MANIFEST_DIR")))
+            .expect("engine root");
+        let check = std::fs::read_to_string(root.join(CHECK_SH_PATH)).expect("check.sh");
+        let walk = walk_invocations(&check, |p| std::fs::read_to_string(root.join(p)).ok())
+            .expect("live walk");
+        require_nonempty_inventory(&walk).expect("empty inventory is ERROR");
+        let py = walk.python();
+        assert!(
+            py.contains(&"scripts/verify_paraphrase_pairs.py"),
+            "do not claim zero python while paraphrase_pairs is on check.sh: {py:?}"
+        );
+        assert!(!py.is_empty(), "do not claim zero python: {py:?}");
+        if let Ok(slo) = std::fs::read_to_string(root.join("scripts/smoke_slo.sh")) {
+            if script_still_invokes_py(&slo, "scripts/verify_bank.py") {
+                assert!(
+                    walk.paths.contains("scripts/verify_bank.py"),
+                    "smoke_slo.sh still calls verify_bank.py but inventory missed it: {py:?}"
+                );
+            }
+        }
+        for script in [
+            "scripts/selftest_doc_consistency.sh",
+            "scripts/selftest_injection_count.sh",
+        ] {
+            let Ok(text) = std::fs::read_to_string(root.join(script)) else {
+                continue;
+            };
+            let vars = collect_assignments(&text);
+            if let Some(vals) = vars.get("CHECKER") {
+                for v in vals {
+                    if let Some(p) = normalize_repo_path(v) {
+                        if p.ends_with(".py") {
+                            assert!(
+                                walk.paths.contains(&p),
+                                "{script} $CHECKER={p} missing from inventory: {py:?}"
+                            );
+                        }
+                    }
+                }
+            }
+        }
+        for retired in [
+            "scripts/export_anki.py",
+            "scripts/verify_content_lock.py",
+            "scripts/smoke_learn_v2.py",
+        ] {
+            assert!(
+                !walk.paths.contains(retired),
+                "{retired} is retired and must not reappear: {py:?}"
+            );
+        }
+        assert!(
+            walk.paths.contains("scripts/smoke_slo.sh"),
+            "must follow sh scripts/smoke_slo.sh: {:?}",
+            walk.paths
+        );
+        assert!(
+            walk.cargo
+                .iter()
+                .any(|c| c.contains("cdcp_gate") && c.contains("substrate-guard")),
+            "cargo run of this gate must appear: {:?}",
+            walk.cargo
         );
     }
 
