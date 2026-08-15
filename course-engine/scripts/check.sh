@@ -601,6 +601,42 @@ do
 done
 ok "L1 registry files present"
 
+# [bd-checksh-cargo-run-attribution-tebe]
+# Compile once. Later steps invoke the debug binaries so rustc output from a
+# sibling crate cannot be attributed to a gate, and a compile failure names
+# THIS step. Honours CARGO_TARGET_DIR so the nested --prove-wired child
+# (which sets it) is idempotent and looks in the same profile's target/.
+# The child dies on the planted .py at substrate-guard, so this cannot
+# recurse into --prove-wired.
+require_cdcp_bins() {
+  [ -n "${CDCP_BIN_DIR:-}" ] \
+    || fail "CDCP_BIN_DIR unset — cargo build -p cdcp_gate -p cdcp_cli --locked must run first (no fallback to cargo run)"
+  [ -x "$CDCP_BIN_DIR/cdcp_gate" ] \
+    || fail "cdcp_gate binary absent at $CDCP_BIN_DIR/cdcp_gate — cargo build -p cdcp_gate -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
+  [ -x "$CDCP_BIN_DIR/cdcp" ] \
+    || fail "cdcp binary absent at $CDCP_BIN_DIR/cdcp — cargo build -p cdcp_gate -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
+}
+# argv[0] is ./target/debug/<bin> (or $CARGO_TARGET_DIR/debug/<bin>).
+run_cdcp_gate() {
+  require_cdcp_bins
+  "$CDCP_BIN_DIR/cdcp_gate" "$@"
+}
+run_cdcp_cli() {
+  require_cdcp_bins
+  "$CDCP_BIN_DIR/cdcp" "$@"
+}
+
+echo "==> cargo build -p cdcp_gate -p cdcp_cli --locked (once; later steps run the binary)"
+cargo build -p cdcp_gate -p cdcp_cli --locked \
+  || fail "cargo build -p cdcp_gate -p cdcp_cli --locked (compile failure is this step's, not a later gate's)"
+if [ -n "${CARGO_TARGET_DIR:-}" ]; then
+  CDCP_BIN_DIR="${CARGO_TARGET_DIR%/}/debug"
+else
+  CDCP_BIN_DIR="$ROOT/target/debug"
+fi
+require_cdcp_bins
+ok "cargo build -p cdcp_gate -p cdcp_cli --locked (debug binaries in $CDCP_BIN_DIR)"
+
 echo "==> cdcp_registry_check (L1 claims constitution)"
 cargo run -q -p cdcp_registry_check || fail "registry-check"
 ok "L1 registry-check"
@@ -609,7 +645,7 @@ ok "L1 registry-check"
 # kind of thing — a registry constitution over what may exist in the tree — and it
 # fails fast (only serde+toml compile).
 echo "==> cdcp_gate substrate-guard (S0 substrate floor)"
-cargo run -q -p cdcp_gate -- substrate-guard || fail "substrate guard (unreasoned .py/.sh)"
+run_cdcp_gate substrate-guard || fail "substrate guard (unreasoned .py/.sh)"
 ok "S0 substrate floor (no unreasoned py/sh-family file, shebang script, symlink or submodule anywhere in the engine tree)"
 
 # L4 for the wiring claim ITSELF. Nothing read out of this file can establish that
@@ -623,7 +659,7 @@ ok "S0 substrate floor (no unreasoned py/sh-family file, shebang script, symlink
 # NOT via run_selftest — it emits no INJECTIONS= receipt and must not move the
 # advertised known-bad count.
 echo "==> cdcp_gate substrate-guard --prove-wired (L4: the wiring is proven to trip)"
-cargo run -q -p cdcp_gate -- substrate-guard --prove-wired \
+run_cdcp_gate substrate-guard --prove-wired \
   || fail "substrate-guard wiring does not stop check.sh"
 ok "S0 wiring proven behaviourally (a planted unlisted .py stops check.sh)"
 
@@ -632,12 +668,12 @@ ok "S0 wiring proven behaviourally (a planted unlisted .py stops check.sh)"
 # the worst possible split. install-hooks is idempotent, so this is a no-op
 # locally and the thing that makes the next line meaningful in CI.
 echo "==> cdcp_gate install-hooks (a fresh clone has no hook; CI is a fresh clone)"
-cargo run -q -p cdcp_gate -- install-hooks || fail "install-hooks"
+run_cdcp_gate install-hooks || fail "install-hooks"
 ok "pre-commit shim installed (idempotent)"
 
 echo "==> cdcp_gate install-hooks --check (BUILT != WIRED)"
-cargo run -q -p cdcp_gate -- install-hooks --check \
-  || fail "pre-commit shim not installed (run: cargo run -q -p cdcp_gate -- install-hooks)"
+run_cdcp_gate install-hooks --check \
+  || fail "pre-commit shim not installed (run: cdcp_gate install-hooks)"
 ok "pre-commit shim installed and current"
 
 # B1 (bd-hardening-b-ledgers-gvm.1): the machine ledger of capability claims.
@@ -648,7 +684,7 @@ ok "pre-commit shim installed and current"
 # capabilities that no named test asserted. That is the L3 failure's shape, and
 # this ledger exists so it cannot survive in a table nobody can falsify.
 echo "==> cdcp_gate capability-maturity (B1 capability ledger: attributed, dated, expiring)"
-cargo run -q -p cdcp_gate -- capability-maturity || fail "capability maturity ledger"
+run_cdcp_gate capability-maturity || fail "capability maturity ledger"
 ok "capability claims attributed, dated, unexpired, and pointed at evidence that resolves"
 
 # B2 (bd-hardening-b-ledgers-gvm.2): what each frozen artifact was frozen AGAINST.
@@ -661,7 +697,7 @@ ok "capability claims attributed, dated, unexpired, and pointed at evidence that
 # seven frozen artifacts, and all seven re-frozen the same hour with nothing
 # naming the surface. Paid off by the walk, not by striking the rows.
 echo "==> cdcp_gate goldens-couplings (B2 coupling ledger: no silent re-freeze)"
-cargo run -q -p cdcp_gate -- goldens-couplings || fail "goldens coupling ledger"
+run_cdcp_gate goldens-couplings || fail "goldens coupling ledger"
 ok "every golden names the surfaces it was frozen against, and both sides agree"
 
 # B3 (bd-hardening-b-ledgers-gvm.3): present-tense claims about code, in prose,
@@ -673,7 +709,7 @@ ok "every golden names the surfaces it was frozen against, and both sides agree"
 # The polarity lives in the PROSE, not the registry, so no single registry edit
 # can relicense every site at once.
 echo "==> cdcp_gate doc-facts (B3 doc-truth: prose claims about code match the tree)"
-cargo run -q -p cdcp_gate -- doc-facts || fail "prose claims about code disagree with the tree"
+run_cdcp_gate doc-facts || fail "prose claims about code disagree with the tree"
 ok "every registered prose claim about code agrees with the artifact that answers it"
 
 
@@ -821,7 +857,7 @@ ok "sources fetch_date present"
 # the gate vanish silently, and an unchecked bank reports exactly like a clean one.
 [ -d bank/items ] || fail "missing bank/items (bank pool gate required)"
 echo "==> cdcp_gate verify-bank (bank pool floors)"
-cargo run -q -p cdcp_gate -- verify-bank || fail "bank verify"
+run_cdcp_gate verify-bank || fail "bank verify"
 ok "bank pool"
 
 
@@ -836,14 +872,14 @@ ok "bank pool"
 [ -f scripts/validate_grounding.py ] || fail "missing scripts/validate_grounding.py (differential oracle for validate-grounding)"
 [ -d bank/items ] || fail "missing bank/items (grounding gate required)"
 echo "==> cdcp_gate validate-grounding (anti-hallucination heuristics + corpus overlap)"
-cargo run -q -p cdcp_gate -- validate-grounding || fail "grounding"
+run_cdcp_gate validate-grounding || fail "grounding"
 ok "grounding heuristics"
 
 # Orphan referential integrity (topics <-> bank) — ORACLE-GAUNTLET "orphan item".
 # Hard-required: an absent checker is a fooled certificate, not a skip.
 [ -f scripts/verify_orphans.py ] || fail "missing scripts/verify_orphans.py (orphan gate required)"
 echo "==> cdcp_gate verify-orphans (topic<->item referential integrity)"
-cargo run -q -p cdcp_gate -- verify-orphans || fail "orphan referential integrity"
+run_cdcp_gate verify-orphans || fail "orphan referential integrity"
 ok "no orphan topics · no orphan item refs · no unanchored items"
 
 [ -f scripts/selftest_orphan.sh ] || fail "missing scripts/selftest_orphan.sh (L4 orphan known-bad required)"
@@ -859,13 +895,13 @@ ok "orphan selftest (empty bank/topics ERROR · orphan ref RED · unanchored RED
 # approved, or fewer than 2 approved is an ERROR (exit 4).
 [ -d bank/items ] || fail "missing bank/items (near-duplicate gate required)"
 echo "==> cdcp_gate near-duplicate-items (C3 near-duplicates in the approved pool)"
-cargo run -q -p cdcp_gate -- near-duplicate-items || fail "near-duplicate items in the approved pool"
+run_cdcp_gate near-duplicate-items || fail "near-duplicate items in the approved pool"
 ok "no cosmetic near-duplicates in the approved pool (NOT a distinct-proposition count)"
 
 # L4: proven to TRIP, not merely to pass. Plants a cosmetically-reworded clone
 # of a real approved item in memory and asserts it is flagged against its source.
 echo "==> cdcp_gate near-duplicate-items selftest (L4 known-bad injection)"
-CDCP_NEAR_DUPLICATE_SELFTEST=1 cargo run -q -p cdcp_gate -- near-duplicate-items \
+CDCP_NEAR_DUPLICATE_SELFTEST=1 run_cdcp_gate near-duplicate-items \
   || fail "near-duplicate selftest did not reach RED on its planted clone"
 ok "near-duplicate selftest (planted clone trips RED)"
 
@@ -1028,7 +1064,7 @@ done
 ok "L3 golden artifacts present"
 
 echo "==> cdcp goldens check"
-cargo run -q -p cdcp_cli -- goldens check --bank bank/items --dir goldens \
+run_cdcp_cli goldens check --bank bank/items --dir goldens \
   || fail "goldens check"
 ok "GradeExact goldens"
 
@@ -1076,7 +1112,7 @@ fi
 # Knowledge primary_notes path resolution (parent ../modules/)
 # The `if [ -f ... ]` guard this replaces was FAIL-OPEN. [bd-...-jhd.5]
 echo "==> cdcp_gate verify-knowledge-paths (knowledge primary_notes resolve)"
-cargo run -q -p cdcp_gate -- verify-knowledge-paths || fail "knowledge primary_notes paths"
+run_cdcp_gate verify-knowledge-paths || fail "knowledge primary_notes paths"
 ok "knowledge primary_notes paths"
 
 # ─── L5 browser surface ─────────────────────────────────────────────────────
@@ -1105,19 +1141,19 @@ sh scripts/e2e_l5_digest.sh || fail "L5 e2e digest"
 ok "L5 e2e digest match (seed42 all-correct/all-wrong)"
 
 echo "==> cdcp smoke-learn (L5 learn surface)"
-cargo run -q -p cdcp_cli -- smoke-learn || fail "L5 learn smoke"
+run_cdcp_cli smoke-learn || fail "L5 learn smoke"
 ok "L5 learn smoke"
 
 # ─── L6 mastery / coverage ──────────────────────────────────────────────────
 echo "==> smoke_srs.mjs";        node scripts/smoke_srs.mjs        || fail "L6 review smoke";     ok "L6 short-interval review smoke"
 echo "==> smoke_mastery.mjs";    node scripts/smoke_mastery.mjs    || fail "L6 mastery smoke";    ok "L6 mastery smoke"
-echo "==> cdcp smoke-weak-links (L6-S3)"; cargo run -q -p cdcp_cli -- smoke-weak-links || fail "L6 weak-links smoke"; ok "L6 weak-links smoke"
+echo "==> cdcp smoke-weak-links (L6-S3)"; run_cdcp_cli smoke-weak-links || fail "L6 weak-links smoke"; ok "L6 weak-links smoke"
 echo "==> smoke_hub_mastery.mjs"; node scripts/smoke_hub_mastery.mjs || fail "L6-S4 hub mastery"; ok "L6 hub mastery + recommend smoke"
 ok "L6-S4 hub mastery surface wired"
 
 echo "==> L6 multi-seed export-web (fixture golden-stable)"
 _MS_TMP="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_multiseed.XXXXXX")"
-cargo run -q -p cdcp_cli -- export-web --bank bank/items --seed 42 --out "$_MS_TMP" >/dev/null \
+run_cdcp_cli export-web --bank bank/items --seed 42 --out "$_MS_TMP" >/dev/null \
   || fail "L6 multi-seed export-web"
 for f in mock40_seed42.json keys_seed42.json bank_items_seed42.json; do
   cmp -s "$_MS_TMP/$f" "web/data/$f" || fail "L6 export-web seed42 not golden-stable: $f"
@@ -1133,7 +1169,7 @@ ok "L6 session shapes (Drill due · Miss review) present"
 
 [ -f scripts/verify_coverage.py ] || fail "missing scripts/verify_coverage.py (differential oracle for verify-coverage)"
 echo "==> cdcp_gate verify-coverage (L6 domain coverage)"
-cargo run -q -p cdcp_gate -- verify-coverage || fail "L6 coverage"
+run_cdcp_gate verify-coverage || fail "L6 coverage"
 ok "L6 coverage GREEN (every module the domain registry declares ≥ domain_min)"
 echo "==> selftest_l6_coverage.sh"
 run_selftest "L6 coverage selftest" sh scripts/selftest_l6_coverage.sh
@@ -1146,21 +1182,21 @@ for f in web/reference.html web/learn.html; do
 done
 ok "L7 surfaces (reference · closed-notes · Learn-15)"
 
-echo "==> cdcp smoke-learn-chrome (M8-A)"; cargo run -q -p cdcp_cli -- smoke-learn-chrome || fail "M8-A learn chrome"; ok "M8-A learn chrome smoke"
-echo "==> cdcp build-units (M8-B units_index)";              cargo run -q -p cdcp_cli -- build-units          || fail "M8-B units_index"; ok "M8-B units_index"
-echo "==> cdcp build-glossary (M8-D glossary)";              cargo run -q -p cdcp_cli -- build-glossary       || fail "M8-D glossary";    ok "M8-D glossary.json"
-echo "==> cdcp build-learn-slugs (MODULE_LEARN_SLUGS)";      cargo run -q -p cdcp_cli -- build-learn-slugs    || fail "MODULE_LEARN_SLUGS"; ok "MODULE_LEARN_SLUGS from domains.toml"
+echo "==> cdcp smoke-learn-chrome (M8-A)"; run_cdcp_cli smoke-learn-chrome || fail "M8-A learn chrome"; ok "M8-A learn chrome smoke"
+echo "==> cdcp build-units (M8-B units_index)";              run_cdcp_cli build-units          || fail "M8-B units_index"; ok "M8-B units_index"
+echo "==> cdcp build-glossary (M8-D glossary)";              run_cdcp_cli build-glossary       || fail "M8-D glossary";    ok "M8-D glossary.json"
+echo "==> cdcp build-learn-slugs (MODULE_LEARN_SLUGS)";      run_cdcp_cli build-learn-slugs    || fail "MODULE_LEARN_SLUGS"; ok "MODULE_LEARN_SLUGS from domains.toml"
 # After regenerate so this smoke sees THIS run's units_index, not last run's
 # (bd-wire-smoke-quiz-approved-7pju.1).
 echo "==> smoke_quiz_approved.mjs"; node scripts/smoke_quiz_approved.mjs || fail "approved-only quiz/units draw"; ok "no learner surface draws a non-approved item"
-echo "==> cdcp smoke-learn-v2 (M8-B/D)"; cargo run -q -p cdcp_cli -- smoke-learn-v2 || fail "M8-B/D learn v2";  ok "M8-B/D learn v2 smoke"
-echo "==> cdcp smoke-diagrams (M8-C)";   cargo run -q -p cdcp_cli -- smoke-diagrams || fail "M8-C diagrams"; ok "M8-C diagrams smoke"
-echo "==> cdcp smoke-a11y (L7-S5)";      cargo run -q -p cdcp_cli -- smoke-a11y || fail "L7 a11y";          ok "L7 a11y baseline"
-echo "==> cdcp smoke-feedback-links (L7-S2)"; cargo run -q -p cdcp_cli -- smoke-feedback-links || fail "L7 feedback links"; ok "L7-S2 feedback section-anchor links smoke"
+echo "==> cdcp smoke-learn-v2 (M8-B/D)"; run_cdcp_cli smoke-learn-v2 || fail "M8-B/D learn v2";  ok "M8-B/D learn v2 smoke"
+echo "==> cdcp smoke-diagrams (M8-C)";   run_cdcp_cli smoke-diagrams || fail "M8-C diagrams"; ok "M8-C diagrams smoke"
+echo "==> cdcp smoke-a11y (L7-S5)";      run_cdcp_cli smoke-a11y || fail "L7 a11y";          ok "L7 a11y baseline"
+echo "==> cdcp smoke-feedback-links (L7-S2)"; run_cdcp_cli smoke-feedback-links || fail "L7 feedback links"; ok "L7-S2 feedback section-anchor links smoke"
 ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
-_HELP="$(cargo run -q -p cdcp_cli -- --help 2>&1)"
+_HELP="$(run_cdcp_cli --help 2>&1)"
 for v in bank-hash grade goldens export-web serve build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
@@ -1168,14 +1204,14 @@ ok "L7 CLI product verbs listed"
 
 [ -f scripts/verify_objectives.py ] || fail "missing scripts/verify_objectives.py (differential oracle for verify-objectives)"
 echo "==> cdcp_gate verify-objectives (L7-S7 objective coverage)"
-cargo run -q -p cdcp_gate -- verify-objectives || fail "L7 objective coverage"
+run_cdcp_gate verify-objectives || fail "L7 objective coverage"
 ok "L7 objective coverage (registry objectives resolve · every declared module carries items)"
 echo "==> selftest_l7_objectives.sh"
 run_selftest "L7 objectives selftest" sh scripts/selftest_l7_objectives.sh
 ok "L7 objectives known-bad selftest"
 
 echo "==> smoke_slo.sh"
-if cargo run -q -p cdcp_cli -- export-web --help >/dev/null 2>&1; then
+if run_cdcp_cli export-web --help >/dev/null 2>&1; then
   sh scripts/smoke_slo.sh || fail "L7 SLO budgets"
   ok "L7 SLO budgets"
 else
@@ -1185,7 +1221,7 @@ else
 fi
 
 echo "==> cdcp_gate verify-content-lock (L7 content.lock)"
-cargo run -q -p cdcp_gate -- verify-content-lock || fail "L7 content.lock"
+run_cdcp_gate verify-content-lock || fail "L7 content.lock"
 ok "L7 content.lock"
 
 # L4: the content-lock gate must be proven to TRIP, not merely to pass. This
@@ -1194,7 +1230,7 @@ ok "L7 content.lock"
 # pinned bank_hash in a TEMP copy (the committed content.lock is never touched)
 # and asserts the RED path is reached.
 echo "==> cdcp_gate verify-content-lock selftest (L4 content.lock known-bad)"
-CDCP_CONTENT_LOCK_SELFTEST=1 cargo run -q -p cdcp_gate -- verify-content-lock \
+CDCP_CONTENT_LOCK_SELFTEST=1 run_cdcp_gate verify-content-lock \
   || fail "L7 content.lock mutate-selftest did not reach RED"
 ok "L7 content.lock selftest (mutated bank_hash trips RED)"
 
@@ -1219,7 +1255,7 @@ fi
 # itself. Hard-required: an absent checker is a fooled certificate, not a skip.
 [ -f scripts/verify_doc_consistency.py ] || fail "missing scripts/verify_doc_consistency.py (roadmap-truth gate required)"
 echo "==> cdcp_gate verify-doc-consistency (CHARTER §9 · README roadmap · PHASE-NEXT)"
-cargo run -q -p cdcp_gate -- verify-doc-consistency || fail "roadmap doc consistency"
+run_cdcp_gate verify-doc-consistency || fail "roadmap doc consistency"
 ok "roadmap milestone status agrees across docs; publication truth holds"
 
 [ -f scripts/selftest_doc_consistency.sh ] || fail "missing scripts/selftest_doc_consistency.sh (L4 roadmap known-bad required)"
@@ -1244,7 +1280,7 @@ printf '%s\n' \
   'choices = ["a"]' 'correct = "A"' \
   > "$_anki_plant/bank/items/r1.toml"
 set +e
-_anki_plant_out=$(cargo run -q -p cdcp_cli -- export-anki --root "$_anki_plant" --format tsv --out "$_anki_plant/dist/anki" 2>&1)
+_anki_plant_out=$(run_cdcp_cli export-anki --root "$_anki_plant" --format tsv --out "$_anki_plant/dist/anki" 2>&1)
 _anki_plant_rc=$?
 set -e
 printf '%s\n' "$_anki_plant_out"
@@ -1262,14 +1298,14 @@ rm -rf "$_anki_plant"
 ok "V11 Anki planted all-retired is RED and writes nothing"
 
 echo "==> cdcp export-anki (V11 · learner .apkg, pinned clock, approved-only)"
-cargo run -q -p cdcp_cli -- export-anki --format tsv,csv,apkg --out dist/anki || fail "V11 Anki export"
+run_cdcp_cli export-anki --format tsv,csv,apkg --out dist/anki || fail "V11 Anki export"
 ok "V11 Anki export tsv/csv/apkg (779 approved, pinned crt)"
 echo "==> cdcp export-anki --check (planted clock leak RED, two-run identity GREEN)"
-cargo run -q -p cdcp_cli -- export-anki --check || fail "V11 Anki .apkg not byte-reproducible"
+run_cdcp_cli export-anki --check || fail "V11 Anki .apkg not byte-reproducible"
 ok "V11 Anki .apkg deck"
 grep -q "study aid" web/reference.html 2>/dev/null || grep -rq "not.*certif" web/ 2>/dev/null || fail "V11 diagram honesty"
 ok "V11 diagram honesty present"
-if cargo run -q -p cdcp_cli -- serve --help >/dev/null 2>&1; then
+if run_cdcp_cli serve --help >/dev/null 2>&1; then
   ok "V11 serve subcommand present"
 else
   echo "check.sh: GAP: V11 serve subcommand ABSENT from cdcp_cli source" >&2
@@ -1293,10 +1329,10 @@ if [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then
 
   echo "==> cdcp_gate verify-injection-count (advertised known-bad count)"
   if [ "${CDCP_INJECTION_COUNT_WRITE_README:-0}" = "1" ]; then
-    cargo run -q -p cdcp_gate -- verify-injection-count --log "$INJ_LOG" --write-readme \
+    run_cdcp_gate verify-injection-count --log "$INJ_LOG" --write-readme \
       || fail "known-bad injection count drift (README vs suites)"
   else
-    cargo run -q -p cdcp_gate -- verify-injection-count --log "$INJ_LOG" \
+    run_cdcp_gate verify-injection-count --log "$INJ_LOG" \
       || fail "known-bad injection count drift (README vs suites); re-run with CDCP_INJECTION_COUNT_WRITE_README=1 to regenerate"
   fi
   ok "advertised known-bad injection count == suites' self-reported total"
@@ -1320,10 +1356,10 @@ if [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then
   printf '%s\n' "$_step_receipt"
   echo "==> cdcp_gate verify-step-count (advertised check.sh step count)"
   if [ "${CDCP_STEP_COUNT_WRITE_README:-0}" = "1" ]; then
-    cargo run -q -p cdcp_gate -- verify-step-count --log "$STEP_LOG" --write-readme \
+    run_cdcp_gate verify-step-count --log "$STEP_LOG" --write-readme \
       || fail "advertised check.sh step count drift (README vs this run)"
   else
-    cargo run -q -p cdcp_gate -- verify-step-count --log "$STEP_LOG" \
+    run_cdcp_gate verify-step-count --log "$STEP_LOG" \
       || fail "advertised check.sh step count drift (README vs this run)"
   fi
 fi

@@ -3218,6 +3218,11 @@ expires = "2099-01-01"
             WiringEvidence::Unproven,
             "the real step is the strongest the TEXT can say, and that is still UNPROVEN"
         );
+        assert_eq!(
+            check_sh_wiring("run_cdcp_gate substrate-guard || fail \"substrate guard\"\n"),
+            WiringEvidence::Unproven,
+            "the built-binary wrapper is still a live invoke (bd-checksh-cargo-run-attribution-tebe)"
+        );
     }
 
     #[test]
@@ -3959,12 +3964,32 @@ python3 "$_anki_plant/scripts/export_anki.py"
             "must follow sh scripts/smoke_slo.sh: {:?}",
             walk.paths
         );
+        // bd-checksh-cargo-run-attribution-tebe: check.sh compiles once, then
+        // invokes ./target/debug/cdcp_gate (via run_cdcp_gate). cargo run of
+        // this gate is the attribution leak this bead closes; the inventory
+        // walker still only extracts `cargo run`, so the live contract is the
+        // script text.
+        let live_bin = check.lines().any(|l| {
+            let code = code_part(l).trim();
+            code.contains("cdcp_gate")
+                && code.contains(NAME)
+                && !code.contains("cargo run")
+                && !code.starts_with("echo ")
+                && !code.starts_with("ok ")
+                && !code.starts_with(':')
+        });
         assert!(
-            walk.cargo
-                .iter()
-                .any(|c| c.contains("cdcp_gate") && c.contains("substrate-guard")),
-            "cargo run of this gate must appear: {:?}",
-            walk.cargo
+            live_bin,
+            "substrate-guard must be invoked via the built binary, not cargo run"
+        );
+        assert!(
+            !check.lines().any(|l| {
+                let code = code_part(l).trim();
+                !code.is_empty()
+                    && (code.contains("cargo run -") || code.contains("cargo run -p"))
+                    && code.contains("cdcp_gate")
+            }),
+            "cdcp_gate must not be invoked via cargo run (sibling rustc output is a gate-attribution leak)"
         );
     }
 

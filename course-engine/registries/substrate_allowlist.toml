@@ -106,7 +106,7 @@ include_engine_root_files = true
 # is RED. Empty or unknown status is a schema ERROR.
 status = "wired"
 check_sh = "scripts/check.sh"
-invocation = "cargo run -q -p cdcp_gate -- substrate-guard || fail \"substrate guard\""
+invocation = "run_cdcp_gate substrate-guard || fail \"substrate guard\""
 bead = "bd-substrate-rust-migration-jhd.1"
 
 # Remaining scripts/{verify,validate,smoke}_*.py after EXTRACT-THEN-DELETE.
