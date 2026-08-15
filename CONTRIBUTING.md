@@ -13,16 +13,15 @@ Thanks for interest in the CDCP course-engine study tool.
 ## Local setup
 
 ```bash
-# Rust toolchain (stable)
-cargo build -p cdcp_cli
-
 # Optional courtesy hook (ordinary `git commit` only). Not a containment
 # boundary — check.sh is. Fresh clones have no hook until this runs.
-cargo run -q -p cdcp_gate --manifest-path course-engine/Cargo.toml -- install-hooks
-cargo run -q -p cdcp_gate --manifest-path course-engine/Cargo.toml -- install-hooks --check
+cargo build --manifest-path course-engine/Cargo.toml -p cdcp_gate --locked
+./course-engine/target/debug/cdcp_gate install-hooks
+./course-engine/target/debug/cdcp_gate install-hooks --check
 
 # Serve static web + WASM (use a free port)
-cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
+cargo build --manifest-path course-engine/Cargo.toml -p cdcp_cli --locked
+./course-engine/target/debug/cdcp serve --bind 127.0.0.1:8766
 ```
 
 Do not open `web/` as `file://` when testing quiz/WASM.
