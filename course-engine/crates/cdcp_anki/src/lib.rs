@@ -25,6 +25,8 @@
 //! anything. Whether sqlite header bytes match CPython's `sqlite3` — they
 //! often do not across engines. The content contract is card count, approved
 //! filter, pinned clock, and two-run identity of **this** writer.
+//! It therefore does not "guarantee", "prove", or "make impossible" anything
+//! about the learner's experience.
 //!
 //! Zip uses the STORE method with a hand-rolled local/central header so the
 //! archive mtime cannot leak a host clock. Compression is not the product;
