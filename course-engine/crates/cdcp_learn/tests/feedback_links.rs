@@ -12,8 +12,9 @@
 //! A suite that ran no case is RED.
 
 use cdcp_learn::feedback::{
-    extract_heading_ids, run, slugify_heading, BANK_JSON_REL, CONTENT_DIR_REL, KEYS_JSON_REL,
-    LEARN_DIR_REL, RESULTS_JS_REL, SLUGS_JS_REL, TOPICS_TOML_REL, TOPIC_ANCHORS_JSON_REL,
+    evaluate_topic_anchors, extract_heading_ids, run, slugify_heading, write_topic_anchors,
+    BANK_JSON_REL, CONTENT_DIR_REL, KEYS_JSON_REL, LEARN_DIR_REL, RESULTS_JS_REL, SLUGS_JS_REL,
+    TOPICS_TOML_REL, TOPIC_ANCHORS_JSON_REL,
 };
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -23,7 +24,7 @@ static RAN: AtomicUsize = AtomicUsize::new(0);
 static ROUND: AtomicUsize = AtomicUsize::new(0);
 
 /// Raise when you add a `#[test]`. A DROP means a case was deleted.
-const EXPECTED_CASES: usize = 26;
+const EXPECTED_CASES: usize = 31;
 
 fn engine_root() -> PathBuf {
     cdcp_learn::resolve_engine_root(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
@@ -210,6 +211,11 @@ fn live_tree_passes() {
         o.stdout
     );
     assert!(o.artifact.is_none(), "smoke is a reader");
+    assert!(
+        !o.stdout.contains("regen failed") && !o.stdout.contains("FileNotFoundError"),
+        "the python import-failure note is deleted:\n{}",
+        o.stdout
+    );
 }
 
 #[test]
@@ -661,6 +667,161 @@ fn slugify_and_heading_ids_are_stable() {
     );
     let ids = extract_heading_ids("## Types of data centres\n");
     assert!(ids.contains("types-of-data-centres"));
+}
+
+/// Converted from the retired differential
+/// `an_absent_builder_module_falls_back_to_the_existing_artifact`.
+/// The smoke is a reader: python-absent + committed artifact is GREEN,
+/// and there is no import-failure note.
+#[test]
+fn an_absent_python_builder_with_existing_artifact_is_green() {
+    tick();
+    let f = green();
+    assert!(
+        !f.at("scripts/build_learn.py").exists(),
+        "this case is the python-absent tree"
+    );
+    let o = run(&f.root);
+    assert_eq!(o.code, 0, "{}", o.stdout);
+    assert!(
+        o.stdout.starts_with("PASS: smoke_feedback_links"),
+        "{}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("regen failed")
+            && !o.stdout.contains("FileNotFoundError")
+            && !o.stdout.contains("note: using existing")
+            && !o.stdout.contains("scripts/build_learn.py"),
+        "the import-failure note path is deleted:\n{}",
+        o.stdout
+    );
+    let _ = &f.dir;
+}
+
+/// Converted from the retired differential
+/// `an_absent_builder_module_with_no_artifact_is_red`.
+#[test]
+fn an_absent_python_builder_with_no_artifact_is_red() {
+    tick();
+    let f = green();
+    f.rm(TOPIC_ANCHORS_JSON_REL);
+    assert!(
+        !f.at("scripts/build_learn.py").exists(),
+        "this case is the python-absent tree"
+    );
+    let o = run(&f.root);
+    assert_ne!(o.code, 0, "missing artifact must be RED:\n{}", o.stdout);
+    assert!(o.stdout.contains("topic_anchors missing"), "{}", o.stdout);
+    assert!(
+        !o.stdout.contains("scripts/build_learn.py") && !o.stdout.contains("FileNotFoundError"),
+        "the missing-artifact path must not stat or name the python builder:\n{}",
+        o.stdout
+    );
+    let _ = &f.dir;
+}
+
+/// The rust builder produces the topic map without `scripts/build_learn.py`.
+#[test]
+fn rust_builder_maps_label_to_heading_without_python() {
+    tick();
+    let f = green();
+    f.rm(TOPIC_ANCHORS_JSON_REL);
+    assert!(!f.at("scripts/build_learn.py").exists());
+    let o = evaluate_topic_anchors(&f.root);
+    assert_eq!(o.code, 0, "{}", o.stdout);
+    let (_path, body) = o.artifact.expect("green builder carries bytes");
+    let v: serde_json::Value = serde_json::from_str(&body).expect("builder json");
+    assert_eq!(v["generated_by"], "cdcp_learn");
+    assert_eq!(
+        v["topics"]["m01-dc-types"]["anchor"],
+        "types-of-data-centres"
+    );
+    assert_eq!(v["topics_with_anchor"], 1);
+    // The smoke remains a reader: no committed file is still RED.
+    let smoke = run(&f.root);
+    assert_ne!(smoke.code, 0, "{}", smoke.stdout);
+    assert!(
+        smoke.stdout.contains("topic_anchors missing"),
+        "{}",
+        smoke.stdout
+    );
+    let _ = &f.dir;
+}
+
+/// Should-fail: empty topics.toml is RED and writes nothing.
+#[test]
+fn rust_builder_empty_topics_is_red_and_writes_nothing() {
+    tick();
+    let f = green();
+    f.put(TOPICS_TOML_REL, "schema_version = 1\n");
+    let before = std::fs::read(f.at(TOPIC_ANCHORS_JSON_REL)).expect("fixture artifact");
+    let o = write_topic_anchors(&f.root).expect("write call");
+    assert_ne!(o.code, 0, "empty topics must be RED:\n{}", o.stdout);
+    assert!(o.artifact.is_none(), "RED must not carry an artifact");
+    assert!(o.stdout.contains("zero topics"), "{}", o.stdout);
+    let after = std::fs::read(f.at(TOPIC_ANCHORS_JSON_REL)).expect("artifact after RED write");
+    assert_eq!(before, after, "a RED compile wrote topic_anchors.json");
+    let _ = &f.dir;
+}
+
+/// Live committed anchors (still python-generated) must agree with the rust
+/// builder's topic→anchor map. Disagreement means the port is not ready to
+/// drop the python writer.
+#[test]
+fn rust_builder_live_tree_agrees_with_committed_anchors() {
+    tick();
+    let root = engine_root();
+    let o = evaluate_topic_anchors(&root);
+    assert_eq!(o.code, 0, "{}", o.stdout);
+    let (_path, body) = o.artifact.expect("green builder carries bytes");
+    let built: serde_json::Value = serde_json::from_str(&body).expect("built json");
+    let committed: serde_json::Value = serde_json::from_str(
+        &std::fs::read_to_string(root.join(TOPIC_ANCHORS_JSON_REL))
+            .expect("committed topic_anchors.json"),
+    )
+    .expect("committed json");
+    let built_topics = built["topics"].as_object().expect("built topics");
+    let committed_topics = committed["topics"].as_object().expect("committed topics");
+    assert_eq!(
+        built_topics.len(),
+        committed_topics.len(),
+        "topic set size drifted (built={} committed={})",
+        built_topics.len(),
+        committed_topics.len()
+    );
+    let mut diffs = Vec::new();
+    for (tid, row) in committed_topics {
+        let Some(got) = built_topics.get(tid) else {
+            diffs.push(format!("{tid}: rust dropped the topic"));
+            continue;
+        };
+        if got.get("anchor") != row.get("anchor") {
+            diffs.push(format!(
+                "{tid}: anchor rust={:?} committed={:?}",
+                got.get("anchor"),
+                row.get("anchor")
+            ));
+        }
+        if got.get("slug") != row.get("slug") {
+            diffs.push(format!(
+                "{tid}: slug rust={:?} committed={:?}",
+                got.get("slug"),
+                row.get("slug")
+            ));
+        }
+    }
+    for tid in built_topics.keys() {
+        if !committed_topics.contains_key(tid) {
+            diffs.push(format!("{tid}: rust added a topic"));
+        }
+    }
+    assert!(
+        diffs.is_empty(),
+        "rust builder disagrees with committed topic_anchors.json ({} diffs):\n{}",
+        diffs.len(),
+        diffs.join("\n")
+    );
 }
 
 #[test]
