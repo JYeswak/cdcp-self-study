@@ -4,9 +4,11 @@
 //! `scripts/smoke_learn.py`. The Python is deleted in the same commit. Every
 //! case asserts WHAT THE CORRECT ANSWER IS against the Rust alone.
 //!
-//! The parked 1,435-line `cdcp_gate` transcription (.parked-wave8/smoke_learn.rs)
-//! stays parked. Empty input is an ERROR — the inherited all-empty-ok vacuous
-//! PASS (bd-smoke-learn-vacuous-empty-ok-9d3n) is closed, not reproduced.
+//! The 1,435-line `cdcp_gate` transcription was deleted by
+//! `bd-wave8-agent-deaths-redispatch-qb01` (agreement-only CPython replica;
+//! never a product extract). Empty input is an ERROR — the inherited
+//! all-empty-ok vacuous PASS (bd-smoke-learn-vacuous-empty-ok-9d3n) is
+//! closed, not reproduced.
 //!
 //! This smoke is a READER. Fixtures live under $TMPDIR. The live-tree claim
 //! is bought by copying the tracked surface and asserting the copy matches

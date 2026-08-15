@@ -1,12 +1,16 @@
 //! Verdict suite for `cdcp_learn::diagrams` (bd-substrate-rust-migration-jhd.14).
 //!
 //! EXTRACT-THEN-DELETE: this is NOT a differential against
-//! `scripts/smoke_diagrams.py`. The Python is deleted in the same commit.
-//! Every case asserts WHAT THE CORRECT ANSWER IS against the Rust alone.
+//! `scripts/smoke_diagrams.py`. The Python is deleted. Every case asserts
+//! WHAT THE CORRECT ANSWER IS against the Rust alone.
 //!
-//! The parked wave-8 transcription stays parked. Empty input is an ERROR.
-//! An unclosed honesty-banner is a FAIL (bd-smoke-diagrams-unclosed-banner-swallows-page-61v0
-//! closed, not reproduced — a footer disclaimer must not save a hollow banner).
+//! The wave-8 `cdcp_gate` transcription was deleted by
+//! `bd-wave8-agent-deaths-redispatch-qb01` (agreement-only four-tuple;
+//! never compiled). Empty input is an ERROR. An unclosed honesty-banner
+//! is a FAIL (`bd-smoke-diagrams-unclosed-banner-swallows-page-61v0`
+//! closed, not reproduced — a footer disclaimer must not save a hollow
+//! banner). A later same-column table is not the inventory
+//! (`bd-smoke-diagrams-unbounded-table-scan-4qc7` closed, not reproduced).
 //!
 //! This smoke is a READER. Fixtures live under $TMPDIR. The live-tree claim
 //! is bought by copying the tracked surface and asserting the copy matches
@@ -19,7 +23,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 static RAN: AtomicUsize = AtomicUsize::new(0);
 
 /// Raise when you add a `#[test]`. A DROP means a case was deleted.
-const EXPECTED_CASES: usize = 40;
+const EXPECTED_CASES: usize = 42;
 
 const LIVE_IDS: &[&str] = &[
     "power-path",
@@ -373,6 +377,76 @@ fn fenced_two_column_example_does_not_hide_real_table() {
         o.stdout
             .contains("smoke_diagrams: PASS (7 present diagrams from the registry)"),
         "{}",
+        o.stdout
+    );
+}
+
+/// bd-smoke-diagrams-unbounded-table-scan-4qc7.
+/// Parked wave-8 reproduced this as GREEN: `## Inventory` carries no
+/// table, a later section's six-column table becomes the check set.
+/// Product verdict is ERROR. Decoy pages are written so adopting the
+/// later table would be GREEN — missing files must not be what saves us.
+#[test]
+fn later_same_column_table_is_not_the_inventory() {
+    tick();
+    let t = green_tree();
+    let md = format!(
+        "present_count = 7\n\n## Inventory\n\nno table here at all.\n\n\
+         ## Something Else\n\n{}",
+        table_md(&decoy_rows()),
+    );
+    t.write("docs/DIAGRAM-REGISTRY.md", &md);
+    for id in decoy_ids() {
+        t.write(&format!("web/diagrams/{id}.html"), &page(&id));
+    }
+    let o = run(&t.root);
+    assert_eq!(o.code, 2, "later table must not be adopted:\n{}", o.stdout);
+    assert!(
+        o.stdout.contains("no table under '## Inventory'"),
+        "{}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("smoke_diagrams: PASS"),
+        "PASS must not appear: {}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("ok: decoy-"),
+        "later same-column table became the inventory:\n{}",
+        o.stdout
+    );
+}
+
+/// Same bead. A real table under Inventory still wins when a later
+/// section carries a matching-column decoy. Decoy pages are written so
+/// adopting the later table would rename the check set.
+#[test]
+fn later_same_column_table_does_not_hide_real_inventory() {
+    tick();
+    let t = green_tree();
+    let md = format!(
+        "present_count = 7\n\n## Inventory\n\n{}\n\
+         ## Something Else\n\n{}",
+        table_md(&good_rows()),
+        table_md(&decoy_rows()),
+    );
+    t.write("docs/DIAGRAM-REGISTRY.md", &md);
+    for id in decoy_ids() {
+        t.write(&format!("web/diagrams/{id}.html"), &page(&id));
+    }
+    let o = run(&t.root);
+    assert_eq!(o.code, 0, "real table must win:\n{}", o.stdout);
+    for id in IDS {
+        assert!(
+            o.stdout.contains(&format!("  ok: {id}\n")),
+            "real id {id} missing:\n{}",
+            o.stdout
+        );
+    }
+    assert!(
+        !o.stdout.contains("decoy-"),
+        "later same-column table became the inventory:\n{}",
         o.stdout
     );
 }

@@ -11,6 +11,10 @@
 //! * fenced code blocks are skipped when locating that table — a fenced
 //!   example whose columns match [`EXPECTED_COLUMNS`] is not the check set
 //!   (`bd-smoke-diagrams-fenced-table-adopted-ahgn`)
+//! * the hunt is bounded by the next unfenced ATX heading
+//!   (`bd-smoke-diagrams-unbounded-table-scan-4qc7`). A later section whose
+//!   table has the same six columns is not the inventory. The parked
+//!   wave-8 port reproduced that hole as GREEN; this crate closes it.
 //! * Status is a closed enum (`present` / `planned`). One outer wrap of the
 //!   whole token (`**present**`, `` `present` ``) is stripped once as wrapping;
 //!   interior `*` / `` ` `` is not stripped (`pre*sent` is ERROR).
@@ -32,7 +36,9 @@
 //!   (`bd-smoke-diagrams-unclosed-banner-swallows-page-61v0`). Closed here.
 //!
 //! This is NOT a CPython `html.parser` replica and not a stdout match of the
-//! retired script. `.parked-wave8/` stays parked.
+//! retired script. The wave-8 `cdcp_gate` transcription (CPython
+//! `html.parser` + 2231-row entity table + agreement-only four-tuple) was
+//! adjudicated and deleted by `bd-wave8-agent-deaths-redispatch-qb01`.
 //!
 //! # What this cannot decide
 //!
@@ -189,11 +195,15 @@ fn parse_registry(root: &Path) -> RegistryRead {
     let lines: Vec<&str> = text.split('\n').collect();
 
     // Hunt the first unfenced `## Inventory` and the first unfenced pipe row
-    // after it. A ``` toggle swallows every line until the closer, so a
-    // fenced example table (even one whose columns match EXPECTED_COLUMNS)
-    // cannot become the check set. An unclosed fence fail-closes: the rest
-    // of the file is invisible and we ERROR if the heading or table was
-    // inside it.
+    // after it, STOPPING at the next unfenced ATX heading. A ``` toggle
+    // swallows every line until the closer, so a fenced example table
+    // (even one whose columns match EXPECTED_COLUMNS) cannot become the
+    // check set. An unclosed fence fail-closes: the rest of the file is
+    // invisible and we ERROR if the heading or table was inside it.
+    //
+    // The heading bound is bd-smoke-diagrams-unbounded-table-scan-4qc7,
+    // closed not reproduced: a later `## Something Else` table with the
+    // same six columns used to become the check set.
     let mut in_fence = false;
     let mut start = None;
     let mut head = None;
@@ -210,6 +220,9 @@ fn parse_registry(root: &Path) -> RegistryRead {
                 start = Some(i);
             }
             continue;
+        }
+        if is_atx_heading(ln) {
+            break;
         }
         if split_row(ln).is_some() {
             head = Some(i);
@@ -940,6 +953,24 @@ fn is_sep_cell(c: &str) -> bool {
     t.len() >= 3 && t.chars().all(|ch| ch == '-')
 }
 
+/// CommonMark ATX heading: 1–6 `#` then whitespace or end-of-line.
+/// Used only to bound the inventory-table hunt. A table row starts with
+/// `|` after trim, so it cannot match.
+fn is_atx_heading(ln: &str) -> bool {
+    let s = ln.trim();
+    if !s.starts_with('#') {
+        return false;
+    }
+    let n = s.bytes().take_while(|&b| b == b'#').count();
+    if !(1..=6).contains(&n) {
+        return false;
+    }
+    match s.as_bytes().get(n) {
+        None => true,
+        Some(b) => b.is_ascii_whitespace(),
+    }
+}
+
 fn join_cols(cols: &[&str]) -> String {
     format!("[{}]", cols.join(", "))
 }
@@ -963,6 +994,19 @@ mod tests {
         assert!(!has_word_not("notice: certification"));
         assert!(!has_word_not("cannot certification"));
         assert!(!has_word_not(""));
+    }
+
+    #[test]
+    fn atx_heading_is_one_to_six_hashes_then_space_or_eol() {
+        assert!(is_atx_heading("## Inventory"));
+        assert!(is_atx_heading("  ### sub"));
+        assert!(is_atx_heading("#"));
+        assert!(is_atx_heading("###### six"));
+        assert!(!is_atx_heading("####### seven"));
+        assert!(!is_atx_heading("#no-space"));
+        assert!(!is_atx_heading("| ID | Title |"));
+        assert!(!is_atx_heading("present_count = 8"));
+        assert!(!is_atx_heading(""));
     }
 
     #[test]

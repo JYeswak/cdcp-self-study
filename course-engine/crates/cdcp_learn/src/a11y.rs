@@ -29,7 +29,7 @@
 //!
 //! This is a READER: it writes nothing. It is a marker census over
 //! comment-stripped source, not a tree walk and not an axe run.
-//! `.parked-wave8/` stays parked.
+//! Wave-8 park emptied by `bd-wave8-agent-deaths-redispatch-qb01`.
 //!
 //! # What this cannot decide
 //!
