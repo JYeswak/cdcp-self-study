@@ -1,4 +1,4 @@
-//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics / slo
+//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics / slo / snap-rewrite
 #![forbid(unsafe_code)]
 
 mod assemble;
@@ -7,6 +7,7 @@ mod operator;
 mod oracle;
 mod site;
 mod slo;
+mod snap_rewrite;
 
 use cdcp_bank::Bank;
 use cdcp_core::{AnsweredItem, ChoiceLetter, ExamAttempt};
@@ -332,6 +333,11 @@ enum Cmd {
         #[command(subcommand)]
         sub: SloCmd,
     },
+    /// Rewrite a file for the check.sh snapshot CHARTER selftest. Not a gate.
+    SnapRewrite {
+        #[command(subcommand)]
+        sub: SnapRewriteCmd,
+    },
     /// Check or regenerate grade goldens
     Goldens {
         #[command(subcommand)]
@@ -349,6 +355,27 @@ enum SloCmd {
     },
     /// Print unix-epoch milliseconds.
     NowMs,
+}
+
+#[derive(Subcommand)]
+enum SnapRewriteCmd {
+    /// Require --from to occur once; write that occurrence as --to.
+    ReplaceOnce {
+        #[arg(long)]
+        file: PathBuf,
+        #[arg(long, allow_hyphen_values = true)]
+        from: String,
+        #[arg(long, allow_hyphen_values = true)]
+        to: String,
+    },
+    /// CHARTER pair: skip-exec disables re-exec; delete-assert hollows the assert.
+    Charter {
+        #[arg(long)]
+        file: PathBuf,
+        /// `skip-exec` or `delete-assert`
+        #[arg(long, value_parser = ["skip-exec", "delete-assert"])]
+        kind: String,
+    },
 }
 
 #[derive(Subcommand)]
@@ -583,6 +610,15 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::Slo { sub } => match sub {
             SloCmd::Budgets { file } => slo::emit_budgets(&file),
             SloCmd::NowMs => slo::emit_now_ms(),
+        },
+        Cmd::SnapRewrite { sub } => match sub {
+            SnapRewriteCmd::ReplaceOnce { file, from, to } => {
+                snap_rewrite::apply(&file, &snap_rewrite::Job::SwapOnce { from, to })
+            }
+            SnapRewriteCmd::Charter { file, kind } => {
+                let leg = snap_rewrite::parse_leg(&kind)?;
+                snap_rewrite::apply(&file, &snap_rewrite::Job::Charter(leg))
+            }
         },
         Cmd::Goldens { sub } => match sub {
             GoldensCmd::Check { bank, dir } => goldens_check(&bank, &dir),

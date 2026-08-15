@@ -357,190 +357,10 @@ if [ "$LOCK_HELD" = "1" ]; then
     || fail "lock selftest: the unwritable lock path failed without naming the lock as the reason: $_lk_out"
 
   rm -rf "$_lk_scratch"
-
-  # ── L4: snapshot re-exec is proven to isolate [bd-o4bc] ─────────────────
-  # Plants run against a PRIVATE tree that contains only scripts/check.sh.
-  # The live scripts/check.sh is never sheared. CHARTER pair: (1) skip exec
-  # → isolation RED; (2) mutation still in place, delete the assertion →
-  # GREEN. Restore of the temp tree is rm -rf (not a cargo artifact).
-  echo "==> check.sh snapshot selftest (L4: shear isolated · empty copy ERRORs · CHARTER pair · env guard)"
-  _ss="$ROOT/target/cdcp-snap-selftest"
-  rm -rf "$_ss"
-  mkdir -p "$_ss/tree/scripts" "$_ss/tree/target" || fail "snapshot selftest: cannot create $_ss"
-  cp "$ROOT/scripts/check.sh" "$_ss/tree/scripts/check.sh" \
-    || fail "snapshot selftest: cannot copy check.sh into the private tree"
-  command -v python3 >/dev/null 2>&1 || fail "snapshot selftest: python3 required for CHARTER replace_once"
-
-  _snap_replace_once() {
-    python3 -c '
-from pathlib import Path
-import sys
-p = Path(sys.argv[1])
-old, new = sys.argv[2], sys.argv[3]
-text = p.read_text()
-n = text.count(old)
-if n != 1:
-    sys.stderr.write("snapshot CHARTER: needle count %d in %s (want 1)\n" % (n, p))
-    sys.exit(2)
-p.write_text(text.replace(old, new, 1))
-' "$1" "$2" "$3"
-  }
-
-  _snap_wait_file() {
-    _wf="$1"
-    _wtry=0
-    while [ "$_wtry" -lt 50 ]; do
-      [ -f "$_wf" ] && return 0
-      sleep 0.1
-      _wtry=$((_wtry + 1))
-    done
-    return 1
-  }
-
-  # _snap_run_isolation ROOT_DIR HS_DIR — shear the TREE copy after the child
-  # has re-exec'd, then return the child's exit code in _ISO_RC.
-  _snap_run_isolation() {
-    _iso_root="$1"
-    _iso_hs="$2"
-    _iso_script="$_iso_root/scripts/check.sh"
-    rm -rf "$_iso_hs"
-    mkdir -p "$_iso_hs" || return 2
-    (
-      CDPATH= cd -- "$_iso_root" &&
-        CDCP_CHECK_SNAPSHOT_PROBE=1 CDCP_CHECK_SNAP_HANDSHAKE="$_iso_hs" \
-          sh scripts/check.sh
-    ) >"$_iso_hs/out" 2>&1 &
-    _iso_pid=$!
-    if ! _snap_wait_file "$_iso_hs/running"; then
-      kill "$_iso_pid" 2>/dev/null || true
-      wait "$_iso_pid" 2>/dev/null || true
-      echo "snapshot selftest: child never wrote handshake: $(cat "$_iso_hs/out" 2>/dev/null)" >&2
-      _ISO_RC=2
-      return 0
-    fi
-    _snap_replace_once "$_iso_script" "$_SNAP_INTACT" "$_SNAP_SHEARED" \
-      || { kill "$_iso_pid" 2>/dev/null || true; wait "$_iso_pid" 2>/dev/null || true; _ISO_RC=2; return 0; }
-    : >"$_iso_hs/go"
-    _ISO_RC=0
-    wait "$_iso_pid" || _ISO_RC=$?
-    # Write-bytes restore (never mv): put the intact sentinel back so a later
-    # CHARTER mutate still sees one needle.
-    _snap_replace_once "$_iso_script" "$_SNAP_SHEARED" "$_SNAP_INTACT" || true
-  }
-
-  # Line rewriter: needles are matched by shape so this block does not
-  # duplicate the production strings replace_once would count.
-  _snap_charter() {
-    python3 -c '
-from pathlib import Path
-import sys
-p = Path(sys.argv[1])
-kind = sys.argv[2]
-lines = p.read_text().splitlines(True)
-out = []
-n = 0
-for line in lines:
-    if kind == "skip-exec":
-        if "exec sh" in line and line.rstrip().endswith("CHARTER-NEEDLE-EXEC"):
-            n += 1
-            out.append(":   # CHARTER-NEEDLE-EXEC\n")
-            continue
-    elif kind == "delete-assert":
-        stripped = line.lstrip()
-        if stripped.startswith("snapshot_probe_assert() { grep"):
-            n += 1
-            indent = line[: len(line) - len(stripped)]
-            out.append(indent + "snapshot_probe_assert() { return 0; }\n")
-            continue
-    out.append(line)
-if n != 1:
-    sys.stderr.write("snapshot CHARTER %s: matched %d lines, want 1\n" % (kind, n))
-    sys.exit(2)
-p.write_text("".join(out))
-' "$1" "$2"
-  }
-
-  # (1) Anti-vacuous: unwritable snapshot dest is ERROR, not a live-file run.
-  : >"$_ss/notadir"
-  _ss_rc=0
-  _ss_out="$(
-    CDPATH= cd -- "$_ss/tree" &&
-      CDCP_CHECK_SNAPSHOT_PROBE=1 CDCP_CHECK_SNAP_DIR="$_ss/notadir/snap" \
-        sh scripts/check.sh 2>&1
-  )" || _ss_rc=$?
-  [ "$_ss_rc" -ne 0 ] \
-    || fail "snapshot selftest: an unwritable snapshot path ran GREEN by falling through to the live file"
-  printf '%s\n' "$_ss_out" | grep -q "SNAPSHOT ERROR" \
-    || fail "snapshot selftest: unwritable snapshot path failed without naming SNAPSHOT ERROR: $_ss_out"
-
-  # (2) Env guard: a caller-set CDCP_CHECK_ROOT must not skip the copy.
-  mkdir -p "$_ss/hs-env"
-  (
-    CDPATH= cd -- "$_ss/tree" &&
-      CDCP_CHECK_ROOT="/tmp/cdcp-wrong-root-o4bc" \
-      CDCP_CHECK_SNAPSHOT_PROBE=1 CDCP_CHECK_SNAP_HANDSHAKE="$_ss/hs-env" \
-        sh scripts/check.sh
-  ) >"$_ss/hs-env/out" 2>&1 &
-  _ss_env_pid=$!
-  if ! _snap_wait_file "$_ss/hs-env/running"; then
-    kill "$_ss_env_pid" 2>/dev/null || true
-    wait "$_ss_env_pid" 2>/dev/null || true
-    fail "snapshot selftest: env-guard child never wrote handshake: $(cat "$_ss/hs-env/out" 2>/dev/null)"
-  fi
-  _ss_env_run="$(cat "$_ss/hs-env/running")"
-  case "$_ss_env_run" in
-    */target/check.snap.*/check.sh) ;;
-    *)
-      kill "$_ss_env_pid" 2>/dev/null || true
-      wait "$_ss_env_pid" 2>/dev/null || true
-      fail "snapshot selftest: CDCP_CHECK_ROOT skipped the copy (running=$_ss_env_run)"
-      ;;
-  esac
-  : >"$_ss/hs-env/go"
-  _ss_env_rc=0
-  wait "$_ss_env_pid" || _ss_env_rc=$?
-  [ "$_ss_env_rc" -eq 0 ] \
-    || fail "snapshot selftest: env-guard child exited $_ss_env_rc: $(cat "$_ss/hs-env/out" 2>/dev/null)"
-
-  # (3) Known-good: shear the TREE copy; the running snapshot stays intact.
-  cp "$ROOT/scripts/check.sh" "$_ss/tree/scripts/check.sh"
-  _snap_run_isolation "$_ss/tree" "$_ss/hs-good"
-  [ "$_ISO_RC" -eq 0 ] \
-    || fail "snapshot selftest: known-good isolation went RED (rc=$_ISO_RC): $(cat "$_ss/hs-good/out" 2>/dev/null)"
-  _ss_good_run="$(cat "$_ss/hs-good/running")"
-  case "$_ss_good_run" in
-    */target/check.snap.*/check.sh) ;;
-    *) fail "snapshot selftest: known-good did not re-exec a snapshot (running=$_ss_good_run)" ;;
-  esac
-  grep -q "$_SNAP_INTACT" "$_ss_good_run" \
-    || fail "snapshot selftest: running copy lost the intact sentinel"
-  if grep -q "$_SNAP_SHEARED" "$_ss_good_run"; then
-    fail "snapshot selftest: running copy contains the sheared token"
-  fi
-  grep -q "$_SNAP_SHEARED" "$_ss/tree/scripts/check.sh" \
-    && fail "snapshot selftest: source restore after known-good left the sheared token in the tree copy"
-
-  # (4) CHARTER pair. A suite that only runs leg 1 is the defect.
-  _sp_pair=0
-  cp "$ROOT/scripts/check.sh" "$_ss/tree/scripts/check.sh"
-  _snap_charter "$_ss/tree/scripts/check.sh" skip-exec \
-    || fail "snapshot selftest: CHARTER mutate (skip exec) failed"
-  _snap_run_isolation "$_ss/tree" "$_ss/hs-mutate"
-  [ "$_ISO_RC" -ne 0 ] \
-    || fail "CHARTER pair leg 1: skipping exec stayed GREEN when the source was sheared"
-  _sp_pair=$((_sp_pair + 1))
-
-  _snap_charter "$_ss/tree/scripts/check.sh" delete-assert \
-    || fail "snapshot selftest: CHARTER delete-assertion failed"
-  _snap_run_isolation "$_ss/tree" "$_ss/hs-del"
-  [ "$_ISO_RC" -eq 0 ] \
-    || fail "CHARTER pair leg 2: deleting the shear assertion did not return to GREEN (rc=$_ISO_RC): $(cat "$_ss/hs-del/out" 2>/dev/null)"
-  _sp_pair=$((_sp_pair + 1))
-  [ "$_sp_pair" -eq 2 ] \
-    || fail "ANTI-VACUOUS: CHARTER pair ran $_sp_pair legs, want 2 (a suite that only runs leg 1 is the defect)"
-
-  rm -rf "$_ss"
-  ok "concurrency lock proven (second run refused naming pid $$ · dead holder reclaimed · unwritable lock path ERRORs) · snapshot re-exec proven (shear isolated · empty copy ERRORs · CHARTER pair 2/2 · env guard)"
+  # Snapshot CHARTER rewrites call `cdcp snap-rewrite`. That binary exists
+  # only after compile-once; the L4 isolation suite (and the combined
+  # lock+snapshot ok) runs there so this stays one advertised step.
+  # EXTRACT-THEN-DELETE: python3 -c CHARTER helpers are retired.
 else
   skipped_step "concurrency lock selftest (running under an ancestor's lock) · snapshot re-exec selftest"
 fi
@@ -641,6 +461,156 @@ else
 fi
 require_cdcp_bins
 ok "cargo build -p cdcp_gate -p cdcp_cli --locked (debug binaries in $CDCP_BIN_DIR)"
+
+# ── L4: snapshot re-exec is proven to isolate [bd-o4bc] ─────────────────
+# Plants run against a PRIVATE tree that contains only scripts/check.sh.
+# The live scripts/check.sh is never sheared. CHARTER pair: (1) skip exec
+# → isolation RED; (2) mutation still in place, delete the assertion →
+# GREEN. Restore of the temp tree is rm -rf (not a cargo artifact).
+# EXTRACT-THEN-DELETE: python3 -c CHARTER helpers retired; this block
+# calls `cdcp snap-rewrite`. Putting python3 back on this path is RED.
+if [ "$LOCK_HELD" = "1" ]; then
+  echo "==> check.sh snapshot selftest (L4: shear isolated · empty copy ERRORs · CHARTER pair · env guard)"
+  _ss="$ROOT/target/cdcp-snap-selftest"
+  rm -rf "$_ss"
+  mkdir -p "$_ss/tree/scripts" "$_ss/tree/target" || fail "snapshot selftest: cannot create $_ss"
+  cp "$ROOT/scripts/check.sh" "$_ss/tree/scripts/check.sh" \
+    || fail "snapshot selftest: cannot copy check.sh into the private tree"
+
+  _snap_replace_once() {
+    run_cdcp_cli snap-rewrite replace-once --file "$1" --from "$2" --to "$3"
+  }
+
+  _snap_wait_file() {
+    _wf="$1"
+    _wtry=0
+    while [ "$_wtry" -lt 50 ]; do
+      [ -f "$_wf" ] && return 0
+      sleep 0.1
+      _wtry=$((_wtry + 1))
+    done
+    return 1
+  }
+
+  # _snap_run_isolation ROOT_DIR HS_DIR — shear the TREE copy after the child
+  # has re-exec'd, then return the child's exit code in _ISO_RC.
+  _snap_run_isolation() {
+    _iso_root="$1"
+    _iso_hs="$2"
+    _iso_script="$_iso_root/scripts/check.sh"
+    rm -rf "$_iso_hs"
+    mkdir -p "$_iso_hs" || return 2
+    (
+      CDPATH= cd -- "$_iso_root" &&
+        CDCP_CHECK_SNAPSHOT_PROBE=1 CDCP_CHECK_SNAP_HANDSHAKE="$_iso_hs" \
+          sh scripts/check.sh
+    ) >"$_iso_hs/out" 2>&1 &
+    _iso_pid=$!
+    if ! _snap_wait_file "$_iso_hs/running"; then
+      kill "$_iso_pid" 2>/dev/null || true
+      wait "$_iso_pid" 2>/dev/null || true
+      echo "snapshot selftest: child never wrote handshake: $(cat "$_iso_hs/out" 2>/dev/null)" >&2
+      _ISO_RC=2
+      return 0
+    fi
+    _snap_replace_once "$_iso_script" "$_SNAP_INTACT" "$_SNAP_SHEARED" \
+      || { kill "$_iso_pid" 2>/dev/null || true; wait "$_iso_pid" 2>/dev/null || true; _ISO_RC=2; return 0; }
+    : >"$_iso_hs/go"
+    _ISO_RC=0
+    wait "$_iso_pid" || _ISO_RC=$?
+    # Write-bytes restore (never mv): put the intact sentinel back so a later
+    # CHARTER mutate still sees one needle.
+    _snap_replace_once "$_iso_script" "$_SNAP_SHEARED" "$_SNAP_INTACT" || true
+  }
+
+  # Line rewriter: needles are matched by shape so this block does not
+  # duplicate the production strings replace_once would count.
+  _snap_charter() {
+    run_cdcp_cli snap-rewrite charter --file "$1" --kind "$2"
+  }
+
+  # (1) Anti-vacuous: unwritable snapshot dest is ERROR, not a live-file run.
+  : >"$_ss/notadir"
+  _ss_rc=0
+  _ss_out="$(
+    CDPATH= cd -- "$_ss/tree" &&
+      CDCP_CHECK_SNAPSHOT_PROBE=1 CDCP_CHECK_SNAP_DIR="$_ss/notadir/snap" \
+        sh scripts/check.sh 2>&1
+  )" || _ss_rc=$?
+  [ "$_ss_rc" -ne 0 ] \
+    || fail "snapshot selftest: an unwritable snapshot path ran GREEN by falling through to the live file"
+  printf '%s\n' "$_ss_out" | grep -q "SNAPSHOT ERROR" \
+    || fail "snapshot selftest: unwritable snapshot path failed without naming SNAPSHOT ERROR: $_ss_out"
+
+  # (2) Env guard: a caller-set CDCP_CHECK_ROOT must not skip the copy.
+  mkdir -p "$_ss/hs-env"
+  (
+    CDPATH= cd -- "$_ss/tree" &&
+      CDCP_CHECK_ROOT="/tmp/cdcp-wrong-root-o4bc" \
+      CDCP_CHECK_SNAPSHOT_PROBE=1 CDCP_CHECK_SNAP_HANDSHAKE="$_ss/hs-env" \
+        sh scripts/check.sh
+  ) >"$_ss/hs-env/out" 2>&1 &
+  _ss_env_pid=$!
+  if ! _snap_wait_file "$_ss/hs-env/running"; then
+    kill "$_ss_env_pid" 2>/dev/null || true
+    wait "$_ss_env_pid" 2>/dev/null || true
+    fail "snapshot selftest: env-guard child never wrote handshake: $(cat "$_ss/hs-env/out" 2>/dev/null)"
+  fi
+  _ss_env_run="$(cat "$_ss/hs-env/running")"
+  case "$_ss_env_run" in
+    */target/check.snap.*/check.sh) ;;
+    *)
+      kill "$_ss_env_pid" 2>/dev/null || true
+      wait "$_ss_env_pid" 2>/dev/null || true
+      fail "snapshot selftest: CDCP_CHECK_ROOT skipped the copy (running=$_ss_env_run)"
+      ;;
+  esac
+  : >"$_ss/hs-env/go"
+  _ss_env_rc=0
+  wait "$_ss_env_pid" || _ss_env_rc=$?
+  [ "$_ss_env_rc" -eq 0 ] \
+    || fail "snapshot selftest: env-guard child exited $_ss_env_rc: $(cat "$_ss/hs-env/out" 2>/dev/null)"
+
+  # (3) Known-good: shear the TREE copy; the running snapshot stays intact.
+  cp "$ROOT/scripts/check.sh" "$_ss/tree/scripts/check.sh"
+  _snap_run_isolation "$_ss/tree" "$_ss/hs-good"
+  [ "$_ISO_RC" -eq 0 ] \
+    || fail "snapshot selftest: known-good isolation went RED (rc=$_ISO_RC): $(cat "$_ss/hs-good/out" 2>/dev/null)"
+  _ss_good_run="$(cat "$_ss/hs-good/running")"
+  case "$_ss_good_run" in
+    */target/check.snap.*/check.sh) ;;
+    *) fail "snapshot selftest: known-good did not re-exec a snapshot (running=$_ss_good_run)" ;;
+  esac
+  grep -q "$_SNAP_INTACT" "$_ss_good_run" \
+    || fail "snapshot selftest: running copy lost the intact sentinel"
+  if grep -q "$_SNAP_SHEARED" "$_ss_good_run"; then
+    fail "snapshot selftest: running copy contains the sheared token"
+  fi
+  grep -q "$_SNAP_SHEARED" "$_ss/tree/scripts/check.sh" \
+    && fail "snapshot selftest: source restore after known-good left the sheared token in the tree copy"
+
+  # (4) CHARTER pair. A suite that only runs leg 1 is the defect.
+  _sp_pair=0
+  cp "$ROOT/scripts/check.sh" "$_ss/tree/scripts/check.sh"
+  _snap_charter "$_ss/tree/scripts/check.sh" skip-exec \
+    || fail "snapshot selftest: CHARTER mutate (skip exec) failed"
+  _snap_run_isolation "$_ss/tree" "$_ss/hs-mutate"
+  [ "$_ISO_RC" -ne 0 ] \
+    || fail "CHARTER pair leg 1: skipping exec stayed GREEN when the source was sheared"
+  _sp_pair=$((_sp_pair + 1))
+
+  _snap_charter "$_ss/tree/scripts/check.sh" delete-assert \
+    || fail "snapshot selftest: CHARTER delete-assertion failed"
+  _snap_run_isolation "$_ss/tree" "$_ss/hs-del"
+  [ "$_ISO_RC" -eq 0 ] \
+    || fail "CHARTER pair leg 2: deleting the shear assertion did not return to GREEN (rc=$_ISO_RC): $(cat "$_ss/hs-del/out" 2>/dev/null)"
+  _sp_pair=$((_sp_pair + 1))
+  [ "$_sp_pair" -eq 2 ] \
+    || fail "ANTI-VACUOUS: CHARTER pair ran $_sp_pair legs, want 2 (a suite that only runs leg 1 is the defect)"
+
+  rm -rf "$_ss"
+  ok "concurrency lock proven (second run refused naming pid $$ · dead holder reclaimed · unwritable lock path ERRORs) · snapshot re-exec proven (shear isolated · empty copy ERRORs · CHARTER pair 2/2 · env guard)"
+fi
 
 echo "==> cdcp_registry_check (L1 claims constitution)"
 cargo run -q -p cdcp_registry_check || fail "registry-check"
