@@ -102,7 +102,7 @@
     return (
       "Pack missing for seed " +
       seed +
-      ". Generate it with: cargo run -q -p cdcp_cli -- export-web --seed " +
+      ". Generate it with: cdcp export-web --seed " +
       seed +
       " --out web/data"
     );
@@ -851,7 +851,7 @@
             url +
             "). Serve web/ over HTTP (file:// may block fetch). " +
             msg +
-            " If the file is missing: cargo run -q -p cdcp_cli -- export-web --seed " +
+            " If the file is missing: cdcp export-web --seed " +
             seed +
             " --out web/data"
         );
