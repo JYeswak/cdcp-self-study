@@ -1088,6 +1088,10 @@ def _selftest_known_bad() -> int:
             return 2
         leftovers = []
         for p in (out, parent / "objectives.json.tmp", Path(str(out) + ".tmp")):
+            # ABSENT-OK: leftover hunt; a missing or non-file path cannot be
+            # a leftover pass receipt. `out` is the planted directory; the
+            # .tmp names are what a failed atomic write would have left.
+            # Absence is the success this selftest asserts.
             if p.is_file():
                 text = p.read_text(encoding="utf-8", errors="replace")
                 if '"status": "pass"' in text or '"status":"pass"' in text:
