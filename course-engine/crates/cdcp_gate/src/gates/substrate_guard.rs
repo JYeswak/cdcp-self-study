@@ -91,8 +91,9 @@
 //! is still the live oracle ("load-bearing check.sh", "check.sh invokes",
 //! "check.sh hard-fails if", "byte-exact oracle", "oracle required") is checked
 //! against the invocation set derived from `scripts/check.sh`. Presence tests
-//! (`[ -f path ]`) and comments are not invocations. The rest of the sentence
-//! is still prose. It cannot tell a real migration bead from a plausible-looking
+//! (`[ -f path ]`) are not invocations but they ARE reachability: a "not on
+//! the check.sh path" reason for a presence-checked file is RED. Comments
+//! are neither. The rest of the sentence is still prose. It cannot tell a real migration bead from a plausible-looking
 //! id. It cannot tell an achievable `expires` from a date chosen to be far away.
 //! It reads none of the scripts it permits, so it says nothing about what they
 //! do. An author who wants a script in this tree can still get one in by
@@ -105,16 +106,22 @@
 //! ERROR, and an unlisted remaining oracle is an ERROR. Fixtures omit the
 //! table and the leg does not run.
 //!
-//! The invocation set itself is TRANSITIVE (bd-check-sh-transitive-invocation-gzvb).
+//! The invocation set itself is TRANSITIVE (bd-check-sh-transitive-invocation-gzvb,
+//! leftover presence/mjs: bd-transitive-invocation-blindspot-lcfj).
 //! A grep of `scripts/check.sh` does not enumerate what that file runs:
 //! `sh scripts/smoke_slo.sh` hides `python3 scripts/verify_bank.py`, and
 //! `CHECKER="scripts/verify_doc_consistency.py"` then `python3 "$CHECKER"` is
 //! invisible to a filename grep. `walk_invocations` follows sourced / `sh`
 //! children, resolves single-assignment `$VAR` targets for `python3` / `node` /
-//! `cargo run`, and treats an empty walk as an ERROR on the live orchestrator.
-//! A reason that says "not a check.sh step" / "not on the check.sh path" for a
-//! path the walk reaches is RED. Presence tests and comments are still not
-//! invokes. This walk cannot decide that a Rust `Command::new("python3")` runs.
+//! `cargo run`, reports every `[ -f path ]` presence check as a DISTINCT set
+//! (not an invoke), includes `node`/`.mjs` in the inventory (`js` stays
+//! out of the scan floor — bd-yp9x COST), and treats an empty walk
+//! as an ERROR on the live orchestrator. A reason that says "not a check.sh
+//! step" / "not on the check.sh path" for a path the walk reaches (invoke OR
+//! presence) is RED; the inverse (load-bearing / oracle-required for a path
+//! nothing reaches) is also RED. Comments are not invokes. This walk cannot
+//! decide that a Rust `Command::new("python3")` runs, and it does not follow
+//! `node` children into other `.mjs`.
 //!
 //! The identification legs have named blind spots, kept here rather than in a
 //! bead so they are read by whoever edits the rule:
@@ -1061,8 +1068,9 @@ pub fn check_sh_wires_guard(text: &str) -> bool {
 // tripwire will rot again.
 //
 // WHAT THIS DECIDES: whether a reason that CLAIMS check.sh runs the path is
-// matched by an invocation derived from scripts/check.sh. Presence tests
-// (`[ -f path ]`) and comments are not invocations.
+// matched by an invocation derived from scripts/check.sh, and whether a
+// reason that CLAIMS the path is off the check.sh path is contradicted by
+// an invoke OR a `-f` presence check. Presence tests are not invocations.
 //
 // WHAT THIS DOES NOT DECIDE: whether the rest of the English is true. An
 // authoring-helper reason that is lying about being an authoring helper is
@@ -1198,16 +1206,19 @@ pub struct HonestyFindings {
 /// — a fixture check.sh that only runs this gate invokes nothing, and that
 /// is how a planted "load-bearing check.sh" reason is shown to be a lie.
 ///
-/// Pass `invoked_override` (the transitive walk) to judge membership against
-/// what check.sh actually reaches, not a grep of check.sh itself.
+/// Pass `invoked_override` (the transitive walk) to judge invoke-claims against
+/// what check.sh actually runs, not a grep of check.sh itself. Pass
+/// `presence_override` so a "not on the check.sh path" reason is RED when
+/// the walk only `[ -f path ]`s the file.
 pub fn reason_honesty_findings(rows: &[Row], check_sh_text: Option<&str>) -> HonestyFindings {
-    reason_honesty_with_set(rows, check_sh_text, None)
+    reason_honesty_with_set(rows, check_sh_text, None, None)
 }
 
 pub fn reason_honesty_with_set(
     rows: &[Row],
     check_sh_text: Option<&str>,
     invoked_override: Option<&BTreeSet<String>>,
+    presence_override: Option<&BTreeSet<String>>,
 ) -> HonestyFindings {
     let mut out = HonestyFindings::default();
     if rows.is_empty() {
@@ -1246,9 +1257,10 @@ pub fn reason_honesty_with_set(
                 "[[allow]] {path}: reason claims this is a live check.sh oracle (\"load-bearing check.sh\" / \"check.sh invokes\" / \"check.sh hard-fails if\" / \"byte-exact oracle\" / \"oracle required\"), but {CHECK_SH_PATH} does not invoke that path"
             ));
         }
-        if reason_claims_not_on_check_sh(&r.reason) && invoked.contains(path) {
+        let reached = invoked.contains(path) || presence_override.is_some_and(|p| p.contains(path));
+        if reason_claims_not_on_check_sh(&r.reason) && reached {
             out.violations.push(format!(
-                "[[allow]] {path}: reason claims this is not a check.sh step / not on the check.sh path, but the transitive invocation walk reaches that path"
+                "[[allow]] {path}: reason claims this is not a check.sh step / not on the check.sh path, but the derived check.sh walk reaches that path (invoke or -f presence)"
             ));
         }
     }
@@ -1379,13 +1391,16 @@ pub fn inventory_findings(
 //
 // A grep of check.sh does not enumerate what check.sh runs. This walk follows
 // `sh` / `source` / `.` children and resolves single-assignment `$VAR` targets
-// for python3 / node / cargo run. Presence tests and comments are not invokes.
+// for python3 / node / cargo run. `[ -f path ]` lands in `presence`, never
+// `paths`. Comments are not either.
 
 /// What `scripts/check.sh` transitively reaches.
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct InvocationWalk {
     /// Repo-relative script paths (`scripts/foo.py`, `tests/voice-slop.sh`, …).
     pub paths: BTreeSet<String>,
+    /// `[ -f path ]` / `test -f path` targets. Distinct from invoke.
+    pub presence: BTreeSet<String>,
     /// `cargo run -p <pkg> -- <cmd>` records. Not followed into Rust.
     pub cargo: BTreeSet<String>,
     /// Shell files whose bodies were opened. Cycle-breaking, not an inventory.
@@ -1415,6 +1430,27 @@ pub fn require_nonempty_inventory(walk: &InvocationWalk) -> Result<(), String> {
         );
     }
     Ok(())
+}
+
+/// Floor derived from the tree: at least one walked path (invoke or presence)
+/// must exist on disk. A walk whose every target is a ghost is an ERROR.
+pub fn require_tree_derived_floor(
+    walk: &InvocationWalk,
+    exists: impl Fn(&str) -> bool,
+) -> Result<usize, String> {
+    let n = walk
+        .paths
+        .iter()
+        .chain(walk.presence.iter())
+        .filter(|p| exists(p))
+        .count();
+    if n == 0 {
+        return Err(
+            "tree-derived invocation/presence floor is 0 — a walk whose targets do not exist on disk is an ERROR, not a pass"
+                .into(),
+        );
+    }
+    Ok(n)
 }
 
 fn is_followable_shell(path: &str) -> bool {
@@ -1631,6 +1667,50 @@ fn extract_cargo_runs(code: &str, out: &mut BTreeSet<String>) {
     }
 }
 
+fn preceding_token(code: &str, at: usize) -> &str {
+    let before = code[..at].trim_end();
+    let bytes = before.as_bytes();
+    let mut i = bytes.len();
+    while i > 0 {
+        let c = bytes[i - 1] as char;
+        if c.is_ascii_whitespace() || matches!(c, ';' | '|' | '&' | '(' | ')' | '`') {
+            break;
+        }
+        i -= 1;
+    }
+    &before[i..]
+}
+
+/// `-f` is a presence test only inside `[` / `[[` / `test`. `rm -f` / `git add -f`
+/// are force flags and must not mint a presence row.
+fn collect_presence_tokens(code: &str, out: &mut Vec<String>) {
+    for (i, _) in code.char_indices() {
+        if !is_word_start(code, i) || !code[i..].starts_with("-f") {
+            continue;
+        }
+        let after = &code[i + 2..];
+        let boundary = match after.chars().next() {
+            None => true,
+            Some(c) => c.is_ascii_whitespace() || c == '"' || c == '\'',
+        };
+        if !boundary {
+            continue;
+        }
+        if !matches!(
+            preceding_token(code, i),
+            "[" | "[[" | "test" | "!" | "-a" | "-o"
+        ) {
+            continue;
+        }
+        if let Some(tok) = next_shell_token(after) {
+            let tok = tok.trim();
+            if !tok.is_empty() && tok != "]" && tok != "]]" && !tok.starts_with('-') {
+                out.push(tok.to_string());
+            }
+        }
+    }
+}
+
 /// Derive the transitive invocation set from `entry_text` (`scripts/check.sh`).
 ///
 /// `read` opens a child script. An invoked followable shell that cannot be
@@ -1674,6 +1754,13 @@ pub fn walk_invocations(
                             }
                         }
                     }
+                }
+            }
+            let mut pres = Vec::new();
+            collect_presence_tokens(code, &mut pres);
+            for tok in pres {
+                for path in resolve_invoke_token(&tok, &vars) {
+                    walk.presence.insert(path);
                 }
             }
         }
@@ -2307,8 +2394,18 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     // Each snapshot answers against ITS OWN check.sh AND the transitive
     // walk of that snapshot's children. A planted claim on the desk and a
     // clean index (or the reverse) is the bd-how shape for this field.
-    let wt_honesty = reason_honesty_with_set(&wt_al.allow, Some(&wt_check), Some(&wt_walk.paths));
-    let ix_honesty = reason_honesty_with_set(&ix_al.allow, Some(&ix_check), Some(&ix_walk.paths));
+    let wt_honesty = reason_honesty_with_set(
+        &wt_al.allow,
+        Some(&wt_check),
+        Some(&wt_walk.paths),
+        Some(&wt_walk.presence),
+    );
+    let ix_honesty = reason_honesty_with_set(
+        &ix_al.allow,
+        Some(&ix_check),
+        Some(&ix_walk.paths),
+        Some(&ix_walk.presence),
+    );
     let honesty_errs = merge(wt_honesty.errors, ix_honesty.errors);
     if !honesty_errs.is_empty() {
         return Err(GateError::error(format!(
@@ -2417,6 +2514,19 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
             )));
         }
     }
+    // Tree-derived floor is live-only: fixtures have no [oracle_inventory]
+    // and their check.sh often invokes only this gate (cargo run, no scripts).
+    if live {
+        if let Err(e) = require_tree_derived_floor(&wt_walk, wt_exists) {
+            return Err(GateError::error(e));
+        }
+        if let Err(e) = require_tree_derived_floor(&ix_walk, ix_exists) {
+            return Err(GateError::error(format!(
+                "{} — {e}",
+                Snapshot::Index.label()
+            )));
+        }
+    }
 
     if !quiet {
         let listed = ix_al.allow.len();
@@ -2438,8 +2548,9 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         );
         let py = wt_walk.python();
         println!(
-            "{NAME}: invocation inventory (transitive): paths={} cargo_run={} python={}: {}",
+            "{NAME}: invocation inventory (transitive): paths={} presence={} cargo_run={} python={}: {}",
             wt_walk.paths.len(),
+            wt_walk.presence.len(),
             wt_walk.cargo.len(),
             py.len(),
             if py.is_empty() {
@@ -3745,10 +3856,7 @@ python3 "$_anki_plant/scripts/export_anki.py"
             !set.is_empty(),
             "check.sh always calls something; a parser that found none did not parse"
         );
-        for must in [
-            "tests/voice-slop.sh",
-            "tests/publishability-bar.sh",
-        ] {
+        for must in ["tests/voice-slop.sh", "tests/publishability-bar.sh"] {
             assert!(set.contains(must), "missing invoke {must}: {set:?}");
         }
         for retired in [
@@ -3784,11 +3892,18 @@ python3 "$_anki_plant/scripts/export_anki.py"
         let walk = walk_invocations(&check, |p| std::fs::read_to_string(root.join(p)).ok())
             .expect("live walk");
         require_nonempty_inventory(&walk).expect("empty inventory is ERROR");
-        let h = reason_honesty_with_set(&al.allow, Some(&check), Some(&walk.paths));
+        let h = reason_honesty_with_set(
+            &al.allow,
+            Some(&check),
+            Some(&walk.paths),
+            Some(&walk.presence),
+        );
         assert!(
             h.errors.is_empty() && h.violations.is_empty(),
             "live allowlist reasons must be honest against the transitive walk: {h:?}"
         );
+        require_tree_derived_floor(&walk, |p| root.join(p).is_file())
+            .expect("tree-derived floor is 0");
     }
 
     #[test]
@@ -3962,7 +4077,7 @@ python3 "$_anki_plant/scripts/export_anki.py"
         );
         files.insert(
             "scripts/child_gzvb.sh".to_string(),
-            "#!/bin/sh\nCHECKER=\"scripts/nested_oracle.py\"\npython3 \"$CHECKER\"\nnode scripts/smoke.mjs\n"
+            "#!/bin/sh\nCHECKER=\"scripts/nested_oracle.py\"\npython3 \"$CHECKER\"\nnode scripts/smoke.mjs\n[ -f scripts/presence_only.py ] || exit 2\n"
                 .to_string(),
         );
         let walk = walk_invocations(files.get("scripts/check.sh").unwrap(), |p| {
@@ -3986,6 +4101,14 @@ python3 "$_anki_plant/scripts/export_anki.py"
             walk.paths.contains("scripts/smoke.mjs"),
             "node child missed: {walk:?}"
         );
+        assert!(
+            walk.presence.contains("scripts/presence_only.py"),
+            "presence-only plant missed: {walk:?}"
+        );
+        assert!(
+            !walk.paths.contains("scripts/presence_only.py"),
+            "a [ -f ] is not an invoke: {walk:?}"
+        );
     }
 
     #[test]
@@ -4005,6 +4128,7 @@ python3 "$_anki_plant/scripts/export_anki.py"
             &[r],
             Some("#!/bin/sh\nsh scripts/smoke_slo.sh\n"),
             Some(&invoked),
+            None,
         );
         assert!(h.errors.is_empty(), "{h:?}");
         assert_eq!(h.violations.len(), 1, "{h:?}");
@@ -4014,6 +4138,115 @@ python3 "$_anki_plant/scripts/export_anki.py"
                 || h.violations[0].contains("not a check.sh step"),
             "{h:?}"
         );
+    }
+
+    // ── bd-transitive-invocation-blindspot-lcfj leftovers ─────────────────
+
+    #[test]
+    fn presence_only_file_is_reported_distinct_from_invoke() {
+        let sh = "#!/bin/sh\n[ -f scripts/foo.py ] || exit 2\npython3 scripts/bar.py\nrm -f scripts/foo.py\n";
+        let walk = walk_invocations(sh, |_| None).expect("walk");
+        assert!(
+            walk.presence.contains("scripts/foo.py"),
+            "presence-only missed: {walk:?}"
+        );
+        assert!(
+            !walk.paths.contains("scripts/foo.py"),
+            "[ -f ] is not an invoke: {walk:?}"
+        );
+        assert!(walk.paths.contains("scripts/bar.py"), "{walk:?}");
+    }
+
+    #[test]
+    fn rm_dash_f_is_not_a_presence_check() {
+        let walk = walk_invocations(
+            "#!/bin/sh\nrm -f scripts/foo.py\ngit add -f scripts/foo.py\npython3 scripts/bar.py\n",
+            |_| None,
+        )
+        .expect("walk");
+        assert!(
+            !walk.presence.contains("scripts/foo.py"),
+            "rm/git -f is force, not presence: {walk:?}"
+        );
+    }
+
+    #[test]
+    fn not_on_path_claim_for_a_presence_only_path_is_red() {
+        let mut r = row("scripts/validate_grounding.py");
+        r.reason = "Differential oracle. Not a check.sh step.".into();
+        let sh =
+            "#!/bin/sh\n[ -f scripts/validate_grounding.py ] || exit 2\npython3 scripts/other.py\n";
+        let walk = walk_invocations(sh, |_| None).expect("walk");
+        assert!(walk.presence.contains("scripts/validate_grounding.py"));
+        assert!(!walk.paths.contains("scripts/validate_grounding.py"));
+        let h = reason_honesty_with_set(&[r], Some(sh), Some(&walk.paths), Some(&walk.presence));
+        assert!(h.errors.is_empty(), "{h:?}");
+        assert_eq!(h.violations.len(), 1, "{h:?}");
+        assert!(
+            h.violations[0].contains("scripts/validate_grounding.py"),
+            "{h:?}"
+        );
+    }
+
+    #[test]
+    fn nested_python3_invoke_of_an_oracle_only_row_is_red() {
+        // Known-bad direction 1: python3 inside a nested shell for a file
+        // whose row says oracle-only / not-on-path → RED. In-tree strings,
+        // no git apply.
+        let mut r = row("scripts/oracle_only.py");
+        r.reason = "Retained as oracle-only. Not on the check.sh path.".into();
+        let mut files: BTreeMap<String, String> = BTreeMap::new();
+        files.insert(
+            "scripts/check.sh".into(),
+            "#!/bin/sh\nsh scripts/nested_lcfj.sh\n".into(),
+        );
+        files.insert(
+            "scripts/nested_lcfj.sh".into(),
+            "#!/bin/sh\npython3 scripts/oracle_only.py\n".into(),
+        );
+        let walk = walk_invocations(files.get("scripts/check.sh").unwrap(), |p| {
+            files.get(p).cloned()
+        })
+        .expect("walk");
+        assert!(
+            walk.paths.contains("scripts/oracle_only.py"),
+            "nested python3 missed: {walk:?}"
+        );
+        let h = reason_honesty_with_set(
+            &[r],
+            files.get("scripts/check.sh").map(String::as_str),
+            Some(&walk.paths),
+            Some(&walk.presence),
+        );
+        assert!(h.errors.is_empty(), "{h:?}");
+        assert_eq!(h.violations.len(), 1, "{h:?}");
+        assert!(h.violations[0].contains("scripts/oracle_only.py"), "{h:?}");
+    }
+
+    #[test]
+    fn load_bearing_row_for_a_file_nothing_reaches_is_red() {
+        // Known-bad direction 2: mark a row load-bearing for a file nothing
+        // reaches → RED. Inverse of the nested-invoke plant.
+        let mut r = row("scripts/untouched.py");
+        r.reason = "Load-bearing check.sh gate".into();
+        let sh = "#!/bin/sh\n[ -f scripts/other.py ] || true\npython3 scripts/other.py\n";
+        let walk = walk_invocations(sh, |_| None).expect("walk");
+        assert!(!walk.paths.contains("scripts/untouched.py"));
+        assert!(!walk.presence.contains("scripts/untouched.py"));
+        let h = reason_honesty_with_set(&[r], Some(sh), Some(&walk.paths), Some(&walk.presence));
+        assert!(h.errors.is_empty(), "{h:?}");
+        assert_eq!(h.violations.len(), 1, "{h:?}");
+        assert!(h.violations[0].contains("scripts/untouched.py"), "{h:?}");
+        assert!(h.violations[0].contains("does not invoke"), "{h:?}");
+    }
+
+    #[test]
+    fn tree_derived_floor_of_zero_is_an_error() {
+        let walk =
+            walk_invocations("#!/bin/sh\npython3 scripts/ghost.py\n", |_| None).expect("walk");
+        require_nonempty_inventory(&walk).expect("invoke set is non-empty");
+        let e = require_tree_derived_floor(&walk, |_| false).unwrap_err();
+        assert!(e.contains("floor is 0"), "{e}");
     }
 
     #[test]
@@ -4074,6 +4307,54 @@ python3 "$_anki_plant/scripts/export_anki.py"
             "must follow sh scripts/smoke_slo.sh: {:?}",
             walk.paths
         );
+        require_tree_derived_floor(&walk, |p| root.join(p).is_file())
+            .expect("tree-derived floor is 0");
+        assert!(
+            walk.presence.contains("scripts/validate_grounding.py"),
+            "validate_grounding.py is [ -f ] only; must appear as presence: {:?}",
+            walk.presence
+        );
+        assert!(
+            !walk.paths.contains("scripts/validate_grounding.py"),
+            "validate_grounding.py is not invoked: {:?}",
+            walk.paths
+        );
+        // Tree-derived mjs floor: on-disk scripts/*.mjs ∩ walk. Do not pull
+        // js into the rust allowlist; do inventory node/mjs (bd-yp9x / lcfj).
+        let mut mjs_on_disk = BTreeSet::new();
+        if let Ok(rd) = std::fs::read_dir(root.join("scripts")) {
+            for ent in rd.flatten() {
+                let name = ent.file_name();
+                let name = name.to_string_lossy();
+                if name.ends_with(".mjs") {
+                    mjs_on_disk.insert(format!("scripts/{name}"));
+                }
+            }
+        }
+        assert!(
+            !mjs_on_disk.is_empty(),
+            "tree-derived mjs floor: scripts/*.mjs is empty"
+        );
+        let mjs_hit: BTreeSet<_> = mjs_on_disk.intersection(&walk.paths).cloned().collect();
+        assert!(
+            !mjs_hit.is_empty(),
+            "node gates on the path must appear in the inventory: on_disk={mjs_on_disk:?} walk={:?}",
+            walk.paths
+        );
+        for must in [
+            "scripts/smoke_srs.mjs",
+            "scripts/smoke_mastery.mjs",
+            "scripts/smoke_hub_mastery.mjs",
+            "scripts/smoke_quiz_approved.mjs",
+            "scripts/smoke_results_wasm.mjs",
+        ] {
+            if mjs_on_disk.contains(must) {
+                assert!(
+                    walk.paths.contains(must),
+                    "node {must} on disk and named from a followed shell: {mjs_hit:?}"
+                );
+            }
+        }
         // bd-checksh-cargo-run-attribution-tebe: check.sh compiles once, then
         // invokes ./target/debug/cdcp_gate (via run_cdcp_gate). cargo run of
         // this gate is the attribution leak this bead closes; the inventory
