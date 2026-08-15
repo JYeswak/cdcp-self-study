@@ -86,10 +86,16 @@ schema_version = 1
 # invoked as gates by check.sh) had never been inside the floor at all.
 #
 # EXTENSIONS are matched CASE-INSENSITIVELY (scripts/payload.PY was exit 0) and
-# cover the shell and python family, not two spellings (scripts/payload.bash was
-# exit 0). `js`/`mjs` are deliberately NOT here — see bd-yp9x.
+# cover the shell, python, and check.sh-invoked node family, not two spellings
+# (scripts/payload.bash was exit 0). `mjs` is IN the floor (bd-yp9x, 2026-08-15):
+# the four `scripts/*.mjs` check.sh runs, plus two tracked node helpers on that
+# path, are the same class as the remaining `.py`. `js` STAYS OUT: web/assets/js
+# is the learner product surface (wasm dual-path, not a cdcp_gate port).
+# COST (permanent, same form as the plzm beads_compliance_audit/ exclusion): an
+# unreasoned `.js` can be committed and this gate is silent. Adding `js` here
+# without any tracked `.js` is ERROR (empty scan).
 roots = ["scripts", "crates"]
-extensions = ["py", "pyw", "sh", "bash", "zsh", "ksh"]
+extensions = ["py", "pyw", "sh", "bash", "zsh", "ksh", "mjs"]
 include_engine_root_files = true
 
 [wiring]
@@ -495,4 +501,47 @@ expires = "2027-06-30"
 path = "scripts/verify_paraphrase_pairs.py"
 reason = "Load-bearing check.sh step: machine-checked ledger of measured paraphrase pairs C3 cannot see (bd-e1yt). Empty ledger / missing pair without adjudication is ERROR. The stem-overlap report this script prints is not a grader-of-record."
 migration_bead = "bd-e1yt"
+expires = "2027-02-28"
+
+# =============================================================================
+# bd-yp9x — check.sh-invoked node gates (mjs enters the floor; js stays out)
+# These are NOT the browser product surface. They are node gates on the
+# check.sh path, the same class as the remaining .py. web/assets/js is out;
+# see [scan] COST.
+# =============================================================================
+
+[[allow]]
+path = "scripts/smoke_srs.mjs"
+reason = "Load-bearing check.sh gate: node scripts/smoke_srs.mjs || fail (L6 short-interval review smoke). Node, not browser product JS. Ports with the L6 review path."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/smoke_mastery.mjs"
+reason = "Load-bearing check.sh gate: node scripts/smoke_mastery.mjs || fail (L6 mastery smoke). Node, not browser product JS. Ports with the L6 mastery path."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/smoke_hub_mastery.mjs"
+reason = "Load-bearing check.sh gate: node scripts/smoke_hub_mastery.mjs || fail (L6-S4 hub mastery). Node, not browser product JS. Ports with the L6 hub path."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/smoke_quiz_approved.mjs"
+reason = "Load-bearing check.sh gate: node scripts/smoke_quiz_approved.mjs || fail (approved-only quiz/units draw). Node, not browser product JS. The defect this catches is a browser draw Rust cannot see."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/smoke_results_wasm.mjs"
+reason = "Load-bearing check.sh gate: reached via sh scripts/e2e_l5_digest.sh which runs node scripts/smoke_results_wasm.mjs (L5 dual-path digest). Node, not browser product JS."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-02-28"
+
+[[allow]]
+path = "scripts/smoke_file_origin.mjs"
+reason = "Origin-contract helper spawned by smoke_hub_mastery.mjs (bd-hop9). The shell invocation walk does not follow node children, so this is not a check.sh-invoke claim. Ports with the hub-mastery smoke."
+migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-02-28"

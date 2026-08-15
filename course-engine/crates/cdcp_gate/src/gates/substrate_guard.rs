@@ -204,11 +204,23 @@
 //!   `scripts/payload.Py` were measured at exit 0. Cost of the fix: zero — the
 //!   tree tracks no upper-case `.py`/`.sh` today. A rule that a rename defeats is
 //!   not a rule.
-//! * **The extension floor is the SHELL AND PYTHON FAMILY**, not two spellings:
-//!   `py`, `pyw`, `sh`, `bash`, `zsh`, `ksh`. `scripts/payload.bash` was measured
-//!   at exit 0. `.js`/`.mjs` are NOT in the floor: `web/assets/js` is 16 tracked
-//!   browser files with their own wasm migration, and quietly folding them in
-//!   here would be a different project wearing this gate's name (bd-yp9x).
+//! * **The extension floor is the SHELL, PYTHON, AND CHECK.SH-INVOKED NODE
+//!   FAMILY**, not two spellings: `py`, `pyw`, `sh`, `bash`, `zsh`, `ksh`,
+//!   `mjs`. `scripts/payload.bash` was measured at exit 0. bd-yp9x (2026-08-15)
+//!   split what xmn5 left as one omission. The four `scripts/*.mjs` that
+//!   `scripts/check.sh` runs (`node scripts/smoke_*.mjs || fail`) plus the
+//!   two tracked node helpers on that path ARE the same class as the remaining
+//!   `.py` — load-bearing non-Rust gates — and they are now in the floor.
+//!   An unlisted `scripts/x.mjs` is RED. `.js` STAYS OUT: `web/assets/js`
+//!   (18 tracked learner files) plus `web/data/module_learn_slugs.js` is the
+//!   browser product surface; its migration is wasm (`cdcp_wasm` / dual-path),
+//!   not a `cdcp_gate` subcommand, and folding it in would make the row count
+//!   stop meaning python/shell/node-gate debt. COST (permanent, same form as
+//!   the plzm `beads_compliance_audit/` exclusion): an unreasoned `.js` can
+//!   be committed and this gate is silent. The L5/L6 node smokes and the wasm
+//!   dual-path bind that surface, not this floor. If `[scan].extensions`
+//!   names `js` or `mjs`, a live snapshot that tracks zero files of that
+//!   extension is ERROR — an empty scan is not a pass (bd-yp9x).
 //! * **Shebang sniffing: YES, but only where the extension rule is blind** —
 //!   a basename with no extension, or an entry git records `100755`.
 //!   `scripts/payload` holding `#!/usr/bin/env python3` was measured at exit 0.
@@ -255,7 +267,7 @@ use std::time::{Duration, Instant};
 
 pub const NAME: &str = "substrate-guard";
 pub const SUMMARY: &str =
-    "no .py/.sh may enter scripts//crates//root without a reasoned, dated, bead-linked allowlist row";
+    "no .py/.sh/.mjs may enter the engine tree without a reasoned, dated, bead-linked allowlist row";
 
 /// Where the registry lives, relative to the engine root.
 pub const REGISTRY_PATH: &str = "registries/substrate_allowlist.toml";
@@ -269,7 +281,7 @@ pub const CHECK_SH_PATH: &str = "scripts/check.sh";
 
 /// Extensions the registry may WIDEN but may never narrow below. Matched
 /// case-insensitively, so `.PY` is not a second spelling of an escape hatch.
-pub const FLOOR_EXTENSIONS: &[&str] = &["py", "pyw", "sh", "bash", "zsh", "ksh"];
+pub const FLOOR_EXTENSIONS: &[&str] = &["py", "pyw", "sh", "bash", "zsh", "ksh", "mjs"];
 /// Directories the registry may ADD to but may never drop.
 ///
 /// Since bd-xmn5 the scanned surface is the whole engine tree, so this list is a
@@ -433,6 +445,34 @@ pub fn check_floor(scan: &ScanCfg) -> Vec<String> {
         ));
     }
     v
+}
+
+/// Anti-vacuous for the js/mjs family (bd-yp9x).
+///
+/// `py`/`sh` cannot go empty here without deleting the floor itself. `js` and
+/// `mjs` can: adding the token to `[scan].extensions` without any tracked file
+/// of that extension is a claim that nothing judges. When the scan list names
+/// `js` or `mjs`, a snapshot that tracks zero files of that extension is ERROR.
+/// Callers apply this on the live registry (fixtures omit `[oracle_inventory]`
+/// and list `mjs` only so `check_floor` cannot be narrowed).
+pub fn empty_js_family_scan(scan: &ScanCfg, entries: &[Entry]) -> Vec<String> {
+    let mut out = Vec::new();
+    for ext in &scan.extensions {
+        let e = ext.to_ascii_lowercase();
+        if e != "js" && e != "mjs" {
+            continue;
+        }
+        let hits = entries
+            .iter()
+            .filter(|ent| extension_of(&ent.path).as_deref() == Some(e.as_str()))
+            .count();
+        if hits == 0 {
+            out.push(format!(
+                "{REGISTRY_PATH}: [scan].extensions claims {e:?} but this snapshot tracks 0 .{e} files — empty scan is ERROR, not a pass"
+            ));
+        }
+    }
+    out
 }
 
 pub fn check_wiring_status(w: &Wiring) -> Vec<String> {
@@ -2297,6 +2337,24 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         )));
     }
 
+    // bd-yp9x: claiming to scan js/mjs with zero files of that extension is
+    // ERROR. Fixtures omit [oracle_inventory]; they list mjs only so the
+    // compiled-in floor cannot be dropped in header().
+    let live_registry = wt_al.oracle_inventory.is_some() || ix_al.oracle_inventory.is_some();
+    if live_registry {
+        let js_errs = merge(
+            empty_js_family_scan(&wt_al.scan, &wt_entries),
+            empty_js_family_scan(&ix_al.scan, &ix_entries),
+        );
+        if !js_errs.is_empty() {
+            return Err(GateError::error(format!(
+                "{} js-family scan error(s): {}",
+                js_errs.len(),
+                js_errs.join(" | ")
+            )));
+        }
+    }
+
     // ── presence ────────────────────────────────────────────────────────────
     let mut violations = merge(
         unlisted_entries(&wt_entries, &wt_al.allow, &wt_al.scan),
@@ -2513,9 +2571,10 @@ mod tests {
         "scripts/a\\b.py",
         "scripts/a\\\\b.sh",
         "back\\slash.py",
+        // in scope and scanned (bd-yp9x: mjs is now a floor extension)
+        "scripts/smoke.mjs",
         // in scope, not scanned — no row is demanded and none is wanted
         "scripts/README",
-        "scripts/smoke.mjs",
         "crates/cdcp_gate/src/main.rs",
         // out of scope
         "docs/a.py",
@@ -2725,16 +2784,16 @@ expires = "2099-01-01"
         }
     }
 
-    /// ...and the widening stays bounded to what the floor is ABOUT. `.js`/`.mjs`
-    /// are 16 tracked browser files with their own wasm migration; folding them
-    /// in here would be a different project wearing this gate's name (bd-yp9x).
+    /// `.js` STAYS OUT (bd-yp9x). The browser product surface is not this
+    /// floor; folding it in would make the row count stop meaning
+    /// python/shell/node-gate debt. `.mjs` is in the floor — see
+    /// `unlisted_mjs_is_red`.
     #[test]
     fn non_script_files_still_pass_anywhere() {
         let v = unlisted(
             &[
                 "docs/notes.md".to_string(),
                 "web/data/x.json".to_string(),
-                "scripts/smoke_srs.mjs".to_string(),
                 "web/assets/js/app.js".to_string(),
                 "web/index.html".to_string(),
             ],
@@ -2743,8 +2802,17 @@ expires = "2099-01-01"
         );
         assert!(
             v.is_empty(),
-            "the floor is py/sh-family, not a dragnet: {v:?}"
+            "the floor is py/sh/mjs, not a dragnet over .js: {v:?}"
         );
+    }
+
+    #[test]
+    fn unlisted_mjs_is_red() {
+        for p in ["scripts/smoke_srs.mjs", "scripts/payload.MJS"] {
+            let v = unlisted(&[p.to_string()], &[], &scan());
+            assert_eq!(v.len(), 1, "{p} must be RED: {v:?}");
+            assert!(v[0].contains(p), "must name it: {v:?}");
+        }
     }
 
     // ── bd-xmn5: extensions are case-insensitive, and are a FAMILY ────────
@@ -2767,12 +2835,13 @@ expires = "2099-01-01"
     }
 
     #[test]
-    fn the_scanned_family_is_shell_and_python_not_two_spellings() {
+    fn the_scanned_family_is_shell_python_and_node_gates_not_two_spellings() {
         for p in [
             "scripts/payload.bash",
             "scripts/payload.zsh",
             "scripts/payload.ksh",
             "scripts/payload.pyw",
+            "scripts/payload.mjs",
         ] {
             let v = unlisted(&[p.to_string()], &[], &scan());
             assert_eq!(v.len(), 1, "{p} must be RED: {v:?}");
@@ -2947,8 +3016,8 @@ expires = "2099-01-01"
         let v = unlisted(
             &[
                 "scripts/README".to_string(),
-                "scripts/smoke_srs.mjs".to_string(),
                 "scripts/_module_page_template.html".to_string(),
+                "web/assets/js/app.js".to_string(),
             ],
             &[],
             &scan(),
@@ -3095,6 +3164,10 @@ expires = "2099-01-01"
         s.extensions = vec!["sh".into()];
         let v = check_floor(&s);
         assert!(v.iter().any(|m| m.contains("\"py\"")), "{v:?}");
+        assert!(
+            v.iter().any(|m| m.contains("\"mjs\"")),
+            "dropping mjs must be a floor-narrow: {v:?}"
+        );
     }
 
     #[test]
@@ -3114,9 +3187,46 @@ expires = "2099-01-01"
     #[test]
     fn registry_may_widen_the_floor() {
         let mut s = scan();
-        s.extensions.push("mjs".into());
+        // js is the deliberate omission (bd-yp9x). The registry may still
+        // name it; that is a reviewable widening, not a one-word disable.
+        s.extensions.push("js".into());
         s.roots.push("web".into());
         assert!(check_floor(&s).is_empty());
+    }
+
+    #[test]
+    fn empty_js_or_mjs_scan_is_an_error_when_claimed() {
+        let py_sh = ScanCfg {
+            roots: vec!["scripts".into(), "crates".into()],
+            extensions: vec!["py".into(), "sh".into()],
+            include_engine_root_files: true,
+        };
+        let none = [Entry::plain("scripts/a.py")];
+        assert!(
+            empty_js_family_scan(&py_sh, &none).is_empty(),
+            "py/sh-only claims do not invent a js scan"
+        );
+
+        let mut js_only = py_sh.clone();
+        js_only.extensions.push("js".into());
+        let v = empty_js_family_scan(&js_only, &none);
+        assert!(
+            v.iter()
+                .any(|m| m.contains("claims \"js\"") && m.contains("0 .js")),
+            "{v:?}"
+        );
+        let with_js = [Entry::plain("web/assets/js/app.js")];
+        assert!(empty_js_family_scan(&js_only, &with_js).is_empty());
+
+        let floor = scan();
+        let v = empty_js_family_scan(&floor, &none);
+        assert!(
+            v.iter()
+                .any(|m| m.contains("claims \"mjs\"") && m.contains("0 .mjs")),
+            "{v:?}"
+        );
+        let with_mjs = [Entry::plain("scripts/smoke_srs.mjs")];
+        assert!(empty_js_family_scan(&floor, &with_mjs).is_empty());
     }
 
     // ── known-bad: wiring status ─────────────────────────────────────────

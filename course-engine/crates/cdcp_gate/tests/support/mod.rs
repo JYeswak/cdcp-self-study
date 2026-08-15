@@ -29,11 +29,16 @@ pub fn good_row(path: &str) -> String {
 }
 
 pub fn header(wiring_status: &str) -> String {
+    let exts = cdcp_gate::gates::substrate_guard::FLOOR_EXTENSIONS
+        .iter()
+        .map(|e| format!("\"{e}\""))
+        .collect::<Vec<_>>()
+        .join(", ");
     format!(
         "schema_version = 1\n\n\
          [scan]\n\
          roots = [\"scripts\", \"crates\"]\n\
-         extensions = [\"py\", \"pyw\", \"sh\", \"bash\", \"zsh\", \"ksh\"]\n\
+         extensions = [{exts}]\n\
          include_engine_root_files = true\n\n\
          [wiring]\n\
          status = {wiring_status:?}\n\

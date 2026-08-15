@@ -98,15 +98,37 @@ fn good_non_scanned_surfaces_pass() {
     // tests/voice-slop.sh PASS, which was true and was the bug: both were
     // measured at exit 0 while `scripts/check.sh` was invoking two real shell
     // gates from tests/. What survives here is the half that is still the rule —
-    // the floor is the shell/python family, not a dragnet over every file.
+    // the floor is the shell/python/mjs family, not a dragnet over browser JS.
     let f = Fixture::new();
-    f.write("scripts/smoke.mjs", "console.log(1)\n");
     f.write("docs/notes.md", "# notes\n");
     f.write("web/data/x.json", "{}\n");
     f.write("web/assets/js/app.js", "console.log(1)\n");
     f.git(&["add", "-A"]);
     let (code, out) = f.gate(&["substrate-guard", "--staged"]);
     assert_eq!(code, OK, "the gate is a floor, not a dragnet: {out}");
+}
+
+/// bd-yp9x: an unlisted check.sh-class node gate is RED. MEASURED before the
+/// decision, staged in a clone: scripts/payload.mjs -> exit 0.
+#[test]
+fn bad_an_unlisted_mjs_is_red_now() {
+    let f = Fixture::new();
+    f.write("scripts/payload.mjs", "console.log(1)\n");
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+    assert_eq!(code, VIOLATION, "{out}");
+    assert!(out.contains("scripts/payload.mjs"), "must name it: {out}");
+}
+
+/// The browser product surface stays out. COST is named in the gate header:
+/// an unreasoned .js can land and this gate is silent.
+#[test]
+fn good_browser_js_is_still_outside_the_floor() {
+    let f = Fixture::new();
+    f.write("web/assets/js/payload.js", "console.log(1)\n");
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+    assert_eq!(code, OK, "js stays out (bd-yp9x COST): {out}");
 }
 
 /// The other half, inverted. MEASURED against the built binary in a clone before
@@ -276,24 +298,43 @@ fn the_live_repo_tree_has_no_unlisted_non_rust_file() {
         .iter()
         .filter(|e| sg::scan_reason(e, &al.scan).is_some())
         .collect();
-    // Floor tracks the live worklist (37 identified after
-    // bd-retire-oracle-on-behaviour-change-gna0 retired
-    // verify_content_lock.py; jhd.13 retired export_anki.py). A scan
-    // that judges nothing still reports like a clean one; do not lower
+    // Floor tracks the live worklist (36 py/sh-family + 6 mjs after bd-yp9x).
+    // A scan that judges nothing still reports like a clean one; do not lower
     // this without a matching port.
+    let mjs: Vec<&str> = identified
+        .iter()
+        .filter(|e| e.path.ends_with(".mjs") || e.path.ends_with(".MJS"))
+        .map(|e| e.path.as_str())
+        .collect();
     assert!(
-        identified.len() >= 37,
+        al.scan
+            .extensions
+            .iter()
+            .any(|e| e.eq_ignore_ascii_case("mjs")),
+        "live scan must claim mjs: {:?}",
+        al.scan.extensions
+    );
+    assert!(
+        !al.scan
+            .extensions
+            .iter()
+            .any(|e| e.eq_ignore_ascii_case("js")),
+        "js stays out (bd-yp9x); adding it requires rows and a non-empty js scan: {:?}",
+        al.scan.extensions
+    );
+    assert!(
+        mjs.len() >= 4,
+        "claimed to scan mjs but found {} — empty js/mjs scan is ERROR: {mjs:?}",
+        mjs.len()
+    );
+    assert!(
+        identified.len() >= 42,
         "only {} entries identified as non-Rust — the scan found nothing to judge; \
-         root={} tracked={} scan.exts={:?} sample_paths={:?} identified={:?}",
+         root={} tracked={} scan.exts={:?} mjs={mjs:?} identified={:?}",
         identified.len(),
         root.display(),
         entries.len(),
         al.scan.extensions,
-        entries
-            .iter()
-            .take(8)
-            .map(|e| e.path.as_str())
-            .collect::<Vec<_>>(),
         identified
             .iter()
             .map(|e| e.path.as_str())
