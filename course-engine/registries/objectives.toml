@@ -90,3 +90,9 @@ claim_ids = ["claim-interview-ready", "claim-domain-covered"]
 id = "obj-m03-aifactory-site-criteria"
 text = "Learner can speak AI-factory / neocloud site criteria as power + water rights + fiber + queue, not a brochure type list"
 claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m04-floor-types"
+text = "Learner distinguishes stringered vs free-standing/stringerless understructure and wood-core vs cementitious panels as the two main raised-floor type axes, and treats a vendor load row as example-not-code rather than a 250 psf statute"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+

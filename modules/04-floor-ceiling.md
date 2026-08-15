@@ -5,6 +5,7 @@
 By the end of this module you can:
 
 - Compare **raised-floor** vs **slab** (non-raised) white-space designs and explain when each is preferred today
+- Distinguish the two main **types** of raised floors: **stringered** vs **free-standing / stringerless** understructure, and **wood-core** vs **cementitious** panels
 - Define and apply **uniform**, **concentrated**, and **rolling** load ratings for access-floor systems
 - Name the main public standards and industry references used for raised floors and bonding practice
 - Explain **Signal Reference Grid (SRG)** / floor grounding concepts at a facilities interview level
@@ -16,7 +17,7 @@ By the end of this module you can:
 
 ## Why it matters (ops/design/TPM interview angle)
 
-If you come from network deploy, think of the raised floor and ceiling as the **physical underlay** for power, copper/fiber, and cold air—not “just finishing.” A missing perforated tile, a crushed pedestal, or a cable dam under the floor can drop an entire row the same way a bad BGP policy drops a region: the failure looks sudden on monitoring, but the root cause was layout and discipline months earlier.
+If you come from network deploy, think of the raised floor and ceiling as the **physical underlay** for power, copper/fiber, and cold air—not “just finishing.” A missing perforated tile, a crushed pedestal, or a cable dam under the floor can drop an entire row the same way a bad BGP policy drops a region: the failure looks sudden on monitoring, but the **contributing factors** were layout and discipline months earlier — **plural** (Module 15), never “root cause” singular.
 
 **Ops:** You will walk white space, pull tiles, run carts with servers, and open cutouts. Knowing load ratings, ramp rules, and “never leave a tile out” is day-one safety and availability.
 
@@ -48,6 +49,28 @@ A **raised access floor** (also called *access floor*, *computer floor*, or *rai
 
 **Why many modern halls reduce or skip raised floor:** overhead busway and ladder rack; **hot-aisle / cold-aisle containment**; higher rack densities where underfloor air cannot deliver enough volume cleanly; liquid cooling; lower CAPEX/OPEX and fewer trip/air-leak risks. **Slab + overhead distribution** is common in hyperscale and many new colo halls. Raised floor is still widely used in enterprise, telecom, and retrofit spaces—know both paradigms.
 
+### Types of raised floors
+
+The public heading (1.4.1) is “mention the two main types.” There are **two axes**. Do not collapse them into one pair, and do not answer with a load number.
+
+**Understructure — stringered vs free-standing / stringerless**
+
+| Type | What it is | Why it shows up |
+|------|------------|-----------------|
+| **Stringered** (often **bolted stringer**) | Horizontal **stringers** connect pedestals into a grid under the panels | Lateral stability and load sharing; common where rolling loads, frequent tile pulls, or seismic bracing matter |
+| **Free-standing / stringerless** (corner-lock, gravity, snap-on heads) | Panels sit on pedestal heads; no stringer is the primary load path | Faster install and easier cable pulls; stiffness comes from the panel-to-head lock and the field of panels acting together |
+
+Both are legitimate data-hall systems. A **corner-lock** head (panels locate on the pedestal) is a free-standing family. Ask which understructure the spec bought — not “which brand is a raised floor.”
+
+**Panel construction — wood-core vs cementitious**
+
+| Type | What it is | Why it shows up |
+|------|------------|-----------------|
+| **Wood-core** | Steel (or similar) skins over a wood-composite core | Lighter and easier to cut on site; more sensitive to humidity; still seen in offices and lighter equipment rooms |
+| **Cementitious** | Welded steel shell filled with a lightweight cementitious core | Heavier and stiffer; the usual **data-hall** panel in North America (rolling load, dimensional stability, non-combustibility story) |
+
+Aluminum and hollow all-steel panels exist; they are variants, not a third “main type” you must invent. When asked for the two main types, answer **stringered vs stringerless** first, then **wood-core vs cementitious**.
+
 ### Load types — uniform, concentrated, rolling
 
 Floor systems are rated for how much weight they can carry **without excessive deflection or permanent damage**. Three ratings appear constantly in specs and interviews:
@@ -69,6 +92,24 @@ Repeated load from a wheel or caster rolling across panels and joints—simulate
 - **Seismic / lateral:** stringers, seismic pedestals, and bracing matter where codes require them—separate from static load ratings.
 
 **Rule for practice:** When ops says “the floor is rated X,” ask **which rating** (uniform vs concentrated vs rolling), **per which standard/test**, and **what the governing equipment load path is** (casters, feet, isolation pads).
+
+### Example working magnitudes (example-not-code)
+
+A PM will ask “is **250 psf** / **12 kN/m²** / **1000 lbf** concentrated in the right *family*?” The family is real: **uniform** as force per area (**psf** or **kN/m²**), **concentrated** as a force (**lbf** or **kN**), **rolling** as a force **and** a pass count. **250 psf is not a statute.** Quote the sheet in front of you.
+
+One public vendor row so the magnitudes are hearable:
+
+**Source (example-not-code):** Tate Access Floors, *ConCore 1250 Access Floor Panel — LFFH PosiLock Understructure (Cornerlock)*, public specification, rev. 2026-02-02. One SKU, one understructure, CISCA methods on actual understructure. Not a code, not every hall, not the slab.
+
+| Rating on that sheet | Working number | Unit family |
+|----------------------|----------------|-------------|
+| Design / concentrated | **1250 lbf** (≈ **5.56 kN**) on 1 in² | **lbf / kN** |
+| Rolling, CISCA Wheel 1 | **1000 lbf**, **10** passes | **lbf × cycles** |
+| Rolling, CISCA Wheel 2 | **800 lbf**, **10 000** passes | **lbf × cycles** |
+| Ultimate (safety factor ≥ 2) | 2500 lbf | not a working load |
+| Uniform | **not published as the governing figure on this spec** | **psf / kN/m²** — do not invent **250 psf** to fill the cell |
+
+**Module 03 pointer:** “The warehouse floor is not enough” is a **site-selection** oral — the *building slab* needs UDL, concentrated, and rolling capacity (Module 03). This file rates the **access-floor system** that sits on that slab. Two surfaces; neither is “250 psf everywhere.”
 
 ### Floor standards and guidelines (public names)
 
@@ -140,6 +181,8 @@ Many high-density and hyperscale rooms **omit** decorative suspended ceilings an
 
 Floor and ceiling are **air handlers’ ductwork** when used as plenums.
 
+**Scope split:** this file owns the **floor-side** of plenum airflow (tiles, cutouts, cable dams, static pressure at the walking surface). **Module 09** owns the **plant and containment** side (CRAH/CRAC vs in-row, CAC/HAC, liquid families, heat rejection). A missing tile is a floor leak; whether the hall should have been contained or liquid-cooled is a Module 09 question.
+
 **Classic underfloor supply pattern:**
 
 1. CRAH/CRAC discharges cold air into the **underfloor plenum**.
@@ -160,7 +203,7 @@ Floor and ceiling are **air handlers’ ductwork** when used as plenums.
 
 **Static pressure intuition:** Think of the plenum like a tire. Every uncontrolled leak lowers pressure available at the far end of the room. Balancing is done with tile maps, dampers, CRAH setpoints, and increasingly **CFD** and aisle sensors—not by “adding more CRAC” blindly.
 
-**No-raised-floor cooling:** overhead supply, in-row coolers, rear-door heat exchangers, or liquid loops. The **ceiling/structure** still matters for return paths, clearances, and cable obstruction of airflow.
+**No-raised-floor cooling:** overhead supply, in-row coolers, rear-door heat exchangers, or liquid loops (plant detail in **Module 09**). The **ceiling/structure** still matters for return paths, clearances, and cable obstruction of airflow.
 
 ---
 
@@ -233,6 +276,7 @@ Hybrid (common): power underfloor or busway; data overhead; air underfloor OR in
 | Topic | Rule of thumb | Caveat |
 |-------|----------------|--------|
 | Load conversation | Always ask **concentrated** and **rolling**, not only uniform kN/m² | Test method matters |
+| Working magnitude | Quote the sheet in front of you (**example-not-code**) | Not a universal **250 psf** statute |
 | Rack placement | Compare rack foot/caster load to **concentrated** rating with margin | Isolation pads change contact area |
 | Cart traffic | Match cart + load to **rolling load** rating and path (use designated routes) | Repeated abuse fails floors slowly |
 | Plenum height | More height ≠ automatic free cooling capacity if leaks and blockages dominate | CFD / measured static pressure wins |
@@ -251,6 +295,8 @@ Hybrid (common): power underfloor or busway; data overhead; air underfloor OR in
 | Failure / myth | Reality |
 |----------------|---------|
 | “Uniform load is all we need for racks.” | Racks are **concentrated** (and moves are **rolling**). |
+| “Every DC floor is 250 psf.” | Not a statute. Ask **which rating** and **which test**; quote the sheet (**example-not-code**). |
+| “The two types are wood-core and stringered.” | Those are different axes: **panel core** vs **understructure**. |
 | “Any raised floor is fine for 20 kW racks.” | Air delivery and containment usually fail before the steel does; density is a **cooling architecture** problem. |
 | “One missing tile is harmless.” | It can dump plenum pressure and create hot spots rooms away. |
 | “Underfloor is always best for cabling.” | Cable dams kill airflow; many designs move data overhead. |
@@ -267,6 +313,9 @@ Hybrid (common): power underfloor or busway; data overhead; air underfloor OR in
 
 **Q1. Why might a new high-density AI training hall skip raised floor?**  
 **A:** Overhead power (busway), structured cabling on tray, and cooling via in-row, rear-door, or liquid systems often outperform underfloor air at high kW/rack. Skipping raised floor reduces cost, air-leak risk, and cable-dam problems, and simplifies heavy equipment roll-in on a structural slab designed for the load. Raised floor is not “wrong,” but it is no longer the default for every density class.
+
+**Q1b. What are the two main types of raised floors?**  
+**A:** Two axes. **Understructure:** stringered vs free-standing / stringerless (corner-lock). **Panel:** wood-core vs cementitious. Do not collapse those into one pair, and do not answer “250 psf vs 1000 lbf.”
 
 **Q2. Explain uniform vs concentrated vs rolling load to a non-engineer PM.**  
 **A:** Uniform is weight spread like a carpet of load across the tile. Concentrated is a heavy foot or cabinet corner pressing on one spot—the usual rack case. Rolling is a loaded cart wheel driving over tiles again and again—the delivery and maintenance case. You need all three in the conversation because the floor can pass one test and fail another in real life.
@@ -332,6 +381,12 @@ Hybrid (common): power underfloor or busway; data overhead; air underfloor OR in
    c) The primary seismic brace for racks  
    d) A replacement for protective earthing  
 
+9. **The two main types of raised floors (public heading 1.4.1) are best answered as:**  
+   a) 250 psf vs 1000 lbf  
+   b) Stringered vs free-standing/stringerless understructure, and wood-core vs cementitious panels  
+   c) CISCA vs Uptime Tier  
+   d) Raised floor vs the warehouse slab (that comparison is Module 03)
+
 ### Answers
 
 <details>
@@ -344,7 +399,8 @@ Hybrid (common): power underfloor or busway; data overhead; air underfloor OR in
 5. **b** — CISCA recommended test procedures for access floors.  
 6. **b** — Signal Reference Grid / equipotential bonding concept.  
 7. **b** — Accessibility codes + safe equipment movement.  
-8. **b** — Return plenum / concealment; not automatic and not a fire system.
+8. **b** — Return plenum / concealment; not automatic and not a fire system.  
+9. **b** — Two type axes (understructure and panel core), not a load number and not CISCA-as-Tier.
 
 </details>
 
@@ -361,10 +417,11 @@ Public standards and primers (no paywalled EPI courseware):
 - **ASHRAE TC 9.9** — *Thermal Guidelines for Data Processing Environments* and related free ASHRAE overview materials where published  
 - **BICSI** data centre design best-practice publications (library/institutional access varies; public white papers and conference summaries often available)  
 - **Manufacturer engineering guides** (public PDFs) from major access-floor vendors — read load tables, pedestal systems, and bonding notes with the understanding they are vendor literature  
+- **Tate Access Floors** — public ConCore 1250 LFFH PosiLock specification (the **example-not-code** row in this module; confirm the current revision at the vendor)  
 - **National electrical code / IEC wiring rules** in your jurisdiction — bonding and earthing requirements  
 - **U.S. Access Board / local accessibility codes** — ramp slope and landing concepts for level changes  
 
-**Study tip:** On your next white-space tour, note: floor height, stringer vs not, perforated tile map, visible bonding, ramp details, ceiling type (open vs return plenum), and one airflow risk (cable dam, open tile, hot-aisle perforation). Explaining that tour in five minutes is the mastery test for this module.
+**Study tip:** On your next white-space tour, note: floor height, **stringered vs stringerless**, **wood-core vs cementitious**, perforated tile map, visible bonding, ramp details, ceiling type (open vs return plenum), and one airflow risk (cable dam, open tile, hot-aisle perforation). Explaining that tour in five minutes is the mastery test for this module.
 
 ---
 
