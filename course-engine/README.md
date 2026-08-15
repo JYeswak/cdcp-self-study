@@ -66,9 +66,14 @@ scorecards/    # wave / layer outcome stamps
 CLI (from `course-engine/`):
 
 ```bash
+cargo run -p cdcp_cli -- doctor                 # preflight: bank, wasm, goldens, port, python3
+cargo run -p cdcp_cli -- health --robot         # versioned NDJSON envelope
+cargo run -p cdcp_cli -- repair                 # units + glossary + export-web; never goldens
 cargo run -p cdcp_cli -- bank-hash
 cargo run -p cdcp_cli -- grade --fixture goldens/fixtures/mock40_seed42.json --mode all-correct
 cargo run -p cdcp_cli -- goldens check
 cargo run -p cdcp_registry_check
 # UPDATE_GOLDENS=1 cargo run -p cdcp_cli -- goldens generate   # local + human review only
 ```
+
+`repair` is not a golden laundromat. Re-freezing `goldens/` still requires `UPDATE_GOLDENS=1` and the four-command block in `goldens/PROVENANCE.md`.

@@ -1,5 +1,7 @@
-//! cdcp CLI — grade / goldens / bank-hash / export-web / serve
+//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair
 #![forbid(unsafe_code)]
+
+mod operator;
 
 use cdcp_bank::Bank;
 use cdcp_core::{AnsweredItem, ChoiceLetter, ExamAttempt};
@@ -74,6 +76,33 @@ enum Cmd {
         /// Engine root (directory holding web/). Default: walk up from cwd.
         #[arg(long)]
         root: Option<PathBuf>,
+    },
+    /// Preflight: bank loads, wasm present and fresh, goldens present, port bindable, python3 present
+    Doctor {
+        /// Engine root. Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// Address `cdcp serve` would bind; doctor probes it and releases.
+        #[arg(long, default_value = operator::DEFAULT_BIND)]
+        bind: String,
+    },
+    /// Machine-readable tree status. `--robot` emits a versioned NDJSON envelope.
+    Health {
+        /// Engine root. Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// Emit one versioned NDJSON object on stdout (schema_version required).
+        #[arg(long)]
+        robot: bool,
+    },
+    /// Idempotent rebuild of units, glossary, and export-web. Never re-freezes goldens.
+    Repair {
+        /// Engine root. Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// Seed for export-web (default 42, the published form).
+        #[arg(long, default_value_t = 42)]
+        seed: u64,
     },
     Goldens {
         #[command(subcommand)]
@@ -225,6 +254,9 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::BuildUnits { root } => compile_learn(root.as_deref(), LearnKind::Units),
         Cmd::BuildGlossary { root } => compile_learn(root.as_deref(), LearnKind::Glossary),
         Cmd::SmokeLearnChrome { root } => smoke_learn_chrome(root.as_deref()),
+        Cmd::Doctor { root, bind } => operator::doctor(root.as_deref(), &bind),
+        Cmd::Health { root, robot } => operator::health(root.as_deref(), robot),
+        Cmd::Repair { root, seed } => operator::repair(root.as_deref(), seed),
         Cmd::Goldens { sub } => match sub {
             GoldensCmd::Check { bank, dir } => goldens_check(&bank, &dir),
             // `.ok()` here is fail-CLOSED, the opposite of the goldens-check
@@ -579,7 +611,7 @@ struct GoldenFixture {
     item_ids: Vec<String>,
 }
 
-fn export_web(
+pub(crate) fn export_web(
     bank_dir: &Path,
     seed: u64,
     out: &Path,
@@ -700,7 +732,12 @@ fn compile_learn(root: Option<&Path>, kind: LearnKind) -> Result<(), String> {
 fn write_json<T: serde::Serialize>(path: &Path, v: &T) -> Result<(), String> {
     let mut s = serde_json::to_string_pretty(v).map_err(|e| e.to_string())?;
     s.push('\n');
-    fs::write(path, s).map_err(|e| format!("{}: {e}", path.display()))
+    // Byte-compare before write so `repair` (and a second export-web) leave
+    // mtimes untouched when the packs already match. goldens_fixture also
+    // goes through here; it is still gated by UPDATE_GOLDENS=1 at the call
+    // site, and still never invoked from repair.
+    let _ = operator::write_bytes_if_changed(path, s.as_bytes())?;
+    Ok(())
 }
 
 // ── serve (V11) ─────────────────────────────────────────────────────────────

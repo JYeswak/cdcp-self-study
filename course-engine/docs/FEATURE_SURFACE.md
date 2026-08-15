@@ -12,6 +12,7 @@
 | CLI grade/goldens | **present** | `cdcp bank-hash` · `grade` · `goldens check|generate` |
 | CLI export-web | **present** | `cdcp export-web --bank --seed --out` — browser packs per `web/data/README.md`; seed 42 golden-pinned, other seeds practice-only |
 | CLI serve | **present** | `cdcp serve --root web --bind 127.0.0.1:8766` — local-only static server (pure std, no deps); GET/HEAD, path-traversal guarded |
+| CLI doctor/health/repair | **present** | `cdcp doctor` · `health --robot` · `repair` — operator surface; repair does not re-freeze goldens |
 | WASM dual-path | **present** | `web/assets/wasm/cdcp_wasm.wasm`; exercises `cdcp_wasm` crate |
 | Hub UI | **present** | `web/index.html` + routing; served by `cdcp serve` |
 | Mock exam UI | **present** | `web/mock.html`; byte-exact digest match with native grader |
