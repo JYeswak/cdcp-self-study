@@ -1,4 +1,4 @@
-//! `cdcp_learn` — the Learn compilers, chrome / Learn / diagram / a11y / weak-link smokes are product, not gate.
+//! `cdcp_learn` — the Learn compilers, chrome / Learn / diagram / a11y / weak-link / v2 smokes are product, not gate.
 //!
 //! `web/data/units_index.json` and `web/data/glossary.json` are LEARNER-VISIBLE.
 //! A learner reads the glossary and is scored against unit `check_item_ids`.
@@ -26,6 +26,7 @@ pub mod chrome;
 pub mod diagrams;
 pub mod feedback;
 pub mod glossary;
+pub mod learn_v2;
 pub mod smoke;
 pub mod units;
 pub mod weak_links;

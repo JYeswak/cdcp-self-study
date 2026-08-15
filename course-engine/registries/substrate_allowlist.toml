@@ -36,14 +36,15 @@
 # Porting a script to Rust means DELETING its row; a row whose file is gone is
 # itself an error.
 #
-# Measured 2026-08-15 (bd-allowlist-stale-load-bearing-seq9): check.sh's remaining
-# `python3 scripts/` invocations are two files — smoke_learn_v2.py,
-# export_anki.py. Ported verify_*.py / validate_*.py rows are
-# differential oracles, not check.sh gates. A reason that claims "load-bearing
-# check.sh" for a path check.sh does not invoke is RED. Rows below are
-# grandfathered EXPLICITLY and visibly; none of them arrived silently, and none
-# of them can stay past its date without someone re-affirming it in a reviewable
-# diff.
+# Measured 2026-08-15 (bd-allowlist-stale-load-bearing-seq9, updated jhd.20):
+# check.sh's remaining `python3 scripts/` invocation is export_anki.py
+# (bd-substrate-rust-migration-jhd.13). smoke_learn_v2.py retired with
+# bd-substrate-rust-migration-jhd.20. Ported verify_*.py / validate_*.py rows
+# are differential oracles, not check.sh gates. A reason that claims
+# "load-bearing check.sh" for a path check.sh does not invoke is RED. Rows
+# below are grandfathered EXPLICITLY and visibly; none of them arrived silently,
+# and none of them can stay past its date without someone re-affirming it in a
+# reviewable diff.
 # =============================================================================
 
 schema_version = 1
@@ -210,18 +211,11 @@ expires = "2026-12-31"
 # Undecodable/unreadable pages are a named FAIL (bd-a11y-undecodable-raises-6jmi closed).
 # Do NOT re-add a row for it.
 
-# =============================================================================
-# ON THE check.sh PATH BUT WITH NO PORT BEAD YET
-# This one runs inside check.sh and is load-bearing, but the epic's .2-.19
-# breakdown does not cover it. Short fuse on purpose: the first thing owed
-# here is a bead, not a port.
-# =============================================================================
-
-[[allow]]
-path = "scripts/smoke_learn_v2.py"
-reason = "Load-bearing check.sh smoke (M8-B/D Learn v2) that the .2-.18 port breakdown missed. Owed a port bead under the epic before this date."
-migration_bead = "bd-substrate-rust-migration-jhd"
-expires = "2026-10-31"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.20): scripts/smoke_learn_v2.py
+# is DELETED, not allowlisted. The smoke is `cdcp_learn::learn_v2` / `cdcp smoke-learn-v2`.
+# Empty units / empty M01 is ERROR (bd-learnv2-vacuous-coverage-dad8 closed).
+# Missing / malformed / non-UTF-8 input is a FAIL row (bd-learnv2-unguarded-reads-0f7g closed).
+# Do NOT re-add a row for it.
 
 # =============================================================================
 # AUTHORING / REGENERATION SCRIPTS — not on the check.sh path

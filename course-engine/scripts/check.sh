@@ -655,7 +655,7 @@ echo "==> cdcp build-glossary (M8-D glossary)";              cargo run -q -p cdc
 # After regenerate so this smoke sees THIS run's units_index, not last run's
 # (bd-wire-smoke-quiz-approved-7pju.1).
 echo "==> smoke_quiz_approved.mjs"; node scripts/smoke_quiz_approved.mjs || fail "approved-only quiz/units draw"; ok "no learner surface draws a non-approved item"
-echo "==> smoke_learn_v2.py";            python3 scripts/smoke_learn_v2.py      || fail "M8-B/D learn v2";  ok "M8-B/D learn v2 smoke"
+echo "==> cdcp smoke-learn-v2 (M8-B/D)"; cargo run -q -p cdcp_cli -- smoke-learn-v2 || fail "M8-B/D learn v2";  ok "M8-B/D learn v2 smoke"
 echo "==> cdcp smoke-diagrams (M8-C)";   cargo run -q -p cdcp_cli -- smoke-diagrams || fail "M8-C diagrams"; ok "M8-C diagrams smoke"
 echo "==> cdcp smoke-a11y (L7-S5)";      cargo run -q -p cdcp_cli -- smoke-a11y || fail "L7 a11y";          ok "L7 a11y baseline"
 echo "==> cdcp smoke-feedback-links (L7-S2)"; cargo run -q -p cdcp_cli -- smoke-feedback-links || fail "L7 feedback links"; ok "L7-S2 feedback section-anchor links smoke"
@@ -663,7 +663,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(cargo run -q -p cdcp_cli -- --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-units build-glossary smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links; do
+for v in bank-hash grade goldens export-web serve build-units build-glossary smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"

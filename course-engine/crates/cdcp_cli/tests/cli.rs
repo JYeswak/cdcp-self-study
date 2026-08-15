@@ -33,6 +33,7 @@ fn help_lists_learn_compilers() {
         "smoke-diagrams",
         "smoke-a11y",
         "smoke-weak-links",
+        "smoke-learn-v2",
     ] {
         assert!(
             stdout.contains(verb),
@@ -88,6 +89,16 @@ fn smoke_weak_links_live_tree_passes() {
     assert!(
         stdout.contains("PASS: smoke_weak_links"),
         "live weak-links smoke must PASS: {stdout}"
+    );
+}
+
+#[test]
+fn smoke_learn_v2_live_tree_passes() {
+    let assert = cdcp().arg("smoke-learn-v2").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("smoke_learn_v2: PASS"),
+        "live Learn v2 smoke must PASS: {stdout}"
     );
 }
 

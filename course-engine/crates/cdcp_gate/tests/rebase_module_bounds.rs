@@ -239,15 +239,17 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
     // mid-wave, hours after the old count-based assertion had gone green over
     // the same tree.
     (
-        "scripts/smoke_learn_v2.py",
-        "if (g.get(\"term_count\") or 0) < 15:",
+        "crates/cdcp_learn/src/learn_v2.rs",
+        "if n < 15.0 {",
         Shape::NumericBound,
         Verdict::NotAModuleBound,
-        "glossary term-count floor",
+        "glossary term-count floor, now in cdcp_learn (product). The Python \
+         oracle was deleted with bd-substrate-rust-migration-jhd.20. \
+         Not a module bound: it counts TERMS, and a floor cannot hold a module out.",
     ),
     (
-        "scripts/smoke_learn_v2.py",
-        "fail(\"glossary term_count < 15\")",
+        "crates/cdcp_learn/src/learn_v2.rs",
+        "r.fail(\"glossary term_count < 15\");",
         Shape::NumericBound,
         Verdict::NotAModuleBound,
         "message text for the term-count floor",
