@@ -1,9 +1,10 @@
-//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check
+//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site
 #![forbid(unsafe_code)]
 
 mod assemble;
 mod operator;
 mod oracle;
+mod site;
 
 use cdcp_bank::Bank;
 use cdcp_core::{AnsweredItem, ChoiceLetter, ExamAttempt};
@@ -64,6 +65,21 @@ enum Cmd {
         /// Perturb one published ref and empty the ledger; both must RED.
         #[arg(long, alias = "self-test")]
         selftest: bool,
+    },
+    /// Climate / seismic / carbon from vendored snapshots. No network.
+    Site {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// Compiled location id (`ashburn`, …).
+        #[arg(long)]
+        location: Option<String>,
+        /// WGS84 latitude (decimal degrees). Requires --lon.
+        #[arg(long, allow_hyphen_values = true)]
+        lat: Option<f64>,
+        /// WGS84 longitude (decimal degrees). West is negative. Requires --lat.
+        #[arg(long, allow_hyphen_values = true)]
+        lon: Option<f64>,
     },
     /// Ledger tripwire for measured paraphrase pairs C3 cannot see
     VerifyParaphrasePairs {
@@ -378,6 +394,12 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::CheckOsha { root } => check_osha(root.as_deref()),
         Cmd::VerifyDataLock { root, selftest } => verify_data_lock(root.as_deref(), selftest),
         Cmd::OracleCheck { root, selftest } => oracle::run(root.as_deref(), selftest),
+        Cmd::Site {
+            root,
+            location,
+            lat,
+            lon,
+        } => site::run(root.as_deref(), location.as_deref(), lat, lon),
         Cmd::VerifyParaphrasePairs {
             root,
             ledger,
