@@ -6,10 +6,11 @@ By the end of this module you can:
 
 1. Explain why monitoring and control systems are a primary ops risk surface—not “nice-to-have dashboards.”
 2. Distinguish **BMS** (Building Management System), **EMS** (Environmental Monitoring System), and **DCIM** (Data Center Infrastructure Management) by scope, typical data, and who owns them.
-3. List what a mission-critical site must sense and alarm: power chain, cooling plant, room environment, leaks, fire, security, and capacity (kW / space / ports).
+3. List what a mission-critical site must sense and alarm: power chain, cooling plant, room environment, leaks (including CDU / secondary-loop), fire, security, and capacity (kW / space / ports).
 4. Describe **water leak detection** placement, technology types, and response design under raised floors and around chilled-water plant.
 5. Design a practical **alarm and notification** model: severity tiers, escalation, on-call hygiene, and defenses against alarm fatigue.
 6. Relate auxiliary systems to change control, sensor calibration, and runbooks so interviews and floor ops stay grounded in process—not just tools.
+7. List first-class **CDU / secondary-loop** leak and liquid-loop telemetry points (flow, temperature, pressure) and why GPU rows need **seconds-scale** inlet or cold-plate rate-of-rise.
 
 ---
 
@@ -35,7 +36,7 @@ A data centre is a **coupled cyber-physical system**. Power feeds cooling; cooli
 |---|---|
 | **Heterogeneous protocols** | Modbus, BACnet, SNMP, dry contacts, proprietary vendor APIs, OPC-UA—often all in one site. |
 | **Multiple truth sources** | Building plant on BMS; rack environment on EMS; asset/capacity on DCIM; IT metrics on NMS/observability. |
-| **Latency and sampling** | A 15-minute average can hide a 2-minute thermal spike that trips equipment. |
+| **Latency and sampling** | A 15-minute average can hide a 2-minute thermal spike that trips equipment. On GPU rows, the relevant clock is **seconds**—inlet or cold-plate **rate-of-rise**, not only a static high-temp threshold. |
 | **False positives / alarm fatigue** | Too many emails → people mute; real events get ignored. |
 | **False negatives** | Sensor offline, dead battery in a wireless node, sticky float switch, “acked forever” alarm. |
 | **Human process gap** | Alarm fires but no runbook, no spare, no authority to shut a valve. |
@@ -147,9 +148,9 @@ flowchart TB
 Think in **chains**, not gadgets:
 
 1. **Power path:** Utility status → ATS → generator ready/running/fuel → UPS input/output/battery → main distribution → PDU/RPP → rack PDU (branch circuits where intelligent PDUs exist).
-2. **Cooling path:** Outdoor conditions → heat rejection → chillers/DX → pumps → CRAH/CRAC status → containment integrity → aisle and inlet temperatures.
+2. **Cooling path:** Outdoor conditions → heat rejection → chillers/DX → pumps → CRAH/CRAC status → containment integrity → aisle and inlet temperatures. On liquid rows: **CDU / secondary-loop** flow, temperature, pressure, leak, and seconds-scale inlet or cold-plate rate-of-rise (see CDU section).
 3. **Environment:** Temp/RH (or dew point), underfloor or overhead where design requires, high-density row sensors.
-4. **Water / leak:** See next section.
+4. **Water / leak:** CRAC/CHW/raised-floor **and** CDU / secondary-loop — see the next two sections.
 5. **Fire / life safety:** Supervisory points *to* ops dashboards; primary detection/suppression remains on listed systems (see fire module).
 6. **Security:** Door forced/held, mantrap faults, camera health (often separate VMS).
 7. **Capacity:** Planned vs measured kW, free U, network port/power port availability—DCIM domain.
@@ -173,7 +174,7 @@ Water is both a **cooling asset** (chilled water, condenser water, humidificatio
 - Around **chilled-water valve manifolds**, CRAH/CRAC bases, and **condensate** paths.
 - In **lowest points** and along likely flow paths under raised floor (water follows gravity and floor structure).
 - Near **humidifiers** and any **make-up water** equipment in or adjacent to IT space.
-- **Do not** rely on a single room-level rope if high-value rows or liquid-cooled racks exist—zone granularity should match response time you need.
+- **Do not** rely on a single room-level rope if high-value rows or liquid-cooled racks exist—zone granularity should match response time you need. A floor rope is **not** coverage of the CDU / secondary loop (next section).
 - After any floor work, **verify ropes are reconnected** and tested; cable breaks are a classic false-negative.
 
 **Response design matters as much as sensing:** Who gets paged? Who has authority to shut isolation valves? Is the isolation valve labeled and accessible without crawling under a hot row? Leak detection without isolation drills is incomplete.
@@ -188,6 +189,27 @@ Example underfloor leak layout (conceptual):
                               |
                          BMS / DCIM / NOC
 ```
+
+### CDU / secondary-loop leak and liquid-loop telemetry
+
+Raised-floor rope and CRAC/CHW spots remain necessary. They are **not sufficient** on a liquid-cooled GPU row. The **secondary loop** (CDU → hose/manifold → cold plate or RDHx → return) is its own leak and telemetry domain. Treat it as a first-class point list, not as “the CHW rope will see it.”
+
+Facility water (primary) and IT coolant (secondary) can fail independently. The isolation heat exchanger is the boundary — monitor **both** sides. Hardware families (RDHx / D2C / immersion / CDU) live in Module 09; this module owns the **points**.
+
+**First-class points (minimum mental list):**
+
+| Point class | What you sense | Why it is first-class |
+|---|---|---|
+| **CDU / cabinet leak** | Spot or rope at the CDU drip tray, pump/HX skid, quick-disconnects, and manifolds | A secondary-loop puddle can sit at the skid or in the hose tray and never wet the raised-floor rope |
+| **Secondary-loop leak** | Spots at rack QDCs, cold-plate or RDHx drip pans, hose trays; zone IDs that name the CDU/row | Isolation has to be the *loop*, not “the hall” |
+| **Flow** | Per-loop or per-CDU flow (or ΔP as a proxy) | Loss of flow cooks a GPU row on a seconds-scale even while the CHW plant looks green |
+| **Temperature** | CDU supply/return, and rack or cold-plate coolant temp | Absolute temperature *and* the derivative — see rate-of-rise |
+| **Pressure** | Loop pressure / differential | A hose burst or a closed isolation valve shows here before the floor rope |
+| **Seconds-scale rate-of-rise** | Inlet air **or** cold-plate / coolant temperature, sampled on a **seconds** scale | A 15-minute average can hide a trip; GPU rows leave the envelope faster than a CRAC return-air trend |
+
+**GPU-row time scale.** Page on **rate-of-rise** (inlet or cold-plate), not only on a static high-temp threshold. Loss of CDU redundancy (N+1 CDU down, still cooling) is a P2 — the same rule as CRAH: page on loss of redundancy, not on the last unit.
+
+Response still needs a named owner and an isolation path (which QDC, which CDU isolation valves). Do not invent a full 2026 CDU-leak EOP here; procedure craft is Module 15.
 
 ### Alarm panels
 
@@ -222,7 +244,7 @@ Notification is where technical systems meet human reliability.
 
 **Best practices:**
 
-1. **Alarm only what you will act on.** Orphan alarms train people to ignore everything.
+1. **Alarm only what you will act on.** Orphan alarms train people to ignore everything. A **status** indicator is not an alarm — see Module 15 (alarm-as-status).
 2. **Thresholds with hysteresis and dwell time.** Avoid flapping at 24.9 / 25.1 °C.
 3. **Correlate before fan-out.** “Utility fail + ATS transfer + UPS on battery” can be one incident, not twenty texts.
 4. **Escalation ladders.** Unacked P1 → secondary on-call → manager within defined minutes.
@@ -237,7 +259,7 @@ Notification is where technical systems meet human reliability.
 
 ### Change control, calibration, and “single pane of glass”
 
-- **Setpoints** are production config: changing CHW supply temperature or CRAC setpoints via BMS is a change-controlled act with thermal risk.
+- **Setpoints** are production config: changing CHW supply temperature or CRAC setpoints via BMS is a change-controlled act with thermal risk. See Module 15 for the **MOP** (level of use, hold points, abort) that makes a live setpoint change executable — do not treat a setpoint write as a dashboard click.
 - **Calibration:** Temperature/humidity sensors drift; leak ropes age; document interval and method. After floor tile work, re-verify.
 - **Single pane of glass** is a goal, not a purchase order. Prefer **single incident workflow** (one ticket, one bridge) even if multiple source systems feed it.
 - **Mapping:** Every critical alarm → asset location → isolation procedure → spare parts → owner. DCIM helps only if data is kept current.
@@ -263,6 +285,11 @@ Utility ──► ATS ──► UPS ──► PDU/RPP ──► Rack PDU ──�
 Cooling plant (BMS control) ──► CRAH ──► cold aisle ──► rack inlet (EMS)
                      │                      │
                      └──── CHW pipes / valves ── leak rope (EMS) ──► NOC
+
+CDU ── secondary loop ── cold plate / RDHx
+  │         │                  │
+  ├─ flow / temp / pressure    ├─ seconds-scale rate-of-rise (EMS)
+  └─ leak at skid / QDC / tray ┘
 ```
 
 ### Cabling / integration hierarchy (conceptual)
@@ -331,7 +358,10 @@ NOC tooling / ITSM / on-call (PagerDuty-class) / historian
 **A:** **BMS** automates and supervises **building plant** (sequences, setpoints, equipment status). **DCIM** manages **data-centre capacity, assets, and often facilities telemetry** for IT-space operations and planning—not a full substitute for plant control.
 
 **Q5. Why monitor loss of redundancy, not only total failure?**  
-**A:** Availability designs (N+1, 2N) spend capital so a single failure is survivable. If monitoring only pages when the last unit dies, you have converted a maintainable fault into an outage. Redundancy-loss alarms create time for repair under load.
+**A:** Availability designs (N+1, 2N) spend capital so a single failure is survivable. If monitoring only pages when the last unit dies, you have converted a maintainable fault into an outage. Redundancy-loss alarms create time for repair under load. Same rule on a GPU row: page when an N+1 CDU drops, not when the last loop dies.
+
+**Q6. Raised-floor leak rope is green. A liquid-cooled GPU row is still a monitoring hole — what points are missing?**  
+**A:** The **CDU / secondary loop** is a separate domain from CRAC/CHW/raised-floor rope. First-class points: leak at the CDU skid, QDCs, hose trays, and cold-plate/RDHx drip pans; loop **flow**, **temperature**, and **pressure** (both sides of the isolation HX); and **seconds-scale** inlet or cold-plate **rate-of-rise**. A 15-minute average and a hall-level rope will not catch a hose burst or a dry loop in time. Name the sensor, the setpoint, the owner, and the isolation valve — wallpaper otherwise.
 
 ---
 
@@ -385,6 +415,12 @@ NOC tooling / ITSM / on-call (PagerDuty-class) / historian
    c) Only generator jacket water temp  
    d) Only UPS battery room ambient  
 
+9. **On a liquid-cooled GPU row, first-class monitoring includes:**  
+   a) Only the raised-floor CHW rope — the CDU loop is covered by the hall zone  
+   b) CDU / secondary-loop leak plus flow / temp / pressure, and seconds-scale inlet or cold-plate rate-of-rise  
+   c) A 15-minute CRAC-return average as the trip clock  
+   d) Treating Availability Class as a substitute for TIA Rated or Uptime Tier  
+
 ### Answers
 
 <details>
@@ -397,7 +433,8 @@ NOC tooling / ITSM / on-call (PagerDuty-class) / historian
 5. **b** — Capacity/assets/process; EMS is environment-centric.  
 6. **b** — Blindness is a fault mode.  
 7. **b** — Supervisory integration ≠ replacing listed systems.  
-8. **b** — Inlet conditions drive equipment risk; align with ASHRAE TC 9.9 guidance classes.
+8. **b** — Inlet conditions drive equipment risk; align with ASHRAE TC 9.9 guidance classes.  
+9. **b** — Secondary loop is its own domain; hall rope and 15-minute averages are the wrong coverage and the wrong clock. Availability Class is taught in Module 02; vocabulary alongside TIA, not a substitute for Rated or Tier.
 
 </details>
 
@@ -411,7 +448,7 @@ Public standards, guidelines, and primers (no paywalled EPI courseware):
 |---|---|
 | **ASHRAE TC 9.9** thermal guideline overviews (ASHRAE public summaries / technical committee materials) | Temperature/humidity envelopes that EMS thresholds should respect. |
 | **ANSI/TIA-942** family (public overviews; purchase full standard if needed) | Data centre infrastructure rating concepts; monitoring often appears in operational readiness discussions. |
-| **ISO/IEC 22237** series (European EN 50600 family context) | Facility design availability classes; useful vocabulary alongside TIA. |
+| **ISO/IEC 22237** series (European EN 50600 family context) | Facility design availability classes — taught in Module 02; vocabulary alongside TIA, not equal to Rated or Tier. |
 | **EN 50600** public abstracts / national body summaries | EU data centre facility standard series overview. |
 | **NFPA 75** (IT equipment) and **NFPA 76** (telecom) public scopes; **NFPA 72** for fire alarm concepts | Boundaries between IT fire protection and alarm systems (use with local code). |
 | **NIST SP 800-82** (OT/ICS security guide) | Securing BMS and industrial control-style networks. |
