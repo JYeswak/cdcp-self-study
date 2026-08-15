@@ -13,10 +13,12 @@
 //! target is installed. Running the ignored test without an artifact panics.
 //! `CDCP_FORCE_WASM_MISSING=1` forces that panic (anti-vacuous plant).
 
+use cdcp_assess::{Item, Quantity, Ratio, Response, SetCredit, Tolerance, ToleranceKind};
 use cdcp_bank::Bank;
 use cdcp_grade::{all_correct_attempt, all_wrong_attempt, grade_digest};
 use cdcp_wasm::{
-    engine_identities, grade_digest_json, ENGINE_IDENTITY_ORACLE, ENGINE_IDENTITY_SUBJECT,
+    engine_identities, grade_digest_json, score_digest_json, ENGINE_IDENTITY_ORACLE,
+    ENGINE_IDENTITY_SUBJECT,
 };
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -105,11 +107,12 @@ fn wasm_artifact_or_fail(result: Result<PathBuf, String>) -> PathBuf {
     })
 }
 
-/// Call guest `cdcp_grade_digest` via wasmtime linear memory.
-fn wasm_grade_digest(
+/// Call a two-buffer guest digest export via wasmtime linear memory.
+fn wasm_two_json_digest(
     wasm_path: &Path,
-    bank_json: &str,
-    attempt_json: &str,
+    export: &str,
+    left: &str,
+    right: &str,
 ) -> Result<String, String> {
     use wasmtime::*;
 
@@ -129,9 +132,9 @@ fn wasm_grade_digest(
     let free = instance
         .get_typed_func::<(u32, u32), ()>(&mut store, "cdcp_free")
         .map_err(|e| format!("cdcp_free: {e}"))?;
-    let grade = instance
-        .get_typed_func::<(u32, u32, u32, u32), i32>(&mut store, "cdcp_grade_digest")
-        .map_err(|e| format!("cdcp_grade_digest: {e}"))?;
+    let digest = instance
+        .get_typed_func::<(u32, u32, u32, u32), i32>(&mut store, export)
+        .map_err(|e| format!("{export}: {e}"))?;
     let last_ptr = instance
         .get_typed_func::<(), u32>(&mut store, "cdcp_last_ptr")
         .map_err(|e| format!("cdcp_last_ptr: {e}"))?;
@@ -155,12 +158,12 @@ fn wasm_grade_digest(
         Ok((ptr, len))
     };
 
-    let (bank_ptr, bank_len) = write_str(&mut store, &alloc, &memory, bank_json)?;
-    let (att_ptr, att_len) = write_str(&mut store, &alloc, &memory, attempt_json)?;
+    let (left_ptr, left_len) = write_str(&mut store, &alloc, &memory, left)?;
+    let (right_ptr, right_len) = write_str(&mut store, &alloc, &memory, right)?;
 
-    let rc = grade
-        .call(&mut store, (bank_ptr, bank_len, att_ptr, att_len))
-        .map_err(|e| format!("grade call: {e}"))?;
+    let rc = digest
+        .call(&mut store, (left_ptr, left_len, right_ptr, right_len))
+        .map_err(|e| format!("{export} call: {e}"))?;
 
     let out_ptr = last_ptr
         .call(&mut store, ())
@@ -173,15 +176,124 @@ fn wasm_grade_digest(
         .read(&store, out_ptr, &mut buf)
         .map_err(|e| format!("mem read: {e}"))?;
 
-    let _ = free.call(&mut store, (bank_ptr, bank_len));
-    let _ = free.call(&mut store, (att_ptr, att_len));
+    let _ = free.call(&mut store, (left_ptr, left_len));
+    let _ = free.call(&mut store, (right_ptr, right_len));
 
     let text = String::from_utf8(buf).map_err(|e| format!("utf8 out: {e}"))?;
     if rc < 0 {
-        Err(format!("wasm grade error: {text}"))
+        Err(format!("wasm {export} error: {text}"))
     } else {
         Ok(text)
     }
+}
+
+/// Call guest `cdcp_grade_digest` via wasmtime linear memory.
+fn wasm_grade_digest(
+    wasm_path: &Path,
+    bank_json: &str,
+    attempt_json: &str,
+) -> Result<String, String> {
+    wasm_two_json_digest(wasm_path, "cdcp_grade_digest", bank_json, attempt_json)
+}
+
+/// Call guest `cdcp_score_digest` via wasmtime linear memory.
+fn wasm_score_digest(
+    wasm_path: &Path,
+    item_json: &str,
+    response_json: &str,
+) -> Result<String, String> {
+    wasm_two_json_digest(wasm_path, "cdcp_score_digest", item_json, response_json)
+}
+
+/// Always rebuild so a stale wasm without `cdcp_score_digest` cannot look like
+/// a dual-path mismatch. Does not install under `web/assets/wasm/` (that pin
+/// is a separate golden; this leftover does not re-freeze it).
+fn force_wasm_built() -> Result<PathBuf, String> {
+    if std::env::var("CDCP_FORCE_WASM_MISSING").ok().as_deref() == Some("1") {
+        return Err("CDCP_FORCE_WASM_MISSING=1 (anti-vacuous: no artifact)".into());
+    }
+    let root = repo_root();
+    let status = Command::new("cargo")
+        .args([
+            "build",
+            "-p",
+            "cdcp_wasm",
+            "--target",
+            "wasm32-unknown-unknown",
+            "--manifest-path",
+        ])
+        .arg(root.join("Cargo.toml"))
+        .current_dir(&root)
+        .status()
+        .map_err(|e| format!("spawn cargo: {e}"))?;
+    if !status.success() {
+        return Err(format!(
+            "cargo build -p cdcp_wasm --target wasm32-unknown-unknown failed: {status}"
+        ));
+    }
+    let built = root.join("target/wasm32-unknown-unknown/debug/cdcp_wasm.wasm");
+    if built.is_file() {
+        Ok(built)
+    } else {
+        Err(format!(
+            "wasm artifact missing after build: {}",
+            built.display()
+        ))
+    }
+}
+
+struct AssessFixture {
+    label: &'static str,
+    item_json: String,
+    response_json: String,
+    pin: &'static str,
+}
+
+/// Three kinds named in the leftover. Digests are over ScoreReport, not the
+/// item body. Single-select pin is the 64t.1 crate pin (still valid).
+fn assess_fixtures() -> Vec<AssessFixture> {
+    let single = Item::single_select(["utility", "genset", "both", "neither"], "genset").unwrap();
+    let single_ok = Response::single_select("genset").unwrap();
+
+    let multi = Item::multi_select(
+        ["A-side", "B-side", "tie", "spare"],
+        ["A-side", "B-side"],
+        SetCredit::Jaccard,
+    )
+    .unwrap();
+    let multi_subset = Response::multi_select(["A-side"]).unwrap();
+
+    let numeric = Item::numeric_range(
+        Quantity::new(Ratio::from_int(72), "kW").unwrap(),
+        Tolerance::new(ToleranceKind::Absolute, Ratio::from_int(1)).unwrap(),
+    )
+    .unwrap();
+    let numeric_ok =
+        Response::numeric_range(Quantity::new(Ratio::from_int(72), "kW").unwrap()).unwrap();
+
+    vec![
+        AssessFixture {
+            label: "single-select",
+            item_json: serde_json::to_string(&single).unwrap(),
+            response_json: serde_json::to_string(&single_ok).unwrap(),
+            // {"earned":1,"full_credit":true,"kind":"single-select","out_of":1}
+            pin: "b86064f06cabce71277297df37e985b36da1546566618b22e0a3ef628bfa9dba",
+        },
+        AssessFixture {
+            label: "multi-select",
+            item_json: serde_json::to_string(&multi).unwrap(),
+            response_json: serde_json::to_string(&multi_subset).unwrap(),
+            // Jaccard 1/2 → {"earned":1,"full_credit":false,"kind":"multi-select","out_of":2}
+            pin: "5069e0aeca632a42ef29973ee9055437a94876934f61e12c9448d80dde714b30",
+        },
+        AssessFixture {
+            label: "numeric-range",
+            item_json: serde_json::to_string(&numeric).unwrap(),
+            response_json: serde_json::to_string(&numeric_ok).unwrap(),
+            // {"earned":1,"full_credit":true,"kind":"numeric-range","out_of":1}
+            pin: "610b51a19742bf708672567fe7d251cdf522db4736a624af52ab139ca84dcf0e",
+        },
+    ]
 }
 
 #[test]
@@ -275,4 +387,73 @@ fn native_equals_wasm_mock40_seed42() {
         assert_eq!(native.len(), 64, "{label}: digest width");
         println!("ok dual-path {label}: {native}");
     }
+}
+
+#[test]
+fn native_assess_json_path_matches_pins() {
+    for fx in assess_fixtures() {
+        let native = score_digest_json(&fx.item_json, &fx.response_json)
+            .unwrap_or_else(|e| panic!("{} native digest: {e}", fx.label));
+        assert_eq!(
+            native, fx.pin,
+            "{} pin drifted — recompute and record",
+            fx.label
+        );
+        assert_eq!(native.len(), 64, "{} digest width", fx.label);
+        assert!(
+            native.chars().all(|c| matches!(c, '0'..='9' | 'a'..='f')),
+            "{} digest not lowercase hex",
+            fx.label
+        );
+    }
+}
+
+/// Should-fail: a bare JSON number is not a quantity. Green here would mean
+/// the schema floor is gone.
+#[test]
+fn assess_bare_number_is_error_not_digest() {
+    let item = r#"{"kind":"numeric-range","expected":72,"tolerance":{"kind":"absolute","magnitude":{"num":1,"den":1}}}"#;
+    let response =
+        r#"{"kind":"numeric-range","submitted":{"value":{"num":72,"den":1},"units":"kW"}}"#;
+    let err = score_digest_json(item, response).expect_err("bare number must not score");
+    assert!(!err.is_empty(), "empty error string is not a typed failure");
+}
+
+#[test]
+#[ignore = "requires wasm32 artifact; cargo test -- --include-ignored (check.sh L4)"]
+fn native_equals_wasm_typed_assess() {
+    let wasm_path = wasm_artifact_or_fail(force_wasm_built());
+    eprintln!("using wasm subject: {}", wasm_path.display());
+    let (oracle, subject) = engine_identities();
+    assert_ne!(oracle, subject);
+
+    for fx in assess_fixtures() {
+        let native = score_digest_json(&fx.item_json, &fx.response_json)
+            .unwrap_or_else(|e| panic!("{}: native: {e}", fx.label));
+        assert_eq!(native, fx.pin, "{}: pin", fx.label);
+
+        let wasm_hex = wasm_score_digest(&wasm_path, &fx.item_json, &fx.response_json)
+            .unwrap_or_else(|e| panic!("{}: wasm subject failed: {e}", fx.label));
+        assert_eq!(
+            native, wasm_hex,
+            "{}: dual-path mismatch oracle={oracle} subject={subject}\n native={native}\n wasm  ={wasm_hex}",
+            fx.label
+        );
+        println!("ok assess dual-path {}: {native}", fx.label);
+    }
+
+    // Should-fail on the subject too: a crash that returned a digest would
+    // still match a crashed oracle. The plant must be Err on both sides.
+    let bad_item = r#"{"kind":"numeric-range","expected":72,"tolerance":{"kind":"absolute","magnitude":{"num":1,"den":1}}}"#;
+    let bad_resp =
+        r#"{"kind":"numeric-range","submitted":{"value":{"num":72,"den":1},"units":"kW"}}"#;
+    assert!(
+        score_digest_json(bad_item, bad_resp).is_err(),
+        "native plant must stay red"
+    );
+    let wasm_err = wasm_score_digest(&wasm_path, bad_item, bad_resp);
+    assert!(
+        wasm_err.is_err(),
+        "wasm plant must be Err, got {wasm_err:?}"
+    );
 }

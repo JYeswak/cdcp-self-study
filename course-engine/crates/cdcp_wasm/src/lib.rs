@@ -1,10 +1,13 @@
-//! WASM dual-path surface (ORACLE-GAUNTLET L4 + schedule law).
+//! WASM dual-path surface (ORACLE-GAUNTLET L4 + schedule law + typed assess).
 //!
-//! **Oracle** = native `cdcp_grade` / `cdcp_schedule` on the host.
+//! **Oracle** = native `cdcp_grade` / `cdcp_schedule` / `cdcp_assess` on the host.
 //! **Subject** = this crate compiled to `wasm32-unknown-unknown`.
-//! **Comparator** = hex digest equality for grade; numeric equality for schedule.
+//! **Comparator** = hex digest equality for grade and typed assess; numeric
+//! equality for schedule.
 //!
 //! Fixed-bank grade path only (no assemble / shuffle) — valid L4 for frozen fixtures.
+//! Typed assess extends that contract past four letters: item JSON + response
+//! JSON → `ScoreReport` digest, integer/rational scoring only.
 //! Schedule exports the short-interval ladder and mastery thresholds so the
 //! browser cannot keep a second, unpinned implementation of those laws.
 //!
@@ -37,6 +40,17 @@ pub fn grade_digest_json(bank_json: &str, attempt_json: &str) -> Result<String, 
     let attempt: ExamAttempt =
         serde_json::from_str(attempt_json).map_err(|e| format!("attempt json: {e}"))?;
     grade_digest(&bank, &attempt).map_err(|e| e.to_string())
+}
+
+/// Typed-assess digest from JSON payloads (works on native and wasm).
+///
+/// * `item_json` — `cdcp_assess::Item` (tagged `kind`).
+/// * `response_json` — `cdcp_assess::Response` (tagged `kind`, must match).
+///
+/// Returns lowercase hex SHA-256 of canonical `ScoreReport`. Scoring is
+/// integer/rational only — this wrapper does not introduce f32/f64 compares.
+pub fn score_digest_json(item_json: &str, response_json: &str) -> Result<String, String> {
+    cdcp_assess::score_digest_json(item_json, response_json).map_err(|e| e.to_string())
 }
 
 /// Subject/oracle identity pair for comparator entry checks.
@@ -87,7 +101,7 @@ mod abi {
     //! 4. On failure (return < 0): error UTF-8 length is `-rc`, bytes at `cdcp_last_ptr()`.
     //! 5. Host calls `cdcp_free` on alloc'd input buffers when done.
 
-    use super::grade_digest_json;
+    use super::{grade_digest_json, score_digest_json};
     use std::cell::RefCell;
 
     thread_local! {
@@ -121,6 +135,38 @@ mod abi {
     #[no_mangle]
     pub extern "C" fn cdcp_last_len() -> usize {
         LAST.with(|c| c.borrow().len())
+    }
+
+    /// Returns hex length (≥0) on success, or `-err_len` on failure.
+    ///
+    /// # Safety
+    /// Pointers must refer to valid UTF-8 buffers of the given lengths in wasm linear memory.
+    #[no_mangle]
+    pub unsafe extern "C" fn cdcp_score_digest(
+        item_ptr: *const u8,
+        item_len: usize,
+        response_ptr: *const u8,
+        response_len: usize,
+    ) -> i32 {
+        let item = std::slice::from_raw_parts(item_ptr, item_len);
+        let response = std::slice::from_raw_parts(response_ptr, response_len);
+        let item_s = match std::str::from_utf8(item) {
+            Ok(s) => s,
+            Err(e) => return store_err(format!("item utf8: {e}")),
+        };
+        let response_s = match std::str::from_utf8(response) {
+            Ok(s) => s,
+            Err(e) => return store_err(format!("response utf8: {e}")),
+        };
+        match score_digest_json(item_s, response_s) {
+            Ok(hex) => {
+                let bytes = hex.into_bytes();
+                let n = bytes.len() as i32;
+                LAST.with(|c| *c.borrow_mut() = bytes);
+                n
+            }
+            Err(e) => store_err(e),
+        }
     }
 
     /// Returns hex length (≥0) on success, or `-err_len` on failure.
@@ -301,6 +347,23 @@ mod tests {
         assert_ne!(oracle, subject);
         assert!(oracle.contains("native"));
         assert!(subject.contains("wasm"));
+    }
+
+    #[test]
+    fn assess_json_path_matches_pinned_single_select_digest() {
+        let item =
+            cdcp_assess::Item::single_select(["utility", "genset", "both", "neither"], "genset")
+                .unwrap();
+        let ok = cdcp_assess::Response::single_select("genset").unwrap();
+        let item_json = serde_json::to_string(&item).unwrap();
+        let resp_json = serde_json::to_string(&ok).unwrap();
+        let via = score_digest_json(&item_json, &resp_json).unwrap();
+        assert_eq!(via, cdcp_assess::score_digest(&item, &ok).unwrap());
+        // Same pin as cdcp_assess::tests::digest_is_idempotent_and_64_hex / 64t.1.
+        assert_eq!(
+            via,
+            "b86064f06cabce71277297df37e985b36da1546566618b22e0a3ef628bfa9dba"
+        );
     }
 
     #[test]

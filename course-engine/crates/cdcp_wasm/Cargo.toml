@@ -3,7 +3,7 @@ name = "cdcp_wasm"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "WASM dual-path export — grade digest + short-interval schedule law"
+description = "WASM dual-path export — grade digest + typed assess digest + short-interval schedule law"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -13,6 +13,7 @@ path = "src/lib.rs"
 cdcp_core = { workspace = true }
 cdcp_bank = { workspace = true }
 cdcp_grade = { workspace = true }
+cdcp_assess = { workspace = true }
 cdcp_schedule = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
