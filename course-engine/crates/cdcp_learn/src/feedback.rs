@@ -17,6 +17,12 @@
 //! * `web/data/topic_anchors.json` exists, has topics, and has at least one
 //!   resolved section anchor when modules are declared
 //! * those anchors still exist as heading ids in the shipped markdown
+//! * a topic_anchors `module` that is present and not coercible to an
+//!   integer is an ERROR, named ([`NON_COERCIBLE_MODULE`]). The row is
+//!   not used as a section match. The retired Python raised
+//!   `int(row.get('module'))` here; rust reports instead of crashing or
+//!   silently treating the value as `module is None`
+//!   (`bd-feedback-links-int-module-uncaught-8163`)
 //!
 //! # The smoke is a READER. The builder lives here.
 //!
@@ -76,6 +82,11 @@ pub const TOPICS_TOML_REL: &str = "knowledge/topics.toml";
 /// How many failure rows of one class the report prints before it summarises
 /// the rest. Ten is a report window, not a module bound.
 pub const MAX_REPORT_ROWS: usize = 10;
+
+/// Named error class: a `topic_anchors.json` row whose `module` cannot be
+/// coerced to an integer. Closed `bd-feedback-links-int-module-uncaught-8163`.
+/// The retired Python raised `int(row.get('module'))` with no report.
+pub const NON_COERCIBLE_MODULE: &str = "module is not coercible to an integer";
 
 /// Provenance + matcher label written into a rust-built `topic_anchors.json`.
 pub const SLUG_ALGORITHM: &str = "learn_md.js CdcpLearnMd.slugify / slugify_heading";
@@ -327,9 +338,14 @@ pub fn run(root: &Path) -> BuildOutcome {
                 else {
                     continue;
                 };
-                let row_mod = json_module(row.get("module"));
-                if row_mod.is_some() && row_mod != Some(n) {
-                    continue;
+                // Missing/null module still matches any item (Python
+                // `row.get('module') is None`). A present non-coercible
+                // value is not None: it disqualifies the row, same as
+                // a coercible module that is not `mod_n`.
+                match classify_topic_module(row.get("module")) {
+                    TopicModule::Unspecified => {}
+                    TopicModule::Number(m) if m == n => {}
+                    TopicModule::Number(_) | TopicModule::Malformed => continue,
                 }
                 if heading_ids_by_slug
                     .get(slug)
@@ -649,6 +665,9 @@ fn load_topic_anchors(
         errors.push(
             "topic_anchors.json has zero topics (vacuous section-anchor check is ERROR)".into(),
         );
+    }
+    if let Some(topics) = topics {
+        report_non_coercible_modules(topics, errors);
     }
     let with_anchor = parsed
         .get("topics_with_anchor")
@@ -1224,6 +1243,57 @@ fn json_module(v: Option<&Json>) -> Option<i64> {
     }
 }
 
+/// How a topic_anchors `module` field is read.
+///
+/// Distinct from [`json_module`]: that helper collapses missing, null, and
+/// junk into `None`, which is correct for a bank item (untaught). On a
+/// topic_anchors row the retired Python treated only JSON null / a missing
+/// key as `is None`; `"six"` and a list raised. Collapsing those into
+/// `None` made rust GREEN on a corrupt artifact.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum TopicModule {
+    /// Missing key or JSON null — Python `row.get('module') is None`.
+    Unspecified,
+    /// Number or numeric string.
+    Number(i64),
+    /// Present and not an integer — named error, row does not match.
+    Malformed,
+}
+
+fn classify_topic_module(v: Option<&Json>) -> TopicModule {
+    match v {
+        None | Some(Json::Null) => TopicModule::Unspecified,
+        Some(Json::Number(n)) => n
+            .as_i64()
+            .or_else(|| n.as_u64().map(|u| u as i64))
+            .map(TopicModule::Number)
+            .unwrap_or(TopicModule::Malformed),
+        Some(Json::String(s)) => match s.trim().parse::<i64>() {
+            Ok(n) => TopicModule::Number(n),
+            Err(_) => TopicModule::Malformed,
+        },
+        Some(_) => TopicModule::Malformed,
+    }
+}
+
+fn report_non_coercible_modules(topics: &Map<String, Json>, errors: &mut Vec<String>) {
+    for (tid, row) in topics {
+        let Some(obj) = row.as_object() else {
+            continue;
+        };
+        if classify_topic_module(obj.get("module")) != TopicModule::Malformed {
+            continue;
+        }
+        let got = obj
+            .get("module")
+            .map(ToString::to_string)
+            .unwrap_or_else(|| "null".into());
+        errors.push(format!(
+            "topic_anchors.json: topic {tid} {NON_COERCIBLE_MODULE} (got {got})"
+        ));
+    }
+}
+
 fn json_u64(v: &Json) -> Option<u64> {
     match v {
         Json::Number(n) => n
@@ -1315,6 +1385,35 @@ mod tests {
         assert_eq!(
             match_topic_to_heading("No such heading anywhere", "m99-zzz", &heads),
             None
+        );
+    }
+
+    #[test]
+    fn topic_module_null_is_unspecified_junk_is_malformed() {
+        assert_eq!(classify_topic_module(None), TopicModule::Unspecified);
+        assert_eq!(
+            classify_topic_module(Some(&Json::Null)),
+            TopicModule::Unspecified
+        );
+        assert_eq!(
+            classify_topic_module(Some(&Json::from(1i64))),
+            TopicModule::Number(1)
+        );
+        assert_eq!(
+            classify_topic_module(Some(&Json::String("1".into()))),
+            TopicModule::Number(1)
+        );
+        assert_eq!(
+            classify_topic_module(Some(&Json::String("six".into()))),
+            TopicModule::Malformed
+        );
+        assert_eq!(
+            classify_topic_module(Some(&Json::Array(vec![Json::from(1)]))),
+            TopicModule::Malformed
+        );
+        assert_eq!(
+            classify_topic_module(Some(&Json::Bool(true))),
+            TopicModule::Malformed
         );
     }
 }

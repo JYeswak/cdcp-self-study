@@ -13,8 +13,8 @@
 
 use cdcp_learn::feedback::{
     evaluate_topic_anchors, extract_heading_ids, run, slugify_heading, write_topic_anchors,
-    BANK_JSON_REL, CONTENT_DIR_REL, KEYS_JSON_REL, LEARN_DIR_REL, RESULTS_JS_REL, SLUGS_JS_REL,
-    TOPICS_TOML_REL, TOPIC_ANCHORS_JSON_REL,
+    BANK_JSON_REL, CONTENT_DIR_REL, KEYS_JSON_REL, LEARN_DIR_REL, NON_COERCIBLE_MODULE,
+    RESULTS_JS_REL, SLUGS_JS_REL, TOPICS_TOML_REL, TOPIC_ANCHORS_JSON_REL,
 };
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -24,7 +24,7 @@ static RAN: AtomicUsize = AtomicUsize::new(0);
 static ROUND: AtomicUsize = AtomicUsize::new(0);
 
 /// Raise when you add a `#[test]`. A DROP means a case was deleted.
-const EXPECTED_CASES: usize = 31;
+const EXPECTED_CASES: usize = 33;
 
 fn engine_root() -> PathBuf {
     cdcp_learn::resolve_engine_root(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
@@ -396,6 +396,79 @@ fn unparseable_topic_anchors_is_an_error() {
     assert!(
         o.stdout.contains("topic_anchors.json invalid"),
         "{}",
+        o.stdout
+    );
+    let _ = &f.dir;
+}
+
+/// bd-feedback-links-int-module-uncaught-8163: the retired Python raised
+/// `int(row.get('module'))` on this plant and printed a traceback. Rust
+/// must name the defect and stay non-zero — not crash, not treat `"six"`
+/// as `module is None` and go GREEN.
+#[test]
+fn non_coercible_module_string_is_a_named_error() {
+    tick();
+    let f = green();
+    f.put(
+        TOPIC_ANCHORS_JSON_REL,
+        r#"{"schema_version":1,"topic_count":1,"topics_with_anchor":1,"topics":{"m01-dc-types":{"topic_id":"m01-dc-types","slug":"01-mission-critical","anchor":"types-of-data-centres","module":"six"}}}"#,
+    );
+    let o = run(&f.root);
+    assert_ne!(
+        o.code, 0,
+        "module=\"six\" must be RED, got PASS:\n{}",
+        o.stdout
+    );
+    assert!(
+        o.stdout.starts_with("FAIL: smoke_feedback_links"),
+        "{}",
+        o.stdout
+    );
+    assert!(
+        o.stdout.contains(NON_COERCIBLE_MODULE),
+        "must name the non-coercible module, got:\n{}",
+        o.stdout
+    );
+    assert!(
+        o.stdout.contains("topic m01-dc-types"),
+        "must name the corrupt row, got:\n{}",
+        o.stdout
+    );
+    assert!(
+        o.stdout.contains("got \"six\""),
+        "must show the junk value, got:\n{}",
+        o.stdout
+    );
+    assert!(
+        o.stdout.contains("section-anchor hit rate 0%"),
+        "malformed module must disqualify the anchor, not still match:\n{}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("ValueError")
+            && !o.stdout.contains("TypeError")
+            && !o.stdout.contains("Traceback"),
+        "must report, not raise like the retired oracle:\n{}",
+        o.stdout
+    );
+    let _ = &f.dir;
+}
+
+/// Same class as `"six"`: a list is not an integer. Python `int([1])`
+/// raised TypeError.
+#[test]
+fn non_coercible_module_list_is_a_named_error() {
+    tick();
+    let f = green();
+    f.put(
+        TOPIC_ANCHORS_JSON_REL,
+        r#"{"schema_version":1,"topic_count":1,"topics_with_anchor":1,"topics":{"m01-dc-types":{"topic_id":"m01-dc-types","slug":"01-mission-critical","anchor":"types-of-data-centres","module":[1]}}}"#,
+    );
+    let o = run(&f.root);
+    assert_ne!(o.code, 0, "module=[1] must be RED, got PASS:\n{}", o.stdout);
+    assert!(
+        o.stdout.contains(NON_COERCIBLE_MODULE),
+        "must name the non-coercible module, got:\n{}",
         o.stdout
     );
     let _ = &f.dir;
