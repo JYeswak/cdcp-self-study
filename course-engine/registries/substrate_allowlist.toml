@@ -84,19 +84,19 @@ bead = "bd-substrate-rust-migration-jhd.1"
 
 [[allow]]
 path = "scripts/verify_orphans.py"
-reason = "Load-bearing check.sh gate: topic<->item referential integrity. Grandfathered pending the byte-exact Rust port; check.sh hard-fails if it is absent, so it cannot simply be deleted."
+reason = "Differential oracle for `cdcp_gate verify-orphans` (bd-substrate-rust-migration-jhd.2, ported 2026-08-14). Topic<->item referential integrity. Retained so tests/diff_verify_orphans.rs can compare both implementations. Not a check.sh step."
 migration_bead = "bd-substrate-rust-migration-jhd.2"
 expires = "2026-10-31"
 
 [[allow]]
 path = "scripts/verify_injection_count.py"
-reason = "Load-bearing check.sh gate: the L4 drift guard that keeps the advertised known-bad count equal to the measured one. Grandfathered pending the byte-exact Rust port."
+reason = "Differential oracle for `cdcp_gate verify-injection-count` (bd-substrate-rust-migration-jhd.3, ported 2026-08-14). L4 drift guard: advertised known-bad count vs measured. Retained so tests/diff_verify_injection_count.rs can compare both implementations. Not a check.sh step."
 migration_bead = "bd-substrate-rust-migration-jhd.3"
 expires = "2026-10-31"
 
 [[allow]]
 path = "scripts/verify_doc_consistency.py"
-reason = "Load-bearing check.sh gate: roadmap/publication truth across CHARTER, README and PHASE-NEXT. Grandfathered pending the byte-exact Rust port."
+reason = "Differential oracle for `cdcp_gate verify-doc-consistency` (bd-substrate-rust-migration-jhd.4, ported 2026-08-14). Roadmap/publication truth across CHARTER, README and PHASE-NEXT. Retained so tests/diff_verify_doc_consistency.rs can compare both implementations. Not a check.sh step."
 migration_bead = "bd-substrate-rust-migration-jhd.4"
 expires = "2026-10-31"
 
@@ -106,7 +106,7 @@ expires = "2026-10-31"
 
 [[allow]]
 path = "scripts/verify_knowledge_paths.py"
-reason = "Load-bearing check.sh gate: knowledge primary_notes path resolution into ../modules/. Grandfathered pending the byte-exact Rust port."
+reason = "Differential oracle for `cdcp_gate verify-knowledge-paths` (bd-substrate-rust-migration-jhd.5, ported 2026-08-14). knowledge primary_notes path resolution into ../modules/. Retained so tests/diff_verify_knowledge_paths.rs can compare both implementations. Not a check.sh step."
 migration_bead = "bd-substrate-rust-migration-jhd.5"
 expires = "2026-11-30"
 
@@ -118,19 +118,19 @@ expires = "2026-11-30"
 
 [[allow]]
 path = "scripts/verify_bank.py"
-reason = "Load-bearing check.sh gate: L2 item-bank pool validation. Grandfathered pending the byte-exact Rust port; the bank is the product's primary data surface."
+reason = "Differential oracle for `cdcp_gate verify-bank` (bd-substrate-rust-migration-jhd.7, ported 2026-08-14). L2 item-bank pool validation; the bank is the product's primary data surface. Retained so tests/diff_verify_bank.rs can compare both implementations. Not a check.sh step."
 migration_bead = "bd-substrate-rust-migration-jhd.7"
 expires = "2026-11-30"
 
 [[allow]]
 path = "scripts/verify_content_lock.py"
-reason = "Load-bearing check.sh gate: content.lock integrity for published web data. Grandfathered pending the byte-exact Rust port."
+reason = "Differential oracle for `cdcp_gate verify-content-lock` (bd-substrate-rust-migration-jhd.8, ported 2026-08-14). content.lock integrity for published web data. Retained so tests/diff_verify_content_lock.rs can compare both implementations. Not a check.sh step."
 migration_bead = "bd-substrate-rust-migration-jhd.8"
 expires = "2026-11-30"
 
 [[allow]]
 path = "scripts/validate_grounding.py"
-reason = "Differential oracle for the Rust port `cdcp_gate validate-grounding` (bd-substrate-rust-migration-jhd.9, ported 2026-08-14). Retained deliberately: tests/diff_validate_grounding.rs runs it on every case, and check.sh hard-fails if it is absent."
+reason = "Differential oracle for `cdcp_gate validate-grounding` (bd-substrate-rust-migration-jhd.9, ported 2026-08-14). Retained so tests/diff_validate_grounding.rs can compare both implementations. Not a check.sh step."
 migration_bead = "bd-substrate-rust-migration-jhd.9"
 expires = "2026-11-30"
 

@@ -41,6 +41,17 @@ advertised site from the receipts that were actually collected. It refuses to
 write when the receipts themselves are unsound, so a bogus log cannot launder a
 wrong number into README.
 
+PER-SUITE COLUMN (bd-per-suite-injection-column-unguarded-aop9)
+--------------------------------------------------------------
+The "Gates proven to trip" table carries a per-suite `n` cell
+(`| `selftest_orphan` | 6 | ... |`). The `_ADVERTISED` regex cannot see it —
+the number is not followed by `injections|faults` — so the column was folklore
+until this floor-raise. Each `INJECTIONS=<n> SUITE=<name>` receipt is now
+compared to that cell. A disagreeing cell is RED naming file:line, suite, and
+both numbers. A row whose name is not in REGISTERED_SUITES, and a registered
+suite with a receipt but no row, are RED. Zero parsed suite rows is an ERROR
+(anti-vacuous). `--write-readme` rewrites the cells from the receipts.
+
 WHY NOT THE OBVIOUS IMPLEMENTATIONS (measured, do not re-derive)
 ---------------------------------------------------------------
 * Counting "# a)" style header comments does not work: three suites declare
@@ -182,6 +193,17 @@ _SUITE_COUNT = re.compile(
     re.IGNORECASE,
 )
 
+# Parse scope (so scanners do not eat their own docs): a suite row is a
+# markdown table row whose first cell is a backticked name matching
+# `selftest_[a-z0-9_]+` and whose second cell is an integer. Mentions of the
+# table in this crate's comments, in selftest_injection_count.sh headers, or
+# in CHARTER are NOT rows — only `--readme` is scanned. Zero parsed rows is
+# an ERROR (anti-vacuous) when `--require` names any `selftest_*` suite.
+_SUITE_ROW = re.compile(
+    r"^(\s*\|\s*`)(selftest_[a-z0-9_]+)(`\s*\|\s*)(\d+)(\s*\|)"
+)
+_SELFTEST_NAME = re.compile(r"^selftest_[a-z0-9_]+$")
+
 
 def count_value(tok: str) -> int:
     """The integer a matched count token denotes, digits or words."""
@@ -215,7 +237,28 @@ def parse_log(path: Path) -> tuple[dict[str, int], list[str]]:
     return counts, errors
 
 
-def regenerate(text: str, total: int) -> tuple[str, int]:
+def _split_eol(line: str) -> tuple[str, str]:
+    if line.endswith("\r\n"):
+        return line[:-2], "\r\n"
+    if line.endswith("\n") or line.endswith("\r"):
+        return line[:-1], line[-1]
+    return line, ""
+
+
+def parse_suite_row(line: str) -> tuple[str, int, int, int] | None:
+    """Return (suite, n, digit_start, digit_end) on a per-suite table row."""
+    body, _eol = _split_eol(line)
+    m = _SUITE_ROW.match(body)
+    if not m:
+        return None
+    return m.group(2), int(m.group(4)), m.start(4), m.end(4)
+
+
+def is_selftest_suite(name: str) -> bool:
+    return _SELFTEST_NAME.fullmatch(name) is not None
+
+
+def regenerate(text: str, total: int, counts: dict[str, int] | None = None) -> tuple[str, int]:
     """Rewrite every advertised injection count to `total`.
 
     Returns the new text and the number of sites rewritten. Line terminators are
@@ -227,20 +270,34 @@ def regenerate(text: str, total: int) -> tuple[str, int]:
     added or removed, which is already a deliberate edit to REGISTERED_SUITES,
     and rewriting them would rewrite prose ("Nine selftest suites") that no
     caller asked this gate to author.
+
+    When `counts` is given, each per-suite `n` cell whose suite is in that map
+    is rewritten to the receipt. Missing or unregistered rows are left in place
+    so the comparison can still name them; this function does not invent rows.
     """
     lines = text.splitlines(keepends=True)
     rewritten = 0
     for i, line in enumerate(lines):
+        body, eol = _split_eol(line)
         parts: list[str] = []
         last = 0
-        for m in _ADVERTISED.finditer(line):
-            parts.append(line[last : m.start(1)])
+        for m in _ADVERTISED.finditer(body):
+            parts.append(body[last : m.start(1)])
             parts.append(str(total))
             last = m.end(1)
             rewritten += 1
         if parts:
-            parts.append(line[last:])
-            lines[i] = "".join(parts)
+            parts.append(body[last:])
+            body = "".join(parts)
+        if counts:
+            row = _SUITE_ROW.match(body)
+            if row is not None:
+                suite = row.group(2)
+                if suite in counts:
+                    new = str(counts[suite])
+                    if new != row.group(4):
+                        body = body[: row.start(4)] + new + body[row.end(4) :]
+        lines[i] = body + eol
     return "".join(lines), rewritten
 
 
@@ -321,26 +378,35 @@ def main(argv: list[str] | None = None) -> int:
             regen_note = "regeneration SKIPPED: README is not readable"
         else:
             before = args.readme.read_text(encoding="utf-8")
-            after, sites = regenerate(before, total)
-            if sites == 0:
-                regen_note = (
-                    f"regeneration wrote nothing: {args.readme} advertises no "
-                    f"parseable count to rewrite"
-                )
-            elif after == before:
-                regen_note = (
-                    f"regenerated {args.readme}: {sites} site(s) already "
-                    f"advertise {total}"
-                )
+            after, sites = regenerate(before, total, counts)
+            if after == before:
+                if sites == 0:
+                    regen_note = (
+                        f"regeneration wrote nothing: {args.readme} advertises no "
+                        f"parseable count to rewrite"
+                    )
+                else:
+                    regen_note = (
+                        f"regenerated {args.readme}: {sites} site(s) already "
+                        f"advertise {total}"
+                    )
             else:
                 args.readme.write_text(after, encoding="utf-8")
-                regen_note = (
-                    f"regenerated {args.readme}: {sites} site(s) now advertise "
-                    f"{total}"
-                )
+                if sites == 0:
+                    regen_note = (
+                        f"regenerated {args.readme}: per-suite cells now match "
+                        f"receipts"
+                    )
+                else:
+                    regen_note = (
+                        f"regenerated {args.readme}: {sites} site(s) now advertise "
+                        f"{total}"
+                    )
 
     advertised: list[tuple[int, int]] = []
     suite_claims: list[tuple[int, int]] = []
+    col_rows: list[tuple[int, str, int]] = []
+    col_seen: dict[str, int] = {}
     if not args.readme.is_file():
         errors.append(f"README missing: {args.readme}")
     else:
@@ -351,6 +417,17 @@ def main(argv: list[str] | None = None) -> int:
                 advertised.append((lineno, count_value(m.group(1))))
             for m in _SUITE_COUNT.finditer(line):
                 suite_claims.append((lineno, count_value(m.group(1))))
+            parsed = parse_suite_row(line)
+            if parsed is not None:
+                suite, n, _ds, _de = parsed
+                if suite in col_seen:
+                    errors.append(
+                        f"{args.readme}:{lineno} suite {suite} appears more than "
+                        f"once in the per-suite table"
+                    )
+                else:
+                    col_seen[suite] = lineno
+                    col_rows.append((lineno, suite, n))
         if not advertised:
             errors.append(
                 "README advertises no known-bad injection count at all "
@@ -378,6 +455,38 @@ def main(argv: list[str] | None = None) -> int:
                     f"{args.readme}:{lineno} advertises {n} selftest suites; "
                     f"{len(required)} are registered"
                 )
+
+        # Per-suite n column. Applied when --require names any selftest_*
+        # suite (the live roster) or when the file already has such a row.
+        # Specimens that use synthetic names (spec_alpha) and carry no table
+        # are unchanged — their contract is still the total and the suite count.
+        expect_col = any(is_selftest_suite(s) for s in required) or bool(col_rows)
+        if expect_col:
+            if not col_rows:
+                errors.append(
+                    "README per-suite injection table parsed to zero suite rows "
+                    "(empty scan set is an ERROR, not a pass)"
+                )
+            else:
+                for lineno, suite, n in col_rows:
+                    if suite not in required:
+                        errors.append(
+                            f"{args.readme}:{lineno} table row {suite!r} is not "
+                            f"in REGISTERED_SUITES"
+                        )
+                        continue
+                    got = counts.get(suite)
+                    if got is not None and got != n:
+                        errors.append(
+                            f"{args.readme}:{lineno} suite {suite} advertises "
+                            f"{n} injections; the suite self-reported {got}"
+                        )
+                for suite in required:
+                    if suite not in col_seen:
+                        errors.append(
+                            f"registered suite {suite!r} has no per-suite "
+                            f"table row — that is an ERROR, never a silent skip"
+                        )
 
     status = "PASS" if not errors else "FAIL"
     print(status)

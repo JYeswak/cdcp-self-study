@@ -159,6 +159,11 @@ fn the_selftest_case_list_is_the_one_this_file_mirrors() {
         "(f) empty log",
         "(g) README advertises nothing",
         "(h) README suite count wrong",
+        "(dd) per-suite cell disagrees LOW",
+        "(ee) per-suite cell disagrees HIGH",
+        "(ff) registered suite missing from the table",
+        "(gg) unregistered suite row in the table",
+        "(hh) table parses to zero suite rows",
     ] {
         assert!(
             body.contains(marker),
@@ -210,11 +215,47 @@ fn live_log_body(total: u128) -> String {
     out
 }
 
+/// Receipts taken from the live per-suite `n` column so the column check and
+/// the advertised total can both be green on the same fixture.
+fn live_cell_log() -> (String, u128) {
+    let root = engine_root();
+    let readme = root.parent().unwrap_or(&root).join("README.md");
+    let text =
+        std::fs::read_to_string(&readme).unwrap_or_else(|e| panic!("{}: {e}", readme.display()));
+    let mut out = String::new();
+    let mut sum = 0u128;
+    let mut seen = std::collections::BTreeSet::new();
+    for line in text.lines() {
+        if let Some((suite, digits, _, _)) =
+            cdcp_gate::gates::verify_injection_count::parse_suite_row(line)
+        {
+            if seen.insert(suite.to_string()) {
+                let n: u128 = digits.parse().expect("cell is digits");
+                sum += n;
+                out.push_str(&format!("INJECTIONS={n} SUITE={suite}\n"));
+            }
+        }
+    }
+    assert!(
+        !out.is_empty(),
+        "live README per-suite table parsed to zero rows — the column check \
+         would be vacuous"
+    );
+    (out, sum)
+}
+
 #[test]
 fn live_tree_green_case_is_identical_and_green() {
     let d = scratch("live_green");
     let total = live_advertised_total();
-    let log = write(&d, "live.log", &live_log_body(total));
+    let (body, cell_sum) = live_cell_log();
+    assert_eq!(
+        cell_sum, total,
+        "live README per-suite cells sum to {cell_sum} but the advertised \
+         total is {total} — run verify-injection-count --write-readme against \
+         a real receipt log"
+    );
+    let log = write(&d, "live.log", &body);
     // No --readme and no --require: both implementations must resolve the same
     // default README (the repo root's) and the same registered-suite roster.
     let code = assert_identical("live-green", &["--log", &log]);
@@ -768,6 +809,120 @@ fn write_readme_refuses_to_launder_an_unsound_total_in_both() {
     let (code, after) = assert_identical_write_mode("empty-log", &empty, &before, REQUIRE);
     assert_eq!(code, 1);
     assert_eq!(after, before);
+}
+
+// ─────────── per-suite n column (bd-per-suite-injection-column-unguarded-aop9)
+
+const COL_REQUIRE: &str = "selftest_orphan,selftest_known_bad";
+const COL_LOG: &str =
+    "INJECTIONS=6 SUITE=selftest_orphan\nINJECTIONS=4 SUITE=selftest_known_bad\n";
+
+fn column_readme(orphan: u32, extra: &str) -> String {
+    format!(
+        "# Specimen readme\n\
+         \n\
+         [![known-bad: 10 injections](https://img.shields.io/badge/known--bad-10_injections_all_RED-success.svg)](#x)\n\
+         \n\
+         | **Gate** | 2 selftest suites; 10 known-bad injections that must all go RED |\n\
+         \n\
+         Two selftest suites inject **10 known-bad faults** and assert the build fails.\n\
+         \n\
+         | **L4 — gates proven to trip** | ok | 2 suites, 10 injections, anti-vacuous |\n\
+         \n\
+         | Suite | n | Injections |\n\
+         |---|---|---|\n\
+         | `selftest_known_bad` | 4 | planted |\n\
+         | `selftest_orphan` | {orphan} | planted |\n\
+         {extra}"
+    )
+}
+
+#[test]
+fn per_suite_column_shapes_are_identical() {
+    let dir = scratch("col");
+    let log = write(&dir, "col.log", COL_LOG);
+
+    let good = write(&dir, "GOOD.md", &column_readme(6, ""));
+    assert_eq!(
+        assert_identical(
+            "col-agree",
+            &["--log", &log, "--readme", &good, "--require", COL_REQUIRE],
+        ),
+        0
+    );
+
+    let low = write(&dir, "LOW.md", &column_readme(5, ""));
+    assert_eq!(
+        assert_identical(
+            "col-low",
+            &["--log", &log, "--readme", &low, "--require", COL_REQUIRE],
+        ),
+        1
+    );
+
+    let high = write(&dir, "HIGH.md", &column_readme(7, ""));
+    assert_eq!(
+        assert_identical(
+            "col-high",
+            &["--log", &log, "--readme", &high, "--require", COL_REQUIRE],
+        ),
+        1
+    );
+
+    let miss_body = column_readme(6, "")
+        .lines()
+        .filter(|l| !l.contains("`selftest_orphan`"))
+        .map(|l| format!("{l}\n"))
+        .collect::<String>();
+    let miss = write(&dir, "MISS.md", &miss_body);
+    assert_eq!(
+        assert_identical(
+            "col-missing",
+            &["--log", &log, "--readme", &miss, "--require", COL_REQUIRE],
+        ),
+        1
+    );
+
+    let extra = write(
+        &dir,
+        "EXTRA.md",
+        &column_readme(6, "| `selftest_not_a_real_suite` | 1 | planted |\n"),
+    );
+    assert_eq!(
+        assert_identical(
+            "col-extra",
+            &["--log", &log, "--readme", &extra, "--require", COL_REQUIRE],
+        ),
+        1
+    );
+
+    let empty = write(&dir, "EMPTY.md", &specimen_readme(10, 2));
+    assert_eq!(
+        assert_identical(
+            "col-empty",
+            &[
+                "--log",
+                &log,
+                "--readme",
+                &empty,
+                "--require",
+                COL_REQUIRE
+            ],
+        ),
+        1
+    );
+
+    let (code, after) =
+        assert_identical_write_mode("col-regen", &log, &column_readme(5, ""), COL_REQUIRE);
+    assert_eq!(code, 0, "regenerated cells must be GREEN");
+    assert!(
+        after.contains("| `selftest_orphan` | 6 |"),
+        "cell must be rewritten from the receipt:\n{after}"
+    );
+    assert!(
+        !after.contains("| `selftest_orphan` | 5 |"),
+        "drifted cell survived regeneration:\n{after}"
+    );
 }
 
 #[test]

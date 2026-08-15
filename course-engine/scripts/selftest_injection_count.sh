@@ -10,9 +10,10 @@
 #
 # Two guards live here because they are one mechanism used twice on the same
 # README sentence: (a-n) cover verify_injection_count.py, which enforces the
-# known-bad injection total and the selftest-suite count; (o-cc) cover
-# `cdcp_gate verify-step-count`, which enforces the third number in that
-# sentence — the length of the check.sh chain [bd-1sd.13].
+# known-bad injection total and the selftest-suite count; (dd-ii) cover the
+# per-suite `n` column in the same table [bd-per-suite-injection-column-unguarded-aop9];
+# (o-cc) cover `cdcp_gate verify-step-count`, which enforces the third number
+# in that sentence — the length of the check.sh chain [bd-1sd.13].
 #
 # Cases (injection count):
 #   a) log + README agree                 → GREEN (baseline)
@@ -29,6 +30,16 @@
 #   l) one advertisement site removed     → RED on the site floor, not on drift
 #   m) --write-readme on a drifted README → GREEN (regenerated, never typed)
 #   n) --write-readme on an unsound log   → RED, and the file is byte-unchanged
+#  dd) per-suite cell disagrees LOW       → RED (file:line, suite, both numbers)
+#  ee) per-suite cell disagrees HIGH      → RED (the other direction)
+#  ff) registered suite missing from table → RED
+#  gg) unregistered suite row in table    → RED
+#  hh) table parses to zero suite rows    → ERROR (anti-vacuous)
+#  ii) --write-readme on a table specimen whose receipts are unsound
+#      → RED, file byte-unchanged
+#
+# (ii-control) --write-readme regenerating drifted cells is known-GOOD and is
+# NOT counted, on the same terms as (m).
 #
 # Cases (check.sh step count):
 #   o) step receipt log missing           → ERROR
@@ -347,6 +358,107 @@ cmp -s "$TMP_ROOT/README_unsound.before" "$unsound_readme" \
 ok "(n) specimen README byte-unchanged after a refused regeneration"
 
 # ════════════════════════════════════════════════════════════════════════════
+# PER-SUITE n COLUMN [bd-per-suite-injection-column-unguarded-aop9]
+# ════════════════════════════════════════════════════════════════════════════
+# Specimens only. Two registered selftest_* suites, receipts 6+4=10, five
+# advertisement sites so the existing total/site-floor contract stays green
+# and the new findings are about the table alone.
+
+COL_REQUIRE="selftest_orphan,selftest_known_bad"
+COL_LOG="$TMP_ROOT/col.log"
+printf 'INJECTIONS=6 SUITE=selftest_orphan\nINJECTIONS=4 SUITE=selftest_known_bad\n' >"$COL_LOG"
+
+write_column_readme() {
+  # $1 path, $2 orphan cell
+  cat >"$1" <<EOF
+# Specimen readme
+
+[![known-bad: 10 injections](https://img.shields.io/badge/known--bad-10_injections_all_RED-success.svg)](#x)
+
+| **Gate** | 2 selftest suites; 10 known-bad injections that must all go RED |
+
+Two selftest suites inject **10 known-bad faults** and assert the build fails.
+
+| **L4 — gates proven to trip** | ok | 2 suites, 10 injections, anti-vacuous |
+
+| Suite | n | Injections |
+|---|---|---|
+| \`selftest_known_bad\` | 4 | planted |
+| \`selftest_orphan\` | $2 | planted |
+EOF
+}
+
+run_column() {
+  python3 "$CHECKER" --log "$COL_LOG" --readme "$1" --require "$COL_REQUIRE"
+}
+
+run_column_write() {
+  python3 "$CHECKER" --log "$1" --readme "$2" --require "$COL_REQUIRE" --write-readme
+}
+
+echo "==> (dd) per-suite cell disagrees LOW → RED"
+col_low="$TMP_ROOT/README_col_low.md"
+write_column_readme "$col_low" 5
+orphan_ln="$(grep -n '`selftest_orphan`' "$col_low" | head -n1 | cut -d: -f1)"
+[ -n "$orphan_ln" ] || fail "(dd) specimen has no selftest_orphan row"
+# Basename:line — pathlib normalises TMPDIR's trailing slash, so the full
+# path the gate prints is not byte-identical to $col_low. The finding must
+# still name the file, the line, the suite, and both numbers.
+assert_fails_with "col-cell-low" \
+  "README_col_low.md:${orphan_ln} suite selftest_orphan advertises 5 injections; the suite self-reported 6" \
+  run_column "$col_low"
+
+echo "==> (ee) per-suite cell disagrees HIGH → RED"
+col_high="$TMP_ROOT/README_col_high.md"
+write_column_readme "$col_high" 7
+orphan_ln_h="$(grep -n '`selftest_orphan`' "$col_high" | head -n1 | cut -d: -f1)"
+assert_fails_with "col-cell-high" \
+  "README_col_high.md:${orphan_ln_h} suite selftest_orphan advertises 7 injections; the suite self-reported 6" \
+  run_column "$col_high"
+
+echo "==> (ff) registered suite missing from the table → RED"
+col_miss="$TMP_ROOT/README_col_miss.md"
+write_column_readme "$col_miss" 6
+grep -v '`selftest_orphan`' "$col_miss" >"$col_miss.tmp" && mv "$col_miss.tmp" "$col_miss"
+assert_fails_with "col-row-missing" "has no per-suite table row" \
+  run_column "$col_miss"
+
+echo "==> (gg) unregistered suite row in the table → RED"
+col_extra="$TMP_ROOT/README_col_extra.md"
+write_column_readme "$col_extra" 6
+printf '| `selftest_not_a_real_suite` | 1 | planted |\n' >>"$col_extra"
+assert_fails_with "col-row-unregistered" "is not in REGISTERED_SUITES" \
+  run_column "$col_extra"
+
+echo "==> (hh) table parses to zero suite rows → ERROR (anti-vacuous)"
+col_empty="$TMP_ROOT/README_col_empty.md"
+write_readme "$col_empty" 10 2
+assert_fails_with "col-table-empty" "parsed to zero suite rows" \
+  run_column "$col_empty"
+
+echo "==> (ii) --write-readme on unsound receipts + drifted cells → RED, file byte-unchanged"
+col_unsound="$TMP_ROOT/README_col_unsound.md"
+write_column_readme "$col_unsound" 5
+cp "$col_unsound" "$TMP_ROOT/README_col_unsound.before"
+col_badlog="$TMP_ROOT/col_unsound.log"
+printf 'INJECTIONS=6 SUITE=selftest_orphan\n' >"$col_badlog"
+assert_fails_with "col-write-refuses-unsound" "regeneration SKIPPED" \
+  run_column_write "$col_badlog" "$col_unsound"
+cmp -s "$TMP_ROOT/README_col_unsound.before" "$col_unsound" \
+  || fail "(ii) an unsound log rewrote the per-suite cells anyway"
+ok "(ii) specimen README byte-unchanged after a refused cell regeneration"
+
+echo "==> (ii-control) --write-readme regenerates drifted cells → GREEN (not counted)"
+col_regen="$TMP_ROOT/README_col_regen.md"
+write_column_readme "$col_regen" 5
+assert_green "col-write-readme-regenerates" run_column_write "$COL_LOG" "$col_regen"
+grep -q '| `selftest_orphan` | 6 |' "$col_regen" \
+  || fail "(ii-control) the orphan cell was not regenerated from the receipt"
+grep -q '| `selftest_orphan` | 5 |' "$col_regen" \
+  && fail "(ii-control) a drifted cell survived regeneration"
+ok "(ii-control) per-suite cells now carry the receipts"
+
+# ════════════════════════════════════════════════════════════════════════════
 # THE SECOND DRIFT GUARD: cdcp_gate verify-step-count [bd-1sd.13]
 # ════════════════════════════════════════════════════════════════════════════
 # Same shape, one field to the left. README's gate sentence carries three
@@ -554,7 +666,7 @@ assert_step_green "step-baseline-restored" run_step_gate "$STEP_LOG_OK" "$STEP_R
 # but only if README was left at 63 — a paired edit of suite + README would
 # hide the deletion. Pinning the count here makes the deletion red with no
 # other file involved.
-[ "$INJ" -eq 26 ] || fail "INJ=$INJ; expected 26 — deleting an assertion must fail this suite, not pass with a quieter receipt"
+[ "$INJ" -eq 32 ] || fail "INJ=$INJ; expected 32 — deleting an assertion must fail this suite, not pass with a quieter receipt"
 echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
-echo "selftest_injection_count: PASSED (b off-by-one · c missing receipt · d zero · e unregistered · f empty log · g silent README · h suite count · i word-spelled drift · j finding names the scanned file · k duplicate --require · l site floor · m regenerated · n refused unsound write · o step log missing · p step log empty · q receipt shape drift · r nested receipt alone · s two outer receipts · t zero steps · u receipt arithmetic · v no nested observed · w chain grew · x README edited · y README silent · z step site floor · aa ok below the boundary · bb refused unsound step write)"
+echo "selftest_injection_count: PASSED (b off-by-one · c missing receipt · d zero · e unregistered · f empty log · g silent README · h suite count · i word-spelled drift · j finding names the scanned file · k duplicate --require · l site floor · m regenerated · n refused unsound write · dd cell low · ee cell high · ff missing row · gg unregistered row · hh empty table · ii refused unsound cell write · o step log missing · p step log empty · q receipt shape drift · r nested receipt alone · s two outer receipts · t zero steps · u receipt arithmetic · v no nested observed · w chain grew · x README edited · y README silent · z step site floor · aa ok below the boundary · bb refused unsound step write)"
 exit 0

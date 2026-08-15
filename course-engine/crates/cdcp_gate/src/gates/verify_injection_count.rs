@@ -28,9 +28,9 @@
 //! `check.sh` aggregates and be registered in [`REGISTERED_SUITES`].
 //!
 //! The number is REGENERATED, never hand-maintained: `--write-readme` rewrites
-//! every advertisement site from the receipts that were actually collected, and
-//! refuses to write when those receipts are unsound, so a bogus log cannot
-//! launder a wrong number into README.
+//! every advertisement site **and each per-suite `n` cell** from the receipts
+//! that were actually collected, and refuses to write when those receipts are
+//! unsound, so a bogus log cannot launder a wrong number into README.
 //!
 //! ## Partial coverage is an error too (bd-wf2)
 //!
@@ -48,8 +48,8 @@
 //!   invisible here — that is what the suites' own known-bad cases are for.
 //! * Whether the log came from **this** run. It reads whatever file it is handed;
 //!   freshness is `check.sh`'s job (it mktemps a new log per invocation).
-//! * Whether README's **prose** is accurate about anything other than the two
-//!   numbers it scans (injection count, selftest-suite count).
+//! * Whether README's **prose** is accurate about anything other than the
+//!   numbers it scans (injection count, selftest-suite count, per-suite `n`).
 //! * Whether a count spelled in a form outside the word vocabulary ("three
 //!   dozen", anything above ninety-nine in words) means what it says. Such a site
 //!   is not read as a number at all; the site floor is what keeps that fail-closed
@@ -628,6 +628,104 @@ pub fn scan_suite_counts(line: &str) -> Vec<u128> {
     out
 }
 
+/// Parse scope (so scanners do not eat their own docs): a suite row is a
+/// markdown table row whose first cell is a backticked name matching
+/// `selftest_[a-z0-9_]+` and whose second cell is an integer. Mentions of the
+/// table in this crate's comments, in `selftest_injection_count.sh` headers, or
+/// in CHARTER are NOT rows — only `--readme` is scanned. Zero parsed rows is
+/// an ERROR when `--require` names any `selftest_*` suite.
+///
+/// Returns `(suite, digits, digit_start, digit_end)` so `--write-readme` can
+/// rewrite just the `n` cell.
+pub fn parse_suite_row(line: &str) -> Option<(&str, &str, usize, usize)> {
+    let body = line
+        .strip_suffix("\r\n")
+        .or_else(|| line.strip_suffix('\n'))
+        .or_else(|| line.strip_suffix('\r'))
+        .unwrap_or(line);
+    let mut i = run_end(body, 0, py_is_space);
+    if body.as_bytes().get(i) != Some(&b'|') {
+        return None;
+    }
+    i += 1;
+    i = run_end(body, i, py_is_space);
+    if body.as_bytes().get(i) != Some(&b'`') {
+        return None;
+    }
+    i += 1;
+    let ns = i;
+    if !body[ns..].starts_with("selftest_") {
+        return None;
+    }
+    i = ns + "selftest_".len();
+    let name_end = run_end(body, i, |c| {
+        c.is_ascii_lowercase() || c.is_ascii_digit() || c == '_'
+    });
+    if name_end == i {
+        return None;
+    }
+    let name = &body[ns..name_end];
+    i = name_end;
+    if body.as_bytes().get(i) != Some(&b'`') {
+        return None;
+    }
+    i += 1;
+    i = run_end(body, i, py_is_space);
+    if body.as_bytes().get(i) != Some(&b'|') {
+        return None;
+    }
+    i += 1;
+    i = run_end(body, i, py_is_space);
+    let ds = i;
+    let de = digits_end(body, ds);
+    if de == ds {
+        return None;
+    }
+    i = run_end(body, de, py_is_space);
+    if body.as_bytes().get(i) != Some(&b'|') {
+        return None;
+    }
+    Some((name, &body[ds..de], ds, de))
+}
+
+fn is_selftest_suite(name: &str) -> bool {
+    let rest = match name.strip_prefix("selftest_") {
+        Some(r) if !r.is_empty() => r,
+        _ => return false,
+    };
+    rest.bytes()
+        .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'_')
+}
+
+fn rewrite_suite_cells(text: &str, counts: &BTreeMap<&str, u128>) -> String {
+    if counts.is_empty() {
+        return text.to_string();
+    }
+    let mut out = String::with_capacity(text.len());
+    for line in py_splitlines_keepends(text) {
+        let body = line
+            .strip_suffix("\r\n")
+            .or_else(|| line.strip_suffix('\n'))
+            .or_else(|| line.strip_suffix('\r'))
+            .unwrap_or(line);
+        let eol = &line[body.len()..];
+        if let Some((suite, digits, ds, de)) = parse_suite_row(body) {
+            if let Some(&n) = counts.get(suite) {
+                let nn = n.to_string();
+                if nn != digits {
+                    out.push_str(&body[..ds]);
+                    out.push_str(&nn);
+                    out.push_str(&body[de..]);
+                    out.push_str(eol);
+                    continue;
+                }
+            }
+        }
+        out.push_str(line);
+    }
+    out
+}
+
 // ────────────────────────────── the gate ───────────────────────────────────
 
 /// Rewrite every advertised injection count in `text` to `total`.
@@ -804,18 +902,27 @@ pub fn render(
             }
             Some(before) => {
                 let (after, sites) = regenerate(before, &total_norm);
-                if sites == 0 {
-                    regen_note = Some(format!(
-                        "regeneration wrote nothing: {readme_display} advertises no parseable count to rewrite"
-                    ));
-                } else if after == before {
-                    regen_note = Some(format!(
-                        "regenerated {readme_display}: {sites} site(s) already advertise {total}"
-                    ));
+                let after = rewrite_suite_cells(&after, &counts);
+                if after == before {
+                    regen_note = Some(if sites == 0 {
+                        format!(
+                            "regeneration wrote nothing: {readme_display} advertises no parseable count to rewrite"
+                        )
+                    } else {
+                        format!(
+                            "regenerated {readme_display}: {sites} site(s) already advertise {total}"
+                        )
+                    });
                 } else {
-                    regen_note = Some(format!(
-                        "regenerated {readme_display}: {sites} site(s) now advertise {total}"
-                    ));
+                    regen_note = Some(if sites == 0 {
+                        format!(
+                            "regenerated {readme_display}: per-suite cells now match receipts"
+                        )
+                    } else {
+                        format!(
+                            "regenerated {readme_display}: {sites} site(s) now advertise {total}"
+                        )
+                    });
                     new_readme = Some(after.clone());
                     readme_text = Some(after);
                 }
@@ -828,6 +935,8 @@ pub fn render(
         None => errors.push(format!("README missing: {readme_display}")),
         Some(text) => {
             let mut suite_claims: Vec<(usize, u128)> = Vec::new();
+            let mut col_rows: Vec<(usize, &str, String)> = Vec::new();
+            let mut col_seen: BTreeMap<&str, usize> = BTreeMap::new();
             for (i, line) in py_splitlines(text).iter().enumerate() {
                 let lineno = i + 1;
                 for n in scan_advertised(line) {
@@ -835,6 +944,16 @@ pub fn render(
                 }
                 for n in scan_suite_counts(line) {
                     suite_claims.push((lineno, n));
+                }
+                if let Some((suite, digits, _, _)) = parse_suite_row(line) {
+                    if col_seen.contains_key(suite) {
+                        errors.push(format!(
+                            "{readme_display}:{lineno} suite {suite} appears more than once in the per-suite table"
+                        ));
+                    } else {
+                        col_seen.insert(suite, lineno);
+                        col_rows.push((lineno, suite, norm_digits(digits)));
+                    }
                 }
             }
             if advertised.is_empty() {
@@ -864,6 +983,45 @@ pub fn render(
                         "{readme_display}:{lineno} advertises {n} selftest suites; {} are registered",
                         required.len()
                     ));
+                }
+            }
+            // Per-suite n column. Applied when --require names any selftest_*
+            // suite (the live roster) or when the file already has such a row.
+            // Specimens that use synthetic names (spec_alpha) and carry no
+            // table are unchanged — their contract is still the total.
+            let expect_col =
+                required.iter().copied().any(is_selftest_suite) || !col_rows.is_empty();
+            if expect_col {
+                if col_rows.is_empty() {
+                    errors.push(
+                        "README per-suite injection table parsed to zero suite rows (empty scan set is an ERROR, not a pass)"
+                            .to_string(),
+                    );
+                } else {
+                    for (lineno, suite, n) in &col_rows {
+                        if !required.contains(suite) {
+                            errors.push(format!(
+                                "{readme_display}:{lineno} table row {} is not in REGISTERED_SUITES",
+                                py_repr(suite)
+                            ));
+                            continue;
+                        }
+                        if let Some(&obs) = counts.get(suite) {
+                            if obs.to_string() != *n {
+                                errors.push(format!(
+                                    "{readme_display}:{lineno} suite {suite} advertises {n} injections; the suite self-reported {obs}"
+                                ));
+                            }
+                        }
+                    }
+                    for suite in &required {
+                        if !col_seen.contains_key(suite) {
+                            errors.push(format!(
+                                "registered suite {} has no per-suite table row — that is an ERROR, never a silent skip",
+                                py_repr(suite)
+                            ));
+                        }
+                    }
                 }
             }
         }
@@ -1248,6 +1406,71 @@ mod tests {
     }
 
     #[test]
+    fn per_suite_column_trips_in_both_directions_and_anti_vacuous() {
+        let req = "selftest_alpha,selftest_beta";
+        let log = "INJECTIONS=3 SUITE=selftest_alpha\nINJECTIONS=4 SUITE=selftest_beta\n";
+        let table = |alpha: &str, extra: &str| {
+            format!(
+                "{R7}| Suite | n | Injections |\n|---|---|---|\n| `selftest_alpha` | {alpha} | x |\n| `selftest_beta` | 4 | x |{extra}"
+            )
+        };
+        let (out, code) = check("L", Some(log), "R", Some(&table("3", "")), req);
+        assert_eq!(code, 0, "{out}");
+
+        let (out, code) = check("L", Some(log), "R", Some(&table("2", "")), req);
+        assert_eq!(code, 1);
+        assert!(
+            out.contains("suite selftest_alpha advertises 2 injections; the suite self-reported 3"),
+            "{out}"
+        );
+        assert!(out.contains("R:"), "{out}");
+
+        let (out, code) = check("L", Some(log), "R", Some(&table("4", "")), req);
+        assert_eq!(code, 1);
+        assert!(
+            out.contains("suite selftest_alpha advertises 4 injections; the suite self-reported 3"),
+            "{out}"
+        );
+
+        let missing = format!("{R7}| Suite | n |\n|---|---|\n| `selftest_beta` | 4 | x |\n");
+        let (out, code) = check("L", Some(log), "R", Some(&missing), req);
+        assert_eq!(code, 1);
+        assert!(out.contains("has no per-suite table row"), "{out}");
+
+        let (out, code) = check(
+            "L",
+            Some(log),
+            "R",
+            Some(&table("3", "\n| `selftest_not_a_real_suite` | 1 | x |\n")),
+            req,
+        );
+        assert_eq!(code, 1);
+        assert!(out.contains("is not in REGISTERED_SUITES"), "{out}");
+
+        let (out, code) = check("L", Some(log), "R", Some(R7), req);
+        assert_eq!(code, 1);
+        assert!(out.contains("parsed to zero suite rows"), "{out}");
+
+        let (out, code, written) = render("L", Some(log), "R", Some(&table("2", "")), req, true);
+        assert_eq!(code, 0, "{out}");
+        let w = written.expect("cells must be rewritten");
+        assert!(w.contains("| `selftest_alpha` | 3 |"), "{w}");
+        assert!(!w.contains("| `selftest_alpha` | 2 |"), "{w}");
+
+        let (out, code, written) = render(
+            "L",
+            Some("INJECTIONS=3 SUITE=selftest_alpha\n"),
+            "R",
+            Some(&table("2", "")),
+            req,
+            true,
+        );
+        assert_eq!(code, 1, "{out}");
+        assert!(out.contains("regeneration SKIPPED"), "{out}");
+        assert!(written.is_none());
+    }
+
+    #[test]
     fn write_readme_refuses_to_launder_an_unsound_total() {
         // spec_beta never reported: the total is not a number worth writing.
         let r8 = R7.replace('7', "8");
@@ -1353,6 +1576,16 @@ mod tests {
             scan_suite_counts("suitesx and 3 suitesy"),
             Vec::<u128>::new()
         );
+
+        // Per-suite table row. Mentions in comments / CHARTER are not scanned.
+        let row = "| `selftest_orphan` | 6 | empty bank |";
+        let p = parse_suite_row(row).expect("row");
+        assert_eq!(p.0, "selftest_orphan");
+        assert_eq!(p.1, "6");
+        assert_eq!(&row[p.2..p.3], "6");
+        assert!(parse_suite_row("| Suite | n | Injections |").is_none());
+        assert!(parse_suite_row("| `spec_alpha` | 3 | x |").is_none());
+        assert!(parse_suite_row("mentions `selftest_orphan` | 6 | in prose").is_none());
     }
 
     #[test]
