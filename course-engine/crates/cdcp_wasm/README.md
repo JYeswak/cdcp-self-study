@@ -37,7 +37,8 @@ browser grade is unavailable until the wasm artifact is present. Headless e2e ca
 use the native oracle:
 
 ```bash
-cargo run -q -p cdcp_cli -- grade \
+cargo build -p cdcp_cli --locked
+./target/debug/cdcp grade \
   --fixture goldens/fixtures/mock40_seed42.json --mode all-correct
 ```
 
