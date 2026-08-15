@@ -96,3 +96,28 @@ id = "obj-m04-floor-types"
 text = "Learner distinguishes stringered vs free-standing/stringerless understructure and wood-core vs cementitious panels as the two main raised-floor type axes, and treats a vendor load row as example-not-code rather than a 250 psf statute"
 claim_ids = ["claim-interview-ready", "claim-domain-covered"]
 
+[[objective]]
+id = "obj-m02-availability-class"
+text = "Learner holds Rated ≠ Tier ≠ Availability Class: Availability Class 1–4 lives in EN 50600 / ISO/IEC 22237, used alongside TIA, never Class 3 = Rated-3 = Tier III"
+claim_ids = ["claim-interview-ready", "claim-standards-family-mapped"]
+
+[[objective]]
+id = "obj-m02-en-50600"
+text = "Learner names EN 50600 as the European facilities series, first-class twin of ISO/IEC 22237, carrying Availability Class and separate Protection Classes"
+claim_ids = ["claim-interview-ready", "claim-standards-family-mapped"]
+
+[[objective]]
+id = "obj-m02-three-plaques"
+text = "Learner names the three Uptime plaques — TCCD (design documents), TCCF (constructed facility), TCOS (operational sustainability) — and will not accept a single sticker as the whole claim"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m02-tia-942-c"
+text = "Learner pins ANSI/TIA-942-C (2024) and the Rated-not-Tier rename, and treats an un-yeared “per TIA-942” as soft"
+claim_ids = ["claim-interview-ready", "claim-standards-family-mapped"]
+
+[[objective]]
+id = "obj-m02-kill-99982"
+text = "Learner name-and-kills 99.982% = Tier III (and the withdrawn I–IV downtime table) and will not replace it with a new percentage: Tier is topology, not a nine"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
