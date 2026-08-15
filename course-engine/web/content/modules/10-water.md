@@ -36,7 +36,7 @@ That choice is a **business continuity and sustainability** decision, not only a
 
 **TPM / program angle.** When you site a colo, negotiate an SLA, or plan an AI hall expansion, ask: *Is the cooling plant water-dependent? How many hours of makeup storage? Dual feed? Tower chemistry program? Fire water separate?* Interviewers use water questions to test whether you understand **MEP (mechanical, electrical, plumbing)** coupling—not just racks and switches.
 
-**Link to unavailability.** Industry outage studies consistently show **power and cooling** (and human error around them) dominate facility-caused downtime. Water is often the **hidden input** to cooling capacity. Losing water can look like a “cooling failure” on the ticket even though the root cause was the utility.
+**Link to unavailability.** Water is often the **hidden input** to cooling capacity. Losing makeup looks like a “cooling failure” on the ticket because that is the Module 09 cascade: basin empty → condenser heat rejection gone → CHW supply rising → white-space inlet climbing. The municipal cut, empty tank, chemistry trip, and missing runbook are **contributing factors, plural** (Module 15) — never “root cause” singular. At GW-scale AI campuses the same dependency is also **water rights and AHJ politics**, not only a broken main; **facility water on a W-class liquid loop** and **tower makeup** are two different water problems (W-classes stay in Module 09).
 
 ---
 
