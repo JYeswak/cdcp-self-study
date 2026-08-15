@@ -4,11 +4,17 @@
 //! # CLAIM: FLOOR-RAISE
 //!
 //! This gate raises one floor: **every module the course DECLARES carries at
-//! least its floor of bank items.** It goes RED when any of these hold —
+//! least its floor of APPROVED bank items.** It goes RED when any of these hold —
 //!
-//!   1. *starved module* — a declared, non-exempt module holding fewer items
-//!      than its floor (`[[domain_min]] min_items`, else the OQ-05 default of
-//!      one). The named module and both numbers appear in the report.
+//!   1. *starved module* — a declared, non-exempt module holding fewer approved
+//!      items than its floor (`[[domain_min]] min_items` when the policy FILE is
+//!      present, else the OQ-05 default of one). The named module and both
+//!      numbers appear in the report.
+//!   1b. *missing policy* — `bank_policy.toml` is not a file (bd-j98g). The
+//!      sized floors live there; treating absence as N=1 would lower them.
+//!      A present file with empty `[[domain_min]]` is the honest OQ-05 default
+//!      and is a different path. This is the opposite of `verify_objectives`,
+//!      where absence removes exemptions and makes the gate stricter.
 //!   2. *malformed exemption* — a `[[coverage_exempt]]` row with no usable
 //!      `module`, with a missing or blank `reason`, naming a module the domain
 //!      registry never declared, or contradicting an explicit floor. The escape
@@ -21,14 +27,53 @@
 //!      `[[domain]]` rows carry no usable `order`, or two rows claiming one
 //!      order.
 //!   5. *unreadable bank* — a missing bank directory, a file that is neither an
-//!      item nor an `items[]` table array, or an item whose `module` is not
-//!      coercible to an integer.
+//!      item nor an `items[]` table array, an item whose `module` is not
+//!      coercible to an integer, or an item whose `status` is outside the C1
+//!      lifecycle (`approved`/`draft`/`retired`).
+//!   6. *unwritable summary* — a `--write-json` target whose directory cannot be
+//!      created or whose file cannot be written. See VERDICT SHAPE below.
 //!
 //! Anti-vacuous (L4): a domain registry declaring zero modules, a bank loading
-//! zero items, and a required set emptied out by exemptions are each an ERROR,
-//! never a pass. An input set that was never really scanned must not report the
-//! way a scanned one does — that is the whole reason those three legs exist,
-//! and each is exercised on both implementations by `tests/diff_verify_coverage.rs`.
+//! zero items, a bank whose APPROVED pool is empty, and a required set emptied
+//! out by exemptions are each an ERROR, never a pass. An input set that was
+//! never really scanned must not report the way a scanned one does — that is the
+//! whole reason those legs exist, and each is exercised on both implementations
+//! by `tests/diff_verify_coverage.rs`.
+//!
+//! # WHICH POOL THE FLOOR MEASURES (bd-coverage-counts-retired-items-49jh)
+//!
+//! The floor is measured against `status == "approved"` and never against the
+//! file set. C1 restricts assembly to approved items
+//! (`cdcp_assemble::sample_item_ids`), so a floor counted over every file is a
+//! floor over a population no learner is ever assessed from — and it fails OPEN,
+//! because the file count can only ever be >= the number that matters.
+//!
+//! Until 2026-08-14 both implementations counted files. It was invisible because
+//! the bank held exactly ONE non-approved item; bd-tetz then retired 24
+//! duplicates and the gap became 25 across ten modules, `m14: 44 (min 24) [ok]`
+//! against 42 drawable. Nothing breached, so this was a defect and not an
+//! incident — but the claim had been unearned since the first retirement.
+//! Every line of the report that carries a count now names BOTH numbers.
+//!
+//! An item whose `status` is not in the C1 lifecycle is an ERROR naming the
+//! item, never a silent drop into "not approved": `cdcp_bank` rejects an unknown
+//! status at load for exactly the same reason. An ABSENT status is `draft` by
+//! C1's default — silence never publishes — and is not an error here.
+//!
+//! # VERDICT SHAPE (bd-verify-coverage-verdict-before-write-rk9n)
+//!
+//! **No success token reaches stdout on a path that can still return non-zero.**
+//! This port used to push `status` into the `out` buffer and only then run the
+//! `--write-json` side effect, whose two `?` sites map to [`Halt`]. `Halt` does
+//! NOT discard the buffer: [`evaluate`] returns `Outcome { stdout: out, code: 1 }`,
+//! so a failed write printed the already-buffered PASS and exited 1. Stdout said
+//! PASS, the process said 1, and which one won depended on who looked.
+//!
+//! [`report`] now composes into a local buffer and copies it into `out` only
+//! after the write has succeeded, so a failed write emits an EMPTY stdout and a
+//! non-zero exit — matching the oracle, which raises before its single `print`.
+//! The write is atomic (temp file beside the target, then rename), so a refused
+//! or torn write leaves NO partial artifact.
 //!
 //! # THE REBASE THIS PORT INHERITS (bd-lt7)
 //!
@@ -133,9 +178,18 @@ pub const DEFAULT_BANK: &str = "bank/items";
 pub const DEFAULT_POLICY: &str = "knowledge/bank_policy.toml";
 pub const DEFAULT_DOMAINS: &str = "knowledge/domains.toml";
 
-/// `DEFAULT_N` — the OQ-05 ASSUMED floor applied when no `[[domain_min]]` row
-/// names a module.
+/// `DEFAULT_N` — the OQ-05 ASSUMED floor applied when the policy FILE is
+/// present and no `[[domain_min]]` row names a module. File-absent is ERROR
+/// (bd-j98g), not this default.
 pub const DEFAULT_N: i128 = 1;
+
+/// The C1 status a floor may be measured against — the only one
+/// `cdcp_assemble` may draw.
+pub const APPROVED: &str = "approved";
+
+/// The C1 lifecycle. A `status` outside this set is an ERROR, not a bucket
+/// chosen by guess. An ABSENT status is the `draft` default and is not an error.
+pub const KNOWN_STATUSES: &[&str] = &["approved", "draft", "retired"];
 
 /// How many failures the report prints before it truncates. Mirrors the
 /// oracle's `errors[:40]` slice.
@@ -686,6 +740,12 @@ pub struct Args {
 /// One bank item as the Python loop sees it: the file it came from, and its table.
 type Item = (String, toml::Table);
 
+/// What `count_modules` returns: the APPROVED counts per module (what the floors
+/// are measured against), the SCANNED counts per module (every item that loaded,
+/// whatever its status), and the per-item errors. Two populations, deliberately
+/// both — see [`count_modules`].
+type CountedModules = (BTreeMap<i128, u64>, BTreeMap<i128, u64>, Vec<String>);
+
 fn load_toml(path: &Path) -> Result<toml::Table, String> {
     let text = std::fs::read_to_string(path).map_err(|e| e.to_string())?;
     text.parse::<toml::Table>().map_err(|e| e.to_string())
@@ -771,6 +831,9 @@ fn load_exemptions(
 ) -> H<(BTreeMap<i128, String>, Vec<String>)> {
     let mut errors: Vec<String> = Vec::new();
     let mut exempt: BTreeMap<i128, String> = BTreeMap::new();
+    // Missing file: empty exemptions (stricter). Do NOT copy verify_objectives'
+    // ABSENT-OK sentence here: the floors path ERRORs on the same absence
+    // (bd-j98g), because absence would lower sized [[domain_min]] rows.
     if !Path::new(policy_disp).is_file() {
         return Ok((exempt, errors));
     }
@@ -840,7 +903,13 @@ fn load_exemptions(
     Ok((exempt, errors))
 }
 
-/// `load_domain_mins()` — per-module floors, defaulting to [`DEFAULT_N`].
+/// `load_domain_mins()` — per-module floors, defaulting to [`DEFAULT_N`] when
+/// the policy FILE is present but a module has no row.
+///
+/// Absence of the file is an ERROR, not a fallback (bd-j98g). The sized floors
+/// live here; defaulting to N=1 would lower them (fail-open). A present file
+/// with empty `[[domain_min]]` is the honest N=1 default — distinguishable
+/// from a missing file.
 ///
 /// A `[[domain_min]]` row keyed to a module the registry does not declare is
 /// the cross-source drift leg: the two sources of truth for "which modules
@@ -852,6 +921,9 @@ fn load_domain_mins(
     let mut errors: Vec<String> = Vec::new();
     let mut mins: BTreeMap<i128, i128> = required.iter().map(|m| (*m, DEFAULT_N)).collect();
     if !Path::new(policy_disp).is_file() {
+        errors.push(format!(
+            "bank_policy.toml missing: {policy_disp} (absence would lower sized [[domain_min]] floors to N=1)"
+        ));
         return Ok((mins, errors));
     }
     let bp = load_toml(Path::new(policy_disp))
@@ -957,14 +1029,21 @@ fn read_items(disp: &str) -> (Vec<Item>, Vec<String>) {
     (loaded, errors)
 }
 
-/// `count_modules()` — a `Counter` keyed by the integer `module` of each item.
-fn count_modules(loaded: &[Item]) -> H<(BTreeMap<i128, u64>, Vec<String>)> {
-    let mut counts: BTreeMap<i128, u64> = BTreeMap::new();
+/// `count_modules()` — TWO `Counter`s keyed by the integer `module` of each item.
+///
+/// The first is the APPROVED pool, which is what the floors are measured
+/// against; the second is everything that scanned, whatever its status, so the
+/// report can name both numbers side by side. A report that showed only one of
+/// them is how a floor came to be checked against a set no learner draws from
+/// (bd-coverage-counts-retired-items-49jh).
+fn count_modules(loaded: &[Item]) -> H<CountedModules> {
+    let mut approved: BTreeMap<i128, u64> = BTreeMap::new();
+    let mut scanned: BTreeMap<i128, u64> = BTreeMap::new();
     let mut errors: Vec<String> = Vec::new();
     for (fname, it) in loaded {
         let module = it.get("module");
-        match py_int(module) {
-            Ok(mi) => *counts.entry(mi).or_insert(0) += 1,
+        let mi = match py_int(module) {
+            Ok(mi) => mi,
             Err(IntErr::Uncaught(m)) => return Err(Halt(m)),
             Err(IntErr::Caught(_)) => {
                 let iid = match it.get("id") {
@@ -972,10 +1051,33 @@ fn count_modules(loaded: &[Item]) -> H<(BTreeMap<i128, u64>, Vec<String>)> {
                     _ => fname.clone(),
                 };
                 errors.push(format!("{iid}: bad module {}", py_repr_value(module)));
+                continue;
+            }
+        };
+        *scanned.entry(mi).or_insert(0) += 1;
+        // `it.get("status", "draft")`: an absent status is the C1 default and is
+        // NOT an error; a present one must be a str equal to a known status.
+        let status = it.get("status");
+        if matches!(status, Some(Value::String(s)) if s == APPROVED) {
+            *approved.entry(mi).or_insert(0) += 1;
+        } else {
+            let known = match status {
+                None => true,
+                Some(Value::String(s)) => KNOWN_STATUSES.contains(&s.as_str()),
+                Some(_) => false,
+            };
+            if !known {
+                // Fail-closed AND loud. Dropping an unmodelled status silently
+                // into "not approved" would be the same defect one level down.
+                let iid = match it.get("id") {
+                    Some(v) if py_truthy(v) => py_str_value(v),
+                    _ => fname.clone(),
+                };
+                errors.push(format!("{iid}: unknown status {}", py_repr_value(status)));
             }
         }
     }
-    Ok((counts, errors))
+    Ok((approved, scanned, errors))
 }
 
 /// Run the whole check and render the oracle's report.
@@ -997,6 +1099,28 @@ pub fn evaluate(root_str: &str, args: &Args) -> Outcome {
             code: 1,
         },
     }
+}
+
+/// Write the `--write-json` summary so a FAILED write leaves NOTHING behind.
+///
+/// Temp file beside the target, then `rename`, which is atomic on one
+/// filesystem. Mirrors the oracle's `write_summary`, including the temp name
+/// (`<target>.tmp`) — a name nothing ever observes, because it either becomes
+/// the target or is removed, and the caller never prints a verdict over a
+/// failure here.
+fn write_summary(out_path: &str, body: &str) -> H<()> {
+    let p = Path::new(out_path);
+    if let Some(parent) = p.parent() {
+        std::fs::create_dir_all(parent)
+            .map_err(|e| Halt(format!("OSError: {}: {e}", parent.display())))?;
+    }
+    let tmp = PathBuf::from(format!("{out_path}.tmp"));
+    let res = std::fs::write(&tmp, body).and_then(|()| std::fs::rename(&tmp, p));
+    if let Err(e) = res {
+        let _ = std::fs::remove_file(&tmp);
+        return Err(Halt(format!("OSError: {out_path}: {e}")));
+    }
+    Ok(())
 }
 
 fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
@@ -1023,81 +1147,115 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
     errors.extend(min_errors);
 
     let (loaded, load_errors) = read_items(&bank_disp);
-    let (module_counts, mod_errors) = count_modules(&loaded)?;
+    let (module_counts, scanned_counts, mod_errors) = count_modules(&loaded)?;
     errors.extend(load_errors);
     errors.extend(mod_errors);
 
     let n = loaded.len();
+    let approved_n: u64 = module_counts.values().sum();
     if n == 0 {
         errors.push("empty bank: zero items loaded (vacuous coverage is ERROR)".to_string());
+    } else if approved_n == 0 {
+        // A bank FULL of files and empty of drawable items is the exact state a
+        // file-counting floor reported green on. Named separately from the
+        // empty-bank leg because it is a different failure with the same verdict.
+        errors.push(format!(
+            "zero approved items ({n} scanned): the floors measure a pool no \
+             learner can be assessed from (vacuous coverage is ERROR)"
+        ));
     }
     if required.is_empty() {
         errors
             .push("zero required modules after exemptions (vacuous coverage is ERROR)".to_string());
     }
 
-    let mut shortfalls: Vec<(i128, u64, i128)> = Vec::new();
+    let mut shortfalls: Vec<(i128, u64, i128, u64)> = Vec::new();
     for module in &required {
         let need = domain_mins.get(module).copied().unwrap_or(DEFAULT_N);
         let have = module_counts.get(module).copied().unwrap_or(0);
+        let seen = scanned_counts.get(module).copied().unwrap_or(0);
         if i128::from(have) < need {
-            errors.push(format!("module {module}: {have} items < min {need}"));
-            shortfalls.push((*module, have, need));
+            // Both numbers, deliberately: `44 scanned` under a floor of 24 is
+            // exactly the reading that made this fail open for a week.
+            errors.push(format!(
+                "module {module}: {have} approved < min {need} \
+                 ({seen} scanned, {} not approved)",
+                seen - have
+            ));
+            shortfalls.push((*module, have, need, seen));
         }
     }
 
     // Report: every required module, then recorded exemptions, then anything the
     // bank carries that the registry never declared.
+    //
+    // COMPOSED INTO A LOCAL BUFFER, not into `out`. See the module header: `out`
+    // survives a `Halt` into `Outcome.stdout`, so anything pushed there before
+    // the `--write-json` side effect would be printed alongside exit 1. The copy
+    // into `out` is the LAST thing this function does before returning a code.
     let status = if errors.is_empty() { "PASS" } else { "FAIL" };
-    out.push_str(status);
-    out.push('\n');
-    out.push_str(&format!("  bank={bank_disp}\n"));
-    out.push_str(&format!("  items={n}\n"));
-    out.push_str(&format!(
+    let mut body = String::new();
+    body.push_str(status);
+    body.push('\n');
+    body.push_str(&format!("  bank={bank_disp}\n"));
+    body.push_str(&format!(
+        "  items={n} scanned, {approved_n} approved \
+         (floors count the approved pool only)\n"
+    ));
+    body.push_str(&format!(
         "  policy={}\n",
         if Path::new(&policy_disp).is_file() {
             "present"
         } else {
-            "absent (N=1 OQ-05)"
+            "absent"
         }
     ));
-    out.push_str(&format!(
+    body.push_str(&format!(
         "  registry={} declares={}\n",
         path_name(&domains_disp),
         declared.len()
     ));
-    out.push_str(&format!(
+    body.push_str(&format!(
         "  modules ({} required, derived from the domain registry):\n",
         required.len()
     ));
     for module in &required {
         let have = module_counts.get(module).copied().unwrap_or(0);
+        let seen = scanned_counts.get(module).copied().unwrap_or(0);
         let need = domain_mins.get(module).copied().unwrap_or(DEFAULT_N);
         let flag = if i128::from(have) >= need && n > 0 {
             "ok"
         } else {
             "SHORT"
         };
-        out.push_str(&format!("    m{module:02}: {have} (min {need}) [{flag}]\n"));
+        body.push_str(&format!(
+            "    m{module:02}: {have} approved of {seen} scanned (min {need}) [{flag}]\n"
+        ));
     }
     if !exempt.is_empty() {
-        out.push_str("  recorded exemptions (bank_policy.toml [[coverage_exempt]]):\n");
+        body.push_str("  recorded exemptions (bank_policy.toml [[coverage_exempt]]):\n");
         for (module, reason) in &exempt {
             let have = module_counts.get(module).copied().unwrap_or(0);
-            out.push_str(&format!("    m{module:02}: {have} — exempt: {reason}\n"));
+            let seen = scanned_counts.get(module).copied().unwrap_or(0);
+            body.push_str(&format!(
+                "    m{module:02}: {have} approved of {seen} scanned — exempt: {reason}\n"
+            ));
         }
     }
-    let extras: Vec<i128> = module_counts
+    // Drift is a property of the FILE SET, not of the drawable pool: a retired
+    // item filed under a module the registry never declared is still drift, and
+    // counting extras on the approved pool would hide it.
+    let extras: Vec<i128> = scanned_counts
         .keys()
         .copied()
         .filter(|m| !declared.contains_key(m))
         .collect();
     if !extras.is_empty() {
-        out.push_str("  undeclared modules present in the bank (not required for green):\n");
+        body.push_str("  undeclared modules present in the bank (not required for green):\n");
         for module in &extras {
-            let have = module_counts.get(module).copied().unwrap_or(0);
-            out.push_str(&format!(
-                "    m{module:02}: {have} (not in the domain registry)\n"
+            let seen = scanned_counts.get(module).copied().unwrap_or(0);
+            body.push_str(&format!(
+                "    m{module:02}: {seen} scanned (not in the domain registry)\n"
             ));
         }
     }
@@ -1110,12 +1268,14 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
             status,
             &bank_rel,
             n,
+            approved_n,
             &path_name(&domains_disp),
             &declared,
             &required,
             &exempt,
             &domain_mins,
             &module_counts,
+            &scanned_counts,
             &extras,
             &shortfalls,
         );
@@ -1124,24 +1284,25 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
         } else {
             py_resolve(&join_posix(root_str, target))
         };
-        let p = Path::new(&out_path);
-        if let Some(parent) = p.parent() {
-            std::fs::create_dir_all(parent)
-                .map_err(|e| Halt(format!("OSError: {}: {e}", parent.display())))?;
-        }
-        std::fs::write(p, format!("{}\n", json_dumps(&summary)))
-            .map_err(|e| Halt(format!("OSError: {out_path}: {e}")))?;
-        out.push_str(&format!("  wrote {out_path}\n"));
+        // THE SIDE EFFECT RUNS BEFORE THE VERDICT REACHES `out`. Nothing has
+        // been copied out of `body` yet, so a failed write returns Halt with an
+        // EMPTY stdout — never with a PASS a reader would have believed. The
+        // `status` baked into the summary is the pre-write verdict, which is
+        // sound precisely because the file only exists when the write succeeded,
+        // and when it succeeded the pre-write verdict is the final one.
+        write_summary(&out_path, &format!("{}\n", json_dumps(&summary)))?;
+        body.push_str(&format!("  wrote {out_path}\n"));
     }
 
     if !errors.is_empty() {
-        out.push_str("  failures:\n");
+        body.push_str("  failures:\n");
         for e in errors.iter().take(MAX_REPORT) {
-            out.push_str(&format!("    - {e}\n"));
+            body.push_str(&format!("    - {e}\n"));
         }
         if errors.len() > MAX_REPORT {
-            out.push_str(&format!("    ... +{} more\n", errors.len() - MAX_REPORT));
+            body.push_str(&format!("    ... +{} more\n", errors.len() - MAX_REPORT));
         }
+        out.push_str(&body);
         return Ok(1);
     }
 
@@ -1152,10 +1313,11 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
         .map(|m| format!("m{m:02}"))
         .collect::<Vec<_>>()
         .join(" ");
-    out.push_str(&format!(
+    body.push_str(&format!(
         "  coverage GREEN ({} required modules ≥ domain_min: {span})\n",
         required.len()
     ));
+    out.push_str(&body);
     Ok(0)
 }
 
@@ -1164,22 +1326,30 @@ fn summary_json(
     status: &str,
     bank_rel: &str,
     n: usize,
+    approved_n: u64,
     module_source: &str,
     declared: &BTreeMap<i128, String>,
     required: &[i128],
     exempt: &BTreeMap<i128, String>,
     domain_mins: &BTreeMap<i128, i128>,
     module_counts: &BTreeMap<i128, u64>,
+    scanned_counts: &BTreeMap<i128, u64>,
     extras: &[i128],
-    shortfalls: &[(i128, u64, i128)],
+    shortfalls: &[(i128, u64, i128, u64)],
 ) -> J {
     let ints = |xs: &[i128]| J::List(xs.iter().map(|x| J::Int(*x)).collect());
     J::Obj(vec![
-        ("schema_version".into(), J::Int(2)),
+        // v3: `counts` changed population — it was the file set and is now the
+        // APPROVED pool, a semantic change no consumer could detect from the
+        // numbers alone, so the version moves with it. `item_count` keeps its
+        // old meaning and `approved_count`/`scanned_counts` are added, so both
+        // populations are in the ledger.
+        ("schema_version".into(), J::Int(3)),
         ("gate".into(), J::Str("l6-domain-coverage".into())),
         ("status".into(), J::Str(status.to_lowercase())),
         ("bank".into(), J::Str(bank_rel.to_string())),
         ("item_count".into(), J::Int(n as i128)),
+        ("approved_count".into(), J::Int(i128::from(approved_n))),
         ("module_source".into(), J::Str(module_source.to_string())),
         (
             "declared_modules".into(),
@@ -1219,6 +1389,20 @@ fn summary_json(
             ),
         ),
         (
+            "scanned_counts".into(),
+            J::Obj(
+                required
+                    .iter()
+                    .map(|k| {
+                        (
+                            k.to_string(),
+                            J::Int(i128::from(scanned_counts.get(k).copied().unwrap_or(0))),
+                        )
+                    })
+                    .collect(),
+            ),
+        ),
+        (
             "extra_counts".into(),
             J::Obj(
                 extras
@@ -1226,7 +1410,7 @@ fn summary_json(
                     .map(|k| {
                         (
                             k.to_string(),
-                            J::Int(i128::from(module_counts.get(k).copied().unwrap_or(0))),
+                            J::Int(i128::from(scanned_counts.get(k).copied().unwrap_or(0))),
                         )
                     })
                     .collect(),
@@ -1237,11 +1421,12 @@ fn summary_json(
             J::List(
                 shortfalls
                     .iter()
-                    .map(|(m, have, need)| {
+                    .map(|(m, have, need, seen)| {
                         J::Obj(vec![
                             ("module".into(), J::Int(*m)),
                             ("have".into(), J::Int(i128::from(*have))),
                             ("min".into(), J::Int(*need)),
+                            ("scanned".into(), J::Int(i128::from(*seen))),
                         ])
                     })
                     .collect(),
@@ -1474,7 +1659,9 @@ mod tests {
     /// Known-bad for bd-conu: a policy planted at the engine root must not be
     /// read when `--bank`/`--domains` are an isolated fixture and `--policy`
     /// was never passed. Restoring `resolve_arg(..., DEFAULT_POLICY)` makes
-    /// this RED (module 9 drift).
+    /// this name module 9. bd-j98g: the same absence is now ERROR (missing
+    /// local file), not GREEN-at-N=1 — still without reading the planted
+    /// engine-root policy.
     #[test]
     fn omitted_policy_does_not_read_a_policy_at_the_engine_root() {
         let td = tempfile::tempdir().unwrap();
@@ -1492,7 +1679,11 @@ mod tests {
             "schema_version = 1\n\n[[domain]]\nid = \"d\"\norder = 1\n",
         )
         .unwrap();
-        std::fs::write(fx.join("bank/a.toml"), "id = \"a\"\nmodule = 1\n").unwrap();
+        std::fs::write(
+            fx.join("bank/a.toml"),
+            "id = \"a\"\nmodule = 1\nstatus = \"approved\"\n",
+        )
+        .unwrap();
         let args = Args {
             bank: Some(fx.join("bank").to_string_lossy().into_owned()),
             domains: Some(fx.join("d.toml").to_string_lossy().into_owned()),
@@ -1500,10 +1691,20 @@ mod tests {
             write_json: None,
         };
         let out = evaluate(&live.to_string_lossy(), &args);
-        assert_eq!(out.code, 0, "{}", out.stdout);
+        assert_ne!(out.code, 0, "missing local policy must be RED:\n{}", out.stdout);
         assert!(
-            out.stdout.contains("policy=absent (N=1 OQ-05)"),
+            out.stdout.contains("policy=absent"),
             "{}",
+            out.stdout
+        );
+        assert!(
+            !out.stdout.contains("policy=absent (N=1 OQ-05)"),
+            "N=1 must not be claimed as a fallback:\n{}",
+            out.stdout
+        );
+        assert!(
+            out.stdout.contains("bank_policy.toml missing:"),
+            "the missing local file must be named:\n{}",
             out.stdout
         );
         assert!(
@@ -1511,6 +1712,10 @@ mod tests {
             "engine-root policy leaked:\n{}",
             out.stdout
         );
-        assert!(!out.stdout.contains("[[domain_min]]"), "{}", out.stdout);
+        assert!(
+            !out.stdout.contains("[[domain_min]] module"),
+            "engine-root domain_min rows leaked:\n{}",
+            out.stdout
+        );
     }
 }

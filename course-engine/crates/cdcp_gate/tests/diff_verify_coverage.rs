@@ -25,10 +25,49 @@
 //!   h) emission ORDER: required modules, then recorded exemptions, then
 //!      undeclared extras, then the failure list, each numerically ascending
 //!   i) `--write-json`, whose summary bytes are compared as well as its stdout
+//!
+//! and the legs the two 2026-08-14 beads added —
+//!
+//!   j) retiring approved items in a copy of the live bank until one module is
+//!      under its floor -> RED naming module, count and floor. NO FILE IS ADDED
+//!      OR REMOVED, so a file-counting gate stays GREEN on this fixture by
+//!      construction; the case asserts the scanned count is unchanged and still
+//!      clears the floor, which is the defect made observable
+//!      (bd-coverage-counts-retired-items-49jh)
+//!   k) a bank whose items are all retired or draft -> ERROR, not a pass, even
+//!      though the file count is healthy
+//!   l) a `status` outside the C1 lifecycle -> ERROR naming the item, never a
+//!      silent drop into "not approved"
+//!   m) a `--write-json` that CANNOT succeed, two ways: a parent that is a file
+//!      (the mkdir refuses) and a target that is a directory (the atomic rename
+//!      refuses after the temp write). Both sides must print NOTHING, exit
+//!      non-zero, leave no artifact and no `.tmp` residue
+//!      (bd-verify-coverage-verdict-before-write-rk9n)
+//!   n) the ledger written from a COPY of the live tree is byte-identical
+//!      across the two AND equal to the tracked `web/data/coverage.json`
 //!   o) omitted `--policy` on an isolated `--bank`/`--domains` fixture does
 //!      NOT read the shipped `knowledge/bank_policy.toml` (bd-conu). The
-//!      leak named live modules 3–15; the detector is a one-module fixture
-//!      that the leak turns RED and the fix leaves GREEN.
+//!      leak named live modules 3–15. After bd-j98g the no-file path is
+//!      RED (missing policy), still without those live-floor findings.
+//!   p) a missing policy file is ERROR, not a lowered N=1 floor (bd-j98g).
+//!      A present file with empty `[[domain_min]]` stays N=1 and must not
+//!      report like the missing-file path.
+//!
+//! # THE VERDICT-SHAPE DETECTOR
+//!
+//! [`assert_no_success_token_on_a_failing_path`] runs on EVERY case, PER SIDE.
+//! It is the leg proven by a mutation pair on 2026-08-14: make both
+//! implementations print the success token regardless of the verdict and this
+//! suite exits 101 on 12 cases; delete that one assertion with the mutation
+//! still in place and it returns to 0. Nothing else in the suite catches it,
+//! which is what makes it the detector rather than a coincidence.
+//!
+//! It is asserted PER SIDE and not merely across the two because a differential
+//! only catches a regression that lands on ONE side. Two implementations that
+//! both regress agree with each other perfectly — and that is exactly what
+//! happened here, where the Python printed its verdict above an unguarded write
+//! and the Rust buffered the same verdict into `Outcome.stdout`, which `Halt`
+//! preserves.
 //!
 //! ANTI-VACUOUS DISCIPLINE. A differential that silently compares nothing passes
 //! exactly like one that compared everything, so: a missing `python3` is a
@@ -110,11 +149,49 @@ fn rust(root: &Path, args: &[&str]) -> Run {
     }
 }
 
+/// Every string this gate emits that a human would read as "it passed".
+///
+/// Keyed by TOKEN rather than by line number, and checked on EVERY case rather
+/// than on the handful that happen to be RED, because the defect this guards
+/// is not "the wrong line was printed" — it is "a success line was printed on a
+/// path that had not finished deciding yet".
+const SUCCESS_TOKENS: &[&str] = &["PASS", "coverage GREEN"];
+
+/// VERDICT SHAPE: no success token on a path that returned non-zero
+/// (bd-verify-coverage-verdict-before-write-rk9n, the third instance of the
+/// class bd-lt7 and bd-builder-verdict-shape-qm65 fixed).
+///
+/// Asserted PER SIDE rather than only across the two. A differential only
+/// catches a regression that lands on ONE side; two implementations that both
+/// regress agree with each other perfectly and the byte comparison above stays
+/// green while both of them lie. That is not hypothetical here: the Python
+/// printed its verdict before an unguarded write and the Rust buffered the same
+/// verdict into `Outcome.stdout`, which `Halt` preserves — the two agreed, byte
+/// for byte, on a PASS above exit 1.
+fn assert_no_success_token_on_a_failing_path(label: &str, side: &str, r: &Run) {
+    if r.code == 0 {
+        return;
+    }
+    for token in SUCCESS_TOKENS {
+        assert!(
+            !r.out().contains(token),
+            "[{label}] {side} exited {} with the success token {token:?} on stdout. This is \
+             the defect itself: a reader skimming stdout sees success while CI sees \
+             non-zero, and which one wins depends on whether anyone looked:\n{}",
+            r.code,
+            r.out()
+        );
+    }
+}
+
 /// The whole acceptance bar in one function. Returns the (identical) run so a
 /// case can additionally assert *what* the shared output says.
 fn assert_byte_identical(label: &str, root: &Path, args: &[&str]) -> Run {
     let py = python(root, args);
     let rs = rust(root, args);
+
+    assert_no_success_token_on_a_failing_path(label, "python", &py);
+    assert_no_success_token_on_a_failing_path(label, "rust", &rs);
 
     assert_eq!(
         py.stdout,
@@ -147,6 +224,12 @@ fn write(path: &Path, body: &str) {
     std::fs::write(path, body).unwrap();
 }
 
+/// A present policy with no `[[domain_min]]` rows. This is the honest N=1
+/// default — distinguishable from a missing file (bd-j98g).
+fn write_empty_policy(path: &Path) {
+    write(path, "schema_version = 1\n");
+}
+
 /// A synthetic domain registry declaring exactly `orders`, in the order given —
 /// which is deliberately NOT always ascending, so the report's own ordering is
 /// under test rather than inherited from the fixture.
@@ -161,15 +244,43 @@ fn domains_registry(orders: &[i64]) -> String {
 }
 
 /// One bank item, in the single-table `id = ...` form the oracle accepts.
+///
+/// The status is EXPLICIT and `approved`, because the floors count the approved
+/// pool (bd-coverage-counts-retired-items-49jh) and a fixture that meant "this
+/// module is stocked" must plant items a learner could actually be drawn. A
+/// status-less item is `draft` by C1's default and stocks nothing — see
+/// [`item_with_status`] for the fixtures that mean exactly that.
 fn item(id: &str, module: i64) -> String {
-    format!("id = {id:?}\nmodule = {module}\n")
+    item_with_status(id, module, Some("approved"))
 }
 
-/// A bank directory holding `(id, module)` items, and the count planted.
+/// One bank item with an explicit C1 status, or none at all.
+fn item_with_status(id: &str, module: i64, status: Option<&str>) -> String {
+    let mut s = format!("id = {id:?}\nmodule = {module}\n");
+    if let Some(st) = status {
+        s.push_str(&format!("status = {st:?}\n"));
+    }
+    s
+}
+
+/// A bank directory holding approved `(id, module)` items, and the count planted.
 fn plant_bank(dir: &Path, items: &[(&str, i64)]) -> usize {
     std::fs::create_dir_all(dir).unwrap();
     for (id, m) in items {
         write(&dir.join(format!("{id}.toml")), &item(id, *m));
+    }
+    items.len()
+}
+
+/// A bank directory holding `(id, module, status)` items — the mixed-pool
+/// fixture the floor rebase needs, where `None` means no `status` key at all.
+fn plant_bank_with_status(dir: &Path, items: &[(&str, i64, Option<&str>)]) -> usize {
+    std::fs::create_dir_all(dir).unwrap();
+    for (id, m, st) in items {
+        write(
+            &dir.join(format!("{id}.toml")),
+            &item_with_status(id, *m, *st),
+        );
     }
     items.len()
 }
@@ -349,10 +460,19 @@ fn the_shell_selftest_cases_are_byte_identical() {
 // A fixture that passed isolated --bank/--domains and no --policy therefore
 // graded the shipped [[domain_min]] rows. Measured 2026-08-14: policy=present
 // and 14 findings `[[domain_min]] module N is not a required module` for
-// N=2..15, none of which the fixture declared.
+// N=2..15, none of which the fixture declared. A case can go RED for a reason
+// it did not inject, or GREEN because the live policy supplied something the
+// fixture forgot.
 //
-// Needles here name the LEAK, not the report dialect: they must hold whether
-// the floor line says "items" or "approved".
+// THE DETECTOR: one declared module, one approved item, NO --policy. The leak
+// makes this name live floors + undeclared-module drift for modules 2–15.
+// After conu, omitted --policy does not read the shipped file. After bd-j98g
+// the same no-file path is RED naming the missing local policy — still
+// without those live-floor findings. Do not reopen conu: a sibling policy
+// beside the fixture domains is still the one that is read.
+// Should-fail: two declared modules, only module 1 stocked — RED naming
+// module 2 only (plus the missing-policy line). Anti-vacuous: empty bank
+// stays an error, still without live-policy findings.
 
 #[test]
 fn omitted_policy_does_not_grade_the_live_bank_policy() {
@@ -363,30 +483,46 @@ fn omitted_policy_does_not_grade_the_live_bank_policy() {
     assert!(planted > 0, "a vacuous fixture bank is an ERROR");
     let bank_s = bank.to_str().unwrap();
 
-    // Isolated one-module registry, no --policy. Must be GREEN and silent
-    // about every module the fixture never declared.
+    // Isolated one-module registry, no --policy. Must NOT read the shipped
+    // policy (bd-conu) and must RED for the missing local file (bd-j98g).
     let one = td.path().join("one.toml");
     write(&one, &domains_registry(&[1]));
     let one_s = one.to_str().unwrap();
     let rs = assert_byte_identical(
-        "bd-conu isolated no-policy is green",
+        "bd-conu isolated no-policy does not read the live file",
         &root,
         &["--bank", bank_s, "--domains", one_s],
     );
-    assert_eq!(
+    assert_ne!(
         rs.code,
         0,
-        "an isolated one-module fixture went RED — the live policy leaked:\n{}",
+        "a missing local policy must be RED, not a lowered N=1 pass:\n{}",
         rs.out()
     );
     assert!(
-        rs.out().contains("policy=absent (N=1 OQ-05)"),
+        rs.out().contains("policy=absent"),
         "omitted --policy must mean no policy, not the shipped file:\n{}",
         rs.out()
     );
     assert!(
-        !rs.out().contains("[[domain_min]]"),
+        !rs.out().contains("policy=absent (N=1 OQ-05)"),
+        "N=1 must not be claimed as a fallback for a missing file:\n{}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("bank_policy.toml missing:"),
+        "the missing local policy must be named:\n{}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("[[domain_min]] module"),
         "live domain_min rows leaked into an isolated fixture:\n{}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("m01: 1 approved of 1 scanned (min 1) [ok]"),
+        "{}",
         rs.out()
     );
     for n in 2..=15 {
@@ -410,12 +546,13 @@ fn omitted_policy_does_not_grade_the_live_bank_policy() {
     );
     assert_ne!(rs.code, 0, "the planted shortfall passed:\n{}", rs.out());
     assert!(
-        rs.out().contains("module 2:"),
+        rs.out()
+            .contains("module 2: 0 approved < min 1 (0 scanned, 0 not approved)"),
         "the planted shortfall must be named: {}",
         rs.out()
     );
     assert!(
-        !rs.out().contains("[[domain_min]]"),
+        !rs.out().contains("[[domain_min]] module"),
         "live floors leaked onto a known-bad:\n{}",
         rs.out()
     );
@@ -442,7 +579,7 @@ fn omitted_policy_does_not_grade_the_live_bank_policy() {
         rs.out()
     );
     assert!(
-        !rs.out().contains("[[domain_min]]"),
+        !rs.out().contains("[[domain_min]] module"),
         "live policy leaked onto the empty-bank path:\n{}",
         rs.out()
     );
@@ -465,13 +602,182 @@ fn omitted_policy_does_not_grade_the_live_bank_policy() {
         rs.out()
     );
     assert!(
-        rs.out().contains("min 5"),
+        rs.out()
+            .contains("module 1: 1 approved < min 5 (1 scanned, 0 not approved)"),
         "the fixture sibling policy must raise the floor:\n{}",
         rs.out()
     );
     assert!(
         rs.out().contains("policy=present"),
         "a sibling policy file must count as present:\n{}",
+        rs.out()
+    );
+}
+
+// ── (p) bd-j98g: missing policy is ERROR, not a lowered N=1 floor ─────────
+//
+// THE HOLE: load_domain_mins returned {m: DEFAULT_N} with no error when the
+// resolved policy file was not a file. Absence therefore LOWERED every sized
+// [[domain_min]] floor to 1. A one-item fixture PASSed; the live bank PASSed
+// with `--policy` pointed at a nonexistent file (`policy=absent (N=1 OQ-05)`).
+// That is the opposite of verify_objectives, where absence removes exemptions
+// and makes the gate stricter.
+//
+// THE RULE: missing file = ERROR naming the path. A present file with empty
+// [[domain_min]] keeps N=1. Those two must not report alike.
+//
+// THE DETECTOR: isolated one-module bank stocked at 1, `--policy` at a path
+// that does not exist. Used to be GREEN with `policy=absent (N=1 OQ-05)`.
+// Now RED, names the missing file, and does not claim N=1 as a fallback.
+// Should-fail (distinguishable): the same fixture with an empty-but-present
+// policy is GREEN at min 1. A sized floor of 20 on the same stock is RED
+// naming the floor. The live bank with `--policy` at a missing path is RED
+// (it used to PASS because every module has >> 1 approved item).
+
+#[test]
+fn absent_policy_is_an_error_not_a_lowered_floor() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let bank = td.path().join("bank");
+    let planted = plant_bank(&bank, &[("only", 1)]);
+    assert!(planted > 0, "a vacuous fixture bank is an ERROR");
+    let bank_s = bank.to_str().unwrap();
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(&[1]));
+    let reg_s = reg.to_str().unwrap();
+
+    let missing = td.path().join("no-such-bank_policy.toml");
+    let missing_s = missing.to_str().unwrap();
+    assert!(
+        !missing.exists(),
+        "the known-bad must not accidentally plant the file it claims is missing"
+    );
+
+    let rs = assert_byte_identical(
+        "bd-j98g isolated missing policy is red",
+        &root,
+        &["--bank", bank_s, "--domains", reg_s, "--policy", missing_s],
+    );
+    assert_ne!(
+        rs.code,
+        0,
+        "a fixture stocked below every sized floor must not PASS just because \
+         the policy file is absent:\n{}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("policy=absent"),
+        "missing file must be reported as absent:\n{}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("policy=absent (N=1 OQ-05)"),
+        "N=1 must not be claimed as the applied floor when the file is gone:\n{}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains(&format!("bank_policy.toml missing: {missing_s}")),
+        "the missing policy path must be named:\n{}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("(absence would lower sized [[domain_min]] floors to N=1)"),
+        "the failure must say WHY absence is unsafe:\n{}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("coverage GREEN"),
+        "a success token on the missing-policy path is the defect:\n{}",
+        rs.out()
+    );
+
+    // Anti-vacuous: a present file with empty [[domain_min]] is NOT the
+    // missing-file path. Same bank, same registry, N=1, GREEN.
+    let empty = td.path().join("empty_policy.toml");
+    write_empty_policy(&empty);
+    let empty_s = empty.to_str().unwrap();
+    let rs = assert_byte_identical(
+        "bd-j98g present-empty [[domain_min]] is n=1, not missing",
+        &root,
+        &["--bank", bank_s, "--domains", reg_s, "--policy", empty_s],
+    );
+    assert_eq!(
+        rs.code,
+        0,
+        "a present policy with no [[domain_min]] rows is the honest N=1 default:\n{}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("policy=present"),
+        "empty [[domain_min]] must not report as absent:\n{}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("bank_policy.toml missing:"),
+        "a present file must not be named as missing:\n{}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("m01: 1 approved of 1 scanned (min 1) [ok]"),
+        "{}",
+        rs.out()
+    );
+
+    // Same stock under a sized floor: RED naming the floor, policy=present.
+    let sized = td.path().join("sized_policy.toml");
+    write(
+        &sized,
+        "[[domain_min]]\nmodule = 1\nmin_items = 20\n",
+    );
+    let rs = assert_byte_identical(
+        "bd-j98g present sized floor still raises",
+        &root,
+        &[
+            "--bank",
+            bank_s,
+            "--domains",
+            reg_s,
+            "--policy",
+            sized.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(rs.code, 0, "the sized floor must still trip:\n{}", rs.out());
+    assert!(
+        rs.out().contains("policy=present"),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("module 1: 1 approved < min 20 (1 scanned, 0 not approved)"),
+        "the sized floor must be named:\n{}",
+        rs.out()
+    );
+
+    // The live bank with `--policy` pointed at a missing file used to PASS
+    // because every module has >> 1 approved item. That is the fail-open
+    // that would hide a deleted knowledge/bank_policy.toml.
+    let rs = assert_byte_identical(
+        "bd-j98g live bank + missing --policy is red",
+        &root,
+        &["--policy", missing_s],
+    );
+    assert_ne!(
+        rs.code,
+        0,
+        "the live bank must not PASS with floors lowered to N=1:\n{}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains(&format!("bank_policy.toml missing: {missing_s}")),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("policy=absent (N=1 OQ-05)"),
+        "{}",
         rs.out()
     );
 }
@@ -488,7 +794,8 @@ fn a_declared_module_with_zero_items_is_red_and_named() {
     let bank = td.path().join("bank");
     let planted = plant_bank(&bank, &[("a", 1), ("b", 1), ("c", 3)]);
     assert!(planted > 0, "a vacuous fixture bank is an ERROR");
-    let missing_policy = td.path().join("no_policy.toml");
+    let empty_policy = td.path().join("empty_policy.toml");
+    write_empty_policy(&empty_policy);
 
     let rs = assert_byte_identical(
         "d declared module with zero items",
@@ -499,23 +806,35 @@ fn a_declared_module_with_zero_items_is_red_and_named() {
             "--bank",
             bank.to_str().unwrap(),
             "--policy",
-            missing_policy.to_str().unwrap(),
+            empty_policy.to_str().unwrap(),
         ],
     );
     assert_ne!(rs.code, 0, "{}", rs.out());
     assert!(
-        rs.out().contains("module 2: 0 items"),
+        rs.out()
+            .contains("module 2: 0 approved < min 1 (0 scanned, 0 not approved)"),
         "the starved module must be NAMED, not merely counted: {}",
         rs.out()
     );
     assert!(
-        rs.out().contains("    m02: 0 (min 1) [SHORT]"),
+        rs.out()
+            .contains("    m02: 0 approved of 0 scanned (min 1) [SHORT]"),
         "the per-module line must flag it too: {}",
         rs.out()
     );
     // The known-GOOD leg: the stocked modules are not dragged red with it.
-    assert!(rs.out().contains("m01: 2 (min 1) [ok]"), "{}", rs.out());
-    assert!(rs.out().contains("m03: 1 (min 1) [ok]"), "{}", rs.out());
+    assert!(
+        rs.out()
+            .contains("m01: 2 approved of 2 scanned (min 1) [ok]"),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("m03: 1 approved of 1 scanned (min 1) [ok]"),
+        "{}",
+        rs.out()
+    );
 }
 
 // ── (e) an exemption without a reason is a SCHEMA ERROR, and does not exempt ─
@@ -570,12 +889,14 @@ fn a_reasonless_exemption_is_an_error_and_leaves_the_module_required() {
         // exempt: module 2 stays in the required set, so its shortfall still
         // reports and the module still appears in the per-module block.
         assert!(
-            rs.out().contains("module 2: 0 items"),
+            rs.out()
+                .contains("module 2: 0 approved < min 1 (0 scanned, 0 not approved)"),
             "[{label}] the rejected exemption suppressed the shortfall: {}",
             rs.out()
         );
         assert!(
-            rs.out().contains("    m02: 0 (min 1) [SHORT]"),
+            rs.out()
+                .contains("    m02: 0 approved of 0 scanned (min 1) [SHORT]"),
             "[{label}] the module left the required set: {}",
             rs.out()
         );
@@ -612,8 +933,9 @@ fn a_reasonless_exemption_is_an_error_and_leaves_the_module_required() {
         rs.out()
     );
     assert!(
-        rs.out()
-            .contains("    m02: 0 — exempt: assessed elsewhere, see bd-fixture"),
+        rs.out().contains(
+            "    m02: 0 approved of 0 scanned — exempt: assessed elsewhere, see bd-fixture"
+        ),
         "{}",
         rs.out()
     );
@@ -647,7 +969,8 @@ fn a_reasonless_exemption_is_an_error_and_leaves_the_module_required() {
         rs.out()
     );
     assert!(
-        rs.out().contains("module 2: 0 items"),
+        rs.out()
+            .contains("module 2: 0 approved < min 3 (0 scanned, 0 not approved)"),
         "the conflicted module must stay required: {}",
         rs.out()
     );
@@ -737,7 +1060,12 @@ fn a_domain_min_row_for_an_undeclared_module_is_an_error() {
         ],
     );
     assert_ne!(rs.code, 0, "{}", rs.out());
-    assert!(rs.out().contains("m02: 1 (min 4) [SHORT]"), "{}", rs.out());
+    assert!(
+        rs.out()
+            .contains("m02: 1 approved of 1 scanned (min 4) [SHORT]"),
+        "{}",
+        rs.out()
+    );
     assert!(
         !rs.out().contains("is not a required module"),
         "an aligned floor must not report as drift: {}",
@@ -952,11 +1280,11 @@ fn emission_order_is_reproduced_exactly() {
     let m01 = at("    m01: ");
     let m02 = at("    m02: ");
     let exempt_hdr = at("  recorded exemptions");
-    let e03 = at("    m03: 1 — exempt: earlier");
-    let e22 = at("    m22: 1 — exempt: later");
+    let e03 = at("    m03: 1 approved of 1 scanned — exempt: earlier");
+    let e22 = at("    m22: 1 approved of 1 scanned — exempt: later");
     let extras_hdr = at("  undeclared modules present in the bank");
-    let x07 = at("    m07: 1 (not in the domain registry)");
-    let x09 = at("    m09: 1 (not in the domain registry)");
+    let x07 = at("    m07: 1 scanned (not in the domain registry)");
+    let x09 = at("    m09: 1 scanned (not in the domain registry)");
     assert!(
         modules_at < m01 && m01 < m02,
         "required order drifted:\n{out}"
@@ -1018,7 +1346,7 @@ fn emission_order_is_reproduced_exactly() {
     let f_floor = at("    - bank_policy.toml: [[domain_min]] module 8 is not a required");
     let f_load = at("    - zz-junk.toml: no id or items[]");
     let f_badmod = at("    - zz-badmod: bad module 'nope'");
-    let f_short = at("    - module 2: 0 items < min 1");
+    let f_short = at("    - module 2: 0 approved < min 1 (0 scanned, 0 not approved)");
     assert!(
         f_registry < f_exempt
             && f_exempt < f_floor
@@ -1041,7 +1369,8 @@ fn the_failure_list_truncates_identically() {
     write(&reg, &domains_registry(&orders));
     let bank = td.path().join("bank");
     plant_bank(&bank, &[("a", 1)]);
-    let no_policy = td.path().join("absent.toml");
+    let empty_policy = td.path().join("empty_policy.toml");
+    write_empty_policy(&empty_policy);
 
     let rs = assert_byte_identical(
         "h truncation footer",
@@ -1052,7 +1381,7 @@ fn the_failure_list_truncates_identically() {
             "--bank",
             bank.to_str().unwrap(),
             "--policy",
-            no_policy.to_str().unwrap(),
+            empty_policy.to_str().unwrap(),
         ],
     );
     assert_ne!(rs.code, 0, "{}", rs.out());
@@ -1179,16 +1508,27 @@ fn path_and_option_shapes_are_byte_identical() {
     assert_byte_identical("abbreviated option", &root, &["--ban", "bank/items"]);
     assert_byte_identical("shortest prefix", &root, &["--d", "knowledge/domains.toml"]);
 
-    // a missing policy is NOT an error — it falls back to the OQ-05 floor, and
-    // both sides must say so in the header
+    // a missing policy IS an error (bd-j98g) — it must not lower sized floors
+    // to N=1. The live bank used to PASS here because every module has >> 1 item.
     let absent = td.path().join("absent_policy.toml");
     let rs = assert_byte_identical(
-        "absent policy falls back to the OQ-05 floor",
+        "absent policy is an error, not an N=1 fallback",
         &root,
         &["--policy", absent.to_str().unwrap()],
     );
+    assert_ne!(rs.code, 0, "missing policy must be RED:\n{}", rs.out());
     assert!(
-        rs.out().contains("policy=absent (N=1 OQ-05)"),
+        rs.out().contains("policy=absent"),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("policy=absent (N=1 OQ-05)"),
+        "N=1 must not be claimed as a fallback:\n{}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("bank_policy.toml missing:"),
         "{}",
         rs.out()
     );
@@ -1222,8 +1562,9 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
     let bank = td.path().join("bank");
     plant_bank(&bank, &[("a", 1)]);
     let bank_arg = bank.to_str().unwrap().to_string();
-    let no_policy = td.path().join("absent.toml");
-    let no_policy_arg = no_policy.to_str().unwrap().to_string();
+    let empty_policy = td.path().join("empty_policy.toml");
+    write_empty_policy(&empty_policy);
+    let empty_policy_arg = empty_policy.to_str().unwrap().to_string();
 
     // a [[domain]] row whose order cannot be coerced
     let bad_order = td.path().join("bad_order.toml");
@@ -1240,7 +1581,7 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
             "--bank",
             &bank_arg,
             "--policy",
-            &no_policy_arg,
+            &empty_policy_arg,
         ],
     );
     assert!(
@@ -1265,7 +1606,7 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
             "--bank",
             &bank_arg,
             "--policy",
-            &no_policy_arg,
+            &empty_policy_arg,
         ],
     );
     assert!(
@@ -1287,7 +1628,7 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
             "--bank",
             &bank_arg,
             "--policy",
-            &no_policy_arg,
+            &empty_policy_arg,
         ],
     );
     assert!(
@@ -1317,7 +1658,7 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
             "--bank",
             messy.to_str().unwrap(),
             "--policy",
-            &no_policy_arg,
+            &empty_policy_arg,
         ],
     );
     assert_ne!(rs.code, 0, "{}", rs.out());
@@ -1354,7 +1695,7 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
             "--bank",
             quiet.to_str().unwrap(),
             "--policy",
-            &no_policy_arg,
+            &empty_policy_arg,
         ],
     );
     assert_ne!(
@@ -1364,7 +1705,7 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
         rs.out()
     );
     assert!(
-        rs.out().contains("  items=2\n"),
+        rs.out().contains("  items=2 scanned, 2 approved "),
         "the healthy aggregate is exactly what hides this defect; it must survive \
          the fix so the case keeps testing what it claims to: {}",
         rs.out()
@@ -1385,11 +1726,11 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
     std::fs::create_dir_all(&single).unwrap();
     write(
         &single.join("solo-one.toml"),
-        "id = \"solo-one\"\nmodule = 1\n",
+        "id = \"solo-one\"\nmodule = 1\nstatus = \"approved\"\n",
     );
     write(
         &single.join("solo-two.toml"),
-        "id = \"solo-two\"\nmodule = 2\n",
+        "id = \"solo-two\"\nmodule = 2\nstatus = \"approved\"\n",
     );
     let rs = assert_byte_identical(
         "single-item `id =` files, no items key, still pass",
@@ -1400,7 +1741,7 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
             "--bank",
             single.to_str().unwrap(),
             "--policy",
-            &no_policy_arg,
+            &empty_policy_arg,
         ],
     );
     assert_eq!(
@@ -1421,7 +1762,8 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
     std::fs::create_dir_all(&nested).unwrap();
     write(
         &nested.join("multi.toml"),
-        "[[items]]\nid = \"n1\"\nmodule = 1\n\n[[items]]\nid = \"n2\"\nmodule = 2\n",
+        "[[items]]\nid = \"n1\"\nmodule = 1\nstatus = \"approved\"\n\n\
+         [[items]]\nid = \"n2\"\nmodule = 2\nstatus = \"approved\"\n",
     );
     let rs = assert_byte_identical(
         "items[] table array is counted",
@@ -1432,7 +1774,7 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
             "--bank",
             nested.to_str().unwrap(),
             "--policy",
-            &no_policy_arg,
+            &empty_policy_arg,
         ],
     );
     assert_eq!(rs.code, 0, "{}", rs.out());
@@ -1499,6 +1841,516 @@ fn a_specimen_copy_of_the_live_bank_is_clean() {
         "specimen bank of {copied} files is not clean: {}",
         rs.out()
     );
+}
+
+// ══ WHICH POOL THE FLOOR MEASURES ═════════════════════════════════════════
+//
+// bd-coverage-counts-retired-items-49jh. Both implementations counted FILES
+// against the per-module floors. C1 restricts assembly to `approved`, so the
+// floor guaranteed the stock of a pool no learner is ever drawn from, and it
+// failed in the OPEN direction because the file count is guaranteed to be >=
+// the approved count.
+//
+// The known-bad below is the one the OLD code could not possibly trip: it
+// retires approved items in a copy of the live bank WITHOUT deleting a single
+// file, so the file count is unchanged and only the drawable pool moves. A
+// file-counting gate stays GREEN on it by construction.
+
+/// One parsed `    mNN: A approved of S scanned (min M) [flag]` line.
+#[derive(Debug, Clone, Copy)]
+struct ModuleLine {
+    module: i64,
+    approved: i64,
+    scanned: i64,
+    floor: i64,
+}
+
+/// Parse the per-module block. Keyed on the line SHAPE, so a report that
+/// stopped naming both populations fails here rather than being reinterpreted.
+fn module_lines(out: &str) -> Vec<ModuleLine> {
+    let mut v = Vec::new();
+    for line in out.lines() {
+        let t = line.trim();
+        let Some(rest) = t.strip_prefix('m') else {
+            continue;
+        };
+        let Some((num, rest)) = rest.split_once(": ") else {
+            continue;
+        };
+        let Ok(module) = num.parse::<i64>() else {
+            continue;
+        };
+        let Some((approved, rest)) = rest.split_once(" approved of ") else {
+            continue;
+        };
+        let Some((scanned, rest)) = rest.split_once(" scanned (min ") else {
+            continue;
+        };
+        let Some((floor, _)) = rest.split_once(") [") else {
+            continue;
+        };
+        let (Ok(approved), Ok(scanned), Ok(floor)) = (
+            approved.parse::<i64>(),
+            scanned.parse::<i64>(),
+            floor.parse::<i64>(),
+        ) else {
+            continue;
+        };
+        v.push(ModuleLine {
+            module,
+            approved,
+            scanned,
+            floor,
+        });
+    }
+    v
+}
+
+/// Retire `n` currently-approved items of `module` in a bank directory, IN
+/// PLACE, by flipping their status line. No file is added or removed, which is
+/// the whole point: only the drawable pool moves.
+fn retire_in_place(bank: &Path, module: i64, n: usize) -> usize {
+    let mut done = 0usize;
+    let mut names: Vec<String> = std::fs::read_dir(bank)
+        .expect("bank dir")
+        .flatten()
+        .map(|e| e.file_name().to_string_lossy().into_owned())
+        .filter(|s| s.ends_with(".toml"))
+        .collect();
+    names.sort();
+    for name in names {
+        if done == n {
+            break;
+        }
+        let p = bank.join(&name);
+        let text = std::fs::read_to_string(&p).unwrap();
+        let is_module = text
+            .lines()
+            .any(|l| l.trim() == format!("module = {module}"));
+        let is_approved = text.lines().any(|l| l.trim() == "status = \"approved\"");
+        if !(is_module && is_approved) {
+            continue;
+        }
+        let flipped = text.replace("status = \"approved\"", "status = \"retired\"");
+        assert_ne!(flipped, text, "the status flip did not change {name}");
+        std::fs::write(&p, flipped).unwrap();
+        done += 1;
+    }
+    assert_eq!(
+        done, n,
+        "wanted to retire {n} approved items of module {module} and only found {done} — \
+         an injection that could not be planted is a FAILURE, never a skip"
+    );
+    done
+}
+
+#[test]
+fn retiring_a_module_under_its_floor_is_red_and_names_it() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let bank = td.path().join("bank_items");
+    specimen_bank(&root, &bank);
+
+    // The control: the untouched specimen is GREEN, so every needle below is
+    // attributable to the retirement rather than to the copy.
+    let green = assert_byte_identical(
+        "retire-under-floor control",
+        &root,
+        &["--bank", bank.to_str().unwrap()],
+    );
+    assert_eq!(green.code, 0, "control must be GREEN: {}", green.out());
+
+    // Pick the module with the THINNEST margin, derived from the report rather
+    // than written down here — a test that hardcodes today's counts is the same
+    // defect one level up.
+    let lines = module_lines(&green.out());
+    assert!(
+        lines.len() > 1,
+        "parsed {} module lines from the control report — a vacuous parse is an ERROR:\n{}",
+        lines.len(),
+        green.out()
+    );
+    let target = lines
+        .iter()
+        .copied()
+        .min_by_key(|m| m.approved - m.floor)
+        .expect("a module to starve");
+    assert!(
+        target.approved >= target.floor,
+        "the control was already breaching: {target:?}"
+    );
+    let to_retire = (target.approved - target.floor + 1) as usize;
+    retire_in_place(&bank, target.module, to_retire);
+
+    let rs = assert_byte_identical(
+        "retire-under-floor injection",
+        &root,
+        &["--bank", bank.to_str().unwrap()],
+    );
+    assert_ne!(
+        rs.code,
+        0,
+        "retiring module {} below its floor of {} must be RED:\n{}",
+        target.module,
+        target.floor,
+        rs.out()
+    );
+    let want_approved = target.approved - to_retire as i64;
+    assert!(
+        rs.out().contains(&format!(
+            "module {}: {want_approved} approved < min {}",
+            target.module, target.floor
+        )),
+        "the starved module, its approved count and its floor must all be NAMED:\n{}",
+        rs.out()
+    );
+
+    // THE PROOF THAT THE POPULATION CHANGED, not merely the verdict. Not one
+    // file was added or removed, so the SCANNED count is untouched and still
+    // clears the floor. A gate counting files sees this fixture as `[ok]`; the
+    // fixed gate sees it as SHORT. That gap is the defect, made observable.
+    let after = module_lines(&rs.out());
+    let hit = after
+        .iter()
+        .find(|m| m.module == target.module)
+        .unwrap_or_else(|| panic!("module {} vanished from the report", target.module));
+    assert_eq!(
+        hit.scanned, target.scanned,
+        "the injection must not change the FILE count — otherwise it would also \
+         have tripped the old file-counting gate and would prove nothing"
+    );
+    assert!(
+        hit.scanned >= hit.floor,
+        "the file count must still clear the floor ({} scanned vs min {}), which is \
+         exactly what a file-counting gate would have reported [ok] on",
+        hit.scanned,
+        hit.floor
+    );
+    assert_eq!(hit.approved, want_approved, "approved count drifted");
+    assert!(hit.approved < hit.floor, "the approved pool must be SHORT");
+}
+
+#[test]
+fn a_bank_with_nothing_approved_is_an_error_not_a_pass() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(&[1, 2]));
+    let empty_policy = td.path().join("empty_policy.toml");
+    write_empty_policy(&empty_policy);
+
+    // Every declared module is STOCKED — with items no learner can be drawn.
+    // The aggregate file count is healthy, which is precisely the state a
+    // file-counting floor reported green on.
+    let bank = td.path().join("all_retired");
+    let planted = plant_bank_with_status(
+        &bank,
+        &[
+            ("r1", 1, Some("retired")),
+            ("r2", 1, Some("retired")),
+            ("r3", 2, Some("retired")),
+            ("d1", 2, None),
+        ],
+    );
+    assert_eq!(planted, 4, "a fixture that planted nothing is an ERROR");
+
+    let rs = assert_byte_identical(
+        "bank with nothing approved",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            empty_policy.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(rs.code, 0, "a bank with no drawable item must never pass");
+    assert!(
+        rs.out().contains("zero approved items (4 scanned)"),
+        "the vacuous approved pool must be named, with both numbers: {}",
+        rs.out()
+    );
+    // A MISSING status is `draft` by C1's default — silence never publishes —
+    // and is not itself an error.
+    assert!(
+        !rs.out().contains("unknown status"),
+        "an absent status is the draft default, not an unknown one: {}",
+        rs.out()
+    );
+    // …and every module is individually named as starved, not merely the total.
+    assert!(
+        rs.out().contains("module 1: 0 approved < min 1"),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("module 2: 0 approved < min 1"),
+        "{}",
+        rs.out()
+    );
+}
+
+#[test]
+fn an_unrecognised_status_is_named_rather_than_bucketed_by_guess() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(&[1]));
+    let empty_policy = td.path().join("empty_policy.toml");
+    write_empty_policy(&empty_policy);
+
+    let bank = td.path().join("odd_status");
+    plant_bank_with_status(
+        &bank,
+        &[("good", 1, Some("approved")), ("odd", 1, Some("published"))],
+    );
+
+    let rs = assert_byte_identical(
+        "unrecognised status",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            empty_policy.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(
+        rs.code,
+        0,
+        "a status nobody modelled must not be silently bucketed: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("odd: unknown status 'published'"),
+        "the ITEM and the value must both be named: {}",
+        rs.out()
+    );
+    // Fail-CLOSED: the unmodelled item did not count toward the floor either.
+    assert!(
+        rs.out().contains("m01: 1 approved of 2 scanned"),
+        "an unmodelled status must not count as approved: {}",
+        rs.out()
+    );
+}
+
+// ══ THE VERDICT MAY NOT PRECEDE THE SIDE EFFECT ═══════════════════════════
+//
+// bd-verify-coverage-verdict-before-write-rk9n. Both implementations emitted
+// the verdict and then ran an unguarded `--write-json` write. The Python's
+// OSError propagated out of `main()` under a stdout that already said PASS;
+// the Rust's `Halt` PRESERVED the buffered PASS into `Outcome.stdout` and
+// exited 1. The two agreed, byte for byte, on a lie — which is why the
+// detector in `assert_byte_identical` is asserted PER SIDE.
+
+/// The four-tuple for a run that writes: stdout, stderr, exit code, and the
+/// bytes at the target — plus whether the atomic write's temp file survived.
+struct WriteRun {
+    run: Run,
+    artifact: Option<Vec<u8>>,
+    temp_residue: bool,
+}
+
+fn write_run(f: fn(&Path, &[&str]) -> Run, root: &Path, args: &[&str], target: &Path) -> WriteRun {
+    let run = f(root, args);
+    let mut tmp = target.as_os_str().to_os_string();
+    tmp.push(".tmp");
+    WriteRun {
+        run,
+        artifact: std::fs::read(target).ok(),
+        temp_residue: Path::new(&tmp).exists(),
+    }
+}
+
+/// Both sides, on a `--write-json` target that CANNOT be written, and the
+/// assertions that make a failed write unable to hide under a verdict.
+fn assert_failed_write_is_silent_and_leaves_nothing(label: &str, root: &Path, target: &Path) {
+    let target_arg = target.to_str().unwrap().to_string();
+    let args = ["--write-json", target_arg.as_str()];
+    let py = write_run(python, root, &args, target);
+    let rs = write_run(rust, root, &args, target);
+
+    for (side, w) in [("python", &py), ("rust", &rs)] {
+        assert_ne!(
+            w.run.code, 0,
+            "[{label}] {side} reported success for a write that did not happen"
+        );
+        for token in SUCCESS_TOKENS {
+            assert!(
+                !w.run.out().contains(token),
+                "[{label}] {side} exited {} with {token:?} on stdout above a FAILED WRITE:\n{}",
+                w.run.code,
+                w.run.out()
+            );
+        }
+        assert!(
+            w.artifact.is_none(),
+            "[{label}] {side} left an artifact behind after a failed write; a later reader \
+             cannot tell a passing ledger from the residue of a failed run"
+        );
+        assert!(
+            !w.temp_residue,
+            "[{label}] {side} left its atomic-write temp file behind"
+        );
+        assert!(
+            !w.run.err().is_empty(),
+            "[{label}] {side} failed the write and said nothing on stderr"
+        );
+    }
+
+    // stdout and the exit code stay byte-identical across the two; the
+    // traceback text is the one surface this port does not reproduce.
+    assert_eq!(
+        py.run.stdout,
+        rs.run.stdout,
+        "[{label}] STDOUT differs on the failed-write path:\n--- python ---\n{}\n--- rust ---\n{}",
+        py.run.out(),
+        rs.run.out()
+    );
+    assert!(
+        py.run.stdout.is_empty(),
+        "[{label}] the report must not have started: {:?}",
+        py.run.out()
+    );
+    assert_eq!(
+        py.run.code, rs.run.code,
+        "[{label}] EXIT CODE differs on the failed-write path"
+    );
+    COMPARED.fetch_add(1, Ordering::SeqCst);
+}
+
+#[test]
+fn a_write_json_whose_parent_is_a_file_fails_silently_in_both() {
+    let td = tempfile::tempdir().unwrap();
+    // A TREE COPY, never the live tree: this case makes a write FAIL, and a
+    // gate whose write is being made to fail is the last thing that should be
+    // pointed at the repo.
+    let root = td.path().join("tree");
+    live_tree_copy(&engine_root(), &root);
+    let root = root.as_path();
+
+    // The parent is a regular FILE, so `mkdir(parents=True, exist_ok=True)` and
+    // `create_dir_all` both refuse. Chosen over a chmod because it is
+    // deterministic and cannot be defeated by running the suite as root — an
+    // injection that silently stops injecting is the failure this file exists
+    // to prevent.
+    let blocker = td.path().join("blocker");
+    write(&blocker, "not a directory\n");
+    let target = blocker.join("coverage.json");
+    assert_failed_write_is_silent_and_leaves_nothing("parent is a file", root, &target);
+}
+
+#[test]
+fn a_write_json_onto_a_directory_fails_after_the_temp_write_in_both() {
+    let td = tempfile::tempdir().unwrap();
+    let root = td.path().join("tree");
+    live_tree_copy(&engine_root(), &root);
+    let root = root.as_path();
+
+    // Here `mkdir` SUCCEEDS and the temp file is written; the atomic rename is
+    // what fails. This is the leg that proves the cleanup: the temp file must
+    // not survive, or a failed write would leave `coverage.json.tmp` sitting
+    // next to a stale ledger.
+    let target = td.path().join("out/coverage.json");
+    std::fs::create_dir_all(&target).unwrap();
+    assert_failed_write_is_silent_and_leaves_nothing("target is a directory", root, &target);
+}
+
+// ══ THE TRACKED LEDGER, WITHOUT TOUCHING THE LIVE TREE ════════════════════
+
+const TRACKED_ARTIFACT: &str = "web/data/coverage.json";
+
+/// Materialise every input this gate reads into TEMP, plus the oracle itself.
+///
+/// The oracle resolves its own root from `Path(__file__).resolve().parents[1]`,
+/// so it MUST be copied in — a script left outside the fixture would read the
+/// live tree instead. No `--path` flag is added to make it testable: widening a
+/// gate's argument surface changes the thing under test.
+///
+/// Both implementations share ONE copy here, which is the deliberate difference
+/// from the builder harnesses. This gate PRINTS its own root (`bank=`, `wrote`),
+/// so two roots would make stdout differ by construction and the byte
+/// comparison would have to be weakened to survive the fixture. Weakening the
+/// comparison to accommodate the fixture is worse than sharing a scratch root
+/// neither run reads the other's output from: the runs are sequential and the
+/// artifact is snapshotted and removed between them.
+fn live_tree_copy(root: &Path, into: &Path) {
+    for rel in [
+        "scripts/verify_coverage.py",
+        "knowledge/domains.toml",
+        "knowledge/bank_policy.toml",
+    ] {
+        let from = root.join(rel);
+        assert!(from.is_file(), "the live tree is missing {rel}");
+        let to = into.join(rel);
+        std::fs::create_dir_all(to.parent().unwrap()).unwrap();
+        std::fs::copy(&from, &to).unwrap();
+    }
+    let n = specimen_bank(root, &into.join("bank/items"));
+    assert!(
+        n > 0,
+        "a fixture that copied no bank is an ERROR, not a pass"
+    );
+}
+
+#[test]
+fn the_written_ledger_is_byte_identical_and_reproduces_the_tracked_artifact() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let copy = td.path().join("tree");
+    live_tree_copy(&root, &copy);
+
+    let target = copy.join(TRACKED_ARTIFACT);
+    let args = ["--write-json", TRACKED_ARTIFACT];
+
+    let py = python(&copy, &args);
+    let py_json = std::fs::read(&target).expect("the oracle wrote no ledger");
+    assert!(!py_json.is_empty(), "an empty ledger is a vacuous compare");
+    std::fs::remove_file(&target).unwrap();
+
+    let rs = rust(&copy, &args);
+    let rs_json = std::fs::read(&target).expect("the port wrote no ledger");
+
+    assert_eq!(py.stdout, rs.stdout, "STDOUT differs:\n{}", py.out());
+    assert_eq!(py.stderr, rs.stderr, "STDERR differs:\n{}", py.err());
+    assert_eq!(py.code, rs.code, "EXIT CODE differs");
+    assert_eq!(py.code, 0, "the live inputs must be GREEN:\n{}", py.out());
+    // RAW BYTES, never parsed JSON: key order, indent, \uXXXX escaping and the
+    // trailing newline are exactly where two writers agree on every value and
+    // disagree on every byte.
+    assert_eq!(py_json, rs_json, "the written ledger differs");
+    COMPARED.fetch_add(1, Ordering::SeqCst);
+
+    // THE TIE-BACK THAT BUYS THE LIVE-TREE CLAIM. The bytes both sides produce
+    // are identical to the TRACKED artifact, so running either implementation
+    // in the live tree would be a no-op write — established read-only, without
+    // performing one.
+    let tracked = std::fs::read(root.join(TRACKED_ARTIFACT))
+        .unwrap_or_else(|e| panic!("the tracked ledger {TRACKED_ARTIFACT} is unreadable: {e}"));
+    assert_eq!(
+        String::from_utf8_lossy(&rs_json),
+        String::from_utf8_lossy(&tracked),
+        "the tracked {TRACKED_ARTIFACT} is not what this gate produces from the live \
+         inputs. A machine ledger that has drifted from its generator is a ledger \
+         nobody can trust; regenerate it in a tree copy and commit the bytes."
+    );
+
+    // And the ledger carries BOTH populations, so a later reader cannot mistake
+    // one for the other — the confusion this bead exists to end.
+    let text = String::from_utf8_lossy(&rs_json);
+    for key in [
+        "\"schema_version\": 3",
+        "\"approved_count\"",
+        "\"scanned_counts\"",
+        "\"item_count\"",
+        "\"counts\"",
+    ] {
+        assert!(text.contains(key), "the ledger is missing {key}: {text}");
+    }
 }
 
 // ── the harness must not be vacuously green ───────────────────────────────

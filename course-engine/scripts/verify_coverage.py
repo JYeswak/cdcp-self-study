@@ -4,8 +4,14 @@
 # CLAIM: FLOOR-RAISE
 
 Every module the course DECLARES must carry at least N bank items:
-  - N from knowledge/bank_policy.toml [[domain_min]] min_items when present
-  - else N=1 (OQ-05 ASSUMED floor)
+  - N from knowledge/bank_policy.toml [[domain_min]] min_items when the
+    policy FILE is present and names the module
+  - else N=1 (OQ-05 ASSUMED floor) — only when that file is present
+A missing policy file is an ERROR (bd-j98g). The sized floors live in
+that file; falling back to N=1 would lower them (fail-open). That is the
+opposite of verify_objectives, where absence removes exemptions and makes
+the gate stricter. A present file with empty [[domain_min]] is the honest
+N=1 default and is distinguishable from a missing file.
 
 The module set is DERIVED from knowledge/domains.toml — the same registry
 build_learn.py turns into web/data/modules_index.json (the Learn index) and the
@@ -28,30 +34,82 @@ contract. If a module must be exempt, that is a RECORDED row —
 `[[coverage_exempt]] module = N, reason = "..."` in bank_policy.toml, with a
 reason string — and an exemption without a reason is an ERROR, not a default.
 
+## WHICH POOL THE FLOOR MEASURES (bd-coverage-counts-retired-items-49jh)
+
+The floor is measured against the **approved** pool — `status == "approved"` —
+and never against the file set. C1 restricts assembly to approved items
+(`cdcp_assemble::sample_item_ids`), so a floor counted over every file is a
+floor over a population no learner is ever assessed from, and it fails in the
+OPEN direction: the file count can only ever be >= the number that matters, so
+the gate can only ever be too generous.
+
+Until 2026-08-14 this gate counted files. That was invisible because the bank
+held exactly ONE non-approved item, so the two numbers differed by one in a
+single module and no reader would notice. bd-tetz then retired 24 duplicates and
+the gap became 25 across ten modules — measured, on the day of the fix:
+
+    m05 31->30  m06 136->130  m07 32->31  m08 34->32  m09 121->117
+    m10 35->33  m11 72->69    m12 63->61  m13 48->46  m14 44->42
+
+No module breached its floor on the approved pool, so there was no incident —
+but the claim had been unearned since the first retirement, and every future
+adjudication widens the gap. The report therefore names BOTH numbers on every
+line that carries a count, so the two populations can never be confused again.
+
+A status outside `approved`/`draft`/`retired` is an ERROR naming the item, not a
+silent drop into "not approved". `cdcp_bank` rejects an unknown status at load
+for the same reason: a value nobody modelled must not be bucketed by guess.
+
+## VERDICT SHAPE (bd-verify-coverage-verdict-before-write-rk9n)
+
+**No line claiming success is emitted on a path that can still return non-zero.**
+This script used to `print(status)` at the top of the report and then, 57 lines
+later, run an unguarded `mkdir` + `write_text` under `--write-json`. An OSError
+there (read-only destination, ENOSPC, a path whose parent is a file) propagated
+out of `main()` and CPython exited 1 with a traceback underneath a stdout that
+already said PASS. The command is the one printed in the artifact's own `note`
+field, so the docs told operators to run exactly that path.
+
+The report is now COMPOSED into a buffer and printed once, after the write has
+succeeded. A failed write therefore prints NOTHING and exits non-zero, which is
+the same shape the third instance of this class was fixed into
+(`build_glossary_json.py`, bd-builder-verdict-shape-qm65) and the second
+(`build_units.py`, bd-lt7): the side effect depends on the verdict, never the
+reverse.
+
+The write is also atomic — temp file in the destination directory, then
+`Path.replace` — so a failed or torn write leaves NO partial artifact for a
+later reader to mistake for the residue of a passing run.
+
 ## Anti-vacuous
 
-Zero modules discovered is an ERROR. Zero items loaded is an ERROR. An empty
-scan set must never report like a scan that ran and came back clean. That rule
-holds at FILE granularity too: a single bank file whose `items[]` yields zero
-items is named and is RED, because the aggregate count would otherwise stay
+Zero modules discovered is an ERROR. Zero items loaded is an ERROR. Zero
+APPROVED items is an ERROR even when the bank is full of files, because that is
+precisely the state in which a file-counting floor would have reported green. An
+empty scan set must never report like a scan that ran and came back clean. That
+rule holds at FILE granularity too: a single bank file whose `items[]` yields
+zero items is named and is RED, because the aggregate count would otherwise stay
 healthy on the strength of the files around it (bd-0czh).
 
 ## What this gate cannot decide
 
-It counts items, not coverage: twenty near-identical items satisfy a floor of
-twenty. It says nothing about whether an item is correct, well written, or
-mapped to the right topic, and nothing about exam pass probability. A module
+It counts items, not coverage: twenty near-identical approved items satisfy a
+floor of twenty. It says nothing about whether an item is correct, well written,
+or mapped to the right topic, and nothing about exam pass probability. A module
 above its floor is a module that is not STARVED, which is all that is claimed.
 
-Exit 0 with per-module counts; non-zero if the bank is empty, the registry is
-empty, an exemption is malformed, or any required module is below N.
+Exit 0 with per-module counts; non-zero if the bank is empty, nothing in it is
+approved, the registry is empty, the policy file is missing, an exemption is
+malformed, any required module is below N, or the `--write-json` summary could
+not be written.
 
 Optional: --write-json PATH writes a machine-readable summary (e.g. web/data/coverage.json).
 
 Omitted --policy means "bank_policy.toml beside the domains file this run
 loaded", never the shipped knowledge/bank_policy.toml. A live-tree invocation
 (no --domains, or --domains knowledge/domains.toml) still lands on the live
-policy. An isolated --bank/--domains fixture does not (bd-conu).
+policy. An isolated --bank/--domains fixture does not (bd-conu). If the
+resolved path is not a file, that is an ERROR, not an N=1 fallback (bd-j98g).
 """
 from __future__ import annotations
 
@@ -76,7 +134,16 @@ DEFAULT_DOMAINS = ROOT / "knowledge" / "domains.toml"
 # --bank/--domains used to pick up the shipped [[domain_min]] rows and go
 # RED (or GREEN) for a reason it did not inject.
 
-DEFAULT_N = 1  # OQ-05 ASSUMED
+# OQ-05 ASSUMED floor. Applied only when the policy FILE is present and a
+# module has no [[domain_min]] row. File-absent is ERROR (bd-j98g), not this.
+DEFAULT_N = 1
+
+# C1 lifecycle. `APPROVED` is the ONLY status `cdcp_assemble` may draw, so it is
+# the only population a floor may be measured against. A missing status is
+# `draft` by C1's default — silence never publishes — and anything outside this
+# set is an ERROR rather than a guess.
+APPROVED = "approved"
+KNOWN_STATUSES = ("approved", "draft", "retired")
 
 
 def load_toml(path: Path) -> dict:
@@ -136,6 +203,10 @@ def load_exemptions(
     """
     errors: list[str] = []
     exempt: dict[int, str] = {}
+    # Missing file: empty exemptions (stricter — same direction as
+    # verify_objectives). Do NOT copy that gate's ABSENT-OK sentence here:
+    # the floors path ERRORs on the same absence, because absence would
+    # lower sized [[domain_min]] rows. See load_domain_mins (bd-j98g).
     if not policy_path.is_file():
         return exempt, errors
     bp = load_toml(policy_path)
@@ -181,7 +252,14 @@ def load_exemptions(
 def load_domain_mins(
     policy_path: Path, required: list[int]
 ) -> tuple[dict[int, int], list[str]]:
-    """Per-module floors from [[domain_min]]; default N=1 when absent.
+    """Per-module floors from [[domain_min]]; default N=1 when the FILE is
+    present but a module has no row.
+
+    Absence of the file is an ERROR, not a fallback (bd-j98g). The sized
+    floors live here; defaulting to N=1 would lower them (fail-open). That
+    is the opposite of verify_objectives, where absence removes exemptions
+    and makes the gate stricter. A present file with empty [[domain_min]]
+    is the honest N=1 default — distinguishable from a missing file.
 
     A [[domain_min]] row for a module the registry does not declare is an ERROR:
     the two sources of truth for "which modules exist" have drifted, and that
@@ -190,6 +268,10 @@ def load_domain_mins(
     errors: list[str] = []
     mins: dict[int, int] = {m: DEFAULT_N for m in required}
     if not policy_path.is_file():
+        errors.append(
+            f"bank_policy.toml missing: {policy_path} "
+            f"(absence would lower sized [[domain_min]] floors to N=1)"
+        )
         return mins, errors
     bp = load_toml(policy_path)
     rows = bp.get("domain_min") or []
@@ -248,8 +330,19 @@ def load_items(bank_dir: Path) -> tuple[list[tuple[str, dict]], list[str]]:
     return loaded, errors
 
 
-def count_modules(loaded: list[tuple[str, dict]]) -> tuple[Counter[int], list[str]]:
-    counts: Counter[int] = Counter()
+def count_modules(
+    loaded: list[tuple[str, dict]],
+) -> tuple[Counter[int], Counter[int], list[str]]:
+    """Two populations, and the report carries both.
+
+    Returns `(approved, scanned, errors)`. `approved` is what the floors are
+    measured against — the pool C1 restricts assembly to. `scanned` is every
+    item that loaded, whatever its status, and exists so the report can name
+    both numbers side by side; a report that showed only one of them is how a
+    floor came to be checked against a set no learner draws from.
+    """
+    approved: Counter[int] = Counter()
+    scanned: Counter[int] = Counter()
     errors: list[str] = []
     for fname, it in loaded:
         mod = it.get("module")
@@ -259,8 +352,44 @@ def count_modules(loaded: list[tuple[str, dict]]) -> tuple[Counter[int], list[st
             iid = it.get("id") or fname
             errors.append(f"{iid}: bad module {mod!r}")
             continue
-        counts[mi] += 1
-    return counts, errors
+        scanned[mi] += 1
+        status = it.get("status", "draft")
+        if status == APPROVED:
+            approved[mi] += 1
+        elif status not in KNOWN_STATUSES:
+            # Fail-closed AND loud. Dropping an unmodelled status silently into
+            # "not approved" would be the same defect one level down: a bucket
+            # decided by guess rather than by the recorded lifecycle.
+            iid = it.get("id") or fname
+            errors.append(f"{iid}: unknown status {status!r}")
+    return approved, scanned, errors
+
+
+def write_summary(out: Path, body: str) -> None:
+    """Write the `--write-json` summary so that a FAILED write leaves NOTHING.
+
+    Temp file in the DESTINATION directory, then `Path.replace`, which is atomic
+    on the same filesystem. A torn or refused write therefore never leaves a
+    partial `coverage.json` behind for a later reader to mistake for the ledger
+    of a run that passed — and on any failure the exception propagates, so the
+    caller never gets to print a verdict over it.
+
+    Any exception is re-raised after the temp file is removed. The removal is
+    best-effort: if the directory is unwritable the temp file was never created
+    in the first place, and if it cannot be unlinked the original exception is
+    still the one that reaches the operator.
+    """
+    out.parent.mkdir(parents=True, exist_ok=True)
+    tmp = out.with_name(out.name + ".tmp")
+    try:
+        tmp.write_text(body, encoding="utf-8")
+        tmp.replace(out)
+    except BaseException:
+        try:
+            tmp.unlink()
+        except OSError:
+            pass
+        raise
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -323,14 +452,23 @@ def main(argv: list[str] | None = None) -> int:
     errors.extend(min_errors)
 
     loaded, load_errors = load_items(bank_dir)
-    module_counts, mod_errors = count_modules(loaded)
+    module_counts, scanned_counts, mod_errors = count_modules(loaded)
     errors.extend(load_errors)
     errors.extend(mod_errors)
 
     n = len(loaded)
+    approved_n = sum(module_counts.values())
     # Vacuous empty = ERROR (anti-vacuous: empty scan set must not pass)
     if n == 0:
         errors.append("empty bank: zero items loaded (vacuous coverage is ERROR)")
+    # A bank FULL of files and empty of drawable items is the exact state a
+    # file-counting floor reported green on. It is named separately from the
+    # empty-bank leg because it is a different failure with the same verdict.
+    elif approved_n == 0:
+        errors.append(
+            f"zero approved items ({n} scanned): the floors measure a pool no "
+            "learner can be assessed from (vacuous coverage is ERROR)"
+        )
     # …and so is a run with nothing left to require. A gate whose required set
     # emptied out reports exactly like one that checked everything and found it
     # sound, which is the failure this whole rebase exists to remove.
@@ -343,35 +481,66 @@ def main(argv: list[str] | None = None) -> int:
     for mod in required:
         need = domain_mins[mod]
         have = module_counts.get(mod, 0)
+        seen = scanned_counts.get(mod, 0)
         if have < need:
-            msg = f"module {mod}: {have} items < min {need}"
+            # Both numbers, deliberately: `44 scanned` under a floor of 24 is
+            # exactly the reading that made this fail open for a week.
+            msg = (
+                f"module {mod}: {have} approved < min {need} "
+                f"({seen} scanned, {seen - have} not approved)"
+            )
             errors.append(msg)
-            shortfalls.append({"module": mod, "have": have, "min": need})
+            shortfalls.append(
+                {"have": have, "min": need, "module": mod, "scanned": seen}
+            )
 
     # Report: every required module, then recorded exemptions, then anything the
     # bank carries that the registry never declared.
+    #
+    # COMPOSED, NOT PRINTED AS IT GOES. See the header: the verdict is emitted
+    # once, at the end, after the `--write-json` side effect has succeeded, so
+    # no success token can ever land above a failure that came later.
     status = "PASS" if not errors else "FAIL"
-    print(status)
-    print(f"  bank={bank_dir}")
-    print(f"  items={n}")
-    print(f"  policy={'present' if policy_path.is_file() else 'absent (N=1 OQ-05)'}")
-    print(f"  registry={domains_path.name} declares={len(declared)}")
-    print(f"  modules ({len(required)} required, derived from the domain registry):")
+    lines: list[str] = [status]
+    lines.append(f"  bank={bank_dir}")
+    lines.append(
+        f"  items={n} scanned, {approved_n} approved "
+        f"(floors count the approved pool only)"
+    )
+    lines.append(
+        f"  policy={'present' if policy_path.is_file() else 'absent'}"
+    )
+    lines.append(f"  registry={domains_path.name} declares={len(declared)}")
+    lines.append(
+        f"  modules ({len(required)} required, derived from the domain registry):"
+    )
     for mod in required:
         have = module_counts.get(mod, 0)
+        seen = scanned_counts.get(mod, 0)
         need = domain_mins[mod]
         flag = "ok" if have >= need and n > 0 else "SHORT"
-        print(f"    m{mod:02d}: {have} (min {need}) [{flag}]")
+        lines.append(
+            f"    m{mod:02d}: {have} approved of {seen} scanned (min {need}) [{flag}]"
+        )
     if exempt:
-        print("  recorded exemptions (bank_policy.toml [[coverage_exempt]]):")
+        lines.append("  recorded exemptions (bank_policy.toml [[coverage_exempt]]):")
         for mod in sorted(exempt):
             have = module_counts.get(mod, 0)
-            print(f"    m{mod:02d}: {have} — exempt: {exempt[mod]}")
-    extras = sorted(m for m in module_counts if m not in declared)
+            seen = scanned_counts.get(mod, 0)
+            lines.append(
+                f"    m{mod:02d}: {have} approved of {seen} scanned — exempt: {exempt[mod]}"
+            )
+    # Drift is a property of the FILE SET, not of the drawable pool: a retired
+    # item filed under a module the registry never declared is still drift, and
+    # counting extras on the approved pool would hide it.
+    extras = sorted(m for m in scanned_counts if m not in declared)
     if extras:
-        print("  undeclared modules present in the bank (not required for green):")
+        lines.append("  undeclared modules present in the bank (not required for green):")
         for mod in extras:
-            print(f"    m{mod:02d}: {module_counts[mod]} (not in the domain registry)")
+            lines.append(
+                f"    m{mod:02d}: {scanned_counts[mod]} scanned "
+                f"(not in the domain registry)"
+            )
 
     # Prefer repo-relative bank path in JSON for portable commits
     try:
@@ -380,18 +549,25 @@ def main(argv: list[str] | None = None) -> int:
         bank_rel = str(bank_dir)
 
     summary = {
-        "schema_version": 2,
+        # v3: `counts` changed population. It was the file set and is now the
+        # APPROVED pool, which is a semantic change no consumer could detect
+        # from the numbers alone — so the version moves with it. `item_count`
+        # keeps its old meaning (everything scanned) and `approved_count` and
+        # `scanned_counts` are added, so both populations are in the ledger.
+        "schema_version": 3,
         "gate": "l6-domain-coverage",
         "status": status.lower(),
         "bank": bank_rel,
         "item_count": n,
+        "approved_count": approved_n,
         "module_source": domains_path.name,
         "declared_modules": sorted(declared),
         "primary_modules": required,
         "exemptions": {str(k): v for k, v in sorted(exempt.items())},
         "domain_min": {str(k): v for k, v in sorted(domain_mins.items())},
         "counts": {str(k): module_counts.get(k, 0) for k in required},
-        "extra_counts": {str(k): module_counts[k] for k in extras},
+        "scanned_counts": {str(k): scanned_counts.get(k, 0) for k in required},
+        "extra_counts": {str(k): scanned_counts[k] for k in extras},
         "shortfalls": shortfalls,
         "oq05_default_n": DEFAULT_N,
         # The regeneration command lives IN the artifact. web/data/coverage.json
@@ -405,26 +581,35 @@ def main(argv: list[str] | None = None) -> int:
         ),
     }
 
+    # THE SIDE EFFECT RUNS BEFORE THE VERDICT IS PRINTED, not after it. Nothing
+    # above this point has reached stdout, so an OSError here exits 1 with an
+    # EMPTY stdout and a traceback — never with a PASS a reader would have
+    # believed. The `status` baked into the summary is the pre-write verdict,
+    # which is sound precisely because the file only exists when the write
+    # succeeded, and when it succeeded the pre-write verdict is the final one.
     if args.write_json is not None:
         out = args.write_json
         if not out.is_absolute():
             out = (ROOT / out).resolve()
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-        print(f"  wrote {out}")
+        write_summary(out, json.dumps(summary, indent=2, sort_keys=True) + "\n")
+        lines.append(f"  wrote {out}")
 
     if errors:
-        print("  failures:")
+        lines.append("  failures:")
         for e in errors[:40]:
-            print(f"    - {e}")
+            lines.append(f"    - {e}")
         if len(errors) > 40:
-            print(f"    ... +{len(errors) - 40} more")
+            lines.append(f"    ... +{len(errors) - 40} more")
+        print("\n".join(lines))
         return 1
 
     # Enumerated, not spanned: an exemption can leave a gap, and "1–15" would
     # read as covering a module that was held out.
     span = " ".join(f"m{m:02d}" for m in required)
-    print(f"  coverage GREEN ({len(required)} required modules ≥ domain_min: {span})")
+    lines.append(
+        f"  coverage GREEN ({len(required)} required modules ≥ domain_min: {span})"
+    )
+    print("\n".join(lines))
     return 0
 
 
