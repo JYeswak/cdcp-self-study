@@ -120,15 +120,125 @@ export function parseCountParams(search) {
 }
 
 /**
- * Filter bank items by module number. BankItem schema uses numeric `module`.
+ * The one `BankItem.status` a learner may be shown, scored on, or scheduled
+ * against.
+ *
+ * `data/bank_items_seed42.json` is the content-addressed MANIFEST of the WHOLE
+ * bank — 804 rows, of which 779 are `approved` and 25 are `retired` — and it
+ * CANNOT be filtered at the source: `grade_digest_json` feeds those exact bytes
+ * to `Bank::from_json_str`, which recomputes `bank_hash`, and `grade` hard-fails
+ * on a mismatch. An approved-only pack breaks every client-side grade. So the
+ * manifest ships whole and EVERY CONSUMER THAT DRAWS MUST FILTER. See
+ * `web/data/README.md` and the `web.bank-items-pack` row of
+ * `registries/goldens-couplings.toml`.
+ */
+export const APPROVED = "approved";
+
+/**
+ * True when a bank row may enter a learner-facing draw.
+ *
+ * Absent status is WITHHELD, never permitted: `export-web` refuses to write a
+ * manifest row without a `status`, so a row that reached the browser without one
+ * came from somewhere that guard does not cover, and guessing in its favour is
+ * how a withdrawn item reaches a learner.
+ *
+ * @param {{status?: string}|null|undefined} it
+ */
+export function isApproved(it) {
+  return !!it && it.status === APPROVED;
+}
+
+/**
+ * Filter bank items to the DRAWABLE pool for one module: numeric `module` match
+ * AND `status === "approved"`.
+ *
+ * Until 2026-08-14 (bd-7big) this filtered on `module` alone. Because the draw
+ * is deterministic (mulberry32, seed `42 + module*1000`), the exposure was exact
+ * rather than probabilistic: 8 retired items were served across the 30 module
+ * quizzes, and each was counted by `gradeByKeys`, digested by the WASM
+ * `gradeDigest`, pushed into the SRS schedule by `recordGradedWrongs`, and
+ * weighted into mastery by `recordQuizResult`. An item is retired because a
+ * BETTER COPY OF THE SAME PROPOSITION exists, so serving the retired copy drills
+ * the copy that lost.
+ *
  * @param {Array|{items:Array}} bank
  * @param {number} moduleNum
  */
 export function filterByModule(bank, moduleNum) {
   const arr = Array.isArray(bank) ? bank : bank && bank.items ? bank.items : [];
   return arr.filter(function (it) {
-    return it && typeof it.module === "number" && it.module === moduleNum;
+    return (
+      it &&
+      typeof it.module === "number" &&
+      it.module === moduleNum &&
+      isApproved(it)
+    );
   });
+}
+
+/**
+ * The module numbers a learner may be offered: those with at least one APPROVED
+ * item. A module whose whole pool is retired must not appear in the picker —
+ * offering it would produce a quiz that can only fail to fill.
+ *
+ * @param {Array|{items:Array}} bank
+ * @returns {number[]} ascending, deduplicated
+ */
+export function approvedModules(bank) {
+  const arr = Array.isArray(bank) ? bank : bank && bank.items ? bank.items : [];
+  const set = Object.create(null);
+  for (let i = 0; i < arr.length; i++) {
+    const it = arr[i];
+    if (it && typeof it.module === "number" && isApproved(it)) {
+      set[it.module] = true;
+    }
+  }
+  return Object.keys(set)
+    .map(Number)
+    .sort(function (a, b) {
+      return a - b;
+    });
+}
+
+/**
+ * Why an approved pool cannot serve a quiz of `min` items — or `null` when it
+ * can. A FILTER THAT REMOVES EVERYTHING IS AN ERROR, NOT AN EMPTY QUIZ, and a
+ * pool that fell below the requested size is an ERROR NAMING THE MODULE, never
+ * a silently shorter quiz. A learner who asked for 12 and silently got 4 has no
+ * way to tell a thin module from a broken filter.
+ *
+ * @param {Array} pool the ALREADY-filtered approved pool
+ * @param {number} moduleNum
+ * @param {number} min the requested floor (QUIZ_MIN, or ?count=N, or 5 for learn15)
+ * @param {number} [totalForModule] rows this module has in the manifest, retired included
+ * @returns {string|null}
+ */
+export function poolShortfall(pool, moduleNum, min, totalForModule) {
+  const label = "Module " + String(moduleNum).padStart(2, "0");
+  const have = Array.isArray(pool) ? pool.length : 0;
+  const total = typeof totalForModule === "number" ? totalForModule : null;
+  const withheld = total != null ? total - have : null;
+  if (have === 0) {
+    return (
+      label +
+      " has NO approved items" +
+      (total ? " (" + total + " in the bank, all withheld)" : "") +
+      ". This is a bank/export fault, not an empty quiz — nothing is served."
+    );
+  }
+  if (have < min) {
+    return (
+      label +
+      " has " +
+      have +
+      " approved item(s)" +
+      (withheld ? " (" + withheld + " withheld as non-approved)" : "") +
+      " but the quiz asks for " +
+      min +
+      ". Refusing to serve a silently shorter quiz — lower ?count= or widen the bank."
+    );
+  }
+  return null;
 }
 
 /**
@@ -575,18 +685,30 @@ async function startModule(moduleNum) {
       (Array.isArray(bankParsed) ? "" : bankParsed.bank_hash) ||
       "";
     const pool = filterByModule(bankParsed, moduleNum);
-    if (pool.length === 0) {
-      setStatus(
-        "error",
-        "No bank items for module " +
-          moduleNum +
-          ". Pick another module (BankItem.module field)."
-      );
-      return;
-    }
     const countOpts = parseCountParams(
       typeof window !== "undefined" ? window.location.search : ""
     );
+    // ANTI-VACUOUS. An emptied pool and an under-supplied pool are both ERRORS
+    // that NAME the module. Neither may degrade into a short quiz: a learner
+    // cannot tell a thin module from a filter that removed everything, and the
+    // second is the failure mode this whole filter exists to prevent.
+    const bankArr = Array.isArray(bankParsed)
+      ? bankParsed
+      : (bankParsed && bankParsed.items) || [];
+    let totalForModule = 0;
+    for (let i = 0; i < bankArr.length; i++) {
+      if (bankArr[i] && bankArr[i].module === moduleNum) totalForModule += 1;
+    }
+    const shortfall = poolShortfall(
+      pool,
+      moduleNum,
+      countOpts.min,
+      totalForModule
+    );
+    if (shortfall) {
+      setStatus("error", shortfall);
+      return;
+    }
     const seed = 42 + moduleNum * 1000 + (countOpts.learn15 ? 15 : 0);
     const sampled = sampleItems(pool, seed, countOpts.min, countOpts.max);
     const items = learnerItems(sampled);
@@ -627,9 +749,11 @@ async function startModule(moduleNum) {
         String(moduleNum).padStart(2, "0") +
         " quiz: " +
         items.length +
-        " items (pool " +
+        " items (approved pool " +
         pool.length +
-        "). Study only — not a credential."
+        " of " +
+        totalForModule +
+        " in bank). Study only — not a credential."
     );
     showExam();
   } catch (err) {
@@ -665,12 +789,19 @@ async function initPicker() {
     if (!res.ok) throw new Error("HTTP " + res.status);
     const bank = await res.json();
     const arr = Array.isArray(bank) ? bank : bank.items || [];
-    const set = Object.create(null);
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] && typeof arr[i].module === "number") set[arr[i].module] = true;
+    // The picker offers the DRAWABLE modules, not every module the manifest
+    // mentions. A module whose whole pool is withheld must not be offerable.
+    const mods = approvedModules(arr);
+    if (mods.length === 0) {
+      throw new Error(
+        arr.length === 0
+          ? "bank pack is empty"
+          : "bank pack has " +
+            arr.length +
+            " rows and NONE are status=approved — a filter that removes the " +
+            "whole pool is an ERROR, not an empty quiz"
+      );
     }
-    const mods = Object.keys(set).map(Number);
-    if (mods.length === 0) throw new Error("bank has no module fields");
     populatePicker(mods);
     el.picker.hidden = false;
     setStatus(
@@ -757,9 +888,14 @@ function init() {
 if (typeof window !== "undefined") {
   window.CdcpQuiz = {
     parseModuleParam,
+    parseCountParams,
     filterByModule,
+    approvedModules,
+    isApproved,
+    poolShortfall,
     sampleItems,
     gradeByKeys,
+    APPROVED,
     QUIZ_MIN,
     QUIZ_MAX,
     STORAGE_DRAFT,

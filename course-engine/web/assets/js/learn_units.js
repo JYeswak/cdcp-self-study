@@ -49,11 +49,41 @@
     });
   }
 
+  /**
+   * The one BankItem.status a learner may be shown.
+   *
+   * `bank_items_seed42.json` is the content-addressed MANIFEST of the whole bank
+   * (804 rows: 779 approved, 25 retired) and cannot be filtered at the source —
+   * the WASM grade recomputes bank_hash over those exact bytes. So the manifest
+   * ships whole and every consumer that DRAWS must filter. This file draws:
+   * pickItems branch 2 (topic match within module) and branch 3 (module fill)
+   * both scan the raw list, so filtering only units_index.json's precomputed
+   * check_item_ids would leave two live paths to a withdrawn item.
+   */
+  var APPROVED = "approved";
+
+  /** Absent status is WITHHELD, never permitted. */
+  function isApproved(it) {
+    return !!it && it.status === APPROVED;
+  }
+
+  /**
+   * The DRAWABLE rows of the pack. Every caller in this file wants this, never
+   * the raw manifest — including `byId`, because branch 1 resolves ids that
+   * `build-units` wrote before it filtered on status and a stale
+   * units_index.json must not be able to reintroduce one.
+   */
   function bankList(bank) {
+    var raw;
     if (!bank) return [];
-    if (Array.isArray(bank)) return bank;
-    if (bank.items && Array.isArray(bank.items)) return bank.items;
-    return [];
+    if (Array.isArray(bank)) raw = bank;
+    else if (bank.items && Array.isArray(bank.items)) raw = bank.items;
+    else return [];
+    var out = [];
+    for (var i = 0; i < raw.length; i++) {
+      if (isApproved(raw[i])) out.push(raw[i]);
+    }
+    return out;
   }
 
   function byId(bank) {
@@ -379,6 +409,9 @@
   global.CdcpLearnUnits = {
     mount: mount,
     pickItems: pickItems,
+    bankList: bankList,
+    isApproved: isApproved,
+    APPROVED: APPROVED,
     markDone: markDone,
   };
 })(typeof window !== "undefined" ? window : globalThis);
