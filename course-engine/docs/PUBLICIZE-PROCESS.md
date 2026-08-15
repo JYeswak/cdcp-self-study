@@ -42,7 +42,7 @@ Three-judges pass (`/flywheel:plan` Phase 3): Jeff substrate · Donella feedback
 | F4 Executable tests | Named green command | check.sh + cargo test |
 | F5 Install/uninstall | Rerunnable, no orphan global state | Document clone+rustup; no global install required |
 | F6 Code aesthetic | Small named modules | crates/* OK |
-| F7 Demo-ability | One command sees value | `cd web && python3 -m http.server` + mock seed 42 |
+| F7 Demo-ability | One command sees value | `./target/debug/cdcp serve` (http://127.0.0.1:8766/) + mock seed 42 |
 
 ## Pre-public sequence (zscast-shaped)
 
