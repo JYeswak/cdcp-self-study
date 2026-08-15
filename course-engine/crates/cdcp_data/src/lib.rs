@@ -18,13 +18,23 @@
 //! The F3 differential harness lives in [`oracle`]: computed free-cooling
 //! hours, seismic design values and grid carbon intensity versus published
 //! references. Disagreement beyond a pre-declared tolerance is RED.
+//!
+//! Public-corpus planning lives in [`corpus`]: `cdcp fetch-corpus`
+//! (`bd-substrate-rust-migration-jhd.36`). It never opens a socket.
 #![forbid(unsafe_code)]
 
+mod corpus;
 mod data_lock;
 mod gen_lock;
 mod oracle;
 mod osha;
 mod quantities;
+pub use corpus::{
+    dry_run_request, fetch_corpus, load_sources, parse_sources, plan_sources, today_utc_ymd,
+    AccessKind, CorpusError, FetchPlan, FetchReport, FetchRequest, PlanAction, PlanRow,
+    ALLOWED_ACCESS, ANTI_VACUOUS_EMPTY_SOURCES, ANTI_VACUOUS_NONE_ALLOWED,
+    ANTI_VACUOUS_NOTHING_WRITTEN, NEVER_WRITTEN, NO_SOCKET, OUT_DIR_REL, REFUSED_PAID, SOURCES_REL,
+};
 pub use data_lock::{
     load_pins_from_disk, parse_data_section, referenced_data_paths, selftest_flip_one_byte,
     verify_data_lock, DataLockReport, DATA_SECTION, LOCK_REL, SNAPSHOTS_REL,
@@ -514,6 +524,10 @@ mod unit {
             !include_str!("data_lock.rs").contains("unsafe "),
             "no unsafe token in data_lock.rs"
         );
+        assert!(
+            !include_str!("corpus.rs").contains("unsafe "),
+            "no unsafe token in corpus.rs"
+        );
     }
 
     #[test]
@@ -559,7 +573,11 @@ mod unit {
     #[test]
     fn production_has_no_socket_or_client() {
         let src = production_src();
-        let extra = [include_str!("oracle.rs"), include_str!("quantities.rs")];
+        let extra = [
+            include_str!("oracle.rs"),
+            include_str!("quantities.rs"),
+            include_str!("corpus.rs"),
+        ];
         for needle in [
             "TcpStream",
             "UdpSocket",

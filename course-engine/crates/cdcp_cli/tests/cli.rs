@@ -45,6 +45,7 @@ fn help_lists_learn_compilers() {
         "verify-data-lock",
         "oracle-check",
         "content-lock",
+        "fetch-corpus",
         "check-learner-pack",
     ] {
         assert!(
@@ -256,6 +257,67 @@ fn verify_data_lock_selftest_trips_red() {
         stdout.contains("flip-selftest trips RED"),
         "selftest must report the RED trip: {stdout}"
     );
+}
+
+#[test]
+fn fetch_corpus_dry_run_live_tree_refuses_paid() {
+    let assert = cdcp()
+        .args(["fetch-corpus", "--dry-run"])
+        .assert()
+        .success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("fetch_corpus: DRY-RUN"),
+        "live dry-run must report DRY-RUN: {stdout}"
+    );
+    assert!(
+        stdout.contains("refuse-paid") && stdout.contains("src-nfpa-75"),
+        "live dry-run must refuse the paid NFPA row: {stdout}"
+    );
+    assert!(
+        stdout.contains("this crate never opens a socket"),
+        "live dry-run must name the no-socket contract: {stdout}"
+    );
+}
+
+#[test]
+fn fetch_corpus_paid_only_plant_is_red_and_writes_nothing() {
+    let dir =
+        std::env::temp_dir().join(format!("cdcp_cli_fetch_corpus_paid_{}", std::process::id()));
+    let _ = fs::remove_dir_all(&dir);
+    fs::create_dir_all(dir.join("knowledge")).unwrap();
+    fs::write(
+        dir.join("knowledge/sources.toml"),
+        r#"
+[[source]]
+id = "src-paid-plant"
+url = "https://example.invalid/paid"
+access = "paid"
+"#,
+    )
+    .unwrap();
+    let out = dir.join("public");
+    let assert = cdcp()
+        .args(["fetch-corpus", "--write", "--root"])
+        .arg(&dir)
+        .arg("--out")
+        .arg(&out)
+        .assert()
+        .failure();
+    let out_text = format!(
+        "{}{}",
+        String::from_utf8_lossy(&assert.get_output().stdout),
+        String::from_utf8_lossy(&assert.get_output().stderr)
+    );
+    assert!(
+        out_text.contains("access=paid") || out_text.contains("zero allowed"),
+        "paid-only plant must RED: {out_text}"
+    );
+    assert!(
+        !out.join("src-paid-plant.txt").exists(),
+        "paid dest must never be written"
+    );
+    let _ = fs::remove_dir_all(&dir);
 }
 
 #[test]

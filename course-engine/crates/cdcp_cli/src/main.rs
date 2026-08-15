@@ -69,6 +69,27 @@ enum Cmd {
         #[arg(long)]
         bank: Option<PathBuf>,
     },
+    /// Plan public/free/local corpus rows. Never opens a socket. access=paid is refused.
+    FetchCorpus {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// sources.toml (default: <root>/knowledge/sources.toml)
+        #[arg(long)]
+        sources: Option<PathBuf>,
+        /// Output directory for --write (default: <root>/knowledge/corpus/public)
+        #[arg(long)]
+        out: Option<PathBuf>,
+        /// Plan only. Default when --write is absent. Never writes, never networks.
+        #[arg(long)]
+        dry_run: bool,
+        /// Copy file:// sources only. access=paid is never written. HTTP is never fetched.
+        #[arg(long)]
+        write: bool,
+        /// Snapshot header date YYYY-MM-DD (default: UTC today)
+        #[arg(long)]
+        fetched: Option<String>,
+    },
     /// Computed site quantities vs published references. Vendored snapshots only; no network.
     #[command(visible_alias = "oracle")]
     OracleCheck {
@@ -427,6 +448,21 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::ContentLock { root, out, bank } => {
             content_lock(root.as_deref(), out.as_deref(), bank.as_deref())
         }
+        Cmd::FetchCorpus {
+            root,
+            sources,
+            out,
+            dry_run,
+            write,
+            fetched,
+        } => fetch_corpus_cmd(
+            root.as_deref(),
+            sources.as_deref(),
+            out.as_deref(),
+            dry_run,
+            write,
+            fetched.as_deref(),
+        ),
         Cmd::OracleCheck { root, selftest } => oracle::run(root.as_deref(), selftest),
         Cmd::Site {
             root,
@@ -668,6 +704,42 @@ fn content_lock(
     let report =
         cdcp_data::write_content_lock(&resolved, &bank_hash, &dest).map_err(|e| e.to_string())?;
     println!("{report}");
+    Ok(())
+}
+
+/// Plan / copy public corpus rows. Default is dry-run (no write, no socket).
+/// `--write` copies `file://` only. `access=paid` cannot reach the writer.
+fn fetch_corpus_cmd(
+    root: Option<&Path>,
+    sources: Option<&Path>,
+    out: Option<&Path>,
+    dry_run_flag: bool,
+    write: bool,
+    fetched: Option<&str>,
+) -> Result<(), String> {
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_data::engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    let dry_run = !write || dry_run_flag;
+    let req = cdcp_data::FetchRequest {
+        sources: sources
+            .map(Path::to_path_buf)
+            .unwrap_or_else(|| resolved.join(cdcp_data::SOURCES_REL)),
+        out_dir: out
+            .map(Path::to_path_buf)
+            .unwrap_or_else(|| resolved.join(cdcp_data::OUT_DIR_REL)),
+        dry_run,
+        fetched: fetched
+            .map(str::to_string)
+            .unwrap_or_else(cdcp_data::today_utc_ymd),
+        root: resolved,
+    };
+    let report = cdcp_data::fetch_corpus(&req).map_err(|e| e.to_string())?;
+    print!("{report}");
     Ok(())
 }
 

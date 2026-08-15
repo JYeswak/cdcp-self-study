@@ -325,11 +325,10 @@ expires = "2026-11-30"
 # is DELETED, not allowlisted. It was a 9-line FAIL tombstone after jhd.28
 # (`use cdcp build-learn`). check.sh never invoked it. Do NOT re-add a row for it.
 
-[[allow]]
-path = "scripts/fetch_public_corpus.py"
-reason = "Manual corpus fetch for grounding overlap. Network-touching and run by hand; not on the check.sh path. Ports after the gates."
-migration_bead = "bd-substrate-rust-migration-jhd"
-expires = "2027-02-28"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.36): scripts/fetch_public_corpus.py
+# is DELETED, not allowlisted. The planner is `cdcp_data::corpus` /
+# `cdcp fetch-corpus`. CI is `--dry-run` (no socket). access=paid is
+# refused and never written. Do NOT re-add a row for it.
 
 # RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.30): scripts/gen_content_lock.py
 # is DELETED, not allowlisted. The writer is `cdcp_data::gen_lock` /
