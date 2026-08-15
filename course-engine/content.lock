@@ -53,7 +53,7 @@ bank_hash = "3404d85437e3ad47773ec9f0b371522dbf4abbbc805282a1dbbb04f4162c0f66"
 "web/content/modules/README.md" = "70a9c839b96610cc2439766a09f66c02e7d34ed277024f5c6b20c45beb25bfce"
 
 [data]
-"knowledge/corpus/free-pdfs/nist_sp800_123_server_security.meta.toml" = "0e020f2d46cf7ca0ca1ab838e5a1ffb58e2e2a4b1ccc1e1f0d2de816bd1ad8d8"
+"knowledge/corpus/free-pdfs/nist_sp800_123_server_security.meta.toml" = "45021a276800fcc563c7a73a9d65987be316dda4821e84f634834c77790d4445"
 "knowledge/corpus/free-pdfs/nist_sp800_123_server_security.pdf" = "182ae5d23011108fba08c3a56c5029b8a26a428480ae38ac61877f6f3365db41"
 "knowledge/corpus/public/osha/29cfr-1910.147.meta.toml" = "dd73b1308f45ce699b18c1b7ffb43a3c7efb89d006bf40f1743f7165e1694664"
 "knowledge/corpus/public/osha/29cfr-1910.147.txt" = "12a80dcc6c444135d0b0bc1f0b0b53955727346cbc2048b0a33ae89890780ed7"
