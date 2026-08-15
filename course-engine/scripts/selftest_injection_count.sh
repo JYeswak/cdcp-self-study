@@ -9,11 +9,15 @@
 # mismatch.
 #
 # Two guards live here because they are one mechanism used twice on the same
-# README sentence: (a-n, jj) cover verify_injection_count.py, which enforces the
-# known-bad injection total and the selftest-suite count; (dd-ii) cover the
-# per-suite `n` column in the same table [bd-per-suite-injection-column-unguarded-aop9];
-# (o-cc) cover `cdcp_gate verify-step-count`, which enforces the third number
+# README sentence: (a-n, jj) cover `$CDCP_BIN_DIR/cdcp_gate verify-injection-count`,
+# which enforces the known-bad injection total and the selftest-suite count;
+# (dd-ii) cover the per-suite `n` column in the same table
+# [bd-per-suite-injection-column-unguarded-aop9]; (o-cc) cover
+# `$CDCP_BIN_DIR/cdcp_gate verify-step-count`, which enforces the third number
 # in that sentence — the length of the check.sh chain [bd-1sd.13].
+#
+# Plants run the Rust binary (same helper contract as check.sh).
+# scripts/verify_injection_count.py is the cargo-test differential oracle only.
 #
 # Cases (injection count):
 #   a) log + README agree                 → GREEN (baseline)
@@ -86,7 +90,7 @@ ok() { echo "selftest_injection_count: ok: $*"; }
 # -- L4 drift guard: self-reported RED-injection count ----------------------
 # INJ counts the injections this run actually asserted RED (green controls are
 # NOT counted). Emitted once, on the success path only, as a machine-readable
-# line that scripts/verify_injection_count.py aggregates. A suite that stops
+# line that cdcp_gate verify-injection-count aggregates. A suite that stops
 # emitting the line is an ERROR to that gate, never a silent zero.
 INJ=0
 SUITE_NAME="selftest_injection_count"
@@ -99,8 +103,6 @@ restore_all() {
   fi
 }
 trap restore_all EXIT INT TERM HUP
-
-CHECKER="scripts/verify_injection_count.py"
 
 # Two specimen suites only — the registry under test is passed via --require,
 # so this selftest never depends on the live suite roster.
@@ -184,8 +186,22 @@ assert_green() {
 
 echo "==> selftest_injection_count (drift-guard known-bad)"
 
-[ -f "$CHECKER" ] || fail "missing $CHECKER"
-command -v python3 >/dev/null 2>&1 || fail "python3 required"
+# Same binary contract as check.sh: honour CARGO_TARGET_DIR, never cargo run.
+if [ -z "${CDCP_BIN_DIR:-}" ]; then
+  if [ -n "${CARGO_TARGET_DIR:-}" ]; then
+    CDCP_BIN_DIR="${CARGO_TARGET_DIR%/}/debug"
+  else
+    CDCP_BIN_DIR="$ROOT/target/debug"
+  fi
+fi
+[ -n "$CDCP_BIN_DIR" ] \
+  || fail "CDCP_BIN_DIR unset — cargo build -p cdcp_gate -p cdcp_cli --locked must run first (no fallback to cargo run)"
+[ -x "$CDCP_BIN_DIR/cdcp_gate" ] \
+  || fail "cdcp_gate binary absent at $CDCP_BIN_DIR/cdcp_gate — cargo build -p cdcp_gate -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
+
+verify_injection_count() {
+  "$CDCP_BIN_DIR/cdcp_gate" verify-injection-count "$@"
+}
 
 TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/selftest_injection_count.XXXXXX")"
 
@@ -210,19 +226,20 @@ GOOD_README="$TMP_ROOT/README.md"
 write_readme "$GOOD_README" 7 2
 
 run_checker() {
-  python3 "$CHECKER" --log "$1" --readme "$2" --require "$REQUIRE"
+  verify_injection_count --log "$1" --readme "$2" --require "$REQUIRE"
 }
 
 # The registry under test is an ARGUMENT, so (k) can hand it a roster that names
 # one suite twice without this suite depending on the live roster.
 run_checker_require() {
-  python3 "$CHECKER" --log "$1" --readme "$2" --require "$3"
+  verify_injection_count --log "$1" --readme "$2" --require "$3"
 }
 
 # Write mode. Separate from run_checker so no case can reach it by accident:
-# this one REWRITES the file it is pointed at.
+# this one REWRITES the file it is pointed at. Honour the lu45 env path:
+# check.sh only passes --write-readme when CDCP_INJECTION_COUNT_WRITE_README=1.
 run_checker_write() {
-  python3 "$CHECKER" --log "$1" --readme "$2" --require "$REQUIRE" --write-readme
+  verify_injection_count --log "$1" --readme "$2" --require "$REQUIRE" --write-readme
 }
 
 # ── (a) baseline ────────────────────────────────────────────────────────────
@@ -413,11 +430,11 @@ EOF
 }
 
 run_column() {
-  python3 "$CHECKER" --log "$COL_LOG" --readme "$1" --require "$COL_REQUIRE"
+  verify_injection_count --log "$COL_LOG" --readme "$1" --require "$COL_REQUIRE"
 }
 
 run_column_write() {
-  python3 "$CHECKER" --log "$1" --readme "$2" --require "$COL_REQUIRE" --write-readme
+  verify_injection_count --log "$1" --readme "$2" --require "$COL_REQUIRE" --write-readme
 }
 
 echo "==> (dd) per-suite cell disagrees LOW → RED"
@@ -531,12 +548,12 @@ STEP_SCRIPT="$STEP_GATE_ROOT/check.sh"
 write_step_script "$STEP_SCRIPT"
 
 run_step_gate() {
-  cargo run -q -p cdcp_gate -- verify-step-count \
+  "$CDCP_BIN_DIR/cdcp_gate" verify-step-count \
     --log "$1" --readme "$2" --script "$3"
 }
 
 run_step_gate_write() {
-  cargo run -q -p cdcp_gate -- verify-step-count \
+  "$CDCP_BIN_DIR/cdcp_gate" verify-step-count \
     --log "$1" --readme "$2" --script "$3" --write-readme
 }
 
@@ -713,7 +730,7 @@ run_inj_snippet() {
   (
     set -eu
     INJ_LOG="$probe_dir/unused.log"
-    cargo() { printf '%s\n' "$*" > "$_out"; return 0; }
+    run_cdcp_gate() { printf '%s\n' "$*" > "$_out"; return 0; }
     fail() { echo "snippet fail: $*" >&2; exit 2; }
     CDCP_INJECTION_COUNT_WRITE_README="$_flag"
     eval "$inj_if"
@@ -747,9 +764,9 @@ wire_out="$(
   CDCP_INJECTION_COUNT_WRITE_README=1
   INJ_LOG="$missing_log"
   if [ "${CDCP_INJECTION_COUNT_WRITE_README:-0}" = "1" ]; then
-    python3 "$CHECKER" --log "$INJ_LOG" --readme "$wire_unsound" --require "$REQUIRE" --write-readme
+    "$CDCP_BIN_DIR/cdcp_gate" verify-injection-count --log "$INJ_LOG" --readme "$wire_unsound" --require "$REQUIRE" --write-readme
   else
-    python3 "$CHECKER" --log "$INJ_LOG" --readme "$wire_unsound" --require "$REQUIRE"
+    "$CDCP_BIN_DIR/cdcp_gate" verify-injection-count --log "$INJ_LOG" --readme "$wire_unsound" --require "$REQUIRE"
   fi
 )" || wire_rc=$?
 [ "$wire_rc" -ne 0 ] || fail "(wire-unsound) flag=1 + unsound log exited 0"
