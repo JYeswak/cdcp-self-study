@@ -2,9 +2,14 @@
 //! `scripts/verify_objectives.py`. Byte-identical stdout/stderr/exit on every
 //! case. Floors measure the approved pool (bd-f996). Missing python3 is a
 //! FAILURE. Live-tree module counts are derived from `domains.toml` at run
-//! time. Does not judge whether the oracle is right — only that the port
-//! matches it. Parse-error prose and CPython traceback text are the documented
-//! deviations.
+//! time.
+//!
+//! Agreement is necessary and not sufficient (bd-differential-shared-blindspot-4qje).
+//! Floor and anti-vacuous cases also pin the VERDICT — the named finding, the
+//! mode word, and that `covered=` is not a number no comparison produced. A
+//! defect present in both implementations used to pass here (`m min topic 0`
+//! printed `covered=106 mode=strict` EXIT 0). Parse-error prose and CPython
+//! traceback text are the documented deviations.
 
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -1470,13 +1475,18 @@ fn path_and_option_shapes_are_byte_identical() {
         &["--skip-topic-coverage", "--strict-topics"],
     );
 
-    // The topic floor, raised and lowered. `m min topic 0` USED TO STOP AT
-    // "the two sides agree", and it passed for weeks while both of them
-    // compared not one topic and printed `covered=<all> shortfalls=0
-    // mode=strict` under exit 0 — the header's own "a defect faithfully ported
-    // is still a defect", caught in this harness's blind spot. A differential
-    // case that touches a floor now says what the floor must DO (bd-9nyt); the
-    // full verdict set lives in tests/anti_vacuous_topics.rs.
+    // The topic floor, raised and lowered.
+    //
+    // `m min topic 0` USED TO STOP AT "the two sides agree", and it passed for
+    // weeks while both of them compared not one topic and printed
+    // `covered=106 shortfalls=0 mode=strict` under exit 0 — the header's own
+    // "a defect faithfully ported is still a defect", caught in this
+    // harness's blind spot (bd-differential-shared-blindspot-4qje). Agreement
+    // is necessary and not sufficient. The case now pins the ERROR and the
+    // named finding; a shared defect that still printed PASS / covered=N /
+    // mode=strict would fail here even if both sides agreed.
+    const FLOOR_OFF_FINDING: &str =
+        "--min-items-per-topic 0 turns the primary-topic floor off without saying so";
     let rs = assert_byte_identical("m min topic 0", &root, &["--min-items-per-topic", "0"]);
     assert_ne!(
         rs.code,
@@ -1485,13 +1495,64 @@ fn path_and_option_shapes_are_byte_identical() {
         rs.out()
     );
     assert!(
+        rs.out().starts_with("FAIL"),
+        "min=0 must lead with FAIL, not PASS: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains(FLOOR_OFF_FINDING),
+        "min=0 must name the finding, not just go non-zero: {}",
+        rs.out()
+    );
+    assert!(
         rs.out().contains("mode=off") && rs.out().contains("covered=n/a"),
         "the report must not name a mode it is not in, nor a coverage number no \
          comparison produced: {}",
         rs.out()
     );
+
+    // THE MEASURED DEFECT. `--min-items-per-topic 0 --strict-topics` is what
+    // printed `mode=strict covered=106 EXIT 0` with zero comparisons. Pinning
+    // only the unflagged spelling would let that string become printable again.
+    let rs = assert_byte_identical(
+        "m min topic 0 under --strict-topics",
+        &root,
+        &["--min-items-per-topic", "0", "--strict-topics"],
+    );
+    assert_ne!(
+        rs.code,
+        0,
+        "min=0 under --strict-topics is the measured vacuous PASS: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out().starts_with("FAIL") && rs.out().contains(FLOOR_OFF_FINDING),
+        "the measured spelling must stay FAIL and name the finding: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("mode=off") && rs.out().contains("covered=n/a"),
+        "zero comparisons must not report a coverage number: {}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("mode=strict"),
+        "a floor that compared nothing must not report mode=strict: {}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("covered=106"),
+        "a floor that compared nothing must not report 106/106 covered: {}",
+        rs.out()
+    );
+
     let rs = assert_byte_identical("m min topic 5", &root, &["--min-items-per-topic", "5"]);
     assert!(rs.out().contains("min_per_topic=5"), "{}", rs.out());
+    assert!(
+        !rs.out().contains("mode=off") && !rs.out().contains("covered=n/a"),
+        "a raised floor must actually compare: {}",
+        rs.out()
+    );
 
     // an absent policy is NOT an error — it is simply an empty ledger
     let absent = td.path().join("absent_policy.toml");
