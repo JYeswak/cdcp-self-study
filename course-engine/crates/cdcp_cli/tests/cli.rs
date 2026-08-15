@@ -31,6 +31,7 @@ fn help_lists_learn_compilers() {
         "smoke-learn-chrome",
         "smoke-feedback-links",
         "smoke-diagrams",
+        "smoke-a11y",
     ] {
         assert!(
             stdout.contains(verb),
@@ -46,6 +47,16 @@ fn smoke_diagrams_live_tree_passes() {
     assert!(
         stdout.contains("smoke_diagrams: PASS"),
         "live diagram smoke must PASS: {stdout}"
+    );
+}
+
+#[test]
+fn smoke_a11y_live_tree_passes() {
+    let assert = cdcp().arg("smoke-a11y").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("PASS: smoke_a11y"),
+        "live a11y smoke must PASS: {stdout}"
     );
 }
 

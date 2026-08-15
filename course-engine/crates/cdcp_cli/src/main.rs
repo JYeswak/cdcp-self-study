@@ -95,6 +95,12 @@ enum Cmd {
         #[arg(long)]
         root: Option<PathBuf>,
     },
+    /// L7-S5 a11y marker baseline over primary web/ page shells
+    SmokeA11y {
+        /// Engine root (directory holding web/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+    },
     /// Preflight: bank loads, wasm present and fresh, goldens present, port bindable, python3 present
     Doctor {
         /// Engine root. Default: walk up from cwd.
@@ -275,6 +281,7 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::SmokeLearnChrome { root } => smoke_learn_chrome(root.as_deref()),
         Cmd::SmokeFeedbackLinks { root } => smoke_feedback_links(root.as_deref()),
         Cmd::SmokeDiagrams { root } => smoke_diagrams(root.as_deref()),
+        Cmd::SmokeA11y { root } => smoke_a11y(root.as_deref()),
         Cmd::Doctor { root, bind } => operator::doctor(root.as_deref(), &bind),
         Cmd::Health { root, robot } => operator::health(root.as_deref(), robot),
         Cmd::Repair { root, seed } => operator::repair(root.as_deref(), seed),
@@ -714,6 +721,22 @@ enum LearnKind {
     Units,
     Glossary,
     Smoke,
+}
+
+fn smoke_a11y(root: Option<&Path>) -> Result<(), String> {
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_learn::resolve_engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    let outcome = cdcp_learn::a11y::run(&resolved);
+    print!("{}", outcome.stdout);
+    if outcome.code != 0 {
+        std::process::exit(outcome.code);
+    }
+    Ok(())
 }
 
 fn smoke_diagrams(root: Option<&Path>) -> Result<(), String> {

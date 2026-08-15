@@ -201,18 +201,17 @@ expires = "2026-12-31"
 # Empty/absent topics is an ERROR (bd-feedback-links-vacuous-topics-ilad closed, not reproduced).
 # Do NOT re-add a row for it.
 
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.19): scripts/smoke_a11y.py
+# is DELETED, not allowlisted. The smoke is `cdcp_learn::a11y` / `cdcp smoke-a11y`.
+# Undecodable/unreadable pages are a named FAIL (bd-a11y-undecodable-raises-6jmi closed).
+# Do NOT re-add a row for it.
+
 # =============================================================================
 # ON THE check.sh PATH BUT WITH NO PORT BEAD YET
-# These two run inside check.sh and are load-bearing, but the epic's .2-.18
-# breakdown does not cover them. Short fuse on purpose: the first thing owed
+# This one runs inside check.sh and is load-bearing, but the epic's .2-.19
+# breakdown does not cover it. Short fuse on purpose: the first thing owed
 # here is a bead, not a port.
 # =============================================================================
-
-[[allow]]
-path = "scripts/smoke_a11y.py"
-reason = "Load-bearing check.sh smoke (L7 a11y baseline) that the .2-.18 port breakdown missed. Owed a port bead under the epic before this date; the fuse is short because an untracked gate is how the last three Python gates arrived."
-migration_bead = "bd-substrate-rust-migration-jhd"
-expires = "2026-10-31"
 
 [[allow]]
 path = "scripts/smoke_learn_v2.py"
