@@ -33,7 +33,8 @@ P1     diagrams shipped (bd-1sd.9.1). P2 `security-layers` shipped (bd-1sd.9.2).
 ## Try the product
 
 ```bash
-cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
+cargo build -p cdcp_cli --locked
+./target/debug/cdcp serve --bind 127.0.0.1:8766
 # http://127.0.0.1:8766/learn/01-mission-critical.html  (unit shell + site-stack)
 # http://127.0.0.1:8766/diagrams/heat-path.html
 # http://127.0.0.1:8766/drill.html  (miss → concept card)
