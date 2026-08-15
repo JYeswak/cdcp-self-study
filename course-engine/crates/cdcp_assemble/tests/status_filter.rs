@@ -22,6 +22,8 @@
 //! 4. whole pool retired -> `NoApprovedItems`
 //! 5. approved pool starved of module breadth -> error NAMES the shortfall
 //! 6. approved-only pool narrows breadth the full pool satisfied (C1 x C6)
+//! 7. selected draw below min_modules (pool still wide enough) -> error NAMES the shortfall
+//! 8. requested min_modules greater than the approved module count -> ERROR
 //!
 //! # Meta-test
 //!
@@ -235,9 +237,10 @@ fn empty_approved_pool_error_is_distinct_from_small_pool_error() {
 // 5 + 6. C1 x C6: the approved-only pool can starve module breadth that the
 // FULL pool satisfied. The error names the shortfall.
 //
-// NOTE (C6 remains open): `min_modules` is enforced here as a POOL precondition
-// only. Whether the 40 SELECTED items span `min_modules` is still unchecked —
-// that is bead C6 and this tick deliberately does not fix it.
+// C6 (`bd-hardening-c-status-hzs.5`): `min_modules` is enforced twice —
+// once as a pool precondition (`ApprovedTooFewModules`) and once over the
+// SELECTED draw (`SelectedTooFewModules`). Deleting either check turns the
+// matching plant RED. The 40-item form size is unchanged.
 // ───────────────────────────────────────────────────────────────────────────
 
 #[test]
@@ -292,21 +295,135 @@ fn approved_only_pool_starved_of_modules_names_the_shortfall() {
 }
 
 #[test]
-fn c6_min_modules_is_still_unenforced_over_the_selected_items() {
-    // DOCUMENTS A KNOWN DEFECT (C6), it does not bless it. The approved pool
-    // spans 8 modules so the C1 precondition passes, but max_per_module=8 with
-    // n=40 means the selection can legitimately come from as few as 5 modules
-    // and nothing checks that. When C6 lands, this test SHOULD go red and be
-    // rewritten — that is the point of pinning current behaviour.
+fn c6_selected_items_span_min_modules_when_the_pool_can() {
+    // Happy path: n=40 is unchanged. With max_per_module=8 and 8 planted
+    // modules, first-pass one-per-module covers all 8. Deleting the
+    // selected-draw check would NOT turn this RED — that is why the plant
+    // below exists.
     let bank = Bank::from_items(approved_spread(64, 8)).unwrap();
-    let ids = sample_item_ids(&bank, 40, SEED, 8, 8).expect("pool precondition satisfied");
+    let ids = sample_item_ids(&bank, 40, SEED, 8, 8).expect("pool + draw satisfy min_modules");
+    assert_eq!(ids.len(), 40, "must not shrink the 40-item form");
     let modules: BTreeSet<u32> = ids.iter().map(|id| bank.get(id).unwrap().module).collect();
     assert!(
-        modules.len() <= 8,
-        "sanity: cannot exceed the 8 modules planted"
+        modules.len() >= 8,
+        "selected draw must span min_modules=8, got {}",
+        modules.len()
     );
-    // No assertion that modules.len() >= min_modules — because the code makes
-    // no such promise. C6 owns that.
+}
+
+#[test]
+fn c6_selected_draw_below_min_modules_names_the_shortfall() {
+    // Known-bad plant (C6 selected half). Pool spans 8 modules so the pool
+    // precondition PASSES. 40 items on module 1 (ids a-000..a-039) plus one
+    // token each on modules 2..=8 (ids z-m02..). max_per_module=0 skips
+    // first/second pass (`0 >= 0`), so relaxation takes the 40 module-1
+    // items in id order. n stays 40; only the breadth is illegal.
+    //
+    // Meta-test: delete the selected-draw check in sample_item_ids → this
+    // test goes RED (it would get Ok([a-000..a-039]) instead of the error).
+    let mut items = Vec::new();
+    for i in 0..40 {
+        items.push(item(&format!("a-{i:03}"), 1, ItemStatus::Approved));
+    }
+    for m in 2..=8u32 {
+        items.push(item(&format!("z-m{m:02}"), m, ItemStatus::Approved));
+    }
+    let bank = Bank::from_items(items).unwrap();
+    let pool_modules: BTreeSet<u32> = bank.items.values().map(|i| i.module).collect();
+    assert_eq!(pool_modules.len(), 8, "pool precondition must pass");
+
+    // Control: the normal cap covers all 8 via first-pass. Without this
+    // leg the plant could pass because the bank was unsamplable.
+    let ok = sample_item_ids(&bank, 40, SEED, 8, 8).expect("first-pass covers 8");
+    assert_eq!(ok.len(), 40, "control must keep the 40-item form");
+    let ok_mods: BTreeSet<u32> = ok.iter().map(|id| bank.get(id).unwrap().module).collect();
+    assert_eq!(ok_mods.len(), 8, "control: first-pass spans the pool");
+
+    let err = sample_item_ids(&bank, 40, SEED, 0, 8).unwrap_err();
+    match err {
+        AssembleError::SelectedTooFewModules {
+            modules,
+            min_modules,
+            n,
+            shortfall,
+        } => {
+            assert_eq!((modules, min_modules, n, shortfall), (1, 8, 40, 7));
+        }
+        other => panic!("expected selected-module shortfall, got {other:?}"),
+    }
+    let msg = err.to_string();
+    assert!(
+        msg.contains("min_modules=8") && msg.contains("shortfall 7") && msg.contains("n=40"),
+        "the message must name the shortfall a human has to act on, got: {msg}"
+    );
+
+    // assemble() is the same path — refuse, never a 40-item under-covered exam.
+    let err = assemble(
+        &bank,
+        SEED,
+        AssembleConfig {
+            n_items: 40,
+            max_per_module: 0,
+            min_modules: 8,
+            shuffle_choices: false,
+        },
+    )
+    .unwrap_err();
+    assert!(
+        matches!(
+            err,
+            AssembleError::SelectedTooFewModules {
+                modules: 1,
+                min_modules: 8,
+                n: 40,
+                shortfall: 7
+            }
+        ),
+        "assemble() must refuse the under-covered draw, got {err:?}"
+    );
+}
+
+#[test]
+fn min_modules_greater_than_available_approved_modules_is_an_error() {
+    // Bead known-bad: request min_modules greater than the available
+    // approved module count → ERROR, not a quiet partial result.
+    // Distinct from the selected-draw plant: here the POOL itself cannot
+    // satisfy the knob (3 approved modules, min_modules=99).
+    let bank = Bank::from_items(approved_spread(60, 3)).unwrap();
+    let err = sample_item_ids(&bank, 40, SEED, 8, 99).unwrap_err();
+    match err {
+        AssembleError::ApprovedTooFewModules {
+            modules,
+            min_modules,
+            shortfall,
+            ..
+        } => {
+            assert_eq!((modules, min_modules, shortfall), (3, 99, 96));
+        }
+        other => panic!("expected pool module shortfall, got {other:?}"),
+    }
+}
+
+#[test]
+fn n_smaller_than_min_modules_is_a_selected_shortfall() {
+    // Complementary plant: the pool spans 8, but n=5 cannot. First-pass
+    // takes 5 items from 5 modules; selected check must refuse. This is
+    // not a form-size change — the 40-item default is untouched.
+    let bank = Bank::from_items(approved_spread(64, 8)).unwrap();
+    let err = sample_item_ids(&bank, 5, SEED, 8, 8).unwrap_err();
+    match err {
+        AssembleError::SelectedTooFewModules {
+            modules,
+            min_modules,
+            n,
+            shortfall,
+        } => {
+            assert_eq!((min_modules, n), (8, 5));
+            assert!(modules <= 5, "cannot select more modules than items");
+            assert_eq!(shortfall, 8 - modules);
+        }
+        other => panic!("expected selected shortfall when n < min_modules, got {other:?}"),
+    }
 }
 
 // ───────────────────────────────────────────────────────────────────────────

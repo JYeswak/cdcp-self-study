@@ -78,9 +78,11 @@ rebuilt something — see `docs/TESTING.md`, "Meta-test pairs: step 3 is the one
 - **C5** module 15 decision — teach it or exclude it from assembly. Record which and why.
 - **C6** `min_modules` is no longer accepted and discarded — the parameter reaches
   `sample_item_ids` and a pool spanning too few modules is a `ModuleShortfall` error, so the
-  binding is not `_min_modules` any more [[fact:fact-assemble-discards-min-modules=no]]. It is
-  enforced as a **precondition on the approved pool only**; whether the 40 *selected* items span
-  `min_modules` is still unchecked. Close that half, or state the weaker guarantee.
+  binding is not `_min_modules` any more [[fact:fact-assemble-discards-min-modules=no]].
+  **LANDED 2026-08-15** (`bd-hardening-c-status-hzs.5`): it is also enforced over the
+  *selected* draw. An assembly that cannot satisfy `min_modules` is
+  `SelectedTooFewModules` (or `ApprovedTooFewModules` when the pool itself is short),
+  never a silent under-covered exam. The 40-item form size is unchanged.
 
 ## D · Evidence spine — `cdcp_evidence`
 

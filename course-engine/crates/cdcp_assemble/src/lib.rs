@@ -58,14 +58,26 @@ pub enum AssembleError {
     NoApprovedItems { total: usize },
     /// The approved-only pool cannot span the required breadth. This is a
     /// POOL precondition introduced by C1: filtering to `approved` can starve
-    /// module coverage that the full pool satisfied. Enforcing `min_modules`
-    /// over the *selected* items remains open (C6).
+    /// module coverage that the full pool satisfied.
     #[error("approved pool spans {modules} modules < min_modules={min_modules} ({approved} approved of {total} items) — shortfall {shortfall} modules")]
     ApprovedTooFewModules {
         modules: usize,
         min_modules: usize,
         approved: usize,
         total: usize,
+        shortfall: usize,
+    },
+    /// The approved pool spanned enough modules, but the selected draw does
+    /// not. Distinct from `ApprovedTooFewModules`: that is a pool
+    /// precondition, this is a form-coverage failure. First-pass
+    /// one-per-module usually prevents it when `n >= min_modules`; it fires
+    /// when `n < min_modules` or when the `max_per_module` relaxation fills
+    /// from a narrow id-ordered slice. C6 (`bd-hardening-c-status-hzs.5`).
+    #[error("selected draw spans {modules} modules < min_modules={min_modules} (n={n}) — shortfall {shortfall} modules")]
+    SelectedTooFewModules {
+        modules: usize,
+        min_modules: usize,
+        n: usize,
         shortfall: usize,
     },
     #[error("item {0}: choices must be length 4")]
@@ -270,6 +282,27 @@ pub fn sample_item_ids(
         });
     }
     chosen.truncate(n);
+
+    // C6: min_modules is a property of the SELECTED form, not only of the
+    // approved pool. The pool check above can pass while this draw still
+    // under-covers (n < min_modules, or the max_per_module relaxation
+    // taking a narrow id-ordered slice). Fail closed; never return a quiet
+    // under-covered exam.
+    let mut selected_modules: HashSet<u32> = HashSet::new();
+    for id in &chosen {
+        let item = bank
+            .get(id)
+            .ok_or_else(|| AssembleError::Item(id.clone(), "missing from bank".into()))?;
+        selected_modules.insert(item.module);
+    }
+    if selected_modules.len() < min_modules {
+        return Err(AssembleError::SelectedTooFewModules {
+            modules: selected_modules.len(),
+            min_modules,
+            n: chosen.len(),
+            shortfall: min_modules - selected_modules.len(),
+        });
+    }
 
     // Final presentation-order shuffle.
     let mut order: Vec<usize> = (0..chosen.len()).collect();

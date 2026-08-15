@@ -262,13 +262,15 @@ id = "bank.item-status-filter"
 title = "Only approved items reach an assembled exam"
 level = "proven-to-trip"
 owner = "josh"
-last_review = "2026-08-14"
-claim = "cdcp_assemble samples approved items only; a planted draft or retired item is asserted never to appear in a sampled exam, and an approved pool that is empty is an error rather than an empty exam. min_modules over the SELECTED items is still unenforced (PLAN §C6) and the row for that is the test named below, not this claim."
+last_review = "2026-08-15"
+claim = "cdcp_assemble samples approved items only; a planted draft or retired item is asserted never to appear in a sampled exam, and an approved pool that is empty is an error rather than an empty exam. min_modules is enforced on both the approved pool and the SELECTED draw (PLAN §C6): a plant whose selected items span fewer modules than requested is asserted red."
 evidence = [
   { kind = "test", ref = "crates/cdcp_assemble/tests/status_filter.rs::real_bank_is_all_approved_and_seed42_holds" },
-  { kind = "test", ref = "crates/cdcp_assemble/tests/status_filter.rs::c6_min_modules_is_still_unenforced_over_the_selected_items" },
+  { kind = "test", ref = "crates/cdcp_assemble/tests/status_filter.rs::c6_selected_items_span_min_modules_when_the_pool_can" },
   { kind = "known_bad", ref = "crates/cdcp_assemble/tests/status_filter.rs::planted_draft_is_never_assembled" },
   { kind = "known_bad", ref = "crates/cdcp_assemble/tests/status_filter.rs::empty_approved_pool_is_an_error_not_an_empty_exam" },
+  { kind = "known_bad", ref = "crates/cdcp_assemble/tests/status_filter.rs::c6_selected_draw_below_min_modules_names_the_shortfall" },
+  { kind = "known_bad", ref = "crates/cdcp_assemble/tests/status_filter.rs::min_modules_greater_than_available_approved_modules_is_an_error" },
   { kind = "contract", ref = "scripts/check.sh" },
 ]
 
