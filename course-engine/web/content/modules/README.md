@@ -5,11 +5,12 @@ generated from `knowledge/domains.toml` via:
 
 ```bash
 # from course-engine/
-cdcp build-learn
-cargo run -q -p cdcp_cli -- smoke-learn
+cargo build -p cdcp_cli --locked
+./target/debug/cdcp build-learn
+./target/debug/cdcp smoke-learn
 ```
 
 Until this directory is populated, the Learn reader falls back to parent-corpus
 relative paths when the static server’s CWD is the monorepo root
-(`cdcp-self-study/`). Prefer shipping copies so `python3 -m http.server` from
-`web/` alone is enough.
+(`cdcp-self-study/`). Prefer shipping copies so `./target/debug/cdcp serve`
+from `course-engine/` is enough.
