@@ -27,6 +27,7 @@ fn help_lists_learn_compilers() {
     for verb in [
         "build-units",
         "build-glossary",
+        "build-learn-slugs",
         "smoke-learn",
         "smoke-learn-chrome",
         "smoke-feedback-links",

@@ -49,8 +49,9 @@ skipped_step() { STEP_SKIPPED=$((STEP_SKIPPED + 1)); echo "check.sh: skip: $*"; 
 #                              crates/cdcp_cli/src/main.rs              [S] restored
 #   cdcp build-units               web/data/units_index.json            [M] regenerated
 #   cdcp build-glossary            web/data/glossary.json               [M] regenerated
+#   cdcp build-learn-slugs         web/data/module_learn_slugs.js       [M] regenerated
 #   cdcp export-anki               dist/anki/**                         [M] untracked output
-# The two regenerated files are byte-identical today, so `git status` stays
+# The regenerated Learn artifacts are byte-identical today, so `git status` stays
 # clean — but the WRITE still happens (mtime moves), and a concurrent reader can
 # still catch a truncated file. Rewritten-identical is not the same as untouched.
 # Everything else writes only under $TMPDIR or target/ (gitignored): the
@@ -766,6 +767,7 @@ ok "L7 surfaces (reference · closed-notes · Learn-15)"
 echo "==> cdcp smoke-learn-chrome (M8-A)"; cargo run -q -p cdcp_cli -- smoke-learn-chrome || fail "M8-A learn chrome"; ok "M8-A learn chrome smoke"
 echo "==> cdcp build-units (M8-B units_index)";              cargo run -q -p cdcp_cli -- build-units          || fail "M8-B units_index"; ok "M8-B units_index"
 echo "==> cdcp build-glossary (M8-D glossary)";              cargo run -q -p cdcp_cli -- build-glossary       || fail "M8-D glossary";    ok "M8-D glossary.json"
+echo "==> cdcp build-learn-slugs (MODULE_LEARN_SLUGS)";      cargo run -q -p cdcp_cli -- build-learn-slugs    || fail "MODULE_LEARN_SLUGS"; ok "MODULE_LEARN_SLUGS from domains.toml"
 # After regenerate so this smoke sees THIS run's units_index, not last run's
 # (bd-wire-smoke-quiz-approved-7pju.1).
 echo "==> smoke_quiz_approved.mjs"; node scripts/smoke_quiz_approved.mjs || fail "approved-only quiz/units draw"; ok "no learner surface draws a non-approved item"
@@ -777,7 +779,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(cargo run -q -p cdcp_cli -- --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-units build-glossary smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki; do
+for v in bank-hash grade goldens export-web serve build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"

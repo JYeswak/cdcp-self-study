@@ -48,11 +48,14 @@
 
 #![forbid(unsafe_code)]
 
+use crate::slugs::load_module_learn_slugs;
 use crate::{join_rel, BuildOutcome};
 use serde_json::Value as Json;
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 use toml::Value as Toml;
+
+pub use crate::slugs::{parse_module_learn_slugs, SLUGS_JS_REL};
 
 pub const NAME: &str = "smoke-feedback-links";
 pub const SUMMARY: &str =
@@ -85,9 +88,8 @@ pub fn run(root: &Path) -> BuildOutcome {
     check_topic_registry(&join_rel(root, TOPICS_TOML_REL), &mut errors);
 
     let results_path = join_rel(root, RESULTS_JS_REL);
-    let js = if !results_path.is_file() {
+    if !results_path.is_file() {
         errors.push(format!("missing {RESULTS_JS_REL}"));
-        None
     } else {
         match std::fs::read_to_string(&results_path) {
             Ok(text) => {
@@ -105,14 +107,17 @@ pub fn run(root: &Path) -> BuildOutcome {
                 if !text.contains("topic_anchors.json") {
                     errors.push("results.js should load data/topic_anchors.json".into());
                 }
-                Some(text)
+                if !text.contains("module_learn_slugs") {
+                    errors.push(
+                        "results.js must import MODULE_LEARN_SLUGS from the generated map".into(),
+                    );
+                }
             }
             Err(e) => {
                 errors.push(format!("{RESULTS_JS_REL} unreadable: {e}"));
-                None
             }
         }
-    };
+    }
 
     let mdjs_path = join_rel(root, LEARN_MD_JS_REL);
     if !mdjs_path.is_file() {
@@ -135,16 +140,14 @@ pub fn run(root: &Path) -> BuildOutcome {
     }
 
     let mut slugs: BTreeMap<i64, String> = BTreeMap::new();
-    if let Some(js) = js.as_ref() {
-        match parse_module_learn_slugs(js) {
-            Ok(found) => {
-                if found.is_empty() {
-                    errors.push("MODULE_LEARN_SLUGS empty — refusing vacuous green".into());
-                }
-                slugs = found;
+    match load_module_learn_slugs(root) {
+        Ok(found) => {
+            if found.is_empty() {
+                errors.push("MODULE_LEARN_SLUGS empty — refusing vacuous green".into());
             }
-            Err(e) => errors.push(e),
+            slugs = found;
         }
+        Err(e) => errors.push(e),
     }
 
     for (n, expect) in &module_slugs {
@@ -707,68 +710,6 @@ pub fn extract_heading_ids(md_text: &str) -> BTreeSet<String> {
     ids
 }
 
-/// Parse `MODULE_LEARN_SLUGS = Object.freeze({ N: "slug", ... })`.
-pub fn parse_module_learn_slugs(js_text: &str) -> Result<BTreeMap<i64, String>, String> {
-    let Some(idx) = js_text.find("MODULE_LEARN_SLUGS") else {
-        return Err("MODULE_LEARN_SLUGS not found in results.js".into());
-    };
-    let rest = &js_text[idx..];
-    let Some(brace) = rest.find('{') else {
-        return Err("MODULE_LEARN_SLUGS not found in results.js".into());
-    };
-    let body = &rest[brace + 1..];
-    let Some(end) = body.find('}') else {
-        return Err("MODULE_LEARN_SLUGS not found in results.js".into());
-    };
-    let inner = &body[..end];
-    let mut found = BTreeMap::new();
-    let chars: Vec<char> = inner.chars().collect();
-    let mut i = 0;
-    while i < chars.len() {
-        while i < chars.len() && !chars[i].is_ascii_digit() {
-            i += 1;
-        }
-        if i >= chars.len() {
-            break;
-        }
-        let start = i;
-        while i < chars.len() && chars[i].is_ascii_digit() {
-            i += 1;
-        }
-        let n: i64 = inner[start..start + (i - start)]
-            .parse()
-            .map_err(|_| "MODULE_LEARN_SLUGS has a non-integer key".to_string())?;
-        while i < chars.len() && chars[i].is_whitespace() {
-            i += 1;
-        }
-        if i >= chars.len() || chars[i] != ':' {
-            continue;
-        }
-        i += 1;
-        while i < chars.len() && chars[i].is_whitespace() {
-            i += 1;
-        }
-        if i >= chars.len() {
-            break;
-        }
-        let quote = chars[i];
-        if quote != '"' && quote != '\'' {
-            continue;
-        }
-        i += 1;
-        let mut slug = String::new();
-        while i < chars.len() && chars[i] != quote {
-            slug.push(chars[i]);
-            i += 1;
-        }
-        if i < chars.len() {
-            i += 1;
-        }
-        found.insert(n, slug);
-    }
-    Ok(found)
-}
-
 fn unique_slug(base: &str, used: &mut BTreeMap<String, u32>) -> String {
     if !used.contains_key(base) {
         used.insert(base.to_string(), 1);
@@ -957,23 +898,6 @@ mod tests {
     fn heading_ids_unwrap_markdown_links() {
         let ids = extract_heading_ids("## See [Types of data centres](https://example)\n");
         assert!(ids.contains("see-types-of-data-centres"));
-    }
-
-    #[test]
-    fn parse_slugs_reads_the_frozen_object() {
-        let js = r#"
-export const MODULE_LEARN_SLUGS = Object.freeze({
-  1: "01-mission-critical",
-  6: '06-power',
-});
-"#;
-        let slugs = parse_module_learn_slugs(js).unwrap();
-        assert_eq!(
-            slugs.get(&1).map(String::as_str),
-            Some("01-mission-critical")
-        );
-        assert_eq!(slugs.get(&6).map(String::as_str), Some("06-power"));
-        assert!(parse_module_learn_slugs("no map here").is_err());
     }
 
     #[test]

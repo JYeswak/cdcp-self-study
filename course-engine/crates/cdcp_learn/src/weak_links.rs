@@ -48,7 +48,7 @@
 
 #![forbid(unsafe_code)]
 
-use crate::feedback::parse_module_learn_slugs;
+use crate::slugs::load_module_learn_slugs;
 use crate::{join_rel, BuildOutcome};
 use serde_json::Value as Json;
 use std::collections::BTreeMap;
@@ -60,6 +60,7 @@ pub const SUMMARY: &str =
     "L6-S3: every declared domain maps to a Learn page via MODULE_LEARN_SLUGS";
 
 pub const RESULTS_JS_REL: &str = "web/assets/js/results.js";
+pub use crate::slugs::SLUGS_JS_REL;
 pub const LEARN_DIR_REL: &str = "web/learn";
 pub const INDEX_JSON_REL: &str = "web/data/modules_index.json";
 pub const DOMAINS_TOML_REL: &str = "knowledge/domains.toml";
@@ -88,18 +89,7 @@ pub fn run(root: &Path) -> BuildOutcome {
         }
     };
 
-    let mut slugs: BTreeMap<i64, String> = BTreeMap::new();
     if let Some(js) = js.as_ref() {
-        match parse_module_learn_slugs(js) {
-            Ok(found) => {
-                if found.is_empty() {
-                    errors.push("MODULE_LEARN_SLUGS is empty — refusing vacuous green".into());
-                }
-                slugs = found;
-            }
-            Err(e) => errors.push(e),
-        }
-
         if !js.contains("function moduleLearnHref") && !js.contains("moduleLearnHref") {
             errors.push("moduleLearnHref helper missing from results.js".into());
         }
@@ -112,6 +102,20 @@ pub fn run(root: &Path) -> BuildOutcome {
         if !js.contains("moduleLearnHref") || !js.contains("learn/") {
             errors.push("results.js must call moduleLearnHref / emit learn/… hrefs".into());
         }
+        if !js.contains("module_learn_slugs") {
+            errors.push("results.js must import MODULE_LEARN_SLUGS from the generated map".into());
+        }
+    }
+
+    let mut slugs: BTreeMap<i64, String> = BTreeMap::new();
+    match load_module_learn_slugs(root) {
+        Ok(found) => {
+            if found.is_empty() {
+                errors.push("MODULE_LEARN_SLUGS is empty — refusing vacuous green".into());
+            }
+            slugs = found;
+        }
+        Err(e) => errors.push(e),
     }
 
     for (n, expect) in &declared {

@@ -476,13 +476,14 @@ fn repair_second_run_writes_nothing_by_mtime() {
     let watched = [
         tree.join("web/data/units_index.json"),
         tree.join("web/data/glossary.json"),
+        tree.join("web/data/module_learn_slugs.js"),
         tree.join("web/data/mock40_seed42.json"),
         tree.join("web/data/keys_seed42.json"),
         tree.join("web/data/bank_items_seed42.json"),
     ];
     // Anti-vacuous: a watch list of 0 files would make this pass by checking
     // nothing, which is the exact bug under repair.
-    assert_eq!(watched.len(), 5, "repair must rebuild five artifacts");
+    assert_eq!(watched.len(), 6, "repair must rebuild six artifacts");
 
     cdcp()
         .args(["repair", "--root", tree.to_str().unwrap()])

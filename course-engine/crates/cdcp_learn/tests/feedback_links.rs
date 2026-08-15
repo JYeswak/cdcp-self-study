@@ -13,7 +13,7 @@
 
 use cdcp_learn::feedback::{
     extract_heading_ids, run, slugify_heading, BANK_JSON_REL, CONTENT_DIR_REL, KEYS_JSON_REL,
-    LEARN_DIR_REL, RESULTS_JS_REL, TOPICS_TOML_REL, TOPIC_ANCHORS_JSON_REL,
+    LEARN_DIR_REL, RESULTS_JS_REL, SLUGS_JS_REL, TOPICS_TOML_REL, TOPIC_ANCHORS_JSON_REL,
 };
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -23,7 +23,7 @@ static RAN: AtomicUsize = AtomicUsize::new(0);
 static ROUND: AtomicUsize = AtomicUsize::new(0);
 
 /// Raise when you add a `#[test]`. A DROP means a case was deleted.
-const EXPECTED_CASES: usize = 25;
+const EXPECTED_CASES: usize = 26;
 
 fn engine_root() -> PathBuf {
     cdcp_learn::resolve_engine_root(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
@@ -69,18 +69,22 @@ impl Fixture {
     }
 }
 
-fn results_js(pairs: &[(&str, &str)]) -> String {
+fn slugs_js(pairs: &[(&str, &str)]) -> String {
     let body: String = pairs
         .iter()
         .map(|(n, slug)| format!("  {n}: \"{slug}\",\n"))
         .collect();
-    format!(
-        "export const MODULE_LEARN_SLUGS = Object.freeze({{\n{body}}});\n\
-         export function itemLearnHref() {{}}\n\
-         const learn_href = true;\n\
-         const copy = \"Review section in Learn\";\n\
-         fetch(\"data/topic_anchors.json\");\n"
-    )
+    format!("export const MODULE_LEARN_SLUGS = Object.freeze({{\n{body}}});\n")
+}
+
+fn results_js() -> String {
+    "import { MODULE_LEARN_SLUGS } from \"../../data/module_learn_slugs.js\";\n\
+     export { MODULE_LEARN_SLUGS };\n\
+     export function itemLearnHref() {}\n\
+     const learn_href = true;\n\
+     const copy = \"Review section in Learn\";\n\
+     fetch(\"data/topic_anchors.json\");\n"
+        .to_string()
 }
 
 fn learn_md_js() -> &'static str {
@@ -160,7 +164,8 @@ fn green() -> Fixture {
             "Types of data centres",
         )]),
     );
-    f.put(RESULTS_JS_REL, &results_js(&[("1", "01-mission-critical")]));
+    f.put(RESULTS_JS_REL, &results_js());
+    f.put(SLUGS_JS_REL, &slugs_js(&[("1", "01-mission-critical")]));
     f.put("web/assets/js/learn_md.js", learn_md_js());
     f.put(
         &format!("{LEARN_DIR_REL}/01-mission-critical.html"),
@@ -406,16 +411,27 @@ fn missing_results_js_is_red() {
 }
 
 #[test]
+fn missing_generated_slugs_file_is_red() {
+    tick();
+    let f = green();
+    f.rm(SLUGS_JS_REL);
+    let o = run(&f.root);
+    assert_ne!(o.code, 0, "{}", o.stdout);
+    assert!(
+        o.stdout.contains("missing web/data/module_learn_slugs.js"),
+        "{}",
+        o.stdout
+    );
+    let _ = &f.dir;
+}
+
+#[test]
 fn empty_module_learn_slugs_is_red() {
     tick();
     let f = green();
     f.put(
-        RESULTS_JS_REL,
-        "export const MODULE_LEARN_SLUGS = Object.freeze({});\n\
-         export function itemLearnHref() {}\n\
-         const learn_href = true;\n\
-         const copy = \"Review section in Learn\";\n\
-         fetch(\"data/topic_anchors.json\");\n",
+        SLUGS_JS_REL,
+        "export const MODULE_LEARN_SLUGS = Object.freeze({});\n",
     );
     let o = run(&f.root);
     assert_ne!(o.code, 0, "{}", o.stdout);
@@ -432,8 +448,8 @@ fn undeclared_module_in_results_js_is_drift() {
     tick();
     let f = green();
     f.put(
-        RESULTS_JS_REL,
-        &results_js(&[("1", "01-mission-critical"), ("2", "02-standards")]),
+        SLUGS_JS_REL,
+        &slugs_js(&[("1", "01-mission-critical"), ("2", "02-standards")]),
     );
     let o = run(&f.root);
     assert_ne!(o.code, 0, "{}", o.stdout);
@@ -587,8 +603,8 @@ fn retiring_a_module_from_both_sources_is_not_drift() {
         &domains(&[("01-mission-critical", 1), ("14-auxiliary", 14)]),
     );
     f.put(
-        RESULTS_JS_REL,
-        &results_js(&[("1", "01-mission-critical"), ("14", "14-auxiliary")]),
+        SLUGS_JS_REL,
+        &slugs_js(&[("1", "01-mission-critical"), ("14", "14-auxiliary")]),
     );
     f.put(
         &format!("{LEARN_DIR_REL}/14-auxiliary.html"),
@@ -600,7 +616,7 @@ fn retiring_a_module_from_both_sources_is_not_drift() {
         "knowledge/domains.toml",
         &domains(&[("01-mission-critical", 1)]),
     );
-    f.put(RESULTS_JS_REL, &results_js(&[("1", "01-mission-critical")]));
+    f.put(SLUGS_JS_REL, &slugs_js(&[("1", "01-mission-critical")]));
     let o = run(&f.root);
     assert!(
         !o.stdout.contains("module 14: results.js maps"),
@@ -621,7 +637,7 @@ fn results_js_missing_item_learn_href_is_red() {
     let f = green();
     f.put(
         RESULTS_JS_REL,
-        "export const MODULE_LEARN_SLUGS = Object.freeze({\n  1: \"01-mission-critical\",\n});\n\
+        "import { MODULE_LEARN_SLUGS } from \"../../data/module_learn_slugs.js\";\n\
          const learn_href = true;\n\
          const copy = \"Review section in Learn\";\n\
          fetch(\"data/topic_anchors.json\");\n",

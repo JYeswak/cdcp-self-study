@@ -27,6 +27,7 @@ pub mod diagrams;
 pub mod feedback;
 pub mod glossary;
 pub mod learn_v2;
+pub mod slugs;
 pub mod smoke;
 pub mod units;
 pub mod weak_links;

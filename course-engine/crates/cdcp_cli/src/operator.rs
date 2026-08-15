@@ -51,6 +51,7 @@ pub(crate) const LOCK_REL: &str = "content.lock";
 pub(crate) const MANIFEST_REL: &str = "bank/MANIFEST.toml";
 pub(crate) const UNITS_REL: &str = "web/data/units_index.json";
 pub(crate) const GLOSSARY_REL: &str = "web/data/glossary.json";
+pub(crate) const SLUGS_REL: &str = "web/data/module_learn_slugs.js";
 pub(crate) const BANK_REL: &str = "bank/items";
 pub(crate) const EXPORT_OUT_REL: &str = "web/data";
 pub(crate) const DEFAULT_BIND: &str = "127.0.0.1:8766";
@@ -594,7 +595,7 @@ fn goldens_snapshot(root: &Path) -> (String, usize, usize) {
 
 // ── repair ────────────────────────────────────────────────────────────────
 
-/// Rebuild units, glossary, and export-web. Never writes goldens/.
+/// Rebuild units, glossary, learn slugs, and export-web. Never writes goldens/.
 ///
 /// Idempotent: a second run against an already-rebuilt tree writes nothing.
 /// Asserted by mtime in tests, not by exit code.
@@ -613,6 +614,8 @@ pub(crate) fn repair(root: Option<&Path>, seed: u64) -> Result<(), String> {
     wrote += repair_learn(&root, LearnTarget::Units)?;
     planned += 1;
     wrote += repair_learn(&root, LearnTarget::Glossary)?;
+    planned += 1;
+    wrote += repair_learn(&root, LearnTarget::Slugs)?;
 
     let export_paths = [
         join_rel(&root, EXPORT_OUT_REL).join(format!("mock40_seed{seed}.json")),
@@ -663,6 +666,7 @@ pub(crate) fn repair(root: Option<&Path>, seed: u64) -> Result<(), String> {
 enum LearnTarget {
     Units,
     Glossary,
+    Slugs,
 }
 
 fn repair_learn(root: &Path, kind: LearnTarget) -> Result<usize, String> {
@@ -676,6 +680,11 @@ fn repair_learn(root: &Path, kind: LearnTarget) -> Result<usize, String> {
             "glossary",
             GLOSSARY_REL,
             cdcp_learn::glossary::evaluate(root).map_err(|e| e.to_string())?,
+        ),
+        LearnTarget::Slugs => (
+            "learn-slugs",
+            SLUGS_REL,
+            cdcp_learn::slugs::evaluate(root).map_err(|e| e.to_string())?,
         ),
     };
     print!("{}", outcome.stdout);

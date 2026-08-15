@@ -16,6 +16,7 @@
 
 use cdcp_learn::weak_links::{
     load_declared_modules, run, DOMAINS_TOML_REL, INDEX_JSON_REL, LEARN_DIR_REL, RESULTS_JS_REL,
+    SLUGS_JS_REL,
 };
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -25,7 +26,7 @@ static RAN: AtomicUsize = AtomicUsize::new(0);
 static ROUND: AtomicUsize = AtomicUsize::new(0);
 
 /// Raise when you add a `#[test]`. A DROP means a case was deleted.
-const EXPECTED_CASES: usize = 19;
+const EXPECTED_CASES: usize = 20;
 
 fn engine_root() -> PathBuf {
     cdcp_learn::resolve_engine_root(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
@@ -92,17 +93,21 @@ fn domains_toml(count: i64) -> String {
     s
 }
 
-fn results_js(count: i64) -> String {
+fn slugs_js(count: i64) -> String {
     let mut body = String::new();
     for n in 1..=count {
         body.push_str(&format!("  {n}: \"{}\",\n", slug(n)));
     }
-    format!(
-        "export const MODULE_LEARN_SLUGS = Object.freeze({{\n{body}}});\n\
-         export function moduleLearnHref(n) {{ return \"learn/\" + n + \".html\"; }}\n\
-         const copy = \"Review weak modules in Learn\";\n\
-         const chip = '<a class=\"weak-chip--link\" href=\"learn/x.html\">';\n"
-    )
+    format!("export const MODULE_LEARN_SLUGS = Object.freeze({{\n{body}}});\n")
+}
+
+fn results_js() -> String {
+    "import { MODULE_LEARN_SLUGS } from \"../../data/module_learn_slugs.js\";\n\
+     export { MODULE_LEARN_SLUGS };\n\
+     export function moduleLearnHref(n) { return \"learn/\" + n + \".html\"; }\n\
+     const copy = \"Review weak modules in Learn\";\n\
+     const chip = '<a class=\"weak-chip--link\" href=\"learn/x.html\">';\n"
+        .to_string()
 }
 
 fn modules_index(count: i64) -> String {
@@ -123,7 +128,8 @@ fn modules_index(count: i64) -> String {
 fn green(count: i64) -> Fixture {
     let f = Fixture::new();
     f.put(DOMAINS_TOML_REL, &domains_toml(count));
-    f.put(RESULTS_JS_REL, &results_js(count));
+    f.put(RESULTS_JS_REL, &results_js());
+    f.put(SLUGS_JS_REL, &slugs_js(count));
     f.put(INDEX_JSON_REL, &modules_index(count));
     for n in 1..=count {
         f.put(
@@ -325,13 +331,8 @@ fn planted_results_js_missing_declared_slug_is_red_naming_the_module() {
         body.push_str(&format!("  {n}: \"{}\",\n", slug(n)));
     }
     f.put(
-        RESULTS_JS_REL,
-        &format!(
-            "export const MODULE_LEARN_SLUGS = Object.freeze({{\n{body}}});\n\
-             export function moduleLearnHref(n) {{ return \"learn/\" + n + \".html\"; }}\n\
-             const copy = \"Review weak modules in Learn\";\n\
-             const chip = '<a class=\"weak-chip--link\" href=\"learn/x.html\">';\n"
-        ),
+        SLUGS_JS_REL,
+        &format!("export const MODULE_LEARN_SLUGS = Object.freeze({{\n{body}}});\n"),
     );
     let o = run(&f.root);
     assert_ne!(
@@ -404,11 +405,8 @@ fn empty_module_learn_slugs_is_red() {
     tick();
     let f = green(14);
     f.put(
-        RESULTS_JS_REL,
-        "export const MODULE_LEARN_SLUGS = Object.freeze({});\n\
-         export function moduleLearnHref() {}\n\
-         const copy = \"Review weak modules in Learn\";\n\
-         const chip = '<a class=\"weak-chip--link\" href=\"learn/x.html\">';\n",
+        SLUGS_JS_REL,
+        "export const MODULE_LEARN_SLUGS = Object.freeze({});\n",
     );
     let o = run(&f.root);
     assert_ne!(o.code, 0, "{}", o.stdout);
@@ -434,13 +432,8 @@ fn slug_mismatch_is_red() {
         body.push_str(&format!("  {n}: \"{s}\",\n"));
     }
     f.put(
-        RESULTS_JS_REL,
-        &format!(
-            "export const MODULE_LEARN_SLUGS = Object.freeze({{\n{body}}});\n\
-             export function moduleLearnHref(n) {{ return \"learn/\" + n + \".html\"; }}\n\
-             const copy = \"Review weak modules in Learn\";\n\
-             const chip = '<a class=\"weak-chip--link\" href=\"learn/x.html\">';\n"
-        ),
+        SLUGS_JS_REL,
+        &format!("export const MODULE_LEARN_SLUGS = Object.freeze({{\n{body}}});\n"),
     );
     let o = run(&f.root);
     assert_ne!(o.code, 0, "{}", o.stdout);
@@ -474,22 +467,31 @@ fn modules_index_disagreement_is_red() {
 fn missing_module_learn_href_is_red() {
     tick();
     let f = green(14);
-    let mut body = String::new();
-    for n in 1..=14i64 {
-        body.push_str(&format!("  {n}: \"{}\",\n", slug(n)));
-    }
     f.put(
         RESULTS_JS_REL,
-        &format!(
-            "export const MODULE_LEARN_SLUGS = Object.freeze({{\n{body}}});\n\
-             const copy = \"Review weak modules in Learn\";\n"
-        ),
+        "import { MODULE_LEARN_SLUGS } from \"../../data/module_learn_slugs.js\";\n\
+         const copy = \"Review weak modules in Learn\";\n",
     );
     let o = run(&f.root);
     assert_ne!(o.code, 0, "{}", o.stdout);
     assert!(
         o.stdout.contains("moduleLearnHref helper missing")
             || o.stdout.contains("must call moduleLearnHref"),
+        "{}",
+        o.stdout
+    );
+    let _ = &f.dir;
+}
+
+#[test]
+fn missing_generated_slugs_file_is_red() {
+    tick();
+    let f = green(14);
+    f.rm(SLUGS_JS_REL);
+    let o = run(&f.root);
+    assert_ne!(o.code, 0, "{}", o.stdout);
+    assert!(
+        o.stdout.contains("missing web/data/module_learn_slugs.js"),
         "{}",
         o.stdout
     );

@@ -445,23 +445,12 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
         Verdict::NotAModuleBound,
         "hash string truncation for display",
     ),
-    // ── bd-ggs7: the frozen module table the widened detector found ────────
-    (
-        "web/assets/js/results.js",
-        "1: \"01-mission-critical\",",
-        Shape::FrozenTable,
-        Verdict::Justified,
-        "MODULE_LEARN_SLUGS: modules 1–15 frozen as a literal, and the one place \
-         in the tree where that is correct. It is the PRODUCT, not a gate — the \
-         browser has no TOML reader, so the shipped map has to be a literal, and \
-         a literal in the product cannot fail a correct change the way a literal \
-         in a gate can. It is not allowed to rot silently either: \
-         smoke_feedback_links.py and smoke_weak_links.py both compare it against \
-         knowledge/domains.toml in BOTH directions — a declared module missing \
-         from the map and a mapped module the registry does not declare are each \
-         RED, naming the module. bd-we5a tracks generating it from the registry \
-         at build time so the drift guard has nothing left to guard.",
-    ),
+    // RETIRED 2026-08-15 with bd-we5a: web/assets/js/results.js no longer
+    // holds a hand-frozen MODULE_LEARN_SLUGS table. The map is generated
+    // from knowledge/domains.toml by `cdcp build-learn-slugs` into
+    // web/data/module_learn_slugs.js (outside SCANNED). A literal map
+    // copied back into results.js will trip FrozenTable with no inventory
+    // row and fail this sweep — that is the point of deleting the row.
 ];
 
 /// The trees this sweep reads, their extensions, and a DELIBERATE per-tree file
@@ -477,7 +466,7 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
 /// enough room for files to be retired, not enough to be met by a tree that is
 /// missing, misspelled, or filtered out by a broken extension list.
 const SCANNED: &[(&str, &[&str], usize)] = &[
-    ("scripts", &["py", "mjs", "js", "sh"], 38),
+    ("scripts", &["py", "mjs", "js", "sh"], 30),
     ("crates", &["rs"], 45),
     ("web/assets/js", &["js", "mjs"], 12),
 ];
@@ -1667,23 +1656,14 @@ fn build_units_never_writes_a_verdict_it_then_contradicts() {
 
 // ── 4. smoke_feedback_links.py: known-bad and known-GOOD ──────────────────
 //
-// This gate takes NO path flags — every input is `Path(__file__).parents[1] /
-// …` — so the only way to inject a known-bad into it is to give it a whole
-// tree of its own. That is what `feedback_fixture` builds. The alternative
-// considered and rejected was adding `--domains` / `--root` to the script:
-// the gate's Python is correct, and widening its argument surface to make it
-// testable would be changing the thing under test in order to test it.
-//
-// The fixture also has to exist for a second reason. The script WRITES
-// `web/data/topic_anchors.json` on every run; pointed at the live tree it
-// would dirty the working copy, and a leg that dirties the tree cannot be a
-// CI leg. Inside the fixture the write lands on the copy.
+// The Python is DELETED (EXTRACT-THEN-DELETE into cdcp_learn::feedback).
+// The reader takes a root, so the fixture is a tree of the product surfaces
+// it reads — copied, not synthesised, because a hand-written stand-in would
+// let this leg pass while the shipped ones diverged. The reader writes
+// nothing, so pointing it at a fixture cannot dirty the live tree.
 
-/// A tree `smoke_feedback_links.py` can run in: a copy of the script and of
-/// every input it resolves off its own location. Copied, not synthesised —
-/// results.js, the Learn pages and the seed42 packs are the real product
-/// surfaces, and a hand-written stand-in would let this leg pass while the
-/// shipped ones diverged.
+/// A tree `cdcp_learn::feedback` can run in: the registry and the product
+/// surfaces it checks against.
 fn feedback_fixture() -> Fixture {
     let root = engine_root();
     let f = Fixture::new();
@@ -1694,20 +1674,13 @@ fn feedback_fixture() -> Fixture {
         std::fs::copy(root.join(rel), &dst)
             .unwrap_or_else(|e| panic!("copy {rel} into the fixture: {e}"));
     };
-    // The gate, and the module it imports at runtime to rebuild topic anchors.
-    copy("scripts/smoke_feedback_links.py");
-    copy("scripts/build_learn.py");
-    // The registry under test, and the topic registry the anchor builder reads.
     copy("knowledge/domains.toml");
     copy("knowledge/topics.toml");
-    // The product surfaces the gate checks the registry against.
     copy("web/assets/js/results.js");
+    copy("web/data/module_learn_slugs.js");
     copy("web/assets/js/learn_md.js");
     copy("web/data/keys_seed42.json");
     copy("web/data/bank_items_seed42.json");
-    // A pre-existing anchor map, so a fixture in which the rebuild cannot run
-    // degrades to the gate's documented fallback instead of to a spurious
-    // failure that would look like the injection firing.
     copy("web/data/topic_anchors.json");
 
     let mut copied = 0usize;
@@ -1733,7 +1706,12 @@ fn feedback_fixture() -> Fixture {
 }
 
 fn feedback_links(f: &Fixture) -> Run {
-    capture(Command::new("python3").arg(f.path("scripts/smoke_feedback_links.py")))
+    let o = cdcp_learn::feedback::run(&f.root);
+    Run {
+        code: o.code,
+        stdout: o.stdout,
+        stderr: String::new(),
+    }
 }
 
 /// Rewrite the fixture's domain registry, dropping every `[[domain]]` block
@@ -1914,7 +1892,7 @@ fn feedback_links_known_good_retiring_a_module_from_both_sources_is_not_drift() 
     // 14 is chosen over 15 only because the bank has items in both; the point
     // is that the two sources agree after the edit, whichever module it is.
     drop_domains(&f, &[14]);
-    let js_path = f.path("web/assets/js/results.js");
+    let js_path = f.path("web/data/module_learn_slugs.js");
     let js = std::fs::read_to_string(&js_path).unwrap();
     let stripped: String = js
         .lines()
@@ -1964,6 +1942,7 @@ fn weak_links_fixture() -> Fixture {
     };
     copy("knowledge/domains.toml");
     copy("web/assets/js/results.js");
+    copy("web/data/module_learn_slugs.js");
     copy("web/data/modules_index.json");
 
     let mut copied = 0usize;
@@ -1997,9 +1976,9 @@ fn weak_links(f: &Fixture) -> Run {
     }
 }
 
-/// Drop one `MODULE_LEARN_SLUGS` row from the fixture's results.js.
+/// Drop one `MODULE_LEARN_SLUGS` row from the fixture's generated map.
 fn drop_slug_row(f: &Fixture, order: u32, slug: &str) {
-    let path = f.path("web/assets/js/results.js");
+    let path = f.path("web/data/module_learn_slugs.js");
     let js = std::fs::read_to_string(&path).unwrap();
     let needles = [format!("{order}: \"{slug}\""), format!("{order}: '{slug}'")];
     let stripped: String = js

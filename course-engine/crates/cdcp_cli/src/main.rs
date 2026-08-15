@@ -103,6 +103,12 @@ enum Cmd {
         #[arg(long)]
         root: Option<PathBuf>,
     },
+    /// Compile web/data/module_learn_slugs.js from knowledge/domains.toml
+    BuildLearnSlugs {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+    },
     /// Smoke the offline Learn surface (hub + module pages + honesty banner)
     SmokeLearn {
         /// Engine root (directory holding registries/). Default: walk up from cwd.
@@ -163,7 +169,7 @@ enum Cmd {
         #[arg(long)]
         robot: bool,
     },
-    /// Idempotent rebuild of units, glossary, and export-web. Never re-freezes goldens.
+    /// Idempotent rebuild of units, glossary, learn slugs, and export-web. Never re-freezes goldens.
     Repair {
         /// Engine root. Default: walk up from cwd.
         #[arg(long)]
@@ -345,6 +351,7 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::Serve { root, bind } => serve(&root, &bind),
         Cmd::BuildUnits { root } => compile_learn(root.as_deref(), LearnKind::Units),
         Cmd::BuildGlossary { root } => compile_learn(root.as_deref(), LearnKind::Glossary),
+        Cmd::BuildLearnSlugs { root } => compile_learn(root.as_deref(), LearnKind::Slugs),
         Cmd::SmokeLearn { root } => compile_learn(root.as_deref(), LearnKind::Smoke),
         Cmd::SmokeLearnChrome { root } => smoke_learn_chrome(root.as_deref()),
         Cmd::SmokeFeedbackLinks { root } => smoke_feedback_links(root.as_deref()),
@@ -790,6 +797,7 @@ pub(crate) fn export_web(
 enum LearnKind {
     Units,
     Glossary,
+    Slugs,
     Smoke,
 }
 
@@ -947,6 +955,7 @@ fn compile_learn(root: Option<&Path>, kind: LearnKind) -> Result<(), String> {
         LearnKind::Glossary => {
             cdcp_learn::glossary::write_glossary(&resolved).map_err(|e| e.to_string())?
         }
+        LearnKind::Slugs => cdcp_learn::slugs::write_slugs(&resolved).map_err(|e| e.to_string())?,
         LearnKind::Smoke => cdcp_learn::smoke::run(&resolved),
     };
     print!("{}", outcome.stdout);
