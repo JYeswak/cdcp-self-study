@@ -12,14 +12,14 @@
 //! good, and it does not migrate the 804-item bank.
 
 use cdcp_assemble::{
-    admit_assemble_kind, assemble_input, AssembleConfig, AssembleError, AssembleInput,
-    LETTER_ASSEMBLE_KINDS,
+    admit_assemble_kind, assemble, assemble_input, assemble_with, AssembleConfig, AssembleError,
+    AssembleInput, LETTER_ASSEMBLE_KINDS,
 };
 use cdcp_assess::{
     lift_letter_mcq, Item, Quantity, Ratio, SequenceCredit, SetCredit, Tolerance, ToleranceKind,
     KINDS,
 };
-use cdcp_bank::{BankItem, ItemStatus};
+use cdcp_bank::{Bank, BankItem, ItemStatus};
 
 const SEED: u64 = 42;
 
@@ -121,6 +121,34 @@ fn assert_not_letter(err: AssembleError, id: &str, kind: &str) {
 // ───────────────────────────────────────────────────────────────────────────
 // Known-bad plants (the flatten temptation: four option strings + shuffle)
 // ───────────────────────────────────────────────────────────────────────────
+
+#[test]
+fn product_assemble_with_planted_multi_select_is_refused() {
+    // The live assemble entry (`assemble` / `assemble_with`), not only the
+    // helper. Mixing a valid letter bank with a planted multi-select must
+    // RED before any shuffle — otherwise CLI/export-web can still flatten.
+    let bank = Bank::from_items(vec![letter_bank_item("ok-letter")]).expect("tiny bank");
+    let plant = plant_item("multi-select");
+    let extra = [AssembleInput::Assess {
+        id: "plant-ms",
+        module: 1,
+        stem: "select all that apply",
+        item: &plant,
+    }];
+    let err = assemble_with(&bank, SEED, cfg(), &extra).expect_err("multi-select must be RED");
+    assert_not_letter(err, "plant-ms", "multi-select");
+}
+
+#[test]
+fn product_assemble_letter_bank_still_assembles() {
+    // GOOD control: without this, the plant above could pass because assemble_with
+    // is broken for every input.
+    let bank = Bank::from_items(vec![letter_bank_item("ok-letter")]).expect("tiny bank");
+    let exam = assemble(&bank, SEED, cfg()).expect("letter-only bank must still assemble");
+    assert_eq!(exam.item_ids, ["ok-letter"]);
+    assert_eq!(exam.items.len(), 1);
+    assert_eq!(exam.items[0].choices.len(), 4);
+}
 
 #[test]
 fn planted_multi_select_is_refused_not_flattened() {

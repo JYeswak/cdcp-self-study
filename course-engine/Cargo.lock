@@ -267,6 +267,7 @@ dependencies = [
  "assert_cmd",
  "cdcp_anki",
  "cdcp_assemble",
+ "cdcp_assess",
  "cdcp_bank",
  "cdcp_core",
  "cdcp_data",

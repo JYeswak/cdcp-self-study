@@ -23,7 +23,8 @@
 //! dedicated generator `seed ^ 0xCDC5_FF1E`. Byte streams will not match
 //! CPython `random.Random` (MT19937); the L2 contract is this crate's stream.
 //!
-//! Typed `cdcp_assess` kinds are **not** flattened to A–D. Put them on
+//! Typed `cdcp_assess` kinds are **not** flattened to A–D. The product
+//! assemble path ([`assemble`] / [`assemble_with`]) presents through
 //! [`assemble_input`]; a non-letter kind is [`AssembleError::NotLetterMcq`].
 #![forbid(unsafe_code)]
 
@@ -374,57 +375,60 @@ fn index_letter(i: usize) -> ChoiceLetter {
 }
 
 /// Assemble a full mock exam: stratified sample + optional choice shuffle remap.
+///
+/// Presentation goes through [`assemble_input`]. Bank rows are
+/// [`AssembleInput::LetterMcq`]. Extra typed rows (CLI `--assess`) are
+/// checked for kind **before** any shuffle — a multi-select is
+/// [`AssembleError::NotLetterMcq`], never four shuffled A–D strings.
+///
+/// `extra` empty is the historical letter-MCQ path: same sample, same
+/// shuffle stream (`seed ^ 0xCDC5_FF1E`), same `item_ids`.
 pub fn assemble(
     bank: &Bank,
     seed: u64,
     cfg: AssembleConfig,
 ) -> Result<AssembledExam, AssembleError> {
+    assemble_with(bank, seed, cfg, &[])
+}
+
+/// Product assemble: sample the bank, then present sample + `extra` via
+/// [`assemble_input`].
+pub fn assemble_with(
+    bank: &Bank,
+    seed: u64,
+    cfg: AssembleConfig,
+    extra: &[AssembleInput<'_>],
+) -> Result<AssembledExam, AssembleError> {
     let ids = sample_item_ids(bank, cfg.n_items, seed, cfg.max_per_module, cfg.min_modules)?;
 
-    // Derive per-item shuffle stream from the same seed family:
-    // after sampling consumes rng draws, we re-seed a dedicated shuffle rng
-    // as seed XOR a fixed domain tag so shuffle is deterministic & independent
-    // of sampling draw count drift.
-    let mut shuffle_rng = rng_from_seed(seed ^ 0xCDC5_FF1E_u64);
-
-    let mut items: Vec<AssembledItem> = Vec::with_capacity(ids.len());
-    let mut modules_set: BTreeMap<u32, ()> = BTreeMap::new();
-
+    let mut sampled: Vec<&BankItem> = Vec::with_capacity(ids.len());
     for id in &ids {
         let bank_item = bank
             .get(id)
             .ok_or_else(|| AssembleError::Item(id.clone(), "missing from bank".into()))?;
-        if bank_item.choices.len() != 4 {
-            return Err(AssembleError::BadChoices(id.clone()));
-        }
-        let original = bank_item
-            .correct_letter()
-            .map_err(|e| AssembleError::Item(id.clone(), e.to_string()))?;
-
-        let (choices, correct) = if cfg.shuffle_choices {
-            shuffle_choices(&bank_item.choices, original, &mut shuffle_rng)?
-        } else {
-            (bank_item.choices.clone(), original)
-        };
-
-        modules_set.insert(bank_item.module, ());
-        items.push(AssembledItem {
-            id: bank_item.id.clone(),
-            module: bank_item.module,
-            stem: bank_item.stem.clone(),
-            choices,
-            correct: correct.as_str().to_string(),
-            original_correct: original.as_str().to_string(),
-        });
+        sampled.push(bank_item);
     }
 
+    let mut input: Vec<AssembleInput<'_>> = sampled
+        .iter()
+        .copied()
+        .map(AssembleInput::LetterMcq)
+        .collect();
+    input.extend_from_slice(extra);
+
+    let items = assemble_input(&input, seed, cfg)?;
+
+    let mut modules_set: BTreeMap<u32, ()> = BTreeMap::new();
+    for it in &items {
+        modules_set.insert(it.module, ());
+    }
     let modules: Vec<u32> = modules_set.keys().copied().collect();
     Ok(AssembledExam {
         exam_id: format!("mock{}", cfg.n_items),
         seed,
         n_items: items.len(),
         bank_hash: bank.bank_hash.clone(),
-        item_ids: ids,
+        item_ids: items.iter().map(|i| i.id.clone()).collect(),
         modules,
         items,
     })

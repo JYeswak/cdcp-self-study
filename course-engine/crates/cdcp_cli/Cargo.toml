@@ -13,6 +13,7 @@ cdcp_core = { workspace = true }
 cdcp_bank = { workspace = true }
 cdcp_grade = { workspace = true }
 cdcp_assemble = { workspace = true }
+cdcp_assess = { workspace = true }
 cdcp_learn = { workspace = true }
 cdcp_anki = { workspace = true }
 cdcp_wasm = { workspace = true }

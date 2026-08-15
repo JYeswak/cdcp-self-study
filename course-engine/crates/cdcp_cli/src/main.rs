@@ -1,6 +1,7 @@
 //! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair
 #![forbid(unsafe_code)]
 
+mod assemble;
 mod operator;
 
 use cdcp_bank::Bank;
@@ -103,6 +104,20 @@ enum Cmd {
         /// Export twice to temp and FAIL if .apkg bytes differ (does not write --out)
         #[arg(long)]
         check: bool,
+    },
+    /// Assemble a mock form. Non-letter assess kinds are refused (not flattened to A–D).
+    Assemble {
+        #[arg(long, default_value = "bank/items")]
+        bank: PathBuf,
+        #[arg(long, default_value_t = 42)]
+        seed: u64,
+        /// Typed assess items JSON: [{id, module, stem, item}, ...].
+        /// A multi-select (or any non-letter kind) is a named refuse.
+        #[arg(long)]
+        assess: Option<PathBuf>,
+        /// Write the assembled form JSON here. Default: stdout.
+        #[arg(long)]
+        out: Option<PathBuf>,
     },
     /// Export browser exam packs (see web/data/README.md)
     ExportWeb {
@@ -389,6 +404,12 @@ fn run(cli: Cli) -> Result<(), String> {
             &deck_name,
             check,
         ),
+        Cmd::Assemble {
+            bank,
+            seed,
+            assess,
+            out,
+        } => assemble::run(&bank, seed, assess.as_deref(), out.as_deref()),
         Cmd::ExportWeb {
             bank,
             seed,

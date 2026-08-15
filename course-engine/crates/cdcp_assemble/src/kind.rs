@@ -1,9 +1,10 @@
 //! Kind gate: assemble will not flatten typed assess items back to A–D.
 //!
-//! The live bank path ([`crate::assemble`]) still samples letter-MCQ
-//! [`cdcp_bank::BankItem`]s. This module is the assemble *input* that can
-//! also carry a [`cdcp_assess::Item`]. A multi-select, numeric-range,
-//! ordering, topology-selection, or procedural-sequence offer is
+//! The live bank path ([`crate::assemble`] / [`crate::assemble_with`])
+//! samples letter-MCQ [`cdcp_bank::BankItem`]s and presents them through
+//! [`assemble_input`]. Extra typed rows can also carry a
+//! [`cdcp_assess::Item`]. A multi-select, numeric-range, ordering,
+//! topology-selection, or procedural-sequence offer is
 //! [`crate::AssembleError::NotLetterMcq`] — never four shuffled strings.
 
 use crate::{rng_from_seed, shuffle_choices, AssembleConfig, AssembleError, AssembledItem};
