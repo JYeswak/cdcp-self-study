@@ -650,17 +650,70 @@ fn duplicate_id_is_error() {
     assert!(o.stdout.contains("duplicate ID `a1`"), "{}", o.stdout);
 }
 
+/// bd-smoke-diagrams-status-strips-all-markup-h6pt.
+/// Was registry case 13 (`status spellings that normalise to present`).
+/// Decision: closed enum. One outer wrap of the whole token is wrapping;
+/// interior `*` / `` ` `` is not stripped. `pre*sent` is ERROR.
 #[test]
 fn status_spellings_normalise_to_present() {
     tick();
-    let t = green_tree();
-    let mut rows = good_rows();
-    rows[0] = "| `a1` | T | 01 | P0 | PRESENT | `web/diagrams/a1.html` |".into();
-    rows[1] = "| `b2` | T | 01 | P0 | `**Present**` | `web/diagrams/b2.html` |".into();
-    rows[2] = "| `c3` | T | 01 | P0 | ***present*** | `web/diagrams/c3.html` |".into();
-    t.write("docs/DIAGRAM-REGISTRY.md", &registry_md(&rows));
-    let o = run(&t.root);
-    assert_eq!(o.code, 0, "{}", o.stdout);
+    let accepted = [
+        "**present**",
+        "`present`",
+        "present",
+        "PRESENT",
+        "**Present**",
+    ];
+    for spelling in accepted {
+        let t = green_tree();
+        let mut rows = good_rows();
+        rows[0] = format!("| `a1` | T | 01 | P0 | {spelling} | `web/diagrams/a1.html` |");
+        t.write("docs/DIAGRAM-REGISTRY.md", &registry_md(&rows));
+        let o = run(&t.root);
+        assert_eq!(
+            o.code, 0,
+            "one-wrap {spelling:?} must stay present:\n{}",
+            o.stdout
+        );
+    }
+
+    let rejected = [
+        "pre*sent",
+        "`pr`esent`",
+        "**p**r**e**s**e**n**t**",
+        "*present",
+        "*present*",
+        "***present***",
+        "`**present**`",
+        "**`present`**",
+    ];
+    for spelling in rejected {
+        let t = green_tree();
+        let mut rows = good_rows();
+        rows[0] = format!("| `a1` | T | 01 | P0 | {spelling} | `web/diagrams/a1.html` |");
+        t.write("docs/DIAGRAM-REGISTRY.md", &registry_md(&rows));
+        let o = run(&t.root);
+        assert_eq!(
+            o.code, 2,
+            "interior {spelling:?} must ERROR, not become present:\n{}",
+            o.stdout
+        );
+        assert!(
+            o.stdout.contains("unrecognised status"),
+            "interior {spelling:?}:\n{}",
+            o.stdout
+        );
+        assert!(
+            !o.stdout.contains("smoke_diagrams: PASS"),
+            "PASS must not appear for {spelling:?}: {}",
+            o.stdout
+        );
+        assert!(
+            !o.stdout.contains("ok: a1"),
+            "interior {spelling:?} was selected as PRESENT:\n{}",
+            o.stdout
+        );
+    }
 }
 
 // ── artifact legs ──────────────────────────────────────────────────────────

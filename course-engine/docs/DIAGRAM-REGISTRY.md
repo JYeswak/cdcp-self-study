@@ -15,8 +15,11 @@
    `data-diagram="{id}"` element as the diagram root. Both are parsed structurally; a file that
    merely contains the words does not pass. Plus an interview one-liner.
 3. `cdcp smoke-diagrams` is fail-closed for present rows and derives its set from the
-   Inventory table below. The `Status` column is a closed enum — `**present**` or `planned`. Any
-   other spelling is an ERROR, never a silent exclusion. The ID and path cells must be backticked.
+   Inventory table below. The `Status` column is a closed enum — `present` or `planned`.
+   One outer markdown wrap of the whole token (`**present**`, `` `present` ``) is
+   wrapping and is stripped once; interior `*` or backticks are not stripped
+   (`pre*sent` is an ERROR, never a silent inclusion). Any other spelling is an
+   ERROR, never a silent exclusion. The ID and path cells must be backticked.
    The present-row count is pinned by this registry's own unfenced line:
 
    present_count = 7

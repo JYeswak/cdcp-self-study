@@ -11,6 +11,10 @@
 //! * fenced code blocks are skipped when locating that table — a fenced
 //!   example whose columns match [`EXPECTED_COLUMNS`] is not the check set
 //!   (`bd-smoke-diagrams-fenced-table-adopted-ahgn`)
+//! * Status is a closed enum (`present` / `planned`). One outer wrap of the
+//!   whole token (`**present**`, `` `present` ``) is stripped once as wrapping;
+//!   interior `*` / `` ` `` is not stripped (`pre*sent` is ERROR).
+//!   `bd-smoke-diagrams-status-strips-all-markup-h6pt`.
 //! * every `present` row is bound to exactly `web/diagrams/<id>.html`
 //! * that file is HTML (at least one element)
 //! * it carries a `class` token `honesty-banner` whose OWN text disclaims
@@ -51,7 +55,9 @@ pub const DIAGRAM_DIR: &str = "web/diagrams";
 pub const PRESENT_COUNT_KEY: &str = "present_count";
 pub const INVENTORY_HEADING: &str = "## Inventory";
 pub const EXPECTED_COLUMNS: &[&str] = &["ID", "Title", "Modules", "Priority", "Status", "Path"];
+/// Closed-enum token after one outer wrap + ASCII casefold.
 pub const STATUS_PRESENT: &str = "present";
+/// Closed-enum token after one outer wrap + ASCII casefold.
 pub const STATUS_PLANNED: &str = "planned";
 
 const VOID_TAGS: &[&str] = &[
@@ -893,8 +899,34 @@ fn parse_path_cell(raw: &str) -> Option<String> {
     }
 }
 
+/// Closed-enum Status cell.
+///
+/// The tokens are `present` and `planned` (casefolded). One outer markdown
+/// wrap of the **whole** token may be stripped once:
+///
+/// * `**present**` / `**planned**` (bold)
+/// * `` `present` `` / `` `planned` `` (backticks)
+///
+/// Interior `*` or `` ` `` is left in place. `pre*sent`, `` `pr`esent` ``,
+/// `**p**r**e**s**e**n**t**`, `*present`, and `***present***` do **not**
+/// become `present`. That unanchored `replace('*','').replace('`','')` is
+/// the hole this closes (`bd-smoke-diagrams-status-strips-all-markup-h6pt`).
 fn normalize_status(raw: &str) -> String {
-    raw.replace(['*', '`'], "").trim().to_lowercase()
+    strip_one_status_wrap(raw.trim())
+        .trim()
+        .to_ascii_lowercase()
+}
+
+/// Strip at most one outer `**…**` or `` `…` `` wrap. Not italic `*…*`.
+/// A second wrap is not stripped — `***present***` stays `*present*`.
+fn strip_one_status_wrap(s: &str) -> &str {
+    if let Some(inner) = s.strip_prefix("**").and_then(|t| t.strip_suffix("**")) {
+        return inner;
+    }
+    if s.len() >= 2 && s.starts_with('`') && s.ends_with('`') {
+        return &s[1..s.len() - 1];
+    }
+    s
 }
 
 fn is_no_path(s: &str) -> bool {
@@ -1048,5 +1080,48 @@ mod tests {
     fn stated_count_ignores_in_sentence_and_leading_zeros() {
         assert!(parse_stated_present_count("the pin is present_count = 7.\n").is_err());
         assert!(parse_stated_present_count("present_count = 07\n").is_err());
+    }
+
+    /// bd-smoke-diagrams-status-strips-all-markup-h6pt.
+    /// Closed enum: one outer wrap of the whole token; interior markup stays.
+    #[test]
+    fn status_is_closed_enum_not_unanchored_markup_strip() {
+        let accept = [
+            "present",
+            "PRESENT",
+            " **present** ",
+            "`present`",
+            "**Present**",
+            "planned",
+            "**planned**",
+            "`planned`",
+        ];
+        for raw in accept {
+            let got = normalize_status(raw);
+            assert!(
+                got == STATUS_PRESENT || got == STATUS_PLANNED,
+                "{raw:?} → {got:?}"
+            );
+        }
+        let reject = [
+            "pre*sent",
+            "`pr`esent`",
+            "**p**r**e**s**e**n**t**",
+            "*present",
+            "*present*",
+            "***present***",
+            "`**present**`",
+            "**`present`**",
+            "shipped",
+            "",
+        ];
+        for raw in reject {
+            let got = normalize_status(raw);
+            assert_ne!(got, STATUS_PRESENT, "{raw:?} must not become present");
+            assert_ne!(got, STATUS_PLANNED, "{raw:?} must not become planned");
+        }
+        assert_eq!(normalize_status("pre*sent"), "pre*sent");
+        assert_eq!(normalize_status("***present***"), "*present*");
+        assert_eq!(normalize_status("`**present**`"), "**present**");
     }
 }
