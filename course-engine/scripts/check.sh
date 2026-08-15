@@ -435,11 +435,13 @@ ok "L1 registry files present"
 # recurse into --prove-wired.
 require_cdcp_bins() {
   [ -n "${CDCP_BIN_DIR:-}" ] \
-    || fail "CDCP_BIN_DIR unset — cargo build -p cdcp_gate -p cdcp_cli --locked must run first (no fallback to cargo run)"
+    || fail "CDCP_BIN_DIR unset — cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked must run first (no fallback to cargo run)"
   [ -x "$CDCP_BIN_DIR/cdcp_gate" ] \
-    || fail "cdcp_gate binary absent at $CDCP_BIN_DIR/cdcp_gate — cargo build -p cdcp_gate -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
+    || fail "cdcp_gate binary absent at $CDCP_BIN_DIR/cdcp_gate — cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked did not produce it (no fallback to cargo run)"
   [ -x "$CDCP_BIN_DIR/cdcp" ] \
-    || fail "cdcp binary absent at $CDCP_BIN_DIR/cdcp — cargo build -p cdcp_gate -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
+    || fail "cdcp binary absent at $CDCP_BIN_DIR/cdcp — cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked did not produce it (no fallback to cargo run)"
+  [ -x "$CDCP_BIN_DIR/cdcp_registry_check" ] \
+    || fail "cdcp_registry_check binary absent at $CDCP_BIN_DIR/cdcp_registry_check — cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked did not produce it (no fallback to cargo run)"
 }
 # argv[0] is ./target/debug/<bin> (or $CARGO_TARGET_DIR/debug/<bin>).
 run_cdcp_gate() {
@@ -450,17 +452,21 @@ run_cdcp_cli() {
   require_cdcp_bins
   "$CDCP_BIN_DIR/cdcp" "$@"
 }
+run_cdcp_registry_check() {
+  require_cdcp_bins
+  "$CDCP_BIN_DIR/cdcp_registry_check" "$@"
+}
 
-echo "==> cargo build -p cdcp_gate -p cdcp_cli --locked (once; later steps run the binary)"
-cargo build -p cdcp_gate -p cdcp_cli --locked \
-  || fail "cargo build -p cdcp_gate -p cdcp_cli --locked (compile failure is this step's, not a later gate's)"
+echo "==> cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked (once; later steps run the binary)"
+cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked \
+  || fail "cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked (compile failure is this step's, not a later gate's)"
 if [ -n "${CARGO_TARGET_DIR:-}" ]; then
   CDCP_BIN_DIR="${CARGO_TARGET_DIR%/}/debug"
 else
   CDCP_BIN_DIR="$ROOT/target/debug"
 fi
 require_cdcp_bins
-ok "cargo build -p cdcp_gate -p cdcp_cli --locked (debug binaries in $CDCP_BIN_DIR)"
+ok "cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked (debug binaries in $CDCP_BIN_DIR)"
 
 # ── L4: snapshot re-exec is proven to isolate [bd-o4bc] ─────────────────
 # Plants run against a PRIVATE tree that contains only scripts/check.sh.
@@ -613,7 +619,7 @@ if [ "$LOCK_HELD" = "1" ]; then
 fi
 
 echo "==> cdcp_registry_check (L1 claims constitution)"
-cargo run -q -p cdcp_registry_check || fail "registry-check"
+run_cdcp_registry_check || fail "registry-check"
 ok "L1 registry-check"
 
 # D4: the three-field rights/redistribution/ai_ingestion split is a product
