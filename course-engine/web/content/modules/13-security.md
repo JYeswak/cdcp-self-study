@@ -31,7 +31,7 @@ In interviews and design reviews you will be asked:
 
 For ops, most “security incidents” in enterprise DCs are not Hollywood break-ins—they are **tailgating**, mis-issued badges, contractors in the wrong zone, or doors propped open during a maintenance window. For design/TPM roles, physical security is a **space and cost driver**: mantraps, guard posts, camera density, card readers on every critical door, and separation of loading dock from data floor all consume square metres and CAPEX.
 
-Public standards and frameworks that often appear in RFPs and colo contracts (by *name*, not exam trivia): **ISO/IEC 27001** (information security management, includes physical controls), **ISO/IEC 27002** control guidance, **NIST SP 800-53** family PE (Physical and Environmental Protection), **TIA-942** (facility-oriented rated concepts including security zones at a high level), local building/fire codes (AHJ—Authority Having Jurisdiction), and industry best-practice documents from owners and hyperscalers’ public security white papers. **EN 50600** (European data centre facilities) also addresses security concepts in the facility context. Treat Uptime Institute Tier language as a commercial rating system—do not conflate it with ISO certification.
+Public standards and frameworks that often appear in RFPs and colo contracts (by *name*, not exam trivia — pin edition/year when you cite them): **ISO/IEC 27001** (information security management, includes physical controls; pin the adopted edition), **ISO/IEC 27002** control guidance (same), **NIST SP 800-53** family PE (Physical and Environmental Protection), **ANSI/TIA-942-C** (2024; facility-oriented rated concepts including security zones at a high level), local building/fire codes (AHJ—Authority Having Jurisdiction), and industry best-practice documents from owners and hyperscalers’ public security white papers. **EN 50600** (European data centre facilities series — pin the adopted part and year) also addresses security concepts in the facility context. Treat Uptime Institute Tier language as a commercial rating system—do not conflate it with ISO certification.
 
 ---
 
@@ -194,7 +194,7 @@ Key terms:
 - **Fail-secure (lock)** — loss of power **stays locked** (used where security outweighs free entry from outside; egress side still needs a mechanical or listed free-exit path). Do not casually reverse these terms in interviews.  
 - **Fire alarm interface** — access-controlled egress doors typically unlock or free-exit on fire alarm as required by code/listing.  
 - **Emergency power-off (EPO)** — big red buttons that kill power to IT or UPS input; security may limit casual access to EPO but **trained staff must reach them**. Misuse and accidental press are classic outage causes—guards and procedures matter.  
-- **Lockout/Tagout (LOTO)** — OSHA-style (US) / equivalent procedures to de-energize equipment before work; physical locks on breakers, not only a badge rule.  
+- **Lockout/Tagout (LOTO)** — OSHA-style (US) / equivalent procedures to de-energize equipment before work; physical locks on breakers, not only a badge rule. See Module 15 for the energy-control regime on UPS/switchgear (Subpart S).  
 - **Confined space / battery rooms / fuel areas** — special entry permits, gas detection (e.g. hydrogen near VRLA/flooded batteries in some rooms), PPE.  
 - **Lone worker** — no solo work in high-risk plant without check-in; two-person rule for some critical actions (varies by operator).  
 - **Suppression system safety** — clean-agent or other systems may require pre-discharge alarms and egress time; security doors must not impede evacuation. (See fire-protection module for agent details.)  
@@ -418,11 +418,11 @@ Use **public** standards titles, government publications, and vendor primers—n
 
 | Resource | What to use it for |
 |---|---|
-| **ISO/IEC 27001 / 27002** (overview articles and national body summaries) | Physical security as part of an ISMS; control families for secure areas, entry controls, cabling security |
+| **ISO/IEC 27001 / 27002** (overview articles and national body summaries; pin the adopted edition/year) | Physical security as part of an ISMS; control families for secure areas, entry controls, cabling security |
 | **NIST SP 800-53** — PE family (Physical and Environmental Protection) | Free US baseline control language for access, monitoring, visitor control, emergency lighting, etc. |
 | **NIST SP 800-116** (and related PIV guidance) | High-assurance identity badges concepts (useful background even if you do not run federal PIV) |
-| **TIA-942** public overviews / owner summaries | Facility rating context and security zoning mentioned at architecture level |
-| **EN 50600** series public summaries | European DC facility framework including security-related facility topics |
+| **ANSI/TIA-942-C** (2024) public overviews / owner summaries | Facility rating context and security zoning mentioned at architecture level |
+| **EN 50600** series public summaries (pin the adopted part and year) | European DC facility framework including security-related facility topics |
 | **NFPA** public educational material on means of egress / fire alarm interfaces | Why doors unlock/release on alarm (pair with your fire-protection module) |
 | **OSHA** (US) lockout/tagout and electrical safety overview pages | LOTO mindset for plant rooms (local equivalents elsewhere) |
 | **CPTED** (Crime Prevention Through Environmental Design) primers | Natural surveillance, territoriality, lighting—perimeter design vocabulary |
@@ -434,4 +434,4 @@ Use **public** standards titles, government publications, and vendor primers—n
 
 ---
 
-*End of module 13-security — Physical Security and Safety. Pair with fire protection (egress/suppression interfaces) and location/building construction (perimeter and envelope) for a full site-security picture.*
+*End of module 13-security — Physical Security and Safety. Pair with fire protection (egress/suppression interfaces) and location/building construction (perimeter and envelope) for a full site-security picture. Part of free CDCP-domain self-study (not official EPI®/CDCP® certification material).*
