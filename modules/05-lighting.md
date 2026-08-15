@@ -3,7 +3,8 @@
 **Module ID:** `05-lighting`  
 **Depth:** standard (interview-ready)  
 **Public CDCP domain:** Light — measurements, standards, fixture placement, emergency lighting and power  
-**Prerequisites:** Modules 01–04 (site, standards, building, floor/ceiling) help; Module 06 (power) deepens the emergency-power thread.
+**Prerequisites:** Modules 01–04 (site, standards, building, floor/ceiling) help.  
+The emergency-power path is previewed here; Module 06 owns the path.
 
 ---
 
