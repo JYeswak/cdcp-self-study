@@ -131,8 +131,10 @@ pub struct AssembledExam {
 /// in the `max_per_module` relaxation fallback (that last path is the one a
 /// naive filter misses, because it re-reads the whole bank).
 ///
-/// Deleting the `approved` filter below turns `crates/cdcp_assemble/tests/status_filter.rs`
-/// RED; that is the meta-test for this gate.
+/// CHARTER pair (bd-single-leg-metatest-closes-illw): mutating the `approved`
+/// filter below turns `crates/cdcp_assemble/tests/c1_charter_pair.rs` non-zero;
+/// deleting that assertion with the mutation still in place returns it to zero.
+/// Driven by `scripts/selftest_reconstructed.sh`; restore via `cdcp_restore_safe`.
 pub fn sample_item_ids(
     bank: &Bank,
     n: usize,

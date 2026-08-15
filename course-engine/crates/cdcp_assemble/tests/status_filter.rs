@@ -25,9 +25,13 @@
 //!
 //! # Meta-test
 //!
-//! Deleting the `approved` filter in `sample_item_ids` turns this file RED.
-//! Verified by hand on the C1 tick (assertion deleted -> `cargo test` exit 101;
-//! restored -> exit 0).
+//! The CHARTER pair (`.flywheel/CHARTER.md`) is not "delete this file → RED".
+//! That wording is incoherent: deleting an assertion weakens a test. The pair
+//! lives in `crates/cdcp_assemble/tests/c1_charter_pair.rs` and is driven by
+//! `scripts/selftest_reconstructed.sh`:
+//!   (1) mutate the `approved` filter in `sample_item_ids` → that suite non-zero
+//!   (2) mutation still in place, delete the assertion → suite zero
+//! Restore goes through `scripts/restore_safe.inc.sh` (`cdcp_restore_safe`).
 
 use cdcp_assemble::{assemble, sample_item_ids, AssembleConfig, AssembleError};
 use cdcp_bank::{Bank, BankItem, ItemStatus};
