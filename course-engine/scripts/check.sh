@@ -11,7 +11,16 @@ cd "$ROOT"
 
 fail() { echo "check.sh: FAIL: $*" >&2; exit 2; }
 GAPS=""
-ok() { echo "check.sh: ok: $*"; }
+# Step counter [bd-1sd.13]. The advertised chain length is OK + SKIPPED, so a
+# machine that honestly cannot run a leg (no wasm32, nested reconstructed run)
+# still advertises the same number as one that ran every leg. A transcript
+# grep of `check.sh: ok:` over-counts: substrate-guard --prove-wired copies a
+# nested child's oks into this process's stdout. The receipt is emitted by
+# THIS process, after the sealed boundary, and is what the drift guard reads.
+STEP_OK=0
+STEP_SKIPPED=0
+ok() { STEP_OK=$((STEP_OK + 1)); echo "check.sh: ok: $*"; }
+skipped_step() { STEP_SKIPPED=$((STEP_SKIPPED + 1)); echo "check.sh: skip: $*"; }
 
 # ── Concurrency lock [bd-gl4j] ─────────────────────────────────────────────
 # Measured 2026-08-14, four concurrent runs live during a six-agent wave: one
@@ -78,7 +87,13 @@ fi
 # tees the receipts into INJ_LOG. scripts/verify_injection_count.py then sums
 # them and compares against the count README.md advertises — so the badge can
 # never drift from the machinery it describes.
+#
+# STEP_LOG is the sibling receipt for the chain's own length [bd-1sd.13].
+# check.sh writes one CHECK_STEPS= line on the success path; verify-step-count
+# compares it to every "<N> ordered steps" claim in README.md. A missing log
+# is an ERROR, never a silent zero.
 INJ_LOG=""
+STEP_LOG=""
 
 # Single cleanup for both resources. Installed BEFORE the lock is taken, so a
 # signal arriving between mkdir and the first gate still releases it. It cannot
@@ -87,6 +102,7 @@ INJ_LOG=""
 # from an EXIT trap under `set -e`.
 cleanup() {
   if [ -n "$INJ_LOG" ]; then rm -f "$INJ_LOG"; fi
+  if [ -n "$STEP_LOG" ]; then rm -f "$STEP_LOG"; fi
   if [ "$LOCK_HELD" = "1" ]; then rm -rf "$LOCK_DIR"; fi
   return 0
 }
@@ -221,9 +237,12 @@ if [ "$LOCK_HELD" = "1" ]; then
 
   rm -rf "$_lk_scratch"
   ok "concurrency lock proven (second run refused naming pid $$ · dead holder reclaimed · unwritable lock path ERRORs)"
+else
+  skipped_step "concurrency lock selftest (running under an ancestor's lock)"
 fi
 
 INJ_LOG="$(mktemp "${TMPDIR:-/tmp}/cdcp_injections.XXXXXX")"
+STEP_LOG="$(mktemp "${TMPDIR:-/tmp}/cdcp_steps.XXXXXX")"
 
 run_selftest() {
   _lbl="$1"
@@ -546,6 +565,7 @@ else
   echo "check.sh: SKIP wasm: toolchain missing"
   echo "check.sh: L4 dual-path is NOT full green — install: rustup target add wasm32-unknown-unknown"
   L4_WASM="SKIP"
+  skipped_step "L4 WASM dual-path (toolchain missing)"
 fi
 
 # Wave status
@@ -663,6 +683,7 @@ if cargo run -q -p cdcp_cli -- export-web --help >/dev/null 2>&1; then
 else
   echo "check.sh: GAP: L7 SLO budgets NOT RUN — cdcp_cli lacks the 'export-web' verb" >&2
   GAPS="${GAPS}L7-SLO "
+  skipped_step "L7 SLO budgets (export-web verb absent)"
 fi
 
 echo "==> cdcp_gate verify-content-lock (L7 content.lock)"
@@ -684,12 +705,16 @@ if [ -f scripts/selftest_reconstructed.sh ] && [ "${CDCP_IN_SELFTEST:-0}" != "1"
   echo "==> selftest_reconstructed.sh (L5–V11 reconstructed stages)"
   run_selftest "reconstructed-stage selftests" env CDCP_IN_SELFTEST=1 sh scripts/selftest_reconstructed.sh
   ok "L5–V11 reconstructed stages proven to trip RED"
+else
+  skipped_step "L5–V11 reconstructed stages (nested run or missing script)"
 fi
 
 if [ -f tests/voice-slop.sh ]; then
   echo "==> tests/voice-slop.sh (applicable slice of the ZS voice gate)"
   sh tests/voice-slop.sh >/dev/null || fail "voice slop / honesty in public copy"
   ok "public copy free of marketing slop; honesty note intact"
+else
+  skipped_step "voice-slop (script absent)"
 fi
 
 # Roadmap doc truth — the prose a stranger reads first must not contradict
@@ -708,6 +733,8 @@ if [ -f tests/publishability-bar.sh ]; then
   echo "==> tests/publishability-bar.sh (L88 — audit claims must be true)"
   sh tests/publishability-bar.sh >/dev/null || fail "publishability bar (audit claim is false)"
   ok "L88 publishability bar (audit claims verified against the repo)"
+else
+  skipped_step "L88 publishability bar (script absent)"
 fi
 
 echo "==> V11 Anki planted all-retired (must print FAIL: and write no deck)"
@@ -750,6 +777,7 @@ if cargo run -q -p cdcp_cli -- serve --help >/dev/null 2>&1; then
 else
   echo "check.sh: GAP: V11 serve subcommand ABSENT from cdcp_cli source" >&2
   GAPS="${GAPS}V11-serve "
+  skipped_step "V11 serve subcommand (absent)"
 fi
 ls bank/items/*.toml >/dev/null 2>&1 || fail "V11 runbook bank items"
 ok "V11 runbook bank items present"
@@ -770,6 +798,32 @@ if [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then
   cargo run -q -p cdcp_gate -- verify-injection-count --log "$INJ_LOG" \
     || fail "known-bad injection count drift (README vs suites)"
   ok "advertised known-bad injection count == suites' self-reported total"
+
+  # STEP-COUNT-RECEIPT-BOUNDARY
+  # Sealed: no `ok` call site may appear below this marker. verify-step-count
+  # reads the marker and fails if one does. The receipt is written by THIS
+  # process so a nested child's `check.sh: ok:` lines cannot enter the count.
+  # [bd-1sd.13]
+  [ -n "$STEP_LOG" ] || fail "step receipt log was never created"
+  [ -f crates/cdcp_gate/src/gates/verify_step_count.rs ] \
+    || fail "missing crates/cdcp_gate/src/gates/verify_step_count.rs (step-count drift guard required)"
+  _nested_ok=0
+  _probe_log="$ROOT/target/cdcp-substrate-probe/check_sh.log"
+  if [ -f "$_probe_log" ]; then
+    _nested_ok="$(grep -c 'check.sh: ok:' "$_probe_log" || true)"
+  fi
+  _step_total=$((STEP_OK + STEP_SKIPPED))
+  _step_receipt="CHECK_STEPS=${_step_total} OK=${STEP_OK} SKIPPED=${STEP_SKIPPED} NESTED_OK=${_nested_ok} DEPTH=0 RUN=pid$$"
+  printf '%s\n' "$_step_receipt" >"$STEP_LOG"
+  printf '%s\n' "$_step_receipt"
+  echo "==> cdcp_gate verify-step-count (advertised check.sh step count)"
+  if [ "${CDCP_STEP_COUNT_WRITE_README:-0}" = "1" ]; then
+    cargo run -q -p cdcp_gate -- verify-step-count --log "$STEP_LOG" --write-readme \
+      || fail "advertised check.sh step count drift (README vs this run)"
+  else
+    cargo run -q -p cdcp_gate -- verify-step-count --log "$STEP_LOG" \
+      || fail "advertised check.sh step count drift (README vs this run)"
+  fi
 fi
 
 if [ -n "$GAPS" ]; then

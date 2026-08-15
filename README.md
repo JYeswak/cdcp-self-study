@@ -8,8 +8,8 @@
 
 [![License: MIT (code)](https://img.shields.io/badge/code-MIT-blue.svg)](./LICENSE)
 [![Content: CC BY-NC-SA 4.0](https://img.shields.io/badge/content-CC_BY--NC--SA_4.0-blue.svg)](./LICENSE)
-[![gate: 53 steps](https://img.shields.io/badge/gate-53_ordered_steps-success.svg)](#the-gate)
-[![known-bad: 49 injections](https://img.shields.io/badge/known--bad-49_injections_all_RED-success.svg)](#gates-proven-to-trip)
+[![gate: 74 steps](https://img.shields.io/badge/gate-74_ordered_steps-success.svg)](#the-gate)
+[![known-bad: 63 injections](https://img.shields.io/badge/known--bad-63_injections_all_RED-success.svg)](#gates-proven-to-trip)
 [![grading: byte-exact](https://img.shields.io/badge/grading-Rust_%3D%3D_WASM_byte--exact-success.svg)](#how-grading-works)
 [![unsafe: forbidden](https://img.shields.io/badge/unsafe-forbidden-success.svg)](https://github.com/rust-secure-code/safety-dance/)
 [![offline](https://img.shields.io/badge/runtime-fully_offline-teal.svg)](#running-it)
@@ -46,7 +46,7 @@ cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
 | **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
 | **Bank** | 804 original questions across 15 module buckets, 106 topics |
 | **Engine** | 7 Rust crates, 3,763 lines, `#![forbid(unsafe_code)]`, 281 KB WASM |
-| **Gate** | 76 ordered steps; 9 selftest suites; 49 known-bad injections that must all go RED |
+| **Gate** | 74 ordered steps; 9 selftest suites; 63 known-bad injections that must all go RED |
 | **Runtime deps** | None. Rust toolchain to build; a browser to use |
 
 ---
@@ -214,7 +214,7 @@ One ordered chain. It is the only definition of "done" in this project.
 cd course-engine && ./scripts/check.sh
 ```
 
-53 steps, fail-closed, each naming the script that failed so the repair is
+74 steps, fail-closed, each naming the script that failed so the repair is
 obvious. Roughly: constitution docs → knowledge pack → **L1 claims registry** →
 bank validation → **L3 GradeExact + goldens** → **L4 known-bad selftests** →
 **L4 Rust==WASM dual path** → L5 browser surface + e2e digests → L6 coverage,
@@ -227,7 +227,7 @@ workflow file is how CI and local drift apart until only one of them is true.
 ### Gates proven to trip
 
 A green gate is worthless unless it can go red. Nine selftest suites inject
-**49 known-bad faults** — shell suites only; the Rust ports' own known-bad cases
+**63 known-bad faults** — shell suites only; the Rust ports' own known-bad cases
 emit no `INJECTIONS=` receipt, so they are not in this total — and assert the
 build fails, then restore the tree:
 
@@ -241,7 +241,7 @@ build fails, then restore the tree:
 | `selftest_reconstructed` | 5 | learner-pack shape · answer-key leak · export byte-stability · session shapes · CLI verb presence |
 | `selftest_orphan` | 6 | empty bank · empty topic registry · unknown `topic_id` · empty `topic_ids` · orphan topic · file whose `items[]` yields nothing |
 | `selftest_doc_consistency` | 7 | duplicate milestone row · cross-doc status conflict · unreadable status vocabulary · stale pre-flip visibility claim · zero markdown scanned · roadmap doc missing · row too short to reach its Status column |
-| `selftest_injection_count` | 12 | off-by-one count · deleted receipt (MISSING, never zero) · suite reporting 0 · unregistered suite · empty log · README advertising nothing · wrong suite count · word-spelled site drifted · a finding naming a file it did not scan · a suite named twice in `--require` · an advertisement site removed (site floor) · `--write-readme` refusing to write an unsound total |
+| `selftest_injection_count` | 26 | **injection count (12):** off-by-one count · deleted receipt (MISSING, never zero) · suite reporting 0 · unregistered suite · empty log · README advertising nothing · wrong suite count · word-spelled site drifted · a finding naming a file it did not scan · a suite named twice in `--require` · an advertisement site removed (site floor) · `--write-readme` refusing to write an unsound total<br>**step count (14):** missing receipt log · empty receipt log · receipt shape drifted · only a nested `DEPTH>0` receipt (never a fallback to the child's number) · two `DEPTH=0` receipts (never a sum) · a run that counted **zero** steps · a receipt that does not add up · `NESTED_OK=0` (the nested hazard never occurred) · a step added with README untouched · README edited with the chain untouched · README advertising no step count · a step advertisement site removed · an `ok` call below the receipt boundary · `--write-readme` refusing an unsound step total |
 
 **These numbers are enforced, not maintained.** Each suite counts only the
 injections it *observed* go RED and prints `INJECTIONS=<n> SUITE=<name>` on its
@@ -250,6 +250,15 @@ if the total disagrees with any number this README advertises. Editing a count
 here without changing the suites turns the gate red. A suite that emits no
 receipt is an **error, never a silent zero** — otherwise a suite that stopped
 reporting would read exactly like a suite with nothing to report.
+
+**The step count is enforced the same way, and it was the last one that wasn't.**
+`check.sh` counts as it runs (`ok` + honest `skip`), emits one `CHECK_STEPS=`
+receipt on the success path, and `verify-step-count` compares that receipt to
+every step-count this README advertises. A wrong number here turns the gate
+RED. The count cannot be parsed out of the script (several legs are
+conditional) and it cannot be grepped out of a transcript either: a nested
+`--prove-wired` child writes `check.sh: ok:` lines that a transcript counter
+would swallow. The receipt is written by the process that did the counting.
 
 `tests/publishability-bar.sh` is deliberately excluded from that total: it
 asserts facts about the repo and plants no known-bad, so counting it would
@@ -327,7 +336,7 @@ table:
 | **L1 — claims constitution** | ✅ | `registries/*.toml` + `cdcp_registry_check` (tested crate) + claims-lint over README/docs |
 | **L2 — SLO as code** | ✅ partial | `slo.toml` + `smoke_slo.sh` walls on grade / export / bank-verify |
 | **L3 — external oracle** | ⚠️ **weakest link** | The oracle is the *native* grader and the public syllabus domains. There is no independent third-party conformance suite for "did we teach this correctly" |
-| **L4 — gates proven to trip** | ✅ strongest | 9 suites, 49 injections (shell receipts only; Rust legs uncounted), count drift-guarded, anti-vacuous throughout |
+| **L4 — gates proven to trip** | ✅ strongest | 9 suites, 63 injections (shell receipts only; Rust legs uncounted), count drift-guarded, anti-vacuous throughout |
 | **L5 — adversarial input floor** | ✅ partial | `cargo-fuzz` targets present; property tests on assemble/grade |
 | **L6 — formal lane** | ❌ | Not warranted at this gauntlet tier |
 | **L7 — ecosystem lock** | ✅ scoped | `content.lock` pins bank_hash + knowledge + module markdown |

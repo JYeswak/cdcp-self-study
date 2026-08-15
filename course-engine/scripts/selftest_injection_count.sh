@@ -1,14 +1,20 @@
 #!/usr/bin/env sh
-# selftest_injection_count.sh — the drift guard, proven to trip.
+# selftest_injection_count.sh — the two README drift guards, proven to trip.
 #
 # Contract (mirrors the other selftest_*.sh suites): write real specimen
 # receipt logs and README fixtures into TEMP, inject one known-bad at a time,
-# assert verify_injection_count.py goes RED with the expected signal. Nothing
-# in the live tree is mutated and no patch is ever applied — the specimens are
-# files this script writes, so they cannot silently no-op the way `git apply`
-# does on an index mismatch.
+# assert the guard goes RED with the expected signal. Nothing in the live tree
+# is mutated and no patch is ever applied — the specimens are files this script
+# writes, so they cannot silently no-op the way `git apply` does on an index
+# mismatch.
 #
-# Cases:
+# Two guards live here because they are one mechanism used twice on the same
+# README sentence: (a-n) cover verify_injection_count.py, which enforces the
+# known-bad injection total and the selftest-suite count; (o-cc) cover
+# `cdcp_gate verify-step-count`, which enforces the third number in that
+# sentence — the length of the check.sh chain [bd-1sd.13].
+#
+# Cases (injection count):
 #   a) log + README agree                 → GREEN (baseline)
 #   b) README off by one                  → RED (advertised count drifted)
 #   c) a suite's INJECTIONS= line deleted → RED (MISSING, never a silent zero)
@@ -23,6 +29,26 @@
 #   l) one advertisement site removed     → RED on the site floor, not on drift
 #   m) --write-readme on a drifted README → GREEN (regenerated, never typed)
 #   n) --write-readme on an unsound log   → RED, and the file is byte-unchanged
+#
+# Cases (check.sh step count):
+#   o) step receipt log missing           → ERROR
+#   p) step receipt log empty             → ERROR (anti-vacuous)
+#   q) receipt shape drifted              → ERROR (never a skipped line)
+#   r) only a nested DEPTH>0 receipt      → ERROR (never a fallback to the child)
+#   s) two DEPTH=0 receipts               → ERROR (never a sum, never last-wins)
+#   t) a run that counted ZERO steps      → ERROR (0-vs-0 is the vacuous pass)
+#   u) OK + SKIPPED != CHECK_STEPS        → RED (the receipt does not add up)
+#   v) NESTED_OK=0                        → ERROR (the hazard never occurred)
+#   w) a step added, README untouched     → RED
+#   x) README edited, chain untouched     → RED (the direction measured in the wild)
+#   y) README advertises no step count    → ERROR
+#   z) one step advertisement site gone   → RED on the site floor
+#  aa) an ok call BELOW the boundary      → RED (a step that could never be counted)
+#  bb) --write-readme on an unsound total → RED, and the file is byte-unchanged
+#
+# (o-control) baseline, (r-control) a nested receipt beside the outer one, and
+# (cc) --write-readme regenerating a drifted README are known-GOOD legs and are
+# NOT counted, on the same terms as (i)'s control and (m).
 #
 # (i)'s agreeing-word control and (m) are known-GOOD legs and are NOT counted:
 # only assert_fails_with and assert_fails_without increment INJ. A suite that
@@ -320,9 +346,215 @@ cmp -s "$TMP_ROOT/README_unsound.before" "$unsound_readme" \
   || fail "(n) an unsound total was written into the specimen README anyway"
 ok "(n) specimen README byte-unchanged after a refused regeneration"
 
+# ════════════════════════════════════════════════════════════════════════════
+# THE SECOND DRIFT GUARD: cdcp_gate verify-step-count [bd-1sd.13]
+# ════════════════════════════════════════════════════════════════════════════
+# Same shape, one field to the left. README's gate sentence carries three
+# numbers; the suite count and the injection count are enforced above, and the
+# STEP count was folklore — stale by thirteen for weeks, then wrong again ten
+# minutes after a hand correction, through a fully green run.
+#
+# Specimens only: every case writes its own log, README and script into TEMP.
+# Nothing in the live tree is read or mutated by these cases, so they cannot
+# pass by accident on a tree that happens to be right.
+
+STEP_GATE_ROOT="$TMP_ROOT/stepcount"
+mkdir -p "$STEP_GATE_ROOT"
+
+# A specimen README advertising the step count at FOUR sites, mirroring the
+# shipped shape: badge label, badge path, TL;DR row, gate section.
+write_step_readme() {
+  cat >"$1" <<EOF
+# Specimen readme
+
+[![gate: $2 steps](https://img.shields.io/badge/gate-$2_ordered_steps-success.svg)](#the-gate)
+
+| **Gate** | $2 ordered steps; 9 selftest suites |
+
+$2 steps, fail-closed, each naming the script that failed so the repair is obvious.
+EOF
+}
+
+# A specimen check.sh: two ok sites, one boundary, an emission after it.
+write_step_script() {
+  {
+    echo '#!/usr/bin/env sh'
+    echo 'ok "one"'
+    echo 'ok "two"'
+    echo '# a comment mentioning ok "three" is not a call site'
+    echo '# STEP-COUNT-RECEIPT-BOUNDARY'
+    echo 'echo CHECK_STEPS=2'
+  } >"$1"
+}
+
+STEP_LOG_OK="$STEP_GATE_ROOT/steps.log"
+printf 'CHECK_STEPS=2 OK=2 SKIPPED=0 NESTED_OK=5 DEPTH=0 RUN=pid1\n' >"$STEP_LOG_OK"
+STEP_README="$STEP_GATE_ROOT/README.md"
+write_step_readme "$STEP_README" 2
+STEP_SCRIPT="$STEP_GATE_ROOT/check.sh"
+write_step_script "$STEP_SCRIPT"
+
+run_step_gate() {
+  cargo run -q -p cdcp_gate -- verify-step-count \
+    --log "$1" --readme "$2" --script "$3"
+}
+
+run_step_gate_write() {
+  cargo run -q -p cdcp_gate -- verify-step-count \
+    --log "$1" --readme "$2" --script "$3" --write-readme
+}
+
+assert_step_green() {
+  label="$1"
+  shift
+  rc=0
+  out="$("$@" 2>&1)" || rc=$?
+  if [ "$rc" -ne 0 ]; then
+    printf '%s\n' "$out" >&2
+    fail "$label expected GREEN but exited $rc"
+  fi
+  case "$out" in
+    *"step count GREEN"*) ok "$label GREEN" ;;
+    *)
+      printf '%s\n' "$out" >&2
+      fail "$label exited 0 without the 'step count GREEN' receipt"
+      ;;
+  esac
+}
+
+echo "==> (o-control) step gate baseline: receipt and README agree → GREEN (not counted)"
+assert_step_green "step-baseline" run_step_gate "$STEP_LOG_OK" "$STEP_README" "$STEP_SCRIPT"
+
+echo "==> (o) step receipt log missing → ERROR"
+assert_fails_with "step-log-missing" "step receipt log missing" \
+  run_step_gate "$STEP_GATE_ROOT/nope.log" "$STEP_README" "$STEP_SCRIPT"
+
+echo "==> (p) step receipt log empty → ERROR (anti-vacuous)"
+step_empty="$STEP_GATE_ROOT/empty.log"
+: >"$step_empty"
+assert_fails_with "step-log-empty" "step receipt log is empty" \
+  run_step_gate "$step_empty" "$STEP_README" "$STEP_SCRIPT"
+
+echo "==> (q) receipt whose shape drifted → ERROR"
+step_bad="$STEP_GATE_ROOT/unparseable.log"
+printf 'STEPS=2 OK=2 SKIPPED=0 NESTED_OK=5 DEPTH=0 RUN=pid1\n' >"$step_bad"
+assert_fails_with "step-receipt-unparseable" "unparseable receipt line" \
+  run_step_gate "$step_bad" "$STEP_README" "$STEP_SCRIPT"
+
+# ── the nested-child legs: the count must come from the OUTER run or nowhere ──
+echo "==> (r) only a nested (DEPTH>0) receipt → ERROR, never a fallback"
+step_nested_only="$STEP_GATE_ROOT/nested_only.log"
+printf 'CHECK_STEPS=5 OK=5 SKIPPED=0 NESTED_OK=5 DEPTH=1 RUN=pid9\n' >"$step_nested_only"
+assert_fails_with "step-nested-receipt-alone" "no DEPTH=0 receipt" \
+  run_step_gate "$step_nested_only" "$STEP_README" "$STEP_SCRIPT"
+
+echo "==> (r-control) a nested receipt BESIDE the outer one → GREEN at the outer number (not counted)"
+# This is the contamination case decided rather than hoped: the child reports 5,
+# the parent 2, and the answer is 2. A summing gate would say 7 and a
+# last-wins gate would say 5; both are numbers no run measured.
+step_both="$STEP_GATE_ROOT/both.log"
+printf 'CHECK_STEPS=2 OK=2 SKIPPED=0 NESTED_OK=5 DEPTH=0 RUN=pid1\nCHECK_STEPS=5 OK=5 SKIPPED=0 NESTED_OK=0 DEPTH=1 RUN=pid9\n' >"$step_both"
+assert_step_green "step-nested-beside-outer" run_step_gate "$step_both" "$STEP_README" "$STEP_SCRIPT"
+run_step_gate "$step_both" "$STEP_README" "$STEP_SCRIPT" | grep -q 'nested_receipts_ignored=1' \
+  || fail "(r-control) the nested receipt was not reported as ignored"
+ok "(r-control) the nested receipt is ignored, not summed (2 wins over 5 and over 7)"
+
+echo "==> (s) two DEPTH=0 receipts in one log → ERROR"
+step_two="$STEP_GATE_ROOT/two_outer.log"
+printf 'CHECK_STEPS=2 OK=2 SKIPPED=0 NESTED_OK=5 DEPTH=0 RUN=pid1\nCHECK_STEPS=3 OK=3 SKIPPED=0 NESTED_OK=5 DEPTH=0 RUN=pid2\n' >"$step_two"
+assert_fails_with "step-two-outer-receipts" "2 DEPTH=0 receipts" \
+  run_step_gate "$step_two" "$STEP_README" "$STEP_SCRIPT"
+
+echo "==> (t) a run that counted ZERO steps → ERROR, never a 0-to-0 pass"
+# The purest vacuous pass in the family: a counter that silently returns 0,
+# compared against a README that was regenerated to 0, is GREEN under any gate
+# that only checks equality.
+step_zero="$STEP_GATE_ROOT/zero.log"
+printf 'CHECK_STEPS=0 OK=0 SKIPPED=0 NESTED_OK=5 DEPTH=0 RUN=pid1\n' >"$step_zero"
+step_zero_readme="$STEP_GATE_ROOT/README_zero.md"
+write_step_readme "$step_zero_readme" 0
+assert_fails_with "step-zero-steps" "counted ZERO ok steps" \
+  run_step_gate "$step_zero" "$step_zero_readme" "$STEP_SCRIPT"
+
+echo "==> (u) a receipt whose parts do not add up → RED"
+step_sum="$STEP_GATE_ROOT/badsum.log"
+printf 'CHECK_STEPS=9 OK=2 SKIPPED=0 NESTED_OK=5 DEPTH=0 RUN=pid1\n' >"$step_sum"
+assert_fails_with "step-receipt-arithmetic" "receipt does not add up" \
+  run_step_gate "$step_sum" "$STEP_README" "$STEP_SCRIPT"
+
+echo "==> (v) NESTED_OK=0 → ERROR (the non-contamination leg never ran)"
+step_nok="$STEP_GATE_ROOT/nonested.log"
+printf 'CHECK_STEPS=2 OK=2 SKIPPED=0 NESTED_OK=0 DEPTH=0 RUN=pid1\n' >"$step_nok"
+assert_fails_with "step-no-nested-observed" "NESTED_OK=0" \
+  run_step_gate "$step_nok" "$STEP_README" "$STEP_SCRIPT"
+
+# ── both drift directions, because the measured failure was the SECOND one ───
+echo "==> (w) a step ADDED and README untouched → RED"
+step_low="$STEP_GATE_ROOT/README_low.md"
+write_step_readme "$step_low" 1
+assert_fails_with "step-chain-grew" "this run measured 2" \
+  run_step_gate "$STEP_LOG_OK" "$step_low" "$STEP_SCRIPT"
+
+echo "==> (x) README edited and the chain untouched → RED"
+step_high="$STEP_GATE_ROOT/README_high.md"
+write_step_readme "$step_high" 3
+assert_fails_with "step-readme-edited" "advertises 3 check.sh steps" \
+  run_step_gate "$STEP_LOG_OK" "$step_high" "$STEP_SCRIPT"
+
+echo "==> (y) README advertises no step count at all → ERROR"
+step_silent="$STEP_GATE_ROOT/README_silent.md"
+printf '%s\n' '# Specimen readme with no advertised step count at all.' >"$step_silent"
+assert_fails_with "step-readme-silent" "advertises no check.sh step count" \
+  run_step_gate "$STEP_LOG_OK" "$step_silent" "$STEP_SCRIPT"
+
+echo "==> (z) one advertisement site removed → RED on the site floor, not on drift"
+step_thin="$STEP_GATE_ROOT/README_thin.md"
+write_step_readme "$step_thin" 2
+grep -v 'fail-closed' "$step_thin" >"$step_thin.tmp" && mv "$step_thin.tmp" "$step_thin"
+assert_fails_with "step-site-floor" "only 3 step advertisement site(s)" \
+  run_step_gate "$STEP_LOG_OK" "$step_thin" "$STEP_SCRIPT"
+
+echo "==> (aa) a step added AFTER the receipt boundary → RED"
+# The hole a runtime counter alone leaves: an ok emitted below the boundary can
+# never be counted, so the advertised number would stay green while the chain
+# grew. Order is decidable from the script text even though the count is not.
+step_after="$STEP_GATE_ROOT/check_after.sh"
+write_step_script "$step_after"
+echo 'ok "added below the boundary"' >>"$step_after"
+assert_fails_with "step-ok-after-boundary" "after the STEP-COUNT-RECEIPT-BOUNDARY" \
+  run_step_gate "$STEP_LOG_OK" "$STEP_README" "$step_after"
+
+echo "==> (bb) --write-readme on an unsound receipt → RED, file byte-unchanged"
+step_unsound_readme="$STEP_GATE_ROOT/README_unsound.md"
+write_step_readme "$step_unsound_readme" 3
+cp "$step_unsound_readme" "$STEP_GATE_ROOT/README_unsound.before"
+assert_fails_with "step-write-refuses-unsound" "regeneration SKIPPED" \
+  run_step_gate_write "$step_zero" "$step_unsound_readme" "$STEP_SCRIPT"
+cmp -s "$STEP_GATE_ROOT/README_unsound.before" "$step_unsound_readme" \
+  || fail "(bb) an unsound step total was written into the specimen README anyway"
+ok "(bb) specimen README byte-unchanged after a refused regeneration"
+
+echo "==> (cc) --write-readme regenerates a drifted README → GREEN (not counted)"
+step_regen="$STEP_GATE_ROOT/README_regen.md"
+write_step_readme "$step_regen" 3
+assert_step_green "step-write-readme-regenerates" \
+  run_step_gate_write "$STEP_LOG_OK" "$step_regen" "$STEP_SCRIPT"
+grep -q 'gate-2_ordered_steps' "$step_regen" \
+  || fail "(cc) the badge was not regenerated to the measured step count"
+grep -q '3 ordered steps' "$step_regen" \
+  && fail "(cc) a drifted step count survived regeneration"
+ok "(cc) every step advertisement site now carries the measured total"
+
 # ── baseline still GREEN (specimens were the only defect) ───────────────────
 assert_green "baseline-restored" run_checker "$GOOD_LOG" "$GOOD_README"
+assert_step_green "step-baseline-restored" run_step_gate "$STEP_LOG_OK" "$STEP_README" "$STEP_SCRIPT"
 
+# Prove-it-bites [bd-1sd.13]: deleting one counted assertion must fail THIS
+# suite. The parent injection-count guard would also catch a quieter receipt,
+# but only if README was left at 63 — a paired edit of suite + README would
+# hide the deletion. Pinning the count here makes the deletion red with no
+# other file involved.
+[ "$INJ" -eq 26 ] || fail "INJ=$INJ; expected 26 — deleting an assertion must fail this suite, not pass with a quieter receipt"
 echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
-echo "selftest_injection_count: PASSED (b off-by-one · c missing receipt · d zero · e unregistered · f empty log · g silent README · h suite count · i word-spelled drift · j finding names the scanned file · k duplicate --require · l site floor · m regenerated · n refused unsound write)"
+echo "selftest_injection_count: PASSED (b off-by-one · c missing receipt · d zero · e unregistered · f empty log · g silent README · h suite count · i word-spelled drift · j finding names the scanned file · k duplicate --require · l site floor · m regenerated · n refused unsound write · o step log missing · p step log empty · q receipt shape drift · r nested receipt alone · s two outer receipts · t zero steps · u receipt arithmetic · v no nested observed · w chain grew · x README edited · y README silent · z step site floor · aa ok below the boundary · bb refused unsound step write)"
 exit 0
