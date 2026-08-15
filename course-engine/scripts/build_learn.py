@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import html
 import json
+import os
 import re
 import shutil
 import sys
@@ -42,6 +43,36 @@ CONTENT_DIR = WEB / "content" / "modules"
 LEARN_DIR = WEB / "learn"
 INDEX_JSON = WEB / "data" / "modules_index.json"
 TOPIC_ANCHORS_JSON = WEB / "data" / "topic_anchors.json"
+
+# Generated module copies are `{NN-slug}.md`. Everything else in this
+# directory is documentation (README.md is tracked) and must survive the
+# orphan sweep. Same predicate as cdcp_learn::content (bd-zhnd).
+_MODULE_COPY = re.compile(r"^\d{2}-[a-z0-9-]+\.md$")
+PROTECTED_CONTENT_DOCS = frozenset({"README.md"})
+
+
+def _apply_root(root: Path) -> None:
+    """Retarget every path this script uses. Tests set CDCP_ENGINE_ROOT."""
+    global ROOT, DOMAINS, TOPICS, WEB, CONTENT_DIR, LEARN_DIR
+    global INDEX_JSON, TOPIC_ANCHORS_JSON
+    ROOT = root
+    DOMAINS = ROOT / "knowledge" / "domains.toml"
+    TOPICS = ROOT / "knowledge" / "topics.toml"
+    WEB = ROOT / "web"
+    CONTENT_DIR = WEB / "content" / "modules"
+    LEARN_DIR = WEB / "learn"
+    INDEX_JSON = WEB / "data" / "modules_index.json"
+    TOPIC_ANCHORS_JSON = WEB / "data" / "topic_anchors.json"
+
+
+def is_generated_module_copy(name: str) -> bool:
+    return _MODULE_COPY.fullmatch(name) is not None
+
+
+def should_unlink_content_copy(name: str, navigable_md: set[str]) -> bool:
+    if name in PROTECTED_CONTENT_DOCS or name in navigable_md:
+        return False
+    return is_generated_module_copy(name)
 
 # Stopwords ignored when fuzzy-matching topic labels to headings.
 _STOP = frozenset(
@@ -549,6 +580,10 @@ def build_topic_anchors(navigable: list[dict]) -> dict:
 
 
 def main() -> int:
+    root_env = os.environ.get("CDCP_ENGINE_ROOT", "").strip()
+    if root_env:
+        _apply_root(Path(root_env).resolve())
+
     domains = load_domains()
     CONTENT_DIR.mkdir(parents=True, exist_ok=True)
     LEARN_DIR.mkdir(parents=True, exist_ok=True)
@@ -634,14 +669,18 @@ def main() -> int:
         if stale.name not in keep:
             stale.unlink()
 
-    # Drop orphaned content copies.
-    # README.md is hand-written documentation for this directory, not a generated
-    # copy — it is tracked in git and must survive the sweep. Without this guard
-    # every build_learn.py run silently deletes it (observed 2026-08-15 while
-    # adding module 15); the deletion then rides along in whatever commit follows.
-    keep_md = {f"{m['id']}.md" for m in navigable} | {"README.md"}
-    for stale in CONTENT_DIR.glob("*.md"):
-        if stale.name not in keep_md:
+    # Drop leftover generated copies only. A non-module .md (README.md, NOTES.md)
+    # is documentation — never generated, never stale. Matching any `*.md` used
+    # to delete the tracked README on every run (observed 2026-08-15). The keep
+    # predicate is cdcp_learn::content::should_unlink_content_copy (bd-zhnd).
+    navigable_md = {f"{m['id']}.md" for m in navigable}
+    scanned_md = list(CONTENT_DIR.glob("*.md"))
+    if not scanned_md:
+        print("FAIL: build_learn")
+        print("  - content dir matched zero .md files (empty sweep is ERROR)")
+        return 1
+    for stale in scanned_md:
+        if should_unlink_content_copy(stale.name, navigable_md):
             stale.unlink()
 
     index = {

@@ -23,6 +23,7 @@ use thiserror::Error;
 
 pub mod a11y;
 pub mod chrome;
+pub mod content;
 pub mod diagrams;
 pub mod feedback;
 pub mod glossary;

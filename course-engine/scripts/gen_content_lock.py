@@ -29,7 +29,13 @@ PARENT_MODULES = ROOT.parent / "modules"
 GOLDEN_BANK_HASH = ROOT / "goldens" / "bank_hash.txt"
 
 SCHEMA_VERSION = 1
-CANONICAL = "cdcp-bank-v1"
+# Domain tag for the bank hash. AUTHORITATIVE COPY IS cdcp_core::BANK_HASH_DOMAIN;
+# this is a label that must name it, and content.lock `canonical` is written from
+# here. All three move in ONE commit — a partial bump creates a third state.
+# crates/cdcp_core/tests/bank_hash_domain_agreement.rs keys on the constant and
+# goes RED naming both sides. v1 excluded status/objective_ids/citation_ids/tags;
+# v2 covers them (see the table on BANK_HASH_DOMAIN and goldens/PROVENANCE.md).
+CANONICAL = "cdcp-bank-v2"
 HASH_ALG = "sha256"
 
 
@@ -118,13 +124,18 @@ def collect_hashes(paths: list[Path]) -> dict[str, str]:
 def knowledge_files() -> list[Path]:
     if not KNOWLEDGE_DIR.is_dir():
         return []
-    # Top-level knowledge pack only (not corpus/ blobs — those are external).
+    # ONE LEVEL (bd-zhnd). Path.glob("*.toml") does not recurse.
+    # knowledge/corpus/*.toml is deliberately unpinned (external blobs).
+    # verify_content_lock::discover matches this depth. Deepening either
+    # side without the other makes a regenerated lock un-green, or hides
+    # a nested file. The depth pin is crates/cdcp_learn/tests/stated_limits.rs.
     return sorted(KNOWLEDGE_DIR.glob("*.toml"))
 
 
 def module_files() -> list[Path]:
     found: list[Path] = []
     if WEB_MODULES.is_dir():
+        # ONE LEVEL, same contract as knowledge_files (bd-zhnd).
         found.extend(sorted(WEB_MODULES.glob("*.md")))
     if PARENT_MODULES.is_dir():
         found.extend(sorted(PARENT_MODULES.glob("*.md")))
