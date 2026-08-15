@@ -17,7 +17,7 @@ Markdown is loaded from web/content/modules/ via relative fetch (same local
 static-server model as mock). Re-run after corpus changes:
 
   python3 scripts/build_learn.py
-  python3 scripts/smoke_learn.py
+  cargo run -q -p cdcp_cli -- smoke-learn
   python3 scripts/smoke_feedback_links.py
 """
 from __future__ import annotations
@@ -315,7 +315,7 @@ def render_hub(modules: list[dict]) -> str:
     <p class="meta">
       <a href="index.html">← Hub</a>
       · <a href="quiz.html">Module quiz</a>
-      · <a href="drill.html">Drill / SRS</a>
+      · <a href="drill.html">Drill</a>
       · Generated from <span class="mono">knowledge/domains.toml</span>
     </p>
   </main>

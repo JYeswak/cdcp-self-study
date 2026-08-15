@@ -587,8 +587,8 @@ echo "==> e2e_l5_digest.sh (UI dual-path digest match)"
 sh scripts/e2e_l5_digest.sh || fail "L5 e2e digest"
 ok "L5 e2e digest match (seed42 all-correct/all-wrong)"
 
-echo "==> smoke_learn.py"
-python3 scripts/smoke_learn.py || fail "L5 learn smoke"
+echo "==> cdcp smoke-learn (L5 learn surface)"
+cargo run -q -p cdcp_cli -- smoke-learn || fail "L5 learn smoke"
 ok "L5 learn smoke"
 
 # ─── L6 mastery / coverage ──────────────────────────────────────────────────
@@ -643,7 +643,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(cargo run -q -p cdcp_cli -- --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-units build-glossary smoke-learn-chrome; do
+for v in bank-hash grade goldens export-web serve build-units build-glossary smoke-learn smoke-learn-chrome; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"

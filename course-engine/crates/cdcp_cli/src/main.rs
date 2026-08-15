@@ -71,6 +71,12 @@ enum Cmd {
         #[arg(long)]
         root: Option<PathBuf>,
     },
+    /// Smoke the offline Learn surface (hub + module pages + honesty banner)
+    SmokeLearn {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+    },
     /// Static smoke: Learn UI chrome (TOC/math/continue/power embed). No browser.
     SmokeLearnChrome {
         /// Engine root (directory holding web/). Default: walk up from cwd.
@@ -253,6 +259,7 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::Serve { root, bind } => serve(&root, &bind),
         Cmd::BuildUnits { root } => compile_learn(root.as_deref(), LearnKind::Units),
         Cmd::BuildGlossary { root } => compile_learn(root.as_deref(), LearnKind::Glossary),
+        Cmd::SmokeLearn { root } => compile_learn(root.as_deref(), LearnKind::Smoke),
         Cmd::SmokeLearnChrome { root } => smoke_learn_chrome(root.as_deref()),
         Cmd::Doctor { root, bind } => operator::doctor(root.as_deref(), &bind),
         Cmd::Health { root, robot } => operator::health(root.as_deref(), robot),
@@ -692,6 +699,7 @@ pub(crate) fn export_web(
 enum LearnKind {
     Units,
     Glossary,
+    Smoke,
 }
 
 fn smoke_learn_chrome(root: Option<&Path>) -> Result<(), String> {
@@ -721,6 +729,7 @@ fn compile_learn(root: Option<&Path>, kind: LearnKind) -> Result<(), String> {
         LearnKind::Glossary => {
             cdcp_learn::glossary::write_glossary(&resolved).map_err(|e| e.to_string())?
         }
+        LearnKind::Smoke => cdcp_learn::smoke::run(&resolved),
     };
     print!("{}", outcome.stdout);
     if outcome.code != 0 {

@@ -1,4 +1,4 @@
-//! `cdcp_learn` — the Learn compilers and chrome smoke are product, not gate.
+//! `cdcp_learn` — the Learn compilers, chrome smoke, and Learn-surface smoke are product, not gate.
 //!
 //! `web/data/units_index.json` and `web/data/glossary.json` are LEARNER-VISIBLE.
 //! A learner reads the glossary and is scored against unit `check_item_ids`.
@@ -23,6 +23,7 @@ use thiserror::Error;
 
 pub mod chrome;
 pub mod glossary;
+pub mod smoke;
 pub mod units;
 
 /// Engine-root anchor: the directory holding `registries/claims.toml`.

@@ -6,7 +6,7 @@ generated from `knowledge/domains.toml` via:
 ```bash
 # from course-engine/
 python3 scripts/build_learn.py
-python3 scripts/smoke_learn.py
+cargo run -q -p cdcp_cli -- smoke-learn
 ```
 
 Until this directory is populated, the Learn reader falls back to parent-corpus

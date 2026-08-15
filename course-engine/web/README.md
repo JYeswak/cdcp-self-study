@@ -265,7 +265,7 @@ node scripts/smoke_mastery.mjs
 ```bash
 # From course-engine/: copy notes + regenerate hub/pages/index
 python3 scripts/build_learn.py
-python3 scripts/smoke_learn.py
+cargo run -q -p cdcp_cli -- smoke-learn
 
 # Serve web/ (fetch needs http)
 cd web && python3 -m http.server 8765

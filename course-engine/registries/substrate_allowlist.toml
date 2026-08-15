@@ -191,11 +191,10 @@ reason = "Load-bearing check.sh smoke: L6 weak-links recommendation surface. Gra
 migration_bead = "bd-substrate-rust-migration-jhd.16"
 expires = "2026-12-31"
 
-[[allow]]
-path = "scripts/smoke_learn.py"
-reason = "Load-bearing check.sh smoke: L5 Learn surface baseline. Grandfathered pending the byte-exact Rust port."
-migration_bead = "bd-substrate-rust-migration-jhd.17"
-expires = "2026-12-31"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.17): scripts/smoke_learn.py
+# is DELETED, not allowlisted. The smoke is `cdcp_learn::smoke` / `cdcp smoke-learn`.
+# Empty input is an ERROR (bd-smoke-learn-vacuous-empty-ok-9d3n closed, not reproduced).
+# Do NOT re-add a row for it.
 
 [[allow]]
 path = "scripts/smoke_feedback_links.py"

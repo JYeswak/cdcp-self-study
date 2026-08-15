@@ -24,7 +24,7 @@ fn cdcp() -> Command {
 fn help_lists_learn_compilers() {
     let assert = cdcp().arg("--help").assert().success();
     let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
-    for verb in ["build-units", "build-glossary", "smoke-learn-chrome"] {
+    for verb in ["build-units", "build-glossary", "smoke-learn", "smoke-learn-chrome"] {
         assert!(
             stdout.contains(verb),
             "cdcp --help must list {verb}: {stdout}"
