@@ -189,6 +189,20 @@ question = "Is the `fuzz` package a member of the Cargo workspace, so that a wor
 probe = { kind = "toml_array_contains", path = "Cargo.toml", key = "workspace.members", value = "fuzz" }
 trigger = "cargo fuzz"
 
+# ── removed seed-42 export-web short-circuit (bd-smvb) ───────────────────────
+# Until 2026-08-14 export-web preferred goldens/fixtures/mock40_seed42.json at
+# seed 42 whenever that path existed. Restoring `seed == 42` inside
+# `export_web` turns every =no site RED. The GradeExact digest pin is a
+# different contract and is not this row.
+
+[[fact]]
+id = "fact-export-web-implicit-fixture-at-seed-42"
+class = "assemble"
+artifact = { kind = "test", path = "crates/cdcp_cli/tests/cli.rs" }
+question = "Does `export_web` still contain an implicit `seed == 42` fixture preference (the short-circuit bd-golden-sampler-divergence-09q deleted)?"
+probe = { kind = "symbol_body_contains", path = "crates/cdcp_cli/src/main.rs", symbol = "export_web", needle = "seed == 42" }
+trigger = "implicit fixture"
+
 # ── exclusions (trigger→must-cite only; markers are still checked) ──────────
 
 [[exclude]]

@@ -37,7 +37,7 @@ This is a **study tool only**. It does **not** grant EPI/EXIN certification. Com
 | `assets/js/schedule_bridge.js` | WASM glue for interval + mastery thresholds |
 | `assets/js/mastery.js` | Persist/render practiced / mastered; thresholds from WASM |
 | `assets/wasm/cdcp_wasm.wasm` | Built via `./scripts/build_web_wasm.sh` |
-| `data/mock40_seed{N}.json` | Learner packs (stems + choices, no keys); seed42 golden-pinned |
+| `data/mock40_seed{N}.json` | Learner packs (stems + choices, no keys); every seed is a sampler run (no implicit fixture) [[fact:fact-export-web-implicit-fixture-at-seed-42=no]] |
 
 See [`data/README.md`](data/README.md) for export-web packs and answer-key policy.
 

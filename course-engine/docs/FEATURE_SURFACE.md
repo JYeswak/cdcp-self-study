@@ -10,7 +10,7 @@
 | Mock sampling | **present** | seeded stratified without replacement (`ChaCha12Rng` [[fact:fact-assemble-rng-is-chacha12=yes]] [[fact:fact-assemble-uses-stdrng=no]], rand_chacha 0.3.1) |
 | Rust grade oracle | **present** | L3 GradeExact: `cdcp_grade` + goldens + `check.sh` wire |
 | CLI grade/goldens | **present** | `cdcp bank-hash` · `grade` · `goldens check|generate` |
-| CLI export-web | **present** | `cdcp export-web --bank --seed --out` — browser packs per `web/data/README.md`; seed 42 golden-pinned, other seeds practice-only |
+| CLI export-web | **present** | `cdcp export-web --bank --seed --out` — browser packs per `web/data/README.md`; every seed runs the sampler (no implicit fixture) [[fact:fact-export-web-implicit-fixture-at-seed-42=no]]; GradeExact digests pin seed 42; other seeds practice-only |
 | CLI serve | **present** | `cdcp serve --root web --bind 127.0.0.1:8766` — local-only static server (pure std, no deps); GET/HEAD, path-traversal guarded |
 | CLI doctor/health/repair | **present** | `cdcp doctor` · `health --robot` · `repair` — operator surface; repair does not re-freeze goldens |
 | WASM dual-path | **present** | `web/assets/wasm/cdcp_wasm.wasm`; exercises `cdcp_wasm` crate |

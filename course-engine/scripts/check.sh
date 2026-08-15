@@ -25,9 +25,12 @@ skipped_step() { STEP_SKIPPED=$((STEP_SKIPPED + 1)); echo "check.sh: skip: $*"; 
 # ── Concurrency lock [bd-gl4j] ─────────────────────────────────────────────
 # Measured 2026-08-14, four concurrent runs live during a six-agent wave: one
 # run exited 2 on `L5 learner pack shape (n_items=39)` because another run was
-# inside selftest_reconstructed.sh, which mutates web/data/mock40_seed42.json IN
-# THE WORKING TREE and restores it afterwards. The second run read the mutated
-# state and reported a product defect that did not exist.
+# inside selftest_reconstructed.sh, which then mutated web/data/mock40_seed42.json
+# IN THE WORKING TREE and restored it afterwards. The second run read the
+# mutated state and reported a product defect that did not exist.
+# bd-791t (2026-08-15): reconstructed now injects in a private tree under
+# target/cdcp-recon-*/ — live tracked files, including crates/cdcp_cli/src/main.rs,
+# are not written. The lock remains because other steps below still mutate live.
 #
 # The cost is not the failed run, it is the FALSE VERDICT. A red from a
 # concurrency artifact is indistinguishable from a red from a real regression,
@@ -43,10 +46,8 @@ skipped_step() { STEP_SKIPPED=$((STEP_SKIPPED + 1)); echo "check.sh: skip: $*"; 
 #                              goldens/bank_hash.txt                    [M] restored
 #                              docs/_selftest_known_bad_planted.md      [S] planted/removed
 #   selftest_l5.sh             web/_selftest_l5_honesty_planted.html    [S] planted/removed
-#   selftest_reconstructed.sh  web/data/mock40_seed42.json              [S] restored
-#                              web/data/keys_seed42.json                [S] restored
-#                              web/drill.html                           [S] restored
-#                              crates/cdcp_cli/src/main.rs              [S] restored
+#   selftest_reconstructed.sh  (bd-791t) private tree under target/cdcp-recon-*/
+#                              live tracked files are not written
 #   cdcp build-units               web/data/units_index.json            [M] regenerated
 #   cdcp build-glossary            web/data/glossary.json               [M] regenerated
 #   cdcp build-learn-slugs         web/data/module_learn_slugs.js       [M] regenerated
@@ -65,11 +66,13 @@ skipped_step() { STEP_SKIPPED=$((STEP_SKIPPED + 1)); echo "check.sh: skip: $*"; 
 # quietly does nothing is the same fooled certificate as a gate that quietly
 # scans nothing.
 #
-# Re-entrancy: selftest_reconstructed.sh runs this script again in the SAME root,
-# five times. CDCP_CHECK_LOCK_HELD carries the held lock path to those
-# descendants so they run under the ancestor's lock instead of deadlocking on it.
-# `substrate-guard --prove-wired` runs check.sh from a tree materialised under
-# target/ — a different ROOT, hence a different lock, taken independently.
+# Re-entrancy: selftest_reconstructed.sh used to re-enter this script in the
+# SAME root, five times. As of bd-791t it re-enters from a private tree
+# (different ROOT, different lock, taken independently) and unsets
+# CDCP_CHECK_LOCK_HELD so the child cannot mistake the live lock for its own.
+# CDCP_CHECK_LOCK_HELD still exists for any same-root descendant.
+# `substrate-guard --prove-wired` also runs check.sh from a tree materialised
+# under target/ — a different ROOT, hence a different lock, taken independently.
 LOCK_DIR="$ROOT/target/check.lock"
 LOCK_HELD=0
 # CDCP_CHECK_LOCK_DIR relocates the lock for the L4 selftest below and NOWHERE
@@ -419,14 +422,100 @@ case "$honesty_rc" in
 esac
 ok "honesty string smoke"
 
-# Crosswalk: all primary domains 01-14 appear
-for d in 01-mission-critical 02-standards 03-site-building 04-floor-ceiling \
-  05-lighting 06-power 07-emf 08-racks 09-cooling 10-water \
-  11-network 12-fire 13-security 14-auxiliary
-do
-  grep -q "domain = \"$d\"" knowledge/standards_crosswalk.toml || fail "crosswalk missing $d"
-done
-ok "standards crosswalk covers domains 01-14"
+# Crosswalk: every domain the registry declares appears (bd-smvb / bd-lt7).
+# Same source verify_coverage uses — knowledge/domains.toml — never a 01-14
+# literal. Module 15 exists; a bound that cannot see it stays green by luck.
+#
+# declared_domain_ids FILE
+#   Prints "COUNT id1 id2 ..." for unindented-or-indented `id = "..."` lines.
+#   Missing file or zero ids is ERROR (vacuous crosswalk is not a pass).
+declared_domain_ids() {
+  _dd_file="$1"
+  if [ ! -f "$_dd_file" ]; then
+    echo "declared_domain_ids: not a file: $_dd_file" >&2
+    return 2
+  fi
+  _dd_n=0
+  _dd_ids=""
+  while IFS= read -r _dd_line || [ -n "$_dd_line" ]; do
+    _dd_trim="${_dd_line#"${_dd_line%%[![:space:]]*}"}"
+    case "$_dd_trim" in
+      id\ =\ \"*\")
+        _dd_id="${_dd_trim#id = \"}"
+        _dd_id="${_dd_id%%\"*}"
+        [ -n "$_dd_id" ] || continue
+        _dd_ids="$_dd_ids $_dd_id"
+        _dd_n=$((_dd_n + 1))
+        ;;
+    esac
+  done < "$_dd_file"
+  if [ "$_dd_n" -eq 0 ]; then
+    echo "declared_domain_ids: zero domain ids in $_dd_file — vacuous crosswalk is ERROR" >&2
+    return 2
+  fi
+  echo "$_dd_n$_dd_ids"
+  return 0
+}
+
+# crosswalk_covers_declared DOMAINS CROSSWALK
+#   Every derived id must appear as `domain = "ID"` in the crosswalk.
+crosswalk_covers_declared() {
+  _cc_dom="$1"
+  _cc_xw="$2"
+  if [ ! -f "$_cc_xw" ]; then
+    echo "crosswalk_covers_declared: not a file: $_cc_xw" >&2
+    return 2
+  fi
+  _cc_got="$(declared_domain_ids "$_cc_dom")" || return 2
+  _cc_n="${_cc_got%% *}"
+  _cc_ids="${_cc_got#* }"
+  [ -n "$_cc_ids" ] || {
+    echo "crosswalk_covers_declared: no ids after count — vacuous crosswalk is ERROR" >&2
+    return 2
+  }
+  for _cc_d in $_cc_ids; do
+    if ! grep -q "domain = \"$_cc_d\"" "$_cc_xw"; then
+      echo "crosswalk missing $_cc_d" >&2
+      return 2
+    fi
+  done
+  echo "$_cc_n"
+  return 0
+}
+
+_xw_n="$(crosswalk_covers_declared knowledge/domains.toml knowledge/standards_crosswalk.toml)" \
+  || fail "standards crosswalk missing a domain the registry declares"
+
+# L4: these functions must trip. A parser that always succeeds would pass the
+# live tree and never notice a missing row; the plants make a crash ≠ a pass.
+_xw_plant="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_xw_plant.XXXXXX")"
+_xw_selftest_cleanup() { rm -rf "$_xw_plant"; }
+
+# (a) empty registry → ERROR
+: >"$_xw_plant/empty.toml"
+if declared_domain_ids "$_xw_plant/empty.toml" >/dev/null; then
+  _xw_selftest_cleanup
+  fail "declared_domain_ids stayed GREEN on an empty domains file"
+fi
+
+# (b) a declared id missing from the crosswalk → RED
+printf '%s\n' '[[domain]]' 'id = "99-missing"' 'order = 99' >"$_xw_plant/dom.toml"
+printf '%s\n' '[[map]]' 'domain = "01-other"' >"$_xw_plant/xw.toml"
+if crosswalk_covers_declared "$_xw_plant/dom.toml" "$_xw_plant/xw.toml" >/dev/null; then
+  _xw_selftest_cleanup
+  fail "crosswalk_covers_declared stayed GREEN when 99-missing was absent"
+fi
+
+# (c) green control: a formatted pair must pass (always-fail would spoof the plants)
+printf '%s\n' '[[domain]]' 'id = "01-ok"' 'order = 1' >"$_xw_plant/ok_dom.toml"
+printf '%s\n' 'domain = "01-ok"' >"$_xw_plant/ok_xw.toml"
+if ! crosswalk_covers_declared "$_xw_plant/ok_dom.toml" "$_xw_plant/ok_xw.toml" >/dev/null; then
+  _xw_selftest_cleanup
+  fail "crosswalk_covers_declared went RED on a matching domains/crosswalk pair"
+fi
+
+_xw_selftest_cleanup
+ok "standards crosswalk covers every domain the registry declares (n=$_xw_n)"
 
 # Topics non-empty
 topic_count="$(grep -c '^\[\[topic\]\]' knowledge/topics.toml || true)"

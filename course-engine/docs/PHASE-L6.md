@@ -27,7 +27,7 @@ W0–L5 green · `scorecards/L5.json` · hub/learn/quiz/drill/mock/results · WA
 | S2 | Mastery state: practiced 80% · mastery 90%×2≥24h | — |
 | S3 | Results weak_modules → Learn deep links | — |
 | S4 | Hub mastery dashboard + next-module recommend | S2, S3 |
-| S5 | Multi-seed assemble export + mock seed UI (`export-web --seed N`; only seed42 golden-pinned) | — |
+| S5 | Multi-seed assemble export + mock seed UI (`export-web --seed N` always samples; no implicit fixture) [[fact:fact-export-web-implicit-fixture-at-seed-42=no]] | — |
 | S6 | Session shapes: Drill-10 due-only + Miss-review entry | S2 |
 | S7 | check.sh L6 + scorecards/L6.json + README truth | S1, S4, S5, S6 |
 

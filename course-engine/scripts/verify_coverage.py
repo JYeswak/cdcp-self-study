@@ -103,7 +103,7 @@ approved, the registry is empty, the policy file is missing, an exemption is
 malformed, any required module is below N, or the `--write-json` summary could
 not be written.
 
-Optional: --write-json PATH writes a machine-readable summary (e.g. web/data/coverage.json).
+Optional: --write-json PATH writes a machine-readable summary. Not a shipped product input (bd-smvb).
 
 Omitted --policy means "bank_policy.toml beside the domains file this run
 loaded", never the shipped knowledge/bank_policy.toml. A live-tree invocation
@@ -570,14 +570,13 @@ def main(argv: list[str] | None = None) -> int:
         "extra_counts": {str(k): scanned_counts[k] for k in extras},
         "shortfalls": shortfalls,
         "oq05_default_n": DEFAULT_N,
-        # The regeneration command lives IN the artifact. web/data/coverage.json
-        # was hand-authored before 2026-08-14 and had drifted from the bank on
-        # three numbers; a machine ledger that only a human can refresh is a
-        # ledger that will be wrong.
+        # The note must not name a tracked path or a regenerate command that
+        # can go stale when the producer changes (bd-smvb). --write-json is an
+        # optional operator dump, not a shipped product input.
         "note": (
             "Coverage ≠ exam pass probability; study signal only. "
-            "Regenerate via: python3 scripts/verify_coverage.py "
-            "--write-json web/data/coverage.json"
+            "Optional --write-json operator summary; not a shipped "
+            "product input."
         ),
     }
 

@@ -200,8 +200,8 @@ const OPTIONS: &[&str] = &["--bank", "--policy", "--domains", "--write-json"];
 
 /// The oracle's `note` field, spelled exactly as the Python concatenates it.
 const JSON_NOTE: &str = "Coverage ≠ exam pass probability; study signal only. \
-                         Regenerate via: python3 scripts/verify_coverage.py \
-                         --write-json web/data/coverage.json";
+                         Optional --write-json operator summary; not a shipped \
+                         product input.";
 
 // ── Python-behaviour emulations ────────────────────────────────────────────
 // Each of these exists because the port's acceptance bar is byte-identical

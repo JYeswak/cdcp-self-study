@@ -48,6 +48,10 @@
       <a class="card" href="learn.html">
         <span class="card__label">Modules</span>
         <span class="card__title">Learn</span>
+        <!-- bd-smvb: "14" is the EPI syllabus count (domains.toml rows
+             without exam_weight_unknown), not the Learn catalog size.
+             "+ ops expansions" is module 15. Deliberate. Gated by
+             crates/cdcp_learn/tests/stale_contract_prose.rs. -->
         <p class="card__desc">14 curriculum modules + ops expansions — local HTTP reader.</p>
       </a>
       <a class="card" href="drill.html">

@@ -44,7 +44,9 @@
 //!      non-zero, leave no artifact and no `.tmp` residue
 //!      (bd-verify-coverage-verdict-before-write-rk9n)
 //!   n) the ledger written from a COPY of the live tree is byte-identical
-//!      across the two AND equal to the tracked `web/data/coverage.json`
+//!      across the two. The tracked `web/data/coverage.json` was deleted
+//!      (bd-smvb): it had no product consumer and drifted. `--write-json`
+//!      remains an optional operator dump.
 //!   o) omitted `--policy` on an isolated `--bank`/`--domains` fixture does
 //!      NOT read the shipped `knowledge/bank_policy.toml` (bd-conu). The
 //!      leak named live modules 3–15. After bd-j98g the no-file path is
@@ -2430,9 +2432,13 @@ fn a_write_json_onto_a_directory_fails_after_the_temp_write_in_both() {
     assert_failed_write_is_silent_and_leaves_nothing("target is a directory", root, &target);
 }
 
-// ══ THE TRACKED LEDGER, WITHOUT TOUCHING THE LIVE TREE ════════════════════
+// ══ THE WRITTEN LEDGER, WITHOUT TOUCHING THE LIVE TREE ════════════════════
+//
+// bd-smvb: web/data/coverage.json is no longer a shipped artifact. The write
+// path is still compared across the two implementations. The live tree must
+// not grow the unread ledger back (crates/cdcp_learn/tests/stale_contract_prose.rs).
 
-const TRACKED_ARTIFACT: &str = "web/data/coverage.json";
+const WRITE_REL: &str = "out/coverage.json";
 
 /// Materialise every input this gate reads into TEMP, plus the oracle itself.
 ///
@@ -2468,14 +2474,14 @@ fn live_tree_copy(root: &Path, into: &Path) {
 }
 
 #[test]
-fn the_written_ledger_is_byte_identical_and_reproduces_the_tracked_artifact() {
+fn the_written_ledger_is_byte_identical_across_implementations() {
     let root = engine_root();
     let td = tempfile::tempdir().unwrap();
     let copy = td.path().join("tree");
     live_tree_copy(&root, &copy);
 
-    let target = copy.join(TRACKED_ARTIFACT);
-    let args = ["--write-json", TRACKED_ARTIFACT];
+    let target = copy.join(WRITE_REL);
+    let args = ["--write-json", WRITE_REL];
 
     let py = python(&copy, &args);
     let py_json = std::fs::read(&target).expect("the oracle wrote no ledger");
@@ -2495,20 +2501,6 @@ fn the_written_ledger_is_byte_identical_and_reproduces_the_tracked_artifact() {
     assert_eq!(py_json, rs_json, "the written ledger differs");
     COMPARED.fetch_add(1, Ordering::SeqCst);
 
-    // THE TIE-BACK THAT BUYS THE LIVE-TREE CLAIM. The bytes both sides produce
-    // are identical to the TRACKED artifact, so running either implementation
-    // in the live tree would be a no-op write — established read-only, without
-    // performing one.
-    let tracked = std::fs::read(root.join(TRACKED_ARTIFACT))
-        .unwrap_or_else(|e| panic!("the tracked ledger {TRACKED_ARTIFACT} is unreadable: {e}"));
-    assert_eq!(
-        String::from_utf8_lossy(&rs_json),
-        String::from_utf8_lossy(&tracked),
-        "the tracked {TRACKED_ARTIFACT} is not what this gate produces from the live \
-         inputs. A machine ledger that has drifted from its generator is a ledger \
-         nobody can trust; regenerate it in a tree copy and commit the bytes."
-    );
-
     // And the ledger carries BOTH populations, so a later reader cannot mistake
     // one for the other — the confusion this bead exists to end.
     let text = String::from_utf8_lossy(&rs_json);
@@ -2521,6 +2513,10 @@ fn the_written_ledger_is_byte_identical_and_reproduces_the_tracked_artifact() {
     ] {
         assert!(text.contains(key), "the ledger is missing {key}: {text}");
     }
+    assert!(
+        !text.contains("python3 scripts/verify_coverage.py"),
+        "the note must not name the python oracle as the regenerate path (bd-smvb): {text}"
+    );
 }
 
 // ── the harness must not be vacuously green ───────────────────────────────
