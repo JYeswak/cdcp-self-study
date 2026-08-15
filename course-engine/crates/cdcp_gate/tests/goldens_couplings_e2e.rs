@@ -123,7 +123,19 @@ pub struct Shape {
 pub fn build() -> Map {
     let mut m = Map::new();
     m.insert("alpha".into(), 1);
+    // Planted known-bad for the retired scrape: an error-message `.into()`
+    // must NOT enter the keys pin. The pin is the serialised pack below.
+    let _err: String = "missing from bank".into();
     json!({ "beta": 2 })
+}
+"#;
+
+/// The serialised output `demo.shape`'s `keys` pin is derived FROM.
+/// Values (including error strings) are not keys. Key order is BTreeMap
+/// at each object — `alpha` then `beta`.
+const DEMO_PACK: &str = r#"{
+  "alpha": 1,
+  "beta": "missing from bank"
 }
 "#;
 
@@ -167,6 +179,7 @@ impl Repo {
         let root = dir.path().canonicalize().expect("canonicalize");
         let r = Repo { _dir: dir, root };
         r.write("crates/demo/src/lib.rs", DEMO_SRC);
+        r.write("crates/demo/pack.json", DEMO_PACK);
         r.write("Cargo.lock", DEMO_LOCK);
         for (p, body) in GOLDEN_FILES {
             r.write(p, body);
@@ -213,8 +226,8 @@ impl Repo {
             gc::extract_fields(&src[a..b])
         };
         let keys = {
-            let (a, b) = gc::find_region(&src, "build").expect("build region");
-            gc::extract_key_literals(&src[a..b])
+            let pack = std::fs::read_to_string(self.path("crates/demo/pack.json")).unwrap();
+            gc::extract_json_keys(&pack, "$").expect("demo pack is JSON")
         };
         let konst = {
             let (a, b) = gc::find_region(&src, "DEMO_VERSION").expect("const region");
@@ -303,7 +316,7 @@ fn ledger(spec: &LedgerSpec) -> String {
          justification = \"{LONG}\"\n\
          [[surface.pin]]\nkind = \"const\"\nfile = \"crates/demo/src/lib.rs\"\nsymbol = \"DEMO_VERSION\"\nexpect = [{:?}]\n\
          [[surface.pin]]\nkind = \"fields\"\nfile = \"crates/demo/src/lib.rs\"\nsymbol = \"Shape\"\nexpect = [{}]\n\
-         [[surface.pin]]\nkind = \"keys\"\nfile = \"crates/demo/src/lib.rs\"\nsymbol = \"build\"\nexpect = [{}]\n\
+         [[surface.pin]]\nkind = \"keys\"\nfile = \"crates/demo/pack.json\"\nsymbol = \"$\"\nexpect = [{}]\n\
          [[surface.pin]]\nkind = \"region\"\nfile = \"crates/demo/src/lib.rs\"\nsymbol = \"build\"\ndigest = \"{}\"\n\n\
          [[surface]]\nid = \"demo.prng\"\ntitle = \"demo prng\"\nversion = \"AUTO_PRNG\"\n\
          justification = \"{LONG}\"\n\
@@ -418,15 +431,75 @@ fn bad_a_field_added_to_a_pinned_struct_is_red_and_names_both_sides() {
 }
 
 #[test]
-fn bad_a_changed_builder_key_is_red() {
+fn bad_a_changed_artifact_key_is_red() {
     let r = Repo::new();
     r.write(
-        "crates/demo/src/lib.rs",
-        &DEMO_SRC.replace("\"alpha\".into()", "\"alpha_renamed\".into()"),
+        "crates/demo/pack.json",
+        &DEMO_PACK.replace("\"alpha\"", "\"alpha_renamed\""),
     );
     let (code, out) = r.gate(&["goldens-couplings"]);
     assert_eq!(code, VIOLATION, "{out}");
     assert!(out.contains("alpha_renamed"), "{out}");
+    assert!(out.contains("emitted key"), "{out}");
+}
+
+/// Known-bad (a): a non-key literal — an error-message `.into()` in the
+/// emitter, and the same string as a JSON *value* — must NOT enter the pin.
+/// The self-consistent ledger already plants both; green here is the proof.
+#[test]
+fn bad_an_error_message_into_does_not_enter_the_key_pin() {
+    let r = Repo::new();
+    let src = std::fs::read_to_string(r.path("crates/demo/src/lib.rs")).unwrap();
+    assert!(
+        src.contains("\"missing from bank\".into()"),
+        "the fixture must plant the error-message .into() or this test is vacuous"
+    );
+    let pack = std::fs::read_to_string(r.path("crates/demo/pack.json")).unwrap();
+    assert!(
+        pack.contains("missing from bank"),
+        "the fixture must plant the error string as a JSON value or this test is vacuous"
+    );
+    let keys = gc::extract_json_keys(&pack, "$").expect("demo pack is JSON");
+    assert_eq!(keys, ["alpha", "beta"]);
+    assert!(
+        !keys.iter().any(|k| k.contains("missing from bank")),
+        "error-message string entered the pin: {keys:?}"
+    );
+    let (code, out) = r.gate(&["goldens-couplings"]);
+    assert_eq!(
+        code, OK,
+        "an error-message .into() in the emitter must not trip the keys pin:\n{out}"
+    );
+}
+
+/// Known-bad (b): a key that exists only on the artifact (the route the
+/// retired scrape could not see — a helper / const / format!) MUST enter.
+/// Expect stays at [alpha, beta]; the extra key makes the pin RED rather
+/// than quietly shrinking.
+#[test]
+fn bad_a_helper_emitted_key_must_enter_or_the_pin_is_red() {
+    let r = Repo::new();
+    r.write(
+        "crates/demo/pack.json",
+        r#"{
+  "alpha": 1,
+  "beta": 2,
+  "from_helper": true
+}
+"#,
+    );
+    let keys = gc::extract_json_keys(
+        &std::fs::read_to_string(r.path("crates/demo/pack.json")).unwrap(),
+        "$",
+    )
+    .expect("pack is JSON");
+    assert!(
+        keys.iter().any(|k| k == "from_helper"),
+        "deriver cannot see a helper-emitted key — retire it, do not paper over: {keys:?}"
+    );
+    let (code, out) = r.gate(&["goldens-couplings"]);
+    assert_eq!(code, VIOLATION, "{out}");
+    assert!(out.contains("from_helper"), "{out}");
     assert!(out.contains("emitted key"), "{out}");
 }
 
@@ -730,6 +803,15 @@ fn anti_vacuous_a_surface_with_no_pins_is_an_error() {
     let (code, out) = r.gate(&["goldens-couplings"]);
     assert_eq!(code, ERROR, "{out}");
     assert!(out.contains("empty `pin`"), "{out}");
+}
+
+#[test]
+fn anti_vacuous_zero_json_keys_is_an_error_not_a_pass() {
+    let r = Repo::new();
+    r.write("crates/demo/pack.json", "{}\n");
+    let (code, out) = r.gate(&["goldens-couplings"]);
+    assert_eq!(code, VIOLATION, "{out}");
+    assert!(out.contains("zero emitted keys"), "{out}");
 }
 
 #[test]

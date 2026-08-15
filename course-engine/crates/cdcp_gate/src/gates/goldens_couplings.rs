@@ -9,11 +9,12 @@
 //! Concretely, `registries/goldens-couplings.toml` holds two kinds of row:
 //!
 //! * `[[surface]]` — a named semantic surface, with one or more PINS that are
-//!   re-extracted from source on every run: a `const` literal, a `struct` field
-//!   list, the string keys a builder function emits, a sha256 over a normalised
+//!   re-extracted on every run: a `const` literal, a `struct` field list, the
+//!   object-key set of a serialised JSON artifact (`keys` — a property of the
+//!   OUTPUT, never a syntax scrape of the emitter), a sha256 over a normalised
 //!   named source region, or the resolved version of a locked dependency. A pin
 //!   that no longer matches the tree is RED, naming the registry side and the
-//!   source side.
+//!   source (or artifact) side.
 //! * `[[golden]]` — a frozen artifact, pinned by the sha256 of its bytes, with a
 //!   non-empty `depends_on` list naming surfaces AT A VERSION, and a written
 //!   justification.
@@ -52,6 +53,25 @@
 //! behaviour, and a semantics change all read the same and all demand a
 //! deliberate re-affirmation. That is a cost, chosen on purpose — the failure
 //! being cured is a semantics change that read as nothing at all.
+//!
+//! `keys` is the one kind that does **not** scrape source. It was retired from
+//! `"...".into()` / `json!` literal collection (bd-extract-key-literals-overmatch-4pak)
+//! because that heuristic had both failure directions and taught authors to
+//! route around it: an error-message `.into()` entered the pin (false
+//! positive), and a key emitted via a const / `format!` / helper was silently
+//! absent (false negative — the fooled certificate). The pin is now the
+//! object-key set of the serialised artifact. A key the deriver cannot see
+//! cannot exist in the artifact, so it cannot be omitted; a non-key string
+//! cannot exist as an object key, so it cannot enter. An empty key set is an
+//! ERROR.
+//!
+//! The same asymmetry on the other kinds, reported not papered over:
+//! `fields` misses macro-generated and `#[serde(flatten)]` fields (fail open);
+//! `const` records the assigned token stream, not a computed value; `region`
+//! is source-identity of that item only — a helper *outside* the region can
+//! change behaviour without moving the digest; `lockdep` reads `Cargo.lock`
+//! (an artifact) and does not have this hole. `toml_array_contains` lives on
+//! the doc-facts gate and fail-opens on a dynamically built array.
 //!
 //! It **cannot decide that the goldens are actually consulted by anything.**
 //! Whether `scripts/check.sh` still runs `goldens check` is settled by the
@@ -509,40 +529,105 @@ pub fn extract_fields(region: &str) -> Vec<String> {
     out
 }
 
-/// String literals used as KEYS in a region, in emission order: a literal
-/// followed by `:` (a `json!` key) or by `.into()` (a map insert).
-pub fn extract_key_literals(region: &str) -> Vec<String> {
-    let bytes = region.as_bytes();
+/// Is `symbol` a JSON selector a `keys` pin may carry: `$` (the whole
+/// document) or a JSON pointer starting with `/`.
+pub fn is_json_selector(symbol: &str) -> bool {
+    let s = symbol.trim();
+    s == "$" || s.starts_with('/')
+}
+
+/// Object keys of a serialised JSON artifact, unique, in first-seen preorder.
+///
+/// This is what a `keys` pin is derived FROM. It is a property of the
+/// artifact, not of the emitter's syntax: a `"...".into()` in an error path
+/// cannot enter (it is not an object key), and a key produced by a helper,
+/// a `const`, or a `format!` cannot be omitted (it is in the JSON if it was
+/// emitted). `serde_json::Map` is a `BTreeMap`, so each object's own keys
+/// are visited in sorted order; first-seen across the walk is therefore
+/// deterministic even when the file was written with a different key order.
+///
+/// `selector` is `$` (the whole document) or a JSON pointer. The walk starts
+/// at the selected node and recurses through every object and array beneath
+/// it. An empty key set is returned as `Ok([])` so the caller can treat it
+/// as the anti-vacuous ERROR it is, distinct from a parse failure.
+pub fn extract_json_keys(text: &str, selector: &str) -> Result<Vec<String>, String> {
+    let value: serde_json::Value = serde_json::from_str(text).map_err(|e| {
+        format!(
+            "not JSON ({e}) — a `keys` pin is derived from serialised output, not from source text"
+        )
+    })?;
+    let node = json_select(&value, selector)?;
     let mut out = Vec::new();
-    let mut i = 0usize;
-    while i < bytes.len() {
-        match bytes[i] {
-            b'/' if bytes.get(i + 1) == Some(&b'/') => {
-                while i < bytes.len() && bytes[i] != b'\n' {
-                    i += 1;
-                }
-            }
-            b'"' => {
-                let Some(end) = skip_string(bytes, i) else {
-                    break;
-                };
-                let content = &region[i + 1..end - 1];
-                let mut j = end;
-                while j < bytes.len() && (bytes[j] as char).is_whitespace() {
-                    j += 1;
-                }
-                let is_json_key = bytes.get(j) == Some(&b':') && bytes.get(j + 1) != Some(&b':');
-                let is_insert = region[j..].starts_with(".into()");
-                if is_json_key || is_insert {
-                    out.push(content.to_string());
-                }
-                i = end;
-            }
-            b'\'' => i = skip_char_or_lifetime(bytes, i),
-            _ => i += 1,
-        }
+    let mut seen = BTreeSet::new();
+    walk_json_keys(node, &mut out, &mut seen);
+    Ok(out)
+}
+
+/// Resolve `$` or a JSON pointer against `root`. `~0` / `~1` unescaping is
+/// applied; a token that does not exist is an error, never a silent empty.
+pub fn json_select<'a>(
+    root: &'a serde_json::Value,
+    selector: &str,
+) -> Result<&'a serde_json::Value, String> {
+    let selector = selector.trim();
+    if selector.is_empty() {
+        return Err("empty JSON selector — a `keys` pin must name `$` or a JSON pointer".into());
     }
-    out
+    if selector == "$" {
+        return Ok(root);
+    }
+    if !selector.starts_with('/') {
+        return Err(format!(
+            "JSON selector {selector:?} is neither `$` nor a JSON pointer starting with `/`"
+        ));
+    }
+    let mut cur = root;
+    for raw in selector[1..].split('/') {
+        let token = raw.replace("~1", "/").replace("~0", "~");
+        cur = match cur {
+            serde_json::Value::Object(map) => map
+                .get(&token)
+                .ok_or_else(|| format!("JSON pointer {selector:?} has no object key {token:?}"))?,
+            serde_json::Value::Array(arr) => {
+                let i: usize = token.parse().map_err(|_| {
+                    format!(
+                        "JSON pointer {selector:?} indexes an array with {token:?}, which is not a position"
+                    )
+                })?;
+                arr.get(i).ok_or_else(|| {
+                    format!(
+                        "JSON pointer {selector:?} indexes array position {i}, which does not exist (len {})",
+                        arr.len()
+                    )
+                })?
+            }
+            _ => {
+                return Err(format!(
+                    "JSON pointer {selector:?} walked into a non-container at token {token:?}"
+                ))
+            }
+        };
+    }
+    Ok(cur)
+}
+
+fn walk_json_keys(v: &serde_json::Value, out: &mut Vec<String>, seen: &mut BTreeSet<String>) {
+    match v {
+        serde_json::Value::Object(map) => {
+            for (k, child) in map {
+                if seen.insert(k.clone()) {
+                    out.push(k.clone());
+                }
+                walk_json_keys(child, out, seen);
+            }
+        }
+        serde_json::Value::Array(xs) => {
+            for x in xs {
+                walk_json_keys(x, out, seen);
+            }
+        }
+        _ => {}
+    }
 }
 
 /// The literal a `const`/`static` region assigns, whitespace collapsed.
@@ -882,6 +967,20 @@ fn pin_schema_errors(at: &str, p: &Pin, v: &mut Vec<String>) {
         }
         _ => {}
     }
+    if kind == "keys" {
+        let file = p.file.trim();
+        if file.ends_with(".rs") {
+            v.push(format!(
+                "{at}: a `keys` pin is derived from serialised JSON, not from a Rust source scrape — pointing it at {file:?} is the overmatch this kind was retired to end"
+            ));
+        }
+        if !is_json_selector(&p.symbol) {
+            v.push(format!(
+                "{at}: a `keys` pin names a JSON selector (`$` for the whole document, or a JSON pointer), not a Rust item; got {:?}",
+                p.symbol.trim()
+            ));
+        }
+    }
     if kind != "lockdep" && !p.via.trim().is_empty() {
         v.push(format!("{at}: `via` belongs to a `lockdep` pin only"));
     }
@@ -1111,6 +1210,17 @@ fn evaluate_pin(at: &str, p: &Pin, w: &World<'_>, rep: &mut Report) {
         return;
     }
 
+    // `keys` is a property of the serialised artifact. Do not fall through to
+    // find_region — that would scrape the emitter, which is the hole this
+    // kind was retired from.
+    if p.kind.trim() == "keys" {
+        match extract_json_keys(&text, symbol) {
+            Err(e) => rep.violations.push(format!("{at}: {file}::{symbol} {e}")),
+            Ok(actual) => compare_list(at, file, symbol, "emitted key", &actual, p, rep),
+        }
+        return;
+    }
+
     let Some((a, b)) = find_region(&text, symbol) else {
         rep.violations.push(format!(
             "{at}: {file} no longer declares {symbol:?} — a coupling that names a surface constant which does not exist cannot be checked, and must never read as checked"
@@ -1140,15 +1250,6 @@ fn evaluate_pin(at: &str, p: &Pin, w: &World<'_>, rep: &mut Report) {
             Some(_) => {}
         },
         "fields" => compare_list(at, file, symbol, "field", &extract_fields(region), p, rep),
-        "keys" => compare_list(
-            at,
-            file,
-            symbol,
-            "emitted key",
-            &extract_key_literals(region),
-            p,
-            rep,
-        ),
         _ => {}
     }
 }
@@ -1392,12 +1493,60 @@ pub fn payload() -> Map {
     }
 
     #[test]
-    fn keys_are_insert_and_json_literals_only() {
-        let (a, b) = find_region(SRC, "payload").expect("payload");
-        assert_eq!(
-            extract_key_literals(&SRC[a..b]),
-            ["id", "module", "wrapped", "n"]
+    fn json_keys_are_object_keys_not_string_values() {
+        // First-seen preorder, BTreeMap order at each object: envelope then
+        // the first nested object's keys. String VALUES (the error message)
+        // must not enter. A key produced only as JSON (the helper route the
+        // old scrape could not see) must.
+        let json = r#"{
+            "id": "x",
+            "module": 1,
+            "note": "missing from bank",
+            "items": [{"from_helper": true, "id": "x"}]
+        }"#;
+        let keys = extract_json_keys(json, "$").expect("parse");
+        assert_eq!(keys, ["id", "items", "from_helper", "module", "note"]);
+        assert!(
+            !keys.iter().any(|k| k.contains("missing from bank")),
+            "an error-message string value must not enter the key pin: {keys:?}"
         );
+        assert!(
+            keys.iter().any(|k| k == "from_helper"),
+            "a key that exists only on the artifact (helper/const/format!) must enter: {keys:?}"
+        );
+    }
+
+    #[test]
+    fn json_keys_of_an_empty_object_are_empty_so_compare_list_can_fail() {
+        assert_eq!(extract_json_keys("{}", "$").unwrap(), [] as [String; 0]);
+        assert_eq!(extract_json_keys("[]", "$").unwrap(), [] as [String; 0]);
+        assert_eq!(extract_json_keys("\"id\"", "$").unwrap(), [] as [String; 0]);
+    }
+
+    #[test]
+    fn a_keys_pin_on_rust_source_is_a_schema_error() {
+        let s = surface(vec![pin("keys", "$", &["id"], "")]);
+        // pin() defaults file to src/lib.rs — that is the retired scrape.
+        let g = golden(vec![("x.y", &s.version.clone())]);
+        let l = Ledger {
+            schema_version: 1,
+            policy: Policy {
+                affirmation_days: 365,
+            },
+            surface: vec![s],
+            golden: vec![g],
+        };
+        let errs = schema_errors(&l);
+        assert!(
+            errs.iter()
+                .any(|e| e.contains("serialised JSON") && e.contains("src/lib.rs")),
+            "{errs:?}"
+        );
+    }
+
+    #[test]
+    fn rust_source_is_not_silently_read_as_a_key_set() {
+        assert!(extract_json_keys(SRC, "$").is_err());
     }
 
     #[test]

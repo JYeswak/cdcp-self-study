@@ -284,6 +284,7 @@ version = "0.1.0"
 dependencies = [
  "cdcp_learn",
  "serde",
+ "serde_json",
  "tempfile",
  "toml",
 ]
