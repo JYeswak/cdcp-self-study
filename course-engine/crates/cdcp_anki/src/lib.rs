@@ -213,7 +213,7 @@ pub fn deck_clock() -> Result<i64, AnkiError> {
             let value: i64 = raw.parse().map_err(|_| {
                 AnkiError::msg(format!("SOURCE_DATE_EPOCH is not an integer: {raw:?}"))
             })?;
-            if value < ZIP_DOS_MIN || value > ZIP_DOS_MAX {
+            if !(ZIP_DOS_MIN..=ZIP_DOS_MAX).contains(&value) {
                 return Err(AnkiError::msg(format!(
                     "SOURCE_DATE_EPOCH {value} is outside the zip DOS range [{ZIP_DOS_MIN}, {ZIP_DOS_MAX}]"
                 )));
@@ -223,8 +223,12 @@ pub fn deck_clock() -> Result<i64, AnkiError> {
     }
 }
 
+/// UTC calendar components for a zip DOS timestamp.
+/// `(year, month, day, hour, min, sec)` — TZ-independent (never localtime).
+pub type ZipDateTime = (i32, u32, u32, u32, u32, u32);
+
 /// UTC calendar tuple for a zip DOS timestamp. TZ-independent (never localtime).
-pub fn zip_date_time(epoch: i64) -> (i32, u32, u32, u32, u32, u32) {
+pub fn zip_date_time(epoch: i64) -> ZipDateTime {
     let days = epoch.div_euclid(86_400);
     let rem = epoch.rem_euclid(86_400);
     let hour = (rem / 3_600) as u32;
@@ -313,7 +317,7 @@ fn write_tsv_body(items: &[Card]) -> String {
     out.push_str(TSV_COMMENT_2);
     for it in items {
         let [stem, answer, explanation, module] = card_fields(it);
-        let flat = |s: String| s.replace('\t', " ").replace('\n', " ");
+        let flat = |s: String| s.replace(['\t', '\n'], " ");
         out.push_str(&csv_row(
             &[flat(stem), flat(answer), flat(explanation), module],
             '\t',
@@ -1114,9 +1118,7 @@ pub fn write_apkg(items: &[Card], deck_name: &str, now: i64) -> Result<Vec<u8>, 
 }
 
 /// `(col.crt, col.mod, col.scm, zip date_time of collection.anki2)`.
-pub fn peek_apkg(
-    bytes: &[u8],
-) -> Result<(i64, i64, i64, (i32, u32, u32, u32, u32, u32)), AnkiError> {
+pub fn peek_apkg(bytes: &[u8]) -> Result<(i64, i64, i64, ZipDateTime), AnkiError> {
     let (db, date_time) = unzip_collection(bytes)?;
     let tmp = tmp_anki2("peek");
     let _ = fs::remove_file(&tmp);
@@ -1134,7 +1136,7 @@ pub fn peek_apkg(
     Ok((crt, mod_, scm, date_time))
 }
 
-fn unzip_collection(bytes: &[u8]) -> Result<(Vec<u8>, (i32, u32, u32, u32, u32, u32)), AnkiError> {
+fn unzip_collection(bytes: &[u8]) -> Result<(Vec<u8>, ZipDateTime), AnkiError> {
     if bytes.len() < 30 {
         return Err(AnkiError::msg("apkg too short"));
     }
