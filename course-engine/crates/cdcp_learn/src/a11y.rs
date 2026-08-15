@@ -27,15 +27,18 @@
 //! `UnicodeDecodeError` on invalid UTF-8 and printed a traceback
 //! (`bd-a11y-undecodable-raises-6jmi`). Closed here: that is a FAIL row.
 //!
-//! This is a READER: it writes nothing. It is a marker census over raw
-//! bytes, not a tree walk and not an axe run. `.parked-wave8/` stays parked.
+//! This is a READER: it writes nothing. It is a marker census over
+//! comment-stripped source, not a tree walk and not an axe run.
+//! `.parked-wave8/` stays parked.
 //!
 //! # What this cannot decide
 //!
 //! Accessibility. Position, contrast, labels, heading order, alt text, tab
-//! order, ARIA correctness, motion. A marker inside an HTML comment still
-//! satisfies a raw-text search (`bd-a11y-comment-blind-udze`, unrepaired).
-//! Only the shells named below are scanned — `web/learn/*.html` is outside.
+//! order, ARIA correctness, motion. HTML comments and `<script>` / `<style>`
+//! bodies are stripped before the census (`bd-a11y-comment-blind-udze`): a
+//! marker that exists only there does not satisfy. A marker in an attribute
+//! string or a `display:none` element still would. Only the shells named
+//! below are scanned — `web/learn/*.html` is outside.
 
 #![forbid(unsafe_code)]
 
@@ -462,10 +465,99 @@ pub fn has_touch_min(ch: &[char]) -> bool {
         .any(|i| boundary(ch, i + n))
 }
 
+// ── ignore comments / hidden hosts before the census ───────────────────────
+
+/// Drop `<!-- ... -->` and `<script>` / `<style>` element bodies.
+///
+/// A marker that exists only in those hosts is not in the DOM the learner
+/// tabs through. Unclosed comment / script / style consumes the rest of
+/// the file (fail-closed: hidden text cannot go green).
+pub fn strip_ignored_markup(text: &str) -> String {
+    let ch: Vec<char> = text.chars().collect();
+    let n = ch.len();
+    let mut out = String::with_capacity(text.len());
+    let mut i = 0;
+    while i < n {
+        if lit_at(&ch, i, "<!--", false).is_some() {
+            i += 4;
+            while i < n && lit_at(&ch, i, "-->", false).is_none() {
+                i += 1;
+            }
+            if i < n {
+                i += 3;
+            }
+            continue;
+        }
+        if let Some(open_end) = tag_open_end(&ch, i, "script") {
+            i = tag_close_end(&ch, open_end, "script").unwrap_or(n);
+            continue;
+        }
+        if let Some(open_end) = tag_open_end(&ch, i, "style") {
+            i = tag_close_end(&ch, open_end, "style").unwrap_or(n);
+            continue;
+        }
+        out.push(ch[i]);
+        i += 1;
+    }
+    out
+}
+
+/// `<name` + (space | `/` | `>`) … `>`. Quotes hide a `>` in an attribute.
+fn tag_open_end(ch: &[char], i: usize, name: &str) -> Option<usize> {
+    if ch.get(i) != Some(&'<') {
+        return None;
+    }
+    let after = lit_at(ch, i + 1, name, true)?;
+    match ch.get(after) {
+        Some(c) if py_space(*c) || *c == '/' || *c == '>' => {}
+        _ => return None,
+    }
+    let mut k = after;
+    let mut quote: Option<char> = None;
+    while k < ch.len() {
+        let c = ch[k];
+        if let Some(q) = quote {
+            if c == q {
+                quote = None;
+            }
+        } else if is_quote(c) {
+            quote = Some(c);
+        } else if c == '>' {
+            return Some(k + 1);
+        }
+        k += 1;
+    }
+    None
+}
+
+/// First `</name` … `>` at or after `start`.
+fn tag_close_end(ch: &[char], start: usize, name: &str) -> Option<usize> {
+    let mut k = start;
+    while k < ch.len() {
+        if ch[k] == '<' && ch.get(k + 1) == Some(&'/') {
+            if let Some(after) = lit_at(ch, k + 2, name, true) {
+                if matches!(ch.get(after), Some(c) if py_space(*c) || *c == '>') {
+                    let mut e = after;
+                    while e < ch.len() && ch[e] != '>' {
+                        e += 1;
+                    }
+                    if e < ch.len() {
+                        return Some(e + 1);
+                    }
+                    return None;
+                }
+            }
+        }
+        k += 1;
+    }
+    None
+}
+
 // ── the smoke ──────────────────────────────────────────────────────────────
 
 pub fn check_page(rel: &str, text: &str) -> Vec<String> {
-    let ch: Vec<char> = text.chars().collect();
+    let visible = strip_ignored_markup(text);
+    let ch: Vec<char> = visible.chars().collect();
     let mut errors = Vec::new();
 
     if !has_skip_link(&ch) {
@@ -740,5 +832,51 @@ mod tests {
         );
         assert_eq!(errs.len(), 1, "{errs:?}");
         assert!(errs[0].contains("honesty-banner present but no non-grant"));
+    }
+
+    #[test]
+    fn comment_only_markers_do_not_satisfy_check_page() {
+        let html = concat!(
+            "<!--",
+            r#"<link href="assets/css/course.css"><a class="skip-link">x</a>"#,
+            r#"<div class="honesty-banner">study tool only</div><main>y</main>"#,
+            "-->",
+            "<html><body>visible but bare</body></html>",
+        );
+        let errs = check_page("web/x.html", html);
+        assert_eq!(errs.len(), 4, "{errs:?}");
+        assert!(html.contains("skip-link") && html.contains("honesty-banner"));
+        assert!(!strip_ignored_markup(html).contains("skip-link"));
+    }
+
+    #[test]
+    fn script_and_style_bodies_do_not_satisfy_check_page() {
+        let scripted = concat!(
+            "<script>",
+            r#"<link href="assets/css/course.css"><a class="skip-link">x</a>"#,
+            r#"<div class="honesty-banner">study tool only</div><main>y</main>"#,
+            "</script>",
+            "<p>bare</p>",
+        );
+        assert_eq!(check_page("web/x.html", scripted).len(), 4);
+        let styled = concat!(
+            "<style>",
+            r#"<link href="assets/css/course.css"><a class="skip-link">x</a>"#,
+            r#"<div class="honesty-banner">study tool only</div><main>y</main>"#,
+            "</style>",
+            "<p>bare</p>",
+        );
+        assert_eq!(check_page("web/x.html", styled).len(), 4);
+    }
+
+    #[test]
+    fn comment_beside_live_markers_does_not_hide_them() {
+        let html = concat!(
+            r#"<link href="assets/css/course.css">"#,
+            r#"<!-- <a class="skip-link">dead</a> -->"#,
+            r#"<a class="skip-link">x</a>"#,
+            r#"<div class="honesty-banner">study tool only</div><main>y</main>"#,
+        );
+        assert!(check_page("web/x.html", html).is_empty());
     }
 }

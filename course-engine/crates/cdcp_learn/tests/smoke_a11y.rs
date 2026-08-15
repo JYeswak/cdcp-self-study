@@ -8,9 +8,13 @@
 //! ANTI-VACUOUS: a missing `web/` is RED; an empty page / empty CSS is RED;
 //! zero pages scanned is RED; undecodable or unreadable input is a named
 //! FAIL, not a panic (bd-a11y-undecodable-raises-6jmi closed, not reproduced).
+//! A marker that exists only inside an HTML comment or a `<script>` /
+//! `<style>` body does not satisfy (bd-a11y-comment-blind-udze).
 //! A suite that ran no case is RED.
 
-use cdcp_learn::a11y::{run, CSS_REL, MIN_CHECKS, OPTIONAL_PAGES, REQUIRED_PAGES};
+use cdcp_learn::a11y::{
+    run, strip_ignored_markup, CSS_REL, MIN_CHECKS, OPTIONAL_PAGES, REQUIRED_PAGES,
+};
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicUsize, Ordering};
 
@@ -18,7 +22,7 @@ static RAN: AtomicUsize = AtomicUsize::new(0);
 static ROUND: AtomicUsize = AtomicUsize::new(0);
 
 /// Raise when you add a `#[test]`. A DROP means a case was deleted.
-const EXPECTED_CASES: usize = 21;
+const EXPECTED_CASES: usize = 24;
 
 fn engine_root() -> PathBuf {
     cdcp_learn::resolve_engine_root(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
@@ -505,6 +509,194 @@ fn the_reader_writes_nothing() {
     let _ = &f.dir;
 }
 
+/// Wrap the first occurrence of `needle` in an HTML comment.
+fn comment_wrap_first(src: &str, needle: &str) -> String {
+    let Some(i) = src.find(needle) else {
+        panic!("plant chrome drifted: missing {needle:?}");
+    };
+    let j = i + needle.len();
+    format!("{}<!-- {} -->{}", &src[..i], needle, &src[j..])
+}
+
+/// Wrap `start` through the first `end` after it in an HTML comment.
+fn comment_wrap_span(src: &str, start: &str, end: &str) -> String {
+    let Some(i) = src.find(start) else {
+        panic!("plant chrome drifted: missing start {start:?}");
+    };
+    let Some(rel) = src[i..].find(end) else {
+        panic!("plant chrome drifted: missing end {end:?} after {start:?}");
+    };
+    let j = i + rel + end.len();
+    format!("{}<!-- {} -->{}", &src[..i], &src[i..j], &src[j..])
+}
+
+/// Copy of a live shell with every census marker hosted only in a comment.
+fn comment_out_required_markers(src: &str) -> String {
+    let mut s = src.to_string();
+    s = comment_wrap_first(
+        &s,
+        r#"<link rel="stylesheet" href="assets/css/course.css">"#,
+    );
+    s = comment_wrap_first(
+        &s,
+        r##"<a class="skip-link" href="#main">Skip to main content</a>"##,
+    );
+    s = comment_wrap_span(&s, r#"<div class="honesty-banner""#, "</div>");
+    s = comment_wrap_span(&s, "<main", "</main>");
+    s = comment_wrap_span(&s, r#"<meta name="description""#, ">");
+    s
+}
+
+/// bd-a11y-comment-blind-udze: a live page whose only markers live in
+/// `<!-- ... -->` is RED, and the row names the page and the class.
+#[test]
+fn commented_out_markers_on_a_live_page_copy_are_red() {
+    tick();
+    let live =
+        std::fs::read_to_string(engine_root().join("web/index.html")).expect("live web/index.html");
+    for token in [
+        "skip-link",
+        "honesty-banner",
+        "<main",
+        "assets/css/course.css",
+        "Does not grant EPI/EXIN",
+    ] {
+        assert!(
+            live.contains(token),
+            "live index.html no longer carries {token:?} — plant would be vacuous"
+        );
+    }
+    let planted = comment_out_required_markers(&live);
+    assert!(
+        planted.contains("<!--"),
+        "plant must wrap markers, not delete them"
+    );
+    for token in [
+        "skip-link",
+        "honesty-banner",
+        "<main",
+        "assets/css/course.css",
+    ] {
+        assert!(
+            planted.contains(token),
+            "plant lost the raw marker bytes for {token:?}"
+        );
+        assert!(
+            !strip_ignored_markup(&planted).contains(token),
+            "strip_ignored_markup left {token:?} visible:\n{}",
+            strip_ignored_markup(&planted)
+        );
+    }
+
+    let f = green();
+    f.put("web/index.html", &planted);
+    let r = run(&f.root);
+    assert_ne!(
+        r.code, 0,
+        "commented-only markers must not PASS:\n{}",
+        r.stdout
+    );
+    assert!(r.stdout.contains("FAIL: smoke_a11y"), "{}", r.stdout);
+    for needle in [
+        "web/index.html: missing skip link (.skip-link or Skip to main content)",
+        "web/index.html: missing honesty banner (.honesty-banner) and meta honesty language",
+        "web/index.html: missing main/content landmark (<main> or role=main)",
+        "web/index.html: missing course.css stylesheet link",
+    ] {
+        assert!(
+            r.stdout.contains(needle),
+            "must name the page and the marker class {needle:?}:\n{}",
+            r.stdout
+        );
+    }
+    let _ = &f.dir;
+}
+
+/// Same hole, other host: a `<script>` string is not the DOM.
+#[test]
+fn markers_only_inside_script_are_red() {
+    tick();
+    let f = green();
+    f.put(
+        "web/quiz.html",
+        concat!(
+            "<!doctype html><html><head></head><body>\n",
+            "<script>\n",
+            "const chrome = `",
+            "<link rel=\"stylesheet\" href=\"assets/css/course.css\">",
+            "<a class=\"skip-link\" href=\"#main\">Skip to main content</a>",
+            "<div class=\"honesty-banner\">This is a study tool only.</div>",
+            "<main id=\"main\">body</main>",
+            "`;\n",
+            "</script>\n",
+            "<p>visible copy with no markers</p>\n",
+            "</body></html>\n",
+        ),
+    );
+    let r = run(&f.root);
+    assert_ne!(
+        r.code, 0,
+        "script-hosted markers must not PASS:\n{}",
+        r.stdout
+    );
+    assert!(
+        r.stdout
+            .contains("web/quiz.html: missing skip link (.skip-link or Skip to main content)"),
+        "{}",
+        r.stdout
+    );
+    assert!(
+        r.stdout.contains(
+            "web/quiz.html: missing honesty banner (.honesty-banner) and meta honesty language"
+        ),
+        "{}",
+        r.stdout
+    );
+    assert!(
+        r.stdout
+            .contains("web/quiz.html: missing main/content landmark (<main> or role=main)"),
+        "{}",
+        r.stdout
+    );
+    assert!(
+        r.stdout
+            .contains("web/quiz.html: missing course.css stylesheet link"),
+        "{}",
+        r.stdout
+    );
+    let _ = &f.dir;
+}
+
+/// A comment next to a live marker must not eat the live one.
+#[test]
+fn commented_duplicate_does_not_hide_live_markers() {
+    tick();
+    let f = green();
+    f.put(
+        "web/drill.html",
+        concat!(
+            "<!doctype html><html><head>\n",
+            "<!-- <link rel=\"stylesheet\" href=\"assets/css/course.css\"> -->\n",
+            "<link rel=\"stylesheet\" href=\"assets/css/course.css\">\n",
+            "</head><body>\n",
+            "<!-- <a class=\"skip-link\" href=\"#main\">Skip to main content</a> -->\n",
+            "<a class=\"skip-link\" href=\"#main\">Skip to main content</a>\n",
+            "<!-- <div class=\"honesty-banner\">This is a study tool only.</div> -->\n",
+            "<div class=\"honesty-banner\">This is a study tool only.</div>\n",
+            "<!-- <main id=\"main\">dead</main> -->\n",
+            "<main id=\"main\">body</main>\n",
+            "</body></html>\n",
+        ),
+    );
+    let r = run(&f.root);
+    assert_eq!(
+        r.code, 0,
+        "live markers beside comments must still PASS:\n{}",
+        r.stdout
+    );
+    let _ = &f.dir;
+}
+
 #[test]
 fn compiled_lists_are_not_empty() {
     tick();
@@ -525,7 +717,7 @@ fn the_suite_ran_something() {
         "the verdict suite ran nothing"
     );
     assert_eq!(
-        EXPECTED_CASES, 21,
+        EXPECTED_CASES, 24,
         "EXPECTED_CASES changed — add or drop a case deliberately"
     );
     let _ = &f.dir;
