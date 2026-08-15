@@ -348,8 +348,7 @@ empty_probe_skip_reason = "installs shims into whatever root it is given; an emp
 
 [[gate]]
 name = "near-duplicate-items"
-token_free = true
-token_free_reason = "prints a counted receipt and no verdict word on the green path; immune to the verdict-shape class because it has no token to misplace, and the probe proves the absence rather than asserting it"
+success_token = "near-duplicate-items: ok:"
 
 [[gate]]
 name = "substrate-guard"

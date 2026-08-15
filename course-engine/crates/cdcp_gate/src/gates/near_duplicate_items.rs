@@ -91,8 +91,9 @@
 //! item, zero approved items, and fewer than two approved items (which is zero
 //! comparisons) are each an ERROR, never a pass. A pool that was never compared
 //! must not report like a pool that was compared and came back clean, so the
-//! green line prints the scanned count, the approved count and the comparison
-//! count rather than a bare "ok".
+//! green line opens with `{SUCCESS_TOKEN}` (bd-near-dup-no-success-token-gj9y)
+//! and then the scanned count, the approved count and the comparison count —
+//! not a bare "ok" and not a receipt a RED run can share.
 //!
 //! The gate is additionally required to be shown TRIPPING, not merely passing:
 //! `CDCP_NEAR_DUPLICATE_SELFTEST=1` injects a cosmetically-reworded clone of a
@@ -106,6 +107,10 @@ use std::path::{Path, PathBuf};
 
 pub const NAME: &str = "near-duplicate-items";
 pub const SUMMARY: &str = "textual near-duplicates in the approved item pool (C3)";
+/// Line prefix on every exit-0 path. RED report() uses `{NAME}: FAIL:` /
+/// `{NAME}: ERROR:`, so a reader (or LEG D) can tell pass from fail without
+/// the exit code.
+pub const SUCCESS_TOKEN: &str = "near-duplicate-items: ok:";
 
 /// The item directory, relative to the engine root.
 pub const BANK_REL: &str = "bank/items";
@@ -506,7 +511,7 @@ pub fn selftest(approved: &[Item]) -> Result<String, String> {
         ));
     }
     Ok(format!(
-        "{NAME}: selftest reached RED: planted clone {clone_id} flagged against {} ({} comparison(s))",
+        "{SUCCESS_TOKEN} selftest reached RED: planted clone {clone_id} flagged against {} ({} comparison(s))",
         src.id, comparisons
     ))
 }
@@ -551,7 +556,7 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     }
 
     println!(
-        "{NAME}: {files} item file(s) · {} approved · {comparisons} pair comparison(s) · 0 near-duplicate pair(s) at answer≥{KEY_SIMILARITY_PCT}% or answer≥{CLONE_KEY_SIMILARITY_PCT}%+distractors≥{CLONE_DISTRACTOR_SIMILARITY_PCT}%",
+        "{SUCCESS_TOKEN} {files} item file(s) · {} approved · {comparisons} pair comparison(s) · 0 near-duplicate pair(s) at answer≥{KEY_SIMILARITY_PCT}% or answer≥{CLONE_KEY_SIMILARITY_PCT}%+distractors≥{CLONE_DISTRACTOR_SIMILARITY_PCT}%",
         approved.len()
     );
     println!(
@@ -574,6 +579,15 @@ mod tests {
             distractors: distractors.iter().map(|s| s.to_string()).collect(),
             status: APPROVED.to_string(),
         }
+    }
+
+    #[test]
+    fn success_token_is_the_name_plus_ok() {
+        assert_eq!(SUCCESS_TOKEN, format!("{NAME}: ok:"));
+        assert!(
+            SUCCESS_TOKEN.starts_with(NAME),
+            "LEG D keys on a line prefix; the token must open with the gate name"
+        );
     }
 
     #[test]

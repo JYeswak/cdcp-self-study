@@ -72,6 +72,17 @@ impl Bank {
 const IST_KEY: &str =
     "Validates power, cooling, and controls failovers as a combined system under planned scenarios";
 
+fn assert_token_iff_ok(code: i32, out: &str) {
+    let present = out
+        .lines()
+        .any(|l| l.starts_with(near_duplicate_items::SUCCESS_TOKEN));
+    assert_eq!(
+        present,
+        code == 0,
+        "success token present iff exit 0 (code={code}):\n{out}"
+    );
+}
+
 // ── calibration against the live bank ───────────────────────────────────────
 
 /// Read one real item file off disk.
@@ -173,6 +184,7 @@ fn a_real_pair_that_only_shares_a_stem_shape_is_not_flagged() {
 #[test]
 fn the_live_run_reports_a_nonzero_comparison_count_or_findings() {
     let (code, out) = run_here(&["near-duplicate-items"]);
+    assert_token_iff_ok(code, &out);
     if code == 0 {
         assert!(
             out.contains("pair comparison(s)"),
@@ -220,6 +232,7 @@ fn the_injected_known_bad_trips_the_detector() {
     // below would be indistinguishable from a pre-existing failure.
     let (code, out) = b.gate(&["near-duplicate-items"]);
     assert_eq!(code, 0, "fixture should be clean:\n{out}");
+    assert_token_iff_ok(code, &out);
 
     let out = std::process::Command::new(support::BIN)
         .current_dir(&b.root)
@@ -236,6 +249,7 @@ fn the_injected_known_bad_trips_the_detector() {
         Some(0),
         "the selftest exits 0 only when the planted known-bad was caught:\n{text}"
     );
+    assert_token_iff_ok(0, &text);
     assert!(
         text.contains("selftest reached RED"),
         "selftest must say it reached RED:\n{text}"
@@ -263,6 +277,7 @@ fn a_reworded_copy_planted_in_the_tree_goes_red_naming_both_ids() {
     );
     let (code, out) = b.gate(&["near-duplicate-items"]);
     assert_ne!(code, 0, "one item is zero comparisons, an ERROR:\n{out}");
+    assert_token_iff_ok(code, &out);
 
     b.item(
         "copy.toml",
@@ -292,6 +307,7 @@ fn a_reworded_copy_planted_in_the_tree_goes_red_naming_both_ids() {
     );
     let (code, out) = b.gate(&["near-duplicate-items"]);
     assert_eq!(code, 2, "planted duplicate must be a VIOLATION:\n{out}");
+    assert_token_iff_ok(code, &out);
     assert!(
         out.contains("plant-orig") && out.contains("plant-copy"),
         "{out}"
@@ -305,6 +321,7 @@ fn a_missing_bank_directory_is_an_error_not_a_pass() {
     let b = Bank::new();
     let (code, out) = b.gate(&["near-duplicate-items"]);
     assert_eq!(code, 4, "{out}");
+    assert_token_iff_ok(code, &out);
     assert!(out.contains("no bank directory"), "{out}");
 }
 
@@ -313,6 +330,7 @@ fn zero_item_files_is_an_error_not_a_pass() {
     let b = Bank::with_items_dir();
     let (code, out) = b.gate(&["near-duplicate-items"]);
     assert_eq!(code, 4, "{out}");
+    assert_token_iff_ok(code, &out);
     assert!(out.contains("zero .toml item files"), "{out}");
 }
 
@@ -337,6 +355,7 @@ fn zero_approved_items_is_an_error_not_a_pass() {
     );
     let (code, out) = b.gate(&["near-duplicate-items"]);
     assert_eq!(code, 4, "an unassessed pool must not report green:\n{out}");
+    assert_token_iff_ok(code, &out);
     assert!(out.contains("ZERO are status"), "{out}");
 }
 
@@ -361,6 +380,7 @@ fn one_approved_item_is_zero_comparisons_and_therefore_an_error() {
     );
     let (code, out) = b.gate(&["near-duplicate-items"]);
     assert_eq!(code, 4, "{out}");
+    assert_token_iff_ok(code, &out);
     assert!(out.contains("ZERO comparisons"), "{out}");
 }
 
@@ -389,6 +409,7 @@ fn an_unparseable_item_is_an_error_never_a_silent_skip() {
         code, 4,
         "a file that could not be read must not pass:\n{out}"
     );
+    assert_token_iff_ok(code, &out);
     assert!(out.contains("broken.toml"), "{out}");
 }
 
@@ -436,7 +457,9 @@ fn retiring_one_of_a_pair_resolves_the_finding() {
         ],
         "approved",
     );
-    assert_eq!(b.gate(&["near-duplicate-items"]).0, 2);
+    let (code, out) = b.gate(&["near-duplicate-items"]);
+    assert_eq!(code, 2, "{out}");
+    assert_token_iff_ok(code, &out);
 
     b.item(
         "copy.toml",
@@ -453,6 +476,7 @@ fn retiring_one_of_a_pair_resolves_the_finding() {
     );
     let (code, out) = b.gate(&["near-duplicate-items"]);
     assert_eq!(code, 0, "retiring one of the pair must clear it:\n{out}");
+    assert_token_iff_ok(code, &out);
     assert!(out.contains("2 approved"), "{out}");
 }
 
@@ -460,6 +484,7 @@ fn retiring_one_of_a_pair_resolves_the_finding() {
 fn an_unknown_flag_is_usage_not_a_silent_pass() {
     let (code, out) = run_here(&["near-duplicate-items", "--threshold=0"]);
     assert_eq!(code, 3, "{out}");
+    assert_token_iff_ok(code, &out);
 }
 
 #[test]
