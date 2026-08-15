@@ -32,7 +32,7 @@
 //! BUILT != WIRED is settled by the check.sh step, not by a test.
 
 use cdcp_gate::gates::goldens_couplings as gc;
-use cdcp_gate::gates::verify_content_lock::sha256_hex_bytes;
+use cdcp_gate::gates::verify_content_lock::{sha256_file, sha256_hex_bytes};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -873,9 +873,11 @@ fn every_known_debt_carries_a_reason() {
     }
 }
 
-/// Every artifact `scripts/check.sh` byte-compares must have a row here. A
-/// coupling registry that covers three of the seven frozen files in the tree
-/// would report exactly like one that covers all of them.
+/// Every artifact `scripts/check.sh` pins — by byte-cmp OR by presence — must
+/// have a row here. A coupling registry that covers seven of the eight frozen
+/// files in the tree would report exactly like one that covers all of them.
+/// Deleting the wasm row fails this test; the gate itself is silent because
+/// discovery still only sweeps `goldens/` (parent residual, not this bead).
 #[test]
 fn the_live_ledger_covers_every_artifact_check_sh_pins() {
     let root = engine_root();
@@ -889,6 +891,7 @@ fn the_live_ledger_covers_every_artifact_check_sh_pins() {
         "web/data/mock40_seed42.json",
         "web/data/keys_seed42.json",
         "web/data/bank_items_seed42.json",
+        "web/assets/wasm/cdcp_wasm.wasm",
     ] {
         assert!(
             l.golden.iter().any(|g| g.file.trim() == want),
@@ -896,10 +899,52 @@ fn the_live_ledger_covers_every_artifact_check_sh_pins() {
         );
     }
     assert!(
-        l.golden.len() >= 7 && l.surface.len() >= 8,
+        l.golden.len() >= 8 && l.surface.len() >= 8,
         "the live ledger shrank: {} golden(s), {} surface(s)",
         l.golden.len(),
         l.surface.len()
+    );
+}
+
+/// Planted: flip one nibble of the live wasm `frozen` field and evaluate
+/// against the real tree. Same path `goldens-couplings` runs. Complements
+/// `bad_a_re_frozen_golden_is_red_even_when_every_surface_held`, which
+/// plants a fixture file rather than the eighth golden.
+#[test]
+fn flipping_the_wasm_frozen_nibble_is_red_on_the_live_ledger() {
+    let root = engine_root();
+    const WASM: &str = "web/assets/wasm/cdcp_wasm.wasm";
+    let text = std::fs::read_to_string(root.join(gc::REGISTRY_PATH)).expect("read ledger");
+    let mut l = gc::parse_ledger(&text).expect("live ledger parses");
+    let g = l
+        .golden
+        .iter_mut()
+        .find(|g| g.file.trim() == WASM)
+        .expect("wasm must be an 8th [[golden]] row");
+    let actual = sha256_file(&root.join(WASM)).expect("hash wasm");
+    assert_eq!(
+        g.frozen.trim(),
+        actual,
+        "ledger frozen must equal shasum -a 256 of {WASM}"
+    );
+    let mut nibbles = g.frozen.clone().into_bytes();
+    nibbles[0] = if nibbles[0] == b'0' { b'1' } else { b'0' };
+    g.frozen = String::from_utf8(nibbles).expect("hex stays utf-8");
+
+    let read = |rel: &str| std::fs::read_to_string(root.join(rel)).ok();
+    let digest = |rel: &str| sha256_file(&root.join(rel)).map_err(|e| e.to_string());
+    let w = gc::World {
+        read: &read,
+        digest: &digest,
+        discovered: gc::discover(&root),
+    };
+    let rep = gc::evaluate(&l, cdcp_gate::date::today(), &w);
+    assert!(
+        rep.violations
+            .iter()
+            .any(|v| v.contains("RE-FROZEN") && v.contains(WASM)),
+        "nibble flip must turn goldens-couplings RED naming the wasm:\n{:?}",
+        rep.violations
     );
 }
 

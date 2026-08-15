@@ -316,8 +316,8 @@ id = "goldens.coupling-registry"
 title = "Goldens declare the semantic surfaces they were frozen against"
 level = "gate-wired"
 owner = "josh"
-last_review = "2026-08-14"
-claim = "YES. registries/goldens-couplings.toml pins 13 surfaces / 28 pins under 7 goldens with 34 declared couplings, every pin re-extracted from source on each run, and scripts/check.sh fails on any surface move, unbumped version, unaffirmed dependency or re-freeze. Proven not vacuous by its own first run: it found ten violations — C2 redefining bank_hash under all seven frozen artifacts, all seven re-frozen the same hour with nothing naming the surface. It does NOT decide that a golden is CORRECT, that a justification is honest, or that anyone re-read a row before re-affirming it."
+last_review = "2026-08-15"
+claim = "YES. registries/goldens-couplings.toml pins 13 surfaces / 29 pins under 8 goldens with 41 declared couplings, every pin re-extracted from source on each run, and scripts/check.sh fails on any surface move, unbumped version, unaffirmed dependency or re-freeze. Proven not vacuous by its own first run: it found ten violations — C2 redefining bank_hash under all seven frozen artifacts, all seven re-frozen the same hour with nothing naming the surface. The eighth golden is the wasm32 grade binary (web/assets/wasm/cdcp_wasm.wasm); check.sh only `[ -f ]`s it, and this ledger pins its bytes. It does NOT decide that a golden is CORRECT, that a justification is honest, or that anyone re-read a row before re-affirming it."
 evidence = [
   { kind = "contract", ref = "registries/goldens-couplings.toml" },
   { kind = "test", ref = "crates/cdcp_gate/tests/goldens_couplings_e2e.rs::the_live_ledger_is_schema_clean_and_its_findings_are_the_named_debts" },
