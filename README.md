@@ -44,7 +44,7 @@ cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
 | **Who it's for** | Someone who wants to walk a white-space tour and explain trade-offs — TPM, deploy engineer, ops, or a career switcher |
 | **What it is not** | A certification, an exam dump, a paid course, an LLM tutor |
 | **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
-| **Bank** | 804 original item files / 779 approved (pool size, not distinct propositions) · 15 modules · 106 topics |
+| **Bank** | 804 original item files / 779 approved (pool size, not distinct propositions) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] · 15 modules · 106 topics |
 | **Engine** | 7 Rust crates, 3,763 lines, `#![forbid(unsafe_code)]`, 281 KB WASM |
 | **Gate** | 75 ordered steps; 9 selftest suites; 69 known-bad injections that must all go RED |
 | **Runtime deps** | None. Rust toolchain to build; a browser to use |
@@ -228,7 +228,7 @@ workflow file is how CI and local drift apart until only one of them is true.
 
 A green gate is worthless unless it can go red. Nine selftest suites inject
 **69 known-bad faults** — shell suites only; the Rust ports' own known-bad cases
-emit no `INJECTIONS=` receipt, so they are not in this total — and assert the
+emit no `INJECTIONS=` receipt, so they are not in this total [[fact:fact-injections-enforced=yes]] — and assert the
 build fails, then restore the tree:
 
 | Suite | n | Injections |
@@ -254,7 +254,7 @@ stopped reporting would read exactly like a suite with nothing to report.
 
 **The step count is enforced the same way, and it was the last one that wasn't.**
 `check.sh` counts as it runs (`ok` + honest `skip`), emits one `CHECK_STEPS=`
-receipt on the success path, and `verify-step-count` compares that receipt to
+receipt on the success path [[fact:fact-check-steps-enforced=yes]], and `verify-step-count` compares that receipt to
 every step-count this README advertises. A wrong number here turns the gate
 RED. The count cannot be parsed out of the script (several legs are
 conditional) and it cannot be grepped out of a transcript either: a nested

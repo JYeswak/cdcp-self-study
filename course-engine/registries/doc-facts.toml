@@ -20,9 +20,11 @@
 #
 # WHAT A ROW HERE IS
 #
-# A row is NOT the claim. A row is a QUESTION about the tree plus a PROBE that
-# answers it yes or no. The claim lives in the prose, and the prose carries the
-# ANSWER it is asserting, inline, as a marker:
+# A row maps a claim CLASS to the ARTIFACT that substantiates it (a test, a
+# registry row, or a generated ledger) plus a PROBE that answers the question
+# yes or no. A row with no resolving artifact is a schema ERROR. The claim
+# lives in the prose, and the prose carries the ANSWER it is asserting, inline,
+# as a marker:
 #
 #     ... `hash_payload()` now covers every modelled field
 #     [[fact:fact-hash-payload-covers-objective-ids=yes]]
@@ -71,24 +73,32 @@ schema_version = 1
 
 [[fact]]
 id = "fact-hash-payload-covers-objective-ids"
+class = "bank_hash"
+artifact = { kind = "test", path = "crates/cdcp_bank/src/lib.rs" }
 question = "Does the body of `BankItem::hash_payload` put `objective_ids` into the hashed payload?"
 probe = { kind = "symbol_body_contains", path = "crates/cdcp_bank/src/lib.rs", symbol = "hash_payload", needle = '"objective_ids".into()' }
 trigger = "hash_payload"
 
 [[fact]]
 id = "fact-hash-payload-covers-status"
+class = "bank_hash"
+artifact = { kind = "test", path = "crates/cdcp_bank/src/lib.rs" }
 question = "Does the body of `BankItem::hash_payload` put the item `status` into the hashed payload?"
 probe = { kind = "symbol_body_contains", path = "crates/cdcp_bank/src/lib.rs", symbol = "hash_payload", needle = '"status".into()' }
 trigger = "hash_payload"
 
 [[fact]]
 id = "fact-hash-payload-parity-test-exists"
+class = "bank_hash"
+artifact = { kind = "test", path = "crates/cdcp_bank/src/lib.rs" }
 question = "Is a test function named `hash_payload_covers_every_modelled_field` defined in the bank crate?"
 probe = { kind = "fn_defined", path = "crates/cdcp_bank/src/lib.rs", symbol = "hash_payload_covers_every_modelled_field" }
 trigger = "hash_payload_covers_every_modelled_field"
 
 [[fact]]
 id = "fact-bank-item-denies-unknown-fields"
+class = "bank_hash"
+artifact = { kind = "test", path = "crates/cdcp_bank/src/lib.rs" }
 question = "Does `BankItem` carry `#[serde(deny_unknown_fields)]`, so an unmodelled field in a bank file is a load error rather than a silent discard?"
 probe = { kind = "file_contains", path = "crates/cdcp_bank/src/lib.rs", needle = "#[serde(deny_unknown_fields)]" }
 trigger = "deny_unknown_fields"
@@ -99,39 +109,72 @@ trigger = "deny_unknown_fields"
 
 [[fact]]
 id = "fact-bank-item-count-804"
+class = "pool_size"
+artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
 question = "Does the generated units index report `bank_item_count` 804 (file-set size, retired included)?"
 probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": 804' }
 trigger = "804 files / 779"
 
 [[fact]]
 id = "fact-bank-approved-count-779"
+class = "pool_size"
+artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
 question = "Does the generated units index report `approved_item_count` 779?"
 probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 779' }
 trigger = "779 approved / 25 retired"
 
 [[fact]]
 id = "fact-learn-unit-count-134"
+class = "pool_size"
+artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
 question = "Does the generated units index report `unit_count` 134?"
 probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"unit_count": 134' }
 trigger = "134 Learn units"
 
 [[fact]]
 id = "fact-assemble-rng-is-chacha12"
+class = "prng"
+artifact = { kind = "test", path = "crates/cdcp_assemble/tests/prng_c4_migration.rs" }
 question = "Does `cdcp_assemble` seed its sampler from the named `ChaCha12Rng`?"
 probe = { kind = "file_contains", path = "crates/cdcp_assemble/src/lib.rs", needle = "ChaCha12Rng::seed_from_u64" }
 trigger = "ChaCha12Rng"
 
 [[fact]]
 id = "fact-assemble-uses-stdrng"
+class = "prng"
+artifact = { kind = "test", path = "crates/cdcp_assemble/tests/prng_c4_migration.rs" }
 question = "Does `cdcp_assemble` still seed its sampler from `rand`'s non-portable `StdRng`?"
 probe = { kind = "file_contains", path = "crates/cdcp_assemble/src/lib.rs", needle = "StdRng::seed_from_u64" }
 trigger = "StdRng"
 
 [[fact]]
 id = "fact-assemble-discards-min-modules"
+class = "assemble"
+artifact = { kind = "test", path = "crates/cdcp_assemble/tests/status_filter.rs" }
 question = "Does `cdcp_assemble` still bind the module-coverage parameter as `_min_modules` — accepted and discarded?"
 probe = { kind = "file_contains", path = "crates/cdcp_assemble/src/lib.rs", needle = "_min_modules" }
 trigger = "_min_modules"
+
+# ── README-advertised receipts (already enforced by dedicated gates) ────────
+# These rows do not re-count the numbers. They tie the advertised CHECK_STEPS=
+# and INJECTIONS= claims to the gates that substantiate them. Deleting either
+# gate file turns the claim RED here as "no resolving artifact".
+
+[[fact]]
+id = "fact-check-steps-enforced"
+class = "check_steps"
+artifact = { kind = "test", path = "crates/cdcp_gate/src/gates/verify_step_count.rs" }
+question = "Does the verify-step-count gate define `parse_receipt`, the function that reads the CHECK_STEPS= receipt check.sh emits?"
+probe = { kind = "fn_defined", path = "crates/cdcp_gate/src/gates/verify_step_count.rs", symbol = "parse_receipt" }
+trigger = "CHECK_STEPS="
+
+[[fact]]
+id = "fact-injections-enforced"
+class = "injections"
+artifact = { kind = "test", path = "crates/cdcp_gate/src/gates/verify_injection_count.rs" }
+question = "Does the verify-injection-count gate define `parse_receipt`, the function that sums INJECTIONS= receipts from the selftest suites?"
+probe = { kind = "fn_defined", path = "crates/cdcp_gate/src/gates/verify_injection_count.rs", symbol = "parse_receipt" }
+trigger = "INJECTIONS="
 
 # ── the L5 workspace-membership claim ───────────────────────────────────────
 # CHARTER §5 records that `fuzz/` sits outside the workspace, so nothing in
@@ -140,6 +183,8 @@ trigger = "_min_modules"
 
 [[fact]]
 id = "fact-fuzz-is-a-workspace-member"
+class = "workspace"
+artifact = { kind = "registry_row", path = "registries/capability-maturity.toml" }
 question = "Is the `fuzz` package a member of the Cargo workspace, so that a workspace-wide build or test reaches it?"
 probe = { kind = "toml_array_contains", path = "Cargo.toml", key = "workspace.members", value = "fuzz" }
 trigger = "cargo fuzz"

@@ -16,16 +16,18 @@
 //! that site's `file:line`, with the prose's answer, the tree's answer, and the
 //! probe that produced it all printed.
 //!
-//! Two obligations, deliberately separate:
+//! Three obligations, deliberately separate:
 //!
-//! * **resolve** — every marker anywhere must name a registered row and carry a
-//!   readable polarity, and that polarity must match the tree. No exclusion
-//!   releases this. You cannot silence a lying marker by excluding its file.
+//! * **artifact** — every row names a `class` and a resolving artifact (`test`,
+//!   `registry_row`, or `generated_ledger`) whose path is readable. A claim with
+//!   no artifact is a schema ERROR; a path that is gone is an ERROR, never `no`.
+//! * **resolve** — every well-formed marker must name a registered row and carry
+//!   a readable polarity that matches the tree. No exclusion releases this.
+//!   Malformed `[[fact:...]]` quotes in an *excluded* file (dated audit
+//!   snapshots documenting the syntax) are not violations.
 //! * **cite** — any non-excluded markdown file whose text contains a row's
-//!   `trigger` must carry a marker for that row. This is the anti-omission leg,
-//!   and the file set it ranges over is DISCOVERED BY WALKING THE TREE, never
-//!   supplied by the registry: a gate scoped by the author it exists to check is
-//!   scoped by the wrong party.
+//!   `trigger` must carry a marker for that row. The file set is DISCOVERED BY
+//!   WALKING THE TREE, never supplied by the registry.
 //!
 //! # WHAT THIS GATE CANNOT DECIDE — read this before quoting it
 //!
@@ -127,6 +129,10 @@ pub const PROBE_KINDS: &[&str] = &[
     "toml_array_contains",
 ];
 
+/// Artifact kinds a row may name. A claim class with no resolving artifact of
+/// one of these kinds is a schema ERROR — that is the inventory contract.
+pub const ARTIFACT_KINDS: &[&str] = &["generated_ledger", "registry_row", "test"];
+
 /// Rust item keywords `symbol_body_contains` will look behind.
 pub const ITEM_KEYWORDS: &[&str] = &["fn", "struct", "enum", "trait", "impl", "const", "static"];
 
@@ -215,6 +221,22 @@ pub struct Fact {
     /// Substring; any non-excluded markdown file containing it must cite this row.
     #[serde(default)]
     pub trigger: String,
+    /// Claim class the inventory groups this row under (`pool_size`, `check_steps`, …).
+    #[serde(default)]
+    pub class: String,
+    /// The test, registry row, or generated ledger that substantiates the claim.
+    #[serde(default)]
+    pub artifact: Artifact,
+}
+
+/// Substantiating artifact. `kind` is one of [`ARTIFACT_KINDS`]; `path` is
+/// engine-root-relative and must be readable.
+#[derive(Debug, Clone, Default, Deserialize)]
+pub struct Artifact {
+    #[serde(default)]
+    pub kind: String,
+    #[serde(default)]
+    pub path: String,
 }
 
 #[derive(Debug, Clone, Default, Deserialize)]
@@ -379,6 +401,29 @@ pub fn schema_errors(r: &Registry) -> Vec<String> {
         } else if trig.contains(MARKER_OPEN) {
             v.push(format!(
                 "{where_}: `trigger` contains the marker prefix, so a marker would satisfy its own obligation"
+            ));
+        }
+
+        let class = f.class.trim();
+        if class.is_empty() {
+            v.push(format!(
+                "{where_}: missing or empty `class` — the inventory maps a claim class to an artifact"
+            ));
+        }
+        let ak = f.artifact.kind.trim();
+        let ap = f.artifact.path.trim();
+        if ak.is_empty() || ap.is_empty() {
+            v.push(format!(
+                "{where_}: missing or empty `artifact` — a claim with no resolving artifact is an ERROR"
+            ));
+        } else if !ARTIFACT_KINDS.contains(&ak) {
+            v.push(format!(
+                "{where_}: `artifact.kind` {ak:?} is not one of: {}",
+                ARTIFACT_KINDS.join(", ")
+            ));
+        } else if !is_clean_relative_path(ap) {
+            v.push(format!(
+                "{where_}: `artifact.path` {ap:?} is not a normalised engine-root-relative path"
             ));
         }
 
@@ -878,14 +923,27 @@ pub fn evaluate(reg: &Registry, docs: &[Doc], w: &World<'_>) -> Report {
                 f.probe.describe()
             )),
         }
+        let ap = f.artifact.path.trim();
+        if !ap.is_empty() && (w.read)(ap).is_none() {
+            rep.errors.push(format!(
+                "[[fact]] {}: artifact {} ({}) is not readable — a claim with no resolving artifact is an ERROR",
+                f.id.trim(),
+                f.artifact.kind.trim(),
+                ap
+            ));
+        }
     }
 
     // ── obligation 1: every marker resolves and agrees ──────────────────────
     let mut cited: BTreeMap<&str, usize> = by_id.keys().map(|k| (*k, 0usize)).collect();
     for d in docs {
         let (markers, bad) = scan_markers(&d.text);
-        for b in bad {
-            rep.violations.push(format!("{}:{b}", d.rel));
+        // Excluded files may quote `[[fact:...]]` as syntax. Well-formed
+        // markers in those files are still polarity-checked.
+        if !is_excluded(&d.rel) {
+            for b in bad {
+                rep.violations.push(format!("{}:{b}", d.rel));
+            }
         }
         for m in markers {
             rep.sites += 1;
@@ -1135,6 +1193,11 @@ mod tests {
                 value: "fuzz".into(),
             },
             trigger: trigger.into(),
+            class: "fixture".into(),
+            artifact: Artifact {
+                kind: "test".into(),
+                path: "a.rs".into(),
+            },
         }
     }
 
@@ -1264,6 +1327,17 @@ fn b() { other }
         assert!(eval_probe(&p, &w).unwrap(), "last path segment matches");
         p.key = "workspace.nope".into();
         assert!(eval_probe(&p, &w).is_err(), "a missing key is an ERROR");
+    }
+
+    #[test]
+    fn a_claim_with_no_artifact_is_a_schema_error() {
+        let mut r = full_registry();
+        r.fact[0].artifact = Artifact::default();
+        let errs = schema_errors(&r);
+        assert!(
+            errs.iter().any(|e| e.contains("no resolving artifact")),
+            "{errs:?}"
+        );
     }
 
     #[test]

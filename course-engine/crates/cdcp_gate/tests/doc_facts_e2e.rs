@@ -165,7 +165,7 @@ fn registry(excludes: &str) -> String {
     let mut s = String::from("schema_version = 1\n");
     for (id, probe, trigger, _) in FACTS {
         s.push_str(&format!(
-            "\n[[fact]]\nid = \"{id}\"\nquestion = \"does this tree really do what the sentence about {trigger} says?\"\nprobe = {probe}\ntrigger = \"{trigger}\"\n"
+            "\n[[fact]]\nid = \"{id}\"\nclass = \"fixture\"\nartifact = {{ kind = \"test\", path = \"src/lib.rs\" }}\nquestion = \"does this tree really do what the sentence about {trigger} says?\"\nprobe = {probe}\ntrigger = \"{trigger}\"\n"
         ));
     }
     s.push_str(excludes);
@@ -301,6 +301,24 @@ fn good_an_excluded_file_may_mention_a_subject_without_a_marker() {
     let (code, out) = c.gate(&["doc-facts"]);
     assert_eq!(code, OK, "{out}");
     assert!(out.contains("excluded_trigger_hits=1"), "{out}");
+}
+
+#[test]
+fn good_an_excluded_file_may_quote_the_marker_syntax() {
+    let c = Corpus::new();
+    c.write(
+        "notes/scratch.md",
+        "syntax example [[fact:...]] and [[fact:…=yes]] as documentation\n",
+    );
+    c.set_registry(&registry(&exclude(
+        "course-engine/notes/scratch.md",
+        LONG_REASON,
+    )));
+    let (code, out) = c.gate(&["doc-facts"]);
+    assert_eq!(
+        code, OK,
+        "dated snapshots quoting the marker syntax must not go RED:\n{out}"
+    );
 }
 
 #[test]
@@ -538,7 +556,7 @@ fn bad_a_shrunken_registry_is_a_schema_error() {
     let mut s = String::from("schema_version = 1\n");
     for (id, probe, trigger, _) in FACTS.iter().take(4) {
         s.push_str(&format!(
-            "\n[[fact]]\nid = \"{id}\"\nquestion = \"does this tree really do what the sentence about {trigger} says?\"\nprobe = {probe}\ntrigger = \"{trigger}\"\n"
+            "\n[[fact]]\nid = \"{id}\"\nclass = \"fixture\"\nartifact = {{ kind = \"test\", path = \"src/lib.rs\" }}\nquestion = \"does this tree really do what the sentence about {trigger} says?\"\nprobe = {probe}\ntrigger = \"{trigger}\"\n"
         ));
     }
     c.set_registry(&s);
@@ -548,13 +566,45 @@ fn bad_a_shrunken_registry_is_a_schema_error() {
 }
 
 #[test]
+fn bad_a_claim_with_no_artifact_is_a_schema_error() {
+    let c = Corpus::new();
+    let s = registry("").replace(
+        "artifact = { kind = \"test\", path = \"src/lib.rs\" }\n",
+        "",
+    );
+    c.set_registry(&s);
+    let (code, out) = c.gate(&["doc-facts"]);
+    assert_eq!(code, ERROR, "{out}");
+    assert!(
+        out.contains("no resolving artifact"),
+        "a claim with no artifact must be a schema ERROR:\n{out}"
+    );
+}
+
+#[test]
+fn bad_an_artifact_path_that_cannot_be_read_is_an_error() {
+    let c = Corpus::new();
+    let s = registry("").replace(
+        "artifact = { kind = \"test\", path = \"src/lib.rs\" }",
+        "artifact = { kind = \"test\", path = \"gone.rs\" }",
+    );
+    c.set_registry(&s);
+    let (code, out) = c.gate(&["doc-facts"]);
+    assert_eq!(code, ERROR, "{out}");
+    assert!(
+        out.contains("gone.rs") && out.contains("no resolving artifact"),
+        "a missing artifact must not report as a polarity `no`:\n{out}"
+    );
+}
+
+#[test]
 fn bad_a_probe_kind_no_row_exercises_is_a_schema_error() {
     let c = Corpus::new();
     // Six rows, but every one of them a file_contains.
     let mut s = String::from("schema_version = 1\n");
     for i in 0..6 {
         s.push_str(&format!(
-            "\n[[fact]]\nid = \"f-row-{i}\"\nquestion = \"does this tree really do what the sentence about subject {i} says?\"\nprobe = {{ kind = \"file_contains\", path = \"src/lib.rs\", needle = \"StdRng\" }}\ntrigger = \"subject-{i}\"\n"
+            "\n[[fact]]\nid = \"f-row-{i}\"\nclass = \"fixture\"\nartifact = {{ kind = \"test\", path = \"src/lib.rs\" }}\nquestion = \"does this tree really do what the sentence about subject {i} says?\"\nprobe = {{ kind = \"file_contains\", path = \"src/lib.rs\", needle = \"StdRng\" }}\ntrigger = \"subject-{i}\"\n"
         ));
     }
     c.set_registry(&s);

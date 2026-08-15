@@ -20,4 +20,4 @@
 | NE-PRE-16 | A doc describing publication as still to come | The repo is public; wired by `scripts/verify_doc_consistency.py` |
 | NE-PRE-17 | A hand-typed known-bad count nobody checks | Self-signed certificate about the anti-self-signing machinery; wired by `scripts/verify_injection_count.py` |
 | NE-PRE-18 | Counting injections by grepping asserts or reading header comments | Measured: 3 suites declare zero cases in their headers and 7 hand-roll their assert idiom — a grep counter under-counts and certifies a wrong number GREEN. Suites self-report at runtime instead |
-| NE-PRE-19 | A selftest suite that emits no `INJECTIONS=` receipt treated as zero | A suite that stopped reporting must not read like a suite with nothing to report |
+| NE-PRE-19 | A selftest suite that emits no `INJECTIONS=` receipt treated as zero [[fact:fact-injections-enforced=yes]] | A suite that stopped reporting must not read like a suite with nothing to report |

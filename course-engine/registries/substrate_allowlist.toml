@@ -166,19 +166,19 @@ why = "check.sh still runs it (bd-e1yt); not a ported oracle"
 
 [[allow]]
 path = "scripts/verify_orphans.py"
-reason = "Differential oracle for `cdcp_gate verify-orphans` (bd-substrate-rust-migration-jhd.2, ported 2026-08-14). Topic<->item referential integrity. Retained so tests/diff_verify_orphans.rs can compare both implementations. Not a check.sh step."
+reason = "Differential oracle for `cdcp_gate verify-orphans` (bd-substrate-rust-migration-jhd.2, ported 2026-08-14). Topic<->item referential integrity. Retained so tests/diff_verify_orphans.rs can compare both implementations. Invoked transitively by selftest_orphan.sh (bd-check-sh-transitive-invocation-gzvb)."
 migration_bead = "bd-substrate-rust-migration-jhd.2"
 expires = "2026-10-31"
 
 [[allow]]
 path = "scripts/verify_injection_count.py"
-reason = "Differential oracle for `cdcp_gate verify-injection-count` (bd-substrate-rust-migration-jhd.3, ported 2026-08-14). L4 drift guard: advertised known-bad count vs measured. Retained so tests/diff_verify_injection_count.rs can compare both implementations. Not a check.sh step."
+reason = "Differential oracle for `cdcp_gate verify-injection-count` (bd-substrate-rust-migration-jhd.3, ported 2026-08-14). L4 drift guard: advertised known-bad count vs measured. Retained so tests/diff_verify_injection_count.rs can compare both implementations. Invoked transitively by selftest_injection_count.sh via $CHECKER (bd-check-sh-transitive-invocation-gzvb)."
 migration_bead = "bd-substrate-rust-migration-jhd.3"
 expires = "2026-10-31"
 
 [[allow]]
 path = "scripts/verify_doc_consistency.py"
-reason = "Differential oracle for `cdcp_gate verify-doc-consistency` (bd-substrate-rust-migration-jhd.4, ported 2026-08-14). Roadmap/publication truth across CHARTER, README and PHASE-NEXT. Retained so tests/diff_verify_doc_consistency.rs can compare both implementations. Not a check.sh step."
+reason = "Differential oracle for `cdcp_gate verify-doc-consistency` (bd-substrate-rust-migration-jhd.4, ported 2026-08-14). Roadmap/publication truth across CHARTER, README and PHASE-NEXT. Retained so tests/diff_verify_doc_consistency.rs can compare both implementations. Invoked transitively by selftest_doc_consistency.sh via $CHECKER (bd-check-sh-transitive-invocation-gzvb)."
 migration_bead = "bd-substrate-rust-migration-jhd.4"
 expires = "2026-10-31"
 
@@ -200,7 +200,7 @@ expires = "2026-11-30"
 
 [[allow]]
 path = "scripts/verify_bank.py"
-reason = "Differential oracle for `cdcp_gate verify-bank` (bd-substrate-rust-migration-jhd.7, ported 2026-08-14). L2 item-bank pool validation; the bank is the product's primary data surface. Retained so tests/diff_verify_bank.rs can compare both implementations. Not a check.sh step."
+reason = "Differential oracle for `cdcp_gate verify-bank` (bd-substrate-rust-migration-jhd.7, ported 2026-08-14). L2 item-bank pool validation; the bank is the product's primary data surface. Retained so tests/diff_verify_bank.rs can compare both implementations. Invoked transitively by smoke_slo.sh (bd-check-sh-transitive-invocation-gzvb)."
 migration_bead = "bd-substrate-rust-migration-jhd.7"
 expires = "2026-11-30"
 
