@@ -21,6 +21,18 @@ fn cdcp() -> Command {
 }
 
 #[test]
+fn help_lists_learn_compilers() {
+    let assert = cdcp().arg("--help").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    for verb in ["build-units", "build-glossary"] {
+        assert!(
+            stdout.contains(verb),
+            "cdcp --help must list {verb}: {stdout}"
+        );
+    }
+}
+
+#[test]
 fn bank_hash_prints_64_hex_chars() {
     let assert = cdcp()
         .args(["bank-hash", "--bank", "bank/items"])

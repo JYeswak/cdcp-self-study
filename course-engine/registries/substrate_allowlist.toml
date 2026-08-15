@@ -144,11 +144,9 @@ expires = "2026-11-30"
 # WAVE 3 — check.sh builders (bd-…jhd.11 … .13)
 # =============================================================================
 
-[[allow]]
-path = "scripts/build_glossary_json.py"
-reason = "Differential oracle for `cdcp_gate build-glossary-json` (bd-substrate-rust-migration-jhd.11, ported 2026-08-14). Retained so tests/diff_build_glossary_json.rs can compare stdout, stderr, exit code and the bytes written byte for byte."
-migration_bead = "bd-substrate-rust-migration-jhd.11"
-expires = "2026-12-31"
+# RETIRED 2026-08-15 (bd-engine-not-gate-ar39.2): `scripts/build_glossary_json.py`
+# is DELETED, not allowlisted. The compiler is `cdcp_learn::glossary` (product);
+# the three locks (invoked / presence-checked / agreement-only) retired together.
 
 # RETIRED 2026-08-14 (bd-qqwc): `scripts/build_units.py` is DELETED, not
 # allowlisted. It was the differential oracle for `cdcp_gate build-units` and

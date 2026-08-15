@@ -38,8 +38,8 @@ ok() { echo "check.sh: ok: $*"; }
 #                              web/data/keys_seed42.json                [S] restored
 #                              web/drill.html                           [S] restored
 #                              crates/cdcp_cli/src/main.rs              [S] restored
-#   cdcp_gate build-units          web/data/units_index.json            [M] regenerated
-#   cdcp_gate build-glossary-json  web/data/glossary.json               [M] regenerated
+#   cdcp build-units               web/data/units_index.json            [M] regenerated
+#   cdcp build-glossary            web/data/glossary.json               [M] regenerated
 #   smoke_feedback_links.py    web/data/topic_anchors.json              [M] regenerated
 #   export_anki.py             dist/anki/**                             [M] untracked output
 # The three regenerated files are byte-identical today, so `git status` stays
@@ -631,8 +631,8 @@ done
 ok "L7 surfaces (reference · closed-notes · Learn-15)"
 
 echo "==> smoke_learn_chrome.py (M8-A)"; python3 scripts/smoke_learn_chrome.py || fail "M8-A learn chrome"; ok "M8-A learn chrome smoke"
-echo "==> cdcp_gate build-units (M8-B units_index)";         cargo run -q -p cdcp_gate -- build-units         || fail "M8-B units_index"; ok "M8-B units_index"
-echo "==> cdcp_gate build-glossary-json (M8-D glossary)";    cargo run -q -p cdcp_gate -- build-glossary-json || fail "M8-D glossary";    ok "M8-D glossary.json"
+echo "==> cdcp build-units (M8-B units_index)";              cargo run -q -p cdcp_cli -- build-units          || fail "M8-B units_index"; ok "M8-B units_index"
+echo "==> cdcp build-glossary (M8-D glossary)";              cargo run -q -p cdcp_cli -- build-glossary       || fail "M8-D glossary";    ok "M8-D glossary.json"
 echo "==> smoke_learn_v2.py";            python3 scripts/smoke_learn_v2.py      || fail "M8-B/D learn v2";  ok "M8-B/D learn v2 smoke"
 echo "==> smoke_diagrams.py";            python3 scripts/smoke_diagrams.py      || fail "M8-C diagrams";    ok "M8-C diagrams smoke"
 echo "==> smoke_a11y.py";                python3 scripts/smoke_a11y.py          || fail "L7 a11y";          ok "L7 a11y baseline"
@@ -641,7 +641,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(cargo run -q -p cdcp_cli -- --help 2>&1)"
-for v in bank-hash grade goldens export-web serve; do
+for v in bank-hash grade goldens export-web serve build-units build-glossary; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"

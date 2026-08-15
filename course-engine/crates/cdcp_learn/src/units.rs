@@ -1,135 +1,24 @@
-//! build-units — Rust port of `scripts/build_units.py`
-//! (bd-substrate-rust-migration-jhd.12).
+//! build_units — compile `web/data/units_index.json` (learner-visible product).
 //!
-//! Derives one lesson unit per ATX `##` section of every module the Learn index
-//! carries, attaches domain topic ids and two-to-three real bank item ids to
-//! each, and writes `web/data/units_index.json`.
+//! One lesson unit per ATX `##` section of every module the Learn index carries,
+//! with domain topic ids and two-to-three approved bank item ids on each.
 //!
-//! # CLAIM: FLOOR-RAISE
-//!
-//! Every module the Learn index carries must reach the micro-check floor: at
-//! least `COVERAGE_FLOOR` of its units carry at least `MIN_CHECKS_PER_UNIT`
-//! real bank items. The module set is DERIVED from `web/data/modules_index.json`
-//! — the Learn index this gate already reads to find its content — and not from
-//! a numeric bound.
+//! Extracted from `cdcp_gate` by bd-engine-not-gate-ar39.2. The compilers are
+//! product: a learner is scored against `check_item_ids`. The contract is the
+//! artifact schema (declared keys, correct counts, approved-only checks, stable
+//! bytes), not a Python `json.dumps` replica.
 //!
 //! Anti-vacuous: zero modules, zero units, zero modules matching the module-id
-//! shape, or zero units across those modules are each an ERROR. A run that
-//! discovered nothing must not report like a run that checked everything.
+//! shape, or zero units across those modules are each an ERROR. A status filter
+//! that removes the whole bank is an ERROR, not an empty build.
 //!
-//! The same law applies one level up, to the INPUTS
-//! (bd-build-units-vacuous-registries-9153). `knowledge/topics.toml` and
-//! `web/data/modules_index.json` are each REQUIRED: absent, the gate exits 1
-//! naming the file and writes nothing. There is no glob fallback for the Learn
-//! index — see the finding below for what it used to do.
-//!
-//! ## Why the derivation, and not a two-digit ceiling (bd-lt7)
-//!
-//! Until 2026-08-14 the primary set was filtered by a hardcoded two-digit
-//! ceiling, which held the last module out of the floor. That module was, at
-//! the time, assessed but never taught, so the exemption looked harmless. It
-//! was not: the bound came from OBSERVED STATE rather than from a stated
-//! contract, so when the module was taught the floor stayed silent about it and
-//! this gate went on reporting PASS by luck rather than by check. The Learn
-//! index is the contract — if a module is in it, its units are subject to the
-//! floor. `tests/rebase_module_bounds.rs` is the ledger that keeps it that way,
-//! which is also why every threshold in this file is a named constant.
-//!
-//! # WHAT THIS GATE CANNOT DECIDE
-//!
-//! It counts units and attached item ids. It cannot tell whether a unit teaches
-//! anything, whether its Quick check items are RELEVANT to the heading they sit
-//! under, or whether the topic match that attached them was right — the topic
-//! matcher is a string-overlap heuristic that then fills with the whole domain,
-//! so an attachment landing is not evidence that it landed WELL. Most units
-//! therefore carry item ids no matter what their heading says. A floor of two
-//! ids per unit is a floor against silence, not a claim about quality.
-//!
-//! It also says nothing about the CONTENT of the registries it now requires: it
-//! checks that `topics.toml` and `modules_index.json` exist and parse, not that
-//! they are right. A present-but-wrong Learn index produces a confident report
-//! over the wrong module set.
-//!
-//! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
-//!
-//! `scripts/build_units.py` stays in the tree as the differential oracle for
-//! this port; `tests/diff_build_units.rs` runs both on every case and asserts
-//! stdout, stderr, exit code AND THE BYTES WRITTEN match. That contract is why
-//! this module carries hand-written emulations of a pile of Python behaviours —
-//! the `\s` and `\w` classes of `re`, `str.casefold`, `repr()` of a list,
-//! `round()`'s ties-to-even, `json.dumps(indent=2, sort_keys=True,
-//! ensure_ascii=True)` — rather than the idiomatic Rust nearest-neighbour, and
-//! why the report is written to **stdout with exit status 1** instead of going
-//! through `GateError`: the dispatcher's `report()` writes to stderr and maps
-//! to exit 2 or 4, which the oracle never produces, so routing through it would
-//! make the two sides differ on every RED case. The exit-code mapping in
-//! `crate::exit` is therefore deliberately NOT used on the report path. Same
-//! knowing, single-file deviation as `verify_orphans.rs`, recorded here for
-//! review rather than made quietly. bd-2m9 flips the whole crate later.
-//!
-//! `generated_by` still reads `scripts/build_units.py`. That string is part of
-//! the artifact's bytes, so changing it while the oracle is alive would break
-//! the differential on the very first case. It changes when the Python is
-//! deleted, not before.
-//!
-//! # THE THREE FINDINGS OF bd-.12, NOW FIXED IN THE ORACLE FIRST
-//!
-//! These were reported and DELIBERATELY not repaired when this port landed: a
-//! port stricter than its oracle blinds the whole differential. They were fixed
-//! in `scripts/build_units.py` first, the differential was watched go RED on
-//! them, and only then were they moved here. Measured 2026-08-14 before the
-//! fix, both implementations byte-identical:
-//!
-//!   * WRITE-BEFORE-VERDICT. `units_index.json` was written BEFORE any failure
-//!     was evaluated, so a RED run left its artifact behind and a later reader
-//!     could not tell a passing artifact from the residue of a failed run. The
-//!     write is now on the GREEN path only: `Outcome::artifact` is `None`
-//!     whenever `code != 0`, which is asserted rather than assumed — see
-//!     `a_red_outcome_never_carries_an_artifact`.
-//!   * A MISSING TOPIC REGISTRY WAS NOT AN ERROR. With `knowledge/topics.toml`
-//!     absent, `load_topics_by_domain` returned an empty map, every unit got an
-//!     empty `topic_ids`, and the item picker — which treats an empty topic set
-//!     as "no preference" rather than as "nothing to match" — still filled each
-//!     unit from the module pool: `exit 0, PASS: build_units units=134
-//!     modules=15`, indistinguishable from a run that checked everything.
-//!   * A MISSING LEARN INDEX WAS NOT AN ERROR either: `modules_index.json`
-//!     absent fell back to globbing `web/content/modules/*.md`, which swept in
-//!     `README.md` and emitted `"README": []` into `by_module`:
-//!     `exit 0, PASS: … units=134 modules=16`. A GREEN verdict carrying a WRONG
-//!     number — 16 where the Learn index says 15. THE FALLBACK IS DELETED, not
-//!     put behind a flag: a flag leaves the wrong answer reachable, and the
-//!     header above states the module set is DERIVED from the Learn index, so a
-//!     silent second derivation that disagrees with it is not a fallback but a
-//!     second gate nobody reviewed.
-//!
-//! # DEFECTS IN THE ORACLE THAT ARE STILL REPRODUCED, NOT FIXED
-//!
-//!   * `bank_by_id` is built and never read.
-//!   * The picker's `require_new_topic` leg carries a `len(picked) < n` term
-//!     that is always true where it is evaluated — the loop has already broken
-//!     otherwise. Kept, because removing it is a behaviour change.
-//!
-//! # DEVIATIONS THAT REMAIN (each unreachable from the live tree)
-//!
-//!   * An unknown argument is a USAGE error here; the oracle ignores argv
-//!     entirely. `check.sh` passes no arguments, so no live invocation differs.
-//!   * Unreadable/non-UTF-8 input, malformed `topics.toml`, malformed
-//!     `modules_index.json`, or a failed write end as `GateError::Error`
-//!     (exit 4) where the oracle emits a Python traceback and exits 1. A
-//!     traceback is not portable output.
-//!   * `py_casefold` is `str::to_lowercase` plus the sharp-s fold; `py_word` is
-//!     `char::is_alphanumeric` plus `_`. Both differ from CPython only on
-//!     scripts that do not appear in this corpus, and only in unit ORDERING or
-//!     word COUNTS, never in verdicts.
-//!   * Non-string scalars where the oracle would apply `str()` to a container
-//!     or a float are rendered best-effort. The bank and topic schemas forbid
-//!     those shapes; `verify_bank` and `verify_orphans` are what hold them.
+//! `generated_by` is `cdcp_learn`. Write-after-verdict: a RED compile writes
+//! nothing.
 
 #![forbid(unsafe_code)]
 
-use crate::registry::{GateCtx, GateError};
+use crate::{join_rel, BuildOutcome, LearnError, GENERATED_BY};
 use std::collections::{HashMap, HashSet};
-use std::io::Write;
 use std::path::{Path, PathBuf};
 
 pub const NAME: &str = "build-units";
@@ -142,6 +31,16 @@ pub const OUT_REL: &str = "web/data/units_index.json";
 pub const MOD_INDEX_REL: &str = "web/data/modules_index.json";
 pub const BANK_JSON_REL: &str = "web/data/bank_items_seed42.json";
 pub const BANK_DIR_REL: &str = "bank/items";
+
+/// The one `BankItem.status` a unit check may draw (`APPROVED`).
+///
+/// `web/data/bank_items_seed42.json` is the content-addressed MANIFEST of the
+/// whole bank — 804 rows, 779 approved, 25 retired — and it CANNOT be filtered
+/// at the source: `cdcp_wasm::grade_digest_json` recomputes `bank_hash` over
+/// those exact bytes and `cdcp_grade::grade` hard-fails on a mismatch. The
+/// obligation lands on every consumer that DRAWS, and this gate is one.
+/// See the oracle's module header and `web/data/README.md`.
+pub const APPROVED: &str = "approved";
 
 /// Target questions per unit (`CHECK_N`).
 pub const CHECK_N: usize = 3;
@@ -816,6 +715,19 @@ pub struct Item {
     pub stem: String,
     pub explanation: String,
     pub choices_len: usize,
+    /// `BankItem.status`. `""` when the row carried none — see [`is_approved`].
+    pub status: String,
+}
+
+impl Item {
+    /// The drawable predicate (`is_approved`). Absent status is WITHHELD, never
+    /// permitted: `export-web` refuses to write a manifest row without a
+    /// `status`, so a row that reached here without one came from somewhere
+    /// that gate does not cover, and guessing in its favour is how a withdrawn
+    /// item reaches a learner.
+    pub fn is_approved(&self) -> bool {
+        self.status == APPROVED
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -1162,19 +1074,11 @@ pub fn pick_check_items(
 
 // ── input loading ──────────────────────────────────────────────────────────
 
-fn join_rel(root: &Path, rel: &str) -> PathBuf {
-    let mut p = root.to_path_buf();
-    for part in rel.split('/') {
-        p.push(part);
-    }
-    p
-}
-
-fn read_utf8(p: &Path) -> Result<String, GateError> {
+fn read_utf8(p: &Path) -> Result<String, LearnError> {
     let bytes =
-        std::fs::read(p).map_err(|e| GateError::error(format!("read {}: {e}", p.display())))?;
+        std::fs::read(p).map_err(|e| LearnError::io(format!("read {}: {e}", p.display())))?;
     String::from_utf8(bytes)
-        .map_err(|e| GateError::error(format!("{} is not valid UTF-8: {e}", p.display())))
+        .map_err(|e| LearnError::io(format!("{} is not valid UTF-8: {e}", p.display())))
 }
 
 fn toml_truthy(v: Option<&toml::Value>) -> bool {
@@ -1237,13 +1141,13 @@ fn toml_seq_len(v: Option<&toml::Value>) -> usize {
 /// `load_topics_by_domain`. The caller has already refused to run without the
 /// file: the `is_file` guard that used to sit here returned an empty map for an
 /// absent registry, which the picker then read as "no preference".
-pub fn load_topics_by_domain(root: &Path) -> Result<HashMap<String, Vec<Topic>>, GateError> {
+pub fn load_topics_by_domain(root: &Path) -> Result<HashMap<String, Vec<Topic>>, LearnError> {
     let mut by: HashMap<String, Vec<Topic>> = HashMap::new();
     let path = join_rel(root, TOPICS_REL);
     let text = read_utf8(&path)?;
     let data: toml::Value = text
         .parse()
-        .map_err(|e| GateError::error(format!("{}: {e}", path.display())))?;
+        .map_err(|e| LearnError::io(format!("{}: {e}", path.display())))?;
     let Some(toml::Value::Array(rows)) = data.get("topic") else {
         return Ok(by);
     };
@@ -1260,12 +1164,12 @@ pub fn load_topics_by_domain(root: &Path) -> Result<HashMap<String, Vec<Topic>>,
 }
 
 /// `load_bank` — the exported seed JSON first, then the per-item TOMLs.
-pub fn load_bank(root: &Path) -> Result<Vec<Item>, GateError> {
+pub fn load_bank(root: &Path) -> Result<Vec<Item>, LearnError> {
     let bank_json = join_rel(root, BANK_JSON_REL);
     if bank_json.is_file() {
         let text = read_utf8(&bank_json)?;
         let data = json_parse(&text)
-            .map_err(|e| GateError::error(format!("{}: {e}", bank_json.display())))?;
+            .map_err(|e| LearnError::io(format!("{}: {e}", bank_json.display())))?;
         let empty: Vec<Json> = Vec::new();
         let items: &Vec<Json> = match &data {
             Json::Arr(v) => v,
@@ -1289,6 +1193,7 @@ pub fn load_bank(root: &Path) -> Result<Vec<Item>, GateError> {
                 stem: py_str_or(obj_get(it, "stem"), ""),
                 explanation: py_str_or(obj_get(it, "explanation"), ""),
                 choices_len: py_seq_len(obj_get(it, "choices")),
+                status: py_str_or(obj_get(it, "status"), ""),
             });
         }
         if !out.is_empty() {
@@ -1306,7 +1211,7 @@ pub fn load_bank(root: &Path) -> Result<Vec<Item>, GateError> {
     // under a shared parent is filename order.
     let mut paths: Vec<PathBuf> = Vec::new();
     let entries = std::fs::read_dir(&bank_dir)
-        .map_err(|e| GateError::error(format!("read {}: {e}", bank_dir.display())))?;
+        .map_err(|e| LearnError::io(format!("read {}: {e}", bank_dir.display())))?;
     for e in entries.flatten() {
         let p = e.path();
         if p.file_name()
@@ -1339,22 +1244,17 @@ pub fn load_bank(root: &Path) -> Result<Vec<Item>, GateError> {
             stem: toml_str_or(t.get("stem"), ""),
             explanation: toml_str_or(t.get("explanation"), ""),
             choices_len: toml_seq_len(t.get("choices")),
+            status: toml_str_or(t.get("status"), ""),
         });
     }
     Ok(items)
 }
 
-// ── the gate ───────────────────────────────────────────────────────────────
+// ── the compiler ───────────────────────────────────────────────────────────
 
-pub struct Outcome {
-    pub stdout: String,
-    pub code: i32,
-    /// `(path, bytes)` the run would write. `None` when the oracle returns
-    /// before it writes anything.
-    pub artifact: Option<(PathBuf, String)>,
-}
+pub type Outcome = BuildOutcome;
 
-pub fn evaluate(root: &Path) -> Result<Outcome, GateError> {
+pub fn evaluate(root: &Path) -> Result<Outcome, LearnError> {
     let content = join_rel(root, CONTENT_REL);
     if !content.is_dir() {
         return Ok(Outcome {
@@ -1399,7 +1299,7 @@ pub fn evaluate(root: &Path) -> Result<Outcome, GateError> {
     let mut domain_ids: Vec<String> = Vec::new();
     let text = read_utf8(&mod_index)?;
     let mi =
-        json_parse(&text).map_err(|e| GateError::error(format!("{}: {e}", mod_index.display())))?;
+        json_parse(&text).map_err(|e| LearnError::io(format!("{}: {e}", mod_index.display())))?;
     if let Some(Json::Arr(modules)) = obj_get(&mi, "modules") {
         for m in modules {
             if !truthy(obj_get(m, "empty")) && truthy(obj_get(m, "id")) {
@@ -1410,12 +1310,16 @@ pub fn evaluate(root: &Path) -> Result<Outcome, GateError> {
 
     let topics_by = load_topics_by_domain(root)?;
     let bank = load_bank(root)?;
+    // THE DRAW POOL IS THE APPROVED POOL. `bank` stays whole so
+    // `bank_item_count` keeps meaning "manifest rows"; only approved rows may
+    // reach a unit's check_item_ids.
+    let approved: Vec<&Item> = bank.iter().filter(|it| it.is_approved()).collect();
     let mut bank_by_module: HashMap<i64, Vec<Item>> = HashMap::new();
-    for it in &bank {
+    for it in &approved {
         bank_by_module
             .entry(it.module)
             .or_default()
-            .push(it.clone());
+            .push((*it).clone());
     }
 
     let mut all_units: Vec<Row> = Vec::new();
@@ -1487,10 +1391,11 @@ pub fn evaluate(root: &Path) -> Result<Outcome, GateError> {
         ("schema_version".into(), Jv::Int(2)),
         (
             "generated_by".into(),
-            Jv::Str("scripts/build_units.py".into()),
+            Jv::Str(GENERATED_BY.into()),
         ),
         ("unit_count".into(), Jv::Int(all_units.len() as i64)),
         ("module_count".into(), Jv::Int(by_module.len() as i64)),
+        ("approved_item_count".into(), Jv::Int(approved.len() as i64)),
         ("bank_item_count".into(), Jv::Int(bank.len() as i64)),
         (
             "units_with_checks".into(),
@@ -1538,6 +1443,20 @@ pub fn evaluate(root: &Path) -> Result<Outcome, GateError> {
     }
     if all_units.is_empty() {
         failures.push("zero units discovered (vacuous unit build is ERROR)".to_string());
+    }
+
+    // A FILTER THAT REMOVES EVERYTHING IS AN ERROR, NOT AN EMPTY BUILD. A bank
+    // that loaded rows but whose approved pool is empty would otherwise emit an
+    // artifact with every check_item_ids=[] and let the coverage floor do the
+    // complaining — a shortfall message about CONTENT, for what is actually a
+    // status-filter fault.
+    if !bank.is_empty() && approved.is_empty() {
+        failures.push(format!(
+            "bank loaded {} rows and NONE are status={} \
+             (a status filter that removes the whole pool is ERROR, not an empty build)",
+            bank.len(),
+            py_repr(APPROVED)
+        ));
     }
 
     let lookup = |need: &str| -> Vec<Row> {
@@ -1619,8 +1538,10 @@ pub fn evaluate(root: &Path) -> Result<Outcome, GateError> {
             by_module.len()
         ),
         format!(
-            "  bank_items={} units_with_checks≥2={units_with_checks} zero={units_zero_checks}",
-            bank.len()
+            "  bank_items={} approved_pool={} \
+             units_with_checks≥2={units_with_checks} zero={units_zero_checks}",
+            bank.len(),
+            approved.len()
         ),
         if failures.is_empty() {
             format!("  out={OUT_REL}")
@@ -1651,19 +1572,14 @@ pub fn evaluate(root: &Path) -> Result<Outcome, GateError> {
     })
 }
 
-pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
-    // The oracle ignores argv; this side refuses to. See the header.
-    ctx.reject_unknown_flags(&[])?;
-
-    // The Python resolves its own location (`Path(__file__).resolve()`), so
-    // every path it derives is symlink-free. Do the same to the engine root.
-    let root = ctx.root.canonicalize().unwrap_or_else(|_| ctx.root.clone());
+/// Compile units and write the artifact on the GREEN path only.
+///
+/// A RED compile writes nothing. The caller prints `outcome.stdout` and maps
+/// `outcome.code` onto the process exit — this function does not call
+/// `process::exit`.
+pub fn write_units(root: &Path) -> Result<Outcome, LearnError> {
+    let root = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
     let outcome = evaluate(&root)?;
-
-    // A RED outcome carries NO artifact — `evaluate` decides the verdict before
-    // it decides whether there is anything to write, and this is the belt to
-    // that braces: a non-zero code with an artifact attached is a contradiction
-    // and must not be resolvable by writing the file.
     debug_assert!(
         outcome.code == 0 || outcome.artifact.is_none(),
         "a failing run must not carry an artifact"
@@ -1672,21 +1588,13 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         if let Some((path, body)) = &outcome.artifact {
             if let Some(parent) = path.parent() {
                 std::fs::create_dir_all(parent)
-                    .map_err(|e| GateError::error(format!("mkdir {}: {e}", parent.display())))?;
+                    .map_err(|e| LearnError::io(format!("mkdir {}: {e}", parent.display())))?;
             }
             std::fs::write(path, body.as_bytes())
-                .map_err(|e| GateError::error(format!("write {}: {e}", path.display())))?;
+                .map_err(|e| LearnError::io(format!("write {}: {e}", path.display())))?;
         }
     }
-
-    print!("{}", outcome.stdout);
-    let _ = std::io::stdout().flush();
-    if outcome.code != 0 {
-        // See the module header: the oracle exits 1 with this report on stdout
-        // and an empty stderr, and byte-identical output is the acceptance bar.
-        std::process::exit(outcome.code);
-    }
-    Ok(())
+    Ok(outcome)
 }
 
 // ── tests ──────────────────────────────────────────────────────────────────
@@ -1900,6 +1808,11 @@ mod tests {
             stem: "Which of these is the most likely failure mode on this run?".into(),
             explanation: "because the explanation is long enough to score".into(),
             choices_len: 4,
+            // These fixtures exercise the PICKER, so they must be drawable.
+            // Absent status is WITHHELD (see `Item::is_approved`), which would
+            // make every picker test vacuous — zero candidates, trivially
+            // deterministic, asserting nothing.
+            status: "approved".into(),
         }
     }
 

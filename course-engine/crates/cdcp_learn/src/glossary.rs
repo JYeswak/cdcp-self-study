@@ -1,5 +1,4 @@
-//! build-glossary-json — Rust port of `scripts/build_glossary_json.py`
-//! (bd-substrate-rust-migration-jhd.11).
+//! build_glossary — compile `web/data/glossary.json` (learner-visible product).
 //!
 //! # CLAIM: FLOOR-RAISE
 //!
@@ -91,12 +90,11 @@
 
 #![forbid(unsafe_code)]
 
-use crate::registry::{GateCtx, GateError};
+use crate::{join_rel, BuildOutcome, LearnError, GENERATED_BY};
 use std::collections::HashMap;
-use std::io::Write;
 use std::path::{Path, PathBuf};
 
-pub const NAME: &str = "build-glossary-json";
+pub const NAME: &str = "build-glossary";
 pub const SUMMARY: &str = "build web/data/glossary.json from the reference GLOSSARY.md term table";
 
 /// Engine-root-relative paths, matching the Python module constants.
@@ -331,7 +329,7 @@ pub fn render(source: &str, sorted_terms: &[(String, String)]) -> String {
     let mut s = String::new();
     s.push_str("{\n");
     s.push_str("  \"schema_version\": 1,\n");
-    s.push_str("  \"generated_by\": \"scripts/build_glossary_json.py\",\n");
+    s.push_str(&format!("  \"generated_by\": \"{GENERATED_BY}\",\n"));
     s.push_str("  \"source\": ");
     json_string(source, &mut s);
     s.push_str(",\n");
@@ -372,14 +370,6 @@ pub fn resolve_source(root: &Path) -> PathBuf {
     parent.join("reference").join("GLOSSARY.md")
 }
 
-fn join_rel(root: &Path, rel: &str) -> PathBuf {
-    let mut p = root.to_path_buf();
-    for part in rel.split('/') {
-        p.push(part);
-    }
-    p
-}
-
 /// `str(SRC.relative_to(ROOT)) if SRC.is_relative_to(ROOT) else str(SRC)`.
 pub fn source_field(root: &Path, src: &Path) -> String {
     match src.strip_prefix(root) {
@@ -388,33 +378,31 @@ pub fn source_field(root: &Path, src: &Path) -> String {
     }
 }
 
-pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
-    // The oracle ignores argv; this side refuses to. See the header.
-    ctx.reject_unknown_flags(&[])?;
+pub type Outcome = BuildOutcome;
 
-    // The Python resolves its own location (`Path(__file__).resolve()`), so
-    // every path it prints is symlink-free. Do the same to the engine root.
-    let root = ctx.root.canonicalize().unwrap_or_else(|_| ctx.root.clone());
+/// Compile the glossary. Does not write. A RED compile carries no artifact.
+pub fn evaluate(root: &Path) -> Result<Outcome, LearnError> {
+    let root = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
     let src = resolve_source(&root);
     let out = join_rel(&root, OUT_REL);
 
     if !src.is_file() {
-        println!("FAIL: missing glossary at {}", src.display());
-        let _ = std::io::stdout().flush();
-        std::process::exit(1);
+        return Ok(Outcome {
+            stdout: format!("FAIL: missing glossary at {}\n", src.display()),
+            code: 1,
+            artifact: None,
+        });
     }
 
     let bytes = std::fs::read(&src)
-        .map_err(|e| GateError::error(format!("read {}: {e}", src.display())))?;
+        .map_err(|e| LearnError::io(format!("read {}: {e}", src.display())))?;
     let text = String::from_utf8(bytes)
-        .map_err(|e| GateError::error(format!("{} is not valid UTF-8: {e}", src.display())))?;
+        .map_err(|e| LearnError::parse(format!("{} is not valid UTF-8: {e}", src.display())))?;
 
     let terms = extract_terms(&text);
     let body = render(&source_field(&root, &src), &terms.sorted());
 
-    // The verdict is decided BEFORE anything is printed and before anything is
-    // written. See the header: this used to write, then print PASS, then print
-    // FAIL underneath it on the way to exit 1.
+    // The verdict is decided BEFORE anything is written.
     let failures = failures_for(terms.len());
     if !failures.is_empty() {
         let mut report = vec![format!("FAIL: glossary terms={}", terms.len())];
@@ -422,21 +410,38 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         report.push(format!(
             "  out={OUT_REL} NOT WRITTEN (a failing build leaves no artifact)"
         ));
-        println!("{}", report.join("\n"));
-        let _ = std::io::stdout().flush();
-        std::process::exit(1);
+        return Ok(Outcome {
+            stdout: format!("{}\n", report.join("\n")),
+            code: 1,
+            artifact: None,
+        });
     }
 
-    if let Some(parent) = out.parent() {
-        std::fs::create_dir_all(parent)
-            .map_err(|e| GateError::error(format!("mkdir {}: {e}", parent.display())))?;
-    }
-    std::fs::write(&out, body.as_bytes())
-        .map_err(|e| GateError::error(format!("write {}: {e}", out.display())))?;
+    Ok(Outcome {
+        stdout: format!("PASS: glossary terms={} → {OUT_REL}\n", terms.len()),
+        code: 0,
+        artifact: Some((out, body)),
+    })
+}
 
-    println!("PASS: glossary terms={} → {OUT_REL}", terms.len());
-    let _ = std::io::stdout().flush();
-    Ok(())
+/// Compile the glossary and write the artifact on the GREEN path only.
+pub fn write_glossary(root: &Path) -> Result<Outcome, LearnError> {
+    let outcome = evaluate(root)?;
+    debug_assert!(
+        outcome.code == 0 || outcome.artifact.is_none(),
+        "a failing run must not carry an artifact"
+    );
+    if outcome.code == 0 {
+        if let Some((path, body)) = &outcome.artifact {
+            if let Some(parent) = path.parent() {
+                std::fs::create_dir_all(parent)
+                    .map_err(|e| LearnError::io(format!("mkdir {}: {e}", parent.display())))?;
+            }
+            std::fs::write(path, body.as_bytes())
+                .map_err(|e| LearnError::io(format!("write {}: {e}", path.display())))?;
+        }
+    }
+    Ok(outcome)
 }
 
 /// Every reason this build is RED, as the report prints them. Factored out of
@@ -564,7 +569,7 @@ mod tests {
         let body = render("s.md", &terms);
         assert_eq!(
             body,
-            "{\n  \"schema_version\": 1,\n  \"generated_by\": \"scripts/build_glossary_json.py\",\n  \"source\": \"s.md\",\n  \"term_count\": 1,\n  \"terms\": {\n    \"A\": \"one\"\n  }\n}\n"
+            "{\n  \"schema_version\": 1,\n  \"generated_by\": \"cdcp_learn\",\n  \"source\": \"s.md\",\n  \"term_count\": 1,\n  \"terms\": {\n    \"A\": \"one\"\n  }\n}\n"
         );
     }
 

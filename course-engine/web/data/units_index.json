@@ -1,4 +1,5 @@
 {
+  "approved_item_count": 779,
   "bank_item_count": 804,
   "by_module": {
     "01-mission-critical": [
@@ -986,8 +987,8 @@
         "check_count": 3,
         "check_item_ids": [
           "m05-q149",
-          "m05-q200",
-          "m05-q201"
+          "m05-q201",
+          "m05-q203"
         ],
         "estimate_minutes": 3,
         "heading_id": "formulas-rules-of-thumb",
@@ -1008,9 +1009,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "m05-q201",
           "m05-q202",
-          "m05-q203"
+          "m05-q203",
+          "m05-q204"
         ],
         "estimate_minutes": 3,
         "heading_id": "common-failure-modes-and-misconceptions",
@@ -1031,9 +1032,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "m05-q204",
           "m05-q205",
-          "m05-q206"
+          "m05-q206",
+          "m05-q208"
         ],
         "estimate_minutes": 3,
         "heading_id": "interview-drills",
@@ -1054,9 +1055,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "m05-q207",
           "m05-q208",
-          "m05-q209"
+          "m05-q209",
+          "m05-q210"
         ],
         "estimate_minutes": 3,
         "heading_id": "self-check-quiz",
@@ -1077,9 +1078,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "m05-q210",
           "m05-q211",
-          "m05-q212"
+          "m05-q212",
+          "m05-q213"
         ],
         "estimate_minutes": 3,
         "heading_id": "further-free-resources",
@@ -2406,7 +2407,7 @@
         "check_item_ids": [
           "m11-q220",
           "m11-q224",
-          "m11-q226"
+          "m11-q100"
         ],
         "estimate_minutes": 3,
         "heading_id": "formulas-rules-of-thumb",
@@ -2430,9 +2431,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "m11-q100",
           "m11-q101",
-          "m11-q105"
+          "m11-q105",
+          "m11-q108"
         ],
         "estimate_minutes": 3,
         "heading_id": "common-failure-modes-and-misconceptions",
@@ -2456,7 +2457,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "m11-q105",
+          "m11-q106",
           "m11-q108",
           "m11-q111"
         ],
@@ -2482,9 +2483,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "m11-q109",
           "m11-q111",
-          "m11-q114"
+          "m11-q114",
+          "m11-q117"
         ],
         "estimate_minutes": 3,
         "heading_id": "self-check-quiz",
@@ -2508,9 +2509,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "m11-q113",
           "m11-q114",
-          "m11-q117"
+          "m11-q117",
+          "m11-q119"
         ],
         "estimate_minutes": 3,
         "heading_id": "further-free-resources",
@@ -3393,7 +3394,7 @@
       }
     ]
   },
-  "generated_by": "scripts/build_units.py",
+  "generated_by": "cdcp_learn",
   "module_count": 15,
   "schema_version": 2,
   "shortfalls": [],
@@ -4375,8 +4376,8 @@
       "check_count": 3,
       "check_item_ids": [
         "m05-q149",
-        "m05-q200",
-        "m05-q201"
+        "m05-q201",
+        "m05-q203"
       ],
       "estimate_minutes": 3,
       "heading_id": "formulas-rules-of-thumb",
@@ -4397,9 +4398,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "m05-q201",
         "m05-q202",
-        "m05-q203"
+        "m05-q203",
+        "m05-q204"
       ],
       "estimate_minutes": 3,
       "heading_id": "common-failure-modes-and-misconceptions",
@@ -4420,9 +4421,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "m05-q204",
         "m05-q205",
-        "m05-q206"
+        "m05-q206",
+        "m05-q208"
       ],
       "estimate_minutes": 3,
       "heading_id": "interview-drills",
@@ -4443,9 +4444,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "m05-q207",
         "m05-q208",
-        "m05-q209"
+        "m05-q209",
+        "m05-q210"
       ],
       "estimate_minutes": 3,
       "heading_id": "self-check-quiz",
@@ -4466,9 +4467,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "m05-q210",
         "m05-q211",
-        "m05-q212"
+        "m05-q212",
+        "m05-q213"
       ],
       "estimate_minutes": 3,
       "heading_id": "further-free-resources",
@@ -5783,7 +5784,7 @@
       "check_item_ids": [
         "m11-q220",
         "m11-q224",
-        "m11-q226"
+        "m11-q100"
       ],
       "estimate_minutes": 3,
       "heading_id": "formulas-rules-of-thumb",
@@ -5807,9 +5808,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "m11-q100",
         "m11-q101",
-        "m11-q105"
+        "m11-q105",
+        "m11-q108"
       ],
       "estimate_minutes": 3,
       "heading_id": "common-failure-modes-and-misconceptions",
@@ -5833,7 +5834,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "m11-q105",
+        "m11-q106",
         "m11-q108",
         "m11-q111"
       ],
@@ -5859,9 +5860,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "m11-q109",
         "m11-q111",
-        "m11-q114"
+        "m11-q114",
+        "m11-q117"
       ],
       "estimate_minutes": 3,
       "heading_id": "self-check-quiz",
@@ -5885,9 +5886,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "m11-q113",
         "m11-q114",
-        "m11-q117"
+        "m11-q117",
+        "m11-q119"
       ],
       "estimate_minutes": 3,
       "heading_id": "further-free-resources",

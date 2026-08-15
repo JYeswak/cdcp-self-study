@@ -12,7 +12,7 @@
 # Count is wc -l (newline count), measured 2026-08-15.
 # Bead cited 64,955 the previous evening; this pin is the live tree.
 
-ceiling_lines = 64958
+ceiling_lines = 60615
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
@@ -23,14 +23,13 @@ product_crates = [
   "cdcp_grade",
   "cdcp_bank",
   "cdcp_assemble",
+  "cdcp_learn",
   "cdcp_cli",
   "cdcp_wasm",
   "cdcp_registry_check",
 ]
 
 product_gate_files = [
-  "src/gates/build_units.rs",
-  "src/gates/build_glossary_json.rs",
   "src/gates/export_anki.rs",
 ]
 
@@ -45,14 +44,6 @@ lines = 131
 [[file]]
 path = "src/exit.rs"
 lines = 22
-
-[[file]]
-path = "src/gates/build_glossary_json.rs"
-lines = 649
-
-[[file]]
-path = "src/gates/build_units.rs"
-lines = 2148
 
 [[file]]
 path = "src/gates/capability_maturity.rs"
@@ -177,14 +168,6 @@ lines = 672
 [[file]]
 path = "tests/corpus_redistribution_e2e.rs"
 lines = 638
-
-[[file]]
-path = "tests/diff_build_glossary_json.rs"
-lines = 562
-
-[[file]]
-path = "tests/diff_build_units.rs"
-lines = 973
 
 [[file]]
 path = "tests/diff_export_anki.rs"

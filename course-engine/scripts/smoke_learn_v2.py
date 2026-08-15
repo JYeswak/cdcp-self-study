@@ -24,7 +24,7 @@ def main() -> int:
     print("==> smoke_learn_v2 (M8 B/D assets)")
     units = WEB / "data/units_index.json"
     if not units.is_file():
-        fail("missing units_index.json — run build_units.py")
+        fail("missing units_index.json — run `cdcp build-units`")
     else:
         d = json.loads(units.read_text(encoding="utf-8"))
         by = d.get("by_module") or {}

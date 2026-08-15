@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_by": "scripts/build_glossary_json.py",
+  "generated_by": "cdcp_learn",
   "source": "web/content/reference/GLOSSARY.md",
   "term_count": 156,
   "terms": {

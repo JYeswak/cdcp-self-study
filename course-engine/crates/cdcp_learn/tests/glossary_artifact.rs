@@ -1,5 +1,6 @@
-//! Differential harness: `cdcp_gate build-glossary-json` against
-//! `scripts/build_glossary_json.py` (bd-substrate-rust-migration-jhd.11).
+//! Verdict suite for `cdcp_learn::glossary` (extracted from the gate by
+//! bd-engine-not-gate-ar39.2). The Python oracle is DELETED; agreement-only
+//! cases evaporated with it. Every case below asserts the correct answer.
 //!
 //! # HOW A *BUILDER* IS DIFFERENTIALLY TESTED (the reusable part)
 //!
@@ -42,24 +43,20 @@
 //! a FAILURE and never a skip; a fixture that copied no source is a FAILURE;
 //! and every case increments a counter that is asserted by its own case.
 
-use cdcp_gate::gates::build_glossary_json::MIN_TERMS;
+use cdcp_learn::glossary::MIN_TERMS;
 use std::path::{Path, PathBuf};
-use std::process::Command;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-const BIN: &str = env!("CARGO_BIN_EXE_cdcp_gate");
-const ORACLE: &str = "scripts/build_glossary_json.py";
-const GATE: &str = "build-glossary-json";
 const SRC_REL: &str = "web/content/reference/GLOSSARY.md";
 const ARTIFACT_REL: &str = "web/data/glossary.json";
 
-/// Cases actually compared, so "the harness ran" is itself checked.
+/// Cases actually run, so "the suite ran" is itself checked.
 static COMPARED: AtomicUsize = AtomicUsize::new(0);
-/// Unique sub-directory per comparison, so `py/` and `rs/` never collide.
+/// Unique sub-directory per run, so concurrent cases never collide.
 static ROUND: AtomicUsize = AtomicUsize::new(0);
 
 fn engine_root() -> PathBuf {
-    cdcp_gate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
+    cdcp_learn::resolve_engine_root(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
 }
 
 // ── fixture plumbing ───────────────────────────────────────────────────────
@@ -94,22 +91,11 @@ struct Fixture {
 }
 
 impl Fixture {
-    /// A fixture with the oracle in place and nothing else. The oracle MUST be
-    /// copied in: it resolves its own root from `__file__`, so a script outside
-    /// the fixture would build the live tree instead.
     fn new() -> Fixture {
         let f = Fixture {
             dir: tempfile::tempdir().unwrap(),
         };
-        let root = engine_root();
-        let script = root.join(ORACLE);
-        assert!(
-            script.is_file(),
-            "{ORACLE} is the differential oracle for this port; without it the port is unverified"
-        );
-        let dst = f.template().join("scripts");
-        std::fs::create_dir_all(&dst).unwrap();
-        std::fs::copy(&script, dst.join("build_glossary_json.py")).unwrap();
+        std::fs::create_dir_all(f.template()).unwrap();
         f
     }
 
@@ -160,126 +146,42 @@ fn artifact_of(root: &Path) -> Option<Vec<u8>> {
     std::fs::read(root.join(ARTIFACT_REL)).ok()
 }
 
-fn python(root: &Path) -> Run {
-    let out = Command::new("python3")
-        .current_dir(root)
-        .arg("scripts/build_glossary_json.py")
-        .output()
-        .unwrap_or_else(|e| {
-            panic!(
-                "python3 {ORACLE} could not run ({e}). The oracle is REQUIRED: a differential \
-                 that cannot run its reference is a failure, never a skip."
-            )
-        });
-    Run {
-        code: out.status.code().unwrap_or(-1),
-        stdout: out.stdout,
-        stderr: out.stderr,
-        artifact: artifact_of(root),
-    }
-}
-
-fn rust(root: &Path) -> Run {
-    // The BUILT binary, never `cargo run`: cargo writes build diagnostics to
-    // stderr, and a sibling's warning would read here as a false divergence.
-    let out = Command::new(BIN)
-        .current_dir(root)
-        .arg("--root")
-        .arg(root)
-        .arg(GATE)
-        .output()
-        .expect("run cdcp_gate");
-    Run {
-        code: out.status.code().unwrap_or(-1),
-        stdout: out.stdout,
-        stderr: out.stderr,
-        artifact: artifact_of(root),
-    }
-}
-
-/// The whole acceptance bar in one function: stdout, stderr, exit code AND the
-/// bytes written, each compared across two independent copies of the fixture.
+/// Compile in a private copy of the fixture. Agreement-only (python vs rust)
+/// is gone with the oracle. Every case asserts the CORRECT answer.
 fn compare(label: &str, f: &Fixture) -> Run {
     let n = ROUND.fetch_add(1, Ordering::SeqCst);
-    let base = f.dir.path().join(format!("round{n}"));
-    let py_root = base.join("py");
-    let rs_root = base.join("rs");
-    copy_tree(&f.template(), &py_root);
-    copy_tree(&f.template(), &rs_root);
+    let root = f.dir.path().join(format!("round{n}"));
+    copy_tree(&f.template(), &root);
 
-    let py = python(&py_root);
-    let rs = rust(&rs_root);
+    let outcome = cdcp_learn::glossary::write_glossary(&root).expect("write_glossary");
+    let r = Run {
+        code: outcome.code,
+        stdout: outcome.stdout.into_bytes(),
+        stderr: Vec::new(),
+        artifact: artifact_of(&root),
+    };
 
-    assert_eq!(
-        py.stdout,
-        rs.stdout,
-        "[{label}] STDOUT differs.\n--- python ---\n{}\n--- rust ---\n{}",
-        py.out(),
-        rs.out()
-    );
-    assert_eq!(
-        py.stderr,
-        rs.stderr,
-        "[{label}] STDERR differs.\n--- python ---\n{}\n--- rust ---\n{}",
-        py.err(),
-        rs.err()
-    );
-    assert_eq!(
-        py.code, rs.code,
-        "[{label}] EXIT CODE differs: python {} vs rust {}",
-        py.code, rs.code
-    );
-    assert_eq!(
-        py.artifact.is_some(),
-        rs.artifact.is_some(),
-        "[{label}] one side wrote {ARTIFACT_REL} and the other did not \
-         (python wrote: {}, rust wrote: {})",
-        py.artifact.is_some(),
-        rs.artifact.is_some()
-    );
-    if let (Some(a), Some(b)) = (&py.artifact, &rs.artifact) {
-        assert_eq!(
-            a,
-            b,
-            "[{label}] ARTIFACT BYTES differ.\n--- python ---\n{}\n--- rust ---\n{}",
-            String::from_utf8_lossy(a),
-            String::from_utf8_lossy(b)
+    if r.code != 0 {
+        assert!(
+            !r.out().contains("PASS"),
+            "[{label}] exited {} with a success token on stdout:\n{}",
+            r.code,
+            r.out()
+        );
+        assert!(
+            r.artifact.is_none(),
+            "[{label}] exited {} but left {ARTIFACT_REL} behind",
+            r.code
+        );
+    } else {
+        assert!(
+            r.artifact.is_some(),
+            "[{label}] exited 0 without writing {ARTIFACT_REL}"
         );
     }
 
-    // VERDICT SHAPE and WRITE-AFTER-VERDICT, asserted on EVERY case rather than
-    // on the handful that happen to be RED, and asserted PER SIDE rather than
-    // only across the two — a differential only catches a regression that lands
-    // on one side, and two implementations that both regress agree with each
-    // other perfectly. bd-builder-verdict-shape-qm65.
-    for (side, r) in [("python", &py), ("rust", &rs)] {
-        if r.code != 0 {
-            assert!(
-                !r.out().contains("PASS"),
-                "[{label}] {side} exited {} with a success token on stdout. This is the \
-                 defect itself: a reader skimming stdout would see PASS while CI saw \
-                 non-zero, and which one wins depends on whether anyone looked:\n{}",
-                r.code,
-                r.out()
-            );
-            assert!(
-                r.artifact.is_none(),
-                "[{label}] {side} exited {} but left {ARTIFACT_REL} behind; a failing \
-                 build must leave no artifact, or a later reader cannot tell a passing \
-                 artifact from the residue of a failed run",
-                r.code
-            );
-        } else {
-            assert!(
-                r.artifact.is_some(),
-                "[{label}] {side} exited 0 without writing {ARTIFACT_REL}; a green \
-                 build that produced no artifact is not a build"
-            );
-        }
-    }
-
     COMPARED.fetch_add(1, Ordering::SeqCst);
-    rs
+    r
 }
 
 /// A table with `n` well-formed rows.
@@ -293,28 +195,12 @@ fn table(n: usize) -> String {
     s
 }
 
-// ── the oracle must exist and be RUNNABLE at all ───────────────────────────
-
-#[test]
-fn the_oracle_is_present_and_green_on_a_copy_of_the_live_tree() {
-    let f = Fixture::new();
-    f.seed_live_source();
-    let base = f.dir.path().join("oracle-check");
-    copy_tree(&f.template(), &base);
-    let py = python(&base);
-    assert_eq!(
-        py.code,
-        0,
-        "the oracle is RED on the live inputs, so no differential below can be trusted:\n{}\n{}",
-        py.out(),
-        py.err()
-    );
-}
-
 // ── case 1: the live tree, without touching the live tree ──────────────────
+// DROPPED: the_oracle_is_present_and_green_on_a_copy_of_the_live_tree —
+// that case asserted nothing but "python ran". The oracle is deleted.
 
 #[test]
-fn live_inputs_are_byte_identical_green_and_reproduce_the_tracked_artifact() {
+fn live_inputs_are_green_and_reproduce_the_tracked_artifact() {
     let f = Fixture::new();
     f.seed_live_source();
     let rs = compare("live inputs", &f);
@@ -442,29 +328,19 @@ fn one_term_below_the_floor_is_red_and_the_floor_itself_is_green() {
 // ── case 4: the sibling-reference fallback and its absolute `source` ───────
 
 #[test]
-fn the_sibling_reference_fallback_is_byte_identical() {
+fn the_sibling_reference_fallback_records_an_absolute_source() {
     let f = Fixture::new();
     // Nothing under the root; the glossary lives one level up, which is the
-    // branch that prints an ABSOLUTE `source` instead of a relative one. Both
-    // copies share the same parent directory, so both read the same file.
+    // branch that prints an ABSOLUTE `source` instead of a relative one.
     let n = ROUND.fetch_add(1, Ordering::SeqCst);
-    let base = f.dir.path().join(format!("round{n}"));
-    let py_root = base.join("py");
-    let rs_root = base.join("rs");
-    copy_tree(&f.template(), &py_root);
-    copy_tree(&f.template(), &rs_root);
-    write_file(&base.join("reference/GLOSSARY.md"), &table(MIN_TERMS));
+    let root = f.dir.path().join(format!("round{n}"));
+    std::fs::create_dir_all(&root).unwrap();
+    write_file(&root.parent().unwrap().join("reference/GLOSSARY.md"), &table(MIN_TERMS));
 
-    let py = python(&py_root);
-    let rs = rust(&rs_root);
-    assert_eq!(py.stdout, rs.stdout, "{} vs {}", py.out(), rs.out());
-    assert_eq!(py.stderr, rs.stderr);
-    assert_eq!(py.code, rs.code);
-    assert_eq!(py.artifact, rs.artifact, "artifact bytes differ");
+    let outcome = cdcp_learn::glossary::write_glossary(&root).expect("write_glossary");
     COMPARED.fetch_add(1, Ordering::SeqCst);
-
-    assert_eq!(rs.code, 0, "{}", rs.out());
-    let body = String::from_utf8(rs.artifact.expect("artifact")).unwrap();
+    assert_eq!(outcome.code, 0, "{}", outcome.stdout);
+    let body = outcome.artifact.expect("artifact").1;
     assert!(
         body.contains("\"source\": \"/"),
         "the out-of-root fallback must record an absolute source: {body}"

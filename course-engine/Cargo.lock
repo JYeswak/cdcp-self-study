@@ -228,6 +228,7 @@ dependencies = [
  "cdcp_bank",
  "cdcp_core",
  "cdcp_grade",
+ "cdcp_learn",
  "clap",
  "serde",
  "serde_json",
@@ -249,6 +250,7 @@ dependencies = [
 name = "cdcp_gate"
 version = "0.1.0"
 dependencies = [
+ "cdcp_learn",
  "serde",
  "tempfile",
  "toml",
@@ -262,6 +264,17 @@ dependencies = [
  "cdcp_core",
  "serde",
  "thiserror 1.0.69",
+]
+
+[[package]]
+name = "cdcp_learn"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "tempfile",
+ "thiserror 1.0.69",
+ "toml",
 ]
 
 [[package]]

@@ -5,6 +5,7 @@ members = [
   "crates/cdcp_bank",
   "crates/cdcp_grade",
   "crates/cdcp_assemble",
+  "crates/cdcp_learn",
   "crates/cdcp_cli",
   "crates/cdcp_registry_check",
   "crates/cdcp_gate",
@@ -35,4 +36,5 @@ cdcp_bank = { path = "crates/cdcp_bank" }
 cdcp_grade = { path = "crates/cdcp_grade" }
 cdcp_wasm = { path = "crates/cdcp_wasm" }
 cdcp_assemble = { path = "crates/cdcp_assemble" }
+cdcp_learn = { path = "crates/cdcp_learn" }
 proptest = { version = "1", default-features = false, features = ["std"] }

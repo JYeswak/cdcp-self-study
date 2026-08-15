@@ -154,27 +154,8 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
         Verdict::Prose,
         "docstring recording the removed bound",
     ),
-    (
-        "scripts/build_units.py",
-        "## Why the derivation, and not `int(m[:2]) <= 14` (bd-lt7)",
-        Shape::NumericBound,
-        Verdict::Prose,
-        "docstring heading recording the bound this gate no longer has",
-    ),
-    (
-        "scripts/build_units.py",
-        "<= 14]`, which held module 15 out of the floor. Module 15 was, at that time,",
-        Shape::NumericBound,
-        Verdict::Prose,
-        "docstring recording the removed bound",
-    ),
-    (
-        "scripts/build_units.py",
-        "# `int(m[:2]) <= 14` here silently exempted module 15 from this floor.",
-        Shape::NumericBound,
-        Verdict::Prose,
-        "comment at the rebased site, naming what used to be there",
-    ),
+    // ── bd-qqwc / bd-engine-not-gate-ar39.2: three build_units.py rows
+    //    RETIRED WITH THEIR FILE. The compiler is now cdcp_learn::units. ──
     // ── bd-lt7: ZERO open instances as of 2026-08-14 ──────────────────────
     //
     // All five OpenInstanceNotMine rows that lived here are gone: two agents
@@ -847,7 +828,7 @@ fn item(id: &str, module: u32, topic: &str) -> String {
          choices = [\"alpha\", \"beta\", \"gamma\", \"delta\"]\ncorrect = \"A\"\n\
          explanation = \"an explanation of sufficient length\"\ntopic_ids = [{topic:?}]\n\
          bloom = \"apply\"\nsource_class = \"original\"\n\
-         quantity_evidence = \"qualitative_only\"\n"
+         quantity_evidence = \"qualitative_only\"\nstatus = \"approved\"\n"
     )
 }
 
@@ -1065,16 +1046,10 @@ fn module_markdown(title: &str, n: usize) -> String {
     s
 }
 
-/// A tree `build_units.py` can run in: its own copy of the script, a Learn
-/// index, module markdown, and a bank.
+/// A tree `cdcp_learn::units` can run in: a Learn index, module markdown, and a bank.
+/// The Python oracle is gone (bd-qqwc / bd-engine-not-gate-ar39.2).
 fn units_fixture(modules: &[(&str, usize)], bank_modules: &[u32]) -> Fixture {
     let f = Fixture::new();
-    std::fs::create_dir_all(f.path("scripts")).unwrap();
-    std::fs::copy(
-        engine_root().join("scripts/build_units.py"),
-        f.path("scripts/build_units.py"),
-    )
-    .expect("copy build_units.py into the fixture");
     f.write("knowledge/topics.toml", "# no topics in this fixture\n");
 
     let rows: Vec<String> = modules
@@ -1104,15 +1079,42 @@ fn units_fixture(modules: &[(&str, usize)], bank_modules: &[u32]) -> Fixture {
 }
 
 fn build_units(f: &Fixture) -> Run {
-    capture(Command::new("python3").arg(f.path("scripts/build_units.py")))
+    let outcome = cdcp_learn::units::write_units(&f.path("")).expect("write_units");
+    Run {
+        code: outcome.code,
+        stdout: outcome.stdout,
+        stderr: String::new(),
+    }
 }
 
-/// Known-GOOD. The live tree passes, and its check floor now covers all 15
-/// modules rather than the 14 that `int(m[:2]) <= 14` admitted.
+/// Known-GOOD. A copy of the live inputs passes, and its check floor covers
+/// all 15 modules rather than the 14 that `int(m[:2]) <= 14` admitted.
+/// NEVER run the builder against the live tree (it mutates units_index.json).
 #[test]
 fn build_units_known_good_the_live_tree_passes_over_all_declared_modules() {
     let root = engine_root();
-    let run = capture(Command::new("python3").arg(root.join("scripts/build_units.py")));
+    let f = Fixture::new();
+    let copy = |rel: &str| {
+        let dst = f.path(rel);
+        std::fs::create_dir_all(dst.parent().unwrap()).unwrap();
+        std::fs::copy(root.join(rel), &dst)
+            .unwrap_or_else(|e| panic!("copy {rel}: {e}"));
+    };
+    copy("knowledge/topics.toml");
+    copy("web/data/modules_index.json");
+    copy("web/data/bank_items_seed42.json");
+    std::fs::create_dir_all(f.path("web/content/modules")).unwrap();
+    for e in std::fs::read_dir(root.join("web/content/modules"))
+        .unwrap()
+        .flatten()
+    {
+        let p = e.path();
+        if p.extension().and_then(|s| s.to_str()) == Some("md") {
+            let name = p.file_name().unwrap().to_string_lossy().into_owned();
+            std::fs::copy(&p, f.path(&format!("web/content/modules/{name}"))).unwrap();
+        }
+    }
+    let run = build_units(&f);
     assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
     assert!(
         run.stdout.starts_with("PASS: build_units"),
