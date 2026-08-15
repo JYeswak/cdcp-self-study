@@ -16,7 +16,11 @@
 //! * it carries a `class` token `honesty-banner` whose OWN text disclaims
 //!   certification (`\bnot\b` AND `certif`)
 //! * it carries `data-diagram="<id>"`
-//! * present count is pinned ([`EXPECTED_PRESENT`])
+//! * present count is pinned by the registry's own unfenced
+//!   `present_count = N` line ([`parse_stated_present_count`]) —
+//!   `bd-smoke-diagrams-expected-present-pinned-twice-i40d`. A fenced,
+//!   missing, zero, or duplicate pin is an ERROR. The number is not a
+//!   Rust const: shipping an eighth diagram is a registry edit.
 //! * zero present rows is an ERROR
 //! * an empty honesty-banner is a FAIL
 //! * an unclosed honesty-banner is a FAIL — the retired script swallowed the
@@ -43,7 +47,8 @@ pub const SUMMARY: &str =
 
 pub const REGISTRY_REL: &str = "docs/DIAGRAM-REGISTRY.md";
 pub const DIAGRAM_DIR: &str = "web/diagrams";
-pub const EXPECTED_PRESENT: usize = 7;
+/// Unfenced line the registry must carry exactly once: `present_count = N`.
+pub const PRESENT_COUNT_KEY: &str = "present_count";
 pub const INVENTORY_HEADING: &str = "## Inventory";
 pub const EXPECTED_COLUMNS: &[&str] = &["ID", "Title", "Modules", "Priority", "Status", "Path"];
 pub const STATUS_PRESENT: &str = "present";
@@ -68,7 +73,11 @@ pub fn run(root: &Path) -> BuildOutcome {
             }
             return outcome(code, out);
         }
-        RegistryRead::Parsed { rows, errors } => {
+        RegistryRead::Parsed {
+            rows,
+            stated_present,
+            errors,
+        } => {
             for e in &errors {
                 out.push_str("  ERROR: ");
                 out.push_str(e);
@@ -86,13 +95,15 @@ pub fn run(root: &Path) -> BuildOutcome {
                 );
                 return outcome(2, out);
             }
-            if present.len() != EXPECTED_PRESENT {
-                out.push_str(&format!(
-                    "  ERROR: present count {} != pinned {EXPECTED_PRESENT} ({})\n",
-                    present.len(),
-                    present.join(", ")
-                ));
-                errors.push("count".into());
+            if let Some(pin) = stated_present {
+                if present.len() != pin {
+                    out.push_str(&format!(
+                        "  ERROR: present count {} != pinned {pin} ({})\n",
+                        present.len(),
+                        present.join(", ")
+                    ));
+                    errors.push("count".into());
+                }
             }
             if !errors.is_empty() {
                 out.push_str(&format!(
@@ -138,6 +149,9 @@ enum RegistryRead {
     },
     Parsed {
         rows: Vec<RegRow>,
+        /// `None` when the stated-count line is missing / zero / duplicate;
+        /// the parse error is already in `errors`.
+        stated_present: Option<usize>,
         errors: Vec<String>,
     },
 }
@@ -322,7 +336,79 @@ fn parse_registry(root: &Path) -> RegistryRead {
         lineno += 1;
     }
 
-    RegistryRead::Parsed { rows, errors }
+    let stated_present = match parse_stated_present_count(&text) {
+        Ok(n) => Some(n),
+        Err(e) => {
+            errors.push(e);
+            None
+        }
+    };
+    RegistryRead::Parsed {
+        rows,
+        stated_present,
+        errors,
+    }
+}
+
+/// Read the registry's own present-row pin from unfenced `present_count = N`.
+///
+/// The pin lives in the document the smoke binds, not in a Rust const, so
+/// an eighth diagram is one source (row + pin in the same file). A fenced
+/// example is skipped with the same ``` toggle as the inventory hunt.
+/// Missing, zero, or more than one unfenced pin is ERROR — a pin of
+/// nothing is not a pin, and two spellings can drift.
+pub fn parse_stated_present_count(text: &str) -> Result<usize, String> {
+    let mut in_fence = false;
+    let mut hits: Vec<(usize, usize)> = Vec::new();
+    for (i, ln) in text.replace('\r', "").split('\n').enumerate() {
+        if ln.trim().starts_with("```") {
+            in_fence = !in_fence;
+            continue;
+        }
+        if in_fence {
+            continue;
+        }
+        if let Some(n) = parse_present_count_line(ln) {
+            hits.push((i + 1, n));
+        }
+    }
+    match hits.as_slice() {
+        [] => Err(format!(
+            "no unfenced {PRESENT_COUNT_KEY} = N line in the registry"
+        )),
+        [(_, 0)] => Err(format!(
+            "stated {PRESENT_COUNT_KEY} is 0 — a pin of nothing is not a pin"
+        )),
+        [(_, n)] => Ok(*n),
+        many => Err(format!(
+            "{PRESENT_COUNT_KEY} stated {} times (want exactly one): {}",
+            many.len(),
+            many.iter()
+                .map(|(l, n)| format!("line {l}={n}"))
+                .collect::<Vec<_>>()
+                .join(", ")
+        )),
+    }
+}
+
+/// A whole line `present_count = <decimal>` after trim. Leading zeros
+/// (other than `0` itself) and trailing junk do not match — those are
+/// missing, not a silent parse.
+fn parse_present_count_line(ln: &str) -> Option<usize> {
+    let s = ln.trim();
+    let rest = s.strip_prefix(PRESENT_COUNT_KEY)?.trim_start();
+    let rest = rest.strip_prefix('=')?.trim();
+    if rest.is_empty() {
+        return None;
+    }
+    let bytes = rest.as_bytes();
+    if bytes[0] == b'0' && bytes.len() > 1 {
+        return None;
+    }
+    if !bytes.iter().all(|b| b.is_ascii_digit()) {
+        return None;
+    }
+    rest.parse().ok()
 }
 
 fn check_diagram(root: &Path, did: &str) -> Vec<String> {
@@ -928,8 +1014,39 @@ mod tests {
     }
 
     #[test]
-    fn pin_is_seven() {
-        assert_eq!(EXPECTED_PRESENT, 7);
-        assert!(EXPECTED_PRESENT > 0);
+    fn stated_count_parses_one_unfenced_line() {
+        assert_eq!(
+            parse_stated_present_count("present_count = 7\n").unwrap(),
+            7
+        );
+        assert_eq!(
+            parse_stated_present_count("  present_count=8  \n").unwrap(),
+            8
+        );
+    }
+
+    #[test]
+    fn stated_count_skips_a_fenced_line() {
+        let t = "```\npresent_count = 7\n```\n";
+        let err = parse_stated_present_count(t).unwrap_err();
+        assert!(err.contains("no unfenced present_count"), "{err}");
+    }
+
+    #[test]
+    fn stated_count_zero_is_err() {
+        let err = parse_stated_present_count("present_count = 0\n").unwrap_err();
+        assert!(err.contains("pin of nothing"), "{err}");
+    }
+
+    #[test]
+    fn stated_count_duplicate_is_err() {
+        let err = parse_stated_present_count("present_count = 7\npresent_count = 7\n").unwrap_err();
+        assert!(err.contains("stated 2 times"), "{err}");
+    }
+
+    #[test]
+    fn stated_count_ignores_in_sentence_and_leading_zeros() {
+        assert!(parse_stated_present_count("the pin is present_count = 7.\n").is_err());
+        assert!(parse_stated_present_count("present_count = 07\n").is_err());
     }
 }

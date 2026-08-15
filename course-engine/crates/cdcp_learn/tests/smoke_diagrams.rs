@@ -19,7 +19,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 static RAN: AtomicUsize = AtomicUsize::new(0);
 
 /// Raise when you add a `#[test]`. A DROP means a case was deleted.
-const EXPECTED_CASES: usize = 35;
+const EXPECTED_CASES: usize = 40;
 
 const LIVE_IDS: &[&str] = &[
     "power-path",
@@ -107,7 +107,16 @@ fn table_md(rows: &[String]) -> String {
 }
 
 fn registry_md(rows: &[String]) -> String {
-    format!("## Inventory\n\n{}", table_md(rows))
+    // The pin is independent of `rows.len()` — that independence IS the pin.
+    // A helper that derived N from the rows would make the six/eight trip GREEN.
+    registry_md_pinned(rows, 7)
+}
+
+fn registry_md_pinned(rows: &[String], pin: usize) -> String {
+    format!(
+        "present_count = {pin}\n\n## Inventory\n\n{}",
+        table_md(rows)
+    )
 }
 
 fn decoy_ids() -> Vec<String> {
@@ -280,7 +289,7 @@ fn fenced_matching_table_is_not_the_inventory() {
     let t = green_tree();
     let decoys = decoy_rows();
     let md = format!(
-        "## Inventory\n\n```\n{}```\n\n{}",
+        "present_count = 7\n\n## Inventory\n\n```\n{}```\n\n{}",
         table_md(&decoys),
         table_md(&good_rows()),
     );
@@ -342,7 +351,7 @@ fn fenced_two_column_example_does_not_hide_real_table() {
     tick();
     let t = green_tree();
     let md = format!(
-        "## Inventory\n\n\
+        "present_count = 7\n\n## Inventory\n\n\
          ```\n\
          | ID | Title |\n\
          |----|-------|\n\
@@ -457,6 +466,116 @@ fn present_count_pin_trips_on_six_and_eight() {
     assert!(
         o.stdout.contains("present count 8 != pinned 7"),
         "{}",
+        o.stdout
+    );
+}
+
+/// bd-smoke-diagrams-expected-present-pinned-twice-i40d.
+/// Seven rows + seven pages and NO stated count must be ERROR. A
+/// fallback to a Rust `EXPECTED_PRESENT = 7` would PASS this plant.
+#[test]
+fn missing_stated_count_is_error_not_a_fallback_seven() {
+    tick();
+    let t = green_tree();
+    t.write(
+        "docs/DIAGRAM-REGISTRY.md",
+        &format!("## Inventory\n\n{}", table_md(&good_rows())),
+    );
+    let o = run(&t.root);
+    assert_eq!(o.code, 2, "{}", o.stdout);
+    assert!(
+        o.stdout.contains("no unfenced present_count"),
+        "{}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("smoke_diagrams: PASS"),
+        "PASS must not appear: {}",
+        o.stdout
+    );
+}
+
+/// Same bead. A fenced `present_count = 7` is not the pin. Pages are
+/// written so adopting the fence would be GREEN.
+#[test]
+fn fenced_stated_count_is_not_the_pin() {
+    tick();
+    let t = green_tree();
+    let md = format!(
+        "## Inventory\n\n```\npresent_count = 7\n```\n\n{}",
+        table_md(&good_rows()),
+    );
+    t.write("docs/DIAGRAM-REGISTRY.md", &md);
+    let o = run(&t.root);
+    assert_eq!(o.code, 2, "fenced pin must not be adopted:\n{}", o.stdout);
+    assert!(
+        o.stdout.contains("no unfenced present_count"),
+        "{}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("smoke_diagrams: PASS"),
+        "PASS must not appear: {}",
+        o.stdout
+    );
+}
+
+/// Same bead. Eight rows with `present_count = 8` must PASS. A leftover
+/// Rust const of 7 would RED this — that is the derivation proof.
+#[test]
+fn stated_count_eight_with_eight_rows_passes() {
+    tick();
+    let t = green_tree();
+    let mut eight = good_rows();
+    eight.push(present_row("h8"));
+    t.write("docs/DIAGRAM-REGISTRY.md", &registry_md_pinned(&eight, 8));
+    t.write("web/diagrams/h8.html", &page("h8"));
+    let o = run(&t.root);
+    assert_eq!(o.code, 0, "{}", o.stdout);
+    assert!(
+        o.stdout
+            .contains("smoke_diagrams: PASS (8 present diagrams from the registry)"),
+        "{}",
+        o.stdout
+    );
+}
+
+/// Same bead. Two unfenced pins, even if they agree, is ERROR.
+#[test]
+fn multiple_stated_counts_is_error() {
+    tick();
+    let t = green_tree();
+    let md = format!(
+        "present_count = 7\npresent_count = 7\n\n## Inventory\n\n{}",
+        table_md(&good_rows()),
+    );
+    t.write("docs/DIAGRAM-REGISTRY.md", &md);
+    let o = run(&t.root);
+    assert_eq!(o.code, 2, "{}", o.stdout);
+    assert!(o.stdout.contains("stated 2 times"), "{}", o.stdout);
+    assert!(
+        !o.stdout.contains("smoke_diagrams: PASS"),
+        "PASS must not appear: {}",
+        o.stdout
+    );
+}
+
+/// Same bead. `present_count = 0` with a non-empty present set is ERROR —
+/// a pin of nothing is not a pin.
+#[test]
+fn stated_count_zero_is_error() {
+    tick();
+    let t = green_tree();
+    t.write(
+        "docs/DIAGRAM-REGISTRY.md",
+        &registry_md_pinned(&good_rows(), 0),
+    );
+    let o = run(&t.root);
+    assert_eq!(o.code, 2, "{}", o.stdout);
+    assert!(o.stdout.contains("pin of nothing"), "{}", o.stdout);
+    assert!(
+        !o.stdout.contains("smoke_diagrams: PASS"),
+        "PASS must not appear: {}",
         o.stdout
     );
 }

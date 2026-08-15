@@ -17,9 +17,13 @@
 3. `cdcp smoke-diagrams` is fail-closed for present rows and derives its set from the
    Inventory table below. The `Status` column is a closed enum — `**present**` or `planned`. Any
    other spelling is an ERROR, never a silent exclusion. The ID and path cells must be backticked.
-   The present-row count is pinned in `cdcp_learn::diagrams` (`EXPECTED_PRESENT`); shipping a new
-   diagram means raising the pin in the same commit, and a row leaving the present set is RED
-   rather than invisible.
+   The present-row count is pinned by this registry's own unfenced line:
+
+   present_count = 7
+
+   Shipping a new diagram means raising that pin in the same commit as the new row. A row leaving
+   the present set without lowering the pin is RED rather than invisible. A fenced, missing, zero,
+   or duplicate pin is an ERROR — the count is not pinned in `cdcp_learn::diagrams`.
 4. Prefer steppers / toggles / label-the-node.
 
 ---
@@ -83,8 +87,9 @@ cargo run -q -p cdcp_cli -- smoke-diagrams
 
 1. ~~`scripts/smoke_diagrams.py` — add the four P1 rows to its hard-coded `PRESENT` list.~~
    **Closed 2026-08-14 (bd-hngz).** The list is gone: the checker now derives its set from the
-   Inventory table above and binds each present row to `web/diagrams/{id}.html`, so all seven are
-   covered and an eighth row is covered the moment it is added. Fixing this also surfaced a real
+   Inventory table above and binds each present row to `web/diagrams/{id}.html`. An eighth present
+   row is covered when it is added and `present_count` is raised in the same commit
+   (bd-smoke-diagrams-expected-present-pinned-twice-i40d). Fixing this also surfaced a real
    artifact defect the old checker had a hard-coded exemption for — `power-path.html` was shipped
    with no `data-diagram="power-path"` root marker, and the exemption meant nobody found out.
 2. Module CTA links (`.diagram-cta`), matching the M01/M06/M09 pattern:
