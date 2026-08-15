@@ -1,13 +1,15 @@
-//! Product CLI for the F3 oracle (`bd-hardening-f-oracle-qly.5`).
+//! Product CLI for the F3 oracle (`bd-hardening-f-oracle-qly.5` / `.8`).
 //!
-//! Live pins must exit 0. A plant (perturb one published ref / empty refs)
-//! must be non-zero and name location + computed + reference + delta.
-//! No network — compiled references + vendored snapshots only.
+//! Live `oracle-check` is honestly RED (EPA eGRID SRCO2RTA vs plant-subset).
+//! That is the product working. Tests assert the RED, not PASS.
+//! Plants (perturb one published ref / empty refs) must still fire when
+//! the live ledger is already RED, and must name location + computed +
+//! reference + delta. No network — compiled references + vendored snapshots.
 
 use assert_cmd::Command;
 use cdcp_data::{
     check_oracle, check_oracle_with, compiled_pins, compiled_references, perturb_one_tolerance,
-    OracleError, ANTI_VACUOUS_REFS, DISAGREEMENT,
+    Comparison, OracleError, ANTI_VACUOUS_REFS, DISAGREEMENT,
 };
 use std::path::PathBuf;
 
@@ -22,6 +24,61 @@ fn cdcp() -> Command {
     let mut cmd = Command::cargo_bin("cdcp").expect("cdcp binary");
     cmd.current_dir(workspace_root());
     cmd
+}
+
+fn combined(assert: &assert_cmd::assert::Assert) -> String {
+    let out = assert.get_output();
+    format!(
+        "{}{}",
+        String::from_utf8_lossy(&out.stdout),
+        String::from_utf8_lossy(&out.stderr)
+    )
+}
+
+/// Live F3 is honestly RED: EPA eGRID 2023 Rev 2 SRCO2RTA vs our plant-subset.
+/// Do not rewrite those official numbers or widen tol to make this GREEN.
+fn assert_honest_live_red(out: &str) {
+    assert!(
+        !out.contains("oracle: PASS"),
+        "honest live RED must not report PASS: {out}"
+    );
+    for needle in [
+        "location=",
+        "computed=",
+        "reference=",
+        "delta=",
+        DISAGREEMENT,
+        "quantity=grid_co2_lb_per_mwh",
+    ] {
+        assert!(
+            out.contains(needle),
+            "honest live RED must name {needle}: {out}"
+        );
+    }
+}
+
+/// A pair to plant against. Live GREEN yields comparisons; live honest
+/// RED yields findings. Requiring GREEN here is the qly.8 regression.
+fn pair_to_plant() -> (PathBuf, Comparison) {
+    let root = workspace_root();
+    let pair = match check_oracle(&root) {
+        Ok(report) => {
+            assert!(
+                !report.comparisons.is_empty(),
+                "anti-vacuous: live oracle compared nothing"
+            );
+            report.comparisons[0].clone()
+        }
+        Err(OracleError::Disagreement { findings }) => {
+            assert!(
+                !findings.is_empty(),
+                "anti-vacuous: Disagreement with zero findings"
+            );
+            findings[0].clone()
+        }
+        Err(e) => panic!("live oracle must run (GREEN or honest RED), not a structural error: {e}"),
+    };
+    (root, pair)
 }
 
 #[test]
@@ -39,23 +96,15 @@ fn help_lists_oracle_check() {
 }
 
 #[test]
-fn oracle_check_live_tree_passes() {
-    let assert = cdcp().arg("oracle-check").assert().success();
-    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
-    assert!(
-        stdout.contains("oracle: PASS"),
-        "live oracle-check must PASS: {stdout}"
-    );
+fn oracle_check_live_tree_is_honest_red() {
+    let assert = cdcp().arg("oracle-check").assert().failure();
+    assert_honest_live_red(&combined(&assert));
 }
 
 #[test]
-fn oracle_alias_live_tree_passes() {
-    let assert = cdcp().arg("oracle").assert().success();
-    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
-    assert!(
-        stdout.contains("oracle: PASS"),
-        "cdcp oracle alias must PASS: {stdout}"
-    );
+fn oracle_alias_live_tree_is_honest_red() {
+    let assert = cdcp().arg("oracle").assert().failure();
+    assert_honest_live_red(&combined(&assert));
 }
 
 #[test]
@@ -65,10 +114,10 @@ fn oracle_check_selftest_plants_trip_and_name_fields() {
         .arg("--selftest")
         .assert()
         .success();
-    let out = format!(
-        "{}{}",
-        String::from_utf8_lossy(&assert.get_output().stdout),
-        String::from_utf8_lossy(&assert.get_output().stderr)
+    let out = combined(&assert);
+    assert!(
+        !out.contains("requires a green live oracle first"),
+        "selftest must still plant when live is already RED: {out}"
     );
     for needle in [
         "location=",
@@ -99,25 +148,24 @@ fn oracle_check_self_test_alias_also_runs() {
         .arg("--self-test")
         .assert()
         .success();
-    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    let out = combined(&assert);
     assert!(
-        stdout.contains("oracle-check --selftest: PASS"),
-        "--self-test alias must run the plants: {stdout}"
+        !out.contains("requires a green live oracle first"),
+        "--self-test must still plant when live is already RED: {out}"
+    );
+    assert!(
+        out.contains("oracle-check --selftest: PASS"),
+        "--self-test alias must run the plants: {out}"
     );
 }
 
 /// cargo test plant: shift one published ref by one tolerance unit → RED
 /// and the error names location + computed + reference + delta.
+/// Live may already be honestly RED; the plant must still land.
 #[test]
 fn plant_perturb_one_published_ref_is_nonzero_and_names_fields() {
-    let root = workspace_root();
+    let (root, pair) = pair_to_plant();
     let pins = compiled_pins().expect("compiled pins");
-    let live = check_oracle(&root).expect("live oracle must be green before the plant");
-    assert!(
-        !live.comparisons.is_empty(),
-        "anti-vacuous: live oracle compared nothing"
-    );
-    let pair = &live.comparisons[0];
     let mut ledger = compiled_references().expect("compiled ledger");
     let planted = perturb_one_tolerance(pair.computed, pair.reference, pair.tolerance);
     let mut planted_n = 0usize;
@@ -139,9 +187,23 @@ fn plant_perturb_one_published_ref_is_nonzero_and_names_fields() {
     let err = check_oracle_with(&root, &ledger, &pins)
         .expect_err("perturb one published ref must be non-zero");
     let text = err.to_string();
-    assert!(
-        matches!(err, OracleError::Disagreement { .. }),
-        "expected Disagreement, got {err:?}"
+    let OracleError::Disagreement { findings } = &err else {
+        panic!("expected Disagreement, got {err:?}");
+    };
+    let hit = findings
+        .iter()
+        .find(|f| f.location == pair.location && f.quantity == pair.quantity)
+        .unwrap_or_else(|| {
+            panic!(
+                "planted {} {} missing from findings: {text}",
+                pair.location,
+                pair.quantity.as_str()
+            )
+        });
+    assert!(!hit.ok, "planted pair must be outside its band");
+    assert_eq!(
+        hit.reference, planted,
+        "findings must report the planted reference, not only the live eGRID miss"
     );
     for needle in [
         "location=",
