@@ -366,6 +366,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "cdcp_site"
+version = "0.1.0"
+dependencies = [
+ "cdcp_data",
+ "thiserror 1.0.69",
+]
+
+[[package]]
 name = "cdcp_wasm"
 version = "0.1.0"
 dependencies = [

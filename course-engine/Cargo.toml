@@ -15,6 +15,7 @@ members = [
   "crates/cdcp_wasm",
   "crates/cdcp_evidence",
   "crates/cdcp_data",
+  "crates/cdcp_site",
 ]
 exclude = ["fuzz"]
 
@@ -47,4 +48,5 @@ cdcp_learn = { path = "crates/cdcp_learn" }
 cdcp_anki = { path = "crates/cdcp_anki" }
 cdcp_evidence = { path = "crates/cdcp_evidence" }
 cdcp_data = { path = "crates/cdcp_data" }
+cdcp_site = { path = "crates/cdcp_site" }
 proptest = { version = "1", default-features = false, features = ["std"] }

@@ -1,0 +1,11 @@
+[package]
+name = "cdcp_site"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Lat/lon site lookups from vendored climate/seismic/carbon snapshots. No network."
+publish = false
+
+[dependencies]
+cdcp_data = { workspace = true }
+thiserror = { workspace = true }
