@@ -234,7 +234,7 @@ lines = 127
 
 [[file]]
 path = "tests/restore_rebuild_trap.rs"
-lines = 337
+lines = 499
 
 [[file]]
 path = "tests/substrate_guard_e2e.rs"
@@ -246,4 +246,4 @@ lines = 150
 
 [[file]]
 path = "tests/support/rebuild.rs"
-lines = 290
+lines = 289

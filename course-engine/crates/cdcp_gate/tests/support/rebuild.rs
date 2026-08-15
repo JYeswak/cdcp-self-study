@@ -41,11 +41,10 @@
 //!   file that is already there, so its mtime becomes NOW.
 //!
 //!   THEN PROVE THE REBUILD RAN before any post-restore assertion:
-//!   [`build_proving_rebuild`], or by hand
+//!   [`build_proving_rebuild`], or the agent-facing command
 //!
-//!       git checkout -- <file> && touch <file>
-//!       cargo build -p <crate> --tests 2>&1 | tee /tmp/b.log; echo rc=${PIPESTATUS[0]}
-//!       grep -q 'Compiling <crate>' /tmp/b.log || echo 'STALE — nothing rebuilt'
+//!       sh scripts/restore_safe.inc.sh prove-rebuild --artifact <bin> -- \
+//!           cargo test -p <crate> --offline --no-run
 //!
 //!   A BUILD THAT FINDS NOTHING TO REBUILD, WHEN THE FILE DEMONSTRABLY
 //!   CHANGED, IS AN ERROR — NOT A PASS.

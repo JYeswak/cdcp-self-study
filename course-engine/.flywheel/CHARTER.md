@@ -71,17 +71,20 @@ gauntlet:       L1 claims constitution (registry-check, WIRED) · L2 slo.toml ·
                 deleted assertion of leg (2), and that direction is silent. Reproduced on demand
                 in both directions by crates/cdcp_gate/tests/restore_rebuild_trap.rs.
                 THE RULE: restore by WRITING BYTES into the existing file — `git checkout -- f`,
-                `cp bak f`, `printf … > f` — NEVER a rename; then FORCE A BUILD AND OBSERVE THAT
-                IT REBUILT SOMETHING before any post-restore assertion. "Just run cargo build
-                first" is NOT the fix and is itself vacuous: after a rename-restore cargo exits 0,
-                prints `Finished in 0.00s` and rebuilds nothing — it passes in exactly the case it
-                was written to catch. A BUILD THAT FINDS NOTHING TO REBUILD, WHEN THE FILE
-                DEMONSTRABLY CHANGED, IS AN ERROR AND NOT A PASS. Do not "prove" freshness with
-                `artifact_mtime > source_mtime`: the poisoned tree satisfies it. Compare the
-                artifact's mtime BEFORE the build with its mtime AFTER. Pattern, argument and
-                helper: crates/cdcp_gate/tests/support/rebuild.rs. Shell restore helper sourced
-                by scripts/selftest_*.sh that restore cargo-compiled sources:
-                scripts/restore_safe.inc.sh (`mv backup dest` is not expressible there).
+                `cp bak f`, `printf … > f`, or `cdcp_restore_safe dest bak` — NEVER a rename;
+                then prove the rebuild with one command whose exit code is the receipt
+                (bd-stale-artifact-gate-urj0):
+                `sh scripts/restore_safe.inc.sh prove-rebuild --artifact <bin> -- cargo test -p
+                <crate> --offline --no-run`. That command compares the artifact's mtime BEFORE
+                the build with its mtime AFTER and is non-zero when nothing was rebuilt.
+                "Just run cargo build first" is NOT the fix and is itself vacuous: after a
+                rename-restore cargo exits 0, prints `Finished in 0.00s` and rebuilds nothing —
+                it passes in exactly the case it was written to catch. A BUILD THAT FINDS
+                NOTHING TO REBUILD, WHEN THE FILE DEMONSTRABLY CHANGED, IS AN ERROR AND NOT A
+                PASS. Do not "prove" freshness with `artifact_mtime > source_mtime`: the
+                poisoned tree satisfies it. Pattern and argument:
+                crates/cdcp_gate/tests/support/rebuild.rs. `mv backup dest` is not expressible
+                in scripts/restore_safe.inc.sh.
                 L3 IS CURRENTLY **NO** (CHARTER §5a) — F3 is the tick that flips it, and the
                 capability-maturity row must point at F3's test.
                 CLAIM DISCIPLINE: every gate states its claim as a FLOOR-RAISE plus what it

@@ -46,7 +46,11 @@
 #   compare dest's mtime to the aged backup's mtime.
 #
 # Rust authors: crates/cdcp_gate/tests/support/rebuild.rs is the same
-# argument with Restorable::restore + build_proving_rebuild.
+# argument with Restorable::restore + build_proving_rebuild. The agent-facing
+# receipt is this file's prove-rebuild subcommand (bd-stale-artifact-gate-urj0):
+#
+#   sh scripts/restore_safe.inc.sh prove-rebuild --artifact <bin> -- \
+#       cargo test -p <crate> --offline --no-run
 #
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -75,6 +79,72 @@ cdcp_restore_safe() {
   # Same function, not a second step: even if a future edit "tidies"
   # the write into a rename, touch still fires. Omission is not silent.
   touch "$_dest" || return 2
+}
+
+# cdcp_prove_rebuild --artifact PATH -- CMD...
+#   Record PATH's mtime, run CMD, require PATH's mtime to have moved.
+#   That is the only freshness proof that the poisoned tree fails:
+#   after `mv backup dest` cargo exits 0, prints Finished in 0.00s, and
+#   rebuilds nothing — a forced cargo build is itself vacuous.
+#   Missing PATH is ERROR (empty/absent is not "nothing to check").
+#   Unchanged mtime after CMD is FAIL (ANTI-VACUOUS).
+cdcp_prove_rebuild() {
+  _pr_art=""
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --artifact)
+        if [ $# -lt 2 ]; then
+          echo "prove-rebuild: USAGE: --artifact needs a path" >&2
+          return 2
+        fi
+        _pr_art="$2"
+        shift 2
+        ;;
+      --)
+        shift
+        break
+        ;;
+      -h|--help)
+        echo "usage: cdcp_prove_rebuild --artifact PATH -- CMD..." >&2
+        return 2
+        ;;
+      *)
+        echo "prove-rebuild: USAGE: unknown argument $1 (known: --artifact --)" >&2
+        return 2
+        ;;
+    esac
+  done
+  if [ -z "$_pr_art" ]; then
+    echo "prove-rebuild: USAGE: --artifact PATH is required (an absent artifact is an ERROR, not 'nothing to check')" >&2
+    return 2
+  fi
+  if [ $# -eq 0 ]; then
+    echo "prove-rebuild: USAGE: missing build command after --" >&2
+    return 2
+  fi
+  if [ ! -f "$_pr_art" ]; then
+    echo "prove-rebuild: ERROR: artifact missing: $_pr_art (empty/absent is an ERROR, not a pass)" >&2
+    return 1
+  fi
+  _pr_before="$(_cdcp_mtime_ns "$_pr_art")"
+  _pr_rc=0
+  "$@" || _pr_rc=$?
+  if [ "$_pr_rc" -ne 0 ]; then
+    echo "prove-rebuild: ERROR: build command failed rc=$_pr_rc" >&2
+    return 1
+  fi
+  if [ ! -f "$_pr_art" ]; then
+    echo "prove-rebuild: ERROR: artifact vanished after build: $_pr_art" >&2
+    return 1
+  fi
+  _pr_after="$(_cdcp_mtime_ns "$_pr_art")"
+  # CHARTER-NEEDLE-CHECK — the pair mutates this comparison to `if false &&`.
+  if [ "$_pr_after" -eq "$_pr_before" ]; then
+    echo "prove-rebuild: FAIL: ANTI-VACUOUS — rebuilt nothing (artifact mtime still $_pr_before). The binary on disk was built from the PERTURBED source; any verdict read from it is fabricated." >&2
+    return 1
+  fi
+  echo "prove-rebuild: ok: artifact mtime $_pr_before -> $_pr_after"
+  return 0
 }
 
 # ── internals for the demonstration / scan (used when executed, or called) ──
@@ -271,15 +341,12 @@ _cdcp_restore_safe_cargo_demo_body() {
   mv "$_d/lib.rs.bak" "$_src"
   [ "$(cat "$_src")" = 'pub const MARKER: &str = "CLEAN";' ] \
     || { echo "restore_safe: FAIL: naive restore lost CLEAN bytes" >&2; return 1; }
-  echo "restore_safe: cargo demo — build after naive mv (must SKIP)"
-  _cdcp_isolated_cargo "$_manifest" "$_target" build >/dev/null \
-    || { echo "restore_safe: FAIL: cargo after naive mv" >&2; return 1; }
-  _after_mv="$(_cdcp_mtime_ns "$_art")"
-  if [ "$_after_mv" -ne "$_dirty_m" ]; then
-    echo "restore_safe: FAIL: the trap did not reproduce — cargo rebuilt after mv (art $_dirty_m -> $_after_mv)" >&2
+  echo "restore_safe: cargo demo — prove-rebuild after naive mv (must REFUSE)"
+  if cdcp_prove_rebuild --artifact "$_art" -- _cdcp_isolated_cargo "$_manifest" "$_target" build; then
+    echo "restore_safe: FAIL: prove-rebuild stayed GREEN on a stale tree (art mtime was $_dirty_m)" >&2
     return 1
   fi
-  echo "restore_safe: known-bad RED — cargo skipped after mv (artifact mtime still $_dirty_m)"
+  echo "restore_safe: known-bad RED — prove-rebuild refused the stale artifact (mtime still $_dirty_m)"
 
   # Recreate aged CLEAN backup, perturb again, helper-restore, prove rebuild.
   printf 'pub const MARKER: &str = "CLEAN";\n' >"$_d/lib.rs.bak"
@@ -288,20 +355,173 @@ _cdcp_restore_safe_cargo_demo_body() {
   echo "restore_safe: cargo demo — rebuild DIRTY so the helper has something to invalidate"
   _cdcp_isolated_cargo "$_manifest" "$_target" build >/dev/null \
     || { echo "restore_safe: FAIL: second perturbed cargo build" >&2; return 1; }
-  _dirty2="$(_cdcp_mtime_ns "$_art")"
 
   cdcp_restore_safe "$_src" "$_d/lib.rs.bak" || return 1
   [ "$(cat "$_src")" = 'pub const MARKER: &str = "CLEAN";' ] \
     || { echo "restore_safe: FAIL: helper lost CLEAN bytes" >&2; return 1; }
-  echo "restore_safe: cargo demo — build after helper (must REBUILD)"
-  _cdcp_isolated_cargo "$_manifest" "$_target" build >/dev/null \
-    || { echo "restore_safe: FAIL: cargo after helper" >&2; return 1; }
-  _after_help="$(_cdcp_mtime_ns "$_art")"
-  if [ "$_after_help" -eq "$_dirty2" ]; then
-    echo "restore_safe: FAIL: ANTI-VACUOUS — cargo rebuilt nothing after helper restore (artifact still $_dirty2)" >&2
+  echo "restore_safe: cargo demo — prove-rebuild after helper (must REBUILD)"
+  cdcp_prove_rebuild --artifact "$_art" -- _cdcp_isolated_cargo "$_manifest" "$_target" build \
+    || { echo "restore_safe: FAIL: prove-rebuild did not observe a rebuild after helper restore" >&2; return 1; }
+  echo "restore_safe: helper GREEN — prove-rebuild observed a rebuild"
+}
+
+# Empty/absent artifact is ERROR, never "nothing to check".
+cdcp_prove_rebuild_absent_plant() {
+  _d="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_prove_rebuild_absent.XXXXXX")"
+  _rc=0
+  cdcp_prove_rebuild --artifact "$_d/no-such-artifact" -- true || _rc=$?
+  rm -rf "$_d"
+  if [ "$_rc" -eq 0 ]; then
+    echo "prove-rebuild: FAIL: absent artifact was GREEN" >&2
     return 1
   fi
-  echo "restore_safe: helper GREEN — cargo rebuilt (artifact mtime $_dirty2 -> $_after_help)"
+  echo "prove-rebuild: known-bad RED — absent artifact is ERROR (rc=$_rc)"
+}
+
+_cdcp_replace_once() {
+  python3 -c '
+from pathlib import Path
+import sys
+p = Path(sys.argv[1])
+old, new = sys.argv[2], sys.argv[3]
+text = p.read_text()
+n = text.count(old)
+if n != 1:
+    sys.stderr.write("restore_safe replace_once: count %d want 1 in %s\n" % (n, p))
+    sys.exit(2)
+p.write_text(text.replace(old, new, 1))
+' "$1" "$2" "$3"
+}
+
+# CHARTER pair for prove-rebuild, on a COPY of this helper. The live file
+# is never mutated (791t sources it concurrently).
+#   (1) weaken the mtime check → suite (stale must be RED) goes non-zero
+#   (2) mutation still in place, delete the assertion → suite returns to zero
+# Restore the copy through cdcp_restore_safe.
+cdcp_prove_rebuild_charter_pair() {
+  _live="${1:-}/scripts/restore_safe.inc.sh"
+  if [ ! -f "$_live" ]; then
+    echo "restore_safe: CHARTER pair needs $_live" >&2
+    return 2
+  fi
+  command -v python3 >/dev/null 2>&1 \
+    || { echo "restore_safe: CHARTER pair needs python3" >&2; return 2; }
+  _d="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_prove_rebuild_pair.XXXXXX")"
+  if ! _cdcp_prove_rebuild_charter_pair_body "$_live" "$_d"; then
+    rm -rf "$_d"
+    return 1
+  fi
+  rm -rf "$_d"
+}
+
+_cdcp_prove_rebuild_charter_pair_body() {
+  _live="$1"
+  _d="$2"
+  cp "$_live" "$_d/helper.sh" || return 1
+  cp "$_live" "$_d/helper.sh.bak" || return 1
+
+  mkdir -p "$_d/src"
+  printf '%s\n' \
+    '[package]' \
+    'name = "cdcp_mtime_pair"' \
+    'version = "0.0.0"' \
+    'edition = "2021"' \
+    '' \
+    '[workspace]' \
+    >"$_d/Cargo.toml"
+  printf 'pub const MARKER: &str = "CLEAN";\n' >"$_d/src/lib.rs"
+  _manifest="$_d/Cargo.toml"
+  _target="$_d/target"
+  _src="$_d/src/lib.rs"
+  _art="$_d/target/debug/libcdcp_mtime_pair.rlib"
+
+  _cdcp_isolated_cargo "$_manifest" "$_target" build >/dev/null \
+    || { echo "restore_safe: CHARTER pair: initial cargo build" >&2; return 1; }
+  cp "$_src" "$_d/lib.rs.bak"
+  touch -t 200109090146.40 "$_d/lib.rs.bak"
+  printf 'pub const MARKER: &str = "DIRTY";\n' >"$_src"
+  _cdcp_isolated_cargo "$_manifest" "$_target" build >/dev/null \
+    || { echo "restore_safe: CHARTER pair: dirty cargo build" >&2; return 1; }
+  mv "$_d/lib.rs.bak" "$_src"
+  [ -f "$_art" ] || { echo "restore_safe: CHARTER pair: missing $_art" >&2; return 1; }
+
+  # Suite: stale tree must make prove-rebuild RED. Sourced helper is the COPY.
+  printf '%s\n' \
+    '#!/bin/sh' \
+    'set -eu' \
+    ". \"$_d/helper.sh\"" \
+    '_s_rc=0' \
+    "cdcp_prove_rebuild --artifact \"$_art\" -- _cdcp_isolated_cargo \"$_manifest\" \"$_target\" build || _s_rc=\$?" \
+    '# CHARTER-NEEDLE-ASSERT' \
+    '[ "$_s_rc" -ne 0 ] || exit 1' \
+    'exit 0' \
+    >"$_d/suite.sh"
+  cp "$_d/suite.sh" "$_d/suite.sh.bak"
+
+  _pair=0
+  # Weaken via the unique marker on the comparison (assembled in python
+  # so this comment cannot match it). The if-string also appears here.
+  python3 -c '
+from pathlib import Path
+import sys
+p = Path(sys.argv[1])
+mark = "CHARTER-NEEDLE" + "-CHECK"
+lines = p.read_text().splitlines(True)
+out = []
+n = 0
+i = 0
+while i < len(lines):
+    line = lines[i]
+    if mark in line:
+        n += 1
+        out.append(line)
+        i += 1
+        if i < len(lines) and lines[i].lstrip().startswith("if [ "):
+            out.append(lines[i].replace("if [ ", "if false && [ ", 1))
+            i += 1
+        continue
+    out.append(line)
+    i += 1
+if n != 1:
+    sys.stderr.write("%s count %d want 1\n" % (mark, n))
+    sys.exit(2)
+p.write_text("".join(out))
+' "$_d/helper.sh" \
+    || { echo "restore_safe: CHARTER pair: mutate needle missing" >&2; return 1; }
+  _rc=0
+  sh "$_d/suite.sh" || _rc=$?
+  if [ "$_rc" -eq 0 ]; then
+    echo "restore_safe: CHARTER pair leg 1 stayed GREEN after weakening prove-rebuild" >&2
+    return 1
+  fi
+  _pair=$((_pair + 1))
+  echo "restore_safe: CHARTER pair leg 1 RED (mutated prove-rebuild, rc=$_rc)"
+
+  _cdcp_replace_once "$_d/suite.sh" \
+    '[ "$_s_rc" -ne 0 ] || exit 1' \
+    ': # assertion deleted (CHARTER pair leg 2)' \
+    || { echo "restore_safe: CHARTER pair: assert needle missing" >&2; return 1; }
+  _rc=0
+  sh "$_d/suite.sh" || _rc=$?
+  if [ "$_rc" -ne 0 ]; then
+    echo "restore_safe: CHARTER pair leg 2 stayed RED after deleting the assertion (rc=$_rc)" >&2
+    return 1
+  fi
+  _pair=$((_pair + 1))
+  echo "restore_safe: CHARTER pair leg 2 GREEN (assertion deleted, rc=$_rc)"
+
+  [ "$_pair" -eq 2 ] \
+    || { echo "restore_safe: ANTI-VACUOUS: CHARTER pair ran $_pair legs, want 2" >&2; return 1; }
+
+  cdcp_restore_safe "$_d/helper.sh" "$_d/helper.sh.bak" || return 1
+  cdcp_restore_safe "$_d/suite.sh" "$_d/suite.sh.bak" || return 1
+  _rc=0
+  sh "$_d/suite.sh" || _rc=$?
+  if [ "$_rc" -ne 0 ]; then
+    echo "restore_safe: CHARTER pair: restored helper+suite failed (rc=$_rc)" >&2
+    return 1
+  fi
+  echo "restore_safe: CHARTER pair 2/2 (mutate RED · delete-assert GREEN · restore_safe)"
 }
 
 cdcp_restore_safe_selftest() {
@@ -316,16 +536,30 @@ cdcp_restore_safe_selftest() {
   # does not touch the workspace target. Required: a helper that cannot
   # be shown to invalidate a stale artifact has not been verified.
   cdcp_restore_safe_cargo_demo || return 1
-  echo "restore_safe: SELFTEST PASSED (naive-mv RED · helper rebuilds · scan non-vacuous)"
+  cdcp_prove_rebuild_absent_plant || return 1
+  cdcp_prove_rebuild_charter_pair "$_root" || return 1
+  echo "restore_safe: SELFTEST PASSED (naive-mv RED · prove-rebuild refuses stale · helper rebuilds · absent artifact ERROR · CHARTER pair · scan non-vacuous)"
 }
 
-# Executed, not sourced: run the full selftest. When sourced, $0 is the
-# caller and we only define the functions.
+# Executed, not sourced: run the full selftest, or the prove-rebuild
+# subcommand. When sourced, $0 is the caller and we only define functions.
 case "${0##*/}" in
   restore_safe.inc.sh)
     set -eu
     _here="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
     _engine="$(CDPATH= cd -- "$_here/.." && pwd)"
-    cdcp_restore_safe_selftest "$_engine"
+    case "${1:-selftest}" in
+      prove-rebuild)
+        shift
+        cdcp_prove_rebuild "$@"
+        ;;
+      selftest|"")
+        cdcp_restore_safe_selftest "$_engine"
+        ;;
+      *)
+        echo "restore_safe: usage: $0 [selftest|prove-rebuild --artifact PATH -- CMD...]" >&2
+        exit 2
+        ;;
+    esac
     ;;
 esac

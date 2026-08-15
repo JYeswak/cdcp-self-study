@@ -46,6 +46,7 @@ mod support;
 use support::rebuild::{build_proving_rebuild, nested_cargo, Restorable};
 
 use std::path::{Path, PathBuf};
+use std::process::Command;
 
 const PASS: i32 = 0;
 const TEST_FAILURE: i32 = 101;
@@ -334,4 +335,165 @@ fn touch(path: &Path) {
         .output()
         .expect("touch");
     assert!(out.status.success(), "touch {}", path.display());
+}
+
+fn engine_root() -> PathBuf {
+    cdcp_gate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
+}
+
+/// The agent-facing receipt: `sh scripts/restore_safe.inc.sh prove-rebuild`.
+fn run_prove_rebuild(artifact: &Path, crate_root: &Path, cargo_args: &[&str]) -> (i32, String) {
+    let helper = engine_root().join("scripts/restore_safe.inc.sh");
+    let mut cmd = Command::new("sh");
+    cmd.arg(&helper)
+        .arg("prove-rebuild")
+        .arg("--artifact")
+        .arg(artifact)
+        .arg("--")
+        .arg(support::rebuild::cargo_bin())
+        .args(cargo_args)
+        .current_dir(crate_root);
+    for k in [
+        "CARGO_TARGET_DIR",
+        "CARGO_BUILD_TARGET",
+        "CARGO_BUILD_TARGET_DIR",
+        "CARGO_ENCODED_RUSTFLAGS",
+        "RUSTFLAGS",
+        "RUSTDOCFLAGS",
+        "RUSTC_WRAPPER",
+        "RUSTC_WORKSPACE_WRAPPER",
+        "CARGO_MAKEFLAGS",
+        "CARGO_MANIFEST_DIR",
+        "CARGO_PKG_NAME",
+        "LLVM_PROFILE_FILE",
+    ] {
+        cmd.env_remove(k);
+    }
+    let out = cmd.output().expect("prove-rebuild");
+    let mut s = String::from_utf8_lossy(&out.stdout).into_owned();
+    s.push_str(&String::from_utf8_lossy(&out.stderr));
+    (out.status.code().unwrap_or(-1), s)
+}
+
+/// OBSERVED: the command refuses a real stale tree. Not merely authored.
+#[test]
+fn prove_rebuild_command_refuses_a_stale_tree() {
+    let c = Crate::new();
+    assert_fixture_discriminates(&c);
+
+    let gate = Restorable::capture(c.gate());
+    c.write("src/lib.rs", MUTATED_GATE);
+    let (red, out) = c.suite();
+    assert_eq!(red, TEST_FAILURE, "the mutation must bite first\n{out}");
+
+    gate.restore_the_unsafe_way();
+    let artifact = c.test_binary().expect("test binary must exist");
+    let (code, out) = run_prove_rebuild(
+        &artifact,
+        &c.root,
+        &["test", "--offline", "--no-run", "--test", "verdict"],
+    );
+    assert_ne!(
+        code, PASS,
+        "prove-rebuild must refuse a stale tree; got {code}\n{out}"
+    );
+    assert!(
+        out.contains("ANTI-VACUOUS"),
+        "prove-rebuild must name the vacuous rebuild, not fail obscurely:\n{out}"
+    );
+}
+
+/// Empty/absent artifact is ERROR, never "nothing to check".
+#[test]
+fn prove_rebuild_command_errors_on_absent_artifact() {
+    let helper = engine_root().join("scripts/restore_safe.inc.sh");
+    let missing = std::env::temp_dir().join("cdcp-prove-rebuild-no-such-artifact");
+    let _ = std::fs::remove_file(&missing);
+    let out = Command::new("sh")
+        .arg(&helper)
+        .arg("prove-rebuild")
+        .arg("--artifact")
+        .arg(&missing)
+        .arg("--")
+        .arg("true")
+        .output()
+        .expect("prove-rebuild absent");
+    let text = format!(
+        "{}{}",
+        String::from_utf8_lossy(&out.stdout),
+        String::from_utf8_lossy(&out.stderr)
+    );
+    assert_ne!(
+        out.status.code().unwrap_or(-1),
+        PASS,
+        "absent artifact must not be GREEN\n{text}"
+    );
+    assert!(
+        text.contains("artifact missing") || text.contains("ERROR"),
+        "absent artifact must be named as ERROR, not 'nothing to check':\n{text}"
+    );
+}
+
+/// After a safe restore the same command is GREEN — the rebuild is observed.
+#[test]
+fn prove_rebuild_command_accepts_a_safe_restore() {
+    let c = Crate::new();
+    assert_fixture_discriminates(&c);
+
+    let assertion = Restorable::capture(c.assertion());
+    c.write("src/lib.rs", MUTATED_GATE);
+    let (leg1, out) = c.suite();
+    assert_eq!(leg1, TEST_FAILURE, "leg 1 did not bite\n{out}");
+    c.write("tests/verdict.rs", ASSERTION_DELETED);
+    let (leg2, out) = c.suite();
+    assert_eq!(leg2, PASS, "leg 2 did not come back green\n{out}");
+
+    assertion.restore();
+    let artifact = c.test_binary().expect("the leg-2 test binary must exist");
+    let (code, out) = run_prove_rebuild(
+        &artifact,
+        &c.root,
+        &["test", "--offline", "--no-run", "--test", "verdict"],
+    );
+    assert_eq!(
+        code, PASS,
+        "prove-rebuild must observe a rebuild after a safe restore\n{out}"
+    );
+    assert!(
+        out.contains("prove-rebuild: ok:"),
+        "the receipt must be the command's, not a silent cargo 0:\n{out}"
+    );
+}
+
+/// The helper's executable selftest (plants + CHARTER pair) is the wired
+/// receipt. `cargo test -p cdcp_gate --test restore_rebuild_trap` is already
+/// on the check.sh path; this is what makes a convention a gate.
+#[test]
+fn restore_safe_selftest_refuses_stale_and_runs_the_charter_pair() {
+    let helper = engine_root().join("scripts/restore_safe.inc.sh");
+    let out = Command::new("sh")
+        .arg(&helper)
+        .output()
+        .expect("restore_safe selftest");
+    let text = format!(
+        "{}{}",
+        String::from_utf8_lossy(&out.stdout),
+        String::from_utf8_lossy(&out.stderr)
+    );
+    assert!(
+        out.status.success(),
+        "restore_safe selftest must be GREEN on this tree\n{text}"
+    );
+    assert!(
+        text.contains("prove-rebuild refused") || text.contains("known-bad RED — prove-rebuild"),
+        "selftest must OBSERVE prove-rebuild refuse a stale tree:\n{text}"
+    );
+    assert!(
+        text.contains("CHARTER pair 2/2"),
+        "selftest must run the CHARTER pair, not only leg 1:\n{text}"
+    );
+    assert!(
+        text.contains("absent artifact is ERROR"),
+        "selftest must plant an absent artifact:\n{text}"
+    );
 }
