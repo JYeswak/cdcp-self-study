@@ -1,10 +1,13 @@
-//! Product CLI for `cdcp_site` (`bd-hardening-f-oracle-qly.7`).
+//! Product CLI for `cdcp_site` (`bd-hardening-f-oracle-qly.12`).
 //!
-//! BUILT ≠ WIRED: the crate landed in 3caa493 but an operator could not
-//! ask the product binary for a site lookup. This verb prints climate /
-//! seismic / carbon from vendored snapshots. No network.
+//! BUILT ≠ WIRED: vendored FEMA NFHL (4up.6, 34acd3d) is already on
+//! `SiteProfile.flood`. This verb prints climate / seismic / carbon /
+//! flood from those snapshots. A missing flood snapshot or an empty
+//! zone is a named ERROR, never a silent omit. No network.
 
-use cdcp_site::{engine_root, lookup_coord, lookup_id, SiteQuery, MISSING_LOCATION};
+use cdcp_site::{
+    engine_root, lookup_coord, lookup_id, SiteQuery, FLOOD_NOT_VENDORED, MISSING_LOCATION,
+};
 use std::path::{Path, PathBuf};
 
 /// `cdcp site --location <id>` / `cdcp site --lat --lon`.
@@ -21,6 +24,13 @@ pub(crate) fn run(
         SiteQuery::Coord { lat, lon } => lookup_coord(&resolved, lat, lon),
     }
     .map_err(|e| e.to_string())?;
+    // First-class product field. Binding `.flood` makes dropping it from
+    // SiteProfile a compile error here. An empty zone is the named
+    // flood-not-vendored ERROR, not an omitted `flood_zone=` line.
+    let flood = &profile.flood;
+    if flood.zone.is_empty() {
+        return Err(format!("{FLOOD_NOT_VENDORED}: {}", profile.location.id));
+    }
     print!("{profile}");
     Ok(())
 }

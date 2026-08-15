@@ -1,10 +1,11 @@
-//! Product CLI for `cdcp_site` (`bd-hardening-f-oracle-qly.7`).
+//! Product CLI for `cdcp_site` (`bd-hardening-f-oracle-qly.12`).
 //!
-//! Live Ashburn lookup prints named climate / seismic / carbon quantities.
-//! A missing location is non-zero and names the location. No network.
+//! Live Ashburn lookup prints named climate / seismic / carbon / flood
+//! quantities. A missing location is non-zero and names the location.
+//! No network.
 
 use assert_cmd::Command;
-use cdcp_site::MISSING_LOCATION;
+use cdcp_site::{MISSING_LOCATION, NOT_IN_SFHA};
 use std::path::PathBuf;
 
 fn workspace_root() -> PathBuf {
@@ -20,14 +21,16 @@ fn cdcp() -> Command {
     cmd
 }
 
-fn named_quantities() -> &'static [&'static str] {
-    &[
+fn named_quantities() -> [&'static str; 8] {
+    [
         "site ashburn",
         "climate_bin=",
         "free_cooling_hours=",
         "seismic",
         "pga=",
         "grid_co2_lb_per_mwh=",
+        "flood_zone=",
+        NOT_IN_SFHA,
     ]
 }
 
@@ -162,6 +165,10 @@ fn cli_site_source_calls_lookup_and_has_no_network() {
     assert!(
         src.contains("MISSING_LOCATION"),
         "delete the missing-location token → selftest non-zero"
+    );
+    assert!(
+        src.contains("profile.flood") && src.contains("FLOOD_NOT_VENDORED"),
+        "delete the flood field / named-error token → selftest non-zero"
     );
     for needle in [
         "TcpStream",
