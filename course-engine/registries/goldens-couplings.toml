@@ -50,7 +50,8 @@
 # inconsistent state is worse than none: it reads exactly like one that held.
 #
 # HOW TO REPAIR A ROW (the whole procedure)
-#   1. Run `cargo run -p cdcp_gate -- goldens-couplings`. Every finding prints
+#   1. Run `cargo build -p cdcp_gate --locked` then
+#      `./target/debug/cdcp_gate goldens-couplings`. Every finding prints
 #      the registry side and the source side; there is nothing to compute.
 #   2. Decide what the source change MEANT for each golden below it. That is the
 #      step this file exists to force. Write it into `justification`.
