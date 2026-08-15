@@ -5,7 +5,7 @@
 //! Three things are held here, and nothing more:
 //!
 //!   1. `scripts/verify_coverage.py`, `cdcp_learn::units`,
-//!      `scripts/smoke_feedback_links.py` and `scripts/smoke_weak_links.py`
+//!      `cdcp_learn::feedback` and `cdcp_learn` weak_links
 //!      derive their module set from a registry (`knowledge/domains.toml`,
 //!      `web/data/modules_index.json`, and `knowledge/domains.toml` twice more)
 //!      rather than from a frozen literal, and each still trips on a real
