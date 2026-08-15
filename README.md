@@ -25,8 +25,9 @@
 <h3>Run it</h3>
 
 ```bash
-git clone <this-repo> cdcp-self-study && cd cdcp-self-study/course-engine
-cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
+git clone <this-repo> cdcp-self-study && cd cdcp-self-study
+cargo build --manifest-path course-engine/Cargo.toml -p cdcp_cli --locked
+./course-engine/target/debug/cdcp serve --root course-engine/web --bind 127.0.0.1:8766
 # → http://127.0.0.1:8766/
 ```
 
@@ -158,8 +159,8 @@ less modules/01-mission-critical.md
 Requires a Rust toolchain (`rustup`). Nothing else.
 
 ```bash
-cd course-engine
-cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
+cargo build --manifest-path course-engine/Cargo.toml -p cdcp_cli --locked
+./course-engine/target/debug/cdcp serve --root course-engine/web --bind 127.0.0.1:8766
 ```
 
 Then open `http://127.0.0.1:8766/`. Hub → **Learn** for a module walkthrough,
@@ -172,25 +173,28 @@ Then open `http://127.0.0.1:8766/`. Hub → **Learn** for a module walkthrough,
 ### Command reference
 
 ```bash
+# from the repo root
+cargo build --manifest-path course-engine/Cargo.toml -p cdcp_cli --locked
+
 # Print the bank fingerprint. Every pack and golden is keyed to this.
-cargo run -p cdcp_cli -- bank-hash
+./course-engine/target/debug/cdcp bank-hash --bank course-engine/bank/items
 
 # Grade a fixture without a browser. Modes: all-correct | all-wrong | json answers.
-cargo run -p cdcp_cli -- grade \
-  --bank bank/items \
-  --fixture goldens/fixtures/mock40_seed42.json \
+./course-engine/target/debug/cdcp grade \
+  --bank course-engine/bank/items \
+  --fixture course-engine/goldens/fixtures/mock40_seed42.json \
   --mode all-correct
 
 # Verify the pinned digests still hold (this is the byte-exactness check).
-cargo run -p cdcp_cli -- goldens check --bank bank/items --dir goldens
+./course-engine/target/debug/cdcp goldens check --bank course-engine/bank/items --dir course-engine/goldens
 
 # Regenerate browser exam packs. Seed 42 is golden-pinned; any other seed is
 # practice-only variety and must never be used to refresh a golden.
-cargo run -p cdcp_cli -- export-web --bank bank/items --seed 42 --out web/data
-cargo run -p cdcp_cli -- export-web --seed 7 --out web/data
+./course-engine/target/debug/cdcp export-web --bank course-engine/bank/items --seed 42 --out course-engine/web/data
+./course-engine/target/debug/cdcp export-web --seed 7 --out course-engine/web/data
 
 # Serve the course locally (loopback only, GET/HEAD, traversal-guarded).
-cargo run -p cdcp_cli -- serve --root web --bind 127.0.0.1:8766
+./course-engine/target/debug/cdcp serve --root course-engine/web --bind 127.0.0.1:8766
 ```
 
 `export-web` writes three files per seed, and the split is deliberate:
