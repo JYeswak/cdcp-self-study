@@ -83,7 +83,8 @@ Load-bearing constraints honoured by the P1 set:
 ## Validation
 
 ```bash
-cargo run -q -p cdcp_cli -- smoke-diagrams
+cargo build -p cdcp_cli --locked
+./target/debug/cdcp smoke-diagrams
 ./scripts/check.sh
 ```
 
