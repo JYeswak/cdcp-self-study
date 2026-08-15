@@ -11,7 +11,8 @@
 //! suite that emits no receipt is an ERROR, never a silent zero, and an empty log
 //! is an ERROR, never a pass.
 //!
-//! ## What the advertised number counts (decided 2026-08-14, bd-wf2)
+//! ## What the advertised number counts (decided 2026-08-14, bd-wf2;
+//! permanent 2026-08-15, bd-n7uk)
 //!
 //! Exactly one population: the receipts emitted by the registered SHELL selftest
 //! suites (`scripts/selftest_*.sh`) during a real `check.sh` run. The Rust
@@ -23,9 +24,12 @@
 //!
 //! The honest consequence: the advertised number is a FLOOR on the repo's
 //! known-bad population, not its total, so README names the population it counts
-//! ("shell selftest suites"). Folding the Rust legs in later is a mechanism
-//! change, not a number change — they would first have to emit receipts that
-//! `check.sh` aggregates and be registered in [`REGISTERED_SUITES`].
+//! ("shell selftest suites"). An advertisement line that says "known-bad" (or
+//! the shields.io spelling "known--bad") without "shell" or "selftest" on that
+//! line is RED — the badge is two of the five sites and is included. Folding
+//! the Rust legs in later is a mechanism change, not a number change — they
+//! would first have to emit receipts that `check.sh` aggregates and be
+//! registered in [`REGISTERED_SUITES`].
 //!
 //! The number is REGENERATED, never hand-maintained: `--write-readme` rewrites
 //! every advertisement site **and each per-suite `n` cell** from the receipts
@@ -49,7 +53,8 @@
 //! * Whether the log came from **this** run. It reads whatever file it is handed;
 //!   freshness is `check.sh`'s job (it mktemps a new log per invocation).
 //! * Whether README's **prose** is accurate about anything other than the
-//!   numbers it scans (injection count, selftest-suite count, per-suite `n`).
+//!   numbers it scans (injection count, selftest-suite count, per-suite `n`)
+//!   and the shell/selftest qualifier on a known-bad advertisement line.
 //! * Whether a count spelled in a form outside the word vocabulary ("three
 //!   dozen", anything above ninety-nine in words) means what it says. Such a site
 //!   is not read as a number at all; the site floor is what keeps that fail-closed
@@ -937,7 +942,18 @@ pub fn render(
             let mut col_seen: BTreeMap<&str, usize> = BTreeMap::new();
             for (i, line) in py_splitlines(text).iter().enumerate() {
                 let lineno = i + 1;
-                for n in scan_advertised(line) {
+                let adv_hits = scan_advertised(line);
+                if !adv_hits.is_empty() {
+                    let low = line.to_ascii_lowercase();
+                    if (low.contains("known-bad") || low.contains("known--bad"))
+                        && !(low.contains("shell") || low.contains("selftest"))
+                    {
+                        errors.push(format!(
+                            "{readme_display}:{lineno} advertises known-bad injections without a shell/selftest qualifier — the counted population is shell selftest suites, not every known-bad in the repo"
+                        ));
+                    }
+                }
+                for n in adv_hits {
                     advertised.push((lineno, n));
                 }
                 for n in scan_suite_counts(line) {
@@ -1214,7 +1230,7 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
 mod tests {
     use super::*;
 
-    const R7: &str = "# Specimen readme\n\n[![known-bad: 7 injections](https://img.shields.io/badge/known--bad-7_injections_all_RED-success.svg)](#x)\n\n| **Gate** | 2 selftest suites; 7 known-bad injections that must all go RED |\n\nTwo selftest suites inject **7 known-bad faults** and assert the build fails.\n\n| **L4 — gates proven to trip** | ok | 2 suites, 7 injections, anti-vacuous |\n";
+    const R7: &str = "# Specimen readme\n\n[![known-bad (shell selftest suites): 7 injections](https://img.shields.io/badge/known--bad-7_injections_all_RED-success.svg)](#x)\n\n| **Gate** | 2 selftest suites; 7 known-bad injections that must all go RED |\n\nTwo selftest suites inject **7 known-bad faults** and assert the build fails.\n\n| **L4 — gates proven to trip** | ok | 2 suites, 7 injections, anti-vacuous |\n";
     const GOOD_LOG: &str = "INJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n";
     const REQ: &str = "spec_alpha,spec_beta";
 
@@ -1371,6 +1387,21 @@ mod tests {
             out.contains("only 4 advertisement site(s) parsed in R; at least 5 are expected"),
             "{out}"
         );
+    }
+
+    #[test]
+    fn known_bad_without_a_population_qualifier_is_red() {
+        let unqual = R7.replace("known-bad (shell selftest suites):", "known-bad:");
+        let (out, code) = check("L", Some(GOOD_LOG), "R", Some(&unqual), REQ);
+        assert_eq!(code, 1, "{out}");
+        assert!(
+            out.contains("R:3 advertises known-bad injections without a shell/selftest qualifier"),
+            "{out}"
+        );
+
+        let shell_only = R7.replace("shell selftest suites", "shell");
+        let (out, code) = check("L", Some(GOOD_LOG), "R", Some(&shell_only), REQ);
+        assert_eq!(code, 0, "{out}");
     }
 
     #[test]

@@ -202,6 +202,7 @@ fn the_selftest_case_list_is_the_one_this_file_mirrors() {
         "(ff) registered suite missing from the table",
         "(gg) unregistered suite row in the table",
         "(hh) table parses to zero suite rows",
+        "(jj) advertisement says known-bad without a shell/selftest qualifier",
     ] {
         assert!(
             body.contains(marker),
@@ -333,7 +334,7 @@ fn specimen_readme(injections: u32, suites: u32) -> String {
     format!(
         "# Specimen readme\n\
          \n\
-         [![known-bad: {injections} injections](https://img.shields.io/badge/known--bad-{injections}_injections_all_RED-success.svg)](#x)\n\
+         [![known-bad (shell selftest suites): {injections} injections](https://img.shields.io/badge/known--bad-{injections}_injections_all_RED-success.svg)](#x)\n\
          \n\
          | **Gate** | {suites} selftest suites; {injections} known-bad injections that must all go RED |\n\
          \n\
@@ -458,6 +459,24 @@ fn case_g_readme_advertising_nothing_is_identical_and_red() {
         "g-readme-silent",
         &run,
         "README advertises no known-bad injection count at all (nothing to check is an ERROR, not a pass)",
+    );
+}
+
+#[test]
+fn case_jj_unqualified_known_bad_is_identical_and_red() {
+    let dir = scratch("jj_unqual");
+    let log = write(&dir, "injections.log", GOOD_LOG);
+    let body = specimen_readme(7, 2).replace("known-bad (shell selftest suites):", "known-bad:");
+    let readme = write(&dir, "README_unqual.md", &body);
+    let run = assert_identical(
+        "jj-unqualified-known-bad",
+        &["--log", &log, "--readme", &readme, "--require", REQUIRE],
+    );
+    assert_eq!(run.code, 1);
+    assert_named(
+        "jj-unqualified-known-bad",
+        &run,
+        "advertises known-bad injections without a shell/selftest qualifier",
     );
 }
 
@@ -985,7 +1004,7 @@ fn column_readme(orphan: u32, extra: &str) -> String {
     format!(
         "# Specimen readme\n\
          \n\
-         [![known-bad: 10 injections](https://img.shields.io/badge/known--bad-10_injections_all_RED-success.svg)](#x)\n\
+         [![known-bad (shell selftest suites): 10 injections](https://img.shields.io/badge/known--bad-10_injections_all_RED-success.svg)](#x)\n\
          \n\
          | **Gate** | 2 selftest suites; 10 known-bad injections that must all go RED |\n\
          \n\

@@ -9,7 +9,7 @@
 # mismatch.
 #
 # Two guards live here because they are one mechanism used twice on the same
-# README sentence: (a-n) cover verify_injection_count.py, which enforces the
+# README sentence: (a-n, jj) cover verify_injection_count.py, which enforces the
 # known-bad injection total and the selftest-suite count; (dd-ii) cover the
 # per-suite `n` column in the same table [bd-per-suite-injection-column-unguarded-aop9];
 # (o-cc) cover `cdcp_gate verify-step-count`, which enforces the third number
@@ -37,6 +37,7 @@
 #  hh) table parses to zero suite rows    → ERROR (anti-vacuous)
 #  ii) --write-readme on a table specimen whose receipts are unsound
 #      → RED, file byte-unchanged
+#  jj) advertisement says known-bad without a shell/selftest qualifier → RED
 #
 # (ii-control) --write-readme regenerating drifted cells is known-GOOD and is
 # NOT counted, on the same terms as (m).
@@ -188,7 +189,7 @@ write_readme() {
   cat >"$1" <<EOF
 # Specimen readme
 
-[![known-bad: $2 injections](https://img.shields.io/badge/known--bad-$2_injections_all_RED-success.svg)](#x)
+[![known-bad (shell selftest suites): $2 injections](https://img.shields.io/badge/known--bad-$2_injections_all_RED-success.svg)](#x)
 
 | **Gate** | $3 selftest suites; $2 known-bad injections that must all go RED |
 
@@ -357,6 +358,24 @@ cmp -s "$TMP_ROOT/README_unsound.before" "$unsound_readme" \
   || fail "(n) an unsound total was written into the specimen README anyway"
 ok "(n) specimen README byte-unchanged after a refused regeneration"
 
+# ── (jj) known-bad advertisement without a shell/selftest qualifier [bd-n7uk]
+# The badge is two of the five sites. A reader who sees "known-bad: N
+# injections" without "shell" or "selftest" on that line takes N for every
+# known-bad in the repo. Other lines stay qualified so this finding is about
+# the badge, not a cascade.
+echo "==> (jj) advertisement says known-bad without a shell/selftest qualifier → RED"
+unqual="$TMP_ROOT/README_unqual.md"
+write_readme "$unqual" 7 2
+sed 's/known-bad (shell selftest suites):/known-bad:/' \
+  "$unqual" >"$unqual.tmp" && mv "$unqual.tmp" "$unqual"
+grep -q 'known-bad: 7 injections' "$unqual" \
+  || fail "injection (jj) did not apply — specimen drifted"
+grep -q 'shell selftest suites' "$unqual" \
+  && fail "injection (jj) left a qualifier on the badge line"
+assert_fails_with "unqualified-known-bad" \
+  "advertises known-bad injections without a shell/selftest qualifier" \
+  run_checker "$GOOD_LOG" "$unqual"
+
 # ════════════════════════════════════════════════════════════════════════════
 # PER-SUITE n COLUMN [bd-per-suite-injection-column-unguarded-aop9]
 # ════════════════════════════════════════════════════════════════════════════
@@ -373,7 +392,7 @@ write_column_readme() {
   cat >"$1" <<EOF
 # Specimen readme
 
-[![known-bad: 10 injections](https://img.shields.io/badge/known--bad-10_injections_all_RED-success.svg)](#x)
+[![known-bad (shell selftest suites): 10 injections](https://img.shields.io/badge/known--bad-10_injections_all_RED-success.svg)](#x)
 
 | **Gate** | 2 selftest suites; 10 known-bad injections that must all go RED |
 
@@ -666,7 +685,7 @@ assert_step_green "step-baseline-restored" run_step_gate "$STEP_LOG_OK" "$STEP_R
 # but only if README was left at 63 — a paired edit of suite + README would
 # hide the deletion. Pinning the count here makes the deletion red with no
 # other file involved.
-[ "$INJ" -eq 32 ] || fail "INJ=$INJ; expected 32 — deleting an assertion must fail this suite, not pass with a quieter receipt"
+[ "$INJ" -eq 33 ] || fail "INJ=$INJ; expected 33 — deleting an assertion must fail this suite, not pass with a quieter receipt"
 echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
-echo "selftest_injection_count: PASSED (b off-by-one · c missing receipt · d zero · e unregistered · f empty log · g silent README · h suite count · i word-spelled drift · j finding names the scanned file · k duplicate --require · l site floor · m regenerated · n refused unsound write · dd cell low · ee cell high · ff missing row · gg unregistered row · hh empty table · ii refused unsound cell write · o step log missing · p step log empty · q receipt shape drift · r nested receipt alone · s two outer receipts · t zero steps · u receipt arithmetic · v no nested observed · w chain grew · x README edited · y README silent · z step site floor · aa ok below the boundary · bb refused unsound step write)"
+echo "selftest_injection_count: PASSED (b off-by-one · c missing receipt · d zero · e unregistered · f empty log · g silent README · h suite count · i word-spelled drift · j finding names the scanned file · k duplicate --require · l site floor · m regenerated · n refused unsound write · jj unqualified known-bad · dd cell low · ee cell high · ff missing row · gg unregistered row · hh empty table · ii refused unsound cell write · o step log missing · p step log empty · q receipt shape drift · r nested receipt alone · s two outer receipts · t zero steps · u receipt arithmetic · v no nested observed · w chain grew · x README edited · y README silent · z step site floor · aa ok below the boundary · bb refused unsound step write)"
 exit 0

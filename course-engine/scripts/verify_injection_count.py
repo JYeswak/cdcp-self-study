@@ -10,7 +10,8 @@ twice in one session. A hand-typed count that nobody checks is a self-signed
 certificate about the very machinery that exists to stop self-signed
 certificates.
 
-WHAT THE ADVERTISED NUMBER COUNTS (decided 2026-08-14, bd-wf2)
+WHAT THE ADVERTISED NUMBER COUNTS (decided 2026-08-14, bd-wf2;
+permanent 2026-08-15, bd-n7uk)
 --------------------------------------------------------------
 It counts EXACTLY ONE population: the `INJECTIONS=<n> SUITE=<name>` receipts
 emitted by the registered SHELL selftest suites (`scripts/selftest_*.sh`) during
@@ -75,6 +76,16 @@ A registered suite that emits NO line is an ERROR, not a zero — otherwise a
 suite that stopped reporting reads exactly like a suite with nothing to report.
 An empty log, a suite reporting zero injections, an unregistered suite name, and
 a README advertising no number at all are all errors.
+
+POPULATION QUALIFIER (bd-n7uk)
+------------------------------
+An advertisement site that says "known-bad" (or the shields.io spelling
+"known--bad") must also say "shell" or "selftest" on the same line. The badge
+is two of the five sites and is included. Without that qualifier a reader
+takes the number for every known-bad in the repo. Zero advertisement sites
+is still an ERROR (anti-vacuous). The Rust `#[cfg(test)]` legs stay
+uncounted: they emit no receipt, and inventing a cargo count would be the
+defect this gate exists to remove.
 
 PARTIAL COVERAGE IS ALSO AN ERROR (bd-wf2)
 ------------------------------------------
@@ -413,8 +424,20 @@ def main(argv: list[str] | None = None) -> int:
         for lineno, line in enumerate(
             args.readme.read_text(encoding="utf-8").splitlines(), 1
         ):
-            for m in _ADVERTISED.finditer(line):
+            adv_hits = list(_ADVERTISED.finditer(line))
+            for m in adv_hits:
                 advertised.append((lineno, count_value(m.group(1))))
+            if adv_hits:
+                low = line.lower()
+                if ("known-bad" in low or "known--bad" in low) and not (
+                    "shell" in low or "selftest" in low
+                ):
+                    errors.append(
+                        f"{args.readme}:{lineno} advertises known-bad injections "
+                        f"without a shell/selftest qualifier — the counted "
+                        f"population is shell selftest suites, not every "
+                        f"known-bad in the repo"
+                    )
             for m in _SUITE_COUNT.finditer(line):
                 suite_claims.append((lineno, count_value(m.group(1))))
             parsed = parse_suite_row(line)
