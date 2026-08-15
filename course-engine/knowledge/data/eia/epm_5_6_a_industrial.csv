@@ -1,0 +1,16 @@
+# EIA Electric Power Monthly Table 5.6.A
+# Average Price of Electricity to Ultimate Customers by End-Use Sector, by State
+# Industrial sector, May 2026 (Cents per Kilowatthour).
+# Release Date: 2026-07-23. Next Release Date: 2026-08-26. Data for May 2026.
+# Source: U.S. Energy Information Administration, Form EIA-861M (formerly EIA-826),
+# Monthly Electric Power Industry Report.
+# https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_6_a
+# 17 USC 105. Point extract for compiled CDCP sites. Values are EIA's published
+# two-decimal figures (not the xlsx binary64 noise). A price without a unit is
+# not a quantity.
+location_id,state,period,sector,price,unit
+ashburn,VA,2026-05,industrial,10.53,cents/kWh
+dallas,TX,2026-05,industrial,6.33,cents/kWh
+phoenix,AZ,2026-05,industrial,7.54,cents/kWh
+chicago,IL,2026-05,industrial,10.20,cents/kWh
+sanjose,CA,2026-05,industrial,20.20,cents/kWh

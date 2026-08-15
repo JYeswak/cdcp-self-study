@@ -1,12 +1,14 @@
 //! Site lookups: lat/lon or a compiled location id → climate bin, seismic
-//! PGA, grid carbon, flood zone. No network. Every value is a function of
-//! already-vendored `cdcp_data` snapshots (NREL TMY3, USGS ASCE 7-16,
-//! EPA eGRID2023, FEMA NFHL).
+//! PGA, grid carbon, flood zone, power price. No network. Every value is
+//! a function of already-vendored `cdcp_data` snapshots (NREL TMY3, USGS
+//! ASCE 7-16, EPA eGRID2023, FEMA NFHL, EIA EPM 5.6.A).
 //!
 //! A missing location is [`SiteError::MissingLocation`], never a default
 //! nearest-neighbour. An empty catalog is [`SiteError::EmptyLocations`].
 //! A missing FEMA pin is [`SiteError::FloodNotVendored`], never a default
-//! zone letter.
+//! zone letter. A missing EIA pin is [`SiteError::PowerPriceNotVendored`],
+//! never a silent cents/kWh default. A price without a unit is
+//! [`SiteError::BarePriceNumber`].
 #![forbid(unsafe_code)]
 
 use cdcp_data::{
@@ -28,6 +30,12 @@ pub const ANTI_VACUOUS_LOCATIONS: &str = "empty location set is an ERROR";
 /// Token interpolated inside the flood path when no FEMA pin exists.
 pub const FLOOD_NOT_VENDORED: &str = "flood zone not vendored";
 
+/// Token interpolated inside the power-price path when no EIA pin exists.
+pub const POWER_PRICE_NOT_VENDORED: &str = "power price not vendored";
+
+/// Token interpolated when a price row has a number and no unit.
+pub const BARE_PRICE_NUMBER: &str = "bare number is an ERROR";
+
 /// Named NFHL value when `SFHA_TF` is `F` (outside the Special Flood
 /// Hazard Area). Zone letter `X` is still recorded; this token names
 /// the insurance/siting posture so a default "X" cannot be smuggled in
@@ -42,6 +50,9 @@ pub use cdcp_data::{engine_root, Location, Seismic, SNAP_EGRID, SNAP_TMY3, SNAP_
 
 /// Snapshot pin id: FEMA NFHL flood-zone point extract.
 pub const SNAP_FLOOD: &str = "src-fema-nfhl";
+
+/// Snapshot pin id: EIA Electric Power Monthly Table 5.6.A industrial.
+pub const SNAP_PRICE: &str = "src-eia-epm-56a";
 
 /// How the caller names a site.
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -105,6 +116,60 @@ impl fmt::Display for FloodZone {
     }
 }
 
+/// Typed industrial power price. Constructed only from a vendored
+/// snapshot row that carries a unit. A bare number is unrepresentable.
+#[derive(Debug, Clone, PartialEq)]
+pub struct PowerPrice {
+    /// Published average revenue per kWh (EIA "price").
+    pub value: f64,
+    /// Required unit label (`cents/kWh`). Never empty.
+    pub unit: String,
+    /// EIA end-use sector (`industrial`).
+    pub sector: String,
+    /// ISO year-month of the published table (`2026-05`).
+    pub period: String,
+    /// USPS state of the published row (`VA`).
+    pub state: String,
+}
+
+impl PowerPrice {
+    /// Build a price. Empty unit is [`SiteError::BarePriceNumber`].
+    pub fn new(
+        value: f64,
+        unit: String,
+        sector: String,
+        period: String,
+        state: String,
+    ) -> Result<Self, SiteError> {
+        let unit = unit.trim().to_string();
+        if unit.is_empty() {
+            return Err(SiteError::BarePriceNumber);
+        }
+        if !value.is_finite() {
+            return Err(SiteError::Quantity(format!(
+                "power price is not finite: {value}"
+            )));
+        }
+        Ok(Self {
+            value,
+            unit,
+            sector,
+            period,
+            state,
+        })
+    }
+}
+
+impl fmt::Display for PowerPrice {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "{} {} ({} {} {})",
+            self.value, self.unit, self.sector, self.state, self.period
+        )
+    }
+}
+
 /// Typed site values for one compiled location.
 #[derive(Debug, Clone, PartialEq)]
 pub struct SiteProfile {
@@ -118,6 +183,8 @@ pub struct SiteProfile {
     pub grid_co2_lb_per_mwh: f64,
     /// FEMA NFHL flood zone at the catalog point.
     pub flood: FloodZone,
+    /// EIA industrial average revenue per kWh. Always carries a unit.
+    pub power_price: PowerPrice,
 }
 
 impl fmt::Display for SiteProfile {
@@ -149,7 +216,8 @@ impl fmt::Display for SiteProfile {
             "  grid_co2_lb_per_mwh={} ({})",
             self.grid_co2_lb_per_mwh, self.location.egrid_subregion
         )?;
-        writeln!(f, "  flood_zone={}", self.flood)
+        writeln!(f, "  flood_zone={}", self.flood)?;
+        writeln!(f, "  power_price={}", self.power_price)
     }
 }
 
@@ -184,6 +252,18 @@ pub enum SiteError {
         /// Pin id.
         id: String,
     },
+    /// No EIA industrial-price snapshot is pinned.
+    #[error("{POWER_PRICE_NOT_VENDORED}")]
+    PowerPriceNotVendored,
+    /// An EIA pin exists but this crate has no decoder for it.
+    #[error("power-price snapshot {id} is pinned but has no decoder")]
+    PowerPriceUndecoded {
+        /// Pin id.
+        id: String,
+    },
+    /// A price row has a number and no unit.
+    #[error("{BARE_PRICE_NUMBER}")]
+    BarePriceNumber,
     /// Snapshot loader refused.
     #[error("{0}")]
     Data(#[from] DataError),
@@ -222,6 +302,8 @@ pub struct SiteStore {
     egrid: String,
     flood: String,
     flood_pin: String,
+    price: String,
+    price_pin: String,
     locations: Vec<Location>,
     cells: BTreeMap<String, Cell>,
 }
@@ -253,6 +335,10 @@ impl SiteStore {
             .ok_or(SiteError::FloodNotVendored)?
             .to_string();
         let flood = load_text(root, &pins, &flood_pin)?;
+        let price_pin = power_price_pin_id(&pins)
+            .ok_or(SiteError::PowerPriceNotVendored)?
+            .to_string();
+        let price = load_text(root, &pins, &price_pin)?;
         let cells = usgs_cells(&usgs)?;
         Ok(Self {
             tmy3,
@@ -260,6 +346,8 @@ impl SiteStore {
             egrid,
             flood,
             flood_pin,
+            price,
+            price_pin,
             locations,
             cells,
         })
@@ -282,12 +370,14 @@ impl SiteStore {
         let seismic = interpolate_seismic(&self.usgs, &loc.id, loc.lat, loc.lon)?;
         let grid_co2_lb_per_mwh = grid_co2_lb_per_mwh(&self.egrid, &loc.egrid_subregion)?;
         let flood = flood_zone_from_csv(&self.flood, &loc.id, &self.flood_pin)?;
+        let power_price = power_price_from_csv(&self.price, &loc.id, &self.price_pin)?;
         Ok(SiteProfile {
             location: loc.clone(),
             climate,
             seismic,
             grid_co2_lb_per_mwh,
             flood,
+            power_price,
         })
     }
 
@@ -295,6 +385,12 @@ impl SiteStore {
     /// [`SiteError::MissingLocation`], never a default zone.
     pub fn lookup_flood(&self, query: SiteQuery<'_>) -> Result<FloodZone, SiteError> {
         Ok(self.lookup(query)?.flood)
+    }
+
+    /// Industrial power price for `query`. Missing location is
+    /// [`SiteError::MissingLocation`], never a default cents/kWh.
+    pub fn lookup_power_price(&self, query: SiteQuery<'_>) -> Result<PowerPrice, SiteError> {
+        Ok(self.lookup(query)?.power_price)
     }
 }
 
@@ -342,6 +438,20 @@ pub fn lookup_flood(root: &Path, query: SiteQuery<'_>) -> Result<FloodZone, Site
     }
 }
 
+/// Industrial power price for `query`. No EIA pin is
+/// [`SiteError::PowerPriceNotVendored`]. A bare number is
+/// [`SiteError::BarePriceNumber`]. A default cents/kWh is never
+/// returned.
+pub fn lookup_power_price(root: &Path, query: SiteQuery<'_>) -> Result<PowerPrice, SiteError> {
+    let _ = POWER_PRICE_NOT_VENDORED;
+    let _ = BARE_PRICE_NUMBER;
+    let pins = compiled_pins()?;
+    match power_price_pin_id(&pins) {
+        None => Err(SiteError::PowerPriceNotVendored),
+        Some(_) => SiteStore::load(root)?.lookup_power_price(query),
+    }
+}
+
 /// Pin id that would carry a flood layer, if any.
 #[must_use]
 pub fn flood_pin_id(pins: &[SnapshotPin]) -> Option<&str> {
@@ -353,6 +463,19 @@ pub fn flood_pin_id(pins: &[SnapshotPin]) -> Option<&str> {
 fn is_flood_pin(id: &str) -> bool {
     let l = id.to_ascii_lowercase();
     l.contains("flood") || l.contains("fema") || l.contains("nfhl")
+}
+
+/// Pin id that would carry an industrial power-price table, if any.
+#[must_use]
+pub fn power_price_pin_id(pins: &[SnapshotPin]) -> Option<&str> {
+    pins.iter()
+        .find(|p| is_price_pin(&p.id))
+        .map(|p| p.id.as_str())
+}
+
+fn is_price_pin(id: &str) -> bool {
+    let l = id.to_ascii_lowercase();
+    l.contains("eia") || l.contains("epm") || l.contains("power-price")
 }
 
 fn resolve<'a>(
@@ -618,6 +741,94 @@ fn flood_zone_from_csv(csv: &str, location_id: &str, pin_id: &str) -> Result<Flo
     })
 }
 
+/// Decode one compiled location from the vendored EIA industrial-price
+/// extract.
+///
+/// Header must name `location_id` and `price`. A pin whose body cannot
+/// be read as that table is [`SiteError::PowerPriceUndecoded`]. A price
+/// without a unit is [`SiteError::BarePriceNumber`], not a silent
+/// cents/kWh.
+fn power_price_from_csv(
+    csv: &str,
+    location_id: &str,
+    pin_id: &str,
+) -> Result<PowerPrice, SiteError> {
+    let _ = BARE_PRICE_NUMBER;
+    let mut header: Option<Vec<String>> = None;
+    let mut found: Option<PowerPrice> = None;
+    for (i, line) in csv.lines().enumerate() {
+        let t = line.trim();
+        if t.is_empty() || t.starts_with('#') {
+            continue;
+        }
+        let cols: Vec<String> = t.split(',').map(|c| c.trim().to_string()).collect();
+        if header.is_none() {
+            if cols.iter().any(|c| c == "location_id") && cols.iter().any(|c| c == "price") {
+                header = Some(cols);
+                continue;
+            }
+            return Err(SiteError::PowerPriceUndecoded {
+                id: pin_id.to_string(),
+            });
+        }
+        let header = header.as_ref().expect("header set");
+        let id_i = csv_col(header, "location_id").expect("checked");
+        let price_i = csv_col(header, "price").expect("checked");
+        if cols.len() <= id_i.max(price_i) {
+            return Err(SiteError::Quantity(format!(
+                "power-price line {}: fewer columns than the header",
+                i + 1
+            )));
+        }
+        if cols[id_i] != location_id {
+            continue;
+        }
+        let raw = cols[price_i].as_str();
+        if raw.is_empty() {
+            return Err(SiteError::Quantity(format!(
+                "power-price line {}: empty price",
+                i + 1
+            )));
+        }
+        let value: f64 = raw.parse().map_err(|_| {
+            SiteError::Quantity(format!("power-price line {}: bad price {raw}", i + 1))
+        })?;
+        let unit = match csv_col(header, "unit") {
+            None => return Err(SiteError::BarePriceNumber),
+            Some(j) => cols.get(j).cloned().unwrap_or_default(),
+        };
+        if unit.trim().is_empty() {
+            return Err(SiteError::BarePriceNumber);
+        }
+        let sector = csv_col(header, "sector")
+            .and_then(|j| cols.get(j).cloned())
+            .unwrap_or_default();
+        let period = csv_col(header, "period")
+            .and_then(|j| cols.get(j).cloned())
+            .unwrap_or_default();
+        let state = csv_col(header, "state")
+            .and_then(|j| cols.get(j).cloned())
+            .unwrap_or_default();
+        let row = PowerPrice::new(value, unit, sector, period, state)?;
+        if let Some(prev) = &found {
+            if prev != &row {
+                return Err(SiteError::Quantity(format!(
+                    "power-price: conflicting rows for {location_id}"
+                )));
+            }
+        }
+        found = Some(row);
+    }
+    if header.is_none() {
+        return Err(SiteError::PowerPriceUndecoded {
+            id: pin_id.to_string(),
+        });
+    }
+    found.ok_or_else(|| SiteError::MissingLocation {
+        id: location_id.to_string(),
+    })
+}
+
 fn load_text(root: &Path, pins: &[SnapshotPin], id: &str) -> Result<String, SiteError> {
     let pin = pins
         .iter()
@@ -787,6 +998,18 @@ x,1,1,1,3,5.0
         assert!(!is_flood_pin(SNAP_TMY3));
         assert!(!is_flood_pin(SNAP_USGS));
         assert!(!is_flood_pin(SNAP_EGRID));
+        assert!(!is_flood_pin(SNAP_PRICE));
+    }
+
+    #[test]
+    fn price_pin_detector_is_specific() {
+        assert!(is_price_pin("src-eia-epm-56a"));
+        assert!(is_price_pin("src-eia-industrial-price"));
+        assert!(is_price_pin(SNAP_PRICE));
+        assert!(!is_price_pin(SNAP_TMY3));
+        assert!(!is_price_pin(SNAP_USGS));
+        assert!(!is_price_pin(SNAP_EGRID));
+        assert!(!is_price_pin(SNAP_FLOOD));
     }
 
     fn flood_csv() -> &'static str {
@@ -833,6 +1056,84 @@ ae,1,1,00000C,AE,,T
         }
     }
 
+    fn price_csv() -> &'static str {
+        "\
+location_id,state,period,sector,price,unit
+x,VA,2026-05,industrial,10.53,cents/kWh
+"
+    }
+
+    #[test]
+    fn price_csv_decodes_typed_unit() {
+        let p = power_price_from_csv(price_csv(), "x", SNAP_PRICE).expect("x");
+        assert_eq!(p.value, 10.53);
+        assert_eq!(p.unit, "cents/kWh");
+        assert_eq!(p.sector, "industrial");
+        assert_eq!(p.state, "VA");
+        assert_eq!(p.period, "2026-05");
+        let text = p.to_string();
+        assert!(text.contains("10.53"), "{text}");
+        assert!(text.contains("cents/kWh"), "{text}");
+    }
+
+    #[test]
+    fn price_csv_missing_id_is_named_missing() {
+        let err = power_price_from_csv(price_csv(), "nowhere", SNAP_PRICE).expect_err("missing");
+        match err {
+            SiteError::MissingLocation { id } => assert_eq!(id, "nowhere"),
+            other => panic!("expected MissingLocation, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn price_csv_without_header_is_undecoded() {
+        let err =
+            power_price_from_csv("not,a,price,table\n", "x", SNAP_PRICE).expect_err("undecoded");
+        match err {
+            SiteError::PowerPriceUndecoded { id } => assert_eq!(id, SNAP_PRICE),
+            other => panic!("expected PowerPriceUndecoded, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn price_csv_missing_unit_column_is_bare_number() {
+        let csv = "location_id,price\nx,10.53\n";
+        let err = power_price_from_csv(csv, "x", SNAP_PRICE).expect_err("bare");
+        assert!(matches!(err, SiteError::BarePriceNumber), "{err:?}");
+        assert!(err.to_string().contains(BARE_PRICE_NUMBER));
+    }
+
+    #[test]
+    fn price_csv_empty_unit_is_bare_number() {
+        let csv = "location_id,price,unit\nx,10.53,\n";
+        let err = power_price_from_csv(csv, "x", SNAP_PRICE).expect_err("empty unit");
+        assert!(matches!(err, SiteError::BarePriceNumber), "{err:?}");
+    }
+
+    #[test]
+    fn power_price_new_rejects_empty_unit() {
+        let err = PowerPrice::new(
+            10.53,
+            String::new(),
+            "industrial".into(),
+            "2026-05".into(),
+            "VA".into(),
+        )
+        .expect_err("empty unit");
+        assert!(matches!(err, SiteError::BarePriceNumber), "{err:?}");
+    }
+
+    #[test]
+    fn missing_price_pin_is_named_not_vendored() {
+        let pins = vec![SnapshotPin {
+            id: SNAP_TMY3.to_string(),
+            body: "x".into(),
+            sidecar: "y".into(),
+            sha256: "0".repeat(64),
+        }];
+        assert!(power_price_pin_id(&pins).is_none());
+    }
+
     #[test]
     fn production_calls_load_one_and_refuses_empty() {
         let src = production_src();
@@ -841,6 +1142,8 @@ ae,1,1,00000C,AE,,T
         assert!(src.contains("ANTI_VACUOUS_LOCATIONS"));
         assert!(src.contains("MISSING_LOCATION"));
         assert!(src.contains("FLOOD_NOT_VENDORED"));
+        assert!(src.contains("POWER_PRICE_NOT_VENDORED"));
+        assert!(src.contains("BARE_PRICE_NUMBER"));
         assert!(src.contains("locations.is_empty()"));
     }
 

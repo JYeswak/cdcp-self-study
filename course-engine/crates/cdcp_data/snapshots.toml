@@ -60,3 +60,9 @@ id = "src-fema-nfhl"
 body = "knowledge/data/fema/nfhl_flood_zones.csv"
 sidecar = "knowledge/data/fema/nfhl_flood_zones.meta.toml"
 sha256 = "bf88b52990be4626df5a3c99ffcf7fefe372457e4022fe32733c21a9f4476390"
+
+[[snapshot]]
+id = "src-eia-epm-56a"
+body = "knowledge/data/eia/epm_5_6_a_industrial.csv"
+sidecar = "knowledge/data/eia/epm_5_6_a_industrial.meta.toml"
+sha256 = "ccb19a38e24fd012a113254eaa1a07c51725f1680298d573497ae4095fad4494"

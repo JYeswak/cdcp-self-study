@@ -12,8 +12,9 @@ use cdcp_data::{
     compiled_pins, DataError, SnapshotPin, HASH_MISMATCH, SNAP_EGRID, SNAP_TMY3, SNAP_USGS,
 };
 use cdcp_site::{
-    flood_pin_id, lookup_coord, lookup_flood, lookup_id, require_locations, SiteError, SiteQuery,
-    SiteStore, ANTI_VACUOUS_LOCATIONS, MISSING_LOCATION, SNAP_FLOOD,
+    flood_pin_id, lookup_coord, lookup_flood, lookup_id, lookup_power_price, power_price_pin_id,
+    require_locations, SiteError, SiteQuery, SiteStore, ANTI_VACUOUS_LOCATIONS, MISSING_LOCATION,
+    SNAP_FLOOD, SNAP_PRICE,
 };
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -61,6 +62,9 @@ fn site_load_ids(pins: &[SnapshotPin]) -> Vec<String> {
         SNAP_EGRID.to_string(),
     ];
     if let Some(id) = flood_pin_id(pins) {
+        ids.push(id.to_string());
+    }
+    if let Some(id) = power_price_pin_id(pins) {
         ids.push(id.to_string());
     }
     ids
@@ -149,6 +153,38 @@ fn flip_one_flood_snapshot_byte_is_red() {
 }
 
 #[test]
+fn flip_one_price_snapshot_byte_is_red() {
+    let src = engine();
+    let dst = scratch("flip-price");
+    let pins = compiled_pins().expect("pins");
+    copy_site_snapshots(&src, &dst, &pins);
+    let price = pins
+        .iter()
+        .find(|p| p.id == SNAP_PRICE)
+        .expect("price pin must be vendored");
+    let body_path = dst.join(&price.body);
+    let mut body = fs::read(&body_path).expect("read price");
+    assert!(!body.is_empty(), "price body is empty — nothing to flip");
+    body[0] ^= 0xff;
+    fs::write(&body_path, &body).expect("write flipped price");
+
+    let err = SiteStore::load(&dst).expect_err("flipped price byte must RED");
+    match &err {
+        SiteError::Data(DataError::HashMismatch {
+            id,
+            recorded,
+            computed,
+        }) => {
+            assert_eq!(id, SNAP_PRICE);
+            assert_ne!(recorded, computed);
+        }
+        other => panic!("expected Data(HashMismatch), got {other:?}"),
+    }
+    assert!(err.to_string().contains(HASH_MISMATCH), "{err}");
+    let _ = fs::remove_dir_all(&dst);
+}
+
+#[test]
 fn unknown_id_is_named_error_never_a_default() {
     let err = lookup_id(&engine(), "atlantis").expect_err("missing");
     match &err {
@@ -158,6 +194,12 @@ fn unknown_id_is_named_error_never_a_default() {
     assert!(err.to_string().contains(MISSING_LOCATION));
     let flood_err = lookup_flood(&engine(), SiteQuery::Id("atlantis")).expect_err("flood missing");
     match &flood_err {
+        SiteError::MissingLocation { id } => assert_eq!(id, "atlantis"),
+        other => panic!("expected MissingLocation, got {other:?}"),
+    }
+    let price_err =
+        lookup_power_price(&engine(), SiteQuery::Id("atlantis")).expect_err("price missing");
+    match &price_err {
         SiteError::MissingLocation { id } => assert_eq!(id, "atlantis"),
         other => panic!("expected MissingLocation, got {other:?}"),
     }
@@ -204,5 +246,13 @@ fn selftest_delete_named_errors_is_nonzero() {
     assert!(
         src.contains("FLOOD_NOT_VENDORED"),
         "delete the flood-not-vendored token → selftest non-zero"
+    );
+    assert!(
+        src.contains("POWER_PRICE_NOT_VENDORED"),
+        "delete the power-price-not-vendored token → selftest non-zero"
+    );
+    assert!(
+        src.contains("BARE_PRICE_NUMBER"),
+        "delete the bare-number token → selftest non-zero"
     );
 }

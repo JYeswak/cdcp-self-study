@@ -1,8 +1,9 @@
-//! Live lookups against vendored TMY3 / USGS / eGRID / FEMA NFHL snapshots.
+//! Live lookups against vendored TMY3 / USGS / eGRID / FEMA NFHL / EIA snapshots.
 
 use cdcp_site::{
-    compiled_site_locations, flood_pin_id, lookup_coord, lookup_flood, lookup_id, SiteError,
-    SiteQuery, SiteStore, ANTI_VACUOUS_LOCATIONS, NOT_IN_SFHA, SNAP_FLOOD,
+    compiled_site_locations, flood_pin_id, lookup_coord, lookup_flood, lookup_id,
+    lookup_power_price, power_price_pin_id, SiteError, SiteQuery, SiteStore,
+    ANTI_VACUOUS_LOCATIONS, NOT_IN_SFHA, SNAP_FLOOD, SNAP_PRICE,
 };
 use std::path::PathBuf;
 
@@ -44,6 +45,13 @@ fn lookup_id_ashburn_returns_typed_values() {
     assert!(text.contains("pga="), "{text}");
     assert!(text.contains("flood_zone="), "{text}");
     assert!(text.contains(NOT_IN_SFHA), "{text}");
+    assert_eq!(profile.power_price.value, 10.53);
+    assert_eq!(profile.power_price.unit, "cents/kWh");
+    assert_eq!(profile.power_price.sector, "industrial");
+    assert_eq!(profile.power_price.state, "VA");
+    assert_eq!(profile.power_price.period, "2026-05");
+    assert!(text.contains("power_price="), "{text}");
+    assert!(text.contains("cents/kWh"), "{text}");
 }
 
 #[test]
@@ -66,6 +74,18 @@ fn lookup_coord_matches_compiled_sites() {
         assert_eq!(by_id.grid_co2_lb_per_mwh, by_coord.grid_co2_lb_per_mwh);
         assert_eq!(by_id.flood, by_coord.flood);
         assert!(!by_id.flood.zone.is_empty(), "{} empty flood zone", loc.id);
+        assert_eq!(by_id.power_price, by_coord.power_price);
+        assert!(
+            !by_id.power_price.unit.is_empty(),
+            "{} bare power price",
+            loc.id
+        );
+        assert!(
+            by_id.power_price.value.is_finite() && by_id.power_price.value > 0.0,
+            "{} power price {}",
+            loc.id,
+            by_id.power_price
+        );
     }
 }
 
@@ -87,6 +107,32 @@ fn flood_lookup_returns_zone_not_not_vendored() {
 #[test]
 fn flood_missing_location_is_named_error() {
     let err = lookup_flood(&engine(), SiteQuery::Id("atlantis")).expect_err("missing");
+    match err {
+        SiteError::MissingLocation { ref id } => assert_eq!(id, "atlantis"),
+        other => panic!("expected MissingLocation, got {other:?}"),
+    }
+}
+
+#[test]
+fn power_price_lookup_returns_typed_price_not_not_vendored() {
+    let pins = cdcp_data::compiled_pins().expect("pins");
+    assert_eq!(
+        power_price_pin_id(&pins),
+        Some(SNAP_PRICE),
+        "EIA industrial-price pin must be present so lookup_power_price can decode"
+    );
+    let price =
+        lookup_power_price(&engine(), SiteQuery::Id("ashburn")).unwrap_or_else(|e| panic!("{e}"));
+    assert_eq!(price.value, 10.53);
+    assert_eq!(price.unit, "cents/kWh");
+    assert_eq!(price.sector, "industrial");
+    assert_eq!(price.state, "VA");
+    assert!(price.to_string().contains("cents/kWh"), "{price}");
+}
+
+#[test]
+fn power_price_missing_location_is_named_error() {
+    let err = lookup_power_price(&engine(), SiteQuery::Id("atlantis")).expect_err("missing");
     match err {
         SiteError::MissingLocation { ref id } => assert_eq!(id, "atlantis"),
         other => panic!("expected MissingLocation, got {other:?}"),
