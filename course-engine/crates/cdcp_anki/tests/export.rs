@@ -7,7 +7,8 @@
 use cdcp_anki::{
     approved_only, deck_clock, evaluate, load_live_bank, note_count_in_apkg, peek_apkg,
     planted_clock_leak_trips, resolve_engine_root, retired_ids_in_apkg, run, write_apkg,
-    zip_date_time, Request, EXPECTED_APPROVED_LIVE, ITEMS_DIR_REL, PINNED_EPOCH,
+    zip_date_time, Request, Source, EXPECTED_APPROVED_LIVE, ITEMS_DIR_REL, PINNED_EPOCH,
+    WEB_DATA_REL,
 };
 use std::fs;
 use std::path::PathBuf;
@@ -303,4 +304,121 @@ fn planted_green_export_prints_unresolvable_zero() {
     let tsv = fs::read_to_string(td.path().join("dist/anki/cdcp_bank.tsv")).unwrap();
     assert!(tsv.contains("A) alpha"), "{tsv}");
     assert!(!tsv.contains("\tD\t"), "{tsv}");
+}
+
+/// Empty `correct` used to take the Python `'' in "ABCD"` branch and crash
+/// in `ord()`. urz3 made it a named FAIL; this pins the empty case.
+#[test]
+fn empty_correct_is_red_and_names_the_id() {
+    let td = tempfile::tempdir().unwrap();
+    fs::create_dir_all(td.path().join(ITEMS_DIR_REL)).unwrap();
+    fs::write(
+        td.path().join(ITEMS_DIR_REL).join("empty.toml"),
+        "id = \"empty\"\nmodule = 1\nstem = \"s\"\nchoices = [\"alpha\", \"beta\", \"gamma\", \"delta\"]\ncorrect = \"\"\nexplanation = \"e\"\n",
+    )
+    .unwrap();
+    let mut req = Request::default_for(td.path());
+    req.format = "tsv".into();
+    req.out = td.path().join("dist/anki");
+    let o = run(&req);
+    assert_eq!(o.code, 1, "empty correct must be RED: {}", o.stderr);
+    assert!(
+        o.stderr.contains("FAIL:"),
+        "named FAIL, not a traceback or unlabeled exit: {}",
+        o.stderr
+    );
+    assert!(
+        o.stderr.contains("unresolvable"),
+        "named failure, not GateError::Error theater: {}",
+        o.stderr
+    );
+    assert!(
+        o.stderr.contains("empty"),
+        "must name the item id: {}",
+        o.stderr
+    );
+    assert!(o.files.is_empty(), "RED must carry no files: {:?}", o.files);
+    assert!(!td.path().join("dist/anki/cdcp_bank.tsv").exists());
+}
+
+/// Two-letter `correct` (`"AB"`) is a substring of `"ABCD"` — the retired
+/// Python membership test accepted it and then `ord()` crashed. Must be a
+/// named FAIL, never a shipped card and never a traceback.
+#[test]
+fn two_letter_correct_is_red_and_names_the_id() {
+    let td = tempfile::tempdir().unwrap();
+    fs::create_dir_all(td.path().join(ITEMS_DIR_REL)).unwrap();
+    fs::write(
+        td.path().join(ITEMS_DIR_REL).join("ab.toml"),
+        "id = \"ab\"\nmodule = 1\nstem = \"s\"\nchoices = [\"alpha\", \"beta\", \"gamma\", \"delta\"]\ncorrect = \"AB\"\nexplanation = \"e\"\n",
+    )
+    .unwrap();
+    let mut req = Request::default_for(td.path());
+    req.format = "tsv".into();
+    req.out = td.path().join("dist/anki");
+    let o = run(&req);
+    assert_eq!(o.code, 1, "multi-char correct must be RED: {}", o.stderr);
+    assert!(
+        o.stderr.contains("FAIL:"),
+        "named FAIL, not a traceback or unlabeled exit: {}",
+        o.stderr
+    );
+    assert!(
+        o.stderr.contains("unresolvable"),
+        "named failure: {}",
+        o.stderr
+    );
+    assert!(
+        o.stderr.contains("ab"),
+        "must name the item id: {}",
+        o.stderr
+    );
+    assert!(o.files.is_empty(), "RED must carry no files: {:?}", o.files);
+    assert!(!td.path().join("dist/anki/cdcp_bank.tsv").exists());
+}
+
+/// `--source keys`: a mock40 item whose id is absent from keys_seed42.json
+/// used to become `correct=''` and crash the Python exporter. Same named
+/// FAIL as the empty-bank-item case; must identify the item id.
+#[test]
+fn missing_keys_seed42_key_is_red_and_names_the_id() {
+    let td = tempfile::tempdir().unwrap();
+    let data = td.path().join(WEB_DATA_REL);
+    fs::create_dir_all(&data).unwrap();
+    fs::write(
+        data.join("mock40_seed42.json"),
+        r#"{"items":[{"id":"q-missing","stem":"s","choices":["alpha","beta","gamma","delta"],"module":1}]}"#,
+    )
+    .unwrap();
+    fs::write(data.join("keys_seed42.json"), r#"{"keys":[]}"#).unwrap();
+    let mut req = Request::default_for(td.path());
+    req.source = Source::Keys;
+    req.format = "tsv".into();
+    req.out = td.path().join("dist/anki");
+    let o = run(&req);
+    assert_eq!(
+        o.code, 1,
+        "missing keys_seed42 key must be RED: {}",
+        o.stderr
+    );
+    assert!(
+        o.stderr.contains("FAIL:"),
+        "named FAIL, not a traceback: {}",
+        o.stderr
+    );
+    assert!(
+        o.stderr.contains("unresolvable"),
+        "named failure: {}",
+        o.stderr
+    );
+    assert!(
+        o.stderr.contains("q-missing"),
+        "must name the item id: {}",
+        o.stderr
+    );
+    assert!(o.files.is_empty(), "RED must carry no files: {:?}", o.files);
+    assert!(
+        !td.path().join("dist/anki/cdcp_seed42_mock40.tsv").exists(),
+        "must not write the keys-source TSV"
+    );
 }

@@ -1828,4 +1828,62 @@ mod unit {
         };
         assert_eq!(resolved_answer(&e), None);
     }
+
+    #[test]
+    fn empty_and_multichar_correct_are_unresolvable() {
+        // The retired Python `correct in "ABCD"` accepted both of these
+        // (substring containment) and then crashed in `ord()`. Membership
+        // is a single letter in {A,B,C,D}; empty and "AB" are unresolvable.
+        let empty = Card {
+            id: "empty".into(),
+            stem: "s".into(),
+            choices: vec![
+                "alpha".into(),
+                "beta".into(),
+                "gamma".into(),
+                "delta".into(),
+            ],
+            correct: "".into(),
+            explanation: "e".into(),
+            module: "1".into(),
+            status: String::new(),
+            tags: Vec::new(),
+            topic_ids: Vec::new(),
+        };
+        assert_eq!(resolved_answer(&empty), None);
+        let ab = Card {
+            id: "ab".into(),
+            stem: "s".into(),
+            choices: vec![
+                "alpha".into(),
+                "beta".into(),
+                "gamma".into(),
+                "delta".into(),
+            ],
+            correct: "AB".into(),
+            explanation: "e".into(),
+            module: "1".into(),
+            status: String::new(),
+            tags: Vec::new(),
+            topic_ids: Vec::new(),
+        };
+        assert_eq!(resolved_answer(&ab), None);
+        let abcd = Card {
+            id: "abcd".into(),
+            stem: "s".into(),
+            choices: vec![
+                "alpha".into(),
+                "beta".into(),
+                "gamma".into(),
+                "delta".into(),
+            ],
+            correct: "ABCD".into(),
+            explanation: "e".into(),
+            module: "1".into(),
+            status: String::new(),
+            tags: Vec::new(),
+            topic_ids: Vec::new(),
+        };
+        assert_eq!(resolved_answer(&abcd), None);
+    }
 }
