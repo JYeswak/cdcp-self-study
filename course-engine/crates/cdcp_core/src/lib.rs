@@ -7,7 +7,59 @@ use std::collections::BTreeMap;
 use thiserror::Error;
 
 pub const SCHEMA_VERSION: u32 = 1;
-pub const BANK_HASH_DOMAIN: &[u8] = b"cdcp-bank-v1\0";
+
+/// Domain-separation tag for `cdcp_bank::compute_bank_hash`.
+///
+/// **This tag names a DEFINITION, not a bank snapshot.** Two hashes carrying
+/// the same tag are comparable: a difference between them means the bank's
+/// content moved. Two hashes carrying different tags are NOT comparable, and a
+/// reader must not read their difference as drift.
+///
+/// | Tag | What the hash covers |
+/// |-----|----------------------|
+/// | `cdcp-bank-v1` | `id`, `module`, `stem`, `choices`, `correct`, `explanation`, `bloom`, `source_class`, `quantity_evidence`, `topic_ids`. `status` was excluded, and `objective_ids` / `citation_ids` / `tags` were not modelled at all — serde discarded them on load. A `status` flip therefore did not move a v1 hash, while it *did* move what a learner could be assessed on (C1). |
+/// | `cdcp-bank-v2` | v1's fields **plus** `objective_ids`, `citation_ids`, `tags` and `status`, over a payload that is total across every modelled field (`deny_unknown_fields` + `hash_payload_covers_every_modelled_field`). An empty bank is an ERROR, not a hash. |
+///
+/// Bumping this constant is a THREE-SITE change that must land in one commit —
+/// this constant, `content.lock` `canonical`, and `scripts/gen_content_lock.py`
+/// `CANONICAL`. A partial bump creates a third state and is worse than none.
+/// `crates/cdcp_core/tests/bank_hash_domain_agreement.rs` keys on this constant
+/// (never on a grep for the literal) and goes RED naming both sides.
+pub const BANK_HASH_DOMAIN: &[u8] = b"cdcp-bank-v2\0";
+
+/// The domain tag as a label, DERIVED from [`BANK_HASH_DOMAIN`] — the single
+/// source the other two sites are checked against.
+///
+/// Anti-vacuous: an empty, non-NUL-terminated, non-UTF-8, or interior-NUL
+/// domain is an **ERROR**, never a silent default. A domain that parsed to `""`
+/// would make every hash comparable to every other hash, which is exactly the
+/// confusion the tag exists to prevent.
+pub fn bank_hash_domain_label() -> Result<&'static str, CoreError> {
+    let raw = BANK_HASH_DOMAIN;
+    let Some((&last, head)) = raw.split_last() else {
+        return Err(CoreError::InvalidDomain(
+            "BANK_HASH_DOMAIN is empty — a domain tag must name a definition".into(),
+        ));
+    };
+    if last != 0 {
+        return Err(CoreError::InvalidDomain(
+            "BANK_HASH_DOMAIN must be NUL-terminated".into(),
+        ));
+    }
+    if head.is_empty() {
+        return Err(CoreError::InvalidDomain(
+            "BANK_HASH_DOMAIN is only a NUL — the label is empty".into(),
+        ));
+    }
+    if head.contains(&0) {
+        return Err(CoreError::InvalidDomain(
+            "BANK_HASH_DOMAIN has an interior NUL".into(),
+        ));
+    }
+    std::str::from_utf8(head)
+        .map_err(|e| CoreError::InvalidDomain(format!("BANK_HASH_DOMAIN is not UTF-8: {e}")))
+}
+
 pub const STUDY_PASS_CORRECT: u32 = 27;
 
 #[derive(Debug, Error, PartialEq, Eq)]
@@ -16,6 +68,8 @@ pub enum CoreError {
     InvalidChoice(String),
     #[error("json: {0}")]
     Json(String),
+    #[error("bank hash domain: {0}")]
+    InvalidDomain(String),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]

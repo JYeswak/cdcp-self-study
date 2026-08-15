@@ -68,7 +68,7 @@ rebuilt something — see `docs/TESTING.md`, "Meta-test pairs: step 3 is the one
   and `deny_unknown_fields` [[fact:fact-bank-item-denies-unknown-fields=yes]] makes a stray
   field a load error rather than a silent discard. `objective_ids` had never been a field on
   `BankItem` at all: all 804 files carried it on disk and serde dropped it. Residual: the
-  domain string is still `cdcp-bank-v1` under a v2 definition (`bd-6ycw`).
+  domain string is `cdcp-bank-v2` (bd-6ycw / C2 remainder landed 2026-08-15).
 - **C3** near-duplicate detector (`bd-near-duplicate-item-gate-i5v`). Exact-stem hashing finds
   **0** duplicates; `m14-q040`/`m14-q121` are one item twice with different keys.
 - **C4** portable PRNG — **LANDED 2026-08-14.** Sampler is `rand_chacha::ChaCha12Rng` [[fact:fact-assemble-rng-is-chacha12=yes]],

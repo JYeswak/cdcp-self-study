@@ -120,7 +120,7 @@ supported its thesis.
   again. Note the consequence: because `status` is now covered, retiring an item moves
   `bank_hash` by itself —
   which inverts the property `goldens/PROVENANCE.md` §"Bank drift" was written against. Residual:
-  the domain string still reads `cdcp-bank-v1` under the v2 definition (`bd-6ycw`).
+  the domain string is `cdcp-bank-v2` (bd-6ycw / C2 remainder landed 2026-08-15).
 - **`StdRng` is not portable.** Closed 2026-08-14 (C4): the sampler no longer
   seeds from it [[fact:fact-assemble-uses-stdrng=no]]. It is `ChaCha12Rng` [[fact:fact-assemble-rng-is-chacha12=yes]] from
   `rand_chacha = "=0.3.1"`. The word "currently" was the tell; the named

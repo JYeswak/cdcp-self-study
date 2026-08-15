@@ -23,7 +23,7 @@
 
 ```text
 bank_hash = hex( SHA-256(
-  b"cdcp-bank-v1\0"
+  b"cdcp-bank-v2\0"
   || for item in items sorted by id:
        canonical_json(hash_payload(item)) || b"\0"
 ) )
@@ -47,7 +47,7 @@ Flipping any load-bearing field changes `bank_hash`.
 schema_version = 1
 bank_hash = "<hex>"
 knowledge_hash = "<optional later>"
-canonical = "cdcp-bank-v1"
+canonical = "cdcp-bank-v2"
 hash_alg = "sha256"
 ```
 

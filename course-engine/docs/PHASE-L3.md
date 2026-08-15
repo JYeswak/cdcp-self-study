@@ -21,7 +21,7 @@
 | OQ | Decision for L3 |
 |----|-----------------|
 | OQ-02 | Canonical JSON: sorted object keys, no whitespace variance, UTF-8, integers only → `serde_json::to_vec` with sorted map or BTreeMap serialization |
-| OQ-03 | `bank_hash` = SHA-256 of canonical item serialization (sorted by id); domain sep prefix `cdcp-bank-v1\0` |
+| OQ-03 | `bank_hash` = SHA-256 of canonical item serialization (sorted by id); domain sep prefix `cdcp-bank-v2\0` |
 
 Promote both to VERIFIED when implemented + tested.
 

@@ -204,21 +204,21 @@ expect = [
 # beads had to re-freeze together and why the domain string is wrong until
 # bd-6ycw bumps it: two different definitions are both still labelled v1.
 #
-# The `const` pin below is therefore RIGHT and WRONG at once — it faithfully
-# records what the source says, and what the source says is stale. That is the
-# correct state for a ledger: it pins reality, and bd-6ycw is the bead that moves
-# reality. When it lands, this surface goes RED again and the walk repeats — one
-# deliberate move rather than two silent ones.
+# bd-6ycw / C2 remainder (2026-08-15): the tag now names the v2 definition.
+# Payload keys did not change this walk — only the domain-separation label —
+# so a v1 hash and a v2 hash of the same bank are not comparable. That is the
+# point of the bump. Re-freeze is the bank_hash bytes + the four seed-42
+# artifacts that embed them, plus this surface pin. Payload shape is unchanged.
 [[surface]]
 id = "bank.hash-payload"
 title = "The bank_hash content address — which item fields it covers"
-version = "v734be4817514"
-justification = "bank_hash is pinned by goldens/bank_hash.txt, embedded in the fixture and in every web pack, and compared inside grade() before a report is produced. Which keys enter this payload decides which bank edits are visible to any of them. Since C2 that set includes `status`, so the content address now covers the approved/retired selection itself — the property PROVENANCE §\"Bank drift\" was written against. deny_unknown_fields plus hash_payload_covers_every_modelled_field keep the two sides equal, so a field cannot be added to the struct and quietly sit outside the address again. RE-PINNED 2026-08-15 (bd-extract-key-literals-overmatch-4pak): the `keys` scrape of hash_payload was RETIRED, not retargeted. That scrape could not see a helper/const/format! key and over-matched error-message `.into()` literals; papering over it by avoiding `.into()` at the call site is how the fooled certificate arrives. The payload key set is bank.item-schema's field list, enforced by hash_payload_covers_every_modelled_field (the runtime output of hash_payload, not a syntax heuristic). This surface now pins the domain const and compute_bank_hash. Frozen bank_hash bytes are unchanged."
+version = "v4c837056ec0e"
+justification = "bank_hash is pinned by goldens/bank_hash.txt, embedded in the fixture and in every web pack, and compared inside grade() before a report is produced. Which keys enter this payload decides which bank edits are visible to any of them. Since C2 that set includes `status`, so the content address now covers the approved/retired selection itself — the property PROVENANCE §\"Bank drift\" was written against. deny_unknown_fields plus hash_payload_covers_every_modelled_field keep the two sides equal, so a field cannot be added to the struct and quietly sit outside the address again. RE-PINNED 2026-08-15 (bd-hardening-c-status-hzs.2 / bd-6ycw): BANK_HASH_DOMAIN moved cdcp-bank-v1 → cdcp-bank-v2 so a payload-definition change is labelled as a definition change, not as drift. The three sites (core const, content.lock canonical, cdcp_data CANONICAL) move in this commit. Frozen bank_hash bytes move because the salt moved, not because any item field set changed."
 [[surface.pin]]
 kind = "const"
 file = "crates/cdcp_core/src/lib.rs"
 symbol = "BANK_HASH_DOMAIN"
-expect = ['b"cdcp-bank-v1\0"']
+expect = ['b"cdcp-bank-v2\0"']
 [[surface.pin]]
 kind = "region"
 file = "crates/cdcp_bank/src/lib.rs"
@@ -420,7 +420,7 @@ digest = "a796fce9e69cb4ffc8cf30fe2710091d05eb2678f7f3451cdd7df0106c43275f"
 [[golden]]
 id = "fixture.mock40-seed42"
 file = "goldens/fixtures/mock40_seed42.json"
-frozen = "68b77dfbd06b854630a89214f49736db7b864879771ff873fb1a35917c358866"
+frozen = "bac724fefe1b32bb4fada333bbfc070223dcb03e002caa7b375d1d1ba418bd22"
 affirmed = "2026-08-15"
 justification = "The seed-42 assembly record: forty ids in presentation order, plus an embedded six-field projection of each item and the bank_hash they were drawn under. Every other golden here is computed FROM this file, so it is re-frozen first and re-affirmed first. REWRITTEN 2026-08-14 (bd-tetz): the old sentence \"Bank CONTENT drift is not this file's job\" survived C2 and C3 only because those re-freezes never moved a draw — C2 moved bank_hash with item_ids byte-identical, and C3's single retirement (mock40-q40) moved nothing at all. This re-freeze is the first where the DRAW moved: 24 duplicate items retired, the approved pool 803 -> 779, and 33 of the 40 ids changed with all 40 positions different. So this file is the record of WHICH FORTY QUESTIONS THE PUBLISHED FORM ASKS, and a selection-only edit to bank/items rewrites it. Only 7 ids survived the change (bank-m14-q121, m02-q077, m02-q081, m02-q085, m05-q148, m09-q123, m13-q202); no retired id appears, verified by parsing this file rather than by reading a diff."
 depends_on = [
@@ -428,13 +428,13 @@ depends_on = [
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
   { surface = "fixture.writer-shape", version = "v3eb326576eb1" },
   { surface = "bank.item-schema", version = "ve4a98becddb0" },
-  { surface = "bank.hash-payload", version = "v734be4817514" },
+  { surface = "bank.hash-payload", version = "v4c837056ec0e" },
 ]
 
 [[golden]]
 id = "grade.all-correct"
 file = "goldens/mock40_seed42_all_correct.sha256"
-frozen = "7ef8b29ca7df51df074ae0b6eb068fc1f88e5ff1643c23439b61aa91ffed67f2"
+frozen = "e3498853643c9a03281d02b61aef2fa2516708d3dc51ba417495e6b41c03beac"
 affirmed = "2026-08-15"
 justification = "hex(SHA-256(canonical_json(GradeReport))) for an attempt answering every fixture item with its correct letter. It moves when the report shape moves, when canonical JSON moves, when scoring moves, when the schema version moves, or when the fixture's ids move — five surfaces. REWRITTEN 2026-08-14 (bd-tetz) because this is the first re-freeze where the FIFTH one is what moved. C2 changed only the bank_hash field inside the report body; this change replaced 33 of the 40 item_results and re-derived by_module and weak_modules from a different forty questions. A reader comparing this digest to the C2-era one is not comparing two encodings of one attempt — the attempt itself is a different exam. It also re-affirms goldens.regeneration-path at vb61753f4e9b8: the comparison that checks this digest is now required to run rather than merely able to."
 depends_on = [
@@ -443,14 +443,14 @@ depends_on = [
   { surface = "core.canonical-json", version = "v33d390defeb4" },
   { surface = "grade.scoring-semantics", version = "v5431626fe9cc" },
   { surface = "grade.attempt-builders", version = "v92df4e677b98" },
-  { surface = "bank.hash-payload", version = "v734be4817514" },
+  { surface = "bank.hash-payload", version = "v4c837056ec0e" },
   { surface = "goldens.regeneration-path", version = "vb61753f4e9b8" },
 ]
 
 [[golden]]
 id = "grade.all-wrong"
 file = "goldens/mock40_seed42_all_wrong.sha256"
-frozen = "d9d6d2c61a970b0f40e29a51aaad586b7591be5e34b37f77617f9a9b05cc482d"
+frozen = "863b4fc51dc4356b9a39360398b82ee149d70683ca1b827f2d0e738a17902c5c"
 affirmed = "2026-08-15"
 justification = "The all-correct golden's counterpart, answering correct.wrong_letter() for all forty items. It carries one dependency the other does not: the wrong-letter cycle itself, which is content of this digest and nothing else in the tree pins. RE-STATED 2026-08-14 (bd-tetz) for the same reason as its counterpart — the forty items it is taken over are a different forty — with one addition specific to this row. The wrong-letter cycle is applied per item to that item's `correct` letter, and the retirements deliberately withdrew copies whose keys sat on DIFFERENT letters from their survivors (pair 12 moved D->B, pair 18 was A against B). So this digest changed for two independent reasons at once: a different item set, and a different distribution of correct letters within it. Neither is visible in the hex."
 depends_on = [
@@ -460,7 +460,7 @@ depends_on = [
   { surface = "core.choice-letter", version = "vd7fc50f64ee4" },
   { surface = "grade.scoring-semantics", version = "v5431626fe9cc" },
   { surface = "grade.attempt-builders", version = "v92df4e677b98" },
-  { surface = "bank.hash-payload", version = "v734be4817514" },
+  { surface = "bank.hash-payload", version = "v4c837056ec0e" },
   { surface = "goldens.regeneration-path", version = "vb61753f4e9b8" },
 ]
 
@@ -468,11 +468,11 @@ depends_on = [
 id = "bank.hash-pin"
 file = "goldens/bank_hash.txt"
 const = "crates/cdcp_gate/src/gates/verify_content_lock.rs::GOLDEN_REL"
-frozen = "37c9feef9385da6050ed01637f70fe82b978352f0b05810f66553c728c99873e"
+frozen = "8a4bf6dce89e5e5860b7e8931fc1180fdd26cef2918de23a042f1353db88a22f"
 affirmed = "2026-08-15"
 justification = "The bank content address for this snapshot, and the fallback verify-content-lock reads when it cannot recompute one. REWRITTEN 2026-08-14 (bd-tetz) on both clauses. First, the old second sentence — \"goldens check compares it only when the file exists, so this row is also what makes deleting it a finding rather than a silent pass\" — is retired: that conditional was the bd-goldens-check-is-file-hole-7v9p hole, and bank_hash.txt is now a REQUIRED golden whose absence or emptiness is an error inside goldens check itself. This row is no longer the only thing standing between a deleted pin and a green run. Second, what the address now covers: 173057eb… -> 3404d854…, moved by 24 status flips and nothing else. Not one stem, choice, key or explanation changed in this re-freeze; the entire delta is `status`, which C2 folded into hash_payload precisely so that a selection-only edit could not hide here. The address now names a bank of 804 files of which 779 are drawable."
 depends_on = [
-  { surface = "bank.hash-payload", version = "v734be4817514" },
+  { surface = "bank.hash-payload", version = "v4c837056ec0e" },
   { surface = "bank.item-schema", version = "ve4a98becddb0" },
   { surface = "core.canonical-json", version = "v33d390defeb4" },
 ]
@@ -480,27 +480,27 @@ depends_on = [
 [[golden]]
 id = "web.learner-pack"
 file = "web/data/mock40_seed42.json"
-frozen = "791e2fe3f2f8bb18f452a4d61141b925a5f5d97be1d404271e8eed7d1ab950f3"
+frozen = "68191692d307e89b13fdf6ed699a8e183a577cdc1c4f81cd5f792a68c5678940"
 affirmed = "2026-08-15"
 justification = "The learner exam pack the browser loads, cmp'd byte-for-byte by check.sh L6 against a fresh export-web at seed 42. It replays the sampler rather than the fixture, so it moves with the sampler even when the fixture is untouched — the divergence bd-golden-sampler-divergence-09q was made of. RE-STATED 2026-08-14 (bd-tetz): this re-freeze is the first that changed WHAT A LEARNER SEES rather than only what a digest covers. 33 of the 40 questions in this pack are different questions; a learner who took the seed-42 mock before this change and takes it after has sat two different exams under one name. Verified byte-for-byte against a fresh export and independently by parsing this file's `items[].id` against the fixture's `item_ids` — equal, in order, with no retired id present."
 depends_on = [
   { surface = "assemble.sampler", version = "v9e0c55f1c89e" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
   { surface = "export.pack-shapes", version = "ve104f62e84f0" },
-  { surface = "bank.hash-payload", version = "v734be4817514" },
+  { surface = "bank.hash-payload", version = "v4c837056ec0e" },
 ]
 
 [[golden]]
 id = "web.keys-pack"
 file = "web/data/keys_seed42.json"
-frozen = "2873bd56c91c31a7af5048d4ba6a851cc2de695969a9ab93b35d62f3d76bd223"
+frozen = "7f5dccef2301ccec59266a533fa23ca4030a25321a3aadbac29ba0fc7cce04e5"
 affirmed = "2026-08-15"
 justification = "The answer keys and explanations for the same forty items, held apart from the learner pack on purpose. Its key set is a policy boundary, not a convenience, which is why the shape it was frozen under is named here rather than assumed. RE-STATED 2026-08-14 (bd-tetz): this pack carries the `explanation` string of every drawn item, and the explanation is exactly the field the 24 retirements were adjudicated on — the surviving copy of each pair was chosen because its explanation teaches the contrast instead of restating its own key. So the post-answer text a learner now reads is, by construction, the better of the two that existed for those propositions. That is a product change hiding inside a digest move, and it is the only place in this ledger where the change is pedagogical rather than structural."
 depends_on = [
   { surface = "assemble.sampler", version = "v9e0c55f1c89e" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
   { surface = "export.pack-shapes", version = "ve104f62e84f0" },
-  { surface = "bank.hash-payload", version = "v734be4817514" },
+  { surface = "bank.hash-payload", version = "v4c837056ec0e" },
 ]
 
 [[golden]]
@@ -511,7 +511,7 @@ affirmed = "2026-08-15"
 justification = "The full 804-item array the WASM grade path needs, serialised straight off BankItem. Its element shape IS bank.item-schema, so a field added to that struct re-writes this file for every item while bank_hash — which hash_payload governs separately — can hold still. That asymmetry is the reason both surfaces are named here. REWRITTEN 2026-08-14 (bd-tetz) because \"the full 804-item array\" now needs qualifying: this pack still ships 804 elements, but 25 of them carry status = \"retired\" (1 before this change, 25 after) and the sampler can never draw them. The count in this row is therefore a FILE count, not a pool count — the drawable pool is 779 — and anyone quoting 804 off this pack is quoting the wrong number. This is also the only artifact here whose element count did NOT move under a change that moved every other row, which is precisely the asymmetry the sentence above describes: retirement is a `status` edit, so it re-writes one field of 24 elements and moves bank_hash, while the array's length is a function of the file set alone."
 depends_on = [
   { surface = "bank.item-schema", version = "ve4a98becddb0" },
-  { surface = "bank.hash-payload", version = "v734be4817514" },
+  { surface = "bank.hash-payload", version = "v4c837056ec0e" },
   { surface = "export.pack-shapes", version = "ve104f62e84f0" },
 ]
 
@@ -522,7 +522,7 @@ frozen = "678bf3a267ca59fe29da822e6675d9d2823fcfe4d2a8e8ba9f887ad7c456e771"
 affirmed = "2026-08-15"
 justification = "The wasm32 grade+schedule binary the browser loads. check.sh L5 only `[ -f ]`s it — a G1 presence check, not a pin — so this row is the B2 tripwire. RE-FROZEN 2026-08-15 (bd-engine-not-gate-ar39.5): cdcp_wasm now compiles cdcp_schedule and exports the short-interval ladder + mastery thresholds (cdcp_next_interval_days, cdcp_is_practiced, cdcp_is_mastered, …). Grade digest semantics are unchanged (dual_path still pins mock40_seed42). Bytes moved 299556 → 316970; sha256 51b45211… → 678bf3a2…. Surfaces named because they are compiled in: bank.hash-payload, bank.item-schema, core.canonical-json, core.grade-report-shape, core.choice-letter, core.schema-version, grade.scoring-semantics. Rebuilding via scripts/build_web_wasm.sh without re-taking `frozen` is RED."
 depends_on = [
-  { surface = "bank.hash-payload", version = "v734be4817514" },
+  { surface = "bank.hash-payload", version = "v4c837056ec0e" },
   { surface = "bank.item-schema", version = "ve4a98becddb0" },
   { surface = "core.canonical-json", version = "v33d390defeb4" },
   { surface = "core.grade-report-shape", version = "v0e105134e087" },
