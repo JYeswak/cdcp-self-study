@@ -122,14 +122,31 @@ impl Fixture {
     }
 }
 
-/// A schema-clean item, as one `[[items]]` table.
+/// A schema-clean, APPROVED item, as one `[[items]]` table.
+///
+/// The explicit `status` is load-bearing (bd-8exw): every floor in this gate is
+/// measured against `status == "approved"`, and an absent status is `draft`, so
+/// a fixture that omitted it would be counted out of every floor it means to
+/// exercise.
 fn good_item(id: &str, module: i64, correct: &str, topic: &str) -> String {
+    item_with_status(id, module, correct, topic, "approved")
+}
+
+/// The same item at an arbitrary lifecycle status. `retired` here is the
+/// known-bad injection: it changes the drawable pool WITHOUT deleting a file.
+fn item_with_status(
+    id: &str,
+    module: i64,
+    correct: &str,
+    topic: &str,
+    status: &str,
+) -> String {
     format!(
         "[[items]]\nid = {id:?}\nmodule = {module}\nstem = \"stem for {id}\"\n\
          choices = [\"alpha\", \"beta\", \"gamma\", \"delta\"]\ncorrect = {correct:?}\n\
          explanation = \"an explanation of sufficient length\"\ntopic_ids = [{topic:?}]\n\
          bloom = \"apply\"\nsource_class = \"original\"\n\
-         quantity_evidence = \"qualitative_only\"\n\n"
+         quantity_evidence = \"qualitative_only\"\nstatus = {status:?}\n\n"
     )
 }
 
@@ -174,8 +191,23 @@ fn live_repo_tree_is_byte_identical() {
     );
     assert!(py.stdout.starts_with("PASS\n"), "{}", py.stdout);
     // The distribution and the module map are where a HashMap port would break.
-    assert!(py.stdout.contains("  correct_dist={'A': "), "{}", py.stdout);
-    assert!(py.stdout.contains("15: 39}"), "{}", py.stdout);
+    assert!(
+        py.stdout.contains("  correct_dist(approved)={'A': "),
+        "{}",
+        py.stdout
+    );
+    // BOTH populations, and they differ: 804 files, 779 drawable. Asserting
+    // only the file count is exactly what let bd-8exw hide for a day.
+    assert!(
+        py.stdout
+            .contains("  items=804 scanned, 779 approved (floors count the approved pool only)\n"),
+        "{}",
+        py.stdout
+    );
+    // m14 carries 44 files and 42 approved — the pair the old single map
+    // collapsed into one number.
+    assert!(py.stdout.contains("14: 42, 15: 39}"), "{}", py.stdout);
+    assert!(py.stdout.contains("14: 44, 15: 39}"), "{}", py.stdout);
 }
 
 /// Case 3 — anti-vacuous. An empty `bank/items/` is an ERROR in both, never a
@@ -192,8 +224,9 @@ fn empty_items_directory_is_an_error_in_both_never_a_pass() {
         run.stdout
     );
     assert!(
-        run.stdout
-            .contains("  - pool too small: 0 < pool_min_items 2 (need ≥2× exam size 1)\n"),
+        run.stdout.contains(
+            "  - pool too small: 0 approved < pool_min_items 2 (0 scanned, 0 not approved; need ≥2× exam size 1)\n"
+        ),
         "{}",
         run.stdout
     );
@@ -251,12 +284,17 @@ fn a_clean_fixture_pool_passes_identically() {
     assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
     assert!(
         run.stdout
-            .contains("  correct_dist={'A': 1, 'B': 1, 'C': 1, 'D': 1}\n"),
+            .contains("  correct_dist(approved)={'A': 1, 'B': 1, 'C': 1, 'D': 1}\n"),
         "{}",
         run.stdout
     );
     assert!(
-        run.stdout.contains("  modules={1: 1, 2: 2, 3: 1}\n"),
+        run.stdout.contains("  modules(approved)={1: 1, 2: 2, 3: 1}\n"),
+        "{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout.contains("  modules(scanned)={1: 1, 2: 2, 3: 1}\n"),
         "{}",
         run.stdout
     );
@@ -272,19 +310,19 @@ fn every_malformed_field_reports_identically() {
         "[[items]]\nid = \"bad-one\"\nmodule = 1\nstem = \"   \"\n",
         "choices = [\"a\", \"b\", \"c\"]\ncorrect = \"E\"\nexplanation = \"short\"\n",
         "topic_ids = [\"t-one\"]\nbloom = \"apply\"\nsource_class = \"original\"\n",
-        "quantity_evidence = \"qualitative_only\"\n\n",
+        "quantity_evidence = \"qualitative_only\"\nstatus = \"approved\"\n\n",
         // missing topic_ids, unknown topic, bad source_class/qe/bloom/module
         "[[items]]\nid = \"bad-two\"\nstem = \"a stem\"\n",
         "choices = [\"a\", \"b\", \"\", \"d\"]\ncorrect = \"B\"\n",
         "explanation = \"an explanation of sufficient length\"\n",
         "bloom = \"memorise\"\nsource_class = \"derived\"\n",
-        "quantity_evidence = \"vibes\"\nmodule = \"not-a-number\"\n\n",
+        "quantity_evidence = \"vibes\"\nmodule = \"not-a-number\"\nstatus = \"approved\"\n\n",
         // unknown topic id, absent optional fields entirely
         "[[items]]\nid = \"bad-three\"\nmodule = 2\nstem = \"another stem\"\n",
         "choices = [\"a\", \"b\", \"c\", \"d\"]\ncorrect = \"C\"\n",
         "explanation = \"an explanation of sufficient length\"\n",
         "topic_ids = [\"t-nope\", \"t-one\"]\nbloom = \"apply\"\n",
-        "source_class = \"original\"\nquantity_evidence = \"qualitative_only\"\n\n",
+        "source_class = \"original\"\nquantity_evidence = \"qualitative_only\"\nstatus = \"approved\"\n\n",
     );
     f.write("bank/items/pool.toml", body);
     let run = f.check("malformed-fields");
@@ -320,7 +358,7 @@ fn a_missing_module_renders_as_python_none() {
          choices = [\"a\", \"b\", \"c\", \"d\"]\ncorrect = \"C\"\n\
          explanation = \"an explanation of sufficient length\"\n\
          topic_ids = [\"t-one\"]\nbloom = \"apply\"\nsource_class = \"original\"\n\
-         quantity_evidence = \"qualitative_only\"\n\n",
+         quantity_evidence = \"qualitative_only\"\nstatus = \"approved\"\n\n",
     );
     f.write("bank/items/pool.toml", &body);
     let run = f.check("missing-module");
@@ -342,7 +380,7 @@ fn a_missing_id_is_reported_by_filename_identically() {
          choices = [\"a\", \"b\", \"c\", \"d\"]\ncorrect = \"A\"\n\
          explanation = \"an explanation of sufficient length\"\n\
          topic_ids = [\"t-one\"]\nbloom = \"apply\"\nsource_class = \"original\"\n\
-         quantity_evidence = \"qualitative_only\"\n",
+         quantity_evidence = \"qualitative_only\"\nstatus = \"approved\"\n",
     );
     let run = f.check("missing-id");
     assert!(
@@ -436,7 +474,12 @@ fn single_item_files_load_identically_and_sort_by_name() {
     }
     let run = f.check("single-item-files");
     assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
-    assert!(run.stdout.contains("  items=2\n"), "{}", run.stdout);
+    assert!(
+        run.stdout
+            .contains("  items=2 scanned, 2 approved (floors count the approved pool only)\n"),
+        "{}",
+        run.stdout
+    );
 }
 
 /// Case 4d — a duplicate id.
@@ -521,8 +564,9 @@ fn pool_too_small_reports_identically() {
     f.write("bank/items/pool.toml", &pool(3, &["A", "B", "C"]));
     let run = f.check("pool-too-small");
     assert!(
-        run.stdout
-            .contains("  - pool too small: 3 < pool_min_items 40 (need ≥10× exam size 4)\n"),
+        run.stdout.contains(
+            "  - pool too small: 3 approved < pool_min_items 40 (3 scanned, 0 not approved; need ≥10× exam size 4)\n"
+        ),
         "{}",
         run.stdout
     );
@@ -549,7 +593,7 @@ fn domain_minimum_shortfall_reports_identically() {
     let run = f.check("domain-min-shortfall");
     assert!(
         run.stdout
-            .contains("  - module 9: 0 items < domain_min 5\n"),
+            .contains("  - module 9: 0 approved items < domain_min 5 (0 scanned, 0 not approved)\n"),
         "{}",
         run.stdout
     );
@@ -574,7 +618,7 @@ fn letter_diversity_percentage_rounds_identically() {
     let run = f.check("letter-diversity-71pct");
     assert!(
         run.stdout
-            .contains("  - correct=B is 71% of pool (max 70% for diversity)\n"),
+            .contains("  - correct=B is 71% of approved pool (max 70% for diversity)\n"),
         "{}",
         run.stdout
     );
@@ -588,13 +632,13 @@ fn a_monoculture_pool_trips_both_diversity_rules_identically() {
     let run = f.check("letter-monoculture");
     assert!(
         run.stdout
-            .contains("  - correct=B is 100% of pool (max 70% for diversity)\n"),
+            .contains("  - correct=B is 100% of approved pool (max 70% for diversity)\n"),
         "{}",
         run.stdout
     );
     assert!(
         run.stdout
-            .contains("  - need at least 3 distinct correct letters in the pool\n"),
+            .contains("  - need at least 3 distinct correct letters in the approved pool\n"),
         "{}",
         run.stdout
     );
@@ -692,7 +736,7 @@ fn module_coercion_matches_python_int_identically() {
     let run = f.check("module-int-coercion");
     assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
     assert!(
-        run.stdout.contains("  modules={1: 1, 2: 1, 3: 1, 7: 1}\n"),
+        run.stdout.contains("  modules(approved)={1: 1, 2: 1, 3: 1, 7: 1}\n"),
         "{}",
         run.stdout
     );
@@ -786,7 +830,7 @@ fn legitimate_and_absent_policy_floors_are_still_honoured_identically() {
     assert!(
         absent
             .stdout
-            .contains("  - pool too small: 4 < pool_min_items 400 (need ≥10× exam size 40)\n"),
+            .contains("  - pool too small: 4 approved < pool_min_items 400 (4 scanned, 0 not approved; need ≥10× exam size 40)\n"),
         "the built-in defaults must still apply:\n{}",
         absent.stdout
     );
@@ -801,7 +845,7 @@ fn legitimate_and_absent_policy_floors_are_still_honoured_identically() {
     assert_eq!(ok.code, 0, "{}{}", ok.stdout, ok.stderr);
     assert!(
         ok.stdout
-            .contains("  pool_min=4 exam_n=2 multiplier≈2.0x\n"),
+            .contains("  pool_min=4 exam_n=2 multiplier≈2.0x (approved pool)\n"),
         "{}",
         ok.stdout
     );
@@ -840,7 +884,7 @@ fn the_correct_letter_order_is_pinned_and_hash_seed_independent() {
         );
         assert!(
             run.stdout
-                .contains("  - correct=B is 71% of pool (max 70% for diversity)\n"),
+                .contains("  - correct=B is 71% of approved pool (max 70% for diversity)\n"),
             "seed {seed}:\n{}",
             run.stdout
         );
@@ -931,6 +975,334 @@ fn an_oracle_raise_matches_on_stdout_and_exit_code_but_not_traceback_text() {
     assert_eq!(py.code, 1, "an uncaught exception exits 1");
     assert!(!py.stderr.is_empty(), "the oracle must have said something");
     assert!(!rs.stderr.is_empty(), "the port must not fail silently");
+    assert!(
+        py.stderr.contains("AttributeError") && rs.stderr.contains("AttributeError"),
+        "both sides must name the same exception\npython: {}\nrust: {}",
+        py.stderr,
+        rs.stderr
+    );
+}
+
+// ── bd-8exw: the floors measure the APPROVED pool ──────────────────────────
+//
+// Prior art copied rather than re-derived: `diff_verify_coverage.rs` cases
+// (j)(k)(l) — `module_lines` / `retire_in_place` — do the same injection for
+// the sibling gate.
+
+/// THE KNOWN-BAD. Retire items IN PLACE until the drawable pool is under
+/// `pool_min_items`, WITHOUT deleting a file.
+///
+/// This fixture is chosen so the pre-fix gate stayed GREEN on it *by
+/// construction*: the file count never moves, and the file count was the only
+/// thing the floor could see. That is the proof the population changed, not
+/// merely the wording.
+#[test]
+fn retiring_in_place_trips_the_pool_floor_without_deleting_a_file() {
+    let f = Fixture::new();
+    f.write(
+        "knowledge/bank_policy.toml",
+        "exam_n_items = 1\npool_min_items = 4\n",
+    );
+    // Six FILES. Green while all six are approved.
+    let mut body = String::new();
+    for i in 0..6 {
+        body.push_str(&good_item(&format!("i-{i:03}"), 1, ["A", "B", "C", "D"][i % 4], "t-one"));
+    }
+    f.write("bank/items/pool.toml", &body);
+    let before = f.check("retire-in-place: before");
+    assert_eq!(before.code, 0, "{}{}", before.stdout, before.stderr);
+    assert!(
+        before
+            .stdout
+            .contains("  items=6 scanned, 6 approved (floors count the approved pool only)\n"),
+        "{}",
+        before.stdout
+    );
+
+    // The SAME six files, three retired in place. Not one file removed.
+    let mut retired = String::new();
+    for i in 0..3 {
+        retired.push_str(&good_item(&format!("i-{i:03}"), 1, ["A", "B", "C", "D"][i % 4], "t-one"));
+    }
+    for i in 3..6 {
+        retired.push_str(&item_with_status(
+            &format!("i-{i:03}"),
+            1,
+            ["A", "B", "C", "D"][i % 4],
+            "t-one",
+            "retired",
+        ));
+    }
+    f.write("bank/items/pool.toml", &retired);
+    let after = f.check("retire-in-place: after");
+    assert_ne!(
+        after.code, 0,
+        "3 drawable items under a floor of 4 must be RED:\n{}",
+        after.stdout
+    );
+    assert!(
+        after.stdout.contains(
+            "  - pool too small: 3 approved < pool_min_items 4 \
+             (6 scanned, 3 not approved; need ≥4× exam size 1)\n"
+        ),
+        "the finding must name the module-free pool in BOTH populations:\n{}",
+        after.stdout
+    );
+    // The file set is untouched, which is why a file-counting floor could not
+    // have seen this.
+    assert!(
+        after.stdout.contains("6 scanned"),
+        "the file count must be unchanged at 6:\n{}",
+        after.stdout
+    );
+}
+
+/// The same injection against a `[[domain_min]]` floor: RED naming the module,
+/// the approved count, and the floor.
+#[test]
+fn retiring_in_place_trips_a_domain_floor_naming_module_count_and_floor() {
+    let f = Fixture::new();
+    f.write(
+        "knowledge/bank_policy.toml",
+        "exam_n_items = 1\npool_min_items = 1\n\
+         [[domain_min]]\nmodule = 6\nmin_items = 4\n",
+    );
+    let mut body = String::new();
+    for i in 0..2 {
+        body.push_str(&good_item(&format!("m6-{i}"), 6, "A", "t-one"));
+    }
+    for i in 2..5 {
+        body.push_str(&item_with_status(
+            &format!("m6-{i}"),
+            6,
+            "B",
+            "t-one",
+            "retired",
+        ));
+    }
+    f.write("bank/items/pool.toml", &body);
+    let run = f.check("retire-in-place: domain floor");
+    assert_ne!(run.code, 0, "{}", run.stdout);
+    assert!(
+        run.stdout
+            .contains("  - module 6: 2 approved items < domain_min 4 (5 scanned, 3 not approved)\n"),
+        "the shortfall must name module, approved count, floor, and the file \
+         count that hid it:\n{}",
+        run.stdout
+    );
+}
+
+/// ANTI-VACUOUS, the leg the empty-bank case cannot reach: a bank FULL of files
+/// and EMPTY of drawable items. Zero approved is an ERROR naming the condition,
+/// distinct from `zero items loaded`, which counts files and stays silent here.
+#[test]
+fn a_bank_of_only_retired_items_is_an_error_in_both_never_a_pass() {
+    let f = Fixture::new();
+    f.write(
+        "knowledge/bank_policy.toml",
+        "exam_n_items = 1\npool_min_items = 1\n",
+    );
+    let mut body = String::new();
+    for i in 0..4 {
+        body.push_str(&item_with_status(
+            &format!("dead-{i}"),
+            1,
+            "A",
+            "t-one",
+            "retired",
+        ));
+    }
+    f.write("bank/items/pool.toml", &body);
+    let run = f.check("zero-approved");
+    assert_ne!(
+        run.code, 0,
+        "a bank nobody can be assessed from passed:\n{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout.contains(
+            "  - zero approved items (4 scanned): the floors measure a pool no \
+             learner can be assessed from (vacuous scan is ERROR)\n"
+        ),
+        "{}",
+        run.stdout
+    );
+    assert!(
+        !run.stdout.contains("zero items loaded"),
+        "four files loaded — the empty-bank leg is a DIFFERENT failure and must \
+         stay silent, or this case would be testing that one instead:\n{}",
+        run.stdout
+    );
+}
+
+/// An unmodelled status is a finding naming the item, never a silent drop into
+/// "not approved" — a bucket decided by guess is the same defect one level down.
+#[test]
+fn an_unmodelled_status_is_a_named_finding_in_both() {
+    let f = Fixture::new();
+    let mut body = pool(2, &["A", "B"]);
+    body.push_str(&item_with_status("i-odd", 1, "C", "t-one", "published"));
+    f.write("bank/items/pool.toml", &body);
+    let run = f.check("unknown-status");
+    assert_ne!(run.code, 0, "{}", run.stdout);
+    assert!(
+        run.stdout.contains("  - i-odd: unknown status 'published'\n"),
+        "{}",
+        run.stdout
+    );
+}
+
+/// A non-`str` status can never equal a member of the tuple, so it is unknown
+/// too, and renders through `repr()`.
+#[test]
+fn a_non_string_status_is_unknown_and_reprs_identically() {
+    let f = Fixture::new();
+    let mut body = pool(2, &["A", "B"]);
+    body.push_str(&item_with_status("i-num", 1, "C", "t-one", "x").replace("status = \"x\"", "status = 7"));
+    f.write("bank/items/pool.toml", &body);
+    let run = f.check("non-string-status");
+    assert!(
+        run.stdout.contains("  - i-num: unknown status 7\n"),
+        "{}",
+        run.stdout
+    );
+}
+
+/// Silence is not approval. An item with no `status` line is `draft`, matching
+/// `cdcp_bank::ItemStatus`'s serde default — and `draft` is a KNOWN status, so
+/// it is counted out of the floors without also being reported as junk.
+#[test]
+fn an_absent_status_is_draft_in_both_and_counts_out_of_the_floors() {
+    let f = Fixture::new();
+    f.write(
+        "knowledge/bank_policy.toml",
+        "exam_n_items = 1\npool_min_items = 2\n",
+    );
+    let bare = good_item("i-bare", 1, "B", "t-one").replace("\nstatus = \"approved\"", "");
+    assert!(!bare.contains("status"), "the fixture must carry no status");
+    f.write(
+        "bank/items/pool.toml",
+        &format!("{}{}", good_item("i-ok", 1, "A", "t-one"), bare),
+    );
+    let run = f.check("absent-status-is-draft");
+    assert_ne!(run.code, 0, "{}", run.stdout);
+    assert!(
+        run.stdout.contains(
+            "  - pool too small: 1 approved < pool_min_items 2 \
+             (2 scanned, 1 not approved; need ≥2× exam size 1)\n"
+        ),
+        "{}",
+        run.stdout
+    );
+    assert!(
+        !run.stdout.contains("unknown status"),
+        "draft is modelled; an absent status is not junk:\n{}",
+        run.stdout
+    );
+}
+
+/// Letter diversity is a claim about the pool a mock is drawn from. Retired
+/// items must neither dilute the fraction nor lift the pool over the 40-item
+/// gate.
+#[test]
+fn letter_diversity_is_gated_and_measured_on_the_approved_pool_in_both() {
+    // 45 files: 40 approved and all B, plus 5 retired A. 40/45 is 89% and
+    // 40/40 is 100% — either trips, but only the approved reading is right,
+    // and the SECOND rule (three distinct letters) separates them: the file
+    // set uses two letters, the approved pool uses one.
+    let f = Fixture::new();
+    let mut body = String::new();
+    for i in 0..40 {
+        body.push_str(&good_item(&format!("b-{i:03}"), 1, "B", "t-one"));
+    }
+    for i in 0..5 {
+        body.push_str(&item_with_status(
+            &format!("a-{i:03}"),
+            1,
+            "A",
+            "t-one",
+            "retired",
+        ));
+    }
+    f.write("bank/items/pool.toml", &body);
+    let run = f.check("diversity-on-approved-pool");
+    assert!(
+        run.stdout
+            .contains("  - correct=B is 100% of approved pool (max 70% for diversity)\n"),
+        "100%, not 89%: the retired A items are not in the pool:\n{}",
+        run.stdout
+    );
+
+    // And the 40-item GATE is on the drawable count: 39 approved among 45
+    // files skips the rules, where a file-set gate of 45 would have applied
+    // them.
+    let g = Fixture::new();
+    let mut body = String::new();
+    for i in 0..39 {
+        body.push_str(&good_item(&format!("b-{i:03}"), 1, "B", "t-one"));
+    }
+    for i in 0..6 {
+        body.push_str(&item_with_status(
+            &format!("a-{i:03}"),
+            1,
+            "A",
+            "t-one",
+            "retired",
+        ));
+    }
+    g.write("bank/items/pool.toml", &body);
+    let below = g.check("diversity-gate-on-approved-count");
+    assert!(
+        !below.stdout.contains("diversity"),
+        "39 approved is under the threshold however many files there are:\n{}",
+        below.stdout
+    );
+}
+
+/// MANIFEST drift stays on the FILE SET, deliberately. A retirement that never
+/// reached the manifest is exactly what this catches; counting it on the
+/// approved pool would hide it. Stated as a test so a later "consistency" pass
+/// cannot quietly rebase it.
+#[test]
+fn manifest_drift_is_measured_against_the_file_set_on_purpose_in_both() {
+    let f = Fixture::new();
+    let mut body = pool(3, &["A", "B", "C"]);
+    body.push_str(&item_with_status("i-dead", 1, "D", "t-one", "retired"));
+    f.write("bank/items/pool.toml", &body);
+    f.write("bank/MANIFEST.toml", "item_count = 4\n");
+    let ok = f.check("manifest-tracks-files");
+    assert_eq!(
+        ok.code, 0,
+        "4 files and a manifest of 4 is in sync even though 1 is retired:\n{}{}",
+        ok.stdout, ok.stderr
+    );
+
+    // A manifest that tracked the APPROVED pool would read 3 and be green;
+    // here it is drift, which is the reading this test pins.
+    f.write("bank/MANIFEST.toml", "item_count = 3\n");
+    let drift = f.check("manifest-is-not-the-approved-pool");
+    assert_ne!(drift.code, 0, "{}", drift.stdout);
+    assert!(
+        drift.stdout.contains("  - MANIFEST item_count 3 != loaded 4\n"),
+        "{}",
+        drift.stdout
+    );
+}
+
+/// bd-8exw moved a raise point. The approved-pool tally is a PRE-PASS over
+/// `loaded`, so `it.get(...)` on a non-mapping item now raises one loop earlier
+/// than it used to. stdout is empty at that point either way, but "either way"
+/// is a claim, so it is asserted rather than assumed.
+#[test]
+fn a_non_mapping_item_raises_identically_from_the_approved_pool_pre_pass() {
+    let f = Fixture::new();
+    f.write("bank/items/pool.toml", "items = [1, 2]\n");
+    let py = python(&f.root);
+    let rs = rust(&f.root);
+    assert_eq!(py.stdout, rs.stdout, "pre-pass raise STDOUT differs");
+    assert_eq!(py.stdout, "", "nothing may be written before this raise");
+    assert_eq!(py.code, rs.code, "pre-pass raise EXIT CODE differs");
+    assert_eq!(py.code, 1);
     assert!(
         py.stderr.contains("AttributeError") && rs.stderr.contains("AttributeError"),
         "both sides must name the same exception\npython: {}\nrust: {}",

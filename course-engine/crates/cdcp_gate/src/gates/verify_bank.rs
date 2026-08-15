@@ -1,14 +1,55 @@
 //! verify-bank — Rust port of `scripts/verify_bank.py`
 //! (bd-substrate-rust-migration-jhd.7).
 //!
+//! # WHICH POOL THE FLOORS MEASURE (bd-8exw)
+//!
+//! Every floor here — `pool_min_items`, each `[[domain_min]]`, and both
+//! correct-letter diversity rules — is measured against the **approved** pool,
+//! `status == "approved"`, and never against the file set. C1 restricts
+//! assembly to approved items (`cdcp_assemble::sample_item_ids` filters on
+//! `is_approved()`), so a floor measured over every loaded item is a promise
+//! about a population the sampler will never draw from, and it can only ever
+//! err in the generous direction — the file set is a superset of the drawable
+//! pool. That is fail-open.
+//!
+//! Until 2026-08-13 the bank held exactly ONE non-approved item, so the file
+//! count and the drawable count were the same number in every module and the
+//! distinction was invisible. bd-tetz then retired 24 near-duplicates *in
+//! place* — every FILE stayed — and this gate went on reporting `items=804`,
+//! `multiplier≈20.1x` and `modules={… 14: 44 …}` about a pool that was really
+//! 779 items and 42 in m14.
+//!
+//! Measured 2026-08-14 at the moment of the fix: 804 scanned, 779 approved, 25
+//! retired. NO MODULE BREACHED its floor on the approved pool — tightest is m02
+//! at 42 approved against 28, largest single drop is m06's 136 files to 130
+//! drawable. A defect, not an incident.
+//!
+//! One number DID cross, and nothing gates it: `pool_target_items = 800` in
+//! `bank_policy.toml` is aspirational. The file set (804) clears it, the
+//! drawable pool (779) does not, and the printed multiplier fell 20.1x -> 19.5x.
+//! Prose quoting "~20x" is quoting the file set.
+//!
+//! Two counts stay deliberately on the FILE SET and say so in the output:
+//! `unique_ids` (a collision is a collision whatever the status) and the
+//! `MANIFEST item_count` cross-check (drift is a property of the files on disk;
+//! counting it on the approved pool would hide a retirement that never reached
+//! the manifest).
+//!
+//! A status outside `approved`/`draft`/`retired` is an ERROR naming the item,
+//! never a silent drop into "not approved". An absent `status` is `draft`,
+//! matching `cdcp_bank::ItemStatus`'s serde default: silence is not approval.
+//!
 //! # CLAIM: FLOOR-RAISE
 //!
 //! This gate raises one floor: **the item bank is large enough, structurally
 //! well formed, and letter-diverse enough to sample a mock exam from.** It goes
 //! RED when any of these hold —
 //!
-//!   1. *pool too small* — fewer items than `pool_min_items` (default 400, i.e.
-//!      ten exam forms). A library that cannot outlast a learner is not a bank.
+//!   0. *unmodelled status* — an item whose `status` is not one of
+//!      `approved`/`draft`/`retired`.
+//!   1. *pool too small* — fewer APPROVED items than `pool_min_items` (default
+//!      400, i.e. ten exam forms), or zero approved items at all in a non-empty
+//!      bank. A library that cannot outlast a learner is not a bank.
 //!   2. *schema defect* on an item — missing/blank `id`, empty `stem`, a
 //!      `choices` array that is not exactly four non-blank entries, `correct`
 //!      outside A–D, an `explanation` under 12 characters, missing `topic_ids`,
@@ -17,10 +58,11 @@
 //!      allowlist, a `bloom` verb outside the taxonomy, or a `module` that is
 //!      not coercible to an integer.
 //!   3. *collision* — two items sharing an `id`, or two items sharing a stem.
-//!   4. *starved domain* — a module below its `[[domain_min]]` floor, so
-//!      stratified sampling could never fill that slice.
-//!   5. *letter monoculture* — in a pool of 40 or more, one `correct` letter
-//!      above 70%, or fewer than three distinct letters used at all.
+//!   4. *starved domain* — a module whose APPROVED count is below its
+//!      `[[domain_min]]` floor, so stratified sampling could never fill that
+//!      slice.
+//!   5. *letter monoculture* — in an APPROVED pool of 40 or more, one `correct`
+//!      letter above 70%, or fewer than three distinct letters used at all.
 //!   6. *manifest drift* — `bank/MANIFEST.toml`'s `item_count` disagreeing with
 //!      the number of items actually loaded.
 //!   7. *unusable policy* — a `pool_min_items` or `exam_n_items` present in
@@ -180,8 +222,17 @@ pub const DEFAULT_POOL_MIN: i128 = 400;
 pub const DEFAULT_EXAM_N: i128 = 40;
 /// `len(explanation.strip()) < 12` is "too short".
 pub const MIN_EXPLANATION_LEN: usize = 12;
-/// The pool size at or above which the letter-diversity rules apply.
+/// The APPROVED pool size at or above which the letter-diversity rules apply.
+/// Gated on the drawable count, not the file count: 40 files of which 39 are
+/// retired is not a pool worth screening (bd-8exw).
 pub const DIVERSITY_MIN_POOL: usize = 40;
+
+/// C1 lifecycle. `APPROVED` is the ONLY status `cdcp_assemble` may draw, so it
+/// is the only population a floor may be measured against.
+pub const APPROVED: &str = "approved";
+/// The statuses `cdcp_bank::ItemStatus` models. Anything else is a finding, not
+/// a silent "not approved".
+pub const KNOWN_STATUSES: [&str; 3] = ["approved", "draft", "retired"];
 
 // ── the oracle's uncaught-exception channel ────────────────────────────────
 
@@ -853,16 +904,34 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
     }
 
     let n = loaded.len();
+    let (approved_n, status_errors) = count_approved(&loaded)?;
+    errors.extend(status_errors);
+
     if n == 0 {
         errors.push("zero items loaded".to_string());
+    } else if approved_n == 0 {
+        // A bank FULL of files and empty of drawable items is the exact state a
+        // file-counting floor reported green on. Named separately from the
+        // empty-bank leg because it is a different failure with the same
+        // verdict.
+        errors.push(format!(
+            "zero approved items ({n} scanned): the floors measure a pool no \
+             learner can be assessed from (vacuous scan is ERROR)"
+        ));
     }
     // Skipped only when the floor itself is unusable — that config error is
     // already recorded above, so this can never turn a bad policy into a pass.
+    //
+    // Measured against `approved_n`, never `n` (bd-8exw). Both numbers are in
+    // the message: `804 scanned` under a floor of 400 is exactly the reading
+    // that let this fail open once the bank grew a real retired set.
     if let (Some(floor), Some(size)) = (pool_min.value(), exam_n.value()) {
-        if (n as i128) < floor {
+        if (approved_n as i128) < floor {
             let multiple = py_floordiv(floor, size)?;
             errors.push(format!(
-                "pool too small: {n} < pool_min_items {floor} (need ≥{multiple}× exam size {size})"
+                "pool too small: {approved_n} approved < pool_min_items {floor} \
+                 ({n} scanned, {} not approved; need ≥{multiple}× exam size {size})",
+                n - approved_n
             ));
         }
     }
@@ -874,6 +943,7 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
     let mut ids: Vec<String> = Vec::new();
     let mut letter_counts: BTreeMap<String, u64> = BTreeMap::new();
     let mut module_counts: BTreeMap<i128, u64> = BTreeMap::new();
+    let mut scanned_module_counts: BTreeMap<i128, u64> = BTreeMap::new();
 
     for (fname, raw) in &loaded {
         let it = as_item(raw)?;
@@ -882,6 +952,7 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
             continue;
         };
         ids.push(iid.clone());
+        let drawable = is_approved(it);
 
         let stem = item_text(it, "stem")?;
         if stem.is_empty() {
@@ -899,8 +970,13 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
 
         let correct = it.get("correct");
         if set_contains(&allowed_correct, correct)? {
-            let letter = py_str_value(correct.expect("membership implies presence"));
-            *letter_counts.entry(letter).or_insert(0) += 1;
+            // Letter diversity is a claim about the pool a mock is sampled
+            // from. Measured over the file set it is a claim about a population
+            // `sample_item_ids` never sees (bd-8exw).
+            if drawable {
+                let letter = py_str_value(correct.expect("membership implies presence"));
+                *letter_counts.entry(letter).or_insert(0) += 1;
+            }
         } else {
             errors.push(format!(
                 "{iid}: correct must be A-D, got {}",
@@ -952,7 +1028,12 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
 
         let module = it.get("module");
         match py_int(module) {
-            Ok(mi) => *module_counts.entry(mi).or_insert(0) += 1,
+            Ok(mi) => {
+                *scanned_module_counts.entry(mi).or_insert(0) += 1;
+                if drawable {
+                    *module_counts.entry(mi).or_insert(0) += 1;
+                }
+            }
             Err(IntErr::Caught(_)) => {
                 errors.push(format!("{iid}: bad module {}", py_repr_value(module)))
             }
@@ -1020,16 +1101,23 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
         }
     }
 
-    // ── per-domain floors ──────────────────────────────────────────────────
+    // ── per-domain floors, on the approved pool ────────────────────────────
+    // Both numbers in the message: `44 scanned` under a floor of 24 is exactly
+    // the reading that hid the shortfall (bd-8exw).
     for (module, need) in &domain_mins {
         let have = module_counts.get(module).copied().unwrap_or(0) as i128;
+        let seen = scanned_module_counts.get(module).copied().unwrap_or(0) as i128;
         if have < *need {
-            errors.push(format!("module {module}: {have} items < domain_min {need}"));
+            errors.push(format!(
+                "module {module}: {have} approved items < domain_min {need} \
+                 ({seen} scanned, {} not approved)",
+                seen - have
+            ));
         }
     }
 
-    // ── correct-letter diversity ───────────────────────────────────────────
-    if n >= DIVERSITY_MIN_POOL {
+    // ── correct-letter diversity, on the approved pool ─────────────────────
+    if approved_n >= DIVERSITY_MIN_POOL {
         // The oracle iterated a frozenset here until 2026-08-14, so its
         // emission order was PYTHONHASHSEED-dependent; it now iterates its own
         // `CORRECT_LETTERS` tuple, matching this A–D order by construction
@@ -1038,10 +1126,10 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
         // cross-seed byte-equality of the oracle's stdout.
         for letter in ALLOWED_CORRECT {
             let count = letter_counts.get(letter).copied().unwrap_or(0);
-            let frac = count as f64 / n as f64;
+            let frac = count as f64 / approved_n as f64;
             if frac > 0.70 {
                 errors.push(format!(
-                    "correct={letter} is {} of pool (max 70% for diversity)",
+                    "correct={letter} is {} of approved pool (max 70% for diversity)",
                     py_percent0(frac)
                 ));
             }
@@ -1051,11 +1139,16 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
             .filter(|l| letter_counts.get(**l).copied().unwrap_or(0) > 0)
             .count();
         if used < 3 {
-            errors.push("need at least 3 distinct correct letters in the pool".to_string());
+            errors
+                .push("need at least 3 distinct correct letters in the approved pool".to_string());
         }
     }
 
     // ── MANIFEST cross-check ───────────────────────────────────────────────
+    // Deliberately the FILE SET (`n`), not the approved pool: manifest drift is
+    // a property of the files on disk, and a retirement that never reached the
+    // manifest is exactly the drift this catches. Counting it on the approved
+    // pool would hide that (bd-8exw).
     if manifest_path.is_file() {
         let man = load_toml(&manifest_path)?;
         // A TOML value is never `None`, so any present `item_count` is checked.
@@ -1092,17 +1185,96 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
             "AssertionError: pool_min/exam_n rejected but no finding recorded".to_string(),
         ));
     };
+    // Every count names its population. The two that are FILE-SET properties —
+    // `unique_ids` (a collision is a collision whatever the status) and the
+    // MANIFEST cross-check above — say so; everything a floor consumes is the
+    // approved pool.
     let report = format!(
-        "PASS\n  items={n}\n  unique_ids={}\n  pool_min={floor} exam_n={size} multiplier≈{}x\n  \
-         topics_registry={}\n  correct_dist={}\n  modules={}\n  source_class=original\n",
+        "PASS\n  \
+         items={n} scanned, {approved_n} approved (floors count the approved pool only)\n  \
+         unique_ids={} (file set)\n  \
+         pool_min={floor} exam_n={size} multiplier≈{}x (approved pool)\n  \
+         topics_registry={}\n  \
+         domain_floors={} checked (approved pool)\n  \
+         correct_dist(approved)={}\n  \
+         modules(approved)={}\n  \
+         modules(scanned)={}\n  \
+         source_class=original\n",
         unique_ids.len(),
-        py_fixed1(n as f64 / size as f64),
+        py_fixed1(approved_n as f64 / size as f64),
         known.len(),
+        // How many per-module floors were actually enforced. A policy that lost
+        // its `[[domain_min]]` rows reports identically to one that checked
+        // fifteen of them; printing the count makes a zero READ as zero instead
+        // of as silence. Whether zero should be RED is bd-bank-zero-domain-floors-vacuous-o80a.
+        domain_mins.len(),
         py_dict_str_keys(&letter_counts),
         py_dict_int_keys(&module_counts),
+        py_dict_int_keys(&scanned_module_counts),
     );
     out.push_str(&report);
     Ok(0)
+}
+
+/// `it.get("status", "draft") == "approved"` — is this item in the pool
+/// `cdcp_assemble` may draw from?
+///
+/// One definition, used by the aggregate pass and by the per-module and
+/// per-letter tallies, so the two can never drift into measuring different
+/// populations — which is exactly the defect bd-8exw records.
+pub fn is_approved(it: &toml::Table) -> bool {
+    matches!(it.get("status"), Some(Value::String(s)) if s == APPROVED)
+}
+
+/// `it.get("status", "draft") not in KNOWN_STATUSES` is a finding. An absent
+/// key resolves to the `"draft"` default and is therefore always known; a
+/// non-`str` value can never equal a member of the tuple, so it is not.
+fn status_is_known(it: &toml::Table) -> bool {
+    match it.get("status") {
+        None => true,
+        Some(Value::String(s)) => KNOWN_STATUSES.contains(&s.as_str()),
+        Some(_) => false,
+    }
+}
+
+/// `it.get("id") or fname`, rendered by an f-string, i.e. `str()` of whichever
+/// won. A falsy or absent id falls back to the file name.
+fn item_label(it: &toml::Table, fname: &str) -> String {
+    match it.get("id") {
+        Some(v) if py_truthy(v) => py_str_value(v),
+        _ => fname.to_string(),
+    }
+}
+
+/// `count_approved(loaded)` — `(approved_n, errors)` over everything that
+/// loaded.
+///
+/// `approved_n` is the drawable pool: what every floor in this gate is measured
+/// against. The caller keeps `loaded.len()` separately so the report can print
+/// BOTH numbers; a report that showed only one of them is how a floor came to
+/// be checked against a set no learner draws from.
+pub fn count_approved(loaded: &[(String, Value)]) -> R<(usize, Vec<String>)> {
+    let mut approved = 0usize;
+    let mut errors: Vec<String> = Vec::new();
+    for (fname, raw) in loaded {
+        // `it.get` on a non-mapping raises here, one loop earlier than it used
+        // to; stdout is empty at this point either way, so the oracle and the
+        // port still agree byte for byte on that path.
+        let it = as_item(raw)?;
+        if is_approved(it) {
+            approved += 1;
+        } else if !status_is_known(it) {
+            // Fail-closed AND loud. Dropping an unmodelled status silently into
+            // "not approved" would be a bucket decided by guess rather than by
+            // the recorded lifecycle.
+            errors.push(format!(
+                "{}: unknown status {}",
+                item_label(it, fname),
+                py_repr_value(it.get("status"))
+            ));
+        }
+    }
+    Ok((approved, errors))
 }
 
 /// `it.get(...)` requires a mapping; anything else raises `AttributeError`.
@@ -1357,13 +1529,20 @@ mod tests {
         }
     }
 
+    /// A schema-clean, APPROVED item. The explicit `status` is load-bearing:
+    /// an absent status is `draft`, so a fixture that omitted it would be
+    /// counted out of every floor (bd-8exw).
     fn good(id: &str) -> String {
+        good_with_status(id, "approved")
+    }
+
+    fn good_with_status(id: &str, status: &str) -> String {
         format!(
             "[[items]]\nid = {id:?}\nmodule = 1\nstem = \"stem {id}\"\n\
              choices = [\"a\", \"b\", \"c\", \"d\"]\ncorrect = \"A\"\n\
              explanation = \"explanation long enough\"\ntopic_ids = [\"t-one\"]\n\
              bloom = \"apply\"\nsource_class = \"original\"\n\
-             quantity_evidence = \"free_url\"\n\n"
+             quantity_evidence = \"free_url\"\nstatus = {status:?}\n\n"
         )
     }
 
@@ -1396,8 +1575,9 @@ mod tests {
             out.stdout
         );
         assert!(
-            out.stdout
-                .contains("  - pool too small: 0 < pool_min_items 2 (need ≥2× exam size 1)\n"),
+            out.stdout.contains(
+                "  - pool too small: 0 approved < pool_min_items 2 (0 scanned, 0 not approved; need ≥2× exam size 1)\n"
+            ),
             "{}",
             out.stdout
         );
@@ -1416,12 +1596,14 @@ mod tests {
             out.stdout,
             concat!(
                 "PASS\n",
-                "  items=2\n",
-                "  unique_ids=2\n",
-                "  pool_min=2 exam_n=1 multiplier≈2.0x\n",
+                "  items=2 scanned, 2 approved (floors count the approved pool only)\n",
+                "  unique_ids=2 (file set)\n",
+                "  pool_min=2 exam_n=1 multiplier≈2.0x (approved pool)\n",
                 "  topics_registry=1\n",
-                "  correct_dist={'A': 2}\n",
-                "  modules={1: 2}\n",
+                "  domain_floors=0 checked (approved pool)\n",
+                "  correct_dist(approved)={'A': 2}\n",
+                "  modules(approved)={1: 2}\n",
+                "  modules(scanned)={1: 2}\n",
                 "  source_class=original\n",
             )
         );
@@ -1475,7 +1657,7 @@ mod tests {
                  choices = [\"a\", \"b\", \"c\", \"d\"]\ncorrect = \"E\"\n\
                  explanation = \"explanation long enough\"\ntopic_ids = [\"t-one\"]\n\
                  bloom = \"apply\"\nsource_class = \"original\"\n\
-                 quantity_evidence = \"free_url\"\n\n"
+                 quantity_evidence = \"free_url\"\nstatus = \"approved\"\n\n"
             ));
         }
         f.write("bank/items/pool.toml", &body);
@@ -1592,8 +1774,267 @@ mod tests {
         assert_eq!(out.code, 0, "{}{}", out.stdout, out.stderr);
         assert!(out.stdout.starts_with("PASS\n"), "{}", out.stdout);
         assert!(out.stdout.contains("  source_class=original\n"));
-        // Module 15 was taught today and carries 39 items.
-        assert!(out.stdout.contains("15: 39}"), "{}", out.stdout);
+        // The two populations are both named and they DIFFER: 804 files, 779
+        // drawable. Asserting only the file count is what let bd-8exw hide.
+        assert!(
+            out.stdout
+                .contains("  items=804 scanned, 779 approved (floors count the approved pool only)\n"),
+            "{}",
+            out.stdout
+        );
+        // Module 14 carries 44 files but only 42 approved — the exact pair the
+        // old single-map report collapsed into one number.
+        assert!(out.stdout.contains("14: 42, 15: 39}"), "{}", out.stdout);
+        assert!(out.stdout.contains("14: 44, 15: 39}"), "{}", out.stdout);
+    }
+
+    // ── bd-8exw: the floors measure the APPROVED pool ─────────────────────
+
+    /// THE KNOWN-BAD, at unit scale. Retiring items IN PLACE — every file
+    /// stays, only `status` moves — pushes the drawable pool under the floor.
+    /// The file count is untouched, so the pre-fix gate stayed green on this
+    /// fixture by construction; that is the proof the population changed.
+    #[test]
+    fn retiring_in_place_trips_the_pool_floor_without_deleting_a_file() {
+        let f = Fx::new();
+        f.write(
+            "knowledge/bank_policy.toml",
+            "exam_n_items = 1\npool_min_items = 3\n",
+        );
+        let mut body = String::new();
+        for i in 0..4 {
+            body.push_str(&good(&format!("i-{i}")));
+        }
+        f.write("bank/items/pool.toml", &body);
+        let before = f.eval();
+        assert_eq!(before.code, 0, "{}", before.stdout);
+        assert!(
+            before
+                .stdout
+                .contains("  items=4 scanned, 4 approved (floors count the approved pool only)\n"),
+            "{}",
+            before.stdout
+        );
+
+        // Same four FILES, two of them retired in place.
+        let mut retired = String::new();
+        for i in 0..2 {
+            retired.push_str(&good(&format!("i-{i}")));
+        }
+        for i in 2..4 {
+            retired.push_str(&good_with_status(&format!("i-{i}"), "retired"));
+        }
+        f.write("bank/items/pool.toml", &retired);
+        let after = f.eval();
+        assert_eq!(
+            after.code, 1,
+            "a drawable pool of 2 under a floor of 3 must be RED:\n{}",
+            after.stdout
+        );
+        assert!(
+            after.stdout.contains(
+                "  - pool too small: 2 approved < pool_min_items 3 \
+                 (4 scanned, 2 not approved; need ≥3× exam size 1)\n"
+            ),
+            "the finding must name BOTH populations:\n{}",
+            after.stdout
+        );
+    }
+
+    /// The same injection against a `[[domain_min]]` floor.
+    #[test]
+    fn retiring_in_place_trips_a_domain_floor_and_names_both_numbers() {
+        let f = Fx::new();
+        f.write(
+            "knowledge/bank_policy.toml",
+            "exam_n_items = 1\npool_min_items = 1\n\
+             [[domain_min]]\nmodule = 1\nmin_items = 3\n",
+        );
+        let mut body = String::new();
+        for i in 0..2 {
+            body.push_str(&good(&format!("i-{i}")));
+        }
+        for i in 2..4 {
+            body.push_str(&good_with_status(&format!("i-{i}"), "retired"));
+        }
+        f.write("bank/items/pool.toml", &body);
+        let out = f.eval();
+        assert_eq!(out.code, 1, "{}", out.stdout);
+        assert!(
+            out.stdout
+                .contains("  - module 1: 2 approved items < domain_min 3 (4 scanned, 2 not approved)\n"),
+            "{}",
+            out.stdout
+        );
+    }
+
+    /// ANTI-VACUOUS, the leg the empty-bank case cannot reach: a bank FULL of
+    /// files and empty of drawable items. Zero approved is an ERROR that names
+    /// the condition, distinct from `zero items loaded`.
+    #[test]
+    fn a_bank_of_only_retired_items_is_an_error_naming_the_empty_approved_pool() {
+        let f = Fx::new();
+        f.write(
+            "knowledge/bank_policy.toml",
+            "exam_n_items = 1\npool_min_items = 1\n",
+        );
+        let mut body = String::new();
+        for i in 0..3 {
+            body.push_str(&good_with_status(&format!("i-{i}"), "retired"));
+        }
+        f.write("bank/items/pool.toml", &body);
+        let out = f.eval();
+        assert_eq!(out.code, 1, "{}", out.stdout);
+        assert!(
+            out.stdout.contains(
+                "  - zero approved items (3 scanned): the floors measure a pool no \
+                 learner can be assessed from (vacuous scan is ERROR)\n"
+            ),
+            "{}",
+            out.stdout
+        );
+        // And it is NOT confused with the empty-bank leg, which counts files.
+        assert!(
+            !out.stdout.contains("zero items loaded"),
+            "three files loaded; the empty-bank leg must stay silent:\n{}",
+            out.stdout
+        );
+    }
+
+    /// An unmodelled status is a finding naming the item, never a silent drop
+    /// into "not approved" — a bucket decided by guess is the same defect one
+    /// level down.
+    #[test]
+    fn an_unmodelled_status_is_a_named_finding_not_a_silent_non_approval() {
+        let f = Fx::new();
+        f.write("bank/items/pool.toml", &good_with_status("i-odd", "published"));
+        let out = f.eval();
+        assert_eq!(out.code, 1, "{}", out.stdout);
+        assert!(
+            out.stdout.contains("  - i-odd: unknown status 'published'\n"),
+            "{}",
+            out.stdout
+        );
+    }
+
+    /// Silence is not approval: an item with no `status` line is `draft`, which
+    /// matches `cdcp_bank::ItemStatus`'s serde default and is what keeps this
+    /// gate fail-closed against an item that lost its status line.
+    #[test]
+    fn an_absent_status_is_draft_and_counts_out_of_every_floor() {
+        let f = Fx::new();
+        f.write(
+            "knowledge/bank_policy.toml",
+            "exam_n_items = 1\npool_min_items = 2\n",
+        );
+        // Two files; only one carries a status line.
+        let statusless = good("i-bare").replace("status = \"approved\"\n", "");
+        assert!(!statusless.contains("status"), "the fixture must be bare");
+        f.write(
+            "bank/items/pool.toml",
+            &format!("{}{}", good("i-ok"), statusless),
+        );
+        let out = f.eval();
+        assert_eq!(out.code, 1, "{}", out.stdout);
+        assert!(
+            out.stdout.contains(
+                "  - pool too small: 1 approved < pool_min_items 2 \
+                 (2 scanned, 1 not approved; need ≥2× exam size 1)\n"
+            ),
+            "{}",
+            out.stdout
+        );
+        // draft is a KNOWN status, so it is not also an unknown-status finding.
+        assert!(
+            !out.stdout.contains("unknown status"),
+            "an absent status is draft, not junk:\n{}",
+            out.stdout
+        );
+    }
+
+    /// Letter diversity is a claim about the drawable pool. 40 files of which
+    /// 39 are retired is not a pool worth screening, and a 100%-B APPROVED pool
+    /// of 40 must still trip both rules.
+    #[test]
+    fn letter_diversity_is_gated_and_measured_on_the_approved_pool() {
+        // 45 files, 40 approved-B and 5 retired-A: the retired items must not
+        // dilute the fraction into passing.
+        let f = Fx::new();
+        let mut body = String::new();
+        for i in 0..40 {
+            body.push_str(&good(&format!("b-{i:03}")).replace("correct = \"A\"", "correct = \"B\""));
+        }
+        for i in 0..5 {
+            body.push_str(&good_with_status(&format!("a-{i:03}"), "retired"));
+        }
+        f.write("bank/items/pool.toml", &body);
+        let out = f.eval();
+        assert!(
+            out.stdout
+                .contains("  - correct=B is 100% of approved pool (max 70% for diversity)\n"),
+            "45 scanned but 40 approved and all B — 40/45 is 89%, 40/40 is 100%:\n{}",
+            out.stdout
+        );
+        assert!(
+            out.stdout
+                .contains("  - need at least 3 distinct correct letters in the approved pool\n"),
+            "{}",
+            out.stdout
+        );
+
+        // And the gate: 39 approved among 45 files skips the rules entirely,
+        // where a file-set gate of 45 would have applied them.
+        let g = Fx::new();
+        let mut body = String::new();
+        for i in 0..39 {
+            body.push_str(&good(&format!("b-{i:03}")).replace("correct = \"A\"", "correct = \"B\""));
+        }
+        for i in 0..6 {
+            body.push_str(&good_with_status(&format!("a-{i:03}"), "retired"));
+        }
+        g.write("bank/items/pool.toml", &body);
+        let below = g.eval();
+        assert!(
+            !below.stdout.contains("diversity"),
+            "39 approved is under the threshold however many files there are:\n{}",
+            below.stdout
+        );
+    }
+
+    /// MANIFEST drift stays on the FILE SET, deliberately: a retirement that
+    /// never reached the manifest is exactly what this catches, and counting it
+    /// on the approved pool would hide it.
+    #[test]
+    fn manifest_drift_is_measured_against_the_file_set_on_purpose() {
+        let f = Fx::new();
+        let mut body = good("i-live");
+        body.push_str(&good_with_status("i-dead", "retired"));
+        f.write("bank/items/pool.toml", &body);
+        f.write("bank/MANIFEST.toml", "item_count = 2\n");
+        let ok = f.eval();
+        // Assert the MANIFEST question, not the whole verdict. This fixture is
+        // deliberately two items, so the pool floor (pool_min_items 2, one of
+        // them retired) fires — legitimately, and for an unrelated reason. An
+        // exit-0 assertion here would be asserting that BOTH the manifest is in
+        // sync AND the pool is big enough, and would go red the moment any
+        // other floor was added. What this test forbids is a manifest reading
+        // that tracks the APPROVED pool.
+        assert!(
+            !ok.stdout.contains("MANIFEST item_count"),
+            "2 files and a manifest of 2 is in sync even though 1 is retired, \
+             so no MANIFEST finding may appear:\n{}",
+            ok.stdout
+        );
+        // The approved count is 1; a manifest that tracked the approved pool
+        // would now be RED, which is the reading this test forbids.
+        f.write("bank/MANIFEST.toml", "item_count = 1\n");
+        let drift = f.eval();
+        assert_eq!(drift.code, 1, "{}", drift.stdout);
+        assert!(
+            drift.stdout.contains("  - MANIFEST item_count 1 != loaded 2\n"),
+            "{}",
+            drift.stdout
+        );
     }
 
     #[test]

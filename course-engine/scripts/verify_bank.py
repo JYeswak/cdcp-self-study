@@ -4,6 +4,45 @@
 Library mode: pool must be ≥ pool_min_items (default 10× exam size).
 Validates schema, topics, source_class, domain floors, correct-letter diversity.
 
+WHICH POOL THE FLOORS MEASURE (bd-8exw, the class of
+bd-coverage-counts-retired-items-49jh)
+--------------------------------------------------------------------------
+Every floor here — `pool_min_items`, each `[[domain_min]]`, and the two
+correct-letter diversity rules — is measured against the **approved** pool,
+`status == "approved"`, and never against the file set. C1 restricts assembly to
+approved items (`cdcp_assemble::sample_item_ids` filters `is_approved()`), so a
+floor measured on every loaded item is a promise about a population the sampler
+will never draw from.
+
+Until 2026-08-13 the bank held exactly ONE non-approved item, so the file count
+and the drawable count were the same number in every module and the distinction
+was invisible. bd-tetz then retired 24 near-duplicates in place — the FILES all
+stayed — and this gate went on reporting `items=804`, `multiplier≈20.1x` and
+`modules={… 14: 44 …}` about a pool that was really 779 items and 42 in m14.
+The error can only ever run one way: the file set is a superset of the drawable
+pool, so a file-counting floor is always too generous. That is fail-open.
+
+MEASURED 2026-08-14 on the live tree at the moment of the fix: 804 scanned, 779
+approved, 25 retired. NO MODULE BREACHED ITS FLOOR on the approved pool — the
+tightest is m02 at 42 approved against a floor of 28, and the largest single
+drop is m06's 136 files to 130 drawable — so this was a defect, not an incident.
+
+One number DID cross, and it is not gated: `pool_target_items = 800` in
+bank_policy.toml is aspirational and nothing enforces it. The file set (804)
+clears it; the drawable pool (779) does not, and the multiplier this gate prints
+fell from 20.1x to 19.5x. Any prose quoting "~20x" is quoting the file set.
+
+Every count this gate prints now names its population. `items=N scanned, M
+approved` leads the report; `modules(approved)` and `modules(scanned)` are
+printed side by side; `MANIFEST item_count` deliberately stays on the FILE SET,
+because manifest drift is a property of the files on disk and counting it on the
+approved pool would hide a retirement that never got recorded.
+
+A status outside `approved`/`draft`/`retired` is an ERROR naming the item, not a
+silent drop into "not approved" — a bucket decided by guess is the same defect
+one level down. An absent `status` is `draft`, matching `cdcp_bank`'s fail-closed
+default: silence is never approval.
+
 Two output-shape contracts this gate keeps, both fixed 2026-08-14 (bd-hw3):
 
   - `pool_min_items` and `exam_n_items` are POSITIVE INTEGERS or the key is
@@ -58,6 +97,13 @@ ALLOWED_BLOOM = frozenset(
     {"remember", "understand", "apply", "analyze", "evaluate", "create"}
 )
 
+# C1 lifecycle. `APPROVED` is the ONLY status `cdcp_assemble` may draw, so it is
+# the only population a floor may be measured against. A missing status is
+# `draft` — fail-closed, matching `cdcp_bank::ItemStatus`'s serde default —
+# because silence must never read as approval.
+APPROVED = "approved"
+KNOWN_STATUSES = ("approved", "draft", "retired")
+
 
 def load_toml(path: Path) -> dict:
     with path.open("rb") as f:
@@ -94,6 +140,40 @@ def policy_positive_int(
         errors.append(f"bank_policy.toml: {key} must be > 0, got {val}")
         return None
     return val
+
+
+def is_approved(it: dict) -> bool:
+    """Is this item in the pool `cdcp_assemble` may draw from?
+
+    One definition, used by the aggregate pass and by the per-module/per-letter
+    tallies, so the two can never drift into measuring different populations —
+    which is precisely the defect bd-8exw records.
+    """
+    return it.get("status", "draft") == APPROVED
+
+
+def count_approved(loaded: list[tuple[str, dict]]) -> tuple[int, list[str]]:
+    """`(approved_n, errors)` over everything that loaded.
+
+    `approved_n` is the drawable pool: what every floor in this gate is
+    measured against. The caller keeps `len(loaded)` separately so the report
+    can print BOTH numbers; a report that showed only one of them is how a floor
+    came to be checked against a set no learner draws from.
+    """
+    approved = 0
+    errors: list[str] = []
+    for fname, it in loaded:
+        status = it.get("status", "draft")
+        if status == APPROVED:
+            approved += 1
+        elif status not in KNOWN_STATUSES:
+            # Fail-closed AND loud. Dropping an unmodelled status silently into
+            # "not approved" would be a bucket decided by guess rather than by
+            # the recorded lifecycle — and it would make the drawable count
+            # quietly wrong in the opposite direction.
+            iid = it.get("id") or fname
+            errors.append(f"{iid}: unknown status {status!r}")
+    return approved, errors
 
 
 def topic_ids_from_registry() -> set[str]:
@@ -162,19 +242,36 @@ def main() -> int:
             errors.append(f"{path.name}: no id or items[]")
 
     n = len(loaded)
+    approved_n, status_errors = count_approved(loaded)
+    errors.extend(status_errors)
+
     if n == 0:
         errors.append("zero items loaded")
+    # A bank FULL of files and empty of drawable items is the exact state a
+    # file-counting floor reported green on. Named separately from the
+    # empty-bank leg because it is a different failure with the same verdict.
+    elif approved_n == 0:
+        errors.append(
+            f"zero approved items ({n} scanned): the floors measure a pool no "
+            "learner can be assessed from (vacuous scan is ERROR)"
+        )
     # Skipped only when the floor itself is unusable — that config error is
     # already recorded above, so this can never turn a bad policy into a pass.
-    if pool_min is not None and exam_n is not None and n < pool_min:
+    #
+    # Measured against `approved_n`, never `n` (bd-8exw). Both numbers are in
+    # the message: `804 scanned` under a floor of 400 is exactly the reading
+    # that let this fail open once the bank grew a real retired set.
+    if pool_min is not None and exam_n is not None and approved_n < pool_min:
         errors.append(
-            f"pool too small: {n} < pool_min_items {pool_min} "
-            f"(need ≥{pool_min // exam_n}× exam size {exam_n})"
+            f"pool too small: {approved_n} approved < pool_min_items {pool_min} "
+            f"({n} scanned, {n - approved_n} not approved; "
+            f"need ≥{pool_min // exam_n}× exam size {exam_n})"
         )
 
     ids: list[str] = []
     letter_counts: Counter[str] = Counter()
     module_counts: Counter[int] = Counter()
+    scanned_module_counts: Counter[int] = Counter()
 
     for fname, it in loaded:
         iid = it.get("id")
@@ -182,6 +279,7 @@ def main() -> int:
             errors.append(f"{fname}: missing id")
             continue
         ids.append(iid)
+        drawable = is_approved(it)
 
         stem = (it.get("stem") or "").strip()
         if not stem:
@@ -196,7 +294,10 @@ def main() -> int:
         correct = it.get("correct")
         if correct not in ALLOWED_CORRECT:
             errors.append(f"{iid}: correct must be A-D, got {correct!r}")
-        else:
+        elif drawable:
+            # Letter diversity is a claim about the pool a mock is sampled
+            # from. Measured over the file set it is a claim about a
+            # population `sample_item_ids` never sees (bd-8exw).
             letter_counts[str(correct)] += 1
 
         expl = (it.get("explanation") or "").strip()
@@ -225,7 +326,9 @@ def main() -> int:
         mod = it.get("module")
         try:
             mi = int(mod)
-            module_counts[mi] += 1
+            scanned_module_counts[mi] += 1
+            if drawable:
+                module_counts[mi] += 1
         except (TypeError, ValueError):
             errors.append(f"{iid}: bad module {mod!r}")
 
@@ -249,26 +352,42 @@ def main() -> int:
                 f"duplicate stem ({len(group)} items {group}): {stem[:100]!r}"
             )
 
+    # Per-domain floors, on the approved pool. Both numbers in the message:
+    # `44 scanned` under a floor of 24 is the reading that hid the shortfall.
     for mod, need in sorted(domain_mins.items()):
         have = module_counts.get(mod, 0)
+        seen = scanned_module_counts.get(mod, 0)
         if have < need:
-            errors.append(f"module {mod}: {have} items < domain_min {need}")
+            errors.append(
+                f"module {mod}: {have} approved items < domain_min {need} "
+                f"({seen} scanned, {seen - have} not approved)"
+            )
 
-    # Correct-letter diversity: no letter > 70% of pool (avoid all-B libraries)
-    if n >= 40:
+    # Correct-letter diversity: no letter > 70% of the APPROVED pool (avoid
+    # all-B libraries). Gated on `approved_n`, not `n`, for the same reason:
+    # 40 files of which 39 are retired is not a pool worth screening.
+    if approved_n >= 40:
         # CORRECT_LETTERS, not ALLOWED_CORRECT: see the note at the top. Any
         # line emitted from this loop reaches stdout, so its order is contract.
         for L in CORRECT_LETTERS:
-            frac = letter_counts.get(L, 0) / n
+            frac = letter_counts.get(L, 0) / approved_n
             if frac > 0.70:
                 errors.append(
-                    f"correct={L} is {frac:.0%} of pool (max 70% for diversity)"
+                    f"correct={L} is {frac:.0%} of approved pool "
+                    "(max 70% for diversity)"
                 )
         # At least 3 letters used
         if len([L for L in CORRECT_LETTERS if letter_counts.get(L, 0) > 0]) < 3:
-            errors.append("need at least 3 distinct correct letters in the pool")
+            errors.append(
+                "need at least 3 distinct correct letters in the approved pool"
+            )
 
-    # MANIFEST optional but if present should match count
+    # MANIFEST optional but if present should match count.
+    #
+    # Deliberately the FILE SET (`n`), not the approved pool: manifest drift is
+    # a property of the files on disk, and a retirement that never reached the
+    # manifest is exactly the drift this catches. Counting it on the approved
+    # pool would hide that (bd-8exw).
     if MANIFEST_PATH.is_file():
         man = load_toml(MANIFEST_PATH)
         mc = man.get("item_count")
@@ -291,14 +410,26 @@ def main() -> int:
     # Unreachable with a bad policy: `pool_min`/`exam_n` are None only when
     # `policy_positive_int` recorded a finding, and `errors` returned above.
     assert pool_min is not None and exam_n is not None
+    # Every count names its population. The two that are FILE-SET properties —
+    # `unique_ids` (a collision is a collision whatever the status) and the
+    # MANIFEST cross-check above — say so; everything a floor consumes is the
+    # approved pool.
     report = [
         "PASS",
-        f"  items={n}",
-        f"  unique_ids={len(set(ids))}",
-        f"  pool_min={pool_min} exam_n={exam_n} multiplier≈{n / exam_n:.1f}x",
+        f"  items={n} scanned, {approved_n} approved "
+        "(floors count the approved pool only)",
+        f"  unique_ids={len(set(ids))} (file set)",
+        f"  pool_min={pool_min} exam_n={exam_n} "
+        f"multiplier≈{approved_n / exam_n:.1f}x (approved pool)",
         f"  topics_registry={len(known_topics)}",
-        f"  correct_dist={dict(sorted(letter_counts.items()))}",
-        f"  modules={dict(sorted(module_counts.items()))}",
+        # How many per-module floors were actually enforced. A policy that lost
+        # its `[[domain_min]]` rows currently reports identically to one that
+        # checked fifteen of them; printing the count makes a zero READ as zero
+        # instead of as silence. Whether zero should be RED is bd-bank-zero-domain-floors-vacuous-o80a.
+        f"  domain_floors={len(domain_mins)} checked (approved pool)",
+        f"  correct_dist(approved)={dict(sorted(letter_counts.items()))}",
+        f"  modules(approved)={dict(sorted(module_counts.items()))}",
+        f"  modules(scanned)={dict(sorted(scanned_module_counts.items()))}",
         "  source_class=original",
     ]
     print("\n".join(report))
