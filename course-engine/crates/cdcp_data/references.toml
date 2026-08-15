@@ -135,8 +135,11 @@ egrid_subregion = "CAMX"
 # (lb/MWh)", CO2 column = SRCO2RTA. Retrieved 2026-08-15 from
 # https://www.epa.gov/egrid/summary-data
 # (xlsx https://www.epa.gov/system/files/documents/2025-06/summary_tables_rev2.xlsx).
-# These are EPA's published subregion rates, not this crate's
-# 2000×Σtons/ΣMWh roll-up of the vendored PLNT23 extract.
+# Compute is 2000×ΣPLCO2AN/ΣPLNGENAN over the official PLNT23
+# population (`src-epa-egrid2023-plnt23`). Blank CO2 = 0; negative
+# generation kept. That roll-up matches published SRCO2RTA inside
+# the declared 0.5 lb/MWh band. Do not rewrite these published
+# numbers if a future extract misses.
 
 [[reference]]
 location = "ashburn"

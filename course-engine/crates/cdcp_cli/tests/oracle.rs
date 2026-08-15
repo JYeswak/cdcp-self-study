@@ -1,9 +1,9 @@
 //! Product CLI for the F3 oracle (`bd-hardening-f-oracle-qly.5` / `.8`).
 //!
-//! Live `oracle-check` is honestly RED (EPA eGRID SRCO2RTA vs plant-subset).
-//! That is the product working. Tests assert the RED, not PASS.
-//! Plants (perturb one published ref / empty refs) must still fire when
-//! the live ledger is already RED, and must name location + computed +
+//! Live `oracle-check` is GREEN against official EPA eGRID 2023 Rev 2
+//! SRCO2RTA once the full PLNT23 population is the compute input
+//! (`bd-hardening-e-data-4up.5`). Plants (perturb one published ref /
+//! empty refs) must still fire, and must name location + computed +
 //! reference + delta. No network — compiled references + vendored snapshots.
 
 use assert_cmd::Command;
@@ -35,26 +35,21 @@ fn combined(assert: &assert_cmd::assert::Assert) -> String {
     )
 }
 
-/// Live F3 is honestly RED: EPA eGRID 2023 Rev 2 SRCO2RTA vs our plant-subset.
-/// Do not rewrite those official numbers or widen tol to make this GREEN.
-fn assert_honest_live_red(out: &str) {
+/// Live F3 is GREEN: full PLNT23 roll-up vs official SRCO2RTA inside
+/// the declared 0.5 lb/MWh band. Do not rewrite official numbers.
+fn assert_live_green(out: &str) {
     assert!(
-        !out.contains("oracle: PASS"),
-        "honest live RED must not report PASS: {out}"
+        out.contains("oracle: PASS"),
+        "live oracle must report PASS: {out}"
     );
-    for needle in [
-        "location=",
-        "computed=",
-        "reference=",
-        "delta=",
-        DISAGREEMENT,
-        "quantity=grid_co2_lb_per_mwh",
-    ] {
-        assert!(
-            out.contains(needle),
-            "honest live RED must name {needle}: {out}"
-        );
-    }
+    assert!(
+        !out.contains(DISAGREEMENT),
+        "live GREEN must not name {DISAGREEMENT}: {out}"
+    );
+    assert!(
+        out.contains("grid_co2_lb_per_mwh") || out.contains("compared="),
+        "live PASS must name a comparison: {out}"
+    );
 }
 
 /// A pair to plant against. Live GREEN yields comparisons; live honest
@@ -96,15 +91,15 @@ fn help_lists_oracle_check() {
 }
 
 #[test]
-fn oracle_check_live_tree_is_honest_red() {
-    let assert = cdcp().arg("oracle-check").assert().failure();
-    assert_honest_live_red(&combined(&assert));
+fn oracle_check_live_tree_is_green() {
+    let assert = cdcp().arg("oracle-check").assert().success();
+    assert_live_green(&combined(&assert));
 }
 
 #[test]
-fn oracle_alias_live_tree_is_honest_red() {
-    let assert = cdcp().arg("oracle").assert().failure();
-    assert_honest_live_red(&combined(&assert));
+fn oracle_alias_live_tree_is_green() {
+    let assert = cdcp().arg("oracle").assert().success();
+    assert_live_green(&combined(&assert));
 }
 
 #[test]

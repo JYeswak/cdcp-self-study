@@ -65,8 +65,7 @@ fn pair_to_plant(root: &Path) -> Result<Comparison, String> {
 /// Plant: perturb one published ref, then delete all refs. Both must RED
 /// and the disagreement must name location / computed / reference / delta.
 ///
-/// Live may already be honestly RED (EPA eGRID SRCO2RTA vs plant-subset).
-/// That is the product working — not a reason to refuse the plants.
+/// Live may be GREEN or honestly RED. Either way the plants must trip.
 /// Exit 0 means the plants tripped. A plant that stays GREEN is the failure.
 fn run_selftest(root: &Path) -> Result<(), String> {
     let pins = compiled_pins().map_err(|e| e.to_string())?;

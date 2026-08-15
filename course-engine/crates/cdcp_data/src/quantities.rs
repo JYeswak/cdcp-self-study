@@ -140,6 +140,10 @@ pub fn interpolate_seismic(
 /// Generation-weighted CO2 output emission rate (lb/MWh) for `subregion`.
 ///
 /// `2000 × Σ plant CO2 tons / Σ plant net generation MWh`.
+///
+/// This is EPA eGRID SRCO2RTA when the CSV is the official PLNT23
+/// population: blank CO2 is 0 (zero-carbon plants stay in the
+/// denominator) and negative net generation is kept (Rev 2).
 pub fn grid_co2_lb_per_mwh(csv: &str, subregion: &str) -> Result<f64, QuantityError> {
     let mut gen = 0.0;
     let mut tons = 0.0;
@@ -165,9 +169,14 @@ pub fn grid_co2_lb_per_mwh(csv: &str, subregion: &str) -> Result<f64, QuantityEr
         let g: f64 = cols[2].trim().parse().map_err(|_| {
             QuantityError::Parse(format!("eGRID plants line {}: bad net_gen", i + 1))
         })?;
-        let c: f64 = cols[3].trim().parse().map_err(|_| {
-            QuantityError::Parse(format!("eGRID plants line {}: bad co2_tons", i + 1))
-        })?;
+        let c_raw = cols[3].trim();
+        let c: f64 = if c_raw.is_empty() {
+            0.0
+        } else {
+            c_raw.parse().map_err(|_| {
+                QuantityError::Parse(format!("eGRID plants line {}: bad co2_tons", i + 1))
+            })?
+        };
         gen += g;
         tons += c;
         n += 1;

@@ -48,3 +48,9 @@ id = "src-epa-egrid2023-plants"
 body = "knowledge/data/egrid/egrid2023_plants.csv"
 sidecar = "knowledge/data/egrid/egrid2023_plants.meta.toml"
 sha256 = "11b7e4c1200c09818bb0eab0d9997d080f3a3eb8f3cf25dc0bb2ca401823ce1a"
+
+[[snapshot]]
+id = "src-epa-egrid2023-plnt23"
+body = "knowledge/data/egrid/egrid2023_plnt23.csv"
+sidecar = "knowledge/data/egrid/egrid2023_plnt23.meta.toml"
+sha256 = "95e0fd1c9e2d29cc0d0eb9dd53c8cdacef297f89e50b07573f4356ef3c9f1c84"

@@ -33,8 +33,8 @@ pub const COMPILED_REFERENCES_ORIGIN: &str = "crates/cdcp_data/references.toml";
 pub const SNAP_TMY3: &str = "src-nrel-tmy3-drybulb";
 /// Snapshot pin id: USGS ASCE 7-16 local grid.
 pub const SNAP_USGS: &str = "src-usgs-asce7-16-grid";
-/// Snapshot pin id: EPA eGRID2023 plant extract.
-pub const SNAP_EGRID: &str = "src-epa-egrid2023-plants";
+/// Snapshot pin id: EPA eGRID2023 Revision 2 full PLNT23 extract.
+pub const SNAP_EGRID: &str = "src-epa-egrid2023-plnt23";
 
 /// A quantity the harness knows how to compute.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
@@ -51,7 +51,7 @@ pub enum Quantity {
     SeismicS1,
     /// Mapped PGA (g).
     SeismicPga,
-    /// eGRID output emission rate (lb CO2 / MWh).
+    /// eGRID total output emission rate (lb CO2 / MWh) = SRCO2RTA.
     GridCo2LbPerMwh,
 }
 
