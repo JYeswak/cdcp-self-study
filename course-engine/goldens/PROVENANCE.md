@@ -24,7 +24,7 @@ There is exactly **one** regeneration path. It is the four-command block under
 | `cargo run -p cdcp_cli -- goldens fixture` | **AUTHORITATIVE** — the only writer of `item_ids` | Calls `cdcp_assemble::assemble()`, the shipped sampler |
 | `cargo run -p cdcp_cli -- goldens generate` | **AUTHORITATIVE** — the only writer of the digests and `bank_hash.txt` | Grades the fixture's `item_ids` with `cdcp_grade`, the shipped grader |
 | `cargo run -p cdcp_cli -- export-web` | **AUTHORITATIVE** — the only writer of `web/data/*_seed42.json` | Runs the sampler; `scripts/check.sh` L6 `cmp`s its output against the committed packs |
-| `scripts/sample_mock.py` | **FORBIDDEN** on the golden path — pinned as history only | Reinstates the fooled certificate; `golden_fixture_is_the_rust_sampler_output` goes RED |
+| `scripts/sample_mock.py` | **DELETED 2026-08-15 (bd-sample-mock-draws-retired-1qv9)** — do not restore it from git history | Drew from the unfiltered file set (retired included). A second sampler that disagrees with `cdcp_assemble` is a liability. Measurements below |
 | `scripts/regen_goldens_after_bank.py` | **DELETED 2026-08-14 (bd-z3x)** — do not restore it from git history | It manufactured the divergence it was checked against. Measurements below |
 
 If you are here because you edited `bank/items` and something is red: run the
@@ -92,8 +92,10 @@ purely the PRNG stream (CPython MT19937 vs rand 0.8.7's then-default generator,
 which happened to be ChaCha12) and there was nothing to trade away by choosing
 Rust. `cdcp_assemble` wins on every other axis: it is the shipped path, it
 enforces the C1 approved-only pool with anti-vacuous errors, and it survives the
-Python substrate migration. `scripts/sample_mock.py` is pinned as a historical
-reference, not a regeneration path. Live PRNG law is `registries/doc-facts.toml`
+Python substrate migration. `scripts/sample_mock.py` was deleted 2026-08-15
+(bd-sample-mock-draws-retired-1qv9); keeping a second sampler that draws retired
+items and disagrees with `cdcp_assemble` was the remaining liability. Live PRNG
+law is `registries/doc-facts.toml`
 (`fact-assemble-uses-stdrng`, `fact-assemble-rng-is-chacha12`).
 
 ## Digests
@@ -160,8 +162,8 @@ a pass. Measured 2026-08-14, `goldens fixture` with `UPDATE_GOLDENS=1`:
 **Never** set `UPDATE_GOLDENS=1` in CI. Flipped golden content must make `goldens check` exit
 non-zero.
 
-**Never** regenerate this fixture with `scripts/sample_mock.py`. That reinstates the fooled
-certificate; the Rust assertion above will catch it.
+**Never** restore `scripts/sample_mock.py` from git history to regenerate this fixture.
+That reinstates the fooled certificate; the Rust assertion above will catch it.
 
 ## Bank drift — `bank_hash` is NOT the drift detector
 

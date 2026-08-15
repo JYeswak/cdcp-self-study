@@ -340,11 +340,11 @@ path = "scripts/gen_learn_pages.py"
 reason = "Manual generator for the per-unit Learn pages. Not on the check.sh path; ports after the gates."
 migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-02-28"
-[[allow]]
-path = "scripts/sample_mock.py"
-reason = "DO NOT RUN AGAINST THE GOLDEN PATH. This is not a benign authoring helper — it generated goldens/fixtures/mock40_seed42.json with CPython MT19937, and cdcp_cli preferred that fixture whenever seed==42, so `goldens check` never once exercised the Rust sampler. Measured 2026-08-14: 37 of 40 ids differ between this script and cdcp_assemble, and re-running it today reproduces neither, because the bank drifted while regen_goldens_after_bank.py froze item_ids. The Rust sampler is now authoritative and the fixture is asserted against it. Retained ONLY as provenance for how the orphaned artifact arose; running it re-manufactures the fooled certificate."
-migration_bead = "bd-golden-sampler-divergence-09q"
-expires = "2026-10-31"
+
+# scripts/sample_mock.py DELETED 2026-08-15 (bd-sample-mock-draws-retired-1qv9).
+# Do not restore the file or re-add a row. cdcp_assemble + `cdcp_cli export-web`
+# is the sampler. A second draw from the unfiltered file set (retired included)
+# is a liability. The allowlist is the worklist; a row whose file is gone is RED.
 
 # =============================================================================
 # L4 SELFTEST HARNESSES (shell)
