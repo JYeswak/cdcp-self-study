@@ -12,3 +12,21 @@ id = "src-nist-sp800-123"
 body = "knowledge/corpus/free-pdfs/nist_sp800_123_server_security.pdf"
 sidecar = "knowledge/corpus/free-pdfs/nist_sp800_123_server_security.meta.toml"
 sha256 = "182ae5d23011108fba08c3a56c5029b8a26a428480ae38ac61877f6f3365db41"
+
+[[snapshot]]
+id = "src-osha-29cfr-1910-147"
+body = "knowledge/corpus/public/osha/29cfr-1910.147.txt"
+sidecar = "knowledge/corpus/public/osha/29cfr-1910.147.meta.toml"
+sha256 = "12a80dcc6c444135d0b0bc1f0b0b53955727346cbc2048b0a33ae89890780ed7"
+
+[[snapshot]]
+id = "src-osha-29cfr-1910-269"
+body = "knowledge/corpus/public/osha/29cfr-1910.269.txt"
+sidecar = "knowledge/corpus/public/osha/29cfr-1910.269.meta.toml"
+sha256 = "f5d730d9a9cdf81b4f1e3d1afe6e9005911dcc4aa1811bd08ad9fbfd7b6583ba"
+
+[[snapshot]]
+id = "src-osha-29cfr-1910-333"
+body = "knowledge/corpus/public/osha/29cfr-1910.333-subpart-s.txt"
+sidecar = "knowledge/corpus/public/osha/29cfr-1910.333-subpart-s.meta.toml"
+sha256 = "0f0d2b096feaeb2bc76df271ec03bbd4011bcfb54003044f56a9fcd3f71ed8f9"

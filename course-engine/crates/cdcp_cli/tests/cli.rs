@@ -39,6 +39,7 @@ fn help_lists_learn_compilers() {
         "verify-paraphrase-pairs",
         "check-licence",
         "load-snapshots",
+        "check-osha",
     ] {
         assert!(
             stdout.contains(verb),
@@ -174,6 +175,16 @@ fn load_snapshots_stripped_licence_is_refused() {
     assert!(
         out.contains("zero artifacts loaded") || out.contains("cannot read"),
         "compiled pins against a fixture root must RED: {out}"
+    );
+}
+
+#[test]
+fn check_osha_live_tree_passes() {
+    let assert = cdcp().arg("check-osha").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("check_osha: PASS"),
+        "live OSHA check must PASS: {stdout}"
     );
 }
 

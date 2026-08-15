@@ -38,6 +38,12 @@ enum Cmd {
         #[arg(long)]
         root: Option<PathBuf>,
     },
+    /// OSHA facts: 1910.147 exclusion + 1910.333 isolation constraints.
+    CheckOsha {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+    },
     /// Ledger tripwire for measured paraphrase pairs C3 cannot see
     VerifyParaphrasePairs {
         /// Engine root (directory holding registries/). Default: walk up from cwd.
@@ -322,6 +328,7 @@ fn run(cli: Cli) -> Result<(), String> {
         }
         Cmd::CheckLicence { root } => check_licence(root.as_deref()),
         Cmd::LoadSnapshots { root } => load_snapshots(root.as_deref()),
+        Cmd::CheckOsha { root } => check_osha(root.as_deref()),
         Cmd::VerifyParaphrasePairs {
             root,
             ledger,
@@ -464,6 +471,28 @@ fn load_snapshots(root: Option<&Path>) -> Result<(), String> {
     };
     let report = cdcp_data::load_compiled(&resolved).map_err(|e| e.to_string())?;
     print!("{report}");
+    Ok(())
+}
+
+/// E3: OSHA / eCFR facts against the vendored snapshots and the live
+/// curriculum. An explicit `--root` is the tree under test.
+fn check_osha(root: Option<&Path>) -> Result<(), String> {
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_data::engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    let report = cdcp_data::check_osha(&resolved).map_err(|e| e.to_string())?;
+    print!("{report}");
+    if !report.is_clean() {
+        return Err(format!(
+            "OSHA facts RED (scanned={} faults={})",
+            report.scanned,
+            report.faults.len()
+        ));
+    }
     Ok(())
 }
 

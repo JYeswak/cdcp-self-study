@@ -10,7 +10,18 @@
 //! [`cdcp_evidence::ArtifactMeta::eligible_for_agent_index`]. A missing
 //! licence line, `ai_ingestion=PROHIBITED`, or `redistribution` other
 //! than `permitted` is a refusal, not a warning.
+//!
+//! OSHA / eCFR extracts (E3) live in [`osha`]: the 1910.147(a)(1)(ii)(D)
+//! exclusion is a first-class fact, and concurrent maintainability is
+//! the 1910.333 isolation constraint.
 #![forbid(unsafe_code)]
+
+mod osha;
+pub use osha::{
+    check_osha, check_osha_with, cites_147_as_electrical_loto_authority, IsolationConstraint,
+    OshaFault, OshaReport, BACKFEED_TEST, CONTROL_DEVICES_NOT_ISOLATION, DEENERGIZE_FIRST,
+    EXCLUSION_147, ISOLATION_CONSTRAINTS, SNAP_147, SNAP_269, SNAP_333,
+};
 
 use cdcp_evidence::{may_load, parse_meta_toml, resolve_engine_root, LicenceFault};
 use sha2::{Digest, Sha256};
@@ -399,6 +410,10 @@ mod unit {
         let src = include_str!("lib.rs");
         assert!(src.contains("#![forbid(unsafe_code)]"));
         assert!(!production_src().contains("unsafe "));
+        assert!(
+            !include_str!("osha.rs").contains("unsafe "),
+            "no unsafe token in osha.rs"
+        );
     }
 
     #[test]

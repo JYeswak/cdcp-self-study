@@ -1,0 +1,29 @@
+29 CFR 1910.333 Selection and use of work practices. (Subpart S — Electrical)
+Source: eCFR https://www.ecfr.gov/current/title-29/section-1910.333
+Display date: 2026-08-13. US Government work, 17 USC 105.
+Extract: (a)(1) deenergize-first; (b)(2) lockout and tagging including control-circuit devices and backfeed verification.
+
+(a) General. Safety-related work practices shall be employed to prevent electric shock or other injuries resulting from either direct or indirect electrical contacts, when work is performed near or on equipment or circuits which are or may be energized. The specific safety-related work practices shall be consistent with the nature and extent of the associated electrical hazards.
+
+(1) Deenergized parts. Live parts to which an employee may be exposed shall be deenergized before the employee works on or near them, unless the employer can demonstrate that deenergizing introduces additional or increased hazards or is infeasible due to equipment design or operational limitations. Live parts that operate at less than 50 volts to ground need not be deenergized if there will be no increased exposure to electrical burns or to explosion due to electric arcs.
+
+(b) Working on or near exposed deenergized parts —
+
+(2) Lockout and tagging. While any employee is exposed to contact with parts of fixed electric equipment or circuits which have been deenergized, the circuits energizing the parts shall be locked out or tagged or both in accordance with the requirements of this paragraph.
+
+Note 2:
+Lockout and tagging procedures that comply with paragraphs (c) through (f) of § 1910.147 will also be deemed to comply with paragraph (b)(2) of this section provided that:
+(1) The procedures address the electrical safety hazards covered by this Subpart; and
+(2) The procedures also incorporate the requirements of paragraphs (b)(2)(iii)(D) and (b)(2)(iv)(B) of this section.
+
+(ii) Deenergizing equipment.
+
+(A) Safe procedures for deenergizing circuits and equipment shall be determined before circuits or equipment are deenergized.
+
+(B) The circuits and equipment to be worked on shall be disconnected from all electric energy sources. Control circuit devices, such as push buttons, selector switches, and interlocks, may not be used as the sole means for deenergizing circuits or equipment. Interlocks for electric equipment may not be used as a substitute for lockout and tagging procedures.
+
+(iv) Verification of deenergized condition. The requirements of this paragraph shall be met before any circuits or equipment can be considered and worked as deenergized.
+
+(A) A qualified person shall operate the equipment operating controls or otherwise verify that the equipment cannot be restarted.
+
+(B) A qualified person shall use test equipment to test the circuit elements and electrical parts of equipment to which employees will be exposed and shall verify that the circuit elements and equipment parts are deenergized. The test shall also determine if any energized condition exists as a result of inadvertently induced voltage or unrelated voltage backfeed even though specific parts of the circuit have been deenergized and presumed to be safe. If the circuit to be tested is over 600 volts, nominal, the test equipment shall be checked for proper operation immediately before and immediately after this test.

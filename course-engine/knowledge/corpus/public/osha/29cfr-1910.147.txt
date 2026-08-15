@@ -1,0 +1,26 @@
+29 CFR 1910.147 The control of hazardous energy (lockout/tagout).
+Source: eCFR https://www.ecfr.gov/current/title-29/section-1910.147
+Display date: 2026-08-13. US Government work, 17 USC 105.
+Extract: (a)(1) Scope and (b) Energy isolating device definition.
+
+(a) Scope, application, and purpose —
+
+(1) Scope.
+
+(i) This standard covers the servicing and maintenance of machines and equipment in which the unexpected energization or start up of the machines or equipment, or release of stored energy could cause injury to employees. This standard establishes minimum performance requirements for the control of such hazardous energy.
+
+(ii) This standard does not cover the following:
+
+(A) Construction and agriculture employment;
+
+(B) Employment covered by parts 1915, 1917, and 1918 of this title;
+
+(C) Installations under the exclusive control of electric utilities for the purpose of power generation, transmission and distribution, including related equipment for communication or metering;
+
+(D) Exposure to electrical hazards from work on, near, or with conductors or equipment in electric-utilization installations, which is covered by subpart S of this part; and
+
+(E) Oil and gas well drilling and servicing.
+
+(b) Definitions applicable to this section.
+
+Energy isolating device. A mechanical device that physically prevents the transmission or release of energy, including but not limited to the following: A manually operated electrical circuit breaker; a disconnect switch; a manually operated switch by which the conductors of a circuit can be disconnected from all ungrounded supply conductors, and, in addition, no pole can be operated independently; a line valve; a block; and any similar device used to block or isolate energy. Push buttons, selector switches and other control circuit type devices are not energy isolating devices.
