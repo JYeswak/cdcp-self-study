@@ -109,6 +109,63 @@ fn assert_byte_identical(label: &str, root: &Path, args: &[&str]) -> Run {
     rs
 }
 
+/// Planted-finding verdict for the option-shape cases
+/// (bd-diff-remaining-agreement-only-qgy9).
+///
+/// Agreement is necessary and not sufficient. Each spelling must (1) print
+/// the resolved planted bank, (2) report THAT bank's item count — a silent
+/// fallback to the live tree would print ~800 here — (3) use the two-module
+/// / two-topic fixture registries, and (4) still reach the planted module-2
+/// shortfall. Deleting that finding from the gate turns these RED.
+fn assert_planted_module2_shortfall(
+    label: &str,
+    rs: &Run,
+    resolved_bank: &Path,
+    planted_items: usize,
+) {
+    let out = rs.out();
+    assert!(
+        out.contains(&format!("  bank={}\n", resolved_bank.display())),
+        "[{label}] the spelling did not normalise to {}: {out}",
+        resolved_bank.display()
+    );
+    // The item count is the assertion a shared defect cannot survive: a
+    // fallback prints a perfectly plausible report over the live tree, and
+    // both sides print the same plausible report.
+    let items_line = out
+        .lines()
+        .find(|l| l.starts_with("  items="))
+        .unwrap_or("<no items= line>");
+    assert!(
+        out.contains(&format!(
+            "  items={planted_items} scanned, {planted_items} approved "
+        )),
+        "[{label}] the run reported `{items_line}`, not items={planted_items} scanned \
+         — the spelling reached a different tree than the one it named: {out}"
+    );
+    assert!(
+        out.contains("declares=2"),
+        "[{label}] the run did not use the two-module fixture registry: {out}"
+    );
+    assert!(
+        out.contains("primary_topics=2 "),
+        "[{label}] the run did not use the two-topic fixture registry: {out}"
+    );
+    assert_ne!(rs.code, 0, "[{label}] planted shortfall not caught: {out}");
+    assert!(
+        out.contains("domain module 2: 0 approved < min 1 (0 scanned, 0 not approved)"),
+        "[{label}] the detector did not name the planted shortfall: {out}"
+    );
+    assert!(
+        out.contains("    m02: 0 approved of 0 scanned (min 1) [SHORT]"),
+        "[{label}] the per-module line must flag the planted shortfall: {out}"
+    );
+    assert!(
+        out.contains("    m01: 1 approved of 1 scanned (min 1) [ok]"),
+        "[{label}] the stocked module must stay ok: {out}"
+    );
+}
+
 fn write(path: &Path, body: &str) {
     if let Some(p) = path.parent() {
         std::fs::create_dir_all(p).unwrap();
@@ -464,7 +521,8 @@ fn a_declared_module_with_zero_items_is_red_and_named() {
         rs.out()
     );
     assert!(
-        rs.out().contains("    m15: 0 approved of 0 scanned (min 1) [SHORT]"),
+        rs.out()
+            .contains("    m15: 0 approved of 0 scanned (min 1) [SHORT]"),
         "the per-module line must flag it too: {}",
         rs.out()
     );
@@ -536,7 +594,8 @@ fn a_reasonless_exemption_is_an_error_and_leaves_the_module_required() {
             rs.out()
         );
         assert!(
-            rs.out().contains("    m15: 0 approved of 0 scanned (min 1) [SHORT]"),
+            rs.out()
+                .contains("    m15: 0 approved of 0 scanned (min 1) [SHORT]"),
             "[{label}] the module left the required set: {}",
             rs.out()
         );
@@ -574,8 +633,9 @@ fn a_reasonless_exemption_is_an_error_and_leaves_the_module_required() {
         rs.out()
     );
     assert!(
-        rs.out()
-            .contains("    m15: 0 approved of 0 scanned — exempt: fixture: module not yet authored"),
+        rs.out().contains(
+            "    m15: 0 approved of 0 scanned — exempt: fixture: module not yet authored"
+        ),
         "an exemption must be printed, not silent: {}",
         rs.out()
     );
@@ -1423,56 +1483,230 @@ fn path_and_option_shapes_are_byte_identical() {
     let root = engine_root();
     let td = tempfile::tempdir().unwrap();
 
-    // engine-root-relative arguments, including untidy spellings the printed
-    // header must normalise the same way on both sides
-    assert_byte_identical("m relative bank", &root, &["--bank", "bank/items"]);
-    assert_byte_identical(
-        "m untidy relative bank",
-        &root,
-        &["--bank", "./bank//items/"],
+    // ── engine-root-relative spellings ────────────────────────────────────
+    //
+    // WHY THESE CASES NOW ASSERT A VERDICT (bd-diff-remaining-agreement-only-qgy9).
+    // Every spelling below used to be a bare `assert_byte_identical(..)` — the
+    // two sides agree, full stop. That is blind by construction: a defect
+    // present in BOTH implementations agrees with itself, and nine of this
+    // harness's ten remaining agreement-only cases lived right here. It is the
+    // same shape that let `m min topic 0` pass in this file for weeks while
+    // both sides reported 106 of 106 topics covered having compared none of
+    // them (bd-differential-shared-blindspot-4qje).
+    //
+    // AND REWRITING THE ASSERTION IS NOT ENOUGH. Every spelling here ran
+    // against the LIVE tree, which is green. Asserting "this spelling still
+    // passes" on a tree that passes is worth nothing: no defect that suppresses
+    // a finding can show up in a run that has no finding to suppress. So the
+    // INPUT changes too — each spelling is pointed at a bank with a KNOWN
+    // planted shortfall (one approved item in module 1, module 2 empty, N=1
+    // floors), and each must still reach it, and must report the item count of
+    // THAT bank rather than of some default it silently fell back to.
+    //
+    // The specimen lives under `target/`, which is build output, because a
+    // *relative* --bank/--domains/--topics/--policy has to resolve under the
+    // engine root to be exercised at all. The live content tree is still never
+    // written to.
+    let rel_dir = format!("target/zz-diff-objectives-{}", std::process::id());
+    let scratch = root.join(&rel_dir);
+    let _ = std::fs::remove_dir_all(&scratch);
+    let bank_abs = scratch.join("items");
+    let planted_items = plant_bank(&bank_abs, &[1]);
+    assert!(
+        planted_items > 0,
+        "a vacuous planted bank is an ERROR, not a pass"
     );
-    assert_byte_identical(
-        "m relative registries",
-        &root,
-        &[
-            "--domains",
-            "knowledge/domains.toml",
-            "--topics",
-            "knowledge/topics.toml",
-            "--policy",
-            "knowledge/bank_policy.toml",
-        ],
+    write(&scratch.join("domains.toml"), &domains_registry(&[1, 2]));
+    write(
+        &scratch.join("topics.toml"),
+        &topics_registry(&["01-fixture", "02-fixture"]),
+    );
+    write(
+        &scratch.join("bank_policy.toml"),
+        "# fixture policy: no rows\n",
     );
 
-    // `--opt=value` and argparse's unambiguous prefixes
-    assert_byte_identical("m equals form", &root, &["--bank=bank/items"]);
-    assert_byte_identical("m abbreviated option", &root, &["--ban", "bank/items"]);
-    assert_byte_identical(
-        "m shortest prefixes",
-        &root,
-        &[
-            "--o",
-            "registries/objectives.toml",
-            "--c",
-            "registries/claims.toml",
-            "--t",
-            "knowledge/topics.toml",
-            "--d",
-            "knowledge/domains.toml",
-            "--p",
-            "knowledge/bank_policy.toml",
-            "--b",
-            "bank/items",
-        ],
+    let rel_bank = format!("{rel_dir}/items");
+    let untidy_bank = format!("./{rel_dir}//items/");
+    let equals_bank = format!("--bank={rel_bank}");
+    let rel_domains = format!("{rel_dir}/domains.toml");
+    let rel_topics = format!("{rel_dir}/topics.toml");
+    let rel_policy = format!("{rel_dir}/bank_policy.toml");
+    let resolved_bank = bank_abs.canonicalize().unwrap_or_else(|_| bank_abs.clone());
+
+    for (label, args) in [
+        (
+            "m relative bank",
+            vec![
+                "--bank",
+                rel_bank.as_str(),
+                "--domains",
+                rel_domains.as_str(),
+                "--topics",
+                rel_topics.as_str(),
+                "--policy",
+                rel_policy.as_str(),
+            ],
+        ),
+        (
+            "m untidy relative bank",
+            vec![
+                "--bank",
+                untidy_bank.as_str(),
+                "--domains",
+                rel_domains.as_str(),
+                "--topics",
+                rel_topics.as_str(),
+                "--policy",
+                rel_policy.as_str(),
+            ],
+        ),
+        (
+            "m relative registries",
+            vec![
+                "--domains",
+                rel_domains.as_str(),
+                "--topics",
+                rel_topics.as_str(),
+                "--policy",
+                rel_policy.as_str(),
+                "--bank",
+                rel_bank.as_str(),
+            ],
+        ),
+        (
+            "m equals form",
+            vec![
+                equals_bank.as_str(),
+                "--domains",
+                rel_domains.as_str(),
+                "--topics",
+                rel_topics.as_str(),
+                "--policy",
+                rel_policy.as_str(),
+            ],
+        ),
+        (
+            "m abbreviated option",
+            vec![
+                "--ban",
+                rel_bank.as_str(),
+                "--domains",
+                rel_domains.as_str(),
+                "--topics",
+                rel_topics.as_str(),
+                "--policy",
+                rel_policy.as_str(),
+            ],
+        ),
+        (
+            "m shortest prefixes",
+            vec![
+                "--o",
+                "registries/objectives.toml",
+                "--c",
+                "registries/claims.toml",
+                "--t",
+                rel_topics.as_str(),
+                "--d",
+                rel_domains.as_str(),
+                "--p",
+                rel_policy.as_str(),
+                "--b",
+                rel_bank.as_str(),
+            ],
+        ),
+    ] {
+        let rs = assert_byte_identical(label, &root, &args);
+        assert_planted_module2_shortfall(label, &rs, &resolved_bank, planted_items);
+        // Default mode: the planted topic shortfall soft-warns. These are
+        // PATH cases; the flag cases below pin that the flag changed MODE.
+        assert!(
+            rs.out().contains("mode=soft-warn"),
+            "[{label}] default mode is soft-warn: {}",
+            rs.out()
+        );
+        assert!(
+            rs.out().contains("topic t-fixture-2: 0 approved < min 1"),
+            "[{label}] default mode must still name the planted topic shortfall: {}",
+            rs.out()
+        );
+    }
+
+    // ── store_true flags: SEMANTIC cases in an option-shape costume ────────
+    //
+    // `m skip flag`, `m strict flag` and `m both flags` are not spellings.
+    // They change the MODE the report names, which is how `m min topic 0`
+    // sat in this test for weeks. Each still has to reach the planted
+    // module-2 shortfall — skip turns the topic floor off, it does not
+    // hide a starved module.
+    let planted_paths: &[&str] = &[
+        "--bank",
+        rel_bank.as_str(),
+        "--domains",
+        rel_domains.as_str(),
+        "--topics",
+        rel_topics.as_str(),
+        "--policy",
+        rel_policy.as_str(),
+    ];
+
+    let skip_args = [planted_paths, &["--skip-topic-coverage"]].concat();
+    let rs = assert_byte_identical("m skip flag", &root, &skip_args);
+    assert_planted_module2_shortfall("m skip flag", &rs, &resolved_bank, planted_items);
+    assert!(
+        rs.out().contains("mode=skipped") && rs.out().contains("covered=n/a"),
+        "skip must name the mode it is in, not a coverage number no comparison \
+         produced: {}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("mode=off")
+            && !rs.out().contains("mode=strict")
+            && !rs.out().contains("mode=soft-warn"),
+        "skip is its own word; mode=off is min=0's: {}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("topic t-fixture-2:"),
+        "skip must not compare topics: {}",
+        rs.out()
     );
 
-    // the two store_true flags, together and apart
-    assert_byte_identical("m skip flag", &root, &["--skip-topic-coverage"]);
-    assert_byte_identical("m strict flag", &root, &["--strict-topics"]);
-    assert_byte_identical(
-        "m both flags",
-        &root,
-        &["--skip-topic-coverage", "--strict-topics"],
+    let strict_args = [planted_paths, &["--strict-topics"]].concat();
+    let rs = assert_byte_identical("m strict flag", &root, &strict_args);
+    assert_planted_module2_shortfall("m strict flag", &rs, &resolved_bank, planted_items);
+    assert!(
+        rs.out().contains("mode=strict"),
+        "strict must name the mode it is in: {}",
+        rs.out()
+    );
+    let fail_at = rs
+        .out()
+        .find("  failures:")
+        .expect("strict RED must have a failures block");
+    let topic_at = rs
+        .out()
+        .find("topic t-fixture-2: 0 approved < min 1")
+        .expect("strict must promote the planted topic shortfall");
+    assert!(
+        topic_at > fail_at && !rs.out().contains("  warnings:"),
+        "strict promotes the topic shortfall to a failure, not a warning: {}",
+        rs.out()
+    );
+
+    let both_args = [planted_paths, &["--skip-topic-coverage", "--strict-topics"]].concat();
+    let rs = assert_byte_identical("m both flags", &root, &both_args);
+    assert_planted_module2_shortfall("m both flags", &rs, &resolved_bank, planted_items);
+    assert!(
+        rs.out().contains("mode=skipped") && rs.out().contains("covered=n/a"),
+        "skip wins over strict: {}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("mode=strict") && !rs.out().contains("topic t-fixture-2:"),
+        "both-flags must not compare topics or claim strict: {}",
+        rs.out()
     );
 
     // The topic floor, raised and lowered.
@@ -1563,6 +1797,13 @@ fn path_and_option_shapes_are_byte_identical() {
     );
     assert!(rs.out().contains("policy=absent"), "{}", rs.out());
     assert_eq!(rs.code, 0, "{}", rs.out());
+
+    let _ = std::fs::remove_dir_all(&scratch);
+    assert!(
+        !scratch.exists(),
+        "the specimen bank leaked at {}",
+        scratch.display()
+    );
 }
 
 #[test]
@@ -2020,14 +2261,20 @@ fn the_raise_paths_match_except_for_the_traceback() {
 
 fn plant_item(dir: &Path, id: &str, module: i64, status: Option<&str>, topic: &str) {
     std::fs::create_dir_all(dir).unwrap();
-    let st = status.map(|s| format!("status = {s:?}\n")).unwrap_or_default();
+    let st = status
+        .map(|s| format!("status = {s:?}\n"))
+        .unwrap_or_default();
     write(
         &dir.join(format!("{id}.toml")),
         &format!("id = {id:?}\nmodule = {module}\n{st}topic_ids = [{topic:?}]\n"),
     );
 }
 
-fn f996_tree(td: &tempfile::TempDir, orders: &[i64], topic_doms: &[&str]) -> (String, String, String) {
+fn f996_tree(
+    td: &tempfile::TempDir,
+    orders: &[i64],
+    topic_doms: &[&str],
+) -> (String, String, String) {
     let reg = td.path().join("domains.toml");
     write(&reg, &domains_registry(orders));
     let topics = td.path().join("topics.toml");
@@ -2054,15 +2301,27 @@ fn retiring_every_item_under_one_topic_is_red_on_the_approved_floor() {
     plant_item(&bank, "b1", 2, Some("approved"), "t-fixture-2");
     let bank_s = bank.to_str().unwrap().to_string();
     let args = vec![
-        "--objectives", "registries/objectives.toml",
-        "--claims", "registries/claims.toml",
-        "--domains", reg.as_str(), "--topics", topics.as_str(),
-        "--bank", bank_s.as_str(), "--policy", policy.as_str(),
+        "--objectives",
+        "registries/objectives.toml",
+        "--claims",
+        "registries/claims.toml",
+        "--domains",
+        reg.as_str(),
+        "--topics",
+        topics.as_str(),
+        "--bank",
+        bank_s.as_str(),
+        "--policy",
+        policy.as_str(),
         "--strict-topics",
     ];
     let green = assert_byte_identical("retire-topic control", &root, &args);
     assert_eq!(green.code, 0, "control must be GREEN: {}", green.out());
-    assert!(green.out().contains("items=3 scanned, 3 approved"), "{}", green.out());
+    assert!(
+        green.out().contains("items=3 scanned, 3 approved"),
+        "{}",
+        green.out()
+    );
     for name in ["a1.toml", "a2.toml"] {
         let p = bank.join(name);
         let text = std::fs::read_to_string(&p).unwrap();
@@ -2070,13 +2329,28 @@ fn retiring_every_item_under_one_topic_is_red_on_the_approved_floor() {
         assert_ne!(flipped, text);
         std::fs::write(&p, flipped).unwrap();
     }
-    assert_eq!(std::fs::read_dir(&bank).unwrap().count(), 3, "no file deleted");
+    assert_eq!(
+        std::fs::read_dir(&bank).unwrap().count(),
+        3,
+        "no file deleted"
+    );
     let rs = assert_byte_identical("retire-topic injection", &root, &args);
-    assert_ne!(rs.code, 0, "approved-pool shortfall must be RED: {}", rs.out());
+    assert_ne!(
+        rs.code,
+        0,
+        "approved-pool shortfall must be RED: {}",
+        rs.out()
+    );
     let out = rs.out();
-    assert!(out.contains("topic t-fixture-1: 0 approved < min 1 (2 scanned, 2 not approved)"), "{out}");
+    assert!(
+        out.contains("topic t-fixture-1: 0 approved < min 1 (2 scanned, 2 not approved)"),
+        "{out}"
+    );
     assert!(out.contains("items=3 scanned, 1 approved"), "{out}");
-    assert!(out.contains("domain module 1: 0 approved < min 1 (2 scanned, 2 not approved)"), "{out}");
+    assert!(
+        out.contains("domain module 1: 0 approved < min 1 (2 scanned, 2 not approved)"),
+        "{out}"
+    );
 }
 
 #[test]
@@ -2094,8 +2368,16 @@ fn a_bank_of_only_retired_items_is_an_error_distinct_from_empty_bank() {
         &suite_args(&reg, &topics, bank.to_str().unwrap(), &policy),
     );
     assert_ne!(rs.code, 0, "{}", rs.out());
-    assert!(rs.out().contains("zero approved items (3 scanned)"), "{}", rs.out());
-    assert!(!rs.out().contains("empty bank: zero items loaded"), "{}", rs.out());
+    assert!(
+        rs.out().contains("zero approved items (3 scanned)"),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("empty bank: zero items loaded"),
+        "{}",
+        rs.out()
+    );
     assert!(!rs.out().contains("unknown status"), "{}", rs.out());
 }
 
@@ -2113,8 +2395,17 @@ fn an_unrecognised_status_is_named_rather_than_bucketed() {
         &suite_args(&reg, &topics, bank.to_str().unwrap(), &policy),
     );
     assert_ne!(rs.code, 0, "{}", rs.out());
-    assert!(rs.out().contains("odd: unknown status 'published'"), "{}", rs.out());
-    assert!(rs.out().contains("m01: 1 approved of 2 scanned (min 1) [ok]"), "{}", rs.out());
+    assert!(
+        rs.out().contains("odd: unknown status 'published'"),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("m01: 1 approved of 2 scanned (min 1) [ok]"),
+        "{}",
+        rs.out()
+    );
 }
 
 // ── the control: a full copy of the live bank ─────────────────────────────
@@ -2150,9 +2441,21 @@ fn the_harness_compared_something() {
     // "0 cases compared" must never report like "all passed".
     let root = engine_root();
     let before = COMPARED.load(Ordering::SeqCst);
-    assert_byte_identical("harness self-check", &root, &[]);
+    let rs = assert_byte_identical("harness self-check", &root, &[]);
     assert!(
         COMPARED.load(Ordering::SeqCst) > before,
         "the differential harness compared nothing"
     );
+    // A counter that ticked proves a comparison HAPPENED, not that it said
+    // anything. Both sides could agree on a vacuous report and this test would
+    // still be green, which is the whole of bd-differential-shared-blindspot-4qje
+    // in one line. So the self-check states the verdict too.
+    assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().starts_with("PASS\n"), "{}", rs.out());
+    assert!(
+        rs.out().contains("objective coverage GREEN"),
+        "{}",
+        rs.out()
+    );
+    assert!(rs.out().contains("mode=soft-warn"), "{}", rs.out());
 }

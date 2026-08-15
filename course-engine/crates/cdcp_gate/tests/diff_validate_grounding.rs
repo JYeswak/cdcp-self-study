@@ -996,16 +996,41 @@ fn help_output_matches_at_several_widths() {
         assert_eq!(rs.code, 0, "{}", rs.err());
     }
     // An unusable COLUMNS falls back the same way on both sides.
+    // Agreement is not enough (bd-diff-remaining-agreement-only-qgy9): the
+    // fallback must still be HELP, not a silent empty run or a usage-shaped
+    // error.
     for cols in ["", "0", "-5", "notanumber"] {
-        compare_env(
+        let rs = compare_env(
             &format!("help at COLUMNS={cols:?}"),
             &e,
             &["--help"],
             Some(cols),
         );
+        assert_eq!(rs.code, 0, "COLUMNS={cols:?}: {}", rs.err());
+        assert!(
+            rs.out().starts_with("usage: validate_grounding.py"),
+            "unusable COLUMNS={cols:?} must still print help: {}",
+            rs.out()
+        );
+        assert!(
+            rs.out().contains("\noptions:\n"),
+            "unusable COLUMNS={cols:?} must still list options: {}",
+            rs.out()
+        );
     }
     // And the usage block inside an ERROR follows the same width.
-    compare_env("error usage at COLUMNS=40", &e, &["--bogus"], Some("40"));
+    let rs = compare_env("error usage at COLUMNS=40", &e, &["--bogus"], Some("40"));
+    assert_eq!(rs.code, 2, "error usage: {}", rs.err());
+    assert!(
+        rs.out().is_empty(),
+        "error usage wrote to stdout: {}",
+        rs.out()
+    );
+    assert!(
+        rs.err().starts_with("usage: validate_grounding.py"),
+        "error usage must name the oracle: {}",
+        rs.err()
+    );
 }
 
 // ── the harness must not be vacuously green ────────────────────────────────

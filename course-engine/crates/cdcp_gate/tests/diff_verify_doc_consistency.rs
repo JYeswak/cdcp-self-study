@@ -319,7 +319,23 @@ impl Spec {
 /// a shared GREEN.
 #[test]
 fn live_tree_agrees_byte_for_byte() {
-    assert_byte_exact("live-tree", None);
+    let out = assert_byte_exact("live-tree", None);
+    // Agreement is not enough (bd-diff-remaining-agreement-only-qgy9). The
+    // live tree can be GREEN or RED (a sibling may be mid-edit); pin content
+    // that survives either: a leading verdict word, the root it scanned, and
+    // the roadmap the gate exists to check.
+    assert!(
+        out.starts_with("PASS\n") || out.starts_with("FAIL\n"),
+        "live tree must lead with a verdict: {out}"
+    );
+    assert!(
+        out.contains("  root="),
+        "live tree report must name the root it scanned: {out}"
+    );
+    assert!(
+        out.contains("roadmap"),
+        "live tree report must mention the roadmap: {out}"
+    );
 }
 
 /// The default root is the ENGINE's PARENT, not the engine directory. Getting

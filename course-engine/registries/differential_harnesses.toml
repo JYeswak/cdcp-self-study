@@ -100,13 +100,15 @@ active_harness_floor = 1        # diff_*.rs files still holding comparator calls
 # 36 when first measured. 28 after diff_verify_orphans.rs was converted in the
 # same wave (7 to 0) and diff_build_units.rs was converted by its owner (1 to
 # 0). 18 after bd-diff-coverage-agreement-only-25ux converted
-# diff_verify_coverage.rs (9 to 0). Set to the MEASURED value, not a value
-# with headroom: a ratchet with slack is not a ratchet.
+# diff_verify_coverage.rs (9 to 0). 5 after
+# bd-diff-remaining-agreement-only-qgy9 converted objectives (10 to 0),
+# grounding (2 to 0) and doc-consistency (1 to 0). Set to the MEASURED value,
+# not a value with headroom: a ratchet with slack is not a ratchet.
 #
 # IF THIS FIRED ON YOUR FILE: the fix is to give your new case an independent
 # verdict, not to raise this number. Raising it is a gate bypass and is
 # escalation-only. Lowering it after a conversion is expected and autonomous.
-agreement_only_total_budget = 18
+agreement_only_total_budget = 5
 
 # If every differential harness is eventually retired, `active` legitimately
 # reaches zero. That end state must be DECLARED, not inferred from an empty
@@ -143,7 +145,7 @@ file = "diff_validate_grounding.rs"
 gate = "validate-grounding"
 comparators = ["compare_env", "compare"]
 cases = 35
-agreement_only = 2
+agreement_only = 0
 
 [[harness]]
 file = "diff_verify_bank.rs"
@@ -176,7 +178,7 @@ file = "diff_verify_doc_consistency.rs"
 gate = "verify-doc-consistency"
 comparators = ["assert_byte_exact"]
 cases = 28
-agreement_only = 1
+agreement_only = 0
 
 [[harness]]
 file = "diff_verify_injection_count.rs"
@@ -197,8 +199,19 @@ agreement_only = 0
 file = "diff_verify_objectives.rs"
 gate = "verify-objectives"
 comparators = ["assert_byte_identical"]
-cases = 58
-agreement_only = 10
+# CONVERTED 2026-08-15 (bd-diff-remaining-agreement-only-qgy9): 10
+# agreement-only became 0. The six path-spelling cases were not merely given
+# assertions — they were repointed at a bank holding a KNOWN planted module-2
+# shortfall, because asserting "this spelling still passes" against the green
+# live tree is worth nothing. Each now asserts that the spelling normalises
+# to the one resolved path, that the run scanned THAT tree (the item count,
+# which is what catches a silent fallback to a default), and that it still
+# reaches the planted finding and goes RED for it. The three flag cases
+# (`m skip flag`, `m strict flag`, `m both flags`) pin the MODE the report
+# names — they are semantic cases, not spellings. The 4qje min=0 pin is
+# untouched.
+cases = 54
+agreement_only = 0
 
 [[harness]]
 file = "diff_verify_orphans.rs"

@@ -1063,6 +1063,10 @@ status = "{status}"
     /// bead: the flip produced a byte-identical `bank_hash` while changing the
     /// seed-42 selection in **38 of 40 positions**. Remove `status` from
     /// `hash_payload` and this test goes RED — that pair is the meta-test.
+    /// Named CHARTER pair: `tests/c2_charter_pair.rs`, driven by
+    /// `scripts/selftest_reconstructed.sh` via `cdcp_restore_safe`. Re-run
+    /// 2026-08-15 (`bd-metatest-rerun-blocked-yhg6`): mutate 101, restore 0,
+    /// artifact mtime moved.
     #[test]
     fn status_flip_moves_bank_hash() {
         let approved = hash_of(

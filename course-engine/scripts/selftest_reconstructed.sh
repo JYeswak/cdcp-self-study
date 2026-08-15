@@ -8,9 +8,10 @@
 #   a gate that cannot fail is not a gate.
 #
 # RESTORE (bd-stale-binary-mtime-trap-p65w): case (e) perturbs
-# crates/cdcp_cli/src/main.rs; the S0/C1 CHARTER pair perturbs
-# substrate_guard.rs, s0_charter_pair.rs, cdcp_assemble/src/lib.rs, and
-# c1_charter_pair.rs. Restore MUST go through scripts/restore_safe.inc.sh —
+# crates/cdcp_cli/src/main.rs; the S0/C1/C2 CHARTER pairs perturb
+# substrate_guard.rs, s0_charter_pair.rs, cdcp_assemble/src/lib.rs,
+# c1_charter_pair.rs, cdcp_bank/src/lib.rs, and c2_charter_pair.rs.
+# Restore MUST go through scripts/restore_safe.inc.sh —
 # `mv backup dest` would hand the file the backup's older mtime, cargo would
 # skip, and the next run would test the PERTURBED binary. The helper writes
 # bytes into the existing inode. After each pair, we force a build and
@@ -121,7 +122,10 @@ sed 's/^    ExportWeb {/    ExportWebHidden {/' "$M" > "$M.tmp" && mv "$M.tmp" "
 sed 's/Cmd::ExportWeb {/Cmd::ExportWebHidden {/' "$M" > "$M.tmp" && mv "$M.tmp" "$M"
 assert_red "L7 CLI product verbs (export-web renamed away)" "$M"
 
-# ── CHARTER pair: S0 + C1 (bd-single-leg-metatest-closes-illw) ──────────────
+# ── CHARTER pair: S0 + C1 + C2 ─────────────────────────────────────────────
+# S0/C1: bd-single-leg-metatest-closes-illw
+# C2:    bd-metatest-rerun-blocked-yhg6 (sample re-run of the recorded C2 pair
+#        under cdcp_restore_safe; originally named at hash_payload).
 # `.flywheel/CHARTER.md`: (1) mutate the gate → suite non-zero;
 # (2) mutation still in place, delete the assertion → suite zero.
 # A suite that only runs leg 1 is the defect — both legs increment PAIR.
@@ -132,6 +136,8 @@ S0_GATE=crates/cdcp_gate/src/gates/substrate_guard.rs
 S0_ASSERT=crates/cdcp_gate/tests/s0_charter_pair.rs
 C1_GATE=crates/cdcp_assemble/src/lib.rs
 C1_ASSERT=crates/cdcp_assemble/tests/c1_charter_pair.rs
+C2_GATE=crates/cdcp_bank/src/lib.rs
+C2_ASSERT=crates/cdcp_bank/tests/c2_charter_pair.rs
 
 PAIR=0
 pair_counted() { PAIR=$((PAIR + 1)); }
@@ -272,10 +278,41 @@ unstash "$C1_GATE"
 unstash "$C1_ASSERT"
 prove_pair_rebuild cdcp_assemble c1_charter_pair
 
-[ "$PAIR" -eq 4 ] || fail "ANTI-VACUOUS: CHARTER pair ran $PAIR legs, want 4 (a suite that only runs leg 1 is the defect)"
-echo "CHARTER_PAIR_LEGS=$PAIR S0_MUTATE=$S0_MUTATE_RC S0_DELETE_ASSERT=$S0_DELETE_RC C1_MUTATE=$C1_MUTATE_RC C1_DELETE_ASSERT=$C1_DELETE_RC"
-ok "CHARTER pair S0+C1 (mutate/delete, 4/4 legs, restore_safe)"
+# ── C2: bank_hash covers status ───────────────────────────────────────────
+stash "$C2_GATE"
+stash "$C2_ASSERT"
+
+replace_once "$C2_GATE" \
+  '        m.insert("status".into(), serde_json::json!(self.status.as_str()));' \
+  '        // mutated: status omitted from hash_payload (CHARTER pair C2)'
+
+run_pair_suite cdcp_bank c2_charter_pair
+C2_MUTATE_RC=$SUITE_RC
+[ "$C2_MUTATE_RC" -ne 0 ] || {
+  printf '%s\n' "$(cat "$BAK_DIR/cdcp_bank__c2_charter_pair.log")" >&2
+  fail "C2 mutate stayed GREEN (want non-zero)"
+}
+pair_counted
+ok "C2 mutate RED (rc=$C2_MUTATE_RC)"
+
+printf '%s\n' '// assertion deleted (meta-test leg 2) — bd-metatest-rerun-blocked-yhg6' >"$C2_ASSERT"
+run_pair_suite cdcp_bank c2_charter_pair
+C2_DELETE_RC=$SUITE_RC
+[ "$C2_DELETE_RC" -eq 0 ] || {
+  printf '%s\n' "$(cat "$BAK_DIR/cdcp_bank__c2_charter_pair.log")" >&2
+  fail "C2 delete-assert stayed RED (rc=$C2_DELETE_RC; want 0)"
+}
+pair_counted
+ok "C2 delete-assert GREEN (rc=$C2_DELETE_RC)"
+
+unstash "$C2_GATE"
+unstash "$C2_ASSERT"
+prove_pair_rebuild cdcp_bank c2_charter_pair
+
+[ "$PAIR" -eq 6 ] || fail "ANTI-VACUOUS: CHARTER pair ran $PAIR legs, want 6 (a suite that only runs leg 1 is the defect)"
+echo "CHARTER_PAIR_LEGS=$PAIR S0_MUTATE=$S0_MUTATE_RC S0_DELETE_ASSERT=$S0_DELETE_RC C1_MUTATE=$C1_MUTATE_RC C1_DELETE_ASSERT=$C1_DELETE_RC C2_MUTATE=$C2_MUTATE_RC C2_DELETE_ASSERT=$C2_DELETE_RC"
+ok "CHARTER pair S0+C1+C2 (mutate/delete, 6/6 legs, restore_safe)"
 
 echo "INJECTIONS=$INJ SUITE=$SUITE_NAME"
-echo "selftest_reconstructed: PASSED (a learner shape · b key leak · c export byte-stability · d session shapes · e CLI verbs · f S0/C1 CHARTER pair)"
+echo "selftest_reconstructed: PASSED (a learner shape · b key leak · c export byte-stability · d session shapes · e CLI verbs · f S0/C1/C2 CHARTER pair)"
 exit 0
