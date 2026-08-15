@@ -58,7 +58,7 @@ Promote both to VERIFIED when implemented + tested.
 **Deps:** S5.
 
 ### S7 — CLI + check.sh wire
-**AC:** `cargo run -p cdcp_cli -- grade ...` / `goldens check`; `scripts/check.sh` runs cargo test + goldens check; L3 scorecard written.  
+**AC:** `cargo build -p cdcp_cli --locked` then `./target/debug/cdcp grade ...` / `goldens check`; `scripts/check.sh` runs cargo test + goldens check; L3 scorecard written.  
 **Deps:** S6.
 
 ---
