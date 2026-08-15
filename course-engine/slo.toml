@@ -15,5 +15,5 @@ schema_version = 1
 grade_ms = 5000
 # cargo run export-web --seed 42 (writes pack under a temp or --out dir)
 export_ms = 15000
-# python3 scripts/verify_bank.py over full bank/items
+# cdcp_gate verify-bank over full bank/items (Rust gate; not the python oracle)
 bank_verify_ms = 10000

@@ -4,7 +4,7 @@
 # Times three product-path walls against slo.toml budgets:
 #   1) grade all-correct (fixture mock40_seed42)
 #   2) export-web --seed 42
-#   3) python3 scripts/verify_bank.py
+#   3) cdcp_gate verify-bank (Rust bank pool floors; not the python oracle)
 #
 # Exit 0 if all under budget; non-zero if any over.
 # Skip-honest (local thermal only — never the default CI story):
@@ -28,7 +28,8 @@ fi
 
 [ -f slo.toml ] || fail "missing slo.toml"
 [ -f goldens/fixtures/mock40_seed42.json ] || fail "missing goldens/fixtures/mock40_seed42.json"
-[ -f scripts/verify_bank.py ] || fail "missing scripts/verify_bank.py"
+[ -f crates/cdcp_gate/src/gates/verify_bank.rs ] \
+  || fail "missing crates/cdcp_gate/src/gates/verify_bank.rs (bank verifier required)"
 command -v python3 >/dev/null 2>&1 || fail "python3 required"
 command -v cargo >/dev/null 2>&1 || fail "cargo required"
 
@@ -67,16 +68,22 @@ fi
 
 echo "smoke_slo: budgets grade_ms=$GRADE_MS export_ms=$EXPORT_MS bank_verify_ms=$VERIFY_MS"
 
-# Prebuild so grade/export walls exclude cold compile (charter cares about path, not rustc).
-echo "smoke_slo: prebuild cdcp_cli"
-cargo build -q -p cdcp_cli --locked || fail "cargo build -p cdcp_cli"
+# Prebuild so grade/export/verify walls exclude cold compile (charter cares about path, not rustc).
+echo "smoke_slo: prebuild cdcp_cli + cdcp_gate"
+cargo build -q -p cdcp_cli -p cdcp_gate --locked || fail "cargo build -p cdcp_cli -p cdcp_gate"
 
 # Prefer built binary for timing (spawn overhead only; not rustc).
 CDCP_BIN="$ROOT/target/debug/cdcp"
+GATE_BIN="$ROOT/target/debug/cdcp_gate"
 if [ ! -x "$CDCP_BIN" ]; then
   # cargo build places it here; fall back to cargo run if missing
   CDCP_BIN=""
 fi
+# Anti-vacuous: a missing bank verifier is RED, not a skipped wall.
+# scripts/verify_bank.py is the differential oracle only — not timed here.
+[ -x "$GATE_BIN" ] || fail "missing $GATE_BIN after cargo build -p cdcp_gate (bank verifier required)"
+"$GATE_BIN" list | grep -q '^verify-bank' \
+  || fail "cdcp_gate binary has no verify-bank subcommand"
 
 # Portable wall-ms: start_ms / elapsed_ms via python.
 now_ms() {
@@ -145,9 +152,9 @@ else
       --out "$TMP_EXPORT"
 fi
 
-echo "==> (3) verify_bank.py"
+echo "==> (3) cdcp_gate verify-bank"
 run_timed "bank_verify" "$VERIFY_MS" \
-  python3 scripts/verify_bank.py
+  "$GATE_BIN" verify-bank
 
 echo "smoke_slo: PASSED (all walls under budget)"
 exit 0
