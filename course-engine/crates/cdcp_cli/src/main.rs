@@ -1,8 +1,9 @@
-//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair
+//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check
 #![forbid(unsafe_code)]
 
 mod assemble;
 mod operator;
+mod oracle;
 
 use cdcp_bank::Bank;
 use cdcp_core::{AnsweredItem, ChoiceLetter, ExamAttempt};
@@ -52,6 +53,16 @@ enum Cmd {
         root: Option<PathBuf>,
         /// Flip one vendored body byte in a TEMP tree and require RED.
         #[arg(long)]
+        selftest: bool,
+    },
+    /// Computed site quantities vs published references. Vendored snapshots only; no network.
+    #[command(visible_alias = "oracle")]
+    OracleCheck {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// Perturb one published ref and empty the ledger; both must RED.
+        #[arg(long, alias = "self-test")]
         selftest: bool,
     },
     /// Ledger tripwire for measured paraphrase pairs C3 cannot see
@@ -366,6 +377,7 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::LoadSnapshots { root } => load_snapshots(root.as_deref()),
         Cmd::CheckOsha { root } => check_osha(root.as_deref()),
         Cmd::VerifyDataLock { root, selftest } => verify_data_lock(root.as_deref(), selftest),
+        Cmd::OracleCheck { root, selftest } => oracle::run(root.as_deref(), selftest),
         Cmd::VerifyParaphrasePairs {
             root,
             ledger,

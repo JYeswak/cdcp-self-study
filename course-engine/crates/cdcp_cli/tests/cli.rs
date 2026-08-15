@@ -43,6 +43,7 @@ fn help_lists_learn_compilers() {
         "load-snapshots",
         "check-osha",
         "verify-data-lock",
+        "oracle-check",
     ] {
         assert!(
             stdout.contains(verb),
