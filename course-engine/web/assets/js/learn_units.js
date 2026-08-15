@@ -216,6 +216,132 @@
     for (var i = 0; i < kids.length; i++) kids[i].hidden = false;
   }
 
+  /** Sitting target is 5–8 min (LIL chapter length). Clamp the estimate. */
+  function targetMinutes(est) {
+    var n = Number(est);
+    if (!isFinite(n) || n <= 0) return 6;
+    if (n < 5) return 5;
+    if (n > 8) return 8;
+    return Math.round(n);
+  }
+
+  function ensureHereBar(shell) {
+    var bar = global.document.getElementById("unit-here-bar");
+    if (bar) return bar;
+    if (!shell) return null;
+    bar = global.document.createElement("div");
+    bar.id = "unit-here-bar";
+    bar.className = "unit-here-bar";
+    bar.setAttribute("role", "progressbar");
+    bar.setAttribute("aria-valuemin", "1");
+    bar.setAttribute("aria-valuemax", "1");
+    bar.setAttribute("aria-valuenow", "1");
+    bar.setAttribute("aria-label", "You are here");
+    bar.innerHTML =
+      '<div class="unit-here-bar__track"><div class="unit-here-bar__fill"></div></div>' +
+      '<p class="unit-here-bar__label mono">You are here</p>';
+    shell.insertBefore(bar, shell.firstChild);
+    return bar;
+  }
+
+  function paintHereBar(bar, idx, total, minutes) {
+    if (!bar) return;
+    var n = total > 0 ? total : 1;
+    var i = idx + 1;
+    var pct = Math.round((i / n) * 100);
+    var fill = bar.querySelector(".unit-here-bar__fill");
+    var label = bar.querySelector(".unit-here-bar__label");
+    if (fill) fill.style.width = pct + "%";
+    bar.setAttribute("aria-valuemin", "1");
+    bar.setAttribute("aria-valuemax", String(n));
+    bar.setAttribute("aria-valuenow", String(i));
+    var sit = targetMinutes(minutes);
+    if (label) {
+      label.textContent =
+        "You are here · unit " +
+        i +
+        " of " +
+        n +
+        " · ~" +
+        sit +
+        " min (5–8 min target)";
+    }
+    bar.hidden = false;
+  }
+
+  var ARTIFACTS = {
+    "01-mission-critical": {
+      kind: "60s-tour",
+      title: "60-second site tour",
+      body:
+        "Speak a 60-second walk of the site stack out loud: business impact → white space → grey space → utility. Not graded. Study only — not a credential.",
+    },
+    "06-power": {
+      kind: "labeled-one-line",
+      title: "Label the one-line",
+      body:
+        "On paper, label one power path: utility → UPS → PDU → rack. Mark N vs 2N. Not graded. Study only — not a credential.",
+    },
+    "09-cooling": {
+      kind: "demarc-sketch",
+      title: "Demarc sketch",
+      body:
+        "Sketch the heat path chip → rack → room → plant → outdoors. Mark the cooling demarc. Not graded. Study only — not a credential.",
+    },
+  };
+
+  function ensureArtifact(moduleId) {
+    var spec = ARTIFACTS[moduleId];
+    if (!spec) return null;
+    var existing = global.document.getElementById("produced-artifact");
+    if (existing) return existing;
+    var host = global.document.getElementById("learn-unit-check");
+    var aside = global.document.createElement("aside");
+    aside.id = "produced-artifact";
+    aside.className = "produced-artifact";
+    aside.setAttribute("data-artifact", spec.kind);
+    aside.innerHTML =
+      '<p class="produced-artifact__tag mono">MAKE THIS</p>' +
+      '<h2 class="produced-artifact__title"></h2>' +
+      '<p class="produced-artifact__body"></p>';
+    aside.querySelector(".produced-artifact__title").textContent = spec.title;
+    aside.querySelector(".produced-artifact__body").textContent = spec.body;
+    if (host && host.parentNode) {
+      host.parentNode.insertBefore(aside, host.nextSibling);
+    } else if (host) {
+      host.appendChild(aside);
+    }
+    return aside;
+  }
+
+  function persistUnit(moduleId, idx, unit, modeFull) {
+    if (!global.CdcpLearnChrome || !global.CdcpLearnChrome.setContinue) return;
+    global.CdcpLearnChrome.setContinue(moduleId, "learn/" + moduleId + ".html", {
+      unit: idx + 1,
+      unitId: unit && unit.id ? unit.id : null,
+      mode: modeFull ? "full" : "unit",
+    });
+  }
+
+  function replaceUnitUrl(idx, modeFull) {
+    if (!global.history || typeof global.history.replaceState !== "function") {
+      return;
+    }
+    try {
+      var url = new URL(global.location.href);
+      if (modeFull) {
+        url.searchParams.delete("unit");
+        url.searchParams.set("full", "1");
+      } else {
+        url.searchParams.delete("full");
+        url.searchParams.set("unit", String(idx + 1));
+      }
+      global.history.replaceState(null, "", url);
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
   function letterOf(item, choiceText) {
     var choices = item.choices || [];
     var letters = "ABCD";
@@ -339,42 +465,78 @@
         shell.hidden = false;
         var idx = 0;
         var params = new URLSearchParams(global.location.search || "");
-        var q = parseInt(params.get("unit") || "1", 10);
-        if (q >= 1 && q <= units.length) idx = q - 1;
+        var modeFull = params.get("full") === "1";
+        var q = parseInt(params.get("unit") || "", 10);
+        if (q >= 1 && q <= units.length) {
+          idx = q - 1;
+        } else if (!modeFull && global.CdcpLearnChrome && global.CdcpLearnChrome.getContinue) {
+          var cont = global.CdcpLearnChrome.getContinue();
+          var cu = cont && parseInt(cont.unit, 10);
+          if (cont && cont.moduleId === moduleId && cu >= 1 && cu <= units.length) {
+            idx = cu - 1;
+            if (cont.mode === "full") modeFull = true;
+          }
+        }
 
-        var modeFull = false;
         var status = shell.querySelector(".learn-unit-shell__status");
         var title = shell.querySelector(".learn-unit-shell__title");
         var prev = shell.querySelector("[data-unit-prev]");
         var next = shell.querySelector("[data-unit-next]");
         var fullBtn = shell.querySelector("[data-unit-full]");
         var unitBtn = shell.querySelector("[data-unit-mode]");
+        var hereBar = ensureHereBar(shell);
+        ensureArtifact(moduleId);
+        if (fullBtn && !fullBtn.getAttribute("data-appendix")) {
+          fullBtn.textContent = "Full article (appendix)";
+          fullBtn.setAttribute("data-appendix", "1");
+        }
+        if (unitBtn && !unitBtn.getAttribute("data-path")) {
+          unitBtn.textContent = "Unit path";
+          unitBtn.setAttribute("data-path", "1");
+        }
 
         function paint() {
           var u = units[idx];
+          var sit = targetMinutes(u && u.estimate_minutes);
           if (status) {
             status.textContent =
-              "Unit " + (idx + 1) + " / " + units.length + (isDone(u.id) ? " · done" : "");
+              "Unit " +
+              (idx + 1) +
+              " / " +
+              units.length +
+              " · ~" +
+              sit +
+              " min · 5–8 min target" +
+              (u && isDone(u.id) ? " · studied" : "");
           }
           if (title) title.textContent = u.title;
           if (modeFull) {
             showFull(prose);
             if (checkHost) checkHost.hidden = true;
+            if (hereBar) hereBar.hidden = true;
+            shell.classList.add("learn-unit-shell--full");
           } else {
             showUnit(prose, units, idx);
+            if (hereBar) paintHereBar(hereBar, idx, units.length, u.estimate_minutes);
             if (checkHost) {
               var items = pickItems(bankCache, u, 3);
               renderMicro(checkHost, items, u.id);
             }
+            shell.classList.remove("learn-unit-shell--full");
           }
           if (prev) prev.disabled = idx <= 0 || modeFull;
           if (next) next.disabled = idx >= units.length - 1 || modeFull;
+          if (unitBtn) unitBtn.classList.toggle("is-current", !modeFull);
+          if (fullBtn) fullBtn.classList.toggle("is-appendix", true);
+          persistUnit(moduleId, idx, u, modeFull);
+          replaceUnitUrl(idx, modeFull);
         }
 
         if (prev) {
           prev.onclick = function () {
             if (idx > 0) {
               idx--;
+              modeFull = false;
               paint();
             }
           };
@@ -383,6 +545,7 @@
           next.onclick = function () {
             if (idx < units.length - 1) {
               idx++;
+              modeFull = false;
               paint();
             }
           };
@@ -413,5 +576,7 @@
     isApproved: isApproved,
     APPROVED: APPROVED,
     markDone: markDone,
+    targetMinutes: targetMinutes,
+    ARTIFACTS: ARTIFACTS,
   };
 })(typeof window !== "undefined" ? window : globalThis);

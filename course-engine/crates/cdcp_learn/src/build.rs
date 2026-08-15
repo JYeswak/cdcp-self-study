@@ -648,6 +648,39 @@ fn diagram_cta(order: i64, mod_id: &str) -> String {
     String::new()
 }
 
+/// Brilliant/Coursera "make something" — one produced artifact on heavy modules.
+/// Study only. Not graded. Not a credential.
+fn produced_artifact(order: i64, mod_id: &str) -> String {
+    if order == 1 || mod_id == "01-mission-critical" {
+        return String::from(
+            "\n        <aside id=\"produced-artifact\" class=\"produced-artifact\" data-artifact=\"60s-tour\">\n          <p class=\"produced-artifact__tag mono\">MAKE THIS</p>\n          <h2 class=\"produced-artifact__title\">60-second site tour</h2>\n          <p class=\"produced-artifact__body\">Speak a 60-second walk of the site stack out loud: business impact → white space → grey space → utility. Not graded. Study only — not a credential.</p>\n        </aside>",
+        );
+    }
+    if order == 6 || mod_id == "06-power" {
+        return String::from(
+            "\n        <aside id=\"produced-artifact\" class=\"produced-artifact\" data-artifact=\"labeled-one-line\">\n          <p class=\"produced-artifact__tag mono\">MAKE THIS</p>\n          <h2 class=\"produced-artifact__title\">Label the one-line</h2>\n          <p class=\"produced-artifact__body\">On paper, label one power path: utility → UPS → PDU → rack. Mark N vs 2N. Not graded. Study only — not a credential.</p>\n        </aside>",
+        );
+    }
+    if order == 9 || mod_id == "09-cooling" {
+        return String::from(
+            "\n        <aside id=\"produced-artifact\" class=\"produced-artifact\" data-artifact=\"demarc-sketch\">\n          <p class=\"produced-artifact__tag mono\">MAKE THIS</p>\n          <h2 class=\"produced-artifact__title\">Demarc sketch</h2>\n          <p class=\"produced-artifact__body\">Sketch the heat path chip → rack → room → plant → outdoors. Mark the cooling demarc. Not graded. Study only — not a credential.</p>\n        </aside>",
+        );
+    }
+    String::new()
+}
+
+fn first_unit_href(modules: &[Module]) -> String {
+    for m in modules {
+        if m.empty {
+            continue;
+        }
+        if let Some(h) = &m.href {
+            return format!("{h}?unit=1");
+        }
+    }
+    "learn/01-mission-critical.html?unit=1".into()
+}
+
 fn render_module_page(m: &Module, prev: Option<&Module>, next: Option<&Module>) -> String {
     let title = escape_html(&m.epi_heading);
     let mid = escape_html(&m.id);
@@ -670,6 +703,7 @@ fn render_module_page(m: &Module, prev: Option<&Module>, next: Option<&Module>) 
         None => String::new(),
     };
     let cta = diagram_cta(m.order, &m.id);
+    let artifact = produced_artifact(m.order, &m.id);
     let js_id = json_string(&m.id);
     format!(
         r###"<!DOCTYPE html>
@@ -706,15 +740,20 @@ fn render_module_page(m: &Module, prev: Option<&Module>, next: Option<&Module>) 
       <nav id="learn-toc" class="learn-toc" aria-label="On this page" hidden></nav>
       <div class="learn-layout__main">
         <div id="learn-unit-shell" class="learn-unit-shell" hidden>
+          <div id="unit-here-bar" class="unit-here-bar" role="progressbar"
+               aria-valuemin="1" aria-valuemax="1" aria-valuenow="1" aria-label="You are here">
+            <div class="unit-here-bar__track"><div class="unit-here-bar__fill"></div></div>
+            <p class="unit-here-bar__label mono">You are here · unit 1 · 5–8 min target</p>
+          </div>
           <p class="learn-unit-shell__status mono"></p>
           <h2 class="learn-unit-shell__title"></h2>
           <div class="learn-unit-shell__controls">
             <button type="button" data-unit-prev>← Prev unit</button>
             <button type="button" data-unit-next>Next unit →</button>
-            <button type="button" data-unit-full>Full article</button>
-            <button type="button" data-unit-mode>Unit mode</button>
+            <button type="button" data-unit-mode class="is-current">Unit path</button>
+            <button type="button" data-unit-full class="is-appendix">Full article (appendix)</button>
           </div>
-          <p class="meta">Unit mode shows one section + quick check. Full article = entire module. Study signals only.</p>
+          <p class="meta">Unit path is the default (one section + quick check, 5–8 min). Full article is the appendix. Study signals only — not a credential.</p>
         </div>
         <article
           class="prose"
@@ -726,10 +765,10 @@ fn render_module_page(m: &Module, prev: Option<&Module>, next: Option<&Module>) 
           <p class="lede">Loading module…</p>
         </article>
         <div id="learn-unit-check" class="unit-check" hidden></div>
-{cta}
+{artifact}{cta}
         <nav class="mod-nav" aria-label="Module sequence">
           <div class="mod-nav__prev">{prev_link}</div>
-          <div class="mod-nav__hub"><a href="../learn.html">All modules</a></div>
+          <div class="mod-nav__hub"><a href="../learn.html?catalog=1">All modules</a></div>
           <div class="mod-nav__next">{next_link}</div>
         </nav>
         <p class="meta">
@@ -762,6 +801,7 @@ fn render_module_page(m: &Module, prev: Option<&Module>, next: Option<&Module>) 
         origin = origin_script(1),
         header = header(1),
         order = m.order,
+        artifact = artifact,
         cta = cta,
         prev_link = prev_link,
         next_link = next_link,
@@ -781,8 +821,13 @@ fn render_hub(modules: &[Module]) -> String {
             ));
         } else {
             let href = escape_html(m.href.as_deref().unwrap_or(""));
+            let unit_href = if href.is_empty() {
+                String::new()
+            } else {
+                format!("{href}?unit=1")
+            };
             rows.push(format!(
-                "      <li class=\"module-list__item\" data-module-id=\"{mid}\">\n        <a class=\"module-list__link\" href=\"{href}\">\n          <span class=\"module-list__order mono\">{:02}</span>\n          <span class=\"module-list__body\">\n            <span class=\"module-list__title\">{heading}</span>\n            <span class=\"module-list__status mono\">{mid}</span>\n          </span>\n          <span class=\"module-list__badge\" data-progress-for=\"{mid}\" hidden>Visited</span>\n          <span class=\"module-list__mastery\" data-mastery-for=\"{}\" hidden></span>\n        </a>\n      </li>",
+                "      <li class=\"module-list__item\" data-module-id=\"{mid}\">\n        <a class=\"module-list__link\" href=\"{unit_href}\">\n          <span class=\"module-list__order mono\">{:02}</span>\n          <span class=\"module-list__body\">\n            <span class=\"module-list__title\">{heading}</span>\n            <span class=\"module-list__status mono\">{mid}</span>\n          </span>\n          <span class=\"module-list__badge\" data-progress-for=\"{mid}\" hidden>Visited</span>\n          <span class=\"module-list__mastery\" data-mastery-for=\"{}\" hidden></span>\n        </a>\n      </li>",
                 m.order, m.order
             ));
         }
@@ -819,6 +864,7 @@ fn render_hub(modules: &[Module]) -> String {
     embed_root.insert("modules".into(), Json::Array(slim));
     let index_embed = serde_json::to_string_pretty(&Json::Object(embed_root))
         .unwrap_or_else(|_| "{\n  \"schema_version\": 1,\n  \"modules\": []\n}".into());
+    let start_href = escape_html(&first_unit_href(modules));
 
     format!(
         r###"<!DOCTYPE html>
@@ -840,15 +886,21 @@ fn render_hub(modules: &[Module]) -> String {
     <h1>Learn</h1>
     <p class="lede">
       Fifteen study modules mapped to public syllabus headings (fourteen facility domains plus 2.1 Operational Considerations).
-      Open a module to study over local HTTP. Progress is stored only in this browser.
+      Unit path is the default (one 5–8 min section + quick check). Full article is the appendix.
+      Progress is stored only in this browser.
       Completing modules here is a study signal — not a CDCP credential.
+    </p>
+
+    <p class="learn-start" id="learn-start">
+      <a class="btn btn--primary learn-start__link" href="{start_href}">Start unit 1</a>
+      <span class="meta"> · first-run Learn opens the unit path, not the wall of prose.</span>
     </p>
 
     <p class="learn-progress-summary" id="learn-progress-summary" aria-live="polite"></p>
 
     <p id="learn-continue" class="learn-continue" hidden>
       <a class="learn-continue__link" href="#">Continue</a>
-      <span class="meta"> · last module in this browser (study signal only)</span>
+      <span class="meta"> · last unit in this browser (study signal only)</span>
     </p>
 
     <ol class="module-list" id="module-list">
@@ -884,6 +936,7 @@ fn render_hub(modules: &[Module]) -> String {
         header = header(0),
         list_html = list_html,
         index_embed = index_embed,
+        start_href = start_href,
     )
 }
 
@@ -908,5 +961,18 @@ mod tests {
     #[test]
     fn html_escape_matches_python_quote_true() {
         assert_eq!(escape_html(r#"a&b<c>"d""#), "a&amp;b&lt;c&gt;&quot;d&quot;");
+    }
+
+    #[test]
+    fn produced_artifact_only_on_heavy_modules() {
+        let m01 = produced_artifact(1, "01-mission-critical");
+        assert!(m01.contains("id=\"produced-artifact\""));
+        assert!(m01.contains("60-second site tour"));
+        assert!(m01.contains("not a credential"));
+        let m06 = produced_artifact(6, "06-power");
+        assert!(m06.contains("Label the one-line"));
+        let m09 = produced_artifact(9, "09-cooling");
+        assert!(m09.contains("Demarc sketch"));
+        assert!(produced_artifact(2, "02-standards").is_empty());
     }
 }

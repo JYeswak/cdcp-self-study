@@ -52,15 +52,20 @@
       <nav id="learn-toc" class="learn-toc" aria-label="On this page" hidden></nav>
       <div class="learn-layout__main">
         <div id="learn-unit-shell" class="learn-unit-shell" hidden>
+          <div id="unit-here-bar" class="unit-here-bar" role="progressbar"
+               aria-valuemin="1" aria-valuemax="1" aria-valuenow="1" aria-label="You are here">
+            <div class="unit-here-bar__track"><div class="unit-here-bar__fill"></div></div>
+            <p class="unit-here-bar__label mono">You are here · unit 1 · 5–8 min target</p>
+          </div>
           <p class="learn-unit-shell__status mono"></p>
           <h2 class="learn-unit-shell__title"></h2>
           <div class="learn-unit-shell__controls">
             <button type="button" data-unit-prev>← Prev unit</button>
             <button type="button" data-unit-next>Next unit →</button>
-            <button type="button" data-unit-full>Full article</button>
-            <button type="button" data-unit-mode>Unit mode</button>
+            <button type="button" data-unit-mode class="is-current">Unit path</button>
+            <button type="button" data-unit-full class="is-appendix">Full article (appendix)</button>
           </div>
-          <p class="meta">Unit mode shows one section + quick check. Full article = entire module. Study signals only.</p>
+          <p class="meta">Unit path is the default (one section + quick check, 5–8 min). Full article is the appendix. Study signals only — not a credential.</p>
         </div>
         <article
           class="prose"
@@ -75,7 +80,7 @@
 
         <nav class="mod-nav" aria-label="Module sequence">
           <div class="mod-nav__prev"><a class="mod-nav__link" href="07-emf.html">← 07. Electro Magnetic Fields (EMF)</a></div>
-          <div class="mod-nav__hub"><a href="../learn.html">All modules</a></div>
+          <div class="mod-nav__hub"><a href="../learn.html?catalog=1">All modules</a></div>
           <div class="mod-nav__next"><a class="mod-nav__link" href="09-cooling.html">09. Cooling Infrastructure →</a></div>
         </nav>
         <p class="meta">

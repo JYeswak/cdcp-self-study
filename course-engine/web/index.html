@@ -44,25 +44,38 @@
       Scores and digests are study signals — never a certification claim.
     </p>
 
+    <section class="hub-now" id="hub-now" aria-labelledby="hub-now-title">
+      <h2 class="hub-now__title" id="hub-now-title">Now · 90 seconds</h2>
+      <p class="hub-due" id="hub-due">Due cards load from this browser only.</p>
+      <p class="hub-now__actions">
+        <a class="btn btn--primary" href="drill.html?mode=due">Drill-10 due cards</a>
+        <a href="diagrams/power-path.html">One diagram · power path</a>
+      </p>
+      <p class="hub-now__meta">
+        Short-interval ladder (1d → 3d cap) — not spaced repetition.
+        Study signal only — not a credential.
+      </p>
+    </section>
+
     <div class="card-grid">
-      <a class="card" href="learn.html">
-        <span class="card__label">Modules</span>
+      <a class="card card--primary" href="drill.html?mode=due">
+        <span class="card__label">Session · Drill-10</span>
+        <span class="card__title">Drill due</span>
+        <p class="card__desc">90-second loop: due cards first (cap 10) + one diagram. Empty queue means take a mock or quiz.</p>
+      </a>
+      <a class="card" id="hub-learn" href="learn/01-mission-critical.html?unit=1">
+        <span class="card__label">Units</span>
         <span class="card__title">Learn</span>
         <!-- bd-smvb: "14" is the EPI syllabus count (domains.toml rows
              without exam_weight_unknown), not the Learn catalog size.
              "+ ops expansions" is module 15. Deliberate. Gated by
              crates/cdcp_learn/tests/stale_contract_prose.rs. -->
-        <p class="card__desc">14 curriculum modules + ops expansions — local HTTP reader.</p>
+        <p class="card__desc">14 curriculum modules + ops expansions — start unit 1 (5–8 min). Full article is the appendix.</p>
       </a>
       <a class="card" href="drill.html">
         <span class="card__label">Practice</span>
         <span class="card__title">Drill</span>
         <p class="card__desc">Missed-item review + 1d/3d short-interval ladder (not SRS). Module quiz at quiz.html.</p>
-      </a>
-      <a class="card" href="drill.html?mode=due">
-        <span class="card__label">Session · Drill-10</span>
-        <span class="card__title">Drill due</span>
-        <p class="card__desc">Review cards due now — first 10 only. Empty queue means take a mock or quiz.</p>
       </a>
       <a class="card" href="drill.html?mode=miss">
         <span class="card__label">Session · Miss-review</span>
@@ -106,6 +119,13 @@
       Honesty banner is always visible and never uses a green “certified” treatment.
     </p>
   </main>
+  <script src="assets/js/learn_chrome.js"></script>
   <script type="module" src="assets/js/hub_mastery.js"></script>
+  <script>
+    if (window.CdcpLearnChrome) {
+      CdcpLearnChrome.paintHubDue();
+      CdcpLearnChrome.paintHubLearnCta();
+    }
+  </script>
 </body>
 </html>

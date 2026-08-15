@@ -37,20 +37,26 @@
     <h1>Learn</h1>
     <p class="lede">
       Fifteen study modules mapped to public syllabus headings (fourteen facility domains plus 2.1 Operational Considerations).
-      Open a module to study over local HTTP. Progress is stored only in this browser.
+      Unit path is the default (one 5–8 min section + quick check). Full article is the appendix.
+      Progress is stored only in this browser.
       Completing modules here is a study signal — not a CDCP credential.
+    </p>
+
+    <p class="learn-start" id="learn-start">
+      <a class="btn btn--primary learn-start__link" href="learn/01-mission-critical.html?unit=1">Start unit 1</a>
+      <span class="meta"> · first-run Learn opens the unit path, not the wall of prose.</span>
     </p>
 
     <p class="learn-progress-summary" id="learn-progress-summary" aria-live="polite"></p>
 
     <p id="learn-continue" class="learn-continue" hidden>
       <a class="learn-continue__link" href="#">Continue</a>
-      <span class="meta"> · last module in this browser (study signal only)</span>
+      <span class="meta"> · last unit in this browser (study signal only)</span>
     </p>
 
     <ol class="module-list" id="module-list">
       <li class="module-list__item" data-module-id="01-mission-critical">
-        <a class="module-list__link" href="learn/01-mission-critical.html">
+        <a class="module-list__link" href="learn/01-mission-critical.html?unit=1">
           <span class="module-list__order mono">01</span>
           <span class="module-list__body">
             <span class="module-list__title">The Mission Critical Site</span>
@@ -61,7 +67,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="02-standards">
-        <a class="module-list__link" href="learn/02-standards.html">
+        <a class="module-list__link" href="learn/02-standards.html?unit=1">
           <span class="module-list__order mono">02</span>
           <span class="module-list__body">
             <span class="module-list__title">Data Centre Standards</span>
@@ -72,7 +78,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="03-site-building">
-        <a class="module-list__link" href="learn/03-site-building.html">
+        <a class="module-list__link" href="learn/03-site-building.html?unit=1">
           <span class="module-list__order mono">03</span>
           <span class="module-list__body">
             <span class="module-list__title">Data Centre Location, Building and Construction</span>
@@ -83,7 +89,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="04-floor-ceiling">
-        <a class="module-list__link" href="learn/04-floor-ceiling.html">
+        <a class="module-list__link" href="learn/04-floor-ceiling.html?unit=1">
           <span class="module-list__order mono">04</span>
           <span class="module-list__body">
             <span class="module-list__title">Raised Access Flooring and Suspended Ceiling</span>
@@ -94,7 +100,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="05-lighting">
-        <a class="module-list__link" href="learn/05-lighting.html">
+        <a class="module-list__link" href="learn/05-lighting.html?unit=1">
           <span class="module-list__order mono">05</span>
           <span class="module-list__body">
             <span class="module-list__title">Light</span>
@@ -105,7 +111,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="06-power">
-        <a class="module-list__link" href="learn/06-power.html">
+        <a class="module-list__link" href="learn/06-power.html?unit=1">
           <span class="module-list__order mono">06</span>
           <span class="module-list__body">
             <span class="module-list__title">Power Infrastructure</span>
@@ -116,7 +122,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="07-emf">
-        <a class="module-list__link" href="learn/07-emf.html">
+        <a class="module-list__link" href="learn/07-emf.html?unit=1">
           <span class="module-list__order mono">07</span>
           <span class="module-list__body">
             <span class="module-list__title">Electro Magnetic Fields (EMF)</span>
@@ -127,7 +133,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="08-racks">
-        <a class="module-list__link" href="learn/08-racks.html">
+        <a class="module-list__link" href="learn/08-racks.html?unit=1">
           <span class="module-list__order mono">08</span>
           <span class="module-list__body">
             <span class="module-list__title">Equipment Racks</span>
@@ -138,7 +144,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="09-cooling">
-        <a class="module-list__link" href="learn/09-cooling.html">
+        <a class="module-list__link" href="learn/09-cooling.html?unit=1">
           <span class="module-list__order mono">09</span>
           <span class="module-list__body">
             <span class="module-list__title">Cooling Infrastructure</span>
@@ -149,7 +155,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="10-water">
-        <a class="module-list__link" href="learn/10-water.html">
+        <a class="module-list__link" href="learn/10-water.html?unit=1">
           <span class="module-list__order mono">10</span>
           <span class="module-list__body">
             <span class="module-list__title">Water Supply</span>
@@ -160,7 +166,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="11-network">
-        <a class="module-list__link" href="learn/11-network.html">
+        <a class="module-list__link" href="learn/11-network.html?unit=1">
           <span class="module-list__order mono">11</span>
           <span class="module-list__body">
             <span class="module-list__title">Designing a Scalable Network Infrastructure</span>
@@ -171,7 +177,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="12-fire">
-        <a class="module-list__link" href="learn/12-fire.html">
+        <a class="module-list__link" href="learn/12-fire.html?unit=1">
           <span class="module-list__order mono">12</span>
           <span class="module-list__body">
             <span class="module-list__title">Fire Protection</span>
@@ -182,7 +188,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="13-security">
-        <a class="module-list__link" href="learn/13-security.html">
+        <a class="module-list__link" href="learn/13-security.html?unit=1">
           <span class="module-list__order mono">13</span>
           <span class="module-list__body">
             <span class="module-list__title">Physical Security and Safety</span>
@@ -193,7 +199,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="14-auxiliary">
-        <a class="module-list__link" href="learn/14-auxiliary.html">
+        <a class="module-list__link" href="learn/14-auxiliary.html?unit=1">
           <span class="module-list__order mono">14</span>
           <span class="module-list__body">
             <span class="module-list__title">Auxiliary Systems</span>
@@ -204,7 +210,7 @@
         </a>
       </li>
       <li class="module-list__item" data-module-id="15-ops-adjacent">
-        <a class="module-list__link" href="learn/15-ops-adjacent.html">
+        <a class="module-list__link" href="learn/15-ops-adjacent.html?unit=1">
           <span class="module-list__order mono">15</span>
           <span class="module-list__body">
             <span class="module-list__title">Operations practices (partner outline expansions)</span>

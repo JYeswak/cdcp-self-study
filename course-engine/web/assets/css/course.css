@@ -1878,6 +1878,102 @@ a.weak-chip--link:focus-visible {
   cursor: pointer;
   font-weight: 600;
 }
+.learn-unit-shell__controls button.is-current {
+  border-color: var(--accent);
+  background: rgba(52, 211, 153, 0.12);
+}
+.learn-unit-shell__controls button.is-appendix {
+  font-weight: 500;
+  color: var(--fg-dim);
+}
+
+/* LIL you-are-here: unit offset, not scroll %, not a streak. */
+.unit-here-bar {
+  margin: 0 0 0.75rem;
+}
+.unit-here-bar__track {
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+.unit-here-bar__fill {
+  height: 100%;
+  width: 0;
+  background: var(--violet);
+  border-radius: var(--r-pill);
+}
+.unit-here-bar__label {
+  margin: 0.35rem 0 0;
+  font-size: 0.75rem;
+  color: var(--violet);
+}
+
+.produced-artifact {
+  margin: 1.25rem 0 1.5rem;
+  padding: 1rem 1.15rem;
+  border: 1px dashed var(--violet);
+  border-radius: var(--r);
+  background: rgba(167, 139, 250, 0.06);
+}
+.produced-artifact__tag {
+  margin: 0 0 0.25rem;
+  color: var(--violet);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+}
+.produced-artifact__title {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  color: var(--fg);
+}
+.produced-artifact__body {
+  margin: 0;
+  color: var(--fg-dim);
+  font-size: 0.95rem;
+}
+
+.learn-start {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 0.85rem;
+  margin: 0 0 1.25rem;
+}
+
+/* Duo 90s loop: hub prefers Drill-10, not the handbook. */
+.hub-now {
+  margin: 0 0 1.5rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+.hub-now__title {
+  margin: 0 0 0.4rem;
+  font-size: 1.15rem;
+}
+.hub-due {
+  margin: 0 0 0.75rem;
+  color: var(--fg-mid);
+}
+.hub-now__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+  margin: 0;
+}
+.hub-now__meta {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  border: 0;
+  color: var(--fg-faint);
+  font-size: 0.85rem;
+}
+.card--primary {
+  border-color: rgba(52, 211, 153, 0.35);
+}
 .unit-check {
   margin: 1rem 0 1.5rem;
   padding: 1rem;
