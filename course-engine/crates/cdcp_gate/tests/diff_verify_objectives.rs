@@ -1,62 +1,10 @@
 //! Differential harness: `cdcp_gate verify-objectives` against
-//! `scripts/verify_objectives.py` (bd-substrate-rust-migration-jhd.10).
-//!
-//! The Python script is the oracle for this port and stays in the tree for
-//! exactly that reason. Every case below runs BOTH implementations on the same
-//! inputs and asserts stdout, stderr and exit code match byte for byte. A
-//! disagreement on any byte fails the port, not the oracle.
-//!
-//! The case list starts from the enumeration of `scripts/selftest_l7_objectives.sh`
-//! **as it stood at blob 88e0c39 on 2026-08-14** — that suite was being extended
-//! by a sibling agent while this port was written, so the revision is recorded
-//! rather than implied. Ten legs, eight of them counted injections —
-//!
-//!   a)  empty objectives registry                -> RED (anti-vacuous)
-//!   b)  objective citing an unresolved claim_id  -> RED
-//!   b2) objective with empty claim_ids           -> RED
-//!   c)  empty bank                               -> RED (anti-vacuous)
-//!   d)  live tree                                -> GREEN (control)
-//!   e)  a DECLARED module with zero items        -> RED, naming the module
-//!   f)  exemption with no reason                 -> RED, module STAYS required
-//!   g)  `[[domain_min]]` for an undeclared module-> RED (cross-source drift)
-//!   h)  topic in an undeclared domain            -> RED (cross-source drift)
-//!   i)  recorded exemption WITH a reason         -> GREEN (control)
-//!
-//! and adds the shapes that shell suite never reaches —
-//!
-//!   j) missing registry / missing bank dir / every module exempted / zero
-//!      `[[claim]]` rows / a topics file with zero topics in a required domain
-//!   k) emission ORDER: required modules, then recorded exemptions, then
-//!      undeclared extras, then warnings, then the write receipt, then the
-//!      failure list — with the registry declared OUT of numeric order so the
-//!      sort is under test rather than inherited from the fixture
-//!   l) `--write-json`, whose summary bytes are compared as well as its stdout,
-//!      on both the GREEN and the RED path, plus an UNWRITABLE target, which
-//!      must FAIL with no `PASS` anywhere on stdout
-//!   m) malformed registry rows, malformed bank files, and the file-granular
-//!      `items[] yielded zero items` rule bd-0czh added to the oracle mid-port
-//!   n) the oracle's UNCAUGHT exceptions, where stdout and the exit code still
-//!      match and only the traceback text differs
-//!
-//! ANTI-VACUOUS DISCIPLINE. A differential that silently compares nothing passes
-//! exactly like one that compared everything, so: a missing `python3` is a
-//! FAILURE and never a skip; a specimen bank that copied zero files is a
-//! FAILURE; a fixture registry that declares zero modules when it meant to
-//! declare several is a FAILURE; and every case increments a counter that is
-//! asserted at the end.
-//!
-//! NOTHING HERE HARDCODES A MODULE COUNT. The live-tree expectations are derived
-//! from `knowledge/domains.toml` at run time, because a test that writes today's
-//! registry size down as a constant is the same defect bd-lt7 was opened for,
-//! one level up.
-//!
-//! WHAT THIS HARNESS CANNOT DECIDE. It compares two implementations, so it says
-//! nothing about whether the ORACLE is right — a defect faithfully ported is
-//! still a defect, and the `items = []` fail-open this suite was first written
-//! against is the worked example (it was fixed in the oracle by bd-0czh mid-port
-//! and this port was re-baselined onto the fix). It also cannot compare the
-//! surfaces the header of `src/gates/verify_objectives.rs` records as deviating:
-//! TOML parse-error prose, and CPython traceback text.
+//! `scripts/verify_objectives.py`. Byte-identical stdout/stderr/exit on every
+//! case. Floors measure the approved pool (bd-f996). Missing python3 is a
+//! FAILURE. Live-tree module counts are derived from `domains.toml` at run
+//! time. Does not judge whether the oracle is right — only that the port
+//! matches it. Parse-error prose and CPython traceback text are the documented
+//! deviations.
 
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -194,7 +142,7 @@ fn plant_bank(dir: &Path, modules: &[i64]) -> usize {
     for m in modules {
         write(
             &dir.join(format!("m{m}.toml")),
-            &format!("id = \"sel-m{m:02}\"\nmodule = {m}\ntopic_ids = [\"t-fixture-1\"]\n"),
+            &format!("id = \"sel-m{m:02}\"\nmodule = {m}\nstatus = \"approved\"\ntopic_ids = [\"t-fixture-1\"]\n"),
         );
     }
     assert!(
@@ -319,7 +267,7 @@ fn live_tree_is_byte_identical_and_green() {
     );
     assert!(
         rs.out().contains(&format!(
-            "modules ({declared} required, derived from domains.toml; min 1 item each)"
+            "modules ({declared} required, derived from domains.toml; min 1 approved item each)"
         )),
         "every declared module must be required on the live tree: {}",
         rs.out()
@@ -329,6 +277,12 @@ fn live_tree_is_byte_identical_and_green() {
     assert!(
         rs.out().contains(&format!("    m{declared:02}: ")),
         "the highest declared module is missing from the report: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains(" approved (floors count the approved pool only)"),
+        "every count must name its population: {}",
         rs.out()
     );
 
@@ -500,17 +454,22 @@ fn a_declared_module_with_zero_items_is_red_and_named() {
         rs.out()
     );
     assert!(
-        rs.out().contains("domain module 15: 0 items < min 1"),
+        rs.out().contains("domain module 15: 0 approved < min 1"),
         "the finding must NAME the module: {}",
         rs.out()
     );
     assert!(
-        rs.out().contains("    m15: 0 [SHORT]"),
+        rs.out().contains("    m15: 0 approved of 0 scanned (min 1) [SHORT]"),
         "the per-module line must flag it too: {}",
         rs.out()
     );
     // The known-GOOD leg: the stocked module is not dragged red with it.
-    assert!(rs.out().contains("    m01: 1 [ok]"), "{}", rs.out());
+    assert!(
+        rs.out()
+            .contains("    m01: 1 approved of 1 scanned (min 1) [ok]"),
+        "{}",
+        rs.out()
+    );
     assert!(
         !rs.out().contains("PASS"),
         "no PASS may appear anywhere on a failing run: {}",
@@ -567,12 +526,12 @@ fn a_reasonless_exemption_is_an_error_and_leaves_the_module_required() {
         // module 15 stays required, so its shortfall still reports and it still
         // appears in the per-module block.
         assert!(
-            rs.out().contains("domain module 15: 0 items < min 1"),
+            rs.out().contains("domain module 15: 0 approved < min 1"),
             "[{label}] the rejected exemption suppressed the shortfall: {}",
             rs.out()
         );
         assert!(
-            rs.out().contains("    m15: 0 [SHORT]"),
+            rs.out().contains("    m15: 0 approved of 0 scanned (min 1) [SHORT]"),
             "[{label}] the module left the required set: {}",
             rs.out()
         );
@@ -611,7 +570,7 @@ fn a_reasonless_exemption_is_an_error_and_leaves_the_module_required() {
     );
     assert!(
         rs.out()
-            .contains("    m15: 0 — exempt: fixture: module not yet authored"),
+            .contains("    m15: 0 approved of 0 scanned — exempt: fixture: module not yet authored"),
         "an exemption must be printed, not silent: {}",
         rs.out()
     );
@@ -640,7 +599,7 @@ fn a_reasonless_exemption_is_an_error_and_leaves_the_module_required() {
         rs.out()
     );
     assert!(
-        rs.out().contains("domain module 15: 0 items"),
+        rs.out().contains("domain module 15: 0 approved"),
         "the conflicted module must stay required: {}",
         rs.out()
     );
@@ -984,6 +943,16 @@ fn empty_and_missing_input_sets_are_errors_in_both() {
         "{}",
         rs.out()
     );
+    // …and the anti-vacuous leg fires too, on its own account. Until bd-9nyt it
+    // could not: it carried `topics_path.is_file()`, so the one case that leaves
+    // zero topics most loudly was the one case its condition excluded it from,
+    // and the run was RED only because the line above happens to exist.
+    assert!(
+        rs.out()
+            .contains("topics.toml has zero topics in a required domain"),
+        "the anti-vacuous leg must not depend on a neighbouring check: {}",
+        rs.out()
+    );
 
     // the two registries this gate cannot run without, absent — the SHORT
     // report shape, with no body and no verdict block
@@ -1092,11 +1061,11 @@ fn emission_order_is_reproduced_exactly() {
     let m01 = at("    m01: ");
     let m02 = at("    m02: ");
     let exempt_hdr = at("  recorded exemptions");
-    let e03 = at("    m03: 1 — exempt: earlier");
-    let e22 = at("    m22: 1 — exempt: later");
+    let e03 = at("    m03: 1 approved of 1 scanned — exempt: earlier");
+    let e22 = at("    m22: 1 approved of 1 scanned — exempt: later");
     let extras_hdr = at("  undeclared modules present in the bank");
-    let x07 = at("    m07: 1 (not in the domain registry)");
-    let x09 = at("    m09: 1 (not in the domain registry)");
+    let x07 = at("    m07: 1 scanned (not in the domain registry)");
+    let x09 = at("    m09: 1 scanned (not in the domain registry)");
     assert!(
         modules_at < m01 && m01 < m02,
         "required order drifted:\n{out}"
@@ -1174,7 +1143,7 @@ fn emission_order_is_reproduced_exactly() {
     let f_floor = at("    - bank_policy.toml: [[domain_min]] module 8 is not declared");
     let f_load = at("    - zz-junk.toml: no id or items[]");
     let f_badmod = at("    - zz-badmod: bad module 'nope'");
-    let f_short = at("    - domain module 2: 0 items < min 1");
+    let f_short = at("    - domain module 2: 0 approved < min 1");
     let f_topic = at("    - topics.toml: topic in an undeclared domain:");
     assert!(
         f_registry < f_exempt
@@ -1501,8 +1470,26 @@ fn path_and_option_shapes_are_byte_identical() {
         &["--skip-topic-coverage", "--strict-topics"],
     );
 
-    // the topic floor, raised and lowered
-    assert_byte_identical("m min topic 0", &root, &["--min-items-per-topic", "0"]);
+    // The topic floor, raised and lowered. `m min topic 0` USED TO STOP AT
+    // "the two sides agree", and it passed for weeks while both of them
+    // compared not one topic and printed `covered=<all> shortfalls=0
+    // mode=strict` under exit 0 — the header's own "a defect faithfully ported
+    // is still a defect", caught in this harness's blind spot. A differential
+    // case that touches a floor now says what the floor must DO (bd-9nyt); the
+    // full verdict set lives in tests/anti_vacuous_topics.rs.
+    let rs = assert_byte_identical("m min topic 0", &root, &["--min-items-per-topic", "0"]);
+    assert_ne!(
+        rs.code,
+        0,
+        "a floor of 0 disables every topic comparison; that must not be a pass: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("mode=off") && rs.out().contains("covered=n/a"),
+        "the report must not name a mode it is not in, nor a coverage number no \
+         comparison produced: {}",
+        rs.out()
+    );
     let rs = assert_byte_identical("m min topic 5", &root, &["--min-items-per-topic", "5"]);
     assert!(rs.out().contains("min_per_topic=5"), "{}", rs.out());
 
@@ -1709,7 +1696,8 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
     std::fs::create_dir_all(&nested).unwrap();
     write(
         &nested.join("multi.toml"),
-        "[[items]]\nid = \"n1\"\nmodule = 1\n\n[[items]]\nid = \"n2\"\nmodule = 2\n",
+        "[[items]]\nid = \"n1\"\nmodule = 1\nstatus = \"approved\"\n\n\
+         [[items]]\nid = \"n2\"\nmodule = 2\nstatus = \"approved\"\n",
     );
     let rs = assert_byte_identical(
         "m items[] table array is counted",
@@ -1722,7 +1710,11 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
         ),
     );
     assert_eq!(rs.code, 0, "{}", rs.out());
-    assert!(rs.out().contains("items=2"), "{}", rs.out());
+    assert!(
+        rs.out().contains("items=2 scanned, 2 approved"),
+        "{}",
+        rs.out()
+    );
 
     // duplicate objective ids, an id-less objective, and a blank claim_id entry
     let obj = td.path().join("objectives_messy.toml");
@@ -1961,6 +1953,107 @@ fn the_raise_paths_match_except_for_the_traceback() {
         );
         COMPARED.fetch_add(1, Ordering::SeqCst);
     }
+}
+
+// ── floors measure the approved pool, not the file set (bd-f996) ──────────
+
+fn plant_item(dir: &Path, id: &str, module: i64, status: Option<&str>, topic: &str) {
+    std::fs::create_dir_all(dir).unwrap();
+    let st = status.map(|s| format!("status = {s:?}\n")).unwrap_or_default();
+    write(
+        &dir.join(format!("{id}.toml")),
+        &format!("id = {id:?}\nmodule = {module}\n{st}topic_ids = [{topic:?}]\n"),
+    );
+}
+
+fn f996_tree(td: &tempfile::TempDir, orders: &[i64], topic_doms: &[&str]) -> (String, String, String) {
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(orders));
+    let topics = td.path().join("topics.toml");
+    write(&topics, &topics_registry(topic_doms));
+    let policy = td.path().join("policy.toml");
+    write(&policy, "# fixture policy: no rows\n");
+    (
+        reg.to_str().unwrap().to_string(),
+        topics.to_str().unwrap().to_string(),
+        policy.to_str().unwrap().to_string(),
+    )
+}
+
+/// Retire every item under one topic WITHOUT deleting a file → RED naming the
+/// topic, approved count, and floor. File count stays >= 1 (old gate GREEN).
+#[test]
+fn retiring_every_item_under_one_topic_is_red_on_the_approved_floor() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let (reg, topics, policy) = f996_tree(&td, &[1, 2], &["01-fixture", "02-fixture"]);
+    let bank = td.path().join("bank");
+    plant_item(&bank, "a1", 1, Some("approved"), "t-fixture-1");
+    plant_item(&bank, "a2", 1, Some("approved"), "t-fixture-1");
+    plant_item(&bank, "b1", 2, Some("approved"), "t-fixture-2");
+    let bank_s = bank.to_str().unwrap().to_string();
+    let args = vec![
+        "--objectives", "registries/objectives.toml",
+        "--claims", "registries/claims.toml",
+        "--domains", reg.as_str(), "--topics", topics.as_str(),
+        "--bank", bank_s.as_str(), "--policy", policy.as_str(),
+        "--strict-topics",
+    ];
+    let green = assert_byte_identical("retire-topic control", &root, &args);
+    assert_eq!(green.code, 0, "control must be GREEN: {}", green.out());
+    assert!(green.out().contains("items=3 scanned, 3 approved"), "{}", green.out());
+    for name in ["a1.toml", "a2.toml"] {
+        let p = bank.join(name);
+        let text = std::fs::read_to_string(&p).unwrap();
+        let flipped = text.replace("status = \"approved\"", "status = \"retired\"");
+        assert_ne!(flipped, text);
+        std::fs::write(&p, flipped).unwrap();
+    }
+    assert_eq!(std::fs::read_dir(&bank).unwrap().count(), 3, "no file deleted");
+    let rs = assert_byte_identical("retire-topic injection", &root, &args);
+    assert_ne!(rs.code, 0, "approved-pool shortfall must be RED: {}", rs.out());
+    let out = rs.out();
+    assert!(out.contains("topic t-fixture-1: 0 approved < min 1 (2 scanned, 2 not approved)"), "{out}");
+    assert!(out.contains("items=3 scanned, 1 approved"), "{out}");
+    assert!(out.contains("domain module 1: 0 approved < min 1 (2 scanned, 2 not approved)"), "{out}");
+}
+
+#[test]
+fn a_bank_of_only_retired_items_is_an_error_distinct_from_empty_bank() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let (reg, topics, policy) = f996_tree(&td, &[1, 2], &["01-fixture"]);
+    let bank = td.path().join("bank");
+    plant_item(&bank, "r1", 1, Some("retired"), "t-fixture-1");
+    plant_item(&bank, "r2", 1, Some("retired"), "t-fixture-1");
+    plant_item(&bank, "d1", 2, None, "t-fixture-1");
+    let rs = assert_byte_identical(
+        "zero approved items",
+        &root,
+        &suite_args(&reg, &topics, bank.to_str().unwrap(), &policy),
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().contains("zero approved items (3 scanned)"), "{}", rs.out());
+    assert!(!rs.out().contains("empty bank: zero items loaded"), "{}", rs.out());
+    assert!(!rs.out().contains("unknown status"), "{}", rs.out());
+}
+
+#[test]
+fn an_unrecognised_status_is_named_rather_than_bucketed() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let (reg, topics, policy) = f996_tree(&td, &[1], &["01-fixture"]);
+    let bank = td.path().join("bank");
+    plant_item(&bank, "good", 1, Some("approved"), "t-fixture-1");
+    plant_item(&bank, "odd", 1, Some("published"), "t-fixture-1");
+    let rs = assert_byte_identical(
+        "unknown status",
+        &root,
+        &suite_args(&reg, &topics, bank.to_str().unwrap(), &policy),
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().contains("odd: unknown status 'published'"), "{}", rs.out());
+    assert!(rs.out().contains("m01: 1 approved of 2 scanned (min 1) [ok]"), "{}", rs.out());
 }
 
 // ── the control: a full copy of the live bank ─────────────────────────────

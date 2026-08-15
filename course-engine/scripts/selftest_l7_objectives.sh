@@ -114,7 +114,7 @@ write_bank() {
   rm -rf "$_dir"
   mkdir -p "$_dir"
   for _m in "$@"; do
-    printf 'id = "sel-m%02d"\nmodule = %d\ntopic_ids = ["t-fixture-1"]\n' \
+    printf 'id = "sel-m%02d"\nmodule = %d\nstatus = "approved"\ntopic_ids = ["t-fixture-1"]\n' \
       "$_m" "$_m" >"$_dir/m$_m.toml"
   done
 }
@@ -251,7 +251,7 @@ dom_1_15="$TMP_ROOT/domains_1_15.toml"
 write_domains "$dom_1_15" 1 15
 bank_1="$TMP_ROOT/bank_m1"
 write_bank "$bank_1" 1
-assert_fails_with "declared-module-starved" "domain module 15: 0 items < min 1" \
+assert_fails_with "declared-module-starved" "domain module 15: 0 approved < min 1" \
   run_objectives "$dom_1_15" "$topics_ok" "$bank_1" "$empty_policy"
 
 # --- (f) an exemption without a reason → RED, and the module stays required ---
@@ -264,7 +264,7 @@ assert_fails_with "exemption-without-reason" \
 # The finding alone is not the guarantee. A rejected exemption that still held
 # the module out of the floor would be the escape hatch working while being
 # reported as broken — quieter than the rule it escapes.
-printf '%s\n' "$LAST_OUT" | grep -q 'domain module 15: 0 items < min 1' \
+printf '%s\n' "$LAST_OUT" | grep -q 'domain module 15: 0 approved < min 1' \
   || fail "(f) a rejected exemption silently held module 15 out of the floor"
 ok "(f) rejected exemption leaves module 15 REQUIRED (not a second injection)"
 

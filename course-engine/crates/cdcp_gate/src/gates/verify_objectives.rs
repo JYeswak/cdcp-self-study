@@ -11,8 +11,10 @@
 //!      `id`, with empty `claim_ids`, with a blank `claim_id` entry, or citing a
 //!      `claim_id` that `registries/claims.toml` does not define. Duplicate
 //!      objective ids are named too.
-//!   2. *starved module* — a declared, non-exempt module holding zero bank items.
-//!      The named module appears in the report and in the per-module block.
+//!   2. *starved module* — a declared, non-exempt module holding zero APPROVED
+//!      bank items. The named module appears in the report and in the per-module
+//!      block. Floors measure `status == "approved"` (C1's drawable pool), never
+//!      the file set (bd-objectives-counts-retired-items-f996).
 //!   3. *malformed exemption* — a `[[coverage_exempt]]` row with no usable
 //!      `module`, with a missing or blank `reason`, naming a module the domain
 //!      registry never declared, or contradicting an explicit `[[domain_min]]`
@@ -31,11 +33,26 @@
 //!
 //! Anti-vacuous (L4): zero `[[claim]]` rows, zero `[[objective]]` rows, a domain
 //! registry declaring zero modules, a required set emptied out by exemptions, a
-//! bank loading zero items, and a `topics.toml` with zero topics in a required
-//! domain are each an ERROR, never a pass. An input set that was never really
-//! scanned must not report the way a scanned one does — that is the whole reason
-//! those legs exist, and each is exercised on BOTH implementations by
+//! bank loading zero items, a bank of files with zero APPROVED items, and zero
+//! topics in a required domain are each an ERROR, never a pass. Zero approved is
+//! named separately from the empty-bank leg: it is the state a file-counting
+//! floor reported green on. An input set that was never really scanned must not
+//! report the way a scanned one does — exercised on BOTH implementations by
 //! `tests/diff_verify_objectives.rs`.
+//!
+//! ## The bd-9nyt sweep (2026-08-14) — anti-vacuous at COMPARISON granularity
+//!
+//! Three guards could not do the job they were written for; all three are closed:
+//! the anti-vacuous topic leg no longer requires `topics_disp.is_file()` (the
+//! loudest zero-topics case); `--min-items-per-topic 0` is an ERROR unless
+//! `--skip-topic-coverage` says the floor is off (`mode=off`, `covered=n/a`); a
+//! present-but-unreadable `topic_ids`/`objective_ids` is an ERROR, not an absent
+//! field. `tests/anti_vacuous_topics.rs` holds those lines.
+//!
+//! The two guards the sweep judged legitimately optional — the missing-policy
+//! early returns in [`load_exemptions`] and [`domain_min_drift`] — keep their
+//! behaviour and gained the written reason they lacked. A guard with neither an
+//! error path nor a reason is the defect.
 //!
 //! # THE REBASE THIS PORT INHERITS (bd-lt7)
 //!
@@ -50,65 +67,19 @@
 //!
 //! # WHAT THIS GATE CANNOT DECIDE
 //!
-//! It counts items, not coverage: forty near-identical items satisfy the floor of
-//! one exactly as forty distinct ones do. It reads no stem, no explanation and no
-//! answer key, so it says nothing about whether an item is correct, well written,
-//! mapped to the right topic, or of the right difficulty. `objectives.toml` holds
-//! product-level outcomes with `claim_ids`, NOT per-module learning objectives,
-//! and bank items rarely populate `objective_ids` — so there is no LO×item
-//! matrix here and none is claimed. Primary-topic shortfalls are WARNINGS unless
-//! `--strict-topics` is passed, which is deliberate honesty rather than a floor.
-//! It says nothing about exam pass probability.
-//!
-//! It also cannot decide that the registries themselves are right. If
-//! `domains.toml` omits a module the course teaches, that module is invisible
-//! here and every gate downstream of the registry is confidently wrong together.
-//! The floor moves from *silence* to *every registry objective resolves to a
-//! registered claim, every declared module is stocked, and every exemption is
-//! recorded with a reason* — no further.
+//! It counts approved items, not coverage: forty near-identical approved items
+//! satisfy a floor of one. It reads no stem and no key. `objectives.toml` holds
+//! product outcomes, not per-module LOs. Primary-topic shortfalls WARN unless
+//! `--strict-topics`. A well-formed but wrong `topic_ids` is invisible here.
 //!
 //! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
 //!
-//! `scripts/verify_objectives.py` stays in the tree as the differential oracle
-//! for this port; `tests/diff_verify_objectives.rs` runs BOTH implementations on
-//! every case `scripts/selftest_l7_objectives.sh` exercises, plus the shapes that
-//! suite never reaches, and asserts stdout, stderr and exit code match byte for
-//! byte. A disagreement on any byte fails the port, not the oracle.
-//!
-//! Two consequences, both deliberate and both recorded here rather than made
-//! quietly:
-//!
-//! - **The report goes to stdout and the process exits 1**, not through
-//!   `GateError`. `GateError::report` writes to stderr and maps to exit 2 or 4,
-//!   which the oracle never produces; routing through it would make the two sides
-//!   differ on every RED case. `crate::exit`'s codes are therefore not used by
-//!   this gate's verdict path, exactly as in `verify_orphans`, `verify_bank` and
-//!   `verify_coverage`. `bd-2m9` flips the whole crate later; until then this is
-//!   a knowing, single-file departure from the shared convention.
-//! - This module carries hand-written emulations of CPython behaviour —
-//!   `str.strip`, `repr()` of a `str`, a `float`, a `list` and a `dict`, `int()`
-//!   coercion, truthiness, iteration, `PurePosixPath` normalisation,
-//!   `Path.resolve`, `OSError` rendering, and
-//!   `json.dumps(indent=2, sort_keys=True)` — rather than the idiomatic Rust
-//!   nearest-neighbour, because the acceptance bar is identical bytes and not
-//!   merely an identical verdict. They are duplicated from, not shared with,
-//!   `verify_coverage`: one file per gate is the registration contract
-//!   (`gates/mod.rs`), and reaching into a sibling gate mid-migration would
-//!   couple this port to a file another agent owns.
-//!
-//! ## Modelling the oracle's uncaught exceptions
-//!
-//! Several exotic inputs raise rather than report: a `[[claim]]` array holding
-//! something other than tables (`row.get` on a `str` is an `AttributeError`), a
-//! non-iterable `objective`/`domain`/`domain_min` key, an infinite float where an
-//! integer is expected, a `[[domain_min]]` `module` that passes the `isdigit`
-//! screen but not `int()` (e.g. `"--5"`). CPython flushes whatever was already
-//! printed, writes a traceback to stderr and exits 1. [`Outcome`] models that:
-//! the partial stdout is kept, the exit code is 1, and stderr carries a one-line
-//! description. **stdout and the exit code stay byte-identical on those paths;
-//! the traceback text is the one surface this port does not reproduce**, and the
-//! differential asserts exactly that (equal stdout, equal code, both stderrs
-//! non-empty).
+//! `tests/diff_verify_objectives.rs` asserts stdout, stderr and exit code match
+//! the oracle byte for byte. A disagreement fails the port, not the oracle.
+//! Verdicts go to stdout with exit 1 (not `GateError`) so RED cases stay
+//! identical. CPython emulations live in this file because the bar is bytes.
+//! Uncaught-exception paths keep stdout and the exit code; traceback text is
+//! the one surface this port does not reproduce.
 //!
 //! ## Known residual deviations (none reachable from the live tree)
 //!
@@ -154,9 +125,13 @@ pub const DEFAULT_DOMAINS: &str = "knowledge/domains.toml";
 pub const DEFAULT_BANK: &str = "bank/items";
 pub const DEFAULT_POLICY: &str = "knowledge/bank_policy.toml";
 
-/// The floor this gate applies per required module. The SIZED floors are
-/// `verify_coverage`'s job; this one asks only that the module is not empty.
+/// The floor this gate applies per required module, measured against the
+/// approved pool. The SIZED floors are `verify_coverage`'s job.
 pub const MIN_ITEMS_PER_MODULE: i128 = 1;
+
+/// C1 drawable status. Absent `status` is the `draft` default, not an error.
+pub const APPROVED: &str = "approved";
+pub const KNOWN_STATUSES: &[&str] = &["approved", "draft", "retired"];
 
 /// Report/summary slice widths, mirroring the oracle's `[:n]` literals.
 const MAX_FAILURES: usize = 50;
@@ -886,19 +861,17 @@ fn load_declared_modules(disp: &str) -> H<(BTreeMap<i128, String>, Vec<String>)>
     Ok((declared, errors))
 }
 
-/// `load_exemptions()` — recorded `[[coverage_exempt]]` rows, from the ONE
-/// ledger shared with `verify_coverage.py`.
-///
-/// Every rejection path `continue`s WITHOUT recording the exemption, so a
-/// malformed row leaves its module REQUIRED and the shortfall still reports.
-/// Unlike `verify_coverage`, this oracle GUARDS the policy load, so a malformed
-/// policy is a reported error rather than a raise.
+/// `load_exemptions()` — recorded `[[coverage_exempt]]` rows, same ledger as
+/// `verify_coverage`. A rejected row does not exempt. Absent policy is not an
+/// error: this file only REMOVES modules from the required set, so absence
+/// makes the gate stricter (`m absent policy` asserts `policy=absent`, exit 0).
 fn load_exemptions(
     policy_disp: &str,
     declared: &BTreeMap<i128, String>,
 ) -> H<(BTreeMap<i128, String>, Vec<String>)> {
     let mut errors: Vec<String> = Vec::new();
     let mut exempt: BTreeMap<i128, String> = BTreeMap::new();
+    // ABSENT-OK: an absent ledger holds NOTHING OUT; the gate gets stricter.
     if !Path::new(policy_disp).is_file() {
         return Ok((exempt, errors));
     }
@@ -969,12 +942,10 @@ fn load_exemptions(
     Ok((exempt, errors))
 }
 
-/// `domain_min_drift()` — a `[[domain_min]]` row for a module the registry never
-/// declared. This gate applies its own floor of one item per required module, so
-/// it does not read the sized floors; it reads the file only to say so when the
-/// two sources disagree about which modules exist.
+/// `domain_min_drift()` — a `[[domain_min]]` row for an undeclared module.
 fn domain_min_drift(policy_disp: &str, declared: &BTreeMap<i128, String>) -> H<Vec<String>> {
     let mut errors: Vec<String> = Vec::new();
+    // ABSENT-OK: drift is a property of [[domain_min]] ROWS; a missing file has none.
     if !Path::new(policy_disp).is_file() {
         return Ok(errors);
     }
@@ -1009,14 +980,7 @@ fn domain_min_drift(policy_disp: &str, declared: &BTreeMap<i128, String>) -> H<V
 }
 
 /// `load_items()` — every `*.toml` under the bank dir, in `sorted()` order.
-///
-/// Carries the file-granular anti-vacuous rule bd-0czh added on 2026-08-14 (the
-/// class sweep of bd-2kr): an `items = []` file — or an `items[]` holding
-/// nothing this loop can read as an item — takes the list branch, adds nothing,
-/// and never reaches the `no id or items[]` leg, because `elif` cannot run once
-/// `if` has. Without the extra error a file that was never really checked
-/// reports exactly like one that passed. This port was re-baselined onto the
-/// fixed oracle rather than kept on the fail-open one.
+/// `items = []` (or a non-table list) is RED (bd-0czh): elif cannot run once if has.
 fn load_items(disp: &str) -> (Vec<Item>, Vec<String>) {
     let dir = Path::new(disp);
     let mut errors: Vec<String> = Vec::new();
@@ -1063,6 +1027,16 @@ fn load_items(disp: &str) -> (Vec<Item>, Vec<String>) {
     (loaded, errors)
 }
 
+/// `(is_approved, status_is_known)`. Absent status is C1 `draft`, not an error.
+fn item_status(it: &toml::Table) -> (bool, bool) {
+    match it.get("status") {
+        Some(Value::String(s)) if s == APPROVED => (true, true),
+        None => (false, true),
+        Some(Value::String(s)) => (false, KNOWN_STATUSES.contains(&s.as_str())),
+        Some(_) => (false, false),
+    }
+}
+
 /// `claim_ids_from_registry()`. `row.get` on a non-table is an `AttributeError`
 /// the oracle does not catch.
 fn claim_ids_from_registry(claims: &toml::Table) -> H<BTreeSet<String>> {
@@ -1098,6 +1072,7 @@ struct TopicShortfall {
     domain: Option<Value>,
     have: u64,
     min: i128,
+    scanned: u64,
 }
 
 /// Run the whole check and render the oracle's report.
@@ -1293,71 +1268,120 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
     }
 
     let mut module_counts: BTreeMap<i128, u64> = BTreeMap::new();
+    let mut scanned_module_counts: BTreeMap<i128, u64> = BTreeMap::new();
     let mut topic_item_counts: BTreeMap<String, u64> = BTreeMap::new();
+    let mut scanned_topic_counts: BTreeMap<String, u64> = BTreeMap::new();
     let mut items_with_objective_ids: usize = 0;
+    let mut approved_items_with_objective_ids: usize = 0;
+    let mut approved_n: u64 = 0;
 
     for (fname, it) in &loaded {
         let iid = match it.get("id") {
             Some(v) if py_truthy(v) => py_str_value(v),
             _ => fname.clone(),
         };
+        let (is_approved, status_known) = item_status(it);
+        if is_approved {
+            approved_n += 1;
+        } else if !status_known {
+            errors.push(format!(
+                "{iid}: unknown status {}",
+                py_repr_value(it.get("status"))
+            ));
+        }
         let module = it.get("module");
         match py_int(module) {
-            Ok(mi) => *module_counts.entry(mi).or_insert(0) += 1,
+            Ok(mi) => {
+                *scanned_module_counts.entry(mi).or_insert(0) += 1;
+                if is_approved {
+                    *module_counts.entry(mi).or_insert(0) += 1;
+                }
+            }
             Err(IntErr::Uncaught(m)) => return Err(Halt(m)),
             Err(IntErr::Caught(_)) => {
                 errors.push(format!("{iid}: bad module {}", py_repr_value(module)));
             }
         }
 
-        if let Some(Value::Array(tids)) = it.get("topic_ids") {
-            for t in tids {
-                if let Value::String(s) = t {
-                    let s = py_strip(s);
-                    if !s.is_empty() {
-                        *topic_item_counts.entry(s.to_string()).or_insert(0) += 1;
+        // `tids = it.get("topic_ids") or []`; a truthy non-list is an ERROR.
+        match it.get("topic_ids") {
+            Some(Value::Array(tids)) => {
+                for t in tids {
+                    if let Value::String(s) = t {
+                        let s = py_strip(s);
+                        if !s.is_empty() {
+                            *scanned_topic_counts.entry(s.to_string()).or_insert(0) += 1;
+                            if is_approved {
+                                *topic_item_counts.entry(s.to_string()).or_insert(0) += 1;
+                            }
+                        }
                     }
                 }
             }
+            Some(v) if py_truthy(v) => errors.push(format!(
+                "{iid}: topic_ids is not a list: {}",
+                py_repr_value(Some(v))
+            )),
+            _ => {}
         }
 
-        // `oids = it.get("objective_ids") or []` then `isinstance(list) and oids`.
-        if let Some(Value::Array(oids)) = it.get("objective_ids") {
-            if !oids.is_empty() {
-                items_with_objective_ids += 1;
-                for oid in oids {
-                    let s = match oid {
-                        Value::String(s) if !py_strip(s).is_empty() => py_strip(s).to_string(),
-                        _ => {
-                            errors.push(format!("{iid}: empty objective_ids entry"));
-                            continue;
+        // `oids = it.get("objective_ids") or []`; a truthy non-list is an ERROR.
+        match it.get("objective_ids") {
+            Some(Value::Array(oids)) => {
+                if !oids.is_empty() {
+                    items_with_objective_ids += 1;
+                    if is_approved {
+                        approved_items_with_objective_ids += 1;
+                    }
+                    for oid in oids {
+                        let s = match oid {
+                            Value::String(s) if !py_strip(s).is_empty() => py_strip(s).to_string(),
+                            _ => {
+                                errors.push(format!("{iid}: empty objective_ids entry"));
+                                continue;
+                            }
+                        };
+                        if !known_objectives.contains(&s) {
+                            errors.push(format!(
+                                "{iid}: unknown objective_id {} \
+                                 (not in registries/objectives.toml)",
+                                py_repr(&s)
+                            ));
                         }
-                    };
-                    if !known_objectives.contains(&s) {
-                        errors.push(format!(
-                            "{iid}: unknown objective_id {} \
-                             (not in registries/objectives.toml)",
-                            py_repr(&s)
-                        ));
                     }
                 }
             }
+            Some(v) if py_truthy(v) => errors.push(format!(
+                "{iid}: objective_ids is not a list: {}",
+                py_repr_value(Some(v))
+            )),
+            _ => {}
         }
     }
 
-    let mut domain_shortfalls: Vec<(i128, u64)> = Vec::new();
+    if n_items > 0 && approved_n == 0 {
+        errors.push(format!(
+            "zero approved items ({n_items} scanned): the floors measure a pool no \
+             learner can be assessed from (vacuous coverage is ERROR)"
+        ));
+    }
+
+    let mut domain_shortfalls: Vec<(i128, u64, u64)> = Vec::new();
     for module in &required {
         let have = module_counts.get(module).copied().unwrap_or(0);
+        let seen = scanned_module_counts.get(module).copied().unwrap_or(0);
         if i128::from(have) < MIN_ITEMS_PER_MODULE {
-            errors.push(format!("domain module {module}: {have} items < min 1"));
-            domain_shortfalls.push((*module, have));
+            errors.push(format!(
+                "domain module {module}: {have} approved < min 1 ({seen} scanned, {} not approved)",
+                seen - have
+            ));
+            domain_shortfalls.push((*module, have, seen));
         }
     }
 
     // Modules the bank carries that the registry never declared: REPORTED, not
-    // failed — same as verify_coverage.py. The hard gate on "assessed but
-    // untaught" is smoke_feedback_links.py.
-    let extra_modules: Vec<i128> = module_counts
+    // failed. Drift is the FILE SET (a retired undeclared item is still drift).
+    let extra_modules: Vec<i128> = scanned_module_counts
         .keys()
         .copied()
         .filter(|m| !declared.contains_key(m))
@@ -1418,9 +1442,19 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
 
     let mut uncovered_primary: usize = 0;
     let mut topic_shortfalls: Vec<TopicShortfall> = Vec::new();
-    if !args.skip_topic_coverage && min_topic > 0 && !primary_topics.is_empty() {
+    // Floor is on, or off out loud (bd-9nyt): min 0 is ERROR unless skipped.
+    if !args.skip_topic_coverage && min_topic <= 0 {
+        errors.push(
+            "--min-items-per-topic 0 turns the primary-topic floor off without \
+             saying so (pass --skip-topic-coverage to turn it off on purpose)"
+                .to_string(),
+        );
+    }
+    let topic_floor_ran = !args.skip_topic_coverage && min_topic > 0 && !primary_topics.is_empty();
+    if topic_floor_ran {
         for t in &primary_topics {
             let have = topic_item_counts.get(&t.id).copied().unwrap_or(0);
+            let seen = scanned_topic_counts.get(&t.id).copied().unwrap_or(0);
             if i128::from(have) < min_topic {
                 uncovered_primary += 1;
                 topic_shortfalls.push(TopicShortfall {
@@ -1428,10 +1462,12 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
                     domain: t.domain.clone(),
                     have,
                     min: min_topic,
+                    scanned: seen,
                 });
                 let msg = format!(
-                    "topic {}: {have} items < min {min_topic} (domain={})",
+                    "topic {}: {have} approved < min {min_topic} ({seen} scanned, {} not approved) (domain={})",
                     t.id,
+                    seen - have,
                     py_str_opt(t.domain.as_ref())
                 );
                 if args.strict_topics {
@@ -1441,9 +1477,11 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
                 }
             }
         }
-    } else if primary_topics.is_empty() && Path::new(&topics_disp).is_file() && !declared.is_empty()
-    {
+    } else if primary_topics.is_empty() && !declared.is_empty() {
         // Anti-vacuous: an empty topic set must not pass like a covered one.
+        //
+        // Anti-vacuous (bd-9nyt): no `is_file()` conjunct — the missing-file
+        // case must reach this leg on its own (`tests/anti_vacuous_topics.rs`).
         errors.push("topics.toml has zero topics in a required domain".to_string());
     }
 
@@ -1472,18 +1510,30 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
     }
 
     // ── Report (composed once; the verdict is decided last) ────────────────
+    // `mode` names what the floor ACTUALLY did, not what the flags asked for.
+    // `off` is its own word because `mode=strict shortfalls=0` after zero
+    // comparisons is the single most misleading string this gate can print.
     let topic_mode = if args.skip_topic_coverage {
         "skipped"
+    } else if min_topic <= 0 {
+        "off"
     } else if args.strict_topics {
         "strict"
     } else {
         "soft-warn"
+    };
+    // `n/a` when the floor did not run — not a number no comparison produced.
+    let covered_word = if topic_floor_ran {
+        (primary_topics.len() - uncovered_primary).to_string()
+    } else {
+        "n/a".to_string()
     };
     let mut body: Vec<String> = vec![
         "  gate=l7-objective-coverage".to_string(),
         format!("  objectives={objectives_disp}"),
         format!("  claims={claims_disp}"),
         format!("  registry={domains_disp} declares={}", declared.len()),
+        // ABSENT-OK: REPORTING, NOT A VERDICT. `absent` is the strict ledger.
         format!(
             "  policy={}",
             if Path::new(&policy_disp).is_file() {
@@ -1493,56 +1543,64 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
             }
         ),
         format!("  bank={bank_disp}"),
-        format!("  items={n_items}"),
+        format!(
+            "  items={n_items} scanned, {approved_n} approved (floors count the approved pool only)"
+        ),
         format!(
             "  registry_objectives={} claim_resolve_ok={obj_claim_ok}",
             obj_ids.len()
         ),
         format!("  known_claims={}", known_claims.len()),
         format!(
-            "  modules ({} required, derived from {}; min 1 item each):",
+            "  modules ({} required, derived from {}; min 1 approved item each):",
             required.len(),
             path_name(&domains_disp)
         ),
     ];
     for module in &required {
         let have = module_counts.get(module).copied().unwrap_or(0);
+        let seen = scanned_module_counts.get(module).copied().unwrap_or(0);
         let flag = if i128::from(have) >= MIN_ITEMS_PER_MODULE && n_items > 0 {
             "ok"
         } else {
             "SHORT"
         };
-        body.push(format!("    m{module:02}: {have} [{flag}]"));
+        body.push(format!(
+            "    m{module:02}: {have} approved of {seen} scanned (min 1) [{flag}]"
+        ));
     }
     if !exempt.is_empty() {
         body.push("  recorded exemptions (bank_policy.toml [[coverage_exempt]]):".to_string());
         for (module, reason) in &exempt {
             let have = module_counts.get(module).copied().unwrap_or(0);
-            body.push(format!("    m{module:02}: {have} — exempt: {reason}"));
+            let seen = scanned_module_counts.get(module).copied().unwrap_or(0);
+            body.push(format!(
+                "    m{module:02}: {have} approved of {seen} scanned — exempt: {reason}"
+            ));
         }
     }
     if !extra_modules.is_empty() {
         body.push("  undeclared modules present in the bank (not required for green):".to_string());
         for module in &extra_modules {
-            let have = module_counts.get(module).copied().unwrap_or(0);
+            let seen = scanned_module_counts.get(module).copied().unwrap_or(0);
             body.push(format!(
-                "    m{module:02}: {have} (not in the domain registry)"
+                "    m{module:02}: {seen} scanned (not in the domain registry)"
             ));
         }
     }
     body.push(format!(
-        "  primary_topics={} covered={} shortfalls={uncovered_primary} \
+        "  primary_topics={} covered={covered_word} shortfalls={uncovered_primary} \
          min_per_topic={min_topic} mode={topic_mode}",
         primary_topics.len(),
-        primary_topics.len() - uncovered_primary
     ));
     body.push(format!(
         "  exempt_domain_topics={} uncovered={optional_uncovered} (not required)",
         optional_topics.len()
     ));
     body.push(format!(
-        "  bank_items_with_objective_ids={items_with_objective_ids} \
-         (of {n_items}; product-level objectives, not per-module LOs)"
+        "  bank_items_with_objective_ids={approved_items_with_objective_ids} approved \
+         of {items_with_objective_ids} scanned \
+         (of {n_items} scanned, {approved_n} approved; product-level objectives, not per-module LOs)"
     ));
     body.push(
         "  gap: no full LO×item matrix — objectives.toml is product outcomes + claim_ids"
@@ -1577,21 +1635,25 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
             provisional,
             &bank_rel,
             n_items,
+            approved_n,
             &path_name(&domains_disp),
             &declared,
             &required,
             &exempt,
             &module_counts,
+            &scanned_module_counts,
             &extra_modules,
             &domain_shortfalls,
             &obj_ids,
             obj_claim_ok,
             known_claims.len(),
             primary_topics.len(),
+            topic_floor_ran,
             &topic_shortfalls,
             uncovered_primary,
             optional_uncovered,
             items_with_objective_ids,
+            approved_items_with_objective_ids,
             min_topic,
             args,
             topic_mode,
@@ -1673,21 +1735,25 @@ fn summary_json(
     status: &str,
     bank_rel: &str,
     n_items: usize,
+    approved_n: u64,
     module_source: &str,
     declared: &BTreeMap<i128, String>,
     required: &[i128],
     exempt: &BTreeMap<i128, String>,
     module_counts: &BTreeMap<i128, u64>,
+    scanned_module_counts: &BTreeMap<i128, u64>,
     extra_modules: &[i128],
-    domain_shortfalls: &[(i128, u64)],
+    domain_shortfalls: &[(i128, u64, u64)],
     obj_ids: &[String],
     obj_claim_ok: usize,
     known_claims: usize,
     primary_topics: usize,
+    topic_floor_ran: bool,
     topic_shortfalls: &[TopicShortfall],
     uncovered_primary: usize,
     optional_uncovered: usize,
     items_with_objective_ids: usize,
+    approved_items_with_objective_ids: usize,
     min_topic: i128,
     args: &Args,
     topic_mode: &str,
@@ -1704,15 +1770,17 @@ fn summary_json(
             ("domain".into(), json_of_value(s.domain.as_ref())?),
             ("have".into(), J::Int(i128::from(s.have))),
             ("min".into(), J::Int(s.min)),
+            ("scanned".into(), J::Int(i128::from(s.scanned))),
         ]));
     }
 
     Ok(J::Obj(vec![
-        ("schema_version".into(), J::Int(2)),
+        ("schema_version".into(), J::Int(3)),
         ("gate".into(), J::Str("l7-objective-coverage".into())),
         ("status".into(), J::Str(status.to_lowercase())),
         ("bank".into(), J::Str(bank_rel.to_string())),
         ("item_count".into(), J::Int(n_items as i128)),
+        ("approved_count".into(), J::Int(i128::from(approved_n))),
         ("module_source".into(), J::Str(module_source.to_string())),
         (
             "declared_modules".into(),
@@ -1752,6 +1820,22 @@ fn summary_json(
             ),
         ),
         (
+            "scanned_counts".into(),
+            J::Obj(
+                required
+                    .iter()
+                    .map(|m| {
+                        (
+                            m.to_string(),
+                            J::Int(i128::from(
+                                scanned_module_counts.get(m).copied().unwrap_or(0),
+                            )),
+                        )
+                    })
+                    .collect(),
+            ),
+        ),
+        (
             "extra_counts".into(),
             J::Obj(
                 extra_modules
@@ -1759,7 +1843,9 @@ fn summary_json(
                     .map(|m| {
                         (
                             m.to_string(),
-                            J::Int(i128::from(module_counts.get(m).copied().unwrap_or(0))),
+                            J::Int(i128::from(
+                                scanned_module_counts.get(m).copied().unwrap_or(0),
+                            )),
                         )
                     })
                     .collect(),
@@ -1770,17 +1856,26 @@ fn summary_json(
             J::List(
                 domain_shortfalls
                     .iter()
-                    .map(|(m, have)| {
+                    .map(|(m, have, seen)| {
                         J::Obj(vec![
                             ("module".into(), J::Int(*m)),
                             ("have".into(), J::Int(i128::from(*have))),
                             ("min".into(), J::Int(MIN_ITEMS_PER_MODULE)),
+                            ("scanned".into(), J::Int(i128::from(*seen))),
                         ])
                     })
                     .collect(),
             ),
         ),
+        (
+            "items_with_objective_ids_approved".into(),
+            J::Int(approved_items_with_objective_ids as i128),
+        ),
         ("primary_topics".into(), J::Int(primary_topics as i128)),
+        // Whether the comparison RAN. A consumer reading
+        // primary_topic_shortfall_count == 0 without this cannot tell a clean
+        // floor from a floor that was never applied.
+        ("topic_floor_ran".into(), J::Bool(topic_floor_ran)),
         ("primary_topic_shortfalls".into(), J::List(shortfall_rows)),
         (
             "primary_topic_shortfall_count".into(),

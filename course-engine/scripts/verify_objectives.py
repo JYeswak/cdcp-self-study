@@ -16,7 +16,8 @@ What this gates (product-true today):
      the same one verify_coverage.py derives its floors from, and the same one
      bank_policy.toml's [[domain_min]] rows are keyed against. It is not a
      range literal.
-   - every required module has ≥1 bank item (module field); empty bank = ERROR
+   - every required module has ≥1 APPROVED bank item (module field); empty
+     bank = ERROR; a bank of files with zero approved items is a distinct ERROR
    - a module may be held out ONLY by a recorded
      `[[coverage_exempt]] module = N, reason = "…"` row in
      knowledge/bank_policy.toml — the same one ledger verify_coverage.py reads.
@@ -24,8 +25,8 @@ What this gates (product-true today):
      a [[domain_min]] floor, is an ERROR, not an exemption.
 
 3. Topic coverage via bank topic_ids (practical / soft by default)
-   - Count how many topics.toml rows in a REQUIRED domain have ≥ min items via
-     bank topic_ids; report shortfalls always.
+   - Count how many topics.toml rows in a REQUIRED domain have ≥ min APPROVED
+     items via bank topic_ids; report shortfalls always.
    - Default: shortfalls are WARNINGS (not RED) — full topic×item matrix is
      incomplete / not the same as product objectives. Use --strict-topics to
      hard-fail on primary-topic shortfalls when that floor is intentional.
@@ -33,7 +34,12 @@ What this gates (product-true today):
    - A topic whose domain the registry never declared is cross-source DRIFT and
      an ERROR: the two sources disagreeing about which modules exist is exactly
      how module 15 came to be assessed without being taught.
-   - Vacuous: topics.toml with zero primary topics = ERROR when file present.
+   - Vacuous: zero primary topics = ERROR, whatever the reason — a missing file,
+     an empty one, or one whose topics all sit outside the required domains.
+   - A present-but-unreadable `topic_ids` / `objective_ids` on a bank item (a
+     bare string where a list belongs) is an ERROR, not an untagged item.
+   - The floor is on, or it is off out loud: `--min-items-per-topic 0` is an
+     ERROR unless `--skip-topic-coverage` says the floor is off on purpose.
 
 ## Why the derivation, and not `range(1, 15)` (bd-lt7)
 
@@ -54,14 +60,43 @@ it compares the registry against itself. It is replaced by drift checks that
 the registry can actually correct — an undeclared [[domain_min]] row, a topic in
 an undeclared domain — and by the anti-vacuous floor below.
 
+## WHICH POOL THE FLOOR MEASURES (bd-objectives-counts-retired-items-f996)
+
+MIN_ITEMS_PER_MODULE and `--min-items-per-topic` are measured against the
+**approved** pool — `status == "approved"` — never against the file set. C1
+restricts assembly to approved items (`cdcp_assemble::sample_item_ids`), so a
+floor counted over every file is a floor over a population no learner is ever
+assessed from, and it fails OPEN: the file count can only ever be >= the number
+that matters.
+
+Until 2026-08-14 this gate counted files. Measured that day: 804 files, 779
+approved, 25 retired, no module or topic entirely retired, so there was no
+incident — the same status bd-8exw / bd-coverage-counts-retired-items-49jh had.
+A status outside `approved`/`draft`/`retired` is an ERROR naming the item, not
+a silent drop into "not approved". An absent status is the C1 `draft` default.
+
+Every printed count names both populations (`N scanned, M approved`). Drift
+(undeclared modules present in the bank) is still a property of the FILE SET:
+a retired item under a module the registry never declared is still drift.
+
 ## Anti-vacuous
 
 Zero declared modules, zero required modules after exemptions, zero bank items,
-zero objectives, or a missing/unparseable domain registry are each an ERROR. An
-empty scan set must never report like a scan that ran and came back clean. That
-rule holds at FILE granularity too: a single bank file whose `items[]` yields
-zero items is named and is RED, because the aggregate count would otherwise stay
+zero APPROVED items, zero objectives, or a missing/unparseable domain registry
+are each an ERROR. Zero approved is named separately from the empty-bank leg
+because it is the exact state a file-counting floor reported green on. An empty
+scan set must never report like a scan that ran and came back clean. That rule
+holds at FILE granularity too: a single bank file whose `items[]` yields zero
+items is named and is RED, because the aggregate count would otherwise stay
 healthy on the strength of the files around it (bd-0czh).
+
+It holds at COMPARISON granularity as well (bd-9nyt). The anti-vacuous topic leg
+used to require `topics_path.is_file()` — a defence that could not fire in the
+case it names, standing down in favour of a neighbouring check it does not know
+about. It no longer does. And `--min-items-per-topic 0` used to skip every topic
+comparison while the report printed `covered=<all> shortfalls=0 mode=strict`; it
+is now an ERROR unless the floor is turned off with the flag that says so, and
+`covered=` prints `n/a` rather than a number no comparison produced.
 
 ## Verdict discipline
 
@@ -117,6 +152,14 @@ DEFAULT_TOPICS = ROOT / "knowledge" / "topics.toml"
 DEFAULT_DOMAINS = ROOT / "knowledge" / "domains.toml"
 DEFAULT_BANK = ROOT / "bank" / "items"
 DEFAULT_POLICY = ROOT / "knowledge" / "bank_policy.toml"
+
+# C1 lifecycle. APPROVED is the ONLY status cdcp_assemble may draw, so it is
+# the only population a floor may be measured against. A missing status is
+# draft by C1's default — silence never publishes — and anything outside this
+# set is an ERROR rather than a guess.
+APPROVED = "approved"
+KNOWN_STATUSES = ("approved", "draft", "retired")
+MIN_ITEMS_PER_MODULE = 1
 
 
 def load_toml(path: Path) -> dict:
@@ -178,9 +221,28 @@ def load_exemptions(
     A row without a non-empty reason, for an undeclared module, or contradicting
     an explicit [[domain_min]] floor, is an ERROR — the escape hatch may not be
     quieter than the rule it escapes.
+
+    WHY AN ABSENT POLICY FILE IS NOT AN ERROR HERE (the one unreasoned early
+    return in the bd-9nyt sweep, now reasoned). This file's only effect on THIS
+    gate is to REMOVE modules from the required set. Absence therefore yields an
+    empty ledger, every declared module stays required, and the gate gets
+    STRICTER — it cannot hide a shortfall by not being there. That is the exact
+    opposite of the absent-input-reads-as-success class, and it is why this
+    return is a legitimate option rather than a hole. It is asserted, not merely
+    asserted-in-prose: `m absent policy` in tests/diff_verify_objectives.rs runs
+    the live tree with --policy pointed at a non-existent file and requires
+    `policy=absent` with exit 0.
+
+    NOT TRUE OF EVERY READER OF THIS FILE: verify_coverage.py reads the same
+    policy for its SIZED floors, where absence would lower them. Absence being
+    safe is a property of what this gate does with the rows, not of the file.
     """
     errors: list[str] = []
     exempt: dict[int, str] = {}
+    # ABSENT-OK: an absent ledger holds NOTHING OUT, so every declared module
+    # stays required and this gate gets stricter, never quieter. See the
+    # docstring for why that is a property of what this gate does with the rows
+    # rather than of the file, and `m absent policy` for the assertion.
     if not policy_path.is_file():
         return exempt, errors
     try:
@@ -236,8 +298,14 @@ def domain_min_drift(policy_path: Path, declared: dict[int, str]) -> list[str]:
     floors are verify_coverage.py's job — but it reads the same policy file for
     exemptions, so it says so when the two sources disagree about which modules
     exist. That disagreement is how module 15 came to be assessed but untaught.
+
+    An absent policy file returns no drift for the same reason load_exemptions
+    tolerates it: drift here is a property of [[domain_min]] ROWS, and a file
+    that is not there has none. There is nothing this early return can hide.
     """
     errors: list[str] = []
+    # ABSENT-OK: drift is a property of [[domain_min]] ROWS. A file that is not
+    # there has none, so there is no disagreement this return can hide.
     if not policy_path.is_file():
         return errors
     try:
@@ -485,53 +553,100 @@ def main(argv: list[str] | None = None) -> int:
         errors.append("empty bank: zero items loaded (vacuous coverage is ERROR)")
 
     module_counts: Counter[int] = Counter()
+    scanned_module_counts: Counter[int] = Counter()
     topic_item_counts: Counter[str] = Counter()
-    objective_item_counts: Counter[str] = Counter()
+    scanned_topic_counts: Counter[str] = Counter()
     items_with_objective_ids = 0
+    approved_items_with_objective_ids = 0
+    approved_n = 0
 
     for fname, it in loaded:
         iid = it.get("id") or fname
+        # `it.get("status", "draft")`: absent is the C1 default, not an error.
+        status = it.get("status", "draft")
+        is_approved = status == APPROVED
+        if is_approved:
+            approved_n += 1
+        elif status not in KNOWN_STATUSES:
+            errors.append(f"{iid}: unknown status {status!r}")
         mod = it.get("module")
         try:
             mi = int(mod)
-            module_counts[mi] += 1
+            scanned_module_counts[mi] += 1
+            if is_approved:
+                module_counts[mi] += 1
         except (TypeError, ValueError):
             errors.append(f"{iid}: bad module {mod!r}")
 
+        # bd-9nyt sweep. `if isinstance(tids, list):` used to have NO else: an
+        # item spelling `topic_ids = "t-01"` instead of `["t-01"]` contributed
+        # ZERO to every topic tally and said nothing about it. The tags were
+        # read as absent, the topics they name went uncovered, and the shortfall
+        # only soft-warns — so a mistyped item was quieter than an untagged one.
+        # A field that is present and unreadable is an ERROR, not an absence.
         tids = it.get("topic_ids") or []
         if isinstance(tids, list):
             for t in tids:
                 if isinstance(t, str) and t.strip():
-                    topic_item_counts[t.strip()] += 1
+                    key = t.strip()
+                    scanned_topic_counts[key] += 1
+                    if is_approved:
+                        topic_item_counts[key] += 1
+        else:
+            errors.append(f"{iid}: topic_ids is not a list: {tids!r}")
 
+        # Same shape on the objective side, where it was quieter still: a
+        # non-list objective_ids skipped BOTH the id resolution below and the
+        # items_with_objective_ids tally the report prints, so the item read as
+        # one that had simply not been tagged.
         oids = it.get("objective_ids") or []
-        if isinstance(oids, list) and oids:
+        if not isinstance(oids, list):
+            errors.append(f"{iid}: objective_ids is not a list: {oids!r}")
+        elif oids:
             items_with_objective_ids += 1
+            if is_approved:
+                approved_items_with_objective_ids += 1
             for oid in oids:
                 if not isinstance(oid, str) or not oid.strip():
                     errors.append(f"{iid}: empty objective_ids entry")
                     continue
                 oid = oid.strip()
-                objective_item_counts[oid] += 1
                 if oid not in known_objectives:
                     errors.append(
                         f"{iid}: unknown objective_id {oid!r} "
                         f"(not in registries/objectives.toml)"
                     )
 
+    # A bank FULL of files and empty of drawable items is the exact state a
+    # file-counting floor reported green on. Named separately from the
+    # empty-bank leg because it is a different failure with the same verdict.
+    if n_items > 0 and approved_n == 0:
+        errors.append(
+            f"zero approved items ({n_items} scanned): the floors measure a pool no "
+            "learner can be assessed from (vacuous coverage is ERROR)"
+        )
+
     domain_shortfalls: list[dict] = []
     for mod in required:
         have = module_counts.get(mod, 0)
-        if have < 1:
-            msg = f"domain module {mod}: {have} items < min 1"
+        seen = scanned_module_counts.get(mod, 0)
+        if have < MIN_ITEMS_PER_MODULE:
+            msg = (
+                f"domain module {mod}: {have} approved < min {MIN_ITEMS_PER_MODULE} "
+                f"({seen} scanned, {seen - have} not approved)"
+            )
             errors.append(msg)
-            domain_shortfalls.append({"module": mod, "have": have, "min": 1})
+            domain_shortfalls.append(
+                {"module": mod, "have": have, "min": MIN_ITEMS_PER_MODULE, "scanned": seen}
+            )
 
     # Modules the bank carries that the registry never declared: reported, not
-    # failed — same as verify_coverage.py. The hard gate on "assessed but
-    # untaught" is smoke_feedback_links.py, which fails any item on a real form
-    # whose module has no Learn surface.
-    extra_modules = sorted(m for m in module_counts if m not in declared)
+    # failed — same as verify_coverage.py. Drift is a property of the FILE SET,
+    # not of the drawable pool: a retired item under an undeclared module is
+    # still drift. The hard gate on "assessed but untaught" is
+    # smoke_feedback_links.py, which fails any item on a real form whose
+    # module has no Learn surface.
+    extra_modules = sorted(m for m in scanned_module_counts if m not in declared)
 
     # --- 4) Topic coverage (required domains) ---
     topics: list[dict] = []
@@ -568,10 +683,27 @@ def main(argv: list[str] | None = None) -> int:
             undeclared_topic_domains.append(f"{tid} (domain={dom!r})")
 
     uncovered_primary = 0
-    if not args.skip_topic_coverage and min_topic > 0 and primary_topics:
+    # THE FLOOR IS ON, OR IT IS OFF OUT LOUD (bd-9nyt). `--min-items-per-topic 0`
+    # — and every negative, which max(0, …) clamps to 0 — used to fall straight
+    # through the guard below: not one topic was compared, uncovered_primary
+    # stayed 0, and the report printed `covered=<all> shortfalls=0 mode=strict`
+    # and exited 0. A coverage number computed from a comparison that never ran
+    # is worse than no number. Turning the floor off is a legitimate thing to
+    # want; --skip-topic-coverage is the flag that says so, and it makes the
+    # report say `mode=skipped` instead of naming a mode it is not in.
+    if not args.skip_topic_coverage and min_topic <= 0:
+        errors.append(
+            "--min-items-per-topic 0 turns the primary-topic floor off without "
+            "saying so (pass --skip-topic-coverage to turn it off on purpose)"
+        )
+    topic_floor_ran = bool(
+        not args.skip_topic_coverage and min_topic > 0 and primary_topics
+    )
+    if topic_floor_ran:
         for t in primary_topics:
             tid = str(t["id"]).strip()
             have = topic_item_counts.get(tid, 0)
+            seen = scanned_topic_counts.get(tid, 0)
             if have < min_topic:
                 uncovered_primary += 1
                 topic_shortfalls.append(
@@ -580,19 +712,36 @@ def main(argv: list[str] | None = None) -> int:
                         "domain": t.get("domain"),
                         "have": have,
                         "min": min_topic,
+                        "scanned": seen,
                     }
                 )
                 msg = (
-                    f"topic {tid}: {have} items < min {min_topic} "
+                    f"topic {tid}: {have} approved < min {min_topic} "
+                    f"({seen} scanned, {seen - have} not approved) "
                     f"(domain={t.get('domain')})"
                 )
                 if args.strict_topics:
                     errors.append(msg)
                 else:
                     warnings.append(msg)
-    elif not primary_topics and topics_path.is_file() and declared:
-        # topics file exists but zero topics in a required domain = ERROR
-        # (anti-vacuous: an empty topic set must not pass like a covered one)
+    elif not primary_topics and declared:
+        # Anti-vacuous: an empty topic set must not pass like a covered one.
+        #
+        # THE `topics_path.is_file()` CONJUNCT THAT USED TO BE HERE IS GONE
+        # (bd-9nyt). This is the branch that exists to catch "no topic was ever
+        # checked", and it was spelled so that it could not fire in the loudest
+        # way that happens — the file not being there at all. It was harmless
+        # only because the load above independently reports `missing topics
+        # registry`, i.e. the defence was standing down in favour of a check it
+        # does not name, cannot see, and would not notice the removal of. A
+        # defence whose reachability depends on a neighbour is not a defence; it
+        # is a comment. crates/cdcp_gate/tests/anti_vacuous_topics.rs deletes
+        # that neighbour and requires this leg to hold the line alone.
+        #
+        # When both fire, the two lines are two independent findings — the file
+        # is missing AND nothing was checked — not one duplicated one. `declared`
+        # stays because a registry that declares nothing has already reported
+        # that, and would otherwise put a second name on the same fact.
         errors.append("topics.toml has zero topics in a required domain")
 
     # Topics in a RECORDED-EXEMPT domain: report only, never required.
@@ -601,7 +750,7 @@ def main(argv: list[str] | None = None) -> int:
         tid = str(t.get("id") or "").strip()
         if not tid:
             continue
-        if topic_item_counts.get(tid, 0) < 1:
+        if topic_item_counts.get(tid, 0) < MIN_ITEMS_PER_MODULE:
             optional_uncovered += 1
 
     # Drift is only meaningful against a registry that loaded; a missing or
@@ -617,46 +766,73 @@ def main(argv: list[str] | None = None) -> int:
             )
 
     # --- Report (composed once; the verdict is decided last) ---
+    # `mode` names what the floor ACTUALLY did, not what the flags asked for.
+    # `off` is its own word because `mode=strict shortfalls=0` after zero
+    # comparisons is the single most misleading string this gate can print.
     topic_mode = (
         "skipped"
         if args.skip_topic_coverage
-        else ("strict" if args.strict_topics else "soft-warn")
+        else ("off" if min_topic <= 0 else ("strict" if args.strict_topics else "soft-warn"))
     )
+    # A coverage count is printed only when a comparison produced it. `n/a` is
+    # the honest reading of "the floor did not run", and it is deliberately not
+    # a number, so nothing downstream can average it into a score.
+    covered_word = str(len(primary_topics) - uncovered_primary) if topic_floor_ran else "n/a"
     body: list[str] = [
         "  gate=l7-objective-coverage",
         f"  objectives={objectives_path}",
         f"  claims={claims_path}",
         f"  registry={domains_path} declares={len(declared)}",
+        # ABSENT-OK: REPORTING, NOT A VERDICT. The one path test here whose
+        # answer changes no check: `absent` means an empty exemption ledger,
+        # which is the STRICT direction (see load_exemptions). It is printed so a
+        # reader can tell "no module was held out" from "the ledger was not
+        # read", and it is checked by `m absent policy` in the differential.
         f"  policy={'present' if policy_path.is_file() else 'absent'}",
         f"  bank={bank_dir}",
-        f"  items={n_items}",
+        f"  items={n_items} scanned, {approved_n} approved "
+        f"(floors count the approved pool only)",
         f"  registry_objectives={len(obj_ids)} claim_resolve_ok={obj_claim_ok}",
         f"  known_claims={len(known_claims)}",
         f"  modules ({len(required)} required, derived from {domains_path.name}; "
-        f"min 1 item each):",
+        f"min 1 approved item each):",
     ]
     for mod in required:
         have = module_counts.get(mod, 0)
-        flag = "ok" if have >= 1 and n_items > 0 else "SHORT"
-        body.append(f"    m{mod:02d}: {have} [{flag}]")
+        seen = scanned_module_counts.get(mod, 0)
+        flag = "ok" if have >= MIN_ITEMS_PER_MODULE and n_items > 0 else "SHORT"
+        body.append(
+            f"    m{mod:02d}: {have} approved of {seen} scanned "
+            f"(min {MIN_ITEMS_PER_MODULE}) [{flag}]"
+        )
     if exempt:
         body.append("  recorded exemptions (bank_policy.toml [[coverage_exempt]]):")
         for mod in sorted(exempt):
-            body.append(f"    m{mod:02d}: {module_counts.get(mod, 0)} — exempt: {exempt[mod]}")
+            have = module_counts.get(mod, 0)
+            seen = scanned_module_counts.get(mod, 0)
+            body.append(
+                f"    m{mod:02d}: {have} approved of {seen} scanned "
+                f"— exempt: {exempt[mod]}"
+            )
     if extra_modules:
         body.append("  undeclared modules present in the bank (not required for green):")
         for mod in extra_modules:
-            body.append(f"    m{mod:02d}: {module_counts[mod]} (not in the domain registry)")
+            body.append(
+                f"    m{mod:02d}: {scanned_module_counts[mod]} scanned "
+                f"(not in the domain registry)"
+            )
     body.extend(
         [
             f"  primary_topics={len(primary_topics)} "
-            f"covered={len(primary_topics) - uncovered_primary} "
+            f"covered={covered_word} "
             f"shortfalls={uncovered_primary} "
             f"min_per_topic={min_topic} mode={topic_mode}",
             f"  exempt_domain_topics={len(optional_topics)} "
             f"uncovered={optional_uncovered} (not required)",
-            f"  bank_items_with_objective_ids={items_with_objective_ids} "
-            f"(of {n_items}; product-level objectives, not per-module LOs)",
+            f"  bank_items_with_objective_ids={approved_items_with_objective_ids} approved "
+            f"of {items_with_objective_ids} scanned "
+            f"(of {n_items} scanned, {approved_n} approved; "
+            f"product-level objectives, not per-module LOs)",
             "  gap: no full LO×item matrix — objectives.toml is product outcomes + claim_ids",
             "  note: coverage ≠ exam pass probability; study signal only",
         ]
@@ -677,11 +853,16 @@ def main(argv: list[str] | None = None) -> int:
 
     def summary_for(status_word: str) -> dict:
         return {
-            "schema_version": 2,
+            # v3: `domain_counts` changed population. It was the file set and is
+            # now the APPROVED pool — a semantic change no consumer could detect
+            # from the numbers alone, so the version moves with it. `item_count`
+            # keeps its old meaning (everything scanned).
+            "schema_version": 3,
             "gate": "l7-objective-coverage",
             "status": status_word.lower(),
             "bank": bank_rel,
             "item_count": n_items,
+            "approved_count": approved_n,
             "module_source": domains_path.name,
             "declared_modules": sorted(declared),
             "required_modules": required,
@@ -693,9 +874,15 @@ def main(argv: list[str] | None = None) -> int:
             },
             "known_claims": len(known_claims),
             "domain_counts": {str(m): module_counts.get(m, 0) for m in required},
-            "extra_counts": {str(m): module_counts[m] for m in extra_modules},
+            "scanned_counts": {str(m): scanned_module_counts.get(m, 0) for m in required},
+            "extra_counts": {str(m): scanned_module_counts[m] for m in extra_modules},
             "domain_shortfalls": domain_shortfalls,
+            "items_with_objective_ids_approved": approved_items_with_objective_ids,
             "primary_topics": len(primary_topics),
+            # Whether the comparison RAN. A consumer reading
+            # primary_topic_shortfall_count == 0 without this cannot tell a
+            # clean floor from a floor that was never applied.
+            "topic_floor_ran": topic_floor_ran,
             "primary_topic_shortfalls": topic_shortfalls[:100],
             "primary_topic_shortfall_count": uncovered_primary,
             "exempt_domain_topics_uncovered": optional_uncovered,
