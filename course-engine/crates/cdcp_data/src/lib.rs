@@ -14,18 +14,34 @@
 //! OSHA / eCFR extracts (E3) live in [`osha`]: the 1910.147(a)(1)(ii)(D)
 //! exclusion is a first-class fact, and concurrent maintainability is
 //! the 1910.333 isolation constraint.
+//!
+//! The F3 differential harness lives in [`oracle`]: computed free-cooling
+//! hours, seismic design values and grid carbon intensity versus published
+//! references. Disagreement beyond a pre-declared tolerance is RED.
 #![forbid(unsafe_code)]
 
 mod data_lock;
+mod oracle;
 mod osha;
+mod quantities;
 pub use data_lock::{
     load_pins_from_disk, parse_data_section, referenced_data_paths, selftest_flip_one_byte,
     verify_data_lock, DataLockReport, DATA_SECTION, LOCK_REL, SNAPSHOTS_REL,
+};
+pub use oracle::{
+    agrees, check_oracle, check_oracle_with, compiled_references, parse_references,
+    perturb_one_tolerance, Comparison, Location, OracleError, OracleReport, PublishedRef, Quantity,
+    ReferenceLedger, Tolerance, ANTI_VACUOUS_LOCATIONS, ANTI_VACUOUS_REFS, COMPILED_REFERENCES,
+    COMPILED_REFERENCES_ORIGIN, DISAGREEMENT, SNAP_EGRID, SNAP_TMY3, SNAP_USGS,
 };
 pub use osha::{
     check_osha, check_osha_with, cites_147_as_electrical_loto_authority, IsolationConstraint,
     OshaFault, OshaReport, BACKFEED_TEST, CONTROL_DEVICES_NOT_ISOLATION, DEENERGIZE_FIRST,
     EXCLUSION_147, ISOLATION_CONSTRAINTS, SNAP_147, SNAP_269, SNAP_333,
+};
+pub use quantities::{
+    degree_days, free_cooling_hours, grid_co2_lb_per_mwh, interpolate_seismic, QuantityError,
+    Seismic, DEGREE_DAY_BASE_C, FREE_COOLING_THRESHOLD_C, LB_PER_SHORT_TON,
 };
 
 use cdcp_evidence::{may_load, parse_meta_toml, resolve_engine_root, LicenceFault};
@@ -461,6 +477,14 @@ mod unit {
             !include_str!("osha.rs").contains("unsafe "),
             "no unsafe token in osha.rs"
         );
+        assert!(
+            !include_str!("oracle.rs").contains("unsafe "),
+            "no unsafe token in oracle.rs"
+        );
+        assert!(
+            !include_str!("quantities.rs").contains("unsafe "),
+            "no unsafe token in quantities.rs"
+        );
     }
 
     #[test]
@@ -506,6 +530,7 @@ mod unit {
     #[test]
     fn production_has_no_socket_or_client() {
         let src = production_src();
+        let extra = [include_str!("oracle.rs"), include_str!("quantities.rs")];
         for needle in [
             "TcpStream",
             "UdpSocket",
@@ -515,6 +540,9 @@ mod unit {
             "ToSocketAddrs",
         ] {
             assert!(!src.contains(needle), "production mentions {needle}");
+            for (i, extra_src) in extra.iter().enumerate() {
+                assert!(!extra_src.contains(needle), "module {i} mentions {needle}");
+            }
         }
     }
 

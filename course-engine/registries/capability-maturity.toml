@@ -94,21 +94,23 @@ evidence = [
 ]
 
 # ── L3 ─────────────────────────────────────────────────────────────────────
-# The row this whole ledger was built around. Keep it. The gate compiles its id
-# in as REQUIRED: deleting the record of the failure is not a way to pass.
+# Raised absent → proven-to-trip 2026-08-15 when F3 landed. The row stays
+# REQUIRED: deleting the record of the old failure is still not a way to pass.
+# Bank keys remain unchecked; this row is about computed site quantities.
 [[capability]]
 id = "l3.external-oracle-factual"
 title = "External oracle for factual content"
-level = "absent"
+level = "proven-to-trip"
 owner = "josh"
-last_review = "2026-08-14"
-claim = "NO. No reference implementation, spec suite or corpus outside this project checks whether the bank's answer keys are correct about data centres; a wrong key is invisible to every step of check.sh. Route to a real one is PLAN §F — computed quantities compared against published reference values from public datasets we do not control."
-charter_claim = { file = "CHARTER.md", row = "L3 External oracle (factual content)", status = "NO" }
+last_review = "2026-08-15"
+claim = "Computed free-cooling hours, seismic design values and grid carbon intensity for >=5 published locations are compared against independent published references with pre-declared tolerances; disagreement is RED and names location, computed, reference and delta. Bank keys remain unchecked."
+charter_claim = { file = "CHARTER.md", row = "L3 External oracle (factual content)", status = "YES · test-backed" }
 evidence = [
-  { kind = "contract", ref = "CHARTER.md" },
-  { kind = "contract", ref = "docs/PLAN-A-TO-Z.md" },
-  { kind = "contract", ref = ".flywheel/CHARTER.md" },
-  { kind = "commit", ref = "467b429" },
+  { kind = "test", ref = "crates/cdcp_data/tests/oracle.rs::published_references_match_or_red" },
+  { kind = "known_bad", ref = "crates/cdcp_data/tests/oracle.rs::perturb_one_tolerance_unit_is_red" },
+  { kind = "known_bad", ref = "crates/cdcp_data/tests/oracle.rs::zero_reference_locations_is_error" },
+  { kind = "contract", ref = "crates/cdcp_data/references.toml" },
+  { kind = "contract", ref = "scripts/check.sh" },
 ]
 
 [[capability]]

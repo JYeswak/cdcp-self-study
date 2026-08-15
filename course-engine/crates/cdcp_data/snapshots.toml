@@ -30,3 +30,21 @@ id = "src-osha-29cfr-1910-333"
 body = "knowledge/corpus/public/osha/29cfr-1910.333-subpart-s.txt"
 sidecar = "knowledge/corpus/public/osha/29cfr-1910.333-subpart-s.meta.toml"
 sha256 = "0f0d2b096feaeb2bc76df271ec03bbd4011bcfb54003044f56a9fcd3f71ed8f9"
+
+[[snapshot]]
+id = "src-nrel-tmy3-drybulb"
+body = "knowledge/data/noaa/tmy3_drybulb.csv"
+sidecar = "knowledge/data/noaa/tmy3_drybulb.meta.toml"
+sha256 = "db982afdf34013ed971b236501d32e1ac10fa47aa662c95f922fa0393038723c"
+
+[[snapshot]]
+id = "src-usgs-asce7-16-grid"
+body = "knowledge/data/usgs/asce7_16_grid.csv"
+sidecar = "knowledge/data/usgs/asce7_16_grid.meta.toml"
+sha256 = "f42657c042dab6be7d5d840b319bbe74032eb7cc3039454d4a88b7e24365d3e1"
+
+[[snapshot]]
+id = "src-epa-egrid2023-plants"
+body = "knowledge/data/egrid/egrid2023_plants.csv"
+sidecar = "knowledge/data/egrid/egrid2023_plants.meta.toml"
+sha256 = "11b7e4c1200c09818bb0eab0d9997d080f3a3eb8f3cf25dc0bb2ca401823ce1a"

@@ -1,0 +1,457 @@
+# F3 published-reference ledger (bd-hardening-f-oracle-qly.1).
+#
+# TOLERANCES IN THIS FILE WERE DECLARED BEFORE COMPUTED-VS-PUBLISHED
+# WAS INSPECTED. Do not edit a tolerance to make a comparison green.
+# A disagreement is RED and names location, computed, reference, delta.
+#
+# Comparison is |computed − reference| < tolerance (open interval).
+# A one-tolerance-unit shift of a passing compute is therefore RED.
+#
+# Zero [[reference]] rows is an ERROR. Fewer than 5 distinct locations
+# is an ERROR. Retrieval dates are required on every row.
+
+schema = "cdcp.oracle.references.v1"
+
+# ── tolerances (declared first) ───────────────────────────────────────────
+
+[tolerance.free_cooling_hours]
+abs = 1.0
+unit = "h"
+justification = """
+TMY3 is a non-leap 8760-hour record. Hours with dry-bulb ≤ 18.33 °C
+(65.0 °F) is an integer count. 1 hour is one observation — the
+resolution of the published meteorological record — and covers a
+single threshold-tie at 0.1 °C EPW rounding vs 65 °F = 18.333… °C.
+"""
+
+[tolerance.heating_degree_days_18c]
+abs = 5.0
+unit = "°C·d"
+justification = """
+DOE EnergyPlus STAT publishes weather-file HDD as integers. Daily-mean
+HDD (mean of 24 hourly dry-bulbs, then max(0, 18 − Tavg) per civil
+day) is the EnergyPlus weather-statistics convention. 5 °C·d covers
+hour-ending vs hour-beginning, STAT integer rounding, and TMY3's
+28-day February, without being a post-hoc fit.
+"""
+
+[tolerance.cooling_degree_days_18c]
+abs = 5.0
+unit = "°C·d"
+justification = """
+Same justification as heating_degree_days_18c: STAT publishes integer
+weather-file CDD; the compute is daily-mean CDD at base 18 °C. 5 °C·d
+is the declared band for that integer publication and the same
+hour-ending / February convention gap.
+"""
+
+[tolerance.seismic_ss]
+abs = 0.015
+unit = "g"
+justification = """
+USGS ASCE 7-16 design maps publish Ss to 3 decimal places (0.001 g).
+We bilinear-interpolate a 0.05° local extract; USGS uses
+linear-log-linear on its native grid. 0.015 g is 15× the published
+last digit and 1/3 of the historical 0.05 g mapped contour interval.
+"""
+
+[tolerance.seismic_s1]
+abs = 0.015
+unit = "g"
+justification = """
+Same justification as seismic_ss: USGS publishes S1 to 0.001 g; we
+bilinear-interpolate a 0.05° extract rather than USGS linear-log-linear.
+0.015 g is the declared interpolation-method band.
+"""
+
+[tolerance.seismic_pga]
+abs = 0.015
+unit = "g"
+justification = """
+Same justification as seismic_ss, applied to mapped PGA (Site Class C,
+Risk Category II). 0.015 g is the declared interpolation-method band
+against USGS published point values.
+"""
+
+[tolerance.grid_co2_lb_per_mwh]
+abs = 0.5
+unit = "lb/MWh"
+justification = """
+EPA eGRID2023 SRL23 publishes the official subregion output emission
+rate to 3 decimals. The compute is generation-weighted CO2 from the
+PLNT23 plant rows (2000 × Σ tons / Σ MWh). 0.5 lb/MWh is ~0.07 % of
+a 700 lb/MWh rate and covers last-digit rounding across thousands of
+plant-level floats, not a post-hoc gap.
+"""
+
+# ── locations ─────────────────────────────────────────────────────────────
+
+[[location]]
+id = "ashburn"
+name = "Ashburn, VA (Loudoun County / IAD)"
+lat = 39.0438
+lon = -77.4874
+tmy3_id = "ashburn"
+egrid_subregion = "SRVC"
+
+[[location]]
+id = "dallas"
+name = "Dallas, TX (DFW)"
+lat = 32.7767
+lon = -96.7970
+tmy3_id = "dallas"
+egrid_subregion = "ERCT"
+
+[[location]]
+id = "phoenix"
+name = "Phoenix, AZ (Sky Harbor)"
+lat = 33.4484
+lon = -112.0740
+tmy3_id = "phoenix"
+egrid_subregion = "AZNM"
+
+[[location]]
+id = "chicago"
+name = "Chicago, IL (O'Hare)"
+lat = 41.8781
+lon = -87.6298
+tmy3_id = "chicago"
+egrid_subregion = "RFCW"
+
+[[location]]
+id = "sanjose"
+name = "San Jose, CA (Mineta / Santa Clara)"
+lat = 37.3541
+lon = -121.9552
+tmy3_id = "sanjose"
+egrid_subregion = "CAMX"
+
+# ── published references ──────────────────────────────────────────────────
+# Free-cooling hours: count of NREL TMY3 hours with dry-bulb ≤ 18.33 °C,
+# tallied from the published meteorological record (not from STAT, which
+# does not publish this hour count). Retrieval 2026-08-15.
+#
+# HDD/CDD: DOE EnergyPlus STAT "annual (wthr file)" lines, base 18 °C.
+# That is DOE's published analysis of the same TMY3 weather file.
+# Retrieval 2026-08-15 from the STAT distributed with each TMY3 EPW.
+#
+# Seismic: USGS ASCE 7-16 design-maps web service, Site Class C, Risk
+# Category II, at the location coordinates. Retrieval 2026-08-15.
+#
+# Grid carbon: EPA eGRID2023 data file, SRL23 sheet, SRCO2RTA
+# (annual CO2 total output emission rate, lb/MWh). Retrieval 2026-08-15.
+
+[[reference]]
+location = "ashburn"
+quantity = "free_cooling_hours"
+value = 5734.0
+unit = "h"
+source = "NREL TMY3 WMO 724030 (Dulles) hourly dry-bulb ≤ 18.33 °C"
+url = "https://nsrdb.nrel.gov/data-sets/tmy"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "dallas"
+quantity = "free_cooling_hours"
+value = 3973.0
+unit = "h"
+source = "NREL TMY3 WMO 722590 (Dallas-Fort Worth) hourly dry-bulb ≤ 18.33 °C"
+url = "https://nsrdb.nrel.gov/data-sets/tmy"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "phoenix"
+quantity = "free_cooling_hours"
+value = 2997.0
+unit = "h"
+source = "NREL TMY3 WMO 722780 (Phoenix Sky Harbor) hourly dry-bulb ≤ 18.33 °C"
+url = "https://nsrdb.nrel.gov/data-sets/tmy"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "chicago"
+quantity = "free_cooling_hours"
+value = 6309.0
+unit = "h"
+source = "NREL TMY3 WMO 725300 (Chicago O'Hare) hourly dry-bulb ≤ 18.33 °C"
+url = "https://nsrdb.nrel.gov/data-sets/tmy"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "sanjose"
+quantity = "free_cooling_hours"
+value = 6878.0
+unit = "h"
+source = "NREL TMY3 WMO 724945 (San Jose Mineta) hourly dry-bulb ≤ 18.33 °C"
+url = "https://nsrdb.nrel.gov/data-sets/tmy"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "ashburn"
+quantity = "heating_degree_days_18c"
+value = 2592.0
+unit = "°C·d"
+source = "DOE EnergyPlus STAT annual (wthr file) heating degree-days (18C baseline), Dulles TMY3"
+url = "https://energyplus.net/weather"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "dallas"
+quantity = "heating_degree_days_18c"
+value = 1265.0
+unit = "°C·d"
+source = "DOE EnergyPlus STAT annual (wthr file) heating degree-days (18C baseline), DFW TMY3"
+url = "https://energyplus.net/weather"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "phoenix"
+quantity = "heating_degree_days_18c"
+value = 543.0
+unit = "°C·d"
+source = "DOE EnergyPlus STAT annual (wthr file) heating degree-days (18C baseline), PHX TMY3"
+url = "https://energyplus.net/weather"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "chicago"
+quantity = "heating_degree_days_18c"
+value = 3430.0
+unit = "°C·d"
+source = "DOE EnergyPlus STAT annual (wthr file) heating degree-days (18C baseline), ORD TMY3"
+url = "https://energyplus.net/weather"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "sanjose"
+quantity = "heating_degree_days_18c"
+value = 1296.0
+unit = "°C·d"
+source = "DOE EnergyPlus STAT annual (wthr file) heating degree-days (18C baseline), SJC TMY3"
+url = "https://energyplus.net/weather"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "ashburn"
+quantity = "cooling_degree_days_18c"
+value = 647.0
+unit = "°C·d"
+source = "DOE EnergyPlus STAT annual (wthr file) cooling degree-days (18C baseline), Dulles TMY3"
+url = "https://energyplus.net/weather"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "dallas"
+quantity = "cooling_degree_days_18c"
+value = 1533.0
+unit = "°C·d"
+source = "DOE EnergyPlus STAT annual (wthr file) cooling degree-days (18C baseline), DFW TMY3"
+url = "https://energyplus.net/weather"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "phoenix"
+quantity = "cooling_degree_days_18c"
+value = 2661.0
+unit = "°C·d"
+source = "DOE EnergyPlus STAT annual (wthr file) cooling degree-days (18C baseline), PHX TMY3"
+url = "https://energyplus.net/weather"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "chicago"
+quantity = "cooling_degree_days_18c"
+value = 506.0
+unit = "°C·d"
+source = "DOE EnergyPlus STAT annual (wthr file) cooling degree-days (18C baseline), ORD TMY3"
+url = "https://energyplus.net/weather"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "sanjose"
+quantity = "cooling_degree_days_18c"
+value = 159.0
+unit = "°C·d"
+source = "DOE EnergyPlus STAT annual (wthr file) cooling degree-days (18C baseline), SJC TMY3"
+url = "https://energyplus.net/weather"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "ashburn"
+quantity = "seismic_ss"
+value = 0.136
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, Ss at 39.0438 N 77.4874 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "dallas"
+quantity = "seismic_ss"
+value = 0.097
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, Ss at 32.7767 N 96.7970 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "phoenix"
+quantity = "seismic_ss"
+value = 0.179
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, Ss at 33.4484 N 112.0740 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "chicago"
+quantity = "seismic_ss"
+value = 0.116
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, Ss at 41.8781 N 87.6298 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "sanjose"
+quantity = "seismic_ss"
+value = 1.5
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, Ss at 37.3541 N 121.9552 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "ashburn"
+quantity = "seismic_s1"
+value = 0.044
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, S1 at 39.0438 N 77.4874 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "dallas"
+quantity = "seismic_s1"
+value = 0.054
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, S1 at 32.7767 N 96.7970 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "phoenix"
+quantity = "seismic_s1"
+value = 0.065
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, S1 at 33.4484 N 112.0740 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "chicago"
+quantity = "seismic_s1"
+value = 0.063
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, S1 at 41.8781 N 87.6298 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "sanjose"
+quantity = "seismic_s1"
+value = 0.6
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, S1 at 37.3541 N 121.9552 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "ashburn"
+quantity = "seismic_pga"
+value = 0.07
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, PGA at 39.0438 N 77.4874 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "dallas"
+quantity = "seismic_pga"
+value = 0.046
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, PGA at 32.7767 N 96.7970 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "phoenix"
+quantity = "seismic_pga"
+value = 0.079
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, PGA at 33.4484 N 112.0740 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "chicago"
+quantity = "seismic_pga"
+value = 0.058
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, PGA at 41.8781 N 87.6298 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "sanjose"
+quantity = "seismic_pga"
+value = 0.505
+unit = "g"
+source = "USGS ASCE 7-16 design maps, Site Class C, Risk Category II, PGA at 37.3541 N 121.9552 W"
+url = "https://earthquake.usgs.gov/ws/designmaps/asce7-16"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "ashburn"
+quantity = "grid_co2_lb_per_mwh"
+value = 590.229
+unit = "lb/MWh"
+source = "EPA eGRID2023 SRL23 SRCO2RTA (annual CO2 total output emission rate) for SRVC"
+url = "https://www.epa.gov/egrid/download-data"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "dallas"
+quantity = "grid_co2_lb_per_mwh"
+value = 738.038
+unit = "lb/MWh"
+source = "EPA eGRID2023 SRL23 SRCO2RTA (annual CO2 total output emission rate) for ERCT"
+url = "https://www.epa.gov/egrid/download-data"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "phoenix"
+quantity = "grid_co2_lb_per_mwh"
+value = 740.81
+unit = "lb/MWh"
+source = "EPA eGRID2023 SRL23 SRCO2RTA (annual CO2 total output emission rate) for AZNM"
+url = "https://www.epa.gov/egrid/download-data"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "chicago"
+quantity = "grid_co2_lb_per_mwh"
+value = 911.321
+unit = "lb/MWh"
+source = "EPA eGRID2023 SRL23 SRCO2RTA (annual CO2 total output emission rate) for RFCW"
+url = "https://www.epa.gov/egrid/download-data"
+retrieved = "2026-08-15"
+
+[[reference]]
+location = "sanjose"
+quantity = "grid_co2_lb_per_mwh"
+value = 436.655
+unit = "lb/MWh"
+source = "EPA eGRID2023 SRL23 SRCO2RTA (annual CO2 total output emission rate) for CAMX"
+url = "https://www.epa.gov/egrid/download-data"
+retrieved = "2026-08-15"
