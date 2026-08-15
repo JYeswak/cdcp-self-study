@@ -272,13 +272,31 @@ fn the_live_repo_tree_has_no_unlisted_non_rust_file() {
             }
         })
         .collect();
-    let identified = entries
+    let identified: Vec<&sg::Entry> = entries
         .iter()
         .filter(|e| sg::scan_reason(e, &al.scan).is_some())
-        .count();
+        .collect();
+    // Floor tracks the live worklist (38 rows / 38 identified after
+    // bd-substrate-rust-migration-jhd.20 retired smoke_learn_v2.py). A
+    // scan that judges nothing still reports like a clean one; do not
+    // lower this without a matching port.
     assert!(
-        identified >= 40,
-        "only {identified} entries identified as non-Rust — the scan found nothing to judge"
+        identified.len() >= 38,
+        "only {} entries identified as non-Rust — the scan found nothing to judge; \
+         root={} tracked={} scan.exts={:?} sample_paths={:?} identified={:?}",
+        identified.len(),
+        root.display(),
+        entries.len(),
+        al.scan.extensions,
+        entries
+            .iter()
+            .take(8)
+            .map(|e| e.path.as_str())
+            .collect::<Vec<_>>(),
+        identified
+            .iter()
+            .map(|e| e.path.as_str())
+            .collect::<Vec<_>>(),
     );
     let v = sg::unlisted_entries(&entries, &al.allow, &al.scan);
     assert!(
@@ -988,4 +1006,200 @@ fn bad_zero_allowlist_rows_is_an_error() {
         out.contains("zero [[allow]] rows"),
         "must say the honesty scan was empty: {out}"
     );
+}
+
+// ───────── bd-efm7: the floor is check.sh, not the client hook ─────────────
+//
+// MEASURED 2026-08-14 (git 2.53.0): merge --no-ff, cherry-pick, rebase, git am,
+// commit-tree, core.hooksPath=/dev/null and --no-verify each created a commit
+// carrying an unlisted .py with the hook NEVER INVOKED. The hook is a courtesy
+// on ordinary `git commit`. The presence scan (what check.sh runs, no --staged)
+// is the floor: a planted unlisted scripts/payload_efm7.py in TEMP is RED even
+// after a hook-skipping commit. Do not try to make --no-verify impossible.
+
+const EFM7_PLANT: &str = "scripts/payload_efm7.py";
+
+fn git_commit_tree(f: &Fixture, message: &str) -> String {
+    let tree = String::from_utf8_lossy(&f.git(&["write-tree"]).stdout)
+        .trim()
+        .to_string();
+    let parent = String::from_utf8_lossy(&f.git(&["rev-parse", "HEAD"]).stdout)
+        .trim()
+        .to_string();
+    let out = std::process::Command::new("git")
+        .current_dir(&f.root)
+        .args([
+            "-c",
+            "user.email=fixture@example.invalid",
+            "-c",
+            "user.name=fixture",
+            "commit-tree",
+            &tree,
+            "-p",
+            &parent,
+            "-m",
+            message,
+        ])
+        .output()
+        .expect("git commit-tree");
+    assert!(
+        out.status.success(),
+        "commit-tree failed: {}",
+        String::from_utf8_lossy(&out.stderr)
+    );
+    String::from_utf8_lossy(&out.stdout).trim().to_string()
+}
+
+/// THE bd-efm7 known-bad. Fixture::commit uses --no-verify, so this is the
+/// measured hook-skip path: the file is in HEAD, the hook never ran, and the
+/// presence scan (no --staged — what check.sh runs) is still RED and names it.
+#[test]
+fn bad_payload_efm7_committed_without_a_hook_is_red_on_the_presence_scan() {
+    let f = Fixture::new();
+    f.write(
+        EFM7_PLANT,
+        "print('efm7 plant: unlisted, hook never ran')\n",
+    );
+    f.git(&["add", EFM7_PLANT]);
+    f.commit("sneak payload_efm7 via --no-verify");
+
+    let (code, out) = f.gate(&["substrate-guard"]);
+    assert_eq!(
+        code, VIOLATION,
+        "a hook-skipping commit must not go green on the presence scan: {out}"
+    );
+    assert!(
+        out.contains(EFM7_PLANT),
+        "must name the plant, not a generic fail: {out}"
+    );
+}
+
+/// commit-tree is plumbing: git runs no hooks. A fire-counter hook stays 0,
+/// and the presence scan is still RED. This is the path --no-verify does not
+/// cover: there is no hook slot to skip.
+#[test]
+fn bad_payload_efm7_via_commit_tree_is_red_and_the_hook_never_fired() {
+    let f = Fixture::new();
+    let hook = f.root.join(".git/hooks/pre-commit");
+    std::fs::create_dir_all(hook.parent().unwrap()).unwrap();
+    let marker = f.root.join("HOOK_FIRED");
+    std::fs::write(
+        &hook,
+        format!("#!/bin/sh\ntouch {}\nexit 0\n", marker.display()),
+    )
+    .unwrap();
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let mut perm = std::fs::metadata(&hook).unwrap().permissions();
+        perm.set_mode(0o755);
+        std::fs::set_permissions(&hook, perm).unwrap();
+    }
+
+    f.write(EFM7_PLANT, "print('efm7 commit-tree')\n");
+    f.git(&["add", EFM7_PLANT]);
+    let cid = git_commit_tree(&f, "sneak payload_efm7 via commit-tree");
+    f.git(&["update-ref", "HEAD", &cid]);
+
+    assert!(
+        !marker.exists(),
+        "commit-tree must not invoke pre-commit — if this fires, the test is not the path it names"
+    );
+
+    let (code, out) = f.gate(&["substrate-guard"]);
+    assert_eq!(code, VIOLATION, "{out}");
+    assert!(out.contains(EFM7_PLANT), "must name the plant: {out}");
+}
+
+/// Same plant, through a check.sh that actually invokes the gate (the fixture
+/// check.sh uses cargo run and has no Cargo.toml). The hook never ran.
+#[test]
+fn bad_payload_efm7_stops_a_check_sh_that_invokes_the_gate() {
+    let f = Fixture::new();
+    f.write(
+        "scripts/check.sh",
+        &format!(
+            "#!/bin/sh\n\
+             set -eu\n\
+             cd \"$(dirname \"$0\")/..\"\n\
+             echo \"==> cdcp_gate substrate-guard (S0 substrate floor)\"\n\
+             \"{BIN}\" --root . substrate-guard --quiet || {{ echo \"check.sh: FAIL: substrate guard\" >&2; exit 2; }}\n\
+             echo \"check.sh: ok: S0 substrate floor\"\n"
+        ),
+    );
+    f.write(EFM7_PLANT, "print('efm7 via check.sh')\n");
+    f.git(&["add", "-A"]);
+    f.commit("sneak payload_efm7 via --no-verify; hook never ran");
+
+    let out = std::process::Command::new("sh")
+        .arg("scripts/check.sh")
+        .current_dir(&f.root)
+        .output()
+        .expect("run fixture check.sh");
+    let mut text = String::from_utf8_lossy(&out.stdout).into_owned();
+    text.push_str(&String::from_utf8_lossy(&out.stderr));
+    assert_ne!(
+        out.status.code(),
+        Some(0),
+        "check.sh must not go green on an unlisted plant after a hook-skipping commit: {text}"
+    );
+    assert!(
+        text.contains(EFM7_PLANT) || text.contains("FAIL"),
+        "must name the plant or fail the substrate step: {text}"
+    );
+}
+
+/// The counterpart: an allowlisted .py committed the same hook-skipping way
+/// stays green. An over-strict floor gets routed around.
+#[test]
+fn good_allowlisted_python_still_ok_after_no_verify_commit() {
+    let f = Fixture::new();
+    f.write(
+        "scripts/verify_bank.py",
+        "print('still allowlisted after --no-verify')\n",
+    );
+    f.git(&["add", "scripts/verify_bank.py"]);
+    f.commit("edit allowlisted py via --no-verify");
+    let (code, out) = f.gate(&["substrate-guard"]);
+    assert_eq!(
+        code, OK,
+        "an allowlisted script must stay green on the presence scan: {out}"
+    );
+}
+
+/// The committed courtesy shim must be mode 100755 in the index. A 100644
+/// checkout is a file git will not execute if someone pointed core.hooksPath
+/// at hooks/; install-hooks chmod +x the dest, but the artifact itself must
+/// carry the bit.
+#[test]
+fn committed_pre_commit_shim_is_tracked_executable() {
+    let root = cdcp_gate::root::resolve(std::path::Path::new(env!("CARGO_MANIFEST_DIR")))
+        .expect("engine root");
+    let out = std::process::Command::new("git")
+        .current_dir(&root)
+        .args(["ls-files", "-s", "--", "hooks/pre-commit"])
+        .output()
+        .expect("git ls-files");
+    assert!(
+        out.status.success(),
+        "{}",
+        String::from_utf8_lossy(&out.stderr)
+    );
+    let text = String::from_utf8_lossy(&out.stdout);
+    assert!(
+        text.starts_with("100755"),
+        "hooks/pre-commit must be tracked 100755, got {text:?}"
+    );
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let mode = std::fs::metadata(root.join("hooks/pre-commit"))
+            .expect("stat hooks/pre-commit")
+            .permissions()
+            .mode();
+        assert!(
+            mode & 0o111 != 0,
+            "worktree hooks/pre-commit must be executable, mode {mode:o}"
+        );
+    }
 }

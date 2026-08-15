@@ -25,6 +25,17 @@ Local-first **HTML course + browser grading** for the CDCP self-study corpus.
 
 Fail-closed until waves land. See `scorecards/` for wave stamps.
 
+`check.sh` runs `cdcp_gate substrate-guard` (presence scan). That is the
+substrate floor: an unlisted `.py`/`.sh` fails the build even if no git hook
+ran (`git commit --no-verify`, merge, cherry-pick, rebase, `git am`,
+`commit-tree`, or a fresh clone). The committed shim `hooks/pre-commit` is a
+courtesy on ordinary `git commit` only. Install it in a clone:
+
+```bash
+cargo run -q -p cdcp_gate -- install-hooks
+cargo run -q -p cdcp_gate -- install-hooks --check
+```
+
 L1 claims constitution: `registries/claims.toml` + `cargo run -p cdcp_registry_check`
 (empty registry / unmapped coverage·ready prose = ERROR).
 
@@ -37,7 +48,8 @@ bank/          # MCQ items (content-addressed)
 crates/        # Rust: core, bank, grade, schedule, registry_check, cli
 web/           # static HTML/CSS/JS + WASM glue
 goldens/       # GradeReport digests
-scripts/       # check.sh
+scripts/       # check.sh (the substrate floor; hooks are a courtesy)
+hooks/         # committed pre-commit shim — install with `cdcp_gate install-hooks`
 docs/          # constitution + research extracts
 scorecards/    # wave / layer outcome stamps
 ```

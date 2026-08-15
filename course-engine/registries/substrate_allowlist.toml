@@ -23,13 +23,15 @@
 # also cannot decide that a .rs file is not shelling out to python3 — this is a
 # path-and-shebang policy, not a statement about what runs.
 #
-# WHERE IT IS ENFORCED (bd-xmn5, measured 2026-08-14 on git 2.53.0): the
-# pre-commit hook fires for `git commit` and for nothing else. Merge,
+# WHERE IT IS ENFORCED (bd-xmn5 / bd-efm7, measured 2026-08-14 on git 2.53.0):
+# the pre-commit hook fires for `git commit` and for nothing else. Merge,
 # cherry-pick, rebase, `git am`, `git commit-tree` and `--no-verify` all created
 # commits carrying an unlisted .py with the hook never invoked, and a fresh
-# clone has no hook at all. What actually holds is the PRESENCE scan in
-# check.sh, one build later. See bd-efm7 for the missing server-side boundary
-# and bd-m67m for the hook that CI never installs.
+# clone has no hook at all. The floor is the PRESENCE scan in check.sh (and
+# the cargo-test live-tree test): an unlisted .py cannot go green even if the
+# hook never ran. The hook is a courtesy (`cdcp_gate install-hooks`). There is
+# no required GitHub check and no pre-receive hook (written decision, bd-efm7).
+# bd-m67m: check.sh runs install-hooks so CI is not a clone without a hook.
 #
 # THIS FILE IS THE MIGRATION WORKLIST. Every row is a debt. The row count is the
 # progress metric for epic bd-substrate-rust-migration-jhd and its target is 0.

@@ -229,12 +229,15 @@ id = "substrate.rust-floor"
 title = "No unreasoned .py/.sh enters the scanned surface"
 level = "proven-to-trip"
 owner = "josh"
-last_review = "2026-08-14"
-claim = "A tracked or staged .py/.sh under scripts//crates//engine-root must carry an allowlist row with a reason, a bead and an unexpired date, judged on the working tree and on the index; an unlisted script is asserted red and the wiring is asserted to stop check.sh for real."
+last_review = "2026-08-15"
+claim = "A tracked or staged .py/.sh under scripts//crates//engine-root must carry an allowlist row with a reason, a bead and an unexpired date, judged on the working tree and on the index; an unlisted script is asserted red — including after a commit that never ran a hook (bd-efm7) — and the wiring is asserted to stop check.sh for real."
 evidence = [
   { kind = "test", ref = "crates/cdcp_gate/tests/substrate_guard_e2e.rs::good_baseline_passes" },
+  { kind = "test", ref = "crates/cdcp_gate/tests/substrate_guard_e2e.rs::good_allowlisted_python_still_ok_after_no_verify_commit" },
   { kind = "known_bad", ref = "crates/cdcp_gate/tests/substrate_guard_e2e.rs::bad_unlisted_python_is_red_and_names_the_file" },
   { kind = "known_bad", ref = "crates/cdcp_gate/tests/substrate_guard_e2e.rs::bad_row_left_unstaged_does_not_authorise_a_staged_script" },
+  { kind = "known_bad", ref = "crates/cdcp_gate/tests/substrate_guard_e2e.rs::bad_payload_efm7_committed_without_a_hook_is_red_on_the_presence_scan" },
+  { kind = "known_bad", ref = "crates/cdcp_gate/tests/substrate_guard_e2e.rs::bad_payload_efm7_stops_a_check_sh_that_invokes_the_gate" },
   { kind = "contract", ref = "registries/substrate_allowlist.toml" },
   { kind = "contract", ref = "scripts/check.sh" },
 ]

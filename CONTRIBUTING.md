@@ -7,12 +7,19 @@ Thanks for interest in the CDCP course-engine study tool.
 1. Read `README.md` (start path + honesty banners) and `LICENSE` (code is MIT; curriculum content is CC BY-NC-SA 4.0).
 2. Read `course-engine/AGENTS.md` / `CHARTER.md` if changing gates or claims.
 3. Run `cd course-engine && ./scripts/check.sh` and keep W0–L7 + V11 + M8 green.
+   That script is the substrate floor: an unlisted `.py` fails it even if no
+   git hook ran. The hook is a courtesy.
 
 ## Local setup
 
 ```bash
 # Rust toolchain (stable)
 cargo build -p cdcp_cli
+
+# Optional courtesy hook (ordinary `git commit` only). Not a containment
+# boundary — check.sh is. Fresh clones have no hook until this runs.
+cargo run -q -p cdcp_gate --manifest-path course-engine/Cargo.toml -- install-hooks
+cargo run -q -p cdcp_gate --manifest-path course-engine/Cargo.toml -- install-hooks --check
 
 # Serve static web + WASM (use a free port)
 cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766

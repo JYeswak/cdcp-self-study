@@ -1,6 +1,13 @@
 #!/usr/bin/env sh
 # cdcp pre-commit — THIN SHIM. Install with:
 #   cargo run -q -p cdcp_gate -- install-hooks
+#   cargo run -q -p cdcp_gate -- install-hooks --check
+#
+# Committed mode is 100755. Git still only executes .git/hooks/pre-commit, so a
+# fresh clone must run install-hooks. This file is a courtesy on ordinary
+# `git commit`. check.sh's substrate-guard presence scan is the floor (bd-efm7)
+# and trips even when this shim never ran (merge, cherry-pick, rebase, am,
+# commit-tree, --no-verify, core.hooksPath=/dev/null).
 #
 # There is no decision logic in this file, and there must never be any. Every
 # assertion — which paths are scanned, what counts as an addition, whether an

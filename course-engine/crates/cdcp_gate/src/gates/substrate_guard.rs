@@ -42,17 +42,17 @@
 //!   fresh clone has no `.git/hooks/pre-commit` at all until someone runs
 //!   `cdcp_gate install-hooks`.
 //!
-//! So the honest sentence is: **the pre-commit leg raises the cost of CASUALLY
-//! adding a script through `git commit` in a clone where the hook is installed;
-//! the presence leg is what actually holds, one build later.** Neither is a
-//! containment boundary against someone who does not want to be stopped — a
-//! client-side hook cannot be, and the presence leg only bites where check.sh or
-//! the test suite runs. A real boundary lives server-side (a required CI job on
-//! the pushed ref, or a pre-receive hook) and this repo does not have one:
-//! **bd-efm7**. Worse, the hook CI would need is one CI never installs, so
-//! `install-hooks --check` is RED on every CI run today: **bd-m67m**. Commit
-//! messages and docs must not say "refused at commit" without saying which
-//! commit path.
+//! So the honest sentence is: **the pre-commit hook is a courtesy on ordinary
+//! `git commit` in a clone where it is installed; the presence leg in
+//! `scripts/check.sh` is the floor (bd-efm7).** It trips no matter how the file
+//! arrived — merge, cherry-pick, rebase, `git am`, `commit-tree`, `--no-verify`,
+//! `core.hooksPath=/dev/null`, or a clone that never installed a hook. A client
+//! flag cannot be made impossible; this repo has no required GitHub check and
+//! no pre-receive hook (written decision). The presence scan + `cargo test`
+//! live-tree test are the enforcement a client cannot skip. `install-hooks` is
+//! how a clone gets the courtesy shim; check.sh installs it so `--check` is
+//! meaningful in CI (bd-m67m). Do not say "refused at commit" without saying
+//! which commit path.
 //!
 //! The test suite is now one of the places the presence leg bites, which it was
 //! not before bd-xmn5:
@@ -1804,7 +1804,7 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
             "{NAME}: the wiring leg above is TEXT ONLY — reading a shell line cannot establish that it executes. Run `cdcp_gate {NAME} --prove-wired` for the behavioural leg."
         );
         println!(
-            "{NAME}: scope: this is a path-and-shebang policy over the whole engine tree. It cannot decide that a .rs file does not shell out to python3. The pre-commit hook covers `git commit` ONLY — merge, cherry-pick, rebase, `git am`, `commit-tree` and `--no-verify` create commits without it (measured, git 2.53.0); THIS presence scan is what catches those, one build later."
+            "{NAME}: scope: this is a path-and-shebang policy over the whole engine tree. It cannot decide that a .rs file does not shell out to python3. The pre-commit hook covers `git commit` ONLY — merge, cherry-pick, rebase, `git am`, `commit-tree` and `--no-verify` create commits without it (measured, git 2.53.0); THIS presence scan (what check.sh runs) is the floor for those paths (bd-efm7)."
         );
     }
     Ok(())
