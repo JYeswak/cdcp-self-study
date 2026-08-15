@@ -41,6 +41,7 @@ fn help_lists_learn_compilers() {
         "check-licence",
         "load-snapshots",
         "check-osha",
+        "verify-data-lock",
     ] {
         assert!(
             stdout.contains(verb),
@@ -186,6 +187,30 @@ fn check_osha_live_tree_passes() {
     assert!(
         stdout.contains("check_osha: PASS"),
         "live OSHA check must PASS: {stdout}"
+    );
+}
+
+#[test]
+fn verify_data_lock_live_tree_passes() {
+    let assert = cdcp().arg("verify-data-lock").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("verify_data_lock: PASS"),
+        "live data lock must PASS: {stdout}"
+    );
+}
+
+#[test]
+fn verify_data_lock_selftest_trips_red() {
+    let assert = cdcp()
+        .arg("verify-data-lock")
+        .arg("--selftest")
+        .assert()
+        .success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("flip-selftest trips RED"),
+        "selftest must report the RED trip: {stdout}"
     );
 }
 

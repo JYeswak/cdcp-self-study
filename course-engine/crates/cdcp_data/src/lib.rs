@@ -16,7 +16,12 @@
 //! the 1910.333 isolation constraint.
 #![forbid(unsafe_code)]
 
+mod data_lock;
 mod osha;
+pub use data_lock::{
+    load_pins_from_disk, parse_data_section, referenced_data_paths, selftest_flip_one_byte,
+    verify_data_lock, DataLockReport, DATA_SECTION, LOCK_REL, SNAPSHOTS_REL,
+};
 pub use osha::{
     check_osha, check_osha_with, cites_147_as_electrical_loto_authority, IsolationConstraint,
     OshaFault, OshaReport, BACKFEED_TEST, CONTROL_DEVICES_NOT_ISOLATION, DEENERGIZE_FIRST,
@@ -46,6 +51,11 @@ pub const ANTI_VACUOUS_EMPTY: &str = "zero registered snapshots is an ERROR";
 /// is an ERROR, never a quiet empty success.
 pub const ANTI_VACUOUS_NONE_LOADED: &str =
     "zero artifacts loaded where >=1 is registered is an ERROR";
+
+/// Token interpolated inside [`verify_data_lock`]. A non-empty pin list
+/// whose lock section names nothing must not report like a lock that held.
+pub const ANTI_VACUOUS_DATA_LOCK: &str =
+    "snapshots.toml is non-empty but content.lock [data] lists zero files";
 
 /// Compiled-in pin file, crate-relative. Tests assert it is non-empty.
 pub const COMPILED_PINS: &str = include_str!("../snapshots.toml");
@@ -187,6 +197,43 @@ pub enum DataError {
         /// Underlying error.
         detail: String,
     },
+    /// `snapshots.toml` named files but `content.lock` `[data]` listed none.
+    #[error("{ANTI_VACUOUS_DATA_LOCK}")]
+    EmptyDataLock {
+        /// How many `[[snapshot]]` rows were registered.
+        registered: usize,
+    },
+    /// A path `snapshots.toml` names is absent from `[data]`.
+    #[error("[data] in snapshots.toml but not pinned in content.lock: {path}")]
+    DataUnpinned {
+        /// Engine-root-relative path.
+        path: String,
+    },
+    /// `[data]` hash disagrees with the bytes on disk.
+    #[error("[data] hash mismatch: {path} lock={recorded} live={computed}")]
+    DataHashMismatch {
+        /// Engine-root-relative path.
+        path: String,
+        /// Hash the lock recorded.
+        recorded: String,
+        /// Hash of the bytes just read.
+        computed: String,
+    },
+    /// A `[data]` row's file is missing.
+    #[error("[data] missing file: {path}")]
+    DataMissing {
+        /// Engine-root-relative path.
+        path: String,
+    },
+    /// One or more `[data]` faults. Partial success is RED.
+    #[error("content.lock [data] failed ({} fault(s))", faults.len())]
+    DataLockFailed {
+        /// Per-path faults.
+        faults: Vec<DataError>,
+    },
+    /// Flip-selftest did not reach RED.
+    #[error("expected RED on flipped vendored body but verify-data-lock was green")]
+    DataLockSelftestMissed,
 }
 
 /// SHA-256 of `bytes` as lowercase hex.
@@ -383,7 +430,7 @@ fn toml_string(v: &toml::Value, key: &str) -> Option<String> {
         .map(str::to_string)
 }
 
-fn join_rel(root: &Path, rel: &str) -> PathBuf {
+pub(crate) fn join_rel(root: &Path, rel: &str) -> PathBuf {
     let mut p = root.to_path_buf();
     for part in rel.split('/') {
         if part.is_empty() || part == "." {

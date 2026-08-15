@@ -6,6 +6,8 @@ Pins:
   - knowledge pack top-level *.toml file hashes
   - module markdown hashes under web/content/modules/ (product surface)
     and parent ../modules/*.md (source corpus) when present
+  - [data] every body + sidecar named by crates/cdcp_data/snapshots.toml
+    (not a walk of knowledge/corpus/; NOAA/USGS/eGRID stay unvendored)
 
 Usage (from course-engine/):
   python3 scripts/gen_content_lock.py
@@ -27,6 +29,7 @@ KNOWLEDGE_DIR = ROOT / "knowledge"
 WEB_MODULES = ROOT / "web" / "content" / "modules"
 PARENT_MODULES = ROOT.parent / "modules"
 GOLDEN_BANK_HASH = ROOT / "goldens" / "bank_hash.txt"
+SNAPSHOTS = ROOT / "crates" / "cdcp_data" / "snapshots.toml"
 
 SCHEMA_VERSION = 1
 # Domain tag for the bank hash. AUTHORITATIVE COPY IS cdcp_core::BANK_HASH_DOMAIN;
@@ -142,10 +145,56 @@ def module_files() -> list[Path]:
     return found
 
 
+def snapshot_files() -> list[Path]:
+    """Bodies + sidecars named by snapshots.toml. Not a corpus walk."""
+    if not SNAPSHOTS.is_file():
+        print(f"FAIL: missing {SNAPSHOTS.relative_to(ROOT)}", file=sys.stderr)
+        raise SystemExit(1)
+    try:
+        import tomllib
+    except ImportError:  # pragma: no cover — py<3.11
+        import tomli as tomllib  # type: ignore
+    data = tomllib.loads(SNAPSHOTS.read_text(encoding="utf-8"))
+    rows = data.get("snapshot") or []
+    if not isinstance(rows, list) or not rows:
+        print(
+            "FAIL: snapshots.toml has zero [[snapshot]] rows — "
+            "a lock that pins nothing certifies nothing",
+            file=sys.stderr,
+        )
+        raise SystemExit(1)
+    paths: list[Path] = []
+    seen: set[str] = set()
+    for i, row in enumerate(rows):
+        if not isinstance(row, dict):
+            print(f"FAIL: snapshots.toml snapshot[{i}] is not a table", file=sys.stderr)
+            raise SystemExit(1)
+        for key in ("body", "sidecar"):
+            rel = row.get(key)
+            if not isinstance(rel, str) or not rel.strip():
+                print(
+                    f"FAIL: snapshots.toml snapshot[{i}] missing {key}",
+                    file=sys.stderr,
+                )
+                raise SystemExit(1)
+            rel = rel.strip()
+            if rel in seen:
+                continue
+            seen.add(rel)
+            paths.append(ROOT.joinpath(*rel.split("/")))
+    missing = [p for p in paths if not p.is_file()]
+    if missing:
+        shown = ", ".join(rel_posix(p) for p in missing)
+        print(f"FAIL: snapshots.toml names missing files: {shown}", file=sys.stderr)
+        raise SystemExit(1)
+    return paths
+
+
 def render_lock(
     bank: str,
     knowledge: dict[str, str],
     modules: dict[str, str],
+    data: dict[str, str],
 ) -> str:
     lines: list[str] = [
         "# content.lock — ecosystem pin for bank + knowledge + modules (L7-S9)",
@@ -173,6 +222,13 @@ def render_lock(
         for path, hx in modules.items():
             lines.append(f'"{path}" = "{hx}"')
     lines.append("")
+    lines.append("[data]")
+    if not data:
+        lines.append("# (empty — no snapshot-referenced files)")
+    else:
+        for path, hx in data.items():
+            lines.append(f'"{path}" = "{hx}"')
+    lines.append("")
     return "\n".join(lines)
 
 
@@ -183,6 +239,7 @@ def main() -> int:
     bank = bank_hash()
     knowledge = collect_hashes(knowledge_files())
     modules = collect_hashes(module_files())
+    data = collect_hashes(snapshot_files())
 
     if not knowledge:
         print("FAIL: zero knowledge/*.toml files to pin", file=sys.stderr)
@@ -194,13 +251,19 @@ def main() -> int:
             file=sys.stderr,
         )
         return 1
+    if not data:
+        print(
+            "FAIL: snapshots.toml is non-empty but zero data files to pin",
+            file=sys.stderr,
+        )
+        return 1
 
-    text = render_lock(bank, knowledge, modules)
+    text = render_lock(bank, knowledge, modules, data)
     LOCK_PATH.write_text(text, encoding="utf-8")
     print(
         f"gen_content_lock: wrote {LOCK_PATH.relative_to(ROOT)} "
         f"bank_hash={bank[:12]}… "
-        f"knowledge={len(knowledge)} modules={len(modules)}"
+        f"knowledge={len(knowledge)} modules={len(modules)} data={len(data)}"
     )
     return 0
 

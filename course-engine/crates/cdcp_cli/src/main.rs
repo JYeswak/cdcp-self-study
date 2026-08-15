@@ -45,6 +45,15 @@ enum Cmd {
         #[arg(long)]
         root: Option<PathBuf>,
     },
+    /// content.lock [data] covers every snapshots.toml body + sidecar.
+    VerifyDataLock {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// Flip one vendored body byte in a TEMP tree and require RED.
+        #[arg(long)]
+        selftest: bool,
+    },
     /// Ledger tripwire for measured paraphrase pairs C3 cannot see
     VerifyParaphrasePairs {
         /// Engine root (directory holding registries/). Default: walk up from cwd.
@@ -350,6 +359,7 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::CheckLicence { root } => check_licence(root.as_deref()),
         Cmd::LoadSnapshots { root } => load_snapshots(root.as_deref()),
         Cmd::CheckOsha { root } => check_osha(root.as_deref()),
+        Cmd::VerifyDataLock { root, selftest } => verify_data_lock(root.as_deref(), selftest),
         Cmd::VerifyParaphrasePairs {
             root,
             ledger,
@@ -522,6 +532,39 @@ fn check_osha(root: Option<&Path>) -> Result<(), String> {
         ));
     }
     Ok(())
+}
+
+/// E: independent lock pin for every file `snapshots.toml` names.
+fn verify_data_lock(root: Option<&Path>, selftest: bool) -> Result<(), String> {
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_data::engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    if selftest {
+        let msg = cdcp_data::selftest_flip_one_byte(&resolved).map_err(|e| e.to_string())?;
+        print!("{msg}");
+        return Ok(());
+    }
+    match cdcp_data::verify_data_lock(&resolved) {
+        Ok(report) => {
+            print!("{report}");
+            Ok(())
+        }
+        Err(cdcp_data::DataError::DataLockFailed { faults }) => {
+            eprintln!("verify_data_lock: FAIL");
+            for f in &faults {
+                eprintln!("  - {f}");
+            }
+            Err(format!(
+                "content.lock [data] RED ({} fault(s))",
+                faults.len()
+            ))
+        }
+        Err(e) => Err(e.to_string()),
+    }
 }
 
 /// Build an `ExamAttempt` from a JSON answers file for mode=json.

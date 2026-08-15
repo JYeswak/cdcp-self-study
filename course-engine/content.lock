@@ -51,3 +51,13 @@ bank_hash = "3404d85437e3ad47773ec9f0b371522dbf4abbbc805282a1dbbb04f4162c0f66"
 "web/content/modules/14-auxiliary.md" = "eb514eb16e28442011f4450dd7cfc3ab0d847f595a4259f3e9f31abf6a6a1872"
 "web/content/modules/15-ops-adjacent.md" = "8ee6698e1e44e84bbfcefe62a5719eff5e1337d493d4c4b95b0edab898de19f6"
 "web/content/modules/README.md" = "70a9c839b96610cc2439766a09f66c02e7d34ed277024f5c6b20c45beb25bfce"
+
+[data]
+"knowledge/corpus/free-pdfs/nist_sp800_123_server_security.meta.toml" = "0e020f2d46cf7ca0ca1ab838e5a1ffb58e2e2a4b1ccc1e1f0d2de816bd1ad8d8"
+"knowledge/corpus/free-pdfs/nist_sp800_123_server_security.pdf" = "182ae5d23011108fba08c3a56c5029b8a26a428480ae38ac61877f6f3365db41"
+"knowledge/corpus/public/osha/29cfr-1910.147.meta.toml" = "dd73b1308f45ce699b18c1b7ffb43a3c7efb89d006bf40f1743f7165e1694664"
+"knowledge/corpus/public/osha/29cfr-1910.147.txt" = "12a80dcc6c444135d0b0bc1f0b0b53955727346cbc2048b0a33ae89890780ed7"
+"knowledge/corpus/public/osha/29cfr-1910.269.meta.toml" = "9d2eb7aad5711f35fabe66733631a251a0a9a03fe8b89453810abc4380d1c174"
+"knowledge/corpus/public/osha/29cfr-1910.269.txt" = "f5d730d9a9cdf81b4f1e3d1afe6e9005911dcc4aa1811bd08ad9fbfd7b6583ba"
+"knowledge/corpus/public/osha/29cfr-1910.333-subpart-s.meta.toml" = "f7b87530bc6d3404c25178979fd6c5bc394df3c40f2446ad6bbba65fc65ad23a"
+"knowledge/corpus/public/osha/29cfr-1910.333-subpart-s.txt" = "0f0d2b096feaeb2bc76df271ec03bbd4011bcfb54003044f56a9fcd3f71ed8f9"

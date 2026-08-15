@@ -664,6 +664,17 @@ echo "==> cdcp check-osha (E3 OSHA/eCFR facts)"
 run_cdcp_cli check-osha || fail "OSHA facts"
 ok "OSHA facts (147 exclusion · 333 isolation · no 147-as-electrical-LOTO)"
 
+# E: content.lock [data] independently pins every snapshots.toml body + sidecar.
+# Editing both the body and the pin still trips this check.
+echo "==> cdcp verify-data-lock (E content.lock data artifacts)"
+run_cdcp_cli verify-data-lock || fail "data lock"
+ok "content.lock [data] pins every snapshots.toml file"
+
+echo "==> cdcp verify-data-lock --selftest (L4 data lock known-bad)"
+run_cdcp_cli verify-data-lock --selftest \
+  || fail "data lock flip-selftest did not reach RED"
+ok "data lock selftest (flipped vendored body trips RED)"
+
 # S0 substrate floor. Placed next to the L1 registry gate because it is the same
 # kind of thing — a registry constitution over what may exist in the tree — and it
 # fails fast (only serde+toml compile).
@@ -1227,7 +1238,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(run_cdcp_cli --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-learn build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence load-snapshots check-osha; do
+for v in bank-hash grade goldens export-web serve build-learn build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence load-snapshots check-osha verify-data-lock; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"
