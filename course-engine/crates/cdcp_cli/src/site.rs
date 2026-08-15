@@ -1,12 +1,15 @@
-//! Product CLI for `cdcp_site` (`bd-hardening-f-oracle-qly.12`).
+//! Product CLI for `cdcp_site` (`bd-hardening-f-oracle-qly.13`).
 //!
-//! BUILT ≠ WIRED: vendored FEMA NFHL (4up.6, 34acd3d) is already on
-//! `SiteProfile.flood`. This verb prints climate / seismic / carbon /
-//! flood from those snapshots. A missing flood snapshot or an empty
-//! zone is a named ERROR, never a silent omit. No network.
+//! BUILT ≠ WIRED: vendored EIA industrial price (4up.7, c94b777) is
+//! already on `SiteProfile.power_price`. This verb prints climate /
+//! seismic / carbon / flood / power price from those snapshots. A
+//! missing flood snapshot or an empty zone is a named ERROR. A price
+//! without a unit is the named bare-number ERROR, never a silent omit
+//! or a printed bare number. No network.
 
 use cdcp_site::{
-    engine_root, lookup_coord, lookup_id, SiteQuery, FLOOD_NOT_VENDORED, MISSING_LOCATION,
+    engine_root, lookup_coord, lookup_id, SiteQuery, BARE_PRICE_NUMBER, FLOOD_NOT_VENDORED,
+    MISSING_LOCATION,
 };
 use std::path::{Path, PathBuf};
 
@@ -30,6 +33,13 @@ pub(crate) fn run(
     let flood = &profile.flood;
     if flood.zone.is_empty() {
         return Err(format!("{FLOOD_NOT_VENDORED}: {}", profile.location.id));
+    }
+    // Same for power price: binding `.power_price` makes dropping it a
+    // compile error. An empty unit is the named bare-number ERROR, not
+    // a `power_price=<n>` line without units.
+    let price = &profile.power_price;
+    if price.unit.is_empty() {
+        return Err(format!("{BARE_PRICE_NUMBER}: {}", profile.location.id));
     }
     print!("{profile}");
     Ok(())

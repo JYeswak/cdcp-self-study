@@ -1,8 +1,9 @@
-//! Product CLI for `cdcp_site` (`bd-hardening-f-oracle-qly.12`).
+//! Product CLI for `cdcp_site` (`bd-hardening-f-oracle-qly.13`).
 //!
 //! Live Ashburn lookup prints named climate / seismic / carbon / flood
-//! quantities. A missing location is non-zero and names the location.
-//! No network.
+//! / power-price quantities. The power-price line carries units
+//! (cents/kWh); a bare number is an ERROR. A missing location is
+//! non-zero and names the location. No network.
 
 use assert_cmd::Command;
 use cdcp_site::{MISSING_LOCATION, NOT_IN_SFHA};
@@ -21,7 +22,7 @@ fn cdcp() -> Command {
     cmd
 }
 
-fn named_quantities() -> [&'static str; 8] {
+fn named_quantities() -> [&'static str; 10] {
     [
         "site ashburn",
         "climate_bin=",
@@ -31,6 +32,8 @@ fn named_quantities() -> [&'static str; 8] {
         "grid_co2_lb_per_mwh=",
         "flood_zone=",
         NOT_IN_SFHA,
+        "power_price=",
+        "cents/kWh",
     ]
 }
 
@@ -77,6 +80,33 @@ fn site_location_ashburn_prints_named_quantities() {
             "live Ashburn lookup must print {needle}: {stdout}"
         );
     }
+}
+
+/// The print path must carry units. `power_price=10.53` with no unit
+/// is the leftover this bead exists to make unrepresentable.
+#[test]
+fn site_location_ashburn_power_price_is_not_a_bare_number() {
+    let assert = cdcp()
+        .args(["site", "--location", "ashburn"])
+        .assert()
+        .success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    let line = stdout
+        .lines()
+        .find(|l| l.trim_start().starts_with("power_price="))
+        .unwrap_or_else(|| panic!("live Ashburn lookup must print power_price=: {stdout}"));
+    assert!(
+        line.contains("cents/kWh"),
+        "power-price line must carry units: {line}"
+    );
+    let rest = line
+        .split_once('=')
+        .map(|(_, r)| r.trim())
+        .expect("power_price=");
+    assert!(
+        rest.parse::<f64>().is_err(),
+        "bare number on power_price line is an ERROR: {line}"
+    );
 }
 
 #[test]
@@ -169,6 +199,14 @@ fn cli_site_source_calls_lookup_and_has_no_network() {
     assert!(
         src.contains("profile.flood") && src.contains("FLOOD_NOT_VENDORED"),
         "delete the flood field / named-error token → selftest non-zero"
+    );
+    assert!(
+        src.contains("profile.power_price") && src.contains("BARE_PRICE_NUMBER"),
+        "delete the power_price field / named-error token → selftest non-zero"
+    );
+    assert!(
+        src.contains("price.unit"),
+        "delete the unit check → a bare number can reach stdout"
     );
     for needle in [
         "TcpStream",
