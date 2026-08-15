@@ -235,6 +235,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "cdcp_assess"
+version = "0.1.0"
+dependencies = [
+ "hex",
+ "serde",
+ "serde_json",
+ "sha2",
+ "thiserror 1.0.69",
+]
+
+[[package]]
 name = "cdcp_bank"
 version = "0.1.0"
 dependencies = [

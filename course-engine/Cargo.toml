@@ -4,6 +4,7 @@ members = [
   "crates/cdcp_core",
   "crates/cdcp_bank",
   "crates/cdcp_grade",
+  "crates/cdcp_assess",
   "crates/cdcp_schedule",
   "crates/cdcp_assemble",
   "crates/cdcp_learn",
@@ -36,6 +37,7 @@ rand_chacha = "=0.3.1"
 cdcp_core = { path = "crates/cdcp_core" }
 cdcp_bank = { path = "crates/cdcp_bank" }
 cdcp_grade = { path = "crates/cdcp_grade" }
+cdcp_assess = { path = "crates/cdcp_assess" }
 cdcp_schedule = { path = "crates/cdcp_schedule" }
 cdcp_wasm = { path = "crates/cdcp_wasm" }
 cdcp_assemble = { path = "crates/cdcp_assemble" }
