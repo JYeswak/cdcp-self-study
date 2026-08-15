@@ -29,6 +29,16 @@
 //! Model cards ([`ModelCard`]) must name their idealizing assumptions
 //! explicitly; an empty list is rejected.
 //!
+//! Evidence-conformance records live beside the certificates, not in a
+//! second crate: [`SourceArtifact`], [`ClaimRecord`], [`ReviewRecord`],
+//! [`ItemEvidence`]. Changing the stem, keyed answer, proposition, or
+//! source invalidates an existing approval. A stem citation is not
+//! enough — every distractor must link to an accepted claim. Paid
+//! standards are supported by licensed-reviewer attestation + clause
+//! locator; public CI never re-evaluates text it cannot lawfully access.
+//! `ai_ingestion=PROHIBITED` sources (ASHRAE) may carry a locator and a
+//! human attestation but must not carry extracted body text.
+//!
 //! Composition logic never uses floating-point equality (`==` / `!=` on
 //! `f64`). Bounds are ordered with `<` / `>` / `<=` / `>=` and classified
 //! with `is_nan` / `is_finite`.
@@ -36,9 +46,16 @@
 
 mod card;
 mod query;
+mod records;
 
 pub use card::{CardError, Correlation, ModelCard};
 pub use query::{Abstention, DomainViolation, ViolationKind, DOMAIN_CHECK};
+pub use records::{
+    AiIngestion, ClaimRecord, Conformance, ConformanceFault, Invalidation, ItemApproval,
+    ItemEvidence, LicenceKind, OptionBinding, RecordError, ReviewKind, ReviewRecord, ReviewVerdict,
+    SourceArtifact, SourceInput, ATTESTATION_RULE, BINDING_CHECK, DISTRACTOR_RULE, NO_REEVAL,
+    PROHIBITED_BODY,
+};
 
 use std::collections::BTreeMap;
 use thiserror::Error;
@@ -688,7 +705,17 @@ mod unit {
             .split("#[cfg(test)]")
             .next()
             .expect("production source precedes tests");
-        [lib, include_str!("card.rs"), include_str!("query.rs")].concat()
+        let records = include_str!("records.rs")
+            .split("#[cfg(test)]")
+            .next()
+            .expect("records production source precedes tests");
+        [
+            lib,
+            include_str!("card.rs"),
+            include_str!("query.rs"),
+            records,
+        ]
+        .concat()
     }
 
     #[test]

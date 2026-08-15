@@ -3,10 +3,12 @@ name = "cdcp_evidence"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "Evidence<T> + query-time ValidityDomain abstention"
+description = "Evidence<T> + query-time abstention + evidence-conformance records"
 publish = false
 
 [dependencies]
+hex = { workspace = true }
+sha2 = { workspace = true }
 thiserror = { workspace = true }
 
 [dev-dependencies]
