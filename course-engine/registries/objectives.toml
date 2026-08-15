@@ -50,3 +50,43 @@ claim_ids = ["claim-interview-ready", "claim-domain-covered"]
 id = "obj-m14-cdu-loop-leak"
 text = "Learner lists CDU / secondary-loop leak plus flow / temperature / pressure as first-class points, and pages on seconds-scale inlet or cold-plate rate-of-rise — a hall rope and a 15-minute average are the wrong coverage and the wrong clock"
 claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m01-cause-framing-2026"
+text = "Learner frames facility unavailability as power-path led (UPS / ATS / generator), cooling as cascade (Modules 09 / 10), and human/process as contributing (Module 15 contributor-vs-root and unverifiable-majority refusal) — not three peer root-cause buckets, and not an invented outage percentage"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m01-2026-site-types"
+text = "Learner names neocloud / GPU colo / AI factory / behind-the-meter generation campus and how each differs from retail/wholesale colo, while keeping the six classic types as the 2018–2020 baseline"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m01-nines-scope"
+text = "Learner drills nines measurement scope: per service vs per site vs per component, planned vs unplanned, whose clock; recites the 8.8 h / 52.6 min / 5.3 min table and demotes the 9 h / 1 h slogan"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m01-ai-density-ridethrough"
+text = "Learner states that at 40–100 kW, UPS without cooling collapses thermal ride-through from minutes to seconds (load variability, operating near power limits) and points at Module 09 rather than teaching the cooling plant"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m01-org-split"
+text = "Learner names who typically owns facilities vs IT vs finance vs TPM, how an org-split outage starts (two green objects, no owner of the path), and points at Module 15 for the 2.1 organizational-structure heading"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m03-interconnect-queue"
+text = "Learner treats the interconnect queue (position, studies, financial security, years-not-weeks) as the 2026 go/no-go for whether a hall ever energizes; dual-feed lead times still matter and do not replace the queue"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m03-btm-campus"
+text = "Learner names a behind-the-meter / on-site generation campus as a site type and a walk-away reason, points at Module 01 for the type noun and Module 06 for the power path, and does not steal UPS/ATS/generator internals"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m03-aifactory-site-criteria"
+text = "Learner can speak AI-factory / neocloud site criteria as power + water rights + fiber + queue, not a brochure type list"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
