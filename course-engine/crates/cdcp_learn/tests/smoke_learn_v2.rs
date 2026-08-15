@@ -8,7 +8,9 @@
 //! ANTI-VACUOUS: empty `units` is RED (bd-learnv2-vacuous-coverage-dad8);
 //! empty M01 is RED; a missing / malformed / non-object / non-UTF-8 input
 //! is a named FAIL + verdict, not a panic (bd-learnv2-unguarded-reads-0f7g
-//! closed). Zero files / empty scan is RED. A suite that ran no case is RED.
+//! closed). Check-item floors count APPROVED ids only (a20t): a unit whose
+//! only checks are retired is not covered. Zero files / empty scan is RED.
+//! A suite that ran no case is RED.
 
 use cdcp_learn::learn_v2::{run, JS_ASSETS, M01_NEEDLES};
 use serde_json::{json, Value};
@@ -19,7 +21,7 @@ static RAN: AtomicUsize = AtomicUsize::new(0);
 static ROUND: AtomicUsize = AtomicUsize::new(0);
 
 /// Raise when you add a `#[test]`. A DROP means a case was deleted.
-const EXPECTED_CASES: usize = 21;
+const EXPECTED_CASES: usize = 25;
 
 fn engine_root() -> PathBuf {
     cdcp_learn::resolve_engine_root(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
@@ -85,12 +87,58 @@ fn good_payload() -> Value {
     units.extend(m06.clone());
     json!({
         "unit_count": 60,
+        "approved_item_count": 14,
+        "bank_item_count": 14,
         "by_module": {
             "01-mission-critical": m01,
             "06-power": m06,
         },
         "units": units,
     })
+}
+
+fn collect_check_ids(payload: &Value) -> Vec<String> {
+    let mut out = Vec::new();
+    let mut seen = std::collections::BTreeSet::new();
+    let mut take = |rows: &[Value]| {
+        for u in rows {
+            if let Some(ids) = u.get("check_item_ids").and_then(|a| a.as_array()) {
+                for id in ids {
+                    if let Some(s) = id.as_str() {
+                        if seen.insert(s.to_string()) {
+                            out.push(s.to_string());
+                        }
+                    }
+                }
+            }
+        }
+    };
+    if let Some(units) = payload.get("units").and_then(|u| u.as_array()) {
+        take(units);
+    }
+    if let Some(by) = payload.get("by_module").and_then(|o| o.as_object()) {
+        for v in by.values() {
+            if let Some(arr) = v.as_array() {
+                take(arr);
+            }
+        }
+    }
+    out
+}
+
+/// Seed-42 pack for a fixture. `check_status` is written on every id drawn
+/// from the payload. A sentinel approved row is added when that would leave
+/// the approved pool empty, so a retired-only known-bad measures coverage
+/// rather than collapsing into the empty-pool error.
+fn bank_pack(ids: &[String], check_status: &str) -> String {
+    let mut items: Vec<Value> = ids
+        .iter()
+        .map(|id| json!({"id": id, "status": check_status, "module": 1}))
+        .collect();
+    if items.is_empty() || check_status != "approved" {
+        items.push(json!({"id": "sentinel-approved", "status": "approved", "module": 1}));
+    }
+    Value::Array(items).to_string()
 }
 
 const GOOD_GLOSSARY: &str = "{\"term_count\": 40}\n";
@@ -102,8 +150,16 @@ const GOOD_M01_HTML: &str = concat!(
 const GOOD_DRILL: &str = "<script src=\"concept_card.js\"></script>\n";
 
 fn plant(payload: &Value) -> Fixture {
+    plant_with_bank(payload, "approved")
+}
+
+fn plant_with_bank(payload: &Value, check_status: &str) -> Fixture {
     let f = Fixture::new();
     f.put("web/data/units_index.json", &payload.to_string());
+    f.put(
+        "web/data/bank_items_seed42.json",
+        &bank_pack(&collect_check_ids(payload), check_status),
+    );
     f.put("web/data/glossary.json", GOOD_GLOSSARY);
     for name in ["learn_units.js", "learn_glossary.js", "concept_card.js"] {
         f.put(&format!("web/assets/js/{name}"), "// script\n");
@@ -177,8 +233,20 @@ fn live_tree_passes() {
     assert!(o.stdout.contains("smoke_learn_v2: PASS"), "{}", o.stdout);
     assert!(o.stdout.contains("ok: unit_count="), "{}", o.stdout);
     assert!(
-        o.stdout.contains("ok: M01 every unit has ≥2 check items"),
+        o.stdout
+            .contains("ok: M01 every unit has ≥2 approved check items"),
         "{}",
+        o.stdout
+    );
+    assert!(
+        o.stdout.contains("ok: approved check_item_ids coverage"),
+        "live floors must name the approved population:\n{}",
+        o.stdout
+    );
+    assert!(
+        o.stdout
+            .contains("ok: populations named: bank_item_count + approved_item_count"),
+        "live units_index must pair the file-set count with the approved pool:\n{}",
         o.stdout
     );
     assert!(o.artifact.is_none(), "smoke is a reader");
@@ -197,6 +265,18 @@ fn green_fixture_passes() {
     assert_eq!(o.code, 0, "{}", o.stdout);
     assert!(o.stdout.contains("smoke_learn_v2: PASS"), "{}", o.stdout);
     assert!(o.stdout.contains("ok: unit_count=60"), "{}", o.stdout);
+    assert!(
+        o.stdout
+            .contains("ok: approved check_item_ids coverage 7/7"),
+        "{}",
+        o.stdout
+    );
+    assert!(
+        o.stdout
+            .contains("ok: M01 every unit has ≥2 approved check items"),
+        "{}",
+        o.stdout
+    );
     assert!(o.stdout.contains("ok: glossary terms=40"), "{}", o.stdout);
     assert!(o.artifact.is_none());
     let _ = &f.dir;
@@ -251,8 +331,14 @@ fn empty_units_is_red() {
         "zero units in units_index.json (vacuous coverage is ERROR)",
     );
     assert!(
-        !o.stdout.contains("ok: check_item_ids coverage 0/0"),
+        !o.stdout
+            .contains("ok: approved check_item_ids coverage 0/0"),
         "vacuous ok 0/0 still printed:\n{}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("ok: check_item_ids coverage 0/0"),
+        "pre-a20t vacuous ok 0/0 still printed:\n{}",
         o.stdout
     );
     let _ = &f.dir;
@@ -275,8 +361,14 @@ fn empty_m01_is_red() {
         "zero M01 units in units_index.json (vacuous M01 check-item floor is ERROR)",
     );
     assert!(
-        !o.stdout.contains("ok: M01 every unit has ≥2 check items"),
+        !o.stdout
+            .contains("ok: M01 every unit has ≥2 approved check items"),
         "vacuous M01 ok still printed:\n{}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("ok: M01 every unit has ≥2 check items"),
+        "pre-a20t vacuous M01 ok still printed:\n{}",
         o.stdout
     );
     let _ = &f.dir;
@@ -472,7 +564,8 @@ fn coverage_below_eighty_is_red() {
     let o = run(&f.root);
     assert_ne!(o.code, 0, "{}", o.stdout);
     assert!(
-        o.stdout.contains("check_item_ids coverage 0/7 < 80%"),
+        o.stdout
+            .contains("approved check_item_ids coverage 0/7 < 80%"),
         "{}",
         o.stdout
     );
@@ -539,6 +632,92 @@ fn the_reader_writes_nothing() {
         before,
         tree_digest(&f.root),
         "a reader wrote into the fixture"
+    );
+    let _ = &f.dir;
+}
+
+/// Known-bad (a20t): a unit whose only checks are retired is not covered.
+/// The pack still has an approved sentinel so this is a coverage fail, not
+/// the empty-pool fail.
+#[test]
+fn retired_only_checks_do_not_count_as_covered() {
+    tick();
+    let f = plant_with_bank(&good_payload(), "retired");
+    let o = run(&f.root);
+    assert_fail_row(
+        &o,
+        "approved check_item_ids coverage 0/7 < 80% (sample thin: [\"u01-0\", \"u01-1\", \"u01-2\", \"u01-3\", \"u06-0\"])",
+    );
+    assert!(
+        o.stdout
+            .contains("FAIL: M01 unit missing ≥2 approved check_item_ids"),
+        "M01 check floor must measure approved ids:\n{}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("ok: approved check_item_ids coverage"),
+        "retired-only units must not count as covered:\n{}",
+        o.stdout
+    );
+    assert!(
+        !o.stdout.contains("NONE are status='approved'"),
+        "the plant keeps an approved sentinel so this names coverage, not an empty pool:\n{}",
+        o.stdout
+    );
+    let _ = &f.dir;
+}
+
+/// Known-bad (a20t): file-set `bank_item_count` without the approved pair.
+#[test]
+fn file_set_count_unpaired_is_red() {
+    tick();
+    let mut payload = good_payload();
+    payload
+        .as_object_mut()
+        .unwrap()
+        .remove("approved_item_count");
+    payload["bank_item_count"] = json!(804);
+    let f = plant(&payload);
+    let o = run(&f.root);
+    assert_fail_row(
+        &o,
+        "units_index.json bank_item_count is a file-set count and is not paired with approved_item_count",
+    );
+    let _ = &f.dir;
+}
+
+/// Known-bad (a20t): cannot measure approved checks without the pack.
+#[test]
+fn missing_bank_pack_cannot_measure_approved() {
+    tick();
+    let f = plant(&good_payload());
+    f.rm("web/data/bank_items_seed42.json");
+    let o = run(&f.root);
+    assert_fail_row(
+        &o,
+        "missing web/data/bank_items_seed42.json — cannot measure approved check_item_ids",
+    );
+    assert!(
+        !o.stdout.contains("ok: approved check_item_ids coverage"),
+        "coverage must not run without a pack:\n{}",
+        o.stdout
+    );
+    let _ = &f.dir;
+}
+
+/// A status filter that removes the whole pool is ERROR, not 0/N content.
+#[test]
+fn empty_approved_pool_is_red() {
+    tick();
+    let f = plant(&good_payload());
+    f.put(
+        "web/data/bank_items_seed42.json",
+        r#"[{"id":"x","status":"retired","module":1}]"#,
+    );
+    let o = run(&f.root);
+    assert_fail_row(
+        &o,
+        "bank loaded 1 rows and NONE are status='approved' (vacuous approved-check floor is ERROR)",
     );
     let _ = &f.dir;
 }

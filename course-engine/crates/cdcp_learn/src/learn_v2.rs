@@ -10,8 +10,14 @@
 //!
 //! * `web/data/units_index.json` is a JSON object whose `units` array is
 //!   non-empty, whose declared `unit_count` is at least 50, whose M01 and
-//!   M06 lists clear the floors (4 and 3), whose check-item coverage is
-//!   at least 80%, and whose every M01 unit carries ≥2 check ids
+//!   M06 lists clear the floors (4 and 3), whose **approved** check-item
+//!   coverage is at least 80%, and whose every M01 unit carries ≥2
+//!   **approved** check ids (bd-smoke-learn-v2-derived-floor-a20t)
+//! * `bank_item_count` (file-set) may appear only when paired with
+//!   `approved_item_count` / `approved_count` — coverage.json schema v3
+//! * `web/data/bank_items_seed42.json` is loaded so those floors resolve
+//!   `status == "approved"` independently of the index. A missing pack,
+//!   an empty pack, or a pack whose approved pool is empty is ERROR
 //! * `web/data/glossary.json` is a JSON object whose declared `term_count`
 //!   is at least 15
 //! * the three JS assets, the M01 Learn page (with the unit-shell needles),
@@ -20,10 +26,12 @@
 //! # Anti-vacuous (bd-learnv2-vacuous-coverage-dad8)
 //!
 //! An empty `units` array or an empty M01 list is ERROR, never
-//! `ok: check_item_ids coverage 0/0` / a pass of the M01 check-item floor
-//! over nothing. A missing file, malformed JSON, a JSON array where an
-//! object is required, or a non-UTF-8 file is a FAIL row + verdict, never
-//! a panic (bd-learnv2-unguarded-reads-0f7g closed, not reproduced).
+//! `ok: approved check_item_ids coverage 0/0` / a pass of the M01
+//! check-item floor over nothing. A unit whose only check ids are
+//! retired does not count as covered. A missing file, malformed JSON,
+//! a JSON array where an object is required, or a non-UTF-8 file is a
+//! FAIL row + verdict, never a panic (bd-learnv2-unguarded-reads-0f7g
+//! closed, not reproduced).
 //!
 //! Type mismatches inside a parsed object FAIL-close too (stricter than
 //! the retired script, which still raised).
@@ -35,12 +43,14 @@
 //! It does not open a browser or execute JS. `unit_count` is a DECLARED
 //! field, not `len(units)` — this smoke does not cross-check them. A
 //! page whose needles are present in an HTML comment clears the same as
-//! a correct page.
+//! a correct page. Per-module unit-count floors (M01 ≥ 4, M06 ≥ 3) still
+//! count content sections; the check floors below them filter to approved.
 
 #![forbid(unsafe_code)]
 
-use crate::{join_rel, BuildOutcome};
+use crate::{join_rel, units, BuildOutcome};
 use serde_json::Value as Json;
+use std::collections::HashSet;
 use std::path::Path;
 
 pub const NAME: &str = "smoke-learn-v2";
@@ -70,10 +80,11 @@ pub const MIN_GLOSSARY_TERMS: i64 = 15;
 /// Reader: writes nothing. `code != 0` is RED. `artifact` is always `None`.
 /// The verdict line is printed on every path.
 pub fn run(root: &Path) -> BuildOutcome {
-    evaluate(&join_rel(root, "web"))
+    evaluate(root)
 }
 
-fn evaluate(web: &Path) -> BuildOutcome {
+fn evaluate(root: &Path) -> BuildOutcome {
+    let web = join_rel(root, "web");
     let mut r = Report {
         out: String::from("==> smoke_learn_v2 (M8 B/D assets)\n"),
         errs: Vec::new(),
@@ -85,7 +96,10 @@ fn evaluate(web: &Path) -> BuildOutcome {
     } else {
         match load_json_object(&units_path, "units_index.json") {
             Err(row) => r.fail(row),
-            Ok(d) => grade_units(&d, &mut r),
+            Ok(d) => {
+                let approved = load_approved_ids(root, &mut r);
+                grade_units(&d, approved.as_ref(), &mut r);
+            }
         }
     }
 
@@ -150,7 +164,21 @@ fn evaluate(web: &Path) -> BuildOutcome {
     }
 }
 
-fn grade_units(d: &Json, r: &mut Report) {
+fn grade_units(d: &Json, approved: Option<&HashSet<String>>, r: &mut Report) {
+    // File-set `bank_item_count` may stay only when the drawable population
+    // is named next to it (coverage.json schema v3). Absence of both is fine;
+    // a lone file-set count is the confusion this smoke must not re-bless.
+    let has_file_set = has_named_field(d, "bank_item_count");
+    let has_approved_pop =
+        has_named_field(d, "approved_item_count") || has_named_field(d, "approved_count");
+    if has_file_set && !has_approved_pop {
+        r.fail(
+            "units_index.json bank_item_count is a file-set count and is not paired with approved_item_count",
+        );
+    } else if has_file_set && has_approved_pop {
+        r.ok("populations named: bank_item_count + approved_item_count");
+    }
+
     let by = match d.get("by_module") {
         None | Some(Json::Null) => None,
         Some(Json::Object(map)) => Some(map),
@@ -162,6 +190,8 @@ fn grade_units(d: &Json, r: &mut Report) {
 
     // Floors are written as literals so the bd-lt7 bound sweep can see them.
     // 4 and 3 sit outside 13–16; they are not module-count bounds.
+    // These count content sections, not checks — a unit with only retired
+    // checks still exists as a section; the check floors below filter status.
     for (mid, need) in [("01-mission-critical", 4usize), ("06-power", 3usize)] {
         let n = match by.and_then(|m| m.get(mid)) {
             None | Some(Json::Null) => 0,
@@ -193,6 +223,12 @@ fn grade_units(d: &Json, r: &mut Report) {
         }
     }
 
+    let Some(approved) = approved else {
+        // Pack missing / unreadable / empty: the fail row is already recorded.
+        // Do not print a 0/N coverage line that looks like a content shortfall.
+        return;
+    };
+
     let units = match d.get("units") {
         None | Some(Json::Null) => Some(&[][..]),
         Some(Json::Array(rows)) => Some(rows.as_slice()),
@@ -207,7 +243,7 @@ fn grade_units(d: &Json, r: &mut Report) {
         let mut thin: Vec<String> = Vec::new();
         let mut row_ok = true;
         for u in units {
-            match check_id_count(u) {
+            match approved_check_count(u, approved) {
                 None => {
                     r.fail("units_index.json units[] entry is not a JSON object");
                     row_ok = false;
@@ -233,12 +269,12 @@ fn grade_units(d: &Json, r: &mut Report) {
             } else if (with_checks as f64) / (units.len() as f64) < 0.8 {
                 let sample: Vec<&str> = thin.iter().take(5).map(String::as_str).collect();
                 r.fail(format!(
-                    "check_item_ids coverage {with_checks}/{} < 80% (sample thin: {sample:?})",
+                    "approved check_item_ids coverage {with_checks}/{} < 80% (sample thin: {sample:?})",
                     units.len()
                 ));
             } else {
                 r.ok(format!(
-                    "check_item_ids coverage {with_checks}/{}",
+                    "approved check_item_ids coverage {with_checks}/{}",
                     units.len()
                 ));
             }
@@ -257,7 +293,7 @@ fn grade_units(d: &Json, r: &mut Report) {
             let mut min_checks: Option<usize> = None;
             let mut row_ok = true;
             for u in m01 {
-                match check_id_count(u) {
+                match approved_check_count(u, approved) {
                     None => {
                         r.fail(
                             "units_index.json by_module.01-mission-critical[] entry is not a JSON object",
@@ -277,9 +313,9 @@ fn grade_units(d: &Json, r: &mut Report) {
             }
             if row_ok {
                 if min_checks.unwrap_or(0) < 2 {
-                    r.fail("M01 unit missing ≥2 check_item_ids");
+                    r.fail("M01 unit missing ≥2 approved check_item_ids");
                 } else {
-                    r.ok("M01 every unit has ≥2 check items");
+                    r.ok("M01 every unit has ≥2 approved check items");
                 }
             }
         }
@@ -304,16 +340,76 @@ fn grade_glossary(g: &Json, r: &mut Report) {
     }
 }
 
-/// Number of `check_item_ids` on one unit row.
+/// Number of APPROVED `check_item_ids` on one unit row.
+///
+/// An id that is missing from the pack, or present with any status other
+/// than `approved`, does not count. A unit whose only checks are retired
+/// therefore reports 0 — it is not covered.
 ///
 /// `None` — the row is not an object (caller FAIL-closes).
 /// `Some(Err)` — `check_item_ids` is present and not an array.
-fn check_id_count(u: &Json) -> Option<Result<usize, &'static str>> {
+fn approved_check_count(
+    u: &Json,
+    approved: &HashSet<String>,
+) -> Option<Result<usize, &'static str>> {
     let obj = u.as_object()?;
     match obj.get("check_item_ids") {
         None | Some(Json::Null) => Some(Ok(0)),
-        Some(Json::Array(ids)) => Some(Ok(ids.len())),
+        Some(Json::Array(ids)) => {
+            let n = ids
+                .iter()
+                .filter(|id| match id {
+                    Json::String(s) => approved.contains(s.as_str()),
+                    _ => false,
+                })
+                .count();
+            Some(Ok(n))
+        }
         Some(_) => Some(Err("check_item_ids is not a JSON array")),
+    }
+}
+
+/// Load the drawable id set from the seed-42 pack. `None` means the check
+/// floors cannot run (fail row already recorded). An empty approved pool
+/// still returns `Some` so coverage can name 0/N instead of looking like
+/// a missing file.
+fn load_approved_ids(root: &Path, r: &mut Report) -> Option<HashSet<String>> {
+    let pack = join_rel(root, units::BANK_JSON_REL);
+    if !pack.is_file() {
+        r.fail("missing web/data/bank_items_seed42.json — cannot measure approved check_item_ids");
+        return None;
+    }
+    match units::load_bank(root) {
+        Err(e) => {
+            r.fail(format!("bank_items_seed42.json unreadable ({e})"));
+            None
+        }
+        Ok(bank) => {
+            if bank.is_empty() {
+                r.fail("bank loaded 0 rows (vacuous approved-check floor is ERROR)");
+                return None;
+            }
+            let approved: HashSet<String> = bank
+                .iter()
+                .filter(|it| it.is_approved())
+                .map(|it| it.id.clone())
+                .collect();
+            if approved.is_empty() {
+                r.fail(format!(
+                    "bank loaded {} rows and NONE are status='{}' (vacuous approved-check floor is ERROR)",
+                    bank.len(),
+                    units::APPROVED
+                ));
+            }
+            Some(approved)
+        }
+    }
+}
+
+fn has_named_field(d: &Json, key: &str) -> bool {
+    match d.get(key) {
+        None | Some(Json::Null) => false,
+        Some(_) => true,
     }
 }
 
