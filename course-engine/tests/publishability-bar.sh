@@ -75,7 +75,20 @@ if grep -q "publishability_bar_score" /tmp/pb.$$ && grep -q "facet_id" /tmp/pb.$
 else
   bad "F3 doctor did not emit the contracted JSON"
 fi
-rm -f /tmp/pb.$$
+
+# EXTRACT-THEN-DELETE (bd-extract-publishability-bar-python-9tji): doctor
+# JSON parse and corpus-rights scan live in `cdcp publishability`. A
+# missing $CDCP after check.sh's cargo build is RED (no interpreter fallback).
+if [ -z "${CDCP:-}" ]; then
+  if [ -z "${CDCP_BIN_DIR:-}" ]; then
+    if [ -n "${CARGO_TARGET_DIR:-}" ]; then
+      CDCP_BIN_DIR="${CARGO_TARGET_DIR%/}/debug"
+    else
+      CDCP_BIN_DIR="$ENGINE/target/debug"
+    fi
+  fi
+  CDCP="$CDCP_BIN_DIR/cdcp"
+fi
 
 # ── The fleet doctor's error set must be EXACTLY the one known+accepted ─────
 # It reports brand_voice_composite_low because its exemption vocabulary
@@ -84,23 +97,17 @@ rm -f /tmp/pb.$$
 # is a gap in the shared fleet tool, not in this repo — but pinning it here
 # means a NEW doctor error can never slip by unnoticed.
 KNOWN_ERR="brand_voice_composite_low"
-ACTUAL_ERRS="$(python3 - "$ENGINE" <<'PY2'
-import json, subprocess, sys, os
-eng = sys.argv[1]
-try:
-    out = subprocess.run(["bash", ".flywheel/scripts/publishability-bar.sh", "--doctor", "--json"],
-                         cwd=eng, capture_output=True, text=True).stdout
-    d = json.loads(out)
-    print(",".join(sorted(e.get("code", "?") for e in d.get("errors", []))))
-except Exception:
-    print("DOCTOR_UNPARSEABLE")
-PY2
-)"
-if [ "$ACTUAL_ERRS" = "$KNOWN_ERR" ] || [ -z "$ACTUAL_ERRS" ]; then
-  ok "fleet doctor errors are exactly the known set (${ACTUAL_ERRS:-none})"
+if [ ! -x "$CDCP" ]; then
+  bad "missing $CDCP (doctor-errors helper; no interpreter fallback)"
 else
-  bad "fleet doctor raised UNEXPECTED errors: $ACTUAL_ERRS (known: $KNOWN_ERR)"
+  ACTUAL_ERRS="$("$CDCP" publishability doctor-errors --json /tmp/pb.$$)"
+  if [ "$ACTUAL_ERRS" = "$KNOWN_ERR" ] || [ -z "$ACTUAL_ERRS" ]; then
+    ok "fleet doctor errors are exactly the known set (${ACTUAL_ERRS:-none})"
+  else
+    bad "fleet doctor raised UNEXPECTED errors: $ACTUAL_ERRS (known: $KNOWN_ERR)"
+  fi
 fi
+rm -f /tmp/pb.$$
 
 # ── F4: the gate must exist and be executable ───────────────────────────────
 [ -x "$ENGINE/scripts/check.sh" ] || [ -f "$ENGINE/scripts/check.sh" ] \
@@ -120,15 +127,12 @@ else
 fi
 
 # ── Corpus rights must be recorded per source, not assumed ──────────────────
-if python3 - <<'PY2'
-import json, sys
-d = json.load(open("course-engine/knowledge/corpus/public/manifest.json"))
-srcs = d.get("sources", [])
-if not srcs:
-    sys.exit(1)                      # never vacuously green: empty = ERROR
-missing = [s.get("url", "?") for s in srcs if not s.get("rights")]
-sys.exit(1 if missing else 0)
-PY2
+# EXTRACT-THEN-DELETE: empty sources / missing rights is RED in
+# `cdcp publishability corpus-rights`. Presence of a rights field is
+# not proof the rights are correct.
+if [ ! -x "$CDCP" ]; then
+  bad "missing $CDCP (corpus-rights helper; no interpreter fallback)"
+elif "$CDCP" publishability corpus-rights --file "$ENGINE/knowledge/corpus/public/manifest.json"
 then
   ok "every scraped corpus source records its rights"
 else

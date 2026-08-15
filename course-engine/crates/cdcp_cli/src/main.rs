@@ -1,4 +1,4 @@
-//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics / slo / snap-rewrite / recon / first-topic-id
+//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics / slo / snap-rewrite / recon / first-topic-id / publishability
 #![forbid(unsafe_code)]
 
 mod assemble;
@@ -6,6 +6,7 @@ mod first_topic;
 mod metrics;
 mod operator;
 mod oracle;
+mod publishability;
 mod recon;
 mod site;
 mod slo;
@@ -346,6 +347,11 @@ enum Cmd {
         #[arg(long, default_value = "knowledge/topics.toml")]
         file: PathBuf,
     },
+    /// Helpers for tests/publishability-bar.sh. Not a gate.
+    Publishability {
+        #[command(subcommand)]
+        sub: PublishabilityCmd,
+    },
     /// Helpers for scripts/selftest_reconstructed.sh. Not a gate.
     Recon {
         #[command(subcommand)]
@@ -388,6 +394,22 @@ enum SnapRewriteCmd {
         /// `skip-exec`, `delete-assert`, or `weaken-if`
         #[arg(long, value_parser = ["skip-exec", "delete-assert", "weaken-if"])]
         kind: String,
+    },
+}
+
+#[derive(Subcommand)]
+enum PublishabilityCmd {
+    /// Print sorted doctor error codes from a --doctor --json body.
+    DoctorErrors {
+        /// Doctor JSON path (the body `.flywheel/scripts/publishability-bar.sh --doctor --json` emits).
+        #[arg(long)]
+        json: PathBuf,
+    },
+    /// Require every corpus source to record a rights field. Empty list is RED.
+    CorpusRights {
+        /// manifest.json path.
+        #[arg(long)]
+        file: PathBuf,
     },
 }
 
@@ -696,6 +718,10 @@ fn run(cli: Cli) -> Result<(), String> {
             }
         },
         Cmd::FirstTopicId { file } => first_topic::emit(&file),
+        Cmd::Publishability { sub } => match sub {
+            PublishabilityCmd::DoctorErrors { json } => publishability::emit_doctor_errors(&json),
+            PublishabilityCmd::CorpusRights { file } => publishability::emit_corpus_rights(&file),
+        },
         Cmd::Recon { sub } => match sub {
             ReconCmd::SnapshotLive {
                 root,
