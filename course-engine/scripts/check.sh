@@ -596,7 +596,6 @@ echo "==> smoke_srs.mjs";        node scripts/smoke_srs.mjs        || fail "L6 s
 echo "==> smoke_mastery.mjs";    node scripts/smoke_mastery.mjs    || fail "L6 mastery smoke";    ok "L6 mastery smoke"
 echo "==> smoke_weak_links.py";  python3 scripts/smoke_weak_links.py || fail "L6 weak-links smoke"; ok "L6 weak-links smoke"
 echo "==> smoke_hub_mastery.mjs"; node scripts/smoke_hub_mastery.mjs || fail "L6-S4 hub mastery"; ok "L6 hub mastery + recommend smoke"
-echo "==> smoke_quiz_approved.mjs"; node scripts/smoke_quiz_approved.mjs || fail "approved-only quiz/units draw"; ok "no learner surface draws a non-approved item"
 ok "L6-S4 hub mastery surface wired"
 
 echo "==> L6 multi-seed export-web (fixture golden-stable)"
@@ -633,6 +632,9 @@ ok "L7 surfaces (reference · closed-notes · Learn-15)"
 echo "==> smoke_learn_chrome.py (M8-A)"; python3 scripts/smoke_learn_chrome.py || fail "M8-A learn chrome"; ok "M8-A learn chrome smoke"
 echo "==> cdcp build-units (M8-B units_index)";              cargo run -q -p cdcp_cli -- build-units          || fail "M8-B units_index"; ok "M8-B units_index"
 echo "==> cdcp build-glossary (M8-D glossary)";              cargo run -q -p cdcp_cli -- build-glossary       || fail "M8-D glossary";    ok "M8-D glossary.json"
+# After regenerate so this smoke sees THIS run's units_index, not last run's
+# (bd-wire-smoke-quiz-approved-7pju.1).
+echo "==> smoke_quiz_approved.mjs"; node scripts/smoke_quiz_approved.mjs || fail "approved-only quiz/units draw"; ok "no learner surface draws a non-approved item"
 echo "==> smoke_learn_v2.py";            python3 scripts/smoke_learn_v2.py      || fail "M8-B/D learn v2";  ok "M8-B/D learn v2 smoke"
 echo "==> smoke_diagrams.py";            python3 scripts/smoke_diagrams.py      || fail "M8-C diagrams";    ok "M8-C diagrams smoke"
 echo "==> smoke_a11y.py";                python3 scripts/smoke_a11y.py          || fail "L7 a11y";          ok "L7 a11y baseline"
@@ -708,9 +710,39 @@ if [ -f tests/publishability-bar.sh ]; then
   ok "L88 publishability bar (audit claims verified against the repo)"
 fi
 
-echo "==> V11 stretch surfaces"
-python3 scripts/export_anki.py --check >/dev/null 2>&1 || python3 scripts/export_anki.py >/dev/null 2>&1 || fail "V11 Anki export"
-ok "V11 Anki export"
+echo "==> V11 Anki planted all-retired (must print FAIL: and write no deck)"
+_anki_plant=$(mktemp -d)
+mkdir -p "$_anki_plant/bank/items" "$_anki_plant/scripts"
+cp scripts/export_anki.py "$_anki_plant/scripts/export_anki.py"
+printf '%s\n' \
+  'id = "r1"' 'status = "retired"' 'module = 1' \
+  'stem = "retired-only-planted-stem"' \
+  'choices = ["a"]' 'correct = "A"' \
+  > "$_anki_plant/bank/items/r1.toml"
+set +e
+_anki_plant_out=$(python3 "$_anki_plant/scripts/export_anki.py" --format tsv --out "$_anki_plant/dist/anki" 2>&1)
+_anki_plant_rc=$?
+set -e
+printf '%s\n' "$_anki_plant_out"
+if [ "$_anki_plant_rc" -eq 0 ]; then
+  rm -rf "$_anki_plant"
+  fail "V11 Anki planted all-retired unexpectedly GREEN"
+fi
+printf '%s' "$_anki_plant_out" | grep -q "FAIL: zero approved items to export" \
+  || { rm -rf "$_anki_plant"; fail "V11 Anki planted all-retired missing FAIL:"; }
+if [ -e "$_anki_plant/dist/anki/cdcp_bank.tsv" ] || [ -e "$_anki_plant/dist/anki/cdcp_bank.apkg" ]; then
+  rm -rf "$_anki_plant"
+  fail "V11 Anki planted all-retired wrote a retired deck"
+fi
+rm -rf "$_anki_plant"
+ok "V11 Anki planted all-retired is RED and writes nothing"
+
+echo "==> cdcp_gate export-anki (V11 · deterministic export surface, byte-exact vs scripts/export_anki.py)"
+cargo run -q -p cdcp_gate -- export-anki --format tsv,csv --out dist/anki || fail "V11 Anki export (tsv/csv)"
+ok "V11 Anki export tsv/csv (byte-exact with the oracle)"
+echo "==> V11 Anki .apkg deck (oracle; port blocked on bd-anki-apkg-not-reproducible-e13a)"
+python3 scripts/export_anki.py --format apkg --out dist/anki || fail "V11 Anki .apkg deck"
+ok "V11 Anki .apkg deck"
 grep -q "study aid" web/reference.html 2>/dev/null || grep -rq "not.*certif" web/ 2>/dev/null || fail "V11 diagram honesty"
 ok "V11 diagram honesty present"
 if cargo run -q -p cdcp_cli -- serve --help >/dev/null 2>&1; then
