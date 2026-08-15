@@ -141,8 +141,8 @@ why = "selftest_doc_consistency.sh still invokes python3 via $CHECKER; rust is t
 
 [[oracle_inventory.file]]
 path = "scripts/verify_coverage.py"
-disposition = "live_selftest"
-why = "selftest_l6_coverage.sh still invokes python3; rust is the check.sh gate"
+disposition = "cargo_test_differential"
+why = "check.sh/selftest_l6_coverage.sh no longer invoke python3; cargo test still diffs vs tests/diff_verify_coverage.rs (bd-substrate-rust-migration-jhd.23)"
 
 [[oracle_inventory.file]]
 path = "scripts/verify_bank.py"
@@ -203,7 +203,7 @@ expires = "2026-11-30"
 
 [[allow]]
 path = "scripts/verify_coverage.py"
-reason = "Differential oracle for `cdcp_gate verify-coverage` (bd-substrate-rust-migration-jhd.6, ported 2026-08-14). Module set derived from knowledge/domains.toml, not a numeric bound. Retained so tests/diff_verify_coverage.rs can compare both implementations byte for byte."
+reason = "Differential oracle for `cdcp_gate verify-coverage` (bd-substrate-rust-migration-jhd.6, ported 2026-08-14). Module set derived from knowledge/domains.toml, not a numeric bound. Retained so tests/diff_verify_coverage.rs can compare both implementations byte for byte. check.sh presence-checks only; cargo test still diffs. Known-bad plants run via $CDCP_BIN_DIR/cdcp_gate verify-coverage (bd-substrate-rust-migration-jhd.23)."
 migration_bead = "bd-substrate-rust-migration-jhd.6"
 expires = "2026-11-30"
 

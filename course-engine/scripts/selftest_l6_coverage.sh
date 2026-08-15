@@ -6,6 +6,10 @@
 #   b) filtered bank missing at least one primary module → RED
 #   c) live bank still GREEN after (a)(b)
 #
+# Plants run the Rust binary (same helper contract as check.sh):
+#   $CDCP_BIN_DIR/cdcp_gate verify-coverage
+# scripts/verify_coverage.py is the cargo-test differential oracle only.
+#
 # Trap cleans TEMP. Never leaves bank dirty.
 set -eu
 
@@ -56,9 +60,24 @@ assert_fails_with() {
 
 echo "==> selftest_l6_coverage (L6 domain coverage known-bad)"
 
-[ -f scripts/verify_coverage.py ] || fail "missing scripts/verify_coverage.py"
+# Same binary contract as check.sh: honour CARGO_TARGET_DIR, never cargo run.
+if [ -z "${CDCP_BIN_DIR:-}" ]; then
+  if [ -n "${CARGO_TARGET_DIR:-}" ]; then
+    CDCP_BIN_DIR="${CARGO_TARGET_DIR%/}/debug"
+  else
+    CDCP_BIN_DIR="$ROOT/target/debug"
+  fi
+fi
+[ -n "$CDCP_BIN_DIR" ] \
+  || fail "CDCP_BIN_DIR unset — cargo build -p cdcp_gate -p cdcp_cli --locked must run first (no fallback to cargo run)"
+[ -x "$CDCP_BIN_DIR/cdcp_gate" ] \
+  || fail "cdcp_gate binary absent at $CDCP_BIN_DIR/cdcp_gate — cargo build -p cdcp_gate -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
+
+verify_coverage() {
+  "$CDCP_BIN_DIR/cdcp_gate" verify-coverage "$@"
+}
+
 [ -d bank/items ] || fail "missing bank/items"
-command -v python3 >/dev/null 2>&1 || fail "python3 required"
 
 TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/selftest_l6_coverage.XXXXXX")"
 
@@ -67,7 +86,7 @@ echo "==> (a) empty bank → ERROR"
 empty_bank="$TMP_ROOT/empty_bank"
 mkdir -p "$empty_bank"
 assert_fails_with "empty-bank" "empty bank" \
-  python3 scripts/verify_coverage.py --bank "$empty_bank"
+  verify_coverage --bank "$empty_bank"
 ok "empty bank temp removed path kept under TMP only"
 
 # --- (b) filtered set: only module-1 items → modules 2–14 SHORT ---
@@ -90,13 +109,13 @@ quantity_evidence = "qualitative_only"
 EOF
 # Needle: shortfall line for module 2 (policy min or OQ-05 floor of 1)
 assert_fails_with "m01-only-bank" "module 2:" \
-  python3 scripts/verify_coverage.py --bank "$filt_bank"
+  verify_coverage --bank "$filt_bank"
 ok "filtered missing-module bank trips RED"
 
 # --- (c) live bank still GREEN (no dirt left) ---
 echo "==> (c) live bank coverage GREEN"
 rc=0
-live_out="$(python3 scripts/verify_coverage.py --bank bank/items 2>&1)" || rc=$?
+live_out="$(verify_coverage --bank bank/items 2>&1)" || rc=$?
 printf '%s\n' "$live_out"
 [ "$rc" -eq 0 ] || fail "live bank verify_coverage exited $rc (selftest must not dirty bank)"
 printf '%s\n' "$live_out" | grep -q 'coverage GREEN' \
