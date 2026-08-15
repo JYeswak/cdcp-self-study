@@ -19,10 +19,11 @@ As a network deploy engineer you already live in a world of copper noise, ground
 Interviewers and site walk-throughs use EMF to test whether you think in **adjacency and failure modes**, not only racks and cables:
 
 - “Would you put the network core next to the UPS?” → usually **no** (magnetic field + heat + access traffic).
+- “Does a multi-kA AI busway change the physics?” → **no**. Same physics at higher current; **adjacency / distance-first still wins**. Do not invent a milligauss statute.
 - “What triggers an EMF survey?” → human exposure complaints, unexplained I/O errors clustered near electrical plant, new high-current gear, or site due diligence next to rail/substation/radar.
 - TPMs and designers care because **rework is expensive**: moving a 2 MW transformer after fit-out is a multi-week project; leaving three metres of clear zone at design time is free.
 
-EMF is also where **health/safety language** and **equipment EMC language** get confused. Keep them separate: ICNIRP-style limits protect people; IEC 61000 / product EMC ratings protect (and describe) equipment immunity. Both can drive layout; they are not the same numbers.
+EMF is also where **health/safety language** and **equipment EMC language** get confused. Keep them separate: ICNIRP-style limits protect people; IEC 61000 / product EMC ratings protect (and describe) equipment immunity. Both can drive layout; they are not the same numbers. This file teaches equipment coupling, not a health syllabus.
 
 ---
 
