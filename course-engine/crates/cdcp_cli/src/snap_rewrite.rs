@@ -1,10 +1,16 @@
-//! Snapshot CHARTER rewriter used by `scripts/check.sh` L4 isolation.
+//! Snapshot / restore_safe CHARTER rewriter.
 //!
-//! Not a gate. The snapshot selftest used to spawn `python3 -c` to (a) swap
-//! exactly one sentinel and (b) rewrite the two CHARTER legs — skip the
-//! snapshot `exec`, then hollow out the isolation assert. Those jobs live
-//! here so the check.sh body has no live python3. A rewrite that hits 0 or
-//! N≠1 targets is RED: silent no-op is how a CHARTER pair lies.
+//! Not a gate. `scripts/check.sh` L4 isolation used to spawn `python3 -c`
+//! to (a) swap exactly one sentinel and (b) rewrite the two CHARTER legs —
+//! skip the snapshot `exec`, then hollow out the isolation assert.
+//! `scripts/restore_safe.inc.sh` used the same interpreter to weaken the
+//! prove-rebuild mtime check (CHARTER-NEEDLE + -CHECK, next `if [ `).
+//! Those jobs live here so the shell bodies have no live python3.
+//! A rewrite that hits 0 or N≠1 targets is RED: silent no-op is how a
+//! CHARTER pair lies.
+//!
+//! EXTRACT-THEN-DELETE (`bd-extract-checksh-charter-python-w8a8`,
+//! `bd-extract-restore-safe-python-iiv8`).
 
 use std::fs;
 use std::path::Path;
@@ -36,14 +42,17 @@ pub(crate) enum CharterLeg {
     SkipExec,
     /// Delete the isolation assert so a sheared source can still go GREEN.
     DeleteAssert,
+    /// restore_safe prove-rebuild CHARTER: weaken the marked `if [ ` test.
+    WeakenIf,
 }
 
 pub(crate) fn parse_leg(raw: &str) -> Result<CharterLeg, String> {
     match raw {
         "skip-exec" => Ok(CharterLeg::SkipExec),
         "delete-assert" => Ok(CharterLeg::DeleteAssert),
+        "weaken-if" => Ok(CharterLeg::WeakenIf),
         other => Err(format!(
-            "snap-rewrite: unknown charter kind {other:?} (want skip-exec or delete-assert)"
+            "snap-rewrite: unknown charter kind {other:?} (want skip-exec, delete-assert, or weaken-if)"
         )),
     }
 }
@@ -76,6 +85,13 @@ fn swap_once(src: &str, from: &str, to: &str, path: &Path) -> Result<String, Str
 }
 
 fn rewrite_charter(src: &str, leg: CharterLeg, path: &Path) -> Result<String, String> {
+    match leg {
+        CharterLeg::WeakenIf => weaken_if(src, path),
+        CharterLeg::SkipExec | CharterLeg::DeleteAssert => rewrite_line_charter(src, leg, path),
+    }
+}
+
+fn rewrite_line_charter(src: &str, leg: CharterLeg, path: &Path) -> Result<String, String> {
     let had_trailing_nl = src.ends_with('\n');
     let mut out = String::with_capacity(src.len() + 8);
     let mut hits = 0usize;
@@ -95,6 +111,7 @@ fn rewrite_charter(src: &str, leg: CharterLeg, path: &Path) -> Result<String, St
                 out.push_str(&line[..pad]);
                 out.push_str(ASSERT_HOLLOW);
             }
+            CharterLeg::WeakenIf => unreachable!("weaken-if uses weaken_if, not the line loop"),
         }
     }
     if hits != 1 {
@@ -116,7 +133,68 @@ fn row_matches(line: &str, leg: CharterLeg) -> bool {
             tail.ends_with(EXEC_TAIL) && tail.contains(EXEC_INVOKE)
         }
         CharterLeg::DeleteAssert => line.trim_start().starts_with(ASSERT_LIVE),
+        CharterLeg::WeakenIf => false,
     }
+}
+
+/// Marker is assembled so a comment that names the parts cannot match it.
+/// Same construction the retired restore_safe python3 used.
+fn weaken_mark() -> String {
+    format!("{}{}", "CHARTER-NEEDLE", "-CHECK")
+}
+
+/// Find exactly one `CHARTER-NEEDLE-CHECK` line; rewrite the next `if [ `
+/// test to `if false && [ `. Zero markers, two markers, or a marker whose
+/// next line is not that test is RED — a no-op weaken is how the pair lies.
+fn weaken_if(src: &str, path: &Path) -> Result<String, String> {
+    let mark = weaken_mark();
+    let had_trailing_nl = src.ends_with('\n');
+    let rows: Vec<&str> = src.lines().collect();
+    let mut out = String::with_capacity(src.len() + 16);
+    let mut hits = 0usize;
+    let mut mutated = false;
+    let mut i = 0usize;
+    while i < rows.len() {
+        if i > 0 {
+            out.push('\n');
+        }
+        let line = rows[i];
+        if !line.contains(&mark) {
+            out.push_str(line);
+            i += 1;
+            continue;
+        }
+        hits += 1;
+        out.push_str(line);
+        i += 1;
+        if i < rows.len() {
+            out.push('\n');
+            let next = rows[i];
+            if next.trim_start().starts_with("if [ ") {
+                out.push_str(&next.replacen("if [ ", "if false && [ ", 1));
+                mutated = true;
+            } else {
+                out.push_str(next);
+            }
+            i += 1;
+        }
+    }
+    if hits != 1 {
+        return Err(format!(
+            "snap-rewrite: charter WeakenIf matched {hits} marker line(s) in {} (want 1)",
+            path.display()
+        ));
+    }
+    if !mutated {
+        return Err(format!(
+            "snap-rewrite: charter WeakenIf found the marker but the next line is not an `if [ ` test in {}",
+            path.display()
+        ));
+    }
+    if had_trailing_nl {
+        out.push('\n');
+    }
+    Ok(out)
 }
 
 #[cfg(test)]
@@ -296,10 +374,85 @@ mod tests {
     fn parse_leg_rejects_unknown() {
         let err = parse_leg("hollow-assert").unwrap_err();
         assert!(err.contains("unknown charter kind"), "{err}");
+        assert!(err.contains("weaken-if"), "{err}");
         assert_eq!(parse_leg("skip-exec").unwrap(), CharterLeg::SkipExec);
         assert_eq!(
             parse_leg("delete-assert").unwrap(),
             CharterLeg::DeleteAssert
         );
+        assert_eq!(parse_leg("weaken-if").unwrap(), CharterLeg::WeakenIf);
+    }
+
+    #[test]
+    fn weaken_if_rewrites_the_next_test() {
+        let path = scratch("weaken_ok");
+        // Assemble the marker the same way the retired python3 did so this
+        // fixture comment cannot become a second hit.
+        let mark = format!("{}{}", "CHARTER-NEEDLE", "-CHECK");
+        fs::write(
+            &path,
+            format!(
+                "  # {mark} — mutate the next test\n\
+                 if [ \"$_pr_after\" -eq \"$_pr_before\" ]; then\n\
+                 echo stay\n"
+            ),
+        )
+        .unwrap();
+        apply(&path, &Job::Charter(CharterLeg::WeakenIf)).unwrap();
+        let got = fs::read_to_string(&path).unwrap();
+        assert!(
+            got.contains("if false && [ \"$_pr_after\" -eq \"$_pr_before\" ]; then"),
+            "{got}"
+        );
+        assert!(got.contains("echo stay"), "{got}");
+        assert!(
+            !got.contains("\nif [ \"$_pr_after\""),
+            "live if-test must be gone: {got}"
+        );
+        wipe(&path);
+    }
+
+    #[test]
+    fn weaken_if_zero_markers_is_red() {
+        let path = scratch("weaken_zero");
+        fs::write(&path, "if [ 1 -eq 1 ]; then\necho stay\n").unwrap();
+        let err = apply(&path, &Job::Charter(CharterLeg::WeakenIf)).unwrap_err();
+        assert!(err.contains("matched 0"), "{err}");
+        assert_eq!(
+            fs::read_to_string(&path).unwrap(),
+            "if [ 1 -eq 1 ]; then\necho stay\n"
+        );
+        wipe(&path);
+    }
+
+    #[test]
+    fn weaken_if_two_markers_is_red() {
+        let path = scratch("weaken_two");
+        let mark = format!("{}{}", "CHARTER-NEEDLE", "-CHECK");
+        fs::write(
+            &path,
+            format!(
+                "# {mark}\n\
+                 if [ 1 -eq 1 ]; then\n\
+                 # {mark}\n\
+                 if [ 2 -eq 2 ]; then\n"
+            ),
+        )
+        .unwrap();
+        let err = apply(&path, &Job::Charter(CharterLeg::WeakenIf)).unwrap_err();
+        assert!(err.contains("matched 2"), "{err}");
+        wipe(&path);
+    }
+
+    #[test]
+    fn weaken_if_marker_without_if_test_is_red() {
+        let path = scratch("weaken_no_if");
+        let mark = format!("{}{}", "CHARTER-NEEDLE", "-CHECK");
+        let body = format!("# {mark}\necho not-an-if\n");
+        fs::write(&path, &body).unwrap();
+        let err = apply(&path, &Job::Charter(CharterLeg::WeakenIf)).unwrap_err();
+        assert!(err.contains("not an `if [ ` test"), "{err}");
+        assert_eq!(fs::read_to_string(&path).unwrap(), body);
+        wipe(&path);
     }
 }

@@ -381,12 +381,12 @@ enum SnapRewriteCmd {
         #[arg(long, allow_hyphen_values = true)]
         to: String,
     },
-    /// CHARTER pair: skip-exec disables re-exec; delete-assert hollows the assert.
+    /// CHARTER pair: skip-exec / delete-assert / weaken-if.
     Charter {
         #[arg(long)]
         file: PathBuf,
-        /// `skip-exec` or `delete-assert`
-        #[arg(long, value_parser = ["skip-exec", "delete-assert"])]
+        /// `skip-exec`, `delete-assert`, or `weaken-if`
+        #[arg(long, value_parser = ["skip-exec", "delete-assert", "weaken-if"])]
         kind: String,
     },
 }

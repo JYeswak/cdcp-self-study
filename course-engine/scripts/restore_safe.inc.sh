@@ -52,6 +52,12 @@
 #   sh scripts/restore_safe.inc.sh prove-rebuild --artifact <bin> -- \
 #       cargo test -p <crate> --offline --no-run
 #
+# EXTRACT-THEN-DELETE (bd-extract-restore-safe-python-iiv8): first-level
+# python3 is retired. mtime-ns is `cdcp recon mtime-ns`; replace-once is
+# `cdcp snap-rewrite replace-once`; the prove-rebuild CHARTER weaken is
+# `cdcp snap-rewrite charter --kind weaken-if`. Missing $CDCP is RED —
+# no interpreter fallback, no cargo run.
+#
 # ─────────────────────────────────────────────────────────────────────────────
 
 # cdcp_restore_safe DEST BACKUP
@@ -154,8 +160,43 @@ _cdcp_restore_safe_fail() {
   return 1
 }
 
+_cdcp_restore_bin=""
+
+# Resolve the LIVE helper binary. Honour CDCP, else CDCP_BIN_DIR, else
+# CARGO_TARGET_DIR/debug, else the executed-form engine target. Missing
+# is RED — the retired python3 path is not a fallback.
+_cdcp_resolve() {
+  if [ -n "${CDCP:-}" ] && [ -x "$CDCP" ]; then
+    printf '%s\n' "$CDCP"
+    return 0
+  fi
+  if [ -n "${CDCP_BIN_DIR:-}" ] && [ -x "${CDCP_BIN_DIR%/}/cdcp" ]; then
+    printf '%s\n' "${CDCP_BIN_DIR%/}/cdcp"
+    return 0
+  fi
+  if [ -n "${CARGO_TARGET_DIR:-}" ] && [ -x "${CARGO_TARGET_DIR%/}/debug/cdcp" ]; then
+    printf '%s\n' "${CARGO_TARGET_DIR%/}/debug/cdcp"
+    return 0
+  fi
+  if [ -n "${_CDCP_ENGINE_ROOT:-}" ] && [ -x "${_CDCP_ENGINE_ROOT}/target/debug/cdcp" ]; then
+    printf '%s\n' "${_CDCP_ENGINE_ROOT}/target/debug/cdcp"
+    return 0
+  fi
+  return 1
+}
+
+_cdcp_cli() {
+  if [ -z "${_cdcp_restore_bin}" ]; then
+    _cdcp_restore_bin="$(_cdcp_resolve)" || {
+      echo "restore_safe: cdcp binary absent — cargo build -p cdcp_cli --locked must run first (no fallback to python3 or cargo run)" >&2
+      return 2
+    }
+  fi
+  "$_cdcp_restore_bin" "$@"
+}
+
 _cdcp_mtime_ns() {
-  python3 -c 'import os,sys; print(os.stat(sys.argv[1]).st_mtime_ns)' "$1"
+  _cdcp_cli recon mtime-ns "$1"
 }
 
 # Roster of house-pattern selftests that restore cargo-compiled sources
@@ -379,18 +420,7 @@ cdcp_prove_rebuild_absent_plant() {
 }
 
 _cdcp_replace_once() {
-  python3 -c '
-from pathlib import Path
-import sys
-p = Path(sys.argv[1])
-old, new = sys.argv[2], sys.argv[3]
-text = p.read_text()
-n = text.count(old)
-if n != 1:
-    sys.stderr.write("restore_safe replace_once: count %d want 1 in %s\n" % (n, p))
-    sys.exit(2)
-p.write_text(text.replace(old, new, 1))
-' "$1" "$2" "$3"
+  _cdcp_cli snap-rewrite replace-once --file "$1" --from "$2" --to "$3"
 }
 
 # CHARTER pair for prove-rebuild, on a COPY of this helper. The live file
@@ -404,8 +434,10 @@ cdcp_prove_rebuild_charter_pair() {
     echo "restore_safe: CHARTER pair needs $_live" >&2
     return 2
   fi
-  command -v python3 >/dev/null 2>&1 \
-    || { echo "restore_safe: CHARTER pair needs python3" >&2; return 2; }
+  _bin="$(_cdcp_resolve)" \
+    || { echo "restore_safe: CHARTER pair needs cdcp (cargo build -p cdcp_cli --locked; no python3 fallback)" >&2; return 2; }
+  CDCP="$_bin"
+  export CDCP
   _d="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_prove_rebuild_pair.XXXXXX")"
   if ! _cdcp_prove_rebuild_charter_pair_body "$_live" "$_d"; then
     rm -rf "$_d"
@@ -459,34 +491,10 @@ _cdcp_prove_rebuild_charter_pair_body() {
   cp "$_d/suite.sh" "$_d/suite.sh.bak"
 
   _pair=0
-  # Weaken via the unique marker on the comparison (assembled in python
-  # so this comment cannot match it). The if-string also appears here.
-  python3 -c '
-from pathlib import Path
-import sys
-p = Path(sys.argv[1])
-mark = "CHARTER-NEEDLE" + "-CHECK"
-lines = p.read_text().splitlines(True)
-out = []
-n = 0
-i = 0
-while i < len(lines):
-    line = lines[i]
-    if mark in line:
-        n += 1
-        out.append(line)
-        i += 1
-        if i < len(lines) and lines[i].lstrip().startswith("if [ "):
-            out.append(lines[i].replace("if [ ", "if false && [ ", 1))
-            i += 1
-        continue
-    out.append(line)
-    i += 1
-if n != 1:
-    sys.stderr.write("%s count %d want 1\n" % (mark, n))
-    sys.exit(2)
-p.write_text("".join(out))
-' "$_d/helper.sh" \
+  # Weaken via the unique marker on the comparison. The kind lives in
+  # cdcp so this comment cannot match CHARTER-NEEDLE + -CHECK, and the
+  # if-string in this file cannot become a second replace-once hit.
+  _cdcp_cli snap-rewrite charter --file "$_d/helper.sh" --kind weaken-if \
     || { echo "restore_safe: CHARTER pair: mutate needle missing" >&2; return 1; }
   _rc=0
   sh "$_d/suite.sh" || _rc=$?
@@ -548,6 +556,11 @@ case "${0##*/}" in
     set -eu
     _here="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
     _engine="$(CDPATH= cd -- "$_here/.." && pwd)"
+    _CDCP_ENGINE_ROOT="$_engine"
+    if _resolved="$(_cdcp_resolve)"; then
+      CDCP="$_resolved"
+      export CDCP
+    fi
     case "${1:-selftest}" in
       prove-rebuild)
         shift

@@ -59,6 +59,21 @@ fn snap_rewrite_help_lists_both_jobs() {
 }
 
 #[test]
+fn charter_help_lists_weaken_if() {
+    let assert = cdcp()
+        .args(["snap-rewrite", "charter", "--help"])
+        .assert()
+        .success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    for kind in ["skip-exec", "delete-assert", "weaken-if"] {
+        assert!(
+            stdout.contains(kind),
+            "cdcp snap-rewrite charter --help must list {kind}: {stdout}"
+        );
+    }
+}
+
+#[test]
 fn replace_once_cli_swaps_the_single_needle() {
     let path = scratch("cli_ok");
     fs::write(&path, "keep NEEDLE keep\n").unwrap();
@@ -103,7 +118,28 @@ fn charter_unknown_kind_is_red() {
         .failure();
     let err = String::from_utf8_lossy(&assert.get_output().stderr);
     assert!(
-        err.contains("skip-exec") && err.contains("delete-assert"),
+        err.contains("skip-exec") && err.contains("delete-assert") && err.contains("weaken-if"),
         "unknown kind must name the allowed values: {err}"
     );
+}
+
+#[test]
+fn weaken_if_cli_rewrites_the_next_test() {
+    let path = scratch("cli_weaken");
+    let mark = format!("{}{}", "CHARTER-NEEDLE", "-CHECK");
+    fs::write(
+        &path,
+        format!("# {mark}\nif [ 1 -eq 1 ]; then\necho stay\n"),
+    )
+    .unwrap();
+    cdcp()
+        .args(["snap-rewrite", "charter", "--file"])
+        .arg(&path)
+        .args(["--kind", "weaken-if"])
+        .assert()
+        .success();
+    let got = fs::read_to_string(&path).unwrap();
+    assert!(got.contains("if false && [ 1 -eq 1 ]; then"), "{got}");
+    assert!(got.contains("echo stay"), "{got}");
+    wipe(&path);
 }
