@@ -1,4 +1,5 @@
-# F3 published-reference ledger (bd-hardening-f-oracle-qly.1).
+# F3 published-reference ledger (bd-hardening-f-oracle-qly.1;
+# eGRID + free-cooling honesty: bd-hardening-f-oracle-qly.6).
 #
 # TOLERANCES IN THIS FILE WERE DECLARED BEFORE COMPUTED-VS-PUBLISHED
 # WAS INSPECTED. Do not edit a tolerance to make a comparison green.
@@ -9,20 +10,14 @@
 #
 # Zero [[reference]] rows is an ERROR. Fewer than 5 distinct locations
 # is an ERROR. Retrieval dates are required on every row.
+#
+# Free-cooling hours are NOT in this external ledger. STAT / ASHRAE / NREL
+# do not publish a dry-bulb ≤ 18.33 °C hour count for these TMY3 stations.
+# A same-file recount is MMS (`tests/mms_quantities.rs`), not an oracle.
 
 schema = "cdcp.oracle.references.v1"
 
 # ── tolerances (declared first) ───────────────────────────────────────────
-
-[tolerance.free_cooling_hours]
-abs = 1.0
-unit = "h"
-justification = """
-TMY3 is a non-leap 8760-hour record. Hours with dry-bulb ≤ 18.33 °C
-(65.0 °F) is an integer count. 1 hour is one observation — the
-resolution of the published meteorological record — and covers a
-single threshold-tie at 0.1 °C EPW rounding vs 65 °F = 18.333… °C.
-"""
 
 [tolerance.heating_degree_days_18c]
 abs = 5.0
@@ -77,11 +72,12 @@ against USGS published point values.
 abs = 0.5
 unit = "lb/MWh"
 justification = """
-EPA eGRID2023 SRL23 publishes the official subregion output emission
-rate to 3 decimals. The compute is generation-weighted CO2 from the
-PLNT23 plant rows (2000 × Σ tons / Σ MWh). 0.5 lb/MWh is ~0.07 % of
-a 700 lb/MWh rate and covers last-digit rounding across thousands of
-plant-level floats, not a post-hoc gap.
+EPA eGRID 2023 Rev 2 Summary Tables publish SRCO2RTA (subregion CO2
+total output emission rate) to 3 decimals (0.001 lb/MWh). 0.5 lb/MWh
+is 500× that last digit and ~0.07 % of a 700 lb/MWh rate — last-digit
+rounding plus float accumulation, declared before official-vs-computed
+was inspected. It does not absorb a plant-subset or output-rate vs
+input-rate methodology gap; those stay RED.
 """
 
 # ── locations ─────────────────────────────────────────────────────────────
@@ -127,10 +123,6 @@ tmy3_id = "sanjose"
 egrid_subregion = "CAMX"
 
 # ── published references ──────────────────────────────────────────────────
-# Free-cooling hours: count of NREL TMY3 hours with dry-bulb ≤ 18.33 °C,
-# tallied from the published meteorological record (not from STAT, which
-# does not publish this hour count). Retrieval 2026-08-15.
-#
 # HDD/CDD: DOE EnergyPlus STAT "annual (wthr file)" lines, base 18 °C.
 # That is DOE's published analysis of the same TMY3 weather file.
 # Retrieval 2026-08-15 from the STAT distributed with each TMY3 EPW.
@@ -138,53 +130,13 @@ egrid_subregion = "CAMX"
 # Seismic: USGS ASCE 7-16 design-maps web service, Site Class C, Risk
 # Category II, at the location coordinates. Retrieval 2026-08-15.
 #
-# Grid carbon: EPA eGRID2023 data file, SRL23 sheet, SRCO2RTA
-# (annual CO2 total output emission rate, lb/MWh). Retrieval 2026-08-15.
-
-[[reference]]
-location = "ashburn"
-quantity = "free_cooling_hours"
-value = 5734.0
-unit = "h"
-source = "NREL TMY3 WMO 724030 (Dulles) hourly dry-bulb ≤ 18.33 °C"
-url = "https://nsrdb.nrel.gov/data-sets/tmy"
-retrieved = "2026-08-15"
-
-[[reference]]
-location = "dallas"
-quantity = "free_cooling_hours"
-value = 3973.0
-unit = "h"
-source = "NREL TMY3 WMO 722590 (Dallas-Fort Worth) hourly dry-bulb ≤ 18.33 °C"
-url = "https://nsrdb.nrel.gov/data-sets/tmy"
-retrieved = "2026-08-15"
-
-[[reference]]
-location = "phoenix"
-quantity = "free_cooling_hours"
-value = 2997.0
-unit = "h"
-source = "NREL TMY3 WMO 722780 (Phoenix Sky Harbor) hourly dry-bulb ≤ 18.33 °C"
-url = "https://nsrdb.nrel.gov/data-sets/tmy"
-retrieved = "2026-08-15"
-
-[[reference]]
-location = "chicago"
-quantity = "free_cooling_hours"
-value = 6309.0
-unit = "h"
-source = "NREL TMY3 WMO 725300 (Chicago O'Hare) hourly dry-bulb ≤ 18.33 °C"
-url = "https://nsrdb.nrel.gov/data-sets/tmy"
-retrieved = "2026-08-15"
-
-[[reference]]
-location = "sanjose"
-quantity = "free_cooling_hours"
-value = 6878.0
-unit = "h"
-source = "NREL TMY3 WMO 724945 (San Jose Mineta) hourly dry-bulb ≤ 18.33 °C"
-url = "https://nsrdb.nrel.gov/data-sets/tmy"
-retrieved = "2026-08-15"
+# Grid carbon: official EPA eGRID 2023 Revision 2 (released 2025-06-12)
+# Summary Tables, table "eGRID Subregion Total Output Emission Rates
+# (lb/MWh)", CO2 column = SRCO2RTA. Retrieved 2026-08-15 from
+# https://www.epa.gov/egrid/summary-data
+# (xlsx https://www.epa.gov/system/files/documents/2025-06/summary_tables_rev2.xlsx).
+# These are EPA's published subregion rates, not this crate's
+# 2000×Σtons/ΣMWh roll-up of the vendored PLNT23 extract.
 
 [[reference]]
 location = "ashburn"
@@ -414,44 +366,44 @@ retrieved = "2026-08-15"
 [[reference]]
 location = "ashburn"
 quantity = "grid_co2_lb_per_mwh"
-value = 590.229
+value = 593.419
 unit = "lb/MWh"
-source = "EPA eGRID2023 SRL23 SRCO2RTA (annual CO2 total output emission rate) for SRVC"
-url = "https://www.epa.gov/egrid/download-data"
+source = "EPA eGRID 2023 Rev 2 (2025-06-12) Summary Tables, eGRID Subregion Total Output Emission Rates (lb/MWh), CO2/SRCO2RTA for SRVC"
+url = "https://www.epa.gov/egrid/summary-data"
 retrieved = "2026-08-15"
 
 [[reference]]
 location = "dallas"
 quantity = "grid_co2_lb_per_mwh"
-value = 738.038
+value = 733.862
 unit = "lb/MWh"
-source = "EPA eGRID2023 SRL23 SRCO2RTA (annual CO2 total output emission rate) for ERCT"
-url = "https://www.epa.gov/egrid/download-data"
+source = "EPA eGRID 2023 Rev 2 (2025-06-12) Summary Tables, eGRID Subregion Total Output Emission Rates (lb/MWh), CO2/SRCO2RTA for ERCT"
+url = "https://www.epa.gov/egrid/summary-data"
 retrieved = "2026-08-15"
 
 [[reference]]
 location = "phoenix"
 quantity = "grid_co2_lb_per_mwh"
-value = 740.81
+value = 703.703
 unit = "lb/MWh"
-source = "EPA eGRID2023 SRL23 SRCO2RTA (annual CO2 total output emission rate) for AZNM"
-url = "https://www.epa.gov/egrid/download-data"
+source = "EPA eGRID 2023 Rev 2 (2025-06-12) Summary Tables, eGRID Subregion Total Output Emission Rates (lb/MWh), CO2/SRCO2RTA for AZNM"
+url = "https://www.epa.gov/egrid/summary-data"
 retrieved = "2026-08-15"
 
 [[reference]]
 location = "chicago"
 quantity = "grid_co2_lb_per_mwh"
-value = 911.321
+value = 911.424
 unit = "lb/MWh"
-source = "EPA eGRID2023 SRL23 SRCO2RTA (annual CO2 total output emission rate) for RFCW"
-url = "https://www.epa.gov/egrid/download-data"
+source = "EPA eGRID 2023 Rev 2 (2025-06-12) Summary Tables, eGRID Subregion Total Output Emission Rates (lb/MWh), CO2/SRCO2RTA for RFCW"
+url = "https://www.epa.gov/egrid/summary-data"
 retrieved = "2026-08-15"
 
 [[reference]]
 location = "sanjose"
 quantity = "grid_co2_lb_per_mwh"
-value = 436.655
+value = 428.464
 unit = "lb/MWh"
-source = "EPA eGRID2023 SRL23 SRCO2RTA (annual CO2 total output emission rate) for CAMX"
-url = "https://www.epa.gov/egrid/download-data"
+source = "EPA eGRID 2023 Rev 2 (2025-06-12) Summary Tables, eGRID Subregion Total Output Emission Rates (lb/MWh), CO2/SRCO2RTA for CAMX"
+url = "https://www.epa.gov/egrid/summary-data"
 retrieved = "2026-08-15"

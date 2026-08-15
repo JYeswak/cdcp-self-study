@@ -9,9 +9,9 @@
 
 use cdcp_data::{
     agrees, check_oracle, check_oracle_with, compiled_pins, compiled_references, engine_root,
-    parse_references, perturb_one_tolerance, Quantity, ANTI_VACUOUS_LOCATIONS, ANTI_VACUOUS_REFS,
-    COMPILED_REFERENCES, COMPILED_REFERENCES_ORIGIN, DISAGREEMENT, SNAP_EGRID, SNAP_TMY3,
-    SNAP_USGS,
+    parse_references, perturb_one_tolerance, OracleError, Quantity, ANTI_VACUOUS_LOCATIONS,
+    ANTI_VACUOUS_REFS, COMPILED_REFERENCES, COMPILED_REFERENCES_ORIGIN, DISAGREEMENT, SNAP_EGRID,
+    SNAP_TMY3, SNAP_USGS,
 };
 use std::path::PathBuf;
 
@@ -49,8 +49,15 @@ fn compiled_ledger_has_at_least_five_locations_each_with_retrieval_date() {
             r.quantity.as_str()
         );
     }
+    assert!(
+        ledger
+            .references
+            .iter()
+            .all(|r| r.quantity != Quantity::FreeCoolingHours),
+        "free-cooling hours are MMS-only; STAT/ASHRAE/NREL do not publish this hour count"
+    );
     for q in [
-        Quantity::FreeCoolingHours,
+        Quantity::HeatingDegreeDays18c,
         Quantity::SeismicSs,
         Quantity::GridCo2LbPerMwh,
     ] {
@@ -76,53 +83,178 @@ fn compiled_ledger_has_at_least_five_locations_each_with_retrieval_date() {
 #[test]
 fn published_references_match_or_red() {
     let root = engine();
-    let report = check_oracle(&root).unwrap_or_else(|e| panic!("{e}"));
-    assert!(report.is_clean(), "{report}");
-    assert!(
-        report.comparisons.len() >= 5,
-        "anti-vacuous: compared {}",
-        report.comparisons.len()
-    );
-    let locs: std::collections::BTreeSet<_> = report
-        .comparisons
-        .iter()
-        .map(|c| c.location.as_str())
-        .collect();
-    assert!(locs.len() >= 5, "{ANTI_VACUOUS_LOCATIONS}: {locs:?}");
-    assert!(report.to_string().contains("oracle: PASS"));
+    match check_oracle(&root) {
+        Ok(report) => {
+            assert!(report.is_clean(), "{report}");
+            assert!(
+                report.comparisons.len() >= 5,
+                "anti-vacuous: compared {}",
+                report.comparisons.len()
+            );
+            let locs: std::collections::BTreeSet<_> = report
+                .comparisons
+                .iter()
+                .map(|c| c.location.as_str())
+                .collect();
+            assert!(locs.len() >= 5, "{ANTI_VACUOUS_LOCATIONS}: {locs:?}");
+            assert!(report.to_string().contains("oracle: PASS"));
+        }
+        Err(e) => {
+            let text = e.to_string();
+            assert!(
+                matches!(e, OracleError::Disagreement { .. }),
+                "live miss must be Disagreement, not a structural error: {e:?}"
+            );
+            for needle in [
+                "location=",
+                "computed=",
+                "reference=",
+                "delta=",
+                DISAGREEMENT,
+            ] {
+                assert!(
+                    text.contains(needle),
+                    "honest RED must name {needle}: {text}"
+                );
+            }
+            // Official published refs are kept. Do not rewrite them to match us.
+            panic!("oracle honestly RED (published refs kept):\n{text}");
+        }
+    }
 }
 
 #[test]
 fn disagreement_names_location_computed_reference_delta() {
-    let text = format!(
-        "{DISAGREEMENT} location=ashburn quantity=free_cooling_hours computed=0 reference=5734 delta=-5734.000000 tolerance=1"
+    let root = engine();
+    let pins = compiled_pins().expect("pins");
+    let mut ledger = compiled_references().expect("ledger");
+    let idx = ledger
+        .references
+        .iter()
+        .position(|r| r.location == "ashburn" && r.quantity == Quantity::SeismicSs)
+        .expect("ashburn seismic_ss is in the ledger");
+    let planted_ref = 99.0;
+    ledger.references[idx].value = planted_ref;
+
+    let err =
+        check_oracle_with(&root, &ledger, &pins).expect_err("known-bad published ref must be RED");
+    let OracleError::Disagreement { findings } = &err else {
+        panic!("expected OracleError::Disagreement, got {err:?}");
+    };
+    let f = findings
+        .iter()
+        .find(|c| c.location == "ashburn" && c.quantity == Quantity::SeismicSs)
+        .expect("Disagreement must name the planted ashburn seismic_ss pair");
+    assert!(!f.ok, "planted pair must be outside its band");
+    assert_eq!(f.reference, planted_ref);
+    assert_eq!(f.location, "ashburn");
+    assert_eq!(f.delta, f.computed - planted_ref);
+
+    // Production Display interpolates format_disagreements. A tautological
+    // format!(...) of a local string would not carry the live computed.
+    let text = err.to_string();
+    assert!(text.contains(DISAGREEMENT), "{text}");
+    assert!(text.contains("location=ashburn"), "{text}");
+    assert!(
+        text.contains(&format!("computed={}", f.computed)),
+        "Display must name live computed={}: {text}",
+        f.computed
     );
-    assert!(text.contains("location=ashburn"));
-    assert!(text.contains("computed=0"));
-    assert!(text.contains("reference=5734"));
-    assert!(text.contains("delta="));
+    assert!(text.contains("reference=99"), "{text}");
+    assert!(
+        text.contains(&format!("delta={:.6}", f.delta)),
+        "Display must name delta={:.6}: {text}",
+        f.delta
+    );
+    assert!(text.contains("quantity=seismic_ss"), "{text}");
 }
 
 #[test]
 fn perturb_one_tolerance_unit_is_red() {
     let root = engine();
-    let report = check_oracle(&root).expect("live oracle must be green before the plant");
-    let mut planted = 0usize;
-    for c in &report.comparisons {
-        let bad = perturb_one_tolerance(c.computed, c.reference, c.tolerance);
-        assert!(
-            !agrees(bad, c.reference, c.tolerance),
-            "perturb {} {} by 1 tol: computed={} planted={} ref={} tol={} must be RED",
-            c.location,
-            c.quantity.as_str(),
-            c.computed,
-            bad,
-            c.reference,
-            c.tolerance
-        );
-        planted += 1;
+    let pins = compiled_pins().expect("pins");
+    let ledger = compiled_references().expect("ledger");
+
+    // Recover live computed values even when the official ledger is already
+    // RED: plant every published number at 1e12, then read findings.
+    let mut probe = ledger.clone();
+    for r in &mut probe.references {
+        r.value = 1.0e12;
     }
-    assert!(planted >= 5, "planted {planted} pairs");
+    let probe_err =
+        check_oracle_with(&root, &probe, &pins).expect_err("absurd 1e12 refs must be RED");
+    let OracleError::Disagreement {
+        findings: probe_findings,
+    } = &probe_err
+    else {
+        panic!("expected Disagreement from 1e12 plant, got {probe_err:?}");
+    };
+    assert_eq!(
+        probe_findings.len(),
+        ledger.references.len(),
+        "every pair must disagree with 1e12 so we recover every computed"
+    );
+
+    let mut planted_ledger = ledger.clone();
+    let mut expected = Vec::new();
+    for f in probe_findings {
+        let original = ledger
+            .references
+            .iter()
+            .find(|r| r.location == f.location && r.quantity == f.quantity)
+            .expect("probe finding matches a ledger row")
+            .value;
+        let planted = perturb_one_tolerance(f.computed, original, f.tolerance);
+        assert!(
+            !agrees(f.computed, planted, f.tolerance),
+            "1-tol plant {} {} computed={} planted={} tol={} must be outside the open band",
+            f.location,
+            f.quantity.as_str(),
+            f.computed,
+            planted,
+            f.tolerance
+        );
+        for r in &mut planted_ledger.references {
+            if r.location == f.location && r.quantity == f.quantity {
+                r.value = planted;
+            }
+        }
+        expected.push((
+            f.location.clone(),
+            f.quantity,
+            f.computed,
+            planted,
+            f.tolerance,
+        ));
+    }
+
+    let err = check_oracle_with(&root, &planted_ledger, &pins)
+        .expect_err("one-tolerance-unit plant must be OracleError::Disagreement");
+    let text = err.to_string();
+    let OracleError::Disagreement { findings } = &err else {
+        panic!("expected OracleError::Disagreement, got {err:?}");
+    };
+    assert!(
+        findings.len() >= 5,
+        "planted {} pairs through check_oracle_with",
+        findings.len()
+    );
+    for (loc, qty, computed, planted, _tol) in &expected {
+        let f = findings
+            .iter()
+            .find(|c| c.location == *loc && c.quantity == *qty)
+            .unwrap_or_else(|| panic!("Disagreement must name {loc} {}", qty.as_str()));
+        assert!(!f.ok);
+        assert_eq!(f.computed, *computed);
+        assert_eq!(f.reference, *planted);
+        assert!(
+            text.contains(&format!("location={loc}")),
+            "Display must name location={loc}: {text}"
+        );
+    }
+    for needle in ["computed=", "reference=", "delta=", DISAGREEMENT] {
+        assert!(text.contains(needle), "Display must name {needle}: {text}");
+    }
 }
 
 #[test]
