@@ -1157,6 +1157,7 @@ fn authority_is_ashrae(authority: &str) -> bool {
         .any(|tok| tok.eq_ignore_ascii_case("ashrae"))
 }
 
+#[allow(clippy::too_many_arguments)]
 fn source_digest(
     authority: &str,
     edition: &str,

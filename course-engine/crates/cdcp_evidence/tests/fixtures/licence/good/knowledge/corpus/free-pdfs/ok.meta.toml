@@ -1,0 +1,7 @@
+source_id = "src-good-ok"
+rights = "public-domain"
+redistribution = "permitted"
+ai_ingestion = "permitted"
+capture = "body-retained"
+path = "knowledge/corpus/free-pdfs/ok.bin"
+licence = "17 USC 105"

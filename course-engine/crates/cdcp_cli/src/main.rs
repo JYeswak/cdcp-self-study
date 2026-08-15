@@ -26,6 +26,12 @@ enum Cmd {
         #[arg(long, default_value = "bank/items")]
         bank: PathBuf,
     },
+    /// Licence three-field split: rights / redistribution / ai_ingestion
+    CheckLicence {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+    },
     /// Ledger tripwire for measured paraphrase pairs C3 cannot see
     VerifyParaphrasePairs {
         /// Engine root (directory holding registries/). Default: walk up from cwd.
@@ -308,6 +314,7 @@ fn run(cli: Cli) -> Result<(), String> {
             println!("{}", b.bank_hash);
             Ok(())
         }
+        Cmd::CheckLicence { root } => check_licence(root.as_deref()),
         Cmd::VerifyParaphrasePairs {
             root,
             ledger,
@@ -414,6 +421,28 @@ fn run(cli: Cli) -> Result<(), String> {
             }
         },
     }
+}
+
+/// Licence three-field split. An explicit `--root` is the tree under test
+/// (fixture plants included). Walking up would find the live engine.
+fn check_licence(root: Option<&Path>) -> Result<(), String> {
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_evidence::resolve_engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    let report = cdcp_evidence::scan_engine(&resolved);
+    print!("{report}");
+    if !report.is_clean() {
+        return Err(format!(
+            "licence policy RED (scanned={} faults={})",
+            report.scanned,
+            report.faults.len()
+        ));
+    }
+    Ok(())
 }
 
 /// Build an `ExamAttempt` from a JSON answers file for mode=json.

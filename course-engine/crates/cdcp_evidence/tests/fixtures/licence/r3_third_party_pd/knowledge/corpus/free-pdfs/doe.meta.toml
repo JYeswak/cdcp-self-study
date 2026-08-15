@@ -1,0 +1,8 @@
+source_id = "src-r3-doe"
+rights = "mixed-us-government-work-with-third-party-material"
+redistribution = "public-domain"
+ai_ingestion = "unknown"
+capture = "not-vendored"
+third_party_figures = [
+  "Table 3-1. ASHRAE 2021 Thermal Guidelines for Air Cooling",
+]

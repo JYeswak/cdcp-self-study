@@ -268,6 +268,7 @@ dependencies = [
  "cdcp_assemble",
  "cdcp_bank",
  "cdcp_core",
+ "cdcp_evidence",
  "cdcp_grade",
  "cdcp_learn",
  "cdcp_wasm",
@@ -297,6 +298,7 @@ dependencies = [
  "proptest",
  "sha2",
  "thiserror 1.0.69",
+ "toml",
 ]
 
 [[package]]

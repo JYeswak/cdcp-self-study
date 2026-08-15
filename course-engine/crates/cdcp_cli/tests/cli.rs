@@ -37,6 +37,7 @@ fn help_lists_learn_compilers() {
         "smoke-learn-v2",
         "export-anki",
         "verify-paraphrase-pairs",
+        "check-licence",
     ] {
         assert!(
             stdout.contains(verb),
@@ -102,6 +103,40 @@ fn smoke_learn_v2_live_tree_passes() {
     assert!(
         stdout.contains("smoke_learn_v2: PASS"),
         "live Learn v2 smoke must PASS: {stdout}"
+    );
+}
+
+#[test]
+fn check_licence_live_tree_passes() {
+    let assert = cdcp().arg("check-licence").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("check_licence: PASS"),
+        "live licence check must PASS: {stdout}"
+    );
+}
+
+#[test]
+fn check_licence_r1_plant_is_red_and_names_the_file() {
+    let plant = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("../cdcp_evidence/tests/fixtures/licence/r1_unlicensed_body");
+    let assert = cdcp()
+        .args(["check-licence", "--root"])
+        .arg(&plant)
+        .assert()
+        .failure();
+    let out = format!(
+        "{}{}",
+        String::from_utf8_lossy(&assert.get_output().stdout),
+        String::from_utf8_lossy(&assert.get_output().stderr)
+    );
+    assert!(
+        out.contains("leak.pdf"),
+        "R1 plant must name the published file: {out}"
+    );
+    assert!(
+        out.contains("redistribution != permitted"),
+        "R1 plant must state the rule: {out}"
     );
 }
 
