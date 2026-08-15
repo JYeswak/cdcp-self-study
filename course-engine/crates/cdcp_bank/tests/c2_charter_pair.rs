@@ -20,8 +20,12 @@
 //! structural pin).
 //!
 //! Re-run 2026-08-15 (private `CARGO_TARGET_DIR=target/yhg6-rerun`,
-//! `cdcp_restore_safe`, true exit codes to files): mutate 101 (hashes
-//! identical `c740c0de…`), restore 0, artifact mtime moved.
+//! `cdcp_restore_safe`, true exit codes to files, never a pipe):
+//!   lib `status_flip_moves_bank_hash`: baseline 0, mutate 101
+//!   (hashes identical `c740c0de…`), restore 0;
+//!   this file: baseline 0, mutate 101, delete-assert 0, restore 0;
+//!   artifact `c2_charter_pair-e8a72361cb4d525e` mtime
+//!   1786777412026632046 -> 1786777412870438857.
 
 use cdcp_bank::Bank;
 use std::fs;
