@@ -629,7 +629,7 @@ for f in web/reference.html web/learn.html; do
 done
 ok "L7 surfaces (reference · closed-notes · Learn-15)"
 
-echo "==> smoke_learn_chrome.py (M8-A)"; python3 scripts/smoke_learn_chrome.py || fail "M8-A learn chrome"; ok "M8-A learn chrome smoke"
+echo "==> cdcp smoke-learn-chrome (M8-A)"; cargo run -q -p cdcp_cli -- smoke-learn-chrome || fail "M8-A learn chrome"; ok "M8-A learn chrome smoke"
 echo "==> cdcp build-units (M8-B units_index)";              cargo run -q -p cdcp_cli -- build-units          || fail "M8-B units_index"; ok "M8-B units_index"
 echo "==> cdcp build-glossary (M8-D glossary)";              cargo run -q -p cdcp_cli -- build-glossary       || fail "M8-D glossary";    ok "M8-D glossary.json"
 # After regenerate so this smoke sees THIS run's units_index, not last run's
@@ -643,7 +643,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(cargo run -q -p cdcp_cli -- --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-units build-glossary; do
+for v in bank-hash grade goldens export-web serve build-units build-glossary smoke-learn-chrome; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"

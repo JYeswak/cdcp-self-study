@@ -24,12 +24,22 @@ fn cdcp() -> Command {
 fn help_lists_learn_compilers() {
     let assert = cdcp().arg("--help").assert().success();
     let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
-    for verb in ["build-units", "build-glossary"] {
+    for verb in ["build-units", "build-glossary", "smoke-learn-chrome"] {
         assert!(
             stdout.contains(verb),
             "cdcp --help must list {verb}: {stdout}"
         );
     }
+}
+
+#[test]
+fn smoke_learn_chrome_live_tree_passes() {
+    let assert = cdcp().arg("smoke-learn-chrome").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("smoke_learn_chrome: PASS"),
+        "live Learn chrome smoke must PASS: {stdout}"
+    );
 }
 
 #[test]

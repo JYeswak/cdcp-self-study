@@ -181,11 +181,9 @@ reason = "Load-bearing check.sh smoke: M8-C diagram presence and honesty on the 
 migration_bead = "bd-substrate-rust-migration-jhd.14"
 expires = "2026-12-31"
 
-[[allow]]
-path = "scripts/smoke_learn_chrome.py"
-reason = "Load-bearing check.sh smoke: M8-A Learn chrome and navigation shell. Grandfathered pending the byte-exact Rust port."
-migration_bead = "bd-substrate-rust-migration-jhd.15"
-expires = "2026-12-31"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.15): scripts/smoke_learn_chrome.py
+# is DELETED, not allowlisted. The smoke is `cdcp_learn::chrome` / `cdcp smoke-learn-chrome`.
+# Do NOT re-add a row for it.
 
 [[allow]]
 path = "scripts/smoke_weak_links.py"

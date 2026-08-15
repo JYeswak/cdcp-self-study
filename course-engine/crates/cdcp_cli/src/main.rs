@@ -69,6 +69,12 @@ enum Cmd {
         #[arg(long)]
         root: Option<PathBuf>,
     },
+    /// Static smoke: Learn UI chrome (TOC/math/continue/power embed). No browser.
+    SmokeLearnChrome {
+        /// Engine root (directory holding web/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+    },
     Goldens {
         #[command(subcommand)]
         sub: GoldensCmd,
@@ -218,6 +224,7 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::Serve { root, bind } => serve(&root, &bind),
         Cmd::BuildUnits { root } => compile_learn(root.as_deref(), LearnKind::Units),
         Cmd::BuildGlossary { root } => compile_learn(root.as_deref(), LearnKind::Glossary),
+        Cmd::SmokeLearnChrome { root } => smoke_learn_chrome(root.as_deref()),
         Cmd::Goldens { sub } => match sub {
             GoldensCmd::Check { bank, dir } => goldens_check(&bank, &dir),
             // `.ok()` here is fail-CLOSED, the opposite of the goldens-check
@@ -653,6 +660,22 @@ fn export_web(
 enum LearnKind {
     Units,
     Glossary,
+}
+
+fn smoke_learn_chrome(root: Option<&Path>) -> Result<(), String> {
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_learn::resolve_engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    let report = cdcp_learn::chrome::smoke(&resolved);
+    print!("{}", report.stdout);
+    if report.code != 0 {
+        std::process::exit(report.code);
+    }
+    Ok(())
 }
 
 fn compile_learn(root: Option<&Path>, kind: LearnKind) -> Result<(), String> {
