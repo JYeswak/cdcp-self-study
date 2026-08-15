@@ -349,6 +349,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "cdcp_metrics"
+version = "0.1.0"
+dependencies = [
+ "cdcp_data",
+ "thiserror 1.0.69",
+ "toml",
+]
+
+[[package]]
 name = "cdcp_registry_check"
 version = "0.1.0"
 dependencies = [
