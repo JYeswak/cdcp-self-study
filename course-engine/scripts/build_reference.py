@@ -148,6 +148,7 @@ def render_page() -> str:
   <meta name="description" content="CDCP reference — glossary and power/redundancy cheatsheet. Study tool only; does not grant EPI/EXIN certification.">
   <title>CDCP Study — Reference</title>
   <link rel="stylesheet" href="assets/css/course.css">
+  <script src="assets/js/origin_guard.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -159,7 +160,7 @@ def render_page() -> str:
     <div class="site-header__inner">
       <a class="brand" href="index.html">
         <span class="brand__title">CDCP Study</span>
-        <span class="brand__sub">Self-study · offline</span>
+        <span class="brand__sub">Self-study · local HTTP</span>
       </a>
       <nav aria-label="Hub">
         <ul class="hub-nav">
@@ -175,7 +176,7 @@ def render_page() -> str:
   <main id="main" class="wrap wrap-learn" tabindex="-1">
     <h1>Reference</h1>
     <p class="lede">
-      Offline glossary and power/redundancy cheatsheet from the parent study corpus.
+      Local glossary and power/redundancy cheatsheet from the parent study corpus.
       Interview-ready shorthand only — not an official EPI dictionary and not a design manual.
     </p>
 

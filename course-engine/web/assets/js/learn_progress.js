@@ -2,7 +2,7 @@
  * learn_progress.js — localStorage module-visited progress (no server).
  *
  * Storage key: cdcp.learn.visited.v1 → JSON string[] of module ids.
- * Offline / file:// safe. Never claims certification.
+ * localStorage-only (no network). Origin contract is local HTTP; see origin_guard.js.
  */
 (function (global) {
   "use strict";

@@ -6,6 +6,7 @@
   <meta name="description" content="CDCP self-study hub — local practice tool. Does not grant EPI/EXIN certification.">
   <title>CDCP Study — Hub</title>
   <link rel="stylesheet" href="assets/css/course.css">
+  <script src="assets/js/origin_guard.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -19,7 +20,7 @@
     <div class="site-header__inner">
       <a class="brand" href="index.html">
         <span class="brand__title">CDCP Study</span>
-        <span class="brand__sub">Self-study · offline</span>
+        <span class="brand__sub">Self-study · local HTTP</span>
       </a>
       <nav aria-label="Hub">
         <ul class="hub-nav">
@@ -35,7 +36,11 @@
   <main id="main" class="wrap" tabindex="-1">
     <h1>Course hub</h1>
     <p class="lede">
-      Local-first practice for CDCP topics. Open any surface below.
+      Local HTTP practice for CDCP topics. Start with
+      <span class="mono">cargo run -p cdcp_cli -- serve</span>
+      and open <span class="mono">http://127.0.0.1:8766/</span>.
+      Double-clicking this file (<span class="mono">file://</span>) is not
+      supported and fails as <span class="mono">CDCP_FILE_ORIGIN</span>.
       Scores and digests are study signals — never a certification claim.
     </p>
 
@@ -43,7 +48,7 @@
       <a class="card" href="learn.html">
         <span class="card__label">Modules</span>
         <span class="card__title">Learn</span>
-        <p class="card__desc">14 curriculum modules + ops expansions — offline reader.</p>
+        <p class="card__desc">14 curriculum modules + ops expansions — local HTTP reader.</p>
       </a>
       <a class="card" href="drill.html">
         <span class="card__label">Practice</span>
@@ -68,7 +73,7 @@
       <a class="card" href="reference.html">
         <span class="card__label">Cheatsheet</span>
         <span class="card__title">Reference</span>
-        <p class="card__desc">Glossary + power/redundancy one-pager — offline interview shorthand.</p>
+        <p class="card__desc">Glossary + power/redundancy one-pager — local interview shorthand.</p>
       </a>
       <a class="card" href="diagrams/power-path.html">
         <span class="card__label">Diagram</span>
@@ -93,7 +98,7 @@
     </section>
 
     <p class="meta">
-      Static shell · relative assets · no CDN required.
+      Static shell · relative assets · no CDN · local HTTP only (not file://).
       Honesty banner is always visible and never uses a green “certified” treatment.
     </p>
   </main>

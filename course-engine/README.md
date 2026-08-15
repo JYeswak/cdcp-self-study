@@ -66,6 +66,7 @@ scorecards/    # wave / layer outcome stamps
 CLI (from `course-engine/`):
 
 ```bash
+cargo run -p cdcp_cli -- serve                  # local HTTP hub (http://127.0.0.1:8766/; not file://)
 cargo run -p cdcp_cli -- doctor                 # preflight: bank, wasm, goldens, port, python3
 cargo run -p cdcp_cli -- health --robot         # versioned NDJSON envelope
 cargo run -p cdcp_cli -- repair                 # units + glossary + export-web; never goldens

@@ -189,6 +189,25 @@ body {
   font-weight: 700;
 }
 
+/* Fail-closed file:// diagnosis (bd-hop9). origin_guard.js also sets
+   inline styles so this is enhancement, not the only readable form. */
+.origin-banner {
+  width: 100%;
+  background: #3f1d1d;
+  color: #fecaca;
+  border-bottom: 2px solid var(--red);
+  padding: 0.85rem 1.25rem;
+  text-align: left;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.origin-banner strong {
+  font-family: var(--mono);
+  font-weight: 700;
+  margin-right: 0.35rem;
+}
+
 .wrap {
   max-width: var(--wrap);
   margin: 0 auto;

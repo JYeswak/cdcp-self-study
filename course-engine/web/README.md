@@ -1,5 +1,10 @@
 # CDCP Study — browser surface (`web/`)
 
+The hub is a **local HTTP** product. It is **not** a `file://` page.
+
+- **Supported:** `cargo run -p cdcp_cli -- serve` (default `http://127.0.0.1:8766/`). No public network required.
+- **Unsupported:** double-clicking `index.html`. That origin fails closed as **`CDCP_FILE_ORIGIN`** — browsers block ES modules, `fetch()`, and WASM from `file://`.
+
 Static HTML + CSS + vanilla JS (+ WASM grade). **No** React / Next / Tailwind / CDN.
 
 This is a **study tool only**. It does **not** grant EPI/EXIN certification. Completing practice is not a CDCP credential.
@@ -36,30 +41,29 @@ This is a **study tool only**. It does **not** grant EPI/EXIN certification. Com
 
 See [`data/README.md`](data/README.md) for export-web packs and answer-key policy.
 
-## Serve (required for fetch)
+## Serve (required — this is the product)
 
-`fetch()` of `data/*.json` is blocked under `file://` in most browsers. Use a local static server:
+`file://` is **CDCP_FILE_ORIGIN** and is not a supported origin. ES modules, `fetch()` of `data/*.json`, and WASM grading all need a loopback HTTP server:
 
 ```bash
-# Preferred (V11-S3): from course-engine root — loopback default, no auth
+# Documented path (V11): from course-engine root — loopback default, no auth
 cargo run -p cdcp_cli -- serve
-# open http://127.0.0.1:8765/
+# open http://127.0.0.1:8766/
 
-# Multi-device on a trusted LAN only (explicit flag; serves all of web/ including keys):
-# cargo run -p cdcp_cli -- serve --bind 0.0.0.0:8765 --allow-lan
-
-# Or classic Python static server from this directory:
+# Or classic Python static server from this directory (same contract, different port):
 cd web
-python3 -m http.server 8765
-# open http://127.0.0.1:8765/
+python3 -m http.server 8766
+# open http://127.0.0.1:8766/
 ```
 
-Threat model: static files only, **no auth / no TLS**. Default bind is localhost-only; see root README § Optional LAN serve.
+Prove the fail-closed: `node scripts/smoke_file_origin.mjs` (from `course-engine/`).
+
+Threat model: static files only, **no auth / no TLS**. Default bind is localhost-only (`127.0.0.1:8766`).
 
 ## Smoke steps (L5-S3 mock take)
 
 1. **Hub links**  
-   Open `http://127.0.0.1:8765/` → click **Learn**, **Drill**, **Mock**, **Reference** (nav and cards). Each should load with the amber honesty banner and relative assets (no CDN).
+   Open `http://127.0.0.1:8766/` → click **Learn**, **Drill**, **Mock**, **Reference** (nav and cards). Each should load with the amber honesty banner and relative assets (no CDN).
 
 2. **Load pack**  
    On Mock, status should clear and show **question 1/40** with four A–D choices. Progress reads `1 / 40`. Timer counts down from `60:00`.
@@ -232,8 +236,8 @@ Written by `quiz.js` after every graded module quiz (WASM or key-compare path) v
 ## Module quiz (L5-S7)
 
 ```bash
-cd web && python3 -m http.server 8765
-# open http://127.0.0.1:8765/quiz.html?module=6
+cd web && python3 -m http.server 8766
+# open http://127.0.0.1:8766/quiz.html?module=6
 # or Learn → module page → "Module NN quiz"
 ```
 
@@ -248,7 +252,7 @@ cd web && python3 -m http.server 8765
 
 ```bash
 # After a mock with wrongs (or a quiz):
-open http://127.0.0.1:8765/drill.html
+open http://127.0.0.1:8766/drill.html
 # Missed list shows item_ids + stems; flip for explanation from keys/bank.
 # Due queue: Again (1d) / Good (next step). Reload keeps cards.
 ```
@@ -269,8 +273,8 @@ python3 scripts/build_learn.py
 cargo run -q -p cdcp_cli -- smoke-learn
 
 # Serve web/ (fetch needs http)
-cd web && python3 -m http.server 8765
-# open http://127.0.0.1:8765/learn.html
+cd web && python3 -m http.server 8766
+# open http://127.0.0.1:8766/learn.html
 ```
 
 - Hub lists all `knowledge/domains.toml` domains; empty `primary_notes` with
@@ -288,8 +292,8 @@ cd web && python3 -m http.server 8765
 python3 scripts/build_reference.py
 
 # Serve web/ (fetch needs http)
-cd web && python3 -m http.server 8765
-# open http://127.0.0.1:8765/reference.html
+cd web && python3 -m http.server 8766
+# open http://127.0.0.1:8766/reference.html
 # tabs: #glossary · #power
 ```
 
@@ -304,7 +308,7 @@ cd web && python3 -m http.server 8765
 ```bash
 # From course-engine/
 ./scripts/build_web_wasm.sh
-cd web && python3 -m http.server 8765
+cd web && python3 -m http.server 8766
 # open mock → submit → results, or inject all-correct attempt in console:
 #   const keys = await (await fetch('data/keys_seed42.json')).json();
 #   sessionStorage.setItem('cdcp_mock_attempt_v1',

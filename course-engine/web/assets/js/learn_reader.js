@@ -2,7 +2,7 @@
  * learn_reader.js — load module markdown and render offline.
  *
  * Resolution order:
- *   1. #module-md embed (file:// safe when build embeds notes)
+ *   1. #module-md embed (no fetch; still requires local HTTP for sibling JS)
  *   2. data-content-href on #module-prose (web/content/modules/{id}.md)
  *   3. Fallback relative paths to parent corpus when serving repo root
  *
@@ -147,6 +147,15 @@
     fetchFirst(urls)
       .then(done)
       .catch(function () {
+        var loc = global.location;
+        if (loc && loc.protocol === "file:") {
+          fail(
+            "CDCP_FILE_ORIGIN: cannot fetch module notes over file://. " +
+              "Serve with <span class=\"mono\">cargo run -p cdcp_cli -- serve</span> " +
+              "and open <span class=\"mono\">http://127.0.0.1:8766/</span>."
+          );
+          return;
+        }
         fail(
           "Could not load module notes for " +
             (moduleId || "unknown") +

@@ -70,6 +70,12 @@ HONESTY = (
 )
 
 
+def _origin_script(depth: int = 0) -> str:
+    """Classic (not type=module) so file:// can still name CDCP_FILE_ORIGIN."""
+    prefix = "../" if depth else ""
+    return f'  <script src="{prefix}assets/js/origin_guard.js"></script>'
+
+
 def _header(depth: int = 0) -> str:
     prefix = "../" if depth else ""
     return f"""  <header class="site-header">
@@ -79,7 +85,7 @@ def _header(depth: int = 0) -> str:
     <div class="site-header__inner">
       <a class="brand" href="{prefix}index.html">
         <span class="brand__title">CDCP Study</span>
-        <span class="brand__sub">Self-study · offline</span>
+        <span class="brand__sub">Self-study · local HTTP</span>
       </a>
       <nav aria-label="Hub">
         <ul class="hub-nav">
@@ -153,6 +159,7 @@ def render_module_page(
   <meta name="description" content="CDCP Learn — {html.escape(title)}. Does not grant EPI/EXIN certification.">
   <title>CDCP Study — {html.escape(title)}</title>
   <link rel="stylesheet" href="../assets/css/course.css">
+{_origin_script(1)}
 </head>
 <body data-module-id="{html.escape(mod_id)}">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -287,6 +294,7 @@ def render_hub(modules: list[dict]) -> str:
   <meta name="description" content="CDCP Learn — study modules. Does not grant EPI/EXIN certification.">
   <title>CDCP Study — Learn</title>
   <link rel="stylesheet" href="assets/css/course.css">
+{_origin_script(0)}
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -297,7 +305,7 @@ def render_hub(modules: list[dict]) -> str:
     <h1>Learn</h1>
     <p class="lede">
       Fourteen EPI CDCP curriculum domains plus partner ops expansions.
-      Open a module to study offline. Progress is stored only in this browser.
+      Open a module to study over local HTTP. Progress is stored only in this browser.
       Completing modules here is a study signal — not a CDCP credential.
     </p>
 

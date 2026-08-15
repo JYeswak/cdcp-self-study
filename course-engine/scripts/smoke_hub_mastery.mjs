@@ -33,6 +33,7 @@
  * No browser required.
  */
 import { existsSync, readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -428,6 +429,31 @@ for (let i = 0; i < MODULE_CATALOG.length; i++) {
     const rec = recommendNext({ store });
     assert(rec.href === e.learnHref, "weak M" + e.order + " href matches catalog");
     assert(existsSync(join(WEB, rec.href)), "no-404: " + rec.href);
+  }
+}
+
+// Origin contract (bd-hop9): hub is local HTTP; file:// is CDCP_FILE_ORIGIN.
+// Wired here so the existing check.sh hub-mastery step exercises it without
+// adding a new counted check.sh step while bd-1sd.13 owns the step ledger.
+{
+  const originSmoke = join(ROOT, "scripts/smoke_file_origin.mjs");
+  if (!existsSync(originSmoke)) {
+    abort("missing scripts/smoke_file_origin.mjs — origin contract unenforced");
+  }
+  const spawned = spawnSync(process.execPath, [originSmoke], {
+    encoding: "utf8",
+    cwd: ROOT,
+  });
+  if (spawned.status !== 0) {
+    if (spawned.stdout) process.stdout.write(spawned.stdout);
+    if (spawned.stderr) process.stderr.write(spawned.stderr);
+    assert(
+      false,
+      "origin contract (smoke_file_origin.mjs) failed with status " +
+        spawned.status
+    );
+  } else {
+    assert(true, "origin contract (smoke_file_origin.mjs)");
   }
 }
 
