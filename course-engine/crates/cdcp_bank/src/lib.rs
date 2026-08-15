@@ -13,7 +13,10 @@
 //! statuses are well-formed or that a bank file carries no unmodelled content.
 #![forbid(unsafe_code)]
 
+pub mod mock40_module;
 pub mod paraphrase;
+
+pub use mock40_module::{mock40_module_audit, Mock40Audit, MOCK40_CONTENT_MODULE};
 
 use cdcp_core::{canonical_json, sha256_hex, ChoiceLetter, BANK_HASH_DOMAIN};
 use serde::{Deserialize, Serialize};
@@ -916,6 +919,17 @@ quantity_evidence = "qualitative_only"
         if let Err(msg) = sanctioned_retirement_report(&bank) {
             panic!("{msg}");
         }
+        // bd-mock40-q37-cross-module-topic-76vs: every mock40-* stem was
+        // re-read against `module`. Zero live misfiles. The scan is this
+        // function — an empty mock40 set or an unreviewed new id is RED.
+        let mock40 =
+            crate::mock40_module_audit(bank.items.values()).expect("mock40 module-vs-stem audit");
+        assert_eq!(
+            mock40.checked,
+            crate::MOCK40_CONTENT_MODULE.len(),
+            "scan must name every mock40-* item"
+        );
+        assert_eq!(mock40.live_misfiles, 0, "approved mock40 misfile leaked");
     }
 
     // --- C1: item status ---------------------------------------------------

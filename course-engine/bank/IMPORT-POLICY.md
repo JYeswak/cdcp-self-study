@@ -55,7 +55,29 @@ candidates; that report is not a grader-of-record and does not retire items. A g
 means "no cosmetic duplicates in the approved pool". It is a floor, not a census. 804/779 is a
 pool size.
 
-It also does not decide topic or module assignment. `mock40-q37` was imported under `module = 13`
-while the proposition it duplicates is module 15; retiring the import removed the duplicate and
-left the misfiling in place, which is why that is tracked on its own bead
-(`bd-mock40-q37-cross-module-topic-76vs`) rather than inside a retirement header.
+## Module vs `topic_ids` prefix (bd-mock40-q37-cross-module-topic-76vs)
+
+**Decision, 2026-08-15.** A `topic_ids` prefix that does not match `module` is **legal**.
+Topics may name a secondary domain. `mock40-q11` is module 4 (removing a floor tile) and
+still cites `m09-raised-floor-cooling`. A gate that required every topic prefix to equal
+`module` would have **passed** `mock40-q37` (it carried `m13-safety-components` next to
+the MOP stem) and **failed** those cross-cuts. Prefix equality is the wrong axis.
+
+What is **not** legal: an *approved* item whose `module` disagrees with the stem's
+subject. The practice-exam import numbered files by question order and copied that
+number into `module`. That is a mechanism, not a slip.
+
+Scan, 2026-08-15, every `mock40-*` item, stem vs `module` (not filename):
+
+| | n |
+|---|---|
+| checked | 40 |
+| content-wrong | 1 (`mock40-q37`: MOP / module 15, filed as 13) |
+| live (approved) misfiles | 0 |
+
+`mock40-q37` stays retired. The misfile stays on the file (`module = 13`) so the
+import numbering defect remains visible. The machine check is
+`cdcp_bank::mock40_module_audit` / `MOCK40_CONTENT_MODULE`: zero `mock40-*` items
+is ERROR; a new `mock40-*` id without a ledger row is RED; an approved item whose
+`module` ≠ stem-subject is RED. This is not a `cdcp_gate` row — prefix
+disagreement is legal, so it does not belong in `verify-orphans`.
