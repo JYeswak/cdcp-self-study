@@ -147,7 +147,41 @@ text = "Learner builds a security matrix as role × zone × privilege and points
 claim_ids = ["claim-interview-ready", "claim-domain-covered"]
 
 [[objective]]
+id = "obj-m09-w-classes"
+text = "Learner names ASHRAE W-classes (W17 / W27 / W32 / W40 / W45 / W+) as daily plant-selection language: the number is the upper supply-water limit (°C), the shared lower limit is 2 °C, and points at Module 02 for the lattice home — not a CRAH setpoint"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m09-ridethrough-seconds"
+text = "Learner states that at 40–100 kW, thermal ride-through is seconds when IT stays on UPS and the liquid/air plant is dark, and that liquid-loop inertia is not CRAH-plenum inertia — without inventing an outage percentage"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
 id = "obj-m11-gpu-fabric-availability"
 text = "Learner treats GPU-cluster east-west fabric (InfiniBand / RoCE, 400/800G) as an availability path equal to power: one fabric cut is one training job; interconnect in this module still means fewer patch points"
 claim_ids = ["claim-interview-ready", "claim-domain-covered"]
 
+[[objective]]
+id = "obj-m06-path-independence"
+text = "Learner draws A/B independence through the last common point and refuses a dual-utility sketch that lands Utility A, Utility B, and the generator through one ATS → one UPS"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m06-catcher-topology"
+text = "Learner draws a catcher bus as a topology distinct from isolated-redundant and from 2N, says when an AI hall uses catcher vs 2N, and points at Module 15 for isolate"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m06-n-plus-2"
+text = "Learner names N+2 as two spare units at that layer, confirms N is capacity not a sticker, and will not invent N+2 = Tier IV"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m06-liion-electrical"
+text = "Learner distinguishes Li-ion UPS-room electrical/interconnect from BESS-yard interconnect, names NFPA 855 and UL 9540A as notes teaching, and points at Module 12 for the fire playbook without inventing a fire percentage"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m06-queue-btm-path"
+text = "Learner treats the interconnect queue and behind-the-meter / on-site continuous generation as a primary energization path (not only backup gensets), names the plant as a new failure mode, and points at Module 03 for siting"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
