@@ -16,7 +16,7 @@
 
   var CODE = "CDCP_FILE_ORIGIN";
   var SERVE_HINT =
-    "cargo run -p cdcp_cli -- serve   # then open http://127.0.0.1:8766/";
+    "cdcp serve   # then open http://127.0.0.1:8766/";
 
   function normalizeProtocol(protocol) {
     var p = String(protocol == null ? "" : protocol).toLowerCase();
