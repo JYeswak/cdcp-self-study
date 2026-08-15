@@ -4,7 +4,7 @@
 //!
 //! Three things are held here, and nothing more:
 //!
-//!   1. `scripts/verify_coverage.py`, `scripts/build_units.py`,
+//!   1. `scripts/verify_coverage.py`, `cdcp_learn::units`,
 //!      `scripts/smoke_feedback_links.py` and `scripts/smoke_weak_links.py`
 //!      derive their module set from a registry (`knowledge/domains.toml`,
 //!      `web/data/modules_index.json`, and `knowledge/domains.toml` twice more)
