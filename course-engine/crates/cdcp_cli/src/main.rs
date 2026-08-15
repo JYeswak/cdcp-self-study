@@ -1,4 +1,4 @@
-//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics
+//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics / slo
 #![forbid(unsafe_code)]
 
 mod assemble;
@@ -6,6 +6,7 @@ mod metrics;
 mod operator;
 mod oracle;
 mod site;
+mod slo;
 
 use cdcp_bank::Bank;
 use cdcp_core::{AnsweredItem, ChoiceLetter, ExamAttempt};
@@ -326,11 +327,28 @@ enum Cmd {
         #[arg(long, default_value_t = 42)]
         seed: u64,
     },
+    /// Parse slo.toml wall budgets / emit epoch-ms for smoke_slo.
+    Slo {
+        #[command(subcommand)]
+        sub: SloCmd,
+    },
     /// Check or regenerate grade goldens
     Goldens {
         #[command(subcommand)]
         sub: GoldensCmd,
     },
+}
+
+#[derive(Subcommand)]
+enum SloCmd {
+    /// Print grade_ms, export_ms, bank_verify_ms (one integer per line).
+    Budgets {
+        /// slo.toml path (default: ./slo.toml).
+        #[arg(long, default_value = "slo.toml")]
+        file: PathBuf,
+    },
+    /// Print unix-epoch milliseconds.
+    NowMs,
 }
 
 #[derive(Subcommand)]
@@ -562,6 +580,10 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::Doctor { root, bind } => operator::doctor(root.as_deref(), &bind),
         Cmd::Health { root, robot } => operator::health(root.as_deref(), robot),
         Cmd::Repair { root, seed } => operator::repair(root.as_deref(), seed),
+        Cmd::Slo { sub } => match sub {
+            SloCmd::Budgets { file } => slo::emit_budgets(&file),
+            SloCmd::NowMs => slo::emit_now_ms(),
+        },
         Cmd::Goldens { sub } => match sub {
             GoldensCmd::Check { bank, dir } => goldens_check(&bank, &dir),
             // `.ok()` here is fail-CLOSED, the opposite of the goldens-check

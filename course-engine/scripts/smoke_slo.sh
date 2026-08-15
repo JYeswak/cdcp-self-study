@@ -11,6 +11,11 @@
 #   CDCP_SKIP_SLO=1 ./scripts/smoke_slo.sh
 #
 # Optional known-bad: CDCP_SLO_SELFTEST_TINY=1 forces 1ms budgets → must RED.
+#
+# EXTRACT-THEN-DELETE (bd-extract-smoke-slo-python-l5ke): wall budgets and
+# the epoch-ms clock come from `cdcp slo budgets` / `cdcp slo now-ms`.
+# A missing $ROOT/target/debug/cdcp after this script's cargo build is RED
+# (no compile-and-run fallback).
 set -eu
 
 ROOT="$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)"
@@ -30,34 +35,34 @@ fi
 [ -f goldens/fixtures/mock40_seed42.json ] || fail "missing goldens/fixtures/mock40_seed42.json"
 [ -f crates/cdcp_gate/src/gates/verify_bank.rs ] \
   || fail "missing crates/cdcp_gate/src/gates/verify_bank.rs (bank verifier required)"
-command -v python3 >/dev/null 2>&1 || fail "python3 required"
 command -v cargo >/dev/null 2>&1 || fail "cargo required"
 
-# Read budgets from slo.toml (python for reliable TOML; no external deps).
-read_budgets() {
-  python3 - <<'PY'
-from pathlib import Path
-try:
-    import tomllib
-except ImportError:
-    import tomli as tomllib  # type: ignore
+# Prebuild so grade/export/verify walls exclude cold compile (charter cares about path, not rustc).
+echo "smoke_slo: prebuild cdcp_cli + cdcp_gate"
+cargo build -q -p cdcp_cli -p cdcp_gate --locked || fail "cargo build -p cdcp_cli -p cdcp_gate"
 
-data = tomllib.loads(Path("slo.toml").read_text(encoding="utf-8"))
-b = data.get("budgets") or data
-keys = ("grade_ms", "export_ms", "bank_verify_ms")
-missing = [k for k in keys if k not in b]
-if missing:
-    raise SystemExit(f"slo.toml missing budgets: {missing}")
-print(int(b["grade_ms"]))
-print(int(b["export_ms"]))
-print(int(b["bank_verify_ms"]))
-PY
+CDCP_BIN="$ROOT/target/debug/cdcp"
+GATE_BIN="$ROOT/target/debug/cdcp_gate"
+# Missing binary after our own cargo build is RED. There is no fallback.
+[ -x "$CDCP_BIN" ] || fail "missing $CDCP_BIN after cargo build -p cdcp_cli (no fallback)"
+[ -x "$GATE_BIN" ] || fail "missing $GATE_BIN after cargo build -p cdcp_gate (bank verifier required)"
+"$GATE_BIN" list | grep -q '^verify-bank' \
+  || fail "cdcp_gate binary has no verify-bank subcommand"
+
+# Read budgets from slo.toml via the product binary (typed [budgets] table).
+read_budgets() {
+  "$CDCP_BIN" slo budgets --file slo.toml
 }
 
 BUDGETS="$(read_budgets)" || fail "could not parse slo.toml budgets"
 GRADE_MS="$(printf '%s\n' "$BUDGETS" | sed -n '1p')"
 EXPORT_MS="$(printf '%s\n' "$BUDGETS" | sed -n '2p')"
 VERIFY_MS="$(printf '%s\n' "$BUDGETS" | sed -n '3p')"
+
+# Three integers, or the helper printed noise / dropped a wall.
+case "$GRADE_MS" in *[!0-9]*|"") fail "slo budgets line 1 is not an integer: $GRADE_MS" ;; esac
+case "$EXPORT_MS" in *[!0-9]*|"") fail "slo budgets line 2 is not an integer: $EXPORT_MS" ;; esac
+case "$VERIFY_MS" in *[!0-9]*|"") fail "slo budgets line 3 is not an integer: $VERIFY_MS" ;; esac
 
 if [ "${CDCP_SLO_SELFTEST_TINY:-}" = "1" ]; then
   warn "CDCP_SLO_SELFTEST_TINY=1 — forcing 1ms budgets (expect RED)"
@@ -68,26 +73,9 @@ fi
 
 echo "smoke_slo: budgets grade_ms=$GRADE_MS export_ms=$EXPORT_MS bank_verify_ms=$VERIFY_MS"
 
-# Prebuild so grade/export/verify walls exclude cold compile (charter cares about path, not rustc).
-echo "smoke_slo: prebuild cdcp_cli + cdcp_gate"
-cargo build -q -p cdcp_cli -p cdcp_gate --locked || fail "cargo build -p cdcp_cli -p cdcp_gate"
-
-# Prefer built binary for timing (spawn overhead only; not rustc).
-CDCP_BIN="$ROOT/target/debug/cdcp"
-GATE_BIN="$ROOT/target/debug/cdcp_gate"
-if [ ! -x "$CDCP_BIN" ]; then
-  # cargo build places it here; fall back to cargo run if missing
-  CDCP_BIN=""
-fi
-# Anti-vacuous: a missing bank verifier is RED, not a skipped wall.
-# scripts/verify_bank.py is the differential oracle only — not timed here.
-[ -x "$GATE_BIN" ] || fail "missing $GATE_BIN after cargo build -p cdcp_gate (bank verifier required)"
-"$GATE_BIN" list | grep -q '^verify-bank' \
-  || fail "cdcp_gate binary has no verify-bank subcommand"
-
-# Portable wall-ms: start_ms / elapsed_ms via python.
+# Portable wall-ms: start / elapsed via the product binary.
 now_ms() {
-  python3 -c 'import time; print(int(time.time() * 1000))'
+  "$CDCP_BIN" slo now-ms
 }
 
 run_timed() {
@@ -122,37 +110,22 @@ cleanup() {
 trap cleanup EXIT INT TERM HUP
 
 echo "==> (1) grade all-correct"
-if [ -n "$CDCP_BIN" ]; then
-  run_timed "grade" "$GRADE_MS" \
-    "$CDCP_BIN" grade \
-      --bank bank/items \
-      --fixture goldens/fixtures/mock40_seed42.json \
-      --mode all-correct
-else
-  run_timed "grade" "$GRADE_MS" \
-    cargo run -q -p cdcp_cli --locked -- grade \
-      --bank bank/items \
-      --fixture goldens/fixtures/mock40_seed42.json \
-      --mode all-correct
-fi
+run_timed "grade" "$GRADE_MS" \
+  "$CDCP_BIN" grade \
+    --bank bank/items \
+    --fixture goldens/fixtures/mock40_seed42.json \
+    --mode all-correct
 
 echo "==> (2) export-web --seed 42"
 TMP_EXPORT="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_slo_export.XXXXXX")"
-if [ -n "$CDCP_BIN" ]; then
-  run_timed "export" "$EXPORT_MS" \
-    "$CDCP_BIN" export-web \
-      --bank bank/items \
-      --seed 42 \
-      --out "$TMP_EXPORT"
-else
-  run_timed "export" "$EXPORT_MS" \
-    cargo run -q -p cdcp_cli --locked -- export-web \
-      --bank bank/items \
-      --seed 42 \
-      --out "$TMP_EXPORT"
-fi
+run_timed "export" "$EXPORT_MS" \
+  "$CDCP_BIN" export-web \
+    --bank bank/items \
+    --seed 42 \
+    --out "$TMP_EXPORT"
 
 echo "==> (3) cdcp_gate verify-bank"
+# scripts/verify_bank.py is the differential oracle only — not timed here.
 run_timed "bank_verify" "$VERIFY_MS" \
   "$GATE_BIN" verify-bank
 
