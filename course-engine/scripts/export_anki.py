@@ -4,12 +4,16 @@
 V11-S1 (bd-j54). Study aid only — not a credential and not an exam dump.
 bank/seed42 sources drop retired and draft (bd-anki-ships-retired-bbdr).
 Receipt names both populations: "N scanned, M exported".
+.apkg bytes are a pure function of the bank (bd-anki-apkg-not-reproducible-e13a):
+collection timestamps and zip entry mtimes come from SOURCE_DATE_EPOCH or a
+pinned epoch, never time.time() or a temp file's mtime.
 
 Usage:
   python3 scripts/export_anki.py
   python3 scripts/export_anki.py --source seed42 --out dist/anki
   python3 scripts/export_anki.py --source bank --module 6 --format tsv,apkg
   python3 scripts/export_anki.py --source bank --limit 40 --seed 42
+  python3 scripts/export_anki.py --check
 
 Sources:
   bank    — all bank/items/*.toml (default)
@@ -23,6 +27,7 @@ Formats (comma-separated):
 
 .apkg path:
   Prefer genanki if installed; otherwise pure stdlib zip + sqlite3.
+  Determinism is guaranteed on the pure-sqlite path (the shipped path).
 """
 from __future__ import annotations
 
@@ -30,6 +35,7 @@ import argparse
 import csv
 import hashlib
 import json
+import os
 import random
 import sqlite3
 import sys
@@ -54,6 +60,64 @@ FSEP = "\x1f"
 # Note type / deck ids (stable for re-import friendliness)
 MODEL_ID = 1699990001001
 DECK_ID = 1699990002001
+
+# Collection + zip clock. NEVER time.time(). NEVER filesystem mtime.
+# SOURCE_DATE_EPOCH (reproducible-builds) wins; else this pinned epoch.
+# 2023-11-14T22:13:20Z — same era as MODEL_ID / DECK_ID (1699990001xxx).
+# Zip DOS dates only cover 1980–2107; deck_clock() rejects values outside that.
+PINNED_EPOCH = 1_700_000_000
+_ZIP_DOS_MIN = 315_532_800  # 1980-01-01T00:00:00Z
+_ZIP_DOS_MAX = 4_354_812_799  # 2107-12-31T23:59:59Z
+
+
+def deck_clock() -> int:
+    """Unix seconds stamped into col/notes/cards and every ZipInfo.
+
+    Wall clock is not an input. The deck is a function of the bank (and
+    optionally SOURCE_DATE_EPOCH), so two runs on the same inputs match.
+    """
+    raw = os.environ.get("SOURCE_DATE_EPOCH")
+    if raw is None or str(raw).strip() == "":
+        return PINNED_EPOCH
+    try:
+        value = int(raw)
+    except ValueError as exc:
+        raise ValueError(f"SOURCE_DATE_EPOCH is not an integer: {raw!r}") from exc
+    if value < _ZIP_DOS_MIN or value > _ZIP_DOS_MAX:
+        raise ValueError(
+            f"SOURCE_DATE_EPOCH {value} is outside the zip DOS range "
+            f"[{_ZIP_DOS_MIN}, {_ZIP_DOS_MAX}]"
+        )
+    return value
+
+
+def zip_date_time(epoch: int) -> tuple[int, int, int, int, int, int]:
+    """UTC calendar tuple for ZipInfo. TZ-independent (never localtime)."""
+    t = time.gmtime(epoch)
+    return (t.tm_year, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec)
+
+
+def write_deterministic_zip(
+    path: Path, entries: list[tuple[str, bytes]], epoch: int
+) -> None:
+    """ZIP_DEFLATED archive whose entry mtimes are `epoch`, not file mtimes.
+
+    ZipFile.write() would copy the temp collection's filesystem mtime into
+    the local-file header (and avalanche DEFLATE). writestr + ZipInfo pins
+    date_time, create_system, and Unix mode so the host and the temp dir
+    cannot leak into the bytes.
+    """
+    dt = zip_date_time(epoch)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
+        for name, data in entries:
+            info = zipfile.ZipInfo(filename=name, date_time=dt)
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.create_system = 3  # Unix, even if we ever run this on win32
+            info.external_attr = 0o644 << 16
+            info.extra = b""
+            info.comment = b""
+            zf.writestr(info, data)
 
 
 def load_toml(path: Path) -> dict:
@@ -285,9 +349,18 @@ def write_apkg_genanki(path: Path, items: list[dict], deck_name: str) -> bool:
     return True
 
 
-def write_apkg_pure(path: Path, items: list[dict], deck_name: str) -> None:
-    """Minimal Anki 2 collection.anki2 packaged as .apkg (no media)."""
-    now = int(time.time())
+def write_apkg_pure(
+    path: Path, items: list[dict], deck_name: str, now: int | None = None
+) -> None:
+    """Minimal Anki 2 collection.anki2 packaged as .apkg (no media).
+
+    `now` is the collection clock (col.crt/mod/scm, notes.mod, cards.mod,
+    model/deck JSON `mod`, and every zip entry date_time). Default is
+    deck_clock() — never time.time(). Pass an explicit value only from
+    --check's planted-leak trip.
+    """
+    if now is None:
+        now = deck_clock()
     model = {
         str(MODEL_ID): {
             "id": MODEL_ID,
@@ -588,11 +661,15 @@ def write_apkg_pure(path: Path, items: list[dict], deck_name: str) -> None:
         conn.commit()
         conn.close()
 
-        media_path = td_path / "media"
-        media_path.write_text("{}", encoding="utf-8")
-        with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
-            zf.write(db_path, arcname="collection.anki2")
-            zf.write(media_path, arcname="media")
+        # Read the image and zip via ZipInfo so the temp file's mtime cannot
+        # enter the archive. VACUUM is not required: a fresh file + the same
+        # inserts is already byte-stable on this sqlite (probed 2026-08-14).
+        db_bytes = db_path.read_bytes()
+        write_deterministic_zip(
+            path,
+            [("collection.anki2", db_bytes), ("media", b"{}")],
+            now,
+        )
 
 
 def write_apkg(path: Path, items: list[dict], deck_name: str) -> str:
@@ -600,6 +677,126 @@ def write_apkg(path: Path, items: list[dict], deck_name: str) -> str:
         return "genanki"
     write_apkg_pure(path, items, deck_name)
     return "pure-sqlite"
+
+
+def planted_clock_leak_trips() -> None:
+    """L4: two different clocks MUST change the .apkg, or --check is vacuous."""
+    items = [
+        {
+            "id": "plant-a",
+            "stem": "s",
+            "choices": ["x"],
+            "correct": "A",
+            "explanation": "e",
+            "module": 1,
+        },
+        {
+            "id": "plant-b",
+            "stem": "t",
+            "choices": ["x"],
+            "correct": "A",
+            "explanation": "e",
+            "module": 1,
+        },
+    ]
+    with tempfile.TemporaryDirectory(prefix="cdcp-anki-plant-") as td:
+        a = Path(td) / "a.apkg"
+        b = Path(td) / "b.apkg"
+        write_apkg_pure(a, items, "CDCP Study", now=PINNED_EPOCH)
+        write_apkg_pure(b, items, "CDCP Study", now=PINNED_EPOCH + 1)
+        if a.read_bytes() == b.read_bytes():
+            raise RuntimeError(
+                "planted clock leak did not change .apkg bytes — --check is vacuous"
+            )
+
+
+def peek_apkg(path: Path) -> tuple[int, int, int, tuple[int, ...]]:
+    """Return (col.crt, col.mod, col.scm, zip date_time of collection.anki2)."""
+    with zipfile.ZipFile(path) as zf:
+        info = zf.getinfo("collection.anki2")
+        raw = zf.read("collection.anki2")
+        date_time = info.date_time
+    conn = sqlite3.connect(":memory:")
+    try:
+        conn.deserialize(raw)
+        crt, mod, scm = conn.execute("SELECT crt, mod, scm FROM col WHERE id = 1").fetchone()
+    finally:
+        conn.close()
+    return int(crt), int(mod), int(scm), date_time
+
+
+def run_repro_check(items: list[dict], deck_name: str) -> int:
+    """Two successive exports of the same items must be byte-identical.
+
+    Sleeps across a whole-second boundary so a leftover time.time() would
+    flip col.crt and avalanche DEFLATE — the measurement that opened
+    bd-anki-apkg-not-reproducible-e13a.
+    """
+    try:
+        planted_clock_leak_trips()
+    except RuntimeError as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        return 1
+    print("export_anki check: planted clock leak trips (bytes differ)")
+
+    try:
+        clock = deck_clock()
+    except ValueError as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        return 1
+
+    with tempfile.TemporaryDirectory(prefix="cdcp-anki-check-") as td:
+        td_path = Path(td)
+        paths: list[Path] = []
+        for i in range(2):
+            dest = td_path / f"run{i}"
+            dest.mkdir()
+            apkg = dest / "cdcp_bank.apkg"
+            tsv = dest / "cdcp_bank.tsv"
+            write_apkg_pure(apkg, items, deck_name)
+            write_tsv(tsv, items)
+            paths.append(dest)
+            if i == 0:
+                time.sleep(1.1)
+
+        a_apkg = (td_path / "run0" / "cdcp_bank.apkg").read_bytes()
+        b_apkg = (td_path / "run1" / "cdcp_bank.apkg").read_bytes()
+        a_tsv = (td_path / "run0" / "cdcp_bank.tsv").read_bytes()
+        b_tsv = (td_path / "run1" / "cdcp_bank.tsv").read_bytes()
+        if a_tsv != b_tsv:
+            print("FAIL: TSV differed across two successive exports", file=sys.stderr)
+            return 1
+        if a_apkg != b_apkg:
+            print(
+                f"FAIL: .apkg differed across two successive exports "
+                f"({sum(x != y for x, y in zip(a_apkg, b_apkg, strict=False))} of "
+                f"{max(len(a_apkg), len(b_apkg))} bytes)",
+                file=sys.stderr,
+            )
+            return 1
+
+        crt, mod, scm, date_time = peek_apkg(td_path / "run0" / "cdcp_bank.apkg")
+        expect_dt = zip_date_time(clock)
+        if crt != clock or date_time != expect_dt:
+            print(
+                f"FAIL: clock leak in artifact: col.crt={crt} zip_date_time={date_time} "
+                f"expected crt={clock} date_time={expect_dt}",
+                file=sys.stderr,
+            )
+            return 1
+        if mod != clock * 1000 or scm != clock * 1000:
+            print(
+                f"FAIL: col.mod/scm not derived from the pinned clock: "
+                f"mod={mod} scm={scm} expected {clock * 1000}",
+                file=sys.stderr,
+            )
+            return 1
+
+    digest = hashlib.sha256(a_apkg).hexdigest()
+    print(f"export_anki check: two runs identical sha256={digest}")
+    print(f"export_anki check: col.crt={crt} col.mod={mod} zip_date_time={date_time}")
+    print(f"export_anki check: ok cards={len(items)}")
+    return 0
 
 
 def main() -> int:
@@ -624,6 +821,12 @@ def main() -> int:
         "--deck-name",
         default="CDCP Study",
         help="Anki deck name for .apkg",
+    )
+    ap.add_argument(
+        "--check",
+        action="store_true",
+        help="export twice to temp dirs and FAIL if .apkg bytes differ "
+        "(does not write --out)",
     )
     args = ap.parse_args()
 
@@ -669,6 +872,9 @@ def main() -> int:
         print("FAIL: filter removed all items", file=sys.stderr)
         return 1
 
+    if args.check:
+        return run_repro_check(items, args.deck_name)
+
     formats = {f.strip().lower() for f in args.format.split(",") if f.strip()}
     unknown = formats - {"tsv", "csv", "apkg"}
     if unknown:
@@ -692,7 +898,11 @@ def main() -> int:
         written.append(str(p))
     if "apkg" in formats:
         p = out_dir / f"{stem}.apkg"
-        backend = write_apkg(p, items, args.deck_name)
+        try:
+            backend = write_apkg(p, items, args.deck_name)
+        except ValueError as exc:
+            print(f"FAIL: {exc}", file=sys.stderr)
+            return 1
         written.append(f"{p} ({backend})")
 
     # Operator note next to outputs

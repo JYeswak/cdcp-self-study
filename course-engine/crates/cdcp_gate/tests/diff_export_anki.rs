@@ -7,8 +7,9 @@
 //! bytes of every file. The one permitted normalisation is `Norm::RootPrefix`
 //! (each side's root -> `<ROOT>`), and it fails if it does not fire.
 //!
-//! `.apkg` is absent: two oracle runs on identical inputs differ (pinned
-//! by `the_oracle_apkg_is_not_byte_reproducible_against_itself`).
+//! `.apkg` is still unported: the oracle is now byte-reproducible
+//! (`the_oracle_apkg_is_byte_reproducible_against_itself`) but the rust
+//! writer stays blocked (jhd.13) until it is added to `compare`.
 //! Empty decks (missing/empty/no-id bank, emptying filter, empty format)
 //! are exit 1 and write nothing on BOTH sides. Missing python3 is FAILURE.
 
@@ -1203,22 +1204,16 @@ fn an_all_retired_bank_is_error_in_both_and_writes_nothing() {
     assert!(rs.files.is_empty(), "must not write a retired deck");
 }
 
-// ── case 7: THE `.apkg` LEG — pinned as unsatisfiable, not skipped ─────────
+// ── case 7: THE `.apkg` LEG — oracle is now a function of the bank ────────
 
 #[test]
-fn the_oracle_apkg_is_not_byte_reproducible_against_itself() {
-    // bd-anki-apkg-not-reproducible-e13a.
-    //
-    // This is the measurement that decides the shape of this whole file. Two
-    // runs of THE SAME implementation on THE SAME inputs produce different
-    // decks, because the deck embeds int(time.time()) and the zip is
-    // DEFLATE-compressed so a one-second shift avalanches. A byte-exact
-    // differential on the .apkg is therefore UNSATISFIABLE — not hard, not
-    // deferred: impossible against this oracle.
-    //
-    // Written as a PINNED DEFECT: the day `export_anki.py` is made
-    // reproducible, this test goes RED and forces the .apkg leg to be ported
-    // and byte-compared like everything else.
+fn the_oracle_apkg_is_byte_reproducible_against_itself() {
+    // bd-anki-apkg-not-reproducible-e13a CLOSED: export_anki.py pins col.crt /
+    // notes.mod / cards.mod and every ZipInfo date_time to SOURCE_DATE_EPOCH
+    // or PINNED_EPOCH=1700000000, never time.time() or a temp-file mtime.
+    // Two runs of THE SAME implementation on THE SAME inputs, 1.1s apart,
+    // must now produce identical decks. The rust writer is still blocked
+    // (jhd.13); this test is the oracle half of that port, not the port.
     let f = Fixture::new();
     // Two cards is enough; the point is the timestamp, not the volume.
     f.put(
@@ -1240,23 +1235,21 @@ fn the_oracle_apkg_is_not_byte_reproducible_against_itself() {
         decks.push(py.files["dist/anki/cdcp_bank.apkg"].clone());
         tsvs.push(py.files["dist/anki/cdcp_bank.tsv"].clone());
         if i == 0 {
-            // Cross a whole-second boundary so the embedded clock has moved.
+            // Cross a whole-second boundary. A leftover time.time() would
+            // flip col.crt and avalanche DEFLATE; this must stay identical.
             std::thread::sleep(std::time::Duration::from_millis(1_100));
         }
     }
 
-    // The DETERMINISTIC surface is reproducible…
     assert_eq!(
         tsvs[0], tsvs[1],
         "the TSV must be reproducible; if it is not, the port has a second, worse problem"
     );
-    // …and the deck is NOT.
-    assert_ne!(
+    assert_eq!(
         decks[0], decks[1],
-        "PINNED DEFECT bd-anki-apkg-not-reproducible-e13a has been FIXED: two runs of the oracle \
-         now produce identical .apkg bytes. That is good news and this test is now the thing \
-         standing in the way — port the .apkg leg in export_anki.rs, add it to `compare`, and \
-         delete this test."
+        "oracle .apkg is not a function of the bank: two runs 1.1s apart produced \
+         different bytes. Restore deck_clock()/write_deterministic_zip; do not \
+         reintroduce time.time() or ZipFile.write() of a temp file."
     );
 }
 
