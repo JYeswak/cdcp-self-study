@@ -274,6 +274,7 @@ dependencies = [
  "cdcp_evidence",
  "cdcp_grade",
  "cdcp_learn",
+ "cdcp_metrics",
  "cdcp_site",
  "cdcp_wasm",
  "clap",

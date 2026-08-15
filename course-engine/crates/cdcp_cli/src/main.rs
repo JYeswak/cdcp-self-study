@@ -1,7 +1,8 @@
-//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site
+//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics
 #![forbid(unsafe_code)]
 
 mod assemble;
+mod metrics;
 mod operator;
 mod oracle;
 mod site;
@@ -92,6 +93,15 @@ enum Cmd {
         /// WGS84 longitude (decimal degrees). West is negative. Requires --lat.
         #[arg(long, allow_hyphen_values = true)]
         lon: Option<f64>,
+    },
+    /// PUE / WUE / CUE / ERE with an explicit Boundary. A bare number is RED.
+    Metrics {
+        /// TOML metric document path. Mutually exclusive with --doc.
+        #[arg(long)]
+        file: Option<PathBuf>,
+        /// Inline TOML metric document. A bare number is a schema ERROR.
+        #[arg(long, allow_hyphen_values = true)]
+        doc: Option<String>,
     },
     /// Ledger tripwire for measured paraphrase pairs C3 cannot see
     VerifyParaphrasePairs {
@@ -424,6 +434,7 @@ fn run(cli: Cli) -> Result<(), String> {
             lat,
             lon,
         } => site::run(root.as_deref(), location.as_deref(), lat, lon),
+        Cmd::Metrics { file, doc } => metrics::run(file.as_deref(), doc.as_deref()),
         Cmd::VerifyParaphrasePairs {
             root,
             ledger,
