@@ -121,7 +121,7 @@ measures outline shape, not depth. v1 selected the metric that supported its the
   which inverts the property `goldens/PROVENANCE.md` §"Bank drift" was written against. Residual:
   the domain string still reads `cdcp-bank-v1` under the v2 definition (`bd-6ycw`).
 - **`StdRng` is not portable.** Closed 2026-08-14 (C4): the sampler no longer
-  seeds from it [[fact:fact-assemble-uses-stdrng=no]]. It is `ChaCha12Rng` from
+  seeds from it [[fact:fact-assemble-uses-stdrng=no]]. It is `ChaCha12Rng` [[fact:fact-assemble-rng-is-chacha12=yes]] from
   `rand_chacha = "=0.3.1"`. The word "currently" was the tell; the named
   algorithm is the fix.
 - **SRS is oversold.** `web/assets/js/srs.js` is a 1-day/3-day ladder capped at 3 days. That is

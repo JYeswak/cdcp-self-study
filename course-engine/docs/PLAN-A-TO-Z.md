@@ -71,7 +71,7 @@ rebuilt something — see `docs/TESTING.md`, "Meta-test pairs: step 3 is the one
   domain string is still `cdcp-bank-v1` under a v2 definition (`bd-6ycw`).
 - **C3** near-duplicate detector (`bd-near-duplicate-item-gate-i5v`). Exact-stem hashing finds
   **0** duplicates; `m14-q040`/`m14-q121` are one item twice with different keys.
-- **C4** portable PRNG — **LANDED 2026-08-14.** Sampler is `rand_chacha::ChaCha12Rng`,
+- **C4** portable PRNG — **LANDED 2026-08-14.** Sampler is `rand_chacha::ChaCha12Rng` [[fact:fact-assemble-rng-is-chacha12=yes]],
   crates pinned `rand = "=0.8.7"` / `rand_chacha = "=0.3.1"`. It no longer seeds from
   `StdRng` [[fact:fact-assemble-uses-stdrng=no]]. Seed-42 stream equals the pre-C4
   `StdRng`/rand-0.8.7 stream, so `item_ids` did not move.

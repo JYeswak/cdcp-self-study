@@ -12,6 +12,8 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use thiserror::Error;
 
+mod gate_shrink;
+
 /// Rank lattice: invariant(6) > proof(5) > bounded_model(4) > statistical(3) > slo(2) > benchmark(1).
 pub const CANONICAL_CLASSES: &[(&str, u8)] = &[
     ("invariant", 6),
@@ -643,9 +645,15 @@ pub fn check_repo(root: &Path) -> Result<Vec<Violation>, CheckError> {
 /// Run check and return process-style result.
 pub fn run(root: &Path) -> Result<(), CheckError> {
     let violations = check_repo(root)?;
-    if violations.is_empty() {
+    let shrink = gate_shrink::check_gate_shrink(root);
+    if let Err(ref e) = shrink {
+        eprintln!("cdcp_registry_check: {e}");
+    }
+    if violations.is_empty() && shrink.is_ok() {
         println!("cdcp_registry_check: OK (L1 claims constitution green)");
         Ok(())
+    } else if violations.is_empty() {
+        Err(shrink.unwrap_err())
     } else {
         for viol in &violations {
             eprintln!("cdcp_registry_check: {} — {}", viol.code, viol.message);

@@ -98,6 +98,30 @@ trigger = "deny_unknown_fields"
 # `=no`. C6 (min_modules discard) already flipped.
 
 [[fact]]
+id = "fact-bank-item-count-804"
+question = "Does the generated units index report `bank_item_count` 804 (file-set size, retired included)?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": 804' }
+trigger = "804 files / 779"
+
+[[fact]]
+id = "fact-bank-approved-count-779"
+question = "Does the generated units index report `approved_item_count` 779?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 779' }
+trigger = "779 approved / 25 retired"
+
+[[fact]]
+id = "fact-learn-unit-count-134"
+question = "Does the generated units index report `unit_count` 134?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"unit_count": 134' }
+trigger = "134 Learn units"
+
+[[fact]]
+id = "fact-assemble-rng-is-chacha12"
+question = "Does `cdcp_assemble` seed its sampler from the named `ChaCha12Rng`?"
+probe = { kind = "file_contains", path = "crates/cdcp_assemble/src/lib.rs", needle = "ChaCha12Rng::seed_from_u64" }
+trigger = "ChaCha12Rng"
+
+[[fact]]
 id = "fact-assemble-uses-stdrng"
 question = "Does `cdcp_assemble` still seed its sampler from `rand`'s non-portable `StdRng`?"
 probe = { kind = "file_contains", path = "crates/cdcp_assemble/src/lib.rs", needle = "StdRng::seed_from_u64" }

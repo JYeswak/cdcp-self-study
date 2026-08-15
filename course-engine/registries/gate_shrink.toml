@@ -1,0 +1,283 @@
+# GATE-SHRINK RATCHET (bd-engine-not-gate-ar39.1)
+#
+# cdcp_gate .rs line count is a ceiling that may only fall.
+# Lowering ceiling_lines after an extraction is autonomous.
+# RAISING ceiling_lines is weakening a gate and is ESCALATION-ONLY.
+#
+# DELETE THIS RATCHET (and this file, and the check) when:
+#   1. ceiling_lines < 15000, AND
+#   2. none of product_gate_files exist under crates/cdcp_gate/src/gates/.
+# The test fails on purpose once both are true so the instrument cannot outlive its job.
+#
+# Count is wc -l (newline count), measured 2026-08-15.
+# Bead cited 64,955 the previous evening; this pin is the live tree.
+
+ceiling_lines = 64958
+delete_when_lines_below = 15000
+# Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
+# 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
+min_rs_files = 2
+
+product_crates = [
+  "cdcp_core",
+  "cdcp_grade",
+  "cdcp_bank",
+  "cdcp_assemble",
+  "cdcp_cli",
+  "cdcp_wasm",
+  "cdcp_registry_check",
+]
+
+product_gate_files = [
+  "src/gates/build_units.rs",
+  "src/gates/build_glossary_json.rs",
+  "src/gates/export_anki.rs",
+]
+
+[[file]]
+path = "build.rs"
+lines = 102
+
+[[file]]
+path = "src/date.rs"
+lines = 131
+
+[[file]]
+path = "src/exit.rs"
+lines = 22
+
+[[file]]
+path = "src/gates/build_glossary_json.rs"
+lines = 649
+
+[[file]]
+path = "src/gates/build_units.rs"
+lines = 2148
+
+[[file]]
+path = "src/gates/capability_maturity.rs"
+lines = 1135
+
+[[file]]
+path = "src/gates/corpus_redistribution.rs"
+lines = 1321
+
+[[file]]
+path = "src/gates/doc_facts.rs"
+lines = 1495
+
+[[file]]
+path = "src/gates/export_anki.rs"
+lines = 1670
+
+[[file]]
+path = "src/gates/goldens_couplings.rs"
+lines = 1718
+
+[[file]]
+path = "src/gates/install_hooks.rs"
+lines = 285
+
+[[file]]
+path = "src/gates/mod.rs"
+lines = 25
+
+[[file]]
+path = "src/gates/near_duplicate_items.rs"
+lines = 802
+
+[[file]]
+path = "src/gates/smoke_a11y.rs"
+lines = 1187
+
+[[file]]
+path = "src/gates/smoke_diagrams.rs"
+lines = 2032
+
+[[file]]
+path = "src/gates/smoke_learn_v2.rs"
+lines = 1165
+
+[[file]]
+path = "src/gates/substrate_guard.rs"
+lines = 2727
+
+[[file]]
+path = "src/gates/validate_grounding.rs"
+lines = 2277
+
+[[file]]
+path = "src/gates/verify_bank.rs"
+lines = 2046
+
+[[file]]
+path = "src/gates/verify_content_lock.rs"
+lines = 1757
+
+[[file]]
+path = "src/gates/verify_coverage.rs"
+lines = 1600
+
+[[file]]
+path = "src/gates/verify_doc_consistency.rs"
+lines = 1451
+
+[[file]]
+path = "src/gates/verify_injection_count.rs"
+lines = 1415
+
+[[file]]
+path = "src/gates/verify_knowledge_paths.rs"
+lines = 1097
+
+[[file]]
+path = "src/gates/verify_objectives.rs"
+lines = 2189
+
+[[file]]
+path = "src/gates/verify_orphans.rs"
+lines = 1111
+
+[[file]]
+path = "src/gates/verify_step_count.rs"
+lines = 1213
+
+[[file]]
+path = "src/lib.rs"
+lines = 28
+
+[[file]]
+path = "src/main.rs"
+lines = 103
+
+[[file]]
+path = "src/py_compat.rs"
+lines = 3106
+
+[[file]]
+path = "src/registry.rs"
+lines = 160
+
+[[file]]
+path = "src/root.rs"
+lines = 61
+
+[[file]]
+path = "src/vcs.rs"
+lines = 345
+
+[[file]]
+path = "tests/anti_vacuous_topics.rs"
+lines = 717
+
+[[file]]
+path = "tests/capability_maturity_e2e.rs"
+lines = 672
+
+[[file]]
+path = "tests/corpus_redistribution_e2e.rs"
+lines = 638
+
+[[file]]
+path = "tests/diff_build_glossary_json.rs"
+lines = 562
+
+[[file]]
+path = "tests/diff_build_units.rs"
+lines = 973
+
+[[file]]
+path = "tests/diff_export_anki.rs"
+lines = 1361
+
+[[file]]
+path = "tests/diff_smoke_a11y.rs"
+lines = 768
+
+[[file]]
+path = "tests/diff_smoke_diagrams.rs"
+lines = 1448
+
+[[file]]
+path = "tests/diff_smoke_learn_v2.rs"
+lines = 915
+
+[[file]]
+path = "tests/diff_validate_grounding.rs"
+lines = 1027
+
+[[file]]
+path = "tests/diff_verify_bank.rs"
+lines = 1328
+
+[[file]]
+path = "tests/diff_verify_content_lock.rs"
+lines = 905
+
+[[file]]
+path = "tests/diff_verify_coverage.rs"
+lines = 2311
+
+[[file]]
+path = "tests/diff_verify_doc_consistency.rs"
+lines = 907
+
+[[file]]
+path = "tests/diff_verify_injection_count.rs"
+lines = 860
+
+[[file]]
+path = "tests/diff_verify_knowledge_paths.rs"
+lines = 678
+
+[[file]]
+path = "tests/diff_verify_objectives.rs"
+lines = 2032
+
+[[file]]
+path = "tests/diff_verify_orphans.rs"
+lines = 704
+
+[[file]]
+path = "tests/differential_verdict_census.rs"
+lines = 998
+
+[[file]]
+path = "tests/dispatch.rs"
+lines = 66
+
+[[file]]
+path = "tests/doc_facts_e2e.rs"
+lines = 753
+
+[[file]]
+path = "tests/goldens_couplings_e2e.rs"
+lines = 912
+
+[[file]]
+path = "tests/near_duplicate_items_e2e.rs"
+lines = 470
+
+[[file]]
+path = "tests/rebase_module_bounds.rs"
+lines = 2528
+
+[[file]]
+path = "tests/repo_surface.rs"
+lines = 127
+
+[[file]]
+path = "tests/restore_rebuild_trap.rs"
+lines = 337
+
+[[file]]
+path = "tests/substrate_guard_e2e.rs"
+lines = 948
+
+[[file]]
+path = "tests/support/mod.rs"
+lines = 150
+
+[[file]]
+path = "tests/support/rebuild.rs"
+lines = 290
