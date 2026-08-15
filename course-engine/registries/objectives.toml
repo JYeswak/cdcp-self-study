@@ -45,3 +45,8 @@ claim_ids = ["claim-domain-covered", "claim-interview-ready"]
 id = "obj-m08-liquid-ready-cabinet"
 text = "Learner can name a liquid-ready / GPU-hall cabinet as a distinct SKU (800 mm hose/manifold volume, RDHx door, drip pans, CDU landing, immersion tank, 40–100 kW structure) and point at Module 09 for liquid families"
 claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m14-cdu-loop-leak"
+text = "Learner lists CDU / secondary-loop leak plus flow / temperature / pressure as first-class points, and pages on seconds-scale inlet or cold-plate rate-of-rise — a hall rope and a 15-minute average are the wrong coverage and the wrong clock"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
