@@ -85,7 +85,12 @@
 //!
 //! # WHAT THIS GATE CANNOT DO
 //!
-//! It cannot decide whether a stated `reason` is honest. It cannot tell a real
+//! It cannot decide whether a stated `reason` is honest English. One mechanical
+//! exception (bd-allowlist-stale-load-bearing-seq9): a reason that claims
+//! check.sh invokes the path ("load-bearing check.sh", "check.sh invokes",
+//! "check.sh hard-fails if") is checked against the invocation set derived from
+//! `scripts/check.sh`. Presence tests (`[ -f path ]`) and comments are not
+//! invocations. The rest of the sentence is still prose. It cannot tell a real
 //! migration bead from a plausible-looking id. It cannot tell an achievable
 //! `expires` from a date chosen to be far away. It reads none of the scripts it
 //! permits, so it says nothing about what they do. An author who wants a script
@@ -967,6 +972,168 @@ pub fn check_sh_wires_guard(text: &str) -> bool {
     check_sh_wiring(text) == WiringEvidence::Unproven
 }
 
+// ── reason honesty: a "load-bearing check.sh" claim must be an invoke ──────
+//
+// bd-allowlist-stale-load-bearing-seq9. The `reason` field is the justification
+// that keeps an exemption alive. Six rows kept saying "Load-bearing check.sh
+// gate … grandfathered pending the Rust port" after the port landed and
+// check.sh stopped invoking them. A hand-edit of those strings without a
+// tripwire will rot again.
+//
+// WHAT THIS DECIDES: whether a reason that CLAIMS check.sh runs the path is
+// matched by an invocation derived from scripts/check.sh. Presence tests
+// (`[ -f path ]`) and comments are not invocations.
+//
+// WHAT THIS DOES NOT DECIDE: whether the rest of the English is true. An
+// authoring-helper reason that is lying about being an authoring helper is
+// still prose.
+
+/// Phrases that assert `scripts/check.sh` RUNS this path. Case-insensitive.
+pub fn reason_claims_check_sh_invoke(reason: &str) -> bool {
+    let r = reason.to_ascii_lowercase();
+    r.contains("load-bearing check.sh")
+        || r.contains("check.sh invokes")
+        || r.contains("check.sh hard-fails if")
+}
+
+/// Executors whose next token is treated as an invoked path.
+///
+/// Longer names first so `python3` is not read as `python` and `bash`/`zsh`
+/// are not read as `sh`.
+const INVOKE_EXECS: &[&str] = &["python3", "python", "bash", "zsh", "sh"];
+
+fn is_word_start(text: &str, i: usize) -> bool {
+    if i == 0 {
+        return true;
+    }
+    let b = text.as_bytes()[i - 1];
+    // `.` is not a word start: `voice-slop.sh >/dev/null` must not be
+    // parsed as an `sh` invoke of `>/dev/null`.
+    !b.is_ascii_alphanumeric() && b != b'_' && b != b'.'
+}
+
+fn next_invoked_path(after_exec: &str) -> Option<String> {
+    let s = after_exec.trim_start();
+    if s.is_empty() {
+        return None;
+    }
+    let tok = if let Some(q) = s.chars().next().filter(|c| *c == '"' || *c == '\'') {
+        let rest = &s[q.len_utf8()..];
+        let end = rest.find(q)?;
+        &rest[..end]
+    } else {
+        let end = s
+            .find(|c: char| c.is_ascii_whitespace() || matches!(c, ';' | '|' | '&' | ')'))
+            .unwrap_or(s.len());
+        &s[..end]
+    };
+    let tok = tok.trim();
+    if tok.is_empty()
+        || tok.starts_with('-')
+        || tok.starts_with('$')
+        || tok.starts_with('>')
+        || tok.starts_with('<')
+    {
+        return None;
+    }
+    if !(tok.contains('/') || tok.ends_with(".py") || tok.ends_with(".sh")) {
+        return None;
+    }
+    Some(tok.strip_prefix("./").unwrap_or(tok).to_string())
+}
+
+fn extract_invoked_paths(code: &str, out: &mut BTreeSet<String>) {
+    // Walk char boundaries: check.sh contains em-dashes, and a byte-index
+    // walk panics on `&code[i..]` mid-character.
+    for (i, _) in code.char_indices() {
+        if !is_word_start(code, i) {
+            continue;
+        }
+        let rest = &code[i..];
+        let Some(exec) = INVOKE_EXECS.iter().copied().find(|e| rest.starts_with(e)) else {
+            continue;
+        };
+        let after = &rest[exec.len()..];
+        let boundary = match after.chars().next() {
+            None => true,
+            Some(c) => c.is_ascii_whitespace() || c == '"' || c == '\'',
+        };
+        if boundary {
+            if let Some(path) = next_invoked_path(after) {
+                out.insert(path);
+            }
+        }
+    }
+}
+
+/// Paths `scripts/check.sh` actually invokes, derived from the file, never
+/// hand-maintained. Comments and `[ -f path ]` presence tests do not count.
+pub fn check_sh_invocation_set(text: &str) -> BTreeSet<String> {
+    let mut out = BTreeSet::new();
+    for raw in text.lines() {
+        let line = raw.trim();
+        if line.starts_with('#') {
+            continue;
+        }
+        extract_invoked_paths(code_part(line), &mut out);
+    }
+    out
+}
+
+pub fn check_sh_invokes_path(text: &str, path: &str) -> bool {
+    check_sh_invocation_set(text).contains(path)
+}
+
+/// Anti-vacuous errors and lying-reason violations from one snapshot's rows
+/// and that snapshot's check.sh text.
+#[derive(Debug, Clone, PartialEq, Eq, Default)]
+pub struct HonestyFindings {
+    pub errors: Vec<String>,
+    pub violations: Vec<String>,
+}
+
+/// Check that every `reason` claiming a check.sh invoke is matched by one.
+///
+/// Anti-vacuous: zero `[[allow]]` rows is an ERROR (the scan judged nothing);
+/// a missing or empty check.sh is an ERROR (the scan did not open the file
+/// it claims to have read). Empty invocation set is an ANSWER, not an error
+/// — a fixture check.sh that only runs this gate invokes nothing, and that
+/// is how a planted "load-bearing check.sh" reason is shown to be a lie.
+pub fn reason_honesty_findings(rows: &[Row], check_sh_text: Option<&str>) -> HonestyFindings {
+    let mut out = HonestyFindings::default();
+    if rows.is_empty() {
+        out.errors.push(format!(
+            "{REGISTRY_PATH}: zero [[allow]] rows — a reason-honesty scan over nothing is an ERROR, not a pass"
+        ));
+        return out;
+    }
+    let Some(text) = check_sh_text else {
+        out.errors.push(format!(
+            "{CHECK_SH_PATH} was not opened — a reason-honesty scan that does not read check.sh is an ERROR, not a pass"
+        ));
+        return out;
+    };
+    if text.is_empty() {
+        out.errors.push(format!(
+            "{CHECK_SH_PATH} is empty — the invocation set cannot be derived. ERROR, not a pass"
+        ));
+        return out;
+    }
+    let invoked = check_sh_invocation_set(text);
+    for r in rows {
+        let path = r.path.trim();
+        if path.is_empty() {
+            continue;
+        }
+        if reason_claims_check_sh_invoke(&r.reason) && !invoked.contains(path) {
+            out.violations.push(format!(
+                "[[allow]] {path}: reason claims check.sh invokes this (\"load-bearing check.sh\" / \"check.sh invokes\" / \"check.sh hard-fails if\"), but {CHECK_SH_PATH} does not invoke that path"
+            ));
+        }
+    }
+    out
+}
+
 // ── the wiring BEHAVIOURAL leg ─────────────────────────────────────────────
 
 /// Is the probe's plant genuinely a known-bad for the registry the snapshot
@@ -1546,6 +1713,22 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         )));
     }
 
+    // ── reason honesty: "load-bearing check.sh" must be an actual invoke ──
+    // Each snapshot answers against ITS OWN check.sh. A planted claim on the
+    // desk and a clean index (or the reverse) is the bd-how shape for this
+    // field, so both sides are judged.
+    let wt_honesty = reason_honesty_findings(&wt_al.allow, Some(&wt_check));
+    let ix_honesty = reason_honesty_findings(&ix_al.allow, Some(&ix_check));
+    let honesty_errs = merge(wt_honesty.errors, ix_honesty.errors);
+    if !honesty_errs.is_empty() {
+        return Err(GateError::error(format!(
+            "{} reason-honesty error(s) in {REGISTRY_PATH}: {}",
+            honesty_errs.len(),
+            honesty_errs.join(" | ")
+        )));
+    }
+    let honesty_viols = merge(wt_honesty.violations, ix_honesty.violations);
+
     // ── presence ────────────────────────────────────────────────────────────
     let mut violations = merge(
         unlisted_entries(&wt_entries, &wt_al.allow, &wt_al.scan),
@@ -1582,6 +1765,7 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     let (ix_hard, ix_soft, ix_ev) =
         wiring_findings(&ix_al, &ix_check, head_status.as_deref(), force);
     violations.extend(merge(wt_hard, ix_hard));
+    violations.extend(honesty_viols);
     for m in merge(wt_soft, ix_soft) {
         eprintln!("{NAME}: PENDING WIRING: {m}");
     }
@@ -1614,7 +1798,7 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
             );
         }
         println!(
-            "{NAME}: floor-raise only: a row records that a reason was WRITTEN, not that it is true. {listed} exemption(s) outstanding; target is 0."
+            "{NAME}: floor-raise: a row must exist, be dated, and not claim a check.sh invoke the orchestrator does not make. The rest of the reason is still prose. {listed} exemption(s) outstanding; target is 0."
         );
         println!(
             "{NAME}: the wiring leg above is TEXT ONLY — reading a shell line cannot establish that it executes. Run `cdcp_gate {NAME} --prove-wired` for the behavioural leg."
@@ -2697,6 +2881,176 @@ expires = "2099-01-01"
         assert_eq!(
             probe_plant_vacuity(&reg(&plant_row("scripts/other.py"))),
             Ok(())
+        );
+    }
+
+    // ── bd-allowlist-stale-load-bearing-seq9: reason honesty ──────────────
+
+    #[test]
+    fn reason_claims_only_the_named_phrases() {
+        assert!(reason_claims_check_sh_invoke(
+            "Load-bearing check.sh gate, grandfathered pending the Rust port"
+        ));
+        assert!(reason_claims_check_sh_invoke(
+            "Retained; check.sh hard-fails if it is absent"
+        ));
+        assert!(reason_claims_check_sh_invoke(
+            "check.sh invokes this as a smoke"
+        ));
+        // "load-bearing" alone, or "check.sh" as the orchestrator's own row,
+        // is not a claim that THIS path is a check.sh step.
+        assert!(!reason_claims_check_sh_invoke(
+            "Grandfathered load-bearing gate; port tracked by the migration epic"
+        ));
+        assert!(!reason_claims_check_sh_invoke(
+            "THIS ONE LEGITIMATELY STAYS SHELL: check.sh is the thin orchestrator"
+        ));
+        assert!(!reason_claims_check_sh_invoke(
+            "Differential oracle for cdcp_gate verify-orphans. Not a check.sh step."
+        ));
+    }
+
+    #[test]
+    fn invocation_set_counts_executors_and_ignores_presence_and_comments() {
+        let sh = r#"
+# python3 scripts/commented_out.py
+[ -f scripts/validate_grounding.py ] || fail "missing scripts/validate_grounding.py"
+echo "==> smoke_weak_links.py";  python3 scripts/smoke_weak_links.py || fail "x"
+python3 "scripts/export_anki.py" --format apkg
+run_selftest "orphan" sh scripts/selftest_orphan.sh
+sh tests/voice-slop.sh >/dev/null
+cp scripts/export_anki.py /tmp/copy.py
+python3 "$_anki_plant/scripts/export_anki.py"
+"#;
+        let set = check_sh_invocation_set(sh);
+        assert!(set.contains("scripts/smoke_weak_links.py"), "{set:?}");
+        assert!(set.contains("scripts/export_anki.py"), "{set:?}");
+        assert!(set.contains("scripts/selftest_orphan.sh"), "{set:?}");
+        assert!(set.contains("tests/voice-slop.sh"), "{set:?}");
+        assert!(
+            !set.contains(">/dev/null"),
+            "a redirect is not an invoke: {set:?}"
+        );
+        assert!(
+            !set.contains("scripts/commented_out.py"),
+            "comments are not invokes: {set:?}"
+        );
+        assert!(
+            !set.contains("scripts/validate_grounding.py"),
+            "presence tests are not invokes: {set:?}"
+        );
+    }
+
+    #[test]
+    fn a_load_bearing_claim_for_an_uninvoked_path_is_red() {
+        let mut r = row("scripts/verify_orphans.py");
+        r.reason = "Load-bearing check.sh gate, grandfathered pending the Rust port".into();
+        let sh = "#!/bin/sh\npython3 scripts/export_anki.py --format apkg\n";
+        let h = reason_honesty_findings(&[r, row("scripts/export_anki.py")], Some(sh));
+        assert!(h.errors.is_empty(), "{h:?}");
+        assert_eq!(h.violations.len(), 1, "{h:?}");
+        assert!(
+            h.violations[0].contains("scripts/verify_orphans.py"),
+            "must name the file: {h:?}"
+        );
+        assert!(
+            h.violations[0].contains("does not invoke"),
+            "must name the lie: {h:?}"
+        );
+    }
+
+    #[test]
+    fn a_load_bearing_claim_for_an_invoked_path_is_quiet() {
+        let mut r = row("scripts/export_anki.py");
+        r.reason = "Load-bearing check.sh step: V11 Anki export".into();
+        let sh = "#!/bin/sh\npython3 scripts/export_anki.py --format apkg\n";
+        let h = reason_honesty_findings(&[r], Some(sh));
+        assert!(h.errors.is_empty() && h.violations.is_empty(), "{h:?}");
+    }
+
+    #[test]
+    fn zero_allowlist_rows_is_an_error_not_a_pass() {
+        let h = reason_honesty_findings(&[], Some("#!/bin/sh\npython3 scripts/a.py\n"));
+        assert!(
+            h.errors.iter().any(|e| e.contains("zero [[allow]] rows")),
+            "{h:?}"
+        );
+    }
+
+    #[test]
+    fn unread_or_empty_check_sh_is_an_error_not_a_pass() {
+        let rows = [row("scripts/a.py")];
+        let missing = reason_honesty_findings(&rows, None);
+        assert!(
+            missing.errors.iter().any(|e| e.contains("was not opened")),
+            "{missing:?}"
+        );
+        let empty = reason_honesty_findings(&rows, Some(""));
+        assert!(
+            empty.errors.iter().any(|e| e.contains("is empty")),
+            "{empty:?}"
+        );
+    }
+
+    /// Anti-vacuous for the parser: the live orchestrator is what this
+    /// tripwire reads, and a parser that finds none of the two remaining
+    /// python3 steps (or invents invokes for ported oracles) is broken.
+    #[test]
+    fn live_check_sh_invokes_the_two_remaining_python_gates_only() {
+        let root = crate::root::resolve(std::path::Path::new(env!("CARGO_MANIFEST_DIR")))
+            .expect("engine root");
+        let text = std::fs::read_to_string(root.join(CHECK_SH_PATH)).expect("check.sh");
+        assert!(
+            !text.is_empty(),
+            "a scan that did not open check.sh is an ERROR"
+        );
+        let set = check_sh_invocation_set(&text);
+        assert!(
+            !set.is_empty(),
+            "check.sh always calls something; a parser that found none did not parse"
+        );
+        for must in [
+            "scripts/smoke_learn_v2.py",
+            "scripts/export_anki.py",
+            "tests/voice-slop.sh",
+            "tests/publishability-bar.sh",
+        ] {
+            assert!(set.contains(must), "missing invoke {must}: {set:?}");
+        }
+        for retired in [
+            "scripts/smoke_weak_links.py",
+            "scripts/verify_orphans.py",
+            "scripts/verify_injection_count.py",
+            "scripts/verify_doc_consistency.py",
+            "scripts/verify_knowledge_paths.py",
+            "scripts/verify_bank.py",
+            "scripts/verify_content_lock.py",
+            "scripts/validate_grounding.py",
+            "scripts/verify_coverage.py",
+            "scripts/verify_objectives.py",
+        ] {
+            assert!(
+                !set.contains(retired),
+                "{retired} is a presence-check or an oracle, not an invoke: {set:?}"
+            );
+        }
+    }
+
+    #[test]
+    fn live_allowlist_reasons_match_live_check_sh() {
+        let root = crate::root::resolve(std::path::Path::new(env!("CARGO_MANIFEST_DIR")))
+            .expect("engine root");
+        let al_text = std::fs::read_to_string(root.join(REGISTRY_PATH)).expect("allowlist");
+        let check = std::fs::read_to_string(root.join(CHECK_SH_PATH)).expect("check.sh");
+        let al = parse_allowlist(&al_text).expect("parses");
+        assert!(
+            !al.allow.is_empty(),
+            "zero allowlist rows is an ERROR, not a pass"
+        );
+        let h = reason_honesty_findings(&al.allow, Some(&check));
+        assert!(
+            h.errors.is_empty() && h.violations.is_empty(),
+            "live allowlist reasons must be honest today: {h:?}"
         );
     }
 

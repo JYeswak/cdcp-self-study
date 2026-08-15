@@ -946,3 +946,46 @@ fn check_sh_absent_from_the_index_is_an_error_not_a_pass() {
     assert_eq!(code, ERROR, "{out}");
     assert!(out.contains("not in the index"), "{out}");
 }
+
+/// bd-allowlist-stale-load-bearing-seq9. The fixture's check.sh only runs
+/// this gate; `scripts/verify_bank.py` is present and allowlisted but never
+/// invoked. Planting the retired "load-bearing check.sh" sentence on that
+/// row must go RED and name both sides.
+#[test]
+fn bad_load_bearing_check_sh_reason_for_an_uninvoked_file_is_red() {
+    let f = Fixture::new();
+    let planted = f.read_allowlist().replacen(
+        "reason = \"Grandfathered load-bearing gate; port tracked by the migration epic\"",
+        "reason = \"Load-bearing check.sh gate, grandfathered pending the Rust port\"",
+        1,
+    );
+    assert!(
+        planted.contains("Load-bearing check.sh gate"),
+        "the plant must land or this test is vacuous"
+    );
+    f.set_allowlist(&planted);
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+    assert_eq!(code, VIOLATION, "{out}");
+    assert!(
+        out.contains("scripts/verify_bank.py"),
+        "must name the file: {out}"
+    );
+    assert!(out.contains("does not invoke"), "must name the lie: {out}");
+}
+
+/// Anti-vacuous: an allowlist with no rows means the honesty scan judged
+/// nothing, which must not report like a clean scan.
+#[test]
+fn bad_zero_allowlist_rows_is_an_error() {
+    let f = Fixture::new();
+    f.remove("scripts/verify_bank.py");
+    f.set_allowlist(&header("wired"));
+    f.git(&["add", "-A"]);
+    let (code, out) = f.gate(&["substrate-guard", "--staged"]);
+    assert_eq!(code, ERROR, "{out}");
+    assert!(
+        out.contains("zero [[allow]] rows"),
+        "must say the honesty scan was empty: {out}"
+    );
+}
