@@ -29,6 +29,7 @@ const LIVE_IDS: &[&str] = &[
     "standards-map",
     "floor-airflow",
     "dual-cord-spof",
+    "security-layers",
 ];
 
 const IDS: &[&str] = &["a1", "b2", "c3", "d4", "e5", "f6", "g7"];
@@ -180,14 +181,14 @@ fn live_copy() -> Tree {
 // ── live tree ──────────────────────────────────────────────────────────────
 
 #[test]
-fn live_copy_is_green_and_checked_seven() {
+fn live_copy_is_green_and_checked_eight() {
     tick();
     let t = live_copy();
     let o = run(&t.root);
     assert_eq!(o.code, 0, "{}", o.stdout);
     assert!(
         o.stdout
-            .contains("smoke_diagrams: PASS (7 present diagrams from the registry)"),
+            .contains("smoke_diagrams: PASS (8 present diagrams from the registry)"),
         "{}",
         o.stdout
     );
