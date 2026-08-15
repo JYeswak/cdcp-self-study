@@ -1,0 +1,13 @@
+[package]
+name = "cdcp_evidence"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Evidence<T>: certificates that travel inside values (conservative composition)"
+publish = false
+
+[dependencies]
+thiserror = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }

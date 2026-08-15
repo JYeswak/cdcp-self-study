@@ -290,6 +290,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "cdcp_evidence"
+version = "0.1.0"
+dependencies = [
+ "proptest",
+ "thiserror 1.0.69",
+]
+
+[[package]]
 name = "cdcp_gate"
 version = "0.1.0"
 dependencies = [
