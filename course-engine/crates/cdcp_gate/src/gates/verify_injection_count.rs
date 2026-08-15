@@ -1168,6 +1168,8 @@ fn parse_args(argv: &[String]) -> Result<Args, GateError> {
 /// traceback carrying absolute paths and line numbers, which is not a byte-exact
 /// target; refusing to evaluate is the honest substitute. It is never a pass.
 fn read_if_file(p: &Path) -> Result<Option<String>, GateError> {
+    // ABSENT-OK: this helper returns None; the caller records `missing` on
+    // that None. Absence here is not the verdict.
     if !p.is_file() {
         return Ok(None);
     }

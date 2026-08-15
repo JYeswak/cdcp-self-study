@@ -203,10 +203,11 @@ def load_exemptions(
     """
     errors: list[str] = []
     exempt: dict[int, str] = {}
-    # Missing file: empty exemptions (stricter — same direction as
-    # verify_objectives). Do NOT copy that gate's ABSENT-OK sentence here:
-    # the floors path ERRORs on the same absence, because absence would
-    # lower sized [[domain_min]] rows. See load_domain_mins (bd-j98g).
+    # ABSENT-OK: this reader only REMOVES modules; absence holds nothing out
+    # (stricter — same direction as verify_objectives). Do NOT copy that
+    # gate's exemption wording here: the floors path ERRORs on the same
+    # absence, because absence would lower sized [[domain_min]] rows. See
+    # load_domain_mins (bd-j98g).
     if not policy_path.is_file():
         return exempt, errors
     bp = load_toml(policy_path)

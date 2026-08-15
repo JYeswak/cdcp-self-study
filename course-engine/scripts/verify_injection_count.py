@@ -391,6 +391,8 @@ def main(argv: list[str] | None = None) -> int:
                 "regeneration SKIPPED: the receipts are not sound, so the total "
                 "is not a number worth writing"
             )
+        # ABSENT-OK: REGEN, NOT A VERDICT. The comparison below still
+        # records "README missing" on the same absence.
         elif not args.readme.is_file():
             regen_note = "regeneration SKIPPED: README is not readable"
         else:

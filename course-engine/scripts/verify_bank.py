@@ -206,6 +206,8 @@ def main() -> int:
         "qualitative_only",
         "exam_form_public",
     }
+    # ABSENT-OK: allowlist overlay; absence keeps the compiled DEFAULT set.
+    # The overlay can only replace that set when the file is present.
     if FACT_POLICY_PATH.is_file():
         pol = load_toml(FACT_POLICY_PATH)
         allowed_qe = set(pol.get("allowed_quantity_evidence") or allowed_qe)
@@ -213,6 +215,8 @@ def main() -> int:
     pool_min: int | None = 400
     exam_n: int | None = 40
     domain_mins: dict[int, int] = {}
+    # ABSENT-OK: absence leaves domain_mins empty; the empty-floors-on-nonempty-
+    # bank check is then RED (bd-o80a). Absence cannot lower a floor.
     if BANK_POLICY_PATH.is_file():
         bp = load_toml(BANK_POLICY_PATH)
         pool_min = policy_positive_int(bp, "pool_min_items", pool_min, errors)

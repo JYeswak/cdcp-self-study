@@ -556,6 +556,8 @@ pub fn defines_fn(text: &str, name: &str) -> bool {
 /// worth more than either being clever.
 pub fn resolve_ref(root: &Path, rel: &str) -> PathBuf {
     let cand = root.join(rel);
+    // ABSENT-OK: first-candidate miss falls through to the parent corpus;
+    // this is a search, not a verdict.
     if cand.exists() {
         return cand;
     }

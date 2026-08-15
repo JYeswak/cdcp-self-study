@@ -460,6 +460,8 @@ fn discover(dir: &Path, suffix: &str) -> Vec<PathBuf> {
         if !name.to_string_lossy().ends_with(suffix) {
             continue;
         }
+        // ABSENT-OK: walk type-filter; a non-file suffix match is not a locked
+        // artifact (a locked root that matches zero files is ERROR above).
         if !p.is_file() {
             continue;
         }
@@ -531,6 +533,8 @@ pub fn resolve_pinned(root: &Path, rel: &str) -> PathBuf {
         return p.to_path_buf();
     }
     let cand = root.join(p);
+    // ABSENT-OK: first-candidate miss falls through to the parent corpus;
+    // this is a search, not a verdict.
     if cand.exists() {
         return cand.canonicalize().unwrap_or(cand);
     }
@@ -587,6 +591,8 @@ pub fn live_bank_hash(root: &Path) -> Result<String, String> {
     let timeout = bank_hash_timeout()?;
     let mut candidates: Vec<Vec<String>> = Vec::new();
     let bin_path = root.join("target").join("debug").join("cdcp");
+    // ABSENT-OK: candidate search; cargo run is always appended, so a missing
+    // debug binary does not skip the hash.
     if bin_path.is_file() {
         candidates.push(vec![
             bin_path.to_string_lossy().into_owned(),
@@ -641,8 +647,9 @@ pub fn live_bank_hash(root: &Path) -> Result<String, String> {
             },
             Err(e) => Err(format!("cannot read {}: {e}", golden.display())),
         };
+    } else {
+        return Err("cannot obtain live bank_hash".to_string());
     }
-    Err("cannot obtain live bank_hash".to_string())
 }
 
 /// Create a fresh 0600 file under the temp dir that CANNOT be an attacker's

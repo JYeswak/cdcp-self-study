@@ -748,12 +748,15 @@ fn rglob_corpus_files(base: &Path, base_disp: &str, out: &mut Vec<PathBuf>) {
         let is_symlink = meta_link
             .map(|m| m.file_type().is_symlink())
             .unwrap_or(false);
+        // ABSENT-OK: walk type-filter; only real directories are descended
+        // (symlinked dirs are not).
         if path.is_dir() {
             if !is_symlink {
                 rglob_corpus_files(&path, &disp, out);
             }
             continue;
         }
+        // ABSENT-OK: walk type-filter; a non-file directory entry is not corpus text.
         if !path.is_file() {
             continue;
         }
@@ -793,6 +796,9 @@ pub fn load_corpus_text(root: &Path) -> String {
 
     let mut chunks: Vec<String> = Vec::new();
     for (base, disp) in &bases {
+        // ABSENT-OK: this walk COLLECTS text; missing roots are
+        // corpus_root_errors()'s finding, not this function's. Silence here
+        // is not the verdict (bd-yje7).
         // `Path.exists()` follows symlinks and is true for files too; a base
         // that is a file yields nothing from `rglob`, which read_dir also does.
         if !base.exists() {
@@ -808,6 +814,8 @@ pub fn load_corpus_text(root: &Path) -> String {
     }
 
     let public = root.join(CORPUS_PUBLIC_REL);
+    // ABSENT-OK: collection walk; a missing public corpus is
+    // corpus_root_errors()'s finding.
     if public.is_dir() {
         if let Ok(rd) = std::fs::read_dir(&public) {
             let mut names: Vec<(String, PathBuf)> = rd
@@ -867,6 +875,9 @@ pub fn corpus_root_errors(root: &Path) -> Vec<String> {
 /// `topic_labels()` — `id` -> `label` for every `[[topic]]` block.
 pub fn topic_labels(topics: &Path) -> HashMap<String, String> {
     let mut labels = HashMap::new();
+    // ABSENT-OK: LABEL lookup, not a verdict; an absent registry returns no
+    // labels (oracle ternary). The file is required by verify-orphans /
+    // verify-objectives, not this helper.
     if !topics.is_file() {
         return labels;
     }

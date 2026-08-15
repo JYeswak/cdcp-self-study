@@ -831,6 +831,9 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
 
     // fact_policy.toml may replace the quantity_evidence allowlist.
     let mut allowed_qe = key_set(&DEFAULT_QUANTITY_EVIDENCE);
+    // ABSENT-OK: allowlist overlay; absence keeps DEFAULT_QUANTITY_EVIDENCE
+    // (the compiled closed set). The overlay can only replace that set when
+    // the file is present.
     if fact_policy_path.is_file() {
         let pol = load_toml(&fact_policy_path)?;
         if let Some(v) = pol.get("allowed_quantity_evidence") {
@@ -848,6 +851,8 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
     let mut pool_min = PolicyInt::Default(DEFAULT_POOL_MIN);
     let mut exam_n = PolicyInt::Default(DEFAULT_EXAM_N);
     let mut domain_mins: BTreeMap<i128, i128> = BTreeMap::new();
+    // ABSENT-OK: absence leaves domain_mins empty; the empty-floors-on-nonempty-
+    // bank check below is then RED (bd-o80a). Absence cannot lower a floor.
     if bank_policy_path.is_file() {
         let bp = load_toml(&bank_policy_path)?;
         // Source order matters: these two findings land between the topics

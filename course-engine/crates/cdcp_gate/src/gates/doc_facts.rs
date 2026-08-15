@@ -1093,6 +1093,8 @@ fn walk_into(root: &Path, dir: &Path, depth: usize, out: &mut Vec<Doc>) -> Resul
         if ft.is_symlink() {
             continue;
         }
+        // ABSENT-OK: walk type-filter; a non-directory is not descended
+        // (markdown files are handled below).
         if ft.is_dir() {
             if name.starts_with('.') || SKIP_DIRS.contains(&name.as_str()) {
                 continue;
@@ -1145,6 +1147,8 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     // resolutions are explicit so neither can silently borrow the other's root.
     let read = |rel: &str| -> Option<String> {
         let cand = root.join(rel);
+        // ABSENT-OK: probe-path search; miss falls through to the
+        // corpus-relative path. Not a verdict.
         if cand.is_file() {
             return std::fs::read_to_string(cand).ok();
         }

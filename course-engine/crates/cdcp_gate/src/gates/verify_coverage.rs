@@ -831,9 +831,10 @@ fn load_exemptions(
 ) -> H<(BTreeMap<i128, String>, Vec<String>)> {
     let mut errors: Vec<String> = Vec::new();
     let mut exempt: BTreeMap<i128, String> = BTreeMap::new();
-    // Missing file: empty exemptions (stricter). Do NOT copy verify_objectives'
-    // ABSENT-OK sentence here: the floors path ERRORs on the same absence
-    // (bd-j98g), because absence would lower sized [[domain_min]] rows.
+    // ABSENT-OK: this reader only REMOVES modules; absence holds nothing out
+    // (stricter). Do NOT copy verify_objectives' exemption wording here: the
+    // floors path ERRORs on the same absence (bd-j98g), because absence would
+    // lower sized [[domain_min]] rows.
     if !Path::new(policy_disp).is_file() {
         return Ok((exempt, errors));
     }
@@ -1204,6 +1205,8 @@ fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
     ));
     body.push_str(&format!(
         "  policy={}\n",
+        // ABSENT-OK: REPORTING, NOT A VERDICT. `absent` is printed; it does
+        // not skip a floor (floors already ERRORed above if the file is gone).
         if Path::new(&policy_disp).is_file() {
             "present"
         } else {

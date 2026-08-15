@@ -792,6 +792,8 @@ fn parse_args(argv: &[String]) -> Result<Args, GateError> {
 }
 
 fn read_if_file(p: &Path) -> Result<Option<String>, GateError> {
+    // ABSENT-OK: this helper returns None; the caller records `missing` on
+    // that None. Absence here is not the verdict.
     if !p.is_file() {
         return Ok(None);
     }

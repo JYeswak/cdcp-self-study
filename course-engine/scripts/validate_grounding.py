@@ -111,9 +111,12 @@ def load_item(path: Path) -> dict:
 def load_corpus_text() -> str:
     chunks: list[str] = []
     for base in (MODULES, REFERENCE, KNOWLEDGE):
+        # ABSENT-OK: this walk COLLECTS text; missing roots are
+        # corpus_root_errors()'s finding, not this function's.
         if not base.exists():
             continue
         for p in base.rglob("*"):
+            # ABSENT-OK: walk type-filter; a non-file suffix match is not corpus text.
             if p.suffix.lower() in {".md", ".toml", ".txt"} and p.is_file():
                 if "corpus/public" in str(p):
                     continue  # added below
@@ -121,6 +124,8 @@ def load_corpus_text() -> str:
                     chunks.append(p.read_text(encoding="utf-8", errors="replace"))
                 except OSError:
                     pass
+    # ABSENT-OK: collection walk; a missing public corpus is
+    # corpus_root_errors()'s finding.
     if CORPUS_PUBLIC.is_dir():
         for p in CORPUS_PUBLIC.glob("*.txt"):
             try:

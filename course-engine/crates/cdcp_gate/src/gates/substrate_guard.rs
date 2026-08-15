@@ -1247,6 +1247,8 @@ pub fn is_inventoried_oracle_script(rel: &str) -> bool {
 
 pub fn discover_oracle_scripts(scripts_dir: &Path) -> Result<BTreeSet<String>, String> {
     let mut out = BTreeSet::new();
+    // ABSENT-OK: this helper returns an empty set; inventory_findings
+    // errors if the snapshot claims an inventory (zero-scan is RED there).
     if !scripts_dir.is_dir() {
         return Ok(out);
     }
@@ -1256,6 +1258,7 @@ pub fn discover_oracle_scripts(scripts_dir: &Path) -> Result<BTreeSet<String>, S
         let name = ent.file_name();
         let name = name.to_string_lossy();
         let rel = format!("scripts/{name}");
+        // ABSENT-OK: type-filter; a non-file scripts/ entry is not an oracle.
         if is_inventoried_oracle_script(&rel) && ent.path().is_file() {
             out.insert(rel);
         }
@@ -2058,6 +2061,8 @@ fn worktree_mode(root: &Path, path: &str) -> Option<String> {
     if ft.is_symlink() {
         return Some(SYMLINK_MODE.to_string());
     }
+    // ABSENT-OK: mode classifier; a non-directory is classified by the
+    // branches below, never dropped.
     if ft.is_dir() {
         // git only ever tracks a directory as a submodule gitlink.
         return Some(GITLINK_MODE.to_string());

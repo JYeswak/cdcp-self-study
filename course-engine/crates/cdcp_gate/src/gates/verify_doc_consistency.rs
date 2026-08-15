@@ -891,6 +891,7 @@ fn rglob_md(dir: &Path, out: &mut Vec<PathBuf>) {
         let Ok(md) = std::fs::symlink_metadata(&p) else {
             continue;
         };
+        // ABSENT-OK: walk type-filter; only directories are descended.
         if md.is_dir() {
             // `**` does not descend through symlinked directories.
             rglob_md(&p, out);
@@ -900,6 +901,7 @@ fn rglob_md(dir: &Path, out: &mut Vec<PathBuf>) {
             .file_name()
             .and_then(|s| s.to_str())
             .is_some_and(|n| n.ends_with(".md"));
+        // ABSENT-OK: walk type-filter; only regular *.md files are collected.
         if matches && p.is_file() {
             out.push(p);
         }
