@@ -1,47 +1,42 @@
 //! Verdict suite for `cdcp_learn::glossary` (extracted from the gate by
-//! bd-engine-not-gate-ar39.2). The Python oracle is DELETED; agreement-only
-//! cases evaporated with it. Every case below asserts the correct answer.
+//! bd-engine-not-gate-ar39.2).
 //!
-//! # HOW A *BUILDER* IS DIFFERENTIALLY TESTED (the reusable part)
+//! # THIS FILE WAS A DIFFERENTIAL AND IS NOT ONE ANY MORE
 //!
-//! Nine ports landed before this one and every one of them was a CHECKER — a
-//! checker can be run anywhere, any number of times, and observing it costs
-//! nothing. A builder MUTATES TRACKED FILES. Three rules follow, and they are
-//! the whole shape of this file:
+//! It ran every case twice — `scripts/build_glossary_json.py` and the Rust
+//! port — and asserted the two agreed on stdout, stderr, exit code and the
+//! bytes written. That comparison did its job at port time. It was RETIRED
+//! with the oracle (bd-retire-glossary-oracle-yybj) for the same two reasons
+//! that retired `build_units.py`:
 //!
-//!   1. **NEVER RUN EITHER IMPLEMENTATION AGAINST THE LIVE TREE.** Comparing by
-//!      running both builders in the repo and diffing `web/data/` is a race with
-//!      every other reader and writer of those paths — the damage class
-//!      bd-791t and bd-gl4j document. The "live tree" case here is a TREE COPY
-//!      in TEMP whose inputs are byte-copies of the live ones, so it computes
-//!      exactly the live answer and touches nothing.
-//!   2. **EACH IMPLEMENTATION GETS ITS OWN COPY.** Both builders write to the
-//!      same relative path, so a shared fixture would mean the second run
-//!      silently overwrote the first and the artifact comparison would compare
-//!      a file with itself. Every case materialises `py/` and `rs/` from the
-//!      same template and compares across them.
-//!   3. **THE ARTIFACT IS PART OF THE COMPARISON, AS BYTES.** stdout, stderr
-//!      and exit code are not the whole observable behaviour of a builder. The
-//!      four-tuple is `(stdout, stderr, exit code, bytes written)`, compared as
-//!      raw bytes and never as parsed JSON — key order, indentation, escaping
-//!      and the trailing newline are exactly where two JSON writers diverge.
+//!   1. **A differential is blind to a defect BOTH sides share.** Agreement
+//!      is not correctness, and a suite that only asserts agreement cannot
+//!      tell the difference.
+//!   2. **An oracle kept past port time is a permanent tax in the wrong
+//!      language.** `scripts/check.sh` never invoked the `.py`; only this
+//!      file did.
 //!
-//! A fourth rule is about what NOT to do: `build_glossary_json.py` takes no
-//! path flags — it derives its root from `Path(__file__).resolve()` — and this
-//! harness does NOT add one to make it testable. Widening a gate's argument
-//! surface changes the thing under test. The fixture instead copies the script
-//! into `<fixture>/scripts/`, which is the only handle the oracle actually
-//! offers, and hands the Rust the same root through the dispatcher's `--root`.
+//! So every case below now asserts WHAT THE CORRECT ANSWER IS, against the
+//! Rust alone. No case was dropped: the ones whose failure mode is SILENCE —
+//! the anti-vacuous legs and the term floor — are the ones that matter most.
 //!
-//! The tie-back that makes the tree copy trustworthy: the live case asserts the
-//! bytes both sides produce are IDENTICAL TO THE TRACKED `web/data/glossary.json`.
-//! That is the read-only proof that running the port in the live tree would be
-//! a no-op write, obtained without performing one.
+//! # THE RULES THAT SURVIVED THE RETIREMENT
 //!
-//! ANTI-VACUOUS DISCIPLINE. A differential that silently compares nothing
-//! passes exactly like one that compared everything, so: a missing `python3` is
-//! a FAILURE and never a skip; a fixture that copied no source is a FAILURE;
-//! and every case increments a counter that is asserted by its own case.
+//!   1. **NEVER RUN THE BUILDER AGAINST THE LIVE TREE.** `build-glossary`
+//!      MUTATES a tracked file. Every case here builds a TREE COPY in temp
+//!      whose inputs are byte-copies of the live ones, and the live case
+//!      then asserts the produced bytes EQUAL the tracked
+//!      `web/data/glossary.json`.
+//!   2. **THE ARTIFACT IS PART OF THE VERDICT, AS BYTES.** stdout, stderr
+//!      and exit code are not the whole observable behaviour of a builder.
+//!   3. **WRITE-AFTER-VERDICT, asserted on every case.** A run that exits
+//!      non-zero must leave no artifact, and a run that exits zero must
+//!      leave one.
+//!
+//! ANTI-VACUOUS DISCIPLINE. A suite that silently checked nothing passes
+//! exactly like one that checked everything: a fixture that copied no source
+//! is a FAILURE, and every case increments a counter that is asserted by
+//! its own case.
 
 use cdcp_learn::glossary::MIN_TERMS;
 use std::path::{Path, PathBuf};
@@ -84,8 +79,8 @@ fn copy_tree(src: &Path, dst: &Path) {
     }
 }
 
-/// A tree-copy fixture. The template is what a case builds; `compare` then
-/// materialises it twice, once per implementation.
+/// A tree-copy fixture. The template is what a case builds; `run_builder`
+/// then materialises one private copy.
 struct Fixture {
     dir: tempfile::TempDir,
 }
@@ -146,9 +141,9 @@ fn artifact_of(root: &Path) -> Option<Vec<u8>> {
     std::fs::read(root.join(ARTIFACT_REL)).ok()
 }
 
-/// Compile in a private copy of the fixture. Agreement-only (python vs rust)
-/// is gone with the oracle. Every case asserts the CORRECT answer.
-fn compare(label: &str, f: &Fixture) -> Run {
+/// Compile in a private copy of the fixture. Every case asserts the CORRECT
+/// answer against the Rust alone.
+fn run_builder(label: &str, f: &Fixture) -> Run {
     let n = ROUND.fetch_add(1, Ordering::SeqCst);
     let root = f.dir.path().join(format!("round{n}"));
     copy_tree(&f.template(), &root);
@@ -203,7 +198,7 @@ fn table(n: usize) -> String {
 fn live_inputs_are_green_and_reproduce_the_tracked_artifact() {
     let f = Fixture::new();
     f.seed_live_source();
-    let rs = compare("live inputs", &f);
+    let rs = run_builder("live inputs", &f);
 
     assert_eq!(rs.code, 0, "live inputs must be GREEN: {}", rs.out());
     assert!(
@@ -213,7 +208,7 @@ fn live_inputs_are_green_and_reproduce_the_tracked_artifact() {
     );
     assert!(
         rs.err().is_empty(),
-        "the oracle writes nothing to stderr on the green path: {:?}",
+        "the compiler writes nothing to stderr on the green path: {:?}",
         rs.err()
     );
 
@@ -233,11 +228,11 @@ fn live_inputs_are_green_and_reproduce_the_tracked_artifact() {
 // ── case 2: anti-vacuous — a missing or empty input is never a pass ────────
 
 #[test]
-fn a_missing_glossary_is_an_error_in_both_and_writes_nothing() {
+fn a_missing_glossary_is_an_error_and_writes_nothing() {
     let f = Fixture::new();
     // No source under the root AND no sibling `reference/` fallback, so the
-    // oracle prints the fallback path it looked at last.
-    let rs = compare("missing glossary", &f);
+    // compiler prints the fallback path it looked at last.
+    let rs = run_builder("missing glossary", &f);
     assert_ne!(rs.code, 0, "a missing glossary must never be a pass");
     assert!(
         rs.out().starts_with("FAIL: missing glossary at "),
@@ -256,10 +251,10 @@ fn a_missing_glossary_is_an_error_in_both_and_writes_nothing() {
 }
 
 #[test]
-fn an_empty_glossary_is_an_error_in_both() {
+fn an_empty_glossary_is_an_error() {
     let f = Fixture::new();
     f.put_source("");
-    let rs = compare("empty glossary", &f);
+    let rs = run_builder("empty glossary", &f);
     assert_ne!(rs.code, 0, "zero terms must never be a pass: {}", rs.out());
     assert!(rs.out().contains("terms=0"), "{}", rs.out());
 
@@ -283,8 +278,8 @@ fn an_empty_glossary_is_an_error_in_both() {
         "the finding must name the floor: {}",
         rs.out()
     );
-    // `compare` asserts the no-PASS-on-RED and no-artifact-on-RED legs for both
-    // sides; restated here because this is the case the defect was found on.
+    // `run_builder` asserts the no-PASS-on-RED and no-artifact-on-RED legs;
+    // restated here because this is the case the defect was found on.
     assert!(!rs.out().contains("PASS"), "{}", rs.out());
     assert!(
         rs.artifact.is_none(),
@@ -293,10 +288,10 @@ fn an_empty_glossary_is_an_error_in_both() {
 }
 
 #[test]
-fn a_table_with_only_a_header_yields_zero_terms_in_both() {
+fn a_table_with_only_a_header_yields_zero_terms() {
     let f = Fixture::new();
     f.put_source("# G\n\n| Term | Definition |\n|---|---|\n");
-    let rs = compare("header only", &f);
+    let rs = run_builder("header only", &f);
     assert_ne!(rs.code, 0, "{}", rs.out());
     assert!(rs.out().contains("terms=0"), "{}", rs.out());
 }
@@ -308,7 +303,7 @@ fn one_term_below_the_floor_is_red_and_the_floor_itself_is_green() {
     let f = Fixture::new();
 
     f.put_source(&table(MIN_TERMS - 1));
-    let rs = compare("one below the floor", &f);
+    let rs = run_builder("one below the floor", &f);
     assert_ne!(rs.code, 0, "{}", rs.out());
     assert!(
         rs.out()
@@ -320,7 +315,7 @@ fn one_term_below_the_floor_is_red_and_the_floor_itself_is_green() {
     assert!(rs.artifact.is_none(), "one term short still writes nothing");
 
     f.put_source(&table(MIN_TERMS));
-    let rs = compare("exactly the floor", &f);
+    let rs = run_builder("exactly the floor", &f);
     assert_eq!(rs.code, 0, "{}", rs.out());
     assert!(!rs.out().contains("FAIL"), "{}", rs.out());
 }
@@ -335,7 +330,10 @@ fn the_sibling_reference_fallback_records_an_absolute_source() {
     let n = ROUND.fetch_add(1, Ordering::SeqCst);
     let root = f.dir.path().join(format!("round{n}"));
     std::fs::create_dir_all(&root).unwrap();
-    write_file(&root.parent().unwrap().join("reference/GLOSSARY.md"), &table(MIN_TERMS));
+    write_file(
+        &root.parent().unwrap().join("reference/GLOSSARY.md"),
+        &table(MIN_TERMS),
+    );
 
     let outcome = cdcp_learn::glossary::write_glossary(&root).expect("write_glossary");
     COMPARED.fetch_add(1, Ordering::SeqCst);
@@ -350,7 +348,7 @@ fn the_sibling_reference_fallback_records_an_absolute_source() {
 // ── case 5: every table shape the parser has to agree on ──────────────────
 
 #[test]
-fn table_edge_cases_are_byte_identical() {
+fn table_edge_cases_parse_as_specified() {
     let f = Fixture::new();
     let mut src = table(MIN_TERMS);
     src.push_str(concat!(
@@ -372,7 +370,7 @@ fn table_edge_cases_are_byte_identical() {
         "| **T001 (alias)** | second definition. |\n",
     ));
     f.put_source(&src);
-    let rs = compare("table edge cases", &f);
+    let rs = run_builder("table edge cases", &f);
     assert_eq!(rs.code, 0, "{}", rs.out());
     let body = String::from_utf8(rs.artifact.expect("artifact")).unwrap();
     assert!(body.contains("\"ASHRAE\":"), "bare alias missing: {body}");
@@ -389,7 +387,7 @@ fn table_edge_cases_are_byte_identical() {
 }
 
 #[test]
-fn escaping_and_key_ordering_are_byte_identical() {
+fn escaping_and_key_ordering_match_the_artifact_contract() {
     let f = Fixture::new();
     let mut src = table(MIN_TERMS);
     src.push_str(concat!(
@@ -405,7 +403,7 @@ fn escaping_and_key_ordering_are_byte_identical() {
         "| **Ångström** | non-ASCII sort key. |\n",
     ));
     f.put_source(&src);
-    let rs = compare("escaping and ordering", &f);
+    let rs = run_builder("escaping and ordering", &f);
     assert_eq!(rs.code, 0, "{}", rs.out());
     let body = String::from_utf8(rs.artifact.expect("artifact")).unwrap();
     assert!(body.contains(r#"He said \"no\" and left."#), "{body}");
@@ -423,16 +421,16 @@ fn escaping_and_key_ordering_are_byte_identical() {
 // ── the harness must not be vacuously green ───────────────────────────────
 
 #[test]
-fn the_harness_compared_something() {
+fn the_suite_ran_something() {
     // Runs a case itself rather than reading a counter another test may or may
     // not have incremented — test order and parallelism are not a contract,
-    // and "0 cases compared" must never report like "all passed".
+    // and "0 cases run" must never report like "all passed".
     let before = COMPARED.load(Ordering::SeqCst);
     let f = Fixture::new();
     f.put_source(&table(MIN_TERMS));
-    compare("harness self-check", &f);
+    run_builder("suite self-check", &f);
     assert!(
         COMPARED.load(Ordering::SeqCst) > before,
-        "the differential harness compared nothing"
+        "the glossary artifact suite ran nothing"
     );
 }

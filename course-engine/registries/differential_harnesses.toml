@@ -55,7 +55,7 @@ schema_version = 1
 #   validate_grounding.py       no        check.sh:493 is a `-f` PRESENCE check, never a run
 #   verify_content_lock.py      no        not referenced by any script
 #   verify_knowledge_paths.py   no        not referenced by any script
-#   build_glossary_json.py      no        not referenced by any script
+#   build_glossary_json.py      RETIRED   file deleted; no surviving invocation
 #   build_units.py              RETIRED   file deleted; no surviving invocation
 #
 # READING THE TWO TOGETHER — the only rows where BOTH blockers are already
@@ -123,10 +123,14 @@ all_harnesses_retired_reason = ""
 
 [[harness]]
 file = "diff_build_glossary_json.rs"
-gate = "build-glossary-json"
+gate = "build-glossary"
 comparators = ["compare"]
-cases = 9
-agreement_only = 1
+# RETIRED 2026-08-15 (bd-retire-glossary-oracle-yybj EXTRACT-THEN-DELETE).
+# The file is gone; the row stays (rows are monotone). Product is
+# cdcp_learn::glossary / `cdcp build-glossary`. Verdicts live in
+# crates/cdcp_learn/tests/glossary_artifact.rs against the Rust alone.
+cases = 0
+agreement_only = 0
 
 [[harness]]
 file = "diff_build_units.rs"
@@ -289,11 +293,10 @@ comparators = ["compare"]
 cases = 0
 agreement_only = 0
 
-[[gate]]
-name = "build-glossary-json"
-success_token = "PASS: glossary"
-live_probe = false
-live_probe_skip_reason = "writes web/data/glossary.json; a probe must never mutate a tracked artifact"
+# RETIRED 2026-08-15: build-glossary-json is no longer a cdcp_gate subcommand.
+# The product lives at `cdcp build-glossary` / cdcp_learn::glossary. The
+# [[gate]] row is gone because LEG C keys on the dispatcher roster; a leftover
+# row for a missing gate is noise.
 
 [[gate]]
 name = "build-units"

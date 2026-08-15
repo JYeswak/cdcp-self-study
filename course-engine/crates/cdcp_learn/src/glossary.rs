@@ -1,10 +1,22 @@
 //! build_glossary — compile `web/data/glossary.json` (learner-visible product).
 //!
+//! Extracted from `cdcp_gate` by bd-engine-not-gate-ar39.2. The compiler is
+//! product: a learner reads the popover. The contract is the artifact schema
+//! (declared keys, `term_count` matches `terms`, `MIN_TERMS` floor, stable
+//! bytes), not a Python `json.dumps` replica.
+//!
+//! `generated_by` is `cdcp_learn`. Write-after-verdict: a RED compile writes
+//! nothing. A missing source and an empty term table are each ERROR.
+//!
+//! `scripts/build_glossary_json.py` and `tests/diff_build_glossary_json.rs`
+//! are DELETED (bd-retire-glossary-oracle-yybj). Verdicts live in
+//! `crates/cdcp_learn/tests/glossary_artifact.rs` against the Rust alone.
+//!
 //! # CLAIM: FLOOR-RAISE
 //!
-//! This gate is a BUILDER, not a checker: it derives `web/data/glossary.json`
-//! from the `| **Term** | Definition |` rows of the reference glossary and
-//! writes it. The floor it raises is narrow and worth stating exactly —
+//! This is a BUILDER, not a checker: it derives `web/data/glossary.json` from
+//! the `| **Term** | Definition |` rows of the reference glossary and writes
+//! it. The floor it raises is narrow and worth stating exactly —
 //!
 //!   1. the shipped popover data is DERIVED from the prose glossary on every
 //!      run, so a term edited in `GLOSSARY.md` and forgotten in the JSON is not
@@ -13,7 +25,7 @@
 //!      parsed nothing must not report like a run that parsed everything —
 //!      a missing source file and an empty term table are each non-zero.
 //!
-//! # WHAT THIS GATE CANNOT DECIDE
+//! # WHAT THIS COMPILER CANNOT DECIDE
 //!
 //! It cannot tell whether a definition is CORRECT, whether it matches the
 //! module text that uses the term, or whether a term the syllabus leans on is
@@ -23,36 +35,10 @@
 //! term floor is a floor against silence, not a claim about coverage: it counts
 //! rows, and one throwaway row counts exactly as much as a rigorous one.
 //!
-//! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
+//! # THE TWO FINDINGS OF bd-.11, NOW FIXED
 //!
-//! `scripts/build_glossary_json.py` stays in the tree as the differential
-//! oracle for this port; `tests/diff_build_glossary_json.rs` runs both on every
-//! case and asserts stdout, stderr, exit code AND THE BYTES WRITTEN match. That
-//! contract is why this module carries hand-written emulations of several
-//! Python behaviours — the `\s` class and backtracking of `re`, `str.casefold`,
-//! `json.dumps(indent=2, ensure_ascii=False)` — rather than the idiomatic Rust
-//! nearest-neighbour, and why the failure report is written to **stdout with
-//! exit status 1** instead of going through `GateError`: the dispatcher's
-//! `report()` writes to stderr and maps to exit 2 or 4, which the oracle never
-//! produces, so routing through it would make the two sides differ on every RED
-//! case. The exit-code mapping in `crate::exit` is therefore deliberately NOT
-//! used on the report path. Same knowing, single-file deviation as
-//! `verify_orphans.rs`, recorded here for review rather than made quietly.
-//! bd-2m9 flips the whole crate to a single convention later.
-//!
-//! `generated_by` still reads `scripts/build_glossary_json.py`. That string is
-//! part of the artifact's bytes, so changing it while the oracle is alive would
-//! break the differential on the very first case. It changes when the Python is
-//! deleted, not before.
-//!
-//! # THE TWO FINDINGS OF bd-.11, NOW FIXED IN THE ORACLE FIRST
-//!
-//! Both were reported and DELIBERATELY not repaired when this port landed: a
-//! port stricter than its oracle blinds the whole differential. They were fixed
-//! in `scripts/build_glossary_json.py` first, the differential was watched go
-//! RED on them, and only then were they moved here
-//! (bd-builder-verdict-shape-qm65). Measured 2026-08-14 before the fix, on an
-//! empty glossary, both implementations byte-identical:
+//! Measured 2026-08-14 on an empty glossary, before
+//! bd-builder-verdict-shape-qm65:
 //!
 //! ```text
 //! PASS: glossary terms=0 → web/data/glossary.json
@@ -62,31 +48,14 @@
 //!
 //!   * VERDICT SHAPE. The success line was printed FIRST and the failure
 //!     underneath it, on the way to exit 1. A reader skimming stdout saw PASS;
-//!     CI saw non-zero; which one won depended on whether anyone looked. This
-//!     is the same defect bd-lt7 fixed in `build_units.py`, which makes it a
-//!     CLASS: a verdict printed before the checks that decide it. The verdict
-//!     is now the first line of a report composed once, after every check.
-//!   * WRITE-BEFORE-VERDICT. The artifact was written BEFORE the term floor was
-//!     evaluated, so a below-floor run left a short `glossary.json` in
-//!     `web/data/` and a later reader could not tell a passing artifact from
-//!     the residue of a failed run. The write is now on the GREEN path only.
+//!     CI saw non-zero. The verdict is now the first line of a report composed
+//!     once, after every check.
+//!   * WRITE-BEFORE-VERDICT. The artifact was written BEFORE the term floor
+//!     was evaluated, so a below-floor run left a short `glossary.json` in
+//!     `web/data/`. The write is now on the GREEN path only.
 //!
-//! The GREEN bytes — both the `PASS:` line and the artifact — are unchanged, so
-//! the live-tree tie-back in `tests/diff_build_glossary_json.rs` still holds
+//! The live-tree tie-back in `glossary_artifact.rs` asserts the GREEN bytes
 //! against the tracked `web/data/glossary.json`.
-//!
-//! # DEVIATIONS THAT REMAIN (each unreachable from the live tree)
-//!
-//!   * An unknown argument is a USAGE error here; the oracle ignores argv
-//!     entirely. `check.sh` passes no arguments, so no live invocation differs,
-//!     and the stricter side is the one where a typo cannot read as a pass.
-//!   * An unreadable or non-UTF-8 source, or a failed write, ends as
-//!     `GateError::Error` (exit 4) where the oracle would emit a Python
-//!     traceback and exit 1. A traceback is not portable output.
-//!   * `py_casefold` is `str::to_lowercase` plus the sharp-s fold. Full Unicode
-//!     case folding differs on a handful of further code points (ligatures,
-//!     Cherokee); none appear in the glossary, and the only effect would be
-//!     term ORDER, never term content.
 
 #![forbid(unsafe_code)]
 
@@ -97,7 +66,7 @@ use std::path::{Path, PathBuf};
 pub const NAME: &str = "build-glossary";
 pub const SUMMARY: &str = "build web/data/glossary.json from the reference GLOSSARY.md term table";
 
-/// Engine-root-relative paths, matching the Python module constants.
+/// Engine-root-relative paths.
 pub const SRC_REL: &str = "web/content/reference/GLOSSARY.md";
 pub const OUT_REL: &str = "web/data/glossary.json";
 
@@ -273,7 +242,7 @@ impl Terms {
     }
 }
 
-/// The whole extraction loop of the oracle's `main`.
+/// The whole extraction loop.
 pub fn extract_terms(text: &str) -> Terms {
     let chars: Vec<char> = text.chars().collect();
     let mut terms = Terms::default();
@@ -356,7 +325,7 @@ pub fn render(source: &str, sorted_terms: &[(String, String)]) -> String {
     s
 }
 
-/// Where the oracle looks, in order: under the engine root first, then the
+/// Where the compiler looks, in order: under the engine root first, then the
 /// sibling `reference/` directory one level up.
 pub fn resolve_source(root: &Path) -> PathBuf {
     let primary = join_rel(root, SRC_REL);
@@ -394,8 +363,8 @@ pub fn evaluate(root: &Path) -> Result<Outcome, LearnError> {
         });
     }
 
-    let bytes = std::fs::read(&src)
-        .map_err(|e| LearnError::io(format!("read {}: {e}", src.display())))?;
+    let bytes =
+        std::fs::read(&src).map_err(|e| LearnError::io(format!("read {}: {e}", src.display())))?;
     let text = String::from_utf8(bytes)
         .map_err(|e| LearnError::parse(format!("{} is not valid UTF-8: {e}", src.display())))?;
 
@@ -445,9 +414,7 @@ pub fn write_glossary(root: &Path) -> Result<Outcome, LearnError> {
 }
 
 /// Every reason this build is RED, as the report prints them. Factored out of
-/// `run` so the floor can be asserted without running the process — `run` calls
-/// `std::process::exit`, which a unit test cannot survive, and a floor that is
-/// only reachable through a process boundary tends to end up untested.
+/// `evaluate` so the floor can be asserted without writing.
 pub fn failures_for(term_count: usize) -> Vec<String> {
     let mut failures: Vec<String> = Vec::new();
     if term_count < MIN_TERMS {
@@ -635,12 +602,11 @@ mod tests {
 
     #[test]
     fn a_red_verdict_is_decided_before_anything_is_written_or_printed() {
-        // The shape bd-lt7 fixed in build_units.py and
+        // The shape bd-lt7 fixed in build_units and
         // bd-builder-verdict-shape-qm65 fixed here: the success token may not be
-        // emitted on a path that returns non-zero. `run` calls
-        // `std::process::exit`, so this asserts the predicate `run` branches on
-        // rather than the process; `tests/diff_build_glossary_json.rs` asserts
-        // the stdout bytes and the absent artifact across the process boundary.
+        // emitted on a path that returns non-zero. This asserts the predicate
+        // `evaluate` branches on; `glossary_artifact.rs` asserts the stdout
+        // bytes and the absent artifact on a real write.
         let below = extract_terms("| **A** | one |\n");
         assert!(
             !failures_for(below.len()).is_empty(),
