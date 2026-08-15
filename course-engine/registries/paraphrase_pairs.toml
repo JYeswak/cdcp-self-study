@@ -1,0 +1,76 @@
+# =============================================================================
+# registries/paraphrase_pairs.toml — measured same-proposition pairs C3 misses
+# =============================================================================
+# Decision (bd-e1yt, 2026-08-15): accept C3's cosmetic limit. CHARTER forbids
+# an LLM as grader-of-record, so this file is NOT a semantic detector. It is a
+# machine-checked LEDGER of paraphrase debt found by hand.
+#
+# 804 / 779 is a pool size (files / approved). It is not a count of distinct
+# propositions. A 40-item form can still draw the same proposition twice.
+#
+# A listed pair may leave the open set only by becoming status = "adjudicated"
+# with a non-empty adjudication_reason. DELETING A ROW IS RED. Empty [[pair]]
+# is ERROR (a gate that claims to track pairs cannot track zero).
+#
+# Adjudication of bank items is human (bd-tetz). This ledger does not retire
+# anything.
+# =============================================================================
+
+schema_version = 1
+
+[registry]
+name = "paraphrase_pairs"
+description = "Measured same-proposition pairs invisible to C3 (answer-Jaccard cosmetic floor)"
+# Floor: the gate claims to track pairs. 0 is a schema error, not a clean bank.
+min_pairs = 4
+
+# Known-GOOD: genuinely distinct propositions. The stem-overlap REPORT may still
+# list them (they share an "aisle containment primarily aims to" shape). That
+# listing is why the report is not a grader-of-record. 4% answer overlap.
+[[known_distinct]]
+id = "kd-hot-aisle-cold-aisle"
+a = "m09-q206"
+b = "m09-q207"
+proposition_a = "hot-aisle containment isolates exhaust so return rises cleanly"
+proposition_b = "cold-aisle containment focuses supply on IT intakes"
+measured_answer_overlap_pct = 4
+
+# -----------------------------------------------------------------------------
+# Open paraphrase debt — four pairs measured by hand, all still approved
+# -----------------------------------------------------------------------------
+
+[[pair]]
+id = "pp-m09-it-power-heat"
+a = "m09-q111"
+b = "m09-q242"
+proposition = "IT electrical power becomes heat the cooling plant must remove"
+status = "open"
+measured_answer_overlap_pct = 22
+found = "by hand 2026-08-14; C3-invisible (answer Jaccard below every C3 threshold)"
+
+[[pair]]
+id = "pp-m09-allowable-vs-recommended"
+a = "m09-q113"
+b = "m09-q202"
+proposition = "continuous operation at the allowable-envelope extreme vs recommended trades reliability headroom"
+status = "open"
+measured_answer_overlap_pct = 5
+found = "by hand 2026-08-14; C3-invisible"
+
+[[pair]]
+id = "pp-m09-dehumidification-coil"
+a = "m09-q122"
+b = "m09-q234"
+proposition = "CRAC/CRAH dehumidification occurs when the coil is cold enough to drop moisture"
+status = "open"
+measured_answer_overlap_pct = 21
+found = "by hand 2026-08-14; C3-invisible"
+
+[[pair]]
+id = "pp-m09-blanking-panels"
+a = "m09-q140"
+b = "m09-q209"
+proposition = "blanking panels block empty rack openings so cold air goes through IT, not open U"
+status = "open"
+measured_answer_overlap_pct = 7
+found = "by hand 2026-08-14; C3-invisible"

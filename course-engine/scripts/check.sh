@@ -484,6 +484,17 @@ CDCP_NEAR_DUPLICATE_SELFTEST=1 cargo run -q -p cdcp_gate -- near-duplicate-items
   || fail "near-duplicate selftest did not reach RED on its planted clone"
 ok "near-duplicate selftest (planted clone trips RED)"
 
+# bd-e1yt — C3 is cosmetic only. This ledger is the honesty tripwire for the
+# four measured paraphrase pairs the Jaccard floor cannot see. It is NOT a
+# second grader: it FAILs if a listed pair disappears without an adjudication
+# reason, and it prints a stem-overlap REPORT of candidates. Empty ledger or
+# a scan of zero items is ERROR. C3 itself is unchanged.
+[ -f registries/paraphrase_pairs.toml ] || fail "missing registries/paraphrase_pairs.toml (paraphrase ledger required)"
+[ -f scripts/verify_paraphrase_pairs.py ] || fail "missing scripts/verify_paraphrase_pairs.py (paraphrase ledger gate required)"
+echo "==> verify_paraphrase_pairs.py (measured paraphrase debt; pool size ≠ proposition count)"
+python3 scripts/verify_paraphrase_pairs.py || fail "paraphrase pair ledger"
+ok "paraphrase pair ledger intact (804/779 is a pool size; report is not a verdict)"
+
 # L3 GradeExact — cargo + goldens (BUILT must be WIRED here)
 if [ ! -f Cargo.toml ]; then
   fail "Cargo.toml missing (L3 workspace required)"

@@ -8,7 +8,7 @@
 
 [![License: MIT (code)](https://img.shields.io/badge/code-MIT-blue.svg)](./LICENSE)
 [![Content: CC BY-NC-SA 4.0](https://img.shields.io/badge/content-CC_BY--NC--SA_4.0-blue.svg)](./LICENSE)
-[![gate: 74 steps](https://img.shields.io/badge/gate-74_ordered_steps-success.svg)](#the-gate)
+[![gate: 75 steps](https://img.shields.io/badge/gate-75_ordered_steps-success.svg)](#the-gate)
 [![known-bad: 69 injections](https://img.shields.io/badge/known--bad-69_injections_all_RED-success.svg)](#gates-proven-to-trip)
 [![grading: byte-exact](https://img.shields.io/badge/grading-Rust_%3D%3D_WASM_byte--exact-success.svg)](#how-grading-works)
 [![unsafe: forbidden](https://img.shields.io/badge/unsafe-forbidden-success.svg)](https://github.com/rust-secure-code/safety-dance/)
@@ -17,7 +17,7 @@
 
 </div>
 
-**A free, offline, self-hosted course that teaches the data-centre facilities domain — and a Rust engine that grades you the same way twice.** Fourteen modules of original writing (~54,000 words) covering the publicly advertised EPI® CDCP® syllabus domains, an 804-question bank, and a browser course whose grader is a pure-Rust core compiled to WASM, pinned so the native and browser paths produce **byte-identical** result digests. No account, no telemetry, no network at runtime, no LLM in the grading path.
+**A free, offline, self-hosted course that teaches the data-centre facilities domain — and a Rust engine that grades you the same way twice.** Fourteen modules of original writing (~54,000 words) covering the publicly advertised EPI® CDCP® syllabus domains, an 804-item question bank (779 approved — a **pool size**, not a count of distinct propositions), and a browser course whose grader is a pure-Rust core compiled to WASM, pinned so the native and browser paths produce **byte-identical** result digests. No account, no telemetry, no network at runtime, no LLM in the grading path.
 
 **This does not certify you.** It is a study tool. Only the official EXIN/EPI exam after authorised training grants the credential. That sentence is not boilerplate — it is a registered claim (`claim-not-epi-certified`) that a linter enforces across every document in this repository, and the build fails if a load-bearing page asserts it without citation.
 
@@ -44,9 +44,9 @@ cargo run -p cdcp_cli -- serve --bind 127.0.0.1:8766
 | **Who it's for** | Someone who wants to walk a white-space tour and explain trade-offs — TPM, deploy engineer, ops, or a career switcher |
 | **What it is not** | A certification, an exam dump, a paid course, an LLM tutor |
 | **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
-| **Bank** | 804 original questions across 15 module buckets, 106 topics |
+| **Bank** | 804 original item files / 779 approved (pool size, not distinct propositions) · 15 modules · 106 topics |
 | **Engine** | 7 Rust crates, 3,763 lines, `#![forbid(unsafe_code)]`, 281 KB WASM |
-| **Gate** | 74 ordered steps; 9 selftest suites; 69 known-bad injections that must all go RED |
+| **Gate** | 75 ordered steps; 9 selftest suites; 69 known-bad injections that must all go RED |
 | **Runtime deps** | None. Rust toolchain to build; a browser to use |
 
 ---
@@ -66,7 +66,7 @@ So this project treats *its own honesty* as the engineering problem. The curricu
 Four rules, enforced mechanically rather than promised in prose:
 
 1. **This is not a certification.** Completing anything here grants no credential. The claim `claim-not-epi-certified` is registered in `course-engine/registries/claims.toml`, and `claims-lint` fails the build if any document makes a certification-adjacent statement without citing it. Measured: five documents were caught asserting it uncited and had to be fixed before the gate would pass.
-2. **No exam dumps, ever.** All 804 questions are original, written against public syllabus domains and industry-standard references. `source_class=original` is verified for every item on every run.
+2. **No exam dumps, ever.** All 804 item files are original, written against public syllabus domains and industry-standard references. `source_class=original` is verified for every item on every run. 804/779 is a file-set / approved-pool size, not a count of distinct propositions.
 3. **A score is a study signal, not a pass mark.** 27/40 is the internal bar. It is registered as `claim-study-signal-27` and the phrase "study signal" is a load-bearing marker the linter tracks.
 4. **Third-party material is not redistributed.** Standards bodies own their standards. The corpus records each source's URL, fetch date, SHA-256, and rights — and the ASHRAE white papers this project *grounds against* are deliberately **not** in this repository. Their metadata sidecars are, so grounding still verifies; fetch the PDFs yourself.
 
@@ -115,7 +115,7 @@ cdcp-self-study/
     │   ├── cdcp_wasm         same core, wasm32 — the dual-path subject
     │   ├── cdcp_cli          bank-hash · grade · goldens · export-web · serve
     │   └── cdcp_registry_check  L1 claims constitution (tested checker)
-    ├── bank/items/           804 original questions, one TOML each
+    ├── bank/items/           804 original item files, one TOML each (file count, not distinct propositions)
     ├── knowledge/            curriculum + standards citation graph (git truth)
     ├── registries/           claims.toml · claims_lint.toml · objectives.toml
     ├── goldens/              pinned digests — the byte-exactness evidence
@@ -129,7 +129,7 @@ cdcp-self-study/
 ```text
 bank/items/*.toml ──► cdcp_bank ──► bank_hash (SHA-256 over the sorted bank)
                                         │
-              seed ──► cdcp_assemble ────┤ stratified 40 of 804, module floors
+              seed ──► cdcp_assemble ────┤ stratified 40 of 779 approved (804 files)
                                         ▼
                               cdcp_grade (pure) ──► result digest
                                    ║        ║
@@ -214,7 +214,7 @@ One ordered chain. It is the only definition of "done" in this project.
 cd course-engine && ./scripts/check.sh
 ```
 
-74 steps, fail-closed, each naming the script that failed so the repair is
+75 steps, fail-closed, each naming the script that failed so the repair is
 obvious. Roughly: constitution docs → knowledge pack → **L1 claims registry** →
 bank validation → **L3 GradeExact + goldens** → **L4 known-bad selftests** →
 **L4 Rust==WASM dual path** → L5 browser surface + e2e digests → L6 coverage,
@@ -379,8 +379,9 @@ flip repository visibility. Those stay human.
   guidelines are paid documents. This teaches *around* them from public
   descriptions and free material; it is not a substitute for the standards.
 - **No CDCS/CDCE depth.** Those are advanced design tracks and out of scope.
-- **The question bank is unaudited by a third party.** 804 original questions,
-  self-reviewed. Errors are likely; report them.
+- **The question bank is unaudited by a third party.** 804 original item files
+  (779 approved — a pool size, not a distinct-proposition count), self-reviewed.
+  Errors are likely; report them.
 - **L3 is thin** (see the rigor table). Self-consistency is proven; pedagogical
   correctness is not externally validated.
 
@@ -392,7 +393,7 @@ flip repository visibility. Those stay human.
 course and sit the official exam. This builds the underlying knowledge.
 
 **Are these real exam questions?** No, and that would be both illegal and
-useless. All 804 are original, written against public syllabus domains.
+useless. All 804 item files are original, written against public syllabus domains.
 
 **Why is 27/40 the bar?** It is the internal study signal this project uses to
 say "this domain is probably solid" — a threshold for your own review loop, not

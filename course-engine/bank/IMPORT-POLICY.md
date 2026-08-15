@@ -48,8 +48,11 @@ already answers with `status`.
 It does not claim the pool now holds N distinct propositions, and nothing here should be read
 as certifying the item count. `near-duplicate-items` measures textual closeness of the correct
 answer; a **paraphrased** duplicate — same proposition, freshly worded answer — passes it
-silently, and four such pairs are known to exist in the live pool today (bd-e1yt). A green gate
-means "no cosmetic duplicates in the approved pool". It is a floor, not a census.
+silently. Four such pairs are listed in `registries/paraphrase_pairs.toml` and asserted by
+`scripts/verify_paraphrase_pairs.py` (bd-e1yt): deleting a listed pair without an adjudication
+reason is RED. The script also prints a stem-overlap REPORT of candidates; that report is not
+a grader-of-record and does not retire items. A green C3 verdict means "no cosmetic duplicates
+in the approved pool". It is a floor, not a census. 804/779 is a pool size.
 
 It also does not decide topic or module assignment. `mock40-q37` was imported under `module = 13`
 while the proposition it duplicates is module 15; retiring the import removed the duplicate and

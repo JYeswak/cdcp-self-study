@@ -20,6 +20,9 @@ Format inspired by Keep a Changelog. Dates are UTC calendar days.
 ### Honesty
 
 - Study tool only — does not grant EPI/EXIN CDCP certification.
+- 804/779 is a **pool size** (item files / approved), not a count of distinct
+  propositions. Measured paraphrase pairs the C3 cosmetic gate cannot see are
+  tracked in `course-engine/registries/paraphrase_pairs.toml` (bd-e1yt).
 
 ## [0.1.0] — 2026-08-12
 

@@ -70,7 +70,7 @@ scorecards/    # wave / layer outcome stamps
 |------|------|
 | W0 knowledge | green |
 | **L1 claims constitution** | **green** — `cdcp_registry_check` in `check.sh` |
-| L2 bank pool (~798 / ~20×) | green (`verify_bank` + grounding) |
+| L2 bank pool (804 files / 779 approved — pool size, not distinct propositions) | green (`verify_bank` + grounding) |
 | **L3 GradeExact** | **green** — `cargo test` + `cdcp goldens check` in `check.sh` |
 | L4 WASM dual-path | open |
 | L5 browser UI | open |

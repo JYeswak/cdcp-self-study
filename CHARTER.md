@@ -200,7 +200,7 @@ qualifies:
 | Dual-path | the same source compiled twice | no |
 
 **Consequence, stated plainly:** the repo proves the grader is *deterministic*. It does not
-prove the 804 bank items are *correct about data centres*. A wrong answer key is invisible to
+prove the 804 bank item files (779 approved; a pool size, not a distinct-proposition count) are *correct about data centres*. A wrong answer key is invisible to
 every step of `check.sh`. For a study tool whose value proposition is that the learner ends up
 correct, the unguarded property is the one that matters most.
 

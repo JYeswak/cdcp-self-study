@@ -412,3 +412,13 @@ path = "hooks/pre-commit"
 reason = "THE SHIM, and it legitimately stays shell: git executes a file at .git/hooks/pre-commit, so the entry point cannot itself be a cargo target. Its whole body is one exec of the Rust gate and it holds no decision logic — asserted mechanically by install_hooks::tests::committed_shim_exists_and_is_thin, which rejects if/case/for/test/grep/sed/awk/python and any &&, ||, pipe or subshell. Caught here by the shebang leg (no extension), not by a filename rule. Dated for annual re-affirmation; there are no permanent exemptions, only renewed ones."
 migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-06-30"
+
+# =============================================================================
+# bd-e1yt — paraphrase-pair ledger (honesty tripwire, not a grader-of-record)
+# =============================================================================
+
+[[allow]]
+path = "scripts/verify_paraphrase_pairs.py"
+reason = "Load-bearing check.sh step: machine-checked ledger of measured paraphrase pairs C3 cannot see (bd-e1yt). Empty ledger / missing pair without adjudication is ERROR. The stem-overlap report this script prints is not a grader-of-record."
+migration_bead = "bd-e1yt"
+expires = "2027-02-28"
