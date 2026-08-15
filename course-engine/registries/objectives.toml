@@ -40,3 +40,8 @@ claim_ids = ["claim-forbidden-dump-bank", "claim-forbidden-iec-clause-without-li
 id = "obj-m12-liion-855"
 text = "Learner names NFPA 855 and UL 9540A, and can distinguish a Li-ion UPS-room playbook from a BESS-yard playbook (off-gas, deflagration, water-on-Li-ion, LSFT) without inventing agent-mass or fire percentages"
 claim_ids = ["claim-domain-covered", "claim-interview-ready"]
+
+[[objective]]
+id = "obj-m08-liquid-ready-cabinet"
+text = "Learner can name a liquid-ready / GPU-hall cabinet as a distinct SKU (800 mm hose/manifold volume, RDHx door, drip pans, CDU landing, immersion tank, 40–100 kW structure) and point at Module 09 for liquid families"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]

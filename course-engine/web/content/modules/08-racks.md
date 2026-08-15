@@ -12,10 +12,11 @@
 By the end of this module you can:
 
 1. State the main **rack standards and dimensions** (width, depth, height in **rack units (U)**) and explain why “19-inch” is a mounting standard, not a cabinet footprint.
-2. Differentiate common **rack and enclosure types** (open frame, four-post, cabinet/enclosure, wall-mount, specialized network vs server vs high-density) and when each fits.
+2. Differentiate common **rack and enclosure types** (open frame, four-post, cabinet/enclosure, wall-mount, specialized network vs server vs high-density, **liquid-ready / GPU-hall**) and when each fits.
 3. Describe **physical security** options at the rack (doors, side panels, locks, sensors, cage/cabinet zoning) and how they relate to multi-tenant and compliance designs.
 4. Explain **power strips and rails** (PDU types, A/B feeds, zero-U vs rack-mount, metering/switching, plug types and branch-circuit limits) in plain operational language.
 5. Apply **airflow and mounting** rules of thumb: front-to-rear cooling, blanking panels, cable management, weight/U spacing, seismic and grounding considerations.
+6. Specify a **liquid-ready / GPU-hall cabinet SKU** (typically **800 mm** for hoses/manifolds, rear-door / RDHx as a rack product, drip pans, CDU landing, immersion tank as a different SKU, **40–100 kW** structure/weight) and point at Module 09 for the liquid *families*.
 
 ---
 
@@ -29,7 +30,7 @@ Interviewers use racks to test whether you understand **integration**, not just 
 - **Design:** Will the enclosure fit the aisle pitch, floor loading, and service clearances? Is U-space wasted on cabling or poorly planned PDUs?
 - **TPM / project:** Who owns the bill of materials—IT, facilities, or colo provider? What is in the colo “cage ready” vs “cabinet ready” scope?
 
-Racks also drive **density economics**. Wrong depth, missing blanking panels, or side-breathing gear in a hot-aisle/cold-aisle room create hot spots that no CRAC set point can fully fix. Security choices (open frames vs locked cabinets) change who can touch production hardware. Getting the rack layer right is one of the highest leverage, lowest-glamour skills in data centre work.
+Racks also drive **density economics**. Wrong depth, missing blanking panels, or side-breathing gear in a hot-aisle/cold-aisle room create hot spots that no CRAC set point can fully fix. A 2026 GPU-hall oral adds a second density question: is the **cabinet SKU** liquid-ready (hose width, RDHx door, drip, CDU landing, structure at **40–100 kW**), or did someone order a 600 mm air cabinet into a liquid row? Security choices (open frames vs locked cabinets) change who can touch production hardware. Getting the rack layer right is one of the highest leverage, lowest-glamour skills in data centre work.
 
 ---
 
@@ -44,7 +45,7 @@ Racks also drive **density economics**. Wrong depth, missing blanking panels, or
 - **19 inches** refers to the **horizontal spacing between the outer edges of the mounting flanges** (the rail faces where you bolt equipment), **not** the outer width of the cabinet.
 - Equipment faceplates are designed so mounting ears land on those rails; the usable equipment width is slightly less than 19″ between the rail faces.
 
-**Cabinet outer width** is commonly about **600 mm** (~24″) for many server/network enclosures, or **800 mm** when you need extra side space for vertical cable managers, high copper density, or larger side-access PDUs. Colos and enterprise designs mix 600 and 800 mm in the same row; 800 mm is often preferred for network/distribution rows.
+**Cabinet outer width** is commonly about **600 mm** (~24″) for many server/network enclosures, or **800 mm** when you need extra side space for vertical cable managers, high copper density, or larger side-access PDUs. Colos and enterprise designs mix 600 and 800 mm in the same row; 800 mm is often preferred for network/distribution rows. In a **liquid-ready / GPU-hall** row, **800 mm** is also the width that makes **hose and manifold** landings possible—do not shrink a liquid row back to 600 mm just to match the air row (see types, below).
 
 #### Rack unit (U)
 
@@ -66,7 +67,7 @@ Full cabinets sit on the slab or raised floor. Mind:
 - **Door swing and service clearance** (front and rear aisles—see airflow section).
 - **Ceiling height** for tall 48U frames and overhead busway/cable tray.
 - **Leveling feet vs casters**; casters are for staging, not permanent load distribution on raised floor without design review.
-- **Weight**: static and rolling loads on raised floor (Module 04). A populated 42U cabinet can easily exceed **1000–1500+ kg** depending on gear; treat vendor weights as planning inputs, not marketing fluff.
+- **Weight**: static and rolling loads on raised floor (Module 04). A populated 42U cabinet can easily exceed **1000–1500+ kg** depending on gear; treat vendor weights as planning inputs, not marketing fluff. Liquid-ready / **40–100 kW** cabinets (RDHx doors, manifolds, coolant, dense GPU chassis) can exceed that class—design the floor first.
 
 #### Hole patterns and mounting hardware
 
@@ -82,9 +83,9 @@ Rails use a repeating hole pattern (often **square holes** for cage nuts, or **t
 | Standard / body | Role (conceptual) |
 |---|---|
 | **EIA-310** / **IEC 60297** | 19″ mechanical mounting structure family |
-| **ANSI/TIA-942** | Data centre infrastructure guidelines including space, cabling pathways, environmental context for racks/rows |
+| **ANSI/TIA-942** | Data centre infrastructure **consensus standard** (voluntary unless a contract or jurisdiction adopts it) including space, cabling pathways, environmental context for racks/rows. Not Uptime Tier—see Module 02 |
 | **ISO/IEC 22237** / **EN 50600** | International / European data centre facility series (space, power, environmental control framing) |
-| **ASHRAE TC 9.9** thermal guidelines | Recommended inlet air temperatures / environmental envelopes for IT equipment |
+| **ASHRAE TC 9.9** *Thermal Guidelines for Data Processing Environments*, **5th ed. (2021)** | Named edition when you invoke **recommended inlet** / environmental envelopes. **Recommended ⊂ allowable** is taught in Module 09—do not freeze a °C pair here; pin the edition you cite because the numbers move |
 | Local electrical code (e.g. **NEC** in US, **IEC** national adoptions) | Branch circuits, receptacles, PDU electrical safety—**code wins** over brochure |
 
 If you are uncertain of an exact dimension for a project, **use the cabinet and IT OEM drawings**—standards set the mounting grammar; the BOM sets the reality.
@@ -110,6 +111,23 @@ A **cabinet** (enclosure) adds side panels, front/rear doors, roof options, and 
 - **Seismic-rated racks:** Designed and often **certified** for earthquake zones; may need floor anchors per structural engineer and local code.
 - **Sound-damped / office-adjacent enclosures:** Trade cooling capacity for noise control—easy to mis-apply in real data halls.
 - **Network vs server vs storage density:** Marketing labels; the engineering questions are depth, cable volume, PDU kW, and airflow path.
+
+#### Liquid-ready / GPU-hall cabinet
+
+This file owns the **cabinet SKU**. Module 09 owns the **liquid families** (rear-door vs direct-to-chip vs immersion, CDU loops, leak detection). A 2026 GPU-hall interview asks whether the *frame* is ready, not whether you can name the coolant.
+
+A **liquid-ready cabinet** is not a slightly denser air cabinet. Plan it as its own type:
+
+- **800 mm for hoses:** Side volume for **manifolds and hose bend radius** (on top of cable managers and vertical PDUs). A 600 mm air cabinet usually cannot dress both.
+- **Rear-door / RDHx as a rack SKU:** A rear-door heat exchanger is a **cabinet product**—door mass, coil service clearance, and facility-water or secondary-loop connections at the rack. You still number U and land **A/B** power the same way.
+- **Drip pans and manifolds:** Assume liquid will leak. Specify drip pans, leak sensors, and isolation at the cabinet; manifolds occupy the side/rear volume you bought the 800 mm for.
+- **CDU landing:** The CDU may sit in the row as a “rack,” at end of row, or in gallery space. Reserve floor space, power, and a hose path *to* the IT cabinets—do not discover the landing after the row is populated.
+- **Immersion tank:** A tank is a different SKU from a 19″ air cabinet: no EIA U-space for the bath, different weight, different service access. Do not treat it as “a deep 42U.”
+- **40–100 kW structure / weight:** AI/GPU cabinets in this class need **structure and floor loading** sized for populated mass (doors, manifolds, coolant, dense chassis) and the **kW**. Air-cabinet feet and a ~10 kW row pitch are the wrong starting point (Module 04 for concentrated load; Module 06 for the upstream kW).
+
+**Blanking still applies.** Hybrid halls keep **air-cooled networking** beside liquid compute. Unused U and unsealed cable openings still recirculate; blanking is not optional just because the GPUs are on cold plates.
+
+Point to Module 09 when the interview moves from *the cabinet* to *which liquid family and which plant*. In-row CRAH/CRDX adjacency is already a row-architecture fact (below); liquid-ready is the cabinet that can accept the hose.
 
 #### Row architecture (how racks become a system)
 
@@ -235,7 +253,7 @@ Most modern volume servers are **front-to-rear** cooled: cold air in front, hot 
 
 #### Blanking panels and sealing
 
-**Blanking panels** (1U/2U fillers) cover unused U-space so cold air is not stolen into the hot aisle (or hot air recirculated to the intake). Missing blanking is one of the most common, cheapest-to-fix thermal defects in real rooms.
+**Blanking panels** (1U/2U fillers) cover unused U-space so cold air is not stolen into the hot aisle (or hot air recirculated to the intake). Missing blanking is one of the most common, cheapest-to-fix thermal defects in real rooms. They remain required in liquid-ready / GPU halls because **network gear stays air-cooled**—cold-plate compute does not retire the air seal.
 
 Also seal:
 
@@ -332,6 +350,7 @@ The first of these three to exhaust **is** the rack’s real capacity. Smart PDU
 | **Weight** | Check raised-floor **concentrated load** under cabinet feet/levelers |
 | **Phase balance** | On 3-phase PDUs, balance outlet loading across L1/L2/L3 |
 | **Service clearance** | Follow OEM + egress; typically full front/rear access for hot-swap |
+| **Liquid-ready cabinet** | Typically **800 mm** + RDHx/drip/manifolds + planned CDU landing + **40–100 kW** structure; liquid *families* live in Module 09 |
 
 **Simple U budget example:** 42U cabinet − 2U patch − 2U managers − 1U KVM/console − 4U future reserve = **33U** for compute. Announce the reserve in design reviews so “empty U” is not treated as waste.
 
@@ -353,6 +372,7 @@ The first of these three to exhaust **is** the rack’s real capacity. Smart PDU
 10. **Keys-for-everyone cabinet security.** No audit trail; lost keys equal permanent open access.
 11. **Treating rack PDU remote power-cycle as harmless.** Shared PDUs and dual-cord mistakes take out more than the target host.
 12. **Assuming colo “full cabinet” includes unlimited kW.** Colo sells **kW and U**; the lower limit wins.
+13. **Ordering a 600 mm air cabinet into a liquid GPU row.** No hose/manifold volume, no drip path, RDHx door will not land, and **40–100 kW** structure/weight was never reviewed. Treat liquid-ready as its own SKU.
 
 ---
 
@@ -372,6 +392,9 @@ The first of these three to exhaust **is** the rack’s real capacity. Smart PDU
 
 **Q5. A row has free U-space but new servers still cannot deploy. What do you check first?**  
 **A:** The capacity triad: **remaining kW** on A/B breakers and PDUs, **cooling capability** at that rack position (hot spots, containment integrity), and **usable depth/cable/PDU space**. Also confirm rail kits, weight loading, and that “free U” is not already reserved for networking or future growth in DCIM.
+
+**Q6. What makes a GPU-hall / liquid-ready cabinet different from a standard air cabinet?**  
+**A:** Treat it as a different **SKU**: typically **800 mm** for hoses and manifolds, **RDHx** as a rear-door product, drip pans and leak isolation, a planned **CDU landing**, and **40–100 kW** structure/weight. An immersion tank is not a 19″ frame. Module 09 owns the liquid families. **Blanking still matters** because network gear stays air-cooled. 19″ rails, **1U = 1.75 in**, and **A/B** PDU landing do not go away.
 
 ---
 
@@ -452,7 +475,7 @@ Public standards and primers (no paywalled EPI courseware):
 - **EIA-310** family / **IEC 60297** — mechanical structures for 19″-type practice (obtain via standards bodies/libraries; use OEM rail drawings for install dimensions).
 - **ANSI/TIA-942** — data centre infrastructure standard (overview materials and public summaries; full text via TIA / licensed access).
 - **ISO/IEC 22237** series and **EN 50600** series — data centre facilities framework (European/international).
-- **ASHRAE Technical Committee 9.9** — *Thermal Guidelines for Data Processing Environments* (public overview articles and ASHRAE publications list; use for inlet temp / environmental class literacy).
+- **ASHRAE Technical Committee 9.9** — *Thermal Guidelines for Data Processing Environments*, **5th edition (2021)** (public overview articles and ASHRAE publications list; name that edition when you invoke recommended inlet. **Recommended ⊂ allowable** is Module 09; do not memorize a frozen °C pair).
 - **IEC 60320** — appliance couplers (C13/C19 family) familiarization via manufacturer application notes.
 - **IEC 60309** — industrial plugs/sockets often used as rack PDU inlets in higher-current designs.
 - Vendor **rack/PDU installation guides** (major enclosure and rPDU manufacturers publish free PDF install and airflow white papers—use as practical detail after standards framing).
@@ -463,4 +486,4 @@ Public standards and primers (no paywalled EPI courseware):
 
 ---
 
-*End of module 08-racks — Equipment Racks. Next logical modules: 09 Cooling Infrastructure (row/room cooling that the rack airflow depends on), 11 Scalable Network Infrastructure (rack cabling hierarchies), 13 Physical Security & Safety (facility envelope around the cabinet).*
+*End of module 08-racks — Equipment Racks. Next logical modules: 09 Cooling Infrastructure (row/room cooling that the rack airflow depends on), 11 Scalable Network Infrastructure (rack cabling hierarchies), 13 Physical Security & Safety (facility envelope around the cabinet). Part of free CDCP-domain self-study (not official EPI®/CDCP® certification material).*
