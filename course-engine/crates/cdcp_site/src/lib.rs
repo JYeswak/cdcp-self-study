@@ -1,10 +1,12 @@
 //! Site lookups: lat/lon or a compiled location id → climate bin, seismic
-//! PGA, grid carbon. Flood zone is a named ERROR until a FEMA snapshot is
-//! pinned. No network. Every value is a function of already-vendored
-//! `cdcp_data` snapshots (NREL TMY3, USGS ASCE 7-16, EPA eGRID2023).
+//! PGA, grid carbon, flood zone. No network. Every value is a function of
+//! already-vendored `cdcp_data` snapshots (NREL TMY3, USGS ASCE 7-16,
+//! EPA eGRID2023, FEMA NFHL).
 //!
 //! A missing location is [`SiteError::MissingLocation`], never a default
 //! nearest-neighbour. An empty catalog is [`SiteError::EmptyLocations`].
+//! A missing FEMA pin is [`SiteError::FloodNotVendored`], never a default
+//! zone letter.
 #![forbid(unsafe_code)]
 
 use cdcp_data::{
@@ -26,11 +28,20 @@ pub const ANTI_VACUOUS_LOCATIONS: &str = "empty location set is an ERROR";
 /// Token interpolated inside the flood path when no FEMA pin exists.
 pub const FLOOD_NOT_VENDORED: &str = "flood zone not vendored";
 
+/// Named NFHL value when `SFHA_TF` is `F` (outside the Special Flood
+/// Hazard Area). Zone letter `X` is still recorded; this token names
+/// the insurance/siting posture so a default "X" cannot be smuggled in
+/// as "we did not look".
+pub const NOT_IN_SFHA: &str = "not-in-special-flood-hazard";
+
 /// HVAC bin-method width for dry-bulb hour counts (°C).
 pub const BIN_WIDTH_C: i32 = 5;
 
 /// Re-export the compiled-location record the catalog is made of.
 pub use cdcp_data::{engine_root, Location, Seismic, SNAP_EGRID, SNAP_TMY3, SNAP_USGS};
+
+/// Snapshot pin id: FEMA NFHL flood-zone point extract.
+pub const SNAP_FLOOD: &str = "src-fema-nfhl";
 
 /// How the caller names a site.
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -72,13 +83,26 @@ pub struct Climate {
     pub cooling_degree_days_18c: f64,
 }
 
-/// FEMA flood zone. Constructed only when a flood snapshot is vendored
-/// *and* decoded. The live pin set has neither, so [`lookup_flood`] is
-/// [`SiteError::FloodNotVendored`] — never a default zone letter.
+/// FEMA NFHL flood zone. Constructed only from a vendored, decoded
+/// snapshot. A default zone letter is never invented.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FloodZone {
-    /// NFHL zone code (`AE`, `X`, …).
+    /// NFHL `FLD_ZONE` code (`AE`, `X`, …).
     pub zone: String,
+    /// NFHL `ZONE_SUBTY` (empty when the layer has none).
+    pub subtype: String,
+    /// True when NFHL `SFHA_TF` is `T`.
+    pub in_sfha: bool,
+}
+
+impl fmt::Display for FloodZone {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if self.in_sfha {
+            write!(f, "{}", self.zone)
+        } else {
+            write!(f, "{} ({NOT_IN_SFHA})", self.zone)
+        }
+    }
 }
 
 /// Typed site values for one compiled location.
@@ -92,6 +116,8 @@ pub struct SiteProfile {
     pub seismic: Seismic,
     /// eGRID output emission rate (lb CO2 / MWh).
     pub grid_co2_lb_per_mwh: f64,
+    /// FEMA NFHL flood zone at the catalog point.
+    pub flood: FloodZone,
 }
 
 impl fmt::Display for SiteProfile {
@@ -122,7 +148,8 @@ impl fmt::Display for SiteProfile {
             f,
             "  grid_co2_lb_per_mwh={} ({})",
             self.grid_co2_lb_per_mwh, self.location.egrid_subregion
-        )
+        )?;
+        writeln!(f, "  flood_zone={}", self.flood)
     }
 }
 
@@ -193,6 +220,8 @@ pub struct SiteStore {
     tmy3: String,
     usgs: String,
     egrid: String,
+    flood: String,
+    flood_pin: String,
     locations: Vec<Location>,
     cells: BTreeMap<String, Cell>,
 }
@@ -220,11 +249,17 @@ impl SiteStore {
         let tmy3 = load_text(root, &pins, SNAP_TMY3)?;
         let usgs = load_text(root, &pins, SNAP_USGS)?;
         let egrid = load_text(root, &pins, SNAP_EGRID)?;
+        let flood_pin = flood_pin_id(&pins)
+            .ok_or(SiteError::FloodNotVendored)?
+            .to_string();
+        let flood = load_text(root, &pins, &flood_pin)?;
         let cells = usgs_cells(&usgs)?;
         Ok(Self {
             tmy3,
             usgs,
             egrid,
+            flood,
+            flood_pin,
             locations,
             cells,
         })
@@ -246,12 +281,20 @@ impl SiteStore {
         let climate = climate_from_tmy3(&self.tmy3, &loc.tmy3_id)?;
         let seismic = interpolate_seismic(&self.usgs, &loc.id, loc.lat, loc.lon)?;
         let grid_co2_lb_per_mwh = grid_co2_lb_per_mwh(&self.egrid, &loc.egrid_subregion)?;
+        let flood = flood_zone_from_csv(&self.flood, &loc.id, &self.flood_pin)?;
         Ok(SiteProfile {
             location: loc.clone(),
             climate,
             seismic,
             grid_co2_lb_per_mwh,
+            flood,
         })
+    }
+
+    /// Flood zone for `query`. Missing location is
+    /// [`SiteError::MissingLocation`], never a default zone.
+    pub fn lookup_flood(&self, query: SiteQuery<'_>) -> Result<FloodZone, SiteError> {
+        Ok(self.lookup(query)?.flood)
     }
 }
 
@@ -287,16 +330,15 @@ pub fn lookup_coord(root: &Path, lat: f64, lon: f64) -> Result<SiteProfile, Site
     lookup(root, SiteQuery::Coord { lat, lon })
 }
 
-/// Flood zone for `query`. The live pin set has no FEMA / NFHL
-/// snapshot, so this is [`SiteError::FloodNotVendored`]. A default
-/// zone letter is never returned.
+/// Flood zone for `query`. No FEMA / NFHL pin is
+/// [`SiteError::FloodNotVendored`]. A default zone letter is never
+/// returned.
 pub fn lookup_flood(root: &Path, query: SiteQuery<'_>) -> Result<FloodZone, SiteError> {
-    let _ = (root, query);
     let _ = FLOOD_NOT_VENDORED;
     let pins = compiled_pins()?;
     match flood_pin_id(&pins) {
         None => Err(SiteError::FloodNotVendored),
-        Some(id) => Err(SiteError::FloodUndecoded { id: id.to_string() }),
+        Some(_) => SiteStore::load(root)?.lookup_flood(query),
     }
 }
 
@@ -487,6 +529,95 @@ fn usgs_cells(csv: &str) -> Result<BTreeMap<String, Cell>, SiteError> {
     Ok(out)
 }
 
+fn csv_col(header: &[String], name: &str) -> Option<usize> {
+    header.iter().position(|h| h == name)
+}
+
+/// Decode one compiled location from the vendored NFHL extract.
+///
+/// Header row is required (`location_id` + `fld_zone`). A pin whose
+/// body cannot be read as that table is [`SiteError::FloodUndecoded`],
+/// not a guessed zone letter.
+fn flood_zone_from_csv(csv: &str, location_id: &str, pin_id: &str) -> Result<FloodZone, SiteError> {
+    let mut header: Option<Vec<String>> = None;
+    let mut found: Option<FloodZone> = None;
+    for (i, line) in csv.lines().enumerate() {
+        let t = line.trim();
+        if t.is_empty() || t.starts_with('#') {
+            continue;
+        }
+        let cols: Vec<String> = t.split(',').map(|c| c.trim().to_string()).collect();
+        if header.is_none() {
+            if cols.iter().any(|c| c == "location_id") && cols.iter().any(|c| c == "fld_zone") {
+                header = Some(cols);
+                continue;
+            }
+            return Err(SiteError::FloodUndecoded {
+                id: pin_id.to_string(),
+            });
+        }
+        let header = header.as_ref().expect("header set");
+        let id_i = csv_col(header, "location_id").expect("checked");
+        let zone_i = csv_col(header, "fld_zone").expect("checked");
+        if cols.len() <= id_i.max(zone_i) {
+            return Err(SiteError::Quantity(format!(
+                "flood line {}: fewer columns than the header",
+                i + 1
+            )));
+        }
+        if cols[id_i] != location_id {
+            continue;
+        }
+        let zone = cols[zone_i].clone();
+        if zone.is_empty() {
+            return Err(SiteError::Quantity(format!(
+                "flood line {}: empty fld_zone",
+                i + 1
+            )));
+        }
+        let subtype = csv_col(header, "zone_subty")
+            .and_then(|j| cols.get(j).cloned())
+            .unwrap_or_default();
+        let in_sfha = match csv_col(header, "sfha").and_then(|j| cols.get(j).map(String::as_str)) {
+            Some("T") | Some("t") => true,
+            Some("F") | Some("f") => false,
+            Some(other) => {
+                return Err(SiteError::Quantity(format!(
+                    "flood line {}: bad sfha {other}",
+                    i + 1
+                )));
+            }
+            None => {
+                return Err(SiteError::Quantity(format!(
+                    "flood line {}: missing sfha column",
+                    i + 1
+                )));
+            }
+        };
+        let row = FloodZone {
+            zone,
+            subtype,
+            in_sfha,
+        };
+        if let Some(prev) = &found {
+            if prev != &row {
+                return Err(SiteError::Quantity(format!(
+                    "flood: conflicting zones for {location_id}"
+                )));
+            }
+        }
+        found = Some(row);
+    }
+    if header.is_none() {
+        return Err(SiteError::FloodUndecoded {
+            id: pin_id.to_string(),
+        });
+    }
+    found.ok_or_else(|| SiteError::MissingLocation {
+        id: location_id.to_string(),
+    })
+}
+
 fn load_text(root: &Path, pins: &[SnapshotPin], id: &str) -> Result<String, SiteError> {
     let pin = pins
         .iter()
@@ -652,9 +783,54 @@ x,1,1,1,3,5.0
     fn flood_pin_detector_is_specific() {
         assert!(is_flood_pin("src-fema-nfhl"));
         assert!(is_flood_pin("src-fema-flood-zones"));
+        assert!(is_flood_pin(SNAP_FLOOD));
         assert!(!is_flood_pin(SNAP_TMY3));
         assert!(!is_flood_pin(SNAP_USGS));
         assert!(!is_flood_pin(SNAP_EGRID));
+    }
+
+    fn flood_csv() -> &'static str {
+        "\
+location_id,lat,lon,dfirm_id,fld_zone,zone_subty,sfha
+x,0,0,00000C,X,AREA OF MINIMAL FLOOD HAZARD,F
+ae,1,1,00000C,AE,,T
+"
+    }
+
+    #[test]
+    fn flood_csv_decodes_not_in_sfha() {
+        let z = flood_zone_from_csv(flood_csv(), "x", SNAP_FLOOD).expect("x");
+        assert_eq!(z.zone, "X");
+        assert!(!z.in_sfha);
+        assert_eq!(z.subtype, "AREA OF MINIMAL FLOOD HAZARD");
+        assert!(z.to_string().contains(NOT_IN_SFHA), "{}", z);
+    }
+
+    #[test]
+    fn flood_csv_decodes_sfha_zone() {
+        let z = flood_zone_from_csv(flood_csv(), "ae", SNAP_FLOOD).expect("ae");
+        assert_eq!(z.zone, "AE");
+        assert!(z.in_sfha);
+        assert_eq!(z.to_string(), "AE");
+    }
+
+    #[test]
+    fn flood_csv_missing_id_is_named_missing() {
+        let err = flood_zone_from_csv(flood_csv(), "nowhere", SNAP_FLOOD).expect_err("missing");
+        match err {
+            SiteError::MissingLocation { id } => assert_eq!(id, "nowhere"),
+            other => panic!("expected MissingLocation, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn flood_csv_without_header_is_undecoded() {
+        let err =
+            flood_zone_from_csv("not,a,flood,table\n", "x", SNAP_FLOOD).expect_err("undecoded");
+        match err {
+            SiteError::FloodUndecoded { id } => assert_eq!(id, SNAP_FLOOD),
+            other => panic!("expected FloodUndecoded, got {other:?}"),
+        }
     }
 
     #[test]

@@ -8,10 +8,12 @@
 //!
 //! Meta-tests: delete the named-error / empty-set / load_one paths → RED.
 
-use cdcp_data::{compiled_pins, DataError, HASH_MISMATCH, SNAP_EGRID, SNAP_TMY3, SNAP_USGS};
+use cdcp_data::{
+    compiled_pins, DataError, SnapshotPin, HASH_MISMATCH, SNAP_EGRID, SNAP_TMY3, SNAP_USGS,
+};
 use cdcp_site::{
-    lookup_coord, lookup_id, require_locations, SiteError, SiteStore, ANTI_VACUOUS_LOCATIONS,
-    MISSING_LOCATION,
+    flood_pin_id, lookup_coord, lookup_flood, lookup_id, require_locations, SiteError, SiteQuery,
+    SiteStore, ANTI_VACUOUS_LOCATIONS, MISSING_LOCATION, SNAP_FLOOD,
 };
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -52,6 +54,29 @@ fn scratch(tag: &str) -> PathBuf {
     dir
 }
 
+fn site_load_ids(pins: &[SnapshotPin]) -> Vec<String> {
+    let mut ids = vec![
+        SNAP_TMY3.to_string(),
+        SNAP_USGS.to_string(),
+        SNAP_EGRID.to_string(),
+    ];
+    if let Some(id) = flood_pin_id(pins) {
+        ids.push(id.to_string());
+    }
+    ids
+}
+
+fn copy_site_snapshots(src: &Path, dst: &Path, pins: &[SnapshotPin]) {
+    for id in site_load_ids(pins) {
+        let pin = pins
+            .iter()
+            .find(|p| p.id == id)
+            .unwrap_or_else(|| panic!("missing pin {id}"));
+        copy_rel(src, dst, &pin.body);
+        copy_rel(src, dst, &pin.sidecar);
+    }
+}
+
 fn copy_rel(src_root: &Path, dst_root: &Path, rel: &str) {
     let src = src_root.join(rel);
     let dst = dst_root.join(rel);
@@ -66,14 +91,7 @@ fn flip_one_snapshot_byte_is_red() {
     let src = engine();
     let dst = scratch("flip");
     let pins = compiled_pins().expect("pins");
-    for want in [SNAP_TMY3, SNAP_USGS, SNAP_EGRID] {
-        let pin = pins
-            .iter()
-            .find(|p| p.id == want)
-            .unwrap_or_else(|| panic!("missing pin {want}"));
-        copy_rel(&src, &dst, &pin.body);
-        copy_rel(&src, &dst, &pin.sidecar);
-    }
+    copy_site_snapshots(&src, &dst, &pins);
     let tmy3 = pins.iter().find(|p| p.id == SNAP_TMY3).expect("tmy3 pin");
     let body_path = dst.join(&tmy3.body);
     let mut body = fs::read(&body_path).expect("read tmy3");
@@ -99,6 +117,38 @@ fn flip_one_snapshot_byte_is_red() {
 }
 
 #[test]
+fn flip_one_flood_snapshot_byte_is_red() {
+    let src = engine();
+    let dst = scratch("flip-flood");
+    let pins = compiled_pins().expect("pins");
+    copy_site_snapshots(&src, &dst, &pins);
+    let flood = pins
+        .iter()
+        .find(|p| p.id == SNAP_FLOOD)
+        .expect("flood pin must be vendored");
+    let body_path = dst.join(&flood.body);
+    let mut body = fs::read(&body_path).expect("read flood");
+    assert!(!body.is_empty(), "flood body is empty — nothing to flip");
+    body[0] ^= 0xff;
+    fs::write(&body_path, &body).expect("write flipped flood");
+
+    let err = SiteStore::load(&dst).expect_err("flipped flood byte must RED");
+    match &err {
+        SiteError::Data(DataError::HashMismatch {
+            id,
+            recorded,
+            computed,
+        }) => {
+            assert_eq!(id, SNAP_FLOOD);
+            assert_ne!(recorded, computed);
+        }
+        other => panic!("expected Data(HashMismatch), got {other:?}"),
+    }
+    assert!(err.to_string().contains(HASH_MISMATCH), "{err}");
+    let _ = fs::remove_dir_all(&dst);
+}
+
+#[test]
 fn unknown_id_is_named_error_never_a_default() {
     let err = lookup_id(&engine(), "atlantis").expect_err("missing");
     match &err {
@@ -106,6 +156,11 @@ fn unknown_id_is_named_error_never_a_default() {
         other => panic!("expected MissingLocation, got {other:?}"),
     }
     assert!(err.to_string().contains(MISSING_LOCATION));
+    let flood_err = lookup_flood(&engine(), SiteQuery::Id("atlantis")).expect_err("flood missing");
+    match &flood_err {
+        SiteError::MissingLocation { id } => assert_eq!(id, "atlantis"),
+        other => panic!("expected MissingLocation, got {other:?}"),
+    }
 }
 
 #[test]

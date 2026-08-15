@@ -54,3 +54,9 @@ id = "src-epa-egrid2023-plnt23"
 body = "knowledge/data/egrid/egrid2023_plnt23.csv"
 sidecar = "knowledge/data/egrid/egrid2023_plnt23.meta.toml"
 sha256 = "95e0fd1c9e2d29cc0d0eb9dd53c8cdacef297f89e50b07573f4356ef3c9f1c84"
+
+[[snapshot]]
+id = "src-fema-nfhl"
+body = "knowledge/data/fema/nfhl_flood_zones.csv"
+sidecar = "knowledge/data/fema/nfhl_flood_zones.meta.toml"
+sha256 = "bf88b52990be4626df5a3c99ffcf7fefe372457e4022fe32733c21a9f4476390"

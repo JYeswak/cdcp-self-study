@@ -1,0 +1,11 @@
+# FEMA National Flood Hazard Layer (NFHL) point extract for compiled CDCP sites.
+# 17 USC 105. Retrieved 2026-08-15 from
+# https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28
+# Layer 28 Flood Hazard Zones, effective FIRM. Point query at catalog lat/lon.
+# SFHA_TF F = not in Special Flood Hazard Area. STATIC_BFE was -9999 (none) on every row.
+location_id,lat,lon,dfirm_id,fld_zone,zone_subty,sfha
+ashburn,39.0438,-77.4874,51107C,X,AREA OF MINIMAL FLOOD HAZARD,F
+dallas,32.7767,-96.7970,48113C,X,AREA OF MINIMAL FLOOD HAZARD,F
+phoenix,33.4484,-112.0740,04013C,X,0.2 PCT ANNUAL CHANCE FLOOD HAZARD,F
+chicago,41.8781,-87.6298,17031C,X,AREA OF MINIMAL FLOOD HAZARD,F
+sanjose,37.3541,-121.9552,06085C,X,0.2 PCT ANNUAL CHANCE FLOOD HAZARD,F

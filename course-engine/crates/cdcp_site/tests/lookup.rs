@@ -1,8 +1,8 @@
-//! Live lookups against vendored TMY3 / USGS / eGRID snapshots.
+//! Live lookups against vendored TMY3 / USGS / eGRID / FEMA NFHL snapshots.
 
 use cdcp_site::{
     compiled_site_locations, flood_pin_id, lookup_coord, lookup_flood, lookup_id, SiteError,
-    SiteQuery, SiteStore, ANTI_VACUOUS_LOCATIONS, FLOOD_NOT_VENDORED,
+    SiteQuery, SiteStore, ANTI_VACUOUS_LOCATIONS, NOT_IN_SFHA, SNAP_FLOOD,
 };
 use std::path::PathBuf;
 
@@ -35,11 +35,15 @@ fn lookup_id_ashburn_returns_typed_values() {
     assert!(profile.seismic.pga.is_finite() && profile.seismic.pga > 0.0);
     assert!(profile.grid_co2_lb_per_mwh.is_finite() && profile.grid_co2_lb_per_mwh > 0.0);
     assert!(profile.climate.bin.hours > 0);
+    assert_eq!(profile.flood.zone, "X");
+    assert!(!profile.flood.in_sfha);
     let hours: u32 = profile.climate.bins.iter().map(|b| b.hours).sum();
     assert_eq!(hours, 8760, "TMY3 is a non-leap 8760-hour record");
     let text = profile.to_string();
     assert!(text.contains("site ashburn"), "{text}");
     assert!(text.contains("pga="), "{text}");
+    assert!(text.contains("flood_zone="), "{text}");
+    assert!(text.contains(NOT_IN_SFHA), "{text}");
 }
 
 #[test]
@@ -60,17 +64,31 @@ fn lookup_coord_matches_compiled_sites() {
         );
         assert_eq!(by_id.seismic.pga, by_coord.seismic.pga);
         assert_eq!(by_id.grid_co2_lb_per_mwh, by_coord.grid_co2_lb_per_mwh);
+        assert_eq!(by_id.flood, by_coord.flood);
+        assert!(!by_id.flood.zone.is_empty(), "{} empty flood zone", loc.id);
     }
 }
 
 #[test]
-fn flood_is_named_error_not_a_default_zone() {
+fn flood_lookup_returns_zone_not_not_vendored() {
     let pins = cdcp_data::compiled_pins().expect("pins");
-    assert!(
-        flood_pin_id(&pins).is_none(),
-        "FEMA is not vendored; a flood pin would need a decoder, not a default zone"
+    assert_eq!(
+        flood_pin_id(&pins),
+        Some(SNAP_FLOOD),
+        "FEMA NFHL pin must be present so lookup_flood can decode"
     );
-    let err = lookup_flood(&engine(), SiteQuery::Id("ashburn")).expect_err("flood");
-    assert!(matches!(err, SiteError::FloodNotVendored), "{err:?}");
-    assert!(err.to_string().contains(FLOOD_NOT_VENDORED));
+    let flood = lookup_flood(&engine(), SiteQuery::Id("ashburn")).unwrap_or_else(|e| panic!("{e}"));
+    assert_eq!(flood.zone, "X");
+    assert!(!flood.in_sfha);
+    assert_eq!(flood.subtype, "AREA OF MINIMAL FLOOD HAZARD");
+    assert!(flood.to_string().contains(NOT_IN_SFHA), "{flood}");
+}
+
+#[test]
+fn flood_missing_location_is_named_error() {
+    let err = lookup_flood(&engine(), SiteQuery::Id("atlantis")).expect_err("missing");
+    match err {
+        SiteError::MissingLocation { ref id } => assert_eq!(id, "atlantis"),
+        other => panic!("expected MissingLocation, got {other:?}"),
+    }
 }
