@@ -60,6 +60,11 @@ pub const JS_ASSETS: &[&str] = &[
 
 pub const M01_NEEDLES: &[&str] = &["learn-unit-shell", "learn_units.js", "learn_glossary.js"];
 
+/// Glossary term-count floor. Named so the bd-8mjs NamedBound sweep can hold
+/// a verdict on it (see `rebase_module_bounds.rs`). Not a module bound: it
+/// counts TERMS, and a floor cannot hold a module out.
+pub const MIN_GLOSSARY_TERMS: i64 = 15;
+
 /// Run the Learn-v2 smoke against `root` (the course-engine directory).
 ///
 /// Reader: writes nothing. `code != 0` is RED. `artifact` is always `None`.
@@ -285,11 +290,11 @@ fn grade_glossary(g: &Json, r: &mut Report) {
     match json_num(g.get("term_count")) {
         Err(msg) => r.fail(format!("glossary.json term_count {msg}")),
         Ok(n) => {
-            // The 15 is a TERM floor, not a module bound. Written as a
-            // comparison so the bd-lt7 NumericBound sweep can hold a
-            // verdict on it (see rebase_module_bounds.rs).
-            if n < 15.0 {
-                r.fail("glossary term_count < 15");
+            // TERM floor, not a module bound. The literal lives on
+            // MIN_GLOSSARY_TERMS so the NamedBound sweep can hold a
+            // verdict on it; the message is derived so the two cannot drift.
+            if n < MIN_GLOSSARY_TERMS as f64 {
+                r.fail(format!("glossary term_count < {MIN_GLOSSARY_TERMS}"));
             } else if n.fract() == 0.0 {
                 r.ok(format!("glossary terms={}", n as i64));
             } else {

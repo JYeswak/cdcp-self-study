@@ -243,13 +243,11 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
          module set derives from domains.toml the check compares the registry \
          against itself",
     ),
-    (
-        "scripts/smoke_feedback_links.py",
-        "`for n in range(1, 15)` report loop. The table happened to be right; the loop",
-        Shape::NumericBound,
-        Verdict::Prose,
-        "docstring recording the removed report-loop bound",
-    ),
+    // RETIRED 2026-08-15 with scripts/smoke_feedback_links.py (EXTRACT-THEN-DELETE
+    // into cdcp_learn::feedback). The docstring that recorded the old
+    // report-loop bound left with the file. The product crate's truncation
+    // ceiling is outside this sweep's window, so no replacement row.
+    //
     // The suite that now ASSERTS the verify_objectives rebase has to name the
     // literal it protects against, so the sweep sees it too. Both rows are
     // header prose in the selftest, not a bound in effect anywhere.
@@ -301,15 +299,14 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
          Not a module bound: it counts TERMS, and a floor cannot hold a module out.",
     ),
     (
-        "crates/cdcp_gate/src/gates/smoke_learn_v2.rs",
+        "crates/cdcp_learn/src/learn_v2.rs",
         "pub const MIN_GLOSSARY_TERMS: i64 = 15;",
         Shape::NamedBound,
         Verdict::NotAModuleBound,
-        "the SAME glossary term-count floor again, now in a third spelling — the \
-         smoke that reads the built glossary. Three copies of one number in \
-         three files is the argument for bd-we5a-style derivation, not for a \
-         fourth inventory row; recorded on bd-inventory-row-smoke-learn-v2-42hk. \
-         Not a module bound: it counts TERMS, and a floor cannot hold a module out.",
+        "the glossary term-count floor in cdcp_learn::learn_v2 (product). \
+         EXTRACT-THEN-DELETE (d037827) landed here; there was never a cdcp_gate \
+         dump to inventory. Not a module bound: it counts TERMS, and it is a \
+         floor, so it cannot hold any module out.",
     ),
     // RETIRED 2026-08-15 with crates/cdcp_gate/src/gates/export_anki.rs
     // (bd-substrate-rust-migration-jhd.13 EXTRACT-THEN-DELETE). The MT19937
@@ -324,22 +321,35 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
          constant is inventoried unnamed as `decpt > 16` in verify_bank.rs \
          below — the pair is what a `NumericBound`-only sweep saw half of.",
     ),
-    // ── live comparisons that are not module bounds ────────────────────────
     (
-        "crates/cdcp_learn/src/learn_v2.rs",
-        "if n < 15.0 {",
+        "crates/cdcp_learn/src/chrome.rs",
+        "pub const MIN_CHECKS: usize = 15;",
+        Shape::NamedBound,
+        Verdict::NotAModuleBound,
+        "chrome smoke check-count floor so an emptied list cannot go green. \
+         Counts CHECKS, not modules, and a floor cannot hold a module out.",
+    ),
+    // ── live comparisons that are not module bounds ────────────────────────
+    // The two NumericBound rows for learn_v2 retired when the floor moved
+    // behind MIN_GLOSSARY_TERMS (bd-inventory-row-smoke-learn-v2-42hk). The
+    // NamedBound row above is the live verdict. Deriving the message from
+    // the constant is not evasion: NumericBound no longer has a literal to
+    // match, which is the point of naming the floor.
+    (
+        "crates/cdcp_anki/src/lib.rs",
+        "let ext_attr: u32 = 0o644 << 16;",
         Shape::NumericBound,
         Verdict::NotAModuleBound,
-        "glossary term-count floor, now in cdcp_learn (product). The Python \
-         oracle was deleted with bd-substrate-rust-migration-jhd.20. \
-         Not a module bound: it counts TERMS, and a floor cannot hold a module out.",
+        "ZIP central-directory external attributes: Unix mode shifted into the \
+         high word. Matched because the shift contains a comparison glyph next \
+         to the bit width. Not a module bound.",
     ),
     (
-        "crates/cdcp_learn/src/learn_v2.rs",
-        "r.fail(\"glossary term_count < 15\");",
+        "crates/cdcp_learn/tests/chrome_smoke.rs",
+        "assert!(MIN_CHECKS >= 15);",
         Shape::NumericBound,
         Verdict::NotAModuleBound,
-        "message text for the term-count floor",
+        "anti-vacuous assertion on the chrome check-count floor. Not a module bound.",
     ),
     (
         "scripts/smoke_srs.mjs",
@@ -348,20 +358,9 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
         Verdict::NotAModuleBound,
         "loop counter over a synthetic SRS queue",
     ),
-    (
-        "scripts/smoke_feedback_links.py",
-        "if len(missing_module) > 15:",
-        Shape::NumericBound,
-        Verdict::NotAModuleBound,
-        "report truncation after 15 failure lines",
-    ),
-    (
-        "scripts/smoke_feedback_links.py",
-        "if len(unmapped_modules) > 15:",
-        Shape::NumericBound,
-        Verdict::NotAModuleBound,
-        "report truncation after 15 failure lines",
-    ),
+    // RETIRED 2026-08-15 with scripts/smoke_feedback_links.py. The two
+    // report-truncation comparisons left with the file. cdcp_learn::feedback
+    // truncates via a ceiling outside this sweep's window.
     (
         "crates/cdcp_gate/src/gates/verify_bank.rs",
         "let body = if decpt <= -4 || decpt > 16 {",
