@@ -675,6 +675,13 @@ run_cdcp_cli verify-data-lock --selftest \
   || fail "data lock flip-selftest did not reach RED"
 ok "data lock selftest (flipped vendored body trips RED)"
 
+# F3: computed site quantities vs published references we do not control.
+# Live GREEN after 4up.5 (full PLNT23 vs official SRCO2RTA). No network.
+# qly.8 --selftest plants stay in the CLI; cargo test still runs them.
+echo "==> cdcp oracle-check (F3 external oracle)"
+run_cdcp_cli oracle-check || fail "oracle-check"
+ok "external oracle (computed vs published refs; no network)"
+
 # S0 substrate floor. Placed next to the L1 registry gate because it is the same
 # kind of thing — a registry constitution over what may exist in the tree — and it
 # fails fast (only serde+toml compile).
