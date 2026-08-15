@@ -102,11 +102,11 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
             match state {
                 State::Installed => {}
                 State::Missing => problems.push(format!(
-                    "{}: NOT INSTALLED (BUILT != WIRED). Run: cargo run -q -p cdcp_gate -- install-hooks",
+                    "{}: NOT INSTALLED (BUILT != WIRED). Run: cargo build -p cdcp_gate --locked then ./target/debug/cdcp_gate install-hooks",
                     target.display()
                 )),
                 State::Drifted => problems.push(format!(
-                    "{}: differs from the committed {src_rel}. Run: cargo run -q -p cdcp_gate -- install-hooks --force",
+                    "{}: differs from the committed {src_rel}. Run: cargo build -p cdcp_gate --locked then ./target/debug/cdcp_gate install-hooks --force",
                     target.display()
                 )),
                 State::NotExecutable => problems.push(format!(
