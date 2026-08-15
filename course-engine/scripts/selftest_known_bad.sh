@@ -13,6 +13,9 @@
 #   f) goldens dir discovering nothing → goldens check fails (vacuous scan)
 #
 # Invoked from scripts/check.sh after the clean goldens path is green.
+# Binary contract (same as check.sh): never cargo run. Prefer
+# $CDCP_BIN_DIR/cdcp if set, else $ROOT/target/debug/cdcp (honour
+# CARGO_TARGET_DIR). Missing binary is RED, not a cargo-run fallback.
 set -eu
 
 ROOT="$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)"
@@ -109,8 +112,21 @@ echo "==> selftest_known_bad (L4 gates-proven-to-trip)"
 [ -f "$GOLDEN_CORRECT" ] || fail "missing $GOLDEN_CORRECT"
 [ -f "$BANK_HASH_PIN" ] || fail "missing $BANK_HASH_PIN"
 [ -d bank/items ] || fail "missing bank/items"
-command -v cargo >/dev/null 2>&1 || fail "cargo required"
 command -v rg >/dev/null 2>&1 || fail "rg required"
+
+# Same binary contract as check.sh: honour CARGO_TARGET_DIR, never cargo run.
+if [ -z "${CDCP_BIN_DIR:-}" ]; then
+  if [ -n "${CARGO_TARGET_DIR:-}" ]; then
+    CDCP_BIN_DIR="${CARGO_TARGET_DIR%/}/debug"
+  else
+    CDCP_BIN_DIR="$ROOT/target/debug"
+  fi
+fi
+CDCP="$CDCP_BIN_DIR/cdcp"
+[ -n "$CDCP_BIN_DIR" ] \
+  || fail "CDCP_BIN_DIR unset — cargo build -p cdcp_cli --locked must run first (no fallback to cargo run)"
+[ -x "$CDCP" ] \
+  || fail "cdcp binary absent at $CDCP — cargo build -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
 
 # ── (a) flipped golden content ──────────────────────────────────────────────
 _GOLDEN_BAK="$(mktemp "${TMPDIR:-/tmp}/golden_correct.XXXXXX")"
@@ -118,7 +134,7 @@ cp "$GOLDEN_CORRECT" "$_GOLDEN_BAK"
 # Flip: replace digest so it cannot match live GradeExact output
 printf '%s\n' "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" >"$GOLDEN_CORRECT"
 assert_nonzero "flipped-golden" \
-  cargo run -q -p cdcp_cli -- goldens check --bank bank/items --dir goldens
+  "$CDCP" goldens check --bank bank/items --dir goldens
 mv -f "$_GOLDEN_BAK" "$GOLDEN_CORRECT"
 _GOLDEN_BAK=""
 ok "restored $GOLDEN_CORRECT"
@@ -127,7 +143,7 @@ ok "restored $GOLDEN_CORRECT"
 empty_bank="$(mktemp -d "${TMPDIR:-/tmp}/empty_bank.XXXXXX")"
 # Bank::load_dir on empty dir must fail (no items / empty bank)
 assert_nonzero "empty-bank" \
-  cargo run -q -p cdcp_cli -- goldens check --bank "$empty_bank" --dir goldens
+  "$CDCP" goldens check --bank "$empty_bank" --dir goldens
 rmdir "$empty_bank" 2>/dev/null || rm -rf "$empty_bank"
 ok "empty bank temp removed"
 
@@ -136,7 +152,7 @@ _BANK_HASH_BAK="$(mktemp "${TMPDIR:-/tmp}/bank_hash.XXXXXX")"
 cp "$BANK_HASH_PIN" "$_BANK_HASH_BAK"
 printf '%s\n' "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef" >"$BANK_HASH_PIN"
 assert_nonzero "bank_hash-drift" \
-  cargo run -q -p cdcp_cli -- goldens check --bank bank/items --dir goldens
+  "$CDCP" goldens check --bank bank/items --dir goldens
 mv -f "$_BANK_HASH_BAK" "$BANK_HASH_PIN"
 _BANK_HASH_BAK=""
 ok "restored $BANK_HASH_PIN"
@@ -165,7 +181,7 @@ _G_ABS="$(mktemp -d "${TMPDIR:-/tmp}/goldens_absent.XXXXXX")"
 cp -R goldens "$_G_ABS/g"
 rm -f "$_G_ABS/g/bank_hash.txt"
 assert_nonzero "bank_hash-absent" \
-  cargo run -q -p cdcp_cli -- goldens check --bank bank/items --dir "$_G_ABS/g"
+  "$CDCP" goldens check --bank bank/items --dir "$_G_ABS/g"
 rm -rf "$_G_ABS"
 ok "absent bank_hash pin is an ERROR, not a skipped comparison"
 
@@ -174,7 +190,7 @@ ok "absent bank_hash pin is an ERROR, not a skipped comparison"
 # zero files used to report exactly like one that compared every pin.
 _G_EMPTY="$(mktemp -d "${TMPDIR:-/tmp}/goldens_empty.XXXXXX")"
 assert_nonzero "goldens-vacuous-scan" \
-  cargo run -q -p cdcp_cli -- goldens check --bank bank/items --dir "$_G_EMPTY"
+  "$CDCP" goldens check --bank bank/items --dir "$_G_EMPTY"
 rmdir "$_G_EMPTY" 2>/dev/null || rm -rf "$_G_EMPTY"
 ok "zero discovered goldens is an ERROR, not a vacuous pass"
 
