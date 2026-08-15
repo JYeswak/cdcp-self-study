@@ -16,11 +16,29 @@
 //! - validity domains **intersect** (never a wider domain than either input);
 //! - `discrepancy_rel` **adds** (first-order conservative);
 //! - `in_domain` is AND (false the moment any constituent was out of domain).
+//!   Once false it stays false: there is no promote / reset API, and an
+//!   empty intersected domain latches false even if both inputs were true.
+//!
+//! Query-time: [`Correlation::query`] / [`ModelCard::query`] /
+//! [`ValidityDomain::check`] return [`Abstention`] when the point is
+//! outside a declared bound. That is a refusal, **not**
+//! `Evidence { in_domain: false }` — a caveat on a computed value.
+//! [`Evidence::combine_queried`] keeps that door: any abstention, or a
+//! composed `in_domain = false`, is a refusal.
+//!
+//! Model cards ([`ModelCard`]) must name their idealizing assumptions
+//! explicitly; an empty list is rejected.
 //!
 //! Composition logic never uses floating-point equality (`==` / `!=` on
 //! `f64`). Bounds are ordered with `<` / `>` / `<=` / `>=` and classified
 //! with `is_nan` / `is_finite`.
 #![forbid(unsafe_code)]
+
+mod card;
+mod query;
+
+pub use card::{CardError, Correlation, ModelCard};
+pub use query::{Abstention, DomainViolation, ViolationKind, DOMAIN_CHECK};
 
 use std::collections::BTreeMap;
 use thiserror::Error;
@@ -288,14 +306,62 @@ impl ValidityDomain {
     /// True when the point satisfies every constraint.
     #[must_use]
     pub fn contains(&self, point: &BTreeMap<String, f64>) -> bool {
-        self.bounds.iter().all(|(k, &(lo, hi))| {
-            lo.is_finite()
-                && hi.is_finite()
-                && lo <= hi
-                && point
-                    .get(k)
-                    .is_some_and(|&v| v.is_finite() && v >= lo && v <= hi)
-        })
+        self.check(point).is_ok()
+    }
+
+    /// Diagnose every violated constraint. `Ok(())` is in-domain.
+    ///
+    /// This is the load-bearing query-time check. Out-of-domain is a
+    /// structured [`Abstention`], never a boolean the caller can ignore
+    /// and still produce a value. Extra keys in `point` are unconstrained.
+    pub fn check(&self, point: &BTreeMap<String, f64>) -> Result<(), Abstention> {
+        let mut violations = Vec::new();
+        for (k, &(lo, hi)) in &self.bounds {
+            if lo.is_nan() || hi.is_nan() {
+                violations.push(DomainViolation {
+                    param: k.clone(),
+                    value: point.get(k).copied(),
+                    bound: Some((lo, hi)),
+                    kind: ViolationKind::Unusable,
+                });
+                continue;
+            }
+            if !lo.is_finite() || !hi.is_finite() || lo > hi {
+                violations.push(DomainViolation {
+                    param: k.clone(),
+                    value: point.get(k).copied(),
+                    bound: Some((lo, hi)),
+                    kind: if lo > hi {
+                        ViolationKind::Empty
+                    } else {
+                        ViolationKind::Unusable
+                    },
+                });
+                continue;
+            }
+            match point.get(k) {
+                None => violations.push(DomainViolation {
+                    param: k.clone(),
+                    value: None,
+                    bound: Some((lo, hi)),
+                    kind: ViolationKind::Missing,
+                }),
+                Some(&v) if !v.is_finite() || v < lo || v > hi => {
+                    violations.push(DomainViolation {
+                        param: k.clone(),
+                        value: Some(v),
+                        bound: Some((lo, hi)),
+                        kind: ViolationKind::OutOfRange,
+                    });
+                }
+                Some(_) => {}
+            }
+        }
+        if violations.is_empty() {
+            Ok(())
+        } else {
+            Err(Abstention::from_violations(violations))
+        }
     }
 
     /// Per-parameter intersection. Composed validity is never wider than
@@ -323,18 +389,18 @@ impl ValidityDomain {
         ValidityDomain { bounds: out }
     }
 
-    /// True when some parameter's interval is empty or unusable.
+    /// True when some parameter's interval is empty or unusable
+    /// (NaN, non-finite, or `lo > hi`).
     #[must_use]
     pub fn is_empty(&self) -> bool {
-        self.bounds
-            .values()
-            .any(|&(lo, hi)| lo.is_nan() || hi.is_nan() || lo > hi)
+        self.bounds.values().any(|&(lo, hi)| bound_unusable(lo, hi))
     }
 
     /// True when `self` is **wider** than `other`: it drops a constraint
     /// `other` holds, or loosens an axis (`lo` strictly lower or `hi`
     /// strictly higher). Unusable (NaN / empty) bounds on `other` do not
-    /// count as constraints.
+    /// count as constraints. An inverted self-interval is not "wider"
+    /// unless it also loosens an endpoint (D1 conservativeness predicate).
     #[must_use]
     pub fn is_wider_than(&self, other: &Self) -> bool {
         for (k, &(olo, ohi)) in &other.bounds {
@@ -355,6 +421,11 @@ impl ValidityDomain {
         }
         false
     }
+}
+
+/// NaN, ±inf, or inverted — the axis cannot admit a point.
+fn bound_unusable(lo: f64, hi: f64) -> bool {
+    !lo.is_finite() || !hi.is_finite() || lo > hi
 }
 
 /// Headline sensitivities `d(qoi)/d(param)`. Merging keeps the larger
@@ -385,7 +456,7 @@ impl SensitivitySummary {
 }
 
 /// Why a model-form certificate could not be constructed.
-#[derive(Debug, Error)]
+#[derive(Debug, Error, PartialEq)]
 pub enum EvidenceError {
     /// `discrepancy_rel` is NaN or negative. `+inf` is the explicit
     /// unbounded claim and is accepted.
@@ -419,7 +490,7 @@ pub struct ModelEvidence {
 
 impl ModelEvidence {
     /// No model-form claims (pure numerics). `discrepancy_rel = 0`,
-    /// `in_domain = true`, unconstrained validity.
+    /// `in_domain` starts yes, unconstrained validity.
     #[must_use]
     pub fn none() -> Self {
         ModelEvidence {
@@ -454,6 +525,9 @@ impl ModelEvidence {
         cards.dedup();
         assumptions.sort_unstable();
         assumptions.dedup();
+        // Latch: an unusable/empty domain cannot claim in_domain.
+        // There is no API that sets the flag true after this.
+        let in_domain = in_domain && !validity.is_empty();
         Ok(ModelEvidence {
             cards,
             assumptions,
@@ -465,8 +539,10 @@ impl ModelEvidence {
 
     /// Conservative composition. Validity intersects; discrepancy adds
     /// (invalid operands become `+inf` so a NaN cannot be laundered into
-    /// a finite band); `in_domain` is AND; cards/assumptions union.
-    /// COMPOSITION LOGIC: no floating-point equality.
+    /// a finite band); `in_domain` is AND (and latches false when the
+    /// intersect is empty); cards/assumptions union.
+    /// COMPOSITION LOGIC: no floating-point equality. There is no
+    /// `set_in_domain` / `reset_in_domain` / `promote`.
     #[must_use]
     pub fn combine(a: &Self, b: &Self) -> Self {
         let mut cards = [a.cards.clone(), b.cards.clone()].concat();
@@ -482,12 +558,13 @@ impl ModelEvidence {
         } else {
             f64::INFINITY
         };
+        let validity = a.validity.intersect(&b.validity);
         ModelEvidence {
             cards,
             assumptions,
-            validity: a.validity.intersect(&b.validity),
             discrepancy_rel,
-            in_domain: a.in_domain && b.in_domain,
+            in_domain: a.in_domain && b.in_domain && !validity.is_empty(),
+            validity,
         }
     }
 }
@@ -561,6 +638,10 @@ impl<T> Evidence<T> {
     /// Certificates merge by the module-level laws (hull+outward,
     /// intersect, add). The carried `value` is supplied by the caller —
     /// combine does not invent a QoI from the operands.
+    ///
+    /// `in_domain` ANDs: false on either input stays false. This path
+    /// still produces a value (D1 certificate hull). Query-time
+    /// composition that must refuse is [`Evidence::combine_queried`].
     #[must_use]
     pub fn combine<U, V>(a: &Evidence<T>, b: &Evidence<U>, value: V) -> Evidence<V> {
         Evidence {
@@ -572,11 +653,43 @@ impl<T> Evidence<T> {
             sensitivity: SensitivitySummary::combine(&a.sensitivity, &b.sensitivity),
         }
     }
+
+    /// Query-time composition. Any [`Abstention`] wins. Two values whose
+    /// composed `in_domain` latches false also abstain — a caveat is not
+    /// promoted into a number.
+    pub fn combine_queried<U, V>(
+        a: Result<Evidence<T>, Abstention>,
+        b: Result<Evidence<U>, Abstention>,
+        value: V,
+    ) -> Result<Evidence<V>, Abstention> {
+        match (a, b) {
+            (Ok(a), Ok(b)) => {
+                let c = Evidence::combine(&a, &b, value);
+                if c.model.in_domain {
+                    Ok(c)
+                } else {
+                    Err(Abstention::propagated())
+                }
+            }
+            (Err(x), Err(y)) => Err(x.merge(y)),
+            (Err(x), Ok(_)) | (Ok(_), Err(x)) => Err(x),
+        }
+    }
 }
 
 #[cfg(test)]
 mod unit {
     use super::*;
+
+    fn production_src() -> String {
+        // Production only — the test module below may mention the banned
+        // spellings as needles. Split on the test cfg, not a grep of self.
+        let lib = include_str!("lib.rs")
+            .split("#[cfg(test)]")
+            .next()
+            .expect("production source precedes tests");
+        [lib, include_str!("card.rs"), include_str!("query.rs")].concat()
+    }
 
     #[test]
     fn crate_forbids_unsafe() {
@@ -585,17 +698,15 @@ mod unit {
             src.contains("#![forbid(unsafe_code)]"),
             "the crate root must forbid unsafe_code"
         );
+        assert!(
+            !production_src().contains("unsafe "),
+            "no unsafe token in production sources"
+        );
     }
 
     #[test]
     fn composition_logic_has_no_float_equality() {
-        // Production only — the test module below may mention the banned
-        // spellings as needles. Split on the test cfg, not a grep of self.
-        let src = include_str!("lib.rs");
-        let prod = src
-            .split("#[cfg(test)]")
-            .next()
-            .expect("production source precedes tests");
+        let prod = production_src();
         let banned = [
             [".lo", " =="].concat(),
             [".hi", " =="].concat(),
@@ -760,5 +871,92 @@ mod unit {
         let c = ModelEvidence::combine(&a, &b);
         assert!(!c.in_domain);
         assert!(ModelEvidence::combine(&b, &b).in_domain);
+    }
+
+    #[test]
+    fn reversed_finite_endpoints_normalize() {
+        let d = ValidityDomain::unconstrained().with("Re", 1e5, 1e4);
+        let (lo, hi) = d.bound("Re").expect("Re");
+        assert!(lo <= hi, "reversed endpoints must normalize: [{lo}, {hi}]");
+        assert!(lo >= 1e4 && hi <= 1e5);
+        let mut mid = BTreeMap::new();
+        mid.insert("Re".into(), 5e4);
+        assert!(d.contains(&mid));
+    }
+
+    #[test]
+    fn nan_endpoint_is_preserved_as_unusable() {
+        let d = ValidityDomain::unconstrained().with("Re", f64::NAN, 1e5);
+        let (lo, hi) = d.bound("Re").expect("Re");
+        assert!(
+            lo.is_nan() && hi.is_nan(),
+            "NaN must not be dropped: [{lo}, {hi}]"
+        );
+        assert!(d.is_empty());
+        let mut mid = BTreeMap::new();
+        mid.insert("Re".into(), 5e4);
+        let err = d.check(&mid).expect_err("unusable domain must abstain");
+        assert!(
+            err.violations
+                .iter()
+                .any(|v| v.param == "Re" && v.kind == ViolationKind::Unusable),
+            "{err:?}"
+        );
+        assert!(!d.contains(&mid));
+    }
+
+    #[test]
+    fn try_new_cannot_claim_in_domain_over_empty_validity() {
+        let empty = ValidityDomain::unconstrained()
+            .with("Re", 1.0, 2.0)
+            .intersect(&ValidityDomain::unconstrained().with("Re", 3.0, 4.0));
+        assert!(empty.is_empty());
+        let ev = ModelEvidence::try_new(vec![], vec![], empty, 0.0, true)
+            .expect("zero discrepancy is valid");
+        assert!(
+            !ev.in_domain,
+            "try_new must latch false over an empty domain, not honor the requested true"
+        );
+    }
+
+    #[test]
+    fn disjoint_in_domain_inputs_latch_false() {
+        let a = ModelEvidence::try_new(
+            vec!["a".into()],
+            vec!["assume-a".into()],
+            ValidityDomain::unconstrained().with("Re", 1e4, 1e5),
+            0.0,
+            true,
+        )
+        .unwrap();
+        let b = ModelEvidence::try_new(
+            vec!["b".into()],
+            vec!["assume-b".into()],
+            ValidityDomain::unconstrained().with("Re", 2e5, 3e5),
+            0.0,
+            true,
+        )
+        .unwrap();
+        let c = ModelEvidence::combine(&a, &b);
+        assert!(c.validity.is_empty());
+        assert!(
+            !c.in_domain,
+            "intersecting disjoint in-domain boxes must not stay in_domain"
+        );
+    }
+
+    #[test]
+    fn no_api_assigns_in_domain_true() {
+        let prod = production_src();
+        assert!(
+            !prod.contains("in_domain = true"),
+            "no assignment may reset in_domain to true"
+        );
+        assert!(
+            !prod.contains("fn set_in_domain")
+                && !prod.contains("fn reset_in_domain")
+                && !prod.contains("fn promote_in_domain"),
+            "no promote/reset API for in_domain"
+        );
     }
 }

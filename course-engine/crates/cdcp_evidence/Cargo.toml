@@ -3,7 +3,7 @@ name = "cdcp_evidence"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "Evidence<T>: certificates that travel inside values (conservative composition)"
+description = "Evidence<T> + query-time ValidityDomain abstention"
 publish = false
 
 [dependencies]
