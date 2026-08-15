@@ -124,6 +124,11 @@ fn live_export_is_779_approved_and_ships_no_retired() {
     assert!(o
         .stdout
         .contains(&format!("cards={EXPECTED_APPROVED_LIVE}")));
+    assert!(
+        o.stdout.contains("unresolvable=0"),
+        "green path must print the count: {}",
+        o.stdout
+    );
 
     let apkg_path = td.path().join("dist/anki/cdcp_bank.apkg");
     let apkg = fs::read(&apkg_path).expect("wrote apkg");
@@ -158,6 +163,11 @@ fn check_plants_clock_leak_then_asserts_live_identity() {
         "{}",
         o.stdout
     );
+    assert!(
+        o.stdout.contains("unresolvable=0"),
+        "green --check must print the count: {}",
+        o.stdout
+    );
     assert!(o.files.is_empty(), "--check must not write --out");
 }
 
@@ -172,4 +182,125 @@ fn default_clock_is_the_pinned_epoch_without_source_date() {
         }
         _ => assert_eq!(deck_clock().unwrap(), PINNED_EPOCH),
     }
+}
+
+/// Was `an_answer_letter_outside_the_choice_list_falls_through_to_the_letter`
+/// in the retired `diff_export_anki.rs`. That case PINNED exit 0 and a bare
+/// `'D'`/`'E'` Back. urz3 inverts it: the export is RED and names the id.
+#[test]
+fn an_answer_letter_outside_the_choice_list_is_red_and_names_the_id() {
+    let td = tempfile::tempdir().unwrap();
+    fs::create_dir_all(td.path().join(ITEMS_DIR_REL)).unwrap();
+    fs::write(
+        td.path().join(ITEMS_DIR_REL).join("q01.toml"),
+        "id = \"q01\"\nmodule = 1\nstem = \"s\"\nchoices = [\"only\"]\ncorrect = \"D\"\nexplanation = \"e\"\n",
+    )
+    .unwrap();
+    let mut req = Request::default_for(td.path());
+    req.format = "tsv".into();
+    req.out = td.path().join("dist/anki");
+    let o = run(&req);
+    assert_eq!(o.code, 1, "known-bad must be RED: {}", o.stderr);
+    assert!(
+        o.stderr.contains("unresolvable"),
+        "named failure, not a silent pass: {}",
+        o.stderr
+    );
+    assert!(
+        o.stderr.contains("q01"),
+        "must name the item id: {}",
+        o.stderr
+    );
+    assert!(o.files.is_empty(), "RED must carry no files: {:?}", o.files);
+    assert!(
+        !td.path().join("dist/anki/cdcp_bank.tsv").exists(),
+        "must not write the TSV"
+    );
+}
+
+#[test]
+fn every_card_unresolvable_is_error() {
+    let td = tempfile::tempdir().unwrap();
+    fs::create_dir_all(td.path().join(ITEMS_DIR_REL)).unwrap();
+    fs::write(
+        td.path().join(ITEMS_DIR_REL).join("q01.toml"),
+        "id = \"q01\"\nmodule = 1\nstem = \"s\"\nchoices = [\"only\"]\ncorrect = \"D\"\nexplanation = \"e\"\n",
+    )
+    .unwrap();
+    fs::write(
+        td.path().join(ITEMS_DIR_REL).join("q02.toml"),
+        "id = \"q02\"\nmodule = 1\nstem = \"s\"\nchoices = [\"only\"]\ncorrect = \"E\"\nexplanation = \"e\"\n",
+    )
+    .unwrap();
+    let mut req = Request::default_for(td.path());
+    req.format = "tsv".into();
+    req.out = td.path().join("dist/anki");
+    let o = run(&req);
+    assert_eq!(o.code, 1, "{}", o.stderr);
+    assert!(
+        o.stderr.contains("every card unresolvable"),
+        "anti-vacuous: all-bad must be a named ERROR, not a skip: {}",
+        o.stderr
+    );
+    assert!(o.stderr.contains("q01"), "{}", o.stderr);
+    assert!(o.stderr.contains("q02"), "{}", o.stderr);
+    assert!(o.files.is_empty());
+    assert!(!td.path().join("dist/anki/cdcp_bank.tsv").exists());
+}
+
+#[test]
+fn mixed_pool_with_one_unresolvable_writes_nothing() {
+    let td = tempfile::tempdir().unwrap();
+    fs::create_dir_all(td.path().join(ITEMS_DIR_REL)).unwrap();
+    fs::write(
+        td.path().join(ITEMS_DIR_REL).join("good.toml"),
+        "id = \"good\"\nmodule = 1\nstem = \"s\"\nchoices = [\"alpha\"]\ncorrect = \"A\"\nexplanation = \"e\"\n",
+    )
+    .unwrap();
+    fs::write(
+        td.path().join(ITEMS_DIR_REL).join("q01.toml"),
+        "id = \"q01\"\nmodule = 1\nstem = \"s\"\nchoices = [\"only\"]\ncorrect = \"D\"\nexplanation = \"e\"\n",
+    )
+    .unwrap();
+    let mut req = Request::default_for(td.path());
+    req.format = "tsv".into();
+    req.out = td.path().join("dist/anki");
+    let o = run(&req);
+    assert_eq!(o.code, 1, "{}", o.stderr);
+    assert!(o.stderr.contains("q01"), "{}", o.stderr);
+    assert!(
+        !o.stderr.contains("every card unresolvable"),
+        "mixed pool is not the all-bad case: {}",
+        o.stderr
+    );
+    assert!(o.files.is_empty());
+    assert!(
+        !td.path().join("dist/anki/cdcp_bank.tsv").exists(),
+        "must not ship the good card while a bad one sits in the pool"
+    );
+}
+
+#[test]
+fn planted_green_export_prints_unresolvable_zero() {
+    let td = tempfile::tempdir().unwrap();
+    fs::create_dir_all(td.path().join(ITEMS_DIR_REL)).unwrap();
+    fs::write(
+        td.path().join(ITEMS_DIR_REL).join("good.toml"),
+        "id = \"good\"\nmodule = 1\nstem = \"s\"\nchoices = [\"alpha\"]\ncorrect = \"A\"\nexplanation = \"e\"\n",
+    )
+    .unwrap();
+    let mut req = Request::default_for(td.path());
+    req.format = "tsv".into();
+    req.out = td.path().join("dist/anki");
+    let o = run(&req);
+    assert_eq!(o.code, 0, "{}", o.stderr);
+    assert!(
+        o.stdout.contains("unresolvable=0"),
+        "green path must print the count: {}",
+        o.stdout
+    );
+    assert!(td.path().join("dist/anki/cdcp_bank.tsv").exists());
+    let tsv = fs::read_to_string(td.path().join("dist/anki/cdcp_bank.tsv")).unwrap();
+    assert!(tsv.contains("A) alpha"), "{tsv}");
+    assert!(!tsv.contains("\tD\t"), "{tsv}");
 }

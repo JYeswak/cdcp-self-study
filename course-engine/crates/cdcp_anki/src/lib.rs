@@ -8,6 +8,10 @@
 //!
 //! * bank / seed42 export **approved-only** (retired + draft never ship)
 //! * empty bank / empty approved pool / empty filter is an ERROR
+//! * a card whose `correct` letter does not resolve against `choices` is
+//!   an ERROR (named, with ids). The count is printed on the green path too.
+//!   Every-card-unresolvable is an ERROR (anti-vacuous: cannot skip them
+//!   and ship an empty-looking pass).
 //! * collection timestamps and every zip entry mtime come from
 //!   `SOURCE_DATE_EPOCH` or [`PINNED_EPOCH`] — never wall clock, never a temp
 //!   file's mtime
@@ -258,22 +262,66 @@ fn is_drawable(card: &Card) -> bool {
     s != "retired" && s != "draft"
 }
 
-fn format_answer(card: &Card) -> String {
+/// Resolve `correct` against `choices`. `None` means the Back would be a
+/// bare letter or `'?'` — a card a learner cannot use.
+///
+/// Letters outside A–D, a letter past the end of `choices`, a multi-character
+/// key, or an empty key are all unresolvable. This is the admissibility
+/// check [`evaluate`] runs; the writer must never ship `None`.
+fn resolved_answer(card: &Card) -> Option<String> {
     let correct = card.correct.trim().to_ascii_uppercase();
-    if correct.len() == 1 {
-        let idx = (correct.as_bytes()[0] as i32) - (b'A' as i32);
-        if (0..4).contains(&idx) {
-            let i = idx as usize;
-            if i < card.choices.len() {
-                return format!("{correct}) {}", card.choices[i]);
-            }
+    if correct.len() != 1 {
+        return None;
+    }
+    let idx = (correct.as_bytes()[0] as i32) - (b'A' as i32);
+    if !(0..4).contains(&idx) {
+        return None;
+    }
+    let i = idx as usize;
+    if i >= card.choices.len() {
+        return None;
+    }
+    Some(format!("{correct}) {}", card.choices[i]))
+}
+
+fn format_answer(card: &Card) -> String {
+    resolved_answer(card).unwrap_or_else(|| {
+        let correct = card.correct.trim().to_ascii_uppercase();
+        if correct.is_empty() {
+            "?".into()
+        } else {
+            correct
         }
-    }
-    if correct.is_empty() {
-        "?".into()
+    })
+}
+
+fn unresolvable_ids(items: &[Card]) -> Vec<String> {
+    items
+        .iter()
+        .filter(|c| resolved_answer(c).is_none())
+        .map(|c| {
+            let id = c.id.trim();
+            if id.is_empty() {
+                "<missing-id>".into()
+            } else {
+                id.to_string()
+            }
+        })
+        .collect()
+}
+
+fn fail_unresolvable(ids: &[String], n_cards: usize, scanned: usize, stderr_pre: &str) -> Outcome {
+    let n = ids.len();
+    let named = ids.join(", ");
+    let head = if n > 0 && n == n_cards {
+        format!("FAIL: {n} unresolvable answer(s) (every card unresolvable): {named}")
     } else {
-        correct
-    }
+        format!("FAIL: {n} unresolvable answer(s): {named}")
+    };
+    let mut o = Outcome::fail(&head);
+    o.stderr = format!("{stderr_pre}{}", o.stderr);
+    o.scanned = scanned;
+    o
 }
 
 fn card_fields(card: &Card) -> [String; 4] {
@@ -1421,7 +1469,10 @@ fn run_repro_check(items: &[Card], deck_name: &str) -> Outcome {
     stdout.push_str(&format!(
         "export_anki check: col.crt={crt} col.mod={mod_} zip_date_time={date_time:?}\n"
     ));
-    stdout.push_str(&format!("export_anki check: ok cards={}\n", items.len()));
+    stdout.push_str(&format!(
+        "export_anki check: ok cards={} unresolvable=0\n",
+        items.len()
+    ));
     Outcome {
         code: 0,
         stdout,
@@ -1515,6 +1566,11 @@ pub fn evaluate(req: &Request) -> Outcome {
         return o;
     }
 
+    let bad = unresolvable_ids(&items);
+    if !bad.is_empty() {
+        return fail_unresolvable(&bad, items.len(), scanned, &stderr_pre);
+    }
+
     if req.check {
         let mut o = run_repro_check(&items, &req.deck_name);
         o.scanned = scanned;
@@ -1584,6 +1640,7 @@ pub fn evaluate(req: &Request) -> Outcome {
     let mut stdout = String::new();
     stdout.push_str("export_anki ok\n");
     stdout.push_str(&format!("  cards={}\n", items.len()));
+    stdout.push_str("  unresolvable=0\n");
     stdout.push_str(&format!("  {scanned} scanned, {} exported\n", items.len()));
     stdout.push_str(&format!("  source={}\n", req.source.as_str()));
     for w in &written {
@@ -1739,6 +1796,36 @@ mod unit {
             tags: Vec::new(),
             topic_ids: Vec::new(),
         };
+        assert_eq!(resolved_answer(&c).as_deref(), Some("B) two"));
         assert_eq!(format_answer(&c), "B) two");
+    }
+
+    #[test]
+    fn out_of_range_letter_is_unresolvable() {
+        // choices=['only'] correct='D' — the planted known-bad for urz3.
+        let c = Card {
+            id: "q01".into(),
+            stem: "s".into(),
+            choices: vec!["only".into()],
+            correct: "D".into(),
+            explanation: "e".into(),
+            module: "1".into(),
+            status: String::new(),
+            tags: Vec::new(),
+            topic_ids: Vec::new(),
+        };
+        assert_eq!(resolved_answer(&c), None);
+        let e = Card {
+            id: "q02".into(),
+            stem: "s".into(),
+            choices: vec!["only".into()],
+            correct: "E".into(),
+            explanation: "e".into(),
+            module: "1".into(),
+            status: String::new(),
+            tags: Vec::new(),
+            topic_ids: Vec::new(),
+        };
+        assert_eq!(resolved_answer(&e), None);
     }
 }
