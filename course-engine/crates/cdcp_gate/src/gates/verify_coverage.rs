@@ -125,6 +125,10 @@ pub const SUMMARY: &str =
     "L6 domain coverage: every module the domain registry declares meets its item floor";
 
 /// Engine-root-relative defaults, matching the Python module constants.
+///
+/// `DEFAULT_POLICY` is the live-tree location. It is NOT applied when
+/// `--policy` is omitted (bd-conu): omitted `--policy` resolves to
+/// `bank_policy.toml` beside the domains file this run actually loaded.
 pub const DEFAULT_BANK: &str = "bank/items";
 pub const DEFAULT_POLICY: &str = "knowledge/bank_policy.toml";
 pub const DEFAULT_DOMAINS: &str = "knowledge/domains.toml";
@@ -519,6 +523,26 @@ fn resolve_arg(root: &str, given: Option<&str>, default_rel: &str) -> String {
 /// `Path.name` — the last component, or `""` for a root.
 fn path_name(p: &str) -> String {
     p.rsplit('/').next().unwrap_or("").to_string()
+}
+
+/// `Path.parent` after the same normalisation `PurePosixPath` applies.
+/// `/a/b/c` → `/a/b`; `/a` → `/`; `c` → `.`; `/` and `//` stay themselves.
+fn posix_parent(p: &str) -> String {
+    let n = norm_posix(p);
+    if n == "/" || n == "//" {
+        return n;
+    }
+    match n.rsplit_once('/') {
+        Some(("", _)) => "/".to_string(),
+        Some((parent, _)) => parent.to_string(),
+        None => ".".to_string(),
+    }
+}
+
+/// Omitted `--policy` (bd-conu): the policy file beside the domains registry,
+/// never `DEFAULT_POLICY` joined to the engine root.
+fn policy_beside_domains(domains_disp: &str) -> String {
+    join_posix(&posix_parent(domains_disp), &path_name(DEFAULT_POLICY))
 }
 
 /// `Path.relative_to`, which is purely lexical. `Err(())` is CPython's
@@ -977,8 +1001,11 @@ pub fn evaluate(root_str: &str, args: &Args) -> Outcome {
 
 fn report(out: &mut String, root_str: &str, args: &Args) -> H<i32> {
     let bank_disp = resolve_arg(root_str, args.bank.as_deref(), DEFAULT_BANK);
-    let policy_disp = resolve_arg(root_str, args.policy.as_deref(), DEFAULT_POLICY);
     let domains_disp = resolve_arg(root_str, args.domains.as_deref(), DEFAULT_DOMAINS);
+    let policy_disp = match args.policy.as_deref() {
+        Some(v) => resolve_arg(root_str, Some(v), DEFAULT_POLICY),
+        None => policy_beside_domains(&domains_disp),
+    };
 
     let mut errors: Vec<String> = Vec::new();
 
@@ -1353,6 +1380,18 @@ mod tests {
         assert_eq!(join_posix("/root", "bank/items"), "/root/bank/items");
         assert_eq!(join_posix("/root", "/abs"), "/abs");
         assert_eq!(path_name("/a/b/domains.toml"), "domains.toml");
+        assert_eq!(posix_parent("/a/b/domains.toml"), "/a/b");
+        assert_eq!(posix_parent("/a"), "/");
+        assert_eq!(posix_parent("domains.toml"), ".");
+        assert_eq!(posix_parent("/"), "/");
+        assert_eq!(
+            policy_beside_domains("/tmp/fix/d.toml"),
+            "/tmp/fix/bank_policy.toml"
+        );
+        assert_eq!(
+            policy_beside_domains("/eng/knowledge/domains.toml"),
+            "/eng/knowledge/bank_policy.toml"
+        );
     }
 
     #[test]
@@ -1430,5 +1469,48 @@ mod tests {
     fn the_gate_is_registered_under_a_kebab_case_name() {
         assert_eq!(NAME, "verify-coverage");
         assert!(crate::registry::find(NAME).is_some());
+    }
+
+    /// Known-bad for bd-conu: a policy planted at the engine root must not be
+    /// read when `--bank`/`--domains` are an isolated fixture and `--policy`
+    /// was never passed. Restoring `resolve_arg(..., DEFAULT_POLICY)` makes
+    /// this RED (module 9 drift).
+    #[test]
+    fn omitted_policy_does_not_read_a_policy_at_the_engine_root() {
+        let td = tempfile::tempdir().unwrap();
+        let live = td.path().join("engine");
+        std::fs::create_dir_all(live.join("knowledge")).unwrap();
+        std::fs::write(
+            live.join("knowledge/bank_policy.toml"),
+            "[[domain_min]]\nmodule = 9\nmin_items = 99\n",
+        )
+        .unwrap();
+        let fx = td.path().join("fx");
+        std::fs::create_dir_all(fx.join("bank")).unwrap();
+        std::fs::write(
+            fx.join("d.toml"),
+            "schema_version = 1\n\n[[domain]]\nid = \"d\"\norder = 1\n",
+        )
+        .unwrap();
+        std::fs::write(fx.join("bank/a.toml"), "id = \"a\"\nmodule = 1\n").unwrap();
+        let args = Args {
+            bank: Some(fx.join("bank").to_string_lossy().into_owned()),
+            domains: Some(fx.join("d.toml").to_string_lossy().into_owned()),
+            policy: None,
+            write_json: None,
+        };
+        let out = evaluate(&live.to_string_lossy(), &args);
+        assert_eq!(out.code, 0, "{}", out.stdout);
+        assert!(
+            out.stdout.contains("policy=absent (N=1 OQ-05)"),
+            "{}",
+            out.stdout
+        );
+        assert!(
+            !out.stdout.contains("module 9"),
+            "engine-root policy leaked:\n{}",
+            out.stdout
+        );
+        assert!(!out.stdout.contains("[[domain_min]]"), "{}", out.stdout);
     }
 }

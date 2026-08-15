@@ -47,6 +47,11 @@ Exit 0 with per-module counts; non-zero if the bank is empty, the registry is
 empty, an exemption is malformed, or any required module is below N.
 
 Optional: --write-json PATH writes a machine-readable summary (e.g. web/data/coverage.json).
+
+Omitted --policy means "bank_policy.toml beside the domains file this run
+loaded", never the shipped knowledge/bank_policy.toml. A live-tree invocation
+(no --domains, or --domains knowledge/domains.toml) still lands on the live
+policy. An isolated --bank/--domains fixture does not (bd-conu).
 """
 from __future__ import annotations
 
@@ -65,6 +70,11 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BANK = ROOT / "bank" / "items"
 DEFAULT_POLICY = ROOT / "knowledge" / "bank_policy.toml"
 DEFAULT_DOMAINS = ROOT / "knowledge" / "domains.toml"
+# DEFAULT_POLICY is the LIVE-TREE location. It is NOT the argparse default
+# (bd-conu): omitted --policy resolves to bank_policy.toml beside the domains
+# file that this run actually loaded. A fixture that passed isolated
+# --bank/--domains used to pick up the shipped [[domain_min]] rows and go
+# RED (or GREEN) for a reason it did not inject.
 
 DEFAULT_N = 1  # OQ-05 ASSUMED
 
@@ -266,8 +276,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument(
         "--policy",
         type=Path,
-        default=DEFAULT_POLICY,
-        help=f"bank_policy.toml path (default: {DEFAULT_POLICY})",
+        default=None,
+        help=(
+            "bank_policy.toml path (default: bank_policy.toml beside the "
+            "domains registry; omitted never falls back to the shipped tree)"
+        ),
     )
     ap.add_argument(
         "--domains",
@@ -286,12 +299,17 @@ def main(argv: list[str] | None = None) -> int:
     bank_dir = args.bank
     if not bank_dir.is_absolute():
         bank_dir = (ROOT / bank_dir).resolve()
-    policy_path = args.policy
-    if not policy_path.is_absolute():
-        policy_path = (ROOT / policy_path).resolve()
     domains_path = args.domains
     if not domains_path.is_absolute():
         domains_path = (ROOT / domains_path).resolve()
+    # Same root as the domains this run loaded. Never ROOT/knowledge/ unless
+    # that is where --domains (or its default) actually points.
+    if args.policy is None:
+        policy_path = domains_path.parent / DEFAULT_POLICY.name
+    else:
+        policy_path = args.policy
+        if not policy_path.is_absolute():
+            policy_path = (ROOT / policy_path).resolve()
 
     errors: list[str] = []
 

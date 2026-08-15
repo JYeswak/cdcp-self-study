@@ -25,6 +25,10 @@
 //!   h) emission ORDER: required modules, then recorded exemptions, then
 //!      undeclared extras, then the failure list, each numerically ascending
 //!   i) `--write-json`, whose summary bytes are compared as well as its stdout
+//!   o) omitted `--policy` on an isolated `--bank`/`--domains` fixture does
+//!      NOT read the shipped `knowledge/bank_policy.toml` (bd-conu). The
+//!      leak named live modules 3–15; the detector is a one-module fixture
+//!      that the leak turns RED and the fix leaves GREEN.
 //!
 //! ANTI-VACUOUS DISCIPLINE. A differential that silently compares nothing passes
 //! exactly like one that compared everything, so: a missing `python3` is a
@@ -336,6 +340,139 @@ fn the_shell_selftest_cases_are_byte_identical() {
     assert!(
         !root.join("bank/items/planted-m01.toml").exists(),
         "specimen leaked into the live bank"
+    );
+}
+
+// ── (o) bd-conu: omitted --policy must not read the shipped policy ─────────
+//
+// THE LEAK: argparse defaulted --policy to the live knowledge/bank_policy.toml.
+// A fixture that passed isolated --bank/--domains and no --policy therefore
+// graded the shipped [[domain_min]] rows. Measured 2026-08-14: policy=present
+// and 14 findings `[[domain_min]] module N is not a required module` for
+// N=2..15, none of which the fixture declared.
+//
+// Needles here name the LEAK, not the report dialect: they must hold whether
+// the floor line says "items" or "approved".
+
+#[test]
+fn omitted_policy_does_not_grade_the_live_bank_policy() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let bank = td.path().join("bank");
+    let planted = plant_bank(&bank, &[("only", 1)]);
+    assert!(planted > 0, "a vacuous fixture bank is an ERROR");
+    let bank_s = bank.to_str().unwrap();
+
+    // Isolated one-module registry, no --policy. Must be GREEN and silent
+    // about every module the fixture never declared.
+    let one = td.path().join("one.toml");
+    write(&one, &domains_registry(&[1]));
+    let one_s = one.to_str().unwrap();
+    let rs = assert_byte_identical(
+        "bd-conu isolated no-policy is green",
+        &root,
+        &["--bank", bank_s, "--domains", one_s],
+    );
+    assert_eq!(
+        rs.code,
+        0,
+        "an isolated one-module fixture went RED — the live policy leaked:\n{}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("policy=absent (N=1 OQ-05)"),
+        "omitted --policy must mean no policy, not the shipped file:\n{}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("[[domain_min]]"),
+        "live domain_min rows leaked into an isolated fixture:\n{}",
+        rs.out()
+    );
+    for n in 2..=15 {
+        assert!(
+            !rs.out()
+                .contains(&format!("module {n} is not a required module")),
+            "live policy named module {n} the fixture never declared:\n{}",
+            rs.out()
+        );
+    }
+
+    // Known-bad: two declared modules, only module 1 stocked, still no --policy.
+    // RED, and the findings name ONLY the fixture's modules.
+    let two = td.path().join("two.toml");
+    write(&two, &domains_registry(&[1, 2]));
+    let two_s = two.to_str().unwrap();
+    let rs = assert_byte_identical(
+        "bd-conu isolated no-policy names only fixture modules",
+        &root,
+        &["--bank", bank_s, "--domains", two_s],
+    );
+    assert_ne!(rs.code, 0, "the planted shortfall passed:\n{}", rs.out());
+    assert!(
+        rs.out().contains("module 2:"),
+        "the planted shortfall must be named: {}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("[[domain_min]]"),
+        "live floors leaked onto a known-bad:\n{}",
+        rs.out()
+    );
+    for n in 3..=15 {
+        assert!(
+            !rs.out().contains(&format!("module {n}")),
+            "finding mentioned module {n} the fixture never declared:\n{}",
+            rs.out()
+        );
+    }
+
+    // Anti-vacuous: empty bank + isolated registry + no --policy is still ERROR.
+    let empty = td.path().join("empty");
+    std::fs::create_dir_all(&empty).unwrap();
+    let rs = assert_byte_identical(
+        "bd-conu isolated empty bank is still an error",
+        &root,
+        &["--bank", empty.to_str().unwrap(), "--domains", one_s],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out().contains("empty bank"),
+        "the empty-bank needle vanished: {}",
+        rs.out()
+    );
+    assert!(
+        !rs.out().contains("[[domain_min]]"),
+        "live policy leaked onto the empty-bank path:\n{}",
+        rs.out()
+    );
+
+    // Same-root: a policy sitting BESIDE the fixture domains IS used. This is
+    // the other half of the AC — we did not "ignore policy whenever omitted".
+    write(
+        &td.path().join("bank_policy.toml"),
+        "[[domain_min]]\nmodule = 1\nmin_items = 5\n",
+    );
+    let rs = assert_byte_identical(
+        "bd-conu sibling policy is the fixture's",
+        &root,
+        &["--bank", bank_s, "--domains", one_s],
+    );
+    assert_ne!(
+        rs.code,
+        0,
+        "the fixture sibling policy was ignored:\n{}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("min 5"),
+        "the fixture sibling policy must raise the floor:\n{}",
+        rs.out()
+    );
+    assert!(
+        rs.out().contains("policy=present"),
+        "a sibling policy file must count as present:\n{}",
+        rs.out()
     );
 }
 
