@@ -247,11 +247,22 @@ Two facts fall out, and both matter more than the anomaly did.
 edit.** Read `item_ids` out of the parsed JSON and compare the lists; the diff line count answers a
 different question.
 
-## PRNG (C4 interaction)
+## PRNG (C4) — named ChaCha12, 2026-08-14
 
-The fixture is frozen under `cdcp_assemble`'s current `StdRng` (ChaCha12), which is **not
-portable** across `rand` versions. When C4 lands a portable, named PRNG, the sampler's seed-42
-output changes and `golden_fixture_is_the_rust_sampler_output` goes RED. That is the intended
-behaviour: C4 re-freezes this fixture **once**, deliberately, under the portable PRNG, using the
-regeneration block above. Before this bead that re-freeze would have been invisible, because
-`export-web` never called the sampler at seed 42 at all.
+| | v1 (pre-C4) | v2 (C4) |
+|---|---|---|
+| Generator | `rand::rngs::StdRng` as of rand **0.8.7** | `rand_chacha::ChaCha12Rng` |
+| Crate pin | workspace caret `rand = "0.8"` | `rand = "=0.8.7"` + `rand_chacha = "=0.3.1"` |
+| Seed | `SeedableRng::seed_from_u64` | same seeder |
+| seed-42 first 8 `u64`s | `crates/cdcp_assemble` `SEED42_FIRST_8_U64` | **identical** (measured) |
+| fixture `item_ids` | then-current bank | **did not move** |
+
+v1 happened to be ChaCha12. v2 names ChaCha12 and pins the crate that owns the
+stream, so a `rand` minor bump cannot quietly change `StdRng` under the goldens.
+The known-bad is swapping the algorithm (ChaCha20 at the same seed differs on
+the first `u64`). The v1==v2 receipt is
+`crates/cdcp_assemble/tests/prng_c4_migration.rs`.
+
+**No four-command re-freeze was required for C4.** A future algorithm change
+would move `item_ids` and then this fixture is re-frozen once, through the
+block above, with a new row here.

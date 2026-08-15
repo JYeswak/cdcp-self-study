@@ -51,7 +51,12 @@ nobody could mechanically falsify.
 - **B4 step-count receipt** (`bd-1sd.13`) — the third number in README's gate sentence is still
   hand-maintained while the other two are enforced.
 
-Each ships with a known-bad injection and a meta-test (delete the assertion → selftest RED).
+Each ships with a known-bad injection and a meta-test PAIR. The wording that stood here —
+"delete the assertion → selftest RED" — was retired in `.flywheel/CHARTER.md` on 2026-08-14 as
+incoherent: deleting an assertion WEAKENS a test, it cannot make it fail. The pair is
+(1) mutate the gate → suite non-zero; (2) mutation still in place, delete the assertion → suite
+back to zero; (3) restore by **writing bytes, never a rename**, then force a build and confirm it
+rebuilt something — see `docs/TESTING.md`, "Meta-test pairs: step 3 is the one that rots".
 
 ## C · Status & filter — the gate everything else waits on
 
@@ -66,9 +71,10 @@ Each ships with a known-bad injection and a meta-test (delete the assertion → 
   domain string is still `cdcp-bank-v1` under a v2 definition (`bd-6ycw`).
 - **C3** near-duplicate detector (`bd-near-duplicate-item-gate-i5v`). Exact-stem hashing finds
   **0** duplicates; `m14-q040`/`m14-q121` are one item twice with different keys.
-- **C4** portable PRNG — `cdcp_assemble` calls `StdRng` "frozen"
-  [[fact:fact-assemble-uses-stdrng=yes]]; Rand documents it as non-portable across versions and
-  platforms. Name a portable algorithm and pin it.
+- **C4** portable PRNG — **LANDED 2026-08-14.** Sampler is `rand_chacha::ChaCha12Rng`,
+  crates pinned `rand = "=0.8.7"` / `rand_chacha = "=0.3.1"`. It no longer seeds from
+  `StdRng` [[fact:fact-assemble-uses-stdrng=no]]. Seed-42 stream equals the pre-C4
+  `StdRng`/rand-0.8.7 stream, so `item_ids` did not move.
 - **C5** module 15 decision — teach it or exclude it from assembly. Record which and why.
 - **C6** `min_modules` is no longer accepted and discarded — the parameter reaches
   `sample_item_ids` and a pool spanning too few modules is a `ModuleShortfall` error, so the

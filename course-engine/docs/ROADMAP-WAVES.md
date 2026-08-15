@@ -120,11 +120,10 @@ measures outline shape, not depth. v1 selected the metric that supported its the
   `bank_hash` by itself —
   which inverts the property `goldens/PROVENANCE.md` §"Bank drift" was written against. Residual:
   the domain string still reads `cdcp-bank-v1` under the v2 definition (`bd-6ycw`).
-- **`StdRng` is not portable.** `cdcp_assemble` still seeds from it
-  [[fact:fact-assemble-uses-stdrng=yes]] and documents it as "frozen (currently ChaCha12)",
-  but Rand documents `StdRng` as explicitly non-reproducible across versions/platforms. The
-  word "currently" is the tell. Determinism is this repo's crown jewel; it rests on an RNG whose
-  own docs disclaim the guarantee.
+- **`StdRng` is not portable.** Closed 2026-08-14 (C4): the sampler no longer
+  seeds from it [[fact:fact-assemble-uses-stdrng=no]]. It is `ChaCha12Rng` from
+  `rand_chacha = "=0.3.1"`. The word "currently" was the tell; the named
+  algorithm is the fix.
 - **SRS is oversold.** `web/assets/js/srs.js` is a 1-day/3-day ladder capped at 3 days. That is
   short-interval review, not Anki-like long-term scheduling.
 - **The public-domain assumption was too casual.** The DOE/FEMP guide has NREL contractor

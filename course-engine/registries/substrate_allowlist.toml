@@ -150,11 +150,22 @@ reason = "Differential oracle for `cdcp_gate build-glossary-json` (bd-substrate-
 migration_bead = "bd-substrate-rust-migration-jhd.11"
 expires = "2026-12-31"
 
-[[allow]]
-path = "scripts/build_units.py"
-reason = "Differential oracle for `cdcp_gate build-units` (bd-substrate-rust-migration-jhd.12, ported 2026-08-14). Module set derived from web/data/modules_index.json. Retained so tests/diff_build_units.rs can compare stdout, stderr, exit code and the bytes written byte for byte."
-migration_bead = "bd-substrate-rust-migration-jhd.12"
-expires = "2026-12-31"
+# RETIRED 2026-08-14 (bd-qqwc): `scripts/build_units.py` is DELETED, not
+# allowlisted. It was the differential oracle for `cdcp_gate build-units` and
+# its job ended at port time. Two findings retired it:
+#
+#   1. A differential is blind to a defect BOTH sides share. The two
+#      implementations agreed byte for byte while both baked RETIRED bank items
+#      into units_index.json check_item_ids — fifteen green cases over a wrong
+#      answer. `tests/diff_build_units.rs` now asserts the VERDICT against the
+#      Rust alone and carries every case that file used to hold, plus the
+#      status-filter and known-bad legs the agreement test could not express.
+#   2. `scripts/check.sh` never invoked the `.py`. Keeping it meant every
+#      deliberate behaviour change had to be written twice, in Python, on the
+#      non-load-bearing side.
+#
+# Do NOT re-add a row for it. If a build_units oracle is ever wanted again, the
+# oracle is the committed artifact, not a second implementation.
 
 [[allow]]
 path = "scripts/export_anki.py"

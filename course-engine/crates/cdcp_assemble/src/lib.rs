@@ -1,32 +1,46 @@
 //! ORACLE-GAUNTLET L2 — seeded stratified assemble + choice shuffle remap.
 //!
-//! # PRNG (OQ-01 ASSUMED)
+//! # PRNG (C4 / OQ-01) — named, pinned, portable
 //!
-//! Uses `rand::rngs::StdRng` seeded via `SeedableRng::seed_from_u64`.
-//! `StdRng` is a ChaCha-based CSPRNG (currently ChaCha12). This freezes the
-//! **native** L2 algorithm for later L4 WASM dual-path parity work (`bd-hdj`).
+//! The sampler and the choice-shuffle remapper share one generator:
 //!
-//! Stratification mirrors `scripts/sample_mock.py` (module group → shuffle
-//! modules → one-per-module first pass → round-robin fill → final order
-//! shuffle). Byte streams will not match CPython `random.Random` (MT19937);
-//! structure + seed stability within this crate is the L2 contract.
+//! * **Algorithm:** ChaCha12 (`rand_chacha::ChaCha12Rng`).
+//! * **Seeding:** `rand::SeedableRng::seed_from_u64` (rand 0.8 / rand_core 0.6
+//!   splitmix-style u64 → 32-byte seed). Same seed ⇒ same stream.
+//! * **Crate pins:** workspace `rand = "=0.8.7"` (owns `SliceRandom::shuffle`)
+//!   and `rand_chacha = "=0.3.1"` (owns the stream). Neither is a caret.
+//! * **Not used:** `rand::rngs::StdRng`. Rand documents that type as free to
+//!   change across releases; goldens must not sit on it.
+//!
+//! v1 (pre-C4) froze seed-42 under `StdRng` as of rand 0.8.7, which *happened*
+//! to be ChaCha12 with this seeder. v2 names that algorithm. The stream is
+//! identical — `item_ids` did not move; see `goldens/PROVENANCE.md` §PRNG.
+//! A swap to ChaCha20 (or a future `StdRng`) is the known-bad: the pinned
+//! stream in `prng_stream_seed42_is_pinned` goes RED.
+//!
+//! Stratification: group by module → shuffle modules → one-per-module first
+//! pass → round-robin fill → final order shuffle. Choice shuffle uses a
+//! dedicated generator `seed ^ 0xCDC5_FF1E`. Byte streams will not match
+//! CPython `random.Random` (MT19937); the L2 contract is this crate's stream.
 #![forbid(unsafe_code)]
 
 use cdcp_bank::{Bank, BankItem};
 use cdcp_core::ChoiceLetter;
-use rand::rngs::StdRng;
 use rand::seq::SliceRandom;
 use rand::{Rng, SeedableRng};
+use rand_chacha::ChaCha12Rng;
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use thiserror::Error;
 
-/// Documented PRNG for L2 assemble / shuffle (OQ-01).
-pub type AssembleRng = StdRng;
+/// Documented PRNG for L2 assemble / shuffle (C4).
+///
+/// Named ChaCha12, not `StdRng`. See the crate-level PRNG section.
+pub type AssembleRng = ChaCha12Rng;
 
-/// Create the assemble PRNG from a u64 seed (StdRng / ChaCha family).
+/// Create the assemble PRNG from a u64 seed (ChaCha12Rng / rand_chacha 0.3.1).
 pub fn rng_from_seed(seed: u64) -> AssembleRng {
-    StdRng::seed_from_u64(seed)
+    ChaCha12Rng::seed_from_u64(seed)
 }
 
 #[derive(Debug, Error, PartialEq, Eq)]
@@ -453,6 +467,59 @@ mod tests {
             return None;
         }
         Some(Bank::load_dir(&p).expect("load bank"))
+    }
+
+    /// First eight `u64`s from `ChaCha12Rng::seed_from_u64(42)` under
+    /// `rand_chacha = 0.3.1`. This is the C4 stream contract. A `rand` 0.8 → 0.9
+    /// bump that went through `StdRng` would have been allowed to change this
+    /// without touching any file we own; pinning the algorithm here makes that
+    /// RED. Measured 2026-08-14: `StdRng` as of rand 0.8.7 emits the same eight
+    /// values (v1 == v2); `ChaCha20Rng` at the same seed does not.
+    const SEED42_FIRST_8_U64: [u64; 8] = [
+        0x86cc_7763_2227_24a2,
+        0x8af0_0a13_3fad_517d,
+        0xa2ef_6071_de51_34d1,
+        0x67e9_2d78_fd76_30b2,
+        0x08ca_b0df_f811_9fea,
+        0x6a3a_9ca3_9e0f_81a8,
+        0xbcc7_d8e8_5908_78fb,
+        0xd968_8d9b_2f8e_b737,
+    ];
+
+    #[test]
+    fn assemble_rng_is_chacha12_not_stdrng() {
+        let name = std::any::type_name::<AssembleRng>();
+        assert!(
+            name.contains("ChaCha12"),
+            "AssembleRng must be ChaCha12Rng, got {name}"
+        );
+        assert!(
+            !name.contains("StdRng"),
+            "AssembleRng must not be StdRng, got {name}"
+        );
+    }
+
+    #[test]
+    fn prng_stream_seed42_is_pinned() {
+        let mut rng = rng_from_seed(42);
+        let got: [u64; 8] = std::array::from_fn(|_| rng.gen::<u64>());
+        if got != SEED42_FIRST_8_U64 {
+            // Print so the first landing can copy the measured stream into the
+            // pin. After the pin is real this branch is the known-bad.
+            panic!("seed-42 ChaCha12 stream moved: {got:#x?}");
+        }
+    }
+
+    #[test]
+    fn chacha20_at_same_seed_is_a_different_stream() {
+        use rand_chacha::ChaCha20Rng;
+        let mut twelve = ChaCha12Rng::seed_from_u64(42);
+        let mut twenty = ChaCha20Rng::seed_from_u64(42);
+        assert_ne!(
+            twelve.gen::<u64>(),
+            twenty.gen::<u64>(),
+            "ChaCha12 vs ChaCha20 must differ at seed 42 — that difference is the known-bad for swapping the algorithm"
+        );
     }
 
     #[test]

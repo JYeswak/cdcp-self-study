@@ -113,8 +113,8 @@ review; stop calling the 1d/3d ladder SRS.
 Intended score interpretations and explicit **non-claims** · job-task blueprint (scaffold on
 NICE) · `draft|approved|retired` on `BankItem` · assembly restricted to approved · objective
 mapping · bank_hash repaired to cover objective_ids/citation/status · module-15 decision ·
-portable PRNG (StdRng is documented non-portable while the code still seeds from it
-[[fact:fact-assemble-uses-stdrng=yes]] and calls it "frozen").
+portable PRNG (closed 2026-08-14: named `ChaCha12Rng`, crates pinned;
+`StdRng` is no longer the seeder [[fact:fact-assemble-uses-stdrng=no]]).
 
 ### P2 · Evidence spine
 `cdcp_evidence` · citation registry · reading-pass output from RO sources (NFPA 75/70E/110/111,

@@ -81,6 +81,19 @@ def load_bank_items() -> list[dict]:
     return items
 
 
+def is_drawable(item: dict) -> bool:
+    """C1 / bd-anki-ships-retired-bbdr: retired and draft never ship.
+
+    Missing status is drawable so synthetic fixtures and the keys/mock pack
+    (no status field) still export; the live bank always writes status.
+    """
+    return str(item.get("status") or "").strip().lower() not in {"retired", "draft"}
+
+
+def approved_only(items: list[dict]) -> list[dict]:
+    return [it for it in items if is_drawable(it)]
+
+
 def load_seed42_bank_items() -> list[dict] | None:
     path = WEB_DATA / "bank_items_seed42.json"
     if not path.is_file():
@@ -633,6 +646,14 @@ def main() -> int:
     if not items:
         print("FAIL: zero items to export", file=sys.stderr)
         return 1
+
+    # Bank and seed42 packs carry `status`. The keys/mock40 source is already
+    # the approved-only draw and often has no status field — do not strip it.
+    if args.source in ("bank", "seed42"):
+        items = approved_only(items)
+        if not items:
+            print("FAIL: zero items to export", file=sys.stderr)
+            return 1
 
     items = filter_items(
         items,

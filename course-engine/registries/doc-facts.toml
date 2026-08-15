@@ -93,10 +93,9 @@ question = "Does `BankItem` carry `#[serde(deny_unknown_fields)]`, so an unmodel
 probe = { kind = "file_contains", path = "crates/cdcp_bank/src/lib.rs", needle = "#[serde(deny_unknown_fields)]" }
 trigger = "deny_unknown_fields"
 
-# ── claims whose truth is a PLANNED change (C4, C6) ─────────────────────────
-# These are the rows that earn their keep. Each states what the code does TODAY
-# and is scheduled to become false; when the bead lands, every document still
-# describing the old behaviour turns RED naming itself.
+# ── claims whose truth flipped or is scheduled to flip ──────────────────────
+# C4 (StdRng) landed 2026-08-14: the probe is now false. Markers must read
+# `=no`. C6 (min_modules discard) already flipped.
 
 [[fact]]
 id = "fact-assemble-uses-stdrng"

@@ -25,7 +25,11 @@ hex = "0.4"
 thiserror = "1"
 toml = "0.8"
 clap = { version = "4", features = ["derive"] }
-rand = "0.8"
+# Exact pins: assemble goldens are a ChaCha12 stream. A caret bump of `rand`
+# used to be allowed to change StdRng; we no longer go through StdRng, and the
+# crate that owns the stream is pinned here so cargo cannot move it quietly.
+rand = "=0.8.7"
+rand_chacha = "=0.3.1"
 cdcp_core = { path = "crates/cdcp_core" }
 cdcp_bank = { path = "crates/cdcp_bank" }
 cdcp_grade = { path = "crates/cdcp_grade" }
