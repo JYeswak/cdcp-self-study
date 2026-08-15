@@ -17,7 +17,8 @@ Local-first CDCP **study** tool. Not EPI certification software.
 5. No unresolved OQ that a wave depends on.  
 6. G1 > G2: correctness before UI polish.  
 7. `scripts/check.sh` is the only full gate story. The pre-commit hook is a
-   courtesy (`cargo run -q -p cdcp_gate -- install-hooks`); an unlisted `.py`
+   courtesy (`cargo build -p cdcp_gate --locked` then
+   `./target/debug/cdcp_gate install-hooks`; never cargo run); an unlisted `.py`
    fails check.sh even if the hook never ran.
 
 ## Parent corpus
