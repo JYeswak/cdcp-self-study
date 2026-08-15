@@ -319,11 +319,10 @@ expires = "2027-02-28"
 # Empty domains / empty primary_notes without exam_weight_unknown / empty content
 # sweep is ERROR. Write-after-verdict. Do NOT re-add a row for it.
 
-[[allow]]
-path = "scripts/build_reference.py"
-reason = "Manual authoring step: builds the closed-notes reference surface. Not on the check.sh path; ports after the gates."
-migration_bead = "bd-substrate-rust-migration-jhd"
-expires = "2027-02-28"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.29): scripts/build_reference.py
+# is DELETED, not allowlisted. The compiler is `cdcp_learn::reference` /
+# `cdcp build-reference`. Missing parent reference dir / missing source is
+# ERROR. Write-after-verdict. Do NOT re-add a row for it.
 
 [[allow]]
 path = "scripts/copy_module_content.py"

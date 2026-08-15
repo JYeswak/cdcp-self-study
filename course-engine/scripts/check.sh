@@ -1181,6 +1181,10 @@ echo "==> cdcp build-learn (Learn surface)"
 run_cdcp_cli build-learn || fail "build-learn"
 ok "Learn surface (modules_index · topic_anchors · pages · copies)"
 
+echo "==> cdcp build-reference (Reference surface)"
+run_cdcp_cli build-reference || fail "build-reference"
+ok "Reference surface (reference.html · glossary · power cheatsheet)"
+
 echo "==> cdcp smoke-learn (L5 learn surface)"
 run_cdcp_cli smoke-learn || fail "L5 learn smoke"
 ok "L5 learn smoke"
@@ -1238,7 +1242,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(run_cdcp_cli --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-learn build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence load-snapshots check-osha verify-data-lock; do
+for v in bank-hash grade goldens export-web serve build-learn build-reference build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence load-snapshots check-osha verify-data-lock; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"

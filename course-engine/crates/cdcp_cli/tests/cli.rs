@@ -26,6 +26,7 @@ fn help_lists_learn_compilers() {
     let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
     for verb in [
         "build-learn",
+        "build-reference",
         "build-units",
         "build-glossary",
         "build-learn-slugs",
