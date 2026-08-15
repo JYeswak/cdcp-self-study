@@ -614,7 +614,7 @@ ok "L5 learn smoke"
 # ─── L6 mastery / coverage ──────────────────────────────────────────────────
 echo "==> smoke_srs.mjs";        node scripts/smoke_srs.mjs        || fail "L6 review smoke";     ok "L6 short-interval review smoke"
 echo "==> smoke_mastery.mjs";    node scripts/smoke_mastery.mjs    || fail "L6 mastery smoke";    ok "L6 mastery smoke"
-echo "==> smoke_weak_links.py";  python3 scripts/smoke_weak_links.py || fail "L6 weak-links smoke"; ok "L6 weak-links smoke"
+echo "==> cdcp smoke-weak-links (L6-S3)"; cargo run -q -p cdcp_cli -- smoke-weak-links || fail "L6 weak-links smoke"; ok "L6 weak-links smoke"
 echo "==> smoke_hub_mastery.mjs"; node scripts/smoke_hub_mastery.mjs || fail "L6-S4 hub mastery"; ok "L6 hub mastery + recommend smoke"
 ok "L6-S4 hub mastery surface wired"
 
@@ -663,7 +663,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(cargo run -q -p cdcp_cli -- --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-units build-glossary smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y; do
+for v in bank-hash grade goldens export-web serve build-units build-glossary smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"

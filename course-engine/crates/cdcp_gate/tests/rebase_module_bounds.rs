@@ -321,15 +321,16 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
     ),
     // ── bd-ggs7: the floor that replaced smoke_weak_links' frozen table ────
     (
-        "scripts/smoke_weak_links.py",
-        "elif len(declared) < 14:",
+        "crates/cdcp_learn/src/weak_links.rs",
+        "} else if declared.len() < 14 {",
         Shape::NumericBound,
         Verdict::Justified,
         "a FLOOR, not an exclusion: the fourteen public EPI CDCP domains, so a \
          collapsed registry cannot make that gate agree with itself and pass \
          green. It cannot hold module 15 or any later module out. The literal \
          is spelled here rather than hidden behind a named constant precisely \
-         so this sweep can see it and hold a verdict on it.",
+         so this sweep can see it and hold a verdict on it. Moved with \
+         bd-substrate-rust-migration-jhd.16 from the deleted Python.",
     ),
     // ── bd-ggs7: web/assets/js entered the scan with this bead ─────────────
     (
@@ -1517,7 +1518,6 @@ fn weak_links_fixture() -> Fixture {
         std::fs::copy(root.join(rel), &dst)
             .unwrap_or_else(|e| panic!("copy {rel} into the fixture: {e}"));
     };
-    copy("scripts/smoke_weak_links.py");
     copy("knowledge/domains.toml");
     copy("web/assets/js/results.js");
     copy("web/data/modules_index.json");
@@ -1545,7 +1545,12 @@ fn weak_links_fixture() -> Fixture {
 }
 
 fn weak_links(f: &Fixture) -> Run {
-    capture(Command::new("python3").arg(f.path("scripts/smoke_weak_links.py")))
+    let o = cdcp_learn::weak_links::run(&f.root);
+    Run {
+        code: o.code,
+        stdout: o.stdout,
+        stderr: String::new(),
+    }
 }
 
 /// Drop one `MODULE_LEARN_SLUGS` row from the fixture's results.js.
@@ -1593,7 +1598,12 @@ fn drop_index_module(f: &Fixture, order: u32) {
 #[test]
 fn weak_links_known_good_the_live_tree_passes_with_a_derived_module_set() {
     let root = engine_root();
-    let run = capture(Command::new("python3").arg(root.join("scripts/smoke_weak_links.py")));
+    let o = cdcp_learn::weak_links::run(&root);
+    let run = Run {
+        code: o.code,
+        stdout: o.stdout,
+        stderr: String::new(),
+    };
     assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
     assert!(
         run.stdout
