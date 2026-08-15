@@ -906,15 +906,18 @@ CDCP_NEAR_DUPLICATE_SELFTEST=1 run_cdcp_gate near-duplicate-items \
   || fail "near-duplicate selftest did not reach RED on its planted clone"
 ok "near-duplicate selftest (planted clone trips RED)"
 
-# bd-e1yt — C3 is cosmetic only. This ledger is the honesty tripwire for the
-# four measured paraphrase pairs the Jaccard floor cannot see. It is NOT a
-# second grader: it FAILs if a listed pair disappears without an adjudication
-# reason, and it prints a stem-overlap REPORT of candidates. Empty ledger or
-# a scan of zero items is ERROR. C3 itself is unchanged.
+# bd-e1yt / bd-substrate-rust-migration-jhd.21 — C3 is cosmetic only. The
+# rust product (`cdcp verify-paraphrase-pairs` → cdcp_bank::paraphrase) is
+# the honesty tripwire for the four measured pairs the Jaccard floor cannot
+# see. It is NOT a second grader: it FAILs if a listed pair disappears
+# without an adjudication reason, and it prints a stem-overlap REPORT of
+# candidates. Empty ledger or a scan of zero items is ERROR. C3 is unchanged.
+# EXTRACT-THEN-DELETE: python3 scripts/verify_paraphrase_pairs.py is retired
+# (rust selftests replace --selftest). Putting that invoke back is RED.
 [ -f registries/paraphrase_pairs.toml ] || fail "missing registries/paraphrase_pairs.toml (paraphrase ledger required)"
-[ -f scripts/verify_paraphrase_pairs.py ] || fail "missing scripts/verify_paraphrase_pairs.py (paraphrase ledger gate required)"
-echo "==> verify_paraphrase_pairs.py (measured paraphrase debt; pool size ≠ proposition count)"
-python3 scripts/verify_paraphrase_pairs.py || fail "paraphrase pair ledger"
+[ -d bank/items ] || fail "missing bank/items (paraphrase ledger required)"
+echo "==> cdcp verify-paraphrase-pairs (measured paraphrase debt; pool size ≠ proposition count)"
+run_cdcp_cli verify-paraphrase-pairs || fail "paraphrase pair ledger"
 ok "paraphrase pair ledger intact (804/779 is a pool size; report is not a verdict)"
 
 # L3 GradeExact — cargo + goldens (BUILT must be WIRED here)
@@ -1198,7 +1201,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(run_cdcp_cli --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki; do
+for v in bank-hash grade goldens export-web serve build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"

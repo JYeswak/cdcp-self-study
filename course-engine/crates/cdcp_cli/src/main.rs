@@ -26,6 +26,21 @@ enum Cmd {
         #[arg(long, default_value = "bank/items")]
         bank: PathBuf,
     },
+    /// Ledger tripwire for measured paraphrase pairs C3 cannot see
+    VerifyParaphrasePairs {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// Ledger path (default: <root>/registries/paraphrase_pairs.toml)
+        #[arg(long)]
+        ledger: Option<PathBuf>,
+        /// Bank items directory (default: <root>/bank/items)
+        #[arg(long)]
+        bank: Option<PathBuf>,
+        /// Run only the in-process known-bad plants
+        #[arg(long)]
+        selftest: bool,
+    },
     /// Grade an attempt (all-correct / all-wrong / json answers)
     Grade {
         #[arg(long, default_value = "bank/items")]
@@ -293,6 +308,17 @@ fn run(cli: Cli) -> Result<(), String> {
             println!("{}", b.bank_hash);
             Ok(())
         }
+        Cmd::VerifyParaphrasePairs {
+            root,
+            ledger,
+            bank,
+            selftest,
+        } => verify_paraphrase_pairs(
+            root.as_deref(),
+            ledger.as_deref(),
+            bank.as_deref(),
+            selftest,
+        ),
         Cmd::Grade {
             bank,
             fixture,
@@ -393,6 +419,37 @@ fn run(cli: Cli) -> Result<(), String> {
 /// Build an `ExamAttempt` from a JSON answers file for mode=json.
 ///
 /// Validates each letter (A–D) and that every `item_id` exists in the bank.
+fn verify_paraphrase_pairs(
+    root: Option<&Path>,
+    ledger: Option<&Path>,
+    bank: Option<&Path>,
+    selftest: bool,
+) -> Result<(), String> {
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_learn::resolve_engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    let req = cdcp_bank::paraphrase::Request {
+        ledger: ledger
+            .map(Path::to_path_buf)
+            .unwrap_or_else(|| resolved.join(cdcp_bank::paraphrase::LEDGER_REL)),
+        bank: bank
+            .map(Path::to_path_buf)
+            .unwrap_or_else(|| resolved.join(cdcp_bank::paraphrase::BANK_REL)),
+        selftest_only: selftest,
+    };
+    let outcome = cdcp_bank::paraphrase::run(&req);
+    print!("{}", outcome.stdout);
+    eprint!("{}", outcome.stderr);
+    if outcome.code != 0 {
+        std::process::exit(outcome.code);
+    }
+    Ok(())
+}
+
 fn attempt_from_json_answers(
     bank: &Bank,
     fix: &SampleFixture,

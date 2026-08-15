@@ -3746,7 +3746,6 @@ python3 "$_anki_plant/scripts/export_anki.py"
             "check.sh always calls something; a parser that found none did not parse"
         );
         for must in [
-            "scripts/verify_paraphrase_pairs.py",
             "tests/voice-slop.sh",
             "tests/publishability-bar.sh",
         ] {
@@ -3757,16 +3756,17 @@ python3 "$_anki_plant/scripts/export_anki.py"
             "scripts/smoke_learn_v2.py",
             "scripts/smoke_weak_links.py",
             "scripts/verify_content_lock.py",
+            "scripts/verify_paraphrase_pairs.py",
         ] {
             assert!(
                 !set.contains(retired),
                 "{retired} is gone from check.sh itself: {set:?}"
             );
         }
-        // Do not claim "zero python": paraphrase_pairs is still a first-level invoke.
+        // jhd.21: last first-level python3 scripts/*.py is retired. Putting one back is RED.
         assert!(
-            set.iter().any(|p| p.ends_with(".py")),
-            "check.sh still runs python; a zero-python claim is a lie: {set:?}"
+            !set.iter().any(|p| p.ends_with(".py")),
+            "first-level python3 scripts/*.py must stay GONE: {set:?}"
         );
     }
 
@@ -4026,8 +4026,8 @@ python3 "$_anki_plant/scripts/export_anki.py"
         require_nonempty_inventory(&walk).expect("empty inventory is ERROR");
         let py = walk.python();
         assert!(
-            py.contains(&"scripts/verify_paraphrase_pairs.py"),
-            "do not claim zero python while paraphrase_pairs is on check.sh: {py:?}"
+            !py.contains(&"scripts/verify_paraphrase_pairs.py"),
+            "paraphrase_pairs python invoke must stay GONE (jhd.21): {py:?}"
         );
         assert!(!py.is_empty(), "do not claim zero python: {py:?}");
         if let Ok(slo) = std::fs::read_to_string(root.join("scripts/smoke_slo.sh")) {

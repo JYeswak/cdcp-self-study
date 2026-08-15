@@ -13,6 +13,8 @@
 //! statuses are well-formed or that a bank file carries no unmodelled content.
 #![forbid(unsafe_code)]
 
+pub mod paraphrase;
+
 use cdcp_core::{canonical_json, sha256_hex, ChoiceLetter, BANK_HASH_DOMAIN};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;

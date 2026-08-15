@@ -161,10 +161,10 @@ path = "scripts/verify_objectives.py"
 disposition = "live_selftest"
 why = "selftest_l7_objectives.sh still invokes python3; rust is the check.sh gate"
 
-[[oracle_inventory.file]]
-path = "scripts/verify_paraphrase_pairs.py"
-disposition = "honesty_ledger"
-why = "check.sh still runs it (bd-e1yt); not a ported oracle"
+# scripts/verify_paraphrase_pairs.py RETIRED (bd-substrate-rust-migration-jhd.21).
+# Product is `cdcp verify-paraphrase-pairs` / cdcp_bank::paraphrase. Rust
+# known-bad plants replace --selftest. Putting the first-level python3 invoke
+# back is RED (substrate_guard live_check_sh_names_the_first_level_scripts).
 
 # =============================================================================
 # WAVE 1 — ported; retained as differential oracles (bd-…jhd.2 … .4)
@@ -492,16 +492,6 @@ path = "hooks/pre-commit"
 reason = "THE SHIM, and it legitimately stays shell: git executes a file at .git/hooks/pre-commit, so the entry point cannot itself be a cargo target. Its whole body is one exec of the Rust gate and it holds no decision logic — asserted mechanically by install_hooks::tests::committed_shim_exists_and_is_thin, which rejects if/case/for/test/grep/sed/awk/python and any &&, ||, pipe or subshell. Caught here by the shebang leg (no extension), not by a filename rule. Dated for annual re-affirmation; there are no permanent exemptions, only renewed ones."
 migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-06-30"
-
-# =============================================================================
-# bd-e1yt — paraphrase-pair ledger (honesty tripwire, not a grader-of-record)
-# =============================================================================
-
-[[allow]]
-path = "scripts/verify_paraphrase_pairs.py"
-reason = "Load-bearing check.sh step: machine-checked ledger of measured paraphrase pairs C3 cannot see (bd-e1yt). Empty ledger / missing pair without adjudication is ERROR. The stem-overlap report this script prints is not a grader-of-record."
-migration_bead = "bd-e1yt"
-expires = "2027-02-28"
 
 # =============================================================================
 # bd-yp9x — check.sh-invoked node gates (mjs enters the floor; js stays out)

@@ -36,6 +36,7 @@ fn help_lists_learn_compilers() {
         "smoke-weak-links",
         "smoke-learn-v2",
         "export-anki",
+        "verify-paraphrase-pairs",
     ] {
         assert!(
             stdout.contains(verb),
