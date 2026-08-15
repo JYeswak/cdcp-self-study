@@ -44,7 +44,7 @@ cd cdcp-self-study
 ```
 
 1. Read the disclaimer above (and the honesty note in [`README.md`](./README.md)).
-2. Skim [`00-curriculum-map.md`](./00-curriculum-map.md) once — 14 domains, objectives only.
+2. Skim [`00-curriculum-map.md`](./00-curriculum-map.md) once — 15 modules (14 public syllabus headings + 2.1 Operational Considerations), objectives only.
 3. Open [`STUDY-PLAN-14-DAY.md`](./STUDY-PLAN-14-DAY.md) and pick your start date.
 4. Bookmark these three references (do **not** memorize yet):
    - [`reference/GLOSSARY.md`](./reference/GLOSSARY.md)
@@ -60,7 +60,7 @@ cd cdcp-self-study
 
 ### Recommended path (standard / interview-ready)
 
-Follow module numbers **01 → 14**. Public CDCP domains are designed as a stack: business criticality and standards first, then site/building, then the heavy infrastructure (power, cooling), then network/fire/security/ops systems.
+Follow module numbers **01 → 15**. Public facility headings are a stack: business criticality and standards first, then site/building, then the heavy infrastructure (power, cooling), then network/fire/security/auxiliary. Module 15 is the **2.1 Operational Considerations** ops-adjacent supplement (assessed; exam weight unknown).
 
 | Order | Module | Primary notes | Folder hub |
 |---|---|---|---|
@@ -78,6 +78,7 @@ Follow module numbers **01 → 14**. Public CDCP domains are designed as a stack
 | 12 | Fire Protection | [`modules/12-fire.md`](./modules/12-fire.md) | [`modules/12-fire-protection/`](./modules/12-fire-protection/) |
 | 13 | Physical Security & Safety | [`modules/13-security.md`](./modules/13-security.md) | [`modules/13-physical-security-safety/`](./modules/13-physical-security-safety/) |
 | 14 | Auxiliary Systems | [`modules/14-auxiliary.md`](./modules/14-auxiliary.md) | [`modules/14-auxiliary-systems/`](./modules/14-auxiliary-systems/) |
+| 15 | Operational Considerations *(2.1 ops-adjacent)* | [`modules/15-ops-adjacent.md`](./modules/15-ops-adjacent.md) | — (single notes file; no folder hub) |
 
 **Per-module ritual (30–90 minutes):**
 
@@ -92,8 +93,8 @@ Follow module numbers **01 → 14**. Public CDCP domains are designed as a stack
 | Pace | How |
 |---|---|
 | **14-day capstone** | Follow [`STUDY-PLAN-14-DAY.md`](./STUDY-PLAN-14-DAY.md) (~1–2 h/day; stretch on M6/M9). |
-| **Dense weekend** | Modules 1–5 + 7–8 + 10 one block; 6 + 9 + 11 next; 12–14 + practice last. |
-| **Interview-first** | Deepen M1, M6, M9, M11, M14; skim lighter modules but still run their self-checks. |
+| **Dense weekend** | Modules 1–5 + 7–8 + 10 one block; 6 + 9 + 11 next; 12–15 + practice last. |
+| **Interview-first** | Deepen M1, M6, M9, M11, M14, M15; skim lighter modules but still run their self-checks. |
 
 **Rule:** Interview mode first (explain trade-offs out loud). Exam-style precision last (timed MCQ + drills).
 
@@ -139,7 +140,7 @@ If applying to DC/TPM roles: re-read gap remediations in [`job-research/graph/GR
 
 You are **done with this program** when:
 
-1. You have touched all 14 primary note files.
+1. You have touched all 15 primary note files (14 public domains + `15-ops-adjacent.md`).
 2. Module self-checks and most drill cards are solid without peeking.
 3. Practice exam ≥27/40 with a written fix plan for every miss (or ≥32/40 on a retest).
 4. You can run a white-space tour narrative without the cheatsheet.

@@ -839,7 +839,7 @@ fn render_hub(modules: &[Module]) -> String {
   <main id="main" class="wrap" tabindex="-1">
     <h1>Learn</h1>
     <p class="lede">
-      Fourteen EPI CDCP curriculum domains plus partner ops expansions.
+      Fifteen study modules mapped to public syllabus headings (fourteen facility domains plus 2.1 Operational Considerations).
       Open a module to study over local HTTP. Progress is stored only in this browser.
       Completing modules here is a study signal — not a CDCP credential.
     </p>

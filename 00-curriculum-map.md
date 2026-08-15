@@ -1,8 +1,10 @@
-# Curriculum Map — 14 Modules
+# Curriculum Map — 15 Modules
 
-Maps this free self-study program to the **publicly advertised** EPI® CDCP® syllabus domains (mission-critical site through auxiliary systems). Objectives are original educational targets for **standard (interview-ready)** depth.
+Maps this free self-study program to the **publicly advertised** syllabus headings: **14 facility domains** (mission-critical site through auxiliary systems) plus **2.1 Operational Considerations**, taught here as Module 15. Objectives are original educational targets for **standard (interview-ready)** depth.
 
-**Sources for domain list (public):** EPI CDCP course page syllabus headings; authorized partner outlines (e.g. HPE HK258S module titles). No proprietary EPI text is reproduced.
+**Sources for domain list (public):** EPI CDCP course page syllabus headings; authorized partner outlines (e.g. HPE HK258S module titles); EXIN/EPI preparation-guide **2.1** topic titles. No proprietary EPI text is reproduced.
+
+**Count:** 15 taught modules. Modules 01–14 are the public facility headings. Module 15 is the ops-adjacent supplement for **2.1** (`exam_weight_unknown` — not one of the 14 marketing facility domains; the bank still assesses it).
 
 ---
 
@@ -24,8 +26,9 @@ Maps this free self-study program to the **publicly advertised** EPI® CDCP® sy
 | 12 | Fire Protection | Fire Protection | 2–2.5 |
 | 13 | Physical Security & Safety | Physical Security and Safety | 2 |
 | 14 | Auxiliary Systems | Auxiliary Systems | 2–2.5 |
+| 15 | Operational Considerations | 2.1 Operational Considerations (ops-adjacent supplement; not a 14-domain facility heading) | 2–3 |
 
-**Total (standard):** ~28–40 hours including review.
+**Total (standard):** ~30–43 hours including review (14 public facility domains ~28–40 + Module 15 ~2–3).
 
 ---
 
@@ -39,12 +42,12 @@ By the end of this module you can:
 1. Explain how the data centre sits in business continuity and revenue/risk language (not only “IT”).
 2. Differentiate major DC types (enterprise, colo, hyperscale, edge, modular, telco) and typical SLA drivers.
 3. List primary elements of a DC (white space, grey space, MEP, network, security, ops) and who owns them.
-4. Name major causes of unavailability (power, cooling, human error, cascading failures, external events) and rank them conceptually by frequency vs impact.
+4. Distinguish first-class unavailability **objects** (power path — UPS / ATS / generator; cooling plant, often as a cascade; network/fiber; external events) from human/process as a **contributing mechanism** on those objects — not a third peer pie slice. Module 15 owns contributor-vs-root and refuses an unverifiable human-error majority statistic.
 5. Relate availability percentages (“nines”) to annual downtime and discuss why five-nines is costly and hard.
 
 ### Interview anchors
 - “Walk me through what makes a site mission-critical.”
-- “Where do most outages actually start?”
+- “A hall is dark: start at the power path, not a three-bucket pie. Where do you look first?”
 
 ### Notes path
 `modules/01-mission-critical-site/`
@@ -320,16 +323,38 @@ By the end of this module you can:
 
 ---
 
+## Module 15 — Operational Considerations (2.1)
+
+**Public domain topics (2.1):** Service catalog; Service Level Management (SLA/OLA); data-centre organizational structure; training-program requirements; safety roles; security matrix; maintenance-agreement content; floor management; monitoring activities; document-management steps; vendor management.
+
+This is the **ops-adjacent** Learn surface (`15-ops-adjacent`). It is **not** one of the 14 public facility headings. Exam weight is unknown; the item bank still samples it.
+
+### Learning objectives
+1. Map the 2.1 operational-considerations headings (catalog, SLM/SLA/OLA, org, training, safety roles, security matrix, maintenance agreements, floor management, monitoring, document management, vendor management) as a control set, not a facilities add-on.
+2. Distinguish **MOP / SOP / EOP** and a procedure’s **level of use** (use-each-time vs reference) — the attribute that decides behaviour at 03:00.
+3. Specify a **maintenance contract / SLA** in measurable, CMMS-auditable terms (response, restore, spare, proof) rather than response-time theatre.
+4. Treat human/process as a **contributing mechanism** on a power/cooling/network object — contributing factors, plural — and refuse an unverifiable “human error is the majority root cause” statistic.
+5. State what **as-built / labelling / document currency** are for, and why documentation that diverges from the plant is more dangerous than missing documentation.
+
+### Interview anchors
+- “Walk me through the last MOP you executed.”
+- “Contributing factors or root cause — which sentence survives a postmortem?”
+
+### Notes path
+`modules/15-ops-adjacent.md`
+
+---
+
 ## Cross-module themes (integrate continuously)
 
 | Theme | Appears in |
 |---|---|
-| Availability & risk | M1, M6, M9, M12–M14 |
+| Availability & risk | M1, M6, M9, M12–M15 |
 | Standards & AHJ | M2, M3, M12, M13 |
 | Energy & sustainability | M5, M6, M9, M10 |
-| Human error / process | M1, M13, M14 |
+| Human error / process | M1, M13, M14, M15 |
 | High-density / HPC / AI | M6, M8, M9, M11 |
-| Documentation & labeling | M8, M11, M14 |
+| Documentation & labeling | M8, M11, M14, M15 |
 
 ---
 
@@ -341,7 +366,7 @@ By the end of this module you can:
 | M4–M6 | Draw power + airflow on one diagram |
 | M7–M9 | Dense rack thermal + EMF layout critique |
 | M10–M12 | Life-safety + water dependency table |
-| M13–M14 | Monitoring & access control storyboard |
+| M13–M15 | Monitoring, access control, and 2.1 ops storyboard |
 | All | 15-minute facility tour narrative |
 
 Practice files live under `practice/`; add your own scenarios as you study.
@@ -355,6 +380,7 @@ Practice files live under `practice/`; add your own scenarios as you study.
 - [ ] Can name and contrast ≥ 3 fire suppression approaches for IT space  
 - [ ] Can explain BMS vs DCIM vs EMS  
 - [ ] Can discuss liquid cooling options without claiming hands-on install skill  
+- [ ] Can separate a contributing factor from a primary failure object (M15)  
 - [ ] Honesty note understood: no official cert claimed  
 
 ---

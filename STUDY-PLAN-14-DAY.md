@@ -1,6 +1,6 @@
 # 14-Day Study Plan — CDCP Self-Study Capstone
 
-**Goal:** Interview-ready fluency across all 14 modules in ~1–2 hours/day (stretch days 2.5–3 h for power/cooling).
+**Goal:** Interview-ready fluency across **15 taught modules** (14 public syllabus domains + Module 15 Operational Considerations) in ~1–2 hours/day (stretch days 2.5–3 h for power/cooling/ops). The calendar is still **14 days**; the module count is 15.
 
 | | |
 |---|---|
@@ -19,7 +19,7 @@ This plan **maps modules + practice exam + review**. It does not grant certifica
 
 | Mode | When | How you study | Success looks like |
 |---|---|---|---|
-| **Interview mode** | Days 1–12 primary; always on M1, M6, M9, M14 | Explain out loud: trade-offs, failure modes, “what I’d ask on a tour.” 30–60 s answers with an example. | You can teach a peer without reading slides. |
+| **Interview mode** | Days 1–12 primary; always on M1, M6, M9, M14, M15 | Explain out loud: trade-offs, failure modes, “what I’d ask on a tour.” 30–60 s answers with an example. | You can teach a peer without reading slides. |
 | **Exam mode** | Days 12–14; mini-drills after heavy modules | Timed recall, closed notes, MCQ discipline, crisp definitions. | ≥27/40 on practice exam; missed items have a module fix. |
 
 **Rule:** Interview mode first (understanding). Exam mode last (precision). Do not skip interview mode and only memorize acronyms.
@@ -203,18 +203,19 @@ This plan **maps modules + practice exam + review**. It does not grant certifica
 
 ---
 
-### Day 12 — Security + auxiliary + first full drill  
+### Day 12 — Security + auxiliary + operational considerations  
 **Mode:** Interview → exam  
-**Time:** 2 h  
+**Time:** 2.5 h  
 
 | Block | Action |
 |---|---|
-| 40 min | [`modules/13-security.md`](./modules/13-security.md) + `modules/13-physical-security-safety/` |
-| 40 min | [`modules/14-auxiliary.md`](./modules/14-auxiliary.md) + `modules/14-auxiliary-systems/` |
-| 20 min | BMS vs DCIM vs EMS; MOP; leak detection; IST |
+| 35 min | [`modules/13-security.md`](./modules/13-security.md) + `modules/13-physical-security-safety/` |
+| 35 min | [`modules/14-auxiliary.md`](./modules/14-auxiliary.md) + `modules/14-auxiliary-systems/` |
+| 30 min | [`modules/15-ops-adjacent.md`](./modules/15-ops-adjacent.md) — 2.1 Operational Considerations (ops-adjacent; exam weight unknown) |
+| 20 min | BMS vs DCIM vs EMS; MOP; leak detection; contributor-vs-root (not a three-bucket pie) |
 | 20 min | Drill cards **21–27, 33, 40** |
 
-**Exit check:** White-space tour in 5 bullets (Card 40).
+**Exit check:** White-space tour in 5 bullets (Card 40). Name one 2.1 control (MOP level-of-use or maintenance SLA).
 
 ---
 
@@ -240,7 +241,7 @@ This plan **maps modules + practice exam + review**. It does not grant certifica
 |---|---|
 | 25 min | Full power path + cooling path from blank paper |
 | 20 min | Shuffle all 40 drill cards; mark still-cold cards |
-| 20 min | Interview mode: 5 anchors from curriculum map (M1, M2, M6, M9, M12) |
+| 20 min | Interview mode: 5 anchors from curriculum map (M1, M2, M6, M9, M15) |
 | 15 min | Capstone: one-page “class A white space” sketch — power, cooling, cabling, fire, security, monitoring |
 | 10 min | Glossary skim of still-cold terms |
 | 10 min | Optional: re-answer only missed practice-exam questions |
@@ -252,6 +253,7 @@ This plan **maps modules + practice exam + review**. It does not grant certifica
 - [ ] Contrast containment vs chaotic flooded room airflow  
 - [ ] List detection vs suppression ideas and wet-system caution near IT  
 - [ ] Explain BMS vs DCIM vs EMS in one sentence each  
+- [ ] Separate a contributing factor from a primary failure object (M15)  
 - [ ] Practice exam self-score recorded; misses remediated  
 
 ---
@@ -271,7 +273,7 @@ This plan **maps modules + practice exam + review**. It does not grant certifica
 | 9 | Cooling | M9 | 2.5–3 | Interview |
 | 10 | Water + network | M10–M11 | 1.5–2 | Interview |
 | 11 | Fire | M12 | 1.5–2 | Both |
-| 12 | Security + auxiliary | M13–M14 | 2 | Both |
+| 12 | Security + auxiliary + ops | M13–M15 | 2.5 | Both |
 | 13 | Practice exam | All | 1.5–2 | Exam |
 | 14 | Integration | All | 1.5–2 | Interview + gaps |
 
@@ -279,7 +281,7 @@ This plan **maps modules + practice exam + review**. It does not grant certifica
 
 ## If you only have 1 hour some days
 
-**Priority order:** M6 → M9 → M1 → M12 → M2 → everything else.  
+**Priority order:** M6 → M9 → M1 → M12 → M2 → M15 → everything else.  
 Never skip Days 13–14 entirely; shrink earlier light modules (M5, M7) first.
 
 ## If power/cooling is brand new

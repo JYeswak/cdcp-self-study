@@ -103,7 +103,7 @@ Borrow mechanisms, not skins. Browser audit 2026-08-12: content is strong; packa
 | Inspiration | Mechanism we copy | Product mapping | Status |
 |-------------|-------------------|-----------------|--------|
 | **Khan Academy** | Mastery on weak skills | practiced / mastered | **shipped** |
-| **Anki** | Spaced misses; atomic cards | SRS + Anki export | **shipped** |
+| **Anki** | Spaced misses; atomic cards | short-interval review (1d/3d cap; **not SRS**) + Anki export | **shipped** |
 | **LeetCode** | Timed mock; retry wrong set | Mock-40 + miss review | **shipped** |
 | **Coursera** | Module → unit path → quiz gate | Learn v2 units before capstone | **shipped M8** |
 | **LinkedIn Learning** | Continue + short chapters | Sticky continue + TOC | **shipped M8** |
