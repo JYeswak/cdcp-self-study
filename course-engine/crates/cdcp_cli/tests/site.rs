@@ -37,13 +37,18 @@ fn named_quantities() -> [&'static str; 10] {
     ]
 }
 
+/// clap about for `site`. The three-hazard prefix is not enough: the
+/// verb also prints flood and power price. Pinning the five-name
+/// string makes a revert to the leftover about fail this file.
+const SITE_ABOUT: &str = "Climate / seismic / carbon / flood / power price";
+
 #[test]
 fn help_lists_site() {
     let assert = cdcp().arg("--help").assert().success();
     let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
     assert!(
-        stdout.contains("Climate / seismic / carbon"),
-        "cdcp --help must list the site verb: {stdout}"
+        stdout.contains(SITE_ABOUT),
+        "cdcp --help must name flood and power price on site: {stdout}"
     );
     // clap prints the command name as its own token in the Commands list.
     // "site" alone is too weak: oracle-check's about text already says "site".
@@ -59,6 +64,10 @@ fn help_lists_site() {
 fn site_help_lists_location_and_coord_flags() {
     let assert = cdcp().args(["site", "--help"]).assert().success();
     let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains(SITE_ABOUT),
+        "cdcp site --help must name flood and power price: {stdout}"
+    );
     for flag in ["--location", "--lat", "--lon"] {
         assert!(
             stdout.contains(flag),

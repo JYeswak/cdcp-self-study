@@ -100,7 +100,7 @@ enum Cmd {
         #[arg(long, alias = "self-test")]
         selftest: bool,
     },
-    /// Climate / seismic / carbon from vendored snapshots. No network.
+    /// Climate / seismic / carbon / flood / power price from vendored snapshots. No network.
     Site {
         /// Engine root (directory holding registries/). Default: walk up from cwd.
         #[arg(long)]
