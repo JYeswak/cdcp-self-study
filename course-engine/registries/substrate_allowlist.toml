@@ -308,11 +308,10 @@ expires = "2026-11-30"
 # than a gate, so a longer fuse; they are still debt and still expire.
 # =============================================================================
 
-[[allow]]
-path = "scripts/_regen_manifest.py"
-reason = "Manual authoring helper: regenerates the content manifest. Not on the check.sh path; ports after the gates, since a broken authoring script fails loudly at author time."
-migration_bead = "bd-substrate-rust-migration-jhd"
-expires = "2027-02-28"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.31): scripts/_regen_manifest.py
+# is DELETED, not allowlisted. Manual authoring helper with no live consumer
+# (rg: only this allowlist row). Manifest drift is gated by `cdcp_gate verify-bank`
+# (item_count vs loaded files). Do NOT re-add a row for it.
 
 # RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.28): scripts/build_learn.py
 # is DELETED, not allowlisted. The compiler is `cdcp_learn::build` / `cdcp build-learn`.
@@ -324,11 +323,9 @@ expires = "2027-02-28"
 # `cdcp build-reference`. Missing parent reference dir / missing source is
 # ERROR. Write-after-verdict. Do NOT re-add a row for it.
 
-[[allow]]
-path = "scripts/copy_module_content.py"
-reason = "Retired alias: prints `use cdcp build-learn` and exits 1. Not on the check.sh path. Delete with the remaining authoring-script sweep."
-migration_bead = "bd-substrate-rust-migration-jhd.28"
-expires = "2027-02-28"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.31): scripts/copy_module_content.py
+# is DELETED, not allowlisted. It was a 9-line FAIL tombstone after jhd.28
+# (`use cdcp build-learn`). check.sh never invoked it. Do NOT re-add a row for it.
 
 [[allow]]
 path = "scripts/fetch_public_corpus.py"
@@ -342,11 +339,9 @@ reason = "Manual generator for content.lock, whose OUTPUT is gated by verify_con
 migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-02-28"
 
-[[allow]]
-path = "scripts/gen_learn_pages.py"
-reason = "Retired alias: prints `use cdcp build-learn` and exits 1. Not on the check.sh path. Delete with the remaining authoring-script sweep."
-migration_bead = "bd-substrate-rust-migration-jhd.28"
-expires = "2027-02-28"
+# RETIRED 2026-08-15 (bd-substrate-rust-migration-jhd.31): scripts/gen_learn_pages.py
+# is DELETED, not allowlisted. It was a 9-line FAIL tombstone after jhd.28
+# (`use cdcp build-learn`). check.sh never invoked it. Do NOT re-add a row for it.
 
 # scripts/sample_mock.py DELETED 2026-08-15 (bd-sample-mock-draws-retired-1qv9).
 # Do not restore the file or re-add a row. cdcp_assemble + `cdcp_cli export-web`
