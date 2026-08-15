@@ -32,12 +32,14 @@ ran (`git commit --no-verify`, merge, cherry-pick, rebase, `git am`,
 courtesy on ordinary `git commit` only. Install it in a clone:
 
 ```bash
-cargo run -q -p cdcp_gate -- install-hooks
-cargo run -q -p cdcp_gate -- install-hooks --check
+cargo build -p cdcp_gate --locked
+./target/debug/cdcp_gate install-hooks
+./target/debug/cdcp_gate install-hooks --check
 ```
 
-L1 claims constitution: `registries/claims.toml` + `cargo run -p cdcp_registry_check`
-(empty registry / unmapped coverage·ready prose = ERROR).
+L1 claims constitution: `registries/claims.toml` + `./target/debug/cdcp_registry_check`
+after `cargo build -p cdcp_registry_check --locked` (empty registry / unmapped
+coverage·ready prose = ERROR).
 
 ## Layout
 
@@ -78,15 +80,19 @@ scorecards/    # wave / layer outcome stamps
 CLI (from `course-engine/`):
 
 ```bash
-cargo run -p cdcp_cli -- serve                  # local HTTP hub (http://127.0.0.1:8766/; not file://)
-cargo run -p cdcp_cli -- doctor                 # preflight: bank, wasm, goldens, port, python3
-cargo run -p cdcp_cli -- health --robot         # versioned NDJSON envelope
-cargo run -p cdcp_cli -- repair                 # units + glossary + export-web; never goldens
-cargo run -p cdcp_cli -- bank-hash
-cargo run -p cdcp_cli -- grade --fixture goldens/fixtures/mock40_seed42.json --mode all-correct
-cargo run -p cdcp_cli -- goldens check
-cargo run -p cdcp_registry_check
-# UPDATE_GOLDENS=1 cargo run -p cdcp_cli -- goldens generate   # local + human review only
+cargo build -p cdcp_cli -p cdcp_registry_check --locked
+./target/debug/cdcp serve                  # local HTTP hub (http://127.0.0.1:8766/; not file://)
+./target/debug/cdcp doctor                 # preflight: bank, wasm, goldens, port
+./target/debug/cdcp health --robot         # versioned NDJSON envelope
+./target/debug/cdcp repair                 # units + glossary + export-web; never goldens
+./target/debug/cdcp bank-hash
+./target/debug/cdcp grade --fixture goldens/fixtures/mock40_seed42.json --mode all-correct
+./target/debug/cdcp goldens check
+./target/debug/cdcp_registry_check
+# UPDATE_GOLDENS=1 ./target/debug/cdcp goldens generate   # local + human review only
 ```
+
+`doctor` still probes `python3`, but only because surviving dual-path oracles
+may need it. It is not a product surface.
 
 `repair` is not a golden laundromat. Re-freezing `goldens/` still requires `UPDATE_GOLDENS=1` and the four-command block in `goldens/PROVENANCE.md`.
