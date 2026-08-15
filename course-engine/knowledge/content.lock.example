@@ -8,7 +8,7 @@
 schema_version = 1
 canonical = "cdcp-bank-v1"
 hash_alg = "sha256"
-# bank_hash = "<hex from: cargo run -p cdcp_cli -- bank-hash>"
+# bank_hash = "<hex from: cdcp bank-hash>"
 
 # [knowledge]
 # "knowledge/exam_form.toml" = "<sha256>"
