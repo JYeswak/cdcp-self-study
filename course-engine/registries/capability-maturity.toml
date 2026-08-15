@@ -176,24 +176,30 @@ evidence = [
   { kind = "contract", ref = "scripts/check.sh" },
 ]
 
-# RED ON PURPOSE — the other half of the same CHARTER cell. The two libFuzzer
-# targets compile under cargo-fuzz and have a corpus, and NOTHING RUNS THEM: no
-# step of scripts/check.sh, no job in .github/workflows/check.yml, and the fuzz
-# crate is outside the workspace so `cargo test --workspace` never builds it.
-# A floor nothing stands on is not a floor. The CHARTER cell for L5 is carried
-# entirely by the property half above.
+# Raised declared → proven-to-trip 2026-08-15 (bd-p228). The libFuzzer
+# binaries are still outside the workspace; what now gates a change is
+# corpus-replay of the committed seed set through the same entry points.
+# CHARTER §5 still publishes "PARTIAL · property only" — that cell is an
+# underclaim, not an overclaim, so this gate stays green. This is not a
+# live libFuzzer campaign.
 [[capability]]
 id = "l5.fuzz-crash-floor"
 title = "Crash-only fuzzing of the canonical-JSON and answer-parsing surfaces"
-level = "declared"
+level = "proven-to-trip"
 owner = "josh"
-last_review = "2026-08-14"
-claim = "Two libFuzzer targets exist with a corpus, and no gate, workflow or test invocation runs them, so no fuzzing has ever gated a change to this repo."
+last_review = "2026-08-15"
+claim = "Committed seed corpora for choice_letter_parse and canonical_json_bytes are replayed through the same entry points as the libFuzzer targets; a panic is ReplayVerdict::Crash and fails cargo test (and thus check.sh). planted_crashing_subject_is_red plants a panicking subject and requires Crash. An empty seed directory is an error. This is corpus-replay, not a live libFuzzer campaign; the fuzz crate remains outside the workspace."
 charter_claim = { file = "CHARTER.md", row = "L5 Adversarial floor", status = "PARTIAL · property only" }
 evidence = [
+  { kind = "test", ref = "crates/cdcp_cli/tests/fuzz_corpus_replay.rs::live_seed_corpus_replays_without_crash" },
+  { kind = "known_bad", ref = "crates/cdcp_cli/tests/fuzz_corpus_replay.rs::planted_crashing_subject_is_red" },
+  { kind = "known_bad", ref = "crates/cdcp_cli/tests/fuzz_corpus_replay.rs::empty_corpus_dir_is_an_error_not_a_pass" },
   { kind = "contract", ref = "fuzz/fuzz_targets/canonical_json_bytes.rs" },
   { kind = "contract", ref = "fuzz/fuzz_targets/choice_letter_parse.rs" },
   { kind = "contract", ref = "fuzz/Cargo.toml" },
+  { kind = "contract", ref = "fuzz/seed_corpus/choice_letter_parse/A" },
+  { kind = "contract", ref = "fuzz/seed_corpus/canonical_json_bytes/object" },
+  { kind = "contract", ref = "scripts/check.sh" },
 ]
 
 # ── L6 ─────────────────────────────────────────────────────────────────────

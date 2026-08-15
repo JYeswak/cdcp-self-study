@@ -123,10 +123,19 @@ Plant proof lives in selftest case (d); clean tree still exits 0 from `./scripts
 | `choice_letter_parse` | `fuzz/fuzz_targets/choice_letter_parse.rs` | `ChoiceLetter::parse` never panics on arbitrary UTF-8 |
 | `canonical_json_bytes` | `fuzz/fuzz_targets/canonical_json_bytes.rs` | `canonical_json` never panics on arbitrary JSON Values |
 
-**Commands:** `cargo fuzz run choice_letter_parse` · `cargo fuzz run canonical_json_bytes`  
-Requires nightly + `cargo install cargo-fuzz`. Package is workspace-`exclude`d (`fuzz/`), so it
-is **not** a workspace member [[fact:fact-fuzz-is-a-workspace-member=no]] and no `check.sh` step,
-CI job or `cargo test --workspace` ever builds or runs these targets.
+The libFuzzer binaries are **not** a workspace member
+[[fact:fact-fuzz-is-a-workspace-member=no]] and still need nightly +
+`cargo install cargo-fuzz` to *discover* new inputs
+(`cargo fuzz run choice_letter_parse` · `cargo fuzz run canonical_json_bytes`).
+
+The crash floor that gates a change is **corpus-replay**, not a live
+libFuzzer campaign: `cargo test -p cdcp_cli --test fuzz_corpus_replay`
+feeds `fuzz/seed_corpus/{choice_letter_parse,canonical_json_bytes}/`
+(and, when present, a local `fuzz/corpus/`) through the same entry
+points. A panic is `ReplayVerdict::Crash` and fails cargo test, which
+fails `scripts/check.sh`. `planted_crashing_subject_is_red` plants a
+panicking subject and requires Crash. An empty seed directory is an
+error, not a pass.
 
 Crash-only fuzz is **insufficient alone** (see oracle hierarchy). Property tests cover digest stability / bank_hash reorder.
 

@@ -1,4 +1,6 @@
 target
+# live libFuzzer working set (untracked). seed_corpus/ is the committed
+# crash-floor replay set and MUST stay tracked.
 corpus
 artifacts
 coverage

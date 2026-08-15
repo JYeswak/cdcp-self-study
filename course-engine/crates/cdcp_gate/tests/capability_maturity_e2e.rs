@@ -49,12 +49,13 @@ const ERROR: i32 = 4;
 /// L3 — and aligned the ledger's `charter_claim.status`, so the published claim
 /// and the evidenced level now agree and this gate has nothing to refuse.
 ///
-/// THE UNDERLYING DEBTS ARE NOT PAID. No test asserts an SLO budget (bd-kog9),
-/// and nothing runs the fuzz targets (bd-p228). What changed is that the CHARTER
-/// stopped overstating them. This gate detects CLAIM-VERSUS-EVIDENCE DRIFT, not
-/// capability gaps: correcting a claim removes the finding without closing the
-/// gap, and that is the correct division of labour — the gap is a bead, the lie
-/// is a build failure.
+/// The underlying SLO debt was paid 2026-08-15 (bd-kog9: named budget
+/// assertion + planted over-budget RED). The fuzz-crash debt was paid
+/// 2026-08-15 (bd-p228: committed seed-corpus replay; a planted panic is
+/// ReplayVerdict::Crash). This gate still detects CLAIM-VERSUS-EVIDENCE
+/// DRIFT, not capability gaps: correcting a claim removes the finding
+/// without closing a gap, and that is the correct division of labour —
+/// the gap is a bead, the lie is a build failure.
 ///
 /// An empty list is therefore a real state, not a vacuous one: it asserts the
 /// published claims and the evidenced levels agree today. A NEW finding is a
