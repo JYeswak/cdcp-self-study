@@ -2,7 +2,7 @@
 
 The hub is a **local HTTP** product. It is **not** a `file://` page.
 
-- **Supported:** `cargo run -p cdcp_cli -- serve` (default `http://127.0.0.1:8766/`). No public network required.
+- **Supported:** `cargo build -p cdcp_cli --locked` then `./target/debug/cdcp serve` (default `http://127.0.0.1:8766/`). No public network required.
 - **Unsupported:** double-clicking `index.html`. That origin fails closed as **`CDCP_FILE_ORIGIN`** — browsers block ES modules, `fetch()`, and WASM from `file://`.
 
 Static HTML + CSS + vanilla JS (+ WASM grade). **No** React / Next / Tailwind / CDN.
@@ -48,7 +48,8 @@ See [`data/README.md`](data/README.md) for export-web packs and answer-key polic
 
 ```bash
 # Documented path (V11): from course-engine root — loopback default, no auth
-cargo run -p cdcp_cli -- serve
+cargo build -p cdcp_cli --locked
+./target/debug/cdcp serve
 # open http://127.0.0.1:8766/
 
 # Or classic Python static server from this directory (same contract, different port):
@@ -270,8 +271,9 @@ node scripts/smoke_mastery.mjs
 
 ```bash
 # From course-engine/: copy notes + regenerate hub/pages/index
-cdcp build-learn
-cargo run -q -p cdcp_cli -- smoke-learn
+cargo build -p cdcp_cli --locked
+./target/debug/cdcp build-learn
+./target/debug/cdcp smoke-learn
 
 # Serve web/ (fetch needs http)
 cd web && python3 -m http.server 8766
@@ -321,7 +323,8 @@ cd web && python3 -m http.server 8766
 If WASM fails, results show a clear error and **do not** invent scores in JS. CLI fallback only:
 
 ```bash
-cargo run -q -p cdcp_cli -- grade \
+cargo build -p cdcp_cli --locked
+./target/debug/cdcp grade \
   --fixture goldens/fixtures/mock40_seed42.json --mode all-correct
 ```
 
