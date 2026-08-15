@@ -13,7 +13,9 @@
 //! LEG C  every dispatched gate has a registry row.
 //! LEG D  gate binary: exit==0 iff stdout carries the registered token.
 //! LEG E  no gate may pass over an empty root.
-//! LEG F  at least one gate observed GREEN carrying its token.
+//! LEG F  at least one gate observed GREEN carrying its token. Writer/flag
+//!        gates (bd-gate-token-green-side-unprobed-cbh3) must be observed
+//!        GREEN on a private tree / fixture — never by rewriting the live tree.
 //! LEG G  token-free gates print no vocabulary word.
 //! LEG H  classifier proven on planted known-bad and known-good.
 //! LEG I  harness meta-gate (bd-j8b2): every active `diff_*.rs` carries a
@@ -105,6 +107,10 @@ struct GateRow {
     empty_probe: bool,
     #[serde(default)]
     empty_probe_skip_reason: Option<String>,
+    /// live_probe=false and not one of the private GREEN fixtures: skip
+    /// the per-gate green floor only with a reason (FIX #1 of cbh3).
+    #[serde(default)]
+    green_unprobed_reason: Option<String>,
 }
 
 fn yes() -> bool {
@@ -699,17 +705,163 @@ struct ProbeRun {
 }
 
 fn run_gate(root: &Path, gate: &str) -> ProbeRun {
-    let out = Command::new(BIN)
-        .current_dir(root)
-        .arg("--root")
-        .arg(root)
-        .arg(gate)
-        .output()
-        .unwrap_or_else(|e| panic!("run {gate}: {e}"));
+    run_gate_argv(root, &[gate])
+}
+
+fn isolate_git(cmd: &mut Command) {
+    // A writer fixture must never inherit a GIT_* redirect at the live clone.
+    for k in [
+        "GIT_INDEX_FILE",
+        "GIT_DIR",
+        "GIT_WORK_TREE",
+        "GIT_COMMON_DIR",
+        "GIT_OBJECT_DIRECTORY",
+        "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+    ] {
+        cmd.env_remove(k);
+    }
+}
+
+fn run_gate_argv(root: &Path, args: &[&str]) -> ProbeRun {
+    let mut cmd = Command::new(BIN);
+    cmd.current_dir(root).arg("--root").arg(root).args(args);
+    isolate_git(&mut cmd);
+    let out = cmd.output().unwrap_or_else(|e| panic!("run {args:?}: {e}"));
     ProbeRun {
         code: out.status.code().unwrap_or(-1),
         stdout: String::from_utf8_lossy(&out.stdout).into_owned(),
     }
+}
+
+/// The five named by bd-gate-token-green-side-unprobed-cbh3. live_probe=false
+/// meant a wrong token was only ever checked on RED — and a token the gate
+/// never prints satisfies that for free (verify-step-count already did).
+const WRITER_OR_FLAG: &[&str] = &[
+    "build-units",
+    "build-glossary-json",
+    "install-hooks",
+    "verify-injection-count",
+    "verify-step-count",
+];
+
+fn git_isolated(root: &Path, args: &[&str]) {
+    let mut cmd = Command::new("git");
+    cmd.current_dir(root).args(args);
+    isolate_git(&mut cmd);
+    let out = cmd.output().unwrap_or_else(|e| panic!("git {args:?}: {e}"));
+    assert!(
+        out.status.success(),
+        "git {args:?} failed: {}",
+        String::from_utf8_lossy(&out.stderr)
+    );
+}
+
+/// GREEN probe that cannot rewrite a tracked live artifact.
+///
+/// Writers run in a private tree. Flag gates get the required
+/// `--log`/`--readme`/`--script` against fixtures (the registry's
+/// `--measured` skip was a misnomer; the flag is `--log`).
+fn private_green_probe(engine: &Path, name: &str) -> Option<ProbeRun> {
+    match name {
+        "install-hooks" => {
+            let td = tempfile::tempdir().expect("tmp");
+            let root = td.path();
+            let src = engine.join("hooks/pre-commit");
+            let body =
+                std::fs::read(&src).unwrap_or_else(|e| panic!("read {}: {e}", src.display()));
+            std::fs::create_dir_all(root.join("hooks")).unwrap();
+            std::fs::write(root.join("hooks/pre-commit"), body).unwrap();
+            git_isolated(root, &["init", "-q"]);
+            Some(run_gate_argv(root, &["install-hooks"]))
+        }
+        "verify-injection-count" => {
+            let td = tempfile::tempdir().expect("tmp");
+            let root = td.path();
+            let log = root.join("inj.log");
+            let readme = root.join("README.md");
+            std::fs::write(
+                &log,
+                "INJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n",
+            )
+            .unwrap();
+            std::fs::write(
+                &readme,
+                "# Specimen readme\n\n\
+                 [![known-bad (shell selftest suites): 7 injections](https://img.shields.io/badge/known--bad-7_injections_all_RED-success.svg)](#x)\n\n\
+                 | **Gate** | 2 selftest suites; 7 known-bad injections that must all go RED |\n\n\
+                 Two selftest suites inject **7 known-bad faults** and assert the build fails.\n\n\
+                 | **L4 — gates proven to trip** | ok | 2 suites, 7 injections, anti-vacuous |\n",
+            )
+            .unwrap();
+            Some(run_gate_argv(
+                root,
+                &[
+                    "verify-injection-count",
+                    "--log",
+                    log.to_str().unwrap(),
+                    "--readme",
+                    readme.to_str().unwrap(),
+                    "--require",
+                    "spec_alpha,spec_beta",
+                ],
+            ))
+        }
+        "verify-step-count" => {
+            let td = tempfile::tempdir().expect("tmp");
+            let root = td.path();
+            let log = root.join("measured.log");
+            let readme = root.join("README.md");
+            let script = root.join("check.sh");
+            std::fs::write(
+                &log,
+                "CHECK_STEPS=2 OK=2 SKIPPED=0 NESTED_OK=5 DEPTH=0 RUN=probe1\n",
+            )
+            .unwrap();
+            std::fs::write(
+                &readme,
+                "# Specimen\n\n\
+                 [![gate: 2 steps](https://img.shields.io/badge/gate-2_ordered_steps-success.svg)](#the-gate)\n\n\
+                 | **Gate** | 2 ordered steps; 9 selftest suites |\n\n\
+                 2 steps, fail-closed, each naming the script that failed.\n",
+            )
+            .unwrap();
+            std::fs::write(
+                &script,
+                "#!/usr/bin/env sh\n\
+                 ok() { echo x; }\n\
+                 ok \"one\"\n\
+                 ok \"two\"\n\
+                 # a comment mentioning ok \"three\" must not count\n\
+                 # STEP-COUNT-RECEIPT-BOUNDARY\n\
+                 printf 'CHECK_STEPS=%s' \"$N\"\n",
+            )
+            .unwrap();
+            Some(run_gate_argv(
+                root,
+                &[
+                    "verify-step-count",
+                    "--log",
+                    log.to_str().unwrap(),
+                    "--readme",
+                    readme.to_str().unwrap(),
+                    "--script",
+                    script.to_str().unwrap(),
+                ],
+            ))
+        }
+        _ => None,
+    }
+}
+
+fn live_watched_paths(engine: &Path) -> Vec<PathBuf> {
+    let parent = engine.parent().unwrap_or(engine);
+    vec![
+        engine.join("web/data/units_index.json"),
+        engine.join("web/data/glossary.json"),
+        engine.join("README.md"),
+        parent.join("README.md"),
+        parent.join(".git/hooks/pre-commit"),
+    ]
 }
 
 /// The whole of bd-j8b2's leg, as one function, so it can be proven to trip.
@@ -788,6 +940,7 @@ fn every_dispatched_gate_is_registered_and_holds_the_verdict_shape() {
     let mut green_with_token = 0usize;
     let mut probes = 0usize;
     let mut violations: Vec<String> = Vec::new();
+    let mut observed_green: BTreeSet<String> = BTreeSet::new();
 
     for name in &roster {
         let row = rows[name.as_str()];
@@ -834,6 +987,9 @@ fn every_dispatched_gate_is_registered_and_holds_the_verdict_shape() {
         if row.live_probe {
             runs.push(("live root", run_gate(&root, name)));
         }
+        if let Some(r) = private_green_probe(&root, name) {
+            runs.push(("private green", r));
+        }
 
         for (where_, r) in &runs {
             probes += 1;
@@ -860,6 +1016,7 @@ fn every_dispatched_gate_is_registered_and_holds_the_verdict_shape() {
             }
             if r.code == 0 && carries_success_token(&r.stdout, token) {
                 green_with_token += 1;
+                observed_green.insert(name.clone());
             }
         }
     }
@@ -891,9 +1048,94 @@ fn every_dispatched_gate_is_registered_and_holds_the_verdict_shape() {
     );
     println!(
         "[probe] {probes} gate probes over {} gates; {green_with_token} observed \
-         GREEN carrying their token",
-        roster.len()
+         GREEN carrying their token; private-green={:?}",
+        roster.len(),
+        WRITER_OR_FLAG
+            .iter()
+            .filter(|n| observed_green.iter().any(|g| g == *n))
+            .collect::<Vec<_>>()
     );
+
+    // Per-gate GREEN floor (bd-gate-token-green-side-unprobed-cbh3). LEG F is
+    // a global floor of 1; a wrong token on an unprobed gate still passes that.
+    // Every dispatched member of WRITER_OR_FLAG must be seen GREEN carrying
+    // its token. A retired name (not on the roster) is reported, not required.
+    let mut missing_green = Vec::new();
+    for name in &roster {
+        if WRITER_OR_FLAG.contains(&name.as_str()) && !observed_green.contains(name) {
+            missing_green.push(name.clone());
+        }
+    }
+    assert!(
+        missing_green.is_empty(),
+        "writer/flag gates never observed GREEN carrying their token: \
+         {missing_green:?}. A wrong registered token on these gates reads as \
+         covered — that is the verify-step-count defect this floor exists to \
+         make inexpressible."
+    );
+    for name in WRITER_OR_FLAG {
+        if !roster.iter().any(|g| g == name) {
+            println!("[probe] {name}: not in dispatcher (retired); no GREEN probe");
+        }
+    }
+    for name in &roster {
+        let row = rows[name.as_str()];
+        if row.token_free || row.live_probe || WRITER_OR_FLAG.contains(&name.as_str()) {
+            continue;
+        }
+        if observed_green.contains(name) {
+            continue;
+        }
+        assert!(
+            row.green_unprobed_reason
+                .as_deref()
+                .is_some_and(|r| !r.is_empty()),
+            "{name}: live_probe=false and never observed GREEN; declare \
+             green_unprobed_reason or add a private GREEN probe"
+        );
+    }
+}
+
+#[test]
+fn a_wrong_registered_token_on_a_real_green_run_is_red() {
+    // The historically-wrong token for verify-step-count. Red-side "no token
+    // on FAIL" is true of a token the gate never prints; only a real GREEN
+    // run can catch it.
+    let engine = engine_root();
+    let r = private_green_probe(&engine, "verify-step-count")
+        .expect("verify-step-count has a private GREEN fixture");
+    assert_eq!(r.code, 0, "fixture must be a real GREEN run:\n{}", r.stdout);
+    assert!(
+        carries_success_token(&r.stdout, "PASS"),
+        "real GREEN must carry PASS:\n{}",
+        r.stdout
+    );
+    let wrong = "verify-step-count: ok:";
+    assert!(
+        verdict_shape_violation(r.code, &r.stdout, wrong),
+        "wrong token on a real GREEN run must be RED; gate=verify-step-count \
+         token={wrong:?}\n{}",
+        r.stdout
+    );
+    assert!(
+        !carries_success_token(&r.stdout, wrong),
+        "the wrong token must not appear as a line prefix:\n{}",
+        r.stdout
+    );
+}
+
+#[test]
+fn private_green_probes_do_not_mutate_the_live_tree() {
+    let engine = engine_root();
+    let paths = live_watched_paths(&engine);
+    let before: Vec<Option<Vec<u8>>> = paths.iter().map(|p| std::fs::read(p).ok()).collect();
+    for name in WRITER_OR_FLAG {
+        let _ = private_green_probe(&engine, name);
+    }
+    for (p, b) in paths.iter().zip(&before) {
+        let after = std::fs::read(p).ok();
+        assert_eq!(&after, b, "private GREEN probe mutated {}", p.display());
+    }
 }
 
 // LEG I — harness meta-gate (bd-j8b2). Token = registry row, not a PASS-grep.

@@ -346,6 +346,9 @@ name = "build-units"
 success_token = "PASS: build_units"
 live_probe = false
 live_probe_skip_reason = "writes web/data/units_index.json; a probe must never mutate a tracked artifact"
+# Extracted to cdcp_learn (`cdcp build-units`). LEG D keys on the dispatcher
+# roster, so this leftover row is not probed. A reintroduction must grow a
+# private-tree GREEN probe (bd-gate-token-green-side-unprobed-cbh3).
 
 [[gate]]
 name = "smoke-a11y"
@@ -388,6 +391,7 @@ live_probe = false
 live_probe_skip_reason = "writes into this clone's .git; a probe must never mutate the working clone"
 empty_probe = false
 empty_probe_skip_reason = "installs shims into whatever root it is given; an empty root is still a write target"
+# GREEN is probed in a private `git init` tree (bd-gate-token-green-side-unprobed-cbh3).
 
 [[gate]]
 name = "near-duplicate-items"
@@ -418,6 +422,7 @@ name = "verify-injection-count"
 success_token = "PASS"
 live_probe = false
 live_probe_skip_reason = "requires --log/--readme; there is no argument-free live invocation, and a USAGE exit is not a verdict"
+# GREEN is probed against fixture --log/--readme/--require (bd-gate-token-green-side-unprobed-cbh3).
 
 [[gate]]
 name = "verify-knowledge-paths"
@@ -441,7 +446,9 @@ name = "verify-step-count"
 # argument for LEG F.
 success_token = "PASS"
 live_probe = false
-live_probe_skip_reason = "requires --measured; there is no argument-free live invocation, and a USAGE exit is not a verdict"
+live_probe_skip_reason = "requires --log/--readme/--script; there is no argument-free live invocation, and a USAGE exit is not a verdict"
+# GREEN is probed against fixture --log/--readme/--script (bd-gate-token-green-side-unprobed-cbh3).
+# `--measured` was a misnomer in the first skip reason; the flag is `--log`.
 
 # ── bd-substrate-rust-migration-jhd.17 / .18 (wave 4 learner-surface smokes) ──
 #
