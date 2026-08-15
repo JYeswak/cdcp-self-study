@@ -52,6 +52,12 @@
 //!   p) a missing policy file is ERROR, not a lowered N=1 floor (bd-j98g).
 //!      A present file with empty `[[domain_min]]` stays N=1 and must not
 //!      report like the missing-file path.
+//!   q) path/option spellings pointed at a planted module-2 shortfall
+//!      (bd-diff-coverage-agreement-only-25ux). Agreement is necessary and
+//!      not sufficient: each spelling must print THAT bank's resolved path,
+//!      its item count, and the planted finding. Deleting the shortfall
+//!      from the gate turns these RED. The live-tree green self-check
+//!      pins `coverage GREEN` so an empty comparison cannot pass.
 //!
 //! # THE VERDICT-SHAPE DETECTOR
 //!
@@ -215,6 +221,51 @@ fn assert_byte_identical(label: &str, root: &Path, args: &[&str]) -> Run {
 
     COMPARED.fetch_add(1, Ordering::SeqCst);
     rs
+}
+
+/// Planted-finding verdict for the option-shape cases
+/// (bd-diff-coverage-agreement-only-25ux).
+///
+/// Agreement is necessary and not sufficient. Each spelling must (1) print
+/// the resolved planted bank, (2) report THAT bank's item count — a silent
+/// fallback to the live tree would print ~800 here — and (3) still reach
+/// the planted module-2 shortfall. Deleting that finding from the gate
+/// turns these RED (RULE ZERO).
+fn assert_planted_module2_shortfall(
+    label: &str,
+    rs: &Run,
+    resolved_bank: &Path,
+    planted_items: usize,
+) {
+    let out = rs.out();
+    assert!(
+        out.contains(&format!("  bank={}\n", resolved_bank.display())),
+        "[{label}] the spelling did not normalise to {}: {out}",
+        resolved_bank.display()
+    );
+    // The item count is the assertion a shared defect cannot survive: a
+    // fallback prints a perfectly plausible report over the live tree, and
+    // both sides print the same plausible report.
+    let items_line = out
+        .lines()
+        .find(|l| l.starts_with("  items="))
+        .unwrap_or("<no items= line>");
+    assert!(
+        out.contains(&format!(
+            "  items={planted_items} scanned, {planted_items} approved "
+        )),
+        "[{label}] the run reported `{items_line}`, not items={planted_items} scanned \
+         — the spelling reached a different tree than the one it named: {out}"
+    );
+    assert!(
+        out.contains("registry=domains.toml declares=2"),
+        "[{label}] the run did not use the two-module fixture registry: {out}"
+    );
+    assert_ne!(rs.code, 0, "[{label}] planted shortfall not caught: {out}");
+    assert!(
+        out.contains("module 2: 0 approved < min 1 (0 scanned, 0 not approved)"),
+        "[{label}] the detector did not name the planted shortfall: {out}"
+    );
 }
 
 fn write(path: &Path, body: &str) {
@@ -676,7 +727,8 @@ fn absent_policy_is_an_error_not_a_lowered_floor() {
         rs.out()
     );
     assert!(
-        rs.out().contains(&format!("bank_policy.toml missing: {missing_s}")),
+        rs.out()
+            .contains(&format!("bank_policy.toml missing: {missing_s}")),
         "the missing policy path must be named:\n{}",
         rs.out()
     );
@@ -727,10 +779,7 @@ fn absent_policy_is_an_error_not_a_lowered_floor() {
 
     // Same stock under a sized floor: RED naming the floor, policy=present.
     let sized = td.path().join("sized_policy.toml");
-    write(
-        &sized,
-        "[[domain_min]]\nmodule = 1\nmin_items = 20\n",
-    );
+    write(&sized, "[[domain_min]]\nmodule = 1\nmin_items = 20\n");
     let rs = assert_byte_identical(
         "bd-j98g present sized floor still raises",
         &root,
@@ -744,11 +793,7 @@ fn absent_policy_is_an_error_not_a_lowered_floor() {
         ],
     );
     assert_ne!(rs.code, 0, "the sized floor must still trip:\n{}", rs.out());
-    assert!(
-        rs.out().contains("policy=present"),
-        "{}",
-        rs.out()
-    );
+    assert!(rs.out().contains("policy=present"), "{}", rs.out());
     assert!(
         rs.out()
             .contains("module 1: 1 approved < min 20 (1 scanned, 0 not approved)"),
@@ -771,7 +816,8 @@ fn absent_policy_is_an_error_not_a_lowered_floor() {
         rs.out()
     );
     assert!(
-        rs.out().contains(&format!("bank_policy.toml missing: {missing_s}")),
+        rs.out()
+            .contains(&format!("bank_policy.toml missing: {missing_s}")),
         "{}",
         rs.out()
     );
@@ -1488,28 +1534,133 @@ fn path_and_option_shapes_are_byte_identical() {
     let root = engine_root();
     let td = tempfile::tempdir().unwrap();
 
-    // engine-root-relative arguments, including untidy spellings the printed
-    // header must normalise the same way on both sides
-    assert_byte_identical("relative bank", &root, &["--bank", "bank/items"]);
-    assert_byte_identical("untidy relative bank", &root, &["--bank", "./bank//items/"]);
-    assert_byte_identical(
-        "relative registry",
-        &root,
-        &["--domains", "knowledge/domains.toml"],
+    // ── engine-root-relative spellings ────────────────────────────────────
+    //
+    // WHY THESE CASES NOW ASSERT A VERDICT (bd-diff-coverage-agreement-only-25ux).
+    // Every spelling below used to be a bare `assert_byte_identical(..)` — the
+    // two sides agree, full stop. That is blind by construction: a defect
+    // present in BOTH implementations agrees with itself, and eight of this
+    // harness's nine agreement-only cases lived right here. It is the same
+    // shape that let `m min topic 0` pass in diff_verify_objectives.rs for
+    // weeks while both sides reported 106 of 106 topics covered having compared
+    // none of them.
+    //
+    // AND REWRITING THE ASSERTION IS NOT ENOUGH. Every spelling here ran
+    // against the LIVE tree, which is green. Asserting "this spelling still
+    // passes" on a tree that passes is worth nothing: no defect that suppresses
+    // a finding can show up in a run that has no finding to suppress. So the
+    // INPUT changes too — each spelling is pointed at a bank with a KNOWN
+    // planted shortfall (one approved item in module 1, module 2 empty, N=1
+    // floors), and each must still reach it, and must report the item count of
+    // THAT bank rather than of some default it silently fell back to.
+    //
+    // The specimen lives under `target/`, which is build output, because a
+    // *relative* --bank/--domains/--policy has to resolve under the engine root
+    // to be exercised at all. The live content tree is still never written to.
+    let rel_dir = format!("target/zz-diff-coverage-{}", std::process::id());
+    let scratch = root.join(&rel_dir);
+    let _ = std::fs::remove_dir_all(&scratch);
+    let bank_abs = scratch.join("items");
+    let planted_items = plant_bank(&bank_abs, &[("only", 1)]);
+    assert!(
+        planted_items > 0,
+        "a vacuous planted bank is an ERROR, not a pass"
     );
-    assert_byte_identical(
-        "relative policy",
-        &root,
-        &["--policy", "knowledge/bank_policy.toml"],
-    );
+    write(&scratch.join("domains.toml"), &domains_registry(&[1, 2]));
+    write_empty_policy(&scratch.join("bank_policy.toml"));
 
-    // `--opt=value` and argparse's unambiguous prefixes
-    assert_byte_identical("equals form", &root, &["--bank=bank/items"]);
-    assert_byte_identical("abbreviated option", &root, &["--ban", "bank/items"]);
-    assert_byte_identical("shortest prefix", &root, &["--d", "knowledge/domains.toml"]);
+    let rel_bank = format!("{rel_dir}/items");
+    let untidy_bank = format!("./{rel_dir}//items/");
+    let equals_bank = format!("--bank={rel_bank}");
+    let rel_domains = format!("{rel_dir}/domains.toml");
+    let rel_policy = format!("{rel_dir}/bank_policy.toml");
+    let resolved_bank = bank_abs.canonicalize().unwrap_or_else(|_| bank_abs.clone());
+
+    for (label, args) in [
+        (
+            "relative bank",
+            vec![
+                "--bank",
+                rel_bank.as_str(),
+                "--domains",
+                rel_domains.as_str(),
+                "--policy",
+                rel_policy.as_str(),
+            ],
+        ),
+        (
+            "untidy relative bank",
+            vec![
+                "--bank",
+                untidy_bank.as_str(),
+                "--domains",
+                rel_domains.as_str(),
+                "--policy",
+                rel_policy.as_str(),
+            ],
+        ),
+        (
+            "relative registry",
+            vec![
+                "--domains",
+                rel_domains.as_str(),
+                "--bank",
+                rel_bank.as_str(),
+                "--policy",
+                rel_policy.as_str(),
+            ],
+        ),
+        (
+            "relative policy",
+            vec![
+                "--policy",
+                rel_policy.as_str(),
+                "--bank",
+                rel_bank.as_str(),
+                "--domains",
+                rel_domains.as_str(),
+            ],
+        ),
+        (
+            "equals form",
+            vec![
+                equals_bank.as_str(),
+                "--domains",
+                rel_domains.as_str(),
+                "--policy",
+                rel_policy.as_str(),
+            ],
+        ),
+        (
+            "abbreviated option",
+            vec![
+                "--ban",
+                rel_bank.as_str(),
+                "--domains",
+                rel_domains.as_str(),
+                "--policy",
+                rel_policy.as_str(),
+            ],
+        ),
+        (
+            "shortest prefix",
+            vec![
+                "--d",
+                rel_domains.as_str(),
+                "--bank",
+                rel_bank.as_str(),
+                "--policy",
+                rel_policy.as_str(),
+            ],
+        ),
+    ] {
+        let rs = assert_byte_identical(label, &root, &args);
+        assert_planted_module2_shortfall(label, &rs, &resolved_bank, planted_items);
+    }
 
     // a missing policy IS an error (bd-j98g) — it must not lower sized floors
     // to N=1. The live bank used to PASS here because every module has >> 1 item.
+    // Do not revert this ERROR: absence is not a fallback.
     let absent = td.path().join("absent_policy.toml");
     let rs = assert_byte_identical(
         "absent policy is an error, not an N=1 fallback",
@@ -1517,11 +1668,7 @@ fn path_and_option_shapes_are_byte_identical() {
         &["--policy", absent.to_str().unwrap()],
     );
     assert_ne!(rs.code, 0, "missing policy must be RED:\n{}", rs.out());
-    assert!(
-        rs.out().contains("policy=absent"),
-        "{}",
-        rs.out()
-    );
+    assert!(rs.out().contains("policy=absent"), "{}", rs.out());
     assert!(
         !rs.out().contains("policy=absent (N=1 OQ-05)"),
         "N=1 must not be claimed as a fallback:\n{}",
@@ -1533,25 +1680,48 @@ fn path_and_option_shapes_are_byte_identical() {
         rs.out()
     );
 
-    // all four options at once, absolute and relative mixed
-    let bank = td.path().join("bank");
-    plant_bank(&bank, &[("a", 1), ("b", 2)]);
-    let reg = td.path().join("domains.toml");
-    write(&reg, &domains_registry(&[1, 2]));
+    // all four options at once, absolute and relative mixed — still the
+    // planted shortfall, never the live policy. Using knowledge/bank_policy.toml
+    // here would mix live-floor drift into the verdict and hide a suppressed
+    // module-2 finding behind a different RED.
     let json = td.path().join("summary.json");
-    assert_byte_identical(
+    let json_arg = json.to_str().unwrap().to_string();
+    let bank_abs_arg = resolved_bank.to_string_lossy().into_owned();
+    let rs = assert_byte_identical(
         "all options at once",
         &root,
         &[
             "--bank",
-            bank.to_str().unwrap(),
+            &bank_abs_arg,
             "--domains",
-            reg.to_str().unwrap(),
+            rel_domains.as_str(),
             "--policy",
-            "knowledge/bank_policy.toml",
+            rel_policy.as_str(),
             "--write-json",
-            json.to_str().unwrap(),
+            &json_arg,
         ],
+    );
+    assert_planted_module2_shortfall("all options at once", &rs, &resolved_bank, planted_items);
+    assert!(
+        rs.out().contains(&format!("  wrote {json_arg}")),
+        "mixed --write-json must still announce the ledger: {}",
+        rs.out()
+    );
+    let ledger = std::fs::read_to_string(&json).expect("the planted --write-json wrote no ledger");
+    assert!(
+        ledger.contains("\"status\": \"fail\""),
+        "the ledger must record the planted shortfall: {ledger}"
+    );
+    assert!(
+        ledger.contains("\"module\": 2"),
+        "the ledger must name the planted module: {ledger}"
+    );
+
+    let _ = std::fs::remove_dir_all(&scratch);
+    assert!(
+        !scratch.exists(),
+        "the specimen bank leaked at {}",
+        scratch.display()
     );
 }
 
@@ -2362,11 +2532,21 @@ fn the_harness_compared_something() {
     // "0 cases compared" must never report like "all passed".
     let root = engine_root();
     let before = COMPARED.load(Ordering::SeqCst);
-    assert_byte_identical("harness self-check", &root, &[]);
+    let rs = assert_byte_identical("harness self-check", &root, &[]);
     assert!(
         COMPARED.load(Ordering::SeqCst) > before,
         "the differential harness compared nothing"
     );
+    // A counter that ticked proves a comparison HAPPENED, not that it said
+    // anything. Both sides could agree on a vacuous report and this test would
+    // still be green, which is the whole of bd-diff-coverage-agreement-only-25ux
+    // in one line. So the self-check states the verdict too: an empty
+    // comparison is ERROR, and the live tree must still print the GREEN token
+    // the gate actually emits.
+    assert!(!rs.out().is_empty(), "an empty comparison is ERROR");
+    assert_eq!(rs.code, 0, "{}", rs.out());
+    assert!(rs.out().starts_with("PASS\n"), "{}", rs.out());
+    assert!(rs.out().contains("coverage GREEN"), "{}", rs.out());
 }
 
 // ── no fourth instance: the class scan (bd-0czh) ───────────────────────────
