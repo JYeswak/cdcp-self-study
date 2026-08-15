@@ -35,9 +35,10 @@ Mock dual-path · silent UPDATE_GOLDENS · vacuous empty pass · dump PDFs as or
 
 ## Bank validation parity (item schema vs live pool gate)
 
-`scripts/check.sh` runs `cargo run -q -p cdcp_gate -- verify-bank` as the live
-bank-pool gate. `scripts/verify_bank.py` is the differential oracle for
-`tests/diff_verify_bank.rs` — it is not the command to run.
+`scripts/check.sh` builds once and runs `$CDCP_BIN_DIR/cdcp_gate verify-bank`
+via `run_cdcp_gate` as the live bank-pool gate. `scripts/verify_bank.py` is the
+differential oracle for `tests/diff_verify_bank.rs` — it is not the command to
+run.
 
 Item floors are enforced so a bad item cannot load in `Bank::load_dir`
 and still pass `cdcp_gate verify-bank` (or the reverse for shared fields).
@@ -69,7 +70,8 @@ file carries no content outside `bank_hash`. Status *is* checked on the live
 path (the retired "py-only" reading was false after the port).
 
 **Commands:** `cargo test -p cdcp_bank` (includes real `bank/items` load) and
-`cargo run -q -p cdcp_gate -- verify-bank`.
+`$CDCP_BIN_DIR/cdcp_gate verify-bank` (the built binary `check.sh` invokes via
+`run_cdcp_gate` after one `cargo build -p cdcp_gate -p cdcp_cli --locked`).
 
 ## Skip policy (honest receipts)
 
