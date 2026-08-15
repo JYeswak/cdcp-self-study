@@ -16,9 +16,9 @@ This is a **study tool only**. It does **not** grant EPI/EXIN certification. Com
 | `index.html` | Hub — Learn · Drill · Mock · Reference |
 | `learn.html` | Curriculum module hub (L5-S6) |
 | `learn/{id}.html` | Per-module reader (markdown via learn_md.js) |
-| `content/modules/{id}.md` | Shipped note copies (from `scripts/build_learn.py`) |
+| `content/modules/{id}.md` | Shipped note copies (from `cdcp build-learn`) |
 | `reference.html` | Glossary + power/redundancy cheatsheet (L7-S4) |
-| `content/reference/*.md` | Shipped parent `reference/` copies (`scripts/build_reference.py`) |
+| `content/reference/*.md` | Shipped parent `reference/` copies (`cdcp build-reference`) |
 | `diagrams/power-path.html` | Interactive N vs 2N power path self-check (V11-S2) |
 | `diagrams/security-layers.html` | Perimeter → white space layers + fail-safe/fail-secure door toggle (bd-1sd.9.2) |
 | `runbooks.html` | Runbook vignette stems → quiz/mock links (V11-S4) |
@@ -270,7 +270,7 @@ node scripts/smoke_mastery.mjs
 
 ```bash
 # From course-engine/: copy notes + regenerate hub/pages/index
-python3 scripts/build_learn.py
+cdcp build-learn
 cargo run -q -p cdcp_cli -- smoke-learn
 
 # Serve web/ (fetch needs http)
@@ -290,7 +290,7 @@ cd web && python3 -m http.server 8766
 
 ```bash
 # From course-engine/: copy parent reference/*.md + regenerate panel
-python3 scripts/build_reference.py
+cdcp build-reference
 
 # Serve web/ (fetch needs http)
 cd web && python3 -m http.server 8766

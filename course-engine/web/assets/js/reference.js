@@ -61,7 +61,7 @@
       '<p class="lede">Could not load reference markdown. ' +
       String(msg || "") +
       " Serve <span class=\"mono\">web/</span> over HTTP and re-run " +
-      "<span class=\"mono\">python3 scripts/build_reference.py</span>.</p>";
+      "<span class=\"mono\">cdcp build-reference</span>.</p>";
   }
 
   function loadPanel(id) {
