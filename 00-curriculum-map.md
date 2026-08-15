@@ -59,15 +59,16 @@ By the end of this module you can:
 **Public domain topics:** Standards and guidelines; standards for sub-components; international vs national standards.
 
 ### Learning objectives
-1. Map the standards landscape: **facility classification / design** (e.g. ANSI/TIA-942 family), **ISO/IEC** data centre / IT service context, **EN** (European), national electrical/fire codes, **ASHRAE** thermal guidelines, vendor best practices.
-2. Distinguish *standard* vs *guideline* vs *code* (enforceable) vs *certification scheme* (Uptime Tier is a separate commercial rating system—know the difference without conflating brands).
-3. Identify which bodies typically govern power, fire, cabling, environmental conditions, and security/access.
-4. Explain why multi-standard environments create compliance and design trade-offs (e.g. international owner + local AHJ).
-5. Locate public overviews of TIA-942 rated concepts (Rated-1…4 style redundancy language) at a conceptual level suitable for interviews—not audit-level citation.
+1. Map the standards landscape: **ANSI/TIA-942-C (2024)** (**Rated**, not Tier), **Uptime** Tiers as **three plaques** (TCCD / TCCF / TCOS), **ISO/IEC 22237** **alongside** **EN 50600** (Availability Class 1–4 and separate Protection Classes), national electrical/fire codes, **ASHRAE** thermal guidelines, vendor best practices. **ISO/IEC 30134** KPIs (PUE / WUE / CUE) are named here; WUE depth is Module 10. W-classes (W17 / W27 / W32 / W40 / W45 / W+) are a loop decision pointed at Module 09. Cx / ASHRAE Guideline 0 is named as design vs as-built vs process; Module 15 owns isolation (HMI bypass ≠ isolation).
+2. Distinguish *standard* vs *guideline* vs *code* (enforceable) vs *certification scheme*. Hold the third noun: **Rated ≠ Tier ≠ Availability Class**. Never Class 3 = Rated-3 = Tier III. Uptime Tier is a separate commercial rating system—know the difference without conflating brands. “Tier III equivalent” is a marketing defect to probe.
+3. Identify which bodies typically govern power, fire, cabling, environmental conditions, and security/access. Name-and-kill **99.982% = Tier III** (and the I–IV downtime table); Tier is topology, not a nine — no replacement percentage, no nines-to-Tier crosswalk.
+4. Explain why multi-standard environments create compliance and design trade-offs (e.g. international owner + local AHJ). AHJ/code wins. Fit-out order: codes + landlord → owner TIA/ISO/EN → ASHRAE → cabling → fire listings → OEM → Tier last as a claim to verify.
+5. Locate public overviews of TIA Rated, Uptime’s three plaques, and EN/ISO Availability Class at a conceptual level suitable for interviews—not audit-level citation, and not a conversion table.
 
 ### Interview anchors
 - “Which standards would you check before a white-space fit-out?”
 - “TIA-942 vs local electrical code—who wins?”
+- “Rated, Tier, Availability Class — same thing?”
 
 ### Notes path
 `modules/02-data-centre-standards/`
