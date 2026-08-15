@@ -358,7 +358,7 @@ summary, those are the source of truth.
 |---|---|---|
 | M0–M7 | Charter · registries · bank · grade/goldens · web mock · learn · short-interval review · WASM | **done** |
 | V11 | Anki export · power-path diagram · `serve` · runbooks | **done** |
-| M8 | Learn v2 — 127 units · TOC · micro-checks · diagram system · glossary | **done** |
+| M8 | Learn v2 — 134 Learn units · TOC · micro-checks · diagram system · glossary [[fact:fact-learn-unit-count-134=yes]] | **done** |
 | M9 | Publishability bar · OSS meta · visibility flip | **DONE** (2026-08-12; public at github.com/JYeswak/cdcp-self-study) |
 | M10 | Free/public corpus expansion | **done** — 4 free PDFs referenced, rights recorded (further sourcing tracked as OQ-09/10, not M10) |
 | P1 | More diagrams: fire sequence, standards map, cooling topologies | planned (`DIAGRAM-REGISTRY.md`) |

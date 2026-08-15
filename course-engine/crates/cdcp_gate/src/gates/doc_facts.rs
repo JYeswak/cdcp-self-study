@@ -66,11 +66,12 @@
 //! from. §"What still passes" in the bead and the report enumerates the live
 //! ones rather than implying there are none.
 //!
-//! **It says nothing about milestone tables or maturity cells.** The CHARTER §5
-//! `L2/L3/L5 · YES · wired` class is owned by `capability-maturity` (B1), which
-//! quotes the cell verbatim and refuses a published "wired" over an unevidenced
-//! level. Two gates arguing over one cell is worse than one gate owning it, so
-//! `CHARTER.md` carries no rows here.
+//! **It says nothing about maturity STATUS cells.** CHARTER §5 `Applies?` cells
+//! are owned by `capability-maturity` (B1), which quotes the cell verbatim and
+//! refuses a published "wired" over an unevidenced level. CHARTER narrative
+//! (How-column and prose) is this gate. A `[[fact:]]` marker in a reserved
+//! status cell is RED. Decision: `registries/doc-facts.toml` header
+//! (bd-charter-narrative-claims-uncovered-4msa).
 //!
 //! The floor moves from *a sentence about code is whatever somebody last typed*
 //! to *a sentence about code carries a yes/no the build recomputes, at every
@@ -866,8 +867,97 @@ pub struct Report {
     pub excluded_hits: usize,
 }
 
+/// `(file, row-label)` pairs `capability-maturity` quotes as `charter_claim`.
+/// A `[[fact:]]` marker in that status cell is the two-gates-on-one-cell defect.
+pub fn parse_reserved_charter_cells(text: &str) -> Result<Vec<(String, String)>, String> {
+    #[derive(Deserialize)]
+    struct Ledger {
+        #[serde(default)]
+        capability: Vec<CapRow>,
+    }
+    #[derive(Deserialize)]
+    struct CapRow {
+        #[serde(default)]
+        charter_claim: Option<CapCell>,
+    }
+    #[derive(Deserialize)]
+    struct CapCell {
+        #[serde(default)]
+        file: String,
+        #[serde(default)]
+        row: String,
+    }
+    let l: Ledger = toml::from_str(text).map_err(|e| {
+        format!(
+            "registries/capability-maturity.toml: cannot read charter_claim cells for the non-overlap rule: {e}. An unreadable sibling ledger is an ERROR, never an empty reserve list"
+        )
+    })?;
+    Ok(l.capability
+        .into_iter()
+        .filter_map(|r| {
+            let c = r.charter_claim?;
+            let file = c.file.trim().to_string();
+            let row = c.row.trim().to_string();
+            if file.is_empty() || row.is_empty() {
+                None
+            } else {
+                Some((file, row))
+            }
+        })
+        .collect())
+}
+
+/// Load the reserved cells. Missing sibling ledger → empty list (fixtures).
+/// Present-but-unreadable → ERROR.
+pub fn load_reserved_charter_cells(
+    read: &dyn Fn(&str) -> Option<String>,
+) -> Result<Vec<(String, String)>, String> {
+    match read("registries/capability-maturity.toml") {
+        None => Ok(Vec::new()),
+        Some(text) => parse_reserved_charter_cells(&text),
+    }
+}
+
+/// Does line `line` of `text` put a `[[fact:]]` marker in a reserved status cell?
+pub fn reserved_status_overlap(
+    rel: &str,
+    text: &str,
+    line: usize,
+    reserved: &[(String, String)],
+) -> bool {
+    if reserved.is_empty() {
+        return false;
+    }
+    let Some(raw) = text.lines().nth(line.saturating_sub(1)) else {
+        return false;
+    };
+    let t = raw.trim();
+    if !t.starts_with('|') {
+        return false;
+    }
+    let cells: Vec<&str> = t.trim_matches('|').split('|').map(str::trim).collect();
+    if cells.len() < 2 || !cells[1].contains(MARKER_OPEN) {
+        return false;
+    }
+    let label = cells[0].replace(['*', '`'], "");
+    let label = label.trim();
+    reserved
+        .iter()
+        .any(|(f, r)| f.as_str() == rel && r.as_str() == label)
+}
+
 /// The verdict pass. Assumes `schema_errors` ran clean.
 pub fn evaluate(reg: &Registry, docs: &[Doc], w: &World<'_>) -> Report {
+    evaluate_with_reserved(reg, docs, w, &[])
+}
+
+/// Same as [`evaluate`], with the reserved `charter_claim` status cells.
+pub fn evaluate_with_reserved(
+    reg: &Registry,
+    docs: &[Doc],
+    w: &World<'_>,
+    reserved: &[(String, String)],
+) -> Report {
     let mut rep = Report::default();
 
     if docs.is_empty() {
@@ -959,6 +1049,12 @@ pub fn evaluate(reg: &Registry, docs: &[Doc], w: &World<'_>) -> Report {
             };
             if let Some(c) = cited.get_mut(m.id.as_str()) {
                 *c += 1;
+            }
+            if reserved_status_overlap(&d.rel, &d.text, m.line, reserved) {
+                rep.violations.push(format!(
+                    "{}:{}: [[fact:]] marker sits in a charter_claim status cell. capability-maturity owns that cell; this gate owns CHARTER narrative outside those cells. Two gates on one cell is the defect",
+                    d.rel, m.line
+                ));
             }
             let Some(actual) = answers.get(m.id.as_str()) else {
                 // the probe errored; already reported once, do not double-count
@@ -1155,8 +1251,9 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         std::fs::read_to_string(corpus.join(rel)).ok()
     };
     let world = World { read: &read };
+    let reserved = load_reserved_charter_cells(&read).map_err(GateError::error)?;
 
-    let rep = evaluate(&reg, &docs, &world);
+    let rep = evaluate_with_reserved(&reg, &docs, &world, &reserved);
 
     if !rep.errors.is_empty() {
         return Err(GateError::Error(rep.errors.join(" | ")));
@@ -1569,5 +1666,57 @@ fn b() { other }
         let docs = walk_markdown(root).unwrap();
         let names: Vec<&str> = docs.iter().map(|d| d.rel.as_str()).collect();
         assert_eq!(names, vec!["a.md", "docs/b.md"], "{names:?}");
+    }
+
+    #[test]
+    fn reserved_cells_come_from_charter_claim_rows() {
+        let text = r#"
+schema_version = 1
+[[capability]]
+id = "l5.fuzz"
+charter_claim = { file = "CHARTER.md", row = "L5 Adversarial floor", status = "PARTIAL · property only" }
+[[capability]]
+id = "no.cell"
+"#;
+        let cells = parse_reserved_charter_cells(text).unwrap();
+        assert_eq!(
+            cells,
+            vec![("CHARTER.md".into(), "L5 Adversarial floor".into())]
+        );
+    }
+
+    #[test]
+    fn a_fact_marker_in_a_reserved_status_cell_is_red_and_one_in_the_how_cell_is_not() {
+        let mut r = full_registry();
+        r.fact[0].trigger = "subject".into();
+        let read = |_: &str| Some("needle".to_string());
+        let w = World { read: &read };
+        let reserved = vec![("CHARTER.md".into(), "L5 Adversarial floor".into())];
+        let status = Doc {
+            rel: "CHARTER.md".into(),
+            text: "| **L5 Adversarial floor** | **PARTIAL** [[fact:f-one=yes]] | how |\n".into(),
+        };
+        let how = Doc {
+            rel: "CHARTER.md".into(),
+            text: "| **L5 Adversarial floor** | **PARTIAL** | how subject [[fact:f-one=yes]] |\n"
+                .into(),
+        };
+        let bad = evaluate_with_reserved(&r, &[status], &w, &reserved);
+        assert!(
+            bad.violations
+                .iter()
+                .any(|v| v.contains("charter_claim status cell")),
+            "{:?}",
+            bad.violations
+        );
+        let good = evaluate_with_reserved(&r, &[how], &w, &reserved);
+        assert!(
+            !good
+                .violations
+                .iter()
+                .any(|v| v.contains("charter_claim status cell")),
+            "{:?}",
+            good.violations
+        );
     }
 }

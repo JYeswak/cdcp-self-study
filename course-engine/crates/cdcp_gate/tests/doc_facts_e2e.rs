@@ -429,6 +429,23 @@ fn bad_a_marker_with_no_polarity_or_an_unreadable_one_is_red() {
 // ── 3. known-bad: the anti-omission leg ───────────────────────────────────
 
 #[test]
+fn bad_a_fact_marker_in_a_charter_claim_status_cell_is_red() {
+    let c = Corpus::new();
+    c.write(
+        "registries/capability-maturity.toml",
+        "[[capability]]\ncharter_claim = { file = \"CHARTER.md\", row = \"L5 Adversarial floor\", status = \"PARTIAL\" }\n",
+    );
+    c.write_corpus(
+        "CHARTER.md",
+        "| Layer | Applies? | How |\n|---|---|---|\n| **L5 Adversarial floor** | **PARTIAL** [[fact:f-fuzz-member=no]] | narrative |\n",
+    );
+    let (code, out) = c.gate(&["doc-facts"]);
+    assert_eq!(code, VIOLATION, "{out}");
+    assert!(out.contains("charter_claim status cell"), "{out}");
+    assert!(out.contains("CHARTER.md"), "{out}");
+}
+
+#[test]
 fn bad_a_document_that_discusses_a_subject_without_a_marker_is_red() {
     let c = Corpus::new();
     c.write(

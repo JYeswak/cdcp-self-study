@@ -63,6 +63,61 @@
 #      each site really assert the polarity written there?
 #   3. A row whose probe drifted away from its question is worse than no row:
 #      it is a green light with a citation.
+#
+# =============================================================================
+# DECISION (bd-charter-narrative-claims-uncovered-4msa, 2026-08-15)
+#
+# THIS FILE IS THE ONE RECORD.
+#
+# CHARTER.md narrative (How-column + prose) is owned by THIS gate.
+# CHARTER §5 status cells (`Applies?`) are owned by capability-maturity via
+# `charter_claim`. A `[[fact:]]` marker in a reserved status cell is RED.
+# No cell is checked by two gates; no present-tense code sentence is owned
+# by neither (it is registered here, or named OUT OF REACH below).
+#
+# Rejected: extending capability-maturity with a narrative leg. That gate
+# quotes a cell verbatim and never reads a sentence; duplicating
+# probe+polarity there would put two machines on one document class.
+#
+# README SURVEY — present-tense claims about code
+#
+# REGISTERED (row exists; marker at the site or the site is a second
+# occurrence of a claim already marked in the same file):
+#   - 804 / 779 / ~19.5× pool size — fact-bank-item-count-804,
+#     fact-bank-approved-count-779, fact-approved-pool-multiplier-19-5
+#   - CHECK_STEPS= / INJECTIONS= — fact-check-steps-enforced,
+#     fact-injections-enforced
+#   - 134 Learn units — fact-learn-unit-count-134 (root README M8 said
+#     "127 units"; corrected and marked)
+#   - fuzz/ is not a workspace member — fact-fuzz-is-a-workspace-member
+#     (CHARTER How-cell + TESTING.md). Trigger is `fuzz/` so CHARTER is
+#     obligated; the status cell stays B1's.
+#
+# OUT OF REACH (reason):
+#   - byte-exact / dual-path / distinct engine identities — claims-lint
+#     (claim-grade-byte-exact) + capability-maturity l3a
+#   - not-EPI / study-signal / domain-covered / interview-ready —
+#     claims-lint
+#   - serve is std-only, loopback, GET/HEAD, path-traversal guarded —
+#     no probe kind for "zero added dependencies" or "guarded"; semantic
+#   - "7 Rust crates, 3,763 lines, 281 KB WASM" — no count probe
+#   - cdcp_grade purity (no I/O, clock, randomness) — semantic
+#   - source_class=original on every item — verify-bank owns the check
+#   - content.lock covers bank_hash + knowledge + modules —
+#     capability-maturity l7
+#   - learner pack omits answers / answer-key leak —
+#     selftest_reconstructed + injection-count
+#   - README rigor table L1–L7 status cells — shadow of CHARTER §5; not
+#     a charter_claim (wrong file). L5 How "cargo-fuzz targets present"
+#     is existence, not workspace-membership (that claim is
+#     CHARTER How + TESTING.md)
+#   - CDCP_FILE_ORIGIN fail-closed — CHARTER + web/README narrative;
+#     resolving file is origin_guard.js, which is not a
+#     test / registry_row / generated_ledger. No honest artifact.kind
+#   - CHARTER "enforced by learn_surface_coverage.rs" —
+#     capability-maturity learn.assessed-modules-taught evidence
+#   - crate role inventory / data-flow diagram — descriptive, not a
+#     yes/no polarity this gate can recompute
 # =============================================================================
 
 schema_version = 1
@@ -191,9 +246,10 @@ probe = { kind = "fn_defined", path = "crates/cdcp_gate/src/gates/verify_injecti
 trigger = "INJECTIONS="
 
 # ── the L5 workspace-membership claim ───────────────────────────────────────
-# CHARTER §5 records that `fuzz/` sits outside the workspace, so nothing in
-# check.sh, CI, or `cargo test --workspace` ever builds those targets. That is a
-# structural fact about Cargo.toml and it is answerable exactly.
+# CHARTER §5 How-cell + TESTING.md: `fuzz/` sits outside the workspace, so
+# nothing in check.sh, CI, or `cargo test --workspace` ever builds those
+# targets. Trigger is `fuzz/` (not `cargo fuzz`) so CHARTER is obligated.
+# The L5 *status* cell stays capability-maturity's.
 
 [[fact]]
 id = "fact-fuzz-is-a-workspace-member"
@@ -201,7 +257,7 @@ class = "workspace"
 artifact = { kind = "registry_row", path = "registries/capability-maturity.toml" }
 question = "Is the `fuzz` package a member of the Cargo workspace, so that a workspace-wide build or test reaches it?"
 probe = { kind = "toml_array_contains", path = "Cargo.toml", key = "workspace.members", value = "fuzz" }
-trigger = "cargo fuzz"
+trigger = "fuzz/"
 
 # ── removed seed-42 export-web short-circuit (bd-smvb) ───────────────────────
 # Until 2026-08-14 export-web preferred goldens/fixtures/mock40_seed42.json at
