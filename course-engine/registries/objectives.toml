@@ -122,6 +122,31 @@ text = "Learner name-and-kills 99.982% = Tier III (and the withdrawn I–IV down
 claim_ids = ["claim-interview-ready", "claim-domain-covered"]
 
 [[objective]]
+id = "obj-m15-service-catalog"
+text = "Learner describes a data-centre service catalog as the owned list of delivered services (SKU, owner, SLO pointer, OLA or UC underneath) — not a sales brochure — and does not invent an exam-weight percentage"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m15-slm-ola-uc"
+text = "Learner distinguishes Service Level Management instruments: SLA (customer), OLA (internal team-to-team), and underpinning contract (vendor), and will not treat a vendor response-time clause as the customer SLA"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m15-org-structure"
+text = "Learner maps a data-centre organizational structure (facilities, NOC/ops, security, EHS, floor, vendor management) and how an org-split starts when no one owns the path — Module 01 names the four seats; this file owns the 2.1 heading"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m15-training-program"
+text = "Learner lists training-program requirements (role-based matrix, initial and recurrent, procedure-change, drills, competence records) and restates that no amount of training alters fallibility (DOE-HDBK-1028)"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m15-security-matrix"
+text = "Learner builds a security matrix as role × zone × privilege and points at Module 13 for physical layers — a badge that opens every zone is not a matrix"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
 id = "obj-m11-gpu-fabric-availability"
 text = "Learner treats GPU-cluster east-west fabric (InfiniBand / RoCE, 400/800G) as an availability path equal to power: one fabric cut is one training job; interconnect in this module still means fewer patch points"
 claim_ids = ["claim-interview-ready", "claim-domain-covered"]

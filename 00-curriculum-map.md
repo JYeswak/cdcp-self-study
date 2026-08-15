@@ -326,20 +326,23 @@ By the end of this module you can:
 
 ## Module 15 — Operational Considerations (2.1)
 
-**Public domain topics (2.1):** Service catalog; Service Level Management (SLA/OLA); data-centre organizational structure; training-program requirements; safety roles; security matrix; maintenance-agreement content; floor management; monitoring activities; document-management steps; vendor management.
+**Public domain topics (2.1):** Service catalog; Service Level Management (SLA / OLA / underpinning contract); data-centre organizational structure; training-program requirements; safety roles; security matrix (role × zone × privilege); maintenance-agreement content; floor management; monitoring activities; document-management steps (create, review, approve, issue, supersede, archive); vendor management (select, score, UC, performance).
 
-This is the **ops-adjacent** Learn surface (`15-ops-adjacent`). It is **not** one of the 14 public facility headings. Exam weight is unknown; the item bank still samples it.
+This is the **ops-adjacent** Learn surface (`15-ops-adjacent`). It is **not** one of the 14 public facility headings. Exam weight is unknown; the item bank still samples it. Module 01 Q3 / the old three-bucket sentence is retired here.
 
 ### Learning objectives
-1. Map the 2.1 operational-considerations headings (catalog, SLM/SLA/OLA, org, training, safety roles, security matrix, maintenance agreements, floor management, monitoring, document management, vendor management) as a control set, not a facilities add-on.
+1. Map the 2.1 operational-considerations headings (catalog, SLM/SLA/OLA/UC, org, training, safety roles, security matrix, maintenance agreements, floor management, monitoring, document management, vendor management) as a control set, not a facilities add-on.
 2. Distinguish **MOP / SOP / EOP** and a procedure’s **level of use** (use-each-time vs reference) — the attribute that decides behaviour at 03:00.
-3. Specify a **maintenance contract / SLA** in measurable, CMMS-auditable terms (response, restore, spare, proof) rather than response-time theatre.
-4. Treat human/process as a **contributing mechanism** on a power/cooling/network object — contributing factors, plural — and refuse an unverifiable “human error is the majority root cause” statistic.
-5. State what **as-built / labelling / document currency** are for, and why documentation that diverges from the plant is more dangerous than missing documentation.
+3. Specify a **maintenance contract / SLA** in measurable, CMMS-auditable terms (response, restore, spare, proof) as an **underpinning contract**, not as the customer SLA itself.
+4. Treat human/process as a **contributing mechanism** on a power/cooling/network object — contributing factors, plural — and refuse an unverifiable “human error is the majority root cause” statistic. Unlearn the Module 01 Q3 peer-bucket cartoon.
+5. State what **as-built / labelling / document currency** are for, walk the document-management lifecycle, and why documentation that diverges from the plant is more dangerous than missing documentation.
+6. Walk four **2026 EOPs**: isolate a leaking CDU without killing the pod; Li-ion / BESS fire (not Class A); load-shed when ride-through is seconds; grid curtailment / BTM islanding. Plant in M06 / M09 / M12; procedure here.
 
 ### Interview anchors
 - “Walk me through the last MOP you executed.”
 - “Contributing factors or root cause — which sentence survives a postmortem?”
+- “What is in the catalog, and which OLA makes that SLA true?”
+- “CDU leaking on row 12 — what do you isolate?”
 
 ### Notes path
 `modules/15-ops-adjacent.md`
