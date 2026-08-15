@@ -102,7 +102,8 @@ impl Fixture {
         );
         f.write(
             "knowledge/bank_policy.toml",
-            "exam_n_items = 1\npool_min_items = 2\n",
+            "exam_n_items = 1\npool_min_items = 2\n\
+             [[domain_min]]\nmodule = 1\nmin_items = 1\n",
         );
         f
     }
@@ -134,13 +135,7 @@ fn good_item(id: &str, module: i64, correct: &str, topic: &str) -> String {
 
 /// The same item at an arbitrary lifecycle status. `retired` here is the
 /// known-bad injection: it changes the drawable pool WITHOUT deleting a file.
-fn item_with_status(
-    id: &str,
-    module: i64,
-    correct: &str,
-    topic: &str,
-    status: &str,
-) -> String {
+fn item_with_status(id: &str, module: i64, correct: &str, topic: &str, status: &str) -> String {
     format!(
         "[[items]]\nid = {id:?}\nmodule = {module}\nstem = \"stem for {id}\"\n\
          choices = [\"alpha\", \"beta\", \"gamma\", \"delta\"]\ncorrect = {correct:?}\n\
@@ -208,6 +203,12 @@ fn live_repo_tree_is_byte_identical() {
     // collapsed into one number.
     assert!(py.stdout.contains("14: 42, 15: 39}"), "{}", py.stdout);
     assert!(py.stdout.contains("14: 44, 15: 39}"), "{}", py.stdout);
+    assert!(
+        py.stdout
+            .contains("  domain_floors=15 checked (approved pool)\n"),
+        "live bank_policy.toml carries 15 [[domain_min]] rows:\n{}",
+        py.stdout
+    );
 }
 
 /// Case 3 — anti-vacuous. An empty `bank/items/` is an ERROR in both, never a
@@ -228,6 +229,56 @@ fn empty_items_directory_is_an_error_in_both_never_a_pass() {
             "  - pool too small: 0 approved < pool_min_items 2 (0 scanned, 0 not approved; need ≥2× exam size 1)\n"
         ),
         "{}",
+        run.stdout
+    );
+}
+
+/// ANTI-VACUOUS (bd-bank-zero-domain-floors-vacuous-o80a). A policy that lost
+/// its `[[domain_min]]` table on an otherwise-green bank is RED naming the
+/// condition. Both sides must agree on the bytes.
+#[test]
+fn zero_domain_min_rows_on_a_non_empty_bank_is_red_in_both() {
+    let f = Fixture::new();
+    f.write(
+        "knowledge/bank_policy.toml",
+        "exam_n_items = 1\npool_min_items = 2\n",
+    );
+    f.write(
+        "bank/items/pool.toml",
+        &format!(
+            "{}{}",
+            good_item("i-a", 1, "A", "t-one"),
+            good_item("i-b", 1, "B", "t-one"),
+        ),
+    );
+    let run = f.check("zero-domain-min-non-empty-bank");
+    assert_ne!(run.code, 0, "{}", run.stdout);
+    assert_eq!(
+        run.stdout,
+        "FAIL\n  - zero [[domain_min]] floors while bank/items is non-empty \
+         (2 scanned; vacuous domain floors are ERROR)\n"
+    );
+}
+
+/// Complementary empty-bank path: zero domain floors + zero items is the
+/// existing empty-bank RED, not this finding.
+#[test]
+fn zero_domain_min_rows_on_an_empty_bank_stays_the_empty_bank_path_in_both() {
+    let f = Fixture::new();
+    f.write(
+        "knowledge/bank_policy.toml",
+        "exam_n_items = 1\npool_min_items = 2\n",
+    );
+    let run = f.check("zero-domain-min-empty-bank");
+    assert_ne!(run.code, 0, "{}", run.stdout);
+    assert!(
+        run.stdout.contains("  - zero items loaded\n"),
+        "{}",
+        run.stdout
+    );
+    assert!(
+        !run.stdout.contains("vacuous domain floors"),
+        "empty-bank path must not also name the domain-floor rule:\n{}",
         run.stdout
     );
 }
@@ -284,17 +335,25 @@ fn a_clean_fixture_pool_passes_identically() {
     assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
     assert!(
         run.stdout
+            .contains("  domain_floors=1 checked (approved pool)\n"),
+        "{}",
+        run.stdout
+    );
+    assert!(
+        run.stdout
             .contains("  correct_dist(approved)={'A': 1, 'B': 1, 'C': 1, 'D': 1}\n"),
         "{}",
         run.stdout
     );
     assert!(
-        run.stdout.contains("  modules(approved)={1: 1, 2: 2, 3: 1}\n"),
+        run.stdout
+            .contains("  modules(approved)={1: 1, 2: 2, 3: 1}\n"),
         "{}",
         run.stdout
     );
     assert!(
-        run.stdout.contains("  modules(scanned)={1: 1, 2: 2, 3: 1}\n"),
+        run.stdout
+            .contains("  modules(scanned)={1: 1, 2: 2, 3: 1}\n"),
         "{}",
         run.stdout
     );
@@ -559,7 +618,8 @@ fn pool_too_small_reports_identically() {
     let f = Fixture::new();
     f.write(
         "knowledge/bank_policy.toml",
-        "exam_n_items = 4\npool_min_items = 40\n",
+        "exam_n_items = 4\npool_min_items = 40\n\
+         [[domain_min]]\nmodule = 1\nmin_items = 1\n",
     );
     f.write("bank/items/pool.toml", &pool(3, &["A", "B", "C"]));
     let run = f.check("pool-too-small");
@@ -592,8 +652,9 @@ fn domain_minimum_shortfall_reports_identically() {
     );
     let run = f.check("domain-min-shortfall");
     assert!(
-        run.stdout
-            .contains("  - module 9: 0 approved items < domain_min 5 (0 scanned, 0 not approved)\n"),
+        run.stdout.contains(
+            "  - module 9: 0 approved items < domain_min 5 (0 scanned, 0 not approved)\n"
+        ),
         "{}",
         run.stdout
     );
@@ -736,7 +797,8 @@ fn module_coercion_matches_python_int_identically() {
     let run = f.check("module-int-coercion");
     assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
     assert!(
-        run.stdout.contains("  modules(approved)={1: 1, 2: 1, 3: 1, 7: 1}\n"),
+        run.stdout
+            .contains("  modules(approved)={1: 1, 2: 1, 3: 1, 7: 1}\n"),
         "{}",
         run.stdout
     );
@@ -758,7 +820,10 @@ fn both_spellings_of_a_zero_exam_size_report_identically_and_fail_closed() {
         let f = Fixture::new();
         f.write(
             "knowledge/bank_policy.toml",
-            &format!("exam_n_items = {spelling}\npool_min_items = 2\n"),
+            &format!(
+                "exam_n_items = {spelling}\npool_min_items = 2\n\
+                 [[domain_min]]\nmodule = 1\nmin_items = 1\n"
+            ),
         );
         f.write("bank/items/pool.toml", &pool(4, &["A", "B"]));
         let run = f.check(label);
@@ -782,7 +847,8 @@ fn a_negative_pool_floor_reports_identically_and_does_not_disable_the_check() {
     let f = Fixture::new();
     f.write(
         "knowledge/bank_policy.toml",
-        "exam_n_items = 4\npool_min_items = -1\n",
+        "exam_n_items = 4\npool_min_items = -1\n\
+         [[domain_min]]\nmodule = 1\nmin_items = 1\n",
     );
     f.write("bank/items/pool.toml", &pool(4, &["A", "B"]));
     let run = f.check("negative-pool-floor");
@@ -800,7 +866,8 @@ fn non_numeric_policy_floors_report_identically_and_do_not_raise() {
     let f = Fixture::new();
     f.write(
         "knowledge/bank_policy.toml",
-        "exam_n_items = \"forty\"\npool_min_items = [1]\n",
+        "exam_n_items = \"forty\"\npool_min_items = [1]\n\
+         [[domain_min]]\nmodule = 1\nmin_items = 1\n",
     );
     f.write("bank/items/pool.toml", &pool(4, &["A", "B"]));
     let run = f.check("non-numeric-policy-floors");
@@ -824,7 +891,11 @@ fn non_numeric_policy_floors_report_identically_and_do_not_raise() {
 #[test]
 fn legitimate_and_absent_policy_floors_are_still_honoured_identically() {
     let f = Fixture::new();
-    f.write("knowledge/bank_policy.toml", "# no floors declared here\n");
+    f.write(
+        "knowledge/bank_policy.toml",
+        "# no pool_min/exam_n declared here\n\
+         [[domain_min]]\nmodule = 1\nmin_items = 1\n",
+    );
     f.write("bank/items/pool.toml", &pool(4, &["A", "B"]));
     let absent = f.check("policy-floors-absent");
     assert!(
@@ -838,7 +909,8 @@ fn legitimate_and_absent_policy_floors_are_still_honoured_identically() {
     let g = Fixture::new();
     g.write(
         "knowledge/bank_policy.toml",
-        "exam_n_items = 2\npool_min_items = 4\n",
+        "exam_n_items = 2\npool_min_items = 4\n\
+         [[domain_min]]\nmodule = 1\nmin_items = 1\n",
     );
     g.write("bank/items/pool.toml", &pool(4, &["A", "B"]));
     let ok = g.check("policy-floors-legitimate");
@@ -930,7 +1002,8 @@ fn no_red_case_writes_pass_before_dying() {
     let f = Fixture::new();
     f.write(
         "knowledge/bank_policy.toml",
-        "exam_n_items = \"0\"\npool_min_items = 1\n",
+        "exam_n_items = \"0\"\npool_min_items = 1\n\
+         [[domain_min]]\nmodule = 1\nmin_items = 1\n",
     );
     f.write("bank/items/pool.toml", &pool(4, &["A", "B"]));
     let run = f.check("verdict-last");
@@ -1001,12 +1074,18 @@ fn retiring_in_place_trips_the_pool_floor_without_deleting_a_file() {
     let f = Fixture::new();
     f.write(
         "knowledge/bank_policy.toml",
-        "exam_n_items = 1\npool_min_items = 4\n",
+        "exam_n_items = 1\npool_min_items = 4\n\
+         [[domain_min]]\nmodule = 1\nmin_items = 1\n",
     );
     // Six FILES. Green while all six are approved.
     let mut body = String::new();
     for i in 0..6 {
-        body.push_str(&good_item(&format!("i-{i:03}"), 1, ["A", "B", "C", "D"][i % 4], "t-one"));
+        body.push_str(&good_item(
+            &format!("i-{i:03}"),
+            1,
+            ["A", "B", "C", "D"][i % 4],
+            "t-one",
+        ));
     }
     f.write("bank/items/pool.toml", &body);
     let before = f.check("retire-in-place: before");
@@ -1022,7 +1101,12 @@ fn retiring_in_place_trips_the_pool_floor_without_deleting_a_file() {
     // The SAME six files, three retired in place. Not one file removed.
     let mut retired = String::new();
     for i in 0..3 {
-        retired.push_str(&good_item(&format!("i-{i:03}"), 1, ["A", "B", "C", "D"][i % 4], "t-one"));
+        retired.push_str(&good_item(
+            &format!("i-{i:03}"),
+            1,
+            ["A", "B", "C", "D"][i % 4],
+            "t-one",
+        ));
     }
     for i in 3..6 {
         retired.push_str(&item_with_status(
@@ -1084,8 +1168,9 @@ fn retiring_in_place_trips_a_domain_floor_naming_module_count_and_floor() {
     let run = f.check("retire-in-place: domain floor");
     assert_ne!(run.code, 0, "{}", run.stdout);
     assert!(
-        run.stdout
-            .contains("  - module 6: 2 approved items < domain_min 4 (5 scanned, 3 not approved)\n"),
+        run.stdout.contains(
+            "  - module 6: 2 approved items < domain_min 4 (5 scanned, 3 not approved)\n"
+        ),
         "the shortfall must name module, approved count, floor, and the file \
          count that hid it:\n{}",
         run.stdout
@@ -1100,7 +1185,8 @@ fn a_bank_of_only_retired_items_is_an_error_in_both_never_a_pass() {
     let f = Fixture::new();
     f.write(
         "knowledge/bank_policy.toml",
-        "exam_n_items = 1\npool_min_items = 1\n",
+        "exam_n_items = 1\npool_min_items = 1\n\
+         [[domain_min]]\nmodule = 1\nmin_items = 1\n",
     );
     let mut body = String::new();
     for i in 0..4 {
@@ -1146,7 +1232,8 @@ fn an_unmodelled_status_is_a_named_finding_in_both() {
     let run = f.check("unknown-status");
     assert_ne!(run.code, 0, "{}", run.stdout);
     assert!(
-        run.stdout.contains("  - i-odd: unknown status 'published'\n"),
+        run.stdout
+            .contains("  - i-odd: unknown status 'published'\n"),
         "{}",
         run.stdout
     );
@@ -1158,7 +1245,9 @@ fn an_unmodelled_status_is_a_named_finding_in_both() {
 fn a_non_string_status_is_unknown_and_reprs_identically() {
     let f = Fixture::new();
     let mut body = pool(2, &["A", "B"]);
-    body.push_str(&item_with_status("i-num", 1, "C", "t-one", "x").replace("status = \"x\"", "status = 7"));
+    body.push_str(
+        &item_with_status("i-num", 1, "C", "t-one", "x").replace("status = \"x\"", "status = 7"),
+    );
     f.write("bank/items/pool.toml", &body);
     let run = f.check("non-string-status");
     assert!(
@@ -1176,7 +1265,8 @@ fn an_absent_status_is_draft_in_both_and_counts_out_of_the_floors() {
     let f = Fixture::new();
     f.write(
         "knowledge/bank_policy.toml",
-        "exam_n_items = 1\npool_min_items = 2\n",
+        "exam_n_items = 1\npool_min_items = 2\n\
+         [[domain_min]]\nmodule = 1\nmin_items = 1\n",
     );
     let bare = good_item("i-bare", 1, "B", "t-one").replace("\nstatus = \"approved\"", "");
     assert!(!bare.contains("status"), "the fixture must carry no status");
@@ -1283,7 +1373,9 @@ fn manifest_drift_is_measured_against_the_file_set_on_purpose_in_both() {
     let drift = f.check("manifest-is-not-the-approved-pool");
     assert_ne!(drift.code, 0, "{}", drift.stdout);
     assert!(
-        drift.stdout.contains("  - MANIFEST item_count 3 != loaded 4\n"),
+        drift
+            .stdout
+            .contains("  - MANIFEST item_count 3 != loaded 4\n"),
         "{}",
         drift.stdout
     );

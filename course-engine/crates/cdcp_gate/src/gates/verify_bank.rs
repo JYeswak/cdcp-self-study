@@ -67,6 +67,14 @@
 //!      the number of items actually loaded.
 //!   7. *unusable policy* — a `pool_min_items` or `exam_n_items` present in
 //!      `knowledge/bank_policy.toml` that is not an integer above zero.
+//!   8. *zero domain floors* — a non-empty bank (`n > 0` items loaded) whose
+//!      policy carries no `[[domain_min]]` rows. Decision recorded 2026-08-15
+//!      (bd-bank-zero-domain-floors-vacuous-o80a): standing doctrine is "empty
+//!      input set is ERROR, never a pass." A policy that lost its fifteen
+//!      floors must not report like one that enforced them. An empty
+//!      `bank/items/` stays on the empty-bank path and does not emit this
+//!      finding. The live `knowledge/bank_policy.toml` has 15 rows and stays
+//!      GREEN.
 //!
 //! # TWO OUTPUT-SHAPE CONTRACTS (bd-hw3, fixed 2026-08-14 in the oracle first)
 //!
@@ -92,7 +100,10 @@
 //! bank that was never populated can never report like one that was checked and
 //! came back clean. The rule holds at FILE granularity too (bd-0czh): a single
 //! bank file whose `items[]` yields zero items is named and is RED, because
-//! `zero items loaded` would otherwise stay satisfied by its neighbours.
+//! `zero items loaded` would otherwise stay satisfied by its neighbours. It
+//! also holds for the `[[domain_min]]` table (bd-bank-zero-domain-floors-vacuous-o80a):
+//! zero rows against a non-empty bank is RED, so a policy that dropped its
+//! floors cannot report like one that checked them.
 //!
 //! # WHAT THIS GATE CANNOT DECIDE
 //!
@@ -935,6 +946,14 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
             ));
         }
     }
+    // Empty input set is ERROR, never a pass (bd-bank-zero-domain-floors-vacuous-o80a).
+    // Gated on `n > 0` so the empty-bank path stays the empty-bank path.
+    if n > 0 && domain_mins.is_empty() {
+        errors.push(format!(
+            "zero [[domain_min]] floors while bank/items is non-empty \
+             ({n} scanned; vacuous domain floors are ERROR)"
+        ));
+    }
 
     // ── per-item schema ────────────────────────────────────────────────────
     let allowed_correct = key_set(&ALLOWED_CORRECT);
@@ -1203,10 +1222,10 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
         unique_ids.len(),
         py_fixed1(approved_n as f64 / size as f64),
         known.len(),
-        // How many per-module floors were actually enforced. A policy that lost
-        // its `[[domain_min]]` rows reports identically to one that checked
-        // fifteen of them; printing the count makes a zero READ as zero instead
-        // of as silence. Whether zero should be RED is bd-bank-zero-domain-floors-vacuous-o80a.
+        // How many per-module floors were actually enforced. Zero is unreachable
+        // on a non-empty bank: that condition is RED
+        // (bd-bank-zero-domain-floors-vacuous-o80a). The count still names a
+        // fifteen-row policy so a silent drop to fourteen would read as fourteen.
         domain_mins.len(),
         py_dict_str_keys(&letter_counts),
         py_dict_int_keys(&module_counts),
@@ -1515,7 +1534,8 @@ mod tests {
             f.write("knowledge/topics.toml", "[[topic]]\nid = \"t-one\"\n");
             f.write(
                 "knowledge/bank_policy.toml",
-                "exam_n_items = 1\npool_min_items = 2\n",
+                "exam_n_items = 1\npool_min_items = 2\n\
+                 [[domain_min]]\nmodule = 1\nmin_items = 1\n",
             );
             f
         }
@@ -1600,12 +1620,59 @@ mod tests {
                 "  unique_ids=2 (file set)\n",
                 "  pool_min=2 exam_n=1 multiplier≈2.0x (approved pool)\n",
                 "  topics_registry=1\n",
-                "  domain_floors=0 checked (approved pool)\n",
+                "  domain_floors=1 checked (approved pool)\n",
                 "  correct_dist(approved)={'A': 2}\n",
                 "  modules(approved)={1: 2}\n",
                 "  modules(scanned)={1: 2}\n",
                 "  source_class=original\n",
             )
+        );
+    }
+
+    /// ANTI-VACUOUS (bd-bank-zero-domain-floors-vacuous-o80a). A policy that
+    /// lost its `[[domain_min]]` table on an otherwise-green bank is RED naming
+    /// the condition. Before the decision this fixture was the clean PASS that
+    /// printed `domain_floors=0`.
+    #[test]
+    fn zero_domain_min_rows_on_a_non_empty_bank_is_an_error() {
+        let f = Fx::new();
+        f.write(
+            "knowledge/bank_policy.toml",
+            "exam_n_items = 1\npool_min_items = 2\n",
+        );
+        f.write(
+            "bank/items/pool.toml",
+            &format!("{}{}", good("i-one"), good("i-two")),
+        );
+        let out = f.eval();
+        assert_eq!(out.code, 1, "{}", out.stdout);
+        assert_eq!(
+            out.stdout,
+            "FAIL\n  - zero [[domain_min]] floors while bank/items is non-empty \
+             (2 scanned; vacuous domain floors are ERROR)\n"
+        );
+    }
+
+    /// The complementary empty-bank path: zero domain floors + zero items is
+    /// the existing empty-bank RED, not this finding.
+    #[test]
+    fn zero_domain_min_rows_on_an_empty_bank_stays_the_empty_bank_path() {
+        let f = Fx::new();
+        f.write(
+            "knowledge/bank_policy.toml",
+            "exam_n_items = 1\npool_min_items = 2\n",
+        );
+        let out = f.eval();
+        assert_eq!(out.code, 1, "{}", out.stdout);
+        assert!(
+            out.stdout.contains("  - zero items loaded\n"),
+            "{}",
+            out.stdout
+        );
+        assert!(
+            !out.stdout.contains("vacuous domain floors"),
+            "empty-bank path must not also name the domain-floor rule:\n{}",
+            out.stdout
         );
     }
 
@@ -1696,7 +1763,10 @@ mod tests {
             let f = Fx::new();
             f.write(
                 "knowledge/bank_policy.toml",
-                &format!("exam_n_items = {spelling}\npool_min_items = 1\n"),
+                &format!(
+                    "exam_n_items = {spelling}\npool_min_items = 1\n\
+                     [[domain_min]]\nmodule = 1\nmin_items = 1\n"
+                ),
             );
             f.write("bank/items/pool.toml", &good("i-one"));
             let out = f.eval();
@@ -1720,7 +1790,8 @@ mod tests {
         let f = Fx::new();
         f.write(
             "knowledge/bank_policy.toml",
-            "exam_n_items = 1\npool_min_items = -1\n",
+            "exam_n_items = 1\npool_min_items = -1\n\
+             [[domain_min]]\nmodule = 1\nmin_items = 1\n",
         );
         f.write("bank/items/pool.toml", &good("i-one"));
         let out = f.eval();
@@ -1737,7 +1808,8 @@ mod tests {
         let f = Fx::new();
         f.write(
             "knowledge/bank_policy.toml",
-            "exam_n_items = 1\npool_min_items = \"lots\"\n",
+            "exam_n_items = 1\npool_min_items = \"lots\"\n\
+             [[domain_min]]\nmodule = 1\nmin_items = 1\n",
         );
         f.write("bank/items/pool.toml", &good("i-one"));
         let out = f.eval();
@@ -1787,6 +1859,12 @@ mod tests {
         // old single-map report collapsed into one number.
         assert!(out.stdout.contains("14: 42, 15: 39}"), "{}", out.stdout);
         assert!(out.stdout.contains("14: 44, 15: 39}"), "{}", out.stdout);
+        assert!(
+            out.stdout
+                .contains("  domain_floors=15 checked (approved pool)\n"),
+            "live bank_policy.toml carries 15 [[domain_min]] rows:\n{}",
+            out.stdout
+        );
     }
 
     // ── bd-8exw: the floors measure the APPROVED pool ─────────────────────
@@ -1800,7 +1878,8 @@ mod tests {
         let f = Fx::new();
         f.write(
             "knowledge/bank_policy.toml",
-            "exam_n_items = 1\npool_min_items = 3\n",
+            "exam_n_items = 1\npool_min_items = 3\n\
+             [[domain_min]]\nmodule = 1\nmin_items = 1\n",
         );
         let mut body = String::new();
         for i in 0..4 {
@@ -1878,7 +1957,8 @@ mod tests {
         let f = Fx::new();
         f.write(
             "knowledge/bank_policy.toml",
-            "exam_n_items = 1\npool_min_items = 1\n",
+            "exam_n_items = 1\npool_min_items = 1\n\
+             [[domain_min]]\nmodule = 1\nmin_items = 1\n",
         );
         let mut body = String::new();
         for i in 0..3 {
@@ -1931,7 +2011,8 @@ mod tests {
         let f = Fx::new();
         f.write(
             "knowledge/bank_policy.toml",
-            "exam_n_items = 1\npool_min_items = 2\n",
+            "exam_n_items = 1\npool_min_items = 2\n\
+             [[domain_min]]\nmodule = 1\nmin_items = 1\n",
         );
         // Two files; only one carries a status line.
         let statusless = good("i-bare").replace("status = \"approved\"\n", "");

@@ -155,10 +155,10 @@ agreement_only = 0
 file = "diff_verify_bank.rs"
 gate = "verify-bank"
 comparators = ["assert_byte_identical", "check"]
-# 42 cases as of 2026-08-14 evening, its owner having expanded it mid-wave.
-# Zero agreement-only throughout: this oracle can be retired today, losing
-# nothing.
-cases = 42
+# 46 cases as of 2026-08-15 (bd-bank-zero-domain-floors-vacuous-o80a added the
+# empty-floor plant and its empty-bank complement). Zero agreement-only
+# throughout: this oracle can be retired today, losing nothing.
+cases = 46
 agreement_only = 0
 owner_bead = "bd-8exw"
 

@@ -56,6 +56,11 @@ Anti-vacuous (L4): an empty input set is an ERROR, never a pass. That holds at
 FILE granularity as well as at whole-bank granularity — a single bank file whose
 `items[]` yields zero items is named and is RED, because `zero items loaded`
 would otherwise stay satisfied on the strength of the files around it (bd-0czh).
+It also holds for the `[[domain_min]]` table (bd-bank-zero-domain-floors-vacuous-o80a,
+decision 2026-08-15): zero rows against a non-empty bank is RED, so a policy that
+dropped its floors cannot report like one that checked them. An empty bank stays
+on the empty-bank path and does not emit that finding. The live bank_policy.toml
+already has 15 rows and stays GREEN.
 """
 from __future__ import annotations
 
@@ -267,6 +272,13 @@ def main() -> int:
             f"({n} scanned, {n - approved_n} not approved; "
             f"need ≥{pool_min // exam_n}× exam size {exam_n})"
         )
+    # Empty input set is ERROR, never a pass (bd-bank-zero-domain-floors-vacuous-o80a).
+    # Gated on `n > 0` so the empty-bank path stays the empty-bank path.
+    if n > 0 and not domain_mins:
+        errors.append(
+            "zero [[domain_min]] floors while bank/items is non-empty "
+            f"({n} scanned; vacuous domain floors are ERROR)"
+        )
 
     ids: list[str] = []
     letter_counts: Counter[str] = Counter()
@@ -422,10 +434,10 @@ def main() -> int:
         f"  pool_min={pool_min} exam_n={exam_n} "
         f"multiplier≈{approved_n / exam_n:.1f}x (approved pool)",
         f"  topics_registry={len(known_topics)}",
-        # How many per-module floors were actually enforced. A policy that lost
-        # its `[[domain_min]]` rows currently reports identically to one that
-        # checked fifteen of them; printing the count makes a zero READ as zero
-        # instead of as silence. Whether zero should be RED is bd-bank-zero-domain-floors-vacuous-o80a.
+        # How many per-module floors were actually enforced. Zero is unreachable
+        # on a non-empty bank: that condition is RED
+        # (bd-bank-zero-domain-floors-vacuous-o80a). The count still names a
+        # fifteen-row policy so a silent drop to fourteen would read as fourteen.
         f"  domain_floors={len(domain_mins)} checked (approved pool)",
         f"  correct_dist(approved)={dict(sorted(letter_counts.items()))}",
         f"  modules(approved)={dict(sorted(module_counts.items()))}",
