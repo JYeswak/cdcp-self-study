@@ -1,8 +1,16 @@
 //! Fixture builder: a throwaway git repo shaped like the engine, so the gate is
 //! exercised against real `git ls-files` / `git diff --cached` output rather than
 //! a mock of them.
+//!
+//! **Writing a meta-test PAIR? Read [`rebuild`] first.** Step 3 of the pair —
+//! putting the perturbed file back — silently defeats cargo's rebuild when it is
+//! done with a rename, and the next pair to run then reads its verdict off a
+//! binary that does not match the tree. `rebuild` states the safe form and
+//! argues it; `tests/restore_rebuild_trap.rs` makes the trap fire on demand.
 
 #![allow(dead_code)]
+
+pub mod rebuild;
 
 use std::path::{Path, PathBuf};
 use std::process::{Command, Output};

@@ -7,6 +7,12 @@
 #   Never leave the tree dirty. An injection that stays GREEN is a FAILURE —
 #   a gate that cannot fail is not a gate.
 #
+# RESTORE (bd-stale-binary-mtime-trap-p65w): case (e) perturbs
+# crates/cdcp_cli/src/main.rs, which cargo compiles. Restore MUST go through
+# scripts/restore_safe.inc.sh — `mv backup dest` would hand the file the
+# backup's older mtime, cargo would skip, and the next run would test the
+# PERTURBED binary. The helper writes bytes into the existing inode.
+#
 # Runs the FULL check.sh per case (slow but honest): it proves the stage is
 # wired into the real gate chain, not merely that a script exists.
 set -eu
@@ -26,13 +32,21 @@ INJ=0
 SUITE_NAME="selftest_reconstructed"
 inject_counted() { INJ=$((INJ + 1)); }
 
+. "$ROOT/scripts/restore_safe.inc.sh"
+# Wired prove: naive-mv leaves the backup mtime (RED), helper does not,
+# and the scan of converted cargo-touching restore sites is non-vacuous.
+# Cargo skip-vs-rebuild is the helper's own executable selftest — not run
+# here, so this suite does not take the workspace cargo lock.
+cdcp_restore_safe_mtime_demo || fail "restore_safe mtime demo"
+cdcp_restore_safe_scan "$ROOT" || fail "restore_safe converted-site scan"
+
 BAK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_recon.XXXXXX")"
 RESTORE_LIST=""
 
 restore_all() {
   for rel in $RESTORE_LIST; do
     enc="$(printf '%s' "$rel" | tr '/' '_')"
-    [ -f "$BAK_DIR/$enc" ] && cp "$BAK_DIR/$enc" "$rel"
+    [ -f "$BAK_DIR/$enc" ] && cdcp_restore_safe "$rel" "$BAK_DIR/$enc"
   done
   rm -rf "$BAK_DIR"
 }
@@ -46,7 +60,7 @@ stash() {
 
 unstash() {
   enc="$(printf '%s' "$1" | tr '/' '_')"
-  cp "$BAK_DIR/$enc" "$1"
+  cdcp_restore_safe "$1" "$BAK_DIR/$enc"
 }
 
 # assert_red <label> <file-to-restore>  — check.sh must exit non-zero

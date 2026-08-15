@@ -60,6 +60,28 @@ gauntlet:       L1 claims constitution (registry-check, WIRED) · L2 slo.toml ·
                 what bit, rather than some neighbour. Record both TRUE exit codes; never read an
                 exit code through a pipe. A bead whose acceptance says only "delete the assertion"
                 has not specified a meta-test and must not be closed on one.
+                (3) RESTORE — AND THIS IS THE STEP THAT ROTS (added 2026-08-14,
+                bd-stale-binary-mtime-trap-p65w). `cp f f.bak` … `mv f.bak f` puts the CONTENT
+                back but hands the file the BACKUP'S mtime, older than the artifact cargo already
+                built from the perturbed source; cargo compares mtimes, skips the rebuild, and the
+                next run reads its verdict off the PERTURBED binary. A bad step (3) does not spoil
+                the pair that performed it — IT SPOILS THE NEXT ONE, which is why it survives
+                review. Measured 2026-08-14 (goldens/PROVENANCE.md, with both mtimes) as a false
+                RED; the identical mechanism yields a FALSE GREEN when what you restore is the
+                deleted assertion of leg (2), and that direction is silent. Reproduced on demand
+                in both directions by crates/cdcp_gate/tests/restore_rebuild_trap.rs.
+                THE RULE: restore by WRITING BYTES into the existing file — `git checkout -- f`,
+                `cp bak f`, `printf … > f` — NEVER a rename; then FORCE A BUILD AND OBSERVE THAT
+                IT REBUILT SOMETHING before any post-restore assertion. "Just run cargo build
+                first" is NOT the fix and is itself vacuous: after a rename-restore cargo exits 0,
+                prints `Finished in 0.00s` and rebuilds nothing — it passes in exactly the case it
+                was written to catch. A BUILD THAT FINDS NOTHING TO REBUILD, WHEN THE FILE
+                DEMONSTRABLY CHANGED, IS AN ERROR AND NOT A PASS. Do not "prove" freshness with
+                `artifact_mtime > source_mtime`: the poisoned tree satisfies it. Compare the
+                artifact's mtime BEFORE the build with its mtime AFTER. Pattern, argument and
+                helper: crates/cdcp_gate/tests/support/rebuild.rs. Shell restore helper sourced
+                by scripts/selftest_*.sh that restore cargo-compiled sources:
+                scripts/restore_safe.inc.sh (`mv backup dest` is not expressible there).
                 L3 IS CURRENTLY **NO** (CHARTER §5a) — F3 is the tick that flips it, and the
                 capability-maturity row must point at F3's test.
                 CLAIM DISCIPLINE: every gate states its claim as a FLOOR-RAISE plus what it

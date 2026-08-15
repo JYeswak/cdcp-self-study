@@ -333,6 +333,12 @@ reason = "L4 harness that reconstructs the L5-V11 stages and asserts each trips 
 migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-02-28"
 
+[[allow]]
+path = "scripts/restore_safe.inc.sh"
+reason = "Restore helper that cannot leave cargo a stale mtime. Sourced by house-pattern selftests that perturb Rust sources (selftest_reconstructed.sh case e). In-place byte write + touch; mv backup dest is not expressible. Ports with the selftests that source it."
+migration_bead = "bd-stale-binary-mtime-trap-p65w"
+expires = "2027-02-28"
+
 # =============================================================================
 # THIN ORCHESTRATORS AND BUILD DRIVERS (shell that stays, for now)
 # =============================================================================
