@@ -3,11 +3,14 @@
 #
 # Contract (mirrors scripts/selftest_l6_coverage.sh and scripts/selftest_orphan.sh):
 #   write a real, self-contained specimen roadmap into TEMP, inject one known-bad
-#   at a time, assert verify_doc_consistency.py goes RED with the expected
-#   signal, then restore the specimen. The live CHARTER/README/PHASE-NEXT are
-#   NEVER mutated and no patch is ever applied to the working tree — the
-#   specimens are files this script writes, so they cannot silently no-op the
-#   way `git apply` does on an index mismatch.
+#   at a time, assert `$CDCP_BIN_DIR/cdcp_gate verify-doc-consistency` goes RED
+#   with the expected signal, then restore the specimen. The live
+#   CHARTER/README/PHASE-NEXT are NEVER mutated and no patch is ever applied
+#   to the working tree — the specimens are files this script writes, so they
+#   cannot silently no-op the way `git apply` does on an index mismatch.
+#
+# Plants run the Rust binary (same helper contract as check.sh).
+# scripts/verify_doc_consistency.py is the cargo-test differential oracle only.
 #
 # Cases:
 #   a) clean specimen                       → GREEN (baseline; injections are the only defect)
@@ -49,8 +52,6 @@ restore_all() {
   fi
 }
 trap restore_all EXIT INT TERM HUP
-
-CHECKER="scripts/verify_doc_consistency.py"
 
 # assert_fails_with <label> <needle> cmd...
 assert_fails_with() {
@@ -95,8 +96,18 @@ assert_green() {
 
 echo "==> selftest_doc_consistency (roadmap-truth known-bad)"
 
-[ -f "$CHECKER" ] || fail "missing $CHECKER"
-command -v python3 >/dev/null 2>&1 || fail "python3 required"
+# Same binary contract as check.sh: honour CARGO_TARGET_DIR, never cargo run.
+if [ -z "${CDCP_BIN_DIR:-}" ]; then
+  if [ -n "${CARGO_TARGET_DIR:-}" ]; then
+    CDCP_BIN_DIR="${CARGO_TARGET_DIR%/}/debug"
+  else
+    CDCP_BIN_DIR="$ROOT/target/debug"
+  fi
+fi
+[ -n "$CDCP_BIN_DIR" ] \
+  || fail "CDCP_BIN_DIR unset — cargo build -p cdcp_gate -p cdcp_cli --locked must run first (no fallback to cargo run)"
+[ -x "$CDCP_BIN_DIR/cdcp_gate" ] \
+  || fail "cdcp_gate binary absent at $CDCP_BIN_DIR/cdcp_gate — cargo build -p cdcp_gate -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
 
 TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/selftest_doc_consistency.XXXXXX")"
 SPEC="$TMP_ROOT/specimen"
@@ -145,7 +156,7 @@ EOF
 }
 
 run_checker() {
-  python3 "$CHECKER" --root "$1"
+  "$CDCP_BIN_DIR/cdcp_gate" verify-doc-consistency --repo-root "$1"
 }
 
 # ── (a) clean specimen must be GREEN ────────────────────────────────────────

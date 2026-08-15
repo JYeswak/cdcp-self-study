@@ -136,8 +136,8 @@ why = "selftest_injection_count.sh still invokes python3 via $CHECKER; rust is t
 
 [[oracle_inventory.file]]
 path = "scripts/verify_doc_consistency.py"
-disposition = "live_selftest"
-why = "selftest_doc_consistency.sh still invokes python3 via $CHECKER; rust is the check.sh gate"
+disposition = "cargo_test_differential"
+why = "check.sh/selftest_doc_consistency.sh no longer invoke python3; cargo test still diffs vs tests/diff_verify_doc_consistency.rs (bd-substrate-rust-migration-jhd.26)"
 
 [[oracle_inventory.file]]
 path = "scripts/verify_coverage.py"
@@ -187,7 +187,7 @@ expires = "2026-10-31"
 
 [[allow]]
 path = "scripts/verify_doc_consistency.py"
-reason = "Differential oracle for `cdcp_gate verify-doc-consistency` (bd-substrate-rust-migration-jhd.4, ported 2026-08-14). Roadmap/publication truth across CHARTER, README and PHASE-NEXT. Retained so tests/diff_verify_doc_consistency.rs can compare both implementations. Invoked transitively by selftest_doc_consistency.sh via $CHECKER (bd-check-sh-transitive-invocation-gzvb)."
+reason = "Differential oracle for `cdcp_gate verify-doc-consistency` (bd-substrate-rust-migration-jhd.4, ported 2026-08-14). Roadmap/publication truth across CHARTER, README and PHASE-NEXT. Retained so tests/diff_verify_doc_consistency.rs can compare both implementations. check.sh presence-checks only; cargo test still diffs. Known-bad plants run via $CDCP_BIN_DIR/cdcp_gate verify-doc-consistency (bd-substrate-rust-migration-jhd.26)."
 migration_bead = "bd-substrate-rust-migration-jhd.4"
 expires = "2026-10-31"
 
@@ -383,7 +383,7 @@ expires = "2027-02-28"
 
 [[allow]]
 path = "scripts/selftest_doc_consistency.sh"
-reason = "L4 known-bad harness for the roadmap-truth gate (dup row RED, cross-doc conflict RED). Ports with bd-substrate-rust-migration-jhd.4."
+reason = "L4 known-bad harness for the roadmap-truth gate (dup row RED, cross-doc conflict RED). Plants run $CDCP_BIN_DIR/cdcp_gate verify-doc-consistency (bd-substrate-rust-migration-jhd.26); the .py is cargo-test-only."
 migration_bead = "bd-substrate-rust-migration-jhd.4"
 expires = "2027-02-28"
 
