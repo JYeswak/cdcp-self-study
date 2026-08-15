@@ -39,7 +39,7 @@ Do not open `web/` as `file://` when testing quiz/WASM.
 - Conventional commits preferred: `feat(scope): …`, `fix(scope): …`
 - One logical change per PR
 - Update `docs/FEATURE_SURFACE.md` when adding a product surface
-- New present diagrams must pass `python3 scripts/smoke_diagrams.py`
+- New present diagrams must pass `cdcp smoke-diagrams`
 
 ## Code of conduct
 

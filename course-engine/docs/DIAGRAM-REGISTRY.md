@@ -9,17 +9,17 @@
 ## Rules
 
 1. Live at exactly `web/diagrams/{id}.html`. A **present** row may name no other path —
-   `scripts/smoke_diagrams.py` treats a mismatch as an ERROR, not a skip, because a row that
+   `cdcp smoke-diagrams` treats a mismatch as an ERROR, not a skip, because a row that
    redirects the check at some other existing file is how this gate was fooled on 2026-08-14.
 2. Carry a `class="honesty-banner"` element that disclaims certification, and a
    `data-diagram="{id}"` element as the diagram root. Both are parsed structurally; a file that
    merely contains the words does not pass. Plus an interview one-liner.
-3. `scripts/smoke_diagrams.py` is fail-closed for present rows and derives its set from the
+3. `cdcp smoke-diagrams` is fail-closed for present rows and derives its set from the
    Inventory table below. The `Status` column is a closed enum — `**present**` or `planned`. Any
    other spelling is an ERROR, never a silent exclusion. The ID and path cells must be backticked.
-   The present-row count is pinned in that script (`EXPECTED_PRESENT`); shipping a new diagram means
-   raising the pin in the same commit, and a row leaving the present set is RED rather than
-   invisible.
+   The present-row count is pinned in `cdcp_learn::diagrams` (`EXPECTED_PRESENT`); shipping a new
+   diagram means raising the pin in the same commit, and a row leaving the present set is RED
+   rather than invisible.
 4. Prefer steppers / toggles / label-the-node.
 
 ---
@@ -75,7 +75,7 @@ Load-bearing constraints honoured by the P1 set:
 ## Validation
 
 ```bash
-python3 scripts/smoke_diagrams.py
+cargo run -q -p cdcp_cli -- smoke-diagrams
 ./scripts/check.sh
 ```
 

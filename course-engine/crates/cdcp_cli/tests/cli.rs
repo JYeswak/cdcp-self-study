@@ -30,12 +30,23 @@ fn help_lists_learn_compilers() {
         "smoke-learn",
         "smoke-learn-chrome",
         "smoke-feedback-links",
+        "smoke-diagrams",
     ] {
         assert!(
             stdout.contains(verb),
             "cdcp --help must list {verb}: {stdout}"
         );
     }
+}
+
+#[test]
+fn smoke_diagrams_live_tree_passes() {
+    let assert = cdcp().arg("smoke-diagrams").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("smoke_diagrams: PASS"),
+        "live diagram smoke must PASS: {stdout}"
+    );
 }
 
 #[test]

@@ -12,7 +12,7 @@
 # Count is wc -l (newline count), measured 2026-08-15.
 # Bead cited 64,955 the previous evening; this pin is the live tree.
 
-ceiling_lines = 60615
+ceiling_lines = 54308
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
@@ -83,10 +83,6 @@ path = "src/gates/smoke_a11y.rs"
 lines = 1187
 
 [[file]]
-path = "src/gates/smoke_diagrams.rs"
-lines = 2032
-
-[[file]]
 path = "src/gates/smoke_learn_v2.rs"
 lines = 1165
 
@@ -143,10 +139,6 @@ path = "src/main.rs"
 lines = 103
 
 [[file]]
-path = "src/py_compat.rs"
-lines = 3106
-
-[[file]]
 path = "src/registry.rs"
 lines = 160
 
@@ -177,10 +169,6 @@ lines = 1361
 [[file]]
 path = "tests/diff_smoke_a11y.rs"
 lines = 768
-
-[[file]]
-path = "tests/diff_smoke_diagrams.rs"
-lines = 1448
 
 [[file]]
 path = "tests/diff_smoke_learn_v2.rs"
