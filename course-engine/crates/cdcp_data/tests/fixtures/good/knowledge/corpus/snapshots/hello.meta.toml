@@ -1,0 +1,8 @@
+source_id = "src-fixture-hello"
+rights = "own-work-this-repo"
+licence = "own-work-this-repo"
+redistribution = "permitted"
+ai_ingestion = "permitted"
+capture = "body-retained"
+path = "knowledge/corpus/snapshots/hello.txt"
+sha256 = "d68e259dc654ec6b91fd06697dfc9182b48e735b12787cd58d7d52ba9842537b"

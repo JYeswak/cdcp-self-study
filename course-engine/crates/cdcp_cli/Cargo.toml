@@ -17,6 +17,7 @@ cdcp_learn = { workspace = true }
 cdcp_anki = { workspace = true }
 cdcp_wasm = { workspace = true }
 cdcp_evidence = { workspace = true }
+cdcp_data = { workspace = true }
 clap = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

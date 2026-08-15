@@ -32,6 +32,12 @@ enum Cmd {
         #[arg(long)]
         root: Option<PathBuf>,
     },
+    /// Load compiled-in snapshots (licence + sha256). No network I/O.
+    LoadSnapshots {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+    },
     /// Ledger tripwire for measured paraphrase pairs C3 cannot see
     VerifyParaphrasePairs {
         /// Engine root (directory holding registries/). Default: walk up from cwd.
@@ -315,6 +321,7 @@ fn run(cli: Cli) -> Result<(), String> {
             Ok(())
         }
         Cmd::CheckLicence { root } => check_licence(root.as_deref()),
+        Cmd::LoadSnapshots { root } => load_snapshots(root.as_deref()),
         Cmd::VerifyParaphrasePairs {
             root,
             ledger,
@@ -442,6 +449,21 @@ fn check_licence(root: Option<&Path>) -> Result<(), String> {
             report.faults.len()
         ));
     }
+    Ok(())
+}
+
+/// E1: compiled-in snapshot pins. An explicit `--root` is the tree under
+/// test (fixture plants included). Walking up would find the live engine.
+fn load_snapshots(root: Option<&Path>) -> Result<(), String> {
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_data::engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    let report = cdcp_data::load_compiled(&resolved).map_err(|e| e.to_string())?;
+    print!("{report}");
     Ok(())
 }
 

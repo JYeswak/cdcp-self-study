@@ -1,0 +1,17 @@
+[package]
+name = "cdcp_data"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Licence-gated, content-addressed snapshot loader. No network I/O."
+publish = false
+
+[dependencies]
+cdcp_evidence = { workspace = true }
+hex = { workspace = true }
+sha2 = { workspace = true }
+thiserror = { workspace = true }
+toml = { workspace = true }
+
+[dev-dependencies]
+cdcp_evidence = { workspace = true }

@@ -1,0 +1,14 @@
+# Compiled-in snapshot pin registry (E1).
+# Empty [[snapshot]] set is a load ERROR — a loader that registers
+# nothing certifies nothing.
+#
+# Bodies stay on disk. This file pins identity + sha256 at build time.
+# Do not vendor OSHA/eCFR here (bd-hardening-e-data-4up.2).
+
+schema = "cdcp.data.snapshots.v1"
+
+[[snapshot]]
+id = "src-nist-sp800-123"
+body = "knowledge/corpus/free-pdfs/nist_sp800_123_server_security.pdf"
+sidecar = "knowledge/corpus/free-pdfs/nist_sp800_123_server_security.meta.toml"
+sha256 = "182ae5d23011108fba08c3a56c5029b8a26a428480ae38ac61877f6f3365db41"

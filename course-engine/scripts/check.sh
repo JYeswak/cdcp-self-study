@@ -648,6 +648,12 @@ echo "==> cdcp check-licence (D4 three-field rights split)"
 run_cdcp_cli check-licence || fail "licence three-field split"
 ok "licence three-field split (published unlicensed / missing rights / third-party public-domain / PROHIBITED index)"
 
+# E1: licence-gated snapshot loader. Product crate cdcp_data; D4 may_load
+# is the rights check. This is the wire. No network I/O.
+echo "==> cdcp load-snapshots (E1 licence-gated snapshot loader)"
+run_cdcp_cli load-snapshots || fail "snapshot loader"
+ok "licence-gated snapshot loader (may_load + sha256 pin + anti-vacuous)"
+
 # S0 substrate floor. Placed next to the L1 registry gate because it is the same
 # kind of thing — a registry constitution over what may exist in the tree — and it
 # fails fast (only serde+toml compile).
@@ -1207,7 +1213,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(run_cdcp_cli --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence; do
+for v in bank-hash grade goldens export-web serve build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence load-snapshots; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"

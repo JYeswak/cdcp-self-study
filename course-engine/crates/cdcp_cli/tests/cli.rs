@@ -38,6 +38,7 @@ fn help_lists_learn_compilers() {
         "export-anki",
         "verify-paraphrase-pairs",
         "check-licence",
+        "load-snapshots",
     ] {
         assert!(
             stdout.contains(verb),
@@ -137,6 +138,42 @@ fn check_licence_r1_plant_is_red_and_names_the_file() {
     assert!(
         out.contains("redistribution != permitted"),
         "R1 plant must state the rule: {out}"
+    );
+}
+
+#[test]
+fn load_snapshots_live_tree_passes() {
+    let assert = cdcp().arg("load-snapshots").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("load_snapshots: PASS"),
+        "live snapshot load must PASS: {stdout}"
+    );
+    assert!(
+        stdout.contains("src-nist-sp800-123"),
+        "live load must name the NIST pin: {stdout}"
+    );
+}
+
+#[test]
+fn load_snapshots_stripped_licence_is_refused() {
+    let plant = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../cdcp_data/tests/fixtures/good");
+    // The good fixture is a permitted hello.txt, but compiled pins look
+    // for the NIST PDF. Pointing --root at the fixture tree is RED
+    // (registered ≥1, zero artifacts loaded).
+    let assert = cdcp()
+        .args(["load-snapshots", "--root"])
+        .arg(&plant)
+        .assert()
+        .failure();
+    let out = format!(
+        "{}{}",
+        String::from_utf8_lossy(&assert.get_output().stdout),
+        String::from_utf8_lossy(&assert.get_output().stderr)
+    );
+    assert!(
+        out.contains("zero artifacts loaded") || out.contains("cannot read"),
+        "compiled pins against a fixture root must RED: {out}"
     );
 }
 
