@@ -14,3 +14,11 @@ rights = "public-domain"
 redistribution = "permitted"
 ai_ingestion = "permitted"
 rights_note = "US Government work, 17 USC 105. Freely redistributable and AI-ingestible."
+
+# --- CAPTURE SHAPE (added 2026-08-14, bd-corpus-public-captures-not-licensed-class-kej)
+# `capture` was MISSING, which CORPUS-R2 makes an ERROR. The PDF IS in the tree and
+# is legitimately here: 17 USC 105 public domain, redistribution permitted. No
+# `third_party_figures` were declared, so CORPUS-R3 does not bite, and
+# rights = "public-domain" is self-evidencing under CORPUS-R7 so no licence
+# citation is owed. This is the shape a compliant body-retained record has.
+capture = "body-retained"

@@ -25,13 +25,29 @@ capture = [
 ]
 
 # Who owns the copyright. NOT a price fact.
+#
+# ADDED 2026-08-14 (bd-corpus-public-captures-not-licensed-class-kej): the two
+# self-owning values below were already IN USE by live records
+# (src-curriculum-map-local, src-doe-femp-bpg-dc-design) while absent from this
+# list. A vocabulary that does not contain the values the corpus actually carries
+# cannot enforce anything: every conforming record reads as out-of-vocabulary and
+# the list stops being consulted. The list is the contract, so the list is what
+# had to change.
 rights = [
   "public-domain",                 # e.g. 17 USC 105, government-AUTHORED portions only
   "open-licence",                  # named permissive/reciprocal licence, recorded per document
+  "own-work-this-repo",            # authored here; redistribution is ours to grant
   "publisher-retains-copyright",
   "publisher-copyright",           # legacy spelling used by free-pdfs/*.meta.toml sidecars
+  "mixed-us-government-work-with-third-party-material",  # see CORPUS-R3
   "unknown",                       # ERROR-equivalent: blocks body-retained
 ]
+
+# `rights` values that are SELF-EVIDENCING for redistribution: the project either
+# authored the work or the work carries no copyright, so "permitted" needs no
+# third-party licence behind it. Every OTHER value must carry
+# `redistribution_evidence` before a body may be retained — see CORPUS-R7.
+self_evidencing_rights = ["public-domain", "own-work-this-repo"]
 
 # Whether THIS repository may republish the bytes to the world.
 redistribution = [
@@ -126,6 +142,40 @@ ASHRAE publication or related ASHRAE IP into any AI tool, and prohibits
 AI-created derivative works without express written permission. This repository
 is AI-built end to end, so an in-tree ASHRAE body is ingested by construction."""
 
+[[invariant]]
+id = "CORPUS-R7"
+severity = "error"
+title = "\"permitted\" over third-party rights must name the licence"
+rule = """If capture = "body-retained" and redistribution = "permitted" and
+`rights` is NOT in [vocabulary].self_evidencing_rights, the record MUST carry a
+`redistribution_evidence` table with non-empty `licence`, `url` and `clause`.
+A bare "permitted" over someone else's copyright is an assertion, not a
+licence."""
+rationale = """R1 keys entirely on the STRING "permitted", so R1 alone is
+satisfied by typing it. That is not a hypothetical: every one of the ten records
+swept in this bead was classified on an INHERITED DEFAULT rather than on
+evidence, and one of them (src-curriculum-map-local) was wrong in the permissive
+direction's mirror image — restrictively. A default is an unrecorded decision
+wearing a value, and it can point either way. R7 is the cost of pointing it at
+"permitted": name the licence, link it, cite the clause. This is also the
+GROWTH path, not only a brake — a genuinely open document (OCP's OCPHL and CC-BY
+specifications are the live candidates) can be body-retained the moment its
+licence is recorded here."""
+
+[[invariant]]
+id = "CORPUS-R8"
+severity = "error"
+title = "A file in the published tree with no record is an ERROR"
+rule = """Every regular file under published_tree.roots, other than the registry
+files themselves (`manifest.json`, `*.meta.toml`), MUST be claimed by the `path`
+of exactly one corpus record. An unclaimed file is an ERROR, never a pass."""
+rationale = """R1 and R2 both reason from the RECORD outward. A capture that
+arrives with no record at all is therefore invisible to them, and that is
+precisely how the next one arrives: dropped into the directory by a fetch script,
+never registered, and no rule ever names it. Enforcement has to run in both
+directions — record-to-file and file-to-record — or the unregistered case is the
+only case that passes."""
+
 # ---------------------------------------------------------------------------
 # Known-bad fixtures. The gate must be PROVEN TO TRIP (artifact-rigor L4).
 # Each fixture is injected, the gate must go RED and name the file; deleting the
@@ -163,24 +213,59 @@ invariant = "CORPUS-R6"
 fixture = 'record with ai_ingestion = "PROHIBITED" and capture = "body-retained"'
 expect = "gate exits non-zero and names the record"
 
+[[known_bad]]
+invariant = "CORPUS-R7"
+fixture = """manifest source {capture="body-retained", redistribution="permitted",
+rights="publisher-retains-copyright"} with no redistribution_evidence table"""
+expect = "gate exits non-zero: a bare \"permitted\" over third-party copyright is not a licence"
+
+[[known_bad]]
+invariant = "CORPUS-R8"
+fixture = "a .txt file dropped into knowledge/corpus/public/ that no record's `path` claims"
+expect = "gate exits non-zero and names the unclaimed file"
+
+# ---------------------------------------------------------------------------
+# Known-GOOD fixtures. An attack-only suite ships an OVER-STRICT gate, and
+# over-strict gates get routed around instead of fixed. Each of these must PASS,
+# so that legitimate corpus growth stays possible.
+# ---------------------------------------------------------------------------
+
+[[known_good]]
+invariant = "CORPUS-R1"
+fixture = 'record with rights="public-domain", redistribution="permitted", capture="body-retained", path present on disk'
+expect = "gate exits 0"
+
+[[known_good]]
+invariant = "CORPUS-R7"
+fixture = """record with rights="open-licence", redistribution="permitted",
+capture="body-retained" and redistribution_evidence {licence, url, clause} all non-empty"""
+expect = "gate exits 0 — a recorded licence justification is the sanctioned way to keep a body"
+
 # ---------------------------------------------------------------------------
 # Open violations. Recorded here so the gate can be WIRED TODAY without going
 # red on work that is already tracked. Every entry needs a bead. This table
 # shrinks to empty; it must never grow without a bead.
 # ---------------------------------------------------------------------------
 
-[[open_violation]]
-invariant = "CORPUS-R1"
-bead = "bd-corpus-public-captures-not-licensed-class-kej"
-records = [
-  "src-epi-cdcp-page", "src-exin-cdcp-page", "src-nh-cdcp", "src-tuv-22237",
-  "src-en-50600-overview", "src-tia-942", "src-tia-942-c-fotc",
-  "src-uptime-tiers", "src-ocp-ready", "src-curriculum-map-local",
-]
-reason = """Ten public-page body captures carry rights="publisher-retains-copyright",
-redistribution="not-licensed" and are committed to the public tree — the same
-defect class as the two ASHRAE rows, minus the AI-policy aggravation. They are
-NOT removed in this pass because scripts/validate_grounding.py consumes these
-bodies as its grounding corpus (601k chars); deleting them without a replacement
-grounding source would take the build red across four concurrently active
-agents. Tracked, not tolerated."""
+# EMPTY as of 2026-08-14, closing bd-corpus-public-captures-not-licensed-class-kej.
+#
+# The entry that stood here listed ten records. It is struck because NINE bodies
+# were removed from the published tree and reduced to citation rows, and the
+# tenth (src-curriculum-map-local) was never a violation — it is this project's
+# own work, swept in on an inherited default and corrected on the record.
+#
+# The stated blocker for the removal was that scripts/validate_grounding.py
+# consumed these bodies as its grounding corpus, so deleting them would take the
+# build red. That reading was wrong in a way worth keeping written down:
+# 545,935 of the corpus's 659,149 characters come from OUTSIDE
+# knowledge/corpus/public, and the gate's floor is 20,000 characters. The
+# removal clears the floor at 28x. The gate never needed this material; what it
+# needed — and got first, under bd-yje7 — was to stop reporting green on a corpus
+# of zero characters, so that a corpus which really did disappear would go RED on
+# the way down instead of silently passing. The vacuity fix is what made this
+# removal observable. The legal remediation and the anti-vacuous fix were the
+# same job seen from two ends.
+#
+# THE LIST IS EMPTY AND MUST STAY THAT WAY WITHOUT A BEAD. An entry here is an
+# exception to an invariant, not a place to park work: it needs a bead, a reason,
+# and an end date in someone's queue.

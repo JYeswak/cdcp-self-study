@@ -5,7 +5,6 @@ url = "https://www.ashrae.org/file library/technical resources/bookstore/ashrae_
 access = "free"
 fetch_date = "2026-08-12"
 sha256 = "b1b2638d27456b0ae179073115ddb14cc25bed71b51d0b03d32a3ff00903a36c"
-path = "knowledge/corpus/free-pdfs/ashrae_storage_white_paper_2015.pdf"
 oq09 = "SUPERSEDED 2026-08-14 — free-to-download does not authorise in-repo storage for ASHRAE; PDFs already purged from HEAD and history 2026-08-12"
 note = "Free white paper posted by ASHRAE; study grounding only"
 
@@ -14,3 +13,14 @@ rights = "publisher-copyright"
 redistribution = "NOT-licensed"
 ai_ingestion = "PROHIBITED"
 rights_note = '''ASHRAE AI policy (read 2026-08-13) prohibits entering content from any ASHRAE publication or related ASHRAE IP into any AI tool, and prohibits creating derivative works of ASHRAE IP using AI without express written permission. access= is a PRICE fact and does NOT authorise redistribution or ingestion. Human reading only; cite by locator.'''
+
+# --- CAPTURE SHAPE (added 2026-08-14, bd-corpus-public-captures-not-licensed-class-kej)
+# `capture` was MISSING from this sidecar, which CORPUS-R2 makes an ERROR: the
+# field the whole policy keys on cannot be absent. It is recorded, not inferred.
+# The PDF was purged from HEAD and history on 2026-08-12; `path` was left behind
+# pointing at a file that is not here, which reads as a body-retained record whose
+# body merely went missing. The honest shape is not-vendored, and the dead pointer
+# is renamed so nothing can mistake it for a live one.
+capture = "not-vendored"
+purged_path = "knowledge/corpus/free-pdfs/ashrae_storage_white_paper_2015.pdf"
+purged_at = "2026-08-12"
