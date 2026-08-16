@@ -265,8 +265,8 @@ digest = "44159f42e66492e75875ae1c23f37e34a23d4ac2ce999dcda6f09e69a6e273d2"
 [[surface]]
 id = "assemble.sampler"
 title = "The seed-42 sampler: stratification, the approved-only pool, and the PRNG derivation"
-version = "v9e0c55f1c89e"
-justification = "The fixture's forty item_ids are this function's output at seed 42, in order, and every web pack replays them. PROVENANCE measures the cost of getting this wrong: when the sampler and the fixture diverged, 37 of 40 ids differed and no gate noticed for months. RE-PINNED 2026-08-15 (bd-hardening-c-status-hzs.5 / C6): sample_item_ids now rejects a selected draw that spans fewer than min_modules. Default n=40 on the shipped bank still spans ≥8 modules; seed-42 item_ids are unchanged by this reject path."
+version = "vef6cfbeb255f"
+justification = "The fixture's forty item_ids are this function's output at seed 42, in order, and every web pack replays them. PROVENANCE measures the cost of getting this wrong: when the sampler and the fixture diverged, 37 of 40 ids differed and no gate noticed for months. RE-PINNED 2026-08-15 (bd-hardening-c-status-hzs.5 / C6): sample_item_ids now rejects a selected draw that spans fewer than min_modules. Default n=40 on the shipped bank still spans ≥8 modules; seed-42 item_ids are unchanged by this reject path. RE-PINNED 2026-08-15 (bd-hardening-g-assess-64t.2 / .3): `assemble` is now a thin wrapper over `assemble_with` + `assemble_input` so a non-letter assess kind is NotLetterMcq instead of four shuffled A–D strings. The historical path is `extra` empty — same sample, same shuffle stream (`seed ^ 0xCDC5_FF1E`), same item_ids. Region digest moved 12130d0b… → 672b5a8c… because the function body moved, not because the seed-42 draw moved. Frozen goldens that name this surface were not re-written."
 [[surface.pin]]
 kind = "region"
 file = "crates/cdcp_assemble/src/lib.rs"
@@ -281,7 +281,7 @@ digest = "7471415ea8eb34e0433932e3d5774a4c8bd110a9e21caabc275b55cc186b420e"
 kind = "region"
 file = "crates/cdcp_assemble/src/lib.rs"
 symbol = "assemble"
-digest = "12130d0b009f342424c46502c5f42f044ceb5d2c4a218080f66d4ebcdf367620"
+digest = "672b5a8ca5f68b790d61d8d9f6f4e28d44b4b63577606ef9143366d4b89cadb6"
 [[surface.pin]]
 kind = "fields"
 file = "crates/cdcp_assemble/src/lib.rs"
@@ -422,9 +422,9 @@ id = "fixture.mock40-seed42"
 file = "goldens/fixtures/mock40_seed42.json"
 frozen = "bac724fefe1b32bb4fada333bbfc070223dcb03e002caa7b375d1d1ba418bd22"
 affirmed = "2026-08-15"
-justification = "The seed-42 assembly record: forty ids in presentation order, plus an embedded six-field projection of each item and the bank_hash they were drawn under. Every other golden here is computed FROM this file, so it is re-frozen first and re-affirmed first. REWRITTEN 2026-08-14 (bd-tetz): the old sentence \"Bank CONTENT drift is not this file's job\" survived C2 and C3 only because those re-freezes never moved a draw — C2 moved bank_hash with item_ids byte-identical, and C3's single retirement (mock40-q40) moved nothing at all. This re-freeze is the first where the DRAW moved: 24 duplicate items retired, the approved pool 803 -> 779, and 33 of the 40 ids changed with all 40 positions different. So this file is the record of WHICH FORTY QUESTIONS THE PUBLISHED FORM ASKS, and a selection-only edit to bank/items rewrites it. Only 7 ids survived the change (bank-m14-q121, m02-q077, m02-q081, m02-q085, m05-q148, m09-q123, m13-q202); no retired id appears, verified by parsing this file rather than by reading a diff."
+justification = "The seed-42 assembly record: forty ids in presentation order, plus an embedded six-field projection of each item and the bank_hash they were drawn under. Every other golden here is computed FROM this file, so it is re-frozen first and re-affirmed first. RE-AFFIRMED 2026-08-15 assemble.sampler vef6cfbeb255f: `assemble` body moved (64t.2/64t.3 wrapper) with seed-42 item_ids byte-identical; this file's frozen bytes did not move. REWRITTEN 2026-08-14 (bd-tetz): the old sentence \"Bank CONTENT drift is not this file's job\" survived C2 and C3 only because those re-freezes never moved a draw — C2 moved bank_hash with item_ids byte-identical, and C3's single retirement (mock40-q40) moved nothing at all. This re-freeze is the first where the DRAW moved: 24 duplicate items retired, the approved pool 803 -> 779, and 33 of the 40 ids changed with all 40 positions different. So this file is the record of WHICH FORTY QUESTIONS THE PUBLISHED FORM ASKS, and a selection-only edit to bank/items rewrites it. Only 7 ids survived the change (bank-m14-q121, m02-q077, m02-q081, m02-q085, m05-q148, m09-q123, m13-q202); no retired id appears, verified by parsing this file rather than by reading a diff."
 depends_on = [
-  { surface = "assemble.sampler", version = "v9e0c55f1c89e" },
+  { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
   { surface = "fixture.writer-shape", version = "v3eb326576eb1" },
   { surface = "bank.item-schema", version = "ve4a98becddb0" },
@@ -482,9 +482,9 @@ id = "web.learner-pack"
 file = "web/data/mock40_seed42.json"
 frozen = "68191692d307e89b13fdf6ed699a8e183a577cdc1c4f81cd5f792a68c5678940"
 affirmed = "2026-08-15"
-justification = "The learner exam pack the browser loads, cmp'd byte-for-byte by check.sh L6 against a fresh export-web at seed 42. It replays the sampler rather than the fixture, so it moves with the sampler even when the fixture is untouched — the divergence bd-golden-sampler-divergence-09q was made of. RE-STATED 2026-08-14 (bd-tetz): this re-freeze is the first that changed WHAT A LEARNER SEES rather than only what a digest covers. 33 of the 40 questions in this pack are different questions; a learner who took the seed-42 mock before this change and takes it after has sat two different exams under one name. Verified byte-for-byte against a fresh export and independently by parsing this file's `items[].id` against the fixture's `item_ids` — equal, in order, with no retired id present."
+justification = "The learner exam pack the browser loads, cmp'd byte-for-byte by check.sh L6 against a fresh export-web at seed 42. It replays the sampler rather than the fixture, so it moves with the sampler even when the fixture is untouched — the divergence bd-golden-sampler-divergence-09q was made of. RE-AFFIRMED 2026-08-15 assemble.sampler vef6cfbeb255f: wrapper-only source move; pack bytes unchanged. RE-STATED 2026-08-14 (bd-tetz): this re-freeze is the first that changed WHAT A LEARNER SEES rather than only what a digest covers. 33 of the 40 questions in this pack are different questions; a learner who took the seed-42 mock before this change and takes it after has sat two different exams under one name. Verified byte-for-byte against a fresh export and independently by parsing this file's `items[].id` against the fixture's `item_ids` — equal, in order, with no retired id present."
 depends_on = [
-  { surface = "assemble.sampler", version = "v9e0c55f1c89e" },
+  { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
   { surface = "export.pack-shapes", version = "ve104f62e84f0" },
   { surface = "bank.hash-payload", version = "v4c837056ec0e" },
@@ -495,9 +495,9 @@ id = "web.keys-pack"
 file = "web/data/keys_seed42.json"
 frozen = "7f5dccef2301ccec59266a533fa23ca4030a25321a3aadbac29ba0fc7cce04e5"
 affirmed = "2026-08-15"
-justification = "The answer keys and explanations for the same forty items, held apart from the learner pack on purpose. Its key set is a policy boundary, not a convenience, which is why the shape it was frozen under is named here rather than assumed. RE-STATED 2026-08-14 (bd-tetz): this pack carries the `explanation` string of every drawn item, and the explanation is exactly the field the 24 retirements were adjudicated on — the surviving copy of each pair was chosen because its explanation teaches the contrast instead of restating its own key. So the post-answer text a learner now reads is, by construction, the better of the two that existed for those propositions. That is a product change hiding inside a digest move, and it is the only place in this ledger where the change is pedagogical rather than structural."
+justification = "The answer keys and explanations for the same forty items, held apart from the learner pack on purpose. Its key set is a policy boundary, not a convenience, which is why the shape it was frozen under is named here rather than assumed. RE-AFFIRMED 2026-08-15 assemble.sampler vef6cfbeb255f: wrapper-only source move; pack bytes unchanged. RE-STATED 2026-08-14 (bd-tetz): this pack carries the `explanation` string of every drawn item, and the explanation is exactly the field the 24 retirements were adjudicated on — the surviving copy of each pair was chosen because its explanation teaches the contrast instead of restating its own key. So the post-answer text a learner now reads is, by construction, the better of the two that existed for those propositions. That is a product change hiding inside a digest move, and it is the only place in this ledger where the change is pedagogical rather than structural."
 depends_on = [
-  { surface = "assemble.sampler", version = "v9e0c55f1c89e" },
+  { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
   { surface = "export.pack-shapes", version = "ve104f62e84f0" },
   { surface = "bank.hash-payload", version = "v4c837056ec0e" },
