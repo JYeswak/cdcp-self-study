@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q081"
+kind = "single-select"
 module = 2
 stem = "Guidelines and best-practice documents differ from codes in that they usually:"
 choices = [

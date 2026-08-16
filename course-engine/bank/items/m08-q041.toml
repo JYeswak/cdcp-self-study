@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q041"
+kind = "single-select"
 module = 8
 stem = "The “19-inch” rack standard primarily specifies:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q235"
+kind = "single-select"
 module = 9
 stem = "Chimney racks or vertical exhaust ducts help by:"
 choices = [

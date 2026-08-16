@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q240"
+kind = "single-select"
 module = 9
 stem = "Psychrometric awareness helps operators because:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m02-q209"
+kind = "single-select"
 module = 2
 stem = "If an insurer or customer questionnaire asks whether the site is “code compliant,” the honest answer depends on:"
 choices = [

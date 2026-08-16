@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q132"
+kind = "single-select"
 module = 14
 stem = "Escalation ladders for unacked P1 alarms exist to:"
 choices = [

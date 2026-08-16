@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q217"
+kind = "single-select"
 module = 11
 stem = "A main distribution area concept is best described as:"
 choices = [

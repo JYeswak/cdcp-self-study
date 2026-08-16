@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q081"
+kind = "single-select"
 module = 6
 stem = "A classic field defect is creating extra neutral-ground bonds downstream of the designated point because:"
 choices = [

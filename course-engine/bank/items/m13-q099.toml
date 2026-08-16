@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q099"
+kind = "single-select"
 module = 13
 stem = "A lock without detection mainly provides:"
 choices = [

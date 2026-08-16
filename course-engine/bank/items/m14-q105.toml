@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q105"
+kind = "single-select"
 module = 14
 stem = "In data-centre auxiliary-system usage, EMS most nearly means:"
 choices = [

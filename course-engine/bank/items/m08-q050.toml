@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q050"
+kind = "single-select"
 module = 8
 stem = "Rack-level security (locks, side panels, door contacts) should be understood as:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q160"
+kind = "single-select"
 module = 9
 stem = "Facility water and IT coolant loops are often isolated via heat exchangers mainly to:"
 choices = [

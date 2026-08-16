@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m12-q204"
+kind = "single-select"
 module = 12
 stem = "Portable extinguisher class selection near electrical equipment should prioritize:"
 choices = [

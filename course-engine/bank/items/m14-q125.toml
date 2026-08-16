@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q125"
+kind = "single-select"
 module = 14
 stem = "Correlation of related points (utility fail + ATS transfer + UPS on battery) before fan-out helps:"
 choices = [

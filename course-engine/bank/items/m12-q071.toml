@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q071"
+kind = "single-select"
 module = 12
 stem = "When a fire protection system is offline for maintenance, best practice includes:"
 choices = [

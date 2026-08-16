@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q103"
+kind = "single-select"
 module = 11
 stem = "In TIA-style data centre cabling topology awareness, the MDA is best described as:"
 choices = [

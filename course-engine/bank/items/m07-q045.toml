@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 7)
 id = "m07-q045"
+kind = "single-select"
 module = 7
 stem = "For ELF magnetic-field problems in white space, the first mitigation tool is usually:"
 choices = [

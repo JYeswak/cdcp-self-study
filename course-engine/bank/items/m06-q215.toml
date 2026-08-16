@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q215"
+kind = "single-select"
 module = 6
 stem = "Fuel quality, day-tank design, and transfer pumps matter as much as genset kW because:"
 choices = [

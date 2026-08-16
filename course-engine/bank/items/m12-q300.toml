@@ -1,5 +1,6 @@
 # Original runbook vignette — operational scenario (not an exam dump)
 id = "m12-q300"
+kind = "single-select"
 module = 12
 stem = "Runbook vignette: ASD indicates a low-level alert in a dense white-space zone. Spot detectors have not reached alarm; no visible smoke. The night operator is alone. Per a layered-detection runbook mindset, what is the preferred next step?"
 choices = [

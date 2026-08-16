@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q116"
+kind = "single-select"
 module = 14
 stem = "Life-safety fire alarm logic should:"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q143"
+kind = "single-select"
 module = 15
 stem = "MTBF (Mean Time Between Failures) is best described as:"
 choices = [

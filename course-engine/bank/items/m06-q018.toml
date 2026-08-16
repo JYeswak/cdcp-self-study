@@ -20,6 +20,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q18"
+kind = "single-select"
 module = 6
 stem = "Double-conversion (online/VFI) UPS primarily:"
 choices = [

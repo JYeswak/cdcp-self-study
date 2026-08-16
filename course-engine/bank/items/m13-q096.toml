@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q096"
+kind = "single-select"
 module = 13
 stem = "Loading dock material flow should ideally:"
 choices = [

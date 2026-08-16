@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q136"
+kind = "single-select"
 module = 9
 stem = "Excessive cable congestion under a raised floor can degrade cooling by:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q245"
+kind = "single-select"
 module = 6
 stem = "UPS module N+1 is valuable mainly when:"
 choices = [

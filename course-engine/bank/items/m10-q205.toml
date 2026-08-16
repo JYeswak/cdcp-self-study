@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m10-q205"
+kind = "single-select"
 module = 10
 stem = "A diversified water strategy might include:"
 choices = [

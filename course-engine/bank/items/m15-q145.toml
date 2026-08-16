@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q145"
+kind = "single-select"
 module = 15
 stem = "Availability is improved not only by higher MTBF but also by:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m15-q208"
+kind = "single-select"
 module = 15
 stem = "Labelling that includes circuit ID, source panel, and destination helps most during:"
 choices = [

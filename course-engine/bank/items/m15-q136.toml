@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q136"
+kind = "single-select"
 module = 15
 stem = "Labels should remain accurate after changes because stale labels:"
 choices = [

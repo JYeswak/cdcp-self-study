@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q104"
+kind = "single-select"
 module = 14
 stem = "Which system most typically implements chiller lead/lag sequences and chilled-water setpoint control?"
 choices = [

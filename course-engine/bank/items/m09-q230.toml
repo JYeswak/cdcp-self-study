@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q230"
+kind = "single-select"
 module = 9
 stem = "Even when liquid cooling is used at the rack, the plant still must:"
 choices = [

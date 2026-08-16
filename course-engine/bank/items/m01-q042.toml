@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q042"
+kind = "single-select"
 module = 1
 stem = "Which data-centre delivery model typically means the enterprise owns both the building systems and the IT estate?"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q112"
+kind = "single-select"
 module = 14
 stem = "Leak detection without known isolation valves and drills is incomplete because:"
 choices = [

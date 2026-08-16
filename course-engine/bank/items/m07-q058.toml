@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 7)
 id = "m07-q058"
+kind = "single-select"
 module = 7
 stem = "The mitigation hierarchy that prioritizes cheap geometry first is best ordered as:"
 choices = [

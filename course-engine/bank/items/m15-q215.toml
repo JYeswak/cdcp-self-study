@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m15-q215"
+kind = "single-select"
 module = 15
 stem = "Color-coding and standardized label templates across a campus help because they:"
 choices = [

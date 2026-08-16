@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q107"
+kind = "single-select"
 module = 14
 stem = "A practical BMS vs DCIM distinction is that BMS focuses on plant control/monitoring while DCIM focuses on:"
 choices = [

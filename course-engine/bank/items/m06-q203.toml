@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q203"
+kind = "single-select"
 module = 6
 stem = "If an ATS fails to transfer during a utility outage while UPS batteries deplete, the next failure mode is typically:"
 choices = [

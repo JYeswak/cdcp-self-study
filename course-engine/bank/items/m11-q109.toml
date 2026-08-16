@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q109"
+kind = "single-select"
 module = 11
 stem = "A practical reason many designs still use copper to the rack edge is:"
 choices = [

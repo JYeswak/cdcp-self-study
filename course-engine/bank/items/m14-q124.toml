@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q124"
+kind = "single-select"
 module = 14
 stem = "Notification best practice includes putting runbook links in alerts so that:"
 choices = [

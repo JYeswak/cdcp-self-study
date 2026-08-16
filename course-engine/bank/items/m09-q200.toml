@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q200"
+kind = "single-select"
 module = 9
 stem = "An operator raises cold-aisle supply temperature modestly within an accepted envelope. A primary efficiency reason is:"
 choices = [

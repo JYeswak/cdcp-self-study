@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q100"
+kind = "single-select"
 module = 10
 stem = "Process water for cooling towers and humidification matters to uptime because:"
 choices = [

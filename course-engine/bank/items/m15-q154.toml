@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q154"
+kind = "single-select"
 module = 15
 stem = "Post-incident documentation (timeline, root cause, corrective actions) is valuable because it:"
 choices = [

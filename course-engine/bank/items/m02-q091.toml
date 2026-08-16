@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q091"
+kind = "single-select"
 module = 2
 stem = "If local code is silent on a data-centre-specific topic, a common professional approach is to:"
 choices = [

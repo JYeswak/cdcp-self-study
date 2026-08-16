@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m07-q205"
+kind = "single-select"
 module = 7
 stem = "CRT-era displays were famously field-sensitive; modern IT is generally more robust, yet facility designers still care about EMF because:"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q114"
+kind = "single-select"
 module = 14
 stem = "Alarm severity tiers are useful because they:"
 choices = [

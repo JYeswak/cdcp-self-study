@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q112"
+kind = "single-select"
 module = 11
 stem = "Polarity management for duplex and MPO fiber systems matters because incorrect polarity:"
 choices = [

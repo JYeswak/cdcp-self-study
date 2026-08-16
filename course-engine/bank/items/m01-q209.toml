@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m01-q209"
+kind = "single-select"
 module = 1
 stem = "Treating the data centre as only an IT department concern (with no facilities/ops partnership) risks:"
 choices = [

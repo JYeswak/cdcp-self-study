@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q060"
+kind = "single-select"
 module = 8
 stem = "Mounting depth planning must include:"
 choices = [

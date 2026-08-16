@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q223"
+kind = "single-select"
 module = 11
 stem = "Alien crosstalk concerns rise in dense copper bundles at high categories because:"
 choices = [

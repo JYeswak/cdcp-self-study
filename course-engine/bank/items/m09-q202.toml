@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q202"
+kind = "single-select"
 module = 9
 stem = "Operating continuously at the extreme edge of an allowable envelope versus recommended is generally associated with:"
 choices = [

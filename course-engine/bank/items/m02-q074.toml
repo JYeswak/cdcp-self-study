@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q074"
+kind = "single-select"
 module = 2
 stem = "TIA-942 Rated concepts should not be described as:"
 choices = [

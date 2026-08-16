@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m03-q212"
+kind = "single-select"
 module = 3
 stem = "A facility criterion that often limits future growth more than day-one IT load is:"
 choices = [

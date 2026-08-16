@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q212"
+kind = "single-select"
 module = 9
 stem = "Brush grommets at cable cutouts help raised-floor cooling by:"
 choices = [

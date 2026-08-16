@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m12-q208"
+kind = "single-select"
 module = 12
 stem = "A discharge of clean agent without investigating cause and restoring readiness is incomplete because:"
 choices = [

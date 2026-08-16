@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q126"
+kind = "single-select"
 module = 14
 stem = "OT/IT security for BMS and environmental units matters because:"
 choices = [

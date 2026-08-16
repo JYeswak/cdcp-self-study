@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q254"
+kind = "single-select"
 module = 6
 stem = "Grey space supporting the power plant is best thought of as:"
 choices = [

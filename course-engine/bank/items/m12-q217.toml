@@ -19,6 +19,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "m12-q217"
+kind = "single-select"
 module = 12
 stem = "Abort switches on gaseous systems, where provided, are intended to:"
 choices = [

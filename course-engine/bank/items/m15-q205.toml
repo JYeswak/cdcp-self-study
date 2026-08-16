@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m15-q205"
+kind = "single-select"
 module = 15
 stem = "Operational security for vendors performing work includes:"
 choices = [

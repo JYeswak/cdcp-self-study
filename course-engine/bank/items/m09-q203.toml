@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q203"
+kind = "single-select"
 module = 9
 stem = "Server inlet temperature is preferred over return-air temperature as a primary IT health metric because:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q111"
+kind = "single-select"
 module = 11
 stem = "Multimode fiber (OM-class awareness) is commonly associated with:"
 choices = [

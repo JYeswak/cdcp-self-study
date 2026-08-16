@@ -1,5 +1,6 @@
 # Original runbook vignette — operational scenario (not an exam dump)
 id = "m09-q300"
+kind = "single-select"
 module = 9
 stem = "Runbook vignette: Night ops reports rising inlet temperatures on one cold aisle after a network team opened several blanking panels and containment doors for a cable pull. CRAH setpoints are unchanged. What should the first operational response prioritize?"
 choices = [

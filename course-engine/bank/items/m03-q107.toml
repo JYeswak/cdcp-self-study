@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m03-q107"
+kind = "single-select"
 module = 3
 stem = "Which is a facility criterion related to human operations, not only equipment?"
 choices = [

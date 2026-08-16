@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q114"
+kind = "single-select"
 module = 9
 stem = "A correct educational statement about ASHRAE recommended versus allowable guidance is:"
 choices = [

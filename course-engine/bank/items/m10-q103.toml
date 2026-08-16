@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q103"
+kind = "single-select"
 module = 10
 stem = "Cooling tower makeup water is needed primarily because:"
 choices = [

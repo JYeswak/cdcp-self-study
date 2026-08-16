@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q081"
+kind = "single-select"
 module = 13
 stem = "Grey space (UPS, generators, switchgear, chillers) should receive access rigor comparable to white space because:"
 choices = [

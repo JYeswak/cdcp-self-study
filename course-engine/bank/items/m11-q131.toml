@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q131"
+kind = "single-select"
 module = 11
 stem = "Which is a sound educational statement about TIA-942 topology learning for CDCP?"
 choices = [

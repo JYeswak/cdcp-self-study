@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q246"
+kind = "single-select"
 module = 6
 stem = "During utility loss with healthy design, the closest expected sequence is:"
 choices = [

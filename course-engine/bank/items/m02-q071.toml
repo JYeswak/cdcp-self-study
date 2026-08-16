@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q071"
+kind = "single-select"
 module = 2
 stem = "Sub-component standards (e.g., for cabling, fire detection devices, or electrical equipment) matter because:"
 choices = [

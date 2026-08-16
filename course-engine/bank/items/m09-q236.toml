@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q236"
+kind = "single-select"
 module = 9
 stem = "Cable mess at the rear of racks hurts containment because it can:"
 choices = [

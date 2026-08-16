@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m15-q216"
+kind = "single-select"
 module = 15
 stem = "Operational safety near live electrical and mechanical plant requires:"
 choices = [

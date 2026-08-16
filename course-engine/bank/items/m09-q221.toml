@@ -19,6 +19,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "m09-q221"
+kind = "single-select"
 module = 9
 stem = "Free cooling or economization aims to:"
 choices = [

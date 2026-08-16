@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q248"
+kind = "single-select"
 module = 9
 stem = "A practical airflow practice on a raised floor is to:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q065"
+kind = "single-select"
 module = 2
 stem = "TIA-942 “Rated” language and Uptime Institute “Tier” language should be treated as:"
 choices = [

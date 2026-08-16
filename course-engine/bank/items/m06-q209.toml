@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q209"
+kind = "single-select"
 module = 6
 stem = "Double-conversion UPS is preferred for a sensitive hall mainly because it:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m01-q206"
+kind = "single-select"
 module = 1
 stem = "A single point of failure in facility design is best characterized as:"
 choices = [

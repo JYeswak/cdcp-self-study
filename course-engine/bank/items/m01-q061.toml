@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q061"
+kind = "single-select"
 module = 1
 stem = "Which statement about data-centre types is most careful?"
 choices = [

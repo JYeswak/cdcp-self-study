@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q092"
+kind = "single-select"
 module = 2
 stem = "Which statement best reflects CDCP-level awareness of multiple facility series?"
 choices = [

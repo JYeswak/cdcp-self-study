@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q213"
+kind = "single-select"
 module = 6
 stem = "Wet stacking concerns on diesel generators typically arise when sets:"
 choices = [

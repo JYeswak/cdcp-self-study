@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m01-q205"
+kind = "single-select"
 module = 1
 stem = "Edge or micro data centres compared with large central sites typically trade:"
 choices = [

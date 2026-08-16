@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q058"
+kind = "single-select"
 module = 12
 stem = "European EN 2 fire classes notably differ from North American labeling because EN:"
 choices = [

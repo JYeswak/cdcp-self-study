@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m15-q207"
+kind = "single-select"
 module = 15
 stem = "Change records and method-of-procedure (MOP) discipline matter because:"
 choices = [

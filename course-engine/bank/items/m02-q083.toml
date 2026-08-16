@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q083"
+kind = "single-select"
 module = 2
 stem = "If an RFP requires “Uptime Tier III certification,” substituting “TIA Rated-3 design intent” without agreement is:"
 choices = [

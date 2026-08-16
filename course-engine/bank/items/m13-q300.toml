@@ -1,5 +1,6 @@
 # Original runbook vignette — operational scenario (not an exam dump)
 id = "m13-q300"
+kind = "single-select"
 module = 13
 stem = "Runbook vignette: A vendor arrives for emergency breaker work. Their escort badge is valid, but a second person without credentials tries to tailgate through the mantrap behind them carrying tools. Security cameras are recording. What should the escort/runbook response be?"
 choices = [

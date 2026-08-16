@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q067"
+kind = "single-select"
 module = 2
 stem = "ISO/IEC 22237 is best described for CDCP awareness as:"
 choices = [

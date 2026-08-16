@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q117"
+kind = "single-select"
 module = 9
 stem = "Dew point is often a more useful moisture metric than RH alone because:"
 choices = [

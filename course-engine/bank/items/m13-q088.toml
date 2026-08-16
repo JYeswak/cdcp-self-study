@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q088"
+kind = "single-select"
 module = 13
 stem = "Surveillance (CCTV/VMS) is most valuable when integrated so that a door-forced alarm can:"
 choices = [

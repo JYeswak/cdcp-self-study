@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q062"
+kind = "single-select"
 module = 8
 stem = "Hot-aisle/cold-aisle rack orientation places equipment so that:"
 choices = [

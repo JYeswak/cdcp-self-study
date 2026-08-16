@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q047"
+kind = "single-select"
 module = 12
 stem = "Pre-action sprinkler systems are often preferred over wet pipe above white space mainly because they:"
 choices = [

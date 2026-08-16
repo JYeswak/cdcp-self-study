@@ -19,13 +19,14 @@ pub const SCHEMA_VERSION: u32 = 1;
 /// |-----|----------------------|
 /// | `cdcp-bank-v1` | `id`, `module`, `stem`, `choices`, `correct`, `explanation`, `bloom`, `source_class`, `quantity_evidence`, `topic_ids`. `status` was excluded, and `objective_ids` / `citation_ids` / `tags` were not modelled at all — serde discarded them on load. A `status` flip therefore did not move a v1 hash, while it *did* move what a learner could be assessed on (C1). |
 /// | `cdcp-bank-v2` | v1's fields **plus** `objective_ids`, `citation_ids`, `tags` and `status`, over a payload that is total across every modelled field (`deny_unknown_fields` + `hash_payload_covers_every_modelled_field`). An empty bank is an ERROR, not a hash. |
+/// | `cdcp-bank-v3` | v2's fields **plus** `kind`. The 804-item bank is `single-select` (G1). A kind flip changes what assemble will admit. |
 ///
 /// Bumping this constant is a THREE-SITE change that must land in one commit —
 /// this constant, `content.lock` `canonical`, and `scripts/gen_content_lock.py`
 /// `CANONICAL`. A partial bump creates a third state and is worse than none.
 /// `crates/cdcp_core/tests/bank_hash_domain_agreement.rs` keys on this constant
 /// (never on a grep for the literal) and goes RED naming both sides.
-pub const BANK_HASH_DOMAIN: &[u8] = b"cdcp-bank-v2\0";
+pub const BANK_HASH_DOMAIN: &[u8] = b"cdcp-bank-v3\0";
 
 /// The domain tag as a label, DERIVED from [`BANK_HASH_DOMAIN`] — the single
 /// source the other two sites are checked against.

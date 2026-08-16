@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m08-q208"
+kind = "single-select"
 module = 8
 stem = "Dual-corded IT equipment in a rack is of limited value if:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m15-q209"
+kind = "single-select"
 module = 15
 stem = "Preventive maintenance windows scheduled without rollback criteria are weak because:"
 choices = [

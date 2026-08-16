@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q049"
+kind = "single-select"
 module = 12
 stem = "Wet-pipe sprinklers keep water in the piping continuously, which means a broken fitting can:"
 choices = [

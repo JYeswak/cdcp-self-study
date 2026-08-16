@@ -7,9 +7,9 @@
 //! instability C4 exists to escape) or the pin in `prng_stream_seed42_is_pinned`
 //! was edited without updating this receipt.
 
+use rand::rngs::StdRng;
 use rand::Rng;
 use rand::SeedableRng;
-use rand::rngs::StdRng;
 use rand_chacha::ChaCha12Rng;
 
 const SEED42_FIRST_8_U64: [u64; 8] = [

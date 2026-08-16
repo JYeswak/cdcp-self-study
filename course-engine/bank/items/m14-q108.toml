@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q108"
+kind = "single-select"
 module = 14
 stem = "If BMS plant graphics look green but a rack inlet is hot, the better first trust is usually:"
 choices = [

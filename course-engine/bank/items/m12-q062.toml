@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q062"
+kind = "single-select"
 module = 12
 stem = "The PASS method for portable extinguishers stands for the operational sequence that includes:"
 choices = [

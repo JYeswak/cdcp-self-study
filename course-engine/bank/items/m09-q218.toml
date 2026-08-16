@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q218"
+kind = "single-select"
 module = 9
 stem = "Sensible cooling capacity matters for IT rooms because IT load is mostly:"
 choices = [

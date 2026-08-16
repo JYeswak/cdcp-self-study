@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q104"
+kind = "single-select"
 module = 10
 stem = "Blowdown (bleed) from a cooling tower loop is performed mainly to:"
 choices = [

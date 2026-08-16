@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q135"
+kind = "single-select"
 module = 15
 stem = "Cable and port labelling standards help operations by:"
 choices = [

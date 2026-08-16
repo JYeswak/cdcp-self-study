@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q136"
+kind = "single-select"
 module = 11
 stem = "Carrier diversity for site connectivity ideally includes:"
 choices = [

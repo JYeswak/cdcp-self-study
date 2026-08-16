@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m05-q206"
+kind = "single-select"
 module = 5
 stem = "High-bay or aisle-oriented lighting in tall white space is often preferred because it can:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m05-q212"
+kind = "single-select"
 module = 5
 stem = "Shadowing between tall racks is a lighting design issue because:"
 choices = [

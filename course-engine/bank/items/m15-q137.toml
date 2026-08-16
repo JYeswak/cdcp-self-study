@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q137"
+kind = "single-select"
 module = 15
 stem = "As-built documentation for a data centre is valuable because it:"
 choices = [

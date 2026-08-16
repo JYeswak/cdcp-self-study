@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m14-q208"
+kind = "single-select"
 module = 14
 stem = "A best practice for auxiliary systems is to treat monitoring infrastructure as:"
 choices = [

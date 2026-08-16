@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q090"
+kind = "single-select"
 module = 2
 stem = "Cabling performance categories and firestop product listings are examples of:"
 choices = [

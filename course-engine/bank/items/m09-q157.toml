@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q157"
+kind = "single-select"
 module = 9
 stem = "Direct-to-chip liquid cooling generally:"
 choices = [

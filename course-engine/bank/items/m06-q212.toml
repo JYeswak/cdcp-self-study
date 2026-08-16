@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q212"
+kind = "single-select"
 module = 6
 stem = "During generator load-bank testing, the operational goal is mainly to:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q143"
+kind = "single-select"
 module = 9
 stem = "A reason some high-density rooms move away from pure raised-floor perimeter cooling is:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q056"
+kind = "single-select"
 module = 1
 stem = "When executives ask “why invest in redundancy,” the strongest CDCP-framed answer is:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q238"
+kind = "single-select"
 module = 9
 stem = "A dry cooler typically rejects heat through:"
 choices = [

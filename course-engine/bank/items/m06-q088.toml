@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q088"
+kind = "single-select"
 module = 6
 stem = "BESS (Battery Energy Storage System) differs from classic UPS batteries in that BESS often:"
 choices = [

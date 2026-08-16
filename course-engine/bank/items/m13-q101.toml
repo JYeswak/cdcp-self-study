@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q101"
+kind = "single-select"
 module = 13
 stem = "Propping a secure door open for a maintenance window is risky because:"
 choices = [

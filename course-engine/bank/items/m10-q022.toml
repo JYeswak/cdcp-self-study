@@ -19,6 +19,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q22"
+kind = "single-select"
 module = 10
 stem = "WUE primarily tracks:"
 choices = [

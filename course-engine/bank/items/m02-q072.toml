@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q072"
+kind = "single-select"
 module = 2
 stem = "Which is the most accurate “landscape” view of data-centre guidance?"
 choices = [

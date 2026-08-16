@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q201"
+kind = "single-select"
 module = 9
 stem = "ASHRAE recommended versus allowable envelopes are best taught as:"
 choices = [

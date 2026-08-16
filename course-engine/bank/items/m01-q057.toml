@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q057"
+kind = "single-select"
 module = 1
 stem = "Which scenario best illustrates cascading unavailability?"
 choices = [

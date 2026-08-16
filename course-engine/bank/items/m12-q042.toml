@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q042"
+kind = "single-select"
 module = 12
 stem = "Which detection technology is generally too late as the primary protection strategy for electronics white space?"
 choices = [

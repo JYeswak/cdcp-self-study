@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q101"
+kind = "single-select"
 module = 9
 stem = "Sensible cooling capacity is the portion of a CRAC/CRAH capacity that:"
 choices = [

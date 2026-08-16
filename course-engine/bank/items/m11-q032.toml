@@ -18,6 +18,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q32"
+kind = "single-select"
 module = 11
 stem = "A meet-me room (MMR) is primarily for:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q118"
+kind = "single-select"
 module = 9
 stem = "Server inlet temperature is generally preferred over room return temperature as a health metric because:"
 choices = [

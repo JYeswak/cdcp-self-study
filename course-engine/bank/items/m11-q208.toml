@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q208"
+kind = "single-select"
 module = 11
 stem = "OM versus OS fiber discussions mainly distinguish:"
 choices = [

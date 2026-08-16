@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q229"
+kind = "single-select"
 module = 6
 stem = "A useful thermography program practice is to:"
 choices = [

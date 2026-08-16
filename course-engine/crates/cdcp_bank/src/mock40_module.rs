@@ -182,6 +182,7 @@ mod tests {
             source_class: "original".into(),
             quantity_evidence: "qualitative_only".into(),
             status,
+            kind: crate::ItemKind::SingleSelect,
         }
     }
 

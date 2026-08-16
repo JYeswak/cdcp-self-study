@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q046"
+kind = "single-select"
 module = 1
 stem = "An edge or micro data centre is primarily intended to:"
 choices = [

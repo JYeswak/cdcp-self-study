@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q247"
+kind = "single-select"
 module = 9
 stem = "Ducted returns in slab facilities help by:"
 choices = [

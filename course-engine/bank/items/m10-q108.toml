@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q108"
+kind = "single-select"
 module = 10
 stem = "Humidification water quality matters because mineral-laden water can:"
 choices = [

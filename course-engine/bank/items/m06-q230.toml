@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q230"
+kind = "single-select"
 module = 6
 stem = "BESS proposed for both UPS ride-through and grid services should be treated as:"
 choices = [

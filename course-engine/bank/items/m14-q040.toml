@@ -23,6 +23,7 @@
 # Retired, never deleted: the bank is content-addressed and deleting the file
 # would lose the provenance of the duplication.
 id = "mock40-q40"
+kind = "single-select"
 module = 14
 stem = "Integrated Systems Testing (IST) is valuable because it:"
 choices = [

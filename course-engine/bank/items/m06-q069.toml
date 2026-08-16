@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q069"
+kind = "single-select"
 module = 6
 stem = "Natural-gas or dual-fuel generators vs diesel is primarily a trade-off involving:"
 choices = [

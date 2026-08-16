@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q229"
+kind = "single-select"
 module = 9
 stem = "Facility water and IT coolant loops are often isolated via heat exchangers mainly so as to:"
 choices = [

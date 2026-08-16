@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q041"
+kind = "single-select"
 module = 12
 stem = "Aspirating smoke detection (ASD) is especially useful in data halls because high airflow tends to:"
 choices = [

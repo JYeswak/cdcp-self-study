@@ -7,6 +7,9 @@
 //!    error, default = draft) and is NOT checked by `verify_bank.py`.
 //! 2. **C2** — unknown fields are a load error here (`deny_unknown_fields`);
 //!    `verify_bank.py` ignores any key it does not know about.
+//! 3. **G1** — `kind` is loaded and hashed here. The 804-item bank is
+//!    `single-select` (the letter-MCQ lift). A non-letter kind is a loadable
+//!    row that assemble must refuse, never flatten to A–D.
 //!
 //! The Rust side is the stricter one in both, so the parity table is a floor,
 //! not an equality — do not read a green `verify_bank.py` as evidence that item
@@ -355,6 +358,56 @@ impl std::fmt::Display for ItemStatus {
     }
 }
 
+/// Assessment kind on a bank row (G1 / `bd-hardening-g-assess-64t.1`).
+///
+/// The shipped 804 items are [`ItemKind::SingleSelect`] — the letter-MCQ
+/// lift. This tag is hashed: a kind flip changes what assemble will admit
+/// (letter kinds only) without changing stem or key, so it belongs in the
+/// content address. Serde default is `single-select` so a file that has
+/// not yet been migrated still loads as the historical kind rather than
+/// becoming an unrecognised load error. The migrate writes the field
+/// explicitly on every file.
+///
+/// An unrecognised value is a **load error**. New kinds are added here
+/// before they may appear in a bank file.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum ItemKind {
+    /// Four-option single-select (letter-MCQ lift). The only kind assemble
+    /// will present as A–D.
+    #[default]
+    SingleSelect,
+    MultiSelect,
+    Ordering,
+    NumericRange,
+    TopologySelection,
+    ProceduralSequence,
+}
+
+impl ItemKind {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ItemKind::SingleSelect => "single-select",
+            ItemKind::MultiSelect => "multi-select",
+            ItemKind::Ordering => "ordering",
+            ItemKind::NumericRange => "numeric-range",
+            ItemKind::TopologySelection => "topology-selection",
+            ItemKind::ProceduralSequence => "procedural-sequence",
+        }
+    }
+
+    /// True iff assemble may present this row as a letter form.
+    pub fn is_letter_form(&self) -> bool {
+        matches!(self, ItemKind::SingleSelect)
+    }
+}
+
+impl std::fmt::Display for ItemKind {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 /// A bank item.
 ///
 /// # Unknown-field policy: REJECT (C2)
@@ -399,6 +452,9 @@ pub struct BankItem {
     /// `approved` items are eligible for assembly.
     #[serde(default)]
     pub status: ItemStatus,
+    /// Assessment kind (G1). Default [`ItemKind::SingleSelect`]. Hashed.
+    #[serde(default)]
+    pub kind: ItemKind,
 }
 
 impl BankItem {
@@ -522,6 +578,7 @@ impl BankItem {
 
         let mut m = BTreeMap::new();
         m.insert("id".into(), serde_json::json!(self.id));
+        m.insert("kind".into(), serde_json::json!(self.kind.as_str()));
         m.insert("module".into(), serde_json::json!(self.module));
         m.insert("stem".into(), serde_json::json!(self.stem));
         m.insert("choices".into(), serde_json::json!(self.choices));
@@ -913,6 +970,36 @@ quantity_evidence = "qualitative_only"
             "items relying on the implicit draft default (explicit status required): {:?}",
             &missing_explicit[..missing_explicit.len().min(5)]
         );
+        // G1 migrate: every shipped item carries an EXPLICIT kind line and
+        // loads as single-select. A file relying on the serde default is
+        // not "migrated". A non-letter kind in this corpus is flatten risk.
+        let mut missing_kind: Vec<String> = Vec::new();
+        let mut not_single: Vec<String> = Vec::new();
+        for entry in fs::read_dir(text_dir).unwrap() {
+            let path = entry.unwrap().path();
+            if path.extension().and_then(|x| x.to_str()) != Some("toml") {
+                continue;
+            }
+            let text = fs::read_to_string(&path).unwrap();
+            if !text.lines().any(|l| l.trim_start().starts_with("kind")) {
+                missing_kind.push(path.display().to_string());
+            }
+        }
+        assert!(
+            missing_kind.is_empty(),
+            "items missing explicit kind= (G1 migrate incomplete): {:?}",
+            &missing_kind[..missing_kind.len().min(5)]
+        );
+        for item in bank.items.values() {
+            if item.kind != ItemKind::SingleSelect {
+                not_single.push(format!("{}={}", item.id, item.kind));
+            }
+        }
+        assert!(
+            not_single.is_empty(),
+            "shipped bank must be single-select after G1 migrate: {:?}",
+            &not_single[..not_single.len().min(5)]
+        );
         // The shipped bank is approved-only EXCEPT for the deliberate
         // retirements named in SANCTIONED_RETIRED. Checked both directions, so
         // neither an unexplained retirement nor a stale allowlist row passes.
@@ -1043,6 +1130,7 @@ status = "published"
         format!(
             r#"
 id = "{id}"
+kind = "single-select"
 module = 3
 stem = "A valid stem for testing"
 choices = ["a","b","c","d"]
@@ -1111,6 +1199,42 @@ status = "{status}"
         assert_ne!(
             draft, retired,
             "draft and retired are distinct editorial states and must hash distinctly"
+        );
+    }
+
+    /// G1: flipping kind must move bank_hash. Assemble admits letter
+    /// kinds only; a kind flip changes what can reach a learner even
+    /// when stem and key stay put.
+    #[test]
+    fn kind_change_moves_bank_hash() {
+        let single = hash_of(
+            "kind-ss",
+            &item_toml("k1", "[\"t1\"]", "[]", "[]", "[]", "approved"),
+        );
+        let multi = hash_of(
+            "kind-ms",
+            r#"
+id = "k1"
+kind = "multi-select"
+module = 3
+stem = "A valid stem for testing"
+choices = ["a","b","c","d"]
+correct = "B"
+explanation = "because reasons here"
+topic_ids = ["t1"]
+objective_ids = []
+citation_ids = []
+tags = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
+"#,
+        );
+        assert_ne!(
+            single, multi,
+            "single-select -> multi-select MUST move bank_hash: assemble refuses \
+             the second kind, so this flip changes what a learner can be assessed on"
         );
     }
 
@@ -1446,6 +1570,7 @@ status = "approved"
             source_class: "original".into(),
             quantity_evidence: "qualitative_only".into(),
             status: ItemStatus::Approved,
+            kind: ItemKind::SingleSelect,
         }
     }
 

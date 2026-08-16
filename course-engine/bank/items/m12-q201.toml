@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m12-q201"
+kind = "single-select"
 module = 12
 stem = "Very early smoke detection (e.g., aspirating systems) is valued in IT spaces because:"
 choices = [

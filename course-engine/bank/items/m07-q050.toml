@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 7)
 id = "m07-q050"
+kind = "single-select"
 module = 7
 stem = "A practical trigger to commission an EMF survey includes:"
 choices = [

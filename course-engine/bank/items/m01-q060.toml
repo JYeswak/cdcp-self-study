@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q060"
+kind = "single-select"
 module = 1
 stem = "A government or regulated industry data centre often elevates facility requirements mainly due to:"
 choices = [

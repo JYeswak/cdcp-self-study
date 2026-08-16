@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m13-q201"
+kind = "single-select"
 module = 13
 stem = "Mantraps / interlocks are used primarily to:"
 choices = [

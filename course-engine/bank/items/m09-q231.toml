@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q231"
+kind = "single-select"
 module = 9
 stem = "Liquid cooling interest for AI and HPC density grows because:"
 choices = [

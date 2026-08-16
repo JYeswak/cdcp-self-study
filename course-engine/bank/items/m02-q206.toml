@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m02-q206"
+kind = "single-select"
 module = 2
 stem = "Using “Tier III” casually in a sales document when only an informal self-assessment was done is problematic mainly because:"
 choices = [

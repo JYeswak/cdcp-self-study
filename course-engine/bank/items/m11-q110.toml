@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q110"
+kind = "single-select"
 module = 11
 stem = "Compared with multimode fiber, single-mode fiber is generally chosen when:"
 choices = [

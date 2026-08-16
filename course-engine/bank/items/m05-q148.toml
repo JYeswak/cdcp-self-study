@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m05-q148"
+kind = "single-select"
 module = 5
 stem = "Which is true about normal vs emergency lighting circuits?"
 choices = [

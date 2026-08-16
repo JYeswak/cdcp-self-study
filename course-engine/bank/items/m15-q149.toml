@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q149"
+kind = "single-select"
 module = 15
 stem = "Operational security and safety practices include escorting visitors in plant areas mainly to:"
 choices = [

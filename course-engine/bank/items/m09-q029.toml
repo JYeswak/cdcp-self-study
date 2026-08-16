@@ -19,6 +19,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q29"
+kind = "single-select"
 module = 9
 stem = "A CDU in liquid-cooled designs typically:"
 choices = [

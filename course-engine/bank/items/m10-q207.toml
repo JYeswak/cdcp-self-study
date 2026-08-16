@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m10-q207"
+kind = "single-select"
 module = 10
 stem = "Fire water supply reliability is a life-safety and property-protection concern that also intersects DC design because:"
 choices = [

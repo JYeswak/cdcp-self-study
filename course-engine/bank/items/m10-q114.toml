@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q114"
+kind = "single-select"
 module = 10
 stem = "A dual municipal water service (two feeds) for a critical plant is best described as:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q138"
+kind = "single-select"
 module = 9
 stem = "A practical raised-floor airflow management practice is to:"
 choices = [

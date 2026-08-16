@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q116"
+kind = "single-select"
 module = 9
 stem = "Relative humidity control in white space is important partly because extremes can contribute to:"
 choices = [

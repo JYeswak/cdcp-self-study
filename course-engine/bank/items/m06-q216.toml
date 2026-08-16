@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q216"
+kind = "single-select"
 module = 6
 stem = "An isolation transformer is specified ahead of a sensitive bus mainly to:"
 choices = [

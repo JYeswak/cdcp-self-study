@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q244"
+kind = "single-select"
 module = 9
 stem = "Seasonal thermal energy storage concepts generally involve:"
 choices = [

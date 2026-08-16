@@ -1,5 +1,6 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
 id = "mock40-q34"
+kind = "single-select"
 module = 12
 stem = "Aspirating / very early smoke detection is valued because it:"
 choices = [

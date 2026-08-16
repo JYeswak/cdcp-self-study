@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q054"
+kind = "single-select"
 module = 12
 stem = "HVAC/CRAH interlock on fire alarm is important for gaseous systems mainly to:"
 choices = [

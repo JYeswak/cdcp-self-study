@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q104"
+kind = "single-select"
 module = 9
 stem = "Delta-T across a server (or aisle) is useful operationally because it relates:"
 choices = [

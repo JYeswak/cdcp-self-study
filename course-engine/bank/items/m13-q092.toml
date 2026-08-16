@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q092"
+kind = "single-select"
 module = 13
 stem = "Shared or loaned badges primarily destroy:"
 choices = [

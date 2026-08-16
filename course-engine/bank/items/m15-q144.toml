@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q144"
+kind = "single-select"
 module = 15
 stem = "MTTR (Mean Time To Repair/Restore) focuses on:"
 choices = [

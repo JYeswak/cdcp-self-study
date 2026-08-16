@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q041"
+kind = "single-select"
 module = 6
 stem = "Grey space in a data centre power context primarily refers to:"
 choices = [

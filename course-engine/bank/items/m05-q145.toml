@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m05-q145"
+kind = "single-select"
 module = 5
 stem = "Why might high-bay or carefully selected LED industrial fixtures be used in open-ceiling halls?"
 choices = [

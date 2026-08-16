@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q050"
+kind = "single-select"
 module = 12
 stem = "Clean-agent or inert gas total flooding depends critically on:"
 choices = [

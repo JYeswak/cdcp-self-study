@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q203"
+kind = "single-select"
 module = 11
 stem = "If redundant fibers share a single conduit crushed by construction, the lesson is:"
 choices = [

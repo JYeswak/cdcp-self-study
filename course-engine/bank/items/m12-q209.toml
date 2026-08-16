@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m12-q209"
+kind = "single-select"
 module = 12
 stem = "Hot work (welding, cutting, brazing) in or near a data centre is high risk mainly because:"
 choices = [

@@ -23,13 +23,13 @@
 
 ```text
 bank_hash = hex( SHA-256(
-  b"cdcp-bank-v2\0"
+  b"cdcp-bank-v3\0"
   || for item in items sorted by id:
        canonical_json(hash_payload(item)) || b"\0"
 ) )
 ```
 
-Implemented in `cdcp_bank::compute_bank_hash` (`crates/cdcp_bank/src/lib.rs`). `BankItem::hash_payload` builds a `BTreeMap` with: id, module, stem, choices, correct, explanation, topic_ids (**sorted**), objective_ids (**sorted**) [[fact:fact-hash-payload-covers-objective-ids=yes]], citation_ids (**sorted**), tags (**sorted**), bloom, source_class, quantity_evidence, status [[fact:fact-hash-payload-covers-status=yes]] — then `canonical_json` on that map.
+Implemented in `cdcp_bank::compute_bank_hash` (`crates/cdcp_bank/src/lib.rs`). `BankItem::hash_payload` builds a `BTreeMap` with: id, kind, module, stem, choices, correct, explanation, topic_ids (**sorted**), objective_ids (**sorted**) [[fact:fact-hash-payload-covers-objective-ids=yes]], citation_ids (**sorted**), tags (**sorted**), bloom, source_class, quantity_evidence, status [[fact:fact-hash-payload-covers-status=yes]] — then `canonical_json` on that map.
 
 The payload is **total over the modelled fields**: every field of `BankItem` appears in it, and `BankItem` carries `deny_unknown_fields` [[fact:fact-bank-item-denies-unknown-fields=yes]], so no content in a bank file sits outside the content address. `hash_payload_covers_every_modelled_field` [[fact:fact-hash-payload-parity-test-exists=yes]] asserts the two field sets are equal, so adding a field without hashing it is RED rather than silent.
 
@@ -47,7 +47,7 @@ Flipping any load-bearing field changes `bank_hash`.
 schema_version = 1
 bank_hash = "<hex>"
 knowledge_hash = "<optional later>"
-canonical = "cdcp-bank-v2"
+canonical = "cdcp-bank-v3"
 hash_alg = "sha256"
 ```
 

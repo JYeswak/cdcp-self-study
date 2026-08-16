@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m10-q203"
+kind = "single-select"
 module = 10
 stem = "Backup water planning should consider not only volume but also:"
 choices = [

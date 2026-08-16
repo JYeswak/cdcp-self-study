@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m04-q131"
+kind = "single-select"
 module = 4
 stem = "Pedestal adhesion/attachment and understructure stability matter because:"
 choices = [

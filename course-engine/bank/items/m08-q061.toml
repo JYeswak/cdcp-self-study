@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q061"
+kind = "single-select"
 module = 8
 stem = "Cage nuts and matching screws matter because:"
 choices = [

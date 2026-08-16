@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q128"
+kind = "single-select"
 module = 14
 stem = "Local annunciation at plant panels still matters because:"
 choices = [

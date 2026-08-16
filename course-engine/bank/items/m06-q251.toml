@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q251"
+kind = "single-select"
 module = 6
 stem = "For dual-corded IT, best practice power feeding is:"
 choices = [

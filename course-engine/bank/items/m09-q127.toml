@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q127"
+kind = "single-select"
 module = 9
 stem = "In-row cooling is often chosen when:"
 choices = [

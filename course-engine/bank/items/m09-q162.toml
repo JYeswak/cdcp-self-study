@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q162"
+kind = "single-select"
 module = 9
 stem = "Even with liquid cooling at the rack, the plant still must:"
 choices = [

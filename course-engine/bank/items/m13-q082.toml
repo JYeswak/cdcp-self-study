@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q082"
+kind = "single-select"
 module = 13
 stem = "Authentication differs from authorization in access control because authentication:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q089"
+kind = "single-select"
 module = 6
 stem = "If BESS is proposed for both UPS-class ride-through and grid services, the safe design stance is:"
 choices = [

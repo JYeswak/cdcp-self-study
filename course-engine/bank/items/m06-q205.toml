@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q205"
+kind = "single-select"
 module = 6
 stem = "Capacity-parallel UPS without a spare module is running near full load. Adding one more IT rack without capacity review most risks:"
 choices = [

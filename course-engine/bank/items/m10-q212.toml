@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m10-q212"
+kind = "single-select"
 module = 10
 stem = "Shared campus water infrastructure with other tenants or buildings introduces risk when:"
 choices = [

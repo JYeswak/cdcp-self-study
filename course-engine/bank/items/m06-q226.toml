@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q226"
+kind = "single-select"
 module = 6
 stem = "Stranded power capacity in a hall usually means:"
 choices = [

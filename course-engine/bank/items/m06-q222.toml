@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q222"
+kind = "single-select"
 module = 6
 stem = "A floor PDU or RPP sits between the UPS output and rack PDUs. Its role is best described as:"
 choices = [

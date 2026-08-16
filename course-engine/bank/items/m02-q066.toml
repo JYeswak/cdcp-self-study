@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q066"
+kind = "single-select"
 module = 2
 stem = "A careful statement about Uptime Institute Tier concepts is that they primarily address:"
 choices = [

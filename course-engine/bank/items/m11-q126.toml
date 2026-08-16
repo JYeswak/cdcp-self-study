@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q126"
+kind = "single-select"
 module = 11
 stem = "EoR/MoR (end or middle of row) designs typically:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q114"
+kind = "single-select"
 module = 11
 stem = "Permanent link versus channel testing awareness means:"
 choices = [

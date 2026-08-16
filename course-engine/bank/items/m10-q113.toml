@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q113"
+kind = "single-select"
 module = 10
 stem = "Monitoring basin level and makeup flow is operationally useful because it:"
 choices = [

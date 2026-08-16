@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q047"
+kind = "single-select"
 module = 6
 stem = "Compared with a mechanical ATS, an STS is chosen primarily for:"
 choices = [

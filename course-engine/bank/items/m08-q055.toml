@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q055"
+kind = "single-select"
 module = 8
 stem = "Metered rack PDUs help operations mainly by:"
 choices = [

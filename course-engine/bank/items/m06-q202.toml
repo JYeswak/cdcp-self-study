@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q202"
+kind = "single-select"
 module = 6
 stem = "An STS feeds a single-corded appliance from A and B sources. A technician opens the upstream A breaker for work. Expected healthy STS behavior is:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q066"
+kind = "single-select"
 module = 6
 stem = "Load-bank testing of generators is valued because:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m02-q205"
+kind = "single-select"
 module = 2
 stem = "Sub-component standards (e.g., cabling performance, firestop listings, equipment safety marks) matter because:"
 choices = [

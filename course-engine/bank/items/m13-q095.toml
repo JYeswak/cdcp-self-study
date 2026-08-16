@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q095"
+kind = "single-select"
 module = 13
 stem = "EPO stations must balance security and safety by:"
 choices = [

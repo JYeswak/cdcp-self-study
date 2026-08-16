@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q224"
+kind = "single-select"
 module = 6
 stem = "Harmonic-rich nonlinear IT loads raise concern for transformers and generators because they can:"
 choices = [

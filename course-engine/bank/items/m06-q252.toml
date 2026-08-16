@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q252"
+kind = "single-select"
 module = 6
 stem = "Power quality events that double-conversion UPS is meant to mitigate include:"
 choices = [

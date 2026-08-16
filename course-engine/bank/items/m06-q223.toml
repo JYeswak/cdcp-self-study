@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q223"
+kind = "single-select"
 module = 6
 stem = "Switched or metered rack PDUs add most value when operators need to:"
 choices = [

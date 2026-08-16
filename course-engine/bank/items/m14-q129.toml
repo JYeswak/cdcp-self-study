@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q129"
+kind = "single-select"
 module = 14
 stem = "Setpoint changes on BMS for CHW supply or CRAC temperatures should be treated as:"
 choices = [

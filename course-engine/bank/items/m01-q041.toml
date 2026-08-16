@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q041"
+kind = "single-select"
 module = 1
 stem = "From a business-organization view, treating the data centre only as a facilities silo most often leads to:"
 choices = [

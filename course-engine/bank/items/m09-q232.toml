@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q232"
+kind = "single-select"
 module = 9
 stem = "Delta-T across servers or coils is operationally useful because it relates:"
 choices = [

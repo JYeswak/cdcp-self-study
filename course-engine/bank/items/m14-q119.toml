@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q119"
+kind = "single-select"
 module = 14
 stem = "Sensor offline / missing heartbeat on a critical row should be treated as:"
 choices = [

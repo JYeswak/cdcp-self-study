@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m07-q207"
+kind = "single-select"
 module = 7
 stem = "Electric fields and magnetic fields differ in that magnetic fields are particularly associated with:"
 choices = [

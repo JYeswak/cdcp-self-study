@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q047"
+kind = "single-select"
 module = 1
 stem = "Which is a common systemic cause of unavailability beyond pure equipment MTBF?"
 choices = [

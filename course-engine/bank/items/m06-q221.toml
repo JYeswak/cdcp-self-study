@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q221"
+kind = "single-select"
 module = 6
 stem = "Overhead busway is selected in a dense hall primarily to:"
 choices = [

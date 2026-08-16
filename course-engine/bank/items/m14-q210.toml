@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m14-q210"
+kind = "single-select"
 module = 14
 stem = "Thresholds set without hysteresis or seasonality awareness often cause:"
 choices = [

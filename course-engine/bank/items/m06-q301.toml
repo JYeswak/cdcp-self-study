@@ -1,5 +1,6 @@
 # Original runbook vignette — operational scenario (not an exam dump)
 id = "m06-q301"
+kind = "single-select"
 module = 6
 stem = "Runbook vignette: Utility voltage sags; generators start and the ATS transfers the critical bus as designed. After utility stabilizes, a junior tech wants to force an immediate retransfer to utility without checking sync/return timers or load state. What should the runbook emphasize?"
 choices = [

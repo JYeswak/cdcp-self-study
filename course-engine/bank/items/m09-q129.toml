@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q129"
+kind = "single-select"
 module = 9
 stem = "Perimeter CRAC/CRAH layout with raised floor commonly supplies air:"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q109"
+kind = "single-select"
 module = 14
 stem = "Underfloor leak detection is installed mainly to:"
 choices = [

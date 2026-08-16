@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q066"
+kind = "single-select"
 module = 12
 stem = "Bulk cardboard and wooden pallets stored in white space are a fire control problem primarily because they:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q113"
+kind = "single-select"
 module = 11
 stem = "An MPO/MTP multi-fiber connector is primarily used to:"
 choices = [

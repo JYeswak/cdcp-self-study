@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m01-q208"
+kind = "single-select"
 module = 1
 stem = "Which statement about causes of unavailability is most balanced?"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m08-q200"
+kind = "single-select"
 module = 8
 stem = "The common 19-inch rack standard refers primarily to:"
 choices = [

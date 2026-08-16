@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q103"
+kind = "single-select"
 module = 6
 stem = "Renewables in critical-facility energy strategy typically:"
 choices = [

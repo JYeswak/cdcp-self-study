@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q065"
+kind = "single-select"
 module = 12
 stem = "Hot work (welding, cutting) during fit-out increases fire risk mainly through:"
 choices = [

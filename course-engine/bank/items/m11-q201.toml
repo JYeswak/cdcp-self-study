@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q201"
+kind = "single-select"
 module = 11
 stem = "TIA-942-style topology concepts emphasize spaces such as:"
 choices = [

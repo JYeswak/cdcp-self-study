@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q206"
+kind = "single-select"
 module = 6
 stem = "A design claims 2N to the rack, but A and B busways share one upstream switchboard. The teaching takeaway is:"
 choices = [

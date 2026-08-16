@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q227"
+kind = "single-select"
 module = 6
 stem = "High-density AI and HPC racks change power design most by:"
 choices = [

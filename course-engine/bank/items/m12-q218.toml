@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m12-q218"
+kind = "single-select"
 module = 12
 stem = "Class C fire concerns in IT spaces relate primarily to:"
 choices = [

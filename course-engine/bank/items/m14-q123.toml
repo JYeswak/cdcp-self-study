@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q123"
+kind = "single-select"
 module = 14
 stem = "A 15-minute averaged temperature trend can hide risk because:"
 choices = [

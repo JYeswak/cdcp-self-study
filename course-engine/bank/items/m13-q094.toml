@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q094"
+kind = "single-select"
 module = 13
 stem = "Lockout/Tagout (LOTO) is primarily a safety practice to:"
 choices = [

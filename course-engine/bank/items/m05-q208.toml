@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m05-q208"
+kind = "single-select"
 module = 5
 stem = "Color rendering and glare control matter in technical spaces because technicians need to:"
 choices = [

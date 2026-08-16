@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m15-q203"
+kind = "single-select"
 module = 15
 stem = "A maintenance contract SLA should clearly define:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m14-q202"
+kind = "single-select"
 module = 14
 stem = "Building Management Systems (BMS) are primarily used to:"
 choices = [

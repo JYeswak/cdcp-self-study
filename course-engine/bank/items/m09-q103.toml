@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q103"
+kind = "single-select"
 module = 9
 stem = "Heat rejection from a data centre ultimately means:"
 choices = [

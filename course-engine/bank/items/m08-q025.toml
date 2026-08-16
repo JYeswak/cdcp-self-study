@@ -20,6 +20,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q25"
+kind = "single-select"
 module = 8
 stem = "Blanking unused rack U-space mainly:"
 choices = [

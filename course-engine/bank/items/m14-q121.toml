@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q121"
+kind = "single-select"
 module = 14
 stem = "Integrated Systems Testing (IST) is valuable primarily because it:"
 choices = [

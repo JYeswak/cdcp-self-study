@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m05-q137"
+kind = "single-select"
 module = 5
 stem = "Data-hall lighting design should balance:"
 choices = [

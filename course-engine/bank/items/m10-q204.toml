@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m10-q204"
+kind = "single-select"
 module = 10
 stem = "Humidification systems may depend on water infrastructure; operators should recognize that:"
 choices = [

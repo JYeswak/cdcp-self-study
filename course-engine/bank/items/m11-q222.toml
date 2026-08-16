@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q222"
+kind = "single-select"
 module = 11
 stem = "Maximum permanent link length discipline for copper exists mainly to:"
 choices = [

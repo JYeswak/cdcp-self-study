@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q046"
+kind = "single-select"
 module = 12
 stem = "Flame detectors (IR/UV optical) are more typical in which data-centre-related spaces?"
 choices = [

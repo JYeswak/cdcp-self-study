@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q117"
+kind = "single-select"
 module = 14
 stem = "Point naming like CHW-VALVE-ROW12-LEAK instead of DI_047 mainly improves:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q148"
+kind = "single-select"
 module = 9
 stem = "Hot-aisle containment (HAC) primarily aims to:"
 choices = [

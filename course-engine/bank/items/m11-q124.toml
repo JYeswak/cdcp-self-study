@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q124"
+kind = "single-select"
 module = 11
 stem = "Separating storage, network, and out-of-band management cabling conceptually helps by:"
 choices = [

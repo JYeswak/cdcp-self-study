@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q140"
+kind = "single-select"
 module = 9
 stem = "Blanking panels in racks support cooling mainly by:"
 choices = [

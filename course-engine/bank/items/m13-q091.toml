@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q091"
+kind = "single-select"
 module = 13
 stem = "The most common casual bypass of badge control on live sites is:"
 choices = [

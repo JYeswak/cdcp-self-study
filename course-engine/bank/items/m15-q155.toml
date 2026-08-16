@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q155"
+kind = "single-select"
 module = 15
 stem = "Mixing cleaning chemicals or using conductive liquids carelessly near IT and electrical gear is hazardous because it can:"
 choices = [

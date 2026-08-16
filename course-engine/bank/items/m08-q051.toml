@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q051"
+kind = "single-select"
 module = 8
 stem = "In colocation, the primary tenant security boundary is often the:"
 choices = [

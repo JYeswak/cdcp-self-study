@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m07-q210"
+kind = "single-select"
 module = 7
 stem = "When unexplained equipment anomalies cluster near electrical plant, a reasoned next step is:"
 choices = [

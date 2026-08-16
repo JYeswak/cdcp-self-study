@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 7)
 id = "m07-q044"
+kind = "single-select"
 module = 7
 stem = "Which set is a common strong magnetic-field source near IT?"
 choices = [

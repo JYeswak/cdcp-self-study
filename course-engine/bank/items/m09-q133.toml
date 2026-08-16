@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q133"
+kind = "single-select"
 module = 9
 stem = "Close-coupled cooling approaches (in-row, overhead, rear-door) share the idea of:"
 choices = [

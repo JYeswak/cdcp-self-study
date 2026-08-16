@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q044"
+kind = "single-select"
 module = 8
 stem = "Industry practice for numbering U positions is typically:"
 choices = [

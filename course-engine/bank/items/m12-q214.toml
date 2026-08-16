@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m12-q214"
+kind = "single-select"
 module = 12
 stem = "Wet-pipe sprinklers in some support areas may be acceptable while white space uses different protection because:"
 choices = [

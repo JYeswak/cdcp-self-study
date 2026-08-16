@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q090"
+kind = "single-select"
 module = 6
 stem = "Battery conductance/impedance testing programs for lead-acid fleets mainly support:"
 choices = [

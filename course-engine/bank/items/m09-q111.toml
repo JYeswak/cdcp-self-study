@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q111"
+kind = "single-select"
 module = 9
 stem = "For cooling design, IT electrical power is often treated as a heat load because:"
 choices = [

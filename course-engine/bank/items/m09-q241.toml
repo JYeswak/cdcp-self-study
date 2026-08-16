@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q241"
+kind = "single-select"
 module = 9
 stem = "A hot spot typically indicates:"
 choices = [

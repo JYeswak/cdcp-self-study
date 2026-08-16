@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q141"
+kind = "single-select"
 module = 15
 stem = "White-space cleaning programs matter because dust and debris can:"
 choices = [

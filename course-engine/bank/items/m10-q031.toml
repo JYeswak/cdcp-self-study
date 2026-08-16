@@ -18,6 +18,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q31"
+kind = "single-select"
 module = 10
 stem = "Process water for cooling towers/humidification matters because:"
 choices = [

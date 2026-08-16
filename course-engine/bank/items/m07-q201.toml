@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m07-q201"
+kind = "single-select"
 module = 7
 stem = "Magnetic field strength is often discussed in units such as:"
 choices = [

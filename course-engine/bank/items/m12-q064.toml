@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q064"
+kind = "single-select"
 module = 12
 stem = "Which ignition category is especially associated with UPS rooms and modern energy storage?"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q146"
+kind = "single-select"
 module = 15
 stem = "A maintenance contract SLA should specify measurable outcomes such as:"
 choices = [

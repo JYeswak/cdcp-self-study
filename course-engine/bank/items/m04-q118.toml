@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m04-q118"
+kind = "single-select"
 module = 4
 stem = "Rolling load ratings are intended to address:"
 choices = [

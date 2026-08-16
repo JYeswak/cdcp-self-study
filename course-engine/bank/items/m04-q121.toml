@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m04-q121"
+kind = "single-select"
 module = 4
 stem = "Access-floor ramps and landings are provided primarily to:"
 choices = [

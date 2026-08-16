@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q104"
+kind = "single-select"
 module = 6
 stem = "A sustainability initiative that reduces generator testing or disables redundant plant without redesign is a risk because:"
 choices = [

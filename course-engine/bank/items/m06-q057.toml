@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q057"
+kind = "single-select"
 module = 6
 stem = "A catcher or isolated-redundant UPS arrangement is best described as:"
 choices = [

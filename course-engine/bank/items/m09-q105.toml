@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q105"
+kind = "single-select"
 module = 9
 stem = "Which statement best reflects energy conversion in IT equipment for cooling design?"
 choices = [

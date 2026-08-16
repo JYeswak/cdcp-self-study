@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m13-q200"
+kind = "single-select"
 module = 13
 stem = "Layered physical security for a data centre typically includes:"
 choices = [

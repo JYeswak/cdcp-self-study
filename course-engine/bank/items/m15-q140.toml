@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q140"
+kind = "single-select"
 module = 15
 stem = "Runbooks differ from one-off MOPs in that runbooks typically:"
 choices = [

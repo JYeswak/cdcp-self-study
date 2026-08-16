@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q073"
+kind = "single-select"
 module = 12
 stem = "Manual pull stations are typically located so that:"
 choices = [

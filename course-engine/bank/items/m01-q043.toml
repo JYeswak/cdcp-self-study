@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q043"
+kind = "single-select"
 module = 1
 stem = "Wholesale colocation is most accurately characterized as:"
 choices = [

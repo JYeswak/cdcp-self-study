@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m05-q207"
+kind = "single-select"
 module = 5
 stem = "Connecting lighting to appropriate electrical panels and emergency systems requires coordination so that:"
 choices = [

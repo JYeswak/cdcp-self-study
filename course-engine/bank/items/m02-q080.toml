@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q080"
+kind = "single-select"
 module = 2
 stem = "Which is a responsible comparison of TIA-942 and Uptime approaches?"
 choices = [

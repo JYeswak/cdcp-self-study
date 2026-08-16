@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q057"
+kind = "single-select"
 module = 12
 stem = "In common North American labeling, Class C relates primarily to:"
 choices = [

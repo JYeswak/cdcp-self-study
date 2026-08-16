@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q059"
+kind = "single-select"
 module = 12
 stem = "Ordinary combustibles such as packaging cardboard and wooden pallets are typically Class:"
 choices = [

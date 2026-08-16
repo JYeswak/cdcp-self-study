@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q115"
+kind = "single-select"
 module = 14
 stem = "Monitoring should show loss of redundancy (not only total failure) because:"
 choices = [

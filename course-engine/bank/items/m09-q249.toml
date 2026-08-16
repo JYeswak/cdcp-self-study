@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q249"
+kind = "single-select"
 module = 9
 stem = "Close-coupled cooling approaches share the idea of:"
 choices = [

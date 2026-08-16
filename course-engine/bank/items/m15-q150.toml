@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q150"
+kind = "single-select"
 module = 15
 stem = "Housekeeping rounds that check clear egress, unblocked extinguishers, and closed fire doors support:"
 choices = [

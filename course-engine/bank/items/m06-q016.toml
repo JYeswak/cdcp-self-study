@@ -18,6 +18,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q16"
+kind = "single-select"
 module = 6
 stem = "2N power architecture conceptually provides:"
 choices = [

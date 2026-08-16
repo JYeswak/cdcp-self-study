@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m12-q220"
+kind = "single-select"
 module = 12
 stem = "CO2 or clean-agent portables may be preferred in IT areas per policy and training because:"
 choices = [

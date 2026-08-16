@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q211"
+kind = "single-select"
 module = 9
 stem = "Excessive underfloor cabling degrades cooling mainly by:"
 choices = [

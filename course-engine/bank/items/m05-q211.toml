@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m05-q211"
+kind = "single-select"
 module = 5
 stem = "Measuring light levels after installation verifies that:"
 choices = [

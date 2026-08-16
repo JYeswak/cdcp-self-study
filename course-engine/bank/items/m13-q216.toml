@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m13-q216"
+kind = "single-select"
 module = 13
 stem = "Balancing security strictness with maintenance access means:"
 choices = [

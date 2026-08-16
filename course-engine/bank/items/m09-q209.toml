@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q209"
+kind = "single-select"
 module = 9
 stem = "Blanking panels support cooling mainly by:"
 choices = [

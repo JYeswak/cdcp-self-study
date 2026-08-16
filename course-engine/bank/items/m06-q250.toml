@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q250"
+kind = "single-select"
 module = 6
 stem = "A single common-mode failure in the control system that trips both UPS trains simultaneously would show that:"
 choices = [

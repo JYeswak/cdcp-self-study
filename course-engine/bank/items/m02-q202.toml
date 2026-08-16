@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m02-q202"
+kind = "single-select"
 module = 2
 stem = "ISO/IEC 22237 series awareness for CDCP-level study mainly means recognizing that:"
 choices = [

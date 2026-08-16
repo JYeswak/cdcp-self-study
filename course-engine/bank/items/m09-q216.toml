@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q216"
+kind = "single-select"
 module = 9
 stem = "In-row cooling is frequently selected when:"
 choices = [

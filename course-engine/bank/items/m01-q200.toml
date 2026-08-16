@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m01-q200"
+kind = "single-select"
 module = 1
 stem = "From a business perspective, the data centre is best described as:"
 choices = [

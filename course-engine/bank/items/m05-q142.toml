@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m05-q142"
+kind = "single-select"
 module = 5
 stem = "Exit signage lighting is intended to:"
 choices = [

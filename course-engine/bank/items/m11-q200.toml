@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q200"
+kind = "single-select"
 module = 11
 stem = "Structured cabling matters in a data centre primarily because:"
 choices = [

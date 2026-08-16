@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q073"
+kind = "single-select"
 module = 2
 stem = "Claiming a site is “Tier III equivalent” based only on a vendor slide deck is risky because:"
 choices = [

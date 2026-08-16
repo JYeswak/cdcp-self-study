@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m03-q095"
+kind = "single-select"
 module = 3
 stem = "Why do fibre and carrier meet-me diversity matter in site selection?"
 choices = [

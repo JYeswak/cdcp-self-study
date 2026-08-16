@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q219"
+kind = "single-select"
 module = 9
 stem = "If supply air is colder than local dew point on cold surfaces, a practical risk is:"
 choices = [

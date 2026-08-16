@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q052"
+kind = "single-select"
 module = 6
 stem = "N+1 at a UPS module layer implies:"
 choices = [

@@ -18,6 +18,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q33"
+kind = "single-select"
 module = 11
 stem = "Scalable network design in a DC emphasizes:"
 choices = [

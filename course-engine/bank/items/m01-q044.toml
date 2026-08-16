@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q044"
+kind = "single-select"
 module = 1
 stem = "Why is a data centre often called “mission-critical” rather than merely “important IT space”?"
 choices = [

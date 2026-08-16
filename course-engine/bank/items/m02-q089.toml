@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q089"
+kind = "single-select"
 module = 2
 stem = "International standards development typically aims to:"
 choices = [

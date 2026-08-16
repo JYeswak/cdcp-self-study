@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q236"
+kind = "single-select"
 module = 6
 stem = "IP rating selection for outdoor switchgear or generator enclosures primarily addresses:"
 choices = [

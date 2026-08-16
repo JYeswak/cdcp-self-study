@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q235"
+kind = "single-select"
 module = 6
 stem = "PUE improvement that comes from turning off redundant cooling or power plant without redesign is risky because:"
 choices = [

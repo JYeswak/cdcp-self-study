@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q208"
+kind = "single-select"
 module = 6
 stem = "An operator sees UPS on bypass for an extended period. The most important availability concern is:"
 choices = [

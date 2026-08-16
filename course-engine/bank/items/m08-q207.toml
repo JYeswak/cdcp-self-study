@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m08-q207"
+kind = "single-select"
 module = 8
 stem = "Vertical blanking panels and brush strip openings matter at the rack because they:"
 choices = [

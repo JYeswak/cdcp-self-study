@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m13-q211"
+kind = "single-select"
 module = 13
 stem = "Guard force or remote monitoring procedures add value when they include:"
 choices = [

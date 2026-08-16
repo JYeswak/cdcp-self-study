@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q127"
+kind = "single-select"
 module = 14
 stem = "Electrical Power Monitoring System (EPMS) is most associated with:"
 choices = [

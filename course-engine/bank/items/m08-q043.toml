@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q043"
+kind = "single-select"
 module = 8
 stem = "Common full-height enclosure usable heights are often marketed around:"
 choices = [

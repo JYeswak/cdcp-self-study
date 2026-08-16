@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q216"
+kind = "single-select"
 module = 11
 stem = "Labeling both ends of every critical circuit supports operations by:"
 choices = [

@@ -19,6 +19,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q23"
+kind = "single-select"
 module = 7
 stem = "A common strong magnetic-field source near IT is:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q232"
+kind = "single-select"
 module = 6
 stem = "VRLA battery rooms still need thermal and environmental attention because:"
 choices = [

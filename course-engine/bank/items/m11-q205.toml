@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q205"
+kind = "single-select"
 module = 11
 stem = "Two diverse building entrances for carriers primarily reduce risk of:"
 choices = [

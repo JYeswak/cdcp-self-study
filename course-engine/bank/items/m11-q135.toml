@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q135"
+kind = "single-select"
 module = 11
 stem = "When validating a new copper horizontal run before turn-up, the preferred practice is:"
 choices = [

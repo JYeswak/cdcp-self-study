@@ -19,6 +19,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q14"
+kind = "single-select"
 module = 6
 stem = "An STS is preferred over a mechanical ATS when the design need is:"
 choices = [

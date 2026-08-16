@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 7)
 id = "m07-q056"
+kind = "single-select"
 module = 7
 stem = "Prefer fibre for long or noise-prone runs is an EMF-aware practice because:"
 choices = [

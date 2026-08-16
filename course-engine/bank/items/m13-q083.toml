@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q083"
+kind = "single-select"
 module = 13
 stem = "Multi-factor physical access on high zones commonly combines:"
 choices = [

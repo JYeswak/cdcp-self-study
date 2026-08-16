@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q120"
+kind = "single-select"
 module = 11
 stem = "Diverse pathway routing for redundant fiber or copper means:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m07-q208"
+kind = "single-select"
 module = 7
 stem = "Placing a network operations desk directly against a large transformer room wall without assessment is risky because:"
 choices = [

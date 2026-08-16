@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q096"
+kind = "single-select"
 module = 6
 stem = "Infrared thermographic scanning of electrical gear under load is used to:"
 choices = [

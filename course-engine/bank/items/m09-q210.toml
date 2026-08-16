@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q210"
+kind = "single-select"
 module = 9
 stem = "Perforated tiles placed in the hot aisle of a classic raised-floor hot and cold design are generally:"
 choices = [

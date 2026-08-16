@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q110"
+kind = "single-select"
 module = 10
 stem = "Legionella and biological control programs for tower water exist primarily to:"
 choices = [

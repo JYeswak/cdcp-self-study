@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q055"
+kind = "single-select"
 module = 6
 stem = "UPS module N+1 is of limited value if all modules share:"
 choices = [

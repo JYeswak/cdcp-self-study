@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q051"
+kind = "single-select"
 module = 1
 stem = "Which human/process factor most often elevates outage risk during maintenance?"
 choices = [

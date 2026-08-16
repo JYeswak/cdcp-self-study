@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q116"
+kind = "single-select"
 module = 11
 stem = "Fiber testing commonly uses insertion loss measurement (and often OTDR for diagnostics) to:"
 choices = [

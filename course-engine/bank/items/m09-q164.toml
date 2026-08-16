@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q164"
+kind = "single-select"
 module = 9
 stem = "A qualitative benefit sometimes sought from seasonal cold storage strategies is:"
 choices = [

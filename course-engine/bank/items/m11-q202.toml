@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q202"
+kind = "single-select"
 module = 11
 stem = "Diverse pathway routing for redundant fiber means:"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q043"
+kind = "single-select"
 module = 12
 stem = "Cross-zoning or double-knock before automatic suppression primarily aims to:"
 choices = [

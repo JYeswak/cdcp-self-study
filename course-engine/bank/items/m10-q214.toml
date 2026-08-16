@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m10-q214"
+kind = "single-select"
 module = 10
 stem = "Integrating water alarms (level, leak, pressure) into the monitoring stack helps because:"
 choices = [

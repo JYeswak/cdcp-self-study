@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m04-q125"
+kind = "single-select"
 module = 4
 stem = "Leaving unnecessary open tiles in a pressurized underfloor supply can:"
 choices = [

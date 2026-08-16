@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m12-q221"
+kind = "single-select"
 module = 12
 stem = "Fire safety signage and egress paths matter because:"
 choices = [

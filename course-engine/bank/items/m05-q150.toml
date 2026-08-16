@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m05-q150"
+kind = "single-select"
 module = 5
 stem = "Selecting lighting controls (zoning/occupancy) in a data hall should avoid:"
 choices = [

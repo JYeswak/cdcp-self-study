@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q107"
+kind = "single-select"
 module = 11
 stem = "Entrance room / carrier entrance concepts relate most closely to:"
 choices = [

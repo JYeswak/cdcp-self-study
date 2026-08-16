@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q239"
+kind = "single-select"
 module = 6
 stem = "In a typical critical path teaching model after utility, which order is most representative?"
 choices = [

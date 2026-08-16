@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q069"
+kind = "single-select"
 module = 2
 stem = "Why might a multi-national operator track both ISO/IEC 22237 and EN 50600 awareness?"
 choices = [

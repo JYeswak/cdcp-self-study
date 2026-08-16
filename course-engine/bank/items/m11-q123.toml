@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q123"
+kind = "single-select"
 module = 11
 stem = "Cross-connect versus interconnect concepts (educational) distinguish:"
 choices = [

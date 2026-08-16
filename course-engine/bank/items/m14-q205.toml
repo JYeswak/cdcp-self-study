@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m14-q205"
+kind = "single-select"
 module = 14
 stem = "Alarm panels and annunciation design should aim for:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m08-q206"
+kind = "single-select"
 module = 8
 stem = "Bonding racks and cabinet assemblies into the facility grounding system supports:"
 choices = [

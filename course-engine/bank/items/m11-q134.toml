@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q134"
+kind = "single-select"
 module = 11
 stem = "Out-of-band management networks are separated conceptually so that:"
 choices = [

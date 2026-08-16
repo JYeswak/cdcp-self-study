@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q131"
+kind = "single-select"
 module = 9
 stem = "A dry cooler typically rejects heat by:"
 choices = [

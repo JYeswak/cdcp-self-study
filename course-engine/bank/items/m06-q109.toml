@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q109"
+kind = "single-select"
 module = 6
 stem = "When interviewing, a strong answer to “ATS vs STS?” is:"
 choices = [

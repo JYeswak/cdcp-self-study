@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m13-q214"
+kind = "single-select"
 module = 13
 stem = "Duress alarms and secure communications for staff support safety/security by:"
 choices = [

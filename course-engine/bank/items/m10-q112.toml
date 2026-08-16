@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q112"
+kind = "single-select"
 module = 10
 stem = "Why might a site choose dry coolers or adiabatic-limited designs despite higher peak energy?"
 choices = [

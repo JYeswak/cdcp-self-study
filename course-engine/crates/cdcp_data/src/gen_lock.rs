@@ -41,7 +41,7 @@ pub const SCHEMA_VERSION: u32 = 1;
 ///
 /// A partial bump (this const without the core constant, or the reverse)
 /// is worse than none. The three sites move in one commit.
-pub const CANONICAL: &str = "cdcp-bank-v2";
+pub const CANONICAL: &str = "cdcp-bank-v3";
 /// Digest algorithm recorded in the lock.
 pub const HASH_ALG: &str = "sha256";
 

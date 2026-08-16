@@ -1,5 +1,6 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
 id = "mock40-q15"
+kind = "single-select"
 module = 6
 stem = "N+1 at a UPS module layer means:"
 choices = [

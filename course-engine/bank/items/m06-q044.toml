@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q044"
+kind = "single-select"
 module = 6
 stem = "In the utility-to-rack teaching path, which order is most representative after the utility feed?"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q094"
+kind = "single-select"
 module = 6
 stem = "The relationship kW = kVA × power factor means:"
 choices = [

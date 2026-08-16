@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q069"
+kind = "single-select"
 module = 12
 stem = "NFPA 72 is commonly associated with which system family (US-centric naming awareness)?"
 choices = [

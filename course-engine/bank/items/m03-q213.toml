@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m03-q213"
+kind = "single-select"
 module = 3
 stem = "Water availability and wastewater discharge rights can be decisive site factors when:"
 choices = [

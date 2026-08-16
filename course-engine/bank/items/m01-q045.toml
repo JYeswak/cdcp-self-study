@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q045"
+kind = "single-select"
 module = 1
 stem = "Which set best represents core physical elements of a data centre facility?"
 choices = [

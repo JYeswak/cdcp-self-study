@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q118"
+kind = "single-select"
 module = 14
 stem = "Leaving alarms in maintenance/bypass after work is a top failure mode because it:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q220"
+kind = "single-select"
 module = 9
 stem = "Dew point is often preferred over relative humidity alone because:"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q130"
+kind = "single-select"
 module = 14
 stem = "DCIM quality in practice equals:"
 choices = [

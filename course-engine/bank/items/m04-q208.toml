@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m04-q208"
+kind = "single-select"
 module = 4
 stem = "A general raised-floor guideline for cutouts and cable openings is to:"
 choices = [

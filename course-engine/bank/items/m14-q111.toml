@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q111"
+kind = "single-select"
 module = 14
 stem = "Spot leak sensors are especially appropriate:"
 choices = [

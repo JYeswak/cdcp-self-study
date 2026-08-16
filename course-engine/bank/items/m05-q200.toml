@@ -19,6 +19,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "m05-q200"
+kind = "single-select"
 module = 5
 stem = "Illuminance (lux or foot-candles) measures:"
 choices = [

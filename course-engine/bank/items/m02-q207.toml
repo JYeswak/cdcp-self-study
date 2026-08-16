@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m02-q207"
+kind = "single-select"
 module = 2
 stem = "Guidelines (non-mandatory best-practice documents) differ from adopted codes in that guidelines:"
 choices = [

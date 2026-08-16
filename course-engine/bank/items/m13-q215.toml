@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m13-q215"
+kind = "single-select"
 module = 13
 stem = "Periodic access rights reviews are important because:"
 choices = [

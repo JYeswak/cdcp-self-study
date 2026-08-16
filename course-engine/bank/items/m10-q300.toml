@@ -1,5 +1,6 @@
 # Original runbook vignette — operational scenario (not an exam dump)
 id = "m10-q300"
+kind = "single-select"
 module = 10
 stem = "Runbook vignette: A zone leak detector under a CRAC/CRAH hydronic connection alarms during a humid weekend. Visual inspection shows a slow drip at a valve packing, not a ruptured pipe. What is the best immediate sequence?"
 choices = [

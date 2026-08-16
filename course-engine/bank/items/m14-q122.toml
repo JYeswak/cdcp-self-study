@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q122"
+kind = "single-select"
 module = 14
 stem = "Heterogeneous protocols (BACnet, Modbus, SNMP, dry contacts) contribute to monitoring challenges by:"
 choices = [

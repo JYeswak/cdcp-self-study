@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q102"
+kind = "single-select"
 module = 11
 stem = "Scalable network cabling design emphasizes:"
 choices = [

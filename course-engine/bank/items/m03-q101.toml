@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m03-q101"
+kind = "single-select"
 module = 3
 stem = "Why is generator yard space a supporting-facility concern during site selection?"
 choices = [

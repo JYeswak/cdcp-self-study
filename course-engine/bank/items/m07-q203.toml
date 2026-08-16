@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m07-q203"
+kind = "single-select"
 module = 7
 stem = "A practical mitigation that often helps before exotic shielding is:"
 choices = [

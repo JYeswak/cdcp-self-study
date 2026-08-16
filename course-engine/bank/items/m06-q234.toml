@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q234"
+kind = "single-select"
 module = 6
 stem = "A sustainability program that lengthens generator test intervals without engineering review may:"
 choices = [

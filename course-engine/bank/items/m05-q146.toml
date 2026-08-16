@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m05-q146"
+kind = "single-select"
 module = 5
 stem = "A common operational mistake with emergency lighting is:"
 choices = [

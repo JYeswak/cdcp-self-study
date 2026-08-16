@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m15-q206"
+kind = "single-select"
 module = 15
 stem = "Reducing MTTR in facility operations is often less about buying new gear and more about:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q109"
+kind = "single-select"
 module = 10
 stem = "If municipal water is lost and no backup exists for a tower-dependent plant, a likely operational impact is:"
 choices = [

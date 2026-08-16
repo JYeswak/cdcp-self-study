@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q068"
+kind = "single-select"
 module = 6
 stem = "For generator runtime planning, which factors are as important as nameplate kW?"
 choices = [

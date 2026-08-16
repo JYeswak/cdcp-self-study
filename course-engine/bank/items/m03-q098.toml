@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m03-q098"
+kind = "single-select"
 module = 3
 stem = "Seismic and structural site risks should influence:"
 choices = [

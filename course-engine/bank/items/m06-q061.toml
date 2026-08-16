@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q061"
+kind = "single-select"
 module = 6
 stem = "UPS autonomy time is primarily sized to:"
 choices = [

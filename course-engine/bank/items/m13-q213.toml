@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m13-q213"
+kind = "single-select"
 module = 13
 stem = "Visitor escorts in white space are a control that primarily reduces:"
 choices = [

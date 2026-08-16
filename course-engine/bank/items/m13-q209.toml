@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m13-q209"
+kind = "single-select"
 module = 13
 stem = "Emergency egress design must ensure that security hardware:"
 choices = [

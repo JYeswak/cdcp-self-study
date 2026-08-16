@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q087"
+kind = "single-select"
 module = 6
 stem = "Lithium-ion UPS/BESS chemistries often attract interest because of:"
 choices = [

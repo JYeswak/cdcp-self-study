@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q053"
+kind = "single-select"
 module = 1
 stem = "For a payment or trading workload, facility design priority is most driven by:"
 choices = [

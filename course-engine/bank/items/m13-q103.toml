@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q103"
+kind = "single-select"
 module = 13
 stem = "Security theatre in a data centre might look like impressive lobby scanners while:"
 choices = [

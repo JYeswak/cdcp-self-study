@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m10-q208"
+kind = "single-select"
 module = 10
 stem = "Seasonal drought or municipal restriction plans for water-dependent plants should be:"
 choices = [

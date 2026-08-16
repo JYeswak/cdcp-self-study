@@ -22,6 +22,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q37"
+kind = "single-select"
 module = 13
 stem = "An MOP (Method of Procedure) is used mainly to:"
 choices = [

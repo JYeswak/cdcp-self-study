@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q052"
+kind = "single-select"
 module = 8
 stem = "Electronic rack handles integrated with badge/DCIM systems primarily add:"
 choices = [

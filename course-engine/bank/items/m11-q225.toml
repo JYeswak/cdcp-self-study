@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q225"
+kind = "single-select"
 module = 11
 stem = "Documentation of as-built pathways and panel schedules is critical because:"
 choices = [

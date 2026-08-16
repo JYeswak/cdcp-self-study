@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q138"
+kind = "single-select"
 module = 11
 stem = "A point of demarcation (demarc) with a carrier is best understood as:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q243"
+kind = "single-select"
 module = 6
 stem = "Why might an engineer prefer STS at the load over relying solely on a mechanical ATS for IT?"
 choices = [

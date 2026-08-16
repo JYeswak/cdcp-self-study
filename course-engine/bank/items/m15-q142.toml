@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q142"
+kind = "single-select"
 module = 15
 stem = "Cleaning in raised-floor environments should use methods that:"
 choices = [

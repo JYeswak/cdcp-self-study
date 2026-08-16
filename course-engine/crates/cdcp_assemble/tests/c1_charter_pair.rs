@@ -42,6 +42,7 @@ fn item(id: &str, module: u32, status: ItemStatus) -> BankItem {
         source_class: "original".into(),
         quantity_evidence: "qualitative_only".into(),
         status,
+        kind: cdcp_bank::ItemKind::SingleSelect,
     }
 }
 

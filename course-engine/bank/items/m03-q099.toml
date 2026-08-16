@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m03-q099"
+kind = "single-select"
 module = 3
 stem = "Which environmental adjacency is often a site-selection red flag?"
 choices = [

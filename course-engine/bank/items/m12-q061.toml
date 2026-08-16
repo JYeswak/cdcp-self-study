@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q061"
+kind = "single-select"
 module = 12
 stem = "Portable extinguishers are intended for:"
 choices = [

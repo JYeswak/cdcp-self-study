@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q153"
+kind = "single-select"
 module = 15
 stem = "When vendor SLA response time is four hours but your MTTR target is one hour, operations should:"
 choices = [

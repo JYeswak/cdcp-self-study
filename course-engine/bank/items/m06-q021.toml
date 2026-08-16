@@ -19,6 +19,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q21"
+kind = "single-select"
 module = 6
 stem = "PUE is defined as:"
 choices = [

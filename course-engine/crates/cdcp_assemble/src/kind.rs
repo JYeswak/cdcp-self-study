@@ -16,15 +16,16 @@ use rand::Rng;
 
 /// Kinds assemble will present as a letter / single-select form.
 ///
-/// `letter-mcq` is the implicit kind of a [`BankItem`]. `single-select` is
-/// the `cdcp_assess` lift ([`cdcp_assess::lift_letter_mcq`] and semantic
-/// single-select). Every other kind is a named refuse.
+/// `single-select` is the explicit kind on a migrated [`BankItem`] and the
+/// `cdcp_assess` lift ([`cdcp_assess::lift_letter_mcq`]). `letter-mcq` is
+/// kept as an admit alias for the assess-side lift tag. Every other kind
+/// is a named refuse — assemble will not flatten it to A–D.
 pub const LETTER_ASSEMBLE_KINDS: &[&str] = &["letter-mcq", "single-select"];
 
 /// One row offered to assemble. The 804-item bank stays on [`crate::assemble`].
 #[derive(Debug, Clone, Copy)]
 pub enum AssembleInput<'a> {
-    /// Existing four-letter bank item. Implicit kind `letter-mcq`.
+    /// Existing four-letter bank item. Kind is [`BankItem::kind`].
     LetterMcq(&'a BankItem),
     /// Typed assess item. Only `single-select` is admitted.
     Assess {
@@ -43,11 +44,11 @@ impl<'a> AssembleInput<'a> {
         }
     }
 
-    /// Wire kind name. Bank items are `letter-mcq`; assess items use the
-    /// `cdcp_assess` tag (`single-select`, `multi-select`, …).
+    /// Wire kind name. Bank items use [`BankItem::kind`]; assess items use
+    /// the `cdcp_assess` tag (`single-select`, `multi-select`, …).
     pub fn kind_name(self) -> &'a str {
         match self {
-            Self::LetterMcq(_) => "letter-mcq",
+            Self::LetterMcq(item) => item.kind.as_str(),
             Self::Assess { item, .. } => item.kind_name(),
         }
     }

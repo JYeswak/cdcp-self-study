@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q107"
+kind = "single-select"
 module = 10
 stem = "A qualitative tradeoff of evaporative cooling versus dry heat rejection is often:"
 choices = [

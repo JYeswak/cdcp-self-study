@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q149"
+kind = "single-select"
 module = 9
 stem = "Cold-aisle containment (CAC) primarily aims to:"
 choices = [

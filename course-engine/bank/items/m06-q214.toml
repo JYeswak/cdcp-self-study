@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q214"
+kind = "single-select"
 module = 6
 stem = "Paralleling generators helps availability and operations primarily by:"
 choices = [

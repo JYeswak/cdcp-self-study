@@ -53,6 +53,7 @@ fn letter_bank_item(id: &str) -> BankItem {
         source_class: "original".into(),
         quantity_evidence: "qualitative_only".into(),
         status: ItemStatus::Approved,
+        kind: cdcp_bank::ItemKind::SingleSelect,
     }
 }
 
@@ -238,6 +239,15 @@ fn empty_assemble_input_is_an_error_not_an_empty_exam() {
 // ───────────────────────────────────────────────────────────────────────────
 // GOOD controls (without these the plants could pass because nothing assembled)
 // ───────────────────────────────────────────────────────────────────────────
+
+#[test]
+fn bank_item_with_non_letter_kind_is_refused() {
+    let mut item = letter_bank_item("plant-bank-ms");
+    item.kind = cdcp_bank::ItemKind::MultiSelect;
+    let err = assemble_input(&[AssembleInput::LetterMcq(&item)], SEED, cfg())
+        .expect_err("a BankItem tagged multi-select must not flatten to A-D");
+    assert_not_letter(err, "plant-bank-ms", "multi-select");
+}
 
 #[test]
 fn letter_mcq_bank_item_is_admitted() {

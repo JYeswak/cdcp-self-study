@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m13-q206"
+kind = "single-select"
 module = 13
 stem = "Physical safety signage (high voltage, confined space, hearing protection) complements security by:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m05-q143"
+kind = "single-select"
 module = 5
 stem = "Which statement about lighting “standards” in a CDCP awareness sense is most careful?"
 choices = [

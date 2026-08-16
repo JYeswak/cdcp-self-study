@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m02-q203"
+kind = "single-select"
 module = 2
 stem = "EN 50600 series is best described at awareness level as:"
 choices = [

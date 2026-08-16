@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q047"
+kind = "single-select"
 module = 8
 stem = "Four-post open frames offer excellent airflow/access but typically provide:"
 choices = [

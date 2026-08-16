@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q218"
+kind = "single-select"
 module = 11
 stem = "Zone distribution or intermediate points are used to:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q100"
+kind = "single-select"
 module = 9
 stem = "In a typical data hall, the dominant thermal load from IT equipment is best characterized as:"
 choices = [

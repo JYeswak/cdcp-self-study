@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m05-q144"
+kind = "single-select"
 module = 5
 stem = "Maintenance of lighting in a live data hall should prefer methods that:"
 choices = [

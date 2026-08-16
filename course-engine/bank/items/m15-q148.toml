@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q148"
+kind = "single-select"
 module = 15
 stem = "Preventive maintenance windows should be managed with change control because:"
 choices = [

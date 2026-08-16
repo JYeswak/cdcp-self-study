@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m12-q215"
+kind = "single-select"
 module = 12
 stem = "Clean-agent or gaseous suppression is chosen in many IT rooms primarily to:"
 choices = [

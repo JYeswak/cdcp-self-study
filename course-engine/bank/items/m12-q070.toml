@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q070"
+kind = "single-select"
 module = 12
 stem = "NFPA 2001 is associated at awareness level with:"
 choices = [

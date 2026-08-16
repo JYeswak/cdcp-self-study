@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q052"
+kind = "single-select"
 module = 1
 stem = "The “elements of a data centre” concept emphasizes that IT equipment alone is insufficient because:"
 choices = [

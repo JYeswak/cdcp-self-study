@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q151"
+kind = "single-select"
 module = 15
 stem = "Documenting who is on-call and how to escalate is operationally important because:"
 choices = [

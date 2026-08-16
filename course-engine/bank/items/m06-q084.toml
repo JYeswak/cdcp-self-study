@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q084"
+kind = "single-select"
 module = 6
 stem = "Selecting a higher IP rating for outdoor generator or switchgear enclosures mainly addresses:"
 choices = [

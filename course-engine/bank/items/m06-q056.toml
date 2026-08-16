@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q056"
+kind = "single-select"
 module = 6
 stem = "Fault tolerance is generally a stronger claim than concurrent maintainability alone because it emphasizes:"
 choices = [

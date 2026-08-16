@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q152"
+kind = "single-select"
 module = 15
 stem = "Capacity and asset documentation (what is in which rack/U and on which circuit) primarily prevents:"
 choices = [

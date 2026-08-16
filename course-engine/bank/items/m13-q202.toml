@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m13-q202"
+kind = "single-select"
 module = 13
 stem = "Safety components such as emergency power-off (EPO) interfaces, clear egress, and eye-wash where required differ from security locks because they primarily protect:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q112"
+kind = "single-select"
 module = 9
 stem = "ASHRAE TC 9.9 thermal guidelines for IT equipment distinguish recommended envelopes from allowable envelopes primarily to:"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q072"
+kind = "single-select"
 module = 12
 stem = "Suppression warning signage for clean-agent rooms typically communicates that occupants should:"
 choices = [

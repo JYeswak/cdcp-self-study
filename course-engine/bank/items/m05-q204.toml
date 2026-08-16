@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m05-q204"
+kind = "single-select"
 module = 5
 stem = "Lighting standards and guidance for workplaces exist to help ensure:"
 choices = [

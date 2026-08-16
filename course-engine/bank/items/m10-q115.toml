@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q115"
+kind = "single-select"
 module = 10
 stem = "From a CDCP perspective, water is a critical utility for many data centres because:"
 choices = [

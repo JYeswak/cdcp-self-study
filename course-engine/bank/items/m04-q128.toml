@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m04-q128"
+kind = "single-select"
 module = 4
 stem = "Which is a general raised-floor guideline for day-2 operations?"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q204"
+kind = "single-select"
 module = 6
 stem = "N+1 UPS modules share a single common battery string and a single output bus with no alternate path. A fair critique is:"
 choices = [

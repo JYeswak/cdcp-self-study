@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m04-q127"
+kind = "single-select"
 module = 4
 stem = "Cable congestion under a raised floor can harm operations by:"
 choices = [

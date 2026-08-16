@@ -1,5 +1,6 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
 id = "mock40-q38"
+kind = "single-select"
 module = 14
 stem = "A practical distinction between BMS and DCIM is:"
 choices = [

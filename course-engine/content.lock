@@ -4,9 +4,9 @@
 # Verify:     cdcp_gate verify-content-lock
 
 schema_version = 1
-canonical = "cdcp-bank-v2"
+canonical = "cdcp-bank-v3"
 hash_alg = "sha256"
-bank_hash = "521fbcd656ced8d32a6a5f9f8478a1e13dddbe3ab0cb0245c1c2cb9b47a3fd1c"
+bank_hash = "9804343662ece288c0322a352daa563e8efa61c9d2ceff6d9d33e7fa354b5330"
 
 [knowledge]
 "knowledge/bank_policy.toml" = "44a7edc79f147dbadbfd174678e77137623942ebf22f6a8bfa63888b795b7d40"

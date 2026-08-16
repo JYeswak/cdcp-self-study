@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q133"
+kind = "single-select"
 module = 14
 stem = "A minimum mental monitoring checklist for mission-critical sites includes power chain, cooling path, environment, leaks, and:"
 choices = [

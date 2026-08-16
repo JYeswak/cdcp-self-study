@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m03-q203"
+kind = "single-select"
 module = 3
 stem = "Supporting facilities (e.g., fuel storage, water, telecom points of entry, security perimeter) should be evaluated because:"
 choices = [

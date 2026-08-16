@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q217"
+kind = "single-select"
 module = 6
 stem = "Multiple neutral-ground bonds downstream of the designated bonding point are a problem because they can:"
 choices = [

@@ -1,5 +1,6 @@
 # Original runbook vignette — operational scenario (not an exam dump)
 id = "m06-q300"
+kind = "single-select"
 module = 6
 stem = "Runbook vignette: During a planned UPS battery string replacement on path A of a dual-path hall, a tech notices both cords of several dual-corded servers land on the same path-A rPDU. Before continuing isolation of path A, what is the most appropriate first action?"
 choices = [

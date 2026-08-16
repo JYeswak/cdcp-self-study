@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q110"
+kind = "single-select"
 module = 6
 stem = "If IT load grows without refreshing UPS battery capacity, a likely result is:"
 choices = [

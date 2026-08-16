@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m12-q224"
+kind = "single-select"
 module = 12
 stem = "A maintenance practice that improves fire readiness is:"
 choices = [

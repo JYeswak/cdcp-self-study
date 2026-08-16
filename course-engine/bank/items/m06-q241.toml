@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q241"
+kind = "single-select"
 module = 6
 stem = "Line-interactive UPS designs are most often associated with:"
 choices = [

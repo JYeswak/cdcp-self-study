@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q132"
+kind = "single-select"
 module = 11
 stem = "Pre-terminated trunk cables are often used in DCs to:"
 choices = [

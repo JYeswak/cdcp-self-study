@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q211"
+kind = "single-select"
 module = 11
 stem = "After moves, adds, and changes, failing to retest altered copper links most risks:"
 choices = [

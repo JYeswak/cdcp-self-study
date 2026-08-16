@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q053"
+kind = "single-select"
 module = 12
 stem = "On gas discharge countdown, maglocks on egress paths should:"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q087"
+kind = "single-select"
 module = 13
 stem = "Fail-secure locking on power loss means the lock:"
 choices = [

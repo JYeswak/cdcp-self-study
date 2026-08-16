@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q128"
+kind = "single-select"
 module = 11
 stem = "Bonding and grounding awareness for telecommunications pathways exists to:"
 choices = [

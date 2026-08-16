@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q219"
+kind = "single-select"
 module = 6
 stem = "Severe phase imbalance on a three-phase UPS output feeding mixed single-phase rack loads most often risks:"
 choices = [

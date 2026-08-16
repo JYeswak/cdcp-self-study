@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m14-q200"
+kind = "single-select"
 module = 14
 stem = "A core monitoring challenge in data centres is:"
 choices = [

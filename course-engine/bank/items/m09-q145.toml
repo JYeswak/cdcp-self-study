@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q145"
+kind = "single-select"
 module = 9
 stem = "Overhead busway power and overhead cooling can coexist, but planners must still:"
 choices = [

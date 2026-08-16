@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m02-q075"
+kind = "single-select"
 module = 2
 stem = "A design specification that says “comply with applicable codes and referenced standards” implies:"
 choices = [

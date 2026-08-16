@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m05-q205"
+kind = "single-select"
 module = 5
 stem = "Maintaining emergency lighting means more than installing it once; operators should also:"
 choices = [

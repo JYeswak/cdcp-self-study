@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m15-q139"
+kind = "single-select"
 module = 15
 stem = "A good MOP includes verification steps and backout because:"
 choices = [

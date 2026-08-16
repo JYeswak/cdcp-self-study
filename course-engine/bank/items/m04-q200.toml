@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m04-q200"
+kind = "single-select"
 module = 4
 stem = "Uniform, concentrated, and rolling load ratings for access floors differ because they describe:"
 choices = [

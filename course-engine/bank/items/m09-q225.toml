@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q225"
+kind = "single-select"
 module = 9
 stem = "Spot coolers as emergency tools should be viewed as:"
 choices = [

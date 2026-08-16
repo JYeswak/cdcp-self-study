@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q152"
+kind = "single-select"
 module = 9
 stem = "Chimney racks (vertical exhaust ducts) are a form of airflow management that:"
 choices = [

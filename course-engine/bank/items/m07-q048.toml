@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 7)
 id = "m07-q048"
+kind = "single-select"
 module = 7
 stem = "Human exposure guidance (e.g. ICNIRP-class discussions) and product EMC immunity limits should be treated as:"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q090"
+kind = "single-select"
 module = 13
 stem = "Visitor management in restricted zones should typically include:"
 choices = [

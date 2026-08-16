@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m07-q200"
+kind = "single-select"
 module = 7
 stem = "In data centre facility context, EMF concerns commonly include both:"
 choices = [

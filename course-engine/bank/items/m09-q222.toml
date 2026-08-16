@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q222"
+kind = "single-select"
 module = 9
 stem = "Non-raised-floor halls typically rely more on:"
 choices = [

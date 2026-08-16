@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m07-q206"
+kind = "single-select"
 module = 7
 stem = "Shielding for magnetic fields at power frequencies is generally:"
 choices = [

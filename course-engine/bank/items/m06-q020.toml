@@ -18,6 +18,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "mock40-q20"
+kind = "single-select"
 module = 6
 stem = "Overhead busway in white space is often chosen to:"
 choices = [

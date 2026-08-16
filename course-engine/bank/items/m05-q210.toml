@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m05-q210"
+kind = "single-select"
 module = 5
 stem = "Dimming or occupancy controls in technical space lighting should be designed so that:"
 choices = [

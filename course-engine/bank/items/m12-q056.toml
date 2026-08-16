@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q056"
+kind = "single-select"
 module = 12
 stem = "Deluge sprinkler systems with open heads delivering large water volumes are:"
 choices = [

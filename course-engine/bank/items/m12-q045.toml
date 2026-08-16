@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q045"
+kind = "single-select"
 module = 12
 stem = "Under a raised floor in white space, smoke detection is relevant because the plenum often contains:"
 choices = [

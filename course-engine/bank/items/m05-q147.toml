@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m05-q147"
+kind = "single-select"
 module = 5
 stem = "Colour rendering and glare control matter in technical spaces because:"
 choices = [

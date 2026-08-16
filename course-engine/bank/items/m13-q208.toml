@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m13-q208"
+kind = "single-select"
 module = 13
 stem = "Two-factor physical access (e.g., badge plus PIN/bio) is used to:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m04-q206"
+kind = "single-select"
 module = 4
 stem = "Perforated or grillage tiles are placed with intent in cooling design so that:"
 choices = [

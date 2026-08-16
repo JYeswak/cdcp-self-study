@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q248"
+kind = "single-select"
 module = 6
 stem = "Bonding is not a substitute for overcurrent protection because:"
 choices = [

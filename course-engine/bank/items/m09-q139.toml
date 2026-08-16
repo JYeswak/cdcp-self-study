@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q139"
+kind = "single-select"
 module = 9
 stem = "Return-air path design matters because CRAH performance depends on:"
 choices = [

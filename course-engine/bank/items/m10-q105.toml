@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q105"
+kind = "single-select"
 module = 10
 stem = "Poor water treatment in condenser or tower systems can lead to:"
 choices = [

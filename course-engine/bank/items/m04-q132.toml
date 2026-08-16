@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m04-q132"
+kind = "single-select"
 module = 4
 stem = "Using the ceiling plenum as a return path requires attention to:"
 choices = [

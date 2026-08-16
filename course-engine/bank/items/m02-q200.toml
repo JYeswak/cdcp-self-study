@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m02-q200"
+kind = "single-select"
 module = 2
 stem = "When a voluntary data centre standard conflicts with a legally adopted building or electrical code, the governing principle is:"
 choices = [

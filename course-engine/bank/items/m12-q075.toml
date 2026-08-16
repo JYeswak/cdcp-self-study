@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q075"
+kind = "single-select"
 module = 12
 stem = "Abort switches on gaseous systems, where provided by design/code, are intended to:"
 choices = [

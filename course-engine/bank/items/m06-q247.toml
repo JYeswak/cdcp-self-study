@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q247"
+kind = "single-select"
 module = 6
 stem = "Natural-gas versus diesel generators is primarily a trade-off involving:"
 choices = [

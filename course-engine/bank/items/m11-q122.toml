@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q122"
+kind = "single-select"
 module = 11
 stem = "Site-to-site connectivity planning for multi-building or multi-site DCs should consider:"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m14-q120"
+kind = "single-select"
 module = 14
 stem = "Best first instrumentation for IT thermal risk at the rack is typically:"
 choices = [

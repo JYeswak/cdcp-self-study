@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m12-q210"
+kind = "single-select"
 module = 12
 stem = "Common electrical causes of data centre fires include:"
 choices = [

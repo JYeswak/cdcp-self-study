@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q201"
+kind = "single-select"
 module = 6
 stem = "During concurrent maintenance of UPS train A, what must remain true for concurrent maintainability claims to hold?"
 choices = [

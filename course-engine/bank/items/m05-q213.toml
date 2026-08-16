@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m05-q213"
+kind = "single-select"
 module = 5
 stem = "Battery-backed emergency lighting that is past test intervals without records is a problem because:"
 choices = [

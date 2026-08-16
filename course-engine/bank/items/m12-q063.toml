@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q063"
+kind = "single-select"
 module = 12
 stem = "CO2 portables near live electrical equipment are often favored over water because they:"
 choices = [

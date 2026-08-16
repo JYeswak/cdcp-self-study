@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m03-q206"
+kind = "single-select"
 module = 3
 stem = "When comparing a greenfield build to retrofitting an existing building, a key facility-criteria difference is often:"
 choices = [

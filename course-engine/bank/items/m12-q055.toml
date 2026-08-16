@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q055"
+kind = "single-select"
 module = 12
 stem = "Water mist systems aim to suppress fire with fine droplets that:"
 choices = [

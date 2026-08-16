@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q055"
+kind = "single-select"
 module = 1
 stem = "A managed services / hosted model typically means:"
 choices = [

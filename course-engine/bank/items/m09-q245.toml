@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q245"
+kind = "single-select"
 module = 9
 stem = "When containment raises return temperatures, a plant-level benefit can be:"
 choices = [

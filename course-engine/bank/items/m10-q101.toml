@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q101"
+kind = "single-select"
 module = 10
 stem = "WUE as a sustainability-oriented metric primarily tracks:"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q085"
+kind = "single-select"
 module = 13
 stem = "In a conflict between asset security locks and life-safety egress on fire alarm, proper design prioritizes:"
 choices = [

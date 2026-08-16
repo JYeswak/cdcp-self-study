@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q224"
+kind = "single-select"
 module = 11
 stem = "A media conversion strategy at the edge may be used when:"
 choices = [

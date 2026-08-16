@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m03-q209"
+kind = "single-select"
 module = 3
 stem = "Adequate generator yard and fuel logistics planning is part of supporting facilities because:"
 choices = [

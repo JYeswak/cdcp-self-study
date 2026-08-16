@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m15-q210"
+kind = "single-select"
 module = 15
 stem = "Cleaning under raised floors and inside perforated tiles should be coordinated with cooling operations because:"
 choices = [

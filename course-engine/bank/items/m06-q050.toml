@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q050"
+kind = "single-select"
 module = 6
 stem = "Preferential dual-source feed to a sensitive bus with near-seamless switching points to:"
 choices = [

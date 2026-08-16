@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q161"
+kind = "single-select"
 module = 9
 stem = "Liquid cooling is increasingly discussed for high-density AI/HPC racks because:"
 choices = [

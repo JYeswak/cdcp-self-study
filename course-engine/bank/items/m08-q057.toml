@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q057"
+kind = "single-select"
 module = 8
 stem = "When selecting plug types and branch circuits for rack PDUs, the binding constraint is:"
 choices = [

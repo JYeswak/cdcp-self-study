@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m11-q105"
+kind = "single-select"
 module = 11
 stem = "An EDA in TIA data centre cabling vocabulary refers to:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m06-q207"
+kind = "single-select"
 module = 6
 stem = "Why is break-before-make on a genset ATS usually acceptable for UPS-protected IT, but less ideal for unprotected mechanical loads?"
 choices = [

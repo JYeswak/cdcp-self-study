@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m12-q212"
+kind = "single-select"
 module = 12
 stem = "Cross-zoning or multi-criteria release logic is used mainly to:"
 choices = [

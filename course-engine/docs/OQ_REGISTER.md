@@ -7,7 +7,7 @@ Promote OPEN → ASSUMED/VERIFIED only by editing this file with evidence.
 |----|----------|--------|--------|------------|
 | OQ-01 | Choice-shuffle PRNG algorithm native == wasm? | L4 | OPEN | Spec in assemble + dual tests |
 | OQ-02 | Canonical JSON encoder rules (sorted keys library)? | L3 | **VERIFIED** | `docs/CANONICAL.md` + `cdcp_core` BTreeMap/serde compact JSON |
-| OQ-03 | bank_hash: sha256 vs blake3 + domain separation? | L2/L3 | **VERIFIED** | SHA-256, prefix `cdcp-bank-v2\\0`, items sorted by id — see CANONICAL.md |
+| OQ-03 | bank_hash: sha256 vs blake3 + domain separation? | L2/L3 | **VERIFIED** | SHA-256, prefix `cdcp-bank-v3\\0`, items sorted by id — see CANONICAL.md |
 | OQ-04 | Mock: fixed 40-set vs sample-from-pool? | L3–L5 | ASSUMED | v1: fixed seed → fixed 40 from pool ≥40 |
 | OQ-05 | min_items per topic for coverage green? | L6 | ASSUMED | Start 1; ratchet later |
 | OQ-06 | Official EPI domain weights? | claims | FORBIDDEN unknown | Equal weight ASSUMED; never claim official blueprint |

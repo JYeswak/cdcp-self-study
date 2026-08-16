@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m15-q200"
+kind = "single-select"
 module = 15
 stem = "Consistent labelling of power circuits, network ports, and assets primarily reduces:"
 choices = [

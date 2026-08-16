@@ -21,6 +21,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "m12-q219"
+kind = "single-select"
 module = 12
 stem = "Dry chemical ABC extinguishers are often discouraged as first choice in white space because:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q107"
+kind = "single-select"
 module = 6
 stem = "During a utility outage with healthy design, the expected sequence is closest to:"
 choices = [

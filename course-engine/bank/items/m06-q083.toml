@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q083"
+kind = "single-select"
 module = 6
 stem = "Ingress Protection (IP) grades on electrical enclosures describe:"
 choices = [

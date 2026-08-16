@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q223"
+kind = "single-select"
 module = 9
 stem = "A reason high-density rooms move beyond pure perimeter raised-floor cooling is:"
 choices = [

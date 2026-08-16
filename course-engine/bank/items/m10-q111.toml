@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m10-q111"
+kind = "single-select"
 module = 10
 stem = "Alternate water sources (wells, reclaimed water, dual feeds) are considered in design to:"
 choices = [

@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q052"
+kind = "single-select"
 module = 12
 stem = "CO2 total flooding at design concentrations for occupied white space is generally:"
 choices = [

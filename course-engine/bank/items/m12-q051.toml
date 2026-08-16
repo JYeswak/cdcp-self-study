@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q051"
+kind = "single-select"
 module = 12
 stem = "Compared with water sprinklers, gaseous clean-agent systems typically trade reduced water damage for:"
 choices = [

@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m04-q122"
+kind = "single-select"
 module = 4
 stem = "A poorly designed ramp transition most increases risk of:"
 choices = [

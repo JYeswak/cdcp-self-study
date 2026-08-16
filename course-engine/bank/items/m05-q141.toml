@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m05-q141"
+kind = "single-select"
 module = 5
 stem = "Central battery or inverter emergency systems differ from unit equipment mainly by:"
 choices = [

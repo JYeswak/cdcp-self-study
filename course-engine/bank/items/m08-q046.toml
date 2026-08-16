@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q046"
+kind = "single-select"
 module = 8
 stem = "A two-post open relay rack is most appropriate for:"
 choices = [

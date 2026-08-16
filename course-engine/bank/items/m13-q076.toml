@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q076"
+kind = "single-select"
 module = 13
 stem = "Defense-in-depth for physical security primarily means:"
 choices = [

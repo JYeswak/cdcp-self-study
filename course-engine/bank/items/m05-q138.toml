@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m05-q138"
+kind = "single-select"
 module = 5
 stem = "Fixture placement above cold/hot aisles should consider:"
 choices = [

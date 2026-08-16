@@ -1,5 +1,6 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
 id = "mock40-q06"
+kind = "single-select"
 module = 2
 stem = "The most careful interview answer about TIA-942 and Uptime Tier is:"
 choices = [

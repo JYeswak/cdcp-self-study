@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q208"
+kind = "single-select"
 module = 9
 stem = "Gaps in containment doors, brushes, or missing blanking panels typically cause:"
 choices = [

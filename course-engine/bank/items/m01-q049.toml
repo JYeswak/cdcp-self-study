@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q049"
+kind = "single-select"
 module = 1
 stem = "Business continuity planning for the data centre should primarily align with:"
 choices = [

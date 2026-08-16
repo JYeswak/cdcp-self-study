@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q163"
+kind = "single-select"
 module = 9
 stem = "Seasonal Thermal Energy Storage (STER) concepts in cooling context generally involve:"
 choices = [

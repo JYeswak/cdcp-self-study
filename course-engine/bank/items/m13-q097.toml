@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q097"
+kind = "single-select"
 module = 13
 stem = "Colo multi-tenant zoning typically means a customer badge may open their cage but:"
 choices = [

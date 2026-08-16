@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q243"
+kind = "single-select"
 module = 9
 stem = "Return-air path design matters because CRAH or CRAC performance depends on:"
 choices = [

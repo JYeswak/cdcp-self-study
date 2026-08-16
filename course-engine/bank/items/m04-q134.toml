@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m04-q134"
+kind = "single-select"
 module = 4
 stem = "Bonding of access-floor metallic components is generally intended to:"
 choices = [

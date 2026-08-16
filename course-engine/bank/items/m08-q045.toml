@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 8)
 id = "m08-q045"
+kind = "single-select"
 module = 8
 stem = "Cabinet outer widths of about 600 mm vs 800 mm are often chosen because:"
 choices = [

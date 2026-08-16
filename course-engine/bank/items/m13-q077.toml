@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q077"
+kind = "single-select"
 module = 13
 stem = "A mantrap (security vestibule) is best described as:"
 choices = [

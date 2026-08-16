@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m05-q203"
+kind = "single-select"
 module = 5
 stem = "Self-contained emergency luminaires differ conceptually from centrally supplied emergency lighting in that:"
 choices = [

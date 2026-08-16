@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m13-q203"
+kind = "single-select"
 module = 13
 stem = "Badge access that lacks logging or unique identity assignment is weak because:"
 choices = [

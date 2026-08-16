@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m14-q204"
+kind = "single-select"
 module = 14
 stem = "Water leak detection should be placed with priority near:"
 choices = [

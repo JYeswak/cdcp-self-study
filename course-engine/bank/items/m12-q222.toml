@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m12-q222"
+kind = "single-select"
 module = 12
 stem = "AHJ influence on fire design means:"
 choices = [

@@ -21,6 +21,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 id = "m11-q226"
+kind = "single-select"
 module = 11
 stem = "For emergency isolation of a compromised circuit, the best enabler is:"
 choices = [

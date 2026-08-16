@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m12-q048"
+kind = "single-select"
 module = 12
 stem = "A double-interlock pre-action arrangement conceptually requires:"
 choices = [

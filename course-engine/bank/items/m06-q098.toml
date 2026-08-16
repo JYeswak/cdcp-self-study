@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q098"
+kind = "single-select"
 module = 6
 stem = "High-density / HPC and AI racks change power planning because:"
 choices = [

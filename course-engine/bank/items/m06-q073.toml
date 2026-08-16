@@ -1,5 +1,6 @@
 # Original CDCP educational item — bank expansion (module 6)
 id = "m06-q073"
+kind = "single-select"
 module = 6
 stem = "Harmonic-rated or K-factor transformer discussions arise mainly because:"
 choices = [

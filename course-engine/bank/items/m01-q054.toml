@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 id = "m01-q054"
+kind = "single-select"
 module = 1
 stem = "Which is least likely to be a root cause category for data-centre unavailability?"
 choices = [

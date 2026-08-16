@@ -1,5 +1,6 @@
 # Original educational bank item — modules expansion (not mock40)
 id = "bank-m13-q079"
+kind = "single-select"
 module = 13
 stem = "When designing a mantrap for people, equipment moves still need:"
 choices = [

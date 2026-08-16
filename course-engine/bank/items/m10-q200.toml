@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 id = "m10-q200"
+kind = "single-select"
 module = 10
 stem = "Makeup water quality for cooling towers matters because poor quality can drive:"
 choices = [

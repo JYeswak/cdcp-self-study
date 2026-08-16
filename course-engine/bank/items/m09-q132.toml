@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — not an exam dump
 id = "m09-q132"
+kind = "single-select"
 module = 9
 stem = "Evaporative cooling towers improve heat rejection efficiency primarily by:"
 choices = [

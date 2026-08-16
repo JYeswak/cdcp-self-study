@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m09-q233"
+kind = "single-select"
 module = 9
 stem = "Humidification may be needed when:"
 choices = [

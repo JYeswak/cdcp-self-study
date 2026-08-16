@@ -1,5 +1,6 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 id = "m11-q227"
+kind = "single-select"
 module = 11
 stem = "Growth spares in trays and panels should be planned because:"
 choices = [
