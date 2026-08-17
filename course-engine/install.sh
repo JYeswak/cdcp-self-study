@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # cdcp install.sh — one command, receipt-driven, fails closed. [bd-installability-sm4g.7]
+# --verify proves the installed prefix (inode/path + root), not an occupier on 8766. [.18]
 #   curl -fsSL https://raw.githubusercontent.com/JYeswak/cdcp-self-study/main/course-engine/install.sh | bash
 # Trust anchors are compiled in (D6). Env cannot retarget them.
 set -euo pipefail
@@ -18,6 +19,7 @@ PINNED= FROM_SOURCE=0 NO_MODIFY_PATH=0 DRY=0 UNINSTALL=0 VERIFY_ONLY=0
 TARBALL= EXPECT_SHA= RELEASE_JSON=
 STAGED= WORK= LOCK= FILELIST= CONFIG_TOUCHED=
 ARTIFACT_URL= ARTIFACT_SHA= SOURCE_BUILD=false
+VERIFY_SERVE_PID= VERIFY_SERVE_URL=
 
 die() { echo "cdcp-install: ERROR: $*" >&2; exit 1; }
 log() { echo "cdcp-install: $*"; }
@@ -49,6 +51,13 @@ require_checksum_tool() {
 }
 
 cleanup() {
+  # Only our verify-time prefix listener. Never an occupier we did not start
+  # (a source-checkout `cdcp serve` on 8766 is not tool-broken).
+  if [ -n "${VERIFY_SERVE_PID:-}" ]; then
+    kill "$VERIFY_SERVE_PID" 2>/dev/null || true
+    wait "$VERIFY_SERVE_PID" 2>/dev/null || true
+    VERIFY_SERVE_PID=
+  fi
   [ -n "$STAGED" ] && rm -f "$STAGED"
   [ -n "$WORK" ] && rm -rf "$WORK"
   if [ -n "$LOCK" ] && [ -d "$LOCK" ]; then
@@ -169,29 +178,236 @@ select_asset() {
 receipt_path() { echo "$SHARE/install-receipt.json"; }
 kept_progress() { echo "$SHARE/var/attempts"; }
 
+# Portable path/inode. pwd -P so /var and /private/var compare equal.
+abspath() {
+  local t=$1 d f
+  if [ -d "$t" ]; then (CDPATH= cd -- "$t" && pwd -P)
+  else
+    d=$(dirname -- "$t"); f=$(basename -- "$t")
+    printf '%s/%s\n' "$(CDPATH= cd -- "$d" && pwd -P)" "$f"
+  fi
+}
+file_inode() {
+  case "$(uname -s)" in
+    Darwin) stat -f %i "$1" ;;
+    *) stat -c %i "$1" ;;
+  esac
+}
+
+# lsof is optional. Missing lsof + an unproven 8766 = foreign (fail closed).
+have_lsof() { have lsof || [ -x /usr/sbin/lsof ] || [ -x /usr/bin/lsof ]; }
+_lsof() {
+  if have lsof; then lsof "$@"
+  elif [ -x /usr/sbin/lsof ]; then /usr/sbin/lsof "$@"
+  elif [ -x /usr/bin/lsof ]; then /usr/bin/lsof "$@"
+  else return 1
+  fi
+}
+listen_pids() {
+  _lsof -nP -iTCP:"$1" -sTCP:LISTEN -t 2>/dev/null || true
+}
+proc_args() { ps -p "$1" -o args= 2>/dev/null || ps -p "$1" -o command= 2>/dev/null || true; }
+proc_cwd() {
+  if [ -L "/proc/$1/cwd" ]; then readlink "/proc/$1/cwd" 2>/dev/null || true; return 0; fi
+  _lsof -a -p "$1" -d cwd -Fn 2>/dev/null | awk '/^n/{print substr($0,2); exit}'
+}
+proc_exe() {
+  if [ -L "/proc/$1/exe" ]; then readlink "/proc/$1/exe" 2>/dev/null || true; return 0; fi
+  _lsof -a -p "$1" -d txt -Fn 2>/dev/null | awk '/^n/{print substr($0,2); exit}'
+}
+
+# Listener belongs to THIS prefix only if exe is the installed inode/path
+# AND (--root is the install root or cwd is the install root / its web/).
+# Same binary serving a source checkout is foreign.
+is_prefix_listener() {
+  local pid=$1 bin=$2 inode=$3 root=$4
+  local exe cwd args einode exe_ok=0
+  [ -n "$pid" ] || return 1
+  kill -0 "$pid" 2>/dev/null || return 1
+  args=$(proc_args "$pid")
+  exe=$(proc_exe "$pid")
+  cwd=$(proc_cwd "$pid")
+  if [ -n "$exe" ] && [ -e "$exe" ]; then
+    einode=$(file_inode "$exe" 2>/dev/null || true)
+    [ -n "$einode" ] && [ "$einode" = "$inode" ] && exe_ok=1
+    [ "$(abspath "$exe" 2>/dev/null || true)" = "$bin" ] && exe_ok=1
+  fi
+  case $args in *"$bin"*) exe_ok=1 ;; esac
+  [ "$exe_ok" = 1 ] || return 1
+  case $args in *"--root $root"*|*"--root=$root"*) return 0 ;; esac
+  case $cwd in "$root"|"$root/web") return 0 ;; esac
+  return 1
+}
+prefix_owns_port() {
+  local port=$1 bin=$2 inode=$3 root=$4 pid
+  for pid in $(listen_pids "$port"); do
+    is_prefix_listener "$pid" "$bin" "$inode" "$root" && return 0
+  done
+  return 1
+}
+
+# Concrete 127.0.0.1:PORT. Never return 8766 — caller uses this only when
+# 8766 is not ours. python3 is optional; installed cdcp doctor --bind :0
+# is the fallback (binds, prints the real port, releases).
+ephemeral_bind() {
+  local addr out
+  if have python3; then
+    addr=$(python3 -c 'import socket;s=socket.socket();s.bind(("127.0.0.1",0));print("%s:%s"%s.getsockname()[:2]);s.close()' 2>/dev/null || true)
+    if [ -n "$addr" ] && [ "$addr" != "127.0.0.1:8766" ]; then echo "$addr"; return 0; fi
+  fi
+  out=$("$1" doctor --root "$2" --bind 127.0.0.1:0 2>&1) || true
+  addr=$(printf '%s\n' "$out" | awk '/ok doctor port \(/ {
+    s=$0; sub(/.*\(/,"",s); sub(/[ )].*/,"",s); print s; exit
+  }')
+  if [ -n "$addr" ] && [ "$addr" != "127.0.0.1:8766" ]; then echo "$addr"; return 0; fi
+  die "cannot allocate ephemeral bind — refusing to treat 8766 as proof"
+}
+
+# Sets VERIFY_SERVE_PID and VERIFY_SERVE_URL in the caller (must NOT run
+# inside $() — a subshell would drop the pid and leave a leaked listener).
+start_prefix_serve() {
+  local bin=$1 root=$2 bind=$3 logf=$4
+  local i=0 url=
+  VERIFY_SERVE_URL=
+  : >"$logf"
+  "$bin" serve --root "$root" --bind "$bind" --no-open >"$logf" 2>&1 &
+  VERIFY_SERVE_PID=$!
+  while [ "$i" -lt 50 ]; do
+    if ! kill -0 "$VERIFY_SERVE_PID" 2>/dev/null; then
+      die "prefix serve exited early: $(cat "$logf" 2>/dev/null || true)"
+    fi
+    url=$(awk '/^cdcp serve: http/{print $3; exit}' "$logf")
+    if [ -n "$url" ]; then
+      VERIFY_SERVE_URL=$url
+      return 0
+    fi
+    sleep 0.1
+    i=$((i+1))
+  done
+  die "prefix serve did not print a URL: $(cat "$logf" 2>/dev/null || true)"
+}
+
+stop_prefix_serve() {
+  [ -n "${VERIFY_SERVE_PID:-}" ] || return 0
+  kill "$VERIFY_SERVE_PID" 2>/dev/null || true
+  wait "$VERIFY_SERVE_PID" 2>/dev/null || true
+  VERIFY_SERVE_PID=
+}
+
+url_hostport() {
+  # http://127.0.0.1:1234/ → 127.0.0.1:1234
+  local u=$1
+  u=${u#http://}; u=${u#https://}; u=${u%%/*}
+  printf '%s\n' "$u"
+}
+
 # D5: --verify always, before already-installed early exit. Empty list = ERROR.
+# W7: prove the *installed* prefix. A foreign occupier on 8766 is not proof
+# and is not killed. If demo prints a URL, that listener is ours or we bound
+# ephemeral and printed that URL. Never curl 8766.
 run_verify() {
   local bin=$BINDIR/cdcp n=0 line cmd work
+  local installed_bin installed_inode install_root
+  local demo_bind occupier_pids occupier_pid url hostport demo_out rc
   [ -n "$VERIFY_SPEC" ] || die "empty verify command list — test -x is a vacuous pass"
   [ -x "$bin" ] || die "installed binary not executable: $bin"
   [ -f "$SHARE/web/index.html" ] || die "installed web/ missing: $SHARE/web/index.html"
+
+  installed_bin=$(abspath "$bin")
+  installed_inode=$(file_inode "$installed_bin")
+  install_root=$(abspath "$SHARE")
+  log "verify: installed-bin=$installed_bin inode=$installed_inode"
+  log "verify: install-root=$install_root"
+
+  occupier_pids=$(listen_pids 8766)
+  occupier_pid=$(printf '%s\n' "$occupier_pids" | awk 'NR==1{print; exit}')
+  if prefix_owns_port 8766 "$installed_bin" "$installed_inode" "$install_root"; then
+    demo_bind=127.0.0.1:8766
+    log "verify: 8766 belongs to install prefix (pid=${occupier_pid:-unknown})"
+  elif [ -n "$occupier_pid" ]; then
+    log "verify: 8766 occupied by foreign pid=$occupier_pid — not our proof"
+    log "verify: occupier args=$(proc_args "$occupier_pid")"
+    start_prefix_serve "$installed_bin" "$install_root" "127.0.0.1:0" \
+      "${WORK:-${TMPDIR:-/tmp}}/cdcp-verify-serve.log"
+    demo_bind=$(url_hostport "$VERIFY_SERVE_URL")
+    [ -n "$demo_bind" ] || die "prefix serve printed no bindable URL"
+    is_prefix_listener "$VERIFY_SERVE_PID" "$installed_bin" "$installed_inode" "$install_root" || \
+      die "prefix serve pid=$VERIFY_SERVE_PID is not the install prefix"
+    log "verify: prefix-listener pid=$VERIFY_SERVE_PID bind=$demo_bind (ephemeral; occupier 8766 is not proof)"
+  else
+    # lsof listed nobody. No lsof at all → fail closed (do not claim 8766).
+    if have_lsof; then
+      demo_bind=127.0.0.1:8766
+      log "verify: 8766 bindable (no occupier)"
+    else
+      demo_bind=$(ephemeral_bind "$installed_bin" "$install_root")
+      log "verify: 8766 owner unlisted (no lsof) — not our proof"
+      log "verify: demo-bind=$demo_bind (ephemeral; occupier 8766 is not proof)"
+    fi
+  fi
+
   work=$(mktemp -d "${TMPDIR:-/tmp}/cdcp-verify.XXXXXX")
+  demo_out=$work/demo.out
+  : >"$demo_out"
   (
     CDPATH= cd -- "$work" || exit 1
-    unset CDCP_REPO_ROOT; export CDCP_HOME=$SHARE PATH=$BINDIR:$PATH
+    unset CDCP_REPO_ROOT; export CDCP_HOME=$install_root PATH=$BINDIR:$PATH
     while IFS= read -r line; do
       [ -n "$line" ] || continue
       n=$((n+1))
       # shellcheck disable=SC2086
       set -- $line
       cmd=$1; shift
-      echo "cdcp-install: verify: $bin $cmd --root $SHARE $*"
-      "$bin" "$cmd" --root "$SHARE" "$@"
+      if [ "$cmd" = demo ]; then
+        echo "cdcp-install: verify: $installed_bin $cmd --root $install_root $* --bind $demo_bind"
+        rc=0
+        "$installed_bin" "$cmd" --root "$install_root" "$@" --bind "$demo_bind" >"$demo_out" 2>&1 || rc=$?
+        cat "$demo_out"
+        [ "$rc" -eq 0 ] || exit "$rc"
+      else
+        echo "cdcp-install: verify: $installed_bin $cmd --root $install_root $*"
+        "$installed_bin" "$cmd" --root "$install_root" "$@"
+      fi
     done <<EOF
 $VERIFY_SPEC
 EOF
     [ "$n" -gt 0 ] || exit 1
-  ) || { rm -rf "$work"; die "verify failed (installed binary vs installed prefix)"; }
+  ) || { stop_prefix_serve; rm -rf "$work"; die "verify failed (installed binary vs installed prefix)"; }
+
+  url=$(awk '/^cdcp demo: http/{print $3; exit}' "$demo_out")
+  if [ -n "$url" ]; then
+    hostport=$(url_hostport "$url")
+    case $hostport in
+      127.0.0.1:8766|localhost:8766)
+        if prefix_owns_port 8766 "$installed_bin" "$installed_inode" "$install_root"; then
+          log "verify: demo-url=$url (listener belongs to install prefix)"
+        elif [ -z "$(listen_pids 8766)" ]; then
+          log "verify: demo-url=$url (8766 free — advertised default, not an occupier)"
+        else
+          stop_prefix_serve
+          rm -rf "$work"
+          die "demo printed $url but 8766 is a foreign occupier — not our proof"
+        fi
+        ;;
+      *)
+        [ "$hostport" = "$demo_bind" ] || {
+          stop_prefix_serve
+          rm -rf "$work"
+          die "demo printed $url but verify bound $demo_bind"
+        }
+        if [ -n "${VERIFY_SERVE_PID:-}" ]; then
+          is_prefix_listener "$VERIFY_SERVE_PID" "$installed_bin" "$installed_inode" "$install_root" || {
+            stop_prefix_serve
+            rm -rf "$work"
+            die "demo-url=$url listener pid=$VERIFY_SERVE_PID is not the install prefix"
+          }
+        fi
+        log "verify: demo-url=$url (ephemeral prefix listener, not occupier 8766)"
+        ;;
+    esac
+  fi
+
+  stop_prefix_serve
   rm -rf "$work"
   log "verify: measured green"
 }
