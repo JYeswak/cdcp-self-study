@@ -1,0 +1,34 @@
+# Original CDCP educational MCQ — ms4j.2.2 CDFOS PTW leftover.
+# Public heading: CDFOS "The importance of Permit To Work" (Safety and Crisis
+# Management) — https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
+# Cite: HSE "Permits to work", page updated 2025-07-03 (C-PTW) —
+# https://www.hse.gov.uk/coshh/basics/permits.htm
+# Edition pin only, no claim taken: HSG250 (2005), ISBN 9780717629435 —
+# https://www.hse.gov.uk/pubns/books/hsg250.htm
+#
+# Claim re-derived from C-PTW verbatim: "before equipment or machinery is put
+# back into service, it will require a declaration from the permit originator
+# that it is ready for normal use."
+# Deliberately NOT written: issuer-vs-acceptor and simultaneous-activity
+# conflict. The fetched HSE page does not address either, so under
+# ATTRIBUTION-BAR rule 3 no item may turn on them. HSG250's five PTW features
+# are not minted here — the PDF was not opened.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m15-q230"
+kind = "single-select"
+module = 15
+stem = "A contractor has finished replacing a valve actuator on a chilled-water branch. The work is done, the area is tidy and the escort is ready to sign the visitor log. Under a permit-to-work system, what has to happen before that branch is returned to normal service?"
+choices = [
+  "The escort countersigns the visitor log on leaving, which closes the work and releases the plant back to operations",
+  "The permit originator declares the equipment ready for normal use, so return to service is authorised by the permit",
+  "The contractor's own supervisor signs the job sheet, since the contractor performed the work and is closest to its condition",
+  "The shift engineer gives a verbal all-clear on the bridge once the contractor confirms the actuator is operating correctly",
+]
+correct = "B"
+explanation = "HSE's permits-to-work guidance states that before equipment or machinery is put back into service, it will require a declaration from the permit originator that it is ready for normal use. That is the hand-back step, and it is a property of the permit, not of the work being finished: 'the job is done' and 'the plant may be returned to service' are two different authorisations. An escort signature (A) records site access, not plant condition — an escort never replaces a permit. A contractor sign-off (C) is the party carrying out the work declaring their own completion, which is not the originator's declaration. A verbal all-clear (D) leaves no documented declaration at all, and the permit is a documented procedure by definition."
+topic_ids = ["m15-ops-security"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

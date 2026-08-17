@@ -1,0 +1,34 @@
+# Original CDCP educational MCQ — ms4j.2.2 CDFOS shift-handover leftover.
+# Public headings: CDFOS "The importance of Permit To Work" (Safety and Crisis
+# Management) and shift handover under Data Centre Operations —
+# https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
+# Cite: HSE "Permits to work", page updated 2025-07-03 (C-PTW) —
+# https://www.hse.gov.uk/coshh/basics/permits.htm
+# Edition pin only, no claim taken: HSG250 (2005) —
+# https://www.hse.gov.uk/pubns/books/hsg250.htm
+#
+# Claim re-derived from C-PTW verbatim: "The permit-to-work requires
+# declarations from the people authorising the work and carrying out the work.
+# Where necessary it requires a declaration from those involved in shift
+# handover procedures or extensions to the work."
+# SCOPE GUARD: that clause certifies a declaration on a PERMIT THAT SPANS a
+# shift, not a general operations shift-handover programme. This item stays
+# inside the permit. Options length-balanced; teaching lives in `explanation`.
+id = "m15-q231"
+kind = "single-select"
+module = 15
+stem = "A live permit for work inside a switchroom will still be open when the shift changes at 19:00. Both the issuing authority and the working party will be relieved by their oncoming counterparts. What does the permit system require at that boundary?"
+choices = [
+  "A declaration from those involved in the handover, so the permit carries the change of authorising and working parties",
+  "A verbal briefing at the shift meeting covering every open job, which is what the operations handover log exists to capture",
+  "Re-issue of a fresh permit to the oncoming parties, because the original permit lapses with the shift that raised it",
+  "An extension signed by the oncoming supervisor, since the work is unchanged and only the time window needs to move",
+]
+correct = "A"
+explanation = "HSE's permits-to-work guidance states that the permit requires declarations from the people authorising the work and the people carrying it out, and that where necessary it requires a declaration from those involved in shift handover procedures or extensions to the work. So the handover is recorded on the permit, by declaration, from both sides — the permit is the artefact that spans the boundary. A verbal briefing (B) is an operations practice and leaves the permit unchanged; the general handover log is not the permit. Re-issuing a fresh permit (C) treats the permit as expiring with the shift, which the guidance does not require and which would break continuity of the precautions. An extension (D) is a real instrument in the same clause, but it addresses the time window, not the change of parties — here the people are changing, not merely the duration. Note the scope: this clause covers a permit that spans a shift. It does not certify a general shift-handover programme."
+topic_ids = ["m15-ops-security"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,30 @@
+# Original CDCP educational MCQ — ms4j.2.4 CDFOS LOTO procedure leftover.
+# Public heading: CDFOS "Proper lock-out/tag-out procedures" (Safety and Crisis
+# Management) — https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
+# Cites: 29 CFR 1910.147(b) "Energy isolating device"; 1910.147(d)(1)-(6)
+# application-of-control sequence; 1910.333(b)(2)(ii)(B) control-circuit devices.
+# eCFR display current as of 2026-08-13 (Title 29 last amended 2026-08-04).
+# https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147
+# https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.333
+# Decides a PROCEDURE STEP, not a citation-number quiz. Does not duplicate
+# m15-q223 (147-vs-Subpart-S scope) or bank-m13-q094 (LOTO awareness).
+# Options are length-balanced on purpose: the teaching lives in `explanation`,
+# so the key cannot be found by picking the longest choice.
+id = "m15-q228"
+kind = "single-select"
+module = 15
+stem = "A CRAH is to be worked on. The technician selects the unit's HMI \"maintenance mode\", which opens the fan contactor and shows STOPPED, padlocks the HMI enclosure, and signs the permit. Which step of the energy-control procedure has not actually been performed?"
+choices = [
+  "Lockout device application — the padlock is on the HMI door rather than the panel door, so a second signature is required",
+  "Isolation — a control-circuit device is not an energy isolating device, so nothing physically preventing energy transmission was operated",
+  "Nothing is missing — the STOPPED display confirms the fan is not turning, so the equipment is safely deenergized for work",
+  "Nothing is missing for mechanical work — the sequence would only fail if the CRAH were fed from a busway tap rather than a local panelboard",
+]
+correct = "B"
+explanation = "1910.147(b) defines an energy isolating device as a mechanical device that physically prevents transmission or release of energy — a breaker, disconnect switch, line valve, block — and states plainly that push buttons, selector switches and other control-circuit type devices are NOT energy isolating devices. 1910.333(b)(2)(ii)(B) reinforces it: control-circuit devices such as push buttons, selector switches and interlocks may not be used as the sole means for deenergizing, and interlocks may not substitute for lockout and tagging. The HMI reports the control state, not the energy state — the supply conductors remain connected. The (d)(1)-(6) sequence therefore stalls at isolation, before lockout application, stored-energy release, and verification. Locking a control enclosure locks the control. The upstream distribution type does not change the definition."
+topic_ids = ["m15-ops-security"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
