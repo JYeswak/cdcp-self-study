@@ -146,6 +146,9 @@ skipped_step() { STEP_SKIPPED=$((STEP_SKIPPED + 1)); echo "check.sh: skip: $*"; 
 #   selftest_known_bad.sh      goldens/mock40_seed42_all_correct.sha256 [M] restored
 #                              goldens/bank_hash.txt                    [M] restored
 #                              docs/_selftest_known_bad_planted.md      [S] planted/removed
+#   selftest_wasm_freshness.sh does NOT mutate live tracked files: plant 1
+#                              flips a TEMP copy of the wasm; plant 2 uses
+#                              isolated CARGO_TARGET_DIR + RUSTFLAGS cfg
 #   selftest_l5.sh             web/_selftest_l5_honesty_planted.html    [S] planted/removed
 #   selftest_reconstructed.sh  (bd-791t) private tree under target/cdcp-recon-*/
 #                              live tracked files are not written
@@ -1109,28 +1112,43 @@ else
   fail "missing scripts/selftest_known_bad.sh (L4 required)"
 fi
 
-# L4 WASM dual-path (optional until toolchain present — skip-honest, not full L4 green)
-echo "==> L4 WASM dual-path (optional)"
+# L4 WASM: rebuild --release --locked, pin sha256 to the shipped blob, then
+# dual-path against THAT blob (not target/.../debug). [bd-installability-sm4g.4]
+# Missing wasm32: SKIP the rebuild, do NOT advertise full-green (GAPS + skip).
+# Plants always run: they do not need the wasm32 target.
+echo "==> L4 WASM dual-path + shipped-blob freshness"
 L4_WASM="SKIP"
 if command -v rustup >/dev/null 2>&1   && rustup target list --installed 2>/dev/null | grep -q '^wasm32-unknown-unknown$'
 then
   # --include-ignored is load-bearing on dual_path: native_equals_wasm_mock40_seed42
   # is #[ignore] so `cargo test --workspace` cannot score a silent skip as PASS.
   # Without this flag L4 would go GREEN having compared nothing.
-  if cargo build -p cdcp_wasm --target wasm32-unknown-unknown --locked \
-    && CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test dual_path --locked -- --nocapture --include-ignored \
+  cargo build -p cdcp_wasm --target wasm32-unknown-unknown --release --locked \
+    || fail "L4 WASM release rebuild (cdcp_wasm wasm32-unknown-unknown --release --locked)"
+  sh scripts/selftest_wasm_freshness.sh --assert-fresh \
+    --committed web/assets/wasm/cdcp_wasm.wasm \
+    --built target/wasm32-unknown-unknown/release/cdcp_wasm.wasm \
+    || fail "L4 WASM freshness: web/assets/wasm/cdcp_wasm.wasm sha256 != release rebuild"
+  if CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test dual_path --locked -- --nocapture --include-ignored \
     && CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test schedule --locked -- --nocapture
   then
-    ok "L4 WASM dual-path native==wasm (mock40_seed42 + schedule)"
+    [ -x scripts/selftest_wasm_freshness.sh ] || [ -f scripts/selftest_wasm_freshness.sh ] \
+      || fail "missing scripts/selftest_wasm_freshness.sh (L4 wasm-freshness required)"
+    run_selftest "wasm-freshness known-bad" sh scripts/selftest_wasm_freshness.sh
+    ok "L4 WASM dual-path native==shipped wasm (mock40_seed42 + schedule) + freshness"
     L4_WASM="GREEN"
   else
     fail "L4 WASM dual-path failed (toolchain present but digests disagree or test/build error)"
   fi
 else
-  echo "check.sh: SKIP wasm: toolchain missing"
-  echo "check.sh: L4 dual-path is NOT full green — install: rustup target add wasm32-unknown-unknown"
+  echo "check.sh: SKIP wasm freshness rebuild: toolchain missing"
+  echo "check.sh: L4 WASM is NOT full-green — install: rustup target add wasm32-unknown-unknown"
+  GAPS="${GAPS}L4-wasm-freshness "
+  [ -x scripts/selftest_wasm_freshness.sh ] || [ -f scripts/selftest_wasm_freshness.sh ] \
+    || fail "missing scripts/selftest_wasm_freshness.sh (L4 wasm-freshness required)"
+  run_selftest "wasm-freshness known-bad" sh scripts/selftest_wasm_freshness.sh
   L4_WASM="SKIP"
-  skipped_step "L4 WASM dual-path (toolchain missing)"
+  skipped_step "L4 WASM freshness rebuild (wasm32 target missing — not full-green)"
 fi
 
 # Wave status
@@ -1138,7 +1156,7 @@ echo "check.sh: WAVE STATUS: W0+L1+L2+L3 GREEN; L4 known-bad WIRED; L4 WASM=$L4_
 if [ "$L4_WASM" = "GREEN" ]; then
   echo "check.sh: next: L5 browser mock path (UI e2e digest match)"
 else
-  echo "check.sh: next: enable wasm32 target for L4 dual-path GREEN, then L5 UI"
+  echo "check.sh: L4 WASM=$L4_WASM is NOT full-green — enable wasm32 target, then L5 UI"
 fi
 
 # Knowledge primary_notes path resolution (parent ../modules/)
@@ -1403,5 +1421,9 @@ if [ -n "$GAPS" ]; then
   echo "check.sh: KNOWN GAPS (not green, not silent): $GAPS" >&2
 fi
 echo "check.sh: complete != EPI certified (study signal / mastery only)"
-echo "==> check.sh PASSED (W0-L7 + V11 stretch; L4 WASM=$L4_WASM)"
+if [ "$L4_WASM" = "GREEN" ]; then
+  echo "==> check.sh PASSED (W0-L7 + V11 stretch; L4 WASM=GREEN)"
+else
+  echo "==> check.sh PASSED with SKIPPED legs (L4 WASM=$L4_WASM — not full-green)"
+fi
 exit 0

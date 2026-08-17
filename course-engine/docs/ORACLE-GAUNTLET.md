@@ -85,7 +85,7 @@ G1>G2 (correctness > UI) · no counterfeit green · Doctrine #0 (artifacts only 
 
 **Surface:** `cdcp_wasm::grade_digest_json` + C ABI (`cdcp_alloc` / `cdcp_grade_digest` / `cdcp_last_ptr`) for host runtimes. Fixed-bank grade only — assemble/shuffle dual-path waits on OQ-01 / L2 assemble readiness.
 
-**check.sh:** optional stage — if `wasm32-unknown-unknown` + wasm build succeed, runs dual-path with `CDCP_REQUIRE_WASM=1`. Otherwise prints `SKIP wasm: toolchain missing` and does **not** claim full L4 green.
+**check.sh:** rebuilds `cdcp_wasm` `--release --locked` and asserts sha256 equality with `web/assets/wasm/cdcp_wasm.wasm`. Dual-path loads that shipped blob. If `wasm32-unknown-unknown` is absent the rebuild is **SKIPPED** and the run is **not** advertised as full-green (`GAPS` + skip receipt). `selftest_wasm_freshness.sh` plants two known-bads (`INJECTIONS=2 SUITE=wasm-freshness`).
 
 **Not L5:** browser UI e2e digest match remains open.
 

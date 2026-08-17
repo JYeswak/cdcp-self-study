@@ -263,12 +263,12 @@ fn check_wasm(root: &Path) -> Result<String, String> {
     let bytes = fs::read(&path).map_err(|e| format!("read {WASM_REL}: {e}"))?;
     if bytes.is_empty() {
         return Err(format!(
-            "{WASM_REL} is 0 bytes — a present-but-empty artifact is not fresh"
+            "{WASM_REL} is 0 bytes — a present-but-empty artifact is not a wasm module"
         ));
     }
     if bytes.len() < WASM_MAGIC.len() || !bytes.starts_with(WASM_MAGIC) {
         return Err(format!(
-            "{WASM_REL} is not a wasm module (missing \\0asm magic) — not fresh"
+            "{WASM_REL} is not a wasm module (missing \\0asm magic)"
         ));
     }
     Ok(format!("({WASM_REL}, {} bytes)", bytes.len()))

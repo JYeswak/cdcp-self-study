@@ -20,16 +20,33 @@ pub enum GradeError {
     Core(String),
 }
 
-/// Weak module: correctness rate strictly below 3/5 (0.6).
+/// Weak if `correct/total` is strictly below `WEAK_MODULE_NUM / WEAK_MODULE_DEN`.
 ///
-/// Integer-only compare (no f64): `5 * correct < 3 * total`.
+/// Integer-only compare (no f64): `DEN * correct < NUM * total`.
 /// Multiplies use `u64` intermediates to avoid u32 overflow on large totals.
+///
+/// `cdcp_plant_weak` (RUSTFLAGS `--cfg cdcp_plant_weak`) raises NUM to 6 so
+/// every non-empty module is weak. That is the wasm-freshness known-bad:
+/// rebuild native only and the shipped wasm digest must disagree.
+pub const WEAK_MODULE_NUM: u32 = 3;
+pub const WEAK_MODULE_DEN: u32 = 5;
+
+#[allow(unexpected_cfgs)]
+fn weak_module_num() -> u32 {
+    if cfg!(cdcp_plant_weak) {
+        6
+    } else {
+        WEAK_MODULE_NUM
+    }
+}
+
 #[inline]
 pub fn is_weak_module(correct: u32, total: u32) -> bool {
     if total == 0 {
         false
     } else {
-        5u64 * u64::from(correct) < 3u64 * u64::from(total)
+        u64::from(WEAK_MODULE_DEN) * u64::from(correct)
+            < u64::from(weak_module_num()) * u64::from(total)
     }
 }
 

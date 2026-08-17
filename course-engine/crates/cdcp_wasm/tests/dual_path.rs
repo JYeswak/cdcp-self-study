@@ -4,14 +4,18 @@
 //! full on-disk bank (same surface as `cdcp goldens check`).
 //!
 //! Requires:
-//! - `wasm32-unknown-unknown` rustup target
-//! - buildable `cdcp_wasm` as wasm32 cdylib
+//! - the shipped blob `web/assets/wasm/cdcp_wasm.wasm` (what the browser loads)
+//! - wasmtime (dev-dep) to instantiate that blob
+//!
+//! The subject is the committed artifact, not `target/.../debug/cdcp_wasm.wasm`.
+//! check.sh asserts that blob byte-equals a `--release --locked` rebuild.
 //!
 //! Skip policy (TESTING.md): the native==wasm comparison is `#[ignore]`. A missing
 //! artifact must not score as PASS — `cargo test` prints `ignored`, not `ok`.
 //! check.sh L4 runs `--include-ignored` with `CDCP_REQUIRE_WASM=1` when the wasm32
 //! target is installed. Running the ignored test without an artifact panics.
 //! `CDCP_FORCE_WASM_MISSING=1` forces that panic (anti-vacuous plant).
+//! `CDCP_WASM_SUBJECT` overrides the path (selftest plants only).
 
 use cdcp_assess::{Item, Quantity, Ratio, Response, SetCredit, Tolerance, ToleranceKind};
 use cdcp_bank::Bank;
@@ -21,7 +25,6 @@ use cdcp_wasm::{
     ENGINE_IDENTITY_SUBJECT,
 };
 use std::path::{Path, PathBuf};
-use std::process::Command;
 
 fn repo_root() -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -53,45 +56,42 @@ fn load_fixture_bank() -> (Bank, SampleFixture) {
     (bank, fix)
 }
 
-fn ensure_wasm_built() -> Result<PathBuf, String> {
+/// Relative path of the blob the learner runtime actually fetches.
+const SHIPPED_WASM_REL: &str = "web/assets/wasm/cdcp_wasm.wasm";
+
+/// Load the shipped wasm — never `target/wasm32-unknown-unknown/debug`.
+///
+/// Override with `CDCP_WASM_SUBJECT` (absolute or repo-relative) for plants.
+/// `CDCP_FORCE_WASM_MISSING=1` is the anti-vacuous missing-artifact plant.
+fn shipped_wasm() -> Result<PathBuf, String> {
     if std::env::var("CDCP_FORCE_WASM_MISSING").ok().as_deref() == Some("1") {
         return Err("CDCP_FORCE_WASM_MISSING=1 (anti-vacuous: no artifact)".into());
     }
     let root = repo_root();
-    let candidates = [
-        root.join("target/wasm32-unknown-unknown/debug/cdcp_wasm.wasm"),
-        root.join("target/wasm32-unknown-unknown/release/cdcp_wasm.wasm"),
-    ];
-    for c in &candidates {
-        if c.is_file() {
-            return Ok(c.clone());
+    if let Ok(raw) = std::env::var("CDCP_WASM_SUBJECT") {
+        let override_path = {
+            let p = PathBuf::from(&raw);
+            if p.is_absolute() {
+                p
+            } else {
+                root.join(p)
+            }
+        };
+        if override_path.is_file() {
+            return Ok(override_path);
         }
-    }
-    let status = Command::new("cargo")
-        .args([
-            "build",
-            "-p",
-            "cdcp_wasm",
-            "--target",
-            "wasm32-unknown-unknown",
-            "--manifest-path",
-        ])
-        .arg(root.join("Cargo.toml"))
-        .current_dir(&root)
-        .status()
-        .map_err(|e| format!("spawn cargo: {e}"))?;
-    if !status.success() {
         return Err(format!(
-            "cargo build -p cdcp_wasm --target wasm32-unknown-unknown failed: {status}"
+            "CDCP_WASM_SUBJECT is not a file: {}",
+            override_path.display()
         ));
     }
-    let built = root.join("target/wasm32-unknown-unknown/debug/cdcp_wasm.wasm");
-    if built.is_file() {
-        Ok(built)
+    let shipped = root.join(SHIPPED_WASM_REL);
+    if shipped.is_file() {
+        Ok(shipped)
     } else {
         Err(format!(
-            "wasm artifact missing after build: {}",
-            built.display()
+            "shipped wasm missing: {} (dual-path loads the browser artifact, not target/.../debug)",
+            shipped.display()
         ))
     }
 }
@@ -205,41 +205,10 @@ fn wasm_score_digest(
     wasm_two_json_digest(wasm_path, "cdcp_score_digest", item_json, response_json)
 }
 
-/// Always rebuild so a stale wasm without `cdcp_score_digest` cannot look like
-/// a dual-path mismatch. Does not install under `web/assets/wasm/` (that pin
-/// is a separate golden; this leftover does not re-freeze it).
-fn force_wasm_built() -> Result<PathBuf, String> {
-    if std::env::var("CDCP_FORCE_WASM_MISSING").ok().as_deref() == Some("1") {
-        return Err("CDCP_FORCE_WASM_MISSING=1 (anti-vacuous: no artifact)".into());
-    }
-    let root = repo_root();
-    let status = Command::new("cargo")
-        .args([
-            "build",
-            "-p",
-            "cdcp_wasm",
-            "--target",
-            "wasm32-unknown-unknown",
-            "--manifest-path",
-        ])
-        .arg(root.join("Cargo.toml"))
-        .current_dir(&root)
-        .status()
-        .map_err(|e| format!("spawn cargo: {e}"))?;
-    if !status.success() {
-        return Err(format!(
-            "cargo build -p cdcp_wasm --target wasm32-unknown-unknown failed: {status}"
-        ));
-    }
-    let built = root.join("target/wasm32-unknown-unknown/debug/cdcp_wasm.wasm");
-    if built.is_file() {
-        Ok(built)
-    } else {
-        Err(format!(
-            "wasm artifact missing after build: {}",
-            built.display()
-        ))
-    }
+/// Same as [`shipped_wasm`]: typed-assess dual-path also grades the blob that ships.
+/// Freshness of that blob is check.sh's sha256 compare against a --release --locked rebuild.
+fn shipped_wasm_for_assess() -> Result<PathBuf, String> {
+    shipped_wasm()
 }
 
 struct AssessFixture {
@@ -297,6 +266,21 @@ fn assess_fixtures() -> Vec<AssessFixture> {
 }
 
 #[test]
+fn dual_path_loads_shipped_artifact_not_target_debug() {
+    let path = shipped_wasm().expect("committed web/assets/wasm/cdcp_wasm.wasm must exist");
+    let display = path.to_string_lossy();
+    assert!(
+        display.contains("web/assets/wasm/cdcp_wasm.wasm")
+            || std::env::var("CDCP_WASM_SUBJECT").is_ok(),
+        "dual-path subject must be the shipped blob, got {display}"
+    );
+    assert!(
+        !display.contains("target/wasm32-unknown-unknown/debug"),
+        "dual-path must not load the debug target wasm, got {display}"
+    );
+}
+
+#[test]
 fn engine_identities_distinct_at_comparator() {
     let (oracle, subject) = engine_identities();
     assert_eq!(oracle, ENGINE_IDENTITY_ORACLE);
@@ -344,9 +328,9 @@ fn absent_wasm_artifact_is_not_a_passing_comparison() {
 #[test]
 #[ignore = "requires wasm32 artifact; cargo test -- --include-ignored (check.sh L4)"]
 fn native_equals_wasm_mock40_seed42() {
-    let wasm_path = wasm_artifact_or_fail(ensure_wasm_built());
+    let wasm_path = wasm_artifact_or_fail(shipped_wasm());
 
-    eprintln!("using wasm subject: {}", wasm_path.display());
+    eprintln!("using shipped wasm subject: {}", wasm_path.display());
     let (oracle, subject) = engine_identities();
     assert_ne!(oracle, subject);
 
@@ -389,6 +373,34 @@ fn native_equals_wasm_mock40_seed42() {
     }
 }
 
+/// Native vs shipped wasm only — no golden pin.
+///
+/// The wasm-freshness plant changes a grade-affecting constant and rebuilds
+/// *native only*. A golden pin would go RED even if this test still rebuilt
+/// wasm from the mutated source. This test is the plant's needle: it stays
+/// GREEN if the subject is rebuilt from the same tree, and RED when the
+/// subject is the committed blob.
+#[test]
+#[ignore = "requires shipped wasm artifact; cargo test -- --include-ignored (check.sh L4)"]
+fn shipped_wasm_matches_native_grade() {
+    let wasm_path = wasm_artifact_or_fail(shipped_wasm());
+    eprintln!("using shipped wasm subject: {}", wasm_path.display());
+    let (oracle, subject) = engine_identities();
+    assert_ne!(oracle, subject);
+
+    let (bank, fix) = load_fixture_bank();
+    let bank_json = bank.to_json_items().unwrap();
+    let attempt = all_correct_attempt(&bank, &fix.exam_id, fix.seed, &fix.item_ids).unwrap();
+    let native = grade_digest(&bank, &attempt).expect("native grade");
+    let attempt_json = serde_json::to_string(&attempt).unwrap();
+    let wasm_hex = wasm_grade_digest(&wasm_path, &bank_json, &attempt_json)
+        .unwrap_or_else(|e| panic!("all-correct: wasm subject failed: {e}"));
+    assert_eq!(
+        native, wasm_hex,
+        "all-correct: dual-path mismatch oracle={oracle} subject={subject}\n native={native}\n wasm  ={wasm_hex}"
+    );
+}
+
 #[test]
 fn native_assess_json_path_matches_pins() {
     for fx in assess_fixtures() {
@@ -422,8 +434,8 @@ fn assess_bare_number_is_error_not_digest() {
 #[test]
 #[ignore = "requires wasm32 artifact; cargo test -- --include-ignored (check.sh L4)"]
 fn native_equals_wasm_typed_assess() {
-    let wasm_path = wasm_artifact_or_fail(force_wasm_built());
-    eprintln!("using wasm subject: {}", wasm_path.display());
+    let wasm_path = wasm_artifact_or_fail(shipped_wasm_for_assess());
+    eprintln!("using shipped wasm subject: {}", wasm_path.display());
     let (oracle, subject) = engine_identities();
     assert_ne!(oracle, subject);
 

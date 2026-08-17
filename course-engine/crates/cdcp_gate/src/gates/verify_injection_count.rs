@@ -119,6 +119,7 @@ pub const REGISTERED_SUITES: &[&str] = &[
     "selftest_orphan",
     "selftest_doc_consistency",
     "selftest_injection_count",
+    "wasm-freshness",
 ];
 
 /// How many advertisement sites must parse before the comparison is worth
@@ -665,16 +666,20 @@ pub fn parse_suite_row(line: &str) -> Option<(&str, &str, usize, usize)> {
     }
     i += 1;
     let ns = i;
-    if !body[ns..].starts_with("selftest_") {
+    let name_end = if body[ns..].starts_with("wasm-freshness") {
+        ns + "wasm-freshness".len()
+    } else if body[ns..].starts_with("selftest_") {
+        let after = ns + "selftest_".len();
+        let end = run_end(body, after, |c| {
+            c.is_ascii_lowercase() || c.is_ascii_digit() || c == '_'
+        });
+        if end == after {
+            return None;
+        }
+        end
+    } else {
         return None;
-    }
-    i = ns + "selftest_".len();
-    let name_end = run_end(body, i, |c| {
-        c.is_ascii_lowercase() || c.is_ascii_digit() || c == '_'
-    });
-    if name_end == i {
-        return None;
-    }
+    };
     let name = &body[ns..name_end];
     i = name_end;
     if body.as_bytes().get(i) != Some(&b'`') {
@@ -1623,6 +1628,10 @@ mod tests {
         assert!(parse_suite_row("| Suite | n | Injections |").is_none());
         assert!(parse_suite_row("| `spec_alpha` | 3 | x |").is_none());
         assert!(parse_suite_row("mentions `selftest_orphan` | 6 | in prose").is_none());
+        let wasm_row = "| `wasm-freshness` | 2 | flipped blob · native-only constant |";
+        let w = parse_suite_row(wasm_row).expect("wasm-freshness row");
+        assert_eq!(w.0, "wasm-freshness");
+        assert_eq!(w.1, "2");
     }
 
     #[test]

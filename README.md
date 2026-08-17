@@ -9,7 +9,7 @@
 [![License: MIT (code)](https://img.shields.io/badge/code-MIT-blue.svg)](./LICENSE)
 [![Content: CC BY-NC-SA 4.0](https://img.shields.io/badge/content-CC_BY--NC--SA_4.0-blue.svg)](./LICENSE)
 [![gate: 85 steps](https://img.shields.io/badge/gate-85_ordered_steps-success.svg)](#the-gate)
-[![known-bad (shell selftest suites): 70 injections](https://img.shields.io/badge/known--bad_(shell_selftest_suites)-70_injections_all_RED-success.svg)](#gates-proven-to-trip)
+[![known-bad (shell selftest suites): 72 injections](https://img.shields.io/badge/known--bad_(shell_selftest_suites)-72_injections_all_RED-success.svg)](#gates-proven-to-trip)
 [![grading: byte-exact](https://img.shields.io/badge/grading-Rust_%3D%3D_WASM_byte--exact-success.svg)](#how-grading-works)
 [![unsafe: forbidden](https://img.shields.io/badge/unsafe-forbidden-success.svg)](https://github.com/rust-secure-code/safety-dance/)
 [![offline](https://img.shields.io/badge/runtime-fully_offline-teal.svg)](#running-it)
@@ -47,7 +47,7 @@ cargo build --manifest-path course-engine/Cargo.toml -p cdcp_cli --locked
 | **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
 | **Bank** | 804 original item files / 779 approved (pool size, not distinct propositions) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] · 15 modules · 106 topics |
 | **Engine** | 7 Rust crates, 3,763 lines, `#![forbid(unsafe_code)]`, 281 KB WASM |
-| **Gate** | 85 ordered steps; 9 selftest suites; 70 known-bad injections (shell selftest suites) that must all go RED |
+| **Gate** | 85 ordered steps; 10 selftest suites; 72 known-bad injections (shell selftest suites) that must all go RED |
 | **Runtime deps** | None. Rust toolchain to build; a browser to use |
 
 ---
@@ -230,8 +230,8 @@ workflow file is how CI and local drift apart until only one of them is true.
 
 ### Gates proven to trip
 
-A green gate is worthless unless it can go red. Nine selftest suites inject
-**70 known-bad faults** — shell selftest suites only; the Rust ports' own known-bad cases
+A green gate is worthless unless it can go red. 10 selftest suites inject
+**72 known-bad faults** — shell selftest suites only; the Rust ports' own known-bad cases
 emit no `INJECTIONS=` receipt, so they are not in this total [[fact:fact-injections-enforced=yes]] — and assert the
 build fails, then restore the tree:
 
@@ -246,6 +246,7 @@ build fails, then restore the tree:
 | `selftest_orphan` | 6 | empty bank · empty topic registry · unknown `topic_id` · empty `topic_ids` · orphan topic · file whose `items[]` yields nothing |
 | `selftest_doc_consistency` | 7 | duplicate milestone row · cross-doc status conflict · unreadable status vocabulary · stale pre-flip visibility claim · zero markdown scanned · roadmap doc missing · row too short to reach its Status column |
 | `selftest_injection_count` | 33 | **injection count (19):** off-by-one count · deleted receipt (MISSING, never zero) · suite reporting 0 · unregistered suite · empty log · README advertising nothing · wrong suite count · word-spelled site drifted · a finding naming a file it did not scan · a suite named twice in `--require` · an advertisement site removed (site floor) · `--write-readme` refusing to write an unsound total · per-suite cell low · per-suite cell high · missing suite row · unregistered suite row · empty table · `--write-readme` refusing unsound cells · known-bad advertisement without a shell/selftest qualifier<br>**step count (14):** missing receipt log · empty receipt log · receipt shape drifted · only a nested `DEPTH>0` receipt (never a fallback to the child's number) · two `DEPTH=0` receipts (never a sum) · a run that counted **zero** steps · a receipt that does not add up · `NESTED_OK=0` (the nested hazard never occurred) · a step added with README untouched · README edited with the chain untouched · README advertising no step count · a step advertisement site removed · an `ok` call below the receipt boundary · `--write-readme` refusing an unsound step total |
+| `wasm-freshness` | 2 | flipped committed `cdcp_wasm.wasm` byte (RED naming the wasm) · grade-affecting constant rebuilt native-only (dual-path mismatch) |
 
 **These numbers are enforced, not maintained.** Each suite counts only the
 injections it *observed* go RED and prints `INJECTIONS=<n> SUITE=<name>` on its
@@ -341,7 +342,7 @@ table:
 | **L1 — claims constitution** | ✅ | `registries/*.toml` + `cdcp_registry_check` (tested crate) + claims-lint over README/docs |
 | **L2 — SLO as code** | ✅ partial | `slo.toml` + `smoke_slo.sh` walls on grade / export / bank-verify |
 | **L3 — external oracle** | ⚠️ **weakest link** | The oracle is the *native* grader and the public syllabus domains. There is no independent third-party conformance suite for "did we teach this correctly" |
-| **L4 — gates proven to trip** | ✅ strongest | 9 suites, 70 injections (shell selftest suites; Rust legs uncounted), count drift-guarded, anti-vacuous throughout |
+| **L4 — gates proven to trip** | ✅ strongest | 10 suites, 72 injections (shell selftest suites; Rust legs uncounted), count drift-guarded, anti-vacuous throughout |
 | **L5 — adversarial input floor** | ✅ partial | `cargo-fuzz` targets present; property tests on assemble/grade |
 | **L6 — formal lane** | ❌ | Not warranted at this gauntlet tier |
 | **L7 — ecosystem lock** | ✅ scoped | `content.lock` pins bank_hash + knowledge + module markdown |

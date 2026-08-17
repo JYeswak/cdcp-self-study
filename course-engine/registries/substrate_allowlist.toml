@@ -407,6 +407,12 @@ migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-02-28"
 
 [[allow]]
+path = "scripts/selftest_wasm_freshness.sh"
+reason = "L4 known-bad harness for the shipped-wasm pin (bd-installability-sm4g.4). check.sh invokes it after the release rebuild: plant 1 flips one byte of a copy of web/assets/wasm/cdcp_wasm.wasm and asserts RED naming the wasm; plant 2 rebuilds native only under --cfg cdcp_plant_weak and asserts dual-path mismatch. Orchestrator over the dual-path oracle."
+migration_bead = "bd-installability-sm4g.4"
+expires = "2027-02-28"
+
+[[allow]]
 path = "scripts/restore_safe.inc.sh"
 reason = "Restore helper that cannot leave cargo a stale mtime. Sourced by house-pattern selftests that perturb Rust sources (selftest_reconstructed.sh case e). In-place byte write + touch; mv backup dest is not expressible. Ports with the selftests that source it."
 migration_bead = "bd-stale-binary-mtime-trap-p65w"

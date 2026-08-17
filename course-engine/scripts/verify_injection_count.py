@@ -146,6 +146,7 @@ REGISTERED_SUITES = (
     "selftest_orphan",
     "selftest_doc_consistency",
     "selftest_injection_count",
+    "wasm-freshness",
 )
 
 # How many advertisement sites must parse before the comparison is worth
@@ -217,7 +218,7 @@ _SUITE_COUNT = re.compile(
 # in CHARTER are NOT rows — only `--readme` is scanned. Zero parsed rows is
 # an ERROR (anti-vacuous) when `--require` names any `selftest_*` suite.
 _SUITE_ROW = re.compile(
-    r"^(\s*\|\s*`)(selftest_[a-z0-9_]+)(`\s*\|\s*)(\d+)(\s*\|)"
+    r"^(\s*\|\s*`)(selftest_[a-z0-9_]+|wasm-freshness)(`\s*\|\s*)(\d+)(\s*\|)"
 )
 _SELFTEST_NAME = re.compile(r"^selftest_[a-z0-9_]+$")
 
