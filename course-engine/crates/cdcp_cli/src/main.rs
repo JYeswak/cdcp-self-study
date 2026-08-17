@@ -26,8 +26,28 @@ use std::process::ExitCode;
 #[derive(Parser)]
 #[command(name = "cdcp", about = "CDCP course engine CLI (GradeExact)")]
 struct Cli {
+    /// Print the workspace package version and exit 0
+    #[arg(short = 'V', long = "version")]
+    version: bool,
+
     #[command(subcommand)]
-    cmd: Cmd,
+    cmd: Option<Cmd>,
+}
+
+/// First-contact orientation. Printed on stdout when `cdcp` is invoked with
+/// no subcommand. A missing subcommand is not an error (exit 0).
+fn print_orientation() {
+    println!(
+        "cdcp {version} — CDCP course engine (GradeExact)\n\
+         \n\
+         A missing subcommand is not an error. This tool is local-first.\n\
+         \n\
+           cdcp serve       serve the offline study site\n\
+           cdcp doctor      preflight the local tree\n\
+           cdcp --help      list every command\n\
+           cdcp --version   print the workspace version",
+        version = env!("CARGO_PKG_VERSION")
+    );
 }
 
 #[derive(Subcommand)]
@@ -592,17 +612,27 @@ struct AnswerRow {
 
 fn main() -> ExitCode {
     let cli = Cli::parse();
-    match run(cli) {
-        Ok(()) => ExitCode::SUCCESS,
-        Err(e) => {
-            eprintln!("cdcp: {e}");
-            ExitCode::from(1)
+    if cli.version {
+        println!("{}", env!("CARGO_PKG_VERSION"));
+        return ExitCode::SUCCESS;
+    }
+    match cli.cmd {
+        None => {
+            print_orientation();
+            ExitCode::SUCCESS
         }
+        Some(cmd) => match run(cmd) {
+            Ok(()) => ExitCode::SUCCESS,
+            Err(e) => {
+                eprintln!("cdcp: {e}");
+                ExitCode::from(1)
+            }
+        },
     }
 }
 
-fn run(cli: Cli) -> Result<(), String> {
-    match cli.cmd {
+fn run(cmd: Cmd) -> Result<(), String> {
+    match cmd {
         Cmd::BankHash { bank } => {
             let b = Bank::load_dir(&bank).map_err(|e| e.to_string())?;
             println!("{}", b.bank_hash);

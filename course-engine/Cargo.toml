@@ -33,7 +33,9 @@ sha2 = "0.10"
 hex = "0.4"
 thiserror = "1"
 toml = "0.8"
-clap = { version = "4", features = ["derive"] }
+# Color is off by construction (bd-installability-sm4g.5). Default features
+# include `color` (anstream); CLICOLOR_FORCE then paints piped output.
+clap = { version = "4", default-features = false, features = ["std", "help", "usage", "error-context", "suggestions", "derive"] }
 # Exact pins: assemble goldens are a ChaCha12 stream. A caret bump of `rand`
 # used to be allowed to change StdRng; we no longer go through StdRng, and the
 # crate that owns the stream is pinned here so cargo cannot move it quietly.
