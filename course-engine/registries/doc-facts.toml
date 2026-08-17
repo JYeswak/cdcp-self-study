@@ -171,7 +171,7 @@ class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
 question = "Does the generated units index report `bank_item_count` 868 (file-set size, retired included)?"
 probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": 868' }
-trigger = "868 files / 843"
+trigger = "867 files / 842"
 
 [[fact]]
 id = "fact-bank-approved-count-779"
