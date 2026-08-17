@@ -1,0 +1,155 @@
+# N.8 — tag-triggered release. One ordered gate, then two triples, then
+# GitHub Release. A red check.sh MUST fail this workflow before any
+# artifact is published. Raising gate_shrink to make this green is
+# escalation-only; do not do it here.
+#
+# Tarball contract (install.sh extract_cdcp): exactly one root-level
+# regular member named `cdcp`. Never .zip (unzip propagates quarantine).
+# Checksum URL is ${asset_url}.sha256 (first field is the hex).
+
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust + wasm32 target
+        run: |
+          rustup toolchain install stable --profile minimal \
+            --component rustfmt,clippy
+          rustup target add wasm32-unknown-unknown
+          rustup default stable
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            course-engine/target
+          key: cargo-${{ runner.os }}-${{ hashFiles('course-engine/Cargo.lock') }}
+          restore-keys: cargo-${{ runner.os }}-
+
+      # THE gate. A release that publishes past a red check.sh is the defect
+      # this workflow exists to prevent (PLAN-N W8 / sm4g.8).
+      - name: check.sh
+        working-directory: course-engine
+        run: ./scripts/check.sh
+
+  build:
+    needs: gate
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            target: aarch64-apple-darwin
+          - os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup target add ${{ matrix.target }}
+          rustup default stable
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            course-engine/target
+          key: rel-${{ matrix.target }}-${{ hashFiles('course-engine/Cargo.lock') }}
+          restore-keys: rel-${{ matrix.target }}-
+
+      - name: Build release binary --locked
+        working-directory: course-engine
+        run: cargo build --release --locked -p cdcp_cli --target ${{ matrix.target }}
+
+      - name: Pack single-member .tar.gz + checksum
+        run: |
+          set -eu
+          tag=${GITHUB_REF_NAME}
+          ver=${tag#v}
+          target=${{ matrix.target }}
+          bin=course-engine/target/${target}/release/cdcp
+          test -f "$bin"
+          test -x "$bin"
+          stage=$(mktemp -d)
+          cp "$bin" "$stage/cdcp"
+          chmod 755 "$stage/cdcp"
+          name=cdcp-${ver}-${target}.tar.gz
+          mkdir -p dist
+          tar -C "$stage" -czf "dist/$name" cdcp
+          members=$(tar -tzf "dist/$name")
+          n=$(printf '%s\n' "$members" | awk 'NF{c++} END{print c+0}')
+          test "$n" = 1
+          test "$members" = "cdcp"
+          tv=$(tar -tvzf "dist/$name" | awk 'NR==1{print; exit}')
+          case $tv in -*) ;; *) echo "not a regular file: $tv" >&2; exit 1 ;; esac
+          if command -v sha256sum >/dev/null 2>&1; then
+            (cd dist && sha256sum "$name" >"${name}.sha256")
+          else
+            (cd dist && shasum -a 256 "$name" >"${name}.sha256")
+          fi
+          ls -l dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cdcp-${{ matrix.target }}
+          path: dist/*
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eu
+          tag=${GITHUB_REF_NAME}
+          test -n "$tag"
+          count=$(find dist -name '*.tar.gz' ! -name '*.sha256' | wc -l | tr -d ' ')
+          test "$count" = 2
+          # Two triples only. An extra unused artifact is untested surface.
+          ls -l dist
+          gh release create "$tag" \
+            --repo "${{ github.repository }}" \
+            --title "$tag" \
+            --notes "cdcp ${tag#v}. Two triples: aarch64-apple-darwin, x86_64-unknown-linux-gnu. Each archive is a single regular member named cdcp. Source-build remains the fallback when this release is absent." \
+            --verify-tag \
+            dist/*.tar.gz dist/*.sha256
