@@ -18,8 +18,12 @@
 
 pub mod mock40_module;
 pub mod near_duplicate;
+pub mod leftover_honesty;
 pub mod paraphrase;
 
+pub use leftover_honesty::{
+    audit_bank as leftover_honesty_audit, audit_item as leftover_honesty_item,
+};
 pub use mock40_module::{mock40_module_audit, Mock40Audit, MOCK40_CONTENT_MODULE};
 
 use cdcp_core::{canonical_json, sha256_hex, ChoiceLetter, BANK_HASH_DOMAIN};
@@ -1018,6 +1022,12 @@ quantity_evidence = "qualitative_only"
             "scan must name every mock40-* item"
         );
         assert_eq!(mock40.live_misfiles, 0, "approved mock40 misfile leaked");
+        // bd-curriculum-truth-ebrr.30 / .32: TEMP restore of the old q154
+        // singular-root-cause stem or the old mock40-q04 peer-bucket
+        // explanation is RED. m01-q210 stays approved.
+        if let Err(msg) = crate::leftover_honesty::audit_bank(bank.items.values()) {
+            panic!("{msg}");
+        }
     }
 
     // --- C1: item status ---------------------------------------------------

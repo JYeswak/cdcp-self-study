@@ -1,19 +1,21 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+# Rewritten 2026-08-17 (bd-curriculum-truth-ebrr.30): human/process is contributing
+# factors, plural — not a peer root-cause bucket. m01-q210 still kills the cartoon.
 id = "mock40-q04"
 kind = "single-select"
 module = 1
-stem = "Which factor is frequently cited as a major contributor to data-centre outages in industry analyses?"
+stem = "When a hall outage is written up, human/process during change is treated as:"
 choices = [
-  "Excess blanking panels",
-  "Human error during change/maintenance",
+  "A third peer root-cause bucket next to power and cooling",
+  "One of several contributing factors on a power, cooling, or network object — not a pie slice and not a memorized survey percentage",
   "Using LED lighting",
   "Over-documenting MOPs",
 ]
 correct = "B"
-explanation = "Process and human error during change/maintenance work is a classic major outage driver."
+explanation = "People and process contribute; they are not a peer root-cause bucket. Cite surveys as surveys. Refuse a fake percentage."
 topic_ids = ["m01-unavailability"]
-objective_ids = []
-bloom = "remember"
+objective_ids = ["obj-m01-cause-framing-2026"]
+bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
 status = "approved"

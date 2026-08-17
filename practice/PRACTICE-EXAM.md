@@ -38,9 +38,9 @@ In **retail colocation**, the customer typically:
 - D) Cannot use dual-corded equipment  
 
 ### 4. Unavailability causes
-Which factor is frequently cited as a major contributor to data-centre outages in industry analyses?
-- A) Excess blanking panels  
-- B) Human error during change/maintenance  
+When a hall outage is written up, human/process during change is treated as:
+- A) A third peer root-cause bucket next to power and cooling  
+- B) One of several contributing factors on a power, cooling, or network object — not a pie slice and not a memorized survey percentage  
 - C) Using LED lighting  
 - D) Over-documenting MOPs  
 
@@ -305,7 +305,7 @@ Integrated Systems Testing (IST) is valuable because it:
 | 1 | **B** | Mission-critical is defined by impact of loss, not a single tech feature. |
 | 2 | **B** | Reliability ≈ failure frequency; availability includes downtime/repair effects. |
 | 3 | **B** | Retail colo: customer IT in shared hall infrastructure. |
-| 4 | **B** | Process/human error during work is a classic major outage driver. |
+| 4 | **B** | People and process contribute; they are not a peer root-cause bucket. Cite surveys as surveys. Refuse a fake percentage. |
 | 5 | **B** | AHJ-enforced codes beat voluntary guides when they conflict. |
 | 6 | **B** | Separate frameworks; do not conflate Tier vs TIA Rated branding. |
 | 7 | **B** | True dual utility needs independent upstream paths, not just two cables on one feed. |
