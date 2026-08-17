@@ -1,0 +1,25 @@
+# Original CDCP educational item — bd-curriculum-truth-ebrr.43.
+# syllabus_heading = "1.3 Data Centre Location, Building and Construction"
+# syllabus_url = https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# citation_ids = ["src-epi-cdcp-page", "src-ercot-interconnection-grid-analysis-2026-04-20", "src-ercot-system-operations-large-load-curtailment-2026-04-20"]
+# claim = Identify curtailment as an operating consequence of a qualifying BTM arrangement and hand action to M15 EOP 4.
+# M15 cross-reference: EOP 4 — Grid curtailment / behind-the-meter islanding.
+id = "m03-q221"
+kind = "single-select"
+module = 3
+stem = "During a site review, a behind-the-meter campus is told it may need to reduce load under its qualifying ERCOT arrangement during tight conditions. What is the correct M03-to-M15 handoff?"
+choices = [
+  "Record curtailment as an operating consequence of the energization arrangement, confirm the agreement/category and trigger with the responsible utility or ISO, and hand the action sequence to M15 EOP 4",
+  "Treat the instruction as proof that the interconnection queue failed and discard the BTM site plan",
+  "Assume behind-the-meter islanding is automatic, so no load-reduction procedure is needed",
+  "Quote the regional interconnection queue volume as the site’s guaranteed curtailment exposure",
+]
+correct = "A"
+explanation = "ERCOT’s April 2026 operations update describes curtailment instructions for specified large-load categories, including net-metering/co-located arrangements, but does not establish one universal trigger or exposure for every BTM site. M03 surfaces the site and agreement constraint; M15 EOP 4 owns the response sequence."
+topic_ids = ["m03-site-selection"]
+objective_ids = ["obj-m03-btm-campus"]
+citation_ids = ["src-epi-cdcp-page", "src-ercot-interconnection-grid-analysis-2026-04-20", "src-ercot-system-operations-large-load-curtailment-2026-04-20"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "free_url"
+status = "approved"

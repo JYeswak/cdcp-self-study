@@ -147,3 +147,23 @@ url = "file://../00-curriculum-map.md"
 access = "local"
 fetch_date = "2026-08-11"
 used_for = ["learning_objectives"]
+
+[[source]]
+id = "src-ercot-interconnection-grid-analysis-2026-04-20"
+org = "ERCOT"
+title = "Item 9: Interconnection and Grid Analysis Update — Board of Directors Meeting, April 20–21, 2026"
+url = "https://www.ercot.com/files/docs/2026/04/13/9-Interconnection-and-Grid-Analysis-Update.pdf"
+access = "free"
+fetch_date = "2026-08-17"
+used_for = ["m03_interconnect_queue", "m03_curtailment"]
+note = "Public ERCOT process snapshot: large-load interconnection requests and queue/study status. It is not a universal queue-volume or curtailment-frequency rule."
+
+[[source]]
+id = "src-ercot-system-operations-large-load-curtailment-2026-04-20"
+org = "ERCOT"
+title = "Item 8: System Operations Update — Board of Directors Meeting, April 20–21, 2026"
+url = "https://www.ercot.com/files/docs/2026/04/13/8-System-Operations-Update.pdf"
+access = "free"
+fetch_date = "2026-08-17"
+used_for = ["m03_curtailment"]
+note = "Public ERCOT operations snapshot: the Large Load Curtailment Manager is described as issuing instructions for specified large-load categories, including net-metering/co-located arrangements; look-ahead times and triggers were not finalized in that snapshot."
