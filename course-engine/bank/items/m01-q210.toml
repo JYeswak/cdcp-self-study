@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.19 leftover (a) 2026 cause-framing
+id = "m01-q210"
+kind = "single-select"
+module = 1
+stem = "A slide still lists power, cooling, and human error as three equal root-cause buckets and asks you to memorize this year’s survey share. The taught 2026 reading is:"
+choices = [
+  "Recite the three buckets and treat the largest published percentage as law",
+  "Power path (UPS / ATS / generator) leads facility events; cooling is usually a cascade (Modules 09 / 10); human/process is contributing (Module 15) — not a third of a pie, and not an invented percentage",
+  "Cooling is one-third of all outages, so start at the chiller",
+  "Human error is the unverifiable majority, so train harder and stop",
+]
+correct = "B"
+explanation = "The three-bucket cartoon is retired. Look at the path first; treat cooling as a cascade; treat people as contributing. Cite surveys as surveys. Refuse a fake percentage."
+topic_ids = ["m01-unavailability"]
+objective_ids = ["obj-m01-cause-framing-2026"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

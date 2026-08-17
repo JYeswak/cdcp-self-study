@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.19 leftover (b) 2026 site types
+id = "m01-q211"
+kind = "single-select"
+module = 1
+stem = "A neocloud, a GPU colo, an AI factory, and a behind-the-meter campus walk into an oral. Kept beside the six classic types, the taught distinctions are:"
+choices = [
+  "Four new names for retail colo cages",
+  "GPU colo is just retail colo with more kW; the rest are Tier names",
+  "All four are Uptime plaques",
+  "Neocloud sells GPU time (usually rents the hall); GPU colo is a density/liquid colo product (customer still owns IT); AI factory is an owner-operator plant; BTM is an energization path because the interconnect queue will not",
+]
+correct = "D"
+explanation = "2026 types are speakable nouns, not replacements for enterprise/colo/hyperscale. Neocloud is a business; GPU colo is still colo; AI factory is a plant; BTM is how watts arrive."
+topic_ids = ["m01-dc-types"]
+objective_ids = ["obj-m01-2026-site-types"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

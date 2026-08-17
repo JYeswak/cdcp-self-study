@@ -3604,6 +3604,162 @@
   {
     "bloom": "understand",
     "choices": [
+      "Recite the three buckets and treat the largest published percentage as law",
+      "Power path (UPS / ATS / generator) leads facility events; cooling is usually a cascade (Modules 09 / 10); human/process is contributing (Module 15) — not a third of a pie, and not an invented percentage",
+      "Cooling is one-third of all outages, so start at the chiller",
+      "Human error is the unverifiable majority, so train harder and stop"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "The three-bucket cartoon is retired. Look at the path first; treat cooling as a cascade; treat people as contributing. Cite surveys as surveys. Refuse a fake percentage.",
+    "id": "m01-q210",
+    "kind": "single-select",
+    "module": 1,
+    "objective_ids": [
+      "obj-m01-cause-framing-2026"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A slide still lists power, cooling, and human error as three equal root-cause buckets and asks you to memorize this year’s survey share. The taught 2026 reading is:",
+    "tags": [],
+    "topic_ids": [
+      "m01-unavailability"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Four new names for retail colo cages",
+      "GPU colo is just retail colo with more kW; the rest are Tier names",
+      "All four are Uptime plaques",
+      "Neocloud sells GPU time (usually rents the hall); GPU colo is a density/liquid colo product (customer still owns IT); AI factory is an owner-operator plant; BTM is an energization path because the interconnect queue will not"
+    ],
+    "citation_ids": [],
+    "correct": "D",
+    "explanation": "2026 types are speakable nouns, not replacements for enterprise/colo/hyperscale. Neocloud is a business; GPU colo is still colo; AI factory is a plant; BTM is how watts arrive.",
+    "id": "m01-q211",
+    "kind": "single-select",
+    "module": 1,
+    "objective_ids": [
+      "obj-m01-2026-site-types"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A neocloud, a GPU colo, an AI factory, and a behind-the-meter campus walk into an oral. Kept beside the six classic types, the taught distinctions are:",
+    "tags": [],
+    "topic_ids": [
+      "m01-dc-types"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "The Tier plaque on the wall — four nines is Tier III",
+      "Scope (per service vs per site vs per component), whether planned work counts, and whose clock (IT telemetry vs hall/EPMS vs public tracker); four nines on a continuous year is ~52.6 minutes, not a sticker",
+      "Convert 99.99% into 52.6 minutes and stop — scope is marketing",
+      "Whether they used the 9 hours / 1 hour memory aid"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "A nines number without scope is marketing. Pin per-what, planned vs unplanned, and whose clock. Lead with 52.6 minutes, not the slogan, and do not crosswalk nines onto a plaque.",
+    "id": "m01-q212",
+    "kind": "single-select",
+    "module": 1,
+    "objective_ids": [
+      "obj-m01-nines-scope"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A vendor says “we are 99.99%.” What do you pin before you treat the number as a claim?",
+    "tags": [],
+    "topic_ids": [
+      "m01-importance"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "A cooling plan — batteries reject heat",
+      "Enough for the same minutes of thermal inertia a 5–10 kW hall had",
+      "Not a cooling plan: thermal ride-through collapses toward seconds (inlet or cold-plate is the clock); point at Module 09 for the plant",
+      "Proof the hall can skip Module 09 if the UPS sticker says 10 minutes"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "Watts in the silicon are not heat rejected. Density collapses the window from minutes to seconds. This file only makes the availability point; the plant is Module 09.",
+    "id": "m01-q213",
+    "kind": "single-select",
+    "module": 1,
+    "objective_ids": [
+      "obj-m01-ai-density-ridethrough"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "At 40–100 kW/rack, a UPS that holds the IT load after cooling stops is:",
+    "tags": [],
+    "topic_ids": [
+      "m01-unavailability"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Name which of the four seats (facilities / IT / finance / TPM) owns the path — not just its object — and know the demarc; two green objects are an org-split until proven otherwise (Module 15 for the 2.1 heading)",
+      "Recite a survey percentage and buy a bigger generator",
+      "Declare the hall white space and close the ticket",
+      "Treat dual PSUs as proof of dual utility"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "Two green dashboards are not one owned path. Name the seats, name the demarc, then trace. Module 15 owns the 2.1 org heading; this item only makes you ask who owns the breaker.",
+    "id": "m01-q214",
+    "kind": "single-select",
+    "module": 1,
+    "objective_ids": [
+      "obj-m01-org-split"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Facilities’ UPS screen is green and IT’s dual PSUs are lit, but checkout is down. In a colo the same sentence is “I thought they owned that breaker.” The first organizational move is:",
+    "tags": [],
+    "topic_ids": [
+      "m01-business-org"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "N+1 on the plaque means the window is free — redundancy removes the need for a freeze",
+      "Temporary N-0: concurrent maintenance on the spare while the primary is already hurt; change freezes exist to prevent this (path-trace depth is Module 06)",
+      "This is a cooling cascade, so start at the chiller",
+      "Dual server PSUs make the window N-0-proof"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "Redundancy enables maintenance; it does not survive working the last path. Call the window N-0. Do not steal Module 06’s path grammar — this is the mission concept only.",
+    "id": "m01-q215",
+    "kind": "single-select",
+    "module": 1,
+    "objective_ids": [
+      "obj-m01-cause-framing-2026"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Path A is already degraded. A tech opens Path B for “redundant” work in the same window. The mission-level diagnosis is:",
+    "tags": [],
+    "topic_ids": [
+      "m01-unavailability"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
       "Codes are adopted and enforced by an AHJ; many standards are voluntary unless referenced into code",
       "Codes are always free PDF white papers",
       "Standards always supersede local law",

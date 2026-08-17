@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.19 leftover (d) AI-density ride-through
+id = "m01-q213"
+kind = "single-select"
+module = 1
+stem = "At 40–100 kW/rack, a UPS that holds the IT load after cooling stops is:"
+choices = [
+  "A cooling plan — batteries reject heat",
+  "Enough for the same minutes of thermal inertia a 5–10 kW hall had",
+  "Not a cooling plan: thermal ride-through collapses toward seconds (inlet or cold-plate is the clock); point at Module 09 for the plant",
+  "Proof the hall can skip Module 09 if the UPS sticker says 10 minutes",
+]
+correct = "C"
+explanation = "Watts in the silicon are not heat rejected. Density collapses the window from minutes to seconds. This file only makes the availability point; the plant is Module 09."
+topic_ids = ["m01-unavailability"]
+objective_ids = ["obj-m01-ai-density-ridethrough"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

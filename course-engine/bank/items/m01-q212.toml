@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.19 leftover (c) nines scope
+id = "m01-q212"
+kind = "single-select"
+module = 1
+stem = "A vendor says “we are 99.99%.” What do you pin before you treat the number as a claim?"
+choices = [
+  "The Tier plaque on the wall — four nines is Tier III",
+  "Scope (per service vs per site vs per component), whether planned work counts, and whose clock (IT telemetry vs hall/EPMS vs public tracker); four nines on a continuous year is ~52.6 minutes, not a sticker",
+  "Convert 99.99% into 52.6 minutes and stop — scope is marketing",
+  "Whether they used the 9 hours / 1 hour memory aid",
+]
+correct = "B"
+explanation = "A nines number without scope is marketing. Pin per-what, planned vs unplanned, and whose clock. Lead with 52.6 minutes, not the slogan, and do not crosswalk nines onto a plaque."
+topic_ids = ["m01-importance"]
+objective_ids = ["obj-m01-nines-scope"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

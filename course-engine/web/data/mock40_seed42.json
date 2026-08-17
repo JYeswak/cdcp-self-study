@@ -1,27 +1,257 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "805568f9e63bb51daaa537516d0234f022411af531faf54c85727a6494e32750",
+  "bank_hash": "50727f8601640246474285afcc407bee8a92562601f06892ab87da2cbb90e582",
   "exam_id": "mock40",
   "items": [
     {
       "choices": [
-        "Spending the same capital on every closet regardless of impact",
-        "Ignoring RTO/RPO when siting and designing",
-        "Using marketing slogans as the only design input",
-        "Matching redundancy and operating discipline to the impact of loss for the served services"
+        "Only a single patch cord within one rack",
+        "Main and intermediate distribution elements across rooms, floors, or buildings",
+        "Only wireless access points to each other with no wire",
+        "Only CRAH condensate lines"
       ],
-      "id": "m01-q207",
-      "stem": "Aligning facility investment with business criticality means:"
+      "id": "m11-q129",
+      "stem": "A backbone cabling subsystem conceptually connects:"
     },
     {
       "choices": [
-        "Only patch cords are ever tested",
-        "Testing is optional if cables look neat",
-        "Certification may distinguish fixed cabling (permanent link) from the complete channel including equipment cords",
-        "Only outdoor plant needs tests"
+        "Floor uniform load",
+        "Only the amperage of the lighting circuit",
+        "Diesel tank volume",
+        "How bright a surface appears (light leaving/reflecting from it) rather than only light arriving"
       ],
-      "id": "m11-q114",
-      "stem": "Permanent link versus channel testing awareness means:"
+      "id": "m05-q136",
+      "stem": "Luminance differs from illuminance in that luminance relates more to:"
+    },
+    {
+      "choices": [
+        "Misaligned capacity, change windows, and risk decisions between IT and operations",
+        "Clearer SLA ownership between IT and facilities",
+        "Automatic compliance with every international standard",
+        "Elimination of the need for a recovery strategy"
+      ],
+      "id": "m01-q041",
+      "stem": "From a business-organization view, treating the data centre only as a facilities silo most often leads to:"
+    },
+    {
+      "choices": [
+        "CRAC loss raises inlet temperatures until servers thermally throttle or trip, taking applications offline",
+        "A UPS fails over cleanly to generator with no load drop",
+        "A blanking panel is installed correctly",
+        "A dual-corded server remains powered from two live diverse sources"
+      ],
+      "id": "m01-q057",
+      "stem": "Which scenario best illustrates cascading unavailability?"
+    },
+    {
+      "choices": [
+        "Guaranteed real-time response",
+        "Automatic badge revocation",
+        "Delay only—without alarms/monitoring, compromise may go unnoticed until after the fact",
+        "Fire suppression release"
+      ],
+      "id": "bank-m13-q099",
+      "stem": "A lock without detection mainly provides:"
+    },
+    {
+      "choices": [
+        "They are always identical with no segregation",
+        "Normal lighting never needs switching",
+        "Emergency lighting is only decorative",
+        "Emergency lighting has distinct power-path and performance expectations for life safety"
+      ],
+      "id": "m05-q148",
+      "stem": "Which is true about normal vs emergency lighting circuits?"
+    },
+    {
+      "choices": [
+        "Paint color of the lobby",
+        "Single substation/path geography with no realistic second feed",
+        "Having too many conference rooms",
+        "Using 19-inch racks"
+      ],
+      "id": "mock40-q07",
+      "stem": "Which site factor most directly threatens long-term dual-utility feasibility?"
+    },
+    {
+      "choices": [
+        "Only voltage with zero current always",
+        "Current flow in conductors",
+        "Only humidity percentage",
+        "Only the color of insulation"
+      ],
+      "id": "m07-q207",
+      "stem": "Electric fields and magnetic fields differ in that magnetic fields are particularly associated with:"
+    },
+    {
+      "choices": [
+        "They are too quiet to hear",
+        "They only work on combustible metals",
+        "They increase humidity setpoints",
+        "Residue can severely damage electronics"
+      ],
+      "id": "bank-m12-q060",
+      "stem": "Dry chemical ABC extinguishers are often discouraged as first choice inside white space because:"
+    },
+    {
+      "choices": [
+        "Accept it — TIA-942-C still says Tier, so the old wording is current law",
+        "Pin ANSI/TIA-942-C (2024): later editions, including C, say Rated so the document is not mistaken for Uptime; treat an un-yeared “per TIA-942” as soft and ask which edition they have open",
+        "Convert the TIA numeral to 99.982% and call the conversion the pin",
+        "Replace TIA language with Availability Class 3, which is the 2024 rename"
+      ],
+      "id": "m02-q213",
+      "stem": "Someone says “TIA Tier III” while pointing at an un-yeared “per TIA-942” clause. The edition-years rule asks you to:"
+    },
+    {
+      "choices": [
+        "Protection against solid object and water ingress appropriate to the environment",
+        "UPS topology class",
+        "Fiber polarity",
+        "Fire class of materials only"
+      ],
+      "id": "m06-q236",
+      "stem": "IP rating selection for outdoor switchgear or generator enclosures primarily addresses:"
+    },
+    {
+      "choices": [
+        "Only dry-bulb matters ever",
+        "Humidity is unrelated to condensation",
+        "Psychrometrics only apply to generators",
+        "Temperature and moisture interact; control actions affect envelopes and condensation risk together"
+      ],
+      "id": "m09-q240",
+      "stem": "Psychrometric awareness helps operators because:"
+    },
+    {
+      "choices": [
+        "Insufficient expandable power, cooling, and white-space/plant real estate",
+        "Having too many spare conduits",
+        "Documented spare capacity pathways",
+        "Modular expansion provisions"
+      ],
+      "id": "m03-q212",
+      "stem": "A facility criterion that often limits future growth more than day-one IT load is:"
+    },
+    {
+      "choices": [
+        "Onsite presence always equals immediate repair",
+        "Response time ≠ restore time without parts, tools, and access readiness",
+        "MTTR ignores logistics",
+        "Vendors can fabricate breakers from scrap instantly always"
+      ],
+      "id": "m15-q214",
+      "stem": "An SLA that promises four-hour onsite response but stocks no critical spares may still yield long outages because:"
+    },
+    {
+      "choices": [
+        "Some RF/E-field related shielding applications with proper design",
+        "Thermal reflection in some architectural uses",
+        "Cosmetic covers with no field claim",
+        "Low-frequency (50/60 Hz) magnetic-field shielding"
+      ],
+      "id": "m07-q046",
+      "stem": "Ordinary aluminium sheet is a poor choice when the goal is:"
+    },
+    {
+      "choices": [
+        "Customer rents substantial private space (e.g., suite/hall) while the landlord provides shell and shared plant",
+        "Customer must use only provider-managed hypervisors",
+        "Identical to public cloud IaaS billing by the second",
+        "A model that forbids dual power cords"
+      ],
+      "id": "m01-q043",
+      "stem": "Wholesale colocation is most accurately characterized as:"
+    },
+    {
+      "choices": [
+        "Memorize clause numbers for trivia",
+        "Communicate requirements precisely and avoid false equivalence between frameworks",
+        "Eliminate the need for engineers",
+        "Ignore local inspectors"
+      ],
+      "id": "m02-q087",
+      "stem": "A key reason CDCP emphasizes standards literacy is to:"
+    },
+    {
+      "choices": [
+        "Failure is impossible if steps exist on paper",
+        "Backout is only for software, never facilities",
+        "You must detect incomplete success and reverse safely when the change goes wrong",
+        "Verification is optional if two people watch"
+      ],
+      "id": "bank-m15-q139",
+      "stem": "A good MOP includes verification steps and backout because:"
+    },
+    {
+      "choices": [
+        "Marketing secrets only",
+        "People from injury and enable emergency response, even when that conflicts with convenience",
+        "Only package delivery SLAs",
+        "Shareholder branding colors"
+      ],
+      "id": "m13-q202",
+      "stem": "Safety components such as emergency power-off (EPO) interfaces, clear egress, and eye-wash where required differ from security locks because they primarily protect:"
+    },
+    {
+      "choices": [
+        "Access events and video can be correlated during investigations",
+        "PUE decreases automatically",
+        "Biometrics enroll faster",
+        "Mantraps mechanically close harder"
+      ],
+      "id": "bank-m13-q089",
+      "stem": "ACS and VMS clocks must be time-synchronized primarily so that:"
+    },
+    {
+      "choices": [
+        "Quality, availability, or treatment failures can force cooling derates or shutdowns",
+        "It is unrelated to facility availability",
+        "It powers the UPS inverter directly",
+        "It replaces fire suppression in all designs"
+      ],
+      "id": "m10-q100",
+      "stem": "Process water for cooling towers and humidification matters to uptime because:"
+    },
+    {
+      "choices": [
+        "Unlimited U and weight for full GPU trains",
+        "U capacity, weight, wall structure, and swing clearance—edge/IDF use cases",
+        "Mandatory use in all hyperscale halls",
+        "Replacing row containment"
+      ],
+      "id": "m08-q059",
+      "stem": "Wall-mount cabinets are typically limited by:"
+    },
+    {
+      "choices": [
+        "Increase free cooling hours during a fire",
+        "Avoid venting agent into returns and avoid feeding the fire with continued air movement as designed",
+        "Charge wet-pipe sprinklers with air",
+        "Disable all temperature sensors permanently"
+      ],
+      "id": "bank-m12-q054",
+      "stem": "HVAC/CRAH interlock on fire alarm is important for gaseous systems mainly to:"
+    },
+    {
+      "choices": [
+        "Random patching with no pathways",
+        "Copper only forever with no fiber",
+        "Planned pathways, media, and topologies that support growth without chaos",
+        "No labeling ever"
+      ],
+      "id": "m11-q102",
+      "stem": "Scalable network cabling design emphasizes:"
+    },
+    {
+      "choices": [
+        "Validates power, cooling, and controls failovers as a combined system under planned scenarios",
+        "Only tests a single breaker nameplate in isolation forever",
+        "Replaces daily VM backups",
+        "Is optional marketing text with no technical meaning"
+      ],
+      "id": "bank-m14-q121",
+      "stem": "Integrated Systems Testing (IST) is valuable primarily because it:"
     },
     {
       "choices": [
@@ -45,183 +275,23 @@
     },
     {
       "choices": [
-        "Lux and foot-candles only",
-        "Only dBm for sound",
-        "Only Pascals for air pressure",
-        "Teslas or gauss (and related A/m field quantities depending on quantity reported)"
+        "Only blames individuals without system learning",
+        "Converts experience into prevention—procedure, design, and monitoring improvements",
+        "Is optional if the outage was short",
+        "Replaces the need for MOPs on future similar work"
       ],
-      "id": "m07-q201",
-      "stem": "Magnetic field strength is often discussed in units such as:"
+      "id": "bank-m15-q154",
+      "stem": "Post-incident documentation (timeline, root cause, corrective actions) is valuable because it:"
     },
     {
       "choices": [
-        "Remove tiles freely without airflow review",
-        "Never bond metallic structures",
-        "Ignore concentrated loads if uniform rating is high",
-        "Control openings, manage cable bulk, and respect load ratings during moves"
+        "Only patch cords are ever tested",
+        "Testing is optional if cables look neat",
+        "Certification may distinguish fixed cabling (permanent link) from the complete channel including equipment cords",
+        "Only outdoor plant needs tests"
       ],
-      "id": "m04-q128",
-      "stem": "Which is a general raised-floor guideline for day-2 operations?"
-    },
-    {
-      "choices": [
-        "Longer measured autonomy at design load",
-        "Automatic free 2N upgrade",
-        "Shorter real autonomy and risk of load drop before generator is online",
-        "PUE becoming an availability Tier"
-      ],
-      "id": "m06-q110",
-      "stem": "If IT load grows without refreshing UPS battery capacity, a likely result is:"
-    },
-    {
-      "choices": [
-        "Lobby artwork style",
-        "Proximity and independence of utility substations/feeds and right-of-way constraints",
-        "Colour of exterior cladding only",
-        "Number of conference rooms"
-      ],
-      "id": "m03-q093",
-      "stem": "Which site-selection factor most directly affects multi-path electrical utility diversity?"
-    },
-    {
-      "choices": [
-        "They are always identical with no segregation",
-        "Normal lighting never needs switching",
-        "Emergency lighting is only decorative",
-        "Emergency lighting has distinct power-path and performance expectations for life safety"
-      ],
-      "id": "m05-q148",
-      "stem": "Which is true about normal vs emergency lighting circuits?"
-    },
-    {
-      "choices": [
-        "Marketing secrets only",
-        "People from injury and enable emergency response, even when that conflicts with convenience",
-        "Only package delivery SLAs",
-        "Shareholder branding colors"
-      ],
-      "id": "m13-q202",
-      "stem": "Safety components such as emergency power-off (EPO) interfaces, clear egress, and eye-wash where required differ from security locks because they primarily protect:"
-    },
-    {
-      "choices": [
-        "Guaranteed real-time response",
-        "Automatic badge revocation",
-        "Delay only—without alarms/monitoring, compromise may go unnoticed until after the fact",
-        "Fire suppression release"
-      ],
-      "id": "bank-m13-q099",
-      "stem": "A lock without detection mainly provides:"
-    },
-    {
-      "choices": [
-        "Random patching with no pathways",
-        "Copper only forever with no fiber",
-        "Planned pathways, media, and topologies that support growth without chaos",
-        "No labeling ever"
-      ],
-      "id": "m11-q102",
-      "stem": "Scalable network cabling design emphasizes:"
-    },
-    {
-      "choices": [
-        "Paint color of the lobby",
-        "Single substation/path geography with no realistic second feed",
-        "Having too many conference rooms",
-        "Using 19-inch racks"
-      ],
-      "id": "mock40-q07",
-      "stem": "Which site factor most directly threatens long-term dual-utility feasibility?"
-    },
-    {
-      "choices": [
-        "Improves global pressure balance always",
-        "Can short-circuit supply air and starve distant racks",
-        "Increases battery autonomy",
-        "Disables the BMS"
-      ],
-      "id": "mock40-q11",
-      "stem": "Removing floor tiles in a cold-aisle supply design without a plan often:"
-    },
-    {
-      "choices": [
-        "Discharge water onto equipment without a fire heat event at a head",
-        "Only trigger aspirating detectors",
-        "Automatically seal room integrity for gas systems",
-        "Improve cable Category rating"
-      ],
-      "id": "bank-m12-q049",
-      "stem": "Wet-pipe sprinklers keep water in the piping continuously, which means a broken fitting can:"
-    },
-    {
-      "choices": [
-        "Accept it — TIA-942-C still says Tier, so the old wording is current law",
-        "Pin ANSI/TIA-942-C (2024): later editions, including C, say Rated so the document is not mistaken for Uptime; treat an un-yeared “per TIA-942” as soft and ask which edition they have open",
-        "Convert the TIA numeral to 99.982% and call the conversion the pin",
-        "Replace TIA language with Availability Class 3, which is the 2024 rename"
-      ],
-      "id": "m02-q213",
-      "stem": "Someone says “TIA Tier III” while pointing at an un-yeared “per TIA-942” clause. The edition-years rule asks you to:"
-    },
-    {
-      "choices": [
-        "Firestops only exist for acoustic reasons",
-        "Openings always improve suppression concentration",
-        "Compartmentation is purely aesthetic",
-        "Unsealed penetrations can defeat fire-rated barriers and allow smoke/fire spread between zones"
-      ],
-      "id": "m12-q206",
-      "stem": "Fire compartmentation and cable penetrations matter because:"
-    },
-    {
-      "choices": [
-        "Protection against solid object and water ingress appropriate to the environment",
-        "UPS topology class",
-        "Fiber polarity",
-        "Fire class of materials only"
-      ],
-      "id": "m06-q236",
-      "stem": "IP rating selection for outdoor switchgear or generator enclosures primarily addresses:"
-    },
-    {
-      "choices": [
-        "Painting walls with RF copper paint only",
-        "Separation (distance) and layout so high-current gear is not adjacent to sensitive copper-dense rows",
-        "Removing all bonding conductors",
-        "Switching every circuit to single-phase lighting"
-      ],
-      "id": "m07-q045",
-      "stem": "For ELF magnetic-field problems in white space, the first mitigation tool is usually:"
-    },
-    {
-      "choices": [
-        "Floor uniform load",
-        "Only the amperage of the lighting circuit",
-        "Diesel tank volume",
-        "How bright a surface appears (light leaving/reflecting from it) rather than only light arriving"
-      ],
-      "id": "m05-q136",
-      "stem": "Luminance differs from illuminance in that luminance relates more to:"
-    },
-    {
-      "choices": [
-        "It is always cheaper than any other option",
-        "It can extinguish without the water damage profile of wet systems (with design trade-offs)",
-        "It increases PUE deliberately",
-        "It eliminates detection needs"
-      ],
-      "id": "mock40-q35",
-      "stem": "Clean-agent (gaseous) suppression is often discussed for white space because:"
-    },
-    {
-      "choices": [
-        "Only dry-bulb matters ever",
-        "Humidity is unrelated to condensation",
-        "Psychrometrics only apply to generators",
-        "Temperature and moisture interact; control actions affect envelopes and condensation risk together"
-      ],
-      "id": "m09-q240",
-      "stem": "Psychrometric awareness helps operators because:"
+      "id": "m11-q114",
+      "stem": "Permanent link versus channel testing awareness means:"
     },
     {
       "choices": [
@@ -235,143 +305,33 @@
     },
     {
       "choices": [
-        "Express vertical equipment height in standardized increments for planning density",
-        "Measure only cable AWG",
-        "Replace nameplate amperage",
-        "Indicate fire rating of the room"
+        "Remove tiles freely without airflow review",
+        "Never bond metallic structures",
+        "Ignore concentrated loads if uniform rating is high",
+        "Control openings, manage cable bulk, and respect load ratings during moves"
       ],
-      "id": "m08-q201",
-      "stem": "Rack unit (U) height is used to:"
+      "id": "m04-q128",
+      "stem": "Which is a general raised-floor guideline for day-2 operations?"
     },
     {
       "choices": [
-        "Dual-path power is never required",
-        "Cooling can be ignored if power is abundant",
-        "Diversity assumptions shrink—gear may run near nameplate—and three-phase PDUs/bus ratings dominate",
-        "Single-phase 15 A strips always suffice"
+        "Blocking all airflow intentionally in every design",
+        "Chimney exhaust when solid doors are mandatory always",
+        "Elimination of blanking panels",
+        "Front-to-rear airflow designs in classic hot/cold aisle layouts"
       ],
-      "id": "m06-q098",
-      "stem": "High-density / HPC and AI racks change power planning because:"
+      "id": "m08-q048",
+      "stem": "Highly perforated front/rear doors on air-cooled IT cabinets support:"
     },
     {
       "choices": [
-        "Only in outdoor weather",
-        "Inside generator day tanks",
-        "Above suspended ceilings dry always",
-        "In dielectric fluid that absorbs heat from components"
+        "Obstructions always increase cooling efficiency",
+        "Air never moves under a raised floor",
+        "Tiles seal perfectly with any pile of junk",
+        "Cables and debris can block airflow and create hot spots in a flooded-floor supply design"
       ],
-      "id": "m09-q228",
-      "stem": "Immersion cooling places IT hardware where?"
-    },
-    {
-      "choices": [
-        "Onsite presence always equals immediate repair",
-        "Response time ≠ restore time without parts, tools, and access readiness",
-        "MTTR ignores logistics",
-        "Vendors can fabricate breakers from scrap instantly always"
-      ],
-      "id": "m15-q214",
-      "stem": "An SLA that promises four-hour onsite response but stocks no critical spares may still yield long outages because:"
-    },
-    {
-      "choices": [
-        "Excess blanking panels",
-        "Human error during change/maintenance",
-        "Using LED lighting",
-        "Over-documenting MOPs"
-      ],
-      "id": "mock40-q04",
-      "stem": "Which factor is frequently cited as a major contributor to data-centre outages in industry analyses?"
-    },
-    {
-      "choices": [
-        "Only blames individuals without system learning",
-        "Converts experience into prevention—procedure, design, and monitoring improvements",
-        "Is optional if the outage was short",
-        "Replaces the need for MOPs on future similar work"
-      ],
-      "id": "bank-m15-q154",
-      "stem": "Post-incident documentation (timeline, root cause, corrective actions) is valuable because it:"
-    },
-    {
-      "choices": [
-        "Perfect silence forever",
-        "Automatic root-cause analysis",
-        "Chattering alarms and operator desensitization",
-        "Higher MTBF by definition"
-      ],
-      "id": "m14-q210",
-      "stem": "Thresholds set without hysteresis or seasonality awareness often cause:"
-    },
-    {
-      "choices": [
-        "Validates power, cooling, and controls failovers as a combined system under planned scenarios",
-        "Only tests a single breaker nameplate in isolation forever",
-        "Replaces daily VM backups",
-        "Is optional marketing text with no technical meaning"
-      ],
-      "id": "bank-m14-q121",
-      "stem": "Integrated Systems Testing (IST) is valuable primarily because it:"
-    },
-    {
-      "choices": [
-        "All exhausts blow into the cold aisle intentionally",
-        "Side-breathing gear is preferred without design review",
-        "Front intakes face the cold supply aisle and exhausts face the hot return aisle",
-        "Racks face randomly for aesthetics"
-      ],
-      "id": "m08-q062",
-      "stem": "Hot-aisle/cold-aisle rack orientation places equipment so that:"
-    },
-    {
-      "choices": [
-        "Correlation always proves the network team is at fault",
-        "Cross-domain correlation speeds root-cause isolation when cooling plant and room environment interact",
-        "Systems should never share timestamps",
-        "It replaces mechanical expertise entirely"
-      ],
-      "id": "m14-q209",
-      "stem": "Correlating BMS alarms with EMS temperature spikes helps operators because:"
-    },
-    {
-      "choices": [
-        "Enterprise-owned (on-premises) data centre",
-        "Public SaaS multi-tenant application platform",
-        "Retail colocation cage only",
-        "Content delivery edge POP leased by the hour"
-      ],
-      "id": "m01-q042",
-      "stem": "Which data-centre delivery model typically means the enterprise owns both the building systems and the IT estate?"
-    },
-    {
-      "choices": [
-        "Only a single patch cord within one rack",
-        "Main and intermediate distribution elements across rooms, floors, or buildings",
-        "Only wireless access points to each other with no wire",
-        "Only CRAH condensate lines"
-      ],
-      "id": "m11-q129",
-      "stem": "A backbone cabling subsystem conceptually connects:"
-    },
-    {
-      "choices": [
-        "Access events and video can be correlated during investigations",
-        "PUE decreases automatically",
-        "Biometrics enroll faster",
-        "Mantraps mechanically close harder"
-      ],
-      "id": "bank-m13-q089",
-      "stem": "ACS and VMS clocks must be time-synchronized primarily so that:"
-    },
-    {
-      "choices": [
-        "Humidifiers never need water",
-        "Humidity control can fail if RO/DI or feedwater systems are offline or contaminated",
-        "Humidity is unrelated to electrostatic and equipment environment concerns",
-        "Only outdoor relative humidity matters indoors always"
-      ],
-      "id": "m10-q204",
-      "stem": "Humidification systems may depend on water infrastructure; operators should recognize that:"
+      "id": "m04-q201",
+      "stem": "A primary cooling-related reason to manage underfloor obstructions is that:"
     },
     {
       "choices": [
@@ -385,23 +345,63 @@
     },
     {
       "choices": [
-        "Memorize clause numbers for trivia",
-        "Communicate requirements precisely and avoid false equivalence between frameworks",
-        "Eliminate the need for engineers",
-        "Ignore local inspectors"
+        "Portable extinguisher placement only",
+        "Clean-agent fire extinguishing systems",
+        "Generator fuel sulfur content",
+        "Fiber polarity methods"
       ],
-      "id": "m02-q087",
-      "stem": "A key reason CDCP emphasizes standards literacy is to:"
+      "id": "bank-m12-q070",
+      "stem": "NFPA 2001 is associated at awareness level with:"
     },
     {
       "choices": [
-        "Failure is impossible if steps exist on paper",
-        "Backout is only for software, never facilities",
-        "You must detect incomplete success and reverse safely when the change goes wrong",
-        "Verification is optional if two people watch"
+        "Perfect silence forever",
+        "Automatic root-cause analysis",
+        "Chattering alarms and operator desensitization",
+        "Higher MTBF by definition"
       ],
-      "id": "bank-m15-q139",
-      "stem": "A good MOP includes verification steps and backout because:"
+      "id": "m14-q210",
+      "stem": "Thresholds set without hysteresis or seasonality awareness often cause:"
+    },
+    {
+      "choices": [
+        "Only in outdoor weather",
+        "Inside generator day tanks",
+        "Above suspended ceilings dry always",
+        "In dielectric fluid that absorbs heat from components"
+      ],
+      "id": "m09-q228",
+      "stem": "Immersion cooling places IT hardware where?"
+    },
+    {
+      "choices": [
+        "Longer measured autonomy at design load",
+        "Automatic free 2N upgrade",
+        "Shorter real autonomy and risk of load drop before generator is online",
+        "PUE becoming an availability Tier"
+      ],
+      "id": "m06-q110",
+      "stem": "If IT load grows without refreshing UPS battery capacity, a likely result is:"
+    },
+    {
+      "choices": [
+        "Dual-path power is never required",
+        "Cooling can be ignored if power is abundant",
+        "Diversity assumptions shrink—gear may run near nameplate—and three-phase PDUs/bus ratings dominate",
+        "Single-phase 15 A strips always suffice"
+      ],
+      "id": "m06-q098",
+      "stem": "High-density / HPC and AI racks change power planning because:"
+    },
+    {
+      "choices": [
+        "Correlation always proves the network team is at fault",
+        "Cross-domain correlation speeds root-cause isolation when cooling plant and room environment interact",
+        "Systems should never share timestamps",
+        "It replaces mechanical expertise entirely"
+      ],
+      "id": "m14-q209",
+      "stem": "Correlating BMS alarms with EMS temperature spikes helps operators because:"
     }
   ],
   "n_items": 40,
