@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.21 leftover: analyze skip-raised-floor hall
+id = "m04-q213"
+kind = "single-select"
+module = 4
+stem = "A new high-density GPU training hall is drawn with overhead busway, RDHx/liquid, and slab roll-in. Nobody specified a raised floor. The floor conversation is:"
+choices = [
+  "Raised floor is mandatory; skip it only if CISCA certifies a Tier for the slab",
+  "Invent a 250 psf statute so the structural slab can be ignored",
+  "This is a Module 06 UPS/ATS sizing decision; Module 04 does not speak density",
+  "Skip is a design move at this density: overhead power, RDHx/liquid, and slab roll-in beat underfloor air — raised floor is not wrong and is not the default for every hall",
+]
+correct = "D"
+explanation = "High-density halls often skip raised floor for overhead busway, liquid/RDHx, and slab roll-in. Raised floor remains legitimate elsewhere. CISCA does not certify Tiers. Do not invent a 250 psf statute."
+topic_ids = ["m04-guidelines", "m04-floor-types"]
+objective_ids = ["obj-m04-floor-types"]
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

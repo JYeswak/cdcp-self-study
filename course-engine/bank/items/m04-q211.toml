@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.21 leftover: which rating / which test
+id = "m04-q211"
+kind = "single-select"
+module = 4
+stem = "Ops says “the floor is rated 250.” The diagnostic move is:"
+choices = [
+  "Accept 250 psf as the data-centre floor statute and stop asking",
+  "Ask which rating (uniform vs concentrated vs rolling), per which test (CISCA is recommended methodology, not a Tier body), and quote the sheet in front of you — 250 is not a statute",
+  "Treat CISCA as the Uptime plaque that certifies the floor’s Tier",
+  "Convert 250 into a Module 06 UPS kVA; this file does not own load types",
+]
+correct = "B"
+explanation = "Ask which rating and which test. Uniform is force per area; concentrated is a force; rolling is a force and a pass count. CISCA is test methodology, not a Tier body. Do not invent a 250 psf statute."
+topic_ids = ["m04-loading", "m04-floor-standards"]
+objective_ids = ["obj-m04-floor-types"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

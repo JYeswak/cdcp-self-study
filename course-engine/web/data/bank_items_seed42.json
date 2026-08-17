@@ -6684,6 +6684,113 @@
     ]
   },
   {
+    "bloom": "understand",
+    "choices": [
+      "Understructure: stringered vs free-standing/stringerless (corner-lock); panel: wood-core vs cementitious — do not collapse those into one pair, and do not answer 250 psf vs 1000 lbf",
+      "Wood-core and stringered as a single pair that covers both structure and core",
+      "250 psf uniform vs 1000 lbf concentrated, which is the statute that names the types",
+      "CISCA vs Uptime Tier, because a test method is a type of floor"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "Two axes: stringered vs stringerless understructure, then wood-core vs cementitious panels. A load number is not a type. CISCA is not a floor type.",
+    "id": "m04-q210",
+    "kind": "single-select",
+    "module": 4,
+    "objective_ids": [
+      "obj-m04-floor-types"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "An interviewer asks for “the two main types of raised floors.” The speakable answer is two axes, not a load number:",
+    "tags": [],
+    "topic_ids": [
+      "m04-floor-types"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Accept 250 psf as the data-centre floor statute and stop asking",
+      "Ask which rating (uniform vs concentrated vs rolling), per which test (CISCA is recommended methodology, not a Tier body), and quote the sheet in front of you — 250 is not a statute",
+      "Treat CISCA as the Uptime plaque that certifies the floor’s Tier",
+      "Convert 250 into a Module 06 UPS kVA; this file does not own load types"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "Ask which rating and which test. Uniform is force per area; concentrated is a force; rolling is a force and a pass count. CISCA is test methodology, not a Tier body. Do not invent a 250 psf statute.",
+    "id": "m04-q211",
+    "kind": "single-select",
+    "module": 4,
+    "objective_ids": [
+      "obj-m04-floor-types"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Ops says “the floor is rated 250.” The diagnostic move is:",
+    "tags": [],
+    "topic_ids": [
+      "m04-loading",
+      "m04-floor-standards"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "The alarm can only be local; a missing tile cannot starve a row that is not next to the hole",
+      "Raise the CRAH setpoint here; Module 04 owns the plant and containment",
+      "Diagnose the leak: the missing tile dumps plenum static so distant perforated tiles deliver less air — monitoring can alarm on a row that is not even next to the opening",
+      "The hall failed a universal 250 psf statute; raise the number and the alarm clears"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "In underfloor supply, a missing tile is an uncontrolled leak. Nearby pressure drops and a distant row can starve. Module 09 owns plant/containment; do not invent a psf statute.",
+    "id": "m04-q212",
+    "kind": "single-select",
+    "module": 4,
+    "objective_ids": [
+      "obj-m04-floor-types"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Row 18 is in cooling alarm. The walkdown finds one pulled tile two aisles away in an underfloor-supply hall. The diagnostic is:",
+    "tags": [],
+    "topic_ids": [
+      "m04-cooling-impact",
+      "m04-guidelines"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Raised floor is mandatory; skip it only if CISCA certifies a Tier for the slab",
+      "Invent a 250 psf statute so the structural slab can be ignored",
+      "This is a Module 06 UPS/ATS sizing decision; Module 04 does not speak density",
+      "Skip is a design move at this density: overhead power, RDHx/liquid, and slab roll-in beat underfloor air — raised floor is not wrong and is not the default for every hall"
+    ],
+    "citation_ids": [],
+    "correct": "D",
+    "explanation": "High-density halls often skip raised floor for overhead busway, liquid/RDHx, and slab roll-in. Raised floor remains legitimate elsewhere. CISCA does not certify Tiers. Do not invent a 250 psf statute.",
+    "id": "m04-q213",
+    "kind": "single-select",
+    "module": 4,
+    "objective_ids": [
+      "obj-m04-floor-types"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A new high-density GPU training hall is drawn with overhead busway, RDHx/liquid, and slab roll-in. Nobody specified a raised floor. The floor conversation is:",
+    "tags": [],
+    "topic_ids": [
+      "m04-guidelines",
+      "m04-floor-types"
+    ]
+  },
+  {
     "bloom": "remember",
     "choices": [
       "Network throughput",

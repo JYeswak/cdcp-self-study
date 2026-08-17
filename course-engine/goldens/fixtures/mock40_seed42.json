@@ -1,8 +1,8 @@
 {
-  "bank_hash": "4fe3e437d1bb882f4cd23f331ebbebeeea8b4b67c972b78791ed51926e435359",
+  "bank_hash": "bde8b0ad1bcd82b44a1dad745ab8d24339095c53f038c42cf4ed159cbe5977f4",
   "exam_id": "mock40",
   "item_ids": [
-    "m04-q201",
+    "m04-q129",
     "m07-q207",
     "bank-m12-q060",
     "m01-q057",
@@ -18,10 +18,10 @@
     "m11-q129",
     "m10-q100",
     "m15-q214",
-    "m04-q128",
+    "mock40-q11",
     "m01-q043",
     "m03-q104",
-    "mock40-q08",
+    "m03-q108",
     "m02-q080",
     "m10-q109",
     "bank-m15-q139",
@@ -36,28 +36,28 @@
     "m02-q087",
     "m07-q046",
     "m11-q114",
-    "m08-q048",
+    "m08-q203",
     "m11-q102",
     "m06-q236",
-    "m08-q059",
+    "m08-q054",
     "m13-q202",
     "bank-m14-q121"
   ],
   "items": [
     {
       "choices": [
-        "Obstructions always increase cooling efficiency",
-        "Air never moves under a raised floor",
-        "Tiles seal perfectly with any pile of junk",
-        "Cables and debris can block airflow and create hot spots in a flooded-floor supply design"
+        "Only marketing gloss",
+        "Diesel sulphur content",
+        "BGP policies",
+        "Structural performance, conductivity/static control needs, and cleanliness for the environment"
       ],
       "correct": "D",
-      "id": "m04-q201",
+      "id": "m04-q129",
       "module": 4,
-      "stem": "A primary cooling-related reason to manage underfloor obstructions is that:",
+      "stem": "Floor panel materials and finishes are chosen with attention to:",
       "topic_ids": [
-        "m04-cooling-impact",
-        "m04-guidelines"
+        "m04-floor-types",
+        "m04-floor-standards"
       ]
     },
     {
@@ -294,18 +294,18 @@
     },
     {
       "choices": [
-        "Remove tiles freely without airflow review",
-        "Never bond metallic structures",
-        "Ignore concentrated loads if uniform rating is high",
-        "Control openings, manage cable bulk, and respect load ratings during moves"
+        "Improves global pressure balance always",
+        "Can short-circuit supply air and starve distant racks",
+        "Increases battery autonomy",
+        "Disables the BMS"
       ],
-      "correct": "D",
-      "id": "m04-q128",
+      "correct": "B",
+      "id": "mock40-q11",
       "module": 4,
-      "stem": "Which is a general raised-floor guideline for day-2 operations?",
+      "stem": "Removing floor tiles in a cold-aisle supply design without a plan often:",
       "topic_ids": [
-        "m04-guidelines",
-        "m04-loading"
+        "m04-cooling-impact",
+        "m09-raised-floor-cooling"
       ]
     },
     {
@@ -340,16 +340,17 @@
     },
     {
       "choices": [
-        "Generator yard, staging, NOC/security ops, and utility intake space",
-        "Only decorative suspended ceiling",
-        "Hot-aisle posters",
-        "Non-metered PDUs"
+        "It determines IP subnet size",
+        "Routers require daily physical commuting by packets",
+        "Fuel, equipment deliveries, and emergency response depend on reliable road access",
+        "It sets lux levels"
       ],
-      "correct": "A",
-      "id": "mock40-q08",
+      "correct": "C",
+      "id": "m03-q108",
       "module": 3,
-      "stem": "A white-space design can still fail operationally if the site lacks adequate:",
+      "stem": "Transportation access matters for site selection primarily because:",
       "topic_ids": [
+        "m03-site-selection",
         "m03-supporting-facilities"
       ]
     },
@@ -576,17 +577,17 @@
     },
     {
       "choices": [
-        "Blocking all airflow intentionally in every design",
-        "Chimney exhaust when solid doors are mandatory always",
-        "Elimination of blanking panels",
-        "Front-to-rear airflow designs in classic hot/cold aisle layouts"
+        "The building has no perimeter at all and racks replace site security completely",
+        "Only outdoor generators need locks",
+        "Multi-tenant or mixed-sensitivity equipment shares a room and needs compartmentalized access control",
+        "All staff should share one master key left in the door"
       ],
-      "correct": "D",
-      "id": "m08-q048",
+      "correct": "C",
+      "id": "m08-q203",
       "module": 8,
-      "stem": "Highly perforated front/rear doors on air-cooled IT cabinets support:",
+      "stem": "Rack-level security (doors, locks, sensors) is most relevant when:",
       "topic_ids": [
-        "m08-types"
+        "m08-security"
       ]
     },
     {
@@ -622,17 +623,17 @@
     },
     {
       "choices": [
-        "Unlimited U and weight for full GPU trains",
-        "U capacity, weight, wall structure, and swing clearance—edge/IDF use cases",
-        "Mandatory use in all hyperscale halls",
-        "Replacing row containment"
+        "Both strips feed from the same single upstream breaker by design",
+        "Only path A is ever energized",
+        "Separate PDUs fed from independent paths so dual-corded gear keeps diversity to the outlet",
+        "PDUs replace STS and UPS"
       ],
-      "correct": "B",
-      "id": "m08-q059",
+      "correct": "C",
+      "id": "m08-q054",
       "module": 8,
-      "stem": "Wall-mount cabinets are typically limited by:",
+      "stem": "A/B rack PDU discipline means:",
       "topic_ids": [
-        "m08-types"
+        "m08-power-strips"
       ]
     },
     {

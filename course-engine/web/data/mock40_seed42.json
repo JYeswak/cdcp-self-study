@@ -1,17 +1,17 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "4fe3e437d1bb882f4cd23f331ebbebeeea8b4b67c972b78791ed51926e435359",
+  "bank_hash": "bde8b0ad1bcd82b44a1dad745ab8d24339095c53f038c42cf4ed159cbe5977f4",
   "exam_id": "mock40",
   "items": [
     {
       "choices": [
-        "Obstructions always increase cooling efficiency",
-        "Air never moves under a raised floor",
-        "Tiles seal perfectly with any pile of junk",
-        "Cables and debris can block airflow and create hot spots in a flooded-floor supply design"
+        "Only marketing gloss",
+        "Diesel sulphur content",
+        "BGP policies",
+        "Structural performance, conductivity/static control needs, and cleanliness for the environment"
       ],
-      "id": "m04-q201",
-      "stem": "A primary cooling-related reason to manage underfloor obstructions is that:"
+      "id": "m04-q129",
+      "stem": "Floor panel materials and finishes are chosen with attention to:"
     },
     {
       "choices": [
@@ -165,13 +165,13 @@
     },
     {
       "choices": [
-        "Remove tiles freely without airflow review",
-        "Never bond metallic structures",
-        "Ignore concentrated loads if uniform rating is high",
-        "Control openings, manage cable bulk, and respect load ratings during moves"
+        "Improves global pressure balance always",
+        "Can short-circuit supply air and starve distant racks",
+        "Increases battery autonomy",
+        "Disables the BMS"
       ],
-      "id": "m04-q128",
-      "stem": "Which is a general raised-floor guideline for day-2 operations?"
+      "id": "mock40-q11",
+      "stem": "Removing floor tiles in a cold-aisle supply design without a plan often:"
     },
     {
       "choices": [
@@ -195,13 +195,13 @@
     },
     {
       "choices": [
-        "Generator yard, staging, NOC/security ops, and utility intake space",
-        "Only decorative suspended ceiling",
-        "Hot-aisle posters",
-        "Non-metered PDUs"
+        "It determines IP subnet size",
+        "Routers require daily physical commuting by packets",
+        "Fuel, equipment deliveries, and emergency response depend on reliable road access",
+        "It sets lux levels"
       ],
-      "id": "mock40-q08",
-      "stem": "A white-space design can still fail operationally if the site lacks adequate:"
+      "id": "m03-q108",
+      "stem": "Transportation access matters for site selection primarily because:"
     },
     {
       "choices": [
@@ -345,13 +345,13 @@
     },
     {
       "choices": [
-        "Blocking all airflow intentionally in every design",
-        "Chimney exhaust when solid doors are mandatory always",
-        "Elimination of blanking panels",
-        "Front-to-rear airflow designs in classic hot/cold aisle layouts"
+        "The building has no perimeter at all and racks replace site security completely",
+        "Only outdoor generators need locks",
+        "Multi-tenant or mixed-sensitivity equipment shares a room and needs compartmentalized access control",
+        "All staff should share one master key left in the door"
       ],
-      "id": "m08-q048",
-      "stem": "Highly perforated front/rear doors on air-cooled IT cabinets support:"
+      "id": "m08-q203",
+      "stem": "Rack-level security (doors, locks, sensors) is most relevant when:"
     },
     {
       "choices": [
@@ -375,13 +375,13 @@
     },
     {
       "choices": [
-        "Unlimited U and weight for full GPU trains",
-        "U capacity, weight, wall structure, and swing clearance—edge/IDF use cases",
-        "Mandatory use in all hyperscale halls",
-        "Replacing row containment"
+        "Both strips feed from the same single upstream breaker by design",
+        "Only path A is ever energized",
+        "Separate PDUs fed from independent paths so dual-corded gear keeps diversity to the outlet",
+        "PDUs replace STS and UPS"
       ],
-      "id": "m08-q059",
-      "stem": "Wall-mount cabinets are typically limited by:"
+      "id": "m08-q054",
+      "stem": "A/B rack PDU discipline means:"
     },
     {
       "choices": [

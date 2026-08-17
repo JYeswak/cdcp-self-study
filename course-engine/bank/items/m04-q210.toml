@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.21 leftover: two type axes
+id = "m04-q210"
+kind = "single-select"
+module = 4
+stem = "An interviewer asks for “the two main types of raised floors.” The speakable answer is two axes, not a load number:"
+choices = [
+  "Understructure: stringered vs free-standing/stringerless (corner-lock); panel: wood-core vs cementitious — do not collapse those into one pair, and do not answer 250 psf vs 1000 lbf",
+  "Wood-core and stringered as a single pair that covers both structure and core",
+  "250 psf uniform vs 1000 lbf concentrated, which is the statute that names the types",
+  "CISCA vs Uptime Tier, because a test method is a type of floor",
+]
+correct = "A"
+explanation = "Two axes: stringered vs stringerless understructure, then wood-core vs cementitious panels. A load number is not a type. CISCA is not a floor type."
+topic_ids = ["m04-floor-types"]
+objective_ids = ["obj-m04-floor-types"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

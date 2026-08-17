@@ -1,11 +1,11 @@
 {
-  "bank_hash": "4fe3e437d1bb882f4cd23f331ebbebeeea8b4b67c972b78791ed51926e435359",
+  "bank_hash": "bde8b0ad1bcd82b44a1dad745ab8d24339095c53f038c42cf4ed159cbe5977f4",
   "exam_id": "mock40",
   "keys": [
     {
       "correct": "D",
-      "explanation": "Underfloor supply paths need free volume and sealed openings; clutter defeats airflow design.",
-      "item_id": "m04-q201"
+      "explanation": "Panels must meet structural and ESD/cleanliness needs of the IT environment.",
+      "item_id": "m04-q129"
     },
     {
       "correct": "B",
@@ -83,9 +83,9 @@
       "item_id": "m15-q214"
     },
     {
-      "correct": "D",
-      "explanation": "Operational discipline preserves structural and airflow design intent.",
-      "item_id": "m04-q128"
+      "correct": "B",
+      "explanation": "Unplanned openings dump plenum pressure and can short-circuit supply, creating hot spots elsewhere.",
+      "item_id": "mock40-q11"
     },
     {
       "correct": "A",
@@ -98,9 +98,9 @@
       "item_id": "m03-q104"
     },
     {
-      "correct": "A",
-      "explanation": "Supporting facilities (yard, staging, ops spaces, utility intake) are part of operability, not cosmetics.",
-      "item_id": "mock40-q08"
+      "correct": "C",
+      "explanation": "Logistics and emergency access are site-level operability factors.",
+      "item_id": "m03-q108"
     },
     {
       "correct": "B",
@@ -173,9 +173,9 @@
       "item_id": "m11-q114"
     },
     {
-      "correct": "D",
-      "explanation": "Perforated doors pass supply/exhaust air; solid doors belong with contained/chimney designs.",
-      "item_id": "m08-q048"
+      "correct": "C",
+      "explanation": "Cabinet locks complement—not replace—facility access control, especially in multi-tenant spaces.",
+      "item_id": "m08-q203"
     },
     {
       "correct": "C",
@@ -188,9 +188,9 @@
       "item_id": "m06-q236"
     },
     {
-      "correct": "B",
-      "explanation": "Wall-mount is for small edge/IDF deployments with real weight limits.",
-      "item_id": "m08-q059"
+      "correct": "C",
+      "explanation": "A/B strips preserve dual-path design at the rack.",
+      "item_id": "m08-q054"
     },
     {
       "correct": "B",
