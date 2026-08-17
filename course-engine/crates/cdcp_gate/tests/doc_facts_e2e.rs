@@ -65,13 +65,7 @@ const KNOWN_DEBTS: &[(&str, &str)] = &[];
 
 /// The floor on documents the live scan must reach.
 ///
-/// Floor on committed corpus markdown the live scan must reach.
-///
-/// `beads_compliance_audit/` is gitignored scratch and is SKIP_DIRS — it must
-/// not inflate this floor, or CI (which has no audit dir) and a local desk
-/// (which does) would disagree. Measured 2026-08-17 after the skip: the
-/// committed tree is well above 40 (CHARTER + parent README + engine docs +
-/// modules). A run reporting fewer has lost a directory.
+/// Floor on committed corpus markdown. Audit/research dirs are SKIP_DIRS.
 const MIN_LIVE_DOCS: usize = 40;
 
 fn engine_root() -> PathBuf {
@@ -792,14 +786,11 @@ fn every_known_debt_carries_a_reason() {
     }
 }
 
-/// The audit dir is SKIP_DIRS (gitignored scratch), not an [[exclude]] —
-/// a dead exclude of an absent CI path is ERROR. Remaining excludes, if
-/// any, must still name COST. `goldens/PROVENANCE.md` stays in the scan.
 #[test]
 fn live_exclusions_are_permanent_and_name_their_cost() {
     assert!(
         cdcp_gate::gates::doc_facts::SKIP_DIRS.contains(&"beads_compliance_audit"),
-        "the dated-audit dir is walker-skipped, not [[exclude]]d — CI has no such directory"
+        "audit dir is SKIP_DIRS, not [[exclude]] — absent on CI"
     );
     let root = engine_root();
     let text = std::fs::read_to_string(root.join("registries/doc-facts.toml"))
