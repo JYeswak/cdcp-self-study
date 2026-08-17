@@ -371,12 +371,24 @@ fn collect_markdown_files(root: &Path, scan: &ScanConfig) -> Result<Vec<PathBuf>
             walk_md(&p, &scan.extensions, &mut out)?;
             continue;
         }
+        // Parent-corpus roots (`../README.md`, `../CHARTER.md`) exist in a
+        // full checkout. The prove-wired probe materialises only the engine
+        // prefix, so those paths are absent there. Skip them. A missing
+        // in-engine root is still an ERROR. Zero collected files is ERROR.
+        if r.starts_with("../") || r.starts_with("..\\") {
+            continue;
+        }
         return Err(CheckError::msg(format!(
             "claims_lint scan root missing: {r}"
         )));
     }
     out.sort();
     out.dedup();
+    if out.is_empty() {
+        return Err(CheckError::msg(
+            "claims_lint scan collected 0 files — empty scan is an ERROR, not a pass",
+        ));
+    }
     Ok(out)
 }
 
