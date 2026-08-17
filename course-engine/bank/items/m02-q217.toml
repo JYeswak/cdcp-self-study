@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.33 leftover: ISO/IEC 30134-6 ERF is not ERE
+id = "m02-q217"
+kind = "single-select"
+module = 2
+stem = "A slide writes “ERF = ERE” and files both as the same ISO/IEC 30134 letter. The correction is:"
+choices = [
+  "Agree: Energy Reuse Factor and Energy Reuse Effectiveness are one KPI with two spellings",
+  "ISO/IEC 30134-6 is Energy Reuse Factor (ERF). Green Grid ERE (Energy Reuse Effectiveness) is a different metric. Do not collapse the letters, and do not turn this module into an energy course",
+  "ERF is the 2024 rename of Availability Class; ERE is the TIA Rated letter",
+  "Either letter converts to a single PUE target that is now law",
+]
+correct = "B"
+explanation = "30134-6 is ERF (Energy Reuse Factor). ERE is not that part. The series has more than three letters; this course names the distinction and stops. No single PUE target as law. Sustainability-track depth is not this leftover."
+topic_ids = ["m02-standards-guidelines"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
