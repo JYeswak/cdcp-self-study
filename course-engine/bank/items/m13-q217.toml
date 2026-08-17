@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.37 leftover: Subpart S / 1910.333 vs 1910.147 at first teach
+id = "m13-q217"
+kind = "single-select"
+module = 13
+stem = "A vendor badges into grey space to isolate a UPS module. Their briefing cites 29 CFR 1910.147 as the whole energy-control programme and treats the badge as the lock. The taught reading is:"
+choices = [
+  "Accept: 1910.147 already covers electric-utilization switchgear, so a second citation is decoration, and a grey-space badge is the lock",
+  "Refuse: isolating a UPS or switchgear is Subpart S (1910.331–.335, principally 1910.333). 1910.147 is the machine-LOTO regime (chillers, pumps, CRAH fans). A badge opens the room; it is not isolation",
+  "Convert the missing isolation into an invented outage percentage so the packet can be scored",
+  "Send the crew to an EPI / certification class; a credential hour-count substitutes for naming the regime",
+]
+correct = "B"
+explanation = "First teach, Module 13: electrical-hazard exposure on UPS and switchgear is Subpart S / 1910.333. 1910.147 governs unexpected energisation of machines. A 1910.147-only programme is mis-scoped. A badge is access control, not LOTO. Module 15 owns the isolation procedure. No invented outage percent. No EPI substitute."
+topic_ids = ["m13-safety-components"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

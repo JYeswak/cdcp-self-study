@@ -95,7 +95,7 @@ fn two_rust_exports_are_byte_identical() {
 }
 
 #[test]
-fn live_export_is_779_approved_and_ships_no_retired() {
+fn live_export_is_approved_and_ships_no_retired() {
     let root = engine_root();
     let bank = load_live_bank(&root).expect("live bank");
     assert!(

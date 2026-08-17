@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.37 leftover: arc-flash boundary as taught, not trivia
+id = "m13-q218"
+kind = "single-select"
+module = 13
+stem = "A technician with a valid grey-space badge walks up to an open switchgear cubicle. The equipment label publishes an arc-flash boundary. They have no electrical qualification and no incident-energy PPE. The taught reading is:"
+choices = [
+  "Enter: the badge is the authorization, and a CDCP learner computes a new cal/cm² from the nameplate kA",
+  "Stay outside the published arc-flash boundary. The number is licensed-engineer work (NFPA 70E named, not calculated). A badge opens the room; it does not authorize crossing the boundary. Deenergize-first under 1910.333 remains the primary control",
+  "Invent a default distance or cal/cm² because NFPA 70E is paywalled",
+  "Treat the boundary as a security fence the guard force owns, so cameras substitute for PPE",
+]
+correct = "B"
+explanation = "Arc-flash boundary is a conceptual control: obey the published label. No incident-energy calc at CDCP depth. No invented distance or cal/cm². A badge is not energized-work authorization."
+topic_ids = ["m13-safety-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
