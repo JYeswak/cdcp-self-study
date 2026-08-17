@@ -12,7 +12,9 @@
  * sessionStorage. Submit → results.html still works (leave allowed).
  *
  * Seed selection (priority): URL ?seed=N → #seed-select → default 42.
- * Only seed 42 is golden-pinned. Missing pack → message to run export-web --seed N.
+ * The Seed menu lists only seeds this copy ships (pack + bank + keys).
+ * A missing pack is a product gap — tell the learner to pick a listed seed.
+ * Never instruct `export-web`; an installed learner has no source checkout.
  *
  * Attempt shape (cdcp_core::ExamAttempt):
  *   { exam_id, seed, bank_hash, answers: [{ item_id, chosen: "A"|"B"|"C"|"D" }] }
@@ -98,13 +100,11 @@
     return DEFAULT_SEED;
   }
 
-  function exportHint(seed) {
+  function missingPackHint(seed) {
     return (
-      "Pack missing for seed " +
+      "This copy of CDCP Study does not include a mock exam for seed " +
       seed +
-      ". Generate it with: cdcp export-web --seed " +
-      seed +
-      " --out web/data"
+      ". Use a seed listed in the Seed menu on this page."
     );
   }
 
@@ -778,7 +778,7 @@
     fetch(url, { cache: "no-store" })
       .then(function (res) {
         if (res.status === 404) {
-          throw new Error(exportHint(seed));
+          throw new Error(missingPackHint(seed));
         }
         if (!res.ok) {
           throw new Error("HTTP " + res.status + " loading " + url);
@@ -841,19 +841,15 @@
       })
       .catch(function (err) {
         var msg = err && err.message ? err.message : String(err);
-        // Prefer the export-web hint when the pack is simply not generated yet.
-        if (msg.indexOf("export-web --seed") !== -1) {
+        if (msg.indexOf("does not include a mock exam") !== -1) {
           showError(msg);
           return;
         }
         showError(
-          "Failed to load exam pack (" +
+          "Could not load the mock exam (" +
             url +
-            "). Serve web/ over HTTP (file:// may block fetch). " +
-            msg +
-            " If the file is missing: cdcp export-web --seed " +
-            seed +
-            " --out web/data"
+            "). Open the study site over HTTP (the URL the app printed), not as a file:// page. " +
+            msg
         );
       });
   }

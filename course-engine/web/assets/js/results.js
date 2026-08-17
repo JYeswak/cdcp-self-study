@@ -556,9 +556,8 @@ async function run() {
         BANK_URL +
         " / " +
         KEYS_URL +
-        "). Serve web/ over HTTP. If the pack is missing: cdcp export-web --seed " +
-        seed +
-        " --out web/data. " +
+        "). Open the study site over HTTP (the URL the app printed), not as a file:// page. " +
+        "If this seed is not in the Seed menu, go back and pick a listed seed. " +
         errMsg(err)
     );
     return;
