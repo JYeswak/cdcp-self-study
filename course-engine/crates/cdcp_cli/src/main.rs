@@ -830,7 +830,12 @@ fn run(cmd: Cmd) -> Result<(), String> {
             check_learner_pack(root.as_deref(), pack.as_deref())
         }
         Cmd::SmokeLearnV2 { root } => smoke_learn_v2(root.as_deref()),
-        Cmd::Doctor { root, bind, json: _ } => operator::doctor(root.as_deref(), &bind),
+        Cmd::Doctor {
+            root,
+            bind,
+            json: _,
+        } => operator::doctor(root.as_deref(), &bind),
+        Cmd::Test { root } => installed_test::run(root.as_deref()),
         Cmd::Health { root, robot } => operator::health(root.as_deref(), robot),
         Cmd::Repair { root, seed } => operator::repair(root.as_deref(), seed),
         Cmd::Slo { sub } => match sub {
