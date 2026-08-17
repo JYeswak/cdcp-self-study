@@ -14,7 +14,7 @@ By the end of this module you can:
 2. Describe **access control** methods (something you have / know / are), authentication vs authorization, and common data-centre credentials and readers.
 3. Map **zoning** (public → controlled → restricted → highly restricted) and explain **mantraps**, airlocks, and anti-passback at a design-interview level.
 4. Outline **surveillance** roles (deterrence, detection, investigation), camera placement basics, and integration with access logs and alarms.
-5. Apply **safety protocols** that interact with security: emergency egress, interlocks, lone-worker rules, lockout/tagout (LOTO), and visitor escort policy.
+5. Apply **safety protocols** that interact with security: emergency egress, interlocks, lone-worker rules, lockout/tagout (LOTO) with the Subpart S / 1910.333 vs 1910.147 split, arc-flash boundaries (conceptual — no incident-energy calc), and visitor escort policy.
 6. Spot common failure modes: tailgating, shared badges, camera blind spots, security vs life-safety conflicts, and “security theatre.”
 
 ---
@@ -194,7 +194,17 @@ Key terms:
 - **Fail-secure (lock)** — loss of power **stays locked** (used where security outweighs free entry from outside; egress side still needs a mechanical or listed free-exit path). Do not casually reverse these terms in interviews.  
 - **Fire alarm interface** — access-controlled egress doors typically unlock or free-exit on fire alarm as required by code/listing.  
 - **Emergency power-off (EPO)** — big red buttons that kill power to IT or UPS input; security may limit casual access to EPO but **trained staff must reach them**. Misuse and accidental press are classic outage causes—guards and procedures matter.  
-- **Lockout/Tagout (LOTO)** — OSHA-style (US) / equivalent procedures to de-energize equipment before work; physical locks on breakers, not only a badge rule. See Module 15 for the energy-control regime on UPS/switchgear (Subpart S).  
+- **Lockout/Tagout (LOTO)** — physical isolation of energy before work: a lock on a disconnect, not a badge rule and not an HMI “maintenance” state. In the US this is **not one regulation**. Teach the split the first time you meet the word:
+
+  | Hazard | Regime |
+  |---|---|
+  | Electrical-hazard exposure on switchgear / UPS / PDU / busway | **Subpart S — 1910.331–.335, principally 1910.333** |
+  | Unexpected energisation, start-up, or stored-energy release in *machines* (chillers, pumps, towers, CRAH fans, dampers, generator prime movers, fuel systems) | **1910.147 (LOTO)** |
+
+  Isolating a UPS or switchgear is **Subpart S, not 1910.147**. 1910.147 does not cover electrical-hazard exposure on electric-utilization installations — that is why the data-centre distribution (switchgear, UPS, PDU, busway) sits in Subpart S. Subpart S has no “exclusive control” exception. OSHA will accept a single 1910.147-conforming programme **only if** it also meets specified 1910.333 provisions (test and verification, including backfeed). A grey-space badge opens the room; it is not isolation. Module 15 owns the energy-control *procedure* (isolation step, contractor exchange, shift continuity).  
+
+- **Arc-flash boundary** (also written **arc flash** boundary) — a published distance around exposed energized equipment. Inside it, an arc event can injure someone who is not wearing the PPE the site’s electrical-safety study specified. The number on the equipment label (or in that study) is **licensed-engineer work**. NFPA 70E and IEEE 1584 are **named, not calculated**, at CDCP depth — do not invent a distance or a cal/cm² default, and do not sit an incident-energy exam item. A badge that opens the UPS room is not authorization to cross the boundary. Deenergize-first under 1910.333 remains the primary control; the boundary is what you honor if energized work is actually authorized.  
+
 - **Confined space / battery rooms / fuel areas** — special entry permits, gas detection (e.g. hydrogen near VRLA/flooded batteries in some rooms), PPE.  
 - **Lone worker** — no solo work in high-risk plant without check-in; two-person rule for some critical actions (varies by operator).  
 - **Suppression system safety** — clean-agent or other systems may require pre-discharge alarms and egress time; security doors must not impede evacuation. (See fire-protection module for agent details.)  
@@ -205,6 +215,7 @@ Key terms:
 - Chaining locks or deadbolts that block egress.  
 - Mantrap both doors locked on fire without listed emergency release.  
 - Cameras/guards as a substitute for proper electrical safety training.  
+- Treating a grey-space badge — or an HMI “maintenance” state — as lockout, or as permission to cross a published arc-flash boundary.  
 - Propping fire doors for convenience (kills compartmentation *and* security).
 
 ### 7. People, process, and the “soft” layer
@@ -342,6 +353,9 @@ These are **order-of-magnitude design/ops heuristics**, not code-substitutes. Al
 **Q5. Why is grey-space access control as important as white-space?**  
 **A:** UPS, generators, switchgear, and cooling plant are single points that can darken or overheat the entire IT load. Unauthorized or untrained access risks sabotage, accidents, and configuration errors. Many serious outages are “physical + process” in plant rooms, not malware in the rack. Apply zoning, dual control where appropriate, CCTV, and strict joiner/leaver hygiene to grey space equal to white space.
 
+**Q6. Who governs lockout on our switchgear — and what is an arc-flash boundary doing on the label?**  
+**A:** Electrical-hazard exposure on switchgear / UPS / PDU / busway is Subpart S (principally 1910.333). 1910.147 is machine LOTO (chillers, pumps, CRAH fans). A 1910.147-only programme is mis-scoped; a single programme can cover both only if it also meets specified 1910.333 provisions. The arc-flash boundary on the label is a published distance from a licensed study (NFPA 70E named, not calculated). A badge opens the room; it does not authorize crossing the boundary. Do not invent a distance or a cal/cm².
+
 ---
 
 ## Self-check quiz
@@ -394,6 +408,18 @@ These are **order-of-magnitude design/ops heuristics**, not code-substitutes. Al
    c) Biometrics will not enroll otherwise  
    d) Mantraps will not mechanically close  
 
+9. **A vendor badges into the UPS room to isolate a module. Their briefing cites 29 CFR 1910.147 as the whole energy-control programme. The taught reading is:**  
+   a) Accept — 1910.147 covers every energy source, including electric-utilization switchgear  
+   b) Refuse — isolating a UPS or switchgear is Subpart S / 1910.333; 1910.147 is the machine-LOTO regime  
+   c) Convert the gap into an invented outage percentage  
+   d) A grey-space badge is itself the lockout  
+
+10. **A published arc-flash boundary on switchgear means a CDCP-depth reader should:**  
+    a) Compute incident energy and a new distance from the nameplate kA  
+    b) Stay outside the published boundary unless they are the qualified person authorized for that work and wearing the PPE the study specified — the number is licensed-engineer work, not a CDCP calc  
+    c) Invent a default distance or cal/cm² because NFPA 70E is paywalled  
+    d) Treat the boundary as a security fence the guard force owns  
+
 ### Answers
 
 <details>
@@ -407,6 +433,8 @@ These are **order-of-magnitude design/ops heuristics**, not code-substitutes. Al
 6. **b** — Policy/tech control on re-entry without exit.  
 7. **b** — Social/process failures dominate.  
 8. **b** — Forensics needs aligned timelines (NTP).  
+9. **b** — Subpart S / 1910.333 on UPS and switchgear; 1910.147 on machines. A badge is access, not isolation.  
+10. **b** — Conceptual control. No invented distance or cal/cm². No incident-energy exam item.  
 
 </details>
 
@@ -424,7 +452,10 @@ Use **public** standards titles, government publications, and vendor primers—n
 | **ANSI/TIA-942-C** (2024) public overviews / owner summaries | Facility rating context and security zoning mentioned at architecture level |
 | **EN 50600** series public summaries (pin the adopted part and year) | European DC facility framework including security-related facility topics |
 | **NFPA** public educational material on means of egress / fire alarm interfaces | Why doors unlock/release on alarm (pair with your fire-protection module) |
-| **OSHA** (US) lockout/tagout and electrical safety overview pages | LOTO mindset for plant rooms (local equivalents elsewhere) |
+| **29 CFR 1910.147** (control of hazardous energy) | Machine LOTO. Electrical-hazard exposure on electric-utilization installations is excluded and sent to Subpart S |
+| **29 CFR 1910.333** (Subpart S — selection and use of work practices) | Isolating a UPS or switchgear; deenergize-first. One 1910.147 programme covers this only if it also meets specified 1910.333 provisions |
+| **OSHA eTool** — relationship of 1910.147, 1910.269 and 1910.333 | Why a 1910.147-only energy-control programme is mis-scoped on electric-utilization gear |
+| **NFPA 70E** (named, not quoted — licensed / read-only) | Arc-flash boundary as a study and a label, not a CDCP calculation |
 | **CPTED** (Crime Prevention Through Environmental Design) primers | Natural surveillance, territoriality, lighting—perimeter design vocabulary |
 | **Manufacturer primers** (Axis, Bosch, Genetec, Lenel, HID, Assa Abloy, etc. — public white papers) | CCTV/VMS concepts, OSDP vs legacy reader wiring, lock hardware types |
 | **Cloud / hyperscaler public compliance docs** (e.g. physical security sections of SOC reports summaries, AWS/Azure/Google security whitepapers) | How large operators describe layers, cameras, and access logging at high level |
@@ -434,4 +465,4 @@ Use **public** standards titles, government publications, and vendor primers—n
 
 ---
 
-*End of module 13-security — Physical Security and Safety. Pair with fire protection (egress/suppression interfaces) and location/building construction (perimeter and envelope) for a full site-security picture. Part of free CDCP-domain self-study (not official EPI®/CDCP® certification material).*
+*End of module 13-security — Physical Security and Safety. Pair with fire protection (egress/suppression interfaces), location/building construction (perimeter and envelope), and Module 15 for energy-control depth on Subpart S / 1910.147. Part of free CDCP-domain self-study (not official EPI®/CDCP® certification material).*
