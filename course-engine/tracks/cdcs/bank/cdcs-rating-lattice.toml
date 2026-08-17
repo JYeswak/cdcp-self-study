@@ -1,0 +1,16 @@
+id = "cdcs-rating-lattice"
+stem = "A compliance matrix writes 'TIA Rated-3 = Uptime Tier III = Availability Class 3' as one interchangeable label and supplies no governing scheme, edition, or scheme-specific evidence. What is the first specialist catch?"
+choices = [
+  "Reject the equivalence; name the governing scheme and edition, then verify that scheme's own rating criteria and evidence.",
+  "Accept it because every rating system uses the same number for the same path design.",
+  "Convert both labels into a percentage uptime before reviewing the drawings.",
+  "Ignore the labels because redundancy is proven by the equipment nameplates alone.",
+]
+correct = "A"
+explanation = "TIA's public ratings page and Uptime Institute's public award terms describe separate schemes and certification phases; ISO/IEC 22237-1:2021 Clause 7 defines its own classification system. A shared numeral does not prove equivalent criteria or evidence."
+item_class = "one-line-defect"
+objective_ids = ["cdcs-obj-ratings"]
+source_ids = ["epi-cdcs-outline", "tia-942-c-2024", "tia-942-ratings", "uptime-certification-types", "en-50600-1-2019", "iso-22237-1-2021", "iso-22237-1-2021-preview"]
+work = "Defect: Rated and Tier labels are treated as interchangeable; require the named scheme, edition, criteria, and evidence set."
+source_class = "original"
+status = "approved"

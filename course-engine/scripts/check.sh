@@ -1499,7 +1499,7 @@ ok "V11 Anki planted all-retired is RED and writes nothing"
 
 echo "==> cdcp export-anki (V11 · learner .apkg, pinned clock, approved-only)"
 run_cdcp_cli export-anki --format tsv,csv,apkg --out dist/anki || fail "V11 Anki export"
-ok "V11 Anki export tsv/csv/apkg (836 approved, pinned crt)"
+ok "V11 Anki export tsv/csv/apkg (842 approved, pinned crt)"
 echo "==> cdcp export-anki --check (planted clock leak RED, two-run identity GREEN)"
 run_cdcp_cli export-anki --check || fail "V11 Anki .apkg not byte-reproducible"
 ok "V11 Anki .apkg deck"

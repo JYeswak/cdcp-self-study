@@ -1,0 +1,16 @@
+id = "cdcs-cable-tray-fill"
+stem = "ANSI/TIA-569-E:2019 §9.7.1.1 gives an initial calculated cable-tray fill maximum of 25% and an absolute maximum of 50%. A tray has 0.20 m² of usable cross-section and the proposed initial cable area is 0.08 m². What should the reviewer flag?"
+choices = [
+  "Flag it: 40% exceeds the 25% initial maximum even though it is below the 50% absolute maximum.",
+  "Accept it: any initial fill below the 50% absolute maximum is valid.",
+  "Reject it because every cable tray must be exactly 25 mm deep.",
+  "Accept it because cable area is unrelated to cable-tray capacity.",
+]
+correct = "A"
+explanation = "The proposed fill is 0.08 m² ÷ 0.20 m² = 0.40, or 40%. ANSI/TIA-569-E:2019 §9.7.1.1 distinguishes the 25% initial planning maximum from the 50% maximum fill, so 40% requires a review or redesign of the initial plan."
+item_class = "calculation"
+objective_ids = ["cdcs-obj-cable-tray-fill"]
+source_ids = ["epi-cdcs-outline", "tia-569-e-2019", "tia-569-e-2019-preview"]
+work = "0.08 m² ÷ 0.20 m² = 0.40 = 40%; 40% > 25% initial limit and < 50% absolute limit → flag the initial plan."
+source_class = "original"
+status = "approved"

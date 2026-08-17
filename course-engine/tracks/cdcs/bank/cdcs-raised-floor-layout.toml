@@ -1,0 +1,16 @@
+id = "cdcs-raised-floor-layout"
+stem = "An access-floor handover says rack installation and telecommunications cabling began before the access-floor system layout was determined. What one-line defect should the reviewer raise?"
+choices = [
+  "Reject the sequence; determine the access-floor layout before installing equipment or telecommunications cabling.",
+  "Accept it because the layout can be reconstructed after every rack is anchored.",
+  "Treat floor layout as a cosmetic choice that cannot affect pathways or service areas.",
+  "Replace the layout record with a room availability label and close the finding.",
+]
+correct = "A"
+explanation = "ANSI/TIA-569-E:2019 §9.6.5.1 places the access-floor layout before installation of equipment or telecommunications cabling. The handover reverses that sequence, so the installation evidence is incomplete."
+item_class = "one-line-defect"
+objective_ids = ["cdcs-obj-raised-floor"]
+source_ids = ["epi-cdcs-outline", "tia-942-c-2024", "tia-569-e-2019", "tia-569-e-2019-preview"]
+work = "Defect: equipment/cabling installed before access-floor layout → reject the installation sequence."
+source_class = "original"
+status = "approved"

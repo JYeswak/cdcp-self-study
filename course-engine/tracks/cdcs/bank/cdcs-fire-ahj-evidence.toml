@@ -1,0 +1,16 @@
+id = "cdcs-fire-ahj-evidence"
+stem = "A clean-agent submittal shows an 8% concentration screen and says 'approved,' but provides no authority-having-jurisdiction or occupancy review, no evidence that the designed concentration is reached within 30 seconds, and no pre-discharge alarm/egress record. What should the reviewer flag?"
+choices = [
+  "Reject the approval claim and escalate the evidence gap; concentration arithmetic does not replace AHJ/occupancy, timing, alarm, and egress review.",
+  "Accept it because an 8% screen proves the agent, enclosure, alarm, and hold-time design.",
+  "Infer the AHJ decision from the vendor's word 'approved' and close the item.",
+  "Ignore the alarm and egress record because only the initial gas percentage matters.",
+]
+correct = "A"
+explanation = "NFPA 2001:2025 is the current clean-agent standard anchor. OSHA 29 CFR 1910.162(b)(2), (b)(4), and (b)(5) separately address maintaining designed concentration, reaching it within the specified time, and providing a pre-discharge employee alarm where applicable. A volume/concentration screen is not AHJ or occupancy approval."
+item_class = "one-line-defect"
+objective_ids = ["cdcs-obj-fire-ahj"]
+source_ids = ["epi-cdcs-outline", "nfpa-2001-2025", "osha-gas"]
+work = "Defect: 8% arithmetic is presented as approval with no AHJ/occupancy, timing, alarm, or egress evidence → reject/escalate the submittal."
+source_class = "original"
+status = "approved"

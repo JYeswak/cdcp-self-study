@@ -1,0 +1,16 @@
+id = "cdcs-one-line"
+stem = "A single-line diagram shows utility A, utility B, and generator feeds converging through one shared ATS before the UPS input, while the proposal labels the arrangement 2N. What should the reviewer flag first?"
+choices = [
+  "The shared ATS is a common point of failure, so the 2N label needs path-independence evidence.",
+  "The 2N label removes the need to inspect the ATS because source names are enough.",
+  "A generator cannot appear on a data-centre single-line diagram.",
+  "The diagram is redundant by definition because it contains three source labels.",
+]
+correct = "A"
+explanation = "Independent source labels do not make a shared switching component independent. Trace the actual conductors, transfer equipment, controls, and maintenance bypass before accepting a redundancy claim."
+item_class = "one-line-defect"
+objective_ids = ["cdcs-obj-one-line"]
+source_ids = ["epi-cdcs-outline", "iso-22237-3-2021", "schneider-ups-config"]
+work = "Defect: independent sources → one shared ATS → common-mode SPOF; reject the 2N label until independence is shown."
+source_class = "original"
+status = "approved"

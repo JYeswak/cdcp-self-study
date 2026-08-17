@@ -1,0 +1,16 @@
+id = "cdcs-building-floor-units"
+stem = "A structural note gives a floor limit of 125 lbf/ft², but the metric schedule repeats 125 kPa. NIST gives 1 lbf/ft² = 47.88026 Pa. Which equivalent value should the reviewer use?"
+choices = [
+  "Approximately 5.99 kPa; 125 lbf/ft² × 0.04788026 kPa per lbf/ft².",
+  "125 kPa; the numeric value is unchanged when the label changes.",
+  "Approximately 0.00261 kPa; divide by the NIST factor twice.",
+  "Approximately 2,609 kPa; multiply by 20.885 without converting the direction.",
+]
+correct = "A"
+explanation = "125 lbf/ft² × 47.88026 Pa/(lbf/ft²) = 5,985.0325 Pa = about 5.99 kPa. ANSI/TIA-569-E:2019 §6.3.6.1.4 makes the floor-loading limit part of the building evidence; the unit mismatch cannot be accepted as a structural limit."
+item_class = "calculation"
+objective_ids = ["cdcs-obj-building-floor-units"]
+source_ids = ["epi-cdcs-outline", "tia-569-e-2019", "tia-569-e-2019-preview", "nist-si-appendix-b9"]
+work = "125 lbf/ft² × 47.88026 Pa/(lbf/ft²) ÷ 1,000 = 5.985 kPa ≈ 5.99 kPa; 125 kPa is a unit error."
+source_class = "original"
+status = "approved"

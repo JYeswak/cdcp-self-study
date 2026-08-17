@@ -1,0 +1,16 @@
+id = "cdcs-lifecycle-aging-horizon"
+stem = "A data-centre brief names a 15-year planned lifetime, but its classification worksheet applies availability, security, and energy-efficiency criteria only to the first five years and never identifies the remaining-life assumptions. What should the reviewer flag?"
+choices = [
+  "Reject the incomplete horizon; require the classification and business-risk/operating-cost analysis to address the named planned lifetime.",
+  "Accept it because the first five years determine every later lifecycle condition.",
+  "Replace the missing years with a single current availability percentage.",
+  "Ignore the horizon because aging is an operations issue outside data-centre classification.",
+]
+correct = "A"
+explanation = "ISO/IEC 22237-1:2021 identifies availability, security, and energy-efficiency over the planned lifetime as classification criteria and addresses business-risk and operating-cost analysis. A first-five-year worksheet does not evidence the stated 15-year horizon."
+item_class = "one-line-defect"
+objective_ids = ["cdcs-obj-lifecycle-aging"]
+source_ids = ["epi-cdcs-outline", "iso-22237-1-2021", "iso-22237-1-2021-preview"]
+work = "Defect: five-year evidence is used for a named 15-year planned lifetime with no remaining-life assumptions → reject the incomplete lifecycle basis."
+source_class = "original"
+status = "approved"

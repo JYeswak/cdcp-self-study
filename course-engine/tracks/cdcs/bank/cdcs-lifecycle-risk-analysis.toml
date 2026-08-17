@@ -1,0 +1,16 @@
+id = "cdcs-lifecycle-risk-analysis"
+stem = "A data-centre lifecycle proposal says availability alone determines its class and contains no planned-lifetime security or energy-efficiency criteria, business-risk analysis, or operating-cost analysis. What should the reviewer flag?"
+choices = [
+  "Reject the classification basis; require the planned-lifetime availability, security, energy-efficiency, business-risk, and operating-cost inputs.",
+  "Accept it because availability is the only classification criterion.",
+  "Replace the lifecycle analysis with a single UPS runtime number.",
+  "Treat operating cost as a post-commissioning issue outside the lifecycle.",
+]
+correct = "A"
+explanation = "ISO/IEC 22237-1:2021 Clauses 5 and 7 anchor business-risk analysis and the classification system based on planned-lifetime criteria. The proposal omits those inputs."
+item_class = "one-line-defect"
+objective_ids = ["cdcs-obj-lifecycle"]
+source_ids = ["epi-cdcs-outline", "iso-22237-1-2021", "iso-22237-1-2021-preview"]
+work = "Defect: lifecycle classification omits planned-lifetime availability/security/energy-efficiency and business-risk/operating-cost analysis."
+source_class = "original"
+status = "approved"

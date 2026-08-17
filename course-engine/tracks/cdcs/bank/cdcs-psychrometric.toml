@@ -1,0 +1,16 @@
+id = "cdcs-psychrometric"
+stem = "An offer matches room dry-bulb and sensible ΔT but omits entering and leaving humidity ratio and latent load from its coil selection. What one-line defect is present?"
+choices = [
+  "The offer is complete because dry-bulb temperature determines total coil load.",
+  "Dry-bulb-only sizing leaves latent moisture and enthalpy unverified; require the psychrometric process.",
+  "Humidity ratio is relevant only to generators, not cooling coils.",
+  "A psychrometric check can be replaced by a larger fan with no further evidence.",
+]
+correct = "B"
+explanation = "A sensible temperature check does not show moisture removal or total enthalpy change. The reviewer should request the stated air states and process, including latent load."
+item_class = "one-line-defect"
+objective_ids = ["cdcs-obj-psychrometrics"]
+source_ids = ["epi-cdcs-outline", "ashrae-f25-ch18-2025", "ashrae-psychrometrics", "trane-load"]
+work = "Defect: dry-bulb/ΔT only → latent moisture and enthalpy unverified; require a psychrometric process."
+source_class = "original"
+status = "approved"

@@ -1,0 +1,16 @@
+id = "cdcs-mpue-mixed-use"
+stem = "A mixed-use building report lists 2,400 MWh for the whole building, 1,800 MWh for the data-centre boundary, and 1,200 MWh of IT energy inside that same data-centre boundary. It reports mPUE as 2,400 ÷ 1,200 = 2.00. What mPUE does the stated boundary support?"
+choices = [
+  "1.50; use the 1,800 MWh data-centre boundary energy divided by the 1,200 MWh same-boundary IT energy.",
+  "2.00; whole-building energy is always the numerator for mixed-use mPUE.",
+  "0.50; subtract IT energy from the data-centre boundary energy before dividing.",
+  "It cannot be calculated because mixed-use metrics cannot use MWh.",
+]
+correct = "A"
+explanation = "ISO/IEC 30134-2:2026 Definition 3.1.7 defines mPUE from total energy consumption of the data centre within a mixed-use building divided by IT-equipment energy within that same data centre. Whole-building energy outside the boundary is not the numerator."
+item_class = "calculation"
+objective_ids = ["cdcs-obj-mpue"]
+source_ids = ["epi-cdcs-outline", "iso-30134-2-2026", "iso-30134-2-2026-obp"]
+work = "mPUE = 1,800 MWh ÷ 1,200 MWh = 1.50; the 2,400 MWh whole-building value is outside the data-centre boundary."
+source_class = "original"
+status = "approved"
