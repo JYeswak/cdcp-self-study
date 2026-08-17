@@ -7,7 +7,7 @@
 
 use std::fs;
 use std::io::{BufRead, BufReader, Write};
-use std::net::{IpAddr, Ipv4Addr, SocketAddr, TcpListener};
+use std::net::{IpAddr, Ipv4Addr, Shutdown, SocketAddr, TcpListener, TcpStream};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
@@ -45,6 +45,10 @@ pub(crate) fn run(explicit: Option<&Path>, preferred: &str, mode: OpenMode) -> R
     let url = format!("http://{addr}/");
     println!("cdcp {cmd}: {url}  (root {})", root.display());
     println!("cdcp {cmd}: Ctrl-C to stop");
+    // Piped stdout is fully buffered. Without this flush the listen URL
+    // stays invisible until the 8 KiB buffer fills — W1's waiter then
+    // races the first GET against a server that has not entered accept.
+    let _ = std::io::stdout().flush();
     if let OpenMode::Study { no_open: false } = mode {
         open_browser(&url);
     }
@@ -166,65 +170,91 @@ fn serve_loop(listener: TcpListener, root: &Path) -> Result<(), String> {
     // server down, and neither one grants access to anything. The access verdict
     // is the traversal guard below, which is fail-closed.
     for stream in listener.incoming() {
-        let mut stream = match stream {
+        let stream = match stream {
             Ok(s) => s,
             Err(_) => continue,
         };
-        let mut line = String::new();
-        if BufReader::new(&stream).read_line(&mut line).is_err() {
-            continue;
-        }
-        let mut parts = line.split_whitespace();
-        // Fail-closed defaults: a request line with no verb yields "", which is
-        // neither GET nor HEAD and is answered 405; a request line with no target
-        // yields "/", which is served as index.html or 404s. Neither default can
-        // widen what is reachable.
-        let method = parts.next().unwrap_or("");
-        let raw = parts.next().unwrap_or("/");
-        if method != "GET" && method != "HEAD" {
-            let _ =
-                stream.write_all(b"HTTP/1.1 405 Method Not Allowed\r\nContent-Length: 0\r\n\r\n");
-            continue;
-        }
-        let path = raw.split('?').next().unwrap_or("/");
-        let rel = if path == "/" {
-            "index.html"
-        } else {
-            path.trim_start_matches('/')
-        };
-
-        // Path traversal guard: resolve, then require the result stay under root.
-        // This IS a verdict, and it is fail-CLOSED in both legs: a canonicalize
-        // failure becomes None via `.ok()` (404, never "assume it is fine"), and
-        // the `starts_with` filter turns any escape into None as well. A file
-        // that cannot be resolved is refused, not served.
-        let candidate = root.join(rel);
-        let resolved = candidate
-            .canonicalize()
-            .ok()
-            .filter(|p| p.starts_with(root));
-        let (status, body, ctype) = match resolved {
-            Some(p) if p.is_file() => match fs::read(&p) {
-                Ok(bytes) => ("200 OK", bytes, content_type(&p)),
-                Err(_) => (
-                    "500 Internal Server Error",
-                    b"read error".to_vec(),
-                    "text/plain",
-                ),
-            },
-            _ => ("404 Not Found", b"not found".to_vec(), "text/plain"),
-        };
-        let head = format!(
-            "HTTP/1.1 {status}\r\nContent-Type: {ctype}\r\nContent-Length: {}\r\n\
-             X-Content-Type-Options: nosniff\r\nConnection: close\r\n\r\n",
-            body.len()
-        );
-        let _ = stream.write_all(head.as_bytes());
-        if method == "GET" {
-            let _ = stream.write_all(&body);
-        }
+        handle_connection(stream, root);
     }
     Ok(())
+}
+
+/// Read the request line AND drain headers. POSIX `close()` on a socket
+/// with unread recv data is RST, not FIN — the W1 client then fails
+/// `read_to_string` with ConnectionReset even when the 200 was fully sent.
+/// Measured 2026-08-17: check.yml run 32079950229, `a_relocated_serve_200`.
+fn read_request_line(stream: &TcpStream) -> Option<String> {
+    let mut reader = BufReader::new(stream);
+    let mut line = String::new();
+    match reader.read_line(&mut line) {
+        Ok(0) | Err(_) => return None,
+        Ok(_) => {}
+    }
+    loop {
+        let mut hdr = String::new();
+        match reader.read_line(&mut hdr) {
+            Ok(0) | Err(_) => break,
+            Ok(_) if hdr == "\r\n" || hdr == "\n" || hdr.is_empty() => break,
+            Ok(_) => {}
+        }
+    }
+    Some(line)
+}
+
+fn handle_connection(mut stream: TcpStream, root: &Path) {
+    let Some(line) = read_request_line(&stream) else {
+        return;
+    };
+    let mut parts = line.split_whitespace();
+    // Fail-closed defaults: a request line with no verb yields "", which is
+    // neither GET nor HEAD and is answered 405; a request line with no target
+    // yields "/", which is served as index.html or 404s. Neither default can
+    // widen what is reachable.
+    let method = parts.next().unwrap_or("");
+    let raw = parts.next().unwrap_or("/");
+    if method != "GET" && method != "HEAD" {
+        let _ = stream.write_all(b"HTTP/1.1 405 Method Not Allowed\r\nContent-Length: 0\r\n\r\n");
+        let _ = stream.shutdown(Shutdown::Write);
+        return;
+    }
+    let path = raw.split('?').next().unwrap_or("/");
+    let rel = if path == "/" {
+        "index.html"
+    } else {
+        path.trim_start_matches('/')
+    };
+
+    // Path traversal guard: resolve, then require the result stay under root.
+    // This IS a verdict, and it is fail-CLOSED in both legs: a canonicalize
+    // failure becomes None via `.ok()` (404, never "assume it is fine"), and
+    // the `starts_with` filter turns any escape into None as well. A file
+    // that cannot be resolved is refused, not served.
+    let candidate = root.join(rel);
+    let resolved = candidate
+        .canonicalize()
+        .ok()
+        .filter(|p| p.starts_with(root));
+    let (status, body, ctype) = match resolved {
+        Some(p) if p.is_file() => match fs::read(&p) {
+            Ok(bytes) => ("200 OK", bytes, content_type(&p)),
+            Err(_) => (
+                "500 Internal Server Error",
+                b"read error".to_vec(),
+                "text/plain",
+            ),
+        },
+        _ => ("404 Not Found", b"not found".to_vec(), "text/plain"),
+    };
+    let head = format!(
+        "HTTP/1.1 {status}\r\nContent-Type: {ctype}\r\nContent-Length: {}\r\n\
+         X-Content-Type-Options: nosniff\r\nConnection: close\r\n\r\n",
+        body.len()
+    );
+    let _ = stream.write_all(head.as_bytes());
+    if method == "GET" {
+        let _ = stream.write_all(&body);
+    }
+    let _ = stream.shutdown(Shutdown::Write);
 }
 
 /// Content-Type for a served file. The `unwrap_or("")` fallback is a labelling
@@ -289,5 +319,55 @@ mod tests {
         } else {
             assert_eq!(opener_bin(), "xdg-open");
         }
+    }
+
+    #[test]
+    fn get_with_headers_reads_to_eof_without_rst() {
+        use std::io::Read;
+        use std::thread;
+        use std::time::{Duration, SystemTime, UNIX_EPOCH};
+
+        let dir = std::env::temp_dir().join(format!(
+            "cdcp-serve-rst-{}-{}",
+            std::process::id(),
+            SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .map(|d| d.as_nanos())
+                .unwrap_or(0)
+        ));
+        fs::create_dir_all(&dir).unwrap();
+        fs::write(
+            dir.join("index.html"),
+            "<!doctype html><title>rst-proof</title>\n",
+        )
+        .unwrap();
+        // Production canonicalizes the web root (`resolve_web_dir`). Without
+        // that, macOS `/var` vs `/private/var` fails `starts_with` and 404s.
+        let root = dir.canonicalize().unwrap();
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let addr = listener.local_addr().unwrap();
+        let server = thread::spawn(move || {
+            let (stream, _) = listener.accept().unwrap();
+            handle_connection(stream, &root);
+        });
+
+        let mut client = TcpStream::connect(addr).unwrap();
+        client
+            .set_read_timeout(Some(Duration::from_secs(5)))
+            .unwrap();
+        write!(
+            client,
+            "GET / HTTP/1.1\r\nHost: 127.0.0.1\r\nConnection: close\r\nX-Extra: 1\r\n\r\n"
+        )
+        .unwrap();
+        let _ = client.shutdown(Shutdown::Write);
+        let mut buf = String::new();
+        client
+            .read_to_string(&mut buf)
+            .unwrap_or_else(|e| panic!("read_to_string must not RST: {e}; partial={buf:?}"));
+        let _ = server.join();
+        let _ = fs::remove_dir_all(&dir);
+        assert!(buf.starts_with("HTTP/1.1 200"), "{buf}");
+        assert!(buf.contains("<title>rst-proof</title>"), "{buf}");
     }
 }

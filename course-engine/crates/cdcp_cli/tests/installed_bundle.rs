@@ -89,8 +89,12 @@ fn http_get(hostport: &str, path: &str) -> (u16, String) {
         "GET {path} HTTP/1.1\r\nHost: {hostport}\r\nConnection: close\r\n\r\n"
     )
     .unwrap();
+    // Half-close the write side so the server sees EOF after headers.
+    let _ = stream.shutdown(std::net::Shutdown::Write);
     let mut buf = String::new();
-    stream.read_to_string(&mut buf).unwrap();
+    stream.read_to_string(&mut buf).unwrap_or_else(|e| {
+        panic!("read {hostport}{path}: {e}; partial={buf:?}");
+    });
     let status = buf
         .lines()
         .next()
@@ -111,7 +115,9 @@ fn wait_for_listen_line(child: &mut std::process::Child) -> Result<String, Strin
                 Ok(l) => {
                     acc.push_str(&l);
                     acc.push('\n');
-                    if l.contains("cdcp serve: http://") {
+                    // URL first, Ctrl-C second (after stdout flush). Wait for
+                    // both so GET does not race a server still in println!.
+                    if acc.contains("cdcp serve: http://") && acc.contains("Ctrl-C to stop") {
                         let _ = tx.send(Ok(acc));
                         return;
                     }
