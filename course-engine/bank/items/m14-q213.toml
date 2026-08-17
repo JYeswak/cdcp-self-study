@@ -1,0 +1,26 @@
+# Original CDCP educational MCQ — ebrr.45: seconds-scale row rate-of-rise signal
+# syllabus_heading = "1.14 Auxiliary Systems"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+# source_ids = [
+#   "src-epi-cdcp-page", # public syllabus heading
+#   "src-nfpa-72-2025", # NFPA 72, 2025 ed., §3.3.70.10 — https://www.nfpa.org/codes-and-standards/nfpa-72-standard-development/72
+# ]
+# claim = "A thermal detection layer may respond to rate-of-temperature-rise as well as an absolute high-temperature condition."
+id = "m14-q213"
+kind = "single-select"
+module = 14
+stem = "A GPU-row thermal packet has only a fixed-temperature alarm; a fast inlet sensor shows a sharp rise in seconds. The best gap review is:"
+choices = [
+  "Add rate-of-rise sensing",
+  "Wait for an absolute threshold and ignore the slope",
+  "Move all life-safety logic into the DCIM dashboard",
+  "Set one universal °C/min value for every row",
+]
+correct = "A"
+explanation = "NFPA 72 (2025) §3.3.70.10 recognizes heat detection by abnormally high temperature, rate-of-temperature rise, or both. A dense row can use a fast rate-of-rise signal as an early operational layer while retaining threshold protection; the site and equipment response must be validated rather than replaced with a universal rate figure."
+topic_ids = ["m14-ems", "m14-monitoring-reqs", "m14-alarms"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

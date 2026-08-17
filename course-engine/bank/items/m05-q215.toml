@@ -1,0 +1,26 @@
+# Original CDCP educational MCQ — ebrr.45: exit signs are not the whole egress-lighting check
+# syllabus_heading = "1.5 Light"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+# source_ids = [
+#   "src-epi-cdcp-page", # public syllabus heading
+#   "src-nfpa-101-2024", # NFPA 101, 2024 ed., §7.9.1.1 — https://www.nfpa.org/codes-and-standards/nfpa-101-standard-development/101
+# ]
+# claim = "Exit-sign visibility does not by itself establish that required emergency-lighting facilities for means of egress are present and ready."
+id = "m05-q215"
+kind = "single-select"
+module = 5
+stem = "During an egress walk, a team points to illuminated EXIT signs and says the emergency-lighting check is done. The best response is:"
+choices = [
+  "Check egress lighting separately",
+  "Treat EXIT signs as proof of all lighting",
+  "Skip it if the IT UPS is healthy",
+  "Check only normal rack task lighting",
+]
+correct = "A"
+explanation = "NFPA 101 (2024) §7.9.1.1 addresses emergency-lighting facilities for the means of egress in the conditions listed by the Code. An illuminated EXIT sign supports wayfinding, but it does not by itself demonstrate that the required egress emergency-lighting facilities are installed, powered, and ready."
+topic_ids = ["m05-emergency", "m05-emergency-types"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

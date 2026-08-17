@@ -1,0 +1,26 @@
+# Original CDCP educational MCQ — ebrr.45: EMS rate-of-rise does not replace the FACU
+# syllabus_heading = "1.14 Auxiliary Systems"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+# source_ids = [
+#   "src-epi-cdcp-page", # public syllabus heading
+#   "src-nfpa-72-2025", # NFPA 72, 2025 ed., §§3.3.70.10 and 26.6.3.2.2.2 — https://www.nfpa.org/codes-and-standards/nfpa-72-standard-development/72
+# ]
+# claim = "A fast EMS rate-of-rise page is supplemental monitoring, not automatic authority to replace the listed fire-alarm control-unit path."
+id = "m14-q214"
+kind = "single-select"
+module = 14
+stem = "An operator proposes: “Our EMS samples the GPU row every few seconds, so it can replace the listed fire-alarm control unit.” The correct boundary is:"
+choices = [
+  "Let EMS replace the FACU whenever its sample rate is faster",
+  "Keep the fast EMS page supplemental; preserve the listed FACU path",
+  "Disable fixed-temperature detection after EMS commissioning",
+  "Publish one EMS threshold as the universal fire-code setting for every GPU row",
+]
+correct = "B"
+explanation = "NFPA 72 (2025) §§3.3.70.10 and 26.6.3.2.2.2 keep rate-of-temperature-rise detection and listed fire-alarm signaling in their proper boundaries. A fast EMS/DCIM page can support operations and correlation, but it does not automatically replace the listed FACU path or justify one universal row threshold."
+topic_ids = ["m14-ems", "m14-monitoring-reqs", "m14-alarms"]
+objective_ids = []
+bloom = "evaluate"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,26 @@
+# Original CDCP educational MCQ — ebrr.45: IT UPS is not Article 700 proof
+# syllabus_heading = "1.5 Light"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+# source_ids = [
+#   "src-epi-cdcp-page", # public syllabus heading
+#   "src-nfpa-70-2026", # NFPA 70 (NEC), 2026 ed., §§700.12 and 700.17 — https://www.nfpa.org/codes-and-standards/nfpa-70-standard-development/70
+# ]
+# claim = "IT UPS ride-through does not by itself establish an Article 700 emergency-lighting source and branch-circuit path."
+id = "m05-q214"
+kind = "single-select"
+module = 5
+stem = "A data-hall packet says, “The IT UPS keeps the servers online, so Article 700 emergency lighting is covered.” The reviewer should:"
+choices = [
+  "Treat IT ride-through as sufficient",
+  "Verify the emergency source and lighting circuit",
+  "Use the rack UPS without a code review",
+  "Require a generator for every emergency luminaire",
+]
+correct = "B"
+explanation = "NFPA 70 (2026) §§700.12 and 700.17 tie emergency lighting to an Article 700 source and an emergency-lighting branch-circuit path when normal lighting fails. IT continuity alone does not prove that life-safety path; an UPS belongs in the answer only after the Article 700 design is verified."
+topic_ids = ["m05-emergency", "m05-standards"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
