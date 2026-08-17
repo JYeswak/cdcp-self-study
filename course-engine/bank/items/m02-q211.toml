@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.18 leftover (b) EN 50600
+id = "m02-q211"
+kind = "single-select"
+module = 2
+stem = "A designer says ISO/IEC 22237 is already on the shelf, so EN 50600 is just “European lineage” with no number to learn. The correction is:"
+choices = [
+  "EN 50600 is Uptime’s third plaque and does not need a number",
+  "EN 50600 is a fire code that overrides the local AHJ",
+  "EN 50600 is informal flavour text; only 22237 is a real series",
+  "EN 50600 is the European data-centre facilities series — first-class twin of ISO/IEC 22237 — carrying Availability Class and separate Protection Classes",
+]
+correct = "D"
+explanation = "Write the number. EN 50600 is the European twin of 22237, not a vibe and not a fire code. Availability Class and Protection Classes live in that family as separate axes."
+topic_ids = ["m02-en50600-series", "m02-iso22237-series"]
+objective_ids = ["obj-m02-en-50600"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

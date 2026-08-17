@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.18 leftover (e) kill 99.982
+id = "m02-q214"
+kind = "single-select"
+module = 2
+stem = "A slide recites “Tier III means 99.982% availability” (and the I–IV downtime table). The taught response is:"
+choices = [
+  "Memorize 99.671 / 99.741 / 99.982 / 99.995 as the current topology standard",
+  "True for TCOS but not for TCCD — swap the percentage onto the operations plaque",
+  "Replace 99.982 with a newer blog percentage so the nines-to-Tier crosswalk stays current",
+  "Name-and-kill: Uptime withdrew those I–IV downtime predictions in 2009; Tier is topology, not a nine; do not replace the myth with a new percentage",
+]
+correct = "D"
+explanation = "The cargo-cult nines table is withdrawn. This course will not hand you a replacement percentage. Ask for the path and which plaque, not a nine."
+topic_ids = ["m02-tia-vs-uptime"]
+objective_ids = ["obj-m02-kill-99982"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

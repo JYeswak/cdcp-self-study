@@ -83,8 +83,9 @@
 #
 # REGISTERED (row exists; marker at the site or the site is a second
 # occurrence of a claim already marked in the same file):
-#   - 804 / 779 / ~19.5× pool size — fact-bank-item-count-804,
+#   - 810 / 785 / ~19.6× pool size — fact-bank-item-count-804,
 #     fact-bank-approved-count-779, fact-approved-pool-multiplier-19-5
+#     (IDs are stable names; needles track the live units_index)
 #   - CHECK_STEPS= / INJECTIONS= — fact-check-steps-enforced,
 #     fact-injections-enforced
 #   - 134 Learn units — fact-learn-unit-count-134 (root README M8 said
@@ -166,17 +167,17 @@ trigger = "deny_unknown_fields"
 id = "fact-bank-item-count-804"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `bank_item_count` 804 (file-set size, retired included)?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": 804' }
-trigger = "804 files / 779"
+question = "Does the generated units index report `bank_item_count` 810 (file-set size, retired included)?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": 810' }
+trigger = "810 files / 785"
 
 [[fact]]
 id = "fact-bank-approved-count-779"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `approved_item_count` 779?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 779' }
-trigger = "779 approved / 25 retired"
+question = "Does the generated units index report `approved_item_count` 785?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 785' }
+trigger = "785 approved / 25 retired"
 
 [[fact]]
 id = "fact-learn-unit-count-134"
@@ -187,7 +188,7 @@ probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '
 trigger = "134 Learn units"
 
 # Sampling claims must quote the approved pool (bd-docs-advertise-file-count-as-pool-99sw).
-# 779/40 = 19.475, advertised as ~19.5×. The file set is 804 (~20.1×) and is
+# 785/40 = 19.625, advertised as ~19.6×. The file set is 810 (~20.3×) and is
 # not the drawable pool. A site that writes "~20× exam" without this marker
 # is quoting the file set; the trigger is the approved-pool multiplier so a
 # stale ~20× cannot satisfy it.
@@ -196,9 +197,9 @@ trigger = "134 Learn units"
 id = "fact-approved-pool-multiplier-19-5"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `approved_item_count` 779, i.e. the drawable pool whose exam multiplier is ~19.5× (779/40)?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 779' }
-trigger = "19.5× exam"
+question = "Does the generated units index report `approved_item_count` 785, i.e. the drawable pool whose exam multiplier is ~19.6× (785/40)?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 785' }
+trigger = "19.6× exam"
 
 [[fact]]
 id = "fact-assemble-rng-is-chacha12"

@@ -4584,6 +4584,166 @@
     ]
   },
   {
+    "bloom": "understand",
+    "choices": [
+      "Finish the conversion: Availability Class is the official translator that makes Rated-3 equal Tier III",
+      "Availability Class is the third noun in the lattice — used alongside TIA Rated and Uptime Tier, never Class 3 = Rated-3 = Tier III",
+      "Class 3 is TIA’s new name for Uptime Tier III after the 942-C rename",
+      "Protection Class is the converter between Rated and Tier"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "Rated lives in TIA-942-C, Tier in Uptime, Availability Class in EN 50600 / ISO/IEC 22237. The numbers rhyme on purpose; collapsing them is the trap.",
+    "id": "m02-q210",
+    "kind": "single-select",
+    "module": 2,
+    "objective_ids": [
+      "obj-m02-availability-class"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "An RFP writes “Class 3 / Rated-3 / Tier III equivalent” as one bullet. The taught reading is:",
+    "tags": [],
+    "topic_ids": [
+      "m02-tia-vs-uptime",
+      "m02-iso22237-series",
+      "m02-en50600-series"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "EN 50600 is Uptime’s third plaque and does not need a number",
+      "EN 50600 is a fire code that overrides the local AHJ",
+      "EN 50600 is informal flavour text; only 22237 is a real series",
+      "EN 50600 is the European data-centre facilities series — first-class twin of ISO/IEC 22237 — carrying Availability Class and separate Protection Classes"
+    ],
+    "citation_ids": [],
+    "correct": "D",
+    "explanation": "Write the number. EN 50600 is the European twin of 22237, not a vibe and not a fire code. Availability Class and Protection Classes live in that family as separate axes.",
+    "id": "m02-q211",
+    "kind": "single-select",
+    "module": 2,
+    "objective_ids": [
+      "obj-m02-en-50600"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A designer says ISO/IEC 22237 is already on the shelf, so EN 50600 is just “European lineage” with no number to learn. The correction is:",
+    "tags": [],
+    "topic_ids": [
+      "m02-en50600-series",
+      "m02-iso22237-series"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "None — TCCD is the single sticker that covers drawings, the building, and operations forever",
+      "Whether PUE is below 1.3, which converts TCCD into constructed-facility proof",
+      "Constructed Facility (TCCF) and Operational Sustainability (TCOS) are different plaques; a design-documents review is not the as-built plant or how the site is run",
+      "Whether Uptime also issued an Availability Class sticker for the same hall"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "Uptime issues three certificates — TCCD, TCCF, TCOS — not one plaque. Paper can be right while the built plant or the operating regime is not.",
+    "id": "m02-q212",
+    "kind": "single-select",
+    "module": 2,
+    "objective_ids": [
+      "obj-m02-three-plaques"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A colo brochure says “Tier III facility” and produces only a TCCD letter. What question is still open?",
+    "tags": [],
+    "topic_ids": [
+      "m02-tia-vs-uptime"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Accept it — TIA-942-C still says Tier, so the old wording is current law",
+      "Pin ANSI/TIA-942-C (2024): later editions, including C, say Rated so the document is not mistaken for Uptime; treat an un-yeared “per TIA-942” as soft and ask which edition they have open",
+      "Convert the TIA numeral to 99.982% and call the conversion the pin",
+      "Replace TIA language with Availability Class 3, which is the 2024 rename"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "Cite ANSI/TIA-942-C (2024) unless the contract names an older edition. The Rated-not-Tier rename is the point of pinning C; an un-yeared citation is soft.",
+    "id": "m02-q213",
+    "kind": "single-select",
+    "module": 2,
+    "objective_ids": [
+      "obj-m02-tia-942-c"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Someone says “TIA Tier III” while pointing at an un-yeared “per TIA-942” clause. The edition-years rule asks you to:",
+    "tags": [],
+    "topic_ids": [
+      "m02-tia-vs-uptime"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Memorize 99.671 / 99.741 / 99.982 / 99.995 as the current topology standard",
+      "True for TCOS but not for TCCD — swap the percentage onto the operations plaque",
+      "Replace 99.982 with a newer blog percentage so the nines-to-Tier crosswalk stays current",
+      "Name-and-kill: Uptime withdrew those I–IV downtime predictions in 2009; Tier is topology, not a nine; do not replace the myth with a new percentage"
+    ],
+    "citation_ids": [],
+    "correct": "D",
+    "explanation": "The cargo-cult nines table is withdrawn. This course will not hand you a replacement percentage. Ask for the path and which plaque, not a nine.",
+    "id": "m02-q214",
+    "kind": "single-select",
+    "module": 2,
+    "objective_ids": [
+      "obj-m02-kill-99982"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A slide recites “Tier III means 99.982% availability” (and the I–IV downtime table). The taught response is:",
+    "tags": [],
+    "topic_ids": [
+      "m02-tia-vs-uptime"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Accept both — a nameplate plus a KPI is the classification; no further evidence is needed",
+      "Ask for the one-line (path property: concurrent maintainability and single points) and which of the three Uptime plaques, if any; a nameplate and a meter are not topology proof",
+      "Convert the PUE into 99.982% and treat that as the missing Class/Tier crosswalk",
+      "Treat the nameplate photo as TCCF and the dashboard as TCOS"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "A one-line diagram is evidence of a topology claim. A nameplate, a PUE, or a nine is not. Ask which plaque (TCCD / TCCF / TCOS) and do not collapse Class into Tier.",
+    "id": "m02-q215",
+    "kind": "single-select",
+    "module": 2,
+    "objective_ids": [
+      "obj-m02-availability-class",
+      "obj-m02-three-plaques"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A vendor “proves” the hall is Availability Class 3 / Tier III by emailing a UPS nameplate photo and a PUE dashboard. The diagnostic move is:",
+    "tags": [],
+    "topic_ids": [
+      "m02-tia-vs-uptime"
+    ]
+  },
+  {
     "bloom": "apply",
     "choices": [
       "Lobby artwork style",

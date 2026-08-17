@@ -1,5 +1,5 @@
 {
-  "bank_hash": "9804343662ece288c0322a352daa563e8efa61c9d2ceff6d9d33e7fa354b5330",
+  "bank_hash": "805568f9e63bb51daaa537516d0234f022411af531faf54c85727a6494e32750",
   "exam_id": "mock40",
   "keys": [
     {
@@ -79,8 +79,8 @@
     },
     {
       "correct": "B",
-      "explanation": "Guides recommend practice; binding force comes from adoption into law, contract, or policy.",
-      "item_id": "m02-q081"
+      "explanation": "Cite ANSI/TIA-942-C (2024) unless the contract names an older edition. The Rated-not-Tier rename is the point of pinning C; an un-yeared citation is soft.",
+      "item_id": "m02-q213"
     },
     {
       "correct": "D",
@@ -189,13 +189,13 @@
     },
     {
       "correct": "B",
-      "explanation": "EN 50600 is European-series awareness; ISO/IEC 22237 is the international facilities series awareness.",
-      "item_id": "m02-q085"
+      "explanation": "Owners should compare substance and required process, not conflate logos or numerals.",
+      "item_id": "m02-q080"
     },
     {
       "correct": "B",
-      "explanation": "Awareness-level learning recognizes the series’ place in the landscape without treating it as a code dump.",
-      "item_id": "m02-q077"
+      "explanation": "Precise naming and framework literacy prevent costly contractual and design confusion.",
+      "item_id": "m02-q087"
     },
     {
       "correct": "C",

@@ -422,9 +422,9 @@ digest = "a796fce9e69cb4ffc8cf30fe2710091d05eb2678f7f3451cdd7df0106c43275f"
 [[golden]]
 id = "fixture.mock40-seed42"
 file = "goldens/fixtures/mock40_seed42.json"
-frozen = "abd47736f334c5f7fc72b83c42565c61e7db448eee706888aa9e55d8af6d35a7"
-affirmed = "2026-08-15"
-justification = "The seed-42 assembly record: forty ids in presentation order, plus an embedded six-field projection of each item and the bank_hash they were drawn under. Every other golden here is computed FROM this file, so it is re-frozen first and re-affirmed first. RE-AFFIRMED 2026-08-15 assemble.sampler vef6cfbeb255f: `assemble` body moved (64t.2/64t.3 wrapper) with seed-42 item_ids byte-identical; this file's frozen bytes did not move. REWRITTEN 2026-08-14 (bd-tetz): the old sentence \"Bank CONTENT drift is not this file's job\" survived C2 and C3 only because those re-freezes never moved a draw — C2 moved bank_hash with item_ids byte-identical, and C3's single retirement (mock40-q40) moved nothing at all. This re-freeze is the first where the DRAW moved: 24 duplicate items retired, the approved pool 803 -> 779, and 33 of the 40 ids changed with all 40 positions different. So this file is the record of WHICH FORTY QUESTIONS THE PUBLISHED FORM ASKS, and a selection-only edit to bank/items rewrites it. Only 7 ids survived the change (bank-m14-q121, m02-q077, m02-q081, m02-q085, m05-q148, m09-q123, m13-q202); no retired id appears, verified by parsing this file rather than by reading a diff."
+frozen = "b384a2e13fd0df4106c5e829c83b7c35725bc74d670671a34e3be15e1840c03a"
+affirmed = "2026-08-17"
+justification = "The seed-42 assembly record: forty ids in presentation order, plus an embedded six-field projection of each item and the bank_hash they were drawn under. Every other golden here is computed FROM this file, so it is re-frozen first and re-affirmed first. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.18): six new approved M02 items entered the pool (804→810 files, 779→785 approved). Domain stayed cdcp-bank-v3; no hashed field was added. The DRAW moved in three M02 slots: m02-q081→m02-q213 (new TIA-942-C pin item), m02-q085→m02-q080, m02-q077→m02-q087. bank_hash 98043436…→805568f9…. Surfaces named here did not move."
 depends_on = [
   { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
@@ -436,9 +436,9 @@ depends_on = [
 [[golden]]
 id = "grade.all-correct"
 file = "goldens/mock40_seed42_all_correct.sha256"
-frozen = "09db35dd23a27a156da2e69cb27085009081ea840785461abe96592c21d294b7"
-affirmed = "2026-08-15"
-justification = "hex(SHA-256(canonical_json(GradeReport))) for an attempt answering every fixture item with its correct letter. It moves when the report shape moves, when canonical JSON moves, when scoring moves, when the schema version moves, or when the fixture's ids move — five surfaces. REWRITTEN 2026-08-14 (bd-tetz) because this is the first re-freeze where the FIFTH one is what moved. C2 changed only the bank_hash field inside the report body; this change replaced 33 of the 40 item_results and re-derived by_module and weak_modules from a different forty questions. A reader comparing this digest to the C2-era one is not comparing two encodings of one attempt — the attempt itself is a different exam. It also re-affirms goldens.regeneration-path at vb61753f4e9b8: the comparison that checks this digest is now required to run rather than merely able to."
+frozen = "8c9ff8191849cafcaee6051c82684c181266a7306858bff6462712fbfb444de3"
+affirmed = "2026-08-17"
+justification = "hex(SHA-256(canonical_json(GradeReport))) for an attempt answering every fixture item with its correct letter. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.18): the fixture's forty ids moved in three M02 slots and bank_hash entered the report body (805568f9…). Report shape, canonical JSON, scoring, and schema version did not move. all-correct remains 40/40."
 depends_on = [
   { surface = "core.schema-version", version = "ve1cc74b2e52b" },
   { surface = "core.grade-report-shape", version = "v0e105134e087" },
@@ -452,9 +452,9 @@ depends_on = [
 [[golden]]
 id = "grade.all-wrong"
 file = "goldens/mock40_seed42_all_wrong.sha256"
-frozen = "a077db92c6368ace59cca49515a30d9a49ead454d28cd958b7be60a68e0b46ab"
-affirmed = "2026-08-15"
-justification = "The all-correct golden's counterpart, answering correct.wrong_letter() for all forty items. It carries one dependency the other does not: the wrong-letter cycle itself, which is content of this digest and nothing else in the tree pins. RE-STATED 2026-08-14 (bd-tetz) for the same reason as its counterpart — the forty items it is taken over are a different forty — with one addition specific to this row. The wrong-letter cycle is applied per item to that item's `correct` letter, and the retirements deliberately withdrew copies whose keys sat on DIFFERENT letters from their survivors (pair 12 moved D->B, pair 18 was A against B). So this digest changed for two independent reasons at once: a different item set, and a different distribution of correct letters within it. Neither is visible in the hex."
+frozen = "84c1c74ba91dc0276eb4a35fea7f77ec0e3a2dd26bd92c1d076503875c8796a7"
+affirmed = "2026-08-17"
+justification = "The all-correct golden's counterpart, answering correct.wrong_letter() for all forty items. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.18): same three-slot M02 draw change and bank_hash move as grade.all-correct. The wrong-letter cycle itself did not move."
 depends_on = [
   { surface = "core.schema-version", version = "ve1cc74b2e52b" },
   { surface = "core.grade-report-shape", version = "v0e105134e087" },
@@ -470,9 +470,9 @@ depends_on = [
 id = "bank.hash-pin"
 file = "goldens/bank_hash.txt"
 const = "crates/cdcp_gate/src/gates/verify_content_lock.rs::GOLDEN_REL"
-frozen = "bb51a5ee381a0f993d6ecf1aee7facb4bdfb04e79a7bb00d7c6230baaf100937"
-affirmed = "2026-08-15"
-justification = "The bank content address for this snapshot, and the fallback verify-content-lock reads when it cannot recompute one. REWRITTEN 2026-08-14 (bd-tetz) on both clauses. First, the old second sentence — \"goldens check compares it only when the file exists, so this row is also what makes deleting it a finding rather than a silent pass\" — is retired: that conditional was the bd-goldens-check-is-file-hole-7v9p hole, and bank_hash.txt is now a REQUIRED golden whose absence or emptiness is an error inside goldens check itself. This row is no longer the only thing standing between a deleted pin and a green run. Second, what the address now covers: 173057eb… -> 3404d854…, moved by 24 status flips and nothing else. Not one stem, choice, key or explanation changed in this re-freeze; the entire delta is `status`, which C2 folded into hash_payload precisely so that a selection-only edit could not hide here. The address now names a bank of 804 files of which 779 are drawable."
+frozen = "dc60f3b82955585395a48467e2ea89c5fa87733620c91c51e2851dd245d128c1"
+affirmed = "2026-08-17"
+justification = "The bank content address for this snapshot, and the fallback verify-content-lock reads when it cannot recompute one. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.18): six new original M02 items (m02-q210…q215) entered hash_payload. Address 98043436…→805568f9…. BANK_HASH_DOMAIN stayed cdcp-bank-v3; bank.hash-payload / bank.item-schema surfaces did not move. The address now names a bank of 810 files of which 785 are drawable."
 depends_on = [
   { surface = "bank.hash-payload", version = "vcf11098efb54" },
   { surface = "bank.item-schema", version = "v9e6e70394dd4" },
@@ -482,9 +482,9 @@ depends_on = [
 [[golden]]
 id = "web.learner-pack"
 file = "web/data/mock40_seed42.json"
-frozen = "104081beef659204f76e7a476cd2524c73e5c30f023b793b2c6eb4c67e61aedf"
-affirmed = "2026-08-15"
-justification = "The learner exam pack the browser loads, cmp'd byte-for-byte by check.sh L6 against a fresh export-web at seed 42. It replays the sampler rather than the fixture, so it moves with the sampler even when the fixture is untouched — the divergence bd-golden-sampler-divergence-09q was made of. RE-AFFIRMED 2026-08-15 assemble.sampler vef6cfbeb255f: wrapper-only source move; pack bytes unchanged. RE-STATED 2026-08-14 (bd-tetz): this re-freeze is the first that changed WHAT A LEARNER SEES rather than only what a digest covers. 33 of the 40 questions in this pack are different questions; a learner who took the seed-42 mock before this change and takes it after has sat two different exams under one name. Verified byte-for-byte against a fresh export and independently by parsing this file's `items[].id` against the fixture's `item_ids` — equal, in order, with no retired id present."
+frozen = "63cad52dc238a2c751a511781d24fea782424f7a9d1e6bf9c7759029ebadcc95"
+affirmed = "2026-08-17"
+justification = "The learner exam pack the browser loads, cmp'd byte-for-byte by check.sh L6 against a fresh export-web at seed 42. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.18): three M02 questions in the published form changed (including new m02-q213). A learner who sat seed-42 before this change and sits it after meets a different M02 trio. Pack shape and sampler surfaces did not move."
 depends_on = [
   { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
@@ -495,9 +495,9 @@ depends_on = [
 [[golden]]
 id = "web.keys-pack"
 file = "web/data/keys_seed42.json"
-frozen = "cfcf16c5ee3bf6a1518741043d7509692af64a381224cf6ad656f79f8efc2759"
-affirmed = "2026-08-15"
-justification = "The answer keys and explanations for the same forty items, held apart from the learner pack on purpose. Its key set is a policy boundary, not a convenience, which is why the shape it was frozen under is named here rather than assumed. RE-AFFIRMED 2026-08-15 assemble.sampler vef6cfbeb255f: wrapper-only source move; pack bytes unchanged. RE-STATED 2026-08-14 (bd-tetz): this pack carries the `explanation` string of every drawn item, and the explanation is exactly the field the 24 retirements were adjudicated on — the surviving copy of each pair was chosen because its explanation teaches the contrast instead of restating its own key. So the post-answer text a learner now reads is, by construction, the better of the two that existed for those propositions. That is a product change hiding inside a digest move, and it is the only place in this ledger where the change is pedagogical rather than structural."
+frozen = "69a70ecba331007842206910feadffea8a38ac04eb9ad1c1d44f371895bb170e"
+affirmed = "2026-08-17"
+justification = "The answer keys and explanations for the same forty items, held apart from the learner pack on purpose. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.18): keys follow the same three-slot M02 draw change as the learner pack. Pack shape did not move."
 depends_on = [
   { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
@@ -508,9 +508,9 @@ depends_on = [
 [[golden]]
 id = "web.bank-items-pack"
 file = "web/data/bank_items_seed42.json"
-frozen = "b83f1a4229d6abea52d6cb6ade8d720a521cc7d341041fa3b70d999e273345ca"
-affirmed = "2026-08-15"
-justification = "The full 804-item array the WASM grade path needs, serialised straight off BankItem. Its element shape IS bank.item-schema, so a field added to that struct re-writes this file for every item while bank_hash — which hash_payload governs separately — can hold still. That asymmetry is the reason both surfaces are named here. REWRITTEN 2026-08-14 (bd-tetz) because \"the full 804-item array\" now needs qualifying: this pack still ships 804 elements, but 25 of them carry status = \"retired\" (1 before this change, 25 after) and the sampler can never draw them. The count in this row is therefore a FILE count, not a pool count — the drawable pool is 779 — and anyone quoting 804 off this pack is quoting the wrong number. This is also the only artifact here whose element count did NOT move under a change that moved every other row, which is precisely the asymmetry the sentence above describes: retirement is a `status` edit, so it re-writes one field of 24 elements and moves bank_hash, while the array's length is a function of the file set alone."
+frozen = "212d81dd2af91283332568da021c88b6a27db9c7eab681ae7e91dd231c575ebb"
+affirmed = "2026-08-17"
+justification = "The full bank array the WASM grade path needs, serialised straight off BankItem. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.18): array length moved 804→810 because six new files were added (m02-q210…q215). 25 remain retired; drawable pool is 785. Element shape / bank.item-schema did not move. This is the first walk since tetz where the FILE count itself changed."
 depends_on = [
   { surface = "bank.item-schema", version = "v9e6e70394dd4" },
   { surface = "bank.hash-payload", version = "vcf11098efb54" },

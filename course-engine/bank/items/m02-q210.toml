@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.18 leftover (a) Availability Class
+id = "m02-q210"
+kind = "single-select"
+module = 2
+stem = "An RFP writes “Class 3 / Rated-3 / Tier III equivalent” as one bullet. The taught reading is:"
+choices = [
+  "Finish the conversion: Availability Class is the official translator that makes Rated-3 equal Tier III",
+  "Availability Class is the third noun in the lattice — used alongside TIA Rated and Uptime Tier, never Class 3 = Rated-3 = Tier III",
+  "Class 3 is TIA’s new name for Uptime Tier III after the 942-C rename",
+  "Protection Class is the converter between Rated and Tier",
+]
+correct = "B"
+explanation = "Rated lives in TIA-942-C, Tier in Uptime, Availability Class in EN 50600 / ISO/IEC 22237. The numbers rhyme on purpose; collapsing them is the trap."
+topic_ids = ["m02-tia-vs-uptime", "m02-iso22237-series", "m02-en50600-series"]
+objective_ids = ["obj-m02-availability-class"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

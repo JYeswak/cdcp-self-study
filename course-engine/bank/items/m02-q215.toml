@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.18 leftover analyze: one-line as proof
+id = "m02-q215"
+kind = "single-select"
+module = 2
+stem = "A vendor “proves” the hall is Availability Class 3 / Tier III by emailing a UPS nameplate photo and a PUE dashboard. The diagnostic move is:"
+choices = [
+  "Accept both — a nameplate plus a KPI is the classification; no further evidence is needed",
+  "Ask for the one-line (path property: concurrent maintainability and single points) and which of the three Uptime plaques, if any; a nameplate and a meter are not topology proof",
+  "Convert the PUE into 99.982% and treat that as the missing Class/Tier crosswalk",
+  "Treat the nameplate photo as TCCF and the dashboard as TCOS",
+]
+correct = "B"
+explanation = "A one-line diagram is evidence of a topology claim. A nameplate, a PUE, or a nine is not. Ask which plaque (TCCD / TCCF / TCOS) and do not collapse Class into Tier."
+topic_ids = ["m02-tia-vs-uptime"]
+objective_ids = ["obj-m02-availability-class", "obj-m02-three-plaques"]
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
