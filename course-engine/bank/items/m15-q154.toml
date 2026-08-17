@@ -1,8 +1,10 @@
 # Original educational bank item — modules expansion (not mock40)
+# Rewritten 2026-08-17 (bd-curriculum-truth-ebrr.32): post-incident object is
+# contributing factors, plural — never "root cause" singular.
 id = "bank-m15-q154"
 kind = "single-select"
 module = 15
-stem = "Post-incident documentation (timeline, root cause, corrective actions) is valuable because it:"
+stem = "Post-incident documentation (timeline, contributing factors, corrective actions) is valuable because it:"
 choices = [
   "Only blames individuals without system learning",
   "Converts experience into prevention—procedure, design, and monitoring improvements",
@@ -10,7 +12,7 @@ choices = [
   "Replaces the need for MOPs on future similar work"
 ]
 correct = "B"
-explanation = "Learning loops turn incidents into durable ops improvements."
+explanation = "Learning loops turn incidents into durable ops improvements. Record contributing factors, plural — never a single root cause."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "understand"
