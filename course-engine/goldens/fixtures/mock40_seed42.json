@@ -1,5 +1,5 @@
 {
-  "bank_hash": "f3e79c62e53b2a3e55049afb7bd9e32fc9e6552280d94c7cb0c88ced3b3a4112",
+  "bank_hash": "32844a3f3f380908dee9cd0627b56e3234cfd30fc6fe31197df916f08be79625",
   "exam_id": "mock40",
   "item_ids": [
     "m04-q129",
@@ -26,10 +26,10 @@
     "m10-q109",
     "bank-m15-q137",
     "m05-q148",
-    "m14-q209",
+    "bank-m14-q128",
     "bank-m12-q057",
     "m09-q123",
-    "m14-q210",
+    "bank-m14-q111",
     "m06-q105",
     "m06-q259",
     "bank-m13-q097",
@@ -421,19 +421,18 @@
     },
     {
       "choices": [
-        "Correlation always proves the network team is at fault",
-        "Cross-domain correlation speeds root-cause isolation when cooling plant and room environment interact",
-        "Systems should never share timestamps",
-        "It replaces mechanical expertise entirely"
+        "Cloud dashboards always work without power",
+        "FACP logic should move entirely to email",
+        "NTP is unnecessary if LEDs exist",
+        "Network outages must not silence critical local alarms"
       ],
-      "correct": "B",
-      "id": "m14-q209",
+      "correct": "D",
+      "id": "bank-m14-q128",
       "module": 14,
-      "stem": "Correlating BMS alarms with EMS temperature spikes helps operators because:",
+      "stem": "Local annunciation at plant panels still matters because:",
       "topic_ids": [
-        "m14-bms",
-        "m14-ems",
-        "m14-monitoring-challenges"
+        "m14-alarms",
+        "m14-best-practices"
       ]
     },
     {
@@ -468,18 +467,17 @@
     },
     {
       "choices": [
-        "Perfect silence forever",
-        "Automatic root-cause analysis",
-        "Chattering alarms and operator desensitization",
-        "Higher MTBF by definition"
+        "Only on the roof with no plant connection",
+        "Inside sealed fiber splice trays only",
+        "Under CRAH/CRAC bases, drip pans, and valve manifolds as point hazards",
+        "As a full replacement for all rope zones always"
       ],
       "correct": "C",
-      "id": "m14-q210",
+      "id": "bank-m14-q111",
       "module": 14,
-      "stem": "Thresholds set without hysteresis or seasonality awareness often cause:",
+      "stem": "Spot leak sensors are especially appropriate:",
       "topic_ids": [
-        "m14-alarms",
-        "m14-monitoring-reqs"
+        "m14-leak"
       ]
     },
     {

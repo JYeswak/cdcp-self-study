@@ -1,6 +1,6 @@
 {
-  "approved_item_count": 819,
-  "bank_item_count": 844,
+  "approved_item_count": 821,
+  "bank_item_count": 846,
   "by_module": {
     "01-mission-critical": [
       {
@@ -3091,8 +3091,8 @@
         "check_count": 3,
         "check_item_ids": [
           "m14-q208",
-          "bank-m14-q106",
-          "bank-m14-q107"
+          "m14-q211",
+          "bank-m14-q106"
         ],
         "estimate_minutes": 3,
         "heading_id": "formulas-rules-of-thumb",
@@ -3117,9 +3117,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "bank-m14-q107",
           "bank-m14-q108",
-          "bank-m14-q109",
-          "bank-m14-q114"
+          "bank-m14-q109"
         ],
         "estimate_minutes": 3,
         "heading_id": "common-failure-modes-and-misconceptions",
@@ -3144,7 +3144,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "bank-m14-q111",
+          "bank-m14-q110",
           "bank-m14-q114",
           "bank-m14-q117"
         ],
@@ -3171,9 +3171,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "bank-m14-q114",
           "bank-m14-q117",
-          "bank-m14-q119",
-          "bank-m14-q121"
+          "bank-m14-q119"
         ],
         "estimate_minutes": 3,
         "heading_id": "self-check-quiz",
@@ -3198,9 +3198,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "bank-m14-q121",
           "bank-m14-q122",
-          "bank-m14-q128",
-          "bank-m14-q129"
+          "bank-m14-q128"
         ],
         "estimate_minutes": 3,
         "heading_id": "further-free-resources",
@@ -6462,8 +6462,8 @@
       "check_count": 3,
       "check_item_ids": [
         "m14-q208",
-        "bank-m14-q106",
-        "bank-m14-q107"
+        "m14-q211",
+        "bank-m14-q106"
       ],
       "estimate_minutes": 3,
       "heading_id": "formulas-rules-of-thumb",
@@ -6488,9 +6488,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "bank-m14-q107",
         "bank-m14-q108",
-        "bank-m14-q109",
-        "bank-m14-q114"
+        "bank-m14-q109"
       ],
       "estimate_minutes": 3,
       "heading_id": "common-failure-modes-and-misconceptions",
@@ -6515,7 +6515,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "bank-m14-q111",
+        "bank-m14-q110",
         "bank-m14-q114",
         "bank-m14-q117"
       ],
@@ -6542,9 +6542,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "bank-m14-q114",
         "bank-m14-q117",
-        "bank-m14-q119",
-        "bank-m14-q121"
+        "bank-m14-q119"
       ],
       "estimate_minutes": 3,
       "heading_id": "self-check-quiz",
@@ -6569,9 +6569,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "bank-m14-q121",
         "bank-m14-q122",
-        "bank-m14-q128",
-        "bank-m14-q129"
+        "bank-m14-q128"
       ],
       "estimate_minutes": 3,
       "heading_id": "further-free-resources",

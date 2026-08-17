@@ -1,6 +1,6 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "f3e79c62e53b2a3e55049afb7bd9e32fc9e6552280d94c7cb0c88ced3b3a4112",
+  "bank_hash": "32844a3f3f380908dee9cd0627b56e3234cfd30fc6fe31197df916f08be79625",
   "exam_id": "mock40",
   "items": [
     {
@@ -245,13 +245,13 @@
     },
     {
       "choices": [
-        "Correlation always proves the network team is at fault",
-        "Cross-domain correlation speeds root-cause isolation when cooling plant and room environment interact",
-        "Systems should never share timestamps",
-        "It replaces mechanical expertise entirely"
+        "Cloud dashboards always work without power",
+        "FACP logic should move entirely to email",
+        "NTP is unnecessary if LEDs exist",
+        "Network outages must not silence critical local alarms"
       ],
-      "id": "m14-q209",
-      "stem": "Correlating BMS alarms with EMS temperature spikes helps operators because:"
+      "id": "bank-m14-q128",
+      "stem": "Local annunciation at plant panels still matters because:"
     },
     {
       "choices": [
@@ -275,13 +275,13 @@
     },
     {
       "choices": [
-        "Perfect silence forever",
-        "Automatic root-cause analysis",
-        "Chattering alarms and operator desensitization",
-        "Higher MTBF by definition"
+        "Only on the roof with no plant connection",
+        "Inside sealed fiber splice trays only",
+        "Under CRAH/CRAC bases, drip pans, and valve manifolds as point hazards",
+        "As a full replacement for all rope zones always"
       ],
-      "id": "m14-q210",
-      "stem": "Thresholds set without hysteresis or seasonality awareness often cause:"
+      "id": "bank-m14-q111",
+      "stem": "Spot leak sensors are especially appropriate:"
     },
     {
       "choices": [

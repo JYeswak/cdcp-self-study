@@ -19419,6 +19419,61 @@
   {
     "bloom": "understand",
     "choices": [
+      "Recite RDHx / D2C / immersion families and the W-class plant so this file owns cooling hardware",
+      "CDU / secondary-loop leak at the skid, QDCs, hose trays and cold-plate/RDHx drip pans, plus loop flow / temperature / pressure on both sides of the isolation HX, plus seconds-scale inlet or cold-plate rate-of-rise — a hall rope is not that coverage; hardware families stay in Module 09",
+      "Treat ISO/IEC 22237 Availability Class as equal to TIA Rated or Uptime Tier so the rope can be skipped",
+      "Quote a leak percentage that proves a single hall zone is enough"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "This file owns the points, not the plant. Secondary loop is its own leak and telemetry domain. Hall rope is not CDU coverage. No invented leak percent. Availability Class stays in Module 02. Liquid families stay in Module 09.",
+    "id": "m14-q211",
+    "kind": "single-select",
+    "module": 14,
+    "objective_ids": [
+      "obj-m14-cdu-loop-leak"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A 2026 interviewer asks which first-class points a liquid-cooled GPU row needs beyond the raised-floor CHW rope. The taught answer is:",
+    "tags": [],
+    "topic_ids": [
+      "m14-leak",
+      "m14-monitoring-challenges"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Approve: hall rope plus a 15-minute average plus a leak percent is the 2026 clock",
+      "Convert the packet into the Module 09 liquid-family oral so the points question goes away",
+      "Recite Availability Class plaques in this file so Module 02 does not have to",
+      "Reject the packet: a hall rope is not CDU-loop coverage and a 15-minute CRAC-return average is the wrong clock — page on seconds-scale inlet or cold-plate rate-of-rise and on loss of N+1 CDU, not the last unit; Availability Class is taught in Module 02 alongside TIA, not equal to Rated or Tier; liquid families stay in Module 09; isolate-the-loop EOP craft is Module 15; do not invent a leak percent"
+    ],
+    "citation_ids": [],
+    "correct": "D",
+    "explanation": "Analyze the collapse. Hall rope and a 15-minute average are the wrong coverage and the wrong clock. Page on rate-of-rise and on loss of CDU redundancy. Do not steal Module 02 Availability Class or Module 09 plant. EOP craft is Module 15. No invented leak percent.",
+    "id": "m14-q212",
+    "kind": "single-select",
+    "module": 14,
+    "objective_ids": [
+      "obj-m14-cdu-loop-leak"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Reviewer is handed a GPU-row monitoring packet: “Raised-floor rope is green so the CDU loop is covered; trip on a 15-minute CRAC-return average; page only when the last CDU dies; Availability Class here equals Rated/Tier; write the isolate-the-loop EOP in this file; cite a leak percent so the AHJ will sign.” You should:",
+    "tags": [],
+    "topic_ids": [
+      "m14-leak",
+      "m14-monitoring-challenges",
+      "m14-alarms"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
       "The need for any documentation",
       "Fire detection coverage needs",
       "Utility entrance diversity",

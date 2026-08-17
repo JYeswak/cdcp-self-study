@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.27 leftover: CDU / secondary-loop first-class points
+id = "m14-q211"
+kind = "single-select"
+module = 14
+stem = "A 2026 interviewer asks which first-class points a liquid-cooled GPU row needs beyond the raised-floor CHW rope. The taught answer is:"
+choices = [
+  "Recite RDHx / D2C / immersion families and the W-class plant so this file owns cooling hardware",
+  "CDU / secondary-loop leak at the skid, QDCs, hose trays and cold-plate/RDHx drip pans, plus loop flow / temperature / pressure on both sides of the isolation HX, plus seconds-scale inlet or cold-plate rate-of-rise — a hall rope is not that coverage; hardware families stay in Module 09",
+  "Treat ISO/IEC 22237 Availability Class as equal to TIA Rated or Uptime Tier so the rope can be skipped",
+  "Quote a leak percentage that proves a single hall zone is enough",
+]
+correct = "B"
+explanation = "This file owns the points, not the plant. Secondary loop is its own leak and telemetry domain. Hall rope is not CDU coverage. No invented leak percent. Availability Class stays in Module 02. Liquid families stay in Module 09."
+topic_ids = ["m14-leak", "m14-monitoring-challenges"]
+objective_ids = ["obj-m14-cdu-loop-leak"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

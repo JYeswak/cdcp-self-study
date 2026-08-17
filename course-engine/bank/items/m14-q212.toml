@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.27 leftover: analyze packet that collapses CDU loop into hall rope
+id = "m14-q212"
+kind = "single-select"
+module = 14
+stem = "Reviewer is handed a GPU-row monitoring packet: “Raised-floor rope is green so the CDU loop is covered; trip on a 15-minute CRAC-return average; page only when the last CDU dies; Availability Class here equals Rated/Tier; write the isolate-the-loop EOP in this file; cite a leak percent so the AHJ will sign.” You should:"
+choices = [
+  "Approve: hall rope plus a 15-minute average plus a leak percent is the 2026 clock",
+  "Convert the packet into the Module 09 liquid-family oral so the points question goes away",
+  "Recite Availability Class plaques in this file so Module 02 does not have to",
+  "Reject the packet: a hall rope is not CDU-loop coverage and a 15-minute CRAC-return average is the wrong clock — page on seconds-scale inlet or cold-plate rate-of-rise and on loss of N+1 CDU, not the last unit; Availability Class is taught in Module 02 alongside TIA, not equal to Rated or Tier; liquid families stay in Module 09; isolate-the-loop EOP craft is Module 15; do not invent a leak percent",
+]
+correct = "D"
+explanation = "Analyze the collapse. Hall rope and a 15-minute average are the wrong coverage and the wrong clock. Page on rate-of-rise and on loss of CDU redundancy. Do not steal Module 02 Availability Class or Module 09 plant. EOP craft is Module 15. No invented leak percent."
+topic_ids = ["m14-leak", "m14-monitoring-challenges", "m14-alarms"]
+objective_ids = ["obj-m14-cdu-loop-leak"]
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

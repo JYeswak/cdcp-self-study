@@ -1,5 +1,5 @@
 {
-  "bank_hash": "f3e79c62e53b2a3e55049afb7bd9e32fc9e6552280d94c7cb0c88ced3b3a4112",
+  "bank_hash": "32844a3f3f380908dee9cd0627b56e3234cfd30fc6fe31197df916f08be79625",
   "exam_id": "mock40",
   "keys": [
     {
@@ -123,9 +123,9 @@
       "item_id": "m05-q148"
     },
     {
-      "correct": "B",
-      "explanation": "Facility incidents cross subsystems; correlation beats siloed dashboards.",
-      "item_id": "m14-q209"
+      "correct": "D",
+      "explanation": "Life/availability critical spaces need local indication when northbound links fail.",
+      "item_id": "bank-m14-q128"
     },
     {
       "correct": "A",
@@ -139,8 +139,8 @@
     },
     {
       "correct": "C",
-      "explanation": "Poor threshold design creates alarm fatigue and missed real events.",
-      "item_id": "m14-q210"
+      "explanation": "Spots catch known drip points; ropes cover distributed underfloor paths.",
+      "item_id": "bank-m14-q111"
     },
     {
       "correct": "A",
