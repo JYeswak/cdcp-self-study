@@ -28,12 +28,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Nightly is load-bearing: trim-paths requires nightly cargo. Stable
+      # cannot parse course-engine/Cargo.toml (measured v0.1.0 run 32062806206).
       - name: Install Rust + wasm32 target
         run: |
-          rustup toolchain install stable --profile minimal \
+          rustup toolchain install nightly --profile minimal \
             --component rustfmt,clippy
-          rustup target add wasm32-unknown-unknown
-          rustup default stable
+          rustup target add wasm32-unknown-unknown --toolchain nightly
+          rustup default nightly
 
       - uses: actions/setup-python@v5
         with:
@@ -75,9 +77,9 @@ jobs:
 
       - name: Install Rust
         run: |
-          rustup toolchain install stable --profile minimal
-          rustup target add ${{ matrix.target }}
-          rustup default stable
+          rustup toolchain install nightly --profile minimal
+          rustup target add ${{ matrix.target }} --toolchain nightly
+          rustup default nightly
 
       - uses: actions/cache@v4
         with:

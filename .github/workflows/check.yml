@@ -21,12 +21,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Nightly is load-bearing: Cargo.toml has cargo-features = ["trim-paths"]
+      # so release binaries embed no host /Users/ paths (W1 (d)). Stable cargo
+      # cannot parse the manifest (measured v0.1.0 release run 32062806206).
       - name: Install Rust + wasm32 target
         run: |
-          rustup toolchain install stable --profile minimal \
+          rustup toolchain install nightly --profile minimal \
             --component rustfmt,clippy
-          rustup target add wasm32-unknown-unknown
-          rustup default stable
+          rustup target add wasm32-unknown-unknown --toolchain nightly
+          rustup default nightly
 
       - uses: actions/setup-python@v5
         with:
