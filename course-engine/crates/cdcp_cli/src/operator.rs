@@ -4,6 +4,11 @@
 //! `repair` rebuilds learner artifacts and MUST NOT re-freeze anything under
 //! `goldens/` — UPDATE_GOLDENS stays a human/env gate. A repair verb that
 //! silently re-freezes is the B2 hole.
+//!
+//! Learner `doctor` (PLAN-N W12, bd-installability-sm4g.11) probes the
+//! INSTALLED layer only: `web/`, shipped wasm `\0asm`, install receipt if
+//! present, bindable port. Authoring probes (bank / goldens / content.lock /
+//! python3) stay behind `CDCP_DEV=1`.
 
 use cdcp_bank::Bank;
 use cdcp_learn::join_rel;
@@ -15,28 +20,54 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
 /// Version of the `health --robot` envelope. Bump only with a consumer change.
-/// v2 adds `attempts_store` (bd-hardening-l-attempts-bg2.2).
-pub(crate) const HEALTH_SCHEMA_VERSION: u64 = 2;
+/// v3 lists installed facts only (web / wasm / receipt / identities / attempts).
+/// bank_hash / approved_n / manifest_n / goldens / unit_count were v2 authoring
+/// facts and made every bundle-only tree RED-by-construction.
+pub(crate) const HEALTH_SCHEMA_VERSION: u64 = 3;
 
 /// Top-level keys of the health envelope, in emit order. A test pins these
 /// names so a consumer can rely on them; adding or renaming one is a
 /// deliberate schema bump.
 pub(crate) const HEALTH_ROBOT_FIELDS: &[&str] = &[
     "schema_version",
-    "bank_hash",
-    "approved_n",
-    "manifest_n",
-    "unit_count",
+    "web",
+    "wasm",
+    "receipt",
     "engine_identities",
-    "goldens",
     "attempts_store",
 ];
 
-/// Doctor checks, compiled in so emptying the list is a RED run rather than a
-/// silently vacuous one. An empty tree still RUNS every row and names what is
-/// missing — it must never report the way a tree that passed everything does.
-pub(crate) const DOCTOR_CHECKS: &[&str] =
-    &["bank", "wasm", "goldens", "content.lock", "port", "python3"];
+/// Version of `cdcp doctor --json`. Bump when the probe object shape changes.
+pub(crate) const DOCTOR_SCHEMA_VERSION: u64 = 1;
+
+/// Learner-path doctor probes. Empty is compile-fail AND runtime ERROR.
+/// An empty tree still RUNS every row and names what is missing — it must
+/// never report the way a tree that passed everything does.
+pub(crate) const DOCTOR_CHECKS: &[&str] = &["web", "wasm", "receipt", "port"];
+
+/// Authoring probes. Reached only when `CDCP_DEV=1`. Empty is ERROR on that path.
+pub(crate) const DOCTOR_AUTHORING_CHECKS: &[&str] = &["bank", "goldens", "content.lock", "python3"];
+
+const _: () = assert!(
+    !DOCTOR_CHECKS.is_empty(),
+    "empty DOCTOR_CHECKS certifies nothing"
+);
+const _: () = assert!(
+    !DOCTOR_AUTHORING_CHECKS.is_empty(),
+    "empty DOCTOR_AUTHORING_CHECKS certifies nothing"
+);
+const _: () = assert!(
+    !HEALTH_ROBOT_FIELDS.is_empty(),
+    "empty HEALTH_ROBOT_FIELDS is an unversioned envelope"
+);
+const _: () = assert!(
+    HEALTH_SCHEMA_VERSION > 0,
+    "HEALTH_SCHEMA_VERSION 0 is unversioned"
+);
+const _: () = assert!(
+    DOCTOR_SCHEMA_VERSION > 0,
+    "DOCTOR_SCHEMA_VERSION 0 is unversioned"
+);
 
 /// Required goldens for the operator surface. Same four files `goldens check`
 /// requires; duplicated so this module does not reach into that function
@@ -50,13 +81,15 @@ pub(crate) const OPERATOR_REQUIRED_GOLDENS: &[&str] = &[
 
 pub(crate) const WASM_REL: &str = "web/assets/wasm/cdcp_wasm.wasm";
 pub(crate) const LOCK_REL: &str = "content.lock";
-pub(crate) const MANIFEST_REL: &str = "bank/MANIFEST.toml";
 pub(crate) const UNITS_REL: &str = "web/data/units_index.json";
 pub(crate) const GLOSSARY_REL: &str = "web/data/glossary.json";
 pub(crate) const SLUGS_REL: &str = "web/data/module_learn_slugs.js";
 pub(crate) const BANK_REL: &str = "bank/items";
 pub(crate) const EXPORT_OUT_REL: &str = "web/data";
+pub(crate) const RECEIPT_REL: &str = "install-receipt.json";
 pub(crate) const DEFAULT_BIND: &str = "127.0.0.1:8766";
+pub(crate) const EPHEMERAL_BIND: &str = "127.0.0.1:0";
+pub(crate) const DEV_ENV: &str = "CDCP_DEV";
 
 const WASM_MAGIC: &[u8] = b"\0asm";
 
@@ -65,13 +98,43 @@ const WASM_MAGIC: &[u8] = b"\0asm";
 #[derive(Serialize)]
 struct HealthEnvelope {
     schema_version: u64,
-    bank_hash: String,
-    approved_n: u64,
-    manifest_n: u64,
-    unit_count: u64,
+    web: PathFact,
+    wasm: WasmFact,
+    receipt: PathFact,
     engine_identities: EngineIdentities,
-    goldens: GoldensState,
     attempts_store: AttemptsStoreState,
+}
+
+#[derive(Serialize)]
+struct PathFact {
+    state: String,
+    path: String,
+}
+
+#[derive(Serialize)]
+struct WasmFact {
+    state: String,
+    path: String,
+    bytes: u64,
+}
+
+#[derive(Serialize)]
+struct DoctorEnvelope {
+    schema_version: u64,
+    ok: bool,
+    layer: &'static str,
+    passed: usize,
+    failed: usize,
+    probes: Vec<DoctorProbe>,
+}
+
+#[derive(Serialize)]
+struct DoctorProbe {
+    name: &'static str,
+    ok: bool,
+    detail: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    path: Option<String>,
 }
 
 /// Mention of the local-first attempt store. Absence is the default
@@ -89,13 +152,6 @@ struct AttemptsStoreState {
 struct EngineIdentities {
     oracle: &'static str,
     subject: &'static str,
-}
-
-#[derive(Serialize)]
-struct GoldensState {
-    state: String,
-    required_n: usize,
-    present_n: usize,
 }
 
 /// Write `bytes` to `path` only when the on-disk content differs.
@@ -134,94 +190,163 @@ fn refuse_goldens_write(path: &Path) -> Result<(), String> {
 
 pub(crate) fn resolve_root(explicit: Option<&Path>) -> Result<PathBuf, String> {
     match explicit {
+        // Tests and operators pass `--root` at trees that are not yet a
+        // classified bundle (empty dirs, planted known-bad). Do not fail
+        // closed at resolve — the probes name the missing installed files.
         Some(p) => Ok(p.to_path_buf()),
         None => {
-            let cwd = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
-            cdcp_learn::resolve_engine_root(&cwd).map_err(|e| e.to_string())
+            let resolved = cdcp_root::resolve_from_env(None).map_err(|e| e.to_string())?;
+            Ok(resolved.path)
         }
+    }
+}
+
+fn authoring_mode() -> bool {
+    std::env::var(DEV_ENV).ok().as_deref() == Some("1")
+}
+
+fn json_flag_from_args() -> bool {
+    // clap keeps `--json` on argv even after parsing. Reading argv (not a
+    // third parameter) keeps the doctor() signature stable while N.2 edits
+    // main.rs study/serve dispatch.
+    std::env::args().any(|a| a == "--json")
+}
+
+/// Directory the learner bundle lives in.
+///
+/// `--root` may be the install home (`web/index.html`) or the web directory
+/// itself (`index.html`). A missing web/ still returns the *expected* path so
+/// RED names it.
+fn installed_web_dir(root: &Path) -> PathBuf {
+    let nested = join_rel(root, "web");
+    if nested.is_dir() {
+        nested
+    } else if root.join("index.html").is_file() {
+        root.to_path_buf()
+    } else {
+        nested
+    }
+}
+
+fn wasm_path(root: &Path) -> PathBuf {
+    if root.join("index.html").is_file() && !join_rel(root, "web").is_dir() {
+        root.join("assets/wasm/cdcp_wasm.wasm")
+    } else {
+        join_rel(root, WASM_REL)
+    }
+}
+
+fn receipt_path(root: &Path) -> PathBuf {
+    if root.join("index.html").is_file() && !join_rel(root, "web").is_dir() {
+        match root.parent() {
+            Some(p) if !p.as_os_str().is_empty() => p.join(RECEIPT_REL),
+            _ => root.join(RECEIPT_REL),
+        }
+    } else {
+        root.join(RECEIPT_REL)
+    }
+}
+
+fn abs_path(path: &Path) -> PathBuf {
+    if path.is_absolute() {
+        path.to_path_buf()
+    } else {
+        std::env::current_dir()
+            .map(|cwd| cwd.join(path))
+            .unwrap_or_else(|_| path.to_path_buf())
     }
 }
 
 // ── doctor ────────────────────────────────────────────────────────────────
 
 pub(crate) fn doctor(root: Option<&Path>, bind: &str) -> Result<(), String> {
+    doctor_run(root, bind, json_flag_from_args())
+}
+
+fn doctor_run(root: Option<&Path>, bind: &str, json: bool) -> Result<(), String> {
     if DOCTOR_CHECKS.is_empty() {
         return Err(
             "DOCTOR_CHECKS is empty — a doctor that requires nothing certifies nothing".into(),
         );
     }
+    let authoring = authoring_mode();
+    if authoring && DOCTOR_AUTHORING_CHECKS.is_empty() {
+        return Err(
+            "DOCTOR_AUTHORING_CHECKS is empty — a doctor that requires nothing certifies nothing"
+                .into(),
+        );
+    }
     let root = resolve_root(root)?;
+    let mut names: Vec<&'static str> = DOCTOR_CHECKS.to_vec();
+    if authoring {
+        names.extend_from_slice(DOCTOR_AUTHORING_CHECKS);
+    }
+
+    let mut probes: Vec<DoctorProbe> = Vec::new();
     let mut fails: Vec<String> = Vec::new();
-    let mut ran = 0usize;
 
-    ran += 1;
-    match check_bank(&root) {
-        Ok(msg) => println!("ok doctor bank {msg}"),
-        Err(e) => {
-            println!("FAIL doctor bank: {e}");
-            fails.push(e);
-        }
-    }
-
-    ran += 1;
-    match check_wasm(&root) {
-        Ok(msg) => println!("ok doctor wasm {msg}"),
-        Err(e) => {
-            println!("FAIL doctor wasm: {e}");
-            fails.push(e);
-        }
-    }
-
-    ran += 1;
-    match check_goldens(&root) {
-        Ok(msg) => println!("ok doctor goldens {msg}"),
-        Err(e) => {
-            println!("FAIL doctor goldens: {e}");
-            fails.push(e);
-        }
-    }
-
-    ran += 1;
-    match check_content_lock(&root) {
-        Ok(msg) => println!("ok doctor content.lock {msg}"),
-        Err(e) => {
-            println!("FAIL doctor content.lock: {e}");
-            fails.push(e);
-        }
-    }
-
-    ran += 1;
-    match check_port(bind) {
-        Ok(msg) => println!("ok doctor port {msg}"),
-        Err(e) => {
-            println!("FAIL doctor port: {e}");
-            fails.push(e);
-        }
-    }
-
-    ran += 1;
-    match check_python3() {
-        Ok(msg) => println!("ok doctor python3 {msg}"),
-        Err(e) => {
-            println!("FAIL doctor python3: {e}");
-            fails.push(e);
+    for name in names.iter().copied() {
+        let path = probe_path(name, &root);
+        match run_probe(name, &root, bind) {
+            Ok(detail) => {
+                if !json {
+                    println!("ok doctor {name} {detail}");
+                }
+                probes.push(DoctorProbe {
+                    name,
+                    ok: true,
+                    detail,
+                    path,
+                });
+            }
+            Err(e) => {
+                if !json {
+                    println!("FAIL doctor {name}: {e}");
+                }
+                fails.push(e.clone());
+                probes.push(DoctorProbe {
+                    name,
+                    ok: false,
+                    detail: e,
+                    path,
+                });
+            }
         }
     }
 
     // Mention, not a compiled-in check: the store is opt-in. Absence is
     // the default, not a defect. Empty is ERROR on list/export, not here.
-    println!("{}", crate::attempts::doctor_line(&root));
+    if !json {
+        println!("{}", crate::attempts::doctor_line(&root));
+    }
 
+    let ran = probes.len();
     if ran == 0 {
         return Err("doctor ran 0 checks — an empty input set is a FAILURE, not a pass".into());
     }
-    if ran != DOCTOR_CHECKS.len() {
+    if ran != names.len() {
         return Err(format!(
             "doctor ran {ran} check(s), expected {} — a leg was dropped",
-            DOCTOR_CHECKS.len()
+            names.len()
         ));
     }
-    if !fails.is_empty() {
+
+    let ok = fails.is_empty();
+    if json {
+        let envelope = DoctorEnvelope {
+            schema_version: DOCTOR_SCHEMA_VERSION,
+            ok,
+            layer: if authoring { "authoring" } else { "installed" },
+            passed: ran - fails.len(),
+            failed: fails.len(),
+            probes,
+        };
+        let line = serde_json::to_string(&envelope)
+            .map_err(|e| format!("doctor --json envelope unparseable: {e}"))?;
+        println!("{line}");
+    }
+
+    if !ok {
         return Err(format!(
             "doctor: {}/{} check(s) failed: {}",
             fails.len(),
@@ -229,8 +354,60 @@ pub(crate) fn doctor(root: Option<&Path>, bind: &str) -> Result<(), String> {
             fails.join("; ")
         ));
     }
-    println!("doctor: {ran} check(s) passed");
+    if !json {
+        println!("doctor: {ran} check(s) passed");
+    }
     Ok(())
+}
+
+fn run_probe(name: &str, root: &Path, bind: &str) -> Result<String, String> {
+    match name {
+        "web" => check_web(root),
+        "wasm" => check_wasm(root),
+        "receipt" => check_receipt(root),
+        "port" => check_port(bind),
+        "bank" => check_bank(root),
+        "goldens" => check_goldens(root),
+        "content.lock" => check_content_lock(root),
+        "python3" => check_python3(),
+        other => Err(format!(
+            "unknown doctor probe {other} — a name in the list that has no implementation is a dropped leg"
+        )),
+    }
+}
+
+fn probe_path(name: &str, root: &Path) -> Option<String> {
+    match name {
+        "web" => Some(abs_path(&installed_web_dir(root)).display().to_string()),
+        "wasm" => Some(abs_path(&wasm_path(root)).display().to_string()),
+        "receipt" => Some(abs_path(&receipt_path(root)).display().to_string()),
+        _ => None,
+    }
+}
+
+fn check_web(root: &Path) -> Result<String, String> {
+    let web = installed_web_dir(root);
+    let shown = abs_path(&web);
+    if !web.is_dir() {
+        return Err(format!(
+            "missing {} — an installed tree without web/ cannot serve",
+            shown.display()
+        ));
+    }
+    let index = web.join("index.html");
+    if !index.is_file() {
+        return Err(format!(
+            "missing {} — web/ is not a serveable bundle",
+            abs_path(&index).display()
+        ));
+    }
+    if file_is_empty(&index) {
+        return Err(format!(
+            "{} is 0 bytes — a present-but-empty index is not a bundle",
+            abs_path(&index).display()
+        ));
+    }
+    Ok(format!("({})", shown.display()))
 }
 
 fn check_bank(root: &Path) -> Result<String, String> {
@@ -254,24 +431,56 @@ fn check_bank(root: &Path) -> Result<String, String> {
 }
 
 fn check_wasm(root: &Path) -> Result<String, String> {
-    let path = join_rel(root, WASM_REL);
+    let path = wasm_path(root);
+    let shown = abs_path(&path);
+    let label = shown.display();
     if !path.is_file() {
         return Err(format!(
-            "missing {WASM_REL} — the browser grade artifact is absent"
+            "missing {label} — the browser grade artifact is absent"
         ));
     }
-    let bytes = fs::read(&path).map_err(|e| format!("read {WASM_REL}: {e}"))?;
+    let bytes = fs::read(&path).map_err(|e| format!("read {label}: {e}"))?;
     if bytes.is_empty() {
         return Err(format!(
-            "{WASM_REL} is 0 bytes — a present-but-empty artifact is not a wasm module"
+            "{label} is 0 bytes — a present-but-empty artifact is not a wasm module"
         ));
     }
     if bytes.len() < WASM_MAGIC.len() || !bytes.starts_with(WASM_MAGIC) {
         return Err(format!(
-            "{WASM_REL} is not a wasm module (missing \\0asm magic)"
+            "{label} is not a wasm module (missing \\0asm magic)"
         ));
     }
-    Ok(format!("({WASM_REL}, {} bytes)", bytes.len()))
+    Ok(format!("({label}, {} bytes)", bytes.len()))
+}
+
+fn check_receipt(root: &Path) -> Result<String, String> {
+    // Absence is not a defect: a source checkout or a copied web/ tree has
+    // no install.sh receipt. A present-but-unusable receipt is RED.
+    let path = receipt_path(root);
+    let shown = abs_path(&path);
+    if !path.is_file() {
+        return Ok(format!("(absent {})", shown.display()));
+    }
+    let bytes = fs::read(&path).map_err(|e| format!("read {}: {e}", shown.display()))?;
+    if bytes.is_empty() {
+        return Err(format!(
+            "{} is 0 bytes — a present-but-empty receipt pins nothing",
+            shown.display()
+        ));
+    }
+    let v: Value = serde_json::from_slice(&bytes).map_err(|e| {
+        format!(
+            "{} is not JSON — a present-but-unusable receipt is RED: {e}",
+            shown.display()
+        )
+    })?;
+    if !v.is_object() {
+        return Err(format!(
+            "{} is not a JSON object — a present-but-unusable receipt is RED",
+            shown.display()
+        ));
+    }
+    Ok(format!("({}, {} bytes)", shown.display(), bytes.len()))
 }
 
 fn check_goldens(root: &Path) -> Result<String, String> {
@@ -390,6 +599,25 @@ fn check_port(bind: &str) -> Result<String, String> {
             drop(listener);
             Ok(format!("({addr} bindable)"))
         }
+        Err(e) if bind == DEFAULT_BIND => {
+            // Occupied default is not a missing wasm. Prove *some* port is
+            // bindable; do not report the tool broken because 8766 is busy.
+            match TcpListener::bind(EPHEMERAL_BIND) {
+                Ok(listener) => {
+                    let addr = listener
+                        .local_addr()
+                        .map(|a| a.to_string())
+                        .unwrap_or_else(|_| EPHEMERAL_BIND.to_string());
+                    drop(listener);
+                    Ok(format!(
+                        "({DEFAULT_BIND} occupied, ephemeral {addr} bindable)"
+                    ))
+                }
+                Err(e2) => Err(format!(
+                    "no bindable port (default {DEFAULT_BIND}: {e}; ephemeral: {e2})"
+                )),
+            }
+        }
         Err(e) => Err(format!(
             "port {bind} is not bindable — this tree cannot serve: {e}"
         )),
@@ -449,45 +677,24 @@ pub(crate) fn health(root: Option<&Path>, robot: bool) -> Result<(), String> {
 }
 
 fn health_envelope(root: &Path) -> Result<HealthEnvelope, String> {
-    let bank_dir = join_rel(root, BANK_REL);
-    if !bank_dir.is_dir() {
+    let web = installed_web_dir(root);
+    if !web.is_dir() {
         return Err(format!(
-            "health: missing {BANK_REL} — zero items is an ERROR, not a pass"
+            "health: missing {} — bundle-only health requires the installed web/",
+            abs_path(&web).display()
         ));
     }
-    let bank =
-        Bank::load_dir(&bank_dir).map_err(|e| format!("health: bank failed to load: {e}"))?;
-    let n = bank.items.len();
-    if n == 0 {
-        return Err("health: bank has zero items — an empty scan is an ERROR, not a pass".into());
-    }
-    let approved_n = bank.items.values().filter(|i| i.is_approved()).count();
-    if approved_n == 0 {
-        return Err(
-            "health: approved_n is 0 — a bank with nothing drawable is an ERROR, not a pass".into(),
-        );
-    }
-    let manifest_n = load_manifest_n(root)?;
-    let unit_count = load_unit_count(root)?;
     let (oracle, subject) = cdcp_wasm::engine_identities();
     if oracle.is_empty() || subject.is_empty() {
         return Err("health: engine identities are empty".into());
     }
-    let (state, required_n, present_n) = goldens_snapshot(root);
     let attempts = crate::attempts::mention(root);
-
     Ok(HealthEnvelope {
         schema_version: HEALTH_SCHEMA_VERSION,
-        bank_hash: bank.bank_hash,
-        approved_n: approved_n as u64,
-        manifest_n,
-        unit_count,
+        web: path_fact(&web, web.is_dir()),
+        wasm: wasm_fact(root),
+        receipt: receipt_fact(root),
         engine_identities: EngineIdentities { oracle, subject },
-        goldens: GoldensState {
-            state,
-            required_n,
-            present_n,
-        },
         attempts_store: AttemptsStoreState {
             state: attempts.state.to_string(),
             path: attempts.rel_path.to_string(),
@@ -495,6 +702,80 @@ fn health_envelope(root: &Path) -> Result<HealthEnvelope, String> {
             export_policy: attempts.export_policy.to_string(),
         },
     })
+}
+
+fn path_fact(path: &Path, present: bool) -> PathFact {
+    PathFact {
+        state: if present {
+            "present".into()
+        } else {
+            "missing".into()
+        },
+        path: abs_path(path).display().to_string(),
+    }
+}
+
+fn wasm_fact(root: &Path) -> WasmFact {
+    let path = wasm_path(root);
+    let shown = abs_path(&path).display().to_string();
+    match fs::read(&path) {
+        Ok(bytes) if bytes.is_empty() => WasmFact {
+            state: "empty".into(),
+            path: shown,
+            bytes: 0,
+        },
+        Ok(bytes) if bytes.starts_with(WASM_MAGIC) => WasmFact {
+            state: "present".into(),
+            path: shown,
+            bytes: bytes.len() as u64,
+        },
+        Ok(bytes) => WasmFact {
+            state: "not_wasm".into(),
+            path: shown,
+            bytes: bytes.len() as u64,
+        },
+        Err(_) if !path.is_file() => WasmFact {
+            state: "missing".into(),
+            path: shown,
+            bytes: 0,
+        },
+        Err(_) => WasmFact {
+            state: "unreadable".into(),
+            path: shown,
+            bytes: 0,
+        },
+    }
+}
+
+fn receipt_fact(root: &Path) -> PathFact {
+    let path = receipt_path(root);
+    let shown = abs_path(&path).display().to_string();
+    if !path.is_file() {
+        return PathFact {
+            state: "absent".into(),
+            path: shown,
+        };
+    }
+    match fs::read(&path) {
+        Ok(bytes) if bytes.is_empty() => PathFact {
+            state: "empty".into(),
+            path: shown,
+        },
+        Ok(bytes) => match serde_json::from_slice::<Value>(&bytes) {
+            Ok(v) if v.is_object() => PathFact {
+                state: "present".into(),
+                path: shown,
+            },
+            _ => PathFact {
+                state: "corrupt".into(),
+                path: shown,
+            },
+        },
+        Err(_) => PathFact {
+            state: "unreadable".into(),
+            path: shown,
+        },
+    }
 }
 
 fn validate_envelope(v: &Value) -> Result<(), String> {
@@ -517,24 +798,36 @@ fn validate_envelope(v: &Value) -> Result<(), String> {
             ));
         }
     }
-    let approved = obj.get("approved_n").and_then(|x| x.as_u64()).unwrap_or(0);
-    let manifest = obj.get("manifest_n").and_then(|x| x.as_u64()).unwrap_or(0);
-    let units = obj.get("unit_count").and_then(|x| x.as_u64()).unwrap_or(0);
-    if approved == 0 || manifest == 0 || units == 0 {
-        return Err(
-            "health: zero items (approved_n, manifest_n, or unit_count) is an ERROR, not a pass"
-                .into(),
-        );
-    }
     Ok(())
 }
 
 fn emit_human(envelope: &Value) -> Result<(), String> {
     println!("schema_version={}", envelope["schema_version"]);
-    println!("bank_hash={}", envelope["bank_hash"].as_str().unwrap_or(""));
-    println!("approved_n={}", envelope["approved_n"]);
-    println!("manifest_n={}", envelope["manifest_n"]);
-    println!("unit_count={}", envelope["unit_count"]);
+    println!(
+        "web.state={}",
+        envelope["web"]["state"].as_str().unwrap_or("")
+    );
+    println!(
+        "web.path={}",
+        envelope["web"]["path"].as_str().unwrap_or("")
+    );
+    println!(
+        "wasm.state={}",
+        envelope["wasm"]["state"].as_str().unwrap_or("")
+    );
+    println!(
+        "wasm.path={}",
+        envelope["wasm"]["path"].as_str().unwrap_or("")
+    );
+    println!("wasm.bytes={}", envelope["wasm"]["bytes"]);
+    println!(
+        "receipt.state={}",
+        envelope["receipt"]["state"].as_str().unwrap_or("")
+    );
+    println!(
+        "receipt.path={}",
+        envelope["receipt"]["path"].as_str().unwrap_or("")
+    );
     println!(
         "engine_identities.oracle={}",
         envelope["engine_identities"]["oracle"]
@@ -547,12 +840,6 @@ fn emit_human(envelope: &Value) -> Result<(), String> {
             .as_str()
             .unwrap_or("")
     );
-    println!(
-        "goldens.state={}",
-        envelope["goldens"]["state"].as_str().unwrap_or("")
-    );
-    println!("goldens.required_n={}", envelope["goldens"]["required_n"]);
-    println!("goldens.present_n={}", envelope["goldens"]["present_n"]);
     println!(
         "attempts_store.state={}",
         envelope["attempts_store"]["state"].as_str().unwrap_or("")
@@ -569,68 +856,6 @@ fn emit_human(envelope: &Value) -> Result<(), String> {
             .unwrap_or("")
     );
     Ok(())
-}
-
-fn load_manifest_n(root: &Path) -> Result<u64, String> {
-    let path = join_rel(root, MANIFEST_REL);
-    if !path.is_file() {
-        return Err(format!(
-            "health: missing {MANIFEST_REL} — cannot report manifest_n"
-        ));
-    }
-    let text =
-        fs::read_to_string(&path).map_err(|e| format!("health: read {MANIFEST_REL}: {e}"))?;
-    let v: toml::Value = text
-        .parse()
-        .map_err(|e| format!("health: {MANIFEST_REL} unparseable: {e}"))?;
-    let n = v
-        .get("item_count")
-        .and_then(|x| x.as_integer())
-        .ok_or_else(|| format!("health: {MANIFEST_REL} missing item_count"))?;
-    if n <= 0 {
-        return Err("health: manifest_n is 0 — an empty manifest is an ERROR, not a pass".into());
-    }
-    Ok(n as u64)
-}
-
-fn load_unit_count(root: &Path) -> Result<u64, String> {
-    let path = join_rel(root, UNITS_REL);
-    if !path.is_file() {
-        return Err(format!(
-            "health: missing {UNITS_REL} — unit_count cannot be 0 by omission"
-        ));
-    }
-    let text = fs::read_to_string(&path).map_err(|e| format!("health: read {UNITS_REL}: {e}"))?;
-    let v: Value =
-        serde_json::from_str(&text).map_err(|e| format!("health: {UNITS_REL} unparseable: {e}"))?;
-    let n = v
-        .get("unit_count")
-        .and_then(|x| x.as_u64())
-        .ok_or_else(|| format!("health: {UNITS_REL} missing unit_count"))?;
-    if n == 0 {
-        return Err("health: unit_count is 0 — zero units is an ERROR, not a pass".into());
-    }
-    Ok(n)
-}
-
-fn goldens_snapshot(root: &Path) -> (String, usize, usize) {
-    let required_n = OPERATOR_REQUIRED_GOLDENS.len();
-    let dir = join_rel(root, "goldens");
-    if !dir.is_dir() {
-        return ("missing".into(), required_n, 0);
-    }
-    let present_n = OPERATOR_REQUIRED_GOLDENS
-        .iter()
-        .filter(|rel| dir.join(rel).is_file())
-        .count();
-    let state = if present_n == 0 {
-        "missing"
-    } else if present_n < required_n {
-        "incomplete"
-    } else {
-        "present"
-    };
-    (state.into(), required_n, present_n)
 }
 
 // ── repair ────────────────────────────────────────────────────────────────

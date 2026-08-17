@@ -343,14 +343,18 @@ enum Cmd {
         #[arg(long)]
         root: Option<PathBuf>,
     },
-    /// Preflight: bank loads, wasm present and fresh, goldens present, port bindable, python3 present
+    /// Preflight the installed layer: web/, shipped wasm, receipt if present, bindable port
     Doctor {
         /// Engine root. Default: walk up from cwd.
         #[arg(long)]
         root: Option<PathBuf>,
         /// Address `cdcp serve` would bind; doctor probes it and releases.
+        /// Occupied default is not a fail — an ephemeral port is tried instead.
         #[arg(long, default_value = operator::DEFAULT_BIND)]
         bind: String,
+        /// Versioned JSON envelope (schema_version + named probes + pass/fail).
+        #[arg(long)]
+        json: bool,
     },
     /// Machine-readable tree status. `--robot` emits a versioned NDJSON envelope.
     Health {
@@ -773,7 +777,7 @@ fn run(cmd: Cmd) -> Result<(), String> {
             check_learner_pack(root.as_deref(), pack.as_deref())
         }
         Cmd::SmokeLearnV2 { root } => smoke_learn_v2(root.as_deref()),
-        Cmd::Doctor { root, bind } => operator::doctor(root.as_deref(), &bind),
+        Cmd::Doctor { root, bind, json: _ } => operator::doctor(root.as_deref(), &bind),
         Cmd::Health { root, robot } => operator::health(root.as_deref(), robot),
         Cmd::Repair { root, seed } => operator::repair(root.as_deref(), seed),
         Cmd::Slo { sub } => match sub {
