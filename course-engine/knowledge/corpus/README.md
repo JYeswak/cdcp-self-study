@@ -53,14 +53,12 @@ Normative form: [`rights-policy.toml`](rights-policy.toml). Summary:
 | **CORPUS-R7** | `body-retained` + `redistribution = "permitted"` over rights that are **not** self-evidencing needs `redistribution_evidence {licence, url, clause}`. A bare "permitted" is an assertion, not a licence. |
 | **CORPUS-R8** | A file under a published root that **no record claims** is an **ERROR**. |
 
-**Enforcement is not yet wired on the check path.** The policy and the records
-are law. The implementation that would trip on a planted R7/R8 fixture exists as
-untracked `cdcp_gate` sources and **must not be added under `src/gates/`**
-(`gate_shrink` ceiling 49422; adding a globbed `src/gates/*.rs` grows the crate).
-EXTRACT-THEN-DELETE: land the checker in the engine (`cdcp_data` or a sibling),
-then a thin CLI step. Until that extract, R1–R8 are recorded invariants plus
-this metadata sweep, not a proven-to-trip gate. A README that claimed
-`cdcp_gate corpus-redistribution` is wired would be BUILT ≠ WIRED.
+**Enforcement is `cdcp corpus-rights` (product crate `cdcp_data`).** It is
+**not** a `cdcp_gate` subcommand — adding a globbed `src/gates/*.rs` grows the
+crate past the gate_shrink ceiling. The checker trips on planted CORPUS-R7/R8
+fixtures (`cargo test -p cdcp_data --test corpus_rights`) and is invoked from
+`scripts/check.sh`. A README that claimed `cdcp_gate corpus-redistribution`
+is the wire would be BUILT ≠ WIRED.
 
 The intended checker reads this directory's metadata and the tree on disk, and
 **it reads no capture body** — it cannot, because some records forbid AI

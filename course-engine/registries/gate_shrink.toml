@@ -53,10 +53,6 @@ path = "src/gates/capability_maturity.rs"
 lines = 1135
 
 [[file]]
-path = "src/gates/corpus_redistribution.rs"
-lines = 1321
-
-[[file]]
 path = "src/gates/doc_facts.rs"
 lines = 1495
 
@@ -155,10 +151,6 @@ lines = 717
 [[file]]
 path = "tests/capability_maturity_e2e.rs"
 lines = 672
-
-[[file]]
-path = "tests/corpus_redistribution_e2e.rs"
-lines = 638
 
 [[file]]
 path = "tests/diff_smoke_a11y.rs"

@@ -388,9 +388,10 @@ success_token = "PASS"
 name = "capability-maturity"
 success_token = "capability-maturity: ok:"
 
-[[gate]]
-name = "corpus-redistribution"
-success_token = "corpus-redistribution: ok:"
+# EXTRACT-THEN-DELETE: corpus-redistribution is no longer a cdcp_gate
+# subcommand. Product is `cdcp corpus-rights` / cdcp_data::check_corpus_rights.
+# The [[gate]] row is gone because LEG C keys on the dispatcher roster; a
+# leftover row for a missing gate is noise.
 
 [[gate]]
 name = "doc-facts"

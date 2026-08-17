@@ -46,6 +46,7 @@ fn help_lists_learn_compilers() {
         "oracle-check",
         "content-lock",
         "fetch-corpus",
+        "corpus-rights",
         "check-learner-pack",
     ] {
         assert!(
@@ -256,6 +257,75 @@ fn verify_data_lock_selftest_trips_red() {
     assert!(
         stdout.contains("flip-selftest trips RED"),
         "selftest must report the RED trip: {stdout}"
+    );
+}
+
+#[test]
+fn corpus_rights_live_tree_passes() {
+    let assert = cdcp().arg("corpus-rights").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("corpus-rights: ok:"),
+        "live corpus-rights must PASS: {stdout}"
+    );
+}
+
+#[test]
+fn corpus_rights_r8_stowaway_is_red_and_names_the_file() {
+    let dir =
+        std::env::temp_dir().join(format!("cdcp_cli_corpus_rights_r8_{}", std::process::id()));
+    let _ = fs::remove_dir_all(&dir);
+    fs::create_dir_all(dir.join("knowledge/corpus/public")).unwrap();
+    fs::create_dir_all(dir.join("knowledge/corpus/free-pdfs")).unwrap();
+    fs::write(
+        dir.join("knowledge/corpus/rights-policy.toml"),
+        r#"
+schema = "cdcp.corpus.rights-policy.v1"
+[vocabulary]
+capture = ["body-retained", "citation-only", "not-vendored"]
+rights = ["public-domain", "own-work-this-repo", "publisher-retains-copyright"]
+redistribution = ["permitted", "not-licensed"]
+ai_ingestion = ["permitted", "PROHIBITED", "unknown"]
+self_evidencing_rights = ["public-domain", "own-work-this-repo"]
+[published_tree]
+roots = [
+  "course-engine/knowledge/corpus/public",
+  "course-engine/knowledge/corpus/free-pdfs",
+]
+"#,
+    )
+    .unwrap();
+    fs::write(
+        dir.join("knowledge/corpus/public/manifest.json"),
+        r#"{"schema":"cdcp.corpus.manifest.v2","sources":[{"id":"src-own","capture":"body-retained","rights":"own-work-this-repo","redistribution":"permitted","ai_ingestion":"permitted","path":"knowledge/corpus/public/src-own.txt"}]}"#,
+    )
+    .unwrap();
+    fs::write(dir.join("knowledge/corpus/public/src-own.txt"), "own\n").unwrap();
+    fs::write(
+        dir.join("knowledge/corpus/free-pdfs/gov.meta.toml"),
+        "source_id = \"src-pdf\"\nrights = \"public-domain\"\nredistribution = \"permitted\"\nai_ingestion = \"permitted\"\ncapture = \"body-retained\"\npath = \"knowledge/corpus/free-pdfs/gov.pdf\"\n",
+    )
+    .unwrap();
+    fs::write(dir.join("knowledge/corpus/free-pdfs/gov.pdf"), "%PDF\n").unwrap();
+    fs::write(
+        dir.join("knowledge/corpus/public/src-stowaway.txt"),
+        "unclaimed\n",
+    )
+    .unwrap();
+    let assert = cdcp()
+        .args(["corpus-rights", "--root"])
+        .arg(&dir)
+        .assert()
+        .failure();
+    let out = format!(
+        "{}{}",
+        String::from_utf8_lossy(&assert.get_output().stdout),
+        String::from_utf8_lossy(&assert.get_output().stderr)
+    );
+    let _ = fs::remove_dir_all(&dir);
+    assert!(
+        out.contains("CR-R8") && out.contains("src-stowaway.txt"),
+        "R8 plant must name the unclaimed file: {out}"
     );
 }
 

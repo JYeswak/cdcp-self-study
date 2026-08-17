@@ -74,6 +74,12 @@ enum Cmd {
         #[arg(long)]
         bank: Option<PathBuf>,
     },
+    /// Published corpus vs rights-policy.toml. Metadata + tree names; never opens a capture body.
+    CorpusRights {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+    },
     /// Plan public/free/local corpus rows. Never opens a socket. access=paid is refused.
     FetchCorpus {
         /// Engine root (directory holding registries/). Default: walk up from cwd.
@@ -602,6 +608,7 @@ fn run(cli: Cli) -> Result<(), String> {
         Cmd::ContentLock { root, out, bank } => {
             content_lock(root.as_deref(), out.as_deref(), bank.as_deref())
         }
+        Cmd::CorpusRights { root } => corpus_rights(root.as_deref()),
         Cmd::FetchCorpus {
             root,
             sources,
@@ -915,6 +922,35 @@ fn content_lock(
         cdcp_data::write_content_lock(&resolved, &bank_hash, &dest).map_err(|e| e.to_string())?;
     println!("{report}");
     Ok(())
+}
+
+/// Published corpus vs `rights-policy.toml`. Metadata + directory entries
+/// only — never a capture body (AI-ingestion forbid).
+fn corpus_rights(root: Option<&Path>) -> Result<(), String> {
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_data::engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    match cdcp_data::check_corpus_rights(&resolved) {
+        Ok(report) => {
+            print!("{report}");
+            Ok(())
+        }
+        Err(cdcp_data::RightsError::Violation(findings)) => {
+            eprintln!("corpus-rights: FAIL");
+            for f in &findings {
+                eprintln!("  - {f}");
+            }
+            Err(format!(
+                "corpus-rights RED ({} violation(s))",
+                findings.len()
+            ))
+        }
+        Err(e) => Err(e.to_string()),
+    }
 }
 
 /// Plan / copy public corpus rows. Default is dry-run (no write, no socket).

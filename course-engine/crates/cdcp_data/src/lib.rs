@@ -21,9 +21,13 @@
 //!
 //! Public-corpus planning lives in [`corpus`]: `cdcp fetch-corpus`
 //! (`bd-substrate-rust-migration-jhd.36`). It never opens a socket.
+//!
+//! Published-tree rights live in [`corpus_rights`]: `cdcp corpus-rights`.
+//! Metadata + directory entries only — never a capture body.
 #![forbid(unsafe_code)]
 
 mod corpus;
+mod corpus_rights;
 mod data_lock;
 mod gen_lock;
 mod oracle;
@@ -34,6 +38,14 @@ pub use corpus::{
     AccessKind, CorpusError, FetchPlan, FetchReport, FetchRequest, PlanAction, PlanRow,
     ALLOWED_ACCESS, ANTI_VACUOUS_EMPTY_SOURCES, ANTI_VACUOUS_NONE_ALLOWED,
     ANTI_VACUOUS_NOTHING_WRITTEN, NEVER_WRITTEN, NO_SOCKET, OUT_DIR_REL, REFUSED_PAID, SOURCES_REL,
+};
+pub use corpus_rights::{
+    check_corpus_rights, evaluate, is_registry_file, parse_json, parse_policy, policy_floor_errors,
+    record_from_sidecar, records_from_manifest, under_published_root, walk_published, Evidence,
+    Json, Policy, Record, Report, RightsError, RightsReport, ALIASES, ALLOWED_SELF_EVIDENCING,
+    CR_R7, CR_R8, ENGINE_PREFIX, MANIFEST_PATH, NAME as CORPUS_RIGHTS_NAME,
+    NEVER_OPENS_CAPTURE_BODIES, PERMITTED, POLICY_PATH, PROHIBITED, REGISTRY_FILE_NAMES,
+    REQUIRED_ROOTS, SIDECAR_DIR, SIDECAR_SUFFIX,
 };
 pub use data_lock::{
     load_pins_from_disk, parse_data_section, referenced_data_paths, selftest_flip_one_byte,
@@ -528,6 +540,10 @@ mod unit {
             !include_str!("corpus.rs").contains("unsafe "),
             "no unsafe token in corpus.rs"
         );
+        assert!(
+            !include_str!("corpus_rights.rs").contains("unsafe "),
+            "no unsafe token in corpus_rights.rs"
+        );
     }
 
     #[test]
@@ -577,6 +593,10 @@ mod unit {
             include_str!("oracle.rs"),
             include_str!("quantities.rs"),
             include_str!("corpus.rs"),
+            include_str!("corpus_rights.rs")
+                .split("#[cfg(test)]")
+                .next()
+                .expect("corpus_rights production precedes tests"),
         ];
         for needle in [
             "TcpStream",

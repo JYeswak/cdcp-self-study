@@ -628,6 +628,18 @@ echo "==> cdcp check-licence (D4 three-field rights split)"
 run_cdcp_cli check-licence || fail "licence three-field split"
 ok "licence three-field split (published unlicensed / missing rights / third-party public-domain / PROHIBITED index)"
 
+# Published-corpus rights: metadata + tree vs rights-policy.toml. Product
+# crate cdcp_data; never a cdcp_gate src/gates/*.rs (gate_shrink ceiling).
+# Never opens a capture body (AI-ingestion forbid).
+echo "==> cargo test -p cdcp_data --test corpus_rights (L4 CORPUS-R7/R8)"
+cargo test --locked -p cdcp_data --test corpus_rights \
+  || fail "corpus-rights tests"
+ok "corpus-rights tests (R7 bare permitted RED · R8 unclaimed file RED · public-domain PASS)"
+
+echo "==> cdcp corpus-rights (published corpus vs rights-policy.toml)"
+run_cdcp_cli corpus-rights || fail "corpus-rights"
+ok "corpus-rights (metadata+tree; never opens capture bodies)"
+
 # E1: licence-gated snapshot loader. Product crate cdcp_data; D4 may_load
 # is the rights check. This is the wire. No network I/O.
 echo "==> cdcp load-snapshots (E1 licence-gated snapshot loader)"
@@ -1220,7 +1232,7 @@ ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
 _HELP="$(run_cdcp_cli --help 2>&1)"
-for v in bank-hash grade goldens export-web serve build-learn build-reference build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence load-snapshots check-osha verify-data-lock check-learner-pack; do
+for v in bank-hash grade goldens export-web serve build-learn build-reference build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence load-snapshots check-osha verify-data-lock check-learner-pack corpus-rights; do
   printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
 done
 ok "L7 CLI product verbs listed"
