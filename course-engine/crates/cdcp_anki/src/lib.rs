@@ -71,7 +71,7 @@ pub const DEFAULT_FORMAT: &str = "tsv,apkg";
 /// Default `--deck-name`.
 pub const DEFAULT_DECK_NAME: &str = "CDCP Study";
 /// Live-tree approved-card pin. A drift here is a bank decision, not a test fix.
-pub const EXPECTED_APPROVED_LIVE: usize = 843;
+pub const EXPECTED_APPROVED_LIVE: usize = 844;
 
 /// Note type / deck ids (stable for re-import friendliness).
 pub const MODEL_ID: i64 = 1_699_990_001_001;

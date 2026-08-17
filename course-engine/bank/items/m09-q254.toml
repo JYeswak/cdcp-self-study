@@ -1,0 +1,27 @@
+# Original CDCP educational MCQ — ebrr.36 leftover: TCS/FWS/CDU-approach
+# syllabus_heading = "1.9 Cooling Infrastructure"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+# source_ids = [
+#   "src-ashrae-ai-dc-framework",  # https://www.ashrae.org/technical-resources/ai-data-center-framework/introduction-and-purpose
+#   "src-ashrae-liquid-wp",        # https://www.ashrae.org/file%20library/technical%20resources/bookstore/emergence-and-expansion-of-liquid-cooling-in-mainstream-data-centers_wp.pdf
+#   "src-ocp-ll-cdu",              # https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf
+# ]
+# claim = "W-class bounds upper FWS supply, not chip/cold-plate temperature; the CDU keeps FWS and TCS physically separate and approach temperature sits between those supplies."
+id = "m09-q254"
+kind = "single-select"
+module = 9
+stem = "A GPU-hall packet says “ASHRAE W32, so the cold plates see 32 °C,” and lists a 3 K CDU approach temperature as the chip-inlet setpoint. The apply move is:"
+choices = [
+  "Accept: W32 is the chip-inlet class; FWS and TCS are synonyms once a CDU is installed",
+  "Refuse: the W-number is the upper facility-water (FWS) supply limit; the CDU keeps FWS and TCS physically separate so FWS supply is not the cold-plate temperature; approach temperature is the TCS-versus-FWS supply difference, not a chip-inlet setpoint. Do not treat 3 K as a universal law",
+  "Convert 32 minus 3 into a specialist exam formula and freeze 2–4 K approach as statute",
+  "Collapse W32 into the air recommended 18–27 °C envelope so the plate question goes away",
+]
+correct = "B"
+explanation = "W-class names FWS supply, not the chip. The CDU is the liquid-to-liquid interface that keeps FWS and TCS physically separate; approach temperature is that gap, not a chip-inlet class. Vendor ~2–4 K figures are illustrative, not law. No CDCS calc in this item."
+topic_ids = ["m09-liquid"]
+objective_ids = ["obj-m09-w-classes"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

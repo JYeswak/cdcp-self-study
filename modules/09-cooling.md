@@ -16,11 +16,11 @@ By the end of this module you can:
 3. Describe **CRAC** vs **CRAH** units, chilled-water loops, and heat rejection to the outdoors.
 4. Compare **raised-floor** and **non-raised / hard-floor** cooling strategies and when each is used.
 5. Explain **hot-aisle / cold-aisle** layout and **containment** (CAC vs HAC) as airflow management tools.
-6. Outline **liquid cooling** options at interview level: rear-door heat exchangers, direct-to-chip, immersion, and the role of a **CDU**.
+6. Outline **liquid cooling** options at interview level: rear-door heat exchangers, direct-to-chip, immersion, and the **CDU** as the interface that keeps **FWS** (facility water) and **TCS** (technology cooling system, to the cold plate) physically separate.
 7. Apply **ASHRAE**-style temperature/humidity envelopes conceptually (**recommended ⊂ allowable**; **inlet**, not room; refuse **18–27 °C** as statute).
 8. State what **STES / STER** (seasonal thermal energy storage) means as an efficiency concept.
 9. Discuss why **AI / high-density** racks change the cooling conversation (kW/rack, liquid, failure blast radius).
-10. Name **ASHRAE W-classes** (**W17 / W27 / W32 / W40 / W45 / W+**) as daily **plant-selection** language: the number is the **upper supply-water** limit (°C); the shared lower limit is **2 °C**. Point at **Module 02** for the lattice home.
+10. Name **ASHRAE W-classes** (**W17 / W27 / W32 / W40 / W45 / W+**) as daily **plant-selection** language: the number is the **upper facility-water (FWS) supply** limit (°C), not a cold-plate or chip temperature; the shared lower limit is **2 °C**. Point at **Module 02** for the lattice home.
 11. State that at **40–100 kW**, thermal ride-through is **seconds** when IT stays on UPS and the liquid/air **plant is dark**; **liquid-loop inertia ≠ CRAH-plenum inertia**.
 
 ---
@@ -104,7 +104,7 @@ Other terminal types you should recognize:
 - **In-row cooler:** Sits in the row; short air path, good for medium-high density.
 - **Rear-door heat exchanger (RDHx):** Door-mounted coil on the rack rear; cools exhaust before it enters the room.
 - **Overhead / close-coupled:** Ducted or open discharge above cold aisles.
-- **CDU — Coolant Distribution Unit:** Pumps and heat-exchanges secondary (often facility water or dielectric loop) for liquid-cooled racks; isolates IT loop from primary plant.
+- **CDU — Coolant Distribution Unit:** Pumps and heat-exchanges the **TCS** (technology cooling system, to the cold plate) against the **FWS** (facility water system); isolates the IT loop from the primary plant.
 
 ### Raised-floor vs non-raised (hard-floor) cooling
 
@@ -197,14 +197,14 @@ ASHRAE’s liquid language is **W17 / W27 / W32 / W40 / W45 / W+** (*Thermal Gui
 
 **Rules you must say:**
 
-1. The number is the **upper supply-water** bound to the liquid-cooled IT (facility-water / FWS). **W27 is not “set the hall to 27 °C.”**
+1. The number is the **upper facility-water (FWS) supply** bound. **W27 is not “set the hall to 27 °C,” and it is not 27 °C at the cold plate.** The CDU approach sits between **FWS** and **TCS**.
 2. The shared **floor is 2 °C**. Colder than that is not “more margin”; it is outside the class and a condensation / CDU-approach problem.
-3. Choosing a W-class is choosing **which liquid plant you are building** — heat-rejection path, whether a chiller sits in the loop, CDU approach, what the secondary is allowed to run.
+3. Choosing a W-class is choosing **which liquid plant you are building** — heat-rejection path, whether a chiller sits in the loop, CDU approach, what the **TCS** is allowed to run.
 4. ASHRAE’s public Framework groups typical infrastructure as **W17 / W27** vs **W32 / W40 / W45 / W+**. Treat that split as typical, not a piping statute.
 5. Older names **W1–W5** map to W17 / W27 / W32 / W45 / W+; **W40** had no old number. Do not use W1–W5 as 2026 daily language.
 6. Do **not** collapse W-class into the **air** recommended/allowable envelopes. Air is inlet dry-bulb / moisture. W-class is **water**.
 
-**Speakable:** “W-class is the liquid plant. The number is the upper facility-water supply. Floor is 2 °C. Lattice is Module 02; I apply it here.”
+**Speakable:** “W-class is the liquid plant. The number is the upper facility-water (**FWS**) supply, not the chip. Floor is 2 °C. Lattice is Module 02; I apply it here.”
 
 ### Liquid cooling overview
 
@@ -220,11 +220,27 @@ Air has limited heat capacity and requires large volume flow. As rack density ri
 
 **CDU** interfaces facility water (primary) and IT coolant (secondary), often with isolation HX so a facility water chemistry problem does not destroy servers.
 
+#### TCS / FWS / CDU boundary and approach temperature
+
+W-class names the **facility-water** loop. To use the name you have to keep the two liquid circuits distinct.
+
+| Loop | Full name | What it is |
+|---|---|---|
+| **FWS** | Facility Water System | Primary / plant water. The W-class number is this loop's **upper supply** limit (°C). Shared floor **2 °C**. |
+| **TCS** | Technology Cooling System | Secondary / IT-side coolant. This is the loop that actually reaches the **cold plate** (or RDHx coil / immersion bath). |
+| **CDU** | Coolant Distribution Unit | Liquid-to-liquid heat-exchanger **interface**. It moves heat and **keeps FWS and TCS physically separate** so facility-water chemistry is not chip-loop chemistry. |
+
+**W32 facility water is not 32 °C at the cold plate.** The CDU sits between the loops. The temperature gap across that interface is the **approach temperature**. The public [Open Compute Project *Liquid to Liquid CDU Test Methodology and Performance Rating*, Rev. 1.0 (August 2024)](https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf) rates that gap as the approach-temperature difference: **TCS supply minus FWS supply**. Approach is a CDU **performance / rating** condition. It is not a chip-inlet setpoint, not another name for either loop, and not a substitute for naming which side you measured.
+
+Vendor-published design points around **~2–4 K** approach are **illustrative ranges**, not law — same posture as “do not recite 20–40% as law” in Why it matters. A usable CDU schedule names the fluid and the TCS/FWS supply temperatures, flow, and pressure used for the rating. A single unlabeled “water temperature” is not enough to review the heat-transfer boundary.
+
+Reason the **direction** here: TCS supply is warmer than FWS supply by the approach, so a W-class bounds **FWS**, not the plate. Do not turn that into a specialist exam formula in this file.
+
 **Leak detection:** Cable sensors, drip pans, automatic isolation valves, and procedures. Liquid near power is manageable with design—not with denial.
 
 **Hybrid rooms:** Many AI halls mix air-cooled networking with liquid-cooled compute. Plan both heat paths.
 
-Those families plug into a **W-class** facility-water plant (**W17 / W27 / W32 / W40 / W45 / W+**). The CDU isolates the IT loop from that plant; the W-class names the **supply-water window** the plant is built to hold — not which RDHx or immersion tank you bought.
+Those families plug into a **W-class** facility-water plant (**W17 / W27 / W32 / W40 / W45 / W+**). The CDU isolates the **TCS** from that **FWS** plant; the W-class names the **FWS supply-water window** the plant is built to hold — not the cold-plate temperature, and not which RDHx or immersion tank you bought.
 
 ### STES / STER awareness
 
@@ -362,7 +378,8 @@ These are **planning heuristics**, not substitutes for engineered heat-load calc
 | Cooling is facilities-only | Blanking panels, cable management, and rack layout are IT/ops hygiene with facility impact. |
 | Generators up = cooling up | Chillers, towers, and pumps must sequence correctly; black-start of cooling plant is a designed procedure. |
 | “AI is just denser air” | At some kW/rack, physics forces liquid or specialized close-coupled solutions. |
-| “W27 means set the CRAH to 27 °C” | W-class is **facility-water supply** (upper limit; floor **2 °C**). Lattice in **Module 02**; application here. |
+| “W27 means set the CRAH to 27 °C” | W-class is **facility-water (FWS) supply** (upper limit; floor **2 °C**). Lattice in **Module 02**; application here. |
+| “W32 means 32 °C at the cold plate” | The CDU keeps **FWS** and **TCS** physically separate. **Approach temperature** sits between them; it is not a chip-inlet setpoint. |
 | “We have minutes — the pipes are full of water” | At **40–100 kW** with the plant dark, the oral is **seconds**. **Liquid-loop inertia ≠ CRAH-plenum inertia.** |
 | “Cooling is 20–40% of site energy, always” | Site-dependent; no frozen share. Speak PUE levers. |
 | “Cooling is a third of outages” | Usually a **cascade**. Retire old Module 01 item 2; see **Module 01 / Module 15**. Do not invent a %. |
@@ -396,12 +413,12 @@ These are **planning heuristics**, not substitutes for engineered heat-load calc
 ### 5) AI density
 
 **Q:** “How does liquid cooling change the facilities conversation for AI racks?”  
-**A:** Density jumps from ~10 kW/rack air problems to 40–100+ kW problems where air volume and ΔT become impractical. We introduce CDUs, secondary loops, leak detection, water quality, a **W-class** facility-water plant, and different maintenance skills. Power and cooling must be co-planned. At 40–100 kW, if IT stays on UPS and the plant is dark, ride-through is **seconds** — liquid-loop inertia is not CRAH-plenum inertia. Networking may stay air-cooled, so hybrid halls still need containment discipline.
+**A:** Density jumps from ~10 kW/rack air problems to 40–100+ kW problems where air volume and ΔT become impractical. We introduce CDUs, **TCS / FWS** loops, leak detection, water quality, a **W-class** facility-water plant, and different maintenance skills. Power and cooling must be co-planned. At 40–100 kW, if IT stays on UPS and the plant is dark, ride-through is **seconds** — liquid-loop inertia is not CRAH-plenum inertia. Networking may stay air-cooled, so hybrid halls still need containment discipline.
 
 ### 6) W-class plant
 
 **Q:** “What W-class is this plant?”  
-**A:** **W17 / W27 / W32 / W40 / W45 / W+**. The number is the **upper facility-water supply** in °C. Every class shares a **2 °C** floor. Choosing one is choosing the liquid plant (chiller-side vs warmer tower/dry-cooler), not a CRAH setpoint. Lattice is **Module 02**; I apply it here. I will not say “set the hall to 27” because someone said W27.
+**A:** **W17 / W27 / W32 / W40 / W45 / W+**. The number is the **upper facility-water (FWS) supply** in °C — not a CRAH setpoint and not the cold-plate temperature. The **CDU** keeps **FWS** and **TCS** physically separate; **approach temperature** is the gap between those supplies, not a chip-inlet class. Every class shares a **2 °C** floor. Lattice is **Module 02**; I apply it here. I will not say “set the hall to 27” because someone said W27, and I will not recite ~2–4 K approach as law.
 
 ### 7) Ride-through at 40–100 kW
 
@@ -444,7 +461,7 @@ These are **planning heuristics**, not substitutes for engineered heat-load calc
 
 6. **A CDU is best described as:**  
    a) A copper data unit for fiber  
-   b) A coolant distribution unit interfacing facility water and IT liquid loops  
+   b) A coolant distribution unit — the liquid-to-liquid interface that keeps **FWS** and **TCS** physically separate  
    c) A type of raised-floor tile  
    d) A fire extinguisher class
 
@@ -463,7 +480,7 @@ These are **planning heuristics**, not substitutes for engineered heat-load calc
 9. **ASHRAE W17 / W27 / W32 / W40 / W45 / W+ name:**  
    a) CRAH return-air setpoints you type on Tuesday  
    b) Air recommended envelopes (the old 18–27 °C statute)  
-   c) Liquid **plant-selection** classes: the number is the **upper supply-water** limit (°C); every class shares a **2 °C** floor  
+   c) Liquid **plant-selection** classes: the number is the **upper FWS supply** limit (°C), not the cold-plate temperature; every class shares a **2 °C** floor  
    d) Uptime Tier plaques
 
 10. **At 40–100 kW, IT on UPS, liquid/air plant dark, thermal ride-through is:**  
@@ -471,6 +488,12 @@ These are **planning heuristics**, not substitutes for engineered heat-load calc
     b) The same minutes as a CRAH-plenum air hall  
     c) **Seconds** — liquid-loop inertia ≠ CRAH-plenum inertia  
     d) Irrelevant, because generators up means cooling up
+
+11. **A W32 plant with a liquid-to-liquid CDU means:**  
+    a) Cold plates see 32 °C because W-class is the chip-inlet class  
+    b) FWS and TCS are the same loop once a CDU is installed  
+    c) 32 °C is the **upper FWS supply**; **TCS** / cold-plate is a different loop; **approach temperature** is the CDU gap, not a chip-inlet setpoint, and ~2–4 K is not law  
+    d) Recite 20–40% cooling energy to pick the class
 
 ### Answers
 
@@ -482,11 +505,12 @@ These are **planning heuristics**, not substitutes for engineered heat-load calc
 3. **b** — High sensible, 24×7 precision control.  
 4. **b** — Isolates/manages cold supply path to inlets.  
 5. **b** — Condensation risk when surface T &lt; dew point.  
-6. **b** — Coolant Distribution Unit for liquid cooling loops.  
+6. **b** — Coolant Distribution Unit: FWS/TCS interface, loops stay physically separate.  
 7. **b** — Seasonal thermal energy storage concept.  
 8. **b** — Fix bypass/recirculation before brute-force overcooling.  
-9. **c** — W-class is upper facility-water supply; floor 2 °C; lattice in Module 02.  
-10. **c** — Seconds when the plant is dark at 40–100 kW; do not invent an outage %.
+9. **c** — W-class is upper FWS supply, not the cold plate; floor 2 °C; lattice in Module 02.  
+10. **c** — Seconds when the plant is dark at 40–100 kW; do not invent an outage %.  
+11. **c** — W-class bounds FWS; approach temperature is the CDU gap, not a chip-inlet class; ~2–4 K is not law.
 
 </details>
 
@@ -499,13 +523,13 @@ Public standards, guidelines, and primers (no paywalled EPI courseware):
 | Resource | Why read it |
 |---|---|
 | **ASHRAE TC 9.9** — *Thermal Guidelines for Data Processing Environments* (purchase/summary articles; vendor explainers of recommended vs allowable) | Authoritative thermal envelopes language (**recommended ⊂ allowable**; do not freeze 18–27 °C) |
-| **ASHRAE** — *AI Data Center Energy Performance Framework* (public Introduction and Purpose) | **W17 / W27 / W32 / W40 / W45 / W+**: number = upper supply-water limit; shared floor **2 °C**; typical W17/W27 vs W32+ infrastructure split |
+| **ASHRAE** — *AI Data Center Energy Performance Framework* (public Introduction and Purpose) | **W17 / W27 / W32 / W40 / W45 / W+**: number = upper facility-water (**FWS**) supply limit; shared floor **2 °C**; typical W17/W27 vs W32+ infrastructure split |
 | **ASHRAE** handbooks / free overview articles on data center cooling | Psychrometrics, free cooling concepts |
 | **ISO/IEC 22237** / **EN 50600** series overviews (national body summaries) | Facility design framework context |
 | **ANSI/TIA-942** public overviews | Where environmental and architectural requirements sit relative to rating language |
 | **Uptime Institute** public papers on cooling, PUE, and concurrent maintainability (free blogs/webinars vary) | Ops and tier *thinking* (commercial rating ≠ code) |
 | **DOE / LBNL / Energy Star** data center energy resources | Free cooling, airflow management, PUE |
-| **Open Compute Project (OCP)** advanced cooling / liquid cooling project docs | Hyperscale liquid practices at public detail |
+| **Open Compute Project (OCP)** — [*Liquid to Liquid CDU Test Methodology and Performance Rating*, Rev. 1.0 (August 2024)](https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf) | Primary public source for TCS/FWS loop separation, ATD, and CDU test conditions |
 | **Vendor primers (conceptual):** Schneider Electric Data Center Science Center, Vertiv, Stulz, Munters, CoolIT, Motivair application notes | CRAC/CRAH, containment, RDHx, CDU explainers |
 | **EPA / local water authority** guidance on cooling towers and water use | WUE and treatment context (pair with Module 10) |
 
