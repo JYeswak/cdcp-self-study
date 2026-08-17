@@ -425,6 +425,12 @@ migration_bead = "bd-installability-sm4g.16"
 expires = "2027-02-28"
 
 [[allow]]
+path = "scripts/assert_generator_fresh.sh"
+reason = "L4 freshness assert after each generator (bd-installability-sm4g.10). check.sh invokes it after build-learn, build-reference, build-units, build-glossary, build-learn-slugs, and export-web, and as --selftest (empty owned-path set ERROR; dirty owned path in a private repo RED naming the generator and the path). Reports only — never stages or restores. Not via run_selftest so REGISTERED_SUITES does not grow."
+migration_bead = "bd-installability-sm4g.10"
+expires = "2027-02-28"
+
+[[allow]]
 path = "install.sh"
 reason = "Product installer (W7). One-command install; receipt-driven uninstall/verify. Invoked by scripts/selftest_install.sh from check.sh. Stays shell: it is the shipped one-liner, not a gate."
 migration_bead = "bd-installability-sm4g.7"

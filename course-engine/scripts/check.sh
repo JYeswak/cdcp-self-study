@@ -123,6 +123,13 @@ STEP_SKIPPED=0
 ok() { STEP_OK=$((STEP_OK + 1)); echo "check.sh: ok: $*"; }
 skipped_step() { STEP_SKIPPED=$((STEP_SKIPPED + 1)); echo "check.sh: skip: $*"; }
 
+# After each generator, owned paths must be clean. [bd-installability-sm4g.10]
+# A successful run that leaves dirt is stale committed artifacts — RED.
+# Reports only. The helper never stages or restores.
+assert_generator_fresh() {
+  sh scripts/assert_generator_fresh.sh "$@"
+}
+
 # ── Concurrency lock [bd-gl4j] ─────────────────────────────────────────────
 # Measured 2026-08-14, four concurrent runs live during a six-agent wave: one
 # run exited 2 on `L5 learner pack shape (n_items=39)` because another run was
@@ -156,9 +163,12 @@ skipped_step() { STEP_SKIPPED=$((STEP_SKIPPED + 1)); echo "check.sh: skip: $*"; 
 #                                  web/data/topic_anchors.json          [M] regenerated
 #                                  web/learn.html + web/learn/*.html    [M] regenerated
 #                                  web/content/modules/*.md             [M] recopied
+#   cdcp build-reference           web/reference.html                   [M] regenerated
+#                                  web/content/reference/*.md           [M] recopied
 #   cdcp build-units               web/data/units_index.json            [M] regenerated
 #   cdcp build-glossary            web/data/glossary.json               [M] regenerated
 #   cdcp build-learn-slugs         web/data/module_learn_slugs.js       [M] regenerated
+#   cdcp export-web                web/data/{mock40,keys,bank_items}_seed42.json [S] regenerated
 #   cdcp export-anki               dist/anki/**                         [M] untracked output
 # The regenerated Learn artifacts are byte-identical today, so `git status` stays
 # clean — but the WRITE still happens (mtime moves), and a concurrent reader can
@@ -1193,12 +1203,30 @@ echo "==> e2e_l5_digest.sh (UI dual-path digest match)"
 sh scripts/e2e_l5_digest.sh || fail "L5 e2e digest"
 ok "L5 e2e digest match (seed42 all-correct/all-wrong)"
 
+# L4 generator freshness [bd-installability-sm4g.10]. Plants live in
+# assert_generator_fresh.sh --selftest (not via run_selftest — same as N.7
+# installer / N.16 learner verbs, so REGISTERED_SUITES does not grow).
+[ -f scripts/assert_generator_fresh.sh ] || fail "missing scripts/assert_generator_fresh.sh (generator freshness required)"
+echo "==> assert_generator_fresh.sh --selftest (L4: empty set ERROR · dirty owned path RED)"
+sh scripts/assert_generator_fresh.sh --selftest || fail "generator freshness helper known-bad"
+
 echo "==> cdcp build-learn (Learn surface)"
 run_cdcp_cli build-learn || fail "build-learn"
+assert_generator_fresh build-learn \
+  web/learn.html \
+  web/learn/ \
+  web/data/modules_index.json \
+  web/data/topic_anchors.json \
+  web/content/modules/ \
+  || fail "build-learn stale artifacts"
 ok "Learn surface (modules_index · topic_anchors · pages · copies)"
 
 echo "==> cdcp build-reference (Reference surface)"
 run_cdcp_cli build-reference || fail "build-reference"
+assert_generator_fresh build-reference \
+  web/reference.html \
+  web/content/reference/ \
+  || fail "build-reference stale artifacts"
 ok "Reference surface (reference.html · glossary · power cheatsheet)"
 
 echo "==> cdcp smoke-learn (L5 learn surface)"
@@ -1220,6 +1248,16 @@ for f in mock40_seed42.json keys_seed42.json bank_items_seed42.json; do
   cmp -s "$_MS_TMP/$f" "web/data/$f" || fail "L6 export-web seed42 not golden-stable: $f"
 done
 rm -rf "$_MS_TMP"
+# In-tree write + porcelain: same contract as the other generators. The temp
+# cmp above proves generated == committed; this write is a no-op when they
+# already match (write_bytes_if_changed) and RED via porcelain if they don't.
+run_cdcp_cli export-web --bank bank/items --seed 42 --out web/data >/dev/null \
+  || fail "export-web"
+assert_generator_fresh export-web \
+  web/data/mock40_seed42.json \
+  web/data/keys_seed42.json \
+  web/data/bank_items_seed42.json \
+  || fail "export-web stale artifacts"
 ok "L6 multi-seed export-web --seed 42 (fixture golden-stable)"
 
 echo "==> L6 session shapes"
@@ -1244,9 +1282,21 @@ done
 ok "L7 surfaces (reference · closed-notes · Learn-15)"
 
 echo "==> cdcp smoke-learn-chrome (M8-A)"; run_cdcp_cli smoke-learn-chrome || fail "M8-A learn chrome"; ok "M8-A learn chrome smoke"
-echo "==> cdcp build-units (M8-B units_index)";              run_cdcp_cli build-units          || fail "M8-B units_index"; ok "M8-B units_index"
-echo "==> cdcp build-glossary (M8-D glossary)";              run_cdcp_cli build-glossary       || fail "M8-D glossary";    ok "M8-D glossary.json"
-echo "==> cdcp build-learn-slugs (MODULE_LEARN_SLUGS)";      run_cdcp_cli build-learn-slugs    || fail "MODULE_LEARN_SLUGS"; ok "MODULE_LEARN_SLUGS from domains.toml"
+echo "==> cdcp build-units (M8-B units_index)"
+run_cdcp_cli build-units || fail "M8-B units_index"
+assert_generator_fresh build-units web/data/units_index.json \
+  || fail "build-units stale artifacts"
+ok "M8-B units_index"
+echo "==> cdcp build-glossary (M8-D glossary)"
+run_cdcp_cli build-glossary || fail "M8-D glossary"
+assert_generator_fresh build-glossary web/data/glossary.json \
+  || fail "build-glossary stale artifacts"
+ok "M8-D glossary.json"
+echo "==> cdcp build-learn-slugs (MODULE_LEARN_SLUGS)"
+run_cdcp_cli build-learn-slugs || fail "MODULE_LEARN_SLUGS"
+assert_generator_fresh build-learn-slugs web/data/module_learn_slugs.js \
+  || fail "build-learn-slugs stale artifacts"
+ok "MODULE_LEARN_SLUGS from domains.toml"
 # After regenerate so this smoke sees THIS run's units_index, not last run's
 # (bd-wire-smoke-quiz-approved-7pju.1).
 echo "==> smoke_quiz_approved.mjs"; node scripts/smoke_quiz_approved.mjs || fail "approved-only quiz/units draw"; ok "no learner surface draws a non-approved item"
@@ -1275,9 +1325,10 @@ ok "L7 CLI product verbs listed"
 # ── learner verbs wired (bd-installability-sm4g.16) ────────────────────────
 # BUILT != WIRED: study / demo / test shipped and were never invoked here.
 # Each step fail-closes on the verb's exit code. A line that runs the verb
-# and ignores the status is the vacuous pass already shipped with build-learn
-# as a generator (.10). Plants live in selftest_learner_verbs.sh (not via
-# run_selftest — same as N.7 installer, so REGISTERED_SUITES does not grow).
+# and ignores the status is the vacuous pass build-learn used to be before
+# .10 asserted generator freshness. Plants live in selftest_learner_verbs.sh
+# (not via run_selftest — same as N.7 installer, so REGISTERED_SUITES does
+# not grow).
 echo "==> cdcp test (installed-tree smoke)"
 run_cdcp_cli test || fail "cdcp test"
 ok "cdcp test"
