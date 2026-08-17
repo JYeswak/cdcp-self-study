@@ -111,14 +111,14 @@
       "content_path": "content/modules/09-cooling.md",
       "empty": false,
       "epi_heading": "Cooling Infrastructure",
-      "estimate_minutes": 36,
+      "estimate_minutes": 39,
       "exam_weight_unknown": false,
       "href": "learn/09-cooling.html",
       "id": "09-cooling",
       "order": 9,
       "primary_notes": "../modules/09-cooling.md",
       "source_path": "../modules/09-cooling.md",
-      "word_count": 5376
+      "word_count": 5752
     },
     {
       "content_path": "content/modules/10-water.md",

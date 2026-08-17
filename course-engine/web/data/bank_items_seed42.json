@@ -15491,6 +15491,32 @@
   {
     "bloom": "apply",
     "choices": [
+      "Accept: W32 is the chip-inlet class; FWS and TCS are synonyms once a CDU is installed",
+      "Refuse: the W-number is the upper facility-water (FWS) supply limit; the CDU keeps FWS and TCS physically separate so FWS supply is not the cold-plate temperature; approach temperature is the TCS-versus-FWS supply difference, not a chip-inlet setpoint. Do not treat 3 K as a universal law",
+      "Convert 32 minus 3 into a specialist exam formula and freeze 2–4 K approach as statute",
+      "Collapse W32 into the air recommended 18–27 °C envelope so the plate question goes away"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "W-class names FWS supply, not the chip. The CDU is the liquid-to-liquid interface that keeps FWS and TCS physically separate; approach temperature is that gap, not a chip-inlet class. Vendor ~2–4 K figures are illustrative, not law. No CDCS calc in this item.",
+    "id": "m09-q254",
+    "kind": "single-select",
+    "module": 9,
+    "objective_ids": [
+      "obj-m09-w-classes"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A GPU-hall packet says “ASHRAE W32, so the cold plates see 32 °C,” and lists a 3 K CDU approach temperature as the chip-inlet setpoint. The apply move is:",
+    "tags": [],
+    "topic_ids": [
+      "m09-liquid"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
       "Restore containment integrity (doors, blanks, seals) and verify airflow paths before changing plant setpoints or declaring a cooling design failure",
       "Immediately raise the entire hall supply setpoint by a large margin so the aisle looks cooler on one sensor",
       "Shut down half the CRAHs to increase delta-T as an efficiency experiment during the pull",
@@ -20350,7 +20376,7 @@
       "Lockout device application — the padlock is on the HMI door rather than the panel door, so a second signature is required",
       "Isolation — a control-circuit device is not an energy isolating device, so nothing physically preventing energy transmission was operated",
       "Nothing is missing — the STOPPED display confirms the fan is not turning, so the equipment is safely deenergized for work",
-      "Nothing is missing for mechanical work — the sequence would only fail if the CRAH were fed from a busway tap rather than a local panelboard"
+      "Nothing is missing for mechanical work — the sequence would only fail if the CRAH shared a chilled-water header with the adjacent unit"
     ],
     "citation_ids": [],
     "correct": "B",
