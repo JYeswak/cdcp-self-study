@@ -1,9 +1,10 @@
-//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics / attempts / slo / snap-rewrite / recon / first-topic-id / publishability
+//! cdcp CLI — study / serve / grade / goldens / bank-hash / export-web / doctor / health / repair / oracle-check / site / metrics / attempts / slo / snap-rewrite / recon / first-topic-id / publishability
 #![forbid(unsafe_code)]
 
 mod assemble;
 mod attempts;
 mod first_topic;
+mod http_serve;
 mod metrics;
 mod operator;
 mod oracle;
@@ -42,7 +43,8 @@ fn print_orientation() {
          \n\
          A missing subcommand is not an error. This tool is local-first.\n\
          \n\
-           cdcp serve       serve the offline study site\n\
+           cdcp study       open the offline study site\n\
+           cdcp serve       serve the offline study site (no browser)\n\
            cdcp doctor      preflight the local tree\n\
            cdcp --help      list every command\n\
            cdcp --version   print the workspace version",
@@ -249,6 +251,19 @@ enum Cmd {
         #[arg(long)]
         fixture: Option<PathBuf>,
     },
+    /// Resolve the learner bundle, bind a port, print the URL, open a browser
+    Study {
+        /// Bundle directory, engine root, or CDCP home. When omitted:
+        /// CDCP_HOME > $XDG_DATA_HOME/cdcp > ~/.local/share/cdcp > cwd walk.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// Preferred address. Occupied preferred retries nearby ports, then :0.
+        #[arg(long, default_value = http_serve::DEFAULT_BIND)]
+        bind: String,
+        /// Print the URL but do not spawn a browser.
+        #[arg(long)]
+        no_open: bool,
+    },
     /// Serve web/ over HTTP for the local product (offline, local-only)
     Serve {
         /// Bundle directory, engine root, or CDCP home. When omitted:
@@ -257,7 +272,7 @@ enum Cmd {
         root: Option<PathBuf>,
         #[arg(long, default_value = "127.0.0.1:8766")]
         bind: String,
-        /// No-op. `cdcp study` will open a browser; serve never does.
+        /// No-op. `cdcp study` opens a browser; serve never does.
         /// Accepted so `cdcp serve --no-open` is a valid measurement of W1.
         #[arg(long)]
         no_open: bool,
@@ -757,11 +772,20 @@ fn run(cmd: Cmd) -> Result<(), String> {
             out,
             fixture,
         } => export_web(&bank, seed, &out, fixture),
+        Cmd::Study {
+            root,
+            bind,
+            no_open,
+        } => http_serve::run(
+            root.as_deref(),
+            &bind,
+            http_serve::OpenMode::Study { no_open },
+        ),
         Cmd::Serve {
             root,
             bind,
             no_open: _,
-        } => serve(root.as_deref(), &bind),
+        } => http_serve::run(root.as_deref(), &bind, http_serve::OpenMode::Serve),
         Cmd::BuildLearn { root } => compile_learn(root.as_deref(), LearnKind::Learn),
         Cmd::BuildReference { root } => compile_learn(root.as_deref(), LearnKind::Reference),
         Cmd::BuildUnits { root } => compile_learn(root.as_deref(), LearnKind::Units),
@@ -1722,117 +1746,4 @@ fn write_json<T: serde::Serialize>(path: &Path, v: &T) -> Result<(), String> {
     // site, and still never invoked from repair.
     let _ = operator::write_bytes_if_changed(path, s.as_bytes())?;
     Ok(())
-}
-
-// ── serve (V11) ─────────────────────────────────────────────────────────────
-// Minimal local-only static server for web/. Pure std: no new dependencies,
-// nothing listens beyond the bind address, no upload/exec surface.
-
-fn serve(explicit: Option<&Path>, bind: &str) -> Result<(), String> {
-    use std::io::{BufRead, BufReader, Write};
-    use std::net::TcpListener;
-
-    let resolved = cdcp_root::resolve_from_env(explicit).map_err(|e| e.to_string())?;
-    // Source-checkout vs installed must PRINT the chosen root. Silent
-    // precedence is the next fooled certificate.
-    println!("cdcp: {}", resolved.announce());
-    let root = resolved.web_dir();
-    if !root.is_dir() {
-        return Err(format!(
-            "{}: {}",
-            cdcp_root::BUNDLE_NOT_FOUND,
-            root.display()
-        ));
-    }
-    let root = root
-        .canonicalize()
-        .map_err(|e| format!("{}: {} ({e})", cdcp_root::BUNDLE_NOT_FOUND, root.display()))?;
-    let listener = TcpListener::bind(bind).map_err(|e| format!("bind {bind}: {e}"))?;
-    let addr = listener
-        .local_addr()
-        .map_err(|e| format!("local_addr after bind {bind}: {e}"))?;
-    println!("cdcp serve: http://{addr}/  (root {})", root.display());
-    println!("cdcp serve: Ctrl-C to stop");
-
-    // The guards in this loop are per-CONNECTION liveness, not verdicts about an
-    // artifact: a dropped socket or an unreadable request line must not take the
-    // server down, and neither one grants access to anything. The access verdict
-    // is the traversal guard below, which is fail-closed.
-    for stream in listener.incoming() {
-        let mut stream = match stream {
-            Ok(s) => s,
-            Err(_) => continue,
-        };
-        let mut line = String::new();
-        if BufReader::new(&stream).read_line(&mut line).is_err() {
-            continue;
-        }
-        let mut parts = line.split_whitespace();
-        // Fail-closed defaults: a request line with no verb yields "", which is
-        // neither GET nor HEAD and is answered 405; a request line with no target
-        // yields "/", which is served as index.html or 404s. Neither default can
-        // widen what is reachable.
-        let method = parts.next().unwrap_or("");
-        let raw = parts.next().unwrap_or("/");
-        if method != "GET" && method != "HEAD" {
-            let _ =
-                stream.write_all(b"HTTP/1.1 405 Method Not Allowed\r\nContent-Length: 0\r\n\r\n");
-            continue;
-        }
-        let path = raw.split('?').next().unwrap_or("/");
-        let rel = if path == "/" {
-            "index.html"
-        } else {
-            path.trim_start_matches('/')
-        };
-
-        // Path traversal guard: resolve, then require the result stay under root.
-        // This IS a verdict, and it is fail-CLOSED in both legs: a canonicalize
-        // failure becomes None via `.ok()` (404, never "assume it is fine"), and
-        // the `starts_with` filter turns any escape into None as well. A file
-        // that cannot be resolved is refused, not served.
-        let candidate = root.join(rel);
-        let resolved = candidate
-            .canonicalize()
-            .ok()
-            .filter(|p| p.starts_with(&root));
-        let (status, body, ctype) = match resolved {
-            Some(p) if p.is_file() => match fs::read(&p) {
-                Ok(bytes) => ("200 OK", bytes, content_type(&p)),
-                Err(_) => (
-                    "500 Internal Server Error",
-                    b"read error".to_vec(),
-                    "text/plain",
-                ),
-            },
-            _ => ("404 Not Found", b"not found".to_vec(), "text/plain"),
-        };
-        let head = format!(
-            "HTTP/1.1 {status}\r\nContent-Type: {ctype}\r\nContent-Length: {}\r\n\
-             X-Content-Type-Options: nosniff\r\nConnection: close\r\n\r\n",
-            body.len()
-        );
-        let _ = stream.write_all(head.as_bytes());
-        if method == "GET" {
-            let _ = stream.write_all(&body);
-        }
-    }
-    Ok(())
-}
-
-/// Content-Type for a served file. The `unwrap_or("")` fallback is a labelling
-/// decision, not a verdict: an unknown or absent extension becomes
-/// `application/octet-stream`, which (with the `nosniff` header above) is the
-/// conservative answer. It cannot make an unreachable file reachable.
-fn content_type(p: &Path) -> &'static str {
-    match p.extension().and_then(|e| e.to_str()).unwrap_or("") {
-        "html" => "text/html; charset=utf-8",
-        "js" | "mjs" => "text/javascript; charset=utf-8",
-        "css" => "text/css; charset=utf-8",
-        "json" => "application/json; charset=utf-8",
-        "wasm" => "application/wasm",
-        "svg" => "image/svg+xml",
-        "png" => "image/png",
-        _ => "application/octet-stream",
-    }
 }
