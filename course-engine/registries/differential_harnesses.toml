@@ -101,13 +101,15 @@ active_harness_floor = 1        # diff_*.rs files still holding comparator calls
 # 0). 18 after bd-diff-coverage-agreement-only-25ux converted
 # diff_verify_coverage.rs (9 to 0). 5 after
 # bd-diff-remaining-agreement-only-qgy9 converted objectives (10 to 0),
-# grounding (2 to 0) and doc-consistency (1 to 0). Set to the MEASURED value,
-# not a value with headroom: a ratchet with slack is not a ratchet.
+# grounding (2 to 0) and doc-consistency (1 to 0). 0 after
+# bd-engine-not-gate-ar39.8 converted the last 5 injection_count
+# shape/spelling call sites. Set to the MEASURED value, not a value with
+# headroom: a ratchet with slack is not a ratchet.
 #
 # IF THIS FIRED ON YOUR FILE: the fix is to give your new case an independent
 # verdict, not to raise this number. Raising it is a gate bypass and is
 # escalation-only. Lowering it after a conversion is expected and autonomous.
-agreement_only_total_budget = 5
+agreement_only_total_budget = 0
 
 # EXIT-ONLY AXIS (bd-diff-exit-code-only-verdicts-t6kv, measured 2026-08-15).
 # The first axis is agreement-only (above). This second axis counts cases that
@@ -115,14 +117,13 @@ agreement_only_total_budget = 5
 # gate said. Those evaporate into "something failed" the day the .py oracle is
 # retired.
 #
-# First-slice conversion (this bead): every anti-vacuous/floor call site plus
-# the remaining named GREEN/RED controls outside injection_count now assert a
+# First-slice conversion: every anti-vacuous/floor call site plus the
+# remaining named GREEN/RED controls outside injection_count now assert a
 # named substring or structured field. Converted 20 of the 52 originally
-# counted. Remaining:
-#   32  diff_verify_injection_count.rs — STRUCTURAL: the comparator returns
-#       i32, so stdout is unreachable at every call site
-#       (bd-diff-injection-i32-comparator-fo1l).
-#    0  every other live harness (content_lock retired with its file).
+# counted. fo1l then returned Run from the injection_count comparator so
+# stdout is reachable. ar39.8 converted the last 5 agreement-only
+# shape/spelling call sites in that file. Remaining:
+#    0  every live harness.
 # The four emission-order cases (coverage / objectives) stay strong-via-offsets
 # and were never in the convertible 20. The census.rs strong/weak split is
 # sibling bd-j8b2's meta-gate; this file records the remaining count honestly.
@@ -214,8 +215,12 @@ verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D cove
 file = "diff_verify_injection_count.rs"
 gate = "verify-injection-count"
 comparators = ["assert_identical", "check"]
-cases = 37
-agreement_only = 5
+# CONVERTED 2026-08-17 (bd-engine-not-gate-ar39.8): last 5 agreement-only
+# call sites (word-shape, unparseable/comment lines, readme-shapes,
+# path-spellings, verdict-green) now pin a named substring or structured
+# field. fo1l had already made the comparator return Run.
+cases = 38
+agreement_only = 0
 owner_bead = "bd-1sd.13"
 verdict_shape_leg = false
 verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"

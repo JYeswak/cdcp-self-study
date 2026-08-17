@@ -818,31 +818,64 @@ fn a_word_spelled_count_is_identical_and_no_longer_invisible() {
         "injection count GREEN (README and the suites both say 7)",
     );
 
-    // Every word shape both implementations must agree on, drift or not.
-    for (i, spelled) in [
-        "seven",
-        "SEVEN",
-        "Thirty-Six",
-        "thirty six",
-        "eighteen",
-        "eight",
-        "ninety-nine",
-        "zero",
-        "three dozen", // outside the vocabulary: the site drops out entirely
-        "freighter",   // the word branch carries a \b
-    ]
-    .iter()
-    .enumerate()
-    {
+    // Every word shape both implementations must agree on, AND a named
+    // finding that survives oracle retirement (bd-engine-not-gate-ar39.8).
+    // "three dozen" / "freighter" are outside the vocabulary: the prose site
+    // drops out and the site floor must trip (not silently stay GREEN).
+    for (i, spelled, needle) in [
+        (
+            0,
+            "seven",
+            "injection count GREEN (README and the suites both say 7)",
+        ),
+        (
+            1,
+            "SEVEN",
+            "injection count GREEN (README and the suites both say 7)",
+        ),
+        (
+            2,
+            "Thirty-Six",
+            "advertises 36 known-bad injections; the suites self-reported 7",
+        ),
+        (
+            3,
+            "thirty six",
+            "advertises 36 known-bad injections; the suites self-reported 7",
+        ),
+        (
+            4,
+            "eighteen",
+            "advertises 18 known-bad injections; the suites self-reported 7",
+        ),
+        (
+            5,
+            "eight",
+            "advertises 8 known-bad injections; the suites self-reported 7",
+        ),
+        (
+            6,
+            "ninety-nine",
+            "advertises 99 known-bad injections; the suites self-reported 7",
+        ),
+        (
+            7,
+            "zero",
+            "advertises 0 known-bad injections; the suites self-reported 7",
+        ),
+        (8, "three dozen", "only 4 advertisement site(s) parsed"),
+        (9, "freighter", "only 4 advertisement site(s) parsed"),
+    ] {
         let r = write(
             &dir,
             &format!("W{i}.md"),
             &specimen_readme_prose(7, 2, spelled),
         );
-        let _ = assert_identical(
+        let run = assert_identical(
             &format!("word-shape-{i}"),
             &["--log", &log, "--readme", &r, "--require", REQUIRE],
         );
+        assert_named(&format!("word-shape-{i}"), &run, needle);
     }
 }
 
@@ -1117,19 +1150,62 @@ fn per_suite_column_shapes_are_identical() {
 
 #[test]
 fn unparseable_and_comment_lines_are_identical() {
-    for (tag, body) in [
-        ("junk_leading", "garbage line\nINJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n"),
-        ("junk_comment", "# INJECTIONS=99 SUITE=spec_alpha\nINJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n"),
-        ("junk_nondigit", "INJECTIONS=x SUITE=spec_alpha\nINJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n"),
-        ("junk_quotes", "it's a 'quoted' line\nline with \"double\" and 'single'\nINJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n"),
-        ("junk_backslash", "TABBED\\back\nINJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n"),
-        ("junk_nonascii", "\u{a0}nbsp\u{2028}sep é —\nINJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n"),
-        ("junk_spacey", "INJECTIONS=3\tSUITE=spec_alpha\n  INJECTIONS=4   SUITE=spec_beta  \n"),
-        ("junk_cr", "INJECTIONS=3 SUITE=spec_alpha\rINJECTIONS=4 SUITE=spec_beta\r"),
-        ("junk_leading_zeros", "INJECTIONS=003 SUITE=spec_alpha\nINJECTIONS=04 SUITE=spec_beta\n"),
+    // Junk that is not a receipt is a named finding, not a silent skip.
+    // Space/CR/leading-zero shapes still parse and must stay GREEN. The
+    // `spec_*: N` fields prove the valid receipts still counted
+    // (bd-engine-not-gate-ar39.8).
+    for (tag, body, needle) in [
+        (
+            "junk_leading",
+            "garbage line\nINJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n",
+            "unparseable receipt line:",
+        ),
+        (
+            "junk_comment",
+            "# INJECTIONS=99 SUITE=spec_alpha\nINJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n",
+            "unparseable receipt line:",
+        ),
+        (
+            "junk_nondigit",
+            "INJECTIONS=x SUITE=spec_alpha\nINJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n",
+            "unparseable receipt line:",
+        ),
+        (
+            "junk_quotes",
+            "it's a 'quoted' line\nline with \"double\" and 'single'\nINJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n",
+            "unparseable receipt line:",
+        ),
+        (
+            "junk_backslash",
+            "TABBED\\back\nINJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n",
+            "unparseable receipt line:",
+        ),
+        (
+            "junk_nonascii",
+            "\u{a0}nbsp\u{2028}sep é —\nINJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n",
+            "unparseable receipt line:",
+        ),
+        (
+            "junk_spacey",
+            "INJECTIONS=3\tSUITE=spec_alpha\n  INJECTIONS=4   SUITE=spec_beta  \n",
+            "injection count GREEN (README and the suites both say 7)",
+        ),
+        (
+            "junk_cr",
+            "INJECTIONS=3 SUITE=spec_alpha\rINJECTIONS=4 SUITE=spec_beta\r",
+            "injection count GREEN (README and the suites both say 7)",
+        ),
+        (
+            "junk_leading_zeros",
+            "INJECTIONS=003 SUITE=spec_alpha\nINJECTIONS=04 SUITE=spec_beta\n",
+            "injection count GREEN (README and the suites both say 7)",
+        ),
     ] {
         let s = specimen(tag, body, 7, 2);
-        let _ = check(tag, &s);
+        let run = check(tag, &s);
+        assert_named(tag, &run, needle);
+        assert_named(tag, &run, "spec_alpha: 3");
+        assert_named(tag, &run, "spec_beta: 4");
     }
 }
 
@@ -1137,31 +1213,72 @@ fn unparseable_and_comment_lines_are_identical() {
 fn readme_shapes_that_exercise_the_scanners_are_identical() {
     let dir = scratch("readme_shapes");
     let log = write(&dir, "injections.log", GOOD_LOG);
-    for (i, body) in [
-        "7 injections\n",
-        "7 injection\n",
-        "7 faults\n",
-        "7 known-bad injections\n",
-        "7_injections\n",
-        "07 injections and 8 known-bad faults and nine selftest suites\n",
-        "seven injections\n", // word count: invisible to the scanner
-        "twelve selftest suites; 7 faults\n",
-        "SEVEN SUITES and 7 INJECTIONS\n",
-        "2 suites, 7 injections\n",
-        "2 suitesx, 7 injections\n", // `suites?\b` must not match `suitesx`
-        "v1.7 injections\n",
-        "7\tinjections\n",
-        "no numbers at all here\n",
-        "7 injections\r8 faults\r", // CPython splitlines splits on bare \r
-    ]
-    .iter()
-    .enumerate()
-    {
+    // Thin READMEs: each shape must name WHY it is RED (site floor, qualifier,
+    // suite-count claim, or a `\r` split that created line 2). Agreement alone
+    // evaporates when the oracle is retired (bd-engine-not-gate-ar39.8).
+    for (i, body, needle) in [
+        (0, "7 injections\n", "only 1 advertisement site(s) parsed"),
+        (1, "7 injection\n", "only 1 advertisement site(s) parsed"),
+        (2, "7 faults\n", "only 1 advertisement site(s) parsed"),
+        (
+            3,
+            "7 known-bad injections\n",
+            "advertises known-bad injections without a shell/selftest qualifier",
+        ),
+        (4, "7_injections\n", "only 1 advertisement site(s) parsed"),
+        (
+            5,
+            "07 injections and 8 known-bad faults and nine selftest suites\n",
+            "advertises 9 selftest suites; 2 are registered",
+        ),
+        // Word counts parse: if "seven" were invisible this would be
+        // "advertises no known-bad injection count at all" instead.
+        (
+            6,
+            "seven injections\n",
+            "only 1 advertisement site(s) parsed",
+        ),
+        (
+            7,
+            "twelve selftest suites; 7 faults\n",
+            "advertises 12 selftest suites; 2 are registered",
+        ),
+        (
+            8,
+            "SEVEN SUITES and 7 INJECTIONS\n",
+            "advertises 7 selftest suites; 2 are registered",
+        ),
+        (
+            9,
+            "2 suites, 7 injections\n",
+            "only 1 advertisement site(s) parsed",
+        ),
+        // `suites?\b` must not match `suitesx` — no suite-count finding.
+        (
+            10,
+            "2 suitesx, 7 injections\n",
+            "only 1 advertisement site(s) parsed",
+        ),
+        (
+            11,
+            "v1.7 injections\n",
+            "only 1 advertisement site(s) parsed",
+        ),
+        (12, "7\tinjections\n", "only 1 advertisement site(s) parsed"),
+        (
+            13,
+            "no numbers at all here\n",
+            "README advertises no known-bad injection count at all",
+        ),
+        // CPython splitlines splits on bare `\r`, so 8 is on line 2.
+        (14, "7 injections\r8 faults\r", ":2 advertises 8"),
+    ] {
         let readme = write(&dir, &format!("R{i}.md"), body);
-        let _ = assert_identical(
+        let run = assert_identical(
             &format!("readme-shape-{i}"),
             &["--log", &log, "--readme", &readme, "--require", REQUIRE],
         );
+        assert_named(&format!("readme-shape-{i}"), &run, needle);
     }
 }
 
@@ -1172,11 +1289,26 @@ fn path_spellings_print_identically() {
     let readme = write(&dir, "README.md", &specimen_readme(7, 2));
     let doubled = log.replace("/injections.log", "//./injections.log");
     let trailing = format!("{log}/");
-    for spelling in [doubled.as_str(), trailing.as_str(), ""] {
-        let _ = assert_identical(
+    // `//./` and a trailing slash normalise to the same file and stay GREEN.
+    // Empty `--log` is `.` (PurePosixPath("")), which is not a file.
+    // Pinning only agreement would miss a port that started treating "" as
+    // the default log (bd-engine-not-gate-ar39.8).
+    for (spelling, needle) in [
+        (
+            doubled.as_str(),
+            "injection count GREEN (README and the suites both say 7)",
+        ),
+        (
+            trailing.as_str(),
+            "injection count GREEN (README and the suites both say 7)",
+        ),
+        ("", "injection log missing: ."),
+    ] {
+        let run = assert_identical(
             "path-spelling",
             &["--log", spelling, "--readme", &readme, "--require", REQUIRE],
         );
+        assert_named("path-spelling", &run, needle);
     }
 }
 
@@ -1191,28 +1323,30 @@ fn the_case_set_contains_both_greens_and_reds() {
     let good = write(&dir, "GOOD.md", &specimen_readme(7, 2));
     let bad = write(&dir, "BAD.md", &specimen_readme(8, 2));
 
+    // Census window is call-site to next call-site: assert on `green` before
+    // the `red` comparator or this stays agreement-only (bd-engine-not-gate-ar39.8).
     let green = assert_identical(
         "verdict-green",
         &["--log", &log, "--readme", &good, "--require", REQUIRE],
     );
-    let red = assert_identical(
-        "verdict-red",
-        &["--log", &log, "--readme", &bad, "--require", REQUIRE],
-    );
     assert_eq!(green.code, 0, "the agreeing case must actually be GREEN");
-    assert_eq!(red.code, 1, "the drifted case must actually be RED");
-    assert_ne!(
-        green.code, red.code,
-        "a differential over one verdict proves nothing"
-    );
     assert_named(
         "verdict-green",
         &green,
         "injection count GREEN (README and the suites both say 7)",
     );
+    let red = assert_identical(
+        "verdict-red",
+        &["--log", &log, "--readme", &bad, "--require", REQUIRE],
+    );
+    assert_eq!(red.code, 1, "the drifted case must actually be RED");
     assert_named(
         "verdict-red",
         &red,
         "advertises 8 known-bad injections; the suites self-reported 7",
+    );
+    assert_ne!(
+        green.code, red.code,
+        "a differential over one verdict proves nothing"
     );
 }
