@@ -1,0 +1,1 @@
+Bead bd-readme-public-rigor-8y0r. You are the Grok pane. Read ~/.claude/skills/readme-writing/SKILL.md and PROGRESS.md. YOUR PASS: 4 advertised gate/engine numbers vs receipts and FEATURE_SURFACE. Every number needs a command. Write PASS-04-numbers.md ledger only. No README rewrite, no cargo, no CHARTER, no br close, no ntm send --all. Not a certification.
