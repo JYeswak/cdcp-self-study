@@ -166,6 +166,7 @@ dependencies = [
 name = "cdcp_anki"
 version = "0.1.0"
 dependencies = [
+ "cdcp_root",
  "hex",
  "rusqlite",
  "serde_json",
@@ -245,6 +246,7 @@ dependencies = [
  "cdcp_grade",
  "cdcp_learn",
  "cdcp_metrics",
+ "cdcp_root",
  "cdcp_site",
  "cdcp_wasm",
  "clap",
@@ -280,6 +282,7 @@ dependencies = [
 name = "cdcp_evidence"
 version = "0.1.0"
 dependencies = [
+ "cdcp_root",
  "hex",
  "proptest",
  "sha2",
@@ -293,6 +296,7 @@ version = "0.1.0"
 dependencies = [
  "cdcp_anki",
  "cdcp_learn",
+ "cdcp_root",
  "serde",
  "serde_json",
  "tempfile",
@@ -313,6 +317,7 @@ dependencies = [
 name = "cdcp_learn"
 version = "0.1.0"
 dependencies = [
+ "cdcp_root",
  "serde",
  "serde_json",
  "tempfile",
@@ -333,11 +338,20 @@ dependencies = [
 name = "cdcp_registry_check"
 version = "0.1.0"
 dependencies = [
+ "cdcp_root",
  "regex",
  "serde",
  "tempfile",
  "thiserror 1.0.69",
  "toml",
+]
+
+[[package]]
+name = "cdcp_root"
+version = "0.1.0"
+dependencies = [
+ "tempfile",
+ "thiserror 1.0.69",
 ]
 
 [[package]]

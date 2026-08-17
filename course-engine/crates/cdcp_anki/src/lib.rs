@@ -95,7 +95,6 @@ const TSV_COMMENT_1: &str = "# CDCP Study Anki export — stem / answer / explan
 const TSV_COMMENT_2: &str = "# Not a credential. Import as Basic (or map 4 fields).\n";
 const CSV_HEADER: [&str; 4] = ["stem", "answer", "explanation", "module"];
 const KNOWN_FORMATS: [&str; 3] = ["tsv", "csv", "apkg"];
-const ENGINE_ANCHOR: &str = "registries/claims.toml";
 
 #[derive(Debug, thiserror::Error, PartialEq, Eq)]
 pub enum AnkiError {
@@ -1690,29 +1689,10 @@ pub fn run(req: &Request) -> Outcome {
 }
 
 /// Walk up from `start` to the course-engine root (`registries/claims.toml`).
+///
+/// No compile-time crate-directory fallback.
 pub fn resolve_engine_root(start: &Path) -> Result<PathBuf, AnkiError> {
-    let mut cur = start.to_path_buf();
-    if cur.is_file() {
-        cur.pop();
-    }
-    for _ in 0..12 {
-        if cur.join(ENGINE_ANCHOR).is_file() {
-            return Ok(cur);
-        }
-        if !cur.pop() {
-            break;
-        }
-    }
-    let from_manifest = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
-    if let Ok(canon) = from_manifest.canonicalize() {
-        if canon.join(ENGINE_ANCHOR).is_file() {
-            return Ok(canon);
-        }
-    }
-    Err(AnkiError::msg(format!(
-        "could not locate the course-engine root (no {ENGINE_ANCHOR} at or above {})",
-        start.display()
-    )))
+    cdcp_root::walk_engine_root(start).map_err(|e| AnkiError::msg(e.to_string()))
 }
 
 /// Load the live bank's drawable + withdrawn items (permissive TOML).

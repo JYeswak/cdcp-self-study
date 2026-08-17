@@ -1,0 +1,13 @@
+[package]
+name = "cdcp_root"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Installed-tree and source-checkout root resolution. No compile-time path fallback."
+publish = false
+
+[dependencies]
+thiserror = { workspace = true }
+
+[dev-dependencies]
+tempfile = "3"

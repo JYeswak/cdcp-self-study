@@ -54,7 +54,7 @@ pub const PERMITTED: &str = "permitted";
 pub const PUBLIC_DOMAIN: &str = "public-domain";
 
 /// Engine-root anchor used by [`resolve_engine_root`].
-pub const ENGINE_ANCHOR: &str = "registries/claims.toml";
+pub const ENGINE_ANCHOR: &str = cdcp_root::ENGINE_ANCHOR;
 
 /// Why a scan could not even start.
 #[derive(Debug, Error, PartialEq, Eq)]
@@ -607,28 +607,12 @@ pub fn scan_engine(root: &Path) -> LicenceReport {
 }
 
 /// Walk up from `start` looking for [`ENGINE_ANCHOR`].
+///
+/// No compile-time crate-directory fallback. No env-overridable repo root.
 pub fn resolve_engine_root(start: &Path) -> Result<PathBuf, LicenceError> {
-    let mut cur = start.to_path_buf();
-    if cur.is_file() {
-        cur.pop();
-    }
-    for _ in 0..12 {
-        if cur.join(ENGINE_ANCHOR).is_file() {
-            return Ok(cur);
-        }
-        if !cur.pop() {
-            break;
-        }
-    }
-    let from_manifest = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
-    if let Ok(canon) = from_manifest.canonicalize() {
-        if canon.join(ENGINE_ANCHOR).is_file() {
-            return Ok(canon);
-        }
-    }
-    Err(LicenceError::Io {
+    cdcp_root::walk_engine_root(start).map_err(|e| LicenceError::Io {
         path: start.display().to_string(),
-        detail: format!("no {ENGINE_ANCHOR} at or above start"),
+        detail: e.to_string(),
     })
 }
 

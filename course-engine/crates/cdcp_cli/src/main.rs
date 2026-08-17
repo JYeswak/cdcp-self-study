@@ -251,10 +251,16 @@ enum Cmd {
     },
     /// Serve web/ over HTTP for the local product (offline, local-only)
     Serve {
-        #[arg(long, default_value = "web")]
-        root: PathBuf,
+        /// Bundle directory, engine root, or CDCP home. When omitted:
+        /// CDCP_HOME > $XDG_DATA_HOME/cdcp > ~/.local/share/cdcp > cwd walk.
+        #[arg(long)]
+        root: Option<PathBuf>,
         #[arg(long, default_value = "127.0.0.1:8766")]
         bind: String,
+        /// No-op. `cdcp study` will open a browser; serve never does.
+        /// Accepted so `cdcp serve --no-open` is a valid measurement of W1.
+        #[arg(long)]
+        no_open: bool,
     },
     /// Compile the offline Learn surface (pages, hub, modules_index, topic_anchors)
     BuildLearn {
@@ -625,7 +631,12 @@ fn main() -> ExitCode {
             Ok(()) => ExitCode::SUCCESS,
             Err(e) => {
                 eprintln!("cdcp: {e}");
-                ExitCode::from(1)
+                let code = if e.contains(cdcp_root::BUNDLE_NOT_FOUND) {
+                    cdcp_root::EXIT_BUNDLE_MISSING
+                } else {
+                    1
+                };
+                ExitCode::from(code)
             }
         },
     }
@@ -742,7 +753,11 @@ fn run(cmd: Cmd) -> Result<(), String> {
             out,
             fixture,
         } => export_web(&bank, seed, &out, fixture),
-        Cmd::Serve { root, bind } => serve(&root, &bind),
+        Cmd::Serve {
+            root,
+            bind,
+            no_open: _,
+        } => serve(root.as_deref(), &bind),
         Cmd::BuildLearn { root } => compile_learn(root.as_deref(), LearnKind::Learn),
         Cmd::BuildReference { root } => compile_learn(root.as_deref(), LearnKind::Reference),
         Cmd::BuildUnits { root } => compile_learn(root.as_deref(), LearnKind::Units),
@@ -1709,16 +1724,30 @@ fn write_json<T: serde::Serialize>(path: &Path, v: &T) -> Result<(), String> {
 // Minimal local-only static server for web/. Pure std: no new dependencies,
 // nothing listens beyond the bind address, no upload/exec surface.
 
-fn serve(root: &Path, bind: &str) -> Result<(), String> {
+fn serve(explicit: Option<&Path>, bind: &str) -> Result<(), String> {
     use std::io::{BufRead, BufReader, Write};
     use std::net::TcpListener;
 
+    let resolved = cdcp_root::resolve_from_env(explicit).map_err(|e| e.to_string())?;
+    // Source-checkout vs installed must PRINT the chosen root. Silent
+    // precedence is the next fooled certificate.
+    println!("cdcp: {}", resolved.announce());
+    let root = resolved.web_dir();
     if !root.is_dir() {
-        return Err(format!("web root not found: {}", root.display()));
+        return Err(format!(
+            "{}: {}",
+            cdcp_root::BUNDLE_NOT_FOUND,
+            root.display()
+        ));
     }
-    let root = root.canonicalize().map_err(|e| e.to_string())?;
+    let root = root
+        .canonicalize()
+        .map_err(|e| format!("{}: {} ({e})", cdcp_root::BUNDLE_NOT_FOUND, root.display()))?;
     let listener = TcpListener::bind(bind).map_err(|e| format!("bind {bind}: {e}"))?;
-    println!("cdcp serve: http://{bind}/  (root {})", root.display());
+    let addr = listener
+        .local_addr()
+        .map_err(|e| format!("local_addr after bind {bind}: {e}"))?;
+    println!("cdcp serve: http://{addr}/  (root {})", root.display());
     println!("cdcp serve: Ctrl-C to stop");
 
     // The guards in this loop are per-CONNECTION liveness, not verdicts about an

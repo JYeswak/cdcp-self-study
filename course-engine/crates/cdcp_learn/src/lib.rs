@@ -38,7 +38,7 @@ pub mod units;
 pub mod weak_links;
 
 /// Engine-root anchor: the directory holding `registries/claims.toml`.
-pub const ENGINE_ANCHOR: &str = "registries/claims.toml";
+pub const ENGINE_ANCHOR: &str = cdcp_root::ENGINE_ANCHOR;
 
 #[derive(Debug, Error, PartialEq, Eq)]
 pub enum LearnError {
@@ -76,29 +76,11 @@ pub fn join_rel(root: &Path, rel: &str) -> PathBuf {
 }
 
 /// Resolve the course-engine root by walking up from `start`.
+///
+/// No compile-time crate-directory fallback. An installed tree without
+/// [`ENGINE_ANCHOR`] is not an authoring root — use `cdcp_root::resolve`.
 pub fn resolve_engine_root(start: &Path) -> Result<PathBuf, LearnError> {
-    let mut cur = start.to_path_buf();
-    if cur.is_file() {
-        cur.pop();
-    }
-    for _ in 0..12 {
-        if cur.join(ENGINE_ANCHOR).is_file() {
-            return Ok(cur);
-        }
-        if !cur.pop() {
-            break;
-        }
-    }
-    let from_manifest = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
-    if let Ok(canon) = from_manifest.canonicalize() {
-        if canon.join(ENGINE_ANCHOR).is_file() {
-            return Ok(canon);
-        }
-    }
-    Err(LearnError::io(format!(
-        "could not locate the course-engine root (no {ENGINE_ANCHOR} at or above {})",
-        start.display()
-    )))
+    cdcp_root::walk_engine_root(start).map_err(|e| LearnError::io(e.to_string()))
 }
 
 /// Top-level declared keys of `web/data/units_index.json`.

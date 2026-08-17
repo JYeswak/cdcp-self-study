@@ -58,7 +58,8 @@ pub use licence::{
     audit_index, build_agent_reachable_index, evaluate_artifact, may_load, parse_meta_toml,
     resolve_engine_root, scan, scan_engine, ArtifactMeta, CorpusIndex, LicenceError, LicenceFault,
     LicenceReport, ScanRequest, ANTI_VACUOUS, DEFAULT_INDEX_NAMES, DEFAULT_PUBLISHED_ROOTS,
-    R1_PUBLISHED_UNLICENSED, R2_MISSING_RIGHTS, R3_THIRD_PARTY_PUBLIC_DOMAIN, R4_PROHIBITED_INDEX,
+    ENGINE_ANCHOR, R1_PUBLISHED_UNLICENSED, R2_MISSING_RIGHTS, R3_THIRD_PARTY_PUBLIC_DOMAIN,
+    R4_PROHIBITED_INDEX,
 };
 pub use query::{Abstention, DomainViolation, ViolationKind, DOMAIN_CHECK};
 pub use records::{

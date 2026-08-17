@@ -12,6 +12,7 @@ name = "cdcp_gate"
 path = "src/main.rs"
 
 [dependencies]
+cdcp_root = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
 toml = { workspace = true }

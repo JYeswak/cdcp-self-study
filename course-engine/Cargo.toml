@@ -1,7 +1,13 @@
+# Release binaries must not embed host absolute paths (W1 (d):
+# `strings $(command -v cdcp) | grep -c '/Users/'` is 0). Nightly
+# `trim-paths` rewrites panic locations to crate-relative.
+cargo-features = ["trim-paths"]
+
 [workspace]
 resolver = "2"
 members = [
   "crates/cdcp_core",
+  "crates/cdcp_root",
   "crates/cdcp_bank",
   "crates/cdcp_grade",
   "crates/cdcp_assess",
@@ -42,6 +48,7 @@ clap = { version = "4", default-features = false, features = ["std", "help", "us
 rand = "=0.8.7"
 rand_chacha = "=0.3.1"
 cdcp_core = { path = "crates/cdcp_core" }
+cdcp_root = { path = "crates/cdcp_root" }
 cdcp_bank = { path = "crates/cdcp_bank" }
 cdcp_grade = { path = "crates/cdcp_grade" }
 cdcp_assess = { path = "crates/cdcp_assess" }
@@ -56,3 +63,6 @@ cdcp_data = { path = "crates/cdcp_data" }
 cdcp_site = { path = "crates/cdcp_site" }
 cdcp_metrics = { path = "crates/cdcp_metrics" }
 proptest = { version = "1", default-features = false, features = ["std"] }
+
+[profile.release]
+trim-paths = "all"

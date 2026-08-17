@@ -141,41 +141,13 @@ impl Violation {
     }
 }
 
-/// Resolve repo root: walk up from `start` until `registries/claims.toml` exists,
-/// or use `CDCP_REPO_ROOT` when set (tests).
+/// Resolve repo root: walk up from `start` until `registries/claims.toml` exists.
+///
+/// No env-overridable repo root (that was D6). No compile-time crate-directory
+/// fallback. Walk budget is the unified [`cdcp_root::WALK_LEVELS`] (12), not
+/// the old 8-level cut.
 pub fn resolve_repo_root(start: &Path) -> Result<PathBuf, CheckError> {
-    if let Ok(env) = std::env::var("CDCP_REPO_ROOT") {
-        let p = PathBuf::from(env);
-        if p.join("registries/claims.toml").is_file() {
-            return Ok(p);
-        }
-        return Err(CheckError::msg(format!(
-            "CDCP_REPO_ROOT={p:?} missing registries/claims.toml"
-        )));
-    }
-    let mut cur = start.to_path_buf();
-    if cur.is_file() {
-        cur.pop();
-    }
-    for _ in 0..8 {
-        if cur.join("registries/claims.toml").is_file() {
-            return Ok(cur);
-        }
-        if !cur.pop() {
-            break;
-        }
-    }
-    // crates/cdcp_registry_check → repo root
-    let from_manifest = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
-    let canon = from_manifest
-        .canonicalize()
-        .map_err(|e| CheckError::msg(format!("canonicalize: {e}")))?;
-    if canon.join("registries/claims.toml").is_file() {
-        return Ok(canon);
-    }
-    Err(CheckError::msg(
-        "could not locate repo root (registries/claims.toml)",
-    ))
+    cdcp_root::walk_engine_root(start).map_err(|e| CheckError::msg(e.to_string()))
 }
 
 pub fn load_toml<T: for<'de> Deserialize<'de>>(path: &Path) -> Result<T, CheckError> {

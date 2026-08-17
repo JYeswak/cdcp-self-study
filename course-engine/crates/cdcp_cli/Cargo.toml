@@ -10,6 +10,7 @@ path = "src/main.rs"
 
 [dependencies]
 cdcp_core = { workspace = true }
+cdcp_root = { workspace = true }
 cdcp_bank = { workspace = true }
 cdcp_grade = { workspace = true }
 cdcp_assemble = { workspace = true }
