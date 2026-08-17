@@ -229,7 +229,14 @@ fn learner_help_is_five_product_verbs() {
             "learner --help missing {verb}: {cmds:?}\n{stdout}"
         );
     }
-    for authoring in ["bank-hash", "build-learn", "goldens", "export-web", "serve"] {
+    for authoring in [
+        "bank-hash",
+        "build-learn",
+        "goldens",
+        "export-web",
+        "serve",
+        "docs",
+    ] {
         assert!(
             !cmds.iter().any(|c| c == authoring),
             "learner --help still lists authoring verb {authoring}: {cmds:?}"

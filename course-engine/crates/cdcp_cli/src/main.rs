@@ -204,6 +204,11 @@ enum Cmd {
         #[command(subcommand)]
         sub: AttemptsCmd,
     },
+    /// Authoring: advertised content counts vs units_index + measured tree facts.
+    Docs {
+        #[command(subcommand)]
+        sub: DocsCmd,
+    },
     /// Ledger tripwire for measured paraphrase pairs C3 cannot see
     VerifyParaphrasePairs {
         /// Engine root (directory holding registries/). Default: walk up from cwd.
@@ -526,6 +531,22 @@ enum SloCmd {
 }
 
 #[derive(Subcommand)]
+enum DocsCmd {
+    /// Compare (or regenerate) advertised bank / learn / WASM counts.
+    Sync {
+        /// Engine root (directory holding registries/). Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// Compare advertised counts to the ledger. Default when --write is absent.
+        #[arg(long)]
+        check: bool,
+        /// Rewrite drifted tokens from the ledger. Refuses when the ledger is unsound.
+        #[arg(long)]
+        write: bool,
+    },
+}
+
+#[derive(Subcommand)]
 enum SnapRewriteCmd {
     /// Require --from to occur once; write that occurrence as --to.
     ReplaceOnce {
@@ -788,6 +809,9 @@ fn run(cmd: Cmd) -> Result<(), String> {
         } => site::run(root.as_deref(), location.as_deref(), lat, lon),
         Cmd::Metrics { file, doc } => metrics::run(file.as_deref(), doc.as_deref()),
         Cmd::Attempts { sub } => attempts::run(sub),
+        Cmd::Docs { sub } => match sub {
+            DocsCmd::Sync { root, check, write } => docs_sync(root.as_deref(), check, write),
+        },
         Cmd::VerifyParaphrasePairs {
             root,
             ledger,
@@ -1213,6 +1237,24 @@ fn resolve_bank_hash(root: &Path, bank: Option<&Path>) -> Result<String, String>
 /// Build an `ExamAttempt` from a JSON answers file for mode=json.
 ///
 /// Validates each letter (A–D) and that every `item_id` exists in the bank.
+fn docs_sync(root: Option<&Path>, check: bool, write: bool) -> Result<(), String> {
+    let mode = match (check, write) {
+        (true, true) => return Err("docs sync: --check and --write are mutually exclusive".into()),
+        (_, true) => cdcp_cli::docs::Mode::Write,
+        _ => cdcp_cli::docs::Mode::Check,
+    };
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_learn::resolve_engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    let msg = cdcp_cli::docs::run(&resolved, mode).map_err(|e| e.to_string())?;
+    println!("{msg}");
+    Ok(())
+}
+
 fn verify_paraphrase_pairs(
     root: Option<&Path>,
     ledger: Option<&Path>,

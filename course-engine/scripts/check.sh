@@ -1537,6 +1537,19 @@ if [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then
   fi
   ok "advertised known-bad injection count == suites' self-reported total"
 
+  # Content-count regenerator [bd-readme-public-rigor-8y0r.1].
+  # Thin: one verb. Assertions live in `cdcp_cli` docs_sync tests.
+  # Default --check. CDCP_DOCS_SYNC_WRITE=1 reaches --write (refuses unsound).
+  echo "==> cdcp docs sync --check (advertised content counts vs units_index)"
+  if [ "${CDCP_DOCS_SYNC_WRITE:-0}" = "1" ]; then
+    run_cdcp_cli docs sync --write \
+      || fail "docs-sync --write refused (ledger unsound, decoration, or ratchet)"
+  else
+    run_cdcp_cli docs sync --check \
+      || fail "advertised content count drift (README/CHARTER vs units_index + WASM); re-run with CDCP_DOCS_SYNC_WRITE=1 to regenerate"
+  fi
+  ok "advertised content counts == units_index + measured WASM KiB"
+
   # STEP-COUNT-RECEIPT-BOUNDARY
   # Sealed: no `ok` call site may appear below this marker. verify-step-count
   # reads the marker and fails if one does. The receipt is written by THIS

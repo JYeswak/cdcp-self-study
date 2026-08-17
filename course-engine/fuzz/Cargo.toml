@@ -14,6 +14,9 @@ serde_json = "1"
 [dependencies.cdcp_core]
 path = "../crates/cdcp_core"
 
+[dependencies.cdcp_cli]
+path = "../crates/cdcp_cli"
+
 [[bin]]
 name = "choice_letter_parse"
 path = "fuzz_targets/choice_letter_parse.rs"
@@ -24,6 +27,13 @@ bench = false
 [[bin]]
 name = "canonical_json_bytes"
 path = "fuzz_targets/canonical_json_bytes.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "docs_sync_scan"
+path = "fuzz_targets/docs_sync_scan.rs"
 test = false
 doc = false
 bench = false

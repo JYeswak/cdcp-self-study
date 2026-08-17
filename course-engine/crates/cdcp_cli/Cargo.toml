@@ -4,6 +4,10 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 
+[lib]
+name = "cdcp_cli"
+path = "src/lib.rs"
+
 [[bin]]
 name = "cdcp"
 path = "src/main.rs"

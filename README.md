@@ -17,7 +17,7 @@
 
 </div>
 
-**A free, offline, self-hosted course that teaches the data-centre facilities domain, plus a Rust engine that grades you the same way twice.** Fifteen modules of original writing (~82,000 words) cover the fourteen publicly advertised EPI® CDCP® facility domains and one ops-adjacent supplement. The engine ships an 854-item question bank (829 approved: a **pool size**, not a count of distinct propositions) and a browser course whose grader is a pure-Rust core compiled to WASM, pinned so the native and browser paths produce **byte-identical** result digests. No account, no telemetry, no network at runtime, no LLM in the grading path.
+**A free, offline, self-hosted course that teaches the data-centre facilities domain, plus a Rust engine that grades you the same way twice.** Fifteen modules of original writing (~82,000 words) cover the fourteen publicly advertised EPI® CDCP® facility domains and one ops-adjacent supplement. The engine ships an 869-item question bank (844 approved: a **pool size**, not a count of distinct propositions) and a browser course whose grader is a pure-Rust core compiled to WASM, pinned so the native and browser paths produce **byte-identical** result digests. No account, no telemetry, no network at runtime, no LLM in the grading path.
 
 **This does not certify you.** It is a study tool. Only the official EXIN/EPI exam after authorised training grants the credential. That sentence is not boilerplate: it is a registered claim (`claim-not-epi-certified`) that `claims-lint` enforces across this README, `CHARTER.md`, and the engine's `README` and `docs/`, and the build fails if a load-bearing page asserts it without citation. [[claim:claim-not-epi-certified]]
 
@@ -46,8 +46,8 @@ cargo build --manifest-path course-engine/Cargo.toml -p cdcp_cli --locked
 | **Who it's for** | Someone who wants to walk a white-space tour and explain trade-offs: TPM, deploy engineer, ops, or a career switcher |
 | **What it is not** | A certification, an exam dump, a paid course, an LLM tutor |
 | **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
-| **Bank** | 854 original item files / 829 approved · 25 retired (pool size, not distinct propositions) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] · 15 modules · 106 topics |
-| **Engine** | 18 Rust crates · ~67k lines under `crates/*/src` (~16k of that inline test modules) plus ~48k in `crates/*/tests` · `#![forbid(unsafe_code)]` in all 18 · 518 KiB WASM |
+| **Bank** | 869 original item files / 844 approved · 25 retired (pool size, not distinct propositions) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] · 15 modules · 106 topics |
+| **Engine** | `#![forbid(unsafe_code)]` · 518 KiB WASM |
 | **Gate** | 90 ordered steps; 10 selftest suites (registered; two more emit receipts but are deliberately unregistered); 72 known-bad injections that must all go RED |
 | **Runtime deps** | None. Rust toolchain to build; a browser to use |
 
@@ -68,7 +68,7 @@ So this project treats *its own honesty* as the engineering problem. The curricu
 Four rules, each enforced by a check:
 
 1. **This is not a certification.** Completing anything here grants no credential. The claim `claim-not-epi-certified` is registered in `course-engine/registries/claims.toml`, and `claims-lint` fails the build if a scanned document makes a certification-adjacent statement without citing it. The scan set is the public claim surface: this README, `CHARTER.md`, and the engine's `README` and `docs/`. The research ledgers under `docs/curriculum-grades/` are outside it.
-2. **No exam dumps, ever.** All 854 item files are original, written against public syllabus domains and industry-standard references. `source_class=original` is verified for every item on every run. 854/829 is a file-set / approved-pool size, not a count of distinct propositions.
+2. **No exam dumps, ever.** All 869 item files are original, written against public syllabus domains and industry-standard references. `source_class=original` is verified for every item on every run. 869/844 is a file-set / approved-pool size, not a count of distinct propositions.
 3. **A score is a study signal, not a pass mark.** 27/40 is the internal bar. It is registered as `claim-study-signal-27` and the phrase "study signal" is a load-bearing marker the linter tracks.
 4. **Third-party material is not redistributed.** Standards bodies own their standards. The corpus records each source's URL, fetch date, SHA-256, and rights. The ASHRAE white papers this project *grounds against* are deliberately **not** in this repository; their metadata sidecars are, so grounding still verifies. Fetch the PDFs yourself.
 
@@ -121,12 +121,12 @@ cdcp-self-study/
     │   ├── cdcp_data         L3 site-quantity oracle vs NREL / USGS / EPA
     │   ├── cdcp_gate         verify-step-count · verify-injection-count · doc-facts
     │   └── … 8 more          anki · assess · attempts · learn · root · site · metrics · evidence
-    ├── bank/items/           854 original item files, one TOML each (file count, not distinct propositions)
+    ├── bank/items/           869 original item files, one TOML each (file count, not distinct propositions)
     ├── knowledge/            curriculum + standards citation graph (git truth)
     ├── registries/           10 files: claims · claims_lint · doc-facts · objectives · capability-maturity · …
     ├── goldens/              pinned digests — the byte-exactness evidence
     ├── web/                  static course: Hub · Learn · Drill · Mock · Reference
-    ├── scripts/              33 files; check.sh is THE gate
+    ├── scripts/              check.sh is THE gate
     └── tests/                publishability + voice gates
 ```
 
@@ -135,7 +135,7 @@ cdcp-self-study/
 ```text
 bank/items/*.toml ──► cdcp_bank ──► bank_hash (SHA-256 over the sorted bank)
                                         │
-              seed ──► cdcp_assemble ────┤ stratified 40 of 829 approved (854 files)
+              seed ──► cdcp_assemble ────┤ stratified 40 of 844 approved (869 files)
                                         ▼
                               cdcp_grade (pure) ──► result digest
                                    ║        ║
@@ -360,7 +360,7 @@ table:
 |---|---|---|
 | **L1 — claims constitution** | ✅ | `registries/*.toml` + `cdcp_registry_check` (tested crate) + claims-lint over README/docs |
 | **L2 — SLO as code** | ✅ partial | `slo.toml` budgets; `cdcp slo check` judges an elapsed sample against the live `grade_ms` wall (`crates/cdcp_cli/tests/slo.rs`, with a planted over-budget known-bad). The `smoke_slo.sh` shell leg is conditional on the `export-web` verb and honours a documented `CDCP_SKIP_SLO=1` bypass |
-| **L3 — external oracle** | ✅ scoped · ⚠️ **bank keys unguarded** | `cdcp_data` compares computed site quantities (free-cooling hours, seismic design values, grid carbon) against published NREL TMY3 / USGS ASCE 7-16 / EPA eGRID2023 references we do not control, with pre-declared tolerances — `crates/cdcp_data/tests/oracle.rs`, wired via `cargo test --workspace`, with a perturb-by-one-tolerance known-bad and anti-vacuous floors. **No external suite checks the 854 bank item keys** for "did we teach this correctly." The native grader and the goldens are **not** oracles (CHARTER §5a) |
+| **L3 — external oracle** | ✅ scoped · ⚠️ **bank keys unguarded** | `cdcp_data` compares computed site quantities (free-cooling hours, seismic design values, grid carbon) against published NREL TMY3 / USGS ASCE 7-16 / EPA eGRID2023 references we do not control, with pre-declared tolerances — `crates/cdcp_data/tests/oracle.rs`, wired via `cargo test --workspace`, with a perturb-by-one-tolerance known-bad and anti-vacuous floors. **No external suite checks the 869 bank item keys** for "did we teach this correctly." The native grader and the goldens are **not** oracles (CHARTER §5a) |
 | **L4 — gates proven to trip** | ✅ strongest | 10 suites, 72 injections (shell selftest suites; Rust legs uncounted), count drift-guarded, anti-vacuous throughout |
 | **L5 — adversarial input floor** | ⚠️ partial | proptest floor on assemble/grade shapes (wired). `cargo-fuzz` targets exist, but `fuzz/` is **outside the workspace**, so no libFuzzer campaign is ever run by `check.sh` or CI [[fact:fact-fuzz-is-a-workspace-member=no]] |
 | **L6 — formal lane** | ❌ | Not warranted at this gauntlet tier |
@@ -389,7 +389,7 @@ summary, those are the source of truth.
 | M9 | Publishability bar · OSS meta · visibility flip | **done** (2026-08-12; public at github.com/JYeswak/cdcp-self-study) |
 | M10 | Free/public corpus expansion | **done**, 5 free PDFs referenced with rights recorded (further sourcing tracked as OQ-09/10, not M10) |
 | P1 | More diagrams: fire sequence, standards map, cooling topologies | planned (`DIAGRAM-REGISTRY.md`) |
-| — | **L3 external oracle.** Site quantities now check against NREL / USGS / EPA (`cdcp_data/tests/oracle.rs`, 2026-08-15); the 854 bank answer keys remain unguarded | **open, and the most valuable thing to fix** |
+| — | **L3 external oracle.** Site quantities now check against NREL / USGS / EPA (`cdcp_data/tests/oracle.rs`, 2026-08-15); the 869 bank answer keys remain unguarded | **open, and the most valuable thing to fix** |
 
 Charter §10 lists what an agent may never do alone: spend, publish, sign, or
 flip repository visibility. Those stay human.
@@ -409,8 +409,8 @@ flip repository visibility. Those stay human.
   operations depth are the first planned tracks after this study surface
   (`bd-epi-ecosystem-ms4j.1` / `.2`). Neither is present today, and neither
   track would grant the EPI®/EXIN® credential of that name.
-- **The question bank is unaudited by a third party.** 854 original item files
-  (829 approved: a pool size, not a distinct-proposition count), self-reviewed.
+- **The question bank is unaudited by a third party.** 869 original item files
+  (844 approved: a pool size, not a distinct-proposition count), self-reviewed.
   Errors are likely; report them.
 - **L3 is partial** (see the rigor table). Computed site quantities are checked
   against published NREL/USGS/EPA references; the bank's answer keys are not.
@@ -424,7 +424,7 @@ flip repository visibility. Those stay human.
 course and sit the official exam. This builds the underlying knowledge.
 
 **Are these real exam questions?** No, and that would be both a licence
-violation and useless. All 854 item files are original, written against public
+violation and useless. All 869 item files are original, written against public
 syllabus domains.
 
 **Why is 27/40 the bar?** It mirrors the public exam form. EPI's course page
