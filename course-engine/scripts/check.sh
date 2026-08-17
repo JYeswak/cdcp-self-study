@@ -1263,6 +1263,65 @@ for v in bank-hash grade goldens export-web serve build-learn build-reference bu
 done
 ok "L7 CLI product verbs listed"
 
+# ── learner verbs wired (bd-installability-sm4g.16) ────────────────────────
+# BUILT != WIRED: study / demo / test shipped and were never invoked here.
+# Each step fail-closes on the verb's exit code. A line that runs the verb
+# and ignores the status is the vacuous pass already shipped with build-learn
+# as a generator (.10). Plants live in selftest_learner_verbs.sh (not via
+# run_selftest — same as N.7 installer, so REGISTERED_SUITES does not grow).
+echo "==> cdcp test (installed-tree smoke)"
+run_cdcp_cli test || fail "cdcp test"
+ok "cdcp test"
+
+echo "==> cdcp demo --no-open"
+run_cdcp_cli demo --no-open || fail "cdcp demo"
+ok "cdcp demo --no-open"
+
+echo "==> cdcp study (bind + HTTP 200 + stop)"
+command -v curl >/dev/null 2>&1 || fail "cdcp study: curl is required to prove the listener (printed-URL-only is vacuous)"
+_study_log=$(mktemp "${TMPDIR:-/tmp}/cdcp-study-gate.XXXXXX")
+set +e
+run_cdcp_cli study --no-open --bind 127.0.0.1:0 >"$_study_log" 2>&1 &
+_study_pid=$!
+set -e
+_study_url=""
+_study_i=0
+while [ "$_study_i" -lt 50 ]; do
+  if ! kill -0 "$_study_pid" 2>/dev/null; then
+    wait "$_study_pid" || true
+    cat "$_study_log" >&2
+    rm -f "$_study_log"
+    fail "cdcp study"
+  fi
+  _study_url=$(sed -n 's/.*cdcp study: \(http:\/\/[^[:space:]]*\).*/\1/p' "$_study_log" | awk 'NR==1{print; exit}')
+  if [ -n "$_study_url" ]; then
+    break
+  fi
+  _study_i=$((_study_i + 1))
+  sleep 0.2
+done
+if [ -z "$_study_url" ]; then
+  kill "$_study_pid" 2>/dev/null || true
+  wait "$_study_pid" 2>/dev/null || true
+  cat "$_study_log" >&2
+  rm -f "$_study_log"
+  fail "cdcp study"
+fi
+_study_code=$(curl -fsS -o /dev/null -w "%{http_code}" "$_study_url" || true)
+kill "$_study_pid" 2>/dev/null || true
+wait "$_study_pid" 2>/dev/null || true
+rm -f "$_study_log"
+if [ "$_study_code" != "200" ]; then
+  fail "cdcp study"
+fi
+ok "cdcp study served HTTP 200"
+
+[ -f scripts/selftest_learner_verbs.sh ] || fail "missing scripts/selftest_learner_verbs.sh (L4 learner-verb known-bad required)"
+echo "==> selftest_learner_verbs.sh (L4 study/demo/test known-bad)"
+export CDCP_BIN_DIR
+sh scripts/selftest_learner_verbs.sh || fail "learner verbs known-bad"
+ok "learner verbs known-bad (test wasm · demo/study missing-bundle · ignore-exit is RED)"
+
 [ -f scripts/verify_objectives.py ] || fail "missing scripts/verify_objectives.py (differential oracle for verify-objectives)"
 echo "==> cdcp_gate verify-objectives (L7-S7 objective coverage)"
 run_cdcp_gate verify-objectives || fail "L7 objective coverage"

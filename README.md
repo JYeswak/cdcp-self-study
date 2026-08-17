@@ -8,7 +8,7 @@
 
 [![License: MIT (code)](https://img.shields.io/badge/code-MIT-blue.svg)](./LICENSE)
 [![Content: CC BY-NC-SA 4.0](https://img.shields.io/badge/content-CC_BY--NC--SA_4.0-blue.svg)](./LICENSE)
-[![gate: 85 steps](https://img.shields.io/badge/gate-85_ordered_steps-success.svg)](#the-gate)
+[![gate: 90 steps](https://img.shields.io/badge/gate-90_ordered_steps-success.svg)](#the-gate)
 [![known-bad (shell selftest suites): 72 injections](https://img.shields.io/badge/known--bad_(shell_selftest_suites)-72_injections_all_RED-success.svg)](#gates-proven-to-trip)
 [![grading: byte-exact](https://img.shields.io/badge/grading-Rust_%3D%3D_WASM_byte--exact-success.svg)](#how-grading-works)
 [![unsafe: forbidden](https://img.shields.io/badge/unsafe-forbidden-success.svg)](https://github.com/rust-secure-code/safety-dance/)
@@ -47,7 +47,7 @@ cargo build --manifest-path course-engine/Cargo.toml -p cdcp_cli --locked
 | **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
 | **Bank** | 804 original item files / 779 approved (pool size, not distinct propositions) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] · 15 modules · 106 topics |
 | **Engine** | 7 Rust crates, 3,763 lines, `#![forbid(unsafe_code)]`, 281 KB WASM |
-| **Gate** | 85 ordered steps; 10 selftest suites; 72 known-bad injections (shell selftest suites) that must all go RED |
+| **Gate** | 90 ordered steps; 10 selftest suites; 72 known-bad injections (shell selftest suites) that must all go RED |
 | **Runtime deps** | None. Rust toolchain to build; a browser to use |
 
 ---
@@ -218,7 +218,7 @@ One ordered chain. It is the only definition of "done" in this project.
 cd course-engine && ./scripts/check.sh
 ```
 
-85 steps, fail-closed, each naming the script that failed so the repair is
+90 steps, fail-closed, each naming the script that failed so the repair is
 obvious. Roughly: constitution docs → knowledge pack → **L1 claims registry** →
 bank validation → **L3 GradeExact + goldens** → **L4 known-bad selftests** →
 **L4 Rust==WASM dual path** → L5 browser surface + e2e digests → L6 coverage,

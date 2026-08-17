@@ -419,6 +419,12 @@ migration_bead = "bd-installability-sm4g.7"
 expires = "2027-02-28"
 
 [[allow]]
+path = "scripts/selftest_learner_verbs.sh"
+reason = "L4 known-bad harness for study/demo/test (bd-installability-sm4g.16). check.sh invokes the three verbs fail-closed; this suite plants wasm-delete, missing-bundle, and ignore-exit. Not via run_selftest (same as installer) so REGISTERED_SUITES does not grow."
+migration_bead = "bd-installability-sm4g.16"
+expires = "2027-02-28"
+
+[[allow]]
 path = "install.sh"
 reason = "Product installer (W7). One-command install; receipt-driven uninstall/verify. Invoked by scripts/selftest_install.sh from check.sh. Stays shell: it is the shipped one-liner, not a gate."
 migration_bead = "bd-installability-sm4g.7"
