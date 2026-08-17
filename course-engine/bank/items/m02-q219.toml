@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.34 leftover: TCOS requires prior TCCF
+id = "m02-q219"
+kind = "single-select"
+module = 2
+stem = "A broker offers “Tier Certification of Operational Sustainability” as a stand-alone Gold badge, with no prior Constructed Facility award, and says the three plaques are interchangeable parallel stickers. The apply move is:"
+choices = [
+  "Accept: Design Documents, Constructed Facility, and Operational Sustainability are three parallel badges — pick any one",
+  "Refuse: Tier Certification of Operational Sustainability (TCOS) is described as applying to owners who have previously received Tier Certification of Constructed Facility (TCCF). The three plaques are sequential with a prerequisite, not interchangeable parallel badges. Pin the full names; do not invent a nines table",
+  "Swap the missing TCCF for 99.982% so Operational Sustainability can stand alone",
+  "Treat the TCOS letter as TCCD — the design-documents acronym fight settles the sequence",
+]
+correct = "B"
+explanation = "Uptime conditions TCOS on prior TCCF. Full names: Tier Certification of Design Documents, Constructed Facility, Operational Sustainability. Parallel-badge reading is the fail. Rated ≠ Tier ≠ Availability Class stays un-crossed. No replacement nine."
+topic_ids = ["m02-tia-vs-uptime"]
+objective_ids = ["obj-m02-three-plaques"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
