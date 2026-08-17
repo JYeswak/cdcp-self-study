@@ -1,5 +1,5 @@
 {
-  "bank_hash": "ac980cca431c57024a99e6ac957e475f548c5fabaa4d8d47e19633935c8deba8",
+  "bank_hash": "a284d15360f59ab051bf5f18a792eefa11917d3dd8c07400dded56a65ca9ecd4",
   "exam_id": "mock40",
   "keys": [
     {
@@ -43,9 +43,9 @@
       "item_id": "m12-q214"
     },
     {
-      "correct": "B",
-      "explanation": "A catalog without owners is a brochure. Each entry names the service, who provides it, the SLO it points at, and the OLA or UC that makes that SLO possible. Do not invent an exam-weight percentage for this heading.",
-      "item_id": "m15-q217"
+      "correct": "C",
+      "explanation": "An alarm requires operator action. Status is not an alarm. Absence of alarm is not evidence of health (2003 silent alarm-processor failure). Point-count procurement fights alarm quality. No invented outage percent.",
+      "item_id": "m15-q224"
     },
     {
       "correct": "B",
@@ -54,8 +54,8 @@
     },
     {
       "correct": "B",
-      "explanation": "Cite ANSI/TIA-942-C (2024) unless the contract names an older edition. The Rated-not-Tier rename is the point of pinning C; an un-yeared citation is soft.",
-      "item_id": "m02-q213"
+      "explanation": "Legal compliance is judged by the AHJ against adopted codes, not by voluntary wish lists.",
+      "item_id": "m02-q084"
     },
     {
       "correct": "D",
@@ -114,8 +114,8 @@
     },
     {
       "correct": "B",
-      "explanation": "Maintainability is process and preparedness, not only capital equipment.",
-      "item_id": "m15-q206"
+      "explanation": "A data-centre distribution is an electric-utilization installation. 1910.147 governs unexpected energisation of machines; Subpart S governs electrical-hazard exposure on switchgear and UPS. HMI bypass is a control device, not isolation. 1910.269 is the utility-substation regime.",
+      "item_id": "m15-q223"
     },
     {
       "correct": "D",
@@ -159,8 +159,8 @@
     },
     {
       "correct": "B",
-      "explanation": "Precise naming and framework literacy prevent costly contractual and design confusion.",
-      "item_id": "m02-q087"
+      "explanation": "Cite ANSI/TIA-942-C (2024) unless the contract names an older edition. The Rated-not-Tier rename is the point of pinning C; an un-yeared citation is soft.",
+      "item_id": "m02-q213"
     },
     {
       "correct": "D",

@@ -1,6 +1,6 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "ac980cca431c57024a99e6ac957e475f548c5fabaa4d8d47e19633935c8deba8",
+  "bank_hash": "a284d15360f59ab051bf5f18a792eefa11917d3dd8c07400dded56a65ca9ecd4",
   "exam_id": "mock40",
   "items": [
     {
@@ -85,13 +85,13 @@
     },
     {
       "choices": [
-        "The exam-weight section of the public 2.1 heading — invent a percentage so the brochure can be scored",
-        "A brochure, not a catalog. The catalog is the owned list of delivered services (SKU, owner, SLO pointer, OLA or UC underneath); a 40 kW liquid SKU sitting on a 10 kW air-hall OLA is how the org-split starts",
-        "The CMMS asset register under another name, so facilities can skip owners",
-        "Sufficient if sales published it this quarter and the logos are current"
+        "A high-priority alarm so it is never missed, and more points always mean better monitoring",
+        "Evidence the floor is healthy whenever the point stays silent — absence of alarm is health",
+        "A status indicator, not an alarm. HSE: process status indicators should not be designated as alarms; delete or downgrade, do not acknowledge forever. Point count and operator-actionable alarms per hour move in opposite directions",
+        "A reason to raise the integrator’s invoice until every status bit is an alarm"
       ],
-      "id": "m15-q217",
-      "stem": "A slide of logos titled “service catalog,” with no SKU, no owner, no SLO pointer, and no OLA or underpinning contract underneath, is:"
+      "id": "m15-q224",
+      "stem": "A BMS/DCIM point with no defined operator response, and a procurement that prices the job by monitored-point count, should be read as:"
     },
     {
       "choices": [
@@ -105,13 +105,13 @@
     },
     {
       "choices": [
-        "Accept it — TIA-942-C still says Tier, so the old wording is current law",
-        "Pin ANSI/TIA-942-C (2024): later editions, including C, say Rated so the document is not mistaken for Uptime; treat an un-yeared “per TIA-942” as soft and ask which edition they have open",
-        "Convert the TIA numeral to 99.982% and call the conversion the pin",
-        "Replace TIA language with Availability Class 3, which is the 2024 rename"
+        "Architects ignore inspectors",
+        "Where adopted code and voluntary preferences diverge, enforcement authority of the AHJ controls the legal outcome",
+        "Standards bodies fine the AHJ",
+        "Only international standards matter"
       ],
-      "id": "m02-q213",
-      "stem": "Someone says “TIA Tier III” while pointing at an un-yeared “per TIA-942” clause. The edition-years rule asks you to:"
+      "id": "m02-q084",
+      "stem": "The phrase “AHJ wins” in CDCP study shorthand means:"
     },
     {
       "choices": [
@@ -225,13 +225,13 @@
     },
     {
       "choices": [
-        "Deleting runbooks to encourage creativity",
-        "Procedures, spares, training, labels, and remote visibility that shrink diagnosis and repair time",
-        "Hiding spare parts offsite without inventory",
-        "Disabling monitoring to avoid alarms"
+        "1910.147 already covers every electric-utilization installation, so a second citation is decoration",
+        "1910.147(a)(1)(ii)(D) excludes electrical-hazard exposure on electric-utilization installations and points to Subpart S (1910.331–.335, principally 1910.333). Putting a UPS into maintenance bypass from its HMI is not isolation — physical disconnect, lock, stored energy released, absence of voltage verified including backfeed",
+        "The only applicable rule is the utility’s own tariff, because the campus takes a medium-voltage feed",
+        "Subpart S applies only to the utility’s exclusive-control substation — that regime is 1910.269, not this work"
       ],
-      "id": "m15-q206",
-      "stem": "Reducing MTTR in facility operations is often less about buying new gear and more about:"
+      "id": "m15-q223",
+      "stem": "An energy-control programme that cites only 29 CFR 1910.147 for work on UPS, switchgear, PDU, and busway is mis-scoped because:"
     },
     {
       "choices": [
@@ -315,13 +315,13 @@
     },
     {
       "choices": [
-        "Memorize clause numbers for trivia",
-        "Communicate requirements precisely and avoid false equivalence between frameworks",
-        "Eliminate the need for engineers",
-        "Ignore local inspectors"
+        "Accept it — TIA-942-C still says Tier, so the old wording is current law",
+        "Pin ANSI/TIA-942-C (2024): later editions, including C, say Rated so the document is not mistaken for Uptime; treat an un-yeared “per TIA-942” as soft and ask which edition they have open",
+        "Convert the TIA numeral to 99.982% and call the conversion the pin",
+        "Replace TIA language with Availability Class 3, which is the 2024 rename"
       ],
-      "id": "m02-q087",
-      "stem": "A key reason CDCP emphasizes standards literacy is to:"
+      "id": "m02-q213",
+      "stem": "Someone says “TIA Tier III” while pointing at an un-yeared “per TIA-942” clause. The edition-years rule asks you to:"
     },
     {
       "choices": [

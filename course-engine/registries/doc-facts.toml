@@ -83,7 +83,7 @@
 #
 # REGISTERED (row exists; marker at the site or the site is a second
 # occurrence of a claim already marked in the same file):
-#   - 854 / 829 / ~20.7× pool size — fact-bank-item-count-804,
+#   - 861 / 836 / ~20.9× pool size — fact-bank-item-count-804,
 #     fact-bank-approved-count-779, fact-approved-pool-multiplier-19-5
 #     (IDs are stable names; needles track the live units_index)
 #   - CHECK_STEPS= / INJECTIONS= — fact-check-steps-enforced,
@@ -169,17 +169,17 @@ trigger = "deny_unknown_fields"
 id = "fact-bank-item-count-804"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `bank_item_count` 854 (file-set size, retired included)?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": 854' }
-trigger = "854 files / 829"
+question = "Does the generated units index report `bank_item_count` 861 (file-set size, retired included)?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": 861' }
+trigger = "861 files / 836"
 
 [[fact]]
 id = "fact-bank-approved-count-779"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `approved_item_count` 829?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 829' }
-trigger = "829 approved / 25 retired"
+question = "Does the generated units index report `approved_item_count` 836?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 836' }
+trigger = "836 approved / 25 retired"
 
 [[fact]]
 id = "fact-learn-unit-count-134"
@@ -190,7 +190,7 @@ probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '
 trigger = "134 Learn units"
 
 # Sampling claims must quote the approved pool (bd-docs-advertise-file-count-as-pool-99sw).
-# 829/40 = 20.725, advertised as ~20.7×. The file set is 854 (21.35×) and is
+# 836/40 = 20.9, advertised as ~20.9×. The file set is 861 (21.525×) and is
 # not the drawable pool. A site that writes "~20× exam" without this marker
 # is quoting the file set; the trigger is the approved-pool multiplier so a
 # stale ~20× cannot satisfy it.
@@ -199,9 +199,9 @@ trigger = "134 Learn units"
 id = "fact-approved-pool-multiplier-19-5"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `approved_item_count` 829, i.e. the drawable pool whose exam multiplier is ~20.7× (829/40)?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 829' }
-trigger = "20.7× exam"
+question = "Does the generated units index report `approved_item_count` 836, i.e. the drawable pool whose exam multiplier is ~20.9× (836/40)?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 836' }
+trigger = "20.9× exam"
 
 [[fact]]
 id = "fact-assemble-rng-is-chacha12"

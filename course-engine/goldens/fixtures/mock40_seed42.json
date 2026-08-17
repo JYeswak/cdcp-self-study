@@ -1,5 +1,5 @@
 {
-  "bank_hash": "ac980cca431c57024a99e6ac957e475f548c5fabaa4d8d47e19633935c8deba8",
+  "bank_hash": "a284d15360f59ab051bf5f18a792eefa11917d3dd8c07400dded56a65ca9ecd4",
   "exam_id": "mock40",
   "item_ids": [
     "m04-q129",
@@ -10,9 +10,9 @@
     "m09-q159",
     "m05-q147",
     "m12-q214",
-    "m15-q217",
+    "m15-q224",
     "m01-q215",
-    "m02-q213",
+    "m02-q084",
     "m05-q203",
     "bank-m13-q097",
     "m11-q129",
@@ -24,7 +24,7 @@
     "m03-q108",
     "m02-q080",
     "m10-q109",
-    "m15-q206",
+    "m15-q223",
     "m05-q148",
     "bank-m14-q128",
     "bank-m12-q057",
@@ -33,7 +33,7 @@
     "m06-q105",
     "m06-q259",
     "bank-m13-q098",
-    "m02-q087",
+    "m02-q213",
     "m07-q046",
     "m11-q114",
     "m08-q208",
@@ -173,18 +173,17 @@
     },
     {
       "choices": [
-        "The exam-weight section of the public 2.1 heading — invent a percentage so the brochure can be scored",
-        "A brochure, not a catalog. The catalog is the owned list of delivered services (SKU, owner, SLO pointer, OLA or UC underneath); a 40 kW liquid SKU sitting on a 10 kW air-hall OLA is how the org-split starts",
-        "The CMMS asset register under another name, so facilities can skip owners",
-        "Sufficient if sales published it this quarter and the logos are current"
+        "A high-priority alarm so it is never missed, and more points always mean better monitoring",
+        "Evidence the floor is healthy whenever the point stays silent — absence of alarm is health",
+        "A status indicator, not an alarm. HSE: process status indicators should not be designated as alarms; delete or downgrade, do not acknowledge forever. Point count and operator-actionable alarms per hour move in opposite directions",
+        "A reason to raise the integrator’s invoice until every status bit is an alarm"
       ],
-      "correct": "B",
-      "id": "m15-q217",
+      "correct": "C",
+      "id": "m15-q224",
       "module": 15,
-      "stem": "A slide of logos titled “service catalog,” with no SKU, no owner, no SLO pointer, and no OLA or underpinning contract underneath, is:",
+      "stem": "A BMS/DCIM point with no defined operator response, and a procurement that prices the job by monitored-point count, should be read as:",
       "topic_ids": [
-        "m15-maintenance-sla",
-        "m15-documentation"
+        "m15-ops-security"
       ]
     },
     {
@@ -204,17 +203,17 @@
     },
     {
       "choices": [
-        "Accept it — TIA-942-C still says Tier, so the old wording is current law",
-        "Pin ANSI/TIA-942-C (2024): later editions, including C, say Rated so the document is not mistaken for Uptime; treat an un-yeared “per TIA-942” as soft and ask which edition they have open",
-        "Convert the TIA numeral to 99.982% and call the conversion the pin",
-        "Replace TIA language with Availability Class 3, which is the 2024 rename"
+        "Architects ignore inspectors",
+        "Where adopted code and voluntary preferences diverge, enforcement authority of the AHJ controls the legal outcome",
+        "Standards bodies fine the AHJ",
+        "Only international standards matter"
       ],
       "correct": "B",
-      "id": "m02-q213",
+      "id": "m02-q084",
       "module": 2,
-      "stem": "Someone says “TIA Tier III” while pointing at an un-yeared “per TIA-942” clause. The edition-years rule asks you to:",
+      "stem": "The phrase “AHJ wins” in CDCP study shorthand means:",
       "topic_ids": [
-        "m02-tia-vs-uptime"
+        "m02-code-vs-standard"
       ]
     },
     {
@@ -390,19 +389,17 @@
     },
     {
       "choices": [
-        "Deleting runbooks to encourage creativity",
-        "Procedures, spares, training, labels, and remote visibility that shrink diagnosis and repair time",
-        "Hiding spare parts offsite without inventory",
-        "Disabling monitoring to avoid alarms"
+        "1910.147 already covers every electric-utilization installation, so a second citation is decoration",
+        "1910.147(a)(1)(ii)(D) excludes electrical-hazard exposure on electric-utilization installations and points to Subpart S (1910.331–.335, principally 1910.333). Putting a UPS into maintenance bypass from its HMI is not isolation — physical disconnect, lock, stored energy released, absence of voltage verified including backfeed",
+        "The only applicable rule is the utility’s own tariff, because the campus takes a medium-voltage feed",
+        "Subpart S applies only to the utility’s exclusive-control substation — that regime is 1910.269, not this work"
       ],
       "correct": "B",
-      "id": "m15-q206",
+      "id": "m15-q223",
       "module": 15,
-      "stem": "Reducing MTTR in facility operations is often less about buying new gear and more about:",
+      "stem": "An energy-control programme that cites only 29 CFR 1910.147 for work on UPS, switchgear, PDU, and busway is mis-scoped because:",
       "topic_ids": [
-        "m15-mtbf-mttr",
-        "m15-documentation",
-        "m15-labelling"
+        "m15-ops-security"
       ]
     },
     {
@@ -530,17 +527,16 @@
     },
     {
       "choices": [
-        "Memorize clause numbers for trivia",
-        "Communicate requirements precisely and avoid false equivalence between frameworks",
-        "Eliminate the need for engineers",
-        "Ignore local inspectors"
+        "Accept it — TIA-942-C still says Tier, so the old wording is current law",
+        "Pin ANSI/TIA-942-C (2024): later editions, including C, say Rated so the document is not mistaken for Uptime; treat an un-yeared “per TIA-942” as soft and ask which edition they have open",
+        "Convert the TIA numeral to 99.982% and call the conversion the pin",
+        "Replace TIA language with Availability Class 3, which is the 2024 rename"
       ],
       "correct": "B",
-      "id": "m02-q087",
+      "id": "m02-q213",
       "module": 2,
-      "stem": "A key reason CDCP emphasizes standards literacy is to:",
+      "stem": "Someone says “TIA Tier III” while pointing at an un-yeared “per TIA-942” clause. The edition-years rule asks you to:",
       "topic_ids": [
-        "m02-standards-guidelines",
         "m02-tia-vs-uptime"
       ]
     },

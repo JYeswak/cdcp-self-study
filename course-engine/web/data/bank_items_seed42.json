@@ -4900,6 +4900,109 @@
     ]
   },
   {
+    "bloom": "analyze",
+    "choices": [
+      "Accept the annex — a good PUE is concurrent maintainability, and 1.2 is the law",
+      "Convert the PUE into 99.982% so the KPI becomes the missing Class/Tier crosswalk",
+      "Name ISO/IEC 30134: PUE, WUE, and CUE are KPI parts of that series — meters and ratios, not a topology class, not Rated, not Tier, not Availability Class. Ask for the one-line. Do not invent a single PUE target as law",
+      "Treat the PUE dashboard as TCOS and the WUE plot as TCCF"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "ISO/IEC 30134 is the KPI series. PUE / WUE / CUE are meters, not a topology class. A good PUE does not make a hall concurrently maintainable. WUE depth is Module 10. No nines-to-Tier crosswalk. No invented PUE target.",
+    "id": "m02-q216",
+    "kind": "single-select",
+    "module": 2,
+    "objective_ids": [
+      "obj-m02-availability-class"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "An RFP annex lists “PUE / WUE / CUE” under “topology class” and treats a 1.2 PUE as Rated-3. The taught reading is:",
+    "tags": [],
+    "topic_ids": [
+      "m02-standards-guidelines",
+      "m02-tia-vs-uptime"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Agree: Energy Reuse Factor and Energy Reuse Effectiveness are one KPI with two spellings",
+      "ISO/IEC 30134-6 is Energy Reuse Factor (ERF). Green Grid ERE (Energy Reuse Effectiveness) is a different metric. Do not collapse the letters, and do not turn this module into an energy course",
+      "ERF is the 2024 rename of Availability Class; ERE is the TIA Rated letter",
+      "Either letter converts to a single PUE target that is now law"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "30134-6 is ERF (Energy Reuse Factor). ERE is not that part. The series has more than three letters; this course names the distinction and stops. No single PUE target as law. Sustainability-track depth is not this leftover.",
+    "id": "m02-q217",
+    "kind": "single-select",
+    "module": 2,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A slide writes “ERF = ERE” and files both as the same ISO/IEC 30134 letter. The correction is:",
+    "tags": [],
+    "topic_ids": [
+      "m02-standards-guidelines"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Accept B: later editions did not replace it, so 2017 is still the Rated document",
+      "Convert the B numeral into 99.982% and treat the conversion as the edition",
+      "Swap B for Availability Class 3 — that is the 2024 rename of TIA",
+      "Pin ANSI/TIA-942-C (2024): C replaced B. Rated lives in C. A 2017 B set is a named older edition, not “today’s TIA-942,” unless the contract still cites B"
+    ],
+    "citation_ids": [],
+    "correct": "D",
+    "explanation": "Cite ANSI/TIA-942-C (2024) unless the contract names an older edition. B is superseded as the current Rated document. This is not a nines table and not a Class/Tier crosswalk.",
+    "id": "m02-q218",
+    "kind": "single-select",
+    "module": 2,
+    "objective_ids": [
+      "obj-m02-tia-942-c"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Procurement hands you a 2017 TIA-942-B drawing set and says it is current Rated-3 under today’s edition. The edition-pin is:",
+    "tags": [],
+    "topic_ids": [
+      "m02-tia-vs-uptime"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Accept: Design Documents, Constructed Facility, and Operational Sustainability are three parallel badges — pick any one",
+      "Refuse: Tier Certification of Operational Sustainability (TCOS) is described as applying to owners who have previously received Tier Certification of Constructed Facility (TCCF). The three plaques are sequential with a prerequisite, not interchangeable parallel badges. Pin the full names; do not invent a nines table",
+      "Swap the missing TCCF for 99.982% so Operational Sustainability can stand alone",
+      "Treat the TCOS letter as TCCD — the design-documents acronym fight settles the sequence"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "Uptime conditions TCOS on prior TCCF. Full names: Tier Certification of Design Documents, Constructed Facility, Operational Sustainability. Parallel-badge reading is the fail. Rated ≠ Tier ≠ Availability Class stays un-crossed. No replacement nine.",
+    "id": "m02-q219",
+    "kind": "single-select",
+    "module": 2,
+    "objective_ids": [
+      "obj-m02-three-plaques"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A broker offers “Tier Certification of Operational Sustainability” as a stand-alone Gold badge, with no prior Constructed Facility award, and says the three plaques are interchangeable parallel stickers. The apply move is:",
+    "tags": [],
+    "topic_ids": [
+      "m02-tia-vs-uptime"
+    ]
+  },
+  {
     "bloom": "apply",
     "choices": [
       "Lobby artwork style",
@@ -20090,6 +20193,80 @@
     "tags": [],
     "topic_ids": [
       "m15-ops-security"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Approve: cleaning is the 2.1 heading, so the rota is the programme; simultaneous MOPs and an unlisted vendor are housekeeping details",
+      "Refuse: floor management is work control on the live floor — who is on the floor, the PTW board, and the heat/power/liquid budget of the change — not a synonym for cleaning. Two MOPs on one loop and an uncounted N+1 are the heading failing",
+      "Convert the missing N+1 into an invented outage percentage so the packet can be scored",
+      "Send everyone to an EPI / certification class; a credential hour-count substitutes for the PTW board"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "Floor management is who is on the floor, what work is live, and whether the change still leaves N+1. Cleaning is one control inside that set, not the heading. No invented outage percent. No EPI / certification substitute.",
+    "id": "m15-q225",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A change-window packet treats “floor management” as the weekly cleaning rota, while two MOPs share one CDU loop, the PTW board does not list the vendor already in row 12, and nobody has counted whether isolating the CDU spends the remaining N+1. The taught reading is:",
+    "tags": [],
+    "topic_ids": [
+      "m15-ops-security"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Leave both live until the annual catch-up; two revs are extra assurance",
+      "Treat the share-drive PDF as issued because it is the newest filename",
+      "Supersede: mark and pull the old rev from the point of use. Two live revs is the trusted-wrong case — a drawing that shows a disconnect where none exists makes you act. Archive is retention with a retrieval path, not fourteen unmarked copies",
+      "Skip review and approve because the author of the new as-built already validated their own work"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "The six-step document-management lifecycle is create, review, approve, issue, supersede, archive. The change that altered the plant issues the new as-built; the previous rev is marked and pulled. Annual catch-up is not a step. No invented outage percent.",
+    "id": "m15-q226",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Close-out of a live-plant change issues a new as-built. The previous revision is still unmarked in the UPS-room binder and as a share-drive PDF titled “final.” The document-management decision is:",
+    "tags": [],
+    "topic_ids": [
+      "m15-documentation"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Accept the filing: any written response time is an operational level agreement, and the vendor is an internal team",
+      "The operational level agreement is the customer credit schedule under another name, so the vendor clause is the SLA",
+      "The operational level agreement is an internal team-to-team hand-off (facilities ↔ NOC ↔ security ↔ floor) that makes the customer SLA possible; the vendor clause is an underpinning contract, not the operational level agreement and not the tenant SLA",
+      "Collapse the operational level agreement into the SLA and invent a new nines table so SLM owns availability"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "Spell it: operational level agreement is internal. SLA is the customer instrument. UC is the vendor. A four-hour onsite response is a UC term. SLM does not invent a nines table. Contributing factors stay plural. No invented outage percent.",
+    "id": "m15-q227",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [
+      "obj-m15-slm-ola-uc"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A tenant restore-in-four-hours SLA is said to be “covered” by a vendor four-hour onsite-response clause that someone filed as the operational level agreement. The distinction is:",
+    "tags": [],
+    "topic_ids": [
+      "m15-maintenance-sla"
     ]
   },
   {

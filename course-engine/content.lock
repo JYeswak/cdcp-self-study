@@ -6,15 +6,15 @@
 schema_version = 1
 canonical = "cdcp-bank-v3"
 hash_alg = "sha256"
-bank_hash = "ac980cca431c57024a99e6ac957e475f548c5fabaa4d8d47e19633935c8deba8"
+bank_hash = "a284d15360f59ab051bf5f18a792eefa11917d3dd8c07400dded56a65ca9ecd4"
 
 [knowledge]
 "knowledge/bank_policy.toml" = "44a7edc79f147dbadbfd174678e77137623942ebf22f6a8bfa63888b795b7d40"
-"knowledge/claims.toml" = "f38eaf89f3bd61bfc7d1a4f5d6a0757e7a2a0399000afae2fc0e3182c78df867"
+"knowledge/claims.toml" = "015540b65f496af342ba9c3bd9a58053d05f9c085d73454f59241dd626983d5e"
 "knowledge/domains.toml" = "0399960669a0bba18ebc481c047e3eb4e16322243610e7655f0799b5ac5b0a1e"
-"knowledge/exam_form.toml" = "d7f319724711df1c7ff8a5d2ad3d2e7de4597fb0f2999753a18e60a1a6987ea7"
+"knowledge/exam_form.toml" = "6d9e6325ef9848a176f7571653ffc31c417407a7a0af54575722389ab385b8a2"
 "knowledge/fact_policy.toml" = "80b9aa262695e7c59026eb03b11ffeb2be6bfd9ac11e3a8ecd0a7b7d0d6ac97b"
-"knowledge/sources.toml" = "201fdcb6a9600a8066d88a9dc8406cc9bda8f03a118078cd68bfe2608b7f2977"
+"knowledge/sources.toml" = "88924087de3fe07864346cdb608b0b826eeaed924cad1045bb0167e7ed0c6590"
 "knowledge/standards_crosswalk.toml" = "e6c784684fb4febe7e4a9e44b4de7559aa975aef642f5d4b6ab3eda803ab9054"
 "knowledge/standards_families.toml" = "f91a61020123b93f2c7f38cc210712b2b84264701bfa0dbef026a9e206908c23"
 "knowledge/topics.toml" = "07c8ace8f187ab10f0029f10dd501a28d5b31a0a803d536a50eb5674806e2479"
