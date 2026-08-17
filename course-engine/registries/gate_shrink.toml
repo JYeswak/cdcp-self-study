@@ -32,7 +32,11 @@
 # (bd-engine-not-gate-ar39.12). Objective-registry integrity is
 # crates/cdcp_learn (objectives.rs). Gate file is a thin dispatcher so
 # check.sh still runs `cdcp_gate verify-objectives`. Dual-path .py stays.
-ceiling_lines = 42843
+# 42843 -> 40620: EXTRACT-THEN-DELETE of validate_grounding impl
+# (bd-engine-not-gate-ar39.13). Bank-item grounding is crates/cdcp_bank
+# (validate_grounding.rs). Gate file is a thin dispatcher so check.sh
+# still runs `cdcp_gate validate-grounding`. Dual-path .py stays.
+ceiling_lines = 40620
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
@@ -104,7 +108,7 @@ lines = 3081
 
 [[file]]
 path = "src/gates/validate_grounding.rs"
-lines = 2277
+lines = 65
 
 [[file]]
 path = "src/gates/verify_bank.rs"

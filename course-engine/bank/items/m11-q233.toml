@@ -1,0 +1,31 @@
+# Original CDCP educational item — bd-curriculum-truth-ebrr.41.
+# syllabus_heading = "11 Designing a Scalable Network Infrastructure"
+# syllabus_url = https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# citation_ids = ["src-epi-cdcp-page", "src-tia-942"]
+# claim = The east-west fabric is an availability path equal to power; a leaf-spine
+#   mesh collapsed onto one pathway is one cut, and switch-level redundancy does not
+#   substitute for pathway diversity.
+# TIA is cited at NAME AND SCOPE level only: the TIA standard page states TIA-942
+#   "Covers architecture and topologies ... and system redundancy". No clause text is
+#   published there, so no clause claim is taken (ATTRIBUTION-BAR rule 3).
+# The shared-fate reasoning applied INSIDE the hall is this module's design logic,
+#   not the scope of any outside-plant criterion. Said so in the explanation.
+id = "m11-q233"
+kind = "single-select"
+module = 11
+stem = "A GPU hall is signed off power-green and cooling-green. Its east-west fabric is a leaf-spine mesh whose A-side and B-side spine trunks were installed in one overhead tray to save a pathway. What does the review record?"
+choices = [
+  "Nothing: dual spines with an A-side and a B-side trunk are redundant by design, so a shared tray is an installation-cost question",
+  "Nothing for availability: the dual building laterals already give this hall two paths, so one tray inside the hall is covered",
+  "One tray failure takes the mesh and the training job: the fabric needs pathway diversity, not a redundancy label on the switches",
+  "A capacity finding only: a shared tray raises bundle temperature, so the issue is derating of the trunks rather than availability",
+]
+correct = "C"
+explanation = "Treat the east-west fabric as an availability path equal to power. One cut, one shared tray, or one polarity mistake on a spine trunk takes a training job, not a NIC — power-green and cooling-green with a dark fabric is still a failed job. \"Redundant by design\" fails because spine-leaf redundancy declared at the switch is fictional when both trunks share one physical fate. The dual-laterals answer flattens two different questions: building laterals are the outside-plant oral and protect nothing inside the hall. Bundle derating is a real cabling concern, but it is a capacity finding, not the availability finding. Topology and system redundancy are what the cabling standard governs; the shared-fate reasoning applied to an in-hall tray is this module's design logic, not an outside-plant rule imported."
+topic_ids = ["m11-redundancy", "m11-planning"]
+objective_ids = ["obj-m11-gpu-fabric-availability"]
+citation_ids = ["src-epi-cdcp-page", "src-tia-942"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "free_url"
+status = "approved"

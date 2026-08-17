@@ -1,0 +1,31 @@
+# Original CDCP educational item — bd-curriculum-truth-ebrr.41.
+# syllabus_heading = "11 Designing a Scalable Network Infrastructure"
+# syllabus_url = https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# citation_ids = ["src-epi-cdcp-page", "src-ufc-3-580-01-2024"]
+# claim = Diversity is a property of the physical route, not of provider count: two carriers sharing one duct bank or manhole are not diverse.
+# Re-derived from UFC 3-580-01 (21 Nov 2024), which carries NFPA 1221 8.4.3.2 verbatim:
+#   "at least two circuits with diverse routes, arranged so that no singular
+#    incident interrupts both routes, must be provided"
+# NO SEPARATION DISTANCE IS STATED IN THIS ITEM. The criterion's Note 1 prints
+# "20 feet (66 meters)" while the same document elsewhere prints "66 feet (20
+# meters)" — the conversion is internally inconsistent in the published source,
+# so the citable part is the principle, not the figure (ATTRIBUTION-BAR rule 3).
+id = "m11-q232"
+kind = "single-select"
+module = 11
+stem = "An outside-plant review shows two carriers, two contracts and two entrance conduits. Both conduits leave the property through the same duct bank and pass through one manhole before diverging. The design calls this route diversity. What is the correct finding?"
+choices = [
+  "Not diverse: one incident in the shared duct bank or manhole interrupts both routes, which is exactly what the criterion forbids",
+  "Diverse: two carriers on two separate contracts cannot fail together, because each carrier restores its own conduit independently",
+  "Diverse, provided the two carriers hold separate maintenance windows, since the pathway is only shared during scheduled work",
+  "Diverse, provided the two conduits carry different fibre counts, because separate strand plans show the paths were engineered apart",
+]
+correct = "A"
+explanation = "The governing test is the physical route. UFC 3-580-01 carries NFPA 1221 8.4.3.2: two circuits with diverse routes, arranged so that no singular incident interrupts both routes. A shared duct bank and a shared manhole are that singular incident, so the count of carriers, contracts and conduits is irrelevant — B and the two conditional answers all buy diversity with something that is not physical separation. A maintenance window (C) governs planned work, not a backhoe. Strand counts (D) describe capacity, not route. Note the scope: this is the building lateral question. The east-west cluster fabric inside the hall is a separate availability path and is not fixed by re-routing a lateral."
+topic_ids = ["m11-site-to-site", "m11-planning"]
+objective_ids = []
+citation_ids = ["src-epi-cdcp-page", "src-ufc-3-580-01-2024"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "free_url"
+status = "approved"

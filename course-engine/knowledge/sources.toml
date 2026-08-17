@@ -167,3 +167,23 @@ access = "free"
 fetch_date = "2026-08-17"
 used_for = ["m03_curtailment"]
 note = "Public ERCOT operations snapshot: the Large Load Curtailment Manager is described as issuing instructions for specified large-load categories, including net-metering/co-located arrangements; look-ahead times and triggers were not finalized in that snapshot."
+
+[[source]]
+id = "src-ufc-3-580-01-2024"
+org = "US Department of Defense (UFC)"
+title = "UFC 3-580-01, Information and Communications Technology Infrastructure Planning and Design, 21 November 2024"
+url = "https://nibs-s3-wbdg3-production.s3.us-east-1.amazonaws.com/FFC/DOD/UFC/ufc_3_580_01_2024.pdf"
+access = "free"
+fetch_date = "2026-08-17"
+used_for = ["m11_pathway_diversity", "m11_outside_plant"]
+note = "Approved for public release; distribution unlimited. Cited for the diversity PRINCIPLE it carries from NFPA 1221 8.4.3.2 — two circuits with diverse routes arranged so that no singular incident interrupts both — and for its concrete-encased shared-pathway permission for node connections. NO SEPARATION DISTANCE IS TAKEN FROM IT: the document prints \"20 feet (66 meters)\" in one note and \"66 feet (20 meters)\" elsewhere, so the conversion is internally inconsistent and the figure is not re-derivable. Scope is this DoD criterion, not a universal law."
+
+[[source]]
+id = "src-ieee-802-3dj"
+org = "IEEE 802.3 Ethernet Working Group"
+title = "IEEE P802.3dj 200 Gb/s, 400 Gb/s, 800 Gb/s, and 1.6 Tb/s Ethernet Task Force"
+url = "https://www.ieee802.org/3/dj/index.html"
+access = "free"
+fetch_date = "2026-08-17"
+used_for = ["m11_reach_discipline"]
+note = "Primary technical body page. Cited ONLY to establish that 400G/800G physical layer specifications live in IEEE 802.3, per rate and per medium, so reach is a property of a named PHY and media class rather than of a speed. The leading P is a PROJECT designation, not a published edition — no edition claim and no reach, loss-budget or channel-length figure is taken from it."

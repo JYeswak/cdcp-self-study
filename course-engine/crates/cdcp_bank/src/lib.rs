@@ -21,6 +21,7 @@ pub mod mock40_module;
 pub mod near_duplicate;
 pub mod orphans;
 pub mod paraphrase;
+pub mod validate_grounding;
 pub mod verify_bank;
 
 pub use leftover_honesty::{

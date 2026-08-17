@@ -1,0 +1,33 @@
+# Original CDCP educational item — bd-curriculum-truth-ebrr.41.
+# syllabus_heading = "11 Designing a Scalable Network Infrastructure"
+# syllabus_url = https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# citation_ids = ["src-epi-cdcp-page", "src-ieee-802-3dj", "src-tia-942"]
+# claim = Reach is a property of a named PHY over a named media class, not of a speed.
+#   One metre figure cannot be carried across optics or media.
+# Re-derived from the IEEE 802.3 working group: the task force is titled
+#   "IEEE P802.3dj 200 Gb/s, 400 Gb/s, 800 Gb/s, and 1.6 Tb/s Ethernet Task Force",
+#   i.e. the PHY specifications live in 802.3, per rate and per medium.
+# ACCEPTANCE (4) COMPLIANCE: this item prints NO metre figure, NO loss budget and
+#   NO channel length anywhere — not in the stem, not in a distractor. The vendor's
+#   number is referred to, never quoted, precisely because quoting it would land an
+#   uncited reach figure in the bank while teaching learners not to trust one.
+# "P802.3dj" is a PROJECT designation, not a published edition — do not cite it as one.
+id = "m11-q234"
+kind = "single-select"
+module = 11
+stem = "A vendor deck prints one metre figure as \"the reach for 800G on fibre\", and the basis-of-design copies it in as the reach rule for the whole east-west fabric. What does the M11 reviewer do?"
+choices = [
+  "Accept it: the deck's number is the standard reach for multimode fibre, so one figure is safe for every 800G optic in the hall",
+  "Reject the single figure: reach is specified per PHY type and per channel, so it varies with the optic and the media class",
+  "Accept it after one loss-budget test passes, since a measured link confirms the figure for the remaining links in the mesh",
+  "Reject it and substitute the single-mode figure, because the spine trunks are single-mode and their reach governs the fabric",
+]
+correct = "B"
+explanation = "A reach number belongs to a named PHY over a named media class, not to a speed. The physical layer specifications live in IEEE 802.3 — the working group's current task force is titled for 200 Gb/s, 400 Gb/s, 800 Gb/s and 1.6 Tb/s Ethernet, each a separate specification — and the channel is defined by the cabling standard. So \"800G\" on its own does not carry a distance. Accepting the deck invents a universal figure. Accepting it after one passing loss-budget test generalises a single measurement to a population of links, which is the same error with a test report stapled to it. Substituting the single-mode number replaces one universal figure with another and would silently overrun any multimode segment in the fabric. Go to the PHY specification and the channel spec for the media actually installed. Note the designation: P802.3dj is a project, not a published edition — do not quote it as one."
+topic_ids = ["m11-fibre", "m11-planning"]
+objective_ids = []
+citation_ids = ["src-epi-cdcp-page", "src-ieee-802-3dj", "src-tia-942"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "free_url"
+status = "approved"

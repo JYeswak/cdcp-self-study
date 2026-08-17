@@ -1,0 +1,33 @@
+# Original CDCP educational item — bd-curriculum-truth-ebrr.41.
+# syllabus_heading = "11 Designing a Scalable Network Infrastructure"
+# syllabus_url = https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# citation_ids = ["src-epi-cdcp-page", "src-ufc-3-580-01-2024"]
+# claim = A diversity rule is scoped to the criterion that states it. UFC 3-580-01
+#   permits node connections to share one conduit system where the shared pathway is
+#   concrete-encased; that permission is a property of THAT criterion, not a universal law.
+# Re-derived verbatim from UFC 3-580-01 (21 Nov 2024), Note 2 to the entrance-facility
+#   separation table: "Except for Special C2 uses, node connections can share the same
+#   conduit system if the shared pathway is concrete-encased."
+# Same document, Note 2 to the node table: "The physical pathway between building
+#   locations must be dual-homed where two connections are run over two physically
+#   diverse paths or over a single concrete encased path."
+# NO SEPARATION DISTANCE IS STATED — see the header of m11-q232 for why.
+id = "m11-q235"
+kind = "single-select"
+module = 11
+stem = "A US DoD project is designed to UFC 3-580-01. Two node connections share one conduit system, and that shared pathway is concrete-encased. A reviewer whose background is commercial colo calls it an automatic diversity failure. Assess the reviewer."
+choices = [
+  "Correct: any shared conduit is a single point of failure, so no criteria document can permit two connections in one pathway",
+  "Correct, because concrete encasement is a fire-resistance measure and has no bearing on how a physical route is classified",
+  "Irrelevant: pathway diversity rules govern carrier laterals only, so node-to-node connections sit outside any diversity test",
+  "Over-applied: this criterion allows node connections to share a conduit system where the shared pathway is concrete-encased",
+]
+correct = "D"
+explanation = "UFC 3-580-01 (21 November 2024, approved for public release) states that except for Special C2 uses, node connections can share the same conduit system if the shared pathway is concrete-encased, and that a between-building pathway is dual-homed where two connections run over two physically diverse paths or over a single concrete-encased path. The same document also carries NFPA 1221 8.4.3.2 — two circuits with diverse routes, arranged so that no singular incident interrupts both. Both facts belong to that criterion. Calling shared conduit an absolute failure treats a design rule as a law of physics. Reading encasement as a fire measure misses why it counts here: it is route hardening. Excluding node-to-node runs invents a scope limit the document does not have. The discipline is to name the governing criterion before judging a route — an unencased shared duct bank still fails, and this permission does not travel to a commercial colo. Nor does it decide the east-west cluster pathway inside the hall, which is a different question with a different owner."
+topic_ids = ["m11-site-to-site", "m11-planning"]
+objective_ids = []
+citation_ids = ["src-epi-cdcp-page", "src-ufc-3-580-01-2024"]
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "free_url"
+status = "approved"

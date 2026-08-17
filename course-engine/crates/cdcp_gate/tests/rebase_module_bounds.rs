@@ -324,7 +324,7 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
     // tempering constant left with the byte-exact gate port. The product
     // crate does not carry it.
     (
-        "crates/cdcp_gate/src/gates/validate_grounding.rs",
+        "crates/cdcp_bank/src/validate_grounding.rs",
         "const REPR_FIXED_MAX: i32 = 16;",
         Shape::NamedBound,
         Verdict::NotAModuleBound,

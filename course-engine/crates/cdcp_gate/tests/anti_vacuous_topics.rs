@@ -635,15 +635,16 @@ fn scan_targets(root: &Path) -> Vec<(PathBuf, String, bool)> {
 fn min_sites(rel: &str) -> usize {
     match rel.rsplit('/').next().unwrap_or(rel) {
         // Dispatchers: the walks live in product crates (near_duplicate,
-        // orphans, verify_bank, knowledge_paths, objectives). A 0-site file is
-        // legal only here.
+        // orphans, verify_bank, knowledge_paths, objectives, validate_grounding).
+        // A 0-site file is legal only here.
         "mod.rs"
         | "install_hooks.rs"
         | "near_duplicate_items.rs"
         | "verify_orphans.rs"
         | "verify_bank.rs"
         | "verify_knowledge_paths.rs"
-        | "verify_objectives.rs" => 0,
+        | "verify_objectives.rs"
+        | "validate_grounding.rs" => 0,
         "capability_maturity.rs"
         | "goldens_couplings.rs"
         | "verify_injection_count.rs"
@@ -656,7 +657,7 @@ fn min_sites(rel: &str) -> usize {
         | "verify_injection_count.py" => 3,
         "substrate_guard.rs" | "verify_coverage.py" => 4,
         "verify_bank.py" | "verify_coverage.rs" | "validate_grounding.py" => 5,
-        "validate_grounding.rs" | "verify_objectives.py" => 7,
+        "verify_objectives.py" => 7,
         "verify_content_lock.rs" => 9,
         // A newly added target is scanned; give it a floor once measured.
         _ => 0,
@@ -674,7 +675,6 @@ fn max_reasoned(rel: &str, sites: usize) -> usize {
         | "verify_step_count.rs" => 1,
         "doc_facts.rs" | "corpus_redistribution.rs" | "verify_doc_consistency.rs" => 2,
         "substrate_guard.rs" | "validate_grounding.py" => 3,
-        "validate_grounding.rs" => 5,
         _ if sites < 3 => sites,
         _ => sites.saturating_sub(1) / 2,
     }
