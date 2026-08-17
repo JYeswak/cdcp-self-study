@@ -2,21 +2,20 @@
 //! (`bd-wave8-ports-agreement-only-debt-idns`).
 //!
 //! EXTRACT-THEN-DELETE (jhd.13) retired `scripts/export_anki.py` and the
-//! `cdcp_gate` port. Product is `cdcp_anki` / `cdcp export-anki`. The leftover
-//! call site was a bare `compare` against a green bank: both sides agreed,
-//! and a shared fallback to the live approved pool would have shipped 779
-//! cards while naming the planted all-retired tree.
+//! `cdcp_gate` port. Product is `cdcp_anki` / `cdcp export-anki`. Moved out
+//! of `cdcp_gate/tests` by bd-engine-not-gate-ar39.7 so the leftover plant
+//! lives with the product caller.
 //!
 //! The converted case points `--root` at a PLANTED all-retired bank and
 //! asserts the resolved path's item COUNT (`scanned=3`), the named finding,
 //! and that nothing was written. Known-bad plants the fallback in both
 //! implementations.
 
-use cdcp_anki::{evaluate, Request, ITEMS_DIR_REL};
+use cdcp_anki::{evaluate, resolve_engine_root, Request, ITEMS_DIR_REL};
 use std::path::{Path, PathBuf};
 
 fn engine_root() -> PathBuf {
-    cdcp_gate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
+    resolve_engine_root(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
 }
 
 struct Run {

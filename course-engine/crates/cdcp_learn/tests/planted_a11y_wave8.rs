@@ -2,12 +2,15 @@
 //! (`bd-wave8-ports-agreement-only-debt-idns`).
 //!
 //! The Python oracle and the `cdcp_gate` port are gone (EXTRACT-THEN-DELETE,
-//! jhd.19). Product is `cdcp_learn::a11y` / `cdcp smoke-a11y`. A case that
-//! only said "the two sides agree" evaporated with the second side. This file
-//! keeps the one leftover call site and points it at a PLANTED finding, the
-//! way `diff_verify_orphans.rs` paid its seven: resolved path (the named
-//! page), item COUNT (finding-lines — a silent fallback to the live tree
-//! reports zero), and the named finding.
+//! jhd.19). Product is `cdcp_learn::a11y` / `cdcp smoke-a11y`. Moved out of
+//! `cdcp_gate/tests` by bd-engine-not-gate-ar39.7 so the leftover plant
+//! lives with the product caller.
+//!
+//! A case that only said "the two sides agree" evaporated with the second
+//! side. This file keeps the one leftover call site and points it at a
+//! PLANTED finding: resolved path (the named page), item COUNT
+//! (finding-lines — a silent fallback to the live tree reports zero), and
+//! the named finding.
 //!
 //! Known-bad: the same defect is planted in BOTH "implementations" (they
 //! ignore the named root and scan the live tree). Agreement still holds.
@@ -49,7 +52,7 @@ struct Run {
 }
 
 fn engine_root() -> PathBuf {
-    cdcp_gate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
+    cdcp_learn::resolve_engine_root(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
 }
 
 /// Census comparator. One implementation remains; the verdict lives at the

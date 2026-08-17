@@ -634,10 +634,10 @@ fn scan_targets(root: &Path) -> Vec<(PathBuf, String, bool)> {
 /// broke. 0 is reserved for files known to have no block-opening existence test.
 fn min_sites(rel: &str) -> usize {
     match rel.rsplit('/').next().unwrap_or(rel) {
-        "mod.rs" | "install_hooks.rs" => 0,
+        // near_duplicate_items.rs is a dispatcher; the walk lives in cdcp_bank.
+        "mod.rs" | "install_hooks.rs" | "near_duplicate_items.rs" => 0,
         "capability_maturity.rs"
         | "goldens_couplings.rs"
-        | "near_duplicate_items.rs"
         | "verify_injection_count.rs"
         | "verify_step_count.rs"
         | "verify_doc_consistency.py" => 1,

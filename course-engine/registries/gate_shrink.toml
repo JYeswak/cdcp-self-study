@@ -14,7 +14,10 @@
 
 # 54308 -> 49422: EXTRACT-THEN-DELETE of export_anki.rs + diff_export_anki.rs
 # (bd-substrate-rust-migration-jhd.13). Product is crates/cdcp_anki.
-ceiling_lines = 49422
+# 49422 -> 49019: EXTRACT-THEN-DELETE of near_duplicate_items impl + leftover
+# product plants (bd-engine-not-gate-ar39.7). Detector is crates/cdcp_bank
+# (near_duplicate.rs). Leftover wave-8 plants moved to cdcp_learn / cdcp_anki.
+ceiling_lines = 49019
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
@@ -70,7 +73,7 @@ lines = 25
 
 [[file]]
 path = "src/gates/near_duplicate_items.rs"
-lines = 802
+lines = 22
 
 [[file]]
 path = "src/gates/smoke_a11y.rs"
@@ -153,14 +156,6 @@ path = "tests/capability_maturity_e2e.rs"
 lines = 672
 
 [[file]]
-path = "tests/diff_smoke_a11y.rs"
-lines = 768
-
-[[file]]
-path = "tests/diff_smoke_learn_v2.rs"
-lines = 915
-
-[[file]]
 path = "tests/diff_validate_grounding.rs"
 lines = 1027
 
@@ -214,7 +209,7 @@ lines = 912
 
 [[file]]
 path = "tests/near_duplicate_items_e2e.rs"
-lines = 470
+lines = 27
 
 [[file]]
 path = "tests/rebase_module_bounds.rs"

@@ -2,10 +2,9 @@
 //! (`bd-wave8-ports-agreement-only-debt-idns`).
 //!
 //! EXTRACT-THEN-DELETE (jhd.20) retired `scripts/smoke_learn_v2.py` and the
-//! `cdcp_gate` port. Product is `cdcp_learn::learn_v2`. The five leftover
-//! cases were the crash-class `compare_crash` call sites: both sides agreed
-//! they raised, and said nothing about what was flushed or whether a
-//! fallback had quietly graded the live tree.
+//! `cdcp_gate` port. Product is `cdcp_learn::learn_v2`. Moved out of
+//! `cdcp_gate/tests` by bd-engine-not-gate-ar39.7 so the leftover plants
+//! live with the product caller.
 //!
 //! Each case is now pointed at a PLANTED fixture and asserts the named
 //! FAIL row, a fixture-specific COUNT / marker (so a silent fallback is
@@ -21,7 +20,7 @@ struct Run {
 }
 
 fn engine_root() -> PathBuf {
-    cdcp_gate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
+    cdcp_learn::resolve_engine_root(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
 }
 
 fn cmp(label: &str, root: &Path) -> Run {

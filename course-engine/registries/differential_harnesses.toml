@@ -312,6 +312,8 @@ token_vocabulary = ["PASS", "GREEN", ": ok:", ": OK:"]
 file = "diff_smoke_a11y.rs"
 gate = "smoke-a11y"
 comparators = ["cmp", "compare_crash"]
+# RETIRED 2026-08-17 (bd-engine-not-gate-ar39.7): file moved to
+# crates/cdcp_learn/tests/planted_a11y_wave8.rs. Row stays (monotone).
 # CONVERTED 2026-08-15 (bd-wave8-ports-agreement-only-debt-idns). EXTRACT-THEN-DELETE
 # (jhd.19) retired the python and the gate file; product is cdcp_learn::a11y.
 # The one agreement-only call site is now pointed at a planted skip-link and
@@ -326,6 +328,8 @@ verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D cove
 file = "diff_smoke_learn_v2.rs"
 gate = "smoke-learn-v2"
 comparators = ["cmp", "compare_crash"]
+# RETIRED 2026-08-17 (bd-engine-not-gate-ar39.7): file moved to
+# crates/cdcp_learn/tests/planted_learn_v2_wave8.rs. Row stays (monotone).
 # CONVERTED 2026-08-15 (bd-wave8-ports-agreement-only-debt-idns). EXTRACT-THEN-DELETE
 # (jhd.20) retired the python and the gate file; product is cdcp_learn::learn_v2.
 # The five crash-class compare_crash sites now plant the malformed / non-UTF-8 /
@@ -341,6 +345,8 @@ verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D cove
 file = "diff_export_anki.rs"
 gate = "export-anki"
 comparators = ["compare"]
+# RETIRED 2026-08-17 (bd-engine-not-gate-ar39.7): file moved to
+# crates/cdcp_anki/tests/planted_all_retired.rs. Row stays (monotone).
 # CONVERTED 2026-08-15 (bd-wave8-ports-agreement-only-debt-idns). EXTRACT-THEN-DELETE
 # (jhd.13) retired the python and the gate file; product is cdcp_anki. The one
 # agreement-only call site is now pointed at a planted all-retired bank and

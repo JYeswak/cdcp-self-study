@@ -17,6 +17,7 @@
 #![forbid(unsafe_code)]
 
 pub mod mock40_module;
+pub mod near_duplicate;
 pub mod paraphrase;
 
 pub use mock40_module::{mock40_module_audit, Mock40Audit, MOCK40_CONTENT_MODULE};
