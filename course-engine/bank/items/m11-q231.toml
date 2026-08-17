@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.25 leftover: analyze packet that collapses fabric into LAN/laterals
+id = "m11-q231"
+kind = "single-select"
+module = 11
+stem = "Reviewer is handed a GPU-hall basis-of-design: “400/800G IB/RoCE is a faster LAN; dual building laterals already give the job two paths; UPS-green means the nines hold if the fabric is dark; interconnect here means the campus AI mesh.” You should:"
+choices = [
+  "Approve: LAN + laterals + UPS-green is the availability story",
+  "Convert the cut into a Module 01 / 03 outage-clock problem so the plant question goes away",
+  "Quote a single OM4 metre at 100G as the fabric reach statute",
+  "Reject the packet: east-west IB/RoCE at 400/800G carries the training job; one cut, one shared tray, or one polarity miss is one job even with power and cooling green; dual laterals are the building oral, not fabric protection; interconnect in this module still means fewer patch points; do not write a nines/Tier/Rated crosswalk — Module 01 / 03 own the clock",
+]
+correct = "D"
+explanation = "Analyze the collapse. The cluster fabric is not a faster LAN and is not saved by street laterals. A dark east-west path with green UPS is still a failed job. Interconnect remains the patching term. Reach is application-and-optic specific — do not invent a metre. This module owns the plant; it does not steal the M01/M03 clock."
+topic_ids = ["m11-redundancy", "m11-planning"]
+objective_ids = ["obj-m11-gpu-fabric-availability"]
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

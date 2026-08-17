@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.25 leftover: one fabric cut = one job
+id = "m11-q230"
+kind = "single-select"
+module = 11
+stem = "A 2026 interviewer asks what a single cut on a GPU-cluster east-west IB/RoCE 400/800G fabric costs. The taught answer is:"
+choices = [
+  "A NIC flap; dual street laterals already cover the job",
+  "One training job: the fabric is an availability path equal to power — the hall can still be power-green and cooling-green",
+  "An Uptime / Rated plaque change; 800G is the nines statute",
+  "Nothing operational: in this module that plant is just the interconnect, meaning fewer patch points",
+]
+correct = "B"
+explanation = "East-west InfiniBand / RoCE at 400/800G carries the training job. One cut, one shared tray, or one polarity miss is one job. Dual laterals are a different building oral. Interconnect in this file still means fewer patch points. Module 01 / 03 own the outage clock."
+topic_ids = ["m11-redundancy"]
+objective_ids = ["obj-m11-gpu-fabric-availability"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

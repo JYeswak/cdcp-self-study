@@ -72,7 +72,7 @@ scorecards/    # wave / layer outcome stamps
 |------|------|
 | W0 knowledge | green |
 | **L1 claims constitution** | **green** — `cdcp_registry_check` in `check.sh` |
-| L2 bank pool (840 files / 815 approved / 25 retired ≈ 20.4× exam on the approved pool — pool size, not distinct propositions) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] [[fact:fact-approved-pool-multiplier-19-5=yes]] | green (`cdcp_gate verify-bank` + grounding) |
+| L2 bank pool (842 files / 817 approved / 25 retired ≈ 20.4× exam on the approved pool — pool size, not distinct propositions) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] [[fact:fact-approved-pool-multiplier-19-5=yes]] | green (`cdcp_gate verify-bank` + grounding) |
 | **L3 GradeExact** | **green** — `cargo test` + `cdcp goldens check` in `check.sh` |
 | L4 WASM dual-path | open |
 | L5 browser UI | open |
