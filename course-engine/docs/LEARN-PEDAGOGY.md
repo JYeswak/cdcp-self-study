@@ -1,6 +1,6 @@
 # LEARN PEDAGOGY — teaching atoms & edtech map
 
-**Status:** doctrine (2026-08-12) · M8 shipped with 127 units, Waves A–D **mostly shipped** · P0+P1 diagrams present · P2 `security-layers` present (bd-1sd.9.2) · not false-shipped  
+**Status:** doctrine (2026-08-12) · M8 shipped with 134 units, Waves A–D **mostly shipped** · P0+P1 diagrams present · P2 `security-layers` present (bd-1sd.9.2) · not false-shipped  
 **Charter:** parent `CHARTER.md` §4 · M8 Learn v2  
 **Honesty:** study signals only — never EPI/EXIN certification [[claim:claim-not-epi-certified]] [[claim:claim-study-signal-27]]
 
@@ -27,7 +27,7 @@
 ```text
 L1  Knowledge graph     domains · topics · claims · bank     SHIPPED
 L2  Lesson narrative    14 module .md files                  SHIPPED
-L3  Teaching atoms      units · diagrams · micro-checks      PLANNED
+L3  Teaching atoms      units · diagrams · micro-checks      SHIPPED M8
 L4  Practice atoms      quiz · drill · mock · short-interval review  SHIPPED
 L5  Progress            visited · practiced · mastered       SHIPPED (basic)
 ```

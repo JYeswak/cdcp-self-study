@@ -35,7 +35,7 @@ and “the software scored me” are both machine-checkable.
 | **Buyer (loop #3)** | Joshua: interview-ready DC fluency (Fluidstack / facilities hybrid seats); secondary: future self on cold recall [[claim:claim-interview-ready]] |
 | **Product surface** | Browser UI (static HTML/CSS/JS + WASM) for learn + drill + timed mock; CLI for bank verify, export, goldens, serve |
 | **Shipped means (2026-08-12)** | (1) Open the **local-server hub** (`cargo build -p cdcp_cli --locked` then `./target/debug/cdcp serve` → http://127.0.0.1:8766/). **`file://` is not a supported origin** and fails closed as **CDCP_FILE_ORIGIN** (browsers block ES modules / `fetch` / WASM from a double-clicked HTML file). Then: Learn 15 modules (14 EPI domains + ops-adjacent) → module quiz / Learn-15 / Drill / Mock-40 → score + explanations + weak modules; (2) `./scripts/check.sh` green (W0–L7 + V11); (3) fixed seed exam → **byte-identical** grade digest vs golden (native==WASM); (4) Loop#3 hybrid protocol + ≥1 T1 run log; (5) free/public corpus store policy |
-| **Not shipped yet** | Public GitHub remote (L88 bar quality PASS; flip is Josh); P1 diagrams beyond P0 set; KaTeX full (offline subset shipped) |
+| **Not shipped yet** | KaTeX full (offline subset shipped) |
 | **Not shipped ever (forbidden)** | Pretty markdown only as “done”; AI essay grade-of-record; official EPI affiliation; claim of being CDCP certified |
 
 **RULE ZERO:** A tick counts only if the **product surface** changed (UI path, grader behavior, bank integrity, wired gate) or a **constitution gate** newly trips on known-bad. Charter-only edits are not product ticks; they wire truth so product work can ship.
@@ -72,7 +72,7 @@ and “the software scored me” are both machine-checkable.
 | **Integrity** | Content-addressed bank; goldens; WASM dual-path; content.lock; claims constitution |
 | **Stretch shipped (V11)** | Anki export · power-path N vs 2N diagram · std-only `serve` (no axum; zero added deps) · runbook vignettes |
 
-### In scope next — **M8 Learn v2** (pedagogy packaging)
+### Shipped — **M8 Learn v2** (pedagogy packaging)
 
 Codified in `course-engine/docs/LEARN-PEDAGOGY.md` and `DIAGRAM-REGISTRY.md`:
 
@@ -251,7 +251,7 @@ RED: markdown without import; unlinked AI items; goldens mutated without root ca
 | **V11** | Anki · power-path diagram · serve · runbooks | **DONE** |
 | **M8** | **Learn v2** — units · TOC · micro-checks · diagram system · formulas | **GREEN** |
 | **M9** | Publicize — L88 bar ≥5/7 · OSS meta · then visibility flip | **DONE** |
-| **M10** | Free/public corpus expansion (OQ-09) | **GREEN** (4 free PDFs) |
+| **M10** | Free/public corpus expansion (OQ-09) | **GREEN** (5 free PDFs) |
 
 Ambition: M8 makes Learn feel like Coursera/Duolingo-class **packaging** without losing offline/static integrity.
 
