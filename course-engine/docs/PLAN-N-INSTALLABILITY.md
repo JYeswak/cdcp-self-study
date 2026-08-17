@@ -161,7 +161,32 @@ Hide the rest behind `CDCP_DEV=1` (`#[command(hide = true)]`): reachable for the
 workflow, invisible to a learner. Also drop `python3` from learner-facing checks —
 measured, **no learner path needs it**; the 9 `.py` files are all differential oracles.
 
-### W7 — `install.sh` (P1, ~150 lines) · depends W1, W2
+W12–W16 grow the learner set. After those land, `cdcp --help` lists the **operator
+surface**, not a rigid five: `study` (or `serve` until W2), `doctor`, `demo`, `test`,
+`repair`, plus read-only `health` / `quickstart`. Authoring stays behind `CDCP_DEV=1`.
+W6 hide-commands waits on W12 so we do not hide the verbs we just added.
+
+### W12–W16 — mirror br / ntm / franken operator surface (P1 · depends W1)
+
+Joshua 2026-08-17: installability is not just curl|bash. Mirror the franken repos and
+`br` / `bv` / `ntm`: **one-command install, then demo, doctor, repair, tests**.
+
+Measured today (`cdcp` already has the *names*):
+
+| Surface | Today | br / ntm | Required for installed learner |
+|---|---|---|---|
+| `doctor` | probes bank / goldens / content.lock / python3 — RED-by-construction on a bundle-only tree | `br doctor` (read-only default, `--repair`/`--dry-run`, `capabilities`, `robot-docs`, `undo`) · `ntm doctor --json` | probe **installed** layer only: `web/`, shipped wasm `\0asm`, receipt, bindable port. Missing wasm RED **names the path**. `--json`. Empty probe list is ERROR |
+| `health` | `--robot` envelope reads bank + goldens — same RED-by-construction | `br doctor health` · `ntm health` / `--robot-health` | exit 0 on bundle-only; schema lists only installed facts |
+| `repair` | rebuilds units/glossary/slugs/export-web; **no `--dry-run`** | `br doctor --repair --dry-run` through `mutate()`; refuses when irreversible | `--dry-run` mandatory; `--apply` mutates; receipt-driven bundle integrity; never re-freezes `goldens/` (already a law). Missing receipt is refuse, not guess (W7 D8) |
+| `demo` | **does not exist** | franken showcase / `ntm --robot-docs=quickstart` | one command: bind (or print URL), run planted all-correct + all-wrong grade against the **shipped** wasm, print the 2-minute path. Empty planted set is ERROR |
+| `test` / smoke | 10+ `smoke-*` authoring verbs | `br` tests live in CI; installers have `--verify` | one `cdcp test` on the **installed** tree: learner-pack shape + wasm magic + mock seed 42 assets 200. Empty suite is ERROR. Not `check.sh` |
+| self-doc | clap `--help` / `--version` only (W5) | `br info`, `br robot-docs`, `ntm --robot-docs=quickstart`, `completions` | `--info` (version + resolved root + env), `quickstart`, `help <topic>`, `completion <shell>` |
+
+**Still deferred (not these beads):** fleet robot mega-surface (`--robot-triage`, 70+ ntm robot verbs), `cdcp next` SRS, Homebrew/Docker. Those wait for a consumer. Doctor/repair/demo/test **have** a consumer: the stranger who just installed.
+
+Anti-vacuity: a doctor that cannot construct a tree *without* bank/goldens is a vacuous pass and must FAIL. A demo that only prints "run serve" is not a demo.
+
+### W7 — `install.sh` (P1, ~150 lines) · depends W1, W2, W12–W16
 
 Derived from three reference installers (~7,190 lines). **Copy what they got right;
 refuse eight measured defects.**
@@ -200,6 +225,23 @@ W1. `--verify` asserts the listener's PID and root are its own.
 **Bundle/binary version match.** They ship as separate files, so partial install (binary
 replaced, bundle write failed) is the *default* multi-file failure mode. The bundle
 carries a version stamp; the binary refuses on mismatch rather than serving a stale app.
+
+**Post-install operator bar (Joshua 2026-08-17 — franken / br / ntm).**
+`install.sh --verify` (and a successful install's last step) runs the *installed*
+binary against the *installed* prefix, never the source checkout:
+
+```
+cdcp doctor && cdcp test && cdcp demo --no-open
+```
+
+Empty command list is ERROR. A verify that only checks `test -x "$BIN"` is a vacuous
+pass of the same family as W1. This is why W7 depends W12–W16, not only W1/W2.
+
+Installer-workmanship that fits the ~150-line budget: `set -euo pipefail`, `umask 022`,
+`trap cleanup EXIT`, SHA256 via `sha256sum` or `shasum -a 256` (neither present is
+ERROR), mkdir-based lock, `--dry-run` / `--uninstall` / `--verify` / `--prefix`.
+**Non-goals** (DCG-specific, no learner consumer): gum UI, AI-agent hook auto-config,
+skill-tarball install.
 
 **macOS Gatekeeper — resolved, no signing needed.** Apple DTS states plainly that
 *"Unix-y networking tools, like `curl` and `scp`, don't quarantine the files they
@@ -253,22 +295,23 @@ plainly exists. Small, but it is an agent's first instinctive command.)*
 
 ## 4. Deliberately deferred
 
-`capabilities --json`, `robot-docs guide`, the six-code exit dictionary and its drift
-guard, `--json` on read-side commands. **Rationale:** naming a consumer that does not
-exist yet is an A10 violation. `cdcp next` (the learner's real question — what should I
-study now) outranks all of them and is the one agent-surface item worth doing early.
+**Un-deferred 2026-08-17 (Joshua):** learner `doctor` / `repair --dry-run` / `demo` /
+`test` / `--info`+`quickstart`+`completion`. Those now have a named consumer (the
+installed stranger). See W12–W16.
 
-**The four-way drift guard is cut.** Three of its four sources do not exist, and
-`README.md` has no install one-liner at all. Guarding an empty set is the vacuous-pass
-pattern this repo exists to prevent. It becomes writable once W7 and W8 land.
+**Still deferred:** ntm-scale robot mega-surface (`--robot-triage`, 70+ `--robot-*`
+verbs), six-code exit-dictionary *drift guard*, `cdcp next` (SRS — EPIC I leftover
+store, not install). The four-way README↔installer drift guard stays cut until W7
+and W8 exist — guarding an empty set is a vacuous pass.
 
 ---
 
 ## 5. Rule Zero audit
 
 PRODUCT: W1 (only paired with the resolver — the deletion alone is a regression), W2,
-W3, W4, W5, W6, W7, W8. NOT-PRODUCT: W10, W11, and the §4 deferrals. W9 is product for
-the *authoring* workflow, not the learner.
+W3, W4, W5, W6, W7, W8, W12–W16 (doctor / repair / demo / test / self-doc). NOT-PRODUCT:
+W10, W11, and the remaining §4 deferrals. W9 is product for the *authoring* workflow,
+not the learner.
 
 Draft 1 was roughly half gate-work. The tell was structural: it specified the installer
 in exquisite detail while never making the payload able to run at the destination.
