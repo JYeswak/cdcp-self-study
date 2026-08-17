@@ -193,7 +193,7 @@ fn known_bad_empty_and_zero_ladder_are_red() {
             saw_empty = true;
             assert_eq!(want, ScheduleError::EmptyLadder);
         }
-        if steps.iter().any(|&s| s == 0) {
+        if steps.contains(&0) {
             saw_zero = true;
             assert_eq!(want, ScheduleError::ZeroStep);
         }

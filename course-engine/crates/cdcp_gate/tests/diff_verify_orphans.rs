@@ -682,8 +682,10 @@ fn path_and_option_shapes_are_byte_identical_and_still_reach_the_finding() {
     );
     assert_eq!(rs.code, 0, "{}", rs.out());
     assert!(
-        rs.out()
-            .contains(&format!("  topics={}\n", root.join("knowledge/topics.toml").display())),
+        rs.out().contains(&format!(
+            "  topics={}\n",
+            root.join("knowledge/topics.toml").display()
+        )),
         "the relative topics spelling did not normalise: {}",
         rs.out()
     );
@@ -724,19 +726,49 @@ fn retired_only_refs_and_zero_approved_are_red_and_name_both_populations() {
     let bank = td.path().join("b");
     let topics = td.path().join("t.toml");
     std::fs::create_dir_all(&bank).unwrap();
-    write(&topics, "[[topic]]\nid = \"keep\"\n[[topic]]\nid = \"gone\"\n");
-    write(&bank.join("k.toml"), "id = \"k\"\ntopic_ids = [\"keep\"]\nstatus = \"approved\"\n");
-    write(&bank.join("g.toml"), "id = \"g\"\ntopic_ids = [\"gone\"]\nstatus = \"retired\"\n");
-    let args = ["--bank", bank.to_str().unwrap(), "--topics", topics.to_str().unwrap()];
+    write(
+        &topics,
+        "[[topic]]\nid = \"keep\"\n[[topic]]\nid = \"gone\"\n",
+    );
+    write(
+        &bank.join("k.toml"),
+        "id = \"k\"\ntopic_ids = [\"keep\"]\nstatus = \"approved\"\n",
+    );
+    write(
+        &bank.join("g.toml"),
+        "id = \"g\"\ntopic_ids = [\"gone\"]\nstatus = \"retired\"\n",
+    );
+    let args = [
+        "--bank",
+        bank.to_str().unwrap(),
+        "--topics",
+        topics.to_str().unwrap(),
+    ];
     let rs = assert_byte_identical("retired-only topic", &root, &args);
     assert_ne!(rs.code, 0, "{}", rs.out());
     assert!(rs.out().contains("orphan topic 'gone': declared in topics.toml, referenced by 0 approved items of 1 referencing"), "{}", rs.out());
-    assert!(rs.out().contains("items=2 scanned, 1 approved"), "{}", rs.out());
-    assert!(rs.out().contains("topics_referenced=1 approved of 2 referencing"), "{}", rs.out());
+    assert!(
+        rs.out().contains("items=2 scanned, 1 approved"),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("topics_referenced=1 approved of 2 referencing"),
+        "{}",
+        rs.out()
+    );
 
-    write(&bank.join("k.toml"), "id = \"k\"\ntopic_ids = [\"keep\"]\nstatus = \"retired\"\n");
+    write(
+        &bank.join("k.toml"),
+        "id = \"k\"\ntopic_ids = [\"keep\"]\nstatus = \"retired\"\n",
+    );
     let rs = assert_byte_identical("zero approved", &root, &args);
-    assert!(rs.out().contains("zero approved items (2 scanned)"), "{}", rs.out());
+    assert!(
+        rs.out().contains("zero approved items (2 scanned)"),
+        "{}",
+        rs.out()
+    );
 }
 
 // ── the harness must not be vacuously green ───────────────────────────────

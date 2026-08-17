@@ -221,7 +221,7 @@ fn evidence_combine_intersects_and_adds() {
     assert!(!c.model.in_domain, "false must propagate");
     let expected = 0.10 + 0.05;
     assert!(
-        !(c.model.discrepancy_rel < expected),
+        c.model.discrepancy_rel.partial_cmp(&expected) != Some(std::cmp::Ordering::Less),
         "discrepancy must not shrink below the sum"
     );
     let mut point_in = BTreeMap::new();
@@ -247,7 +247,10 @@ fn statistical_half_widths_add() {
             half_width,
             confidence,
         } => {
-            assert!(!(half_width < 0.5), "half-widths add conservatively");
+            assert!(
+                half_width.partial_cmp(&0.5) != Some(std::cmp::Ordering::Less),
+                "half-widths add conservatively"
+            );
             assert!(confidence <= 0.90);
         }
         other => panic!("expected half-width, got {other:?}"),

@@ -173,16 +173,14 @@ fn occupy_default_port() -> Occupier {
                 "occupier must hold the documented default, got {addr}"
             );
             thread::spawn(move || {
-                for stream in listener.incoming() {
-                    if let Ok(mut s) = stream {
-                        let body = OCCUPIER_TOKEN.as_bytes();
-                        let _ = write!(
-                            s,
-                            "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
-                            body.len()
-                        );
-                        let _ = s.write_all(body);
-                    }
+                for mut s in listener.incoming().flatten() {
+                    let body = OCCUPIER_TOKEN.as_bytes();
+                    let _ = write!(
+                        s,
+                        "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
+                        body.len()
+                    );
+                    let _ = s.write_all(body);
                 }
             });
             let (status, body) = http_get(DEFAULT_BIND, "/");

@@ -14,6 +14,9 @@ pub const DEGREE_DAY_BASE_C: f64 = 18.0;
 /// Pounds per short ton. eGRID output rate is lb CO2 / MWh.
 pub const LB_PER_SHORT_TON: f64 = 2000.0;
 
+/// One USGS grid cell: (lon, lat, pga, s1s, ss).
+type SeismicPoint = (f64, f64, f64, f64, f64);
+
 /// Why a quantity could not be computed.
 #[derive(Debug, Clone, PartialEq)]
 pub enum QuantityError {
@@ -256,10 +259,7 @@ fn tmy3_daily_means(csv: &str, location_id: &str) -> Result<Vec<f64>, QuantityEr
         .collect())
 }
 
-fn seismic_points(
-    csv: &str,
-    location_id: &str,
-) -> Result<Vec<(f64, f64, f64, f64, f64)>, QuantityError> {
+fn seismic_points(csv: &str, location_id: &str) -> Result<Vec<SeismicPoint>, QuantityError> {
     let mut out = Vec::new();
     for (i, line) in csv.lines().enumerate() {
         let t = line.trim();

@@ -176,7 +176,7 @@ pub fn run(root: &Path) -> BuildOutcome {
             errors.push("modules_index.json has zero modules".into());
         }
 
-        let index_ids: BTreeSet<String> = mods.iter().map(|m| json_id(m)).collect();
+        let index_ids: BTreeSet<String> = mods.iter().map(json_id).collect();
         let domain_ids: BTreeSet<String> = domain_by_id.keys().cloned().collect();
         if index_ids != domain_ids {
             let missing: Vec<&String> = domain_ids.difference(&index_ids).collect();

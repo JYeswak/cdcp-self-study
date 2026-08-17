@@ -1553,23 +1553,10 @@ fn collect_sourced_tokens(code: &str, out: &mut Vec<String>) {
             continue;
         }
         let rest = &code[i..];
-        let after = if rest.starts_with("source") {
-            let tail = &rest["source".len()..];
-            if tail.chars().next().is_some_and(|c| c.is_ascii_whitespace()) {
-                Some(tail)
-            } else {
-                None
-            }
-        } else if rest.starts_with('.') {
-            let tail = &rest[1..];
-            if tail.chars().next().is_some_and(|c| c.is_ascii_whitespace()) {
-                Some(tail)
-            } else {
-                None
-            }
-        } else {
-            None
-        };
+        let after = rest
+            .strip_prefix("source")
+            .or_else(|| rest.strip_prefix('.'))
+            .filter(|tail| tail.chars().next().is_some_and(|c| c.is_ascii_whitespace()));
         if let Some(tail) = after {
             if let Some(tok) = next_shell_token(tail) {
                 if !tok.is_empty() && !tok.starts_with('-') {

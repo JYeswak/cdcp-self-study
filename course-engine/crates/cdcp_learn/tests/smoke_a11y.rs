@@ -698,6 +698,7 @@ fn commented_duplicate_does_not_hide_live_markers() {
 }
 
 #[test]
+#[allow(clippy::assertions_on_constants)] // anti-vacuous: MIN_CHECKS=0 is a deleted floor
 fn compiled_lists_are_not_empty() {
     tick();
     assert!(!REQUIRED_PAGES.is_empty());

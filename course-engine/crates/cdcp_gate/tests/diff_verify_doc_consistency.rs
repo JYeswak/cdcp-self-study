@@ -460,7 +460,11 @@ fn describing_the_detector_is_green_asserting_is_red() {
     );
     let out = assert_byte_exact("marker-not-blanket", Some(sibling.path()));
     assert!(out.contains("publication described as not done"), "{out}");
-    assert_eq!(finding_count(&out), 1, "marker must not blanket-bypass: {out}");
+    assert_eq!(
+        finding_count(&out),
+        1,
+        "marker must not blanket-bypass: {out}"
+    );
 
     let unclosed = Spec::clean();
     unclosed.append("README.md", "\n```\nGoing public is pending.\n");

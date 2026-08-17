@@ -244,9 +244,7 @@ pub fn evaluate(root: &Path) -> Outcome {
         for e in &errors {
             s.push_str(&format!("  - {e}\n"));
         }
-        s.push_str(
-            "Regenerate (human review): cdcp content-lock\n",
-        );
+        s.push_str("Regenerate (human review): cdcp content-lock\n");
         return Outcome {
             stdout: String::new(),
             stderr: s,
@@ -640,15 +638,15 @@ pub fn live_bank_hash(root: &Path) -> Result<String, String> {
 
     let golden = root.join(GOLDEN_REL);
     if golden.is_file() {
-        return match fs::read(&golden) {
+        match fs::read(&golden) {
             Ok(bytes) => match String::from_utf8(bytes) {
                 Ok(s) => Ok(py_strip(&s)),
                 Err(_) => Err(format!("{} is not valid UTF-8", golden.display())),
             },
             Err(e) => Err(format!("cannot read {}: {e}", golden.display())),
-        };
+        }
     } else {
-        return Err("cannot obtain live bank_hash".to_string());
+        Err("cannot obtain live bank_hash".to_string())
     }
 }
 

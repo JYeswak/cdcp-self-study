@@ -1,7 +1,8 @@
 # Release binaries must not embed host absolute paths (W1 (d):
-# `strings $(command -v cdcp) | grep -c '/Users/'` is 0). Nightly
-# `trim-paths` rewrites panic locations to crate-relative.
-cargo-features = ["trim-paths"]
+# `strings $(command -v cdcp) | grep -c '/Users/'` is 0 and
+# `strings … | grep -c '/home/runner'` is 0). Stable cargo has no
+# trim-paths; release builds remap PWD and HOME via RUSTFLAGS
+# --remap-path-prefix (check.yml, release.yml, install.sh).
 
 [workspace]
 resolver = "2"
@@ -63,6 +64,3 @@ cdcp_data = { path = "crates/cdcp_data" }
 cdcp_site = { path = "crates/cdcp_site" }
 cdcp_metrics = { path = "crates/cdcp_metrics" }
 proptest = { version = "1", default-features = false, features = ["std"] }
-
-[profile.release]
-trim-paths = "all"

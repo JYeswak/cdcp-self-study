@@ -13,6 +13,7 @@
 //! `registries/gate_shrink.toml` when BOTH are true:
 //!   1. `cdcp_gate` line count < `delete_when_lines_below` (15_000)
 //!   2. no `product_gate_files` remain under `crates/cdcp_gate/src/gates/`
+//!
 //! The check FAILS once both hold, so the instrument cannot outlive its job
 //! (FRANKEN-EXTRACT Doctrine #0 applied to the thing enforcing Doctrine #0).
 
@@ -72,9 +73,8 @@ fn count_rs_files(dir: &Path) -> Result<BTreeMap<String, usize>, CheckError> {
 }
 
 fn walk_rs(root: &Path, dir: &Path, out: &mut BTreeMap<String, usize>) -> Result<(), CheckError> {
-    let rd = fs::read_dir(dir).map_err(|e| {
-        CheckError::msg(format!("gate-shrink: read {}: {e}", dir.display()))
-    })?;
+    let rd = fs::read_dir(dir)
+        .map_err(|e| CheckError::msg(format!("gate-shrink: read {}: {e}", dir.display())))?;
     for ent in rd {
         let ent = ent.map_err(|e| CheckError::msg(format!("gate-shrink: dirent: {e}")))?;
         let path = ent.path();
@@ -238,7 +238,6 @@ pub fn check_gate_shrink(engine_root: &Path) -> Result<ShrinkReport, CheckError>
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::io::Write;
 
     fn write(dir: &Path, rel: &str, body: &str) {
         let p = dir.join(rel);
@@ -274,10 +273,7 @@ mod tests {
         let root = tmp.path();
         pin(root, 100, 1, 0, &[]);
         let err = check_gate_shrink(root).unwrap_err();
-        assert!(
-            err.to_string().contains("not a directory"),
-            "{err}"
-        );
+        assert!(err.to_string().contains("not a directory"), "{err}");
     }
 
     #[test]
@@ -287,10 +283,7 @@ mod tests {
         pin(root, 100, 1, 0, &[]);
         fs::create_dir_all(root.join(GATE_CRATE_REL)).unwrap();
         let err = check_gate_shrink(root).unwrap_err();
-        assert!(
-            err.to_string().contains("min_rs_files"),
-            "{err}"
-        );
+        assert!(err.to_string().contains("min_rs_files"), "{err}");
     }
 
     #[test]
@@ -314,7 +307,11 @@ mod tests {
     fn at_ceiling_is_green() {
         let tmp = tempfile::tempdir().unwrap();
         let root = tmp.path();
-        write(root, &format!("{GATE_CRATE_REL}/src/lib.rs"), "fn a() {}\nfn b() {}\n");
+        write(
+            root,
+            &format!("{GATE_CRATE_REL}/src/lib.rs"),
+            "fn a() {}\nfn b() {}\n",
+        );
         pin(root, 2, 1, 0, &[("src/lib.rs", 2)]);
         let rep = check_gate_shrink(root).unwrap();
         assert_eq!(rep.gate_lines, 2);
@@ -326,13 +323,14 @@ mod tests {
         let tmp = tempfile::tempdir().unwrap();
         let root = tmp.path();
         // 2 lines, delete_when=15, no product gate file.
-        write(root, &format!("{GATE_CRATE_REL}/src/lib.rs"), "fn a() {}\nfn b() {}\n");
+        write(
+            root,
+            &format!("{GATE_CRATE_REL}/src/lib.rs"),
+            "fn a() {}\nfn b() {}\n",
+        );
         pin(root, 100, 1, 15, &[("src/lib.rs", 2)]);
         let err = check_gate_shrink(root).unwrap_err();
-        assert!(
-            err.to_string().contains("DELETE THIS RATCHET"),
-            "{err}"
-        );
+        assert!(err.to_string().contains("DELETE THIS RATCHET"), "{err}");
     }
 
     #[test]
@@ -345,9 +343,14 @@ mod tests {
             &format!("{GATE_CRATE_REL}/src/gates/build_units.rs"),
             "fn units() {}\n",
         );
-        pin(root, 100, 1, 15, &[("src/lib.rs", 1), ("src/gates/build_units.rs", 1)]);
+        pin(
+            root,
+            100,
+            1,
+            15,
+            &[("src/lib.rs", 1), ("src/gates/build_units.rs", 1)],
+        );
         let rep = check_gate_shrink(root).unwrap();
         assert_eq!(rep.gate_lines, 2);
     }
-
 }

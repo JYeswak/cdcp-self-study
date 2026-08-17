@@ -144,7 +144,7 @@ fn run_selftest(root: &Path) -> Result<(), String> {
             ));
         }
     }
-    print!("{perturb_text}\n");
+    println!("{perturb_text}");
 
     ledger.references.clear();
     let empty_err = match check_oracle_with(root, &ledger, &pins) {

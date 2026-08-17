@@ -1127,9 +1127,9 @@ fn closed_fence_mask(lines: &[&str]) -> Vec<bool> {
             i += 1;
             continue;
         };
-        if let Some(j) = ((i + 1)..n).find(|&j| {
-            fence_mark(lines[j]).is_some_and(|o| o.0 == mark.0 && o.1 >= mark.1)
-        }) {
+        if let Some(j) = ((i + 1)..n)
+            .find(|&j| fence_mark(lines[j]).is_some_and(|o| o.0 == mark.0 && o.1 >= mark.1))
+        {
             for slot in mask.iter_mut().take(j + 1).skip(i) {
                 *slot = true;
             }

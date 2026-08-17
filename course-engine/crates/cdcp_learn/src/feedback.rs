@@ -1371,6 +1371,7 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::assertions_on_constants)] // anti-vacuous: MAX_REPORT_ROWS=0 is a deleted window
     fn report_window_is_not_a_module_bound() {
         assert_eq!(MAX_REPORT_ROWS, 10);
         assert!(MAX_REPORT_ROWS > 0);

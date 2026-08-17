@@ -28,14 +28,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Nightly is load-bearing: trim-paths requires nightly cargo. Stable
-      # cannot parse course-engine/Cargo.toml (measured v0.1.0 run 32062806206).
+      # Stable. Nightly was only required for trim-paths; that is gone.
+      # Never `rustup toolchain install nightly` without a date pin.
       - name: Install Rust + wasm32 target
         run: |
-          rustup toolchain install nightly --profile minimal \
+          rustup toolchain install stable --profile minimal \
             --component rustfmt,clippy
-          rustup target add wasm32-unknown-unknown --toolchain nightly
-          rustup default nightly
+          rustup target add wasm32-unknown-unknown --toolchain stable
+          rustup default stable
 
       - uses: actions/setup-python@v5
         with:
@@ -77,9 +77,9 @@ jobs:
 
       - name: Install Rust
         run: |
-          rustup toolchain install nightly --profile minimal
-          rustup target add ${{ matrix.target }} --toolchain nightly
-          rustup default nightly
+          rustup toolchain install stable --profile minimal
+          rustup target add ${{ matrix.target }} --toolchain stable
+          rustup default stable
 
       - uses: actions/cache@v4
         with:
@@ -92,7 +92,26 @@ jobs:
 
       - name: Build release binary --locked
         working-directory: course-engine
-        run: cargo build --release --locked -p cdcp_cli --target ${{ matrix.target }}
+        run: |
+          set -eu
+          rustc --version
+          case "$(rustc --version)" in
+            *nightly*)
+              echo "::error::release rustc is nightly; this job must be stable"
+              exit 1
+              ;;
+          esac
+          # W1 (d): remap PWD + HOME so the shipped binary embeds neither
+          # /Users/ nor /home/runner. Stable substitute for trim-paths.
+          export RUSTFLAGS="${RUSTFLAGS:+$RUSTFLAGS }--remap-path-prefix=${PWD}= --remap-path-prefix=${HOME}="
+          cargo build --release --locked -p cdcp_cli --target ${{ matrix.target }}
+          bin=target/${{ matrix.target }}/release/cdcp
+          test -x "$bin"
+          users=$(strings "$bin" | grep -c '/Users/' || true)
+          runner=$(strings "$bin" | grep -c '/home/runner' || true)
+          echo "W1(d) strings /Users/=$users /home/runner=$runner"
+          test "$users" = 0
+          test "$runner" = 0
 
       - name: Pack single-member .tar.gz + checksum
         run: |

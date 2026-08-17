@@ -777,6 +777,7 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::assertions_on_constants)] // anti-vacuous: MIN_CHECKS=0 is a deleted floor
     fn min_checks_matches_compiled_lists() {
         assert_eq!(MIN_CHECKS, 1 + 2 + REQUIRED_PAGES.len() * 4);
         assert!(MIN_CHECKS > 0);

@@ -309,7 +309,10 @@ fn does_not_invoke_cargo_python_goldens() {
     // Planted spies: if `cdcp test` execs these, the log is written and the
     // test is RED. An empty spy list would be a vacuous pass.
     let spies = ["cargo", "python3", "python", "check.sh"];
-    assert!(!spies.is_empty(), "empty spy list is ERROR");
+    #[allow(clippy::const_is_empty)] // anti-vacuous: empty spy list is ERROR
+    {
+        assert!(!spies.is_empty(), "empty spy list is ERROR");
+    }
     let script = format!(
         "#!/bin/sh\nprintf '%s\\n' \"$0\" >> \"{}\"\nexit 0\n",
         log.display()

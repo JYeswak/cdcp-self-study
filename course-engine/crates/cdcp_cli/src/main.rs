@@ -1187,7 +1187,7 @@ fn resolve_bank_hash(root: &Path, bank: Option<&Path>) -> Result<String, String>
             }
             Err(format!(
                 "live bank-hash is not 64 hex chars (got {:?})",
-                &b.bank_hash.chars().take(16).collect::<String>()
+                b.bank_hash.chars().take(16).collect::<String>()
             ))
         }
         Err(e) => {
@@ -1771,6 +1771,7 @@ fn smoke_learn_chrome(root: Option<&Path>) -> Result<(), String> {
     Ok(())
 }
 
+#[allow(clippy::too_many_arguments)]
 fn export_anki(
     root: Option<&Path>,
     source: &str,

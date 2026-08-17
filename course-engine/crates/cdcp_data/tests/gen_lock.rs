@@ -71,7 +71,11 @@ fn plant_min(root: &Path) {
         write_rel(parent, "modules/m.md", b"# parent m\n");
     }
     write_rel(root, SNAPSHOTS_REL, one_pin_snapshots().as_bytes());
-    write_rel(root, "knowledge/corpus/public/osha/hello.txt", b"hello-body\n");
+    write_rel(
+        root,
+        "knowledge/corpus/public/osha/hello.txt",
+        b"hello-body\n",
+    );
     write_rel(
         root,
         "knowledge/corpus/public/osha/hello.meta.toml",

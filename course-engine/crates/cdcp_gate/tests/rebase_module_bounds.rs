@@ -2821,7 +2821,7 @@ fn every_live_tree_run_in_this_file_is_ledgered_with_the_write_question_answered
     // Anti-vacuous from both sides. A scan that matched nothing reports exactly
     // like a file with no live runs, and this file has some.
     assert!(
-        found.len() >= 1,
+        !found.is_empty(),
         "the live-run scan found {} command(s) — it has gone dead, or the file \
          was reformatted past the shapes it reads. A scan that finds nothing is \
          an ERROR, not a clean bill: {found:?}",

@@ -178,7 +178,8 @@ fn learn_md_without_latex_path_is_red() {
     let r = smoke(&f.root);
     assert_ne!(r.code, 0, "{}", r.stdout);
     assert!(
-        r.stdout.contains("learn_md.js missing latex/math-block path"),
+        r.stdout
+            .contains("learn_md.js missing latex/math-block path"),
         "{}",
         r.stdout
     );
@@ -207,7 +208,10 @@ fn m01_missing_toc_is_red() {
 fn m06_missing_power_path_cta_is_red() {
     tick();
     let f = green();
-    f.put(M06, "<aside class=\"diagram-cta\">no diagram href</aside>\n");
+    f.put(
+        M06,
+        "<aside class=\"diagram-cta\">no diagram href</aside>\n",
+    );
     let r = smoke(&f.root);
     assert_ne!(r.code, 0, "{}", r.stdout);
     assert!(
@@ -225,11 +229,7 @@ fn hub_missing_continue_is_red() {
     f.put(HUB, "<script src=\"learn_chrome.js\"></script>\n");
     let r = smoke(&f.root);
     assert_ne!(r.code, 0, "{}", r.stdout);
-    assert!(
-        r.stdout.contains("id=\"learn-continue\""),
-        "{}",
-        r.stdout
-    );
+    assert!(r.stdout.contains("id=\"learn-continue\""), "{}", r.stdout);
     let _ = &f.dir;
 }
 
@@ -240,11 +240,7 @@ fn empty_modules_index_is_red() {
     f.put(INDEX, r#"{"modules":[]}"#);
     let r = smoke(&f.root);
     assert_ne!(r.code, 0, "empty modules must be RED:\n{}", r.stdout);
-    assert!(
-        r.stdout.contains("no navigable modules"),
-        "{}",
-        r.stdout
-    );
+    assert!(r.stdout.contains("no navigable modules"), "{}", r.stdout);
     let _ = &f.dir;
 }
 
@@ -258,11 +254,7 @@ fn all_empty_flagged_modules_is_red() {
     );
     let r = smoke(&f.root);
     assert_ne!(r.code, 0, "{}", r.stdout);
-    assert!(
-        r.stdout.contains("no navigable modules"),
-        "{}",
-        r.stdout
-    );
+    assert!(r.stdout.contains("no navigable modules"), "{}", r.stdout);
     let _ = &f.dir;
 }
 
@@ -354,6 +346,7 @@ fn missing_power_path_file_is_red() {
 }
 
 #[test]
+#[allow(clippy::assertions_on_constants)] // anti-vacuous: MIN_CHECKS=0 is a deleted floor
 fn compiled_needles_are_not_empty() {
     tick();
     assert!(!M01_NEEDLES.is_empty());

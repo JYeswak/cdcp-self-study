@@ -142,7 +142,10 @@ pub fn write_content_lock(
 }
 
 /// Write `<root>/content.lock`.
-pub fn write_content_lock_at_root(root: &Path, bank_hash: &str) -> Result<GenLockReport, DataError> {
+pub fn write_content_lock_at_root(
+    root: &Path,
+    bank_hash: &str,
+) -> Result<GenLockReport, DataError> {
     write_content_lock(root, bank_hash, &join_rel(root, LOCK_REL))
 }
 
@@ -203,17 +206,17 @@ fn render_lock(
         String::new(),
         "[knowledge]".into(),
     ];
-    push_table(&mut lines, knowledge, "# (empty — no knowledge/*.toml found)");
+    push_table(
+        &mut lines,
+        knowledge,
+        "# (empty — no knowledge/*.toml found)",
+    );
     lines.push(String::new());
     lines.push("[modules]".into());
     push_table(&mut lines, modules, "# (empty — no module markdown found)");
     lines.push(String::new());
     lines.push("[data]".into());
-    push_table(
-        &mut lines,
-        data,
-        "# (empty — no snapshot-referenced files)",
-    );
+    push_table(&mut lines, data, "# (empty — no snapshot-referenced files)");
     lines.push(String::new());
     lines.join("\n")
 }
@@ -391,7 +394,10 @@ mod unit {
     #[test]
     fn lock_section_stops_at_the_next_table() {
         let text = "[knowledge]\n\"a\" = \"b\"\n\n[modules]\n\"c\" = \"d\"\n";
-        assert_eq!(lock_section(text, "knowledge"), "[knowledge]\n\"a\" = \"b\"");
+        assert_eq!(
+            lock_section(text, "knowledge"),
+            "[knowledge]\n\"a\" = \"b\""
+        );
         assert_eq!(lock_section(text, "modules"), "[modules]\n\"c\" = \"d\"");
     }
 }

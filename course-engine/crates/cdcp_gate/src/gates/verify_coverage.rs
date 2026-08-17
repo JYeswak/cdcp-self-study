@@ -10,6 +10,7 @@
 //!      items than its floor (`[[domain_min]] min_items` when the policy FILE is
 //!      present, else the OQ-05 default of one). The named module and both
 //!      numbers appear in the report.
+//!
 //!   1b. *missing policy* — `bank_policy.toml` is not a file (bd-j98g). The
 //!      sized floors live there; treating absence as N=1 would lower them.
 //!      A present file with empty `[[domain_min]]` is the honest OQ-05 default

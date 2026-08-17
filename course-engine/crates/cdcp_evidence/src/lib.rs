@@ -869,7 +869,7 @@ mod unit {
         let expected = 0.02 + 0.03;
         assert!(c.discrepancy_rel >= expected);
         // first-order add, no shrinkage: composed is at least the sum
-        assert!(!(c.discrepancy_rel < expected));
+        assert!(c.discrepancy_rel.partial_cmp(&expected) != Some(std::cmp::Ordering::Less));
         assert_eq!(c.cards, vec!["a".to_string(), "b".to_string()]);
         assert_eq!(
             c.assumptions,

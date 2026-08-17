@@ -319,6 +319,7 @@ fn perturb_each_paper_answer_by_one_unit_is_red() {
 }
 
 #[test]
+#[allow(clippy::assertions_on_constants)] // anti-vacuous: empty inventory is a deleted floor
 fn inventory_zero_mms_cases_is_error() {
     assert!(!MMS_CASES.is_empty(), "{ZERO_MMS_CASES}");
     assert!(MMS_CASE_COUNT > 0, "{ZERO_MMS_CASES}");

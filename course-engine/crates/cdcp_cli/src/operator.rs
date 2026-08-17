@@ -546,9 +546,9 @@ fn check_goldens(root: &Path) -> Result<String, String> {
     }
     let dir = join_rel(root, "goldens");
     if !dir.is_dir() {
-        return Err(format!(
-            "missing goldens/ — an empty tree is an ERROR, not a green 'nothing to check'"
-        ));
+        return Err(
+            "missing goldens/ — an empty tree is an ERROR, not a green 'nothing to check'".into(),
+        );
     }
     let mut missing = Vec::new();
     let mut empty = Vec::new();
@@ -616,7 +616,7 @@ fn check_content_lock(root: &Path) -> Result<String, String> {
         Some(h) => {
             return Err(format!(
                 "{LOCK_REL} is corrupt: bank_hash is not 64 hex chars (got {:?})",
-                &h.chars().take(16).collect::<String>()
+                h.chars().take(16).collect::<String>()
             ))
         }
         None => return Err(format!("{LOCK_REL} is corrupt: missing bank_hash")),

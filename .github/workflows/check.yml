@@ -21,15 +21,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Nightly is load-bearing: Cargo.toml has cargo-features = ["trim-paths"]
-      # so release binaries embed no host /Users/ paths (W1 (d)). Stable cargo
-      # cannot parse the manifest (measured v0.1.0 release run 32062806206).
+      # Stable. Nightly was only required for cargo-features = ["trim-paths"];
+      # that is gone. An unpinned nightly made --locked a function of the
+      # calendar (bd-installability-sm4g.19). Never `rustup toolchain install
+      # nightly` here without a date pin.
       - name: Install Rust + wasm32 target
         run: |
-          rustup toolchain install nightly --profile minimal \
+          rustup toolchain install stable --profile minimal \
             --component rustfmt,clippy
-          rustup target add wasm32-unknown-unknown --toolchain nightly
-          rustup default nightly
+          rustup target add wasm32-unknown-unknown --toolchain stable
+          rustup default stable
 
       - uses: actions/setup-python@v5
         with:
@@ -87,3 +88,80 @@ jobs:
             git status --porcelain
             exit 1
           fi
+
+  # W1 (d) is about the RELEASE binary, not the debug gate. check.sh does
+  # not cargo build --release -p cdcp_cli; this job is the CI-built release
+  # strings probe. Remap PWD + HOME so rustc does not embed /Users/ or
+  # /home/runner (stable substitute for nightly trim-paths).
+  release-paths:
+    name: W1(d) release binary has no host paths
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install stable Rust
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            course-engine/target
+          key: rel-paths-${{ runner.os }}-${{ hashFiles('course-engine/Cargo.lock') }}
+          restore-keys: rel-paths-${{ runner.os }}-
+
+      - name: Release --locked + strings + lockfile-skew plant
+        working-directory: course-engine
+        run: |
+          set -eu
+          rustc --version
+          cargo --version
+          case "$(rustc --version)" in
+            *nightly*)
+              echo "::error::this job must run on stable, not nightly"
+              exit 1
+              ;;
+          esac
+          export RUSTFLAGS="${RUSTFLAGS:+$RUSTFLAGS }--remap-path-prefix=${PWD}= --remap-path-prefix=${HOME}="
+          cargo build --release --locked -p cdcp_cli
+          bin=target/release/cdcp
+          test -x "$bin"
+          users=$(strings "$bin" | grep -c '/Users/' || true)
+          runner=$(strings "$bin" | grep -c '/home/runner' || true)
+          echo "W1(d) strings /Users/=$users /home/runner=$runner"
+          test "$users" = 0
+          test "$runner" = 0
+
+          # Known-bad: a lock that disagrees with the manifest must FAIL
+          # under --locked (cargo must not rewrite it).
+          cp Cargo.lock "${RUNNER_TEMP}/Cargo.lock.bak"
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path("Cargo.lock")
+          text = p.read_text()
+          old = 'name = "cdcp_cli"\nversion = "0.1.0"'
+          new = 'name = "cdcp_cli"\nversion = "0.1.1"'
+          if old not in text:
+              raise SystemExit("cdcp_cli 0.1.0 stanza missing — plant cannot fire")
+          p.write_text(text.replace(old, new, 1))
+          PY
+          set +e
+          cargo build --release --locked -p cdcp_cli >"${RUNNER_TEMP}/lock-skew.log" 2>&1
+          rc=$?
+          set -e
+          cp "${RUNNER_TEMP}/Cargo.lock.bak" Cargo.lock
+          if [ "$rc" -eq 0 ]; then
+            echo "::error::--locked accepted a skewed lockfile"
+            cat "${RUNNER_TEMP}/lock-skew.log"
+            exit 1
+          fi
+          if ! grep -Eq 'lock file|--locked' "${RUNNER_TEMP}/lock-skew.log"; then
+            echo "::error::skewed lock failed for an unexpected reason"
+            cat "${RUNNER_TEMP}/lock-skew.log"
+            exit 1
+          fi
+          echo "known-bad: --locked failed on lockfile skew (rc=$rc)"

@@ -207,9 +207,8 @@ fn in_domain_false_cannot_be_reset_true_by_any_composition() {
             "{abs:?}"
         ),
     }
-    match Evidence::combine_queried(Ok(inn), Ok(out), 0.0) {
-        Ok(ev) => panic!("reverse combine_queried must also refuse: {ev:?}"),
-        Err(_) => {}
+    if let Ok(ev) = Evidence::combine_queried(Ok(inn), Ok(out), 0.0) {
+        panic!("reverse combine_queried must also refuse: {ev:?}");
     }
 }
 

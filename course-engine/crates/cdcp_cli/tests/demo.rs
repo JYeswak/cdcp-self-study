@@ -243,10 +243,13 @@ fn missing_seed42_asset_names_path() {
         "web/data/keys_seed42.json",
         "web/data/bank_items_seed42.json",
     ];
-    assert!(
-        !assets.is_empty(),
-        "empty missing-asset list is ERROR — nothing was planted"
-    );
+    #[allow(clippy::const_is_empty)] // anti-vacuous: empty planted list is ERROR
+    {
+        assert!(
+            !assets.is_empty(),
+            "empty missing-asset list is ERROR — nothing was planted"
+        );
+    }
     for rel in assets {
         let tree = bundle_only_tree(&format!("no-{}", rel.replace('/', "_")));
         let path = tree.join(rel);

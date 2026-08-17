@@ -198,7 +198,10 @@ fn known_bad_retiring_one_more_item_leaves_the_unit_checks() {
             flipped += 1;
         }
     }
-    assert_eq!(flipped, 1, "plant {plant} must exist exactly once in the pack");
+    assert_eq!(
+        flipped, 1,
+        "plant {plant} must exist exactly once in the pack"
+    );
     std::fs::write(&pack_path, serde_json::to_string(&pack).unwrap()).unwrap();
 
     let red = cdcp_learn::units::write_units(&root).expect("after retire");

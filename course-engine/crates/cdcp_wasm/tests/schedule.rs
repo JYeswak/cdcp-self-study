@@ -160,13 +160,10 @@ fn maybe_wasm() -> Option<WasmSchedule> {
 #[test]
 fn compiled_schedule_is_not_vacuous() {
     validate_schedule().expect("compiled schedule must be valid");
-    assert_eq!(
-        validate_steps(&[])
-            .unwrap_err()
-            .to_string()
-            .contains("zero steps"),
-        true
-    );
+    assert!(validate_steps(&[])
+        .unwrap_err()
+        .to_string()
+        .contains("zero steps"));
     assert!(validate_thresholds(0, 900).is_err());
     assert!(validate_thresholds(800, 0).is_err());
 }
@@ -179,13 +176,13 @@ fn native_json_mastered_matches_crate() {
         r#"[{{"ratio":0.9,"at_ms":{t0}}},{{"ratio":0.9,"at_ms":{}}}]"#,
         t0 + gap
     );
-    assert_eq!(is_mastered_json(&json_ok).unwrap(), true);
+    assert!(is_mastered_json(&json_ok).unwrap());
     let json_close = format!(
         r#"[{{"ratio":0.9,"at_ms":{t0}}},{{"ratio":0.9,"at_ms":{}}}]"#,
         t0 + gap - 1
     );
-    assert_eq!(is_mastered_json(&json_close).unwrap(), false);
-    assert_eq!(is_mastered_json("[]").unwrap(), false);
+    assert!(!is_mastered_json(&json_close).unwrap());
+    assert!(!is_mastered_json("[]").unwrap());
 }
 
 #[test]

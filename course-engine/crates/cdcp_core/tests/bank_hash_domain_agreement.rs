@@ -50,16 +50,12 @@ fn scalar_assignment(text: &str, key: &str, whence: &str) -> String {
         .map(str::trim)
         .filter(|l| !l.starts_with('#') && !l.starts_with("//"))
         .filter_map(|l| {
-            let rest = if let Some(r) = l.strip_prefix(key) {
-                r.trim_start()
-            } else if let Some(r) = l
-                .strip_prefix("pub const ")
-                .or_else(|| l.strip_prefix("const "))
-            {
-                r.strip_prefix(key)?.trim_start()
-            } else {
-                return None;
-            };
+            let rest = l.strip_prefix(key).map(str::trim_start).or_else(|| {
+                l.strip_prefix("pub const ")
+                    .or_else(|| l.strip_prefix("const "))
+                    .and_then(|r| r.strip_prefix(key))
+                    .map(str::trim_start)
+            })?;
             let rest = rest
                 .strip_prefix(':')
                 .map(|s| {

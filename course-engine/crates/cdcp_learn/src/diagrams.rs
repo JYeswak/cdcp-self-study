@@ -83,7 +83,7 @@ pub fn run(root: &Path) -> BuildOutcome {
             if !message.ends_with('\n') {
                 out.push('\n');
             }
-            return outcome(code, out);
+            outcome(code, out)
         }
         RegistryRead::Parsed {
             rows,
@@ -526,9 +526,7 @@ pub fn parse_html(input: &str) -> DiagramParse {
                 if is_void(&name) {
                     continue;
                 }
-                if banner_depth > 0 {
-                    banner_depth -= 1;
-                }
+                banner_depth = banner_depth.saturating_sub(1);
                 continue;
             }
             if i + 1 < bytes.len() && is_name_start(bytes[i + 1]) {
@@ -763,7 +761,7 @@ fn starts_with_ci(hay: &[u8], needle: &[u8]) -> bool {
     hay[..needle.len()]
         .iter()
         .zip(needle.iter())
-        .all(|(a, b)| a.to_ascii_lowercase() == b.to_ascii_lowercase())
+        .all(|(a, b)| a.eq_ignore_ascii_case(b))
 }
 
 fn find_bytes(hay: &[u8], needle: &[u8]) -> Option<usize> {

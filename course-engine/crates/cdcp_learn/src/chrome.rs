@@ -61,6 +61,7 @@ pub const CSS_HOOKS: &[&str] = &[
 /// Live / green fixture count:
 ///   chrome.js + md latex path + M01 needles + M06 needles + hub needles
 ///   + index eta + power-path + CSS hooks
+///
 /// = 1 + 1 + 3 + 2 + 2 + 1 + 1 + 4 = 15
 pub const MIN_CHECKS: usize = 15;
 
@@ -304,6 +305,7 @@ mod tests {
     use super::*;
 
     #[test]
+    #[allow(clippy::assertions_on_constants)] // anti-vacuous: MIN_CHECKS=0 is a deleted floor
     fn min_checks_matches_compiled_lists() {
         assert_eq!(
             MIN_CHECKS,

@@ -547,7 +547,11 @@ source_build() {
   if [ "$DRY" = 1 ]; then log "dry-run: would cargo --release --locked -p cdcp_cli in $engine"; return 0; fi
   need_cargo
   log "cargo build --release --locked -p cdcp_cli (D7)"
-  (CDPATH= cd -- "$engine" && cargo build --release --locked -p cdcp_cli) || \
+  # W1 (d): stable has no trim-paths. Remap PWD + HOME so the binary
+  # embeds no /Users/ or /home/runner paths.
+  (CDPATH= cd -- "$engine" && \
+    RUSTFLAGS="${RUSTFLAGS:+$RUSTFLAGS }--remap-path-prefix=${PWD}= --remap-path-prefix=${HOME}=" \
+    cargo build --release --locked -p cdcp_cli) || \
     die "cargo --release --locked -p cdcp_cli failed"
   target=${CARGO_TARGET_DIR:-$engine/target}
   built=$target/release/cdcp
