@@ -634,24 +634,26 @@ fn scan_targets(root: &Path) -> Vec<(PathBuf, String, bool)> {
 /// broke. 0 is reserved for files known to have no block-opening existence test.
 fn min_sites(rel: &str) -> usize {
     match rel.rsplit('/').next().unwrap_or(rel) {
-        // near_duplicate_items.rs is a dispatcher; the walk lives in cdcp_bank.
-        "mod.rs" | "install_hooks.rs" | "near_duplicate_items.rs" => 0,
+        // Dispatchers: the walks live in product crates (near_duplicate,
+        // orphans, verify_bank). A 0-site file is legal only here.
+        "mod.rs"
+        | "install_hooks.rs"
+        | "near_duplicate_items.rs"
+        | "verify_orphans.rs"
+        | "verify_bank.rs" => 0,
         "capability_maturity.rs"
         | "goldens_couplings.rs"
         | "verify_injection_count.rs"
         | "verify_step_count.rs"
         | "verify_doc_consistency.py" => 1,
-        "doc_facts.rs"
-        | "verify_orphans.rs"
-        | "verify_orphans.py"
-        | "verify_paraphrase_pairs.py" => 2,
+        "doc_facts.rs" | "verify_orphans.py" | "verify_paraphrase_pairs.py" => 2,
         "corpus_redistribution.rs"
         | "verify_doc_consistency.rs"
         | "verify_knowledge_paths.rs"
         | "verify_knowledge_paths.py"
         | "verify_injection_count.py" => 3,
         "substrate_guard.rs" | "verify_coverage.py" => 4,
-        "verify_bank.rs" | "verify_bank.py" | "verify_coverage.rs" | "validate_grounding.py" => 5,
+        "verify_bank.py" | "verify_coverage.rs" | "validate_grounding.py" => 5,
         "validate_grounding.rs" | "verify_objectives.py" => 7,
         "verify_objectives.rs" => 8,
         "verify_content_lock.rs" => 9,

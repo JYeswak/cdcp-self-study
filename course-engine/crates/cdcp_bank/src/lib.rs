@@ -21,6 +21,7 @@ pub mod mock40_module;
 pub mod near_duplicate;
 pub mod orphans;
 pub mod paraphrase;
+pub mod verify_bank;
 
 pub use leftover_honesty::{
     audit_bank as leftover_honesty_audit, audit_item as leftover_honesty_item,

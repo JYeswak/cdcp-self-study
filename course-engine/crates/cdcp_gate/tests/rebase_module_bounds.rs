@@ -329,8 +329,9 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
         Shape::NamedBound,
         Verdict::NotAModuleBound,
         "CPython float repr: the exponent-notation cutoff, named. The same \
-         constant is inventoried unnamed as `decpt > 16` in verify_bank.rs \
-         below — the pair is what a `NumericBound`-only sweep saw half of.",
+         constant is inventoried unnamed as `decpt > 16` in \
+         cdcp_bank/src/verify_bank.rs — the pair is what a `NumericBound`-only \
+         sweep saw half of.",
     ),
     (
         "crates/cdcp_learn/src/chrome.rs",
@@ -382,7 +383,7 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
     // report-truncation comparisons left with the file. cdcp_learn::feedback
     // truncates via a ceiling outside this sweep's window.
     (
-        "crates/cdcp_gate/src/gates/verify_bank.rs",
+        "crates/cdcp_bank/src/verify_bank.rs",
         "let body = if decpt <= -4 || decpt > 16 {",
         Shape::NumericBound,
         Verdict::NotAModuleBound,

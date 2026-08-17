@@ -20,7 +20,10 @@
 # 49019 -> 48073: EXTRACT-THEN-DELETE of verify_orphans impl
 # (bd-engine-not-gate-ar39.9). Integrity check is crates/cdcp_bank (orphans.rs).
 # Gate file is a thin dispatcher so check.sh still runs `cdcp_gate verify-orphans`.
-ceiling_lines = 48073
+# 48073 -> 46048: EXTRACT-THEN-DELETE of verify_bank impl
+# (bd-engine-not-gate-ar39.10). Pool floors are crates/cdcp_bank (verify_bank.rs).
+# Gate file is a thin dispatcher so check.sh still runs `cdcp_gate verify-bank`.
+ceiling_lines = 46048
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
@@ -96,7 +99,7 @@ lines = 2277
 
 [[file]]
 path = "src/gates/verify_bank.rs"
-lines = 2046
+lines = 85
 
 [[file]]
 path = "src/gates/verify_content_lock.rs"
