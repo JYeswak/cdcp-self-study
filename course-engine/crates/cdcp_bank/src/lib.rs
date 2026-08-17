@@ -19,6 +19,7 @@
 pub mod mock40_module;
 pub mod near_duplicate;
 pub mod leftover_honesty;
+pub mod orphans;
 pub mod paraphrase;
 
 pub use leftover_honesty::{
