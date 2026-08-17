@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.28 leftover stem: procedure level of use
+id = "m15-q222"
+kind = "single-select"
+module = 15
+stem = "A MOP whose cover block never names use-each-time versus reference use is, per DOE O 422.1:"
+choices = [
+  "A document, not a procedure. Level of use is the attribute that decides whether the paper is open at the step or read beforehand and worked from memory; a programme must specify use requirements",
+  "Still a procedure if the approval signatures are wet-ink and the font of the warnings is large",
+  "Automatically emergency-response use, so the reader may skip the steps",
+  "Valid as long as the author was also the sole validator",
+]
+correct = "A"
+explanation = "DOE O 422.1 requires specified procedure-use requirements (reader-worker, reference, use-each-time, emergency response). An undeclared level of use is how a competent engineer skips a step and still says they followed the procedure."
+topic_ids = ["m15-documentation"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

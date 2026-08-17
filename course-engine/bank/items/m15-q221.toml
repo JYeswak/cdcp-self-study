@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.28 leftover: 2.1 security matrix
+id = "m15-q221"
+kind = "single-select"
+module = 15
+stem = "A contractor badge programmed to open lobby, grey space, white space, UPS room, and BESS yard, unescorted, at any hour, is:"
+choices = [
+  "A security matrix with one convenient row, so the printer can stay simple",
+  "The Module 13 physical-layer diagram copied onto a card",
+  "Least privilege if the contractor signed an NDA and the visitor book has a name",
+  "Not a matrix. A matrix is role × zone × privilege (unescorted, escorted-only, no-access, time-window, two-person); a badge that opens every zone is a single failure that looks like convenience. Module 13 owns the layers; this file owns the table",
+]
+correct = "D"
+explanation = "The 2.1 heading is a table, not a badge printer. Privilege is more than door-opens. Least privilege is the rule. Physical layers stay in Module 13."
+topic_ids = ["m15-ops-security"]
+objective_ids = ["obj-m15-security-matrix"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

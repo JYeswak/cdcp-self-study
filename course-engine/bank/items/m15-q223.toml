@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.28 leftover stem: OSHA Subpart S vs 1910.147
+id = "m15-q223"
+kind = "single-select"
+module = 15
+stem = "An energy-control programme that cites only 29 CFR 1910.147 for work on UPS, switchgear, PDU, and busway is mis-scoped because:"
+choices = [
+  "1910.147 already covers every electric-utilization installation, so a second citation is decoration",
+  "1910.147(a)(1)(ii)(D) excludes electrical-hazard exposure on electric-utilization installations and points to Subpart S (1910.331–.335, principally 1910.333). Putting a UPS into maintenance bypass from its HMI is not isolation — physical disconnect, lock, stored energy released, absence of voltage verified including backfeed",
+  "The only applicable rule is the utility’s own tariff, because the campus takes a medium-voltage feed",
+  "Subpart S applies only to the utility’s exclusive-control substation — that regime is 1910.269, not this work",
+]
+correct = "B"
+explanation = "A data-centre distribution is an electric-utilization installation. 1910.147 governs unexpected energisation of machines; Subpart S governs electrical-hazard exposure on switchgear and UPS. HMI bypass is a control device, not isolation. 1910.269 is the utility-substation regime."
+topic_ids = ["m15-ops-security"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

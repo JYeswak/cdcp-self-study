@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.28 leftover: 2.1 organizational structure
+id = "m15-q219"
+kind = "single-select"
+module = 15
+stem = "This file owns the 2.1 organizational-structure heading — the staffed path, not Module 01’s four seats. A site that leaves switchgear isolation with the NOC alone, and parks the Safety Officer under the manager whose bonus is uptime, is failing that heading because:"
+choices = [
+  "Functions (facilities, NOC/ops, security, EHS, floor, vendor management) must have a path: NOC is not isolation authority on switchgear (Subpart S), and a Safety Officer reporting to the uptime bonus is a fictional independent veto",
+  "Module 01 already named four seats, so the 2.1 heading is empty and this file should repeat them",
+  "The NOC should own Subpart S isolation because it holds the DCIM screen",
+  "Org structure is an exam-weight percentage, so the reporting line does not matter",
+]
+correct = "A"
+explanation = "Name the functions and the split. Isolation authority is not a NOC screen. A Safety Officer under the uptime bonus is not an independent veto. Do not grow this back into Module 01’s four-seat lesson. Do not invent an exam-weight percentage."
+topic_ids = ["m15-ops-security"]
+objective_ids = ["obj-m15-org-structure"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

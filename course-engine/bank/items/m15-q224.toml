@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.28 leftover stem: alarm ≠ status indicator
+id = "m15-q224"
+kind = "single-select"
+module = 15
+stem = "A BMS/DCIM point with no defined operator response, and a procurement that prices the job by monitored-point count, should be read as:"
+choices = [
+  "A high-priority alarm so it is never missed, and more points always mean better monitoring",
+  "Evidence the floor is healthy whenever the point stays silent — absence of alarm is health",
+  "A status indicator, not an alarm. HSE: process status indicators should not be designated as alarms; delete or downgrade, do not acknowledge forever. Point count and operator-actionable alarms per hour move in opposite directions",
+  "A reason to raise the integrator’s invoice until every status bit is an alarm",
+]
+correct = "C"
+explanation = "An alarm requires operator action. Status is not an alarm. Absence of alarm is not evidence of health (2003 silent alarm-processor failure). Point-count procurement fights alarm quality. No invented outage percent."
+topic_ids = ["m15-ops-security"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
