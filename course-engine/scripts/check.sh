@@ -1340,8 +1340,13 @@ ok "cdcp demo --no-open"
 echo "==> cdcp study (bind + HTTP 200 + stop)"
 command -v curl >/dev/null 2>&1 || fail "cdcp study: curl is required to prove the listener (printed-URL-only is vacuous)"
 _study_log=$(mktemp "${TMPDIR:-/tmp}/cdcp-study-gate.XXXXXX")
+# N.17: do not `run_cdcp_cli study … &`. $! of a function is the subshell;
+# kill of that subshell reparents cdcp to PID 1 and the listener stays up
+# (POST_KILL_HTTP=200, LEAKED=1). Invoke the binary so $! is the cdcp PID.
+# Stop is proven by a second curl, not by kill returning 0.
+require_cdcp_bins
 set +e
-run_cdcp_cli study --no-open --bind 127.0.0.1:0 >"$_study_log" 2>&1 &
+"$CDCP_BIN_DIR/cdcp" study --no-open --bind 127.0.0.1:0 >"$_study_log" 2>&1 &
 _study_pid=$!
 set -e
 _study_url=""
@@ -1370,6 +1375,21 @@ fi
 _study_code=$(curl -fsS -o /dev/null -w "%{http_code}" "$_study_url" || true)
 kill "$_study_pid" 2>/dev/null || true
 wait "$_study_pid" 2>/dev/null || true
+# Reap is not proven by kill(2) of $!. The bound URL must die.
+_study_post=$(curl -fsS -o /dev/null -w "%{http_code}" --connect-timeout 1 --max-time 1 "$_study_url" || true)
+if [ "$_study_post" = "200" ]; then
+  _study_port=$(printf '%s' "$_study_url" | sed -n 's|.*:\([0-9][0-9]*\)/.*|\1|p')
+  # Emergency reap of OUR ephemeral port only. Never touch 8766 (occupied
+  # `cdcp serve` is not this step's process).
+  if [ -n "$_study_port" ] && [ "$_study_port" != "8766" ]; then
+    _study_leaked=$(lsof -nP -iTCP:"$_study_port" -sTCP:LISTEN -t 2>/dev/null || true)
+    for _study_lp in $_study_leaked; do
+      kill "$_study_lp" 2>/dev/null || true
+    done
+  fi
+  rm -f "$_study_log"
+  fail "cdcp study"
+fi
 rm -f "$_study_log"
 if [ "$_study_code" != "200" ]; then
   fail "cdcp study"
@@ -1380,7 +1400,7 @@ ok "cdcp study served HTTP 200"
 echo "==> selftest_learner_verbs.sh (L4 study/demo/test known-bad)"
 export CDCP_BIN_DIR
 sh scripts/selftest_learner_verbs.sh || fail "learner verbs known-bad"
-ok "learner verbs known-bad (test wasm · demo/study missing-bundle · ignore-exit is RED)"
+ok "learner verbs known-bad (test wasm · demo/study missing-bundle · ignore-exit is RED · study stop reaps cdcp)"
 
 [ -f scripts/verify_objectives.py ] || fail "missing scripts/verify_objectives.py (differential oracle for verify-objectives)"
 echo "==> cdcp_gate verify-objectives (L7-S7 objective coverage)"
