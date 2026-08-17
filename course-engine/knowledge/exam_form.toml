@@ -1,5 +1,8 @@
 # Public EXIN/EPI CDCP exam form — study UI only (not official exam)
-# Sources: EPI CDCP page; EXIN CDCP details (fetch 2026-08-11)
+# Sources: EPI CDCP page + brochure; EXIN CDCP details (re-fetched 2026-08-17,
+# bd-epi-ecosystem-ms4j.13). VERDICT: CONFIRM pass_correct=27.
+# 68% is EXIN's percentage label of the same 27/40 bar (27/40 = 67.5%;
+# 28/40 would be 70%). Do not infer 28 from 68%.
 
 exam_form_id = "cdcp-public-format-v1"
 schema_version = 1
@@ -10,6 +13,8 @@ pass_correct = 27
 pass_ratio = 0.68
 open_book = false
 training_mandatory_for_official_credential = true
+threshold_verified = "2026-08-17"
+threshold_verdict = "confirm-27"
 
 # UI must never claim official certification from this product
 credential_claim = "forbidden"
@@ -17,4 +22,5 @@ study_signal_label = "Study signal (≥27/40) — not a credential"
 
 [sources]
 epi_exam = "src-epi-cdcp-page"
+epi_brochure = "src-epi-cdcp-brochure"
 exin_exam = "src-exin-cdcp-page"

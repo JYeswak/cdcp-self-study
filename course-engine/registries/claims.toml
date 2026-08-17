@@ -103,7 +103,7 @@ justified_by = ["claim-domain-covered"]
 id = "claim-exam-form-public"
 strength = "slo"
 text = "Mock UI uses public form 40 questions / 60 minutes / study bar 27 correct"
-evidence = "exam_form.toml + src-epi-cdcp-page + src-exin-cdcp-page"
+evidence = "exam_form.toml + src-epi-cdcp-page + src-epi-cdcp-brochure + src-exin-cdcp-page (live 2026-08-17: EPI \"27 out of 40\"; EXIN \"Pass mark: 68%\" = same bar, not 28/40)"
 
 # -----------------------------------------------------------------------------
 # Study signals (benchmark only — never credential)
@@ -113,7 +113,7 @@ evidence = "exam_form.toml + src-epi-cdcp-page + src-exin-cdcp-page"
 id = "claim-study-signal-27"
 strength = "benchmark"
 text = "Mock ≥27/40 is a study signal only (interview study bar), not a credential"
-evidence = "exam_form.toml pass_correct + study_signal_label"
+evidence = "exam_form.toml pass_correct=27 CONFIRMED live 2026-08-17 from src-epi-cdcp-page quoted \"The passing mark is 27 out of 40.\" + src-epi-cdcp-brochure quoted \"minimum of 27 correct answers\"; src-exin-cdcp-page quoted \"Pass mark: 68%\" is the percentage label of 27/40, not a 28/40 cut. Still a study signal, not a credential."
 # study_signal_27 ≠ epi_certified
 
 [[claim]]
