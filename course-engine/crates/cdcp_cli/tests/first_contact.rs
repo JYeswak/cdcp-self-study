@@ -214,28 +214,35 @@ fn learner_help_is_five_product_verbs() {
         !cmds.is_empty(),
         "learner --help listed zero commands — hide-everything is a brick:\n{stdout}"
     );
-    for verb in ["study", "doctor", "demo", "test", "repair"] {
+    // W12–W16 grow the learner set on purpose after .6 hide.
+    for verb in [
+        "study",
+        "doctor",
+        "demo",
+        "test",
+        "repair",
+        "quickstart",
+        "completion",
+    ] {
         assert!(
             cmds.iter().any(|c| c == verb),
             "learner --help missing {verb}: {cmds:?}\n{stdout}"
         );
     }
-    let product: Vec<_> = cmds
-        .iter()
-        .filter(|c| c.as_str() != "help")
-        .cloned()
-        .collect();
-    assert!(
-        product.len() <= 5,
-        "learner --help lists {} product verbs (target ≤5): {product:?}\n{stdout}",
-        product.len()
-    );
     for authoring in ["bank-hash", "build-learn", "goldens", "export-web", "serve"] {
         assert!(
             !cmds.iter().any(|c| c == authoring),
             "learner --help still lists authoring verb {authoring}: {cmds:?}"
         );
     }
+    assert!(
+        stdout.contains("--info"),
+        "learner --help must list --info as a top-level flag: {stdout}"
+    );
+    assert!(
+        !cmds.iter().any(|c| c == "info"),
+        "--info leaked into Commands: (it is a flag, not a verb): {cmds:?}"
+    );
 }
 
 #[test]

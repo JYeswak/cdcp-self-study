@@ -12,6 +12,7 @@ mod operator;
 mod oracle;
 mod publishability;
 mod recon;
+mod selfdoc;
 mod site;
 mod slo;
 mod snap_rewrite;
@@ -33,6 +34,10 @@ struct Cli {
     #[arg(short = 'V', long = "version")]
     version: bool,
 
+    /// Print version, resolved root, and which precedence step chose it
+    #[arg(long = "info")]
+    info: bool,
+
     #[command(subcommand)]
     cmd: Option<Cmd>,
 }
@@ -40,13 +45,8 @@ struct Cli {
 /// Product verbs a learner sees in `cdcp --help`. Authoring stays reachable
 /// (`cdcp build-learn` still runs); it is hidden unless `CDCP_DEV=1`.
 /// clap's auto `help` is kept. Empty is compile-fail — a hide that hides
-/// everything is a brick.
-const LEARNER_VISIBLE: &[&str] = &["study", "doctor", "demo", "test", "repair", "help"];
-
-const _: () = assert!(
-    LEARNER_VISIBLE.len() >= 6,
-    "LEARNER_VISIBLE shrank below the five product verbs + clap help"
-);
+/// everything is a brick. W12–W16 grow the set; `--info` is a flag, not a verb.
+const LEARNER_VISIBLE: &[&str] = selfdoc::LEARNER_VISIBLE;
 
 fn cdcp_dev() -> bool {
     matches!(std::env::var("CDCP_DEV").as_deref(), Ok("1"))
@@ -84,6 +84,8 @@ fn print_orientation() {
            cdcp demo        planted grade + study URL (does not block)\n\
            cdcp test        smoke the installed tree\n\
            cdcp repair      restore the installed bundle (never goldens)\n\
+           cdcp quickstart  first five minutes after install\n\
+           cdcp --info      version + resolved root + how it was chosen\n\
            cdcp --help      list learner commands (CDCP_DEV=1 for authoring)\n\
            cdcp --version   print the workspace version",
         version = env!("CARGO_PKG_VERSION")
@@ -458,6 +460,14 @@ enum Cmd {
         #[arg(long, default_value_t = 42, hide = true)]
         seed: u64,
     },
+    /// First five minutes after install (doctor, test, demo, study)
+    Quickstart,
+    /// Emit a shell completion script (bash, zsh, or fish)
+    Completion {
+        /// Target shell
+        #[arg(value_parser = ["bash", "zsh", "fish"])]
+        shell: String,
+    },
     /// Parse slo.toml wall budgets / emit epoch-ms for smoke_slo.
     Slo {
         #[command(subcommand)]
@@ -705,10 +715,19 @@ struct AnswerRow {
 }
 
 fn main() -> ExitCode {
+    // `--info --json` / `--info --root` and `help <topic>` are not clap
+    // parent flags / subcommands. Intercept before clap so `help install`
+    // is a topic rather than "unrecognized subcommand".
+    if let Some(code) = selfdoc::intercept(std::env::args().skip(1)) {
+        return code;
+    }
     let cli = parse_cli();
     if cli.version {
         println!("{}", env!("CARGO_PKG_VERSION"));
         return ExitCode::SUCCESS;
+    }
+    if cli.info {
+        return selfdoc::run_info(None, false);
     }
     match cli.cmd {
         None => {
@@ -889,6 +908,8 @@ fn run(cmd: Cmd) -> Result<(), String> {
             json,
             seed,
         } => operator::repair(root.as_deref(), apply, json, seed),
+        Cmd::Quickstart => selfdoc::print_quickstart(),
+        Cmd::Completion { shell } => selfdoc::print_completion(&shell),
         Cmd::Slo { sub } => match sub {
             SloCmd::Budgets { file } => slo::emit_budgets(&file),
             SloCmd::NowMs => slo::emit_now_ms(),
