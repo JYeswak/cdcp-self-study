@@ -1257,9 +1257,18 @@ echo "==> cdcp smoke-feedback-links (L7-S2)"; run_cdcp_cli smoke-feedback-links 
 ok "L7 feedback section links"
 
 echo "==> L7 CLI product verbs"
-_HELP="$(run_cdcp_cli --help 2>&1)"
+# Authoring verbs live behind CDCP_DEV=1 (bd-installability-sm4g.6).
+_HELP="$(CDCP_DEV=1 run_cdcp_cli --help 2>&1)"
 for v in bank-hash grade goldens export-web serve build-learn build-reference build-units build-glossary build-learn-slugs smoke-learn smoke-learn-chrome smoke-feedback-links smoke-diagrams smoke-a11y smoke-weak-links smoke-learn-v2 export-anki verify-paraphrase-pairs check-licence load-snapshots check-osha verify-data-lock check-learner-pack corpus-rights; do
-  printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from --help: $v"
+  printf '%s' "$_HELP" | grep -q -- "$v" || fail "L7 CLI verb missing from CDCP_DEV=1 --help: $v"
+done
+_LEARNER_HELP="$(env -u CDCP_DEV run_cdcp_cli --help 2>&1)"
+for v in study doctor demo test repair; do
+  printf '%s' "$_LEARNER_HELP" | grep -q -- "$v" || fail "learner --help missing $v"
+done
+for v in bank-hash build-learn goldens export-web serve; do
+  printf '%s\n' "$_LEARNER_HELP" | grep -E "^  ${v}( |$)" >/dev/null \
+    && fail "learner --help still lists authoring verb $v (hide is not wired)"
 done
 ok "L7 CLI product verbs listed"
 

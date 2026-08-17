@@ -59,7 +59,7 @@ value = { num = 6, den = 5 }
 
 #[test]
 fn help_lists_metrics() {
-    let assert = cdcp().arg("--help").assert().success();
+    let assert = cdcp().env("CDCP_DEV", "1").arg("--help").assert().success();
     let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
     assert!(
         stdout.contains("PUE / WUE / CUE / ERE"),

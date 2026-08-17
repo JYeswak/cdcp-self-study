@@ -55,7 +55,7 @@ const ABOUT: &str = "Helpers for tests/publishability-bar.sh";
 
 #[test]
 fn help_lists_publishability() {
-    let assert = cdcp().arg("--help").assert().success();
+    let assert = cdcp().env("CDCP_DEV", "1").arg("--help").assert().success();
     let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
     assert!(
         stdout.contains(ABOUT),

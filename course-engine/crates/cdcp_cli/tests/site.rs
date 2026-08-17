@@ -44,7 +44,7 @@ const SITE_ABOUT: &str = "Climate / seismic / carbon / flood / power price";
 
 #[test]
 fn help_lists_site() {
-    let assert = cdcp().arg("--help").assert().success();
+    let assert = cdcp().env("CDCP_DEV", "1").arg("--help").assert().success();
     let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
     assert!(
         stdout.contains(SITE_ABOUT),

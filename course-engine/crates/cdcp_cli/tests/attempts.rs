@@ -97,7 +97,7 @@ fn sample() -> AttemptEvent {
 
 #[test]
 fn attempts_help_lists_record_list_export() {
-    let assert = cdcp().arg("--help").assert().success();
+    let assert = cdcp().env("CDCP_DEV", "1").arg("--help").assert().success();
     let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
     assert!(
         stdout.contains("no psychometrics"),

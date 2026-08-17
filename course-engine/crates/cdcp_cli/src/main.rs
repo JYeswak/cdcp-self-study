@@ -20,7 +20,7 @@ use attempts::AttemptsCmd;
 use cdcp_bank::Bank;
 use cdcp_core::{AnsweredItem, ChoiceLetter, ExamAttempt};
 use cdcp_grade::{all_correct_attempt, all_wrong_attempt, grade, grade_digest};
-use clap::{Parser, Subcommand};
+use clap::{CommandFactory, FromArgMatches, Parser, Subcommand};
 use serde::Deserialize;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -37,6 +37,40 @@ struct Cli {
     cmd: Option<Cmd>,
 }
 
+/// Product verbs a learner sees in `cdcp --help`. Authoring stays reachable
+/// (`cdcp build-learn` still runs); it is hidden unless `CDCP_DEV=1`.
+/// clap's auto `help` is kept. Empty is compile-fail — a hide that hides
+/// everything is a brick.
+const LEARNER_VISIBLE: &[&str] = &["study", "doctor", "demo", "test", "repair", "help"];
+
+const _: () = assert!(
+    LEARNER_VISIBLE.len() >= 6,
+    "LEARNER_VISIBLE shrank below the five product verbs + clap help"
+);
+
+fn cdcp_dev() -> bool {
+    matches!(std::env::var("CDCP_DEV").as_deref(), Ok("1"))
+}
+
+fn parse_cli() -> Cli {
+    let mut cmd = Cli::command();
+    if !cdcp_dev() {
+        let names: Vec<String> = cmd
+            .get_subcommands()
+            .map(|s| s.get_name().to_string())
+            .collect();
+        for name in names {
+            if !LEARNER_VISIBLE.iter().any(|k| *k == name) {
+                cmd = cmd.mut_subcommand(&name, |sc| sc.hide(true));
+            }
+        }
+    }
+    match cmd.try_get_matches() {
+        Ok(matches) => Cli::from_arg_matches(&matches).unwrap_or_else(|e| e.exit()),
+        Err(e) => e.exit(),
+    }
+}
+
 /// First-contact orientation. Printed on stdout when `cdcp` is invoked with
 /// no subcommand. A missing subcommand is not an error (exit 0).
 fn print_orientation() {
@@ -46,11 +80,11 @@ fn print_orientation() {
          A missing subcommand is not an error. This tool is local-first.\n\
          \n\
            cdcp study       open the offline study site\n\
-           cdcp serve       serve the offline study site (no browser)\n\
+           cdcp doctor      preflight the installed tree\n\
            cdcp demo        planted grade + study URL (does not block)\n\
-           cdcp doctor      preflight the local tree\n\
            cdcp test        smoke the installed tree\n\
-           cdcp --help      list every command\n\
+           cdcp repair      restore the installed bundle (never goldens)\n\
+           cdcp --help      list learner commands (CDCP_DEV=1 for authoring)\n\
            cdcp --version   print the workspace version",
         version = env!("CARGO_PKG_VERSION")
     );
@@ -660,7 +694,7 @@ struct AnswerRow {
 }
 
 fn main() -> ExitCode {
-    let cli = Cli::parse();
+    let cli = parse_cli();
     if cli.version {
         println!("{}", env!("CARGO_PKG_VERSION"));
         return ExitCode::SUCCESS;

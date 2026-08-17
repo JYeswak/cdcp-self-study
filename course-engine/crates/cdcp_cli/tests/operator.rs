@@ -141,14 +141,24 @@ fn mtime(path: &Path) -> SystemTime {
 
 #[test]
 fn help_lists_operator_verbs() {
-    let assert = cdcp().arg("--help").assert().success();
+    let assert = cdcp()
+        .env_remove("CDCP_DEV")
+        .arg("--help")
+        .assert()
+        .success();
     let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
-    for verb in ["doctor", "health", "repair"] {
+    for verb in ["doctor", "repair"] {
         assert!(
             stdout.contains(verb),
-            "cdcp --help must list {verb}: {stdout}"
+            "learner --help must list {verb}: {stdout}"
         );
     }
+    let dev = cdcp().env("CDCP_DEV", "1").arg("--help").assert().success();
+    let dev_out = String::from_utf8_lossy(&dev.get_output().stdout);
+    assert!(
+        dev_out.contains("health"),
+        "CDCP_DEV=1 --help must list health: {dev_out}"
+    );
 }
 
 #[test]

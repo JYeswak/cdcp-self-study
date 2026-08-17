@@ -177,6 +177,87 @@ fn bare_invocation_writes_orientation_to_stdout_and_exits_0() {
     );
 }
 
+/// Command names clap prints under `Commands:`. Empty is ERROR.
+fn listed_commands(help: &str) -> Vec<String> {
+    let mut out = Vec::new();
+    let mut in_cmds = false;
+    for line in help.lines() {
+        if line.starts_with("Commands:") {
+            in_cmds = true;
+            continue;
+        }
+        if in_cmds && (line.starts_with("Options:") || line.starts_with("Arguments:")) {
+            break;
+        }
+        if in_cmds {
+            let t = line.trim_start();
+            if let Some(name) = t.split_whitespace().next() {
+                if name.chars().all(|c| c.is_ascii_lowercase() || c == '-') {
+                    out.push(name.to_string());
+                }
+            }
+        }
+    }
+    out
+}
+
+#[test]
+fn learner_help_is_five_product_verbs() {
+    let assert = cdcp()
+        .env_remove("CDCP_DEV")
+        .arg("--help")
+        .assert()
+        .success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    let cmds = listed_commands(&stdout);
+    assert!(
+        !cmds.is_empty(),
+        "learner --help listed zero commands — hide-everything is a brick:\n{stdout}"
+    );
+    for verb in ["study", "doctor", "demo", "test", "repair"] {
+        assert!(
+            cmds.iter().any(|c| c == verb),
+            "learner --help missing {verb}: {cmds:?}\n{stdout}"
+        );
+    }
+    let product: Vec<_> = cmds
+        .iter()
+        .filter(|c| c.as_str() != "help")
+        .cloned()
+        .collect();
+    assert!(
+        product.len() <= 5,
+        "learner --help lists {} product verbs (target ≤5): {product:?}\n{stdout}",
+        product.len()
+    );
+    for authoring in ["bank-hash", "build-learn", "goldens", "export-web", "serve"] {
+        assert!(
+            !cmds.iter().any(|c| c == authoring),
+            "learner --help still lists authoring verb {authoring}: {cmds:?}"
+        );
+    }
+}
+
+#[test]
+fn cdcp_dev_unhides_authoring() {
+    let assert = cdcp().env("CDCP_DEV", "1").arg("--help").assert().success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    let cmds = listed_commands(&stdout);
+    assert!(
+        cmds.iter().any(|c| c == "bank-hash"),
+        "CDCP_DEV=1 --help must list bank-hash: {cmds:?}\n{stdout}"
+    );
+    assert!(
+        cmds.iter().any(|c| c == "build-learn"),
+        "CDCP_DEV=1 --help must list build-learn: {cmds:?}"
+    );
+    assert!(
+        cmds.len() > 10,
+        "CDCP_DEV=1 --help should unhide authoring (got {}): {cmds:?}",
+        cmds.len()
+    );
+}
+
 #[test]
 fn clap_disables_default_features_in_workspace_manifest() {
     let raw = fs::read_to_string(workspace_root().join("Cargo.toml"))
