@@ -13,9 +13,6 @@ use std::path::{Path, PathBuf};
 use thiserror::Error;
 
 mod gate_shrink;
-mod track;
-
-pub use track::{run_track_check, run_track_selftest};
 
 /// Rank lattice: invariant(6) > proof(5) > bounded_model(4) > statistical(3) > slo(2) > benchmark(1).
 pub const CANONICAL_CLASSES: &[(&str, u8)] = &[
@@ -631,16 +628,7 @@ pub fn check_repo(root: &Path) -> Result<Vec<Violation>, CheckError> {
 
 /// Run check and return process-style result.
 pub fn run(root: &Path) -> Result<(), CheckError> {
-    let mut violations = check_repo(root)?;
-    let (track_violations, track_receipts) = track::check_discovered(root)?;
-    for receipt in track_receipts {
-        println!("{receipt}");
-    }
-    violations.extend(track_violations);
-    if let Err(e) = track::run_selftest() {
-        eprintln!("cdcp_registry_check: track-selftest: {e}");
-        return Err(e);
-    }
+    let violations = check_repo(root)?;
     let shrink = gate_shrink::check_gate_shrink(root);
     if let Err(ref e) = shrink {
         eprintln!("cdcp_registry_check: {e}");

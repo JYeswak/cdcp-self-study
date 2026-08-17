@@ -11,7 +11,6 @@ name = "cdcp_registry_check"
 path = "src/main.rs"
 
 [dependencies]
-cdcp_core = { workspace = true }
 cdcp_root = { workspace = true }
 serde = { workspace = true }
 thiserror = { workspace = true }
