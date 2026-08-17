@@ -397,7 +397,7 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
     // file is gone fails the stale leg.
     // ── live module bounds deliberately kept ──────────────────────────────
     (
-        "crates/cdcp_gate/src/gates/verify_knowledge_paths.rs",
+        "crates/cdcp_learn/src/knowledge_paths.rs",
         "//! bd-lt7 tracks gates that hardcode a module bound (`range(1, 15)`, `<= 14`) and",
         Shape::NumericBound,
         Verdict::Prose,

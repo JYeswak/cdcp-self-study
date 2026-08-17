@@ -29,6 +29,7 @@ pub mod content;
 pub mod diagrams;
 pub mod feedback;
 pub mod glossary;
+pub mod knowledge_paths;
 pub mod learn_v2;
 pub mod learner_pack;
 pub mod reference;
