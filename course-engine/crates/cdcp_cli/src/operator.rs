@@ -15,7 +15,8 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
 /// Version of the `health --robot` envelope. Bump only with a consumer change.
-pub(crate) const HEALTH_SCHEMA_VERSION: u64 = 1;
+/// v2 adds `attempts_store` (bd-hardening-l-attempts-bg2.2).
+pub(crate) const HEALTH_SCHEMA_VERSION: u64 = 2;
 
 /// Top-level keys of the health envelope, in emit order. A test pins these
 /// names so a consumer can rely on them; adding or renaming one is a
@@ -28,6 +29,7 @@ pub(crate) const HEALTH_ROBOT_FIELDS: &[&str] = &[
     "unit_count",
     "engine_identities",
     "goldens",
+    "attempts_store",
 ];
 
 /// Doctor checks, compiled in so emptying the list is a RED run rather than a
@@ -69,6 +71,18 @@ struct HealthEnvelope {
     unit_count: u64,
     engine_identities: EngineIdentities,
     goldens: GoldensState,
+    attempts_store: AttemptsStoreState,
+}
+
+/// Mention of the local-first attempt store. Absence is the default
+/// (export stays OFF). `n == 0` here is not a health ERROR — empty is
+/// ERROR on list/export, not on mention.
+#[derive(Serialize)]
+struct AttemptsStoreState {
+    state: String,
+    path: String,
+    n: u64,
+    export_policy: String,
 }
 
 #[derive(Serialize)]
@@ -193,6 +207,10 @@ pub(crate) fn doctor(root: Option<&Path>, bind: &str) -> Result<(), String> {
             fails.push(e);
         }
     }
+
+    // Mention, not a compiled-in check: the store is opt-in. Absence is
+    // the default, not a defect. Empty is ERROR on list/export, not here.
+    println!("{}", crate::attempts::doctor_line(&root));
 
     if ran == 0 {
         return Err("doctor ran 0 checks — an empty input set is a FAILURE, not a pass".into());
@@ -456,6 +474,7 @@ fn health_envelope(root: &Path) -> Result<HealthEnvelope, String> {
         return Err("health: engine identities are empty".into());
     }
     let (state, required_n, present_n) = goldens_snapshot(root);
+    let attempts = crate::attempts::mention(root);
 
     Ok(HealthEnvelope {
         schema_version: HEALTH_SCHEMA_VERSION,
@@ -468,6 +487,12 @@ fn health_envelope(root: &Path) -> Result<HealthEnvelope, String> {
             state,
             required_n,
             present_n,
+        },
+        attempts_store: AttemptsStoreState {
+            state: attempts.state.to_string(),
+            path: attempts.rel_path.to_string(),
+            n: attempts.n,
+            export_policy: attempts.export_policy.to_string(),
         },
     })
 }
@@ -528,6 +553,21 @@ fn emit_human(envelope: &Value) -> Result<(), String> {
     );
     println!("goldens.required_n={}", envelope["goldens"]["required_n"]);
     println!("goldens.present_n={}", envelope["goldens"]["present_n"]);
+    println!(
+        "attempts_store.state={}",
+        envelope["attempts_store"]["state"].as_str().unwrap_or("")
+    );
+    println!(
+        "attempts_store.path={}",
+        envelope["attempts_store"]["path"].as_str().unwrap_or("")
+    );
+    println!("attempts_store.n={}", envelope["attempts_store"]["n"]);
+    println!(
+        "attempts_store.export_policy={}",
+        envelope["attempts_store"]["export_policy"]
+            .as_str()
+            .unwrap_or("")
+    );
     Ok(())
 }
 

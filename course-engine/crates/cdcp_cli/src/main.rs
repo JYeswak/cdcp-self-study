@@ -1,7 +1,8 @@
-//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics / slo / snap-rewrite / recon / first-topic-id / publishability
+//! cdcp CLI — grade / goldens / bank-hash / export-web / serve / doctor / health / repair / oracle-check / site / metrics / attempts / slo / snap-rewrite / recon / first-topic-id / publishability
 #![forbid(unsafe_code)]
 
 mod assemble;
+mod attempts;
 mod first_topic;
 mod metrics;
 mod operator;
@@ -12,6 +13,7 @@ mod site;
 mod slo;
 mod snap_rewrite;
 
+use attempts::AttemptsCmd;
 use cdcp_bank::Bank;
 use cdcp_core::{AnsweredItem, ChoiceLetter, ExamAttempt};
 use cdcp_grade::{all_correct_attempt, all_wrong_attempt, grade, grade_digest};
@@ -134,6 +136,11 @@ enum Cmd {
         /// Inline TOML metric document. A bare number is a schema ERROR.
         #[arg(long, allow_hyphen_values = true)]
         doc: Option<String>,
+    },
+    /// Local-first attempt log. Capture only — no psychometrics.
+    Attempts {
+        #[command(subcommand)]
+        sub: AttemptsCmd,
     },
     /// Ledger tripwire for measured paraphrase pairs C3 cannot see
     VerifyParaphrasePairs {
@@ -632,6 +639,7 @@ fn run(cli: Cli) -> Result<(), String> {
             lon,
         } => site::run(root.as_deref(), location.as_deref(), lat, lon),
         Cmd::Metrics { file, doc } => metrics::run(file.as_deref(), doc.as_deref()),
+        Cmd::Attempts { sub } => attempts::run(sub),
         Cmd::VerifyParaphrasePairs {
             root,
             ledger,

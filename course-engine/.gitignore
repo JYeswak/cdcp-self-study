@@ -4,6 +4,9 @@
 # beads compliance audit (own .git; never pollute product history)
 beads_compliance_audit/
 
+# Local-first attempt store (opt-in; never a product artifact)
+/var/
+
 # Build / tooling
 /target/
 **/*.rs.bk

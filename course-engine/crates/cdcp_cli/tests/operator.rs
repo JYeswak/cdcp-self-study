@@ -342,10 +342,11 @@ fn health_robot_emits_a_versioned_envelope_with_pinned_fields() {
         "unit_count",
         "engine_identities",
         "goldens",
+        "attempts_store",
     ];
     // Anti-vacuous: a zero-length pin list would make this test pass by
     // checking nothing.
-    assert_eq!(pinned.len(), 7, "the pinned field list must not shrink");
+    assert_eq!(pinned.len(), 8, "the pinned field list must not shrink");
     for key in pinned {
         assert!(
             obj.contains_key(key),
@@ -405,6 +406,19 @@ fn health_robot_emits_a_versioned_envelope_with_pinned_fields() {
         goldens["required_n"].as_u64().unwrap() > 0,
         "goldens.required_n must not be 0"
     );
+
+    let store = v["attempts_store"]
+        .as_object()
+        .expect("attempts_store is an object");
+    for k in ["state", "path", "n", "export_policy"] {
+        assert!(store.contains_key(k), "attempts_store missing {k}");
+    }
+    assert_eq!(
+        store["export_policy"].as_str(),
+        Some("off"),
+        "export policy default is OFF"
+    );
+    assert_eq!(store["path"].as_str(), Some("var/attempts"));
 }
 
 /// ANTI-VACUOUS: health with zero items is an ERROR, never a versioned

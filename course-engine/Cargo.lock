@@ -281,6 +281,7 @@ dependencies = [
  "cdcp_anki",
  "cdcp_assemble",
  "cdcp_assess",
+ "cdcp_attempts",
  "cdcp_bank",
  "cdcp_core",
  "cdcp_data",
