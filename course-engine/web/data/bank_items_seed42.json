@@ -18783,6 +18783,33 @@
   {
     "bloom": "apply",
     "choices": [
+      "Accept: UL 9540A results are the listing; UL 9540 is only the catalog name for the same test method",
+      "Refuse: UL 9540A results are test data and do not establish a listing. UL 9540 is the product-safety standard that yields a Listed ESS. Acceptable 9540A data can be required for portions of 9540 and still leave the ESS unlisted. NFPA 855 is the installation standard (confirm adopted edition), not a substitute listing",
+      "File the 9540A report as the adopted edition of NFPA 855 — the installation standard is then the listing",
+      "Accept: because UL 9540 references UL 9540A, acceptable 9540A results automatically mean the ESS is UL 9540 Listed"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "9540A is a test method: the packet is data, not a listing. UL 9540 is the listing path. 9540 pointing at 9540A does not make a 9540A report a listing. NFPA 855 is installation (confirm adopted edition), not the product listing. No invented fire percent.",
+    "id": "m12-q227",
+    "kind": "single-select",
+    "module": 12,
+    "objective_ids": [
+      "obj-m12-liion-855"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A vendor packet for a Li-ion UPS cabinet says “UL 9540A results attached — the ESS is therefore Listed.” The apply move is:",
+    "tags": [],
+    "topic_ids": [
+      "m12-standards",
+      "m12-regulatory"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
       "Immediately release clean-agent suppression without investigation because any ASD alert equals confirmed fire",
       "Disable all detection for the rest of the shift to stop nuisance alerts",
       "Open emergency exit doors and portable fans to dilute any possible smoke before calling anyone",
@@ -19217,6 +19244,54 @@
     "tags": [],
     "topic_ids": [
       "m13-security-components",
+      "m13-safety-components"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Accept: 1910.147 already covers electric-utilization switchgear, so a second citation is decoration, and a grey-space badge is the lock",
+      "Refuse: isolating a UPS or switchgear is Subpart S (1910.331–.335, principally 1910.333). 1910.147 is the machine-LOTO regime (chillers, pumps, CRAH fans). A badge opens the room; it is not isolation",
+      "Convert the missing isolation into an invented outage percentage so the packet can be scored",
+      "Send the crew to an EPI / certification class; a credential hour-count substitutes for naming the regime"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "First teach, Module 13: electrical-hazard exposure on UPS and switchgear is Subpart S / 1910.333. 1910.147 governs unexpected energisation of machines. A 1910.147-only programme is mis-scoped. A badge is access control, not LOTO. Module 15 owns the isolation procedure. No invented outage percent. No EPI substitute.",
+    "id": "m13-q217",
+    "kind": "single-select",
+    "module": 13,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A vendor badges into grey space to isolate a UPS module. Their briefing cites 29 CFR 1910.147 as the whole energy-control programme and treats the badge as the lock. The taught reading is:",
+    "tags": [],
+    "topic_ids": [
+      "m13-safety-components"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Enter: the badge is the authorization, and a CDCP learner computes a new cal/cm² from the nameplate kA",
+      "Stay outside the published arc-flash boundary. The number is licensed-engineer work (NFPA 70E named, not calculated). A badge opens the room; it does not authorize crossing the boundary. Deenergize-first under 1910.333 remains the primary control",
+      "Invent a default distance or cal/cm² because NFPA 70E is paywalled",
+      "Treat the boundary as a security fence the guard force owns, so cameras substitute for PPE"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "Arc-flash boundary is a conceptual control: obey the published label. No incident-energy calc at CDCP depth. No invented distance or cal/cm². A badge is not energized-work authorization.",
+    "id": "m13-q218",
+    "kind": "single-select",
+    "module": 13,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A technician with a valid grey-space badge walks up to an open switchgear cubicle. The equipment label publishes an arc-flash boundary. They have no electrical qualification and no incident-energy PPE. The taught reading is:",
+    "tags": [],
+    "topic_ids": [
       "m13-safety-components"
     ]
   },
@@ -20267,6 +20342,102 @@
     "tags": [],
     "topic_ids": [
       "m15-maintenance-sla"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Lockout device application — the padlock is on the HMI door rather than the panel door, so a second signature is required",
+      "Isolation — a control-circuit device is not an energy isolating device, so nothing physically preventing energy transmission was operated",
+      "Nothing is missing — the STOPPED display confirms the fan is not turning, so the equipment is safely deenergized for work",
+      "Nothing is missing for mechanical work — the sequence would only fail if the CRAH were fed from a busway tap rather than a local panelboard"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "1910.147(b) defines an energy isolating device as a mechanical device that physically prevents transmission or release of energy — a breaker, disconnect switch, line valve, block — and states plainly that push buttons, selector switches and other control-circuit type devices are NOT energy isolating devices. 1910.333(b)(2)(ii)(B) reinforces it: control-circuit devices such as push buttons, selector switches and interlocks may not be used as the sole means for deenergizing, and interlocks may not substitute for lockout and tagging. The HMI reports the control state, not the energy state — the supply conductors remain connected. The (d)(1)-(6) sequence therefore stalls at isolation, before lockout application, stored-energy release, and verification. Locking a control enclosure locks the control. The upstream distribution type does not change the definition.",
+    "id": "m15-q228",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A CRAH is to be worked on. The technician selects the unit's HMI \"maintenance mode\", which opens the fan contactor and shows STOPPED, padlocks the HMI enclosure, and signs the permit. Which step of the energy-control procedure has not actually been performed?",
+    "tags": [],
+    "topic_ids": [
+      "m15-ops-security"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Orderly transfer of the lockout device to the oncoming technician, so the isolation is never left unheld at any point",
+      "Removal of the off-going lock at end of shift and application of a fresh lock when the oncoming technician takes over",
+      "Reassignment of the permit to the oncoming shift supervisor, whose signature carries the isolation until the crew returns",
+      "A tag on the device naming the off-going technician and a contact number, since a tag documents isolation when no one is on site"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "1910.147(f)(4) requires specific procedures for shift or personnel changes to ensure continuity of lockout or tagout protection, including orderly transfer of the devices between off-going and oncoming employees. Option B is the trap: removing the lock first opens an interval in which an isolated device is held by nobody, which is precisely the gap the paragraph exists to close. A signature (C) and a tag (D) are records, not devices holding an isolation. Two further requirements bear on this job: 1910.147(f)(2) requires the on-site employer and the outside (vendor) employer to inform each other of their respective energy-control procedures, so a contractor crew does not import unread practice; and 1910.147(d)(5)(ii) requires verification of isolation to continue where stored energy can reaccumulate to a hazardous level, which a pump loop with a head of water can.",
+    "id": "m15-q229",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A vendor crew has a chilled-water pump locked out and the job will run past shift change. The off-going technician's personal lock is the only lock on the isolating device. What must the energy-control procedure require at the handover?",
+    "tags": [],
+    "topic_ids": [
+      "m15-ops-security"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "The escort countersigns the visitor log on leaving, which closes the work and releases the plant back to operations",
+      "The permit originator declares the equipment ready for normal use, so return to service is authorised by the permit",
+      "The contractor's own supervisor signs the job sheet, since the contractor performed the work and is closest to its condition",
+      "The shift engineer gives a verbal all-clear on the bridge once the contractor confirms the actuator is operating correctly"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "HSE's permits-to-work guidance states that before equipment or machinery is put back into service, it will require a declaration from the permit originator that it is ready for normal use. That is the hand-back step, and it is a property of the permit, not of the work being finished: 'the job is done' and 'the plant may be returned to service' are two different authorisations. An escort signature (A) records site access, not plant condition — an escort never replaces a permit. A contractor sign-off (C) is the party carrying out the work declaring their own completion, which is not the originator's declaration. A verbal all-clear (D) leaves no documented declaration at all, and the permit is a documented procedure by definition.",
+    "id": "m15-q230",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A contractor has finished replacing a valve actuator on a chilled-water branch. The work is done, the area is tidy and the escort is ready to sign the visitor log. Under a permit-to-work system, what has to happen before that branch is returned to normal service?",
+    "tags": [],
+    "topic_ids": [
+      "m15-ops-security"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "A declaration from those involved in the handover, so the permit carries the change of authorising and working parties",
+      "A verbal briefing at the shift meeting covering every open job, which is what the operations handover log exists to capture",
+      "Re-issue of a fresh permit to the oncoming parties, because the original permit lapses with the shift that raised it",
+      "An extension signed by the oncoming supervisor, since the work is unchanged and only the time window needs to move"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "HSE's permits-to-work guidance states that the permit requires declarations from the people authorising the work and the people carrying it out, and that where necessary it requires a declaration from those involved in shift handover procedures or extensions to the work. So the handover is recorded on the permit, by declaration, from both sides — the permit is the artefact that spans the boundary. A verbal briefing (B) is an operations practice and leaves the permit unchanged; the general handover log is not the permit. Re-issuing a fresh permit (C) treats the permit as expiring with the shift, which the guidance does not require and which would break continuity of the precautions. An extension (D) is a real instrument in the same clause, but it addresses the time window, not the change of parties — here the people are changing, not merely the duration. Note the scope: this clause covers a permit that spans a shift. It does not certify a general shift-handover programme.",
+    "id": "m15-q231",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A live permit for work inside a switchroom will still be open when the shift changes at 19:00. Both the issuing authority and the working party will be relieved by their oncoming counterparts. What does the permit system require at that boundary?",
+    "tags": [],
+    "topic_ids": [
+      "m15-ops-security"
     ]
   },
   {

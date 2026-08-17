@@ -1,6 +1,6 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "a284d15360f59ab051bf5f18a792eefa11917d3dd8c07400dded56a65ca9ecd4",
+  "bank_hash": "e823921438dbc65ebb15a6a631270d745d9494f5ff25907f86265644b5595690",
   "exam_id": "mock40",
   "items": [
     {
@@ -25,23 +25,23 @@
     },
     {
       "choices": [
-        "Approve: sealed-room gas dump plus a fire percent is the 2026 playbook",
-        "Convert the packet into the Module 06 interconnect oral so the fire question goes away",
-        "Invent an agent mass and a travel-distance number to sound precise",
-        "Reject the packet: chemistry changes the playbook — indoor room is off-gas / deflagration (detect gas, explosion control, ask what the EOP says); yard is setbacks and the next enclosure; NFPA 855 is installation (confirm adopted edition); UL 9540A is test data, not a listing; LSFT is system-level evidence, not a number from memory; water-on-Li-ion is controversy, not always-water law; interconnect stays in Module 06; EOP craft is Module 15; do not invent a fire percent or an agent mass"
+        "Signage cools hot aisles",
+        "Signs replace detection",
+        "People must evacuate and responders must understand system status under stress",
+        "Only exterior monument signs matter"
       ],
-      "id": "m12-q226",
-      "stem": "Reviewer is handed a Li-ion fire packet: “Treat the UPS battery room like white space — dump clean agent, keep the room sealed, stay and watch; 9540A is the product listing; 855 is automatically the law; BESS yard is extra UPS batteries on the same DC bus; cite a fire percent so the AHJ will sign.” You should:"
+      "id": "m12-q221",
+      "stem": "Fire safety signage and egress paths matter because:"
     },
     {
       "choices": [
-        "All racks exceed 10 kW",
-        "Sustained outage would cause severe business, legal, or safety impact",
-        "The building has a raised floor",
-        "PUE is below 1.4"
+        "Customer rents substantial private space (e.g., suite/hall) while the landlord provides shell and shared plant",
+        "Customer must use only provider-managed hypervisors",
+        "Identical to public cloud IaaS billing by the second",
+        "A model that forbids dual power cords"
       ],
-      "id": "mock40-q01",
-      "stem": "A payment processor defines a site as mission-critical mainly because:"
+      "id": "m01-q043",
+      "stem": "Wholesale colocation is most accurately characterized as:"
     },
     {
       "choices": [
@@ -75,33 +75,33 @@
     },
     {
       "choices": [
-        "All rooms must use identical agents always",
-        "IT rooms never need any detection",
-        "Sprinklers set humidity setpoints",
-        "Risk profiles and water sensitivity differ by space—design is space-specific under AHJ and standards"
+        "Only fiber polarity errors",
+        "Only low humidity always",
+        "Only empty cable trays",
+        "Overloaded connections, failed components, and poor workmanship creating ignition sources"
       ],
-      "id": "m12-q214",
-      "stem": "Wet-pipe sprinklers in some support areas may be acceptable while white space uses different protection because:"
+      "id": "m12-q210",
+      "stem": "Common electrical causes of data centre fires include:"
     },
     {
       "choices": [
-        "A high-priority alarm so it is never missed, and more points always mean better monitoring",
-        "Evidence the floor is healthy whenever the point stays silent — absence of alarm is health",
-        "A status indicator, not an alarm. HSE: process status indicators should not be designated as alarms; delete or downgrade, do not acknowledge forever. Point count and operator-actionable alarms per hour move in opposite directions",
-        "A reason to raise the integrator’s invoice until every status bit is an alarm"
+        "How long repair takes after a failure",
+        "A contractual penalty fee only",
+        "A reliability metric reflecting average operating time between failures for a repairable item population (conceptual)",
+        "The same as SLA credits always"
       ],
-      "id": "m15-q224",
-      "stem": "A BMS/DCIM point with no defined operator response, and a procurement that prices the job by monitored-point count, should be read as:"
+      "id": "bank-m15-q143",
+      "stem": "MTBF (Mean Time Between Failures) is best described as:"
     },
     {
       "choices": [
-        "N+1 on the plaque means the window is free — redundancy removes the need for a freeze",
-        "Temporary N-0: concurrent maintenance on the spare while the primary is already hurt; change freezes exist to prevent this (path-trace depth is Module 06)",
-        "This is a cooling cascade, so start at the chiller",
-        "Dual server PSUs make the window N-0-proof"
+        "Misaligned capacity, change windows, and risk decisions between IT and operations",
+        "Clearer SLA ownership between IT and facilities",
+        "Automatic compliance with every international standard",
+        "Elimination of the need for a recovery strategy"
       ],
-      "id": "m01-q215",
-      "stem": "Path A is already degraded. A tech opens Path B for “redundant” work in the same window. The mission-level diagnosis is:"
+      "id": "m01-q041",
+      "stem": "From a business-organization view, treating the data centre only as a facilities silo most often leads to:"
     },
     {
       "choices": [
@@ -125,13 +125,13 @@
     },
     {
       "choices": [
-        "Does not open provider-critical plant or other tenants’ cages under shared responsibility",
-        "Always opens the provider UPS room and all neighbor cages",
-        "Disables all cameras by design",
-        "Grants roof hatch master keys automatically"
+        "Access lists never go stale",
+        "Contractors never leave projects",
+        "Role changes and terminations leave residual access if never recertified",
+        "Reviews only matter for software admin rights, never doors"
       ],
-      "id": "bank-m13-q097",
-      "stem": "Colo multi-tenant zoning typically means a customer badge may open their cage but:"
+      "id": "m13-q215",
+      "stem": "Periodic access rights reviews are important because:"
     },
     {
       "choices": [
@@ -155,13 +155,13 @@
     },
     {
       "choices": [
-        "MTBF promises zero failures in that period",
-        "They are statistical reliability/maintainability concepts—not guarantees for a single asset this week",
-        "MTTR is unrelated to spare parts and procedures",
-        "Only software uses these terms"
+        "Incidents wait politely until morning always",
+        "Monitoring replaces people entirely",
+        "Clear ownership reduces delayed response when multi-system failures occur",
+        "SLAs forbid human contacts"
       ],
-      "id": "m15-q202",
-      "stem": "MTBF and MTTR are most useful when teams remember that:"
+      "id": "bank-m15-q151",
+      "stem": "Documenting who is on-call and how to escalate is operationally important because:"
     },
     {
       "choices": [
@@ -175,13 +175,13 @@
     },
     {
       "choices": [
-        "Misaligned capacity, change windows, and risk decisions between IT and operations",
-        "Clearer SLA ownership between IT and facilities",
-        "Automatic compliance with every international standard",
-        "Elimination of the need for a recovery strategy"
+        "IT depends on concurrent power, cooling, connectivity, and life-safety support systems",
+        "Software never fails",
+        "Racks do not need grounding",
+        "Cabling is optional in modern designs"
       ],
-      "id": "m01-q041",
-      "stem": "From a business-organization view, treating the data centre only as a facilities silo most often leads to:"
+      "id": "m01-q052",
+      "stem": "The “elements of a data centre” concept emphasizes that IT equipment alone is insufficient because:"
     },
     {
       "choices": [
@@ -225,13 +225,13 @@
     },
     {
       "choices": [
-        "1910.147 already covers every electric-utilization installation, so a second citation is decoration",
-        "1910.147(a)(1)(ii)(D) excludes electrical-hazard exposure on electric-utilization installations and points to Subpart S (1910.331–.335, principally 1910.333). Putting a UPS into maintenance bypass from its HMI is not isolation — physical disconnect, lock, stored energy released, absence of voltage verified including backfeed",
-        "The only applicable rule is the utility’s own tariff, because the campus takes a medium-voltage feed",
-        "Subpart S applies only to the utility’s exclusive-control substation — that regime is 1910.269, not this work"
+        "Impair cooling airflow, contaminate equipment, and increase fire fuel/ignition risk",
+        "Only improve aesthetics with no operational impact",
+        "Raise copper Category ratings",
+        "Eliminate the need for leak detection"
       ],
-      "id": "m15-q223",
-      "stem": "An energy-control programme that cites only 29 CFR 1910.147 for work on UPS, switchgear, PDU, and busway is mis-scoped because:"
+      "id": "bank-m15-q141",
+      "stem": "White-space cleaning programs matter because dust and debris can:"
     },
     {
       "choices": [
@@ -305,13 +305,13 @@
     },
     {
       "choices": [
-        "Only network QoS classes",
-        "A classic physical-security control sequence",
-        "UPS battery chemistries",
-        "ASHRAE thermal envelopes"
+        "Slow only visitors but never staff",
+        "Eliminate the need for camera coverage at all portals",
+        "Replace visitor escort policies always",
+        "Reduce risk from lost/stolen single-factor credentials"
       ],
-      "id": "bank-m13-q098",
-      "stem": "Deterrence, delay, detection, response, recovery describes:"
+      "id": "m13-q208",
+      "stem": "Two-factor physical access (e.g., badge plus PIN/bio) is used to:"
     },
     {
       "choices": [
@@ -385,13 +385,13 @@
     },
     {
       "choices": [
-        "Allow both through to save time because the primary vendor is known and the work is urgent",
-        "Disable the mantrap interlock for the rest of the outage window",
-        "Stop the tailgate, challenge/verify identity for the second person, and only grant access per policy (escort or reject) — urgency does not authorize piggybacking",
-        "Confiscate tools and leave both vendors unsupervised in grey space while calling the NOC later"
+        "Enter: the badge is the authorization, and a CDCP learner computes a new cal/cm² from the nameplate kA",
+        "Stay outside the published arc-flash boundary. The number is licensed-engineer work (NFPA 70E named, not calculated). A badge opens the room; it does not authorize crossing the boundary. Deenergize-first under 1910.333 remains the primary control",
+        "Invent a default distance or cal/cm² because NFPA 70E is paywalled",
+        "Treat the boundary as a security fence the guard force owns, so cameras substitute for PPE"
       ],
-      "id": "m13-q300",
-      "stem": "Runbook vignette: A vendor arrives for emergency breaker work. Their escort badge is valid, but a second person without credentials tries to tailgate through the mantrap behind them carrying tools. Security cameras are recording. What should the escort/runbook response be?"
+      "id": "m13-q218",
+      "stem": "A technician with a valid grey-space badge walks up to an open switchgear cubicle. The equipment label publishes an arc-flash boundary. They have no electrical qualification and no incident-energy PPE. The taught reading is:"
     },
     {
       "choices": [

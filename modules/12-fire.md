@@ -17,7 +17,7 @@ By the end of this module you can:
 5. Describe **signage**, egress, abort switches, and HVAC/fire **interlocks** as life-safety interfaces—not optional niceties.
 6. State the **regulatory reality**: the Authority Having Jurisdiction (AHJ) and licensed fire professionals own design/discharge decisions; your job is literate collaboration.
 7. Apply **best practices** that balance asset protection, human life, and continuous availability.
-8. Name **NFPA 855** and **UL 9540A**, and explain why a Li-ion UPS room is not the same fire playbook as a BESS yard (off-gas, deflagration, water-on-Li-ion) — without inventing agent-mass or fire percentages. Electrical / interconnection stays in Module 06; this file owns the fire playbook.
+8. Name **NFPA 855**, **UL 9540** (the listing), and **UL 9540A** (the test method), and explain why a Li-ion UPS room is not the same fire playbook as a BESS yard (off-gas, deflagration, water-on-Li-ion) — without inventing agent-mass or fire percentages. Electrical / interconnection stays in Module 06; this file owns the fire playbook.
 
 ---
 
@@ -44,7 +44,7 @@ For a TPM or ops interview: be ready to walk through “smoke detected in white 
 | Cause category | Examples | Notes for IT people |
 |---|---|---|
 | **Electrical** | Overheated PDUs, loose lugs, overloaded circuits, failing PSUs, arc faults | Still a leading ignition class; thermal imaging and torque discipline matter |
-| **Batteries / energy storage** | VRLA thermal runaway, lithium-ion battery rooms/cabinets, UPS battery strings | Battery rooms often get dedicated detection and different suppression strategies. Li-ion playbook (**NFPA 855** / **UL 9540A**) is below; electrical / interconnection is Module 06 |
+| **Batteries / energy storage** | VRLA thermal runaway, lithium-ion battery rooms/cabinets, UPS battery strings | Battery rooms often get dedicated detection and different suppression strategies. Li-ion playbook (**NFPA 855** / **UL 9540** / **UL 9540A**) is below; electrical / interconnection is Module 06 |
 | **Hot work** | Welding, cutting, soldering during fit-out or cable tray mods | Permit-to-work culture; fire watch; temporary detection impairments |
 | **Combustibles left in white space** | Cardboard, wooden pallets, foam packaging, paper stores | Staging discipline is a fire control, not just “tidy ops” |
 | **Cooling / plant spaces** | Oil in chillers, filter media, diesel generator rooms, fuel systems | Generator yards and day tanks are high-consequence zones |
@@ -176,7 +176,7 @@ Exact requirements are **jurisdiction-specific**. Speak in terms of **families o
 |---|---|---|
 | **Building / fire code** | International Building Code (IBC), International Fire Code (IFC), local amendments | Occupancy, construction type, means of egress |
 | **Installation standards** | NFPA 13 (sprinklers), NFPA 70 (NEC), NFPA 72 (fire alarm), NFPA 75 (IT equipment fire protection guidance), NFPA 76 (telecom), NFPA 2001 (clean agent), NFPA 10 (portables) — **confirm adopted edition**. Hold-time, portable placement, and alarm interfaces depend on the edition the AHJ adopted, not the latest catalog year. | How systems are designed/installed/maintained (US-centric names—EU uses EN standards and national codes) |
-| **Energy storage (Li-ion / BESS)** | **NFPA 855** (stationary ESS *installation*), **UL 9540A** (thermal-runaway fire-propagation *test method*, not a product listing) — **confirm adopted edition** | How Li-ion UPS rooms and BESS yards are sited, separated, detected, and suppressed. 2026 conversation includes large-scale fire test (**LSFT**). |
+| **Energy storage (Li-ion / BESS)** | **NFPA 855** (stationary ESS *installation*), **UL 9540** (product-safety standard that yields a *Listed* ESS), **UL 9540A** (thermal-runaway fire-propagation *test method*, not a listing) — **confirm adopted edition** | How Li-ion UPS rooms and BESS yards are sited, separated, detected, and suppressed. 2026 conversation includes large-scale fire test (**LSFT**). 9540A data is not a substitute for a 9540 listing. |
 | **AHJ** | Local fire marshal / building department | Final say on acceptance, variances, inspections |
 | **Insurer / owner standards** | FM Global data sheets, corporate design standards | Often stricter than minimum code |
 | **Data-centre standards landscape** | ANSI/TIA-942 (references fire among many facility topics), ISO/IEC data-centre facilities context, EN 50600 series in Europe | Classification and best-practice frameworks—not a replacement for the fire code |
@@ -185,7 +185,7 @@ Exact requirements are **jurisdiction-specific**. Speak in terms of **families o
 
 **Your professional boundary:** “We need pre-action over white space, ASD sampling underfloor and ceiling, double-interlock preference, and HVAC interlock reviewed with the fire engineer and AHJ”—not “I’ll calculate the agent mass tonight from a blog.”
 
-### Li-ion / BESS fire playbook (NFPA 855, UL 9540A)
+### Li-ion / BESS fire playbook (NFPA 855, UL 9540, UL 9540A)
 
 The classic white-space chain above (ASD → double-knock → pre-action or clean-agent in a sealed box) is still the IT-hall playbook. **Battery chemistry changes that playbook.** Li-ion thermal runaway is **not a normal Class A trash-can fire.** Do not invent a fire percentage, an agent mass, or a travel-distance number to sound precise.
 
@@ -201,7 +201,8 @@ The classic white-space chain above (ASD → double-knock → pre-action or clea
 | Name | What it is | What it is not |
 |---|---|---|
 | **NFPA 855** | *Standard for the Installation of Stationary Energy Storage Systems.* The installation standard the AHJ will ask about for a Li-ion UPS room or a BESS yard. The **2026 edition** is the current conversation (LSFT / Annex G guidance). | Not a product listing. Not automatically the law — **confirm adopted edition.** Many jurisdictions still sit on an older 855 or on IFC language that points at it. |
-| **UL 9540A** | *Test Method for Evaluating Thermal Runaway Fire Propagation in Battery Energy Storage Systems.* Cell / module / unit / installation data the AHJ and insurer use for spacing, ventilation, suppression, and explosion control. **6th edition (2026)** is the current test-method conversation. | **Not a certification.** UL 9540 is the system listing/certification path. Saying “we have 9540A” means *we have test data*, not “the product is listed.” |
+| **UL 9540** | The product-safety standard whose result is a *Listed* energy-storage system. 9540 points at 9540A, and portions of the listing path need acceptable 9540A data. | **Not UL 9540A.** Acceptable 9540A results do not automatically mean the ESS is UL 9540 Listed. Not the installation standard — that is NFPA 855. |
+| **UL 9540A** | *Test Method for Evaluating Thermal Runaway Fire Propagation in Battery Energy Storage Systems.* Cell / module / unit / installation data the AHJ and insurer use for spacing, ventilation, suppression, and explosion control. **6th edition (2026)** is the current test-method conversation. | **Not a certification and not a listing.** Saying “we have 9540A” means *we have test data*. UL 9540 is the listing path; a passing 9540A packet does not establish that listing. |
 | **LSFT** (large-scale fire test) | 2026 855 conversation: force a **developed fire** (ignite vented battery gases / open-flame condition) in a representative enclosure and see whether the next unit goes into thermal runaway. System-level evidence, not cell-level inference. | Not a substitute for the listing. Not a number you quote from memory. The registered design professional and the AHJ read the report. |
 
 Speak the names. Do not recite unpublished clause numbers.
@@ -357,7 +358,7 @@ No invented “exam formula” for agent pounds per cubic foot—those come from
 **A:** For energized electrical equipment (North American Class C context), use agents rated safe for electrical use (e.g. CO₂ or listed clean-agent portables)—not water and preferably not residue-heavy dry chemical on IT gear. Best practice: de-energize if safe, fight only incipient fires, and evacuate if the fire grows. In EN regions, there is no separate electrical class—select electrically suitable agents and isolate power when possible.
 
 **Q6. 60 seconds — Li-ion UPS room vs BESS yard. What do you say?**  
-**A:** Not a Class A trash-can fire — **chemistry changes the playbook.** Indoor **UPS / battery room** is a people-and-box problem: cells **off-gas** flammable vapor that can **deflagrate** in a sealed room, so you care about early off-gas detection, explosion control, HVAC interlock, and egress. The old clean-agent sealed-room dump may not stop thermal runaway. Outdoor **BESS yard** is an exposure-and-setback problem: stop one container from taking the next. **NFPA 855** is the installation standard; **UL 9540A** is the thermal-runaway fire-propagation *test method*, not a product listing; the 2026 conversation adds **LSFT** so the AHJ has system-level data. Water-on-Li-ion is a live controversy — water cools, gas may not stop a self-heating cell — but do not invent a fire percent or an agent mass. Ask what **adopted edition** of 855 the AHJ uses and **what the site EOP actually says** (evacuate, isolate, water/no-water, who talks to FD). **Module 15** owns EOP craft; **Module 06** owns electrical / interconnection (BESS ≠ UPS batteries).
+**A:** Not a Class A trash-can fire — **chemistry changes the playbook.** Indoor **UPS / battery room** is a people-and-box problem: cells **off-gas** flammable vapor that can **deflagrate** in a sealed room, so you care about early off-gas detection, explosion control, HVAC interlock, and egress. The old clean-agent sealed-room dump may not stop thermal runaway. Outdoor **BESS yard** is an exposure-and-setback problem: stop one container from taking the next. **NFPA 855** is the installation standard; **UL 9540** is the product-safety standard that yields a Listed ESS; **UL 9540A** is the thermal-runaway fire-propagation *test method* (test data, not a listing — passing 9540A does not automatically mean 9540 Listed); the 2026 conversation adds **LSFT** so the AHJ has system-level data. Water-on-Li-ion is a live controversy — water cools, gas may not stop a self-heating cell — but do not invent a fire percent or an agent mass. Ask what **adopted edition** of 855 the AHJ uses and **what the site EOP actually says** (evacuate, isolate, water/no-water, who talks to FD). **Module 15** owns EOP craft; **Module 06** owns electrical / interconnection (BESS ≠ UPS batteries).
 
 ---
 
@@ -436,7 +437,8 @@ Public standards and primers (names and free educational entry points—not payw
 | Resource | What to use it for |
 |---|---|
 | **NFPA** public pages / standards catalog (NFPA 10, 13, 72, 75, 76, 2001, **855**) | Official scope statements and purchase/access options; know the *names* even when full text is paid. **Confirm adopted edition.** |
-| **UL 9540A** public overviews (UL Solutions / catalog) | Thermal-runaway fire-propagation *test method* — data for AHJ/insurer, **not** a product listing (that is closer to UL 9540) |
+| **UL 9540** public overviews (UL Solutions / catalog) | Product-safety standard that yields a *Listed* ESS — **not** the 9540A test method |
+| **UL 9540A** public overviews (UL Solutions / catalog) | Thermal-runaway fire-propagation *test method* — data for AHJ/insurer, **not** a product listing (that listing path is UL 9540) |
 | **International Code Council (ICC)** — IBC / IFC overviews | How building and fire codes frame occupancy and protection |
 | **SFPE** (Society of Fire Protection Engineers) public education articles | Conceptual fire dynamics and protection strategies |
 | **Manufacturer application guides** (open white papers from major ASD, clean-agent, and pre-action vendors) | How systems are applied in IT rooms—treat as vendor-informed, not code |

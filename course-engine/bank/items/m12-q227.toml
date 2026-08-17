@@ -1,0 +1,27 @@
+# Original CDCP educational MCQ — ebrr.35 leftover: UL 9540 listing vs 9540A test method
+# syllabus_heading = "1.12 Fire Protection"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+# source_ids = [
+#   "src-ul-9540a-test-method",  # https://www.ul.com/services/ul-9540a-test-method
+#   "src-ul-9540a-nfpa-855",     # https://www.ul.com/thecodeauthority/knowledge/understanding-UL-9540A-NFPA-855
+#   "src-seac-ul-9540-bulletin", # https://sustainableenergyaction.org/resources/informational-bulletin-on-the-ul-9540-safety-standard-and-the-ul-9540a-test-method-2/
+# ]
+# claim = "UL 9540A results are test data and do not establish a UL 9540 listing."
+id = "m12-q227"
+kind = "single-select"
+module = 12
+stem = "A vendor packet for a Li-ion UPS cabinet says “UL 9540A results attached — the ESS is therefore Listed.” The apply move is:"
+choices = [
+  "Accept: UL 9540A results are the listing; UL 9540 is only the catalog name for the same test method",
+  "Refuse: UL 9540A results are test data and do not establish a listing. UL 9540 is the product-safety standard that yields a Listed ESS. Acceptable 9540A data can be required for portions of 9540 and still leave the ESS unlisted. NFPA 855 is the installation standard (confirm adopted edition), not a substitute listing",
+  "File the 9540A report as the adopted edition of NFPA 855 — the installation standard is then the listing",
+  "Accept: because UL 9540 references UL 9540A, acceptable 9540A results automatically mean the ESS is UL 9540 Listed",
+]
+correct = "B"
+explanation = "9540A is a test method: the packet is data, not a listing. UL 9540 is the listing path. 9540 pointing at 9540A does not make a 9540A report a listing. NFPA 855 is installation (confirm adopted edition), not the product listing. No invented fire percent."
+topic_ids = ["m12-standards", "m12-regulatory"]
+objective_ids = ["obj-m12-liion-855"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -111,14 +111,14 @@
       "content_path": "content/modules/09-cooling.md",
       "empty": false,
       "epi_heading": "Cooling Infrastructure",
-      "estimate_minutes": 35,
+      "estimate_minutes": 36,
       "exam_weight_unknown": false,
       "href": "learn/09-cooling.html",
       "id": "09-cooling",
       "order": 9,
       "primary_notes": "../modules/09-cooling.md",
       "source_path": "../modules/09-cooling.md",
-      "word_count": 5182
+      "word_count": 5376
     },
     {
       "content_path": "content/modules/10-water.md",
@@ -150,27 +150,27 @@
       "content_path": "content/modules/12-fire.md",
       "empty": false,
       "epi_heading": "Fire Protection",
-      "estimate_minutes": 35,
+      "estimate_minutes": 36,
       "exam_weight_unknown": false,
       "href": "learn/12-fire.html",
       "id": "12-fire",
       "order": 12,
       "primary_notes": "../modules/12-fire.md",
       "source_path": "../modules/12-fire.md",
-      "word_count": 5242
+      "word_count": 5371
     },
     {
       "content_path": "content/modules/13-security.md",
       "empty": false,
       "epi_heading": "Physical Security and Safety",
-      "estimate_minutes": 28,
+      "estimate_minutes": 32,
       "exam_weight_unknown": false,
       "href": "learn/13-security.html",
       "id": "13-security",
       "order": 13,
       "primary_notes": "../modules/13-security.md",
       "source_path": "../modules/13-security.md",
-      "word_count": 4118
+      "word_count": 4810
     },
     {
       "content_path": "content/modules/14-auxiliary.md",

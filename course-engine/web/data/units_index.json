@@ -1,6 +1,6 @@
 {
-  "approved_item_count": 836,
-  "bank_item_count": 861,
+  "approved_item_count": 843,
+  "bank_item_count": 868,
   "by_module": {
     "01-mission-critical": [
       {
@@ -1925,7 +1925,7 @@
           "m09-q121",
           "m09-q125"
         ],
-        "estimate_minutes": 17,
+        "estimate_minutes": 18,
         "heading_id": "core-concepts",
         "id": "09-cooling__core-concepts",
         "module_id": "09-cooling",
@@ -1944,7 +1944,7 @@
           "m09-liquid",
           "m09-ster"
         ],
-        "word_count": 2534
+        "word_count": 2698
       },
       {
         "check_count": 3,
@@ -2112,7 +2112,7 @@
           "m09-liquid",
           "m09-ster"
         ],
-        "word_count": 330
+        "word_count": 360
       }
     ],
     "10-water": [
@@ -2561,7 +2561,7 @@
           "m12-signage",
           "m12-regulatory"
         ],
-        "word_count": 184
+        "word_count": 191
       },
       {
         "check_count": 3,
@@ -2599,7 +2599,7 @@
           "bank-m12-q071",
           "m12-q205"
         ],
-        "estimate_minutes": 19,
+        "estimate_minutes": 20,
         "heading_id": "core-concepts",
         "id": "12-fire__core-concepts",
         "module_id": "12-fire",
@@ -2619,7 +2619,7 @@
           "m12-signage",
           "m12-regulatory"
         ],
-        "word_count": 2848
+        "word_count": 2929
       },
       {
         "check_count": 3,
@@ -2735,7 +2735,7 @@
           "m12-signage",
           "m12-regulatory"
         ],
-        "word_count": 544
+        "word_count": 565
       },
       {
         "check_count": 3,
@@ -2793,7 +2793,7 @@
           "m12-signage",
           "m12-regulatory"
         ],
-        "word_count": 310
+        "word_count": 330
       }
     ],
     "13-security": [
@@ -2815,7 +2815,7 @@
           "m13-security-components",
           "m13-safety-components"
         ],
-        "word_count": 125
+        "word_count": 143
       },
       {
         "check_count": 3,
@@ -2844,7 +2844,7 @@
           "bank-m13-q100",
           "bank-m13-q101"
         ],
-        "estimate_minutes": 13,
+        "estimate_minutes": 15,
         "heading_id": "core-concepts",
         "id": "13-security__core-concepts",
         "module_id": "13-security",
@@ -2855,7 +2855,7 @@
           "m13-security-components",
           "m13-safety-components"
         ],
-        "word_count": 1904
+        "word_count": 2182
       },
       {
         "check_count": 3,
@@ -2935,7 +2935,7 @@
           "m13-security-components",
           "m13-safety-components"
         ],
-        "word_count": 404
+        "word_count": 510
       },
       {
         "check_count": 3,
@@ -2944,7 +2944,7 @@
           "bank-m13-q096",
           "bank-m13-q095"
         ],
-        "estimate_minutes": 3,
+        "estimate_minutes": 4,
         "heading_id": "self-check-quiz",
         "id": "13-security__self-check-quiz",
         "module_id": "13-security",
@@ -2955,7 +2955,7 @@
           "m13-security-components",
           "m13-safety-components"
         ],
-        "word_count": 348
+        "word_count": 545
       },
       {
         "check_count": 3,
@@ -2975,7 +2975,7 @@
           "m13-security-components",
           "m13-safety-components"
         ],
-        "word_count": 360
+        "word_count": 453
       }
     ],
     "14-auxiliary": [
@@ -3275,9 +3275,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m15-q228",
           "bank-m15-q134",
-          "bank-m15-q137",
-          "bank-m15-q141"
+          "bank-m15-q137"
         ],
         "estimate_minutes": 3,
         "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
@@ -3299,9 +3299,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "bank-m15-q135",
           "bank-m15-q137",
-          "bank-m15-q141",
-          "bank-m15-q144"
+          "bank-m15-q141"
         ],
         "estimate_minutes": 20,
         "heading_id": "core-concepts",
@@ -3323,7 +3323,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "bank-m15-q140",
+          "bank-m15-q138",
           "bank-m15-q141",
           "bank-m15-q144"
         ],
@@ -3347,9 +3347,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "bank-m15-q141",
           "bank-m15-q144",
-          "bank-m15-q146",
-          "bank-m15-q149"
+          "bank-m15-q146"
         ],
         "estimate_minutes": 5,
         "heading_id": "self-check",
@@ -3371,9 +3371,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "bank-m15-q147",
-          "bank-m15-q149",
-          "bank-m15-q151"
+          "bank-m15-q145",
+          "bank-m15-q146",
+          "bank-m15-q149"
         ],
         "estimate_minutes": 3,
         "heading_id": "further-free-resources",
@@ -5306,7 +5306,7 @@
         "m09-q121",
         "m09-q125"
       ],
-      "estimate_minutes": 17,
+      "estimate_minutes": 18,
       "heading_id": "core-concepts",
       "id": "09-cooling__core-concepts",
       "module_id": "09-cooling",
@@ -5325,7 +5325,7 @@
         "m09-liquid",
         "m09-ster"
       ],
-      "word_count": 2534
+      "word_count": 2698
     },
     {
       "check_count": 3,
@@ -5493,7 +5493,7 @@
         "m09-liquid",
         "m09-ster"
       ],
-      "word_count": 330
+      "word_count": 360
     },
     {
       "check_count": 3,
@@ -5936,7 +5936,7 @@
         "m12-signage",
         "m12-regulatory"
       ],
-      "word_count": 184
+      "word_count": 191
     },
     {
       "check_count": 3,
@@ -5974,7 +5974,7 @@
         "bank-m12-q071",
         "m12-q205"
       ],
-      "estimate_minutes": 19,
+      "estimate_minutes": 20,
       "heading_id": "core-concepts",
       "id": "12-fire__core-concepts",
       "module_id": "12-fire",
@@ -5994,7 +5994,7 @@
         "m12-signage",
         "m12-regulatory"
       ],
-      "word_count": 2848
+      "word_count": 2929
     },
     {
       "check_count": 3,
@@ -6110,7 +6110,7 @@
         "m12-signage",
         "m12-regulatory"
       ],
-      "word_count": 544
+      "word_count": 565
     },
     {
       "check_count": 3,
@@ -6168,7 +6168,7 @@
         "m12-signage",
         "m12-regulatory"
       ],
-      "word_count": 310
+      "word_count": 330
     },
     {
       "check_count": 3,
@@ -6188,7 +6188,7 @@
         "m13-security-components",
         "m13-safety-components"
       ],
-      "word_count": 125
+      "word_count": 143
     },
     {
       "check_count": 3,
@@ -6217,7 +6217,7 @@
         "bank-m13-q100",
         "bank-m13-q101"
       ],
-      "estimate_minutes": 13,
+      "estimate_minutes": 15,
       "heading_id": "core-concepts",
       "id": "13-security__core-concepts",
       "module_id": "13-security",
@@ -6228,7 +6228,7 @@
         "m13-security-components",
         "m13-safety-components"
       ],
-      "word_count": 1904
+      "word_count": 2182
     },
     {
       "check_count": 3,
@@ -6308,7 +6308,7 @@
         "m13-security-components",
         "m13-safety-components"
       ],
-      "word_count": 404
+      "word_count": 510
     },
     {
       "check_count": 3,
@@ -6317,7 +6317,7 @@
         "bank-m13-q096",
         "bank-m13-q095"
       ],
-      "estimate_minutes": 3,
+      "estimate_minutes": 4,
       "heading_id": "self-check-quiz",
       "id": "13-security__self-check-quiz",
       "module_id": "13-security",
@@ -6328,7 +6328,7 @@
         "m13-security-components",
         "m13-safety-components"
       ],
-      "word_count": 348
+      "word_count": 545
     },
     {
       "check_count": 3,
@@ -6348,7 +6348,7 @@
         "m13-security-components",
         "m13-safety-components"
       ],
-      "word_count": 360
+      "word_count": 453
     },
     {
       "check_count": 3,
@@ -6644,9 +6644,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m15-q228",
         "bank-m15-q134",
-        "bank-m15-q137",
-        "bank-m15-q141"
+        "bank-m15-q137"
       ],
       "estimate_minutes": 3,
       "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
@@ -6668,9 +6668,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "bank-m15-q135",
         "bank-m15-q137",
-        "bank-m15-q141",
-        "bank-m15-q144"
+        "bank-m15-q141"
       ],
       "estimate_minutes": 20,
       "heading_id": "core-concepts",
@@ -6692,7 +6692,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "bank-m15-q140",
+        "bank-m15-q138",
         "bank-m15-q141",
         "bank-m15-q144"
       ],
@@ -6716,9 +6716,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "bank-m15-q141",
         "bank-m15-q144",
-        "bank-m15-q146",
-        "bank-m15-q149"
+        "bank-m15-q146"
       ],
       "estimate_minutes": 5,
       "heading_id": "self-check",
@@ -6740,9 +6740,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "bank-m15-q147",
-        "bank-m15-q149",
-        "bank-m15-q151"
+        "bank-m15-q145",
+        "bank-m15-q146",
+        "bank-m15-q149"
       ],
       "estimate_minutes": 3,
       "heading_id": "further-free-resources",
