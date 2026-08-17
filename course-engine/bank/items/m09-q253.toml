@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.24 leftover: 40–100 kW plant-dark ride-through is seconds
+id = "m09-q253"
+kind = "single-select"
+module = 9
+stem = "At 80 kW/rack, IT stays on UPS and the liquid/air plant is dark. Thermal ride-through is:"
+choices = [
+  "Seconds; liquid-loop inertia is not CRAH-plenum inertia; do not invent an outage pie",
+  "Minutes, not hours, because the pipes are full of water — same clock as a CRAH plenum",
+  "Hours, because generators-up equals cooling-up",
+  "Unlimited if cooling is recited as 20–40% of site energy",
+]
+correct = "A"
+explanation = "At 40–100 kW, once IT is on UPS and the plant is dark, the clock is seconds. A charged header is not CRAH-plenum mass, and it is not a ride-through plan. No invented cooling-share pie."
+topic_ids = ["m09-liquid", "m09-principles"]
+objective_ids = ["obj-m09-ridethrough-seconds"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

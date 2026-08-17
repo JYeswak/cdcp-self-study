@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.24 leftover: analyze packet that statutes 18–27 °C
+id = "m09-q252"
+kind = "single-select"
+module = 9
+stem = "Reviewer is handed a GPU-hall basis-of-design: “ASHRAE W27, so set the hall to 27 °C; lock recommended inlet to 18–27 °C as statute; cooling is 20–40% of site energy so skip plant selection.” You should:"
+choices = [
+  "Approve: W-class is the air setpoint and 18–27 °C is eternal TC 9.9 law",
+  "Convert W27 into a Module 01 cooling-share pie so the plant question goes away",
+  "Treat W1–W5 as the 2026 names and freeze 20–40% as the energy law",
+  "Reject the packet: W27 is an upper supply-water bound (floor 2 °C), not a hall setpoint; do not quote 18–27 °C as statute — recommended ⊂ allowable, inlet not room, class-dependent; 20–40% is not a law; pick the liquid plant (W17 / W27 vs warmer W32 / W40 / W45 / W+)",
+]
+correct = "D"
+explanation = "Analyze the collapse. W-class is water, not a CRAH setpoint. Air recommended ⊂ allowable and moves with edition and class — 18–27 °C is not statute. DOE/LBNL/Energy Star do not agree on one cooling-energy band. Plant selection is the W-class."
+topic_ids = ["m09-liquid", "m09-ashrae-envelopes"]
+objective_ids = ["obj-m09-w-classes"]
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

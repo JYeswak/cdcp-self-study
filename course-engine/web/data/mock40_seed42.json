@@ -1,6 +1,6 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "a112b086ed631dc71b1705c02d788be4918fc89bff72d41c7e729bfa8889599d",
+  "bank_hash": "0b8fbc100d9450f3295b7a3ebb0fe210dfa2dd86601efca7739c4a8c114960ce",
   "exam_id": "mock40",
   "items": [
     {
@@ -45,23 +45,23 @@
     },
     {
       "choices": [
-        "Only dry-bulb matters ever",
-        "Humidity is unrelated to condensation",
-        "Psychrometrics only apply to generators",
-        "Temperature and moisture interact; control actions affect envelopes and condensation risk together"
+        "Inlet air remaining perfectly uniform forever",
+        "Recirculation driving thermal throttling or equipment stress despite adequate total room capacity",
+        "Complete elimination of sensible heat",
+        "Automatic free cooling in all climates"
       ],
-      "id": "m09-q240",
-      "stem": "Psychrometric awareness helps operators because:"
+      "id": "m09-q153",
+      "stem": "A risk of poor containment with high-density racks is:"
     },
     {
       "choices": [
-        "Only in outdoor weather",
-        "Inside generator day tanks",
-        "Above suspended ceilings dry always",
-        "In dielectric fluid that absorbs heat from components"
+        "There are never leak, water quality, or material compatibility considerations",
+        "Liquid cooling removes all need for electrical safety",
+        "Only copper cabling is affected",
+        "Leak detection, fluid chemistry, isolation, and maintainability of liquid loops near IT"
       ],
-      "id": "m09-q228",
-      "stem": "Immersion cooling places IT hardware where?"
+      "id": "m09-q159",
+      "stem": "A key facility concern when introducing liquid cooling is:"
     },
     {
       "choices": [

@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.24 leftover: 2 °C floor; 2026 names W17…W+
+id = "m09-q251"
+kind = "single-select"
+module = 9
+stem = "A designer wants facility supply below 2 °C “for more margin” on a W32 plant, and wants the class written W4 because that is the old name. The call is:"
+choices = [
+  "Approve: colder than the floor is extra margin, and W1–W5 is 2026 daily language",
+  "Collapse W-class into the air allowable envelope so 2 °C becomes an inlet statute",
+  "Refuse: every W-class shares a 2 °C floor — colder is outside the class, not more margin; daily names are W17 / W27 / W32 / W40 / W45 / W+ (W40 had no old number)",
+  "Recite 20–40% cooling energy as the reason the floor exists",
+]
+correct = "C"
+explanation = "The shared floor is 2 °C. Below that is outside the class (condensation / CDU-approach), not extra margin. 2026 language is W17…W+. W40 filled a gap and has no W1–W5 ancestor."
+topic_ids = ["m09-liquid"]
+objective_ids = ["obj-m09-w-classes"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

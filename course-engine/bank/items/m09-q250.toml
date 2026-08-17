@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.24 leftover: W-class number is upper supply-water
+id = "m09-q250"
+kind = "single-select"
+module = 9
+stem = "A 2026 interviewer asks “what W-class is this plant?” The number in W27 / W40 names:"
+choices = [
+  "The hall dry-bulb setpoint in °C — W27 means set the CRAH to 27 °C",
+  "The upper facility-water supply limit in °C; every class shares a 2 °C floor; W-class is the liquid plant, not a CRAH setpoint — lattice names live in Module 02",
+  "Last decade’s air recommended band recited as an 18–27 °C statute",
+  "The cooling share of site energy, frozen at 20–40%",
+]
+correct = "B"
+explanation = "W-class is plant-selection language. The number is the upper supply-water bound; the shared floor is 2 °C. It is not a hall setpoint, an air envelope, or an energy pie. Module 02 owns the lattice; this module applies it."
+topic_ids = ["m09-liquid"]
+objective_ids = ["obj-m09-w-classes"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
