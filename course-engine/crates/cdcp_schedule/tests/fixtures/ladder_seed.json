@@ -1,0 +1,117 @@
+{
+  "schema": "cdcp_schedule.ladder_seed.v1",
+  "ladder": [1, 3],
+  "day_ms": 86400000,
+  "now_ms": 1700000000000,
+  "cases": [
+    {
+      "id": "new-wrong",
+      "current_interval": 0,
+      "correct": false,
+      "next_interval": 1
+    },
+    {
+      "id": "new-correct",
+      "current_interval": 0,
+      "correct": true,
+      "next_interval": 1
+    },
+    {
+      "id": "step-1-correct",
+      "current_interval": 1,
+      "correct": true,
+      "next_interval": 3
+    },
+    {
+      "id": "cap-correct",
+      "current_interval": 3,
+      "correct": true,
+      "next_interval": 3
+    },
+    {
+      "id": "cap-wrong-reset",
+      "current_interval": 3,
+      "correct": false,
+      "next_interval": 1
+    },
+    {
+      "id": "step-1-wrong",
+      "current_interval": 1,
+      "correct": false,
+      "next_interval": 1
+    },
+    {
+      "id": "negative-current-correct",
+      "current_interval": -5,
+      "correct": true,
+      "next_interval": 1
+    }
+  ],
+  "due": [
+    {
+      "id": "due-zero-is-now",
+      "interval_days": 0,
+      "now_ms": 1700000000000,
+      "due_at_ms": 1700000000000
+    },
+    {
+      "id": "due-1d",
+      "interval_days": 1,
+      "now_ms": 1700000000000,
+      "due_at_ms": 1700086400000
+    },
+    {
+      "id": "due-3d",
+      "interval_days": 3,
+      "now_ms": 1700000000000,
+      "due_at_ms": 1700259200000
+    }
+  ],
+  "mastered": [
+    {
+      "id": "empty-attempts",
+      "attempts": [],
+      "mastered": false
+    },
+    {
+      "id": "single-qualifying",
+      "attempts": [
+        { "ratio_milli": 900, "at_ms": 1700000000000 }
+      ],
+      "mastered": false
+    },
+    {
+      "id": "gap-minus-one",
+      "attempts": [
+        { "ratio_milli": 900, "at_ms": 1700000000000 },
+        { "ratio_milli": 900, "at_ms": 1700086399999 }
+      ],
+      "mastered": false
+    },
+    {
+      "id": "gap-exact",
+      "attempts": [
+        { "ratio_milli": 900, "at_ms": 1700000000000 },
+        { "ratio_milli": 900, "at_ms": 1700086400000 }
+      ],
+      "mastered": true
+    }
+  ],
+  "known_bad": [
+    {
+      "id": "empty-ladder",
+      "steps": [],
+      "error": "EmptyLadder"
+    },
+    {
+      "id": "zero-step-pair",
+      "steps": [0, 3],
+      "error": "ZeroStep"
+    },
+    {
+      "id": "zero-only",
+      "steps": [0],
+      "error": "ZeroStep"
+    }
+  ]
+}

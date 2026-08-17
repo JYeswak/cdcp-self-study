@@ -151,12 +151,17 @@ pub fn next_interval_days_with(
 }
 
 /// Next interval using the compiled-in [`INTERVAL_STEPS`].
+///
+/// Pinned by `tests/fixtures/ladder_seed.json` (`(current, correct) → next`).
 pub fn next_interval_days(current_interval_days: i32, correct: bool) -> u32 {
     next_interval_days_with(&INTERVAL_STEPS, current_interval_days, correct)
         .expect("INTERVAL_STEPS is compile-time validated")
 }
 
-/// `due_at = now + interval_days * DAY_MS`. `interval_days == 0` → `now`.
+/// `due_at = now_ms + interval_days * DAY_MS`. `interval_days == 0` → `now_ms`.
+///
+/// `now_ms` is caller-supplied. This crate does not read the wall clock.
+/// Pinned by `tests/fixtures/ladder_seed.json` (`due` rows).
 pub fn due_at_ms(interval_days: u32, now_ms: i64) -> i64 {
     now_ms.saturating_add(i64::from(interval_days).saturating_mul(DAY_MS))
 }
@@ -249,10 +254,7 @@ mod tests {
             validate_thresholds(800, 0),
             Err(ScheduleError::ZeroThreshold)
         );
-        assert_eq!(
-            validate_thresholds(0, 0),
-            Err(ScheduleError::ZeroThreshold)
-        );
+        assert_eq!(validate_thresholds(0, 0), Err(ScheduleError::ZeroThreshold));
     }
 
     #[test]

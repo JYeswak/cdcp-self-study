@@ -7,3 +7,6 @@ description = "Short-interval review ladder + mastery thresholds (product law; n
 
 [dependencies]
 thiserror = { workspace = true }
+
+[dev-dependencies]
+serde_json = { workspace = true }
