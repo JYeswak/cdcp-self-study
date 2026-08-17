@@ -438,13 +438,24 @@ enum Cmd {
         #[arg(long)]
         robot: bool,
     },
-    /// Idempotent rebuild of units, glossary, learn slugs, and export-web. Never re-freezes goldens.
+    /// Verify the install receipt (default --dry-run writes nothing). --apply is
+    /// idempotent and refuses to invent content. Never re-freezes goldens/.
     Repair {
-        /// Engine root. Default: walk up from cwd.
+        /// Bundle directory, engine root, or CDCP home. When omitted:
+        /// CDCP_HOME > $XDG_DATA_HOME/cdcp > ~/.local/share/cdcp > cwd walk.
         #[arg(long)]
         root: Option<PathBuf>,
-        /// Seed for export-web (default 42, the published form).
-        #[arg(long, default_value_t = 42)]
+        /// Plan only. Default when --apply is absent. Never writes.
+        #[arg(long)]
+        dry_run: bool,
+        /// Apply the plan. Learner path refuses to invent missing/corrupt bytes.
+        #[arg(long, conflicts_with = "dry_run")]
+        apply: bool,
+        /// Versioned JSON envelope (schema_version + planned vs actual).
+        #[arg(long)]
+        json: bool,
+        /// Seed for CDCP_DEV=1 --apply authoring rebuild (export-web).
+        #[arg(long, default_value_t = 42, hide = true)]
         seed: u64,
     },
     /// Parse slo.toml wall budgets / emit epoch-ms for smoke_slo.
@@ -871,7 +882,13 @@ fn run(cmd: Cmd) -> Result<(), String> {
         } => operator::doctor(root.as_deref(), &bind),
         Cmd::Test { root } => installed_test::run(root.as_deref()),
         Cmd::Health { root, robot } => operator::health(root.as_deref(), robot),
-        Cmd::Repair { root, seed } => operator::repair(root.as_deref(), seed),
+        Cmd::Repair {
+            root,
+            dry_run: _,
+            apply,
+            json,
+            seed,
+        } => operator::repair(root.as_deref(), apply, json, seed),
         Cmd::Slo { sub } => match sub {
             SloCmd::Budgets { file } => slo::emit_budgets(&file),
             SloCmd::NowMs => slo::emit_now_ms(),

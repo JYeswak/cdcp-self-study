@@ -1,16 +1,23 @@
 //! Operator surface: `doctor`, `health --robot`, `repair`.
 //!
 //! These are product commands (bd-engine-not-gate-ar39.4). They are not gates.
-//! `repair` rebuilds learner artifacts and MUST NOT re-freeze anything under
-//! `goldens/` — UPDATE_GOLDENS stays a human/env gate. A repair verb that
-//! silently re-freezes is the B2 hole.
+//! Learner `repair` (bd-installability-sm4g.12) is receipt-driven: default
+//! `--dry-run` hashes every `files[]` entry in `install-receipt.json` and
+//! writes nothing. `--apply` is idempotent on a matching receipt and REFUSES
+//! to invent bytes when a hash drifted (an installed learner has no `bank/`
+//! to export-web from). Missing receipt is refuse, not a path guess.
+//! `goldens/` is never a repair target — UPDATE_GOLDENS stays a human/env
+//! gate. A repair verb that silently re-freezes is the B2 hole.
 //!
 //! Learner `doctor` (PLAN-N W12, bd-installability-sm4g.11) probes the
 //! INSTALLED layer only: `web/`, shipped wasm `\0asm`, install receipt if
 //! present, bindable port. Authoring probes (bank / goldens / content.lock /
-//! python3) stay behind `CDCP_DEV=1`.
+//! python3) stay behind `CDCP_DEV=1`. `CDCP_DEV=1 repair --apply` MAY still
+//! rebuild units/glossary/slugs/export-web from `bank/` on a source checkout
+//! that has no receipt.
 
 use cdcp_bank::Bank;
+use cdcp_core::sha256_hex;
 use cdcp_learn::join_rel;
 use serde::Serialize;
 use serde_json::Value;
@@ -68,6 +75,14 @@ const _: () = assert!(
     DOCTOR_SCHEMA_VERSION > 0,
     "DOCTOR_SCHEMA_VERSION 0 is unversioned"
 );
+const _: () = assert!(
+    !REPAIR_JSON_FIELDS.is_empty(),
+    "empty REPAIR_JSON_FIELDS is an unversioned envelope"
+);
+const _: () = assert!(
+    REPAIR_SCHEMA_VERSION > 0,
+    "REPAIR_SCHEMA_VERSION 0 is unversioned"
+);
 
 /// Required goldens for the operator surface. Same four files `goldens check`
 /// requires; duplicated so this module does not reach into that function
@@ -90,6 +105,22 @@ pub(crate) const RECEIPT_REL: &str = "install-receipt.json";
 pub(crate) const DEFAULT_BIND: &str = "127.0.0.1:8766";
 pub(crate) const EPHEMERAL_BIND: &str = "127.0.0.1:0";
 pub(crate) const DEV_ENV: &str = "CDCP_DEV";
+
+/// Version of `cdcp repair --json`. Bump when the planned/actual shape changes.
+pub(crate) const REPAIR_SCHEMA_VERSION: u64 = 1;
+
+/// Top-level keys of the repair envelope. A test pins these names so a
+/// consumer can rely on them; adding or renaming one is a schema bump.
+pub(crate) const REPAIR_JSON_FIELDS: &[&str] = &[
+    "schema_version",
+    "mode",
+    "ok",
+    "receipt",
+    "planned",
+    "actual",
+    "planned_restore",
+    "actual_restore",
+];
 
 const WASM_MAGIC: &[u8] = b"\0asm";
 
@@ -152,6 +183,29 @@ struct AttemptsStoreState {
 struct EngineIdentities {
     oracle: &'static str,
     subject: &'static str,
+}
+
+/// Versioned `cdcp repair --json` envelope. Field order IS the contract.
+#[derive(Serialize)]
+struct RepairEnvelope {
+    schema_version: u64,
+    mode: &'static str,
+    ok: bool,
+    receipt: String,
+    planned: Vec<RepairAction>,
+    actual: Vec<RepairAction>,
+    planned_restore: usize,
+    actual_restore: usize,
+}
+
+#[derive(Serialize, Clone)]
+struct RepairAction {
+    path: String,
+    status: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    expected_sha256: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    actual_sha256: Option<String>,
 }
 
 /// Write `bytes` to `path` only when the on-disk content differs.
@@ -860,37 +914,377 @@ fn emit_human(envelope: &Value) -> Result<(), String> {
 
 // ── repair ────────────────────────────────────────────────────────────────
 
-/// Rebuild units, glossary, learn slugs, and export-web. Never writes goldens/.
+/// Receipt-driven bundle integrity. Default is dry-run (writes nothing).
 ///
-/// Idempotent: a second run against an already-rebuilt tree writes nothing.
-/// Asserted by mtime in tests, not by exit code.
-pub(crate) fn repair(root: Option<&Path>, seed: u64) -> Result<(), String> {
+/// Learner path (no `CDCP_DEV`): read `install-receipt.json`, hash each
+/// `files[]` path, report ok / missing / hash-mismatch. Never writes. Never
+/// calls export-web. Never touches `goldens/`. Missing receipt is REFUSE.
+/// `--apply` on a matching receipt is a no-op (`planned_restore=0`).
+/// `--apply` on drift refuses to invent content and names the paths.
+///
+/// Authoring (`CDCP_DEV=1 --apply` on a source checkout with `bank/` and no
+/// receipt) may still rebuild units/glossary/slugs/export-web. That path is
+/// not the installed product.
+pub(crate) fn repair(
+    root: Option<&Path>,
+    apply: bool,
+    json: bool,
+    seed: u64,
+) -> Result<(), String> {
+    if REPAIR_JSON_FIELDS.is_empty() {
+        return Err("REPAIR_JSON_FIELDS is empty — an unversioned envelope is an ERROR".into());
+    }
+    if REPAIR_SCHEMA_VERSION == 0 {
+        return Err("REPAIR_SCHEMA_VERSION is 0 — an unversioned envelope is an ERROR".into());
+    }
     let root = resolve_root(root)?;
-    if !join_rel(&root, BANK_REL).is_dir() {
+    let receipt = receipt_path(&root);
+    let shown = abs_path(&receipt);
+    if receipt.is_file() {
+        return repair_from_receipt(&root, &receipt, &shown, apply, json);
+    }
+    // No receipt. Authoring rebuild is opt-in and still never writes goldens/.
+    if authoring_mode() && join_rel(&root, BANK_REL).is_dir() {
+        if apply {
+            return repair_authoring(&root, seed);
+        }
+        return repair_authoring_dry_run(&root, &shown, seed, json);
+    }
+    let msg = format!(
+        "repair: no receipt at {} — refusing to guess (will not invent content from bank/; reinstall via install.sh --verify)",
+        shown.display()
+    );
+    if json {
+        emit_repair_json(&RepairEnvelope {
+            schema_version: REPAIR_SCHEMA_VERSION,
+            mode: repair_mode(apply),
+            ok: false,
+            receipt: shown.display().to_string(),
+            planned: Vec::new(),
+            actual: Vec::new(),
+            planned_restore: 0,
+            actual_restore: 0,
+        })?;
+    }
+    Err(msg)
+}
+
+fn repair_mode(apply: bool) -> &'static str {
+    if apply {
+        "apply"
+    } else {
+        "dry-run"
+    }
+}
+
+fn repair_from_receipt(
+    root: &Path,
+    receipt: &Path,
+    shown: &Path,
+    apply: bool,
+    json: bool,
+) -> Result<(), String> {
+    let bytes = fs::read(receipt).map_err(|e| {
+        format!(
+            "repair: receipt {} unreadable — refusing to guess: {e}",
+            shown.display()
+        )
+    })?;
+    if bytes.is_empty() {
+        return refuse_unusable_receipt(
+            shown,
+            apply,
+            json,
+            "is 0 bytes — a receipt that pins nothing is an ERROR",
+        );
+    }
+    let files = load_receipt_files(&bytes, shown)?;
+    let mut planned = Vec::with_capacity(files.len());
+    for (path, expected) in &files {
+        planned.push(receipt_file_status(root, path, expected));
+    }
+    if planned.len() != files.len() {
         return Err(format!(
-            "repair: missing {BANK_REL} — nothing to rebuild (an empty tree is an ERROR)"
+            "repair planned {} action(s), expected {} — a leg was dropped",
+            planned.len(),
+            files.len()
         ));
     }
+    if planned.is_empty() {
+        return Err(format!(
+            "repair: receipt {} planned 0 actions — a receipt that certifies nothing is an ERROR",
+            shown.display()
+        ));
+    }
+    let planned_restore = planned.iter().filter(|a| a.status != "ok").count();
+    let envelope = RepairEnvelope {
+        schema_version: REPAIR_SCHEMA_VERSION,
+        mode: repair_mode(apply),
+        ok: planned_restore == 0,
+        receipt: shown.display().to_string(),
+        planned: planned.clone(),
+        actual: Vec::new(),
+        planned_restore,
+        actual_restore: 0,
+    };
+    if json {
+        emit_repair_json(&envelope)?;
+    } else {
+        emit_repair_human(apply, shown, &planned, planned_restore);
+    }
+    if planned_restore == 0 {
+        return Ok(());
+    }
+    // Dry-run reports; apply still writes nothing — hashes are not copies.
+    Err(drift_summary(&planned))
+}
 
+fn refuse_unusable_receipt(shown: &Path, apply: bool, json: bool, why: &str) -> Result<(), String> {
+    let msg = format!(
+        "repair: receipt {} {why} — refusing to guess",
+        shown.display()
+    );
+    if json {
+        emit_repair_json(&RepairEnvelope {
+            schema_version: REPAIR_SCHEMA_VERSION,
+            mode: repair_mode(apply),
+            ok: false,
+            receipt: shown.display().to_string(),
+            planned: Vec::new(),
+            actual: Vec::new(),
+            planned_restore: 0,
+            actual_restore: 0,
+        })?;
+    }
+    Err(msg)
+}
+
+fn load_receipt_files(bytes: &[u8], shown: &Path) -> Result<Vec<(String, String)>, String> {
+    let v: Value = serde_json::from_slice(bytes).map_err(|e| {
+        format!(
+            "repair: receipt {} is not JSON — refusing to guess: {e}",
+            shown.display()
+        )
+    })?;
+    let obj = v.as_object().ok_or_else(|| {
+        format!(
+            "repair: receipt {} is not a JSON object — refusing to guess",
+            shown.display()
+        )
+    })?;
+    let files = obj.get("files").ok_or_else(|| {
+        format!(
+            "repair: receipt {} has no files[] — a receipt that pins nothing is an ERROR",
+            shown.display()
+        )
+    })?;
+    let arr = files.as_array().ok_or_else(|| {
+        format!(
+            "repair: receipt {} files is not an array — refusing to guess",
+            shown.display()
+        )
+    })?;
+    if arr.is_empty() {
+        return Err(format!(
+            "repair: receipt {} pins 0 files — a receipt that certifies nothing is an ERROR",
+            shown.display()
+        ));
+    }
+    let mut out = Vec::with_capacity(arr.len());
+    for (i, row) in arr.iter().enumerate() {
+        let path = row
+            .get("path")
+            .and_then(|p| p.as_str())
+            .unwrap_or("")
+            .trim();
+        let sha = row
+            .get("sha256")
+            .and_then(|p| p.as_str())
+            .unwrap_or("")
+            .trim();
+        if path.is_empty() {
+            return Err(format!(
+                "repair: receipt {} files[{i}] has empty path — refusing to guess",
+                shown.display()
+            ));
+        }
+        if !is_sha256_hex(sha) {
+            return Err(format!(
+                "repair: receipt {} files[{i}] sha256 is not 64 hex — refusing to guess",
+                shown.display()
+            ));
+        }
+        out.push((path.to_string(), sha.to_ascii_lowercase()));
+    }
+    Ok(out)
+}
+
+fn is_sha256_hex(s: &str) -> bool {
+    s.len() == 64 && s.chars().all(|c| c.is_ascii_hexdigit())
+}
+
+fn resolve_recorded_path(root: &Path, recorded: &str) -> PathBuf {
+    let p = PathBuf::from(recorded);
+    if p.is_absolute() {
+        p
+    } else {
+        root.join(p)
+    }
+}
+
+fn receipt_file_status(root: &Path, recorded: &str, expected: &str) -> RepairAction {
+    let path = resolve_recorded_path(root, recorded);
+    let shown = abs_path(&path).display().to_string();
+    if !path.is_file() {
+        return RepairAction {
+            path: shown,
+            status: "missing".into(),
+            expected_sha256: Some(expected.to_string()),
+            actual_sha256: None,
+        };
+    }
+    match fs::read(&path) {
+        Ok(bytes) => {
+            let actual = sha256_hex(&bytes);
+            let status = if actual == expected {
+                "ok"
+            } else {
+                "hash-mismatch"
+            };
+            RepairAction {
+                path: shown,
+                status: status.into(),
+                expected_sha256: Some(expected.to_string()),
+                actual_sha256: Some(actual),
+            }
+        }
+        Err(_) => RepairAction {
+            path: shown,
+            status: "unreadable".into(),
+            expected_sha256: Some(expected.to_string()),
+            actual_sha256: None,
+        },
+    }
+}
+
+fn drift_summary(actions: &[RepairAction]) -> String {
+    let bad: Vec<String> = actions
+        .iter()
+        .filter(|a| a.status != "ok")
+        .map(|a| {
+            format!(
+                "{} {} expected={}",
+                a.status,
+                a.path,
+                a.expected_sha256.as_deref().unwrap_or("")
+            )
+        })
+        .collect();
+    format!(
+        "repair: {} file(s) drifted ({}) — refusing to invent content; reinstall via install.sh --verify",
+        bad.len(),
+        bad.join("; ")
+    )
+}
+
+fn emit_repair_human(
+    apply: bool,
+    receipt: &Path,
+    planned: &[RepairAction],
+    planned_restore: usize,
+) {
+    if apply {
+        println!("repair: apply");
+    } else {
+        println!("repair: dry-run (writes nothing)");
+    }
+    println!("repair: receipt {}", receipt.display());
+    for a in planned {
+        match a.status.as_str() {
+            "ok" => println!("ok repair {} (sha256 match)", a.path),
+            "missing" => println!(
+                "FAIL repair {}: missing (expected sha256={})",
+                a.path,
+                a.expected_sha256.as_deref().unwrap_or("")
+            ),
+            "hash-mismatch" => println!(
+                "FAIL repair {}: hash-mismatch expected={} actual={}",
+                a.path,
+                a.expected_sha256.as_deref().unwrap_or(""),
+                a.actual_sha256.as_deref().unwrap_or("")
+            ),
+            other => println!(
+                "FAIL repair {}: {other} (expected sha256={})",
+                a.path,
+                a.expected_sha256.as_deref().unwrap_or("")
+            ),
+        }
+    }
+    println!("repair: goldens/ not touched (UPDATE_GOLDENS is a human gate)");
+    if planned_restore == 0 {
+        if apply {
+            println!("repair: planned_restore=0 (idempotent no-op)");
+        } else {
+            println!("repair: {} file(s) ok, planned_restore=0", planned.len());
+        }
+    }
+}
+
+fn emit_repair_json(envelope: &RepairEnvelope) -> Result<(), String> {
+    let line = serde_json::to_string(envelope)
+        .map_err(|e| format!("repair --json envelope unparseable: {e}"))?;
+    let value: Value = serde_json::from_str(&line)
+        .map_err(|e| format!("repair --json envelope unparseable: {e}"))?;
+    validate_repair_envelope(&value)?;
+    println!("{line}");
+    Ok(())
+}
+
+fn validate_repair_envelope(v: &Value) -> Result<(), String> {
+    let obj = v
+        .as_object()
+        .ok_or_else(|| "repair --json envelope is not a JSON object — unparseable".to_string())?;
+    let ver = obj
+        .get("schema_version")
+        .and_then(|x| x.as_u64())
+        .ok_or_else(|| "repair --json envelope is unversioned — refusing to emit".to_string())?;
+    if ver != REPAIR_SCHEMA_VERSION {
+        return Err(format!(
+            "repair --json schema_version={ver} != {REPAIR_SCHEMA_VERSION}"
+        ));
+    }
+    for key in REPAIR_JSON_FIELDS {
+        if !obj.contains_key(*key) {
+            return Err(format!(
+                "repair --json envelope missing field {key} — refusing to emit"
+            ));
+        }
+    }
+    Ok(())
+}
+
+/// Source-checkout rebuild. Reached only when `CDCP_DEV=1 --apply`, `bank/`
+/// is present, and there is no install receipt. Never writes goldens/.
+fn repair_authoring(root: &Path, seed: u64) -> Result<(), String> {
     let mut wrote = 0usize;
     let mut planned = 0usize;
 
     planned += 1;
-    wrote += repair_learn(&root, LearnTarget::Units)?;
+    wrote += repair_learn(root, LearnTarget::Units)?;
     planned += 1;
-    wrote += repair_learn(&root, LearnTarget::Glossary)?;
+    wrote += repair_learn(root, LearnTarget::Glossary)?;
     planned += 1;
-    wrote += repair_learn(&root, LearnTarget::Slugs)?;
+    wrote += repair_learn(root, LearnTarget::Slugs)?;
 
     let export_paths = [
-        join_rel(&root, EXPORT_OUT_REL).join(format!("mock40_seed{seed}.json")),
-        join_rel(&root, EXPORT_OUT_REL).join(format!("keys_seed{seed}.json")),
-        join_rel(&root, EXPORT_OUT_REL).join(format!("bank_items_seed{seed}.json")),
+        join_rel(root, EXPORT_OUT_REL).join(format!("mock40_seed{seed}.json")),
+        join_rel(root, EXPORT_OUT_REL).join(format!("keys_seed{seed}.json")),
+        join_rel(root, EXPORT_OUT_REL).join(format!("bank_items_seed{seed}.json")),
     ];
     planned += export_paths.len();
     let before = snapshot_mtimes(&export_paths);
-    let bank = join_rel(&root, BANK_REL);
-    let out = join_rel(&root, EXPORT_OUT_REL);
+    let bank = join_rel(root, BANK_REL);
+    let out = join_rel(root, EXPORT_OUT_REL);
     crate::export_web(&bank, seed, &out, None)?;
     for p in &export_paths {
         if !p.is_file() {
@@ -925,6 +1319,61 @@ pub(crate) fn repair(root: Option<&Path>, seed: u64) -> Result<(), String> {
         "repair: {wrote} file(s) written, {} unchanged",
         planned - wrote
     );
+    Ok(())
+}
+
+fn repair_authoring_dry_run(
+    root: &Path,
+    shown: &Path,
+    seed: u64,
+    json: bool,
+) -> Result<(), String> {
+    let rels = [
+        UNITS_REL.to_string(),
+        GLOSSARY_REL.to_string(),
+        SLUGS_REL.to_string(),
+        format!("{EXPORT_OUT_REL}/mock40_seed{seed}.json"),
+        format!("{EXPORT_OUT_REL}/keys_seed{seed}.json"),
+        format!("{EXPORT_OUT_REL}/bank_items_seed{seed}.json"),
+    ];
+    if rels.is_empty() {
+        return Err(
+            "repair planned 0 writes — a rebuild that targets nothing certifies nothing".into(),
+        );
+    }
+    let planned: Vec<RepairAction> = rels
+        .iter()
+        .map(|rel| RepairAction {
+            path: abs_path(&join_rel(root, rel)).display().to_string(),
+            status: "rebuild".into(),
+            expected_sha256: None,
+            actual_sha256: None,
+        })
+        .collect();
+    let planned_restore = planned.len();
+    if json {
+        emit_repair_json(&RepairEnvelope {
+            schema_version: REPAIR_SCHEMA_VERSION,
+            mode: "dry-run",
+            ok: true,
+            receipt: shown.display().to_string(),
+            planned,
+            actual: Vec::new(),
+            planned_restore,
+            actual_restore: 0,
+        })?;
+    } else {
+        println!("repair: dry-run (writes nothing)");
+        println!(
+            "repair: no receipt at {} — authoring rebuild planned (pass --apply to write)",
+            shown.display()
+        );
+        for rel in &rels {
+            println!("repair: would rebuild {rel}");
+        }
+        println!("repair: goldens/ not touched (UPDATE_GOLDENS is a human gate)");
+        println!("repair: planned_restore={planned_restore} (writes nothing)");
+    }
     Ok(())
 }
 

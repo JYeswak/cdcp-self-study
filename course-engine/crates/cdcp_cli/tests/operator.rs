@@ -137,6 +137,88 @@ fn mtime(path: &Path) -> SystemTime {
     fs::metadata(path).expect("stat").modified().expect("mtime")
 }
 
+fn file_sha256(path: &Path) -> String {
+    let try_cmd = |bin: &str, args: &[&str]| -> Option<String> {
+        let out = std::process::Command::new(bin)
+            .args(args)
+            .arg(path)
+            .output()
+            .ok()?;
+        if !out.status.success() {
+            return None;
+        }
+        String::from_utf8(out.stdout)
+            .ok()?
+            .split_whitespace()
+            .next()
+            .map(|s| s.to_ascii_lowercase())
+    };
+    try_cmd("sha256sum", &[])
+        .or_else(|| try_cmd("shasum", &["-a", "256"]))
+        .unwrap_or_else(|| {
+            panic!(
+                "need sha256sum or shasum to plant a receipt for {}",
+                path.display()
+            )
+        })
+}
+
+fn write_receipt(root: &Path, files: &[(&Path, &str)]) {
+    assert!(
+        !files.is_empty(),
+        "a planted receipt with 0 files is the vacuous case this command refuses"
+    );
+    let entries: Vec<Value> = files
+        .iter()
+        .map(|(p, h)| {
+            serde_json::json!({
+                "path": p.display().to_string(),
+                "sha256": h,
+            })
+        })
+        .collect();
+    let rec = serde_json::json!({
+        "version": "0.1.0",
+        "installed_at": "2026-08-17T00:00:00Z",
+        "triple": "test",
+        "source_build": true,
+        "artifact": {"url": "test", "sha256": "00", "triple": "test"},
+        "files": entries,
+        "config_touched": [],
+        "learner_progress_kept": true,
+        "learner_progress_paths": []
+    });
+    fs::write(
+        root.join("install-receipt.json"),
+        serde_json::to_vec_pretty(&rec).expect("serialize receipt"),
+    )
+    .expect("write receipt");
+}
+
+/// web/ + wasm + a matching install-receipt.json. No bank/.
+fn receipt_tree(tag: &str) -> PathBuf {
+    let tree = web_only_tree(tag);
+    let index = tree.join("web/index.html");
+    let wasm = tree.join("web/assets/wasm/cdcp_wasm.wasm");
+    let index_hash = file_sha256(&index);
+    let wasm_hash = file_sha256(&wasm);
+    write_receipt(
+        &tree,
+        &[(&index, index_hash.as_str()), (&wasm, wasm_hash.as_str())],
+    );
+    tree
+}
+
+fn fingerprint(paths: &[PathBuf]) -> Vec<(SystemTime, String, u64)> {
+    paths
+        .iter()
+        .map(|p| {
+            let meta = fs::metadata(p).unwrap_or_else(|e| panic!("stat {}: {e}", p.display()));
+            (meta.modified().expect("mtime"), file_sha256(p), meta.len())
+        })
+        .collect()
+}
+
 // ── help ──────────────────────────────────────────────────────────────────
 
 #[test]
@@ -193,6 +275,12 @@ fn repair_help_does_not_offer_to_freeze_goldens() {
         !stdout.contains("UPDATE_GOLDENS"),
         "repair --help must not advertise UPDATE_GOLDENS: {stdout}"
     );
+    for flag in ["--dry-run", "--apply", "--json"] {
+        assert!(
+            stdout.contains(flag),
+            "repair --help must list {flag}: {stdout}"
+        );
+    }
 }
 
 // ── doctor ────────────────────────────────────────────────────────────────
@@ -810,12 +898,295 @@ fn health_robot_schema_version_is_numeric_not_a_string() {
 
 // ── repair ────────────────────────────────────────────────────────────────
 
-/// repair is idempotent: run twice, second run writes nothing. Asserted by
-/// mtime, not by exit code — a tree-cleanliness check cannot see an
-/// idempotent write.
+/// `--dry-run` (the default) writes nothing. Hashes and mtimes stay put.
 #[test]
-fn repair_second_run_writes_nothing_by_mtime() {
-    let tree = operator_tree("repair");
+fn repair_dry_run_writes_nothing_hashes_unchanged() {
+    let tree = receipt_tree("dry");
+    let wasm = tree.join("web/assets/wasm/cdcp_wasm.wasm");
+    let index = tree.join("web/index.html");
+    let receipt = tree.join("install-receipt.json");
+    let decoy = tree.join("goldens/bank_hash.txt");
+    fs::create_dir_all(decoy.parent().unwrap()).expect("mkdir goldens");
+    fs::write(&decoy, b"do-not-touch\n").expect("plant decoy golden");
+    let watched = [index, wasm, receipt, decoy];
+    assert_eq!(watched.len(), 4, "dry-run watch list must not shrink");
+    for p in &watched {
+        set_mtime_past(p);
+    }
+    let before = fingerprint(&watched);
+
+    let assert = cdcp()
+        .env_remove("CDCP_DEV")
+        .args(["repair", "--dry-run", "--root", tree.to_str().unwrap()])
+        .assert()
+        .success();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    assert!(
+        stdout.contains("dry-run") && stdout.contains("writes nothing"),
+        "dry-run must say it writes nothing: {stdout}"
+    );
+
+    let after = fingerprint(&watched);
+    assert_eq!(
+        before, after,
+        "dry-run must leave dest hashes and mtimes unchanged"
+    );
+    assert!(
+        !tree.join("web/data/units_index.json").exists(),
+        "dry-run must not invent web/data from bank/"
+    );
+
+    // Bare `cdcp repair` is the same as --dry-run (breaking change: no mutate).
+    cdcp()
+        .env_remove("CDCP_DEV")
+        .args(["repair", "--root", tree.to_str().unwrap()])
+        .assert()
+        .success();
+    assert_eq!(
+        before,
+        fingerprint(&watched),
+        "bare repair must default to dry-run and write nothing"
+    );
+
+    let _ = fs::remove_dir_all(&tree);
+}
+
+/// `--apply` on a matching receipt is a no-op. Second run planned_restore=0.
+#[test]
+fn repair_apply_matching_receipt_is_idempotent_noop() {
+    let tree = receipt_tree("apply-ok");
+    let wasm = tree.join("web/assets/wasm/cdcp_wasm.wasm");
+    let index = tree.join("web/index.html");
+    let receipt = tree.join("install-receipt.json");
+    let watched = [index.clone(), wasm.clone(), receipt.clone()];
+    for p in &watched {
+        set_mtime_past(p);
+    }
+    let before = fingerprint(&watched);
+
+    let first = cdcp()
+        .env_remove("CDCP_DEV")
+        .args([
+            "repair",
+            "--apply",
+            "--json",
+            "--root",
+            tree.to_str().unwrap(),
+        ])
+        .assert()
+        .success();
+    let v1: Value =
+        serde_json::from_str(String::from_utf8_lossy(&first.get_output().stdout).trim())
+            .expect("first --json");
+    assert_eq!(v1["schema_version"].as_u64(), Some(1));
+    assert_eq!(v1["mode"].as_str(), Some("apply"));
+    assert_eq!(v1["ok"].as_bool(), Some(true));
+    assert_eq!(v1["planned_restore"].as_u64(), Some(0));
+    assert_eq!(v1["actual_restore"].as_u64(), Some(0));
+    let actual = v1["actual"].as_array().expect("actual");
+    assert!(
+        actual.is_empty(),
+        "matching apply writes nothing: {actual:?}"
+    );
+    let planned = v1["planned"].as_array().expect("planned");
+    assert!(
+        !planned.is_empty(),
+        "planned must list the receipt files — empty is vacuous"
+    );
+    for row in planned {
+        assert_eq!(row["status"].as_str(), Some("ok"));
+    }
+
+    let second = cdcp()
+        .env_remove("CDCP_DEV")
+        .args([
+            "repair",
+            "--apply",
+            "--json",
+            "--root",
+            tree.to_str().unwrap(),
+        ])
+        .assert()
+        .success();
+    let v2: Value =
+        serde_json::from_str(String::from_utf8_lossy(&second.get_output().stdout).trim())
+            .expect("second --json");
+    assert_eq!(
+        v2["planned_restore"].as_u64(),
+        Some(0),
+        "second apply must be planned=0 / no-op: {v2}"
+    );
+    assert_eq!(
+        before,
+        fingerprint(&watched),
+        "apply on a matching receipt must not write dest files"
+    );
+
+    let _ = fs::remove_dir_all(&tree);
+}
+
+/// No receipt → refuse, not guess. Empty dest + no receipt is RED.
+#[test]
+fn repair_no_receipt_refuses_and_names_the_absolute_path() {
+    let empty = uniq("repair-empty");
+    fs::create_dir_all(&empty).expect("mkdir");
+    let rec = empty.join("install-receipt.json");
+    let rec_abs = rec.display().to_string();
+    assert!(!rec.exists(), "planted dest must have no receipt");
+
+    let assert = cdcp()
+        .env_remove("CDCP_DEV")
+        .args(["repair", "--root", empty.to_str().unwrap()])
+        .assert()
+        .failure();
+    let combined = format!(
+        "{}\n{}",
+        String::from_utf8_lossy(&assert.get_output().stdout),
+        String::from_utf8_lossy(&assert.get_output().stderr)
+    );
+    assert!(
+        combined.contains(&rec_abs),
+        "missing receipt must name the absolute path {rec_abs}, got: {combined}"
+    );
+    assert!(
+        combined.contains("refus") || combined.contains("guess"),
+        "missing receipt must refuse, not guess: {combined}"
+    );
+    assert!(
+        !empty.join("web").exists() && !empty.join("goldens").exists(),
+        "refuse must not invent a tree"
+    );
+
+    let _ = fs::remove_dir_all(&empty);
+}
+
+/// Drifted wasm hash: name the path + expected sha256, write nothing, exit RED.
+#[test]
+fn repair_drifted_wasm_hash_is_red_and_does_not_invent() {
+    let tree = receipt_tree("drift-wasm");
+    let wasm = tree.join("web/assets/wasm/cdcp_wasm.wasm");
+    let index = tree.join("web/index.html");
+    let receipt = tree.join("install-receipt.json");
+    let expected = file_sha256(&wasm);
+    let original = fs::read(&wasm).expect("read wasm");
+    fs::write(&wasm, b"not-the-shipped-wasm\n").expect("drift wasm");
+    let drifted = file_sha256(&wasm);
+    assert_ne!(expected, drifted, "plant must actually change the hash");
+    set_mtime_past(&wasm);
+    set_mtime_past(&index);
+    set_mtime_past(&receipt);
+    let before = fingerprint(&[index.clone(), wasm.clone(), receipt.clone()]);
+
+    let assert = cdcp()
+        .env_remove("CDCP_DEV")
+        .args([
+            "repair",
+            "--apply",
+            "--json",
+            "--root",
+            tree.to_str().unwrap(),
+        ])
+        .assert()
+        .failure();
+    let stdout = String::from_utf8_lossy(&assert.get_output().stdout);
+    let stderr = String::from_utf8_lossy(&assert.get_output().stderr);
+    let combined = format!("{stdout}\n{stderr}");
+    let v: Value = serde_json::from_str(stdout.trim()).unwrap_or_else(|e| {
+        panic!("drift --json must still emit an envelope ({e}): {stdout}");
+    });
+    assert_eq!(v["ok"].as_bool(), Some(false));
+    assert!(
+        v["planned_restore"].as_u64().unwrap_or(0) >= 1,
+        "drift must plan a restore: {v}"
+    );
+    assert_eq!(
+        v["actual_restore"].as_u64(),
+        Some(0),
+        "apply must not invent bytes: {v}"
+    );
+    let wasm_abs = wasm.display().to_string();
+    assert!(
+        combined.contains(&wasm_abs),
+        "drift must name the absolute wasm path {wasm_abs}, got: {combined}"
+    );
+    assert!(
+        combined.contains(&expected),
+        "drift must name the expected sha256 {expected}, got: {combined}"
+    );
+    assert!(
+        combined.contains("hash-mismatch") || combined.contains("drifted"),
+        "drift must say hash-mismatch: {combined}"
+    );
+
+    let after_bytes = fs::read(&wasm).expect("re-read wasm");
+    assert_eq!(
+        after_bytes, b"not-the-shipped-wasm\n",
+        "apply must not rewrite a drifted wasm (cannot invent from bank/)"
+    );
+    assert_ne!(
+        after_bytes.as_slice(),
+        original.as_slice(),
+        "sanity: drifted bytes must still differ from the original"
+    );
+    assert_eq!(
+        before,
+        fingerprint(&[index, wasm, receipt]),
+        "apply-on-drift must write nothing"
+    );
+    assert!(
+        !tree.join("goldens").exists(),
+        "repair must never create goldens/"
+    );
+
+    // Dry-run on the same drift also writes nothing (it REPORTS).
+    cdcp()
+        .env_remove("CDCP_DEV")
+        .args(["repair", "--dry-run", "--root", tree.to_str().unwrap()])
+        .assert()
+        .failure();
+    assert_eq!(
+        fs::read(tree.join("web/assets/wasm/cdcp_wasm.wasm")).unwrap(),
+        b"not-the-shipped-wasm\n"
+    );
+
+    let _ = fs::remove_dir_all(&tree);
+}
+
+/// Empty `files[]` is RED — a receipt that pins nothing certifies nothing.
+#[test]
+fn repair_empty_files_array_is_error() {
+    let tree = web_only_tree("empty-files");
+    let rec = serde_json::json!({
+        "version": "0.1.0",
+        "files": []
+    });
+    fs::write(
+        tree.join("install-receipt.json"),
+        serde_json::to_vec(&rec).unwrap(),
+    )
+    .unwrap();
+    let assert = cdcp()
+        .env_remove("CDCP_DEV")
+        .args(["repair", "--root", tree.to_str().unwrap()])
+        .assert()
+        .failure();
+    let combined = format!(
+        "{}\n{}",
+        String::from_utf8_lossy(&assert.get_output().stdout),
+        String::from_utf8_lossy(&assert.get_output().stderr)
+    );
+    assert!(
+        combined.contains("0 files") || combined.contains("pins nothing"),
+        "empty files[] must be an ERROR, got: {combined}"
+    );
+    let _ = fs::remove_dir_all(&tree);
+}
+
+/// Authoring rebuild (CDCP_DEV=1 --apply, no receipt, bank present) is
+/// idempotent: run twice, second run writes nothing. Asserted by mtime.
+#[test]
+fn repair_authoring_apply_second_run_writes_nothing_by_mtime() {
+    let tree = operator_tree("repair-auth");
     let watched = [
         tree.join("web/data/units_index.json"),
         tree.join("web/data/glossary.json"),
@@ -824,12 +1195,15 @@ fn repair_second_run_writes_nothing_by_mtime() {
         tree.join("web/data/keys_seed42.json"),
         tree.join("web/data/bank_items_seed42.json"),
     ];
-    // Anti-vacuous: a watch list of 0 files would make this pass by checking
-    // nothing, which is the exact bug under repair.
-    assert_eq!(watched.len(), 6, "repair must rebuild six artifacts");
+    assert_eq!(
+        watched.len(),
+        6,
+        "authoring repair must rebuild six artifacts"
+    );
 
     cdcp()
-        .args(["repair", "--root", tree.to_str().unwrap()])
+        .env("CDCP_DEV", "1")
+        .args(["repair", "--apply", "--root", tree.to_str().unwrap()])
         .assert()
         .success();
     for p in &watched {
@@ -849,7 +1223,8 @@ fn repair_second_run_writes_nothing_by_mtime() {
     }
 
     cdcp()
-        .args(["repair", "--root", tree.to_str().unwrap()])
+        .env("CDCP_DEV", "1")
+        .args(["repair", "--apply", "--root", tree.to_str().unwrap()])
         .assert()
         .success();
     for p in &watched {
@@ -883,7 +1258,8 @@ fn repair_does_not_refreeze_goldens_even_with_update_goldens() {
 
     let mut cmd = cdcp();
     cmd.env("UPDATE_GOLDENS", "1")
-        .args(["repair", "--root", tree.to_str().unwrap()])
+        .env("CDCP_DEV", "1")
+        .args(["repair", "--apply", "--root", tree.to_str().unwrap()])
         .assert()
         .success();
 
@@ -896,6 +1272,27 @@ fn repair_does_not_refreeze_goldens_even_with_update_goldens() {
         );
     }
 
+    let _ = fs::remove_dir_all(&tree);
+}
+
+/// Learner dry-run on a receipt tree must not create or rewrite goldens/.
+#[test]
+fn repair_learner_never_writes_goldens() {
+    let tree = receipt_tree("no-goldens");
+    assert!(
+        !tree.join("goldens").exists(),
+        "receipt tree must start without goldens/"
+    );
+    cdcp()
+        .env_remove("CDCP_DEV")
+        .env("UPDATE_GOLDENS", "1")
+        .args(["repair", "--apply", "--root", tree.to_str().unwrap()])
+        .assert()
+        .success();
+    assert!(
+        !tree.join("goldens").exists(),
+        "learner repair must never create goldens/"
+    );
     let _ = fs::remove_dir_all(&tree);
 }
 
@@ -921,21 +1318,37 @@ fn repair_source_does_not_call_golden_writers() {
             "repair must not mention {forbidden}: that is the golden laundromat"
         );
     }
+    let from_receipt = src
+        .find("fn repair_from_receipt(")
+        .expect("repair_from_receipt must exist");
+    let receipt_body = &src[from_receipt..];
+    for forbidden in ["export_web", "repair_learn", "repair_authoring("] {
+        assert!(
+            !receipt_body
+                .split("fn repair_authoring(")
+                .next()
+                .unwrap_or(receipt_body)
+                .contains(forbidden),
+            "learner repair_from_receipt must not call {forbidden}"
+        );
+    }
 }
 
 /// repair on an empty tree is an ERROR, not a green no-op.
 #[test]
 fn repair_on_an_empty_tree_is_error() {
-    let empty = uniq("repair-empty");
+    let empty = uniq("repair-empty-legacy");
     fs::create_dir_all(&empty).expect("mkdir");
+    let rec_abs = empty.join("install-receipt.json").display().to_string();
     let assert = cdcp()
+        .env_remove("CDCP_DEV")
         .args(["repair", "--root", empty.to_str().unwrap()])
         .assert()
         .failure();
     let stderr = String::from_utf8_lossy(&assert.get_output().stderr);
     assert!(
-        stderr.contains("bank") || stderr.contains("nothing to rebuild"),
-        "repair on an empty tree must name what is missing, got: {stderr}"
+        stderr.contains(&rec_abs) || stderr.contains("install-receipt.json"),
+        "repair on an empty tree must name the missing receipt, got: {stderr}"
     );
     let _ = fs::remove_dir_all(&empty);
 }
