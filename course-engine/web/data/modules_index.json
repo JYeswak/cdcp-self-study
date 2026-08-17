@@ -7,53 +7,53 @@
       "content_path": "content/modules/01-mission-critical.md",
       "empty": false,
       "epi_heading": "The Mission Critical Site",
-      "estimate_minutes": 24,
+      "estimate_minutes": 42,
       "exam_weight_unknown": false,
       "href": "learn/01-mission-critical.html",
       "id": "01-mission-critical",
       "order": 1,
       "primary_notes": "../modules/01-mission-critical.md",
       "source_path": "../modules/01-mission-critical.md",
-      "word_count": 3484
+      "word_count": 6149
     },
     {
       "content_path": "content/modules/02-standards.md",
       "empty": false,
       "epi_heading": "Data Centre Standards",
-      "estimate_minutes": 24,
+      "estimate_minutes": 40,
       "exam_weight_unknown": false,
       "href": "learn/02-standards.html",
       "id": "02-standards",
       "order": 2,
       "primary_notes": "../modules/02-standards.md",
       "source_path": "../modules/02-standards.md",
-      "word_count": 3487
+      "word_count": 5923
     },
     {
       "content_path": "content/modules/03-site-building.md",
       "empty": false,
       "epi_heading": "Data Centre Location, Building and Construction",
-      "estimate_minutes": 25,
+      "estimate_minutes": 38,
       "exam_weight_unknown": false,
       "href": "learn/03-site-building.html",
       "id": "03-site-building",
       "order": 3,
       "primary_notes": "../modules/03-site-building.md",
       "source_path": "../modules/03-site-building.md",
-      "word_count": 3677
+      "word_count": 5641
     },
     {
       "content_path": "content/modules/04-floor-ceiling.md",
       "empty": false,
       "epi_heading": "Raised Access Flooring and Suspended Ceiling",
-      "estimate_minutes": 24,
+      "estimate_minutes": 30,
       "exam_weight_unknown": false,
       "href": "learn/04-floor-ceiling.html",
       "id": "04-floor-ceiling",
       "order": 4,
       "primary_notes": "../modules/04-floor-ceiling.md",
       "source_path": "../modules/04-floor-ceiling.md",
-      "word_count": 3624
+      "word_count": 4405
     },
     {
       "content_path": "content/modules/05-lighting.md",
@@ -66,20 +66,20 @@
       "order": 5,
       "primary_notes": "../modules/05-lighting.md",
       "source_path": "../modules/05-lighting.md",
-      "word_count": 4141
+      "word_count": 4145
     },
     {
       "content_path": "content/modules/06-power.md",
       "empty": false,
       "epi_heading": "Power Infrastructure",
-      "estimate_minutes": 27,
+      "estimate_minutes": 48,
       "exam_weight_unknown": false,
       "href": "learn/06-power.html",
       "id": "06-power",
       "order": 6,
       "primary_notes": "../modules/06-power.md",
       "source_path": "../modules/06-power.md",
-      "word_count": 4003
+      "word_count": 7126
     },
     {
       "content_path": "content/modules/07-emf.md",
@@ -92,111 +92,111 @@
       "order": 7,
       "primary_notes": "../modules/07-emf.md",
       "source_path": "../modules/07-emf.md",
-      "word_count": 3442
+      "word_count": 3477
     },
     {
       "content_path": "content/modules/08-racks.md",
       "empty": false,
       "epi_heading": "Equipment Racks",
-      "estimate_minutes": 27,
+      "estimate_minutes": 32,
       "exam_weight_unknown": false,
       "href": "learn/08-racks.html",
       "id": "08-racks",
       "order": 8,
       "primary_notes": "../modules/08-racks.md",
       "source_path": "../modules/08-racks.md",
-      "word_count": 3969
+      "word_count": 4733
     },
     {
       "content_path": "content/modules/09-cooling.md",
       "empty": false,
       "epi_heading": "Cooling Infrastructure",
-      "estimate_minutes": 24,
+      "estimate_minutes": 35,
       "exam_weight_unknown": false,
       "href": "learn/09-cooling.html",
       "id": "09-cooling",
       "order": 9,
       "primary_notes": "../modules/09-cooling.md",
       "source_path": "../modules/09-cooling.md",
-      "word_count": 3610
+      "word_count": 5182
     },
     {
       "content_path": "content/modules/10-water.md",
       "empty": false,
       "epi_heading": "Water Supply",
-      "estimate_minutes": 22,
+      "estimate_minutes": 23,
       "exam_weight_unknown": false,
       "href": "learn/10-water.html",
       "id": "10-water",
       "order": 10,
       "primary_notes": "../modules/10-water.md",
       "source_path": "../modules/10-water.md",
-      "word_count": 3293
+      "word_count": 3349
     },
     {
       "content_path": "content/modules/11-network.md",
       "empty": false,
       "epi_heading": "Designing a Scalable Network Infrastructure",
-      "estimate_minutes": 25,
+      "estimate_minutes": 32,
       "exam_weight_unknown": false,
       "href": "learn/11-network.html",
       "id": "11-network",
       "order": 11,
       "primary_notes": "../modules/11-network.md",
       "source_path": "../modules/11-network.md",
-      "word_count": 3733
+      "word_count": 4809
     },
     {
       "content_path": "content/modules/12-fire.md",
       "empty": false,
       "epi_heading": "Fire Protection",
-      "estimate_minutes": 26,
+      "estimate_minutes": 35,
       "exam_weight_unknown": false,
       "href": "learn/12-fire.html",
       "id": "12-fire",
       "order": 12,
       "primary_notes": "../modules/12-fire.md",
       "source_path": "../modules/12-fire.md",
-      "word_count": 3870
+      "word_count": 5242
     },
     {
       "content_path": "content/modules/13-security.md",
       "empty": false,
       "epi_heading": "Physical Security and Safety",
-      "estimate_minutes": 27,
+      "estimate_minutes": 28,
       "exam_weight_unknown": false,
       "href": "learn/13-security.html",
       "id": "13-security",
       "order": 13,
       "primary_notes": "../modules/13-security.md",
       "source_path": "../modules/13-security.md",
-      "word_count": 4056
+      "word_count": 4118
     },
     {
       "content_path": "content/modules/14-auxiliary.md",
       "empty": false,
       "epi_heading": "Auxiliary Systems",
-      "estimate_minutes": 25,
+      "estimate_minutes": 31,
       "exam_weight_unknown": false,
       "href": "learn/14-auxiliary.html",
       "id": "14-auxiliary",
       "order": 14,
       "primary_notes": "../modules/14-auxiliary.md",
       "source_path": "../modules/14-auxiliary.md",
-      "word_count": 3767
+      "word_count": 4543
     },
     {
       "content_path": "content/modules/15-ops-adjacent.md",
       "empty": false,
       "epi_heading": "Operations practices (partner outline expansions)",
-      "estimate_minutes": 48,
+      "estimate_minutes": 55,
       "exam_weight_unknown": true,
       "href": "learn/15-ops-adjacent.html",
       "id": "15-ops-adjacent",
       "order": 15,
       "primary_notes": "../modules/15-ops-adjacent.md",
       "source_path": "../modules/15-ops-adjacent.md",
-      "word_count": 7183
+      "word_count": 11050
     }
   ],
   "navigable_count": 15,

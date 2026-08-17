@@ -29,6 +29,11 @@
           "text": "Types of data centres"
         },
         {
+          "id": "business-organization",
+          "level": 3,
+          "text": "Business organization"
+        },
+        {
           "id": "business-impact-of-downtime",
           "level": 3,
           "text": "Business impact of downtime"
@@ -49,9 +54,19 @@
           "text": "Availability “nines” and annual downtime"
         },
         {
-          "id": "primary-causes-of-unavailability",
+          "id": "how-unavailability-actually-starts-2026-structure",
           "level": 3,
-          "text": "Primary causes of unavailability"
+          "text": "How unavailability actually starts (2026 structure)"
+        },
+        {
+          "id": "ai-density-thermal-ride-through-pointer-do-not-steal-module-09",
+          "level": 3,
+          "text": "AI-density thermal ride-through (pointer — do not steal Module 09)"
+        },
+        {
+          "id": "water-and-interconnection-as-availability-inputs-pointer-do-not-steal-modules-03-10",
+          "level": 3,
+          "text": "Water and interconnection as availability inputs (pointer — do not steal Modules 03 / 10)"
         },
         {
           "id": "how-mission-critical-is-expressed-in-design",
@@ -64,9 +79,9 @@
           "text": "Key diagrams"
         },
         {
-          "id": "1-site-dependency-stack-why-white-space-is-not-enough",
+          "id": "1-site-dependency-stack-power-path-leads-cooling-cascades-people-contribute",
           "level": 3,
-          "text": "1) Site dependency stack (why white space is not enough)"
+          "text": "1) Site dependency stack (power path leads; cooling cascades; people contribute)"
         },
         {
           "id": "2-simplified-power-path-it-load",
@@ -79,9 +94,9 @@
           "text": "3) Simplified cooling loop (air-cooled hall mental model)"
         },
         {
-          "id": "4-cabling-hierarchy-structured-cabling-mental-model",
+          "id": "4-cabling-hierarchy-preview-module-11-owns-mda-hda-eda",
           "level": 3,
-          "text": "4) Cabling hierarchy (structured cabling mental model)"
+          "text": "4) Cabling hierarchy (preview — Module 11 owns MDA / HDA / EDA)"
         },
         {
           "id": "5-availability-math-concept",
@@ -144,9 +159,9 @@
           "text": "0. Vocabulary: standard, guideline, code, rating"
         },
         {
-          "id": "1-ansitia-942-telecommunications-infrastructure-standard-for-data-centers",
+          "id": "1-ansitia-942-c-2024-rated-not-tier",
           "level": 3,
-          "text": "1. ANSI/TIA-942 (Telecommunications Infrastructure Standard for Data Centers)"
+          "text": "1. ANSI/TIA-942-C (2024) — Rated, not Tier"
         },
         {
           "id": "2-uptime-institute-tier-concepts-iiv-awareness-only",
@@ -154,9 +169,9 @@
           "text": "2. Uptime Institute Tier concepts (I–IV) — awareness only"
         },
         {
-          "id": "3-isoiec-22237-overview",
+          "id": "3-isoiec-22237-and-en-50600-twins-not-clones",
           "level": 3,
-          "text": "3. ISO/IEC 22237 overview"
+          "text": "3. ISO/IEC 22237 and EN 50600 — twins, not clones"
         },
         {
           "id": "4-ashrae-thermal-guidelines",
@@ -164,9 +179,19 @@
           "text": "4. ASHRAE thermal guidelines"
         },
         {
-          "id": "5-national-vs-international-standards-and-when-each-applies",
+          "id": "5-isoiec-30134-kpis-named-not-taught-as-an-energy-course",
           "level": 3,
-          "text": "5. National vs international standards — and when each applies"
+          "text": "5. ISO/IEC 30134 KPIs (named, not taught as an energy course)"
+        },
+        {
+          "id": "6-commissioning-ashrae-guideline-0-pointer-not-a-cx-course",
+          "level": 3,
+          "text": "6. Commissioning / ASHRAE Guideline 0 — pointer, not a Cx course"
+        },
+        {
+          "id": "7-national-vs-international-standards-and-when-each-applies",
+          "level": 3,
+          "text": "7. National vs international standards — and when each applies"
         },
         {
           "id": "key-diagrams",
@@ -179,9 +204,9 @@
           "text": "A. Standards stack (who overrides whom)"
         },
         {
-          "id": "b-mapping-redundancy-language-conceptualnot-11-equivalence",
+          "id": "b-three-nouns-family-of-ideas-not-a-crosswalk",
           "level": 3,
-          "text": "B. Mapping redundancy language (conceptual—not 1:1 equivalence)"
+          "text": "B. Three nouns — family of ideas, not a crosswalk"
         },
         {
           "id": "c-cabling-hierarchy-tia-oriented-sketch",
@@ -257,6 +282,16 @@
           "id": "site-selection-criteria-what-to-score",
           "level": 3,
           "text": "Site selection criteria (what to score)"
+        },
+        {
+          "id": "2026-site-types-ai-factory-neocloud-btm-campus",
+          "level": 3,
+          "text": "2026 site types: AI-factory / neocloud / BTM campus"
+        },
+        {
+          "id": "grid-fiber-and-interconnect-as-2026-outage-paths",
+          "level": 3,
+          "text": "Grid, fiber, and interconnect as 2026 outage paths"
         },
         {
           "id": "flood-seismic-and-other-risk-treatments",
@@ -364,9 +399,19 @@
           "text": "Raised access floor — what it is"
         },
         {
+          "id": "types-of-raised-floors",
+          "level": 3,
+          "text": "Types of raised floors"
+        },
+        {
           "id": "load-types-uniform-concentrated-rolling",
           "level": 3,
           "text": "Load types — uniform, concentrated, rolling"
+        },
+        {
+          "id": "example-working-magnitudes-example-not-code",
+          "level": 3,
+          "text": "Example working magnitudes (example-not-code)"
         },
         {
           "id": "floor-standards-and-guidelines-public-names",
@@ -584,9 +629,9 @@
           "text": "ATS vs STS"
         },
         {
-          "id": "redundancy-n-n1-2n-2n1",
+          "id": "redundancy-n-n1-n2-2n-2n1",
           "level": 3,
-          "text": "Redundancy: N, N+1, 2N, 2N+1"
+          "text": "Redundancy: N, N+1, N+2, 2N, 2N+1"
         },
         {
           "id": "single-phase-vs-three-phase",
@@ -639,6 +684,11 @@
           "text": "High-density / HPC power notes"
         },
         {
+          "id": "interconnect-queue-and-behind-the-meter-as-a-primary-path",
+          "level": 3,
+          "text": "Interconnect queue and behind-the-meter as a *primary* path"
+        },
+        {
           "id": "sustainability-microgrids-and-energy-context",
           "level": 3,
           "text": "Sustainability, microgrids, and energy context"
@@ -654,9 +704,19 @@
           "text": "Key diagrams"
         },
         {
-          "id": "end-to-end-path-dual-utility-concept",
+          "id": "dual-utility-concept-ab-independence-through-the-last-common-point",
           "level": 3,
-          "text": "End-to-end path (dual utility concept)"
+          "text": "Dual-utility concept — A/B independence through the last common point"
+        },
+        {
+          "id": "failure-mode-dual-utility-through-one-ats-spof-not-the-dual-utility-concept",
+          "level": 3,
+          "text": "Failure mode — dual utility through one ATS (SPOF, not the dual-utility concept)"
+        },
+        {
+          "id": "catcher-bus-distinct-from-isolated-redundant-and-from-2n",
+          "level": 3,
+          "text": "Catcher bus (distinct from isolated-redundant and from 2N)"
         },
         {
           "id": "redundancy-sketch",
@@ -964,6 +1024,11 @@
           "text": "ASHRAE envelopes (conceptual)"
         },
         {
+          "id": "ashrae-w-classes-plant-selection-apply-the-module-02-names",
+          "level": 3,
+          "text": "ASHRAE W-classes (plant selection — apply the Module 02 names)"
+        },
+        {
           "id": "liquid-cooling-overview",
           "level": 3,
           "text": "Liquid cooling overview"
@@ -977,6 +1042,11 @@
           "id": "ai-density-cooling-challenges",
           "level": 3,
           "text": "AI density cooling challenges"
+        },
+        {
+          "id": "thermal-ride-through-seconds-at-40100-kw",
+          "level": 3,
+          "text": "Thermal ride-through (seconds at 40–100 kW)"
         },
         {
           "id": "key-diagrams",
@@ -1037,6 +1107,16 @@
           "id": "5-ai-density",
           "level": 3,
           "text": "5) AI density"
+        },
+        {
+          "id": "6-w-class-plant",
+          "level": 3,
+          "text": "6) W-class plant"
+        },
+        {
+          "id": "7-ride-through-at-40100-kw",
+          "level": 3,
+          "text": "7) Ride-through at 40–100 kW"
         },
         {
           "id": "self-check-quiz",
@@ -1199,6 +1279,11 @@
           "text": "Network redundancy (physical first, then logical)"
         },
         {
+          "id": "gpu-cluster-east-west-fabric-availability-path",
+          "level": 3,
+          "text": "GPU-cluster east-west fabric (availability path)"
+        },
+        {
           "id": "building-connectivity-site-and-campus",
           "level": 3,
           "text": "Building connectivity (site and campus)"
@@ -1317,6 +1402,11 @@
           "id": "regulatory-notes-high-levelverify-locally",
           "level": 3,
           "text": "Regulatory notes (high level—verify locally)"
+        },
+        {
+          "id": "li-ion-bess-fire-playbook-nfpa-855-ul-9540a",
+          "level": 3,
+          "text": "Li-ion / BESS fire playbook (NFPA 855, UL 9540A)"
         },
         {
           "id": "best-practices",
@@ -1524,6 +1614,11 @@
           "text": "Water leak detection"
         },
         {
+          "id": "cdu-secondary-loop-leak-and-liquid-loop-telemetry",
+          "level": 3,
+          "text": "CDU / secondary-loop leak and liquid-loop telemetry"
+        },
+        {
           "id": "alarm-panels",
           "level": 3,
           "text": "Alarm panels"
@@ -1609,9 +1704,19 @@
           "text": "Core concepts"
         },
         {
+          "id": "21-operational-considerations-the-public-heading-set",
+          "level": 3,
+          "text": "2.1 Operational Considerations — the public heading set"
+        },
+        {
           "id": "procedure-discipline-mop-sop-eop-swms",
           "level": 3,
           "text": "Procedure discipline — MOP, SOP, EOP, SWMS"
+        },
+        {
+          "id": "2026-eops-a-live-floor-actually-runs",
+          "level": 3,
+          "text": "2026 EOPs a live floor actually runs"
         },
         {
           "id": "documentation",
@@ -1624,14 +1729,19 @@
           "text": "Labelling"
         },
         {
+          "id": "floor-management-work-control-on-the-live-floor",
+          "level": 3,
+          "text": "Floor management (work control on the live floor)"
+        },
+        {
           "id": "cleaning",
           "level": 3,
           "text": "Cleaning"
         },
         {
-          "id": "mtbf-mttr",
+          "id": "mtbf-mttr-as-in-module-01",
           "level": 3,
-          "text": "MTBF / MTTR"
+          "text": "MTBF / MTTR (as in Module 01)"
         },
         {
           "id": "maintenance-contracts-sla",
@@ -1697,9 +1807,9 @@
   "topic_count": 106,
   "topics": {
     "m01-business-org": {
-      "anchor": null,
+      "anchor": "business-organization",
       "domain": "01-mission-critical",
-      "href": "learn/01-mission-critical.html",
+      "href": "learn/01-mission-critical.html#business-organization",
       "label": "Business organization / DC in the business",
       "module": 1,
       "slug": "01-mission-critical",
@@ -1733,9 +1843,9 @@
       "topic_id": "m01-importance"
     },
     "m01-unavailability": {
-      "anchor": "primary-causes-of-unavailability",
+      "anchor": "how-unavailability-actually-starts-2026-structure",
       "domain": "01-mission-critical",
-      "href": "learn/01-mission-critical.html#primary-causes-of-unavailability",
+      "href": "learn/01-mission-critical.html#how-unavailability-actually-starts-2026-structure",
       "label": "Causes of unavailability",
       "module": 1,
       "slug": "01-mission-critical",
@@ -1760,9 +1870,9 @@
       "topic_id": "m02-en50600-series"
     },
     "m02-intl-vs-national": {
-      "anchor": "5-national-vs-international-standards-and-when-each-applies",
+      "anchor": "7-national-vs-international-standards-and-when-each-applies",
       "domain": "02-standards",
-      "href": "learn/02-standards.html#5-national-vs-international-standards-and-when-each-applies",
+      "href": "learn/02-standards.html#7-national-vs-international-standards-and-when-each-applies",
       "label": "International vs national standards",
       "module": 2,
       "slug": "02-standards",
@@ -1850,9 +1960,9 @@
       "topic_id": "m04-floor-standards"
     },
     "m04-floor-types": {
-      "anchor": null,
+      "anchor": "types-of-raised-floors",
       "domain": "04-floor-ceiling",
-      "href": "learn/04-floor-ceiling.html",
+      "href": "learn/04-floor-ceiling.html#types-of-raised-floors",
       "label": "Types of raised floors",
       "module": 4,
       "slug": "04-floor-ceiling",
@@ -2633,9 +2743,9 @@
       "topic_id": "m15-maintenance-sla"
     },
     "m15-mtbf-mttr": {
-      "anchor": "mtbf-mttr",
+      "anchor": "mtbf-mttr-as-in-module-01",
       "domain": "15-ops-adjacent",
-      "href": "learn/15-ops-adjacent.html#mtbf-mttr",
+      "href": "learn/15-ops-adjacent.html#mtbf-mttr-as-in-module-01",
       "label": "MTBF / MTTR",
       "module": 15,
       "slug": "15-ops-adjacent",
@@ -2651,5 +2761,5 @@
       "topic_id": "m15-ops-security"
     }
   },
-  "topics_with_anchor": 79
+  "topics_with_anchor": 81
 }
