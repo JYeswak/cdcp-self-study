@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.22 leftover: N+2 is not Tier IV
+id = "m06-q259"
+kind = "single-select"
+module = 6
+stem = "A slide titles the UPS plant “N+2 = Tier IV.” The correction is:"
+choices = [
+  "Accept it: two spare modules are the Uptime plaque",
+  "N+2 is the site Availability Class from Module 02",
+  "N+2 is two spare units at that layer; N is capacity, not a sticker; Tier / Rated / Availability Class live in Module 02 — do not invent N+2 = Tier IV",
+  "N+2 means two utilities through one ATS, which is the dual-utility concept",
+]
+correct = "C"
+explanation = "N+2 names two spares at the layer you just said. It is not a plaque and not Tier IV. Confirm what N is."
+topic_ids = ["m06-redundancy"]
+objective_ids = ["obj-m06-n-plus-2"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

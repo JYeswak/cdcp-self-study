@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.22 leftover: 855 electrical not M12 fire
+id = "m06-q261"
+kind = "single-select"
+module = 6
+stem = "Li-ion is specified both as UPS-room strings and as a yard BESS. The electrical / interconnect conversation this module owns is:"
+choices = [
+  "Same chemistry, different hop: UPS strings sit on the UPS DC bus (ride-through); a BESS yard is usually AC-interconnected. Name NFPA 855 (installation standard — confirm adopted edition; not a product listing) and UL 9540A (thermal-runaway test method, not a certification). Point at Module 12 for the fire playbook; do not invent a fire percentage",
+  "Treat BESS as extra UPS batteries on the same DC bus and skip interconnect",
+  "Recite the Module 12 fire playbook (off-gas, water-on-Li-ion, suppression) here so this file owns fire",
+  "Quote an industry outage percentage that proves Li-ion is safer than VRLA",
+]
+correct = "A"
+explanation = "This file owns one-line hop and interconnect. 855 is installation; 9540A is test data. Fire playbook is Module 12. No invented fire or outage percent."
+topic_ids = ["m06-batteries", "m06-bess"]
+objective_ids = ["obj-m06-liion-electrical"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

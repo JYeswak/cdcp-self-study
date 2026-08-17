@@ -6,7 +6,7 @@
 schema_version = 1
 canonical = "cdcp-bank-v3"
 hash_alg = "sha256"
-bank_hash = "bde8b0ad1bcd82b44a1dad745ab8d24339095c53f038c42cf4ed159cbe5977f4"
+bank_hash = "076742809b899c7949a0c951530aad6734e57bc89c1550d5ce21fabb680b9a00"
 
 [knowledge]
 "knowledge/bank_policy.toml" = "44a7edc79f147dbadbfd174678e77137623942ebf22f6a8bfa63888b795b7d40"

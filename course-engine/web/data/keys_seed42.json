@@ -1,5 +1,5 @@
 {
-  "bank_hash": "bde8b0ad1bcd82b44a1dad745ab8d24339095c53f038c42cf4ed159cbe5977f4",
+  "bank_hash": "076742809b899c7949a0c951530aad6734e57bc89c1550d5ce21fabb680b9a00",
   "exam_id": "mock40",
   "keys": [
     {
@@ -14,13 +14,13 @@
     },
     {
       "correct": "D",
-      "explanation": "Particulate/corrosive residue can destroy IT equipment; CO2 or clean-agent portables are often preferred in IT areas per policy.",
-      "item_id": "bank-m12-q060"
+      "explanation": "Electrical heat and defects are frequent ignition sources in facilities.",
+      "item_id": "m12-q210"
     },
     {
-      "correct": "A",
-      "explanation": "Cooling failure can cascade into thermal IT failure even when power is still present.",
-      "item_id": "m01-q057"
+      "correct": "B",
+      "explanation": "Mission-critical is defined by impact of loss, not a single tech feature such as density or PUE.",
+      "item_id": "mock40-q01"
     },
     {
       "correct": "D",
@@ -34,23 +34,23 @@
     },
     {
       "correct": "D",
-      "explanation": "Luminance characterizes light from a surface toward the eye; illuminance is incident light.",
-      "item_id": "m05-q136"
-    },
-    {
-      "correct": "B",
-      "explanation": "Fan stop/smoke-control modes and dampers preserve agent concentration and limit smoke spread per design.",
-      "item_id": "bank-m12-q054"
-    },
-    {
-      "correct": "B",
-      "explanation": "Learning loops turn incidents into durable ops improvements.",
-      "item_id": "bank-m15-q154"
+      "explanation": "Visual quality affects safe, accurate technical work on equipment.",
+      "item_id": "m05-q147"
     },
     {
       "correct": "A",
-      "explanation": "Siloed facilities vs IT ownership commonly misaligns capacity planning, change control, and risk appetite.",
-      "item_id": "m01-q041"
+      "explanation": "Compartmentation fails when penetrations and combustibles are uncontrolled.",
+      "item_id": "m12-q223"
+    },
+    {
+      "correct": "C",
+      "explanation": "MTBF speaks to failure frequency/reliability; do not confuse with repair speed.",
+      "item_id": "bank-m15-q143"
+    },
+    {
+      "correct": "B",
+      "explanation": "Process and human error during change/maintenance work is a classic major outage driver.",
+      "item_id": "mock40-q04"
     },
     {
       "correct": "B",
@@ -59,13 +59,13 @@
     },
     {
       "correct": "D",
-      "explanation": "Unmaintained or obstructed emergency lighting fails when it is needed most.",
-      "item_id": "m05-q146"
+      "explanation": "Architecture differs: local battery units vs central emergency supply—both need maintenance and testing.",
+      "item_id": "m05-q203"
     },
     {
-      "correct": "A",
-      "explanation": "NTP alignment across ACS/VMS/syslog is foundational for incident reconstruction.",
-      "item_id": "bank-m13-q089"
+      "correct": "B",
+      "explanation": "Safety systems prioritize human life and emergency response over access convenience.",
+      "item_id": "m13-q202"
     },
     {
       "correct": "B",
@@ -78,9 +78,9 @@
       "item_id": "m10-q100"
     },
     {
-      "correct": "B",
-      "explanation": "Response clocks and restore clocks are different; design both.",
-      "item_id": "m15-q214"
+      "correct": "A",
+      "explanation": "Documentation is a controlled product of change, not an annual archaeology project.",
+      "item_id": "m15-q213"
     },
     {
       "correct": "B",
@@ -89,8 +89,8 @@
     },
     {
       "correct": "A",
-      "explanation": "Wholesale colo typically leases larger private footprints with landlord-supplied building services and power/cooling plant.",
-      "item_id": "m01-q043"
+      "explanation": "Siloed facilities vs IT ownership commonly misaligns capacity planning, change control, and risk appetite.",
+      "item_id": "m01-q041"
     },
     {
       "correct": "C",
@@ -113,9 +113,9 @@
       "item_id": "m10-q109"
     },
     {
-      "correct": "C",
-      "explanation": "MOPs are operational safety nets, not just task lists.",
-      "item_id": "bank-m15-q139"
+      "correct": "A",
+      "explanation": "As-builts and living diagrams prevent operating from fiction.",
+      "item_id": "bank-m15-q137"
     },
     {
       "correct": "D",
@@ -128,9 +128,9 @@
       "item_id": "m14-q209"
     },
     {
-      "correct": "B",
-      "explanation": "NFPA 2001 is the named standard family for clean-agent systems in US practice awareness.",
-      "item_id": "bank-m12-q070"
+      "correct": "A",
+      "explanation": "US/NFPA-style Class C addresses energized electrical equipment; de-energize when safe, then treat residual fuels.",
+      "item_id": "bank-m12-q057"
     },
     {
       "correct": "D",
@@ -143,19 +143,19 @@
       "item_id": "m14-q210"
     },
     {
-      "correct": "C",
-      "explanation": "Autonomy collapses as kW rises against fixed storage energy.",
-      "item_id": "m06-q110"
+      "correct": "A",
+      "explanation": "RPPs move branch breakers nearer white-space loads.",
+      "item_id": "m06-q105"
     },
     {
       "correct": "C",
-      "explanation": "GPU/HPC loads break old diversity; co-design power, connectors, and cooling.",
-      "item_id": "m06-q098"
+      "explanation": "N+2 names two spares at the layer you just said. It is not a plaque and not Tier IV. Confirm what N is.",
+      "item_id": "m06-q259"
     },
     {
-      "correct": "C",
-      "explanation": "Delay alone is incomplete; detection and response close the loop.",
-      "item_id": "bank-m13-q099"
+      "correct": "A",
+      "explanation": "Physical shared responsibility: customer zones vs provider common plant separation.",
+      "item_id": "bank-m13-q097"
     },
     {
       "correct": "B",
@@ -184,8 +184,8 @@
     },
     {
       "correct": "A",
-      "explanation": "IP codes rate enclosure ingress protection, not electrical topology.",
-      "item_id": "m06-q236"
+      "explanation": "Value is in load-representative, skilled, trended programs—not a one-off photo op.",
+      "item_id": "m06-q097"
     },
     {
       "correct": "C",
@@ -194,8 +194,8 @@
     },
     {
       "correct": "B",
-      "explanation": "Safety systems prioritize human life and emergency response over access convenience.",
-      "item_id": "m13-q202"
+      "explanation": "Colo security is multi-tenant compartmentalization on top of site controls.",
+      "item_id": "m13-q210"
     },
     {
       "correct": "A",

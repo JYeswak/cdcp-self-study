@@ -1,6 +1,6 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "bde8b0ad1bcd82b44a1dad745ab8d24339095c53f038c42cf4ed159cbe5977f4",
+  "bank_hash": "076742809b899c7949a0c951530aad6734e57bc89c1550d5ce21fabb680b9a00",
   "exam_id": "mock40",
   "items": [
     {
@@ -25,23 +25,23 @@
     },
     {
       "choices": [
-        "They are too quiet to hear",
-        "They only work on combustible metals",
-        "They increase humidity setpoints",
-        "Residue can severely damage electronics"
+        "Only fiber polarity errors",
+        "Only low humidity always",
+        "Only empty cable trays",
+        "Overloaded connections, failed components, and poor workmanship creating ignition sources"
       ],
-      "id": "bank-m12-q060",
-      "stem": "Dry chemical ABC extinguishers are often discouraged as first choice inside white space because:"
+      "id": "m12-q210",
+      "stem": "Common electrical causes of data centre fires include:"
     },
     {
       "choices": [
-        "CRAC loss raises inlet temperatures until servers thermally throttle or trip, taking applications offline",
-        "A UPS fails over cleanly to generator with no load drop",
-        "A blanking panel is installed correctly",
-        "A dual-corded server remains powered from two live diverse sources"
+        "All racks exceed 10 kW",
+        "Sustained outage would cause severe business, legal, or safety impact",
+        "The building has a raised floor",
+        "PUE is below 1.4"
       ],
-      "id": "m01-q057",
-      "stem": "Which scenario best illustrates cascading unavailability?"
+      "id": "mock40-q01",
+      "stem": "A payment processor defines a site as mission-critical mainly because:"
     },
     {
       "choices": [
@@ -65,43 +65,43 @@
     },
     {
       "choices": [
-        "Floor uniform load",
-        "Only the amperage of the lighting circuit",
-        "Diesel tank volume",
-        "How bright a surface appears (light leaving/reflecting from it) rather than only light arriving"
+        "They replace cable testing",
+        "They set chiller approach temperature",
+        "They determine Tier rating",
+        "Technicians need to read labels, ports, and indicators without visual discomfort"
       ],
-      "id": "m05-q136",
-      "stem": "Luminance differs from illuminance in that luminance relates more to:"
+      "id": "m05-q147",
+      "stem": "Colour rendering and glare control matter in technical spaces because:"
     },
     {
       "choices": [
-        "Increase free cooling hours during a fire",
-        "Avoid venting agent into returns and avoid feeding the fire with continued air movement as designed",
-        "Charge wet-pipe sprinklers with air",
-        "Disable all temperature sensors permanently"
+        "Limiting flame and smoke spread and maintaining compartmentation",
+        "Increasing alien crosstalk only",
+        "Raising UPS load",
+        "Disabling detection zones"
       ],
-      "id": "bank-m12-q054",
-      "stem": "HVAC/CRAH interlock on fire alarm is important for gaseous systems mainly to:"
+      "id": "m12-q223",
+      "stem": "Cable selection and firestopping at penetrations support fire strategy by:"
     },
     {
       "choices": [
-        "Only blames individuals without system learning",
-        "Converts experience into prevention—procedure, design, and monitoring improvements",
-        "Is optional if the outage was short",
-        "Replaces the need for MOPs on future similar work"
+        "How long repair takes after a failure",
+        "A contractual penalty fee only",
+        "A reliability metric reflecting average operating time between failures for a repairable item population (conceptual)",
+        "The same as SLA credits always"
       ],
-      "id": "bank-m15-q154",
-      "stem": "Post-incident documentation (timeline, root cause, corrective actions) is valuable because it:"
+      "id": "bank-m15-q143",
+      "stem": "MTBF (Mean Time Between Failures) is best described as:"
     },
     {
       "choices": [
-        "Misaligned capacity, change windows, and risk decisions between IT and operations",
-        "Clearer SLA ownership between IT and facilities",
-        "Automatic compliance with every international standard",
-        "Elimination of the need for a recovery strategy"
+        "Excess blanking panels",
+        "Human error during change/maintenance",
+        "Using LED lighting",
+        "Over-documenting MOPs"
       ],
-      "id": "m01-q041",
-      "stem": "From a business-organization view, treating the data centre only as a facilities silo most often leads to:"
+      "id": "mock40-q04",
+      "stem": "Which factor is frequently cited as a major contributor to data-centre outages in industry analyses?"
     },
     {
       "choices": [
@@ -115,23 +115,23 @@
     },
     {
       "choices": [
-        "Periodic testing and keeping egress paths clear",
-        "Keeping exit signs visible",
-        "Documenting monthly tests",
-        "Blocking fixtures or failing to test units so failures are discovered only during a real outage"
+        "They never need testing",
+        "They always use outdoor solar only",
+        "They replace all normal lighting permanently",
+        "Battery/inverter function is local to the fixture versus a central emergency power source feeding remote heads"
       ],
-      "id": "m05-q146",
-      "stem": "A common operational mistake with emergency lighting is:"
+      "id": "m05-q203",
+      "stem": "Self-contained emergency luminaires differ conceptually from centrally supplied emergency lighting in that:"
     },
     {
       "choices": [
-        "Access events and video can be correlated during investigations",
-        "PUE decreases automatically",
-        "Biometrics enroll faster",
-        "Mantraps mechanically close harder"
+        "Marketing secrets only",
+        "People from injury and enable emergency response, even when that conflicts with convenience",
+        "Only package delivery SLAs",
+        "Shareholder branding colors"
       ],
-      "id": "bank-m13-q089",
-      "stem": "ACS and VMS clocks must be time-synchronized primarily so that:"
+      "id": "m13-q202",
+      "stem": "Safety components such as emergency power-off (EPO) interfaces, clear egress, and eye-wash where required differ from security locks because they primarily protect:"
     },
     {
       "choices": [
@@ -155,13 +155,13 @@
     },
     {
       "choices": [
-        "Onsite presence always equals immediate repair",
-        "Response time ≠ restore time without parts, tools, and access readiness",
-        "MTTR ignores logistics",
-        "Vendors can fabricate breakers from scrap instantly always"
+        "As part of the change process when the field changes—not months later if ever",
+        "Only when an auditor is parking outside",
+        "Never, once the first PDF is printed",
+        "By memory during the next outage"
       ],
-      "id": "m15-q214",
-      "stem": "An SLA that promises four-hour onsite response but stocks no critical spares may still yield long outages because:"
+      "id": "m15-q213",
+      "stem": "Documented single lines, rack elevations, and cable schedules should be updated:"
     },
     {
       "choices": [
@@ -175,13 +175,13 @@
     },
     {
       "choices": [
-        "Customer rents substantial private space (e.g., suite/hall) while the landlord provides shell and shared plant",
-        "Customer must use only provider-managed hypervisors",
-        "Identical to public cloud IaaS billing by the second",
-        "A model that forbids dual power cords"
+        "Misaligned capacity, change windows, and risk decisions between IT and operations",
+        "Clearer SLA ownership between IT and facilities",
+        "Automatic compliance with every international standard",
+        "Elimination of the need for a recovery strategy"
       ],
-      "id": "m01-q043",
-      "stem": "Wholesale colocation is most accurately characterized as:"
+      "id": "m01-q041",
+      "stem": "From a business-organization view, treating the data centre only as a facilities silo most often leads to:"
     },
     {
       "choices": [
@@ -225,13 +225,13 @@
     },
     {
       "choices": [
-        "Failure is impossible if steps exist on paper",
-        "Backout is only for software, never facilities",
-        "You must detect incomplete success and reverse safely when the change goes wrong",
-        "Verification is optional if two people watch"
+        "Records how the facility actually is after construction/changes, not only the original design intent",
+        "Replaces the need for monitoring",
+        "Is identical to a sales brochure always",
+        "Should never be updated after day one"
       ],
-      "id": "bank-m15-q139",
-      "stem": "A good MOP includes verification steps and backout because:"
+      "id": "bank-m15-q137",
+      "stem": "As-built documentation for a data centre is valuable because it:"
     },
     {
       "choices": [
@@ -255,13 +255,13 @@
     },
     {
       "choices": [
-        "Portable extinguisher placement only",
-        "Clean-agent fire extinguishing systems",
-        "Generator fuel sulfur content",
-        "Fiber polarity methods"
+        "Energized electrical equipment",
+        "Combustible metals only",
+        "Cooking oils in kitchens only",
+        "Ordinary paper and wood exclusively"
       ],
-      "id": "bank-m12-q070",
-      "stem": "NFPA 2001 is associated at awareness level with:"
+      "id": "bank-m12-q057",
+      "stem": "In common North American labeling, Class C relates primarily to:"
     },
     {
       "choices": [
@@ -285,33 +285,33 @@
     },
     {
       "choices": [
-        "Longer measured autonomy at design load",
-        "Automatic free 2N upgrade",
-        "Shorter real autonomy and risk of load drop before generator is online",
-        "PUE becoming an availability Tier"
+        "Breaker panels closer to the load, fed from upstream distribution",
+        "Only outdoor pad-mounted generators",
+        "Software-defined networking controllers",
+        "Battery monitoring-only devices"
       ],
-      "id": "m06-q110",
-      "stem": "If IT load grows without refreshing UPS battery capacity, a likely result is:"
+      "id": "m06-q105",
+      "stem": "Remote Power Panels (RPPs) are typically:"
     },
     {
       "choices": [
-        "Dual-path power is never required",
-        "Cooling can be ignored if power is abundant",
-        "Diversity assumptions shrink—gear may run near nameplate—and three-phase PDUs/bus ratings dominate",
-        "Single-phase 15 A strips always suffice"
+        "Accept it: two spare modules are the Uptime plaque",
+        "N+2 is the site Availability Class from Module 02",
+        "N+2 is two spare units at that layer; N is capacity, not a sticker; Tier / Rated / Availability Class live in Module 02 — do not invent N+2 = Tier IV",
+        "N+2 means two utilities through one ATS, which is the dual-utility concept"
       ],
-      "id": "m06-q098",
-      "stem": "High-density / HPC and AI racks change power planning because:"
+      "id": "m06-q259",
+      "stem": "A slide titles the UPS plant “N+2 = Tier IV.” The correction is:"
     },
     {
       "choices": [
-        "Guaranteed real-time response",
-        "Automatic badge revocation",
-        "Delay only—without alarms/monitoring, compromise may go unnoticed until after the fact",
-        "Fire suppression release"
+        "Does not open provider-critical plant or other tenants’ cages under shared responsibility",
+        "Always opens the provider UPS room and all neighbor cages",
+        "Disables all cameras by design",
+        "Grants roof hatch master keys automatically"
       ],
-      "id": "bank-m13-q099",
-      "stem": "A lock without detection mainly provides:"
+      "id": "bank-m13-q097",
+      "stem": "Colo multi-tenant zoning typically means a customer badge may open their cage but:"
     },
     {
       "choices": [
@@ -365,13 +365,13 @@
     },
     {
       "choices": [
-        "Protection against solid object and water ingress appropriate to the environment",
-        "UPS topology class",
-        "Fiber polarity",
-        "Fire class of materials only"
+        "Scheduled scans under load, trained techs, anomaly work orders, and trend comparison",
+        "One photo after an outage with no trending",
+        "Scanning only de-energized empty gear forever",
+        "Deleting historical images monthly without review"
       ],
-      "id": "m06-q236",
-      "stem": "IP rating selection for outdoor switchgear or generator enclosures primarily addresses:"
+      "id": "m06-q097",
+      "stem": "A good IR thermography program includes:"
     },
     {
       "choices": [
@@ -385,13 +385,13 @@
     },
     {
       "choices": [
-        "Marketing secrets only",
-        "People from injury and enable emergency response, even when that conflicts with convenience",
-        "Only package delivery SLAs",
-        "Shareholder branding colors"
+        "Removing the need for building perimeter controls",
+        "Providing tenant separation and controlled access within a shared building",
+        "Allowing unlimited shared keys across tenants",
+        "Eliminating CCTV needs"
       ],
-      "id": "m13-q202",
-      "stem": "Safety components such as emergency power-off (EPO) interfaces, clear egress, and eye-wash where required differ from security locks because they primarily protect:"
+      "id": "m13-q210",
+      "stem": "Asset cages or demarcated customer spaces in colocation improve security by:"
     },
     {
       "choices": [

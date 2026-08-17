@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.22 leftover: one-ATS is SPOF not dual-utility
+id = "m06-q255"
+kind = "single-select"
+module = 6
+stem = "A whiteboard labels “dual utility” but Utility A, Utility B, and the generator all land on one ATS feeding one UPS, then split to rack A/B PDUs. The honest label is:"
+choices = [
+  "True 2N: two utility names plus a genset make independence automatic",
+  "The SPOF failure-mode figure, not the dual-utility concept — two utility names through one ATS → one UPS do not become 2N because rack PDUs later split",
+  "N+2, because three sources enter the ATS",
+  "Catcher topology, because one UPS can pick up both utilities",
+]
+correct = "B"
+explanation = "If both utilities and the generator meet at one ATS → one UPS, that is the labeled SPOF figure. Downstream dual cords do not repair a shared transfer."
+topic_ids = ["m06-redundancy", "m06-ats-sts"]
+objective_ids = ["obj-m06-path-independence"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

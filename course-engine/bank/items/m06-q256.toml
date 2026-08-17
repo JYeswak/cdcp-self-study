@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.22 leftover: analyze last common point
+id = "m06-q256"
+kind = "single-select"
+module = 6
+stem = "Reviewer asks you to mark the last common point on a one-line: Utility A and Utility B plus one generator enter a single ATS; one UPS; then A and B rack PDUs. You should:"
+choices = [
+  "Treat two utility names as path independence regardless of the switchgear",
+  "Convert the figure into a Module 03 siting decision about which feeder company to pick",
+  "Mark independence as broken at the ATS, refuse the sketch as dual-utility, and redraw Path A and Path B as separate chains so they first share a node at the dual-corded load",
+  "Call the sketch N+2 because three sources are named",
+]
+correct = "C"
+explanation = "Draw A/B through the last common point. Meeting at one ATS → one UPS is the SPOF. Independent paths may meet at the dual-corded load. Do not steal Module 03 siting."
+topic_ids = ["m06-redundancy", "m06-ats-sts"]
+objective_ids = ["obj-m06-path-independence"]
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

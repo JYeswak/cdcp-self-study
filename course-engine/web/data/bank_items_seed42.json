@@ -10610,6 +10610,195 @@
     ]
   },
   {
+    "bloom": "understand",
+    "choices": [
+      "True 2N: two utility names plus a genset make independence automatic",
+      "The SPOF failure-mode figure, not the dual-utility concept — two utility names through one ATS → one UPS do not become 2N because rack PDUs later split",
+      "N+2, because three sources enter the ATS",
+      "Catcher topology, because one UPS can pick up both utilities"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "If both utilities and the generator meet at one ATS → one UPS, that is the labeled SPOF figure. Downstream dual cords do not repair a shared transfer.",
+    "id": "m06-q255",
+    "kind": "single-select",
+    "module": 6,
+    "objective_ids": [
+      "obj-m06-path-independence"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A whiteboard labels “dual utility” but Utility A, Utility B, and the generator all land on one ATS feeding one UPS, then split to rack A/B PDUs. The honest label is:",
+    "tags": [],
+    "topic_ids": [
+      "m06-redundancy",
+      "m06-ats-sts"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Treat two utility names as path independence regardless of the switchgear",
+      "Convert the figure into a Module 03 siting decision about which feeder company to pick",
+      "Mark independence as broken at the ATS, refuse the sketch as dual-utility, and redraw Path A and Path B as separate chains so they first share a node at the dual-corded load",
+      "Call the sketch N+2 because three sources are named"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "Draw A/B through the last common point. Meeting at one ATS → one UPS is the SPOF. Independent paths may meet at the dual-corded load. Do not steal Module 03 siting.",
+    "id": "m06-q256",
+    "kind": "single-select",
+    "module": 6,
+    "objective_ids": [
+      "obj-m06-path-independence"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Reviewer asks you to mark the last common point on a one-line: Utility A and Utility B plus one generator enter a single ATS; one UPS; then A and B rack PDUs. You should:",
+    "tags": [],
+    "topic_ids": [
+      "m06-redundancy",
+      "m06-ats-sts"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Catcher is a dedicated reserve plus a catcher bus that can pick up an isolated primary; isolated-redundant is a reserve UPS without that bus spine; distributed-redundant spreads spare across active blocks with no idle catcher — isolate lives in Module 15",
+      "They are one slash: any spare UPS is a catcher whether or not a bus exists",
+      "Catcher is the Uptime Tier name for 2N",
+      "Catcher replaces the utility-to-rack path grammar with a single shared ATS"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "Three drawings. Catcher has the bus. Isolated-redundant has a reserve without that spine. Distributed-redundant has no dedicated idle catcher. Isolate is Module 15.",
+    "id": "m06-q257",
+    "kind": "single-select",
+    "module": 6,
+    "objective_ids": [
+      "obj-m06-catcher-topology"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Someone slashes “isolated-redundant / catcher” and “distributed-redundant / catcher” as one topology. The drawable distinction is:",
+    "tags": [],
+    "topic_ids": [
+      "m06-ups-parallel",
+      "m06-redundancy"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Approve catcher: one shared transfer bus is always cheaper and never a common mode",
+      "Call it N+2 so the hall becomes Tier IV without a second path",
+      "This is a Module 12 fire-playbook question; topology is out of scope here",
+      "Refuse the shared catcher bus for this hall: dual-corded IT wants A/B independence to the rack; catcher is capital-efficient for similar enterprise/colo N-blocks with one spare, not a transfer bus across a high-density row — pay for 2N (or 2N-like dual path)"
+    ],
+    "citation_ids": [],
+    "correct": "D",
+    "explanation": "Catcher vs 2N is a drawing choice. An AI hall at 80–120 kW rack-feed usually pays for dual path because a shared catcher bus is another transfer plus a common mode.",
+    "id": "m06-q258",
+    "kind": "single-select",
+    "module": 6,
+    "objective_ids": [
+      "obj-m06-catcher-topology"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A new GPU hall in the 80–120 kW rack-feed class is drawn with several N-sized UPS blocks sharing one catcher bus “to avoid paying for 2N.” Dual-corded training racks land on that bus. The topology call is:",
+    "tags": [],
+    "topic_ids": [
+      "m06-ups-parallel",
+      "m06-redundancy",
+      "m06-hpc"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Accept it: two spare modules are the Uptime plaque",
+      "N+2 is the site Availability Class from Module 02",
+      "N+2 is two spare units at that layer; N is capacity, not a sticker; Tier / Rated / Availability Class live in Module 02 — do not invent N+2 = Tier IV",
+      "N+2 means two utilities through one ATS, which is the dual-utility concept"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "N+2 names two spares at the layer you just said. It is not a plaque and not Tier IV. Confirm what N is.",
+    "id": "m06-q259",
+    "kind": "single-select",
+    "module": 6,
+    "objective_ids": [
+      "obj-m06-n-plus-2"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A slide titles the UPS plant “N+2 = Tier IV.” The correction is:",
+    "tags": [],
+    "topic_ids": [
+      "m06-redundancy"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "The whole path is now Tier IV because UPS has two spares",
+      "Two spare UPS modules at that layer (remaining ≥ N if two are down); that statement says nothing about the ATS, the generators, or a sticker — confirm what N is at each layer",
+      "N+2 automatically duplicates the ATS and the utility feeds",
+      "N is a plaque you stick on the door once any layer is N+2"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "N+2 is two spare units at the named layer. A hall can be N+2 at UPS modules and N at the ATS. N is capacity, not a sticker.",
+    "id": "m06-q260",
+    "kind": "single-select",
+    "module": 6,
+    "objective_ids": [
+      "obj-m06-n-plus-2"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "The UPS module layer is N+2. The ATS layer is a single unit. A fair reading is:",
+    "tags": [],
+    "topic_ids": [
+      "m06-redundancy",
+      "m06-ups-parallel"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Same chemistry, different hop: UPS strings sit on the UPS DC bus (ride-through); a BESS yard is usually AC-interconnected. Name NFPA 855 (installation standard — confirm adopted edition; not a product listing) and UL 9540A (thermal-runaway test method, not a certification). Point at Module 12 for the fire playbook; do not invent a fire percentage",
+      "Treat BESS as extra UPS batteries on the same DC bus and skip interconnect",
+      "Recite the Module 12 fire playbook (off-gas, water-on-Li-ion, suppression) here so this file owns fire",
+      "Quote an industry outage percentage that proves Li-ion is safer than VRLA"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "This file owns one-line hop and interconnect. 855 is installation; 9540A is test data. Fire playbook is Module 12. No invented fire or outage percent.",
+    "id": "m06-q261",
+    "kind": "single-select",
+    "module": 6,
+    "objective_ids": [
+      "obj-m06-liion-electrical"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Li-ion is specified both as UPS-room strings and as a yard BESS. The electrical / interconnect conversation this module owns is:",
+    "tags": [],
+    "topic_ids": [
+      "m06-batteries",
+      "m06-bess"
+    ]
+  },
+  {
     "bloom": "apply",
     "choices": [
       "Proceed with path-A isolation immediately — dual cords guarantee ride-through regardless of landing",

@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.22 leftover: analyze catcher vs 2N AI hall
+id = "m06-q258"
+kind = "single-select"
+module = 6
+stem = "A new GPU hall in the 80–120 kW rack-feed class is drawn with several N-sized UPS blocks sharing one catcher bus “to avoid paying for 2N.” Dual-corded training racks land on that bus. The topology call is:"
+choices = [
+  "Approve catcher: one shared transfer bus is always cheaper and never a common mode",
+  "Call it N+2 so the hall becomes Tier IV without a second path",
+  "This is a Module 12 fire-playbook question; topology is out of scope here",
+  "Refuse the shared catcher bus for this hall: dual-corded IT wants A/B independence to the rack; catcher is capital-efficient for similar enterprise/colo N-blocks with one spare, not a transfer bus across a high-density row — pay for 2N (or 2N-like dual path)",
+]
+correct = "D"
+explanation = "Catcher vs 2N is a drawing choice. An AI hall at 80–120 kW rack-feed usually pays for dual path because a shared catcher bus is another transfer plus a common mode."
+topic_ids = ["m06-ups-parallel", "m06-redundancy", "m06-hpc"]
+objective_ids = ["obj-m06-catcher-topology"]
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
