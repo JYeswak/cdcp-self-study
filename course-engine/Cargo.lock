@@ -239,6 +239,8 @@ dependencies = [
 name = "cdcp_assess"
 version = "0.1.0"
 dependencies = [
+ "cdcp_metrics",
+ "cdcp_site",
  "hex",
  "serde",
  "serde_json",

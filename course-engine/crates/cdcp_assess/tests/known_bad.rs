@@ -4,7 +4,8 @@
 //! below has at least one input that MUST return Err.
 
 use cdcp_assess::{
-    Item, Quantity, Ratio, Response, SequenceCredit, SetCredit, Tolerance, ToleranceKind, KINDS,
+    ashburn_tmy3_free_cooling_hours_int, Item, Quantity, Ratio, Response, SequenceCredit,
+    SetCredit, Tolerance, ToleranceKind, KINDS,
 };
 
 struct Plant {
@@ -135,6 +136,7 @@ fn rust_constructors_reject_the_same_plants() {
     assert!(Tolerance::new(ToleranceKind::Absolute, Ratio::from_int(-1)).is_err());
     assert!(Item::topology_selection(["a", "b"], ["z"], SetCredit::Jaccard).is_err());
     assert!(Item::procedural_sequence(["a", "a"], SequenceCredit::AllOrNothing).is_err());
+    assert!(ashburn_tmy3_free_cooling_hours_int(-1).is_err());
 }
 
 #[test]

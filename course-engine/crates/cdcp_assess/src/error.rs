@@ -25,6 +25,8 @@ pub enum AssessError {
     BareNumber,
     #[error("tolerance magnitude must be >= 0")]
     NegativeTolerance,
+    #[error("scenario quantity must be >= 0")]
+    NegativeQuantity,
     #[error("kind mismatch: item is {item}, response is {response}")]
     KindMismatch {
         item: &'static str,

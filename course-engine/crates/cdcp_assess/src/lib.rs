@@ -15,15 +15,22 @@
 //! This crate does not flatten new kinds into A–D. [`lift_letter_mcq`] is a
 //! one-way lift of an existing four-letter item so its grade can be checked
 //! here unchanged. Bank migration of the live 804 items is not this crate.
+//!
+//! K.1 owner-engineer capstone: [`scenario::ashburn_tmy3_free_cooling_hours`].
 #![forbid(unsafe_code)]
 
 mod error;
 mod ratio;
+mod scenario;
 mod score;
 mod types;
 
 pub use error::AssessError;
 pub use ratio::Ratio;
+pub use scenario::{
+    ashburn_tmy3_free_cooling_hours, ashburn_tmy3_free_cooling_hours_int, hours_response, Scenario,
+    ASHBURN_LOCATION_ID, ASHBURN_TMY3_FREE_COOLING_HOURS, HOURS_UNITS,
+};
 pub use score::score;
 pub use types::{
     lift_letter_mcq, Id, Item, Quantity, Response, Score, ScoreReport, SequenceCredit, SetCredit,
