@@ -23,7 +23,8 @@
 # 48073 -> 46048: EXTRACT-THEN-DELETE of verify_bank impl
 # (bd-engine-not-gate-ar39.10). Pool floors are crates/cdcp_bank (verify_bank.rs).
 # Gate file is a thin dispatcher so check.sh still runs `cdcp_gate verify-bank`.
-ceiling_lines = 46048
+# 46048 -> 46036: sm4g.20 prove-wired/doc-facts fix compressed under the ceiling.
+ceiling_lines = 46036
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
