@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.23 leftover: blanking stays; network is air-cooled
+id = "m08-q212"
+kind = "single-select"
+module = 8
+stem = "A hybrid GPU hall puts cold-plate compute next to air-cooled ToR/spine. Ops wants to drop blanking panels “because the hall is liquid.” The call is:"
+choices = [
+  "Drop blanking: liquid compute retires the air seal and unused U no longer recirculates",
+  "Keep blanking only if the site adopted TIA-942 as a Rated=Tier statute",
+  "Replace blanking with an official EPI® blanking certificate",
+  "Keep blanking: network gear stays air-cooled, so unused U and cable openings still recirculate; liquid-ready does not retire the air seal",
+]
+correct = "D"
+explanation = "Hybrid halls keep air-cooled networking. Blanking remains required. Liquid-ready is the cabinet SKU, not a waiver of the air seal."
+topic_ids = ["m08-types"]
+objective_ids = ["obj-m08-liquid-ready-cabinet"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

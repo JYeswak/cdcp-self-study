@@ -1,6 +1,6 @@
 # Auto-regenerated library manifest
 schema_version = 1
-item_count = 833
+item_count = 836
 bank_id = "cdcp-library"
 source_class = "original"
 description = "Original CDCP study bank (~20x exam); mocks sample 40 without replacement"
@@ -420,6 +420,9 @@ items = [
   "m08-q207.toml",
   "m08-q208.toml",
   "m08-q209.toml",
+  "m08-q210.toml",
+  "m08-q211.toml",
+  "m08-q212.toml",
   "m09-q026.toml",
   "m09-q027.toml",
   "m09-q028.toml",

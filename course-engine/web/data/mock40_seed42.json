@@ -1,6 +1,6 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "076742809b899c7949a0c951530aad6734e57bc89c1550d5ce21fabb680b9a00",
+  "bank_hash": "a112b086ed631dc71b1705c02d788be4918fc89bff72d41c7e729bfa8889599d",
   "exam_id": "mock40",
   "items": [
     {
@@ -345,13 +345,13 @@
     },
     {
       "choices": [
-        "The building has no perimeter at all and racks replace site security completely",
-        "Only outdoor generators need locks",
-        "Multi-tenant or mixed-sensitivity equipment shares a room and needs compartmentalized access control",
-        "All staff should share one master key left in the door"
+        "Cords land on diverse power paths as designed",
+        "PDUs are labeled and load-balanced thoughtfully",
+        "Upstream A/B diversity is maintained through maintenance",
+        "Both cords land on PDUs fed from the same single upstream failure domain without diversity"
       ],
-      "id": "m08-q203",
-      "stem": "Rack-level security (doors, locks, sensors) is most relevant when:"
+      "id": "m08-q208",
+      "stem": "Dual-corded IT equipment in a rack is of limited value if:"
     },
     {
       "choices": [

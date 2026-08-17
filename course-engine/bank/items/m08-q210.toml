@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.23 leftover: GPU-hall SKU vs 600 mm air
+id = "m08-q210"
+kind = "single-select"
+module = 8
+stem = "A GPU hall is specified as “the same 600 mm air cabinet as the colo row, just more kW.” The cabinet SKU call is:"
+choices = [
+  "Approve 600 mm: 19″ rails make every cabinet liquid-ready regardless of width or structure",
+  "Refuse the 600 mm air SKU — a liquid-ready / GPU-hall cabinet is its own product: typically 800 mm for hose and manifold volume, RDHx as a rear-door rack product, drip pans, a planned CDU landing, and 40–100 kW structure/weight; Module 09 owns the liquid families",
+  "Treat width as a TIA-942 Rated=Tier chart so 600 mm becomes Tier IV when adopted",
+  "Keep the air cabinet and freeze a recommended inlet °C pair as law instead of changing the SKU",
+]
+correct = "B"
+explanation = "Liquid-ready is a cabinet SKU, not a denser air box. 800 mm, RDHx door, drip, CDU landing, and 40–100 kW structure are the frame questions. Liquid families live in Module 09. 19″ rails stay."
+topic_ids = ["m08-types", "m08-dimensions"]
+objective_ids = ["obj-m08-liquid-ready-cabinet"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
