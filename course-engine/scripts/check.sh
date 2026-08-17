@@ -1112,6 +1112,14 @@ else
   fail "missing scripts/selftest_known_bad.sh (L4 required)"
 fi
 
+# L4 installer plants (bd-installability-sm4g.7). Not via run_selftest: SUITE=installer
+# is not in REGISTERED_SUITES (adding it grows cdcp_gate past gate_shrink). The
+# suite still emits INJECTIONS=4 SUITE=installer on its own success path.
+[ -f scripts/selftest_install.sh ] || fail "missing scripts/selftest_install.sh (L4 installer known-bad required)"
+echo "==> selftest_install.sh (L4 installer)"
+sh scripts/selftest_install.sh || fail "installer known-bad"
+ok "installer known-bad (tampered tarball · empty assets · missing checksum · D1)"
+
 # L4 WASM: rebuild --release --locked, pin sha256 to the shipped blob, then
 # dual-path against THAT blob (not target/.../debug). [bd-installability-sm4g.4]
 # Missing wasm32: SKIP the rebuild, do NOT advertise full-green (GAPS + skip).

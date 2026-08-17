@@ -10,6 +10,12 @@ Local-first **HTML course + browser grading** for the CDCP self-study corpus.
 
 ## Start here
 
+```bash
+curl -fsSL https://raw.githubusercontent.com/JYeswak/cdcp-self-study/main/course-engine/install.sh | bash
+```
+
+Then `cdcp study`. `--prefix DIR` · `--from-source` · `--verify` · `--uninstall` (keeps `var/attempts`).
+
 1. Constitution: [`docs/ORACLE-GAUNTLET.md`](./docs/ORACLE-GAUNTLET.md)
 2. Standards knowledge: [`docs/STANDARDS-KB.md`](./docs/STANDARDS-KB.md)
 3. Testing philosophy: [`docs/TESTING.md`](./docs/TESTING.md)

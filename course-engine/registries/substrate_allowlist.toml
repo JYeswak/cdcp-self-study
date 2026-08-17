@@ -413,6 +413,18 @@ migration_bead = "bd-installability-sm4g.4"
 expires = "2027-02-28"
 
 [[allow]]
+path = "scripts/selftest_install.sh"
+reason = "L4 known-bad harness for install.sh (bd-installability-sm4g.7). check.sh invokes it: tampered tarball RED, empty-asset release ERROR, missing checksum tool ERROR, curl|bash D1 does not rustup-init. Orchestrator over install.sh."
+migration_bead = "bd-installability-sm4g.7"
+expires = "2027-02-28"
+
+[[allow]]
+path = "install.sh"
+reason = "Product installer (W7). One-command install; receipt-driven uninstall/verify. Invoked by scripts/selftest_install.sh from check.sh. Stays shell: it is the shipped one-liner, not a gate."
+migration_bead = "bd-installability-sm4g.7"
+expires = "2027-02-28"
+
+[[allow]]
 path = "scripts/restore_safe.inc.sh"
 reason = "Restore helper that cannot leave cargo a stale mtime. Sourced by house-pattern selftests that perturb Rust sources (selftest_reconstructed.sh case e). In-place byte write + touch; mv backup dest is not expressible. Ports with the selftests that source it."
 migration_bead = "bd-stale-binary-mtime-trap-p65w"
