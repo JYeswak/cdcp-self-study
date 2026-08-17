@@ -1,5 +1,5 @@
 {
-  "bank_hash": "32844a3f3f380908dee9cd0627b56e3234cfd30fc6fe31197df916f08be79625",
+  "bank_hash": "7129abf53ea56bff0026bb62c516d4cf494e53fee9b1fd7da88e992483d969a8",
   "exam_id": "mock40",
   "keys": [
     {
@@ -43,14 +43,14 @@
       "item_id": "m12-q214"
     },
     {
-      "correct": "C",
-      "explanation": "MTBF speaks to failure frequency/reliability; do not confuse with repair speed.",
-      "item_id": "bank-m15-q143"
+      "correct": "B",
+      "explanation": "A catalog without owners is a brochure. Each entry names the service, who provides it, the SLO it points at, and the OLA or UC that makes that SLO possible. Do not invent an exam-weight percentage for this heading.",
+      "item_id": "m15-q217"
     },
     {
       "correct": "B",
-      "explanation": "Process and human error during change/maintenance work is a classic major outage driver.",
-      "item_id": "mock40-q04"
+      "explanation": "Redundancy enables maintenance; it does not survive working the last path. Call the window N-0. Do not steal Module 06’s path grammar — this is the mission concept only.",
+      "item_id": "m01-q215"
     },
     {
       "correct": "B",
@@ -63,9 +63,9 @@
       "item_id": "m05-q203"
     },
     {
-      "correct": "B",
-      "explanation": "Safety systems prioritize human life and emergency response over access convenience.",
-      "item_id": "m13-q202"
+      "correct": "A",
+      "explanation": "Physical shared responsibility: customer zones vs provider common plant separation.",
+      "item_id": "bank-m13-q097"
     },
     {
       "correct": "B",
@@ -78,9 +78,9 @@
       "item_id": "m10-q100"
     },
     {
-      "correct": "A",
-      "explanation": "Documentation is a controlled product of change, not an annual archaeology project.",
-      "item_id": "m15-q213"
+      "correct": "B",
+      "explanation": "MTBF/MTTR guide design and process; they are not talismans against failure.",
+      "item_id": "m15-q202"
     },
     {
       "correct": "B",
@@ -113,9 +113,9 @@
       "item_id": "m10-q109"
     },
     {
-      "correct": "A",
-      "explanation": "As-builts and living diagrams prevent operating from fiction.",
-      "item_id": "bank-m15-q137"
+      "correct": "B",
+      "explanation": "Maintainability is process and preparedness, not only capital equipment.",
+      "item_id": "m15-q206"
     },
     {
       "correct": "D",
@@ -153,9 +153,9 @@
       "item_id": "m06-q259"
     },
     {
-      "correct": "A",
-      "explanation": "Physical shared responsibility: customer zones vs provider common plant separation.",
-      "item_id": "bank-m13-q097"
+      "correct": "B",
+      "explanation": "Physical security programs stack deter→delay→detect→respond→recover functions.",
+      "item_id": "bank-m13-q098"
     },
     {
       "correct": "B",
@@ -193,9 +193,9 @@
       "item_id": "m08-q054"
     },
     {
-      "correct": "B",
-      "explanation": "Colo security is multi-tenant compartmentalization on top of site controls.",
-      "item_id": "m13-q210"
+      "correct": "C",
+      "explanation": "Physical security runbooks treat piggybacking as a control failure even during emergencies. Challenge and verify; do not trade access control for speed. Cameras help forensics but do not replace the live access decision.",
+      "item_id": "m13-q300"
     },
     {
       "correct": "A",

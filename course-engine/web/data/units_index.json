@@ -1,6 +1,6 @@
 {
-  "approved_item_count": 821,
-  "bank_item_count": 846,
+  "approved_item_count": 829,
+  "bank_item_count": 854,
   "by_module": {
     "01-mission-critical": [
       {
@@ -3253,7 +3253,7 @@
         "check_item_ids": [
           "m15-q202",
           "m15-q208",
-          "bank-m15-q137"
+          "m15-q219"
         ],
         "estimate_minutes": 3,
         "heading_id": "learning-objectives",
@@ -3275,7 +3275,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "bank-m15-q135",
+          "bank-m15-q134",
           "bank-m15-q137",
           "bank-m15-q141"
         ],
@@ -3299,7 +3299,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "bank-m15-q138",
+          "bank-m15-q137",
           "bank-m15-q141",
           "bank-m15-q144"
         ],
@@ -3323,9 +3323,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "bank-m15-q140",
           "bank-m15-q141",
-          "bank-m15-q144",
-          "bank-m15-q146"
+          "bank-m15-q144"
         ],
         "estimate_minutes": 3,
         "heading_id": "interview-drills",
@@ -3347,7 +3347,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "bank-m15-q145",
+          "bank-m15-q144",
           "bank-m15-q146",
           "bank-m15-q149"
         ],
@@ -3371,7 +3371,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "bank-m15-q148",
+          "bank-m15-q147",
           "bank-m15-q149",
           "bank-m15-q151"
         ],
@@ -6622,7 +6622,7 @@
       "check_item_ids": [
         "m15-q202",
         "m15-q208",
-        "bank-m15-q137"
+        "m15-q219"
       ],
       "estimate_minutes": 3,
       "heading_id": "learning-objectives",
@@ -6644,7 +6644,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "bank-m15-q135",
+        "bank-m15-q134",
         "bank-m15-q137",
         "bank-m15-q141"
       ],
@@ -6668,7 +6668,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "bank-m15-q138",
+        "bank-m15-q137",
         "bank-m15-q141",
         "bank-m15-q144"
       ],
@@ -6692,9 +6692,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "bank-m15-q140",
         "bank-m15-q141",
-        "bank-m15-q144",
-        "bank-m15-q146"
+        "bank-m15-q144"
       ],
       "estimate_minutes": 3,
       "heading_id": "interview-drills",
@@ -6716,7 +6716,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "bank-m15-q145",
+        "bank-m15-q144",
         "bank-m15-q146",
         "bank-m15-q149"
       ],
@@ -6740,7 +6740,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "bank-m15-q148",
+        "bank-m15-q147",
         "bank-m15-q149",
         "bank-m15-q151"
       ],

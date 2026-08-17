@@ -1,6 +1,6 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "32844a3f3f380908dee9cd0627b56e3234cfd30fc6fe31197df916f08be79625",
+  "bank_hash": "7129abf53ea56bff0026bb62c516d4cf494e53fee9b1fd7da88e992483d969a8",
   "exam_id": "mock40",
   "items": [
     {
@@ -85,23 +85,23 @@
     },
     {
       "choices": [
-        "How long repair takes after a failure",
-        "A contractual penalty fee only",
-        "A reliability metric reflecting average operating time between failures for a repairable item population (conceptual)",
-        "The same as SLA credits always"
+        "The exam-weight section of the public 2.1 heading — invent a percentage so the brochure can be scored",
+        "A brochure, not a catalog. The catalog is the owned list of delivered services (SKU, owner, SLO pointer, OLA or UC underneath); a 40 kW liquid SKU sitting on a 10 kW air-hall OLA is how the org-split starts",
+        "The CMMS asset register under another name, so facilities can skip owners",
+        "Sufficient if sales published it this quarter and the logos are current"
       ],
-      "id": "bank-m15-q143",
-      "stem": "MTBF (Mean Time Between Failures) is best described as:"
+      "id": "m15-q217",
+      "stem": "A slide of logos titled “service catalog,” with no SKU, no owner, no SLO pointer, and no OLA or underpinning contract underneath, is:"
     },
     {
       "choices": [
-        "Excess blanking panels",
-        "Human error during change/maintenance",
-        "Using LED lighting",
-        "Over-documenting MOPs"
+        "N+1 on the plaque means the window is free — redundancy removes the need for a freeze",
+        "Temporary N-0: concurrent maintenance on the spare while the primary is already hurt; change freezes exist to prevent this (path-trace depth is Module 06)",
+        "This is a cooling cascade, so start at the chiller",
+        "Dual server PSUs make the window N-0-proof"
       ],
-      "id": "mock40-q04",
-      "stem": "Which factor is frequently cited as a major contributor to data-centre outages in industry analyses?"
+      "id": "m01-q215",
+      "stem": "Path A is already degraded. A tech opens Path B for “redundant” work in the same window. The mission-level diagnosis is:"
     },
     {
       "choices": [
@@ -125,13 +125,13 @@
     },
     {
       "choices": [
-        "Marketing secrets only",
-        "People from injury and enable emergency response, even when that conflicts with convenience",
-        "Only package delivery SLAs",
-        "Shareholder branding colors"
+        "Does not open provider-critical plant or other tenants’ cages under shared responsibility",
+        "Always opens the provider UPS room and all neighbor cages",
+        "Disables all cameras by design",
+        "Grants roof hatch master keys automatically"
       ],
-      "id": "m13-q202",
-      "stem": "Safety components such as emergency power-off (EPO) interfaces, clear egress, and eye-wash where required differ from security locks because they primarily protect:"
+      "id": "bank-m13-q097",
+      "stem": "Colo multi-tenant zoning typically means a customer badge may open their cage but:"
     },
     {
       "choices": [
@@ -155,13 +155,13 @@
     },
     {
       "choices": [
-        "As part of the change process when the field changes—not months later if ever",
-        "Only when an auditor is parking outside",
-        "Never, once the first PDF is printed",
-        "By memory during the next outage"
+        "MTBF promises zero failures in that period",
+        "They are statistical reliability/maintainability concepts—not guarantees for a single asset this week",
+        "MTTR is unrelated to spare parts and procedures",
+        "Only software uses these terms"
       ],
-      "id": "m15-q213",
-      "stem": "Documented single lines, rack elevations, and cable schedules should be updated:"
+      "id": "m15-q202",
+      "stem": "MTBF and MTTR are most useful when teams remember that:"
     },
     {
       "choices": [
@@ -225,13 +225,13 @@
     },
     {
       "choices": [
-        "Records how the facility actually is after construction/changes, not only the original design intent",
-        "Replaces the need for monitoring",
-        "Is identical to a sales brochure always",
-        "Should never be updated after day one"
+        "Deleting runbooks to encourage creativity",
+        "Procedures, spares, training, labels, and remote visibility that shrink diagnosis and repair time",
+        "Hiding spare parts offsite without inventory",
+        "Disabling monitoring to avoid alarms"
       ],
-      "id": "bank-m15-q137",
-      "stem": "As-built documentation for a data centre is valuable because it:"
+      "id": "m15-q206",
+      "stem": "Reducing MTTR in facility operations is often less about buying new gear and more about:"
     },
     {
       "choices": [
@@ -305,13 +305,13 @@
     },
     {
       "choices": [
-        "Does not open provider-critical plant or other tenants’ cages under shared responsibility",
-        "Always opens the provider UPS room and all neighbor cages",
-        "Disables all cameras by design",
-        "Grants roof hatch master keys automatically"
+        "Only network QoS classes",
+        "A classic physical-security control sequence",
+        "UPS battery chemistries",
+        "ASHRAE thermal envelopes"
       ],
-      "id": "bank-m13-q097",
-      "stem": "Colo multi-tenant zoning typically means a customer badge may open their cage but:"
+      "id": "bank-m13-q098",
+      "stem": "Deterrence, delay, detection, response, recovery describes:"
     },
     {
       "choices": [
@@ -385,13 +385,13 @@
     },
     {
       "choices": [
-        "Removing the need for building perimeter controls",
-        "Providing tenant separation and controlled access within a shared building",
-        "Allowing unlimited shared keys across tenants",
-        "Eliminating CCTV needs"
+        "Allow both through to save time because the primary vendor is known and the work is urgent",
+        "Disable the mantrap interlock for the rest of the outage window",
+        "Stop the tailgate, challenge/verify identity for the second person, and only grant access per policy (escort or reject) — urgency does not authorize piggybacking",
+        "Confiscate tools and leave both vendors unsupervised in grey space while calling the NOC later"
       ],
-      "id": "m13-q210",
-      "stem": "Asset cages or demarcated customer spaces in colocation improve security by:"
+      "id": "m13-q300",
+      "stem": "Runbook vignette: A vendor arrives for emergency breaker work. Their escort badge is valid, but a second person without credentials tries to tailgate through the mantrap behind them carrying tools. Security cameras are recording. What should the escort/runbook response be?"
     },
     {
       "choices": [

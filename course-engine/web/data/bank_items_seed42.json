@@ -19891,6 +19891,210 @@
   {
     "bloom": "understand",
     "choices": [
+      "The exam-weight section of the public 2.1 heading — invent a percentage so the brochure can be scored",
+      "A brochure, not a catalog. The catalog is the owned list of delivered services (SKU, owner, SLO pointer, OLA or UC underneath); a 40 kW liquid SKU sitting on a 10 kW air-hall OLA is how the org-split starts",
+      "The CMMS asset register under another name, so facilities can skip owners",
+      "Sufficient if sales published it this quarter and the logos are current"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "A catalog without owners is a brochure. Each entry names the service, who provides it, the SLO it points at, and the OLA or UC that makes that SLO possible. Do not invent an exam-weight percentage for this heading.",
+    "id": "m15-q217",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [
+      "obj-m15-service-catalog"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A slide of logos titled “service catalog,” with no SKU, no owner, no SLO pointer, and no OLA or underpinning contract underneath, is:",
+    "tags": [],
+    "topic_ids": [
+      "m15-maintenance-sla",
+      "m15-documentation"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Approve: four-hour onsite response is the customer SLA, and SLM invents its own nines table",
+      "Treat the vendor clause as an OLA because any written commitment is internal",
+      "Collapse OLA and underpinning contract into one synonym so the stack has fewer documents",
+      "Reject the packet: SLA is the customer instrument, OLA is internal team-to-team, UC is the vendor — four-hour onsite response is a UC term, not the tenant SLA; three documents that cannot add up are not SLM; availability clocks stay as in Module 01, not a new nines table"
+    ],
+    "citation_ids": [],
+    "correct": "D",
+    "explanation": "Analyze the stack collapse. SLA, OLA, and UC have different counterparties. A vendor response-time clause is not the customer SLA. SLM does not invent a nines table. No invented outage percent.",
+    "id": "m15-q218",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [
+      "obj-m15-slm-ola-uc"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Reviewer is handed an SLM packet: “Tenant restore-in-four-hours is the SLA; the NOC pages facilities when we can; the vendor clock starts when the part ships; the maintenance agreement’s four-hour onsite response IS the customer SLA; write a new nines table so SLM can own availability.” You should:",
+    "tags": [],
+    "topic_ids": [
+      "m15-maintenance-sla"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Functions (facilities, NOC/ops, security, EHS, floor, vendor management) must have a path: NOC is not isolation authority on switchgear (Subpart S), and a Safety Officer reporting to the uptime bonus is a fictional independent veto",
+      "Module 01 already named four seats, so the 2.1 heading is empty and this file should repeat them",
+      "The NOC should own Subpart S isolation because it holds the DCIM screen",
+      "Org structure is an exam-weight percentage, so the reporting line does not matter"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "Name the functions and the split. Isolation authority is not a NOC screen. A Safety Officer under the uptime bonus is not an independent veto. Do not grow this back into Module 01’s four-seat lesson. Do not invent an exam-weight percentage.",
+    "id": "m15-q219",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [
+      "obj-m15-org-structure"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "This file owns the 2.1 organizational-structure heading — the staffed path, not Module 01’s four seats. A site that leaves switchgear isolation with the NOC alone, and parks the Safety Officer under the manager whose bonus is uptime, is failing that heading because:",
+    "tags": [],
+    "topic_ids": [
+      "m15-ops-security"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Vendor classes are forbidden and only in-house authors may teach",
+      "A signed attendance sheet plus an EPI / certification hour-count substitutes for competence records",
+      "The programme is a role-based matrix with initial qualification, a named recurrent interval, procedure-change training, drills, and competence records — and DOE-HDBK-1028 still holds: no amount of training alters fallibility",
+      "Enough training produces infallible night-shift operators, so the matrix is optional once the class is complete"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "Training is a role-based control with records, not a vendor-class receipt. DOE-HDBK-1028: no amount of counseling, training, or motivation alters a person's fallibility. No EPI / certification language as a substitute.",
+    "id": "m15-q220",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [
+      "obj-m15-training-program"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A site whose training programme is “we sent people to a vendor class” is missing the 2.1 control because:",
+    "tags": [],
+    "topic_ids": [
+      "m15-ops-security",
+      "m15-documentation"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "A security matrix with one convenient row, so the printer can stay simple",
+      "The Module 13 physical-layer diagram copied onto a card",
+      "Least privilege if the contractor signed an NDA and the visitor book has a name",
+      "Not a matrix. A matrix is role × zone × privilege (unescorted, escorted-only, no-access, time-window, two-person); a badge that opens every zone is a single failure that looks like convenience. Module 13 owns the layers; this file owns the table"
+    ],
+    "citation_ids": [],
+    "correct": "D",
+    "explanation": "The 2.1 heading is a table, not a badge printer. Privilege is more than door-opens. Least privilege is the rule. Physical layers stay in Module 13.",
+    "id": "m15-q221",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [
+      "obj-m15-security-matrix"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A contractor badge programmed to open lobby, grey space, white space, UPS room, and BESS yard, unescorted, at any hour, is:",
+    "tags": [],
+    "topic_ids": [
+      "m15-ops-security"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "A document, not a procedure. Level of use is the attribute that decides whether the paper is open at the step or read beforehand and worked from memory; a programme must specify use requirements",
+      "Still a procedure if the approval signatures are wet-ink and the font of the warnings is large",
+      "Automatically emergency-response use, so the reader may skip the steps",
+      "Valid as long as the author was also the sole validator"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "DOE O 422.1 requires specified procedure-use requirements (reader-worker, reference, use-each-time, emergency response). An undeclared level of use is how a competent engineer skips a step and still says they followed the procedure.",
+    "id": "m15-q222",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A MOP whose cover block never names use-each-time versus reference use is, per DOE O 422.1:",
+    "tags": [],
+    "topic_ids": [
+      "m15-documentation"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "1910.147 already covers every electric-utilization installation, so a second citation is decoration",
+      "1910.147(a)(1)(ii)(D) excludes electrical-hazard exposure on electric-utilization installations and points to Subpart S (1910.331–.335, principally 1910.333). Putting a UPS into maintenance bypass from its HMI is not isolation — physical disconnect, lock, stored energy released, absence of voltage verified including backfeed",
+      "The only applicable rule is the utility’s own tariff, because the campus takes a medium-voltage feed",
+      "Subpart S applies only to the utility’s exclusive-control substation — that regime is 1910.269, not this work"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "A data-centre distribution is an electric-utilization installation. 1910.147 governs unexpected energisation of machines; Subpart S governs electrical-hazard exposure on switchgear and UPS. HMI bypass is a control device, not isolation. 1910.269 is the utility-substation regime.",
+    "id": "m15-q223",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "An energy-control programme that cites only 29 CFR 1910.147 for work on UPS, switchgear, PDU, and busway is mis-scoped because:",
+    "tags": [],
+    "topic_ids": [
+      "m15-ops-security"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "A high-priority alarm so it is never missed, and more points always mean better monitoring",
+      "Evidence the floor is healthy whenever the point stays silent — absence of alarm is health",
+      "A status indicator, not an alarm. HSE: process status indicators should not be designated as alarms; delete or downgrade, do not acknowledge forever. Point count and operator-actionable alarms per hour move in opposite directions",
+      "A reason to raise the integrator’s invoice until every status bit is an alarm"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "An alarm requires operator action. Status is not an alarm. Absence of alarm is not evidence of health (2003 silent alarm-processor failure). Point-count procurement fights alarm quality. No invented outage percent.",
+    "id": "m15-q224",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A BMS/DCIM point with no defined operator response, and a procurement that prices the job by monitored-point count, should be read as:",
+    "tags": [],
+    "topic_ids": [
+      "m15-ops-security"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
       "All racks exceed 10 kW",
       "Sustained outage would cause severe business, legal, or safety impact",
       "The building has a raised floor",

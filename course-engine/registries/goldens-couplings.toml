@@ -422,9 +422,9 @@ digest = "a796fce9e69cb4ffc8cf30fe2710091d05eb2678f7f3451cdd7df0106c43275f"
 [[golden]]
 id = "fixture.mock40-seed42"
 file = "goldens/fixtures/mock40_seed42.json"
-frozen = "490350c6c1e22c5254be9882d87146fc67470eeb9b7f08acec4411970182a0d7"
+frozen = "fb060ca86b9ddec1cdcc9770de0ba9a6df410ae208a6b1c495084f4404b8cd31"
 affirmed = "2026-08-17"
-justification = "The seed-42 assembly record: forty ids in presentation order, plus an embedded six-field projection of each item and the bank_hash they were drawn under. Every other golden here is computed FROM this file, so it is re-frozen first and re-affirmed first. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.27): two new approved M14 items entered the pool (844→846 files, 819→821 approved). Domain stayed cdcp-bank-v3; no hashed field was added. The DRAW moved two slots (2 left / 2 entered). Left: m14-q209, m14-q210. Entered: bank-m14-q128, bank-m14-q111. New leftover ids m14-q211 / m14-q212 were not drawn. bank_hash f3e79c62…→32844a3f…. Surfaces named here did not move."
+justification = "The seed-42 assembly record: forty ids in presentation order, plus an embedded six-field projection of each item and the bank_hash they were drawn under. Every other golden here is computed FROM this file, so it is re-frozen first and re-affirmed first. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.28): eight new approved M15 leftover items entered the pool (846→854 files, 821→829 approved). Domain stayed cdcp-bank-v3; no hashed field was added. The DRAW moved six slots (6 left / 6 entered). Left: bank-m15-q137, bank-m15-q143, m13-q202, m13-q210, m15-q213, mock40-q04. Entered: bank-m13-q098, m01-q215, m13-q300, m15-q202, m15-q206, m15-q217. New leftover ids m15-q218–q224 were not drawn; m15-q217 (catalog) entered one slot. bank_hash 32844a3f…→7129abf5…. Surfaces named here did not move."
 depends_on = [
   { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
@@ -436,9 +436,9 @@ depends_on = [
 [[golden]]
 id = "grade.all-correct"
 file = "goldens/mock40_seed42_all_correct.sha256"
-frozen = "3a428c24bc36212acc3a6211ecfca567a7367f7a043e0a1998a7cce3a5d28690"
+frozen = "893f18beac25e3fe7cfc832ecff6b644fd51c5c7e37f32d02a23164070cd37bc"
 affirmed = "2026-08-17"
-justification = "hex(SHA-256(canonical_json(GradeReport))) for an attempt answering every fixture item with its correct letter. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.27): the fixture moved two ids (m14-q209→bank-m14-q128, m14-q210→bank-m14-q111) and bank_hash entered the report body (32844a3f…). Report shape, canonical JSON, scoring, and schema version did not move. all-correct remains 40/40."
+justification = "hex(SHA-256(canonical_json(GradeReport))) for an attempt answering every fixture item with its correct letter. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.28): the fixture moved six ids and bank_hash entered the report body (7129abf5…). Report shape, canonical JSON, scoring, and schema version did not move. all-correct remains 40/40."
 depends_on = [
   { surface = "core.schema-version", version = "ve1cc74b2e52b" },
   { surface = "core.grade-report-shape", version = "v0e105134e087" },
@@ -452,9 +452,9 @@ depends_on = [
 [[golden]]
 id = "grade.all-wrong"
 file = "goldens/mock40_seed42_all_wrong.sha256"
-frozen = "d94085736675e54681bef8fff2b864ce733fcb4a764c2cc51d9d836ec1dc43cb"
+frozen = "b8fca2218d618a6e5dbf335d456ff4ae690d3e229316d94f8e628b0efb2f98d5"
 affirmed = "2026-08-17"
-justification = "The all-correct golden's counterpart, answering correct.wrong_letter() for all forty items. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.27): same two-slot draw move and bank_hash move as grade.all-correct. The wrong-letter cycle itself did not move."
+justification = "The all-correct golden's counterpart, answering correct.wrong_letter() for all forty items. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.28): same six-slot draw move and bank_hash move as grade.all-correct. The wrong-letter cycle itself did not move."
 depends_on = [
   { surface = "core.schema-version", version = "ve1cc74b2e52b" },
   { surface = "core.grade-report-shape", version = "v0e105134e087" },
@@ -470,9 +470,9 @@ depends_on = [
 id = "bank.hash-pin"
 file = "goldens/bank_hash.txt"
 const = "crates/cdcp_gate/src/gates/verify_content_lock.rs::GOLDEN_REL"
-frozen = "dcf97613965c69321c1e8773e0ea045ae25a176b38dfbc9bdb0b9c765ac55b9e"
+frozen = "328278d77a011e53cfa784a69cbaec8d87e2e291a8adb76f92f84eab12be42f6"
 affirmed = "2026-08-17"
-justification = "The bank content address for this snapshot, and the fallback verify-content-lock reads when it cannot recompute one. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.27): two new original M14 items (m14-q211, m14-q212) entered hash_payload. Address f3e79c62…→32844a3f…. BANK_HASH_DOMAIN stayed cdcp-bank-v3; bank.hash-payload / bank.item-schema surfaces did not move. The address now names a bank of 846 files of which 821 are drawable."
+justification = "The bank content address for this snapshot, and the fallback verify-content-lock reads when it cannot recompute one. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.28): eight new original M15 leftover items (m15-q217–q224) entered hash_payload. Address 32844a3f…→7129abf5…. BANK_HASH_DOMAIN stayed cdcp-bank-v3; bank.hash-payload / bank.item-schema surfaces did not move. The address now names a bank of 854 files of which 829 are drawable."
 depends_on = [
   { surface = "bank.hash-payload", version = "vcf11098efb54" },
   { surface = "bank.item-schema", version = "v9e6e70394dd4" },
@@ -482,9 +482,9 @@ depends_on = [
 [[golden]]
 id = "web.learner-pack"
 file = "web/data/mock40_seed42.json"
-frozen = "62c7e2352cf37d68766abccac41831048afb1500176e7b48bdffdd407eaaeca9"
+frozen = "fdc837e6885a57dd6c3e3fd500f76be7ef78e9a2b710079fbaa19e4fd45285ea"
 affirmed = "2026-08-17"
-justification = "The learner exam pack the browser loads, cmp'd byte-for-byte by check.sh L6 against a fresh export-web at seed 42. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.27): the published form moved two slots (m14-q209 / m14-q210 left; bank-m14-q128 / bank-m14-q111 entered). A learner who sat seed-42 before this change and sits it after meets a different forty. Pack still carries the new bank_hash. Pack shape and sampler surfaces did not move."
+justification = "The learner exam pack the browser loads, cmp'd byte-for-byte by check.sh L6 against a fresh export-web at seed 42. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.28): the published form moved six slots (bank-m15-q137, bank-m15-q143, m13-q202, m13-q210, m15-q213, mock40-q04 left; bank-m13-q098, m01-q215, m13-q300, m15-q202, m15-q206, m15-q217 entered). A learner who sat seed-42 before this change and sits it after meets a different forty. Pack still carries the new bank_hash. Pack shape and sampler surfaces did not move."
 depends_on = [
   { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
@@ -495,9 +495,9 @@ depends_on = [
 [[golden]]
 id = "web.keys-pack"
 file = "web/data/keys_seed42.json"
-frozen = "03a1c9544886f15c2606d2cd7ddebe034d11817164898e837e2231226a78076c"
+frozen = "76e6c53a766565751f84f058e80cd9d699337daa09ebb0a77ac12382b1b2372e"
 affirmed = "2026-08-17"
-justification = "The answer keys and explanations for the same forty items, held apart from the learner pack on purpose. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.27): keys follow the same two-slot draw move as the learner pack. Pack shape did not move."
+justification = "The answer keys and explanations for the same forty items, held apart from the learner pack on purpose. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.28): keys follow the same six-slot draw move as the learner pack. Pack shape did not move."
 depends_on = [
   { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
@@ -508,9 +508,9 @@ depends_on = [
 [[golden]]
 id = "web.bank-items-pack"
 file = "web/data/bank_items_seed42.json"
-frozen = "5d6f2f03b5a2ec1a630e3f0b27690e8b75b758a024e9beefbf9d6a5100cbd1ce"
+frozen = "8fa0a2a8551ab592791ea204741a5061ba6c88ec86212ac06f899c7ba6b818c8"
 affirmed = "2026-08-17"
-justification = "The full bank array the WASM grade path needs, serialised straight off BankItem. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.27): array length moved 844→846 because two new files were added (m14-q211, m14-q212). 25 remain retired; drawable pool is 821. Element shape / bank.item-schema did not move."
+justification = "The full bank array the WASM grade path needs, serialised straight off BankItem. RE-FROZEN 2026-08-17 (bd-curriculum-truth-ebrr.28): array length moved 846→854 because eight new files were added (m15-q217–q224). 25 remain retired; drawable pool is 829. Element shape / bank.item-schema did not move."
 depends_on = [
   { surface = "bank.item-schema", version = "v9e6e70394dd4" },
   { surface = "bank.hash-payload", version = "vcf11098efb54" },
