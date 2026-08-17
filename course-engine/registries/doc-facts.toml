@@ -277,7 +277,6 @@ probe = { kind = "symbol_body_contains", path = "crates/cdcp_cli/src/main.rs", s
 trigger = "implicit fixture"
 
 # ── exclusions (trigger→must-cite only; markers are still checked) ──────────
-
-[[exclude]]
-path = "course-engine/beads_compliance_audit/"
-reason = "Dated audit snapshots, not live law. Every file under this prefix is a pass record (passes/<UTC>/) or a rollup of one; sentences are past-tense by construction (Date/Pass headers, or quoted bead text from that date). New passes land continuously, so an exact-path list or an as-of-stamp walk would break the build on unrelated work. This prefix is therefore permanent — not a parked bead. COST: a genuinely present-tense claim about code written into this directory is invisible to this gate. Write live claims in docs/ (un-excludable) with a [[fact:]] marker; do not write them here."
+# beads_compliance_audit/ is SKIP_DIRS in doc_facts.rs (gitignored scratch).
+# Do not re-add it as [[exclude]]: on CI the directory is absent and a dead
+# exclusion is an ERROR (bd-installability-sm4g.20).

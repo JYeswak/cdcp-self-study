@@ -65,14 +65,14 @@ const KNOWN_DEBTS: &[(&str, &str)] = &[];
 
 /// The floor on documents the live scan must reach.
 ///
-/// 120, and the number is deliberate. The corpus holds 228 markdown files today
-/// and `course-engine/beads_compliance_audit/` alone holds 120 of them; the
-/// engine's own `docs/` holds 24. A run reporting fewer than 120 has lost a
-/// whole directory — the usual causes being a wrong `--root` and a walk that
-/// stopped climbing to the corpus. A doc gate that scanned a tenth of the corpus
-/// prints exactly the same `ok:` line as one that scanned all of it, so the
-/// count is asserted rather than trusted.
-const MIN_LIVE_DOCS: usize = 120;
+/// Floor on committed corpus markdown the live scan must reach.
+///
+/// `beads_compliance_audit/` is gitignored scratch and is SKIP_DIRS — it must
+/// not inflate this floor, or CI (which has no audit dir) and a local desk
+/// (which does) would disagree. Measured 2026-08-17 after the skip: the
+/// committed tree is well above 40 (CHARTER + parent README + engine docs +
+/// modules). A run reporting fewer has lost a directory.
+const MIN_LIVE_DOCS: usize = 40;
 
 fn engine_root() -> PathBuf {
     cdcp_gate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
@@ -792,21 +792,19 @@ fn every_known_debt_carries_a_reason() {
     }
 }
 
-/// The two surfaces this residual named. The audit prefix stays excluded and
-/// must keep naming its COST. `goldens/PROVENANCE.md` was rewritten to dated
-/// measurements + registry pointers and is back in the scan — re-excluding it
-/// recreates the hole.
+/// The audit dir is SKIP_DIRS (gitignored scratch), not an [[exclude]] —
+/// a dead exclude of an absent CI path is ERROR. Remaining excludes, if
+/// any, must still name COST. `goldens/PROVENANCE.md` stays in the scan.
 #[test]
 fn live_exclusions_are_permanent_and_name_their_cost() {
+    assert!(
+        cdcp_gate::gates::doc_facts::SKIP_DIRS.contains(&"beads_compliance_audit"),
+        "the dated-audit dir is walker-skipped, not [[exclude]]d — CI has no such directory"
+    );
     let root = engine_root();
     let text = std::fs::read_to_string(root.join("registries/doc-facts.toml"))
         .expect("read live doc-facts registry");
     let reg = cdcp_gate::gates::doc_facts::parse_registry(&text).expect("parse live registry");
-    assert!(
-        !reg.exclude.is_empty(),
-        "the live registry must still name the dated-audit prefix"
-    );
-    let mut saw_audit = false;
     for e in &reg.exclude {
         let path = e.path.trim();
         let reason = e.reason.trim();
@@ -824,18 +822,11 @@ fn live_exclusions_are_permanent_and_name_their_cost() {
             "goldens/PROVENANCE.md is in the scan (dated measurements + registry pointers). \
              Re-excluding it recreates the unguarded-claim hole"
         );
-        if path.contains("beads_compliance_audit") {
-            saw_audit = true;
-            assert!(
-                path.ends_with('/'),
-                "{path}: the audit exclusion is a prefix because new passes land continuously"
-            );
-        }
+        assert!(
+            !path.contains("beads_compliance_audit"),
+            "{path}: the audit dir is SKIP_DIRS; re-adding [[exclude]] dies on CI when the dir is absent"
+        );
     }
-    assert!(
-        saw_audit,
-        "the dated-audit prefix is the remaining uncovered surface and must stay named"
-    );
 }
 
 #[test]

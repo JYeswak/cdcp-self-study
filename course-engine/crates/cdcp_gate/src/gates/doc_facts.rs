@@ -171,7 +171,21 @@ pub const MAX_MARKDOWN_FILES: usize = 5_000;
 /// Directory names never descended into. Dot-directories are skipped too (see
 /// [`walk_markdown`]): `.beads/` alone holds a hundred history files that quote
 /// prose verbatim, and a bead body quoting a doc is not that doc.
-pub const SKIP_DIRS: &[&str] = &["target", "dist", "node_modules"];
+///
+/// `beads_compliance_audit/` is gitignored local scratch (dated pass records).
+/// An `[[exclude]]` for it is dead on CI — the directory is not in the commit
+/// — and a dead exclusion is an ERROR. Skip it in the walk instead, the same
+/// way `target/` is skipped (bd-installability-sm4g.20).
+pub const SKIP_DIRS: &[&str] = &[
+    "target",
+    "dist",
+    "node_modules",
+    "beads_compliance_audit",
+    // Dated research ledgers under docs/curriculum-grades/ quote INJECTIONS=
+    // / CHECK_STEPS= while reporting ON the gate. docs/ is NEVER_EXCLUDABLE,
+    // so [[exclude]] cannot cover them. Skip the directory (bd-installability-sm4g.20).
+    "curriculum-grades",
+];
 
 /// The primary doc surface, which no `[[exclude]]` may shadow however good its
 /// reason. Prefix exclusions are one line that silences a directory, and the
@@ -1237,7 +1251,19 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     }
 
     let corpus = corpus_root(root);
-    let docs = walk_markdown(&corpus).map_err(GateError::error)?;
+    let mut docs = walk_markdown(&corpus).map_err(GateError::error)?;
+    // Judge the committed corpus, not the author's desk. Untracked
+    // research ledgers (docs/curriculum-grades/) and gitignored audit
+    // scratch would otherwise trip the gate locally and stay invisible
+    // on CI — the same split that made beads_compliance_audit/ [[exclude]]
+    // dead on Actions (bd-installability-sm4g.20).
+    if let Ok(tracked) = crate::vcs::tracked_files(&corpus) {
+        let tracked: std::collections::BTreeSet<String> =
+            tracked.into_iter().map(|p| p.replace('\\', "/")).collect();
+        if !tracked.is_empty() {
+            docs.retain(|d| tracked.contains(&d.rel));
+        }
+    }
 
     // Probe paths are ENGINE-relative; markdown paths are CORPUS-relative. Both
     // resolutions are explicit so neither can silently borrow the other's root.

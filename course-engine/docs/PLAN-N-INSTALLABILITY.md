@@ -132,7 +132,7 @@ currently a property of discipline, not of mechanism.
 --locked` and asserts `sha256` equality with the committed blob; the dual-path oracle
 points at the shipped artifact. Planted known-bad: flip one byte in the committed blob →
 RED **naming the wasm**, not a downstream digest. Second plant: change a grade-affecting
-constant and rebuild only native → RED. Emits `INJECTIONS=2 SUITE=wasm-freshness`. If
+constant and rebuild only native → RED. Emits `INJECTIONS=2 SUITE=wasm-freshness` [[fact:fact-injections-enforced=yes]]. If
 the wasm32 target is absent the step is **SKIPPED and the run may not be advertised as
 full-green** — a skip must not read like a pass (`check.sh:1130` currently lets the whole
 leg skip).
