@@ -198,6 +198,8 @@ function assertExports(instance) {
     "cdcp_mastered_min_gap_ms",
     "cdcp_is_practiced",
     "cdcp_is_mastered",
+    "cdcp_state_version",
+    "cdcp_migrate_state_version",
     "memory",
   ];
   for (const name of need) {

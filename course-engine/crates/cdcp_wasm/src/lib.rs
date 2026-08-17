@@ -20,9 +20,10 @@ use cdcp_grade::grade_digest;
 use cdcp_schedule::{self, ReviewAttempt};
 
 pub use cdcp_schedule::{
-    cap_days, first_step_days, is_mastered, is_practiced_milli, is_practiced_ratio,
-    next_interval_days, ratio_to_milli, validate_schedule, validate_steps, validate_thresholds,
-    DAY_MS, INTERVAL_STEPS, MASTERED_MILLI, MASTERED_MIN_GAP_MS, PRACTICED_MILLI,
+    cap_days, first_step_days, is_mastered, is_practiced_milli, is_practiced_ratio, migrate_card,
+    migrate_state_version, next_interval_days, ratio_to_milli, validate_schedule, validate_steps,
+    validate_thresholds, DAY_MS, INTERVAL_STEPS, MASTERED_MILLI, MASTERED_MIN_GAP_MS,
+    PRACTICED_MILLI, STATE_VERSION, STATE_VERSION_UNVERSIONED,
 };
 
 /// Engine identity labels asserted at the dual-path comparator (docs/ORACLE-GAUNTLET.md).
@@ -280,6 +281,25 @@ mod abi {
             return 0;
         }
         i32::from(cdcp_schedule::is_practiced_milli(ratio_milli as u32))
+    }
+
+    /// Current persisted schedule-state version.
+    #[no_mangle]
+    pub extern "C" fn cdcp_state_version() -> i32 {
+        cdcp_schedule::STATE_VERSION as i32
+    }
+
+    /// Migrate a persisted version. Returns the current version, or `-1`
+    /// when the input is unknown / negative (ERROR — never a default).
+    #[no_mangle]
+    pub extern "C" fn cdcp_migrate_state_version(from: i32) -> i32 {
+        if from < 0 {
+            return -1;
+        }
+        match cdcp_schedule::migrate_state_version(from as u32) {
+            Ok(v) => v as i32,
+            Err(_) => -1,
+        }
     }
 
     /// 1 = mastered, 0 = not, <0 = parse error (`-err_len`, bytes at last_ptr).

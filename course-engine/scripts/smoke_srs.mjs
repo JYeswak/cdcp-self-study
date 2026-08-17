@@ -63,6 +63,7 @@ const {
   APPROVED_STATUS,
   REVIEW_STORAGE_KEY,
   MISSED_STORAGE_KEY,
+  isUnknownScheduleVersionError,
 } = await import(reviewPath);
 
 const DAY_MS = dayMs();
@@ -193,6 +194,49 @@ assert(loadReviewState(store).cards["w1"].interval_days === 1, "re-miss resets t
 // normalize rejects garbage
 const empty = normalizeReviewState({ cards: "nope" });
 assert(Object.keys(empty.cards).length === 0, "normalize rejects bad cards");
+assert(empty.schema_version === 1, "unversioned garbage migrates to v1");
+
+// v0 (missing version) → v1, fields identity
+const v0 = normalizeReviewState({
+  cards: {
+    x: {
+      item_id: "x",
+      interval_days: 3,
+      due_at: 42,
+      reps: 1,
+      lapses: 2,
+      updated_at: 41,
+    },
+  },
+});
+assert(v0.schema_version === 1, "unversioned record migrates to v1");
+assert(v0.cards.x && v0.cards.x.interval_days === 3, "v0→v1 identity on fields");
+
+// unknown version is ERROR — must not coerce to v1 or wipe
+let unknownThrew = false;
+try {
+  normalizeReviewState({ schema_version: 99, cards: {} });
+} catch (err) {
+  unknownThrew = isUnknownScheduleVersionError(err);
+}
+assert(unknownThrew, "unknown schema_version is ERROR");
+
+const storeUnknown = makeStore();
+storeUnknown.setItem(
+  REVIEW_STORAGE_KEY,
+  JSON.stringify({ schema_version: 2, cards: { y: { item_id: "y" } } })
+);
+let loadUnknownThrew = false;
+try {
+  loadReviewState(storeUnknown);
+} catch (err) {
+  loadUnknownThrew = isUnknownScheduleVersionError(err);
+}
+assert(loadUnknownThrew, "loadReviewState does not swallow unknown version");
+assert(
+  storeUnknown.getItem(REVIEW_STORAGE_KEY).indexOf('"schema_version":2') !== -1,
+  "unknown version must not wipe storage"
+);
 
 // Keys exist (schema documentation surface)
 assert(typeof REVIEW_STORAGE_KEY === "string" && REVIEW_STORAGE_KEY.length > 0, "review key");

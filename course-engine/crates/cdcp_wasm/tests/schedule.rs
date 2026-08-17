@@ -7,8 +7,9 @@
 //! constant in Rust moved, a JS reimplementation would not.
 
 use cdcp_schedule::{
-    is_practiced_milli, next_interval_days, next_interval_days_with, validate_schedule,
-    validate_steps, validate_thresholds, INTERVAL_STEPS, MASTERED_MILLI, PRACTICED_MILLI,
+    is_practiced_milli, migrate_state_version, next_interval_days, next_interval_days_with,
+    validate_schedule, validate_steps, validate_thresholds, INTERVAL_STEPS, MASTERED_MILLI,
+    PRACTICED_MILLI, STATE_VERSION,
 };
 use cdcp_wasm::is_mastered_json;
 use std::path::{Path, PathBuf};
@@ -73,6 +74,8 @@ struct WasmSchedule {
     gap_ms: wasmtime::TypedFunc<(), i32>,
     is_practiced: wasmtime::TypedFunc<i32, i32>,
     is_mastered: wasmtime::TypedFunc<(u32, u32), i32>,
+    state_version: wasmtime::TypedFunc<(), i32>,
+    migrate_state_version: wasmtime::TypedFunc<i32, i32>,
 }
 
 fn instantiate(wasm_path: &Path) -> Result<WasmSchedule, String> {
@@ -115,6 +118,10 @@ fn instantiate(wasm_path: &Path) -> Result<WasmSchedule, String> {
         is_mastered: instance
             .get_typed_func(&mut store, "cdcp_is_mastered")
             .map_err(|e| format!("cdcp_is_mastered: {e}"))?,
+        state_version: get(&mut store, "cdcp_state_version")?,
+        migrate_state_version: instance
+            .get_typed_func(&mut store, "cdcp_migrate_state_version")
+            .map_err(|e| format!("cdcp_migrate_state_version: {e}"))?,
         store,
         memory,
     })
@@ -145,7 +152,13 @@ fn maybe_wasm() -> Option<WasmSchedule> {
 #[test]
 fn compiled_schedule_is_not_vacuous() {
     validate_schedule().expect("compiled schedule must be valid");
-    assert_eq!(validate_steps(&[]).unwrap_err().to_string().contains("zero steps"), true);
+    assert_eq!(
+        validate_steps(&[])
+            .unwrap_err()
+            .to_string()
+            .contains("zero steps"),
+        true
+    );
     assert!(validate_thresholds(0, 900).is_err());
     assert!(validate_thresholds(800, 0).is_err());
 }
@@ -182,15 +195,7 @@ fn native_equals_wasm_schedule() {
         assert_eq!(got, want as i32, "wasm step[{i}] != native");
     }
 
-    let cases: [(i32, i32); 7] = [
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (3, 1),
-        (3, 0),
-        (1, 0),
-        (-5, 1),
-    ];
+    let cases: [(i32, i32); 7] = [(0, 0), (0, 1), (1, 1), (3, 1), (3, 0), (1, 0), (-5, 1)];
     for (cur, ok) in cases {
         let native = next_interval_days(cur, ok != 0) as i32;
         let wasm = w.next.call(&mut w.store, (cur, ok)).unwrap();
@@ -244,6 +249,23 @@ fn native_equals_wasm_schedule() {
     let _ = w.free.call(&mut w.store, (ptr, bytes.len() as u32));
     assert!(rc >= 0, "wasm is_mastered error");
     assert_eq!(native, rc == 1, "mastered json dual-path");
+
+    assert_eq!(
+        w.state_version.call(&mut w.store, ()).unwrap() as u32,
+        STATE_VERSION
+    );
+    for from in [0i32, 1] {
+        let native = migrate_state_version(from as u32).unwrap() as i32;
+        let wasm = w.migrate_state_version.call(&mut w.store, from).unwrap();
+        assert_eq!(native, wasm, "migrate_state_version({from})");
+    }
+    for bad in [2i32, 99, -1] {
+        let wasm = w.migrate_state_version.call(&mut w.store, bad).unwrap();
+        assert!(wasm < 0, "unknown version {bad} must be ERROR from wasm");
+        if bad >= 0 {
+            assert!(migrate_state_version(bad as u32).is_err());
+        }
+    }
 }
 
 /// Known-bad: the stepper is the ladder, not a hardcoded 3. Changing the
@@ -274,10 +296,15 @@ fn known_bad_js_does_not_shadow_the_rust_law() {
     let bridge = std::fs::read_to_string(root.join("web/assets/js/schedule_bridge.js"))
         .expect("schedule_bridge.js");
     let review = std::fs::read_to_string(root.join("web/assets/js/review.js")).expect("review.js");
-    let mastery = std::fs::read_to_string(root.join("web/assets/js/mastery.js")).expect("mastery.js");
+    let mastery =
+        std::fs::read_to_string(root.join("web/assets/js/mastery.js")).expect("mastery.js");
+    let drill = std::fs::read_to_string(root.join("web/assets/js/drill.js")).expect("drill.js");
 
     assert!(
-        !bridge.trim().is_empty() && !review.trim().is_empty() && !mastery.trim().is_empty(),
+        !bridge.trim().is_empty()
+            && !review.trim().is_empty()
+            && !mastery.trim().is_empty()
+            && !drill.trim().is_empty(),
         "empty JS scan set is an ERROR, not a pass"
     );
 
@@ -288,6 +315,8 @@ fn known_bad_js_does_not_shadow_the_rust_law() {
         "cdcp_is_mastered",
         "cdcp_practiced_milli",
         "cdcp_mastered_milli",
+        "cdcp_state_version",
+        "cdcp_migrate_state_version",
     ] {
         assert!(
             bridge.contains(name),
@@ -300,10 +329,20 @@ fn known_bad_js_does_not_shadow_the_rust_law() {
         "review.js must import nextIntervalDays from schedule_bridge (WASM decides)"
     );
     assert!(
+        review.contains("migrateStateVersion"),
+        "review.js must import migrateStateVersion from schedule_bridge (WASM decides version)"
+    );
+    assert!(
         !review.contains("if (cur < 1) return 1")
             && !review.contains("if (cur < 3) return 3")
             && !review.contains("INTERVAL_STEPS = Object.freeze([1, 3])"),
         "review.js reimplements the interval law — JS is shadowing Rust"
+    );
+    assert!(
+        !drill.contains("INTERVAL_STEPS = Object.freeze([1, 3])")
+            && !drill.contains("if (cur < 1) return 1")
+            && !drill.contains("if (cur < 3) return 3"),
+        "drill.js reimplements the interval law — JS is shadowing Rust"
     );
 
     assert!(

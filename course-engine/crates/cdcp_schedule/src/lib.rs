@@ -5,9 +5,12 @@
 //! Calling it SRS is an overclaim.
 //!
 //! Browser JS renders and persists; this crate (via `cdcp_wasm`) decides.
+//! Persisted cards carry [`STATE_VERSION`]. Unversioned records migrate
+//! (`0` → current). An unknown version is [`ScheduleError::UnknownVersion`].
 //!
-//! Anti-vacuous: a ladder with zero steps, a zero step, or a mastery
-//! threshold of 0 is an [`ScheduleError`] — never a silent default.
+//! Anti-vacuous: a ladder with zero steps, a zero step, a mastery
+//! threshold of 0, or an unknown state version is an [`ScheduleError`] —
+//! never a silent default.
 #![forbid(unsafe_code)]
 
 use thiserror::Error;
@@ -31,6 +34,16 @@ pub const MASTERED_MIN_GAP_MS: i64 = DAY_MS;
 
 /// Full-scale milli (1.0).
 pub const RATIO_MILLI_MAX: u32 = 1000;
+
+/// Persisted schedule-state version this crate writes today.
+///
+/// Matches the historical JS `cdcp.srs.v1` `schema_version: 1`.
+pub const STATE_VERSION: u32 = 1;
+
+/// Unversioned historical records (missing version field).
+///
+/// The one migration: [`STATE_VERSION_UNVERSIONED`] → [`STATE_VERSION`].
+pub const STATE_VERSION_UNVERSIONED: u32 = 0;
 
 const fn steps_ok(steps: &[u32]) -> bool {
     if steps.is_empty() {
@@ -76,6 +89,66 @@ pub enum ScheduleError {
     ZeroThreshold,
     #[error("practiced threshold exceeds mastered threshold")]
     PracticedExceedsMastered,
+    #[error("unknown schedule state version {0} is an ERROR")]
+    UnknownVersion(u32),
+}
+
+/// One persisted review-card record. Version is the record schema, not the ladder.
+///
+/// Timestamps are millisecond instants (`due_at` / `updated_at` on the JS wire).
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ScheduleCard {
+    pub version: u32,
+    pub interval_days: u32,
+    pub due_at_ms: i64,
+    pub reps: u32,
+    pub lapses: u32,
+    pub updated_at_ms: i64,
+}
+
+impl ScheduleCard {
+    /// A card stamped with [`STATE_VERSION`].
+    pub fn new(
+        interval_days: u32,
+        due_at_ms: i64,
+        reps: u32,
+        lapses: u32,
+        updated_at_ms: i64,
+    ) -> Self {
+        Self {
+            version: STATE_VERSION,
+            interval_days,
+            due_at_ms,
+            reps,
+            lapses,
+            updated_at_ms,
+        }
+    }
+}
+
+/// Accept or migrate a persisted version number.
+///
+/// - [`STATE_VERSION_UNVERSIONED`] (`0`) → [`STATE_VERSION`] (the one rule)
+/// - [`STATE_VERSION`] → unchanged
+/// - anything else → [`ScheduleError::UnknownVersion`]
+pub fn migrate_state_version(from: u32) -> Result<u32, ScheduleError> {
+    match from {
+        STATE_VERSION_UNVERSIONED => Ok(STATE_VERSION),
+        STATE_VERSION => Ok(STATE_VERSION),
+        other => Err(ScheduleError::UnknownVersion(other)),
+    }
+}
+
+/// Apply [`migrate_state_version`] to a card. Field values are identity.
+pub fn migrate_card(card: ScheduleCard) -> Result<ScheduleCard, ScheduleError> {
+    Ok(ScheduleCard {
+        version: migrate_state_version(card.version)?,
+        interval_days: card.interval_days,
+        due_at_ms: card.due_at_ms,
+        reps: card.reps,
+        lapses: card.lapses,
+        updated_at_ms: card.updated_at_ms,
+    })
 }
 
 /// One quiz attempt used by the mastered law.
@@ -364,5 +437,54 @@ mod tests {
         assert_eq!(ratio_to_milli(1.0), 1000);
         assert_eq!(ratio_to_milli(1.2), 1000);
         assert_eq!(ratio_to_milli(-0.1), 0);
+    }
+
+    #[test]
+    fn unversioned_state_migrates_to_v1_identity_on_fields() {
+        assert_eq!(STATE_VERSION, 1);
+        assert_eq!(STATE_VERSION_UNVERSIONED, 0);
+        assert_eq!(migrate_state_version(0), Ok(1));
+        let raw = ScheduleCard {
+            version: 0,
+            interval_days: 3,
+            due_at_ms: 42,
+            reps: 1,
+            lapses: 2,
+            updated_at_ms: 41,
+        };
+        let got = migrate_card(raw).unwrap();
+        assert_eq!(got.version, STATE_VERSION);
+        assert_eq!(got.interval_days, 3);
+        assert_eq!(got.due_at_ms, 42);
+        assert_eq!(got.reps, 1);
+        assert_eq!(got.lapses, 2);
+        assert_eq!(got.updated_at_ms, 41);
+    }
+
+    #[test]
+    fn current_state_version_is_identity() {
+        let card = ScheduleCard::new(1, 7, 0, 0, 7);
+        assert_eq!(migrate_card(card), Ok(card));
+        assert_eq!(migrate_state_version(STATE_VERSION), Ok(STATE_VERSION));
+    }
+
+    #[test]
+    fn known_bad_unknown_state_version_is_error() {
+        assert_eq!(
+            migrate_state_version(2),
+            Err(ScheduleError::UnknownVersion(2))
+        );
+        assert_eq!(
+            migrate_state_version(99),
+            Err(ScheduleError::UnknownVersion(99))
+        );
+        let future = ScheduleCard {
+            version: 2,
+            ..ScheduleCard::new(1, 0, 0, 0, 0)
+        };
+        assert_eq!(migrate_card(future), Err(ScheduleError::UnknownVersion(2)));
+        assert!(ScheduleError::UnknownVersion(2)
+            .to_string()
+            .contains("unknown schedule state version"));
     }
 }

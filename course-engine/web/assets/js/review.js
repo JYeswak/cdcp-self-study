@@ -5,7 +5,9 @@
  * (`INTERVAL_STEPS = [1, 3]`, 3-day cap) and is decided by WASM. This module
  * renders and persists. Calling it SRS overstates it.
  *
- * Schema (localStorage key `cdcp.srs.v1` — historical name; law is not SRS):
+ * Schema (localStorage key `cdcp.srs.v1` — historical name; law is not SRS).
+ * `schema_version` is accepted/migrated by WASM (`cdcp_migrate_state_version`).
+ * Unversioned (`0` / missing) → 1. Unknown version is an ERROR (not rewritten).
  * {
  *   schema_version: 1,
  *   cards: {
@@ -38,6 +40,7 @@ import {
   nextIntervalDays as wasmNextIntervalDays,
   dayMs as wasmDayMs,
   firstStepDays,
+  migrateStateVersion,
 } from "./schedule_bridge.js";
 
 /** Historical localStorage key. Do not treat the name as an algorithm claim. */
@@ -87,6 +90,23 @@ export function dueAtFromInterval(intervalDays, nowMs) {
 }
 
 /**
+ * True when `err` is the fail-closed unknown-version path.
+ * `loadReviewState` must rethrow this — swallowing it would wipe the store.
+ *
+ * @param {unknown} err
+ * @returns {boolean}
+ */
+export function isUnknownScheduleVersionError(err) {
+  return !!(
+    err &&
+    typeof /** @type {{message?: unknown}} */ (err).message === "string" &&
+    String(/** @type {{message: string}} */ (err).message).indexOf(
+      "unknown schedule state version"
+    ) !== -1
+  );
+}
+
+/**
  * @param {unknown} raw
  * @returns {{ schema_version: number, cards: Record<string, object> }}
  */
@@ -96,8 +116,17 @@ export function normalizeReviewState(raw) {
     cards: Object.create(null),
   };
   if (!raw || typeof raw !== "object") return empty;
+  const incoming = /** @type {{schema_version?: unknown}} */ (raw).schema_version;
+  const from =
+    typeof incoming === "number" && isFinite(incoming)
+      ? Math.floor(incoming)
+      : 0;
+  // WASM decides. Unknown version throws — do not stamp v1 and continue.
+  const version = migrateStateVersion(from);
   const cardsIn = /** @type {{cards?: unknown}} */ (raw).cards;
-  if (!cardsIn || typeof cardsIn !== "object") return empty;
+  if (!cardsIn || typeof cardsIn !== "object") {
+    return { schema_version: version, cards: Object.create(null) };
+  }
   /** @type {Record<string, object>} */
   const cards = Object.create(null);
   const ids = Object.keys(/** @type {object} */ (cardsIn));
@@ -121,7 +150,7 @@ export function normalizeReviewState(raw) {
       updated_at: typeof c.updated_at === "number" ? c.updated_at : 0,
     };
   }
-  return { schema_version: REVIEW_SCHEMA_VERSION, cards: cards };
+  return { schema_version: version, cards: cards };
 }
 
 /**
@@ -135,7 +164,8 @@ export function loadReviewState(store) {
     const raw = s.getItem(REVIEW_STORAGE_KEY);
     if (!raw) return normalizeReviewState(null);
     return normalizeReviewState(JSON.parse(raw));
-  } catch (_) {
+  } catch (err) {
+    if (isUnknownScheduleVersionError(err)) throw err;
     return normalizeReviewState(null);
   }
 }
@@ -700,5 +730,6 @@ if (typeof globalThis !== "undefined") {
     formatPruneNotice,
     pruneNonApprovedFromStorage,
     recordGradedWrongs,
+    isUnknownScheduleVersionError,
   };
 }

@@ -110,6 +110,32 @@ export function capDays() {
   return steps[steps.length - 1];
 }
 
+/** Current persisted schedule-state version. */
+export function stateVersion() {
+  return requireExports().cdcp_state_version();
+}
+
+/**
+ * Accept or migrate a persisted version. WASM decides.
+ * Unversioned (`0` / missing) → current. Unknown → throws (ERROR).
+ *
+ * @param {number} from
+ * @returns {number}
+ */
+export function migrateStateVersion(from) {
+  const ex = requireExports();
+  const n =
+    typeof from === "number" && isFinite(from) ? Math.floor(from) : 0;
+  if (n < 0) {
+    throw new Error("unknown schedule state version is an ERROR: " + n);
+  }
+  const rc = ex.cdcp_migrate_state_version(n);
+  if (rc < 0) {
+    throw new Error("unknown schedule state version is an ERROR: " + n);
+  }
+  return rc;
+}
+
 /**
  * @param {number} ratio 0..=1
  * @returns {number} parts per thousand
@@ -194,6 +220,8 @@ if (typeof globalThis !== "undefined") {
     masteredMinGapMs,
     firstStepDays,
     capDays,
+    stateVersion,
+    migrateStateVersion,
     ratioToMilli,
     isPracticedMilli,
     isPracticedRatio,
