@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.20 leftover (b) BTM campus as site type
+id = "m03-q216"
+kind = "single-select"
+module = 3
+stem = "A brochure labels the parcel a behind-the-meter / on-site generation campus. In this module that phrase is:"
+choices = [
+  "A site type, and a walk-away if the plant cannot be hosted (land, fuel or gas path, permits); Module 01 owns the type noun and Module 06 owns the power path — do not size UPS, ATS, or generators here",
+  "A later generator add-on you specify in this module (ATS sequence, UPS ride-through, islanding)",
+  "Proof the site has no grid risk, so interconnect can be ignored",
+  "Another name for two utility laterals landed on opposite corners of the hall",
+]
+correct = "A"
+explanation = "BTM is how the hall energizes, not a genset you tack on later. Point at Module 01 for the noun and Module 06 for the path. Do not steal UPS/ATS/generator internals."
+topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
+objective_ids = ["obj-m03-btm-campus"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

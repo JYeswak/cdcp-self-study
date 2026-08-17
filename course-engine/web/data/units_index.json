@@ -1,6 +1,6 @@
 {
-  "approved_item_count": 791,
-  "bank_item_count": 816,
+  "approved_item_count": 797,
+  "bank_item_count": 822,
   "by_module": {
     "01-mission-critical": [
       {
@@ -572,7 +572,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "mock40-q07",
+          "m03-q217",
           "mock40-q08",
           "m03-q096"
         ],
@@ -593,9 +593,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m03-q094",
           "m03-q096",
-          "m03-q097",
-          "m03-q102"
+          "m03-q097"
         ],
         "estimate_minutes": 5,
         "heading_id": "interview-drills",
@@ -614,8 +614,8 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m03-q100",
           "m03-q102",
-          "m03-q106",
           "m03-q112"
         ],
         "estimate_minutes": 5,
@@ -635,9 +635,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m03-q106",
           "m03-q108",
-          "m03-q112",
-          "m03-q210"
+          "m03-q112"
         ],
         "estimate_minutes": 3,
         "heading_id": "further-free-resources",
@@ -3965,7 +3965,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "mock40-q07",
+        "m03-q217",
         "mock40-q08",
         "m03-q096"
       ],
@@ -3986,9 +3986,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m03-q094",
         "m03-q096",
-        "m03-q097",
-        "m03-q102"
+        "m03-q097"
       ],
       "estimate_minutes": 5,
       "heading_id": "interview-drills",
@@ -4007,8 +4007,8 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m03-q100",
         "m03-q102",
-        "m03-q106",
         "m03-q112"
       ],
       "estimate_minutes": 5,
@@ -4028,9 +4028,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m03-q106",
         "m03-q108",
-        "m03-q112",
-        "m03-q210"
+        "m03-q112"
       ],
       "estimate_minutes": 3,
       "heading_id": "further-free-resources",

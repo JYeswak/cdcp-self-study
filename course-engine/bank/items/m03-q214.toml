@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.20 leftover (a) interconnect queue
+id = "m03-q214"
+kind = "single-select"
+module = 3
+stem = "A utility slide says “power available” and a project plan quotes a dual-feed SKU lead time. What is the 2026 go/no-go for whether the hall ever energizes?"
+choices = [
+  "The dual-feed lead time is the go/no-go; the interconnect queue is a resource-table footnote",
+  "Queue position, open studies, posted financial security, and years-not-weeks to energize — dual-feed lead times still matter and do not replace that queue",
+  "A closed land deal and a poured slab prove the hall will energize on the quoted feeder week",
+  "This year’s published gigawatt request-book total is the law that decides the site",
+]
+correct = "B"
+explanation = "Dual-feed lead times stay real. They do not answer whether the large-load interconnection happens. Ask position, studies, security, and years. Do not memorize a request-book figure."
+topic_ids = ["m03-site-selection"]
+objective_ids = ["obj-m03-interconnect-queue"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

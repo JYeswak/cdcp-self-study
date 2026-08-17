@@ -5784,6 +5784,167 @@
     ]
   },
   {
+    "bloom": "understand",
+    "choices": [
+      "The dual-feed lead time is the go/no-go; the interconnect queue is a resource-table footnote",
+      "Queue position, open studies, posted financial security, and years-not-weeks to energize — dual-feed lead times still matter and do not replace that queue",
+      "A closed land deal and a poured slab prove the hall will energize on the quoted feeder week",
+      "This year’s published gigawatt request-book total is the law that decides the site"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "Dual-feed lead times stay real. They do not answer whether the large-load interconnection happens. Ask position, studies, security, and years. Do not memorize a request-book figure.",
+    "id": "m03-q214",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [
+      "obj-m03-interconnect-queue"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A utility slide says “power available” and a project plan quotes a dual-feed SKU lead time. What is the 2026 go/no-go for whether the hall ever energizes?",
+    "tags": [],
+    "topic_ids": [
+      "m03-site-selection"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Accept the pair of laterals as dual path; the remaining risk is only the quoted lead time",
+      "Treat two nameplates on one wall as proof the second independent feed will be studied",
+      "Refuse the energization story: two laterals and a lead-time SKU are not a queue; without studies and security the hall can stay dark for years — that queue is the go/no-go",
+      "Specify a larger UPS/ATS/generator string here; Module 03 owns the power-path one-line"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "Utility A and B on the building is not dual path and is not an interconnection agreement. Diagnose the missing queue. Do not steal Module 06’s UPS/ATS/gen lesson.",
+    "id": "m03-q215",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [
+      "obj-m03-interconnect-queue"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Sales: “Utility A and Utility B are on the building; dual-feed lead time is booked.” There is no queue position, no interconnection study, and no financial security. The diagnostic move is:",
+    "tags": [],
+    "topic_ids": [
+      "m03-site-selection",
+      "m03-supporting-facilities"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "A site type, and a walk-away if the plant cannot be hosted (land, fuel or gas path, permits); Module 01 owns the type noun and Module 06 owns the power path — do not size UPS, ATS, or generators here",
+      "A later generator add-on you specify in this module (ATS sequence, UPS ride-through, islanding)",
+      "Proof the site has no grid risk, so interconnect can be ignored",
+      "Another name for two utility laterals landed on opposite corners of the hall"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "BTM is how the hall energizes, not a genset you tack on later. Point at Module 01 for the noun and Module 06 for the path. Do not steal UPS/ATS/generator internals.",
+    "id": "m03-q216",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [
+      "obj-m03-btm-campus"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A brochure labels the parcel a behind-the-meter / on-site generation campus. In this module that phrase is:",
+    "tags": [],
+    "topic_ids": [
+      "m03-site-selection",
+      "m03-supporting-facilities"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Every BTM pitch is a walk; on-site generation is never a legitimate site type",
+      "Flood plus a raised floor is the missing control",
+      "You must first draw the Module 06 UPS/ATS/generator one-line before any site decision",
+      "The only energization story is a plant this site cannot host, and “no grid risk” is false — BTM is a new plant failure mode; interconnect often remains a go/no-go for export, backup, or black-start"
+    ],
+    "citation_ids": [],
+    "correct": "D",
+    "explanation": "Walk when the plant has no land/fuel/permit path, or when BTM is sold as immunity. Interconnect often remains. Module 06 for the path; flood is not cured by a raised floor.",
+    "id": "m03-q217",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [
+      "obj-m03-btm-campus"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "The tour says “BTM campus — no grid risk.” There is no plant land, no fuel or gas path, and no emissions permit. Walk because:",
+    "tags": [],
+    "topic_ids": [
+      "m03-site-selection",
+      "m03-supporting-facilities"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Recite the brochure type list; Module 03 owns the 2026 type nouns",
+      "Power that can be interconnected or generated BTM, plus water rights, plus fiber, plus the interconnect queue — not a type list (Module 01 owns the nouns)",
+      "A PUE dashboard plus a universal 250 psf floor statute",
+      "Dual-cord servers, which replace water rights and queue position"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "Speak power + water rights + fiber + queue. Type nouns live in Module 01. Do not invent a psf statute or treat PUE as a site score.",
+    "id": "m03-q218",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [
+      "obj-m03-aifactory-site-criteria"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "An “AI factory / neocloud” deck offers GPU colo, dedicated hall, and AI campus as the site answer. The speakable criteria are:",
+    "tags": [],
+    "topic_ids": [
+      "m03-site-selection",
+      "m03-facility-criteria"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Siting footnotes only; two logos equal diverse OSP and marketing MW equals interconnected power",
+      "Last year’s published fiber-cut percentage, which you must memorize as law",
+      "2026 outage paths: score interconnected (or BTM) power + water rights + walked fiber (Module 11) + queue — a logo pair is not diversity and a dark hall is an outage, not a delay",
+      "Indoor problems a raised floor converts into non-events, including flood and long fiber cuts"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "The grid got worse as an input; fiber cuts are long-duration IT-service events. Do not invent an outage percentage. Walk OSP (Module 11). Raised floor is not flood control.",
+    "id": "m03-q219",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [
+      "obj-m03-aifactory-site-criteria"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A neocloud pitch quotes marketing megawatts and two carrier logos. Water rights are “TBD.” Nobody can name a queue position. Treat grid and fiber as:",
+    "tags": [],
+    "topic_ids": [
+      "m03-site-selection",
+      "m03-supporting-facilities"
+    ]
+  },
+  {
     "bloom": "remember",
     "choices": [
       "Store bulk diesel under every tile",

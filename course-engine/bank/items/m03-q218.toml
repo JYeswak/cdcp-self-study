@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.20 leftover (c) AI-factory site criteria
+id = "m03-q218"
+kind = "single-select"
+module = 3
+stem = "An “AI factory / neocloud” deck offers GPU colo, dedicated hall, and AI campus as the site answer. The speakable criteria are:"
+choices = [
+  "Recite the brochure type list; Module 03 owns the 2026 type nouns",
+  "Power that can be interconnected or generated BTM, plus water rights, plus fiber, plus the interconnect queue — not a type list (Module 01 owns the nouns)",
+  "A PUE dashboard plus a universal 250 psf floor statute",
+  "Dual-cord servers, which replace water rights and queue position",
+]
+correct = "B"
+explanation = "Speak power + water rights + fiber + queue. Type nouns live in Module 01. Do not invent a psf statute or treat PUE as a site score."
+topic_ids = ["m03-site-selection", "m03-facility-criteria"]
+objective_ids = ["obj-m03-aifactory-site-criteria"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

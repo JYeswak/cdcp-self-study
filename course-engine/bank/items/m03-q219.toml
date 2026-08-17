@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.20 leftover (c)+(d) AI-factory + grid/fiber as outage paths
+id = "m03-q219"
+kind = "single-select"
+module = 3
+stem = "A neocloud pitch quotes marketing megawatts and two carrier logos. Water rights are “TBD.” Nobody can name a queue position. Treat grid and fiber as:"
+choices = [
+  "Siting footnotes only; two logos equal diverse OSP and marketing MW equals interconnected power",
+  "Last year’s published fiber-cut percentage, which you must memorize as law",
+  "2026 outage paths: score interconnected (or BTM) power + water rights + walked fiber (Module 11) + queue — a logo pair is not diversity and a dark hall is an outage, not a delay",
+  "Indoor problems a raised floor converts into non-events, including flood and long fiber cuts",
+]
+correct = "C"
+explanation = "The grid got worse as an input; fiber cuts are long-duration IT-service events. Do not invent an outage percentage. Walk OSP (Module 11). Raised floor is not flood control."
+topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
+objective_ids = ["obj-m03-aifactory-site-criteria"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

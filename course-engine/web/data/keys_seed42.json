@@ -1,41 +1,11 @@
 {
-  "bank_hash": "50727f8601640246474285afcc407bee8a92562601f06892ab87da2cbb90e582",
+  "bank_hash": "4fe3e437d1bb882f4cd23f331ebbebeeea8b4b67c972b78791ed51926e435359",
   "exam_id": "mock40",
   "keys": [
     {
-      "correct": "B",
-      "explanation": "Backbone links hierarchical spaces (for example MDA to HDA concepts); horizontal serves equipment outlets.",
-      "item_id": "m11-q129"
-    },
-    {
       "correct": "D",
-      "explanation": "Luminance characterizes light from a surface toward the eye; illuminance is incident light.",
-      "item_id": "m05-q136"
-    },
-    {
-      "correct": "A",
-      "explanation": "Siloed facilities vs IT ownership commonly misaligns capacity planning, change control, and risk appetite.",
-      "item_id": "m01-q041"
-    },
-    {
-      "correct": "A",
-      "explanation": "Cooling failure can cascade into thermal IT failure even when power is still present.",
-      "item_id": "m01-q057"
-    },
-    {
-      "correct": "C",
-      "explanation": "Delay alone is incomplete; detection and response close the loop.",
-      "item_id": "bank-m13-q099"
-    },
-    {
-      "correct": "D",
-      "explanation": "Emergency lighting is a life-safety system with dedicated design expectations.",
-      "item_id": "m05-q148"
-    },
-    {
-      "correct": "B",
-      "explanation": "True dual utility needs independent upstream paths, not two cables on one geographic feed.",
-      "item_id": "mock40-q07"
+      "explanation": "Underfloor supply paths need free volume and sealed openings; clutter defeats airflow design.",
+      "item_id": "m04-q201"
     },
     {
       "correct": "B",
@@ -48,14 +18,9 @@
       "item_id": "bank-m12-q060"
     },
     {
-      "correct": "B",
-      "explanation": "Cite ANSI/TIA-942-C (2024) unless the contract names an older edition. The Rated-not-Tier rename is the point of pinning C; an un-yeared citation is soft.",
-      "item_id": "m02-q213"
-    },
-    {
       "correct": "A",
-      "explanation": "IP codes rate enclosure ingress protection, not electrical topology.",
-      "item_id": "m06-q236"
+      "explanation": "Cooling failure can cascade into thermal IT failure even when power is still present.",
+      "item_id": "m01-q057"
     },
     {
       "correct": "D",
@@ -63,44 +28,49 @@
       "item_id": "m09-q240"
     },
     {
-      "correct": "A",
-      "explanation": "Growth is gated by expandable utilities and space, not only initial rack count.",
-      "item_id": "m03-q212"
-    },
-    {
-      "correct": "B",
-      "explanation": "Response clocks and restore clocks are different; design both.",
-      "item_id": "m15-q214"
+      "correct": "D",
+      "explanation": "Immersion submerges electronics in a non-conductive heat transfer fluid.",
+      "item_id": "m09-q228"
     },
     {
       "correct": "D",
-      "explanation": "ELF magnetic shielding is hard; aluminium is weak for 50 Hz B—steel/mu-metal/move the source are real options.",
-      "item_id": "m07-q046"
+      "explanation": "Luminance characterizes light from a surface toward the eye; illuminance is incident light.",
+      "item_id": "m05-q136"
+    },
+    {
+      "correct": "B",
+      "explanation": "Fan stop/smoke-control modes and dampers preserve agent concentration and limit smoke spread per design.",
+      "item_id": "bank-m12-q054"
+    },
+    {
+      "correct": "B",
+      "explanation": "Learning loops turn incidents into durable ops improvements.",
+      "item_id": "bank-m15-q154"
     },
     {
       "correct": "A",
-      "explanation": "Wholesale colo typically leases larger private footprints with landlord-supplied building services and power/cooling plant.",
-      "item_id": "m01-q043"
+      "explanation": "Siloed facilities vs IT ownership commonly misaligns capacity planning, change control, and risk appetite.",
+      "item_id": "m01-q041"
     },
     {
       "correct": "B",
-      "explanation": "Precise naming and framework literacy prevent costly contractual and design confusion.",
-      "item_id": "m02-q087"
+      "explanation": "Cite ANSI/TIA-942-C (2024) unless the contract names an older edition. The Rated-not-Tier rename is the point of pinning C; an un-yeared citation is soft.",
+      "item_id": "m02-q213"
     },
     {
-      "correct": "C",
-      "explanation": "MOPs are operational safety nets, not just task lists.",
-      "item_id": "bank-m15-q139"
-    },
-    {
-      "correct": "B",
-      "explanation": "Safety systems prioritize human life and emergency response over access convenience.",
-      "item_id": "m13-q202"
+      "correct": "D",
+      "explanation": "Unmaintained or obstructed emergency lighting fails when it is needed most.",
+      "item_id": "m05-q146"
     },
     {
       "correct": "A",
       "explanation": "NTP alignment across ACS/VMS/syslog is foundational for incident reconstruction.",
       "item_id": "bank-m13-q089"
+    },
+    {
+      "correct": "B",
+      "explanation": "Backbone links hierarchical spaces (for example MDA to HDA concepts); horizontal serves equipment outlets.",
+      "item_id": "m11-q129"
     },
     {
       "correct": "A",
@@ -109,48 +79,8 @@
     },
     {
       "correct": "B",
-      "explanation": "Wall-mount is for small edge/IDF deployments with real weight limits.",
-      "item_id": "m08-q059"
-    },
-    {
-      "correct": "B",
-      "explanation": "Fan stop/smoke-control modes and dampers preserve agent concentration and limit smoke spread per design.",
-      "item_id": "bank-m12-q054"
-    },
-    {
-      "correct": "C",
-      "explanation": "Growth without pathway and media planning creates congestion, risk, and unmanageable MACs.",
-      "item_id": "m11-q102"
-    },
-    {
-      "correct": "A",
-      "explanation": "IST proves coupled system behavior—not just component bench tests.",
-      "item_id": "bank-m14-q121"
-    },
-    {
-      "correct": "B",
-      "explanation": "Without makeup, evaporative systems cannot sustain operation—hence backup water planning.",
-      "item_id": "m10-q109"
-    },
-    {
-      "correct": "D",
-      "explanation": "Environment is multi-parameter; temperature alone misses moisture-driven risks and control interactions.",
-      "item_id": "m09-q123"
-    },
-    {
-      "correct": "B",
-      "explanation": "Learning loops turn incidents into durable ops improvements.",
-      "item_id": "bank-m15-q154"
-    },
-    {
-      "correct": "C",
-      "explanation": "Test configuration matters; standards-aware practice defines what is included in permanent link versus channel measurements.",
-      "item_id": "m11-q114"
-    },
-    {
-      "correct": "D",
-      "explanation": "Unmaintained or obstructed emergency lighting fails when it is needed most.",
-      "item_id": "m05-q146"
+      "explanation": "Response clocks and restore clocks are different; design both.",
+      "item_id": "m15-q214"
     },
     {
       "correct": "D",
@@ -158,14 +88,19 @@
       "item_id": "m04-q128"
     },
     {
-      "correct": "D",
-      "explanation": "Perforated doors pass supply/exhaust air; solid doors belong with contained/chimney designs.",
-      "item_id": "m08-q048"
+      "correct": "A",
+      "explanation": "Wholesale colo typically leases larger private footprints with landlord-supplied building services and power/cooling plant.",
+      "item_id": "m01-q043"
     },
     {
-      "correct": "D",
-      "explanation": "Underfloor supply paths need free volume and sealed openings; clutter defeats airflow design.",
-      "item_id": "m04-q201"
+      "correct": "C",
+      "explanation": "Poor logistics spaces create handling risk and operational friction for installs and maintenance.",
+      "item_id": "m03-q104"
+    },
+    {
+      "correct": "A",
+      "explanation": "Supporting facilities (yard, staging, ops spaces, utility intake) are part of operability, not cosmetics.",
+      "item_id": "mock40-q08"
     },
     {
       "correct": "B",
@@ -174,18 +109,38 @@
     },
     {
       "correct": "B",
+      "explanation": "Without makeup, evaporative systems cannot sustain operation—hence backup water planning.",
+      "item_id": "m10-q109"
+    },
+    {
+      "correct": "C",
+      "explanation": "MOPs are operational safety nets, not just task lists.",
+      "item_id": "bank-m15-q139"
+    },
+    {
+      "correct": "D",
+      "explanation": "Emergency lighting is a life-safety system with dedicated design expectations.",
+      "item_id": "m05-q148"
+    },
+    {
+      "correct": "B",
+      "explanation": "Facility incidents cross subsystems; correlation beats siloed dashboards.",
+      "item_id": "m14-q209"
+    },
+    {
+      "correct": "B",
       "explanation": "NFPA 2001 is the named standard family for clean-agent systems in US practice awareness.",
       "item_id": "bank-m12-q070"
+    },
+    {
+      "correct": "D",
+      "explanation": "Environment is multi-parameter; temperature alone misses moisture-driven risks and control interactions.",
+      "item_id": "m09-q123"
     },
     {
       "correct": "C",
       "explanation": "Poor threshold design creates alarm fatigue and missed real events.",
       "item_id": "m14-q210"
-    },
-    {
-      "correct": "D",
-      "explanation": "Immersion submerges electronics in a non-conductive heat transfer fluid.",
-      "item_id": "m09-q228"
     },
     {
       "correct": "C",
@@ -198,9 +153,54 @@
       "item_id": "m06-q098"
     },
     {
+      "correct": "C",
+      "explanation": "Delay alone is incomplete; detection and response close the loop.",
+      "item_id": "bank-m13-q099"
+    },
+    {
       "correct": "B",
-      "explanation": "Facility incidents cross subsystems; correlation beats siloed dashboards.",
-      "item_id": "m14-q209"
+      "explanation": "Precise naming and framework literacy prevent costly contractual and design confusion.",
+      "item_id": "m02-q087"
+    },
+    {
+      "correct": "D",
+      "explanation": "ELF magnetic shielding is hard; aluminium is weak for 50 Hz B—steel/mu-metal/move the source are real options.",
+      "item_id": "m07-q046"
+    },
+    {
+      "correct": "C",
+      "explanation": "Test configuration matters; standards-aware practice defines what is included in permanent link versus channel measurements.",
+      "item_id": "m11-q114"
+    },
+    {
+      "correct": "D",
+      "explanation": "Perforated doors pass supply/exhaust air; solid doors belong with contained/chimney designs.",
+      "item_id": "m08-q048"
+    },
+    {
+      "correct": "C",
+      "explanation": "Growth without pathway and media planning creates congestion, risk, and unmanageable MACs.",
+      "item_id": "m11-q102"
+    },
+    {
+      "correct": "A",
+      "explanation": "IP codes rate enclosure ingress protection, not electrical topology.",
+      "item_id": "m06-q236"
+    },
+    {
+      "correct": "B",
+      "explanation": "Wall-mount is for small edge/IDF deployments with real weight limits.",
+      "item_id": "m08-q059"
+    },
+    {
+      "correct": "B",
+      "explanation": "Safety systems prioritize human life and emergency response over access convenience.",
+      "item_id": "m13-q202"
+    },
+    {
+      "correct": "A",
+      "explanation": "IST proves coupled system behavior—not just component bench tests.",
+      "item_id": "bank-m14-q121"
     }
   ],
   "n_items": 40,
