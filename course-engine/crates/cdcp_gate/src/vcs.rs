@@ -228,7 +228,18 @@ pub fn materialise_index(root: &Path, dest: &Path) -> Result<PathBuf, String> {
         .to_str()
         .ok_or_else(|| format!("non-utf8 destination path {}", dest.display()))?;
     let prefix = format!("--prefix={}/", dest_s.trim_end_matches('/'));
-    run(root, &["checkout-index", "-a", "-f", &prefix])?;
+    // `checkout-index -a` from a subdirectory only writes that prefix of the
+    // index (measured 2026-08-17: dest contained `course-engine/` and no
+    // sibling README.md / CHARTER.md). claims_lint roots `../README.md` and
+    // `../CHARTER.md` then fail in the nested --prove-wired check.sh before
+    // the plant is seen (bd-installability-sm4g.20). The docstring says the
+    // ENTIRE index — run checkout-index from the repository root.
+    let toplevel = run(root, &["rev-parse", "--show-toplevel"])?;
+    let toplevel = PathBuf::from(toplevel.trim());
+    if toplevel.as_os_str().is_empty() {
+        return Err("git rev-parse --show-toplevel returned nothing".to_string());
+    }
+    run(&toplevel, &["checkout-index", "-a", "-f", &prefix])?;
     let sub = run(root, &["rev-parse", "--show-prefix"])?;
     let sub = sub.trim();
     if sub.is_empty() {
@@ -340,6 +351,41 @@ mod tests {
             std::fs::read_to_string(engine.join("a.txt")).unwrap(),
             "staged\n",
             "the materialised tree is the commit's, not the author's desk"
+        );
+    }
+
+    #[test]
+    fn materialise_index_from_subdir_includes_sibling_index_files() {
+        // Nested-repo shape of cdcp-self-study: parent README + engine/.
+        // checkout-index from the subdirectory used to omit the sibling,
+        // so claims_lint `../README.md` died in --prove-wired (sm4g.20).
+        let td = tempfile::tempdir().unwrap();
+        let repo = td.path().canonicalize().unwrap();
+        std::fs::write(repo.join("README.md"), "parent-readme\n").unwrap();
+        std::fs::create_dir_all(repo.join("engine")).unwrap();
+        std::fs::write(repo.join("engine").join("a.txt"), "engine-file\n").unwrap();
+        run_isolated(&repo, &["init", "-q"]).unwrap();
+        run_isolated(&repo, &["add", "-A"]).unwrap();
+
+        let out = tempfile::tempdir().unwrap();
+        let engine = materialise_index(&repo.join("engine"), out.path()).unwrap();
+        assert_eq!(
+            engine,
+            out.path().join("engine"),
+            "engine path is dest + show-prefix"
+        );
+        assert_eq!(
+            std::fs::read_to_string(out.path().join("README.md")).unwrap(),
+            "parent-readme\n",
+            "parent-corpus files must land next to the engine prefix"
+        );
+        assert_eq!(
+            std::fs::read_to_string(engine.join("a.txt")).unwrap(),
+            "engine-file\n"
+        );
+        assert!(
+            !out.path().join("engine").join("README.md").is_file(),
+            "parent README is a sibling of engine/, not inside it"
         );
     }
 }
