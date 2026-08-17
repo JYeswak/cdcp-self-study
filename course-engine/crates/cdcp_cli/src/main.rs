@@ -1,10 +1,12 @@
-//! cdcp CLI — study / serve / grade / goldens / bank-hash / export-web / doctor / health / repair / oracle-check / site / metrics / attempts / slo / snap-rewrite / recon / first-topic-id / publishability
+//! cdcp CLI — study / serve / demo / test / grade / goldens / bank-hash / export-web / doctor / health / repair / oracle-check / site / metrics / attempts / slo / snap-rewrite / recon / first-topic-id / publishability
 #![forbid(unsafe_code)]
 
 mod assemble;
 mod attempts;
+mod demo;
 mod first_topic;
 mod http_serve;
+mod installed_test;
 mod metrics;
 mod operator;
 mod oracle;
@@ -45,7 +47,9 @@ fn print_orientation() {
          \n\
            cdcp study       open the offline study site\n\
            cdcp serve       serve the offline study site (no browser)\n\
+           cdcp demo        planted grade + study URL (does not block)\n\
            cdcp doctor      preflight the local tree\n\
+           cdcp test        smoke the installed tree\n\
            cdcp --help      list every command\n\
            cdcp --version   print the workspace version",
         version = env!("CARGO_PKG_VERSION")
@@ -277,6 +281,19 @@ enum Cmd {
         #[arg(long)]
         no_open: bool,
     },
+    /// Planted all-correct + all-wrong grade + study URL (does not block)
+    Demo {
+        /// Bundle directory, engine root, or CDCP home. When omitted:
+        /// CDCP_HOME > $XDG_DATA_HOME/cdcp > ~/.local/share/cdcp > cwd walk.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// Study URL to print. Demo does not serve; `cdcp study` binds this.
+        #[arg(long, default_value = http_serve::DEFAULT_BIND)]
+        bind: String,
+        /// Print the URL but do not spawn a browser.
+        #[arg(long)]
+        no_open: bool,
+    },
     /// Compile the offline Learn surface (pages, hub, modules_index, topic_anchors)
     BuildLearn {
         /// Engine root (directory holding registries/). Default: walk up from cwd.
@@ -370,6 +387,13 @@ enum Cmd {
         /// Versioned JSON envelope (schema_version + named probes + pass/fail).
         #[arg(long)]
         json: bool,
+    },
+    /// Smoke the installed tree: learner-pack shape, wasm magic, seed-42 assets
+    Test {
+        /// Bundle directory, engine root, or CDCP home. When omitted:
+        /// CDCP_HOME > $XDG_DATA_HOME/cdcp > ~/.local/share/cdcp > cwd walk.
+        #[arg(long)]
+        root: Option<PathBuf>,
     },
     /// Machine-readable tree status. `--robot` emits a versioned NDJSON envelope.
     Health {
@@ -786,6 +810,11 @@ fn run(cmd: Cmd) -> Result<(), String> {
             bind,
             no_open: _,
         } => http_serve::run(root.as_deref(), &bind, http_serve::OpenMode::Serve),
+        Cmd::Demo {
+            root,
+            bind,
+            no_open,
+        } => demo::run(root.as_deref(), &bind, no_open),
         Cmd::BuildLearn { root } => compile_learn(root.as_deref(), LearnKind::Learn),
         Cmd::BuildReference { root } => compile_learn(root.as_deref(), LearnKind::Reference),
         Cmd::BuildUnits { root } => compile_learn(root.as_deref(), LearnKind::Units),
