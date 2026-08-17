@@ -1798,11 +1798,17 @@ fn export_anki(
 }
 
 fn compile_learn(root: Option<&Path>, kind: LearnKind) -> Result<(), String> {
-    let start = match root {
+    // An explicit --root is the tree under test. Re-walking from that path
+    // (the old compile_learn) treats it as a starting point, escapes to the
+    // live engine, writes the real web/, and leaves the aimed-at tree empty
+    // with exit 0. Same shape as smoke_diagrams / export_anki.
+    let resolved = match root {
         Some(p) => p.to_path_buf(),
-        None => std::env::current_dir().map_err(|e| format!("cwd: {e}"))?,
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_learn::resolve_engine_root(&start).map_err(|e| e.to_string())?
+        }
     };
-    let resolved = cdcp_learn::resolve_engine_root(&start).map_err(|e| e.to_string())?;
     let outcome = match kind {
         LearnKind::Learn => cdcp_learn::build::write_learn(&resolved).map_err(|e| e.to_string())?,
         LearnKind::Reference => {
