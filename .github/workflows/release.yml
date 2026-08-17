@@ -45,6 +45,10 @@ jobs:
         with:
           node-version: "20"
 
+      # check.sh honesty scan is fail-closed on missing rg.
+      - name: Install ripgrep
+        run: sudo apt-get update && sudo apt-get install -y ripgrep
+
       - uses: actions/cache@v4
         with:
           path: |
