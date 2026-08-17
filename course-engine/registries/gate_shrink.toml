@@ -28,7 +28,11 @@
 # (bd-engine-not-gate-ar39.11). Pointer integrity is crates/cdcp_learn
 # (knowledge_paths.rs). Gate file is a thin dispatcher so check.sh still
 # runs `cdcp_gate verify-knowledge-paths`. Dual-path .py already retired.
-ceiling_lines = 45006
+# 45006 -> 42843: EXTRACT-THEN-DELETE of verify_objectives impl
+# (bd-engine-not-gate-ar39.12). Objective-registry integrity is
+# crates/cdcp_learn (objectives.rs). Gate file is a thin dispatcher so
+# check.sh still runs `cdcp_gate verify-objectives`. Dual-path .py stays.
+ceiling_lines = 42843
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
@@ -128,7 +132,7 @@ lines = 67
 
 [[file]]
 path = "src/gates/verify_objectives.rs"
-lines = 2189
+lines = 65
 
 [[file]]
 path = "src/gates/verify_orphans.rs"

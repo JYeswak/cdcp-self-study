@@ -32,6 +32,7 @@ pub mod glossary;
 pub mod knowledge_paths;
 pub mod learn_v2;
 pub mod learner_pack;
+pub mod objectives;
 pub mod reference;
 pub mod slugs;
 pub mod smoke;

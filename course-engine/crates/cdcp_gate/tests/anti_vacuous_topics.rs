@@ -635,13 +635,15 @@ fn scan_targets(root: &Path) -> Vec<(PathBuf, String, bool)> {
 fn min_sites(rel: &str) -> usize {
     match rel.rsplit('/').next().unwrap_or(rel) {
         // Dispatchers: the walks live in product crates (near_duplicate,
-        // orphans, verify_bank, knowledge_paths). A 0-site file is legal only here.
+        // orphans, verify_bank, knowledge_paths, objectives). A 0-site file is
+        // legal only here.
         "mod.rs"
         | "install_hooks.rs"
         | "near_duplicate_items.rs"
         | "verify_orphans.rs"
         | "verify_bank.rs"
-        | "verify_knowledge_paths.rs" => 0,
+        | "verify_knowledge_paths.rs"
+        | "verify_objectives.rs" => 0,
         "capability_maturity.rs"
         | "goldens_couplings.rs"
         | "verify_injection_count.rs"
@@ -655,7 +657,6 @@ fn min_sites(rel: &str) -> usize {
         "substrate_guard.rs" | "verify_coverage.py" => 4,
         "verify_bank.py" | "verify_coverage.rs" | "validate_grounding.py" => 5,
         "validate_grounding.rs" | "verify_objectives.py" => 7,
-        "verify_objectives.rs" => 8,
         "verify_content_lock.rs" => 9,
         // A newly added target is scanned; give it a floor once measured.
         _ => 0,
