@@ -12,14 +12,14 @@
 | L7 | closed-notes · reference · Learn-15 · SLO · content.lock · CLI · a11y |
 | V11 | Anki · power-path · serve · runbooks |
 | HUMAN | OQ-09 store free/public · OQ-10 defer spend · H-PUB L88 process · Loop#3 hybrid + T1 log |
-| **M8 Learn v2** | units (127) · TOC · micro-checks · P0 diagrams · glossary · concept cards · LEARN-v2 pass |
-| **M9-S1/S2** | OSS meta + L88 bar doctor **7/7** (`public_repo=false`) |
-| **M10** | free-pdfs ×4 (ASHRAE power/storage/edge + NIST SP 800-123) + meta |
+| **M8 Learn v2** | units (134) · TOC · micro-checks · P0 diagrams · glossary · concept cards · LEARN-v2 pass |
+| **M9-S1/S2/S3** | OSS meta + L88 bar doctor **7/7**; visibility flip **done** 2026-08-12 (`public_repo=true`, verified `gh repo view` → PUBLIC) |
+| **M10** | free-pdfs ×5 (ASHRAE power/storage/edge + LBNL FEMP + NIST SP 800-123) + meta |
 
 ## Open (product / human)
 
 ```text
-M9-S3  Secrets scrub receipt DONE · visibility flip → Josh only (bd-2nj.3)
+(M9-S3 secrets scrub + visibility flip completed 2026-08-12; repo is PUBLIC.)
 P1     diagrams shipped (bd-1sd.9.1). P2 `security-layers` shipped (bd-1sd.9.2).
 ```
 
@@ -51,6 +51,6 @@ cargo build -p cdcp_cli --locked
 | Epic | ID | Status |
 |------|-----|--------|
 | M8 Learn v2 | `bd-1t3` | **closed** |
-| M9 Publicize L88 | `bd-2nj` | open until S3 flip |
-| M9-S3 flip | `bd-2nj.3` | open (Josh) |
+| M9 Publicize L88 | `bd-2nj` | **closed** |
+| M9-S3 flip | `bd-2nj.3` | **closed** (2026-08-12; repo PUBLIC) |
 | M10 Free corpus | `bd-3ps` | **closed** |

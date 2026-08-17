@@ -70,7 +70,7 @@ and “the software scored me” are both machine-checkable.
 | **Mastery path** | Practiced ≥80% · mastered 90%×2 ≥24h; hub recommend next |
 | **CLI** | `check` · `bank-hash` · `grade` · `goldens` · `export-web` · `serve` · bank verify |
 | **Integrity** | Content-addressed bank; goldens; WASM dual-path; content.lock; claims constitution |
-| **Stretch shipped (V11)** | Anki export · power-path N vs 2N diagram · axum serve · runbook vignettes |
+| **Stretch shipped (V11)** | Anki export · power-path N vs 2N diagram · std-only `serve` (no axum; zero added deps) · runbook vignettes |
 
 ### In scope next — **M8 Learn v2** (pedagogy packaging)
 
@@ -205,7 +205,7 @@ do not control. Disagreement beyond a pre-declared tolerance is RED and names lo
 computed, reference, and delta. That is the first check in this repo that can be wrong in
 a way we do not author.
 
-**Still unguarded:** the 804 bank item files (779 approved; a pool size, not a distinct-proposition count) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]]
+**Still unguarded:** the 854 bank item files (829 approved; a pool size, not a distinct-proposition count) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]]
 are not checked for factual truth about data centres. A wrong answer key remains invisible
 to every step of `check.sh`. The site-quantity oracle does not close that hole.
 

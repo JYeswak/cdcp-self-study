@@ -13,7 +13,16 @@ schema_version = 1
 # Marker shape: [[claim:claim-id-here]]
 marker_prefix = "[[claim:"
 marker_suffix = "]]"
-roots = ["README.md", "docs"]
+# Roots resolve against the ENGINE root (the dir holding registries/claims.toml),
+# so "README.md" is course-engine/README.md. The corpus-root documents that carry
+# public honesty claims are reached with "../" (bd-readme-public-rigor-8y0r).
+#
+# Why not "../docs": that tree is 40 research ledgers (curriculum-grades passes,
+# franken-research, readme-rigor). 20+ of them quote load-bearing phrases while
+# reporting ON claims rather than making them — the same reason docs/research/*
+# is already excluded below. Adding it would require ~20 exclusion rows, each
+# needing a reason, to buy no truth. Public claim surface only.
+roots = ["README.md", "docs", "../README.md", "../CHARTER.md"]
 # Recursive under dirs; files listed as roots are scanned as single files
 extensions = [".md"]
 
@@ -59,6 +68,10 @@ reason = "Grounding heuristics doc; not product shipped-means claims"
 [[exclude]]
 path = "docs/STANDARDS-KB.md"
 reason = "Citation graph doctrine; domain_covered claimed in ORACLE-GAUNTLET"
+
+[[exclude]]
+path = "docs/PLAN-N-INSTALLABILITY.md"
+reason = "Installability planning notes; quotes dual-path while reporting on the epic, not making a product honesty claim (bd-readme-public-rigor-8y0r)"
 
 # Load-bearing phrase classes. If a non-excluded scanned file matches the
 # pattern, it must also contain at least one of must_cite markers.

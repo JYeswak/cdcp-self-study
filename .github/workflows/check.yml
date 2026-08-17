@@ -46,8 +46,12 @@ jobs:
           key: cargo-${{ runner.os }}-${{ hashFiles('course-engine/Cargo.lock') }}
           restore-keys: cargo-${{ runner.os }}-
 
-      # THE gate. Fail-closed: 51 ordered steps (W0-L7 + V11) including five
-      # known-bad selftest suites that inject faults and assert RED.
+      # THE gate. Fail-closed. The step count and the known-bad injection total
+      # are receipt-enforced (CHECK_STEPS= / INJECTIONS=) and advertised in
+      # README.md; do not restate them here, or this comment becomes a second
+      # source of truth that nothing checks. As of 2026-08-17 the README
+      # advertises 90 ordered steps and 72 injections across 10 registered
+      # shell selftest suites.
       - name: check.sh
         working-directory: course-engine
         run: ./scripts/check.sh

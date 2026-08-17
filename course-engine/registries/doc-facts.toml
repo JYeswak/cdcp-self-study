@@ -101,7 +101,9 @@
 #     claims-lint
 #   - serve is std-only, loopback, GET/HEAD, path-traversal guarded —
 #     no probe kind for "zero added dependencies" or "guarded"; semantic
-#   - "7 Rust crates, 3,763 lines, 281 KB WASM" — no count probe
+#   - the engine size triple (crates / lines / WASM bytes) — no count probe.
+#     README now says 18 crates, ~67k src lines, 518 KiB WASM; unguarded prose,
+#     which is how the previous "7 crates, 3,763 lines, 281 KB" drifted 17x.
 #   - cdcp_grade purity (no I/O, clock, randomness) — semantic
 #   - source_class=original on every item — verify-bank owns the check
 #   - content.lock covers bank_hash + knowledge + modules —
