@@ -111,6 +111,15 @@ fn machine_loto_without_electrical_context_is_not_red() {
 }
 
 #[test]
+fn upstream_is_not_the_ups_token() {
+    let text = "1910.147(b) isolation for a CRAH. The upstream distribution type does not change the definition.";
+    assert!(
+        !cites_147_as_electrical_loto_authority(text),
+        "substring 'ups' inside 'upstream' is not electrical-LOTO authority"
+    );
+}
+
+#[test]
 fn injected_plant_file_is_red_on_the_check() {
     let root = engine();
     let loaded = load_compiled(&root).expect("load").loaded;

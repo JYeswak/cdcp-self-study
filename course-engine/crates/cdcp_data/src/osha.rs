@@ -160,10 +160,10 @@ pub fn cites_147_as_electrical_loto_authority(text: &str) -> bool {
     if !t.contains("1910.147") {
         return false;
     }
+    // Short tokens ("ups", "pdu") must be whole words: "upstream" is not UPS
+    // (measured 2026-08-17: m15-q228 CRAH/147 isolation tripped on "upstream").
     let electrical = [
         "switchgear",
-        "ups",
-        "pdu",
         "busway",
         "electric-utilization",
         "electric utilization",
@@ -173,7 +173,9 @@ pub fn cites_147_as_electrical_loto_authority(text: &str) -> bool {
         "electrical hazard",
     ]
     .iter()
-    .any(|k| t.contains(k));
+    .any(|k| t.contains(k))
+        || has_word(&t, "ups")
+        || has_word(&t, "pdu");
     if !electrical {
         return false;
     }
@@ -184,6 +186,23 @@ pub fn cites_147_as_electrical_loto_authority(text: &str) -> bool {
         || t.contains("expressly excludes")
         || t.contains("subpart s");
     !exclusion
+}
+
+fn has_word(hay: &str, word: &str) -> bool {
+    let w = word.as_bytes();
+    let h = hay.as_bytes();
+    let mut i = 0;
+    while i + w.len() <= h.len() {
+        if &h[i..i + w.len()] == w {
+            let left_ok = i == 0 || !h[i - 1].is_ascii_alphanumeric();
+            let right_ok = i + w.len() == h.len() || !h[i + w.len()].is_ascii_alphanumeric();
+            if left_ok && right_ok {
+                return true;
+            }
+        }
+        i += 1;
+    }
+    false
 }
 
 /// Load compiled snapshots and enforce the OSHA facts against the

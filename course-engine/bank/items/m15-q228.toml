@@ -18,7 +18,7 @@ choices = [
   "Lockout device application — the padlock is on the HMI door rather than the panel door, so a second signature is required",
   "Isolation — a control-circuit device is not an energy isolating device, so nothing physically preventing energy transmission was operated",
   "Nothing is missing — the STOPPED display confirms the fan is not turning, so the equipment is safely deenergized for work",
-  "Nothing is missing for mechanical work — the sequence would only fail if the CRAH were fed from a busway tap rather than a local panelboard",
+  "Nothing is missing for mechanical work — the sequence would only fail if the CRAH shared a chilled-water header with the adjacent unit",
 ]
 correct = "B"
 explanation = "1910.147(b) defines an energy isolating device as a mechanical device that physically prevents transmission or release of energy — a breaker, disconnect switch, line valve, block — and states plainly that push buttons, selector switches and other control-circuit type devices are NOT energy isolating devices. 1910.333(b)(2)(ii)(B) reinforces it: control-circuit devices such as push buttons, selector switches and interlocks may not be used as the sole means for deenergizing, and interlocks may not substitute for lockout and tagging. The HMI reports the control state, not the energy state — the supply conductors remain connected. The (d)(1)-(6) sequence therefore stalls at isolation, before lockout application, stored-energy release, and verification. Locking a control enclosure locks the control. The upstream distribution type does not change the definition."
