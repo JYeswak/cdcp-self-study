@@ -71,6 +71,34 @@ export function dayMs() {
   return requireExports().cdcp_day_ms();
 }
 
+/**
+ * `due_at = now_ms + interval_days * DAY_MS`. WASM decides.
+ *
+ * `nowMs` is caller-supplied. Negative interval / overflow throw (ERROR).
+ *
+ * @param {number} nowMs
+ * @param {number} intervalDays
+ * @returns {number}
+ */
+export function dueAtMs(nowMs, intervalDays) {
+  const ex = requireExports();
+  const now =
+    typeof nowMs === "number" && isFinite(nowMs) ? Math.trunc(nowMs) : 0;
+  const d =
+    typeof intervalDays === "number" && isFinite(intervalDays)
+      ? Math.trunc(intervalDays)
+      : 0;
+  const rc = ex.cdcp_due_at_ms(BigInt(now), BigInt(d));
+  const errLen = ex.cdcp_last_len();
+  if (errLen > 0) {
+    const mem = new Uint8Array(wasmMemory().buffer);
+    const ptr = ex.cdcp_last_ptr();
+    const msg = new TextDecoder().decode(mem.slice(ptr, ptr + errLen));
+    throw new Error(msg);
+  }
+  return typeof rc === "bigint" ? Number(rc) : rc;
+}
+
 /** Practiced bar as 0..=1 (800 milli → 0.8). */
 export function practicedRatio() {
   const m = requireExports().cdcp_practiced_milli();
@@ -212,6 +240,7 @@ if (typeof globalThis !== "undefined") {
     isWasmReady,
     intervalSteps,
     nextIntervalDays,
+    dueAtMs,
     dayMs,
     practicedRatio,
     masteredRatio,

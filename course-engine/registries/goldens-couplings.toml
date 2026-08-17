@@ -520,9 +520,9 @@ depends_on = [
 [[golden]]
 id = "web.wasm-grade"
 file = "web/assets/wasm/cdcp_wasm.wasm"
-frozen = "62cd5e058942b47803717d1ee257cc1428875d6f8a936a40eb07dab2d9136c2e"
+frozen = "1fe5bc268b803158b14ba9fdbfc469d530c3095785e194fa1be5e7060a09369c"
 affirmed = "2026-08-17"
-justification = "The wasm32 grade+schedule binary the browser loads. check.sh L5 only `[ -f ]`s it — a G1 presence check, not a pin — so this row is the B2 tripwire. RE-FROZEN 2026-08-17 (bd-hardening-i-schedule-7mq.2): exported `cdcp_state_version` / `cdcp_migrate_state_version` so JS cannot keep a second version law. Rebuilt via scripts/build_web_wasm.sh (release). Bytes moved 528701 → 528926; sha256 53ce908f… → 62cd5e05…. Grade score is unchanged (all-correct 40/40). Surfaces named because they are compiled in: bank.hash-payload, bank.item-schema, core.canonical-json, core.grade-report-shape, core.choice-letter, core.schema-version, grade.scoring-semantics."
+justification = "The wasm32 grade+schedule binary the browser loads. check.sh L5 only `[ -f ]`s it — a G1 presence check, not a pin — so this row is the B2 tripwire. RE-FROZEN 2026-08-17 (bd-hardening-i-schedule-7mq.3): exported `cdcp_due_at_ms` so JS cannot keep a second due law (`now + days * wasmDayMs()`). Rebuilt via scripts/build_web_wasm.sh (release). Bytes moved 528926 → 530385; sha256 62cd5e05… → 1fe5bc26…. Grade score is unchanged (all-correct 40/40). Surfaces named because they are compiled in: bank.hash-payload, bank.item-schema, core.canonical-json, core.grade-report-shape, core.choice-letter, core.schema-version, grade.scoring-semantics."
 depends_on = [
   { surface = "bank.hash-payload", version = "vcf11098efb54" },
   { surface = "bank.item-schema", version = "v9e6e70394dd4" },

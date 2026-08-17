@@ -74,6 +74,8 @@ fn parse_error(name: &str) -> ScheduleError {
         "NotIncreasing" => ScheduleError::NotIncreasing,
         "ZeroThreshold" => ScheduleError::ZeroThreshold,
         "PracticedExceedsMastered" => ScheduleError::PracticedExceedsMastered,
+        "NegativeInterval" => ScheduleError::NegativeInterval,
+        "DueOverflow" => ScheduleError::DueOverflow,
         other => panic!("unknown ScheduleError in fixture: {other}"),
     }
 }
@@ -112,6 +114,10 @@ fn fixture_is_present_and_non_empty() {
     assert!(
         !arr(&v, "due").is_empty(),
         "empty due table is an ERROR, not a pass"
+    );
+    assert!(
+        !arr(&v, "due_known_bad").is_empty(),
+        "empty due_known_bad is an ERROR, not a pass"
     );
     assert!(
         !arr(&v, "known_bad").is_empty(),
@@ -202,14 +208,14 @@ fn due_at_uses_injected_now_ms() {
     let fixture_now = i64_field(&v, "now_ms");
     for row in arr(&v, "due") {
         let id = str_field(row, "id");
-        let interval = u32_field(row, "interval_days");
+        let interval = i64_field(row, "interval_days");
         let now = i64_field(row, "now_ms");
         let want = i64_field(row, "due_at_ms");
-        let got = due_at_ms(interval, now);
-        assert_eq!(got, want, "due {id}: due_at_ms({interval}, {now})");
+        let got = due_at_ms(now, interval).expect("due happy-path must succeed");
+        assert_eq!(got, want, "due {id}: due_at_ms({now}, {interval})");
         assert_eq!(
-            due_at_ms(interval, now),
-            due_at_ms(interval, now),
+            due_at_ms(now, interval),
+            due_at_ms(now, interval),
             "due {id}: same injected now_ms must be deterministic"
         );
         if interval == 0 {
@@ -219,8 +225,38 @@ fn due_at_uses_injected_now_ms() {
     // A second injected clock must move due_at by the same delta — wall clock
     // is not consulted, so a frozen now_ms cannot pick up elapsed real time.
     let shifted = fixture_now + 12_345;
-    assert_eq!(due_at_ms(1, shifted), shifted + DAY_MS);
-    assert_eq!(due_at_ms(0, shifted), shifted);
+    assert_eq!(due_at_ms(shifted, 1).unwrap(), shifted + DAY_MS);
+    assert_eq!(due_at_ms(shifted, 0).unwrap(), shifted);
+}
+
+#[test]
+fn due_known_bad_overflow_and_negative_are_red() {
+    let v = load();
+    let rows = arr(&v, "due_known_bad");
+    assert!(
+        !rows.is_empty(),
+        "empty due_known_bad is an ERROR, not a pass"
+    );
+    let mut saw_neg = false;
+    let mut saw_overflow = false;
+    for row in rows {
+        let id = str_field(row, "id");
+        let now = i64_field(row, "now_ms");
+        let interval = i64_field(row, "interval_days");
+        let want = parse_error(str_field(row, "error"));
+        assert_eq!(
+            due_at_ms(now, interval),
+            Err(parse_error(str_field(row, "error"))),
+            "due_known_bad {id}: due_at_ms({now}, {interval})"
+        );
+        match want {
+            ScheduleError::NegativeInterval => saw_neg = true,
+            ScheduleError::DueOverflow => saw_overflow = true,
+            other => panic!("due_known_bad {id}: unexpected error {other:?}"),
+        }
+    }
+    assert!(saw_neg, "due_known_bad must include a negative interval");
+    assert!(saw_overflow, "due_known_bad must include an overflow");
 }
 
 #[test]

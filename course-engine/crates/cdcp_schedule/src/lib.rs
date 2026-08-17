@@ -77,7 +77,7 @@ const _: () = assert!(
 const _: () = assert!(DAY_MS > 0);
 const _: () = assert!(MASTERED_MIN_GAP_MS > 0);
 
-#[derive(Debug, Error, PartialEq, Eq)]
+#[derive(Debug, Error, PartialEq, Eq, Clone, Copy)]
 pub enum ScheduleError {
     #[error("empty interval ladder is an ERROR — zero steps is not a schedule")]
     EmptyLadder,
@@ -91,6 +91,10 @@ pub enum ScheduleError {
     PracticedExceedsMastered,
     #[error("unknown schedule state version {0} is an ERROR")]
     UnknownVersion(u32),
+    #[error("negative interval is an ERROR — due_at cannot subtract days")]
+    NegativeInterval,
+    #[error("due_at overflow is an ERROR — now_ms + interval_days * DAY_MS does not fit i64")]
+    DueOverflow,
 }
 
 /// One persisted review-card record. Version is the record schema, not the ladder.
@@ -234,9 +238,18 @@ pub fn next_interval_days(current_interval_days: i32, correct: bool) -> u32 {
 /// `due_at = now_ms + interval_days * DAY_MS`. `interval_days == 0` → `now_ms`.
 ///
 /// `now_ms` is caller-supplied. This crate does not read the wall clock.
-/// Pinned by `tests/fixtures/ladder_seed.json` (`due` rows).
-pub fn due_at_ms(interval_days: u32, now_ms: i64) -> i64 {
-    now_ms.saturating_add(i64::from(interval_days).saturating_mul(DAY_MS))
+/// Negative `interval_days` is [`ScheduleError::NegativeInterval`].
+/// A product that does not fit in `i64` is [`ScheduleError::DueOverflow`]
+/// (never saturating wrap — that would be a second due).
+/// Pinned by `tests/fixtures/ladder_seed.json` (`due` / `due_known_bad` rows).
+pub fn due_at_ms(now_ms: i64, interval_days: i64) -> Result<i64, ScheduleError> {
+    if interval_days < 0 {
+        return Err(ScheduleError::NegativeInterval);
+    }
+    let delta = interval_days
+        .checked_mul(DAY_MS)
+        .ok_or(ScheduleError::DueOverflow)?;
+    now_ms.checked_add(delta).ok_or(ScheduleError::DueOverflow)
 }
 
 /// Convert a 0..=1 ratio to parts per thousand. Non-finite / negative → 0.
@@ -358,9 +371,33 @@ mod tests {
     #[test]
     fn due_at_arithmetic() {
         let t0 = 1_700_000_000_000i64;
-        assert_eq!(due_at_ms(1, t0), t0 + DAY_MS);
-        assert_eq!(due_at_ms(3, t0), t0 + 3 * DAY_MS);
-        assert_eq!(due_at_ms(0, t0), t0);
+        assert_eq!(due_at_ms(t0, 1).unwrap(), t0 + DAY_MS);
+        assert_eq!(due_at_ms(t0, 3).unwrap(), t0 + 3 * DAY_MS);
+        assert_eq!(due_at_ms(t0, 0).unwrap(), t0);
+    }
+
+    #[test]
+    fn known_bad_negative_interval_is_error() {
+        let t0 = 1_700_000_000_000i64;
+        assert_eq!(due_at_ms(t0, -1), Err(ScheduleError::NegativeInterval));
+        assert_eq!(
+            due_at_ms(t0, i64::MIN),
+            Err(ScheduleError::NegativeInterval)
+        );
+        assert!(ScheduleError::NegativeInterval
+            .to_string()
+            .contains("negative interval"));
+    }
+
+    #[test]
+    fn known_bad_due_overflow_is_error() {
+        assert_eq!(due_at_ms(i64::MAX, 1), Err(ScheduleError::DueOverflow));
+        assert_eq!(due_at_ms(0, i64::MAX), Err(ScheduleError::DueOverflow));
+        assert!(ScheduleError::DueOverflow
+            .to_string()
+            .contains("due_at overflow"));
+        // interval 0 is identity even at the i64 edge — not overflow.
+        assert_eq!(due_at_ms(i64::MAX, 0).unwrap(), i64::MAX);
     }
 
     #[test]

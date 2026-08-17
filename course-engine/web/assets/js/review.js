@@ -23,6 +23,7 @@
  * }
  *
  * Interval law: `cdcp_schedule::next_interval_days` via schedule_bridge.
+ * Due law: `cdcp_schedule::due_at_ms` via schedule_bridge (JS does not add days).
  * Drill-10: selectDueOnly / listDueDrill — due_at ≤ now, earliest first, cap 10.
  *
  * Residue sweep (bd-srs-residue-retired-ids-k3vs): pre-bd-7big quiz draws wrote
@@ -38,6 +39,7 @@
 
 import {
   nextIntervalDays as wasmNextIntervalDays,
+  dueAtMs as wasmDueAtMs,
   dayMs as wasmDayMs,
   firstStepDays,
   migrateStateVersion,
@@ -76,7 +78,8 @@ export function dayMs() {
 }
 
 /**
- * Compute due_at from now + interval_days. Day length comes from WASM.
+ * Compute due_at from injected now + interval_days. WASM decides.
+ * JS does not add days.
  *
  * @param {number} intervalDays
  * @param {number} [nowMs]
@@ -84,9 +87,7 @@ export function dayMs() {
  */
 export function dueAtFromInterval(intervalDays, nowMs) {
   const now = typeof nowMs === "number" ? nowMs : Date.now();
-  const d =
-    typeof intervalDays === "number" && intervalDays > 0 ? intervalDays : 0;
-  return now + d * dayMs();
+  return wasmDueAtMs(now, intervalDays);
 }
 
 /**

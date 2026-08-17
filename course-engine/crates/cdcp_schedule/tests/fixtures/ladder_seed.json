@@ -67,6 +67,32 @@
       "due_at_ms": 1700259200000
     }
   ],
+  "due_known_bad": [
+    {
+      "id": "negative-interval",
+      "now_ms": 1700000000000,
+      "interval_days": -1,
+      "error": "NegativeInterval"
+    },
+    {
+      "id": "negative-interval-min",
+      "now_ms": 0,
+      "interval_days": -5,
+      "error": "NegativeInterval"
+    },
+    {
+      "id": "overflow-add",
+      "now_ms": 9223372036854775807,
+      "interval_days": 1,
+      "error": "DueOverflow"
+    },
+    {
+      "id": "overflow-mul",
+      "now_ms": 0,
+      "interval_days": 9223372036854775807,
+      "error": "DueOverflow"
+    }
+  ],
   "mastered": [
     {
       "id": "empty-attempts",

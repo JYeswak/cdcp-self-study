@@ -200,6 +200,7 @@ function assertExports(instance) {
     "cdcp_is_mastered",
     "cdcp_state_version",
     "cdcp_migrate_state_version",
+    "cdcp_due_at_ms",
     "memory",
   ];
   for (const name of need) {

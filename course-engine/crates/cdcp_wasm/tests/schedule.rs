@@ -7,9 +7,9 @@
 //! constant in Rust moved, a JS reimplementation would not.
 
 use cdcp_schedule::{
-    is_practiced_milli, migrate_state_version, next_interval_days, next_interval_days_with,
-    validate_schedule, validate_steps, validate_thresholds, INTERVAL_STEPS, MASTERED_MILLI,
-    PRACTICED_MILLI, STATE_VERSION,
+    due_at_ms, is_practiced_milli, migrate_state_version, next_interval_days,
+    next_interval_days_with, validate_schedule, validate_steps, validate_thresholds, DAY_MS,
+    INTERVAL_STEPS, MASTERED_MILLI, PRACTICED_MILLI, STATE_VERSION,
 };
 use cdcp_wasm::is_mastered_json;
 use std::path::{Path, PathBuf};
@@ -76,6 +76,8 @@ struct WasmSchedule {
     is_mastered: wasmtime::TypedFunc<(u32, u32), i32>,
     state_version: wasmtime::TypedFunc<(), i32>,
     migrate_state_version: wasmtime::TypedFunc<i32, i32>,
+    due_at: wasmtime::TypedFunc<(i64, i64), i64>,
+    last_len: wasmtime::TypedFunc<(), u32>,
 }
 
 fn instantiate(wasm_path: &Path) -> Result<WasmSchedule, String> {
@@ -122,6 +124,12 @@ fn instantiate(wasm_path: &Path) -> Result<WasmSchedule, String> {
         migrate_state_version: instance
             .get_typed_func(&mut store, "cdcp_migrate_state_version")
             .map_err(|e| format!("cdcp_migrate_state_version: {e}"))?,
+        due_at: instance
+            .get_typed_func(&mut store, "cdcp_due_at_ms")
+            .map_err(|e| format!("cdcp_due_at_ms: {e}"))?,
+        last_len: instance
+            .get_typed_func(&mut store, "cdcp_last_len")
+            .map_err(|e| format!("cdcp_last_len: {e}"))?,
         store,
         memory,
     })
@@ -266,6 +274,18 @@ fn native_equals_wasm_schedule() {
             assert!(migrate_state_version(bad as u32).is_err());
         }
     }
+
+    let t_due = 1_700_000_000_000i64;
+    for days in [0i64, 1, 3] {
+        let native = due_at_ms(t_due, days).unwrap();
+        let wasm = w.due_at.call(&mut w.store, (t_due, days)).unwrap();
+        let err_len = w.last_len.call(&mut w.store, ()).unwrap();
+        assert_eq!(err_len, 0, "due_at_ms({t_due}, {days}) must not be ERROR");
+        assert_eq!(native, wasm, "due_at_ms({t_due}, {days})");
+        if days == 1 {
+            assert_eq!(wasm, t_due + DAY_MS);
+        }
+    }
 }
 
 /// Known-bad: the stepper is the ladder, not a hardcoded 3. Changing the
@@ -286,6 +306,41 @@ fn known_bad_moved_cap_changes_native_and_wasm_exports_live_cap() {
     // If JS shadowed with `return 3`, moving INTERVAL_STEPS[1] would leave
     // the browser stuck. The live export equals the Rust constant — the
     // browser path that CALLS this export moves with it.
+}
+
+/// Known-bad: overflow / negative interval is RED on native and wasm.
+/// An empty known-bad set is itself an ERROR.
+#[test]
+fn known_bad_due_at_overflow_and_negative_are_red() {
+    const KNOWN_BAD: &[(i64, i64)] = &[
+        (1_700_000_000_000, -1),
+        (0, -5),
+        (0, i64::MIN),
+        (i64::MAX, 1),
+        (0, i64::MAX),
+    ];
+    assert!(
+        !KNOWN_BAD.is_empty(),
+        "empty known_bad is an ERROR, not a pass"
+    );
+    for &(now, days) in KNOWN_BAD {
+        assert!(
+            due_at_ms(now, days).is_err(),
+            "native due_at_ms({now}, {days}) must be ERROR"
+        );
+    }
+
+    let Some(mut w) = maybe_wasm() else {
+        return;
+    };
+    for &(now, days) in KNOWN_BAD {
+        let _ = w.due_at.call(&mut w.store, (now, days)).unwrap();
+        let err_len = w.last_len.call(&mut w.store, ()).unwrap();
+        assert!(
+            err_len > 0,
+            "wasm due_at_ms({now}, {days}) must be ERROR (last_len > 0)"
+        );
+    }
 }
 
 /// Known-bad: review.js / mastery.js / schedule_bridge.js must not reimplement
@@ -317,6 +372,7 @@ fn known_bad_js_does_not_shadow_the_rust_law() {
         "cdcp_mastered_milli",
         "cdcp_state_version",
         "cdcp_migrate_state_version",
+        "cdcp_due_at_ms",
     ] {
         assert!(
             bridge.contains(name),
@@ -329,8 +385,27 @@ fn known_bad_js_does_not_shadow_the_rust_law() {
         "review.js must import nextIntervalDays from schedule_bridge (WASM decides)"
     );
     assert!(
+        review.contains("dueAtMs"),
+        "review.js must import dueAtMs from schedule_bridge (WASM decides due)"
+    );
+    assert!(
         review.contains("migrateStateVersion"),
         "review.js must import migrateStateVersion from schedule_bridge (WASM decides version)"
+    );
+    assert!(
+        !review.contains("d * dayMs()")
+            && !review.contains("d * wasmDayMs()")
+            && !review.contains("now + d *")
+            && !review.contains("* dayMs()")
+            && !review.contains("* wasmDayMs()"),
+        "review.js adds days locally — JS is shadowing Rust due_at_ms"
+    );
+    assert!(
+        !drill.contains("d * dayMs()")
+            && !drill.contains("now + d *")
+            && !drill.contains("* dayMs()")
+            && !drill.contains("* wasmDayMs()"),
+        "drill.js adds days locally — JS is shadowing Rust due_at_ms"
     );
     assert!(
         !review.contains("if (cur < 1) return 1")

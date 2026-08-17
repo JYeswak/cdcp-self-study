@@ -20,10 +20,10 @@ use cdcp_grade::grade_digest;
 use cdcp_schedule::{self, ReviewAttempt};
 
 pub use cdcp_schedule::{
-    cap_days, first_step_days, is_mastered, is_practiced_milli, is_practiced_ratio, migrate_card,
-    migrate_state_version, next_interval_days, ratio_to_milli, validate_schedule, validate_steps,
-    validate_thresholds, DAY_MS, INTERVAL_STEPS, MASTERED_MILLI, MASTERED_MIN_GAP_MS,
-    PRACTICED_MILLI, STATE_VERSION, STATE_VERSION_UNVERSIONED,
+    cap_days, due_at_ms, first_step_days, is_mastered, is_practiced_milli, is_practiced_ratio,
+    migrate_card, migrate_state_version, next_interval_days, ratio_to_milli, validate_schedule,
+    validate_steps, validate_thresholds, DAY_MS, INTERVAL_STEPS, MASTERED_MILLI,
+    MASTERED_MIN_GAP_MS, PRACTICED_MILLI, STATE_VERSION, STATE_VERSION_UNVERSIONED,
 };
 
 /// Engine identity labels asserted at the dual-path comparator (docs/ORACLE-GAUNTLET.md).
@@ -299,6 +299,25 @@ mod abi {
         match cdcp_schedule::migrate_state_version(from as u32) {
             Ok(v) => v as i32,
             Err(_) => -1,
+        }
+    }
+
+    /// `due_at = now_ms + interval_days * DAY_MS`. Injected time only.
+    ///
+    /// Success: returns the due instant; `cdcp_last_len()` is 0.
+    /// Failure (negative interval / overflow): returns 0 and writes the
+    /// error at `cdcp_last_ptr()` (`cdcp_last_len()` > 0).
+    #[no_mangle]
+    pub extern "C" fn cdcp_due_at_ms(now_ms: i64, interval_days: i64) -> i64 {
+        match cdcp_schedule::due_at_ms(now_ms, interval_days) {
+            Ok(v) => {
+                LAST.with(|c| c.borrow_mut().clear());
+                v
+            }
+            Err(e) => {
+                let _ = store_err(e.to_string());
+                0
+            }
         }
     }
 

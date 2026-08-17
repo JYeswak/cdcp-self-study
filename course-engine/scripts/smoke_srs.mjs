@@ -100,11 +100,38 @@ assert(
 );
 assert(chain[1] === 1 && chain[2] === 3 && chain[3] === 3, "success chain 1→3→3");
 
-// dueAt arithmetic
+// dueAt arithmetic — WASM must match the committed fixture
 const t0 = 1_700_000_000_000;
+const ladderSeed = JSON.parse(
+  readFileSync(
+    join(ROOT, "crates/cdcp_schedule/tests/fixtures/ladder_seed.json"),
+    "utf8"
+  )
+);
+assert(
+  Array.isArray(ladderSeed.due) && ladderSeed.due.length > 0,
+  "fixture due table is non-empty"
+);
+assert(
+  Array.isArray(ladderSeed.due_known_bad) && ladderSeed.due_known_bad.length > 0,
+  "fixture due_known_bad is non-empty"
+);
+for (const row of ladderSeed.due) {
+  assert(
+    dueAtFromInterval(row.interval_days, row.now_ms) === row.due_at_ms,
+    "WASM due matches fixture " + row.id
+  );
+}
 assert(dueAtFromInterval(1, t0) === t0 + DAY_MS, "due 1d = now + DAY_MS");
 assert(dueAtFromInterval(3, t0) === t0 + 3 * DAY_MS, "due 3d = now + 3*DAY_MS");
 assert(dueAtFromInterval(0, t0) === t0, "due 0d = now");
+let negThrew = false;
+try {
+  dueAtFromInterval(-1, t0);
+} catch (err) {
+  negThrew = String(err && err.message).indexOf("negative interval") !== -1;
+}
+assert(negThrew, "negative interval is ERROR from WASM");
 
 // --- in-memory Storage mock ---
 function makeStore() {
