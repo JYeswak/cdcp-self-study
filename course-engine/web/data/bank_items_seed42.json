@@ -18623,6 +18623,61 @@
     ]
   },
   {
+    "bloom": "understand",
+    "choices": [
+      "Recite the Module 06 interconnect hop (UPS strings on the DC bus versus AC-interconnected yard BESS) so this file owns electrical",
+      "NFPA 855 is the stationary-ESS installation standard (confirm adopted edition; not a product listing); UL 9540A is the thermal-runaway fire-propagation test method, not a certification; indoor UPS room is off-gas accumulating in a box (deflagration); outdoor BESS yard is one enclosure taking the next — chemistry changes the playbook; do not invent a fire percent or an agent mass",
+      "Treat both as a Class A trash-can fire: dump clean agent, keep the room sealed, stay and watch",
+      "Quote an industry fire percentage that proves water always extinguishes Li-ion"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "This file owns the fire playbook. 855 is installation; 9540A is test data, not a listing. Room vs yard is off-gas/deflagration vs next-enclosure. Interconnect stays in Module 06. No invented fire percent or agent mass.",
+    "id": "m12-q225",
+    "kind": "single-select",
+    "module": 12,
+    "objective_ids": [
+      "obj-m12-liion-855"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A 2026 interviewer asks which documents and which split apply to Li-ion fire — UPS room versus BESS yard. The taught answer is:",
+    "tags": [],
+    "topic_ids": [
+      "m12-standards",
+      "m12-causes"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Approve: sealed-room gas dump plus a fire percent is the 2026 playbook",
+      "Convert the packet into the Module 06 interconnect oral so the fire question goes away",
+      "Invent an agent mass and a travel-distance number to sound precise",
+      "Reject the packet: chemistry changes the playbook — indoor room is off-gas / deflagration (detect gas, explosion control, ask what the EOP says); yard is setbacks and the next enclosure; NFPA 855 is installation (confirm adopted edition); UL 9540A is test data, not a listing; LSFT is system-level evidence, not a number from memory; water-on-Li-ion is controversy, not always-water law; interconnect stays in Module 06; EOP craft is Module 15; do not invent a fire percent or an agent mass"
+    ],
+    "citation_ids": [],
+    "correct": "D",
+    "explanation": "Analyze the collapse. White-space gas dump is the wrong playbook for thermal runaway. 9540A is not a listing. 855 is not automatically law. BESS-as-UPS-batteries is the Module 06 interconnect error. A fire percent and an agent mass are invented. Confirm adopted edition, 9540A/LSFT data, listing, and the site EOP — then evacuate.",
+    "id": "m12-q226",
+    "kind": "single-select",
+    "module": 12,
+    "objective_ids": [
+      "obj-m12-liion-855"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Reviewer is handed a Li-ion fire packet: “Treat the UPS battery room like white space — dump clean agent, keep the room sealed, stay and watch; 9540A is the product listing; 855 is automatically the law; BESS yard is extra UPS batteries on the same DC bus; cite a fire percent so the AHJ will sign.” You should:",
+    "tags": [],
+    "topic_ids": [
+      "m12-standards",
+      "m12-suppression-reqs",
+      "m12-regulatory"
+    ]
+  },
+  {
     "bloom": "apply",
     "choices": [
       "Immediately release clean-agent suppression without investigation because any ASD alert equals confirmed fire",

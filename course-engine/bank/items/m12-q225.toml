@@ -1,0 +1,19 @@
+# Original CDCP educational MCQ — ebrr.26 leftover: Li-ion / NFPA 855 fire playbook
+id = "m12-q225"
+kind = "single-select"
+module = 12
+stem = "A 2026 interviewer asks which documents and which split apply to Li-ion fire — UPS room versus BESS yard. The taught answer is:"
+choices = [
+  "Recite the Module 06 interconnect hop (UPS strings on the DC bus versus AC-interconnected yard BESS) so this file owns electrical",
+  "NFPA 855 is the stationary-ESS installation standard (confirm adopted edition; not a product listing); UL 9540A is the thermal-runaway fire-propagation test method, not a certification; indoor UPS room is off-gas accumulating in a box (deflagration); outdoor BESS yard is one enclosure taking the next — chemistry changes the playbook; do not invent a fire percent or an agent mass",
+  "Treat both as a Class A trash-can fire: dump clean agent, keep the room sealed, stay and watch",
+  "Quote an industry fire percentage that proves water always extinguishes Li-ion",
+]
+correct = "B"
+explanation = "This file owns the fire playbook. 855 is installation; 9540A is test data, not a listing. Room vs yard is off-gas/deflagration vs next-enclosure. Interconnect stays in Module 06. No invented fire percent or agent mass."
+topic_ids = ["m12-standards", "m12-causes"]
+objective_ids = ["obj-m12-liion-855"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

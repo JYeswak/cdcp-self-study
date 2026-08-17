@@ -1,6 +1,6 @@
 {
-  "approved_item_count": 817,
-  "bank_item_count": 842,
+  "approved_item_count": 819,
+  "bank_item_count": 844,
   "by_module": {
     "01-mission-critical": [
       {
@@ -2625,8 +2625,8 @@
         "check_count": 3,
         "check_item_ids": [
           "m12-q209",
-          "bank-m12-q041",
-          "bank-m12-q047"
+          "m12-q225",
+          "bank-m12-q041"
         ],
         "estimate_minutes": 3,
         "heading_id": "key-diagrams",
@@ -2653,7 +2653,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "bank-m12-q044",
+          "bank-m12-q043",
           "bank-m12-q047",
           "bank-m12-q050"
         ],
@@ -2682,7 +2682,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "bank-m12-q048",
+          "bank-m12-q047",
           "bank-m12-q050",
           "bank-m12-q057"
         ],
@@ -2711,7 +2711,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "bank-m12-q052",
+          "bank-m12-q051",
           "bank-m12-q055",
           "bank-m12-q057"
         ],
@@ -2740,9 +2740,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "bank-m12-q054",
           "bank-m12-q055",
-          "bank-m12-q057",
-          "bank-m12-q060"
+          "bank-m12-q057"
         ],
         "estimate_minutes": 3,
         "heading_id": "self-check-quiz",
@@ -2769,7 +2769,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "bank-m12-q058",
+          "bank-m12-q057",
           "bank-m12-q060",
           "bank-m12-q066"
         ],
@@ -6000,8 +6000,8 @@
       "check_count": 3,
       "check_item_ids": [
         "m12-q209",
-        "bank-m12-q041",
-        "bank-m12-q047"
+        "m12-q225",
+        "bank-m12-q041"
       ],
       "estimate_minutes": 3,
       "heading_id": "key-diagrams",
@@ -6028,7 +6028,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "bank-m12-q044",
+        "bank-m12-q043",
         "bank-m12-q047",
         "bank-m12-q050"
       ],
@@ -6057,7 +6057,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "bank-m12-q048",
+        "bank-m12-q047",
         "bank-m12-q050",
         "bank-m12-q057"
       ],
@@ -6086,7 +6086,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "bank-m12-q052",
+        "bank-m12-q051",
         "bank-m12-q055",
         "bank-m12-q057"
       ],
@@ -6115,9 +6115,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "bank-m12-q054",
         "bank-m12-q055",
-        "bank-m12-q057",
-        "bank-m12-q060"
+        "bank-m12-q057"
       ],
       "estimate_minutes": 3,
       "heading_id": "self-check-quiz",
@@ -6144,7 +6144,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "bank-m12-q058",
+        "bank-m12-q057",
         "bank-m12-q060",
         "bank-m12-q066"
       ],

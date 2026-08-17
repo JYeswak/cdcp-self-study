@@ -1,15 +1,15 @@
 {
-  "bank_hash": "e088f9ba104fde7fe8bf14a7a9b50323c510e98e563f30e0bc2cf096347af013",
+  "bank_hash": "f3e79c62e53b2a3e55049afb7bd9e32fc9e6552280d94c7cb0c88ced3b3a4112",
   "exam_id": "mock40",
   "item_ids": [
     "m04-q129",
     "m07-q207",
-    "m12-q210",
+    "m12-q226",
     "mock40-q01",
     "m09-q153",
     "m09-q159",
     "m05-q147",
-    "m12-q223",
+    "m12-q214",
     "bank-m15-q143",
     "mock40-q04",
     "m02-q213",
@@ -78,18 +78,19 @@
     },
     {
       "choices": [
-        "Only fiber polarity errors",
-        "Only low humidity always",
-        "Only empty cable trays",
-        "Overloaded connections, failed components, and poor workmanship creating ignition sources"
+        "Approve: sealed-room gas dump plus a fire percent is the 2026 playbook",
+        "Convert the packet into the Module 06 interconnect oral so the fire question goes away",
+        "Invent an agent mass and a travel-distance number to sound precise",
+        "Reject the packet: chemistry changes the playbook — indoor room is off-gas / deflagration (detect gas, explosion control, ask what the EOP says); yard is setbacks and the next enclosure; NFPA 855 is installation (confirm adopted edition); UL 9540A is test data, not a listing; LSFT is system-level evidence, not a number from memory; water-on-Li-ion is controversy, not always-water law; interconnect stays in Module 06; EOP craft is Module 15; do not invent a fire percent or an agent mass"
       ],
       "correct": "D",
-      "id": "m12-q210",
+      "id": "m12-q226",
       "module": 12,
-      "stem": "Common electrical causes of data centre fires include:",
+      "stem": "Reviewer is handed a Li-ion fire packet: “Treat the UPS battery room like white space — dump clean agent, keep the room sealed, stay and watch; 9540A is the product listing; 855 is automatically the law; BESS yard is extra UPS batteries on the same DC bus; cite a fire percent so the AHJ will sign.” You should:",
       "topic_ids": [
-        "m12-causes",
-        "m12-best-practices"
+        "m12-standards",
+        "m12-suppression-reqs",
+        "m12-regulatory"
       ]
     },
     {
@@ -156,18 +157,18 @@
     },
     {
       "choices": [
-        "Limiting flame and smoke spread and maintaining compartmentation",
-        "Increasing alien crosstalk only",
-        "Raising UPS load",
-        "Disabling detection zones"
+        "All rooms must use identical agents always",
+        "IT rooms never need any detection",
+        "Sprinklers set humidity setpoints",
+        "Risk profiles and water sensitivity differ by space—design is space-specific under AHJ and standards"
       ],
-      "correct": "A",
-      "id": "m12-q223",
+      "correct": "D",
+      "id": "m12-q214",
       "module": 12,
-      "stem": "Cable selection and firestopping at penetrations support fire strategy by:",
+      "stem": "Wet-pipe sprinklers in some support areas may be acceptable while white space uses different protection because:",
       "topic_ids": [
-        "m12-best-practices",
-        "m12-causes"
+        "m12-water-suppression",
+        "m12-regulatory"
       ]
     },
     {
