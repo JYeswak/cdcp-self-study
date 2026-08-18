@@ -833,3 +833,21 @@ The ledger is now 121 PASS / 836 BLOCKED across 957 rows, with zero bare FAIL
 rows. Vendor blogs and third-party bulletins were removed from q227's retained
 receipt set. No credential, AHJ approval, or universal fire-response claim is
 made by this pass.
+
+## Breadth pass 17 — CDFOM receipt currency check
+
+**Review date:** 2026-08-18. The CDFOS/CDFOM item-file audit found the active
+52-item set already carries a public syllabus heading and an external official
+receipt in its file comments. The three unresolved CDFOM topics were checked
+again against the live ISO catalog pages; q348's receipt was updated to the
+latest published amendment. No paid standard body or PDF was fetched.
+
+| Item | Public CDFOM heading | Current official catalog receipt | Disposition |
+|---|---|---|---|
+| m15-q348 | The Data Center Organization — Succession planning; Career development | ISO 30401:2018 + Amd 1:2022 + Amd 2:2024 — https://www.iso.org/standard/88416.html | **BLOCKED** — the current catalog confirms the amendment, but the paid body and public abstract do not expose a qualifying succession/career clause |
+| m15-q351 | Facilities Management — Maintenance policies and procedures | ISO 41001:2018 + Amd 1:2024 — https://www.iso.org/standard/88425.html | **BLOCKED** — the paid body and public abstract do not expose a qualifying independent-commissioning-provider clause |
+| m15-q363 | The Data Center Organization — Career development; Job rotation | ISO 10015:2019 — https://www.iso.org/standard/69459.html | **BLOCKED** — the catalog says the edition remains current after its 2025 confirmation, but no public job-rotation clause is exposed and the body is paid |
+
+Counts remain 121 PASS / 836 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not invent a heading, handover program, career taxonomy, or
+credential claim, and does not close ms4j.
