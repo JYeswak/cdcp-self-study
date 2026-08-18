@@ -1044,6 +1044,67 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 113 — CDFOS/CDFOM cross-module operations frontier
+
+**Date:** 2026-08-18
+**Scope:** Research-only cross-check for CDFOS/CDFOM M01, M06, M09, M11,
+M13, M14, and M15 operational handoffs: OT/BMS/DCIM security, commissioning,
+AI/grid-load context, liquid-cooling boundaries, lockout/tagout, permits to
+work, and shift handover. No bank row or manifest disposition changed.
+
+**Official public receipts reviewed:**
+
+- [NIST SP 800-82 Rev. 3](https://csrc.nist.gov/pubs/sp/800/82/r3/final),
+  **Guide to Operational Technology (OT) Security**, final publication dated
+  September 2023. Its public abstract explicitly includes building automation,
+  physical access control, physical-environment monitoring, and the need to
+  preserve OT performance, reliability, and safety. NIST identifies possible
+  future updates and a Rev. 4 draft; this pass uses Rev. 3 final only.
+- [DOE FEMP commissioning process for federal facilities](https://www.energy.gov/cmei/femp/commissioning-process-federal-facilities),
+  a public HTML guide defining **Plan**, **Investigate**, **Implement**, and
+  **Hand off and Integrate**. The public page also calls for functional tests,
+  deficiency tracking, retesting, final documentation, and a future
+  commissioning plan.
+- [IEA, Energy and AI — Understanding the energy-AI nexus](https://www.iea.org/reports/energy-and-ai/understanding-the-energy-ai-nexus),
+  the official 2025 public analysis page. It supplies contextual energy and
+  grid-load evidence, including the distinction between ordinary and
+  hyperscale/AI-focused data-centre scale. These are scenario/context signals,
+  not universal design targets or reliability guarantees.
+- [eCFR 29 CFR 1910.147](https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147),
+  the current public hazardous-energy control page. It is authoritative but
+  unofficial, and its displayed Title 29 content was current as of 2026-08-14.
+  It exposes the employer energy-control program, documented procedures,
+  verification, training, periodic inspection, and release boundaries.
+- [HSE, Permits to work](https://www.hse.gov.uk/coshh/basics/permits.htm),
+  public government guidance describing a documented permit-to-work procedure,
+  authorisation, time bounds, precautions, shift-handover/extension
+  declarations, and a return-to-service declaration.
+- [ISO/IEC TS 22237-7:2018](https://www.iso.org/standard/73014.html?browse=tc),
+  official ISO catalog/preview page for **Information technology — Data centre
+  facilities and infrastructures — Part 7: Management and operational
+  information**. ISO marks Edition 1 (2018) published and current while a
+  replacement is under development; the public abstract covers management and
+  operational processes, resilience, availability, risk, capacity, security,
+  and energy efficiency.
+
+**Adversarial review of the next question frontier:**
+
+| Module | Candidate question family | Guardrail |
+|---|---|---|
+| M01 | Trace service demand through grid, cooling, network, controls, and people dependencies | Separate scenario/context from a design guarantee |
+| M06 | Assemble commissioning evidence for one-lines, UPS/generator/storage paths, retest results, deficiency closure, and handoff | DOE receipt supports process evidence, not a fabricated acceptance taxonomy |
+| M09 | Test AI-density and liquid-cooling assumptions against alarms, thermal limits, water boundaries, and fallback states | Do not turn IEA context into a capacity or PUE promise |
+| M11 | Bound BMS/DCIM/OT segmentation, monitored and reversible remote access, and network-path dependencies | NIST supports OT-security scope; it does not invent a site OLA model |
+| M13/M14 | Assign physical/cyber-physical access, alarm ownership, source-of-truth, escalation, and handoff evidence | Keep access-control and alarm claims bounded to the public heading/receipt |
+| M15 | Compare MOP/SOP/EOP evidence with LOTO, permit-to-work, shift handover, training, competence records, and future commissioning | eCFR/HSE/DOE are authority or guidance boundaries, not credential certification |
+
+**Bounded result:** The strongest reusable frontier is evidence continuity
+across commissioning, controls, safety isolation, and operations handoff. The
+legal/public sources support question families and BLOCKED receipts where the
+exact proposition is not exposed. No draft ISO/NIST text, paid standard body,
+PDF, invented OLA taxonomy, invented handover program, gate-shrink work, oracle
+port, credential claim, or bead closure is introduced.
+
 ## Breadth pass 112 — CDCS overlay source normalization
 
 **Date:** 2026-08-18
