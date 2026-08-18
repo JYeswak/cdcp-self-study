@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 329 PASS; 628 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 335 PASS; 622 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -709,12 +709,12 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m11-q238 | 11 | 1.11 Designing a Scalable Network Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | mock40-q34 | 12 | Fire detection systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | BLOCKED — NFPA 72, 2025 official preview receipt; exact item-level proposition is not exposed |
 | mock40-q35 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | BLOCKED — NFPA 2001, 2025 official preview receipt; exact item-level proposition is not exposed |
-| bank-m12-q041 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | BLOCKED — NFPA 72 preview receipt; exact ASD/high-airflow claim is not exposed publicly |
-| bank-m12-q042 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | BLOCKED — NFPA 72 preview receipt; exact heat-detector role claim is not exposed publicly |
-| bank-m12-q043 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | BLOCKED — NFPA 72 preview receipt; exact cross-zoning release proposition is not exposed publicly |
-| bank-m12-q044 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | BLOCKED — NFPA 72 preview receipt; exact staged-threshold claim is not exposed publicly |
-| bank-m12-q045 | 12 | Fire detection systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | BLOCKED — NFPA 72, 2025 official preview receipt; exact item-level proposition is not exposed |
-| bank-m12-q046 | 12 | Fire detection systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | BLOCKED — NFPA 72, 2025 official preview receipt; exact item-level proposition is not exposed |
+| bank-m12-q041 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
+| bank-m12-q042 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
+| bank-m12-q043 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
+| bank-m12-q044 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
+| bank-m12-q045 | 12 | Fire detection systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
+| bank-m12-q046 | 12 | Fire detection systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
 | bank-m12-q047 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | BLOCKED — NFPA 13, 2025 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q048 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | BLOCKED — NFPA 13, 2025 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q049 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | BLOCKED — NFPA 13, 2025 official preview receipt; exact item-level proposition is not exposed |

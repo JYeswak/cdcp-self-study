@@ -1,22 +1,21 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: CDCP "Fire Protection" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: NFPA 72 (2025) —
-# https://link.nfpa.org/all-publications/72/2025
-# BLOCKED: the public preview does not expose the exact heat-detector role
-# claim needed to promote this item.
+# Official catalog/preview receipt: 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164
+# PASS: the current OSHA public standard states the required warning purpose
+# for detection systems used for employee alarm and evacuation.
 id = "bank-m12-q042"
 kind = "single-select"
 module = 12
-stem = "Which detection technology is generally too late as the primary protection strategy for electronics white space?"
+stem = "Under 29 CFR 1910.164(e)(2), fire detection systems installed for employee alarm and evacuation must be designed and installed to:"
 choices = [
-  "Aspirating early-warning smoke detection",
-  "Heat detection as the sole primary method",
-  "Photoelectric spot smoke as part of a layered design",
-  "Multi-threshold ASD alert stages"
+  "Provide a warning for emergency action and safe escape of employees",
+  "Delay every alarm until after evacuation is impossible",
+  "Replace all emergency-action-plan procedures",
+  "Operate only after the fire has reached a fully developed stage"
 ]
-correct = "B"
-explanation = "Heat detectors typically respond after significant fire growth; they are backup or specialty uses, not primary IT-space protection."
+correct = "A"
+explanation = "The current OSHA public standard requires detection systems used for employee alarm and evacuation to provide a warning for emergency action and safe escape."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"

@@ -1,22 +1,21 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: CDCP "Fire Protection" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: NFPA 72 (2025) —
-# https://link.nfpa.org/all-publications/72/2025
-# BLOCKED: the public preview does not expose the exact staged-threshold
-# investigation claim needed to promote this item.
+# Official catalog/preview receipt: 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164
+# PASS: the current OSHA public standard limits delay of detector-initiated
+# alarms and requires necessary delay to be addressed in the emergency plan.
 id = "bank-m12-q044"
 kind = "single-select"
 module = 12
-stem = "Many ASD systems support staged thresholds (e.g., alert then action then fire) so that operators can:"
+stem = "Under 29 CFR 1910.164(e)(3), an alarm or device initiated by a fire detector must not be delayed more than:"
 choices = [
-  "Skip annual testing forever",
-  "Use heat only and ignore smoke",
-  "Replace fire doors with cardboard",
-  "Investigate early smoke indications before full evacuation or discharge logic"
+  "30 seconds, unless the delay is necessary for immediate employee safety and addressed in an emergency action plan",
+  "30 minutes under every condition",
+  "One full shift without an emergency-plan entry",
+  "Any duration selected by a vendor without safety justification"
 ]
-correct = "D"
-explanation = "Staged ASD thresholds create time to investigate dilute smoke before full fire alarm/suppression actions."
+correct = "A"
+explanation = "The current OSHA public standard prohibits delaying detector-initiated alarms or devices more than 30 seconds unless the delay is necessary for immediate employee safety and addressed in an emergency action plan."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"

@@ -906,6 +906,28 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 254 — OSHA fire-detection receipts
+
+**Review date:** 2026-08-18. Current OSHA public 29 CFR 1910.164 text requires
+regular cleaning of detectors where particulates affect operation; warning for
+emergency action and safe escape; response in time to control or extinguish a
+fire; no more than 30 seconds of detector-initiated alarm delay except for
+immediate employee safety addressed in an emergency action plan; detector
+number/spacing/location based on recognized design data; and protection from
+mechanical or physical impact. Six module-12 items are bounded to those exact
+clauses, with ASD/heat-detector technology claims removed.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q041 | Fire Protection | 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | **PASS** — detector-cleaning requirement is explicit |
+| bank-m12-q042 | Fire Protection | 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | **PASS** — employee-warning/safe-escape requirement is explicit |
+| bank-m12-q043 | Fire Protection | 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | **PASS** — suppression response-time requirement is explicit |
+| bank-m12-q044 | Fire Protection | 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | **PASS** — detector-alarm delay limit is explicit |
+| bank-m12-q045 | Fire detection systems | 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | **PASS** — detector design-data basis is explicit |
+| bank-m12-q046 | Fire detection systems | 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | **PASS** — mechanical/physical impact protection is explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 253 — OSHA fixed-suppression receipts
 
 **Review date:** 2026-08-18. Current OSHA public 29 CFR 1910.160 text

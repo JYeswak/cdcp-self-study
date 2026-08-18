@@ -1,21 +1,21 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: CDCP "Fire Protection" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: NFPA 72 (2025) —
-# https://link.nfpa.org/all-publications/72/2025
-# BLOCKED: the public preview does not expose the exact ASD/high-airflow claim.
+# Official catalog/preview receipt: 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164
+# PASS: the current OSHA public standard requires periodic cleaning of
+# detectors whose operation depends on removal of dirt, dust, or particulates.
 id = "bank-m12-q041"
 kind = "single-select"
 module = 12
-stem = "Aspirating smoke detection (ASD) is especially useful in data halls because high airflow tends to:"
+stem = "Under 29 CFR 1910.164(c)(5), fire detectors that need cleaning of dirt, dust, or other particulates to be fully operational must be:"
 choices = [
-  "Dilute smoke so spot detectors may alarm later than desired",
-  "Concentrate smoke into one ceiling corner only",
-  "Eliminate all electrical ignition sources",
-  "Replace the need for egress signage"
+  "Cleaned at regular periodic intervals",
+  "Left uncleaned until after a fire",
+  "Cleaned only when the vendor changes the detector model",
+  "Removed from service permanently"
 ]
 correct = "A"
-explanation = "High air-change rates dilute smoke; ASD samples continuously at very low concentrations for earlier warning."
+explanation = "The current OSHA public standard requires fire detectors that need cleaning to be fully operational to be cleaned at regular periodic intervals."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"

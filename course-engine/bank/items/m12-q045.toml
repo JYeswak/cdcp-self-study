@@ -1,19 +1,20 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Fire detection systems
-# Official catalog/preview receipt: NFPA 72, 2025 — https://link.nfpa.org/all-publications/72/2025
-# BLOCKED: the current official preview does not expose the exact item-level fire detection systems proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164
+# PASS: the current OSHA public standard states the design-data basis for
+# detector number, spacing, and location.
 id = "bank-m12-q045"
 kind = "single-select"
 module = 12
-stem = "Under a raised floor in white space, smoke detection is relevant because the plenum often contains:"
+stem = "Under 29 CFR 1910.164(f), the number, spacing, and location of fire detectors must be based upon:"
 choices = [
-  "Power and data cabling that can be both a fuel path and a smoke path",
-  "Only clean empty air with no cables",
-  "Nothing but chilled-water inert gas cylinders",
-  "Public lobby seating"
+  "Design data from field experience or tests, engineering surveys, manufacturer recommendations, or a recognized testing-laboratory listing",
+  "Only the number of network racks in the room",
+  "A vendor's marketing color scheme without design data",
+  "Public-lobby seating capacity only"
 ]
 correct = "A"
-explanation = "Raised-floor voids carry cable fuel loads and smoke movement; designs often place detection underfloor."
+explanation = "The current OSHA public standard bases detector number, spacing, and location on field experience or tests, engineering surveys, manufacturer recommendations, or a recognized testing-laboratory listing."
 topic_ids = ["m12-detection", "m12-best-practices"]
 objective_ids = []
 bloom = "understand"
