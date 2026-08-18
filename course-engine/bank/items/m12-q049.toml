@@ -1,19 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Water-based fire suppression
-# Official catalog/preview receipt: NFPA 13, 2025 — https://link.nfpa.org/all-publications/13/2025
-# BLOCKED: the current official preview does not expose the exact item-level water-based fire suppression proposition. No paid body or PDF was fetched.
+# Official public-code receipt: 29 CFR 1910.159 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.159
+# Claim is limited to OSHA's public automatic-sprinkler design coverage requirement.
 id = "bank-m12-q049"
 kind = "single-select"
 module = 12
-stem = "Wet-pipe sprinklers keep water in the piping continuously, which means a broken fitting can:"
+stem = "Under 29 CFR 1910.159(c)(1)(i), an automatic sprinkler design used to comply with the standard must provide:"
 choices = [
-  "Discharge water onto equipment without a fire heat event at a head",
-  "Only trigger aspirating detectors",
-  "Automatically seal room integrity for gas systems",
-  "Improve cable Category rating"
+  "The necessary discharge patterns, densities, and water-flow characteristics for complete coverage of the workplace or zoned subdivision",
+  "Only a fixed water volume, regardless of the workplace or zone",
+  "Automatic replacement of fire detection and alarm systems",
+  "A room-integrity seal for gaseous extinguishing systems"
 ]
 correct = "A"
-explanation = "Wet pipe is simple but accidental mechanical damage or leaks can flood spaces without fire."
+explanation = "The public OSHA text requires the design characteristics needed for complete coverage in the particular workplace or zoned subdivision. It does not establish the former wet-pipe leak proposition or imply replacement of detection or gaseous-system functions."
 topic_ids = ["m12-water-suppression"]
 objective_ids = []
 bloom = "understand"

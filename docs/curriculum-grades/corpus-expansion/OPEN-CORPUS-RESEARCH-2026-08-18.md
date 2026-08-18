@@ -1094,6 +1094,29 @@ standby topology behavior, flywheel duration, redundancy math, load-growth
 capacity, or a facility UPS design approval. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 364 — OSHA portable-extinguisher and sprinkler provisions
+
+**Review date:** 2026-08-18. Three module-12 items were narrowed to direct
+public OSHA provisions. 29 CFR 1910.159(c)(1)(i) requires automatic sprinkler
+designs used to comply with the standard to provide the necessary discharge
+patterns, densities, and water-flow characteristics for complete coverage in a
+particular workplace or zoned subdivision. 29 CFR 1910.157(d)(1) bases
+portable-extinguisher selection and distribution on anticipated workplace-fire
+classes and the size and degree of hazard. Section 1910.157(d)(5) bases Class C
+distribution on the appropriate pattern for the existing Class A or Class B
+hazards. No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q049 | Water-based fire suppression | 29 CFR 1910.159 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.159 | **PASS** — complete-coverage sprinkler design characteristics are explicit |
+| bank-m12-q062 | Handheld fire extinguishers | 29 CFR 1910.157 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157 | **PASS** — selection/distribution by anticipated fire classes and hazard size/degree is explicit |
+| bank-m12-q063 | Handheld fire extinguishers | 29 CFR 1910.157 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157 | **PASS** — Class C distribution by the existing Class A or Class B hazard pattern is explicit |
+
+The pass does not infer wet-pipe leakage, pre-action or deluge preference,
+CO₂ residue or suitability, PASS technique, fire-cause statistics,
+firestopping, or an AHJ-approved facility design. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

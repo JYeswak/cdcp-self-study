@@ -1,19 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Handheld fire extinguishers
-# Official catalog/preview receipt: NFPA 10, 2026 — https://link.nfpa.org/all-publications/10/2026
-# BLOCKED: the current official preview does not expose the exact item-level handheld fire extinguishers proposition. No paid body or PDF was fetched.
+# Official public-code receipt: 29 CFR 1910.157 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157
+# Claim is limited to the public OSHA selection-and-distribution rule.
 id = "bank-m12-q062"
 kind = "single-select"
 module = 12
-stem = "The PASS method for portable extinguishers stands for the operational sequence that includes:"
+stem = "Under 29 CFR 1910.157(d)(1), portable fire extinguishers are selected and distributed based on:"
 choices = [
-  "Power off all UPS units first always",
-  "Pull, Aim, Squeeze, Sweep (at the base of the fire)",
-  "Page, Announce, Silence, Suppress only via BMS",
-  "Prop doors, Abort forever, Seal exits, Stay put"
+  "The classes of anticipated workplace fires and the size and degree of hazard affecting their use",
+  "A universal number of extinguishers for every workplace, regardless of hazard",
+  "The facility's UPS topology alone",
+  "A fixed travel distance that is identical for every fire class"
 ]
-correct = "B"
-explanation = "PASS is the standard portable technique: pull pin, aim at base, squeeze, sweep."
+correct = "A"
+explanation = "The public OSHA rule ties portable-extinguisher selection and distribution to anticipated fire classes and the size and degree of hazard. It does not establish the former PASS-method proposition or one universal layout rule."
 topic_ids = ["m12-extinguishers"]
 objective_ids = []
 bloom = "remember"

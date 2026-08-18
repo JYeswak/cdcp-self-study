@@ -1,19 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Handheld fire extinguishers
-# Official catalog/preview receipt: NFPA 10, 2026 — https://link.nfpa.org/all-publications/10/2026
-# BLOCKED: the current official preview does not expose the exact item-level handheld fire extinguishers proposition. No paid body or PDF was fetched.
+# Official public-code receipt: 29 CFR 1910.157 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157
+# Claim is limited to the public OSHA distribution rule for Class C hazards.
 id = "bank-m12-q063"
 kind = "single-select"
 module = 12
-stem = "CO2 portables near live electrical equipment are often favored over water because they:"
+stem = "Under 29 CFR 1910.157(d)(5), portable extinguishers for Class C hazards are distributed based on:"
 choices = [
-  "Provide long continuous stream range like a hose",
-  "Are ideal as the only protection for kitchen Class K fires",
-  "Leave little residue and are suitable for many energized electrical uses when listed",
-  "Automatically restore room integrity"
+  "The appropriate distribution pattern for the existing Class A or Class B hazards",
+  "A universal CO₂-only rule for all energized equipment",
+  "The room's gaseous-agent concentration alone",
+  "A fixed 75-foot travel distance in every case"
 ]
-correct = "C"
-explanation = "CO2 is common for electrical/B hazards with low residue; still short range and asphyxiation risk in pits."
+correct = "A"
+explanation = "The public OSHA text bases Class C extinguisher distribution on the appropriate pattern for the existing Class A or Class B hazards. It does not create a universal CO₂-only rule or a fixed distance for every Class C situation."
 topic_ids = ["m12-extinguishers", "m12-classes"]
 objective_ids = []
 bloom = "understand"

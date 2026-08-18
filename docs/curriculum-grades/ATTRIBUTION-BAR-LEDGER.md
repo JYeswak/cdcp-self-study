@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 565 PASS; 392 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 597 PASS; 360 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -717,7 +717,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m12-q046 | 12 | Fire detection systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
 | bank-m12-q047 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.159 | PASS — 29 CFR 1910.159 covers automatic sprinkler-system design, installation, and maintenance for employee safety |
 | bank-m12-q048 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | BLOCKED — NFPA 13, 2025 official preview receipt; exact item-level proposition is not exposed |
-| bank-m12-q049 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | BLOCKED — NFPA 13, 2025 official preview receipt; exact item-level proposition is not exposed |
+| bank-m12-q049 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.159 | PASS — 29 CFR 1910.159 public text requires the necessary discharge patterns, densities, and water-flow characteristics for complete coverage |
 | bank-m12-q050 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160 | PASS |
 | bank-m12-q051 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR7a02737a205fd22/section-1910.160 | PASS |
 | bank-m12-q052 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.162; https://www.cdc.gov/niosh/idlh/124389.html | PASS — OSHA toxic-exposure/pre-discharge requirements and NIOSH CO₂ IDLH support the life-safety proposition |
@@ -730,8 +730,8 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m12-q059 | 12 | Classes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.155 | PASS |
 | bank-m12-q060 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157 | PASS — 29 CFR 1910.157 covers ready accessibility and maintaining portable extinguishers charged and operable |
 | bank-m12-q061 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157 | PASS |
-| bank-m12-q062 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
-| bank-m12-q063 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
+| bank-m12-q062 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157 | PASS — 29 CFR 1910.157(d)(1) public text bases selection and distribution on anticipated fire classes and hazard size/degree |
+| bank-m12-q063 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157 | PASS — 29 CFR 1910.157(d)(5) public text bases Class C distribution on the existing Class A or Class B hazard pattern |
 | bank-m12-q064 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
 | bank-m12-q065 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.252 | PASS |
 | bank-m12-q066 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
