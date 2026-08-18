@@ -1044,6 +1044,82 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 129 — service management, facility management, and accountable handoff
+
+**Date:** 2026-08-18
+**Scope:** M01, M03, M06, M08, M09, M11, M14, and M15 questions about service
+definition, service transition, facilities responsibilities, supplier/customer
+interfaces, demand and user outcomes, service continuity, capacity, incident
+and change coordination, performance review, accountability, and operational
+handoff. Existing public EPI/CDCS/CDFOS/CDFOM headings are retained; no OLA,
+handover, or credential taxonomy is invented.
+
+**Official public receipts:**
+
+- [ISO/IEC 20000-1:2018](https://www.iso.org/standard/70636.html), **Information
+  technology — Service management — Part 1: Service management system
+  requirements**, remains the published current Edition 3, confirmed in 2023,
+  with [Amendment 1:2024](https://www.iso.org/standard/88434.html?browse=tc).
+  Its public OBP abstract covers planning, design, transition, delivery,
+  improvement, monitoring, measurement, review, and service-provider supply
+  chains. It is a service-management-system receipt, not a data-centre SLA or
+  OLA template.
+- [ISO 41001:2018](https://www.iso.org/standard/68021.html), **Facility
+  management — Management systems — Requirements with guidance for use**, is
+  the published current facility-management system edition with Amendment
+  1:2024. Its public abstract covers effective FM delivery supporting a demand
+  organization, interested parties, applicable requirements, and sustainable
+  services; it is marked for revision, so ISO/DIS 41001 is excluded as a
+  current-edition claim.
+- [ISO 41011:2024](https://www.iso.org/standard/82405.html), **Facility
+  management — Vocabulary**, is the current published Edition 2 replacing and
+  withdrawing ISO 41011:2017. It is used to stabilize FM terminology, not to
+  manufacture a training taxonomy.
+- [ISO 41002:2026](https://www.iso.org/standard/68158.html), **Facility
+  management — Development of the facility management organization**, is the
+  current published Edition 1 (2026-06). Its public abstract covers strategic,
+  tactical, and operational FM organization, stakeholder needs, safety,
+  security, asset/resource value, service responsiveness, accountability, and
+  sustainable outcomes. It is a guidance receipt, not a claim that a local
+  organization is effective.
+- [ISO 41015:2023](https://www.iso.org/standard/68171.html), **Facility
+  management — Influencing organizational behaviours for improved facility
+  outcomes**, is the published public catalog receipt for engaging users,
+  service providers, and interested parties around facility outcomes. It does
+  not establish a vendor handover program.
+- [ISO 22301:2019](https://www.iso.org/standard/75106.html?browse=tc), with
+  Amendment 1:2024, remains the current published business-continuity receipt
+  used where service continuity and recovery decisions meet FM/IT ownership.
+  ISO/CD 22301 remains under development and is not used as a current edition.
+
+**Adversarial boundary:** A service catalog, FM organization chart, supplier
+agreement, incident record, or continuity plan does not prove that a critical
+load was supported, an operator was competent, a change was safe, or a
+dependency was restored. “Customer,” “provider,” “owner,” “operator,” and
+“interested party” must be tied to a specific service, asset, decision,
+authority, evidence record, and escalation path. Service performance metrics
+must preserve scope, measurement method, exclusions, target authority, and
+review outcome; a target is not an observed result.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M01 | Map business demand, facility service, IT service, asset dependency, owner, user outcome, and continuity objective | ISO service/FM systems do not establish a universal availability target |
+| M03 | Carry service requirements from project design and transition into operations, procedures, training, suppliers, and accepted exceptions | A handoff document is not proof of operational readiness |
+| M06/M09 | Connect power, cooling, water, controls, and maintenance service ownership to incident, capacity, change, and recovery decisions | A service label does not prove physical system performance |
+| M08/M11/M14 | Reconcile CMDB/asset records, service configuration, control authority, change history, supplier evidence, and observed state | ISO/IEC 20000-1 does not authorize a command or create an OLA taxonomy |
+| M15 | Review FM governance, competence, supplier/customer accountability, measures, exceptions, continuity tests, and improvement actions | Completing service or FM training does not certify a learner, facility, or credential |
+
+**Currency boundary:** ISO/IEC 20000-1:2011 and ISO 41011:2017 are superseded;
+ISO 41002:2026 is published, while ISO/DIS 41001 and ISO/CD 22301 remain under
+development. Paid standard bodies, vendor ITIL/OLA blogs, and PDF copies are
+excluded. No PDF was fetched.
+
+**Bounded result:** This pass strengthens the operations-governance bridge with
+current service and facility-management anchors while preserving concrete
+ownership, evidence, and local acceptance boundaries. No bank rows, ledger
+dispositions, manifest, topics, beads, gate, oracle, or credential state
+changed.
+
 ## Breadth pass 128 — construction quality, commissioning, and acceptance evidence
 
 **Date:** 2026-08-18
