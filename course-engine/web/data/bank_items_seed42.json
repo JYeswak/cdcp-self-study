@@ -6048,6 +6048,66 @@
     ]
   },
   {
+    "bloom": "analyze",
+    "choices": [
+      "Accept the claim: once the queue and BTM arrangement are cleared, curtailment is only a utility-failure issue",
+      "Reject the absolute claim: ERCOT’s April 2026 operations update describes curtailment instructions for specified large-load categories, including net-metering/co-located arrangements; verify this site’s category and hand the response to M15 EOP 4",
+      "Use the April 2026 interconnection request total as a universal curtailment frequency",
+      "Calculate UPS/ATS autonomy in M03; the site module owns the power-path response"
+    ],
+    "citation_ids": [
+      "src-epi-cdcp-page",
+      "src-ercot-interconnection-grid-analysis-2026-04-20",
+      "src-ercot-system-operations-large-load-curtailment-2026-04-20"
+    ],
+    "correct": "B",
+    "explanation": "ERCOT’s April 2026 interconnection update is a queue/process snapshot, while its April 2026 System Operations Update describes a Large Load Curtailment Manager for specified categories and says the example triggers were not finalized. Surface the site-specific constraint; M15 EOP 4 owns the operating response. Do not generalize it to every BTM site or ISO.",
+    "id": "m03-q220",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [
+      "obj-m03-interconnect-queue"
+    ],
+    "quantity_evidence": "free_url",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A site has completed its large-load interconnection path and uses a qualifying net-metering / behind-the-meter arrangement. The owner says, ‘That means unrestricted dispatch.’ What should the M03 site review catch?",
+    "tags": [],
+    "topic_ids": [
+      "m03-site-selection"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Record curtailment as an operating consequence of the energization arrangement, confirm the agreement/category and trigger with the responsible utility or ISO, and hand the action sequence to M15 EOP 4",
+      "Treat the instruction as proof that the interconnection queue failed and discard the BTM site plan",
+      "Assume behind-the-meter islanding is automatic, so no load-reduction procedure is needed",
+      "Quote the regional interconnection queue volume as the site’s guaranteed curtailment exposure"
+    ],
+    "citation_ids": [
+      "src-epi-cdcp-page",
+      "src-ercot-interconnection-grid-analysis-2026-04-20",
+      "src-ercot-system-operations-large-load-curtailment-2026-04-20"
+    ],
+    "correct": "A",
+    "explanation": "ERCOT’s April 2026 operations update describes curtailment instructions for specified large-load categories, including net-metering/co-located arrangements, but does not establish one universal trigger or exposure for every BTM site. M03 surfaces the site and agreement constraint; M15 EOP 4 owns the response sequence.",
+    "id": "m03-q221",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [
+      "obj-m03-btm-campus"
+    ],
+    "quantity_evidence": "free_url",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "During a site review, a behind-the-meter campus is told it may need to reduce load under its qualifying ERCOT arrangement during tight conditions. What is the correct M03-to-M15 handoff?",
+    "tags": [],
+    "topic_ids": [
+      "m03-site-selection"
+    ]
+  },
+  {
     "bloom": "remember",
     "choices": [
       "Store bulk diesel under every tile",
@@ -7631,6 +7691,56 @@
     "topic_ids": [
       "m05-emergency",
       "m05-standards"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Treat IT ride-through as sufficient",
+      "Verify the emergency source and lighting circuit",
+      "Use the rack UPS without a code review",
+      "Require a generator for every emergency luminaire"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "NFPA 70 (2026) §§700.12 and 700.17 tie emergency lighting to an Article 700 source and an emergency-lighting branch-circuit path when normal lighting fails. IT continuity alone does not prove that life-safety path; an UPS belongs in the answer only after the Article 700 design is verified.",
+    "id": "m05-q214",
+    "kind": "single-select",
+    "module": 5,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A data-hall packet says, “The IT UPS keeps the servers online, so Article 700 emergency lighting is covered.” The reviewer should:",
+    "tags": [],
+    "topic_ids": [
+      "m05-emergency",
+      "m05-standards"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Check egress lighting separately",
+      "Treat EXIT signs as proof of all lighting",
+      "Skip it if the IT UPS is healthy",
+      "Check only normal rack task lighting"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "NFPA 101 (2024) §7.9.1.1 addresses emergency-lighting facilities for the means of egress in the conditions listed by the Code. An illuminated EXIT sign supports wayfinding, but it does not by itself demonstrate that the required egress emergency-lighting facilities are installed, powered, and ready.",
+    "id": "m05-q215",
+    "kind": "single-select",
+    "module": 5,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "During an egress walk, a team points to illuminated EXIT signs and says the emergency-lighting check is done. The best response is:",
+    "tags": [],
+    "topic_ids": [
+      "m05-emergency",
+      "m05-emergency-types"
     ]
   },
   {
@@ -12570,6 +12680,60 @@
     "stem": "A hybrid GPU hall puts cold-plate compute next to air-cooled ToR/spine. Ops wants to drop blanking panels “because the hall is liquid.” The call is:",
     "tags": [],
     "topic_ids": [
+      "m08-types"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Approve the stamp: 800 mm width is the liquid-ready definition; OCP ORv3 and UQD are optional brand names",
+      "Refuse the width stamp: liquid-ready is the coupling and manifold interface, not 800 mm. Name UQD and blind-mate as that landing; an EIA box with no coupler is a wide air cabinet",
+      "Convert 800 mm into a TIA-942 Rated=Tier chart so width becomes Tier IV when adopted",
+      "Drop blanking: an 800 mm frame retires the air seal even when network stays air-cooled"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "800 mm is hose volume on an EIA frame, not the liquid-ready definition. The 2026 interface is UQD / blind-mate plus the manifold landing. An 800 mm box with no coupler is a wide air cabinet. Blanking stays in a hybrid hall.",
+    "id": "m08-q213",
+    "kind": "single-select",
+    "module": 8,
+    "objective_ids": [
+      "obj-m08-liquid-ready-cabinet"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A GPU-hall BOM is stamped “liquid-ready” because every cabinet is 800 mm EIA-310. There is no UQD landing, no blind-mate coupler, and no manifold interface. The apply call is:",
+    "tags": [],
+    "topic_ids": [
+      "m08-standards",
+      "m08-types"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Accept the EIA-only frame: 2026 GPU halls are still 19-inch plus width; Open Compute is a vendor brochure",
+      "Freeze a connector millimetre from memory so the EIA cabinet becomes an open rack without a published spec",
+      "Reframe the conversation in OCP terms — Open Rack v3 (ORv3) is the 2026 open rack — and demand a published-spec coupling (do not invent a millimetre or revision). Keep blanking: network remains air-cooled",
+      "Move the whole question to Module 09 plant families and ignore the rack interface"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "2026 GPU-hall rack talk is OCP vocabulary: ORv3 is the open rack. Coupling sizes and revisions live in the published spec — do not invent them. Blanking stays because network gear remains air-cooled.",
+    "id": "m08-q214",
+    "kind": "single-select",
+    "module": 8,
+    "objective_ids": [
+      "obj-m08-liquid-ready-cabinet"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A GPU-hall rack walk is conducted only in 19-inch EIA-310 plus cabinet width. The liquid row is “the 800 mm ones.” Hoses are “later.” No one names ORv3. You should:",
+    "tags": [],
+    "topic_ids": [
+      "m08-standards",
       "m08-types"
     ]
   },
@@ -18107,14 +18271,14 @@
   {
     "bloom": "analyze",
     "choices": [
-      "Approve: LAN + laterals + UPS-green is the availability story",
-      "Convert the cut into a Module 01 / 03 outage-clock problem so the plant question goes away",
-      "Quote a single OM4 metre at 100G as the fabric reach statute",
-      "Reject the packet: east-west IB/RoCE at 400/800G carries the training job; one cut, one shared tray, or one polarity miss is one job even with power and cooling green; dual laterals are the building oral, not fabric protection; interconnect in this module still means fewer patch points; do not write a nines/Tier/Rated crosswalk — Module 01 / 03 own the clock"
+      "Approve with a note that the reach claim needs a source, since the LAN, laterals and UPS-green parts of the packet are sound",
+      "Reject the interconnect wording only, because a faster-LAN framing is harmless once the campus mesh has been renamed correctly",
+      "Reject: the fabric is an availability path in its own right, so laterals and UPS-green do not cover a dark east-west path",
+      "Reject, then rewrite the packet as a Module 01 / 03 outage-clock problem so that the availability claim carries a nines figure"
     ],
     "citation_ids": [],
-    "correct": "D",
-    "explanation": "Analyze the collapse. The cluster fabric is not a faster LAN and is not saved by street laterals. A dark east-west path with green UPS is still a failed job. Interconnect remains the patching term. Reach is application-and-optic specific — do not invent a metre. This module owns the plant; it does not steal the M01/M03 clock.",
+    "correct": "C",
+    "explanation": "The packet collapses four separate things and every option except one keeps at least one of them. East-west IB/RoCE at 400/800G carries the training job: one cut, one shared tray, or one polarity miss on a spine trunk is one job even with power and cooling green — the fabric is an availability path equal to power, which is why a dark fabric under a green UPS is still a failure. Approving on the strength of LAN + laterals + UPS-green keeps the central error and treats the reach claim as the only problem. Fixing the interconnect wording alone is too small: in this module interconnect still means a patching term, fewer patch points, but renaming it leaves the faster-LAN framing that caused the collapse. Converting the finding into an outage-clock problem is the worst of the three — it hands the question to Module 01 / 03, which own the clock, and it invites a nines/Tier/Rated crosswalk that must not be written. Dual building laterals remain the building oral and are not fabric protection. On the reach claim the discipline is the same as elsewhere in this module: reach is application-and-optic specific, so go to the PHY specification and the channel spec rather than quoting a single figure.",
     "id": "m11-q231",
     "kind": "single-select",
     "module": 11,
@@ -18128,6 +18292,121 @@
     "tags": [],
     "topic_ids": [
       "m11-redundancy",
+      "m11-planning"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Not diverse: one incident in the shared duct bank or manhole interrupts both routes, which is exactly what the criterion forbids",
+      "Diverse: two carriers on two separate contracts cannot fail together, because each carrier restores its own conduit independently",
+      "Diverse, provided the two carriers hold separate maintenance windows, since the pathway is only shared during scheduled work",
+      "Diverse, provided the two conduits carry different fibre counts, because separate strand plans show the paths were engineered apart"
+    ],
+    "citation_ids": [
+      "src-epi-cdcp-page",
+      "src-ufc-3-580-01-2024"
+    ],
+    "correct": "A",
+    "explanation": "The governing test is the physical route. UFC 3-580-01 carries NFPA 1221 8.4.3.2: two circuits with diverse routes, arranged so that no singular incident interrupts both routes. A shared duct bank and a shared manhole are that singular incident, so the count of carriers, contracts and conduits is irrelevant — B and the two conditional answers all buy diversity with something that is not physical separation. A maintenance window (C) governs planned work, not a backhoe. Strand counts (D) describe capacity, not route. Note the scope: this is the building lateral question. The east-west cluster fabric inside the hall is a separate availability path and is not fixed by re-routing a lateral.",
+    "id": "m11-q232",
+    "kind": "single-select",
+    "module": 11,
+    "objective_ids": [],
+    "quantity_evidence": "free_url",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "An outside-plant review shows two carriers, two contracts and two entrance conduits. Both conduits leave the property through the same duct bank and pass through one manhole before diverging. The design calls this route diversity. What is the correct finding?",
+    "tags": [],
+    "topic_ids": [
+      "m11-site-to-site",
+      "m11-planning"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Nothing: dual spines with an A-side and a B-side trunk are redundant by design, so a shared tray is an installation-cost question",
+      "Nothing for availability: the dual building laterals already give this hall two paths, so one tray inside the hall is covered",
+      "One tray failure takes the mesh and the training job: the fabric needs pathway diversity, not a redundancy label on the switches",
+      "A capacity finding only: a shared tray raises bundle temperature, so the issue is derating of the trunks rather than availability"
+    ],
+    "citation_ids": [
+      "src-epi-cdcp-page",
+      "src-tia-942"
+    ],
+    "correct": "C",
+    "explanation": "Treat the east-west fabric as an availability path equal to power. One cut, one shared tray, or one polarity mistake on a spine trunk takes a training job, not a NIC — power-green and cooling-green with a dark fabric is still a failed job. \"Redundant by design\" fails because spine-leaf redundancy declared at the switch is fictional when both trunks share one physical fate. The dual-laterals answer flattens two different questions: building laterals are the outside-plant oral and protect nothing inside the hall. Bundle derating is a real cabling concern, but it is a capacity finding, not the availability finding. Topology and system redundancy are what the cabling standard governs; the shared-fate reasoning applied to an in-hall tray is this module's design logic, not an outside-plant rule imported.",
+    "id": "m11-q233",
+    "kind": "single-select",
+    "module": 11,
+    "objective_ids": [
+      "obj-m11-gpu-fabric-availability"
+    ],
+    "quantity_evidence": "free_url",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A GPU hall is signed off power-green and cooling-green. Its east-west fabric is a leaf-spine mesh whose A-side and B-side spine trunks were installed in one overhead tray to save a pathway. What does the review record?",
+    "tags": [],
+    "topic_ids": [
+      "m11-redundancy",
+      "m11-planning"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Accept it: the deck's number is the standard reach for multimode fibre, so one figure is safe for every 800G optic in the hall",
+      "Reject the single figure: reach is specified per PHY type and per channel, so it varies with the optic and the media class",
+      "Accept it after one loss-budget test passes, since a measured link confirms the figure for the remaining links in the mesh",
+      "Reject it and substitute the single-mode figure, because the spine trunks are single-mode and their reach governs the fabric"
+    ],
+    "citation_ids": [
+      "src-epi-cdcp-page",
+      "src-ieee-802-3dj",
+      "src-tia-942"
+    ],
+    "correct": "B",
+    "explanation": "A reach number belongs to a named PHY over a named media class, not to a speed. The physical layer specifications live in IEEE 802.3 — the working group's current task force is titled for 200 Gb/s, 400 Gb/s, 800 Gb/s and 1.6 Tb/s Ethernet, each a separate specification — and the channel is defined by the cabling standard. So \"800G\" on its own does not carry a distance. Accepting the deck invents a universal figure. Accepting it after one passing loss-budget test generalises a single measurement to a population of links, which is the same error with a test report stapled to it. Substituting the single-mode number replaces one universal figure with another and would silently overrun any multimode segment in the fabric. Go to the PHY specification and the channel spec for the media actually installed. Note the designation: P802.3dj is a project, not a published edition — do not quote it as one.",
+    "id": "m11-q234",
+    "kind": "single-select",
+    "module": 11,
+    "objective_ids": [],
+    "quantity_evidence": "free_url",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A vendor deck prints one metre figure as \"the reach for 800G on fibre\", and the basis-of-design copies it in as the reach rule for the whole east-west fabric. What does the M11 reviewer do?",
+    "tags": [],
+    "topic_ids": [
+      "m11-fibre",
+      "m11-planning"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Correct: any shared conduit is a single point of failure, so no criteria document can permit two connections in one pathway",
+      "Correct, because concrete encasement is a fire-resistance measure and has no bearing on how a physical route is classified",
+      "Irrelevant: pathway diversity rules govern carrier laterals only, so node-to-node connections sit outside any diversity test",
+      "Over-applied: this criterion allows node connections to share a conduit system where the shared pathway is concrete-encased"
+    ],
+    "citation_ids": [
+      "src-epi-cdcp-page",
+      "src-ufc-3-580-01-2024"
+    ],
+    "correct": "D",
+    "explanation": "UFC 3-580-01 (21 November 2024, approved for public release) states that except for Special C2 uses, node connections can share the same conduit system if the shared pathway is concrete-encased, and that a between-building pathway is dual-homed where two connections run over two physically diverse paths or over a single concrete-encased path. The same document also carries NFPA 1221 8.4.3.2 — two circuits with diverse routes, arranged so that no singular incident interrupts both. Both facts belong to that criterion. Calling shared conduit an absolute failure treats a design rule as a law of physics. Reading encasement as a fire measure misses why it counts here: it is route hardening. Excluding node-to-node runs invents a scope limit the document does not have. The discipline is to name the governing criterion before judging a route — an unencased shared duct bank still fails, and this permission does not travel to a commercial colo. Nor does it decide the east-west cluster pathway inside the hall, which is a different question with a different owner.",
+    "id": "m11-q235",
+    "kind": "single-select",
+    "module": 11,
+    "objective_ids": [],
+    "quantity_evidence": "free_url",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A US DoD project is designed to UFC 3-580-01. Two node connections share one conduit system, and that shared pathway is concrete-encased. A reviewer whose background is commercial colo calls it an automatic diversity failure. Assess the reviewer.",
+    "tags": [],
+    "topic_ids": [
+      "m11-site-to-site",
       "m11-planning"
     ]
   },
@@ -19672,6 +19951,58 @@
     "topic_ids": [
       "m14-leak",
       "m14-monitoring-challenges",
+      "m14-alarms"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Add rate-of-rise sensing",
+      "Wait for an absolute threshold and ignore the slope",
+      "Move all life-safety logic into the DCIM dashboard",
+      "Set one universal °C/min value for every row"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "NFPA 72 (2025) §3.3.70.10 recognizes heat detection by abnormally high temperature, rate-of-temperature rise, or both. A dense row can use a fast rate-of-rise signal as an early operational layer while retaining threshold protection; the site and equipment response must be validated rather than replaced with a universal rate figure.",
+    "id": "m14-q213",
+    "kind": "single-select",
+    "module": 14,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A GPU-row thermal packet has only a fixed-temperature alarm; a fast inlet sensor shows a sharp rise in seconds. The best gap review is:",
+    "tags": [],
+    "topic_ids": [
+      "m14-ems",
+      "m14-monitoring-reqs",
+      "m14-alarms"
+    ]
+  },
+  {
+    "bloom": "evaluate",
+    "choices": [
+      "Let EMS replace the FACU whenever its sample rate is faster",
+      "Keep the fast EMS page supplemental; preserve the listed FACU path",
+      "Disable fixed-temperature detection after EMS commissioning",
+      "Publish one EMS threshold as the universal fire-code setting for every GPU row"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "NFPA 72 (2025) §§3.3.70.10 and 26.6.3.2.2.2 keep rate-of-temperature-rise detection and listed fire-alarm signaling in their proper boundaries. A fast EMS/DCIM page can support operations and correlation, but it does not automatically replace the listed FACU path or justify one universal row threshold.",
+    "id": "m14-q214",
+    "kind": "single-select",
+    "module": 14,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "An operator proposes: “Our EMS samples the GPU row every few seconds, so it can replace the listed fire-alarm control unit.” The correct boundary is:",
+    "tags": [],
+    "topic_ids": [
+      "m14-ems",
+      "m14-monitoring-reqs",
       "m14-alarms"
     ]
   },

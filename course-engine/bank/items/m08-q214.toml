@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — ebrr.39 leftover: GPU-hall rack talk is OCP ORv3, not EIA-width
+# syllabus_heading = "1.8 Equipment Racks"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+# source_ids = [
+#   "src-ocp-open-rack",  # https://www.opencompute.org/ — Open Rack v3 (ORv3); UQD / liquid-coupling work
+# ]
+# claim = "a 2026 GPU-hall rack conversation is conducted in OCP vocabulary (ORv3 as the open rack), not only EIA-310 plus cabinet width"
+id = "m08-q214"
+kind = "single-select"
+module = 8
+stem = "A GPU-hall rack walk is conducted only in 19-inch EIA-310 plus cabinet width. The liquid row is “the 800 mm ones.” Hoses are “later.” No one names ORv3. You should:"
+choices = [
+  "Accept the EIA-only frame: 2026 GPU halls are still 19-inch plus width; Open Compute is a vendor brochure",
+  "Freeze a connector millimetre from memory so the EIA cabinet becomes an open rack without a published spec",
+  "Reframe the conversation in OCP terms — Open Rack v3 (ORv3) is the 2026 open rack — and demand a published-spec coupling (do not invent a millimetre or revision). Keep blanking: network remains air-cooled",
+  "Move the whole question to Module 09 plant families and ignore the rack interface",
+]
+correct = "C"
+explanation = "2026 GPU-hall rack talk is OCP vocabulary: ORv3 is the open rack. Coupling sizes and revisions live in the published spec — do not invent them. Blanking stays because network gear remains air-cooled."
+topic_ids = ["m08-standards", "m08-types"]
+objective_ids = ["obj-m08-liquid-ready-cabinet"]
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

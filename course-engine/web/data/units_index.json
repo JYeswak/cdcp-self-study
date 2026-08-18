@@ -1,6 +1,6 @@
 {
-  "approved_item_count": 844,
-  "bank_item_count": 869,
+  "approved_item_count": 856,
+  "bank_item_count": 881,
   "by_module": {
     "01-mission-critical": [
       {
@@ -513,7 +513,7 @@
           "m03-q109",
           "m03-q114"
         ],
-        "estimate_minutes": 17,
+        "estimate_minutes": 18,
         "heading_id": "core-concepts",
         "id": "03-site-building__core-concepts",
         "module_id": "03-site-building",
@@ -525,7 +525,7 @@
           "m03-facility-criteria",
           "m03-supporting-facilities"
         ],
-        "word_count": 2503
+        "word_count": 2605
       },
       {
         "check_count": 3,
@@ -917,9 +917,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m05-q215",
           "m05-q135",
-          "m05-q137",
-          "m05-q138"
+          "m05-q137"
         ],
         "estimate_minutes": 3,
         "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
@@ -940,9 +940,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m05-q137",
           "m05-q138",
-          "m05-q140",
-          "m05-q146"
+          "m05-q140"
         ],
         "estimate_minutes": 14,
         "heading_id": "core-concepts",
@@ -963,9 +963,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m05-q141",
           "m05-q144",
-          "m05-q146",
-          "m05-q147"
+          "m05-q146"
         ],
         "estimate_minutes": 3,
         "heading_id": "key-diagrams",
@@ -986,9 +986,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m05-q147",
           "m05-q149",
-          "m05-q201",
-          "m05-q203"
+          "m05-q201"
         ],
         "estimate_minutes": 3,
         "heading_id": "formulas-rules-of-thumb",
@@ -1009,9 +1009,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m05-q201",
           "m05-q202",
-          "m05-q203",
-          "m05-q204"
+          "m05-q203"
         ],
         "estimate_minutes": 3,
         "heading_id": "common-failure-modes-and-misconceptions",
@@ -1032,9 +1032,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m05-q204",
           "m05-q205",
-          "m05-q206",
-          "m05-q208"
+          "m05-q206"
         ],
         "estimate_minutes": 3,
         "heading_id": "interview-drills",
@@ -1055,9 +1055,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m05-q207",
           "m05-q208",
-          "m05-q209",
-          "m05-q210"
+          "m05-q209"
         ],
         "estimate_minutes": 3,
         "heading_id": "self-check-quiz",
@@ -1078,9 +1078,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m05-q210",
           "m05-q211",
-          "m05-q212",
-          "m05-q213"
+          "m05-q212"
         ],
         "estimate_minutes": 3,
         "heading_id": "further-free-resources",
@@ -1497,7 +1497,7 @@
           "m07-q043",
           "m07-q045"
         ],
-        "estimate_minutes": 11,
+        "estimate_minutes": 12,
         "heading_id": "core-concepts",
         "id": "07-emf__core-concepts",
         "module_id": "07-emf",
@@ -1511,7 +1511,7 @@
           "m07-sources",
           "m07-shielding"
         ],
-        "word_count": 1608
+        "word_count": 1804
       },
       {
         "check_count": 3,
@@ -1557,7 +1557,7 @@
           "m07-sources",
           "m07-shielding"
         ],
-        "word_count": 175
+        "word_count": 241
       },
       {
         "check_count": 3,
@@ -1649,7 +1649,7 @@
           "m07-units",
           "m07-shielding"
         ],
-        "word_count": 273
+        "word_count": 319
       }
     ],
     "08-racks": [
@@ -1674,7 +1674,7 @@
           "m08-security",
           "m08-power-strips"
         ],
-        "word_count": 189
+        "word_count": 202
       },
       {
         "check_count": 3,
@@ -1697,7 +1697,7 @@
           "m08-security",
           "m08-power-strips"
         ],
-        "word_count": 244
+        "word_count": 267
       },
       {
         "check_count": 3,
@@ -1706,7 +1706,7 @@
           "m08-q047",
           "m08-q050"
         ],
-        "estimate_minutes": 18,
+        "estimate_minutes": 20,
         "heading_id": "core-concepts",
         "id": "08-racks__core-concepts",
         "module_id": "08-racks",
@@ -1720,7 +1720,7 @@
           "m08-security",
           "m08-power-strips"
         ],
-        "word_count": 2600
+        "word_count": 2952
       },
       {
         "check_count": 3,
@@ -1766,7 +1766,7 @@
           "m08-security",
           "m08-power-strips"
         ],
-        "word_count": 245
+        "word_count": 275
       },
       {
         "check_count": 3,
@@ -1789,7 +1789,7 @@
           "m08-security",
           "m08-power-strips"
         ],
-        "word_count": 260
+        "word_count": 294
       },
       {
         "check_count": 3,
@@ -1812,7 +1812,7 @@
           "m08-security",
           "m08-power-strips"
         ],
-        "word_count": 375
+        "word_count": 457
       },
       {
         "check_count": 3,
@@ -1835,14 +1835,14 @@
           "m08-security",
           "m08-power-strips"
         ],
-        "word_count": 362
+        "word_count": 455
       },
       {
         "check_count": 3,
         "check_item_ids": [
           "m08-q209",
-          "m08-q042",
-          "m08-q053"
+          "m08-q213",
+          "m08-q042"
         ],
         "estimate_minutes": 3,
         "heading_id": "further-free-resources",
@@ -1858,7 +1858,7 @@
           "m08-security",
           "m08-power-strips"
         ],
-        "word_count": 295
+        "word_count": 335
       }
     ],
     "09-cooling": [
@@ -2143,7 +2143,7 @@
           "m10-q102",
           "m10-q215"
         ],
-        "estimate_minutes": 3,
+        "estimate_minutes": 4,
         "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
         "id": "10-water__why-it-matters-opsdesigntpm-interview-angle",
         "module_id": "10-water",
@@ -2154,7 +2154,7 @@
           "m10-importance",
           "m10-backup"
         ],
-        "word_count": 322
+        "word_count": 522
       },
       {
         "check_count": 3,
@@ -2407,7 +2407,7 @@
         "check_item_ids": [
           "m11-q220",
           "m11-q224",
-          "m11-q100"
+          "m11-q235"
         ],
         "estimate_minutes": 3,
         "heading_id": "formulas-rules-of-thumb",
@@ -2431,9 +2431,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m11-q100",
           "m11-q101",
-          "m11-q105",
-          "m11-q108"
+          "m11-q105"
         ],
         "estimate_minutes": 3,
         "heading_id": "common-failure-modes-and-misconceptions",
@@ -2457,7 +2457,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "m11-q106",
+          "m11-q105",
           "m11-q108",
           "m11-q111"
         ],
@@ -2483,9 +2483,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m11-q109",
           "m11-q111",
-          "m11-q114",
-          "m11-q117"
+          "m11-q114"
         ],
         "estimate_minutes": 3,
         "heading_id": "self-check-quiz",
@@ -2509,9 +2509,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "m11-q113",
           "m11-q114",
-          "m11-q117",
-          "m11-q119"
+          "m11-q117"
         ],
         "estimate_minutes": 3,
         "heading_id": "further-free-resources",
@@ -3092,7 +3092,7 @@
         "check_item_ids": [
           "m14-q208",
           "m14-q211",
-          "bank-m14-q106"
+          "m14-q213"
         ],
         "estimate_minutes": 3,
         "heading_id": "formulas-rules-of-thumb",
@@ -3117,9 +3117,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "bank-m14-q106",
           "bank-m14-q107",
-          "bank-m14-q108",
-          "bank-m14-q109"
+          "bank-m14-q108"
         ],
         "estimate_minutes": 3,
         "heading_id": "common-failure-modes-and-misconceptions",
@@ -3144,7 +3144,7 @@
       {
         "check_count": 3,
         "check_item_ids": [
-          "bank-m14-q110",
+          "bank-m14-q109",
           "bank-m14-q114",
           "bank-m14-q117"
         ],
@@ -3171,9 +3171,9 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "bank-m14-q112",
           "bank-m14-q114",
-          "bank-m14-q117",
-          "bank-m14-q119"
+          "bank-m14-q117"
         ],
         "estimate_minutes": 3,
         "heading_id": "self-check-quiz",
@@ -3198,8 +3198,8 @@
       {
         "check_count": 3,
         "check_item_ids": [
+          "bank-m14-q119",
           "bank-m14-q121",
-          "bank-m14-q122",
           "bank-m14-q128"
         ],
         "estimate_minutes": 3,
@@ -3906,7 +3906,7 @@
         "m03-q109",
         "m03-q114"
       ],
-      "estimate_minutes": 17,
+      "estimate_minutes": 18,
       "heading_id": "core-concepts",
       "id": "03-site-building__core-concepts",
       "module_id": "03-site-building",
@@ -3918,7 +3918,7 @@
         "m03-facility-criteria",
         "m03-supporting-facilities"
       ],
-      "word_count": 2503
+      "word_count": 2605
     },
     {
       "check_count": 3,
@@ -4306,9 +4306,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m05-q215",
         "m05-q135",
-        "m05-q137",
-        "m05-q138"
+        "m05-q137"
       ],
       "estimate_minutes": 3,
       "heading_id": "why-it-matters-ops-design-tpm-interview-angle",
@@ -4329,9 +4329,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m05-q137",
         "m05-q138",
-        "m05-q140",
-        "m05-q146"
+        "m05-q140"
       ],
       "estimate_minutes": 14,
       "heading_id": "core-concepts",
@@ -4352,9 +4352,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m05-q141",
         "m05-q144",
-        "m05-q146",
-        "m05-q147"
+        "m05-q146"
       ],
       "estimate_minutes": 3,
       "heading_id": "key-diagrams",
@@ -4375,9 +4375,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m05-q147",
         "m05-q149",
-        "m05-q201",
-        "m05-q203"
+        "m05-q201"
       ],
       "estimate_minutes": 3,
       "heading_id": "formulas-rules-of-thumb",
@@ -4398,9 +4398,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m05-q201",
         "m05-q202",
-        "m05-q203",
-        "m05-q204"
+        "m05-q203"
       ],
       "estimate_minutes": 3,
       "heading_id": "common-failure-modes-and-misconceptions",
@@ -4421,9 +4421,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m05-q204",
         "m05-q205",
-        "m05-q206",
-        "m05-q208"
+        "m05-q206"
       ],
       "estimate_minutes": 3,
       "heading_id": "interview-drills",
@@ -4444,9 +4444,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m05-q207",
         "m05-q208",
-        "m05-q209",
-        "m05-q210"
+        "m05-q209"
       ],
       "estimate_minutes": 3,
       "heading_id": "self-check-quiz",
@@ -4467,9 +4467,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m05-q210",
         "m05-q211",
-        "m05-q212",
-        "m05-q213"
+        "m05-q212"
       ],
       "estimate_minutes": 3,
       "heading_id": "further-free-resources",
@@ -4882,7 +4882,7 @@
         "m07-q043",
         "m07-q045"
       ],
-      "estimate_minutes": 11,
+      "estimate_minutes": 12,
       "heading_id": "core-concepts",
       "id": "07-emf__core-concepts",
       "module_id": "07-emf",
@@ -4896,7 +4896,7 @@
         "m07-sources",
         "m07-shielding"
       ],
-      "word_count": 1608
+      "word_count": 1804
     },
     {
       "check_count": 3,
@@ -4942,7 +4942,7 @@
         "m07-sources",
         "m07-shielding"
       ],
-      "word_count": 175
+      "word_count": 241
     },
     {
       "check_count": 3,
@@ -5034,7 +5034,7 @@
         "m07-units",
         "m07-shielding"
       ],
-      "word_count": 273
+      "word_count": 319
     },
     {
       "check_count": 3,
@@ -5057,7 +5057,7 @@
         "m08-security",
         "m08-power-strips"
       ],
-      "word_count": 189
+      "word_count": 202
     },
     {
       "check_count": 3,
@@ -5080,7 +5080,7 @@
         "m08-security",
         "m08-power-strips"
       ],
-      "word_count": 244
+      "word_count": 267
     },
     {
       "check_count": 3,
@@ -5089,7 +5089,7 @@
         "m08-q047",
         "m08-q050"
       ],
-      "estimate_minutes": 18,
+      "estimate_minutes": 20,
       "heading_id": "core-concepts",
       "id": "08-racks__core-concepts",
       "module_id": "08-racks",
@@ -5103,7 +5103,7 @@
         "m08-security",
         "m08-power-strips"
       ],
-      "word_count": 2600
+      "word_count": 2952
     },
     {
       "check_count": 3,
@@ -5149,7 +5149,7 @@
         "m08-security",
         "m08-power-strips"
       ],
-      "word_count": 245
+      "word_count": 275
     },
     {
       "check_count": 3,
@@ -5172,7 +5172,7 @@
         "m08-security",
         "m08-power-strips"
       ],
-      "word_count": 260
+      "word_count": 294
     },
     {
       "check_count": 3,
@@ -5195,7 +5195,7 @@
         "m08-security",
         "m08-power-strips"
       ],
-      "word_count": 375
+      "word_count": 457
     },
     {
       "check_count": 3,
@@ -5218,14 +5218,14 @@
         "m08-security",
         "m08-power-strips"
       ],
-      "word_count": 362
+      "word_count": 455
     },
     {
       "check_count": 3,
       "check_item_ids": [
         "m08-q209",
-        "m08-q042",
-        "m08-q053"
+        "m08-q213",
+        "m08-q042"
       ],
       "estimate_minutes": 3,
       "heading_id": "further-free-resources",
@@ -5241,7 +5241,7 @@
         "m08-security",
         "m08-power-strips"
       ],
-      "word_count": 295
+      "word_count": 335
     },
     {
       "check_count": 3,
@@ -5522,7 +5522,7 @@
         "m10-q102",
         "m10-q215"
       ],
-      "estimate_minutes": 3,
+      "estimate_minutes": 4,
       "heading_id": "why-it-matters-opsdesigntpm-interview-angle",
       "id": "10-water__why-it-matters-opsdesigntpm-interview-angle",
       "module_id": "10-water",
@@ -5533,7 +5533,7 @@
         "m10-importance",
         "m10-backup"
       ],
-      "word_count": 322
+      "word_count": 522
     },
     {
       "check_count": 3,
@@ -5784,7 +5784,7 @@
       "check_item_ids": [
         "m11-q220",
         "m11-q224",
-        "m11-q100"
+        "m11-q235"
       ],
       "estimate_minutes": 3,
       "heading_id": "formulas-rules-of-thumb",
@@ -5808,9 +5808,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m11-q100",
         "m11-q101",
-        "m11-q105",
-        "m11-q108"
+        "m11-q105"
       ],
       "estimate_minutes": 3,
       "heading_id": "common-failure-modes-and-misconceptions",
@@ -5834,7 +5834,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "m11-q106",
+        "m11-q105",
         "m11-q108",
         "m11-q111"
       ],
@@ -5860,9 +5860,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m11-q109",
         "m11-q111",
-        "m11-q114",
-        "m11-q117"
+        "m11-q114"
       ],
       "estimate_minutes": 3,
       "heading_id": "self-check-quiz",
@@ -5886,9 +5886,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "m11-q113",
         "m11-q114",
-        "m11-q117",
-        "m11-q119"
+        "m11-q117"
       ],
       "estimate_minutes": 3,
       "heading_id": "further-free-resources",
@@ -6463,7 +6463,7 @@
       "check_item_ids": [
         "m14-q208",
         "m14-q211",
-        "bank-m14-q106"
+        "m14-q213"
       ],
       "estimate_minutes": 3,
       "heading_id": "formulas-rules-of-thumb",
@@ -6488,9 +6488,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "bank-m14-q106",
         "bank-m14-q107",
-        "bank-m14-q108",
-        "bank-m14-q109"
+        "bank-m14-q108"
       ],
       "estimate_minutes": 3,
       "heading_id": "common-failure-modes-and-misconceptions",
@@ -6515,7 +6515,7 @@
     {
       "check_count": 3,
       "check_item_ids": [
-        "bank-m14-q110",
+        "bank-m14-q109",
         "bank-m14-q114",
         "bank-m14-q117"
       ],
@@ -6542,9 +6542,9 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "bank-m14-q112",
         "bank-m14-q114",
-        "bank-m14-q117",
-        "bank-m14-q119"
+        "bank-m14-q117"
       ],
       "estimate_minutes": 3,
       "heading_id": "self-check-quiz",
@@ -6569,8 +6569,8 @@
     {
       "check_count": 3,
       "check_item_ids": [
+        "bank-m14-q119",
         "bank-m14-q121",
-        "bank-m14-q122",
         "bank-m14-q128"
       ],
       "estimate_minutes": 3,

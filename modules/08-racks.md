@@ -11,12 +11,12 @@
 
 By the end of this module you can:
 
-1. State the main **rack standards and dimensions** (width, depth, height in **rack units (U)**) and explain why “19-inch” is a mounting standard, not a cabinet footprint.
-2. Differentiate common **rack and enclosure types** (open frame, four-post, cabinet/enclosure, wall-mount, specialized network vs server vs high-density, **liquid-ready / GPU-hall**) and when each fits.
+1. State the main **rack standards and dimensions** (width, depth, height in **rack units (U)**) and explain why “19-inch” is a mounting standard, not a cabinet footprint. Name **OCP Open Rack v3 (ORv3)** as the 2026 **open-rack** vocabulary next to **EIA-310**.
+2. Differentiate common **rack and enclosure types** (open frame, four-post, cabinet/enclosure, wall-mount, specialized network vs server vs high-density, **liquid-ready / GPU-hall**, **ORv3**) and when each fits.
 3. Describe **physical security** options at the rack (doors, side panels, locks, sensors, cage/cabinet zoning) and how they relate to multi-tenant and compliance designs.
 4. Explain **power strips and rails** (PDU types, A/B feeds, zero-U vs rack-mount, metering/switching, plug types and branch-circuit limits) in plain operational language.
 5. Apply **airflow and mounting** rules of thumb: front-to-rear cooling, blanking panels, cable management, weight/U spacing, seismic and grounding considerations.
-6. Specify a **liquid-ready / GPU-hall cabinet SKU** (typically **800 mm** for hoses/manifolds, rear-door / RDHx as a rack product, drip pans, CDU landing, immersion tank as a different SKU, **40–100 kW** structure/weight) and point at Module 09 for the liquid *families*.
+6. Specify a **liquid-ready / GPU-hall cabinet** by its **coupling and manifold interface** (**UQD** / **blind-mate**), not by width alone; typically **800 mm** is hose volume on an EIA frame, not the definition. Point at Module 09 for the liquid *families*.
 
 ---
 
@@ -30,7 +30,7 @@ Interviewers use racks to test whether you understand **integration**, not just 
 - **Design:** Will the enclosure fit the aisle pitch, floor loading, and service clearances? Is U-space wasted on cabling or poorly planned PDUs?
 - **TPM / project:** Who owns the bill of materials—IT, facilities, or colo provider? What is in the colo “cage ready” vs “cabinet ready” scope?
 
-Racks also drive **density economics**. Wrong depth, missing blanking panels, or side-breathing gear in a hot-aisle/cold-aisle room create hot spots that no CRAC set point can fully fix. A 2026 GPU-hall oral adds a second density question: is the **cabinet SKU** liquid-ready (hose width, RDHx door, drip, CDU landing, structure at **40–100 kW**), or did someone order a 600 mm air cabinet into a liquid row? Security choices (open frames vs locked cabinets) change who can touch production hardware. Getting the rack layer right is one of the highest leverage, lowest-glamour skills in data centre work.
+Racks also drive **density economics**. Wrong depth, missing blanking panels, or side-breathing gear in a hot-aisle/cold-aisle room create hot spots that no CRAC set point can fully fix. A 2026 GPU-hall oral adds a second density question: is the **cabinet** liquid-ready at the **coupling** (OCP **ORv3** as the open rack; **UQD** / **blind-mate** as the interface), or did someone order a 600 mm air cabinet — or an 800 mm EIA box with no coupler — into a liquid row? Answering only “19-inch plus 800 mm” is the EIA-only answer. Security choices (open frames vs locked cabinets) change who can touch production hardware. Getting the rack layer right is one of the highest leverage, lowest-glamour skills in data centre work.
 
 ---
 
@@ -83,6 +83,7 @@ Rails use a repeating hole pattern (often **square holes** for cage nuts, or **t
 | Standard / body | Role (conceptual) |
 |---|---|
 | **EIA-310** / **IEC 60297** | 19″ mechanical mounting structure family |
+| **Open Compute Project (OCP)** — **Open Rack v3 (ORv3)**; **UQD** | Public **open-rack** and liquid-**coupling** family. **ORv3** is the 2026 open rack — not “a wider EIA-310 cabinet.” **UQD** (Universal Quick Disconnect) and **blind-mate** quick connects are the coupling interface. Cite the published OCP spec for sizes and revisions; do not invent them here ([opencompute.org](https://www.opencompute.org/)) |
 | **ANSI/TIA-942** | Data centre infrastructure **consensus standard** (voluntary unless a contract or jurisdiction adopts it) including space, cabling pathways, environmental context for racks/rows. Not Uptime Tier—see Module 02 |
 | **ISO/IEC 22237** / **EN 50600** | International / European data centre facility series (space, power, environmental control framing) |
 | **ASHRAE TC 9.9** *Thermal Guidelines for Data Processing Environments*, **5th ed. (2021)** | Named edition when you invoke **recommended inlet** / environmental envelopes. **Recommended ⊂ allowable** is taught in Module 09—do not freeze a °C pair here; pin the edition you cite because the numbers move |
@@ -118,7 +119,7 @@ This file owns the **cabinet SKU**. Module 09 owns the **liquid families** (rear
 
 A **liquid-ready cabinet** is not a slightly denser air cabinet. Plan it as its own type:
 
-- **800 mm for hoses:** Side volume for **manifolds and hose bend radius** (on top of cable managers and vertical PDUs). A 600 mm air cabinet usually cannot dress both.
+- **800 mm for hoses:** Side volume for **manifolds and hose bend radius** (on top of cable managers and vertical PDUs). A 600 mm air cabinet usually cannot dress both. Width is **volume**, not the liquid-ready definition — see the **ORv3 / UQD** coupling subsection below.
 - **Rear-door / RDHx as a rack SKU:** A rear-door heat exchanger is a **cabinet product**—door mass, coil service clearance, and facility-water or secondary-loop connections at the rack. You still number U and land **A/B** power the same way.
 - **Drip pans and manifolds:** Assume liquid will leak. Specify drip pans, leak sensors, and isolation at the cabinet; manifolds occupy the side/rear volume you bought the 800 mm for.
 - **CDU landing:** The CDU may sit in the row as a “rack,” at end of row, or in gallery space. Reserve floor space, power, and a hose path *to* the IT cabinets—do not discover the landing after the row is populated.
@@ -127,7 +128,21 @@ A **liquid-ready cabinet** is not a slightly denser air cabinet. Plan it as its 
 
 **Blanking still applies.** Hybrid halls keep **air-cooled networking** beside liquid compute. Unused U and unsealed cable openings still recirculate; blanking is not optional just because the GPUs are on cold plates.
 
-Point to Module 09 when the interview moves from *the cabinet* to *which liquid family and which plant*. In-row CRAH/CRDX adjacency is already a row-architecture fact (below); liquid-ready is the cabinet that can accept the hose.
+#### OCP ORv3 and the UQD / blind-mate coupling
+
+Width is not the liquid-ready definition. A 2026 GPU-hall rack conversation is conducted in **Open Compute Project (OCP)** vocabulary:
+
+- **Open Rack v3 (ORv3)** is the **open rack**. It is a different rack family from **EIA-310** 19-inch practice — payload interface, power-shelf landings, and manifold landings as OCP publishes them. Do not collapse it into “the 800 mm EIA cabinet.”
+- **UQD (Universal Quick Disconnect)** is the service coupling: the dry-break / quick-disconnect you actually mate when a hose lands on a manifold or a cold-plate loop.
+- **Blind-mate** quick connects mate as the tray or shelf slides in. You do not hand-dress every hose after the chassis is seated.
+
+A cabinet is **liquid-ready** when it has a specified **coupling and manifold interface** (UQD and/or blind-mate landings, plus the drip and isolation already on this SKU list). **800 mm** is the side volume that lets you dress hoses and manifolds on an EIA frame. An 800 mm box with no coupler is a wide air cabinet. An **ORv3** frame with a **UQD** / **blind-mate** landing is the open-rack liquid conversation even when the next row is still EIA 19-inch.
+
+Do **not** recite a connector millimetre, a flow coefficient, or an OCP revision number from memory. Those live in the published [OCP](https://www.opencompute.org/) Open Rack and UQD documents. This file names the vocabulary; the spec owns the dimension.
+
+**Blanking still applies** in a hybrid hall (next paragraph). Network gear stays air-cooled; the coupling vocabulary does not retire the air seal.
+
+Point to Module 09 when the interview moves from *the cabinet* to *which liquid family and which plant*. In-row CRAH/CRDX adjacency is already a row-architecture fact (below); liquid-ready is the cabinet that can accept the **coupling**, not merely the hose width.
 
 #### Row architecture (how racks become a system)
 
@@ -350,7 +365,7 @@ The first of these three to exhaust **is** the rack’s real capacity. Smart PDU
 | **Weight** | Check raised-floor **concentrated load** under cabinet feet/levelers |
 | **Phase balance** | On 3-phase PDUs, balance outlet loading across L1/L2/L3 |
 | **Service clearance** | Follow OEM + egress; typically full front/rear access for hot-swap |
-| **Liquid-ready cabinet** | Typically **800 mm** + RDHx/drip/manifolds + planned CDU landing + **40–100 kW** structure; liquid *families* live in Module 09 |
+| **Liquid-ready cabinet** | Defined by the **coupling and manifold interface** (OCP **ORv3** as the open rack; **UQD** / **blind-mate** as the coupling). Typically **800 mm** is hose volume on an EIA frame — not the definition — plus RDHx/drip/manifolds + planned CDU landing + **40–100 kW** structure; liquid *families* live in Module 09 |
 
 **Simple U budget example:** 42U cabinet − 2U patch − 2U managers − 1U KVM/console − 4U future reserve = **33U** for compute. Announce the reserve in design reviews so “empty U” is not treated as waste.
 
@@ -373,6 +388,7 @@ The first of these three to exhaust **is** the rack’s real capacity. Smart PDU
 11. **Treating rack PDU remote power-cycle as harmless.** Shared PDUs and dual-cord mistakes take out more than the target host.
 12. **Assuming colo “full cabinet” includes unlimited kW.** Colo sells **kW and U**; the lower limit wins.
 13. **Ordering a 600 mm air cabinet into a liquid GPU row.** No hose/manifold volume, no drip path, RDHx door will not land, and **40–100 kW** structure/weight was never reviewed. Treat liquid-ready as its own SKU.
+14. **Calling 800 mm “liquid-ready.”** Width is volume. Liquid-ready is the **UQD** / **blind-mate** coupling and manifold landing. **ORv3** is the 2026 open-rack name, not a sticker on an EIA box.
 
 ---
 
@@ -395,6 +411,9 @@ The first of these three to exhaust **is** the rack’s real capacity. Smart PDU
 
 **Q6. What makes a GPU-hall / liquid-ready cabinet different from a standard air cabinet?**  
 **A:** Treat it as a different **SKU**: typically **800 mm** for hoses and manifolds, **RDHx** as a rear-door product, drip pans and leak isolation, a planned **CDU landing**, and **40–100 kW** structure/weight. An immersion tank is not a 19″ frame. Module 09 owns the liquid families. **Blanking still matters** because network gear stays air-cooled. 19″ rails, **1U = 1.75 in**, and **A/B** PDU landing do not go away.
+
+**Q7. A packet stamps “liquid-ready” because the cabinets are 800 mm EIA-310. What is the 2026 vocabulary?**  
+**A:** **Open Compute Project (OCP)** language: **Open Rack v3 (ORv3)** is the open rack; **UQD** / **blind-mate** is the coupling interface. Liquid-ready is that **coupling and manifold landing**, not width alone. An 800 mm box with no coupler is a wide air cabinet. Do not invent a millimetre or an OCP revision — cite the published spec. **Blanking stays** in a hybrid hall.
 
 ---
 
@@ -448,6 +467,12 @@ The first of these three to exhaust **is** the rack’s real capacity. Smart PDU
    c) 50% by universal international law  
    d) Unlimited if the PDU is switched
 
+9. **A GPU-hall cabinet is liquid-ready when:**  
+   a) It is 800 mm wide — width alone is the definition  
+   b) It is any EIA-310 19-inch frame, because 19″ rails accept hoses  
+   c) It has a specified **coupling and manifold interface** (**OCP ORv3** as the open rack; **UQD** / **blind-mate** as the coupling) — 800 mm is hose volume, not the definition  
+   d) Blanking is dropped because liquid compute retires the air seal
+
 ---
 
 ### Answers
@@ -462,7 +487,8 @@ The first of these three to exhaust **is** the rack’s real capacity. Smart PDU
 5. **a** — Side-mounted, saves U.  
 6. **b** — Outer width is not 19 inches.  
 7. **b** — Intakes to cold aisle.  
-8. **b** — Common continuous-load planning practice; confirm with electrical design/code.
+8. **b** — Common continuous-load planning practice; confirm with electrical design/code.  
+9. **c** — Coupling and manifold interface, not width alone; ORv3 / UQD / blind-mate is the 2026 vocabulary. Blanking stays.
 
 </details>
 
@@ -472,6 +498,7 @@ The first of these three to exhaust **is** the rack’s real capacity. Smart PDU
 
 Public standards and primers (no paywalled EPI courseware):
 
+- **Open Compute Project (OCP)** — [Open Rack v3 (ORv3)](https://www.opencompute.org/) and **UQD** / liquid-coupling project documents (public). Names the 2026 open-rack and coupling vocabulary; do not paste spec bodies or invent a revision or a millimetre here.
 - **EIA-310** family / **IEC 60297** — mechanical structures for 19″-type practice (obtain via standards bodies/libraries; use OEM rail drawings for install dimensions).
 - **ANSI/TIA-942** — data centre infrastructure standard (overview materials and public summaries; full text via TIA / licensed access).
 - **ISO/IEC 22237** series and **EN 50600** series — data centre facilities framework (European/international).
