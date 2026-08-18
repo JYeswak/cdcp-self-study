@@ -141,3 +141,73 @@ The objective remains open after pass 01. A pass is only complete when its sourc
 | 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
 
 The objective remains open after pass 02. The next unresolved frontier is electrical distribution and maintenance testing, not another site-risk summary.
+
+## Breadth pass 03 — electrical distribution, backup power, storage, and maintenance testing
+
+**Search date:** 2026-08-18. This pass retained official OSHA HTML, DOE/FEMP HTML, NFPA catalog/preview pages, IEC catalog pages, and an IEEE Xplore standard record. No PDF body was fetched or copied.
+
+### Sources retained
+
+| Source | What it can safely support | Boundaries |
+|---|---|---|
+| OSHA 1910.333, Selection and use of work practices — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333 | Deenergization, lockout/tagging, stored-energy release, verification, reenergization, qualified-person, and energized-work evidence questions | This is an OSHA workplace requirement; it does not supply a facility design, an EPI heading, or permission to make a live-work claim without the applicable hazard analysis and employer program |
+| OSHA 1910.137, Electrical Protective Equipment — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.137 | Electrical protective-equipment condition, periodic electrical tests, proof-test evidence, and in-service care questions | Use the current OSHA rule and its tables as the legal anchor; do not replace it with a vendor interval or a paraphrased NFPA value |
+| DOE FEMP Equipment Operations and Maintenance Summaries — https://www.energy.gov/cmei/femp/equipment-operations-and-maintenance-summaries | Standby-generator components, ATS transfer logic, safety issues, maintenance checklists, monitoring, and planned O&M questions | FEMP is federal O&M guidance. Its standby-generator description does not establish a universal runtime, fuel autonomy, reliability class, or AHJ acceptance |
+| DOE Uninterruptible Power Supplies — https://www.energy.gov/cmei/buildings/uninterruptible-power-supplies | Public UPS definition, continuity-of-load-power framing, current DOE test-procedure rulemaking, and the distinction between product energy testing and facility continuity planning | DOE’s appliance rule is not a data-center electrical design standard; do not turn its test procedure into a facility ride-through or availability claim |
+| DOE FEMP Battery Energy Storage System Procurement Checklist — https://www.energy.gov/cmei/femp/articles/battery-energy-storage-system-procurement-checklist | BESS project-development questions, procurement inputs, technical specification handoffs, and interconnection-checklist evidence | The page is a procurement checklist for commercial-scale lithium-ion BESS; it is not a complete fire design, O&M program, chemistry-independent rule, or AHJ approval |
+| DOE Office of Electricity Energy Storage — https://www.energy.gov/oe/energy-storage | Current public framing for storage safety, reliability, performance validation, and the storage program’s scope | DOE program framing is not an adopted code, a site permit, or proof that a particular BESS can support a particular critical load |
+| NFPA 70B, Standard for Electrical Equipment Maintenance, 2026 preview/catalog — https://link.nfpa.org/all-publications/70B/2026 | Edition-pinned syllabus/source labels for electrical equipment maintenance, inspections, testing, records, and maintenance-program questions | The standard body is subscription-controlled; the preview/catalog pins the edition and public heading only. Do not reproduce paid text or invent test intervals |
+| NFPA 70E, Standard for Electrical Safety in the Workplace, 2027 catalog — https://link.nfpa.org/all-publications/70E/2027 | Edition-pinned source for safety-related work practices, maintenance requirements, special equipment, and administrative-control question families | The catalog is the edition pin; OSHA remains the legal anchor. NFPA 70E is not automatically law unless adopted or incorporated by the applicable authority |
+| NFPA 110, Standard for Emergency and Standby Power Systems, 2025 preview — https://link.nfpa.org/all-publications/110/2025 | Public heading and edition pin for emergency/standby power-system questions involving sources, transfer, testing, and maintenance | Paid body not fetched; do not assert a universal generator test schedule, classification, or fuel requirement from the catalog page |
+| NFPA 111, Standard on Stored Electrical Energy Emergency and Standby Power Systems, 2025 catalog — https://link.nfpa.org/all-publications/111/2025 | Public heading and edition pin for stored-energy emergency/standby systems, transfer/protection, installation, routine maintenance, and operational testing | Paid body not fetched; do not collapse SEPSS, UPS, BESS, and emergency-power classifications into one invented taxonomy |
+| IEC 62040-3:2021, UPS performance and test requirements — https://webstore.iec.ch/en/publication/60140 | Official edition pin and scope for electronic UPS performance and test questions, including complete UPS and functional-unit testing | The catalog states scope limits: conventional AC/DC distribution boards, standalone static-transfer systems, rotary UPS, and DC UPS are outside this document; the edition page is not the paid body |
+| IEC 62477-1:2022, safety requirements for power electronic converter systems — https://webstore.iec.ch/en/publication/28936 | Official edition pin for converter control, protection, monitoring, measurement, and safety questions spanning UPS and bidirectional converters | Catalog scope is a safety standard for PECS; it is not a facility coordination study, a protection-setting prescription, or a substitute for local code |
+| IEEE 1547-2018, DER interconnection and interoperability — https://ieeexplore.ieee.org/document/8332112/ | Official IEEE record for DER interface, interconnection, and interoperability question families relevant to BESS/microgrid boundaries | An IEEE standard record is not an interconnection approval or utility tariff; it does not establish a data-center UPS requirement or guarantee islanding |
+
+### Pass-03 question frontier
+
+| Module | New question families |
+|---|---|
+| M01 Mission Critical | Trace a critical load through utility service, switchgear, transformer, UPS, ATS, generator, storage, distribution path, cooling dependency, controls, and operator decision; identify the single evidence gap that makes a continuity claim unproven. |
+| M02 Standards | Classify OSHA, NFPA, IEC, IEEE, DOE/FEMP, adopted code, and site procedure references; pin the edition from the official page; distinguish a paid standard’s catalog receipt from evidence that its body was reviewed. |
+| M03 Site / Building | Review a power-plant brief for utility service, service entrance, transformer/switchgear rooms, generator and fuel path, battery/storage location, clearances, ventilation, fire separation, flood elevation, maintenance access, and AHJ/utility handoff records. |
+| M04 Floor / Ceiling | Inspect equipment-room changes for switchgear/transformer/battery weight, seismic restraint, arc-flash boundaries, working space, cable/busway paths, heat and ventilation, access for replacement, and evidence that the structural and electrical reviews agree. |
+| M05 Light | Test whether normal and emergency lighting remains adequate for switching, inspection, battery-room, generator-room, and egress work; separate illumination needed to perform electrical work from a general emergency-lighting claim. |
+| M06 Power | Read a one-line for sources, buses, breakers, selective coordination evidence, grounding/bonding, UPS bypass, STS, ATS, generator, battery, and last-common-point failure; choose the safest switching sequence and the proof required before reenergization. |
+| M07 EMF | Separate energized-source identification, field measurement, worker boundary, shielding/grounding claim, and PPE/work-practice control; reject an EMF answer that uses a generic distance or unqualified “safe” label. |
+| M08 Racks | Match rack dual-cord architecture to independent distribution paths, breaker/panel capacity, maintenance bypass, power quality, inlet ratings, busway/PDU identity, and asset records; identify where a rack-level redundancy claim still shares a common upstream failure. |
+| M09 Cooling | Analyze how UPS, generator, transformer, switchgear, battery, and power-conversion heat loads alter room cooling and ventilation; identify the fallback sequence when a generator room, battery room, or liquid-cooled power rack loses its normal heat-rejection path. |
+| M10 Water | Add generator cooling, battery-room fire-water/containment interfaces, water-dependent utility systems, and storm/flood isolation to a site water dependency review; distinguish a water availability assertion from a tested emergency operating mode. |
+| M11 Network | Trace monitoring and control paths for UPS, ATS, generator, switchgear, BMS/DCIM, storage controller, and utility interface; require segmentation, access control, time source, alarm ownership, local fallback, and a reversible remote-action record. |
+| M12 Fire | Review electrical-room and storage-room detection, suppression, separation, egress, emergency shutdown, alarm, and AHJ evidence as separate controls; identify the missing test or impairment record that blocks return to service. |
+| M13 Security | Combine physical access, key/control custody, vendor remote maintenance, firmware/configuration changes, battery-management systems, generator controls, and incident response; identify the control gap when an operational power endpoint is reachable through an unnecessary external path. |
+| M14 Auxiliary | Build an alarm and telemetry map for utility, switchgear, UPS, ATS, generator, battery, fire, BMS/DCIM, and fuel systems; distinguish indication, command, trip, interlock, acknowledgement, escalation, and audit evidence. |
+| M15 Operations | Turn maintenance testing into an evidence loop: scope and risk, isolation/permit, qualified staff, pre-checks, test execution, abnormal response, restoration, post-test inspection, defect disposition, and trend review; compare planned maintenance with condition evidence without inventing universal intervals. |
+
+### Pass-03 factual boundaries
+
+- OSHA 1910.333 requires safety-related work practices around energized or potentially energized parts and gives a public sequence for deenergization, lockout/tagging, stored-energy control, verification, and reenergization. Questions must preserve the qualified-person and employer-program boundaries.
+- OSHA 1910.137 requires electrical protective equipment to remain safe and reliable and requires periodic electrical tests. Do not replace its current rule and tables with an unsourced “annual” or “every six months” claim for equipment outside the stated scope.
+- FEMP’s standby-generator and ATS pages support component, transfer, monitoring, and maintenance questions. They do not establish a universal standby rating, fuel autonomy, generator runtime, or data-center availability class.
+- The NFPA 70B/70E/110/111 pages pin current public headings and editions. Their paid bodies were not fetched. The ledger may record a catalog/preview receipt, but an item cannot quote a clause or interval absent a public source.
+- IEC 62040-3:2021 is explicitly about electronic UPS performance and test requirements and excludes conventional distribution boards and certain static-transfer/rotary/DC UPS subjects. Scope exclusions should be tested, not silently generalized.
+- IEC 62477-1:2022 covers safety of power electronic converter systems and their control, protection, monitoring, and measurement. It does not provide a site protection-coordination study or local-code approval.
+- IEEE 1547-2018 is an official DER interconnection/interoperability record. It can anchor BESS/microgrid interface questions, but it does not prove utility acceptance, islanding capability, or a critical-load ride-through result.
+- A generator, UPS, ATS, STS, BESS, SEPSS, and emergency-power system are related but not interchangeable terms. No question should infer an availability class or handover taxonomy from a product label.
+
+### Updated pass tracker
+
+| Pass | Focus | Status |
+|---:|---|---|
+| 01 | DOE/FEMP/NREL energy, cooling, water, commissioning; CISA/NIST OT and exposure; eCFR safety; ISO/TIA/IEEE edition anchors | COMPLETE |
+| 02 | Site risk, utility interconnection, resilience, climate/flood/seismic, public AHJ/code sources | COMPLETE |
+| 03 | Electrical distribution, switching, protection, UPS/generator/BESS, maintenance testing | COMPLETE — this section |
+| 04 | Cooling controls, liquid cooling, heat reuse, economization, thermal/water measurement | OPEN |
+| 05 | Cabling, outside plant, network management, BMS/DCIM segmentation, remote access | OPEN |
+| 06 | Fire/life safety, emergency power, permits, PPE, incident command, return-to-service | OPEN |
+| 07 | Physical security, personnel/vendor/visitor controls, asset lifecycle, media disposition | OPEN |
+| 08 | People systems: skills matrices, shift turnover, training, fatigue, contractor governance, succession | OPEN |
+| 09 | Commissioning, change control, MOP/SOP/EOP, alarms, metrics, reliability-centered maintenance | OPEN |
+| 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
+
+The objective remains open after pass 03. The next unresolved frontier is cooling controls, liquid cooling, heat reuse, economization, and thermal/water measurement.
