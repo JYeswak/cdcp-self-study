@@ -1044,6 +1044,34 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 46 — CDCP grid, growth, and emerging-site receipts
+
+**Review date:** 2026-08-18. Thirteen remaining M03 rows now carry official
+ISO/IEC 22237-1:2021, ISO/IEC 22237-2:2024, or TIA-942-C catalog/preview
+receipts. They remain BLOCKED because the permitted public pages do not expose
+the exact grid-queue, behind-the-meter, AI-factory, dispatch, or handoff
+propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m03-q209 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact generator-yard/fuel-logistics proposition not exposed |
+| m03-q210 | Facility criteria | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact climate-extremes design proposition not exposed |
+| m03-q211 | Site location selection criteria | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact staffing/emergency-response access proposition not exposed |
+| m03-q212 | Facility criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact future-growth limiting criterion not exposed |
+| m03-q213 | Site location selection criteria | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact water-rights/discharge proposition not exposed |
+| m03-q214 | Site location selection criteria | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact interconnection queue/energization proposition not exposed |
+| m03-q215 | Site location selection criteria | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact queue-position/study/financial-security proposition not exposed |
+| m03-q216 | Site location selection criteria | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact behind-the-meter site-type proposition not exposed |
+| m03-q217 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact behind-the-meter permitting proposition not exposed |
+| m03-q218 | Site location selection criteria | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact AI-factory/neocloud site-criteria taxonomy not exposed |
+| m03-q219 | Site location selection criteria | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact grid/fibre/AI-factory due-diligence proposition not exposed |
+| m03-q220 | Site location selection criteria | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact dispatch-restriction proposition not exposed |
+| m03-q221 | Site location selection criteria | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact M03-to-M15 dispatch/reduction handoff proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 45 — CDCP site-selection continuation
 
 **Review date:** 2026-08-18. Fifteen additional M03 rows now carry official

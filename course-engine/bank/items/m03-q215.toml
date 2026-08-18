@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — ebrr.20 leftover (a) analyze: queue vs dual-feed lead-time
+# Public syllabus heading: CDCP "Site location selection criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# BLOCKED: the catalog does not expose this exact queue-position, study, and
+# financial-security proposition.
 id = "m03-q215"
 kind = "single-select"
 module = 3

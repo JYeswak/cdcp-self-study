@@ -1,6 +1,10 @@
 # Original CDCP educational item — bd-curriculum-truth-ebrr.43.
 # syllabus_heading = "1.3 Data Centre Location, Building and Construction"
 # syllabus_url = https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# BLOCKED: the catalog references operation and management, but not this exact
+# M03-to-M15 dispatch/reduction handoff proposition.
 # citation_ids = ["src-epi-cdcp-page", "src-ercot-interconnection-grid-analysis-2026-04-20", "src-ercot-system-operations-large-load-curtailment-2026-04-20"]
 # claim = Identify curtailment as an operating consequence of a qualifying BTM arrangement and hand action to M15 EOP 4.
 # M15 cross-reference: EOP 4 — Grid curtailment / behind-the-meter islanding.
