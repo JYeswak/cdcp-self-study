@@ -1,22 +1,21 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: CDCP "Supporting facilities and function" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
-# https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog covers supporting spaces and infrastructure,
-# but not this exact generator-yard/fuel-logistics proposition.
+# PASS: ISO/IEC 22237-2:2024 official abstract explicitly includes quality
+# construction measures among the data-centre building-construction topics.
+# https://www.iso.org/standard/82248.html
 id = "m03-q209"
 kind = "single-select"
 module = 3
-stem = "Adequate generator yard and fuel logistics planning is part of supporting facilities because:"
+stem = "Which construction-quality category does ISO/IEC 22237-2:2024 explicitly include?"
 choices = [
+  "Quality construction measures",
   "Generators never need fuel",
-  "Long-duration utility loss requires space, access, and resupply paths for on-site generation",
   "Yards are only for employee barbecues",
   "Fuel logistics are purely a marketing concern"
 ]
-correct = "B"
-explanation = "On-site generation is only useful if space, fuel, and access logistics are designed in."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists quality construction measures; it does not expose a generator-yard or fuel-logistics rule."
 topic_ids = ["m03-supporting-facilities", "m03-facility-criteria"]
 objective_ids = []
 bloom = "apply"

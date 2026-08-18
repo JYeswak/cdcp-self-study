@@ -1,22 +1,21 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: CDCP "Facility criteria" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
-# https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog covers building construction, but not this
-# exact slab-loading proposition.
+# PASS: ISO/IEC 22237-2:2024 official abstract explicitly includes building
+# configuration in its data-centre building-construction scope.
+# https://www.iso.org/standard/82248.html
 id = "m03-q100"
 kind = "single-select"
 module = 3
-stem = "Slab loading capacity as a facility criterion primarily limits:"
+stem = "Which building-related topic does ISO/IEC 22237-2:2024 explicitly include in its scope?"
 choices = [
+  "Building configuration",
   "Software license counts",
   "DNS TTL values",
-  "Heavy IT, battery, and cooling equipment placement without structural reinforcement",
   "Emergency light colour only",
 ]
-correct = "C"
-explanation = "Structural floor capacity constrains where dense/heavy equipment can sit."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists building configuration; it does not expose a slab-loading limit."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "remember"

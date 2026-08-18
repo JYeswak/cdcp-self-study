@@ -870,6 +870,25 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 279 — ISO building-construction scope, continued
+
+**Review date:** 2026-08-18. The same current official ISO catalog abstract for
+ISO/IEC 22237-2:2024 was used without opening or fetching a PDF. Additional items
+were bounded to the abstract's named categories: site configuration, building
+configuration, physical fire protection, water damage, quality construction
+measures, and environmental risks.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m03-q097 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — asks only for site configuration; no facilities inventory is inferred |
+| m03-q100 | Facility criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — asks only for building configuration; no slab-loading limit is inferred |
+| m03-q101 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — asks only for physical fire protection; no generator-yard rule is inferred |
+| m03-q202 | Facility criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — asks only for water damage; no heavy-plant installation rule is inferred |
+| m03-q209 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — asks only for quality construction measures; no fuel-logistics rule is inferred |
+| m03-q217 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — asks only for environmental risks; no behind-the-meter interconnection rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 278 — ISO building-construction abstract categories
 
 **Review date:** 2026-08-18. The current official ISO catalog abstract for

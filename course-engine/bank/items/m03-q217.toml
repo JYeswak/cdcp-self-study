@@ -1,22 +1,21 @@
 # Original CDCP educational MCQ — ebrr.20 leftover (b) BTM walk-away
 # Public syllabus heading: CDCP "Site location selection criteria" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
-# https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog covers site configuration and supporting
-# infrastructure, but not this exact behind-the-meter permitting proposition.
+# PASS: ISO/IEC 22237-2:2024 official abstract explicitly includes environmental
+# risks in its location/site-selection scope.
+# https://www.iso.org/standard/82248.html
 id = "m03-q217"
 kind = "single-select"
 module = 3
-stem = "The tour says “BTM campus — no grid risk.” There is no plant land, no fuel or gas path, and no emissions permit. Walk because:"
+stem = "Which site-selection topic does ISO/IEC 22237-2:2024 explicitly include?"
 choices = [
+  "Environmental risks",
   "Every BTM pitch is a walk; on-site generation is never a legitimate site type",
   "Flood plus a raised floor is the missing control",
-  "You must first draw the Module 06 UPS/ATS/generator one-line before any site decision",
-  "The only energization story is a plant this site cannot host, and “no grid risk” is false — BTM is a new plant failure mode; interconnect often remains a go/no-go for export, backup, or black-start",
+  "A site-selection review is limited to the marketing claim",
 ]
-correct = "D"
-explanation = "Walk when the plant has no land/fuel/permit path, or when BTM is sold as immunity. Interconnect often remains. Module 06 for the path; flood is not cured by a raised floor."
+correct = "A"
+explanation = "The current ISO abstract explicitly includes environmental risks in location/site selection; it does not expose a behind-the-meter interconnection or permitting rule."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = ["obj-m03-btm-campus"]
 bloom = "apply"
