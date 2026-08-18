@@ -870,6 +870,21 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 350 — IEC installed-cabling measurement scope
+
+**Review date:** 2026-08-18. `m11-q137` was narrowed from an unsupported
+patch-cord loss/crosstalk proposition to IEC 61935-1:2019's public catalog scope:
+reference measurement procedures for installed balanced cabling and field-tester
+accuracy. The exact public CDCP heading remains **Copper cabling**; no PDF or
+paid standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q137 | Copper cabling | IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201 | **PASS** — installed-cabling measurement and tester-accuracy scope is explicit |
+
+No patch-cord loss budget, crosstalk threshold, retest interval, or category-rating
+claim is inferred. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 346 — CDFOM service providers, hand-off, and competence catalogs
 
 **Review date:** 2026-08-18. Three existing CDFOM PASS items were aligned to

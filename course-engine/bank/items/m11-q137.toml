@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: Copper cabling
-# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the current TIA-942-C abstract does not expose the exact item-level copper cabling proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201
+# Claim is limited to the public IEC catalog's installed balanced-cabling measurement and field-tester scope.
 id = "m11-q137"
 kind = "single-select"
 module = 11
-stem = "Patch cord quality and length discipline matter because excess patching can:"
+stem = "Before a copper cabling installation is accepted, which practice matches IEC 61935-1:2019's public catalog scope?"
 choices = [
-  "Never affect channel performance",
-  "Consume channel budget (loss and crosstalk margins) and create messy failure-prone fields",
-  "Increase category rating automatically",
-  "Replace permanent link testing forever"
+  "Use reference measurement procedures and appropriate field-tester accuracy",
+  "Skip measurement when the patch field looks orderly",
+  "Treat a successful ping as the complete cabling certification",
+  "Increase the cable category rating through software"
 ]
-correct = "B"
-explanation = "Channels include cords; poor or excessive patching degrades margins and operability."
+correct = "A"
+explanation = "The IEC 61935-1:2019 public catalog specifies reference measurement procedures for installed balanced cabling and requirements for field-tester accuracy. It does not make visual inspection, a single ping, or software a substitute for measurement."
 topic_ids = ["m11-copper", "m11-testing", "m11-planning"]
 objective_ids = []
 bloom = "apply"
