@@ -679,6 +679,10 @@ external CI leg cannot be observed on the current code SHA.
   escapes C0 controls but not Python's non-printable Unicode ranges. That file
   and `diff_verify_objectives.rs` are pane-owned dirty work and were preserved
   without edits or staging.
+- Current read-only pane proofs are green: `diff_verify_objectives` 20/20 and
+  `diff_verify_injection_count` 33/33. Those suites do not cover the residual
+  U+0380 classification gaps, so their green status is not treated as parity
+  closure.
 - `gh run list --commit 7298fb3571fdc607b01c9011dbac7111e8d2af06` returned no
   runs, so same-SHA CI line count and GREEN status remain unavailable. The historical 37472-line remote-main
   result is a different SHA and is not used as a same-SHA claim.
