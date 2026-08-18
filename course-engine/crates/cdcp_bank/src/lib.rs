@@ -24,6 +24,7 @@ pub mod paraphrase;
 pub mod validate_grounding;
 pub mod verify_bank;
 pub mod verify_content_lock;
+pub mod verify_coverage;
 
 pub use leftover_honesty::{
     audit_bank as leftover_honesty_audit, audit_item as leftover_honesty_item,

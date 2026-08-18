@@ -636,7 +636,7 @@ fn min_sites(rel: &str) -> usize {
     match rel.rsplit('/').next().unwrap_or(rel) {
         // Dispatchers: the walks live in product crates (near_duplicate,
         // orphans, verify_bank, knowledge_paths, objectives, validate_grounding,
-        // verify_content_lock). A 0-site file is legal only here.
+        // verify_content_lock, verify_coverage). A 0-site file is legal only here.
         "mod.rs"
         | "install_hooks.rs"
         | "near_duplicate_items.rs"
@@ -645,7 +645,8 @@ fn min_sites(rel: &str) -> usize {
         | "verify_knowledge_paths.rs"
         | "verify_objectives.rs"
         | "validate_grounding.rs"
-        | "verify_content_lock.rs" => 0,
+        | "verify_content_lock.rs"
+        | "verify_coverage.rs" => 0,
         "capability_maturity.rs"
         | "goldens_couplings.rs"
         | "verify_injection_count.rs"
@@ -657,7 +658,7 @@ fn min_sites(rel: &str) -> usize {
         | "verify_knowledge_paths.py"
         | "verify_injection_count.py" => 3,
         "substrate_guard.rs" | "verify_coverage.py" => 4,
-        "verify_bank.py" | "verify_coverage.rs" | "validate_grounding.py" => 5,
+        "verify_bank.py" | "validate_grounding.py" => 5,
         "verify_objectives.py" => 7,
         // A newly added target is scanned; give it a floor once measured.
         _ => 0,
