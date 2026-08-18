@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power sustainability
+# Official catalog/preview receipt: IEC TS 62898-3-2:2024 — https://webstore.iec.ch/en/publication/61960
+# BLOCKED: the official catalog exposes microgrid resource management and environmental optimization, but not the exact renewables-versus-firm-capacity proposition.
 id = "m06-q103"
 kind = "single-select"
 module = 6

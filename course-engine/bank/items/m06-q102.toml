@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Microgrid
+# Official catalog/preview receipt: IEC TS 62898-3-2:2024 — https://webstore.iec.ch/en/publication/61960
+# PASS boundary: the official catalog describes utility-interconnected or islanded microgrid energy-management systems and balancing among distributed resources; no implementation claim is added.
 id = "m06-q102"
 kind = "single-select"
 module = 6

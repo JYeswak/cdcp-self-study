@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power sustainability
+# Official catalog/preview receipt: ISO/IEC 30134-2:2026 — https://www.iso.org/standard/30134-2?browse=ics
+# PASS boundary: the official catalog defines PUE as a data-centre energy-efficiency KPI; no universal target is claimed.
 id = "m06-q100"
 kind = "single-select"
 module = 6

@@ -1044,6 +1044,30 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 68 — CDCP PUE, microgrid, and power-distribution receipts
+
+**Review date:** 2026-08-18. Eight additional M06 rows now carry current
+official ISO, IEC, or NFPA catalog/preview receipts. ISO/IEC 30134-2:2026
+directly defines PUE and IEC TS 62898-3-2:2024 directly describes microgrid
+energy-management scope, so those two rows are bounded PASS results. The other
+six remain BLOCKED because their exact propositions are not exposed. No PDF was
+fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q100 | Power sustainability | ISO/IEC 30134-2:2026 — https://www.iso.org/standard/30134-2?browse=ics | **PASS** — the catalog defines PUE as a data-centre energy-efficiency KPI |
+| m06-q101 | Power sustainability | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact PUE-versus-single-path proposition not exposed |
+| m06-q102 | Microgrid | IEC TS 62898-3-2:2024 — https://webstore.iec.ch/en/publication/61960 | **PASS** — the catalog covers utility-interconnected or islanded microgrid energy-management systems and resource balancing |
+| m06-q103 | Power sustainability | IEC TS 62898-3-2:2024 — https://webstore.iec.ch/en/publication/61960 | **BLOCKED** — exact renewables-versus-firm-capacity proposition not exposed |
+| m06-q104 | Power sustainability | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact sustainability-versus-testing risk proposition not exposed |
+| m06-q105 | PDU form factors | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED** — exact remote-power-panel form-factor proposition not exposed |
+| m06-q106 | PDU form factors | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED** — exact metered/switched-rack-PDU control proposition not exposed |
+| m06-q107 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact UPS/ATS outage sequence not exposed |
+
+The ledger is now 161 PASS / 796 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 67 — CDCP power sizing, thermography, and HPC receipts
 
 **Review date:** 2026-08-18. Seven additional M06 rows now carry official IEC,

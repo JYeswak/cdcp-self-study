@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power sustainability
+# Official catalog/preview receipt: NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025
+# BLOCKED: the official preview identifies emergency and standby power systems but does not expose the exact sustainability-versus-testing risk proposition.
 id = "m06-q104"
 kind = "single-select"
 module = 6

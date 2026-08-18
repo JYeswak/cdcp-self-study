@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power sustainability
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc
+# BLOCKED: the official catalog exposes availability and energy-efficiency classification, but not the exact PUE-versus-single-path proposition.
 id = "m06-q101"
 kind = "single-select"
 module = 6
