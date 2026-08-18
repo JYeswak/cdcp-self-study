@@ -903,6 +903,23 @@ No Module 14 item statuses changed. The existing official catalog receipts remai
 bounded BLOCKED where the public pages do not expose the exact claim. This pass
 does not certify a learner or close ms4j.
 
+## Breadth pass 145 — CDFOM succession, commissioning, and development receipts
+
+**Review date:** 2026-08-18. The three remaining CDFOM-blocked operations items
+were rechecked against current official ISO, GSA, and DOE catalog/HTML pages.
+Only public HTML/catalog metadata is retained in the corpus; no linked paid
+body is used.
+
+| Item | Public CDFOM heading | Current official receipt | Bounded result |
+|---|---|---|---|
+| m15-q348 | The Data Center Organization — Succession planning; Career development | ISO/TS 30433:2021 — https://www.iso.org/standard/68710.html | **BLOCKED** — the published Edition 1 catalog explicitly covers succession-planning metrics and comparable internal/external reporting, but not the item’s documentation, knowledge-transfer, or career-development proposition |
+| m15-q351 | Facilities Management — Maintenance policies and procedures | GSA Facilities standards for the Public Buildings Service, current page — https://www.gsa.gov/real-estate/facilities-standards-for-the-public-buildings-service | **BLOCKED** — the current GSA HTML page identifies 2024 P100 as the listed facilities-standard edition, but does not expose the independent commissioning-provider clause; the linked body is not used |
+| m15-q363 | The Data Center Organization — Career development; Job rotation | ISO 10015:2019 — https://www.iso.org/standard/69459.html | **BLOCKED** — the current catalog says Edition 2 remains confirmed, and its abstract covers competence management and people development, but it does not expose the DOE-specific job-rotation/IDP proposition |
+
+No CDFOM row was promoted. The three remaining blockers retain official current
+receipts and remain intentionally open; this pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 143 — cabling testing, administration, and current media receipts
 
 **Review date:** 2026-08-18. Twelve Module 11 blocked receipts were refreshed
