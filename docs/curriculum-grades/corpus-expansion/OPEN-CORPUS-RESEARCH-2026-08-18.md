@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 90 — CDCP liquid-cooling and seasonal-storage receipts
+
+**Date:** 2026-08-18
+**Scope:** M09 CDU, direct-to-chip, immersion, liquid-loop controls, heat rejection, and seasonal thermal energy storage.
+**Official receipts:** [ISO/IEC AWI TS 22237-44](https://www.iso.org/standard/93846.html?browse=tc); [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html).
+
+**Bounded result:** m09-q156–q160 and q163–q164 carry the current official ISO liquid-cooling work-item catalog and remain BLOCKED because it is under development and does not expose a published item-level proposition; q162 carries the published environmental-control catalog and remains BLOCKED. No draft or standard PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 89 — CDCP containment receipts
 
 **Date:** 2026-08-18

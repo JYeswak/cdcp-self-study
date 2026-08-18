@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — not an exam dump
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Liquid cooling
+# Official catalog receipt: ISO/IEC AWI TS 22237-44 — https://www.iso.org/standard/93846.html?browse=tc
+# BLOCKED: this official liquid-cooling work-item catalog is under development and does not expose a published direct-to-chip proposition; no draft body was fetched.
 id = "m09-q157"
 kind = "single-select"
 module = 9
