@@ -1,19 +1,21 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Generators
-# Official catalog/preview receipt: NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025
-# BLOCKED: the official preview does not expose the exact generator-paralleling/N+1 proposition.
+# Official catalog/preview receipt: IEC 60364-5-55:2011+AMD1:2012+AMD2:2016 CSV —
+# https://webstore.iec.ch/en/publication/25534
+# PASS: the current consolidated IEC catalog covers selection and erection of
+# low-voltage generating sets. No paid body or PDF was fetched.
 id = "m06-q067"
 kind = "single-select"
 module = 6
-stem = "Paralleling multiple generators primarily enables:"
+stem = "IEC 60364-5-55:2011 is scoped to requirements for:"
 choices = [
-  "Eliminating switchgear",
-  "Sharing load and implementing plant-level N+1 or capacity growth",
-  "Removing ATS devices always",
-  "Running without any cooling for the engines",
+  "Selection and erection of low-voltage generating sets in fixed installations",
+  "Eliminating all switchgear and transfer equipment",
+  "Replacing every UPS battery by definition",
+  "Operating engines without any installation or safety requirements"
 ]
-correct = "B"
-explanation = "Paralleling gear lets multiple sets share load and support redundancy/capacity."
+correct = "A"
+explanation = "The public IEC catalog identifies selection and erection of low-voltage generating sets as the exposed scope; paralleling, load-sharing, redundancy, and site-specific controls require additional evidence."
 topic_ids = ["m06-generators", "m06-redundancy"]
 objective_ids = []
 bloom = "understand"

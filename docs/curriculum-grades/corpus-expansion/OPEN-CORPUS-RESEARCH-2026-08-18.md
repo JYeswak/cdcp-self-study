@@ -887,6 +887,22 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 214 — IEC generating-set scope boundary
+
+**Review date:** 2026-08-18. The current consolidated IEC 60364-5-55 catalog
+page covers requirements for selection and erection of low-voltage generating
+sets in fixed installations. This supports a bounded generator-standard scope
+question without asserting paralleling controls, load sharing, N+1 capacity,
+fuel autonomy, or site-specific installation values.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q067 | Generators | IEC 60364-5-55:2011+A1:2012+A2:2016 CSV — https://webstore.iec.ch/en/publication/25534 | **PASS** — selection and erection of low-voltage generating sets are explicit |
+
+Paralleling, synchronization, redundancy, fuel logistics, and local-code
+requirements remain outside this catalog receipt. No PDF was fetched. This pass
+does not certify a learner or close ms4j.
+
 ## Breadth pass 213 — IEC isolating-transformer scope boundary
 
 **Review date:** 2026-08-18. The current IEC 61558-2-4:2021 catalog page
