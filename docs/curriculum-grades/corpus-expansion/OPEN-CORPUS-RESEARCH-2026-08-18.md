@@ -1044,6 +1044,78 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 115 — control-plane interoperability and observability
+
+**Date:** 2026-08-18
+**Scope:** Cross-module research for M01, M06, M09, M11, M13, M14, and M15:
+management interfaces, power and liquid-cooling telemetry, BMS/DCIM event
+transport, time synchronization, cabling that carries monitoring/control, and
+handoff evidence. Only official public HTML/catalog pages and openly licensed
+IETF material were reviewed; no PDF body was fetched or copied.
+
+**Official public receipts:**
+
+- [DMTF Redfish](https://www.dmtf.org/standards/redfish) identifies Redfish as
+  a standard for secure management of converged, hybrid IT, and software-defined
+  data centres. Its public release table lists **Redfish Release 2026.1** dated
+  2026-05-17, including Redfish Specification 1.24.0, Data Model 2026.1,
+  Schema Bundle 2026.1, Power Distribution Equipment 1.1.0, and Liquid Cooling
+  Equipment 1.1.0. These are interface/model receipts, not proof that a local
+  deployment is secure, complete, or safe to operate.
+- [DMTF Redfish Developer Essentials](https://redfish.dmtf.org/essentials)
+  exposes the public schema index and HTML resources. The schema can support
+  questions about typed resources, properties, events, and conformance
+  evidence; it does not establish that a device reports a physically correct
+  sensor value or that a control action is authorised.
+- [RFC 5424, The Syslog Protocol](https://www.rfc-editor.org/rfc/rfc5424)
+  is an openly licensed Standards Track RFC. Its public text separates syslog
+  content, application roles (originator, relay, collector), and transport;
+  it also states that syslog itself is simplex and does not acknowledge message
+  delivery, while the specification's required transport mapping is TLS-based.
+  This supports event-pipeline questions, not an invented alarm-delivery SLA.
+- [RFC 8633, Network Time Protocol Best Current Practices](https://www.rfc-editor.org/rfc/rfc8633)
+  is an openly licensed IETF Best Current Practice for stable, accurate, and
+  secure NTP operation. Its public contents cover multiple/diverse time
+  sources, monitoring, and NTP security boundaries. It supports timestamp
+  provenance questions, not a universal facility clock architecture.
+- [IEEE 802.3 Ethernet Working Group](https://www.ieee802.org/3/index.html)
+  is the official current working-group page, last updated 2026-08-06. It
+  distinguishes published IEEE 802.3 material from active projects, including
+  200/400/800 Gb/s and 1.6 Tb/s work, Ethernet metadata, YANG, and an Ethernet
+  for AI assessment ad hoc. Active project pages are not treated as published
+  standard requirements or edition pins.
+- [ISO/IEC FDIS 22237-5](https://www.iso.org/standard/88710.html?browse=tc)
+  is the official current catalog page for the FDIS under development. Its
+  abstract describes cabling for LAN/SAN, data-centre operation, monitoring and
+  control of power/environment/security, building automation, and pathways.
+  ISO says it will replace **ISO/IEC TS 22237-5:2018**; because the FDIS is not
+  yet published, it is a BLOCKED receipt for any claim requiring the new
+  edition. The public abstract is sufficient only for bounded scope questions.
+
+**Adversarial cross-check:** One view treats a schema, event stream, or clock
+source as the operational source of truth; the opposing view asks whether the
+value has a defined owner, timestamp quality, transport guarantee, command
+authorization, physical validation, and safe fallback. The surviving teaching
+rule is: an interface contract can make evidence comparable, but cannot by
+itself prove sensor correctness, alarm delivery, control authority, or return
+to service.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M01 | Trace a service event from business impact through power, cooling, network, control plane, operator, and handoff records | Do not treat a protocol or dashboard as the criticality model |
+| M06 | Compare power-equipment telemetry, command state, event time, and switching evidence; identify the missing physical verification before work or restoration | Redfish naming does not prove breaker state, synchronism, or safe switching |
+| M09 | Review liquid-cooling equipment telemetry for supply/return state, leak/alarm evidence, facility-water versus technology-cooling boundaries, and fallback | No invented temperature, flow, leak, or WUE threshold |
+| M11 | Map cabling that carries LAN/SAN, monitoring, control, and building-automation traffic; bind media/reach claims to a published PHY or blocked catalog receipt | ISO FDIS 22237-5 is under development; do not teach its draft as current |
+| M13 | Test whether management interfaces are segmented, authenticated, logged, time-synchronized, and reversible, rather than merely reachable | No vendor-specific BMS/DCIM or OLA taxonomy |
+| M14 | Distinguish originator, relay, collector, telemetry, alarm, acknowledgement, and command paths; specify what happens when the event transport is simplex or delayed | Syslog is not an acknowledgement channel and a dashboard is not a control proof |
+| M15 | Build an incident/handoff record with event time, clock source, source identity, relay/collector path, owner, action, and return-to-service evidence | NTP/syslog guidance supports evidence design, not a credential, staffing model, or universal SLA |
+
+**Bounded result:** This pass adds a current, open interoperability frontier
+without adding bank rows or changing any PASS/BLOCKED disposition. The ISO
+22237-5 replacement remains explicitly blocked until published. No draft
+standard, vendor blog, paid body, PDF, invented taxonomy, bead closure,
+gate-shrink work, oracle port, or certification claim was introduced.
+
 ## Breadth pass 114 — CDFOS/CDFOM file-level receipt audit
 
 **Date:** 2026-08-18
