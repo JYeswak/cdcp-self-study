@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 101 — CDCP water contingency receipts
+
+**Date:** 2026-08-18
+**Scope:** M10 leak detection, fire-water supply, drought operations, tower makeup, emergency water logistics, shared-campus water, and freeze protection.
+**Official receipts:** [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html); [NFPA 24, 2025](https://link.nfpa.org/all-publications/24/2025).
+
+**Bounded result:** m10-q206 and q208–q210, q212, and q213 now carry the current official environmental-control catalog; m10-q207 carries the current NFPA 24 preview. All remain BLOCKED because the public pages do not expose the exact item-level propositions. No PDF or paid standard body was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 100 — CDCP water-dependency depth receipts
 
 **Date:** 2026-08-18
