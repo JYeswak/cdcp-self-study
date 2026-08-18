@@ -1044,6 +1044,29 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 63 — CDCP generator testing and transformer receipts
+
+**Review date:** 2026-08-18. Eight additional M06 rows now carry official
+NFPA 110 (2025) or IEC 60076-1:2011 catalog/preview receipts. They remain
+BLOCKED because the public pages do not expose the exact generator transfer,
+load-bank, paralleling, fuel, service-entrance, isolation, or transformer-loss
+propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q065 | Generators | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact generator/UPS gap not exposed |
+| m06-q066 | Generators | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact load-bank diagnostic not exposed |
+| m06-q067 | Generators | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact paralleling/N+1 proposition not exposed |
+| m06-q068 | Generators | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact fuel-runtime proposition not exposed |
+| m06-q069 | Generators | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact fuel-type trade-off not exposed |
+| m06-q070 | Transformers | IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588 | **BLOCKED** — exact service-entrance example not exposed |
+| m06-q071 | Isolation transformer | IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588 | **BLOCKED** — exact isolation proposition not exposed |
+| m06-q072 | Transformers | IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588 | **BLOCKED** — exact thermal-budget proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 62 — CDCP UPS operating-mode receipts
 
 **Review date:** 2026-08-18. Six additional M06 rows now carry the official

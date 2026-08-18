@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Isolation transformer
+# Official catalog/preview receipt: IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588
+# BLOCKED: the official catalog does not expose the exact isolation/noise/grounding teaching proposition.
 id = "m06-q071"
 kind = "single-select"
 module = 6

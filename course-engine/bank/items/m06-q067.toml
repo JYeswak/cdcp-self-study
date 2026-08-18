@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Generators
+# Official catalog/preview receipt: NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025
+# BLOCKED: the official preview does not expose the exact generator-paralleling/N+1 proposition.
 id = "m06-q067"
 kind = "single-select"
 module = 6
