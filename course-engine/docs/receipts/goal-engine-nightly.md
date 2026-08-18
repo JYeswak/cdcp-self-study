@@ -683,6 +683,9 @@ external CI leg cannot be observed on the current code SHA.
   `diff_verify_injection_count` 33/33. Those suites do not cover the residual
   U+0380 classification gaps, so their green status is not treated as parity
   closure.
+- Current `HEAD` is `3fcd339d0b735263f58c6612520d1f2d7ed3cf9f`, a receipt-only
+  follow-up to code SHA `70d1b69b2bab1204ba9c1637d9fe0bfddc663267`; no gate
+  source changed after the measured code SHA.
 - `gh run list --commit 7298fb3571fdc607b01c9011dbac7111e8d2af06` returned no
   runs, so same-SHA CI line count and GREEN status remain unavailable. The historical 37472-line remote-main
   result is a different SHA and is not used as a same-SHA claim.
