@@ -870,6 +870,20 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 301 — IEC building-construction topic preview claims
+
+**Review date:** 2026-08-18. The current official IEC catalog for ISO/IEC
+22237-2:2024 was checked without opening or fetching a PDF. Its public abstract
+explicitly lists provision of access and quality construction measures among the
+construction topics addressed for data-centre buildings and structures.
+
+| Items | Public CDCP heading | Current official catalog/preview | Bounded result |
+|---|---|---|---|
+| m04-q115 | General raised-floor guidelines | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **PASS** — asks only for provision of access as a named topic; no underfloor-airflow rule is inferred |
+| m04-q130 | Raised floor standards | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **PASS** — asks only for quality construction measures as a named topic; no manufacturer-rating rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 300 — ISO series-scope exclusion preview claim
 
 **Review date:** 2026-08-18. The current official ISO catalog/preview for

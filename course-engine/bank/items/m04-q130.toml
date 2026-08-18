@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
 # https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog does not expose the exact manufacturer-data
-# and applicable-standard reference proposition.
+# PASS: the current IEC catalog explicitly lists quality construction measures
+# among the topics addressed by ISO/IEC 22237-2:2024.
 id = "m04-q130"
 kind = "single-select"
 module = 4
-stem = "Why reference access-floor manufacturer data and applicable standards rather than guessing capacities?"
+stem = "Which construction topic does ISO/IEC 22237-2:2024 explicitly specify?"
 choices = [
-  "Because ramps never need design",
-  "Because AHJs ban all floors",
-  "Because only PUE defines load ratings",
-  "Because load and system performance are product- and system-specific",
+  "Quality construction measures",
+  "Only PUE-defined load ratings",
+  "A ban on all access floors",
+  "A requirement to omit manufacturer data",
 ]
-correct = "D"
-explanation = "Ratings depend on the specific floor system; use published data and applicable specs."
+correct = "A"
+explanation = "The current IEC catalog explicitly lists quality construction measures among the topics covered by ISO/IEC 22237-2:2024; it does not expose the former manufacturer-rating proposition."
 topic_ids = ["m04-floor-standards", "m04-loading"]
 objective_ids = []
 bloom = "remember"
