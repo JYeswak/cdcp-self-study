@@ -1185,6 +1185,29 @@ thermodynamics, wet-bulb limits, RDHx behavior, raised-floor airflow,
 high-density cooling selection, or a cooling-plant design approval. This pass
 does not certify a learner or close ms4j.
 
+## Breadth pass 368 — ISO/IEC 22237-6:2024 security-system scope
+
+**Review date:** 2026-08-18. Four module-13 items were narrowed to the
+current ISO Online Browsing Platform abstract for ISO/IEC 22237-6:2024. The
+published edition addresses physical security of data centres and explicitly
+covers protection against unauthorized access using organizational and
+technological solutions, intrusion, and internal/external events affecting the
+defined level of protection. It also states that safety and electromagnetic
+compatibility requirements are outside its scope and are covered by other
+standards and regulations. No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m13-q077 | Physical Security and Safety — Components for physical security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html | **PASS** — unauthorized-access protection and organizational/technological solutions are explicit |
+| bank-m13-q078 | Physical Security and Safety — Components for physical security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html | **PASS** — intrusion is explicitly listed |
+| bank-m13-q083 | Physical Security and Safety — Components for physical security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html | **PASS** — organizational/technological access-control scope is explicit |
+| bank-m13-q095 | Physical Security and Safety — Components for physical safety | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html | **PASS** — safety/EMC scope boundary is explicit |
+
+The pass does not infer mantrap geometry, anti-tailgating mechanics, badge
+revocation, multi-factor combinations, EPO operating rules, visitor-escort
+procedures, or a site security design approval. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

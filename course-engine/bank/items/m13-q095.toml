@@ -1,22 +1,21 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: CDCP "Physical Security and Safety — Components for physical safety" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: NFPA 70E (2024) —
-# https://link.nfpa.org/all-publications/70E/2024
-# BLOCKED: the public preview does not expose the exact EPO/security-balance
-# proposition needed to promote this item.
+# Official catalog/preview receipt: ISO/IEC 22237-6:2024 —
+# https://www.iso.org/standard/82250.html
+# Claim is limited to the public abstract's safety and EMC scope boundary.
 id = "bank-m13-q095"
 kind = "single-select"
 module = 13
-stem = "EPO stations must balance security and safety by:"
+stem = "Under the public abstract for ISO/IEC 22237-6:2024, safety and electromagnetic-compatibility requirements are:"
 choices = [
-  "Being completely inaccessible even to trained staff",
-  "Being pressed daily as a health check without procedure",
-  "Limiting casual/public access while remaining reachable to trained personnel under procedure",
-  "Controlling only decorative lighting"
+  "Outside the document's scope and covered by other standards and regulations",
+  "Fully defined by the security-systems document for every jurisdiction",
+  "Replaced by physical-access controls",
+  "Limited to data-centre visitor-escort procedures"
 ]
-correct = "C"
-explanation = "Accidental EPO is a major outage cause; over-locking can also block emergency response."
+correct = "A"
+explanation = "The current ISO abstract states that safety and EMC requirements are outside the scope of ISO/IEC 22237-6:2024 and are covered by other standards and regulations. It does not establish EPO access rules."
 topic_ids = ["m13-safety-components", "m13-security-components"]
 objective_ids = []
 bloom = "analyze"

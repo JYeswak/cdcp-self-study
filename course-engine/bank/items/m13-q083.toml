@@ -1,22 +1,21 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: NFPA 731 (2026) —
-# https://link.nfpa.org/all-publications/731/2026
-# BLOCKED: the public catalog does not expose the exact multi-factor physical
-# access combination proposition needed to promote this item.
+# Official catalog/preview receipt: ISO/IEC 22237-6:2024 —
+# https://www.iso.org/standard/82250.html
+# Claim is limited to the public abstract's organizational/technological access-control scope.
 id = "bank-m13-q083"
 kind = "single-select"
 module = 13
-stem = "Multi-factor physical access on high zones commonly combines:"
+stem = "ISO/IEC 22237-6:2024 describes unauthorized-access protection in terms of:"
 choices = [
-  "Two cameras facing each other only",
-  "Shared generic contractor PIN posted on the door",
-  "Badge plus PIN or badge plus biometric",
-  "Unlocked doors during business hours only"
+  "Organizational and technological solutions",
+  "A single mandatory badge-plus-biometric combination for every site",
+  "Only a camera placement rule with no organizational control",
+  "Only logical network authentication, excluding physical access"
 ]
-correct = "C"
-explanation = "Something you have + know/are raises assurance on white-space and critical plant."
+correct = "A"
+explanation = "The current ISO abstract describes unauthorized-access protection using organizational and technological solutions. It does not prescribe one universal multi-factor combination."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"
