@@ -1001,6 +1001,28 @@ The ledger is now 157 PASS / 800 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 32 — CDCP physical-security NFPA frontier
+
+**Review date:** 2026-08-18. Two M13 physical-security items were promoted
+against the exact public EPI heading and the current NFPA 730 (2026) preview,
+whose exposed structure includes security planning, administrative controls,
+security perimeters, and security systems. Four narrower claims received
+official NFPA 730/731 receipts but remain BLOCKED because their exact clauses
+are not exposed. No NFPA PDF or standard body was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| bank-m13-q076 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **PASS** — layered security is bounded to the exposed planning, administrative, perimeter, and system categories |
+| bank-m13-q077 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact mantrap/interlock proposition not exposed |
+| bank-m13-q088 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact door-alarm/video-integration proposition not exposed |
+| bank-m13-q098 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact deterrence/delay/detection/response/recovery framework not exposed |
+| m13-q200 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **PASS** — layered physical security is bounded to the exposed NFPA 730 categories |
+| m13-q203 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact unique-identity/access-log accounting clause not exposed |
+
+The ledger is now 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
 
 **Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current

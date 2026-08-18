@@ -1,4 +1,10 @@
 # Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: NFPA 731 (2026) —
+# https://link.nfpa.org/all-publications/731/2026
+# BLOCKED: the public catalog does not expose the exact door-alarm/video-
+# integration proposition needed to promote this item.
 id = "bank-m13-q088"
 kind = "single-select"
 module = 13
