@@ -1044,6 +1044,81 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 120 — KPI measurement, infrastructure classification, and TIA-942-C
+
+**Date:** 2026-08-18
+**Scope:** M01, M03, M06, M09, M10, M14, and M15 questions about data-centre
+classification, availability/security/energy-efficiency criteria, power and
+water metrics, measurement boundaries, infrastructure design, sustainability,
+and operational interpretation. Existing public EPI/CDCS/CDFOS/CDFOM headings
+are retained; no new syllabus heading, rating taxonomy, or certification claim
+is inferred.
+
+**Official public receipts:**
+
+- [ISO/IEC 30134-2:2026](https://www.iso.org/standard/30134-2?browse=ics),
+  **Data centres — Key performance indicators — Part 2: Power usage
+  effectiveness (PUE)**, is the current published Edition 2 (2026-01). ISO’s
+  public page states that it defines PUE and updates measurement guidance for
+  mixed-use buildings, unaccounted energy, and on-site generation. The page
+  identifies ISO/IEC 30134-2:2016 and its amendment as withdrawn; those stale
+  editions are not used.
+- [ISO/IEC 30134-1:2016](https://www.iso.org/standard/63450.html), **Key
+  performance indicators — Part 1: Overview and general requirements**, remains
+  published and confirmed current after its 2021 review, with one amendment.
+  Its public abstract covers common KPI structure, terminology, boundary
+  conditions, objectives, and use. Its systematic review status is recorded;
+  no future edition is substituted.
+- [ISO/IEC 30134-9:2022](https://www.iso.org/standard/77692.html), **Key
+  performance indicators — Part 9: Water usage effectiveness (WUE)**, is the
+  current published Edition 1 catalog/OBP entry. Its public abstract covers
+  WUE definition, measurement categories, calculation, reporting, and
+  interpretation; ISO marks it to be revised, so the under-development
+  replacement is not treated as current.
+- [ISO/IEC 22237-1:2021](https://www.iso.org/standard/78550.html?browse=tc),
+  **Data centre facilities and infrastructures — Part 1: General concepts**,
+  is the current published entry for common terminology, reference models,
+  and classification based on availability, security, and energy-efficiency
+  criteria over the planned lifetime. Its public scope expressly excludes
+  selecting IT/network equipment and overall multi-site service availability.
+- [ISO/IEC 22237-2:2024](https://www.iso.org/standard/82248.html?browse=tc),
+  **Part 2: Building construction**, is the current published entry for site,
+  building, access, intrusion, fire, water-damage, and construction-quality
+  boundaries. It states that safety and EMC requirements are outside its scope.
+- [TIA-942-C](https://tiaonline.org/standard/tia-942/), **Telecommunications
+  Infrastructure Standard for Data Centers**, is the official TIA public
+  edition pin, Version C, published May 2024. TIA’s public abstract covers
+  telecommunications, power, cooling, architecture, fire protection, safety,
+  physical security, and sustainability considerations for data-centre
+  infrastructure. The standard body remains catalog-only.
+
+**Adversarial boundary:** A KPI definition is not a measured result, a measured
+result is not a target or compliance determination, and a classification
+criterion is not an availability guarantee. PUE/WUE must retain measurement
+boundaries, time period, exclusions, instruments/data quality, and reporting
+method. ISO/IEC 22237-1 classification and TIA-942-C infrastructure scope do
+not prove a site’s design, construction, commissioning, operating practice,
+or local AHJ acceptance.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M01/M03 | Distinguish business objective, facility classification, KPI definition, measured evidence, and acceptance decision across planning and delivery | No universal “tier,” PUE, WUE, availability, or sustainability target is invented |
+| M06 | Keep power, on-site generation, unaccounted energy, and measurement boundaries explicit when interpreting continuity or efficiency evidence | PUE is not a resilience or power-quality metric |
+| M09 | Report water/thermal-resource measures with the defined use-phase boundary, measurement category, calculation, and interpretation | WUE does not prove water safety, treatment quality, or cooling performance |
+| M10/M14 | Tie KPI collection to instruments, timestamps, configuration, change history, data quality, and operational decisions | A dashboard value does not establish causality or compliance |
+| M15 | Preserve owner, reviewer, exception, corrective-action, and remeasurement evidence for KPI and classification claims | A TIA/ISO receipt is not a local commissioning or certification record |
+
+**Currency boundary:** [ISO/IEC DIS 22237-7](https://www.iso.org/standard/89461.html?browse=tc)
+is under development and is not used as a current operational-process edition.
+The official TIA page, not TIA-hosted PDF brochures or blogs, is used for the
+TIA-942-C edition pin. No PDF was opened or copied.
+
+**Bounded result:** This pass adds current official measurement and
+infrastructure-classification anchors while preserving the distinction between
+public syllabus evidence, catalog/preview receipts, and local acceptance. No
+bank rows, ledger dispositions, manifest, topics, beads, gate, oracle, or
+credential state changed.
+
 ## Breadth pass 119 — power continuity, UPS, and stored-energy boundaries
 
 **Date:** 2026-08-18
