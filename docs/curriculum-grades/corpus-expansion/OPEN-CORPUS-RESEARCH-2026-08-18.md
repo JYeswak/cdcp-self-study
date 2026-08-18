@@ -1044,6 +1044,26 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 75 — CDCP EMF types, units, and source receipts
+
+**Review date:** 2026-08-18. Four M07 rows now carry the official IEC
+61786-2:2014 catalog receipt. Its public page covers quasi-static electric and
+magnetic fields, power-frequency sources, and measurement ranges including V/m
+and microtesla. That supports a bounded PASS for the V/m unit row; the other
+three remain BLOCKED because their exact propositions are not exposed. No PDF
+was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m07-q041 | Types of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact IT-adjacency dominance proposition not exposed |
+| m07-q042 | Units of measurements | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — the catalog states electric-field magnitudes in V/m |
+| m07-q043 | Units of measurements | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact microtesla/milligauss conversion proposition not exposed |
+| m07-q044 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact transformer/busbar/UPS source list not exposed |
+
+The ledger is now 163 PASS / 794 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j or ebrr bead, or alter
+gate-shrink or oracle scope.
+
 ## Breadth pass 74 — CDCP redundancy-layer, BESS, and runbook receipts
 
 **Review date:** 2026-08-18. Five additional M06 rows now carry current ISO,

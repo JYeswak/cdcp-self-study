@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 7)
+# Public syllabus heading: Units of measurements
+# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
+# BLOCKED: the official catalog exposes magnetic-field magnitudes in microtesla but does not expose the exact microtesla/milligauss conversion proposition.
 id = "m07-q043"
 kind = "single-select"
 module = 7
