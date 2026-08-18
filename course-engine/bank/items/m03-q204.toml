@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Site location selection criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC TS 22237-30:2022 —
+# https://www.iso.org/standard/80622.html
+# BLOCKED: the official catalog covers earthquake risk and impact analysis, but
+# not this exact geotechnical-site proposition.
 id = "m03-q204"
 kind = "single-select"
 module = 3

@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Facility criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://webstore.iec.ch/en/publication/92577
+# BLOCKED: the official IEC catalog covers building construction and facility
+# spaces, but not this exact heavy-plant installation/maintenance proposition.
 id = "m03-q202"
 kind = "single-select"
 module = 3

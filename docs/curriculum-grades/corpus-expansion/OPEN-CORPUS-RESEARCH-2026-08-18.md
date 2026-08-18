@@ -1044,6 +1044,36 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 45 — CDCP site-selection continuation
+
+**Review date:** 2026-08-18. Fifteen additional M03 rows now carry official
+ISO/IEC 22237-1:2021, ISO/IEC 22237-2:2024, ISO/IEC TS 22237-30:2022, or
+TIA-942-C catalog/preview receipts. They remain BLOCKED because the public
+pages do not expose the exact transport, adjacency, expansion, environmental,
+or telecom-diversity propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m03-q108 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact transportation-access proposition not exposed |
+| m03-q109 | Site location selection criteria | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact shared-campus site-test proposition not exposed |
+| m03-q110 | Site location selection criteria | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact RF-adjacency proposition not exposed |
+| m03-q111 | Site location selection criteria | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact short-listing combination not exposed |
+| m03-q112 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact supporting-facility gap proposition not exposed |
+| m03-q113 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact future-expansion proposition not exposed |
+| m03-q114 | Facility criteria | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact architecture comparison not exposed |
+| m03-q200 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact flood-data proposition not exposed |
+| m03-q201 | Site location selection criteria | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact dual-utility-feed proposition not exposed |
+| m03-q202 | Facility criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact heavy-plant installation/maintenance proposition not exposed |
+| m03-q203 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact fuel/water/telecom/perimeter evaluation not exposed |
+| m03-q204 | Site location selection criteria | ISO/IEC TS 22237-30:2022 — https://www.iso.org/standard/80622.html | **BLOCKED** — exact geotechnical-site proposition not exposed |
+| m03-q205 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact flight-path/rail/highway adjacency proposition not exposed |
+| m03-q206 | Facility criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact greenfield/retrofit comparison not exposed |
+| m03-q207 | Supporting facilities and function | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact diverse-telecom-POE proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 44 — CDCP site-selection and facility-criteria receipts
 
 **Review date:** 2026-08-18. Seventeen M03 site-selection and facility-criteria

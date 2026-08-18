@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Facility criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# BLOCKED: the catalog distinguishes facility/infrastructure concepts from IT
+# equipment, but not this exact architecture comparison.
 id = "m03-q114"
 kind = "single-select"
 module = 3
