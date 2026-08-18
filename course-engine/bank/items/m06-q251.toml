@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Power redundancy levels and techniques
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476
+# BLOCKED: the official catalog covers data-centre power distribution but does not expose the exact dual-cord A/B feeding proposition.
 id = "m06-q251"
 kind = "single-select"
 module = 6

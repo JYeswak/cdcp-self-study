@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — ebrr.22 leftover: analyze catcher vs 2N AI hall
+# Public syllabus heading: UPS parallel configurations
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476
+# BLOCKED: the official catalog covers data-centre power distribution but does not expose the exact catcher-versus-2N AI-hall proposition.
 id = "m06-q258"
 kind = "single-select"
 module = 6

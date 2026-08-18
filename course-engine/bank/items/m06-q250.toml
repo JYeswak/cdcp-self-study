@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Power redundancy levels and techniques
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc
+# BLOCKED: the official catalog exposes availability classification but does not expose the exact shared-control-system proposition.
 id = "m06-q250"
 kind = "single-select"
 module = 6

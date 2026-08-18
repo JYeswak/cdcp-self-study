@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Power quality parameters
+# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
+# BLOCKED: the official catalog covers UPS performance and power continuity but does not expose the exact double-conversion disturbance list.
 id = "m06-q252"
 kind = "single-select"
 module = 6
