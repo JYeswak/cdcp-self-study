@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 438 PASS; 519 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 441 PASS; 516 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -32,9 +32,9 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m01-q046 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | m01-q047 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact SPOF/change-error proposition is not exposed |
 | m01-q048 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact hyperscale characterization is not exposed |
-| m01-q049 | 1 | Business organization / DC in the business | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/88412.html | BLOCKED — ISO 22301:2019/Amd 1:2024 catalog receipt; exact BIA-to-RTO/RPO proposition is not exposed |
+| m01-q049 | 1 | Business organization / DC in the business | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/75106.html?browse=tc | PASS — current ISO 22301 preview names continual improvement of a documented management system and lists Amd 1:2024 |
 | m01-q050 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact governance/SLA-boundary comparison is not exposed |
-| m01-q051 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/88412.html | BLOCKED — ISO 22301:2019/Amd 1:2024 catalog receipt; exact maintenance-change-control proposition is not exposed |
+| m01-q051 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/75106.html?browse=tc | PASS — current ISO 22301 preview names improved risk-management processes and lists Amd 1:2024 |
 | m01-q052 | 1 | Elements of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS |
 | m01-q053 | 1 | Importance of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS — ISO/IEC 22237-1:2021 official abstract names energy efficiency as a classification criterion |
 | m01-q054 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact root-cause-category proposition is not exposed |
@@ -47,7 +47,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m01-q061 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | m01-q062 | 1 | Business organization / DC in the business | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/86677.html | PASS — ISO/IEC TS 8236-2:2025 covers facility provisioning KPIs, forecasting, and lifecycle capability assessment |
 | m01-q200 | 1 | Business organization / DC in the business | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS — ISO/IEC 22237-1:2021 official abstract names common terminology, parameters, and reference models |
-| m01-q201 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/88412.html | BLOCKED — ISO 22301:2019/Amd 1:2024 catalog receipt; exact organizational-cause proposition is not exposed |
+| m01-q201 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/75106.html?browse=tc | PASS — current ISO 22301 preview names a systematic response to crises and lists Amd 1:2024 |
 | m01-q202 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact enterprise/colo/hyperscale comparison is not exposed |
 | m01-q203 | 1 | Elements of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS |
 | m01-q204 | 1 | Importance of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS |

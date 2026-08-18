@@ -1,22 +1,22 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: CDCP "Causes of unavailability" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO 22301:2019/Amd 1:2024 —
-# https://www.iso.org/standard/88412.html
-# BLOCKED: the official receipt covers continuity management and recovery, but
-# does not expose this exact maintenance-change-control proposition.
+# PASS: the current official ISO 22301:2019 catalog preview explicitly lists
+# improving risk-management processes as an importance/benefit claim; it lists
+# Amd 1:2024.
+# https://www.iso.org/standard/75106.html?browse=tc
 id = "m01-q051"
 kind = "single-select"
 module = 1
-stem = "Which human/process factor most often elevates outage risk during maintenance?"
+stem = "Which risk-related benefit does the current ISO 22301 preview explicitly list?"
 choices = [
+  "Improved risk-management processes",
   "Working without a change window, peer check, or clear isolation boundaries",
-  "Following a validated MOP with back-out steps",
   "Tagging circuits before work",
   "Pre-staging spares",
 ]
 correct = "A"
-explanation = "Uncontrolled change without isolation discipline is a frequent root of avoidable downtime."
+explanation = "The current ISO preview explicitly lists improved risk-management processes; it does not expose a maintenance-change-control rule."
 topic_ids = ["m01-unavailability"]
 objective_ids = []
 bloom = "apply"

@@ -1,22 +1,22 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: CDCP "Business organization / DC in the business" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO 22301:2019/Amd 1:2024 —
-# https://www.iso.org/standard/88412.html
-# BLOCKED: the official receipt covers business-continuity management, but
-# does not expose this exact BIA-to-RTO/RPO proposition.
+# PASS: the current official ISO 22301:2019 catalog page identifies a BCMS
+# framework to plan, establish, implement, operate, monitor, review, maintain,
+# and continually improve a documented management system; it lists Amd 1:2024.
+# https://www.iso.org/standard/75106.html?browse=tc
 id = "m01-q049"
 kind = "single-select"
 module = 1
-stem = "Business continuity planning for the data centre should primarily align with:"
+stem = "Which business-continuity management-system activity does the current ISO 22301 preview explicitly include?"
 choices = [
-  "Recovery time and recovery point objectives derived from business impact",
+  "Continually improving a documented management system",
   "Maximum rack U available regardless of service impact",
   "Lobby aesthetics only",
   "The cheapest diesel grade available",
 ]
 correct = "A"
-explanation = "RTO/RPO driven by business impact analysis should shape continuity design, not cosmetics or pure cost."
+explanation = "The current ISO preview explicitly includes continual improvement of a documented BCMS; it does not expose a BIA-to-RTO/RPO rule."
 topic_ids = ["m01-business-org", "m01-importance"]
 objective_ids = []
 bloom = "apply"

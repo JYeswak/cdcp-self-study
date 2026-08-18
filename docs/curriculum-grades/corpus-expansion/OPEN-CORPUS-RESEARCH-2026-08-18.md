@@ -870,6 +870,23 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 288 — ISO 22301 business-continuity preview claims
+
+**Review date:** 2026-08-18. The current official ISO 22301:2019 catalog and
+preview page was checked without opening or fetching a PDF. The page identifies
+the published second edition and lists Amendment 1:2024, Climate action changes.
+Its public preview explicitly names continual improvement of a documented
+management system, improved risk-management processes, and a systematic
+response to crises.
+
+| Items | Public CDCP heading | Current official catalog/preview | Bounded result |
+|---|---|---|---|
+| m01-q049 | Business organization / DC in the business | ISO 22301:2019 — https://www.iso.org/standard/75106.html?browse=tc | **PASS** — asks only for continual improvement of a documented management system; no BIA-to-RTO/RPO rule is inferred |
+| m01-q051 | Causes of unavailability | ISO 22301:2019 — https://www.iso.org/standard/75106.html?browse=tc | **PASS** — asks only for improved risk-management processes; no maintenance-change-control rule is inferred |
+| m01-q201 | Causes of unavailability | ISO 22301:2019 — https://www.iso.org/standard/75106.html?browse=tc | **PASS** — asks only for a systematic response to crises; no organizational-cause taxonomy is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 287 — IEC transfer-switching scope claims
 
 **Review date:** 2026-08-18. The current official IEC catalog for IEC
