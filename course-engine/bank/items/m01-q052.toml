@@ -3,20 +3,21 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
 # https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog exposes facilities/infrastructure reference models, but
-# not this exact IT-equipment-versus-facility proposition.
+# PASS: the current ISO preview explicitly places selection of IT and network
+# telecommunications equipment, software, and associated configuration outside
+# this International Standard's scope.
 id = "m01-q052"
 kind = "single-select"
 module = 1
-stem = "The “elements of a data centre” concept emphasizes that IT equipment alone is insufficient because:"
+stem = "Under ISO/IEC 22237-1:2021, which topic is outside this International Standard's scope?"
 choices = [
-  "IT depends on concurrent power, cooling, connectivity, and life-safety support systems",
-  "Software never fails",
-  "Racks do not need grounding",
-  "Cabling is optional in modern designs",
+  "Selection of information-technology and network-telecommunications equipment, software, and associated configuration issues",
+  "General data-centre terminology and reference models",
+  "Classification using availability, security, and energy-efficiency criteria",
+  "General facilities and infrastructure aspects supporting data centres",
 ]
 correct = "A"
-explanation = "IT loads require simultaneous supporting systems; failure of any critical support can take services offline."
+explanation = "The ISO preview explicitly says selection of IT and network telecommunications equipment, software, and associated configuration issues are outside the scope of ISO/IEC 22237-1:2021."
 topic_ids = ["m01-elements"]
 objective_ids = []
 bloom = "understand"

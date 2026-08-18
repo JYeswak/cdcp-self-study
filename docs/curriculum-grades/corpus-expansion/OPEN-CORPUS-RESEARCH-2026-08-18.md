@@ -2271,6 +2271,27 @@ backbone/media selection, and site-specific redundancy remain BLOCKED where the
 public abstract does not expose them. No standard body or PDF was fetched. This
 pass does not certify a learner or close ms4j.
 
+## Breadth pass 206 — ISO/IEC 22237-1 scope boundary for IT selection
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform preview
+for ISO/IEC 22237-1:2021 says the series covers general data-centre principles,
+common terminology and reference models, facilities/infrastructure aspects,
+classification, business-risk/operating-cost analysis, and a reference to
+operation and management. It explicitly places selection of IT and network
+telecommunications equipment, software, and associated configuration issues
+outside this International Standard's scope. That boundary supports one
+scope-control item without pretending the facilities standard is an IT-product
+or software-configuration standard.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m01-q052 | Elements of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — the explicit out-of-scope IT/network/software boundary is exposed |
+
+Detailed IT product selection, network design, software configuration, and
+multi-site service-availability analysis remain outside this receipt. No
+standard body or PDF was fetched. This pass does not certify a learner or close
+ms4j.
+
 ## Breadth pass 160 — AHJ public egress-lock boundary
 
 **Review date:** 2026-08-18. M13 fail-safe/fail-secure locking was checked
