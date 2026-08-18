@@ -5085,3 +5085,20 @@ deficiency list, implementation, and retesting/remonitoring.
 Detailed alarm-priority taxonomies, listed fire-system logic, and project-specific
 IST scenarios remain outside these receipts. This pass does not certify a
 learner or close ms4j.
+
+## Breadth pass 195 — NIST physical-access authentication assurance
+
+**Review date:** 2026-08-18. The current NIST FIPS 201-3 HTML standard covers
+physical-access authentication mechanisms, including PIN and biometric
+mechanisms, and maps those mechanisms to differing confidence/assurance levels
+for the asserted identity. It also distinguishes authentication from the
+separate authorization decision. That directly supports the bounded physical-
+security item without using the paid NFPA 731 body.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m13-q208 | Physical Security and Safety — Components for physical security | NIST FIPS 201-3 — https://pages.nist.gov/FIPS201/FIPS201.html | **PASS** — PIN/biometric physical-access authentication and assurance levels are explicit |
+
+Credential revocation workflows, visitor escort rules, camera coverage, and
+site-specific access authorization remain outside this receipt. This pass does
+not certify a learner or close ms4j.

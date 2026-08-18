@@ -1,22 +1,22 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: NFPA 731 (2026) —
-# https://link.nfpa.org/all-publications/731/2026
-# BLOCKED: the public catalog does not expose the exact two-factor physical
-# credential proposition.
+# Official public standards receipt: NIST FIPS 201-3 —
+# https://pages.nist.gov/FIPS201/FIPS201.html
+# The current HTML standard covers PIN/biometric physical-access authentication
+# mechanisms and associates them with differing assurance levels.
 id = "m13-q208"
 kind = "single-select"
 module = 13
-stem = "Two-factor physical access (e.g., badge plus PIN/bio) is used to:"
+stem = "A second physical-access factor such as a PIN or biometric is used to:"
 choices = [
   "Slow only visitors but never staff",
   "Eliminate the need for camera coverage at all portals",
   "Replace visitor escort policies always",
-  "Reduce risk from lost/stolen single-factor credentials"
+  "Increase confidence in the asserted identity and the authentication assurance"
 ]
 correct = "D"
-explanation = "Multi-factor physical access hardens against credential theft or loaning."
+explanation = "NIST FIPS 201-3 describes PIN and biometric mechanisms for physical access and assigns them differing assurance levels, including higher confidence in the asserted identity. It also separates authentication from authorization decisions. This is a bounded physical-access receipt, not a credential claim."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"
