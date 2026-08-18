@@ -580,6 +580,44 @@ fn unicode_regex_digits_and_casefold_match_byte_for_byte() {
     );
 }
 
+/// Python's Unicode `re` treats every `Nd` block as `\d`. The known-bad
+/// mutant removes any one of the nine Unicode-16 block starts from
+/// `validate_grounding::py_digit`; Python still emits the hallucinated-clause
+/// finding while Rust misses it, so this differential fixture REDs the mutant.
+#[test]
+fn unicode_16_nd_blocks_are_byte_identical_and_known_bad_is_red() {
+    let f = Fixture::grounded();
+    f.item("a01.toml", &grounded_item("syn-ok"));
+    let digits: String = [
+        '\u{10d40}', '\u{116d0}', '\u{11bf0}', '\u{11f50}', '\u{16130}',
+        '\u{16d70}', '\u{1ccf0}', '\u{1e4f0}', '\u{1e5f2}',
+    ]
+    .into_iter()
+    .map(|c| c.to_string())
+    .collect::<Vec<_>>()
+    .join(".");
+    f.item(
+        "a02.toml",
+        &format!(
+            "id = \"unicode-nd-blocks\"\n\
+             stem = \"see clause {digits}; a guaranteed paſs for cooling\"\n\
+             choices = []\n\
+             explanation = \"containment plenum chiller aisle\"\n\
+             topic_ids = [\"t-one\"]\n\
+             quantity_evidence = \"free_url\"\n"
+        ),
+    );
+    let rs = compare("unicode-16 Nd blocks", &f.engine(), &[]);
+    assert_eq!(rs.code, 1, "the Unicode Nd pattern must be RED: {}", rs.out());
+    assert!(
+        rs.out().contains(
+            "  - unicode-nd-blocks: hallucinated-clause pattern: \\bclause\\s+\\d+\\.\\d+(?:\\.\\d+)*\\b...\n"
+        ),
+        "all Unicode-16 decimal digits must match Python's \\d: {}",
+        rs.out()
+    );
+}
+
 // ── g) anti-vacuous: each condition is RED and NAMES ITSELF ────────────────
 
 /// The known-GOOD leg for the floors. Without it, the floors could be set to a
