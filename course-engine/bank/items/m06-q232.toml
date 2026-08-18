@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Batteries
 # Official catalog/preview receipt: IEC 62485-2:2010 — https://webstore.iec.ch/en/publication/7091
-# BLOCKED: the official catalog does not expose the exact VRLA environmental-life proposition.
+# The current IEC page covers stationary battery installations and hazards from electricity, gas emission, and electrolyte, including erection, use, inspection, maintenance, and disposal.
 id = "m06-q232"
 kind = "single-select"
 module = 6
-stem = "VRLA battery rooms still need thermal and environmental attention because:"
+stem = "Stationary VRLA battery installations need operational attention to:"
 choices = [
-  "Temperature and environment strongly affect life, performance, and safety",
+  "Electrical, gas-emission, and electrolyte hazards plus erection, use, inspection, and maintenance",
   "Batteries only care about network latency",
   "VRLA never ages",
   "Only outdoor IP rating matters"
 ]
 correct = "A"
-explanation = "Battery life and reliability are strongly environment-dependent."
+explanation = "IEC 62485-2's current public page covers stationary battery installation safety, including electrical, gas-emission, and electrolyte hazards and the erection, use, inspection, maintenance, and disposal lifecycle. This is a bounded battery-safety receipt, not a credential claim."
 topic_ids = ["m06-batteries"]
 objective_ids = []
 bloom = "apply"

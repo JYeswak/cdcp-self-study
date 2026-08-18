@@ -5139,3 +5139,21 @@ cooling-load, recirculation, and chilled-water heat-rejection questions.
 Project-specific capacities, setpoints, redundancy, and control sequences remain
 outside this public process receipt. This pass does not certify a learner or
 close ms4j.
+
+## Breadth pass 198 — DOE UPS continuity and IEC stationary-battery safety
+
+**Review date:** 2026-08-18. The current DOE UPS page defines UPSs as power
+systems for maintaining continuity of load power during input power failure.
+The current IEC 62485-2 page applies to stationary secondary batteries and
+lists protections against electrical, gas-emission, and electrolyte hazards,
+covering erection, use, inspection, maintenance, and disposal. These official
+public descriptions directly support the two bounded operations questions.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q208 | UPS systems | DOE Uninterruptible Power Supplies — https://www.energy.gov/cmei/buildings/uninterruptible-power-supplies | **PASS** — continuity of load power during input failure is explicit |
+| m06-q232 | Batteries | IEC 62485-2:2010 — https://webstore.iec.ch/en/publication/7091 | **PASS** — stationary-battery hazards and lifecycle safety activities are explicit |
+
+Bypass coordination, battery autonomy, thermal-life curves, and site-specific
+electrical design remain outside these receipts. This pass does not certify a
+learner or close ms4j.
