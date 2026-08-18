@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Batteries
 # Official catalog/preview receipt: IEC 62485-2:2010 — https://webstore.iec.ch/en/publication/7091
-# BLOCKED: the official catalog does not expose the exact UPS-autonomy-versus-BESS distinction.
+# PASS: the current IEC catalog explicitly covers stationary secondary-battery
+# hazards and lifecycle safety activities. No paid body or PDF was fetched.
 id = "m06-q085"
 kind = "single-select"
 module = 6
-stem = "UPS batteries are primarily:"
+stem = "IEC 62485-2:2010 applies to stationary secondary batteries and addresses:"
 choices = [
-  "Short-duration, high-reliability storage tightly coupled to the UPS DC bus",
-  "Multi-day grid services assets by default",
-  "Used only for CRAH humidifiers",
-  "A substitute for all grounding",
+  "Protection against electricity, gas emission, and electrolyte hazards, with safety activities for erection, use, inspection, maintenance, and disposal",
+  "Only multi-day grid services, with no installation or maintenance scope",
+  "Only CRAH humidification, with no battery hazards",
+  "A substitute for grounding and all other electrical protections",
 ]
 correct = "A"
-explanation = "UPS strings bridge minutes-class events; BESS is a different plant-scale concept."
+explanation = "The IEC catalog applies IEC 62485-2:2010 to stationary secondary batteries and lists protections against electricity, gas emission, and electrolyte hazards, along with erection, use, inspection, maintenance, and disposal. It does not define UPS autonomy or a UPS-versus-BESS duration distinction."
 topic_ids = ["m06-batteries", "m06-ups"]
 objective_ids = []
 bloom = "remember"

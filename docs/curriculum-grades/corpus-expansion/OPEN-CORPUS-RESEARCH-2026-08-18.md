@@ -889,6 +889,23 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 226 — IEC 62485-2 stationary-battery safety scope
+
+**Review date:** 2026-08-18. The current IEC catalog for IEC 62485-2:2010
+applies to stationary secondary batteries and battery installations up to the
+listed voltage boundary. It explicitly covers protections against electricity,
+gas emission, and electrolyte hazards and safety activities for erection, use,
+inspection, maintenance, and disposal. The item is bounded to that public
+scope; UPS autonomy, BESS duration, and grid-services distinctions remain
+outside the receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q085 | Batteries | IEC 62485-2:2010 — https://webstore.iec.ch/en/publication/7091 | **PASS** — stationary-battery hazard and lifecycle safety scope is explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 225 — ISO/IEC 22237-2 access and protection topics
 
 **Review date:** 2026-08-18. The current ISO preview for ISO/IEC 22237-2:2024
