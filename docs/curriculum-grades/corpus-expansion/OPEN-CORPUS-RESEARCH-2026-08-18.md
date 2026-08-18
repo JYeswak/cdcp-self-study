@@ -1200,6 +1200,33 @@ scoped, so no bank or ledger change was justified. This audit adds no new
 claim, draft edition, standard body, PDF, topic, bead, gate, oracle, or
 credential state.
 
+## Breadth pass 141 — liquid-cooling work-item currency boundary
+
+**Date:** 2026-08-18
+**Search path:** M09 liquid-cooling rows were rechecked against the current
+[ISO/IEC AWI TS 22237-44 catalog page](https://www.iso.org/standard/93846.html?browse=tc).
+The official page identifies **Information technology — Data centre facilities
+and infrastructures — Part 44: Guidance for the application of liquid cooling
+to data centres**, Edition 1, as an **Approved Work Item** at stage 20.00,
+registered in April 2026. Its public abstract only identifies architectural,
+mechanical, electrical, and communications considerations.
+
+**Adversarial boundary:** An approved work item is not a published standard or
+an edition pin for normative requirements. The page does not expose exact CDU,
+direct-to-chip, immersion, seasonal-storage, W-class, thermal-ride-through, or
+loop-isolation requirements. Existing M09 rows therefore remain BLOCKED; no
+future draft body or secondary technical material was used.
+
+| Module | Question frontier | Disposition |
+|---|---|---|
+| M09 | Liquid-loop architecture, CDU isolation, direct-to-chip/immersion choices, heat flux, controls, and thermal storage | Keep catalog receipt as BLOCKED until a published, on-topic official edition exposes the proposition |
+| M15 | Competence, commissioning, maintenance, leak response, fluid quality, and safe return to service for liquid systems | Keep operational questions bounded; do not treat a work item as a procedure or certification basis |
+
+**Bounded result:** This pass confirms the current official status and
+preserves the existing BLOCKED receipts without changing bank rows, ledger
+dispositions, topics, manifest, beads, gate, oracle, or credential state. No
+PDF was fetched.
+
 ## Breadth pass 135 — environmental control, security systems, cabling, and resilience KPIs
 
 **Date:** 2026-08-18
