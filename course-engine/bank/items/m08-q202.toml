@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/
+# BLOCKED: the official TIA catalog identifies the current data-centre standard but does not expose this open-frame-versus-enclosed-cabinet trade-off.
 id = "m08-q202"
 kind = "single-select"
 module = 8

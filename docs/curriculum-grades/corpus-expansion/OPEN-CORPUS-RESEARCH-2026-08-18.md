@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 82 — CDCP rack hardware and airflow-orientation receipts
+
+**Date:** 2026-08-18
+**Scope:** M08 rack standards, dimensions, types, security, power strips/rails, grounding, blanking, and cabinet airflow.
+**Official receipts:** [IEC 60297-3-100:2008](https://webstore.iec.ch/en/publication/1283); [ISO/IEC 22237-3:2021](https://www.iso.org/standard/78551.html?browse=tc); [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html); [ISO/IEC 22237-6:2024](https://www.iso.org/standard/82250.html?browse=tc); [IEC 60364-5-54:2011+AMD1:2021 CSV](https://webstore.iec.ch/en/publication/68865); [TIA-942-C](https://tiaonline.org/standard/tia-942/).
+
+**Bounded result:** m08-q200 is PASS against the 19-inch rack/cabinet dimensions catalog; m08-q201–q209 carry current official receipts and remain BLOCKED where the public catalog does not expose the item’s narrower operational proposition. No PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 81 — CDCP rack hardware and airflow-orientation receipts
 
 **Review date:** 2026-08-18. Two additional M08 rows now carry current IEC or

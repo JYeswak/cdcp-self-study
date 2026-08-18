@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack dimensions
+# Official catalog/preview receipt: IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283
+# BLOCKED: the official catalog covers basic rack and cabinet dimensions but does not expose the exact U-unit planning proposition.
 id = "m08-q201"
 kind = "single-select"
 module = 8

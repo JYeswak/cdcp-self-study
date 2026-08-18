@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack standards
+# Official catalog/preview receipt: IEC 60364-5-54:2011+AMD1:2021 CSV — https://webstore.iec.ch/en/publication/68865
+# BLOCKED: the current IEC consolidated catalog covers protective bonding conductors, but does not expose this rack-level noise-control proposition.
 id = "m08-q206"
 kind = "single-select"
 module = 8

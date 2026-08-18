@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Power strips / rails
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
+# BLOCKED: the official catalog covers power measurement and management-tool integration, but does not expose the item’s outlet-level and remote-control proposition.
 id = "m08-q204"
 kind = "single-select"
 module = 8

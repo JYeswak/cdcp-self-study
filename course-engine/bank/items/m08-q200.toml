@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack standards
+# Official catalog/preview receipt: IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283
+# PASS: the official catalog identifies the 482.6 mm (19 in) series and basic rack/cabinet interface dimensions used by this item.
 id = "m08-q200"
 kind = "single-select"
 module = 8

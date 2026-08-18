@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# BLOCKED: the official catalog covers environmental control, but does not expose the exact cabinet-perforation and door-airflow proposition.
 id = "m08-q209"
 kind = "single-select"
 module = 8
