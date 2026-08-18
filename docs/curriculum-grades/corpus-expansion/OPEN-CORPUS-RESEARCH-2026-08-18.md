@@ -2252,6 +2252,25 @@ boundaries, alert design, monitoring points, SLAs, and runbook acceptance remain
 BLOCKED where not exposed. No standard body or PDF was fetched. This pass does
 not certify a learner or close ms4j.
 
+## Breadth pass 205 — TIA-942-C Revision C cross-domain scope
+
+**Review date:** 2026-08-18. TIA's current public page identifies TIA-942-C as
+the May 2024 Version C of the Telecommunications Infrastructure Standard for
+Data Centers. Its public abstract says the revision includes changes impacting
+telecommunications, power, cooling, architecture, fire protection, safety,
+physical security, sustainability, and industry best practices. That exact
+cross-domain scope supports one bounded planning item without importing paid
+pathway, media, rating, or redundancy clauses.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q213 | Planning considerations | TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/ | **PASS** — Revision C's cross-domain impact list is explicit |
+
+Horizontal pathway capacity, bend-radius, EMI separation, growth spares,
+backbone/media selection, and site-specific redundancy remain BLOCKED where the
+public abstract does not expose them. No standard body or PDF was fetched. This
+pass does not certify a learner or close ms4j.
+
 ## Breadth pass 160 — AHJ public egress-lock boundary
 
 **Review date:** 2026-08-18. M13 fail-safe/fail-secure locking was checked

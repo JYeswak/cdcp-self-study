@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 348 PASS; 609 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 349 PASS; 608 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -681,7 +681,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m11-q210 | 11 | Testing and verification of cabling system | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/31201; https://www.iso.org/standard/92912.html | PASS — IEC installed-cabling measurement procedures and ISO/IEC link/channel parameter modeling support the testing-scope distinction |
 | m11-q211 | 11 | Testing and verification of cabling system | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/31201 | BLOCKED — IEC 61935-1:2019 catalog receipt; exact item-level proposition is not exposed |
 | m11-q212 | 11 | Testing and verification of cabling system | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/67723 | PASS — ISO/IEC 14763-3:2024 catalog covers inspection and testing of installed optical-fibre cabling |
-| m11-q213 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
+| m11-q213 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | m11-q214 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
 | m11-q215 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
 | m11-q216 | 11 | Importance of network cabling infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |

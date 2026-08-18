@@ -1,19 +1,21 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Planning considerations
 # Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the current TIA-942-C abstract does not expose the exact item-level planning considerations proposition. No paid body or PDF was fetched.
+# PASS: the current TIA-942-C abstract says Revision C includes changes
+# impacting telecommunications, power, cooling, architecture, fire protection,
+# safety, physical security, sustainability, and industry best practices.
 id = "m11-q213"
 kind = "single-select"
 module = 11
-stem = "In planning horizontal cabling to cabinets, a key consideration is:"
+stem = "The TIA-942-C Revision C abstract says its changes impact:"
 choices = [
+  "Telecommunications, power, cooling, architecture, fire protection, safety, physical security, sustainability, and industry best practices",
   "Only matching the UPS brand",
-  "Ignoring EMI near busway",
-  "Pathway capacity, bend radius, separation from power, and growth spares",
-  "Maximum random slack balls in cold aisles"
+  "Only residential wireless access points and office furniture",
+  "Only generator fuel systems"
 ]
-correct = "C"
-explanation = "Horizontal design is pathway, protection, and growth—not only port counts."
+correct = "A"
+explanation = "TIA's current public abstract says Revision C includes changes impacting telecommunications, power, cooling, architecture, fire protection, safety, physical security, sustainability, and industry best practices."
 topic_ids = ["m11-planning", "m11-copper", "m11-fibre"]
 objective_ids = []
 bloom = "apply"
