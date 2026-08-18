@@ -1166,6 +1166,25 @@ The pass does not infer ramp geometry, suspended-ceiling use, raised-floor
 load ratings, tile placement, grounding, cooling airflow, panel materials, or
 building-code approval. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 367 — ISO/IEC 22237-4:2021 environmental-control categories
+
+**Review date:** 2026-08-18. Two module-9 items were narrowed to categories
+explicitly exposed by the current ISO Online Browsing Platform abstract for
+ISO/IEC 22237-4:2021. The published edition addresses environmental control
+within data centres and lists temperature control and relative-humidity control
+among its requirements and recommendations. No PDF or standard body was
+fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m09-q124 | Types of cooling systems | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — temperature control is explicit |
+| m09-q132 | Types of cooling systems | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — relative humidity control is explicit |
+
+The pass does not infer CRAC/CRAH equipment distinctions, evaporative-tower
+thermodynamics, wet-bulb limits, RDHx behavior, raised-floor airflow,
+high-density cooling selection, or a cooling-plant design approval. This pass
+does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

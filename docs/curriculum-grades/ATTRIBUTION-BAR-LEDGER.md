@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 606 PASS; 351 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 608 PASS; 349 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -491,7 +491,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m09-q121 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 official abstract names physical security of environmental-control systems |
 | m09-q122 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 public abstract explicitly lists relative humidity control |
 | m09-q123 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/80493.html?browse=tc | PASS — ISO/IEC 30134-7:2023 defines CER for efficient energy use in controlling data-centre space temperature |
-| m09-q124 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact CRAC/CRAH distinction is not exposed |
+| m09-q124 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 abstract explicitly lists temperature control |
 | m09-q125 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers | PASS — DOE FEMP public schematic traces CRAH, chilled water, chiller, condenser loop, and cooling tower |
 | m09-q126 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact DX refrigeration-circuit proposition is not exposed |
 | m09-q127 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact in-row/high-density selection proposition is not exposed |
@@ -499,7 +499,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m09-q129 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact raised-floor supply proposition is not exposed |
 | m09-q130 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact N+1/2N redundancy proposition is not exposed |
 | m09-q131 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact dry-cooler heat-rejection proposition is not exposed |
-| m09-q132 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact evaporative-tower/wet-bulb proposition is not exposed |
+| m09-q132 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 abstract explicitly lists relative humidity control |
 | m09-q133 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact close-coupled cooling proposition is not exposed |
 | m09-q134 | 9 | Raised floor cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact raised-floor supply-plenum proposition is not exposed |
 | m09-q135 | 9 | Raised floor cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact hot-aisle tile-placement proposition is not exposed |

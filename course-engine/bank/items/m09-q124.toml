@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Types of cooling systems
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact CRAC-versus-CRAH equipment distinction.
+# Claim is limited to the public abstract's temperature-control category.
 id = "m09-q124"
 kind = "single-select"
 module = 9
-stem = "The common educational distinction between CRAC and CRAH units is:"
+stem = "Which thermal environmental-control topic is explicitly listed by ISO/IEC 22237-4:2021?"
 choices = [
-  "CRAC typically uses DX/refrigerant refrigeration; CRAH typically uses chilled water coils",
-  "CRAH always includes a diesel generator",
-  "CRAC only cools network MMRs",
-  "They are identical acronyms with no difference"
+  "Temperature control",
+  "A universal CRAC-versus-CRAH equipment taxonomy",
+  "Generator fuel polishing",
+  "Carrier-fiber demarcation"
 ]
 correct = "A"
-explanation = "Industry shorthand: CRAC is typically a computer room air conditioner (often DX); CRAH is typically a computer room air handler (often chilled water)."
+explanation = "The current ISO abstract explicitly lists temperature control among the environmental-control requirements and recommendations. It does not expose the former CRAC-versus-CRAH equipment distinction."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "remember"

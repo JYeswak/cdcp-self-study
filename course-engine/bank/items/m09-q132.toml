@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Types of cooling systems
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact evaporative-tower/wet-bulb proposition.
+# Claim is limited to the public abstract's relative-humidity-control category.
 id = "m09-q132"
 kind = "single-select"
 module = 9
-stem = "Evaporative cooling towers improve heat rejection efficiency primarily by:"
+stem = "Which moisture-related environmental-control topic is explicitly listed by ISO/IEC 22237-4:2021?"
 choices = [
-  "Using evaporation so leaving water can approach wet-bulb-limited conditions",
-  "Eliminating all water use forever",
-  "Replacing chillers with fiber switches",
-  "Heating the condenser water intentionally always"
+  "Relative humidity control",
+  "A universal evaporative-tower wet-bulb performance rule",
+  "A replacement for water-treatment operations",
+  "Network-fabric congestion control"
 ]
 correct = "A"
-explanation = "Towers exploit evaporation; performance relates to wet-bulb, with water consumption and treatment as operational costs."
+explanation = "The current ISO abstract explicitly lists relative humidity control among the environmental-control requirements and recommendations. It does not expose the former evaporative-tower or wet-bulb proposition."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "understand"
