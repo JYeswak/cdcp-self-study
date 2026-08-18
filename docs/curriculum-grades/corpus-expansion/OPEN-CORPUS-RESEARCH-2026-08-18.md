@@ -4354,3 +4354,21 @@ Emergency-lighting behavior, fixture placement, circuit segregation, glare,
 colour rendering, and data-hall tradeoffs remain BLOCKED because the reviewed
 catalog pages do not expose those exact operational propositions. No standard
 body or PDF was fetched. This pass does not certify a learner or close ms4j.
+## Breadth pass 152 — EMF measurement and shielding boundary
+
+**Review date:** 2026-08-18. Module 07 was checked against the current IEC
+61786-2:2014 Webstore page and official IEC 60050 terminology. IEC 61786-2
+identifies the 1 Hz–100 kHz measurement scope, field sources, uncertainty, and
+covered magnetic/electric magnitude ranges. The public receipt does not expose
+the bank's microtesla-to-milligauss conversion, plant-specific source lists,
+shielding hierarchy, EMI definition, or universal survey trigger; those rows
+remain BLOCKED. The existing electric-field unit and broad EMF-standard rows
+remain supported by their prior receipts.
+
+| Frontier | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| M07 EMF measurement | Sources of EMF; Types of EMF; Units of measurements; Shielding | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | Current edition 1.0 and stability date 2027 confirmed; no new promotion from the narrower claims |
+| M07 terminology | Types of EMF; Units of measurements | IEC 60050 IEV 121-11-19 — https://www.electropedia.org/iev/iev.nsf/display?ievref=121-11-19&openform=; IEV 121-11-56 — https://www.electropedia.org/iev/iev.nsf/display?ievref=121-11-56&openform= | Definitions checked; unit and facility-mitigation propositions remain BLOCKED |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
