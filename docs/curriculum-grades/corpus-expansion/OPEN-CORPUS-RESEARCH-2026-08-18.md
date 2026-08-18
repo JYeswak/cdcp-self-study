@@ -1044,6 +1044,70 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 123 — media sanitization, storage security, and retirement evidence
+
+**Date:** 2026-08-18
+**Scope:** M08, M11, M13, M14, and M15 questions about server/storage
+retirement, media sanitization, cryptographic erase, device reuse, vendor or
+recycler custody, storage security over the asset lifecycle, destruction
+records, and evidence-preserving disposal. Existing public EPI/CDCS/CDFOS/CDFOM
+headings are retained; no new disposal taxonomy or certification claim is
+invented.
+
+**Official public receipts:**
+
+- [NIST SP 800-88 Rev. 2](https://csrc.nist.gov/pubs/sp/800/88/r2/final),
+  **Guidelines for Media Sanitization**, is the current NIST final publication,
+  dated September 2025, and supersedes SP 800-88 Rev. 1. Its public abstract
+  frames sanitization as a program for making data access infeasible for the
+  relevant effort level and for selecting applicable controls for sanitization
+  and disposal based on information sensitivity. The official DOI is
+  `10.6028/NIST.SP.800-88r2`; no publication body or PDF was fetched.
+- [NIST’s release notice for SP 800-88 Rev. 2](https://csrc.nist.gov/News/2025/guidelines-for-media-sanitization-rev-2)
+  records the shift toward enterprise media-disposal programs, trust in
+  supplier implementations, and updated treatment of cryptographic erase.
+  It is used as a currency and scope receipt, not as a substitute for local
+  asset disposition approval.
+- [ISO/IEC 27040:2024](https://www.iso.org/standard/80194.html), **Information
+  technology — Security techniques — Storage security**, is the current
+  published Edition 2. Its public abstract covers planning, design,
+  documentation, implementation, devices/media, management activities,
+  services, user activity, and protection during and after end of use/end of
+  life. ISO explicitly identifies the 2015 edition as withdrawn.
+- [ISO/IEC 21964-1:2018](https://www.iso.org/standard/72204.html), **Information
+  technology — Destruction of data carriers — Part 1: Principles and
+  definitions**, remains published and was confirmed current in 2025. Its
+  public abstract supplies the principles/definitions boundary for physical
+  destruction; it does not prove that a recycler destroyed a specific asset.
+
+**Adversarial boundary:** “Drive erased,” “device returned,” “vendor certified,”
+and “recycled” are claims requiring different evidence. Sanitization method,
+media type, data sensitivity, device identity, authorization, verification,
+exception handling, custody transfer, and final disposition must remain
+traceable. A cryptographic-erase capability does not prove that all relevant
+keys, replicas, caches, firmware, logs, or backup copies were addressed. A
+destruction certificate is not evidence unless it is tied to the asset or
+media identity and the approved disposition record. Storage security includes
+the operating service and media lifecycle, not only a locked rack.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M08 | Link server/storage identity, sensitivity, sanitization decision, verification, spare/reuse status, and final disposition | NIST/ISO receipts do not prove a particular device was sanitized or destroyed |
+| M11 | Account for storage security across data in use, at rest, in transit, replicas, keys, management planes, and end of life | A cryptographic erase label is not a universal method or outcome |
+| M13 | Preserve custody, access, tamper evidence, vendor/recycler roles, transport, exception handling, and incident escalation | A vendor attestation is evidence to evaluate, not automatic trust |
+| M14 | Keep media inventory, authorization, method, verifier, timestamp, configuration, and chain-of-custody records connected | A CMDB status or dashboard flag does not prove disposition |
+| M15 | Review sanitization/destruction records, supplier controls, competence, audit findings, and corrective actions | Completing a media-protection track does not certify a learner or facility |
+
+**Currency boundary:** NIST SP 800-88 Rev. 1 is withdrawn as of the Rev. 2
+release; ISO/IEC 27040:2015 is withdrawn in favor of 2024. NIST supplemental
+PDFs, ISO committee PDFs, vendor recycling pages, and shadow archives are
+excluded. No PDF was fetched.
+
+**Bounded result:** This pass adds current official NIST/ISO receipts and
+strengthens the operational evidence chain from asset intake through reuse or
+destruction. No bank rows, ledger dispositions, manifest, topics, beads, gate,
+oracle, or credential state changed.
+
 ## Breadth pass 122 — safe work authorization, LOTO, and competence boundaries
 
 **Date:** 2026-08-18
