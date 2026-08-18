@@ -905,6 +905,23 @@ The adjacent broader claims remain BLOCKED on their existing official
 receipts. No standard body or PDF was fetched. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 188 — IEC illuminance definition receipt
+
+**Review date:** 2026-08-18. The official IEC Electropedia entry IEV
+845-21-060 was checked. It defines illuminance as density of incident luminous
+flux with respect to area and states that illuminance is expressed in lux;
+the related IEC vocabulary entry also records foot-candle terminology. That
+directly supports the retired duplicate’s bounded definition.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m05-q200 | Measurements of light | IEC 60050 IEV 845-21-060 — https://www.electropedia.org/iev/iev.nsf/display?ievref=845-21-060&openform= | **PASS** — official IEC vocabulary defines illuminance as incident luminous-flux density per unit area |
+
+Workplace visibility, glare, color rendering, emergency lighting, and
+jurisdictional minima remain separate claims and are not inferred here. No
+standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 187 — industrial power-quality phenomena
 
 **Review date:** 2026-08-18. The current IEC catalog was checked for
