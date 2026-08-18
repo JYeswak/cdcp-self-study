@@ -2571,6 +2571,24 @@ No CDFOM row was promoted. The three remaining blockers retain official current
 receipts and remain intentionally open; this pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 268 — NFPA stationary-energy-storage preview headings
+
+**Review date:** 2026-08-18. The current official NFPA LiNK preview for NFPA
+855:2026 was checked without opening or fetching a PDF. Its public headings expose
+Chapter 7 — Operation and Maintenance, Chapter 13 — Flywheel Energy Storage
+Systems (FESSs), and Annex B — Battery Energy Storage System Hazards.
+
+| Items | Public EPI heading | Current official preview | Bounded result |
+|---|---|---|---|
+| m06-q064 | UPS systems | NFPA 855:2026 — https://link.nfpa.org/all-publications/855/2026 | **PASS** — rewritten to ask for the exact public Chapter 13 heading; no ride-through duration or UPS design claim is inferred |
+| m06-q088 | Battery Energy Storage System (BESS) | NFPA 855:2026 — https://link.nfpa.org/all-publications/855/2026 | **PASS** — rewritten to ask for the exact public Chapter 7 heading; no BESS/UPS role equivalence is inferred |
+| bank-m12-q064 | Common causes of fire | NFPA 855:2026 — https://link.nfpa.org/all-publications/855/2026 | **PASS** — rewritten to ask for the exact public Annex B heading; no particular ignition mechanism or suppression strategy is inferred |
+
+NFPA 10:2026 and NFPA 110:2025 previews still do not expose the specific
+extinguisher-agent or generator-testing propositions needed by nearby items, so
+those remain BLOCKED with their official receipts. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 146 — NFPA fire-protection edition refresh
 
 **Review date:** 2026-08-18. Twelve Module 12 blocked extinguisher and

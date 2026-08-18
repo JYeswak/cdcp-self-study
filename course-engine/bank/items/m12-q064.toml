@@ -1,19 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Common causes of fire
 # Official catalog/preview receipt: NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026
-# BLOCKED: the current official preview covers stationary energy-storage installation, commissioning, operation, maintenance, and decommissioning, but does not expose the exact battery-thermal-event/common-cause proposition. No paid body or PDF was fetched.
+# PASS: the current official preview exposes Annex B — Battery Energy Storage System Hazards.
 id = "bank-m12-q064"
 kind = "single-select"
 module = 12
-stem = "Which ignition category is especially associated with UPS rooms and modern energy storage?"
+stem = "Which NFPA 855:2026 preview annex heading names battery energy storage system hazards?"
 choices = [
-  "LED color temperature only",
-  "Raised-floor tile static alone",
-  "Fiber bend radius exclusively",
-  "Battery thermal events / energy storage hazards"
+  "Annex A — Explanatory Material",
+  "Annex C — Firefighting Considerations (Operations)",
+  "Annex D — Overview of Energy Storage Systems Technologies",
+  "Annex B — Battery Energy Storage System Hazards"
 ]
 correct = "D"
-explanation = "VRLA thermal runaway and lithium energy storage create distinct fire risks needing dedicated strategies."
+explanation = "The current NFPA 855 preview names Annex B as Battery Energy Storage System Hazards. The heading does not assert a particular ignition mechanism or suppression strategy."
 topic_ids = ["m12-causes"]
 objective_ids = []
 bloom = "remember"

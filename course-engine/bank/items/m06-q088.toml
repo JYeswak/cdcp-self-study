@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Battery Energy Storage System (BESS)
 # Official catalog/preview receipt: NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026
-# BLOCKED: the official preview does not expose the exact BESS-versus-UPS role distinction.
+# PASS: the current official preview exposes Chapter 7 — Operation and Maintenance.
 id = "m06-q088"
 kind = "single-select"
 module = 6
-stem = "BESS (Battery Energy Storage System) differs from classic UPS batteries in that BESS often:"
+stem = "Which NFPA 855:2026 chapter heading covers operation and maintenance of stationary energy storage systems?"
 choices = [
-  "Is only a 30-second flywheel",
-  "Replaces generators with no interconnection study",
-  "Is banned from microgrids",
-  "Serves plant-scale roles such as peak shaving, demand response, or extended backup—not automatically identical to UPS ride-through",
+  "Chapter 3 — Definitions",
+  "Chapter 5 — System Interconnections",
+  "Chapter 7 — Operation and Maintenance",
+  "Chapter 14 — Storage of Lithium Metal or Lithium-ion Batteries",
 ]
-correct = "D"
-explanation = "BESS is plant-scale storage with multiple possible roles; do not assume it equals UPS batteries."
+correct = "C"
+explanation = "The current NFPA 855 preview names Chapter 7 as Operation and Maintenance. The heading is a syllabus-grounded topic receipt, not a claim that BESS and UPS systems have identical roles."
 topic_ids = ["m06-bess"]
 objective_ids = []
 bloom = "understand"

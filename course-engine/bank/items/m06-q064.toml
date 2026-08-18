@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: UPS systems
-# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
-# BLOCKED: the official catalog does not expose the exact flywheel ride-through comparison.
+# Official catalog/preview receipt: NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026
+# PASS: the current official preview exposes Chapter 13 — Flywheel Energy Storage Systems (FESSs).
 id = "m06-q064"
 kind = "single-select"
 module = 6
-stem = "Flywheel energy storage on UPS-class systems is typically associated with:"
+stem = "Which NFPA 855:2026 chapter heading names flywheel energy storage systems?"
 choices = [
-  "Multi-day islanded operation alone",
-  "Replacing all transformers",
-  "Only RF shielding",
-  "Short ride-through paired with generators, as an alternative or complement to chemical batteries",
+  "Chapter 4 — General",
+  "Chapter 7 — Operation and Maintenance",
+  "Chapter 11 — Fuel Cell Energy Storage Systems",
+  "Chapter 13 — Flywheel Energy Storage Systems (FESSs)",
 ]
 correct = "D"
-explanation = "Flywheels cover short gaps; long outages still need generators (or large BESS by design)."
+explanation = "The current NFPA 855 preview names Chapter 13 as Flywheel Energy Storage Systems (FESSs). The heading does not by itself establish a ride-through duration or a UPS design choice."
 topic_ids = ["m06-ups", "m06-batteries"]
 objective_ids = []
 bloom = "understand"

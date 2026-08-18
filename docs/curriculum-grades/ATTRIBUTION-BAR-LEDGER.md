@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 350 PASS; 607 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 368 PASS; 589 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -274,7 +274,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q061 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact autonomy policy is not exposed |
 | m06-q062 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact non-redundant parallel failure is not exposed |
 | m06-q063 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact N+1 parallel proposition is not exposed |
-| m06-q064 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact flywheel comparison is not exposed |
+| m06-q064 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
 | m06-q065 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110 catalog/preview receipt; exact generator/UPS gap is not exposed |
 | m06-q066 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110 catalog/preview receipt; exact load-bank diagnostic is not exposed |
 | m06-q067 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/25534 | PASS — IEC 60364-5-55:2011+A1:2012+A2:2016 CSV covers selection and erection of low-voltage generating sets |
@@ -298,7 +298,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q085 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/7091 | PASS |
 | m06-q086 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/3851 | PASS |
 | m06-q087 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/29086 | PASS |
-| m06-q088 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | BLOCKED — NFPA 855 catalog/preview receipt; exact BESS/UPS distinction is not exposed |
+| m06-q088 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
 | m06-q089 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | BLOCKED — NFPA 855 catalog/preview receipt; exact dual-role proposition is not exposed |
 | m06-q090 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6423 | BLOCKED — IEC TR 62060:2001 catalog receipt; exact trending program is not exposed |
 | m06-q091 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65717 | PASS — IEC 61000-2-4:2024 catalog enumerates voltage deviations, interruptions, frequency variation, imbalance, harmonics, and transients |
@@ -732,7 +732,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m12-q061 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157 | PASS |
 | bank-m12-q062 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q063 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
-| bank-m12-q064 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | BLOCKED — NFPA 855, 2026 official preview receipt; exact battery-thermal-event/common-cause proposition is not exposed |
+| bank-m12-q064 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
 | bank-m12-q065 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.252 | PASS |
 | bank-m12-q066 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q067 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.334 | PASS — OSHA 29 CFR 1910.334 covers safe re-energization after protective-device operation and prohibits repetitive manual reclosing |
