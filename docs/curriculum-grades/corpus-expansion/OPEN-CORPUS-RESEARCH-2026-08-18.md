@@ -602,9 +602,12 @@ The objective remains open after pass 08. The next unresolved frontier is commis
 | 07 | Physical security, personnel/vendor/visitor controls, asset lifecycle, media disposition | COMPLETE |
 | 08 | People systems: skills matrices, shift turnover, training, fatigue, contractor governance, succession | COMPLETE |
 | 09 | Commissioning, change control, MOP/SOP/EOP, alarms, metrics, reliability-centered maintenance | COMPLETE — this section |
-| 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
+| 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | COMPLETE |
+| 11 | Live CDFOS/CDFOM syllabus gap audit and current catalog receipts | COMPLETE |
+| 12 | Vendor due diligence, spares, and end-of-support | COMPLETE |
 
-The objective remains open after pass 09. The next and final planned frontier is adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions.
+The objective remains open after pass 12: the research frontier is now item-level
+expansion and grounding across the full 957-item bank, not another generic source list.
 
 ## Breadth pass 10 — adversarial freshness, authority, numeric, and coverage review
 
@@ -687,3 +690,37 @@ The five new receipt rows are catalog-only **BLOCKED** entries in the CDFOS/CDFO
 corpora. They do not change the 957-item bank or its 109 PASS / 848 BLOCKED ledger
 count. The next item-level frontier remains the existing source-backed bank, not
 an expansion by inference from a standard title.
+
+## Breadth pass 12 — vendor due diligence, spares, and end-of-support
+
+**Review date:** 2026-08-18. This pass targeted the unresolved procurement,
+spares, obsolescence, warranty, and supply-chain-substitution decisions from the
+adversarial review. The live EPI pages supplied the exact public headings; NIST
+and DOE pages supplied bounded operational evidence. No PDF body was fetched.
+
+### Sources retained
+
+| Source | Current receipt | Exact EPI heading frontier | Boundary |
+|---|---|---|---|
+| EPI CDCP syllabus | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | Equipment Racks — Standards; Power Infrastructure — High Performance Computing; Auxiliary Systems — BMS / DCIM | Headings only; no vendor-selection or lifecycle taxonomy is inferred |
+| EPI CDFOM syllabus | https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29 | Governance, Risk and Compliance — Vendor management; Facilities Management — Spart part management | The page’s “Spart part management” spelling is retained exactly; it does not define a scorecard or stocking formula |
+| NIST SP 1326, *Cybersecurity Supply Chain Risk Management: Due Diligence Assessment Quick-Start Guide*, final 2026-07-08 | https://csrc.nist.gov/pubs/sp/1326/final | Vendor due diligence for ICT suppliers | The public abstract names FOCI, provenance, resilience, foundational cyber practices, and supply-chain tiers; it is ICT-supplier guidance, not a facilities procurement law or universal vendor taxonomy |
+| DOE FEMP, *Equipment Operations and Maintenance Summaries* | https://www.energy.gov/cmei/femp/equipment-operations-and-maintenance-summaries | Maintenance evidence and equipment lifecycle questions | FEMP describes equipment O&M summaries, safety issues, checklists, and maintenance components; it does not set a universal spare-parts quantity or interval |
+| DOE FEMP, *Optimizing Solar Photovoltaic Performance for Longevity* | https://www.energy.gov/cmei/femp/optimizing-solar-photovoltaic-performance-longevity | Spare-part and replacement evidence as a bounded analogy | The page discusses spare inventory, failure history, repair/replace criteria, and reacceptance for PV/energy-storage systems; do not generalize those details to data-centre plant without a matching source |
+| DOE FEMP, *Federal UESC Process Phase 4* | https://www.energy.gov/cmei/femp/federal-uesc-process-phase-4-project-implementation-and-construction | Project handoff, O&M training, spare-parts lists | UESC project guidance is a procurement/project context, not a universal data-centre maintenance contract rule |
+
+### Question frontier
+
+| Module / course heading | Candidate decision question | Evidence boundary |
+|---|---|---|
+| CDFOM — Governance, Risk and Compliance — Vendor management | A critical BMS supplier is being renewed. Which evidence should be requested before approval: provenance, resilience, foundational cyber practices, supply-chain tiers, or only a price sheet? | NIST SP 1326 supports the due-diligence dimensions for ICT suppliers; it does not create a CDFOM vendor score or approval threshold |
+| CDFOM — Facilities Management — Spart part management | A replacement controller is nearing end-of-support. Which records should drive action: failure history, current supplier/part identity, repair-versus-replace criteria, reacceptance evidence, and an approved spare plan? | FEMP’s PV page is a bounded example; no universal stock level, lead time, or warranty rule is minted |
+| CDCP — Auxiliary Systems — BMS / DCIM | A monitoring vendor changes ownership and remote-support terms. What must remain visible before renewal: asset/provenance, access path, support boundary, maintenance evidence, and recovery/exit assumptions? | NIST SP 1326 and FEMP O&M pages support evidence questions, not a proprietary BMS/DCIM lifecycle taxonomy |
+| CDCP — Power Infrastructure — High Performance Computing | A high-performance-computing load adds a replacement power component with a different supplier. What evidence distinguishes a procurement substitution from an accepted power-design change? | The EPI heading is public; no electrical equivalence, rating, protection, or acceptance claim is made without an applicable engineering/code source |
+
+### Disposition
+
+Pass 12 adds research targets and source boundaries only. No new bank items were
+minted, no vendor blog was retained, and the current 957-item ledger is unchanged.
+The next frontier is to test whether any candidate can be grounded by a public
+clause and exact EPI heading; otherwise it remains a research candidate or BLOCKED.
