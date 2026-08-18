@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Rack dimensions
 # Official catalog/preview receipt: IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283
-# BLOCKED: the official catalog covers rack/cabinet dimensions but does not expose the exact service-clearance/cable-bend planning proposition.
+# PASS: the current IEC catalog explicitly identifies the basic-dimension scope below. No paid body or PDF was fetched.
 id = "m08-q060"
 kind = "single-select"
 module = 8
-stem = "Mounting depth planning must include:"
+stem = "IEC 60297-3-100:2008 specifies the basic dimensions of:"
 choices = [
-  "Only the brochure external depth number with no service space",
-  "Ignoring rail adjustment ranges",
-  "Assuming all servers are 400 mm deep",
-  "Server chassis depth plus cable bend radius, PDU protrusion, and door clearance",
+  "Front panels, subracks, chassis, racks, and cabinets in the 482.6 mm (19 in) series",
+  "Only cable bend radii and rear service clearances",
+  "Only generator rooms and fuel systems",
+  "Only optical-fibre attenuation limits",
 ]
-correct = "D"
-explanation = "Fit checks fail when cables, PDUs, and doors are ignored."
+correct = "A"
+explanation = "The current IEC catalog states that IEC 60297-3-100:2008 specifies basic dimensions of front panels, subracks, chassis, racks, and cabinets of the 482.6 mm (19 in) series. It does not expose the prior service-clearance or cable-bend planning proposition."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "apply"

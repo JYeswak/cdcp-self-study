@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 533 PASS; 424 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 537 PASS; 420 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -427,8 +427,8 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | mock40-q25 | 8 | Containment | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; the exact blanking-panel airflow proposition in this retired duplicate is not exposed |
 | m08-q041 | 8 | Rack standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | PASS |
 | m08-q042 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | PASS |
-| m08-q043 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | BLOCKED — IEC 60297-3-105:2008 catalog receipt; exact full-height usable-U range is not exposed |
-| m08-q044 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | BLOCKED — IEC 60297-3-105:2008 catalog receipt; exact U-numbering convention is not exposed |
+| m08-q043 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | PASS — IEC 60297-3-105:2008 public scope specifies dimensions for 1U chassis mounted into IEC 60297-3-100-compliant racks/cabinets |
+| m08-q044 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | PASS — IEC 60297-3-105:2008 public scope provides cooling, EMC, seismic, and climatic/mechanical guidance for the 1U chassis context |
 | m08-q045 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact 600 mm versus 800 mm cabinet-width proposition is not exposed |
 | m08-q046 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | PASS — IEC 60297-3-105:2008 covers 1U chassis dimensions/design and loaded-weight/accessibility assembly considerations |
 | m08-q047 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65980 | PASS |
@@ -444,7 +444,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m08-q057 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70/2026 | BLOCKED — NFPA 70:2026 catalog/preview receipt; exact plug/branch/continuous-load selection proposition is not exposed |
 | m08-q058 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/80622.html?browse=tc | PASS |
 | m08-q059 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | PASS — IEC 60297-3-100:2008 public catalog explicitly names the covered 19-inch-series equipment dimensions |
-| m08-q060 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | BLOCKED — IEC 60297-3-100:2008 catalog receipt; exact service-clearance/cable-bend planning proposition is not exposed |
+| m08-q060 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | PASS — IEC 60297-3-100:2008 public scope specifies basic dimensions for front panels, subracks, chassis, racks, and cabinets in the 19-inch series |
 | m08-q061 | 8 | Rack standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | PASS — IEC 60297-3-100:2008 public catalog states the basic/detail-dimension relationship |
 | m08-q062 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact hot-aisle/cold-aisle orientation proposition is not exposed |
 | m08-q200 | 8 | Rack standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | PASS |
@@ -452,7 +452,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m08-q202 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact open-frame/enclosed-cabinet trade-off is not exposed |
 | m08-q203 | 8 | Rack security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82250.html | PASS — ISO/IEC 22237-6:2024 covers organizational/technological physical security for defined spaces |
 | m08-q204 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | PASS |
-| m08-q205 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | BLOCKED — IEC 60297-3-100:2008 catalog receipt; exact cable-bend/PDU/service-clearance proposition is not exposed |
+| m08-q205 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | PASS — IEC 60297-3-100:2008 public scope states that later series standards provide detail dimensions using the basic dimensions as an interface |
 | m08-q206 | 8 | Rack standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/108663 | PASS — ISO/IEC 30129:2015+A1:2019+A2:2025 CSV covers bonding conductive elements to reduce IT electrical hazards and provide a reliable signal reference that may improve EMI immunity |
 | m08-q207 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact blanking-panel/brush-strip airflow proposition is not exposed |
 | m08-q208 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | PASS |

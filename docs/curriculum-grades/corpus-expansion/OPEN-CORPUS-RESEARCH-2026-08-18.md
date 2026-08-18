@@ -7461,3 +7461,25 @@ body was fetched.
 Exact WUE formula inputs, measurement boundaries, category selection, and
 project-specific reporting remain outside this public abstract. This pass does
 not certify a learner or close ms4j.
+
+## Breadth pass 328 — IEC 60297 rack and chassis dimension scopes
+
+**Review date:** 2026-08-18. Two current IEC Webstore catalog pages expose
+bounded rack-dimension claims. IEC 60297-3-100:2008 specifies basic dimensions
+for front panels, subracks, chassis, racks, and cabinets in the 482.6 mm (19 in)
+series, and says later IEC 60297-3 standards provide detail dimensions using
+those basic dimensions as an interface. IEC 60297-3-105:2008 specifies
+dimensions for 1U chassis mounted in compliant racks/cabinets and provides
+guidance for cooling, EMC, seismic, and climatic/mechanical requirements and
+tests. The item stems were narrowed to these catalog statements.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m08-q043 | Rack dimensions | IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288 | **PASS** — 1U chassis dimension scope is explicit |
+| m08-q044 | Rack dimensions | IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288 | **PASS** — cooling/EMC/seismic/climatic-mechanical guidance scope is explicit |
+| m08-q060 | Rack dimensions | IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283 | **PASS** — 19-inch-series basic dimension scope is explicit |
+| m08-q205 | Rack dimensions | IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283 | **PASS** — basic/detail-dimension relationship is explicit |
+
+Full-height usable-U ranges, U-numbering conventions, cable bends, PDU
+protrusion, door clearance, and site-specific service planning remain outside
+these catalog receipts. This pass does not certify a learner or close ms4j.

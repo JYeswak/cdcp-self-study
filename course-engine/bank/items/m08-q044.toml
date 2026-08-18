@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Rack dimensions
 # Official catalog/preview receipt: IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288
-# BLOCKED: the official catalog does not expose the exact U-numbering convention.
+# PASS: the current IEC catalog explicitly identifies the associated design-guidance scope below. No paid body or PDF was fetched.
 id = "m08-q044"
 kind = "single-select"
 module = 8
-stem = "Industry practice for numbering U positions is typically:"
+stem = "The public scope of IEC 60297-3-105:2008 provides guidance for:"
 choices = [
-  "Random per rack with no labels",
-  "Only even U numbers exist",
-  "Top-down is the only legal method worldwide",
-  "Bottom-up with U1 at the bottom (confirm and standardize site labels)",
+  "Cooling, EMC, seismic, and climatic/mechanical requirements and tests for the 1U chassis context",
+  "A universal legal U-numbering convention for every site",
+  "Generator fuel-quality testing",
+  "Fibre polarity labeling",
 ]
-correct = "D"
-explanation = "Bottom-up is common; pick one convention and keep DCIM/labels consistent."
+correct = "A"
+explanation = "The current IEC catalog says IEC 60297-3-105:2008 provides guidance for cooling and reference for EMC, seismic, and climatic/mechanical requirements and tests, as defined in the IEC 61587 series. It does not expose a universal U-numbering convention."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "understand"
