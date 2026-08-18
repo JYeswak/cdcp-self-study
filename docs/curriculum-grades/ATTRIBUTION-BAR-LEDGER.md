@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 435 PASS; 522 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 438 PASS; 519 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -324,11 +324,11 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q200 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1:2021 catalog receipt; exact shared-rack-PDU failure proposition is not exposed |
 | m06-q201 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS — TIA-942-C ratings definition requires planned maintenance without disrupting ICT capability; public definition: https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/ |
 | m06-q202 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6803 | BLOCKED — IEC 62310-3:2008 catalog receipt; exact near-seamless-transfer scenario is not exposed |
-| m06-q203 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | BLOCKED — IEC 60947-6-1:2026 catalog receipt; exact ATS-failure/UPS-autonomy scenario is not exposed |
+| m06-q203 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | PASS — IEC 60947-6-1:2026 official abstract names load transfer between power sources |
 | m06-q204 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact shared-battery/shared-bus redundancy critique is not exposed |
 | m06-q205 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact capacity-parallel load-growth scenario is not exposed |
 | m06-q206 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/88711.html?browse=tc | PASS — ISO/IEC TS 22237-31:2026 covers resilience KPIs for power distribution/supply and environmental control |
-| m06-q207 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | BLOCKED — IEC 60947-6-1:2026 catalog receipt; exact break-before-make/UPS bridging proposition is not exposed |
+| m06-q207 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | PASS — IEC 60947-6-1:2026 official abstract names ATSE, including the controller |
 | m06-q208 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.energy.gov/cmei/buildings/uninterruptible-power-supplies | PASS — DOE public UPS definition covers continuity of load power during input failure |
 | m06-q209 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact double-conversion input-disturbance proposition is not exposed |
 | m06-q210 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6423 | BLOCKED — IEC TR 62060:2001 catalog receipt; exact battery-autonomy/load-growth proposition is not exposed |
@@ -384,7 +384,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q260 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1:2021 catalog receipt; exact layer-scoped N+2 proposition is not exposed |
 | m06-q261 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
 | m06-q300 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact dual-cord landing/path-isolation runbook proposition is not exposed |
-| m06-q301 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | BLOCKED — IEC 60947-6-1:2026 catalog receipt; exact sync/timer/retransfer runbook proposition is not exposed |
+| m06-q301 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | PASS — IEC 60947-6-1:2026 official abstract names ATSE with closed transition capability |
 | m06-q302 | 6 | 1.6 Power Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | m06-q303 | 6 | 1.6 Power Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | m06-q304 | 6 | 1.6 Power Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/31983 | PASS |

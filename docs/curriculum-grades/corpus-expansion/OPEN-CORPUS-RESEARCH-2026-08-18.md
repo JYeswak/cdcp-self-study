@@ -870,6 +870,22 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 287 — IEC transfer-switching scope claims
+
+**Review date:** 2026-08-18. The current official IEC catalog for IEC
+60947-6-1:2026 was checked without opening or fetching a PDF. Its public abstract
+states that transfer-switching equipment transfers loads between power sources,
+and explicitly covers ATSE including the controller and ATSE with closed
+transition capability.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m06-q203 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494 | **PASS** — asks only for load transfer between sources; no ATS-failure/autonomy scenario is inferred |
+| m06-q207 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494 | **PASS** — asks only for ATSE including the controller; no break-before-make rule is inferred |
+| m06-q301 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494 | **PASS** — asks only for ATSE with closed transition capability; no retransfer runbook is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 286 — NFPA 730 security-preview headings
 
 **Review date:** 2026-08-18. The official NFPA 730:2026 preview page was used
