@@ -1044,6 +1044,74 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 128 — construction quality, commissioning, and acceptance evidence
+
+**Date:** 2026-08-18
+**Scope:** M03, M06, M08, M09, M11, M12, M14, and M15 questions about project
+quality plans, design/procurement controls, installation records, inspection
+and test evidence, punch lists, change control, as-built information, owner
+acceptance, handoff, and transition to operations. Existing public EPI/CDCS/
+CDFOS/CDFOM headings are retained; no invented commissioning or handover
+program is introduced.
+
+**Official public receipts:**
+
+- [ISO 10005:2018](https://www.iso.org/standard/70398.html), **Quality
+  management — Guidelines for quality plans**, is the published current
+  Edition 3 and was confirmed in 2023. Its public abstract covers establishing,
+  reviewing, accepting, applying, and revising quality plans for outputs such
+  as products, services, projects, and contracts. It is guidance, not a
+  certification checklist.
+- [ISO 10006:2017](https://www.iso.org/standard/70376.html), **Quality
+  management — Guidelines for quality management in projects**, is the
+  published current Edition 3 and was confirmed in 2023. Its public abstract
+  covers project quality systems, responsibility, resources, realization,
+  measurement, analysis, improvement, and project quality plans; it expressly
+  distinguishes project-quality guidance from general project management.
+- [ISO 21502:2020](https://www.iso.org/standard/74947.html), **Project,
+  programme and portfolio management — Guidance on project management**, is the
+  published project-management receipt replacing ISO 21500:2012. Its public
+  abstract covers projects across delivery approaches and lifecycle models,
+  but does not establish a data-centre commissioning method.
+- [ISO 9001:2015](https://www.iso.org/standard/62085.html), **Quality
+  management systems — Requirements**, remains the current published Edition 5
+  with Amendment 1:2024 while the [ISO/FDIS 9001](https://www.iso.org/standard/88464.html)
+  successor is under publication. The public page covers controlled operation,
+  competence, documented information, monitoring, performance evaluation, and
+  continual improvement. The FDIS and expected September 2026 edition are not
+  treated as current until officially published.
+- [ISO 9001:2015 Amendment 1:2024](https://www.iso.org/standard/88431.html?browse=tc)
+  is recorded as part of the current ISO 9001 receipt; the amendment page is
+  catalog/OBP evidence only.
+
+**Adversarial boundary:** A quality plan is not a completed test, a passed test
+is not a safe operating state, and an owner signature is not proof that every
+dependency, alarm, spare, procedure, training need, permit, or rollback path
+was transferred. Commissioning evidence must identify the asset/configuration,
+test prerequisites, instrument or observation, expected result, actual result,
+exceptions, responsible reviewer, retest, and operational disposition. A
+project closeout package can be complete while operations still lack usable
+as-builts, competent ownership, or recovery evidence.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M03 | Trace requirements, design review, procurement, installation, inspection, test, punch list, change, and acceptance into an operations-ready record | ISO project guidance does not create a universal commissioning gate or handover taxonomy |
+| M06/M09 | Verify power, cooling, controls, water, safety, and dependency tests against the approved configuration and safe operating envelope | A functional test does not prove long-term reliability or local AHJ acceptance |
+| M08/M11 | Keep hardware/software baselines, firmware, network/control interfaces, spares, procedures, and rollback evidence aligned with the as-built state | Documentation completeness is not configuration truth unless reconciled to observed assets |
+| M12/M14 | Preserve fire/life-safety, environmental, alarm, permit, and control evidence through impairment, test, exception, and return-to-service decisions | An acceptance signature does not replace code or engineering approval |
+| M15 | Assign owner/operator competence, supplier obligations, training, open-risk acceptance, maintenance baseline, and lessons learned before routine operations | Completing a project or track does not certify a learner, facility, or credential |
+
+**Currency boundary:** ISO 10005:2005 and ISO 10006:2003 are withdrawn; ISO
+21500:2012 is superseded by ISO 21502:2020. ISO/FDIS 9001 is under publication,
+not a current edition. Vendor commissioning templates, paid standard bodies,
+and PDF copies are excluded. No PDF was fetched.
+
+**Bounded result:** This pass strengthens the bare-ground-to-operations bridge
+with current project-quality and acceptance anchors while preserving the
+distinction between evidence, authority, and actual operational readiness. No
+bank rows, ledger dispositions, manifest, topics, beads, gate, oracle, or
+credential state changed.
+
 ## Breadth pass 127 — refrigeration, refrigerant, and mechanical-safety evidence
 
 **Date:** 2026-08-18
