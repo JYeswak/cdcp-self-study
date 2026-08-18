@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power redundancy levels and techniques
+# Official catalog/preview receipt: ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc
+# BLOCKED: the official catalog does not expose the exact end-to-end shared-failure-domain proposition.
 id = "m06-q055"
 kind = "single-select"
 module = 6

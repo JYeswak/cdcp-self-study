@@ -1044,6 +1044,27 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 61 — CDCP resilience and UPS-topology receipts
+
+**Review date:** 2026-08-18. Six additional M06 rows now carry official
+ISO/IEC 22237-3:2021, ISO/IEC TS 22237-31:2026, or IEC 62040-3:2021
+catalog/preview receipts. They remain BLOCKED because the public pages do not
+expose the exact 2N, concurrent-maintenance, shared-failure, fault-tolerance,
+catcher, or double-conversion propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q053 | Power redundancy levels and techniques | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **BLOCKED** — exact 2N proposition not exposed |
+| m06-q054 | Power redundancy levels and techniques | ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc | **BLOCKED** — exact concurrent-maintenance procedure not exposed |
+| m06-q055 | Power redundancy levels and techniques | ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc | **BLOCKED** — exact shared-failure domain not exposed |
+| m06-q056 | Power redundancy levels and techniques | ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc | **BLOCKED** — exact worst-case failure proposition not exposed |
+| m06-q057 | UPS parallel configurations | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact catcher topology not exposed |
+| m06-q058 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact double-conversion isolation not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 60 — CDCP ATS/STS and redundancy receipts
 
 **Review date:** 2026-08-18. Six additional M06 power rows now carry official
