@@ -920,6 +920,22 @@ No CDFOM row was promoted. The three remaining blockers retain official current
 receipts and remain intentionally open; this pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 146 — NFPA fire-protection edition refresh
+
+**Review date:** 2026-08-18. Twelve Module 12 blocked extinguisher and
+energy-storage receipts were checked against current NFPA LiNK preview pages.
+The 2026 NFPA 10 page is now the current receipt for portable-extinguisher and
+fire-class rows; NFPA 855:2026 is the more specific current receipt for the
+stationary-energy-storage hazard row.
+
+| Items | Public CDCP heading | Current official preview | Bounded result |
+|---|---|---|---|
+| bank-m12-q057–q063, q065–q067; m12-q219 | Classes of fire / Handheld fire extinguishers / Common causes of fire | NFPA 10:2026 — https://link.nfpa.org/all-publications/10/2026 | **BLOCKED** — the current preview pins the edition and standard title, but does not expose the exact Class C, residue, extinguisher-selection, or common-cause propositions |
+| bank-m12-q064 | Common causes of fire | NFPA 855:2026 — https://link.nfpa.org/all-publications/855/2026 | **BLOCKED** — the current preview exposes stationary-energy-storage installation, commissioning, operation, maintenance, and decommissioning chapters, but not the exact battery-thermal-event/common-cause proposition |
+
+No M12 row was promoted; all twelve now carry current official edition receipts
+and bounded BLOCKED reasons. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 143 — cabling testing, administration, and current media receipts
 
 **Review date:** 2026-08-18. Twelve Module 11 blocked receipts were refreshed

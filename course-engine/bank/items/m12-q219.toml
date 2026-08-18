@@ -21,7 +21,7 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 # Public syllabus heading: Handheld fire extinguishers
-# Official catalog/preview receipt: NFPA 10, 2025 — https://link.nfpa.org/all-publications/10/2025
+# Official catalog/preview receipt: NFPA 10, 2026 — https://link.nfpa.org/all-publications/10/2026
 # BLOCKED: the current official preview does not expose the exact item-level handheld fire extinguishers proposition. No paid body or PDF was fetched.
 id = "m12-q219"
 kind = "single-select"
