@@ -10,7 +10,8 @@ Completing this file **does not certify anyone** and does not grant an EPI® / E
 **27/40 is a CDCP study signal.** It is not imported as a CDFOS bar.
 **Official CDFOS cut is 42/60** (EPI page, FETCHED this pass: 90 min, 60 MCQ, minimum 42 correct). That number is **theirs, not ours.**
 
-No proprietary DCOS / EPI / EXIN body. No dump sites. No bank items this pass.
+No proprietary DCOS / EPI / EXIN body. No dump sites. The initial ledger pass had no bank
+items; the follow-up receipt in §6 records only the new, clause-backed items m15-q352–q362.
 If a heading has no public clause that can be re-derived from a current edition+URL, the row says **no item**.
 
 ---
@@ -266,3 +267,45 @@ Parents `bd-epi-ecosystem-ms4j` and `bd-epi-ecosystem-ms4j.2` stay **open**. Chi
 - Not an adoption of 42/60 or 27/40 as a local pass mark.
 
 *Corpus only. Completing this program does not certify anyone. 27/40 is a study signal.*
+
+## 6. Follow-up source receipts — m15-q352–m15-q362
+
+The initial rows above record the first fetch and remain useful as a dated audit trail. This
+follow-up searched additional public primary/government sources. The rows below supersede a
+prior **no item** only for the narrowly bounded claim named in each item. They do not turn a
+source into an EPI syllabus heading, and they do not make a generic shift-handover programme,
+the six undocumented document sub-processes, or a vendor-lifecycle taxonomy citable.
+
+### 6.1 New public sources
+
+| ID | Edition / current date | URL | Used for |
+|---|---|---|---|
+| C-DFE-SM | UK Department for Education, **Service Management standard, Version 1**, last updated **2025-01-22** | https://apply-the-service-standard.education.gov.uk/standards/service-management | Service Catalogue Management, Service Level Management, Continual Improvement, central service list/availability, and trend-analysis improvement opportunities |
+| C-DDAT-ITSM | UK Government Digital and Data Profession Capability Framework, **IT service manager**, last updated **2025-08-29** | https://ddat-capability-framework.service.gov.uk/role/it-service-manager | Defining SLAs and OLAs across relevant business functions |
+| C-NE-422.1 | U.S. Department of Energy, **NE O 422.1 Conduct of Operations**, approved **August 2025**, Attachment 2 / Appendix A | https://id.energy.gov/Home/DownloadDocument/5643 | Computer-center operations scope, shift turnover, and controlled technical-procedure revision/review/testing |
+| C-1910.38 | **29 CFR 1910.38**, eCFR current display **2026-08-17**, (b), (c)(1)-(6), (f) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.38 | Written emergency action plan, minimum elements, and review triggers |
+| C-80053-OPS | NIST **SP 800-53 Rev. 5, Release 5.2.0**, issued **2025-08-27**, SA-5, SA-9, CA-7, PE-3, PE-6, MA-4 | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ; https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf | Service-level outcomes/remedies/response, monitoring strategy, physical access procedures, floor monitoring, documentation, and nonlocal maintenance |
+
+### 6.2 New item map and bounded claims
+
+| Item | Exact public CDFOS syllabus heading | Public clause / section | Re-derivable claim |
+|---|---|---|---|
+| m15-q352 | Service Level Management — Service portfolio and catalogue | DfE Service Management standard, Version 1, Purpose / Why this standard is important | A service catalogue provides a central list and availability of supported services. |
+| m15-q353 | Service Level Management — Service Level Agreements | NIST SA-9(a)-(c) and discussion; DDaT IT service manager role level 2 | SLA documentation makes outcomes, remedies, and response requirements measurable; SLAs and OLAs are defined across relevant business functions. |
+| m15-q354 | Service Level Management — Service Improvement Process (SIP) | DfE Service Management standard, Version 1, Purpose / Why this standard is important | Continual improvement can use trend analysis to identify improvement opportunities. |
+| m15-q355 | Safety and Crisis Management — Emergency response plan requirement for various potential emergencies | 29 CFR 1910.38(b), (c)(1)-(6), (f) | A required plan is written/available, includes the minimum response elements, and is reviewed when the plan or responsibilities change. |
+| m15-q356 | Data Centre Operations — Shift handover | NE O 422.1 Attachment 2 ¶2.l; Appendix A 2.l.(1)-(3), pp. 39-40 | Under this adopted conduct-of-operations model, turnover transfers equipment/facility status, duties/responsibilities, in-progress/planned work, and relief. |
+| m15-q357 | Facilities Maintenance — Maintenance operations procedures (MOP) | NE O 422.1 Attachment 2 ¶2.p; Appendix A 2.p.(4),(6)-(9), pp. 46-49 | Technical procedures are revised/approved, initially and periodically reviewed/tested, kept current, and assigned use requirements. |
+| m15-q358 | Physical Security — Standard Operating Procedures (SOP) for security | NIST PE-3(a)(1)-(2), (b), (g) | Physical-access procedures verify authorization, control entry/exit, keep logs, and change keys/combinations on defined triggers. |
+| m15-q359 | Data Centre Operations — Floor management | NIST PE-6(a)-(c) | Floor physical-access monitoring includes defined review cadence/events and coordination with incident response. |
+| m15-q360 | Monitoring / Reporting / Control — Facilities monitoring matrix | NIST CA-7(a)-(g) | A matrix used as the facilities monitoring strategy needs metrics, cadence, assessment, analysis, response, and reporting fields. CA-7 does not prescribe a vendor matrix format. |
+| m15-q361 | Governance and Compliance — The importance of document management | NIST SA-5(a)-(d) | Administrator/user documentation covers secure operation, maintenance, and responsibilities; unavailable documentation receives an action; documentation is distributed to defined roles. |
+| m15-q362 | Facilities Maintenance — Service reports | NIST MA-4(a)-(e) | Nonlocal maintenance is approved/monitored, recorded, and terminated at completion; authentication does not replace records or session close-out. |
+
+### 6.3 Still blocked-on-sourcing
+
+- **General OLA taxonomy beyond the bounded DDaT role statement:** the public CDFOS syllabus has no standalone OLA bullet. m15-q353 stays under the exact `Service Level Agreements` heading and does not teach a broader ITIL taxonomy.
+- **General shift-handover programme beyond the adopted NE O 422.1 model:** the source supports the bounded turnover elements in m15-q356; it does not establish a universal data-centre regulation.
+- **The six sub-processes of document management:** NIST SA-5 supports documentation content/distribution, not six named lifecycle steps. No six-step item was minted.
+- **Vendor-lifecycle select/score/UC/performance taxonomy:** the public CDFOS page still has no matching vendor-lifecycle syllabus heading. m15-q362 is limited to nonlocal maintenance records/session close-out under the named `Service reports` heading.
+- **Paywalled ISO/IEC 20000-1, ISO 55000/55001, and other named-only bodies:** no clause text was used.
