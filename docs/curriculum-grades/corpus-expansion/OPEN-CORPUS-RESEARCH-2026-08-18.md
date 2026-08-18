@@ -870,6 +870,23 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 341 — BACS project completion and as-built documentation
+
+**Review date:** 2026-08-18. The current ISO catalog identifies ISO
+16484-1:2024 as a published edition for building automation and control systems
+(BACS). Its public abstract lists design, engineering, installation and
+commissioning, completion, handover, acceptance, and project finalization; it
+also explicitly requires as-built documentation and training. Two operations
+items were narrowed to those exact claims. The BMS/DCIM product boundary and
+site-specific document-control procedure remain outside the receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| mock40-q38 | Building Management System (BMS) | ISO 16484-1:2024 — https://www.iso.org/standard/84890.html | **PASS** — BACS completion, handover, acceptance, and finalization are explicit |
+| bank-m15-q137 | Documentation | ISO 16484-1:2024 — https://www.iso.org/standard/84890.html | **PASS** — as-built documentation and training are explicit |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 340 — CDFOM service-management lifecycle scope
 
 **Review date:** 2026-08-18. The current ISO OBP page identifies ISO/IEC

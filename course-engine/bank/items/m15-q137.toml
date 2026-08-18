@@ -1,19 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Documentation
-# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current management-and-operations catalog does not expose the exact item-level documentation proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: ISO 16484-1:2024 — https://www.iso.org/standard/84890.html
+# PASS: the current ISO catalog explicitly includes requirements for as-built documentation and training in BACS project completion.
 id = "bank-m15-q137"
 kind = "single-select"
 module = 15
-stem = "As-built documentation for a data centre is valuable because it:"
+stem = "ISO 16484-1:2024 explicitly includes requirements for which project-completion artifacts?"
 choices = [
-  "Records how the facility actually is after construction/changes, not only the original design intent",
-  "Replaces the need for monitoring",
-  "Is identical to a sales brochure always",
-  "Should never be updated after day one"
+  "As-built documentation and training",
+  "Replacing all monitoring systems with a sales brochure",
+  "Eliminating the need for acceptance or handover",
+  "Keeping project records permanently detached from the installed system"
 ]
 correct = "A"
-explanation = "As-builts and living diagrams prevent operating from fiction."
+explanation = "The ISO catalog for ISO 16484-1:2024 explicitly states that the BACS project specification includes requirements for as-built documentation and training. The item does not define a data-centre document-control procedure or a revision interval."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "understand"
