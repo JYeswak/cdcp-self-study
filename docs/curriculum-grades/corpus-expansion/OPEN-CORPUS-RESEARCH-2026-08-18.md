@@ -870,6 +870,25 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 338 — installed cabling measurement and indoor workplace lighting
+
+**Review date:** 2026-08-18. Two current official catalogs support narrower
+replacements for previously blocked item claims. IEC 61935-1:2019 specifies
+reference measurement procedures for installed balanced-cabling parameters and
+field-tester accuracy. ISO/CIE 8995-1:2025 specifies indoor workplace lighting
+requirements for visual comfort, performance, and safety, including the
+quantity and quality of illumination. Neither item now claims a MAC retest
+interval, rack-shadowing rule, or universal fixture layout.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q211 | Testing and verification of cabling system | IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201 | **PASS** — installed balanced-cabling measurement procedures and tester accuracy are explicit |
+| m05-q212 | Connecting and positioning light fixtures | ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **PASS** — indoor workplace lighting quantity, quality, comfort, performance, and safety are explicit |
+
+Site-specific test intervals, acceptance thresholds, rack-shadowing diagnostics,
+and fixture placement remain outside these catalog abstracts. This pass does
+not certify a learner or close ms4j.
+
 ## Breadth pass 321 — ISO/IEC 22237-4 environmental-control security claim
 
 **Review date:** 2026-08-18. The current ISO Online Browsing Platform page for

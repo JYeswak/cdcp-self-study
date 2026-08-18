@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Testing and verification of cabling system
 # Official catalog/preview receipt: IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201
-# BLOCKED: the current IEC catalog covers installed balanced-cabling measurement procedures but does not expose the exact retest-after-MAC proposition. No paid body or PDF was fetched.
+# PASS: the current IEC catalog explicitly specifies reference measurement procedures for installed balanced cabling and field-tester accuracy.
 id = "m11-q211"
 kind = "single-select"
 module = 11
-stem = "After moves, adds, and changes, failing to retest altered copper links most risks:"
+stem = "IEC 61935-1:2019 specifies for installed balanced cabling:"
 choices = [
-  "Undetected performance defects that only appear under production traffic",
-  "Automatic improvement of category rating",
+  "Reference measurement procedures for cabling parameters and requirements for field-tester accuracy",
+  "Automatic improvement of the cabling category rating",
   "Higher underfloor static pressure",
   "Longer UPS runtime"
 ]
 correct = "A"
-explanation = "Changed links need verification; assumptions age poorly."
+explanation = "IEC 61935-1:2019 specifies reference measurement procedures for cabling parameters and field-tester accuracy for installed balanced cabling. This item does not infer a retest interval or a site-specific acceptance threshold."
 topic_ids = ["m11-testing", "m11-copper"]
 objective_ids = []
 bloom = "apply"

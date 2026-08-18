@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 557 PASS; 400 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 559 PASS; 398 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -238,7 +238,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m05-q209 | 5 | Emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | PASS — 2025 New York State Fire Code separates egress-path illumination from exit-sign marking and illumination |
 | m05-q210 | 5 | Lighting standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/70361.html?browse=tc | PASS — current ISO preview says the commissioning details do not focus on technical characteristics of specific components |
 | m05-q211 | 5 | Measurements of light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/70361.html | PASS — ISO/TS 21274:2020 catalog covers commissioning lighting systems to meet design specifications |
-| m05-q212 | 5 | Connecting and positioning light fixtures | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | BLOCKED — ISO/CIE 8995-1:2025 catalog receipt; exact rack-shadowing proposition is not exposed |
+| m05-q212 | 5 | Connecting and positioning light fixtures | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | PASS — ISO/CIE 8995-1:2025 covers indoor workplace lighting quantity and quality for visual comfort, performance, and safety |
 | m05-q213 | 5 | Emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/45801.html?browse=tc | PASS — ISO 30061:2007 current OBP abstract covers systems installed where emergency lighting is required |
 | m05-q214 | 5 | 1.5 Light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70/2026 | PASS |
 | m05-q215 | 5 | 1.5 Light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/101/2024 | PASS |
@@ -679,7 +679,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m11-q208 | 11 | Fibre cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
 | m11-q209 | 11 | Fibre cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/34000 | PASS — IEC TR 61282-15:2017 explicitly covers MPO testing and polarity |
 | m11-q210 | 11 | Testing and verification of cabling system | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/31201; https://www.iso.org/standard/92912.html | PASS — IEC installed-cabling measurement procedures and ISO/IEC link/channel parameter modeling support the testing-scope distinction |
-| m11-q211 | 11 | Testing and verification of cabling system | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/31201 | BLOCKED — IEC 61935-1:2019 catalog receipt; exact item-level proposition is not exposed |
+| m11-q211 | 11 | Testing and verification of cabling system | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/31201 | PASS — IEC 61935-1:2019 specifies installed balanced-cabling measurement procedures and field-tester accuracy |
 | m11-q212 | 11 | Testing and verification of cabling system | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/67723 | PASS — ISO/IEC 14763-3:2024 catalog covers inspection and testing of installed optical-fibre cabling |
 | m11-q213 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | m11-q214 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
