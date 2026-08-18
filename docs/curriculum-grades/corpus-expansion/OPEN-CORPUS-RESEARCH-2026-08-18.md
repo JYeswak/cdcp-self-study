@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 96 — CDCP cooling operations depth receipts
+
+**Date:** 2026-08-18
+**Scope:** M09 psychrometrics, hot spots, IT heat load, return-air capture, seasonal storage, containment efficiency, overhead coordination, and slab returns.
+**Official receipts:** [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html); [ISO/IEC AWI TS 22237-44, Edition 1, under development](https://www.iso.org/standard/93846.html?browse=tc).
+
+**Bounded result:** m09-q240–q243 and q245–q247 carry the published ISO environmental-control catalog and remain BLOCKED; q244 carries the official under-development liquid-cooling work-item catalog and remains BLOCKED. No draft or standard PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 95 — CDCP cooling operations receipts
 
 **Date:** 2026-08-18
