@@ -1044,6 +1044,31 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 71 — CDCP phase, busway, PDU, HPC, and thermography receipts
+
+**Review date:** 2026-08-18. Ten additional M06 rows now carry current IEC,
+ISO, or NFPA catalog/preview receipts. They remain BLOCKED because the public
+pages do not expose the exact phase-imbalance, three-phase, busway, PDU,
+harmonic-heating, stranded-capacity, HPC-density, or thermography propositions.
+No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q219 | Single phase and three phase power | IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717 | **BLOCKED** — exact phase-imbalance/UPS-risk proposition not exposed |
+| m06-q220 | Single phase and three phase power | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact high-density three-phase-distribution proposition not exposed |
+| m06-q221 | Power distribution / busbar trunking | IEC 61439-6:2012 — https://webstore.iec.ch/en/publication/5463 | **BLOCKED** — exact dense-hall flexibility/congestion proposition not exposed |
+| m06-q222 | PDU form factors | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED** — exact floor-PDU/RPP role proposition not exposed |
+| m06-q223 | PDU form factors | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED** — exact switched/metered-rack-PDU proposition not exposed |
+| m06-q224 | Power quality parameters | IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717 | **BLOCKED** — exact harmonic-heating/de-rating proposition not exposed |
+| m06-q225 | Power sizing | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact kW/kVA planning proposition not exposed |
+| m06-q226 | Power sizing | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED** — exact stranded-capacity definition not exposed |
+| m06-q227 | High Performance Computing power notes | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED** — exact AI/HPC rack-density proposition not exposed |
+| m06-q228 | Thermographic scanning | NFPA 70B, 2026 — https://link.nfpa.org/all-publications/70B/2026 | **BLOCKED** — exact thermographic-finding proposition not exposed |
+
+The ledger remains 161 PASS / 796 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 70 — CDCP UPS, generator, transfer, and transformer receipts
 
 **Review date:** 2026-08-18. Ten additional M06 rows now carry current

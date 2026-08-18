@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Power quality parameters
+# Official catalog/preview receipt: IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717
+# BLOCKED: the official catalog covers power-quality characteristics but does not expose the exact harmonic-heating/de-rating proposition.
 id = "m06-q224"
 kind = "single-select"
 module = 6

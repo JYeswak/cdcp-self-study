@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Power distribution / busbar trunking
+# Official catalog/preview receipt: IEC 61439-6:2012 — https://webstore.iec.ch/en/publication/5463
+# BLOCKED: the official catalog covers busbar trunking systems but does not expose the exact dense-hall flexibility/congestion proposition.
 id = "m06-q221"
 kind = "single-select"
 module = 6

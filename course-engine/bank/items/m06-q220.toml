@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Single phase and three phase power
+# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
+# BLOCKED: the official catalog covers UPS systems with AC outputs but does not expose the exact high-density three-phase-distribution proposition.
 id = "m06-q220"
 kind = "single-select"
 module = 6

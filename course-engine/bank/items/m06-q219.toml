@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Single phase and three phase power
+# Official catalog/preview receipt: IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717
+# BLOCKED: the official catalog covers power-quality phenomena but does not expose the exact phase-imbalance/UPS-risk proposition.
 id = "m06-q219"
 kind = "single-select"
 module = 6
