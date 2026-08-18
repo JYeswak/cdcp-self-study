@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 85 — CDCP airflow and humidity receipts
+
+**Date:** 2026-08-18
+**Scope:** M09 airflow bypass/recirculation, IT heat conversion, relative humidity, dew point, inlet health, and hot spots.
+**Official receipt:** [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html).
+
+**Bounded result:** m09-q110–q111 and m09-q116–q119 now carry the current ISO environmental-control catalog receipt and remain BLOCKED because the public abstract does not expose the item-level airflow and psychrometric propositions. No PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 84 — CDCP cooling-principles receipts
 
 **Date:** 2026-08-18
