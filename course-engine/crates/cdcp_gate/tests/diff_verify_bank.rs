@@ -789,7 +789,7 @@ fn module_coercion_matches_python_int_identically() {
     let body = format!(
         "{}{}{}{}",
         good_item("i-a", 2, "A", "t-one"),
-        good_item("i-b", 0, "B", "t-one").replace("module = 0", "module = \"07\""),
+        good_item("i-b", 0, "B", "t-one").replace("module = 0", "module = \"١٢\""),
         good_item("i-c", 0, "C", "t-one").replace("module = 0", "module = 3.9"),
         good_item("i-d", 0, "D", "t-one").replace("module = 0", "module = true"),
     );
@@ -798,7 +798,7 @@ fn module_coercion_matches_python_int_identically() {
     assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
     assert!(
         run.stdout
-            .contains("  modules(approved)={1: 1, 2: 1, 3: 1, 7: 1}\n"),
+            .contains("  modules(approved)={1: 1, 2: 1, 3: 1, 12: 1}\n"),
         "{}",
         run.stdout
     );

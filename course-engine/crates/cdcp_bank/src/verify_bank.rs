@@ -189,8 +189,6 @@
 //!   `datetime.datetime(...)`.
 //! - `repr()` of a `dict` inside an error message iterates in key order (the
 //!   `toml` crate's `Table` is sorted), where CPython iterates insertion order.
-//! - `int("١٢")` (non-ASCII decimal digits) succeeds in CPython; here it is a
-//!   `ValueError`, i.e. `bad module`.
 //! - A `bank/items/` that exists but cannot be read yields zero files, matching
 //!   `pathlib.Path.glob`'s swallowing of `PermissionError`; both sides then exit
 //!   non-zero via `zero items loaded`.
@@ -484,8 +482,30 @@ pub fn py_iter(v: &Value) -> R<Vec<Value>> {
     })
 }
 
-/// `int(s)` for a `str`: surrounding whitespace, an optional sign, then ASCII
-/// digits with single underscores between them.
+/// Return the decimal value of a Unicode `Nd` character.
+///
+/// Python's `int(str)` accepts every Unicode decimal digit, while Rust's
+/// `char::to_digit(10)` is ASCII-only. Keep the table local to this port so
+/// the gate does not quietly narrow the Python oracle's accepted input.
+fn unicode_decimal_digit(c: char) -> Option<u8> {
+    const BLOCKS: &[u32] = &[
+        0x0030, 0x0660, 0x06F0, 0x07C0, 0x0966, 0x09E6, 0x0A66, 0x0AE6, 0x0B66, 0x0BE6, 0x0C66,
+        0x0CE6, 0x0D66, 0x0DE6, 0x0E50, 0x0ED0, 0x0F20, 0x1040, 0x1090, 0x17E0, 0x1810, 0x1946,
+        0x19D0, 0x1A80, 0x1A90, 0x1B50, 0x1BB0, 0x1C40, 0x1C50, 0xA620, 0xA8D0, 0xA900, 0xA9D0,
+        0xA9F0, 0xAA50, 0xABF0, 0xFF10, 0x104A0, 0x10D30, 0x11066, 0x110F0, 0x11136, 0x111D0,
+        0x112F0, 0x11450, 0x114D0, 0x11650, 0x116C0, 0x11730, 0x118E0, 0x11950, 0x11C50, 0x11D50,
+        0x11DA0, 0x16A60, 0x16AC0, 0x16B50, 0x1E140, 0x1E2F0, 0x1E950, 0x1FBF0,
+        // Mathematical alphanumeric digits are five adjacent Nd blocks.
+        0x1D7CE, 0x1D7D8, 0x1D7E2, 0x1D7EC, 0x1D7F6,
+    ];
+    let cp = c as u32;
+    BLOCKS
+        .iter()
+        .find_map(|start| (cp >= *start && cp < *start + 10).then(|| (cp - *start) as u8))
+}
+
+/// `int(s)` for a `str`: surrounding whitespace, an optional sign, then
+/// Unicode decimal digits with single underscores between them.
 pub fn py_int_from_str(s: &str) -> Option<i128> {
     let t = py_strip(s);
     let (neg, rest) = match t.strip_prefix('-') {
@@ -505,11 +525,9 @@ pub fn py_int_from_str(s: &str) -> Option<i128> {
             prev_underscore = true;
             continue;
         }
-        if !c.is_ascii_digit() {
-            return None;
-        }
+        let digit = unicode_decimal_digit(c)?;
         prev_underscore = false;
-        digits.push(c);
+        digits.push(char::from(b'0' + digit));
     }
     if prev_underscore {
         return None;
@@ -1392,6 +1410,7 @@ mod tests {
     #[test]
     fn int_coercion_matches_cpython() {
         assert_eq!(py_int(Some(&v_str("  07_2 "))), Ok(72));
+        assert_eq!(py_int(Some(&v_str("١٢_３"))), Ok(123));
         assert_eq!(py_int(Some(&v_str("-4"))), Ok(-4));
         assert_eq!(py_int(Some(&Value::Float(3.9))), Ok(3));
         assert_eq!(py_int(Some(&Value::Float(-3.9))), Ok(-3));
