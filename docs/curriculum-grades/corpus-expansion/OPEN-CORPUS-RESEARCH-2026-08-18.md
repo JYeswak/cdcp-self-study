@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 97 — CDCP cooling boundary receipts
+
+**Date:** 2026-08-18
+**Scope:** M09 raised-floor airflow, close-coupled cooling, W-class boundaries, and liquid/air plant thermal ride-through; q252's existing ASHRAE catalog receipt remains PASS and was not changed.
+**Official receipts:** [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html); [ISO/IEC AWI TS 22237-44, Edition 1, under development](https://www.iso.org/standard/93846.html?browse=tc).
+
+**Bounded result:** m09-q248 and q249 now carry the published ISO environmental-control catalog and remain BLOCKED because the public abstract does not expose the exact airflow-path propositions. m09-q250, q251, and q253 carry the official liquid-cooling work-item catalog and remain BLOCKED because the work item is under development rather than a published standard; its public page does not expose the exact W-class or ride-through propositions. No draft or standard PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 96 — CDCP cooling operations depth receipts
 
 **Date:** 2026-08-18

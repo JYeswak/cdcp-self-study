@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — ebrr.24 leftover: 2 °C floor; 2026 names W17…W+
+# Public syllabus heading: Liquid cooling
+# Official catalog receipt: ISO/IEC AWI TS 22237-44, Edition 1, under development — https://www.iso.org/standard/93846.html?browse=tc
+# BLOCKED: the official liquid-cooling work item is under development and does not expose a published W-class floor or naming proposition. No draft body was fetched.
 id = "m09-q251"
 kind = "single-select"
 module = 9
