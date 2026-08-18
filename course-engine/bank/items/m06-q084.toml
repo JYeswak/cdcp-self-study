@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Ingress Protection (IP) grades
+# Official catalog/preview receipt: IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV — https://webstore.iec.ch/en/publication/2452
+# BLOCKED: the official catalog does not expose the exact outdoor-enclosure selection proposition.
 id = "m06-q084"
 kind = "single-select"
 module = 6

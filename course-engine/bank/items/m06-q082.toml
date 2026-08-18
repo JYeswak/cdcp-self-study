@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Grounding and bonding
+# Official catalog/preview receipt: IEC 60364-5-54:2011 + AMD1:2021 — https://webstore.iec.ch/en/publication/1882
+# BLOCKED: the official catalog does not expose the exact rack/tray equipotential-bonding proposition.
 id = "m06-q082"
 kind = "single-select"
 module = 6

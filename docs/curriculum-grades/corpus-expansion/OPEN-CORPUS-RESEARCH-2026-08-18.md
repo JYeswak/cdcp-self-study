@@ -1044,6 +1044,29 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 65 — CDCP grounding, IP, and battery receipts
+
+**Review date:** 2026-08-18. Eight additional M06 rows now carry official IEC
+60364-5-54:2011 + AMD1:2021, IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV,
+IEC 62485-2:2010, or IEC 60896-22:2004 catalog/preview receipts. They remain
+BLOCKED because the public pages do not expose the exact grounding, IP-choice,
+UPS/BESS, or VRLA operational propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q079 | Grounding and bonding | IEC 60364-5-54:2011 + AMD1:2021 — https://webstore.iec.ch/en/publication/1882 | **BLOCKED** — exact grounding proposition not exposed |
+| m06-q080 | Grounding and bonding | IEC 60364-5-54:2011 + AMD1:2021 — https://webstore.iec.ch/en/publication/1882 | **BLOCKED** — exact equipotential proposition not exposed |
+| m06-q081 | Grounding and bonding | IEC 60364-5-54:2011 + AMD1:2021 — https://webstore.iec.ch/en/publication/1882 | **BLOCKED** — exact neutral-ground defect not exposed |
+| m06-q082 | Grounding and bonding | IEC 60364-5-54:2011 + AMD1:2021 — https://webstore.iec.ch/en/publication/1882 | **BLOCKED** — exact rack/tray bonding proposition not exposed |
+| m06-q083 | Ingress Protection (IP) grades | IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV — https://webstore.iec.ch/en/publication/2452 | **BLOCKED** — exact enclosure example not exposed |
+| m06-q084 | Ingress Protection (IP) grades | IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV — https://webstore.iec.ch/en/publication/2452 | **BLOCKED** — exact outdoor selection proposition not exposed |
+| m06-q085 | Batteries | IEC 62485-2:2010 — https://webstore.iec.ch/en/publication/7091 | **BLOCKED** — exact UPS/BESS distinction not exposed |
+| m06-q086 | Batteries | IEC 60896-22:2004 — https://webstore.iec.ch/en/publication/3851 | **BLOCKED** — exact VRLA trade-off not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 64 — CDCP power-quality and phase-distribution receipts
 
 **Review date:** 2026-08-18. Six additional M06 rows now carry official IEC

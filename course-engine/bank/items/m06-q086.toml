@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Batteries
+# Official catalog/preview receipt: IEC 60896-22:2004 — https://webstore.iec.ch/en/publication/3851
+# BLOCKED: the official catalog does not expose the exact VRLA-versus-flooded-cell operational trade-off.
 id = "m06-q086"
 kind = "single-select"
 module = 6
