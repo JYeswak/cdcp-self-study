@@ -992,6 +992,25 @@ Fail-secure entry semantics, mantrap/anti-passback, and broader security-system
 rows remain BLOCKED. No standard body or PDF was fetched. This pass does not
 certify a learner or close ms4j.
 
+## Breadth pass 161 — AHJ egress-lighting and fire-door controls
+
+**Review date:** 2026-08-18. Three life-safety rows were checked against the
+2025 Fire Code of New York State public HTML. Chapter 10 requires egress
+illumination, emergency illumination after power loss, and illuminated exit
+signs identifying the path. Chapter 7 states that fire doors and smoke doors
+must not be blocked, obstructed, or made inoperable.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m05-q142 | Emergency light | 2025 Fire Code of New York State, Chapter 10 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | **PASS** — exit-sign identification and continued illumination are directly exposed |
+| m05-q209 | Emergency light | 2025 Fire Code of New York State, Chapter 10 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | **PASS** — path illumination and exit-sign marking are separate code functions |
+| bank-m12-q074 | Fire Protection | 2025 Fire Code of New York State, Chapter 7 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-7-fire-and-smoke-protection-features | **PASS** — blocking or obstructing fire doors is prohibited |
+
+Manual-pull placement, detection logic, suppression-release, and other
+item-specific fire-system controls remain BLOCKED where the public code page
+does not expose the exact proposition. No standard body or PDF was fetched.
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 142 — water service, WUE, leak detection, and AHJ boundary
 
 **Review date:** 2026-08-18. The remaining Module 10 water and leak-interface

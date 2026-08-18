@@ -1,7 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Emergency light
-# Official catalog/preview receipt: NFPA 101, 2024 — https://link.nfpa.org/all-publications/101/2024
-# BLOCKED: the official preview does not expose the exact exit-sign/emergency-luminaire relationship.
+# Official catalog/preview receipt: 2025 Fire Code of New York State, Chapter 10 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress
+# PASS: the AHJ-adopted public code separates egress-path illumination requirements from exit-sign marking and illumination requirements.
 id = "m05-q209"
 kind = "single-select"
 module = 5
