@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 474 PASS; 483 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 475 PASS; 482 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -288,7 +288,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q075 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1878 | PASS — current IEC catalog addresses selection and erection of wiring systems |
 | m06-q076 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1878 | PASS — current IEC catalog mentions cable sizing where harmonic currents are present |
 | m06-q077 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65717 | PASS |
-| m06-q078 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1878 | BLOCKED — IEC 60364-5-52 catalog receipt; exact plant/utilization distinction is not exposed |
+| m06-q078 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1878 | PASS — current IEC catalog mentions proximity requirements for underground power and telecommunication cables |
 | m06-q079 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.electropedia.org/iev/iev.nsf/display?ievref=195-01-11&openform= | PASS — IEC 60050 IEV defines protective earthing as earthing for electrical safety |
 | m06-q080 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | PASS |
 | m06-q081 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | BLOCKED — IEC 60364-5-54 catalog receipt; exact neutral-ground defect is not exposed |

@@ -870,6 +870,20 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 306 — IEC underground power/telecom proximity preview claim
+
+**Review date:** 2026-08-18. The current official IEC catalog for IEC
+60364-5-52:2009 with its current consolidated amendment receipt was checked
+without opening or fetching a PDF. Its public catalog text explicitly lists
+additional requirements concerning the proximity of underground power and
+telecommunication cables.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m06-q078 | Single phase and three phase power | IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878 | **PASS** — asks only for the catalog's cable-proximity topic; no plant-versus-utilization phase rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 305 — IEC HEMP/IEMI facility-guidance preview claims
 
 **Review date:** 2026-08-18. The current official IEC catalog for IEC TS
