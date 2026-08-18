@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 496 PASS; 461 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 499 PASS; 458 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -443,12 +443,12 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m08-q056 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact switched-outlet operational proposition is not exposed |
 | m08-q057 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70/2026 | BLOCKED — NFPA 70:2026 catalog/preview receipt; exact plug/branch/continuous-load selection proposition is not exposed |
 | m08-q058 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/80622.html?browse=tc | PASS |
-| m08-q059 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | BLOCKED — IEC 60297-3-100:2008 catalog receipt; exact wall-mount U/weight/swing-clearance proposition is not exposed |
+| m08-q059 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | PASS — IEC 60297-3-100:2008 public catalog explicitly names the covered 19-inch-series equipment dimensions |
 | m08-q060 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | BLOCKED — IEC 60297-3-100:2008 catalog receipt; exact service-clearance/cable-bend planning proposition is not exposed |
-| m08-q061 | 8 | Rack standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | BLOCKED — IEC 60297-3-100:2008 catalog receipt; exact cage-nut/fastener proposition is not exposed |
+| m08-q061 | 8 | Rack standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | PASS — IEC 60297-3-100:2008 public catalog states the basic/detail-dimension relationship |
 | m08-q062 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact hot-aisle/cold-aisle orientation proposition is not exposed |
 | m08-q200 | 8 | Rack standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | PASS |
-| m08-q201 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | BLOCKED — IEC 60297-3-100:2008 catalog receipt; exact U-unit planning proposition is not exposed |
+| m08-q201 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | PASS — IEC 60297-3-100:2008 public catalog explicitly identifies the 482.6 mm (19 in) series |
 | m08-q202 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact open-frame/enclosed-cabinet trade-off is not exposed |
 | m08-q203 | 8 | Rack security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82250.html | PASS — ISO/IEC 22237-6:2024 covers organizational/technological physical security for defined spaces |
 | m08-q204 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | PASS |

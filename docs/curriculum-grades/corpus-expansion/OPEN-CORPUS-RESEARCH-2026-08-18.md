@@ -870,6 +870,25 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 314 — IEC 60297-3-100 rack-dimension catalog claims
+
+**Review date:** 2026-08-18. The current IEC Webstore page for IEC
+60297-3-100:2008, Edition 1.0, was checked without opening or fetching a PDF.
+Its public catalog specifies basic dimensions for front panels, subracks,
+chassis, racks, and cabinets in the 482.6 mm (19 in) series, and says later
+standards provide detail dimensions for specific parts using those basic
+dimensions as an interface to associated parts.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m08-q059 | Types of racks | IEC 60297-3-100:2008, Edition 1.0 — https://webstore.iec.ch/en/publication/1283 | **PASS** — asks only for the explicitly named equipment set |
+| m08-q061 | Rack standards | IEC 60297-3-100:2008, Edition 1.0 — https://webstore.iec.ch/en/publication/1283 | **PASS** — asks only for the stated basic/detail-dimension relationship |
+| m08-q201 | Rack dimensions | IEC 60297-3-100:2008, Edition 1.0 — https://webstore.iec.ch/en/publication/1283 | **PASS** — asks only for the named 19-inch series |
+
+Wall-mount limits, cable-bend/service clearance, cage-nut hardware, and
+U-height planning remain BLOCKED because the public catalog does not expose
+those exact propositions. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 313 — NFPA 730 physical-security preview headings
 
 **Review date:** 2026-08-18. The current official NFPA LiNK preview for NFPA

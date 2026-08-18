@@ -1,19 +1,21 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Rack standards
 # Official catalog/preview receipt: IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283
-# BLOCKED: the official catalog covers rack/cabinet mechanical dimensions but does not expose the exact cage-nut/fastener proposition.
+# PASS: the official catalog states that later IEC 60297-3 standards provide
+# detailed dimensions for specific equipment parts using the basic dimensions
+# as an interface to associated parts.
 id = "m08-q061"
 kind = "single-select"
 module = 8
-stem = "Cage nuts and matching screws matter because:"
+stem = "What relationship between basic and later dimensions is stated in the IEC 60297-3-100:2008 catalog description?"
 choices = [
-  "Random partial-thread fasteners strip rails and create unreliable mounts",
-  "Any screw size works in every rail",
-  "Tool-less rails forbid all fasteners forever",
-  "Grounding is achieved only by paint",
+  "Later standards provide detail dimensions for specific parts, using the basic dimensions as an interface to associated parts",
+  "Later standards replace all basic dimensions with facility-specific guesses",
+  "The catalog applies only to fastener coatings, not mechanical interfaces",
+  "Rack dimensions are defined only by software inventory systems",
 ]
 correct = "A"
-explanation = "Match rail type (square/threaded) and hardware; half-engaged screws are a defect."
+explanation = "The IEC catalog says later standards in the series provide detail dimensions for specific parts, with the basic dimensions serving as an interface to associated parts."
 topic_ids = ["m08-standards", "m08-dimensions"]
 objective_ids = []
 bloom = "apply"

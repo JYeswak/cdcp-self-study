@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Rack dimensions
 # Official catalog/preview receipt: IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283
-# BLOCKED: the official catalog covers basic rack and cabinet dimensions but does not expose the exact U-unit planning proposition.
+# PASS: the official catalog explicitly identifies the 482.6 mm (19 in) series
+# and its basic dimensions for racks and cabinets.
 id = "m08-q201"
 kind = "single-select"
 module = 8
-stem = "Rack unit (U) height is used to:"
+stem = "Which series is explicitly identified by IEC 60297-3-100:2008?"
 choices = [
-  "Express vertical equipment height in standardized increments for planning density",
-  "Measure only cable AWG",
-  "Replace nameplate amperage",
-  "Indicate fire rating of the room"
+  "The 482.6 mm (19 in) series",
+  "Only a residential plumbing-pipe series",
+  "Only a generator-fuel measurement series",
+  "Only a cloud-software licensing series",
 ]
 correct = "A"
-explanation = "U-space planning is how operators inventory vertical capacity."
+explanation = "The IEC catalog identifies basic dimensions for the 482.6 mm (19 in) series."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "remember"
