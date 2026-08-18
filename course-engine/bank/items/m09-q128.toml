@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — not an exam dump
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Types of cooling systems
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# BLOCKED: the current environmental-control catalog does not expose the exact rear-door heat-exchanger proposition.
 id = "m09-q128"
 kind = "single-select"
 module = 9
