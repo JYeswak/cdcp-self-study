@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Cooling principles
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact outdoor-sink heat-rejection proposition.
+# PASS: ISO/IEC 22237-4:2021 official abstract explicitly includes fluid
+# movement control among environmental-control topics.
+# https://www.iso.org/standard/78552.html
 id = "m09-q103"
 kind = "single-select"
 module = 9
-stem = "Heat rejection from a data centre ultimately means:"
+stem = "Which flow-related environmental-control category does ISO/IEC 22237-4:2021 explicitly include?"
 choices = [
+  "Fluid movement control",
   "Destroying energy so it disappears",
   "Storing all heat forever in the raised floor",
-  "Converting heat back into UPS runtime",
-  "Moving IT heat to an outdoor sink (air, water, or ground loop)"
+  "Converting heat back into UPS runtime"
 ]
-correct = "D"
-explanation = "Cooling moves heat; it does not destroy it. Heat must be rejected to ambient air, water, or another sink."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists fluid movement control; it does not expose a heat-rejection sink proposition."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "understand"

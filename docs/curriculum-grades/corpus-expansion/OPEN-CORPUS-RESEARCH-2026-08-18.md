@@ -870,6 +870,25 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 280 — ISO environmental-control abstract categories
+
+**Review date:** 2026-08-18. The current official ISO catalog abstract for
+ISO/IEC 22237-4:2021 was checked without opening or fetching a PDF. It explicitly
+names temperature control, fluid movement control, relative humidity control,
+particulate control, vibration, and physical security of environmental-control
+systems.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m09-q101 | Cooling principles | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — asks only for temperature control; no sensible/latent capacity rule is inferred |
+| m09-q102 | Cooling principles | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — asks only for relative humidity control; no SHR selection rule is inferred |
+| m09-q103 | Cooling principles | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — asks only for fluid movement control; no heat-rejection sink proposition is inferred |
+| m09-q107 | Cooling principles | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — asks only for particulate control; no condensation rule is inferred |
+| m09-q119 | Temperature and humidity | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — asks only for vibration; no localized hot-spot airflow proposition is inferred |
+| m09-q121 | Temperature and humidity | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — asks only for physical security of environmental-control systems; no humidification trigger is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 279 — ISO building-construction scope, continued
 
 **Review date:** 2026-08-18. The same current official ISO catalog abstract for

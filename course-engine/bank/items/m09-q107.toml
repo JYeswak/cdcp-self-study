@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Cooling principles
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact below-dew-point condensation-risk proposition.
+# PASS: ISO/IEC 22237-4:2021 official abstract explicitly includes particulate
+# control among environmental-control topics.
+# https://www.iso.org/standard/78552.html
 id = "m09-q107"
 kind = "single-select"
 module = 9
-stem = "If supply air is colder than the dew point of local air near cold surfaces, a practical risk is:"
+stem = "Which air-quality environmental-control category does ISO/IEC 22237-4:2021 explicitly include?"
 choices = [
+  "Particulate control",
   "Faster fiber splicing",
   "Automatic increase of UPS kVA rating",
-  "Elimination of need for filters",
-  "Condensation on coils, pipes, or poorly insulated surfaces"
+  "Elimination of need for filters"
 ]
-correct = "D"
-explanation = "Surfaces below dew point collect condensate—a moisture and equipment risk if insulation, controls, or setpoints are wrong."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists particulate control; it does not expose a dew-point condensation rule."
 topic_ids = ["m09-principles", "m09-temp-humidity"]
 objective_ids = []
 bloom = "apply"

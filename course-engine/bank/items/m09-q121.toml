@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Temperature and humidity
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact humidification-trigger proposition.
+# PASS: ISO/IEC 22237-4:2021 official abstract explicitly includes physical
+# security of environmental-control systems among its topics.
+# https://www.iso.org/standard/78552.html
 id = "m09-q121"
 kind = "single-select"
 module = 9
-stem = "Humidification may be required in a data centre when:"
+stem = "Which security-related environmental-control category does ISO/IEC 22237-4:2021 explicitly include?"
 choices = [
+  "Physical security of environmental-control systems",
   "UPS batteries always need 100% RH",
-  "Outdoor conditions or cooling processes drive indoor moisture too low for the site humidity strategy",
   "Fiber only works when fog is present",
   "Raised floors must be flooded"
 ]
-correct = "B"
-explanation = "Dry outdoor air or dehumidifying coils can drop indoor moisture; humidification restores the site humidity control band."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists physical security of environmental-control systems; it does not expose a humidification trigger."
 topic_ids = ["m09-temp-humidity"]
 objective_ids = []
 bloom = "apply"

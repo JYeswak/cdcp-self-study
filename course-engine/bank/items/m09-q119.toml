@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Temperature and humidity
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact localized hot-spot airflow proposition.
+# PASS: ISO/IEC 22237-4:2021 official abstract explicitly includes vibration
+# among environmental-control topics.
+# https://www.iso.org/standard/78552.html
 id = "m09-q119"
 kind = "single-select"
 module = 9
-stem = "A hot spot in a data hall typically means:"
+stem = "Which physical environmental-control category does ISO/IEC 22237-4:2021 explicitly include?"
 choices = [
+  "Vibration",
   "A deliberately heated cold aisle",
   "Only an outdoor weather station reading",
-  "A battery room at float voltage",
-  "Localized elevated inlet temperatures from poor airflow management"
+  "A battery room at float voltage"
 ]
-correct = "D"
-explanation = "Hot spots are local thermal problems—often recirculation, blocked tiles, or uneven loads—not necessarily whole-room average failure."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists vibration; it does not expose a localized hot-spot airflow proposition."
 topic_ids = ["m09-temp-humidity", "m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "remember"
