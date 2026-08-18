@@ -605,3 +605,59 @@ The objective remains open after pass 08. The next unresolved frontier is commis
 | 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
 
 The objective remains open after pass 09. The next and final planned frontier is adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions.
+
+## Breadth pass 10 — adversarial freshness, authority, numeric, and coverage review
+
+**Review date:** 2026-08-18. This pass challenged the nine prior source passes and their question frontiers instead of adding a generic source list. Official pages were rechecked for the primary EPI syllabus, ISO/IEC 22237-1:2021, TIA-942-C, NIST SP 800-88 Rev. 2, NIST SP 800-82 Rev. 3, NIST SP 800-61 Rev. 3, NICE current-version language, and IEEE 802.3. No PDF body was fetched or copied.
+
+### Adversarial checks and dispositions
+
+| Challenge | Result | Disposition |
+|---|---|---|
+| EPI syllabus drift or invented headings | The official CDCP page currently exposes the fifteen public module headings and detailed syllabus subheadings, including current power, cooling, liquid-cooling, STER, BESS, network, fire, security, BMS/DCIM, and alarm language | Keep research prompts tied to the published EPI headings; do not invent CDFOS/CDFOM headings, and do not treat the page’s separate exam/certificate language as a claim made by this corpus |
+| ISO edition drift | ISO/IEC 22237-1:2021 is published, Edition 1, with an OBP preview; the page shows the 2018 technical-specification predecessor withdrawn and identifies scope exclusions including IT/network equipment selection and safety/EMC | Keep the 2021 catalog/preview pin; reject the withdrawn 2018 pin; do not use Part 1 as a network, safety, or EMC body substitute |
+| TIA edition drift | TIA’s current standard page shows TIA-942, Revision C, published May 2024, with data-center infrastructure scope | Keep TIA-942-C; remove any implication that a TIA rating, certification program, or standard receipt certifies a learner or proves an operational result |
+| NIST media-sanitization drift | NIST SP 800-88 Rev. 2 is final from September 2025 and supersedes withdrawn Rev. 1 | Use Rev. 2 only; do not retain Rev. 1 methods or certificates as current evidence |
+| NIST OT and incident-response drift | NIST SP 800-82 Rev. 3 remains the final OT guide while a later revision is in draft/pre-draft status; NIST SP 800-61 Rev. 3 is the April 2025 final and supersedes Rev. 2 | Pin final editions, identify drafts as excluded, and do not let a draft or cyber-only guide silently become a facility operating rule |
+| NICE workforce drift | NIST’s current-version page separates maintained components from the SP 800-181 Rev. 1 structure and exposes a current component version | Use NICE only for capability/work-role language; no credential, certification, job-title, or invented operations taxonomy is derived from it |
+| NFPA/IEC/IEEE paid-body leakage | NFPA preview/catalog pages, IEC webstore pages, and IEEE records provide public headings, scope, edition, or abstract receipts; none supplies permission to paste a paid standard body | Keep receipts and source boundaries; mark body-level claims BLOCKED where no legal public text supports them |
+| Numeric overclaim | Review found no new universal PUE/WUE, temperature/humidity, cycles-of-concentration, COP, heat-capture, availability, runtime, fuel-autonomy, link-reach, or test-interval claim added by the ten passes | Keep numbers attributed to a named source, installation, scenario, meter boundary, or legal table; otherwise convert the item to an evidence-selection question or BLOCKED receipt |
+| Guidance-versus-law confusion | OSHA/eCFR and AHJ-adopted code are legal anchors; DOE/FEMP, NIST, CISA, NIOSH, FEMA/NIMS, NREL/NLR, and EPA are guidance, research, or planning sources unless a separate authority says otherwise | Every future item must state the authority boundary; a guidance page cannot be presented as an adopted code or universal compliance result |
+| False equivalence: power systems | UPS, ATS, STS, generator, BESS, SEPSS, emergency power, microgrid, and utility interconnection remain distinct | Require named equipment, topology, mode, protection, control, test, and authority; never infer ride-through, islanding, availability, or resilience from a product label |
+| False equivalence: cooling systems | Air cooling, water-side economizing, evaporative towers, dry coolers, direct liquid cooling, immersion, CDU loops, heat reuse, and thermal storage remain distinct and often hybrid | Require heat path, residual air load, water/energy boundary, control sequence, fallback, and evidence; “liquid cooled” is not a complete architecture |
+| False equivalence: security and people | Physical security, cyber-physical security, worker safety, PPE, visitor/vendor control, training, qualification, and credentialing are separate domains | Require the governing authority, role, evidence owner, and task scope; do not treat a badge, course, framework, or CPG as competence or certification |
+| False equivalence: dashboard and control | A dashboard, alarm, trend, command, interlock, notification, acknowledgement, and restoration record are different artifacts | Future items must name state, authority, action, timestamp, audit, and fallback; a green dashboard is not proof of safe operation |
+| PDF/vendor/shadow leakage | The log contains no PDF URL, no vendor blog as a retained source, and no shadow-library source; pages that merely link PDFs are described as not fetched where relevant | Preserve the current legal source bar; do not add a PDF receipt as if it were a public body, and do not promote vendor marketing into syllabus evidence |
+
+### Uncovered-decision challenge
+
+The ten passes cover the fifteen EPI module headings with operational question families, but research coverage is not the same as bank completion. The following decisions remain explicit next-work targets for item-level review:
+
+- procurement, spares, obsolescence, warranty, end-of-support, and supply-chain substitution;
+- local utility/AHJ/permit evidence and the boundary between site screening and engineering approval;
+- refrigerant, chemical, wastewater, noise, emissions, and environmental-justice obligations where a jurisdiction makes them applicable;
+- accessibility and worker accommodation in normal, emergency, and maintenance states;
+- multi-site service dependencies, data sovereignty, recovery priorities, and customer communication;
+- AI/HPC load transients, workload flexibility, liquid-cooling adoption boundaries, and power/cooling co-design;
+- alarm quality, sensor calibration, data retention, metric definitions, and false-positive/false-negative trade-offs;
+- incident evidence preservation, privacy, labor, vendor liability, and post-event learning;
+- decommissioning, media disposition, facility reuse, and closure of physical, logical, and contractual access.
+
+These are unresolved item-authoring and source-pinning targets, not permission to invent new syllabi or taxonomies. A future item is PASS only when its public EPI heading and legal/current source receipt are present; otherwise it remains BLOCKED or a research candidate.
+
+### Ten-pass tracker — adversarial closeout
+
+| Pass | Focus | Status |
+|---:|---|---|
+| 01 | DOE/FEMP/NREL energy, cooling, water, commissioning; CISA/NIST OT and exposure; eCFR safety; ISO/TIA/IEEE edition anchors | COMPLETE |
+| 02 | Site risk, utility interconnection, resilience, climate/flood/seismic, public AHJ/code sources | COMPLETE |
+| 03 | Electrical distribution, switching, protection, UPS/generator/BESS, maintenance testing | COMPLETE |
+| 04 | Cooling controls, liquid cooling, heat reuse, economization, thermal/water measurement | COMPLETE |
+| 05 | Cabling, outside plant, network management, BMS/DCIM segmentation, remote access | COMPLETE |
+| 06 | Fire/life safety, emergency power, permits, PPE, incident command, return-to-service | COMPLETE |
+| 07 | Physical security, personnel/vendor/visitor controls, asset lifecycle, media disposition | COMPLETE |
+| 08 | People systems: skills matrices, shift turnover, training, fatigue, contractor governance, succession | COMPLETE |
+| 09 | Commissioning, change control, MOP/SOP/EOP, alarms, metrics, reliability-centered maintenance | COMPLETE |
+| 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | COMPLETE — this section |
+
+Ten breadth passes are now recorded, but the objective remains open: the research corpus still needs item-level expansion and source receipts across the 957-item bank. No ship/READY claim, credential claim, ms4j closure, gate-shrink, README change, or oracle-port action follows from this research pass.
