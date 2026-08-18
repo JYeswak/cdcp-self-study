@@ -1044,6 +1044,63 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 117 — resilience, exercises, and asset-lifecycle evidence
+
+**Date:** 2026-08-18
+**Scope:** M01, M03, M06, M12, M13, M14, and M15 questions about continuity,
+incident response, test/training/exercise design, asset lifecycle decisions,
+staff competence, third-party recovery, and return-to-service evidence.
+
+**Official public receipts:**
+
+- [NIST SP 800-61 Rev. 3](https://csrc.nist.gov/pubs/sp/800/61/r3/final),
+  **Incident Response Recommendations and Considerations for Cybersecurity
+  Risk Management**, is final and dated April 2025. The public abstract covers
+  preparation, detection, response, and recovery within CSF 2.0 risk
+  management; it supersedes Rev. 2. No draft or paid body was used.
+- [NIST SP 800-84](https://csrc.nist.gov/pubs/sp/800/84/final), **Guide to
+  Test, Training, and Exercise Programs for IT Plans and Capabilities**, is a
+  final public publication. Its abstract supports designing, developing,
+  conducting, and evaluating TT&E events for preparation, response, management,
+  and recovery. Its 2006 date is retained as a currency boundary, not hidden.
+- [ISO 22301:2019](https://www.iso.org/standard/75106.html?browse=tc) is the
+  current published OBP/catalog edition for **Business continuity management
+  systems — Requirements**, Edition 2, with Amendment 1:2024. ISO marks it
+  published but to be revised; [ISO/CD 22301](https://www.iso.org/standard/93606.html?browse=tc)
+  is under development and is not used as a current edition claim.
+- [ISO 55001:2024](https://www.iso.org/standard/83054.html), **Asset
+  management — Asset management system — Requirements**, is the current
+  published Edition 2 (2024-07). The public catalog abstract covers asset
+  lifecycle, risk/performance/expenditure balance, objectives, periodic review,
+  and continual improvement. The paid requirements remain unquoted.
+- [eCFR 29 CFR 1910.38](https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.38)
+  remains the public emergency-action-plan code receipt for role, reporting,
+  evacuation, alarm, and training questions. It is authoritative but unofficial
+  eCFR content; it does not replace an AHJ-adopted fire/life-safety program.
+
+**Adversarial boundary:** A tabletop exercise can reveal an unowned decision,
+an incident-response plan can define detection/containment/recovery work, a
+BCMS can govern continuity objectives and improvement, and an asset-management
+system can govern lifecycle decisions. None of these artifacts proves that a
+generator started, a fire alarm reached its recipient, a BMS command was safe,
+or a facility is ready for return to service. Those claims require observed
+test evidence, responsible roles, and local code/engineering acceptance.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M01 | Trace a mission-impact scenario through continuity objective, incident declaration, technical response, people decision, supplier action, and service recovery | Do not treat a continuity label as a facility availability rating |
+| M03 | Test whether a site/project handoff includes exercise findings, dependency owners, recovery assumptions, and unresolved risks before operations acceptance | ISO 22301 is a catalog receipt, not a project approval |
+| M06 | Exercise loss of utility, failed transfer, unavailable operator, and vendor delay; record decisions, test results, and restart evidence | No universal RTO, generator-start, or fuel-duration value is invented |
+| M12 | Coordinate alarm/suppression impairment, evacuation/notification, emergency roles, AHJ contact, and return-to-service evidence | eCFR 1910.38 does not establish NFPA design or local AHJ acceptance |
+| M13/M14 | Compare cyber incident response with physical/OT incident handling, including detection, containment, safe fallback, evidence preservation, and lessons learned | NIST response guidance does not create a vendor taxonomy or credential |
+| M15 | Build an exercise calendar and competence record tied to actual MOP/SOP/EOP changes, maintenance findings, asset lifecycle decisions, and supplier recovery obligations | TT&E, BCMS, and asset-management artifacts remain distinct |
+
+**Bounded result:** This pass adds a people-and-resilience framework that is
+operationally actionable without asserting that completing an exercise,
+maintaining a BCMS, or using an asset register certifies a facility or learner.
+No bank rows, ledger dispositions, manifest, topics, beads, gate, oracle, or
+credential state changed.
+
 ## Breadth pass 116 — OT security ownership and recovery boundaries
 
 **Date:** 2026-08-18
