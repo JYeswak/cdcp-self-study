@@ -870,6 +870,22 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 352 — public fire-extinguisher accessibility and condition
+
+**Review date:** 2026-08-18. `bank-m12-q060` was narrowed from an unsupported
+white-space dry-chemical agent preference to the public OSHA text for 29 CFR
+1910.157(c): portable extinguishers must be mounted, located, and identified for
+ready access, and maintained fully charged and operable. The exact public CDCP
+heading remains **Handheld fire extinguishers**. No PDF or NFPA body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q060 | Handheld fire extinguishers | 29 CFR 1910.157 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157 | **PASS** — accessibility and operable-condition requirements are explicit |
+
+No extinguishing-agent preference, white-space residue rule, travel distance, or
+AHJ adoption decision is inferred. This pass does not certify a learner or close
+ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
