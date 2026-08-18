@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Microgrid
+# Official catalog/preview receipt: IEC TS 62898-3-2:2024 — https://webstore.iec.ch/en/publication/61960
+# PASS boundary: the official catalog covers utility-interconnected or islanded microgrid energy management and balancing among distributed resources and controllable loads.
 id = "m06-q233"
 kind = "single-select"
 module = 6

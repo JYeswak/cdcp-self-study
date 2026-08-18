@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Power sustainability
+# Official catalog/preview receipt: NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025
+# BLOCKED: the official preview does not expose the exact test-interval/start-reliability proposition.
 id = "m06-q234"
 kind = "single-select"
 module = 6

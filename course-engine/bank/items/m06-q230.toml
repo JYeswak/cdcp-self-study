@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Battery Energy Storage System (BESS)
+# Official catalog/preview receipt: NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026
+# BLOCKED: the official preview does not expose the exact dual-use BESS ride-through/grid-services priority proposition.
 id = "m06-q230"
 kind = "single-select"
 module = 6

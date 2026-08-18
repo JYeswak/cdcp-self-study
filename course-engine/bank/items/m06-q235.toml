@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Power sustainability
+# Official catalog/preview receipt: ISO/IEC 30134-2:2026 — https://www.iso.org/standard/30134-2?browse=ics
+# BLOCKED: the official catalog defines PUE but does not expose the exact redundancy/availability trade-off proposition.
 id = "m06-q235"
 kind = "single-select"
 module = 6

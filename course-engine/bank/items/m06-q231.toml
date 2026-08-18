@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Batteries
+# Official catalog/preview receipt: IEC 62485-5:2020 — https://webstore.iec.ch/en/publication/29086
+# BLOCKED: the official catalog does not expose the exact lithium-versus-VRLA footprint/lifecycle proposition.
 id = "m06-q231"
 kind = "single-select"
 module = 6

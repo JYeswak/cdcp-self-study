@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Transformers
+# Official catalog/preview receipt: IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588
+# BLOCKED: the official catalog does not expose the exact transformer-loss/heat-load proposition.
 id = "m06-q238"
 kind = "single-select"
 module = 6

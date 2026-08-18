@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Batteries
+# Official catalog/preview receipt: IEC 62485-2:2010 — https://webstore.iec.ch/en/publication/7091
+# BLOCKED: the official catalog does not expose the exact VRLA environmental-life proposition.
 id = "m06-q232"
 kind = "single-select"
 module = 6

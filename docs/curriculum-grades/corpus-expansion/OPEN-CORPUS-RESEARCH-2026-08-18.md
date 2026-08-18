@@ -1044,6 +1044,32 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 72 — CDCP thermography, BESS, microgrid, and transformer receipts
+
+**Review date:** 2026-08-18. Ten additional M06 rows now carry current NFPA,
+IEC, or ISO catalog/preview receipts. IEC TS 62898-3-2:2024 exposes enough
+microgrid energy-management scope for m06-q233 to remain a bounded PASS. The
+other nine remain BLOCKED because their exact thermography, BESS, battery,
+sustainability, IP, or transformer propositions are not exposed. No PDF was
+fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q229 | Thermographic scanning | NFPA 70B, 2026 — https://link.nfpa.org/all-publications/70B/2026 | **BLOCKED** — exact loaded-baseline/trending proposition not exposed |
+| m06-q230 | Battery Energy Storage System (BESS) | NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026 | **BLOCKED** — exact dual-use BESS ride-through/grid-services priority proposition not exposed |
+| m06-q231 | Batteries | IEC 62485-5:2020 — https://webstore.iec.ch/en/publication/29086 | **BLOCKED** — exact lithium-versus-VRLA footprint/lifecycle proposition not exposed |
+| m06-q232 | Batteries | IEC 62485-2:2010 — https://webstore.iec.ch/en/publication/7091 | **BLOCKED** — exact VRLA environmental-life proposition not exposed |
+| m06-q233 | Microgrid | IEC TS 62898-3-2:2024 — https://webstore.iec.ch/en/publication/61960 | **PASS** — the catalog covers utility-interconnected or islanded microgrid energy management and balancing among distributed resources and controllable loads |
+| m06-q234 | Power sustainability | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact test-interval/start-reliability proposition not exposed |
+| m06-q235 | Power sustainability | ISO/IEC 30134-2:2026 — https://www.iso.org/standard/30134-2?browse=ics | **BLOCKED** — exact redundancy/availability trade-off proposition not exposed |
+| m06-q236 | Ingress Protection (IP) grades | IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV — https://webstore.iec.ch/en/publication/2452 | **BLOCKED** — exact outdoor-enclosure selection proposition not exposed |
+| m06-q237 | Transformers | IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588 | **BLOCKED** — exact facility step-down proposition not exposed |
+| m06-q238 | Transformers | IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588 | **BLOCKED** — exact transformer-loss/heat-load proposition not exposed |
+
+The ledger is now 162 PASS / 795 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 71 — CDCP phase, busway, PDU, HPC, and thermography receipts
 
 **Review date:** 2026-08-18. Ten additional M06 rows now carry current IEC,
