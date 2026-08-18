@@ -194,7 +194,7 @@ fn content_lock_walk_is_one_level_and_the_limit_is_pinned() {
         "the contracted walk depth is one; a different number is a mechanism change"
     );
 
-    let gate = read(&engine_root().join("crates/cdcp_gate/src/gates/verify_content_lock.rs"));
+    let gate = read(&engine_root().join("crates/cdcp_bank/src/verify_content_lock.rs"));
     let gen = read(&engine_root().join("crates/cdcp_data/src/gen_lock.rs"));
 
     // Generator: list_one_level, not a recursive walk. Anti-vacuous: the

@@ -226,8 +226,8 @@ claim = "content.lock pins the bank hash plus every knowledge and module file by
 charter_claim = { file = "CHARTER.md", row = "L7 Ecosystem lock", status = "YES · wired" }
 evidence = [
   { kind = "test", ref = "crates/cdcp_gate/src/gates/verify_content_lock.rs::the_live_tree_is_green_and_the_receipt_names_the_counts" },
-  { kind = "known_bad", ref = "crates/cdcp_gate/src/gates/verify_content_lock.rs::tampered_knowledge_hash_is_red" },
-  { kind = "known_bad", ref = "crates/cdcp_gate/src/gates/verify_content_lock.rs::a_file_with_no_row_behind_it_is_named" },
+  { kind = "known_bad", ref = "crates/cdcp_bank/src/verify_content_lock.rs::tampered_knowledge_hash_is_red" },
+  { kind = "known_bad", ref = "crates/cdcp_bank/src/verify_content_lock.rs::a_file_with_no_row_behind_it_is_named" },
   { kind = "contract", ref = "content.lock" },
   { kind = "contract", ref = "scripts/check.sh" },
 ]
