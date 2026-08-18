@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Cooling principles
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact delta-T/airflow heat-balance proposition.
+# PASS: the current ISO preview explicitly includes vibration within the
+# environmental-control scope.
 id = "m09-q104"
 kind = "single-select"
 module = 9
-stem = "Delta-T across a server (or aisle) is useful operationally because it relates:"
+stem = "Which physical environmental-control factor does ISO/IEC 22237-4:2021 explicitly include?"
 choices = [
-  "Airflow volume and heat removed for a given cooling capacity",
-  "Only to humidity, never temperature",
+  "Vibration",
   "Only generator fuel quality",
-  "Fiber attenuation exclusively"
+  "Only fibre attenuation",
+  "Only tenant billing rules",
 ]
 correct = "A"
-explanation = "For a given heat load, larger temperature rise implies lower required airflow; delta-T is a core airflow/heat balance indicator."
+explanation = "The current ISO preview explicitly lists vibration among the environmental-control requirements and recommendations for data centres; it does not expose the former delta-T/airflow heat-balance proposition."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "apply"

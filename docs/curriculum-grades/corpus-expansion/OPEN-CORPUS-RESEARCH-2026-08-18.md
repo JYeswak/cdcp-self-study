@@ -870,6 +870,23 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 296 — ISO environmental-control domain preview claims
+
+**Review date:** 2026-08-18. The current official ISO catalog/preview for
+ISO/IEC 22237-4:2021 was checked without opening or fetching a PDF. Its public
+abstract explicitly names temperature control, fluid movement control, relative
+humidity control, particulate control, vibration, and physical security of
+environmental-control systems.
+
+| Items | Public CDCP heading | Current official catalog/preview | Bounded result |
+|---|---|---|---|
+| mock40-q28 | Cooling principles | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — asks only for temperature control as a named domain; no sensible-heat rule is inferred |
+| m09-q104 | Cooling principles | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — asks only for vibration as a named domain; no delta-T/airflow rule is inferred |
+| m09-q111 | Cooling principles | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — asks only for fluid movement control as a named domain; no IT-heat-load rule is inferred |
+| m09-q117 | Temperature and humidity | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — asks only for relative humidity control as a named domain; no dew-point rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 295 — TIA enterprise and multi-tenant facility preview claim
 
 **Review date:** 2026-08-18. The current official TIA-942-C page was checked

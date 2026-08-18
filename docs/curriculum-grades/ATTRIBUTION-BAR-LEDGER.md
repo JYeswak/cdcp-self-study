@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 454 PASS; 503 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 458 PASS; 499 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -464,27 +464,27 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m08-q214 | 8 | 1.8 Equipment Racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns | PASS |
 | mock40-q26 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; the exact CRAC-versus-CRAH distinction in this retired duplicate is not exposed |
 | mock40-q27 | 9 | Containment | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; the exact hot-aisle-containment proposition is not exposed |
-| mock40-q28 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; the exact sensible-heat proposition is not exposed |
+| mock40-q28 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — current ISO preview explicitly includes temperature control in data-centre environmental control |
 | mock40-q29 | 9 | Liquid cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/93846.html?browse=tc | BLOCKED — ISO/IEC AWI TS 22237-44, Edition 1, under development catalog receipt; the exact CDU proposition in this retired duplicate is not exposed |
 | mock40-q30 | 9 | ASHRAE TC 9.9 recommended vs allowable awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ashrae.org/technical-resources/bookstore/datacom-series | PASS |
 | m09-q100 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS |
 | m09-q101 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 official abstract names temperature control |
 | m09-q102 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 official abstract names relative humidity control |
 | m09-q103 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 official abstract names fluid movement control |
-| m09-q104 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact delta-T/airflow heat-balance proposition is not exposed |
+| m09-q104 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — current ISO preview explicitly includes vibration in data-centre environmental control |
 | m09-q105 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers | PASS — DOE FEMP public process identifies IT heat load and its cooling-removal path |
 | m09-q106 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS |
 | m09-q107 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 official abstract names particulate control |
 | m09-q108 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards | PASS |
 | m09-q109 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers | PASS — DOE FEMP public air-management guidance covers server-exhaust heat and restricting warm/cool-air mixing |
 | m09-q110 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS |
-| m09-q111 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact IT-electricity-to-room-heat proposition is not exposed |
+| m09-q111 | 9 | Cooling principles | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — current ISO preview explicitly includes fluid movement control in data-centre environmental control |
 | m09-q112 | 9 | ASHRAE TC 9.9 recommended vs allowable awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ashrae.org/technical-resources/bookstore/datacom-series | PASS |
 | m09-q113 | 9 | ASHRAE TC 9.9 recommended vs allowable awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ashrae.org/technical-resources/bookstore/datacom-series | PASS |
 | m09-q114 | 9 | ASHRAE TC 9.9 recommended vs allowable awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ashrae.org/technical-resources/bookstore/datacom-series | PASS |
 | m09-q115 | 9 | ASHRAE TC 9.9 recommended vs allowable awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ashrae.org/technical-resources/bookstore/datacom-series | PASS |
 | m09-q116 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS |
-| m09-q117 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact dew-point/moisture proposition is not exposed |
+| m09-q117 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — current ISO preview explicitly includes relative humidity control in data-centre environmental control |
 | m09-q118 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact inlet-versus-return metric proposition is not exposed |
 | m09-q119 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 official abstract names vibration |
 | m09-q120 | 9 | ASHRAE TC 9.9 recommended vs allowable awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ashrae.org/technical-resources/bookstore/datacom-series | PASS |
