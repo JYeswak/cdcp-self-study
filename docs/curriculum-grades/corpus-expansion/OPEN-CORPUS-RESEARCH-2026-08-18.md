@@ -1044,6 +1044,74 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 127 — refrigeration, refrigerant, and mechanical-safety evidence
+
+**Date:** 2026-08-18
+**Scope:** M09, M12, M13, M14, and M15 questions about chilled-water and
+refrigerant systems, heat pumps, refrigerant recovery, mechanical-room safety,
+compressed gases, hazard communication, modifications, component replacement,
+maintenance, and restart evidence. Existing public EPI/CDCS/CDFOS/CDFOM
+headings are retained; no refrigerant taxonomy or universal operating limit is
+invented.
+
+**Official public receipts:**
+
+- [ISO 5149-1:2014](https://www.iso.org/standard/54979.html), **Refrigerating
+  systems and heat pumps — Safety and environmental requirements — Part 1:
+  Definitions, classification and selection criteria**, remains the published
+  current edition with Amendment 1:2015 and Amendment 2:2021. Its public OBP
+  abstract covers safety of persons/property, environmental protection,
+  operation, maintenance, repair, refrigerant recovery, classification,
+  modifications, transferred systems, and refrigerant conversion. ISO marks it
+  to be revised and points to ISO/FDIS 5149-1; that future edition is not used.
+- [NFPA 55, 2023](https://link.nfpa.org/all-publications/55/2023), **Compressed
+  Gases and Cryogenic Fluids Code**, is the official NFPA preview/catalog
+  receipt used for compressed-gas and cryogenic-fluid boundaries. The preview
+  page is a receipt only; exact paid clauses and any PDF body remain BLOCKED.
+- [OSHA 29 CFR 1910.101](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.101),
+  **Compressed gases (general requirements)**, is public legal text for
+  cylinder condition, handling/storage/use, and pressure-relief-device
+  boundaries.
+- [OSHA 29 CFR 1910.1200](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.1200),
+  **Hazard Communication**, is public legal text for chemical hazard
+  classification and transmission of information, including workplace safety
+  data sheet access and defined information headings. It is not used to infer
+  refrigerant-specific engineering limits.
+- [ISO 5149-1:2014 Amendment 2:2021](https://www.iso.org/standard/79049.html),
+  **Update of Annex A and the refrigerant tables**, is recorded separately as
+  the current published amendment attached to the base receipt. The
+  under-development FDIS and manufacturer instructions are not substituted for
+  the current catalog pin.
+
+**Adversarial boundary:** A refrigerant nameplate, pressure alarm, leak sensor,
+SDS, or vendor service report does not prove that a mechanical room is safe,
+that refrigerant concentration/ventilation assumptions hold, or that a
+modified system was commissioned. Refrigerant recovery is not the same as
+disposal, and a restart is not acceptance without inspection, controls,
+interlocks, alarm response, environmental conditions, and responsible signoff.
+Compressed-gas handling rules do not establish a cooling-capacity, setpoint,
+or uptime value. A leak or chemical event may require simultaneous mechanical,
+electrical, fire/life-safety, environmental, and emergency-response decisions.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M09 | Trace refrigerant/chilled-water asset identity, classification, leak/pressure evidence, recovery, maintenance, controls, and restart | ISO 5149 does not prove a site’s design, charge, ventilation, or safe operation |
+| M12 | Coordinate mechanical-room hazards, compressed gases, alarms, evacuation/response, impairment, and AHJ interfaces | NFPA 55/OSHA receipts do not replace local fire or mechanical approval |
+| M13 | Preserve chemical inventory, SDS access, cylinder custody, contractor roles, PPE, exposure response, and incident records | A vendor service report is evidence to assess, not automatic acceptance |
+| M14 | Keep sensors, interlocks, alarms, setpoint changes, test results, and configuration versions linked to the equipment record | A BMS alarm or dashboard state is not proof of refrigerant safety |
+| M15 | Require competent maintenance, recovery/disposal records, exception ownership, retraining, and return-to-service review | Completing a mechanical-safety track does not certify a learner or facility |
+
+**Currency boundary:** ISO 5149:1993 is withdrawn; ISO 5149-1:2014 with its
+published amendments is the current catalog receipt while the FDIS is under
+development. OSHA PDFs, NFPA paid body, manufacturer service blogs, and shadow
+archives are excluded. No PDF was fetched.
+
+**Bounded result:** This pass adds official mechanical/refrigerant and public
+legal safety anchors while preserving the separation between catalog scope,
+local engineering acceptance, and observed operating evidence. No bank rows,
+ledger dispositions, manifest, topics, beads, gate, oracle, or credential
+state changed.
+
 ## Breadth pass 126 — environmental, energy, and water-management evidence
 
 **Date:** 2026-08-18
