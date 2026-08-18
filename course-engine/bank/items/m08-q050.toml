@@ -1,7 +1,7 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Rack security
-# Official catalog/preview receipt: ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html?browse=tc
-# BLOCKED: the official catalog covers physical-security systems but does not expose the exact rack-lock layering proposition.
+# Official catalog/preview receipt: ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html
+# PASS: the current ISO catalog covers physical-security systems for defined data-centre spaces and protection against unauthorized access and intrusion, supporting cabinet security as a layer within facility security. No paid body or PDF was fetched.
 id = "m08-q050"
 kind = "single-select"
 module = 8

@@ -886,6 +886,21 @@ The M03 site/building and M08 rack frontiers remain BLOCKED where the public
 catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+## Breadth pass 179 — ISO/IEC physical-security systems and rack layering
+
+**Review date:** 2026-08-18. ISO/IEC 22237-6:2024 is the current published
+edition. Its public abstract covers physical-security systems for designated
+data-centre spaces and protection against unauthorized access and intrusion,
+using organizational and technological solutions.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m08-q050 | Rack security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html | **PASS** — rack locks/side panels/door contacts are a physical-security layer, not a substitute for space controls |
+| m08-q203 | Rack security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html | **PASS** — compartmentalized rack security is within defined-space physical-security controls |
+
+Specific mantrap geometry, badge zoning, anti-tailgating, CCTV, and event-log
+behavior remain BLOCKED. No standard body or PDF was fetched. This pass does not
+certify a learner or close ms4j.
 ## Breadth pass 178 — ISO/IEC site-selection and seismic-risk scope
 
 **Review date:** 2026-08-18. Current ISO catalog abstracts were checked for
