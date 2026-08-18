@@ -1033,6 +1033,26 @@ The pass does not infer an organizational chart, training programme, document
 revision lifecycle, SLA/OLA/underpinning-contract taxonomy, or certification
 claim. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 361 — ISO/IEC generic cabling and optical-fibre testing scopes
+
+**Review date:** 2026-08-18. Three module-11 items were narrowed to current
+official ISO/IEC catalog claims. ISO/IEC 11801-1:2017, with its listed 2025
+amendment, specifies a multi-vendor generic cabling system and requirements
+common to the series. ISO/IEC 14763-3:2024 specifies inspection/testing of
+installed optical-fibre cabling and lists added MPO testing plus testing
+support for single-mode ranges up to 10 km. No PDF or standard body was
+fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q101 | Planning considerations | ISO/IEC 11801-1:2017 + Amd 1:2025 — https://www.iso.org/standard/66182.html | **PASS** — multi-vendor generic cabling/common-series scope is explicit |
+| m11-q110 | Fibre cabling | ISO/IEC 14763-3:2024 — https://webstore.iec.ch/en/publication/67723 | **PASS** — single-mode testing support up to 10 km is explicit |
+| m11-q112 | Fibre cabling | ISO/IEC 14763-3:2024 — https://webstore.iec.ch/en/publication/67723 | **PASS** — MPO-cabling testing addition is explicit |
+
+The pass does not infer meet-me-room layout, HDA/EDA/ZDA topology, universal
+multimode selection, MPO polarity, connector loss budgets, or a site cabling
+design approval. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

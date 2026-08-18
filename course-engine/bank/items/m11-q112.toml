@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: Fibre cabling
-# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the current TIA-942-C abstract does not expose the exact duplex/MPO polarity proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: ISO/IEC 14763-3:2024 — https://webstore.iec.ch/en/publication/67723
+# PASS: the current IEC catalog explicitly lists addition of testing of MPO
+# cabling. No paid body or PDF was fetched.
 id = "m11-q112"
 kind = "single-select"
 module = 11
-stem = "Polarity management for duplex and MPO fiber systems matters because incorrect polarity:"
+stem = "Which cabling test scope was added in ISO/IEC 14763-3:2024?"
 choices = [
-  "Can prevent links from coming up even when loss budgets are fine",
-  "Always increases electrical UPS capacity",
-  "Only affects cable jacket printing",
-  "Is irrelevant for data centres"
+  "Testing of MPO cabling",
+  "Only testing of diesel-fuel quality",
+  "Only testing of rack grounding resistance",
+  "Only testing of chilled-water flow",
 ]
 correct = "A"
-explanation = "Transmit must land on receive. Polarity schemes and labeling prevent silent connectivity failures."
+explanation = "The IEC catalog lists addition of testing of MPO cabling in the 2024 edition; it does not expose a particular MPO polarity scheme or labeling rule."
 topic_ids = ["m11-fibre", "m11-testing"]
 objective_ids = []
 bloom = "apply"
