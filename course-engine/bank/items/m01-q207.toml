@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
 # https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog exposes business-risk analysis and availability, but
-# not this exact criticality-to-investment proposition.
+# PASS: the current official abstract explicitly names business-risk and
+# operating-cost analysis in applying the data-centre classification.
 id = "m01-q207"
 kind = "single-select"
 module = 1
-stem = "Aligning facility investment with business criticality means:"
+stem = "Which analysis does ISO/IEC 22237-1:2021 explicitly identify as enabling application of the data-centre classification?"
 choices = [
-  "Spending the same capital on every closet regardless of impact",
-  "Ignoring RTO/RPO when siting and designing",
-  "Using marketing slogans as the only design input",
-  "Matching redundancy and operating discipline to the impact of loss for the served services"
+  "A lobby-traffic analysis",
+  "A vendor-color analysis",
+  "A catering-capacity analysis",
+  "A business-risk and operating-cost analysis",
 ]
 correct = "D"
-explanation = "Resilience spend should track business impact of outage, not one-size-fits-all prestige design."
+explanation = "The current ISO abstract explicitly identifies business-risk and operating-cost analysis as an input to applying the data-centre classification."
 topic_ids = ["m01-importance", "m01-business-org"]
 objective_ids = []
 bloom = "apply"

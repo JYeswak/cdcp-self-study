@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
 # https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog names data-centre reference models and operation
-# management, but not this exact IT/facilities-silo proposition.
+# PASS: the current official abstract explicitly names terminology,
+# parameters, and reference models among common data-centre aspects.
 id = "m01-q041"
 kind = "single-select"
 module = 1
-stem = "From a business-organization view, treating the data centre only as a facilities silo most often leads to:"
+stem = "Which common data-centre aspect does ISO/IEC 22237-1:2021 explicitly define?"
 choices = [
-  "Misaligned capacity, change windows, and risk decisions between IT and operations",
-  "Clearer SLA ownership between IT and facilities",
-  "Automatic compliance with every international standard",
-  "Elimination of the need for a recovery strategy",
+  "Terminology, parameters, and reference models",
+  "A mandatory vendor staffing ratio",
+  "A universal PUE target",
+  "A single global electricity tariff",
 ]
 correct = "A"
-explanation = "Siloed facilities vs IT ownership commonly misaligns capacity planning, change control, and risk appetite."
+explanation = "The current ISO abstract explicitly defines common aspects of data centres including terminology, parameters, and reference models."
 topic_ids = ["m01-business-org"]
 objective_ids = []
 bloom = "understand"

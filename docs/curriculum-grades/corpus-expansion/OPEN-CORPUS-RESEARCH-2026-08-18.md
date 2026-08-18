@@ -870,6 +870,24 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 274 — ISO general-concepts abstract claims
+
+**Review date:** 2026-08-18. The current official ISO abstract for ISO/IEC
+22237-1:2021 was checked without opening or fetching a PDF. It explicitly covers
+classification by availability, security, and energy efficiency; common
+terminology, parameters, and reference models; supporting facilities and
+infrastructure; and business-risk/operating-cost analysis for applying the
+classification.
+
+| Items | Public EPI heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| mock40-q01 | Importance of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — rewritten to ask for the exact public availability criterion; no mission-critical impact test is inferred |
+| m01-q041 | Business organization / DC in the business | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — rewritten to ask for the exact public common-aspects wording; no IT/facilities ownership rule is inferred |
+| m01-q203 | Elements of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — rewritten to ask for the exact public supporting-facilities/infrastructure statement; no element checklist is inferred |
+| m01-q207 | Importance of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — rewritten to ask for the exact public business-risk/operating-cost analysis statement; no investment-sizing rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 273 — ISO management-and-operations focus terms
 
 **Review date:** 2026-08-18. The current official ISO abstract for ISO/IEC TS

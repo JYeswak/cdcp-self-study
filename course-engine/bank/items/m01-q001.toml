@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
 # https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog establishes data-centre general concepts and
-# availability/security classification, but not this exact mission-critical test.
+# PASS: the current official abstract explicitly names availability as a
+# classification criterion alongside security and energy efficiency.
 id = "mock40-q01"
 kind = "single-select"
 module = 1
-stem = "A payment processor defines a site as mission-critical mainly because:"
+stem = "Which key criterion does ISO/IEC 22237-1:2021 explicitly use in its data-centre classification system?"
 choices = [
-  "All racks exceed 10 kW",
-  "Sustained outage would cause severe business, legal, or safety impact",
-  "The building has a raised floor",
-  "PUE is below 1.4",
+  "Availability",
+  "Lobby-finish quality",
+  "Vendor logo count",
+  "Catering capacity",
 ]
-correct = "B"
-explanation = "Mission-critical is defined by impact of loss, not a single tech feature such as density or PUE."
+correct = "A"
+explanation = "The current ISO abstract names availability, security, and energy efficiency as classification criteria over the planned lifetime of the data centre."
 topic_ids = ["m01-importance"]
 objective_ids = []
 bloom = "understand"
