@@ -405,8 +405,8 @@ fn planted_known_bads_are_byte_identical_and_red() {
     );
 }
 
-/// U+0890/U+0891 are Unicode format characters, so Python's `repr(str)` emits
-/// a `\u` escape. The known-bad mutant leaves them printable in Rust, making
+/// U+0380 is an unassigned code point, so Python's `repr(str)` emits a `\u`
+/// escape. The known-bad mutant leaves it printable in Rust, making
 /// the orphan-topic report differ; this differential fixture REDs that drift.
 #[test]
 fn unicode_format_topic_repr_is_byte_identical_and_known_bad_is_red() {
@@ -418,7 +418,7 @@ fn unicode_format_topic_repr_is_byte_identical_and_known_bad_is_red() {
     let topics = td.path().join("topics_unicode.toml");
     let mut body = std::fs::read_to_string(root.join("knowledge/topics.toml")).unwrap();
     body.push_str(
-        "\n[[topic]]\nid = \"zz-\u{0890}\"\ndomain = \"01-mission-critical\"\n\
+        "\n[[topic]]\nid = \"zz-\u{0380}\"\ndomain = \"01-mission-critical\"\n\
          label = \"Unicode format orphan\"\nsource = \"fixture\"\n",
     );
     write(&topics, &body);
@@ -431,7 +431,7 @@ fn unicode_format_topic_repr_is_byte_identical_and_known_bad_is_red() {
     assert_ne!(rs.code, 0, "{}", rs.out());
     assert!(
         rs.out().contains(
-            "orphan topic 'zz-\\u0890': declared in topics.toml, referenced by 0 approved items of 0 referencing"
+            "orphan topic 'zz-\\u0380': declared in topics.toml, referenced by 0 approved items of 0 referencing"
         ),
         "{}",
         rs.out()
