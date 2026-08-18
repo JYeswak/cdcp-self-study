@@ -1109,6 +1109,33 @@ bypass archives, and PDF bodies are excluded. No PDF was fetched.
 anchors to the end-to-end evidence trail without changing bank rows, ledger
 dispositions, manifest, topics, beads, gate, oracle, or credential state.
 
+## Breadth pass 132 — residual CDFOM public-syllabus receipt audit
+
+**Date:** 2026-08-18
+**Scope:** The three remaining CDFOM attribution rows. The current [EPI
+CDFOM syllabus](https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29)
+publicly lists **Succession planning**, **Career development**, **Job
+rotation**, and **Facilities Management — Maintenance policies and
+procedures**. The CDFOM heading is retained exactly; no new heading or people-
+development taxonomy is inferred.
+
+| Item | Public CDFOM syllabus heading | Current official catalog/preview receipt | Disposition |
+|---|---|---|---|
+| m15-q348 | The Data Center Organization — Succession planning; Career development | [ISO 30401:2018/Amd 2:2024](https://www.iso.org/standard/88416.html), Knowledge management systems — Requirements — Amendment 2: Climate action changes | **BLOCKED** — the current official amendment/OBP page is published, but the public material does not expose a qualifying succession-planning clause; ISO/DIS 30401 is under development and excluded |
+| m15-q351 | Facilities Management — Maintenance policies and procedures | [ISO 41001:2018](https://www.iso.org/standard/68021.html), Facility management — Management systems — Requirements with guidance for use, with [Amd 1:2024](https://www.iso.org/standard/88425.html) | **BLOCKED** — the public abstract is a non-sector-specific FM-system statement and does not expose the exact commissioning-provider proposition; ISO/DIS 41001 is under development and excluded |
+| m15-q363 | The Data Center Organization — Career development; Job rotation | [ISO 10015:2019](https://www.iso.org/standard/69459.html), Quality management — Guidelines for competence management and people development | **BLOCKED** — the current public abstract supports competence management and people development generally, but does not expose a qualifying job-rotation clause |
+
+**Adversarial boundary:** A syllabus heading is not a standard requirement;
+competence management is not proof of job rotation; an FM management system is
+not a commissioning-provider rule; and knowledge management is not proof of
+succession planning. Paid standard bodies were not fetched. No PDF,
+commercial secondary source, non-authorized archive, invented taxonomy, bank
+edit, ledger edit, bead action, gate action, oracle action, or credential claim
+was made.
+
+**Bounded result:** All 26 CDFOS rows pass; 27 of 30 CDFOM rows pass; these
+three remain explicit BLOCKED receipts with current official catalog URLs.
+
 ## Breadth pass 130 — sourcing, outsourcing, and collaborative supplier evidence
 
 **Date:** 2026-08-18
