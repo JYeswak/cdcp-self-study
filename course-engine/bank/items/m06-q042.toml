@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: UPS systems
+# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
+# BLOCKED: the official catalog does not expose the exact multi-second generator-gap diagnostic.
 id = "m06-q042"
 kind = "single-select"
 module = 6

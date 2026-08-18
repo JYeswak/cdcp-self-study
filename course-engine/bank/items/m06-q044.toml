@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power distribution / busbar trunking
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
+# BLOCKED: the official catalog does not expose the exact utility-to-rack sequence.
 id = "m06-q044"
 kind = "single-select"
 module = 6

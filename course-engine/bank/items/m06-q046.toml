@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: ATS and STS
+# Official catalog/preview receipt: IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494
+# BLOCKED: the official catalog does not expose the exact utility/generator ATS teaching proposition.
 id = "m06-q046"
 kind = "single-select"
 module = 6
