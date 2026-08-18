@@ -950,6 +950,25 @@ No universal 600 mm or 800 mm external-width rule, cable-management rule, or
 vendor enclosure specification is inferred. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 357 — IEC rack and aisle-containment receipts
+
+**Review date:** 2026-08-18. The two retired module-8 ledger rows were
+reframed to claims exposed by official IEC catalogs. `mock40-q24` now tests the
+IEC 60297-3-105:2008 scope for dimensions and design aspects of 1U-high
+chassis mounted in compliant racks/cabinets. `mock40-q25` now tests
+IEC 62966-1:2019, which defines aisle-containment dimensions and mechanical
+requirements for IT cabinets and states a data-centre/server-room objective of
+energy-efficient, user-friendly operation. No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| mock40-q24 | Rack dimensions | IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288 | **PASS** — 1U-high chassis scope is explicit |
+| mock40-q25 | Containment | IEC 62966-1:2019 — https://webstore.iec.ch/en/publication/34275 | **PASS** — aisle-containment dimensions/mechanical requirements and data-centre/server-room scope are explicit |
+
+The pass does not infer the exact RU-to-millimetre conversion, blanking-panel
+airflow rule, containment performance value, or a site design approval. This
+pass does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

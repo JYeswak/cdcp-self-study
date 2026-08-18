@@ -20,20 +20,22 @@
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
 # Public syllabus heading: Containment
-# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the current official receipt does not expose the exact blanking-panel airflow proposition in this retired duplicate. No paid body, draft, or PDF was fetched.
+# Official catalog/preview receipt: IEC 62966-1:2019 — https://webstore.iec.ch/en/publication/34275
+# PASS: the IEC catalog explicitly defines dimensions and mechanical requirements
+# for aisle containment for IT cabinets in data centres and server rooms. No paid
+# body, draft, or PDF was fetched.
 id = "mock40-q25"
 kind = "single-select"
 module = 8
-stem = "Blanking unused rack U-space mainly:"
+stem = "IEC 62966-1:2019 addresses aisle containment for IT cabinets by defining:"
 choices = [
-  "Increases random mixing for comfort",
-  "Prevents bypass airflow and improves containment effectiveness",
-  "Removes need for CRAC filters",
-  "Grounds the cabinet automatically",
+  "Dimensions and mechanical requirements for containment in data centres and server rooms",
+  "Only generator synchronization settings",
+  "Only fire-agent concentration limits",
+  "Only cloud-service availability targets",
 ]
-correct = "B"
-explanation = "Blanking panels stop bypass airflow and improve containment effectiveness."
+correct = "A"
+explanation = "The IEC catalog defines aisle-containment dimensions and mechanical requirements for IT cabinets and states an objective of energy-efficient, user-friendly operation; it does not expose a universal blanking-panel airflow rule."
 topic_ids = ["m09-containment", "m08-types"]
 objective_ids = []
 bloom = "understand"
