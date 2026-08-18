@@ -1044,6 +1044,71 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 131 — maintenance engineering, condition monitoring, and reliability data
+
+**Date:** 2026-08-18
+**Scope:** M06, M08, M09, M14, and M15 questions about preventive and
+predictive maintenance, failure modes, asset hierarchy, work-order evidence,
+condition monitoring, maintainability, repair-versus-replace decisions, and
+lifecycle feedback. Existing public EPI/CDCS/CDFOS/CDFOM headings are retained;
+no maintenance, OLA, handover, or credential taxonomy is invented.
+
+**Official public receipts:**
+
+- [ISO 14224:2016](https://www.iso.org/standard/64076.html), **Petroleum,
+  petrochemical and natural gas industries — Collection and exchange of
+  reliability and maintenance data for equipment**, is the published current
+  Edition 3, confirmed in 2022. Its public OBP abstract exposes a structured
+  reliability/maintenance data language, failure modes, data quality control,
+  exchange between owners, manufacturers, and contractors, and basic
+  reliability/availability performance framing. It is sector-specific and is
+  used only as a bounded data-structure/reference receipt, not as a universal
+  data-centre maintenance rule.
+- [ISO 17359:2018](https://www.iso.org/standard/71194.html), **Condition
+  monitoring and diagnostics of machines — General guidelines**, is the
+  published current Edition 3, confirmed in 2023. Its public abstract covers
+  general procedures for setting up condition-monitoring programmes for
+  machines. It supports programme design and diagnostic boundaries; it does
+  not prove a sensor reading, alarm threshold, diagnosis, or repair decision.
+- [IEC 60300-3-10:2025](https://webstore.iec.ch/en/publication/65334),
+  **Dependability management — Part 3-10: Application guide — Maintainability
+  and maintenance**, is the current Edition 2.0 and replaces the withdrawn
+  2001 edition. Its official abstract covers maintainability and maintenance
+  characteristics, reliability/availability/supportability interfaces,
+  maintenance programmes, lifecycle application, requirements evidence, and
+  maintenance-information management. It is guidance applicable to equipment,
+  software, services, and structures, not a local MOP or return-to-service
+  approval.
+- [ISO 55002:2018](https://www.iso.org/standard/70402.html?browse=tc), **Asset
+  management — Management systems — Guidelines for the application of ISO
+  55001**, remains the published current receipt while a revision is under
+  development. The official catalog supports asset-management-system
+  application and lifecycle decision context; the draft revision is excluded
+  and the paid standard body was not fetched.
+
+**Adversarial boundary:** A maintenance interval is not completed work; a
+sensor trend is not a diagnosis; a failure code is not a root cause; MTBF or
+MTTR is not a guarantee; a vendor PM interval is not local duty-cycle evidence;
+and a closed work order is not proof of safe return to service. Asset
+management guidance does not supply an equipment-specific criticality score,
+spare-parts level, alarm threshold, or AHJ acceptance.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M06/M09 | Tie power, cooling, water, controls, and safety maintenance to named assets, failure modes, condition evidence, work history, and approved return-to-service checks | Catalog abstracts do not prove local equipment condition or field-test results |
+| M08/M14 | Preserve asset identity, configuration/provenance, sensor context, data quality, access, change history, and evidence custody across monitoring and maintenance systems | A telemetry record is not a diagnosis or an authorized command |
+| M15 | Review maintenance programme design, competence, supplier data, corrective action, repair-versus-replace evidence, and lifecycle lessons learned | Guidance does not create a universal CDFOS/CDFOM maintenance taxonomy or certify a person/facility |
+
+**Currency boundary:** ISO 14224:2016 and ISO 17359:2018 are current confirmed
+published editions; IEC 60300-3-10:2025 is current and supersedes the 2001
+edition; ISO 55002:2018 is the published receipt while its revision remains
+under development. Withdrawn editions, drafts, vendor material, paywall-
+bypass archives, and PDF bodies are excluded. No PDF was fetched.
+
+**Bounded result:** This pass adds official maintenance and reliability
+anchors to the end-to-end evidence trail without changing bank rows, ledger
+dispositions, manifest, topics, beads, gate, oracle, or credential state.
+
 ## Breadth pass 130 — sourcing, outsourcing, and collaborative supplier evidence
 
 **Date:** 2026-08-18
