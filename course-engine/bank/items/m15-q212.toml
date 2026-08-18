@@ -6,7 +6,7 @@
 id = "m15-q212"
 kind = "single-select"
 module = 15
-stem = "ISO/IEC TS 22237-7:2018 names which topic among its primary operational focuses?"
+stem = "Which security-related topic does ISO/IEC TS 22237-7:2018 list among its primary operational focuses?"
 choices = [
   "Security",
   "Office catering",
