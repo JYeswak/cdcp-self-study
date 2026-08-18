@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — ebrr.21 leftover: analyze missing-tile starve
+# Public syllabus heading: 1.4 Raised Access Flooring and Suspended Ceiling
+# Official catalog/preview receipt: TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/
+# BLOCKED: the official catalog does not expose the exact missing-tile/static-pressure diagnostic proposition.
 id = "m04-q212"
 kind = "single-select"
 module = 4

@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — ebrr.21 leftover: which rating / which test
+# Public syllabus heading: 1.4 Raised Access Flooring and Suspended Ceiling
+# Official catalog/preview receipt: TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/
+# BLOCKED: the official catalog does not expose the exact uniform/concentrated/rolling rating-and-test diagnostic or a universal 250 psf rule.
 id = "m04-q211"
 kind = "single-select"
 module = 4

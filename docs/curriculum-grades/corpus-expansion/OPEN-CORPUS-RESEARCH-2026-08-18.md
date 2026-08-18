@@ -1044,6 +1044,24 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 50 — CDCP raised-floor standards diagnostic remainder
+
+**Review date:** 2026-08-18. Three remaining M04 raised-floor diagnostic rows
+now carry official TIA-942-C or ISO/IEC 22237-2:2024 catalog/preview receipts.
+They remain BLOCKED because the public pages do not expose the exact
+rating/test, missing-tile/static-pressure, or high-density design-choice
+propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m04-q211 | Loading factors (uniform/concentrated/rolling) | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact rating-and-test diagnostic not exposed |
+| m04-q212 | Floor/ceiling impact on cooling | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact missing-tile/static-pressure diagnostic not exposed |
+| m04-q213 | General raised-floor guidelines | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact high-density raised-floor design-choice proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 49 — CDCP raised-floor standards continuation
 
 **Review date:** 2026-08-18. Sixteen additional M04 physical-infrastructure

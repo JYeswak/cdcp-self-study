@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — ebrr.21 leftover: analyze skip-raised-floor hall
+# Public syllabus heading: 1.4 Raised Access Flooring and Suspended Ceiling
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577
+# BLOCKED: the official catalog does not expose the exact high-density raised-floor design-choice proposition.
 id = "m04-q213"
 kind = "single-select"
 module = 4
