@@ -1,7 +1,11 @@
 # Original CDCP educational MCQ — ebrr.28 leftover stem: OSHA Subpart S vs 1910.147
 # Public syllabus heading: Operational security and safety practices
-# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current management-and-operations catalog does not expose the exact item-level operational security and safety practices proposition. No paid body or PDF was fetched.
+# Official public regulations: OSHA 29 CFR 1910.147 —
+# https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.147
+# and OSHA 29 CFR 1910.333 —
+# https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333
+# PASS: the current OSHA texts expose the LOTO scope boundary and electrical
+# work-practice requirements. No PDF was fetched.
 id = "m15-q223"
 kind = "single-select"
 module = 15
@@ -13,7 +17,7 @@ choices = [
   "Subpart S applies only to the utility’s exclusive-control substation — that regime is 1910.269, not this work",
 ]
 correct = "B"
-explanation = "A data-centre distribution is an electric-utilization installation. 1910.147 governs unexpected energisation of machines; Subpart S governs electrical-hazard exposure on switchgear and UPS. HMI bypass is a control device, not isolation. 1910.269 is the utility-substation regime."
+explanation = "OSHA 1910.147 excludes electrical-hazard exposure in electric-utilization installations, while 1910.333 requires electrical work practices including physical disconnection, stored-energy control, lockout/tagging, verification, and safe re-energization."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "understand"

@@ -887,6 +887,25 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 209 — OSHA LOTO versus electrical work-practice scope
+
+**Review date:** 2026-08-18. OSHA 29 CFR 1910.147 states that exposure to
+electrical hazards from work on, near, or with conductors or equipment in
+electric-utilization installations is outside that section’s scope. OSHA 29 CFR
+1910.333 supplies the complementary electrical work-practice requirements,
+including de-energization, physical disconnection, stored-energy release,
+lockout/tagging, verification of absence of voltage/backfeed, and safe
+re-energization. This directly supports the bounded scope distinction in the
+item.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q223 | Operational security and safety practices | OSHA 29 CFR 1910.147 and 1910.333 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.147; https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333 | **PASS** — the LOTO/electrical-work-practice boundary and required isolation/verification controls are explicit |
+
+Jurisdictional applicability, NFPA 70E details, switching authorization, and
+site-specific engineering procedures remain outside these receipts. No PDF was
+fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 208 — OSHA electrical re-energization boundary
 
 **Review date:** 2026-08-18. The current OSHA 29 CFR 1910.334 text says that
