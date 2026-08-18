@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 102 — CDCP TIA topology receipts
+
+**Date:** 2026-08-18
+**Scope:** M11 meet-me rooms, scalable pathways, and TIA-942 topology areas: MDA, HDA, EDA, ZDA, and entrance/demarcation spaces; retired duplicates mock40-q32 and mock40-q33 are retained and receipted.
+**Official receipt:** [TIA-942-C, May 2024](https://tiaonline.org/standard/tia-942/).
+
+**Bounded result:** mock40-q32, mock40-q33, m11-q101, and m11-q103–q107 now carry the current TIA-942-C catalog page and remain BLOCKED because the public abstract confirms infrastructure/topology scope but does not expose the exact item-level propositions. No paid standard body or PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 101 — CDCP water contingency receipts
 
 **Date:** 2026-08-18
