@@ -22,15 +22,15 @@ Organizational Resilience; and Governance, Risk and Compliance.
 | ID | Edition / date | URL | Clauses used |
 |---|---|---|---|
 | `src-epi-cdfom-page` | Live public syllabus fetched 2026-08-18 | https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29 | Exact public headings and bullets named in each item |
-| `src-nist-sp800-53-r5-5.2.0` | NIST SP 800-53 Rev. 5, current minor Release 5.2.0 (2025-08-27); control text in the free Rev. 5 publication | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ; PDF: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf | AT-2(a)-(d), AT-3(a)(1)-(2), (c), AT-3(1); PE-2(a)-(d), (1), PE-8(a)-(c); CP-2(a)(1)-(4), (2), CP-4(a)-(c), (1), CP-7(a)-(c), (4); MA-2(a)-(c), (e), MA-5(a)-(c), MA-6; SA-9(a)-(c); SR-3(a)-(c); RA-3(a)-(f); IR-4(a)-(c) and discussion |
+| `src-nist-sp800-53-r5-5.2.0` | NIST SP 800-53 Rev. 5, current minor Release 5.2.0 (2025-08-27) | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final | Official publication-page receipt for the cited control families; no PDF body retained |
 | `src-doe-o360-1d` | DOE O 360.1D, *Federal Employee Training*, approved 2022-12-09 | https://www.energy.gov/documents/federal-employee-training | 4.a.(4)(a)-(b) and 4.a.(6)(a)-(b): individual development plans tied to job requirements, professional development, and competencies; competency development through training and rotational/developmental assignments |
 | `src-ecfr-1910-147-2026-08-14` | 29 CFR 1910.147, eCFR display current 2026-08-14; Title 29 last amended 2026-08-04 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | (c)(6)(i)-(ii) periodic inspection and record; (c)(7)(iv) training record |
 | `src-ecfr-1910-132-2026-08-14` | 29 CFR 1910.132, eCFR display current 2026-08-14; Title 29 last amended 2026-08-04 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-I/section-1910.132 | (d)(1)-(2) hazard assessment and written certification; (f)(1)-(3) PPE training, demonstration, and retraining |
-| `src-doe-femp-cx-2006` | DOE FEMP, *Commissioning for Federal Facilities: A Practical Guide to Building Commissioning, Recommissioning, Retrocommissioning, and Continuous Commissioning* (2006) | Catalog: https://www.energy.gov/index.php/eere/femp/downloads/operations-and-maintenance-best-practices-guide-achieving-operational-efficiency ; official text: https://www.energy.gov/sites/default/files/2014/07/f17/commissioning_fed_facilities.pdf | Introduction, pp. 2-7: verification/documentation, integrated systems, O&M training, and commissioning through acceptance/post-occupancy |
-| `src-nist-sp800-160-v1r1` | NIST SP 800-160 Vol. 1 Rev. 1, *Engineering Trustworthy Secure Systems* (November 2022) | https://csrc.nist.gov/pubs/sp/800/160/v1/r1/final ; PDF: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-160v1r1.pdf | H.14 and H.14.3 DS-1.1, DS-2.1-DS-2.4: prepare for secure disposal, preserve remaining functions, then deactivate, remove, and disassemble system elements |
-| `src-nist-sp800-88-r2` | NIST SP 800-88 Rev. 2, *Guidelines for Media Sanitization* (September 2025) | https://csrc.nist.gov/pubs/sp/800/88/r2/final ; PDF: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r2.pdf | §§4.3.1, 4.3.6, 4.5.1-4.5.2, 4.6, and Appendix C: life-cycle disposition decisions, validation, sanitization records, and post-sanitization destination tracking |
-| `src-gsa-p100-2024` | GSA, *Facilities Standards for the Public Buildings Service (PBS P100 2024, v2)* (2024 edition; page updated 2026-02-03) | https://www.gsa.gov/real-estate/facilities-standards-for-the-public-buildings-service ; PDF: https://www.gsa.gov/system/files/P100%202024%20Final%2010012024.pdf | §§1.8.4-1.8.5 and A.1.9.1: Total Building Commissioning verification/documentation, independent commissioning provider, operator preparation, and O&M hand-off |
-| `src-doe-ne-o422-1-2025` | DOE NE O 422.1, *Conduct of Operations*, approved August 2025 | https://id.energy.gov/Home/DownloadDocument/5643 | Attachment 2 ¶2.a.(1),(3),(5) organizational roles/accountability and ¶2.l / Appendix A 2.l.(1)-(3) shift turnover |
+| `src-doe-femp-cx-2006` | DOE FEMP, *Commissioning Process for Federal Facilities* | https://www.energy.gov/cmei/femp/commissioning-process-federal-facilities | Public HTML supports functional-test planning, deficiency analysis, retesting, and final hand-off documentation |
+| `src-nist-sp800-160-v1r1` | NIST SP 800-160 Vol. 1 Rev. 1, *Engineering Trustworthy Secure Systems* (November 2022) | https://csrc.nist.gov/pubs/sp/800/160/v1/r1/final | Official publication-page receipt; no PDF body retained |
+| `src-nist-sp800-88-r2` | NIST SP 800-88 Rev. 2, *Guidelines for Media Sanitization* (September 2025) | https://csrc.nist.gov/pubs/sp/800/88/r2/final | Official publication-page receipt; no PDF body retained |
+| `src-gsa-p100-2024` | GSA, *Facilities Standards for the Public Buildings Service (PBS P100 2024, v2)* (2024 edition; page updated 2026-02-03) | https://www.gsa.gov/real-estate/facilities-standards-for-the-public-buildings-service | Official catalog/edition receipt; the linked body was not fetched |
+| `src-doe-ne-o422-1-2025` | DOE NE O 422.1, *Conduct of Operations*, approved August 2025 | https://id.energy.gov/Home/NEDirectives | **BLOCKED — official directive catalog only; no PDF/body fetched** |
 | `src-ecfr-1904-39-2026-08-14` | 29 CFR 1904.39, eCFR display current 2026-08-14; Title 29 last amended 2026-08-04 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1904/subpart-E/section-1904.39 | (a)(1)-(3): OSHA reporting windows and allowed reporting channels for covered qualifying events |
 | `src-dfe-service-management-v1-2025-01-22` | UK Department for Education, *Service Management standard*, Version 1, last updated 2025-01-22 | https://apply-the-service-standard.education.gov.uk/standards/service-management | Service Catalogue Management, reporting visibility, user satisfaction/single support entry, and trend-analysis improvement opportunities |
 
@@ -74,10 +74,14 @@ IDs.
   https://www.iso.org/standard/63787.html. The public preview identifies the
   OH&S management-system scope, but the full text is purchase-only; no generic
   OH&S-system item was minted.
+- DOE NE O 422.1 organization/turnover claims (`m15-q382`, `m15-q383`) and the
+  related CDFOS operations claims (`m15-q356`, `m15-q357`, `m15-q369`,
+  `m15-q374`): **BLOCKED** — the official `NEDirectives` page lists the
+  approved August 2025 order, but this pass does not fetch its document body.
 
 ## Follow-up items
 
-This CDFOM pass adds only clauses that were not used by the CDFOS `.2` wave:
+This CDFOM pass adds only bounded public-source items that were not used by the CDFOS `.2` wave:
 `m15-q340`–`m15-q351` cover organization, physical security, resilience,
 maintenance, vendor management, LOTO audit, commissioning, secure disposition,
 and asset management; `m15-q363`–`m15-q368` cover career development,
@@ -85,15 +89,17 @@ continuity testing, alternate-site readiness, outsourced maintenance personnel,
 spare-part timing, and visitor-record review; `m15-q378`–`m15-q381` cover safety
 awareness training, risk management, security awareness, and security incident
 management. Every item carries an exact public CDFOM heading and a public
-official source edition/URL. Generic facility demolition/decommissioning and
-the named paywalled standards remain BLOCKED.
+official source edition/URL; blocked rows retain the official catalog receipt
+and are not treated as covered. Generic facility demolition/decommissioning,
+the DOE NE O 422.1 body-only rows, and the named paywalled standards remain
+BLOCKED.
 
 ### Next uncovered-heading receipts
 
 | Item | Exact public CDFOM syllabus heading | Official public source / bounded claim |
 |---|---|---|
-| `m15-q382` | The Data Center Organization — Organization chart | DOE NE O 422.1 (approved August 2025), bounded roles/accountability and hazard-control ownership |
-| `m15-q383` | The Data Center Organization — Shift management | DOE NE O 422.1 (approved August 2025), bounded turnover contents |
+| `m15-q382` | The Data Center Organization — Organization chart | **BLOCKED** — DOE NE O 422.1 approved August 2025; official catalog: https://id.energy.gov/Home/NEDirectives; no body fetched |
+| `m15-q383` | The Data Center Organization — Shift management | **BLOCKED** — DOE NE O 422.1 approved August 2025; official catalog: https://id.energy.gov/Home/NEDirectives; no body fetched |
 | `m15-q384` | Managing Safety & Statutory Requirements — Emergency preparedness and response | 29 CFR 1910.38 current eCFR display, written plan, minimum elements, training, and review triggers |
 | `m15-q385` | Managing Safety & Statutory Requirements — Reporting of safety issues | 29 CFR 1904.39 current eCFR display, covered-event reporting windows and channels |
 | `m15-q386` | Monitoring / Reporting / Control — Trend analysis | DfE Service Management standard Version 1, trend analysis for continuous-improvement opportunities |

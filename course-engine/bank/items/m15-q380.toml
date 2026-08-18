@@ -2,7 +2,7 @@
 # syllabus_heading = "Managing Physical Security — Security awareness"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
 # source_ids = ["src-epi-cdfom-page", "src-nist-sp800-53-r5-5.2.0"]
-# source = "NIST SP 800-53 Rev. 5, current minor Release 5.2.0 (2025-08-27), AT-2(a)-(d) — https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ; clause text: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+# source = "NIST SP 800-53 Rev. 5, Release 5.2.0 (2025-08-27), AT-2(a)-(d) — official publication page: https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final"
 # claim = "Security awareness training includes initial and organization-defined recurring or event-triggered training, updated content, and lessons from incidents or breaches."
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q380"
