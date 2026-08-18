@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Measurements of light
+# Official catalog/preview receipt: ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc
+# BLOCKED: the official catalog does not expose the exact post-installation illuminance acceptance proposition.
 id = "m05-q211"
 kind = "single-select"
 module = 5

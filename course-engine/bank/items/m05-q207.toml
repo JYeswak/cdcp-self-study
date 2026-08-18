@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Connecting and positioning light fixtures
+# Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
+# BLOCKED: the official catalog does not expose the exact normal/emergency circuit-coordination proposition.
 id = "m05-q207"
 kind = "single-select"
 module = 5

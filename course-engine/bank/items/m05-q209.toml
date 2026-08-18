@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Emergency light
+# Official catalog/preview receipt: NFPA 101, 2024 — https://link.nfpa.org/all-publications/101/2024
+# BLOCKED: the official preview does not expose the exact exit-sign/emergency-luminaire relationship.
 id = "m05-q209"
 kind = "single-select"
 module = 5
