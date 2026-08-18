@@ -886,6 +886,22 @@ The M03 site/building and M08 rack frontiers remain BLOCKED where the public
 catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+## Breadth pass 175 — ISO/IEC WUE definition and ERF boundary
+
+**Review date:** 2026-08-18. The current ISO catalog page for ISO/IEC
+30134-9:2022 explicitly defines WUE as a KPI for quantifying data-centre water
+consumption, relates it to infrastructure, IT equipment, and IT operations, and
+covers measurement, calculation, reporting, and interpretation. The separate
+ISO/IEC 30134-6:2021 catalog defines ERF, but does not expose the distinct ERE
+term needed for the remaining comparison item.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m10-q101 | Importance of water | ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html | **PASS** — the official WUE KPI scope supports the water-use-relative-to-IT-energy teaching proposition |
+| m02-q217 | Standards and guidelines landscape | ISO/IEC 30134-6:2021 — https://www.iso.org/standard/71717.html | **BLOCKED** — ERF is pinned, but the public catalog does not define the separately named ERE comparison |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
 
 ## Breadth pass 155 — availability and repair-time vocabulary
 
