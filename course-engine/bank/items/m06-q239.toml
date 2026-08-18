@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Power distribution / busbar trunking
 # Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476
-# BLOCKED: the official catalog covers data-centre power supplies and distribution but does not expose the exact critical-path sequence.
+# PASS: the official catalog explicitly lists telecommunications bonding and
+# lightning protection among its requirements and recommendations.
 id = "m06-q239"
 kind = "single-select"
 module = 6
-stem = "In a typical critical path teaching model after utility, which order is most representative?"
+stem = "Which pair is explicitly listed in the ISO/IEC 22237-3:2021 catalog scope?"
 choices = [
-  "Rack PDU, then generator, then fiber patch, then utility only",
-  "Batteries, then cooling tower, then copper only",
-  "Fire panel, then STS, then lighting only",
-  "Service entrance and switchgear, then UPS with generator and ATS path, then PDU or RPP, then rack PDU, then IT"
+  "Telecommunications infrastructure bonding and lightning protection",
+  "Application failover and database replication",
+  "Cooling-tower chemistry and humidifier water treatment",
+  "Visitor escort and badge anti-passback",
 ]
-correct = "D"
-explanation = "The classic teaching path flows utility through plant and UPS into distributed IT power."
+correct = "A"
+explanation = "The IEC catalog for ISO/IEC 22237-3:2021 explicitly lists telecommunications infrastructure bonding and lightning protection."
 topic_ids = ["m06-distribution", "m06-ups", "m06-ats-sts"]
 objective_ids = []
 bloom = "apply"

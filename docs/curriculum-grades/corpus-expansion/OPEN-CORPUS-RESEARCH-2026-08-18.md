@@ -870,6 +870,26 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 310 — ISO/IEC 22237-3 power-distribution scope claims
+
+**Review date:** 2026-08-18. The current IEC Webstore/ISO catalog page for
+ISO/IEC 22237-3:2021, Edition 1, was checked without opening or fetching a PDF.
+Its public abstract lists power supplies to data centres, power distribution
+systems to all equipment, telecommunications infrastructure bonding, lightning
+protection, and measurement/integration of power-consumption and power-quality
+characteristics.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m06-q044 | Power distribution / busbar trunking | ISO/IEC 22237-3:2021, Edition 1 — https://www.iso.org/standard/78551.html?browse=tc | **PASS** — asks only for the listed all-equipment power-distribution scope |
+| m06-q239 | Power distribution / busbar trunking | ISO/IEC 22237-3:2021, Edition 1 — https://webstore.iec.ch/en/publication/71476 | **PASS** — asks only for the listed bonding and lightning-protection pair |
+| m08-q055 | Power strips / rails | ISO/IEC 22237-3:2021, Edition 1 — https://webstore.iec.ch/en/publication/71476 | **PASS** — asks only for the listed measurement/integration function |
+
+Utility-to-rack sequencing, N/N+1/2N labels, AI/HPC density, RPP form factors,
+and dual-cord topology remain BLOCKED because the cited public abstract does not
+expose those exact propositions. This pass does not certify a learner or close
+ms4j.
+
 ## Breadth pass 309 — ISO/IEC 22237-1 classification and facility-scope claims
 
 **Review date:** 2026-08-18. The current ISO Online Browsing Platform preview

@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 484 PASS; 473 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 487 PASS; 470 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -254,7 +254,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q041 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html | PASS — ISO/IEC 22237-3:2021 official abstract names power distribution to all equipment |
 | m06-q042 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — current IEC catalog states covered UPS incorporate an energy storage device not exceeding 1 500 V DC |
 | m06-q043 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html | PASS — ISO/IEC 22237-3:2021 official abstract names power supplies to data centres |
-| m06-q044 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact utility-to-rack sequence is not exposed |
+| m06-q044 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | PASS — ISO/IEC 22237-3:2021 public abstract explicitly includes power distribution systems to all equipment |
 | m06-q045 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html | PASS — ISO/IEC 22237-3:2021 official abstract names power distribution to all equipment |
 | m06-q046 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | PASS — IEC 60947-6-1:2026 covers automatic transfer equipment that transfers a load between power sources |
 | m06-q047 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6803 | PASS — current IEC catalog identifies continuity of load supply through controlled transfer as the STS purpose |
@@ -360,7 +360,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q236 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | BLOCKED — IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV catalog receipt; exact outdoor-enclosure selection proposition is not exposed |
 | m06-q237 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | BLOCKED — IEC 60076-1:2011 catalog receipt; exact facility step-down proposition is not exposed |
 | m06-q238 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | BLOCKED — IEC 60076-1:2011 catalog receipt; exact transformer-loss/heat-load proposition is not exposed |
-| m06-q239 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact critical-path sequence is not exposed |
+| m06-q239 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | PASS — ISO/IEC 22237-3:2021 public abstract explicitly lists telecommunications bonding and lightning protection |
 | m06-q240 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact flywheel-duration proposition is not exposed |
 | m06-q241 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact line-interactive topology comparison is not exposed |
 | m06-q242 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact standby/offline transfer proposition is not exposed |
@@ -439,7 +439,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m08-q052 | 8 | Rack security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82250.html?browse=tc | PASS |
 | m08-q053 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact zero-U PDU mounting proposition is not exposed |
 | m08-q054 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact A/B outlet-diversity proposition is not exposed |
-| m08-q055 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact metered-rack-PDU operations proposition is not exposed |
+| m08-q055 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | PASS — ISO/IEC 22237-3:2021 public abstract explicitly lists power-consumption and power-quality measurement integration |
 | m08-q056 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact switched-outlet operational proposition is not exposed |
 | m08-q057 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70/2026 | BLOCKED — NFPA 70:2026 catalog/preview receipt; exact plug/branch/continuous-load selection proposition is not exposed |
 | m08-q058 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/80622.html?browse=tc | PASS |

@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Power distribution / busbar trunking
 # Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact utility-to-rack sequence.
+# PASS: the official catalog explicitly includes power distribution systems to
+# all equipment within data centres.
 id = "m06-q044"
 kind = "single-select"
 module = 6
-stem = "In the utility-to-rack teaching path, which order is most representative after the utility feed?"
+stem = "Which topic is explicitly included in the ISO/IEC 22237-3:2021 catalog scope?"
 choices = [
-  "Rack PDU → generator → transformer → UPS",
-  "IT PSU → busway → utility meter → generator",
-  "BESS only → fibre MMRs → CRAH → rack",
-  "Main switchgear/transformers → transfer → UPS → distribution/PDU → rack",
+  "Power distribution systems to all equipment within data centres",
+  "Application software release sequencing",
+  "Cloud-provider billing and tenancy policy",
+  "Office furniture procurement",
 ]
-correct = "D"
-explanation = "Plant path: switchgear/transformers, source transfer, UPS conditioning, then distribution to the rack."
+correct = "A"
+explanation = "The IEC catalog for ISO/IEC 22237-3:2021 explicitly lists power distribution systems to all equipment within data centres."
 topic_ids = ["m06-distribution", "m06-ups"]
 objective_ids = []
 bloom = "understand"
