@@ -1044,6 +1044,73 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 121 — structured cabling, grounding, and Ethernet evidence
+
+**Date:** 2026-08-18
+**Scope:** M05, M08, M11, M13, M14, and M15 questions about structured
+cabling, copper/fiber media, field testing, power delivery over balanced pair,
+telecommunications bonding/grounding, Ethernet physical-layer boundaries,
+documentation, and change/acceptance evidence. Existing public EPI/CDCS/CDFOS/
+CDFOM headings are retained; no new taxonomy is inferred.
+
+**Official public receipts:**
+
+- [TIA-568](https://tiaonline.org/standard/tia-568/), **Commercial Building
+  Telecommunications Cabling Standards**, is TIA’s official public edition
+  pin for Version D, published December 2015. TIA’s public standards index also
+  identifies TIA-568 as the cabling family; exact paid requirements are not
+  copied.
+- [TIA TR-42.7 published standards listing](https://tiaonline.org/event/tr-42-7-copper-cabling-systems-february-2021/)
+  publicly identifies ANSI/TIA-568.2-D (2018), ANSI/TIA-568.2-D-2 (2020)
+  for power delivery over balanced pair, ANSI/TIA-1152-A (2016) for field-test
+  instruments and measurements, and related published/reaffirmed copper
+  guidance. This is used as an edition/title receipt only; no PDF was opened.
+- [ANSI/TIA-607-E announcement](https://tiaonline.org/standardannouncement/tia-publishes-new-standard-ansi-tia-607-e-generic-telecommunications-bonding-and-grounding-earthing-for-customer-premises/)
+  is TIA’s official release notice for the current **Generic
+  Telecommunications Bonding and Grounding (Earthing) for Customer Premises**
+  revision, published May 17, 2024. TIA states that it specifies generic
+  telecommunications bonding/grounding infrastructure and interconnection to
+  electrical and telecommunications systems; exact clauses remain
+  catalog-only.
+- [IEEE 802.3-2022](https://standards.ieee.org/ieee/802.3/10422/), **IEEE
+  Standard for Ethernet**, is the official IEEE public abstract/edition pin.
+  Its abstract covers Ethernet MAC/MIB operation, selected speeds and media,
+  PHY interfaces, fiber/twisted-pair/coax/backplane operation, and power over
+  selected twisted-pair PHY types. Access-controlled standard text and
+  downloadable bodies are not used.
+- [TIA-942-C](https://tiaonline.org/standard/tia-942/) remains the official
+  TIA infrastructure edition pin for the data-centre context in which cabling,
+  power, cooling, safety, security, and fire-protection interfaces are
+  coordinated.
+
+**Adversarial boundary:** A cable category or Ethernet PHY capability is not
+evidence that a particular installed link met its length, polarity, bend,
+termination, shielding, grounding, optical-loss, or test limits. A field-test
+report must preserve instrument identity/calibration, test configuration,
+media path, result, exceptions, and acceptance owner. A bonding/grounding
+standard defines infrastructure scope; it does not prove a local equipotential
+bond, fault path, or AHJ acceptance. Power over Ethernet is not interchangeable
+with facility power distribution or a UPS claim.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M05 | Map copper/fiber media, pathways, terminations, labels, test records, and change control to the existing cabling heading | TIA edition/title receipts do not prove an installed link passed |
+| M08 | Keep network asset identity, port/media mapping, optical/copper test evidence, spare compatibility, and decommission records linked | IEEE Ethernet scope does not establish a vendor’s switch configuration or support status |
+| M11/M14 | Separate Ethernet PHY/MAC capability, management-plane behavior, power delivery, grounding, and OT segmentation evidence | IEEE/TIA standards do not create an OLA, handover, or security certification taxonomy |
+| M13 | Preserve bonding/grounding ownership, inspection evidence, exceptions, and interface with electrical systems and telecom systems | A TIA-607 receipt is not proof of local grounding or AHJ approval |
+| M15 | Require competent test/acceptance ownership, calibrated instruments, as-built records, and controlled remedial work | Completing cabling or grounding training does not certify a learner or site |
+
+**Currency boundary:** The older TIA-607-D and TIA-607-D-1 references remain
+historical context only; the official 2024 TIA-607-E release is the current
+receipt. TIA-hosted brochures, meeting-report PDFs, and vendor/distributor
+pages are excluded. No PDF was fetched.
+
+**Bounded result:** This pass adds official TIA/IEEE public edition and
+abstract receipts for network physical-layer and grounding questions while
+preserving installation-test and local-acceptance boundaries. No bank rows,
+ledger dispositions, manifest, topics, beads, gate, oracle, or credential
+state changed.
+
 ## Breadth pass 120 — KPI measurement, infrastructure classification, and TIA-942-C
 
 **Date:** 2026-08-18
