@@ -942,6 +942,24 @@ The ledger remains 155 PASS / 802 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 30 — CDCP early-fire-detection BLOCKED receipts
+
+**Review date:** 2026-08-18. Four Module 12 bank-expansion items now carry the
+official NFPA 72 (2025) preview receipt while remaining BLOCKED: the public
+preview does not expose their exact ASD, heat-detector, cross-zoning, or staged
+threshold propositions. No NFPA PDF or standard body was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q041 | Fire Protection | NFPA 72, 2025 — https://link.nfpa.org/all-publications/72/2025 | **BLOCKED** — exact ASD/high-airflow claim not exposed |
+| bank-m12-q042 | Fire Protection | NFPA 72, 2025 — https://link.nfpa.org/all-publications/72/2025 | **BLOCKED** — exact heat-detector role claim not exposed |
+| bank-m12-q043 | Fire Protection | NFPA 72, 2025 — https://link.nfpa.org/all-publications/72/2025 | **BLOCKED** — exact cross-zoning release proposition not exposed |
+| bank-m12-q044 | Fire Protection | NFPA 72, 2025 — https://link.nfpa.org/all-publications/72/2025 | **BLOCKED** — exact staged-threshold claim not exposed |
+
+The ledger remains 155 PASS / 802 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 29 — CDCP fire-protection additional BLOCKED receipts
 
 **Review date:** 2026-08-18. Four Module 12 rows now carry official NFPA
