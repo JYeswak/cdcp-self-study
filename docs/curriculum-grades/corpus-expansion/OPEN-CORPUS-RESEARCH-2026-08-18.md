@@ -906,6 +906,24 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 249 — eCFR hazardous-energy documentation receipts
+
+**Review date:** 2026-08-18. Current public eCFR text at 29 CFR 1910.147
+requires documented and utilized energy-control procedures for covered
+servicing and maintenance, periodic inspection at least annually with
+deviations corrected, and a procedure that clearly outlines scope, purpose,
+authorization, rules, techniques, device placement/removal, and verification.
+Three module-15 Documentation items are bounded to those exact requirements;
+broader MOP, SLA, and vendor-process claims remain blocked.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m15-q138 | Documentation | 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | **PASS** — documented/utilized energy-control procedure requirement is explicit |
+| bank-m15-q139 | Documentation | 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | **PASS** — annual inspection and correction requirement is explicit |
+| m15-q207 | Documentation | 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | **PASS** — procedure content and verification requirements are explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 248 — eCFR housekeeping receipt
 
 **Review date:** 2026-08-18. Current public eCFR text at 29 CFR 1910.22

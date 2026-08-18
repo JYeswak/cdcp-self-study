@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Documentation
-# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current management-and-operations catalog does not expose the exact item-level documentation proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147
+# PASS: the current public eCFR text explicitly lists the required scope,
+# purpose, authorization, rules, techniques, and verification elements.
 id = "m15-q207"
 kind = "single-select"
 module = 15
-stem = "Change records and method-of-procedure (MOP) discipline matter because:"
+stem = "Under 29 CFR 1910.147(c)(4)(ii), an energy-control procedure must clearly and specifically outline:"
 choices = [
-  "Changes never affect availability",
-  "Verbal hallway agreements are sufficient for dual-cord cutovers",
-  "Many outages are self-inflicted during poorly planned work",
-  "Only software needs change control"
+  "Its scope, purpose, authorization, rules, and techniques, including shutdown/isolation, device placement/removal, and verification",
+  "Only a list of affected software licenses",
+  "Only the maintenance vendor's response-time promise",
+  "Only a verbal approval with no isolation or testing steps"
 ]
-correct = "C"
-explanation = "Facility changes are high-energy events; MOPs and records reduce self-harm."
+correct = "A"
+explanation = "The current public eCFR text requires the procedure to outline scope, purpose, authorization, rules, techniques, shutdown/isolation, lockout or tagout placement/removal/transfer, and testing to verify effectiveness."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "understand"
