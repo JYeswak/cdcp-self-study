@@ -10,7 +10,8 @@ Completing this file **does not certify anyone** and does not grant an EPI® / E
 **27/40 is a CDCP study signal.** It is not imported as a CDFOS bar.
 **Official CDFOS cut is 42/60** (EPI page, FETCHED this pass: 90 min, 60 MCQ, minimum 42 correct). That number is **theirs, not ours.**
 
-No proprietary DCOS / EPI / EXIN body. No dump sites. No bank items this pass.
+No proprietary DCOS / EPI / EXIN body. No dump sites. The initial ledger pass had no bank
+items; the follow-up receipts in §6 record only the new, clause-backed items m15-q352–q377.
 If a heading has no public clause that can be re-derived from a current edition+URL, the row says **no item**.
 
 ---
@@ -55,8 +56,27 @@ Agent Mail reservation of this path was attempted (`BlueReef`, project `/Users/j
 | ISO/IEC 20000-1:2018 Ed.3, 2018-09, confirmed 2023, Amd 1:2024 — https://www.iso.org/standard/70636.html | Catalogue exists. Public **CDFOS** page does not name it. DCOS page lists ISO-20000 as a generic that is **not** a good fit. |
 | ISO 55000 / 55001 | Not named on the public CDFOS page. Prompt forbids using it without that support. Catalogue **not** used. |
 | EN 50600-3-1:2026 | SEARCH shop listings only. Not opened. Not an item cite. |
-| ISO 45001, ISO 21502, ISO 14001, ISO 9001, ISO/IEC 27001, ISO/IEC 30134-3 (WUE) | Not fetched this pass **or** not named on the public CDFOS page. No item. |
+| ISO 45001, ISO 21502, ISO 14001, ISO 9001, ISO/IEC 27001, ISO/IEC 30134-9 (WUE) | Not named on the public CDFOS page. No item. |
 | TIA-942-C, NFPA 70E/70B, ANSI/ISA-18.2, Uptime M&O | Paid / licensed or not opened. Named-not-quoted at most. No item. |
+
+**BLOCKED catalog receipts — official pages only; no body text fetched**
+
+These receipts pin the current official edition for a named-only or otherwise blocked topic. They do **not** create a CDFOS item: the public CDFOS syllabus does not support the heading, and the standard body remains paywalled or outside the syllabus bar.
+
+| Topic | Current official catalog / preview | Disposition |
+|---|---|---|
+| ISO/IEC 20000-1:2018, Ed. 3, confirmed current 2023, Amd 1:2024 | https://www.iso.org/standard/70636.html | **BLOCKED** — official catalog pin only; no item |
+| ISO 55000:2024, Ed. 2 | https://www.iso.org/standard/83053.html | **BLOCKED** — official catalog pin only; no item |
+| ISO 55001:2024, Ed. 2 | https://www.iso.org/standard/83054.html | **BLOCKED** — official catalog pin only; no item |
+| ISO 45001:2018, Ed. 1, Amd 1:2024 | https://www.iso.org/standard/63787.html | **BLOCKED** — official catalog pin only; no item |
+| ISO 21502:2020, Ed. 1 | https://www.iso.org/standard/74947.html | **BLOCKED** — official catalog pin only; no item |
+| ISO 14001:2026, Ed. 4 | https://www.iso.org/standard/14001 | **BLOCKED** — official catalog pin only; no item |
+| ISO 9001:2015, Ed. 5, Amd 1:2024 | https://www.iso.org/standard/62085.html | **BLOCKED** — official catalog pin only; no item |
+| ISO/IEC 27001:2022, Ed. 3, Amd 1:2024 | https://www.iso.org/standard/27001?browse=tc | **BLOCKED** — official catalog pin only; no item |
+| ISO/IEC 30134-9:2022, WUE | https://www.iso.org/standard/77692.html | **BLOCKED** — official catalog pin only; no item |
+| ANSI/TIA-942-C, May 2024, Version C | https://tiaonline.org/standard/tia-942/ | **BLOCKED** — official TIA catalog/abstract only; no item |
+| NFPA 70E:2027, Standard for Electrical Safety in the Workplace | https://link.nfpa.org/all-publications/70E/2027 | **BLOCKED** — official NFPA preview/catalog only; no item |
+| NFPA 70B:2026, Standard for Electrical Equipment Maintenance | https://link.nfpa.org/all-publications/70B/2026 | **BLOCKED** — official NFPA preview/catalog only; no item |
 
 ---
 
@@ -266,3 +286,55 @@ Parents `bd-epi-ecosystem-ms4j` and `bd-epi-ecosystem-ms4j.2` stay **open**. Chi
 - Not an adoption of 42/60 or 27/40 as a local pass mark.
 
 *Corpus only. Completing this program does not certify anyone. 27/40 is a study signal.*
+
+## 6. Follow-up source receipts — m15-q352–m15-q377
+
+The initial rows above record the first fetch and remain useful as a dated audit trail. This
+follow-up searched additional public primary/government sources. The rows below supersede a
+prior **no item** only for the narrowly bounded claim named in each item. They do not turn a
+source into an EPI syllabus heading, and they do not make a generic shift-handover programme,
+the six undocumented document sub-processes, or a vendor-lifecycle taxonomy citable.
+
+### 6.1 New public sources
+
+| ID | Edition / current date | URL | Used for |
+|---|---|---|---|
+| C-DFE-SM | UK Department for Education, **Service Management standard, Version 1**, last updated **2025-01-22** | https://apply-the-service-standard.education.gov.uk/standards/service-management | Service Catalogue Management, Service Level Management, Continual Improvement, central service list/availability, and trend-analysis improvement opportunities |
+| C-DDAT-ITSM | UK Government Digital and Data Profession Capability Framework, **IT service manager**, last updated **2025-08-29** | https://ddat-capability-framework.service.gov.uk/role/it-service-manager | Defining SLAs and OLAs across relevant business functions |
+| C-NE-422.1 | U.S. Department of Energy, **NE O 422.1 Conduct of Operations**, approved **August 2025**, Attachment 2 / Appendix A | https://id.energy.gov/Home/DownloadDocument/5643 | Operations roles, hazard controls, walk-around duties, computer-center operations scope, shift turnover, and controlled technical-procedure revision/review/testing |
+| C-1910.38 | **29 CFR 1910.38**, eCFR current display **2026-08-17**, (b), (c)(1)-(6), (f) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.38 | Written emergency action plan, minimum elements, and review triggers |
+| C-80053-OPS | NIST **SP 800-53 Rev. 5, Release 5.2.0**, issued **2025-08-27**, SA-5/SA-9/CA-7/PE-3/PE-6/PE-16/IR-6/CM-8/MA-3/MA-4 | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ; https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf | Service-level outcomes/remedies/response, monitoring strategy, physical access procedures, floor monitoring, delivery/removal records, incident reporting, bounded asset recording, maintenance tools, documentation, and nonlocal maintenance |
+| C-1910.1200 | **29 CFR 1910.1200**, eCFR current display **2026-08-13**, (g)(8), (h)(1)-(3) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/section-1910.1200 | Accessible safety data sheets and written hazard-communication program information/training; no required document title is inferred |
+
+### 6.2 New item map and bounded claims
+
+| Item | Exact public CDFOS syllabus heading | Public clause / section | Re-derivable claim |
+|---|---|---|---|
+| m15-q352 | Service Level Management — Service portfolio and catalogue | DfE Service Management standard, Version 1, Purpose / Why this standard is important | A service catalogue provides a central list and availability of supported services. |
+| m15-q353 | Service Level Management — Service Level Agreements | NIST SA-9(a)-(c) and discussion; DDaT IT service manager role level 2 | SLA documentation makes outcomes, remedies, and response requirements measurable; SLAs and OLAs are defined across relevant business functions. |
+| m15-q354 | Service Level Management — Service Improvement Process (SIP) | DfE Service Management standard, Version 1, Purpose / Why this standard is important | Continual improvement can use trend analysis to identify improvement opportunities. |
+| m15-q355 | Safety and Crisis Management — Emergency response plan requirement for various potential emergencies | 29 CFR 1910.38(b), (c)(1)-(6), (f) | A required plan is written/available, includes the minimum response elements, and is reviewed when the plan or responsibilities change. |
+| m15-q356 | Data Centre Operations — Shift handover | NE O 422.1 Attachment 2 ¶2.l; Appendix A 2.l.(1)-(3) | Under this adopted conduct-of-operations model, turnover transfers equipment/facility status, duties/responsibilities, in-progress/planned work, and relief. |
+| m15-q357 | Facilities Maintenance — Maintenance operations procedures (MOP) | NE O 422.1 Attachment 2 ¶2.p; Appendix A 2.p.(4),(6)-(9) | Technical procedures are revised/approved, initially and periodically reviewed/tested, kept current, and assigned use requirements. |
+| m15-q358 | Physical Security — Standard Operating Procedures (SOP) for security | NIST PE-3(a)(1)-(2), (b), (g) | Physical-access procedures verify authorization, control entry/exit, keep logs, and change keys/combinations on defined triggers. |
+| m15-q359 | Data Centre Operations — Floor management | NIST PE-6(a)-(c) | Floor physical-access monitoring includes defined review cadence/events and coordination with incident response. |
+| m15-q360 | Monitoring / Reporting / Control — Facilities monitoring matrix | NIST CA-7(a)-(g) | A matrix used as the facilities monitoring strategy needs metrics, cadence, assessment, analysis, response, and reporting fields. CA-7 does not prescribe a vendor matrix format. |
+| m15-q361 | Governance and Compliance — The importance of document management | NIST SA-5(a)-(d) | Administrator/user documentation covers secure operation, maintenance, and responsibilities; unavailable documentation receives an action; documentation is distributed to defined roles. |
+| m15-q362 | Facilities Maintenance — Service reports | NIST MA-4(a)-(e) | Nonlocal maintenance is approved/monitored, recorded, and terminated at completion; authentication does not replace records or session close-out. |
+| m15-q369 | Safety and Crisis Management — The roles and responsibilities of appointed safety staff | NE O 422.1 Attachment 2 ¶2.a.(1), (3), (5) | The bounded conduct-of-operations model defines organizational roles/accountability, safe-work accountability, and hazard-analysis/control methods. |
+| m15-q370 | Facilities Maintenance — Tools | NIST MA-3(a)-(b), (1)-(2) | Maintenance tools are approved/controlled/monitored and reviewed at a defined frequency; tools and diagnostic media are inspected before use. |
+| m15-q371 | Physical Security — Delivery of goods / holding area | NIST PE-16(a)-(b) | Defined system components entering/exiting the facility are authorized/controlled and recorded. |
+| m15-q372 | Physical Security — Security incident reporting | NIST IR-6(a)-(b) | Suspected incidents reach the incident-response capability within an organization-defined period and incident information reaches defined authorities. |
+| m15-q373 | Governance and Compliance — Requirements or asset recording | NIST CM-8(a)-(b), (1) | A bounded component inventory covers all components/accountability, is reviewed on a defined cadence, and is updated at installation/removal/system updates; this is not ISO 55000. |
+| m15-q374 | Data Centre Operations — Walk around duties | NE O 422.1 Attachment 2 ¶2.b.(1), (3), (4) | Rounds notify staff of status/abnormalities, check equipment/work areas, and use reviewed round sheets or inspection logs. This is not a general shift-handover programme. |
+| m15-q375 | Safety and Crisis Management — The importance of the OH&S or WHS manual | 29 CFR 1910.1200(g)(8), (h)(1)-(3) | Workers receive hazard-communication information/training and can access the written program and safety data sheets during the shift; no OH&S-manual title is inferred. |
+| m15-q376 | Service Level Management — Reporting | DfE Service Management standard, Version 1, Why this standard is important | Service-management reporting provides visibility of support requirements for decision making and demand management. |
+| m15-q377 | Service Level Management — Customer satisfaction | DfE Service Management standard, Version 1, Why this standard is important | The standard links user satisfaction with a single point of entry into service support. |
+
+### 6.3 Still blocked-on-sourcing
+
+- **General OLA taxonomy beyond the bounded DDaT role statement:** the public CDFOS syllabus has no standalone OLA bullet. m15-q353 stays under the exact `Service Level Agreements` heading and does not teach a broader ITIL taxonomy.
+- **General shift-handover programme beyond the adopted NE O 422.1 model:** the source supports the bounded turnover elements in m15-q356; it does not establish a universal data-centre regulation.
+- **The six sub-processes of document management:** NIST SA-5 supports documentation content/distribution, not six named lifecycle steps. No six-step item was minted.
+- **Vendor-lifecycle select/score/UC/performance taxonomy:** the public CDFOS page still has no matching vendor-lifecycle syllabus heading. m15-q362 is limited to nonlocal maintenance records/session close-out under the named `Service reports` heading.
+- **Paywalled ISO/IEC 20000-1, ISO 55000/55001, and other named-only bodies:** no clause text was used.

@@ -1,0 +1,25 @@
+# Original CDFOM educational MCQ — ms4j.3 organization chart.
+# syllabus_heading = "The Data Center Organization — Organization chart"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
+# source_ids = ["src-epi-cdfom-page", "src-doe-ne-o422-1-2025"]
+# source = "DOE NE O 422.1, Conduct of Operations, approved August 2025, Attachment 2 ¶2.a.(1),(3),(5) — https://id.energy.gov/Home/DownloadDocument/5643"
+# claim = "A conduct-of-operations organization identifies accountable roles, safe-work responsibility, and hazard-analysis/control responsibility; an organization chart should make those assignments visible."
+# Options are length-balanced; the key is not the longest choice.
+id = "m15-q382"
+kind = "single-select"
+module = 15
+stem = "A data-center organization chart lists job titles but does not show who owns safe-work accountability or hazard controls. What manager correction is source-supported?"
+choices = [
+  "Map accountable roles and control responsibilities",
+  "Keep titles only because procedures define every duty",
+  "Assign all safety decisions to the newest technician",
+  "Replace the chart with a vendor contact list",
+]
+correct = "A"
+explanation = "DOE NE O 422.1's conduct-of-operations model assigns organizational roles and accountability, safe-work accountability, and hazard-analysis/control responsibilities. The bounded lesson is to make those assignments visible in the organization chart; it does not invent a universal staffing ratio or a proprietary data-center taxonomy."
+topic_ids = ["m15-ops-security", "m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

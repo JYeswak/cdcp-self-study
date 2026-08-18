@@ -1,0 +1,25 @@
+# Original CDFOM educational MCQ — ms4j.3 career development.
+# syllabus_heading = "The Data Center Organization — Career development; Job rotation"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
+# source_ids = ["src-epi-cdfom-page", "src-doe-o360-1d"]
+# source = "DOE O 360.1D, Federal Employee Training (approved 2022-12-09), 4.a.(4)(a)-(b) and 4.a.(6)(a)-(b) — https://www.energy.gov/documents/federal-employee-training"
+# claim = "Career-development records connect job requirements and competencies to individual development plans; competency development can use rotational or developmental assignments."
+# Options are length-balanced; the key is not the longest choice.
+id = "m15-q363"
+kind = "single-select"
+module = 15
+stem = "A DOE facilities department is planning development for shift leads. Which manager artifact matches DOE O 360.1D?"
+choices = [
+  "Use job-based IDPs with competency goals",
+  "Use one annual attendance total detached from job duties",
+  "Reserve career development for employees after promotion",
+  "Treat a vendor completion badge as the succession plan",
+]
+correct = "A"
+explanation = "DOE O 360.1D, approved December 9, 2022, says an Individual Development Plan supports career development and should be based on job requirements, professional development, and needed competencies in 4.a.(4)(a)-(b). Section 4.a.(6)(a)-(b) supports developing competencies through training, rotational or developmental assignments, and competency-based career planning. The Order applies to DOE Federal employees, so this scenario does not claim a universal private-sector mandate or a credential requirement."
+topic_ids = ["m15-ops-security", "m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

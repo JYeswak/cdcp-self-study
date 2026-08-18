@@ -1,0 +1,27 @@
+# Original CDFOS daily-operations MCQ — ms4j.2 customer satisfaction.
+# Public heading: CDFOS "Service Level Management — Customer satisfaction" —
+# https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
+# Cite: UK Department for Education, Service Management standard, Version 1,
+# last updated 2025-01-22, "Why this standard is important" —
+# https://apply-the-service-standard.education.gov.uk/standards/service-management
+# Claim: the public service-management standard links user satisfaction with a single point of entry
+# into service support.
+# Options are length-balanced; teaching lives in explanation.
+id = "m15-q377"
+kind = "single-select"
+module = 15
+stem = "A support process surveys users but forces them to search across unrelated channels for help. What service-management improvement is supported?"
+choices = [
+  "Provide a single entry point for service support",
+  "Keep channels separate and compare logos quarterly",
+  "Replace support access with a maintenance inventory",
+  "Count survey replies without changing the support route",
+]
+correct = "A"
+explanation = "The UK Department for Education's Service Management standard, Version 1, identifies user satisfaction through a single point of entry into service support. The item applies that specific public statement to the CDFOS customer-satisfaction heading; it does not prescribe a particular portal or satisfaction score."
+topic_ids = ["m15-maintenance-sla"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,26 @@
+# Original CDFOS daily-operations MCQ — ms4j.2 safety documentation.
+# Public heading: CDFOS "Safety and Crisis Management — The importance of the OH&S or WHS manual" —
+# https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
+# Cite: 29 CFR 1910.1200, eCFR current display 2026-08-13, (g)(8), (h)(1)-(3) —
+# https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/section-1910.1200
+# Claim: workers receive hazard-communication information/training and can access the written program
+# and safety data sheets during the work shift. The rule does not require a document named an OH&S manual.
+# Options are length-balanced; teaching lives in explanation.
+id = "m15-q375"
+kind = "single-select"
+module = 15
+stem = "A safety manual is on a locked drive; workers cannot find the written hazard-communication program or safety data sheets during their shift. What correction is supported?"
+choices = [
+  "Provide worker access to the program and SDS",
+  "Store the manual with the vendor and review it monthly",
+  "Use container labels but omit the program location",
+  "Wait for a new chemical before offering training",
+]
+correct = "A"
+explanation = "29 CFR 1910.1200(g)(8) requires required safety data sheets to be readily accessible during each work shift. Paragraph (h)(2)(iii) requires employees to be informed of the location and availability of the written hazard-communication program, hazardous-chemical lists, and safety data sheets; (h)(1) and (h)(3) cover initial/new-hazard information and training content. This is a bounded documentation claim, not a claim that the regulation requires a document titled an OH&S manual."
+topic_ids = ["m15-eop", "m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

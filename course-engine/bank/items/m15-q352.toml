@@ -1,0 +1,26 @@
+# Original CDFOS daily-operations MCQ — ms4j.2 service catalogue.
+# Public heading: CDFOS "Service Level Management — Service portfolio and catalogue" —
+# https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
+# Cite: UK Department for Education, Service Management standard, Version 1,
+# last updated 2025-01-22, "Purpose" and "Why this standard is important" —
+# https://apply-the-service-standard.education.gov.uk/standards/service-management
+# Claim: the service-catalogue practice provides a central list and availability of supported services.
+# Options are length-balanced; teaching lives in explanation.
+id = "m15-q352"
+kind = "single-select"
+module = 15
+stem = "A service catalogue for data-centre operations contains logos and project names but no supported-service list or availability view. What correction fits the public service-management standard?"
+choices = [
+  "Provide a central list of supported services and availability",
+  "Add a logo index and omit operating availability",
+  "Replace it with a spare-parts export",
+  "Publish a project list without service ownership or availability",
+]
+correct = "A"
+explanation = "The UK Department for Education's Service Management standard, Version 1, lists Service Catalogue Management among its practices and says the standard provides a central list and availability of supported services. A logo slide, project list, or spare-parts export is not that service view."
+topic_ids = ["m15-maintenance-sla", "m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

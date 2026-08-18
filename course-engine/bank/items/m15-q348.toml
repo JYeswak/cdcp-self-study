@@ -1,0 +1,25 @@
+# Original CDFOM educational MCQ — ms4j.3 succession / knowledge hand-off.
+# syllabus_heading = "The Data Center Organization — Succession planning; Career development"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
+# source_ids = ["src-epi-cdfom-page", "src-doe-femp-cx-2006"]
+# source = "DOE FEMP, Commissioning for Federal Facilities (2006), Sustainable Commissioning, pp. 145-147 — catalog: https://www.energy.gov/index.php/eere/femp/downloads/operations-and-maintenance-best-practices-guide-achieving-operational-efficiency ; official text: https://www.energy.gov/sites/default/files/2014/07/f17/commissioning_fed_facilities.pdf"
+# claim = "Commissioning knowledge is preserved through O&M training and documentation so it can be passed to succeeding O&M staff."
+# Options are length-balanced; the key is not the longest choice.
+id = "m15-q348"
+kind = "single-select"
+module = 15
+stem = "A commissioning lead leaves before hand-off. The project has no training record or O&M documentation package. What succession risk is directly visible?"
+choices = [
+  "Document knowledge for succeeding staff",
+  "Trust vendor manuals to transfer all local knowledge",
+  "Replace succession planning with one exit interview",
+  "Delay hand-off until the next maintenance review",
+]
+correct = "A"
+explanation = "DOE FEMP's 2006 commissioning guide treats O&M training and documentation as part of the hand-off, and says the knowledge base must be passed to succeeding O&M staff. A vendor manual may be an input, but it does not document the site's operating knowledge; an exit interview or delayed review leaves the succession gap open."
+topic_ids = ["m15-documentation", "m15-ops-security"]
+objective_ids = ["obj-m15-training-program"]
+bloom = "evaluate"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

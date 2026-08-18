@@ -1,0 +1,25 @@
+# Original CDFOM educational MCQ — ms4j.3 monitoring trend analysis.
+# syllabus_heading = "Monitoring / Reporting / Control — Trend analysis"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
+# source_ids = ["src-epi-cdfom-page", "src-dfe-service-management-v1-2025-01-22"]
+# source = "UK Department for Education Service Management standard, Version 1, last updated 2025-01-22 — https://apply-the-service-standard.education.gov.uk/standards/service-management"
+# claim = "Trend analysis can identify continuous-improvement opportunities in service management."
+# Options are length-balanced; the key is not the longest choice.
+id = "m15-q386"
+kind = "single-select"
+module = 15
+stem = "A facilities operations dashboard shows recurring support spikes, but the review only archives monthly totals. What monitoring-control improvement is supported?"
+choices = [
+  "Use trend analysis to identify improvements",
+  "Delete old totals after each monthly meeting",
+  "Replace the dashboard with a vendor brochure",
+  "Treat every spike as proof of a failed service",
+]
+correct = "A"
+explanation = "The DfE Service Management standard, Version 1, identifies opportunities for continuous improvement through trend analysis. The item applies that bounded reporting practice to the CDFOM trend-analysis heading without inventing a threshold, cadence, or vendor taxonomy."
+topic_ids = ["m15-monitoring", "m15-documentation"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,25 @@
+# Original CDFOM educational MCQ — ms4j.3 security incident management.
+# syllabus_heading = "Managing Physical Security — Security incident management"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
+# source_ids = ["src-epi-cdfom-page", "src-nist-sp800-53-r5-5.2.0"]
+# source = "NIST SP 800-53 Rev. 5, current minor Release 5.2.0 (2025-08-27), IR-4(a)-(c) — https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ; clause text: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+# claim = "Incident handling covers preparation, detection and analysis, containment, eradication, and recovery; it coordinates with contingency planning and incorporates lessons into procedures, training, and testing."
+# Options are length-balanced; the key is not the longest choice.
+id = "m15-q381"
+kind = "single-select"
+module = 15
+stem = "A security incident process detects events but lacks a containment/recovery sequence, contingency coordination, and lessons-learned update. What gap is clearest under NIST IR-4?"
+choices = [
+  "Add lifecycle and lessons-learned feedback",
+  "Close the record after detection",
+  "Wait for another incident before testing",
+  "Keep contingency planning separate from response",
+]
+correct = "A"
+explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, IR-4(a) defines incident handling across preparation, detection and analysis, containment, eradication, and recovery. IR-4(b) requires coordination with contingency planning, and IR-4(c) requires using lessons learned to improve incident procedures, training, and testing. The item tests the control's lifecycle and feedback loop without asserting an invented response time or staffing model."
+topic_ids = ["m15-ops-security", "m15-eop"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

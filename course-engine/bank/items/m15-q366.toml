@@ -1,0 +1,25 @@
+# Original CDFOM educational MCQ — ms4j.3 outsourced maintenance personnel.
+# syllabus_heading = "Facilities Management — Outsourcing of maintenance activities; Maintenance contract options"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
+# source_ids = ["src-epi-cdfom-page", "src-nist-sp800-53-r5-5.2.0"]
+# source = "NIST SP 800-53 Rev. 5, current minor Release 5.2.0 (2025-08-27), MA-5(a)-(c) — https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ; clause text: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+# claim = "Maintenance outsourcing needs an authorized-personnel process, access verification for unescorted workers, and technically competent organizational supervision when required."
+# Options are length-balanced; the key is not the longest choice.
+id = "m15-q366"
+kind = "single-select"
+module = 15
+stem = "A maintenance vendor has an active contract but no authorized-personnel list, and unescorted technicians have no technically competent site supervisor. What is missing?"
+choices = [
+  "Authorize personnel and assign supervision",
+  "Let the contract substitute for access authorization and supervision",
+  "Count badges without naming maintenance supervisors",
+  "Wait for a failure before reviewing vendor personnel",
+]
+correct = "A"
+explanation = "NIST SP 800-53 Rev. 5 MA-5(a)-(c) requires a process for authorizing maintenance personnel and maintaining an authorized list, verification that non-escorted personnel have required access authorizations, and designated organizational personnel with the required authorization and technical competence to supervise when needed. A commercial contract or badge count does not supply those control decisions."
+topic_ids = ["m15-maintenance-sla", "m15-ops-security"]
+objective_ids = []
+bloom = "evaluate"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

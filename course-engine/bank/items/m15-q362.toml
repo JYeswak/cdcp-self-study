@@ -1,0 +1,27 @@
+# Original CDFOS daily-operations MCQ — ms4j.2 vendor maintenance records.
+# Public heading: CDFOS "Facilities Maintenance — Service reports" —
+# https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
+# Cite: NIST SP 800-53 Rev. 5, Release 5.2.0 (2025-08-27), MA-4(a)-(e) —
+# https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ;
+# clause text: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
+# Claim: nonlocal maintenance is approved/monitored, recorded, and terminated when complete;
+# strong authentication and policy controls are not substitutes for the record or session close.
+# Options are length-balanced; teaching lives in explanation.
+id = "m15-q362"
+kind = "single-select"
+module = 15
+stem = "A remote maintenance vendor was approved and authenticated, but the service report has no session record and the connection stayed open after the work. Which finding is supported?"
+choices = [
+  "Keep a maintenance record and terminate the session when work ends",
+  "Accept it because approval and strong authentication remove the record need",
+  "Replace the report with a purchase order and leave the connection available",
+  "Require a marketing summary before the next maintenance window",
+]
+correct = "A"
+explanation = "NIST SP 800-53 Rev. 5 MA-4(a)-(e) requires approval and monitoring of nonlocal maintenance, policy-consistent tools, strong authentication, records of the activity, and termination of the session and network connections when maintenance is complete. Approval and authentication are complementary controls, not substitutes for the service report or close-out."
+topic_ids = ["m15-maintenance-sla", "m15-ops-security", "m15-documentation"]
+objective_ids = []
+bloom = "evaluate"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
