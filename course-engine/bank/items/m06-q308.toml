@@ -1,0 +1,27 @@
+# Original CDCS educational MCQ — ms4j.1: fuel storage / runtime calc.
+# Public heading: CDCS Power Systems engineering calcs —
+# https://www.epi-ap.com/services/1/3/5/Certified_Data_Centre_Specialist_(CDCS)
+# Engineering principle: generator runtime depends on fuel consumption rate
+# and available fuel. A 2 MW generator at full load may burn ~500 L/h; a
+# 2000 L day tank then provides ~4 hours at full load. The day tank must
+# refill from bulk storage before it empties, or runtime is day-tank-limited.
+# Decides FUEL-RUNTIME CALC, not name-recall. bloom = apply.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m06-q308"
+kind = "single-select"
+module = 6
+stem = "A 2 MW diesel generator burns ~500 L/h at full load. The day tank holds 2000 L and refills from bulk storage via a pump that delivers 400 L/h. The runtime calc defect is:"
+choices = [
+  "No defect — the 2000 L day tank provides 4 hours runtime, and bulk storage extends that indefinitely",
+  "The refill pump cannot keep up with consumption — the day tank empties faster than it refills at full load",
+  "The defect is day-tank size — increase to 4000 L so the generator can run 8 hours without refilling",
+  "The defect is bulk-storage location — move the bulk tank closer to reduce pump delivery time",
+]
+correct = "B"
+explanation = "At 500 L/h consumption and 400 L/h refill, the day tank loses 100 L/h net. Starting from 2000 L, the tank empties in 20 hours even with continuous refill — but the actual failure comes sooner if the tank starts below full or the pump cycles. The calc defect is a refill rate that cannot sustain consumption at rated load. Increasing day-tank size buys time but does not fix the rate mismatch. The bulk tank's role is capacity, not rate — the pump is the bottleneck."
+topic_ids = ["m06-generator", "m06-fuel"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

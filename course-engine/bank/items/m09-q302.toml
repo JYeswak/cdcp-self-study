@@ -1,0 +1,27 @@
+# Original CDCS educational MCQ — ms4j.1: psychrometric / dew point calc.
+# Public heading: CDCS Cooling Systems engineering calcs —
+# https://www.epi-ap.com/services/1/3/5/Certified_Data_Centre_Specialist_(CDCS)
+# Engineering principle: condensation occurs when surface temperature drops
+# below dew point. A cold chilled-water pipe in a humid hall condenses water
+# next to live equipment. ASHRAE TC 9.9 treats dew point as a condensation
+# and ESD control, not just a comfort metric.
+# Decides DEW-POINT CALC, not name-recall. bloom = analyze.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m09-q302"
+kind = "single-select"
+module = 9
+stem = "A hall runs 50% RH at 24°C (dew point ~13°C). Chilled water enters at 7°C. Condensation appears on uninsulated pipe fittings. The calc defect is:"
+choices = [
+  "No defect — condensation on chilled-water pipes is normal and does not indicate a design problem in the hall",
+  "The defect is RH — lower hall humidity to 30% so condensation stops, regardless of pipe insulation",
+  "The defect is surface temperature below dew point — insulate fittings or raise supply water above dew point",
+  "The defect is supply water — raise chilled water to 25°C so it cannot condense moisture anywhere in the hall",
+]
+correct = "C"
+explanation = "Condensation occurs when surface temperature drops below the air's dew point. At 24°C/50% RH, dew point is ~13°C; a 7°C pipe surface will condense water. The fix is either insulate the surface so it stays above dew point, or raise supply-water temperature above dew point. Lowering RH works but may create ESD risk. Raising CHW to 25°C eliminates cooling capacity. The calc defect is uninsulated surfaces colder than dew point — insulation is the targeted fix."
+topic_ids = ["m09-cooling-calcs", "m09-psychrometric"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

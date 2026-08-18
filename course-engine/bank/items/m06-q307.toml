@@ -1,0 +1,26 @@
+# Original CDCS educational MCQ — ms4j.1: generator paralleling calc.
+# Public heading: CDCS Power Systems engineering calcs —
+# https://www.epi-ap.com/services/1/3/5/Certified_Data_Centre_Specialist_(CDCS)
+# Engineering principle: paralleling generators requires voltage, frequency,
+# and phase-angle match before closing the paralleling breaker. A phase-angle
+# mismatch at breaker close causes a fault current that can damage windings.
+# Decides PARALLELING CALC, not name-recall. bloom = analyze.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m06-q307"
+kind = "single-select"
+module = 6
+stem = "Two generators are paralleling. The sync panel shows matching voltage and frequency but a 45° phase angle. The operator closes the paralleling breaker. The calc defect is:"
+choices = [
+  "No defect — matching voltage and frequency are sufficient for safe paralleling; phase angle corrects after closure",
+  "Phase-angle mismatch at closure causes fault current — wait for phase angle near zero before closing the breaker",
+  "The defect is frequency — increase frequency on one generator to force phase alignment before closing",
+  "The defect is voltage — raise voltage on one generator to overcome the phase-angle difference at closure",
+]
+correct = "B"
+explanation = "Generator paralleling requires three matches: voltage, frequency, AND phase angle. Closing the breaker with a 45° phase difference creates an instantaneous voltage mismatch between the two sources, driving fault current through the windings. The sync panel's phase-angle display exists precisely to prevent this — wait for the angle to approach zero (within the sync window) before closure. Adjusting frequency can walk the phase angle toward alignment; adjusting voltage does not fix phase. The calc defect is closing on a phase mismatch."
+topic_ids = ["m06-generator", "m06-parallel"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

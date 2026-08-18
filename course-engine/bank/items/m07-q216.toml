@@ -1,0 +1,27 @@
+# Original CDCS educational MCQ — ms4j.1: EMF separation calc.
+# Public heading: CDCS EMF engineering calcs —
+# https://www.epi-ap.com/services/1/3/5/Certified_Data_Centre_Specialist_(CDCS)
+# Cites: ICNIRP 2010 low-frequency guidelines (public PDF, 1 Hz–100 kHz) —
+# https://www.icnirp.org/cms/upload/publications/ICNIRPLFgdl.pdf
+# Engineering principle: ELF magnetic field from compact sources falls roughly
+# as 1/r² to 1/r³ in the near zone. Doubling distance cuts field dramatically.
+# Decides SEPARATION CALC, not name-recall. bloom = apply.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m07-q216"
+kind = "single-select"
+module = 7
+stem = "A row of SAN heads shows intermittent CRC errors. A survey finds elevated 50 Hz magnetic field from the adjacent UPS room. The engineer proposes RF shielding paint. The calc defect is:"
+choices = [
+  "No defect — RF shielding paint attenuates all electromagnetic fields including 50 Hz magnetic fields from transformers",
+  "Wrong mitigation — ELF magnetic fields need distance or high-permeability materials, not RF shielding paint",
+  "The defect is survey timing — repeat the survey at night when UPS load is lower before choosing mitigation",
+  "The defect is sensor placement — move the survey probe closer to the UPS room to confirm the source",
+]
+correct = "B"
+explanation = "At 50/60 Hz, skin depth in ordinary conductors is large, so thin conductive foils and RF shielding paint barely attenuate B-fields. ELF magnetic field from compact sources falls roughly as 1/r² to 1/r³ — tripling distance can drop field by an order of magnitude. The first-line mitigation for ELF magnetic issues is separation, not shielding. RF Faraday practices that stop GHz energy fail against power-frequency magnetic fields. Move the row or the UPS before trying to build a magnetic shield room."
+topic_ids = ["m07-emf", "m07-mitigation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
