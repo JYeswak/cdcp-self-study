@@ -211,3 +211,70 @@ The objective remains open after pass 02. The next unresolved frontier is electr
 | 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
 
 The objective remains open after pass 03. The next unresolved frontier is cooling controls, liquid cooling, heat reuse, economization, and thermal/water measurement.
+
+## Breadth pass 04 — cooling controls, liquid cooling, heat reuse, economization, and thermal/water measurement
+
+**Search date:** 2026-08-18. This pass retained official DOE/FEMP, EPA WaterSense, NREL/National Laboratory of the Rockies, and Lawrence Berkeley National Laboratory HTML pages. PDF links surfaced by those pages were not opened or copied.
+
+### Sources retained
+
+| Source | What it can safely support | Boundaries |
+|---|---|---|
+| DOE FEMP, Cooling Water Efficiency Opportunities for Federal Data Centers — https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers | Cooling-system heat paths, PUE/WUE definitions, space temperature/humidity control, air- and water-side economizing, cycles of concentration, side-stream filtration, and direct-liquid-cooling system boundaries | FEMP’s examples and savings statements are contextual. Do not turn them into universal setpoints, savings, water quality limits, or availability guarantees |
+| DOE FEMP, Best Practices Guide for Energy-Efficient Data Center Design — https://www.energy.gov/cmei/femp/articles/best-practices-guide-energy-efficient-data-center-design | Public design categories covering IT conditions, air management, cooling/electrical systems, heat recovery, and performance metrics; use it to formulate evidence questions across design and operations | FEMP expressly presents this as guidance for varied scenarios, not a single “most efficient” design or a mandatory performance threshold |
+| DOE FEMP BMP 10, Cooling Tower Management — https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management | Evaporation, drift, blowdown, dissolved-solids control, chemistry, heat-transfer efficiency, and maintenance evidence | The page does not establish one acceptable cycles-of-concentration value for every climate, tower, water chemistry, or treatment regime |
+| DOE FEMP, Side Stream Filtration for Cooling Towers — https://www.energy.gov/cmei/femp/water-efficient-technology-opportunity-side-stream-filtration-cooling-towers | Fouling, suspended solids, filtration, heat-transfer performance, water/energy trade-offs, and O&M questions | FEMP describes an opportunity and its trade-offs; it does not prove that filtration alone solves corrosion, microbiological control, or water treatment |
+| EPA WaterSense Best Management Practices — https://www.epa.gov/watersense/best-management-practices | Water-management planning, metering/submetering, leak detection, benchmarking, single-pass cooling, cooling towers, chilled-water systems, and water-energy nexus questions | The page links public BMP headings and release dates; linked PDF bodies were not fetched. EPA BMPs are guidance, not a data-center certification or universal water target |
+| NLR/NREL Chip-to-Grid Data Center Initiative — https://www.nrel.gov/computational-science/chip-to-grid-data-center-initiative | Current systems framing for liquid cooling, modularization, load forecasting, flexibility, grid integration, and end-to-end performance/resource trade-offs | NLR describes an initiative and research direction; it does not certify a technology, guarantee a PUE/WUE result, or replace a design review |
+| NLR/NREL COOLERCHIPS announcement — https://www.nrel.gov/news/detail/program/2023/nrel-joins-effort-to-advance-data-center-cooling-efficiency | Public research framing for standardized cooling evaluation from component and rack levels through edge data centers, and for liquid-cooling/heat-reuse questions | The program’s targets and a laboratory installation are research context, not a universal operating envelope or production acceptance criterion |
+| NLR/NREL RTES analysis — https://www.nrel.gov/news/detail/program/2025/nlr-analysis-identifies-reservoir-thermal-energy-storage-as-a-solution-for-data-center-cooling-needs | Reservoir thermal energy storage, cold/warm wells, dry coolers/chillers, peak-shifting, heat exchangers, and heat-recovery scenario questions | The page reports an analysis and simulated scenarios; do not convert its COP or savings into a guaranteed field result or permit requirement |
+| NREL/NLR sustainable buildings research — https://www.nrel.gov/news/feature/2020/buildings-research-sets-foundation-for-future-design | Warm-water liquid cooling, waste-heat reuse, evaporative cooling, thermosyphon/dry-cooler interaction, PUE dashboard, and measured-case-study questions | The NLR facility is a case study. Its PUE and reuse results are not universal targets and must not be presented as a generic design requirement |
+| NLR/NREL liquid-cooling validation — https://www.nrel.gov/news/detail/program/2019/aquarius-hpc-cooling-system-yields-impressive-energy-efficiency-results-after-nrel-sandia-test | Cold-plate liquid-cooling heat capture, warmer supply/return water, dry-cooler potential, and test-method/evidence questions | The result is a particular evaluation of a particular system; the reported heat-capture percentage is not a universal rack or facility claim |
+| Lawrence Berkeley National Laboratory, Liquid Cooling — https://datacenters.lbl.gov/liquid-cooling | Liquid-cooling technology families, heat transfer close to the source, warmer coolant opportunities, hybrid air/liquid architectures, and open resource discovery | LBNL’s overview is a technical landscape, not a standard or approval. Hybrid systems require an explicit residual-air-load and failure-mode review |
+
+### Pass-04 question frontier
+
+| Module | New question families |
+|---|---|
+| M01 Mission Critical | Trace heat from chip to rack, room, CDU/heat exchanger, chilled/condenser loop, tower/dry cooler/UTES, and heat-reuse sink; identify the dependency that turns a cooling-efficiency claim into a continuity risk. |
+| M02 Standards | Classify a PUE/WUE formula, a FEMP BMP, an EPA WaterSense heading, an NLR case study, and a site control sequence as metric definition, guidance, research evidence, or local procedure; reject a case-study number presented as a standard. |
+| M03 Site / Building | Compare air-cooled, evaporative, water-side-economizer, direct-liquid, immersion, dry-cooler, and thermal-storage concepts against climate, water source, discharge, heat-reuse sink, contamination, maintenance, noise, and expansion evidence. |
+| M04 Floor / Ceiling | Review a liquid-cooling change for CDU location, pipe routing, leak detection, containment, service clearances, rack loading, floor penetrations, thermal movement, and the boundary between facility water and IT-side coolant. |
+| M05 Light | Design inspection and emergency-lighting questions for wet mechanical rooms, CDUs, cooling towers, roof equipment, heat exchangers, and low-visibility leak response; distinguish a lighting control from a leak/safety interlock. |
+| M06 Power | Evaluate fan/pump/chiller/tower/heat-recovery energy paths and control modes; identify the power and restart sequence when economizer, chiller, dry cooler, CDU, or thermal storage control is unavailable. |
+| M07 EMF | Keep pump motors, variable-speed drives, heat-rejection equipment, and liquid-cooling power electronics in the field-source inventory; require frequency, location, instrument, boundary, and work-practice evidence before accepting an EMF claim. |
+| M08 Racks | Compare rear-door heat exchangers, cold plates, immersion, and hybrid racks; ask what rack metadata identifies coolant type, supply/return, leak detection, service isolation, residual air load, and safe removal procedure. |
+| M09 Cooling | Diagnose competing temperature, humidity, pressure, airflow, valve, fan, pump, and economizer loops; identify sensor placement, sequence-of-operations, fail-safe state, alarm owner, and manual fallback before changing a setpoint. |
+| M10 Water | Build a mass-balance evidence pack for makeup, evaporation, drift, blowdown, leaks, treatment, reuse, discharge, and IT energy; calculate WUE only after agreeing on meter boundaries, time period, and water sources. |
+| M11 Network | Map controls and telemetry for CRAH/CRAC, chiller, tower, dry cooler, CDU, heat exchanger, leak detection, water meters, and thermal storage; require timestamp, trend retention, command authority, segmentation, and local fallback. |
+| M12 Fire | Review liquid-cooling and thermal-storage hazards separately from IT-room fire protection: leak response, electrical isolation, coolant properties, detection, suppression interfaces, water availability, egress, and impairment/return-to-service evidence. |
+| M13 Security | Protect cooling controllers, water-treatment systems, thermal-storage controls, and heat-reuse interfaces as cyber-physical assets; identify the risk created by shared credentials, unsupported firmware, or unnecessary remote vendor access. |
+| M14 Auxiliary | Design an alarm board that correlates temperature, dew point, pressure, flow, valve position, pump state, water chemistry, leak, tower drift/blowdown, and heat-reuse demand; distinguish a trend from an actionable alarm. |
+| M15 Operations | Create an operating loop for seasonal economizer transitions, tower chemistry, filter maintenance, CDU isolation, leak response, thermal-storage charge/discharge, heat-reuse demand, and post-change verification; require evidence of actual performance rather than design intent. |
+
+### Pass-04 factual boundaries
+
+- FEMP identifies temperature and humidity over-control as a potential energy and water problem and describes both air- and water-side economizing. A question must preserve the need to evaluate air quality, humidity tolerance, climate, controls, and IT protection.
+- Cooling-tower water leaves through distinct mechanisms, including evaporation, drift, and blowdown. The correct operational question is usually which measurement or control is missing; a universal cycles-of-concentration number is not justified by the public page.
+- Direct liquid cooling can move heat closer to the source and reduce air-side work, but hybrid designs retain an air load. A question must identify the residual load and the CDU/heat-rejection boundary rather than treating “liquid cooled” as a complete architecture.
+- EPA WaterSense provides public headings and guidance for metering, leak detection, single-pass cooling, cooling towers, and chilled-water systems. Its linked PDF bodies were not fetched, and its guidance does not certify a site.
+- NLR/NREL’s cooling and heat-reuse pages are laboratory or analytical evidence. Reported PUE, heat-capture, COP, or savings values must remain attributed to the named installation or scenario, not promoted to universal targets.
+- Reservoir thermal energy storage can shift cooling energy and may pair with heat recovery in a modeled scenario. It introduces wells, heat exchangers, water quality, controls, pumping, permitting, and recovery dependencies that must be tested as part of the operating boundary.
+- PUE and WUE are boundary-sensitive ratios. A question must name the meter boundary, time basis, included water sources, and IT-energy denominator before comparing values.
+
+### Updated pass tracker
+
+| Pass | Focus | Status |
+|---:|---|---|
+| 01 | DOE/FEMP/NREL energy, cooling, water, commissioning; CISA/NIST OT and exposure; eCFR safety; ISO/TIA/IEEE edition anchors | COMPLETE |
+| 02 | Site risk, utility interconnection, resilience, climate/flood/seismic, public AHJ/code sources | COMPLETE |
+| 03 | Electrical distribution, switching, protection, UPS/generator/BESS, maintenance testing | COMPLETE |
+| 04 | Cooling controls, liquid cooling, heat reuse, economization, thermal/water measurement | COMPLETE — this section |
+| 05 | Cabling, outside plant, network management, BMS/DCIM segmentation, remote access | OPEN |
+| 06 | Fire/life safety, emergency power, permits, PPE, incident command, return-to-service | OPEN |
+| 07 | Physical security, personnel/vendor/visitor controls, asset lifecycle, media disposition | OPEN |
+| 08 | People systems: skills matrices, shift turnover, training, fatigue, contractor governance, succession | OPEN |
+| 09 | Commissioning, change control, MOP/SOP/EOP, alarms, metrics, reliability-centered maintenance | OPEN |
+| 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
+
+The objective remains open after pass 04. The next unresolved frontier is cabling, outside plant, network management, BMS/DCIM segmentation, and remote access.
