@@ -870,6 +870,22 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 270 — NFPA premises-security preview headings
+
+**Review date:** 2026-08-18. The current official NFPA LiNK preview for NFPA
+730:2026 was checked without opening or fetching a PDF. Its public headings expose
+Security Planning, Administrative Controls, Security Perimeters, and Security
+Systems.
+
+| Items | Public EPI heading | Current official preview | Bounded result |
+|---|---|---|---|
+| bank-m13-q080 | Physical Security and Safety — Components for physical security | NFPA 730:2026 — https://link.nfpa.org/all-publications/730/2026 | **PASS** — rewritten to ask for the exact public Security Perimeters chapter heading; no zoning rule is inferred |
+| bank-m13-q090 | Physical Security and Safety — Components for physical security | NFPA 730:2026 — https://link.nfpa.org/all-publications/730/2026 | **PASS** — rewritten to ask for the exact public Administrative Controls chapter heading; no visitor-management procedure is inferred |
+| bank-m13-q102 | Physical Security and Safety — Components for physical security | NFPA 730:2026 — https://link.nfpa.org/all-publications/730/2026 | **PASS** — rewritten to ask for the exact public Security Systems chapter heading; no CCTV coverage priority is inferred |
+| bank-m13-q103 | Physical Security and Safety — Components for physical security | NFPA 730:2026 — https://link.nfpa.org/all-publications/730/2026 | **PASS** — rewritten to ask for the exact public Security Planning chapter heading; no security-theatre proposition is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 216 — ISO/IEC 22237-1 common aspects and classification criteria
 
 **Review date:** 2026-08-18. The current ISO Online Browsing Platform preview

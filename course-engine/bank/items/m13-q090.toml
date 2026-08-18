@@ -3,20 +3,19 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: NFPA 730 (2026) —
 # https://link.nfpa.org/all-publications/730/2026
-# BLOCKED: the public preview does not expose the exact visitor-credential,
-# escort, and restricted-zone proposition needed to promote this item.
+# PASS: the current official preview exposes Chapter 6 — Administrative Controls.
 id = "bank-m13-q090"
 kind = "single-select"
 module = 13
-stem = "Visitor management in restricted zones should typically include:"
+stem = "Which NFPA 730:2026 chapter heading names the administrative-controls topic?"
 choices = [
-  "Permanent full white-space badges for all guests",
-  "ID check, temporary distinct badge, escort policy, and sign-in/out with badge return",
-  "Unlimited unescorted roaming after lobby coffee",
-  "Shared use of an employee’s badge"
+  "Chapter 4 — General",
+  "Chapter 6 — Administrative Controls",
+  "Chapter 8 — Crime Prevention Through Environmental Design",
+  "Chapter 10 — Accessory Property"
 ]
 correct = "B"
-explanation = "Visitors need controlled credentials and escort; shared badges destroy audit."
+explanation = "The current NFPA 730 preview names Chapter 6 as Administrative Controls. The heading does not prescribe visitor credentials, escorting, or badge-return procedures."
 topic_ids = ["m13-security-components", "m13-safety-components"]
 objective_ids = []
 bloom = "apply"
