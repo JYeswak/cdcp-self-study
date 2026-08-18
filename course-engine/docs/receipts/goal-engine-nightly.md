@@ -553,9 +553,33 @@ status: BLOCKED_WITH_RECEIPT
   91c3af3858d36090baa7b8be5852939afff0f917` has no run). The historical
   37472-line result is a different SHA and does not authorize a ceiling change.
 
+## Slice 23 — `verify_doc_consistency` adjacent unassigned Unicode `repr(str)` parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `584cf15e084ecf2816f78213449fb73e9fe242ca`
+- Change: mirror Python 3.11's non-printable `repr(str)` treatment of the
+  adjacent unassigned U+0380–U+0383 range in the doc-consistency gate; the
+  Python oracle remains present and unchanged.
+- Fixture: `repr_quoting_in_status_errors_matches` in
+  `crates/cdcp_gate/tests/diff_verify_doc_consistency.rs`, switched its
+  both-quotes status value to U+0380.
+- Known-bad RED: before the range was added, Python emitted
+  `it\\'s \\u0380 "murky"` while Rust emitted raw U+0380; the byte-exact
+  differential assertion failed.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_verify_doc_consistency repr_quoting_in_status_errors_matches -- --exact`
+  — 1 passed after the fix.
+- Full doc-consistency differential: 37/37 passed.
+- Local `gate_shrink`: 37252 lines / 47 files; digest
+  `fnv1a64:e119332a48d14afa`; 31 lines below ceiling 37283; registry check
+  GREEN. The ceiling was not edited.
+- CI for this SHA: unavailable (`gh run list --commit
+  584cf15e084ecf2816f78213449fb73e9fe242ca` has no run). The historical
+  37472-line result is a different SHA and does not authorize a ceiling change.
+
 ## Blocker audit — audited code tree
 
-- Audited code SHA: `91c3af3858d36090baa7b8be5852939afff0f917`; the receipt
+- Audited code SHA: `584cf15e084ecf2816f78213449fb73e9fe242ca`; the receipt
   update below changes no gate source.
 - The live worktree measures 37251 lines / 47 files, digest
   `fnv1a64:65647a7c5cbe8ffc`. Pane-owned dirty files were preserved and are not
@@ -564,9 +588,10 @@ status: BLOCKED_WITH_RECEIPT
   37472 / 47, digest `fnv1a64:67f95ea56dbda888`. Its latest completed check run
   (`32095229956`) failed at that old SHA's gate-shrink count; it is not a
   same-SHA result for this branch.
-- `gh run list --commit 91c3af3858d36090baa7b8be5852939afff0f917` returns no
-  run. Local proof includes the new grounding known-bad differential (1/1),
-  grounding units (40/40), and a GREEN registry-check.
+- `gh run list --commit 584cf15e084ecf2816f78213449fb73e9fe242ca` returns no
+  run. Local proof includes the new doc-consistency known-bad differential
+  (1/1), the full doc-consistency differential (37/37), and a GREEN
+  registry-check.
 - This audit adds no parity slice and makes no certification claim. The
   remaining blocker is external: a CI run on the current SHA is required.
   `check.sh`/workflow changes and publishing the shared branch are outside
@@ -577,10 +602,10 @@ status: BLOCKED_WITH_RECEIPT
 BLOCKED_WITH_RECEIPT: the local and proof conditions are satisfied, but the
 external CI leg cannot be observed on the current code SHA.
 
-- Code SHA: `91c3af3858d36090baa7b8be5852939afff0f917`; `gh run list --commit
-  91c3af3858d36090baa7b8be5852939afff0f917` returned no runs.
-- Local `gate_shrink`: 37251 lines / 47 files; digest
-  `fnv1a64:65647a7c5cbe8ffc`; ceiling remains exactly 37283.
+- Code SHA: `584cf15e084ecf2816f78213449fb73e9fe242ca`; `gh run list --commit
+  584cf15e084ecf2816f78213449fb73e9fe242ca` returned no runs.
+- Local `gate_shrink`: 37252 lines / 47 files; digest
+  `fnv1a64:e119332a48d14afa`; ceiling remains exactly 37283.
 - Exact historical CI discrepancy retained for `bd-engine-not-gate-ar39.15`:
   run context `5f178d2` measured 37472 against the 37283 ceiling; the named
   CI-only deltas were `crates/cdcp_gate/src/gates/substrate_guard.rs` (+128
@@ -599,13 +624,14 @@ external CI leg cannot be observed on the current code SHA.
 - The read-only Unicode sweep found U+0378–U+0379 present in the edited
   `verify_bank`, `verify_coverage`, `validate_grounding`, `verify_orphans`, and
   `verify_doc_consistency` implementations; `verify_bank`, `verify_coverage`,
-  and `validate_grounding` now also cover adjacent U+0380–U+0383. Their
-  differential fixtures remain backed by the Python files on disk.
+  `validate_grounding`, and `verify_doc_consistency` now also cover adjacent
+  U+0380–U+0383. Their differential fixtures remain backed by the Python
+  files on disk.
 - The only remaining matching omission is in
   `crates/cdcp_gate/src/gates/verify_injection_count.rs`'s `py_is_printable`
   helper. That file is pane-owned and explicitly excluded from this work; it
   was not edited, and no extraction was taken from it.
-- `gh run list --commit 91c3af3858d36090baa7b8be5852939afff0f917` returned no
+- `gh run list --commit 584cf15e084ecf2816f78213449fb73e9fe242ca` returned no
   runs, so same-SHA CI line count and GREEN status remain unavailable. The historical 37472-line remote-main
   result is a different SHA and is not used as a same-SHA claim.
 - Socraticode was unavailable in this environment; the local fallback anchor
