@@ -513,3 +513,20 @@ external CI leg cannot be observed on the current code SHA.
   not READY and no epics were marked shipped.
 - Workflow evidence: `br dep cycles` reports no cycles; `bv --robot-next`
   selects `bd-installability-sm4g.22` (CI has never completed a run).
+
+## Final parity sweep and blockers
+
+- The read-only Unicode sweep found the U+0378–U+0379 `repr(str)` range present
+  in the edited `verify_bank`, `verify_coverage`, `validate_grounding`,
+  `verify_orphans`, and `verify_doc_consistency` implementations. Their
+  differential fixtures remain backed by the Python files on disk.
+- The only remaining matching omission is in
+  `crates/cdcp_gate/src/gates/verify_injection_count.rs`'s `py_is_printable`
+  helper. That file is pane-owned and explicitly excluded from this work; it
+  was not edited, and no extraction was taken from it.
+- `gh run list --commit 1270adb` returned no runs, so same-SHA CI line count and
+  GREEN status remain unavailable. The historical 37472-line remote-main
+  result is a different SHA and is not used as a same-SHA claim.
+- `bd-substrate-python-gates-viu` and `bd-engine-not-gate-ar39.15` remain
+  IN_PROGRESS; `bd-2m9` remains OPEN. No bead or epic was marked READY or
+  shipped.
