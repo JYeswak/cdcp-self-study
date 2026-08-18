@@ -1255,17 +1255,20 @@ fn a_bank_of_only_retired_items_is_an_error_in_both_never_a_pass() {
 
 /// An unmodelled status is a finding naming the item, never a silent drop into
 /// "not approved" — a bucket decided by guess is the same defect one level down.
+/// The U+200B suffix also proves the Python `repr(str)` escaping leg.
 #[test]
 fn an_unmodelled_status_is_a_named_finding_in_both() {
     let f = Fixture::new();
     let mut body = pool(2, &["A", "B"]);
-    body.push_str(&item_with_status("i-odd", 1, "C", "t-one", "published"));
+    let odd = item_with_status("i-odd", 1, "C", "t-one", "published")
+        .replace("status = \"published\"", "status = \"published\\u200b\"");
+    body.push_str(&odd);
     f.write("bank/items/pool.toml", &body);
     let run = f.check("unknown-status");
     assert_ne!(run.code, 0, "{}", run.stdout);
     assert!(
         run.stdout
-            .contains("  - i-odd: unknown status 'published'\n"),
+            .contains("  - i-odd: unknown status 'published\\u200b'\n"),
         "{}",
         run.stdout
     );
