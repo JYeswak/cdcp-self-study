@@ -78,6 +78,22 @@ These receipts pin the current official edition for a named-only or otherwise bl
 | NFPA 70E:2027, Standard for Electrical Safety in the Workplace | https://link.nfpa.org/all-publications/70E/2027 | **BLOCKED** — official NFPA preview/catalog only; no item |
 | NFPA 70B:2026, Standard for Electrical Equipment Maintenance | https://link.nfpa.org/all-publications/70B/2026 | **BLOCKED** — official NFPA preview/catalog only; no item |
 
+### Remaining public-heading gap receipts — catalog/preview only
+
+These rows pin a current official catalog or preview for an existing CDFOS
+syllabus heading. They do not add items: the public CDFOS page does not name
+the standard, and the paid standard body was not fetched or used.
+
+| Exact public CDFOS heading | Current official catalog / preview | Disposition |
+|---|---|---|
+| Project Management — Project management | ISO 21502:2020, Ed. 1 — https://www.iso.org/standard/74947.html | **BLOCKED** — catalog pin only; no item |
+| Organisational Resilience | ISO 22336:2024, Ed. 1 — https://www.iso.org/standard/50073.html?browse=tc | **BLOCKED** — catalog pin only; no item |
+| Physical Security — Security risk assessment | ISO 22342:2023, Ed. 1 — https://www.iso.org/standard/50079.html?browse=tc | **BLOCKED** — catalog pin only; no item |
+| Facilities Maintenance — Equipment life cycle management | ISO 41002:2026, Ed. 1 — https://www.iso.org/standard/68158.html | **BLOCKED** — catalog pin only; no item |
+| Environmental Sustainability — Environmental standards | ISO 14001:2026, Ed. 4 — https://www.iso.org/standard/14001 | **BLOCKED** — catalog pin only; no item |
+| Environmental Sustainability — Sustainable energy usage | ISO 50001:2018, Ed. 2, Amd 1:2024 — https://www.iso.org/standard/69426.html | **BLOCKED** — catalog pin only; no item |
+| Environmental Sustainability — Water management | ISO 46001:2019, Ed. 1, Amd 1:2024 — https://www.iso.org/standard/68286.html | **BLOCKED** — catalog pin only; no item |
+
 ---
 
 ## 2. One row per public heading
@@ -199,7 +215,7 @@ ISO 21502 not named on the CDFOS page. Not fetched. **no item.**
 | Environmental standards | no single public edition named on the CDFOS page | — | **no item** | — |
 | Power efficiency indicators | ISO/IEC 30134-2:2026 Ed.2 (2026-01) | C-30134-2 | **yes** — §3.3 | — (not `.2.1–.5`) |
 | Energy saving best practises | — | — | **no item** | — |
-| Water management | 30134-3 not fetched this pass | — | **no item** | — |
+| Water management | ISO 46001:2019 + Amd 1:2024 catalog-only receipt (§1) | — | **no item** | — |
 | Sustainable energy usage | — | — | **no item** | — |
 
 Catalogue text only. Do not law-ify a PUE percentage.
