@@ -906,6 +906,22 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 247 — eCFR electrical labelling receipts
+
+**Review date:** 2026-08-18. Current public eCFR text at 29 CFR 1910.303(f)
+requires services, feeders, and branch circuits at disconnecting means or
+overcurrent devices to be legibly marked for purpose unless the purpose is
+evident, and requires those markings to be durable for the environment
+involved. The two module-15 items are rewritten to those exact public-code
+requirements.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m15-q136 | Labelling | 29 CFR 1910.303 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.303 | **PASS** — purpose marking at disconnecting means/overcurrent devices is explicit |
+| m15-q208 | Labelling | 29 CFR 1910.303 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.303 | **PASS** — marking durability requirement is explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 246 — eCFR operations and safety receipts
 
 **Review date:** 2026-08-18. Current public eCFR text supplies bounded legal
