@@ -19,19 +19,19 @@
 # bank/IMPORT-POLICY.md.
 # Public syllabus heading: Power distribution / busbar trunking
 # Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact overhead-busway tap-off flexibility proposition.
+# PASS: the current ISO OBP abstract explicitly covers power distribution systems to all equipment within data centres. No standard body or PDF was fetched.
 id = "mock40-q20"
 kind = "single-select"
 module = 6
-stem = "Overhead busway in white space is often chosen to:"
+stem = "Within ISO/IEC 22237-3:2021, the power-distribution requirement applies to:"
 choices = [
-  "Increase EMF intentionally",
-  "Enable flexible tap-off power distribution along a row without full recabling",
-  "Replace fire detection",
-  "Cool chips directly",
+  "Power distribution systems to all equipment within data centres",
+  "Replacing fire-detection systems",
+  "Directly cooling compute chips",
+  "Only optical-fibre test methods",
 ]
-correct = "B"
-explanation = "Overhead busway enables flexible tap-off distribution along a row without full recabling."
+correct = "A"
+explanation = "The current ISO OBP abstract explicitly states that ISO/IEC 22237-3:2021 specifies requirements and recommendations for power distribution systems to all equipment within data centres. It does not expose the prior overhead-busway tap-off flexibility proposition."
 topic_ids = ["m06-distribution"]
 objective_ids = []
 bloom = "understand"

@@ -1,19 +1,19 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
 # Public syllabus heading: Power redundancy levels and techniques
 # Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact dual-cord failure-independence proposition.
+# PASS: the current ISO OBP abstract explicitly includes bonding and lightning protection in the power-distribution scope. No standard body or PDF was fetched.
 id = "mock40-q17"
 kind = "single-select"
 module = 6
-stem = "A dual-corded server on A-B feeds is intended so that:"
+stem = "Which subjects does ISO/IEC 22237-3:2021 explicitly include in its data-centre power-distribution scope?"
 choices = [
-  "Both cords must fail together to lose the server (assuming healthy PSUs and independent paths)",
-  "Power draw doubles for free cooling",
-  "STS is never needed anywhere",
-  "Grounding is unnecessary",
+  "Telecommunications infrastructure bonding and lightning protection",
+  "Only generator fuel storage and staffing",
+  "Only chilled-water chemistry",
+  "Only optical-fibre polarity",
 ]
 correct = "A"
-explanation = "Independent A-B paths protect dual-PSU gear so both sides must fail to lose the server."
+explanation = "The current ISO OBP abstract for ISO/IEC 22237-3:2021 explicitly lists telecommunications infrastructure bonding and lightning protection among the covered power-distribution subjects. It does not expose the prior dual-cord failure-independence proposition."
 topic_ids = ["m06-redundancy"]
 objective_ids = []
 bloom = "apply"

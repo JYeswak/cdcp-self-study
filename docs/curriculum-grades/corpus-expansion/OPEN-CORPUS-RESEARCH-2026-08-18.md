@@ -7541,3 +7541,24 @@ items were narrowed to those exact catalog claims.
 Isolation/noise behavior, facility step-down design, transformer losses, heat
 load, and project-specific condition-monitoring implementation remain outside
 this catalog receipt. This pass does not certify a learner or close ms4j.
+
+## Breadth pass 332 — ISO/IEC 22237-3:2021 power-distribution scope
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform abstract
+for ISO/IEC 22237-3:2021 addresses power supplies to, and power distribution
+within, data centres. It explicitly lists power distribution to all equipment,
+telecommunications infrastructure bonding, lightning protection, and devices
+for measuring power consumption and power-quality characteristics with
+management-tool integration. Four item stems were narrowed to these exact
+data-centre power-distribution claims.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| mock40-q17 | Power redundancy levels and techniques | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **PASS** — bonding and lightning-protection scope is explicit |
+| mock40-q19 | Generators | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **PASS** — power-supply-to-data-centres scope is explicit |
+| mock40-q20 | Power distribution / busbar trunking | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **PASS** — distribution-to-all-equipment scope is explicit |
+| m06-q052 | Power redundancy levels and techniques | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **PASS** — power/power-quality measurement and management integration are explicit |
+
+N/2N/N+1 definitions, dual-cord failure independence, generator/UPS timing,
+busway tap-off flexibility, and site-specific redundancy design remain outside
+this abstract. This pass does not certify a learner or close ms4j.
