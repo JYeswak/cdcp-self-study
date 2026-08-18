@@ -1109,6 +1109,36 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 37 — CDCP physical-security frontier receipts
+
+**Review date:** 2026-08-18. Fifteen remaining M13 rows, including two
+retired provenance rows, now carry official NFPA 730, NFPA 731, NFPA 70E, or
+ISO/IEC 27001 catalog/preview receipts. They remain BLOCKED because the public
+pages do not expose the exact item propositions. No PDF or paid standard body
+was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| mock40-q36 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — retired duplicate; exact mantrap proposition not exposed |
+| mock40-q37 | Physical Security and Safety — Components for physical safety | NFPA 70E, 2024 — https://link.nfpa.org/all-publications/70E/2024 | **BLOCKED** — retired cross-module duplicate; exact MOP proposition not exposed |
+| m13-q204 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact CCTV coverage/retention/lighting/time-sync proposition not exposed |
+| m13-q205 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact piggybacking/tailgating identity-to-entry proposition not exposed |
+| m13-q206 | Physical Security and Safety — Components for physical safety | NFPA 70E, 2024 — https://link.nfpa.org/all-publications/70E/2024 | **BLOCKED** — exact hazard-signage/authorized-worker proposition not exposed |
+| m13-q207 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact loading-dock freight/contraband/people-control proposition not exposed |
+| m13-q208 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact two-factor physical credential proposition not exposed |
+| m13-q210 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact colocation tenant-space separation proposition not exposed |
+| m13-q211 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact guard-force escalation/reporting proposition not exposed |
+| m13-q212 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact raised-floor/ceiling pathway-bypass proposition not exposed |
+| m13-q213 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact white-space visitor-escort/guest-audit proposition not exposed |
+| m13-q214 | Physical Security and Safety — Components for physical safety | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact duress-alarm/secure-communications proposition not exposed |
+| m13-q215 | Physical Security and Safety — Components for physical security | ISO/IEC 27001:2022 — https://www.iso.org/standard/27001?browse=tc | **BLOCKED** — exact periodic physical-access rights-review proposition not exposed |
+| m13-q216 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact time-bounded maintenance-access/credential-return proposition not exposed |
+| m13-q300 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact emergency tailgate challenge/verify runbook proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
 
 **Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current

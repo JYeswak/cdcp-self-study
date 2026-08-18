@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: NFPA 731 (2026) —
+# https://link.nfpa.org/all-publications/731/2026
+# BLOCKED: the public catalog does not expose the exact CCTV coverage,
+# retention, lighting, and time-synchronization proposition.
 id = "m13-q204"
 kind = "single-select"
 module = 13
