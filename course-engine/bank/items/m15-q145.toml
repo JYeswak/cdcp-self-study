@@ -1,7 +1,7 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: MTBF / MTTR
-# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current management-and-operations catalog does not expose the exact item-level mtbf / mttr proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: IEC 60050 IEV 192-01-23 — https://www.electropedia.org/iev/iev.nsf/display?ievref=192-01-23&openform=; IEV 192-07-21 — https://www.electropedia.org/iev/iev.nsf/display?ievref=192-07-21&openform=
+# PASS: IEC defines availability in relation to reliability and maintainability, and defines mean repair time as the expectation of repair time.
 id = "bank-m15-q145"
 kind = "single-select"
 module = 15

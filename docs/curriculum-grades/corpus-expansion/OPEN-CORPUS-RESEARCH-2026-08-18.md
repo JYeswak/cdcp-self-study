@@ -887,6 +887,23 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 155 — availability and repair-time vocabulary
+
+**Review date:** 2026-08-18. The existing MTBF/MTTR item was checked against
+current public IEC Electropedia entries. The availability entry states that
+availability depends on reliability and maintainability; the mean-repair-time
+entry defines the repair-time measure. This supports the item's narrow
+availability relationship without asserting a particular facility target.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m15-q145 | MTBF / MTTR | IEC 60050 IEV 192-01-23 — https://www.electropedia.org/iev/iev.nsf/display?ievref=192-01-23&openform=; IEV 192-07-21 — https://www.electropedia.org/iev/iev.nsf/display?ievref=192-07-21&openform= | **PASS** — availability is linked to reliability/maintainability and mean repair time is defined as the expectation of repair time |
+
+Concurrent-maintainability, fault-tolerance, and site-specific availability
+claims remain BLOCKED where the public entry does not expose the stronger claim.
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 142 — water service, WUE, leak detection, and AHJ boundary
 
 **Review date:** 2026-08-18. The remaining Module 10 water and leak-interface
