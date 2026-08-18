@@ -888,6 +888,25 @@ list or a redundancy topology from a single efficiency metric.
 
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+
+## Breadth pass 217 — IEC 62682 alarm-system interface and record functions
+
+**Review date:** 2026-08-18. The current IEC catalog for IEC 62682:2022 says
+that alarm systems notify operators of abnormal process conditions or equipment
+malfunctions and support response. It explicitly identifies operator
+communication through an HMI, usually a computer screen or annunciator, and
+lists an alarm/event log, alarm historian, and performance metrics as additional
+functions. The two items below are bounded to those exposed catalog statements;
+email-only failure modes, local failover policy, and life-safety implementation
+remain outside the receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q113 | Notification | IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543 | **PASS** — alarm/event log, historian, and performance metrics are explicit |
+| bank-m14-q128 | Alarm panels | IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543 | **PASS** — HMI communication via a computer screen or annunciator is explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
 ## Breadth pass 154 — IEC public-vocabulary definitions
 
 **Review date:** 2026-08-18. Three previously blocked definitional items were
