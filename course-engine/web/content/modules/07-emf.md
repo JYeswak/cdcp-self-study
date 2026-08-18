@@ -102,7 +102,7 @@ You do not need to memorize every limit table, but you must speak units correctl
 - Electric: **V/m**.
 - RF: V/m or W/m², plus frequency band.
 
-Human exposure guidance is published by bodies such as **ICNIRP** and standards such as **IEEE C95.1** (revisions evolve—cite the current edition when on a real project). Equipment immunity is a different stack: **IEC/EN 61000-4-x** test methods (e.g. radiated RF immunity, magnetic field immunity, surge, EFT). Facility design standards (**ANSI/TIA-942** family, **EN 50600** series) discuss separation and environmental conditions at a design level; always check the edition your customer claims compliance to.
+Human exposure guidance is published by bodies such as **ICNIRP** and standards such as **IEEE C95.1** (revisions evolve—cite the current edition when on a real project). For the data-centre power-frequency case (50/60 Hz magnetic fields from distribution equipment), pin the citation to the [ICNIRP 2010 low-frequency guidelines (1 Hz–100 kHz)](https://www.icnirp.org/cms/upload/publications/ICNIRPLFgdl.pdf); the [ICNIRP 2020 RF guidelines (100 kHz–300 GHz)](https://www.icnirp.org/cms/upload/publications/ICNIRPrfgdl2020.pdf) are the RF document. An unqualified “ICNIRP” citation does not identify the applicable frequency band. These are human-exposure guidelines, not equipment-immunity test standards or a universal site threshold. Equipment immunity is a different stack: **IEC/EN 61000-4-x** test methods (e.g. radiated RF immunity, magnetic field immunity, surge, EFT). Facility design standards (**ANSI/TIA-942** family, **EN 50600** series) discuss separation and environmental conditions at a design level; always check the edition your customer claims compliance to.
 
 **When to call a specialist survey:** unexplained errors that track electrical plant load; white space planned against a transformer vault or rail line; health/safety inquiries; acceptance testing after major electrical install; any HEMP/IEMI hardening scope (specialist domain).
 
@@ -130,6 +130,8 @@ Prefer cheap geometry over exotic materials.
 
 HEMP is often described in three time regimes (vocabulary you should recognize; detailed waveforms live in military/IEC literature such as **IEC 61000-2-9** concepts and hardening docs like **MIL-STD-188-125** for fixed facilities—specialist territory):
 
+For a public primary reference at the fixed-facility protection level, the [DLA ASSIST record for MIL-STD-188-125-1, Revision A, document date 26-Jul-2021](https://quicksearch.dla.mil/qsDocDetails.aspx?ident_number=204459) states minimum performance, testing, and hardness-maintenance requirements and says the standard does not mandate a specific design solution. That record supports a verification-program claim; detailed E1/E2/E3 waveform or field-threshold claims remain **blocked-on-sourcing** here because no public clause has been resolved for them. No invented HEMP value or commercial-site badge is taught.
+
 | Component | Character (conceptual) | Typical concern |
 |---|---|---|
 | **E1** | Very fast, high amplitude | Electronics upset/damage, coupling into cables/antennas |
@@ -142,7 +144,7 @@ HEMP is often described in three time regimes (vocabulary you should recognize; 
 - Practical resilience overlapping EMP *awareness*: layered surge protection, robust bonding grid, fibre where possible, redundant diverse paths, spare equipment offline/spares strategy, and for true HEMP/IEMI scopes—**shielded enclosures, filtered penetrations, tested points of entry**, and certified design/test partners.
 - Policy and insurance may treat EMP as an exclusion; design response is a **business risk decision**, not a generic white-space checklist item.
 
-If uncertain on limits or waveforms for a real project, say so and point to primary documents by name: **ICNIRP** guidelines, **IEEE C95.1**, **IEC/EN 61000** series, **IEC 61000-2-9/-2-10/-2-11** (HEMP environments—editions matter), **MIL-STD-188-125** (military fixed-site HEMP), local electrical code, and the customer’s stated standard (**TIA-942**, **EN 50600**, etc.).
+If uncertain on limits or waveforms for a real project, say so and point to primary documents by name: **ICNIRP 2010** (LF, 1 Hz–100 kHz) for power-frequency exposure and **ICNIRP 2020** for RF, **IEEE C95.1**, **IEC/EN 61000** series, **IEC 61000-2-9/-2-10/-2-11** (HEMP environments—editions matter), **MIL-STD-188-125-1** (military fixed-site HEMP), local electrical code, and the customer’s stated standard (**TIA-942**, **EN 50600**, etc.).
 
 ---
 
@@ -207,7 +209,8 @@ flowchart TD
 
 - **Induced loop voltage (concept):** a changing magnetic flux through a loop induces emf. Larger loop area + faster dB/dt + stronger B → more noise. **Keep power and signal loop areas small.**
 - **Distance:** for ELF magnetic issues, **move it** before you **shield it**. Rough intuition: if you can triple the distance from a compact source, field often drops by roughly an order of magnitude class of improvement (geometry-dependent—verify by measurement).
-- **Current matters:** field scales with **amps**. A lightly loaded bus is quieter than the same bus at full load—symptoms that appear only at peak IT load are a clue.
+- **Current matters:** field scales with **amps**. A lightly loaded bus is quieter than the same bus at full load—symptoms that appear only at peak IT load are a clue. Density does not change the physics; a 2026 GPU-hall multi-kA bus raises **magnitude** only.
+- **First-pass ELF B (long straight conductor):** B = μ₀I/(2πr) with μ₀ = 4π×10⁻⁷ H/m. This is a magnitude estimate, not an ICNIRP 2010 limit and not a compliance result; return-path cancellation and bus geometry can change the measured field by a large factor. Verify by survey.
 - **Cancellation:** supply and return close together reduce net field; single-conductor wide separations create strong fields.
 - **Shielding frequency dependence:** conductive shields work better as frequency rises (skin effect); **50 Hz magnetic shielding is the expensive special case.**
 - **Units:** 1 µT = 10 mG. Do not mix AC power-frequency readings with DC Earth-field numbers without saying which you mean.
@@ -319,7 +322,7 @@ flowchart TD
 
 ## Further free resources (public standards names, vendor primers — no paywalled EPI content)
 
-- **ICNIRP** — guidelines on limiting exposure to electromagnetic fields (human exposure; check current statements on the ICNIRP site).  
+- **ICNIRP 2010** — [low-frequency guidelines (1 Hz–100 kHz)](https://www.icnirp.org/cms/upload/publications/ICNIRPLFgdl.pdf): the document for 50/60 Hz power-frequency exposure. **ICNIRP 2020** — [RF guidelines (100 kHz–300 GHz)](https://www.icnirp.org/cms/upload/publications/ICNIRPrfgdl2020.pdf). Do not cite “ICNIRP” without the document and band. Neither is a site law or an equipment-immunity table.  
 - **IEEE C95.1** — safety levels with respect to human exposure to electric, magnetic, and electromagnetic fields (know it exists; use the current revision on projects).  
 - **IEC/EN 61000** series — EMC: emissions, immunity test methods (e.g. 61000-4-3 radiated RF, 61000-4-8 power-frequency magnetic field, surge/EFT parts).  
 - **IEC 61000-2-9 / -2-10 / -2-11** — HEMP environment and related descriptions (specialist; edition-aware).  

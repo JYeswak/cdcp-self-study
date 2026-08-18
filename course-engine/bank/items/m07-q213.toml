@@ -1,0 +1,26 @@
+# Original CDCP educational item — M07 density-scaled field calculation.
+# Syllabus heading: EPI CDCP, "Electro Magnetic Fields (EMF)".
+# Syllabus: https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# Primary sources: ICNIRP, LF Guidelines (1 Hz–100 kHz), 2010,
+# https://www.icnirp.org/cms/upload/publications/ICNIRPLFgdl.pdf ;
+# Redžić & Hnizdo, "Time-dependent fields of a current-carrying wire",
+# Eur. J. Phys. 34 (2013) 495–501, public full text,
+# https://stacks.cdc.gov/view/cdc/194760/cdc_194760_DS1.pdf
+id = "m07-q213"
+kind = "single-select"
+module = 7
+stem = "For a first-pass density check, use the long straight-conductor approximation B = μ₀I/(2πr). A 2026 GPU-hall scenario has one idealized 12 kA bus conductor and an observation point 2.0 m away. What field magnitude follows before return-conductor cancellation and bus geometry are considered?"
+choices = [
+  "1.2 × 10^-3 T (1.2 mT)",
+  "1.2 × 10^-6 T (1.2 µT)",
+  "1.2 × 10^-2 T (12 mT)",
+  "1.2 × 10^0 T (1.2 T)",
+]
+correct = "A"
+explanation = "B = (4π×10^-7 H/m)(12,000 A)/(2π×2.0 m) = 1.2×10^-3 T. Density does not change the physics; it scales MAGNITUDE with current. This is an idealized field magnitude, not an ICNIRP 2010 limit or a compliance result; phase/return geometry and a site survey can materially change the measured field."
+topic_ids = ["m07-sources", "m07-units"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "free_url"
+status = "approved"
