@@ -593,6 +593,8 @@ fn defect_shapes_beyond_the_shell_suite_are_byte_identical() {
     assert!(rs.out().contains("... +10 more"), "{}", rs.out());
 }
 
+/// Known-bad mutant: without the U+0378 unassigned-range rule, Rust emits the
+/// character literally while Python's `repr(str)` emits `\\u0378`.
 #[test]
 fn non_ascii_non_printable_status_repr_is_byte_identical() {
     let root = engine_root();
@@ -603,7 +605,7 @@ fn non_ascii_non_printable_status_repr_is_byte_identical() {
     write(&topics, "[[topic]]\nid = \"t-one\"\n");
     write(
         &bank.join("bad.toml"),
-        "id = \"i-bad\"\ntopic_ids = [\"t-one\"]\nstatus = \"\\u200b\"\n",
+        "id = \"i-bad\"\ntopic_ids = [\"t-one\"]\nstatus = \"\\u0378\"\n",
     );
     write(
         &bank.join("good.toml"),
@@ -619,7 +621,7 @@ fn non_ascii_non_printable_status_repr_is_byte_identical() {
     );
     assert_ne!(rs.code, 0, "unknown status must be RED: {}", rs.out());
     assert!(
-        rs.out().contains("i-bad: unknown status '\\u200b'"),
+        rs.out().contains("i-bad: unknown status '\\u0378'"),
         "the Python repr spelling must be preserved: {}",
         rs.out()
     );
