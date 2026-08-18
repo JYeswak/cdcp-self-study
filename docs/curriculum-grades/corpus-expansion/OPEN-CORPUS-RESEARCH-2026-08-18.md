@@ -1247,6 +1247,25 @@ remote-power-panel form factor, kW/kVA limits, thermography practice,
 three-phase tradeoffs, or a facility electrical design approval. This pass does
 not certify a learner or close ms4j.
 
+## Breadth pass 371 — ISO/IEC 30134-9:2022 water-usage KPI scope
+
+**Review date:** 2026-08-18. Two module-10 items were narrowed to the current
+ISO Online Browsing Platform abstract for ISO/IEC 30134-9:2022. The published
+edition specifies water usage effectiveness (WUE) as a KPI for quantifying data
+centre water consumption during the use phase of the life cycle. It defines
+measurement categories and the measurement, calculation, reporting, and
+interpretation of WUE. The catalog is marked published and under revision; no
+replacement edition was fetched and no PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m10-q214 | Importance of water | ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html | **PASS** — WUE measurement, calculation and reporting scope is explicit |
+| m10-q215 | Importance of water | ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html | **PASS** — use-phase water-consumption KPI scope is explicit |
+
+The pass does not infer water-alarm response, closed-loop permitting, water
+rights, discharge approvals, backup-water sizing, water chemistry, or a cooling
+plant design approval. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 616 PASS; 341 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 618 PASS; 339 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -621,8 +621,8 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m10-q211 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers | PASS |
 | m10-q212 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact shared-campus water correlation and isolation proposition is not exposed |
 | m10-q213 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact freeze-protection proposition is not exposed |
-| m10-q214 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; the exact water-alarm monitoring proposition is not exposed |
-| m10-q215 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; the exact combined water-dependency proposition is not exposed |
+| m10-q214 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/77692.html | PASS — ISO/IEC 30134-9:2022 abstract explicitly addresses WUE measurement, calculation, and reporting |
+| m10-q215 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/77692.html | PASS — ISO/IEC 30134-9:2022 abstract defines WUE for water consumption during the use phase |
 | m10-q216 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/77692.html | BLOCKED — ISO/IEC 30134-9:2022 catalog receipt; the exact closed-loop siting, permitting, and water-boundary proposition is not exposed |
 | m10-q217 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/77692.html | PASS — ISO/IEC 30134-9:2022 defines WUE as a water-consumption KPI and provides measurement/reporting categories |
 | m10-q300 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; the exact leak-alarm response sequence is not exposed |

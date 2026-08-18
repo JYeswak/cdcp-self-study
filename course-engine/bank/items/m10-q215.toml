@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Importance of water
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current official receipt does not expose the exact combined water-dependency proposition. No paid body, draft, or PDF was fetched.
+# Official catalog/preview receipt: ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html
+# Claim is limited to the public WUE KPI scope.
 id = "m10-q215"
 kind = "single-select"
 module = 10
-stem = "Which statement best captures water’s role in many modern data centres?"
+stem = "ISO/IEC 30134-9:2022 specifies WUE as a key performance indicator for:"
 choices = [
-  "Water can be a critical dependency for heat rejection, humidity control, and fire protection alongside electrical power",
-  "Water is irrelevant if the utility power feed is dual-path",
-  "Water is only a janitorial concern",
-  "Water quality never affects mechanical reliability"
+  "Quantifying a data centre's water consumption during the use phase of its life cycle",
+  "Granting a water-use permit to a non-evaporative cooling plant",
+  "Replacing all environmental-control requirements with one water number",
+  "Quantifying only domestic water use outside the data-centre life cycle"
 ]
 correct = "A"
-explanation = "For water-dependent designs, water is a first-class availability input like power."
+explanation = "The current ISO abstract defines WUE as a KPI for quantifying data-centre water consumption during the use phase. It does not grant permits or replace environmental-control requirements."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "remember"

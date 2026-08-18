@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Importance of water
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current official receipt does not expose the exact water-alarm monitoring proposition. No paid body, draft, or PDF was fetched.
+# Official catalog/preview receipt: ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html
+# Claim is limited to the public WUE catalog's measurement/reporting scope.
 id = "m10-q214"
 kind = "single-select"
 module = 10
-stem = "Integrating water alarms (level, leak, pressure) into the monitoring stack helps because:"
+stem = "Which activity does ISO/IEC 30134-9:2022 explicitly address for the WUE parameter?"
 choices = [
-  "Alarms replace the need for any water system",
-  "Only energy meters matter",
-  "Silent failures are desirable",
-  "Operators can respond before thermal or water-damage incidents fully develop"
+  "Measurement, calculation, and reporting",
+  "A universal leak-alarm response sequence for every data centre",
+  "Local water-rights permitting and discharge approval",
+  "Replacement of environmental-control instrumentation"
 ]
-correct = "D"
-explanation = "Early warning converts latent water risk into actionable ops response."
+correct = "A"
+explanation = "The current ISO abstract says ISO/IEC 30134-9:2022 defines measurement, calculation, and reporting of the WUE parameter. It does not expose a water-alarm response sequence or permit rule."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "apply"
