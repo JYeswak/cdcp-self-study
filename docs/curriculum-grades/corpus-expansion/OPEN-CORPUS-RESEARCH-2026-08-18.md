@@ -1044,6 +1044,78 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 122 — safe work authorization, LOTO, and competence boundaries
+
+**Date:** 2026-08-18
+**Scope:** M06, M09, M11, M12, M13, M14, and M15 questions about hazardous
+energy, electrical work authorization, lockout/tagout, stored energy, testing
+and re-energization, contractor coordination, training, retraining, and
+periodic inspection. Existing public EPI/CDCS/CDFOS/CDFOM headings are
+retained; no new safety taxonomy or credential claim is inferred.
+
+**Official public receipts:**
+
+- [OSHA 29 CFR 1910.147](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.147),
+  **The control of hazardous energy (lockout/tagout)**, is the current public
+  OSHA regulation page. It covers servicing/maintenance hazards from
+  unexpected energization or stored energy and publicly exposes program,
+  procedure, training, periodic-inspection, verification, release, testing,
+  and outside-personnel coordination requirements. The scope exclusions remain
+  important: utility-controlled generation/transmission/distribution and
+  electrical hazards covered by Subpart S are not silently collapsed into this
+  rule.
+- [OSHA 29 CFR 1910.269](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.269),
+  **Electric power generation, transmission, and distribution; electrical
+  protective equipment**, is the public regulation page for the separate
+  electric-power work domain. It is kept distinct from general-industry LOTO
+  rather than used to invent a universal electrical-work procedure.
+- [OSHA 29 CFR 1910.332](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.332),
+  **Training**, is the public regulation page for electrical-safety-related
+  training scope and qualification boundaries. Training evidence is treated as
+  role- and hazard-specific, not as proof of authorization for every task.
+- [NFPA 70E, 2024](https://link.nfpa.org/all-publications/70E/2024), **Standard
+  for Electrical Safety in the Workplace**, is the current NFPA preview entry.
+  The public preview exposes safety-related work practices, safety-related
+  maintenance requirements, and special-equipment safety as the major chapter
+  structure. Exact paid clauses remain BLOCKED; no PDF was fetched.
+- [ISO 45001:2018](https://www.iso.org/standard/63787.html?url=%2Fdocument-library),
+  **Occupational health and safety management systems — Requirements with
+  guidance for use**, remains the published current edition, confirmed in
+  2024, with Amendment 1:2024. Its public page covers leadership, worker
+  participation, hazard identification/risk assessment, legal compliance,
+  emergency planning, incident investigation, auditing, and continual
+  improvement. [ISO/DIS 45001](https://www.iso.org/standard/89698.html) is under
+  development and is not used as the current edition.
+
+**Adversarial boundary:** A work permit, training record, energized-work label,
+or LOTO tag does not prove that the correct energy sources were identified,
+isolated, verified, and kept safe through the work. A normal operating command
+is not automatically maintenance authorization; a temporary energization for
+testing needs a controlled sequence and re-isolation. Contractor coordination
+requires exchange of procedures and responsibilities, not merely a visitor
+badge or vendor approval. Competence is task, equipment, hazard, and role
+specific, and retraining follows changed assignments, equipment, hazards, or
+inadequate performance.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M06 | Identify electrical, mechanical, hydraulic, pneumatic, thermal, chemical, and stored-energy sources before maintenance or testing | OSHA 1910.147 does not replace utility/electrical-work rules or local procedures |
+| M09 | Apply energy isolation and verification to pumps, fans, valves, controls, and thermal equipment, including reaccumulation risk | A control switch or BMS command is not necessarily an energy-isolating device |
+| M11/M14 | Separate authorized, affected, and other employees; preserve procedure version, isolation proof, test results, and change history | NFPA 70E/OSHA receipts do not create a vendor OLA or handover taxonomy |
+| M12/M13 | Coordinate impairment, emergency response, access control, contractors, and safe re-energization with responsible site roles | A permit or badge does not prove safe work or AHJ acceptance |
+| M15 | Keep training, periodic inspections, retraining triggers, competence evidence, deviations, corrective actions, and lessons learned current | Completing safety training or a curriculum track does not certify a learner or facility |
+
+**Currency boundary:** OSHA regulation pages are public legal text, while NFPA
+70E and ISO 45001 are catalog/preview receipts. The ISO draft, OSHA archived
+interpretive PDFs, OSHA fact-sheet PDFs, vendor training pages, and shadow
+archives are excluded. No PDF was fetched.
+
+**Bounded result:** This pass adds authoritative public safety and competence
+anchors for end-to-end operations while preserving scope distinctions between
+general-industry servicing, utility electrical work, workplace electrical
+safety, and local authorization. No bank rows, ledger dispositions, manifest,
+topics, beads, gate, oracle, or credential state changed.
+
 ## Breadth pass 121 — structured cabling, grounding, and Ethernet evidence
 
 **Date:** 2026-08-18
