@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Liquid cooling
+# Official catalog receipt: ISO/IEC AWI TS 22237-44, Edition 1, under development — https://www.iso.org/standard/93846.html?browse=tc
+# BLOCKED: the official liquid-cooling work item is not a published standard and exposes no exact AI/HPC heat-flux proposition. No draft body was fetched.
 id = "m09-q231"
 kind = "single-select"
 module = 9

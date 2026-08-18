@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Liquid cooling
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# BLOCKED: the published environmental-control catalog does not expose the exact liquid-rack-to-outdoor-heat-rejection proposition.
 id = "m09-q230"
 kind = "single-select"
 module = 9
