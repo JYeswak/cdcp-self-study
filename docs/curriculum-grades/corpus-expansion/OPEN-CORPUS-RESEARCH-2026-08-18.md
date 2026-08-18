@@ -538,3 +538,70 @@ The objective remains open after pass 07. The next unresolved frontier is people
 | 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
 
 The objective remains open after pass 08. The next unresolved frontier is commissioning, change control, MOP/SOP/EOP, alarms, metrics, and reliability-centered maintenance.
+
+## Breadth pass 09 — commissioning, change control, procedures, alarms, metrics, and reliability-centered maintenance
+
+**Search date:** 2026-08-18. This pass retained official DOE/FEMP, NIST, and CISA HTML/abstract pages. No PDF body was fetched or copied.
+
+### Sources retained
+
+| Source | What it can safely support | Boundaries |
+|---|---|---|
+| DOE FEMP Commissioning Process for Federal Facilities — https://www.energy.gov/cmei/femp/commissioning-process-federal-facilities | A public four-step commissioning loop: plan, investigate, implement, and hand off/integrate; team, documentation, functional tests, deficiencies, retesting, monitoring, reporting, and future-commissioning questions | FEMP is federal guidance. The process does not by itself establish acceptance criteria, a data-center availability class, or an EPI/CDFOS/CDFOM credential |
+| DOE FEMP Commissioning in Federal Buildings — https://www.energy.gov/cmei/femp/commissioning-federal-buildings | New, ongoing, recommissioning, and retro-commissioning distinctions; functional testing, monitoring, documentation, training, and selection by building condition | The page gives process definitions and examples, not a universal commissioning frequency or performance guarantee |
+| DOE FEMP Operations and Maintenance in Federal Facilities — https://www.energy.gov/cmei/femp/operations-and-maintenance-federal-facilities | Reliability, safety, energy/water efficiency, controls, leaks, O&M programs, EMIS, re-tuning, commissioning, and operations-resource questions | O&M guidance is not a legal maintenance interval, RCM certification, or substitute for manufacturer/AHJ/owner requirements |
+| DOE FEMP Performance Assurance Planning for UESCs — https://www.energy.gov/cmei/femp/performance-assurance-planning-utility-energy-service-contracts | Commissioning, training, implementation, sustained O&M, life-cycle measurement, verification, and performance-assurance evidence | UESC-specific statutory/contract context must not be generalized to every data-center project or used as an acceptance shortcut |
+| DOE FEMP Federal UESC Phase 5 — https://www.energy.gov/cmei/femp/federal-uesc-process-phase-5-post-acceptance-performance | Post-acceptance commissioning, witnessed tests, actual operating conditions, records, performance assurance, and sustained-performance questions | Paying invoices or finishing construction is not performance acceptance; UESC roles and contract terms remain context-specific |
+| NIST SP 800-128, Security-Focused Configuration Management — https://csrc.nist.gov/pubs/sp/800/128/upd1/final | Baselines, configuration identification/control, change impact, monitoring, risk, and documented rollback/evidence questions for IT and control-support systems | NIST SP 800-128 is security-focused configuration guidance, not a facility MOP/SOP/EOP standard or a permit-to-work procedure |
+| NIST SP 800-137, Information Security Continuous Monitoring — https://csrc.nist.gov/pubs/sp/800/137/final | Monitoring strategy, asset/control visibility, risk tolerance, effectiveness, timely response, and trend/metric questions | ISCM is information-security guidance; do not use it as a universal BMS alarm policy or infer that telemetry equals control authority |
+| NIST SP 800-61 Rev. 3, Incident Response Recommendations — https://csrc.nist.gov/pubs/sp/800/61/r3/final | Current incident-preparation, detection, response, recovery, lessons-learned, and integration-with-risk-management question families | This is cyber incident-response guidance. It does not replace physical emergency procedures, fire command, utility switching rules, or local legal obligations |
+| NIST SP 800-53 Rev. 5 control catalog — https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final | Configuration management, contingency, incident response, continuous monitoring, maintenance, audit, training, and assessment evidence mappings | A control mapping is not proof that a procedure works in live operations or that a metric has an accountable owner |
+
+### Pass-09 question frontier
+
+| Module | New question families |
+|---|---|
+| M01 Mission Critical | Build an end-to-end assurance loop from owner objective to design intent, commissioning, operating procedure, alarm, work order, metric, incident, corrective action, and recommissioning; identify where evidence stops being current. |
+| M02 Standards | Separate statute/code, standard catalog, guidance, contract, owner requirement, MOP/SOP/EOP, alarm rule, metric definition, and acceptance record; reject a procedure label that claims authority it does not have. |
+| M03 Site / Building | Review commissioning scope for utility, structure, electrical, mechanical, controls, fire, security, network, water, documentation, seasonal conditions, and operator training; identify missing integrated tests before occupancy or load growth. |
+| M04 Floor / Ceiling | Apply change control to penetrations, pathways, equipment placement, airflow, firestopping, access, load, and maintainability; require an updated drawing, impact review, test, and owner acceptance rather than an as-built filename alone. |
+| M05 Light | Include normal/emergency lighting in commissioning, alarm, inspection, and change-control evidence; test failure modes, local override, notification, egress, and restoration rather than accepting a fixture count. |
+| M06 Power | Design MOP/SOP/EOP and test evidence for normal switching, maintenance bypass, transfer, generator, UPS, battery, protection, load shed, black-start/islanding claims, and restoration; identify an alarm that can be acknowledged but not safely acted upon. |
+| M07 EMF | Put field measurement, hazard assessment, PPE, work authorization, signage, monitoring, and post-change verification into the change/commissioning record; distinguish a measurement from a control and a control from an acceptance decision. |
+| M08 Racks | Commission rack power, airflow/liquid boundary, network, asset identity, monitoring, alarms, service isolation, and failure recovery; require a testable acceptance package for each rack class or deployment wave. |
+| M09 Cooling | Test sequences for economizer/chiller/tower/CDU, sensors, valves, pumps, heat reuse, leak response, power loss, fire alarm, manual fallback, and seasonal transitions; close a deficiency only after retest under the stated condition. |
+| M10 Water | Build a metric/assurance package for WUE, makeup, blowdown, evaporation, leaks, chemistry, flow, discharge, and reuse; name meter boundaries, data quality, period, owner, corrective threshold, and verification action. |
+| M11 Network | Change-control physical/logical topology, firewall/DMZ/OT paths, BMS/DCIM alarms, time source, remote access, link diversity, and monitoring; require a pre-change risk review, rollback, observation window, and current diagram. |
+| M12 Fire | Commission detection, signaling, emergency controls, suppression interfaces, egress, firestopping, emergency power, impairment, alarm ownership, and return-to-service; identify which deficiency is life-safety blocking versus documentation-only. |
+| M13 Security | Integrate physical/cyber change approval, access reviews, vendor sessions, configuration baselines, incident response, evidence preservation, and recovery; test whether the control remains effective after a maintenance exception. |
+| M14 Auxiliary | Define alarm lifecycle: source, detection, quality, priority, owner, acknowledgement, escalation, command/interlock, suppression, shelving/inhibition, restoration, audit, and trend review; distinguish nuisance reduction from alarm deletion. |
+| M15 Operations | Compare reactive, preventive, predictive, condition-based, and reliability-centered maintenance by failure consequence, evidence, task effectiveness, and risk; keep manufacturer, AHJ, code, and owner intervals distinct from locally chosen optimization. |
+
+### Pass-09 factual boundaries
+
+- FEMP’s commissioning loop is plan, investigate, implement, and hand off/integrate. A handoff package should carry systems information, people, actions, deficiencies, retests, monitoring, future tests, and budget/ownership; a document transfer alone is not handoff.
+- FEMP distinguishes commissioning, ongoing commissioning, recommissioning, and retro-commissioning. These terms describe different lifecycle contexts; they are not interchangeable and do not imply that a facility is certified.
+- FEMP performance-assurance material emphasizes sustained O&M, training, measurement, and verification after acceptance. Construction completion, invoice payment, or an initial functional test cannot stand in for life-cycle performance evidence.
+- NIST SP 800-128 supports security-focused configuration management; it does not create an all-facility change-control board or MOP/SOP/EOP taxonomy. A facility should explicitly name the governing procedure and approving authority.
+- NIST SP 800-137 treats continuous monitoring as visibility into assets, threats, vulnerabilities, and control effectiveness. A dashboard reading is not automatically a verified measurement, a reliable alarm, or a safe command.
+- NIST SP 800-61 Rev. 3 is the current final incident-response publication and supersedes Rev. 2. It is cyber-response guidance and must be integrated with, not substituted for, physical, fire, electrical, and operational emergency procedures.
+- Reliability-centered maintenance is a decision method, not a universal interval schedule. A question should expose function, functional failure, consequence, failure mode, detectable condition, task effectiveness, and residual risk before selecting work.
+- Alarm quality is a control-system property and a people/process property. Suppressing, shelving, or retuning an alarm requires ownership, risk review, expiry, auditability, and a safe fallback; “fewer alarms” is not itself a performance improvement.
+- Metrics need a boundary, definition, source, timestamp, quality flag, owner, decision threshold, and action. PUE, WUE, uptime, availability, MTBF, and response time cannot be compared without compatible definitions.
+
+### Updated pass tracker
+
+| Pass | Focus | Status |
+|---:|---|---|
+| 01 | DOE/FEMP/NREL energy, cooling, water, commissioning; CISA/NIST OT and exposure; eCFR safety; ISO/TIA/IEEE edition anchors | COMPLETE |
+| 02 | Site risk, utility interconnection, resilience, climate/flood/seismic, public AHJ/code sources | COMPLETE |
+| 03 | Electrical distribution, switching, protection, UPS/generator/BESS, maintenance testing | COMPLETE |
+| 04 | Cooling controls, liquid cooling, heat reuse, economization, thermal/water measurement | COMPLETE |
+| 05 | Cabling, outside plant, network management, BMS/DCIM segmentation, remote access | COMPLETE |
+| 06 | Fire/life safety, emergency power, permits, PPE, incident command, return-to-service | COMPLETE |
+| 07 | Physical security, personnel/vendor/visitor controls, asset lifecycle, media disposition | COMPLETE |
+| 08 | People systems: skills matrices, shift turnover, training, fatigue, contractor governance, succession | COMPLETE |
+| 09 | Commissioning, change control, MOP/SOP/EOP, alarms, metrics, reliability-centered maintenance | COMPLETE — this section |
+| 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
+
+The objective remains open after pass 09. The next and final planned frontier is adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions.
