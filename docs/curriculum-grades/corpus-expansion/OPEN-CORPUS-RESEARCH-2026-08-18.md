@@ -1044,6 +1044,38 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 44 — CDCP site-selection and facility-criteria receipts
+
+**Review date:** 2026-08-18. Seventeen M03 site-selection and facility-criteria
+rows now carry official ISO/IEC 22237-1:2021, ISO/IEC 22237-2:2024,
+ISO/IEC TS 22237-30:2022, or TIA-942-C catalog/preview receipts. They remain
+BLOCKED because the public pages do not expose the exact site, utility,
+environmental, loading, or operations propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| mock40-q07 | Site location selection criteria | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact dual-utility feasibility proposition not exposed |
+| mock40-q08 | Supporting facilities and function | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact white-space/supporting-facilities proposition not exposed |
+| m03-q093 | Site location selection criteria | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact multi-path utility-diversity proposition not exposed |
+| m03-q094 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact flood/storm-surge proposition not exposed |
+| m03-q095 | Site location selection criteria | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact fibre/meet-me diversity proposition not exposed |
+| m03-q096 | Facility criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact clear-height operational proposition not exposed |
+| m03-q097 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact supporting-facilities list not exposed |
+| m03-q098 | Site location selection criteria | ISO/IEC TS 22237-30:2022 — https://www.iso.org/standard/80622.html | **BLOCKED** — exact seismic/structural site proposition not exposed |
+| m03-q099 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact adjacency red-flag proposition not exposed |
+| m03-q100 | Facility criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact slab-loading proposition not exposed |
+| m03-q101 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact generator-yard proposition not exposed |
+| m03-q102 | Site location selection criteria | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact water-availability proposition not exposed |
+| m03-q103 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact perimeter-planning proposition not exposed |
+| m03-q104 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact staging/loading-dock proposition not exposed |
+| m03-q105 | Site location selection criteria | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact climate/free-cooling proposition not exposed |
+| m03-q106 | Facility criteria | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact roof/yard heat-rejection constraint not exposed |
+| m03-q107 | Supporting facilities and function | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact human-operations facility criterion not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 43 — CDCP KPI terminology receipt
 
 **Review date:** 2026-08-18. M02 item `m02-q217` now has the official
