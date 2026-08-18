@@ -408,3 +408,67 @@ The objective remains open after pass 05. The next unresolved frontier is fire/l
 | 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
 
 The objective remains open after pass 06. The next unresolved frontier is physical security, personnel/vendor/visitor controls, asset lifecycle, and media disposition.
+
+## Breadth pass 07 — physical security, people and vendors, asset lifecycle, and media disposition
+
+**Search date:** 2026-08-18. This pass retained official NIST and CISA HTML/catalog pages. NIST SP 800-88 Rev. 2 is current; its standard body and all PDF resources were not fetched.
+
+### Sources retained
+
+| Source | What it can safely support | Boundaries |
+|---|---|---|
+| NIST SP 800-53 Rev. 5, Security and Privacy Controls — https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final | Control-family and evidence questions spanning access control, awareness/training, audit, contingency, maintenance, media protection, physical/environmental protection, personnel security, system acquisition, supply chain, and risk assessment | NIST identifies a 5.2.0 minor release in the planning note. The catalog is customizable guidance, not a universal compliance claim, facility rating, or employee credential |
+| NIST SP 800-88 Rev. 2, Guidelines for Media Sanitization — https://csrc.nist.gov/pubs/sp/800/88/r2/final | Current media-sanitization program, sensitivity-based disposition, validation, cryptographic-erase, reuse, destruction, custody, and disposal evidence questions | Rev. 2 supersedes withdrawn Rev. 1. The final page is the edition pin; no body or PDF text was fetched, and no fixed sanitization method is inferred without media, sensitivity, and approved-process evidence |
+| NIST SP 800-53 control catalog DOI — https://doi.org/10.6028/NIST.SP.800-53r5 | Stable official publication identity for control-family references and source receipts | A DOI identifies the publication; it does not prove that a specific control was selected, implemented, assessed, or accepted for a facility |
+| CISA Commercial Facilities Publications — https://www.cisa.gov/commercial-facilities-resources | Owner/operator security planning, protective measures, evacuation, coordination, training, and resilience question families | CISA describes voluntary resources and sector collaboration. Many resources are venue-oriented or access-controlled; do not silently turn them into data-center requirements or fetch restricted documents |
+| CISA Hometown Security / Physical Security — https://www.cisa.gov/hometown-security | Foundational physical-security planning, security-plan development, threat/vulnerability/protective-measure framing, and owner/operator coordination | CISA guidance is not an AHJ inspection, a guard-force staffing rule, or a certification program |
+| CISA Personal Security Considerations Action Guide — https://www.cisa.gov/resources-tools/resources/personal-security-considerations-action-guide | Personnel security posture, on/off-job considerations, suspicious activity, and worker protective-awareness questions | The guide is general critical-infrastructure guidance; it does not provide a background-check legal conclusion or replace HR, labor, privacy, or local law review |
+| CISA Cross-Sector Cybersecurity Performance Goals — https://www.cisa.gov/cybersecurity-performance-goals | Asset inventory, account lifecycle, privileged access, MFA, vendor/third-party access, logging, recovery, and risk-prioritization questions | CISA states the CPGs are voluntary practices and notes there is no official assessor certification program; do not claim CPG certification |
+
+### Pass-07 question frontier
+
+| Module | New question families |
+|---|---|
+| M01 Mission Critical | Map service criticality to people, perimeter, visitor/vendor, keys/badges, control systems, asset records, media, and emergency response; identify the human or custody dependency hidden by a technical redundancy claim. |
+| M02 Standards | Classify NIST controls, CISA guidance, owner policy, contract, AHJ requirement, privacy/labor rule, and site procedure; identify the selected control, evidence owner, assessment method, and residual risk without inventing a security taxonomy. |
+| M03 Site / Building | Review perimeter, vehicle approach, loading dock, roof/mechanical access, utility/telecom entries, camera coverage, lighting, barriers, blast/flood/wildfire exposure, responder access, and zoning records as one layered physical-security design. |
+| M04 Floor / Ceiling | Inspect secure zones, cages, mantraps, doors, locks, ceiling voids, raised-floor access, penetrations, shared corridors, cameras, tamper evidence, and maintenance paths; find the bypass created by a ceiling or pathway change. |
+| M05 Light | Evaluate lighting for perimeter, parking/loading, camera identification, badge/visitor processing, emergency egress, rooftop/mechanical access, and guard patrol; distinguish a lux claim from a documented security and life-safety need. |
+| M06 Power | Protect switchgear, UPS, generator, fuel, battery, and BMS/DCIM rooms from unauthorized access while preserving safe emergency response; test badge failure, mechanical override, key custody, and secure local operation. |
+| M07 EMF | Separate access to field sources, measurement equipment, energized rooms, PPE, and exposure records; require authorized personnel, instrument custody, measurement method, and data integrity rather than a generic “restricted area” claim. |
+| M08 Racks | Track rack/cabinet ownership, serials, removable drives, smart PDUs, console ports, spares, labels, locks, tamper evidence, and maintenance access; identify who may remove a component and what record closes the custody loop. |
+| M09 Cooling | Secure cooling controls, valves, pumps, CDUs, water treatment, heat-reuse interfaces, roofs, towers, and plant rooms; identify how a vendor or visitor can alter a cooling state and how the action is authorized, logged, and reversed. |
+| M10 Water | Include water-treatment chemicals, cooling-tower access, drains, sampling points, alternative-water connections, leak sensors, and wastewater interfaces in the asset and access register; distinguish physical access control from water-quality verification. |
+| M11 Network | Reconcile physical ports, cabinets, meet-me rooms, management-plane accounts, jump hosts, vendor VPNs, carrier demarcations, and out-of-band paths; require owner, purpose, expiry, monitoring, and removal evidence for third-party access. |
+| M12 Fire | Balance security doors, locks, turnstiles, barriers, cameras, and visitor controls with fire egress, responder override, alarm release, emergency access, and accountability; identify a control that increases security while creating a life-safety failure. |
+| M13 Security | Build a layered program across deterrence, detection, delay, response, cyber-physical protection, personnel trust, vendor governance, and incident evidence; assess threats and consequences without claiming a universal perimeter design. |
+| M14 Auxiliary | Design a source-of-truth board for badge/visitor, camera, intrusion, asset, alarm, BMS/DCIM, vendor-session, and media-disposition events; assign retention, access, timestamp, privacy, escalation, and audit ownership. |
+| M15 Operations | Run asset lifecycle from procurement and receiving through install, custody, maintenance, relocation, loan/spare, decommission, sanitization, destruction/reuse, vendor return, record retention, and audit; require evidence at every handoff. |
+
+### Pass-07 factual boundaries
+
+- NIST SP 800-53 is a customizable control catalog. A control family or identifier is not evidence of implementation, and implementation is not the same as an independent assessment or acceptance.
+- NIST SP 800-88 Rev. 2 is the current media-sanitization edition; Rev. 1 is withdrawn. Media disposition must be sensitivity- and media-aware, validated, documented, and tied to an approved program. Do not reuse obsolete Rev. 1 receipts.
+- CISA commercial-facilities and hometown-security pages support protective planning, coordination, training, and owner/operator questions. They do not issue a facility rating or define a universal guard, camera, badge, fence, or visitor policy.
+- CISA CPGs are voluntary, prioritized practices and CISA states there is no official assessor certification program. They can anchor evidence questions but cannot be represented as a credential or compliance seal.
+- Personnel, visitor, vendor, and contractor controls intersect privacy, labor, procurement, safety, and local law. A data-center question should ask for the governing authority and evidence owner rather than inventing a “trusted operator” classification.
+- Physical security must preserve emergency egress and responder access. A locked door, anti-tailgating control, or badge failure mode is not acceptable if it blocks required evacuation or emergency intervention.
+- Asset identity and custody are separate from media sanitization. A wiped drive without a verified asset record, disposition authority, chain of custody, and closure evidence is not a complete lifecycle outcome.
+- NIST SP 800-88 Rev. 2 final was recorded from the official publication page; no PDF body was opened or copied.
+
+### Updated pass tracker
+
+| Pass | Focus | Status |
+|---:|---|---|
+| 01 | DOE/FEMP/NREL energy, cooling, water, commissioning; CISA/NIST OT and exposure; eCFR safety; ISO/TIA/IEEE edition anchors | COMPLETE |
+| 02 | Site risk, utility interconnection, resilience, climate/flood/seismic, public AHJ/code sources | COMPLETE |
+| 03 | Electrical distribution, switching, protection, UPS/generator/BESS, maintenance testing | COMPLETE |
+| 04 | Cooling controls, liquid cooling, heat reuse, economization, thermal/water measurement | COMPLETE |
+| 05 | Cabling, outside plant, network management, BMS/DCIM segmentation, remote access | COMPLETE |
+| 06 | Fire/life safety, emergency power, permits, PPE, incident command, return-to-service | COMPLETE |
+| 07 | Physical security, personnel/vendor/visitor controls, asset lifecycle, media disposition | COMPLETE — this section |
+| 08 | People systems: skills matrices, shift turnover, training, fatigue, contractor governance, succession | OPEN |
+| 09 | Commissioning, change control, MOP/SOP/EOP, alarms, metrics, reliability-centered maintenance | OPEN |
+| 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
+
+The objective remains open after pass 07. The next unresolved frontier is people systems: skills matrices, shift turnover, training, fatigue, contractor governance, and succession.
