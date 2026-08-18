@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 165 PASS; 792 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 285 PASS; 672 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -787,7 +787,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m13-q085 | 13 | Physical Security and Safety — Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | PASS — 2025 New York State Fire Code requires controlled-egress locks to unlock on qualifying alarm conditions or power loss |
 | bank-m13-q086 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/s/NYSFC2025P1/chapter-10-means-of-egress/NYSFC2025P1-Pt03-Ch10-Sec1010.2.13 | PASS — 2025 New York State Fire Code requires controlled-egress electric locks to unlock on loss of power for immediate free egress |
 | bank-m13-q087 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/731/2026 | BLOCKED — NFPA 731 catalog receipt; exact fail-secure power-loss/egress distinction is not exposed |
-| bank-m13-q088 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/731/2026 | BLOCKED — NFPA 731 catalog receipt; exact door-alarm/video-integration proposition is not exposed |
+| bank-m13-q088 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/7347 | PASS |
 | bank-m13-q089 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.rfc-editor.org/info/rfc8633/ | PASS |
 | bank-m13-q090 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | BLOCKED — NFPA 730 preview receipt; exact visitor-credential/escort/restricted-zone proposition is not exposed |
 | bank-m13-q091 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | BLOCKED — NFPA 730 preview receipt; exact tailgating/social-engineering proposition is not exposed |
@@ -838,7 +838,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m14-q113 | 14 | Notification | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | PASS |
 | bank-m14-q114 | 14 | Notification | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.rfc-editor.org/info/rfc5674/ | PASS |
 | bank-m14-q115 | 14 | Monitoring requirements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
-| bank-m14-q116 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | BLOCKED — IEC 62682:2022 catalog receipt; exact listed fire-system/DCIM integration proposition is not exposed |
+| bank-m14-q116 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | PASS |
 | bank-m14-q117 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.rfc-editor.org/info/rfc5674/ | PASS |
 | bank-m14-q118 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | BLOCKED — IEC 62682:2022 catalog receipt; exact maintenance-bypass timeout proposition is not exposed |
 | bank-m14-q119 | 14 | Monitoring challenges | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |

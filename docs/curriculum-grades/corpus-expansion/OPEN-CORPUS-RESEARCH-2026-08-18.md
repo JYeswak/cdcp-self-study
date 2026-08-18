@@ -921,6 +921,25 @@ energy-density, footprint, lifecycle, thermal, or VRLA comparison is inferred.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 232 — IEC alarm-system and video-surveillance integration boundaries
+
+**Review date:** 2026-08-18. The current IEC 62682:2022 catalog describes alarm
+systems covering alarms from basic control, annunciator, packaged, and safety
+instrumented systems; operator notification/response; event logs, historians,
+and performance metrics; and external systems using alarm data. The current IEC
+62676-1-1:2013 catalog describes VSS/CCTV requirements and explicitly covers
+sharing detection, triggering, interconnection, control, and communication with
+other applications. The two items were narrowed to those public catalog scopes;
+they do not claim a fire-code listing, a particular SOC workflow, synchronized
+video-bookmark policy, or replacement of life-safety logic.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q116 | Alarm panels | IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543 | **PASS** — alarm/safety-system generation, operator response, and external use of alarm data are explicit |
+| bank-m13-q088 | Physical Security and Safety — Components for physical security | IEC 62676-1-1:2013 — https://webstore.iec.ch/en/publication/7347 | **PASS** — VSS/CCTV sharing detection, triggering, interconnection, control, and communication with other applications is explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies
