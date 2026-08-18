@@ -904,6 +904,22 @@ claims remain BLOCKED where the public entry does not expose the stronger claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 156 — CDFOM succession, development, and commissioning boundary
+
+**Review date:** 2026-08-18. The three remaining CDFOM/CDFOS-specific blocked
+rows were rechecked against their official public catalog pages. The receipts
+are current enough to retain, but none exposes the exact item-level clause, so
+no promotion is justified.
+
+| Item | Public CDFOM syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q348 | The Data Center Organization — Succession planning; Career development | ISO/TS 30433:2021 — https://www.iso.org/standard/68710.html | **BLOCKED** — Edition 1 (2021-05) covers succession-planning metrics and comparable reporting, not the requested commissioning hand-off documentation or knowledge-transfer clause |
+| m15-q351 | Facilities Management — Maintenance policies and procedures | GSA PBS Facilities Standards page — https://www.gsa.gov/real-estate/facilities-standards-for-the-public-buildings-service | **BLOCKED** — the official HTML page identifies 2024 P100 but does not expose the independent commissioning-provider clause; no linked body was fetched |
+| m15-q363 | The Data Center Organization — Career development; Job rotation | ISO 10015:2019 — https://www.iso.org/standard/69459.html | **BLOCKED** — Edition 2 (2019-12) was confirmed current in 2025 and its public abstract covers competence management and people development, not the requested DOE job-rotation artifact |
+
+No bank or ledger rows changed in this boundary check. No standard body or PDF
+was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 142 — water service, WUE, leak detection, and AHJ boundary
 
 **Review date:** 2026-08-18. The remaining Module 10 water and leak-interface
