@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — ebrr.41 leftover: street laterals do not save in-hall east-west fabric
+# syllabus_heading = "1.11 Designing a Scalable Network Infrastructure"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+# claim = dual building laterals are the Q2 building oral and do not protect a single-path east-west fabric; one in-hall tray cut is still one training job
+id = "m11-q236"
+kind = "single-select"
+module = 11
+stem = "Ops schedules a live-hall fibre pull on the only tray that carries the GPU-cluster east-west fabric because “Street W and Street E laterals are already diverse, so the training job has two paths.” Power and cooling will stay green. The apply move is:"
+choices = [
+  "Approve the pull: dual building laterals already cover the east-west job",
+  "Convert the pull into an Uptime / Rated plaque change so the fabric question goes away",
+  "Approve if the tray is fibre, because fibre cannot share fate with a street lateral",
+  "Refuse: dual laterals are the building oral. They do not protect a single-path east-west fabric inside the hall. One in-hall tray cut is still one training job — treat that fabric as an availability path equal to power",
+]
+correct = "D"
+explanation = "Keep the two orals apart. Street W / Street E laterals are the building path. The cluster path is the in-hall east-west IB/RoCE plant. Dual laterals do not save a single-path fabric. Power-green and cooling-green with a dark east-west mesh is still a failed job. Module 01 / 03 own the outage clock; this module owns the plant."
+topic_ids = ["m11-redundancy", "m11-planning"]
+objective_ids = ["obj-m11-gpu-fabric-availability"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

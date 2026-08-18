@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — ebrr.41 leftover: two logos on one duct bank are not diversity
+# syllabus_heading = "1.11 Designing a Scalable Network Infrastructure"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+# claim = two carrier logos do not establish physical diversity; a shared duct bank or manhole is one cut, and even two real laterals do not protect a single-path east-west fabric
+id = "m11-q237"
+kind = "single-select"
+module = 11
+stem = "A colo sales deck for a GPU hall stamps Carrier A and Carrier B logos and writes “the east-west training job is dual-path.” The as-built shows both laterals in one duct bank through one manhole. The apply move is:"
+choices = [
+  "Approve: two carrier logos mint physical diversity, so the training job already has two paths",
+  "Approve if both logos appear on the BGP dashboard — logical dual-home beats a manhole",
+  "Refuse: two carrier logos do not establish physical diversity — a shared duct bank or manhole is one cut. Map the laterals. Separately, even two real laterals do not protect a single-path east-west fabric inside the hall",
+  "Treat the manhole as a Module 01 outage-clock problem so the plant question goes away",
+]
+correct = "C"
+explanation = "Logos are not laterals. A shared duct bank or manhole collapses both providers to one backhoe cut. That is the building oral. It is not the east-west fabric: a single-path IB/RoCE mesh remains one training job even if the laterals were actually diverse. Do not invent a reach metre."
+topic_ids = ["m11-redundancy", "m11-site-to-site"]
+objective_ids = ["obj-m11-gpu-fabric-availability"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
