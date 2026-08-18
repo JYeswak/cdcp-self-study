@@ -1,19 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Classes of fire
-# Official catalog/preview receipt: NFPA 10, 2026 — https://link.nfpa.org/all-publications/10/2026
-# BLOCKED: the current official preview does not expose the exact item-level classes of fire proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: 29 CFR 1910.155 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.155
+# PASS: the current OSHA public standard defines a Class C fire as involving energized electrical equipment where electrically nonconductive media are required for employee safety.
 id = "bank-m12-q057"
 kind = "single-select"
 module = 12
-stem = "In common North American labeling, Class C relates primarily to:"
+stem = "Under 29 CFR 1910.155(c)(10), a Class C fire involves:"
 choices = [
-  "Energized electrical equipment",
-  "Combustible metals only",
-  "Cooking oils in kitchens only",
-  "Ordinary paper and wood exclusively"
+  "Energized electrical equipment where employee safety requires electrically nonconductive extinguishing media",
+  "Only combustible metals such as magnesium and lithium",
+  "Only ordinary paper and wood",
+  "Only flammable liquids and gases"
 ]
 correct = "A"
-explanation = "US/NFPA-style Class C addresses energized electrical equipment; de-energize when safe, then treat residual fuels."
+explanation = "The current OSHA public standard defines Class C as a fire involving energized electrical equipment where employee safety requires electrically nonconductive extinguishing media."
 topic_ids = ["m12-classes"]
 objective_ids = []
 bloom = "remember"

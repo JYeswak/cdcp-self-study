@@ -906,6 +906,27 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 252 — OSHA fire-definition and hot-work receipts
+
+**Review date:** 2026-08-18. Current OSHA public standards define Class C fires
+as involving energized electrical equipment requiring electrically
+nonconductive extinguishing media, Class A fires as involving ordinary
+combustibles, and portable-extinguisher requirements as covering placement,
+use, maintenance, and testing for employee-use extinguishers. OSHA's current
+1910.252 public text also specifies fire-watch triggers for hot work near
+appreciable or readily ignitable combustibles. Four module-12 items are bounded
+to those exact public requirements; PASS-sequence and agent-selection claims
+remain blocked.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q057 | Classes of fire | 29 CFR 1910.155 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.155 | **PASS** — Class C definition is explicit |
+| bank-m12-q059 | Classes of fire | 29 CFR 1910.155 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.155 | **PASS** — Class A definition is explicit |
+| bank-m12-q061 | Handheld fire extinguishers | 29 CFR 1910.157 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157 | **PASS** — portable-extinguisher scope is explicit |
+| bank-m12-q065 | Common causes of fire | 29 CFR 1910.252 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.252 | **PASS** — hot-work fire-watch triggers are explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 251 — eCFR physical-safety receipts
 
 **Review date:** 2026-08-18. Current public eCFR text at 29 CFR 1910.151(c)

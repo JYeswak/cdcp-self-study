@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 322 PASS; 635 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 326 PASS; 631 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -725,15 +725,15 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m12-q054 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSBC2025P1/chapter-9-fire-protection-and-life-safety-systems | PASS — 2025 New York State Building Code requires ventilation-control interlocks necessary for extinguishing-system operation |
 | bank-m12-q055 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | BLOCKED — NFPA 13, 2025 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q056 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | BLOCKED — NFPA 13, 2025 official preview receipt; exact item-level proposition is not exposed |
-| bank-m12-q057 | 12 | Classes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
+| bank-m12-q057 | 12 | Classes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.155 | PASS |
 | bank-m12-q058 | 12 | Classes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
-| bank-m12-q059 | 12 | Classes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
+| bank-m12-q059 | 12 | Classes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.155 | PASS |
 | bank-m12-q060 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
-| bank-m12-q061 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
+| bank-m12-q061 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157 | PASS |
 | bank-m12-q062 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q063 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q064 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | BLOCKED — NFPA 855, 2026 official preview receipt; exact battery-thermal-event/common-cause proposition is not exposed |
-| bank-m12-q065 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
+| bank-m12-q065 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.252 | PASS |
 | bank-m12-q066 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q067 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.334 | PASS — OSHA 29 CFR 1910.334 covers safe re-energization after protective-device operation and prohibits repetitive manual reclosing |
 | bank-m12-q068 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSFC2025P1/chapter-1-scope-and-administration | PASS — 2025 New York State Fire Code assigns enforcement to the AHJ and provides the approval/variance path |
