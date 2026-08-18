@@ -1044,6 +1044,28 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 34 — CDCP physical-access control BLOCKED receipts
+
+**Review date:** 2026-08-18. Six additional M13 items now carry official
+NFPA 730/731 or ISO/IEC 27001 catalog/preview receipts. They remain BLOCKED
+because the public pages do not expose the exact fail-state, time-sync,
+visitor, tailgating, shared-credential, or physical-revocation propositions.
+No PDF or paid standard body was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| bank-m13-q086 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact fail-safe/fail-secure power-loss semantics not exposed |
+| bank-m13-q087 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact fail-secure power-loss/egress distinction not exposed |
+| bank-m13-q089 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact ACS/VMS time-sync and reconstruction proposition not exposed |
+| bank-m13-q090 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact visitor-credential/escort/restricted-zone proposition not exposed |
+| bank-m13-q091 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact tailgating/social-engineering proposition not exposed |
+| bank-m13-q092 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact shared-badge/access-accounting proposition not exposed |
+| bank-m13-q093 | Physical Security and Safety — Components for physical security | ISO/IEC 27001:2022 + Amd 1:2024 — https://www.iso.org/standard/27001?browse=tc | **BLOCKED** — exact physical-credential revocation proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
 
 **Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current
