@@ -889,6 +889,24 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 267 — ISO cooling-efficiency KPI scope
+
+**Review date:** 2026-08-18. The current ISO catalog for ISO/IEC 30134-7:2023
+defines Cooling Efficiency Ratio (CER) as a key performance indicator for
+quantifying the efficient use of energy to control the temperature of spaces
+within a data centre. Its public abstract also covers the KPI’s relationship to
+data-centre infrastructure, IT equipment, and IT operations, plus measurement,
+calculation, reporting, interpretation, and affected parameters. The item below
+is bounded to the definition and purpose; it does not claim a target value or a
+cooling-system design rule.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m09-q123 | Temperature and humidity | ISO/IEC 30134-7:2023 — https://www.iso.org/standard/80493.html?browse=tc | **PASS** — CER definition and energy/space-temperature purpose are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 266 — IEC 19-inch rack 1U chassis scope
 
 **Review date:** 2026-08-18. The current IEC Webstore entry for IEC
