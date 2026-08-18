@@ -60,28 +60,22 @@ mod tests {
         let root = crate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR"))).unwrap();
         let out = evaluate(&root);
         assert_eq!(out.code, 0, "{}{}", out.stdout, out.stderr);
-        assert!(out.stdout.starts_with("PASS\n"), "{}", out.stdout);
-        assert!(out.stdout.contains("  source_class=original\n"));
-        // The two populations are both named and they DIFFER. Asserting only
-        // the file count is what let bd-8exw hide. Follow the live bank
-        // (896/871 as of sm4g.20); a leftover commit that adds items must
-        // retarget this pin in the same change.
+        let pass = out.stdout.as_str();
+        assert!(pass.starts_with("PASS\n"), "{pass}");
+        assert!(pass.contains("  source_class=original\n"));
         assert!(
-            out.stdout.contains(
+            pass.contains(
                 "  items=896 scanned, 871 approved (floors count the approved pool only)\n"
             ),
-            "{}",
-            out.stdout
+            "{pass}"
         );
-        // Module 14 carries 48 files but only 46 approved — the exact pair the
-        // old single-map report collapsed into one number.
-        assert!(out.stdout.contains("14: 46, 15: 56}"), "{}", out.stdout);
-        assert!(out.stdout.contains("14: 48, 15: 56}"), "{}", out.stdout);
         assert!(
-            out.stdout
-                .contains("  domain_floors=15 checked (approved pool)\n"),
-            "live bank_policy.toml carries 15 [[domain_min]] rows:\n{}",
-            out.stdout
+            pass.contains("14: 46, 15: 56}") && pass.contains("14: 48, 15: 56}"),
+            "{pass}"
+        );
+        assert!(
+            pass.contains("  domain_floors=15 checked (approved pool)\n"),
+            "live bank_policy.toml carries 15 [[domain_min]] rows:\n{pass}"
         );
     }
 }

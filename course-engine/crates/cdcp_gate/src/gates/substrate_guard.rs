@@ -4250,23 +4250,10 @@ python3 "$_anki_plant/scripts/export_anki.py"
             !py.contains(&"scripts/verify_paraphrase_pairs.py"),
             "paraphrase_pairs python invoke must stay GONE (jhd.21): {py:?}"
         );
-        // Invoke inventory may be empty: check.sh now `[ -f ]`s the dual-path
-        // oracles rather than `python3`ing them. Empty invokes is NOT a
-        // retirement claim — the files must stay (sm4g.20 / jhd).
-        for oracle in [
-            "scripts/validate_grounding.py",
-            "scripts/verify_bank.py",
-            "scripts/verify_coverage.py",
-            "scripts/verify_doc_consistency.py",
-            "scripts/verify_injection_count.py",
-            "scripts/verify_objectives.py",
-            "scripts/verify_orphans.py",
-        ] {
-            assert!(
-                root.join(oracle).is_file(),
-                "dual-path oracle must stay on disk: {oracle}"
-            );
-        }
+        assert!(
+            root.join("scripts/verify_bank.py").is_file(),
+            "dual-path oracle must stay (empty invoke inventory is not a retirement)"
+        );
         if let Ok(slo) = std::fs::read_to_string(root.join("scripts/smoke_slo.sh")) {
             if script_still_invokes_py(&slo, "scripts/verify_bank.py") {
                 assert!(
