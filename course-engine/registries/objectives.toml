@@ -190,3 +190,13 @@ claim_ids = ["claim-interview-ready", "claim-domain-covered"]
 id = "obj-m10-closed-loop-siting"
 text = "Learner treats non-evaporative closed-loop heat rejection as a site-specific water and siting choice, distinguishes dry rejection from closed-loop water reuse, and verifies makeup, discharge, water-rights, permit, and WUE-boundary interfaces without importing benchmark bands"
 claim_ids = ["claim-interview-ready", "claim-domain-covered", "claim-standards-family-mapped"]
+
+[[objective]]
+id = "obj-m06-distributed-redundant"
+text = "Learner names distributed-redundant as several active UPS blocks with independent feeders and spread spare capacity, distinct from a dedicated catcher, and will not treat a topology name or N+k sticker as a Tier, Rated, or Availability Class label"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m06-isolation-transformer"
+text = "Learner treats an isolation transformer as electrical separation or voltage/grounding design, not UPS energy storage or ride-through, and reviews it as a possible single path failure rather than a battery or a 2N proof"
+claim_ids = ["claim-interview-ready", "claim-domain-covered"]
