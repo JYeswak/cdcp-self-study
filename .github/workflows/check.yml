@@ -43,7 +43,25 @@ jobs:
       # check.sh honesty scan is fail-closed on missing rg (bd-installability-sm4g.20).
       # ubuntu-latest does not ship ripgrep.
       - name: Install ripgrep
-        run: sudo apt-get update && sudo apt-get install -y ripgrep
+        run: |
+          set -euo pipefail
+          if command -v rg >/dev/null 2>&1; then rg --version; exit 0; fi
+          # apt hung 063174f and 1ae54b7 30+ min with frozen updated_at.
+          # Bound it; fall back to the official musl tarball so honesty-scan
+          # still has rg (fail-closed on missing rg).
+          if timeout 90 sudo apt-get update -o Acquire::Retries=2 \
+            && timeout 90 sudo apt-get install -y ripgrep \
+            && command -v rg >/dev/null 2>&1; then
+            rg --version
+            exit 0
+          fi
+          echo "apt ripgrep failed or timed out; installing official musl binary"
+          curl -fsSL -o /tmp/rg.tgz \
+            https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-unknown-linux-musl.tar.gz
+          tar -xzf /tmp/rg.tgz -C /tmp
+          sudo install -m 0755 /tmp/ripgrep-14.1.1-x86_64-unknown-linux-musl/rg /usr/local/bin/rg
+          command -v rg >/dev/null
+          rg --version
 
       # Persist cargo registry + dep target artifacts so check.sh is not a
       # cold rebuild. The previous actions/cache@v4 step only saved on
