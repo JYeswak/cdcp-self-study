@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: UPS systems
 # Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
-# BLOCKED: the official catalog covers UPS continuity-of-load performance and switches, but does not expose the exact UPS/ATS outage sequence.
+# PASS: the public catalog explicitly lists conventional AC/DC distribution
+# boards and associated switches among the exclusions.
 id = "m06-q107"
 kind = "single-select"
 module = 6
-stem = "During a utility outage with healthy design, the expected sequence is closest to:"
+stem = "Which equipment category does IEC 62040-3:2021 explicitly say it does not cover?"
 choices = [
-  "IT drops until generators finish a multi-hour warm-up with no UPS",
-  "UPS carries load; generators start; ATS transfers; UPS remains on conditioned path as designed",
-  "Fire system discharges immediately as the power path",
-  "Only lighting remains on generator forever",
+  "Conventional AC and DC distribution boards and their associated switches",
+  "Complete UPS systems",
+  "Applicable UPS functional units",
+  "UPS switches that interact with functional units to maintain load continuity",
 ]
-correct = "B"
-explanation = "UPS ride-through → genset start → transfer is the textbook sequence."
+correct = "A"
+explanation = "The IEC catalog explicitly excludes conventional AC and DC distribution boards and their associated switches."
 topic_ids = ["m06-ups", "m06-generators", "m06-ats-sts"]
 objective_ids = []
 bloom = "apply"

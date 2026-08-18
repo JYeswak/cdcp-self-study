@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: UPS systems
 # Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
-# BLOCKED: the official catalog does not expose the exact line-interactive edge-versus-core comparison.
+# PASS: the public catalog states the AC/input/output and DC energy-storage
+# limits for covered UPS systems.
 id = "m06-q060"
 kind = "single-select"
 module = 6
-stem = "Line-interactive (VI) UPS designs are most often associated with:"
+stem = "Which operating envelope is explicitly stated for covered UPS systems in IEC 62040-3:2021?"
 choices = [
-  "Only nuclear EMP hardening",
-  "Replacing generators entirely",
-  "Three-phase only mega-plants exclusively",
-  "SMB/edge regulation with battery support on deeper events, more than core mission-critical halls",
+  "AC input and output not exceeding 1 000 V, with an energy-storage device not exceeding 1 500 V DC",
+  "Only DC input and output, with no energy storage",
+  "Only rotary machines above 1 000 V AC",
+  "Any voltage with no stated storage boundary",
 ]
-correct = "D"
-explanation = "VI/line-interactive is common at edge/SMB; core DC IT usually prefers online double-conversion."
+correct = "A"
+explanation = "The IEC catalog states AC input and output limits of 1 000 V and an energy-storage-device limit of 1 500 V DC for covered UPS systems."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "understand"

@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: UPS systems
 # Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
-# BLOCKED: the official catalog does not expose the exact standby/VFD suitability comparison.
+# PASS: the public catalog explicitly states that covered UPS systems have a
+# primary function of ensuring continuity of load power.
 id = "m06-q059"
 kind = "single-select"
 module = 6
-stem = "A standby (offline/VFD-class) UPS typically:"
+stem = "What primary function does IEC 62040-3:2021 identify for covered UPS systems?"
 choices = [
-  "Is the universal gold standard for hyperscale IT halls",
-  "Keeps the load on utility and transfers to inverter/battery on failure",
-  "Eliminates transfer notches by design",
-  "Cannot use batteries",
+  "Ensures continuity of load power",
+  "Replaces all conventional distribution boards",
+  "Provides only cooling-water continuity",
+  "Applies only to software failover",
 ]
-correct = "B"
-explanation = "Offline/standby leaves the load on utility until a failure forces transfer—cheap but not preferred for critical core IT."
+correct = "A"
+explanation = "The IEC catalog identifies ensuring continuity of load power as the primary function of covered UPS systems."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "remember"

@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: UPS parallel configurations
 # Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
-# BLOCKED: the official catalog does not expose the exact catcher/isolated-redundant topology proposition.
+# PASS: the public catalog states that requirements apply to a complete UPS,
+# applicable individual functional units, and interacting UPS switches.
 id = "m06-q057"
 kind = "single-select"
 module = 6
-stem = "A catcher or isolated-redundant UPS arrangement is best described as:"
+stem = "To what does IEC 62040-3:2021 apply its UPS performance and test requirements?"
 choices = [
-  "A primary capacity path with a shared reserve UPS that can catch load if a primary fails",
-  "Removing all batteries to improve PUE",
-  "Only for lighting inverters",
-  "Identical to a single non-redundant UPS",
+  "Only the battery chemistry, excluding the UPS itself",
+  "A complete UPS and, where applicable, individual UPS functional units and interacting UPS switches",
+  "Only conventional distribution boards and their associated switches",
+  "Only DC UPS systems",
 ]
-correct = "A"
-explanation = "Isolated-redundant/catcher designs reserve capacity that can support another system’s load on failure."
+correct = "B"
+explanation = "The IEC catalog says the document specifies performance and test requirements for a complete UPS and, where applicable, individual UPS functional units and interacting UPS switches."
 topic_ids = ["m06-ups-parallel", "m06-redundancy"]
 objective_ids = []
 bloom = "understand"

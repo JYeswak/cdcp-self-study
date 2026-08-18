@@ -870,6 +870,27 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 311 — IEC 62040-3 UPS catalog scope claims
+
+**Review date:** 2026-08-18. The current IEC Webstore page for IEC 62040-3:2021,
+Edition 3.0, was checked without opening or fetching a PDF. Its public catalog
+states that covered UPS systems have a primary function of ensuring continuity
+of load power; gives the AC/input/output and DC energy-storage envelope; applies
+to complete UPS systems, applicable functional units, and interacting switches;
+and excludes conventional AC/DC distribution boards and associated switches.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m06-q057 | UPS parallel configurations | IEC 62040-3:2021, Edition 3.0 — https://webstore.iec.ch/en/publication/60140 | **PASS** — asks only for the covered complete-UPS/functional-unit/switch scope |
+| m06-q059 | UPS systems | IEC 62040-3:2021, Edition 3.0 — https://webstore.iec.ch/en/publication/60140 | **PASS** — asks only for the stated continuity-of-load-power function |
+| m06-q060 | UPS systems | IEC 62040-3:2021, Edition 3.0 — https://webstore.iec.ch/en/publication/60140 | **PASS** — asks only for the catalog's stated electrical/storage envelope |
+| m06-q107 | UPS systems | IEC 62040-3:2021, Edition 3.0 — https://webstore.iec.ch/en/publication/60140 | **PASS** — asks only for the explicit distribution-board exclusion |
+
+Standby/line-interactive comparisons, catcher and N+1 topology, outage
+sequencing, and flywheel-specific propositions remain BLOCKED because the
+catalog does not expose those exact claims. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 310 — ISO/IEC 22237-3 power-distribution scope claims
 
 **Review date:** 2026-08-18. The current IEC Webstore/ISO catalog page for

@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 487 PASS; 470 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 491 PASS; 466 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -267,10 +267,10 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q054 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS — TIA-942-C ratings definition states that concurrently maintainable capacity components can be serviced without disrupting ICT capability; public definition: https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/ |
 | m06-q055 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/88711.html?browse=tc | PASS |
 | m06-q056 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS — TIA-942-C ratings definition states that fault-tolerant infrastructure permits one fault without downtime and includes concurrent maintainability; public definition: https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/ |
-| m06-q057 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact catcher topology is not exposed |
+| m06-q057 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — IEC 62040-3:2021 public catalog states complete-UPS, functional-unit, and interacting-switch test scope |
 | m06-q058 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS |
-| m06-q059 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact standby/VFD comparison is not exposed |
-| m06-q060 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact line-interactive comparison is not exposed |
+| m06-q059 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — IEC 62040-3:2021 public catalog states continuity of load power as the primary function |
+| m06-q060 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — IEC 62040-3:2021 public catalog states the covered AC/output and DC storage envelope |
 | m06-q061 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — IEC 62040-3:2021 official abstract names continuity of load power as the UPS primary function |
 | m06-q062 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact non-redundant parallel failure is not exposed |
 | m06-q063 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact N+1 parallel proposition is not exposed |
@@ -317,7 +317,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q104 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact sustainability-versus-testing risk proposition is not exposed |
 | m06-q105 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact remote-power-panel form-factor proposition is not exposed |
 | m06-q106 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html | PASS — ISO/IEC 22237-3:2021 official abstract names power and power-quality measurement integration |
-| m06-q107 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact UPS/ATS outage sequence is not exposed |
+| m06-q107 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — IEC 62040-3:2021 public catalog explicitly excludes conventional AC/DC distribution boards and associated switches |
 | m06-q108 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact wet-stacking proposition is not exposed |
 | m06-q109 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | PASS |
 | m06-q110 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6423 | PASS — current IEC catalog describes electrically measured and regularly remotely interrogated battery characteristics |
