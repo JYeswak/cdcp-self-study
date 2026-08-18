@@ -1,16 +1,16 @@
 {
-  "bank_hash": "4c329e375f3ad60871c955e0907daaae4eeba0c4793b2766e2dc81a61079896b",
+  "bank_hash": "365b07617fd52f43dfa89b8bbedb8e39de3ae27f10cc67b1a10f0e54cd4af761",
   "exam_id": "mock40",
   "keys": [
     {
-      "correct": "D",
-      "explanation": "Controls must not compromise safe working light or life-safety egress illumination design.",
-      "item_id": "m05-q150"
+      "correct": "B",
+      "explanation": "NFPA 70 (2026) §§700.12 and 700.17 tie emergency lighting to an Article 700 source and an emergency-lighting branch-circuit path when normal lighting fails. IT continuity alone does not prove that life-safety path; an UPS belongs in the answer only after the Article 700 design is verified.",
+      "item_id": "m05-q214"
     },
     {
       "correct": "C",
-      "explanation": "CO2 is common for electrical/B hazards with low residue; still short range and asphyxiation risk in pits.",
-      "item_id": "bank-m12-q063"
+      "explanation": "Early detection buys time—detection is not suppression.",
+      "item_id": "m12-q201"
     },
     {
       "correct": "D",
@@ -18,14 +18,14 @@
       "item_id": "bank-m13-q076"
     },
     {
-      "correct": "B",
-      "explanation": "Interlocked chambers stop unauthorized persons following authorized staff through one door.",
-      "item_id": "bank-m13-q078"
+      "correct": "C",
+      "explanation": "Accidental EPO is a major outage cause; over-locking can also block emergency response.",
+      "item_id": "bank-m13-q095"
     },
     {
-      "correct": "C",
-      "explanation": "Understructure type changes lateral stability, access patterns, and structural behaviour.",
-      "item_id": "m04-q119"
+      "correct": "B",
+      "explanation": "Rolling and concentrated load ratings govern cart and equipment moves on access floors.",
+      "item_id": "mock40-q10"
     },
     {
       "correct": "D",
@@ -38,29 +38,29 @@
       "item_id": "m02-q217"
     },
     {
+      "correct": "A",
+      "explanation": "The November 2024 UFGS §2.1 type axis is stringer versus stringerless; a panel finish, a site rating label, and an unsupported product-class number answer different questions. The paywalled product-class boundary is deliberately not crossed.",
+      "item_id": "m04-q215"
+    },
+    {
       "correct": "C",
-      "explanation": "Rolling loads cover carts, dollies, and wheeled gear moving over the access floor.",
-      "item_id": "m04-q118"
+      "explanation": "Basin inventory is a real-time constraint on evaporative rejection.",
+      "item_id": "m10-q209"
     },
     {
       "correct": "A",
-      "explanation": "For water-dependent designs, water is a first-class availability input like power.",
-      "item_id": "m10-q215"
-    },
-    {
-      "correct": "A",
-      "explanation": "Ownership and SLA boundaries differ by model, but both require engineered facility resilience.",
-      "item_id": "m01-q050"
+      "explanation": "Managed/hosted models shift operational responsibility to a provider under contractual SLAs, with shared-responsibility nuances.",
+      "item_id": "m01-q055"
     },
     {
       "correct": "B",
-      "explanation": "Process and people failures (changes, procedures, maintenance) are major drivers of facility downtime.",
-      "item_id": "m01-q201"
+      "explanation": "Redundancy enables maintenance; it does not survive working the last path. Call the window N-0. Do not steal Module 06’s path grammar — this is the mission concept only.",
+      "item_id": "m01-q215"
     },
     {
-      "correct": "A",
-      "explanation": "Physical shared responsibility: customer zones vs provider common plant separation.",
-      "item_id": "bank-m13-q097"
+      "correct": "D",
+      "explanation": "Dual control reduces single-person error and insider risk on high-consequence actions.",
+      "item_id": "bank-m13-q100"
     },
     {
       "correct": "B",
@@ -68,29 +68,29 @@
       "item_id": "m02-q089"
     },
     {
-      "correct": "A",
-      "explanation": "When climate and design allow, stored winter cold can offset summer cooling energy—site-specific engineering, not universal.",
-      "item_id": "m09-q164"
+      "correct": "C",
+      "explanation": "Cold plates remove heat at the component rather than only via room air.",
+      "item_id": "m09-q227"
     },
     {
-      "correct": "B",
-      "explanation": "Teaching path: utility/generator → transfer → UPS → distribution/PDU → rack.",
-      "item_id": "mock40-q13"
+      "correct": "D",
+      "explanation": "Li-ion offers density and lifecycle trade-offs, not magic immunity from engineering.",
+      "item_id": "m06-q231"
+    },
+    {
+      "correct": "A",
+      "explanation": "Factory trunks reduce field termination variability—still require correct design, pathways, and acceptance tests.",
+      "item_id": "m11-q132"
     },
     {
       "correct": "C",
-      "explanation": "Horizontal segments serve the equipment zone from HDA or ZDA-type distribution points.",
-      "item_id": "m11-q130"
+      "explanation": "Cleaning is controlled work near energized systems—methods and chemistry matter.",
+      "item_id": "bank-m15-q155"
     },
     {
       "correct": "D",
-      "explanation": "Cleaning is controlled work near electronics—technique matters.",
-      "item_id": "m15-q204"
-    },
-    {
-      "correct": "D",
-      "explanation": "Warmer operation within guidance can expand economizer opportunity and plant efficiency.",
-      "item_id": "m09-q200"
+      "explanation": "Containment integrity matters—open doors, missing panels, and cable gaps re-create recirculation paths.",
+      "item_id": "m09-q151"
     },
     {
       "correct": "B",
@@ -98,34 +98,34 @@
       "item_id": "m08-q210"
     },
     {
-      "correct": "B",
-      "explanation": "Water balance anomalies are early warnings for plant risk—instrumentation supports response.",
-      "item_id": "m10-q113"
-    },
-    {
-      "correct": "D",
-      "explanation": "Emergency lighting is for life safety and egress visibility under power loss.",
-      "item_id": "m05-q139"
+      "correct": "A",
+      "explanation": "As water evaporates, minerals concentrate; blowdown limits scale and corrosion risk when paired with treatment.",
+      "item_id": "m10-q104"
     },
     {
       "correct": "B",
-      "explanation": "MPO connectors enable dense multi-fiber trunks and cassettes common in modern DC backbones.",
-      "item_id": "m11-q113"
+      "explanation": "Unverified emergency lighting is a latent life-safety failure.",
+      "item_id": "m05-q213"
     },
     {
       "correct": "C",
-      "explanation": "Growth without pathway and media planning creates congestion, risk, and unmanageable MACs.",
-      "item_id": "m11-q102"
+      "explanation": "Logos are not laterals. A shared duct bank or manhole collapses both providers to one backhoe cut. That is the building oral. It is not the east-west fabric: a single-path IB/RoCE mesh remains one training job even if the laterals were actually diverse. Do not invent a reach metre.",
+      "item_id": "m11-q237"
+    },
+    {
+      "correct": "C",
+      "explanation": "Single-mode supports long reach and high capacity backbone roles; multimode is common for shorter structured runs depending on design.",
+      "item_id": "m11-q110"
+    },
+    {
+      "correct": "C",
+      "explanation": "An alarm requires operator action. Status is not an alarm. Absence of alarm is not evidence of health (2003 silent alarm-processor failure). Point-count procurement fights alarm quality. No invented outage percent.",
+      "item_id": "m15-q224"
     },
     {
       "correct": "B",
-      "explanation": "HSE's permits-to-work guidance states that before equipment or machinery is put back into service, it will require a declaration from the permit originator that it is ready for normal use. That is the hand-back step, and it is a property of the permit, not of the work being finished: 'the job is done' and 'the plant may be returned to service' are two different authorisations. An escort signature (A) records site access, not plant condition — an escort never replaces a permit. A contractor sign-off (C) is the party carrying out the work declaring their own completion, which is not the originator's declaration. A verbal all-clear (D) leaves no documented declaration at all, and the permit is a documented procedure by definition.",
-      "item_id": "m15-q230"
-    },
-    {
-      "correct": "B",
-      "explanation": "Isolation is galvanic separation; still need proper UPS, grounding, and distribution design.",
-      "item_id": "m06-q071"
+      "explanation": "Offline/standby leaves the load on utility until a failure forces transfer—cheap but not preferred for critical core IT.",
+      "item_id": "m06-q059"
     },
     {
       "correct": "A",
@@ -134,23 +134,13 @@
     },
     {
       "correct": "D",
-      "explanation": "Circuiting and emergency transfer must match the life-safety design, not ad-hoc plug strips.",
-      "item_id": "m05-q207"
-    },
-    {
-      "correct": "D",
-      "explanation": "MTTR is maintainability/ops speed; spares and MOPs often dominate more than the part itself.",
-      "item_id": "bank-m15-q144"
+      "explanation": "Exit signs mark the means of egress; they are life-safety devices.",
+      "item_id": "m05-q142"
     },
     {
       "correct": "B",
-      "explanation": "This file owns the fire playbook. 855 is installation; 9540A is test data, not a listing. Room vs yard is off-gas/deflagration vs next-enclosure. Interconnect stays in Module 06. No invented fire percent or agent mass.",
-      "item_id": "m12-q225"
-    },
-    {
-      "correct": "A",
-      "explanation": "Infrastructure failures are correlated across workloads; governance cares about systemic facility risk.",
-      "item_id": "m01-q204"
+      "explanation": "Wrong cleaning methods can create the contamination problem they aim to solve.",
+      "item_id": "bank-m15-q142"
     },
     {
       "correct": "D",
@@ -158,14 +148,24 @@
       "item_id": "bank-m12-q072"
     },
     {
+      "correct": "B",
+      "explanation": "Facility outcomes require cross-functional ownership among IT, facilities, security, and vendors.",
+      "item_id": "m01-q209"
+    },
+    {
+      "correct": "B",
+      "explanation": "Protection systems only work if maintained and not casually bypassed.",
+      "item_id": "m12-q224"
+    },
+    {
       "correct": "A",
       "explanation": "BTM is how the hall energizes, not a genset you tack on later. Point at Module 01 for the noun and Module 06 for the path. Do not steal UPS/ATS/generator internals.",
       "item_id": "m03-q216"
     },
     {
-      "correct": "A",
-      "explanation": "The M06 drawing distinction is a dedicated reserve plus catcher transfer path versus spare capacity spread across active blocks. TIA-942-C and Uptime's 2018 Tier Standard require the reviewer to reason from actual infrastructure topology and distribution paths; a catcher label is not a Tier, Rated, or Availability Class claim.",
-      "item_id": "m06-q303"
+      "correct": "B",
+      "explanation": "UPS ride-through → genset start → transfer is the textbook sequence.",
+      "item_id": "m06-q107"
     },
     {
       "correct": "C",
@@ -173,14 +173,14 @@
       "item_id": "m03-q105"
     },
     {
-      "correct": "A",
-      "explanation": "Adjacency to plant brings B-field, thermal, and operational traffic issues.",
-      "item_id": "m07-q051"
-    },
-    {
       "correct": "C",
       "explanation": "Keep health exposure language separate from IEC 61000-class equipment immunity.",
       "item_id": "m07-q048"
+    },
+    {
+      "correct": "C",
+      "explanation": "Surveys are snapshots; records enable comparison after plant or layout changes.",
+      "item_id": "m07-q212"
     },
     {
       "correct": "B",
@@ -188,9 +188,9 @@
       "item_id": "m02-q081"
     },
     {
-      "correct": "C",
-      "explanation": "Equipment thermal limits are driven by inlet conditions at the hardware.",
-      "item_id": "m09-q203"
+      "correct": "D",
+      "explanation": "Recirculation is hot air returning to intakes instead of the cooling return path.",
+      "item_id": "m09-q204"
     },
     {
       "correct": "C",

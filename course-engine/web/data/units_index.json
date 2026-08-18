@@ -1,6 +1,6 @@
 {
-  "approved_item_count": 866,
-  "bank_item_count": 891,
+  "approved_item_count": 871,
+  "bank_item_count": 896,
   "by_module": {
     "01-mission-critical": [
       {
@@ -3244,7 +3244,10 @@
           "m15-cleaning",
           "m15-mtbf-mttr",
           "m15-maintenance-sla",
-          "m15-ops-security"
+          "m15-ops-security",
+          "m15-monitoring",
+          "m15-alarms",
+          "m15-eop"
         ],
         "word_count": 342
       },
@@ -3268,7 +3271,10 @@
           "m15-cleaning",
           "m15-mtbf-mttr",
           "m15-maintenance-sla",
-          "m15-ops-security"
+          "m15-ops-security",
+          "m15-monitoring",
+          "m15-alarms",
+          "m15-eop"
         ],
         "word_count": 418
       },
@@ -3292,7 +3298,10 @@
           "m15-cleaning",
           "m15-mtbf-mttr",
           "m15-maintenance-sla",
-          "m15-ops-security"
+          "m15-ops-security",
+          "m15-monitoring",
+          "m15-alarms",
+          "m15-eop"
         ],
         "word_count": 239
       },
@@ -3316,7 +3325,10 @@
           "m15-cleaning",
           "m15-mtbf-mttr",
           "m15-maintenance-sla",
-          "m15-ops-security"
+          "m15-ops-security",
+          "m15-monitoring",
+          "m15-alarms",
+          "m15-eop"
         ],
         "word_count": 8585
       },
@@ -3340,7 +3352,10 @@
           "m15-cleaning",
           "m15-mtbf-mttr",
           "m15-maintenance-sla",
-          "m15-ops-security"
+          "m15-ops-security",
+          "m15-monitoring",
+          "m15-alarms",
+          "m15-eop"
         ],
         "word_count": 304
       },
@@ -3364,7 +3379,10 @@
           "m15-cleaning",
           "m15-mtbf-mttr",
           "m15-maintenance-sla",
-          "m15-ops-security"
+          "m15-ops-security",
+          "m15-monitoring",
+          "m15-alarms",
+          "m15-eop"
         ],
         "word_count": 715
       },
@@ -3388,7 +3406,10 @@
           "m15-cleaning",
           "m15-mtbf-mttr",
           "m15-maintenance-sla",
-          "m15-ops-security"
+          "m15-ops-security",
+          "m15-monitoring",
+          "m15-alarms",
+          "m15-eop"
         ],
         "word_count": 419
       }
@@ -6613,7 +6634,10 @@
         "m15-cleaning",
         "m15-mtbf-mttr",
         "m15-maintenance-sla",
-        "m15-ops-security"
+        "m15-ops-security",
+        "m15-monitoring",
+        "m15-alarms",
+        "m15-eop"
       ],
       "word_count": 342
     },
@@ -6637,7 +6661,10 @@
         "m15-cleaning",
         "m15-mtbf-mttr",
         "m15-maintenance-sla",
-        "m15-ops-security"
+        "m15-ops-security",
+        "m15-monitoring",
+        "m15-alarms",
+        "m15-eop"
       ],
       "word_count": 418
     },
@@ -6661,7 +6688,10 @@
         "m15-cleaning",
         "m15-mtbf-mttr",
         "m15-maintenance-sla",
-        "m15-ops-security"
+        "m15-ops-security",
+        "m15-monitoring",
+        "m15-alarms",
+        "m15-eop"
       ],
       "word_count": 239
     },
@@ -6685,7 +6715,10 @@
         "m15-cleaning",
         "m15-mtbf-mttr",
         "m15-maintenance-sla",
-        "m15-ops-security"
+        "m15-ops-security",
+        "m15-monitoring",
+        "m15-alarms",
+        "m15-eop"
       ],
       "word_count": 8585
     },
@@ -6709,7 +6742,10 @@
         "m15-cleaning",
         "m15-mtbf-mttr",
         "m15-maintenance-sla",
-        "m15-ops-security"
+        "m15-ops-security",
+        "m15-monitoring",
+        "m15-alarms",
+        "m15-eop"
       ],
       "word_count": 304
     },
@@ -6733,7 +6769,10 @@
         "m15-cleaning",
         "m15-mtbf-mttr",
         "m15-maintenance-sla",
-        "m15-ops-security"
+        "m15-ops-security",
+        "m15-monitoring",
+        "m15-alarms",
+        "m15-eop"
       ],
       "word_count": 715
     },
@@ -6757,7 +6796,10 @@
         "m15-cleaning",
         "m15-mtbf-mttr",
         "m15-maintenance-sla",
-        "m15-ops-security"
+        "m15-ops-security",
+        "m15-monitoring",
+        "m15-alarms",
+        "m15-eop"
       ],
       "word_count": 419
     }

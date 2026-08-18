@@ -662,3 +662,24 @@ domain = "15-ops-adjacent"
 label = "Operational security and safety practices"
 source = "src-nh-cdcp"
 exam_weight_unknown = true
+
+[[topic]]
+id = "m15-monitoring"
+domain = "15-ops-adjacent"
+label = "Facilities monitoring"
+source = "src-nh-cdcp"
+exam_weight_unknown = true
+
+[[topic]]
+id = "m15-alarms"
+domain = "15-ops-adjacent"
+label = "Alarm handling"
+source = "src-nh-cdcp"
+exam_weight_unknown = true
+
+[[topic]]
+id = "m15-eop"
+domain = "15-ops-adjacent"
+label = "Emergency operating procedures"
+source = "src-nh-cdcp"
+exam_weight_unknown = true

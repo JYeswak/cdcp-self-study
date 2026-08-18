@@ -18686,6 +18686,87 @@
     ]
   },
   {
+    "bloom": "apply",
+    "choices": [
+      "Approve the pull: dual building laterals already cover the east-west job",
+      "Convert the pull into an Uptime / Rated plaque change so the fabric question goes away",
+      "Approve if the tray is fibre, because fibre cannot share fate with a street lateral",
+      "Refuse: dual laterals are the building oral. They do not protect a single-path east-west fabric inside the hall. One in-hall tray cut is still one training job — treat that fabric as an availability path equal to power"
+    ],
+    "citation_ids": [],
+    "correct": "D",
+    "explanation": "Keep the two orals apart. Street W / Street E laterals are the building path. The cluster path is the in-hall east-west IB/RoCE plant. Dual laterals do not save a single-path fabric. Power-green and cooling-green with a dark east-west mesh is still a failed job. Module 01 / 03 own the outage clock; this module owns the plant.",
+    "id": "m11-q236",
+    "kind": "single-select",
+    "module": 11,
+    "objective_ids": [
+      "obj-m11-gpu-fabric-availability"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "Ops schedules a live-hall fibre pull on the only tray that carries the GPU-cluster east-west fabric because “Street W and Street E laterals are already diverse, so the training job has two paths.” Power and cooling will stay green. The apply move is:",
+    "tags": [],
+    "topic_ids": [
+      "m11-redundancy",
+      "m11-planning"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Approve: two carrier logos mint physical diversity, so the training job already has two paths",
+      "Approve if both logos appear on the BGP dashboard — logical dual-home beats a manhole",
+      "Refuse: two carrier logos do not establish physical diversity — a shared duct bank or manhole is one cut. Map the laterals. Separately, even two real laterals do not protect a single-path east-west fabric inside the hall",
+      "Treat the manhole as a Module 01 outage-clock problem so the plant question goes away"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "Logos are not laterals. A shared duct bank or manhole collapses both providers to one backhoe cut. That is the building oral. It is not the east-west fabric: a single-path IB/RoCE mesh remains one training job even if the laterals were actually diverse. Do not invent a reach metre.",
+    "id": "m11-q237",
+    "kind": "single-select",
+    "module": 11,
+    "objective_ids": [
+      "obj-m11-gpu-fabric-availability"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A colo sales deck for a GPU hall stamps Carrier A and Carrier B logos and writes “the east-west training job is dual-path.” The as-built shows both laterals in one duct bank through one manhole. The apply move is:",
+    "tags": [],
+    "topic_ids": [
+      "m11-redundancy",
+      "m11-site-to-site"
+    ]
+  },
+  {
+    "bloom": "evaluate",
+    "choices": [
+      "Sign: logos plus switch SKUs mint 2N on the east-west job",
+      "Sign if the single tray is labelled A and B on one ladder",
+      "Refuse to sign: physical diversity is mapped, not purchased. Two logos on one duct bank are one lateral; a spine-leaf plant on one tray is one east-west cut — one training job",
+      "Sign after converting 2N into a nines / Tier / Rated crosswalk so the plant question becomes a plaque"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "Diversity is a mapped physical fact. Two logos sharing a duct bank are one outside-plant cut. A spine-leaf / leaf-spine drawing riding one tray is one in-hall east-west cut. Neither purchase order nor a 2N sticker splits a shared pathway. Do not write a nines-to-Tier or Rated=Tier crosswalk. Reach is application-and-optic specific.",
+    "id": "m11-q238",
+    "kind": "single-select",
+    "module": 11,
+    "objective_ids": [
+      "obj-m11-gpu-fabric-availability"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A reviewer is asked to sign a “diversity certificate” that reads: “Two carrier logos plus spine-leaf switching = 2N east-west GPU fabric. One shared duct bank and one leaf-spine tray are acceptable because the logos differ.” Evaluate:",
+    "tags": [],
+    "topic_ids": [
+      "m11-redundancy",
+      "m11-planning"
+    ]
+  },
+  {
     "bloom": "remember",
     "choices": [
       "Only fibre dust spontaneously igniting without oxygen",
@@ -21070,6 +21151,57 @@
     "tags": [],
     "topic_ids": [
       "m15-ops-security"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "The matrix is complete — sensor, setpoint and priority are the three required columns for operational sign-off",
+      "Add a point-count column so future procurement can be priced by total sensor quantity across the floor",
+      "Add owner and next action — without a named responder and defined response, the matrix cannot drive operations",
+      "Delete priority since all alarms on a critical floor carry equal weight and require the same response time"
+    ],
+    "citation_ids": [],
+    "correct": "C",
+    "explanation": "HSE's 'Better alarm handling' gives the design rule: an alarm requires operator action, and priority is set by the consequence of the operator failing to respond. A matrix that lists sensors and setpoints but omits who responds and what they do cannot be used operationally — the midnight call reaches a point name, not a person or a procedure. Adding point-count inverts the metric: alarm quality is measured in operator-actionable alarms per hour, not sensor quantity, and the two move in opposite directions.",
+    "id": "m15-q232",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A BMS vendor delivers a 'facilities monitoring matrix' that lists sensor tag, setpoint, and alarm priority. What gap should the review catch before sign-off?",
+    "tags": [],
+    "topic_ids": [
+      "m15-monitoring",
+      "m15-alarms"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "No page — cooling is still available, so the redundancy-loss event is informational only and needs no escalation",
+      "Page operations — one unit lost means escalate now, because the next failure is an outage with no warning",
+      "Page only if the remaining chiller shows a warning alarm, since a healthy standby unit needs no attention",
+      "Wait for the BMS to confirm the trip for ten minutes before escalating, to filter nuisance pages from real events"
+    ],
+    "citation_ids": [],
+    "correct": "B",
+    "explanation": "The 2003 blackout report names the failure mode: 'absence of alarm was read as evidence of health' while the alarm system itself was down. The counter-rule is to escalate when redundancy is lost, not when the service fails. A single-chiller plant with no fault indication is still a single point of failure — the next trip is an outage. Waiting for a warning alarm or a confirmation window delays the page past the point where intervention can restore redundancy before the second failure.",
+    "id": "m15-q233",
+    "kind": "single-select",
+    "module": 15,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A notification matrix says 'page on loss of redundancy' for the chiller plant. One of two chillers trips; the floor stays cool. What should the escalation path do?",
+    "tags": [],
+    "topic_ids": [
+      "m15-monitoring",
+      "m15-alarms",
+      "m15-eop"
     ]
   },
   {
