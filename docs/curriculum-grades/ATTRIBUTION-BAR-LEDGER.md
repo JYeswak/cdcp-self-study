@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 556 PASS; 401 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 557 PASS; 400 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -283,7 +283,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q070 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | PASS — current IEC catalog names three-phase and single-phase power transformers, including auto-transformers, within stated scope |
 | m06-q071 | 6 | Isolation transformer | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65383 | PASS — IEC 61558-2-4:2021 covers safety requirements and tests for isolating transformers and related power supplies for general applications |
 | m06-q072 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/59982 | PASS — IEC 60076-19-1:2023 covers measurement of no-load and load losses on power transformers |
-| m06-q073 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65717 | BLOCKED — IEC 61000-2-4:2024 catalog receipt; exact K-factor selection is not exposed |
+| m06-q073 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://standards.ieee.org/ieee/C57.110/5948/ | PASS — IEEE C57.110-2018 covers evaluating and specifying transformers for nonsinusoidal load currents |
 | m06-q074 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1878 | PASS |
 | m06-q075 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1878 | PASS — current IEC catalog addresses selection and erection of wiring systems |
 | m06-q076 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1878 | PASS — current IEC catalog mentions cable sizing where harmonic currents are present |

@@ -7650,3 +7650,18 @@ grey-space, PDU, and runbook claims as BLOCKED.
 | Power-distribution breadth remainder | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED retained** — catalog scope does not expose the narrower topology/form-factor claims |
 
 This pass does not certify a learner, close ms4j.2/ms4j.3, or close ms4j.
+
+## Breadth pass 337 — IEEE transformer capability under nonsinusoidal load
+
+**Review date:** 2026-08-18. The current IEEE SA catalog identifies IEEE
+C57.110-2018 as an **Active Standard** and describes methods for evaluating an
+existing liquid-immersed or dry-type transformer supplying nonsinusoidal load
+currents, plus application information for specifying a new transformer when
+part of the load is nonsinusoidal. The transformer item was narrowed to that
+public scope and no K-factor value or site-specific selection rule was inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q073 | Transformers | IEEE C57.110-2018 — https://standards.ieee.org/ieee/C57.110/5948/ | **PASS** — transformer capability and specification for nonsinusoidal load currents are explicit |
+
+This pass does not certify a learner or close ms4j.
