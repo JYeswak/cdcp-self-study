@@ -1044,6 +1044,67 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 135 — environmental control, security systems, cabling, and resilience KPIs
+
+**Date:** 2026-08-18
+**Scope:** M05, M06, M08, M09, M11, M13, and M14 questions about
+environmental control, temperature/humidity/particulate/vibration boundaries,
+physical security systems, telecommunications cabling, monitoring/control
+paths, resilience metrics, maintainability, recoverability, and vulnerability.
+Existing public EPI headings are retained; no KPI, resilience-level, cabling,
+or security taxonomy is invented.
+
+**Official public receipts:**
+
+- [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html),
+  **Information technology — Data centre facilities and infrastructures — Part
+  4: Environmental control**, is the published current Edition 1. Its public
+  abstract covers temperature, fluid movement, relative humidity, particulate,
+  vibration, and physical security of environmental-control systems. The
+  withdrawn ISO/IEC TS 22237-4:2018 is not used.
+- [ISO/IEC 22237-6:2024](https://webstore.iec.ch/en/publication/92578),
+  **Part 6: Security systems**, is the current IEC Webstore Edition 1.0. Its
+  public catalog covers data-centre spaces and protection against unauthorized
+  access, intrusion, internal fire, and internal or external environmental
+  events, while pointing constructional matters to Part 2.
+- [ISO/IEC TS 22237-31:2026](https://www.iso.org/standard/88711.html),
+  **Part 31: Key performance indicators for resilience**, is the current
+  published Edition 2. Its public abstract defines KPIs for resilience,
+  dependability, fault tolerance, availability tolerance, maintainability,
+  recoverability, and vulnerability; covers power and environmental-control
+  infrastructure; and defines measurement/calculation and resilience levels.
+  It expressly excludes IT equipment, cloud services, software, and business
+  applications. The 2023 edition is withdrawn/replaced.
+- [ISO/IEC TS 22237-5:2018](https://www.iso.org/standard/73012.html),
+  **Part 5: Telecommunications cabling infrastructure**, remains the
+  published receipt while ISO/IEC FDIS 22237-5 is under development. Its
+  public abstract covers LAN/SAN and general IT cabling, cabling for monitoring
+  and control of power, environmental control, and physical security, plus
+  pathways, spaces, and enclosures. No draft or future edition is treated as
+  current.
+
+**Adversarial boundary:** A temperature or humidity requirement is not a
+calibrated sensor result; a security-system scope is not an access authorization
+or incident record; a cabling pathway description is not continuity or link
+test evidence; and a resilience KPI is not a facility guarantee. A resilience
+level is not an EPI credential, Uptime Tier, TIA rating, or AHJ approval.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M05/M09 | Separate environmental variables, control loops, sensor context, maintenance, and safe operating envelopes | The catalog does not prove a site’s setpoints, calibration, trend, or alarm response |
+| M08/M11/M14 | Preserve cabling/control-path identity, monitoring scope, physical security, event evidence, and authorized change boundaries | A cabling or KPI standard does not authorize a command or prove path availability |
+| M06/M13/M15 | Connect infrastructure resilience, recoverability, vulnerability, security events, and accountable corrective action | KPI definitions do not establish local risk acceptance, competence, or return-to-service approval |
+
+**Currency boundary:** ISO/IEC 22237-4:2021 and 22237-6:2024 are current
+published parts; ISO/IEC TS 22237-31:2026 replaces the 2023 edition; and
+ISO/IEC TS 22237-5:2018 remains the published receipt while its successor is
+under development. No PDF, draft body, or paid standard body was fetched.
+
+**Bounded result:** This pass adds current official environmental, security,
+cabling, and resilience-KPI anchors to the research trail without changing
+bank rows, ledger dispositions, manifest, topics, beads, gate, oracle, or
+credential state.
+
 ## Breadth pass 131 — maintenance engineering, condition monitoring, and reliability data
 
 **Date:** 2026-08-18
