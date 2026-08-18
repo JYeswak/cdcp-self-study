@@ -902,6 +902,7 @@ failure-domain conclusion.
 | Item | Public syllabus heading | Official receipt | Bounded result |
 |---|---|---|---|
 | m06-q206 | Power redundancy levels and techniques | ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc | **PASS** — power distribution/supply and environmental-control KPI scope is explicit |
+| m06-q250 | Power redundancy levels and techniques | ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc | **PASS** — vulnerability is an explicit target alongside maintainability and recoverability |
 
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
