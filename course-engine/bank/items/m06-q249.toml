@@ -1,7 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: PDU form factors
-# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476
-# BLOCKED: the official catalog covers measurement integration in data-centre power distribution but does not expose the exact layered-metering proposition.
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
+# PASS: the current ISO catalog explicitly covers measuring power consumption and power-quality characteristics at points along the data-centre distribution system and integrating them with management tools, supporting bounded layered metering. No paid body or PDF was fetched.
 id = "m06-q249"
 kind = "single-select"
 module = 6

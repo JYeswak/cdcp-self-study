@@ -4713,3 +4713,18 @@ without interruption, from two or more independent AC sources.
 Sub-cycle timing, source qualification, single-cord mitigation, and UPS/generator
 sequencing remain BLOCKED. No standard body or PDF was fetched. This pass does
 not certify a learner or close ms4j.
+## Breadth pass 173 — ISO/IEC 22237-3 power-distribution metering
+
+**Review date:** 2026-08-18. One Module 6 PDU row was checked against the
+current ISO catalog page for ISO/IEC 22237-3:2021. Its public abstract covers
+devices for measuring power consumption and power-quality characteristics at
+points along the data-centre power-distribution system and their integration
+within management tools.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q249 | PDU form factors | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **PASS** — distributed measurement points and management integration support the layered-metering proposition |
+
+Exact rack/PDU product architecture, utility-to-rack sequencing, and N+1
+definitions remain BLOCKED. No standard body or PDF was fetched. This pass does
+not certify a learner or close ms4j.
