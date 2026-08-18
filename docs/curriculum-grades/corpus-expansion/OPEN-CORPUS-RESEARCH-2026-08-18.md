@@ -889,6 +889,23 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 221 — ISO/IEC 22237-3 power-measurement scope
+
+**Review date:** 2026-08-18. The current ISO preview for ISO/IEC 22237-3:2021
+specifies requirements and recommendations for power supplies and distribution,
+telecommunications infrastructure bonding, lightning protection, and devices
+that measure power consumption and power-quality characteristics at points along
+the distribution system, including integration within management tools. The item
+below is bounded to that measurement/integration scope; outlet-level remote
+switching and recovery behavior remain outside the receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m08-q204 | Power strips / rails | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **PASS** — power-consumption/power-quality measurement and management-tool integration are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 220 — ISO/IEC TS 22237-31 resilience KPI scope
 
 **Review date:** 2026-08-18. The current ISO catalog for ISO/IEC TS
