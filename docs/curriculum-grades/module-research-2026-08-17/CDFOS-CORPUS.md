@@ -89,6 +89,8 @@ the standard, and the paid standard body was not fetched or used.
 
 | Exact public CDFOS heading | Current official catalog / preview | Disposition |
 |---|---|---|
+| Safety and Crisis Management — Calibration of measurement and test equipment | ISO/IEC 17025:2017, Ed. 3, confirmed current 2023 — https://www.iso.org/standard/66912.html | **BLOCKED** — official OBP/catalog preview only; it covers testing and calibration laboratory competence, not a data-centre equipment-calibration procedure; no item |
+| Monitoring / Reporting / Control — Sensor / alarm point testing and calibration | IEC 62682:2022, Ed. 2.0 — https://webstore.iec.ch/en/publication/65543 | **BLOCKED** — official IEC catalog/abstract only; it does not expose a calibration procedure for this CDFOS heading; no item |
 | Project Management — Project management | ISO 21502:2020, Ed. 1 — https://www.iso.org/standard/74947.html | **BLOCKED** — catalog pin only; no item |
 | Organisational Resilience | ISO 22336:2024, Ed. 1 — https://www.iso.org/standard/50073.html?browse=tc | **BLOCKED** — catalog pin only; no item |
 | Physical Security — Security risk assessment | ISO 22342:2023, Ed. 1 — https://www.iso.org/standard/50079.html?browse=tc | **BLOCKED** — catalog pin only; no item |

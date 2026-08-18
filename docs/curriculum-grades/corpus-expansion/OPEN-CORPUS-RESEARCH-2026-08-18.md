@@ -661,3 +661,29 @@ These are unresolved item-authoring and source-pinning targets, not permission t
 | 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | COMPLETE — this section |
 
 Ten breadth passes are now recorded, but the objective remains open: the research corpus still needs item-level expansion and source receipts across the 957-item bank. No ship/READY claim, credential claim, ms4j closure, gate-shrink, README change, or oracle-port action follows from this research pass.
+
+## Breadth pass 11 — live EPI gap audit and current catalog receipts
+
+**Review date:** 2026-08-18. This pass re-opened the live EPI CDFOS and CDFOM
+syllabus pages and compared their exact public bullets with the existing item and
+corpus maps. The official ISO/IEC catalog and OBP preview pages were used only to
+pin current editions and scope. No PDF or paid standard body was opened.
+
+### Sources retained
+
+| Source | Current receipt | Exact heading frontier | Boundary |
+|---|---|---|---|
+| EPI CDFOS syllabus | https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS) | Calibration of measurement and test equipment; Sensor / alarm point testing and calibration | Syllabus heading only; it does not make ISO/IEC 17025 or IEC 62682 an EPI requirement |
+| EPI CDFOM syllabus | https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29 | Renewable energy factor (REF); ICT utilisation management; Environmental performance measurements | Syllabus heading only; no invented environmental KPI taxonomy |
+| ISO/IEC 17025:2017, Ed. 3, confirmed current 2023 | https://www.iso.org/standard/66912.html | Testing and calibration laboratory competence | Catalog/OBP preview only; not a data-centre calibration procedure |
+| IEC 62682:2022, Ed. 2.0 | https://webstore.iec.ch/en/publication/65543 | Alarm-system catalog anchor | Official abstract only; no CDFOS matrix/calibration clause inferred |
+| ISO/IEC 30134-3:2016, with Amd 1:2018 | https://www.iso.org/standard/66127.html | Renewable energy factor (REF) | Edition page says current but under systematic review; no REF formula or target copied |
+| ISO/IEC 30134-5:2017, with Amd 1:2025 | https://www.iso.org/standard/66934.html | IT equipment utilization for servers | Catalog/abstract and amendment pin only; no KPI threshold or accelerator claim added |
+| ISO 14031:2021, Ed. 3 | https://www.iso.org/standard/81453.html | Environmental performance evaluation | Generic guidance; no data-centre measurement program or performance level invented |
+
+### Disposition
+
+The five new receipt rows are catalog-only **BLOCKED** entries in the CDFOS/CDFOM
+corpora. They do not change the 957-item bank or its 109 PASS / 848 BLOCKED ledger
+count. The next item-level frontier remains the existing source-backed bank, not
+an expansion by inference from a standard title.

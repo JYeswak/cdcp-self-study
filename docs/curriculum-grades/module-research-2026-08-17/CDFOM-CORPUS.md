@@ -106,3 +106,15 @@ BLOCKED.
 | `m15-q387` | Service Level Management — Service reporting | DfE Service Management standard Version 1, visibility for decision making and demand management |
 | `m15-q388` | Service Level Management — Service catalogue | DfE Service Management standard Version 1, central supported-service list and availability |
 | `m15-q389` | Service Level Management — Customer satisfaction measurement | DfE Service Management standard Version 1, single support entry and user satisfaction |
+
+### Additional public-heading catalog receipts — current ISO/IEC editions
+
+These exact public CDFOM headings have a current official catalog or OBP preview,
+but the paid standard body was not fetched. They remain **BLOCKED** and do not
+mint items or imply that the catalog itself supplies a data-centre procedure.
+
+| Exact public CDFOM syllabus heading | Current official catalog / preview | Disposition |
+|---|---|---|
+| Environment Sustainability — Renewable energy factor (REF) | ISO/IEC 30134-3:2016, Ed. 1, with Amd 1:2018; current page says the edition remains current — https://www.iso.org/standard/66127.html | **BLOCKED** — official OBP/catalog preview only; no body fetched |
+| Environment Sustainability — ICT utilisation management | ISO/IEC 30134-5:2017, Ed. 1, confirmed 2023, with Amd 1:2025 — https://www.iso.org/standard/66934.html | **BLOCKED** — official OBP/catalog preview only; no body fetched |
+| Environment Sustainability — Environmental performance measurements | ISO 14031:2021, Ed. 3 — https://www.iso.org/standard/81453.html | **BLOCKED** — official OBP/catalog preview only; generic EPE guidance does not establish a data-centre measurement program; no body fetched |
