@@ -332,11 +332,9 @@ pub fn py_path_str(s: &str) -> String {
 // in as a dependency. Each is deliberately annotated with the pattern it stands
 // for, because the port is only correct if the emulation is.
 //
-// One deliberate narrowing across all three: CPython's `\d` matches every Unicode
-// Nd digit and `int()` accepts them; these accept ASCII 0-9 only. The effect is
-// one-directional — an exotic digit makes a receipt UNPARSEABLE (still RED) or a
-// README count INVISIBLE (which trips the "advertises no count at all" ERROR). It
-// can turn a Python green into a Rust red, never a Python red into a Rust green.
+// CPython's `\d` and `int()` accept Unicode Nd digits. Keep the same conversion
+// for receipts, advertised counts, and suite rows; otherwise a Python GREEN can
+// become a Rust RED before the gate compares anything.
 
 fn is_word(c: char) -> bool {
     c.is_alphanumeric() || c == '_'
@@ -349,9 +347,30 @@ fn at_word_boundary(s: &str, p: usize) -> bool {
     before != after
 }
 
-/// Maximal run of ASCII digits from `p`. Returns the end offset (== `p` if none).
+/// Return the decimal value of one Unicode Nd character.
+fn unicode_decimal_digit(c: char) -> Option<u8> {
+    const BLOCKS: &[u32] = &[
+        0x0030, 0x0660, 0x06F0, 0x07C0, 0x0966, 0x09E6, 0x0A66, 0x0AE6, 0x0B66, 0x0BE6, 0x0C66,
+        0x0CE6, 0x0D66, 0x0DE6, 0x0E50, 0x0ED0, 0x0F20, 0x1040, 0x1090, 0x17E0, 0x1810, 0x1946,
+        0x19D0, 0x1A80, 0x1A90, 0x1B50, 0x1BB0, 0x1C40, 0x1C50, 0xA620, 0xA8D0, 0xA900, 0xA9D0,
+        0xA9F0, 0xAA50, 0xABF0, 0xFF10, 0x104A0, 0x10D30, 0x11066, 0x110F0, 0x11136, 0x111D0,
+        0x112F0, 0x11450, 0x114D0, 0x11650, 0x116C0, 0x11730, 0x118E0, 0x11950, 0x11C50, 0x11D50,
+        0x11DA0, 0x16A60, 0x16AC0, 0x16B50, 0x1E140, 0x1E2F0, 0x1E950, 0x1FBF0, 0x1D7CE, 0x1D7D8,
+        0x1D7E2, 0x1D7EC, 0x1D7F6,
+    ];
+    let cp = c as u32;
+    BLOCKS
+        .iter()
+        .find_map(|start| (cp >= *start && cp < *start + 10).then(|| (cp - *start) as u8))
+}
+
+/// Maximal run of Unicode decimal digits from `p` (Python's `\d`).
 fn digits_end(s: &str, p: usize) -> usize {
-    p + s[p..].bytes().take_while(u8::is_ascii_digit).count()
+    s[p..]
+        .char_indices()
+        .take_while(|(_, c)| unicode_decimal_digit(*c).is_some())
+        .last()
+        .map_or(p, |(i, c)| p + i + c.len_utf8())
 }
 
 /// Maximal run of chars satisfying `f` from `p`.
@@ -376,11 +395,15 @@ fn lit_ci(s: &str, p: usize, lit: &str) -> Option<usize> {
     }
 }
 
-/// Drop leading zeros the way `int()` then `str()` would: `"007"` -> `"7"`.
+/// Normalize decimal digits the way `int()` then `str()` would: `"٠٠٧"` -> `"7"`.
 /// Working in normalized decimal strings rather than a fixed-width integer keeps
 /// an absurdly large advertised count printing exactly as CPython would.
 fn norm_digits(d: &str) -> String {
-    let t = d.trim_start_matches('0');
+    let normalized: String = d
+        .chars()
+        .map(|c| char::from(b'0' + unicode_decimal_digit(c).expect("digit run")))
+        .collect();
+    let t = normalized.trim_start_matches('0');
     if t.is_empty() {
         "0".to_string()
     } else {
