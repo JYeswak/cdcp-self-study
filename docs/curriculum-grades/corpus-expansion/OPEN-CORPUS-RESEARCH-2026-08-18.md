@@ -870,6 +870,21 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 344 — commissioning source-bar alignment
+
+**Review date:** 2026-08-18. An existing commissioning PASS was aligned to an
+allowed official catalog source. ISO 16484-1:2024’s public abstract explicitly
+lists BACS project phases including design, engineering, installation and
+commissioning, and completion. The item was narrowed to those phases, removing
+the former non-catalog claims about functional-test plans, deficiency tracking,
+and retest intervals.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q121 | Auxiliary systems best practices | ISO 16484-1:2024 — https://www.iso.org/standard/84890.html | **PASS retained** — BACS project-phase scope is explicit |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 343 — BACS hardware catalog substitution
 
 **Review date:** 2026-08-18. The attribution bar was raised for an existing
