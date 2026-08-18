@@ -958,6 +958,23 @@ The related M06 procedural, common-path, and test-proof rows remain BLOCKED;
 these promotions do not certify a site or a learner. No standard body or PDF
 was fetched. This pass does not close ms4j.
 
+## Breadth pass 159 — TIA independent-path maintenance boundary
+
+**Review date:** 2026-08-18. Two additional M06 rows were compared with the
+current ANSI/TIA-942-C catalog and the official TIA ratings definitions. The
+public definitions expose both the planned-maintenance/no-ICT-disruption rule
+and the requirement for multiple independent distribution paths.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q201 | Power redundancy levels and techniques | ANSI/TIA-942-C — https://tiaonline.org/standard/tia-942/; TIA ratings definitions — https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/ | **PASS** — the maintenance condition is directly exposed |
+| m06-q244 | Power redundancy levels and techniques | ANSI/TIA-942-C — https://tiaonline.org/standard/tia-942/; TIA ratings definitions — https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/ | **PASS** — path independence is directly exposed, so a common pathway fails the condition |
+
+Shared-upstream equipment, PUE tradeoffs, and test-proof rows remain BLOCKED
+because the public definition does not expose those stronger propositions. No
+standard body or PDF was fetched. This pass does not certify a learner or close
+ms4j.
+
 ## Breadth pass 142 — water service, WUE, leak detection, and AHJ boundary
 
 **Review date:** 2026-08-18. The remaining Module 10 water and leak-interface

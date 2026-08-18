@@ -1,7 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Power redundancy levels and techniques
-# Official catalog/preview receipt: ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the official catalog exposes availability classification but does not expose the exact common-path diversity proposition.
+# Official catalog/preview receipt: ANSI/TIA-942-C — https://tiaonline.org/standard/tia-942/; TIA ratings definitions — https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/
+# PASS: TIA's ratings definitions require multiple independent distribution paths; a shared pathway defeats that independence.
 id = "m06-q244"
 kind = "single-select"
 module = 6
