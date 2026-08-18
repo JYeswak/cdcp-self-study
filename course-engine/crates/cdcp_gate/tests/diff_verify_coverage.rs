@@ -1916,7 +1916,7 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
     write(&messy.join("zz-junk.toml"), "label = \"nothing useful\"\n");
     write(
         &messy.join("zz-badmod.toml"),
-        "id = \"zz-badmod\"\nmodule = \"nope\"\n",
+        "id = \"zz-badmod\"\nmodule = \"nope\u{200b}\"\n",
     );
     write(&messy.join("zz-nomod.toml"), "id = \"zz-nomod\"\n");
     let rs = assert_byte_identical(
@@ -1934,7 +1934,7 @@ fn malformed_registry_rows_and_bank_files_are_byte_identical() {
     assert_ne!(rs.code, 0, "{}", rs.out());
     for needle in [
         "zz-junk.toml: no id or items[]",
-        "zz-badmod: bad module 'nope'",
+        "zz-badmod: bad module 'nope\\u200b'",
         "zz-nomod: bad module None",
     ] {
         assert!(
