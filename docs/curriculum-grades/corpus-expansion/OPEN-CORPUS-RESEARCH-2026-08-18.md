@@ -6158,3 +6158,31 @@ Climate-extremes, staffing-access, and transportation-logistics propositions
 remain BLOCKED where the reviewed public catalog/preview pages do not expose
 their full data-centre claim. No standard body or PDF was fetched. This pass does
 not certify a learner or close ms4j.
+
+## Breadth pass 201 — IEC electrical catalog scope pins for module 6
+
+**Review date:** 2026-08-18. The current official IEC Webstore pages provide
+bounded catalog scope for five module-6 items: IEC 60947-6-1:2026 covers
+transfer switching equipment used to transfer loads between power sources;
+IEC 60364-5-54:2011+AMD1:2021 covers earthing arrangements and protective
+conductors including protective bonding conductors; IEC 60529's consolidated
+edition covers enclosure protection classification; IEC 60896-22:2004 covers
+stationary VRLA cells and monobloc batteries for float-charge applications,
+including UPS and emergency power; and IEC 62310-3:2008 covers stand-alone AC
+static transfer systems. The item stems were narrowed to those public catalog
+claims and do not infer site-specific transfer timing, topology, or operating
+trade-offs.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q049 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494 | **PASS** — transfer-switching equipment scope is explicit |
+| m06-q080 | Grounding and bonding | IEC 60364-5-54:2011+AMD1:2021 — https://webstore.iec.ch/en/publication/1882 | **PASS** — earthing/protective-conductor and bonding scope is explicit |
+| m06-q083 | Ingress Protection (IP) grades | IEC 60529:1989+AMD1:1999+AMD2:2013 consolidated — https://webstore.iec.ch/en/publication/2452 | **PASS** — enclosure protection classification scope is explicit |
+| m06-q086 | Batteries | IEC 60896-22:2004 — https://webstore.iec.ch/en/publication/3851 | **PASS** — stationary VRLA float-charge and UPS/emergency-power scope is explicit |
+| m06-q109 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494; IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803 | **PASS** — transfer-switching and stand-alone static-transfer scopes are separately identified |
+
+Break-before-make timing, STS selection, redundant topology, field defects,
+generator sequencing, and site-specific enclosure or battery design remain
+BLOCKED where these catalog pages do not expose the exact proposition. No
+standard body or PDF was fetched. This pass does not certify a learner or close
+ms4j.

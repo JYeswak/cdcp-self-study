@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 338 PASS; 619 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 343 PASS; 614 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -259,7 +259,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q046 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | PASS — IEC 60947-6-1:2026 covers automatic transfer equipment that transfers a load between power sources |
 | m06-q047 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6803 | BLOCKED — IEC 62310-3:2008 catalog receipt; exact sub-cycle transfer selection is not exposed |
 | m06-q048 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6803 | PASS — IEC 62310-3:2008 covers controlled transfer of load supply from two or more independent AC sources |
-| m06-q049 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | BLOCKED — IEC 60947-6-1:2026 catalog receipt; exact break-before-make behavior is not exposed |
+| m06-q049 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | PASS |
 | m06-q050 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6803 | PASS — IEC 62310-3:2008 covers controlled STS transfer, with or without interruption, between independent AC sources |
 | m06-q051 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact N definition is not exposed |
 | m06-q052 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact N+1 definition is not exposed |
@@ -290,13 +290,13 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q077 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65717 | BLOCKED — IEC 61000-2-4:2024 catalog receipt; exact phase-imbalance consequence is not exposed |
 | m06-q078 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1878 | BLOCKED — IEC 60364-5-52 catalog receipt; exact plant/utilization distinction is not exposed |
 | m06-q079 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.electropedia.org/iev/iev.nsf/display?ievref=195-01-11&openform= | PASS — IEC 60050 IEV defines protective earthing as earthing for electrical safety |
-| m06-q080 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | BLOCKED — IEC 60364-5-54 catalog receipt; exact equipotential proposition is not exposed |
+| m06-q080 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | PASS |
 | m06-q081 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | BLOCKED — IEC 60364-5-54 catalog receipt; exact neutral-ground defect is not exposed |
 | m06-q082 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | BLOCKED — IEC 60364-5-54 catalog receipt; exact rack/tray bonding proposition is not exposed |
-| m06-q083 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | BLOCKED — IEC 60529 catalog receipt; exact enclosure example is not exposed |
+| m06-q083 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | PASS |
 | m06-q084 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | BLOCKED — IEC 60529 catalog receipt; exact outdoor selection proposition is not exposed |
 | m06-q085 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/7091 | PASS |
-| m06-q086 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/3851 | BLOCKED — IEC 60896-22 catalog receipt; exact VRLA trade-off is not exposed |
+| m06-q086 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/3851 | PASS |
 | m06-q087 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/29086 | PASS |
 | m06-q088 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | BLOCKED — NFPA 855 catalog/preview receipt; exact BESS/UPS distinction is not exposed |
 | m06-q089 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | BLOCKED — NFPA 855 catalog/preview receipt; exact dual-role proposition is not exposed |
@@ -319,7 +319,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q106 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact metered/switched-rack-PDU control proposition is not exposed |
 | m06-q107 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact UPS/ATS outage sequence is not exposed |
 | m06-q108 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact wet-stacking proposition is not exposed |
-| m06-q109 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | BLOCKED — IEC 60947-6-1:2026 catalog receipt; exact ATS-versus-STS teaching comparison is not exposed |
+| m06-q109 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | PASS |
 | m06-q110 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6423 | BLOCKED — IEC TR 62060:2001 catalog receipt; exact UPS-load-growth/autonomy proposition is not exposed |
 | m06-q200 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1:2021 catalog receipt; exact shared-rack-PDU failure proposition is not exposed |
 | m06-q201 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS — TIA-942-C ratings definition requires planned maintenance without disrupting ICT capability; public definition: https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/ |

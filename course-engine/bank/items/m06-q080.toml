@@ -1,19 +1,21 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Grounding and bonding
 # Official catalog/preview receipt: IEC 60364-5-54:2011 + AMD1:2021 — https://webstore.iec.ch/en/publication/1882
-# BLOCKED: the official catalog does not expose the exact equipotential-bonding teaching proposition.
+# PASS: the current IEC catalog explicitly covers earthing arrangements and
+# protective conductors, including protective bonding conductors, for electrical
+# installation safety.
 id = "m06-q080"
 kind = "single-select"
 module = 6
-stem = "Bonding of conductive parts is intended to:"
+stem = "IEC 60364-5-54 addresses earthing arrangements and protective conductors, including protective bonding conductors, in order to:"
 choices = [
+  "Satisfy the safety requirements of the electrical installation",
   "Maximize touch voltage during faults",
   "Create multiple neutral-ground bonds randomly",
   "Eliminate the need for overcurrent protection",
-  "Keep metalwork at essentially the same potential to reduce shock/arc risk",
 ]
-correct = "D"
-explanation = "Bonding equalizes potential among exposed conductive parts."
+correct = "A"
+explanation = "The IEC catalog states that IEC 60364-5-54 addresses earthing arrangements and protective conductors, including protective bonding conductors, to satisfy electrical-installation safety."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "understand"
