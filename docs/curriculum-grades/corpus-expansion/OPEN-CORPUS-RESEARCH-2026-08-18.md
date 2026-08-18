@@ -785,3 +785,19 @@ commissioning provider), and m15-q363 (career development/job rotation) remain
 BLOCKED because the reviewed public receipts do not expose the needed clauses;
 no invented handover or career taxonomy was added. This pass does not certify a
 learner, close ms4j, or alter the manifest drift.
+
+## Breadth pass 15 — paid-only CDFOM receipt refresh
+
+**Review date:** 2026-08-18. The final three blocked CDFOM rows were rechecked
+against current official ISO catalog pages. The catalog abstracts were used to
+pin the edition and scope only; no paid standard body or PDF was fetched.
+
+| Item | Public CDFOM heading | Official catalog receipt | Disposition |
+|---|---|---|---|
+| m15-q348 | The Data Center Organization — Succession planning; Career development | ISO 30401:2018 + Amd 1:2022, Knowledge management systems — Requirements — https://www.iso.org/standard/68683.html and https://www.iso.org/standard/79489.html | **BLOCKED** — public abstract does not expose a succession/career clause; body is paid |
+| m15-q351 | Facilities Management — Maintenance policies and procedures | ISO 41001:2018 + Amd 1:2024, Facility management — Management systems — Requirements with guidance for use — https://www.iso.org/standard/68021.html and https://www.iso.org/standard/88425.html | **BLOCKED** — public abstract does not expose an independent commissioning-provider clause; body is paid |
+| m15-q363 | The Data Center Organization — Career development; Job rotation | ISO 10015:2019, Quality management — Guidelines for competence management and people development — https://www.iso.org/standard/69459.html | **BLOCKED** — catalog page says the edition was confirmed current in 2025, but no public job-rotation clause is exposed and the body is paid |
+
+The three rows now carry official edition-pinned catalog receipts rather than
+weaker placeholder URLs. Counts remain 117 PASS / 840 BLOCKED across 957 rows;
+no heading, handover program, career taxonomy, or credential claim was invented.

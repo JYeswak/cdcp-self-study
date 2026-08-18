@@ -1,9 +1,9 @@
 # Original CDFOM educational MCQ — ms4j.3 succession / knowledge hand-off.
 # syllabus_heading = "The Data Center Organization — Succession planning; Career development"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
-# source_ids = ["src-epi-cdfom-page", "src-doe-femp-cx-2006"]
-# source = "DOE FEMP, Commissioning Process for Federal Facilities — official HTML: https://www.energy.gov/cmei/femp/commissioning-process-federal-facilities"
-# disposition = "BLOCKED — the official HTML receipt does not expose a qualifying succession/knowledge-transfer clause; no body or PDF fetched"
+# source_ids = ["src-epi-cdfom-page", "src-iso-30401-catalog"]
+# source = "ISO 30401:2018 + Amd 1:2022, Knowledge management systems — Requirements — official ISO catalog: https://www.iso.org/standard/68683.html and https://www.iso.org/standard/79489.html"
+# disposition = "BLOCKED — the official ISO catalog abstract confirms knowledge-management-system scope, but the paid standard body is not public and does not expose a CDFOM succession/career clause; no body or PDF fetched"
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q348"
 kind = "single-select"
@@ -16,7 +16,7 @@ choices = [
   "Delay hand-off until the next maintenance review",
 ]
 correct = "A"
-explanation = "BLOCKED — the official DOE FEMP HTML receipt does not expose the succession/knowledge-transfer clause needed to ground this question. No commissioning-guide body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
+explanation = "BLOCKED — ISO 30401:2018 and Amendment 1:2022 are the closest official knowledge-management catalog receipts, but the standard body is paid and its public abstract does not expose the CDFOM succession-planning or career-development clause needed here. No standard body or PDF was fetched; do not treat this row as grounded."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = ["obj-m15-training-program"]
 bloom = "evaluate"
