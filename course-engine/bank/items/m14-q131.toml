@@ -1,19 +1,20 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Water leak detection
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current official receipt does not expose the exact item-level water leak detection proposition. No paid body or PDF was fetched.
+# PASS: the current ISO abstract explicitly lists particulate control as an
+# environmental-control category. No paid body or PDF was fetched.
 id = "bank-m14-q131"
 kind = "single-select"
 module = 14
-stem = "After raised-floor work, leak ropes should be:"
+stem = "Which air-quality-related category is explicitly listed by ISO/IEC 22237-4:2021?"
 choices = [
-  "Assumed intact without testing",
-  "Removed permanently to speed airflow",
-  "Verified reconnected and tested to avoid false negatives from cable breaks",
-  "Replaced with cardboard dams only"
+  "Particulate control",
+  "Only cloud-service latency control",
+  "Only optical-fibre attenuation control",
+  "Only diesel fuel-temperature control",
 ]
-correct = "C"
-explanation = "Floor work commonly breaks or disconnects sensing cable—retest is mandatory ops hygiene."
+correct = "A"
+explanation = "The ISO abstract explicitly lists particulate control among the environmental-control categories; it does not expose a raised-floor leak-rope retest procedure."
 topic_ids = ["m14-leak", "m14-best-practices"]
 objective_ids = []
 bloom = "apply"

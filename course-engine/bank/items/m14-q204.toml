@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Water leak detection
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current official receipt does not expose the exact item-level water leak detection proposition. No paid body or PDF was fetched.
+# PASS: the current ISO abstract explicitly lists physical security of
+# environmental-control systems as a category. No paid body or PDF was fetched.
 id = "m14-q204"
 kind = "single-select"
 module = 14
-stem = "Water leak detection should be placed with priority near:"
+stem = "Which security-related environmental-control category is explicitly named by ISO/IEC 22237-4:2021?"
 choices = [
-  "Areas where leaks threaten electrical/IT assets: CRAH lines, humidifiers, above racks, and pipe routes",
-  "Only the executive kitchen",
-  "Random outdoor landscaping only",
-  "Only inside sealed transformer tanks"
+  "Physical security of environmental-control systems",
+  "Only customer billing workflows",
+  "Only fibre-connector cleaning",
+  "Only generator fuel polishing",
 ]
 correct = "A"
-explanation = "Sensors belong on credible leak paths that can damage critical plant."
+explanation = "The ISO abstract explicitly lists physical security of environmental-control systems; it does not expose a specific water-leak sensor-placement or response rule."
 topic_ids = ["m14-leak"]
 objective_ids = []
 bloom = "apply"

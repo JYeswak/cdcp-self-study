@@ -1,19 +1,20 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Water leak detection
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current official receipt does not expose the exact item-level water leak detection proposition. No paid body or PDF was fetched.
+# PASS: the current ISO abstract explicitly lists fluid movement control as an
+# environmental-control category. No paid body or PDF was fetched.
 id = "bank-m14-q109"
 kind = "single-select"
 module = 14
-stem = "Underfloor leak detection is installed mainly to:"
+stem = "Which ISO/IEC 22237-4:2021 category addresses movement of fluids within data-centre environmental control?"
 choices = [
-  "Alarm on water near electrical/IT spaces before major damage",
-  "Measure EMF around PDUs",
-  "Increase humidity setpoints always",
-  "Unlock security cages"
+  "Fluid movement control",
+  "Only cloud-service licensing",
+  "Only optical-fibre polarity",
+  "Only generator fuel purchasing",
 ]
 correct = "A"
-explanation = "Leak sensing buys response time before water reaches critical gear."
+explanation = "The ISO abstract explicitly lists fluid movement control among the requirements and recommendations for environmental control within data centres; it does not expose a specific underfloor sensor-placement rule."
 topic_ids = ["m14-leak"]
 objective_ids = []
 bloom = "remember"

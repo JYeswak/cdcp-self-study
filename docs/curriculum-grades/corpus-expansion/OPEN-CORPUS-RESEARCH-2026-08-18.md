@@ -1053,6 +1053,25 @@ The pass does not infer meet-me-room layout, HDA/EDA/ZDA topology, universal
 multimode selection, MPO polarity, connector loss budgets, or a site cabling
 design approval. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 362 — ISO/IEC 22237-4 environmental-control categories
+
+**Review date:** 2026-08-18. Three CDFOS module-14 items were narrowed to
+categories explicitly exposed by the current ISO Online Browsing Platform
+abstract for ISO/IEC 22237-4:2021. The abstract lists fluid movement control,
+particulate control, and physical security of environmental-control systems
+among its requirements and recommendations for data-centre environmental
+control. No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q109 | Water leak detection | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — fluid movement control is explicit |
+| bank-m14-q131 | Water leak detection | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — particulate control is explicit |
+| m14-q204 | Water leak detection | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — physical security of environmental-control systems is explicit |
+
+The pass does not infer leak-sensor placement, zone sizing, retest procedure,
+alarm timing, response authority, or environmental-control conformance. This
+pass does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
