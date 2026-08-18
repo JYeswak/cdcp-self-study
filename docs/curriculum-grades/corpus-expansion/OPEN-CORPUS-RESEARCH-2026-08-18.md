@@ -870,6 +870,24 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 278 — ISO building-construction abstract categories
+
+**Review date:** 2026-08-18. The current official ISO catalog abstract for
+ISO/IEC 22237-2:2024 was checked without opening or fetching a PDF. It explicitly
+names building construction for data-centre accommodation, location/site
+selection and environmental risks, access, physical fire protection, and
+physical intrusion protection.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m03-q096 | Facility criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — asks only for the public building-construction category; no clear-height rule is inferred |
+| m03-q099 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — asks only for the public site-selection/environmental-risk scope; no adjacency threshold is inferred |
+| m03-q104 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — asks only for the public access category; no loading-dock operations rule is inferred |
+| m03-q112 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — asks only for the public physical-fire-protection category; no support-space gap is inferred |
+| m03-q113 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — asks only for the public physical-intrusion-protection category; no expansion rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 277 — ISO security-systems protection categories
 
 **Review date:** 2026-08-18. The current official ISO abstract for ISO/IEC

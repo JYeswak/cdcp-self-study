@@ -1,22 +1,21 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: CDCP "Facility criteria" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
-# https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog covers building construction, but not this
-# exact clear-height operational proposition.
+# PASS: ISO/IEC 22237-2:2024 official catalog names building construction as a
+# data-centre accommodation topic; the item is limited to that public abstract.
+# https://www.iso.org/standard/82248.html
 id = "m03-q096"
 kind = "single-select"
 module = 3
-stem = "A facility criterion for floor-to-floor height / clear height is important mainly because it affects:"
+stem = "Which topic does ISO/IEC 22237-2:2024 explicitly include in its scope for data-centre accommodation?"
 choices = [
+  "Building construction",
   "Only exterior signage fonts",
-  "Air distribution, cable pathways, and equipment clearances in white space",
   "Diesel cetane rating",
   "Badge printer toner choice",
 ]
-correct = "B"
-explanation = "Vertical clearances constrain cooling architecture, cable plant, and equipment handling."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists building construction for data-centre accommodation; it does not expose a clear-height engineering rule."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

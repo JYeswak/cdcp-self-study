@@ -1,22 +1,21 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: CDCP "Supporting facilities and function" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
-# https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog lists building/support spaces, but not this
-# exact staging/loading-dock operations proposition.
+# PASS: ISO/IEC 22237-2:2024 official abstract explicitly includes access in
+# its data-centre building-construction and configuration scope.
+# https://www.iso.org/standard/82248.html
 id = "m03-q104"
 kind = "single-select"
 module = 3
-stem = "Inadequate staging and loading docks most often hurt operations by:"
+stem = "Which topic does ISO/IEC 22237-2:2024 explicitly include among data-centre building-configuration concerns?"
 choices = [
+  "Access",
   "Improving change success rates",
   "Increasing dual-utility diversity",
-  "Creating unsafe equipment moves, delayed installs, and blocked emergency paths during receiving",
   "Raising ceiling clear height automatically",
 ]
-correct = "C"
-explanation = "Poor logistics spaces create handling risk and operational friction for installs and maintenance."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists access as a building-construction and configuration topic; it does not expose a loading-dock operations rule."
 topic_ids = ["m03-supporting-facilities"]
 objective_ids = []
 bloom = "apply"

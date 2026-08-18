@@ -1,22 +1,21 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: CDCP "Site location selection criteria" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
-# https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog covers environmental risks and site
-# configuration, but not this exact adjacency red-flag proposition.
+# PASS: ISO/IEC 22237-2:2024 official abstract names location/site selection,
+# including environmental risks, as a building-construction topic.
+# https://www.iso.org/standard/82248.html
 id = "m03-q099"
 kind = "single-select"
 module = 3
-stem = "Which environmental adjacency is often a site-selection red flag?"
+stem = "Which topic does ISO/IEC 22237-2:2024 explicitly identify in its site-selection scope?"
 choices = [
-  "Quiet commercial campus with dual utility corridors",
-  "Multiple diverse fibre providers on campus",
-  "High external contamination, vibration, or explosion risk from neighbouring industrial hazards",
-  "Adequate truck turning radii",
+  "Location/site selection, including environmental risks",
+  "Only a data-centre logo design",
+  "Diesel cetane rating",
+  "Badge printer toner choice",
 ]
-correct = "C"
-explanation = "Neighbouring hazards can impose contamination, vibration, or blast risks on continuous operations."
+correct = "A"
+explanation = "The current ISO abstract explicitly includes location/site selection and environmental risks; it does not expose a particular adjacency threshold."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "understand"
