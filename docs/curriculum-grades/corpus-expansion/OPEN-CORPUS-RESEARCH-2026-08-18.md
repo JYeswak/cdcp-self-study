@@ -889,6 +889,23 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 224 — IEC 62485-5 stationary lithium-ion battery safety scope
+
+**Review date:** 2026-08-18. The current IEC catalog for IEC 62485-5:2020
+applies to stationary lithium-ion batteries and lists safety activities covering
+installation, use, inspection, maintenance, and disposal. It identifies hazards
+from electricity, short-circuits, electrolyte, gas emission, fire, and explosion.
+The item is bounded to that public safety scope; footprint, runtime density,
+thermal design comparisons, and VRLA lifecycle trade-offs remain outside the
+receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q087 | Batteries | IEC 62485-5:2020 — https://webstore.iec.ch/en/publication/29086 | **PASS** — stationary lithium-ion battery safety activities and hazard classes are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 223 — ISO/IEC 30134-6 energy-reuse factor scope
 
 **Review date:** 2026-08-18. The current ISO catalog for ISO/IEC 30134-6:2021

@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Batteries
 # Official catalog/preview receipt: IEC 62485-5:2020 — https://webstore.iec.ch/en/publication/29086
-# BLOCKED: the official catalog does not expose the exact lithium footprint/fire-design trade-off.
+# PASS: the current IEC catalog explicitly lists stationary lithium-ion battery
+# safety activities and hazard classes. No paid body or PDF was fetched.
 id = "m06-q087"
 kind = "single-select"
 module = 6
-stem = "Lithium-ion UPS/BESS chemistries often attract interest because of:"
+stem = "IEC 62485-5:2020 provides safety requirements for stationary lithium-ion batteries covering:"
 choices = [
-  "Zero fire design considerations",
-  "Footprint, weight, and runtime/density advantages—with distinct thermal/fire design needs",
-  "Elimination of all electrical codes",
-  "No need for monitoring",
+  "Installation, use, inspection, maintenance, and disposal, with protection against electrical, short-circuit, electrolyte, gas, fire, and explosion hazards",
+  "Only rack-space optimization, with no safety activities",
+  "Elimination of all electrical and fire requirements",
+  "Only software monitoring, with no installation or maintenance scope",
 ]
-correct = "B"
-explanation = "Li-ion can shrink footprint/runtime density but drives thermal runaway and FP design attention."
+correct = "A"
+explanation = "The IEC catalog states that IEC 62485-5:2020 covers stationary lithium-ion battery installation, use, inspection, maintenance, and disposal, with protections against electricity, short-circuits, electrolyte, gas emission, fire, and explosion hazards. It does not establish footprint, runtime-density, or VRLA trade-offs."
 topic_ids = ["m06-batteries", "m06-bess"]
 objective_ids = []
 bloom = "understand"
