@@ -1,36 +1,11 @@
 {
-  "bank_hash": "365b07617fd52f43dfa89b8bbedb8e39de3ae27f10cc67b1a10f0e54cd4af761",
+  "bank_hash": "990c597426aaba761487b7e0e1c13ff85cea104fd2586d7c147200aad718d80d",
   "exam_id": "mock40",
   "keys": [
     {
       "correct": "B",
-      "explanation": "NFPA 70 (2026) §§700.12 and 700.17 tie emergency lighting to an Article 700 source and an emergency-lighting branch-circuit path when normal lighting fails. IT continuity alone does not prove that life-safety path; an UPS belongs in the answer only after the Article 700 design is verified.",
-      "item_id": "m05-q214"
-    },
-    {
-      "correct": "C",
-      "explanation": "Early detection buys time—detection is not suppression.",
-      "item_id": "m12-q201"
-    },
-    {
-      "correct": "D",
-      "explanation": "Layered controls (perimeter → envelope → zones → cabinets → process) assume single-layer failure.",
-      "item_id": "bank-m13-q076"
-    },
-    {
-      "correct": "C",
-      "explanation": "Accidental EPO is a major outage cause; over-locking can also block emergency response.",
-      "item_id": "bank-m13-q095"
-    },
-    {
-      "correct": "B",
-      "explanation": "Rolling and concentrated load ratings govern cart and equipment moves on access floors.",
-      "item_id": "mock40-q10"
-    },
-    {
-      "correct": "D",
-      "explanation": "Actionable alerts beat naked point names during incidents.",
-      "item_id": "bank-m14-q124"
+      "explanation": "DCIM ties inventory, power capacity, and change workflows to facilities data—not just environment sensing.",
+      "item_id": "bank-m14-q106"
     },
     {
       "correct": "B",
@@ -38,79 +13,24 @@
       "item_id": "m02-q217"
     },
     {
-      "correct": "A",
-      "explanation": "The November 2024 UFGS §2.1 type axis is stringer versus stringerless; a panel finish, a site rating label, and an unsupported product-class number answer different questions. The paywalled product-class boundary is deliberately not crossed.",
-      "item_id": "m04-q215"
-    },
-    {
-      "correct": "C",
-      "explanation": "Basin inventory is a real-time constraint on evaporative rejection.",
-      "item_id": "m10-q209"
-    },
-    {
-      "correct": "A",
-      "explanation": "Managed/hosted models shift operational responsibility to a provider under contractual SLAs, with shared-responsibility nuances.",
-      "item_id": "m01-q055"
+      "correct": "B",
+      "explanation": "Wrong cleaning methods can create the contamination problem they aim to solve.",
+      "item_id": "bank-m15-q142"
     },
     {
       "correct": "B",
-      "explanation": "Redundancy enables maintenance; it does not survive working the last path. Call the window N-0. Do not steal Module 06’s path grammar — this is the mission concept only.",
-      "item_id": "m01-q215"
-    },
-    {
-      "correct": "D",
-      "explanation": "Dual control reduces single-person error and insider risk on high-consequence actions.",
-      "item_id": "bank-m13-q100"
+      "explanation": "Guides recommend practice; binding force comes from adoption into law, contract, or policy.",
+      "item_id": "m02-q081"
     },
     {
       "correct": "B",
-      "explanation": "International standards are tools for alignment; adoption remains a national/project decision.",
-      "item_id": "m02-q089"
+      "explanation": "Offline/standby leaves the load on utility until a failure forces transfer—cheap but not preferred for critical core IT.",
+      "item_id": "m06-q059"
     },
     {
       "correct": "C",
-      "explanation": "Cold plates remove heat at the component rather than only via room air.",
-      "item_id": "m09-q227"
-    },
-    {
-      "correct": "D",
-      "explanation": "Li-ion offers density and lifecycle trade-offs, not magic immunity from engineering.",
-      "item_id": "m06-q231"
-    },
-    {
-      "correct": "A",
-      "explanation": "Factory trunks reduce field termination variability—still require correct design, pathways, and acceptance tests.",
-      "item_id": "m11-q132"
-    },
-    {
-      "correct": "C",
-      "explanation": "Cleaning is controlled work near energized systems—methods and chemistry matter.",
-      "item_id": "bank-m15-q155"
-    },
-    {
-      "correct": "D",
-      "explanation": "Containment integrity matters—open doors, missing panels, and cable gaps re-create recirculation paths.",
-      "item_id": "m09-q151"
-    },
-    {
-      "correct": "B",
-      "explanation": "Liquid-ready is a cabinet SKU, not a denser air box. 800 mm, RDHx door, drip, CDU landing, and 40–100 kW structure are the frame questions. Liquid families live in Module 09. 19″ rails stay.",
-      "item_id": "m08-q210"
-    },
-    {
-      "correct": "A",
-      "explanation": "As water evaporates, minerals concentrate; blowdown limits scale and corrosion risk when paired with treatment.",
-      "item_id": "m10-q104"
-    },
-    {
-      "correct": "B",
-      "explanation": "Unverified emergency lighting is a latent life-safety failure.",
-      "item_id": "m05-q213"
-    },
-    {
-      "correct": "C",
-      "explanation": "Logos are not laterals. A shared duct bank or manhole collapses both providers to one backhoe cut. That is the building oral. It is not the east-west fabric: a single-path IB/RoCE mesh remains one training job even if the laterals were actually diverse. Do not invent a reach metre.",
-      "item_id": "m11-q237"
+      "explanation": "Surveys are snapshots; records enable comparison after plant or layout changes.",
+      "item_id": "m07-q212"
     },
     {
       "correct": "C",
@@ -118,14 +38,14 @@
       "item_id": "m11-q110"
     },
     {
-      "correct": "C",
-      "explanation": "An alarm requires operator action. Status is not an alarm. Absence of alarm is not evidence of health (2003 silent alarm-processor failure). Point-count procurement fights alarm quality. No invented outage percent.",
-      "item_id": "m15-q224"
+      "correct": "A",
+      "explanation": "Supporting facilities (yard, staging, ops spaces, utility intake) are part of operability, not cosmetics.",
+      "item_id": "mock40-q08"
     },
     {
-      "correct": "B",
-      "explanation": "Offline/standby leaves the load on utility until a failure forces transfer—cheap but not preferred for critical core IT.",
-      "item_id": "m06-q059"
+      "correct": "C",
+      "explanation": "Early detection buys time—detection is not suppression.",
+      "item_id": "m12-q201"
     },
     {
       "correct": "A",
@@ -134,23 +54,58 @@
     },
     {
       "correct": "D",
+      "explanation": "Layered controls (perimeter → envelope → zones → cabinets → process) assume single-layer failure.",
+      "item_id": "bank-m13-q076"
+    },
+    {
+      "correct": "D",
+      "explanation": "Actionable alerts beat naked point names during incidents.",
+      "item_id": "bank-m14-q124"
+    },
+    {
+      "correct": "C",
+      "explanation": "Logos are not laterals. A shared duct bank or manhole collapses both providers to one backhoe cut. That is the building oral. It is not the east-west fabric: a single-path IB/RoCE mesh remains one training job even if the laterals were actually diverse. Do not invent a reach metre.",
+      "item_id": "m11-q237"
+    },
+    {
+      "correct": "C",
+      "explanation": "Accidental EPO is a major outage cause; over-locking can also block emergency response.",
+      "item_id": "bank-m13-q095"
+    },
+    {
+      "correct": "B",
+      "explanation": "Unverified emergency lighting is a latent life-safety failure.",
+      "item_id": "m05-q213"
+    },
+    {
+      "correct": "D",
       "explanation": "Exit signs mark the means of egress; they are life-safety devices.",
       "item_id": "m05-q142"
     },
     {
-      "correct": "B",
-      "explanation": "Wrong cleaning methods can create the contamination problem they aim to solve.",
-      "item_id": "bank-m15-q142"
+      "correct": "C",
+      "explanation": "Cleaning is controlled work near energized systems—methods and chemistry matter.",
+      "item_id": "bank-m15-q155"
     },
     {
       "correct": "D",
-      "explanation": "Signage supports life safety: evacuate-on-alarm messaging, agent type, and control locations.",
-      "item_id": "bank-m12-q072"
+      "explanation": "Dual control reduces single-person error and insider risk on high-consequence actions.",
+      "item_id": "bank-m13-q100"
     },
     {
-      "correct": "B",
-      "explanation": "Facility outcomes require cross-functional ownership among IT, facilities, security, and vendors.",
-      "item_id": "m01-q209"
+      "correct": "C",
+      "explanation": "Cold plates remove heat at the component rather than only via room air.",
+      "item_id": "m09-q227"
+    },
+    {
+      "correct": "D",
+      "explanation": "Containment integrity matters—open doors, missing panels, and cable gaps re-create recirculation paths.",
+      "item_id": "m09-q151"
+    },
+    {
+      "correct": "A",
+      "explanation": "ISO 19011:2018 §5.2 requires audit objectives and criteria to be defined before the audit begins. TIA-942-B and TIA-942-C have different requirement sets; an unpinned criterion leaves ambiguity about which requirements the auditor is checking. Selecting or switching editions mid-audit — or after fieldwork — compromises objectivity. The audit plan must state 'TIA-942-B Rated-3' or equivalent before the first site visit.",
+      "item_id": "m03-q238"
     },
     {
       "correct": "B",
@@ -158,34 +113,49 @@
       "item_id": "m12-q224"
     },
     {
+      "correct": "B",
+      "explanation": "Liquid-ready is a cabinet SKU, not a denser air box. 800 mm, RDHx door, drip, CDU landing, and 40–100 kW structure are the frame questions. Liquid families live in Module 09. 19″ rails stay.",
+      "item_id": "m08-q210"
+    },
+    {
+      "correct": "B",
+      "explanation": "International standards are tools for alignment; adoption remains a national/project decision.",
+      "item_id": "m02-q089"
+    },
+    {
+      "correct": "C",
+      "explanation": "Analyze the frame, not the coolant name. A 600 mm air BOM cannot dress hoses, land an RDHx door, or carry 40–100 kW. CDU landing is reserved now. Blanking stays for air-cooled network. Immersion is not a 19″ frame.",
+      "item_id": "m08-q211"
+    },
+    {
       "correct": "A",
-      "explanation": "BTM is how the hall energizes, not a genset you tack on later. Point at Module 01 for the noun and Module 06 for the path. Do not steal UPS/ATS/generator internals.",
-      "item_id": "m03-q216"
+      "explanation": "Factory trunks reduce field termination variability—still require correct design, pathways, and acceptance tests.",
+      "item_id": "m11-q132"
+    },
+    {
+      "correct": "A",
+      "explanation": "The November 2024 UFGS §2.1 type axis is stringer versus stringerless; a panel finish, a site rating label, and an unsupported product-class number answer different questions. The paywalled product-class boundary is deliberately not crossed.",
+      "item_id": "m04-q215"
     },
     {
       "correct": "B",
-      "explanation": "UPS ride-through → genset start → transfer is the textbook sequence.",
-      "item_id": "m06-q107"
+      "explanation": "Rolling and concentrated load ratings govern cart and equipment moves on access floors.",
+      "item_id": "mock40-q10"
     },
     {
-      "correct": "C",
-      "explanation": "Outdoor climate drives HVAC sizing and free-cooling opportunity.",
-      "item_id": "m03-q105"
+      "correct": "A",
+      "explanation": "Managed/hosted models shift operational responsibility to a provider under contractual SLAs, with shared-responsibility nuances.",
+      "item_id": "m01-q055"
     },
     {
-      "correct": "C",
-      "explanation": "Keep health exposure language separate from IEC 61000-class equipment immunity.",
-      "item_id": "m07-q048"
-    },
-    {
-      "correct": "C",
-      "explanation": "Surveys are snapshots; records enable comparison after plant or layout changes.",
-      "item_id": "m07-q212"
+      "correct": "D",
+      "explanation": "Li-ion offers density and lifecycle trade-offs, not magic immunity from engineering.",
+      "item_id": "m06-q231"
     },
     {
       "correct": "B",
-      "explanation": "Guides recommend practice; binding force comes from adoption into law, contract, or policy.",
-      "item_id": "m02-q081"
+      "explanation": "NFPA 70 (2026) §§700.12 and 700.17 tie emergency lighting to an Article 700 source and an emergency-lighting branch-circuit path when normal lighting fails. IT continuity alone does not prove that life-safety path; an UPS belongs in the answer only after the Article 700 design is verified.",
+      "item_id": "m05-q214"
     },
     {
       "correct": "D",
@@ -194,13 +164,43 @@
     },
     {
       "correct": "C",
-      "explanation": "Analyze the frame, not the coolant name. A 600 mm air BOM cannot dress hoses, land an RDHx door, or carry 40–100 kW. CDU landing is reserved now. Blanking stays for air-cooled network. Immersion is not a 19″ frame.",
-      "item_id": "m08-q211"
+      "explanation": "An alarm requires operator action. Status is not an alarm. Absence of alarm is not evidence of health (2003 silent alarm-processor failure). Point-count procurement fights alarm quality. No invented outage percent.",
+      "item_id": "m15-q224"
     },
     {
       "correct": "B",
-      "explanation": "DCIM ties inventory, power capacity, and change workflows to facilities data—not just environment sensing.",
-      "item_id": "bank-m14-q106"
+      "explanation": "Redundancy enables maintenance; it does not survive working the last path. Call the window N-0. Do not steal Module 06’s path grammar — this is the mission concept only.",
+      "item_id": "m01-q215"
+    },
+    {
+      "correct": "C",
+      "explanation": "Keep health exposure language separate from IEC 61000-class equipment immunity.",
+      "item_id": "m07-q048"
+    },
+    {
+      "correct": "D",
+      "explanation": "Signage supports life safety: evacuate-on-alarm messaging, agent type, and control locations.",
+      "item_id": "bank-m12-q072"
+    },
+    {
+      "correct": "B",
+      "explanation": "UPS ride-through → genset start → transfer is the textbook sequence.",
+      "item_id": "m06-q107"
+    },
+    {
+      "correct": "C",
+      "explanation": "Basin inventory is a real-time constraint on evaporative rejection.",
+      "item_id": "m10-q209"
+    },
+    {
+      "correct": "A",
+      "explanation": "As water evaporates, minerals concentrate; blowdown limits scale and corrosion risk when paired with treatment.",
+      "item_id": "m10-q104"
+    },
+    {
+      "correct": "B",
+      "explanation": "Facility outcomes require cross-functional ownership among IT, facilities, security, and vendors.",
+      "item_id": "m01-q209"
     }
   ],
   "n_items": 40,

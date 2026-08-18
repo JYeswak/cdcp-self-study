@@ -1,0 +1,26 @@
+# Original CTIA/CTLA educational MCQ — ms4j.10: internal vs lead auditor scope.
+# Public heading: CTLA "TIA-942 Certified Lead Auditor" —
+# https://www.epi-ap.com/services/1/3/97/TIA-942_Certified_Lead_Auditor_(CTLA)
+# Cites: ISO 19011:2018 §7.2.3 "Auditor competence" —
+# https://www.iso.org/standard/70017.html
+# Internal auditors serve the organization; lead auditors manage audit teams.
+# Decides ROLE DISTINCTION, not a seniority rank. bloom = understand.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q239"
+kind = "single-select"
+module = 3
+stem = "An organization wants to conduct its own TIA-942 compliance audit without external assessors. The role that applies is:"
+choices = [
+  "Internal auditor — audits the organization's own systems to identify gaps before external assessment",
+  "Lead auditor — leads third-party certification audits for external clients",
+  "Either role — internal and lead auditor are interchangeable titles for the same function",
+  "Neither role — self-audits are not recognized under ISO 19011 audit frameworks",
+]
+correct = "A"
+explanation = "ISO 19011:2018 §7.2.3 distinguishes internal auditors (first-party audits of one's own organization) from lead auditors (who manage audit teams, typically for second- or third-party audits). An organization auditing itself for TIA-942 readiness uses internal auditors. Lead auditors manage external or certification audit teams. The roles are not seniority levels; they serve different audit contexts."
+topic_ids = ["m03-audit", "m03-roles"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

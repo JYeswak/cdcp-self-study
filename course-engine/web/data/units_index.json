@@ -1,6 +1,6 @@
 {
-  "approved_item_count": 871,
-  "bank_item_count": 896,
+  "approved_item_count": 879,
+  "bank_item_count": 904,
   "by_module": {
     "01-mission-critical": [
       {
@@ -481,7 +481,16 @@
         "topic_ids": [
           "m03-site-selection",
           "m03-facility-criteria",
-          "m03-supporting-facilities"
+          "m03-supporting-facilities",
+          "m03-tia942",
+          "m03-standards",
+          "m03-assessment",
+          "m03-contracts",
+          "m03-redundancy",
+          "m03-audit",
+          "m03-evidence",
+          "m03-nonconformity",
+          "m03-roles"
         ],
         "word_count": 228
       },
@@ -502,7 +511,16 @@
         "topic_ids": [
           "m03-site-selection",
           "m03-facility-criteria",
-          "m03-supporting-facilities"
+          "m03-supporting-facilities",
+          "m03-tia942",
+          "m03-standards",
+          "m03-assessment",
+          "m03-contracts",
+          "m03-redundancy",
+          "m03-audit",
+          "m03-evidence",
+          "m03-nonconformity",
+          "m03-roles"
         ],
         "word_count": 235
       },
@@ -523,7 +541,16 @@
         "topic_ids": [
           "m03-site-selection",
           "m03-facility-criteria",
-          "m03-supporting-facilities"
+          "m03-supporting-facilities",
+          "m03-tia942",
+          "m03-standards",
+          "m03-assessment",
+          "m03-contracts",
+          "m03-redundancy",
+          "m03-audit",
+          "m03-evidence",
+          "m03-nonconformity",
+          "m03-roles"
         ],
         "word_count": 2605
       },
@@ -544,7 +571,16 @@
         "topic_ids": [
           "m03-site-selection",
           "m03-facility-criteria",
-          "m03-supporting-facilities"
+          "m03-supporting-facilities",
+          "m03-tia942",
+          "m03-standards",
+          "m03-assessment",
+          "m03-contracts",
+          "m03-redundancy",
+          "m03-audit",
+          "m03-evidence",
+          "m03-nonconformity",
+          "m03-roles"
         ],
         "word_count": 257
       },
@@ -565,7 +601,16 @@
         "topic_ids": [
           "m03-site-selection",
           "m03-facility-criteria",
-          "m03-supporting-facilities"
+          "m03-supporting-facilities",
+          "m03-tia942",
+          "m03-standards",
+          "m03-assessment",
+          "m03-contracts",
+          "m03-redundancy",
+          "m03-audit",
+          "m03-evidence",
+          "m03-nonconformity",
+          "m03-roles"
         ],
         "word_count": 308
       },
@@ -586,7 +631,16 @@
         "topic_ids": [
           "m03-site-selection",
           "m03-facility-criteria",
-          "m03-supporting-facilities"
+          "m03-supporting-facilities",
+          "m03-tia942",
+          "m03-standards",
+          "m03-assessment",
+          "m03-contracts",
+          "m03-redundancy",
+          "m03-audit",
+          "m03-evidence",
+          "m03-nonconformity",
+          "m03-roles"
         ],
         "word_count": 327
       },
@@ -607,7 +661,16 @@
         "topic_ids": [
           "m03-site-selection",
           "m03-facility-criteria",
-          "m03-supporting-facilities"
+          "m03-supporting-facilities",
+          "m03-tia942",
+          "m03-standards",
+          "m03-assessment",
+          "m03-contracts",
+          "m03-redundancy",
+          "m03-audit",
+          "m03-evidence",
+          "m03-nonconformity",
+          "m03-roles"
         ],
         "word_count": 689
       },
@@ -628,7 +691,16 @@
         "topic_ids": [
           "m03-site-selection",
           "m03-facility-criteria",
-          "m03-supporting-facilities"
+          "m03-supporting-facilities",
+          "m03-tia942",
+          "m03-standards",
+          "m03-assessment",
+          "m03-contracts",
+          "m03-redundancy",
+          "m03-audit",
+          "m03-evidence",
+          "m03-nonconformity",
+          "m03-roles"
         ],
         "word_count": 704
       },
@@ -649,7 +721,16 @@
         "topic_ids": [
           "m03-site-selection",
           "m03-facility-criteria",
-          "m03-supporting-facilities"
+          "m03-supporting-facilities",
+          "m03-tia942",
+          "m03-standards",
+          "m03-assessment",
+          "m03-contracts",
+          "m03-redundancy",
+          "m03-audit",
+          "m03-evidence",
+          "m03-nonconformity",
+          "m03-roles"
         ],
         "word_count": 323
       }
@@ -3895,7 +3976,16 @@
       "topic_ids": [
         "m03-site-selection",
         "m03-facility-criteria",
-        "m03-supporting-facilities"
+        "m03-supporting-facilities",
+        "m03-tia942",
+        "m03-standards",
+        "m03-assessment",
+        "m03-contracts",
+        "m03-redundancy",
+        "m03-audit",
+        "m03-evidence",
+        "m03-nonconformity",
+        "m03-roles"
       ],
       "word_count": 228
     },
@@ -3916,7 +4006,16 @@
       "topic_ids": [
         "m03-site-selection",
         "m03-facility-criteria",
-        "m03-supporting-facilities"
+        "m03-supporting-facilities",
+        "m03-tia942",
+        "m03-standards",
+        "m03-assessment",
+        "m03-contracts",
+        "m03-redundancy",
+        "m03-audit",
+        "m03-evidence",
+        "m03-nonconformity",
+        "m03-roles"
       ],
       "word_count": 235
     },
@@ -3937,7 +4036,16 @@
       "topic_ids": [
         "m03-site-selection",
         "m03-facility-criteria",
-        "m03-supporting-facilities"
+        "m03-supporting-facilities",
+        "m03-tia942",
+        "m03-standards",
+        "m03-assessment",
+        "m03-contracts",
+        "m03-redundancy",
+        "m03-audit",
+        "m03-evidence",
+        "m03-nonconformity",
+        "m03-roles"
       ],
       "word_count": 2605
     },
@@ -3958,7 +4066,16 @@
       "topic_ids": [
         "m03-site-selection",
         "m03-facility-criteria",
-        "m03-supporting-facilities"
+        "m03-supporting-facilities",
+        "m03-tia942",
+        "m03-standards",
+        "m03-assessment",
+        "m03-contracts",
+        "m03-redundancy",
+        "m03-audit",
+        "m03-evidence",
+        "m03-nonconformity",
+        "m03-roles"
       ],
       "word_count": 257
     },
@@ -3979,7 +4096,16 @@
       "topic_ids": [
         "m03-site-selection",
         "m03-facility-criteria",
-        "m03-supporting-facilities"
+        "m03-supporting-facilities",
+        "m03-tia942",
+        "m03-standards",
+        "m03-assessment",
+        "m03-contracts",
+        "m03-redundancy",
+        "m03-audit",
+        "m03-evidence",
+        "m03-nonconformity",
+        "m03-roles"
       ],
       "word_count": 308
     },
@@ -4000,7 +4126,16 @@
       "topic_ids": [
         "m03-site-selection",
         "m03-facility-criteria",
-        "m03-supporting-facilities"
+        "m03-supporting-facilities",
+        "m03-tia942",
+        "m03-standards",
+        "m03-assessment",
+        "m03-contracts",
+        "m03-redundancy",
+        "m03-audit",
+        "m03-evidence",
+        "m03-nonconformity",
+        "m03-roles"
       ],
       "word_count": 327
     },
@@ -4021,7 +4156,16 @@
       "topic_ids": [
         "m03-site-selection",
         "m03-facility-criteria",
-        "m03-supporting-facilities"
+        "m03-supporting-facilities",
+        "m03-tia942",
+        "m03-standards",
+        "m03-assessment",
+        "m03-contracts",
+        "m03-redundancy",
+        "m03-audit",
+        "m03-evidence",
+        "m03-nonconformity",
+        "m03-roles"
       ],
       "word_count": 689
     },
@@ -4042,7 +4186,16 @@
       "topic_ids": [
         "m03-site-selection",
         "m03-facility-criteria",
-        "m03-supporting-facilities"
+        "m03-supporting-facilities",
+        "m03-tia942",
+        "m03-standards",
+        "m03-assessment",
+        "m03-contracts",
+        "m03-redundancy",
+        "m03-audit",
+        "m03-evidence",
+        "m03-nonconformity",
+        "m03-roles"
       ],
       "word_count": 704
     },
@@ -4063,7 +4216,16 @@
       "topic_ids": [
         "m03-site-selection",
         "m03-facility-criteria",
-        "m03-supporting-facilities"
+        "m03-supporting-facilities",
+        "m03-tia942",
+        "m03-standards",
+        "m03-assessment",
+        "m03-contracts",
+        "m03-redundancy",
+        "m03-audit",
+        "m03-evidence",
+        "m03-nonconformity",
+        "m03-roles"
       ],
       "word_count": 323
     },

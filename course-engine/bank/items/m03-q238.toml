@@ -1,0 +1,26 @@
+# Original CTIA/CTLA educational MCQ — ms4j.10: audit edition pinning.
+# Public heading: CTIA "TIA-942 Certified Internal Auditor" —
+# https://www.epi-ap.com/services/1/3/98/TIA-942_Certified_Internal_Auditor_(CTIA)
+# Cites: ISO 19011:2018 §5.2 "Establishing audit programme objectives" —
+# https://www.iso.org/standard/70017.html
+# Audit criteria must specify the standard edition before fieldwork begins.
+# Decides EDITION PINNING IN AUDIT, not a preference. bloom = apply.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q238"
+kind = "single-select"
+module = 3
+stem = "An audit plan lists 'TIA-942 compliance' as the criterion without specifying an edition. The internal auditor correction is:"
+choices = [
+  "Pin the edition before fieldwork — audit findings depend on which edition's requirements apply",
+  "No correction needed — the auditor selects the edition based on what the site can pass",
+  "No correction needed — all TIA-942 editions have identical audit criteria",
+  "Pin the edition after fieldwork so the report can reference the most favorable requirements",
+]
+correct = "A"
+explanation = "ISO 19011:2018 §5.2 requires audit objectives and criteria to be defined before the audit begins. TIA-942-B and TIA-942-C have different requirement sets; an unpinned criterion leaves ambiguity about which requirements the auditor is checking. Selecting or switching editions mid-audit — or after fieldwork — compromises objectivity. The audit plan must state 'TIA-942-B Rated-3' or equivalent before the first site visit."
+topic_ids = ["m03-audit", "m03-tia942", "m03-standards"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

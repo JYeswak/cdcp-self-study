@@ -1804,7 +1804,7 @@
   },
   "schema_version": 1,
   "slug_algorithm": "learn_md.js CdcpLearnMd.slugify / slugify_heading",
-  "topic_count": 106,
+  "topic_count": 118,
   "topics": {
     "m01-business-org": {
       "anchor": "business-organization",
@@ -1914,6 +1914,42 @@
       "slug": "02-standards",
       "topic_id": "m02-tia-vs-uptime"
     },
+    "m03-assessment": {
+      "anchor": null,
+      "domain": "03-site-building",
+      "href": "learn/03-site-building.html",
+      "label": "Self-declaration vs third-party TIA-942 assessment",
+      "module": 3,
+      "slug": "03-site-building",
+      "topic_id": "m03-assessment"
+    },
+    "m03-audit": {
+      "anchor": null,
+      "domain": "03-site-building",
+      "href": "learn/03-site-building.html",
+      "label": "TIA-942 audit fluency (ISO 19011)",
+      "module": 3,
+      "slug": "03-site-building",
+      "topic_id": "m03-audit"
+    },
+    "m03-contracts": {
+      "anchor": null,
+      "domain": "03-site-building",
+      "href": "learn/03-site-building.html",
+      "label": "Contracted edition of TIA-942 in design scope",
+      "module": 3,
+      "slug": "03-site-building",
+      "topic_id": "m03-contracts"
+    },
+    "m03-evidence": {
+      "anchor": null,
+      "domain": "03-site-building",
+      "href": "learn/03-site-building.html",
+      "label": "Audit evidence vs unverified claims",
+      "module": 3,
+      "slug": "03-site-building",
+      "topic_id": "m03-evidence"
+    },
     "m03-facility-criteria": {
       "anchor": null,
       "domain": "03-site-building",
@@ -1922,6 +1958,33 @@
       "module": 3,
       "slug": "03-site-building",
       "topic_id": "m03-facility-criteria"
+    },
+    "m03-nonconformity": {
+      "anchor": null,
+      "domain": "03-site-building",
+      "href": "learn/03-site-building.html",
+      "label": "Major vs minor nonconformity classification",
+      "module": 3,
+      "slug": "03-site-building",
+      "topic_id": "m03-nonconformity"
+    },
+    "m03-redundancy": {
+      "anchor": null,
+      "domain": "03-site-building",
+      "href": "learn/03-site-building.html",
+      "label": "Rated-3 concurrent maintainability scope",
+      "module": 3,
+      "slug": "03-site-building",
+      "topic_id": "m03-redundancy"
+    },
+    "m03-roles": {
+      "anchor": null,
+      "domain": "03-site-building",
+      "href": "learn/03-site-building.html",
+      "label": "Internal auditor vs lead auditor role",
+      "module": 3,
+      "slug": "03-site-building",
+      "topic_id": "m03-roles"
     },
     "m03-site-selection": {
       "anchor": "site-selection-criteria-what-to-score",
@@ -1932,6 +1995,15 @@
       "slug": "03-site-building",
       "topic_id": "m03-site-selection"
     },
+    "m03-standards": {
+      "anchor": null,
+      "domain": "03-site-building",
+      "href": "learn/03-site-building.html",
+      "label": "Site/building standard edition pinning",
+      "module": 3,
+      "slug": "03-site-building",
+      "topic_id": "m03-standards"
+    },
     "m03-supporting-facilities": {
       "anchor": "supporting-facilities-and-functions",
       "domain": "03-site-building",
@@ -1940,6 +2012,15 @@
       "module": 3,
       "slug": "03-site-building",
       "topic_id": "m03-supporting-facilities"
+    },
+    "m03-tia942": {
+      "anchor": null,
+      "domain": "03-site-building",
+      "href": "learn/03-site-building.html",
+      "label": "TIA-942 Rated levels vs Uptime Tier terminology",
+      "module": 3,
+      "slug": "03-site-building",
+      "topic_id": "m03-tia942"
     },
     "m04-cooling-impact": {
       "anchor": "impact-on-cooling-and-airflow",
@@ -2706,6 +2787,15 @@
       "slug": "14-auxiliary",
       "topic_id": "m14-notification"
     },
+    "m15-alarms": {
+      "anchor": "monitoring-alarms-and-the-failure-that-hides-itself",
+      "domain": "15-ops-adjacent",
+      "href": "learn/15-ops-adjacent.html#monitoring-alarms-and-the-failure-that-hides-itself",
+      "label": "Alarm handling",
+      "module": 15,
+      "slug": "15-ops-adjacent",
+      "topic_id": "m15-alarms"
+    },
     "m15-cleaning": {
       "anchor": "cleaning",
       "domain": "15-ops-adjacent",
@@ -2724,6 +2814,15 @@
       "slug": "15-ops-adjacent",
       "topic_id": "m15-documentation"
     },
+    "m15-eop": {
+      "anchor": "2026-eops-a-live-floor-actually-runs",
+      "domain": "15-ops-adjacent",
+      "href": "learn/15-ops-adjacent.html#2026-eops-a-live-floor-actually-runs",
+      "label": "Emergency operating procedures",
+      "module": 15,
+      "slug": "15-ops-adjacent",
+      "topic_id": "m15-eop"
+    },
     "m15-labelling": {
       "anchor": "labelling",
       "domain": "15-ops-adjacent",
@@ -2741,6 +2840,15 @@
       "module": 15,
       "slug": "15-ops-adjacent",
       "topic_id": "m15-maintenance-sla"
+    },
+    "m15-monitoring": {
+      "anchor": "monitoring-alarms-and-the-failure-that-hides-itself",
+      "domain": "15-ops-adjacent",
+      "href": "learn/15-ops-adjacent.html#monitoring-alarms-and-the-failure-that-hides-itself",
+      "label": "Facilities monitoring",
+      "module": 15,
+      "slug": "15-ops-adjacent",
+      "topic_id": "m15-monitoring"
     },
     "m15-mtbf-mttr": {
       "anchor": "mtbf-mttr-as-in-module-01",
@@ -2761,5 +2869,5 @@
       "topic_id": "m15-ops-security"
     }
   },
-  "topics_with_anchor": 81
+  "topics_with_anchor": 84
 }

@@ -1,0 +1,26 @@
+# Original CTDC educational MCQ — ms4j.9: edition pinning (942-B vs 942-C).
+# Public heading: CTDC "TIA-942 Certified Design Consultant" —
+# https://www.epi-ap.com/services/1/3/109/TIA-942_Certified_Design_Consultant_(CTDC)
+# Cites: TIA-942-B (2017) and TIA-942-C (2024) — different requirement sets.
+# https://tiaonline.org/resources/tia-942-b/
+# Edition matters — a 942-B design may not satisfy 942-C requirements.
+# Decides EDITION PINNING, not a preference for newer. bloom = apply.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q234"
+kind = "single-select"
+module = 3
+stem = "A contract references 'TIA-942 compliance' without specifying an edition. The design-consultant correction is:"
+choices = [
+  "Pin the edition (942-B or 942-C) — requirements differ between editions and 'TIA-942' alone is ambiguous",
+  "No correction needed — TIA-942 editions are backward-compatible, so any edition satisfies the reference",
+  "Default to the newest edition since older editions are automatically superseded on publication",
+  "No correction needed — the assessor will select the appropriate edition during the audit",
+]
+correct = "A"
+explanation = "TIA-942-B (2017) and TIA-942-C (2024) have different requirement sets — topology definitions, electrical criteria, and cabling standards evolved between editions. A contract that says only 'TIA-942 compliance' is ambiguous: the designer may build to 942-B while the owner expects 942-C. Edition pinning (e.g., 'TIA-942-B Rated-3') removes the ambiguity. Standards are not auto-superseded in contracts; each party may assume a different edition."
+topic_ids = ["m03-tia942", "m03-standards", "m03-contracts"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

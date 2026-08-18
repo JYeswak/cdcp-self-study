@@ -65,7 +65,7 @@ mod tests {
         assert!(pass.contains("  source_class=original\n"));
         assert!(
             pass.contains(
-                "  items=896 scanned, 871 approved (floors count the approved pool only)\n"
+                "  items=904 scanned, 879 approved (floors count the approved pool only)\n"
             ),
             "{pass}"
         );

@@ -1,0 +1,26 @@
+# Original CTDC educational MCQ — ms4j.9: Rated vs Tier terminology.
+# Public heading: CTDC "TIA-942 Certified Design Consultant" —
+# https://www.epi-ap.com/services/1/3/109/TIA-942_Certified_Design_Consultant_(CTDC)
+# Cites: TIA-942-B §5.3 "Infrastructure Rating Levels" —
+# https://tiaonline.org/resources/tia-942-b/
+# TIA uses "Rated-1" through "Rated-4"; "Tier" is Uptime Institute's term.
+# Decides TERMINOLOGY SOURCE, not a ranking preference. bloom = understand.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q232"
+kind = "single-select"
+module = 3
+stem = "A vendor claims 'TIA-942 Tier III certified.' The terminology defect is:"
+choices = [
+  "TIA-942 uses 'Rated' (Rated-1 through Rated-4), not 'Tier' — Tier is an Uptime Institute term",
+  "No defect — TIA-942 and Uptime Institute use the same Tier terminology interchangeably",
+  "Minor defect — Tier III and Rated-3 are identical, so the label is functionally correct",
+  "No defect — TIA adopted Uptime's Tier terminology in the 942-B revision",
+]
+correct = "A"
+explanation = "TIA-942-B §5.3 defines 'Rated-1' through 'Rated-4' for infrastructure rating levels. 'Tier I' through 'Tier IV' is Uptime Institute's terminology from their Tier Standard. The two systems have similar intent but different requirements and assessment processes. Calling a site 'TIA-942 Tier III' conflates two separate standards. A design consultant must distinguish Rated (TIA) from Tier (Uptime) and cite the correct standard for each claim."
+topic_ids = ["m03-tia942", "m03-standards"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

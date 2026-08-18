@@ -1,0 +1,26 @@
+# Original CTDC educational MCQ — ms4j.9: Rated-3 concurrent maintainability.
+# Public heading: CTDC "TIA-942 Certified Design Consultant" —
+# https://www.epi-ap.com/services/1/3/109/TIA-942_Certified_Design_Consultant_(CTDC)
+# Cites: TIA-942-B §5.3.4 "Rated-3 (Concurrently Maintainable)" —
+# https://tiaonline.org/resources/tia-942-b/
+# Rated-3 means any component can be maintained without IT shutdown.
+# Decides RATED-3 DEFINITION, not a capacity percentage. bloom = understand.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q233"
+kind = "single-select"
+module = 3
+stem = "A design claims Rated-3 because it has 2N UPS capacity. According to TIA-942-B, the claim is:"
+choices = [
+  "Incomplete — Rated-3 requires concurrent maintainability of the entire path, not just UPS redundancy",
+  "Valid — 2N UPS capacity is the sole requirement for Rated-3 classification",
+  "Valid if the UPS units are from different manufacturers for supply-chain diversity",
+  "Incomplete only if the cooling system is less than N+1 redundant",
+]
+correct = "A"
+explanation = "TIA-942-B §5.3.4 defines Rated-3 as 'Concurrently Maintainable' — any single component in the power or cooling path can be removed for maintenance without interrupting IT load. 2N UPS capacity addresses one component but says nothing about distribution paths, transfer switches, cooling, or fire suppression. Rated-3 is a topology claim about the entire infrastructure, not a capacity claim about one subsystem."
+topic_ids = ["m03-tia942", "m03-redundancy"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -83,7 +83,7 @@
 #
 # REGISTERED (row exists; marker at the site or the site is a second
 # occurrence of a claim already marked in the same file):
-#   - 896 / 871 / ~21.8× pool size — fact-bank-item-count-804,
+#   - 904 / 879 / ~22.0× pool size — fact-bank-item-count-804,
 #     fact-bank-approved-count-779, fact-approved-pool-multiplier-19-5
 #     (IDs are stable names; needles track the live units_index)
 #   - CHECK_STEPS= / INJECTIONS= — fact-check-steps-enforced,
@@ -169,16 +169,16 @@ trigger = "deny_unknown_fields"
 id = "fact-bank-item-count-804"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `bank_item_count` 896 (file-set size, retired included)?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": 896' }
+question = "Does the generated units index report `bank_item_count` 904 (file-set size, retired included)?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": 904' }
 trigger = "867 files / 842"
 
 [[fact]]
 id = "fact-bank-approved-count-779"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `approved_item_count` 871?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 871' }
+question = "Does the generated units index report `approved_item_count` 879?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 879' }
 trigger = "842 approved / 25 retired"
 
 [[fact]]
@@ -199,8 +199,8 @@ trigger = "134 Learn units"
 id = "fact-approved-pool-multiplier-19-5"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `approved_item_count` 871, i.e. the drawable pool whose exam multiplier is ~21.8× (871/40)?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 871' }
+question = "Does the generated units index report `approved_item_count` 879, i.e. the drawable pool whose exam multiplier is ~22.0× (879/40)?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 879' }
 trigger = "20.9× exam"
 
 [[fact]]

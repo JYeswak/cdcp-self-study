@@ -6,7 +6,7 @@
 schema_version = 1
 canonical = "cdcp-bank-v3"
 hash_alg = "sha256"
-bank_hash = "365b07617fd52f43dfa89b8bbedb8e39de3ae27f10cc67b1a10f0e54cd4af761"
+bank_hash = "990c597426aaba761487b7e0e1c13ff85cea104fd2586d7c147200aad718d80d"
 
 [knowledge]
 "knowledge/bank_policy.toml" = "44a7edc79f147dbadbfd174678e77137623942ebf22f6a8bfa63888b795b7d40"
@@ -17,7 +17,7 @@ bank_hash = "365b07617fd52f43dfa89b8bbedb8e39de3ae27f10cc67b1a10f0e54cd4af761"
 "knowledge/sources.toml" = "f5e09110b2b47871eda0a915c3dfd48c60392da45409ebe0f812dc56977a8034"
 "knowledge/standards_crosswalk.toml" = "e6c784684fb4febe7e4a9e44b4de7559aa975aef642f5d4b6ab3eda803ab9054"
 "knowledge/standards_families.toml" = "f91a61020123b93f2c7f38cc210712b2b84264701bfa0dbef026a9e206908c23"
-"knowledge/topics.toml" = "eec7c7c5a472906e8777e5db4ece8c513728fb273161194a950e75363e1fbda1"
+"knowledge/topics.toml" = "c8b00e383ad7852baf0801964dd1637e0da49b5b3ecc73c3cf0b9339c66b8d3b"
 
 [modules]
 "modules/01-mission-critical.md" = "d088657727fec72d4d582205a88fbb2e686ef38e92de4847f5e6389e2d6608dd"

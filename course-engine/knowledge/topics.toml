@@ -98,6 +98,60 @@ domain = "03-site-building"
 label = "Supporting facilities and function"
 source = "src-epi-cdcp-page"
 
+[[topic]]
+id = "m03-tia942"
+domain = "03-site-building"
+label = "TIA-942 Rated levels vs Uptime Tier terminology"
+source = "src-tia-942"
+
+[[topic]]
+id = "m03-standards"
+domain = "03-site-building"
+label = "Site/building standard edition pinning"
+source = "src-tia-942"
+
+[[topic]]
+id = "m03-assessment"
+domain = "03-site-building"
+label = "Self-declaration vs third-party TIA-942 assessment"
+source = "src-tia-942"
+
+[[topic]]
+id = "m03-contracts"
+domain = "03-site-building"
+label = "Contracted edition of TIA-942 in design scope"
+source = "src-tia-942"
+
+[[topic]]
+id = "m03-redundancy"
+domain = "03-site-building"
+label = "Rated-3 concurrent maintainability scope"
+source = "src-tia-942"
+
+[[topic]]
+id = "m03-audit"
+domain = "03-site-building"
+label = "TIA-942 audit fluency (ISO 19011)"
+source = "src-tia-942"
+
+[[topic]]
+id = "m03-evidence"
+domain = "03-site-building"
+label = "Audit evidence vs unverified claims"
+source = "src-tia-942"
+
+[[topic]]
+id = "m03-nonconformity"
+domain = "03-site-building"
+label = "Major vs minor nonconformity classification"
+source = "src-tia-942"
+
+[[topic]]
+id = "m03-roles"
+domain = "03-site-building"
+label = "Internal auditor vs lead auditor role"
+source = "src-tia-942"
+
 # --- 04 Floor ceiling ---
 [[topic]]
 id = "m04-floor-standards"

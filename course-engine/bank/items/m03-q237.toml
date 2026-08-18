@@ -1,0 +1,26 @@
+# Original CTIA/CTLA educational MCQ — ms4j.10: nonconformity classification.
+# Public heading: CTLA "TIA-942 Certified Lead Auditor" —
+# https://www.epi-ap.com/services/1/3/97/TIA-942_Certified_Lead_Auditor_(CTLA)
+# Cites: ISO 19011:2018 §6.4.8 "Generating audit findings" —
+# https://www.iso.org/standard/70017.html
+# Major nonconformity = systemic or affects capability; minor = isolated deviation.
+# Decides CLASSIFICATION CRITERIA, not a severity score. bloom = analyze.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q237"
+kind = "single-select"
+module = 3
+stem = "An audit finds that the site has no documented procedure for generator load-bank testing — tests are performed ad-hoc by individual technicians. The lead auditor classification is:"
+choices = [
+  "Major nonconformity — missing a required procedure is systemic and affects the site's ability to demonstrate compliance",
+  "Minor nonconformity — tests are still being performed, so the gap is procedural rather than operational",
+  "Observation only — procedural documentation is a recommendation, not a requirement under TIA-942",
+  "No finding — ad-hoc testing by experienced technicians is an acceptable alternative to documented procedures",
+]
+correct = "A"
+explanation = "ISO 19011:2018 §6.4.8 distinguishes major from minor nonconformities. A major nonconformity is systemic — it affects the organization's ability to meet requirements or indicates a breakdown in the management system. Missing a documented procedure entirely (not just a gap in one instance) is systemic: the site cannot demonstrate repeatable, auditable compliance. Minor nonconformities are isolated deviations from an otherwise functioning system."
+topic_ids = ["m03-audit", "m03-nonconformity"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

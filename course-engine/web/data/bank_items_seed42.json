@@ -6108,6 +6108,208 @@
     ]
   },
   {
+    "bloom": "understand",
+    "choices": [
+      "TIA-942 uses 'Rated' (Rated-1 through Rated-4), not 'Tier' — Tier is an Uptime Institute term",
+      "No defect — TIA-942 and Uptime Institute use the same Tier terminology interchangeably",
+      "Minor defect — Tier III and Rated-3 are identical, so the label is functionally correct",
+      "No defect — TIA adopted Uptime's Tier terminology in the 942-B revision"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "TIA-942-B §5.3 defines 'Rated-1' through 'Rated-4' for infrastructure rating levels. 'Tier I' through 'Tier IV' is Uptime Institute's terminology from their Tier Standard. The two systems have similar intent but different requirements and assessment processes. Calling a site 'TIA-942 Tier III' conflates two separate standards. A design consultant must distinguish Rated (TIA) from Tier (Uptime) and cite the correct standard for each claim.",
+    "id": "m03-q232",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A vendor claims 'TIA-942 Tier III certified.' The terminology defect is:",
+    "tags": [],
+    "topic_ids": [
+      "m03-tia942",
+      "m03-standards"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Incomplete — Rated-3 requires concurrent maintainability of the entire path, not just UPS redundancy",
+      "Valid — 2N UPS capacity is the sole requirement for Rated-3 classification",
+      "Valid if the UPS units are from different manufacturers for supply-chain diversity",
+      "Incomplete only if the cooling system is less than N+1 redundant"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "TIA-942-B §5.3.4 defines Rated-3 as 'Concurrently Maintainable' — any single component in the power or cooling path can be removed for maintenance without interrupting IT load. 2N UPS capacity addresses one component but says nothing about distribution paths, transfer switches, cooling, or fire suppression. Rated-3 is a topology claim about the entire infrastructure, not a capacity claim about one subsystem.",
+    "id": "m03-q233",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A design claims Rated-3 because it has 2N UPS capacity. According to TIA-942-B, the claim is:",
+    "tags": [],
+    "topic_ids": [
+      "m03-tia942",
+      "m03-redundancy"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Pin the edition (942-B or 942-C) — requirements differ between editions and 'TIA-942' alone is ambiguous",
+      "No correction needed — TIA-942 editions are backward-compatible, so any edition satisfies the reference",
+      "Default to the newest edition since older editions are automatically superseded on publication",
+      "No correction needed — the assessor will select the appropriate edition during the audit"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "TIA-942-B (2017) and TIA-942-C (2024) have different requirement sets — topology definitions, electrical criteria, and cabling standards evolved between editions. A contract that says only 'TIA-942 compliance' is ambiguous: the designer may build to 942-B while the owner expects 942-C. Edition pinning (e.g., 'TIA-942-B Rated-3') removes the ambiguity. Standards are not auto-superseded in contracts; each party may assume a different edition.",
+    "id": "m03-q234",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A contract references 'TIA-942 compliance' without specifying an edition. The design-consultant correction is:",
+    "tags": [],
+    "topic_ids": [
+      "m03-tia942",
+      "m03-standards",
+      "m03-contracts"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "'Designed to' is a self-declaration — it does not imply third-party assessment of compliance",
+      "No distinction — TIA issues compliance certificates for every design that follows the standard",
+      "'Designed to' requires a registered TIA assessor signature before the claim can be published",
+      "No distinction — the phrase 'Designed to' is legally equivalent to 'Certified by TIA'"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "TIA-942-B §1.2 defines requirements but does not mandate or provide an assessment program. 'Designed to TIA-942-B Rated-3' is a self-declaration by the designer or owner — it may or may not have been verified by a third party. A due-diligence reviewer should ask whether an independent assessor validated the claim and, if so, request the assessment report. Self-declaration and third-party assessment are distinct; the marketing phrase does not prove either.",
+    "id": "m03-q235",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A marketing sheet says 'Designed to TIA-942-B Rated-3.' A due-diligence reviewer asks for the assessment report. The distinction is:",
+    "tags": [],
+    "topic_ids": [
+      "m03-tia942",
+      "m03-assessment"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "A verbal claim is not audit evidence — evidence requires records, observations, or verifiable statements",
+      "No defect — verbal confirmation from the facility manager is sufficient audit evidence",
+      "Acceptable if the auditor documents the verbal claim in the audit report as 'management attestation'",
+      "Acceptable if the claim is consistent with what other staff members also assert verbally"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "ISO 19011:2018 §3.9 defines audit evidence as 'records, statements of fact or other information which are relevant to the audit criteria and verifiable.' A verbal claim ('we follow the schedule') is not verifiable on its own. The auditor must request the maintenance log, work orders, or other records that corroborate the claim. Accepting unverified assertions undermines the audit's objectivity.",
+    "id": "m03-q236",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "An internal auditor accepts 'we follow the maintenance schedule' as evidence of compliance. According to ISO 19011, the defect is:",
+    "tags": [],
+    "topic_ids": [
+      "m03-audit",
+      "m03-evidence"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Major nonconformity — missing a required procedure is systemic and affects the site's ability to demonstrate compliance",
+      "Minor nonconformity — tests are still being performed, so the gap is procedural rather than operational",
+      "Observation only — procedural documentation is a recommendation, not a requirement under TIA-942",
+      "No finding — ad-hoc testing by experienced technicians is an acceptable alternative to documented procedures"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "ISO 19011:2018 §6.4.8 distinguishes major from minor nonconformities. A major nonconformity is systemic — it affects the organization's ability to meet requirements or indicates a breakdown in the management system. Missing a documented procedure entirely (not just a gap in one instance) is systemic: the site cannot demonstrate repeatable, auditable compliance. Minor nonconformities are isolated deviations from an otherwise functioning system.",
+    "id": "m03-q237",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "An audit finds that the site has no documented procedure for generator load-bank testing — tests are performed ad-hoc by individual technicians. The lead auditor classification is:",
+    "tags": [],
+    "topic_ids": [
+      "m03-audit",
+      "m03-nonconformity"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Pin the edition before fieldwork — audit findings depend on which edition's requirements apply",
+      "No correction needed — the auditor selects the edition based on what the site can pass",
+      "No correction needed — all TIA-942 editions have identical audit criteria",
+      "Pin the edition after fieldwork so the report can reference the most favorable requirements"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "ISO 19011:2018 §5.2 requires audit objectives and criteria to be defined before the audit begins. TIA-942-B and TIA-942-C have different requirement sets; an unpinned criterion leaves ambiguity about which requirements the auditor is checking. Selecting or switching editions mid-audit — or after fieldwork — compromises objectivity. The audit plan must state 'TIA-942-B Rated-3' or equivalent before the first site visit.",
+    "id": "m03-q238",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "An audit plan lists 'TIA-942 compliance' as the criterion without specifying an edition. The internal auditor correction is:",
+    "tags": [],
+    "topic_ids": [
+      "m03-audit",
+      "m03-tia942",
+      "m03-standards"
+    ]
+  },
+  {
+    "bloom": "understand",
+    "choices": [
+      "Internal auditor — audits the organization's own systems to identify gaps before external assessment",
+      "Lead auditor — leads third-party certification audits for external clients",
+      "Either role — internal and lead auditor are interchangeable titles for the same function",
+      "Neither role — self-audits are not recognized under ISO 19011 audit frameworks"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "ISO 19011:2018 §7.2.3 distinguishes internal auditors (first-party audits of one's own organization) from lead auditors (who manage audit teams, typically for second- or third-party audits). An organization auditing itself for TIA-942 readiness uses internal auditors. Lead auditors manage external or certification audit teams. The roles are not seniority levels; they serve different audit contexts.",
+    "id": "m03-q239",
+    "kind": "single-select",
+    "module": 3,
+    "objective_ids": [],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "An organization wants to conduct its own TIA-942 compliance audit without external assessors. The role that applies is:",
+    "tags": [],
+    "topic_ids": [
+      "m03-audit",
+      "m03-roles"
+    ]
+  },
+  {
     "bloom": "remember",
     "choices": [
       "Store bulk diesel under every tile",
