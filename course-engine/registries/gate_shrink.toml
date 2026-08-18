@@ -44,7 +44,8 @@
 # (bd-engine-not-gate-ar39.14). Approved-pool module floors are
 # crates/cdcp_bank (verify_coverage.rs). Gate file is a thin dispatcher
 # so check.sh still runs `cdcp_gate verify-coverage`. Dual-path .py stays.
-ceiling_lines = 37284
+# 37284 -> 37283: CI measured 37283 on 5b67a4c/9f0f8a4; slack note said lower.
+ceiling_lines = 37283
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
