@@ -1,22 +1,21 @@
 # Original CDFOM educational MCQ — ms4j.3 physical-security access review.
 # syllabus_heading = "Managing Physical Security — Security policies and procedures; Reviews, internal and external audits"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
-# source_ids = ["src-epi-cdfom-page", "src-nist-sp800-53-r5-5.2.0"]
-# source = "NIST SP 800-53 Rev. 5, Release 5.2.0 (2025-08-27), PE-2(a)-(d) and PE-2(1) — official publication page: https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final"
-# claim = "A facility access list is maintained, reviewed, and cleared when access is no longer required."
+# source = "ISO/IEC 22237-6:2024 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/08/22/82250.html"
+# claim = "ISO/IEC 22237-6:2024 covers physical-security protection against unauthorized access in data-centre spaces."
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q341"
 kind = "single-select"
 module = 15
-stem = "A maintenance vendor's contract ended Friday, but its badge still appears on the facility access list Monday. What control action should the CDFOM manager take?"
+stem = "ISO/IEC 22237-6:2024 specifies physical-security requirements for data-centre spaces in relation to protection against:"
 choices = [
-  "Keep the badge active until the next quarterly security review",
-  "Remove the vendor from the access list when access is no longer required",
-  "Move the badge to a shared visitor account so the audit trail stays short",
-  "Leave it active because a signed contract is the access authorization",
+  "Unauthorized access",
+  "Automatic service-catalogue availability",
+  "Transformer harmonic capability",
+  "Cooling-water chemistry only",
 ]
-correct = "B"
-explanation = "NIST SP 800-53 Rev. 5 PE-2 requires the organization to maintain the authorized-access list, issue credentials, review the list at an organization-defined frequency, and remove individuals when access is no longer required. PE-2(1) also supports role-based facility access. A contract, visitor account, or future review does not preserve least-privilege access after the business need ends."
+correct = "A"
+explanation = "The current ISO abstract states that ISO/IEC 22237-6:2024 specifies physical-security requirements and recommendations for data-centre spaces in relation to protection against unauthorized access, along with other physical threats. It does not prescribe badge-revocation timing or an access-list review interval."
 topic_ids = ["m15-ops-security"]
 objective_ids = ["obj-m15-security-matrix"]
 bloom = "apply"

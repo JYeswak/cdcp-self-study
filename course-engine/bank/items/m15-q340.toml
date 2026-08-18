@@ -1,22 +1,21 @@
 # Original CDFOM educational MCQ — ms4j.3 organization / skills matrix.
 # syllabus_heading = "The Data Center Organization — Skills matrix; Training and assessment"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
-# source_ids = ["src-epi-cdfom-page", "src-nist-sp800-53-r5-5.2.0"]
-# source = "NIST SP 800-53 Rev. 5, Release 5.2.0 (2025-08-27), AT-3(a)(1)-(2), (c), and AT-3(1) — official publication page: https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final"
-# claim = "Role-based training is tied to assigned duties, system changes, and a defined recurrence; AT-3(1) includes facility environmental controls."
+# source = "ISO 55012:2024 — https://www.iso.org/standard/82454.html?browse=tc"
+# claim = "ISO 55012:2024 gives guidance on personnel involvement, knowledge, competence, development plans, and mutual dependencies within an asset management system."
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q340"
 kind = "single-select"
 module = 15
-stem = "The skills matrix for a data-center facilities team lists HVAC, power, and fire-detection roles. A control-system change is approved, but no role-based training update is planned. What manager action is directly supported?"
+stem = "ISO 55012:2024 gives guidance on improving which aspect of an asset management system?"
 choices = [
-  "Update role training before the changed duty begins",
-  "Keep the matrix because the vendor sent a change notice",
-  "Replace the matrix with one annual attendance total",
-  "Wait for an incident, then train only the person who changed it",
+  "Personnel involvement and competence",
+  "Replacing all asset records with a vendor brochure",
+  "Eliminating development plans and team dependencies",
+  "Treating asset management as unrelated to people and culture",
 ]
 correct = "A"
-explanation = "NIST SP 800-53 Rev. 5 AT-3 requires role-based training before assigned duties, when system changes require it, and at an organization-defined frequency; AT-3(c) incorporates lessons from incidents. AT-3(1) specifically includes environmental controls such as fire detection, temperature, HVAC, and power. A vendor notice is not the affected role's training record, and waiting for an incident reverses the control's timing."
+explanation = "The current ISO abstract describes guidance on enhancing personnel involvement and competence within an asset management system, including knowledge and awareness, competence, development plans, and mutual dependencies in teams. It does not prescribe a data-centre training interval or certification claim."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = ["obj-m15-training-program"]
 bloom = "apply"

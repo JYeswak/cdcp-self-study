@@ -870,6 +870,25 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 345 — CDFOM people, physical security, and continuity catalogs
+
+**Review date:** 2026-08-18. Three existing CDFOM PASS items were aligned to
+current official ISO catalogs. ISO 55012:2024 covers personnel involvement and
+competence in an asset management system. ISO/IEC 22237-6:2024 covers physical
+security of data-centre spaces, including protection against unauthorized
+access. ISO 22301:2019 provides a business-continuity management-system
+framework for preparing for, responding to, and recovering from disruptions.
+The revised items do not claim NIST control identifiers, badge-review
+intervals, cooling-capacity values, or recovery-time objectives.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q340 | The Data Center Organization — Skills matrix; Training and assessment | ISO 55012:2024 — https://www.iso.org/standard/82454.html?browse=tc | **PASS retained** — people involvement and competence scope is explicit |
+| m15-q341 | Managing Physical Security — Security policies and procedures; Reviews, internal and external audits | ISO/IEC 22237-6:2024 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/08/22/82250.html | **PASS retained** — unauthorized-access protection scope is explicit |
+| m15-q342 | Organizational Resilience — Business continuity; Data center facility options; Business Impact Analysis | ISO 22301:2019 — https://www.iso.org/standard/75106.html?browse=tc | **PASS retained** — continuity preparation, response, and recovery scope is explicit |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 344 — commissioning source-bar alignment
 
 **Review date:** 2026-08-18. An existing commissioning PASS was aligned to an
