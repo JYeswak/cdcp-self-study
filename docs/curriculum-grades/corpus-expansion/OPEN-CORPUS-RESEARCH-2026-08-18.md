@@ -976,6 +976,21 @@ to those catalog/preview lists.
 
 No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 235 — ISO/IEC 22237-6 physical-security protection scope
+
+**Review date:** 2026-08-18. The current ISO preview for ISO/IEC 22237-6:2024
+specifies physical-security requirements and recommendations for data-centre
+spaces and systems addressing unauthorized access, intrusion, internal fire,
+and internal or external environmental events that affect the defined level of
+protection. The item is bounded to those named protection topics; no
+colocation-specific badge zoning or tenant-lease policy is inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m13-q097 | Physical Security and Safety — Components for physical security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html | **PASS** — unauthorized-access, intrusion, fire, and environmental-event protection topics are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies
