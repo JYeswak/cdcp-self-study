@@ -2,7 +2,8 @@
 # This overlay is supplemental interview study material, NOT an EPI exam and NOT a credential.
 # syllabus_heading = "Cooling"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/5/Certified_Data_Centre_Specialist_(CDCS)"
-# source_ids = ["src-epi-cdcs-page", "src-ashrae-tc99-liquid-cooling-2021"]
+# source_ids = ["src-epi-cdcs-page"]
+# blocked_on_sourcing = "ASHRAE TC 9.9 liquid-cooling W-class body is not used here; official catalog/series page only — https://www.ashrae.org/technical-resources/bookstore/datacom-series"
 # claim = ASHRAE W-classes (W1–W5) define facility-water supply temperature ranges for liquid cooling.
 id = "m09-q301"
 kind = "single-select"
@@ -16,9 +17,9 @@ choices = [
 ]
 correct = "A"
 explanation = "ASHRAE TC 9.9's liquid-cooling guidelines define W-classes (W1 through W5) as facility-water supply temperature envelopes. W1 is the coldest (requires mechanical chilling year-round); W5 is the warmest (allows high economizer fractions). The class constrains what chip-package TDPs can be cooled and how many free-cooling hours the site can capture. W-classes do not define PUE, rack density, or chiller efficiency directly."
-topic_ids = ["m09-cooling", "m09-liquid-cooling"]
+topic_ids = ["m09-liquid", "m09-ashrae-envelopes"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "retired"
