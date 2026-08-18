@@ -887,6 +887,22 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 213 — IEC isolating-transformer scope boundary
+
+**Review date:** 2026-08-18. The current IEC 61558-2-4:2021 catalog page
+describes safety requirements and tests for isolating transformers and power
+supplies incorporating isolating transformers for general applications. This
+supports a bounded standard-scope question without asserting galvanic-noise
+performance, grounding topology, UPS substitution, or site-specific protection.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q071 | Isolation transformer | IEC 61558-2-4:2021 — https://webstore.iec.ch/en/publication/65383 | **PASS** — the standard’s isolating-transformer safety and test scope is explicit |
+
+Detailed construction, test values, grounding, and noise-control behavior remain
+outside this catalog receipt. No PDF was fetched. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 212 — IEC static-transfer-system boundary
 
 **Review date:** 2026-08-18. The current IEC 62310-3:2008 catalog page applies

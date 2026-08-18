@@ -1,19 +1,22 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Isolation transformer
-# Official catalog/preview receipt: IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588
-# BLOCKED: the official catalog does not expose the exact isolation/noise/grounding teaching proposition.
+# Official catalog/preview receipt: IEC 61558-2-4:2021 —
+# https://webstore.iec.ch/en/publication/65383
+# PASS: the current IEC catalog covers safety of isolating transformers and
+# power supplies incorporating them for general applications. No paid body or
+# PDF was fetched.
 id = "m06-q071"
 kind = "single-select"
 module = 6
-stem = "An isolation transformer provides:"
+stem = "IEC 61558-2-4:2021 is a standard for:"
 choices = [
-  "Unlimited fault current always",
-  "Galvanic isolation between circuits and can help certain noise/ground issues—not a UPS substitute",
-  "Automatic generator start",
-  "PUE below 0.5 by definition",
+  "Safety requirements and tests for isolating transformers and power supplies incorporating them for general applications",
+  "Unlimited fault current and automatic generator starting",
+  "A replacement for all UPS energy storage",
+  "A guaranteed PUE value below 0.5"
 ]
-correct = "B"
-explanation = "Isolation is galvanic separation; still need proper UPS, grounding, and distribution design."
+correct = "A"
+explanation = "The current IEC catalog identifies IEC 61558-2-4 as covering safety requirements and tests for isolating transformers and related power supplies for general applications; noise, grounding, and UPS substitution are separate design questions."
 topic_ids = ["m06-isolation-xfmr", "m06-transformers"]
 objective_ids = []
 bloom = "understand"
