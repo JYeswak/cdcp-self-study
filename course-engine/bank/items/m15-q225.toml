@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — ebrr.31 leftover: floor management (work control)
 # Public syllabus heading: Operational security and safety practices
 # Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current management-and-operations catalog does not expose the exact item-level operational security and safety practices proposition. No paid body or PDF was fetched.
+# Claim is limited to the current public abstract's operational focus areas.
 id = "m15-q225"
 kind = "single-select"
 module = 15
-stem = "A change-window packet treats “floor management” as the weekly cleaning rota, while two MOPs share one CDU loop, the PTW board does not list the vendor already in row 12, and nobody has counted whether isolating the CDU spends the remaining N+1. The taught reading is:"
+stem = "Which set of topics does ISO/IEC TS 22237-7:2018 identify as part of its primary operational focus?"
 choices = [
-  "Approve: cleaning is the 2.1 heading, so the rota is the programme; simultaneous MOPs and an unlisted vendor are housekeeping details",
-  "Refuse: floor management is work control on the live floor — who is on the floor, the PTW board, and the heat/power/liquid budget of the change — not a synonym for cleaning. Two MOPs on one loop and an uncounted N+1 are the heading failing",
-  "Convert the missing N+1 into an invented outage percentage so the packet can be scored",
-  "Send everyone to an EPI / certification class; a credential hour-count substitutes for the PTW board",
+  "Resilience, availability, risk management, risk mitigation, capacity planning, security, and energy efficiency",
+  "Only weekly cleaning schedules and janitorial staffing",
+  "Only customer SLA credits and vendor contract language",
+  "Only electrical protection-device coordination"
 ]
-correct = "B"
-explanation = "Floor management is who is on the floor, what work is live, and whether the change still leaves N+1. Cleaning is one control inside that set, not the heading. No invented outage percent. No EPI / certification substitute."
+correct = "A"
+explanation = "The current ISO catalog lists resilience, availability, risk management, risk mitigation, capacity planning, security, and energy efficiency as the primary operational focus. It does not expose the former floor-management vignette or a certification substitute."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "analyze"

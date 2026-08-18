@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Documentation
 # Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current management-and-operations catalog does not expose the exact item-level documentation proposition. No paid body or PDF was fetched.
+# Claim is limited to the current public abstract's management-and-operation process scope.
 id = "m15-q213"
 kind = "single-select"
 module = 15
-stem = "Documented single lines, rack elevations, and cable schedules should be updated:"
+stem = "ISO/IEC TS 22237-7:2018 specifies processes for the management and operation of:"
 choices = [
-  "As part of the change process when the field changes—not months later if ever",
-  "Only when an auditor is parking outside",
-  "Never, once the first PDF is printed",
-  "By memory during the next outage"
+  "Data centres",
+  "Only cloud applications and business software",
+  "Only electrical installation wiring rules",
+  "Only physical-access hardware, excluding operations"
 ]
 correct = "A"
-explanation = "Documentation is a controlled product of change, not an annual archaeology project."
+explanation = "The current ISO catalog states that ISO/IEC TS 22237-7:2018 specifies processes for the management and operation of data centres. It does not expose the former as-built-document update rule."
 topic_ids = ["m15-documentation", "m15-labelling"]
 objective_ids = []
 bloom = "apply"

@@ -1305,6 +1305,28 @@ selection, heat-rejection mechanics, non-electric cooling performance, or a
 cooling-plant design approval. This pass does not certify a learner or close
 ms4j.
 
+## Breadth pass 374 — ISO/IEC TS 22237-7:2018 management/operations scope
+
+**Review date:** 2026-08-18. Three module-15 items were narrowed to the
+current ISO Online Browsing Platform page for ISO/IEC TS 22237-7:2018. The page
+states that the 2018 edition remains current while ISO/IEC DIS 22237-7 is under
+development. Its abstract specifies processes for management and operation of
+data centres; its primary operational focus includes resilience, availability,
+risk management and mitigation, capacity planning, security and energy
+efficiency; and its secondary focus aligns actual and future user demands. No
+PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q213 | Documentation | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — data-centre management/operation process scope is explicit |
+| m15-q221 | Operational security and safety practices | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — security is an explicit primary operational focus |
+| m15-q225 | Operational security and safety practices | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — resilience, availability, risk, capacity, security and energy-efficiency focus is explicit |
+
+The pass does not infer a documentation lifecycle, contractor-badge matrix,
+PTW/floor-management procedure, SLA/OLA/underpinning-contract taxonomy,
+organizational chart, or a management-process certification. This pass does
+not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
