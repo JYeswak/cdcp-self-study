@@ -1794,9 +1794,6 @@ pub fn script_still_invokes_py(text: &str, path: &str) -> bool {
 
 /// Is the probe's plant genuinely a known-bad for the registry the snapshot
 /// carries? `Ok(())` only when it is: unlisted, in scope, and scanned.
-///
-/// # WHY THIS PARSES INSTEAD OF SCANNING
-///
 /// Until 2026-08-14 this was `reg_text.contains(PROBE_PLANT)` — a raw substring
 /// scan of the registry file. Exemption is not conferred by a byte sequence
 /// appearing somewhere in a file; it is conferred by an `[[allow]]` row whose
@@ -1822,12 +1819,6 @@ pub fn script_still_invokes_py(text: &str, path: &str) -> bool {
 /// swapping in a parse without this branch would let a malformed registry make
 /// the plant silently exempt with the gate saying nothing. Rows this function
 /// cannot read are rows it cannot clear.
-///
-/// # WHAT IT CANNOT DECIDE
-///
-/// Whether the child `scripts/check.sh` propagates the verdict — that is the
-/// probe's job, not this function's. It reads one snapshot's registry text and
-/// says only whether planting the known-bad is still meaningful against it.
 pub fn probe_plant_vacuity(reg_text: &str) -> Result<(), String> {
     let al = parse_allowlist(reg_text).map_err(|e| {
         format!(
@@ -1958,17 +1949,25 @@ fn kill_tree(pid: u32, child: &mut std::process::Child) {
     let _ = child.wait();
 }
 
-fn tail(text: &str, n: usize) -> String {
-    let lines: Vec<&str> = text.lines().collect();
-    let from = lines.len().saturating_sub(n);
-    lines[from..].join("\n")
+fn reject_stale_probe_plant(root: &Path) -> Result<(), GateError> {
+    let path = root.join(PROBE_PLANT);
+    if path.try_exists().unwrap_or(true) {
+        return Err(GateError::error(format!(
+            "STALE PLANT: {} is in the production scan root; not an ordinary violation",
+            path.display()
+        )));
+    }
+    Ok(())
 }
 
-/// `--prove-wired`: the behavioural leg of bd-bo6i.
-///
-/// Materialise the INDEX (not the working tree — the wiring that matters is the
-/// one the commit carries), plant an unlisted `.py`, run `scripts/check.sh` for
-/// real, and require check.sh itself to stop non-zero on the guard's verdict.
+struct ProbePlantCleanup(PathBuf);
+
+impl Drop for ProbePlantCleanup {
+    fn drop(&mut self) {
+        let _ = std::fs::remove_file(&self.0);
+    }
+}
+
 fn prove_wired(ctx: &GateCtx) -> Result<(), GateError> {
     if std::env::var_os(PROBE_ENV).is_some() {
         return Err(GateError::error(format!(
@@ -2004,10 +2003,7 @@ fn prove_wired(ctx: &GateCtx) -> Result<(), GateError> {
     probe_plant_vacuity(&reg_text).map_err(GateError::error)?;
 
     let plant = engine.join(PROBE_PLANT);
-    if let Some(parent) = plant.parent() {
-        std::fs::create_dir_all(parent)
-            .map_err(|e| GateError::error(format!("create {}: {e}", parent.display())))?;
-    }
+    let _plant_cleanup = ProbePlantCleanup(plant.clone());
     std::fs::write(
         &plant,
         "print(\"cdcp substrate probe: planted, unlisted, and expected to stop check.sh\")\n",
@@ -2070,11 +2066,10 @@ fn prove_wired(ctx: &GateCtx) -> Result<(), GateError> {
     let code = status.and_then(|s| s.code());
     let verdict = classify_probe(&log_text, code, PROBE_PLANT);
     let evidence = format!(
-        "planted {PROBE_PLANT} in {}; check.sh ended {}; transcript {}\n--- last lines of check.sh ---\n{}",
+        "planted {PROBE_PLANT} in scratch tree {}; check.sh ended {}; transcript {}",
         engine.display(),
         describe_exit(code),
-        log_path.display(),
-        tail(&log_text, 12)
+        log_path.display()
     );
 
     match verdict {
@@ -2205,6 +2200,9 @@ fn head_bytes(p: &Path, n: usize) -> Vec<u8> {
 
 pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     ctx.reject_unknown_flags(KNOWN_FLAGS)?;
+    if std::env::var_os(PROBE_ENV).is_none() {
+        reject_stale_probe_plant(&ctx.root)?;
+    }
     if ctx.has_flag("--prove-wired") {
         return prove_wired(ctx);
     }
