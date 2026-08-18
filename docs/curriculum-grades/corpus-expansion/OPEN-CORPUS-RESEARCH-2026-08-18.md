@@ -5032,6 +5032,21 @@ knowledge-transfer risk without using a paid ISO body.
 |---|---|---|---|
 | m15-q348 | The Data Center Organization — Succession planning; Career development | OPM Career Development — https://www.opm.gov/policy-data-oversight/training-and-development/career-development/ | **PASS** — IDP records, knowledge sharing, and succession-planning relevance are explicit |
 
-The P100 independent-commissioning-provider row remains BLOCKED because the
-current public GSA page does not expose that exact clause. No standard body or
-PDF was fetched. This pass does not certify a learner or close ms4j.
+The P100-specific wording was not retained; no standard body or PDF was
+fetched. This pass does not certify a learner or close ms4j.
+
+## Breadth pass 192 — DOE FEMP commissioning-team and hand-off receipt
+
+**Review date:** 2026-08-18. The current DOE FEMP HTML process page says the
+planning step assembles the commissioning team and considers contracted or
+in-house staff, qualifications, and resident knowledge. Its hand-off step
+requires final commissioning documentation describing the process, people,
+systems information, and actions taken. The bank item was narrowed from an
+unsupported GSA P100 provider claim to that public FEMP process.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q351 | Facilities Management — Maintenance policies and procedures | DOE FEMP Commissioning Process for Federal Facilities — https://www.energy.gov/cmei/femp/commissioning-process-federal-facilities | **PASS** — qualified contracted/in-house team formation and documented hand-off are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.

@@ -1,22 +1,22 @@
 # Original CDFOM educational MCQ — ms4j.3 commissioning governance.
 # syllabus_heading = "Facilities Management — Maintenance policies and procedures"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
-# source_ids = ["src-epi-cdfom-page", "src-gsa-p100-catalog"]
-# source = "GSA Facilities standards for the Public Buildings Service, current HTML page identifying 2024 P100 — https://www.gsa.gov/real-estate/facilities-standards-for-the-public-buildings-service"
-# disposition = "BLOCKED — the official GSA page confirms that 2024 P100 is the current listed facilities-standard edition, but the HTML page does not expose the independent commissioning-provider clause; the linked body was not fetched"
+# source_ids = ["src-epi-cdfom-page", "src-doe-femp-commissioning-html"]
+# source = "U.S. Department of Energy Federal Energy Management Program, Commissioning Process for Federal Facilities — current public HTML: https://www.energy.gov/cmei/femp/commissioning-process-federal-facilities"
+# receipt = "The official DOE page covers assembling a commissioning team with contracted or in-house staff and appropriate qualifications, then presenting final commissioning documentation at hand-off."
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q351"
 kind = "single-select"
 module = 15
-stem = "A public-building project is selecting its Total Building Commissioning provider. Which arrangement matches GSA PBS P100 2024?"
+stem = "A federal-facilities project is planning commissioning. Which arrangement matches the public FEMP process?"
 choices = [
-  "Use an independent commissioning provider",
+  "Use a qualified commissioning team, contracted or in-house, with documented hand-off",
   "Let the construction contractor alone review acceptance",
   "Wait for the first maintenance failure to appoint a reviewer",
   "Treat operator preparation as optional after startup",
 ]
 correct = "A"
-explanation = "BLOCKED — the current GSA facilities-standards page identifies 2024 P100 but does not expose the independent commissioning-provider clause needed here. The linked body was not fetched; do not treat this row as grounded."
+explanation = "The public DOE FEMP process calls for assembling a commissioning team with appropriate qualifications and allows contracted or in-house staff; its hand-off step presents final commissioning documentation. This is a bounded curriculum grounding receipt, not a credential or certification claim."
 topic_ids = ["m15-maintenance-sla", "m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "evaluate"
