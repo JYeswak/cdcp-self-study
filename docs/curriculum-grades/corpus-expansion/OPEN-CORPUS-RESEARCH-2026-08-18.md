@@ -887,6 +887,22 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 204 — IEC relative-humidity definition boundary
+
+**Review date:** 2026-08-18. The current public IEC Electropedia entry for
+relative humidity defines it as the ratio of water-vapour partial pressure to
+saturation partial pressure at the same temperature and notes percentage
+expression. This supports a bounded environmental-control definition question;
+dew-point preference, condensation, and operating limits remain outside the
+receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m09-q220 | Temperature and humidity | IEC 60050 IEV 113-04-65 — https://www.electropedia.org/iev/iev.nsf/display?ievref=113-04-65&openform= | **PASS** — the relative-humidity definition is explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 203 — IEC magnetic-quantity terminology boundary
 
 **Review date:** 2026-08-18. Current public IEC Electropedia entries define
