@@ -1,23 +1,23 @@
 # Original CDFOS daily-operations MCQ — ms4j.2 service improvement.
 # Public heading: CDFOS "Service Level Management — Service Improvement Process (SIP)" —
 # https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
-# Cite: UK Department for Education, Service Management standard, Version 1,
-# last updated 2025-01-22, "Purpose" and "Why this standard is important" —
-# https://apply-the-service-standard.education.gov.uk/standards/service-management
-# Claim: the standard names continual improvement and identifies improvement opportunities through trend analysis.
+# Cite: ISO/IEC 20000-1:2018, Information technology — Service management — Part 1:
+# Service management system requirements, official catalog/preview:
+# https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html
+# Claim: a service management system includes continual improvement of services.
 # Options are length-balanced; teaching lives in explanation.
 id = "m15-q354"
 kind = "single-select"
 module = 15
-stem = "A service-improvement process has a monthly report but no way to turn observed trends into changes. What supported next step is missing?"
+stem = "Which objective is explicitly included in the public preview of ISO/IEC 20000-1:2018 for a service management system?"
 choices = [
-  "Use trends to identify improvement opportunities",
-  "Freeze the process until a new service catalogue is approved",
-  "Count dashboard points and call the largest count the improvement",
-  "Replace trend review with a one-time satisfaction survey",
+  "Continually improve the planning, delivery, and improvement of services",
+  "Freeze service processes after the first successful delivery",
+  "Replace service management with a one-time satisfaction survey",
+  "Measure purchase cost without reviewing service performance",
 ]
 correct = "A"
-explanation = "The UK Department for Education's Service Management standard, Version 1, includes Continual Improvement as a practice and identifies opportunities for continuous improvements through trend analysis. A report that never informs an improvement decision has not closed that loop."
+explanation = "The ISO/IEC 20000-1:2018 public preview says the requirements include planning, design, transition, delivery, and improvement of services, and that an organization can improve those activities through effective implementation and operation of a service management system. It does not prescribe a trend threshold or service-catalogue sequence."
 topic_ids = ["m15-maintenance-sla", "m15-monitoring"]
 objective_ids = []
 bloom = "apply"

@@ -1,22 +1,22 @@
 # Original CDFOM educational MCQ — ms4j.3 continuity-plan testing.
 # syllabus_heading = "Organizational Resilience — Business continuity; Business Impact Analysis"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
-# source_ids = ["src-epi-cdfom-page", "src-nist-sp800-53-r5-5.2.0"]
-# source = "NIST SP 800-53 Rev. 5, Release 5.2.0 (2025-08-27), CP-4(a)-(c) and CP-4(1) — official publication page: https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final"
-# claim = "Continuity-plan management tests at an organization-defined frequency, reviews results, starts corrective action when needed, and coordinates testing with related plans."
+# source_ids = ["src-epi-cdfom-page", "src-iso-22301-2019"]
+# source = "ISO 22301:2019, Security and resilience — Business continuity management systems — Requirements, official catalog/preview: https://www.iso.org/standard/75106.html?browse=tc"
+# claim = "ISO 22301:2019 provides a business continuity management-system framework for preparing for, responding to, and recovering from disruptions."
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q364"
 kind = "single-select"
 module = 15
-stem = "A BIA-backed business-continuity plan is never exercised; results are not reviewed, and related plans are tested separately. What manager action is supported?"
+stem = "Which purpose is explicitly covered by the public preview of ISO 22301:2019?"
 choices = [
-  "Test, review, and correct",
-  "Wait for an outage before testing the plan",
-  "Name an alternate site and skip joint exercises",
-  "Let each plan owner exercise alone",
+  "Prepare for, respond to, and recover from disruptions through a business continuity management system",
+  "Specify one universal recovery-time objective for every organization",
+  "Replace continuity planning with a vendor contract",
+  "Certify a facility solely from its business-impact analysis",
 ]
 correct = "A"
-explanation = "NIST SP 800-53 Rev. 5 CP-4(a)-(c) requires testing the contingency plan at an organization-defined frequency, reviewing test results, and initiating corrective actions when needed. CP-4(1) adds coordination with organizational elements responsible for related plans, including business-continuity and emergency-related plans. The control does not prescribe a numeric cadence here."
+explanation = "The ISO 22301:2019 public preview describes a business continuity management system that helps organizations prepare for, respond to, and recover from disruptions. It does not expose a universal recovery-time objective or certify a facility from a BIA alone."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "evaluate"

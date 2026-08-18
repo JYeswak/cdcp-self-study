@@ -1,24 +1,23 @@
 # Original CDFOS daily-operations MCQ — ms4j.2 service reporting.
 # Public heading: CDFOS "Service Level Management — Reporting" —
 # https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
-# Cite: UK Department for Education, Service Management standard, Version 1,
-# last updated 2025-01-22, "Why this standard is important" —
-# https://apply-the-service-standard.education.gov.uk/standards/service-management
-# Claim: service-management reporting should provide visibility of support requirements for better
-# decision making and demand management.
+# Cite: ISO/IEC 20000-1:2018, Information technology — Service management — Part 1:
+# Service management system requirements, official catalog/preview:
+# https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html
+# Claim: a service management system can monitor, measure, and review the system and services.
 # Options are length-balanced; teaching lives in explanation.
 id = "m15-q376"
 kind = "single-select"
 module = 15
-stem = "A service report lists ticket totals but gives no visibility into support requirements for demand decisions. What supported improvement fits?"
+stem = "Which reporting activity is explicitly included in the public preview of ISO/IEC 20000-1:2018?"
 choices = [
-  "Expose support needs for decisions",
-  "Add ticket categories without reviewing demand",
+  "Monitor, measure, and review the service management system and services",
+  "Publish a fixed uptime percentage without measuring services",
   "Replace service reporting with a project closeout",
-  "Publish a satisfaction score without service context",
+  "Record invoices without reviewing service performance",
 ]
 correct = "A"
-explanation = "The UK Department for Education's Service Management standard, Version 1, says its practices provide visibility and awareness of support requirements to enable better decision making and improved demand management. A ticket count without that operational visibility does not satisfy the bounded reporting claim; the item does not invent a KPI or service-level percentage."
+explanation = "The ISO/IEC 20000-1:2018 public preview identifies monitoring, measuring, and reviewing the service management system and the services among the uses of the standard. It does not prescribe a fixed uptime percentage or an invoice-only reporting model."
 topic_ids = ["m15-maintenance-sla", "m15-monitoring"]
 objective_ids = []
 bloom = "apply"

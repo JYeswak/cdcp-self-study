@@ -917,6 +917,26 @@ This pass does not certify a learner, close `ms4j.2`/`ms4j.3`, or close the
 `ms4j` epic. Other narrow operations claims remain unchanged and are handled by
 their existing source or BLOCKED receipts.
 
+## Breadth pass 348 — service-improvement, reporting, and continuity previews
+
+**Review date:** 2026-08-18. Three more CDFOS/CDFOM items were narrowed to
+current official ISO catalog/preview claims. ISO/IEC 20000-1:2018’s public
+preview includes continual improvement and monitoring, measuring, and reviewing
+the service management system and services. ISO 22301:2019’s public preview
+covers preparing for, responding to, and recovering from disruptions. The
+revised items do not retain the former DfE or NIST control identifiers and do
+not invent a service KPI, test cadence, recovery-time objective, or certification
+claim.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q354 | Service Level Management — Service Improvement Process (SIP) | ISO/IEC 20000-1:2018 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html | **PASS retained** — continual-improvement scope is explicit |
+| m15-q364 | Organizational Resilience — Business continuity; Business Impact Analysis | ISO 22301:2019 — https://www.iso.org/standard/75106.html?browse=tc | **PASS retained** — disruption preparation, response, and recovery scope is explicit |
+| m15-q376 | Service Level Management — Reporting | ISO/IEC 20000-1:2018 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html | **PASS retained** — monitoring, measuring, and reviewing scope is explicit |
+
+No PDF or paywalled body was fetched or pasted. This pass does not certify a
+learner or close any ms4j bead.
+
 ## Breadth pass 345 — CDFOM people, physical security, and continuity catalogs
 
 **Review date:** 2026-08-18. Three existing CDFOM PASS items were aligned to

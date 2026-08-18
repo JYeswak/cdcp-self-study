@@ -53,6 +53,7 @@ Agent Mail reservation of this path was attempted (`BlueReef`, project `/Users/j
 | C-DOE-BLACKOUT | U.S.–Canada Power System Outage Task Force, *Final Report on the August 14, 2003 Blackout* (official report page) | https://www.energy.gov/oe/downloads/blackout-2003-final-report-august-14-2003 | Loss-of-redundancy escalation and silent-alarm failure mode for m15-q233. |
 | C-20000-1 | ISO/IEC 20000-1:2018, Edition 3, current after 2023 review | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html | Public preview scope for service planning, design, transition, delivery, improvement, and consistent lifecycle across providers; no body fetched |
 | C-22237-6 | ISO/IEC 22237-6:2024, Edition 1 | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/08/22/82250.html | Public preview scope for physical security and protection against unauthorized access and intrusion; no body fetched |
+| C-22301 | ISO 22301:2019, Edition 2, current catalog page with Amd 1:2024 | https://www.iso.org/standard/75106.html?browse=tc | Public preview scope for preparing for, responding to, and recovering from disruptions; no body fetched |
 
 **Fetched and refused as item cites**
 
@@ -362,7 +363,7 @@ q232 does not establish a vendor matrix taxonomy.
 |---|---|---|---|
 | m15-q352 | Service Level Management — Service portfolio and catalogue | DfE Service Management standard, Version 1, Purpose / Why this standard is important | A service catalogue provides a central list and availability of supported services. |
 | m15-q353 | Service Level Management — Service Level Agreements | ISO/IEC 20000-1:2018 public preview | Service management covers planning, design, transition, delivery, and improvement, with a consistent lifecycle across providers including a supply chain; no OLA taxonomy is inferred. |
-| m15-q354 | Service Level Management — Service Improvement Process (SIP) | DfE Service Management standard, Version 1, Purpose / Why this standard is important | Continual improvement can use trend analysis to identify improvement opportunities. |
+| m15-q354 | Service Level Management — Service Improvement Process (SIP) | ISO/IEC 20000-1:2018 public preview | A service management system includes continual improvement of planning, delivery, and services; no trend threshold is inferred. |
 | m15-q355 | Safety and Crisis Management — Emergency response plan requirement for various potential emergencies | 29 CFR 1910.38(b), (c)(1)-(6), (f) | A required plan is written/available, includes the minimum response elements, and is reviewed when the plan or responsibilities change. |
 | m15-q356 | Data Centre Operations — Shift handover | NE O 422.1 approved August 2025 — catalog: https://id.energy.gov/Home/NEDirectives | **BLOCKED** — catalog receipt only; no body fetched |
 | m15-q357 | Facilities Maintenance — Maintenance operations procedures (MOP) | NE O 422.1 approved August 2025 — catalog: https://id.energy.gov/Home/NEDirectives | **BLOCKED** — catalog receipt only; no body fetched |
@@ -378,7 +379,7 @@ q232 does not establish a vendor matrix taxonomy.
 | m15-q373 | Governance and Compliance — Requirements or asset recording | NIST CM-8(a)-(b), (1) | A bounded component inventory covers all components/accountability, is reviewed on a defined cadence, and is updated at installation/removal/system updates; this is not ISO 55000. |
 | m15-q374 | Data Centre Operations — Walk around duties | NE O 422.1 approved August 2025 — catalog: https://id.energy.gov/Home/NEDirectives | **BLOCKED** — catalog receipt only; no body fetched |
 | m15-q375 | Safety and Crisis Management — The importance of the OH&S or WHS manual | 29 CFR 1910.1200(g)(8), (h)(1)-(3) | Workers receive hazard-communication information/training and can access the written program and safety data sheets during the shift; no OH&S-manual title is inferred. |
-| m15-q376 | Service Level Management — Reporting | DfE Service Management standard, Version 1, Why this standard is important | Service-management reporting provides visibility of support requirements for decision making and demand management. |
+| m15-q376 | Service Level Management — Reporting | ISO/IEC 20000-1:2018 public preview | A service management system can monitor, measure, and review the system and services. |
 | m15-q377 | Service Level Management — Customer satisfaction | DfE Service Management standard, Version 1, Why this standard is important | The standard links user satisfaction with a single point of entry into service support. |
 
 ### 6.3 Still blocked-on-sourcing
