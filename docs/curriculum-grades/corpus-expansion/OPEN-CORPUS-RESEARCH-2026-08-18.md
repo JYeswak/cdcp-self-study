@@ -1044,6 +1044,66 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 116 — OT security ownership and recovery boundaries
+
+**Date:** 2026-08-18
+**Scope:** M01, M06, M09, M11, M13, M14, and M15 questions about OT/BMS/DCIM
+security ownership, zones/conduits, remote access, maintenance providers,
+legacy systems, patch and backup limits, and recovery evidence. Catalog pages
+were used as edition pins; no paid standard body or PDF was fetched.
+
+**Official receipts:**
+
+- [IEC 62443-2-1:2024](https://webstore.iec.ch/en/publication/62883) is the
+  current IEC catalog entry for **Security program requirements for IACS asset
+  owners**, Edition 2.0, published 2024-08-07. The public abstract says the
+  asset owner/operator security program covers policy and procedure requirements
+  for an IACS in operation, recognizes legacy systems and compensating measures,
+  and includes a maturity model. It does not expose the paid control text.
+- [IEC 62443-2-4:2023](https://webstore.iec.ch/en/publication/67631) is the
+  current catalog entry for **Security program requirements for IACS service
+  providers**, Edition 2.0, published 2023-12-15. Its public abstract covers
+  security-related processes offered during integration and maintenance and
+  the relationship among asset owners, service providers, and product suppliers.
+- [IEC 62443-3-3:2013](https://webstore.iec.ch/en/publication/7033) is the
+  official catalog entry for **System security requirements and security
+  levels**, Edition 1.0, with a stated 2027 stability date. Its public abstract
+  exposes the foundational-requirement/security-level and zones/conduits scope;
+  exact security requirements remain paid and are not reproduced here.
+- [NIST OT Security publications](https://csrc.nist.gov/Projects/operational-technology-security/publications)
+  currently lists SP 800-82 Rev. 3 as Final (2023-09-28), while SP 800-82 Rev. 4
+  is a pre-draft call for comments and SP 1800-45 is a 2026 final focused on
+  operational-technology remote access in the water/wastewater sector. This
+  pass retains Rev. 3 for general BMS/OT scope and does not treat the Rev. 4
+  pre-draft as an edition.
+- [NIST SP 800-82 Rev. 3](https://csrc.nist.gov/pubs/sp/800/82/r3/final)
+  remains the official final page for OT performance, reliability, safety,
+  building automation, physical access, and environmental monitoring/control.
+  It is guidance rather than an EPI heading or automatic compliance claim.
+
+**Edition and ownership boundary:** The withdrawn IEC 62443-2-1:2010 catalog
+page must not be used as the current asset-owner edition. The 2024 edition's
+public abstract does not prove that a particular BMS/DCIM deployment has a
+security level, that a remote-access path is authorized, or that a legacy
+controller can be patched. Those remain BLOCKED unless a qualifying public
+source exposes the exact proposition.
+
+| Module | Question frontier | Bounded evidence |
+|---|---|---|
+| M01 | Assign security responsibility across owner/operator, integrator, service provider, product supplier, and local operator during design, operation, maintenance, and recovery | Use IEC role distinctions; do not invent a data-centre governance taxonomy |
+| M06 | Review a power-control or protection system with legacy firmware, unavailable backup, and a maintenance vendor; choose compensating evidence before a switching window | IEC 62443-2-1 public abstract supports policy/compensation framing, not a technical patch guarantee |
+| M09 | Bound BMS/CDU controls, remote vendor access, safety interlocks, and recovery after a controller or network segment is unavailable | NIST supports OT safety/reliability context; exact control design remains source-dependent |
+| M11 | Identify zones/conduits and remote-access paths, then distinguish segmentation evidence from an untested firewall diagram | IEC 62443-3-3 catalog supports the topic, not exact levels or implementation values |
+| M13 | Decide who owns access approval, account lifecycle, monitoring, incident response, and compensating measures for legacy OT | IEC 62443-2-1/2-4 support owner/provider process boundaries; no invented OLA or vendor model |
+| M14 | Compare dashboard visibility, command authorization, maintenance access, backup/restore, and safe fallback for BMS/DCIM systems | A named interface or zone is not proof of a safe control path |
+| M15 | Build a maintenance and recovery handoff showing provider scope, patch/backup constraints, test evidence, exceptions, and return-to-service approval | Public catalog receipts support the question family; paid requirements stay BLOCKED |
+
+**Bounded result:** This pass identifies a current-edition correction and a
+useful operational distinction—asset-owner policy, service-provider process,
+component/system technical controls, and OT safety context are related but not
+interchangeable. No bank rows, ledger dispositions, manifest, topic, bead,
+gate, oracle, credential, or certification claim changed.
+
 ## Breadth pass 115 — control-plane interoperability and observability
 
 **Date:** 2026-08-18
