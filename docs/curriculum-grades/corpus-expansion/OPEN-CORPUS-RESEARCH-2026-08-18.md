@@ -1095,6 +1095,21 @@ inferred.
 
 No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 242 — eCFR fire-detection restoration boundary
+
+**Review date:** 2026-08-18. The current eCFR HTML for 29 CFR 1910.164
+requires fire-detection systems and components to be restored to normal
+operating condition as promptly as possible after each test or alarm, and to
+be maintained operable except during repairs or maintenance. The item is
+bounded to that public-code rule; it does not invent a universal bypass timeout
+or generalize the requirement to every alarm system.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q118 | Alarm panels | 29 CFR 1910.164 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR76c69af98ee6ed7/section-1910.164 | **PASS** — prompt restoration and operability requirements are explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies

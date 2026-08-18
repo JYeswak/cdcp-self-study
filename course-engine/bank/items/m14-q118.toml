@@ -1,19 +1,21 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Alarm panels
-# Official catalog/preview receipt: IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543
-# BLOCKED: the current alarm-management catalog covers abnormal-condition notification, response, logs, and metrics, but not this exact maintenance-bypass timeout proposition. No paid body or PDF was fetched.
+# Official public-code receipt: 29 CFR 1910.164 —
+# https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR76c69af98ee6ed7/section-1910.164
+# PASS: current eCFR text requires prompt restoration after tests/alarms and
+# operability except during repairs or maintenance.
 id = "bank-m14-q118"
 kind = "single-select"
 module = 14
-stem = "Leaving alarms in maintenance/bypass after work is a top failure mode because it:"
+stem = "Under 29 CFR 1910.164, fire-detection systems after a test or alarm should be:"
 choices = [
-  "Improves trending accuracy",
-  "Creates silent failure paths when real events no longer page",
-  "Automatically recalibrates sensors",
-  "Is required by all codes indefinitely"
+  "Restored to normal operating condition promptly and maintained operable except during repairs or maintenance",
+  "Left in bypass until the next annual inspection regardless of condition",
+  "Disabled permanently after any alarm",
+  "Replaced by a cooling-control trend with no fire detection"
 ]
-correct = "B"
-explanation = "Bypass must time out and be logged; sticky inhibits hide faults."
+correct = "A"
+explanation = "Current 29 CFR 1910.164 requires prompt restoration after each test or alarm and maintenance of fire-detection systems in operable condition except during repairs or maintenance. This item does not invent an alarm-bypass timeout or generalize the rule to every alarm system."
 topic_ids = ["m14-alarms", "m14-monitoring-challenges"]
 objective_ids = []
 bloom = "apply"

@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 301 PASS; 656 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 302 PASS; 655 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -840,7 +840,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m14-q115 | 14 | Monitoring requirements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
 | bank-m14-q116 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | PASS |
 | bank-m14-q117 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.rfc-editor.org/info/rfc5674/ | PASS |
-| bank-m14-q118 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | BLOCKED — IEC 62682:2022 catalog receipt; exact maintenance-bypass timeout proposition is not exposed |
+| bank-m14-q118 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR76c69af98ee6ed7/section-1910.164 | PASS |
 | bank-m14-q119 | 14 | Monitoring challenges | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
 | bank-m14-q120 | 14 | Environmental Monitoring System (EMS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS |
 | bank-m14-q121 | 14 | Auxiliary systems best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.energy.gov/cmei/femp/commissioning-process-federal-facilities | PASS — DOE FEMP public process covers functional testing, monitoring, deficiency tracking, implementation, and retesting |
