@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 554 PASS; 403 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 556 PASS; 401 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -294,7 +294,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q081 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | PASS — IEC 60364-5-54 public scope covers earthing arrangements and protective conductors including protective bonding conductors for installation safety |
 | m06-q082 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | PASS — IEC 60364-5-54 public scope explicitly includes protective bonding conductors |
 | m06-q083 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | PASS |
-| m06-q084 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | BLOCKED — IEC 60529 catalog receipt; exact outdoor selection proposition is not exposed |
+| m06-q084 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | PASS — IEC 60529 consolidated public catalog covers enclosure protection classification for electrical equipment up to 72.5 kV |
 | m06-q085 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/7091 | PASS |
 | m06-q086 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/3851 | PASS |
 | m06-q087 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/29086 | PASS |
@@ -357,7 +357,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q233 | 6 | Microgrid | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/61960 | PASS |
 | m06-q234 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact test-interval/start-reliability proposition is not exposed |
 | m06-q235 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/30134-2?browse=ics | PASS — ISO/IEC 30134-2:2026 Edition 2 OBP page supports energy-efficiency tracking, benchmarking, and supporting-infrastructure waste identification |
-| m06-q236 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | BLOCKED — IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV catalog receipt; exact outdoor-enclosure selection proposition is not exposed |
+| m06-q236 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | PASS — IEC 60529 consolidated public title identifies degrees of protection provided by enclosures (IP Code) |
 | m06-q237 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | PASS — IEC 60076-1:2011 public scope identifies general requirements for three-phase and single-phase power transformers including autotransformers |
 | m06-q238 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | PASS — IEC 60076-1:2011 public description lists harmonic-content definition among its technical additions |
 | m06-q239 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | PASS — ISO/IEC 22237-3:2021 public abstract explicitly lists telecommunications bonding and lightning protection |

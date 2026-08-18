@@ -7602,3 +7602,21 @@ Telecommunications reference integrity, anomaly root-cause triggers, tray
 geometry, phase cancellation, shielding, and project-specific mitigation remain
 outside these catalog abstracts. This pass does not certify a learner or close
 ms4j.
+
+## Breadth pass 335 — IEC 60529 consolidated IP Code scope
+
+**Review date:** 2026-08-18. The current IEC Webstore consolidated catalog for
+IEC 60529:1989+A1:1999+A2:2013 identifies the subject as **Degrees of
+protection provided by enclosures (IP Code)** and states that it applies to
+classification of enclosure protection for electrical equipment with rated
+voltage not exceeding 72.5 kV. Two IP items were narrowed to those exact public
+claims.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q084 | Ingress Protection (IP) grades | IEC 60529 consolidated — https://webstore.iec.ch/en/publication/2452 | **PASS** — enclosure-classification and voltage scope is explicit |
+| m06-q236 | Ingress Protection (IP) grades | IEC 60529 consolidated — https://webstore.iec.ch/en/publication/2452 | **PASS** — IP Code title/scope is explicit |
+
+Specific outdoor-enclosure selection, dust/water exposure tradeoffs, equipment
+environment, and site-specific IP designation remain outside this catalog
+receipt. This pass does not certify a learner or close ms4j.

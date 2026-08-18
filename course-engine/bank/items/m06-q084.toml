@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Ingress Protection (IP) grades
 # Official catalog/preview receipt: IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV — https://webstore.iec.ch/en/publication/2452
-# BLOCKED: the official catalog does not expose the exact outdoor-enclosure selection proposition.
+# PASS: the current IEC consolidated catalog explicitly states the enclosure-classification scope below. No paid body or PDF was fetched.
 id = "m06-q084"
 kind = "single-select"
 module = 6
-stem = "Selecting a higher IP rating for outdoor generator or switchgear enclosures mainly addresses:"
+stem = "IEC 60529 applies to the classification of degrees of protection provided by enclosures for:"
 choices = [
-  "Faster STS transfer times",
-  "Automatic 2N redundancy",
-  "Lower battery impedance always",
-  "Environmental dust/water exposure durability of the enclosure",
+  "Electrical equipment with a rated voltage not exceeding 72.5 kV",
+  "Only UPS transfer controls",
+  "Only battery impedance measurements",
+  "Only fibre-polarity labels",
 ]
-correct = "D"
-explanation = "Higher IP helps enclosure survival in harsher environments; it does not create electrical redundancy."
+correct = "A"
+explanation = "The current IEC consolidated catalog states that IEC 60529 applies to classifying degrees of protection provided by enclosures for electrical equipment with a rated voltage not exceeding 72.5 kV. It does not expose the prior outdoor-enclosure selection trade-off."
 topic_ids = ["m06-ip-grades", "m06-generators"]
 objective_ids = []
 bloom = "apply"

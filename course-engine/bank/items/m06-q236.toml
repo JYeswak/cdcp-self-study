@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Ingress Protection (IP) grades
 # Official catalog/preview receipt: IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV — https://webstore.iec.ch/en/publication/2452
-# BLOCKED: the official catalog identifies the IP Code but does not expose the exact outdoor-enclosure selection proposition.
+# PASS: the current IEC consolidated catalog explicitly states the IP Code scope below. No paid body or PDF was fetched.
 id = "m06-q236"
 kind = "single-select"
 module = 6
-stem = "IP rating selection for outdoor switchgear or generator enclosures primarily addresses:"
+stem = "The public title of IEC 60529 identifies the subject as:"
 choices = [
-  "Protection against solid object and water ingress appropriate to the environment",
+  "Degrees of protection provided by enclosures (IP Code)",
   "UPS topology class",
-  "Fiber polarity",
-  "Fire class of materials only"
+  "Fibre polarity",
+  "Fire class of materials only",
 ]
 correct = "A"
-explanation = "IP codes rate enclosure ingress protection, not electrical topology."
+explanation = "The current IEC consolidated catalog titles IEC 60529 as Degrees of protection provided by enclosures (IP Code) and states its enclosure-classification scope. It does not expose the prior outdoor-enclosure selection proposition."
 topic_ids = ["m06-ip-grades"]
 objective_ids = []
 bloom = "understand"
