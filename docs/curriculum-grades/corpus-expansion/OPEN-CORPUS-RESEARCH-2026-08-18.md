@@ -977,7 +977,7 @@ of scope.
 
 | Item | Public syllabus heading | Official receipt | Bounded result |
 |---|---|---|---|
-| m15-q200 | Labelling | 29 CFR 1910.303 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.303 | **PASS** — circuit-purpose marking requirement is explicit |
+| m15-q200 | Labelling | 29 CFR 1910.303 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.303 | **PASS** — marking-durability requirement is explicit |
 | m15-q205 | Operational security and safety practices | 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | **PASS** — outside-servicing lockout/tagout coordination is explicit |
 | m15-q215 | Labelling | 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | **PASS** — lockout/tagout device standardization is explicit |
 

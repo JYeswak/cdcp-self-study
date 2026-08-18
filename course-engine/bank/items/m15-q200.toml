@@ -1,21 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Labelling
 # Official catalog/preview receipt: 29 CFR 1910.303 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.303
-# PASS: the current public eCFR text requires services, feeders, and branch
-# circuits to be legibly marked for purpose at the disconnecting means or
-# overcurrent device unless the purpose is evident.
+# PASS: the current public eCFR text requires electric-equipment markings to
+# be durable enough to withstand the environment involved.
 id = "m15-q200"
 kind = "single-select"
 module = 15
-stem = "Under 29 CFR 1910.303(f)(2), each service, feeder, and branch circuit at its disconnecting means or overcurrent device shall be:"
+stem = "Under 29 CFR 1910.303(e)(2), electric-equipment markings shall be:"
 choices = [
-  "Legibly marked to indicate its purpose, unless the purpose is evident from the location and arrangement",
-  "Left unmarked when the panel is in a locked room",
-  "Documented only in a network diagram",
-  "Marked only after an electrical incident"
+  "Of sufficient durability to withstand the environment involved",
+  "Temporary paper notes regardless of the environment",
+  "Required only in a network diagram and not on equipment",
+  "Removed after the first maintenance task"
 ]
 correct = "A"
-explanation = "The current public eCFR text requires each service, feeder, and branch circuit at its disconnecting means or overcurrent device to be legibly marked to indicate its purpose unless the purpose is evident."
+explanation = "The current public eCFR text requires electric-equipment markings to be of sufficient durability to withstand the environment involved."
 topic_ids = ["m15-labelling"]
 objective_ids = []
 bloom = "understand"
