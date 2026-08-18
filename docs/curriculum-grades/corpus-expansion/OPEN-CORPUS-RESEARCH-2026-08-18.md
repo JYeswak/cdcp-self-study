@@ -889,6 +889,23 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 222 — ISO/IEC 22237-2 site and building scope
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform preview
+for ISO/IEC 22237-2:2024 explicitly lists location and site selection, protection
+from environmental risks, site and building configuration, access, physical
+intrusion and fire protection, water-damage protection, and quality construction
+measures. The item is bounded to those public building/site topics; utility
+interconnection rights, water availability, carrier contracts, and project
+short-list decisions remain outside the receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m03-q111 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html?browse=tc | **PASS** — the listed site-selection, risk, configuration, protection, access, and construction topics are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 221 — ISO/IEC 22237-3 power-measurement scope
 
 **Review date:** 2026-08-18. The current ISO preview for ISO/IEC 22237-3:2021

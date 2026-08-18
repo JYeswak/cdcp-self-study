@@ -1,22 +1,23 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: CDCP "Site location selection criteria" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
-# https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog exposes general concepts and risk analysis, but not
-# this exact short-listing combination.
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://www.iso.org/standard/82248.html?browse=tc
+# PASS: the current ISO preview explicitly lists site-selection, environmental-
+# risk, site-configuration, access, protection, and construction topics. No
+# paid body or PDF was fetched.
 id = "m03-q111"
 kind = "single-select"
 module = 3
-stem = "Which combination best summarizes early site short-listing criteria?"
+stem = "ISO/IEC 22237-2:2024 explicitly includes which building/site topics?"
 choices = [
-  "Only number of vending machines",
-  "Only carpet colour and logo walls",
-  "Utility, network, hazards, climate, logistics, and legal rights—before interior finishes",
-  "Only social media check-ins",
+  "Location and site selection, environmental risks, site/building configuration, access, intrusion/fire/water protection, and construction quality",
+  "Only number of vending machines and interior finishes",
+  "Only application architecture and software licensing",
+  "Only social media check-ins and corporate branding",
 ]
-correct = "C"
-explanation = "Short-listing is driven by infrastructure rights and hazards, not finishes."
+correct = "A"
+explanation = "The ISO preview lists location and site selection, protection from environmental risks, site and building configuration, access, physical intrusion and fire protection, water-damage protection, and quality construction measures. Utility interconnection rights, water availability, and carrier contracts require additional evidence."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "remember"
