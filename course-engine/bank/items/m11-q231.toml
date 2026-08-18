@@ -1,16 +1,29 @@
 # Original CDCP educational MCQ — ebrr.25 leftover: analyze packet that collapses fabric into LAN/laterals
+# FORM FIX under bd-curriculum-truth-ebrr.46 (2026-08-17). No content change.
+#   BEFORE: option lengths [61, 90, 60, 360], key D = 4.77x median and longest by 270
+#           chars — answerable by picking the paragraph without reading the stem.
+#   AFTER:  four verdicts of comparable length; the key is not the longest option.
+#   The teaching that lived in the keyed option now lives in `explanation`, where it
+#   is read after the learner has already had to choose. The five taught propositions
+#   are unchanged: (1) east-west IB/RoCE 400/800G is an availability path equal to
+#   power; (2) one cut / one shared tray / one polarity miss is one training job;
+#   (3) dual laterals are the building oral, not fabric protection; (4) interconnect
+#   in this module still means fewer patch points; (5) no nines/Tier/Rated crosswalk —
+#   Module 01 / 03 own the outage clock.
+#   Three of the four options now begin "Reject", so polarity is not a giveaway either.
+#   NO metre figure, loss budget or channel length is introduced (ebrr.41 acceptance 4).
 id = "m11-q231"
 kind = "single-select"
 module = 11
 stem = "Reviewer is handed a GPU-hall basis-of-design: “400/800G IB/RoCE is a faster LAN; dual building laterals already give the job two paths; UPS-green means the nines hold if the fabric is dark; interconnect here means the campus AI mesh.” You should:"
 choices = [
-  "Approve: LAN + laterals + UPS-green is the availability story",
-  "Convert the cut into a Module 01 / 03 outage-clock problem so the plant question goes away",
-  "Quote a single OM4 metre at 100G as the fabric reach statute",
-  "Reject the packet: east-west IB/RoCE at 400/800G carries the training job; one cut, one shared tray, or one polarity miss is one job even with power and cooling green; dual laterals are the building oral, not fabric protection; interconnect in this module still means fewer patch points; do not write a nines/Tier/Rated crosswalk — Module 01 / 03 own the clock",
+  "Approve with a note that the reach claim needs a source, since the LAN, laterals and UPS-green parts of the packet are sound",
+  "Reject the interconnect wording only, because a faster-LAN framing is harmless once the campus mesh has been renamed correctly",
+  "Reject: the fabric is an availability path in its own right, so laterals and UPS-green do not cover a dark east-west path",
+  "Reject, then rewrite the packet as a Module 01 / 03 outage-clock problem so that the availability claim carries a nines figure",
 ]
-correct = "D"
-explanation = "Analyze the collapse. The cluster fabric is not a faster LAN and is not saved by street laterals. A dark east-west path with green UPS is still a failed job. Interconnect remains the patching term. Reach is application-and-optic specific — do not invent a metre. This module owns the plant; it does not steal the M01/M03 clock."
+correct = "C"
+explanation = "The packet collapses four separate things and every option except one keeps at least one of them. East-west IB/RoCE at 400/800G carries the training job: one cut, one shared tray, or one polarity miss on a spine trunk is one job even with power and cooling green — the fabric is an availability path equal to power, which is why a dark fabric under a green UPS is still a failure. Approving on the strength of LAN + laterals + UPS-green keeps the central error and treats the reach claim as the only problem. Fixing the interconnect wording alone is too small: in this module interconnect still means a patching term, fewer patch points, but renaming it leaves the faster-LAN framing that caused the collapse. Converting the finding into an outage-clock problem is the worst of the three — it hands the question to Module 01 / 03, which own the clock, and it invites a nines/Tier/Rated crosswalk that must not be written. Dual building laterals remain the building oral and are not fabric protection. On the reach claim the discipline is the same as elsewhere in this module: reach is application-and-optic specific, so go to the PHY specification and the channel spec rather than quoting a single figure."
 topic_ids = ["m11-redundancy", "m11-planning"]
 objective_ids = ["obj-m11-gpu-fabric-availability"]
 bloom = "analyze"
