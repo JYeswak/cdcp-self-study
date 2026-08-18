@@ -4372,3 +4372,21 @@ remain supported by their prior receipts.
 
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+## Breadth pass 153 — rack and open-rack specification boundary
+
+**Review date:** 2026-08-18. Module 08 rack claims were checked against the
+current IEC 60297 catalog receipts, TIA-942-C, ISO/IEC 22237-3/4/6, NFPA 70,
+and the official Open Compute Project Rack and Power specifications index.
+OCP's public index identifies Open Rack V3 base/frame specifications and
+current submissions, but does not expose the bank's exact rack dimensions,
+airflow/blanking behavior, liquid-ready SKU, service-clearance, or
+colocation-security propositions. Those rows remain BLOCKED. The existing
+OCP-backed equipment-rack rows remain unchanged.
+
+| Frontier | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| M08 rack standards and types | Rack standards; Types of racks; Rack dimensions | Open Compute Project Rack and Power — https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns | Current Open Rack V3 index confirmed; exact item propositions remain BLOCKED |
+| M08 conventional rack interface | Rack standards; Rack dimensions | IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283 | Catalog receipt retained; exact U, flange, clearance, and fastener claims remain BLOCKED |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
