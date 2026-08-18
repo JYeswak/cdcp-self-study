@@ -4728,3 +4728,22 @@ within management tools.
 Exact rack/PDU product architecture, utility-to-rack sequencing, and N+1
 definitions remain BLOCKED. No standard body or PDF was fetched. This pass does
 not certify a learner or close ms4j.
+## Breadth pass 174 — current ISO resilience KPI and cabling-availability boundaries
+
+**Review date:** 2026-08-18. The official ISO catalog was checked for two
+current data-centre references. ISO/IEC TS 22237-31:2026 is published as a
+current Edition 2 and defines resilience, dependability, fault-tolerance, and
+availability-tolerance KPIs for data-centre infrastructure, including power
+and environmental control; it does not expose the item-level shared-failure-
+domain or board-governance claims reviewed. ISO/IEC TS 22237-5:2018 remains a
+published current edition while under revision and explicitly covers data-
+centre telecommunications cabling against availability criteria, including
+network cabling and pathways, spaces, and enclosures.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q119 | Cabling redundancy | ISO/IEC TS 22237-5:2018 — https://www.iso.org/standard/73012.html | **PASS** — cabling infrastructure tied to availability supports alternate physical paths/media |
+| m01-q204, m06-q055 | CDCP importance; Power redundancy levels and techniques | ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html | **BLOCKED** — current KPI scope is relevant, but the public abstract does not expose the item-level governance/shared-failure-domain propositions |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
