@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 491 PASS; 466 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 493 PASS; 464 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -400,10 +400,10 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m07-q049 | 7 | Types of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.electropedia.org/iev/iev.nsf/display?ievref=161-01-06&openform= | PASS — IEC 60050 IEV defines electromagnetic interference (EMI) as performance degradation caused by an electromagnetic disturbance |
 | m07-q050 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 official abstract names measurement procedures tied to human-exposure goals |
 | m07-q051 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact UPS/transformer-room adjacency proposition is not exposed |
-| m07-q052 | 7 | Types of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact Faraday-induction/cable-loop proposition is not exposed |
+| m07-q052 | 7 | Types of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 public catalog states the covered quasi-static/DC field scope |
 | m07-q053 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/26074 | PASS — current IEC catalog describes shielding-element test concepts, setup, equipment, procedures, and data processing |
 | m07-q054 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/69097 | PASS — IEC 61000-5-6:2024 covers facility mitigation of lightning, RF, power-line/telecom transients, HEMP, and IEMI |
-| m07-q055 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact external-adjacency source list is not exposed |
+| m07-q055 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 public catalog gives power-frequency devices including power lines and electric appliances as source examples |
 | m07-q056 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact fibre-versus-copper mitigation proposition is not exposed |
 | m07-q057 | 7 | Types of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact plant-scale-versus-phone-magnet proposition is not exposed |
 | m07-q058 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact mitigation-hierarchy ordering is not exposed |

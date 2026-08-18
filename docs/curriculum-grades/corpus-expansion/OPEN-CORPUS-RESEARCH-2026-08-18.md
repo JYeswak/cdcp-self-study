@@ -870,6 +870,24 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 312 — IEC 61786-2 field-measurement scope claims
+
+**Review date:** 2026-08-18. The current IEC Webstore page for IEC 61786-2:2014,
+Edition 1.0, was checked without opening or fetching a PDF. Its public catalog
+states the measurement scope for quasi-static magnetic and electric fields from
+1 Hz to 100 kHz and DC magnetic fields, and gives power-frequency devices such
+as power lines and electric appliances as example sources.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m07-q052 | Types of EMF | IEC 61786-2:2014, Edition 1.0 — https://webstore.iec.ch/en/publication/5907 | **PASS** — asks only for the stated field types and frequency scope |
+| m07-q055 | Sources of EMF | IEC 61786-2:2014, Edition 1.0 — https://webstore.iec.ch/en/publication/5907 | **PASS** — asks only for a stated power-frequency source category |
+
+Shielding mitigation, distance/layout, fibre-versus-copper, external adjacency,
+and specific induction mechanisms remain BLOCKED because the catalog does not
+expose those exact propositions. This pass does not certify a learner or close
+ms4j.
+
 ## Breadth pass 311 — IEC 62040-3 UPS catalog scope claims
 
 **Review date:** 2026-08-18. The current IEC Webstore page for IEC 62040-3:2021,
