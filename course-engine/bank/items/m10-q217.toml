@@ -1,0 +1,25 @@
+# Original CDCP educational item — bd-curriculum-truth-ebrr.42.
+# syllabus_heading = "1.10 Water Supply"
+# syllabus_url = https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# citation_ids = ["src-epi-cdcp-page", "src-iso-iec-30134-9-2022", "src-doe-femp-cooling-water-2019", "src-nrel-esif-thermosyphon-2018", "src-epa-quincy-water-reuse"]
+# claim = A closed-loop water-reuse case cannot be treated as proof that a separate non-evaporative dry-rejection design needs no makeup, rights, or permits.
+# M03 cross-reference: site water availability and local permissions remain site-specific.
+id = "m10-q217"
+kind = "single-select"
+module = 10
+stem = "An owner cites the EPA’s Quincy closed-loop water-reuse case to approve a different design: a sealed liquid loop rejecting heat to dry coolers with no evaporative tower. Which is the defensible M10 answer?"
+choices = [
+  "The cases are identical, so the EPA example proves that no makeup water, water rights, or permits need review",
+  "Do not transfer the permission: the Quincy case is a site-specific water-reuse system with documented makeup, water-rights, discharge, and permit interfaces; confirm the dry-loop boundary and local approvals for this design, then report WUE using ISO/IEC 30134-9:2022 categories",
+  "Closed loop always means WUE is zero, regardless of humidification or other site water",
+  "Reject dry coolers because every data-centre cooling design must use an evaporative tower",
+]
+correct = "B"
+explanation = "The EPA case is useful precisely because its closed-loop reuse system still required makeup water and site-specific rights and permits. DOE FEMP and the NREL ESIF report distinguish recirculating liquid paths and dry or evaporative heat rejection, but neither grants a universal siting permission. ISO/IEC 30134-9:2022 supplies the WUE KPI and measurement categories; it does not turn a project example into a benchmark or permit."
+topic_ids = ["m10-importance", "m10-backup"]
+objective_ids = ["obj-m10-closed-loop-siting"]
+citation_ids = ["src-epi-cdcp-page", "src-iso-iec-30134-9-2022", "src-doe-femp-cooling-water-2019", "src-nrel-esif-thermosyphon-2018", "src-epa-quincy-water-reuse"]
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "free_url"
+status = "approved"

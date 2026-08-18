@@ -187,3 +187,43 @@ access = "free"
 fetch_date = "2026-08-17"
 used_for = ["m11_reach_discipline"]
 note = "Primary technical body page. Cited ONLY to establish that 400G/800G physical layer specifications live in IEEE 802.3, per rate and per medium, so reach is a property of a named PHY and media class rather than of a speed. The leading P is a PROJECT designation, not a published edition — no edition claim and no reach, loss-budget or channel-length figure is taken from it."
+
+[[source]]
+id = "src-iso-iec-30134-9-2022"
+org = "ISO/IEC"
+title = "ISO/IEC 30134-9:2022 — Information technology — Data centres key performance indicators — Part 9: Water usage effectiveness (WUE), Edition 1"
+url = "https://www.iso.org/standard/77692.html"
+access = "public_summary"
+fetch_date = "2026-08-17"
+used_for = ["m10_wue_boundary", "m10_closed_loop_siting"]
+note = "Official ISO catalogue page identifies Edition 1, published 2022-03, and describes WUE as a KPI with measurement categories, calculation, reporting, and interpretation. No WUE benchmark band is imported."
+
+[[source]]
+id = "src-doe-femp-cooling-water-2019"
+org = "U.S. Department of Energy, Federal Energy Management Program"
+title = "Cooling Water Efficiency Opportunities for Federal Data Centers, 9 January 2019"
+url = "https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers"
+access = "free"
+fetch_date = "2026-08-17"
+used_for = ["m10_closed_loop_siting", "m10_water_dependency"]
+note = "Official DOE technical guidance dated 2019-01-09. It distinguishes evaporative tower losses from recirculating liquid loops and notes that a closed IT-side loop may still reject heat through a tower. No universal savings or permission claim is taken from it."
+
+[[source]]
+id = "src-nrel-esif-thermosyphon-2018"
+org = "National Renewable Energy Laboratory / U.S. Department of Energy"
+title = "ESIF 2018 Annual Report — Thermosyphon Dry-Cooling Technology Keeps Data Center Cool with 50% Less Water"
+url = "https://www.nrel.gov/docs/fy19osti/73025.pdf"
+access = "free"
+fetch_date = "2026-08-17"
+used_for = ["m10_closed_loop_siting"]
+note = "Official NREL project report. The thermosyphon result is a dated, project-specific hybrid dry/evaporative design example; its reported percentage is not imported as a universal water-savings claim."
+
+[[source]]
+id = "src-epa-quincy-water-reuse"
+org = "U.S. Environmental Protection Agency"
+title = "Water Reuse Case Study: Quincy, Washington"
+url = "https://www.epa.gov/waterreuse/water-reuse-case-study-quincy-washington"
+access = "free"
+fetch_date = "2026-08-17"
+used_for = ["m10_closed_loop_siting", "m10_water_rights"]
+note = "Official EPA case study of a site-specific closed-loop cooling-water reuse system. It documents makeup-water sources, water rights, discharge management, and permits; it is not a universal rule for non-evaporative dry rejection."

@@ -185,3 +185,8 @@ claim_ids = ["claim-interview-ready", "claim-domain-covered"]
 id = "obj-m06-queue-btm-path"
 text = "Learner treats the interconnect queue and behind-the-meter / on-site continuous generation as a primary energization path (not only backup gensets), names the plant as a new failure mode, and points at Module 03 for siting"
 claim_ids = ["claim-interview-ready", "claim-domain-covered"]
+
+[[objective]]
+id = "obj-m10-closed-loop-siting"
+text = "Learner treats non-evaporative closed-loop heat rejection as a site-specific water and siting choice, distinguishes dry rejection from closed-loop water reuse, and verifies makeup, discharge, water-rights, permit, and WUE-boundary interfaces without importing benchmark bands"
+claim_ids = ["claim-interview-ready", "claim-domain-covered", "claim-standards-family-mapped"]
