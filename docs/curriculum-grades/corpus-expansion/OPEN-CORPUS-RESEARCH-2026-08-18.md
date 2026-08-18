@@ -870,6 +870,24 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 284 — ISO operations-focus abstract categories
+
+**Review date:** 2026-08-18. The current official ISO catalog abstract for
+ISO/IEC TS 22237-7:2018 was checked without opening or fetching a PDF. It names
+resilience, availability, risk management, risk mitigation, capacity planning,
+security, and energy efficiency as primary management-and-operations focuses.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| bank-m15-q146 | Maintenance contracts / SLA | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — asks only for risk management; no SLA clause template is inferred |
+| bank-m15-q148 | Maintenance contracts / SLA | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — asks only for risk mitigation; no maintenance change-control procedure is inferred |
+| bank-m15-q153 | Maintenance contracts / SLA | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — asks only for availability; no SLA-versus-MTTR policy is inferred |
+| bank-m15-q154 | Documentation | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — asks only for resilience; no post-incident procedure is inferred |
+| m15-q202 | MTBF / MTTR | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — asks only for energy efficiency; no MTBF/MTTR interpretation is inferred |
+| m15-q214 | Maintenance contracts / SLA | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — asks only for capacity planning; no SLA restore rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 283 — IEC EMF measurement abstract claims
 
 **Review date:** 2026-08-18. The current official IEC catalog page for IEC

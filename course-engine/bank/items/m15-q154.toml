@@ -2,20 +2,21 @@
 # Rewritten 2026-08-17 (bd-curriculum-truth-ebrr.32): post-incident object is
 # contributing factors, plural — never "root cause" singular.
 # Public syllabus heading: Documentation
-# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current management-and-operations catalog does not expose the exact item-level documentation proposition. No paid body or PDF was fetched.
+# PASS: ISO/IEC TS 22237-7:2018 official abstract explicitly names resilience
+# as a primary management-and-operations focus.
+# https://www.iso.org/standard/73014.html?browse=tc
 id = "bank-m15-q154"
 kind = "single-select"
 module = 15
-stem = "Post-incident documentation (timeline, contributing factors, corrective actions) is valuable because it:"
+stem = "Which resilience-related primary focus does ISO/IEC TS 22237-7:2018 explicitly name?"
 choices = [
+  "Resilience",
   "Only blames individuals without system learning",
-  "Converts experience into prevention—procedure, design, and monitoring improvements",
   "Is optional if the outage was short",
   "Replaces the need for MOPs on future similar work"
 ]
-correct = "B"
-explanation = "Learning loops turn incidents into durable ops improvements. Record contributing factors, plural — never a single root cause."
+correct = "A"
+explanation = "The current ISO abstract explicitly names resilience as a primary focus; it does not expose a post-incident documentation procedure."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "understand"
