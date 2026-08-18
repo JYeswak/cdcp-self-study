@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: ATS and STS
+# Official catalog/preview receipt: IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494
+# BLOCKED: the official catalog identifies transfer-switching equipment but does not expose the exact break-before-make/UPS bridging proposition.
 id = "m06-q207"
 kind = "single-select"
 module = 6

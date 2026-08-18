@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Isolation transformer
+# Official catalog/preview receipt: IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588
+# BLOCKED: the official catalog covers power transformers but does not expose the exact isolation/noise/grounding proposition.
 id = "m06-q216"
 kind = "single-select"
 module = 6

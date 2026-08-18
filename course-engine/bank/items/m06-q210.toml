@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Batteries
+# Official catalog/preview receipt: IEC TR 62060:2001 — https://webstore.iec.ch/en/publication/6423
+# BLOCKED: the official catalog does not expose the exact battery-autonomy/load-growth proposition.
 id = "m06-q210"
 kind = "single-select"
 module = 6

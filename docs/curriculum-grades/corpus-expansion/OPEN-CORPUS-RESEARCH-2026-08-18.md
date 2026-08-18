@@ -1044,6 +1044,31 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 70 — CDCP UPS, generator, transfer, and transformer receipts
+
+**Review date:** 2026-08-18. Ten additional M06 rows now carry current
+official IEC or NFPA catalog/preview receipts. They remain BLOCKED because the
+public pages do not expose the exact transfer gap, bypass, double-conversion,
+battery-autonomy, catcher-UPS, generator testing/fuel, or isolation-transformer
+propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q207 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494 | **BLOCKED** — exact break-before-make/UPS bridging proposition not exposed |
+| m06-q208 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact extended-bypass availability concern not exposed |
+| m06-q209 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact double-conversion input-disturbance proposition not exposed |
+| m06-q210 | Batteries | IEC TR 62060:2001 — https://webstore.iec.ch/en/publication/6423 | **BLOCKED** — exact battery-autonomy/load-growth proposition not exposed |
+| m06-q211 | UPS parallel configurations | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact catcher-UPS arrangement proposition not exposed |
+| m06-q212 | Generators | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact load-bank-test objective not exposed |
+| m06-q213 | Generators | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact wet-stacking/light-load proposition not exposed |
+| m06-q214 | Generators | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact paralleled-generator availability proposition not exposed |
+| m06-q215 | Generators | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact fuel-chain reliability proposition not exposed |
+| m06-q216 | Isolation transformer | IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588 | **BLOCKED** — exact isolation/noise/grounding proposition not exposed |
+
+The ledger remains 161 PASS / 796 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 69 — CDCP generator, transfer, UPS, and redundancy receipts
 
 **Review date:** 2026-08-18. Ten additional M06 rows now carry current
