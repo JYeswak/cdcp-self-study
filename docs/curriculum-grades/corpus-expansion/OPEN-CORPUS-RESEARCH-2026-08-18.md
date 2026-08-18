@@ -2207,6 +2207,26 @@ because the public definition does not expose those stronger propositions. No
 standard body or PDF was fetched. This pass does not certify a learner or close
 ms4j.
 
+## Breadth pass 220 — ISO smart resource monitoring catalog scope
+
+**Review date:** 2026-08-18. The current ISO catalog for ISO/IEC 19395:2015
+was reviewed and confirmed in 2025, so the 2015 edition remains current. Its
+public abstract says that messages are exchanged between a Management Function
+and Resources; it recognizes resources composed of other resources (for example,
+a rack containing servers and ventilators); and it models resource components in
+IT, power, and fluid domains. Those explicit catalog claims support the three
+narrowed Module 14 questions below. They do not establish DCIM licensing,
+workflow quality, alarm policy, or site-specific BMS/EMS diagnosis.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q106 | Data Centre Infrastructure Management (DCIM) | ISO/IEC 19395:2015 — https://www.iso.org/standard/64801.html?browse=tc | **PASS** — management-function/resource message exchange is explicit |
+| bank-m14-q108 | Monitoring challenges | ISO/IEC 19395:2015 — https://www.iso.org/standard/64801.html?browse=tc | **PASS** — IT, power, and fluid domains are explicit |
+| bank-m14-q130 | Data Centre Infrastructure Management (DCIM) | ISO/IEC 19395:2015 — https://www.iso.org/standard/64801.html?browse=tc | **PASS** — nested resources and the rack/server/ventilator example are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 203 — IEC wiring, power-quality, and busway scope pins
 
 **Review date:** 2026-08-18. The current IEC Webstore pages expose three
