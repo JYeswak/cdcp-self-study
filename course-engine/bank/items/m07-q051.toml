@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 7)
+# Public syllabus heading: Sources of EMF
+# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
+# BLOCKED: the official catalog covers power-frequency field sources but does not expose the exact UPS/transformer-room adjacency proposition.
 id = "m07-q051"
 kind = "single-select"
 module = 7

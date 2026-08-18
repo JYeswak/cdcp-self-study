@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 7)
+# Public syllabus heading: EMF standards and best practices
+# Official catalog/preview receipt: IEC TS 61000-5-10:2017 — https://webstore.iec.ch/en/publication/30054
+# BLOCKED: the official catalog provides HEMP/IEMI facility-protection guidance but does not expose the exact ordinary-design/military-hardening boundary proposition.
 id = "m07-q054"
 kind = "single-select"
 module = 7

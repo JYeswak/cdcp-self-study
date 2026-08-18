@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 7)
+# Public syllabus heading: Sources of EMF
+# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
+# BLOCKED: the official catalog covers field measurement procedures but does not expose the exact survey-trigger decision rule.
 id = "m07-q050"
 kind = "single-select"
 module = 7

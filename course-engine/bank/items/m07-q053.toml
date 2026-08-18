@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 7)
+# Public syllabus heading: Shielding
+# Official catalog/preview receipt: IEC 61000-4-23:2016 + AMD1:2025 CSV — https://webstore.iec.ch/en/publication/26074
+# BLOCKED: the official catalog covers HEMP protective-device test methods but does not expose the exact aperture/seam/cable-entry proposition.
 id = "m07-q053"
 kind = "single-select"
 module = 7

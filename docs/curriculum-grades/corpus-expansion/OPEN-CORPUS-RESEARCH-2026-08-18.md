@@ -1044,6 +1044,32 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 77 — CDCP EMF/EMI, HEMP, and shielding receipts
+
+**Review date:** 2026-08-18. Ten M07 rows now carry official IEC catalog
+receipts for power-frequency immunity, EMF measurement, HEMP protective-device
+testing, and HEMP/IEMI facility-protection guidance. The catalog pages do not
+expose the exact EMI definition, survey trigger, adjacency, induction,
+shielding, HEMP boundary, source-list, fibre, myth, or hierarchy propositions;
+all ten remain BLOCKED. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m07-q049 | Types of EMF | IEC 61000-4-8:2009 — https://webstore.iec.ch/en/publication/4229 | **BLOCKED** — exact EMI definition proposition not exposed |
+| m07-q050 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact survey-trigger decision rule not exposed |
+| m07-q051 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact UPS/transformer-room adjacency proposition not exposed |
+| m07-q052 | Types of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact Faraday-induction/cable-loop proposition not exposed |
+| m07-q053 | Shielding | IEC 61000-4-23:2016 + AMD1:2025 CSV — https://webstore.iec.ch/en/publication/26074 | **BLOCKED** — exact aperture/seam/cable-entry proposition not exposed |
+| m07-q054 | EMF standards and best practices | IEC TS 61000-5-10:2017 — https://webstore.iec.ch/en/publication/30054 | **BLOCKED** — exact ordinary-design/military-hardening boundary proposition not exposed |
+| m07-q055 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact external-adjacency source list not exposed |
+| m07-q056 | Shielding | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact fibre-versus-copper mitigation proposition not exposed |
+| m07-q057 | Types of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact plant-scale-versus-phone-magnet proposition not exposed |
+| m07-q058 | Shielding | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact mitigation-hierarchy ordering not exposed |
+
+The ledger remains 164 PASS / 793 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j or ebrr bead, or alter
+gate-shrink or oracle scope.
+
 ## Breadth pass 76 — CDCP EMF shielding and standards receipts
 
 **Review date:** 2026-08-18. The retired ledger-only mock40-q23 and four M07
