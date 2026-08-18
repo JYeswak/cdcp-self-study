@@ -1044,6 +1044,26 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 62 — CDCP UPS operating-mode receipts
+
+**Review date:** 2026-08-18. Six additional M06 rows now carry the official
+IEC 62040-3:2021 catalog/preview receipt. They remain BLOCKED because the
+public page does not expose the exact standby, line-interactive, autonomy,
+parallel-capacity, N+1, or flywheel teaching propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q059 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact standby/VFD comparison not exposed |
+| m06-q060 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact line-interactive comparison not exposed |
+| m06-q061 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact autonomy policy not exposed |
+| m06-q062 | UPS parallel configurations | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact non-redundant parallel failure not exposed |
+| m06-q063 | UPS parallel configurations | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact N+1 parallel proposition not exposed |
+| m06-q064 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact flywheel comparison not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 61 — CDCP resilience and UPS-topology receipts
 
 **Review date:** 2026-08-18. Six additional M06 rows now carry official

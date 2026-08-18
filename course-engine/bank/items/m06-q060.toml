@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: UPS systems
+# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
+# BLOCKED: the official catalog does not expose the exact line-interactive edge-versus-core comparison.
 id = "m06-q060"
 kind = "single-select"
 module = 6
