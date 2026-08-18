@@ -905,6 +905,23 @@ The adjacent broader claims remain BLOCKED on their existing official
 receipts. No standard body or PDF was fetched. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 184 — indoor-workplace lighting for safe operations
+
+**Review date:** 2026-08-18. The current ISO catalog was checked for
+ISO/CIE 8995-1:2025, Edition 1. Its public abstract explicitly covers
+lighting requirements for indoor workplaces and associated areas in terms of
+visual comfort, performance, and safety, including the quantity and quality
+of illumination. That directly supports the bounded visibility proposition
+for operations, inspection, and maintenance tasks.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m05-q204 | Lighting standards | ISO/CIE 8995-1:2025 — https://www.iso.org/standard/76342.html | **PASS** — public ISO catalog covers indoor-workplace lighting for visual comfort, performance, and safety |
+
+Specific glare/color-rendering trade-offs, airflow/cabling interference,
+emergency lighting, and jurisdictional lux minima remain BLOCKED. No standard
+body or PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 183 — balanced-cable performance classes
 
 **Review date:** 2026-08-18. The current IEC catalog was checked for
