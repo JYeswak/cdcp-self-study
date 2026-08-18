@@ -340,6 +340,7 @@ dependencies = [
 name = "cdcp_registry_check"
 version = "0.1.0"
 dependencies = [
+ "cdcp_core",
  "cdcp_root",
  "regex",
  "serde",
