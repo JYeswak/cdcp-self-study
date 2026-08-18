@@ -1044,6 +1044,22 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 81 — CDCP rack hardware and airflow-orientation receipts
+
+**Review date:** 2026-08-18. Two additional M08 rows now carry current IEC or
+TIA catalog receipts. The public pages do not expose the exact cage-nut or
+hot-aisle/cold-aisle orientation propositions, so both remain BLOCKED. No PDF
+was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m08-q061 | Rack standards | IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283 | **BLOCKED** — exact cage-nut/fastener proposition not exposed |
+| m08-q062 | Types of racks | TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact hot-aisle/cold-aisle orientation proposition not exposed |
+
+The ledger remains 164 PASS / 793 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j or ebrr bead, or alter
+gate-shrink or oracle scope.
+
 ## Breadth pass 80 — CDCP rack security, PDU, seismic, and clearance receipts
 
 **Review date:** 2026-08-18. Ten additional M08 rack rows now carry official
