@@ -889,6 +889,23 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 265 — IEC external-EMI facility-mitigation scope
+
+**Review date:** 2026-08-18. The current IEC Webstore entry for IEC
+61000-5-6:2024 covers guidelines for mitigating external electromagnetic
+influences at facilities or installations. Its public catalog explicitly lists
+lightning, RF transmitters, power-line and telecommunications transients, HEMP,
+and IEMI, and says the guidance is aimed at EMC among electrical/electronic
+apparatus or systems. The item below is bounded to that influence list; it does
+not claim a military-hardening level or a site-specific compliance result.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m07-q054 | EMF standards and best practices | IEC 61000-5-6:2024 — https://webstore.iec.ch/en/publication/69097 | **PASS** — the listed external electromagnetic influences are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 264 — IEC quasi-static EMF measurement and source scope
 
 **Review date:** 2026-08-18. The current IEC Webstore entry for IEC

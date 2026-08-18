@@ -1,19 +1,21 @@
 # Original CDCP educational item — bank expansion (module 7)
 # Public syllabus heading: EMF standards and best practices
-# Official catalog/preview receipt: IEC TS 61000-5-10:2017 — https://webstore.iec.ch/en/publication/30054
-# BLOCKED: the official catalog provides HEMP/IEMI facility-protection guidance but does not expose the exact ordinary-design/military-hardening boundary proposition.
+# Official catalog/preview receipt: IEC 61000-5-6:2024 — https://webstore.iec.ch/en/publication/69097
+# PASS: the current IEC catalog explicitly covers facility-level mitigation of
+# lightning, RF, power-line and telecom transients, HEMP, and IEMI. No paid body
+# or PDF was fetched.
 id = "m07-q054"
 kind = "single-select"
 module = 7
-stem = "HEMP awareness at CDCP level correctly includes that:"
+stem = "IEC 61000-5-6:2024 covers mitigation of which external electromagnetic influences at facilities or installations?"
 choices = [
-  "Standard commercial colo designs are automatically HEMP-hardened",
-  "E1/E2/E3 are cooling set points",
-  "Fibre eliminates all EMP coupling concerns always",
-  "True HEMP/IEMI hardening is specialist scope; ordinary designs should not claim military-grade protection",
+  "Lightning, RF transmitters, power-line and telecom transients, HEMP, and IEMI",
+  "Only chilled-water temperature excursions",
+  "Only application software faults and cloud outages",
+  "Only optical-fibre attenuation and connector cleanliness",
 ]
-correct = "D"
-explanation = "Recognize EMP vocabulary and do not over-claim hardening without a real program."
+correct = "A"
+explanation = "The IEC catalog lists those external electromagnetic influences in its facility-level mitigation scope."
 topic_ids = ["m07-standards", "m07-types"]
 objective_ids = []
 bloom = "understand"
