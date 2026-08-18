@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: Types of emergency light
+# Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
+# BLOCKED: the official catalog does not expose the exact central-battery/unit-equipment comparison.
 id = "m05-q141"
 kind = "single-select"
 module = 5
