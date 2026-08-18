@@ -1136,6 +1136,62 @@ was made.
 **Bounded result:** All 26 CDFOS rows pass; 27 of 30 CDFOM rows pass; these
 three remain explicit BLOCKED receipts with current official catalog URLs.
 
+## Breadth pass 133 — CDCP standards landscape and current edition boundaries
+
+**Date:** 2026-08-18
+**Scope:** M02 questions about the standards landscape, AHJ/code versus
+voluntary standards, international versus national instruments, data-centre
+classification, and the relationship between facility sub-systems and the
+data-centre infrastructure series. The public [EPI CDCP syllabus](https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29)
+heading is retained; no standards hierarchy or rating taxonomy is invented.
+
+**Official public receipts:**
+
+- [ISO/IEC 22237-1:2021](https://www.iso.org/standard/78550.html),
+  **Information technology — Data centre facilities and infrastructures —
+  Part 1: General concepts**, is the published current Edition 1. Its public
+  abstract covers common terminology, parameters, reference models, facility
+  and infrastructure principles, a classification system based on
+  availability, security, and energy-efficiency enablement, business-risk and
+  operating-cost analysis, and a reference to data-centre operation and
+  management. It expressly leaves safety, EMC, and several IT/network choices
+  to other standards or regulations.
+- [ISO/IEC 22237-2:2024](https://webstore.iec.ch/en/publication/92577),
+  **Part 2: Building construction**, is the current IEC Webstore Edition 1.0.
+  Its public catalog describes site selection, environmental risk, site and
+  building configuration, access, intrusion and fire protection, water
+  damage, construction quality, and conformance. The former ISO/IEC TS
+  22237-2:2018 is explicitly replaced and is not used as the current receipt.
+- [ISO/IEC 22237-3:2021](https://webstore.iec.ch/en/publication/71476),
+  **Part 3: Power distribution**, is the current IEC Webstore Edition 1.0.
+  Its public catalog covers power supplies and distribution, bonding,
+  lightning protection, measurement of power consumption and power quality,
+  and management-tool integration. It does not prove local design, AHJ
+  acceptance, protection settings, or a successful transfer.
+- [TIA-942-C Data Center Infrastructure Standard](https://tiaonline.org/resource/tia-942-c-data-center-infrastructure-standard/)
+  is TIA’s current public overview of the updated consensus standard. TIA’s
+  [certification page](https://tiaonline.org/products-and-services/tia942certification/)
+  describes the standard’s infrastructure scope and the separate conformity
+  assessment programme. These public pages are edition/scope anchors, not the
+  paid standard body and not proof that a facility holds a rating.
+
+**Adversarial boundary:** An international standard is not automatically an
+AHJ-adopted code; a catalog abstract is not the standard body; a data-centre
+classification is not a service-availability guarantee; and a certification
+programme or rating label is not local engineering acceptance. Replaced
+technical-specification editions, secondary commentary, and PDF bodies are
+excluded. No bank or ledger disposition changed in this pass.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M02 | Identify the role, scope, edition, and authority of an international data-centre infrastructure standard versus an adopted code, regulation, or voluntary industry standard | ISO/IEC and TIA pages do not decide which AHJ instrument applies at a site |
+| M03/M04 | Connect site/building criteria and facility interfaces to the current data-centre infrastructure series | A current part catalog does not prove a site’s construction, quality, or acceptance evidence |
+| M06/M09/M11 | Distinguish power-distribution, operations, measurement, and management-tool scope from local operating procedures and controls | A standard scope statement is not a switching authorization or operating result |
+
+**Bounded result:** This pass refreshes current official standards-landscape
+receipts and replaces no older edition with an unsupported claim. Existing
+PASS/BLOCKED decisions remain unchanged; the ledger still has zero bare FAILs.
+
 ## Breadth pass 130 — sourcing, outsourcing, and collaborative supplier evidence
 
 **Date:** 2026-08-18
