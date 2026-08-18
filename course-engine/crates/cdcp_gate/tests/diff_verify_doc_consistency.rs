@@ -808,6 +808,21 @@ fn unicode_strip_whitespace_in_milestone_headers_is_byte_identical_and_known_bad
     assert!(out.contains("roadmap GREEN"), "{out}");
 }
 
+/// Python's publication regex uses `\s*` around the optional emphasis. The
+/// known-bad mutant keeps Rust's narrower whitespace predicate, so U+001F
+/// between `public repo:` and `no` would evade the audit finding.
+#[test]
+fn unicode_regex_whitespace_in_publication_pattern_is_byte_identical_and_known_bad_is_red() {
+    let s = Spec::clean();
+    let separator = '\u{1f}';
+    s.append(
+        "course-engine/docs/PHASE-NEXT.md",
+        &format!("\nThe public repo:{separator}no longer awaits review.\n"),
+    );
+    let out = assert_byte_exact("unicode publication regex whitespace", Some(s.path()));
+    assert!(out.contains("audit says the repo is not public"), "{out}");
+}
+
 /// The heading of a status-bearing section supplies the status for a table with
 /// no Status column — the PHASE-NEXT shape.
 #[test]

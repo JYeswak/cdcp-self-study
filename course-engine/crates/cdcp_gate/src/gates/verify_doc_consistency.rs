@@ -1073,13 +1073,13 @@ fn publication_hit(line: &str) -> Option<&'static str> {
         let Some(mut p) = matches_alt_at(&cs, i, "public repo:") else {
             continue;
         };
-        while p < n && cs[p].is_whitespace() {
+        while p < n && py_space(cs[p]) {
             p += 1;
         }
         while p < n && cs[p] == '*' {
             p += 1;
         }
-        while p < n && cs[p].is_whitespace() {
+        while p < n && py_space(cs[p]) {
             p += 1;
         }
         let Some(end) = matches_alt_at(&cs, p, "no") else {
