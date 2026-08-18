@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 472 PASS; 485 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 474 PASS; 483 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -421,8 +421,8 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m07-q211 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact tray-geometry cancellation proposition is not exposed |
 | m07-q212 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 official abstract names uncertainty sources and total-uncertainty guidance |
 | m07-q213 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — current IEC catalog identifies 0.1 microtesla to 200 millitesla as an AC magnetic-field measurement range |
-| m07-q214 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/30054 | BLOCKED — IEC TS 61000-5-10:2017 catalog receipt; exact MIL-STD evidence proposition is not exposed |
-| m07-q215 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/30054 | BLOCKED — IEC TS 61000-5-10:2017 catalog receipt; universal commercial-site field value is not exposed |
+| m07-q214 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/30054 | PASS — current IEC catalog provides HEMP/IEMI protection guidelines for commercial facilities |
+| m07-q215 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/30054 | PASS — current IEC catalog states applicability to existing facilities and new buildings when critical-electronics protection is important to function |
 | mock40-q24 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; the exact rack-unit dimension proposition in this retired duplicate is not exposed |
 | mock40-q25 | 8 | Containment | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; the exact blanking-panel airflow proposition in this retired duplicate is not exposed |
 | m08-q041 | 8 | Rack standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | PASS |

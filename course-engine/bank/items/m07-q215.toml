@@ -1,19 +1,21 @@
 # Original CDCP educational item — M07 HEMP scope/design variant.
 # Public syllabus heading: EMF standards and best practices
 # Official catalog/preview receipt: IEC TS 61000-5-10:2017 — https://webstore.iec.ch/en/publication/30054
-# BLOCKED: the official catalog provides HEMP/IEMI facility-protection guidance but does not expose a universal commercial-site field value.
+# PASS: the current IEC catalog says the guidance applies to existing facilities
+# and new buildings when the customer has decided that protecting critical
+# electronics from HEMP and IEMI is important to the facility's function.
 id = "m07-q215"
 kind = "single-select"
 module = 7
-stem = "A design review asks for one HEMP field value that proves every commercial colocation facility is protected. What is the technically honest correction?"
+stem = "When does IEC TS 61000-5-10:2017 say its HEMP/IEMI guidance is applicable?"
 choices = [
-  "MIL-STD-188-125-1 is performance-based for its fixed-facility mission scope, so define the scope and verification program; do not invent a universal commercial-site value",
-  "Use the ICNIRP 2020 RF guideline because every HEMP component is RF",
-  "Use the current drawn by the largest UPS as the HEMP protection value",
-  "Treat a site as protected whenever its ordinary commercial design has no reported outage",
+  "To existing facilities and new buildings when protection of critical electronics from HEMP and IEMI is important to the facility's function",
+  "Only to residential buildings regardless of customer need",
+  "Only to facilities with no electronic equipment",
+  "To every site automatically, without a protection decision",
 ]
 correct = "A"
-explanation = "The public DLA record describes minimum performance requirements and testing for its stated fixed-facility scope, without prescribing a single design solution. It does not support a universal HEMP field threshold or an automatic commercial-site claim."
+explanation = "The current IEC catalog explicitly states that the document applies to existing facilities and new buildings when the customer has decided that protecting critical electronics from HEMP and IEMI is important to the facility's function."
 topic_ids = ["m07-standards", "m07-types"]
 objective_ids = []
 bloom = "analyze"

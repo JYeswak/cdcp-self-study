@@ -1,19 +1,20 @@
 # Original CDCP educational item — M07 HEMP evidence boundary.
 # Public syllabus heading: EMF standards and best practices
 # Official catalog/preview receipt: IEC TS 61000-5-10:2017 — https://webstore.iec.ch/en/publication/30054
-# BLOCKED: the official catalog provides HEMP/IEMI facility-protection guidance but does not expose the exact MIL-STD evidence proposition.
+# PASS: the current IEC catalog explicitly provides guidelines to protect
+# commercial facilities from HEMP and IEMI.
 id = "m07-q214"
 kind = "single-select"
 module = 7
-stem = "A provider says a commercial site is ‘HEMP hardened’ because it installed surge-protective devices. Before making a MIL-STD-188-125-1 Revision A protection claim, what evidence is needed?"
+stem = "What does IEC TS 61000-5-10:2017 explicitly provide?"
 choices = [
-  "A site-specific performance basis, required verification testing, and hardness-maintenance/surveillance records",
-  "A newer ICNIRP RF guideline and a statement that all power-frequency fields are harmless",
-  "A vendor brochure naming one shield material, with no test or maintenance record",
-  "A fibre run to the white space, which by itself proves the facility is HEMP hardened",
+  "Guidelines to protect commercial facilities from HEMP and IEMI",
+  "A guarantee that every commercial facility is HEMP hardened",
+  "A universal field value for every site",
+  "A fibre run that by itself proves HEMP protection",
 ]
 correct = "A"
-explanation = "The public DLA ASSIST record describes minimum performance requirements, testing, and a hardness-maintenance/surveillance program, and says the standard does not mandate one design solution. A surge-protection product alone does not establish the claim."
+explanation = "The current IEC catalog explicitly says IEC TS 61000-5-10 provides guidelines to protect commercial facilities from HEMP and IEMI; it does not establish a MIL-STD evidence proposition."
 topic_ids = ["m07-standards", "m07-sources"]
 objective_ids = []
 bloom = "analyze"

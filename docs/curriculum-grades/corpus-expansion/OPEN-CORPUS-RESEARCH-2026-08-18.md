@@ -870,6 +870,21 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 305 — IEC HEMP/IEMI facility-guidance preview claims
+
+**Review date:** 2026-08-18. The current official IEC catalog for IEC TS
+61000-5-10:2017 was checked without opening or fetching a PDF. Its public
+abstract provides guidelines to protect commercial facilities from HEMP and
+IEMI, and says the guidance applies to existing facilities and new buildings
+when protection of critical electronics is important to the facility's function.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m07-q214 | EMF standards and best practices | IEC TS 61000-5-10:2017 — https://webstore.iec.ch/en/publication/30054 | **PASS** — asks only for the catalog's HEMP/IEMI guidance scope; no MIL-STD evidence claim is inferred |
+| m07-q215 | EMF standards and best practices | IEC TS 61000-5-10:2017 — https://webstore.iec.ch/en/publication/30054 | **PASS** — asks only for the catalog's applicability boundary; no universal field value is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 304 — IEC wiring-system and harmonic-cable preview claims
 
 **Review date:** 2026-08-18. The current official IEC catalog for IEC
