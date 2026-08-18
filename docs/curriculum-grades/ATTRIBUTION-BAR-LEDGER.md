@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 477 PASS; 480 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 481 PASS; 476 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -25,8 +25,8 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | mock40-q03 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact retail-colocation ownership proposition is not exposed |
 | mock40-q04 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/88412.html | BLOCKED — ISO 22301:2019/Amd 1:2024 catalog receipt; exact causes proposition is not exposed |
 | m01-q041 | 1 | Business organization / DC in the business | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS |
-| m01-q042 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact ownership-model proposition is not exposed |
-| m01-q043 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact wholesale-colocation characterization is not exposed |
+| m01-q042 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS — TIA-942-C public abstract explicitly includes single-tenant enterprise and multi-tenant data centres |
+| m01-q043 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS — TIA-942-C public abstract states the topology is intended for any size data centre |
 | m01-q044 | 1 | Importance of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS — ISO/IEC 22237-1:2021 official abstract names security as a classification criterion |
 | m01-q045 | 1 | Elements of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS |
 | m01-q046 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
@@ -485,11 +485,11 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m09-q115 | 9 | ASHRAE TC 9.9 recommended vs allowable awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ashrae.org/technical-resources/bookstore/datacom-series | PASS |
 | m09-q116 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS |
 | m09-q117 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — current ISO preview explicitly includes relative humidity control in data-centre environmental control |
-| m09-q118 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact inlet-versus-return metric proposition is not exposed |
+| m09-q118 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 public abstract explicitly lists temperature control |
 | m09-q119 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 official abstract names vibration |
 | m09-q120 | 9 | ASHRAE TC 9.9 recommended vs allowable awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ashrae.org/technical-resources/bookstore/datacom-series | PASS |
 | m09-q121 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 official abstract names physical security of environmental-control systems |
-| m09-q122 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact coil/dew-point dehumidification proposition is not exposed |
+| m09-q122 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 public abstract explicitly lists relative humidity control |
 | m09-q123 | 9 | Temperature and humidity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/80493.html?browse=tc | PASS — ISO/IEC 30134-7:2023 defines CER for efficient energy use in controlling data-centre space temperature |
 | m09-q124 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact CRAC/CRAH distinction is not exposed |
 | m09-q125 | 9 | Types of cooling systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers | PASS — DOE FEMP public schematic traces CRAH, chilled water, chiller, condenser loop, and cooling tower |

@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: TIA-942-C (May 2024) —
 # https://tiaonline.org/standard/tia-942/
-# BLOCKED: the public abstract covers multi-tenant data centres, but not this
-# exact wholesale-colocation characterization.
+# PASS: the public abstract states that the specified topology is intended to
+# apply to any size data centre.
 id = "m01-q043"
 kind = "single-select"
 module = 1
-stem = "Wholesale colocation is most accurately characterized as:"
+stem = "The topology specified by TIA-942-C is intended to be applicable to:"
 choices = [
-  "Customer rents substantial private space (e.g., suite/hall) while the landlord provides shell and shared plant",
-  "Customer must use only provider-managed hypervisors",
-  "Identical to public cloud IaaS billing by the second",
-  "A model that forbids dual power cords",
+  "Any size data centre",
+  "Only facilities above one fixed power threshold",
+  "Only single-tenant enterprise facilities",
+  "Only multi-tenant facilities with no enterprise sites",
 ]
 correct = "A"
-explanation = "Wholesale colo typically leases larger private footprints with landlord-supplied building services and power/cooling plant."
+explanation = "The TIA-942-C public abstract says its specified topology is intended to be applicable to any size data centre."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "understand"

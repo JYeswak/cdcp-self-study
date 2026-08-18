@@ -870,6 +870,28 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 308 — TIA-942-C and ISO/IEC 22237-4 public abstract claims
+
+**Review date:** 2026-08-18. Official HTML catalog/abstract pages were checked
+without opening or fetching a PDF. TIA-942-C's current public page identifies
+the May 2024 Version C edition, names single-tenant enterprise and multi-tenant
+data centres, states that its topology is intended for any size data centre, and
+lists the infrastructure domains affected by the revision. ISO/IEC 22237-4:2021's
+current ISO page lists temperature control and relative humidity control among
+its environmental-control domains.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m01-q042 | Types of data centres | TIA-942-C, May 2024, Version C — https://tiaonline.org/standard/tia-942/ | **PASS** — asks only for the explicitly named single-/multi-tenant contexts |
+| m01-q043 | Types of data centres | TIA-942-C, May 2024, Version C — https://tiaonline.org/standard/tia-942/ | **PASS** — asks only for the public topology applicability statement |
+| m09-q118 | Temperature and humidity | ISO/IEC 22237-4:2021, Edition 1 — https://www.iso.org/standard/78552.html?browse=tc | **PASS** — asks only for the listed temperature-control domain |
+| m09-q122 | Temperature and humidity | ISO/IEC 22237-4:2021, Edition 1 — https://www.iso.org/standard/78552.html?browse=tc | **PASS** — asks only for the listed relative-humidity-control domain |
+
+The related TIA ownership taxonomies, cooling-equipment distinctions, and
+raised-floor specifics remain BLOCKED because the cited public abstracts do not
+expose those exact propositions. This pass does not certify a learner or close
+ms4j.
+
 ## Breadth pass 307 — IEC shielding-test method preview claims
 
 **Review date:** 2026-08-18. The current official IEC catalog for IEC

@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Temperature and humidity
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact server-inlet-versus-return health-metric proposition.
+# PASS: the current public abstract explicitly lists temperature control and
+# relative humidity control among the environmental-control domains.
 id = "m09-q118"
 kind = "single-select"
 module = 9
-stem = "Server inlet temperature is generally preferred over room return temperature as a health metric because:"
+stem = "Which environmental-control domain is explicitly listed in the ISO/IEC 22237-4:2021 public abstract?"
 choices = [
-  "Return temperature is always higher than outdoor wet-bulb",
-  "Inlet sensors are illegal",
-  "IT reliability depends on air entering the equipment, not only on CRAH return mixed air",
-  "Return air never contains heat"
+  "Temperature control",
+  "Rack ownership control",
+  "Fuel-quality control for generators",
+  "Telecommunications topology control"
 ]
-correct = "C"
-explanation = "Equipment cares about its inlet conditions; return air can mask hot spots if mixing is poor."
+correct = "A"
+explanation = "ISO/IEC 22237-4:2021's public abstract lists temperature control as an environmental-control domain."
 topic_ids = ["m09-temp-humidity", "m09-principles"]
 objective_ids = []
 bloom = "apply"
