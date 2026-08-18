@@ -870,6 +870,25 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 319 — TIA-942-C infrastructure and revision-scope claims
+
+**Review date:** 2026-08-18. The current TIA page for TIA-942-C, Version C,
+published May 2024, was checked without opening or fetching a PDF. Its public
+abstract says the standard specifies requirements for infrastructure of data
+centres and computer rooms and lists telecommunications, power, cooling,
+architecture, fire protection, safety, and physical security as domains affected
+by Revision C.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m01-q202 | Types of data centres | TIA-942-C, May 2024, Version C — https://tiaonline.org/standard/tia-942/ | **PASS** — asks only for the listed Revision C domains |
+| m03-q106 | Facility criteria | TIA-942-C, May 2024, Version C — https://tiaonline.org/standard/tia-942/ | **PASS** — asks only for the stated infrastructure scope |
+
+Ownership-model taxonomies, edge/central tradeoffs, site heat-rejection
+constraints, and other item-level design propositions remain BLOCKED because
+the public abstract does not expose them. This pass does not certify a learner
+or close ms4j.
+
 ## Breadth pass 318 — ISO/CIE 8995-1 indoor-lighting preview claims
 
 **Review date:** 2026-08-18. The current ISO Online Browsing Platform page for

@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 512 PASS; 445 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 514 PASS; 443 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -48,7 +48,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m01-q062 | 1 | Business organization / DC in the business | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/86677.html | PASS — ISO/IEC TS 8236-2:2025 covers facility provisioning KPIs, forecasting, and lifecycle capability assessment |
 | m01-q200 | 1 | Business organization / DC in the business | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS — ISO/IEC 22237-1:2021 official abstract names common terminology, parameters, and reference models |
 | m01-q201 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/75106.html?browse=tc | PASS — current ISO 22301 preview names a systematic response to crises and lists Amd 1:2024 |
-| m01-q202 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact enterprise/colo/hyperscale comparison is not exposed |
+| m01-q202 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS — TIA-942-C public abstract lists the infrastructure domains affected by Revision C |
 | m01-q203 | 1 | Elements of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS |
 | m01-q204 | 1 | Importance of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS |
 | m01-q205 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact edge-versus-central tradeoff is not exposed |
@@ -130,7 +130,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m03-q103 | 3 | Site location selection criteria | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | PASS — ISO/IEC 22237-2:2024 preview covers site configuration, provision of access, and physical intrusion protection |
 | m03-q104 | 3 | Supporting facilities and function | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82248.html | PASS — ISO/IEC 22237-2:2024 official abstract names access in the building-configuration scope |
 | m03-q105 | 3 | Site location selection criteria | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact climate/free-cooling proposition is not exposed |
-| m03-q106 | 3 | Facility criteria | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact roof/yard heat-rejection constraint is not exposed |
+| m03-q106 | 3 | Facility criteria | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS — TIA-942-C public abstract states requirements for data-centre and computer-room infrastructure |
 | m03-q107 | 3 | Supporting facilities and function | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82248.html?browse=tc | PASS |
 | m03-q108 | 3 | Site location selection criteria | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82248.html | PASS — ISO/IEC 22237-2:2024 explicitly lists access among its site/building topics |
 | m03-q109 | 3 | Site location selection criteria | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact shared-campus site-test proposition is not exposed |
