@@ -932,6 +932,24 @@ heading remains **Importance of water**. No PDF or standard body was fetched.
 No permit, water-rights, zero-water, or cooling-architecture conclusion is
 inferred. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 356 — IEC 60297-3-105 1U chassis mounting scope
+
+**Review date:** 2026-08-18. `m08-q045` was narrowed from an unsupported
+600 mm versus 800 mm external-cabinet-width proposition to the public IEC
+catalog for IEC 60297-3-105:2008. The catalog names dimensions and design
+aspects for 1U chassis mounted into IEC 60297-3-100-compliant racks/cabinets,
+including loaded-weight and accessibility considerations. The catalog page
+shows edition 1.0, publication date 2008-11-26, and a 2027 stability date. No
+PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m08-q045 | Rack dimensions | IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288 | **PASS** — 1U chassis mounting into IEC 60297-3-100-compliant racks/cabinets is explicit |
+
+No universal 600 mm or 800 mm external-width rule, cable-management rule, or
+vendor enclosure specification is inferred. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

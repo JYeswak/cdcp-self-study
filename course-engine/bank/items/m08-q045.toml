@@ -1,20 +1,21 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Rack dimensions
-# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the official catalog does not expose the exact 600 mm versus 800 mm cabinet-width proposition.
+# Official catalog/preview receipt: IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288
+# PASS: the current IEC catalog explicitly covers dimensions and design aspects
+# for 1U chassis mounted in compliant racks/cabinets. No paid body or PDF was fetched.
 id = "m08-q045"
 kind = "single-select"
 module = 8
-stem = "Cabinet outer widths of about 600 mm vs 800 mm are often chosen because:"
+stem = "According to the IEC 60297-3-105:2008 catalog description, 1U chassis are mounted into:"
 choices = [
-  "600 mm is common; 800 mm adds side space for cable managers and dense copper/vertical PDUs",
-  "800 mm never fits any row",
-  "Width equals mounting depth always",
-  "IP rating forces 600 mm only",
+  "IEC 60297-3-100 compliant racks or cabinets",
+  "Only residential furniture cabinets",
+  "Only generator enclosures with no rack interface",
+  "Only cloud-software service containers",
 ]
 correct = "A"
-explanation = "800 mm helps cable volume and side management; 600 mm is denser footprint."
-topic_ids = ["m08-dimensions", "m08-types"]
+explanation = "The IEC catalog describes 1U chassis mounted into IEC 60297-3-100 compliant racks/cabinets; it does not expose a universal 600 mm or 800 mm external-width rule."
+topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
