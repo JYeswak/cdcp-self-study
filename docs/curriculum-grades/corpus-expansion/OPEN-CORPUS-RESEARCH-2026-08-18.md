@@ -1044,6 +1044,83 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 118 — supply-chain, firmware, spares, and vendor-access evidence
+
+**Date:** 2026-08-18
+**Scope:** M02, M06, M08, M09, M11, M13, M14, and M15 questions about supplier
+assurance, provenance, receiving, firmware/software maintenance, critical
+spares, component authenticity, remote/vendor access, patch support windows,
+and return-to-service evidence. Existing public EPI/CDCS/CDFOS/CDFOM headings
+are retained; this pass adds bounded evidence anchors and does not invent a
+heading or taxonomy.
+
+**Official public receipts:**
+
+- [NIST SP 800-161 Rev. 1 Update 1](https://csrc.nist.gov/pubs/sp/800/161/r1/upd1/final),
+  **Cybersecurity Supply Chain Risk Management Practices for Systems and
+  Organizations**, is the current NIST final update. The public page identifies
+  supply-chain risk strategy, implementation plans, policies, and assessments,
+  including malicious or counterfeit products, poor development/manufacturing,
+  and loss of visibility across development, integration, and deployment. The
+  page records updates as of 2024-11-01 and exposes the official DOI
+  `10.6028/NIST.SP.800-161r1-upd1`; no body or PDF was fetched.
+- [NIST SP 800-218](https://csrc.nist.gov/pubs/sp/800/218/final), **Secure
+  Software Development Framework (SSDF) Version 1.1**, is the current NIST
+  final publication used here for software and firmware supplier lifecycle
+  evidence. Its public abstract supports common vocabulary between software
+  purchasers/consumers and suppliers and practices that reduce vulnerabilities
+  and exploitation. The separate [NIST SSDF publications index](https://csrc.nist.gov/Projects/ssdf/publications)
+  identifies SP 800-218 Rev. 1 / v1.2 as a 2025 draft; that draft is not used as
+  a current edition.
+- [NIST Cybersecurity Supply Chain Risk Management project page](https://csrc.nist.gov/projects/cyber-supply-chain-risk-management/)
+  is the official public index for current C-SCRM work. It identifies the final
+  SP 1326 Due Diligence Assessment Quick-Start Guide (2026-07-08) and final SP
+  800-18 Rev. 2 (2026-06-30) as newer resources, while retaining SP 800-161r1
+  as the foundational practice. The index is used as a discovery and currency
+  boundary, not as an invented syllabus or certification taxonomy.
+- [ISO 55000:2024](https://www.iso.org/standard/83053.html), **Asset
+  management — Vocabulary, overview and principles**, is the current published
+  Edition 2 (2024-07) catalog entry. ISO marks the 2024 edition as replacing
+  and withdrawing ISO 55000:2014. Its public abstract covers terminology,
+  principles, lifecycle, accountability, risk, value, and sustainability; the
+  paid standard body was not fetched.
+- [ISO 55001:2024](https://www.iso.org/standard/83054.html), **Asset
+  management system — Requirements**, remains the current published Edition 2
+  (2024-07) catalog entry for lifecycle, risk/performance/expenditure balance,
+  periodic review, and continual improvement. It is catalog-only for exact
+  requirements.
+- [IEC 62443-2-4:2023](https://webstore.iec.ch/en/publication/67631) remains
+  the official IEC catalog receipt for service-provider integration and
+  maintenance boundaries, and [NIST SP 800-82 Rev. 3](https://csrc.nist.gov/pubs/sp/800/82/r3/final)
+  remains the official public OT-security receipt for safety, reliability,
+  availability, and maintenance constraints. Neither paid body was fetched.
+
+**Adversarial boundary:** A vendor assurance package is evidence to evaluate,
+not proof that a component is authentic, patchable, compatible, or safe in the
+local control loop. A spare being physically present is not evidence that it is
+the correct revision, environment-compatible, tested, traceable, or installable
+under an approved maintenance/change window. A firmware update is not routine
+just because a supplier published it: staging, signed/approved provenance,
+support status, rollback, logging, control-loop impact, and recovery evidence
+must remain explicit.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M02 | Separate official catalog/standard, supplier assertion, objective evidence, adopted code, and local procedure; reject withdrawn ISO 55000:2014 as a current edition | NIST/ISO receipts do not create an EPI heading or vendor-assurance pass by themselves |
+| M06 | For UPS, generator, ATS, switchgear, and BESS controllers, verify provenance, critical-spare revision, firmware compatibility, staged update/fallback, and vendor remote-access approval before a switching window | No universal spare quantity, patch interval, generator value, or supplier SLA is invented |
+| M08 | Keep rack/server/network asset identity, firmware baseline, provenance, spare compatibility, support window, and secure disposal linked to the asset record | An inventory record does not prove authenticity or successful recovery |
+| M09 | Tie CDU/BMS sensors, controllers, pumps, valves, and firmware to water/thermal compatibility, approved maintenance, and rollback evidence | A catalog receipt does not prove a safe BMS command or field compatibility |
+| M11 | Require approved/signed firmware, support/SBOM evidence where available, time-bounded vendor access, management-plane segmentation, rollback, and logs | SSDF is a lifecycle vocabulary and practice framework, not a product security certificate |
+| M13/M14 | Record chain of custody, authenticity checks, least-privilege/time-bounded access, control-system versions, maintenance windows, event logs, and incident escalation | Supplier access is not an invented OLA or handover program |
+| M15 | Assign supplier roles, maintenance-contract obligations, exception ownership, spares testing, competence, return-to-service sign-off, and lessons learned | ISO 55000/55001 and IEC 62443 catalog pages remain evidence anchors, not local acceptance |
+
+**Bounded result:** This pass supplies current official anchors for the
+remaining supply-chain and lifecycle questions while preserving the legal
+boundary. Withdrawn ISO 55000:2014, NIST SP 800-218 Rev. 1/v1.2 draft material,
+unopened CISA PDF resources, vendor blogs, paywall-bypass archives, and
+unsupported taxonomies are excluded. No bank rows, ledger dispositions,
+manifest, topics, beads, gate, oracle, or credential state changed.
+
 ## Breadth pass 117 — resilience, exercises, and asset-lifecycle evidence
 
 **Date:** 2026-08-18
