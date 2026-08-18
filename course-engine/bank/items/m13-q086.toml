@@ -1,10 +1,8 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: NFPA 731 (2026) —
-# https://link.nfpa.org/all-publications/731/2026
-# BLOCKED: the public catalog does not expose the exact fail-safe/fail-secure
-# power-loss semantics needed to promote this item.
+# Official catalog/preview receipt: 2025 Fire Code of New York State, §1010.2.13 — https://codes.iccsafe.org/s/NYSFC2025P1/chapter-10-means-of-egress/NYSFC2025P1-Pt03-Ch10-Sec1010.2.13
+# PASS: the AHJ-adopted public code requires controlled-egress electric locks to unlock on loss of power, allowing immediate free egress.
 id = "bank-m13-q086"
 kind = "single-select"
 module = 13

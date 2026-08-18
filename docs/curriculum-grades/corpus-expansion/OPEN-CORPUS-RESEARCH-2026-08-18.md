@@ -975,6 +975,23 @@ because the public definition does not expose those stronger propositions. No
 standard body or PDF was fetched. This pass does not certify a learner or close
 ms4j.
 
+## Breadth pass 160 — AHJ public egress-lock boundary
+
+**Review date:** 2026-08-18. M13 fail-safe/fail-secure locking was checked
+against the public 2025 Fire Code of New York State, an AHJ-adopted code text.
+Section 1010.2.13 states that controlled-egress electric locks unlock on loss
+of power to the locking system or mechanism, allowing immediate free egress.
+That directly supports the fail-safe egress proposition in one row; it does not
+establish the broader fail-secure entry-side or anti-passback propositions.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m13-q086 | Physical Security and Safety — Components for physical security | 2025 Fire Code of New York State, §1010.2.13 — https://codes.iccsafe.org/s/NYSFC2025P1/chapter-10-means-of-egress/NYSFC2025P1-Pt03-Ch10-Sec1010.2.13 | **PASS** — the public code supports unlocking on loss of power for immediate free egress |
+
+Fail-secure entry semantics, mantrap/anti-passback, and broader security-system
+rows remain BLOCKED. No standard body or PDF was fetched. This pass does not
+certify a learner or close ms4j.
+
 ## Breadth pass 142 — water service, WUE, leak detection, and AHJ boundary
 
 **Review date:** 2026-08-18. The remaining Module 10 water and leak-interface
