@@ -887,6 +887,25 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 215 — ISO/IEC cabling lifecycle scope boundary
+
+**Review date:** 2026-08-18. The current ISO/IEC 14763-2:2019 preview covers
+planning, installation, and operation of telecommunications cabling and
+infrastructures including cabling, pathways, spaces, and telecommunications
+bonds. It also explicitly lists documentation, administration, testing,
+inspection, operation, maintenance, and repair. These public scope statements
+support two bounded planning questions without asserting detailed label formats,
+pathway-fill ratios, bend radii, or firestopping values.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q117 | Planning considerations | ISO/IEC 14763-2:2019 — https://www.iso.org/standard/73337.html | **PASS** — cabling documentation, administration, testing, inspection, operation, maintenance, and repair are explicit |
+| m11-q118 | Planning considerations | ISO/IEC 14763-2:2019 — https://www.iso.org/standard/73337.html | **PASS** — cabling, pathways, spaces, and telecommunications bonds are explicit in planning/installation scope |
+
+Detailed label conventions, pathway-fill limits, bend radii, firestopping, and
+site-specific testing remain outside this catalog receipt. No PDF was fetched.
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 214 — IEC generating-set scope boundary
 
 **Review date:** 2026-08-18. The current consolidated IEC 60364-5-55 catalog
