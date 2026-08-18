@@ -1,0 +1,25 @@
+# Original CDFOM educational MCQ — ms4j.3 spare-part timing.
+# syllabus_heading = "Facilities Management — Various maintenance programs; Spart part management"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
+# source_ids = ["src-epi-cdfom-page", "src-nist-sp800-53-r5-5.2.0"]
+# source = "NIST SP 800-53 Rev. 5, current minor Release 5.2.0 (2025-08-27), MA-6 — https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ; clause text: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+# claim = "For organization-defined components whose failure creates increased risk, timely maintenance includes obtaining support or spare parts within an organization-defined period after failure."
+# Options are length-balanced; the key is not the longest choice.
+id = "m15-q367"
+kind = "single-select"
+module = 15
+stem = "A manager labels a cooling valve high risk but never sets the time for obtaining support or spare parts after failure. What finding is supported?"
+choices = [
+  "Set a post-failure time for support or spares",
+  "Wait for failure before choosing a response window",
+  "Record purchase cost and omit response timing",
+  "Treat preventive work as proof a spare is available",
+]
+correct = "A"
+explanation = "NIST SP 800-53 Rev. 5 MA-6 requires obtaining maintenance support or spare parts for organization-defined system components within an organization-defined time period of failure. The control leaves the component set and time period to the organization; it does not justify inventing a numeric service level or treating preventive maintenance as evidence that a spare is available."
+topic_ids = ["m15-maintenance-sla", "m15-ops-security"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
