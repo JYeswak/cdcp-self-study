@@ -1,19 +1,21 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Transformers
 # Official catalog/preview receipt: IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588
-# BLOCKED: the official catalog does not expose the exact data-centre service-entrance example.
+# PASS: the current IEC catalog states that this part applies to three-phase
+# and single-phase power transformers, including auto-transformers, subject to
+# its stated exceptions and cross-references.
 id = "m06-q070"
 kind = "single-select"
 module = 6
-stem = "A step-down transformer at a data centre service entrance commonly:"
+stem = "IEC 60076-1:2011 applies to which transformer scope?"
 choices = [
-  "Converts fibre optic signals to copper",
-  "Provides chilled water free cooling",
-  "Changes voltage level (e.g. MV to LV plant voltage) for site use",
-  "Meters only humidity",
+  "Three-phase and single-phase power transformers, including auto-transformers, subject to the catalog's stated scope",
+  "Only fibre-optic signal converters",
+  "Only chilled-water free-cooling equipment",
+  "Only humidity meters",
 ]
-correct = "C"
-explanation = "Transformers change voltage via magnetic coupling; MV→LV is the classic site role."
+correct = "A"
+explanation = "The current IEC catalog explicitly states that IEC 60076-1 applies to three-phase and single-phase power transformers, including auto-transformers, with stated exceptions and cross-reference boundaries. It does not expose a data-centre service-entrance design rule."
 topic_ids = ["m06-transformers"]
 objective_ids = []
 bloom = "remember"

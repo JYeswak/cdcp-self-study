@@ -870,6 +870,19 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 289 — IEC power-transformer scope claim
+
+**Review date:** 2026-08-18. The current official IEC catalog for IEC
+60076-1:2011 was checked without opening or fetching a PDF. Its public abstract
+states that the part applies to three-phase and single-phase power transformers,
+including auto-transformers, with stated exceptions and cross-reference limits.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m06-q070 | Transformers | IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588 | **PASS** — asks only for the catalog's stated transformer scope; no service-entrance or step-down design rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 288 — ISO 22301 business-continuity preview claims
 
 **Review date:** 2026-08-18. The current official ISO 22301:2019 catalog and
