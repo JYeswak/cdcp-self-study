@@ -1,19 +1,20 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Monitoring challenges
-# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current official receipt does not expose the exact item-level monitoring challenges proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: RFC 3411 — https://www.rfc-editor.org/rfc/rfc3411.html
+# PASS: the open RFC explicitly describes SNMP management entities,
+# notification applications, and the management protocol. No PDF was fetched.
 id = "bank-m14-q122"
 kind = "single-select"
 module = 14
-stem = "Heterogeneous protocols (BACnet, Modbus, SNMP, dry contacts) contribute to monitoring challenges by:"
+stem = "RFC 3411 describes an SNMP management system as containing:"
 choices = [
-  "Guaranteeing a single vendor forever",
-  "Creating integration and multi-truth-source complexity across plant and IT tools",
-  "Eliminating the need for time sync",
-  "Making alarm fatigue impossible"
+  "Managed nodes with SNMP entities, management applications such as command/notification roles, and a management protocol",
+  "Only a single cloud dashboard with no managed nodes",
+  "Only a database schema, with no management applications or protocol",
+  "No notification functions; SNMP is limited to file transfer"
 ]
-correct = "B"
-explanation = "Multiple protocols/owners produce conflicting truths and integration debt."
+correct = "A"
+explanation = "RFC 3411 describes managed nodes with SNMP entities, SNMP entities with command and notification applications, and a management protocol conveying management information. The RFC does not describe BACnet/Modbus integration or a data-centre-specific multi-truth policy."
 topic_ids = ["m14-monitoring-challenges"]
 objective_ids = []
 bloom = "understand"

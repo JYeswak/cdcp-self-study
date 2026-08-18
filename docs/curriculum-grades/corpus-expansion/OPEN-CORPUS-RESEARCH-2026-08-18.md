@@ -889,6 +889,23 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 228 — RFC SNMP and syslog monitoring primitives
+
+**Review date:** 2026-08-18. The open RFC Editor text for RFC 3411 describes
+SNMP managed nodes/entities, command and notification applications, and the
+management protocol conveying management information. RFC 5424 describes syslog
+content, application, and transport layers and defines structured data for
+parseable information. These two items are bounded to those protocol primitives;
+BACnet/Modbus integration, facility alarm routing, SMS/call-tree resilience, and
+vendor-specific implementations remain outside the receipts.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q122 | Monitoring challenges | RFC 3411 — https://www.rfc-editor.org/rfc/rfc3411.html | **PASS** — SNMP management entities, notification roles, and protocol are explicit |
+| m14-q206 | Notification | RFC 5424 — https://www.rfc-editor.org/rfc/rfc5424.html | **PASS** — syslog content/application/transport layers are explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 227 — IEC 62040-3 UPS performance scope
 
 **Review date:** 2026-08-18. The current IEC catalog for IEC 62040-3:2021
