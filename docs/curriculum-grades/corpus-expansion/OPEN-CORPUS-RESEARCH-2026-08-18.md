@@ -887,6 +887,23 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 211 — DOE cooling-water biological-growth boundary
+
+**Review date:** 2026-08-18. The current DOE FEMP cooling-water page identifies
+dissolved-mineral concentration, blowdown, filtration/treatment, fouling,
+microbiological growth, scaling, and corrosion as cooling-water concerns. This
+supports a bounded treatment question about controlling fouling and
+microbiological growth without asserting a pathogen-specific health program or
+universal chemistry limit.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m10-q110 | Importance of water | DOE FEMP Cooling Water Efficiency Opportunities for Federal Data Centers — https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers | **PASS** — microbiological growth and associated water-chemistry treatment concerns are explicit |
+
+Legionella-specific controls, water rights, discharge approvals, and site
+chemistry setpoints remain outside this receipt. No PDF was fetched. This pass
+does not certify a learner or close ms4j.
+
 ## Breadth pass 210 — ISO/IEC telecommunications-bonding boundary
 
 **Review date:** 2026-08-18. The current consolidated ISO/IEC 30129

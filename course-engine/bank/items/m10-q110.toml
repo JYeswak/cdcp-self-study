@@ -1,19 +1,22 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: Importance of water
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact biological-control health and operations proposition. No PDF body was fetched.
+# Official public process receipt: DOE FEMP Cooling Water Efficiency
+# Opportunities for Federal Data Centers —
+# https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers
+# PASS: the current DOE page explicitly names microbiological growth as a
+# cooling-water treatment concern. No PDF was fetched.
 id = "m10-q110"
 kind = "single-select"
 module = 10
-stem = "Legionella and biological control programs for tower water exist primarily to:"
+stem = "Cooling-tower water treatment and biological-control programs should address:"
 choices = [
-  "Increase scale formation",
-  "Cool servers by bacteria",
-  "Manage health and operational risks from biological growth in water systems",
+  "Fouling and microbiological growth, alongside other water-chemistry risks",
+  "Increase scale formation intentionally",
+  "Cool servers by cultivating bacteria",
   "Replace physical security"
 ]
-correct = "C"
-explanation = "Water systems need microbiological control for safety and to limit fouling—treatment and maintenance discipline."
+correct = "A"
+explanation = "The DOE FEMP page identifies microbiological growth, fouling, scaling, and corrosion as cooling-water treatment concerns; pathogen-specific health programs and site chemistry limits require additional evidence."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "understand"
