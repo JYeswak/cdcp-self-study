@@ -1,22 +1,21 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: CDCP "Fire Protection" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: NFPA 72 (2025) —
-# https://link.nfpa.org/all-publications/72/2025
-# BLOCKED: the public preview does not expose the exact cross-zone/release
-# clause needed to promote this item without inventing a site control sequence.
+# Official catalog/preview receipt: 29 CFR 1910.165 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.165
+# PASS: the current OSHA public standard specifies the reliability-testing
+# interval and actuation-device rotation for non-supervised employee alarms.
 id = "m12-q212"
 kind = "single-select"
 module = 12
-stem = "Cross-zoning or multi-criteria release logic is used mainly to:"
+stem = "Under 29 CFR 1910.165(d)(2), a non-supervised employee alarm system must have its reliability and adequacy tested:"
 choices = [
-  "Speed discharge on any single dirty sensor always without review",
-  "Reduce accidental discharge by requiring confirmatory detection conditions",
-  "Disable alarms permanently",
-  "Open all doors on first beep"
+  "Every two months, using a different actuation device for each test when the system has multiple actuation devices",
+  "Only after an alarm event and never during normal operation",
+  "Once every ten years with the same actuation device each time",
+  "Only when a vendor changes the alarm panel"
 ]
-correct = "B"
-explanation = "Confirming detectors reduces false release while preserving protection intent."
+correct = "A"
+explanation = "The current OSHA public standard requires reliability and adequacy testing of non-supervised employee alarm systems every two months, with a different actuation device used in each test of a multi-actuation system so no individual device is used for two consecutive tests."
 topic_ids = ["m12-detection", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "apply"

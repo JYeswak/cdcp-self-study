@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 337 PASS; 620 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 338 PASS; 619 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -756,7 +756,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m12-q209 | 12 | 1.12 Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-Q/section-1910.252 | PASS |
 | m12-q210 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/921/2024 | PASS |
 | m12-q211 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | PASS |
-| m12-q212 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | BLOCKED — NFPA 72 preview receipt; exact cross-zone/release clause is not exposed publicly |
+| m12-q212 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.165 | PASS |
 | m12-q213 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | PASS |
 | m12-q214 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/1/2024 | BLOCKED — NFPA 1 preview receipt; exact room strategy and adopted-AHJ decision are not exposed publicly |
 | m12-q215 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | PASS |

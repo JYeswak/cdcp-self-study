@@ -906,6 +906,21 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 256 — OSHA employee-alarm testing receipt
+
+**Review date:** 2026-08-18. Current OSHA public 29 CFR 1910.165(d)(2)
+requires reliability and adequacy testing of non-supervised employee alarm
+systems every two months, with a different actuation device used for each test
+of a multi-actuation system so no device is used for two consecutive tests.
+The module-12 item is rewritten to that exact employee-alarm requirement;
+cross-zone suppression-release logic remains outside the receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m12-q212 | Fire Protection | 29 CFR 1910.165 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.165 | **PASS** — alarm reliability-testing interval and actuation-device rotation are explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 255 — OSHA fire-detection approval and servicing receipts
 
 **Review date:** 2026-08-18. Current OSHA public 29 CFR 1910.164 requires
