@@ -1044,6 +1044,78 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 130 — sourcing, outsourcing, and collaborative supplier evidence
+
+**Date:** 2026-08-18
+**Scope:** M02, M03, M06, M08, M09, M11, M13, M14, and M15 questions about
+supplier selection, strategic sourcing, agreement structure, outsourcing
+governance, shared responsibilities, service/provider risk, performance
+evidence, relationship health, change, exit/transition, spares, and supplier
+incident escalation. Existing public EPI/CDCS/CDFOS/CDFOM headings are
+retained; no OLA, handover, or invented supplier taxonomy is introduced.
+
+**Official public receipts:**
+
+- [ISO 41012:2017](https://www.iso.org/standard/68168.html), **Facility
+  management — Guidance on strategic sourcing and the development of
+  agreements**, is the published current edition, confirmed in 2022. Its
+  public OBP abstract covers sourcing elements, FM roles/responsibilities,
+  agreement structures, service/support functions, internal and external
+  delivery, and FM information systems. [ISO/DIS 41012](https://www.iso.org/standard/86763.html)
+  is under development and is not used as a current edition.
+- [ISO 37500:2014](https://www.iso.org/standard/56269.html), **Guidance on
+  outsourcing**, remains the published current edition after review. Its
+  public abstract covers outsourcing phases, process and governance,
+  relationship risk, client/provider roles, contract-period sustainability,
+  multi-provider models, and tailored responsibility allocation. It is
+  guidance, not a universal contract, SLA, or OLA template.
+- [ISO 44001:2017](https://www.iso.org/standard/72798.html), **Collaborative
+  business relationship management systems — Requirements and framework**,
+  with [Amendment 1:2024](https://www.iso.org/standard/88426.html), is the
+  published relationship-management receipt for identifying, developing, and
+  managing collaborative relationships across organizations and supply
+  chains. [ISO/DIS 44001](https://www.iso.org/standard/88426.html) remains under
+  development and is not treated as current.
+- [ISO 44002:2019](https://www.iso.org/standard/72799.html), **Guidelines on
+  the implementation of ISO 44001**, is the published implementation-guidance
+  receipt. It supports context-specific evaluation and application of the
+  framework; it does not supply a data-centre vendor taxonomy.
+- [ISO/TS 44005:2026](https://www.iso.org/standard/87388.html), **Collaborative
+  business relationship management system — Guidance on leadership for
+  collaborative working**, is the current published Technical Specification
+  (2026-06). It is used for leadership/accountability questions in
+  collaboration, not as a certification or handover claim.
+
+**Adversarial boundary:** A completed procurement, signed agreement, supplier
+scorecard, or collaborative relationship does not prove that a vendor can
+perform safely during a switching window, loss of utility, control-system
+failure, security incident, or exit. Agreement language must resolve service
+scope, asset/configuration ownership, evidence access, competence, spares,
+remote access, change authority, notification, exceptions, continuity,
+recovery, subcontractors, data/custody, and exit/transition. A KPI or SLA
+target is not an observed result, and a provider certificate is not local AHJ
+or engineering acceptance.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M02/M03 | Evaluate make/buy, supplier risk, agreement scope, requirements, assumptions, acceptance evidence, and transition/exit before operational commitment | ISO guidance does not choose a vendor or establish a universal commercial term |
+| M06/M09 | Test supplier obligations for power, cooling, water, controls, spares, emergency response, maintenance, and safe return to service | A maintenance contract does not prove a field result |
+| M08/M11 | Bind hardware/software provenance, remote access, patch/firmware support, data/custody, subcontractors, and change authority to the agreement | Supplier assurance is evidence to assess, not automatic trust |
+| M13/M14 | Preserve access authorization, incident notification, evidence sharing, configuration ownership, escalation, and auditability across client/provider boundaries | Collaboration standards do not create an OLA or handover program |
+| M15 | Review supplier competence, performance data, exceptions, corrective actions, relationship health, lessons learned, and exit readiness | Completing sourcing or supplier training does not certify a learner, vendor, or facility |
+
+**Currency boundary:** ISO 41012:2017, ISO 37500:2014, ISO 44001:2017/Amd
+1:2024, ISO 44002:2019, and ISO/TS 44005:2026 are the current published
+receipts used here; ISO/DIS 41012 and ISO/DIS 44001 are under development.
+Vendor procurement blogs, contract templates, paywall-bypass archives, and
+PDF bodies are excluded. No PDF was fetched.
+
+**Bounded result:** This pass adds current official supplier and outsourcing
+anchors to the end-to-end curriculum evidence trail while maintaining the
+legal and operational distinction between guidance, agreement, observation,
+authority, and acceptance. No bank rows, ledger dispositions, manifest, topics,
+beads, gate, oracle, or credential state changed.
+
 ## Breadth pass 129 — service management, facility management, and accountable handoff
 
 **Date:** 2026-08-18
