@@ -1,7 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Grounding and bonding
-# Official catalog/preview receipt: IEC 60364-5-54:2011 + AMD1:2021 — https://webstore.iec.ch/en/publication/1882
-# BLOCKED: the official catalog does not expose the exact data-centre grounding teaching proposition.
+# Official catalog/preview receipt: IEC 60050 IEV 195-01-11 — https://www.electropedia.org/iev/iev.nsf/display?ievref=195-01-11&openform=
+# PASS: IEC defines protective earthing as earthing for electrical safety; installation details remain code/spec dependent.
 id = "m06-q079"
 kind = "single-select"
 module = 6

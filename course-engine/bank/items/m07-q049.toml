@@ -1,7 +1,7 @@
 # Original CDCP educational item — bank expansion (module 7)
 # Public syllabus heading: Types of EMF
-# Official catalog/preview receipt: IEC 61000-4-8:2009 — https://webstore.iec.ch/en/publication/4229
-# BLOCKED: the official catalog covers power-frequency magnetic-field immunity but does not expose the exact EMI definition proposition.
+# Official catalog/preview receipt: IEC 60050 IEV 161-01-06 — https://www.electropedia.org/iev/iev.nsf/display?ievref=161-01-06&openform=
+# PASS: IEC defines electromagnetic interference (EMI) as performance degradation caused by an electromagnetic disturbance.
 id = "m07-q049"
 kind = "single-select"
 module = 7

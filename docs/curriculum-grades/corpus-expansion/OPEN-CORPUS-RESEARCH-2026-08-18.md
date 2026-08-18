@@ -869,6 +869,23 @@ ASD, agent selection, pre-action, cable-firestop, and other rows remain
 BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
+## Breadth pass 154 — IEC public-vocabulary definitions
+
+**Review date:** 2026-08-18. Three previously blocked definitional items were
+checked against current public IEC Electropedia entries. The entries expose the
+relevant definition directly, so these are narrow promotions rather than
+inferences from a standard title or an equipment-specific catalog abstract.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q079 | Grounding and bonding | IEC 60050 IEV 195-01-11 — https://www.electropedia.org/iev/iev.nsf/display?ievref=195-01-11&openform= | **PASS** — protective earthing is defined as earthing for electrical safety |
+| m06-q094 | Power sizing | IEC 60050 IEV 131-11-46 — https://www.electropedia.org/iev/iev.nsf/display?ievref=131-11-46&openform= | **PASS** — power factor is defined as active power divided by apparent power under periodic conditions |
+| m07-q049 | Types of EMF | IEC 60050 IEV 161-01-06 — https://www.electropedia.org/iev/iev.nsf/display?ievref=161-01-06&openform= | **PASS** — EMI is defined as performance degradation caused by an electromagnetic disturbance |
+
+The M03 site/building and M08 rack frontiers remain BLOCKED where the public
+catalog does not expose the bank's narrower operational or dimensional claim.
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
 
 ## Breadth pass 142 — water service, WUE, leak detection, and AHJ boundary
 

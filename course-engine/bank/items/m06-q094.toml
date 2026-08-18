@@ -1,7 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Power sizing
-# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
-# BLOCKED: the official catalog does not expose the exact kW/kVA/power-factor teaching proposition.
+# Official catalog/preview receipt: IEC 60050 IEV 131-11-46 — https://www.electropedia.org/iev/iev.nsf/display?ievref=131-11-46&openform=
+# PASS: IEC defines power factor as the ratio of active power to apparent power under periodic conditions.
 id = "m06-q094"
 kind = "single-select"
 module = 6
