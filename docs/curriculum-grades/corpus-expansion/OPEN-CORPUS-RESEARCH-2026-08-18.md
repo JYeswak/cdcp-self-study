@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 106 — CDCP fire-system receipts
+
+**Date:** 2026-08-18
+**Scope:** M12 fire detection, gas and water-based suppression, fire classes, handheld extinguishers, common fire causes, and AHJ/regulatory framing.
+**Official receipts:** [NFPA 72, 2025](https://link.nfpa.org/all-publications/72/2025); [NFPA 2001, 2025](https://link.nfpa.org/all-publications/2001/2025); [NFPA 13, 2025](https://link.nfpa.org/all-publications/13/2025); [NFPA 10, 2025](https://link.nfpa.org/all-publications/10/2025); [NFPA 101, 2024](https://link.nfpa.org/all-publications/101/2024).
+
+**Bounded result:** the remaining generic M12 rows now carry official NFPA preview receipts and remain BLOCKED because the public previews do not expose the exact item-level propositions. No paid standard body or PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 105 — CDCP mixed rack, cooling, and water receipts
 
 **Date:** 2026-08-18

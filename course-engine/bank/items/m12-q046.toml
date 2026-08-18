@@ -1,4 +1,7 @@
 # Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Fire detection systems
+# Official catalog/preview receipt: NFPA 72, 2025 — https://link.nfpa.org/all-publications/72/2025
+# BLOCKED: the current official preview does not expose the exact item-level fire detection systems proposition. No paid body or PDF was fetched.
 id = "bank-m12-q046"
 kind = "single-select"
 module = 12
