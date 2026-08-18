@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Maintenance contracts / SLA
+# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
+# BLOCKED: the current management-and-operations catalog does not expose the exact item-level maintenance contracts / sla proposition. No paid body or PDF was fetched.
 id = "m15-q214"
 kind = "single-select"
 module = 15

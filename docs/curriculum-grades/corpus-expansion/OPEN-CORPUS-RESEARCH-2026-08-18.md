@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 108 — CDCP operations receipts
+
+**Date:** 2026-08-18
+**Scope:** M15 labeling, documentation, cleaning, MTBF/MTTR, maintenance contracts/SLA, and operational security/safety practices.
+**Official receipt:** [ISO/IEC TS 22237-7:2018](https://www.iso.org/standard/73014.html?browse=tc).
+
+**Bounded result:** the remaining generic M15 rows now carry the current official management-and-operations catalog page and remain BLOCKED because the public abstract does not expose the exact item-level operational propositions. ISO identifies the 2018 edition as published and current while a replacement is under development. No paid standard body or PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 107 — CDCP auxiliary monitoring receipts
 
 **Date:** 2026-08-18
