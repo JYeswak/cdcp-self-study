@@ -889,6 +889,22 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 263 — NFPA premises-security chapter scope
+
+**Review date:** 2026-08-18. The current official NFPA LiNK preview for NFPA
+730:2026, Guide for Premises Security, exposes chapter headings for Security
+Planning, Administrative Controls, Security Perimeters, Crime Prevention
+Through Environmental Design, and Security Systems. The item below is bounded
+to those public headings; the preview does not establish a universal
+deterrence/delay/detection/response/recovery taxonomy.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m13-q098 | Physical Security and Safety — Components for physical security | NFPA 730:2026 — https://link.nfpa.org/all-publications/730/2026 | **PASS** — the listed premises-security chapter headings are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 262 — ISO management-and-operations focus terms
 
 **Review date:** 2026-08-18. The current ISO catalog for ISO/IEC TS

@@ -3,20 +3,22 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: NFPA 730 (2026) —
 # https://link.nfpa.org/all-publications/730/2026
-# BLOCKED: the public preview does not expose the exact deterrence/delay/
-# detection/response/recovery framework needed to promote this claim.
+# PASS: the current NFPA preview explicitly lists Security Planning,
+# Administrative Controls, Security Perimeters, Crime Prevention Through
+# Environmental Design, and Security Systems as chapter headings. No paid body
+# or PDF was fetched.
 id = "bank-m13-q098"
 kind = "single-select"
 module = 13
-stem = "Deterrence, delay, detection, response, recovery describes:"
+stem = "The NFPA 730:2026 preview lists which premises-security chapter topics?"
 choices = [
-  "Only network QoS classes",
-  "A classic physical-security control sequence",
-  "UPS battery chemistries",
-  "ASHRAE thermal envelopes"
+  "Security planning, administrative controls, security perimeters, crime prevention through environmental design, and security systems",
+  "Only network QoS classes and cloud billing",
+  "Only UPS battery chemistries and generator synchronization",
+  "Only ASHRAE thermal envelopes and water chemistry"
 ]
-correct = "B"
-explanation = "Physical security programs stack deter→delay→detect→respond→recover functions."
+correct = "A"
+explanation = "The official NFPA preview exposes those premises-security chapter headings."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"
