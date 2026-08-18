@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 618 PASS; 339 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 619 PASS; 338 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -355,7 +355,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q231 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/64073 | PASS |
 | m06-q232 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/7091 | PASS — IEC 62485-2:2010 public page covers stationary-battery hazards and the erection/use/inspection/maintenance lifecycle |
 | m06-q233 | 6 | Microgrid | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/61960 | PASS |
-| m06-q234 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact test-interval/start-reliability proposition is not exposed |
+| m06-q234 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/77691.html?browse=tc | PASS — ISO/IEC 30134-8:2022 abstract defines CUE for use-phase data-centre CO₂ emissions |
 | m06-q235 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/30134-2?browse=ics | PASS — ISO/IEC 30134-2:2026 Edition 2 OBP page supports energy-efficiency tracking, benchmarking, and supporting-infrastructure waste identification |
 | m06-q236 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | PASS — IEC 60529 consolidated public title identifies degrees of protection provided by enclosures (IP Code) |
 | m06-q237 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | PASS — IEC 60076-1:2011 public scope identifies general requirements for three-phase and single-phase power transformers including autotransformers |

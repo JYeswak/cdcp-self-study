@@ -1266,6 +1266,24 @@ The pass does not infer water-alarm response, closed-loop permitting, water
 rights, discharge approvals, backup-water sizing, water chemistry, or a cooling
 plant design approval. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 372 — ISO/IEC 30134-8:2022 carbon-usage KPI scope
+
+**Review date:** 2026-08-18. One module-6 item was narrowed to the current ISO
+Online Browsing Platform abstract for ISO/IEC 30134-8:2022. The published
+edition specifies carbon usage effectiveness (CUE) as a KPI for quantifying a
+data centre's CO₂ emissions during the use phase; it defines CUE measurement
+categories and the measurement, calculation, reporting, and interpretation of
+the parameter. No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q234 | Power sustainability | ISO/IEC 30134-8:2022 — https://www.iso.org/standard/77691.html?browse=tc | **PASS** — use-phase CUE and CO₂-emissions KPI scope is explicit |
+
+The pass does not infer generator-test intervals, maintenance readiness,
+emissions factors, carbon-accounting boundaries beyond the catalog abstract,
+or a facility sustainability certification. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
