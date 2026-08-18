@@ -1,7 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Power redundancy levels and techniques
-# Official catalog/preview receipt: ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact concurrent-maintenance procedure proposition.
+# Official catalog/preview receipt: ANSI/TIA-942-C — https://tiaonline.org/standard/tia-942/; TIA ratings definitions — https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/
+# PASS: TIA defines a concurrently maintainable site as one where capacity components can be serviced on a planned basis without disrupting ICT capability.
 id = "m06-q054"
 kind = "single-select"
 module = 6

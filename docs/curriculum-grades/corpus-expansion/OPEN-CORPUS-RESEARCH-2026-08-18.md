@@ -940,6 +940,24 @@ under development, not a published standard.
 No M09/M10 bank or ledger rows changed. No standard body or PDF was fetched.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 158 — TIA availability-rating definitions
+
+**Review date:** 2026-08-18. Two M06 redundancy rows were checked against the
+current ANSI/TIA-942-C catalog page and TIA's public ratings definitions. The
+public TIA page states that concurrently maintainable site infrastructure can
+have a capacity component serviced on a planned basis without disrupting ICT
+capability, and that fault-tolerant infrastructure adds one fault anywhere
+without downtime while retaining concurrent maintainability.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q054 | Power redundancy levels and techniques | ANSI/TIA-942-C — https://tiaonline.org/standard/tia-942/; TIA ratings definitions — https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/ | **PASS** — public TIA definition matches the planned-service-without-ICT-disruption proposition |
+| m06-q056 | Power redundancy levels and techniques | ANSI/TIA-942-C — https://tiaonline.org/standard/tia-942/; TIA ratings definitions — https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/ | **PASS** — public TIA definition matches the one-fault-without-downtime distinction |
+
+The related M06 procedural, common-path, and test-proof rows remain BLOCKED;
+these promotions do not certify a site or a learner. No standard body or PDF
+was fetched. This pass does not close ms4j.
+
 ## Breadth pass 142 — water service, WUE, leak detection, and AHJ boundary
 
 **Review date:** 2026-08-18. The remaining Module 10 water and leak-interface
