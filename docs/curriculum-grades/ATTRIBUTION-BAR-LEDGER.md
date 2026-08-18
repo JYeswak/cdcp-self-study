@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 302 PASS; 655 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 304 PASS; 653 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -425,8 +425,8 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m07-q215 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/30054 | BLOCKED — IEC TS 61000-5-10:2017 catalog receipt; universal commercial-site field value is not exposed |
 | mock40-q24 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; the exact rack-unit dimension proposition in this retired duplicate is not exposed |
 | mock40-q25 | 8 | Containment | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; the exact blanking-panel airflow proposition in this retired duplicate is not exposed |
-| m08-q041 | 8 | Rack standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | BLOCKED — IEC 60297-3-105:2008 catalog receipt; exact flange-spacing proposition is not exposed |
-| m08-q042 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | BLOCKED — IEC 60297-3-105:2008 catalog receipt; exact 44.45 mm value is not exposed |
+| m08-q041 | 8 | Rack standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | PASS |
+| m08-q042 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | PASS |
 | m08-q043 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | BLOCKED — IEC 60297-3-105:2008 catalog receipt; exact full-height usable-U range is not exposed |
 | m08-q044 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | BLOCKED — IEC 60297-3-105:2008 catalog receipt; exact U-numbering convention is not exposed |
 | m08-q045 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact 600 mm versus 800 mm cabinet-width proposition is not exposed |

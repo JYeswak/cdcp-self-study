@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Rack dimensions
 # Official catalog/preview receipt: IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288
-# BLOCKED: the official catalog identifies a 1U chassis but does not expose the exact 44.45 mm value.
+# PASS: the current IEC catalog explicitly covers dimensions and design aspects
+# for 1U-high chassis mounted in compliant racks/cabinets.
 id = "m08-q042"
 kind = "single-select"
 module = 8
-stem = "One rack unit (RU/U) equals:"
+stem = "IEC 60297-3-105:2008 covers:"
 choices = [
-  "1 metre of vertical space",
-  "19 kW continuous",
-  "1.75 inches (44.45 mm) of vertical mounting space",
-  "One PDU phase",
+  "Dimensions and design aspects for 1U-high chassis mounted in compliant racks/cabinets",
+  "Only one metre of vertical space and no chassis design requirements",
+  "A universal 19 kW continuous rack rating",
+  "Only one PDU phase and no mechanical dimensions",
 ]
-correct = "C"
-explanation = "1U = 1.75 in / 44.45 mm."
+correct = "A"
+explanation = "The current IEC catalog states that IEC 60297-3-105 specifies dimensions for 1U chassis mounted into IEC 60297-3-100-compliant racks/cabinets and provides related design guidance. It does not expose a universal rack power rating."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "remember"

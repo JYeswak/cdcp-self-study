@@ -1110,6 +1110,23 @@ or generalize the requirement to every alarm system.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 243 — IEC rack and 1U chassis dimensions
+
+**Review date:** 2026-08-18. The current IEC catalog for IEC 60297-3-100:2008
+specifies basic dimensions of front panels, subracks, chassis, racks, and
+ cabinets in the 482.6 mm (19 in) series. The current IEC catalog for IEC
+60297-3-105:2008 specifies dimensions and design aspects for 1U-high chassis
+mounted in compliant racks/cabinets. The items are bounded to those mechanical
+scopes and do not invent a universal cabinet outer width, flange-spacing rule,
+1U numerical value, or rack power rating.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m08-q041 | Rack standards | IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283 | **PASS** — 482.6 mm-series rack/cabinet basic-dimension scope is explicit |
+| m08-q042 | Rack dimensions | IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288 | **PASS** — 1U chassis dimensions/design scope is explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies
