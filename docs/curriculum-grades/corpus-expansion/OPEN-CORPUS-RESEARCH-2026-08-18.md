@@ -1044,6 +1044,27 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 66 — CDCP BESS and power-quality receipts
+
+**Review date:** 2026-08-18. Six additional M06 rows now carry official IEC
+62485-5:2020, NFPA 855 (2026), IEC TR 62060:2001, IEC 61000-2-4:2024, or IEC
+62040-3:2021 catalog/preview receipts. They remain BLOCKED because the public
+pages do not expose the exact lithium, BESS/UPS, battery-health, IT power-quality,
+or double-conversion propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q087 | Batteries | IEC 62485-5:2020 — https://webstore.iec.ch/en/publication/29086 | **BLOCKED** — exact lithium trade-off not exposed |
+| m06-q088 | Battery Energy Storage System (BESS) | NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026 | **BLOCKED** — exact BESS/UPS distinction not exposed |
+| m06-q089 | Battery Energy Storage System (BESS) | NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026 | **BLOCKED** — exact dual-role proposition not exposed |
+| m06-q090 | Batteries | IEC TR 62060:2001 — https://webstore.iec.ch/en/publication/6423 | **BLOCKED** — exact trending program not exposed |
+| m06-q091 | Power quality parameters | IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717 | **BLOCKED** — exact IT-load list not exposed |
+| m06-q092 | Power quality parameters | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact double-conversion explanation not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 65 — CDCP grounding, IP, and battery receipts
 
 **Review date:** 2026-08-18. Eight additional M06 rows now carry official IEC

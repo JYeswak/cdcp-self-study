@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Battery Energy Storage System (BESS)
+# Official catalog/preview receipt: NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026
+# BLOCKED: the official preview does not expose the exact BESS-versus-UPS role distinction.
 id = "m06-q088"
 kind = "single-select"
 module = 6

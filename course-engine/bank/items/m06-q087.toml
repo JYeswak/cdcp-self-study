@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Batteries
+# Official catalog/preview receipt: IEC 62485-5:2020 — https://webstore.iec.ch/en/publication/29086
+# BLOCKED: the official catalog does not expose the exact lithium footprint/fire-design trade-off.
 id = "m06-q087"
 kind = "single-select"
 module = 6
