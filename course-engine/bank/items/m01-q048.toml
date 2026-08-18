@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: TIA-942-C (May 2024) —
 # https://tiaonline.org/standard/tia-942/
-# BLOCKED: the public abstract applies to any data-centre size/type, but not
-# this exact hyperscale characterization.
+# PASS: the current TIA abstract states that the topology specified in the
+# standard is intended to be applicable to any size data centre.
 id = "m01-q048"
 kind = "single-select"
 module = 1
-stem = "Hyperscale facilities are best described as:"
+stem = "What applicability does the current TIA-942-C abstract state for its specified topology?"
 choices = [
-  "Very large, purpose-built campuses optimized for massive multi-tenant or owner cloud-scale workloads",
-  "Always smaller than a wiring closet",
-  "Forbidden to use generators",
-  "Identical to a single-rack lab bench",
+  "It is intended to apply to any size data centre",
+  "It applies only to a single-rack lab bench",
+  "It applies only to residential buildings",
+  "It forbids generators in every facility",
 ]
 correct = "A"
-explanation = "Hyperscale refers to very large, highly optimized campuses built for cloud-scale capacity."
+explanation = "The current TIA abstract states that the topology specified in TIA-942-C is intended to be applicable to any size data centre; it does not define hyperscale characterization."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "remember"

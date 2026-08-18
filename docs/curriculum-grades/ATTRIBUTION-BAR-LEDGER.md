@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 458 PASS; 499 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 459 PASS; 498 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -31,7 +31,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m01-q045 | 1 | Elements of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS |
 | m01-q046 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | m01-q047 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact SPOF/change-error proposition is not exposed |
-| m01-q048 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact hyperscale characterization is not exposed |
+| m01-q048 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS — current TIA abstract says the specified topology is intended to apply to any size data centre |
 | m01-q049 | 1 | Business organization / DC in the business | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/75106.html?browse=tc | PASS — current ISO 22301 preview names continual improvement of a documented management system and lists Amd 1:2024 |
 | m01-q050 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS — current TIA abstract explicitly includes single-tenant enterprise and multi-tenant data centres |
 | m01-q051 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/75106.html?browse=tc | PASS — current ISO 22301 preview names improved risk-management processes and lists Amd 1:2024 |

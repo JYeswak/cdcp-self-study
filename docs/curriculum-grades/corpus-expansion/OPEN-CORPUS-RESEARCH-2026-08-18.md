@@ -870,6 +870,18 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 297 — TIA topology-size applicability preview claim
+
+**Review date:** 2026-08-18. The current official TIA-942-C page was checked
+without opening or fetching a PDF. Its public abstract states that the topology
+specified in the standard is intended to be applicable to any size data centre.
+
+| Items | Public CDCP heading | Current official catalog/preview | Bounded result |
+|---|---|---|---|
+| m01-q048 | Types of data centres | TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/ | **PASS** — asks only for the abstract's topology-size applicability; no hyperscale characterization is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 296 — ISO environmental-control domain preview claims
 
 **Review date:** 2026-08-18. The current official ISO catalog/preview for
