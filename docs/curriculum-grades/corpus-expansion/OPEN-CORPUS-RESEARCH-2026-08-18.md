@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 84 — CDCP cooling-principles receipts
+
+**Date:** 2026-08-18
+**Scope:** M09 cooling principles: sensible/latent heat, sensible heat ratio, heat rejection, delta-T, psychrometrics, and condensation risk.
+**Official receipt:** [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html).
+
+**Bounded result:** m09-q100–q107 now carry the current ISO environmental-control catalog receipt and remain BLOCKED because the public abstract does not expose the item-level thermodynamic propositions. No PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 83 — CDCP liquid-rack interface receipts
 
 **Date:** 2026-08-18
