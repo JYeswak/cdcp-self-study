@@ -1,7 +1,8 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: Cabling redundancy
 # Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the current TIA-942-C abstract does not expose the exact diverse-path failure-domain proposition. No paid body or PDF was fetched.
+# Official public rating receipt: TIA-942 certifications and ratings — https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/
+# PASS: the current TIA public rating definitions require multiple independent distribution paths for Rated-3 and Rated-4 infrastructure, supporting physical separation of redundant paths.
 id = "m11-q120"
 kind = "single-select"
 module = 11

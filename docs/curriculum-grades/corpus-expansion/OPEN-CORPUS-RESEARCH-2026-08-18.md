@@ -4616,3 +4616,19 @@ areas on power failure.
 Local-versus-central luminaire architecture and test-records failure claims
 remain BLOCKED. No standard body or PDF was fetched. This pass does not
 certify a learner or close ms4j.
+## Breadth pass 167 — TIA independent distribution paths for cabling redundancy
+
+**Review date:** 2026-08-18. One Module 11 row was checked against TIA’s
+current TIA-942-C catalog page and public ratings definitions. TIA identifies
+the current standard as Version C, May 2024; its public Rated-3 and Rated-4
+definitions require multiple independent distribution paths serving computer
+equipment. That supports a bounded physical-path separation proposition, not a
+specific conduit, carrier, or fiber-polarity design.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q120 | Cabling redundancy | TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/; public ratings definitions — https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/ | **PASS** — independent distribution paths support physical failure-domain separation |
+
+Carrier diversity, MPO polarity, pathway capacity, and detailed outside-plant
+claims remain BLOCKED. No standard body or PDF was fetched. This pass does not
+certify a learner or close ms4j.
