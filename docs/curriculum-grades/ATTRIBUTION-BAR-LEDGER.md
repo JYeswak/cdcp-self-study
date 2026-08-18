@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 413 PASS; 544 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 415 PASS; 542 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -271,7 +271,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q058 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS |
 | m06-q059 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact standby/VFD comparison is not exposed |
 | m06-q060 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact line-interactive comparison is not exposed |
-| m06-q061 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact autonomy policy is not exposed |
+| m06-q061 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — IEC 62040-3:2021 official abstract names continuity of load power as the UPS primary function |
 | m06-q062 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact non-redundant parallel failure is not exposed |
 | m06-q063 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact N+1 parallel proposition is not exposed |
 | m06-q064 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
@@ -302,7 +302,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q089 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
 | m06-q090 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6423 | BLOCKED — IEC TR 62060:2001 catalog receipt; exact trending program is not exposed |
 | m06-q091 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65717 | PASS — IEC 61000-2-4:2024 catalog enumerates voltage deviations, interruptions, frequency variation, imbalance, harmonics, and transients |
-| m06-q092 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact double-conversion explanation is not exposed |
+| m06-q092 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — IEC 62040-3:2021 official abstract names UPS performance and test requirements |
 | m06-q093 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://standards.ieee.org/ieee/519/10677/ | PASS — IEEE 519-2022 public page covers linear/nonlinear loads, waveform-distortion goals, and the point of common coupling |
 | m06-q094 | 6 | Power sizing | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.electropedia.org/iev/iev.nsf/display?ievref=131-11-46&openform= | PASS — IEC 60050 IEV defines power factor as active power divided by apparent power |
 | m06-q095 | 6 | Power sizing | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70/2026 | BLOCKED — NFPA 70:2026 catalog/preview receipt; exact continuous-load rule-of-thumb proposition is not exposed |

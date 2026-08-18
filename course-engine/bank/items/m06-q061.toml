@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: UPS systems
-# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
-# BLOCKED: the official catalog does not expose the exact autonomy-sizing policy proposition.
+# PASS: IEC 62040-3:2021 official abstract states that the primary UPS function
+# is to ensure continuity of load power.
+# https://webstore.iec.ch/en/publication/60140
 id = "m06-q061"
 kind = "single-select"
 module = 6
-stem = "UPS autonomy time is primarily sized to:"
+stem = "What primary UPS function does IEC 62040-3:2021 explicitly identify?"
 choices = [
-  "Cover generator start, transfer, and policy margin at design load",
+  "Ensure continuity of load power",
   "Run IT for weeks without generators or fuel",
   "Eliminate the need for power quality monitoring",
   "Heat the battery room intentionally",
 ]
 correct = "A"
-explanation = "Minutes-class runtime bridges genset start/transfer (plus margin); load growth shortens real autonomy."
+explanation = "The current IEC abstract explicitly identifies ensuring continuity of load power as the primary UPS function; it does not expose an autonomy-sizing policy."
 topic_ids = ["m06-ups", "m06-batteries"]
 objective_ids = []
 bloom = "apply"

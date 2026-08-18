@@ -870,6 +870,21 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 282 — IEC UPS performance abstract claims
+
+**Review date:** 2026-08-18. The current official IEC catalog page for IEC
+62040-3:2021 was checked without opening or fetching a PDF. Its public abstract
+states that the primary UPS function is to ensure continuity of load power and
+that the document specifies performance and test requirements for a complete UPS
+and, where applicable, individual functional units.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m06-q061 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **PASS** — asks only for the public continuity-of-load-power function; no autonomy-sizing policy is inferred |
+| m06-q092 | Power quality parameters | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **PASS** — asks only for the public UPS performance/test scope; no double-conversion mechanism is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 281 — ISO power-distribution abstract categories
 
 **Review date:** 2026-08-18. The current official ISO catalog abstract for
