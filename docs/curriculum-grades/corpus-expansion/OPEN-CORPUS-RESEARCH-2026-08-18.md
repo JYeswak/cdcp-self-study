@@ -341,3 +341,70 @@ The objective remains open after pass 04. The next unresolved frontier is cablin
 | 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
 
 The objective remains open after pass 05. The next unresolved frontier is fire/life safety, emergency power, permits, PPE, incident command, and return-to-service.
+
+## Breadth pass 06 — fire/life safety, emergency response, PPE, permits, and return-to-service
+
+**Search date:** 2026-08-18. This pass retained official OSHA, FEMA/USFA, and NFPA catalog/preview HTML pages. No PDF body was fetched or copied.
+
+### Sources retained
+
+| Source | What it can safely support | Boundaries |
+|---|---|---|
+| OSHA 1910.132, General PPE requirements — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.132 | Written hazard assessment, PPE selection/fit, condition, training, demonstration of understanding, retraining, and employer responsibility questions | The rule is workplace PPE law; it does not select a data-center arc-flash boundary, fire-system design, or AHJ permit condition by itself |
+| OSHA 1910.137, Electrical Protective Equipment — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.137 | Electrical protective-equipment maintenance and periodic-test evidence; this is carried forward from pass 03 for the emergency-work interface | Preserve the rule’s equipment scope and tables; do not substitute a generic interval, vendor statement, or training certificate |
+| OSHA 1910.333, Selection and use of work practices — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333 | Deenergization, lockout/tagging, stored-energy control, verification, qualified-person, energized-work, and reenergization evidence | OSHA is the legal anchor for workplace electrical practices; local electrical/fire code and owner procedures still govern other acceptance questions |
+| OSHA 1910.38 / emergency preparedness resources — https://www.osha.gov/emergency-preparedness/getting-started | Emergency action plan triggers, reporting, evacuation, critical-operations shutdown, accountability, rescue/medical roles, contacts, training, and review questions | OSHA’s EAP requirements are workplace requirements; they do not create a complete incident-command plan, facility recovery objective, or fire permit |
+| OSHA Evacuation Plans and Procedures — https://www.osha.gov/etools/evacuation-plans-procedures/eap/ | Public EAP purpose and minimum worksite-specific planning questions, including layout, emergency systems, and worker actions | Use as an operations/safety source, not as a substitute for AHJ-approved life-safety design or emergency-services coordination |
+| NFPA 72, National Fire Alarm and Signaling Code, 2025 preview — https://link.nfpa.org/all-publications/72/2025 | Public edition pin and headings for documentation, circuits/pathways, inspection/testing/maintenance, emergency-control interfaces, emergency communications, and protected-premises systems | The standard body is subscription-controlled; preview headings do not prove a clause, test interval, design value, or AHJ acceptance |
+| NFPA 75, Standard for the Fire Protection of Information Technology Equipment, 2024 catalog — https://link.nfpa.org/all-publications/75/2024 | Public heading and edition pin for IT-equipment fire-protection question families | Catalog receipt is not the paid body and does not determine the local fire-protection design, suppression agent, or permit |
+| NFPA 76, Standard for the Fire Protection of Telecommunications Facilities, 2024 catalog — https://link.nfpa.org/all-publications/76/2024 | Public heading and edition pin for telecommunications-facility fire-protection, continuity, and impairment questions | Do not conflate telecommunications-facility guidance with NFPA 75, NFPA 72, an adopted fire code, or a facility certification |
+| NFPA 110, Standard for Emergency and Standby Power Systems, 2025 preview — https://link.nfpa.org/all-publications/110/2025 | Emergency/standby power source, transfer, testing, maintenance, and impairment question labels; carried forward from pass 03 | Paid body not fetched; no universal classification, generator schedule, fuel autonomy, or return-to-service criterion is inferred |
+| USFA/FEMA National Incident Management System — https://www.usfa.fema.gov/a-z/nims/index.html | Shared vocabulary, systems, and processes for government, nongovernmental, and private-sector incident prevention, response, and recovery; incident-command exercise prompts | NIMS is a framework, not a credential, site-specific command chart, legal delegation, or guarantee that an incident will be managed successfully |
+
+### Pass-06 question frontier
+
+| Module | New question families |
+|---|---|
+| M01 Mission Critical | Connect life safety, fire protection, emergency power, communications, staffing, utility control, evacuation, critical-load shutdown, damage assessment, and recovery; identify which dependency makes “continuous operation” unsafe or unproven. |
+| M02 Standards | Classify OSHA rules, NFPA catalog/preview headings, adopted fire/electrical code, AHJ permit, NIMS framework, and site EOP; pin editions and authority; reject a paid catalog receipt as proof of body-level compliance. |
+| M03 Site / Building | Review fire department access, water supply, fire pump/standpipe interfaces, fire separations, battery/generator rooms, fuel, egress, emergency access, alarm transmission, and AHJ inspection/permit records before occupancy or energization. |
+| M04 Floor / Ceiling | Inspect penetrations, rated assemblies, firestopping, cable trays, raised-floor plenums, overhead obstructions, egress paths, signage, emergency lighting, and equipment clearances after a build or cabling change. |
+| M05 Light | Test normal/emergency illumination, exit visibility, alarm strobes/notification, generator-room work lighting, battery and mechanical room access, and the inspection record for a failed or impaired lighting circuit. |
+| M06 Power | Coordinate emergency/standby sources, ATS/UPS bypass, load shedding, generator room safety, battery/storage isolation, fire alarm interfaces, transfer testing, and safe restoration; distinguish emergency power from an availability promise. |
+| M07 EMF | Tie electrical protective equipment and work boundaries to the hazard assessment, energized/deenergized state, measurement/verification, PPE condition, and qualified-person role; reject a “PPE solves it” answer without task-specific evidence. |
+| M08 Racks | Evaluate rack and aisle fire detection, suppression interface, cable penetrations, liquid-cooling leak response, emergency shutdown, asset accountability, egress, and return-to-service records after an event or impairment. |
+| M09 Cooling | Test cooling shutdown/interlock behavior during fire alarm, smoke control, loss of power, loss of water, leak, and evacuation; identify the safe state and the evidence required before restarting cooling or IT load. |
+| M10 Water | Review fire-water supply, storage, impairment, drainage, cooling-water isolation, contaminated runoff, battery/generator spill response, and utility notifications; distinguish fire-flow evidence from cooling-water availability. |
+| M11 Network | Verify alarm signaling, emergency communications, carrier diversity, fire panel/BMS/DCIM boundaries, out-of-band operations, local manual control, and communications fallback when normal network paths fail. |
+| M12 Fire | Build an evidence matrix for detection, alarm, signaling, emergency control functions, suppression, egress, fire doors/penetrations, inspection/testing/maintenance, impairment, AHJ acceptance, and return-to-service. |
+| M13 Security | Coordinate responder access, keys/badges, visitor/vendor control, incident evidence, emergency overrides, cyber-physical isolation, and re-entry authorization; identify where security controls could obstruct life-safety response. |
+| M14 Auxiliary | Assign owners for alarm receipt, acknowledgement, escalation, fire-panel/BMS/DCIM interlocks, emergency communications, event logging, and manual fallback; distinguish an alarm indication from a verified protective action. |
+| M15 Operations | Run a NIMS-informed tabletop from detection through command, evacuation/shelter, critical operations shutdown, accountability, responder handoff, damage assessment, impairment control, staged restoration, test, and documented return to service. |
+
+### Pass-06 factual boundaries
+
+- OSHA 1910.132 requires hazard assessment, appropriate PPE selection, fit, training, and demonstrated understanding. The PPE requirement is task and hazard based; it is not fulfilled by possessing generic PPE or a course completion.
+- OSHA 1910.38 and OSHA’s emergency-planning resources support written EAP elements, worker roles, reporting, evacuation, accountability, critical operations, training, and review. They do not replace an AHJ-approved fire/life-safety design or a site-specific incident command plan.
+- NFPA 72’s public 2025 preview exposes headings for documentation, inspection/testing/maintenance, emergency-control interfaces, pathways, and emergency communications. The paid body was not fetched, so no clause or interval is asserted.
+- NFPA 75 and NFPA 76 are distinct public headings for IT-equipment and telecommunications-facility fire protection. Do not merge their scopes or infer suppression design from a title.
+- NFPA 110 provides an emergency/standby-power heading and edition receipt, but an emergency source is not automatically a life-safety circuit, an availability class, or a full return-to-service plan.
+- NIMS provides common incident-management vocabulary and processes across public and private stakeholders. It does not create a private operator credential, replace local command authority, or certify that a facility is ready.
+- Fire alarm, suppression, emergency power, egress, emergency communications, PPE, and incident command are separate evidence domains. A single “fire test passed” receipt cannot prove all of them.
+- Return to service requires an explicit impairment record, hazard controls, inspection/test results, restoration sequence, authority/owner sign-off, and monitoring period. “The equipment restarted” is not acceptance evidence.
+
+### Updated pass tracker
+
+| Pass | Focus | Status |
+|---:|---|---|
+| 01 | DOE/FEMP/NREL energy, cooling, water, commissioning; CISA/NIST OT and exposure; eCFR safety; ISO/TIA/IEEE edition anchors | COMPLETE |
+| 02 | Site risk, utility interconnection, resilience, climate/flood/seismic, public AHJ/code sources | COMPLETE |
+| 03 | Electrical distribution, switching, protection, UPS/generator/BESS, maintenance testing | COMPLETE |
+| 04 | Cooling controls, liquid cooling, heat reuse, economization, thermal/water measurement | COMPLETE |
+| 05 | Cabling, outside plant, network management, BMS/DCIM segmentation, remote access | COMPLETE |
+| 06 | Fire/life safety, emergency power, permits, PPE, incident command, return-to-service | COMPLETE — this section |
+| 07 | Physical security, personnel/vendor/visitor controls, asset lifecycle, media disposition | OPEN |
+| 08 | People systems: skills matrices, shift turnover, training, fatigue, contractor governance, succession | OPEN |
+| 09 | Commissioning, change control, MOP/SOP/EOP, alarms, metrics, reliability-centered maintenance | OPEN |
+| 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
+
+The objective remains open after pass 06. The next unresolved frontier is physical security, personnel/vendor/visitor controls, asset lifecycle, and media disposition.
