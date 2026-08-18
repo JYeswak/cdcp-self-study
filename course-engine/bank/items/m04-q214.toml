@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — ebrr.44: understructure type walkdown
+# syllabus_heading = "1.4 Raised Access Flooring and Suspended Ceiling"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+# source_ids = ["src-epi-cdcp-page", "src-ufgs-09-69-13-2024", "src-ufgs-09-69-19-2024"]
+# source = "USACE/NAVFAC/AFCEC UFGS-09 69 13 and UFGS-09 69 19, November 2024, §2.1 System Description — https://legacy.wbdg.org/FFC/DOD/UFGS/UFGS%2009%2069%2013.pdf ; https://legacy.wbdg.org/FFC/DOD/UFGS/UFGS%2009%2069%2019.pdf"
+# claim = "Stringer and stringerless are distinct access-floor support-system types; stringers connect pedestal heads and add lateral stability."
+id = "m04-q214"
+kind = "single-select"
+module = 4
+stem = "A raised-floor walkdown finds pedestal heads joined by horizontal members. Which type distinction should the reviewer record?"
+choices = [
+  "Stringered understructure with horizontal members between pedestals",
+  "Free-standing/stringerless understructure with no horizontal members",
+  "A panel-core label, not an understructure type",
+  "A floor-rating label that replaces the understructure description",
+]
+correct = "A"
+explanation = "UFGS-09 69 13 and UFGS-09 69 19 (November 2024), §2.1, identify stringer and stringerless support systems; the stringer connects pedestal heads, supports panel edges, and adds lateral stability. This item stays at the type axis and asserts no class, deflection, or loading value."
+topic_ids = ["m04-floor-types"]
+objective_ids = ["obj-m04-floor-types"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

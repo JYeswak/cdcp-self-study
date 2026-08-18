@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — ebrr.44: isolation transformer versus UPS
+# syllabus_heading = "1.6 Power Infrastructure"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+# source_ids = ["src-epi-cdcp-page", "src-nfpa-70-2026", "src-iec-61558-2-6-2021", "src-iec-62040-1-2017-amd1-2021-amd2-2022"]
+# source = "NFPA 70 (NEC), 2026 ed., Article 100 — https://www.nfpa.org/codes-and-standards/nfpa-70-standard-development/70 ; IEC 61558-2-6:2021, 3rd ed. — https://webstore.iec.ch/en/publication/65384 ; IEC 62040-1:2017 + AMD1:2021 + AMD2:2022 consolidated — https://webstore.iec.ch/en/publication/31983"
+# claim = "An isolation transformer provides electrical separation but no UPS energy storage or ride-through; a sole transformer can remain a path failure point."
+id = "m06-q304"
+kind = "single-select"
+module = 6
+stem = "A design review proposes one isolation transformer downstream of a VFI UPS for a critical bus. The correct review action is:"
+choices = [
+  "Confirm the isolation/voltage need; it adds no UPS ride-through",
+  "Treat it as a battery and skip UPS review",
+  "Use a K-factor label as proof of galvanic isolation",
+  "Put one transformer in both paths and call the design 2N without tracing failure",
+]
+correct = "A"
+explanation = "IEC 61558-2-6:2021 covers safety isolating transformers, while IEC 62040-1:2017 with its listed amendments describes UPS that include an energy-storage device. The transformer may serve an isolation, voltage, or grounding design need, but it does not store ride-through energy; review its failure path and separately derived-system design rather than treating it as a UPS."
+topic_ids = ["m06-isolation-xfmr", "m06-transformers"]
+objective_ids = ["obj-m06-isolation-transformer"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

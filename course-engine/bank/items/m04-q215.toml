@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — ebrr.44: keep floor type separate from class
+# syllabus_heading = "1.4 Raised Access Flooring and Suspended Ceiling"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
+# source_ids = ["src-epi-cdcp-page", "src-ufgs-09-69-13-2024", "src-ufgs-09-69-19-2024"]
+# source = "USACE/NAVFAC/AFCEC UFGS-09 69 13 and UFGS-09 69 19, November 2024, §2.1 System Description — https://legacy.wbdg.org/FFC/DOD/UFGS/UFGS%2009%2069%2013.pdf ; https://legacy.wbdg.org/FFC/DOD/UFGS/UFGS%2009%2069%2019.pdf"
+# claim = "Understructure type is stringered versus free-standing/stringerless; floor product class and deflection claims remain outside this public type distinction."
+# blocked_on_sourcing = "EN 12825, ISO 22496, and CISCA class tables remain paywalled or membership-restricted; no class, deflection, or loading value is asserted here."
+id = "m04-q215"
+kind = "single-select"
+module = 4
+stem = "The project specification leaves the raised-floor understructure blank. The next review question should be:"
+choices = [
+  "Name the understructure: stringered or free-standing/stringerless",
+  "Use a panel finish as the understructure type",
+  "Use the site's Tier plaque as the floor type",
+  "Insert a numeric floor class from a vendor summary without the product standard",
+]
+correct = "A"
+explanation = "The November 2024 UFGS §2.1 type axis is stringer versus stringerless; a panel finish, a site rating label, and an unsupported product-class number answer different questions. The paywalled product-class boundary is deliberately not crossed."
+topic_ids = ["m04-floor-types", "m04-floor-standards"]
+objective_ids = ["obj-m04-floor-types"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
