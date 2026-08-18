@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — ebrr.22 leftover: 855 electrical not M12 fire
+# Public syllabus heading: Batteries
+# Official catalog/preview receipt: NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026
+# BLOCKED: the official preview identifies stationary energy-storage installation scope but does not expose the exact UPS-DC-bus/BESS-AC-interconnect proposition.
 id = "m06-q261"
 kind = "single-select"
 module = 6

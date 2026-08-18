@@ -1044,6 +1044,26 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 74 — CDCP redundancy-layer, BESS, and runbook receipts
+
+**Review date:** 2026-08-18. Five additional M06 rows now carry current ISO,
+IEC, or NFPA catalog/preview receipts. They remain BLOCKED because the public
+pages do not expose the exact N+2/Tier boundary, BESS interconnect, dual-cord
+isolation, or ATS retransfer-runbook propositions. Existing `ebrr.22` and
+runbook scope remains open; no bead was closed. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q259 | Power redundancy levels and techniques | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact N+2-versus-Tier proposition not exposed |
+| m06-q260 | Power redundancy levels and techniques | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact layer-scoped N+2 proposition not exposed |
+| m06-q261 | Batteries | NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026 | **BLOCKED** — exact UPS-DC-bus/BESS-AC-interconnect proposition not exposed |
+| m06-q300 | Power redundancy levels and techniques | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED** — exact dual-cord landing/path-isolation runbook proposition not exposed |
+| m06-q301 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494 | **BLOCKED** — exact sync/timer/retransfer runbook proposition not exposed |
+
+The ledger remains 162 PASS / 795 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j or ebrr bead, or alter
+gate-shrink or oracle scope.
+
 ## Breadth pass 73 — CDCP critical-path, UPS topology, and generator receipts
 
 **Review date:** 2026-08-18. Nine additional M06 rows now carry current ISO,
