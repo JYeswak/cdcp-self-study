@@ -243,8 +243,43 @@ pub fn py_strip(s: &str) -> &str {
     s.trim_matches(py_space)
 }
 
-/// `str.isdigit()`, restricted to ASCII. See the header's residual-deviation
-/// list for the non-ASCII digits CPython accepts here and `int()` then rejects.
+/// Python's `str.isdigit()`: all decimal digits plus the non-decimal digit
+/// codepoints whose `isdigit()` bit is set even though `int()` rejects them.
+fn py_isdigit_char(c: char) -> bool {
+    if unicode_decimal_digit(c).is_some() {
+        return true;
+    }
+    matches!(
+        c as u32,
+        0x00b2..=0x00b3
+            | 0x00b9
+            | 0x1369..=0x1371
+            | 0x19da
+            | 0x2070
+            | 0x2074..=0x2079
+            | 0x2080..=0x2089
+            | 0x2460..=0x2468
+            | 0x2474..=0x247c
+            | 0x2488..=0x2490
+            | 0x24ea
+            | 0x24f5..=0x24fd
+            | 0x24ff
+            | 0x2776..=0x277e
+            | 0x2780..=0x2788
+            | 0x278a..=0x2792
+            | 0x10a40..=0x10a43
+            | 0x10e60..=0x10e68
+            | 0x11052..=0x1105a
+            | 0x1f100..=0x1f10a
+    )
+}
+
+pub fn py_isdigit(s: &str) -> bool {
+    !s.is_empty() && s.chars().all(py_isdigit_char)
+}
+
+/// The old ASCII-only helper remains available for its focused unit contract;
+/// the gate uses [`py_isdigit`] above for Python parity.
 pub fn py_isdigit_ascii(s: &str) -> bool {
     !s.is_empty() && s.chars().all(|c| c.is_ascii_digit())
 }
@@ -878,7 +913,7 @@ fn load_exemptions(
             Some(v) => py_str_value(v),
             None => String::new(),
         };
-        if !py_isdigit_ascii(py_strip(&raw).trim_start_matches('-')) {
+        if !py_isdigit(py_strip(&raw).trim_start_matches('-')) {
             continue;
         }
         floors.insert(py_int_uncaught(t.get("module"))?);

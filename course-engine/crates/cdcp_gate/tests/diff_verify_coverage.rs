@@ -1190,6 +1190,50 @@ fn unicode_nd_blocks_for_domain_min_are_byte_identical_and_known_bad_is_red() {
     );
 }
 
+/// Python's `str.isdigit()` accepts Arabic-Indic digits when deciding whether
+/// a floor conflicts with an exemption. The known-bad mutant keeps the screen
+/// ASCII-only, so it silently accepts the exemption and can report GREEN;
+/// Python reports the conflict and the differential assertion REDs the mutant.
+#[test]
+fn unicode_isdigit_conflicting_floor_and_exemption_are_byte_identical_and_known_bad_is_red() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(&[1, 2]));
+    let bank = td.path().join("bank");
+    plant_bank(&bank, &[("a", 1), ("b", 2)]);
+    let policy = td.path().join("policy_conflict_unicode.toml");
+    write(
+        &policy,
+        "[[domain_min]]\nmodule = \"٢\"\nmin_items = 4\n\
+         [[coverage_exempt]]\nmodule = 2\nreason = \"conflicting\"\n",
+    );
+    let rs = assert_byte_identical(
+        "unicode isdigit floor/exemption conflict",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            policy.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out().contains("module 2 is both coverage_exempt and has a"),
+        "{}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("module 2: 1 approved < min 4 (1 scanned, 0 not approved)"),
+        "{}",
+        rs.out()
+    );
+}
+
 // ── (g) anti-vacuous: an empty input set is an ERROR, never a pass ────────
 
 #[test]
