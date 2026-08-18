@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 460 PASS; 497 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 461 PASS; 496 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -39,7 +39,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m01-q053 | 1 | Importance of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS — ISO/IEC 22237-1:2021 official abstract names energy efficiency as a classification criterion |
 | m01-q054 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact root-cause-category proposition is not exposed |
 | m01-q055 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact managed-hosting ownership proposition is not exposed |
-| m01-q056 | 1 | Importance of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact executive redundancy-investment proposition is not exposed |
+| m01-q056 | 1 | Importance of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS — current ISO preview names availability, security, and energy-efficiency as classification criteria over the planned lifetime |
 | m01-q057 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact cascading-unavailability scenario is not exposed |
 | m01-q058 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact colocation-customer design-awareness proposition is not exposed |
 | m01-q059 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact reliability-culture proposition is not exposed |

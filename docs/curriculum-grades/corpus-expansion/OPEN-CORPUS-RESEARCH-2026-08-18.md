@@ -870,6 +870,20 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 299 — ISO data-centre classification-criteria preview claim
+
+**Review date:** 2026-08-18. The current official ISO catalog/preview for
+ISO/IEC 22237-1:2021 was checked without opening or fetching a PDF. Its public
+abstract says that Part 1 specifies a classification system based on
+availability, security, and energy-efficiency over the planned lifetime of the
+data centre.
+
+| Items | Public CDCP heading | Current official catalog/preview | Bounded result |
+|---|---|---|---|
+| m01-q056 | Importance of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — asks only for the abstract's classification criteria; no redundancy-investment rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 298 — ISO general-concepts terminology preview claim
 
 **Review date:** 2026-08-18. The current official ISO catalog/preview for
