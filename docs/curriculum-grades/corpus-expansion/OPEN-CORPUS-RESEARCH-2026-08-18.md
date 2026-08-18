@@ -472,3 +472,69 @@ The objective remains open after pass 06. The next unresolved frontier is physic
 | 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
 
 The objective remains open after pass 07. The next unresolved frontier is people systems: skills matrices, shift turnover, training, fatigue, contractor governance, and succession.
+
+## Breadth pass 08 — skills, shift turnover, training, fatigue, contractors, and succession
+
+**Search date:** 2026-08-18. This pass retained official OSHA, CDC/NIOSH, DOE/FEMP, and NIST/NICE HTML pages. No PDF body was fetched or copied. Workforce frameworks are used for role and capability language only, not to claim credentials.
+
+### Sources retained
+
+| Source | What it can safely support | Boundaries |
+|---|---|---|
+| OSHA 1910.332, Electrical Safety Training — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.332 | Job-assignment-based electrical training, qualified/unqualified worker distinctions, and familiarity with applicable safety-related work practices | OSHA training requirements do not create a data-center operator credential or prove competence for every task, voltage, system, or local procedure |
+| OSHA 1910.147, Control of Hazardous Energy — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.147 | Authorized/affected employee roles, energy-control procedures, training, periodic inspection, and outside-personnel coordination questions | Apply the standard’s actual scope and employer program; do not invent a handover taxonomy or claim that a sign-in sheet proves LOTO competence |
+| OSHA Emergency Preparedness and Response — https://www.osha.gov/emergency-preparedness/getting-started | Training, emergency action plan review, rescue/medical roles, PPE, electrical protection, hazardous energy, and permit-related source discovery | OSHA’s list is a navigation and compliance resource, not a complete skills matrix or staffing model |
+| CDC/NIOSH Fatigue and Work — https://www.cdc.gov/niosh/fatigue/about/index.html | Fatigue sources, nonstandard schedules, extended hours, effects on reaction/attention/judgment, joint employer-worker risk reduction, and research/training questions | NIOSH is research and prevention guidance; it does not impose a universal shift length, rest roster, medical screen, or staffing ratio |
+| NIOSH Center for Work and Fatigue Research — https://www.cdc.gov/niosh/centers/fatigue.html | Fatigue-risk assessment, work-schedule design, collaboration with workers/employers, and evidence-review questions | The center’s research agenda is not an operational certification or one-size-fits-all fatigue program |
+| DOE/FEMP workforce development offerings — https://www.energy.gov/femp/articles/femps-workforce-development-offerings | Public training-curriculum and workforce-development framing for building operations and maintenance, energy management, and related federal roles | FEMP offerings do not certify a private operator, define a data-center qualification, or replace site-specific supervised task sign-off |
+| NIST NICE Framework Resource Center — https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center | Task, knowledge, skill, competency-area, work-role, team, hiring, training, capability-planning, and career-development language; current component version discovery | NICE describes cybersecurity work and capabilities, not all data-center operations. Work roles are not job titles, and framework use does not certify a person |
+| NIST NICE Framework Current Versions — https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center/nice-framework-current-versions | Current component version pin (2.2.0 shown on the page), change/version review, and machine-readable workforce-component discovery | The component version is a workforce-language receipt, not an EPI/CDFOS/CDFOM syllabus heading or credentialing decision |
+| NIST SP 800-53 Rev. 5 control catalog — https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final | Awareness/training, personnel security, maintenance, contingency, supply-chain, audit, and assessment evidence families for role and contractor-governance questions | Controls are customizable guidance. A mapped control or training record does not prove practical task competence or an approved staffing level |
+
+### Pass-08 question frontier
+
+| Module | New question families |
+|---|---|
+| M01 Mission Critical | Map service risk to minimum roles, on-call coverage, decision rights, fatigue exposure, shift handoff, contractor dependency, cross-training, and succession; identify the capability that is single-threaded despite technical redundancy. |
+| M02 Standards | Classify OSHA requirements, NIOSH research, FEMP workforce guidance, NICE work-role language, NIST control families, owner policy, and supervised task authorization; reject a framework label used as a certification claim. |
+| M03 Site / Building | Design staffing and access coverage for utility rooms, mechanical plant, meet-me, security desk, loading dock, roofs, remote sites, and emergency assembly; identify the tasks requiring local qualified personnel rather than remote observation. |
+| M04 Floor / Ceiling | Include safe access, lifting, cabling, leak, egress, and equipment-room task hazards in a skills matrix; identify which training and supervised demonstration is required after a physical layout or equipment change. |
+| M05 Light | Train workers to recognize lighting/egress deficiencies during night shift, emergency response, and contractor work; include reporting, temporary controls, and escalation rather than treating illumination as a facilities-only issue. |
+| M06 Power | Build role-based authorization for switching, LOTO, UPS bypass, generator/ATS tests, battery/storage work, and restoration; verify training currency, task-specific competence, second-person requirements, and handoff evidence before a window. |
+| M07 EMF | Define who may measure fields, interpret results, establish boundaries, select PPE, authorize access, and release the work area; distinguish awareness training from qualified electrical work and occupational-health review. |
+| M08 Racks | Create skill and authorization paths for rack install, fiber/copper work, liquid-cooling service, PDU/branch-circuit handling, console access, asset custody, and safe removal; require mentoring or supervised demonstration for new tasks. |
+| M09 Cooling | Assign capabilities for control-sequence review, sensor validation, CDU isolation, water chemistry, tower work, leak response, heat-reuse operation, and seasonal transition; test whether the shift can operate manually when the automation path fails. |
+| M10 Water | Train operators and contractors on water-source isolation, treatment chemicals, cooling-tower sampling, spill/leak response, makeup/blowdown records, wastewater notifications, and safe restart; require role and permit evidence for each task. |
+| M11 Network | Define role boundaries for physical cabling, network operations, OT/BMS/DCIM, security, vendor remote access, change approval, break-glass, and incident response; verify shift turnover includes topology, active maintenance, alarms, and expired access. |
+| M12 Fire | Train and exercise roles for alarm response, evacuation, impairment, fire-watch, responder escort, emergency shutdown, re-entry, and return-to-service; distinguish awareness from firefighter, electrical, confined-space, or AHJ-required qualifications. |
+| M13 Security | Govern guard, operator, engineer, vendor, escort, administrator, and incident-manager roles; require background/access decisions, least privilege, separation of duties, incident reporting, and immediate access revocation on role change. |
+| M14 Auxiliary | Define who owns alarms, logs, dashboards, shift reports, work orders, training records, contractor permits, access reviews, and evidence retention; identify the handoff datum that is missing when a dashboard is green but the operator is unaware of a risk. |
+| M15 Operations | Build a people operating loop: roster, competency matrix, task authorization, shift brief, fatigue check, MOP/SOP/EOP review, execution, debrief, learning record, retraining, cross-training, succession, and contractor performance review. |
+
+### Pass-08 factual boundaries
+
+- OSHA 1910.332 ties electrical safety training to the hazards and job assignments employees face. A generic “data-center trained” label is not proof that a worker is qualified for switching, energized work, LOTO, battery, or restoration tasks.
+- OSHA 1910.147 includes training and coordination for hazardous-energy control and outside personnel. Contractor participation requires compatible procedures, scope clarity, communication, and responsibility; a vendor badge is not an energy-control authorization.
+- NIOSH identifies fatigue as a safety and health risk associated with nonstandard schedules, extended hours, stress, demanding work, and hot environments. Use risk assessment and worker reporting; do not assert a universal roster or medical conclusion.
+- FEMP workforce offerings support curriculum and development planning for federal building O&M roles. Completion of training is not a facility qualification, an EPI/CDFOS/CDFOM credential, or supervised task authorization.
+- The NICE Framework describes cybersecurity work through tasks, knowledge, skills, competencies, roles, and teams. NIST says work roles are not synonymous with job titles; do not invent a data-center OLA or job taxonomy from NICE.
+- NIST’s NICE current-version page shows components are separately maintained and versioned. A version receipt supports reproducibility of role language, not competence, hiring, or certification.
+- Shift turnover is an evidence transfer, not a ceremonial meeting. It should carry current state, active risk, inhibited alarms, work permits, access changes, pending decisions, and a clear receiving owner.
+- Succession planning is a resilience control. It does not mean every person can perform every task; critical tasks still require authority, training, supervised demonstration, and current procedure access.
+
+### Updated pass tracker
+
+| Pass | Focus | Status |
+|---:|---|---|
+| 01 | DOE/FEMP/NREL energy, cooling, water, commissioning; CISA/NIST OT and exposure; eCFR safety; ISO/TIA/IEEE edition anchors | COMPLETE |
+| 02 | Site risk, utility interconnection, resilience, climate/flood/seismic, public AHJ/code sources | COMPLETE |
+| 03 | Electrical distribution, switching, protection, UPS/generator/BESS, maintenance testing | COMPLETE |
+| 04 | Cooling controls, liquid cooling, heat reuse, economization, thermal/water measurement | COMPLETE |
+| 05 | Cabling, outside plant, network management, BMS/DCIM segmentation, remote access | COMPLETE |
+| 06 | Fire/life safety, emergency power, permits, PPE, incident command, return-to-service | COMPLETE |
+| 07 | Physical security, personnel/vendor/visitor controls, asset lifecycle, media disposition | COMPLETE |
+| 08 | People systems: skills matrices, shift turnover, training, fatigue, contractor governance, succession | COMPLETE — this section |
+| 09 | Commissioning, change control, MOP/SOP/EOP, alarms, metrics, reliability-centered maintenance | OPEN |
+| 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
+
+The objective remains open after pass 08. The next unresolved frontier is commissioning, change control, MOP/SOP/EOP, alarms, metrics, and reliability-centered maintenance.
