@@ -851,3 +851,21 @@ latest published amendment. No paid standard body or PDF was fetched.
 Counts remain 121 PASS / 836 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not invent a heading, handover program, career taxonomy, or
 credential claim, and does not close ms4j.
+
+## Breadth pass 18 — CDCP fire protection: public code boundaries
+
+**Review date:** 2026-08-18. Four Module 12 rows were reworked to claims
+directly exposed by current public eCFR text. The receipts are public code text,
+not standard-body copies; no PDF was fetched.
+
+| Item | Public CDCP heading | Official public-code receipt | Bounded result |
+|---|---|---|---|
+| m12-q209 | 1.12 Fire Protection | 29 CFR 1910.252(a) — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-Q/section-1910.252 | **PASS** — hot-work fire hazards, authorization, extinguishing readiness, and fire-watch controls |
+| m12-q218 | 1.12 Fire Protection | 29 CFR 1910.155(c)(10) — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/section-1910.155 | **PASS** — Class C is defined as energized electrical equipment requiring electrically nonconductive media for employee safety |
+| m12-q221 | 1.12 Fire Protection | 29 CFR 1910.37 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.37 | **PASS** — marked, illuminated, unobstructed exits and operable emergency safeguards |
+| m12-q224 | 1.12 Fire Protection | 29 CFR 1910.164 and 1910.160 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR76c69af98ee6ed7/section-1910.164 and https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR7a02737a205fd22/section-1910.160 | **PASS** — detection and fixed-system inspection, operability, restoration, and impairment handling |
+
+ASD, agent selection, pre-action, cable-firestop, and other rows remain
+BLOCKED where the reviewed public receipt did not expose the exact claim. The
+ledger is now 125 PASS / 832 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner or close ms4j.

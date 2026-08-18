@@ -1,16 +1,24 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public heading: CDCP "1.12 Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Sources: current eCFR 29 CFR 1910.164(b)-(c), fire-detection maintenance —
+# https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR76c69af98ee6ed7/section-1910.164 ;
+# 29 CFR 1910.160(b)(2),(6), fixed-system restoration and inspection —
+# https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR7a02737a205fd22/section-1910.160
+# Claim boundary: operability, restoration, inspection, and impairment handling;
+# no NFPA frequency or site impairment program is invented.
 id = "m12-q224"
 kind = "single-select"
 module = 12
 stem = "A maintenance practice that improves fire readiness is:"
 choices = [
   "Taping over strobes to reduce noise permanently",
-  "Keeping detection and suppression systems inspected, tested, and free of unauthorized disabled zones",
+  "Keeping detection and fixed suppression systems inspected, tested, restored after alarms or repairs, and operable",
   "Blocking egress with storage",
   "Leaving agent cylinders empty until an emergency"
 ]
 correct = "B"
-explanation = "Protection systems only work if maintained and not casually bypassed."
+explanation = "The current eCFR requires fire detection systems to remain operable, be tested and maintained by knowledgeable personnel, and be restored promptly after testing or alarm; fixed extinguishing systems must also be inspected and restored when impaired."
 topic_ids = ["m12-best-practices", "m12-suppression-reqs", "m12-detection"]
 objective_ids = []
 bloom = "apply"
