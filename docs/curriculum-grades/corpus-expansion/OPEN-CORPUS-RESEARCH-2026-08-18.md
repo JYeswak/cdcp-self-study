@@ -870,6 +870,23 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
+
+**Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current
+official NIST SP 800-82 Rev. 3 abstract. It names building automation and
+physical-environment monitoring systems as OT and preserves performance,
+reliability, and safety constraints. No PDF body was fetched.
+
+| Item | Public CDCP heading | Current official abstract | Bounded result |
+|---|---|---|---|
+| bank-m14-q126 | Monitoring challenges | NIST SP 800-82 Rev. 3 — https://csrc.nist.gov/pubs/sp/800/82/r3/final | **PASS** — BMS/environmental units interact with the physical environment and require safety/reliability-aware security |
+| m14-q202 | Building Management System (BMS) | NIST SP 800-82 Rev. 3 — https://csrc.nist.gov/pubs/sp/800/82/r3/final | **PASS** — BMS is bounded to building automation and physical-environment monitoring/control |
+
+Vendor-specific BMS/DCIM taxonomies, protocol claims, default-password
+claims, and alarm/control sequences remain BLOCKED. The ledger is now 144 PASS /
+813 BLOCKED across 957 rows, with zero bare FAIL. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 23 — CDCP TIA-942-C public topology scope
 
 **Review date:** 2026-08-18. Two Module 11 rows were narrowed to the current

@@ -1,16 +1,22 @@
 # Original educational bank item — modules expansion (not mock40)
+# Public heading: CDCP "Monitoring challenges" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# Current official abstract: NIST SP 800-82 Rev. 3 —
+# https://csrc.nist.gov/pubs/sp/800/82/r3/final
+# Claim boundary: BMS/environmental monitoring is OT with safety/reliability
+# constraints; no product, protocol, or network architecture is prescribed.
 id = "bank-m14-q126"
 kind = "single-select"
 module = 14
-stem = "OT/IT security for BMS and environmental units matters because:"
+stem = "In NIST's OT framing, BMS and environmental monitoring units require special security attention because they:"
 choices = [
-  "Facilities networks never connect to anything",
-  "Default passwords and flat networks are recurring lateral-movement risks",
-  "BACnet is immune to misuse by design always",
-  "Only IT servers need patching"
+  "Interact with the physical environment and must account for performance, reliability, and safety",
+  "Are outside the scope of physical processes",
+  "Are immune to misuse by design",
+  "Can be secured without considering operational consequences"
 ]
-correct = "B"
-explanation = "Auxiliary systems are cyber-physical; segment and harden the control plane."
+correct = "A"
+explanation = "NIST’s current abstract describes building automation and physical-environment monitoring systems as OT and says OT security must address unique performance, reliability, and safety requirements. It does not prescribe a specific network, protocol, or product control."
 topic_ids = ["m14-monitoring-challenges", "m14-best-practices"]
 objective_ids = []
 bloom = "understand"
