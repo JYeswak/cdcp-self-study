@@ -889,6 +889,22 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 266 — IEC 19-inch rack 1U chassis scope
+
+**Review date:** 2026-08-18. The current IEC Webstore entry for IEC
+60297-3-105:2008 specifies dimensions for 1U chassis mounted into IEC
+60297-3-100-compliant racks/cabinets where dimensions, loaded weight, and
+accessibility require differing assembly methods. The item below is bounded to
+that mechanical rack-hardware scope; it does not assert a universal two-post or
+four-post use rule, rack power rating, or thermal capacity.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m08-q046 | Types of racks | IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288 | **PASS** — 1U chassis dimensions/design and loaded-weight/accessibility scope are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 265 — IEC external-EMI facility-mitigation scope
 
 **Review date:** 2026-08-18. The current IEC Webstore entry for IEC
