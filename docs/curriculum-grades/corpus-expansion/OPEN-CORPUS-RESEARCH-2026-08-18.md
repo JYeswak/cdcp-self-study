@@ -1147,6 +1147,35 @@ more direct current IEC catalog while remaining BLOCKED. Stems, answers,
 syllabus headings, topics, manifest, beads, gate, oracle, and credential state
 were unchanged. No standard body or PDF was fetched.
 
+## Breadth pass 139 — transformer maintenance and IEEE currency boundary
+
+**Date:** 2026-08-18
+**Search path:** M06 transformer and power-maintenance questions were checked
+against the official IEEE Standards Association pages and current IEC/ISO
+catalogs. [IEEE C57.94-2025](https://standards.ieee.org/ieee/C57.94/10864/)
+is an active published recommended practice for installation, application,
+operation, and maintenance of dry-type distribution and power transformers;
+the IEEE page records that it supersedes C57.94-2015 and was published in
+2026-05.
+
+**Adversarial boundary:** IEEE C57.94-2025 is limited to dry-type transformer
+operation and maintenance. It does not, from its public page, establish the
+generic MV-to-LV service-entrance role, isolation-transformer grounding/noise
+claims, or universal transformer-loss thermal-budget proposition in
+`m06-q070`–`m06-q072`. The active [IEEE P3380 project](https://standards.ieee.org/ieee/3380/11407/)
+is a project authorization, not a published standard, and is excluded from
+edition receipts.
+
+| Module | Question frontier | Disposition |
+|---|---|---|
+| M06 | Select, operate, maintain, and document dry-type distribution/power transformers | Research anchor only; no existing item is upgraded without an exact dry-type proposition |
+| M06 | Distinguish published standard, active project, and older generic transformer catalog | Current-edition boundary recorded; no draft/project body used |
+
+**Bounded result:** This pass adds a current IEEE primary-source anchor and a
+published-versus-project distinction to the research trail. No bank row,
+ledger receipt, syllabus heading, topic, manifest, bead, gate, oracle, or
+credential state changed. No standard body or PDF was fetched.
+
 ## Breadth pass 135 — environmental control, security systems, cabling, and resilience KPIs
 
 **Date:** 2026-08-18
