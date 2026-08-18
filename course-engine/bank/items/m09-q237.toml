@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Types of cooling systems
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# BLOCKED: the current environmental-control catalog does not expose the exact N+1/2N cooling-redundancy proposition.
 id = "m09-q237"
 kind = "single-select"
 module = 9
