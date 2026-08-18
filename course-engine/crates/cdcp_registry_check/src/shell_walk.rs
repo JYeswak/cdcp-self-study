@@ -6,6 +6,7 @@
 #![forbid(unsafe_code)]
 
 use std::collections::{BTreeMap, BTreeSet};
+use std::path::Path;
 
 /// Executors whose next token is treated as an invoked path.
 ///
@@ -457,6 +458,258 @@ pub fn script_still_invokes_py(text: &str, path: &str) -> bool {
     false
 }
 
+// ── invocation set extraction (reason honesty support) ─────────────────────
+
+/// Phrases that assert this path is still the live check.sh oracle.
+/// Case-insensitive. "Differential oracle … Not a check.sh step" must not match.
+pub fn reason_claims_check_sh_invoke(reason: &str) -> bool {
+    let r = reason.to_ascii_lowercase();
+    r.contains("load-bearing check.sh")
+        || r.contains("check.sh invokes")
+        || r.contains("check.sh hard-fails if")
+        || r.contains("byte-exact oracle")
+        || r.contains("oracle required")
+}
+
+/// Phrases that assert this path is *not* reachable from check.sh.
+/// Checked against the transitive walk — the inverse of the load-bearing lie.
+pub fn reason_claims_not_on_check_sh(reason: &str) -> bool {
+    let r = reason.to_ascii_lowercase();
+    r.contains("not a check.sh step") || r.contains("not on the check.sh path")
+}
+
+fn next_invoked_path(after_exec: &str) -> Option<String> {
+    let tok = next_shell_token(after_exec)?.trim();
+    if tok.is_empty()
+        || tok.starts_with('-')
+        || tok.starts_with('$')
+        || tok.starts_with('>')
+        || tok.starts_with('<')
+    {
+        return None;
+    }
+    if !(tok.contains('/')
+        || tok.ends_with(".py")
+        || tok.ends_with(".sh")
+        || tok.ends_with(".mjs")
+        || tok.ends_with(".js"))
+    {
+        return None;
+    }
+    Some(tok.strip_prefix("./").unwrap_or(tok).to_string())
+}
+
+fn extract_invoked_paths(code: &str, out: &mut BTreeSet<String>) {
+    for (i, _) in code.char_indices() {
+        if !is_word_start(code, i) {
+            continue;
+        }
+        let rest = &code[i..];
+        let Some(exec) = INVOKE_EXECS.iter().copied().find(|e| rest.starts_with(e)) else {
+            continue;
+        };
+        let after = &rest[exec.len()..];
+        let boundary = match after.chars().next() {
+            None => true,
+            Some(c) => c.is_ascii_whitespace() || c == '"' || c == '\'',
+        };
+        if boundary {
+            if let Some(path) = next_invoked_path(after) {
+                out.insert(path);
+            }
+        }
+    }
+}
+
+/// Paths `scripts/check.sh` actually invokes, derived from the file, never
+/// hand-maintained. Comments and `[ -f path ]` presence tests do not count.
+pub fn check_sh_invocation_set(text: &str) -> BTreeSet<String> {
+    let mut out = BTreeSet::new();
+    for raw in text.lines() {
+        let line = raw.trim();
+        if line.starts_with('#') {
+            continue;
+        }
+        extract_invoked_paths(code_part(line), &mut out);
+    }
+    out
+}
+
+pub fn check_sh_invokes_path(text: &str, path: &str) -> bool {
+    check_sh_invocation_set(text).contains(path)
+}
+
+// ── oracle inventory helpers ───────────────────────────────────────────────
+
+const ORACLE_INVENTORY_PREFIXES: &[&str] = &["verify_", "validate_", "smoke_"];
+
+/// Valid dispositions for oracle inventory entries.
+pub const ORACLE_DISPOSITIONS: &[&str] = &[
+    "live_selftest",
+    "live_check_sh",
+    "cargo_test_differential",
+    "honesty_ledger",
+];
+
+pub fn is_inventoried_oracle_script(rel: &str) -> bool {
+    let Some(name) = rel.strip_prefix("scripts/") else {
+        return false;
+    };
+    if name.contains('/') {
+        return false;
+    }
+    let lower = name.to_ascii_lowercase();
+    lower.ends_with(".py")
+        && ORACLE_INVENTORY_PREFIXES
+            .iter()
+            .any(|p| lower.starts_with(p))
+}
+
+pub fn discover_oracle_scripts(scripts_dir: &Path) -> Result<BTreeSet<String>, String> {
+    let mut out = BTreeSet::new();
+    if !scripts_dir.is_dir() {
+        return Ok(out);
+    }
+    let rd = std::fs::read_dir(scripts_dir).map_err(|e| format!("read scripts/: {e}"))?;
+    for ent in rd {
+        let ent = ent.map_err(|e| format!("scripts/ dirent: {e}"))?;
+        let name = ent.file_name();
+        let name = name.to_string_lossy();
+        let rel = format!("scripts/{name}");
+        if is_inventoried_oracle_script(&rel) && ent.path().is_file() {
+            out.insert(rel);
+        }
+    }
+    Ok(out)
+}
+
+/// The header every remaining .py oracle must carry (bd-substrate-python-gates-viu).
+pub const RUST_MIGRATION_HEADER_MARKER: &str = "# RUST MIGRATION:";
+
+/// Check that every discovered oracle script has a RUST MIGRATION header.
+///
+/// Anti-vacuous: zero scripts is an ERROR (the scan judged nothing), not a pass.
+/// A file that cannot be read is an ERROR. A file without the header is an ERROR.
+pub fn check_rust_migration_headers(
+    discovered: &BTreeSet<String>,
+    read_file: impl Fn(&str) -> std::io::Result<String>,
+) -> Vec<String> {
+    let mut errors = Vec::new();
+    if discovered.is_empty() {
+        errors.push(
+            "RUST MIGRATION header check: zero scripts discovered — a scan that judged nothing is an ERROR, not a pass"
+                .to_string(),
+        );
+        return errors;
+    }
+    for path in discovered {
+        match read_file(path) {
+            Ok(content) => {
+                let has_header = content
+                    .lines()
+                    .take(3)
+                    .any(|line| line.contains(RUST_MIGRATION_HEADER_MARKER));
+                if !has_header {
+                    errors.push(format!(
+                        "{path}: missing `{RUST_MIGRATION_HEADER_MARKER}` header — every remaining Python oracle must state its disposition (bd-substrate-python-gates-viu). Add a header like: `# RUST MIGRATION: differential oracle for cdcp_gate <cmd> (<bead>)`"
+                    ));
+                }
+            }
+            Err(e) => {
+                errors.push(format!(
+                    "{path}: cannot read file to check RUST MIGRATION header: {e}"
+                ));
+            }
+        }
+    }
+    errors
+}
+
+// ── probe verdict classification ───────────────────────────────────────────
+
+/// What running `scripts/check.sh` against a planted known-bad showed.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum ProbeVerdict {
+    /// check.sh stopped, non-zero, on the guard's verdict about the plant.
+    Propagates,
+    /// The guard never reported on the plant at all: the step did not run.
+    NeverRan,
+    /// The guard reported RED and check.sh carried on or exited 0.
+    Swallowed(String),
+    /// Neither could be established. Never a pass.
+    Unattributable(String),
+}
+
+pub fn describe_exit(code: Option<i32>) -> String {
+    match code {
+        Some(c) => format!("with exit {c}"),
+        None => "without exiting on its own (the probe stopped it — either the transcript had already settled the question, or the timeout expired)".to_string(),
+    }
+}
+
+/// Decide the probe's verdict from check.sh's own output and exit code.
+///
+/// Pure so it can be unit-tested against transcripts of all four shapes without
+/// running anything. `gate_name` is the name to look for in banner lines (e.g.
+/// "substrate-guard").
+///
+/// The `.contains` calls here stay substring tests. A build transcript has no
+/// schema to parse — it is the artifact under test, not a registry — so
+/// attribution is a heuristic and is worded as one: the only PASS (`Propagates`)
+/// additionally requires check.sh to have exited non-zero, and everything the
+/// text leaves open lands in `Unattributable`, which is an ERROR rather than a pass.
+pub fn classify_probe(log: &str, exit_code: Option<i32>, plant: &str, gate_name: &str) -> ProbeVerdict {
+    let lines: Vec<&str> = log.lines().collect();
+    let verdict_at = lines
+        .iter()
+        .position(|l| l.contains(plant) && l.contains("FAIL"));
+    let banner_at = lines
+        .iter()
+        .position(|l| l.contains("==>") && l.contains(gate_name));
+    let ok_after = |from: usize| lines.iter().skip(from).any(|l| l.contains("check.sh: ok:"));
+
+    match verdict_at {
+        None => {
+            if exit_code == Some(0) || banner_at.map(|b| ok_after(b + 1)).unwrap_or(false) {
+                ProbeVerdict::NeverRan
+            } else {
+                ProbeVerdict::Unattributable(format!(
+                    "check.sh ended {} without the guard ever reporting on {plant}; the failure cannot be attributed to the substrate step",
+                    describe_exit(exit_code)
+                ))
+            }
+        }
+        Some(i) => {
+            if ok_after(i + 1) {
+                ProbeVerdict::Swallowed(
+                    "check.sh reported a later step `ok` AFTER the guard had already failed"
+                        .to_string(),
+                )
+            } else if exit_code == Some(0) {
+                ProbeVerdict::Swallowed(
+                    "check.sh exited 0 while the guard's verdict on the plant was RED".to_string(),
+                )
+            } else if exit_code.is_some() {
+                ProbeVerdict::Propagates
+            } else {
+                ProbeVerdict::Unattributable(
+                    "check.sh was still running at the probe timeout with the guard already RED"
+                        .to_string(),
+                )
+            }
+        }
+    }
+}
+
+/// True once the transcript already settles the question, so the probe can stop
+/// a check.sh that is going to run for minutes to tell us nothing new.
+pub fn probe_can_stop_early(log: &str, plant: &str, gate_name: &str) -> bool {
+    matches!(
+        classify_probe(log, None, plant, gate_name),
+        ProbeVerdict::NeverRan | ProbeVerdict::Swallowed(_)
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -501,5 +754,80 @@ mod tests {
     fn script_still_invokes_py_direct() {
         assert!(script_still_invokes_py("#!/bin/sh\npython3 scripts/foo.py\n", "scripts/foo.py"));
         assert!(!script_still_invokes_py("#!/bin/sh\npython3 scripts/bar.py\n", "scripts/foo.py"));
+    }
+
+    #[test]
+    fn reason_claims_check_sh_invoke_matches() {
+        assert!(reason_claims_check_sh_invoke("Load-bearing check.sh gate"));
+        assert!(reason_claims_check_sh_invoke("check.sh invokes this"));
+        assert!(reason_claims_check_sh_invoke("check.sh hard-fails if missing"));
+        assert!(reason_claims_check_sh_invoke("byte-exact oracle"));
+        assert!(reason_claims_check_sh_invoke("oracle required for test"));
+        assert!(!reason_claims_check_sh_invoke("Differential oracle. Not a check.sh step."));
+        assert!(!reason_claims_check_sh_invoke("authoring helper"));
+    }
+
+    #[test]
+    fn reason_claims_not_on_check_sh_matches() {
+        assert!(reason_claims_not_on_check_sh("Not a check.sh step"));
+        assert!(reason_claims_not_on_check_sh("not on the check.sh path"));
+        assert!(!reason_claims_not_on_check_sh("Load-bearing check.sh"));
+    }
+
+    #[test]
+    fn check_sh_invocation_set_finds_python() {
+        let text = "#!/bin/sh\npython3 scripts/verify_bank.py\nsh scripts/helper.sh\n";
+        let set = check_sh_invocation_set(text);
+        assert!(set.contains("scripts/verify_bank.py"));
+        assert!(set.contains("scripts/helper.sh"));
+    }
+
+    #[test]
+    fn check_sh_invocation_set_skips_comments() {
+        let text = "#!/bin/sh\n# python3 scripts/old.py\npython3 scripts/new.py\n";
+        let set = check_sh_invocation_set(text);
+        assert!(!set.contains("scripts/old.py"));
+        assert!(set.contains("scripts/new.py"));
+    }
+
+    #[test]
+    fn is_inventoried_oracle_script_accepts_valid() {
+        assert!(is_inventoried_oracle_script("scripts/verify_bank.py"));
+        assert!(is_inventoried_oracle_script("scripts/validate_grounding.py"));
+        assert!(is_inventoried_oracle_script("scripts/smoke_test.py"));
+        assert!(is_inventoried_oracle_script("scripts/VERIFY_BANK.PY"));
+    }
+
+    #[test]
+    fn is_inventoried_oracle_script_rejects_invalid() {
+        assert!(!is_inventoried_oracle_script("scripts/helper.py"));
+        assert!(!is_inventoried_oracle_script("scripts/verify_bank.sh"));
+        assert!(!is_inventoried_oracle_script("other/verify_bank.py"));
+        assert!(!is_inventoried_oracle_script("scripts/subdir/verify_bank.py"));
+    }
+
+    #[test]
+    fn probe_certifies_only_a_transcript_that_stops_on_the_plant() {
+        let plant = "scripts/__probe__.py";
+        let gate = "substrate-guard";
+        let ok = "==> substrate-guard\nFAIL scripts/__probe__.py\n";
+        assert_eq!(classify_probe(ok, Some(2), plant, gate), ProbeVerdict::Propagates);
+
+        let swallowed = "==> substrate-guard\nFAIL scripts/__probe__.py\ncheck.sh: ok: next-step\n";
+        assert!(matches!(classify_probe(swallowed, Some(0), plant, gate), ProbeVerdict::Swallowed(_)));
+
+        let never_ran = "==> substrate-guard\ncheck.sh: ok: substrate-guard\n";
+        assert_eq!(classify_probe(never_ran, Some(0), plant, gate), ProbeVerdict::NeverRan);
+    }
+
+    #[test]
+    fn probe_stops_early_only_once_the_answer_is_settled() {
+        let plant = "scripts/__probe__.py";
+        let gate = "substrate-guard";
+        let partial = "==> substrate-guard\nrunning...\n";
+        assert!(!probe_can_stop_early(partial, plant, gate));
+
+        let settled = "==> substrate-guard\ncheck.sh: ok: substrate-guard\n";
+        assert!(probe_can_stop_early(settled, plant, gate));
     }
 }

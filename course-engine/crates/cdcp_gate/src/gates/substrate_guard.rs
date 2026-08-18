@@ -267,9 +267,11 @@ use crate::date::{self, Ymd};
 use crate::registry::{GateCtx, GateError};
 use crate::vcs;
 use cdcp_registry_check::shell_walk::{
-    code_part, collect_assignments, is_word_start, next_shell_token, normalize_repo_path,
-    require_nonempty_inventory, require_tree_derived_floor, script_still_invokes_py,
-    walk_invocations, InvocationWalk, INVOKE_EXECS,
+    check_rust_migration_headers, check_sh_invocation_set, classify_probe, code_part,
+    collect_assignments, describe_exit, discover_oracle_scripts, is_inventoried_oracle_script,
+    normalize_repo_path, probe_can_stop_early, reason_claims_check_sh_invoke,
+    reason_claims_not_on_check_sh, require_nonempty_inventory, require_tree_derived_floor,
+    script_still_invokes_py, walk_invocations, ProbeVerdict, ORACLE_DISPOSITIONS,
 };
 use serde::Deserialize;
 use std::collections::{BTreeMap, BTreeSet};
@@ -1060,86 +1062,6 @@ pub fn check_sh_wires_guard(text: &str) -> bool {
 // authoring-helper reason that is lying about being an authoring helper is
 // still prose.
 
-/// Phrases that assert this path is still the live check.sh oracle.
-/// Case-insensitive. "Differential oracle … Not a check.sh step" must not match.
-pub fn reason_claims_check_sh_invoke(reason: &str) -> bool {
-    let r = reason.to_ascii_lowercase();
-    r.contains("load-bearing check.sh")
-        || r.contains("check.sh invokes")
-        || r.contains("check.sh hard-fails if")
-        || r.contains("byte-exact oracle")
-        || r.contains("oracle required")
-}
-
-/// Phrases that assert this path is *not* reachable from check.sh.
-/// Checked against the transitive walk — the inverse of the load-bearing lie.
-pub fn reason_claims_not_on_check_sh(reason: &str) -> bool {
-    let r = reason.to_ascii_lowercase();
-    r.contains("not a check.sh step") || r.contains("not on the check.sh path")
-}
-
-fn next_invoked_path(after_exec: &str) -> Option<String> {
-    let tok = next_shell_token(after_exec)?.trim();
-    if tok.is_empty()
-        || tok.starts_with('-')
-        || tok.starts_with('$')
-        || tok.starts_with('>')
-        || tok.starts_with('<')
-    {
-        return None;
-    }
-    if !(tok.contains('/')
-        || tok.ends_with(".py")
-        || tok.ends_with(".sh")
-        || tok.ends_with(".mjs")
-        || tok.ends_with(".js"))
-    {
-        return None;
-    }
-    Some(tok.strip_prefix("./").unwrap_or(tok).to_string())
-}
-
-fn extract_invoked_paths(code: &str, out: &mut BTreeSet<String>) {
-    // Walk char boundaries: check.sh contains em-dashes, and a byte-index
-    // walk panics on `&code[i..]` mid-character.
-    for (i, _) in code.char_indices() {
-        if !is_word_start(code, i) {
-            continue;
-        }
-        let rest = &code[i..];
-        let Some(exec) = INVOKE_EXECS.iter().copied().find(|e| rest.starts_with(e)) else {
-            continue;
-        };
-        let after = &rest[exec.len()..];
-        let boundary = match after.chars().next() {
-            None => true,
-            Some(c) => c.is_ascii_whitespace() || c == '"' || c == '\'',
-        };
-        if boundary {
-            if let Some(path) = next_invoked_path(after) {
-                out.insert(path);
-            }
-        }
-    }
-}
-
-/// Paths `scripts/check.sh` actually invokes, derived from the file, never
-/// hand-maintained. Comments and `[ -f path ]` presence tests do not count.
-pub fn check_sh_invocation_set(text: &str) -> BTreeSet<String> {
-    let mut out = BTreeSet::new();
-    for raw in text.lines() {
-        let line = raw.trim();
-        if line.starts_with('#') {
-            continue;
-        }
-        extract_invoked_paths(code_part(line), &mut out);
-    }
-    out
-}
-
-pub fn check_sh_invokes_path(text: &str, path: &str) -> bool {
-    check_sh_invocation_set(text).contains(path)
-}
 
 /// Anti-vacuous errors and lying-reason violations from one snapshot's rows
 /// and that snapshot's check.sh text.
@@ -1226,49 +1148,6 @@ pub fn reason_honesty_with_set(
 // remaining oracle is a lie. Fixtures omit `[oracle_inventory]` and this
 // function is not called.
 
-const ORACLE_INVENTORY_PREFIXES: &[&str] = &["verify_", "validate_", "smoke_"];
-const ORACLE_DISPOSITIONS: &[&str] = &[
-    "live_selftest",
-    "live_check_sh",
-    "cargo_test_differential",
-    "honesty_ledger",
-];
-
-pub fn is_inventoried_oracle_script(rel: &str) -> bool {
-    let Some(name) = rel.strip_prefix("scripts/") else {
-        return false;
-    };
-    if name.contains('/') {
-        return false;
-    }
-    let lower = name.to_ascii_lowercase();
-    lower.ends_with(".py")
-        && ORACLE_INVENTORY_PREFIXES
-            .iter()
-            .any(|p| lower.starts_with(p))
-}
-
-pub fn discover_oracle_scripts(scripts_dir: &Path) -> Result<BTreeSet<String>, String> {
-    let mut out = BTreeSet::new();
-    // ABSENT-OK: this helper returns an empty set; inventory_findings
-    // errors if the snapshot claims an inventory (zero-scan is RED there).
-    if !scripts_dir.is_dir() {
-        return Ok(out);
-    }
-    let rd = std::fs::read_dir(scripts_dir).map_err(|e| format!("read scripts/: {e}"))?;
-    for ent in rd {
-        let ent = ent.map_err(|e| format!("scripts/ dirent: {e}"))?;
-        let name = ent.file_name();
-        let name = name.to_string_lossy();
-        let rel = format!("scripts/{name}");
-        // ABSENT-OK: type-filter; a non-file scripts/ entry is not an oracle.
-        if is_inventoried_oracle_script(&rel) && ent.path().is_file() {
-            out.insert(rel);
-        }
-    }
-    Ok(out)
-}
-
 /// Anti-vacuous inventory of remaining verify/validate/smoke oracles.
 ///
 /// `None` means the snapshot's registry does not claim to inventory them
@@ -1338,56 +1217,6 @@ pub fn inventory_findings(
     out
 }
 
-/// The header every remaining .py oracle must carry (bd-substrate-python-gates-viu).
-///
-/// This is a CONTENT check, not a registry check. The acceptance criterion:
-/// "Any .py that legitimately survives carries an explicit `# RUST MIGRATION: ...`
-/// header, and a gate asserts that header exists on every remaining .py under
-/// scripts/. Blank is an ERROR, not permission."
-pub const RUST_MIGRATION_HEADER_MARKER: &str = "# RUST MIGRATION:";
-
-/// Check that every discovered oracle script has a RUST MIGRATION header.
-///
-/// Anti-vacuous: zero scripts is an ERROR (the scan judged nothing), not a pass.
-/// A file that cannot be read is an ERROR. A file without the header is an ERROR.
-/// This is the acceptance criteria from bd-substrate-python-gates-viu.
-pub fn check_rust_migration_headers(
-    discovered: &BTreeSet<String>,
-    read_file: impl Fn(&str) -> std::io::Result<String>,
-) -> Vec<String> {
-    let mut errors = Vec::new();
-    if discovered.is_empty() {
-        errors.push(
-            "RUST MIGRATION header check: zero scripts discovered — a scan that judged nothing is an ERROR, not a pass"
-                .to_string(),
-        );
-        return errors;
-    }
-    for path in discovered {
-        match read_file(path) {
-            Ok(content) => {
-                // The header must be on line 2 (after shebang) or line 1 if no shebang.
-                // Check first 3 lines to be lenient about placement.
-                let has_header = content
-                    .lines()
-                    .take(3)
-                    .any(|line| line.contains(RUST_MIGRATION_HEADER_MARKER));
-                if !has_header {
-                    errors.push(format!(
-                        "{path}: missing `{RUST_MIGRATION_HEADER_MARKER}` header — every remaining Python oracle must state its disposition (bd-substrate-python-gates-viu). Add a header like: `# RUST MIGRATION: differential oracle for cdcp_gate <cmd> (<bead>)`"
-                    ));
-                }
-            }
-            Err(e) => {
-                errors.push(format!(
-                    "{path}: cannot read file to check RUST MIGRATION header: {e}"
-                ));
-            }
-        }
-    }
-    errors
-}
-
 // ── the wiring BEHAVIOURAL leg ─────────────────────────────────────────────
 
 /// Is the probe's plant genuinely a known-bad for the registry the snapshot
@@ -1436,90 +1265,6 @@ pub fn probe_plant_vacuity(reg_text: &str) -> Result<(), String> {
         ));
     }
     Ok(())
-}
-
-/// What running `scripts/check.sh` against a planted known-bad showed.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub enum ProbeVerdict {
-    /// check.sh stopped, non-zero, on the guard's verdict about the plant.
-    Propagates,
-    /// The guard never reported on the plant at all: the step did not run.
-    NeverRan,
-    /// The guard reported RED and check.sh carried on or exited 0.
-    Swallowed(String),
-    /// Neither could be established. Never a pass.
-    Unattributable(String),
-}
-
-fn describe_exit(code: Option<i32>) -> String {
-    match code {
-        Some(c) => format!("with exit {c}"),
-        None => "without exiting on its own (the probe stopped it — either the transcript had already settled the question, or the timeout expired)".to_string(),
-    }
-}
-
-/// Decide the probe's verdict from check.sh's own output and exit code.
-///
-/// Pure so it can be unit-tested against transcripts of all four shapes without
-/// running anything.
-///
-/// SWEEP VERDICT (bd-ip10): the `.contains` calls here stay substring tests. A
-/// build transcript has no schema to parse — it is the artifact under test, not a
-/// registry — so attribution is a heuristic and is worded as one: the only PASS
-/// (`Propagates`) additionally requires check.sh to have exited non-zero, and
-/// everything the text leaves open lands in `Unattributable`, which is an ERROR
-/// rather than a pass. What it cannot decide: a check.sh that printed the plant
-/// and "FAIL" for its own reasons would be read as this gate's verdict.
-pub fn classify_probe(log: &str, exit_code: Option<i32>, plant: &str) -> ProbeVerdict {
-    let lines: Vec<&str> = log.lines().collect();
-    let verdict_at = lines
-        .iter()
-        .position(|l| l.contains(plant) && l.contains("FAIL"));
-    let banner_at = lines
-        .iter()
-        .position(|l| l.contains("==>") && l.contains(NAME));
-    let ok_after = |from: usize| lines.iter().skip(from).any(|l| l.contains("check.sh: ok:"));
-
-    match verdict_at {
-        None => {
-            if exit_code == Some(0) || banner_at.map(|b| ok_after(b + 1)).unwrap_or(false) {
-                ProbeVerdict::NeverRan
-            } else {
-                ProbeVerdict::Unattributable(format!(
-                    "check.sh ended {} without the guard ever reporting on {plant}; the failure cannot be attributed to the substrate step",
-                    describe_exit(exit_code)
-                ))
-            }
-        }
-        Some(i) => {
-            if ok_after(i + 1) {
-                ProbeVerdict::Swallowed(
-                    "check.sh reported a later step `ok` AFTER the guard had already failed"
-                        .to_string(),
-                )
-            } else if exit_code == Some(0) {
-                ProbeVerdict::Swallowed(
-                    "check.sh exited 0 while the guard's verdict on the plant was RED".to_string(),
-                )
-            } else if exit_code.is_some() {
-                ProbeVerdict::Propagates
-            } else {
-                ProbeVerdict::Unattributable(
-                    "check.sh was still running at the probe timeout with the guard already RED"
-                        .to_string(),
-                )
-            }
-        }
-    }
-}
-
-/// True once the transcript already settles the question, so the probe can stop
-/// a check.sh that is going to run for minutes to tell us nothing new.
-pub fn probe_can_stop_early(log: &str, plant: &str) -> bool {
-    matches!(
-        classify_probe(log, None, plant),
-        ProbeVerdict::NeverRan | ProbeVerdict::Swallowed(_)
-    )
 }
 
 fn probe_timeout() -> Duration {
@@ -1653,7 +1398,7 @@ fn prove_wired(ctx: &GateCtx) -> Result<(), GateError> {
             Ok(None) => {}
         }
         let so_far = std::fs::read_to_string(&log_path).unwrap_or_default();
-        if probe_can_stop_early(&so_far, PROBE_PLANT) || Instant::now() >= deadline {
+        if probe_can_stop_early(&so_far, PROBE_PLANT, NAME) || Instant::now() >= deadline {
             kill_tree(pid, &mut child);
             break None;
         }
@@ -1662,7 +1407,7 @@ fn prove_wired(ctx: &GateCtx) -> Result<(), GateError> {
 
     let log_text = std::fs::read_to_string(&log_path).unwrap_or_default();
     let code = status.and_then(|s| s.code());
-    let verdict = classify_probe(&log_text, code, PROBE_PLANT);
+    let verdict = classify_probe(&log_text, code, PROBE_PLANT, NAME);
     let evidence = format!(
         "planted {PROBE_PLANT} in scratch tree {}; check.sh ended {}; transcript {}",
         engine.display(),
@@ -3089,19 +2834,19 @@ expires = "2099-01-01"
         // wired: the gate went RED and check.sh stopped there.
         let good = format!("{banner}\n{red}\ncheck.sh: FAIL: substrate guard\n");
         assert_eq!(
-            classify_probe(&good, Some(2), plant),
+            classify_probe(&good, Some(2), plant, NAME),
             ProbeVerdict::Propagates
         );
 
         // `|| true`: the gate ran, and check.sh sailed on.
         let swallowed = format!("{banner}\n{red}\ncheck.sh: ok: S0 substrate floor\n");
         assert!(matches!(
-            classify_probe(&swallowed, Some(0), plant),
+            classify_probe(&swallowed, Some(0), plant, NAME),
             ProbeVerdict::Swallowed(_)
         ));
         assert!(
             matches!(
-                classify_probe(&swallowed, None, plant),
+                classify_probe(&swallowed, None, plant, NAME),
                 ProbeVerdict::Swallowed(_)
             ),
             "killed early on the same evidence is the same verdict"
@@ -3110,20 +2855,20 @@ expires = "2099-01-01"
         // `:` / `true #`: the gate never ran at all.
         let never = format!("{banner}\ncheck.sh: ok: S0 substrate floor\n");
         assert_eq!(
-            classify_probe(&never, Some(0), plant),
+            classify_probe(&never, Some(0), plant, NAME),
             ProbeVerdict::NeverRan
         );
-        assert_eq!(classify_probe(&never, None, plant), ProbeVerdict::NeverRan);
+        assert_eq!(classify_probe(&never, None, plant, NAME), ProbeVerdict::NeverRan);
 
         // A failure that is not this gate's must never be read as this gate's.
         let elsewhere = format!("{banner}\ncheck.sh: FAIL: missing docs/ORACLE-GAUNTLET.md\n");
         assert!(matches!(
-            classify_probe(&elsewhere, Some(2), plant),
+            classify_probe(&elsewhere, Some(2), plant, NAME),
             ProbeVerdict::Unattributable(_)
         ));
         assert!(
             matches!(
-                classify_probe("", None, plant),
+                classify_probe("", None, plant, NAME),
                 ProbeVerdict::Unattributable(_)
             ),
             "a timeout with no evidence is an ERROR, never a pass"
@@ -3134,11 +2879,12 @@ expires = "2099-01-01"
     fn probe_stops_early_only_once_the_answer_is_settled() {
         let plant = PROBE_PLANT;
         let red = format!("substrate-guard: FAIL: {plant}: no row");
-        assert!(!probe_can_stop_early("", plant));
-        assert!(!probe_can_stop_early(&red, plant));
+        assert!(!probe_can_stop_early("", plant, NAME));
+        assert!(!probe_can_stop_early(&red, plant, NAME));
         assert!(probe_can_stop_early(
             &format!("{red}\ncheck.sh: ok: next step\n"),
-            plant
+            plant,
+            NAME
         ));
     }
 
