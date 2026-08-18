@@ -4666,3 +4666,18 @@ smoke requirements, not network latency or UPS chemistry.
 Exact plenum/riser classification, AHJ adoption, and project-specific jacket
 selection remain outside the catalog receipt. No standard body or PDF was
 fetched. This pass does not certify a learner or close ms4j.
+## Breadth pass 170 — current IEC automatic transfer equipment scope
+
+**Review date:** 2026-08-18. One Module 6 ATS row was checked against the
+current IEC Webstore page for IEC 60947-6-1:2026, Edition 4. The catalog
+defines transfer-switching equipment as transferring a load between power
+supply sources to support continuity/energy management and explicitly covers
+automatic transfer switching equipment and its controller.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q046 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494 | **PASS** — automatic transfer between power sources is explicit |
+
+Break-before-make timing, UPS bridging, generator sequencing, and project-
+specific control logic remain BLOCKED. No standard body or PDF was fetched.
+This pass does not certify a learner or close ms4j.
