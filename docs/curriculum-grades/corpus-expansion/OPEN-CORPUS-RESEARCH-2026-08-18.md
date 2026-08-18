@@ -905,6 +905,24 @@ The adjacent broader claims remain BLOCKED on their existing official
 receipts. No standard body or PDF was fetched. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 182 — installed optical-fibre verification
+
+**Review date:** 2026-08-18. The current IEC catalog was checked for
+ISO/IEC 14763-3:2024, Edition 3. Its public description explicitly covers
+systems and methods for inspection and testing of installed optical-fibre
+cabling and lists current-edition additions including MPO and end-to-end-link
+testing plus normative cleanliness inspection. That supports the bounded
+post-installation verification proposition.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q212 | Testing and verification of cabling system | ISO/IEC 14763-3:2024 — https://webstore.iec.ch/en/publication/67723 | **PASS** — public IEC catalog covers inspection and testing of installed optical-fibre cabling |
+
+Permanent-link/channel distinctions, retest-after-MAC claims, and other
+item-level fibre propositions remain BLOCKED where the catalog does not expose
+the exact claim. No standard body or PDF was fetched. This pass does not
+certify a learner or close ms4j.
+
 ## Breadth pass 181 — electronic physical-access logging and identification
 
 **Review date:** 2026-08-18. The current IEC catalog was checked for
