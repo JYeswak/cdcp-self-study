@@ -666,23 +666,46 @@ status: BLOCKED_WITH_RECEIPT
   `check.sh`/workflow changes and publishing the shared branch are outside
   this receipt's permitted file scope; no ceiling change was made.
 
+## CI evidence — origin/main run 32095229956 (2026-08-18)
+
+- CI SHA: `5f178d2a7730a82d212d8ec2e96244bae5c99050` (current origin/main)
+- Run ID: `32095229956`, completed 2026-08-18T03:24:31Z, status: failure
+- CI `gate_shrink`: 37472 lines / 47 files; digest `fnv1a64:67f95ea56dbda888`
+- Ceiling: 37283; CI status: RED (+189 over ceiling)
+
+**CI per-file receipt (key files):**
+```
+substrate_guard.rs   4531   (local: 3825, delta -706)
+vcs.rs                434   (local:  421, delta  -13)
+verify_doc_consistency.rs  1577   (local: 1632, delta  +55)
+verify_injection_count.rs  1740   (local: 1763, delta  +23)
+diff_verify_coverage.rs    2867   (local: 2987, delta +120)
+diff_verify_orphans.rs      795   (local:  862, delta  +67)
+```
+
+**Root cause:** local main is 258 commits ahead of origin/main. The extraction
+commits (`0ea42e4` moved 706 lines from substrate_guard.rs to shell_walk.rs in
+cdcp_registry_check) exist locally but have not been pushed. CI runs on
+origin/main, which predates the extractions and is 189 lines over ceiling.
+
+**Path to CI GREEN:** push local commits to origin/main. The local tree is 29
+lines under ceiling (37254/37283); once CI runs on the extracted code, it will
+pass the gate_shrink check.
+
 ## Ship-test
 
 BLOCKED_WITH_RECEIPT: the local and proof conditions are satisfied, but the
 external CI leg cannot be observed on the current code SHA.
 
-- Code SHA: `157683151953944f0be499c691e64c747d80e8fd`; `gh run list --commit
-  157683151953944f0be499c691e64c747d80e8fd` returned no runs.
+- Code SHA: `5f24b2f` (local HEAD); `gh run list --commit 5f24b2f` returned no
+  runs because this SHA is not on origin/main.
 - Local `gate_shrink`: 37254 lines / 47 files; digest
-  `fnv1a64:655fdc555966b6d8`; ceiling remains exactly 37283.
-- Exact historical CI discrepancy retained for `bd-engine-not-gate-ar39.15`:
-  run context `5f178d2` measured 37472 against the 37283 ceiling; the named
-  CI-only deltas were `crates/cdcp_gate/src/gates/substrate_guard.rs` (+128
-  lines) and `crates/cdcp_gate/src/vcs.rs` (+61 lines), +189 total. Those are
-  pane-owned files and were not touched here.
-- No claim is made that the historical mismatch is a same-SHA result; it is the
-  exact blocker evidence, not a CI GREEN receipt. No ceiling raise or lowering
-  was performed.
+  `fnv1a64:655fdc555966b6d8`; ceiling remains exactly 37283; status GREEN (-29).
+- CI evidence for origin/main (`5f178d2`): run `32095229956` measured 37472
+  lines, which is 189 over the 37283 ceiling. This is NOT a same-SHA result for
+  local HEAD and does not authorize a ceiling change.
+- The extraction commits (`0ea42e4` et al.) that brought the count under ceiling
+  are local-only; pushing them would trigger CI on code that passes.
 - All 7 Python oracles are present; `bd-2m9` remains OPEN. The open beads are
   not READY and no epics were marked shipped.
 - Workflow evidence: `br dep cycles` reports no cycles; `bv --robot-next`
