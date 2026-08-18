@@ -1,4 +1,7 @@
 # Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Data Centre Infrastructure Management (DCIM)
+# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
+# BLOCKED: the current official receipt does not expose the exact item-level data centre infrastructure management (dcim) proposition. No paid body or PDF was fetched.
 id = "bank-m14-q130"
 kind = "single-select"
 module = 14

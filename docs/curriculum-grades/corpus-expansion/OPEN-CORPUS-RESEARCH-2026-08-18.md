@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 107 — CDCP auxiliary monitoring receipts
+
+**Date:** 2026-08-18
+**Scope:** M14 BMS, EMS, DCIM, water-leak detection, monitoring challenges, alarm panels, notifications, and auxiliary best-practice items.
+**Official receipts:** [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html); [ISO/IEC TS 22237-7:2018](https://www.iso.org/standard/73014.html?browse=tc).
+
+**Bounded result:** the remaining generic M14 rows now carry official ISO catalog receipts and remain BLOCKED because the public pages do not expose the exact item-level monitoring and auxiliary-system propositions. ISO identifies TS 22237-7:2018 as published and current while a replacement is under development. No paid standard body or PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 106 — CDCP fire-system receipts
 
 **Date:** 2026-08-18

@@ -22,6 +22,9 @@
 #
 # Retired, never deleted: the bank is content-addressed and deleting the file
 # would lose the provenance of the duplication.
+# Public syllabus heading: Auxiliary systems best practices
+# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
+# BLOCKED: the current official receipt does not expose the exact item-level auxiliary systems best practices proposition. No paid body or PDF was fetched.
 id = "mock40-q40"
 kind = "single-select"
 module = 14
