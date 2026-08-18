@@ -20,6 +20,9 @@
 # lose the provenance of the duplication. The rule that made this mechanical rather
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
+# Public syllabus heading: Importance of network cabling infrastructure
+# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
+# BLOCKED: the current TIA-942-C abstract does not expose the exact item-level importance of network cabling infrastructure proposition. No paid body or PDF was fetched.
 id = "m11-q226"
 kind = "single-select"
 module = 11

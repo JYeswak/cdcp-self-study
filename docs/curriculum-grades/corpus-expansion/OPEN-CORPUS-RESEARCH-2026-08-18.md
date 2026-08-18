@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 109 — CDCP final TIA cabling receipts
+
+**Date:** 2026-08-18
+**Scope:** M11 final generic rows covering fibre/copper, topology, testing, planning, redundancy, site-to-site connectivity, and network infrastructure importance.
+**Official receipt:** [TIA-942-C, May 2024](https://tiaonline.org/standard/tia-942/).
+
+**Bounded result:** m11-q132–q139 and q200–q235 now carry the current TIA-942-C catalog page and remain BLOCKED because the public abstract confirms infrastructure/topology scope but does not expose the exact item-level propositions. No paid standard body or PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 108 — CDCP operations receipts
 
 **Date:** 2026-08-18

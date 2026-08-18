@@ -12,6 +12,9 @@
 #   Module 01 / 03 own the outage clock.
 #   Three of the four options now begin "Reject", so polarity is not a giveaway either.
 #   NO metre figure, loss budget or channel length is introduced (ebrr.41 acceptance 4).
+# Public syllabus heading: Cabling redundancy
+# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
+# BLOCKED: the current TIA-942-C abstract does not expose the exact item-level cabling redundancy proposition. No paid body or PDF was fetched.
 id = "m11-q231"
 kind = "single-select"
 module = 11

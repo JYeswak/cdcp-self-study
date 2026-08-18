@@ -12,6 +12,9 @@
 #   locations must be dual-homed where two connections are run over two physically
 #   diverse paths or over a single concrete encased path."
 # NO SEPARATION DISTANCE IS STATED — see the header of m11-q232 for why.
+# Public syllabus heading: Site-to-site connectivity
+# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
+# BLOCKED: the current TIA-942-C abstract does not expose the exact item-level site-to-site connectivity proposition. No paid body or PDF was fetched.
 id = "m11-q235"
 kind = "single-select"
 module = 11

@@ -12,6 +12,9 @@
 #   number is referred to, never quoted, precisely because quoting it would land an
 #   uncited reach figure in the bank while teaching learners not to trust one.
 # "P802.3dj" is a PROJECT designation, not a published edition — do not cite it as one.
+# Public syllabus heading: Fibre cabling
+# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
+# BLOCKED: the current TIA-942-C abstract does not expose the exact item-level fibre cabling proposition. No paid body or PDF was fetched.
 id = "m11-q234"
 kind = "single-select"
 module = 11
