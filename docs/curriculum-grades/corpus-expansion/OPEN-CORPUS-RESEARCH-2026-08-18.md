@@ -7403,3 +7403,22 @@ remain outside the receipt.
 Neutral-ground bonding-point rules, rack/tray implementation, transient behavior,
 and project-specific grounding design remain outside this catalog receipt. This
 pass does not certify a learner or close ms4j.
+
+## Breadth pass 325 — NFPA clean-agent title and IEC transfer-switching scope
+
+**Review date:** 2026-08-18. Two official preview/catalog receipts support
+bounded title or scope claims. NFPA LiNK’s current 2025 preview identifies NFPA
+2001 as the **Standard on Clean Agent Fire Extinguishing Systems**. The current
+IEC Webstore catalog for IEC 60947-6-1:2026 states that transfer switching
+equipment transfers a load between power supply sources to ensure continuity of
+supply and permit energy management. The retired item stems were narrowed to
+those public statements; no gas-agent tradeoff or STS timing claim is inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| mock40-q14 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494 | **PASS** — transfer-switching continuity/energy-management scope is explicit |
+| mock40-q35 | Gas-based fire suppression | NFPA 2001:2025 — https://link.nfpa.org/all-publications/2001/2025 | **PASS** — the official preview title is explicit |
+
+STS transfer timing, synchronized-source conditions, agent selection, water
+damage, cost, and detection tradeoffs remain outside these catalog/preview
+receipts. This pass does not certify a learner or close ms4j.

@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 526 PASS; 431 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 528 PASS; 429 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -243,7 +243,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m05-q214 | 5 | 1.5 Light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70/2026 | PASS |
 | m05-q215 | 5 | 1.5 Light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/101/2024 | PASS |
 | mock40-q13 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | PASS |
-| mock40-q14 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | BLOCKED — IEC 60947-6-1:2026 catalog receipt; exact STS-vs-ATS selection is not exposed |
+| mock40-q14 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | PASS — IEC 60947-6-1:2026 public scope covers transfer switching between power sources for continuity of supply and energy management |
 | mock40-q15 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html | PASS — ISO/IEC 22237-3:2021 official abstract names power supplies to data centres |
 | mock40-q16 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact 2N proposition is not exposed |
 | mock40-q17 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact dual-cord independence is not exposed |
@@ -708,7 +708,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m11-q237 | 11 | 1.11 Designing a Scalable Network Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | m11-q238 | 11 | 1.11 Designing a Scalable Network Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | mock40-q34 | 12 | Fire detection systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
-| mock40-q35 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | BLOCKED — NFPA 2001, 2025 official preview receipt; exact item-level proposition is not exposed |
+| mock40-q35 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | PASS — NFPA 2001:2025 official preview identifies the Standard on Clean Agent Fire Extinguishing Systems |
 | bank-m12-q041 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
 | bank-m12-q042 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
 | bank-m12-q043 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
