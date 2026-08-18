@@ -1,7 +1,7 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: Emergency light
-# Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact normal/emergency circuit-segregation proposition.
+# Official catalog/preview receipt: 2025 Fire Code of New York State, Chapter 10 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress
+# PASS: the AHJ-adopted public code assigns egress illumination to the premises electrical supply normally and requires an emergency electrical system to illuminate designated areas on power failure.
 id = "m05-q148"
 kind = "single-select"
 module = 5

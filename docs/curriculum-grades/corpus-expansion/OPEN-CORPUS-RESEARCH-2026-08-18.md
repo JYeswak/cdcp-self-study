@@ -4601,3 +4601,18 @@ it does not prescribe a site-specific CRAH sequence or agent concentration.
 Impairment, abort-switch, and site-specific suppression-sequence claims remain
 BLOCKED. No standard body or PDF was fetched. This pass does not certify a
 learner or close ms4j.
+## Breadth pass 166 — normal and emergency egress power paths
+
+**Review date:** 2026-08-18. One Module 5 row was checked against the 2025
+Fire Code of New York State public Chapter 10 HTML. Section 1008.2.4 assigns
+normal means-of-egress illumination to the premises electrical supply, while
+Section 1008.3 requires an emergency electrical system to illuminate designated
+areas on power failure.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m05-q148 | Emergency light | 2025 Fire Code of New York State, Chapter 10 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | **PASS** — normal and emergency power paths are distinguished |
+
+Local-versus-central luminaire architecture and test-records failure claims
+remain BLOCKED. No standard body or PDF was fetched. This pass does not
+certify a learner or close ms4j.
