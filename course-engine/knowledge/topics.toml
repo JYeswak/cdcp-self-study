@@ -64,7 +64,7 @@ tension = "tia-vs-uptime"
 id = "m02-iso22237-series"
 domain = "02-standards"
 label = "ISO/IEC 22237 series awareness"
-source = "src-tuv-22237"
+source = "src-iso-22237-overview"
 
 [[topic]]
 id = "m02-en50600-series"
