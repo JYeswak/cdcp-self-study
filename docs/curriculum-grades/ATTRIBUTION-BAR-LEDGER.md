@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 541 PASS; 416 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 544 PASS; 413 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -337,7 +337,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q213 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact wet-stacking/light-load proposition is not exposed |
 | m06-q214 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact paralleled-generator availability proposition is not exposed |
 | m06-q215 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact fuel-chain reliability proposition is not exposed |
-| m06-q216 | 6 | Isolation transformer | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | BLOCKED — IEC 60076-1:2011 catalog receipt; exact isolation/noise/grounding proposition is not exposed |
+| m06-q216 | 6 | Isolation transformer | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | PASS — IEC 60076-1:2011 public scope covers three-phase and single-phase power transformers including autotransformers, subject to stated exceptions |
 | m06-q217 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304 | PASS |
 | m06-q218 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304 | PASS |
 | m06-q219 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65717 | PASS |
@@ -358,8 +358,8 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q234 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact test-interval/start-reliability proposition is not exposed |
 | m06-q235 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/30134-2?browse=ics | PASS — ISO/IEC 30134-2:2026 Edition 2 OBP page supports energy-efficiency tracking, benchmarking, and supporting-infrastructure waste identification |
 | m06-q236 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | BLOCKED — IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV catalog receipt; exact outdoor-enclosure selection proposition is not exposed |
-| m06-q237 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | BLOCKED — IEC 60076-1:2011 catalog receipt; exact facility step-down proposition is not exposed |
-| m06-q238 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | BLOCKED — IEC 60076-1:2011 catalog receipt; exact transformer-loss/heat-load proposition is not exposed |
+| m06-q237 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | PASS — IEC 60076-1:2011 public scope identifies general requirements for three-phase and single-phase power transformers including autotransformers |
+| m06-q238 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | PASS — IEC 60076-1:2011 public description lists harmonic-content definition among its technical additions |
 | m06-q239 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | PASS — ISO/IEC 22237-3:2021 public abstract explicitly lists telecommunications bonding and lightning protection |
 | m06-q240 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact flywheel-duration proposition is not exposed |
 | m06-q241 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact line-interactive topology comparison is not exposed |

@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Isolation transformer
 # Official catalog/preview receipt: IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588
-# BLOCKED: the official catalog covers power transformers but does not expose the exact isolation/noise/grounding proposition.
+# PASS: the current IEC catalog explicitly states the transformer applicability scope below. No paid body or PDF was fetched.
 id = "m06-q216"
 kind = "single-select"
 module = 6
-stem = "An isolation transformer is specified ahead of a sensitive bus mainly to:"
+stem = "IEC 60076-1:2011 applies to which transformer categories?"
 choices = [
-  "Galvanically separate circuits and help manage noise and grounding relationships",
-  "Increase UPS battery amp-hours without batteries",
-  "Act as an ATS",
-  "Provide free cooling"
+  "Three-phase and single-phase power transformers, including autotransformers, subject to stated exceptions",
+  "Only UPS battery strings",
+  "Only automatic transfer switches",
+  "Only chilled-water cooling coils",
 ]
 correct = "A"
-explanation = "Isolation transformers separate circuits and support power quality/grounding design."
+explanation = "The current IEC catalog states that IEC 60076-1:2011 applies to three-phase and single-phase power transformers, including autotransformers, with exceptions for certain small and special transformers. It does not expose the prior isolation/noise/grounding proposition."
 topic_ids = ["m06-isolation-xfmr", "m06-grounding-bonding"]
 objective_ids = []
 bloom = "understand"

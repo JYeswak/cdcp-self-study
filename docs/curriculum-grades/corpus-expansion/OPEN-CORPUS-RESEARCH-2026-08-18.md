@@ -7521,3 +7521,23 @@ were narrowed to those current public claims.
 Exact PUE formula inputs, availability-class effects, redundancy decisions, and
 site-specific measurement boundaries remain outside this public preview. This
 pass does not certify a learner or close ms4j.
+
+## Breadth pass 331 — IEC 60076-1:2011 transformer scope and additions
+
+**Review date:** 2026-08-18. The current IEC Webstore catalog for IEC
+60076-1:2011 identifies Part 1 as **Power transformers — General** and states
+that it applies to three-phase and single-phase power transformers, including
+autotransformers, subject to stated exceptions. The public description also
+lists harmonic-content definition, transport, condition-monitoring, and
+environmental/safety requirements among technical additions. Three transformer
+items were narrowed to those exact catalog claims.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q216 | Isolation transformer | IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588 | **PASS** — transformer-category applicability is explicit |
+| m06-q237 | Transformers | IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588 | **PASS** — general power-transformer scope is explicit |
+| m06-q238 | Transformers | IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588 | **PASS** — harmonic-content technical-addition scope is explicit |
+
+Isolation/noise behavior, facility step-down design, transformer losses, heat
+load, and project-specific condition-monitoring implementation remain outside
+this catalog receipt. This pass does not certify a learner or close ms4j.
