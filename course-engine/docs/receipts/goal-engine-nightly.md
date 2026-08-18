@@ -74,6 +74,110 @@ status: IN_PROGRESS
 - CI for `8ce04ac`: no GitHub run exists, so CI line count is unavailable; no
   same-SHA CI GREEN receipt exists and no ceiling change was made.
 
+## Slice 3 — `validate_grounding` Unicode decimal regex parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `aa11b0f` (`fix(grounding): close Unicode digit parity`)
+- Change: mirrored the nine Unicode-16 `Nd` blocks in the grounding port's
+  Python `re \d` emulation; `scripts/validate_grounding.py` remains present and
+  unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_validate_grounding.rs`,
+  `unicode_16_nd_blocks_are_byte_identical_and_known_bad_is_red`.
+- Known-bad RED: removing any one block makes Rust miss the hallucinated-clause
+  finding that Python emits for the all-nine-block fixture; the differential
+  assertion fails.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_validate_grounding unicode_ -- --nocapture` — 2 passed (existing
+  Unicode/casefold control plus the new all-block fixture).
+- Local `gate_shrink`: 36973 lines / 47 files; digest
+  `fnv1a64:06b995d06c1332d1`; 310 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `aa11b0f`: no GitHub run exists, so CI line count is unavailable; no
+  same-SHA CI GREEN receipt exists and no ceiling change was made.
+
+## Slice 4 — `validate_grounding` Unicode CLI-number parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `e00216f` (`fix(grounding): parse Unicode CLI numbers`)
+- Change: normalize Unicode decimal digits before Rust parses Python-compatible
+  `float()` and `int()` option values; underscore adjacency now uses the same
+  Unicode `Nd` predicate. The Python oracle remains present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_validate_grounding.rs`,
+  `unicode_nd_cli_numbers_are_byte_identical_and_known_bad_is_red`.
+- Known-bad RED: ASCII-only numeric parsing makes Python pass `--min-overlap
+  ١.٠ --sample-report ٢` while Rust exits with usage error; the differential
+  assertion catches that mismatch.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_validate_grounding unicode_ -- --nocapture` — 3 passed (two Unicode
+  controls plus the CLI-number fixture).
+- Local `gate_shrink`: 36992 lines / 47 files; digest
+  `fnv1a64:80d5b39b707e2bde`; 291 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `e00216f`: no GitHub run exists, so CI line count is unavailable; no
+  same-SHA CI GREEN receipt exists and no ceiling change was made.
+
+## Slice 5 — `verify_doc_consistency` Unicode milestone parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `de2bd90` (`fix(doc-consistency): parse Unicode milestone digits`)
+- Change: normalize all Unicode `Nd` digits in the milestone range/token
+  scanner before parsing Python-compatible integer captures; the Python oracle
+  remains present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_verify_doc_consistency.rs`,
+  `unicode_nd_milestone_digits_are_byte_identical_and_known_bad_is_red`.
+- Known-bad RED: the ASCII-only scanner misses the nine Unicode-16 milestone
+  ranges that Python parses; the byte-exact differential assertion catches the
+  missing rows.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_verify_doc_consistency unicode_ -- --nocapture` — 2 passed (the prior
+  Unicode publication control plus the new all-block milestone fixture).
+- Local `gate_shrink`: 37048 lines / 47 files; digest
+  `fnv1a64:32eca5ad68ca8a6c`; 235 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `de2bd90`: no GitHub run exists, so CI line count is unavailable; no
+  same-SHA CI GREEN receipt exists and no ceiling change was made.
+
+## Slice 6 — `verify_doc_consistency` Unicode regex whitespace parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `f06ab3d` (`fix(doc-consistency): match Unicode regex whitespace`)
+- Change: use Python's Unicode `\s` predicate, including ASCII information
+  separators, when scanning milestone ranges; the Python oracle remains
+  present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_verify_doc_consistency.rs`,
+  `unicode_regex_whitespace_in_milestone_ranges_is_byte_identical_and_known_bad_is_red`.
+- Known-bad RED: the narrower Rust whitespace predicate misses the range
+  around U+001F that Python matches; the differential comparison catches it.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_verify_doc_consistency unicode_ -- --nocapture` — 3 passed (publication
+  casefold, Unicode milestone digits, and Unicode regex whitespace).
+- Local `gate_shrink`: 37069 lines / 47 files; digest
+  `fnv1a64:83316036bb7cedf2`; 214 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `f06ab3d`: no GitHub run exists, so CI line count is unavailable; no
+  same-SHA CI GREEN receipt exists and no ceiling change was made.
+
+## Slice 7 — `verify_coverage` Unicode `isdigit` conflict parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `6550001` (`fix(coverage): match Unicode isdigit screening`)
+- Change: mirror Python's full `str.isdigit()` screen when deciding whether a
+  `domain_min` row conflicts with a recorded exemption; the seven Python
+  oracles remain present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_verify_coverage.rs`,
+  `unicode_isdigit_conflicting_floor_and_exemption_are_byte_identical_and_known_bad_is_red`.
+- Known-bad RED: the ASCII-only screen accepts an Arabic-Indic `domain_min`
+  row as non-conflicting and can pass; Python reports the conflict and the
+  differential assertion catches the mutant.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_verify_coverage unicode_ -- --nocapture` — 2 passed (both Unicode
+  coverage fixtures).
+- Local `gate_shrink`: 37113 lines / 47 files; digest
+  `fnv1a64:d686bc13c1e3d88a`; 170 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `6550001`: no GitHub run exists, so CI line count is unavailable; no
+  same-SHA CI GREEN receipt exists and no ceiling change was made.
+
 Each further slice will record its bead, SHA, local line count, CI line count or
 explicit unavailable status, focused-test result, fixture reference, and the
 known-bad RED condition it falsifies.
