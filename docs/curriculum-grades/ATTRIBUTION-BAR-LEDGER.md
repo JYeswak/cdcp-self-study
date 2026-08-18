@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 559 PASS; 398 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 561 PASS; 396 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -871,14 +871,14 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m14-q212 | 14 | Water leak detection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |
 | m14-q213 | 14 | 1.14 Auxiliary Systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | PASS |
 | m14-q214 | 14 | 1.14 Auxiliary Systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | PASS |
-| bank-m15-q134 | 15 | Labelling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
+| bank-m15-q134 | 15 | Labelling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/55236.html | PASS — ISO/IEC TR 14763-2-1:2011 covers identifying cabling infrastructure elements within administration systems |
 | bank-m15-q135 | 15 | Labelling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/55236.html | PASS — ISO/IEC TR 14763-2-1:2011 catalog covers identification of cabling infrastructure elements, supporting traceable cable and port administration |
 | bank-m15-q136 | 15 | Labelling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.303 | PASS |
 | bank-m15-q137 | 15 | Documentation | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
 | bank-m15-q138 | 15 | Documentation | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | PASS |
 | bank-m15-q139 | 15 | Documentation | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | PASS |
 | bank-m15-q140 | 15 | Documentation | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
-| bank-m15-q141 | 15 | Cleaning | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
+| bank-m15-q141 | 15 | Cleaning | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html?browse=tc | PASS — ISO/IEC 22237-4:2021 explicitly includes particulate control within environmental control |
 | bank-m15-q142 | 15 | Cleaning | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
 | bank-m15-q143 | 15 | MTBF / MTTR | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.electropedia.org/iev/iev.nsf/display?ievref=192-05-13&openform= | PASS |
 | bank-m15-q144 | 15 | MTBF / MTTR | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.electropedia.org/iev/iev.nsf/display?ievref=192-07-23&openform= | PASS |

@@ -870,6 +870,25 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 339 — CDFOM cabling identifiers and particulate control
+
+**Review date:** 2026-08-18. Two CDFOM items were narrowed to explicit public
+ISO catalog scopes. ISO/IEC TR 14763-2-1:2011 contains requirements and
+recommendations for identifying cabling infrastructure elements within
+administration systems. ISO/IEC 22237-4:2021 explicitly lists particulate
+control among data-centre environmental-control concerns. The revised items do
+not claim a power-breaker labelling taxonomy, cleaning method, vacuum type, or
+fire-risk calculation.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m15-q134 | Labelling | ISO/IEC TR 14763-2-1:2011 — https://www.iso.org/standard/55236.html | **PASS** — cabling-infrastructure identification scope is explicit |
+| bank-m15-q141 | Cleaning | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html?browse=tc | **PASS** — particulate-control scope is explicit |
+
+Broader plant labelling, cleaning procedures, contamination limits, and
+site-specific fire or ESD controls remain outside these public abstracts. This
+pass does not certify a learner or close ms4j.
+
 ## Breadth pass 338 — installed cabling measurement and indoor workplace lighting
 
 **Review date:** 2026-08-18. Two current official catalogs support narrower
