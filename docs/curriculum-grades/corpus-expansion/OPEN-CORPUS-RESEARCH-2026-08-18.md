@@ -905,6 +905,22 @@ The adjacent broader claims remain BLOCKED on their existing official
 receipts. No standard body or PDF was fetched. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 185 — lighting commissioning against design specifications
+
+**Review date:** 2026-08-18. The current ISO catalog was checked for
+ISO/TS 21274:2020. The catalog states that this current edition specifies
+requirements for commissioning building lighting systems to meet design
+specifications, and notes that it was reviewed and confirmed in 2024. That
+supports the bounded post-installation acceptance proposition.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m05-q211 | Measurements of light | ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html | **PASS** — public ISO catalog covers lighting commissioning against design specifications |
+
+Exact illuminance test points, emergency-lighting commissioning, fixture
+placement, and containment-maintenance methods remain BLOCKED. No standard
+body or PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 184 — indoor-workplace lighting for safe operations
 
 **Review date:** 2026-08-18. The current ISO catalog was checked for
