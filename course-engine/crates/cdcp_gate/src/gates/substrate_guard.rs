@@ -267,14 +267,13 @@ use crate::date::{self, Ymd};
 use crate::registry::{GateCtx, GateError};
 use crate::vcs;
 use cdcp_registry_check::shell_walk::{
-    check_rust_migration_headers, check_sh_invocation_set, classify_probe, code_part,
-    collect_assignments, describe_exit, discover_oracle_scripts, is_inventoried_oracle_script,
-    normalize_repo_path, probe_can_stop_early, reason_claims_check_sh_invoke,
-    reason_claims_not_on_check_sh, require_nonempty_inventory, require_tree_derived_floor,
-    script_still_invokes_py, walk_invocations, ProbeVerdict, ORACLE_DISPOSITIONS,
+    check_rust_migration_headers, check_sh_invocation_set, classify_probe, code_part, describe_exit,
+    discover_oracle_scripts, is_inventoried_oracle_script, probe_can_stop_early,
+    reason_claims_check_sh_invoke, reason_claims_not_on_check_sh, require_nonempty_inventory,
+    require_tree_derived_floor, walk_invocations, ProbeVerdict, ORACLE_DISPOSITIONS,
 };
 use serde::Deserialize;
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::BTreeSet;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::time::{Duration, Instant};
@@ -1927,6 +1926,7 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use cdcp_registry_check::shell_walk as sw; // test-only; production never calls these
 
     fn scan() -> ScanCfg {
         ScanCfg {
@@ -3479,7 +3479,7 @@ python3 "$_anki_plant/scripts/export_anki.py"
     fn plant_gzvb_behind_a_variable_in_a_temp_copy_must_appear() {
         // TEMP copy — not the live tree. Hide python3 scripts/plant_gzvb.py
         // behind $HIDDEN so a grep of the entry file cannot see the path.
-        let mut files: BTreeMap<String, String> = BTreeMap::new();
+        let mut files: std::collections::BTreeMap<String, String> = std::collections::BTreeMap::new();
         files.insert(
             "scripts/check.sh".to_string(),
             "#!/bin/sh\nHIDDEN=\"scripts/plant_gzvb.py\"\npython3 \"$HIDDEN\"\nsh scripts/child_gzvb.sh\n"
@@ -3605,7 +3605,7 @@ python3 "$_anki_plant/scripts/export_anki.py"
         // no git apply.
         let mut r = row("scripts/oracle_only.py");
         r.reason = "Retained as oracle-only. Not on the check.sh path.".into();
-        let mut files: BTreeMap<String, String> = BTreeMap::new();
+        let mut files: std::collections::BTreeMap<String, String> = std::collections::BTreeMap::new();
         files.insert(
             "scripts/check.sh".into(),
             "#!/bin/sh\nsh scripts/nested_lcfj.sh\n".into(),
@@ -3677,7 +3677,7 @@ python3 "$_anki_plant/scripts/export_anki.py"
             "dual-path oracle must stay (empty invoke inventory is not a retirement)"
         );
         if let Ok(slo) = std::fs::read_to_string(root.join("scripts/smoke_slo.sh")) {
-            if script_still_invokes_py(&slo, "scripts/verify_bank.py") {
+            if sw::script_still_invokes_py(&slo, "scripts/verify_bank.py") {
                 assert!(
                     walk.paths.contains("scripts/verify_bank.py"),
                     "smoke_slo.sh still calls verify_bank.py but inventory missed it: {py:?}"
@@ -3691,10 +3691,10 @@ python3 "$_anki_plant/scripts/export_anki.py"
             let Ok(text) = std::fs::read_to_string(root.join(script)) else {
                 continue;
             };
-            let vars = collect_assignments(&text);
+            let vars = sw::collect_assignments(&text);
             if let Some(vals) = vars.get("CHECKER") {
                 for v in vals {
-                    if let Some(p) = normalize_repo_path(v) {
+                    if let Some(p) = sw::normalize_repo_path(v) {
                         if p.ends_with(".py") {
                             assert!(
                                 walk.paths.contains(&p),
