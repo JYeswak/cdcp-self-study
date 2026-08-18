@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: ISO/IEC TS 22237-30:2022 — https://www.iso.org/standard/80622.html?browse=tc
+# BLOCKED: the official catalog covers data-centre earthquake-risk analysis but does not expose the exact seismic-rack anchoring proposition.
 id = "m08-q058"
 kind = "single-select"
 module = 8

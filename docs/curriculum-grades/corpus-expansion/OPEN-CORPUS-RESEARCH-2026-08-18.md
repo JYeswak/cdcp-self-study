@@ -1044,6 +1044,32 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 80 — CDCP rack security, PDU, seismic, and clearance receipts
+
+**Review date:** 2026-08-18. Ten additional M08 rack rows now carry official
+ISO/IEC, IEC, or NFPA catalog/preview receipts. The public pages cover physical
+security, power distribution, electrical-code boundary, earthquake-risk
+analysis, and rack mechanical dimensions, but do not expose the exact cage,
+PDU, seismic, or mounting-clearance propositions. All ten remain BLOCKED. No
+PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m08-q051 | Rack security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html?browse=tc | **BLOCKED** — exact colocation-cage boundary proposition not exposed |
+| m08-q052 | Rack security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html?browse=tc | **BLOCKED** — exact electronic-rack-handle audit-trail proposition not exposed |
+| m08-q053 | Power strips / rails | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED** — exact zero-U PDU mounting proposition not exposed |
+| m08-q054 | Power strips / rails | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED** — exact A/B outlet-diversity proposition not exposed |
+| m08-q055 | Power strips / rails | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED** — exact metered-rack-PDU operations proposition not exposed |
+| m08-q056 | Power strips / rails | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED** — exact switched-outlet operational proposition not exposed |
+| m08-q057 | Power strips / rails | NFPA 70, 2026 — https://link.nfpa.org/all-publications/70/2026 | **BLOCKED** — exact plug/branch/continuous-load selection proposition not exposed |
+| m08-q058 | Types of racks | ISO/IEC TS 22237-30:2022 — https://www.iso.org/standard/80622.html?browse=tc | **BLOCKED** — exact seismic-rack anchoring proposition not exposed |
+| m08-q059 | Types of racks | IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283 | **BLOCKED** — exact wall-mount U/weight/swing-clearance proposition not exposed |
+| m08-q060 | Rack dimensions | IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283 | **BLOCKED** — exact service-clearance/cable-bend planning proposition not exposed |
+
+The ledger remains 164 PASS / 793 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j or ebrr bead, or alter
+gate-shrink or oracle scope.
+
 ## Breadth pass 79 — CDCP rack dimensions, airflow, and security receipts
 
 **Review date:** 2026-08-18. Ten M08 rack rows now carry official IEC, TIA, or

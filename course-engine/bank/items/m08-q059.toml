@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283
+# BLOCKED: the official catalog covers rack/cabinet dimensions but does not expose the exact wall-mount U/weight/swing-clearance proposition.
 id = "m08-q059"
 kind = "single-select"
 module = 8
