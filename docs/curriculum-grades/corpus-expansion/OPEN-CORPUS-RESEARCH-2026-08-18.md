@@ -889,6 +889,22 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 219 — ISO/IEC 22237-4 environmental-control scope
+
+**Review date:** 2026-08-18. The current ISO preview for ISO/IEC 22237-4:2021
+explicitly lists temperature control, fluid movement control, relative humidity
+control, particulate control, vibration, and physical security of environmental-
+control systems. The item below is narrowed to that public scope; specific
+low-RH electrostatic effects, high-RH condensation/corrosion thresholds, and
+project setpoints remain outside the receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m09-q116 | Temperature and humidity | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — the listed environmental-control topics are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 218 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. The current ISO preview for ISO/IEC 22237-6:2024
