@@ -870,6 +870,22 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 142 — water service, WUE, leak detection, and AHJ boundary
+
+**Review date:** 2026-08-18. The remaining Module 10 water and leak-interface
+receipts were rechecked against current official catalog and preview pages. No
+standard body or PDF was fetched.
+
+| Scope | Public syllabus heading | Current official receipt | Bounded result |
+|---|---|---|---|
+| m10-q100, q102, q106–q115, q200–q206, q208–q215, q300 | Importance of water / Backup water supply | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **BLOCKED** — the published Edition 1 catalog abstract covers temperature, fluid movement, relative humidity, particulate control, vibration, and physical security of environmental-control systems, but does not expose the item-specific water quality, storage, redundancy, drought, alarm, or response claims |
+| m10-q101, q216–q217 | Importance of water | ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html | **BLOCKED** — the published Edition 1 catalog defines WUE as a data-centre water-consumption KPI and exposes measurement/reporting scope; it does not expose the item-specific permitting, closed-loop siting, transfer, or reliability propositions. The page marks the edition for future revision, so the 2022 catalog receipt remains the current published edition |
+| m10-q207 | Importance of water | NFPA 24:2025 preview — https://link.nfpa.org/all-publications/24/2025 | **BLOCKED** — the current preview exposes the public-fire-service-main and water-supply chapter headings, but not the exact AHJ water-reliability proposition |
+
+No M10 bank or ledger rows changed: all reviewed rows already carry the current
+official receipt and a bounded BLOCKED reason. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 25 — CDCP fire-protection NFPA edition receipts
 
 **Review date:** 2026-08-18. Four Module 12 rows were narrowed to the current
