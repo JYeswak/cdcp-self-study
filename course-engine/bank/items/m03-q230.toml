@@ -1,0 +1,26 @@
+# Original CDCE educational MCQ — ms4j.8: commissioning sequence.
+# Public heading: CDCE "Data Centre Expert" —
+# https://www.epi-ap.com/services/1/3/14/Certified_Data_Centre_Expert_(CDCE)
+# Cites: NIST SP 800-160 Vol 1 §3.4.5 "Implementation" —
+# https://csrc.nist.gov/publications/detail/sp/800-160/vol-1/final
+# Commissioning must validate design intent before handover.
+# Decides COMMISSIONING PURPOSE, not a checklist brand. bloom = understand.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q230"
+kind = "single-select"
+module = 3
+stem = "A project expert reviews a commissioning plan that lists 'power-on and confirm no alarms.' According to NIST SP 800-160, the commissioning gap is:"
+choices = [
+  "No validation of design intent — power-on confirms the system starts, not that it meets requirements",
+  "Acceptable — commissioning is complete when equipment powers on without fault codes",
+  "Acceptable if vendor factory-acceptance tests were completed before shipment",
+  "No gap — alarm-free startup is the standard acceptance criterion for all infrastructure",
+]
+correct = "A"
+explanation = "NIST SP 800-160 Vol 1 §3.4.5 requires implementation activities to verify that the system meets its specified requirements. 'Power-on, no alarms' confirms the equipment functions but not that it meets design intent — transfer time, redundancy behavior, cooling capacity at load. Commissioning must include integrated system testing (IST) and load-bank tests that validate the design assumptions, not just individual equipment startup."
+topic_ids = ["m03-project", "m03-commissioning"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

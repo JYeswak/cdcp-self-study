@@ -1,0 +1,26 @@
+# Original CDCE educational MCQ — ms4j.8: design for concurrent maintainability.
+# Public heading: CDCE "Data Centre Expert" —
+# https://www.epi-ap.com/services/1/3/14/Certified_Data_Centre_Expert_(CDCE)
+# Cites: TIA-942-B §5.3.4 "Rated-3 (Concurrently Maintainable)" —
+# https://tiaonline.org/resources/tia-942-b/
+# Concurrent maintainability requires independent paths, not just redundant units.
+# Decides TOPOLOGY REQUIREMENT, not an availability percentage. bloom = analyze.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q229"
+kind = "single-select"
+module = 3
+stem = "A design shows 2N UPS capacity but a single distribution path to each rack. The owner requests concurrent maintainability. The design defect is:"
+choices = [
+  "Redundant UPS on a single path — maintenance on the path still requires IT shutdown",
+  "No defect — 2N capacity guarantees maintenance can proceed without affecting load",
+  "Acceptable if the distribution path has dual-corded PDUs at the rack level",
+  "Acceptable if the maintenance window is scheduled during low-load periods",
+]
+correct = "A"
+explanation = "TIA-942-B Rated-3 (Concurrently Maintainable) requires that any component can be removed for maintenance without interrupting service. 2N UPS provides capacity redundancy, but if both UPS units feed a single distribution bus, that bus is still a single point of failure. Concurrent maintainability requires independent distribution paths — not just redundant sources. Dual-corded PDUs cannot help if the upstream path is singular."
+topic_ids = ["m03-project", "m03-design", "m03-redundancy"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

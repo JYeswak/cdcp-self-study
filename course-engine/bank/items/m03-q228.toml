@@ -1,0 +1,26 @@
+# Original CDCE educational MCQ — ms4j.8: scope definition before design.
+# Public heading: CDCE "Data Centre Expert" —
+# https://www.epi-ap.com/services/1/3/14/Certified_Data_Centre_Expert_(CDCE)
+# Cites: ISO 21500:2021 §6.3.2 "Define scope" —
+# https://www.iso.org/standard/75704.html
+# Scope must precede design — designing without load profile wastes capacity.
+# Decides SCOPE SEQUENCE, not a project-management brand. bloom = apply.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q228"
+kind = "single-select"
+module = 3
+stem = "A project expert is asked to design a new hall. The owner has not provided a five-year load profile. According to ISO 21500, the correct sequence is:"
+choices = [
+  "Defer design until the load profile is defined — capacity cannot be sized without projected demand",
+  "Proceed with design using industry-average density, since most halls converge on similar loads",
+  "Design for maximum density now and scale down later if load is lower than expected",
+  "Proceed with design and add the load profile to the commissioning phase deliverables",
+]
+correct = "A"
+explanation = "ISO 21500:2021 §6.3.2 requires scope definition before detailed planning. For a data center, scope includes the load profile — kW per rack, growth curve, redundancy requirement. Designing without it produces either undersized infrastructure (early capacity wall) or oversized infrastructure (stranded capital). Industry-average density ignores the owner's actual workload; maximum density wastes money if the load never arrives. Load profile is a scope input, not a commissioning output."
+topic_ids = ["m03-project", "m03-scope"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

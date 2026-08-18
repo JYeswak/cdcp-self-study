@@ -1,0 +1,26 @@
+# Original CDCE educational MCQ — ms4j.8: decommissioning at high redundancy.
+# Public heading: CDCE "Data Centre Expert" —
+# https://www.epi-ap.com/services/1/3/14/Certified_Data_Centre_Expert_(CDCE)
+# Cites: TIA-942-B §5.3.4 "Rated-3 (Concurrently Maintainable)" —
+# https://tiaonline.org/resources/tia-942-b/
+# Decommissioning a unit in a redundant topology must preserve service.
+# Decides DECOMMISSION CONSTRAINT, not a disposal procedure. bloom = apply.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q231"
+kind = "single-select"
+module = 3
+stem = "A hall operates at Rated-3 with 2N cooling. One chiller is scheduled for decommissioning. The project-expert constraint is:"
+choices = [
+  "Decommission only after confirming the remaining chiller can carry full load without exceeding rated capacity",
+  "Decommission immediately since 2N means the second chiller is already sized for full load",
+  "Decommission during a low-load period so the remaining chiller operates below nameplate for safety margin",
+  "Decommission after installing a temporary rental chiller to maintain 2N during the removal window",
+]
+correct = "A"
+explanation = "TIA-942-B Rated-3 assumes any single component can be removed for maintenance while service continues. For cooling, '2N' means each path can carry full load — but that assumption must be validated before decommissioning, not assumed. If the remaining chiller's capacity has degraded, or if load has grown since commissioning, removal may overload it. The project expert must verify current capacity against current load before authorizing decommission."
+topic_ids = ["m03-project", "m03-decommission", "m03-redundancy"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
