@@ -1274,23 +1274,23 @@ fn an_unmodelled_status_is_a_named_finding_in_both() {
     );
 }
 
-/// Python 3.11 classifies the unassigned U+0380 as non-printable, so its
-/// `repr(str)` emits a `\\u` escape. The known-bad mutant leaves that code point
-/// printable in Rust; this fixture must RED on that mutant rather than silently
-/// accepting a literal character.
+/// Python 3.11 classifies the unassigned U+038B and U+038D as non-printable,
+/// so their `repr(str)` escapes are emitted. The known-bad mutant leaves those
+/// code points printable in Rust; this fixture must RED on that mutant rather
+/// than silently accepting literal characters.
 #[test]
 fn unassigned_unicode_status_repr_is_byte_identical_and_known_bad_is_red() {
     let f = Fixture::new();
     let mut body = pool(2, &["A", "B"]);
     let odd = item_with_status("i-unassigned", 1, "C", "t-one", "published")
-        .replace("status = \"published\"", "status = \"published\\u0380\"");
+        .replace("status = \"published\"", "status = \"published\\u038b\\u038d\"");
     body.push_str(&odd);
     f.write("bank/items/pool.toml", &body);
     let run = f.check("unknown-status-unassigned-unicode");
     assert_ne!(run.code, 0, "{}", run.stdout);
     assert!(
         run.stdout
-            .contains("  - i-unassigned: unknown status 'published\\u0380'\n"),
+            .contains("  - i-unassigned: unknown status 'published\\u038b\\u038d'\n"),
         "{}",
         run.stdout
     );

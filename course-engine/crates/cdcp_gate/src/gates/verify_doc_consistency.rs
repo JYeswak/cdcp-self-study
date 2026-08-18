@@ -324,6 +324,8 @@ fn py_repr(s: &str) -> String {
             out.push_str(&format!("\\x{u:02x}"));
         } else if (0x0378..=0x0379).contains(&u)
             || (0x0380..=0x0383).contains(&u)
+            || u == 0x038b
+            || u == 0x038d
             || u == 0x1680
             || (0x2000..=0x200f).contains(&u)
             || (0x2028..=0x202e).contains(&u)
