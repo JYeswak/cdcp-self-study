@@ -49,14 +49,15 @@ jobs:
       - name: Install ripgrep
         run: sudo apt-get update && sudo apt-get install -y ripgrep
 
-      - uses: actions/cache@v4
+      # Same rust-cache as check.yml (shared-key check-sh). cache-on-failure
+      # so a red gate still seeds the next tag run. Key is rustc +
+      # rust-toolchain* + Cargo.lock. Do not cancel-in-progress on tags.
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
         with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            course-engine/target
-          key: cargo-${{ runner.os }}-${{ hashFiles('course-engine/Cargo.lock') }}
-          restore-keys: cargo-${{ runner.os }}-
+          workspaces: "course-engine -> target"
+          shared-key: check-sh
+          cache-on-failure: true
 
       # THE gate. A release that publishes past a red check.sh is the defect
       # this workflow exists to prevent (PLAN-N W8 / sm4g.8).
@@ -85,14 +86,12 @@ jobs:
           rustup target add ${{ matrix.target }} --toolchain stable
           rustup default stable
 
-      - uses: actions/cache@v4
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
         with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            course-engine/target
-          key: rel-${{ matrix.target }}-${{ hashFiles('course-engine/Cargo.lock') }}
-          restore-keys: rel-${{ matrix.target }}-
+          workspaces: "course-engine -> target"
+          shared-key: rel-${{ matrix.target }}
+          cache-on-failure: true
 
       - name: Build release binary --locked
         working-directory: course-engine

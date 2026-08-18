@@ -45,15 +45,17 @@ jobs:
       - name: Install ripgrep
         run: sudo apt-get update && sudo apt-get install -y ripgrep
 
+      # Persist cargo registry + dep target artifacts so check.sh is not a
+      # cold rebuild. The previous actions/cache@v4 step only saved on
+      # success; this gate has never been green, so the cache never wrote.
+      # rust-cache keys on rustc + rust-toolchain* + Cargo.lock. Do not
+      # cancel-in-progress on main (that would guarantee no run finishes).
       - name: Cache cargo
-        uses: actions/cache@v4
+        uses: Swatinem/rust-cache@v2
         with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            course-engine/target
-          key: cargo-${{ runner.os }}-${{ hashFiles('course-engine/Cargo.lock') }}
-          restore-keys: cargo-${{ runner.os }}-
+          workspaces: "course-engine -> target"
+          shared-key: check-sh
+          cache-on-failure: true
 
       # THE gate. Fail-closed. The step count and the known-bad injection total
       # are receipt-enforced (CHECK_STEPS= / INJECTIONS=) and advertised in
@@ -110,14 +112,12 @@ jobs:
           rustup toolchain install stable --profile minimal
           rustup default stable
 
-      - uses: actions/cache@v4
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
         with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            course-engine/target
-          key: rel-paths-${{ runner.os }}-${{ hashFiles('course-engine/Cargo.lock') }}
-          restore-keys: rel-paths-${{ runner.os }}-
+          workspaces: "course-engine -> target"
+          shared-key: rel-paths
+          cache-on-failure: true
 
       - name: Release --locked + strings + lockfile-skew plant
         working-directory: course-engine
