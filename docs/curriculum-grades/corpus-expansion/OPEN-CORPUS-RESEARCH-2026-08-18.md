@@ -870,6 +870,24 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 340 — CDFOM service-management lifecycle scope
+
+**Review date:** 2026-08-18. The current ISO OBP page identifies ISO/IEC
+20000-1:2018 as a published, 2023-confirmed current edition. Its public
+abstract specifies service-management-system requirements covering planning,
+design, transition, delivery, and improvement of services to meet service
+requirements and deliver value. The CDFOM item was narrowed to that lifecycle
+scope; it does not prescribe contract response times, coverage hours, or an
+OLA taxonomy.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q203 | Maintenance contracts / SLA | ISO/IEC 20000-1:2018 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html | **PASS** — service-management lifecycle and service-requirement scope are explicit |
+
+Detailed SLA targets, maintenance-contract terms, OLA/underpinning-contract
+taxonomies, and site-specific escalation rules remain outside this public
+abstract. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 339 — CDFOM cabling identifiers and particulate control
 
 **Review date:** 2026-08-18. Two CDFOM items were narrowed to explicit public

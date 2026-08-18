@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 561 PASS; 396 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 562 PASS; 395 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -896,7 +896,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m15-q200 | 15 | Labelling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.303 | PASS |
 | m15-q201 | 15 | Documentation | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
 | m15-q202 | 15 | MTBF / MTTR | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | PASS — ISO/IEC TS 22237-7:2018 official abstract names energy efficiency as a primary focus |
-| m15-q203 | 15 | Maintenance contracts / SLA | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
+| m15-q203 | 15 | Maintenance contracts / SLA | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html | PASS — ISO/IEC 20000-1:2018 covers planning, design, transition, delivery, and improvement of services to meet service requirements and deliver value |
 | m15-q204 | 15 | Cleaning | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-D/section-1910.22 | PASS |
 | m15-q205 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | PASS |
 | m15-q206 | 15 | MTBF / MTTR | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | PASS — ISO/IEC TS 22237-7:2018 public abstract explicitly names risk management and mitigation |
