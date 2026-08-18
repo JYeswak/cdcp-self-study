@@ -870,6 +870,21 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 304 — IEC wiring-system and harmonic-cable preview claims
+
+**Review date:** 2026-08-18. The current official IEC catalog for IEC
+60364-5-52:2009 with its current consolidated amendment receipt was checked
+without opening or fetching a PDF. The public catalog addresses selection and
+erection of wiring systems and explicitly lists cable sizing where harmonic
+currents are present among the revision changes.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m06-q075 | Power distribution / busbar trunking | IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878 | **PASS** — asks only for the catalog's wiring-system scope; no tray/busway trade-off is inferred |
+| m06-q076 | Single phase and three phase power | IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878 | **PASS** — asks only for the catalog's harmonic-current cable-sizing mention; no three-phase utilization rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 303 — IEC stationary-battery monitoring preview claims
 
 **Review date:** 2026-08-18. The current official IEC catalog for IEC TR

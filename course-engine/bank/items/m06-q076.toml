@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Single phase and three phase power
 # Official catalog/preview receipt: IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878
-# BLOCKED: the official catalog does not expose the exact data-centre three-phase utilization proposition.
+# PASS: the current IEC catalog lists changes concerning cable sizing where
+# harmonic currents are present.
 id = "m06-q076"
 kind = "single-select"
 module = 6
-stem = "Three-phase distribution is preferred in plant and high-density racks mainly because:"
+stem = "Which cable-sizing topic does the IEC 60364-5-52 catalog explicitly mention?"
 choices = [
-  "IT equipment never uses single-phase branches",
-  "Grounding becomes optional",
-  "PUE is defined only for single-phase",
-  "It delivers more power efficiently and supports balanced loading versus single-phase alone",
+  "Sizing cables where harmonic currents are present",
+  "Eliminating all neutral conductors",
+  "Making grounding optional",
+  "Defining PUE only for single-phase systems",
 ]
-correct = "D"
-explanation = "Three-phase is the backbone of facility power; rack PDUs may still present single-phase outlets."
+correct = "A"
+explanation = "The current IEC catalog explicitly lists changes concerning cable sizing where harmonic currents are present; it does not establish the former three-phase utilization proposition."
 topic_ids = ["m06-phase", "m06-hpc"]
 objective_ids = []
 bloom = "understand"

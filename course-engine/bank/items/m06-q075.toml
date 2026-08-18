@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Power distribution / busbar trunking
 # Official catalog/preview receipt: IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878
-# BLOCKED: the official catalog does not expose the exact cable-tray-versus-busway site trade-off.
+# PASS: the current IEC catalog explicitly deals with the selection and erection
+# of wiring systems.
 id = "m06-q075"
 kind = "single-select"
 module = 6
-stem = "Cable-in-tray distribution versus busway is best framed as:"
+stem = "What does IEC 60364-5-52:2009 address?"
 choices = [
-  "One is always universally better in every site",
-  "A trade-off of agility, density, failure domains, and site standards—not a slogan",
-  "Cable eliminates all labeling needs",
-  "Busway removes all need for breakers",
+  "Selection and erection of wiring systems",
+  "A universal claim that busway is always better than cable",
+  "Eliminating all circuit labeling",
+  "Removing all overcurrent protection",
 ]
-correct = "B"
-explanation = "Neither is always superior; density, AHJ, maintainability, and change rate drive the choice."
+correct = "A"
+explanation = "The current IEC catalog explicitly describes IEC 60364-5-52 as addressing the selection and erection of wiring systems; it does not expose the former tray-versus-busway trade-off."
 topic_ids = ["m06-distribution"]
 objective_ids = []
 bloom = "analyze"
