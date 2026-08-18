@@ -889,6 +889,24 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 264 — IEC quasi-static EMF measurement and source scope
+
+**Review date:** 2026-08-18. The current IEC Webstore entry for IEC
+61786-2:2014 provides requirements for measuring quasi-static magnetic and
+electric fields with frequency content from 1 Hz to 100 kHz, plus DC magnetic
+fields. Its public catalog also identifies devices operating at power
+frequencies and producing power-frequency or harmonic fields as field sources.
+The two items below are bounded to those catalog claims; no plant-adjacency
+dominance, exposure limit, or equipment-immunity conclusion is inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m07-q041 | Types of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — field range and DC-magnetic-field scope are explicit |
+| m07-q202 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — power-frequency and harmonic-producing source category is explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 263 — NFPA premises-security chapter scope
 
 **Review date:** 2026-08-18. The current official NFPA LiNK preview for NFPA

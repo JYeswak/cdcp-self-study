@@ -1,19 +1,21 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Sources of EMF
 # Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
-# BLOCKED: the official catalog identifies power-frequency devices as field sources but does not expose the exact plant-equipment list.
+# PASS: the current IEC catalog explicitly identifies power-frequency devices
+# that produce power-frequency and harmonic fields as field sources. No paid
+# body or PDF was fetched.
 id = "m07-q202"
 kind = "single-select"
 module = 7
-stem = "High-current busbars, transformers, and UPS/switchgear rooms are notable EMF sources because:"
+stem = "IEC 61786-2:2014 identifies which category as a source of measured fields?"
 choices = [
-  "They handle large currents and magnetic fields fall off with distance but can be significant nearby",
-  "They produce no fields when loaded",
-  "Fields only exist inside fibre cables",
-  "They are always farther from IT than any risk threshold by physics alone"
+  "Devices operating at power frequencies that produce power-frequency and power-frequency harmonic fields",
+  "Only software applications with no physical equipment",
+  "Only optical fibres with no electrical conductors",
+  "Only room lighting labels, regardless of electrical operation"
 ]
 correct = "A"
-explanation = "Current-carrying plant is a primary near-field magnetic source; distance and geometry matter."
+explanation = "The IEC catalog lists devices operating at power frequencies and producing power-frequency or harmonic fields among the measurable sources."
 topic_ids = ["m07-sources"]
 objective_ids = []
 bloom = "understand"
