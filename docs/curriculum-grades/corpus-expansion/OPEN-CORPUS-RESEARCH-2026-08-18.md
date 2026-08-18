@@ -906,6 +906,24 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 246 — eCFR operations and safety receipts
+
+**Review date:** 2026-08-18. Current public eCFR text supplies bounded legal
+receipts for three module-15 items: 29 CFR 1910.37 requires exit routes to be
+free and unobstructed; 29 CFR 1910.38 lists minimum written emergency-action
+plan elements including reporting, evacuation/exit assignments, and employee
+accounting; and 29 CFR 1910.1200 identifies container labeling and warnings,
+safety data sheets, and employee training as hazard-communication elements.
+The items are rewritten to those exact public-code statements.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m15-q150 | Operational security and safety practices | 29 CFR 1910.37 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.37 | **PASS** — exit-route free/unobstructed requirement is explicit |
+| bank-m15-q151 | Documentation | 29 CFR 1910.38 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.38 | **PASS** — written emergency-action-plan minimum elements are explicit |
+| bank-m15-q155 | Cleaning | 29 CFR 1910.1200 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/section-1910.1200 | **PASS** — hazard-communication program elements are explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 245 — IEC 62682 alarm-system scope
 
 **Review date:** 2026-08-18. The current IEC catalog for IEC 62682:2022
