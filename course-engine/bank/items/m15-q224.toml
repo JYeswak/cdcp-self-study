@@ -1,4 +1,8 @@
-# Original CDCP educational MCQ — ebrr.28 leftover stem: alarm ≠ status indicator
+# Original CDCP educational MCQ — public headings: Auxiliary Systems — Alarm panels; Notification.
+# Syllabus: https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Sources: HSE CHIS6 Better alarm handling — https://www.hse.gov.uk/comah/sragtech/techmeasalidings.htm
+# and the official U.S.–Canada Power System Outage Task Force report page —
+# https://www.energy.gov/oe/downloads/blackout-2003-final-report-august-14-2003
 id = "m15-q224"
 kind = "single-select"
 module = 15
@@ -10,7 +14,7 @@ choices = [
   "A reason to raise the integrator’s invoice until every status bit is an alarm",
 ]
 correct = "C"
-explanation = "An alarm requires operator action. Status is not an alarm. Absence of alarm is not evidence of health (2003 silent alarm-processor failure). Point-count procurement fights alarm quality. No invented outage percent."
+explanation = "HSE's alarm-handling guidance distinguishes an alarm that requires operator action from a process-status indication, and sets priority by the consequence of failing to respond. The official 2003 blackout report supplies the bounded failure lesson that a silent alarm path is not evidence of system health. Point count is not a substitute for an actionable response design; no universal alarm threshold or outage percentage is inferred."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "understand"

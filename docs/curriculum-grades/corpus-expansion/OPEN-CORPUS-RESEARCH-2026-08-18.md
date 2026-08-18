@@ -724,3 +724,33 @@ Pass 12 adds research targets and source boundaries only. No new bank items were
 minted, no vendor blog was retained, and the current 957-item ledger is unchanged.
 The next frontier is to test whether any candidate can be grounded by a public
 clause and exact EPI heading; otherwise it remains a research candidate or BLOCKED.
+
+## Breadth pass 13 — item-level M15 safety and alarm grounding
+
+**Review date:** 2026-08-18. This pass revisited two M15 items whose operational
+claims could be bounded by a current public CDCP heading and official legal or
+public-authority source. No PDF body was fetched.
+
+### Sources retained
+
+| Source | Current receipt | Exact CDCP heading | Boundary |
+|---|---|---|---|
+| EPI CDCP syllabus | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | Physical Security and Safety — Components for physical safety; Auxiliary Systems — Alarm panels; Auxiliary Systems — Notification | Public syllabus headings only; no EPI credential or site-specific compliance claim |
+| eCFR 29 CFR 1910.147 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | Physical safety | Current eCFR display dated 2026-08-14; supports the hazardous-energy control boundary, not a site procedure |
+| eCFR 29 CFR 1910.132 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-I/section-1910.132 | Physical safety | Supports hazard-based PPE controls; no universal PPE selection is inferred |
+| eCFR 29 CFR 1910.333 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.333 | Physical safety | Supports the electrical-work-practice boundary; no AHJ or task-specific procedure is replaced |
+| HSE, CHIS6 Better alarm handling | https://www.hse.gov.uk/comah/sragtech/techmeasalidings.htm | Auxiliary Systems — Alarm panels; Auxiliary Systems — Notification | Public process-safety guidance supports actionable alarm and priority reasoning; no universal alarm threshold is inferred |
+| U.S.–Canada Power System Outage Task Force report page | https://www.energy.gov/oe/downloads/blackout-2003-final-report-august-14-2003 | Auxiliary Systems — Alarm panels; Auxiliary Systems — Notification | Official report page supports the silent-alarm-path lesson; no outage percentage or universal alarm design is inferred |
+
+### Item disposition
+
+| Item | Heading and receipt | Result |
+|---|---|---|
+| m15-q216 | Physical Security and Safety — Components for physical safety; eCFR 1910.147, 1910.132, and 1910.333 | PASS |
+| m15-q224 | Auxiliary Systems — Alarm panels; Auxiliary Systems — Notification; HSE CHIS6 and DOE blackout report | PASS |
+
+The ledger moves from 109 PASS / 848 BLOCKED to 111 PASS / 846 BLOCKED, with
+957 rows and zero bare FAIL rows. The other reviewed M15 candidates remain
+BLOCKED because no exact current public heading plus qualifying official source
+was established. This pass does not close a bead, certify a learner, close
+ms4j, or change the named manifest drift.

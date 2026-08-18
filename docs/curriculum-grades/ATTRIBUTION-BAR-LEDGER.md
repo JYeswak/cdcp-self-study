@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 109 PASS; 848 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 111 PASS; 846 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -909,7 +909,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m15-q213 | 15 | Documentation | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
 | m15-q214 | 15 | Maintenance contracts / SLA | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
 | m15-q215 | 15 | Labelling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
-| m15-q216 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
+| m15-q216 | 15 | Physical Security and Safety — Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | PASS |
 | m15-q217 | 15 | Maintenance contracts / SLA | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
 | m15-q218 | 15 | Maintenance contracts / SLA | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
 | m15-q219 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
@@ -917,7 +917,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m15-q221 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
 | m15-q222 | 15 | Documentation | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
 | m15-q223 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
-| m15-q224 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
+| m15-q224 | 15 | Auxiliary Systems — Alarm panels; Auxiliary Systems — Notification | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.hse.gov.uk/comah/sragtech/techmeasalidings.htm | PASS |
 | m15-q225 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
 | m15-q226 | 15 | Documentation | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
 | m15-q227 | 15 | Maintenance contracts / SLA | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
