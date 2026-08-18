@@ -1,22 +1,21 @@
 # Original CDFOM educational MCQ — ms4j.3 succession / knowledge hand-off.
 # syllabus_heading = "The Data Center Organization — Succession planning; Career development"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
-# source_ids = ["src-epi-cdfom-page", "src-opm-career-development"]
-# source = "U.S. Office of Personnel Management, Career Development — current public HTML: https://www.opm.gov/policy-data-oversight/training-and-development/career-development/"
-# receipt = "The official OPM page describes IDPs as records of career goals and development objectives, identifies mentoring's knowledge-sharing role, and says career paths can inform succession planning."
+# source = "ISO 55012:2024 — https://www.iso.org/standard/82454.html?browse=tc"
+# receipt = "The current ISO catalog covers personnel knowledge and awareness, competence, development plans, and mutual dependencies in teams within an asset management system."
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q348"
 kind = "single-select"
 module = 15
-stem = "A commissioning lead leaves before hand-off. The project has no training record or O&M documentation package. What succession risk is directly visible?"
+stem = "ISO 55012:2024 identifies which personnel-development elements as relevant to an asset management system?"
 choices = [
-  "Document knowledge for succeeding staff",
-  "Trust vendor manuals to transfer all local knowledge",
-  "Replace succession planning with one exit interview",
-  "Delay hand-off until the next maintenance review",
+  "Knowledge and awareness, competence, development plans, and team dependencies",
+  "Vendor manuals as a substitute for personnel involvement",
+  "A single exit interview with no development planning",
+  "Delaying all competence work until the next maintenance review",
 ]
 correct = "A"
-explanation = "The visible succession risk is an undocumented knowledge-transfer gap. Current public OPM career-development guidance treats the IDP as a record of career goals and development objectives, identifies mentoring as a knowledge-sharing mechanism, and says career paths can inform succession planning. The item is a qualitative curriculum grounding receipt, not a credential or certification claim."
+explanation = "The current ISO abstract identifies personnel knowledge and awareness, competence, development plans, and mutual dependencies in teams as relevant to asset management. It does not prescribe a succession-plan format or a commissioning hand-off package."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = ["obj-m15-training-program"]
 bloom = "evaluate"

@@ -870,6 +870,26 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 346 — CDFOM service providers, hand-off, and competence catalogs
+
+**Review date:** 2026-08-18. Three existing CDFOM PASS items were aligned to
+current official ISO catalogs. ISO/IEC 20000-1:2018 supports a customer needing
+a consistent service lifecycle across providers, including a supply chain.
+ISO 16484-1:2024 explicitly lists BACS completion, handover, acceptance,
+finalization, as-built documentation, and training. ISO 55012:2024 covers
+personnel knowledge and awareness, competence, development plans, and mutual
+dependencies. The revised items do not claim NIST control identifiers,
+contract-specific remedies, integrated-test scripts, or a succession-plan
+format.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q345 | Governance, Risk and Compliance — Vendor management | ISO/IEC 20000-1:2018 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html | **PASS retained** — provider/service-lifecycle scope is explicit |
+| m15-q347 | Project Management | ISO 16484-1:2024 — https://www.iso.org/standard/84890.html | **PASS retained** — BACS hand-off and completion scope is explicit |
+| m15-q348 | The Data Center Organization — Succession planning; Career development | ISO 55012:2024 — https://www.iso.org/standard/82454.html?browse=tc | **PASS retained** — personnel competence and development scope is explicit |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 345 — CDFOM people, physical security, and continuity catalogs
 
 **Review date:** 2026-08-18. Three existing CDFOM PASS items were aligned to

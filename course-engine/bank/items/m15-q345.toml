@@ -1,22 +1,21 @@
 # Original CDFOM educational MCQ — ms4j.3 vendor contracts.
 # syllabus_heading = "Governance, Risk and Compliance — Vendor management"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
-# source_ids = ["src-epi-cdfom-page", "src-nist-sp800-53-r5-5.2.0"]
-# source = "NIST SP 800-53 Rev. 5, Release 5.2.0 (2025-08-27), SA-9(a)-(c) — official publication page: https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final"
-# claim = "An external-service contract defines requirements, oversight roles, and ongoing compliance monitoring."
+# source = "ISO/IEC 20000-1:2018 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html"
+# claim = "ISO/IEC 20000-1:2018 supports customers requiring a consistent service lifecycle approach across service providers, including a supply chain."
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q345"
 kind = "single-select"
 module = 15
-stem = "A monitoring vendor's contract states only a monthly price and response phone number. Which addition is directly supported for an external service?"
+stem = "ISO/IEC 20000-1:2018 can be used by a customer requiring:"
 choices = [
-  "Document oversight roles and monitor compliance",
-  "Match the provider's uniform to site operations",
-  "Use an informal promise from the account lead",
-  "Measure only invoice accuracy in the provider review",
+  "A consistent service lifecycle approach across service providers, including those in a supply chain",
+  "A uniform design instead of service requirements",
+  "An informal promise instead of a service-management system",
+  "Invoice accuracy without planning, delivery, or service review",
 ]
 correct = "A"
-explanation = "NIST SP 800-53 Rev. 5 SA-9 requires external providers to meet defined organizational security and privacy requirements, documents organizational oversight and user roles, and uses ongoing processes to monitor compliance. The discussion also describes service-level agreements as defining measurable outcomes, remedies, and response requirements. Price, uniforms, and an informal promise do not establish that oversight chain."
+explanation = "The current ISO abstract says ISO/IEC 20000-1:2018 can be used by a customer requiring a consistent approach to the service lifecycle by all service providers, including those in a supply chain. It does not prescribe contract response times, remedies, or an OLA taxonomy."
 topic_ids = ["m15-maintenance-sla", "m15-ops-security"]
 objective_ids = []
 bloom = "evaluate"
