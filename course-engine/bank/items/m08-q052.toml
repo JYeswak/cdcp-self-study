@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Rack security
 # Official catalog/preview receipt: ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html?browse=tc
-# BLOCKED: the official catalog covers physical-security systems but does not expose the exact electronic-rack-handle audit-trail proposition.
+# PASS: the current ISO preview explicitly covers data-centre spaces and the
+# systems employed within those spaces. No paid body or PDF was fetched.
 id = "m08-q052"
 kind = "single-select"
 module = 8
-stem = "Electronic rack handles integrated with badge/DCIM systems primarily add:"
+stem = "ISO/IEC 22237-6:2024 specifies physical-security requirements and recommendations for:"
 choices = [
-  "Higher PUE always",
-  "Automatic 2N power",
-  "Free cooling",
-  "Audit trails and controlled access events at the cabinet",
+  "Data-centre spaces and the systems employed within those spaces",
+  "Only application source code and cloud software",
+  "Only utility generation equipment outside the data centre",
+  "No physical spaces; the document covers logical identity only",
 ]
-correct = "D"
-explanation = "Electronic locks support accountability and policy enforcement."
+correct = "A"
+explanation = "The ISO preview says the document specifies requirements and recommendations for data-centre spaces and the systems employed within those spaces, including protection against unauthorized access and other listed events. It does not expose electronic rack-handle audit-trail behavior."
 topic_ids = ["m08-security"]
 objective_ids = []
 bloom = "understand"

@@ -889,6 +889,24 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 218 — ISO/IEC 22237-6 physical-security scope
+
+**Review date:** 2026-08-18. The current ISO preview for ISO/IEC 22237-6:2024
+specifies physical-security requirements and recommendations for data-centre
+spaces and the systems employed within those spaces. It explicitly lists
+protection against unauthorized access using organizational and technological
+solutions, as well as intrusion and specified internal/external events. The two
+items below are bounded to that public scope; colocation cage conventions and
+electronic rack-handle audit trails remain outside the receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m08-q051 | Rack security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html?browse=tc | **PASS** — organizational and technological solutions for unauthorized-access protection are explicit |
+| m08-q052 | Rack security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html?browse=tc | **PASS** — data-centre spaces and their employed systems are explicit scope |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 217 — IEC 62682 alarm-system interface and record functions
 
 **Review date:** 2026-08-18. The current IEC catalog for IEC 62682:2022 says
