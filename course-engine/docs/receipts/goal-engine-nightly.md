@@ -422,20 +422,48 @@ status: BLOCKED_WITH_RECEIPT
   count remains 37472 at a different SHA, so it is not a same-SHA receipt and
   does not authorize a ceiling change.
 
+## Slice 18 — `validate_grounding` unassigned Unicode `repr(str)` parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `2bf05a0` (`fix(cdcp-grounding): match unassigned Unicode repr`)
+- Change: mirror Python 3.11's non-printable `repr(str)` treatment of the
+  unassigned U+0378–U+0379 range in `cdcp_bank::validate_grounding`; the Python
+  oracle remains present and unchanged.
+- Fixture: the existing parser differential
+  `the_argument_parser_matches_byte_for_byte` in
+  `crates/cdcp_gate/tests/diff_validate_grounding.rs`, extended with
+  `--min-overlap` U+0378.
+- Known-bad RED: before the range was added, Python's argparse diagnostic
+  emitted `invalid float value: '\\u0378'` while Rust emitted the raw U+0378
+  scalar; the byte-exact assertion failed.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_validate_grounding the_argument_parser_matches_byte_for_byte -- --exact`
+  — 1 passed after the fix.
+- Full grounding differential: 25/25 passed.
+- Grounding unit proof: `cargo test --locked -p cdcp_bank validate_grounding` —
+  40 passed.
+- Local `gate_shrink`: 37250 lines / 47 files; digest
+  `fnv1a64:fb16a8c8df434ef1`; 33 lines below ceiling 37283; registry check
+  GREEN. The ceiling was not edited.
+- CI for this SHA: unavailable (`gh run list --commit
+  2bf05a0` has no run). The latest remote-main count remains 37472 at a
+  different SHA, so it is not a same-SHA receipt and does not authorize a
+  ceiling change.
+
 ## Blocker audit — audited code tree
 
-- Audited code SHA: `0c5f60e5938a4dcbe549a95629fb7f09741e848d`; the receipt
+- Audited code SHA: `2bf05a0`; the receipt
   update below changes no gate source.
-- The live worktree measures 37249 lines / 47 files, digest
-  `fnv1a64:ae0783c1cb744742`. Pane-owned dirty files were preserved and are not
+- The live worktree measures 37250 lines / 47 files, digest
+  `fnv1a64:fb16a8c8df434ef1`. Pane-owned dirty files were preserved and are not
   used as a CI claim.
 - `origin/main` is still `5f178d2a7730a82d212d8ec2e96244bae5c99050`, measuring
   37472 / 47, digest `fnv1a64:67f95ea56dbda888`. Its latest completed check run
   (`32095229956`) failed at that old SHA's gate-shrink count; it is not a
   same-SHA result for this branch.
-- `gh run list --commit 0c5f60e5938a4dcbe549a95629fb7f09741e848d` returns no
-  run. Local proof includes the new coverage known-bad differential (1/1),
-  coverage units (10/10), and a GREEN registry-check.
+- `gh run list --commit 2bf05a0` returns no run. Local proof includes the new
+  grounding known-bad differential (1/1), grounding units (40/40), and a
+  GREEN registry-check.
 - This audit adds no parity slice and makes no certification claim. The
   remaining blocker is external: a CI run on the current SHA is required.
   `check.sh`/workflow changes and publishing the shared branch are outside
@@ -446,10 +474,9 @@ status: BLOCKED_WITH_RECEIPT
 BLOCKED_WITH_RECEIPT: the local and proof conditions are satisfied, but the
 external CI leg cannot be observed on the current code SHA.
 
-- Code SHA: `0c5f60e5938a4dcbe549a95629fb7f09741e848d`; `gh run list --commit
-  0c5f60e5938a4dcbe549a95629fb7f09741e848d` returned no runs.
-- Local `gate_shrink`: 37249 lines / 47 files; digest
-  `fnv1a64:ae0783c1cb744742`; ceiling remains exactly 37283.
+- Code SHA: `2bf05a0`; `gh run list --commit 2bf05a0` returned no runs.
+- Local `gate_shrink`: 37250 lines / 47 files; digest
+  `fnv1a64:fb16a8c8df434ef1`; ceiling remains exactly 37283.
 - Exact historical CI discrepancy retained for `bd-engine-not-gate-ar39.15`:
   run context `5f178d2` measured 37472 against the 37283 ceiling; the named
   CI-only deltas were `crates/cdcp_gate/src/gates/substrate_guard.rs` (+128
