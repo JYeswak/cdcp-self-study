@@ -1061,6 +1061,7 @@ fn the_argument_parser_matches_byte_for_byte() {
         vec!["--s"],
         vec!["--min-overlap"],
         vec!["--min-overlap", "x"],
+        vec!["--min-overlap", "\u{200b}"],
         vec!["--min-overlap="],
         vec!["--sample-report", "1.5"],
         vec!["--sample-report", "0x10"],

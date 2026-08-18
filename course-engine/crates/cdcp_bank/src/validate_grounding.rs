@@ -356,6 +356,21 @@ pub fn py_float_repr(x: f64) -> String {
     }
 }
 
+fn py_is_printable(c: char) -> bool {
+    if c == ' ' {
+        return true;
+    }
+    if c.is_ascii() {
+        return matches!(c as u32, 0x21..=0x7e);
+    }
+    if c.is_control() || c.is_whitespace() {
+        return false;
+    }
+    !matches!(c as u32, 0x00ad | 0x0600..=0x0605 | 0x061c | 0x06dd | 0x070f | 0x08e2
+        | 0x180e | 0x200b..=0x200f | 0x202a..=0x202e | 0x2060..=0x206f
+        | 0xd800..=0xf8ff | 0xfeff | 0xfff9..=0xfffb | 0xf_0000..=0x10_fffd)
+}
+
 /// `repr()` of a Python `str`. Same rules as the sibling port's copy; kept local
 /// so this gate owns exactly one file.
 pub fn py_repr(s: &str) -> String {
@@ -376,8 +391,15 @@ pub fn py_repr(s: &str) -> String {
                 out.push('\\');
                 out.push(c);
             }
-            c if (c as u32) < 0x20 || (c as u32) == 0x7f => {
-                out.push_str(&format!("\\x{:02x}", c as u32));
+            c if !py_is_printable(c) => {
+                let n = c as u32;
+                if n < 0x100 {
+                    out.push_str(&format!("\\x{n:02x}"));
+                } else if n < 0x1_0000 {
+                    out.push_str(&format!("\\u{n:04x}"));
+                } else {
+                    out.push_str(&format!("\\U{n:08x}"));
+                }
             }
             c => out.push(c),
         }
