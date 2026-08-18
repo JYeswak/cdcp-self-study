@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 99 — CDCP water-operations receipts
+
+**Date:** 2026-08-18
+**Scope:** M10 biological control, alternate water, water-versus-energy selection, dual-feed redundancy, and combined water-service criticality.
+**Official receipt:** [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html).
+
+**Bounded result:** m10-q110–q112 and q114–q115 now carry the current official environmental-control catalog and remain BLOCKED because the public abstract does not expose the exact biological-control, alternate-source, heat-rejection tradeoff, dual-feed, or combined criticality propositions. No PDF or standard body was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 98 — CDCP water and WUE receipts
 
 **Date:** 2026-08-18
