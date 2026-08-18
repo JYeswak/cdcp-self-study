@@ -1,22 +1,22 @@
 # Original CDFOM educational MCQ — ms4j.3 organization chart.
 # syllabus_heading = "The Data Center Organization — Organization chart"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
-# source_ids = ["src-epi-cdfom-page", "src-doe-ne-o422-1-2025"]
-# source = "BLOCKED — DOE NE O 422.1, approved August 2025; official directive catalog only: https://id.energy.gov/Home/NEDirectives; no PDF or clause body fetched"
-# disposition = "BLOCKED — the official DOE directive catalog does not expose the organization clauses; no body or PDF fetched"
+# source_ids = ["src-epi-cdfom-page", "src-ecfr-1910-147-2026-08-14"]
+# source = "29 CFR 1910.147(f)(3)(i)-(iii), eCFR current 2026-08-14 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147"
+# claim = "A group lockout/tagout organization identifies the authorized employee with primary responsibility, member exposure status, and overall coordination responsibility when multiple crews are involved."
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q382"
 kind = "single-select"
 module = 15
-stem = "A data-center organization chart lists job titles but does not show who owns safe-work accountability or hazard controls. What manager correction is source-supported?"
+stem = "An organization chart for group lockout/tagout lists job titles but not the authorized employee with primary responsibility or the person coordinating affected workforces. What manager correction is supported?"
 choices = [
-  "Map accountable roles and control responsibilities",
-  "Keep titles only because procedures define every duty",
-  "Assign all safety decisions to the newest technician",
-  "Replace the chart with a vendor contact list",
+  "Map primary responsibility, exposure-status accountability, and overall coordination to the group-lockout roles",
+  "Keep titles only because a general procedure makes every role self-evident",
+  "Assign all group-lockout decisions to the newest technician without authorization",
+  "Replace the role map with a vendor contact list",
 ]
 correct = "A"
-explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the organization clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
+explanation = "29 CFR 1910.147(f)(3) requires primary responsibility to be vested in an authorized employee, requires the authorized employee to ascertain group-member exposure status, and assigns overall coordination responsibility when more than one crew, craft, or department is involved. The item applies those bounded roles to an organization-chart review and does not create a general facilities org-chart taxonomy."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "apply"

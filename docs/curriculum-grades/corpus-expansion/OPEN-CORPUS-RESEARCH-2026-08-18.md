@@ -754,3 +754,34 @@ The ledger moves from 109 PASS / 848 BLOCKED to 111 PASS / 846 BLOCKED, with
 BLOCKED because no exact current public heading plus qualifying official source
 was established. This pass does not close a bead, certify a learner, close
 ms4j, or change the named manifest drift.
+
+## Breadth pass 14 — bounded LOTO operations slice
+
+**Review date:** 2026-08-18. This pass re-audited the remaining CDFOS/CDFOM
+receipts and found one current public legal source that supports six items when
+their claims are narrowed to hazardous-energy control. The eCFR page was used
+as the public code text; no PDF was fetched.
+
+### Source retained
+
+| Source | Current receipt | Relevant clauses | Boundary |
+|---|---|---|---|
+| eCFR 29 CFR 1910.147, The control of hazardous energy (lockout/tagout) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | (c)(4) documented energy-control procedures and effectiveness testing; (c)(6) periodic inspection and certification; (f)(3) group-lockout responsibility and coordination; (f)(4) shift/personnel-change transfer | Current Title 29 display dated 2026-08-14; applies only in the rule's covered context and does not establish a general data-centre handover, patrol, or MOP taxonomy |
+
+### Item disposition
+
+| Item | Public syllabus heading | Bounded claim | Result |
+|---|---|---|---|
+| m15-q356 | CDFOS — Data Centre Operations — Shift handover | Orderly transfer of LOTO protection during a shift/personnel change | PASS |
+| m15-q357 | CDFOS — Facilities Maintenance — Maintenance operations procedures (MOP) | Documented, used, tested, and periodically inspected hazardous-energy procedure | PASS |
+| m15-q369 | CDFOS — Safety and Crisis Management — The roles and responsibilities of appointed safety staff | Authorized-employee responsibility and group-LOTO coordination | PASS |
+| m15-q374 | CDFOS — Data Centre Operations — Walk around duties | Bounded LOTO periodic-inspection record and deviation correction | PASS |
+| m15-q382 | CDFOM — The Data Center Organization — Organization chart | Group-LOTO responsibility, exposure status, and coordination mapping | PASS |
+| m15-q383 | CDFOM — The Data Center Organization — Shift management | LOTO continuity through orderly shift/personnel transfer | PASS |
+
+The ledger is now 117 PASS / 840 BLOCKED across 957 rows, with zero bare FAIL
+rows. m15-q348 (succession/knowledge hand-off), m15-q351 (independent
+commissioning provider), and m15-q363 (career development/job rotation) remain
+BLOCKED because the reviewed public receipts do not expose the needed clauses;
+no invented handover or career taxonomy was added. This pass does not certify a
+learner, close ms4j, or alter the manifest drift.
