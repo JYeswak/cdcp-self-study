@@ -870,6 +870,24 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 290 — ISO emergency-lighting and commissioning preview claims
+
+**Review date:** 2026-08-18. The current official ISO catalog/preview pages for
+ISO 30061:2007 and ISO/TS 21274:2020 were checked without opening or fetching a
+PDF. ISO 30061's public abstract specifies luminous requirements for emergency
+lighting systems where required. ISO/TS 21274's preview describes commissioning
+lighting systems to meet design specifications, excludes emergency-lighting
+commissioning, and says it does not focus on the technical characteristics of
+specific components.
+
+| Items | Public CDCP heading | Current official catalog/preview | Bounded result |
+|---|---|---|---|
+| m05-q139 | Emergency light | ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc | **PASS** — asks only for the preview's luminous-requirements scope; no egress-duration or data-centre rule is inferred |
+| m05-q150 | Connecting and positioning light fixtures | ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc | **PASS** — asks only for the preview's explicit emergency-lighting exclusion |
+| m05-q210 | Lighting standards | ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc | **PASS** — asks only for the preview's boundary around component technical characteristics |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 289 — IEC power-transformer scope claim
 
 **Review date:** 2026-08-18. The current official IEC catalog for IEC

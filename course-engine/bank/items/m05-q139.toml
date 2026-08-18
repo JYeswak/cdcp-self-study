@@ -1,19 +1,21 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: Emergency light
 # Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact data-centre emergency-lighting proposition.
+# PASS: the current ISO catalog states that ISO 30061 specifies luminous
+# requirements for emergency lighting systems in premises or locations where
+# such systems are required, principally where the public or workers have access.
 id = "m05-q139"
 kind = "single-select"
 module = 5
-stem = "Emergency lighting is primarily a:"
+stem = "What does the current ISO 30061 preview specify for emergency lighting?"
 choices = [
-  "PUE optimization feature",
-  "Substitute for generator monthly tests",
-  "Hot-aisle cooling method",
-  "Life-safety provision to support egress and critical visibility when normal lighting is lost",
+  "Luminous requirements for emergency lighting systems in premises or locations where they are required",
+  "A PUE optimization feature",
+  "A substitute for generator monthly tests",
+  "A hot-aisle cooling method",
 ]
-correct = "D"
-explanation = "Emergency lighting is for life safety and egress visibility under power loss."
+correct = "A"
+explanation = "The current ISO preview states that ISO 30061 specifies luminous requirements for emergency lighting systems in premises or locations where such systems are required, principally where the public or workers have access."
 topic_ids = ["m05-emergency"]
 objective_ids = []
 bloom = "remember"
