@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: High Performance Computing power notes
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
+# BLOCKED: the official catalog does not expose the exact HPC/AI density and three-phase-PDU proposition.
 id = "m06-q098"
 kind = "single-select"
 module = 6

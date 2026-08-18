@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Thermographic scanning
+# Official catalog/preview receipt: NFPA 70B, 2026 — https://link.nfpa.org/all-publications/70B/2026
+# BLOCKED: the official preview does not expose the exact thermographic finding proposition.
 id = "m06-q096"
 kind = "single-select"
 module = 6

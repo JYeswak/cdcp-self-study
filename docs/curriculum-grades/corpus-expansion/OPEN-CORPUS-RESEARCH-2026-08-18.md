@@ -1044,6 +1044,27 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 67 — CDCP power sizing, thermography, and HPC receipts
+
+**Review date:** 2026-08-18. Seven additional M06 rows now carry official IEC,
+NFPA, or ISO catalog/preview receipts. They remain BLOCKED because the public
+pages do not expose the exact harmonic, kW/kVA, continuous-load, thermography,
+HPC-density, or stranded-power propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q093 | Power quality parameters | IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717 | **BLOCKED** — exact harmonic-distortion teaching proposition not exposed |
+| m06-q094 | Power sizing | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact kW/kVA/power-factor teaching proposition not exposed |
+| m06-q095 | Power sizing | NFPA 70, 2026 — https://link.nfpa.org/all-publications/70/2026 | **BLOCKED** — exact continuous-load rule-of-thumb proposition not exposed |
+| m06-q096 | Thermographic scanning | NFPA 70B, 2026 — https://link.nfpa.org/all-publications/70B/2026 | **BLOCKED** — exact thermographic finding proposition not exposed |
+| m06-q097 | Thermographic scanning | NFPA 70B, 2026 — https://link.nfpa.org/all-publications/70B/2026 | **BLOCKED** — exact thermography-program proposition not exposed |
+| m06-q098 | High Performance Computing power notes | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **BLOCKED** — exact HPC/AI density and three-phase-PDU proposition not exposed |
+| m06-q099 | High Performance Computing power notes | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **BLOCKED** — exact stranded-power definition and capacity-planning proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 66 — CDCP BESS and power-quality receipts
 
 **Review date:** 2026-08-18. Six additional M06 rows now carry official IEC

@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power sizing
+# Official catalog/preview receipt: NFPA 70, 2026 — https://link.nfpa.org/all-publications/70/2026
+# BLOCKED: the official preview does not expose the exact continuous-load rule-of-thumb proposition; local AHJ/code review remains required.
 id = "m06-q095"
 kind = "single-select"
 module = 6
