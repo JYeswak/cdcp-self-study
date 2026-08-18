@@ -1044,6 +1044,38 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 78 — CDCP EMF facility, calculation, and HEMP receipts
+
+**Review date:** 2026-08-18. Sixteen M07 rows now carry official IEC catalog
+receipts for low-frequency EMF measurement, power-frequency immunity, HEMP
+protective-device testing, and HEMP/IEMI facility guidance. The exact source,
+unit, mitigation, survey, calculation, or HEMP-claim propositions are not
+exposed by those catalog pages, so all sixteen remain BLOCKED. The prior PDF and
+DLA comments were removed from q213–q215; no PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m07-q200 | Types of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact facility-context source proposition not exposed |
+| m07-q201 | Units of measurements | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact tesla/gauss/A-per-metre unit proposition not exposed |
+| m07-q202 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact plant-equipment list not exposed |
+| m07-q203 | Shielding | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact distance/orientation/routing mitigation proposition not exposed |
+| m07-q204 | EMF standards and best practices | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907; IEC 61000-4-8:2009 — https://webstore.iec.ch/en/publication/4229 | **BLOCKED** — exact operator best-practice sequence not exposed |
+| m07-q205 | Types of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact modern-IT/human-policy proposition not exposed |
+| m07-q206 | Shielding | IEC 61000-4-23:2016 + AMD1:2025 CSV — https://webstore.iec.ch/en/publication/26074 | **BLOCKED** — exact power-frequency shielding-difficulty proposition not exposed |
+| m07-q207 | Types of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact current-versus-voltage distinction not exposed |
+| m07-q208 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact transformer-room adjacency proposition not exposed |
+| m07-q209 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact external-site source list not exposed |
+| m07-q210 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact anomaly-investigation trigger not exposed |
+| m07-q211 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact tray-geometry cancellation proposition not exposed |
+| m07-q212 | EMF standards and best practices | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact survey-baseline/evidence-trail proposition not exposed |
+| m07-q213 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact idealized 12 kA calculation proposition not exposed |
+| m07-q214 | EMF standards and best practices | IEC TS 61000-5-10:2017 — https://webstore.iec.ch/en/publication/30054 | **BLOCKED** — exact MIL-STD evidence proposition not exposed |
+| m07-q215 | EMF standards and best practices | IEC TS 61000-5-10:2017 — https://webstore.iec.ch/en/publication/30054 | **BLOCKED** — universal commercial-site field value not exposed |
+
+The ledger remains 164 PASS / 793 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j or ebrr bead, or alter
+gate-shrink or oracle scope.
+
 ## Breadth pass 77 — CDCP EMF/EMI, HEMP, and shielding receipts
 
 **Review date:** 2026-08-18. Ten M07 rows now carry official IEC catalog

@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Types of EMF
+# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
+# BLOCKED: the official catalog covers electric and magnetic field measurement but does not expose the exact facility-context source proposition.
 id = "m07-q200"
 kind = "single-select"
 module = 7

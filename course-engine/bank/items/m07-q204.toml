@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: EMF standards and best practices
+# Official catalog/preview receipts: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907; IEC 61000-4-8:2009 — https://webstore.iec.ch/en/publication/4229
+# BLOCKED: the official pages expose human-exposure measurement and equipment-immunity scopes but do not expose the exact operator best-practice sequence.
 id = "m07-q204"
 kind = "single-select"
 module = 7
