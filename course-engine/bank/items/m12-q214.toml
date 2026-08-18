@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: NFPA 1 (2024) —
+# https://link.nfpa.org/all-publications/1/2024
+# BLOCKED: the public preview does not expose the exact room-by-room strategy
+# or adopted-AHJ decision needed to promote this item.
 id = "m12-q214"
 kind = "single-select"
 module = 12
