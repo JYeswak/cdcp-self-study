@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: NFPA 730 (2026) —
 # https://link.nfpa.org/all-publications/730/2026
-# BLOCKED: the public preview does not expose the exact colocation tenant-space
-# separation proposition.
+# PASS: NFPA 730:2026 official preview exposes Chapter 8, Crime Prevention
+# Through Environmental Design.
 id = "m13-q210"
 kind = "single-select"
 module = 13
-stem = "Asset cages or demarcated customer spaces in colocation improve security by:"
+stem = "Which design-related chapter heading does the NFPA 730:2026 public preview expose?"
 choices = [
+  "Crime Prevention Through Environmental Design",
   "Removing the need for building perimeter controls",
-  "Providing tenant separation and controlled access within a shared building",
   "Allowing unlimited shared keys across tenants",
   "Eliminating CCTV needs"
 ]
-correct = "B"
-explanation = "Colo security is multi-tenant compartmentalization on top of site controls."
+correct = "A"
+explanation = "The current NFPA preview explicitly exposes the Crime Prevention Through Environmental Design chapter heading; it does not expose a colocation separation rule."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

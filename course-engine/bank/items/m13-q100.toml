@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: NFPA 730 (2026) —
 # https://link.nfpa.org/all-publications/730/2026
-# BLOCKED: the public preview does not expose the exact two-person-rule or
-# dual-control proposition needed to promote this item.
+# PASS: NFPA 730:2026 official preview exposes Chapter 6, Administrative
+# Controls.
 id = "bank-m13-q100"
 kind = "single-select"
 module = 13
-stem = "Two-person rules (where policy requires) are most often applied to:"
+stem = "Which controls-related chapter heading does the NFPA 730:2026 public preview expose?"
 choices = [
+  "Administrative Controls",
   "Reading public lobby magazines",
   "Choosing rack paint colors",
-  "Daily coffee machine cleaning only",
-  "High-impact actions such as certain plant tasks, dual custody of master keys, or sensitive procedures"
+  "Daily coffee machine cleaning only"
 ]
-correct = "D"
-explanation = "Dual control reduces single-person error and insider risk on high-consequence actions."
+correct = "A"
+explanation = "The current NFPA preview explicitly exposes the Administrative Controls chapter heading; it does not expose a two-person-rule taxonomy."
 topic_ids = ["m13-safety-components", "m13-security-components"]
 objective_ids = []
 bloom = "remember"

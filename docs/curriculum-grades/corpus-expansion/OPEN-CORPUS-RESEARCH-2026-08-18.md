@@ -870,6 +870,23 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 286 — NFPA 730 security-preview headings
+
+**Review date:** 2026-08-18. The official NFPA 730:2026 preview page was used
+without fetching a PDF or copying standard text. Its public preview exposes the
+chapter headings Security Planning, Administrative Controls, Security
+Perimeters, Security Systems, and Crime Prevention Through Environmental Design.
+
+| Items | Public CDCP heading | Current official preview | Bounded result |
+|---|---|---|---|
+| bank-m13-q081 | Physical Security and Safety — Components for physical security | NFPA 730:2026 — https://link.nfpa.org/all-publications/730/2026 | **PASS** — asks only for Security Perimeters; no grey-space zoning rule is inferred |
+| bank-m13-q096 | Physical Security and Safety — Components for physical security | NFPA 730:2026 — https://link.nfpa.org/all-publications/730/2026 | **PASS** — asks only for Security Planning; no loading-dock procedure is inferred |
+| bank-m13-q100 | Physical Security and Safety — Components for physical safety | NFPA 730:2026 — https://link.nfpa.org/all-publications/730/2026 | **PASS** — asks only for Administrative Controls; no two-person taxonomy is inferred |
+| bank-m13-q101 | Physical Security and Safety — Components for physical security | NFPA 730:2026 — https://link.nfpa.org/all-publications/730/2026 | **PASS** — asks only for Security Systems; no propped-door rule is inferred |
+| m13-q210 | Physical Security and Safety — Components for physical security | NFPA 730:2026 — https://link.nfpa.org/all-publications/730/2026 | **PASS** — asks only for Crime Prevention Through Environmental Design; no colocation separation rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 285 — ISO general-concepts classification categories
 
 **Review date:** 2026-08-18. The current official ISO catalog abstract for

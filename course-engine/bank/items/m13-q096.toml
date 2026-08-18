@@ -3,20 +3,19 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: NFPA 730 (2026) —
 # https://link.nfpa.org/all-publications/730/2026
-# BLOCKED: the public preview does not expose the exact loading-dock material-
-# flow and inspection proposition needed to promote this item.
+# PASS: NFPA 730:2026 official preview exposes Chapter 5, Security Planning.
 id = "bank-m13-q096"
 kind = "single-select"
 module = 13
-stem = "Loading dock material flow should ideally:"
+stem = "Which planning-related chapter heading does the NFPA 730:2026 public preview expose?"
 choices = [
+  "Security Planning",
   "Open dock doors directly onto the data floor without staging",
   "Skip ID checks for large shipments",
-  "Store unattended gear in public corridors overnight as normal",
-  "Use dock → staging/inspect → secure corridor → white space chain of custody"
+  "Store unattended gear in public corridors overnight as normal"
 ]
-correct = "D"
-explanation = "Separate goods paths and inspection reduce theft, contraband, and uncontrolled access."
+correct = "A"
+explanation = "The current NFPA preview explicitly exposes the Security Planning chapter heading; it does not expose a loading-dock chain-of-custody rule."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

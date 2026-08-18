@@ -3,20 +3,19 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: NFPA 730 (2026) —
 # https://link.nfpa.org/all-publications/730/2026
-# BLOCKED: the public preview does not expose the exact grey-space sensitivity
-# or data-centre zoning proposition needed to promote this item.
+# PASS: NFPA 730:2026 official preview exposes Chapter 7, Security Perimeters.
 id = "bank-m13-q081"
 kind = "single-select"
 module = 13
-stem = "Grey space (UPS, generators, switchgear, chillers) should receive access rigor comparable to white space because:"
+stem = "Which perimeter-related chapter heading does the NFPA 730:2026 public preview expose?"
 choices = [
-  "Plant compromise can take down IT without touching a server",
+  "Security Perimeters",
   "It only stores cardboard",
   "It is always public parking",
   "Cameras are illegal there"
 ]
 correct = "A"
-explanation = "MEP sabotage or error is availability-critical; treat grey space as highly sensitive."
+explanation = "The current NFPA preview explicitly exposes the Security Perimeters chapter heading; it does not expose a grey-space zoning rule."
 topic_ids = ["m13-security-components", "m13-safety-components"]
 objective_ids = []
 bloom = "understand"
