@@ -6,10 +6,11 @@
 //! hard stop. Both print the address `local_addr()` actually bound.
 
 use std::fs;
-use std::io::{BufRead, BufReader, Write};
+use std::io::{BufRead, BufReader, ErrorKind, Read, Write};
 use std::net::{IpAddr, Ipv4Addr, Shutdown, SocketAddr, TcpListener, TcpStream};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
+use std::time::Duration;
 
 /// Documented learner default. `study` prefers this, then retries, then `:0`.
 pub(crate) const DEFAULT_BIND: &str = "127.0.0.1:8766";
@@ -201,8 +202,37 @@ fn read_request_line(stream: &TcpStream) -> Option<String> {
     Some(line)
 }
 
+/// Write-side FIN, then drain leftover recv so `drop` is FIN, not RST.
+/// A half-closed W1 client (or unread headers) must not reset the GET.
+fn finish_connection(stream: &mut TcpStream) {
+    let _ = stream.shutdown(Shutdown::Write);
+    let _ = stream.set_nonblocking(true);
+    let mut sink = [0u8; 256];
+    loop {
+        match stream.read(&mut sink) {
+            Ok(0) => break,
+            Ok(_) => {}
+            Err(e)
+                if matches!(
+                    e.kind(),
+                    ErrorKind::WouldBlock | ErrorKind::TimedOut | ErrorKind::Interrupted
+                ) =>
+            {
+                break;
+            }
+            Err(_) => break,
+        }
+    }
+}
+
 fn handle_connection(mut stream: TcpStream, root: &Path) {
+    // A stray connect with no request must not stall this single-threaded
+    // accept loop — that would make the next GET look like ConnectionReset.
+    let _ = stream.set_read_timeout(Some(Duration::from_secs(2)));
+    let _ = stream.set_write_timeout(Some(Duration::from_secs(5)));
+    let _ = stream.set_nodelay(true);
     let Some(line) = read_request_line(&stream) else {
+        finish_connection(&mut stream);
         return;
     };
     let mut parts = line.split_whitespace();
@@ -214,7 +244,7 @@ fn handle_connection(mut stream: TcpStream, root: &Path) {
     let raw = parts.next().unwrap_or("/");
     if method != "GET" && method != "HEAD" {
         let _ = stream.write_all(b"HTTP/1.1 405 Method Not Allowed\r\nContent-Length: 0\r\n\r\n");
-        let _ = stream.shutdown(Shutdown::Write);
+        finish_connection(&mut stream);
         return;
     }
     let path = raw.split('?').next().unwrap_or("/");
@@ -254,7 +284,7 @@ fn handle_connection(mut stream: TcpStream, root: &Path) {
     if method == "GET" {
         let _ = stream.write_all(&body);
     }
-    let _ = stream.shutdown(Shutdown::Write);
+    finish_connection(&mut stream);
 }
 
 /// Content-Type for a served file. The `unwrap_or("")` fallback is a labelling
@@ -369,5 +399,53 @@ mod tests {
         let _ = fs::remove_dir_all(&dir);
         assert!(buf.starts_with("HTTP/1.1 200"), "{buf}");
         assert!(buf.contains("<title>rst-proof</title>"), "{buf}");
+    }
+
+    #[test]
+    fn get_without_client_half_close_reads_to_eof_without_rst() {
+        use std::io::Read;
+        use std::thread;
+        use std::time::{Duration, SystemTime, UNIX_EPOCH};
+
+        let dir = std::env::temp_dir().join(format!(
+            "cdcp-serve-rst-open-{}-{}",
+            std::process::id(),
+            SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .map(|d| d.as_nanos())
+                .unwrap_or(0)
+        ));
+        fs::create_dir_all(&dir).unwrap();
+        fs::write(
+            dir.join("index.html"),
+            "<!doctype html><title>rst-open</title>\n",
+        )
+        .unwrap();
+        let root = dir.canonicalize().unwrap();
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let addr = listener.local_addr().unwrap();
+        let server = thread::spawn(move || {
+            let (stream, _) = listener.accept().unwrap();
+            handle_connection(stream, &root);
+        });
+
+        let mut client = TcpStream::connect(addr).unwrap();
+        client
+            .set_read_timeout(Some(Duration::from_secs(5)))
+            .unwrap();
+        write!(
+            client,
+            "GET / HTTP/1.1\r\nHost: 127.0.0.1\r\nConnection: close\r\n\r\n"
+        )
+        .unwrap();
+        // Browser-shaped: write side stays open. Server must still FIN.
+        let mut buf = String::new();
+        client
+            .read_to_string(&mut buf)
+            .unwrap_or_else(|e| panic!("read_to_string must not RST: {e}; partial={buf:?}"));
+        let _ = server.join();
+        let _ = fs::remove_dir_all(&dir);
+        assert!(buf.starts_with("HTTP/1.1 200"), "{buf}");
+        assert!(buf.contains("<title>rst-open</title>"), "{buf}");
     }
 }

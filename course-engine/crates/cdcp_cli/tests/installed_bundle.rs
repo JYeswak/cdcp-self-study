@@ -13,13 +13,13 @@
 //! An empty proof list is ERROR. Skipping (a)/(c)/(d) is ERROR.
 
 use std::fs;
-use std::io::{BufRead, BufReader, Read, Write};
+use std::io::{BufRead, BufReader, ErrorKind, Read, Write};
 use std::net::TcpStream;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::sync::mpsc;
 use std::thread;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 /// Named proofs this file must run. Dropping a row is a vacuous pass.
 const PROOFS: &[&str] = &[
@@ -75,33 +75,151 @@ fn isolate_cmd(cmd: &mut Command, xdg: &Path, home: &Path) {
     cmd.current_dir("/tmp");
 }
 
-fn http_get(hostport: &str, path: &str) -> (u16, String) {
-    let mut stream =
-        TcpStream::connect(hostport).unwrap_or_else(|e| panic!("connect {hostport}: {e}"));
-    stream
-        .set_read_timeout(Some(Duration::from_secs(5)))
-        .unwrap();
-    stream
-        .set_write_timeout(Some(Duration::from_secs(5)))
-        .unwrap();
-    write!(
-        stream,
-        "GET {path} HTTP/1.1\r\nHost: {hostport}\r\nConnection: close\r\n\r\n"
-    )
-    .unwrap();
-    // Half-close the write side so the server sees EOF after headers.
-    let _ = stream.shutdown(std::net::Shutdown::Write);
-    let mut buf = String::new();
-    stream.read_to_string(&mut buf).unwrap_or_else(|e| {
-        panic!("read {hostport}{path}: {e}; partial={buf:?}");
-    });
-    let status = buf
-        .lines()
+fn parse_http_status(buf: &str) -> u16 {
+    buf.lines()
         .next()
         .and_then(|l| l.split_whitespace().nth(1))
         .and_then(|s| s.parse().ok())
-        .unwrap_or(0);
-    (status, buf)
+        .unwrap_or(0)
+}
+
+fn retryable_io(kind: ErrorKind) -> bool {
+    matches!(
+        kind,
+        ErrorKind::ConnectionReset
+            | ErrorKind::ConnectionRefused
+            | ErrorKind::ConnectionAborted
+            | ErrorKind::BrokenPipe
+            | ErrorKind::UnexpectedEof
+            | ErrorKind::TimedOut
+            | ErrorKind::WouldBlock
+            | ErrorKind::Interrupted
+            | ErrorKind::NotConnected
+    )
+}
+
+/// One GET. Transport errors are returned so the caller can retry.
+/// A status line already in `buf` after RST still counts — the 200 was sent.
+fn http_get_once(hostport: &str, path: &str) -> std::io::Result<(u16, String)> {
+    let mut stream = TcpStream::connect(hostport)?;
+    stream.set_read_timeout(Some(Duration::from_secs(5)))?;
+    stream.set_write_timeout(Some(Duration::from_secs(5)))?;
+    let _ = stream.set_nodelay(true);
+    write!(
+        stream,
+        "GET {path} HTTP/1.1\r\nHost: {hostport}\r\nConnection: close\r\n\r\n"
+    )?;
+    // Half-close the write side so the server sees EOF after headers.
+    let _ = stream.shutdown(std::net::Shutdown::Write);
+    let mut buf = String::new();
+    let read_res = stream.read_to_string(&mut buf);
+    let status = parse_http_status(&buf);
+    match read_res {
+        Ok(_) => Ok((status, buf)),
+        Err(_) if status != 0 => Ok((status, buf)),
+        Err(e) => Err(e),
+    }
+}
+
+fn child_stderr(child: &mut std::process::Child) -> String {
+    let mut err = String::new();
+    if let Some(mut s) = child.stderr.take() {
+        let _ = s.read_to_string(&mut err);
+    }
+    format!("stderr={err:?}")
+}
+
+fn give_up(
+    child: Option<&mut std::process::Child>,
+    attempts: u32,
+    deadline: Duration,
+    last_err: &str,
+) -> String {
+    let ms = deadline.as_millis();
+    if let Some(c) = child {
+        match c.try_wait() {
+            Ok(Some(st)) => {
+                let code = st
+                    .code()
+                    .map(|n| n.to_string())
+                    .unwrap_or_else(|| st.to_string());
+                let stderr = child_stderr(c);
+                format!(
+                    "child exited with status {code} (attempts={attempts}; last_err={last_err}); {stderr}"
+                )
+            }
+            _ => format!(
+                "listener never came up within {ms}ms (attempts={attempts}; last_err={last_err})"
+            ),
+        }
+    } else {
+        format!("listener never came up within {ms}ms (attempts={attempts}; last_err={last_err})")
+    }
+}
+
+/// Bounded GET retry. ConnectionReset/Refused sleep-and-retry to `deadline`.
+/// Timeout names exactly one cause: child-exited vs listener-never-came-up.
+fn http_get_until(
+    hostport: &str,
+    path: &str,
+    deadline: Duration,
+    mut child: Option<&mut std::process::Child>,
+) -> Result<(u16, String, u32), String> {
+    let start = Instant::now();
+    let mut attempts = 0u32;
+    loop {
+        attempts += 1;
+        let last_err = match http_get_once(hostport, path) {
+            Ok(pair) => return Ok((pair.0, pair.1, attempts)),
+            Err(e) => {
+                let last_err = e.to_string();
+                if !retryable_io(e.kind()) && start.elapsed() >= deadline {
+                    return Err(give_up(child, attempts, deadline, &last_err));
+                }
+                last_err
+            }
+        };
+
+        if let Some(c) = child.as_deref_mut() {
+            if let Ok(Some(st)) = c.try_wait() {
+                let code = st
+                    .code()
+                    .map(|n| n.to_string())
+                    .unwrap_or_else(|| st.to_string());
+                let stderr = child_stderr(c);
+                return Err(format!(
+                    "child exited with status {code} (attempts={attempts}; last_err={last_err}); {stderr}"
+                ));
+            }
+        }
+
+        if start.elapsed() >= deadline {
+            return Err(give_up(child, attempts, deadline, &last_err));
+        }
+        let remain = deadline.saturating_sub(start.elapsed());
+        thread::sleep(Duration::from_millis(20).min(remain));
+    }
+}
+
+fn unused_loopback() -> String {
+    let listener = std::net::TcpListener::bind("127.0.0.1:0")
+        .unwrap_or_else(|e| panic!("bind ephemeral for dead-port probe: {e}"));
+    let addr = listener.local_addr().unwrap();
+    drop(listener);
+    addr.to_string()
+}
+
+fn attempts_in(msg: &str) -> u32 {
+    msg.split("attempts=")
+        .nth(1)
+        .and_then(|rest| {
+            rest.chars()
+                .take_while(|c| c.is_ascii_digit())
+                .collect::<String>()
+                .parse()
+                .ok()
+        })
+        .unwrap_or(0)
 }
 
 fn wait_for_listen_line(child: &mut std::process::Child) -> Result<String, String> {
@@ -228,15 +346,29 @@ fn a_relocated_serve_200() {
     );
 
     let hostport = parse_hostport(&listen);
-    let (status, body) = http_get(&hostport, "/");
+    let (status, body, attempts) =
+        match http_get_until(&hostport, "/", Duration::from_secs(8), Some(&mut child)) {
+            Ok(v) => v,
+            Err(e) => {
+                let _ = child.kill();
+                let _ = child.wait();
+                let _ = fs::remove_dir_all(&base);
+                panic!("{e}");
+            }
+        };
     let _ = child.kill();
     let _ = child.wait();
     let _ = fs::remove_dir_all(&base);
 
+    eprintln!("a_relocated_serve_200: GET / ok attempts={attempts} hostport={hostport}");
     assert_eq!(status, 200, "GET / against relocated bundle: {body}");
     assert!(
         body.contains("<title>"),
         "200 body must contain <title>: {body}"
+    );
+    assert!(
+        attempts >= 1,
+        "retry helper must report attempts used, got {attempts}"
     );
 }
 
@@ -316,4 +448,66 @@ fn d_no_baked_users() {
             "release cdcp contains {count} '/Users/' strings — CARGO_MANIFEST_DIR leaked"
         );
     }
+}
+
+/// L4: a dead port with a still-running child must name "listener never came up".
+#[test]
+fn retry_dead_port_names_listener_never_came_up() {
+    let hostport = unused_loopback();
+    let mut child = Command::new("sleep")
+        .arg("30")
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .spawn()
+        .unwrap_or_else(|e| panic!("spawn sleep: {e}"));
+    let err = match http_get_until(&hostport, "/", Duration::from_millis(250), Some(&mut child)) {
+        Ok(v) => {
+            let _ = child.kill();
+            let _ = child.wait();
+            panic!("dead port must not serve: {v:?}");
+        }
+        Err(e) => e,
+    };
+    let _ = child.kill();
+    let _ = child.wait();
+    assert!(
+        err.contains("listener never came up"),
+        "must name the no-listener cause: {err}"
+    );
+    assert!(
+        !err.contains("child exited with status"),
+        "live child must not be reported as exited: {err}"
+    );
+    let n = attempts_in(&err);
+    assert!(n >= 2, "retry loop must execute (attempts>=2): {err}");
+}
+
+/// L4: a dead port after the child has already exited must name that exit.
+#[test]
+fn retry_dead_port_names_child_exited() {
+    let hostport = unused_loopback();
+    let mut child = Command::new("sh")
+        .args(["-c", "exit 7"])
+        .stdout(Stdio::null())
+        .stderr(Stdio::piped())
+        .spawn()
+        .unwrap_or_else(|e| panic!("spawn sh: {e}"));
+    let waited = child.wait().unwrap_or_else(|e| panic!("wait sh: {e}"));
+    assert_eq!(waited.code(), Some(7), "planted child must exit 7");
+    let err = match http_get_until(&hostport, "/", Duration::from_millis(250), Some(&mut child)) {
+        Ok(v) => panic!("dead port must not serve: {v:?}"),
+        Err(e) => e,
+    };
+    assert!(
+        err.contains("child exited with status 7"),
+        "must name the child-exited cause: {err}"
+    );
+    assert!(
+        !err.contains("listener never came up"),
+        "dead child must not be reported as a missing listener: {err}"
+    );
+    assert!(
+        attempts_in(&err) >= 1,
+        "receipt must state attempts used: {err}"
+    );
 }
