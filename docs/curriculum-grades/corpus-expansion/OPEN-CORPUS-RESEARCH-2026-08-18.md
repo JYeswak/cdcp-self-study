@@ -870,6 +870,20 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 300 — ISO series-scope exclusion preview claim
+
+**Review date:** 2026-08-18. The current official ISO catalog/preview for
+ISO/IEC 22237-1:2021 was checked without opening or fetching a PDF. Its public
+abstract explicitly places selection of information-technology and network
+telecommunications equipment, software, and associated configuration issues
+outside the scope of the ISO/IEC 22237 series.
+
+| Items | Public CDCP heading | Current official catalog/preview | Bounded result |
+|---|---|---|---|
+| m02-q081 | Standards and guidelines landscape | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — asks only for the preview's scope exclusion; no general code-versus-guideline legal rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 299 — ISO data-centre classification-criteria preview claim
 
 **Review date:** 2026-08-18. The current official ISO catalog/preview for

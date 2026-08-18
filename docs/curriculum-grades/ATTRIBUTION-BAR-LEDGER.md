@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 461 PASS; 496 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 462 PASS; 495 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -83,7 +83,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m02-q078 | 2 | EN 50600 series awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact EN 50600 regional-series description is not exposed |
 | m02-q079 | 2 | Standards for sub-components | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | BLOCKED — ISO/IEC 22237-2 catalog receipt; exact sub-component standards proposition is not exposed |
 | m02-q080 | 2 | TIA-942 Rated vs Uptime Tier (naming discipline) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/ | PASS |
-| m02-q081 | 2 | Standards and guidelines landscape | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact guidelines-versus-code distinction is not exposed |
+| m02-q081 | 2 | Standards and guidelines landscape | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS — current ISO preview places IT/network equipment, software, and associated configuration selection outside the series' scope |
 | m02-q082 | 2 | Standards for sub-components | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | BLOCKED — ISO/IEC 22237-2 catalog receipt; exact fire-detection subcomponent proposition is not exposed |
 | m02-q083 | 2 | TIA-942 Rated vs Uptime Tier (naming discipline) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/ | PASS |
 | m02-q084 | 2 | AHJ/code vs voluntary standard | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/1/2024 | BLOCKED — NFPA 1 catalog receipt; exact “AHJ wins” shorthand proposition is not exposed |
