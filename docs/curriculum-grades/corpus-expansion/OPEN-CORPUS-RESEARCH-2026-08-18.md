@@ -4585,3 +4585,19 @@ code requires it.
 Impairment-management, abort-switch, HVAC-interlock, and other project-
 specific fire-system claims remain BLOCKED. No standard body or PDF was
 fetched. This pass does not certify a learner or close ms4j.
+## Breadth pass 165 — automatic fire-extinguishing system interlocks
+
+**Review date:** 2026-08-18. One Module 12 gas-suppression row was checked
+against the 2025 Building Code of New York State public Chapter 9 HTML.
+Section 904.3.3 requires automatic equipment interlocks with ventilation
+controls and other features necessary for proper operation of an automatic
+fire-extinguishing system. The receipt supports the bounded interlock claim;
+it does not prescribe a site-specific CRAH sequence or agent concentration.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q054 | Gas-based fire suppression | 2025 Building Code of New York State, Chapter 9 — https://codes.iccsafe.org/content/NYSBC2025P1/chapter-9-fire-protection-and-life-safety-systems | **PASS** — ventilation-control interlocking is explicit |
+
+Impairment, abort-switch, and site-specific suppression-sequence claims remain
+BLOCKED. No standard body or PDF was fetched. This pass does not certify a
+learner or close ms4j.

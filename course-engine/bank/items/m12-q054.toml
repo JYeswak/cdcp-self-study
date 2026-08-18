@@ -1,7 +1,7 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Gas-based fire suppression
-# Official catalog/preview receipt: NFPA 2001, 2025 — https://link.nfpa.org/all-publications/2001/2025
-# BLOCKED: the current official preview does not expose the exact item-level gas-based fire suppression proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: 2025 Building Code of New York State, Chapter 9 — https://codes.iccsafe.org/content/NYSBC2025P1/chapter-9-fire-protection-and-life-safety-systems
+# PASS: the AHJ-adopted public code requires automatic equipment interlocks with ventilation controls and other features necessary for proper operation of an automatic fire-extinguishing system.
 id = "bank-m12-q054"
 kind = "single-select"
 module = 12
