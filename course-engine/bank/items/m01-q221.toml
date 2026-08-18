@@ -3,6 +3,8 @@
 # syllabus_heading = "Data Centre Types and Classifications"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/5/Certified_Data_Centre_Specialist_(CDCS)"
 # source_ids = ["src-epi-cdcs-page", "src-iea-data-centres-energy-2024"]
+# Public syllabus heading: Data Centre Types and Classifications
+# Official public source receipt: IEA, Energy and AI — https://www.iea.org/reports/energy-and-ai/understanding-the-energy-ai-nexus
 # claim = 2026 interview vocabulary includes neocloud, GPU colo, and AI factory; these are not formal standards but market terminology.
 id = "m01-q221"
 kind = "single-select"

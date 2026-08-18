@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 112 — CDCS overlay source normalization
+
+**Date:** 2026-08-18
+**Scope:** Normalize the remaining CDCS overlay row’s current-source field to the official IEA public analysis page already named by the item; no result disposition changed.
+**Official receipt:** [IEA, Energy and AI — Understanding the energy-AI nexus](https://www.iea.org/reports/energy-and-ai/understanding-the-energy-ai-nexus).
+
+**Bounded result:** m01-q221 retains PASS because its proposition is explicitly that neocloud/GPU-colo/AI-factory language is market vocabulary rather than a formal rating or standard. No PDF body was fetched.
+
 ## Breadth pass 111 — CDCP residual M04 catalog receipt
 
 **Date:** 2026-08-18
