@@ -889,6 +889,22 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 225 — ISO/IEC 22237-2 access and protection topics
+
+**Review date:** 2026-08-18. The current ISO preview for ISO/IEC 22237-2:2024
+explicitly includes provision of access, physical intrusion protection, physical
+fire protection, and protection against damage from water among its building and
+site recommendations. The item is bounded to those named topics; a particular
+NOC, storage room, maintenance-space layout, or security staffing model is not
+inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m03-q107 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html?browse=tc | **PASS** — access and physical-protection topics are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 224 — IEC 62485-5 stationary lithium-ion battery safety scope
 
 **Review date:** 2026-08-18. The current IEC catalog for IEC 62485-5:2020
