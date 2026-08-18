@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Sources of EMF
 # Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
-# BLOCKED: the official catalog covers field sources and measurement but does not expose the exact tray-geometry cancellation proposition.
+# PASS: the official IEC catalog explicitly identifies field-characteristic differences that affect measurement procedures. No paid body or PDF was fetched.
 id = "m07-q211"
 kind = "single-select"
 module = 7
-stem = "Cable tray geometry and phase arrangement can influence magnetic fields because:"
+stem = "According to the public scope of IEC 61786-2:2014, measurement procedures differ between environments because field sources can differ in:"
 choices = [
-  "Tray color sets field strength",
-  "Conductor spacing and current phasing affect net field cancellation or reinforcement",
-  "Fields ignore geometry completely",
-  "Only fibre in the tray produces 50/60 Hz magnetic fields"
+  "Frequency content, temporal and spatial variations, polarization, and magnitude",
+  "Only tray color and room paint",
+  "Only optical-fibre connector type",
+  "No characteristics at all",
 ]
-correct = "B"
-explanation = "Layout and phase geometry are design levers for field reduction."
+correct = "A"
+explanation = "The current IEC catalog states that field-source characteristics differ by frequency content, temporal and spatial variations, polarization, and magnitude, and that specific measurement procedures therefore differ between environments. It does not expose the prior tray-geometry cancellation proposition."
 topic_ids = ["m07-sources", "m07-shielding"]
 objective_ids = []
 bloom = "analyze"

@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 551 PASS; 406 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 554 PASS; 403 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -417,8 +417,8 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m07-q207 | 7 | Types of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 official abstract names frequency content as an environmental difference |
 | m07-q208 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 public scope lists power-frequency devices including power lines and electric appliances as measurable field sources |
 | m07-q209 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 public scope lists electric railway, induction-heater, electric-vehicle, DC-line, and DC-welding examples |
-| m07-q210 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact anomaly-investigation trigger is not exposed |
-| m07-q211 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact tray-geometry cancellation proposition is not exposed |
+| m07-q210 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 public catalog identifies measurement uncertainty and total-uncertainty guidance |
+| m07-q211 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 public catalog identifies frequency, temporal/spatial variation, polarization, and magnitude as field differences affecting procedures |
 | m07-q212 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 official abstract names uncertainty sources and total-uncertainty guidance |
 | m07-q213 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — current IEC catalog identifies 0.1 microtesla to 200 millitesla as an AC magnetic-field measurement range |
 | m07-q214 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/30054 | PASS — current IEC catalog provides HEMP/IEMI protection guidelines for commercial facilities |
@@ -656,7 +656,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m11-q125 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact ToR uplink and media proposition is not exposed |
 | m11-q126 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact EoR/MoR horizontal-cabling proposition is not exposed |
 | m11-q127 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact firestopping and pathway-penetration proposition is not exposed |
-| m11-q128 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standardannouncement/tia-publishes-new-standard-ansi-tia-607-e-generic-telecommunications-bonding-and-grounding-earthing-for-customer-premises/ | BLOCKED — ANSI/TIA-607-E official release receipt; exact telecommunications bonding and grounding proposition is not exposed |
+| m11-q128 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | PASS — IEC 60364-5-54:2011+AMD1:2021 public catalog covers protective bonding conductors for electrical-installation safety |
 | m11-q129 | 11 | TIA-942 cabling system topology | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact backbone-subsystem proposition is not exposed |
 | m11-q130 | 11 | TIA-942 cabling system topology | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact horizontal-cabling path proposition is not exposed |
 | m11-q131 | 11 | TIA-942 cabling system topology | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |

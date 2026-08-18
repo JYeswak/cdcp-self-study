@@ -7581,3 +7581,24 @@ narrowed to those exact claims.
 Local-versus-central architecture, circuit coordination, testing intervals,
 records, maintenance, and project-specific egress design remain outside this
 public abstract. This pass does not certify a learner or close ms4j.
+
+## Breadth pass 334 — IEC bonding safety and EMF measurement uncertainty
+
+**Review date:** 2026-08-18. Three existing receipts support bounded scope
+claims. IEC 60364-5-54:2011+AMD1:2021 explicitly covers earthing arrangements
+and protective bonding conductors for electrical-installation safety. IEC
+61786-2:2014 identifies measurement uncertainty and guidance for combining
+uncertainties, and explains that field-source differences in frequency content,
+temporal/spatial variation, polarization, and magnitude affect measurement
+procedures. The three item stems were narrowed to those public statements.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q128 | Planning considerations | IEC 60364-5-54:2011+AMD1:2021 — https://webstore.iec.ch/en/publication/1882 | **PASS** — protective-bonding safety scope is explicit |
+| m07-q210 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — measurement-uncertainty scope is explicit |
+| m07-q211 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — field-variation factors affecting procedures are explicit |
+
+Telecommunications reference integrity, anomaly root-cause triggers, tray
+geometry, phase cancellation, shielding, and project-specific mitigation remain
+outside these catalog abstracts. This pass does not certify a learner or close
+ms4j.
