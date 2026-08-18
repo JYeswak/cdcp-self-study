@@ -889,6 +889,23 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 220 — ISO/IEC TS 22237-31 resilience KPI scope
+
+**Review date:** 2026-08-18. The current ISO catalog for ISO/IEC TS
+22237-31:2026 defines data-centre KPIs for resilience, dependability, fault
+tolerance, and availability tolerance. It covers power distribution/supply and
+environmental-control infrastructure, targets maintainability, recoverability,
+and vulnerability, and excludes IT equipment, cloud services, software, and
+business applications. The item is bounded to the named KPI scope; no
+UPS-specific shared-failure-domain rule is inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q055 | Power redundancy levels and techniques | ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc | **PASS** — resilience, dependability, fault-tolerance, and availability-tolerance KPI scope is explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 219 — ISO/IEC 22237-4 environmental-control scope
 
 **Review date:** 2026-08-18. The current ISO preview for ISO/IEC 22237-4:2021
