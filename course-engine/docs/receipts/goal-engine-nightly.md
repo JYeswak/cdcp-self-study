@@ -367,9 +367,10 @@ status: BLOCKED_WITH_RECEIPT
 - CI for `7570ec4`: no GitHub run exists, so CI line count is unavailable; no
   same-SHA CI GREEN receipt exists and no ceiling change was made.
 
-## Blocker audit — current branch
+## Blocker audit — audited code tree
 
-- Audit SHA: `d2d88cb364cbd2537f2f2d549d4e3220b88eb581`.
+- Audited code SHA: `d2d88cb364cbd2537f2f2d549d4e3220b88eb581`; the subsequent
+  receipt-only commit changes no gate source.
 - The committed `HEAD` tree measures 37197 lines / 47 files, digest
   `fnv1a64:a33347c771454f17`; the live worktree measures 37189 / 47,
   `fnv1a64:5bdb84d6803b75a4`. The eight-line live difference is in pane-owned
