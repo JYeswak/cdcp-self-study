@@ -7620,3 +7620,33 @@ claims.
 Specific outdoor-enclosure selection, dust/water exposure tradeoffs, equipment
 environment, and site-specific IP designation remain outside this catalog
 receipt. This pass does not certify a learner or close ms4j.
+
+## Breadth pass 336 — CDFOS/CDFOM blocked-topic receipt audit
+
+**Review date:** 2026-08-18. The remaining blocked items in the CDFOS/CDFOM
+operations slices were checked against their current official catalog receipts.
+The CDFOS environmental-control items cite ISO/IEC 22237-4:2021, whose public
+abstract is bounded to temperature, fluid movement, relative humidity,
+particulate, vibration, and physical security of environmental-control systems.
+The CDFOS/CDFOM operations items cite ISO/IEC TS 22237-7:2018, whose current
+ISO page describes management and operation processes for resilience,
+availability, risk management and mitigation, capacity planning, security, and
+energy efficiency, while noting that a DIS replacement is under development.
+
+No item was promoted in this audit. The receipts do not expose the narrower
+claims about BMS/DCIM product boundaries, leak-rope placement, alarm
+acknowledgement or heartbeat policy, CRAC/CRAH taxonomy, labelling, runbook
+versus MOP taxonomy, cleaning methods, spare-parts/MTTR targets, SLA/OLA
+taxonomy, or detailed handover and operational-security programmes. Those
+items remain BLOCKED with the official catalog URL; no draft, paid body, PDF,
+vendor blog, or invented taxonomy was used. The IEC 22237-3:2021 receipt audit
+similarly retained narrower remote-panel, AI-rack-density, dual-cord,
+grey-space, PDU, and runbook claims as BLOCKED.
+
+| Slice | Official receipt | Bounded result |
+|---|---|---|
+| CDFOS environmental control | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html?browse=tc | **BLOCKED retained** — catalog scope does not expose the item-level operational claims |
+| CDFOS/CDFOM management and operations | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **BLOCKED retained** — catalog scope does not establish the item-level taxonomies or programmes |
+| Power-distribution breadth remainder | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED retained** — catalog scope does not expose the narrower topology/form-factor claims |
+
+This pass does not certify a learner, close ms4j.2/ms4j.3, or close ms4j.
