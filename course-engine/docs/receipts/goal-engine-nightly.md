@@ -367,6 +367,25 @@ status: BLOCKED_WITH_RECEIPT
 - CI for `7570ec4`: no GitHub run exists, so CI line count is unavailable; no
   same-SHA CI GREEN receipt exists and no ceiling change was made.
 
+## Blocker audit — current branch
+
+- Audit SHA: `d2d88cb364cbd2537f2f2d549d4e3220b88eb581`.
+- The committed `HEAD` tree measures 37197 lines / 47 files, digest
+  `fnv1a64:a33347c771454f17`; the live worktree measures 37189 / 47,
+  `fnv1a64:5bdb84d6803b75a4`. The eight-line live difference is in pane-owned
+  dirty files, which were preserved and not used as a CI claim.
+- `origin/main` is still `5f178d2a7730a82d212d8ec2e96244bae5c99050`, measuring
+  37472 / 47, digest `fnv1a64:67f95ea56dbda888`. Its latest completed check run
+  (`32095229956`) failed at that old SHA's gate-shrink count; it is not a
+  same-SHA result for this branch.
+- `gh run list --commit d2d88cb364cbd2537f2f2d549d4e3220b88eb581` returns no
+  run. Local proof is green: registry-check, 11 gate-shrink unit tests, and
+  the bank/coverage/grounding known-bad differential tests each passed 1/1.
+- This audit adds no parity slice and makes no certification claim. The
+  remaining blocker is external: a CI run on the current SHA is required.
+  `check.sh`/workflow changes and publishing the shared branch are outside
+  this receipt's permitted file scope; no ceiling change was made.
+
 ## Ship-test
 
 BLOCKED_WITH_RECEIPT: the local and proof conditions are satisfied, but the
