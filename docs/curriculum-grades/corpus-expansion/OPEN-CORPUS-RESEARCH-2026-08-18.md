@@ -886,7 +886,6 @@ The M03 site/building and M08 rack frontiers remain BLOCKED where the public
 catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
-
 ## Breadth pass 180 — ISO cabling-infrastructure identifiers
 
 **Review date:** 2026-08-18. The current ISO catalog was checked for
@@ -1140,6 +1139,24 @@ term needed for the remaining comparison item.
 
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+
+## Breadth pass 190 — OPM career-development and job-rotation receipt
+
+**Review date:** 2026-08-18. The current public OPM Career Development page
+defines an Individual Development Plan as a record for short- and long-term
+career goals, development objectives, and training opportunities. It states
+that IDPs set learning objectives and competencies, and lists rotational
+assignments among the development opportunities. That is direct support for
+the bounded CDFOM manager-artifact proposition; it does not certify a learner.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q363 | The Data Center Organization — Career development; Job rotation | OPM Career Development — https://www.opm.gov/policy-data-oversight/training-and-development/career-development/ | **PASS** — job-based IDPs with competency goals and rotational development are explicit |
+
+The succession/documentation and P100 independent-commissioning-provider rows
+remain BLOCKED because their public official pages do not expose the exact
+item-level clauses. No standard body or PDF was fetched. This pass does not
+certify a learner or close ms4j.
 
 ## Breadth pass 155 — availability and repair-time vocabulary
 
