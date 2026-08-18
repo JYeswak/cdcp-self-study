@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 98 — CDCP water and WUE receipts
+
+**Date:** 2026-08-18
+**Scope:** M10 process-water dependency, WUE, backup-water continuity, storage sizing, evaporative/dry heat rejection, humidification quality, and tower makeup; retired duplicates mock40-q22 and mock40-q31 are retained and receipted.
+**Official receipts:** [ISO/IEC 30134-9:2022](https://www.iso.org/standard/77692.html); [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html).
+
+**Bounded result:** mock40-q22, m10-q101, and the remaining M10 water rows in this slice now carry current official ISO catalog receipts and remain BLOCKED because the public abstracts do not expose the exact retired-duplicate, WUE-wording, process-water, backup-continuity, storage-sizing, heat-rejection, humidification-quality, or tower-makeup propositions. No PDF or standard body was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 97 — CDCP cooling boundary receipts
 
 **Date:** 2026-08-18
