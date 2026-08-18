@@ -1023,6 +1023,27 @@ The ledger is now 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 33 — CDCP physical-access and safety BLOCKED receipts
+
+**Review date:** 2026-08-18. Six additional M13 items now carry official
+NFPA 730/731, ISO/IEC 27001, or NFPA 101 catalog/preview receipts. They remain
+BLOCKED because the public pages do not expose the exact zoning, identity,
+multi-factor, anti-passback, or access-hardware propositions. No PDF or paid
+standard body was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| bank-m13-q080 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact progressive-zoning/least-privilege proposition not exposed |
+| bank-m13-q081 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact grey-space sensitivity/zoning proposition not exposed |
+| bank-m13-q082 | Physical Security and Safety — Components for physical security | ISO/IEC 27001:2022 + Amd 1:2024 — https://www.iso.org/standard/27001?browse=tc | **BLOCKED** — exact authentication/authorization/accounting distinction not exposed |
+| bank-m13-q083 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact multi-factor physical-access proposition not exposed |
+| bank-m13-q084 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact anti-passback proposition not exposed |
+| bank-m13-q085 | Physical Security and Safety — Components for physical safety | NFPA 101, 2024 — https://link.nfpa.org/all-publications/101/2024 | **BLOCKED** — exact access-hardware release/free-egress proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
 
 **Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current

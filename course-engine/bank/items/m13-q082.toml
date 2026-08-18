@@ -1,4 +1,10 @@
 # Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 27001:2022 + Amd 1:2024 —
+# https://www.iso.org/standard/27001?browse=tc
+# BLOCKED: the public ISO preview exposes ISMS scope but not the exact
+# authentication/authorization/accounting distinction used by this item.
 id = "bank-m13-q082"
 kind = "single-select"
 module = 13
