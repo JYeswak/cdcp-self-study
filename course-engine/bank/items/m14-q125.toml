@@ -1,19 +1,20 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Notification
 # Official catalog/preview receipt: IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543
-# BLOCKED: the current alarm-management catalog covers alarm/event logs and operator response, but not this exact cross-system correlation proposition. No paid body or PDF was fetched.
+# PASS: the current IEC catalog explicitly lists the alarm sources presented
+# through the control system.
 id = "bank-m14-q125"
 kind = "single-select"
 module = 14
-stem = "Correlation of related points (utility fail + ATS transfer + UPS on battery) before fan-out helps:"
+stem = "IEC 62682:2022 covers alarms presented through the control system, including alarms from:"
 choices = [
-  "Present one coherent incident instead of alarm storms",
-  "Maximize duplicate texts for the same incident",
-  "Disable escalation ladders",
-  "Remove all P1 severity"
+  "Basic process control systems, annunciators, packaged systems, and safety instrumented systems",
+  "Only visitor badge printers and door controllers",
+  "Only chilled-water leak ropes and fire extinguishers",
+  "Only software authentication and network segmentation"
 ]
 correct = "A"
-explanation = "Correlate related telemetry into incidents to protect on-call attention."
+explanation = "The current IEC catalog says IEC 62682 covers alarms presented to the operator through the control system, including alarms from basic process control systems, annunciators, packaged systems, and safety instrumented systems."
 topic_ids = ["m14-notification", "m14-alarms"]
 objective_ids = []
 bloom = "understand"

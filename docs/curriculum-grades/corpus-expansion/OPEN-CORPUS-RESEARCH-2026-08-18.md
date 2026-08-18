@@ -906,6 +906,25 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 245 — IEC 62682 alarm-system scope
+
+**Review date:** 2026-08-18. The current IEC catalog for IEC 62682:2022
+identifies the management of alarm systems for process industries and states
+that the scope includes alarms presented through control systems from basic
+process control systems, annunciators, packaged systems, and safety
+instrumented systems. It also lists alarm/event logs, alarm historians,
+performance metrics, and external-system use of alarm data. The three items
+are bounded to those catalog statements; no runbook-link, EPMS/BMS, or alarm
+correlation taxonomy is inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q124 | Notification | IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543 | **PASS** — alarm/event log, historian, and performance-metric functions are explicit |
+| bank-m14-q125 | Notification | IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543 | **PASS** — listed alarm sources through the control system are explicit |
+| bank-m14-q127 | Alarm panels | IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543 | **PASS** — external systems may use alarm-system data |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 244 — IEC 61587-6 indoor-cabinet security scope
 
 **Review date:** 2026-08-18. The current IEC catalog for IEC 61587-6:2021

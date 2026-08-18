@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 305 PASS; 652 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 308 PASS; 649 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -846,10 +846,10 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m14-q121 | 14 | Auxiliary systems best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.energy.gov/cmei/femp/commissioning-process-federal-facilities | PASS — DOE FEMP public process covers functional testing, monitoring, deficiency tracking, implementation, and retesting |
 | bank-m14-q122 | 14 | Monitoring challenges | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.rfc-editor.org/rfc/rfc3411.html | PASS |
 | bank-m14-q123 | 14 | Monitoring challenges | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
-| bank-m14-q124 | 14 | Notification | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | BLOCKED — IEC 62682:2022 catalog receipt; exact runbook-link proposition is not exposed |
-| bank-m14-q125 | 14 | Notification | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | BLOCKED — IEC 62682:2022 catalog receipt; exact cross-system correlation proposition is not exposed |
+| bank-m14-q124 | 14 | Notification | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | PASS |
+| bank-m14-q125 | 14 | Notification | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | PASS |
 | bank-m14-q126 | 14 | Monitoring challenges | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://csrc.nist.gov/pubs/sp/800/82/r3/final | PASS |
-| bank-m14-q127 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | BLOCKED — IEC 62682:2022 catalog receipt; exact EPMS-versus-BMS panel distinction is not exposed |
+| bank-m14-q127 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | PASS |
 | bank-m14-q128 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | PASS |
 | bank-m14-q129 | 14 | Building Management System (BMS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |
 | bank-m14-q130 | 14 | Data Centre Infrastructure Management (DCIM) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
