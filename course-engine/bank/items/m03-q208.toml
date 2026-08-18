@@ -1,10 +1,8 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: CDCP "Site location selection criteria" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
-# https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog covers environmental risks and site
-# configuration, but not this exact industrial-neighbor hazard proposition.
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html
+# PASS: the current ISO catalog explicitly covers site selection with natural environment and adjacencies and protection from environmental risks, supporting the bounded industrial-neighbor hazard proposition. No paid body or PDF was fetched.
 id = "m03-q208"
 kind = "single-select"
 module = 3

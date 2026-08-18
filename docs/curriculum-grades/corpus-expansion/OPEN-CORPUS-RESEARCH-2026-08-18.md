@@ -886,6 +886,25 @@ The M03 site/building and M08 rack frontiers remain BLOCKED where the public
 catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+## Breadth pass 178 — ISO/IEC site-selection and seismic-risk scope
+
+**Review date:** 2026-08-18. Current ISO catalog abstracts were checked for
+site-selection hazards. ISO/IEC 22237-2:2024 explicitly covers location and
+site selection considering natural environment and adjacencies, protection from
+environmental risks, and protection against water damage. ISO/IEC TS
+22237-30:2022 explicitly covers seismic/earthquake risk assessment and design
+mitigation concepts for data centres; ISO confirms the edition remains current.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m03-q200 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — flood/environmental-risk data belongs in site selection |
+| m03-q204 | Site location selection criteria | ISO/IEC TS 22237-30:2022 — https://www.iso.org/standard/80622.html | **PASS** — seismic risk assessment and mitigation are explicit |
+| m03-q205 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — adjacency/environmental-risk review is explicit |
+| m03-q208 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — natural-environment/adjacency hazards are in scope |
+
+Climate-sizing detail, water rights, and full supporting-facilities dependency
+claims remain BLOCKED. No standard body or PDF was fetched. This pass does not
+certify a learner or close ms4j.
 ## Breadth pass 177 — ISO/IEC environmental-monitoring scope
 
 **Review date:** 2026-08-18. The current ISO catalog abstract for ISO/IEC
