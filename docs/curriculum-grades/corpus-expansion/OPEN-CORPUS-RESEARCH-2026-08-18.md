@@ -906,6 +906,21 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
+
+**Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies
+the document as an IETF Best Current Practice for stable, accurate, and secure
+operation of NTP infrastructure. Its guidance includes enough time sources,
+diversity of reference clocks, and monitoring. The item is bounded to that NTP
+operations scope; ACS/VMS event correlation, physical-security controls, and
+incident-forensics policy require additional evidence.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m13-q089 | Physical Security and Safety — Components for physical security | RFC 8633 — https://www.rfc-editor.org/info/rfc8633/ | **PASS** — stable/accurate/secure NTP operation, time-source diversity, and monitoring are explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 229 — RFC 5674 alarm fields and severity mapping
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 5674 describes

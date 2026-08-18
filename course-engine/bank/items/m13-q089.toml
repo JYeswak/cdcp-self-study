@@ -1,22 +1,23 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: NFPA 731 (2026) —
-# https://link.nfpa.org/all-publications/731/2026
-# BLOCKED: the public catalog does not expose the exact ACS/VMS time-sync and
-# incident-reconstruction proposition needed to promote this item.
+# Official catalog/preview receipt: RFC 8633 —
+# https://www.rfc-editor.org/info/rfc8633/
+# PASS: the open IETF Best Current Practice explicitly covers stable, accurate,
+# secure NTP infrastructure, including time-source diversity and monitoring.
+# No PDF was fetched.
 id = "bank-m13-q089"
 kind = "single-select"
 module = 13
-stem = "ACS and VMS clocks must be time-synchronized primarily so that:"
+stem = "RFC 8633 is an IETF Best Current Practice for:"
 choices = [
-  "Access events and video can be correlated during investigations",
-  "PUE decreases automatically",
-  "Biometrics enroll faster",
-  "Mantraps mechanically close harder"
+  "Stable, accurate, and secure operation of NTP infrastructure, including time-source diversity and monitoring",
+  "Automatic PUE reduction and cooling-plant optimization",
+  "Biometric enrollment without any time source",
+  "Mechanical strengthening of mantrap doors"
 ]
 correct = "A"
-explanation = "NTP alignment across ACS/VMS/syslog is foundational for incident reconstruction."
+explanation = "RFC 8633 describes best practices for stable, accurate, secure NTP servers and clients, including enough time sources, diverse reference clocks, and monitoring. It does not specify ACS/VMS correlation or a physical-security control."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"
