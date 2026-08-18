@@ -420,6 +420,14 @@ fn e_publication_pending_is_red_in_both() {
     assert!(out.contains("publication described as not done"), "{out}");
 }
 
+#[test]
+fn unicode_casefolded_publication_word_is_red_in_both() {
+    let s = Spec::clean();
+    s.append("README.md", "\nThe publiſhing process is blocked.\n");
+    let out = assert_byte_exact("unicode-publication-casefold", Some(s.path()));
+    assert!(out.contains("publication described as not done"), "{out}");
+}
+
 /// bd-1sd.12: describing the detector stays GREEN; an unmarked assertion RED.
 /// The marker is per-line, not a blanket bypass. An unclosed fence is not
 /// an exemption. `_FLIP`/`_STUCK` are not narrowed (the RED legs still fire).

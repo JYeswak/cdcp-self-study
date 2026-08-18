@@ -550,6 +550,36 @@ fn every_clause_dump_and_multilevel_pattern_matches_byte_for_byte() {
     assert!(rs.out().contains("high_severity=0\n"), "{}", rs.out());
 }
 
+#[test]
+fn unicode_regex_digits_and_casefold_match_byte_for_byte() {
+    let f = Fixture::grounded();
+    f.item("a01.toml", &grounded_item("syn-ok"));
+    f.item(
+        "a02.toml",
+        "id = \"unicode-patterns\"\n\
+         stem = \"see clause ٥.٢.١; a guaranteed paſs for cooling\"\n\
+         choices = []\n\
+         explanation = \"containment plenum chiller aisle\"\n\
+         topic_ids = [\"t-one\"]\n\
+         quantity_evidence = \"free_url\"\n",
+    );
+    let rs = compare("unicode regex classes", &f.engine(), &[]);
+    assert_eq!(rs.code, 1, "the Unicode patterns must be RED: {}", rs.out());
+    assert!(
+        rs.out().contains(
+            "  - unicode-patterns: hallucinated-clause pattern: \\bclause\\s+\\d+\\.\\d+(?:\\.\\d+)*\\b...\n"
+        ),
+        "Unicode decimal digits must match Python's \\d: {}",
+        rs.out()
+    );
+    assert!(
+        rs.out()
+            .contains("  - unicode-patterns: dump-language: guaranteed pass\n"),
+        "Python's Unicode re.IGNORECASE must match long s: {}",
+        rs.out()
+    );
+}
+
 // ── g) anti-vacuous: each condition is RED and NAMES ITSELF ────────────────
 
 /// The known-GOOD leg for the floors. Without it, the floors could be set to a

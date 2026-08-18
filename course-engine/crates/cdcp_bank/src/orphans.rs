@@ -75,14 +75,39 @@ pub fn py_strip(s: &str) -> &str {
     s.trim_matches(py_space)
 }
 
+/// `str.isprintable()` for the code points relevant to Python's `repr(str)`.
+///
+/// Rust's standard library does not expose Unicode general categories, so the
+/// Cc/Cf/Cs/Co/Cn/Zl/Zp/Zs predicate is reconstructed from its control and
+/// whitespace helpers plus the explicit format/private-use ranges. Unassigned
+/// code points remain the documented approximation, as they do in the other
+/// gate ports.
+fn py_is_printable(c: char) -> bool {
+    if c == ' ' {
+        return true;
+    }
+    if c.is_ascii() {
+        return matches!(c as u32, 0x21..=0x7e);
+    }
+    if c.is_control() || c.is_whitespace() {
+        return false;
+    }
+    !matches!(c as u32,
+        0x00ad
+        | 0x0600..=0x0605 | 0x061c | 0x06dd | 0x070f | 0x08e2
+        | 0x180e | 0x200b..=0x200f | 0x202a..=0x202e
+        | 0x2060..=0x2064 | 0x2066..=0x206f
+        | 0xd800..=0xf8ff
+        | 0xfeff | 0xfff9..=0xfffb
+        | 0xf_0000..=0x10_fffd
+    )
+}
+
 /// `repr()` of a Python `str`.
 ///
 /// Single quotes unless the value contains `'` and no `"`. Backslash, the
-/// active quote, and the three named escapes are escaped; C0 controls and DEL
-/// become `\xNN`. Non-ASCII characters are passed through, which matches
-/// CPython for printable code points and differs for unprintable ones (it would
-/// emit `\xNN`/`\uNNNN`); reaching that needs an unprintable non-ASCII
-/// character inside a topic id.
+/// active quote, and the three named escapes are escaped; non-printable
+/// characters use Python's `\xNN`/`\uNNNN`/`\UNNNNNNNN` forms.
 pub fn py_repr(s: &str) -> String {
     let quote = if s.contains('\'') && !s.contains('"') {
         '"'
@@ -101,8 +126,15 @@ pub fn py_repr(s: &str) -> String {
                 out.push('\\');
                 out.push(c);
             }
-            c if (c as u32) < 0x20 || (c as u32) == 0x7f => {
-                out.push_str(&format!("\\x{:02x}", c as u32));
+            c if !py_is_printable(c) => {
+                let n = c as u32;
+                if n < 0x100 {
+                    out.push_str(&format!("\\x{n:02x}"));
+                } else if n < 0x1_0000 {
+                    out.push_str(&format!("\\u{n:04x}"));
+                } else {
+                    out.push_str(&format!("\\U{n:08x}"));
+                }
             }
             c => out.push(c),
         }
@@ -637,6 +669,7 @@ mod tests {
         assert_eq!(py_repr("a\\b"), "'a\\\\b'");
         assert_eq!(py_repr("a\nb\tc"), "'a\\nb\\tc'");
         assert_eq!(py_repr("\u{7}"), "'\\x07'");
+        assert_eq!(py_repr("\u{200b}"), "'\\u200b'");
     }
 
     #[test]

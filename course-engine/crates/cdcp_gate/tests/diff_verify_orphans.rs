@@ -561,6 +561,38 @@ fn defect_shapes_beyond_the_shell_suite_are_byte_identical() {
 }
 
 #[test]
+fn non_ascii_non_printable_status_repr_is_byte_identical() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let bank = td.path().join("bank_items");
+    let topics = td.path().join("topics.toml");
+
+    write(&topics, "[[topic]]\nid = \"t-one\"\n");
+    write(
+        &bank.join("bad.toml"),
+        "id = \"i-bad\"\ntopic_ids = [\"t-one\"]\nstatus = \"\\u200b\"\n",
+    );
+    write(
+        &bank.join("good.toml"),
+        "id = \"i-good\"\ntopic_ids = [\"t-one\"]\nstatus = \"approved\"\n",
+    );
+
+    let bank_arg = bank.to_str().unwrap();
+    let topics_arg = topics.to_str().unwrap();
+    let rs = assert_byte_identical(
+        "non-ASCII non-printable status repr",
+        &root,
+        &["--bank", bank_arg, "--topics", topics_arg],
+    );
+    assert_ne!(rs.code, 0, "unknown status must be RED: {}", rs.out());
+    assert!(
+        rs.out().contains("i-bad: unknown status '\\u200b'"),
+        "the Python repr spelling must be preserved: {}",
+        rs.out()
+    );
+}
+
+#[test]
 fn path_and_option_shapes_are_byte_identical_and_still_reach_the_finding() {
     let root = engine_root();
     let td = tempfile::tempdir().unwrap();

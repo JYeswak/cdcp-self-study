@@ -132,15 +132,6 @@
 //!   and print a traceback: empty stdout, exit 1. This port reproduces the empty
 //!   stdout and the exit status, with a one-line stderr note in place of the
 //!   traceback.
-//! - `re.IGNORECASE` on `str` patterns folds a handful of non-ASCII characters
-//!   onto ASCII letters (`ſ`→`s`, `K`→`k`). This port folds ASCII only. Verified
-//!   2026-08-14: none of those characters occur in the bank, the corpus, or the
-//!   topic registry.
-//! - `\d` in `re` matches any Unicode decimal digit; this port matches ASCII
-//!   digits. Verified over the full character inventory of the bank, corpus, and
-//!   topic registry: no non-ASCII digit occurs, and Python's `\w`, `\s`, and
-//!   `\d` agree with the classifiers below on all 181 distinct characters
-//!   present.
 //! - `--help` wraps to the terminal width. Both sides read `COLUMNS` first and
 //!   fall back to 80; the oracle additionally queries the tty when `COLUMNS` is
 //!   unset, which this port cannot do without a C dependency. Under `check.sh`
@@ -237,17 +228,27 @@ pub fn py_word(c: char) -> bool {
     c == '_' || c.is_alphanumeric()
 }
 
-/// The `\d` class. See the header for why this is ASCII-only.
+/// The `\d` class of Python's Unicode `re` (all decimal-digit blocks).
 pub fn py_digit(c: char) -> bool {
-    c.is_ascii_digit()
+    const BLOCKS: &[u32] = &[
+        0x0030, 0x0660, 0x06f0, 0x07c0, 0x0966, 0x09e6, 0x0a66, 0x0ae6, 0x0b66, 0x0be6, 0x0c66,
+        0x0ce6, 0x0d66, 0x0de6, 0x0e50, 0x0ed0, 0x0f20, 0x1040, 0x1090, 0x17e0, 0x1810, 0x1946,
+        0x19d0, 0x1a80, 0x1a90, 0x1b50, 0x1bb0, 0x1c40, 0x1c50, 0xa620, 0xa8d0, 0xa900, 0xa9d0,
+        0xa9f0, 0xaa50, 0xabf0, 0xff10, 0x104a0, 0x10d30, 0x11066, 0x110f0, 0x11136, 0x111d0,
+        0x112f0, 0x11450, 0x114d0, 0x11650, 0x116c0, 0x11730, 0x118e0, 0x11950, 0x11c50, 0x11d50,
+        0x11da0, 0x16a60, 0x16ac0, 0x16b50, 0x1e140, 0x1e2f0, 0x1e950, 0x1fbf0, 0x1d7ce, 0x1d7d8,
+        0x1d7e2, 0x1d7ec, 0x1d7f6,
+    ];
+    let cp = c as u32;
+    BLOCKS.iter().any(|start| cp >= *start && cp < *start + 10)
 }
 
 fn digit_or_dash(c: char) -> bool {
-    c.is_ascii_digit() || c == '-'
+    py_digit(c) || c == '-'
 }
 
 fn digit_or_dot(c: char) -> bool {
-    c.is_ascii_digit() || c == '.'
+    py_digit(c) || c == '.'
 }
 
 fn is_degree(c: char) -> bool {
@@ -424,7 +425,7 @@ const UNBOUNDED: usize = usize::MAX;
 pub enum Node {
     /// `\b`
     Bound,
-    /// A case-insensitive literal. ASCII folding only; see the header.
+    /// A case-insensitive literal with Python's Unicode `re.IGNORECASE` fold.
     Lit(&'static str),
     /// `(?:a|b|c)` over literals, tried left to right as `re` does.
     Alt(&'static [&'static str]),
@@ -441,14 +442,24 @@ fn is_boundary(s: &[char], pos: usize) -> bool {
     before != after
 }
 
+/// Python's Unicode `re.IGNORECASE` for an ASCII literal. CPython treats these
+/// four extra code points as ASCII matches: `İ`/`ı`→`i`, `ſ`→`s`, and `K`→`k`.
+fn py_ignorecase(c: char) -> char {
+    match c {
+        'A'..='Z' => c.to_ascii_lowercase(),
+        '\u{0130}' | '\u{0131}' => 'i',
+        '\u{017f}' => 's',
+        '\u{212a}' => 'k',
+        _ => c,
+    }
+}
+
 /// Case-insensitive literal match anchored at `pos`; the end offset on success.
 fn match_lit(lit: &str, s: &[char], pos: usize) -> Option<usize> {
     let mut i = pos;
     for lc in lit.chars() {
         let c = *s.get(i)?;
-        // ASCII folding only; a non-ASCII character must match exactly. See the
-        // header for the `re.IGNORECASE` folds this deliberately does not do.
-        if !c.eq_ignore_ascii_case(&lc) {
+        if py_ignorecase(c) != py_ignorecase(lc) {
             return None;
         }
         i += 1;

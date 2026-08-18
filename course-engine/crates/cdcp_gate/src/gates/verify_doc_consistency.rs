@@ -923,6 +923,21 @@ fn markdown_files(root: &Path) -> Vec<PathBuf> {
 
 // ══════════════════════════ publication scanning ═══════════════════════════
 
+/// Python's Unicode `re.IGNORECASE` makes four non-ASCII code points match
+/// ASCII letters in addition to ordinary ASCII upper/lower casing: `İ`, `ı`,
+/// and `ſ` match `i`/`s`, while `K` matches `k`. The publication patterns are
+/// ASCII, so folding only those exceptions reproduces the oracle without
+/// treating unrelated Unicode letters as ASCII.
+fn py_ignorecase_ascii(c: char) -> char {
+    match c {
+        'A'..='Z' => c.to_ascii_lowercase(),
+        '\u{0130}' | '\u{0131}' => 'i',
+        '\u{017f}' => 's',
+        '\u{212a}' => 'k',
+        _ => c,
+    }
+}
+
 fn matches_alt_at(cs: &[char], pos: usize, alt: &str) -> Option<usize> {
     let a: Vec<char> = alt.chars().collect();
     if pos + a.len() > cs.len() {
@@ -960,12 +975,10 @@ fn bridge_ok(cs: &[char], from: usize, k: usize) -> bool {
 /// Which of the five `PENDING_PUBLICATION_PATTERNS` (if any) fires on this
 /// line, in the original's order — the Python `break`s on the first hit.
 ///
-/// `re.IGNORECASE` is honoured for ASCII only; every alternation in the original
-/// is pure ASCII, so the difference is confined to inputs where a non-ASCII
-/// codepoint case-folds onto an ASCII one (`K`, `ſ`).
+/// `re.IGNORECASE` is honoured for ASCII plus Python's four Unicode exceptions
+/// handled by `py_ignorecase_ascii` above.
 fn publication_hit(line: &str) -> Option<&'static str> {
-    let low = line.to_ascii_lowercase();
-    let cs: Vec<char> = low.chars().collect();
+    let cs: Vec<char> = line.chars().map(py_ignorecase_ascii).collect();
     let n = cs.len();
 
     // (1) FLIP ... STUCK
