@@ -654,6 +654,10 @@ external CI leg cannot be observed on the current code SHA.
   `crates/cdcp_gate/src/gates/verify_injection_count.rs`'s `py_is_printable`
   helper. That file is pane-owned and explicitly excluded from this work; it
   was not edited, and no extraction was taken from it.
+- The read-only audit also finds `cdcp_learn/src/objectives.rs::py_repr`
+  escapes C0 controls but not Python's non-printable Unicode ranges. That file
+  and `diff_verify_objectives.rs` are pane-owned dirty work and were preserved
+  without edits or staging.
 - `gh run list --commit 7298fb3571fdc607b01c9011dbac7111e8d2af06` returned no
   runs, so same-SHA CI line count and GREEN status remain unavailable. The historical 37472-line remote-main
   result is a different SHA and is not used as a same-SHA claim.
