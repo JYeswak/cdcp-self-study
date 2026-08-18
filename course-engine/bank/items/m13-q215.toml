@@ -1,22 +1,22 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 27001:2022 —
-# https://www.iso.org/standard/27001?browse=tc
-# BLOCKED: the catalog does not expose the exact periodic physical-access
-# rights-review proposition.
+# Official catalog/preview receipt: ISO/IEC 22237-6:2024 —
+# https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/08/22/82250.html
+# Claim is limited to the public physical-security scope; no credential-review
+# interval or revocation taxonomy is inferred.
 id = "m13-q215"
 kind = "single-select"
 module = 13
-stem = "Periodic access rights reviews are important because:"
+stem = "Which objective is explicitly within ISO/IEC 22237-6:2024's public physical-security scope?"
 choices = [
-  "Access lists never go stale",
-  "Contractors never leave projects",
-  "Role changes and terminations leave residual access if never recertified",
-  "Reviews only matter for software admin rights, never doors"
+  "Protect data-centre spaces against unauthorized access and intrusion",
+  "Specify one universal credential-review interval for every site",
+  "Replace physical security with software-admin review only",
+  "Define a mantrap or anti-passback taxonomy for every facility"
 ]
-correct = "C"
-explanation = "Joiner-mover-leaver hygiene applies to physical credentials too."
+correct = "A"
+explanation = "The ISO/IEC 22237-6:2024 public preview covers physical security of data centres, including protection against unauthorized access and intrusion using organizational and technological solutions. It does not expose a universal credential-review interval or a mantrap taxonomy."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

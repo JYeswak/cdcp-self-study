@@ -870,6 +870,22 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
+
+**Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
+periodic physical-access-rights review to the public abstract of ISO/IEC
+22237-6:2024: data-centre physical security includes protection against
+unauthorized access and intrusion using organizational and technological
+solutions. The exact public CDCP heading remains **Physical Security and Safety
+— Components for physical security**. No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m13-q215 | Physical Security and Safety — Components for physical security | ISO/IEC 22237-6:2024 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/08/22/82250.html | **PASS** — unauthorized-access/intrusion protection is explicit |
+
+No credential-review interval, revocation workflow, mantrap, or anti-passback
+taxonomy is inferred. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 350 — IEC installed-cabling measurement scope
 
 **Review date:** 2026-08-18. `m11-q137` was narrowed from an unsupported
