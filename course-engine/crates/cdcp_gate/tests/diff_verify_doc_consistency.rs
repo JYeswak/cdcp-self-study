@@ -747,6 +747,38 @@ fn ranges_sub_runs_and_case_sensitivity_match() {
     assert!(!out.contains("    M4: DONE (1 row"), "{out}");
 }
 
+/// Python's `_RANGE` and `_TOKEN` use Unicode `\d`, then `int()` their
+/// captures. The known-bad mutant keeps Rust's milestone scanner ASCII-only;
+/// Python still parses these nine zero-valued ranges while Rust misses them,
+/// so the byte-exact comparison REDs that parity loss.
+#[test]
+fn unicode_nd_milestone_digits_are_byte_identical_and_known_bad_is_red() {
+    let s = Spec::clean();
+    let starts = [
+        0x10d40, 0x116d0, 0x11bf0, 0x11f50, 0x16130, 0x16d70, 0x1ccf0, 0x1e4f0,
+        0x1e5f1,
+    ];
+    let rows: String = starts
+        .into_iter()
+        .enumerate()
+        .map(|(n, start)| {
+            let d = char::from_u32(start + n as u32 + 1).unwrap();
+            format!("| M{d}–M{d} | Unicode digit | **DONE** |\n")
+        })
+        .collect();
+    let charter = format!(
+        "# Specimen charter\n\n## 9. Milestones\n\n| ID | Milestone | Status |\n|----|-----------|--------|\n{rows}"
+    );
+    let readme = format!(
+        "# Specimen readme\n\n## Roadmap\n\n| ID | Milestone | Status |\n|---|---|---|\n{rows}"
+    );
+    s.write("CHARTER.md", &charter);
+    s.write("README.md", &readme);
+    let out = assert_byte_exact("unicode Nd milestone digits", Some(s.path()));
+    assert!(out.contains("    M1: DONE ("), "{out}");
+    assert!(out.contains("    M9: DONE ("), "{out}");
+}
+
 /// The heading of a status-bearing section supplies the status for a table with
 /// no Status column — the PHASE-NEXT shape.
 #[test]
