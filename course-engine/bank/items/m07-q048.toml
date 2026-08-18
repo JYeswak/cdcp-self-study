@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 7)
+# Public syllabus heading: EMF standards and best practices
+# Official catalog/preview receipts: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907; IEC 61000-4-8:2009 — https://webstore.iec.ch/en/publication/4229
+# PASS boundary: the official pages separate human-exposure field measurement from equipment immunity testing; no exposure limit or immunity level is claimed.
 id = "m07-q048"
 kind = "single-select"
 module = 7

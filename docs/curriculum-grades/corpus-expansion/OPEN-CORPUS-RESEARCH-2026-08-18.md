@@ -1044,6 +1044,27 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 76 — CDCP EMF shielding and standards receipts
+
+**Review date:** 2026-08-18. The retired ledger-only mock40-q23 and four M07
+rows now carry IEC catalog receipts. IEC 61786-2:2014 supports EMF field-source
+and measurement boundaries; IEC 61000-4-8:2009 exposes equipment power-frequency
+immunity scope. That supports a bounded PASS for q048’s separation of human
+exposure measurement from equipment immunity. The other rows remain BLOCKED.
+No item file was invented for mock40-q23, and no PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| mock40-q23 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact source list not exposed |
+| m07-q045 | Shielding | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact distance/layout mitigation proposition not exposed |
+| m07-q046 | Shielding | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact aluminium low-frequency-shielding proposition not exposed |
+| m07-q047 | Shielding | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **BLOCKED** — exact conductor-spacing cancellation proposition not exposed |
+| m07-q048 | EMF standards and best practices | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907; IEC 61000-4-8:2009 — https://webstore.iec.ch/en/publication/4229 | **PASS** — separate human-exposure measurement and equipment-immunity scopes |
+
+The ledger is now 164 PASS / 793 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j or ebrr bead, or alter
+gate-shrink or oracle scope.
+
 ## Breadth pass 75 — CDCP EMF types, units, and source receipts
 
 **Review date:** 2026-08-18. Four M07 rows now carry the official IEC

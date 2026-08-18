@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 163 PASS; 794 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 164 PASS; 793 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -388,15 +388,15 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q302 | 6 | 1.6 Power Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | PASS |
 | m06-q303 | 6 | 1.6 Power Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | PASS |
 | m06-q304 | 6 | 1.6 Power Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | PASS |
-| mock40-q23 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
+| mock40-q23 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact source list is not exposed |
 | m07-q041 | 7 | Types of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact IT-adjacency dominance proposition is not exposed |
 | m07-q042 | 7 | Units of measurements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS |
 | m07-q043 | 7 | Units of measurements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact microtesla/milligauss conversion proposition is not exposed |
 | m07-q044 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact transformer/busbar/UPS source list is not exposed |
-| m07-q045 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m07-q046 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m07-q047 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m07-q048 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
+| m07-q045 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact distance/layout mitigation proposition is not exposed |
+| m07-q046 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact aluminium low-frequency-shielding proposition is not exposed |
+| m07-q047 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact conductor-spacing cancellation proposition is not exposed |
+| m07-q048 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS |
 | m07-q049 | 7 | Types of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m07-q050 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m07-q051 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
