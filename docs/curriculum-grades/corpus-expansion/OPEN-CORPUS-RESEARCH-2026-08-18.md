@@ -1192,6 +1192,62 @@ excluded. No bank or ledger disposition changed in this pass.
 receipts and replaces no older edition with an unsupported claim. Existing
 PASS/BLOCKED decisions remain unchanged; the ledger still has zero bare FAILs.
 
+## Breadth pass 134 — site-selection, natural-hazard, and lightning boundaries
+
+**Date:** 2026-08-18
+**Scope:** M03 and M06 questions about site location, natural environment and
+adjacencies, environmental risk, building protection, lightning risk, physical
+damage, life safety, and electrical/electronic surge protection. Existing
+public EPI CDCP headings are retained; no site-rating or hazard taxonomy is
+invented.
+
+**Official public receipts:**
+
+- [ISO/IEC 22237-2:2024](https://webstore.iec.ch/en/publication/92577),
+  **Information technology — Data centre facilities and infrastructures — Part
+  2: Building construction**, is the current IEC Webstore Edition 1.0. Its
+  public catalog covers location and site selection, natural environment and
+  adjacencies, environmental risks, site/building configuration, access,
+  intrusion and fire protection, water damage, construction quality, and
+  conformance.
+- [IEC 62305-1:2024](https://webstore.iec.ch/en/publication/27136),
+  **Protection against lightning — Part 1: General principles**, is the
+  current Edition 3.0. Its public catalog covers general protection
+  principles for structures, installations, contents, and people, and notes
+  that the 2024 edition replaces the 2010 edition.
+- [IEC 62305-2:2024](https://webstore.iec.ch/en/publication/28137),
+  **Protection against lightning — Part 2: Risk management**, is the current
+  Edition 3.0. Its public catalog describes a procedure for evaluating
+  lightning risk and selecting protection measures against a selected
+  tolerable risk limit; it does not supply a site-specific risk result.
+- [IEC 62305-3:2024](https://webstore.iec.ch/en/publication/33680),
+  **Protection against lightning — Part 3: Physical damage to structures and
+  life hazard**, is the current Edition 3.0. Its public catalog covers design,
+  installation, inspection, and maintenance of lightning protection systems
+  and measures against touch and step voltages.
+- [IEC 62305-4:2024](https://webstore.iec.ch/en/publication/29590),
+  **Protection against lightning — Part 4: Electrical and electronic systems
+  within structures**, is the current Edition 3.0. Its public catalog covers
+  design, installation, inspection, maintenance, and testing of surge
+  protection measures against lightning electromagnetic impulse.
+
+**Adversarial boundary:** A catalog scope is not a geotechnical or flood
+study; lightning risk management is not an AHJ permit; an LPS design receipt
+is not inspection evidence; surge-protection requirements do not prove correct
+coordination or equipment withstand; and physical-security, fire, water,
+lightning, and electrical approvals remain distinct evidence. Replaced
+editions and PDF bodies are excluded. No bank or ledger disposition changed.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M03 | Screen site location, adjacency, environmental exposure, water, fire, intrusion, construction, and quality evidence against the current data-centre building-construction scope | The standard catalog does not approve a site or replace local code and engineering reports |
+| M06 | Connect lightning risk, physical protection, bonding/surge measures, inspection, maintenance, and test records to the named electrical assets | IEC pages do not prove coordination, protection settings, or a successful test |
+| M15 | Assign competent owners, AHJ coordination, inspection intervals, exceptions, and return-to-service evidence for hazard controls | A standard receipt does not certify a learner, facility, or contractor |
+
+**Bounded result:** This pass refreshes current official natural-hazard and
+lightning receipts while preserving the distinction between standard scope,
+site evidence, AHJ authority, inspection, and operational acceptance.
+
 ## Breadth pass 130 — sourcing, outsourcing, and collaborative supplier evidence
 
 **Date:** 2026-08-18
