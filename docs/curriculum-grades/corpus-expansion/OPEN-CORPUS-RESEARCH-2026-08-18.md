@@ -978,6 +978,29 @@ The ledger remains 155 PASS / 802 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 31 — CDCP NFPA standards-awareness and blocked receipts
+
+**Review date:** 2026-08-18. NFPA 72 and NFPA 2001 standards-awareness items
+were promoted using their exact public titles. Adjacent jurisdictional,
+impairment, signage, pull-station, fire-door, and abort-switch items received
+official catalog/preview receipts but remain BLOCKED because their exact public
+clauses were not exposed. No NFPA PDF or standard body was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q068 | Fire Protection | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **BLOCKED** — local adopted code/AHJ authority not exposed |
+| bank-m12-q069 | Fire Protection | NFPA 72, 2025 — https://link.nfpa.org/all-publications/72/2025 | **PASS** — official title identifies the National Fire Alarm and Signaling Code |
+| bank-m12-q070 | Fire Protection | NFPA 2001, 2025 — https://link.nfpa.org/all-publications/2001/2025 | **PASS** — official title identifies the clean-agent fire-extinguishing-systems standard |
+| bank-m12-q071 | Fire Protection | NFPA 72, 2025 — https://link.nfpa.org/all-publications/72/2025 | **BLOCKED** — exact impairment-control procedure not exposed |
+| bank-m12-q072 | Fire Protection | NFPA 2001, 2025 — https://link.nfpa.org/all-publications/2001/2025 | **BLOCKED** — exact warning-signage wording/placement not exposed |
+| bank-m12-q073 | Fire Protection | NFPA 72, 2025 — https://link.nfpa.org/all-publications/72/2025 | **BLOCKED** — exact manual-pull-station placement not exposed |
+| bank-m12-q074 | Fire Protection | NFPA 101, 2024 — https://link.nfpa.org/all-publications/101/2024 | **BLOCKED** — exact fire-door propping control not exposed |
+| bank-m12-q075 | Fire Protection | NFPA 2001, 2025 — https://link.nfpa.org/all-publications/2001/2025 | **BLOCKED** — exact abort-switch control clause not exposed |
+
+The ledger is now 157 PASS / 800 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
 
 **Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current
