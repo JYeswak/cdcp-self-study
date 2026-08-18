@@ -1044,6 +1044,85 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 124 — virtualization, containers, and cloud responsibility evidence
+
+**Date:** 2026-08-18
+**Scope:** M01, M08, M09, M11, M14, and M15 questions about hypervisors,
+virtual networks, container images and runtime isolation, cloud service
+responsibility, provider/customer evidence, privacy boundaries, backup and
+recovery assumptions, and operational monitoring. Existing public EPI/CDCS/
+CDFOS/CDFOM headings are retained; no cloud-provider taxonomy or credential
+claim is invented.
+
+**Official public receipts:**
+
+- [NIST SP 800-125](https://csrc.nist.gov/pubs/sp/800/125/final), **Guide to
+  Security for Full Virtualization Technologies**, is the official final NIST
+  publication for virtualization security concerns and recommendations. Its
+  public abstract covers server/desktop virtualization, virtual hardware,
+  operational efficiency, and cloud use; its 2011 date is retained as a
+  currency boundary.
+- [NIST SP 800-125A Rev. 1](https://csrc.nist.gov/pubs/sp/800/125/a/r1/final),
+  **Security Recommendations for Server-based Hypervisor Platforms**, is the
+  official final page for hypervisor baseline functions, guest/host resource
+  mediation, virtual networks, isolation, device virtualization, and secure
+  configuration/monitoring. It remains a recommendation, not a product
+  approval.
+- [NIST SP 800-125B](https://csrc.nist.gov/pubs/sp/800/125/b/final), **Secure
+  Virtual Network Configuration for Virtual Machine (VM) Protection**, is the
+  official final page for virtual-network segmentation, path redundancy,
+  traffic control, and monitoring. No NIST PDF body was fetched.
+- [NIST SP 800-190](https://csrc.nist.gov/pubs/sp/800/190/final), **Application
+  Container Security Guide**, is the official final page for container
+  packaging, isolation, configuration, access, audit, incident response,
+  vulnerability management, and system/information integrity concerns. It is
+  dated 2017 and is not represented as a current container product standard.
+- [ISO/IEC 27017:2026](https://www.iso.org/standard/27017), **Information
+  security controls based on ISO/IEC 27002 for cloud services**, is the current
+  published Edition 2 (2026-07). ISO’s public OBP preview covers additional
+  cloud guidance and controls for cloud service customers and providers across
+  public, private, and hybrid deployments, including divided responsibilities.
+  ISO identifies 2015 as withdrawn.
+- [ISO/IEC 27018:2025](https://www.iso.org/standard/27018), **Guidelines for
+  protection of personally identifiable information in public clouds acting as
+  PII processors**, is the current published Edition 3 (2025-08). Its public
+  preview covers customer/provider roles, auditability, processing, transfer,
+  deletion, and alignment with ISO/IEC 27002:2022. ISO identifies 2019 as
+  withdrawn; this receipt is relevant only where PII processing is in scope.
+- [ISO/IEC 27036-4:2016](https://www.iso.org/standard/59689.html), **Security
+  of cloud services**, remains a published, confirmed supplier-relationship
+  receipt. Its public abstract expressly separates cloud security acquisition
+  risks from business continuity, so it is not used to invent a continuity or
+  handover taxonomy.
+
+**Adversarial boundary:** A VM or container abstraction is not a security
+boundary merely because it is called isolated. Hypervisor, virtual-switch,
+image/registry, host, guest, management plane, backup, logging, and recovery
+ownership must be explicit. A cloud contract or provider attestation does not
+prove that a facility’s local BMS/DCIM integration, network path, data
+retention, restore process, or emergency operating mode works. Shared
+responsibility is a role map and evidence question, not a universal SLA,
+availability rating, or certification.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M01 | Trace service ownership from facility hardware through hypervisor, guest, container, cloud provider, and business recovery objective | Cloud deployment model is not a facility availability claim |
+| M08 | Keep host/VM/container identity, image provenance, baseline, network path, storage dependency, backup, and retirement evidence linked | A VM inventory does not prove isolation or restore success |
+| M09 | Include virtualized BMS/DCIM dependencies, control-plane latency, fallback, and safe local operation in thermal/environmental scenarios | Container or cloud guidance does not prove a safe physical command |
+| M11/M14 | Separate hypervisor, virtual network, registry/image, management, logging, and tenant/provider controls; preserve change and incident evidence | NIST guidance and ISO cloud controls do not create an OLA or handover program |
+| M15 | Assign provider/customer roles, audit evidence, competence, exceptions, recovery tests, and lessons learned | Completing a cloud or virtualization track does not certify a learner or facility |
+
+**Currency boundary:** ISO/IEC 27017:2015 and ISO/IEC 27018:2019 are not used
+as current editions. NIST SP 800-125 and SP 800-190 remain older final guidance,
+not silently upgraded to drafts or vendor-specific practice. Drafts, vendor
+blogs, cloud-provider marketing pages, and PDF bodies are excluded.
+
+**Bounded result:** This pass adds public final/OBP anchors for software
+infrastructure operations and updates cloud-edition receipts while keeping
+physical operations, provider responsibility, local control, and recovery
+evidence distinct. No bank rows, ledger dispositions, manifest, topics, beads,
+gate, oracle, or credential state changed.
+
 ## Breadth pass 123 — media sanitization, storage security, and retirement evidence
 
 **Date:** 2026-08-18
