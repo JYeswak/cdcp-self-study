@@ -367,6 +367,33 @@ status: BLOCKED_WITH_RECEIPT
 - CI for `7570ec4`: no GitHub run exists, so CI line count is unavailable; no
   same-SHA CI GREEN receipt exists and no ceiling change was made.
 
+## Slice 16 — `verify_bank` unassigned Unicode `repr(str)` parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `0c2c4b40386f2ecdd81bf1d727c5d951aac6f545`
+- Change: mirror Python 3.11's non-printable `repr(str)` treatment of the
+  unassigned U+0378–U+0379 range in `cdcp_bank::verify_bank`; the Python oracle
+  remains present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_verify_bank.rs`,
+  `unassigned_unicode_status_repr_is_byte_identical_and_known_bad_is_red`.
+- Known-bad RED: before the range was added, the fixture failed with Python
+  emitting `published\\u0378` while Rust emitted literal U+0378. The focused
+  test now passes and therefore proves that mutant is not accepted.
+- Focused proof: `cargo test --locked -p cdcp_gate --test diff_verify_bank
+  unassigned_unicode_status_repr_is_byte_identical_and_known_bad_is_red --
+  --exact` — 1 passed.
+- Bank unit proof: `cargo test --locked -p cdcp_bank verify_bank` — 35 passed.
+- Full bank differential: 47/48 passed; the only failure is the pre-existing
+  live-tree `MANIFEST item_count 904 != loaded 957` mismatch. The restricted
+  bank corpus was not changed.
+- Local `gate_shrink`: 37211 lines / 47 files; digest
+  `fnv1a64:d7f3661cc0457278`; 72 lines below ceiling 37283; registry check
+  GREEN.
+- CI for this SHA: unavailable (`gh run list --commit
+  0c2c4b40386f2ecdd81bf1d727c5d951aac6f545` has no run). The latest remote-main
+  count remains 37472 at a different SHA, so it is not a same-SHA receipt and
+  does not authorize a ceiling change.
+
 ## Blocker audit — audited code tree
 
 - Audited code SHA: `d2d88cb364cbd2537f2f2d549d4e3220b88eb581`; the subsequent
