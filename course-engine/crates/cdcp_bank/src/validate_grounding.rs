@@ -230,6 +230,11 @@ pub fn py_word(c: char) -> bool {
 
 /// The `\d` class of Python's Unicode `re` (all decimal-digit blocks).
 pub fn py_digit(c: char) -> bool {
+    py_digit_value(c).is_some()
+}
+
+/// The decimal value Python assigns to a Unicode `Nd` code point.
+fn py_digit_value(c: char) -> Option<u8> {
     const BLOCKS: &[u32] = &[
         0x0030, 0x0660, 0x06f0, 0x07c0, 0x0966, 0x09e6, 0x0a66, 0x0ae6, 0x0b66, 0x0be6, 0x0c66,
         0x0ce6, 0x0d66, 0x0de6, 0x0e50, 0x0ed0, 0x0f20, 0x1040, 0x1090, 0x17e0, 0x1810, 0x1946,
@@ -241,7 +246,21 @@ pub fn py_digit(c: char) -> bool {
         0x1fbf0, 0x1d7ce, 0x1d7d8, 0x1d7e2, 0x1d7ec, 0x1d7f6,
     ];
     let cp = c as u32;
-    BLOCKS.iter().any(|start| cp >= *start && cp < *start + 10)
+    BLOCKS
+        .iter()
+        .find_map(|start| (cp >= *start && cp < *start + 10).then(|| (cp - *start) as u8))
+}
+
+/// Map Python decimal digits to ASCII so Rust's numeric parsers see the same
+/// input that CPython's `float()` and `int()` accept.
+fn ascii_decimal_digits(s: &str) -> String {
+    s.chars()
+        .map(|c| {
+            py_digit_value(c)
+                .map(|d| char::from(b'0' + d))
+                .unwrap_or(c)
+        })
+        .collect()
 }
 
 fn digit_or_dash(c: char) -> bool {
@@ -1228,7 +1247,7 @@ fn prefix_matches(name: &str) -> Vec<&'static str> {
 /// underscores, both of which Rust's `str::parse` rejects.
 pub fn py_float(s: &str) -> Option<f64> {
     let t = s.trim_matches(py_space);
-    let cleaned = strip_underscores(t)?;
+    let cleaned = ascii_decimal_digits(&strip_underscores(t)?);
     cleaned.parse::<f64>().ok()
 }
 
@@ -1237,7 +1256,7 @@ pub fn py_float(s: &str) -> Option<f64> {
 /// bound, where any magnitude past the list length behaves identically.
 pub fn py_int(s: &str) -> Option<i128> {
     let t = s.trim_matches(py_space);
-    let cleaned = strip_underscores(t)?;
+    let cleaned = ascii_decimal_digits(&strip_underscores(t)?);
     let (sign, digits) = match cleaned.strip_prefix('-') {
         Some(rest) => (-1i128, rest),
         None => (1i128, cleaned.strip_prefix('+').unwrap_or(&cleaned)),
@@ -1264,8 +1283,8 @@ fn strip_underscores(s: &str) -> Option<String> {
             out.push(*c);
             continue;
         }
-        let prev_ok = i > 0 && ch[i - 1].is_ascii_digit();
-        let next_ok = ch.get(i + 1).map(|n| n.is_ascii_digit()).unwrap_or(false);
+        let prev_ok = i > 0 && py_digit(ch[i - 1]);
+        let next_ok = ch.get(i + 1).map(|n| py_digit(*n)).unwrap_or(false);
         if !(prev_ok && next_ok) {
             return None;
         }
