@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: TIA-942-C (May 2024) —
 # https://tiaonline.org/standard/tia-942/
-# BLOCKED: the public abstract covers enterprise and multi-tenant facilities,
-# but not this exact governance/SLA-boundary comparison.
+# PASS: the current TIA abstract explicitly includes single-tenant enterprise
+# data centres and multi-tenant data centres within the standard's coverage.
 id = "m01-q050"
 kind = "single-select"
 module = 1
-stem = "Which statement about enterprise vs multi-tenant facilities is most accurate?"
+stem = "Which facility types does the current TIA-942-C abstract explicitly include?"
 choices = [
-  "Governance, shared risk, and SLA boundaries differ; both still need robust facility design",
-  "Only multi-tenant sites need fire detection",
-  "Enterprise sites never need redundant power",
-  "Multi-tenant sites never meter power",
+  "Single-tenant enterprise data centres and multi-tenant data centres",
+  "Only residential buildings",
+  "Only outdoor telecommunications towers",
+  "Only one fixed data-centre size",
 ]
 correct = "A"
-explanation = "Ownership and SLA boundaries differ by model, but both require engineered facility resilience."
+explanation = "The current TIA-942-C abstract explicitly includes single-tenant enterprise data centres and multi-tenant data centres; it does not establish the governance or SLA comparison in the former item."
 topic_ids = ["m01-dc-types", "m01-business-org"]
 objective_ids = []
 bloom = "understand"

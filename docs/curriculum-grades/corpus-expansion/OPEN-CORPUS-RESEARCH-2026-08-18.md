@@ -870,6 +870,19 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 295 — TIA enterprise and multi-tenant facility preview claim
+
+**Review date:** 2026-08-18. The current official TIA-942-C page was checked
+without opening or fetching a PDF. Its public abstract explicitly includes
+single-tenant enterprise data centres and multi-tenant data centres and states
+that the topology is intended to apply to any size data centre.
+
+| Items | Public CDCP heading | Current official catalog/preview | Bounded result |
+|---|---|---|---|
+| m01-q050 | Types of data centres | TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/ | **PASS** — asks only for the facility types named by the abstract; no governance or SLA comparison is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 294 — IEC power-distribution measurement preview claim
 
 **Review date:** 2026-08-18. The current official IEC catalog for ISO/IEC
