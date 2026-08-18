@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Power distribution / busbar trunking
 # Official catalog/preview receipt: IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878
-# BLOCKED: the official catalog does not expose the exact data-hall tap-off agility proposition.
+# PASS: the current IEC catalog says this standard deals with selection and
+# erection of wiring systems and includes busbar-trunking and powertrack topics.
 id = "m06-q074"
 kind = "single-select"
 module = 6
-stem = "Overhead busway in white space is often selected to:"
+stem = "IEC 60364-5-52:2009 + AMD1:2024 deals with:"
 choices = [
+  "The selection and erection of wiring systems, including busbar-trunking and powertrack-system considerations",
   "Increase intentional EMF exposure",
   "Replace fire detection systems",
-  "Enable flexible tap-off power along a row without full recabling of every change",
   "Cool GPU cold plates directly",
 ]
-correct = "C"
-explanation = "Busway/tap-offs support reconfiguration agility for row power."
+correct = "A"
+explanation = "The IEC catalog identifies IEC 60364-5-52 as covering selection and erection of wiring systems and notes changes related to busbar trunking and powertrack systems."
 topic_ids = ["m06-distribution"]
 objective_ids = []
 bloom = "understand"

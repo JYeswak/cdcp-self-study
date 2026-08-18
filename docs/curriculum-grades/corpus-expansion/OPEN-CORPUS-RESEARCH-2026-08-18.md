@@ -2207,6 +2207,29 @@ because the public definition does not expose those stronger propositions. No
 standard body or PDF was fetched. This pass does not certify a learner or close
 ms4j.
 
+## Breadth pass 202 — IEC wiring, power-quality, and busway scope pins
+
+**Review date:** 2026-08-18. The current IEC Webstore pages expose three
+additional module-6 claims without requiring the paid standard text. IEC
+60364-5-52:2009 with its 2024 amendment covers selection and erection of wiring
+systems and notes busbar-trunking and powertrack systems. IEC 61000-2-4:2024
+considers voltage imbalance among low-frequency conducted disturbances for
+compatibility levels in industrial power systems. IEC 61439-6:2012 covers the
+definitions, service conditions, construction, technical characteristics, and
+verification requirements of low-voltage busbar trunking systems. The item
+stems were narrowed to those catalog-visible statements.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q074 | Power distribution / busbar trunking | IEC 60364-5-52:2009+AMD1:2024 — https://webstore.iec.ch/en/publication/1878 | **PASS** — wiring-system selection/erection and busbar-trunking/powertrack scope is explicit |
+| m06-q077 | Single phase and three phase power | IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717 | **PASS** — voltage imbalance is explicitly listed as a low-frequency conducted disturbance |
+| m06-q221 | Power distribution / busbar trunking | IEC 61439-6:2012 — https://webstore.iec.ch/en/publication/5463 | **PASS** — low-voltage busbar-trunking definitions, construction, characteristics, and verification are explicit |
+
+Tap-off agility, phase-loading consequences, dense-hall congestion, site
+topology, and project-specific protection remain BLOCKED where the catalog does
+not expose those claims. No standard body or PDF was fetched. This pass does not
+certify a learner or close ms4j.
+
 ## Breadth pass 160 — AHJ public egress-lock boundary
 
 **Review date:** 2026-08-18. M13 fail-safe/fail-secure locking was checked

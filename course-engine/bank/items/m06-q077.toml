@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Single phase and three phase power
 # Official catalog/preview receipt: IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717
-# BLOCKED: the official catalog does not expose the exact feeder phase-imbalance operational consequence.
+# PASS: the current IEC catalog lists voltage imbalance among the low-frequency
+# conducted-disturbance phenomena considered in industrial power systems.
 id = "m06-q077"
 kind = "single-select"
 module = 6
-stem = "Severe phase imbalance on a three-phase feeder can cause:"
+stem = "In IEC 61000-2-4:2024, voltage imbalance is treated as:"
 choices = [
-  "Wasted capacity and earlier tripping on the overloaded phase",
+  "A low-frequency conducted disturbance considered when setting compatibility levels in industrial power systems",
   "Free extra capacity on all phases",
   "Automatic dual-path creation",
-  "Zero impact on breakers",
+  "A phenomenon excluded from industrial power-quality assessment",
 ]
 correct = "A"
-explanation = "Unbalanced phases waste headroom and trip the loaded leg first."
+explanation = "The IEC catalog places voltage imbalance among the low-frequency conducted disturbances considered for compatibility levels at industrial points of coupling."
 topic_ids = ["m06-phase", "m06-sizing"]
 objective_ids = []
 bloom = "apply"
