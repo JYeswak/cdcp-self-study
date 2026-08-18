@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — ebrr.19 leftover (a) 2026 cause-framing
+# Public syllabus heading: CDCP "Causes of unavailability" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# BLOCKED: the catalog does not expose the exact 2026 survey-share or
+# root-cause-bucket proposition.
 id = "m01-q210"
 kind = "single-select"
 module = 1

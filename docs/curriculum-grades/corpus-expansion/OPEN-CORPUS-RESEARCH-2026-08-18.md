@@ -1044,6 +1044,31 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 40 — CDCP current-operations foundation receipts
+
+**Review date:** 2026-08-18. Ten additional Module 1 rows now carry official
+ISO/IEC 22237-1:2021 or TIA-942-C catalog/preview receipts. They remain
+BLOCKED because the public pages do not expose the exact current-operations,
+new-site-type, or maintenance-risk propositions. No PDF or paid standard body
+was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m01-q206 | Causes of unavailability | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact single-point-of-failure proposition not exposed |
+| m01-q207 | Importance of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact criticality-to-investment proposition not exposed |
+| m01-q208 | Causes of unavailability | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact balanced-cause proposition not exposed |
+| m01-q209 | Business organization / DC in the business | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact IT/facilities partnership proposition not exposed |
+| m01-q210 | Causes of unavailability | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact 2026 survey-share/root-cause proposition not exposed |
+| m01-q211 | Types of data centres | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact neocloud/GPU-colo/AI-factory taxonomy not exposed |
+| m01-q212 | Importance of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact vendor-availability-claim pinning proposition not exposed |
+| m01-q213 | Causes of unavailability | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact high-density cooling-dependency proposition not exposed |
+| m01-q214 | Business organization / DC in the business | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact colo ownership-boundary response not exposed |
+| m01-q215 | Causes of unavailability | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact degraded-path maintenance proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 39 — CDCP data-centre foundations continuation
 
 **Review date:** 2026-08-18. Seventeen additional Module 1 rows now carry
