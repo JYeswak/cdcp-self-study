@@ -1,19 +1,21 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Transformers
-# Official catalog/preview receipt: IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588
-# BLOCKED: the official catalog does not expose the exact transformer-loss thermal-budget proposition.
+# Official catalog/preview receipt: IEC 60076-19-1:2023 —
+# https://webstore.iec.ch/en/publication/59982
+# PASS: the current IEC catalog explicitly covers measurement of no-load and load
+# losses on power transformers. No paid body or PDF was fetched.
 id = "m06-q072"
 kind = "single-select"
 module = 6
-stem = "Transformer losses show up operationally as:"
+stem = "A transformer-loss review should distinguish:"
 choices = [
-  "Zero heat in electrical rooms",
-  "Negative kW that reduces cooling load",
-  "Only network latency",
-  "Heat that must be managed as part of the facility thermal budget",
+  "No-load losses and load losses",
+  "Only network latency and packet loss",
+  "A negative power quantity that reduces all facility load",
+  "Only paint and enclosure losses",
 ]
-correct = "D"
-explanation = "Transformer inefficiency becomes heat—plan electrical room cooling and overall energy."
+correct = "A"
+explanation = "The public IEC catalog explicitly distinguishes no-load and load losses for power-transformer measurement; thermal budgets and cooling consequences require additional evidence."
 topic_ids = ["m06-transformers", "m06-sizing"]
 objective_ids = []
 bloom = "understand"

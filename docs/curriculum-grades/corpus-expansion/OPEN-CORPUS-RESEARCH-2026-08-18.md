@@ -887,6 +887,20 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 205 — IEC transformer-loss terminology boundary
+
+**Review date:** 2026-08-18. The current IEC 60076-19-1:2023 catalog page
+explicitly describes procedures for measuring no-load and load losses on power
+transformers. That supports a bounded transformer terminology question without
+claiming a particular heat balance, room-cooling requirement, or loss value.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q072 | Transformers | IEC 60076-19-1:2023 — https://webstore.iec.ch/en/publication/59982 | **PASS** — no-load and load transformer losses are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 204 — IEC relative-humidity definition boundary
 
 **Review date:** 2026-08-18. The current public IEC Electropedia entry for
