@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 89 — CDCP containment receipts
+
+**Date:** 2026-08-18
+**Scope:** M09 cold/hot aisle containment, leakage, chimney racks, high-density recirculation, and rear-cable airflow.
+**Official receipt:** [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html).
+
+**Bounded result:** m09-q149–q155 now carry the current ISO environmental-control catalog receipt and remain BLOCKED because the public abstract does not expose the item-level containment propositions. No PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 88 — CDCP raised-floor and supplemental-cooling receipts
 
 **Date:** 2026-08-18
