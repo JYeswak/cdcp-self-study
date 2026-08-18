@@ -889,6 +889,23 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 262 — ISO management-and-operations focus terms
+
+**Review date:** 2026-08-18. The current ISO catalog for ISO/IEC TS
+22237-7:2018 states that its primary operational focus includes resilience,
+availability, risk management and mitigation, capacity planning, security, and
+energy efficiency. The two items below were narrowed to the separately named
+capacity-planning and security terms. This receipt does not create a security
+taxonomy, SLA/OLA model, or site-specific capacity method.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m15-q152 | Documentation | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — capacity planning is explicitly named as a primary operational focus |
+| m15-q212 | Operational security and safety practices | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — security is explicitly named as a primary operational focus |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 261 — ISO site/building access topic
 
 **Review date:** 2026-08-18. The current ISO catalog for ISO/IEC 22237-2:2024

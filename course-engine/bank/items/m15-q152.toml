@@ -1,19 +1,20 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Documentation
 # Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current management-and-operations catalog does not expose the exact item-level documentation proposition. No paid body or PDF was fetched.
+# PASS: the current ISO catalog explicitly names capacity planning as one of
+# the primary operational focuses. No paid body or PDF was fetched.
 id = "bank-m15-q152"
 kind = "single-select"
 module = 15
-stem = "Capacity and asset documentation (what is in which rack/U and on which circuit) primarily prevents:"
+stem = "ISO/IEC TS 22237-7:2018 names which topic among its primary operational focuses?"
 choices = [
-  "All cyber attacks",
-  "The need for any EMS sensors",
-  "Generator exercise tests",
-  "Overloaded circuits, stranded capacity mistakes, and blind changes"
+  "Capacity planning",
+  "Office furniture procurement",
+  "Application source-code licensing",
+  "Consumer product marketing"
 ]
-correct = "D"
-explanation = "Accurate inventory is an ops control for power and change safety."
+correct = "A"
+explanation = "The ISO abstract lists capacity planning among the primary operational processes needed to deliver the expected level of data-centre performance."
 topic_ids = ["m15-documentation", "m15-labelling"]
 objective_ids = []
 bloom = "understand"
