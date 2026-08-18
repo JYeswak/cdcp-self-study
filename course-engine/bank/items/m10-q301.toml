@@ -1,0 +1,26 @@
+# Original CDESS educational MCQ — ms4j.4: WUE boundary defect.
+# Public heading: CDESS sustainability KPIs —
+# https://www.epi-ap.com/services/1/3/107/Certified_Data_Centre_Environmental_Sustainability_Specialist_(CDESS)
+# Cites: ISO/IEC 30134-9:2022 (WUE) — measurement boundary.
+# Module content: "Compare like-for-like (same boundary: source water vs
+# including energy-water upstream—be explicit)."
+# Decides WUE BOUNDARY DEFECT, not an invented WUE target. bloom = analyze.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m10-q301"
+kind = "single-select"
+module = 10
+stem = "Site A reports WUE 0.5 L/kWh counting tower makeup only. Site B reports WUE 1.8 L/kWh counting all site water including humidification and fire reserve. The sustainability comparison defect is:"
+choices = [
+  "No defect — both sites use valid WUE definitions, so the lower number indicates better water efficiency",
+  "Boundary mismatch — the two WUE figures count different water categories and cannot be compared directly",
+  "Site B's WUE is wrong because fire reserve is not operational water and should be excluded from the metric",
+  "Site A's WUE is wrong because tower-only measurement is not recognized in the ISO 30134 WUE standard",
+]
+correct = "B"
+explanation = "ISO/IEC 30134-9 defines WUE as site water use divided by IT energy, but the boundary of 'site water' must be stated: source water vs treated water, tower makeup vs total site consumption. Site A's 0.5 L/kWh excludes humidification and reserves; Site B's 1.8 L/kWh includes them. Comparing the two as if they measured the same thing is a boundary defect. Neither number is 'wrong' if the boundary is explicit — but a comparison without matching boundaries is meaningless."
+topic_ids = ["m10-wue", "m10-sustainability"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
