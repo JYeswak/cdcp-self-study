@@ -1,11 +1,16 @@
 {
-  "bank_hash": "b708089b8d97bbcd444a24cbfb713607573da88412eb2ab89f055e62db3e2e0b",
+  "bank_hash": "4c329e375f3ad60871c955e0907daaae4eeba0c4793b2766e2dc81a61079896b",
   "exam_id": "mock40",
   "keys": [
     {
+      "correct": "D",
+      "explanation": "Controls must not compromise safe working light or life-safety egress illumination design.",
+      "item_id": "m05-q150"
+    },
+    {
       "correct": "C",
-      "explanation": "Stored water bridges utility interruptions for water-dependent mission systems.",
-      "item_id": "m10-q201"
+      "explanation": "CO2 is common for electrical/B hazards with low residue; still short range and asphyxiation risk in pits.",
+      "item_id": "bank-m12-q063"
     },
     {
       "correct": "D",
@@ -13,104 +18,14 @@
       "item_id": "bank-m13-q076"
     },
     {
-      "correct": "D",
-      "explanation": "Warmer operation within guidance can expand economizer opportunity and plant efficiency.",
-      "item_id": "m09-q200"
-    },
-    {
       "correct": "B",
-      "explanation": "HSE's permits-to-work guidance states that before equipment or machinery is put back into service, it will require a declaration from the permit originator that it is ready for normal use. That is the hand-back step, and it is a property of the permit, not of the work being finished: 'the job is done' and 'the plant may be returned to service' are two different authorisations. An escort signature (A) records site access, not plant condition — an escort never replaces a permit. A contractor sign-off (C) is the party carrying out the work declaring their own completion, which is not the originator's declaration. A verbal all-clear (D) leaves no documented declaration at all, and the permit is a documented procedure by definition.",
-      "item_id": "m15-q230"
+      "explanation": "Interlocked chambers stop unauthorized persons following authorized staff through one door.",
+      "item_id": "bank-m13-q078"
     },
     {
       "correct": "C",
-      "explanation": "Growth without pathway and media planning creates congestion, risk, and unmanageable MACs.",
-      "item_id": "m11-q102"
-    },
-    {
-      "correct": "B",
-      "explanation": "International standards are tools for alignment; adoption remains a national/project decision.",
-      "item_id": "m02-q089"
-    },
-    {
-      "correct": "B",
-      "explanation": "Process and people failures (changes, procedures, maintenance) are major drivers of facility downtime.",
-      "item_id": "m01-q201"
-    },
-    {
-      "correct": "B",
-      "explanation": "If both utilities and the generator meet at one ATS → one UPS, that is the labeled SPOF figure. Downstream dual cords do not repair a shared transfer.",
-      "item_id": "m06-q255"
-    },
-    {
-      "correct": "C",
-      "explanation": "Horizontal segments serve the equipment zone from HDA or ZDA-type distribution points.",
-      "item_id": "m11-q130"
-    },
-    {
-      "correct": "A",
-      "explanation": "Look outside the fence: substation, rail, RF, lightning.",
-      "item_id": "m07-q055"
-    },
-    {
-      "correct": "C",
-      "explanation": "Shared storage must reserve critical autonomy; market services cannot starve ride-through.",
-      "item_id": "m06-q230"
-    },
-    {
-      "correct": "C",
-      "explanation": "Equipment thermal limits are driven by inlet conditions at the hardware.",
-      "item_id": "m09-q203"
-    },
-    {
-      "correct": "D",
-      "explanation": "External high-power electrical and RF sources can couple into a campus environment.",
-      "item_id": "m07-q209"
-    },
-    {
-      "correct": "B",
-      "explanation": "MPO connectors enable dense multi-fiber trunks and cassettes common in modern DC backbones.",
-      "item_id": "m11-q113"
-    },
-    {
-      "correct": "D",
-      "explanation": "Controls must not compromise safe working light or life-safety egress illumination design.",
-      "item_id": "m05-q150"
-    },
-    {
-      "correct": "D",
-      "explanation": "Emergency lighting is for life safety and egress visibility under power loss.",
-      "item_id": "m05-q139"
-    },
-    {
-      "correct": "D",
-      "explanation": "Signage supports life safety: evacuate-on-alarm messaging, agent type, and control locations.",
-      "item_id": "bank-m12-q072"
-    },
-    {
-      "correct": "D",
-      "explanation": "Diverse carrier entrances reduce single-path connectivity risk into the facility.",
-      "item_id": "m03-q207"
-    },
-    {
-      "correct": "D",
-      "explanation": "Understructure integrity is foundational to access-floor safety and performance.",
-      "item_id": "m04-q131"
-    },
-    {
-      "correct": "A",
-      "explanation": "Ownership and SLA boundaries differ by model, but both require engineered facility resilience.",
-      "item_id": "m01-q050"
-    },
-    {
-      "correct": "D",
-      "explanation": "MTTR is maintainability/ops speed; spares and MOPs often dominate more than the part itself.",
-      "item_id": "bank-m15-q144"
-    },
-    {
-      "correct": "B",
-      "explanation": "30134-6 is ERF (Energy Reuse Factor). ERE is not that part. The series has more than three letters; this course names the distinction and stops. No single PUE target as law. Sustainability-track depth is not this leftover.",
-      "item_id": "m02-q217"
+      "explanation": "Understructure type changes lateral stability, access patterns, and structural behaviour.",
+      "item_id": "m04-q119"
     },
     {
       "correct": "D",
@@ -119,23 +34,103 @@
     },
     {
       "correct": "B",
-      "explanation": "Interlocked chambers stop unauthorized persons following authorized staff through one door.",
-      "item_id": "bank-m13-q078"
+      "explanation": "30134-6 is ERF (Energy Reuse Factor). ERE is not that part. The series has more than three letters; this course names the distinction and stops. No single PUE target as law. Sustainability-track depth is not this leftover.",
+      "item_id": "m02-q217"
+    },
+    {
+      "correct": "C",
+      "explanation": "Rolling loads cover carts, dollies, and wheeled gear moving over the access floor.",
+      "item_id": "m04-q118"
+    },
+    {
+      "correct": "A",
+      "explanation": "For water-dependent designs, water is a first-class availability input like power.",
+      "item_id": "m10-q215"
+    },
+    {
+      "correct": "A",
+      "explanation": "Ownership and SLA boundaries differ by model, but both require engineered facility resilience.",
+      "item_id": "m01-q050"
+    },
+    {
+      "correct": "B",
+      "explanation": "Process and people failures (changes, procedures, maintenance) are major drivers of facility downtime.",
+      "item_id": "m01-q201"
+    },
+    {
+      "correct": "A",
+      "explanation": "Physical shared responsibility: customer zones vs provider common plant separation.",
+      "item_id": "bank-m13-q097"
+    },
+    {
+      "correct": "B",
+      "explanation": "International standards are tools for alignment; adoption remains a national/project decision.",
+      "item_id": "m02-q089"
+    },
+    {
+      "correct": "A",
+      "explanation": "When climate and design allow, stored winter cold can offset summer cooling energy—site-specific engineering, not universal.",
+      "item_id": "m09-q164"
+    },
+    {
+      "correct": "B",
+      "explanation": "Teaching path: utility/generator → transfer → UPS → distribution/PDU → rack.",
+      "item_id": "mock40-q13"
+    },
+    {
+      "correct": "C",
+      "explanation": "Horizontal segments serve the equipment zone from HDA or ZDA-type distribution points.",
+      "item_id": "m11-q130"
     },
     {
       "correct": "D",
-      "explanation": "Electronic locks support accountability and policy enforcement.",
-      "item_id": "m08-q052"
+      "explanation": "Cleaning is controlled work near electronics—technique matters.",
+      "item_id": "m15-q204"
+    },
+    {
+      "correct": "D",
+      "explanation": "Warmer operation within guidance can expand economizer opportunity and plant efficiency.",
+      "item_id": "m09-q200"
+    },
+    {
+      "correct": "B",
+      "explanation": "Liquid-ready is a cabinet SKU, not a denser air box. 800 mm, RDHx door, drip, CDU landing, and 40–100 kW structure are the frame questions. Liquid families live in Module 09. 19″ rails stay.",
+      "item_id": "m08-q210"
+    },
+    {
+      "correct": "B",
+      "explanation": "Water balance anomalies are early warnings for plant risk—instrumentation supports response.",
+      "item_id": "m10-q113"
+    },
+    {
+      "correct": "D",
+      "explanation": "Emergency lighting is for life safety and egress visibility under power loss.",
+      "item_id": "m05-q139"
+    },
+    {
+      "correct": "B",
+      "explanation": "MPO connectors enable dense multi-fiber trunks and cassettes common in modern DC backbones.",
+      "item_id": "m11-q113"
     },
     {
       "correct": "C",
-      "explanation": "CO2 is common for electrical/B hazards with low residue; still short range and asphyxiation risk in pits.",
-      "item_id": "bank-m12-q063"
+      "explanation": "Growth without pathway and media planning creates congestion, risk, and unmanageable MACs.",
+      "item_id": "m11-q102"
     },
     {
-      "correct": "C",
-      "explanation": "Logistics and emergency access are site-level operability factors.",
-      "item_id": "m03-q108"
+      "correct": "B",
+      "explanation": "HSE's permits-to-work guidance states that before equipment or machinery is put back into service, it will require a declaration from the permit originator that it is ready for normal use. That is the hand-back step, and it is a property of the permit, not of the work being finished: 'the job is done' and 'the plant may be returned to service' are two different authorisations. An escort signature (A) records site access, not plant condition — an escort never replaces a permit. A contractor sign-off (C) is the party carrying out the work declaring their own completion, which is not the originator's declaration. A verbal all-clear (D) leaves no documented declaration at all, and the permit is a documented procedure by definition.",
+      "item_id": "m15-q230"
+    },
+    {
+      "correct": "B",
+      "explanation": "Isolation is galvanic separation; still need proper UPS, grounding, and distribution design.",
+      "item_id": "m06-q071"
+    },
+    {
+      "correct": "A",
+      "explanation": "Monitor the chains and the monitors—blind spots include dead sensors and capacity blindness.",
+      "item_id": "bank-m14-q133"
     },
     {
       "correct": "D",
@@ -144,43 +139,8 @@
     },
     {
       "correct": "D",
-      "explanation": "Cleaning is controlled work near electronics—technique matters.",
-      "item_id": "m15-q204"
-    },
-    {
-      "correct": "B",
-      "explanation": "Guides recommend practice; binding force comes from adoption into law, contract, or policy.",
-      "item_id": "m02-q081"
-    },
-    {
-      "correct": "B",
-      "explanation": "DCIM ties inventory, power capacity, and change workflows to facilities data—not just environment sensing.",
-      "item_id": "bank-m14-q106"
-    },
-    {
-      "correct": "D",
-      "explanation": "The plenum and understructure are living systems needing inspection and housekeeping.",
-      "item_id": "m04-q209"
-    },
-    {
-      "correct": "A",
-      "explanation": "Physical shared responsibility: customer zones vs provider common plant separation.",
-      "item_id": "bank-m13-q097"
-    },
-    {
-      "correct": "D",
-      "explanation": "Switched PDUs enable remote outlet control under change control—use carefully.",
-      "item_id": "m08-q056"
-    },
-    {
-      "correct": "B",
-      "explanation": "Teaching path: utility/generator → transfer → UPS → distribution/PDU → rack.",
-      "item_id": "mock40-q13"
-    },
-    {
-      "correct": "A",
-      "explanation": "Monitor the chains and the monitors—blind spots include dead sensors and capacity blindness.",
-      "item_id": "bank-m14-q133"
+      "explanation": "MTTR is maintainability/ops speed; spares and MOPs often dominate more than the part itself.",
+      "item_id": "bank-m15-q144"
     },
     {
       "correct": "B",
@@ -193,14 +153,54 @@
       "item_id": "m01-q204"
     },
     {
-      "correct": "B",
-      "explanation": "Small hydronic leaks escalate into electrical and slip hazards. A runbook prioritizes contain/isolate, protect critical equipment, notify, and record — waiting for a rupture is not an ops strategy.",
-      "item_id": "m10-q300"
+      "correct": "D",
+      "explanation": "Signage supports life safety: evacuate-on-alarm messaging, agent type, and control locations.",
+      "item_id": "bank-m12-q072"
     },
     {
       "correct": "A",
-      "explanation": "When climate and design allow, stored winter cold can offset summer cooling energy—site-specific engineering, not universal.",
-      "item_id": "m09-q164"
+      "explanation": "BTM is how the hall energizes, not a genset you tack on later. Point at Module 01 for the noun and Module 06 for the path. Do not steal UPS/ATS/generator internals.",
+      "item_id": "m03-q216"
+    },
+    {
+      "correct": "A",
+      "explanation": "The M06 drawing distinction is a dedicated reserve plus catcher transfer path versus spare capacity spread across active blocks. TIA-942-C and Uptime's 2018 Tier Standard require the reviewer to reason from actual infrastructure topology and distribution paths; a catcher label is not a Tier, Rated, or Availability Class claim.",
+      "item_id": "m06-q303"
+    },
+    {
+      "correct": "C",
+      "explanation": "Outdoor climate drives HVAC sizing and free-cooling opportunity.",
+      "item_id": "m03-q105"
+    },
+    {
+      "correct": "A",
+      "explanation": "Adjacency to plant brings B-field, thermal, and operational traffic issues.",
+      "item_id": "m07-q051"
+    },
+    {
+      "correct": "C",
+      "explanation": "Keep health exposure language separate from IEC 61000-class equipment immunity.",
+      "item_id": "m07-q048"
+    },
+    {
+      "correct": "B",
+      "explanation": "Guides recommend practice; binding force comes from adoption into law, contract, or policy.",
+      "item_id": "m02-q081"
+    },
+    {
+      "correct": "C",
+      "explanation": "Equipment thermal limits are driven by inlet conditions at the hardware.",
+      "item_id": "m09-q203"
+    },
+    {
+      "correct": "C",
+      "explanation": "Analyze the frame, not the coolant name. A 600 mm air BOM cannot dress hoses, land an RDHx door, or carry 40–100 kW. CDU landing is reserved now. Blanking stays for air-cooled network. Immersion is not a 19″ frame.",
+      "item_id": "m08-q211"
+    },
+    {
+      "correct": "B",
+      "explanation": "DCIM ties inventory, power capacity, and change workflows to facilities data—not just environment sensing.",
+      "item_id": "bank-m14-q106"
     }
   ],
   "n_items": 40,

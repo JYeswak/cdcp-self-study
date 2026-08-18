@@ -6954,6 +6954,59 @@
     ]
   },
   {
+    "bloom": "apply",
+    "choices": [
+      "Stringered understructure with horizontal members between pedestals",
+      "Free-standing/stringerless understructure with no horizontal members",
+      "A panel-core label, not an understructure type",
+      "A floor-rating label that replaces the understructure description"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "UFGS-09 69 13 and UFGS-09 69 19 (November 2024), §2.1, identify stringer and stringerless support systems; the stringer connects pedestal heads, supports panel edges, and adds lateral stability. This item stays at the type axis and asserts no class, deflection, or loading value.",
+    "id": "m04-q214",
+    "kind": "single-select",
+    "module": 4,
+    "objective_ids": [
+      "obj-m04-floor-types"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A raised-floor walkdown finds pedestal heads joined by horizontal members. Which type distinction should the reviewer record?",
+    "tags": [],
+    "topic_ids": [
+      "m04-floor-types"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Name the understructure: stringered or free-standing/stringerless",
+      "Use a panel finish as the understructure type",
+      "Use the site's Tier plaque as the floor type",
+      "Insert a numeric floor class from a vendor summary without the product standard"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "The November 2024 UFGS §2.1 type axis is stringer versus stringerless; a panel finish, a site rating label, and an unsupported product-class number answer different questions. The paywalled product-class boundary is deliberately not crossed.",
+    "id": "m04-q215",
+    "kind": "single-select",
+    "module": 4,
+    "objective_ids": [
+      "obj-m04-floor-types"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "The project specification leaves the raised-floor understructure blank. The next review question should be:",
+    "tags": [],
+    "topic_ids": [
+      "m04-floor-types",
+      "m04-floor-standards"
+    ]
+  },
+  {
     "bloom": "remember",
     "choices": [
       "Network throughput",
@@ -11068,6 +11121,87 @@
     ]
   },
   {
+    "bloom": "apply",
+    "choices": [
+      "Distributed-redundant, not a dedicated catcher",
+      "Catcher, because every active block shares spare capacity",
+      "Tier IV, because distributed capacity sets the site tier",
+      "N+1 plaque, because a spare count names the whole site"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "The public Uptime case describes distributed redundancy as three or more UPS modules with independent input and output feeders. TIA-942-C and Uptime's 2018 Tier Standard describe infrastructure topology and distribution paths; neither turns a topology name or N+k statement into a Tier, Rated, or Availability Class label.",
+    "id": "m06-q302",
+    "kind": "single-select",
+    "module": 6,
+    "objective_ids": [
+      "obj-m06-distributed-redundant"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A one-line shows several active UPS blocks, each with independent input/output feeders, and spare capacity spread across them. The topology label is:",
+    "tags": [],
+    "topic_ids": [
+      "m06-ups-parallel",
+      "m06-redundancy"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Catcher topology; document the transfer path and covered failure",
+      "Distributed-redundant; a dedicated reserve is just spread spare",
+      "Tier IV; the reserve proves a site rating",
+      "N+k plaque; the spare count alone proves the whole facility's availability"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "The M06 drawing distinction is a dedicated reserve plus catcher transfer path versus spare capacity spread across active blocks. TIA-942-C and Uptime's 2018 Tier Standard require the reviewer to reason from actual infrastructure topology and distribution paths; a catcher label is not a Tier, Rated, or Availability Class claim.",
+    "id": "m06-q303",
+    "kind": "single-select",
+    "module": 6,
+    "objective_ids": [
+      "obj-m06-catcher-topology"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A one-line shows a dedicated reserve UPS that can pick up a failed primary through a transfer bus. The drawing should be labeled:",
+    "tags": [],
+    "topic_ids": [
+      "m06-ups-parallel",
+      "m06-redundancy"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "Confirm the isolation/voltage need; it adds no UPS ride-through",
+      "Treat it as a battery and skip UPS review",
+      "Use a K-factor label as proof of galvanic isolation",
+      "Put one transformer in both paths and call the design 2N without tracing failure"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "IEC 61558-2-6:2021 covers safety isolating transformers, while IEC 62040-1:2017 with its listed amendments describes UPS that include an energy-storage device. The transformer may serve an isolation, voltage, or grounding design need, but it does not store ride-through energy; review its failure path and separately derived-system design rather than treating it as a UPS.",
+    "id": "m06-q304",
+    "kind": "single-select",
+    "module": 6,
+    "objective_ids": [
+      "obj-m06-isolation-transformer"
+    ],
+    "quantity_evidence": "qualitative_only",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A design review proposes one isolation transformer downstream of a VFI UPS for a critical bus. The correct review action is:",
+    "tags": [],
+    "topic_ids": [
+      "m06-isolation-xfmr",
+      "m06-transformers"
+    ]
+  },
+  {
     "bloom": "understand",
     "choices": [
       "Far-field RF radiation behaving like Wi-Fi multipath only",
@@ -11823,6 +11957,81 @@
     "tags": [],
     "topic_ids": [
       "m07-standards"
+    ]
+  },
+  {
+    "bloom": "apply",
+    "choices": [
+      "1.2 × 10^-3 T (1.2 mT)",
+      "1.2 × 10^-6 T (1.2 µT)",
+      "1.2 × 10^-2 T (12 mT)",
+      "1.2 × 10^0 T (1.2 T)"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "B = (4π×10^-7 H/m)(12,000 A)/(2π×2.0 m) = 1.2×10^-3 T. Density does not change the physics; it scales MAGNITUDE with current. This is an idealized field magnitude, not an ICNIRP 2010 limit or a compliance result; phase/return geometry and a site survey can materially change the measured field.",
+    "id": "m07-q213",
+    "kind": "single-select",
+    "module": 7,
+    "objective_ids": [],
+    "quantity_evidence": "free_url",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "For a first-pass density check, use the long straight-conductor approximation B = μ₀I/(2πr). A 2026 GPU-hall scenario has one idealized 12 kA bus conductor and an observation point 2.0 m away. What field magnitude follows before return-conductor cancellation and bus geometry are considered?",
+    "tags": [],
+    "topic_ids": [
+      "m07-sources",
+      "m07-units"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "A site-specific performance basis, required verification testing, and hardness-maintenance/surveillance records",
+      "A newer ICNIRP RF guideline and a statement that all power-frequency fields are harmless",
+      "A vendor brochure naming one shield material, with no test or maintenance record",
+      "A fibre run to the white space, which by itself proves the facility is HEMP hardened"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "The public DLA ASSIST record describes minimum performance requirements, testing, and a hardness-maintenance/surveillance program, and says the standard does not mandate one design solution. A surge-protection product alone does not establish the claim.",
+    "id": "m07-q214",
+    "kind": "single-select",
+    "module": 7,
+    "objective_ids": [],
+    "quantity_evidence": "free_url",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A provider says a commercial site is ‘HEMP hardened’ because it installed surge-protective devices. Before making a MIL-STD-188-125-1 Revision A protection claim, what evidence is needed?",
+    "tags": [],
+    "topic_ids": [
+      "m07-standards",
+      "m07-sources"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "MIL-STD-188-125-1 is performance-based for its fixed-facility mission scope, so define the scope and verification program; do not invent a universal commercial-site value",
+      "Use the ICNIRP 2020 RF guideline because every HEMP component is RF",
+      "Use the current drawn by the largest UPS as the HEMP protection value",
+      "Treat a site as protected whenever its ordinary commercial design has no reported outage"
+    ],
+    "citation_ids": [],
+    "correct": "A",
+    "explanation": "The public DLA record describes minimum performance requirements and testing for its stated fixed-facility scope, without prescribing a single design solution. It does not support a universal HEMP field threshold or an automatic commercial-site claim.",
+    "id": "m07-q215",
+    "kind": "single-select",
+    "module": 7,
+    "objective_ids": [],
+    "quantity_evidence": "free_url",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A design review asks for one HEMP field value that proves every commercial colocation facility is protected. What is the technically honest correction?",
+    "tags": [],
+    "topic_ids": [
+      "m07-standards",
+      "m07-types"
     ]
   },
   {
@@ -16480,6 +16689,72 @@
     "tags": [],
     "topic_ids": [
       "m10-importance"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "Accept the claim: a closed loop self-permits and removes every water use",
+      "Reject the absolute claim: the design may reduce evaporative makeup dependence, but the review must verify fill or makeup, humidification, fire and domestic water, discharge, chemistry, and local approvals, then hand site water-rights questions to M03",
+      "Use the EPA Quincy case-study volumes as universal permit thresholds",
+      "Treat WUE as PUE and omit the site-water measurement boundary"
+    ],
+    "citation_ids": [
+      "src-epi-cdcp-page",
+      "src-iso-iec-30134-9-2022",
+      "src-doe-femp-cooling-water-2019",
+      "src-nrel-esif-thermosyphon-2018",
+      "src-epa-quincy-water-reuse"
+    ],
+    "correct": "B",
+    "explanation": "DOE FEMP distinguishes evaporative tower losses from a closed loop on the IT side, while NREL’s 2018 ESIF report documents a project-specific dry-cooling design. ISO/IEC 30134-9:2022 makes WUE a defined site-water KPI, not a permit. The EPA Quincy case shows that a closed-loop water-reuse design still had makeup-water, water-rights, discharge, and permit interfaces. Those sources support a bounded siting review, not a universal permission or zero-water claim.",
+    "id": "m10-q216",
+    "kind": "single-select",
+    "module": 10,
+    "objective_ids": [
+      "obj-m10-closed-loop-siting"
+    ],
+    "quantity_evidence": "free_url",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "A proposed data-centre site is under a local water-supply constraint. The design team replaces evaporative tower heat rejection with a non-evaporative closed loop and says, ‘The site is now automatically permitted and has no water obligations.’ What should the M10 review catch?",
+    "tags": [],
+    "topic_ids": [
+      "m10-importance",
+      "m10-backup"
+    ]
+  },
+  {
+    "bloom": "analyze",
+    "choices": [
+      "The cases are identical, so the EPA example proves that no makeup water, water rights, or permits need review",
+      "Do not transfer the permission: the Quincy case is a site-specific water-reuse system with documented makeup, water-rights, discharge, and permit interfaces; confirm the dry-loop boundary and local approvals for this design, then report WUE using ISO/IEC 30134-9:2022 categories",
+      "Closed loop always means WUE is zero, regardless of humidification or other site water",
+      "Reject dry coolers because every data-centre cooling design must use an evaporative tower"
+    ],
+    "citation_ids": [
+      "src-epi-cdcp-page",
+      "src-iso-iec-30134-9-2022",
+      "src-doe-femp-cooling-water-2019",
+      "src-nrel-esif-thermosyphon-2018",
+      "src-epa-quincy-water-reuse"
+    ],
+    "correct": "B",
+    "explanation": "The EPA case is useful precisely because its closed-loop reuse system still required makeup water and site-specific rights and permits. DOE FEMP and the NREL ESIF report distinguish recirculating liquid paths and dry or evaporative heat rejection, but neither grants a universal siting permission. ISO/IEC 30134-9:2022 supplies the WUE KPI and measurement categories; it does not turn a project example into a benchmark or permit.",
+    "id": "m10-q217",
+    "kind": "single-select",
+    "module": 10,
+    "objective_ids": [
+      "obj-m10-closed-loop-siting"
+    ],
+    "quantity_evidence": "free_url",
+    "source_class": "original",
+    "status": "approved",
+    "stem": "An owner cites the EPA’s Quincy closed-loop water-reuse case to approve a different design: a sealed liquid loop rejecting heat to dry coolers with no evaporative tower. Which is the defensible M10 answer?",
+    "tags": [],
+    "topic_ids": [
+      "m10-importance",
+      "m10-backup"
     ]
   },
   {

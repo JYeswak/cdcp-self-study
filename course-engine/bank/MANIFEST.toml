@@ -1,6 +1,6 @@
 # Auto-regenerated library manifest
 schema_version = 1
-item_count = 881
+item_count = 891
 bank_id = "cdcp-library"
 source_class = "original"
 description = "Original CDCP study bank (~20x exam); mocks sample 40 without replacement"
@@ -186,6 +186,8 @@ items = [
   "m04-q211.toml",
   "m04-q212.toml",
   "m04-q213.toml",
+  "m04-q214.toml",
+  "m04-q215.toml",
   "m05-q012.toml",
   "m05-q135.toml",
   "m05-q136.toml",
@@ -362,6 +364,9 @@ items = [
   "m06-q261.toml",
   "m06-q300.toml",
   "m06-q301.toml",
+  "m06-q302.toml",
+  "m06-q303.toml",
+  "m06-q304.toml",
   "m07-q023.toml",
   "m07-q041.toml",
   "m07-q042.toml",
@@ -394,6 +399,9 @@ items = [
   "m07-q210.toml",
   "m07-q211.toml",
   "m07-q212.toml",
+  "m07-q213.toml",
+  "m07-q214.toml",
+  "m07-q215.toml",
   "m08-q024.toml",
   "m08-q025.toml",
   "m08-q041.toml",
@@ -593,6 +601,8 @@ items = [
   "m10-q213.toml",
   "m10-q214.toml",
   "m10-q215.toml",
+  "m10-q216.toml",
+  "m10-q217.toml",
   "m10-q300.toml",
   "m11-q032.toml",
   "m11-q033.toml",
