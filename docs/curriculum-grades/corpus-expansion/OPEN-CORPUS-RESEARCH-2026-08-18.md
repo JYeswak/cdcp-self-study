@@ -4649,3 +4649,20 @@ diagnostics proposition without using a standard body.
 The broader continuity/workmanship proposition in `m11-q212` remains
 BLOCKED. No standard body or PDF was fetched. This pass does not certify a
 learner or close ms4j.
+## Breadth pass 169 — IEC communication-cable fire-performance selection
+
+**Review date:** 2026-08-18. One Module 11 planning row was checked against
+the current IEC Webstore catalog page for IEC TR 62222:2021. The catalog
+describes test methods for reaction-to-fire properties of metallic and optical
+fibre communications cables and maps test methods and associated limits to fire
+hazards created by particular installation conditions. That directly supports
+the bounded principle that jacket selection is driven by installation fire and
+smoke requirements, not network latency or UPS chemistry.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q229 | Planning considerations | IEC TR 62222:2021 — https://webstore.iec.ch/en/publication/28108 | **PASS** — cable reaction-to-fire performance is tied to installation conditions |
+
+Exact plenum/riser classification, AHJ adoption, and project-specific jacket
+selection remain outside the catalog receipt. No standard body or PDF was
+fetched. This pass does not certify a learner or close ms4j.
