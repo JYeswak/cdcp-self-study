@@ -1,0 +1,16 @@
+id = "cdcs-building-floor-loading"
+stem = "A building review records only the average distributed floor load for a proposed telecom room; the equipment plan includes concentrated UPS, battery, and rack loads but no structural-engineer floor-limit determination. What should the reviewer flag first?"
+choices = [
+  "Reject the evidence gap; require both distributed and concentrated load review plus the structural-engineer floor-loading limit.",
+  "Accept the average because concentrated loads are automatically covered by the same number.",
+  "Infer the hanging-load limit from the room's TIA rating without a structural review.",
+  "Treat equipment nameplates as sufficient proof of the building's floor capacity.",
+]
+correct = "A"
+explanation = "ANSI/TIA-569-E:2019 §6.3.6.1.4 requires the space capacity to bear distributed and concentrated installed-equipment loads and calls for a structural engineer to specify the floor-loading limit. The review supplies neither."
+item_class = "one-line-defect"
+objective_ids = ["cdcs-obj-building-floor-loading"]
+source_ids = ["epi-cdcs-outline", "tia-942-c-2024", "tia-569-e-2019", "tia-569-e-2019-preview"]
+work = "Defect: average distributed load only; concentrated loads and structural-engineer limit are unverified → reject."
+source_class = "original"
+status = "approved"

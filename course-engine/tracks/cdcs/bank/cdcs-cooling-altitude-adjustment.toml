@@ -1,0 +1,16 @@
+id = "cdcs-cooling-altitude-adjustment"
+stem = "A cooling calculation for a site above 300 m uses the sea-level sensible-air factor 1230 W·s/(m³·K) and supplies no elevation, pressure, or air-property correction. What should the reviewer flag?"
+choices = [
+  "Reject the unsupported calculation; require the high-elevation pressure and air-property correction to be stated.",
+  "Accept it because the sea-level factor is invariant with elevation.",
+  "Multiply the factor by the site elevation in metres without checking pressure or units.",
+  "Ignore elevation because only the equipment nameplate determines sensible capacity.",
+]
+correct = "A"
+explanation = "ASHRAE Handbook—Fundamentals 2025, Chapter 18 §4 notes that standard-air constants change with elevation and presents different values at high elevation. Applying a sea-level factor without an elevation, pressure, or air-property correction leaves the calculation unsupported."
+item_class = "one-line-defect"
+objective_ids = ["cdcs-obj-cooling-altitude"]
+source_ids = ["epi-cdcs-outline", "ashrae-f25-ch18-2025"]
+work = "Defect: sea-level sensible-air factor used at elevation with no correction evidence → reject or require the stated high-elevation correction."
+source_class = "original"
+status = "approved"

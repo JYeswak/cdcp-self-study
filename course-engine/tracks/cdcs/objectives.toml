@@ -1,0 +1,136 @@
+schema_version = 1
+
+[[objective]]
+id = "cdcs-obj-battery-autonomy"
+topic = "battery autonomy"
+text = "Calculate a bounded first-pass battery runtime and identify the vendor-curve, temperature, aging, and reserve checks that remain."
+
+[[objective]]
+id = "cdcs-obj-ups-parallel"
+topic = "UPS parallel configuration"
+text = "Catch unequal impedance, bypass, protection, and load-sharing defects in a parallel UPS offer."
+
+[[objective]]
+id = "cdcs-obj-one-line"
+topic = "single-line reading"
+text = "Trace independent sources through a single-line diagram and reject a shared common point mislabeled as independent redundancy."
+
+[[objective]]
+id = "cdcs-obj-airflow"
+topic = "CFM and CMH"
+text = "Convert airflow units with stated factors and keep the reference conditions visible."
+
+[[objective]]
+id = "cdcs-obj-delta-t"
+topic = "sensible cooling and delta-T"
+text = "Use a stated sensible-load equation with units to check airflow and temperature differential."
+
+[[objective]]
+id = "cdcs-obj-psychrometrics"
+topic = "psychrometrics"
+text = "Distinguish dry-bulb/sensible checks from humidity-ratio, latent-load, and enthalpy checks."
+
+[[objective]]
+id = "cdcs-obj-fire-gas"
+topic = "fire gas quantity and hold time"
+text = "Separate illustrative volume arithmetic from approved agent design, enclosure integrity, alarm, and hold-time evidence."
+
+[[objective]]
+id = "cdcs-obj-emf"
+topic = "EMF attenuation"
+text = "Compute a measured attenuation ratio without turning one measurement pair into a universal clearance rule."
+
+[[objective]]
+id = "cdcs-obj-fuel"
+topic = "fuel storage"
+text = "Calculate usable generator fuel runtime and flag storage, piping, release-detection, and jurisdictional checks."
+
+[[objective]]
+id = "cdcs-obj-generator-paralleling"
+topic = "generator paralleling"
+text = "Reject unsafe common-bus closure when synchronization, phase sequence, load sharing, and protection evidence is absent."
+
+[[objective]]
+id = "cdcs-obj-lifecycle"
+topic = "data centre life cycle"
+text = "Catch a lifecycle classification that omits planned-lifetime availability, security, energy-efficiency, business-risk, and operating-cost inputs."
+
+[[objective]]
+id = "cdcs-obj-ratings"
+topic = "standards and rating level definitions"
+text = "Reject a proposal that treats TIA Rated levels, Uptime Tier labels, and availability classifications as interchangeable without scheme-specific evidence."
+
+[[objective]]
+id = "cdcs-obj-contamination"
+topic = "contamination measurements and limits"
+text = "Catch a contamination report that calls an environment clean without particle-size, concentration, sampling-location, and monitoring-plan evidence."
+
+[[objective]]
+id = "cdcs-obj-pue"
+topic = "power usage effectiveness"
+text = "Calculate PUE from same-boundary, same-period total-facility and IT energy measurements and reject a mismatched denominator."
+
+[[objective]]
+id = "cdcs-obj-building-floor-loading"
+topic = "building floor loading"
+text = "Catch a floor-load review that omits concentrated equipment loads or structural-engineer determination of the load limit."
+
+[[objective]]
+id = "cdcs-obj-raised-floor"
+topic = "raised-floor installation"
+text = "Catch access-floor installation that proceeds before the floor-system layout is determined."
+
+[[objective]]
+id = "cdcs-obj-cabling-wireless-ap"
+topic = "TIA-942-C wireless access-point cabling"
+text = "Catch a balanced twisted-pair wireless access-point design that shows fewer than the required two Category 6A-or-higher runs."
+
+[[objective]]
+id = "cdcs-obj-raised-floor-testing"
+topic = "raised-floor load testing"
+text = "Catch a raised-floor submittal that supplies static-load evidence but omits dynamic and impact loading evidence."
+
+[[objective]]
+id = "cdcs-obj-cooling-altitude"
+topic = "cooling altitude correction"
+text = "Catch a cooling calculation that applies a sea-level sensible-air factor at elevation without stating the pressure or air-property correction."
+
+[[objective]]
+id = "cdcs-obj-cable-tray-fill"
+topic = "cable-tray fill"
+text = "Calculate initial and absolute cable-tray fill limits and catch an initial plan above the initial-fill maximum."
+
+[[objective]]
+id = "cdcs-obj-mpue"
+topic = "mixed-use power usage effectiveness"
+text = "Calculate mPUE from same-data-centre-boundary energy and reject whole-building energy outside that boundary."
+
+[[objective]]
+id = "cdcs-obj-lifecycle-aging"
+topic = "lifecycle aging horizon"
+text = "Catch a classification worksheet that applies first-years evidence to a longer planned lifetime without stating the remaining-life assumptions."
+
+[[objective]]
+id = "cdcs-obj-rating-evidence"
+topic = "rating evidence and nameplates"
+text = "Reject a facility-rating claim inferred from a component label without the TIA certification type, audited scope, edition, and validity evidence."
+
+[[objective]]
+id = "cdcs-obj-building-floor-units"
+topic = "floor-loading units"
+text = "Convert floor-loading units correctly and catch a metric schedule that changes the structural limit by a factor error."
+
+[[objective]]
+id = "cdcs-obj-emf-units"
+topic = "EMF field units"
+text = "Normalize magnetic-field units before calculating a measured attenuation ratio."
+
+[[objective]]
+id = "cdcs-obj-fire-ahj"
+topic = "fire protection AHJ evidence"
+text = "Reject gas-concentration arithmetic presented as fire-system approval without timing, alarm, egress, occupancy, and authority evidence."
+
+[[objective]]
+id = "cdcs-obj-contamination-size"
+topic = "contamination particle-size boundary"
+text = "Catch an ISO 14644-1 cleanliness classification based on a particle-size threshold outside the standard's stated range."

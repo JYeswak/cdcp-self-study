@@ -1,0 +1,16 @@
+id = "cdcs-contamination-size-boundary"
+stem = "A handover report claims an ISO 14644-1 air-cleanliness class using counts for particles at or above 0.05 µm, but supplies no counts in the standard's stated 0.1 µm to 5 µm classification range. What should the reviewer flag?"
+choices = [
+  "Reject the classification evidence; the report uses a particle-size threshold outside the stated ISO 14644-1 classification range.",
+  "Accept it because a smaller particle threshold always proves the same ISO class.",
+  "Replace the particle-size record with room temperature and accept the classification.",
+  "Accept it because ISO 14644-1 classifies every airborne particle size without a lower threshold.",
+]
+correct = "A"
+explanation = "ISO 14644-1:2015 classifies airborne particle concentration only for threshold particle sizes from 0.1 µm to 5 µm. A 0.05 µm-only record does not establish the claimed ISO classification; monitoring and designated sampling evidence remain required."
+item_class = "one-line-defect"
+objective_ids = ["cdcs-obj-contamination-size"]
+source_ids = ["epi-cdcs-outline", "iso-14644-1-2015", "iso-14644-1-2015-preview", "iso-14644-2-2015", "iso-14644-2-2015-preview"]
+work = "Defect: 0.05 µm evidence is used for a classification whose cited ISO range begins at 0.1 µm → reject the unsupported class claim."
+source_class = "original"
+status = "approved"

@@ -1,0 +1,16 @@
+id = "cdcs-cabling-wireless-ap"
+stem = "A TIA-942-C design uses balanced twisted-pair cabling for a wireless access point but shows only one Category 6A run to that access point. What should the reviewer catch?"
+choices = [
+  "Reject the topology evidence; where balanced twisted-pair is used, show the required minimum of two Category 6A-or-higher runs.",
+  "Accept one run because Category 6A is already the highest copper category named in the drawing.",
+  "Apply the two-fiber recommendation to the copper run and treat the requirement as satisfied.",
+  "Ignore the access-point run because cabinet width is the only TIA-942-C cabling control.",
+]
+correct = "A"
+explanation = "ANSI/TIA-942-C:2024 Clause 13 is the public-preview section for cabling wireless access points, and the public TIA revision summary states a minimum of two Category 6A-or-higher performing runs when balanced twisted-pair cabling is used. One run leaves the stated requirement unmet."
+item_class = "one-line-defect"
+objective_ids = ["cdcs-obj-cabling-wireless-ap"]
+source_ids = ["epi-cdcs-outline", "tia-942-c-2024", "tia-942-c-2024-preview"]
+work = "Defect: balanced twisted-pair wireless AP has one Cat 6A run; TIA-942-C summary requires at least two → reject."
+source_class = "original"
+status = "approved"

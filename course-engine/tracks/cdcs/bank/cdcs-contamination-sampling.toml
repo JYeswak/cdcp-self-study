@@ -1,0 +1,16 @@
+id = "cdcs-contamination-sampling"
+stem = "A handover report calls a data-centre room 'clean' but gives no particle-size range, airborne concentration, designated sampling locations, or monitoring plan. What should the reviewer reject?"
+choices = [
+  "Reject the word-only conclusion; require particle-size/concentration evidence at designated locations and a monitoring plan.",
+  "Accept it because a clean-room label is itself a measurement result.",
+  "Replace particle measurements with acoustic readings because both are environmental limits.",
+  "Accept it if the supply-air temperature is within the cooling set point.",
+]
+correct = "A"
+explanation = "ISO 14644-1:2015 Clause 1 and its classification definitions require particle-concentration evidence at specified sizes and locations; ISO 14644-2:2015 Clause 4.3 anchors the monitoring plan. The report supplies none of that evidence."
+item_class = "one-line-defect"
+objective_ids = ["cdcs-obj-contamination"]
+source_ids = ["epi-cdcs-outline", "iso-14644-1-2015", "iso-14644-1-2015-preview", "iso-14644-2-2015", "iso-14644-2-2015-preview"]
+work = "Defect: 'clean' is asserted without particle-size/concentration sampling evidence or a monitoring plan."
+source_class = "original"
+status = "approved"
