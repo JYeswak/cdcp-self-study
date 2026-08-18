@@ -1,19 +1,18 @@
 # Original CDCP educational item — bank expansion (module 7)
 # Public syllabus heading: Shielding
-# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
-# BLOCKED: the official catalog covers field measurement but does not expose the exact mitigation-hierarchy ordering.
+# Official catalog/preview receipt: IEC 61000-5-6:2024 — https://webstore.iec.ch/en/publication/69097
 id = "m07-q058"
 kind = "single-select"
 module = 7
-stem = "The mitigation hierarchy that prioritizes cheap geometry first is best ordered as:"
+stem = "Which set of external electromagnetic influences is explicitly named by IEC 61000-5-6:2024?"
 choices = [
-  "Exotic mu-metal rooms first, then maybe move the transformer",
-  "Ignore distance and only buy RF paint",
-  "Disable grounding to reduce loops always",
-  "Separation → orientation/routing/current geometry → bonding/shielding integrity → specialty shielding when still needed",
+  "Only software defects, application latency, and database errors",
+  "Only static discharge and audible mechanical vibration",
+  "Only human exposure from portable consumer devices",
+  "Lightning, RF transmitters, power-line and telecom transients, HEMP, and other high-power electromagnetic transients including IEMI",
 ]
 correct = "D"
-explanation = "Prefer distance and geometry before expensive magnetic shielding."
+explanation = "The current IEC catalog explicitly lists lightning, RF transmitters, power-line and telecom transients, HEMP, and other high-power electromagnetic transients such as IEMI."
 topic_ids = ["m07-shielding"]
 objective_ids = []
 bloom = "understand"

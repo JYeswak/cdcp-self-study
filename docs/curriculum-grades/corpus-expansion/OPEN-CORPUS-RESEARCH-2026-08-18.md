@@ -1370,6 +1370,32 @@ campus easement or landlord rights, climate sizing, interconnection queues,
 water permits, or site conformance. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 377 — IEC 61000-5-6:2024 facility-level EMC mitigation scope
+
+**Review date:** 2026-08-18. The current IEC Webstore catalog for IEC
+61000-5-6:2024 covers mitigation of external electromagnetic influences
+impinging upon a facility or installation. Its public abstract names lightning,
+RF transmitters, power-line and telecom transients, HEMP, and other high-power
+electromagnetic transients including IEMI; it identifies installers,
+manufacturers, and users of sensitive electrical or electronic installations as
+the intended users; and it says the guidance applies primarily to new
+installations and, where economically feasible, extensions or modifications of
+existing facilities. It excludes application to individual equipment or
+apparatus. Four M07 items were narrowed to those exact catalog claims.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m07-q045 | Shielding | IEC 61000-5-6:2024 — https://webstore.iec.ch/en/publication/69097 | **PASS** — facility/installation external-EM-influence mitigation scope is explicit |
+| m07-q051 | Sources of EMF | IEC 61000-5-6:2024 — https://webstore.iec.ch/en/publication/69097 | **PASS** — intended users are explicit |
+| m07-q058 | Shielding | IEC 61000-5-6:2024 — https://webstore.iec.ch/en/publication/69097 | **PASS** — named external-influence classes are explicit |
+| m07-q203 | Shielding | IEC 61000-5-6:2024 — https://webstore.iec.ch/en/publication/69097 | **PASS** — new-installation and feasible modification/extension scope is explicit |
+
+The aluminum low-frequency-shielding, conductor-spacing cancellation,
+fibre-versus-copper, plant-adjacency, plant-versus-phone myth, and exact
+distance/orientation/routing hierarchy claims remain BLOCKED with their
+official receipts. No PDF or standard body was fetched. This pass does not
+certify a learner, close ms4j.2/ms4j.3, or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

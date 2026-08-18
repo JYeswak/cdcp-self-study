@@ -1,19 +1,18 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Shielding
-# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
-# BLOCKED: the official catalog covers field measurement but does not expose the exact distance/orientation/routing mitigation proposition.
+# Official catalog/preview receipt: IEC 61000-5-6:2024 — https://webstore.iec.ch/en/publication/69097
 id = "m07-q203"
 kind = "single-select"
 module = 7
-stem = "A practical mitigation that often helps before exotic shielding is:"
+stem = "IEC 61000-5-6:2024 applies primarily to:"
 choices = [
-  "Stacking servers against the transformer wall for shorter power cords always",
-  "Distance, orientation, and routing high-current paths away from sensitive equipment and occupied zones",
-  "Increasing current deliberately on all feeders",
-  "Removing all bonding"
+  "Only unchanged legacy facilities, never extensions or modifications",
+  "New installations and, where economically feasible, extensions or modifications to existing facilities",
+  "Only individual equipment or apparatus as a product test",
+  "Only residential wireless devices with no facility context"
 ]
 correct = "B"
-explanation = "Separation and geometry are first-line mitigations; shielding is costlier and application-specific."
+explanation = "The official IEC catalog says the guidance applies primarily to new installations and, where economically feasible, to extensions or modifications of existing facilities; individual equipment application is not included in scope."
 topic_ids = ["m07-shielding", "m07-sources"]
 objective_ids = []
 bloom = "apply"

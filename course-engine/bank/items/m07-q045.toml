@@ -1,19 +1,18 @@
 # Original CDCP educational item — bank expansion (module 7)
 # Public syllabus heading: Shielding
-# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
-# BLOCKED: the official catalog covers field measurement but does not expose the exact distance/layout mitigation proposition.
+# Official catalog/preview receipt: IEC 61000-5-6:2024 — https://webstore.iec.ch/en/publication/69097
 id = "m07-q045"
 kind = "single-select"
 module = 7
-stem = "For ELF magnetic-field problems in white space, the first mitigation tool is usually:"
+stem = "Under IEC 61000-5-6:2024, the primary mitigation target is:"
 choices = [
-  "Painting walls with RF copper paint only",
-  "Separation (distance) and layout so high-current gear is not adjacent to sensitive copper-dense rows",
-  "Removing all bonding conductors",
-  "Switching every circuit to single-phase lighting",
+  "A standalone equipment/apparatus application outside the document's scope",
+  "External electromagnetic influences impinging upon a facility or installation",
+  "Only human exposure to static magnetic fields",
+  "Only emissions from software and business applications",
 ]
 correct = "B"
-explanation = "Distance is the strongest cheap tool for power-frequency magnetic fields."
+explanation = "The current IEC catalog scopes the guidance to external electromagnetic influences affecting a facility or installation; standalone equipment application is expressly outside its scope."
 topic_ids = ["m07-shielding", "m07-sources"]
 objective_ids = []
 bloom = "apply"
