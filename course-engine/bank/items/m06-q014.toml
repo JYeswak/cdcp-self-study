@@ -18,6 +18,9 @@
 # lose the provenance of the duplication. The rule that made this mechanical rather
 # than case-by-case, and what stops the next import regrowing the class:
 # bank/IMPORT-POLICY.md.
+# Public syllabus heading: ATS and STS
+# Official catalog/preview receipt: IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494
+# BLOCKED: the official catalog does not expose the exact data-centre STS-vs-ATS selection proposition.
 id = "mock40-q14"
 kind = "single-select"
 module = 6

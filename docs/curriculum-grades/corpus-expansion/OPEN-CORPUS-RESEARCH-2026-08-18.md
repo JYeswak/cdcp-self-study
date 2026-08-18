@@ -1044,6 +1044,27 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 57 — CDCP critical-power foundations receipts
+
+**Review date:** 2026-08-18. Six M06 critical-power rows now carry official
+ISO/IEC 22237-3:2021, IEC 60947-6-1:2026, or IEC 62040-3:2021
+catalog/preview receipts. They remain BLOCKED because the public pages do not
+expose the exact power-path, ATS/STS selection, N+1, 2N, dual-cord, or
+double-conversion teaching propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| mock40-q13 | Power distribution / busbar trunking | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **BLOCKED** — exact power-path sequence not exposed |
+| mock40-q14 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494 | **BLOCKED** — exact STS-vs-ATS selection not exposed |
+| mock40-q15 | Power redundancy levels and techniques | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **BLOCKED** — exact N+1 sizing proposition not exposed |
+| mock40-q16 | Power redundancy levels and techniques | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **BLOCKED** — exact 2N proposition not exposed |
+| mock40-q17 | Power redundancy levels and techniques | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **BLOCKED** — exact dual-cord independence not exposed |
+| mock40-q18 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact double-conversion isolation not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 56 — CDCP emergency-lighting records receipt
 
 **Review date:** 2026-08-18. M05 item `m05-q213` now carries the official ISO
