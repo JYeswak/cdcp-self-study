@@ -1,7 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Environmental Monitoring System (EMS)
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current official receipt does not expose the exact item-level environmental monitoring system (ems) proposition. No paid body or PDF was fetched.
+# PASS: the current ISO catalog explicitly covers temperature, fluid movement, relative humidity, particulate, vibration, and environmental-control-system security, supporting the bounded EMS environmental-points proposition. No paid body or PDF was fetched.
 id = "m14-q201"
 kind = "single-select"
 module = 14

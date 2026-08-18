@@ -886,6 +886,20 @@ The M03 site/building and M08 rack frontiers remain BLOCKED where the public
 catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+## Breadth pass 177 — ISO/IEC environmental-monitoring scope
+
+**Review date:** 2026-08-18. The current ISO catalog abstract for ISO/IEC
+22237-4:2021 explicitly covers data-centre temperature control, fluid movement
+control, relative-humidity control, particulate control, vibration, and physical
+security of environmental-control systems.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m14-q201, bank-m14-q105 | Environmental Monitoring System (EMS) | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — environmental monitoring of temperature, humidity, fluid/leak-related points, and related facility conditions is on-topic |
+
+BMS/DCIM product boundaries, data-hygiene workflows, protocol integration, and
+alarm prioritization remain BLOCKED. No standard body or PDF was fetched. This
+pass does not certify a learner or close ms4j.
 ## Breadth pass 176 — current facility provisioning and growth forecasting
 
 **Review date:** 2026-08-18. ISO/IEC TS 8236-2:2025, Edition 1, is a current
