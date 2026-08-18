@@ -904,6 +904,24 @@ it.
 The adjacent broader claims remain BLOCKED on their existing official
 receipts. No standard body or PDF was fetched. This pass does not certify a
 learner or close ms4j.
+
+## Breadth pass 181 — electronic physical-access logging and identification
+
+**Review date:** 2026-08-18. The current IEC catalog was checked for
+IEC 60839-11-1:2013. Its public description covers minimum functionality and
+performance for electronic access-control systems used for physical entry and
+exit, and explicitly includes logging, identification, and control of access
+information. That directly supports the bounded unique-identity/access-log
+accounting proposition.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m13-q203 | Physical Security and Safety — Components for physical security | IEC 60839-11-1:2013 — https://webstore.iec.ch/en/publication/3662 | **PASS** — public IEC catalog covers physical electronic access control with logging and identification information |
+
+MFA, anti-passback, clock correlation, tailgating, and other access-control
+mechanics remain BLOCKED where the public catalog does not expose the exact
+claim. No standard body or PDF was fetched. This pass does not certify a
+learner or close ms4j.
 ## Breadth pass 179 — ISO/IEC physical-security systems and rack layering
 
 **Review date:** 2026-08-18. ISO/IEC 22237-6:2024 is the current published
