@@ -118,6 +118,29 @@ design_plan:    docs/PLAN-A-TO-Z.md — the A→Z execution plan; docs/ROADMAP-P
                 rationale; docs/ROADMAP-WAVES.md review history (v1→v4, two theses killed);
                 docs/FRANKENSIM-ADOPTION.md the borrowed patterns.
 
+product_paths:  bank/items/**
+                knowledge/**
+                tracks/**
+                crates/*/src/**
+                web/**
+                install.sh
+                RATIONALE (recorded 2026-08-18, RULE ZERO made computable): the buyer is a
+                learner sitting a mock. What they touch is (a) the ITEMS they are asked —
+                bank/items/*.toml — (b) the CURRICULUM and citation graph those items are
+                grounded in — knowledge/*.toml, tracks/ — (c) the GRADER that scores them —
+                crates/*/src — and (d) the SURFACE they open — web/, install.sh.
+                THE CONTENT IS THE PRODUCT, not merely the engine that serves it: an item
+                whose key is traceable to a named 2026 authority is the thing being bought;
+                a flawless installer shipping stale or ungrounded items ships nothing.
+                CONSEQUENCE, stated so it cannot be laundered later: a tick that grounds a
+                claim in bank/items or knowledge SCORES, and a tick that only edits docs/,
+                scripts/, registries/, or a gate does NOT — the built-in non-product denylist
+                (docs, .beads, receipts, gates, CI, *.md) always beats a declared glob.
+                KNOWN RESIDUAL: the denylist strips *.md, so the 5 markdown files under
+                knowledge/ and the 20 under web/ never count even though a learner reads
+                some of them. Left as-is rather than special-cased — a Charter that carves
+                exceptions into the denylist is how paperwork gets relabelled as product.
+
 doc_practices:  CHANGELOG on learner-visible change · CHARTER edited IN PLACE on defect ·
                 .flywheel/STATE.md every tick · tick-ledger.jsonl one row per tick.
 

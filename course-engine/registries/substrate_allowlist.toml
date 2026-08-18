@@ -504,6 +504,12 @@ migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-06-30"
 
 [[allow]]
+path = ".flywheel/watchdog-escalate.sh"
+reason = "The READER the ALERT file never had. Measured 2026-08-18: .flywheel/ALERT held 145 consecutive STALL rows written every 10 minutes across 19 hours while 419 commits landed on main — the watchdog was correct and consumed by no one. This wrapper counts consecutive stalls and, at 3, writes URGENT_JOSH.md and fires a desktop notification, per CLAUDE.md §6 'you cannot silence it'. Like watchdog.sh it only OBSERVES — it never dispatches work and is not on the check.sh path. Both legs proven before this row was written: known-bad (3 stalls => URGENT written, exit 3) and known-good (pause switch => 0 bytes emitted, streak reset, URGENT renamed .resolved-*). It is bash in the tree and it expires like everything else here."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-06-30"
+
+[[allow]]
 path = ".flywheel/scripts/publishability-bar.sh"
 reason = "378-line bash reporter that PARSES .flywheel/PUBLISHABILITY-AUDIT.md and echoes what the markdown claims; tests/publishability-bar.sh exists because this one cannot be trusted as a gate. Retained as the human-facing doctor view, not as an assertion. Ports or dies with the audit surface."
 migration_bead = "bd-substrate-rust-migration-jhd"
