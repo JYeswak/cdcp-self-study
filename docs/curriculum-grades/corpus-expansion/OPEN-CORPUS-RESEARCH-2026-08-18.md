@@ -1088,6 +1088,27 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 36 — CDCP physical-security and safety receipt completion
+
+**Review date:** 2026-08-18. Six additional M13 items now carry official
+NFPA 731 (2026) or NFPA 70E (2024) catalog/preview receipts. They remain
+BLOCKED because the public pages do not expose the exact mantrap, material-flow,
+LOTO, EPO, egress, or eyewash propositions. No PDF or paid standard body was
+fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| bank-m13-q078 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact anti-tailgating mantrap proposition not exposed |
+| bank-m13-q079 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact people-versus-equipment mantrap/material-flow proposition not exposed |
+| bank-m13-q094 | Physical Security and Safety — Components for physical safety | NFPA 70E, 2024 — https://link.nfpa.org/all-publications/70E/2024 | **BLOCKED** — exact LOTO proposition not exposed |
+| bank-m13-q095 | Physical Security and Safety — Components for physical safety | NFPA 70E, 2024 — https://link.nfpa.org/all-publications/70E/2024 | **BLOCKED** — exact EPO/security-balance proposition not exposed |
+| m13-q201 | Physical Security and Safety — Components for physical security | NFPA 731, 2026 — https://link.nfpa.org/all-publications/731/2026 | **BLOCKED** — exact mantrap/anti-passback proposition not exposed |
+| m13-q202 | Physical Security and Safety — Components for physical safety | NFPA 70E, 2024 — https://link.nfpa.org/all-publications/70E/2024 | **BLOCKED** — exact EPO/egress/eyewash distinction not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
 
 **Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current
