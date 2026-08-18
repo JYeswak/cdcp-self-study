@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — ebrr.23 leftover: GPU-hall SKU vs 600 mm air
+# Original CDCP educational item — ebrr.23 leftover: GPU-hall SKU vs 600 mm air
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: Open Compute Project Open Rack/SpecsAndDesigns — https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns
+# BLOCKED: the official OCP specification index lists current Open Rack and manifold specifications but does not expose the exact 600 mm/800 mm SKU, RDHx, drip, CDU, and 40–100 kW proposition.
 id = "m08-q210"
 kind = "single-select"
 module = 8

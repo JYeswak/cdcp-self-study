@@ -1,8 +1,11 @@
-# Original CDCP educational MCQ — ebrr.39 leftover: GPU-hall rack talk is OCP ORv3, not EIA-width
+# Original CDCP educational item — ebrr.39 leftover: GPU-hall rack talk is OCP ORv3, not EIA-width
+# Public syllabus heading: 1.8 Equipment Racks
+# Official openly licensed specification index: Open Compute Project Open Rack/SpecsAndDesigns — https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns
+# PASS: the official OCP index identifies Open Rack V3 as the current rack specification family; the item deliberately requires a published coupling specification without inventing a connector dimension.
 # syllabus_heading = "1.8 Equipment Racks"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
 # source_ids = [
-#   "src-ocp-open-rack",  # https://www.opencompute.org/ — Open Rack v3 (ORv3); UQD / liquid-coupling work
+#   "src-ocp-open-rack",  # https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns — Open Rack v3; blind-mate liquid-cooling work
 # ]
 # claim = "a 2026 GPU-hall rack conversation is conducted in OCP vocabulary (ORv3 as the open rack), not only EIA-310 plus cabinet width"
 id = "m08-q214"

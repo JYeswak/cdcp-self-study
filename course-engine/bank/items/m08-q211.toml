@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — ebrr.23 leftover: analyze 600 mm air BOM in liquid row
+# Original CDCP educational item — ebrr.23 leftover: analyze 600 mm air BOM in liquid row
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: Open Compute Project Open Rack/SpecsAndDesigns — https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns
+# BLOCKED: the official OCP specification index does not expose the exact cabinet-width, RDHx, drip, CDU, blanking, and 40–100 kW review proposition.
 id = "m08-q211"
 kind = "single-select"
 module = 8

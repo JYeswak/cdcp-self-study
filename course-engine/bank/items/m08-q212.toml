@@ -1,4 +1,7 @@
-# Original CDCP educational MCQ — ebrr.23 leftover: blanking stays; network is air-cooled
+# Original CDCP educational item — ebrr.23 leftover: blanking stays; network is air-cooled
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# BLOCKED: the current environmental-control catalog does not expose the exact hybrid liquid-compute/air-network blanking-panel proposition.
 id = "m08-q212"
 kind = "single-select"
 module = 8
