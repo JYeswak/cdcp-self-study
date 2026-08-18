@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Power sustainability
-# Official catalog/preview receipt: NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025
-# BLOCKED: the official preview identifies emergency and standby power systems but does not expose the exact sustainability-versus-testing risk proposition.
+# Official catalog/preview receipt: ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc
+# Claim is limited to the current public abstract's resilience-KPI scope.
 id = "m06-q104"
 kind = "single-select"
 module = 6
-stem = "A sustainability initiative that reduces generator testing or disables redundant plant without redesign is a risk because:"
+stem = "ISO/IEC TS 22237-31:2026 defines key performance indicators for:"
 choices = [
-  "It always increases fault tolerance",
-  "UPS modules become unnecessary",
-  "PUE is undefined afterward",
-  "It can harm availability even if it improves a short-term green metric",
+  "Resilience, dependability, fault tolerance, and availability tolerance",
+  "Only generator fuel consumption, excluding resilience and availability",
+  "Only IT software response time and cloud-application latency",
+  "A universal replacement for site-specific operational measurements"
 ]
-correct = "D"
-explanation = "Never greenwash by weakening MOPs, tests, or redundant capacity without engineered alternatives."
+correct = "A"
+explanation = "The current ISO catalog says ISO/IEC TS 22237-31:2026 defines KPIs for resilience, dependability, fault tolerance, and availability tolerance. It does not establish the former generator-testing or sustainability-risk proposition."
 topic_ids = ["m06-sustainability", "m06-generators"]
 objective_ids = []
 bloom = "evaluate"

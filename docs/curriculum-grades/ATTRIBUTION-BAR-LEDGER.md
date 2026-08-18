@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 612 PASS; 345 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 614 PASS; 343 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -54,7 +54,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m01-q205 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact edge-versus-central tradeoff is not exposed |
 | m01-q206 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact single-point-of-failure proposition is not exposed |
 | m01-q207 | 1 | Importance of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS |
-| m01-q208 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact balanced-cause proposition is not exposed |
+| m01-q208 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/88711.html?browse=tc | PASS — ISO/IEC TS 22237-31:2026 catalog explicitly covers power distribution/supply and environmental control |
 | m01-q209 | 1 | Business organization / DC in the business | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS — ISO/IEC 22237-1:2021 official abstract names business-risk and operating-cost analysis |
 | m01-q210 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact 2026 survey-share/root-cause proposition is not exposed |
 | m01-q211 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact neocloud/GPU-colo/AI-factory taxonomy is not exposed |
@@ -314,7 +314,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q101 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS |
 | m06-q102 | 6 | Microgrid | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/61960 | PASS |
 | m06-q103 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/61960 | PASS — IEC TS 62898-3-2:2024 public scope lists economic and environmental optimization as a microgrid energy-management function |
-| m06-q104 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact sustainability-versus-testing risk proposition is not exposed |
+| m06-q104 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/88711.html?browse=tc | PASS — ISO/IEC TS 22237-31:2026 catalog defines KPIs for resilience, dependability, fault tolerance, and availability tolerance |
 | m06-q105 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact remote-power-panel form-factor proposition is not exposed |
 | m06-q106 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html | PASS — ISO/IEC 22237-3:2021 official abstract names power and power-quality measurement integration |
 | m06-q107 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — IEC 62040-3:2021 public catalog explicitly excludes conventional AC/DC distribution boards and associated switches |

@@ -1208,6 +1208,26 @@ revocation, multi-factor combinations, EPO operating rules, visitor-escort
 procedures, or a site security design approval. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 369 — ISO/IEC TS 22237-31:2026 resilience-KPI scope
+
+**Review date:** 2026-08-18. Two module-1/module-6 items were narrowed to
+the current ISO Online Browsing Platform abstract for ISO/IEC TS 22237-31:2026.
+The published second edition defines KPIs for resilience, dependability, fault
+tolerance and availability tolerance; covers data-centre power distribution
+and supply and environmental control; defines KPI measurement/calculation and
+resilience levels; and targets maintainability, recoverability and
+vulnerability. The abstract explicitly excludes IT equipment, cloud services,
+software and business applications. No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m01-q208 | Causes of unavailability | ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc | **PASS** — power distribution/supply and environmental-control infrastructure scope is explicit |
+| m06-q104 | Power sustainability | ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc | **PASS** — resilience/dependability/fault-tolerance/availability-tolerance KPI scope is explicit |
+
+The pass does not infer a universal outage-cause taxonomy, generator-testing
+policy, sustainability trade-off, IT-equipment KPI, cloud-service KPI, or
+facility certification. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
