@@ -394,21 +394,48 @@ status: BLOCKED_WITH_RECEIPT
   count remains 37472 at a different SHA, so it is not a same-SHA receipt and
   does not authorize a ceiling change.
 
+## Slice 17 — `verify_coverage` unassigned Unicode `repr(str)` parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `0c5f60e5938a4dcbe549a95629fb7f09741e848d`
+- Change: mirror Python 3.11's non-printable `repr(str)` treatment of the
+  unassigned U+0378–U+0379 range in `cdcp_bank::verify_coverage`; the Python
+  oracle remains present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_verify_coverage.rs`,
+  `unicode_unassigned_module_repr_is_byte_identical_and_known_bad_is_red`.
+- Known-bad RED: before the range was added, the fixture failed with Python
+  emitting `nope\\u0378` while Rust emitted literal U+0378. The byte-exact
+  differential assertion catches that mutant.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_verify_coverage unicode_unassigned_module_repr_is_byte_identical_and_known_bad_is_red
+  -- --exact` — 1 passed.
+- Coverage unit proof: `cargo test --locked -p cdcp_bank verify_coverage` — 10
+  passed.
+- Full coverage differential: 27/28 passed; the only failure is the
+  pre-existing anti-vacuity inventory assertion (`scanned only 7 Python
+  sources`). No corpus or bank files were changed.
+- Local `gate_shrink`: 37249 lines / 47 files; digest
+  `fnv1a64:ae0783c1cb744742`; 34 lines below ceiling 37283; registry check
+  GREEN. The ceiling was not edited.
+- CI for this SHA: unavailable (`gh run list --commit
+  0c5f60e5938a4dcbe549a95629fb7f09741e848d` has no run). The latest remote-main
+  count remains 37472 at a different SHA, so it is not a same-SHA receipt and
+  does not authorize a ceiling change.
+
 ## Blocker audit — audited code tree
 
-- Audited code SHA: `d2d88cb364cbd2537f2f2d549d4e3220b88eb581`; the subsequent
-  receipt-only commit changes no gate source.
-- The committed `HEAD` tree measures 37197 lines / 47 files, digest
-  `fnv1a64:a33347c771454f17`; the live worktree measures 37189 / 47,
-  `fnv1a64:5bdb84d6803b75a4`. The eight-line live difference is in pane-owned
-  dirty files, which were preserved and not used as a CI claim.
+- Audited code SHA: `0c5f60e5938a4dcbe549a95629fb7f09741e848d`; the receipt
+  update below changes no gate source.
+- The live worktree measures 37249 lines / 47 files, digest
+  `fnv1a64:ae0783c1cb744742`. Pane-owned dirty files were preserved and are not
+  used as a CI claim.
 - `origin/main` is still `5f178d2a7730a82d212d8ec2e96244bae5c99050`, measuring
   37472 / 47, digest `fnv1a64:67f95ea56dbda888`. Its latest completed check run
   (`32095229956`) failed at that old SHA's gate-shrink count; it is not a
   same-SHA result for this branch.
-- `gh run list --commit d2d88cb364cbd2537f2f2d549d4e3220b88eb581` returns no
-  run. Local proof is green: registry-check, 11 gate-shrink unit tests, and
-  the bank/coverage/grounding known-bad differential tests each passed 1/1.
+- `gh run list --commit 0c5f60e5938a4dcbe549a95629fb7f09741e848d` returns no
+  run. Local proof includes the new coverage known-bad differential (1/1),
+  coverage units (10/10), and a GREEN registry-check.
 - This audit adds no parity slice and makes no certification claim. The
   remaining blocker is external: a CI run on the current SHA is required.
   `check.sh`/workflow changes and publishing the shared branch are outside
@@ -419,9 +446,10 @@ status: BLOCKED_WITH_RECEIPT
 BLOCKED_WITH_RECEIPT: the local and proof conditions are satisfied, but the
 external CI leg cannot be observed on the current code SHA.
 
-- Code SHA: `7570ec4`; `gh run list --commit 7570ec4` returned no runs.
-- Local `gate_shrink`: 37189 lines / 47 files; digest
-  `fnv1a64:5bdb84d6803b75a4`; ceiling remains exactly 37283.
+- Code SHA: `0c5f60e5938a4dcbe549a95629fb7f09741e848d`; `gh run list --commit
+  0c5f60e5938a4dcbe549a95629fb7f09741e848d` returned no runs.
+- Local `gate_shrink`: 37249 lines / 47 files; digest
+  `fnv1a64:ae0783c1cb744742`; ceiling remains exactly 37283.
 - Exact historical CI discrepancy retained for `bd-engine-not-gate-ar39.15`:
   run context `5f178d2` measured 37472 against the 37283 ceiling; the named
   CI-only deltas were `crates/cdcp_gate/src/gates/substrate_guard.rs` (+128
