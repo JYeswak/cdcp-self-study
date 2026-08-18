@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 387 PASS; 570 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 389 PASS; 568 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -242,7 +242,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m05-q213 | 5 | Emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/45801.html?browse=tc | BLOCKED — ISO 30061:2007 catalog receipt; exact test-records failure proposition is not exposed |
 | m05-q214 | 5 | 1.5 Light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70/2026 | PASS |
 | m05-q215 | 5 | 1.5 Light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/101/2024 | PASS |
-| mock40-q13 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact power-path sequence is not exposed |
+| mock40-q13 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | PASS |
 | mock40-q14 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | BLOCKED — IEC 60947-6-1:2026 catalog receipt; exact STS-vs-ATS selection is not exposed |
 | mock40-q15 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact N+1 sizing proposition is not exposed |
 | mock40-q16 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact 2N proposition is not exposed |
@@ -455,7 +455,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m08-q205 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | BLOCKED — IEC 60297-3-100:2008 catalog receipt; exact cable-bend/PDU/service-clearance proposition is not exposed |
 | m08-q206 | 8 | Rack standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/108663 | PASS — ISO/IEC 30129:2015+A1:2019+A2:2025 CSV covers bonding conductive elements to reduce IT electrical hazards and provide a reliable signal reference that may improve EMI immunity |
 | m08-q207 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact blanking-panel/brush-strip airflow proposition is not exposed |
-| m08-q208 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact rack dual-cord/upstream-failure-domain proposition is not exposed |
+| m08-q208 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | PASS |
 | m08-q209 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact cabinet-perforation/door-airflow proposition is not exposed |
 | m08-q210 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns | BLOCKED — official OCP specification index receipt; exact 600 mm/800 mm liquid-ready SKU proposition is not exposed |
 | m08-q211 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.opencompute.org/wiki/Open_Rack/SpecsAndDesigns | BLOCKED — official OCP specification index receipt; exact GPU-hall cabinet review proposition is not exposed |

@@ -902,6 +902,20 @@ centres, and that its topology is intended to apply to any size data centre.
 
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 276 — ISO power-distribution abstract scope
+
+**Review date:** 2026-08-18. The current official ISO abstract for ISO/IEC
+22237-3:2021 was checked without opening or fetching a PDF. It explicitly covers
+power supplies to data centres and power-distribution systems to all equipment
+within data centres, among other listed topics.
+
+| Items | Public EPI heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| mock40-q13 | Power distribution / busbar trunking | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **PASS** — rewritten to ask for the exact public power-supplies scope; no utility/generator-to-rack sequence is inferred |
+| m08-q208 | Power strips / rails | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **PASS** — rewritten to ask for the exact public all-equipment power-distribution scope; no rack dual-cord failure-domain rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 273 — ISO management-and-operations focus terms
 
 **Review date:** 2026-08-18. The current official ISO abstract for ISO/IEC TS
