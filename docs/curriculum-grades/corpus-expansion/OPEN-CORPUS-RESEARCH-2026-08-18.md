@@ -1044,6 +1044,24 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 58 — CDCP generator, busway, and PUE receipts
+
+**Review date:** 2026-08-18. Three additional M06 rows now carry official
+ISO/IEC 22237-3:2021 or ISO/IEC 30134-2:2026 catalog/preview receipts. They
+remain BLOCKED because the public pages do not expose the exact generator/UPS
+bridge, busway tap-off, or simplified PUE teaching propositions. No PDF was
+fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| mock40-q19 | Generators | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **BLOCKED** — exact generator/UPS bridge not exposed |
+| mock40-q20 | Power distribution / busbar trunking | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **BLOCKED** — exact busway tap-off flexibility not exposed |
+| mock40-q21 | Power sustainability | ISO/IEC 30134-2:2026 — https://www.iso.org/standard/30134-2?browse=ics | **BLOCKED** — exact simplified PUE proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 57 — CDCP critical-power foundations receipts
 
 **Review date:** 2026-08-18. Six M06 critical-power rows now carry official
