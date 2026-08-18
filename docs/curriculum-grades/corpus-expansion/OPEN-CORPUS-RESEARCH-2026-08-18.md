@@ -888,6 +888,20 @@ classification.
 
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 275 — TIA-942-C scope and topology abstract claims
+
+**Review date:** 2026-08-18. The current official TIA abstract for ANSI/TIA-942-C
+(May 2024) was checked without opening or fetching a PDF. It states that the
+standard covers infrastructure for single-tenant enterprise and multi-tenant data
+centres, and that its topology is intended to apply to any size data centre.
+
+| Items | Public EPI heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m01-q061 | Types of data centres | TIA-942-C — https://tiaonline.org/standard/tia-942/ | **PASS** — rewritten to ask for the exact public enterprise/multi-tenant scope; no full taxonomy is inferred |
+| m11-q131 | TIA-942 cabling system topology | TIA-942-C — https://tiaonline.org/standard/tia-942/ | **PASS** — rewritten to ask for the exact public any-size topology statement; no named-space hierarchy is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 273 — ISO management-and-operations focus terms
 
 **Review date:** 2026-08-18. The current official ISO abstract for ISO/IEC TS

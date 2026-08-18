@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: TIA-942-C (May 2024) —
 # https://tiaonline.org/standard/tia-942/
-# BLOCKED: the public abstract applies to any data-centre size/type, but not
-# this exact careful taxonomy statement.
+# PASS: the current official abstract explicitly includes single-tenant
+# enterprise and multi-tenant data centres.
 id = "m01-q061"
 kind = "single-select"
 module = 1
-stem = "Which statement about data-centre types is most careful?"
+stem = "Which data-centre types does the ANSI/TIA-942-C abstract explicitly include within its infrastructure scope?"
 choices = [
-  "Enterprise, colo, cloud, and edge share physics needs but differ in ownership, scale, and service boundaries",
-  "All types have identical risk profiles and SLAs",
-  "Only cloud sites need cooling",
-  "Edge sites never need physical security",
+  "Single-tenant enterprise and multi-tenant data centres",
+  "Only residential server closets",
+  "Only public-cloud software regions",
+  "Only carrier exchange buildings",
 ]
 correct = "A"
-explanation = "Physics (power/cooling/space) is shared; business model, scale, and responsibility boundaries differ by type."
+explanation = "The current TIA-942-C abstract explicitly includes single-tenant enterprise and multi-tenant data centres within its infrastructure scope."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 385 PASS; 572 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 387 PASS; 570 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -44,7 +44,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m01-q058 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact colocation-customer design-awareness proposition is not exposed |
 | m01-q059 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact reliability-culture proposition is not exposed |
 | m01-q060 | 1 | Importance of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact regulated-industry requirements proposition is not exposed |
-| m01-q061 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact careful-taxonomy statement is not exposed |
+| m01-q061 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | m01-q062 | 1 | Business organization / DC in the business | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/86677.html | PASS — ISO/IEC TS 8236-2:2025 covers facility provisioning KPIs, forecasting, and lifecycle capability assessment |
 | m01-q200 | 1 | Business organization / DC in the business | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact business-perspective proposition is not exposed |
 | m01-q201 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/88412.html | BLOCKED — ISO 22301:2019/Amd 1:2024 catalog receipt; exact organizational-cause proposition is not exposed |
@@ -659,7 +659,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m11-q128 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standardannouncement/tia-publishes-new-standard-ansi-tia-607-e-generic-telecommunications-bonding-and-grounding-earthing-for-customer-premises/ | BLOCKED — ANSI/TIA-607-E official release receipt; exact telecommunications bonding and grounding proposition is not exposed |
 | m11-q129 | 11 | TIA-942 cabling system topology | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact backbone-subsystem proposition is not exposed |
 | m11-q130 | 11 | TIA-942 cabling system topology | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact horizontal-cabling path proposition is not exposed |
-| m11-q131 | 11 | TIA-942 cabling system topology | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact named-space hierarchy proposition is not exposed |
+| m11-q131 | 11 | TIA-942 cabling system topology | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | m11-q132 | 11 | Fibre cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
 | m11-q133 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
 | m11-q134 | 11 | Planning considerations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.rfc-editor.org/info/rfc6244/ | PASS |
