@@ -2,21 +2,20 @@
 # Public syllabus heading: CDCP "Suspended ceiling" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
-# https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog covers building spaces, but not this exact
-# suspended-ceiling use proposition.
+# https://www.iso.org/standard/82248.html
+# Claim is limited to the public abstract's building-configuration category.
 id = "m04-q123"
 kind = "single-select"
 module = 4
-stem = "Suspended ceilings in data halls may be used to:"
+stem = "Which spatial-configuration topic is explicitly listed by ISO/IEC 22237-2:2024?"
 choices = [
-  "Act as a UPS",
-  "Replace all fire suppression",
-  "Hide return-air paths, lighting, and some services—or be omitted in open designs",
-  "Store diesel",
+  "Building configuration",
+  "Replacement of all fire suppression systems",
+  "Network-fabric routing policy",
+  "Generator fuel specification only",
 ]
-correct = "C"
-explanation = "Ceilings can form return plenums and host services, but designs vary including open ceilings."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists building configuration among the topics covered. It does not expose the exact use of a suspended ceiling as a return-air path or service zone."
 topic_ids = ["m04-suspended-ceiling"]
 objective_ids = []
 bloom = "remember"

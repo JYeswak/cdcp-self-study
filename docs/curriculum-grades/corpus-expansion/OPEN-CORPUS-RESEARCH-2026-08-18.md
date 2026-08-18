@@ -1143,6 +1143,29 @@ carrier or pathway diversity, MPO use, copper-length limits, alien-crosstalk
 behavior, or a site cabling design approval. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 366 — ISO/IEC 22237-2:2024 building-construction categories
+
+**Review date:** 2026-08-18. Four module-4 items were narrowed to categories
+explicitly exposed by the current ISO Online Browsing Platform abstract for
+ISO/IEC 22237-2:2024. The current edition covers data-centre building
+construction and lists provision of access, building configuration, protection
+from environmental risks, and quality construction measures among its
+requirements and recommendations. The abstract also lists site selection,
+site configuration, physical intrusion protection, physical fire protection,
+and protection against water damage; those broader categories do not establish
+the former access-floor mechanics. No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m04-q121 | Ramp and landing platform | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — provision of access is explicit |
+| m04-q123 | Suspended ceiling | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — building configuration is explicit |
+| m04-q128 | General raised-floor guidelines | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — protection from environmental risks is explicit |
+| m04-q129 | Types of raised floors | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — quality construction measures are explicit |
+
+The pass does not infer ramp geometry, suspended-ceiling use, raised-floor
+load ratings, tile placement, grounding, cooling airflow, panel materials, or
+building-code approval. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

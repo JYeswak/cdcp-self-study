@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 602 PASS; 355 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 606 PASS; 351 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -179,15 +179,15 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m04-q118 | 4 | Loading factors (uniform/concentrated/rolling) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact rolling-load rating proposition is not exposed |
 | m04-q119 | 4 | Types of raised floors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | BLOCKED — ISO/IEC 22237-2 catalog receipt; exact stringer/corner-lock comparison is not exposed |
 | m04-q120 | 4 | Grounding / SRG | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70E/2024 | BLOCKED — NFPA 70E catalog receipt; exact SRG proposition is not exposed |
-| m04-q121 | 4 | Ramp and landing platform | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | BLOCKED — ISO/IEC 22237-2 catalog receipt; exact ramp/landing proposition is not exposed |
+| m04-q121 | 4 | Ramp and landing platform | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82248.html | PASS — ISO/IEC 22237-2:2024 abstract explicitly lists provision of access |
 | m04-q122 | 4 | Ramp and landing platform | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | BLOCKED — ISO/IEC 22237-2 catalog receipt; exact ramp-transition risk proposition is not exposed |
-| m04-q123 | 4 | Suspended ceiling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | BLOCKED — ISO/IEC 22237-2 catalog receipt; exact suspended-ceiling use proposition is not exposed |
+| m04-q123 | 4 | Suspended ceiling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82248.html | PASS — ISO/IEC 22237-2:2024 abstract explicitly lists building configuration |
 | m04-q124 | 4 | Floor/ceiling impact on cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact floor/ceiling cooling-effectiveness proposition is not exposed |
 | m04-q125 | 4 | Floor/ceiling impact on cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact open-tile pressure/cooling proposition is not exposed |
 | m04-q126 | 4 | General raised-floor guidelines | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | BLOCKED — ISO/IEC 22237-2 catalog receipt; exact perforated/grille tile placement proposition is not exposed |
 | m04-q127 | 4 | General raised-floor guidelines | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact underfloor-cable congestion proposition is not exposed |
-| m04-q128 | 4 | General raised-floor guidelines | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | BLOCKED — ISO/IEC 22237-2 catalog receipt; exact day-2 access-floor guideline is not exposed |
-| m04-q129 | 4 | Types of raised floors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | BLOCKED — ISO/IEC 22237-2 catalog receipt; exact floor-panel material/finish proposition is not exposed |
+| m04-q128 | 4 | General raised-floor guidelines | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82248.html | PASS — ISO/IEC 22237-2:2024 abstract explicitly lists protection from environmental risks |
+| m04-q129 | 4 | Types of raised floors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82248.html | PASS — ISO/IEC 22237-2:2024 abstract explicitly lists quality construction measures |
 | m04-q130 | 4 | Raised floor standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | PASS — current IEC catalog lists quality construction measures among ISO/IEC 22237-2:2024 construction topics |
 | m04-q131 | 4 | Types of raised floors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | BLOCKED — ISO/IEC 22237-2 catalog receipt; exact raised-floor type comparison is not exposed |
 | m04-q132 | 4 | Suspended ceiling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact suspended-ceiling proposition is not exposed |
