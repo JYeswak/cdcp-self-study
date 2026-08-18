@@ -4548,3 +4548,22 @@ annual battery-power tests for emergency lighting equipment.
 The adjacent test-records failure proposition remains BLOCKED because this
 public page does not state that exact evidence claim. No standard body or PDF
 was fetched. This pass does not certify a learner or close ms4j.
+## Breadth pass 163 — AHJ administration, code precedence, and free egress
+
+**Review date:** 2026-08-18. Four rows were checked against the 2025 Fire
+Code of New York State public HTML. Chapter 1 assigns administration and
+enforcement to the authority having jurisdiction, identifies the approval and
+variance path, and states that code provisions take precedence over conflicting
+referenced standards. Chapter 10 requires controlled-egress electric locks to
+unlock on qualifying alarm conditions or loss of power.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q068 | CDCP "Fire Protection" | 2025 Fire Code of New York State, Chapter 1 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-1-scope-and-administration | **PASS** — AHJ enforcement, approval, and variance functions are exposed |
+| m12-q205 | CDCP "Fire Protection" | 2025 Fire Code of New York State, Chapter 1 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-1-scope-and-administration | **PASS** — the adopted code path takes precedence over conflicting referenced standards |
+| m12-q222 | Regulatory requirements / AHJ | 2025 Fire Code of New York State, Chapter 1 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-1-scope-and-administration | **PASS** — AHJ administration and applicable stricter requirements are explicit |
+| bank-m13-q085 | Physical Security and Safety — Components for physical safety | 2025 Fire Code of New York State, Chapter 10 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | **PASS** — qualifying alarm/power-loss release preserves free egress |
+
+Broader EPO, eyewash, security-operations, and project-specific acceptance
+claims remain BLOCKED. No standard body or PDF was fetched. This pass does not
+certify a learner or close ms4j.
