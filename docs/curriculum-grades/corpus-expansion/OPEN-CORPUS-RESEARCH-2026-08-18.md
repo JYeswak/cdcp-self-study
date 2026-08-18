@@ -889,6 +889,21 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 223 — ISO/IEC 30134-6 energy-reuse factor scope
+
+**Review date:** 2026-08-18. The current ISO catalog for ISO/IEC 30134-6:2021
+defines Energy Reuse Factor (ERF) as a KPI quantifying reused energy and defines
+it as energy being reused divided by the sum of all energy consumed in a data
+centre. The item is bounded to that public ERF definition; a separately named
+ERE taxonomy, target, or legal requirement is not inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m02-q217 | Standards and guidelines landscape | ISO/IEC 30134-6:2021 — https://www.iso.org/standard/71717.html | **PASS** — ERF purpose and ratio are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 222 — ISO/IEC 22237-2 site and building scope
 
 **Review date:** 2026-08-18. The current ISO Online Browsing Platform preview
