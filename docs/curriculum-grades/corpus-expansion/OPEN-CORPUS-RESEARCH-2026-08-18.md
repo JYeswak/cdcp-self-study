@@ -7364,3 +7364,23 @@ inferred.
 Short-run cost tradeoffs, campus distance, alien-crosstalk limits, and
 project-specific media selection remain outside this catalog receipt. This pass
 does not certify a learner or close ms4j.
+
+## Breadth pass 323 — IEC microgrid energy-management and alarm-system scopes
+
+**Review date:** 2026-08-18. The current IEC Webstore descriptions provide two
+bounded catalog receipts. IEC TS 62898-3-2:2024 specifies technical requirements
+for microgrid energy-management systems and publicly lists power/energy
+management, forecasts, balancing, economic/environmental optimization, and
+operation-capacity reporting among the functions. IEC 62682:2022 specifies
+general principles and processes for alarm systems and publicly identifies the
+operator-notification/response purpose plus alarm/event logs, historians, and
+performance metrics. The item stems were narrowed to those exposed scopes.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q103 | Power sustainability | IEC TS 62898-3-2:2024 — https://webstore.iec.ch/en/publication/61960 | **PASS** — economic/environmental optimization is an explicit MEMS function |
+| m14-q210 | Alarm panels | IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543 | **PASS** — alarm notification/response and supporting log/metric functions are explicit |
+
+Renewables-versus-firm-capacity conclusions, alarm hysteresis, seasonality,
+chattering, and site-specific control design remain outside these catalog
+receipts. This pass does not certify a learner or close ms4j.

@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Power sustainability
 # Official catalog/preview receipt: IEC TS 62898-3-2:2024 — https://webstore.iec.ch/en/publication/61960
-# BLOCKED: the official catalog exposes microgrid resource management and environmental optimization, but not the exact renewables-versus-firm-capacity proposition.
+# PASS: the official catalog explicitly lists microgrid energy-management functions below. No paid body or PDF was fetched.
 id = "m06-q103"
 kind = "single-select"
 module = 6
-stem = "Renewables in critical-facility energy strategy typically:"
+stem = "IEC TS 62898-3-2:2024 lists which function for a microgrid energy-management system (MEMS)?"
 choices = [
-  "Automatically replace firm capacity with no storage or risk analysis",
-  "Complement firm capacity (genset/contracts/storage) rather than magically erase 24×7 backup needs",
-  "Remove code requirements for grounding",
-  "Force N topology only",
+  "Economic and environmental optimization",
+  "Automatic removal of all backup-capacity requirements",
+  "Elimination of grounding and protection requirements",
+  "A fixed data-centre availability topology",
 ]
-correct = "B"
-explanation = "Firm capacity and risk analysis remain; renewables integrate—they do not wish away availability engineering."
+correct = "A"
+explanation = "The current IEC catalog for IEC TS 62898-3-2:2024 explicitly lists economic and environmental optimization among MEMS functions, alongside power/energy management, forecasting, balancing, and reporting. The catalog does not establish a universal renewables-versus-firm-capacity rule."
 topic_ids = ["m06-sustainability", "m06-microgrid"]
 objective_ids = []
 bloom = "analyze"

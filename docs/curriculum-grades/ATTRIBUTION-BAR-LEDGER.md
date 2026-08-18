@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 522 PASS; 435 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 524 PASS; 433 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -313,7 +313,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q100 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/30134-2?browse=ics | PASS |
 | m06-q101 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS |
 | m06-q102 | 6 | Microgrid | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/61960 | PASS |
-| m06-q103 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/61960 | BLOCKED — IEC TS 62898-3-2:2024 catalog receipt; exact renewables-versus-firm-capacity proposition is not exposed |
+| m06-q103 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/61960 | PASS — IEC TS 62898-3-2:2024 public scope lists economic and environmental optimization as a microgrid energy-management function |
 | m06-q104 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact sustainability-versus-testing risk proposition is not exposed |
 | m06-q105 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact remote-power-panel form-factor proposition is not exposed |
 | m06-q106 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html | PASS — ISO/IEC 22237-3:2021 official abstract names power and power-quality measurement integration |
@@ -866,7 +866,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m14-q207 | 14 | Monitoring requirements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | PASS |
 | m14-q208 | 14 | Auxiliary systems best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | PASS — ISO/IEC TS 22237-7:2018 public abstract names its operational-process focus areas |
 | m14-q209 | 14 | Building Management System (BMS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 public abstract explicitly lists physical security of environmental-control systems |
-| m14-q210 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | BLOCKED — IEC 62682:2022 catalog receipt; exact hysteresis/seasonality and chattering proposition is not exposed |
+| m14-q210 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | PASS — IEC 62682:2022 public scope defines alarm notification/response and lists alarm logs, historians, and performance metrics |
 | m14-q211 | 14 | Water leak detection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |
 | m14-q212 | 14 | Water leak detection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |
 | m14-q213 | 14 | 1.14 Auxiliary Systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | PASS |
