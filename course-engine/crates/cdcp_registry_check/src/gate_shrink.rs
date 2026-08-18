@@ -142,7 +142,7 @@ fn fnv1a64_hex(bytes: &[u8]) -> String {
 fn receipt_canonical(live: &BTreeMap<String, usize>) -> String {
     let mut body = String::new();
     for (path, n) in live {
-        let _ = write!(body, "{path}\t{n}\n");
+        let _ = writeln!(body, "{path}\t{n}");
     }
     body
 }
