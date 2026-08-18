@@ -4531,3 +4531,20 @@ OCP-backed equipment-rack rows remain unchanged.
 
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+## Breadth pass 162 — AHJ emergency-egress lighting purpose and testing
+
+**Review date:** 2026-08-18. Three Module 5 rows were checked against the
+2025 Fire Code of New York State public HTML. Chapter 10 describes means of
+egress as the primary method for timely relocation or evacuation, requires
+emergency illumination on power failure, and requires monthly activation and
+annual battery-power tests for emergency lighting equipment.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| mock40-q12 | Emergency light | 2025 Fire Code of New York State, Chapter 10 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | **PASS** — egress illumination is a life-safety evacuation function |
+| m05-q201 | Emergency light | 2025 Fire Code of New York State, Chapter 10 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | **PASS** — emergency illumination is required when power fails |
+| m05-q205 | Emergency light | 2025 Fire Code of New York State, Chapter 10 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | **PASS** — monthly activation and annual battery-power testing are explicit |
+
+The adjacent test-records failure proposition remains BLOCKED because this
+public page does not state that exact evidence claim. No standard body or PDF
+was fetched. This pass does not certify a learner or close ms4j.

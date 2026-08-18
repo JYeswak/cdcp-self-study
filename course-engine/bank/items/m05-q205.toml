@@ -1,7 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Emergency light
-# Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact periodic-testing procedure or code/manufacturer allocation.
+# Official catalog/preview receipt: 2025 Fire Code of New York State, Chapter 10 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress
+# PASS: the AHJ-adopted public code requires monthly activation testing and annual battery-power testing for emergency lighting equipment.
 id = "m05-q205"
 kind = "single-select"
 module = 5

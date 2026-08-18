@@ -1,7 +1,7 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
 # Public syllabus heading: Emergency light
-# Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact data-centre egress diagnostic proposition.
+# Official catalog/preview receipt: 2025 Fire Code of New York State, Chapter 10 — https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress
+# PASS: the AHJ-adopted public code treats the means of egress as the primary method for timely relocation or evacuation and requires emergency illumination on power failure.
 id = "mock40-q12"
 kind = "single-select"
 module = 5
