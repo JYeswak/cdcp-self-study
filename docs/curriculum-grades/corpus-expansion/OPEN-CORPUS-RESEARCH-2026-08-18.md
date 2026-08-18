@@ -1044,6 +1044,39 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 48 — CDCP raised-floor and ceiling infrastructure receipts
+
+**Review date:** 2026-08-18. Eighteen M04 physical-infrastructure rows now
+carry official TIA-942-C, ISO/IEC 22237-2:2024, or NFPA 70E (2024)
+catalog/preview receipts. They remain BLOCKED because the public pages do not
+expose the exact load-rating, SRG, ramp, tile, panel, or cooling propositions.
+No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| mock40-q09 | General raised-floor guidelines | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact raised-floor-plenum use proposition not exposed |
+| mock40-q10 | Loading factors (uniform/concentrated/rolling) | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact rolling-load rating proposition not exposed |
+| mock40-q11 | Floor/ceiling impact on cooling | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact open-tile/pressurized-underfloor proposition not exposed |
+| m04-q115 | General raised-floor guidelines | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact raised-access-floor use proposition not exposed |
+| m04-q116 | Loading factors (uniform/concentrated/rolling) | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact uniform-load rating proposition not exposed |
+| m04-q117 | Loading factors (uniform/concentrated/rolling) | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact concentrated-load rating proposition not exposed |
+| m04-q118 | Loading factors (uniform/concentrated/rolling) | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact rolling-load rating proposition not exposed |
+| m04-q119 | Types of raised floors | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact stringer/corner-lock comparison not exposed |
+| m04-q120 | Grounding / SRG | NFPA 70E, 2024 — https://link.nfpa.org/all-publications/70E/2024 | **BLOCKED** — exact SRG proposition not exposed |
+| m04-q121 | Ramp and landing platform | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact ramp/landing proposition not exposed |
+| m04-q122 | Ramp and landing platform | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact ramp-transition risk proposition not exposed |
+| m04-q123 | Suspended ceiling | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact suspended-ceiling use proposition not exposed |
+| m04-q124 | Floor/ceiling impact on cooling | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact floor/ceiling cooling-effectiveness proposition not exposed |
+| m04-q125 | Floor/ceiling impact on cooling | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact open-tile pressure/cooling proposition not exposed |
+| m04-q126 | General raised-floor guidelines | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact perforated/grille tile placement proposition not exposed |
+| m04-q127 | General raised-floor guidelines | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact underfloor-cable congestion proposition not exposed |
+| m04-q128 | General raised-floor guidelines | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact day-2 access-floor guideline not exposed |
+| m04-q129 | Types of raised floors | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact floor-panel material/finish proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 47 — CDCP industrial-adjacency receipt
 
 **Review date:** 2026-08-18. M03 item `m03-q208` now carries the official
