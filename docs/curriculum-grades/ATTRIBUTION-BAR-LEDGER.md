@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 389 PASS; 568 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 391 PASS; 566 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -790,7 +790,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m13-q088 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/7347 | PASS |
 | bank-m13-q089 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.rfc-editor.org/info/rfc8633/ | PASS |
 | bank-m13-q090 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | PASS |
-| bank-m13-q091 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | BLOCKED — NFPA 730 preview receipt; exact tailgating/social-engineering proposition is not exposed |
+| bank-m13-q091 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82250.html | PASS |
 | bank-m13-q092 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/731/2026 | BLOCKED — NFPA 731 catalog receipt; exact shared-badge/access-accounting proposition is not exposed |
 | bank-m13-q093 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/27001?browse=tc | BLOCKED — ISO/IEC 27001 catalog receipt; exact physical-credential revocation proposition is not exposed |
 | bank-m13-q094 | 13 | Physical Security and Safety — Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.147 | PASS — OSHA 29 CFR 1910.147 covers hazardous-energy control, lockout/tagout, isolation, and verification before servicing |
@@ -798,7 +798,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m13-q096 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | BLOCKED — NFPA 730 preview receipt; exact loading-dock material-flow/inspection proposition is not exposed |
 | bank-m13-q097 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82250.html | PASS |
 | bank-m13-q098 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | PASS — NFPA 730:2026 preview lists security planning, administrative controls, perimeters, CPTED, and security systems |
-| bank-m13-q099 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | BLOCKED — NFPA 730 preview receipt; exact lock-without-detection limitation is not exposed |
+| bank-m13-q099 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82250.html | PASS |
 | bank-m13-q100 | 13 | Physical Security and Safety — Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | BLOCKED — NFPA 730 preview receipt; exact two-person/dual-control proposition is not exposed |
 | bank-m13-q101 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | BLOCKED — NFPA 730 preview receipt; exact propped-door/change-window proposition is not exposed |
 | bank-m13-q102 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | PASS |

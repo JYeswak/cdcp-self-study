@@ -870,6 +870,20 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 277 — ISO security-systems protection categories
+
+**Review date:** 2026-08-18. The current official ISO abstract for ISO/IEC
+22237-6:2024 was checked without opening or fetching a PDF. It explicitly names
+unauthorized access and intrusion among the physical-security protection concerns
+for data-centre spaces and systems.
+
+| Items | Public EPI heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| bank-m13-q091 | Physical Security and Safety — Components for physical security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html | **PASS** — rewritten to ask for the exact public unauthorized-access category; no tailgating/social-engineering frequency claim is inferred |
+| bank-m13-q099 | Physical Security and Safety — Components for physical security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html | **PASS** — rewritten to ask for the exact public intrusion category; no lock/detection performance claim is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 274 — ISO general-concepts abstract claims
 
 **Review date:** 2026-08-18. The current official ISO abstract for ISO/IEC
