@@ -906,6 +906,24 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 251 — eCFR physical-safety receipts
+
+**Review date:** 2026-08-18. Current public eCFR text at 29 CFR 1910.151(c)
+requires suitable facilities for quick drenching or flushing of eyes and body
+within the work area for immediate emergency use where corrosive exposure is
+possible. Current 29 CFR 1910.335(b)(1) requires safety signs, symbols, or
+accident-prevention tags where necessary to warn employees about electrical
+hazards. Two module-13 physical-safety items are bounded to those exact legal
+requirements; the broader EPO/egress/authorized-worker combination remains
+outside the receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m13-q202 | Physical Security and Safety — Components for physical safety | 29 CFR 1910.151 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-I/section-1910.151 | **PASS** — corrosive-exposure drenching/flushing requirement is explicit |
+| m13-q206 | Physical Security and Safety — Components for physical safety | 29 CFR 1910.335 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.335 | **PASS** — electrical-hazard signage/tag requirement is explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 250 — eCFR labelling and outside-servicing receipts
 
 **Review date:** 2026-08-18. Current public eCFR text at 29 CFR 1910.303(f)(2)

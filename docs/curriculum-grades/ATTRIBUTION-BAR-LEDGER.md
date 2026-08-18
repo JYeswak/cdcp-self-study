@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 320 PASS; 637 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 322 PASS; 635 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -805,11 +805,11 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m13-q103 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | BLOCKED — NFPA 730 preview receipt; exact security-theatre/rear-layer proposition is not exposed |
 | m13-q200 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | PASS |
 | m13-q201 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/731/2026 | BLOCKED — NFPA 731 catalog receipt; exact mantrap/anti-passback proposition is not exposed |
-| m13-q202 | 13 | Physical Security and Safety — Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70E/2024 | BLOCKED — NFPA 70E catalog receipt; exact EPO/egress/eyewash distinction is not exposed |
+| m13-q202 | 13 | Physical Security and Safety — Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-I/section-1910.151 | PASS |
 | m13-q203 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/3662 | PASS — IEC 60839-11-1:2013 catalog covers physical electronic access control and includes logging and identification information |
 | m13-q204 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/83425 | PASS |
 | m13-q205 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/731/2026 | BLOCKED — NFPA 731 catalog receipt; exact piggybacking/tailgating identity-to-entry proposition is not exposed |
-| m13-q206 | 13 | Physical Security and Safety — Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70E/2024 | BLOCKED — NFPA 70E catalog receipt; exact hazard-signage/authorized-worker proposition is not exposed |
+| m13-q206 | 13 | Physical Security and Safety — Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.335 | PASS |
 | m13-q207 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | BLOCKED — NFPA 730 preview receipt; exact loading-dock freight/contraband/people-control proposition is not exposed |
 | m13-q208 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://pages.nist.gov/FIPS201/FIPS201.html | PASS — NIST FIPS 201-3 public HTML covers PIN/biometric physical-access authentication and assurance levels |
 | m13-q209 | 13 | Physical Security and Safety — Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.37 | PASS |

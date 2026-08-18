@@ -1,22 +1,21 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: CDCP "Physical Security and Safety — Components for physical safety" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: NFPA 70E (2024) —
-# https://link.nfpa.org/all-publications/70E/2024
-# BLOCKED: the public preview does not expose the exact EPO/egress/eyewash
-# component distinction needed to promote this item.
+# Official catalog/preview receipt: 29 CFR 1910.151 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-I/section-1910.151
+# PASS: the current public eCFR text states the emergency drenching/flushing
+# requirement for corrosive-material exposure.
 id = "m13-q202"
 kind = "single-select"
 module = 13
-stem = "Safety components such as emergency power-off (EPO) interfaces, clear egress, and eye-wash where required differ from security locks because they primarily protect:"
+stem = "Under 29 CFR 1910.151(c), where eyes or body may be exposed to injurious corrosive materials, an employer must provide:"
 choices = [
-  "Marketing secrets only",
-  "People from injury and enable emergency response, even when that conflicts with convenience",
-  "Only package delivery SLAs",
-  "Shareholder branding colors"
+  "Suitable facilities for quick drenching or flushing of the eyes and body within the work area for immediate emergency use",
+  "Only a locked cabinet outside the work area",
+  "Only a written warning with no emergency facility",
+  "Only a security badge reader at the entrance"
 ]
-correct = "B"
-explanation = "Safety systems prioritize human life and emergency response over access convenience."
+correct = "A"
+explanation = "The current public eCFR text requires suitable facilities for quick drenching or flushing of eyes and body within the work area for immediate emergency use when corrosive exposure is possible."
 topic_ids = ["m13-safety-components"]
 objective_ids = []
 bloom = "understand"
