@@ -1,22 +1,23 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: CDCP "Facility criteria" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
-# https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog covers building construction and site
-# configuration, but not this exact greenfield/retrofit comparison.
+# Official catalog/preview receipt: ISO/IEC TS 8236-2:2025 —
+# https://www.iso.org/standard/86677.html
+# PASS: the current ISO preview covers KPI-based facility provisioning,
+# forecasting, and capability assessment across the infrastructure lifecycle.
+# No paid body or PDF was fetched.
 id = "m03-q206"
 kind = "single-select"
 module = 3
-stem = "When comparing a greenfield build to retrofitting an existing building, a key facility-criteria difference is often:"
+stem = "A facility-infrastructure forecast should use:"
 choices = [
-  "Retrofits always have unlimited floor-to-floor height and plant space",
-  "Greenfield never needs permits",
-  "Existing buildings may constrain floor loading, slab-to-slab height, risers, and plant yard space",
-  "Neither needs life-safety systems"
+  "Facility profiles built from system/platform KPIs, forecasting methods, and lifecycle capability assessment",
+  "Only the day-one rack count with no lifecycle review",
+  "Only interior finishes and marketing labels",
+  "A vendor SKU list without facility indicators"
 ]
-correct = "C"
-explanation = "Brownfield constraints on structure and plant space frequently dominate retrofit feasibility."
+correct = "A"
+explanation = "The public ISO preview describes facility profiles, provisioning benchmarks/trends, forecasting, and capability assessment through preparation, commissioning, expansion/contraction, and retirement."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "analyze"

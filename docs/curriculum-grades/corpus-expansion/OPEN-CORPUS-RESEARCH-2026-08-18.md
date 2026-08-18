@@ -887,6 +887,27 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 206 — ISO lifecycle planning and facility-provisioning boundary
+
+**Review date:** 2026-08-18. The current ISO/IEC 22237-1:2021 preview covers
+classification by availability, security, and energy-efficiency over the planned
+lifetime and identifies business-risk and operating-cost analysis. The current
+ISO/IEC TS 8236-2:2025 preview covers facility profiles built from system and
+platform KPIs, provisioning benchmarks and trends, forecasting, and capability
+assessment through preparation, commissioning, expansion/contraction, and
+retirement. These receipts support two bounded planning questions without
+asserting site-specific utility topology or retrofit construction limits.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m03-q201 | Site location selection criteria | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — planned-lifetime availability/security/energy-efficiency classification and business-risk/operating-cost analysis are explicit |
+| m03-q206 | Facility criteria | ISO/IEC TS 8236-2:2025 — https://www.iso.org/standard/86677.html | **PASS** — KPI-based facility provisioning, forecasting, and lifecycle capability assessment are explicit |
+
+Dual-utility-feed independence, queue/energization, and greenfield/retrofit
+construction constraints remain BLOCKED where the public previews do not expose
+those narrower propositions. No standard body or PDF was fetched. This pass does
+not certify a learner or close ms4j.
+
 ## Breadth pass 205 — IEC transformer-loss terminology boundary
 
 **Review date:** 2026-08-18. The current IEC 60076-19-1:2023 catalog page

@@ -3,20 +3,21 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
 # https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog covers availability classification, but not this exact
-# dual-utility-feed proposition.
+# PASS: the current ISO preview explicitly covers classification by availability,
+# security, and energy-efficiency over the planned lifetime, plus business-risk
+# and operating-cost analysis. No paid body or PDF was fetched.
 id = "m03-q201"
 kind = "single-select"
 module = 3
-stem = "Proximity to high-quality dual utility feeds is a site criterion mainly to support:"
+stem = "A site-selection review under ISO/IEC 22237-1 should explicitly consider:"
 choices = [
-  "Decorative fountains only",
-  "Independent power paths and reduced correlated utility risk where available",
-  "Lower ceiling heights",
-  "Elimination of all UPS systems by regulation"
+  "Availability, security, energy-efficiency, business risk, and operating cost over the planned lifetime",
+  "Only decorative fountains and exterior finishes",
+  "Only CPU clock speed and hypervisor licensing",
+  "Elimination of all continuity systems by regulation"
 ]
-correct = "B"
-explanation = "Utility diversity reduces correlated power risk; it does not remove the need for on-site continuity design."
+correct = "A"
+explanation = "The public ISO preview names availability, security, and energy-efficiency classification over the planned lifetime and business-risk/operating-cost analysis; dual-feed design remains a separate engineering question."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "apply"
