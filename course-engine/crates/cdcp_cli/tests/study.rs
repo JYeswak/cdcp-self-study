@@ -79,8 +79,11 @@ fn http_get(hostport: &str, path: &str) -> (u16, String) {
         "GET {path} HTTP/1.1\r\nHost: {hostport}\r\nConnection: close\r\n\r\n"
     )
     .unwrap();
+    let _ = stream.shutdown(std::net::Shutdown::Write);
     let mut buf = String::new();
-    stream.read_to_string(&mut buf).unwrap();
+    stream.read_to_string(&mut buf).unwrap_or_else(|e| {
+        panic!("read {hostport}{path}: {e}; partial={buf:?}");
+    });
     let status = buf
         .lines()
         .next()
@@ -174,6 +177,19 @@ fn occupy_default_port() -> Occupier {
             );
             thread::spawn(move || {
                 for mut s in listener.incoming().flatten() {
+                    // Drain headers so close() is FIN, not POSIX RST.
+                    let mut reader = BufReader::new(&s);
+                    let mut line = String::new();
+                    let _ = reader.read_line(&mut line);
+                    loop {
+                        let mut hdr = String::new();
+                        match reader.read_line(&mut hdr) {
+                            Ok(0) | Err(_) => break,
+                            Ok(_) if hdr == "\r\n" || hdr == "\n" || hdr.is_empty() => break,
+                            Ok(_) => {}
+                        }
+                    }
+                    drop(reader);
                     let body = OCCUPIER_TOKEN.as_bytes();
                     let _ = write!(
                         s,
@@ -181,6 +197,7 @@ fn occupy_default_port() -> Occupier {
                         body.len()
                     );
                     let _ = s.write_all(body);
+                    let _ = s.shutdown(std::net::Shutdown::Write);
                 }
             });
             let (status, body) = http_get(DEFAULT_BIND, "/");
