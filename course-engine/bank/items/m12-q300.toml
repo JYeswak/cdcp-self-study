@@ -1,22 +1,22 @@
 # Original runbook vignette — operational scenario (not an exam dump)
 # Public syllabus heading: CDCP "Fire Protection" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: NFPA 72 (2025) —
-# https://link.nfpa.org/all-publications/72/2025
-# BLOCKED: the public preview does not expose the exact ASD staged-threshold
-# operator runbook needed to promote this scenario.
+# Official catalog/preview receipt: 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164
+# PASS: the current OSHA public standard requires servicing, maintenance, and
+# testing, including cleaning and sensitivity adjustments, to be performed by
+# a trained person knowledgeable in system operation and functions.
 id = "m12-q300"
 kind = "single-select"
 module = 12
-stem = "Runbook vignette: ASD indicates a low-level alert in a dense white-space zone. Spot detectors have not reached alarm; no visible smoke. The night operator is alone. Per a layered-detection runbook mindset, what is the preferred next step?"
+stem = "Under 29 CFR 1910.164(c)(4), servicing, maintenance, and testing of fire-detection systems, including cleaning and necessary sensitivity adjustments, must be performed by:"
 choices = [
-  "Immediately release clean-agent suppression without investigation because any ASD alert equals confirmed fire",
-  "Disable all detection for the rest of the shift to stop nuisance alerts",
-  "Open emergency exit doors and portable fans to dilute any possible smoke before calling anyone",
-  "Investigate per staged thresholds (verify panel zone, walk-down, smell/visual, check recent work/hot spots) while preparing to escalate if conditions worsen — do not skip human verification when the design provides investigation time"
+  "A trained person knowledgeable in the operations and functions of the system",
+  "Only an untrained visitor with access to the panel",
+  "Only a vendor selected by lowest price with no training requirement",
+  "No one, because testing is optional after installation"
 ]
-correct = "D"
-explanation = "Staged ASD thresholds exist so operators can investigate dilute early indications before full alarm or suppression logic. A responsible runbook balances early warning with controlled verification, not automatic full release or silencing detection."
+correct = "A"
+explanation = "The current OSHA public standard requires servicing, maintenance, and testing of fire-detection systems, including cleaning and necessary sensitivity adjustments, to be performed by a trained person knowledgeable in system operations and functions."
 topic_ids = ["m12-detection", "m12-best-practices"]
 objective_ids = []
 bloom = "apply"

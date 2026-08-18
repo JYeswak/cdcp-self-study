@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 335 PASS; 622 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 337 PASS; 620 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -707,7 +707,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m11-q236 | 11 | 1.11 Designing a Scalable Network Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | m11-q237 | 11 | 1.11 Designing a Scalable Network Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
 | m11-q238 | 11 | 1.11 Designing a Scalable Network Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |
-| mock40-q34 | 12 | Fire detection systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | BLOCKED — NFPA 72, 2025 official preview receipt; exact item-level proposition is not exposed |
+| mock40-q34 | 12 | Fire detection systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
 | mock40-q35 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | BLOCKED — NFPA 2001, 2025 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q041 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
 | bank-m12-q042 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
@@ -772,7 +772,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m12-q225 | 12 | 1.12 Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
 | m12-q226 | 12 | 1.12 Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
 | m12-q227 | 12 | 1.12 Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.shopulstandards.com/ProductDetail.aspx?UniqueKey=49792 | PASS |
-| m12-q300 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | BLOCKED — NFPA 72 preview receipt; exact ASD staged-threshold runbook is not exposed publicly |
+| m12-q300 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | PASS |
 | mock40-q36 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/731/2026 | BLOCKED — retired duplicate; NFPA 731 catalog receipt, exact mantrap proposition not exposed |
 | mock40-q37 | 13 | Physical Security and Safety — Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70E/2024 | BLOCKED — retired cross-module duplicate; NFPA 70E catalog receipt, exact MOP proposition not exposed |
 | bank-m13-q076 | 13 | Physical Security and Safety — Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/730/2026 | PASS |

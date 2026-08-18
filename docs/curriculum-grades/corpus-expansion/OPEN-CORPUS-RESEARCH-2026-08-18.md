@@ -906,6 +906,23 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 255 — OSHA fire-detection approval and servicing receipts
+
+**Review date:** 2026-08-18. Current OSHA public 29 CFR 1910.164 requires
+fire-detection devices and equipment installed to comply with the standard to
+be approved for their intended purpose, and requires servicing, maintenance,
+testing, cleaning, and necessary sensitivity adjustments to be performed by a
+trained person knowledgeable in system operations and functions. Two module-12
+items are bounded to those exact requirements; ASD sensitivity, staged
+threshold, and cross-zone runbook claims remain blocked.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| mock40-q34 | Fire detection systems | 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | **PASS** — intended-purpose approval requirement is explicit |
+| m12-q300 | Fire Protection | 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164 | **PASS** — trained-person servicing/testing requirement is explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 254 — OSHA fire-detection receipts
 
 **Review date:** 2026-08-18. Current OSHA public 29 CFR 1910.164 text requires
