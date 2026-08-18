@@ -920,6 +920,26 @@ no promotion is justified.
 No bank or ledger rows changed in this boundary check. No standard body or PDF
 was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 157 — environmental-control and water-KPI boundary
+
+**Review date:** 2026-08-18. M09/M10 cooling and water rows were checked
+against current official ISO/IEC catalog pages. ISO/IEC 22237-4:2021 remains
+the published environmental-control edition and exposes temperature, fluid
+movement, humidity, particulate, vibration, and environmental-control security
+scope. ISO/IEC 30134-9:2022 remains the published WUE edition while marked for
+revision and exposes KPI definition, categories, measurement, calculation,
+reporting, and interpretation. ISO/IEC AWI TS 22237-44 is an approved work item
+under development, not a published standard.
+
+| Frontier | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| M09 cooling principles | Cooling principles | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **BLOCKED** — the public abstract does not expose the exact heat-sink or all-IT-power-to-heat propositions |
+| M09 liquid and seasonal cooling | Liquid cooling; Seasonal Thermal Energy Storage (STER) | ISO/IEC AWI TS 22237-44 — https://www.iso.org/standard/93846.html?browse=tc | **BLOCKED** — under development; the public work-item abstract does not expose a CDU or seasonal-storage proposition |
+| M10 water KPI and siting | Importance of water | ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html | **BLOCKED** — the published abstract exposes WUE scope and measurement but not the item's formula wording or closed-loop permitting boundary |
+
+No M09/M10 bank or ledger rows changed. No standard body or PDF was fetched.
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 142 — water service, WUE, leak detection, and AHJ boundary
 
 **Review date:** 2026-08-18. The remaining Module 10 water and leak-interface
