@@ -905,6 +905,23 @@ The adjacent broader claims remain BLOCKED on their existing official
 receipts. No standard body or PDF was fetched. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 186 — BMS plant functions and setpoint control
+
+**Review date:** 2026-08-18. The current ISO catalog was checked for
+ISO 16484-3:2005. The catalog says this edition was reviewed and confirmed in
+2024 and covers generic functions for plant/project-specific applications,
+engineering functions for building controls and operations, and functional
+documentation for BACS. That directly supports the bounded BMS plant-sequence
+and setpoint-control proposition.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q104 | Building Management System (BMS) | ISO 16484-3:2005 — https://www.iso.org/standard/37205.html?browse=ics | **PASS** — public ISO catalog covers plant/project-specific applications and engineering functions for building controls and operations |
+
+BMS/DCIM product boundaries, EPMS distinctions, alarm correlation, and
+change-control policy claims remain BLOCKED. No standard body or PDF was
+fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 185 — lighting commissioning against design specifications
 
 **Review date:** 2026-08-18. The current ISO catalog was checked for
