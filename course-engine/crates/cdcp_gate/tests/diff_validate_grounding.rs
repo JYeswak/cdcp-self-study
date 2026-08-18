@@ -619,14 +619,14 @@ fn unicode_16_nd_blocks_are_byte_identical_and_known_bad_is_red() {
     );
 }
 
-/// `argparse` delegates numeric option values to Python's `float()`/`int()`.
-/// The known-bad mutant leaves Rust's parsers ASCII-only: Python passes these
-/// Unicode values while Rust exits with a usage error, so the differential
-/// fixture REDs that parity loss.
+/// `argparse` delegates numeric option values to Python's `float()`/`int()`;
+/// its negative-number matcher also uses Unicode `\d`. The known-bad mutant
+/// leaves Rust's parser classification ASCII-only, so Python accepts `-١.٠`
+/// while Rust exits with a usage error and the differential fixture REDs it.
 #[test]
 fn unicode_nd_cli_numbers_are_byte_identical_and_known_bad_is_red() {
     let f = Fixture::grounded();
-    let min_overlap = '\u{0661}'.to_string() + "." + &'\u{0660}'.to_string();
+    let min_overlap = "-".to_string() + &'\u{0661}'.to_string() + "." + &'\u{0660}'.to_string();
     let sample_report = '\u{0662}'.to_string();
     let args = [
         "--min-overlap",

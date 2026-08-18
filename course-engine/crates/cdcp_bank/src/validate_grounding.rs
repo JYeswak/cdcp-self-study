@@ -1203,7 +1203,7 @@ fn looks_like_negative_number(s: &str) -> bool {
     if c == Some('.') {
         c = it.next();
     }
-    matches!(c, Some(d) if d.is_ascii_digit())
+    matches!(c, Some(d) if py_digit(d))
 }
 
 /// `_parse_optional`: is this token classified 'O' rather than 'A'?
