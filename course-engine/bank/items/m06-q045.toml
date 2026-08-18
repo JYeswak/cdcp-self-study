@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: PDU form factors
-# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact room/row/rack PDU hierarchy proposition.
+# PASS: ISO/IEC 22237-3:2021 official abstract explicitly covers power
+# distribution systems to all equipment within data centres.
+# https://www.iso.org/standard/78551.html
 id = "m06-q045"
 kind = "single-select"
 module = 6
-stem = "Floor/room PDUs, RPPs, and rack PDUs differ mainly by:"
+stem = "Which equipment-facing distribution scope does ISO/IEC 22237-3:2021 explicitly cover?"
 choices = [
-  "Distribution hierarchy and form factor—room/row vs rack-level delivery",
+  "Power distribution systems to all equipment within data centres",
   "Whether they use three-phase power (only floor PDUs can)",
   "Whether grounding is required",
   "Whether they can feed dual-corded gear",
 ]
 correct = "A"
-explanation = "PDU is an overloaded term: clarify floor/room, RPP, or rack PDU (rPDU) by role and location."
+explanation = "The current ISO abstract explicitly covers distribution systems to all equipment; it does not expose a PDU hierarchy proposition."
 topic_ids = ["m06-pdu"]
 objective_ids = []
 bloom = "understand"

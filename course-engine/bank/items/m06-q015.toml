@@ -1,19 +1,20 @@
 # Bank item imported from practice/PRACTICE-EXAM.md — original educational content
 # Public syllabus heading: Power redundancy levels and techniques
-# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact UPS-module N+1 sizing proposition.
+# PASS: ISO/IEC 22237-3:2021 official abstract explicitly covers power supplies
+# to data centres.
+# https://www.iso.org/standard/78551.html
 id = "mock40-q15"
 kind = "single-select"
 module = 6
-stem = "N+1 at a UPS module layer means:"
+stem = "Which power topic does ISO/IEC 22237-3:2021 explicitly cover?"
 choices = [
+  "Power supplies to data centres",
   "Exactly one UPS total",
-  "Capacity for full load plus one spare module so one can fail/maintain",
   "Two full independent sites",
   "No batteries required",
 ]
-correct = "B"
-explanation = "N+1 means N capacity for the load plus one spare unit/module at that layer."
+correct = "A"
+explanation = "The current ISO abstract explicitly covers power supplies to data centres; it does not expose an N+1 UPS sizing rule."
 topic_ids = ["m06-redundancy"]
 objective_ids = []
 bloom = "remember"

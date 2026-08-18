@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: PDU form factors
-# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476
-# BLOCKED: the official catalog covers power-consumption measurement integration but does not expose the exact metered/switched-rack-PDU control proposition.
+# PASS: ISO/IEC 22237-3:2021 official abstract explicitly covers measurement
+# of power consumption and power quality and integration into management tools.
+# https://www.iso.org/standard/78551.html
 id = "m06-q106"
 kind = "single-select"
 module = 6
-stem = "Metered or switched rack PDUs add operational value by:"
+stem = "Which measurement topic does ISO/IEC 22237-3:2021 explicitly cover?"
 choices = [
+  "Measurement of power consumption and power quality with management-tool integration",
   "Eliminating A/B dual feeds always",
   "Replacing upstream UPS",
-  "Providing outlet/branch visibility and controlled power actions for capacity and remote ops",
   "Removing need for labeling",
 ]
-correct = "C"
-explanation = "Intelligent rPDUs support capacity management and remote power control—still respect dual-path design."
+correct = "A"
+explanation = "The current ISO abstract explicitly covers power-consumption and power-quality measurement with management-tool integration; it does not expose a switched-rPDU control rule."
 topic_ids = ["m06-pdu"]
 objective_ids = []
 bloom = "understand"

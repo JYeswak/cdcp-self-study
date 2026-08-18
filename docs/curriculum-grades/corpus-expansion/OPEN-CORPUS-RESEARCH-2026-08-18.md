@@ -870,6 +870,24 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 281 — ISO power-distribution abstract categories
+
+**Review date:** 2026-08-18. The current official ISO catalog abstract for
+ISO/IEC 22237-3:2021 was checked without opening or fetching a PDF. It explicitly
+covers power supplies to data centres, power-distribution systems to all
+equipment, and measurement of power consumption/power quality with integration
+into management tools.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| mock40-q15 | Power redundancy levels and techniques | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html | **PASS** — asks only for power supplies to data centres; no N+1 sizing rule is inferred |
+| m06-q041 | Power distribution / busbar trunking | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html | **PASS** — asks only for power distribution to all equipment; no grey-space terminology is inferred |
+| m06-q043 | Power redundancy levels and techniques | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html | **PASS** — asks only for power supplies to data centres; no dual-cord feed rule is inferred |
+| m06-q045 | PDU form factors | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html | **PASS** — asks only for power distribution to all equipment; no PDU hierarchy is inferred |
+| m06-q106 | PDU form factors | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html | **PASS** — asks only for power/power-quality measurement integration; no switched-rPDU rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 280 — ISO environmental-control abstract categories
 
 **Review date:** 2026-08-18. The current official ISO catalog abstract for

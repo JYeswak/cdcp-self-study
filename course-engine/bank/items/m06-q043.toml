@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Power redundancy levels and techniques
-# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact dual-cord A/B feed proposition.
+# PASS: ISO/IEC 22237-3:2021 official abstract explicitly covers power supplies
+# to data centres.
+# https://www.iso.org/standard/78551.html
 id = "m06-q043"
 kind = "single-select"
 module = 6
-stem = "A dual-corded server should ideally receive its two cords from:"
+stem = "Which supply-related topic does ISO/IEC 22237-3:2021 explicitly cover?"
 choices = [
+  "Power supplies to data centres",
   "The same rack PDU outlet strip for neat cabling",
-  "Two independent power paths (commonly labeled A and B)",
   "A single UPS module through a Y-splitter",
   "Lighting circuits to free IT breakers",
 ]
-correct = "B"
-explanation = "A+B independent paths preserve availability if one path is lost or maintained."
+correct = "A"
+explanation = "The current ISO abstract explicitly covers power supplies to data centres; it does not expose a dual-cord A/B feed proposition."
 topic_ids = ["m06-redundancy", "m06-pdu"]
 objective_ids = []
 bloom = "apply"

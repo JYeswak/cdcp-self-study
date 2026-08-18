@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Power distribution / busbar trunking
-# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact grey-space terminology proposition.
+# PASS: ISO/IEC 22237-3:2021 official abstract explicitly covers power
+# distribution systems to all equipment within data centres.
+# https://www.iso.org/standard/78551.html
 id = "m06-q041"
 kind = "single-select"
 module = 6
-stem = "Grey space in a data centre power context primarily refers to:"
+stem = "Which distribution topic does ISO/IEC 22237-3:2021 explicitly cover?"
 choices = [
-  "Mechanical and electrical plant areas (UPS rooms, switchgear, generators)",
+  "Power distribution systems to all equipment within data centres",
   "IT white space with server racks only",
   "Public lobby and visitor parking",
   "Only the raised-floor plenum under cold aisles",
 ]
 correct = "A"
-explanation = "Grey space hosts plant—generators, UPS, switchgear—while white space is the IT floor."
+explanation = "The current ISO abstract explicitly covers power-distribution systems to all equipment; it does not expose grey-space terminology."
 topic_ids = ["m06-distribution"]
 objective_ids = []
 bloom = "remember"
