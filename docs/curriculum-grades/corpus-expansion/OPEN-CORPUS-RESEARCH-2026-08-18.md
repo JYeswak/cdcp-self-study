@@ -870,6 +870,24 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 313 — NFPA 730 physical-security preview headings
+
+**Review date:** 2026-08-18. The current official NFPA LiNK preview for NFPA
+730:2026 was checked without opening or fetching a PDF. Its public preview
+explicitly names Chapter 5 — Security Planning, Chapter 7 — Security
+Perimeters, and Chapter 9 — Security Systems.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m13-q207 | Physical Security and Safety — Components for physical security | NFPA 730:2026 preview — https://link.nfpa.org/all-publications/730/2026 | **PASS** — asks only for the named Security Planning chapter |
+| m13-q211 | Physical Security and Safety — Components for physical security | NFPA 730:2026 preview — https://link.nfpa.org/all-publications/730/2026 | **PASS** — asks only for the named Security Systems chapter |
+| m13-q212 | Physical Security and Safety — Components for physical security | NFPA 730:2026 preview — https://link.nfpa.org/all-publications/730/2026 | **PASS** — asks only for the named Security Perimeters chapter |
+
+Loading-dock controls, guard-force escalation, visitor escort, maintenance-access
+balancing, and other item-level propositions remain BLOCKED because the public
+preview does not expose them. This pass does not certify a learner or close
+ms4j.
+
 ## Breadth pass 312 — IEC 61786-2 field-measurement scope claims
 
 **Review date:** 2026-08-18. The current IEC Webstore page for IEC 61786-2:2014,

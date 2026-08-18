@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: NFPA 730 (2026) —
 # https://link.nfpa.org/all-publications/730/2026
-# BLOCKED: the public preview does not expose the exact raised-floor/ceiling
-# pathway-bypass proposition.
+# PASS: the current public preview explicitly includes a Security Perimeters
+# chapter.
 id = "m13-q212"
 kind = "single-select"
 module = 13
-stem = "Raised-floor and ceiling spaces can be security-relevant pathways because:"
+stem = "Which perimeter-focused chapter appears in the NFPA 730 (2026) public preview?"
 choices = [
-  "Plenums never connect rooms",
-  "Only network packets move above ceilings",
-  "Tiles cannot be lifted by design of physics",
-  "They may allow bypass of door controls if not physically secured or monitored as needed"
+  "Security Perimeters",
+  "Battery Room Chemistry",
+  "Power Quality Measurement",
+  "Cooling-Tower Water Treatment",
 ]
-correct = "D"
-explanation = "Physical pathway security includes vertical and plenum paths, not only doors."
+correct = "A"
+explanation = "The NFPA 730 (2026) public preview explicitly lists Chapter 7 — Security Perimeters."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "analyze"

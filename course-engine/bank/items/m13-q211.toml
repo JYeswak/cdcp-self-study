@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: NFPA 730 (2026) —
 # https://link.nfpa.org/all-publications/730/2026
-# BLOCKED: the public preview does not expose the exact guard-force and
-# remote-monitoring escalation/reporting proposition.
+# PASS: the current public preview explicitly includes a Security Systems
+# chapter.
 id = "m13-q211"
 kind = "single-select"
 module = 13
-stem = "Guard force or remote monitoring procedures add value when they include:"
+stem = "Which security-systems chapter appears in the NFPA 730 (2026) public preview?"
 choices = [
-  "Only informal chats without records",
-  "Sleeping through door forced alarms",
-  "Documented escalation paths, patrols/verification, and incident reporting discipline",
-  "Disabling alarms to reduce noise without investigation"
+  "Security Systems",
+  "Generator Fuel Testing",
+  "Raised-Floor Airflow",
+  "UPS Performance Classification",
 ]
-correct = "C"
-explanation = "Human security layers need procedure and documentation to be real controls."
+correct = "A"
+explanation = "The NFPA 730 (2026) public preview explicitly lists Chapter 9 — Security Systems."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

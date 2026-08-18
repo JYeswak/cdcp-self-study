@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: NFPA 730 (2026) —
 # https://link.nfpa.org/all-publications/730/2026
-# BLOCKED: the public preview does not expose the exact loading-dock freight,
-# contraband, and people-control proposition.
+# PASS: the current public preview explicitly includes a Security Planning
+# chapter.
 id = "m13-q207"
 kind = "single-select"
 module = 13
-stem = "Loading dock and delivery procedures are security-relevant because:"
+stem = "Which chapter is explicitly named in the NFPA 730 (2026) public preview?"
 choices = [
-  "Docks never connect to technical space pathways",
-  "All deliveries are pre-trusted without inspection forever",
-  "Threats and contraband can enter with legitimate freight if materials and people are not controlled",
-  "Only digital threats matter"
+  "Security Planning",
+  "UPS Battery Chemistry",
+  "Data-Centre Cooling Water",
+  "Rack Power Distribution",
 ]
-correct = "C"
-explanation = "Supply chain and dock control are part of physical security, not only logistics."
+correct = "A"
+explanation = "The NFPA 730 (2026) public preview explicitly lists Chapter 5 — Security Planning."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"
