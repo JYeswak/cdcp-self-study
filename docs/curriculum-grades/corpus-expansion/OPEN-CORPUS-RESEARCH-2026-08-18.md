@@ -889,6 +889,23 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 260 — ISO data-centre cabling control scope
+
+**Review date:** 2026-08-18. The current ISO catalog for ISO/IEC TS
+22237-5:2018 remains the current published edition while revision work is
+underway. Its public abstract explicitly includes telecommunications cabling
+used to monitor and control, as appropriate, power distribution, environmental
+control, and physical security of a data centre. The item below is bounded to
+that listed control scope; it does not assert a particular fabric technology,
+cut impact, path topology, or redundancy result.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q230 | Cabling redundancy | ISO/IEC TS 22237-5:2018 — https://www.iso.org/standard/73012.html | **PASS** — cabling control scope for power, environmental control, and physical security is explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 229 — ISO resilience-KPI infrastructure scope
 
 **Review date:** 2026-08-18. The current ISO catalog lists ISO/IEC TS

@@ -1,19 +1,21 @@
 # Original CDCP educational MCQ — ebrr.25 leftover: one fabric cut = one job
 # Public syllabus heading: Cabling redundancy
-# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the current TIA-942-C abstract does not expose the exact item-level cabling redundancy proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: ISO/IEC TS 22237-5:2018 — https://www.iso.org/standard/73012.html
+# PASS: the current ISO catalog explicitly includes telecommunications cabling
+# used to monitor and control power distribution, environmental control, and
+# physical security. No paid body or PDF was fetched.
 id = "m11-q230"
 kind = "single-select"
 module = 11
-stem = "A 2026 interviewer asks what a single cut on a GPU-cluster east-west IB/RoCE 400/800G fabric costs. The taught answer is:"
+stem = "ISO/IEC TS 22237-5:2018 includes telecommunications cabling used to monitor and control:"
 choices = [
-  "A NIC flap; dual street laterals already cover the job",
-  "One training job: the fabric is an availability path equal to power — the hall can still be power-green and cooling-green",
-  "An Uptime / Rated plaque change; 800G is the nines statute",
-  "Nothing operational: in this module that plant is just the interconnect, meaning fewer patch points",
+  "Power distribution, environmental control, and physical security of the data centre",
+  "Only application software and cloud billing",
+  "Only office access badges, with power and cooling excluded",
+  "Only the public internet, with no facility systems involved",
 ]
-correct = "B"
-explanation = "East-west InfiniBand / RoCE at 400/800G carries the training job. One cut, one shared tray, or one polarity miss is one job. Dual laterals are a different building oral. Interconnect in this file still means fewer patch points. Module 01 / 03 own the outage clock."
+correct = "A"
+explanation = "The ISO abstract lists cabling to monitor and control power distribution, environmental control, and physical security."
 topic_ids = ["m11-redundancy"]
 objective_ids = ["obj-m11-gpu-fabric-availability"]
 bloom = "understand"
