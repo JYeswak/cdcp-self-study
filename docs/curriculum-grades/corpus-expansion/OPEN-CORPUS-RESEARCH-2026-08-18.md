@@ -887,6 +887,23 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 207 — OSHA hazardous-energy control boundary
+
+**Review date:** 2026-08-18. The current OSHA 29 CFR 1910.147 text covers
+servicing and maintenance where unexpected energization or stored-energy release
+could injure employees. It requires an energy-control program, isolation, and
+lockout/tagout procedures, including steps to verify control measures. This
+supports the bounded LOTO definition without treating it as a badge or CCTV
+control and without importing NFPA 70E details.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m13-q094 | Physical Security and Safety — Components for physical safety | OSHA 29 CFR 1910.147 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.147 | **PASS** — hazardous-energy control, isolation, lockout/tagout, and verification before servicing are explicit |
+
+EPO interfaces, electrical-arc-flash boundaries, and site-specific switching
+procedures remain outside this receipt. No PDF was fetched. This pass does not
+certify a learner or close ms4j.
+
 ## Breadth pass 206 — ISO lifecycle planning and facility-provisioning boundary
 
 **Review date:** 2026-08-18. The current ISO/IEC 22237-1:2021 preview covers
