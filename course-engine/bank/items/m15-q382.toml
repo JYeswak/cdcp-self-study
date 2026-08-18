@@ -3,7 +3,7 @@
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
 # source_ids = ["src-epi-cdfom-page", "src-doe-ne-o422-1-2025"]
 # source = "BLOCKED — DOE NE O 422.1, approved August 2025; official directive catalog only: https://id.energy.gov/Home/NEDirectives; no PDF or clause body fetched"
-# claim = "A conduct-of-operations organization identifies accountable roles, safe-work responsibility, and hazard-analysis/control responsibility; an organization chart should make those assignments visible."
+# disposition = "BLOCKED — the official DOE directive catalog does not expose the organization clauses; no body or PDF fetched"
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q382"
 kind = "single-select"
@@ -16,7 +16,7 @@ choices = [
   "Replace the chart with a vendor contact list",
 ]
 correct = "A"
-explanation = "DOE NE O 422.1's conduct-of-operations model assigns organizational roles and accountability, safe-work accountability, and hazard-analysis/control responsibilities. The bounded lesson is to make those assignments visible in the organization chart; it does not invent a universal staffing ratio or a proprietary data-center taxonomy."
+explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the organization clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "apply"

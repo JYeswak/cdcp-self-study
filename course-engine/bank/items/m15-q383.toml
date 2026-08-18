@@ -3,7 +3,7 @@
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
 # source_ids = ["src-epi-cdfom-page", "src-doe-ne-o422-1-2025"]
 # source = "BLOCKED — DOE NE O 422.1, approved August 2025; official directive catalog only: https://id.energy.gov/Home/NEDirectives; no PDF or clause body fetched"
-# claim = "Shift turnover transfers equipment/facility status, duties and responsibilities, in-progress or planned work, and relief."
+# disposition = "BLOCKED — the official DOE directive catalog does not expose the shift-management clauses; no body or PDF fetched"
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q383"
 kind = "single-select"
@@ -16,7 +16,7 @@ choices = [
   "Close all in-progress work before every turnover",
 ]
 correct = "A"
-explanation = "Under the bounded DOE NE O 422.1 turnover model, shift relief includes equipment and facility status, duties and responsibilities, in-progress and planned work, and relief of the oncoming operator. It is a conduct-of-operations model, not a claim that every private data center is governed by this Order."
+explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the shift-management clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "apply"

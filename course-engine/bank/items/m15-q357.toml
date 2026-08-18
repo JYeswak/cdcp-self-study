@@ -4,21 +4,21 @@
 # Cite: NE O 422.1, Conduct of Operations, approved August 2025, Attachment 2
 # paragraph 2.p and Appendix A 2.p.(4),(6)-(9), pp. 46-49 —
 # BLOCKED receipt: official DOE directive catalog only — https://id.energy.gov/Home/NEDirectives
-# Claim: technical procedures need controlled revisions, approval, initial/periodic review and testing,
-# current copies, and defined use requirements.
+# Disposition: BLOCKED — the official DOE directive catalog does not expose the procedure-control clauses;
+# no directive body or PDF fetched.
 # Options are length-balanced; teaching lives in explanation.
 id = "m15-q357"
 kind = "single-select"
 module = 15
-stem = "An MOP was approved once, but its revision was never tested and an obsolete PDF remains at the operator console. What control is missing?"
+stem = "An MOP was approved once, but its revision was never tested and an obsolete procedure copy remains at the operator console. What control is missing?"
 choices = [
   "Control revisions, test the procedure, and issue the current copy",
-  "Keep both PDFs active so operators can choose the familiar version",
+  "Keep both procedure versions active so operators can choose the familiar one",
   "Replace procedure review with the vendor's annual invoice",
   "Treat the approval signature as proof that every revision was tested",
 ]
 correct = "A"
-explanation = "NE O 422.1 Attachment 2 paragraph 2.p and Appendix A 2.p.(4),(6)-(9) require processes for procedure changes and approval, initial issue and periodic review/testing, availability and use of the latest revisions, and defined procedure-use requirements. A past approval does not validate an untested revision or authorize two uncontrolled copies."
+explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the procedure-control clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
 topic_ids = ["m15-documentation", "m15-maintenance-sla"]
 objective_ids = []
 bloom = "apply"

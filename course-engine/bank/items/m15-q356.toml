@@ -4,8 +4,8 @@
 # Cite: NE O 422.1, Conduct of Operations, approved August 2025, Attachment 2
 # paragraph 2.l and Appendix A 2.l.(1)-(3), pp. 39-40 —
 # BLOCKED receipt: official DOE directive catalog only — https://id.energy.gov/Home/NEDirectives
-# Claim: the conduct-of-operations model requires thorough, accurate transfer at shift/operator relief,
-# including equipment status, duties/responsibilities, and in-progress or planned work.
+# Disposition: BLOCKED — the official DOE directive catalog does not expose the turnover clauses;
+# no directive body or PDF fetched.
 # Options are length-balanced; teaching lives in explanation.
 id = "m15-q356"
 kind = "single-select"
@@ -18,7 +18,7 @@ choices = [
   "Limit it to badge counts because equipment status is an engineering matter",
 ]
 correct = "A"
-explanation = "NE O 422.1 Attachment 2 paragraph 2.l requires practices for thorough, accurate transfer of information and responsibilities at shift or operator relief. Appendix A 2.l.(1)-(3) covers formal turnover positions, equipment/facility status, duties and responsibilities, in-progress or planned activities, and reliefs. The order says operations includes computer centers; this item applies that framework rather than declaring a universal legal requirement."
+explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the turnover clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "apply"
