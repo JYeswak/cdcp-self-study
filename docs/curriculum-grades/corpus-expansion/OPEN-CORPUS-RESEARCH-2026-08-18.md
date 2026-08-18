@@ -4318,3 +4318,22 @@ hysteresis/seasonality claims; those rows remain BLOCKED.
 
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+## Breadth pass 150 — foundational reliability and edge-placement boundary
+
+**Review date:** 2026-08-18. Module 01 was rechecked against current official
+IEC vocabulary and TIA pages. IEC 60050 distinguishes reliability from
+availability and explicitly relates availability to reliability, maintainability,
+supportability, and maintenance/support. TIA-942-C is current from May 2024;
+TIA's current edge page and standards Q&A describe edge or modular facilities
+as closer to end users. These receipts support only the narrow definitional
+items below.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| mock40-q02 | MTBF / MTTR | IEC 60050 IEV 192-01-23 — https://www.electropedia.org/iev/iev.nsf/display?ievref=192-01-23&openform=; IEV 192-01-24 — https://www.electropedia.org/iev/iev.nsf/IEVref_xref/en%3A192-01-24 | **PASS** — reliability and availability are distinguished, including the maintenance/recovery relationship |
+| m01-q046 | Types of data centres | ANSI/TIA-942-C — https://tiaonline.org/standard/tia-942/; TIA edge page — https://tiaonline.org/what-we-do/technology-programs/edge-data-centers/; TIA Q&A — https://tiaonline.org/understanding-tia-942-a-qa-with-tom-mcgarry/ | **PASS** — edge or modular compute is described as closer to end users, supporting the latency/locality choice |
+
+Ownership-model, wholesale-colocation, hyperscale, AI-factory, behind-the-meter,
+RTO/RPO, and outage-cause propositions remain BLOCKED where the public official
+pages do not expose the full claim. No standard body or PDF was fetched.
+This pass does not certify a learner or close ms4j.
