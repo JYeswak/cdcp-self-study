@@ -1,7 +1,7 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: Cooling principles
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current official receipt does not expose the exact recirculation proposition. No paid body, draft, or PDF was fetched.
+# Official public process receipt: DOE FEMP Cooling Water Efficiency Opportunities for Federal Data Centers — https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers
+# The current DOE page describes concentrated server-exhaust heat loads and restricting warm/cool-air mixing around IT intakes.
 id = "m09-q109"
 kind = "single-select"
 module = 9
@@ -13,7 +13,7 @@ choices = [
   "Only a generator exhaust issue"
 ]
 correct = "B"
-explanation = "Recirculation is hot exhaust re-entering intakes, elevating inlet temperatures; bypass is unused cold air short-cycling."
+explanation = "The current DOE FEMP air-management guidance describes concentrated heat loads from server exhaust and says warm air should be removed while restricting mixing with cool air supplied to IT intakes. That is the bounded recirculation distinction used here; it is not a site-specific airflow design."
 topic_ids = ["m09-principles", "m09-containment"]
 objective_ids = []
 bloom = "understand"

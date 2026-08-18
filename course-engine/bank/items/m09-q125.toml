@@ -1,7 +1,7 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Types of cooling systems
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact chilled-water plant heat-rejection chain.
+# Official public process receipt: DOE FEMP Cooling Water Efficiency Opportunities for Federal Data Centers — https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers
+# The current DOE page traces IT heat from CRAH to chilled water, chiller, condenser-water loop, and cooling tower.
 id = "m09-q125"
 kind = "single-select"
 module = 9
@@ -13,7 +13,7 @@ choices = [
   "Only fiber patch panels"
 ]
 correct = "B"
-explanation = "CRAH coils need chilled water from plant—chillers/economizers and outdoor rejection complete the heat path."
+explanation = "The current DOE FEMP schematic traces heat from air-cooled IT racks into the CRAH, then through the chilled-water system, chiller, condenser-water loop, and cooling tower. That directly supports the upstream plant chain in this bounded question."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "understand"
