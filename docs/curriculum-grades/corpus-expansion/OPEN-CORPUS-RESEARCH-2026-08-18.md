@@ -870,6 +870,20 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 294 — IEC power-distribution measurement preview claim
+
+**Review date:** 2026-08-18. The current official IEC catalog for ISO/IEC
+22237-3:2021 was checked without opening or fetching a PDF. Its public abstract
+includes devices for measuring power consumption and power-quality
+characteristics at points along the power-distribution system and their
+integration within management tools.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m06-q223 | PDU form factors | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **PASS** — asks only for the catalog's measurement and management-tool integration scope; no switched-PDU operation is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 293 — IEC EMF source and measurement-range preview claims
 
 **Review date:** 2026-08-18. The current official IEC catalog for IEC

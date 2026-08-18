@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 452 PASS; 505 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 453 PASS; 504 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -344,7 +344,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q220 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact high-density three-phase-distribution proposition is not exposed |
 | m06-q221 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5463 | PASS |
 | m06-q222 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | PASS |
-| m06-q223 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact switched/metered-rack-PDU proposition is not exposed |
+| m06-q223 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | PASS — current IEC catalog includes power-consumption/power-quality measurement devices and management-tool integration |
 | m06-q224 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/69084 | PASS — IEC 61000-3-12:2011+A1:2021 covers limits for harmonic currents injected into public low-voltage systems |
 | m06-q225 | 6 | Power sizing | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact kW/kVA planning proposition is not exposed |
 | m06-q226 | 6 | Power sizing | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact stranded-capacity definition is not exposed |
