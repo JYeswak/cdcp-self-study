@@ -889,6 +889,22 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 261 — ISO site/building access topic
+
+**Review date:** 2026-08-18. The current ISO catalog for ISO/IEC 22237-2:2024
+lists location and site selection, environmental risks, site/building
+configuration, access, physical intrusion, fire, water damage, and quality
+construction among the document’s public site and building topics. The item
+below is bounded to the explicit access listing; the catalog does not establish
+transportation reliability, delivery logistics, or emergency-response outcomes.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m03-q108 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — access is explicitly listed among the site/building topics |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 260 — ISO data-centre cabling control scope
 
 **Review date:** 2026-08-18. The current ISO catalog for ISO/IEC TS
