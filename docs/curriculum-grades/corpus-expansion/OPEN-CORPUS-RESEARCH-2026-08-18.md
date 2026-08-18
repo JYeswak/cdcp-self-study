@@ -887,6 +887,24 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 212 — IEC static-transfer-system boundary
+
+**Review date:** 2026-08-18. The current IEC 62310-3:2008 catalog page applies
+to stand-alone AC static transfer systems intended to ensure continuity of load
+supply through controlled transfer, with or without interruption, from two or
+more independent AC sources. It also identifies switching, control, and
+protective elements as part of the system description. This supports the direct
+STS-function question without asserting a particular single-cord device,
+transfer time, or facility topology.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q048 | ATS and STS | IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803 | **PASS** — controlled transfer between independent AC sources for load continuity is explicit |
+
+Transfer coordination, source compatibility, testing, and site-specific
+single-cord mitigation remain outside this catalog receipt. No PDF was fetched.
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 211 — DOE cooling-water biological-growth boundary
 
 **Review date:** 2026-08-18. The current DOE FEMP cooling-water page identifies
