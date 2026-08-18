@@ -1,7 +1,8 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Testing and verification of cabling system
-# Official catalog/preview receipt: IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201
-# BLOCKED: the current IEC catalog covers installed balanced-cabling measurement procedures but does not expose the exact permanent-link versus channel proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipts: IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201
+# and current ISO/IEC TS 11801-9903:2025 — https://www.iso.org/standard/92912.html
+# IEC covers installed balanced-cabling measurement procedures; the current ISO catalog explicitly models link and channel transmission parameters.
 id = "m11-q210"
 kind = "single-select"
 module = 11
@@ -13,7 +14,7 @@ choices = [
   "They define what portion of the cabling system is measured and against which limits"
 ]
 correct = "D"
-explanation = "Test configurations must match the intended compliance model."
+explanation = "The IEC installed-cabling measurement procedure must be applied to the intended cabling model; the current ISO/IEC TS 11801-9903 catalog explicitly models link and channel transmission parameters. The tested portion and limits must therefore be identified rather than assumed. This is a bounded testing receipt, not a credential claim."
 topic_ids = ["m11-testing"]
 objective_ids = []
 bloom = "understand"

@@ -1,7 +1,8 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: Testing and verification of cabling system
-# Official catalog/preview receipt: IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201
-# BLOCKED: the current IEC catalog covers installed balanced-cabling measurement procedures but does not expose the exact permanent-link versus channel distinction. No paid body or PDF was fetched.
+# Official catalog/preview receipts: IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201
+# and current ISO/IEC TS 11801-9903:2025 — https://www.iso.org/standard/92912.html
+# IEC covers installed balanced-cabling measurement procedures; the current ISO catalog explicitly models link and channel transmission parameters.
 id = "m11-q114"
 kind = "single-select"
 module = 11
@@ -13,7 +14,7 @@ choices = [
   "Only outdoor plant needs tests"
 ]
 correct = "C"
-explanation = "Test configuration matters; standards-aware practice defines what is included in permanent link versus channel measurements."
+explanation = "IEC 61935-1:2019 covers measurement procedures for installed balanced cabling, while ISO/IEC TS 11801-9903:2025 explicitly distinguishes link and channel transmission parameters. The measured portion and applicable limits therefore depend on the selected cabling model. This is a bounded testing receipt, not a credential claim."
 topic_ids = ["m11-testing"]
 objective_ids = []
 bloom = "understand"

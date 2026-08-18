@@ -5102,3 +5102,21 @@ security item without using the paid NFPA 731 body.
 Credential revocation workflows, visitor escort rules, camera coverage, and
 site-specific access authorization remain outside this receipt. This pass does
 not certify a learner or close ms4j.
+
+## Breadth pass 196 — current link/channel modeling for cabling tests
+
+**Review date:** 2026-08-18. The current IEC Webstore page for IEC 61935-1:2019
+specifies reference measurement procedures for installed balanced information-
+technology cabling. The current ISO catalog for ISO/IEC TS 11801-9903:2025
+explicitly describes combining component cable and connector parameters into
+cabling link and channel transmission parameters. Together they support the
+bounded distinction that a test must identify the cabling portion and limits it
+is meant to measure.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q114 | Testing and verification of cabling system | IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201; ISO/IEC TS 11801-9903:2025 — https://www.iso.org/standard/92912.html | **PASS** — installed-cabling measurement scope and link/channel parameter modeling support the distinction |
+| m11-q210 | Testing and verification of cabling system | IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201; ISO/IEC TS 11801-9903:2025 — https://www.iso.org/standard/92912.html | **PASS** — the measured portion and applicable limits must follow the selected link/channel model |
+
+Exact project test limits, field records, and remediation remain outside these
+catalog receipts. This pass does not certify a learner or close ms4j.
