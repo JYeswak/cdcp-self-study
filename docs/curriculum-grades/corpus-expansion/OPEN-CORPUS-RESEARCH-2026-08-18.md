@@ -1044,6 +1044,21 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 56 — CDCP emergency-lighting records receipt
+
+**Review date:** 2026-08-18. M05 item `m05-q213` now carries the official ISO
+30061:2007 catalog receipt for emergency lighting. It remains BLOCKED because
+the public catalog does not expose the exact test-records failure proposition.
+No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m05-q213 | Emergency light | ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc | **BLOCKED** — exact test-records failure proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 55 — CDCP lighting commissioning and egress
 
 **Review date:** 2026-08-18. Six additional M05 lighting rows now carry
