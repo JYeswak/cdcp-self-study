@@ -956,6 +956,26 @@ municipal water allocations, or cooling-plant chemistry limits.
 
 No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 234 — current IEC VSS/access-control and ISO environmental-control scopes
+
+**Review date:** 2026-08-18. The current IEC catalog for IEC 62676-4:2025
+explicitly covers planning, design, installation, testing, commissioning, and
+maintenance of video-surveillance systems. The current IEC catalog for IEC
+60839-11-1:2013 covers electronic access-control systems for physical entry and
+exit in and around buildings and protected areas, including logging and
+identification. The current ISO preview for ISO/IEC 22237-4:2021 explicitly
+lists temperature, fluid movement, relative humidity, particulate, vibration,
+and physical security of environmental-control systems. The items are bounded
+to those catalog/preview lists.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m13-q204 | Physical Security and Safety — Components for physical security | IEC 62676-4:2025 — https://webstore.iec.ch/en/publication/83425 | **PASS** — VSS lifecycle activities are explicit |
+| bank-m13-q082 | Physical Security and Safety — Components for physical security | IEC 60839-11-1:2013 — https://webstore.iec.ch/en/publication/3662 | **PASS** — physical access-control scope, logging, and identification are explicit |
+| bank-m14-q120 | Environmental Monitoring System (EMS) | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — the named environmental-control categories are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies

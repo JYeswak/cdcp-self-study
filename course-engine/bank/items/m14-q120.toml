@@ -1,19 +1,20 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Environmental Monitoring System (EMS)
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current official receipt does not expose the exact item-level environmental monitoring system (ems) proposition. No paid body or PDF was fetched.
+# PASS: the current ISO preview explicitly names temperature, fluid movement,
+# relative humidity, particulate, vibration, and physical security control.
 id = "bank-m14-q120"
 kind = "single-select"
 module = 14
-stem = "Best first instrumentation for IT thermal risk at the rack is typically:"
+stem = "ISO/IEC 22237-4:2021 explicitly includes which environmental-control topics?"
 choices = [
-  "Only outdoor wet-bulb temperature",
-  "Only generator jacket water temperature",
-  "Only UPS battery room ambient",
-  "Cold-aisle / equipment inlet temperature aligned to thermal guideline practice"
+  "Temperature, fluid movement, relative humidity, particulate, vibration, and physical security of environmental control systems",
+  "Only outdoor wet-bulb temperature and generator jacket-water temperature",
+  "Only UPS battery-room ambient and fuel quality",
+  "Only visitor identity proofing and camera retention"
 ]
-correct = "D"
-explanation = "Inlet conditions drive equipment risk; plant-only metrics can miss local hotspots."
+correct = "A"
+explanation = "The current ISO preview explicitly lists temperature control, fluid movement control, relative humidity control, particulate control, vibration, and physical security of environmental control systems. It does not establish a rack instrumentation layout or a particular sensor setpoint."
 topic_ids = ["m14-ems", "m14-monitoring-reqs"]
 objective_ids = []
 bloom = "understand"

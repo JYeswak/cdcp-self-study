@@ -1,22 +1,22 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 27001:2022 + Amd 1:2024 —
-# https://www.iso.org/standard/27001?browse=tc
-# BLOCKED: the public ISO preview exposes ISMS scope but not the exact
-# authentication/authorization/accounting distinction used by this item.
+# Official catalog/preview receipt: IEC 60839-11-1:2013 —
+# https://webstore.iec.ch/en/publication/3662
+# PASS: the current IEC catalog covers electronic access-control systems for
+# physical entry/exit and includes logging, identification, and information control.
 id = "bank-m13-q082"
 kind = "single-select"
 module = 13
-stem = "Authentication differs from authorization in access control because authentication:"
+stem = "IEC 60839-11-1:2013 covers electronic access-control systems used for:"
 choices = [
-  "Assigns door schedules while authorization checks biometrics only",
-  "Proves identity, whereas authorization decides which doors/zones that identity may open",
-  "Is a synonym of authorization in all ACS designs",
-  "Only applies to mechanical keys"
+  "Physical access entry and exit in and around buildings and protected areas, including logging and identification",
+  "Only chilled-water control and cooling alarms",
+  "Only mechanical keys with no electronic components or records",
+  "Only visitor catering and delivery scheduling"
 ]
-correct = "B"
-explanation = "AuthN = who you are; AuthZ = what you may open; accounting logs the attempt."
+correct = "A"
+explanation = "The current IEC catalog describes electronic access control for physical entry and exit in and around buildings and protected areas, including logging, identification, and control of information. It does not establish a universal anti-passback or joiner/mover/leaver workflow."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"
