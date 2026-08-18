@@ -1,0 +1,25 @@
+# Original CDFOM educational MCQ — ms4j.3 resilience / capacity.
+# syllabus_heading = "Organizational Resilience — Business continuity; Data center facility options; Business Impact Analysis"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
+# source_ids = ["src-epi-cdfom-page", "src-nist-sp800-53-r5-5.2.0"]
+# source = "NIST SP 800-53 Rev. 5, Release 5.2.0 (2025-08-27), CP-2(a)(1)-(4) and CP-2(2) — https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ; clause text: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+# claim = "Contingency capacity planning includes environmental support, not only an alternate-site name or recovery objective."
+# Options are length-balanced; the key is not the longest choice.
+id = "m15-q342"
+kind = "single-select"
+module = 15
+stem = "A BIA says a primary cooling loop can be lost during a contingency. The draft plan lists an alternate site and an RTO but no degraded-capacity check. What management gap remains?"
+choices = [
+  "Plan environmental-support capacity for the contingency",
+  "Add a service-catalogue label for the cooling loop",
+  "Add a second vendor invoice to the asset register",
+  "Add a badge review for alternate-site visitors during contingency",
+]
+correct = "A"
+explanation = "NIST SP 800-53 Rev. 5 CP-2 requires contingency requirements for essential functions, recovery objectives and priorities, roles, and continuity. CP-2(2) adds capacity planning so necessary information-processing, telecommunications, and environmental-support capacity exists during contingency operations. An alternate-site label or badge review does not test whether the degraded cooling service can support the mission."
+topic_ids = ["m15-ops-security", "m15-documentation"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,25 @@
+# Original CDFOM educational MCQ — ms4j.3 facilities maintenance / lifecycle.
+# syllabus_heading = "Facilities Management — Maintenance policies and procedures; Warranty; Maintenance schedule"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
+# source_ids = ["src-epi-cdfom-page", "src-nist-sp800-53-r5-5.2.0"]
+# source = "NIST SP 800-53 Rev. 5, Release 5.2.0 (2025-08-27), MA-2(a)-(c) and (e) — https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ; clause text: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+# claim = "Off-site maintenance requires explicit removal approval and a check that affected controls still function after the work."
+# Options are length-balanced; the key is not the longest choice.
+id = "m15-q343"
+kind = "single-select"
+module = 15
+stem = "A controller is sent off-site for repair. The maintenance record has a work order, but no approval for removal and no post-repair control check. Which CDFOM review finding is supported?"
+choices = [
+  "Add removal approval and a post-repair control check",
+  "Close the record when the vendor returns the controller",
+  "Open a purchase order even when the controller is repaired",
+  "Delete the old record when the replacement arrives",
+]
+correct = "A"
+explanation = "NIST SP 800-53 Rev. 5 MA-2 requires maintenance records, approval and monitoring of maintenance, explicit approval before a component leaves the facility for off-site work, and verification that potentially affected controls still function afterward. A work order or replacement purchase record does not supply either missing control."
+topic_ids = ["m15-maintenance-sla", "m15-documentation"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
