@@ -942,6 +942,24 @@ The ledger remains 155 PASS / 802 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 29 — CDCP fire-protection additional BLOCKED receipts
+
+**Review date:** 2026-08-18. Four Module 12 rows now carry official NFPA
+catalog/preview receipts while remaining BLOCKED because their public pages do
+not expose the exact historical, jurisdictional, penetration, or ASD-runbook
+claim. No NFPA PDF or standard body was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m12-q200 | Fire Protection | NFPA 921, 2024 — https://link.nfpa.org/all-publications/921/2024 | **BLOCKED** — historical data-centre cause mix not exposed |
+| m12-q205 | Fire Protection | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **BLOCKED** — local adopted code path/AHJ decision not exposed |
+| m12-q223 | Fire Protection | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **BLOCKED** — exact penetration/firestop clause not exposed |
+| m12-q300 | Fire Protection | NFPA 72, 2025 — https://link.nfpa.org/all-publications/72/2025 | **BLOCKED** — exact ASD staged-threshold runbook not exposed |
+
+The ledger remains 155 PASS / 802 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
 
 **Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current

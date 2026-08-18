@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: NFPA 921 (2024) —
+# https://link.nfpa.org/all-publications/921/2024
+# BLOCKED: the public preview does not expose the historical data-centre cause
+# mix needed to promote this qualitative “common cause” claim.
 id = "m12-q200"
 kind = "single-select"
 module = 12

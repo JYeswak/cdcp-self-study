@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: NFPA 1 (2024) —
+# https://link.nfpa.org/all-publications/1/2024
+# BLOCKED: a generic Fire Code catalog cannot establish the local jurisdiction's
+# adopted code path or AHJ decision required by this item.
 id = "m12-q205"
 kind = "single-select"
 module = 12
