@@ -1096,7 +1096,7 @@ fn a_domain_min_row_for_an_undeclared_module_is_an_error() {
     // The known-GOOD leg: a floor keyed to a DECLARED module raises the bar and
     // is not itself a drift error.
     let aligned = td.path().join("policy_aligned.toml");
-    write(&aligned, "[[domain_min]]\nmodule = 2\nmin_items = 4\n");
+    write(&aligned, "[[domain_min]]\nmodule = \"٢\"\nmin_items = 4\n");
     let rs = assert_byte_identical(
         "f aligned domain_min raises the floor",
         &root,
