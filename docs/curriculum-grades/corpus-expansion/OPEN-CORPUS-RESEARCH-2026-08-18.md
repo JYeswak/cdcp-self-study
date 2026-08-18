@@ -905,6 +905,23 @@ The adjacent broader claims remain BLOCKED on their existing official
 receipts. No standard body or PDF was fetched. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 183 — balanced-cable performance classes
+
+**Review date:** 2026-08-18. The current IEC catalog was checked for
+IEC 61156-5:2020, Edition 3. Its public description covers horizontal-floor
+balanced pair/quad cables, their transmission characteristics, and their
+frequency range. That supports the bounded educational proposition that
+copper-cabling categories communicate standardized performance capability,
+without relying on numeric limits from the paid body or preview PDF.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q108 | Copper cabling | IEC 61156-5:2020 — https://webstore.iec.ch/en/publication/33649 | **PASS** — public IEC catalog describes horizontal balanced cables by transmission characteristics and frequency range |
+
+Exact category tables, application-distance rules, crosstalk limits, and
+other copper-selection claims remain BLOCKED. No standard body or PDF was
+fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 182 — installed optical-fibre verification
 
 **Review date:** 2026-08-18. The current IEC catalog was checked for
