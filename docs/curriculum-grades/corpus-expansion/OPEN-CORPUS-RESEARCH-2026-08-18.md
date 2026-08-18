@@ -916,6 +916,22 @@ PDF or standard body was fetched.
 No setpoint value, change-control workflow, commissioning test, or operating
 sequence is inferred. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 355 — ISO/IEC 30134-9 WUE KPI scope
+
+**Review date:** 2026-08-18. `m10-q217` was narrowed from unsupported dry-loop
+siting, permit, and water-rights transfer claims to the public preview of
+ISO/IEC 30134-9:2022. The preview defines WUE as a KPI for quantifying data-centre
+water consumption during the use phase and provides measurement categories plus
+measurement, calculation, and reporting information. The exact public CDCP
+heading remains **Importance of water**. No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m10-q217 | Importance of water | ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html | **PASS** — WUE KPI and measurement/reporting scope are explicit |
+
+No permit, water-rights, zero-water, or cooling-architecture conclusion is
+inferred. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
