@@ -3,20 +3,21 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
 # https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog covers environmental risks in building
-# construction, but not this exact flood/storm-surge proposition.
+# PASS: the current ISO preview explicitly covers location/site selection,
+# protection from environmental risks, and protection against damage from water.
+# No paid body or PDF was fetched.
 id = "m03-q094"
 kind = "single-select"
 module = 3
-stem = "Flood plain and storm-surge exposure primarily threaten:"
+stem = "Flood-plain and storm-surge exposure should be treated in site selection as:"
 choices = [
   "Only aesthetic landscaping",
-  "Long-term operability of plant yards, fuel systems, and building envelopes under water events",
+  "An environmental risk requiring protection against damage from water",
   "Nothing if the site has a raised floor indoors",
   "Only wireless signal strength",
 ]
 correct = "B"
-explanation = "Water events can disable yards, fuel, switchgear, and building integrity—critical site criteria."
+explanation = "The public ISO preview explicitly includes protection from environmental risks and protection against damage from water; project-specific flood levels and equipment impacts are outside this receipt."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

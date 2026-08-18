@@ -1332,6 +1332,26 @@ No Module 14 item statuses changed. The existing official catalog receipts remai
 bounded BLOCKED where the public pages do not expose the exact claim. This pass
 does not certify a learner or close ms4j.
 
+## Breadth pass 201 — ISO building-construction site-risk boundary
+
+**Review date:** 2026-08-18. The current ISO/IEC 22237-2:2024 preview explicitly
+lists location and site selection, natural environment and adjacencies,
+protection from environmental risks, site configuration, provision of access,
+physical intrusion protection, and protection against damage from water. Those
+public headings support two bounded site-selection questions without importing
+project-specific flood levels, perimeter layouts, vehicle controls, or camera
+requirements.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m03-q094 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **PASS** — flood/storm-surge exposure is bounded as an environmental risk requiring protection against water damage |
+| m03-q103 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **PASS** — site configuration, access, and physical-intrusion protection are explicit site-level concerns |
+
+Transportation logistics, generalized climate-extremes design, staffing access,
+and retrofit-specific constraints remain BLOCKED where the public catalog/preview
+does not expose the full proposition. No standard body or PDF was fetched. This
+pass does not certify a learner or close ms4j.
+
 ## Breadth pass 145 — CDFOM succession, commissioning, and development receipts
 
 **Review date:** 2026-08-18. The three remaining CDFOM-blocked operations items
