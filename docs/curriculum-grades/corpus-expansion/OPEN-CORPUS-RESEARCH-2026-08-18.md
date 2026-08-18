@@ -905,6 +905,25 @@ The adjacent broader claims remain BLOCKED on their existing official
 receipts. No standard body or PDF was fetched. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 187 — industrial power-quality phenomena
+
+**Review date:** 2026-08-18. The current IEC catalog was checked for
+IEC 61000-2-4:2024, Edition 3. Its public description explicitly enumerates
+voltage deviations, voltage dips and short interruptions, power-frequency
+variation, voltage imbalance, harmonics and interharmonics, higher-frequency
+voltage components, DC component, and transient overvoltages at industrial
+in-plant coupling points. That directly supports the bounded power-quality
+phenomena list.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q091 | Power quality parameters | IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717 | **PASS** — public IEC catalog enumerates the listed power-quality phenomena |
+
+Specific IT-PSU effects, harmonic heating/de-rating, K-factor selection,
+phase-loading consequences, and mitigation requirements remain BLOCKED. No
+standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 186 — BMS plant functions and setpoint control
 
 **Review date:** 2026-08-18. The current ISO catalog was checked for
