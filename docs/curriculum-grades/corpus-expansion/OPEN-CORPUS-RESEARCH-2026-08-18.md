@@ -937,6 +937,21 @@ claim.
 No PDF or paywalled body was fetched or pasted. This pass does not certify a
 learner or close any ms4j bead.
 
+## Breadth pass 349 — ISO/IEC 22237-4 temperature and humidity scope
+
+**Review date:** 2026-08-18. `m09-q203` was narrowed from an unsupported
+inlet-versus-return IT-health metric to the categories explicitly listed in the
+public preview of ISO/IEC 22237-4:2021: temperature and relative humidity. The
+official catalog/preview is the edition receipt; no PDF or standard body was
+fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m09-q203 | Temperature and humidity | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html?browse=tc | **PASS** — temperature and relative-humidity control are explicit |
+
+No inlet/return metric, dew-point threshold, or hardware-health rule is inferred.
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 345 — CDFOM people, physical security, and continuity catalogs
 
 **Review date:** 2026-08-18. Three existing CDFOM PASS items were aligned to
