@@ -1,0 +1,26 @@
+# Original CDMS educational MCQ — ms4j.6: change freeze before migration.
+# Public heading: CDMS "Data Centre Migration" —
+# https://www.epi-ap.com/services/1/3/56/Certified_Data_Centre_Migration_Specialist_(CDMS)
+# Cites: ISO/IEC 20000-1:2018 §8.5.1 "Change management" —
+# https://www.iso.org/standard/70636.html
+# A change freeze stabilizes the baseline before a major move.
+# Decides FREEZE PURPOSE, not a freeze duration. bloom = understand.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q227"
+kind = "single-select"
+module = 3
+stem = "A migration is scheduled for Saturday. The change-management board allows application releases through Friday afternoon. The risk is:"
+choices = [
+  "A Friday release can introduce defects that surface Saturday — the migration is blamed for a pre-existing bug",
+  "No risk — application releases are independent of infrastructure migrations and cannot affect cutover",
+  "Acceptable if Friday releases pass automated tests, since tests catch all defects before production",
+  "No risk — a rollback to Friday state will undo both the migration and the release simultaneously",
+]
+correct = "A"
+explanation = "ISO/IEC 20000-1:2018 §8.5.1 emphasizes controlled change windows. A release the day before migration creates two failure sources: if Saturday breaks, the team cannot tell whether the migration or the Friday release caused it. A change freeze before migration stabilizes the baseline so that any Saturday defect is attributable to the move, not a concurrent change. Rollback cannot cleanly separate infrastructure state from application state if both changed within hours."
+topic_ids = ["m03-migration", "m03-change-freeze"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

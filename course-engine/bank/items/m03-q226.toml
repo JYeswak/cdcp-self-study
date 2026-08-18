@@ -1,0 +1,26 @@
+# Original CDMS educational MCQ — ms4j.6: rollback criteria defined before cutover.
+# Public heading: CDMS "Data Centre Migration" —
+# https://www.epi-ap.com/services/1/3/56/Certified_Data_Centre_Migration_Specialist_(CDMS)
+# Cites: NIST SP 800-53 Rev 5 CM-3 "Configuration Change Control" —
+# https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final
+# Rollback criteria must be defined BEFORE the change, not during the incident.
+# Decides CRITERIA TIMING, not a rollback tool. bloom = apply.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q226"
+kind = "single-select"
+module = 3
+stem = "A migration runbook says 'rollback if cutover fails.' According to NIST SP 800-53 CM-3, the defect is:"
+choices = [
+  "No objective criteria — 'fails' is undefined, so the rollback decision becomes a judgment call under pressure",
+  "Acceptable — experienced operators know failure when they see it and do not need predefined thresholds",
+  "Acceptable if the runbook names the rollback procedure even without specifying trigger conditions",
+  "No defect — rollback criteria are determined by the incident commander after the failure is understood",
+]
+correct = "A"
+explanation = "NIST SP 800-53 Rev 5 CM-3 requires configuration changes include rollback procedures with defined conditions. 'Rollback if cutover fails' is circular — it defers the hardest decision (when to abort) to the moment of highest stress. Objective criteria (latency > X ms for Y minutes, error rate > Z%, specific health-check failures) let the team execute mechanically. Undefined triggers lead to either premature rollback on transient blips or delayed rollback while hoping the problem self-resolves."
+topic_ids = ["m03-migration", "m03-rollback"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

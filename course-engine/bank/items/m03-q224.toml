@@ -1,0 +1,26 @@
+# Original CDMS educational MCQ — ms4j.6: dependency mapping before cutover.
+# Public heading: CDMS "Data Centre Migration" —
+# https://www.epi-ap.com/services/1/3/56/Certified_Data_Centre_Migration_Specialist_(CDMS)
+# Cites: NIST SP 800-53 Rev 5 CM-4 "Impact Analyses" —
+# https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final
+# Dependency mapping before cutover prevents hidden coupling failures.
+# Decides MAPPING SCOPE, not a methodology brand. bloom = analyze.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m03-q224"
+kind = "single-select"
+module = 3
+stem = "A migration plan lists servers to move but omits upstream DNS, load balancers, and certificate stores. According to NIST SP 800-53 CM-4, the risk is:"
+choices = [
+  "Hidden dependencies fail at cutover when the moved servers cannot reach unmapped upstream services",
+  "No risk — DNS and certificates are infrastructure, not application components, so they migrate automatically",
+  "Acceptable if the downstream servers have local caches that survive the move window",
+  "Low risk — load balancers follow servers automatically when the MAC addresses remain unchanged",
+]
+correct = "A"
+explanation = "NIST SP 800-53 Rev 5 CM-4 requires impact analysis for configuration changes. A server move that omits upstream dependencies (DNS resolvers, load-balancer VIPs, certificate authorities, identity providers) can leave the moved workload unable to authenticate, route, or validate certificates. The failure surfaces at cutover, not during planning, because the old path still works until it is severed. Dependency mapping must include infrastructure services, not just application servers."
+topic_ids = ["m03-migration", "m03-dependencies"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
