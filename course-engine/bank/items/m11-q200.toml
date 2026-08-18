@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Importance of network cabling infrastructure
-# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the current TIA-942-C abstract does not expose the exact item-level importance of network cabling infrastructure proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: ISO/IEC 11801-1:2017 + Amd 1:2025 — https://www.iso.org/standard/66182.html
+# Claim is limited to the current ISO catalog's generic-cabling scope.
 id = "m11-q200"
 kind = "single-select"
 module = 11
-stem = "Structured cabling matters in a data centre primarily because:"
+stem = "ISO/IEC 11801-1:2017 describes a generic cabling system as one that:"
 choices = [
-  "It replaces all logical routing protocols",
-  "It provides a planned, manageable, testable physical layer that supports moves, adds, and reliability",
-  "It eliminates the need for dual power",
-  "It cools the hot aisle"
+  "May be implemented with material from single or multiple sources and supports services such as voice, data, and video",
+  "Replaces all logical routing protocols and network equipment",
+  "Applies only to wireless links between data-centre buildings",
+  "Defines cooling-plant controls instead of cabling requirements"
 ]
-correct = "B"
-explanation = "The physical layer must be engineered and operable, not ad hoc wiring."
+correct = "A"
+explanation = "The public ISO catalog describes a multi-vendor generic cabling system that may use material from single or multiple sources and supports voice, data, and video services; it does not replace active networking or cooling controls."
 topic_ids = ["m11-importance", "m11-planning"]
 objective_ids = []
 bloom = "understand"

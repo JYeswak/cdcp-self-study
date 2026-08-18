@@ -1117,6 +1117,32 @@ CO₂ residue or suitability, PASS technique, fire-cause statistics,
 firestopping, or an AHJ-approved facility design. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 365 — ISO/IEC/IEC generic-cabling and testing scopes
+
+**Review date:** 2026-08-18. Five module-11 items were narrowed to current
+official catalog/preview claims. ISO/IEC 14763-2:2019 addresses planning,
+installation and operation of telecommunications cabling infrastructure,
+including documentation, administration, testing, maintenance and repair.
+ISO/IEC 11801-1:2017 describes a multi-vendor generic cabling system that
+supports services including voice, data and video. ISO/IEC 11801-5:2017 scopes
+generic cabling within and to data-centre computer-room spaces. IEC 61935-1:2019
+specifies reference measurement procedures and field-tester accuracy for
+installed balanced cabling parameters identified in ISO/IEC 11801. No PDF or
+standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q124 | Planning considerations | ISO/IEC 14763-2:2019 — https://www.iso.org/standard/73337.html | **PASS** — planning, documentation, administration, testing, operation, maintenance and repair are explicit |
+| m11-q200 | Importance of network cabling infrastructure | ISO/IEC 11801-1:2017 + Amd 1:2025 — https://www.iso.org/standard/66182.html | **PASS** — multi-vendor generic-cabling and supported-service scope is explicit |
+| m11-q201 | TIA-942 cabling system topology | ISO/IEC 11801-5:2017 — https://www.iso.org/standard/62247.html | **PASS** — data-centre computer-room-space scope is explicit |
+| m11-q223 | Copper cabling | IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201 | **PASS** — installed-balanced-cabling measurement and tester-accuracy scope is explicit |
+| m11-q225 | Importance of network cabling infrastructure | ISO/IEC 14763-2:2019 — https://www.iso.org/standard/73337.html | **PASS** — documentation is explicitly addressed |
+
+The pass does not infer HDA/EDA/ZDA acronyms, backbone or horizontal topology,
+carrier or pathway diversity, MPO use, copper-length limits, alien-crosstalk
+behavior, or a site cabling design approval. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
