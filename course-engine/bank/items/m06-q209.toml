@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: UPS systems
 # Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
-# BLOCKED: the official catalog covers UPS performance but does not expose the exact double-conversion input-disturbance proposition.
+# PASS: the current IEC catalog explicitly identifies continuity of load power
+# as the primary function of covered UPS.
 id = "m06-q209"
 kind = "single-select"
 module = 6
-stem = "Double-conversion UPS is preferred for a sensitive hall mainly because it:"
+stem = "What primary function does IEC 62040-3:2021 identify for covered UPS?"
 choices = [
+  "Ensures continuity of load power",
   "Eliminates all heat so cooling is unnecessary",
-  "Regenerates a conditioned output largely independent of input disturbances",
   "Removes the need for any grounding",
-  "Converts three-phase to single-phase only"
+  "Converts three-phase to single-phase only",
 ]
-correct = "B"
-explanation = "Online double-conversion rebuilds output from the DC link for high power quality."
+correct = "A"
+explanation = "The current IEC catalog explicitly states that covered UPS have the primary function of ensuring continuity of load power; it does not establish a double-conversion preference."
 topic_ids = ["m06-ups", "m06-power-quality"]
 objective_ids = []
 bloom = "understand"

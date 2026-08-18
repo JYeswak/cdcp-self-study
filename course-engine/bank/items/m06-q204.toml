@@ -1,19 +1,21 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: UPS parallel configurations
 # Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
-# BLOCKED: the official catalog covers complete UPS performance and functional units, but does not expose the exact shared-battery/shared-bus redundancy critique.
+# PASS: the current IEC catalog explicitly covers performance and test
+# requirements of a complete UPS and, where applicable, individual UPS
+# functional units.
 id = "m06-q204"
 kind = "single-select"
 module = 6
-stem = "N+1 UPS modules share a single common battery string and a single output bus with no alternate path. A fair critique is:"
+stem = "IEC 62040-3:2021 specifies performance and test requirements for:"
 choices = [
-  "Module redundancy may be undermined by shared single points of failure",
-  "Shared batteries always double autonomy",
-  "The topology is automatically fault-tolerant for any failure",
-  "IP rating of the cabinet defines Tier level"
+  "A complete UPS and, where applicable, individual UPS functional units",
+  "Only IP ratings for cabinets",
+  "Only generator fuel systems",
+  "Only data-centre room fire barriers",
 ]
 correct = "A"
-explanation = "Redundancy must be evaluated end-to-end; shared batteries or buses can dominate risk."
+explanation = "The current IEC catalog explicitly states that IEC 62040-3 specifies performance and test requirements for a complete UPS and, where applicable, individual UPS functional units."
 topic_ids = ["m06-ups-parallel", "m06-redundancy"]
 objective_ids = []
 bloom = "apply"

@@ -870,6 +870,23 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 291 — IEC UPS scope and performance preview claims
+
+**Review date:** 2026-08-18. The current official IEC catalog for IEC
+62040-3:2021 was checked without opening or fetching a PDF. Its public abstract
+states that covered UPS incorporate an energy storage device within the stated
+DC-voltage boundary, that the primary function is continuity of load power, and
+that performance and test requirements apply to a complete UPS and, where
+applicable, individual UPS functional units.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m06-q042 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **PASS** — asks only for the catalog's energy-storage boundary; no generator-gap timing is inferred |
+| m06-q204 | UPS parallel configurations | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **PASS** — asks only for the catalog's complete-UPS/functional-unit test scope; no redundancy topology is inferred |
+| m06-q209 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **PASS** — asks only for continuity of load power as the primary function; no double-conversion preference is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 290 — ISO emergency-lighting and commissioning preview claims
 
 **Review date:** 2026-08-18. The current official ISO catalog/preview pages for
