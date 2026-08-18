@@ -1,22 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
-# Public heading: CDCP "Building Management System (BMS)" —
+# Public syllabus heading: CDCP "Building Management System (BMS)" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
-# Current official abstract: NIST SP 800-82 Rev. 3 —
-# https://csrc.nist.gov/pubs/sp/800/82/r3/final
-# Claim boundary: BMS is anchored as building automation/physical-environment
-# monitoring or control; no vendor taxonomy is inferred.
+# Official catalog/preview receipt: ISO 16484-2:2025 — https://www.iso.org/standard/86354.html
+# PASS: the current ISO catalog lists management stations/operator panels, data-storage and analysis servers, automation stations, sensors, and actuators as BACS hardware examples.
 id = "m14-q202"
 kind = "single-select"
 module = 14
-stem = "In NIST's OT examples, a BMS is most closely associated with systems that:"
+stem = "ISO 16484-2:2025 lists which examples as BACS hardware?"
 choices = [
-  "Monitor or control building systems and processes that interact with the physical environment",
-  "Replace all DCIM asset databases automatically without configuration",
-  "Route BGP sessions",
-  "Issue visitor badges only"
+  "Operator panels, servers, automation stations, sensors, and actuators",
+  "Only DCIM asset databases and procurement workflows",
+  "BGP routers with no building-control devices",
+  "Visitor badges with no sensors or control stations"
 ]
 correct = "A"
-explanation = "NIST’s current abstract lists building automation and physical-environment monitoring systems as OT that monitor or control devices, processes, and events. The item does not define a vendor-specific BMS/DCIM boundary."
+explanation = "The current ISO catalog lists physical BACS devices including management stations or operator panels, data-storage and analysis devices such as edge or cloud servers, automation stations, and sensors and actuators. The item does not define a vendor-specific BMS/DCIM boundary."
 topic_ids = ["m14-bms"]
 objective_ids = []
 bloom = "remember"

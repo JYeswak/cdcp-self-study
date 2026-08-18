@@ -870,6 +870,22 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 343 — BACS hardware catalog substitution
+
+**Review date:** 2026-08-18. The attribution bar was raised for an existing
+BMS PASS that relied on a NIST abstract rather than the allowed official
+standards/catalog families. The current ISO catalog identifies ISO 16484-2:2025
+and lists BACS hardware examples including management stations or operator
+panels, data-storage and analysis servers, automation stations, sensors, and
+actuators. The item was rewritten to that explicit ISO scope; no vendor
+taxonomy or BMS/DCIM boundary was inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m14-q202 | Building Management System (BMS) | ISO 16484-2:2025 — https://www.iso.org/standard/86354.html | **PASS retained** — BACS hardware examples are explicit |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 342 — BACS integrated control applications
 
 **Review date:** 2026-08-18. The current ISO catalog identifies ISO
