@@ -83,7 +83,7 @@ jobs:
       # shell selftest suites.
       - name: check.sh
         working-directory: course-engine
-        run: ./scripts/check.sh
+        run: bash ./scripts/check.sh
 
       # Anti-vacuous: prove the gate can still FAIL. If a known-bad injection
       # does not turn the gate red, the green above meant nothing.
@@ -98,7 +98,7 @@ jobs:
           d = json.load(open(p)); d['n_items'] = 39
           p.write_text(json.dumps(d, indent=2, sort_keys=True) + '\n')
           PY
-          if ./scripts/check.sh >/dev/null 2>&1; then
+          if bash ./scripts/check.sh >/dev/null 2>&1; then
             cp /tmp/pack.bak web/data/mock40_seed42.json
             echo "::error::gate stayed GREEN under a known-bad injection"
             exit 1

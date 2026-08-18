@@ -81,7 +81,7 @@ jobs:
       # this workflow exists to prevent (PLAN-N W8 / sm4g.8).
       - name: check.sh
         working-directory: course-engine
-        run: ./scripts/check.sh
+        run: bash ./scripts/check.sh
 
   build:
     needs: gate
