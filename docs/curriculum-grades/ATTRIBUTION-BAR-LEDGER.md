@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 103 PASS; 854 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 109 PASS; 848 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -921,12 +921,12 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m15-q225 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
 | m15-q226 | 15 | Documentation | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
 | m15-q227 | 15 | Maintenance contracts / SLA | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
-| m15-q228 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
-| m15-q229 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
-| m15-q230 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
-| m15-q231 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
-| m15-q232 | 15 | Facilities monitoring | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
-| m15-q233 | 15 | Facilities monitoring | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://courses.newhorizons.bg/cdcp/ | BLOCKED — no qualifying official non-PDF edition receipt |
+| m15-q228 | 15 | Safety and Crisis Management — Proper lock-out/tag-out procedures | https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | PASS |
+| m15-q229 | 15 | Safety and Crisis Management — Proper lock-out/tag-out procedures | https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | PASS |
+| m15-q230 | 15 | Safety and Crisis Management — The importance of Permit To Work | https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS) | https://www.hse.gov.uk/coshh/basics/permits.htm | PASS |
+| m15-q231 | 15 | Safety and Crisis Management — The importance of Permit To Work; Data Centre Operations — Shift handover | https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS) | https://www.hse.gov.uk/coshh/basics/permits.htm | PASS |
+| m15-q232 | 15 | Monitoring / Reporting / Control | https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS) | https://www.hse.gov.uk/comah/sragtech/techmeasalidings.htm | PASS |
+| m15-q233 | 15 | Monitoring / Reporting / Control | https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS) | https://www.energy.gov/oe/downloads/blackout-2003-final-report-august-14-2003 | PASS |
 | m15-q340 | 15 | The Data Center Organization — Skills matrix; Training and assessment | https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29 | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final | PASS |
 | m15-q341 | 15 | Managing Physical Security — Security policies and procedures; Reviews, internal and external audits | https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29 | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final | PASS |
 | m15-q342 | 15 | Organizational Resilience — Business continuity; Data center facility options; Business Impact Analysis | https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29 | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final | PASS |

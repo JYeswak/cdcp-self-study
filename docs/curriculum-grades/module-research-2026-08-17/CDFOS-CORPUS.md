@@ -11,7 +11,8 @@ Completing this file **does not certify anyone** and does not grant an EPI® / E
 **Official CDFOS cut is 42/60** (EPI page, FETCHED this pass: 90 min, 60 MCQ, minimum 42 correct). That number is **theirs, not ours.**
 
 No proprietary DCOS / EPI / EXIN body. No dump sites. The initial ledger pass had no bank
-items; the follow-up receipts in §6 record only the new, clause-backed items m15-q352–q377.
+items; the follow-up receipts in §6 record the clause-backed items m15-q228–q233 and
+m15-q352–q377.
 If a heading has no public clause that can be re-derived from a current edition+URL, the row says **no item**.
 
 ---
@@ -48,6 +49,8 @@ Agent Mail reservation of this path was attempted (`BlueReef`, project `/Users/j
 | C-PTW | HSE *Permits to work* page, page stamp **2025-07-03** | https://www.hse.gov.uk/coshh/basics/permits.htm | Re-derivable PTW + permit-spanning handover / hand-back. |
 | C-30134-2 | ISO/IEC 30134-2:**2026** Edition **2**, published **2026-01-16**, ICS 27.015 / 35.020 | https://www.iso.org/standard/85172.html | Power efficiency indicators (PUE / mPUE / categories) from the **catalogue page only**. 2016 Ed.1 is withdrawn (https://www.iso.org/standard/63451.html). |
 | C-62682 | IEC 62682:**2022** Edition **2.0**, 2022-12-08, stability date 2027 | https://webstore.iec.ch/en/publication/65543 | Alarm *system* definition on the shop abstract. **Does not name** a facilities monitoring matrix or a notification matrix. |
+| C-HSE-ALARM | HSE CHIS6, *Better alarm handling* | https://www.hse.gov.uk/comah/sragtech/techmeasalidings.htm | Alarm action and consequence-based priority for m15-q232. |
+| C-DOE-BLACKOUT | U.S.–Canada Power System Outage Task Force, *Final Report on the August 14, 2003 Blackout* (official report page) | https://www.energy.gov/oe/downloads/blackout-2003-final-report-august-14-2003 | Loss-of-redundancy escalation and silent-alarm failure mode for m15-q233. |
 
 **Fetched and refused as item cites**
 
@@ -181,9 +184,9 @@ There is **no** public CDFOS heading *vendor lifecycle*. `.2.5` does not land on
 |---|---|---|---|---|
 | Monitoring / Reporting / Control (parent) | DCOS named only | C-DCOS | **no item** | — |
 | Monitoring requirements | — | — | **no item** | — |
-| Facilities monitoring matrix | IEC 62682:2022 FETCHED; public abstract does **not** name this artefact | C-62682 | **no item** | **`.2.3`** |
+| Facilities monitoring matrix | HSE CHIS6, *Better alarm handling* | C-HSE-ALARM | **yes** — §3.4 | **`.2.3`** |
 | Sensor / alarm point testing and calibration | C-62682 names alarm-to-operator notification, not a calibration matrix | C-62682 | **no item** | — |
-| Notification matrix | same — artefact not on the public IEC page | C-62682 | **no item** | **`.2.3`** |
+| Notification matrix | U.S.–Canada Power System Outage Task Force, official blackout report page | C-DOE-BLACKOUT | **yes** — §3.4 | **`.2.3`** |
 | Escalation requirements | — | — | **no item** | — |
 | Reporting | — | — | **no item** | — |
 
@@ -277,6 +280,16 @@ Source: C-30134-2 catalogue page (not the paid body).
 
 No percentage, no “good PUE” number, no invented category table.
 
+### 3.4 Monitoring / Reporting / Control → `.2.3`
+
+These two items are bounded to the exact public CDFOS heading. They do not claim
+that either cited source prescribes a proprietary monitoring-matrix format.
+
+| Item | Claim | Source |
+|---|---|---|
+| m15-q232 | A facilities monitoring matrix needs a named owner and next action; an alarm requires operator action, and priority is set by the consequence of failing to respond. | C-HSE-ALARM |
+| m15-q233 | Escalate on loss of redundancy even while service remains available; an absent alarm is not evidence that the monitored system is healthy. | C-DOE-BLACKOUT |
+
 ---
 
 ## 4. Map `.2.1`–`.2.5`
@@ -284,9 +297,9 @@ No percentage, no “good PUE” number, no invented category table.
 | Bead | Public heading row(s) | Cite on disk? | Item this pass? |
 |---|---|---|---|
 | `bd-epi-ecosystem-ms4j.2.1` SIP | Service Improvement Process (SIP) | **No.** 20000 refused. DCOS named only. | **Do not write.** |
-| `bd-epi-ecosystem-ms4j.2.2` PTW + handover/hand-back | The importance of Permit To Work; Shift handover (**permit-spanning only**) | **Yes** — C-PTW (+ HSG250 edition pin) | Eligible **after** ACK. Not written this pass. |
-| `bd-epi-ecosystem-ms4j.2.3` monitoring + notification matrices | Facilities monitoring matrix; Notification matrix | **No.** IEC 62682:2022 FETCHED and does not name those artefacts. | **Do not write.** |
-| `bd-epi-ecosystem-ms4j.2.4` LOTO procedure | Proper lock-out/tag-out procedures | **Yes** — C-147 + C-333 | Eligible **after** ACK. Not written this pass. Do not clone `m15-q223` / `bank-m13-q094`. |
+| `bd-epi-ecosystem-ms4j.2.2` PTW + handover/hand-back | The importance of Permit To Work; Shift handover (**permit-spanning only**) | **Yes** — C-PTW (+ HSG250 edition pin) | Items m15-q230–q231; no general handover programme claimed. |
+| `bd-epi-ecosystem-ms4j.2.3` monitoring + notification matrices | Facilities monitoring matrix; Notification matrix | **Yes, bounded** — C-HSE-ALARM + C-DOE-BLACKOUT | Items m15-q232–q233; no proprietary matrix taxonomy claimed. |
+| `bd-epi-ecosystem-ms4j.2.4` LOTO procedure | Proper lock-out/tag-out procedures | **Yes** — C-147 + C-333 | Items m15-q228–q229. Do not clone `m15-q223` / `bank-m13-q094`. |
 | `bd-epi-ecosystem-ms4j.2.5` vendor lifecycle | *No matching public CDFOS heading.* Closest named: Equipment life cycle management / Facilities Maintenance | **No.** 20000 / 55000 refused. 1910.147(f)(2) is contractor LOTO exchange, not select/score/UC/performance. | **Do not write.** |
 
 Parents `bd-epi-ecosystem-ms4j` and `bd-epi-ecosystem-ms4j.2` stay **open**. Children stay **open**. No new epic.
@@ -303,13 +316,30 @@ Parents `bd-epi-ecosystem-ms4j` and `bd-epi-ecosystem-ms4j.2` stay **open**. Chi
 
 *Corpus only. Completing this program does not certify anyone. 27/40 is a study signal.*
 
-## 6. Follow-up source receipts — m15-q352–m15-q377
+## 6. Follow-up source receipts — m15-q228–m15-q233 and m15-q352–m15-q377
 
 The initial rows above record the first fetch and remain useful as a dated audit trail. This
 follow-up searched additional public primary/government sources. The rows below supersede a
 prior **no item** only for the narrowly bounded claim named in each item. They do not turn a
 source into an EPI syllabus heading, and they do not make a generic shift-handover programme,
 the six undocumented document sub-processes, or a vendor-lifecycle taxonomy citable.
+
+### 6.0 Reconciled CDFOS item receipts
+
+These six pre-existing bank items were stale in the ledger, not newly invented. Their
+item files already carried the exact public CDFOS heading and the official source below.
+
+| Item | Exact public CDFOS syllabus heading | Official source | Disposition |
+|---|---|---|---|
+| m15-q228 | Safety and Crisis Management — Proper lock-out/tag-out procedures | 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | **PASS** |
+| m15-q229 | Safety and Crisis Management — Proper lock-out/tag-out procedures | 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | **PASS** |
+| m15-q230 | Safety and Crisis Management — The importance of Permit To Work | HSE *Permits to work*, page updated 2025-07-03 — https://www.hse.gov.uk/coshh/basics/permits.htm | **PASS** |
+| m15-q231 | Safety and Crisis Management — The importance of Permit To Work; Data Centre Operations — Shift handover | HSE *Permits to work*, page updated 2025-07-03 — https://www.hse.gov.uk/coshh/basics/permits.htm | **PASS**, permit-spanning handover only |
+| m15-q232 | Monitoring / Reporting / Control — Facilities monitoring matrix | HSE CHIS6, *Better alarm handling* — https://www.hse.gov.uk/comah/sragtech/techmeasalidings.htm | **PASS** |
+| m15-q233 | Monitoring / Reporting / Control — Notification matrix | U.S.–Canada Power System Outage Task Force, official blackout report page — https://www.energy.gov/oe/downloads/blackout-2003-final-report-august-14-2003 | **PASS** |
+
+No PDF body was fetched. q231 does not establish a general shift-handover programme;
+q232 does not establish a vendor matrix taxonomy.
 
 ### 6.1 New public sources
 
