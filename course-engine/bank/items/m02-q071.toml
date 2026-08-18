@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Standards for sub-components" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://webstore.iec.ch/en/publication/92577
+# BLOCKED: the official IEC catalog covers building construction and related
+# infrastructure, but not the exact sub-component standards proposition.
 id = "m02-q071"
 kind = "single-select"
 module = 2

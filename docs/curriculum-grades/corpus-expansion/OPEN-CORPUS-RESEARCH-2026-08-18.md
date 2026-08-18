@@ -1044,6 +1044,32 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 41 — CDCP standards-landscape legal receipts
+
+**Review date:** 2026-08-18. Ten M02 standards-awareness rows now carry
+official NFPA 1, ISO/IEC 22237-1:2021, or IEC ISO/IEC 22237-2:2024 catalog
+receipts. The prior vendor EN 50600 URL was removed. These rows remain BLOCKED
+because the official pages do not expose the exact code, regional-series,
+international/national, or subcomponent proposition. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| mock40-q05 | AHJ/code vs voluntary standard | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **BLOCKED** — exact general code-versus-standard adoption proposition not exposed |
+| m02-q063 | AHJ/code vs voluntary standard | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **BLOCKED** — exact general code-versus-standard adoption proposition not exposed |
+| m02-q064 | AHJ/code vs voluntary standard | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **BLOCKED** — exact conflict-of-law precedence proposition not exposed |
+| m02-q068 | EN 50600 series awareness | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact EN 50600 regional-series description not exposed |
+| m02-q070 | International vs national standards | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact international-versus-national distinction not exposed |
+| m02-q071 | Standards for sub-components | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact sub-component standards proposition not exposed |
+| m02-q072 | Standards and guidelines landscape | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact standards-and-guidelines landscape proposition not exposed |
+| m02-q075 | AHJ/code vs voluntary standard | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **BLOCKED** — exact AHJ-versus-voluntary-guidance proposition not exposed |
+| m02-q076 | International vs national standards | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact international-versus-national distinction not exposed |
+| m02-q078 | EN 50600 series awareness | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact EN 50600 regional-series description not exposed |
+| m02-q079 | Standards for sub-components | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact sub-component standards proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 40 — CDCP current-operations foundation receipts
 
 **Review date:** 2026-08-18. Ten additional Module 1 rows now carry official
