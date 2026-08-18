@@ -1044,6 +1044,63 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 136 — control-system governance, alarms, and operational processes
+
+**Date:** 2026-08-18
+**Scope:** M08, M09, M11, M14, and M15 questions about BMS/DCIM and other
+control-system ownership, security policy, legacy support, alarm lifecycle,
+operator response, event history, operational processes, resilience, capacity,
+and accountable change. Existing public EPI headings are retained; no OLA,
+handover, alarm-priority, or control-authority taxonomy is invented.
+
+**Official public receipts:**
+
+- [ISO/IEC TS 22237-7:2018](https://www.iso.org/standard/73014.html),
+  **Information technology — Data centre facilities and infrastructures — Part
+  7: Management and operational information**, is published Edition 1 and was
+  last reviewed and confirmed in 2021. Its public abstract covers operational
+  processes for resilience, availability, risk management and mitigation,
+  capacity planning, security, and energy efficiency, plus management
+  processes aligning actual and future user demand. ISO/IEC DIS 22237-7 is
+  under development and is excluded as a current edition.
+- [IEC 62682:2022](https://webstore.iec.ch/en/publication/65543),
+  **Management of alarm systems for the process industries**, is current
+  Edition 2.0. Its official catalog covers alarm principles and processes,
+  abnormal-condition notification, operator response, alarm/event logs,
+  historians, and performance metrics. Its process-industry scope is retained;
+  it does not create a universal data-centre alarm priority or response-time
+  scheme.
+- [IEC 62443-2-1:2024](https://webstore.iec.ch/en/publication/62883),
+  **Security for industrial automation and control systems — Part 2-1:
+  Security program requirements for IACS asset owners**, is current Edition
+  2.0. Its official catalog covers asset-owner/operator security policy and
+  procedure requirements for IACS in operation and explicitly recognizes
+  legacy systems whose unsupported components may prevent every control from
+  being met. It is a security-program receipt, not a data-centre command
+  authorization or a substitute for safety engineering.
+
+**Adversarial boundary:** An alarm is not an incident diagnosis; an alarm
+historian is not proof that an operator acted; an event log is not a complete
+chain of custody; a security policy is not a safe command path; and an
+operations-process catalog does not define local roles, escalation, MOP/SOP/EOP
+approval, or return-to-service authority. Process-industry alarm and IACS
+receipts are used only for bounded control-system evidence questions.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M08/M14 | Identify asset ownership, supported/unsupported components, security policy, access, logging, backup, change, and safe fallback for BMS/DCIM and related controls | A catalog does not prove configuration, patch status, access authorization, or recoverability |
+| M09/M11 | Separate sensor/event generation, alarm presentation, operator response, historian evidence, and performance review | Alarm-management guidance does not supply a universal priority, suppression, or response-time rule |
+| M15 | Assign process owners, competence, review cadence, exceptions, supplier boundaries, and acceptance evidence | A process model does not certify an operator, facility, or control-system result |
+
+**Currency boundary:** ISO/IEC TS 22237-7:2018 remains the published receipt
+while its successor is a draft; IEC 62682:2022 and IEC 62443-2-1:2024 are the
+current official editions used here. Drafts, paid bodies, PDFs, and unrelated
+functional-safety requirements are excluded.
+
+**Bounded result:** This pass adds current operational-process, alarm, and
+control-security anchors without changing bank rows, ledger dispositions,
+manifest, topics, beads, gate, oracle, or credential state.
+
 ## Breadth pass 135 — environmental control, security systems, cabling, and resilience KPIs
 
 **Date:** 2026-08-18
