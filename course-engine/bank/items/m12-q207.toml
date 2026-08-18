@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: current NFPA 101 (2024) public NFPA LiNK catalog/preview URL —
+# https://link.nfpa.org/all-publications/101/2024
+# Boundary: the Life Safety Code receipt supports means-of-egress and fire-
+# protection safety scope; it does not replace training or determine local adoption.
 id = "m12-q207"
 kind = "single-select"
 module = 12
@@ -10,7 +16,7 @@ choices = [
   "Only decorating for customer tours"
 ]
 correct = "A"
-explanation = "Clear signage is part of usable life-safety systems."
+explanation = "The current NFPA 101 catalog identifies the Life Safety Code and its means-of-egress/fire-protection scope. Clear signage supports usable life-safety systems, but it does not replace training or determine local adoption."
 topic_ids = ["m12-signage", "m12-best-practices"]
 objective_ids = []
 bloom = "remember"

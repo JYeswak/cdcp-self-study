@@ -906,6 +906,24 @@ The ledger is now 152 PASS / 805 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 27 — CDCP fire-protection code-boundary receipts
+
+**Review date:** 2026-08-18. Three additional active Module 12 rows were
+narrowed to the public EPI CDCP **Fire Protection** heading and official NFPA
+LiNK catalog or preview URLs. The AHJ/adoption item remains BLOCKED because a
+generic catalog cannot establish a local jurisdiction's adopted code path. No
+NFPA PDF or standard body was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m12-q206 | Fire Protection | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **PASS** — compartmentation and penetration integrity remain code-governed concerns; no project-specific firestop detail is inferred |
+| m12-q207 | Fire Protection | NFPA 101, 2024 — https://link.nfpa.org/all-publications/101/2024 | **PASS** — life-safety/egress scope supports clear signage; no training replacement or local adoption claim is made |
+| m12-q210 | Fire Protection | NFPA 921, 2024 — https://link.nfpa.org/all-publications/921/2024 | **PASS** — electricity-and-fire investigation scope supports qualitative ignition hazards; no universal cause ranking is claimed |
+
+The ledger is now 155 PASS / 802 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
 
 **Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current
