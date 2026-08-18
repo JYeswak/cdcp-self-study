@@ -1066,6 +1066,28 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 35 — CDCP physical-security operations BLOCKED receipts
+
+**Review date:** 2026-08-18. Seven additional M13 items now carry official
+NFPA 730 (2026) catalog/preview receipts. They remain BLOCKED because the
+public preview does not expose the exact loading-dock, colocation, detection,
+dual-control, door-propping, CCTV-priority, or security-theatre propositions.
+No PDF or paid standard body was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| bank-m13-q096 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact loading-dock material-flow/inspection proposition not exposed |
+| bank-m13-q097 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact colocation customer-cage/common-plant zoning proposition not exposed |
+| bank-m13-q099 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact lock-without-detection limitation not exposed |
+| bank-m13-q100 | Physical Security and Safety — Components for physical safety | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact two-person/dual-control proposition not exposed |
+| bank-m13-q101 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact propped-door/change-window proposition not exposed |
+| bank-m13-q102 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact CCTV coverage-priority proposition not exposed |
+| bank-m13-q103 | Physical Security and Safety — Components for physical security | NFPA 730, 2026 — https://link.nfpa.org/all-publications/730/2026 | **BLOCKED** — exact security-theatre/rear-layer proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
 
 **Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current
