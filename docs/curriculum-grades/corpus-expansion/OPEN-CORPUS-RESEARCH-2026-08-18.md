@@ -4681,3 +4681,21 @@ automatic transfer switching equipment and its controller.
 Break-before-make timing, UPS bridging, generator sequencing, and project-
 specific control logic remain BLOCKED. No standard body or PDF was fetched.
 This pass does not certify a learner or close ms4j.
+## Breadth pass 171 — IEC installed copper and MPO testing receipts
+
+**Review date:** 2026-08-18. Three Module 11 cabling rows were checked against
+current IEC Webstore catalog pages. IEC 61935-1:2019 specifies reference
+measurement procedures and field-tester accuracy for installed balanced
+information-technology cabling parameters identified in ISO/IEC 11801. IEC TR
+61282-15:2017 explicitly covers multi-fibre MPO cable-plant testing, including
+polarity, attenuation, length, and optical return loss.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q115 | Testing and verification of cabling system | IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201 | **PASS** — representative copper certification parameters are within the catalog's installed-cabling measurement scope |
+| m11-q135 | Testing and verification of cabling system | IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201 | **PASS** — standards-appropriate installed-cabling certification/verification is explicit |
+| m11-q209 | Fibre cabling | IEC TR 61282-15:2017 — https://webstore.iec.ch/en/publication/34000 | **PASS** — MPO polarity/testing is explicit |
+
+Exact project limits, test records, and vendor-specific remediation remain
+outside these catalog receipts. No standard body or PDF was fetched. This pass
+does not certify a learner or close ms4j.
