@@ -5176,3 +5176,21 @@ along with humidity-control impacts.
 Site-specific water rights, emergency delivery logistics, backup storage sizing,
 and chemistry limits remain outside this public process receipt. This pass does
 not certify a learner or close ms4j.
+
+## Breadth pass 200 — ISO seismic-risk/design boundary
+
+**Review date:** 2026-08-18. The current ISO catalog for ISO/IEC TS
+22237-30:2022 explicitly covers data-centre seismic/earthquake risk assessment
+and mitigation concepts in construction and design. That public receipt supports
+the bounded relationship between candidate-site seismic/geotechnical assessment,
+structural design, and equipment anchorage. It does not expose site rejection,
+soil parameters, or project-specific design values.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m03-q098 | Site location selection criteria | ISO/IEC TS 22237-30:2022 — https://www.iso.org/standard/80622.html | **PASS** — seismic/geotechnical risk assessment informing construction/design and equipment anchorage |
+
+Climate-extremes, staffing-access, and transportation-logistics propositions
+remain BLOCKED where the reviewed public catalog/preview pages do not expose
+their full data-centre claim. No standard body or PDF was fetched. This pass does
+not certify a learner or close ms4j.
