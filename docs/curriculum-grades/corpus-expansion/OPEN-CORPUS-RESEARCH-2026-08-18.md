@@ -1044,6 +1044,25 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 114 — CDFOS/CDFOM file-level receipt audit
+
+**Date:** 2026-08-18
+**Scope:** Audit the 56 bank item files carrying public CDFOS or CDFOM
+syllabus references, with emphasis on the M15 operations frontier and the
+older CDFOS daily-operations leftovers.
+
+**Bounded result:** All 56 files contain a public CDFOS/CDFOM syllabus heading
+and URL plus either an official source citation or an explicit BLOCKED
+disposition. No missing heading, missing syllabus URL, bare FAIL, invented
+heading, or unsupported source marker was found. Existing PASS rows were not
+downgraded merely because their directly applicable public authority is a
+government page rather than a paid standard catalog; the source remains
+bounded to the proposition exposed by that page. The three existing M15
+BLOCKED catalog receipts remain BLOCKED: ISO 30401 for succession/knowledge
+management, ISO 41001 for commissioning governance, and ISO 10015 for
+job-rotation/competence development. No item, manifest, topic, bead, or
+credential disposition changed.
+
 ## Breadth pass 113 — CDFOS/CDFOM cross-module operations frontier
 
 **Date:** 2026-08-18
