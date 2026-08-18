@@ -886,6 +886,25 @@ No M10 bank or ledger rows changed: all reviewed rows already carry the current
 official receipt and a bounded BLOCKED reason. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 143 — cabling testing, administration, and current media receipts
+
+**Review date:** 2026-08-18. Twelve Module 11 blocked receipts were refreshed
+to more directly relevant current official catalog or standards-release pages.
+No paid standard body was added, cited, or copied.
+
+| Items | Public CDCP heading | Current official receipt | Bounded result |
+|---|---|---|---|
+| m11-q108, q109 | Copper cabling | IEC 61156-5:2020 — https://webstore.iec.ch/en/publication/33649 | **BLOCKED** — the catalog covers horizontal balanced-cable transmission characteristics and remote-powering context, but does not expose the exact category-performance or short-copper-selection propositions |
+| m11-q114, q115, q210, q211 | Testing and verification of cabling system | IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201 | **BLOCKED** — the current Edition 5 catalog covers installed balanced-cabling measurement procedures and field-tester accuracy, but does not expose the exact permanent-link/channel, parameter-list, or retest-after-MAC propositions |
+| m11-q116, q212 | Testing and verification of cabling system | ISO/IEC 14763-3:2024 — https://webstore.iec.ch/en/publication/67723 | **BLOCKED** — the current third edition covers installed optical-fibre inspection/testing and identifies connector-attenuation and MPO-testing changes, but does not expose the exact insertion-loss/OTDR or loss/continuity/workmanship propositions |
+| m11-q117, q118 | Planning considerations | ISO/IEC 14763-2:2019 — https://www.iso.org/standard/73337.html | **BLOCKED** — the current Edition 2 abstract covers planning, pathways, documentation, administration, testing, and maintenance, but does not expose the exact label/error or fill/bend-radius propositions |
+| m11-q128 | Planning considerations | ANSI/TIA-607-E release announcement — https://tiaonline.org/standardannouncement/tia-publishes-new-standard-ansi-tia-607-e-generic-telecommunications-bonding-and-grounding-earthing-for-customer-premises/ | **BLOCKED** — the official 2024 release notice confirms generic telecommunications bonding/grounding infrastructure and interconnection scope, but does not expose the exact personnel-safety and reference-integrity proposition |
+
+The twelve item files and their ledger receipts now point to the more specific
+official sources; no row was promoted to PASS. The ledger remains 165 PASS / 792
+BLOCKED across 957 rows, with zero bare FAIL. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 25 — CDCP fire-protection NFPA edition receipts
 
 **Review date:** 2026-08-18. Four Module 12 rows were narrowed to the current

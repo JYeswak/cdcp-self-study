@@ -1,7 +1,7 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: Testing and verification of cabling system
-# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the current TIA-942-C abstract does not expose the exact copper-certification parameter proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201
+# BLOCKED: the current IEC catalog covers reference measurement procedures and field-tester accuracy but does not expose the exact item-level parameter list. No paid body or PDF was fetched.
 id = "m11-q115"
 kind = "single-select"
 module = 11
