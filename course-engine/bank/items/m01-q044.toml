@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
 # https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog exposes availability, security, energy-efficiency, and
-# business-risk analysis, but not this exact mission-critical framing.
+# PASS: ISO/IEC 22237-1:2021 official abstract explicitly names security as a
+# data-centre classification criterion.
 id = "m01-q044"
 kind = "single-select"
 module = 1
-stem = "Why is a data centre often called “mission-critical” rather than merely “important IT space”?"
+stem = "Which classification criterion does ISO/IEC 22237-1:2021 explicitly name?"
 choices = [
-  "Because outage consequences can include severe financial, legal, safety, or reputational harm",
+  "Security",
   "Because it always has a raised floor",
   "Because PUE is published quarterly",
   "Because it uses three-phase power only",
 ]
 correct = "A"
-explanation = "Mission-critical status is driven by impact of loss, not by a particular construction feature."
+explanation = "The current ISO abstract explicitly names security as a classification criterion; it does not expose a mission-critical impact test."
 topic_ids = ["m01-importance"]
 objective_ids = []
 bloom = "understand"

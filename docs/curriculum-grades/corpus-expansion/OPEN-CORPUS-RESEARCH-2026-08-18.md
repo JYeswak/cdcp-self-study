@@ -870,6 +870,23 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 285 — ISO general-concepts classification categories
+
+**Review date:** 2026-08-18. The current official ISO catalog abstract for
+ISO/IEC 22237-1:2021 was checked without opening or fetching a PDF. It explicitly
+names availability, security, and energy efficiency as classification criteria;
+common terminology, parameters, and reference models; and business-risk and
+operating-cost analysis when applying the classification.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m01-q044 | Importance of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — asks only for security as a named criterion; no mission-critical impact test is inferred |
+| m01-q053 | Importance of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — asks only for energy efficiency as a named criterion; no payment/trading priority rule is inferred |
+| m01-q200 | Business organization / DC in the business | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — asks only for common terminology, parameters, and reference models; no business-organization rule is inferred |
+| m01-q209 | Business organization / DC in the business | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — asks only for business-risk and operating-cost analysis; no IT/facilities partnership rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 284 — ISO operations-focus abstract categories
 
 **Review date:** 2026-08-18. The current official ISO catalog abstract for

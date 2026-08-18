@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
 # https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog names data-centre operation/management, but not this
-# exact IT/facilities partnership proposition.
+# PASS: ISO/IEC 22237-1:2021 official abstract explicitly covers business-risk
+# and operating-cost analysis when applying the classification.
 id = "m01-q209"
 kind = "single-select"
 module = 1
-stem = "Treating the data centre as only an IT department concern (with no facilities/ops partnership) risks:"
+stem = "Which analysis does ISO/IEC 22237-1:2021 explicitly identify when applying its classification?"
 choices = [
+  "Business-risk and operating-cost analysis",
   "Faster automatic compliance with all building codes",
-  "Gaps in change control, maintenance ownership, and incident response across trades",
   "Guaranteed lower energy cost forever",
   "Elimination of all physical security needs"
 ]
-correct = "B"
-explanation = "Facility outcomes require cross-functional ownership among IT, facilities, security, and vendors."
+correct = "A"
+explanation = "The current ISO abstract explicitly identifies business-risk and operating-cost analysis; it does not expose an IT/facilities partnership rule."
 topic_ids = ["m01-business-org", "m01-elements"]
 objective_ids = []
 bloom = "analyze"
