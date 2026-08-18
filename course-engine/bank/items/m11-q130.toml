@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — not an exam dump
+# Public syllabus heading: TIA-942 cabling system topology
+# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
+# BLOCKED: the current TIA-942-C abstract does not expose the exact horizontal-cabling path proposition. No paid body or PDF was fetched.
 id = "m11-q130"
 kind = "single-select"
 module = 11
