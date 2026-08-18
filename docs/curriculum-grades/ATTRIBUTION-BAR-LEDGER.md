@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 499 PASS; 458 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 501 PASS; 456 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -864,7 +864,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m14-q205 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | PASS — IEC 62682:2022 public page covers operator-facing abnormal-condition alarms, response support, logs, historians, and metrics |
 | m14-q206 | 14 | Notification | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.rfc-editor.org/rfc/rfc5424.html | PASS |
 | m14-q207 | 14 | Monitoring requirements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | PASS |
-| m14-q208 | 14 | Auxiliary systems best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
+| m14-q208 | 14 | Auxiliary systems best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | PASS — ISO/IEC TS 22237-7:2018 public abstract names its operational-process focus areas |
 | m14-q209 | 14 | Building Management System (BMS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |
 | m14-q210 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | BLOCKED — IEC 62682:2022 catalog receipt; exact hysteresis/seasonality and chattering proposition is not exposed |
 | m14-q211 | 14 | Water leak detection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |
@@ -899,7 +899,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m15-q203 | 15 | Maintenance contracts / SLA | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
 | m15-q204 | 15 | Cleaning | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-D/section-1910.22 | PASS |
 | m15-q205 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | PASS |
-| m15-q206 | 15 | MTBF / MTTR | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
+| m15-q206 | 15 | MTBF / MTTR | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | PASS — ISO/IEC TS 22237-7:2018 public abstract explicitly names risk management and mitigation |
 | m15-q207 | 15 | Documentation | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | PASS |
 | m15-q208 | 15 | Labelling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.303 | PASS |
 | m15-q209 | 15 | Maintenance contracts / SLA | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |

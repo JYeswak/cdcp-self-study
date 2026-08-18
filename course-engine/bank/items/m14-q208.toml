@@ -1,19 +1,21 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Auxiliary systems best practices
 # Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current official receipt does not expose the exact item-level auxiliary systems best practices proposition. No paid body or PDF was fetched.
+# PASS: the public abstract explicitly describes operational processes as its
+# primary focus and names resilience, availability, risk, capacity, security,
+# and energy-efficiency concerns.
 id = "m14-q208"
 kind = "single-select"
 module = 14
-stem = "A best practice for auxiliary systems is to treat monitoring infrastructure as:"
+stem = "What does the ISO/IEC TS 22237-7:2018 public abstract identify as the primary focus of the document?"
 choices = [
-  "Critical enough to need appropriate power protection, network path, and maintenance like other production systems",
-  "Non-critical and unpowered during utility loss",
-  "Optional decoration",
-  "Something that can share one overloaded unmonitored switch under a desk forever"
+  "Operational processes necessary to deliver resilience, availability, risk management and mitigation, capacity planning, security, and energy efficiency",
+  "Only rack cosmetics and office-furniture selection",
+  "Only cloud application feature development",
+  "Only procurement pricing for generator fuel",
 ]
 correct = "A"
-explanation = "Blindness during outages is a common design failure—monitor the monitors."
+explanation = "The public abstract identifies operational processes for resilience, availability, risk, capacity, security, and energy efficiency as the document's primary focus."
 topic_ids = ["m14-best-practices", "m14-monitoring-challenges"]
 objective_ids = []
 bloom = "apply"

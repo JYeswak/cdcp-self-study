@@ -870,6 +870,24 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 315 — ISO/IEC TS 22237-7 operational-process scope claims
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform page for
+ISO/IEC TS 22237-7:2018, Edition 1, confirmed current after its 2021 review, was
+checked without opening or fetching a PDF. Its public abstract identifies
+operational processes for resilience, availability, risk management and
+mitigation, capacity planning, security, and energy efficiency as the primary
+focus.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m14-q208 | Auxiliary systems best practices | ISO/IEC TS 22237-7:2018, current Edition 1 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — asks only for the named operational-process focus |
+| m15-q206 | MTBF / MTTR | ISO/IEC TS 22237-7:2018, current Edition 1 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — asks only for the named risk-management and mitigation pair |
+
+Item-level SLA/OLA taxonomies, handover programs, documentation controls, and
+MTBF/MTTR practices remain BLOCKED where the public abstract does not expose
+those exact propositions. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 314 — IEC 60297-3-100 rack-dimension catalog claims
 
 **Review date:** 2026-08-18. The current IEC Webstore page for IEC
