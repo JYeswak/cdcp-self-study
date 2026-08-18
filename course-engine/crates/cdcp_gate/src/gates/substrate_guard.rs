@@ -1387,6 +1387,56 @@ pub fn inventory_findings(
     out
 }
 
+/// The header every remaining .py oracle must carry (bd-substrate-python-gates-viu).
+///
+/// This is a CONTENT check, not a registry check. The acceptance criterion:
+/// "Any .py that legitimately survives carries an explicit `# RUST MIGRATION: ...`
+/// header, and a gate asserts that header exists on every remaining .py under
+/// scripts/. Blank is an ERROR, not permission."
+pub const RUST_MIGRATION_HEADER_MARKER: &str = "# RUST MIGRATION:";
+
+/// Check that every discovered oracle script has a RUST MIGRATION header.
+///
+/// Anti-vacuous: zero scripts is an ERROR (the scan judged nothing), not a pass.
+/// A file that cannot be read is an ERROR. A file without the header is an ERROR.
+/// This is the acceptance criteria from bd-substrate-python-gates-viu.
+pub fn check_rust_migration_headers(
+    discovered: &BTreeSet<String>,
+    read_file: impl Fn(&str) -> std::io::Result<String>,
+) -> Vec<String> {
+    let mut errors = Vec::new();
+    if discovered.is_empty() {
+        errors.push(
+            "RUST MIGRATION header check: zero scripts discovered — a scan that judged nothing is an ERROR, not a pass"
+                .to_string(),
+        );
+        return errors;
+    }
+    for path in discovered {
+        match read_file(path) {
+            Ok(content) => {
+                // The header must be on line 2 (after shebang) or line 1 if no shebang.
+                // Check first 3 lines to be lenient about placement.
+                let has_header = content
+                    .lines()
+                    .take(3)
+                    .any(|line| line.contains(RUST_MIGRATION_HEADER_MARKER));
+                if !has_header {
+                    errors.push(format!(
+                        "{path}: missing `{RUST_MIGRATION_HEADER_MARKER}` header — every remaining Python oracle must state its disposition (bd-substrate-python-gates-viu). Add a header like: `# RUST MIGRATION: differential oracle for cdcp_gate <cmd> (<bead>)`"
+                    ));
+                }
+            }
+            Err(e) => {
+                errors.push(format!(
+                    "{path}: cannot read file to check RUST MIGRATION header: {e}"
+                ));
+            }
+        }
+    }
+    errors
+}
+
 // ── transitive invocation walk (bd-check-sh-transitive-invocation-gzvb) ────
 //
 // A grep of check.sh does not enumerate what check.sh runs. This walk follows
@@ -2417,6 +2467,22 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
             inv_errs.len(),
             inv_errs.join(" | ")
         )));
+    }
+
+    // bd-substrate-python-gates-viu: every remaining .py oracle must carry a
+    // RUST MIGRATION header stating its disposition. Blank is ERROR, not permission.
+    // Only run when the registry claims to inventory oracles (fixtures omit it).
+    if wt_al.oracle_inventory.is_some() && !wt_disc.is_empty() {
+        let header_errs = check_rust_migration_headers(&wt_disc, |path| {
+            std::fs::read_to_string(root.join(path))
+        });
+        if !header_errs.is_empty() {
+            return Err(GateError::error(format!(
+                "{} RUST MIGRATION header error(s): {}",
+                header_errs.len(),
+                header_errs.join(" | ")
+            )));
+        }
     }
 
     // bd-yp9x: claiming to scan js/mjs with zero files of that extension is
@@ -3989,6 +4055,70 @@ python3 "$_anki_plant/scripts/export_anki.py"
         disc.insert("scripts/verify_orphans.py".into());
         let h = inventory_findings(Some(&inv), &disc);
         assert!(h.errors.is_empty() && h.violations.is_empty(), "{h:?}");
+    }
+
+    // ── RUST MIGRATION header check tests (bd-substrate-python-gates-viu) ──
+
+    #[test]
+    fn rust_migration_header_check_empty_set_is_error() {
+        let disc = BTreeSet::new();
+        let errs = check_rust_migration_headers(&disc, |_| Ok(String::new()));
+        assert_eq!(errs.len(), 1);
+        assert!(errs[0].contains("zero scripts discovered"), "{errs:?}");
+    }
+
+    #[test]
+    fn rust_migration_header_check_missing_header_is_error() {
+        let mut disc = BTreeSet::new();
+        disc.insert("scripts/verify_orphans.py".into());
+        let errs = check_rust_migration_headers(&disc, |_| {
+            Ok("#!/usr/bin/env python3\n# some other comment\n".into())
+        });
+        assert_eq!(errs.len(), 1);
+        assert!(errs[0].contains("missing"), "{errs:?}");
+        assert!(errs[0].contains("RUST MIGRATION"), "{errs:?}");
+    }
+
+    #[test]
+    fn rust_migration_header_check_with_header_is_quiet() {
+        let mut disc = BTreeSet::new();
+        disc.insert("scripts/verify_orphans.py".into());
+        let errs = check_rust_migration_headers(&disc, |_| {
+            Ok("#!/usr/bin/env python3\n# RUST MIGRATION: differential oracle for cdcp_gate verify-orphans (bd-test)\n".into())
+        });
+        assert!(errs.is_empty(), "{errs:?}");
+    }
+
+    #[test]
+    fn rust_migration_header_check_file_read_error_is_error() {
+        let mut disc = BTreeSet::new();
+        disc.insert("scripts/verify_orphans.py".into());
+        let errs = check_rust_migration_headers(&disc, |_| {
+            Err(std::io::Error::new(
+                std::io::ErrorKind::NotFound,
+                "file not found",
+            ))
+        });
+        assert_eq!(errs.len(), 1);
+        assert!(errs[0].contains("cannot read file"), "{errs:?}");
+    }
+
+    #[test]
+    fn live_oracle_scripts_have_rust_migration_headers() {
+        let root = crate::root::resolve(std::path::Path::new(env!("CARGO_MANIFEST_DIR")))
+            .expect("engine root");
+        let disc = discover_oracle_scripts(&root.join("scripts")).expect("scripts dir");
+        if disc.is_empty() {
+            // All oracles retired; this test is no longer applicable
+            return;
+        }
+        let errs = check_rust_migration_headers(&disc, |path| {
+            std::fs::read_to_string(root.join(path))
+        });
+        assert!(
+            errs.is_empty(),
+            "every remaining Python oracle must have a RUST MIGRATION header: {errs:?}"
+        );
     }
 
     #[test]
