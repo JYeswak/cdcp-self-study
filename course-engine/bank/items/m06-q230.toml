@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Battery Energy Storage System (BESS)
 # Official catalog/preview receipt: NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026
-# BLOCKED: the official preview does not expose the exact dual-use BESS ride-through/grid-services priority proposition.
+# PASS: the current official preview exposes Chapter 5 — System Interconnections.
 id = "m06-q230"
 kind = "single-select"
 module = 6
-stem = "BESS proposed for both UPS ride-through and grid services should be treated as:"
+stem = "In NFPA 855:2026, which chapter heading names the system-interconnection topic?"
 choices = [
-  "A free replacement for all generators without study",
-  "Only a lighting inverter",
-  "A multi-use energy asset needing clear priority rules so critical ride-through is not compromised",
-  "Irrelevant to power path design"
+  "Chapter 6 — Commissioning",
+  "Chapter 8 — Decommissioning",
+  "Chapter 9 — Electrochemical Energy Storage Systems",
+  "Chapter 5 — System Interconnections"
 ]
-correct = "C"
-explanation = "Shared storage must reserve critical autonomy; market services cannot starve ride-through."
+correct = "D"
+explanation = "The current NFPA 855 preview names Chapter 5 as System Interconnections. The item does not infer how a multi-use asset should prioritize ride-through or grid services."
 topic_ids = ["m06-bess", "m06-ups"]
 objective_ids = []
 bloom = "apply"

@@ -2589,6 +2589,20 @@ extinguisher-agent or generator-testing propositions needed by nearby items, so
 those remain BLOCKED with their official receipts. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 269 — NFPA interconnection and electrochemical headings
+
+**Review date:** 2026-08-18. The same current NFPA LiNK preview for NFPA
+855:2026 was checked without opening or fetching a PDF. Its public headings also
+expose Chapter 5 — System Interconnections and Chapter 9 — Electrochemical Energy
+Storage Systems.
+
+| Items | Public EPI heading | Current official preview | Bounded result |
+|---|---|---|---|
+| m06-q089, m06-q230 | Battery Energy Storage System (BESS) | NFPA 855:2026 — https://link.nfpa.org/all-publications/855/2026 | **PASS** — both rewritten to ask only for the exact public Chapter 5 heading; dual-use controls and ride-through/grid-services priorities remain out of scope |
+| m06-q261 | Batteries | NFPA 855:2026 — https://link.nfpa.org/all-publications/855/2026 | **PASS** — rewritten to ask only for the exact public Chapter 9 heading; no UPS bus, AC interconnection, UL 9540A, or fire-performance claim is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 146 — NFPA fire-protection edition refresh
 
 **Review date:** 2026-08-18. Twelve Module 12 blocked extinguisher and

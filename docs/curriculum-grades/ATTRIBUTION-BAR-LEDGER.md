@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 368 PASS; 589 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 371 PASS; 586 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -299,7 +299,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q086 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/3851 | PASS |
 | m06-q087 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/29086 | PASS |
 | m06-q088 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
-| m06-q089 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | BLOCKED — NFPA 855 catalog/preview receipt; exact dual-role proposition is not exposed |
+| m06-q089 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
 | m06-q090 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6423 | BLOCKED — IEC TR 62060:2001 catalog receipt; exact trending program is not exposed |
 | m06-q091 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65717 | PASS — IEC 61000-2-4:2024 catalog enumerates voltage deviations, interruptions, frequency variation, imbalance, harmonics, and transients |
 | m06-q092 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact double-conversion explanation is not exposed |
@@ -351,7 +351,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q227 | 6 | High Performance Computing power notes | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact AI/HPC rack-density proposition is not exposed |
 | m06-q228 | 6 | Thermographic scanning | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70B/2026 | BLOCKED — NFPA 70B:2026 catalog/preview receipt; exact thermographic-finding proposition is not exposed |
 | m06-q229 | 6 | Thermographic scanning | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70B/2026 | BLOCKED — NFPA 70B:2026 catalog/preview receipt; exact loaded-baseline/trending proposition is not exposed |
-| m06-q230 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | BLOCKED — NFPA 855:2026 catalog/preview receipt; exact dual-use BESS ride-through/grid-services priority proposition is not exposed |
+| m06-q230 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
 | m06-q231 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/64073 | PASS |
 | m06-q232 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/7091 | PASS — IEC 62485-2:2010 public page covers stationary-battery hazards and the erection/use/inspection/maintenance lifecycle |
 | m06-q233 | 6 | Microgrid | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/61960 | PASS |
@@ -382,7 +382,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q258 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact catcher-versus-2N AI-hall proposition is not exposed |
 | m06-q259 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1:2021 catalog receipt; exact N+2-versus-Tier proposition is not exposed |
 | m06-q260 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1:2021 catalog receipt; exact layer-scoped N+2 proposition is not exposed |
-| m06-q261 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | BLOCKED — NFPA 855:2026 catalog/preview receipt; exact UPS-DC-bus/BESS-AC-interconnect proposition is not exposed |
+| m06-q261 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
 | m06-q300 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact dual-cord landing/path-isolation runbook proposition is not exposed |
 | m06-q301 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | BLOCKED — IEC 60947-6-1:2026 catalog receipt; exact sync/timer/retransfer runbook proposition is not exposed |
 | m06-q302 | 6 | 1.6 Power Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS |

@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Battery Energy Storage System (BESS)
 # Official catalog/preview receipt: NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026
-# BLOCKED: the official preview does not expose the exact dual-role controls/interconnection proposition.
+# PASS: the current official preview exposes Chapter 5 — System Interconnections.
 id = "m06-q089"
 kind = "single-select"
 module = 6
-stem = "If BESS is proposed for both UPS-class ride-through and grid services, the safe design stance is:"
+stem = "Which NFPA 855:2026 chapter heading covers system interconnections?"
 choices = [
-  "Roles must be engineered and coordinated—not assumed interchangeable by marketing",
-  "One string always does everything without controls",
-  "Disable all UPS modules immediately",
-  "Ignore utility interconnection agreements",
+  "Chapter 4 — General",
+  "Chapter 5 — System Interconnections",
+  "Chapter 7 — Operation and Maintenance",
+  "Chapter 13 — Flywheel Energy Storage Systems (FESSs)",
 ]
-correct = "A"
-explanation = "Dual-purpose storage requires deliberate controls, protection, and contractual design."
+correct = "B"
+explanation = "The current NFPA 855 preview names Chapter 5 as System Interconnections. The heading does not establish a dual-use BESS control priority or utility agreement."
 topic_ids = ["m06-bess", "m06-ups"]
 objective_ids = []
 bloom = "analyze"
