@@ -886,6 +886,24 @@ The M03 site/building and M08 rack frontiers remain BLOCKED where the public
 catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+
+## Breadth pass 180 — ISO cabling-infrastructure identifiers
+
+**Review date:** 2026-08-18. The current ISO catalog was checked for
+ISO/IEC TR 14763-2-1:2011. Its public abstract states that the Technical
+Report contains requirements and recommendations for identification of
+cabling-infrastructure elements in administration systems. That directly
+supports the bounded cable/port-label traceability proposition, but not the
+broader power-circuit, stale-label, or color-coding claims reviewed alongside
+it.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m15-q135 | Labelling | ISO/IEC TR 14763-2-1:2011 — https://www.iso.org/standard/55236.html | **PASS** — public catalog covers identification of cabling infrastructure elements, supporting traceable cable and port administration |
+
+The adjacent broader claims remain BLOCKED on their existing official
+receipts. No standard body or PDF was fetched. This pass does not certify a
+learner or close ms4j.
 ## Breadth pass 179 — ISO/IEC physical-security systems and rack layering
 
 **Review date:** 2026-08-18. ISO/IEC 22237-6:2024 is the current published
