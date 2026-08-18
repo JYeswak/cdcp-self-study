@@ -801,3 +801,35 @@ pin the edition and scope only; no paid standard body or PDF was fetched.
 The three rows now carry official edition-pinned catalog receipts rather than
 weaker placeholder URLs. Counts remain 117 PASS / 840 BLOCKED across 957 rows;
 no heading, handover program, career taxonomy, or credential claim was invented.
+
+## Breadth pass 16 — CDCP fire-document roles and electrical boundary
+
+**Review date:** 2026-08-18. This pass revisited two Li-ion fire rows and two
+electrical-safety rows whose stems could be made source-bounded without copying
+standard bodies. Public EPI headings and official preview/catalog or public-code
+receipts were retained; no PDF was fetched.
+
+### Sources retained
+
+| Source | Current receipt | Supported distinction |
+|---|---|---|
+| EPI CDCP syllabus | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | 1.12 Fire Protection; Physical Security and Safety — Components for physical safety |
+| NFPA 855, 2026 edition | https://link.nfpa.org/all-publications/855/2026 | Public NFPA preview pins the current stationary-ESS installation standard and its installation/operation chapters; adoption remains an AHJ question |
+| UL 9540A, Edition 6 | https://www.shopulstandards.com/ProductDetail.aspx?UniqueKey=49792 | Active UL catalog identifies the thermal-runaway/fire-propagation test method and its March 13, 2026 edition |
+| UL 9540, Edition 3 | https://www.shopulstandards.com/ProductDetail.aspx?productId=UL9540_3_S_20230628 | Active UL catalog identifies the ESS product/system safety standard and its March 7, 2025 revision |
+| eCFR 29 CFR 1910.333 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.333 | Public electrical-work-practice receipt; it does not replace qualification, PPE selection, or a site procedure |
+
+### Item disposition
+
+| Item | Bounded result | Result |
+|---|---|---|
+| m12-q225 | Distinguishes NFPA 855 installation, UL 9540A test method/data, and UL 9540 ESS product/system safety; no listing, fire percentage, agent mass, or AHJ result inferred | PASS |
+| m12-q226 | Rejects a packet that treats a UL 9540A report as a listing or NFPA 855 as automatically adopted law; requires edition/AHJ verification | PASS |
+| m12-q227 | Retains the UL 9540 listing versus UL 9540A test-method distinction with official UL/NFPA receipts only | PASS |
+| m13-q217 | Distinguishes electrical-utilization work practice from machine LOTO and separates badge access from electrical authorization | PASS |
+| m13-q218 | Keeps the published electrical boundary/deenergization decision bounded without inventing an incident-energy value or reproducing NFPA 70E | PASS |
+
+The ledger is now 121 PASS / 836 BLOCKED across 957 rows, with zero bare FAIL
+rows. Vendor blogs and third-party bulletins were removed from q227's retained
+receipt set. No credential, AHJ approval, or universal fire-response claim is
+made by this pass.

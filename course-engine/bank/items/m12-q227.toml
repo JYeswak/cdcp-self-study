@@ -1,12 +1,12 @@
-# Original CDCP educational MCQ — ebrr.35 leftover: UL 9540 listing vs 9540A test method
-# syllabus_heading = "1.12 Fire Protection"
-# syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
-# source_ids = [
-#   "src-ul-9540a-test-method",  # https://www.ul.com/services/ul-9540a-test-method
-#   "src-ul-9540a-nfpa-855",     # https://www.ul.com/thecodeauthority/knowledge/understanding-UL-9540A-NFPA-855
-#   "src-seac-ul-9540-bulletin", # https://sustainableenergyaction.org/resources/informational-bulletin-on-the-ul-9540-safety-standard-and-the-ul-9540a-test-method-2/
-# ]
-# claim = "UL 9540A results are test data and do not establish a UL 9540 listing."
+# Original CDCP educational MCQ — public heading: 1.12 Fire Protection.
+# Syllabus: https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Sources: UL 9540A, Edition 6, active UL Standards catalog —
+# https://www.shopulstandards.com/ProductDetail.aspx?UniqueKey=49792 ; UL 9540,
+# Edition 3, active UL Standards catalog —
+# https://www.shopulstandards.com/ProductDetail.aspx?productId=UL9540_3_S_20230628 ;
+# NFPA 855, 2026 edition, public NFPA LiNK preview —
+# https://link.nfpa.org/all-publications/855/2026
+# Claim: UL 9540A results are test data and do not establish a UL 9540 listing.
 id = "m12-q227"
 kind = "single-select"
 module = 12
