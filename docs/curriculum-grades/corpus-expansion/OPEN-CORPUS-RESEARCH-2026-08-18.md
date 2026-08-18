@@ -867,5 +867,14 @@ not standard-body copies; no PDF was fetched.
 
 ASD, agent selection, pre-action, cable-firestop, and other rows remain
 BLOCKED where the reviewed public receipt did not expose the exact claim. The
-ledger is now 125 PASS / 832 BLOCKED across 957 rows, with zero bare FAIL.
+ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
+
+### Module 12 follow-up
+
+| Item | Public CDCP heading | Official public-code receipt | Bounded result |
+|---|---|---|---|
+| m12-q208 | 1.12 Fire Protection | 29 CFR 1910.160 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR7a02737a205fd22/section-1910.160 | **PASS** — impairment notification, temporary precautions, trained restoration, inspection, and agent-container readiness |
+
+The follow-up does not promote room-integrity testing, a universal recovery
+procedure, or any unexposed agent-selection claim.

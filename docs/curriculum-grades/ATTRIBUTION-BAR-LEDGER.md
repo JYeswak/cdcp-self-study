@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 125 PASS; 832 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 126 PASS; 831 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -752,7 +752,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m12-q205 | 12 | Regulatory requirements / AHJ | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m12-q206 | 12 | Fire best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m12-q207 | 12 | Signage and safety requirements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m12-q208 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
+| m12-q208 | 12 | 1.12 Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR7a02737a205fd22/section-1910.160 | PASS |
 | m12-q209 | 12 | 1.12 Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-Q/section-1910.252 | PASS |
 | m12-q210 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m12-q211 | 12 | Fire detection systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
