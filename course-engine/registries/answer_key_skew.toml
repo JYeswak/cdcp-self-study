@@ -1,0 +1,6 @@
+# bd-opyi: the drawable pool is expected to stay near uniform by answer letter.
+# This is a policy row, not a code literal: remediation belongs to a separate bead.
+[[tolerance]]
+gate = "answer-key-skew"
+min_share = 0.15
+max_share = 0.35

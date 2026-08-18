@@ -1,0 +1,4 @@
+[[tolerance]]
+gate = "answer-key-skew"
+min_share = 0.15
+max_share = 0.35

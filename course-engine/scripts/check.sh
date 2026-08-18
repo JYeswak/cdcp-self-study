@@ -945,6 +945,10 @@ echo "==> cdcp_gate verify-bank (bank pool floors)"
 run_cdcp_gate verify-bank || fail "bank verify"
 ok "bank pool"
 
+echo "==> cdcp_gate answer-key-skew (approved answer-key position distribution)"
+run_cdcp_gate answer-key-skew || fail "answer-key skew"
+ok "answer-key distribution"
+
 
 # Anti-hallucination heuristics + corpus overlap
 # PORTED (bd-substrate-rust-migration-jhd.9). scripts/validate_grounding.py stays
