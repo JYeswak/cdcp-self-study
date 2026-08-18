@@ -870,6 +870,28 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 318 — ISO/CIE 8995-1 indoor-lighting preview claims
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform page for
+ISO/CIE 8995-1:2025, Edition 1, was checked without opening or fetching a PDF.
+Its public abstract specifies indoor-workplace lighting requirements for visual
+comfort, performance, and safety; describes illumination quantity and quality
+from daylight, electric sources, or both; says it does not provide specific
+solutions or aesthetic recommendations; and excludes emergency lighting.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m05-q137 | Lighting standards | ISO/CIE 8995-1:2025, Edition 1 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **PASS** — asks only for the named human visual needs |
+| m05-q143 | Lighting standards | ISO/CIE 8995-1:2025, Edition 1 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **PASS** — asks only for the stated quantity/quality and source scope |
+| m05-q147 | Measurements of light | ISO/CIE 8995-1:2025, Edition 1 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **PASS** — asks only for the public human-workplace requirements scope |
+| m05-q206 | Connecting and positioning light fixtures | ISO/CIE 8995-1:2025, Edition 1 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **PASS** — asks only for the emergency-lighting exclusion |
+| m05-q208 | Measurements of light | ISO/CIE 8995-1:2025, Edition 1 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **PASS** — asks only for the stated solution/aesthetics boundary |
+
+Aisle-specific glare, shadowing, high-bay placement, maintenance access, and
+technical-space tradeoffs remain BLOCKED because the public abstract does not
+expose those exact propositions. This pass does not certify a learner or close
+ms4j.
+
 ## Breadth pass 317 — ISO/TS 21274 lighting-commissioning preview claims
 
 **Review date:** 2026-08-18. The current ISO Online Browsing Platform page for

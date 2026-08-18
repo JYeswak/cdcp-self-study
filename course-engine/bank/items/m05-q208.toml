@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Measurements of light
 # Official catalog/preview receipt: ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html
-# BLOCKED: the official catalog does not expose the exact technical-space glare/colour-rendering proposition.
+# PASS: the public abstract explicitly says the document neither provides
+# specific solutions nor recommendations for atmosphere or aesthetics.
 id = "m05-q208"
 kind = "single-select"
 module = 5
-stem = "Color rendering and glare control matter in technical spaces because technicians need to:"
+stem = "Which boundary is explicitly stated in the ISO/CIE 8995-1:2025 public abstract?"
 choices = [
-  "Read labels, indicators, and workmanship details accurately without eye strain",
-  "Ignore labels and wire colors completely",
-  "Maximize reflective glare on LCD screens as a feature",
-  "Work only by flashlight permanently"
+  "It neither provides specific solutions nor recommendations for atmosphere or aesthetics created by lighting",
+  "It mandates one architectural aesthetic for every indoor workplace",
+  "It applies only to fuel-storage lighting and generator controls",
+  "It replaces all designer freedom to explore new techniques",
 ]
 correct = "A"
-explanation = "Quality of light affects error rates in maintenance and operations—not only raw lux numbers."
+explanation = "The ISO/CIE 8995-1:2025 public abstract states that it neither provides specific solutions nor recommendations for lighting atmosphere or aesthetics."
 topic_ids = ["m05-measurements", "m05-standards"]
 objective_ids = []
 bloom = "understand"

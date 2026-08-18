@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: Measurements of light
 # Official catalog/preview receipt: ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html
-# BLOCKED: the official catalog does not expose the exact technical-space glare/colour-rendering proposition.
+# PASS: the public abstract explicitly states that the standard specifies
+# lighting requirements for humans in indoor workplaces.
 id = "m05-q147"
 kind = "single-select"
 module = 5
-stem = "Colour rendering and glare control matter in technical spaces because:"
+stem = "What does ISO/CIE 8995-1:2025 specify for indoor workplaces?"
 choices = [
-  "They replace cable testing",
-  "They set chiller approach temperature",
-  "They determine Tier rating",
-  "Technicians need to read labels, ports, and indicators without visual discomfort",
+  "Lighting requirements intended to meet visual comfort, performance, and safety needs of people",
+  "Only network-cable testing requirements",
+  "Only chiller approach-temperature requirements",
+  "Only data-centre classification ratings",
 ]
-correct = "D"
-explanation = "Visual quality affects safe, accurate technical work on equipment."
+correct = "A"
+explanation = "The ISO/CIE 8995-1:2025 public abstract says it specifies lighting requirements for visual comfort, performance, and safety of people in indoor workplaces."
 topic_ids = ["m05-measurements", "m05-fixtures"]
 objective_ids = []
 bloom = "understand"
