@@ -9,6 +9,13 @@
 //! RAISING `ceiling_lines` in `registries/gate_shrink.toml` is weakening a
 //! gate and is ESCALATION-ONLY. Lowering it after an extraction is autonomous.
 //!
+//! RECEIPT (bd-engine-not-gate-ar39.15): every run prints a one-line digest
+//! plus one `gate-shrink: file <lines> <path>` line per counted `.rs`, sorted
+//! by path. Local vs CI is:
+//!   grep -E '^gate-shrink: (receipt|file) '
+//! The digest is FNV-1a 64 of the canonical `path\tlines\n` records. It is a
+//! disagreement detector, not a security hash.
+//!
 //! DELETE THIS MODULE, its tests, the check.sh mention, and
 //! `registries/gate_shrink.toml` when BOTH are true:
 //!   1. `cdcp_gate` line count < `delete_when_lines_below` (15_000)
@@ -22,6 +29,7 @@
 use super::CheckError;
 use serde::Deserialize;
 use std::collections::BTreeMap;
+use std::fmt::Write as _;
 use std::fs;
 use std::path::Path;
 
@@ -121,7 +129,63 @@ fn product_lines(engine_root: &Path, crates: &[String]) -> (usize, usize) {
     (total, grade)
 }
 
-/// Live check. Prints the ceiling and the product-Rust total on green.
+/// FNV-1a 64. Stable across rustc versions; not a security hash.
+fn fnv1a64_hex(bytes: &[u8]) -> String {
+    let mut hash: u64 = 0xcbf2_9ce4_8422_2325;
+    for &b in bytes {
+        hash ^= u64::from(b);
+        hash = hash.wrapping_mul(0x0100_0000_01b3);
+    }
+    format!("{hash:016x}")
+}
+
+fn receipt_canonical(live: &BTreeMap<String, usize>) -> String {
+    let mut body = String::new();
+    for (path, n) in live {
+        let _ = write!(body, "{path}\t{n}\n");
+    }
+    body
+}
+
+/// One-line digest plus one `file` line per path. Sorted because `live` is a BTreeMap.
+fn format_receipt(live: &BTreeMap<String, usize>) -> String {
+    let files = live.len();
+    let lines: usize = live.values().sum();
+    let digest = fnv1a64_hex(receipt_canonical(live).as_bytes());
+    let mut out =
+        format!("gate-shrink: receipt files={files} lines={lines} digest=fnv1a64:{digest}\n");
+    for (path, n) in live {
+        let _ = writeln!(out, "gate-shrink: file {n} {path}");
+    }
+    out
+}
+
+fn pin_deltas(live: &BTreeMap<String, usize>, files: &[FileRow]) -> Vec<String> {
+    let baseline: BTreeMap<&str, usize> =
+        files.iter().map(|f| (f.path.as_str(), f.lines)).collect();
+    let mut deltas: Vec<String> = Vec::new();
+    for (path, &n) in live {
+        let was = baseline.get(path.as_str()).copied().unwrap_or(0);
+        if n != was {
+            if was == 0 {
+                deltas.push(format!("  +{n} {path} (new)"));
+            } else if n > was {
+                deltas.push(format!("  +{} {path} ({was} -> {n})", n - was));
+            } else {
+                deltas.push(format!("  -{} {path} ({was} -> {n})", was - n));
+            }
+        }
+    }
+    for f in files {
+        if !live.contains_key(&f.path) {
+            deltas.push(format!("  -{} {} (removed)", f.lines, f.path));
+        }
+    }
+    deltas.sort();
+    deltas
+}
+
+/// Live check. Prints the per-file receipt, then the ceiling line, on every run.
 pub fn check_gate_shrink(engine_root: &Path) -> Result<ShrinkReport, CheckError> {
     let reg_path = engine_root.join(REGISTRY_REL);
     if !reg_path.is_file() {
@@ -142,6 +206,9 @@ pub fn check_gate_shrink(engine_root: &Path) -> Result<ShrinkReport, CheckError>
 
     let gate_dir = engine_root.join(GATE_CRATE_REL);
     let live = count_rs_files(&gate_dir)?;
+    // Receipt first so a red run still has a local-vs-CI diff surface.
+    print!("{}", format_receipt(&live));
+
     if live.len() < reg.min_rs_files {
         return Err(CheckError::msg(format!(
             "gate-shrink: found {} .rs file(s) under {GATE_CRATE_REL} < min_rs_files={} — \
@@ -171,29 +238,9 @@ pub fn check_gate_shrink(engine_root: &Path) -> Result<ShrinkReport, CheckError>
         )));
     }
 
+    let deltas = pin_deltas(&live, &reg.files);
+
     if gate_lines > reg.ceiling_lines {
-        let baseline: BTreeMap<&str, usize> = reg
-            .files
-            .iter()
-            .map(|f| (f.path.as_str(), f.lines))
-            .collect();
-        let mut deltas: Vec<String> = Vec::new();
-        for (path, &n) in &live {
-            let was = baseline.get(path.as_str()).copied().unwrap_or(0);
-            if n > was {
-                if was == 0 {
-                    deltas.push(format!("  +{n} {path} (new)"));
-                } else {
-                    deltas.push(format!("  +{} {path} ({was} -> {n})", n - was));
-                }
-            }
-        }
-        for f in &reg.files {
-            if !live.contains_key(&f.path) {
-                deltas.push(format!("  -{} {} (removed)", f.lines, f.path));
-            }
-        }
-        deltas.sort();
         let shown = if deltas.is_empty() {
             "  (no per-file baseline deltas; total still exceeded)".to_string()
         } else {
@@ -224,6 +271,17 @@ pub fn check_gate_shrink(engine_root: &Path) -> Result<ShrinkReport, CheckError>
              Lower ceiling_lines in {REGISTRY_REL} to {gate_lines} so the number stays honest.",
             reg.ceiling_lines
         );
+    }
+    // Pin drift is diagnostic even when the total is under the ceiling: that is
+    // how a constant local-vs-CI offset hid (both sides green, counts disagree).
+    if !deltas.is_empty() {
+        println!(
+            "gate-shrink: pin-drift ({} file(s); diagnostic, not a fail):",
+            deltas.len()
+        );
+        for d in &deltas {
+            println!("{d}");
+        }
     }
 
     Ok(ShrinkReport {
@@ -352,5 +410,79 @@ mod tests {
         );
         let rep = check_gate_shrink(root).unwrap();
         assert_eq!(rep.gate_lines, 2);
+    }
+
+    #[test]
+    fn receipt_is_sorted_and_self_describing() {
+        let mut live = BTreeMap::new();
+        live.insert("src/z.rs".into(), 3);
+        live.insert("src/a.rs".into(), 1);
+        let r = format_receipt(&live);
+        let lines: Vec<&str> = r.lines().collect();
+        assert_eq!(
+            lines[0],
+            format!(
+                "gate-shrink: receipt files=2 lines=4 digest=fnv1a64:{}",
+                fnv1a64_hex(b"src/a.rs\t1\nsrc/z.rs\t3\n")
+            )
+        );
+        assert_eq!(lines[1], "gate-shrink: file 1 src/a.rs");
+        assert_eq!(lines[2], "gate-shrink: file 3 src/z.rs");
+        assert_eq!(lines.len(), 3);
+    }
+
+    #[test]
+    fn receipt_digest_is_pinned_so_an_algorithm_change_is_visible() {
+        assert_eq!(fnv1a64_hex(b"src/lib.rs\t2\n"), "2e0464da34261ed1");
+    }
+
+    #[test]
+    fn receipt_digest_moves_when_a_file_gains_a_line() {
+        let mut a = BTreeMap::new();
+        a.insert("src/lib.rs".into(), 2);
+        let mut b = a.clone();
+        b.insert("src/lib.rs".into(), 3);
+        assert_ne!(
+            format_receipt(&a).lines().next().unwrap(),
+            format_receipt(&b).lines().next().unwrap()
+        );
+    }
+
+    #[test]
+    fn receipt_names_a_planted_eighteen_line_file() {
+        let mut live = BTreeMap::new();
+        live.insert("src/lib.rs".into(), 1);
+        live.insert("src/gates/extra.rs".into(), 18);
+        let r = format_receipt(&live);
+        assert!(r.contains("gate-shrink: file 18 src/gates/extra.rs"), "{r}");
+        assert!(r.contains("files=2 lines=19"), "{r}");
+    }
+
+    #[test]
+    fn pin_deltas_name_growth_shrink_new_and_removed() {
+        let mut live = BTreeMap::new();
+        live.insert("kept.rs".into(), 5);
+        live.insert("grew.rs".into(), 10);
+        live.insert("new.rs".into(), 18);
+        let files = vec![
+            FileRow {
+                path: "kept.rs".into(),
+                lines: 5,
+            },
+            FileRow {
+                path: "grew.rs".into(),
+                lines: 4,
+            },
+            FileRow {
+                path: "gone.rs".into(),
+                lines: 2,
+            },
+        ];
+        let d = pin_deltas(&live, &files);
+        let joined = d.join("\n");
+        assert!(joined.contains("+6 grew.rs (4 -> 10)"), "{joined}");
+        assert!(joined.contains("+18 new.rs (new)"), "{joined}");
+        assert!(joined.contains("-2 gone.rs (removed)"), "{joined}");
+        assert!(!joined.contains("kept.rs"), "{joined}");
     }
 }

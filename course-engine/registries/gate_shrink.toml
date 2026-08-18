@@ -44,7 +44,11 @@
 # (bd-engine-not-gate-ar39.14). Approved-pool module floors are
 # crates/cdcp_bank (verify_coverage.rs). Gate file is a thin dispatcher
 # so check.sh still runs `cdcp_gate verify-coverage`. Dual-path .py stays.
-# 37284 -> 37283: CI measured 37283 on 5b67a4c/9f0f8a4; slack note said lower.
+# 37284 -> 37283: live wc -l at 5b67a4c / origin/main (bd-engine-not-gate-ar39.15).
+# Per-file receipt is always printed so local-vs-CI is a grep/diff, not a
+# guess. Do not invent headroom by raising this number. Future extractions
+# should leave slack so an incidental +1 cannot red CI; the ratchet stays
+# monotone-decreasing. Raising ceiling_lines is escalation-only.
 ceiling_lines = 37283
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
@@ -67,6 +71,11 @@ product_crates = [
 # Last product_gate_file (export_anki.rs) extracted 2026-08-15.
 product_gate_files = []
 
+# Per-file baseline (wc -l / newline-byte count). Diagnostic only — the
+# ceiling is the gate. Refresh after an extraction so over-ceiling deltas
+# name the real mover. Compare against the live receipt:
+#   grep -E '^gate-shrink: (receipt|file) '
+
 [[file]]
 path = "build.rs"
 lines = 102
@@ -81,15 +90,15 @@ lines = 22
 
 [[file]]
 path = "src/gates/capability_maturity.rs"
-lines = 1135
+lines = 1137
 
 [[file]]
 path = "src/gates/doc_facts.rs"
-lines = 1495
+lines = 1728
 
 [[file]]
 path = "src/gates/goldens_couplings.rs"
-lines = 1718
+lines = 1870
 
 [[file]]
 path = "src/gates/install_hooks.rs"
@@ -104,16 +113,8 @@ path = "src/gates/near_duplicate_items.rs"
 lines = 22
 
 [[file]]
-path = "src/gates/smoke_a11y.rs"
-lines = 1187
-
-[[file]]
-path = "src/gates/smoke_learn_v2.rs"
-lines = 1165
-
-[[file]]
 path = "src/gates/substrate_guard.rs"
-lines = 3081
+lines = 4403
 
 [[file]]
 path = "src/gates/validate_grounding.rs"
@@ -121,7 +122,7 @@ lines = 65
 
 [[file]]
 path = "src/gates/verify_bank.rs"
-lines = 85
+lines = 81
 
 [[file]]
 path = "src/gates/verify_content_lock.rs"
@@ -133,11 +134,11 @@ lines = 64
 
 [[file]]
 path = "src/gates/verify_doc_consistency.rs"
-lines = 1451
+lines = 1577
 
 [[file]]
 path = "src/gates/verify_injection_count.rs"
-lines = 1415
+lines = 1740
 
 [[file]]
 path = "src/gates/verify_knowledge_paths.rs"
@@ -153,7 +154,7 @@ lines = 64
 
 [[file]]
 path = "src/gates/verify_step_count.rs"
-lines = 1213
+lines = 1215
 
 [[file]]
 path = "src/lib.rs"
@@ -169,59 +170,55 @@ lines = 160
 
 [[file]]
 path = "src/root.rs"
-lines = 61
+lines = 40
 
 [[file]]
 path = "src/vcs.rs"
-lines = 345
+lines = 373
 
 [[file]]
 path = "tests/anti_vacuous_topics.rs"
-lines = 717
+lines = 828
 
 [[file]]
 path = "tests/capability_maturity_e2e.rs"
-lines = 672
+lines = 673
+
+[[file]]
+path = "tests/census_charter_pair.rs"
+lines = 404
 
 [[file]]
 path = "tests/diff_validate_grounding.rs"
-lines = 1027
+lines = 1094
 
 [[file]]
 path = "tests/diff_verify_bank.rs"
-lines = 1328
-
-[[file]]
-path = "tests/diff_verify_content_lock.rs"
-lines = 905
+lines = 1426
 
 [[file]]
 path = "tests/diff_verify_coverage.rs"
-lines = 2311
+lines = 2867
 
 [[file]]
 path = "tests/diff_verify_doc_consistency.rs"
-lines = 907
+lines = 975
 
 [[file]]
 path = "tests/diff_verify_injection_count.rs"
-lines = 860
-
-[[file]]
-path = "tests/diff_verify_knowledge_paths.rs"
-lines = 678
+lines = 1352
 
 [[file]]
 path = "tests/diff_verify_objectives.rs"
-lines = 2032
+lines = 2596
 
 [[file]]
 path = "tests/diff_verify_orphans.rs"
-lines = 728
+lines = 795
 
 [[file]]
 path = "tests/differential_verdict_census.rs"
-lines = 998
+lines = 1230
 
 [[file]]
 path = "tests/dispatch.rs"
@@ -229,11 +226,11 @@ lines = 66
 
 [[file]]
 path = "tests/doc_facts_e2e.rs"
-lines = 753
+lines = 848
 
 [[file]]
 path = "tests/goldens_couplings_e2e.rs"
-lines = 912
+lines = 1043
 
 [[file]]
 path = "tests/near_duplicate_items_e2e.rs"
@@ -241,23 +238,27 @@ lines = 27
 
 [[file]]
 path = "tests/rebase_module_bounds.rs"
-lines = 2513
+lines = 2870
 
 [[file]]
 path = "tests/repo_surface.rs"
-lines = 127
+lines = 451
 
 [[file]]
 path = "tests/restore_rebuild_trap.rs"
 lines = 499
 
 [[file]]
+path = "tests/s0_charter_pair.rs"
+lines = 43
+
+[[file]]
 path = "tests/substrate_guard_e2e.rs"
-lines = 948
+lines = 1273
 
 [[file]]
 path = "tests/support/mod.rs"
-lines = 150
+lines = 155
 
 [[file]]
 path = "tests/support/rebuild.rs"
