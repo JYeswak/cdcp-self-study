@@ -870,6 +870,23 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 23 — CDCP TIA-942-C public topology scope
+
+**Review date:** 2026-08-18. Two Module 11 rows were narrowed to the current
+official TIA-942-C abstract. TIA’s page identifies Revision C, published May
+2024, and states the infrastructure/topology scope. The purchased standard
+body was not fetched.
+
+| Item | Public CDCP heading | Current official abstract | Bounded result |
+|---|---|---|---|
+| m11-q100 | Importance of network cabling infrastructure | TIA-942-C, May 2024, Version C — https://tiaonline.org/standard/tia-942/ | **PASS** — the abstract covers data-center/computer-room infrastructure and topology |
+| m11-q102 | Planning considerations | TIA-942-C, May 2024, Version C — https://tiaonline.org/standard/tia-942/ | **PASS** — the abstract says its topology is intended for any size data center |
+
+MDA/HDA/ZDA role definitions, cabling test limits, labeling procedures, and
+physical-diversity claims remain BLOCKED without public clause text. The ledger
+is now 142 PASS / 815 BLOCKED across 957 rows, with zero bare FAIL. This pass
+does not certify a learner or close ms4j.
+
 ## Breadth pass 22 — CDCP water-supply and cooling-tower operating boundaries
 
 **Review date:** 2026-08-18. Five Module 10 rows were narrowed to current
