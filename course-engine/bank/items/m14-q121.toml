@@ -1,19 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Auxiliary systems best practices
-# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current official receipt does not expose the exact item-level auxiliary systems best practices proposition. No paid body or PDF was fetched.
+# Official public process receipt: DOE FEMP Commissioning Process for Federal Facilities — https://www.energy.gov/cmei/femp/commissioning-process-federal-facilities
+# The current DOE page covers functional test and monitoring plans, result analysis, deficiency tracking, implementation, and retesting.
 id = "bank-m14-q121"
 kind = "single-select"
 module = 14
-stem = "Integrated Systems Testing (IST) is valuable primarily because it:"
+stem = "Commissioning functional testing and monitoring plans are valuable because they:"
 choices = [
-  "Validates power, cooling, and controls failovers as a combined system under planned scenarios",
+  "Provide a planned way to investigate system behavior, analyze results, track deficiencies, and retest improvements",
   "Only tests a single breaker nameplate in isolation forever",
   "Replaces daily VM backups",
   "Is optional marketing text with no technical meaning"
 ]
 correct = "A"
-explanation = "IST proves coupled system behavior—not just component bench tests."
+explanation = "The DOE FEMP public commissioning process includes functional test and monitoring plans, analysis of test results, a master deficiency list, implementation of accepted improvements, and retesting/remonitoring. This is a bounded commissioning receipt, not a credential claim."
 topic_ids = ["m14-best-practices"]
 objective_ids = []
 bloom = "apply"

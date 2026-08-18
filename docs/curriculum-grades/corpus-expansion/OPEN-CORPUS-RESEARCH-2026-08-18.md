@@ -5067,3 +5067,21 @@ unsupported GSA P100 provider claim to that public FEMP process.
 
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+
+## Breadth pass 194 — IEC alarm-management and DOE commissioning evidence loops
+
+**Review date:** 2026-08-18. IEC 62682:2022's current IEC Webstore page
+describes operator-facing alarms for abnormal conditions and equipment
+malfunctions, response support through an HMI, event logs, alarm historians,
+and performance metrics. The current DOE FEMP HTML commissioning process
+describes functional test and monitoring plans, test-result analysis, a master
+deficiency list, implementation, and retesting/remonitoring.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m14-q205 | Alarm panels | IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543 | **PASS** — operator-facing abnormal-condition alarms and response support are explicit, with logs/historians/metrics |
+| bank-m14-q121 | Auxiliary systems best practices | DOE FEMP Commissioning Process for Federal Facilities — https://www.energy.gov/cmei/femp/commissioning-process-federal-facilities | **PASS** — planned functional testing, monitoring, deficiency tracking, and retesting are explicit |
+
+Detailed alarm-priority taxonomies, listed fire-system logic, and project-specific
+IST scenarios remain outside these receipts. This pass does not certify a
+learner or close ms4j.

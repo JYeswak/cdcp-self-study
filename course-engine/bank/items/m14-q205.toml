@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Alarm panels
 # Official catalog/preview receipt: IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543
-# BLOCKED: the current alarm-management catalog covers alarm principles, operator response, event logs, historians, and performance metrics, but not this exact prioritization/ownership proposition. No paid body or PDF was fetched.
+# IEC 62682:2022's public page covers alarms for abnormal conditions or equipment malfunctions, operator response, HMI presentation, event logs, historians, and performance metrics.
 id = "m14-q205"
 kind = "single-select"
 module = 14
-stem = "Alarm panels and annunciation design should aim for:"
+stem = "Alarm panels and annunciation design should aim to:"
 choices = [
   "Maximum page storms for every warning bit",
-  "Actionable, prioritized alerts with clear ownership rather than undifferentiated floods of equal-severity noise",
+  "Present operator-facing alarms for abnormal conditions or malfunctions and support response",
   "Silent failures with no local indication",
   "Identical response for informational and critical events always"
 ]
 correct = "B"
-explanation = "Alarm philosophy is part of reliability—noise hides real emergencies."
+explanation = "IEC 62682:2022's official public description says the alarm system notifies operators of abnormal process conditions or equipment malfunctions, supports response, and communicates through an HMI; it also covers event logs, historians, and performance metrics. This is a bounded monitoring receipt, not a credential claim."
 topic_ids = ["m14-alarms", "m14-notification"]
 objective_ids = []
 bloom = "understand"
