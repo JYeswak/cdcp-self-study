@@ -887,6 +887,21 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 203 — IEC magnetic-quantity terminology boundary
+
+**Review date:** 2026-08-18. Current public IEC Electropedia entries define
+magnetic field strength (H) and magnetic flux density (B), distinguish the
+quantities, and state that in vacuum (H=B/\mu_0). This supports a bounded
+terminology question under the units syllabus heading without asserting a
+particular exposure limit, field threshold, or unit conversion.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m07-q201 | Units of measurements | IEC 60050 IEV 121-11-56 and 121-11-19 — https://www.electropedia.org/iev/iev.nsf/display?ievref=121-11-56&openform= | **PASS** — magnetic field strength (H) and magnetic flux density (B) are distinct IEC quantities with the stated vacuum relationship |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 193 — public CO₂ life-safety and gaseous-agent egress receipts
 
 **Review date:** 2026-08-18. Current OSHA HTML rules for fixed and gaseous
