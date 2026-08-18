@@ -49,6 +49,11 @@
 # guess. Do not invent headroom by raising this number. Future extractions
 # should leave slack so an incidental +1 cannot red CI; the ratchet stays
 # monotone-decreasing. Raising ceiling_lines is escalation-only.
+# 37283 -> 37088 (LOCAL): EXTRACT shell invocation walk to cdcp_registry_check/shell_walk.rs.
+# InvocationWalk, walk_invocations, require_nonempty_inventory, require_tree_derived_floor,
+# script_still_invokes_py, and ~15 private helper functions. Gate uses the
+# extracted module; viu oracle and CDCS attribution untouched.
+# CEILING STAYS 37283 until CI confirms (ar39.15: CI counts 18 more than local).
 ceiling_lines = 37283
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.

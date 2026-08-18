@@ -298,6 +298,7 @@ dependencies = [
  "cdcp_anki",
  "cdcp_bank",
  "cdcp_learn",
+ "cdcp_registry_check",
  "cdcp_root",
  "serde",
  "serde_json",

@@ -58,6 +58,7 @@ cdcp_schedule = { path = "crates/cdcp_schedule" }
 cdcp_wasm = { path = "crates/cdcp_wasm" }
 cdcp_assemble = { path = "crates/cdcp_assemble" }
 cdcp_learn = { path = "crates/cdcp_learn" }
+cdcp_registry_check = { path = "crates/cdcp_registry_check" }
 cdcp_anki = { path = "crates/cdcp_anki" }
 cdcp_evidence = { path = "crates/cdcp_evidence" }
 cdcp_data = { path = "crates/cdcp_data" }

@@ -13,6 +13,7 @@ use std::path::{Path, PathBuf};
 use thiserror::Error;
 
 mod gate_shrink;
+pub mod shell_walk;
 pub mod track;
 
 /// Rank lattice: invariant(6) > proof(5) > bounded_model(4) > statistical(3) > slo(2) > benchmark(1).
