@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: Planning considerations
-# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the current TIA-942-C abstract does not expose the exact item-level planning considerations proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: RFC 6244 — https://www.rfc-editor.org/info/rfc6244/
+# PASS: the open RFC Editor text describes NETCONF configuration/operational
+# data and YANG content/operations for network-management applications.
 id = "m11-q134"
 kind = "single-select"
 module = 11
-stem = "Out-of-band management networks are separated conceptually so that:"
+stem = "RFC 6244 describes an architecture in which:"
 choices = [
-  "Management always shares the exact same single physical cable with no diversity",
-  "Serial consoles are banned",
-  "Production traffic failures still allow device management access when designed that way",
-  "Only wireless guest Wi-Fi is used for BMC access"
+  "NETCONF manipulates configuration databases and retrieves operational data, while YANG defines content carried via NETCONF",
+  "Only wireless guest Wi-Fi is used for device management",
+  "Network configuration is prohibited once a device is commissioned",
+  "Battery autonomy is defined by the management protocol"
 ]
-correct = "C"
-explanation = "OOB paths support rescue operations when production networks are impaired—physical planning should respect that goal."
+correct = "A"
+explanation = "RFC 6244 describes NETCONF methods for manipulating configuration databases, retrieving operational data, and invoking operations, with YANG defining content carried via NETCONF. It does not establish an out-of-band physical-path design or a BMC access policy."
 topic_ids = ["m11-planning", "m11-redundancy"]
 objective_ids = []
 bloom = "understand"

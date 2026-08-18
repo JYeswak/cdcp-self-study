@@ -1006,6 +1006,24 @@ definition, vendor topology, or size threshold.
 
 No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 237 — open RFC network-management primitives
+
+**Review date:** 2026-08-18. The open RFC Editor text for RFC 6244 describes
+NETCONF methods for manipulating configuration databases, retrieving
+operational data, and invoking operations, with YANG defining the content
+carried via NETCONF. RFC 9940, published in April 2026, describes network
+fault/problem management terms and activities including detection, reporting,
+inspection, isolation, correlation, and management of events. The items are
+bounded to those protocol and terminology receipts; they do not establish
+out-of-band physical-path design, emergency runbooks, or cable-labeling rules.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q134 | Planning considerations | RFC 6244 — https://www.rfc-editor.org/info/rfc6244/ | **PASS** — NETCONF/YANG configuration and operational-data architecture is explicit |
+| m11-q139 | Importance of network cabling infrastructure | RFC 9940 — https://www.rfc-editor.org/info/rfc9940/ | **PASS** — network fault/problem-management activity terms are explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies

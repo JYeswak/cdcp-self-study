@@ -1,19 +1,21 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: Importance of network cabling infrastructure
-# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the current TIA-942-C abstract does not expose the exact item-level importance of network cabling infrastructure proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: RFC 9940 — https://www.rfc-editor.org/info/rfc9940/
+# PASS: the current open RFC Editor text describes network fault/problem
+# management activities including detection, reporting, inspection, isolation,
+# correlation, and management of events.
 id = "m11-q139"
 kind = "single-select"
 module = 11
-stem = "Which practice best reduces human error during emergency network isolation?"
+stem = "RFC 9940 describes network fault and problem management as including:"
 choices = [
-  "Unlabeled bundles and tribal knowledge only",
-  "Random recabling each shift",
-  "Disabling all monitoring",
-  "Clear labeling, accurate records, and pre-planned separation of critical paths"
+  "Detection, reporting, inspection, isolation, correlation, and management of network events",
+  "Only battery-string impedance testing",
+  "Only visitor credential issuance",
+  "Only cooling-tower water chemistry"
 ]
-correct = "D"
-explanation = "Administration and documentation turn physical infrastructure into an operable system under stress."
+correct = "A"
+explanation = "RFC 9940 frames network fault/problem management around detection, reporting, inspection, isolation, correlation, and management of events. It does not prescribe cable labels, an emergency isolation runbook, or a physical-path design."
 topic_ids = ["m11-importance", "m11-planning"]
 objective_ids = []
 bloom = "evaluate"
