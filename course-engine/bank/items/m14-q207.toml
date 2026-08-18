@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Monitoring requirements
 # Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current official receipt does not expose the exact item-level monitoring requirements proposition. No paid body or PDF was fetched.
+# PASS: the current ISO catalog states that the secondary focus is management
+# processes aligning actual and future user demands.
 id = "m14-q207"
 kind = "single-select"
 module = 14
-stem = "Monitoring requirements should be derived from:"
+stem = "The secondary focus of ISO/IEC TS 22237-7:2018 is to:"
 choices = [
-  "Only whichever free sensor was in a marketing kit",
-  "Ignoring mechanical systems entirely",
-  "Measuring only PUE once a year",
-  "What operators need to detect degradation and failures in time to protect SLAs and safety"
+  "Align actual and future user demands through management processes",
+  "Ignore future user demand once a facility is commissioned",
+  "Measure only PUE once a year",
+  "Replace all operational processes with a marketing dashboard"
 ]
-correct = "D"
-explanation = "Requirements trace to failure modes and response time needs."
+correct = "A"
+explanation = "The current ISO catalog identifies alignment of actual and future user demands as the secondary focus of ISO/IEC TS 22237-7:2018."
 topic_ids = ["m14-monitoring-reqs"]
 objective_ids = []
 bloom = "understand"

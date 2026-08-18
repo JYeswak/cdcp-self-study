@@ -2207,7 +2207,7 @@ because the public definition does not expose those stronger propositions. No
 standard body or PDF was fetched. This pass does not certify a learner or close
 ms4j.
 
-## Breadth pass 202 — IEC wiring, power-quality, and busway scope pins
+## Breadth pass 203 — IEC wiring, power-quality, and busway scope pins
 
 **Review date:** 2026-08-18. The current IEC Webstore pages expose three
 additional module-6 claims without requiring the paid standard text. IEC
@@ -2229,6 +2229,28 @@ Tap-off agility, phase-loading consequences, dense-hall congestion, site
 topology, and project-specific protection remain BLOCKED where the catalog does
 not expose those claims. No standard body or PDF was fetched. This pass does not
 certify a learner or close ms4j.
+
+## Breadth pass 204 — ISO/IEC management-and-operations process scope
+
+**Review date:** 2026-08-18. The current ISO catalog for ISO/IEC TS
+22237-7:2018 says the specification covers processes for management and
+operation of data centres. Its primary focus is operational processes needed to
+deliver expected resilience, availability, risk management, risk mitigation,
+capacity planning, security, and energy efficiency; its secondary focus is
+management processes aligning actual and future user demands. The two item stems
+were narrowed to those explicit catalog statements rather than inferring a
+monitoring product, alert workflow, SLA, or runbook taxonomy.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m14-q200 | Monitoring challenges | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — management-and-operation process scope is explicit |
+| m14-q207 | Monitoring requirements | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — secondary focus on aligning actual and future user demands is explicit |
+
+The catalog states that this edition remains current but is expected to be
+replaced by a DIS within the coming months; no draft text was used. Product
+boundaries, alert design, monitoring points, SLAs, and runbook acceptance remain
+BLOCKED where not exposed. No standard body or PDF was fetched. This pass does
+not certify a learner or close ms4j.
 
 ## Breadth pass 160 — AHJ public egress-lock boundary
 
