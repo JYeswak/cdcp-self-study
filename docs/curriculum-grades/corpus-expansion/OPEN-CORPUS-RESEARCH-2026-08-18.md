@@ -886,6 +886,23 @@ No M10 bank or ledger rows changed: all reviewed rows already carry the current
 official receipt and a bounded BLOCKED reason. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 144 — BMS/DCIM/EMS and alarm-management edition boundary
+
+**Review date:** 2026-08-18. Module 14 monitoring and auxiliary-system
+receipts were checked against current official IEC, ISO, and NIST pages. The
+published receipts were retained where the public abstract did not expose the
+item-level claim; no draft standard body was used.
+
+| Scope | Public CDCP heading | Current official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q104, q105, q107, q108, q115, q119–q123, q129, q132–q133; m14-q200–q203, q206–q209 | Building Management System (BMS) / Environmental Monitoring System (EMS) / Data Centre Infrastructure Management (DCIM) / Monitoring challenges / Monitoring requirements | NIST SP 800-82 Rev. 3 — https://csrc.nist.gov/pubs/sp/800/82/r3/final | **BLOCKED** — the final NIST guide explicitly includes building automation, physical access control, and physical-environment monitoring/measurement systems within OT, but does not expose the bank’s exact BMS-versus-EMS/DCIM role, sensor-trust, alarm-ownership, or monitoring-matrix propositions |
+| bank-m14-q113–q118, q124–q128, q205, q210 | Notification / Alarm panels | IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543 | **BLOCKED** — the current Edition 2 catalog exposes alarm notification and response, alarm/event logs, historians, performance metrics, and external-system use, but does not expose the exact email-only, severity-routing, listed-fire-logic, point-naming, local-failover, prioritization, or hysteresis propositions |
+| bank-m14-q106, q108, q115, q119, q121–q123, q130, q132–q133; m14-q200, q203, q206–q208 | Data Centre Infrastructure Management (DCIM) / Monitoring challenges / Auxiliary systems best practices | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **BLOCKED** — the published Edition 1 catalog covers data-centre management and operation processes, resilience, availability, risk, capacity, security, and energy efficiency. ISO also lists ISO/IEC DIS 22237-7 under development; that draft is not treated as a current final edition and was not fetched |
+
+No Module 14 item statuses changed. The existing official catalog receipts remain
+bounded BLOCKED where the public pages do not expose the exact claim. This pass
+does not certify a learner or close ms4j.
+
 ## Breadth pass 143 — cabling testing, administration, and current media receipts
 
 **Review date:** 2026-08-18. Twelve Module 11 blocked receipts were refreshed
