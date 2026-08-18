@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 144 PASS; 813 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 148 PASS; 809 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -745,10 +745,10 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m12-q074 | 12 | Fire best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | bank-m12-q075 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m12-q200 | 12 | Common causes of fire | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m12-q201 | 12 | Fire detection systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m12-q202 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m12-q203 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m12-q204 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
+| m12-q201 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | PASS |
+| m12-q202 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | PASS |
+| m12-q203 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | PASS |
+| m12-q204 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | PASS |
 | m12-q205 | 12 | Regulatory requirements / AHJ | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m12-q206 | 12 | Fire best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m12-q207 | 12 | Signage and safety requirements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |

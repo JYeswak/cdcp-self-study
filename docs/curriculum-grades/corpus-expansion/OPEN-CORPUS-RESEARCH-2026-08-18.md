@@ -870,6 +870,23 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 25 — CDCP fire-protection NFPA edition receipts
+
+**Review date:** 2026-08-18. Four Module 12 rows were narrowed to the current
+public EPI CDCP **Fire Protection** heading and official NFPA LiNK catalog or
+preview URLs. No NFPA PDF or standard body was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m12-q201 | Fire Protection | NFPA 72, 2025 — https://link.nfpa.org/all-publications/72/2025 | **PASS** — alarm/signaling scope supports early detection; it does not make ASD suppression or define a site runbook |
+| m12-q202 | Fire Protection | NFPA 13, 2025 — https://link.nfpa.org/all-publications/13/2025 | **PASS** — sprinkler-installation scope supports engineered water protection; it does not establish a universal IT-room design or zero equipment impact |
+| m12-q203 | Fire Protection | NFPA 2001, 2025 — https://link.nfpa.org/all-publications/2001/2025 | **PASS** — clean-agent extinguishing-system scope supports the water-damage distinction; detection, enclosure, maintenance, and life safety remain required boundaries |
+| m12-q204 | Fire Protection | NFPA 10, 2026 — https://link.nfpa.org/all-publications/10/2026 | **PASS** — portable-extinguisher scope supports hazard-matched selection; trained use and site policy remain required |
+
+The ledger is now 148 PASS / 809 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
 
 **Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current

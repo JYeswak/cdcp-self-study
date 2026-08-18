@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: current NFPA 72 (2025) public NFPA LiNK preview —
+# https://link.nfpa.org/all-publications/72/2025
+# Boundary: NFPA 72 identifies the fire-alarm/signaling and inspection/testing
+# scope; it does not make ASD a suppression system or prescribe a site sequence.
 id = "m12-q201"
 kind = "single-select"
 module = 12
@@ -10,7 +16,7 @@ choices = [
   "It only monitors outdoor air pollution indexes"
 ]
 correct = "C"
-explanation = "Early detection buys time—detection is not suppression."
+explanation = "The current NFPA 72 preview covers fire-alarm/signaling systems and inspection, testing, and maintenance. That supports early detection as an alarm function; it does not turn detection into suppression or define a site-specific response sequence."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"
