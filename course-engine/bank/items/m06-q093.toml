@@ -1,7 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Power quality parameters
 # Official catalog/preview receipt: IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717
-# BLOCKED: the official catalog does not expose the exact harmonic-distortion teaching proposition.
+# PASS: the current IEEE 519-2022 public standard page explicitly covers systems with linear and nonlinear loads, waveform-distortion goals, and the source/load point of common coupling, supporting the bounded harmonic-control proposition. No paid body or PDF was fetched.
 id = "m06-q093"
 kind = "single-select"
 module = 6

@@ -905,6 +905,23 @@ The adjacent broader claims remain BLOCKED on their existing official
 receipts. No standard body or PDF was fetched. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 189 — IEEE harmonic-control boundary
+
+**Review date:** 2026-08-18. The current IEEE Standards Association page was
+checked for IEEE 519-2022, marked Active and superseding IEEE 519-2014. Its
+public description covers electrical systems with linear and nonlinear loads,
+voltage/current waveform distortion goals, and the source/load point of
+common coupling. That directly supports the bounded link between nonlinear
+loads and harmonic-control/monitoring discussions.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q093 | Power quality parameters | IEEE 519-2022 — https://standards.ieee.org/ieee/519/10677/ | **PASS** — public IEEE page covers nonlinear loads, distortion goals, and PCC quality |
+
+Specific transformer/generator heating, de-rating, K-factor selection,
+numeric limits, and mitigation design remain BLOCKED. No standard body or PDF
+was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 188 — IEC illuminance definition receipt
 
 **Review date:** 2026-08-18. The official IEC Electropedia entry IEV
