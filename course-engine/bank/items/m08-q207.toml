@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Types of racks
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the official catalog covers data-centre environmental control, but does not expose the exact blanking-panel and brush-strip airflow proposition.
+# Official catalog/preview receipt: IEC 62610-6:2020 — https://webstore.iec.ch/en/publication/62312
+# PASS: the IEC catalog explicitly covers compatible measurement methods for
+# cabinet-air recirculation and bypass ratios in forced-air cooling.
 id = "m08-q207"
 kind = "single-select"
 module = 8
-stem = "Vertical blanking panels and brush strip openings matter at the rack because they:"
+stem = "IEC 62610-6:2020 provides compatible measurement methods for cabinet-air:"
 choices = [
-  "Only improve brand aesthetics",
-  "Always increase bypass airflow intentionally",
-  "Help control airflow through equipment rather than through empty U-spaces and large cable holes",
-  "Have no interaction with cooling"
+  "Recirculation and bypass ratios",
+  "Only rack-unit height conversions",
+  "Only fire-door access ratings",
+  "Only utility interconnection capacity"
 ]
-correct = "C"
-explanation = "Rack sealing is part of aisle containment and inlet temperature control."
+correct = "A"
+explanation = "The IEC catalog defines recirculation and bypass flow rates and associated measurement methods for forced-air-cooled indoor cabinets; it does not expose a particular blanking-panel or brush-strip design rule."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "apply"

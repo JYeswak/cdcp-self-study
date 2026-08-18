@@ -969,6 +969,27 @@ The pass does not infer the exact RU-to-millimetre conversion, blanking-panel
 airflow rule, containment performance value, or a site design approval. This
 pass does not certify a learner or close ms4j.
 
+## Breadth pass 358 — IEC cabinet airflow and cooling measurement scopes
+
+**Review date:** 2026-08-18. Three module-8 rack items were narrowed from
+unsupported hardware-specific airflow propositions to public IEC catalog
+scopes. `m08-q049` now uses IEC 62966-2:2020 for aisle-containment air-leakage
+measurement and classification. `m08-q207` uses IEC 62610-6:2020 for
+recirculation and bypass-ratio measurement in forced-air-cooled indoor
+cabinets. `m08-q209` uses IEC 62610-5:2016 for cooling-capacity evaluation and
+classification of air-convection-cooled indoor cabinets. No PDF or standard
+body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m08-q049 | Types of racks | IEC 62966-2:2020 — https://webstore.iec.ch/en/publication/29770 | **PASS** — aisle-containment air-leakage measurement/classification is explicit |
+| m08-q207 | Types of racks | IEC 62610-6:2020 — https://webstore.iec.ch/en/publication/62312 | **PASS** — cabinet recirculation/bypass-ratio measurement is explicit |
+| m08-q209 | Types of racks | IEC 62610-5:2016 — https://webstore.iec.ch/en/publication/24576 | **PASS** — indoor-cabinet cooling-capacity evaluation/classification is explicit |
+
+The pass does not infer a universal blanking-panel rule, brush-strip design,
+cabinet perforation percentage, vendor thermal rating, or facility cooling
+performance. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Types of racks
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the official catalog covers environmental control, but does not expose the exact cabinet-perforation and door-airflow proposition.
+# Official catalog/preview receipt: IEC 62610-5:2016 — https://webstore.iec.ch/en/publication/24576
+# PASS: the IEC catalog explicitly covers cooling-capacity evaluation and
+# classification for air-convection-cooled indoor cabinets.
 id = "m08-q209"
 kind = "single-select"
 module = 8
-stem = "Cabinet perforation percentage and door design can affect cooling because:"
+stem = "IEC 62610-5:2016 provides a method for evaluating:"
 choices = [
-  "Restricted doors can impede airflow into or out of equipment even if room supply is adequate",
-  "Doors never interact with airflow",
-  "Solid doors always improve inlet temperatures for front-to-back gear",
-  "Perforation only matters for security cameras"
+  "Cooling capacity, mainly for air-convection cooling of empty indoor cabinets",
+  "Only cloud-service availability classes",
+  "Only cable-shielding attenuation",
+  "Only generator fuel autonomy"
 ]
 correct = "A"
-explanation = "Door open area is part of the thermal path for air-cooled equipment."
+explanation = "The IEC catalog describes cooling-capacity evaluation and classification for indoor cabinets in the IEC 60297 and IEC 60917 series; it does not expose a universal cabinet-perforation percentage."
 topic_ids = ["m08-types", "m08-dimensions"]
 objective_ids = []
 bloom = "understand"
