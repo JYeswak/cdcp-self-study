@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack dimensions
+# Official catalog/preview receipt: IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288
+# BLOCKED: the official catalog identifies a 1U chassis but does not expose the exact 44.45 mm value.
 id = "m08-q042"
 kind = "single-select"
 module = 8

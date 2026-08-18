@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack dimensions
+# Official catalog/preview receipt: IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288
+# BLOCKED: the official catalog does not expose the exact common full-height usable-U range.
 id = "m08-q043"
 kind = "single-select"
 module = 8

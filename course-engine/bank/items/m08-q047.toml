@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html?browse=tc
+# BLOCKED: the official catalog covers data-centre physical security but does not expose the exact open-frame security comparison.
 id = "m08-q047"
 kind = "single-select"
 module = 8

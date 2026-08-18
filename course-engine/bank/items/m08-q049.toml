@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
+# BLOCKED: the official catalog does not expose the exact blanking-panel airflow proposition.
 id = "m08-q049"
 kind = "single-select"
 module = 8

@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack standards
+# Official catalog/preview receipt: IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288
+# BLOCKED: the official catalog identifies the 482.6 mm (19 in) series and 1U chassis context but does not expose the exact flange-spacing proposition.
 id = "m08-q041"
 kind = "single-select"
 module = 8

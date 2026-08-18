@@ -1044,6 +1044,32 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 79 — CDCP rack dimensions, airflow, and security receipts
+
+**Review date:** 2026-08-18. Ten M08 rack rows now carry official IEC, TIA, or
+ISO catalog/preview receipts. IEC 60297-3-105:2008 covers the 482.6 mm (19 in)
+mechanical-structure and 1U-chassis context; TIA-942-C covers data-centre
+infrastructure; ISO/IEC 22237-6:2024 covers data-centre physical security.
+Their public pages do not expose the exact dimension, airflow, or rack-lock
+propositions, so all ten remain BLOCKED. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m08-q041 | Rack standards | IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288 | **BLOCKED** — exact flange-spacing proposition not exposed |
+| m08-q042 | Rack dimensions | IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288 | **BLOCKED** — exact 44.45 mm value not exposed |
+| m08-q043 | Rack dimensions | IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288 | **BLOCKED** — exact full-height usable-U range not exposed |
+| m08-q044 | Rack dimensions | IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288 | **BLOCKED** — exact U-numbering convention not exposed |
+| m08-q045 | Rack dimensions | TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact 600 mm versus 800 mm cabinet-width proposition not exposed |
+| m08-q046 | Types of racks | IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288 | **BLOCKED** — exact two-post relay-rack use case not exposed |
+| m08-q047 | Types of racks | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html?browse=tc | **BLOCKED** — exact open-frame security comparison not exposed |
+| m08-q048 | Types of racks | TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact perforated-door airflow proposition not exposed |
+| m08-q049 | Types of racks | TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact blanking-panel airflow proposition not exposed |
+| m08-q050 | Rack security | ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html?browse=tc | **BLOCKED** — exact rack-lock layering proposition not exposed |
+
+The ledger remains 164 PASS / 793 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j or ebrr bead, or alter
+gate-shrink or oracle scope.
+
 ## Breadth pass 78 — CDCP EMF facility, calculation, and HEMP receipts
 
 **Review date:** 2026-08-18. Sixteen M07 rows now carry official IEC catalog

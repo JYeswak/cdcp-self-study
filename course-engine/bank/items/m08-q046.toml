@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288
+# BLOCKED: the official catalog covers rack/cabinet mechanical structures but does not expose the exact two-post relay-rack use case.
 id = "m08-q046"
 kind = "single-select"
 module = 8
