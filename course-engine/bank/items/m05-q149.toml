@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: Connecting and positioning light fixtures
+# Official catalog/preview receipt: IEC 60598-1:2024 — https://webstore.iec.ch/en/publication/66620
+# BLOCKED: the official catalog does not expose the exact seismic-restraint proposition for data-hall luminaires.
 id = "m05-q149"
 kind = "single-select"
 module = 5

@@ -1044,6 +1044,27 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 53 — CDCP lighting operations continuation
+
+**Review date:** 2026-08-18. Six M05 lighting rows now carry official
+ISO 30061:2007, ISO/CIE 8995-1:2025, ISO/TS 21274:2020, or IEC 60598-1:2024
+catalog/preview receipts. They remain BLOCKED because the public pages do not
+expose the exact inspection, visual-quality, circuit, restraint, control, or
+measurement propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m05-q146 | Emergency light | ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc | **BLOCKED** — exact inspection/testing failure mode not exposed |
+| m05-q147 | Measurements of light | ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **BLOCKED** — exact glare/colour-rendering proposition not exposed |
+| m05-q148 | Emergency light | ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc | **BLOCKED** — exact circuit-segregation proposition not exposed |
+| m05-q149 | Connecting and positioning light fixtures | IEC 60598-1:2024 — https://webstore.iec.ch/en/publication/66620 | **BLOCKED** — exact seismic-restraint proposition not exposed |
+| m05-q150 | Connecting and positioning light fixtures | ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc | **BLOCKED** — exact lighting-control/egress proposition not exposed |
+| m05-q200 | Measurements of light | ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **BLOCKED** — exact illuminance teaching proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 52 — CDCP lighting systems continuation
 
 **Review date:** 2026-08-18. Six M05 lighting rows now carry official
