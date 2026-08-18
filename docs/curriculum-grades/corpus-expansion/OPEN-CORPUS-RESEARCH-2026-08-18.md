@@ -5018,3 +5018,20 @@ network cabling and pathways, spaces, and enclosures.
 
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+
+## Breadth pass 191 — OPM succession and knowledge-sharing receipt
+
+**Review date:** 2026-08-18. The current public OPM Career Development page
+describes an Individual Development Plan as a record of career goals and
+development objectives, identifies mentoring as a knowledge-sharing mechanism,
+and states that career paths can inform succession planning. Those public
+statements directly support the item's bounded diagnosis of an undocumented
+knowledge-transfer risk without using a paid ISO body.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q348 | The Data Center Organization — Succession planning; Career development | OPM Career Development — https://www.opm.gov/policy-data-oversight/training-and-development/career-development/ | **PASS** — IDP records, knowledge sharing, and succession-planning relevance are explicit |
+
+The P100 independent-commissioning-provider row remains BLOCKED because the
+current public GSA page does not expose that exact clause. No standard body or
+PDF was fetched. This pass does not certify a learner or close ms4j.
