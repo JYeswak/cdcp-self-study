@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Grounding / SRG" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: NFPA 70E (2024) —
+# https://link.nfpa.org/all-publications/70E/2024
+# BLOCKED: the official preview covers electrical safety, but not this exact
+# access-floor metallic-bonding proposition.
 id = "m04-q134"
 kind = "single-select"
 module = 4

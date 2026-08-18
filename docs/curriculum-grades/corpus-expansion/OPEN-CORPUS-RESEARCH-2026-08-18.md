@@ -1044,6 +1044,37 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 49 — CDCP raised-floor standards continuation
+
+**Review date:** 2026-08-18. Sixteen additional M04 physical-infrastructure
+rows now carry official TIA-942-C, ISO/IEC 22237-2:2024, or NFPA 70E (2024)
+catalog/preview receipts. They remain BLOCKED because the public pages do not
+expose the exact raised-floor type, loading, grounding, ramp, ceiling, or
+cooling propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m04-q130 | Raised floor standards | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact raised-floor standards proposition not exposed |
+| m04-q131 | Types of raised floors | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact raised-floor type comparison not exposed |
+| m04-q132 | Suspended ceiling | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact suspended-ceiling proposition not exposed |
+| m04-q133 | Loading factors (uniform/concentrated/rolling) | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact load-factor proposition not exposed |
+| m04-q134 | Grounding / SRG | NFPA 70E, 2024 — https://link.nfpa.org/all-publications/70E/2024 | **BLOCKED** — exact SRG proposition not exposed |
+| m04-q200 | Loading factors (uniform/concentrated/rolling) | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact load-factor proposition not exposed |
+| m04-q201 | Floor/ceiling impact on cooling | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact floor/ceiling cooling proposition not exposed |
+| m04-q202 | Grounding / SRG | NFPA 70E, 2024 — https://link.nfpa.org/all-publications/70E/2024 | **BLOCKED** — exact SRG proposition not exposed |
+| m04-q203 | Ramp and landing platform | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact ramp/landing proposition not exposed |
+| m04-q204 | Suspended ceiling | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact suspended-ceiling proposition not exposed |
+| m04-q205 | Types of raised floors | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact raised-floor type comparison not exposed |
+| m04-q206 | Floor/ceiling impact on cooling | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact floor/ceiling cooling proposition not exposed |
+| m04-q207 | Loading factors (uniform/concentrated/rolling) | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact load-factor proposition not exposed |
+| m04-q208 | General raised-floor guidelines | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact raised-floor guideline proposition not exposed |
+| m04-q209 | General raised-floor guidelines | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact raised-floor guideline proposition not exposed |
+| m04-q210 | Types of raised floors | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact raised-floor type comparison not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 48 — CDCP raised-floor and ceiling infrastructure receipts
 
 **Review date:** 2026-08-18. Eighteen M04 physical-infrastructure rows now
