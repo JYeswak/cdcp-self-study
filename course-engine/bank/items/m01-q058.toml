@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Types of data centres" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: TIA-942-C (May 2024) —
+# https://tiaonline.org/standard/tia-942/
+# BLOCKED: the public abstract covers infrastructure for data centres, but not
+# this exact colocation-customer design-awareness proposition.
 id = "m01-q058"
 kind = "single-select"
 module = 1

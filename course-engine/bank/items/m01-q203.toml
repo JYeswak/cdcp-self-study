@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Elements of a data centre" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# BLOCKED: the catalog exposes general facilities and infrastructure, but not
+# this exact beyond-IT-load element list.
 id = "m01-q203"
 kind = "single-select"
 module = 1
