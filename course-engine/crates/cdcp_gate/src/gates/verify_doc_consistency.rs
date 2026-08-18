@@ -209,6 +209,14 @@ fn py_space(c: char) -> bool {
     c.is_whitespace() || ('\u{1c}'..='\u{1f}').contains(&c)
 }
 
+fn py_strip(s: &str) -> &str {
+    s.trim_matches(py_space)
+}
+
+fn py_lstrip(s: &str) -> &str {
+    s.trim_start_matches(py_space)
+}
+
 /// Python's `\w` for `str` patterns: alphanumeric plus underscore.
 fn is_word_char(c: char) -> bool {
     c.is_alphanumeric() || c == '_'
@@ -364,7 +372,7 @@ fn strip_md(cell: &str) -> String {
     cell.chars()
         .filter(|c| !matches!(c, '*' | '`' | '_'))
         .collect::<String>()
-        .trim()
+        .trim_matches(py_space)
         .to_string()
 }
 
@@ -577,7 +585,7 @@ fn classify_status(cell: &str) -> (Option<&'static str>, Option<String>) {
             None,
             Some(format!(
                 "status asserts DONE and OPEN at once: {}",
-                py_repr(cell.trim())
+                py_repr(py_strip(cell))
             )),
         );
     }
@@ -591,20 +599,20 @@ fn classify_status(cell: &str) -> (Option<&'static str>, Option<String>) {
         None,
         Some(format!(
             "unrecognised status vocabulary: {}",
-            py_repr(cell.trim())
+            py_repr(py_strip(cell))
         )),
     )
 }
 
 fn split_row(line: &str) -> Vec<String> {
-    let mut body = line.trim();
+    let mut body = py_strip(line);
     if let Some(rest) = body.strip_prefix('|') {
         body = rest;
     }
     if let Some(rest) = body.strip_suffix('|') {
         body = rest;
     }
-    body.split('|').map(|c| c.trim().to_string()).collect()
+    body.split('|').map(|c| py_strip(c).to_string()).collect()
 }
 
 /// `re.fullmatch(r":?-{2,}:?", cell)` for every cell.
@@ -723,7 +731,7 @@ fn row_status(
             "row is shorter than its Status column (has {} cell(s), Status is column {}): {}",
             cells.len(),
             c + 1,
-            py_repr(raw_line.trim())
+            py_repr(py_strip(raw_line))
         )),
         None => heading_status.ok_or_else(|| "table declares no status".to_string()),
     }
@@ -764,18 +772,18 @@ fn parse_doc(path: &Path, rel: &'static str) -> (Vec<Row>, Vec<Finding>) {
     let mut n_tables = 0usize;
     while i < lines.len() {
         let line = lines[i];
-        if line.trim_start().starts_with('#') {
-            heading = line.trim_start_matches('#').trim().to_string();
+        if py_lstrip(line).starts_with('#') {
+            heading = py_strip(line.trim_start_matches('#')).to_string();
             i += 1;
             continue;
         }
-        if !line.trim_start().starts_with('|') {
+        if !py_lstrip(line).starts_with('|') {
             i += 1;
             continue;
         }
 
         let mut block: Vec<(usize, &str)> = Vec::new();
-        while i < lines.len() && lines[i].trim_start().starts_with('|') {
+        while i < lines.len() && py_lstrip(lines[i]).starts_with('|') {
             block.push((i + 1, lines[i]));
             i += 1;
         }
@@ -785,7 +793,7 @@ fn parse_doc(path: &Path, rel: &'static str) -> (Vec<Row>, Vec<Finding>) {
 
         let header: Vec<String> = split_row(block[0].1)
             .iter()
-            .map(|h| h.to_lowercase().trim().to_string())
+            .map(|h| py_strip(&h.to_lowercase()).to_string())
             .collect();
         if header.is_empty() || !MILESTONE_KEY_HEADERS.contains(&header[0].as_str()) {
             continue;
@@ -906,7 +914,7 @@ fn git_md_paths(root: &Path) -> Option<Vec<PathBuf>> {
     Some(
         py_splitlines(&text)
             .into_iter()
-            .filter(|p| !p.trim().is_empty())
+            .filter(|p| !py_strip(p).is_empty())
             .map(|p| root.join(p))
             .collect(),
     )
@@ -1193,8 +1201,8 @@ fn has_describes_detector_marker(line: &str) -> bool {
         let Some(end) = after.find("-->") else {
             break;
         };
-        if let Some(tail) = after[..end].trim().strip_prefix("doc-truth:") {
-            if tail.trim() == "describes-detector" {
+        if let Some(tail) = py_strip(&after[..end]).strip_prefix("doc-truth:") {
+            if py_strip(tail) == "describes-detector" {
                 return true;
             }
         }
@@ -1259,7 +1267,7 @@ fn scan_publication(root: &Path) -> (usize, Vec<Finding>) {
                     "{}:{}: {why} — repo has been public since {REPO_PUBLIC_SINCE} ({REPO_PUBLIC_EVIDENCE}): {}",
                     rel.display(),
                     idx + 1,
-                    py_repr(&first_chars(line.trim(), 120))
+                    py_repr(&first_chars(py_strip(line), 120))
                 )));
             }
         }

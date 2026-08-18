@@ -749,14 +749,13 @@ fn ranges_sub_runs_and_case_sensitivity_match() {
 
 /// Python's `_RANGE` and `_TOKEN` use Unicode `\d`, then `int()` their
 /// captures. The known-bad mutant keeps Rust's milestone scanner ASCII-only;
-/// Python still parses these nine zero-valued ranges while Rust misses them,
-/// so the byte-exact comparison REDs that parity loss.
+/// Python still parses these nine non-ASCII ranges while Rust misses them, so
+/// the byte-exact comparison REDs that parity loss.
 #[test]
 fn unicode_nd_milestone_digits_are_byte_identical_and_known_bad_is_red() {
     let s = Spec::clean();
     let starts = [
-        0x10d40, 0x116d0, 0x11bf0, 0x11f50, 0x16130, 0x16d70, 0x1ccf0, 0x1e4f0,
-        0x1e5f1,
+        0x0660, 0x06f0, 0x0966, 0x09e6, 0x0a66, 0x0ae6, 0x0b66, 0x0be6, 0x0c66,
     ];
     let rows: String = starts
         .into_iter()
@@ -792,6 +791,21 @@ fn unicode_regex_whitespace_in_milestone_ranges_is_byte_identical_and_known_bad_
     let out = assert_byte_exact("unicode regex whitespace", Some(s.path()));
     assert!(out.contains("    M1: DONE ("), "{out}");
     assert!(out.contains("    M2: DONE ("), "{out}");
+}
+
+/// Python's `str.strip()` removes the ASCII information separators too. The
+/// known-bad mutant leaves the Status header wrapped in U+001F, so it misses
+/// the status column and REDs the byte-exact differential comparison.
+#[test]
+fn unicode_strip_whitespace_in_milestone_headers_is_byte_identical_and_known_bad_is_red() {
+    let s = Spec::clean();
+    let separator = '\u{1f}';
+    let header = format!("| ID | Milestone | {separator}Status{separator} |");
+    s.replace("CHARTER.md", "| ID | Milestone | Status |", &header);
+    s.replace("README.md", "| ID | Milestone | Status |", &header);
+    let out = assert_byte_exact("unicode str.strip whitespace", Some(s.path()));
+    assert!(out.contains("    M0: DONE ("), "{out}");
+    assert!(out.contains("roadmap GREEN"), "{out}");
 }
 
 /// The heading of a status-bearing section supplies the status for a table with
