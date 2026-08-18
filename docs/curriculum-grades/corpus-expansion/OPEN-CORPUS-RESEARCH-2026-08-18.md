@@ -887,6 +887,25 @@ The ledger is now 148 PASS / 809 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 26 — CDCP fire-protection NFPA follow-up receipts
+
+**Review date:** 2026-08-18. Four additional active Module 12 rows were
+narrowed to the same public EPI CDCP **Fire Protection** heading and current
+NFPA LiNK catalog or preview URLs. The retired near-duplicate `m12-q219` was
+not promoted; the active `m12-q220` was used for the portable-extinguisher
+receipt instead. No NFPA PDF or standard body was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m12-q211 | Fire Protection | NFPA 72, 2025 — https://link.nfpa.org/all-publications/72/2025 | **PASS** — early warning remains an alarm/signaling function, not suppression or a site-specific runbook |
+| m12-q213 | Fire Protection | NFPA 13, 2025 — https://link.nfpa.org/all-publications/13/2025 | **PASS** — pre-action is retained as a design distinction; no universal IT-space arrangement or zero-water claim |
+| m12-q215 | Fire Protection | NFPA 2001, 2025 — https://link.nfpa.org/all-publications/2001/2025 | **PASS** — clean-agent lower-residue distinction retained without removing detection, enclosure, maintenance, or life safety |
+| m12-q220 | Fire Protection | NFPA 10, 2026 — https://link.nfpa.org/all-publications/10/2026 | **PASS** — hazard-matched portable-agent choice remains tied to site policy and trained use |
+
+The ledger is now 152 PASS / 805 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
 
 **Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current

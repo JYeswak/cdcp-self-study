@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: current NFPA 13 (2025) public NFPA LiNK catalog/preview URL —
+# https://link.nfpa.org/all-publications/13/2025
+# Boundary: NFPA 13 is the sprinkler-installation receipt; it does not promise
+# zero water impact, select a universal IT-space arrangement, or waive AHJ review.
 id = "m12-q213"
 kind = "single-select"
 module = 12
@@ -10,7 +16,7 @@ choices = [
   "They cool CRAHs only"
 ]
 correct = "C"
-explanation = "Pre-action adds detection interlocks before water enters the pipes to heads."
+explanation = "The current NFPA 13 catalog identifies the sprinkler-installation standard. The item keeps pre-action as a design distinction that can reduce accidental release risk versus wet pipe; it does not claim that water is never used or establish a universal arrangement."
 topic_ids = ["m12-water-suppression"]
 objective_ids = []
 bloom = "understand"
