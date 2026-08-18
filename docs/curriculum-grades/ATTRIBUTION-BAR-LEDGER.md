@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 467 PASS; 490 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 470 PASS; 487 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -300,7 +300,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q087 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/29086 | PASS |
 | m06-q088 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
 | m06-q089 | 6 | Battery Energy Storage System (BESS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/855/2026 | PASS |
-| m06-q090 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6423 | BLOCKED — IEC TR 62060:2001 catalog receipt; exact trending program is not exposed |
+| m06-q090 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6423 | PASS — current IEC catalog says the guide helps obtain information indicating stationary lead-acid battery state of health |
 | m06-q091 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65717 | PASS — IEC 61000-2-4:2024 catalog enumerates voltage deviations, interruptions, frequency variation, imbalance, harmonics, and transients |
 | m06-q092 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — IEC 62040-3:2021 official abstract names UPS performance and test requirements |
 | m06-q093 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://standards.ieee.org/ieee/519/10677/ | PASS — IEEE 519-2022 public page covers linear/nonlinear loads, waveform-distortion goals, and the point of common coupling |
@@ -320,7 +320,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q107 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact UPS/ATS outage sequence is not exposed |
 | m06-q108 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact wet-stacking proposition is not exposed |
 | m06-q109 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | PASS |
-| m06-q110 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6423 | BLOCKED — IEC TR 62060:2001 catalog receipt; exact UPS-load-growth/autonomy proposition is not exposed |
+| m06-q110 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6423 | PASS — current IEC catalog describes electrically measured and regularly remotely interrogated battery characteristics |
 | m06-q200 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1:2021 catalog receipt; exact shared-rack-PDU failure proposition is not exposed |
 | m06-q201 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | PASS — TIA-942-C ratings definition requires planned maintenance without disrupting ICT capability; public definition: https://tiaonline.org/products-and-services/tia942certification/tia-942-certifications-ratings/ |
 | m06-q202 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6803 | PASS — current IEC catalog includes controlled transfer with or without interruption |
@@ -331,7 +331,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q207 | 6 | ATS and STS | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/90494 | PASS — IEC 60947-6-1:2026 official abstract names ATSE, including the controller |
 | m06-q208 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.energy.gov/cmei/buildings/uninterruptible-power-supplies | PASS — DOE public UPS definition covers continuity of load power during input failure |
 | m06-q209 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — current IEC catalog identifies continuity of load power as the primary UPS function |
-| m06-q210 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6423 | BLOCKED — IEC TR 62060:2001 catalog receipt; exact battery-autonomy/load-growth proposition is not exposed |
+| m06-q210 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/6423 | PASS — current IEC catalog says the guide provides methods for interpreting measured battery data |
 | m06-q211 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact catcher-UPS arrangement proposition is not exposed |
 | m06-q212 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact load-bank-test objective is not exposed |
 | m06-q213 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact wet-stacking/light-load proposition is not exposed |

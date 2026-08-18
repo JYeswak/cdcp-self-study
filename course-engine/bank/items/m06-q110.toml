@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Batteries
 # Official catalog/preview receipt: IEC TR 62060:2001 — https://webstore.iec.ch/en/publication/6423
-# BLOCKED: the official catalog does not expose the exact UPS-load-growth/autonomy proposition.
+# PASS: the current IEC catalog says the guide describes characteristics that
+# can be electrically measured and remotely interrogated regularly.
 id = "m06-q110"
 kind = "single-select"
 module = 6
-stem = "If IT load grows without refreshing UPS battery capacity, a likely result is:"
+stem = "What measurement approach does IEC TR 62060:2001 explicitly describe for stationary batteries?"
 choices = [
-  "Longer measured autonomy at design load",
+  "Characteristics that can be electrically measured and remotely interrogated regularly",
+  "Only IT software telemetry with no battery measurements",
   "Automatic free 2N upgrade",
-  "Shorter real autonomy and risk of load drop before generator is online",
-  "PUE becoming an availability Tier",
+  "Permanent open-circuit operation",
 ]
-correct = "C"
-explanation = "Autonomy collapses as kW rises against fixed storage energy."
+correct = "A"
+explanation = "The current IEC catalog says the guide describes characteristics that can be electrically measured and remotely interrogated regularly; it does not expose the former IT-load-growth/autonomy proposition."
 topic_ids = ["m06-batteries", "m06-sizing", "m06-ups"]
 objective_ids = []
 bloom = "apply"

@@ -870,6 +870,23 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 303 — IEC stationary-battery monitoring preview claims
+
+**Review date:** 2026-08-18. The current official IEC catalog for IEC TR
+62060:2001 was checked without opening or fetching a PDF. Its public abstract
+says the guide helps users obtain information indicating stationary lead-acid
+battery state of health, describes characteristics that can be electrically
+measured and remotely interrogated regularly, and provides methods for
+interpreting measured data.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m06-q090 | Batteries | IEC TR 62060:2001 — https://webstore.iec.ch/en/publication/6423 | **PASS** — asks only for the guide's state-of-health information purpose; no conductance/impedance program is inferred |
+| m06-q110 | Batteries | IEC TR 62060:2001 — https://webstore.iec.ch/en/publication/6423 | **PASS** — asks only for the guide's measurable/remote-interrogation description; no autonomy/load-growth rule is inferred |
+| m06-q210 | Batteries | IEC TR 62060:2001 — https://webstore.iec.ch/en/publication/6423 | **PASS** — asks only for the guide's data-interpretation method; no autonomy/load-growth rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 302 — IEC static-transfer-system scope preview claims
 
 **Review date:** 2026-08-18. The current official IEC catalog for IEC

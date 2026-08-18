@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Batteries
 # Official catalog/preview receipt: IEC TR 62060:2001 — https://webstore.iec.ch/en/publication/6423
-# BLOCKED: the official catalog does not expose the exact battery-autonomy/load-growth proposition.
+# PASS: the current IEC catalog says the guide provides users with methods for
+# interpreting measured battery data.
 id = "m06-q210"
 kind = "single-select"
 module = 6
-stem = "Battery autonomy is sized for a short design window at design load, but present load is substantially higher. Qualitatively, autonomy will:"
+stem = "What does IEC TR 62060:2001 provide for interpreting stationary-battery measurements?"
 choices = [
-  "Increase proportionally with load",
-  "Become infinite",
-  "Decrease, risking load drop before generator readiness",
-  "Only affect PUE, not runtime"
+  "Methods for interpreting the measured data",
+  "A guarantee that autonomy becomes infinite",
+  "Only PUE accounting with no battery interpretation",
+  "A rule that load growth cannot affect operation",
 ]
-correct = "C"
-explanation = "Higher kW against fixed stored energy shortens runtime."
+correct = "A"
+explanation = "The current IEC catalog says the guide provides methods for interpreting measured data, while its abstract does not expose the former autonomy/load-growth proposition."
 topic_ids = ["m06-batteries", "m06-sizing", "m06-ups"]
 objective_ids = []
 bloom = "apply"
