@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Shielding
 # Official catalog/preview receipt: IEC 61000-4-23:2016 + AMD1:2025 CSV — https://webstore.iec.ch/en/publication/26074
-# BLOCKED: the official catalog covers HEMP protective-device tests but does not expose the exact power-frequency shielding-difficulty proposition.
+# PASS: the current IEC catalog explicitly says the standard does not provide
+# information on requirements for specific test levels.
 id = "m07-q206"
 kind = "single-select"
 module = 7
-stem = "Shielding for magnetic fields at power frequencies is generally:"
+stem = "What does IEC 61000-4-23:2016 explicitly say it does not provide?"
 choices = [
-  "More difficult than many expect; materials, thickness, and seams matter and distance is often preferred",
-  "Trivial with any plastic sheet",
-  "Identical to RF shielding with thin foil always",
-  "Achieved only by painting racks white"
+  "Requirements for specific levels for testing",
+  "Any description of shielding-element test concepts",
+  "Any test set-up information",
+  "Any data-processing information",
 ]
 correct = "A"
-explanation = "Low-frequency magnetic shielding is engineering-heavy; separation is often the practical first step."
+explanation = "The current IEC catalog explicitly says IEC 61000-4-23 does not provide information on requirements for specific levels for testing; it does not establish the former power-frequency shielding-difficulty proposition."
 topic_ids = ["m07-shielding"]
 objective_ids = []
 bloom = "analyze"

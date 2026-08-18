@@ -870,6 +870,21 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 307 — IEC shielding-test method preview claims
+
+**Review date:** 2026-08-18. The current official IEC catalog for IEC
+61000-4-23:2016 with Amendment 1:2025 consolidated receipt was checked without
+opening or fetching a PDF. Its public abstract describes shielding-element test
+concepts, set-up, equipment, procedures, and data processing, and explicitly
+says it does not provide requirements for specific test levels.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m07-q053 | Shielding | IEC 61000-4-23:2016 + AMD1:2025 CSV — https://webstore.iec.ch/en/publication/26074 | **PASS** — asks only for the catalog's test-information categories; no aperture/seam/cable-entry rule is inferred |
+| m07-q206 | Shielding | IEC 61000-4-23:2016 + AMD1:2025 CSV — https://webstore.iec.ch/en/publication/26074 | **PASS** — asks only for the catalog's explicit test-level boundary; no power-frequency shielding rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 306 — IEC underground power/telecom proximity preview claim
 
 **Review date:** 2026-08-18. The current official IEC catalog for IEC
