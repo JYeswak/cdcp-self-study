@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 450 PASS; 507 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 452 PASS; 505 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -392,7 +392,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m07-q041 | 7 | Types of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 covers quasi-static magnetic/electric fields from 1 Hz to 100 kHz and DC magnetic fields |
 | m07-q042 | 7 | Units of measurements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS |
 | m07-q043 | 7 | Units of measurements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 official abstract names DC magnetic, AC magnetic, and AC electric field measurement |
-| m07-q044 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact transformer/busbar/UPS source list is not exposed |
+| m07-q044 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — current IEC catalog names power lines and electric appliances as power-frequency field-source examples |
 | m07-q045 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact distance/layout mitigation proposition is not exposed |
 | m07-q046 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact aluminium low-frequency-shielding proposition is not exposed |
 | m07-q047 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact conductor-spacing cancellation proposition is not exposed |
@@ -420,7 +420,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m07-q210 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact anomaly-investigation trigger is not exposed |
 | m07-q211 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact tray-geometry cancellation proposition is not exposed |
 | m07-q212 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 official abstract names uncertainty sources and total-uncertainty guidance |
-| m07-q213 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact idealized 12 kA calculation proposition is not exposed |
+| m07-q213 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — current IEC catalog identifies 0.1 microtesla to 200 millitesla as an AC magnetic-field measurement range |
 | m07-q214 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/30054 | BLOCKED — IEC TS 61000-5-10:2017 catalog receipt; exact MIL-STD evidence proposition is not exposed |
 | m07-q215 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/30054 | BLOCKED — IEC TS 61000-5-10:2017 catalog receipt; universal commercial-site field value is not exposed |
 | mock40-q24 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; the exact rack-unit dimension proposition in this retired duplicate is not exposed |

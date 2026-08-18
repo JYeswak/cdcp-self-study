@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 7)
 # Public syllabus heading: Sources of EMF
 # Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
-# BLOCKED: the official catalog identifies power-frequency field sources but does not expose the exact transformer/busbar/UPS source list.
+# PASS: the current IEC catalog names power lines and electric appliances as
+# examples of devices operating at power frequencies that produce fields.
 id = "m07-q044"
 kind = "single-select"
 module = 7
-stem = "Which set is a common strong magnetic-field source near IT?"
+stem = "Which source example does the current IEC 61786-2 catalog identify for power-frequency fields?"
 choices = [
+  "Power lines and electric appliances",
   "Plastic blanking panels and fibre patch cords",
   "LED exit signs only",
-  "Large transformers, busbars, and UPS/plant electrical gear",
   "Empty cable trays with no current",
 ]
-correct = "C"
-explanation = "High current plant—transformers, bus, UPS—are classic strong B sources."
+correct = "A"
+explanation = "The current IEC catalog lists devices operating at power frequencies, including power lines and electric appliances, as field sources; it does not establish a transformer/busbar/UPS ranking."
 topic_ids = ["m07-sources"]
 objective_ids = []
 bloom = "remember"

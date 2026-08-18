@@ -870,6 +870,21 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 293 — IEC EMF source and measurement-range preview claims
+
+**Review date:** 2026-08-18. The current official IEC catalog for IEC
+61786-2:2014 was checked without opening or fetching a PDF. Its public abstract
+names power lines and electric appliances as examples of power-frequency field
+sources and identifies 0.1 microtesla to 200 millitesla as an AC magnetic-field
+measurement range. The range is not an exposure limit or compliance result.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m07-q044 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — asks only for the catalog's power-frequency source examples |
+| m07-q213 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — asks only for the catalog's AC magnetic-field measurement range; no exposure limit is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 292 — ISO data-centre management and operations preview claims
 
 **Review date:** 2026-08-18. The current official ISO catalog/preview for
