@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 135 PASS; 822 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 140 PASS; 817 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -594,9 +594,9 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m10-q100 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m10-q101 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m10-q102 | 10 | Backup water supply | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m10-q103 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m10-q104 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m10-q105 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
+| m10-q103 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management | PASS |
+| m10-q104 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management | PASS |
+| m10-q105 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management | PASS |
 | m10-q106 | 10 | Backup water supply | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m10-q107 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m10-q108 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
@@ -604,7 +604,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m10-q110 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m10-q111 | 10 | Backup water supply | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m10-q112 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m10-q113 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
+| m10-q113 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management | PASS |
 | m10-q114 | 10 | Backup water supply | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m10-q115 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m10-q200 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
@@ -618,7 +618,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m10-q208 | 10 | Backup water supply | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m10-q209 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m10-q210 | 10 | Backup water supply | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m10-q211 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
+| m10-q211 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers | PASS |
 | m10-q212 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m10-q213 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m10-q214 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |

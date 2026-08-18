@@ -870,6 +870,26 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 22 — CDCP water-supply and cooling-tower operating boundaries
+
+**Review date:** 2026-08-18. Five Module 10 rows were narrowed to current
+public DOE/FEMP cooling-tower and federal-data-center guidance. The public EPI
+syllabus supplies the exact “Importance of water” heading. No linked PDF body
+was fetched.
+
+| Item | Public CDCP heading | Official public receipt | Bounded result |
+|---|---|---|---|
+| m10-q103 | Importance of water | DOE FEMP Cooling Tower Management — https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management | **PASS** — makeup replaces evaporation, drift, and blowdown losses |
+| m10-q104 | Importance of water | DOE FEMP Cooling Tower Management — https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management | **PASS** — blowdown removes concentrated water to control dissolved-solids concentration |
+| m10-q105 | Importance of water | DOE FEMP Cooling Tower Management — https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management | **PASS** — uncontrolled concentration can produce scale/corrosion risk; no treatment program is invented |
+| m10-q113 | Importance of water | DOE FEMP Cooling Tower Management — https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management | **PASS** — basin level, makeup, and loss monitoring can expose leaks or unaccounted losses |
+| m10-q211 | Importance of water | DOE FEMP Cooling Water Efficiency Opportunities for Federal Data Centers — https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers | **PASS** — WUE is annual site water usage divided by annual IT equipment energy |
+
+Water-quality thresholds, universal cycles, backup-water sizing, permit status,
+and the hydronic-leak runbook remain BLOCKED. The ledger is now 140 PASS / 817
+BLOCKED across 957 rows, with zero bare FAIL. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 21 — CDCP cooling controls, containment, and liquid-cooling boundaries
 
 **Review date:** 2026-08-18. Four Module 09 rows were narrowed to claims
