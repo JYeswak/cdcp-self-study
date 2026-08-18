@@ -1,0 +1,26 @@
+# Original CDCS educational MCQ — ms4j.1: cooling ΔT / airflow calc defect.
+# Public heading: CDCS Cooling Systems engineering calcs —
+# https://www.epi-ap.com/services/1/3/5/Certified_Data_Centre_Specialist_(CDCS)
+# Engineering principle: heat removal scales with mass flow × specific heat × ΔT.
+# Halving airflow with same heat load doubles ΔT across the rack. A "green"
+# supply temperature with insufficient CFM creates hotspots at exhaust.
+# Decides CALC DEFECT, not name-recall. bloom = apply.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m09-q301"
+kind = "single-select"
+module = 9
+stem = "A row of 40 kW racks shows 18°C supply air and 45°C exhaust. The operator says cooling is fine because supply is in spec. The calc defect is:"
+choices = [
+  "No defect — supply temperature in spec proves the cooling system is operating correctly for the load",
+  "The 27°C ΔT across the rack indicates insufficient airflow — add CFM before the exhaust reaches thermal limits",
+  "The defect is supply temperature — lower supply to 15°C to compensate for the high exhaust temperature",
+  "The defect is rack placement — move the racks closer to the CRAH to reduce exhaust temperature",
+]
+correct = "B"
+explanation = "Heat removal scales with airflow × ΔT. At constant heat load, halving CFM doubles ΔT. A 27°C rise (18°C→45°C) with 40 kW racks suggests the airflow is insufficient — the heat is leaving, but inlet-to-exhaust gradient is steep. Lowering supply temperature does not fix insufficient airflow; it shifts the curve without adding capacity. The calc defect is treating supply-in-spec as proof of adequate cooling while ignoring the ΔT that reveals the airflow shortfall."
+topic_ids = ["m09-airflow", "m09-cooling-calcs"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

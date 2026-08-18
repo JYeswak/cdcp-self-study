@@ -1,0 +1,26 @@
+# Original CDCS educational MCQ — ms4j.1: UPS parallel config defect.
+# Public heading: CDCS Power Systems engineering calcs —
+# https://www.epi-ap.com/services/1/3/5/Certified_Data_Centre_Specialist_(CDCS)
+# Engineering principle: capacity parallel (N modules sum to N) vs redundant
+# parallel (N+1 modules, one can leave). A one-line that shows 3×200 kVA
+# feeding 600 kVA load has no redundancy at the UPS layer.
+# Decides ONE-LINE DEFECT, not name-recall. bloom = analyze.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m06-q306"
+kind = "single-select"
+module = 6
+stem = "A one-line shows 3×200 kVA UPS modules in parallel feeding a 580 kW IT load at 0.95 PF. The vendor says 'parallel UPS for redundancy.' The one-line defect is:"
+choices = [
+  "No defect — three modules in parallel provide triple redundancy since any one module can carry the full load",
+  "The config is capacity parallel, not redundant parallel — 3×200 kVA at 0.95 PF = 570 kW, leaving no module to fail",
+  "The defect is undersizing — the three modules should each be rated for the full 580 kW to provide true N+1",
+  "The defect is oversizing — 570 kW capacity for 580 kW load wastes capital on unused UPS infrastructure",
+]
+correct = "B"
+explanation = "3×200 kVA at 0.95 PF = 3×190 kW = 570 kW capacity. With 580 kW load, all three modules must run to meet demand — losing one drops capacity below load. This is capacity parallel (modules sum to N), not redundant parallel (N+1). The vendor claim of 'redundancy' is wrong at the UPS layer. A true N+1 config for 580 kW at this module size would need 4×200 kVA (760 kW capacity, one can leave). The one-line defect is calling a capacity parallel config 'redundant.'"
+topic_ids = ["m06-ups", "m06-parallel"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

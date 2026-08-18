@@ -9,13 +9,13 @@
 //!   5. bare `cdcp` advertises `study`
 
 use std::fs;
-use std::io::{BufRead, BufReader, Read, Write};
-use std::net::{TcpListener, TcpStream};
+use std::io::{BufRead, BufReader, ErrorKind, Read, Write};
+use std::net::{Shutdown, TcpListener, TcpStream};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::sync::mpsc;
 use std::thread;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 /// Named proofs. Dropping a row is a vacuous pass.
 const PROOFS: &[&str] = &[
@@ -65,32 +65,149 @@ fn isolate_cmd(cmd: &mut Command, xdg: &Path, home: &Path) {
     cmd.env_remove("CDCP_REPO_ROOT");
 }
 
-fn http_get(hostport: &str, path: &str) -> (u16, String) {
-    let mut stream =
-        TcpStream::connect(hostport).unwrap_or_else(|e| panic!("connect {hostport}: {e}"));
-    stream
-        .set_read_timeout(Some(Duration::from_secs(5)))
-        .unwrap();
-    stream
-        .set_write_timeout(Some(Duration::from_secs(5)))
-        .unwrap();
-    write!(
-        stream,
-        "GET {path} HTTP/1.1\r\nHost: {hostport}\r\nConnection: close\r\n\r\n"
-    )
-    .unwrap();
-    let _ = stream.shutdown(std::net::Shutdown::Write);
-    let mut buf = String::new();
-    stream.read_to_string(&mut buf).unwrap_or_else(|e| {
-        panic!("read {hostport}{path}: {e}; partial={buf:?}");
-    });
-    let status = buf
-        .lines()
+fn parse_http_status(buf: &str) -> u16 {
+    buf.lines()
         .next()
         .and_then(|l| l.split_whitespace().nth(1))
         .and_then(|s| s.parse().ok())
-        .unwrap_or(0);
-    (status, buf)
+        .unwrap_or(0)
+}
+
+fn retryable_io(kind: ErrorKind) -> bool {
+    matches!(
+        kind,
+        ErrorKind::ConnectionReset
+            | ErrorKind::ConnectionRefused
+            | ErrorKind::ConnectionAborted
+            | ErrorKind::BrokenPipe
+            | ErrorKind::UnexpectedEof
+            | ErrorKind::TimedOut
+            | ErrorKind::WouldBlock
+            | ErrorKind::Interrupted
+            | ErrorKind::NotConnected
+    )
+}
+
+/// One GET. Transport errors are returned so the caller can retry.
+/// A status line already in `buf` after RST still counts — the 200 was sent.
+/// Same helper as `installed_bundle` (330d28d / sm4g.21).
+///
+/// `half_close` is for *our* drain-aware listener. Do not SHUT_WR against a
+/// foreign :8766 occupant — measured: Python-style serve answers curl but
+/// returns 0 bytes after client write-shutdown.
+fn http_get_once(hostport: &str, path: &str, half_close: bool) -> std::io::Result<(u16, String)> {
+    let mut stream = TcpStream::connect(hostport)?;
+    stream.set_read_timeout(Some(Duration::from_secs(5)))?;
+    stream.set_write_timeout(Some(Duration::from_secs(5)))?;
+    let _ = stream.set_nodelay(true);
+    write!(
+        stream,
+        "GET {path} HTTP/1.1\r\nHost: {hostport}\r\nConnection: close\r\n\r\n"
+    )?;
+    if half_close {
+        let _ = stream.shutdown(Shutdown::Write);
+    }
+    let mut buf = String::new();
+    let read_res = stream.read_to_string(&mut buf);
+    let status = parse_http_status(&buf);
+    match read_res {
+        Ok(_) if status != 0 => Ok((status, buf)),
+        Err(_) if status != 0 => Ok((status, buf)),
+        Ok(_) => Err(std::io::Error::new(
+            ErrorKind::UnexpectedEof,
+            "no HTTP status before EOF",
+        )),
+        Err(e) => Err(e),
+    }
+}
+
+fn child_stderr(child: &mut std::process::Child) -> String {
+    let mut err = String::new();
+    if let Some(mut s) = child.stderr.take() {
+        let _ = s.read_to_string(&mut err);
+    }
+    format!("stderr={err:?}")
+}
+
+fn give_up(
+    child: Option<&mut std::process::Child>,
+    attempts: u32,
+    deadline: Duration,
+    last_err: &str,
+) -> String {
+    let ms = deadline.as_millis();
+    if let Some(c) = child {
+        match c.try_wait() {
+            Ok(Some(st)) => {
+                let code = st
+                    .code()
+                    .map(|n| n.to_string())
+                    .unwrap_or_else(|| st.to_string());
+                let stderr = child_stderr(c);
+                format!(
+                    "child exited with status {code} (attempts={attempts}; last_err={last_err}); {stderr}"
+                )
+            }
+            _ => format!(
+                "listener never came up within {ms}ms (attempts={attempts}; last_err={last_err})"
+            ),
+        }
+    } else {
+        format!("listener never came up within {ms}ms (attempts={attempts}; last_err={last_err})")
+    }
+}
+
+/// Bounded GET retry. ConnectionReset/Refused sleep-and-retry to `deadline`.
+/// Timeout names exactly one cause: child-exited vs listener-never-came-up.
+fn http_get_until(
+    hostport: &str,
+    path: &str,
+    deadline: Duration,
+    mut child: Option<&mut std::process::Child>,
+    half_close: bool,
+) -> Result<(u16, String, u32), String> {
+    let start = Instant::now();
+    let mut attempts = 0u32;
+    loop {
+        attempts += 1;
+        let last_err = match http_get_once(hostport, path, half_close) {
+            Ok(pair) => return Ok((pair.0, pair.1, attempts)),
+            Err(e) => {
+                let last_err = e.to_string();
+                if !retryable_io(e.kind()) && start.elapsed() >= deadline {
+                    return Err(give_up(child, attempts, deadline, &last_err));
+                }
+                last_err
+            }
+        };
+
+        if let Some(c) = child.as_deref_mut() {
+            if let Ok(Some(st)) = c.try_wait() {
+                let code = st
+                    .code()
+                    .map(|n| n.to_string())
+                    .unwrap_or_else(|| st.to_string());
+                let stderr = child_stderr(c);
+                return Err(format!(
+                    "child exited with status {code} (attempts={attempts}; last_err={last_err}); {stderr}"
+                ));
+            }
+        }
+
+        if start.elapsed() >= deadline {
+            return Err(give_up(child, attempts, deadline, &last_err));
+        }
+        let remain = deadline.saturating_sub(start.elapsed());
+        thread::sleep(Duration::from_millis(20).min(remain));
+    }
+}
+
+fn http_get(hostport: &str, path: &str) -> (u16, String) {
+    // Default: no SHUT_WR. Occupier / foreign :8766 may not be our serve.
+    match http_get_until(hostport, path, Duration::from_secs(8), None, false) {
+        Ok((status, body, _)) => (status, body),
+        Err(e) => panic!("GET {hostport}{path}: {e}"),
+    }
 }
 
 fn wait_for_listen_line(child: &mut std::process::Child, prefix: &str) -> Result<String, String> {
@@ -176,28 +293,8 @@ fn occupy_default_port() -> Occupier {
                 "occupier must hold the documented default, got {addr}"
             );
             thread::spawn(move || {
-                for mut s in listener.incoming().flatten() {
-                    // Drain headers so close() is FIN, not POSIX RST.
-                    let mut reader = BufReader::new(&s);
-                    let mut line = String::new();
-                    let _ = reader.read_line(&mut line);
-                    loop {
-                        let mut hdr = String::new();
-                        match reader.read_line(&mut hdr) {
-                            Ok(0) | Err(_) => break,
-                            Ok(_) if hdr == "\r\n" || hdr == "\n" || hdr.is_empty() => break,
-                            Ok(_) => {}
-                        }
-                    }
-                    drop(reader);
-                    let body = OCCUPIER_TOKEN.as_bytes();
-                    let _ = write!(
-                        s,
-                        "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
-                        body.len()
-                    );
-                    let _ = s.write_all(body);
-                    let _ = s.shutdown(std::net::Shutdown::Write);
+                for stream in listener.incoming().flatten() {
+                    occupier_answer(stream);
                 }
             });
             let (status, body) = http_get(DEFAULT_BIND, "/");
@@ -221,6 +318,66 @@ fn occupy_default_port() -> Occupier {
 
 struct Occupier {
     ours: bool,
+}
+
+/// Occupier must drain the request the same way `http_serve` does. POSIX
+/// `close()` on unread recv data is RST — W2's first GET of 8766 then
+/// panics at `read_to_string` even when the 200 was fully sent.
+fn occupier_drain_request(stream: &TcpStream) -> bool {
+    let mut reader = BufReader::new(stream);
+    let mut line = String::new();
+    match reader.read_line(&mut line) {
+        Ok(0) | Err(_) => return false,
+        Ok(_) => {}
+    }
+    loop {
+        let mut hdr = String::new();
+        match reader.read_line(&mut hdr) {
+            Ok(0) | Err(_) => break,
+            Ok(_) if hdr == "\r\n" || hdr == "\n" || hdr.is_empty() => break,
+            Ok(_) => {}
+        }
+    }
+    true
+}
+
+fn occupier_answer(mut stream: TcpStream) {
+    let _ = stream.set_read_timeout(Some(Duration::from_secs(2)));
+    let _ = stream.set_write_timeout(Some(Duration::from_secs(5)));
+    let _ = stream.set_nodelay(true);
+    if !occupier_drain_request(&stream) {
+        occupier_finish(&mut stream);
+        return;
+    }
+    let body = OCCUPIER_TOKEN.as_bytes();
+    let _ = write!(
+        stream,
+        "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
+        body.len()
+    );
+    let _ = stream.write_all(body);
+    occupier_finish(&mut stream);
+}
+
+fn occupier_finish(stream: &mut TcpStream) {
+    let _ = stream.shutdown(Shutdown::Write);
+    let _ = stream.set_nonblocking(true);
+    let mut sink = [0u8; 256];
+    loop {
+        match stream.read(&mut sink) {
+            Ok(0) => break,
+            Ok(_) => {}
+            Err(e)
+                if matches!(
+                    e.kind(),
+                    ErrorKind::WouldBlock | ErrorKind::TimedOut | ErrorKind::Interrupted
+                ) =>
+            {
+                break;
+            }
+            Err(_) => break,
+        }
+    }
 }
 
 fn plant_fake_opener(bin_dir: &Path, marker: &Path) {
@@ -305,7 +462,23 @@ fn occupied_default_port_binds_different_listener() {
     );
 
     // Listener proof: GET the printed address. A printed-only claim is vacuous.
-    let (status, body) = http_get(&hostport, "/");
+    // Retry + accept-status-after-RST matches installed_bundle (330d28d).
+    let (status, body, attempts) = match http_get_until(
+        &hostport,
+        "/",
+        Duration::from_secs(8),
+        Some(&mut child),
+        true,
+    ) {
+        Ok(v) => v,
+        Err(e) => {
+            let _ = child.kill();
+            let _ = child.wait();
+            let _ = fs::remove_dir_all(&base);
+            panic!("{e}");
+        }
+    };
+    eprintln!("W2 occupied-port GET printed URL attempts={attempts} hostport={hostport}");
     assert_eq!(
         status, 200,
         "GET printed URL {hostport} must hit study's listener: {body}"

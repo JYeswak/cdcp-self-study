@@ -1,0 +1,26 @@
+# Original CDCS educational MCQ — ms4j.1: clean-agent hold time / room integrity defect.
+# Public heading: CDCS Fire Suppression engineering calcs —
+# https://www.epi-ap.com/services/1/3/5/Certified_Data_Centre_Specialist_(CDCS)
+# Cites: NFPA 2001 (Clean Agent Fire Extinguishing Systems) — room integrity
+# testing (door-fan test) validates hold time; leakage defeats agent retention.
+# https://www.nfpa.org/codes-and-standards/nfpa-2001-standard-development/2001
+# Decides HOLD-TIME DEFECT, not name-recall. bloom = analyze.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m12-q301"
+kind = "single-select"
+module = 12
+stem = "A clean-agent system design claims 10-minute hold time. The door-fan test was last done before a raised-floor retrofit that added 200 cable penetrations. The calc defect is:"
+choices = [
+  "No defect — the original door-fan test establishes permanent hold time regardless of later construction changes",
+  "The hold-time claim is invalid until a new door-fan test confirms room integrity after the penetration count changed",
+  "The defect is documentation only — record the penetrations in the fire log and keep the original hold time",
+  "The defect is agent quantity — add more cylinders to compensate for the new leakage paths from penetrations",
+]
+correct = "B"
+explanation = "NFPA 2001 requires room integrity to validate hold time — the door-fan test measures how fast agent concentration decays through leakage. Adding 200 cable penetrations changes the enclosure's leakage area. The original test no longer reflects the room's actual integrity. The hold-time claim is invalid until a new door-fan test confirms the retrofit did not defeat agent retention. Adding agent without verifying integrity does not fix the leak; it fills a bucket with a bigger hole."
+topic_ids = ["m12-suppression", "m12-clean-agent"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
