@@ -1,0 +1,24 @@
+# Original 2026 overlay educational item — bd-epi-ecosystem-ms4j.12.
+# This overlay is supplemental interview study material, NOT an EPI exam and NOT a credential.
+# syllabus_heading = "Cooling"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/5/Certified_Data_Centre_Specialist_(CDCS)"
+# source_ids = ["src-epi-cdcs-page", "src-ashrae-tc99-liquid-cooling-2021"]
+# claim = ASHRAE W-classes (W1–W5) define facility-water supply temperature ranges for liquid cooling.
+id = "m09-q301"
+kind = "single-select"
+module = 9
+stem = "A GPU hall RFP says 'W3-class liquid cooling.' According to ASHRAE TC 9.9, what does that specify?"
+choices = [
+  "A facility-water supply temperature range — W3 is warmer than W1, allowing economizer hours but limiting chip TDP",
+  "A chiller COP requirement — W3 means the chiller must achieve efficiency class 3 under ASHRAE 90.4",
+  "A rack power density — W3 means 30 kW per rack maximum regardless of cooling method",
+  "A PUE target — W3 means the facility must operate at PUE 1.3 or lower annually",
+]
+correct = "A"
+explanation = "ASHRAE TC 9.9's liquid-cooling guidelines define W-classes (W1 through W5) as facility-water supply temperature envelopes. W1 is the coldest (requires mechanical chilling year-round); W5 is the warmest (allows high economizer fractions). The class constrains what chip-package TDPs can be cooled and how many free-cooling hours the site can capture. W-classes do not define PUE, rack density, or chiller efficiency directly."
+topic_ids = ["m09-cooling", "m09-liquid-cooling"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

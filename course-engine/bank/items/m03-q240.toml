@@ -1,0 +1,24 @@
+# Original 2026 overlay educational item — bd-epi-ecosystem-ms4j.12.
+# This overlay is supplemental interview study material, NOT an EPI exam and NOT a credential.
+# syllabus_heading = "Site Selection"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/5/Certified_Data_Centre_Specialist_(CDCS)"
+# source_ids = ["src-epi-cdcs-page", "src-lbnl-queued-up-2024"]
+# claim = Grid interconnection queue backlogs can exceed 5 years in some regions; site selection must account for queue position.
+id = "m03-q240"
+kind = "single-select"
+module = 3
+stem = "An AI-campus site selection shows 500 MW available 'once the interconnection is complete' but does not state the queue position or study timeline. The review gap is:"
+choices = [
+  "Queue position and study timeline are irrelevant — grid operators process all requests simultaneously",
+  "The gap is critical — queue backlogs in some regions exceed 5 years; energization date depends on queue position, study phases, and upgrade scope",
+  "Acceptable if the site has a signed PPA, since a PPA guarantees immediate interconnection",
+  "Acceptable if the site uses behind-the-meter generation, which bypasses all queue processes universally",
+]
+correct = "B"
+explanation = "LBNL's 'Queued Up' reports document multi-year interconnection backlogs in U.S. grids. Queue position determines when studies begin; study phases (feasibility, system impact, facilities) each take months to years; identified upgrades add construction time. A site that shows 500 MW 'available' without queue position, study phase, or upgrade scope cannot commit to an energization date. PPAs do not guarantee interconnection; BTM does not universally bypass queue processes."
+topic_ids = ["m03-site-selection", "m03-interconnect-queue"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "free_url"
+status = "approved"
