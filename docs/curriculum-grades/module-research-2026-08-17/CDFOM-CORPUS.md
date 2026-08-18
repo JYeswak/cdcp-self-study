@@ -23,7 +23,7 @@ Organizational Resilience; and Governance, Risk and Compliance.
 |---|---|---|---|
 | `src-epi-cdfom-page` | Live public syllabus fetched 2026-08-18 | https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29 | Exact public headings and bullets named in each item |
 | `src-nist-sp800-53-r5-5.2.0` | NIST SP 800-53 Rev. 5, current minor Release 5.2.0 (2025-08-27) | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final | Official publication-page receipt for the cited control families; no PDF body retained |
-| `src-doe-o360-1d` | DOE O 360.1D, *Federal Employee Training*, approved 2022-12-09 | https://www.energy.gov/documents/federal-employee-training | 4.a.(4)(a)-(b) and 4.a.(6)(a)-(b): individual development plans tied to job requirements, professional development, and competencies; competency development through training and rotational/developmental assignments |
+| `src-doe-o360-1d` | DOE O 360.1D, *Federal Employee Training*, approved 2022-12-09 | https://www.energy.gov/management/directives-guidance-and-delegations | **BLOCKED** — official DOE directives catalog/landing only; no body or PDF fetched |
 | `src-ecfr-1910-147-2026-08-14` | 29 CFR 1910.147, eCFR display current 2026-08-14; Title 29 last amended 2026-08-04 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | (c)(6)(i)-(ii) periodic inspection and record; (c)(7)(iv) training record |
 | `src-ecfr-1910-132-2026-08-14` | 29 CFR 1910.132, eCFR display current 2026-08-14; Title 29 last amended 2026-08-04 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-I/section-1910.132 | (d)(1)-(2) hazard assessment and written certification; (f)(1)-(3) PPE training, demonstration, and retraining |
 | `src-doe-femp-cx-2006` | DOE FEMP, *Commissioning Process for Federal Facilities* | https://www.energy.gov/cmei/femp/commissioning-process-federal-facilities | Public HTML supports functional-test planning, deficiency analysis, retesting, and final hand-off documentation |
@@ -35,9 +35,9 @@ Organizational Resilience; and Governance, Risk and Compliance.
 | `src-dfe-service-management-v1-2025-01-22` | UK Department for Education, *Service Management standard*, Version 1, last updated 2025-01-22 | https://apply-the-service-standard.education.gov.uk/standards/service-management | Service Catalogue Management, reporting visibility, user satisfaction/single support entry, and trend-analysis improvement opportunities |
 
 NIST's 2025 planning note lists the controls changed by Release 5.2.0; the
-AT-3, PE-2, CP-2, MA-2, SA-9, and SR-3 clauses used here are not among those
-listed changes. The PDF remains the public clause text behind those control
-IDs.
+AT-3, PE-2, CP-2, MA-2, SA-9, and SR-3 control identifiers used here are not
+listed changes. The official publication page is the edition pin; no standard
+body or PDF was fetched or retained.
 
 ## Blocked-on-sourcing rows
 
