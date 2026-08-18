@@ -1042,6 +1042,24 @@ refill interval.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 239 — current ISO/IEC general and seismic-risk scopes
+
+**Review date:** 2026-08-18. The current ISO catalog for ISO/IEC TS
+22237-30:2022 says the publication was reviewed and confirmed in 2025 and
+covers data-centre seismic/earthquake risk assessment plus mitigation concepts
+in construction and design. The current ISO preview for ISO/IEC 22237-1:2021
+lists classification based on availability, security, and energy-efficiency
+and business risk/operating-cost analysis, with a reference to operation and
+management. The two items are bounded to those published catalog/preview
+scopes.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m08-q058 | Types of racks | ISO/IEC TS 22237-30:2022 — https://www.iso.org/standard/80622.html?browse=tc | **PASS** — seismic/earthquake risk assessment and design mitigation are explicit |
+| m01-q204 | Importance of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — classification criteria and business risk/operating-cost analysis are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies

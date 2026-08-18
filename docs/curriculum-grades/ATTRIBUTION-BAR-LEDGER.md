@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 296 PASS; 661 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 298 PASS; 659 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -50,7 +50,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m01-q201 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/88412.html | BLOCKED — ISO 22301:2019/Amd 1:2024 catalog receipt; exact organizational-cause proposition is not exposed |
 | m01-q202 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact enterprise/colo/hyperscale comparison is not exposed |
 | m01-q203 | 1 | Elements of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact beyond-IT-load element list is not exposed |
-| m01-q204 | 1 | Importance of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact board-metrics proposition is not exposed |
+| m01-q204 | 1 | Importance of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS |
 | m01-q205 | 1 | Types of data centres | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact edge-versus-central tradeoff is not exposed |
 | m01-q206 | 1 | Causes of unavailability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact single-point-of-failure proposition is not exposed |
 | m01-q207 | 1 | Importance of a data centre | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact criticality-to-investment proposition is not exposed |
@@ -442,7 +442,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m08-q055 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact metered-rack-PDU operations proposition is not exposed |
 | m08-q056 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact switched-outlet operational proposition is not exposed |
 | m08-q057 | 8 | Power strips / rails | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70/2026 | BLOCKED — NFPA 70:2026 catalog/preview receipt; exact plug/branch/continuous-load selection proposition is not exposed |
-| m08-q058 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/80622.html?browse=tc | BLOCKED — ISO/IEC TS 22237-30:2022 catalog receipt; exact seismic-rack anchoring proposition is not exposed |
+| m08-q058 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/80622.html?browse=tc | PASS |
 | m08-q059 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | BLOCKED — IEC 60297-3-100:2008 catalog receipt; exact wall-mount U/weight/swing-clearance proposition is not exposed |
 | m08-q060 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | BLOCKED — IEC 60297-3-100:2008 catalog receipt; exact service-clearance/cable-bend planning proposition is not exposed |
 | m08-q061 | 8 | Rack standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1283 | BLOCKED — IEC 60297-3-100:2008 catalog receipt; exact cage-nut/fastener proposition is not exposed |
