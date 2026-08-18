@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Single phase and three phase power
+# Official catalog/preview receipt: IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878
+# BLOCKED: the official catalog does not expose the exact plant-versus-utilization phase distinction.
 id = "m06-q078"
 kind = "single-select"
 module = 6

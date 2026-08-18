@@ -1044,6 +1044,27 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 64 — CDCP power-quality and phase-distribution receipts
+
+**Review date:** 2026-08-18. Six additional M06 rows now carry official IEC
+61000-2-4:2024 or IEC 60364-5-52:2009 + AMD1:2024 catalog/preview receipts.
+They remain BLOCKED because the public pages do not expose the exact harmonic,
+busway, tray, phase-utilization, phase-imbalance, or plant-edge propositions.
+No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q073 | Transformers | IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717 | **BLOCKED** — exact K-factor selection not exposed |
+| m06-q074 | Power distribution / busbar trunking | IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878 | **BLOCKED** — exact tap-off agility not exposed |
+| m06-q075 | Power distribution / busbar trunking | IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878 | **BLOCKED** — exact tray/busway trade-off not exposed |
+| m06-q076 | Single phase and three phase power | IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878 | **BLOCKED** — exact three-phase utilization proposition not exposed |
+| m06-q077 | Single phase and three phase power | IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717 | **BLOCKED** — exact phase-imbalance consequence not exposed |
+| m06-q078 | Single phase and three phase power | IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878 | **BLOCKED** — exact plant/utilization distinction not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 63 — CDCP generator testing and transformer receipts
 
 **Review date:** 2026-08-18. Eight additional M06 rows now carry official

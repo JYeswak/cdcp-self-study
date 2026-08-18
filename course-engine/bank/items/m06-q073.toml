@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Transformers
+# Official catalog/preview receipt: IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717
+# BLOCKED: the official catalog does not expose the exact K-factor transformer selection proposition.
 id = "m06-q073"
 kind = "single-select"
 module = 6
