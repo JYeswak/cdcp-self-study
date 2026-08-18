@@ -870,6 +870,22 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 302 — IEC static-transfer-system scope preview claims
+
+**Review date:** 2026-08-18. The current official IEC catalog for IEC
+62310-3:2008 was checked without opening or fetching a PDF. Its public abstract
+states that stand-alone AC static transfer systems ensure continuity of load
+supply through controlled transfer, with or without interruption, from two or
+more independent AC sources.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m06-q047 | ATS and STS | IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803 | **PASS** — asks only for the catalog's STS purpose; no sub-cycle timing is inferred |
+| m06-q202 | ATS and STS | IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803 | **PASS** — asks only for the catalog's with/without-interruption boundary; no single-cord outage scenario is inferred |
+| m06-q243 | ATS and STS | IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803 | **PASS** — asks only for the catalog's independent-source count; no synchronized-source speed comparison is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 301 — IEC building-construction topic preview claims
 
 **Review date:** 2026-08-18. The current official IEC catalog for ISO/IEC

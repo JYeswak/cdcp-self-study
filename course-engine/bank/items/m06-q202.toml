@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: ATS and STS
 # Official catalog/preview receipt: IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803
-# BLOCKED: the official catalog identifies static-transfer-system performance, but does not expose the exact near-seamless-transfer scenario.
+# PASS: the current IEC catalog explicitly covers controlled transfer, with or
+# without interruption, between two or more independent AC sources.
 id = "m06-q202"
 kind = "single-select"
 module = 6
-stem = "An STS feeds a single-corded appliance from A and B sources. A technician opens the upstream A breaker for work. Expected healthy STS behavior is:"
+stem = "Which transfer behavior does IEC 62310-3:2008 explicitly include?"
 choices = [
-  "Immediate permanent blackout of the appliance",
-  "Automatic conversion of the appliance to dual-corded hardware",
-  "Near-seamless transfer to the alternate source so the load remains powered",
-  "A multi-second open gap every transfer with no ride-through"
+  "Controlled transfer with or without interruption",
+  "Permanent blackout of the load after every transfer",
+  "Automatic conversion of a single-corded load to dual-corded hardware",
+  "Only multi-second open-gap transfer with no other mode",
 ]
-correct = "C"
-explanation = "STS exists to switch preferred sources quickly for single-cord loads."
+correct = "A"
+explanation = "The current IEC catalog explicitly says the covered STS can ensure continuity through controlled transfer with or without interruption; it does not expose the former single-cord outage scenario."
 topic_ids = ["m06-ats-sts", "m06-redundancy"]
 objective_ids = []
 bloom = "apply"
