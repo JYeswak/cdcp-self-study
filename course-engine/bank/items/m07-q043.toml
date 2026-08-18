@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 7)
 # Public syllabus heading: Units of measurements
-# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
-# BLOCKED: the official catalog exposes magnetic-field magnitudes in microtesla but does not expose the exact microtesla/milligauss conversion proposition.
+# PASS: IEC 61786-2:2014 official abstract explicitly covers measurement of
+# DC magnetic, AC magnetic, and AC electric fields.
+# https://webstore.iec.ch/en/publication/5907
 id = "m07-q043"
 kind = "single-select"
 module = 7
-stem = "Magnetic flux density is commonly discussed in data-centre EMF work using:"
+stem = "Which field-measurement scope does IEC 61786-2:2014 explicitly cover?"
 choices = [
-  "Tesla/microtesla (and sometimes milligauss, where 1 µT = 10 mG)",
+  "DC magnetic, AC magnetic, and AC electric fields",
   "Only dBm on fibre OTDR",
   "Lux and foot-candles",
   "CFM only",
 ]
 correct = "A"
-explanation = "B-field uses T/µT; older literature uses mG (1 µT = 10 mG)."
+explanation = "The current IEC abstract explicitly covers DC magnetic, AC magnetic, and AC electric field measurement; it does not expose a unit-conversion rule."
 topic_ids = ["m07-units"]
 objective_ids = []
 bloom = "remember"

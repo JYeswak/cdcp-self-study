@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 7)
 # Public syllabus heading: Sources of EMF
-# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
-# BLOCKED: the official catalog covers field measurement procedures but does not expose the exact survey-trigger decision rule.
+# PASS: IEC 61786-2:2014 official abstract explicitly covers measurement
+# procedures that achieve defined goals pertaining to human exposure.
+# https://webstore.iec.ch/en/publication/5907
 id = "m07-q050"
 kind = "single-select"
 module = 7
-stem = "A practical trigger to commission an EMF survey includes:"
+stem = "What does IEC 61786-2:2014 explicitly require measurement procedures to achieve?"
 choices = [
+  "Defined goals pertaining to human exposure",
   "Every time a fibre connector is cleaned",
   "Only when PUE exceeds 2.0",
   "Whenever blanking panels are installed",
-  "Unexplained I/O errors clustered near electrical plant, exposure complaints, or white space next to high-current gear/rail/substation",
 ]
-correct = "D"
-explanation = "Surveys follow symptoms, adjacency risk, or due diligence—not random ritual."
+correct = "A"
+explanation = "The current IEC abstract explicitly ties measurement procedures to defined human-exposure goals; it does not expose a facility survey-trigger rule."
 topic_ids = ["m07-sources", "m07-standards"]
 objective_ids = []
 bloom = "apply"

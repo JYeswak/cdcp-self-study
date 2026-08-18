@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: EMF standards and best practices
-# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
-# BLOCKED: the official catalog covers measurement procedures but does not expose the exact survey-baseline/evidence-trail proposition.
+# PASS: IEC 61786-2:2014 official abstract explicitly identifies measurement
+# uncertainty sources and guidance for combining them into total uncertainty.
+# https://webstore.iec.ch/en/publication/5907
 id = "m07-q212"
 kind = "single-select"
 module = 7
-stem = "Documentation of EMF survey methods and results supports operations by:"
+stem = "Which measurement-quality topic does IEC 61786-2:2014 explicitly address?"
 choices = [
+  "Sources of uncertainty and how to combine them into total uncertainty",
   "Replacing all electrical single-line diagrams",
   "Eliminating the need for PPE policies",
-  "Providing a baseline and evidence trail if complaints, changes, or adjacent construction occur later",
   "Guaranteeing zero fields forever"
 ]
-correct = "C"
-explanation = "Surveys are snapshots; records enable comparison after plant or layout changes."
+correct = "A"
+explanation = "The current IEC abstract explicitly addresses uncertainty sources and combining them to determine total measurement uncertainty; it does not expose a survey-record retention rule."
 topic_ids = ["m07-standards"]
 objective_ids = []
 bloom = "understand"

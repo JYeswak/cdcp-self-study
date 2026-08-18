@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Types of EMF
-# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
-# BLOCKED: the official catalog covers electric and magnetic field measurement but does not expose the exact facility-context source proposition.
+# PASS: IEC 61786-2:2014 official abstract explicitly covers quasi-static
+# magnetic/electric fields and DC magnetic fields.
+# https://webstore.iec.ch/en/publication/5907
 id = "m07-q200"
 kind = "single-select"
 module = 7
-stem = "In data centre facility context, EMF concerns commonly include both:"
+stem = "Which field categories does IEC 61786-2:2014 explicitly cover?"
 choices = [
+  "Quasi-static magnetic/electric fields and DC magnetic fields",
   "Only cosmic rays outside the solar system",
   "Only visible light wavelengths used for signage",
-  "Electric and magnetic fields associated with power frequency and other sources that may affect equipment or people",
   "Only Wi-Fi SSIDs"
 ]
-correct = "C"
-explanation = "Facility EMF discussion centres on power-frequency and related fields from electrical plant and other sources."
+correct = "A"
+explanation = "The current IEC abstract explicitly covers quasi-static magnetic/electric fields and DC magnetic fields; it does not establish a facility-specific source taxonomy."
 topic_ids = ["m07-types", "m07-sources"]
 objective_ids = []
 bloom = "remember"

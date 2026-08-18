@@ -870,6 +870,24 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 283 — IEC EMF measurement abstract claims
+
+**Review date:** 2026-08-18. The current official IEC catalog page for IEC
+61786-2:2014 was checked without opening or fetching a PDF. Its public abstract
+covers DC magnetic, AC magnetic, and AC electric field measurements; measurement
+procedures tied to human-exposure goals; field-source variation such as
+frequency content; and uncertainty identification/combination guidance.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m07-q043 | Units of measurements | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — asks only for the public field-measurement scope; no unit conversion is inferred |
+| m07-q050 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — asks only for measurement procedures tied to human-exposure goals; no survey-trigger rule is inferred |
+| m07-q200 | Types of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — asks only for the public field categories; no facility source taxonomy is inferred |
+| m07-q207 | Types of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — asks only for frequency content as a named environmental difference; no current/voltage rule is inferred |
+| m07-q212 | EMF standards and best practices | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — asks only for uncertainty-source and total-uncertainty guidance; no record-retention rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 282 — IEC UPS performance abstract claims
 
 **Review date:** 2026-08-18. The current official IEC catalog page for IEC
