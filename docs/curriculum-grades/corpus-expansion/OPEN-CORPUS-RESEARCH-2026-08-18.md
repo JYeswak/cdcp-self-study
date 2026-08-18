@@ -887,6 +887,23 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 210 — ISO/IEC telecommunications-bonding boundary
+
+**Review date:** 2026-08-18. The current consolidated ISO/IEC 30129
+2015+A1:2019+A2:2025 catalog specifies bonds between electrically conductive
+elements in buildings and other structures containing IT or telecommunications
+equipment. Its public description bounds the purposes as minimizing electrical
+hazards to equipment and interconnecting cabling and providing a reliable signal
+reference that may improve EMI immunity.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m08-q206 | Rack standards | ISO/IEC 30129:2015+A1:2019+A2:2025 CSV — https://webstore.iec.ch/en/publication/108663 | **PASS** — IT bonding’s electrical-hazard and signal-reference purposes are explicit |
+
+Detailed rack topology, conductor sizing, test methods, and local electrical-code
+requirements remain outside this catalog receipt. No PDF was fetched. This pass
+does not certify a learner or close ms4j.
+
 ## Breadth pass 209 — OSHA LOTO versus electrical work-practice scope
 
 **Review date:** 2026-08-18. OSHA 29 CFR 1910.147 states that exposure to
