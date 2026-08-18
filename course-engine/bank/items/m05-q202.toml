@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Connecting and positioning light fixtures
 # Official catalog/preview receipt: ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact cold/hot-aisle fixture-placement proposition.
+# PASS: the public abstract explicitly states the building types to which the
+# document can be applied.
 id = "m05-q202"
 kind = "single-select"
 module = 5
-stem = "Positioning light fixtures in cold/hot aisle layouts should consider:"
+stem = "To which installations can ISO/TS 21274:2020 be applied according to its public abstract?"
 choices = [
-  "Only mounting as many fixtures as possible on the floor",
-  "Only matching the UPS brand",
-  "Glare, maintenance access, cable pathways, and interference with containment or airflow devices",
-  "Hiding all labels in shadow permanently"
+  "New installations of non-residential buildings and public spaces of multi-residence buildings",
+  "Only emergency-lighting commissioning in occupied data halls",
+  "Only software-controlled lighting in cloud applications",
+  "Only fuel-storage enclosures and generator rooms",
 ]
-correct = "C"
-explanation = "Lighting must support safe work without fighting cooling containment or blocking maintenance."
+correct = "A"
+explanation = "The ISO public abstract says the document can be applied to new installations of non-residential buildings and public spaces of multi-residence buildings."
 topic_ids = ["m05-fixtures"]
 objective_ids = []
 bloom = "apply"

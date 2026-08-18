@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: Connecting and positioning light fixtures
 # Official catalog/preview receipt: ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact aisle/containment fixture-placement proposition.
+# PASS: the public abstract explicitly covers commissioning lighting systems in
+# buildings to meet design specifications.
 id = "m05-q138"
 kind = "single-select"
 module = 5
-stem = "Fixture placement above cold/hot aisles should consider:"
+stem = "What is the stated purpose of commissioning covered by ISO/TS 21274:2020?"
 choices = [
-  "Only symmetry on a floor plan CAD layer",
-  "Powering fixtures from IT PDUs exclusively always",
-  "Hiding emergency lights behind solid walls only",
-  "Maintenance access, glare on work surfaces, and not blocking containment or airflow paths",
+  "Meeting the design specifications for lighting systems in buildings",
+  "Replacing all electrical legislation for power connections",
+  "Selecting data-centre servers and network equipment",
+  "Commissioning only emergency lighting systems",
 ]
-correct = "D"
-explanation = "Placement is an operations and airflow coordination problem, not pure geometry."
+correct = "A"
+explanation = "The ISO public abstract says the document specifies requirements for commissioning lighting systems in buildings to meet design specifications."
 topic_ids = ["m05-fixtures"]
 objective_ids = []
 bloom = "apply"

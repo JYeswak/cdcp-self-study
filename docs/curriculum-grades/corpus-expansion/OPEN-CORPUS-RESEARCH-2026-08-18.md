@@ -870,6 +870,26 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 317 — ISO/TS 21274 lighting-commissioning preview claims
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform page for
+ISO/TS 21274:2020, Edition 1, confirmed current after its 2024 review, was
+checked without opening or fetching a PDF. Its public abstract covers
+commissioning lighting systems in buildings to meet design specifications,
+does not focus on specific component characteristics, and can be applied to new
+non-residential buildings and public spaces of multi-residence buildings.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m05-q138 | Connecting and positioning light fixtures | ISO/TS 21274:2020, current Edition 1 — https://www.iso.org/standard/70361.html?browse=tc | **PASS** — asks only for the stated commissioning purpose |
+| m05-q144 | Connecting and positioning light fixtures | ISO/TS 21274:2020, current Edition 1 — https://www.iso.org/standard/70361.html?browse=tc | **PASS** — asks only for the stated component-characteristics boundary |
+| m05-q202 | Connecting and positioning light fixtures | ISO/TS 21274:2020, current Edition 1 — https://www.iso.org/standard/70361.html?browse=tc | **PASS** — asks only for the stated applicability context |
+
+Emergency-lighting commissioning, electrical-power-connection aspects, aisle
+placement, glare, access, and containment details remain BLOCKED where the
+public abstract does not expose those exact propositions. This pass does not
+certify a learner or close ms4j.
+
 ## Breadth pass 316 — ISO 30061 emergency-lighting preview claims
 
 **Review date:** 2026-08-18. The current ISO Online Browsing Platform page for

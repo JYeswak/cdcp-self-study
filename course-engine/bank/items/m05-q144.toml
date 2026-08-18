@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: Connecting and positioning light fixtures
 # Official catalog/preview receipt: ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact live-hall access/containment maintenance method.
+# PASS: the public abstract explicitly says the commissioning details do not
+# focus on the technical characteristics of specific components.
 id = "m05-q144"
 kind = "single-select"
 module = 5
-stem = "Maintenance of lighting in a live data hall should prefer methods that:"
+stem = "What does ISO/TS 21274:2020 say about the technical characteristics of specific lighting components?"
 choices = [
-  "Require removing random floor tiles without airflow review every time",
-  "Disable all emergency lights permanently during work",
-  "Ignore lockout of lighting circuits",
-  "Allow safe access (lifts/walkways) while respecting hot/cold aisle and containment integrity",
+  "Its commissioning details are presented without focusing on those component characteristics",
+  "They replace all component-specific product standards",
+  "They apply only to generator controls",
+  "They require every component to be identical across all buildings",
 ]
-correct = "D"
-explanation = "Service methods must preserve safety and cooling/containment discipline."
+correct = "A"
+explanation = "The ISO public abstract says it presents lighting-system commissioning details without focusing on the technical characteristics of specific components."
 topic_ids = ["m05-fixtures"]
 objective_ids = []
 bloom = "apply"
