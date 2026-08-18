@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Power sizing
-# Official catalog/preview receipt: NFPA 70, 2026 — https://link.nfpa.org/all-publications/70/2026
-# BLOCKED: the official preview does not expose the exact continuous-load rule-of-thumb proposition; local AHJ/code review remains required.
+# Official catalog/preview receipt: IEC 60364-4-43:2023 — https://webstore.iec.ch/en/publication/28432
+# Claim is limited to the current IEC catalog's overcurrent-protection scope.
 id = "m06-q095"
 kind = "single-select"
 module = 6
-stem = "A continuous-load branch-circuit planning rule of thumb widely taught in US practice is:"
+stem = "Which topic does IEC 60364-4-43:2023 explicitly address?"
 choices = [
-  "Load a breaker to 100% continuously without review",
-  "Plan continuous IT load with headroom (often discussed as ~80% of breaker rating)—confirm local code/AHJ",
-  "Ignore nameplate currents",
-  "Size only for lighting",
+  "Protection of live, PEN, PEM, and PEL conductors against harmful overcurrent effects and coordination of overcurrent protection",
+  "A universal 80% branch-circuit rule for every jurisdiction",
+  "Data-centre cooling-water treatment and storage",
+  "Fibre-cabling insertion-loss measurement",
 ]
-correct = "B"
-explanation = "Continuous-load derating concepts (commonly 80% discussion in US) drive circuit selection—always verify local code."
+correct = "A"
+explanation = "The current IEC catalog states that IEC 60364-4-43:2023 provides requirements for protecting listed conductors against harmful overcurrent effects and coordinating overcurrent-protection measures. It does not expose the former jurisdiction-specific continuous-load rule of thumb."
 topic_ids = ["m06-sizing", "m06-pdu"]
 objective_ids = []
 bloom = "apply"

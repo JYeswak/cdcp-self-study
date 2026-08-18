@@ -1228,6 +1228,25 @@ The pass does not infer a universal outage-cause taxonomy, generator-testing
 policy, sustainability trade-off, IT-equipment KPI, cloud-service KPI, or
 facility certification. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 370 — IEC low-voltage power-protection and assembly scopes
+
+**Review date:** 2026-08-18. Two module-6 items were narrowed to current IEC
+catalog claims. IEC 60364-4-43:2023 provides requirements for protecting live,
+PEN, PEM and PEL conductors against harmful overcurrent effects and for
+coordinating overcurrent-protection measures. IEC 61439-2:2020 defines specific
+requirements for power switchgear and controlgear assemblies. No PDF or
+standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q095 | Power sizing | IEC 60364-4-43:2023 — https://webstore.iec.ch/en/publication/28432 | **PASS** — overcurrent-protection and coordination scope is explicit |
+| m06-q105 | PDU form factors | IEC 61439-2:2020 — https://webstore.iec.ch/en/publication/30043 | **PASS** — power switchgear/controlgear assembly scope is explicit |
+
+The pass does not infer a jurisdiction-specific continuous-load percentage,
+remote-power-panel form factor, kW/kVA limits, thermography practice,
+three-phase tradeoffs, or a facility electrical design approval. This pass does
+not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

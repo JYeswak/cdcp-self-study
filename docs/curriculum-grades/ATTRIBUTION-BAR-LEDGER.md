@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 614 PASS; 343 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 616 PASS; 341 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -305,7 +305,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q092 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — IEC 62040-3:2021 official abstract names UPS performance and test requirements |
 | m06-q093 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://standards.ieee.org/ieee/519/10677/ | PASS — IEEE 519-2022 public page covers linear/nonlinear loads, waveform-distortion goals, and the point of common coupling |
 | m06-q094 | 6 | Power sizing | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.electropedia.org/iev/iev.nsf/display?ievref=131-11-46&openform= | PASS — IEC 60050 IEV defines power factor as active power divided by apparent power |
-| m06-q095 | 6 | Power sizing | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70/2026 | BLOCKED — NFPA 70:2026 catalog/preview receipt; exact continuous-load rule-of-thumb proposition is not exposed |
+| m06-q095 | 6 | Power sizing | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/28432 | PASS — IEC 60364-4-43:2023 catalog covers protection against harmful overcurrent effects and coordination of overcurrent protection |
 | m06-q096 | 6 | Thermographic scanning | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70B/2026 | BLOCKED — NFPA 70B:2026 catalog/preview receipt; exact thermographic finding proposition is not exposed |
 | m06-q097 | 6 | Thermographic scanning | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/70B/2026 | BLOCKED — NFPA 70B:2026 catalog/preview receipt; exact thermography-program proposition is not exposed |
 | m06-q098 | 6 | High Performance Computing power notes | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact HPC/AI density and three-phase-PDU proposition is not exposed |
@@ -315,7 +315,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q102 | 6 | Microgrid | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/61960 | PASS |
 | m06-q103 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/61960 | PASS — IEC TS 62898-3-2:2024 public scope lists economic and environmental optimization as a microgrid energy-management function |
 | m06-q104 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/88711.html?browse=tc | PASS — ISO/IEC TS 22237-31:2026 catalog defines KPIs for resilience, dependability, fault tolerance, and availability tolerance |
-| m06-q105 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact remote-power-panel form-factor proposition is not exposed |
+| m06-q105 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/30043 | PASS — IEC 61439-2:2020 catalog defines specific requirements for power switchgear and controlgear assemblies |
 | m06-q106 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html | PASS — ISO/IEC 22237-3:2021 official abstract names power and power-quality measurement integration |
 | m06-q107 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — IEC 62040-3:2021 public catalog explicitly excludes conventional AC/DC distribution boards and associated switches |
 | m06-q108 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact wet-stacking proposition is not exposed |
