@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 524 PASS; 433 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 526 PASS; 431 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -291,8 +291,8 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q078 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1878 | PASS — current IEC catalog mentions proximity requirements for underground power and telecommunication cables |
 | m06-q079 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.electropedia.org/iev/iev.nsf/display?ievref=195-01-11&openform= | PASS — IEC 60050 IEV defines protective earthing as earthing for electrical safety |
 | m06-q080 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | PASS |
-| m06-q081 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | BLOCKED — IEC 60364-5-54 catalog receipt; exact neutral-ground defect is not exposed |
-| m06-q082 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | BLOCKED — IEC 60364-5-54 catalog receipt; exact rack/tray bonding proposition is not exposed |
+| m06-q081 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | PASS — IEC 60364-5-54 public scope covers earthing arrangements and protective conductors including protective bonding conductors for installation safety |
+| m06-q082 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1882 | PASS — IEC 60364-5-54 public scope explicitly includes protective bonding conductors |
 | m06-q083 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | PASS |
 | m06-q084 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | BLOCKED — IEC 60529 catalog receipt; exact outdoor selection proposition is not exposed |
 | m06-q085 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/7091 | PASS |

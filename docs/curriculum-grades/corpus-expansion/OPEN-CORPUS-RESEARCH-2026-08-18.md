@@ -7384,3 +7384,22 @@ performance metrics. The item stems were narrowed to those exposed scopes.
 Renewables-versus-firm-capacity conclusions, alarm hysteresis, seasonality,
 chattering, and site-specific control design remain outside these catalog
 receipts. This pass does not certify a learner or close ms4j.
+
+## Breadth pass 324 — IEC 60364-5-54 earthing and protective-conductor scope
+
+**Review date:** 2026-08-18. The current IEC Webstore page for IEC
+60364-5-54:2011, with its consolidated amendment receipt, identifies the
+standard as covering earthing arrangements and protective conductors, including
+protective bonding conductors, in order to satisfy the safety of the electrical
+installation. The item stems were narrowed to those public catalog statements;
+downstream neutral-ground-bond defects and site-specific rack/tray practices
+remain outside the receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q081 | Grounding and bonding | IEC 60364-5-54:2011+AMD1:2021 — https://webstore.iec.ch/en/publication/1882 | **PASS** — earthing/protective-conductor installation-safety scope is explicit |
+| m06-q082 | Grounding and bonding | IEC 60364-5-54:2011+AMD1:2021 — https://webstore.iec.ch/en/publication/1882 | **PASS** — protective bonding conductors are explicitly included |
+
+Neutral-ground bonding-point rules, rack/tray implementation, transient behavior,
+and project-specific grounding design remain outside this catalog receipt. This
+pass does not certify a learner or close ms4j.

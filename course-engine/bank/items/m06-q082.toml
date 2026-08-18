@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Grounding and bonding
 # Official catalog/preview receipt: IEC 60364-5-54:2011 + AMD1:2021 — https://webstore.iec.ch/en/publication/1882
-# BLOCKED: the official catalog does not expose the exact rack/tray equipotential-bonding proposition.
+# PASS: the official catalog explicitly includes protective bonding conductors in its safety scope. No paid body or PDF was fetched.
 id = "m06-q082"
 kind = "single-select"
 module = 6
-stem = "Equipotential bonding of racks and cable tray supports:"
+stem = "Which conductor category is explicitly included in the public scope of IEC 60364-5-54:2011?"
 choices = [
-  "Floating every chassis with no ground path",
-  "Disabling SPD devices permanently",
-  "Safer fault/ transient behaviour and cleaner reference practice when designed to code",
-  "Using water pipes as the only earthing electrode always",
+  "Protective bonding conductors",
+  "Only data-centre rack signal conductors",
+  "Only generator fuel-control conductors",
+  "No protective conductors",
 ]
-correct = "C"
-explanation = "Bonded infrastructure supports safety and EMC practice; freestyle grounds are not acceptable."
+correct = "A"
+explanation = "The current IEC catalog explicitly says that IEC 60364-5-54 addresses protective conductors including protective bonding conductors as part of electrical-installation safety. It does not expose site-specific rack, tray, transient, or equipotential-bonding implementation details."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "understand"

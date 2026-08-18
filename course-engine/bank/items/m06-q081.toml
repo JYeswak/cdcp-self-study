@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Grounding and bonding
 # Official catalog/preview receipt: IEC 60364-5-54:2011 + AMD1:2021 — https://webstore.iec.ch/en/publication/1882
-# BLOCKED: the official catalog does not expose the exact downstream neutral-ground-bond defect proposition.
+# PASS: the official catalog explicitly states the installation-safety scope below. No paid body or PDF was fetched.
 id = "m06-q081"
 kind = "single-select"
 module = 6
-stem = "A classic field defect is creating extra neutral-ground bonds downstream of the designated point because:"
+stem = "IEC 60364-5-54:2011 addresses which subject in low-voltage electrical installations?"
 choices = [
-  "It can create circulating currents and nuisance issues",
-  "It always improves PUE",
-  "Codes require a bond at every rack PDU",
-  "It removes all harmonics",
+  "Earthing arrangements and protective conductors, including protective bonding conductors, for installation safety",
+  "A universal requirement for a neutral-ground bond at every rack PDU",
+  "Power-usage effectiveness measurement",
+  "Removal of all harmonic currents",
 ]
 correct = "A"
-explanation = "Neutral-ground bonding belongs only at designated points; extras cause circulating currents."
+explanation = "The current IEC catalog states that IEC 60364-5-54 addresses earthing arrangements and protective conductors, including protective bonding conductors, in order to satisfy electrical-installation safety. It does not expose the prior downstream neutral-ground-bond defect proposition."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "apply"
