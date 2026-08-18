@@ -889,6 +889,23 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 227 — IEC 62040-3 UPS performance scope
+
+**Review date:** 2026-08-18. The current IEC catalog for IEC 62040-3:2021
+applies to electronic UPS incorporating an energy-storage device whose primary
+function is continuity of load power. It specifies performance and test
+requirements for complete UPS and, where applicable, functional units and
+switches interacting to maintain continuity. The item is bounded to that public
+scope; double-conversion isolation, topology comparisons, and disturbance
+lists remain outside the receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q058 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **PASS** — UPS energy-storage/continuity and performance-test scope is explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 226 — IEC 62485-2 stationary-battery safety scope
 
 **Review date:** 2026-08-18. The current IEC catalog for IEC 62485-2:2010
