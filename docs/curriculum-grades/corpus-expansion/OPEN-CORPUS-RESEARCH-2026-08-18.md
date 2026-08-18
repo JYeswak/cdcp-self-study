@@ -278,3 +278,66 @@ The objective remains open after pass 03. The next unresolved frontier is coolin
 | 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
 
 The objective remains open after pass 04. The next unresolved frontier is cabling, outside plant, network management, BMS/DCIM segmentation, and remote access.
+
+## Breadth pass 05 — cabling, outside plant, network management, OT segmentation, and remote access
+
+**Search date:** 2026-08-18. This pass retained official TIA, IEEE, NIST, and CISA HTML/abstract pages. PDF links surfaced by those pages were not opened or copied; vendor implementation blogs and marketing pages were excluded.
+
+### Sources retained
+
+| Source | What it can safely support | Boundaries |
+|---|---|---|
+| TIA-942-C, Telecommunications Infrastructure Standard for Data Centers — https://tiaonline.org/standard/tia-942/ | Current Revision C edition pin and public abstract for data-center infrastructure, telecommunications cabling, power, cooling, architecture, fire protection, safety, physical security, and management systems | The standard body is purchased; the public page pins scope and edition, not clause text, a rating decision, or certification of a facility or person |
+| TIA-942 certification information — https://tiaonline.org/products-and-services/tia942certification/ | Distinguish the infrastructure standard from the separate certification program, licensed certification bodies, ratings, and public listing workflow | TIA certification information does not make a course completion a certification and does not replace an AHJ, owner, or network acceptance record |
+| IEEE 802.3 Ethernet Working Group — https://www.ieee802.org/3/ | Public Ethernet standard-family and working-group anchor for PHY/media, link, interoperability, maintenance, and current project questions; the page lists active work and free-download pathways | Do not infer a universal distance, connector loss, power budget, or support matrix without the named IEEE PHY/media edition and link design evidence |
+| NIST SP 800-215, Guide to a Secure Enterprise Network Landscape — https://csrc.nist.gov/pubs/sp/800/215/final | Multi-site/cloud network landscape, firewalls, microsegmentation, VPN/ZTNA, SASE, secure operations, and network-architecture evidence questions | NIST SP 800-215 is guidance, not a data-center cabling standard, a mandatory architecture, or proof that a chosen product is secure |
+| NIST SP 800-82 Rev. 3, Guide to OT Security — https://csrc.nist.gov/pubs/sp/800/82/r3/final | OT topology, building automation, physical access control, environment monitoring/control, safety/reliability constraints, and security-countermeasure questions | NIST marks a Rev. 4 draft and possible updates; Rev. 3 final remains the edition anchor here. It is guidance, not an EPI heading, code adoption, or automatic compliance claim |
+| CISA Cross-Sector Cybersecurity Performance Goals — https://www.cisa.gov/cybersecurity-performance-goals | Voluntary baseline questions for asset inventory, account controls, MFA, segmentation, monitoring, response, recovery, IT/OT ownership, and measurable risk reduction | CISA states the CPGs are voluntary and prioritized practices. They are not a data-center certification, an AHJ requirement, or permission to expose OT to the internet |
+| CISA Modern Approaches to Network Access Security — https://www.cisa.gov/news-events/alerts/2024/06/18/cisa-and-partners-release-guidance-modern-approaches-network-access-security | Remote-access threat, VPN/misconfiguration risk, visibility, zero-trust/SSE/SASE, and review/approval questions | The alert is guidance for risk reduction; it does not select an architecture, require a product, or prove that a remote path is necessary |
+
+### Pass-05 question frontier
+
+| Module | New question families |
+|---|---|
+| M01 Mission Critical | Trace a service from application and management plane through core/edge switching, meet-me, carrier, outside plant, building pathways, BMS/DCIM, utility controls, and operator; identify the shared physical or logical dependency hidden by a “diverse” label. |
+| M02 Standards | Classify TIA-942-C, IEEE 802.3, NIST SPs, CISA CPGs, adopted code, and site standards as catalog/abstract, technical standard, guidance, voluntary baseline, or binding rule; reject a stale TIA revision or an invented rating taxonomy. |
+| M03 Site / Building | Review outside-plant entry, meet-me rooms, carrier demarcation, ducts, manholes, risers, firestopping, grounding/bonding, flood exposure, physical security, maintenance access, and carrier evidence before accepting a “carrier diverse” design. |
+| M04 Floor / Ceiling | Inspect pathways, tray fill, bend radius, separation, support, access, firestopping, overhead/underfloor constraints, fiber/copper segregation, and change records; identify when a cable path change invalidates a tested link or maintenance route. |
+| M05 Light | Build safe inspection and emergency-access questions for meet-me, riser, pathway, roof, manhole, and remote edge spaces; separate adequate illumination from egress, confined-space, traffic-control, and electrical-work requirements. |
+| M06 Power | Trace power to active network, optical, BMS/DCIM, and carrier equipment; test diverse power feeds, UPS/generator dependency, PoE load, battery-backed edge cabinets, and the recovery sequence for a shared upstream power failure. |
+| M07 EMF | Identify intentional RF, optical, copper, PoE, power, and grounding sources separately; require source, frequency, measurement method, worker boundary, and equipment documentation before accepting an EMF or interference conclusion. |
+| M08 Racks | Review rack/cabinet identity, patching, fiber polarity, cable management, high-density switch cooling, structured pathways, labels, power, grounding, physical access, and spare capacity; locate the record needed for safe MAC work. |
+| M09 Cooling | Test network-room thermal load, airflow, blanking, hot/cold aisle relation, switch inlet conditions, BMS alarms, and remote-room fallback; identify whether a cabling or switch expansion changes cooling and power envelopes. |
+| M10 Water | Add outside-plant flood/water intrusion, manhole drainage, leak detection, water paths near meet-me/riser rooms, and carrier restoration constraints to the water/dependency plan; distinguish a site map from a tested protection measure. |
+| M11 Network | Design a source-of-truth map for physical links, logical segments, VLAN/VRF/ACL/firewall boundaries, control protocols, management planes, time sources, telemetry, and failover; bind each claim to a named interface, owner, and test record. |
+| M12 Fire | Review firestopping, pathway penetrations, cable flame/smoke evidence, detection, suppression, egress, emergency power, and impairment records; identify which cable or room change requires AHJ review and return-to-service testing. |
+| M13 Security | Segment IT, OT, BMS, DCIM, access control, carrier, and vendor zones; define conduits, DMZs, allowlists, least privilege, MFA, jump access, logging, dormant-account removal, and an emergency break-glass path with review. |
+| M14 Auxiliary | Build a network-management and OT-monitoring board that distinguishes inventory, link state, flow telemetry, alarm, command, configuration, log, time synchronization, and remote-access session evidence; identify who can acknowledge versus change state. |
+| M15 Operations | Turn cabling and remote access into an operating loop: install/test/label, baseline, monitor, patch/change, authorize vendor access, review logs, exercise failover, restore, and retire credentials/ports; require diagrams and test evidence to stay current. |
+
+### Pass-05 factual boundaries
+
+- TIA-942-C is the current public TIA edition pin used here: Revision C, published May 2024. The public abstract supports infrastructure and scope questions; it does not authorize copying paid body text or treating a rating as a universal operational target.
+- IEEE 802.3 is a family of standards and active work items. Link reach, optical budget, copper category, connector, and power assumptions must be tied to the named PHY/media and tested installation rather than a generic Ethernet claim.
+- NIST SP 800-82 Rev. 3 explicitly includes building automation, physical access control, and physical-environment monitoring/control systems in OT examples. Its security controls must be adapted to safety, reliability, and performance constraints; “segment it” is not a sufficient sequence-of-operations answer.
+- NIST SP 800-215 covers the modern enterprise network landscape, including multi-site data centers, cloud access, microsegmentation, VPN, and ZTNA. It is architecture guidance, not a certification or a replacement for physical cabling evidence.
+- CISA’s Cross-Sector CPGs are voluntary prioritized practices for IT and OT owners. They support questions about inventory, MFA, segmentation, monitoring, and recovery but do not create a universal legal requirement or availability class.
+- Remote access to BMS/DCIM/OT is a risk-bearing operating decision. Necessity, asset scope, user role, least privilege, MFA, private path/DMZ, logging, time limit, approval, and local fallback must be explicit; vendor convenience is not evidence of necessity.
+- Physical diversity is not established by different labels alone. A robust question checks carrier, provider, duct bank, manhole, riser, entrance, room, power, network equipment, control plane, regional hazard, and maintenance dependencies.
+
+### Updated pass tracker
+
+| Pass | Focus | Status |
+|---:|---|---|
+| 01 | DOE/FEMP/NREL energy, cooling, water, commissioning; CISA/NIST OT and exposure; eCFR safety; ISO/TIA/IEEE edition anchors | COMPLETE |
+| 02 | Site risk, utility interconnection, resilience, climate/flood/seismic, public AHJ/code sources | COMPLETE |
+| 03 | Electrical distribution, switching, protection, UPS/generator/BESS, maintenance testing | COMPLETE |
+| 04 | Cooling controls, liquid cooling, heat reuse, economization, thermal/water measurement | COMPLETE |
+| 05 | Cabling, outside plant, network management, BMS/DCIM segmentation, remote access | COMPLETE — this section |
+| 06 | Fire/life safety, emergency power, permits, PPE, incident command, return-to-service | OPEN |
+| 07 | Physical security, personnel/vendor/visitor controls, asset lifecycle, media disposition | OPEN |
+| 08 | People systems: skills matrices, shift turnover, training, fatigue, contractor governance, succession | OPEN |
+| 09 | Commissioning, change control, MOP/SOP/EOP, alarms, metrics, reliability-centered maintenance | OPEN |
+| 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
+
+The objective remains open after pass 05. The next unresolved frontier is fire/life safety, emergency power, permits, PPE, incident command, and return-to-service.
