@@ -1370,6 +1370,30 @@ campus easement or landlord rights, climate sizing, interconnection queues,
 water permits, or site conformance. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 378 — ISO/IEC 22237-4:2021 environmental-control scope
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform page for
+ISO/IEC 22237-4:2021 identifies the published first edition and states that it
+addresses environmental control within data centres. Its public abstract
+specifies requirements and recommendations for temperature control, fluid
+movement control, relative humidity control, particulate control, vibration,
+and physical security of environmental-control systems. It also states that the
+document is based on the availability, security, and energy-efficiency-
+enablement criteria and classifications in ISO/IEC 22237-1. Four M09 items were
+narrowed to these exact public claims.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m09-q126 | Types of cooling systems | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — six environmental-control areas are explicit |
+| m09-q144 | Supplemental cooling | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — physical security of environmental-control systems is explicit |
+| m09-q218 | Cooling principles | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — availability, security, and energy-efficiency enablement basis is explicit |
+| m09-q219 | Temperature and humidity | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — data-centre environmental-control subject is explicit |
+
+The DX refrigeration-circuit, supplemental-capacity, sensible-heat, and
+condensation propositions remain outside this receipt and were not asserted.
+No PDF or standard body was fetched. This pass does not certify a learner,
+close ms4j.2/ms4j.3, or close ms4j.
+
 ## Breadth pass 377 — IEC 61000-5-6:2024 facility-level EMC mitigation scope
 
 **Review date:** 2026-08-18. The current IEC Webstore catalog for IEC

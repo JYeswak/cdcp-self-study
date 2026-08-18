@@ -1,19 +1,18 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Temperature and humidity
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact below-dew-point condensation proposition.
 id = "m09-q219"
 kind = "single-select"
 module = 9
-stem = "If supply air is colder than local dew point on cold surfaces, a practical risk is:"
+stem = "What is the stated subject of ISO/IEC 22237-4:2021?"
 choices = [
-  "Automatic sterilization of all media",
-  "Higher UPS kilowatts only",
-  "Condensation on equipment, pipes, or structures",
-  "Faster fiber optics"
+  "Data-centre procurement and service-level pricing",
+  "Data-centre environmental control",
+  "Enterprise application disaster recovery only",
+  "Public-road electrical signaling"
 ]
-correct = "C"
-explanation = "Surfaces below dew point collect moisture—bad for electronics and building fabric."
+correct = "B"
+explanation = "The current ISO publication is titled Environmental control and its abstract states that it addresses environmental control within data centres."
 topic_ids = ["m09-temp-humidity", "m09-principles"]
 objective_ids = []
 bloom = "apply"

@@ -1,19 +1,18 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Cooling principles
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact sensible-heat-capacity proposition.
 id = "m09-q218"
 kind = "single-select"
 module = 9
-stem = "Sensible cooling capacity matters for IT rooms because IT load is mostly:"
+stem = "ISO/IEC 22237-4:2021 bases data-centre environmental control on which ISO/IEC 22237-1 criteria and classifications?"
 choices = [
-  "Only latent humidity load always",
-  "Sensible heat as temperature rise rather than latent moisture load",
-  "Only radiative heat from the sun indoors",
-  "Zero heat if PUE is low"
+  "Availability, security, and energy-efficiency enablement",
+  "Only retail lease cost, staffing count, and customer churn",
+  "Only software release velocity, API latency, and storage capacity",
+  "Only fire-resistance rating, seismic zone, and vehicle access"
 ]
-correct = "B"
-explanation = "Electronics dissipate mainly sensible heat; latent is usually secondary."
+correct = "A"
+explanation = "The current ISO abstract says environmental control is based upon the availability, security, and energy-efficiency-enablement criteria and classifications in ISO/IEC 22237-1."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "understand"

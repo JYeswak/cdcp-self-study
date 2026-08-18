@@ -1,19 +1,18 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Types of cooling systems
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact DX refrigeration-circuit proposition.
 id = "m09-q126"
 kind = "single-select"
 module = 9
-stem = "A DX CRAC unit characteristically:"
+stem = "ISO/IEC 22237-4:2021 specifies requirements and recommendations for which set of data-centre environmental-control areas?"
 choices = [
-  "Never has fans",
-  "Can only cool using pure nitrogen",
-  "Uses a refrigeration circuit with compressor and refrigerant at the unit (or close-coupled DX)",
-  "Eliminates all need for outdoor heat rejection"
+  "Only generator fuel quality, switchgear arc flash, and cable tray fill",
+  "Only software patching, identity management, and application latency",
+  "Temperature, fluid movement, relative humidity, particulate, vibration, and physical security of environmental-control systems",
+  "Only floor loading, roof drainage, and site-selection zoning"
 ]
 correct = "C"
-explanation = "DX systems refrigerate at the unit/remote condenser; heat still rejects outdoors via the condenser path."
+explanation = "The current ISO abstract explicitly lists temperature control, fluid movement control, relative humidity control, particulate control, vibration, and physical security of environmental-control systems."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "remember"
