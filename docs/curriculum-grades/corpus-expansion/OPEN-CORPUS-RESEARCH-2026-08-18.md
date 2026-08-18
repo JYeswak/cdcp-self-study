@@ -890,6 +890,33 @@ format.
 
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 347 — CDFOS/CDFOM catalog-only lifecycle and risk receipts
+
+**Review date:** 2026-08-18. Five existing operations items were narrowed to
+current official ISO catalog/preview claims without fetching a PDF or standard
+body. ISO 55001:2024 provides the asset-lifecycle performance/risk/expenditure
+scope; ISO/IEC 27040:2024 covers storage devices and media during and after end
+of use or end of life; ISO/IEC 20000-1:2018 covers planning, design, transition,
+delivery, and improvement of services and a consistent lifecycle across
+providers including a supply chain; ISO/IEC 22237-6:2024 covers data-centre
+physical security against unauthorized access and intrusion; and ISO 31000:2018
+lists identifying, analyzing, evaluating, treating, monitoring, and communicating
+risk. The item choices and explanations are bounded to those public previews and
+do not invent an OLA taxonomy, badge interval, disposal procedure, or risk-review
+cadence.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q349 | Governance, Risk and Compliance — Asset management | ISO 55001:2024 — https://www.iso.org/standard/83054.html | **PASS retained** — asset lifecycle performance/risk/expenditure balance is explicit |
+| m15-q350 | Governance, Risk and Compliance — Asset management | ISO/IEC 27040:2024 — https://www.iso.org/standard/80194.html | **PASS retained** — device/media lifecycle and end-of-life scope is explicit |
+| m15-q353 | Service Level Management — Service Level Agreements | ISO/IEC 20000-1:2018 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html | **PASS retained** — service lifecycle across providers/supply chain is explicit |
+| m15-q358 | Physical Security — Standard Operating Procedures (SOP) for security | ISO/IEC 22237-6:2024 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/08/22/82250.html | **PASS retained** — unauthorized-access/intrusion protection scope is explicit |
+| m15-q379 | Governance, Risk and Compliance — Risk management | ISO 31000:2018 — https://www.iso.org/standard/65694.html?browse=tc | **PASS retained** — risk-management sequence is explicit |
+
+This pass does not certify a learner, close `ms4j.2`/`ms4j.3`, or close the
+`ms4j` epic. Other narrow operations claims remain unchanged and are handled by
+their existing source or BLOCKED receipts.
+
 ## Breadth pass 345 — CDFOM people, physical security, and continuity catalogs
 
 **Review date:** 2026-08-18. Three existing CDFOM PASS items were aligned to

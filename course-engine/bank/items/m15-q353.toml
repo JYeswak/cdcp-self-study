@@ -1,26 +1,25 @@
 # Original CDFOS daily-operations MCQ — ms4j.2 service-level agreements.
 # Public heading: CDFOS "Service Level Management — Service Level Agreements" —
 # https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
-# Cites: NIST SP 800-53 Rev. 5, Release 5.2.0 (2025-08-27), SA-9(a)-(c)
-# and discussion; UK Government Digital and Data Profession Capability Framework,
-# IT service manager, last updated 2025-08-29 —
-# https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ;
-# https://ddat-capability-framework.service.gov.uk/role/it-service-manager
-# Claim: service-level documentation makes outcomes, remedies, and response requirements measurable;
-# the government role framework also assigns definition of SLAs and OLAs across relevant business functions.
+# Cite: ISO/IEC 20000-1:2018, Information technology — Service management — Part 1:
+# Service management system requirements, official catalog/preview:
+# https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html
+# Claim: the service-management lifecycle includes planning, design, transition, delivery,
+# and improvement, and can be used for a consistent approach across service providers,
+# including a supply chain.
 # Options are length-balanced; teaching lives in explanation.
 id = "m15-q353"
 kind = "single-select"
 module = 15
-stem = "A facilities provider's SLA names a price and a phone number; internal facilities and NOC commitments are absent. Which review action is supported?"
+stem = "A facilities provider's SLA review asks whether its service lifecycle is consistent across providers and the supply chain. Which ISO/IEC 20000-1:2018 scope fits?"
 choices = [
-  "Define cross-team OLA duties and measurable SLA outcomes",
-  "Treat the phone number as the OLA and stop reviewing performance",
-  "Replace the SLA with a facilities asset register",
-  "Publish an uptime percentage without owners or remedy terms",
+  "Plan, design, transition, deliver, and improve the services consistently",
+  "Limit the review to the supplier's purchase price",
+  "Replace lifecycle review with a facilities asset register",
+  "Publish an uptime percentage without reviewing service delivery",
 ]
 correct = "A"
-explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, SA-9 requires oversight and roles for external services and ongoing compliance monitoring; its discussion says service-level agreements define measurable outcomes, remedies, and response requirements. The UK Government Digital and Data Profession Capability Framework says an IT service manager defines SLAs and OLAs across relevant business functions. No uptime percentage is invented here."
+explanation = "The ISO/IEC 20000-1:2018 public preview includes planning, design, transition, delivery, and improvement of services, and says a customer may require a consistent approach to the service lifecycle by all service providers, including those in a supply chain. It does not establish an OLA taxonomy or an uptime value."
 topic_ids = ["m15-maintenance-sla"]
 objective_ids = []
 bloom = "evaluate"

@@ -22,6 +22,11 @@ Organizational Resilience; and Governance, Risk and Compliance.
 | ID | Edition / date | URL | Clauses used |
 |---|---|---|---|
 | `src-epi-cdfom-page` | Live public syllabus fetched 2026-08-18 | https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29 | Exact public headings and bullets named in each item |
+| `src-iso-55001-2024` | ISO 55001:2024, *Asset management — Asset management system — Requirements*, Edition 2 (2024-07) | https://www.iso.org/standard/83054.html | Public preview scope for lifecycle asset management and balancing performance, risk, and expenditure; no body fetched |
+| `src-iso-iec-27040-2024` | ISO/IEC 27040:2024, *Information technology — Security techniques — Storage security*, Edition 2 (2024-01) | https://www.iso.org/standard/80194.html | Public preview scope for devices/media during and after end of use or end of life; no body fetched |
+| `src-iso-31000-2018` | ISO 31000:2018, *Risk management — Guidelines*, Edition 2 (2018-02; current catalog page) | https://www.iso.org/standard/65694.html?browse=tc | Public preview sequence for identifying, analyzing, evaluating, treating, monitoring, and communicating risk; no body fetched |
+| `src-iso-iec-20000-1-2018` | ISO/IEC 20000-1:2018, *Service management system requirements*, Edition 3 (2018-09; confirmed current 2023) | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html | Public preview scope for planning, design, transition, delivery, improvement, and consistent service lifecycle across providers; no body fetched |
+| `src-iso-iec-22237-6-2024` | ISO/IEC 22237-6:2024, *Data centre facilities and infrastructures — Part 6: Security systems*, Edition 1 (2024-02) | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/08/22/82250.html | Public preview scope for physical security and protection against unauthorized access and intrusion; no body fetched |
 | `src-nist-sp800-53-r5-5.2.0` | NIST SP 800-53 Rev. 5, current minor Release 5.2.0 (2025-08-27) | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final | Official publication-page receipt for the cited control families; no PDF body retained |
 | `src-doe-o360-1d` | DOE O 360.1D, *Federal Employee Training*, approved 2022-12-09 | https://www.energy.gov/management/directives-guidance-and-delegations | **BLOCKED** — official DOE directives catalog/landing only; no body or PDF fetched |
 | `src-ecfr-1910-147-2026-08-14` | 29 CFR 1910.147, eCFR display current 2026-08-14; Title 29 last amended 2026-08-04 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | (c)(6)(i)-(ii) periodic inspection and record; (c)(7)(iv) training record |
@@ -38,6 +43,17 @@ NIST's 2025 planning note lists the controls changed by Release 5.2.0; the
 AT-3, PE-2, CP-2, MA-2, SA-9, and SR-3 control identifiers used here are not
 listed changes. The official publication page is the edition pin; no standard
 body or PDF was fetched or retained.
+
+## Current catalog-aligned item updates
+
+| Items | Public CDFOM heading | Official catalog / preview | Bounded claim |
+|---|---|---|---|
+| m15-q349 | Governance, Risk and Compliance — Asset management | ISO 55001:2024 — https://www.iso.org/standard/83054.html | Asset lifecycle performance, risk, and expenditure are balanced against organizational goals |
+| m15-q350 | Governance, Risk and Compliance — Asset management | ISO/IEC 27040:2024 — https://www.iso.org/standard/80194.html | Storage security includes devices/media during and after their lifecycle |
+| m15-q379 | Governance, Risk and Compliance — Risk management | ISO 31000:2018 — https://www.iso.org/standard/65694.html?browse=tc | Risk management includes identifying, analyzing, evaluating, treating, monitoring, and communicating risks |
+
+No PDF or paywalled body was fetched or pasted. These are bounded catalog/preview
+receipts and do not create a credential or close `bd-epi-ecosystem-ms4j.3`.
 
 ## Blocked-on-sourcing rows
 

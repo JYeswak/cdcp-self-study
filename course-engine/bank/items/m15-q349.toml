@@ -1,22 +1,22 @@
 # Original CDFOM educational MCQ — ms4j.3 asset lifecycle / secure disposal.
 # syllabus_heading = "Governance, Risk and Compliance — Asset management"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
-# source_ids = ["src-epi-cdfom-page", "src-nist-sp800-160-v1r1"]
-# source = "NIST SP 800-160 Vol. 1 Rev. 1 (November 2022), H.14 and H.14.3 DS-1.1, DS-2.1-DS-2.4 — official publication page: https://csrc.nist.gov/pubs/sp/800/160/v1/r1/final"
-# claim = "A secure disposal strategy addresses termination or decommissioning while preserving remaining system functions, then guides secure deactivation, removal, and disassembly."
+# source_ids = ["src-epi-cdfom-page", "src-iso-55001-2024"]
+# source = "ISO 55001:2024, Asset management — Asset management system — Requirements, official catalog/preview: https://www.iso.org/standard/83054.html"
+# claim = "ISO 55001:2024 describes asset management across the asset lifecycle while balancing performance, risk, and expenditure to meet organizational goals."
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q349"
 kind = "single-select"
 module = 15
-stem = "A facilities manager retires one control-system gateway while the monitoring service remains online. Which asset-management action fits NIST's disposal process?"
+stem = "Which description matches the public preview of ISO 55001:2024 for asset management?"
 choices = [
-  "Define a secure disposal strategy first",
-  "Remove it and review the remaining service later",
-  "Send it to recycling before recording the state",
-  "Treat the vendor invoice as the disposal plan",
+  "Balance asset lifecycle performance, risk, and expenditure against organizational goals",
+  "Optimize purchase price while ignoring lifecycle risk and performance",
+  "Manage only the disposal step after operations have ended",
+  "Use a vendor invoice as the asset-management system",
 ]
 correct = "A"
-explanation = "NIST SP 800-160 Vol. 1 Rev. 1, H.14 and DS-1.1, calls for a disposal strategy that securely terminates functions, reaches an acceptable secure state, and addresses future use while preserving the security posture of remaining functions. DS-2.1-DS-2.4 then sequence secure deactivation, removal, and disassembly. This is a system-element disposition claim, not a claim about demolishing an entire facility."
+explanation = "The ISO 55001:2024 public preview says effective asset management controls the lifecycle of assets while balancing performance, risk, and expenditure to meet organizational goals. It does not reduce asset management to purchase price, disposal alone, or an invoice."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "analyze"

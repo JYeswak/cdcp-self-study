@@ -1,22 +1,22 @@
 # Original CDFOM educational MCQ — ms4j.3 asset lifecycle / storage disposition.
 # syllabus_heading = "Governance, Risk and Compliance — Asset management"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
-# source_ids = ["src-epi-cdfom-page", "src-nist-sp800-88-r2"]
-# source = "NIST SP 800-88 Rev. 2 (September 2025) — official publication page: https://csrc.nist.gov/pubs/sp/800/88/r2/final"
-# claim = "Before an IT storage asset is reused or released, the organization records the sanitization decision, validates the outcome, and tracks the post-sanitization destination."
+# source_ids = ["src-epi-cdfom-page", "src-iso-iec-27040-2024"]
+# source = "ISO/IEC 27040:2024, Information technology — Security techniques — Storage security, official catalog/preview: https://www.iso.org/standard/80194.html"
+# claim = "ISO/IEC 27040:2024 covers storage security for devices and media during their lifetime and after end of use or end of life."
 # Options are length-balanced; the key is not the longest choice.
 id = "m15-q350"
 kind = "single-select"
 module = 15
-stem = "A retired storage device will be reused by another tenant. Which manager control best matches NIST SP 800-88 Rev. 2?"
+stem = "Which scope is explicitly included in ISO/IEC 27040:2024 storage security?"
 choices = [
-  "Record sanitization and its destination",
-  "Transfer it after confirming the hardware still boots",
-  "Rely on the previous tenant's confidentiality label",
-  "Keep only a recycler invoice after the hand-off",
+  "Devices and media during their lifetime and after end of use or end of life",
+  "Only building access badges during a tenant move",
+  "Only network links while storage hardware is powered off",
+  "Only the purchase contract for newly acquired storage",
 ]
 correct = "A"
-explanation = "NIST SP 800-88 Rev. 2 §4.3.1 places sanitization decisions before the disposal phase; §4.3.6 says to record the decision and provide the process and resources; §§4.5.1-4.5.2 require verification and validation; and §4.6 plus Appendix C support records tied to the asset and its destination. A device that powers on is not evidence that its prior data was sanitized."
+explanation = "The ISO/IEC 27040:2024 public preview includes security of devices and media, management activities related to them, and control or monitoring of user activities during their lifetime and after end of use or end of life. It does not limit storage security to badges, powered-off links, or purchase contracts."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "evaluate"

@@ -26,13 +26,13 @@ If a heading has no public clause that can be re-derived from a current edition+
 
 **Syllabus (FETCHED):** https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
 
-Exact nested bullets below are copied from that page's **Course Syllabus** this pass. Course text: *fully aligned with the DCOS® (Data Centre Operations Standard).* Audience names lock-out/tag-out. The page does **not** name ISO/IEC 20000, ISO 55000 / 55001, ISO 45001, ISO 21502, ISO 14001, ISO 9001, or ISO/IEC 27001.
+Exact nested bullets below are copied from that page's **Course Syllabus** this pass. Course text: *fully aligned with the DCOS® (Data Centre Operations Standard).* Audience names lock-out/tag-out. The page does not itself name ISO/IEC 20000, ISO 55000 / 55001, ISO 45001, ISO 21502, ISO 14001, ISO 9001, or ISO/IEC 27001; the catalog-aligned item receipts below do not claim that it does.
 
 **DCOS (FETCHED, named only — body not used):** https://www.epi-ap.com/services/1/6/89/Data_Centre_Operations_Standard_(DCOS)
 
-Public page lists **11 discipline names** (no clauses): Service Level Management; Organisation; Safety Management; Security Management; Project Management; Facilities Management; Data Centre Operations; Environment Sustainability; Monitoring / Reporting / Control; Organisational Resilience; Governance, Risk & Compliance. It names ISO-9000, ISO-14001, ISO-20000, ISO-22301, ISO-27001 as generics that are **not** a good fit versus DCOS. That is the opposite of support for examining SIP / catalogue / assets against 20000 or 55000.
+Public page lists **11 discipline names** (no clauses): Service Level Management; Organisation; Safety Management; Security Management; Project Management; Facilities Management; Data Centre Operations; Environment Sustainability; Monitoring / Reporting / Control; Organisational Resilience; Governance, Risk & Compliance. It names ISO-9000, ISO-14001, ISO-20000, ISO-22301, ISO-27001 as generics; this corpus does not treat those names as clause support. The bounded m15-q353 receipt uses only the public ISO/IEC 20000-1 preview and the exact Service Level Agreements heading.
 
-**PROMPT-GROK-NEXT:** DCOS named only. OSHA 1910.147 allowed. ISO/IEC 20000 or 55000 **only if the public CDFOS page supports it.** It does not. **No 20000 / 55000 items.**
+**PROMPT-GROK-NEXT:** DCOS named only. OSHA 1910.147 allowed. ISO/IEC 20000 or 55000 is not treated as a named CDFOS syllabus source; m15-q353 is a bounded catalog-preview receipt under the exact Service Level Agreements heading, not a claim that the CDFOS page endorses ISO/IEC 20000-1.
 
 Agent Mail reservation of this path was attempted (`BlueReef`, project `/Users/josh/cdcp-self-study`); HTTP reservation endpoints returned Method Not Allowed / timeout. File is new.
 
@@ -51,13 +51,15 @@ Agent Mail reservation of this path was attempted (`BlueReef`, project `/Users/j
 | C-62682 | IEC 62682:**2022** Edition **2.0**, 2022-12-08, stability date 2027 | https://webstore.iec.ch/en/publication/65543 | Alarm *system* definition on the shop abstract. **Does not name** a facilities monitoring matrix or a notification matrix. |
 | C-HSE-ALARM | HSE CHIS6, *Better alarm handling* | https://www.hse.gov.uk/comah/sragtech/techmeasalidings.htm | Alarm action and consequence-based priority for m15-q232. |
 | C-DOE-BLACKOUT | U.S.–Canada Power System Outage Task Force, *Final Report on the August 14, 2003 Blackout* (official report page) | https://www.energy.gov/oe/downloads/blackout-2003-final-report-august-14-2003 | Loss-of-redundancy escalation and silent-alarm failure mode for m15-q233. |
+| C-20000-1 | ISO/IEC 20000-1:2018, Edition 3, current after 2023 review | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/06/70636.html | Public preview scope for service planning, design, transition, delivery, improvement, and consistent lifecycle across providers; no body fetched |
+| C-22237-6 | ISO/IEC 22237-6:2024, Edition 1 | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/08/22/82250.html | Public preview scope for physical security and protection against unauthorized access and intrusion; no body fetched |
 
 **Fetched and refused as item cites**
 
 | Source | Why refused |
 |---|---|
-| ISO/IEC 20000-1:2018 Ed.3, 2018-09, confirmed 2023, Amd 1:2024 — https://www.iso.org/standard/70636.html | Catalogue exists. Public **CDFOS** page does not name it. DCOS page lists ISO-20000 as a generic that is **not** a good fit. |
-| ISO 55000 / 55001 | Not named on the public CDFOS page. Prompt forbids using it without that support. Catalogue **not** used. |
+| ISO/IEC 20000-1:2018 Ed.3, 2018-09, confirmed 2023, Amd 1:2024 — https://www.iso.org/standard/70636.html | Its catalog/preview is used only for the bounded service-lifecycle wording in m15-q353; no OLA taxonomy or contract remedy is inferred. |
+| ISO 55000 / 55001 | Not used for the CDFOS slice; the CDFOM asset-management item uses its own public CDFOM heading and a separate catalog receipt. |
 | EN 50600-3-1:2026 | SEARCH shop listings only. Not opened. Not an item cite. |
 | ISO 45001, ISO 21502, ISO 14001, ISO 9001, ISO/IEC 27001, ISO/IEC 30134-9 (WUE) | Not named on the public CDFOS page. No item. |
 | TIA-942-C, NFPA 70E/70B, ANSI/ISA-18.2, Uptime M&O | Paid / licensed or not opened. Named-not-quoted at most. No item. |
@@ -359,12 +361,12 @@ q232 does not establish a vendor matrix taxonomy.
 | Item | Exact public CDFOS syllabus heading | Public clause / section | Re-derivable claim |
 |---|---|---|---|
 | m15-q352 | Service Level Management — Service portfolio and catalogue | DfE Service Management standard, Version 1, Purpose / Why this standard is important | A service catalogue provides a central list and availability of supported services. |
-| m15-q353 | Service Level Management — Service Level Agreements | NIST SA-9(a)-(c) and discussion; DDaT IT service manager role level 2 | SLA documentation makes outcomes, remedies, and response requirements measurable; SLAs and OLAs are defined across relevant business functions. |
+| m15-q353 | Service Level Management — Service Level Agreements | ISO/IEC 20000-1:2018 public preview | Service management covers planning, design, transition, delivery, and improvement, with a consistent lifecycle across providers including a supply chain; no OLA taxonomy is inferred. |
 | m15-q354 | Service Level Management — Service Improvement Process (SIP) | DfE Service Management standard, Version 1, Purpose / Why this standard is important | Continual improvement can use trend analysis to identify improvement opportunities. |
 | m15-q355 | Safety and Crisis Management — Emergency response plan requirement for various potential emergencies | 29 CFR 1910.38(b), (c)(1)-(6), (f) | A required plan is written/available, includes the minimum response elements, and is reviewed when the plan or responsibilities change. |
 | m15-q356 | Data Centre Operations — Shift handover | NE O 422.1 approved August 2025 — catalog: https://id.energy.gov/Home/NEDirectives | **BLOCKED** — catalog receipt only; no body fetched |
 | m15-q357 | Facilities Maintenance — Maintenance operations procedures (MOP) | NE O 422.1 approved August 2025 — catalog: https://id.energy.gov/Home/NEDirectives | **BLOCKED** — catalog receipt only; no body fetched |
-| m15-q358 | Physical Security — Standard Operating Procedures (SOP) for security | NIST PE-3(a)(1)-(2), (b), (g) | Physical-access procedures verify authorization, control entry/exit, keep logs, and change keys/combinations on defined triggers. |
+| m15-q358 | Physical Security — Standard Operating Procedures (SOP) for security | ISO/IEC 22237-6:2024 public preview | Data-centre physical security includes protection against unauthorized access and intrusion using organizational and technological solutions. |
 | m15-q359 | Data Centre Operations — Floor management | NIST PE-6(a)-(c) | Floor physical-access monitoring includes defined review cadence/events and coordination with incident response. |
 | m15-q360 | Monitoring / Reporting / Control — Facilities monitoring matrix | NIST CA-7(a)-(g) | A matrix used as the facilities monitoring strategy needs metrics, cadence, assessment, analysis, response, and reporting fields. CA-7 does not prescribe a vendor matrix format. |
 | m15-q361 | Governance and Compliance — The importance of document management | NIST SA-5(a)-(d) | Administrator/user documentation covers secure operation, maintenance, and responsibilities; unavailable documentation receives an action; documentation is distributed to defined roles. |
