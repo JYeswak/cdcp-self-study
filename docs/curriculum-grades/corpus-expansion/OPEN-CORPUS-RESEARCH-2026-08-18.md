@@ -936,6 +936,21 @@ stationary-energy-storage hazard row.
 No M12 row was promoted; all twelve now carry current official edition receipts
 and bounded BLOCKED reasons. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 147 — current M03 building and earthquake catalog boundary
+
+**Review date:** 2026-08-18. The M03 site and building receipts were checked
+against the current IEC/ISO catalog pages. No standard body or PDF was used.
+
+| Scope | Public CDCP heading | Current official receipt | Bounded result |
+|---|---|---|---|
+| m03-q094, q096–q097, q099–q104, q108, q112–q113, q200, q202–q203, q205–q209, q212, q217 | Site location selection criteria / Facility criteria / Supporting facilities and function | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — the current Edition 1 catalog covers site selection, environmental risks, site/building configuration, access, fire protection, water protection, and quality construction, but does not expose the item-specific flood, clear-height, plant-yard, adjacency, loading, growth, or permitting propositions |
+| m03-q098, q204 | Site location selection criteria | ISO/IEC TS 22237-30:2022 — https://www.iso.org/standard/80622.html | **BLOCKED** — the current confirmed Edition 1 catalog covers the type of seismic-risk assessment and design mitigation concepts, but does not expose the item-specific anchorage, geotechnical, site-rejection, or outage-risk propositions |
+| m03-q093, q107, q111, q114, q201, q211, q214–q216, q220–q221 | Site location selection criteria / Facility criteria / Supporting facilities and function | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — the current foundation catalog does not expose the item-specific utility-diversity, staffing-access, architecture, interconnection-queue, or dispatch-restriction propositions |
+
+No M03 item or ledger status changed; the reviewed rows already carry current
+official receipts and bounded BLOCKED reasons. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 143 — cabling testing, administration, and current media receipts
 
 **Review date:** 2026-08-18. Twelve Module 11 blocked receipts were refreshed
