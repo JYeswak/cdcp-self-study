@@ -1,22 +1,21 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: CDCP "Site location selection criteria" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: TIA-942-C (May 2024) —
-# https://tiaonline.org/standard/tia-942/
-# BLOCKED: the public abstract covers multi-tenant data centres, but not this
-# exact shared-campus site-test proposition.
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://www.iso.org/standard/82248.html
+# Claim is limited to the public abstract's site-configuration category.
 id = "m03-q109"
 kind = "single-select"
 module = 3
-stem = "Shared multi-tenant campuses can still fail a “good site” test if:"
+stem = "Which site-related topic is explicitly listed by ISO/IEC 22237-2:2024?"
 choices = [
-  "Diverse carriers and utilities are available",
-  "Floor loading is adequate",
-  "Deed restrictions, easements, or landlord constraints block generator fuel or antenna rights needed for resilience",
-  "Security screening exists",
+  "Site configuration",
+  "A universal landlord/easement approval process for every campus",
+  "A mandatory multi-tenant operating model",
+  "Only carrier-contract negotiation terms",
 ]
-correct = "C"
-explanation = "Legal and landlord constraints can block critical plant rights even on otherwise attractive campuses."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists site configuration among the building-construction requirements and recommendations. It does not expose the former shared-campus legal-constraint proposition."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "apply"

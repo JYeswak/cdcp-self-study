@@ -1,22 +1,21 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: CDCP "Site location selection criteria" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
-# https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog does not expose this exact multi-path utility-diversity
-# proposition.
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://www.iso.org/standard/82248.html
+# Claim is limited to the public abstract's location and site-selection category.
 id = "m03-q093"
 kind = "single-select"
 module = 3
-stem = "Which site-selection factor most directly affects multi-path electrical utility diversity?"
+stem = "Which topic is explicitly listed by ISO/IEC 22237-2:2024?"
 choices = [
-  "Lobby artwork style",
-  "Proximity and independence of utility substations/feeds and right-of-way constraints",
-  "Colour of exterior cladding only",
-  "Number of conference rooms",
+  "Location and site selection, taking account of the natural environment and adjacencies",
+  "A universal dual-utility independence design for every parcel",
+  "A fixed utility-interconnection queue position for every jurisdiction",
+  "Only interior data-hall rack layout",
 ]
-correct = "B"
-explanation = "True utility diversity depends on independent upstream infrastructure and routing, not cosmetics."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists location and site selection, taking account of the natural environment and adjacencies. It does not expose a universal utility-diversity design rule."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "apply"

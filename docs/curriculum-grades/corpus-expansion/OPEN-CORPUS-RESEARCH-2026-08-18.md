@@ -1350,6 +1350,26 @@ adoption practice, software architecture, multi-site service-availability
 math, safety/EMC compliance, or a data-centre classification certification.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 376 — ISO/IEC 22237-2:2024 site-selection categories
+
+**Review date:** 2026-08-18. Three module-3 items were narrowed to the
+current ISO Online Browsing Platform abstract for ISO/IEC 22237-2:2024. The
+published edition explicitly lists location and site selection while taking
+account of the natural environment and adjacencies, protection from
+environmental risks, and site configuration among its building-construction
+requirements and recommendations. No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m03-q093 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — location/site-selection and natural-environment/adjacency scope is explicit |
+| m03-q105 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — protection-from-environmental-risks scope is explicit |
+| m03-q109 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html | **PASS** — site-configuration scope is explicit |
+
+The pass does not infer utility-feed diversity, free-cooling design, shared-
+campus easement or landlord rights, climate sizing, interconnection queues,
+water permits, or site conformance. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
