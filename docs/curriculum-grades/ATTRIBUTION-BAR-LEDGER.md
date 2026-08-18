@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 299 PASS; 658 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 301 PASS; 656 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -340,10 +340,10 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q216 | 6 | Isolation transformer | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | BLOCKED — IEC 60076-1:2011 catalog receipt; exact isolation/noise/grounding proposition is not exposed |
 | m06-q217 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304 | PASS |
 | m06-q218 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304 | PASS |
-| m06-q219 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65717 | BLOCKED — IEC 61000-2-4:2024 catalog receipt; exact phase-imbalance/UPS-risk proposition is not exposed |
+| m06-q219 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65717 | PASS |
 | m06-q220 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact high-density three-phase-distribution proposition is not exposed |
 | m06-q221 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5463 | BLOCKED — IEC 61439-6:2012 catalog receipt; exact dense-hall flexibility/congestion proposition is not exposed |
-| m06-q222 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact floor-PDU/RPP role proposition is not exposed |
+| m06-q222 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | PASS |
 | m06-q223 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/71476 | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact switched/metered-rack-PDU proposition is not exposed |
 | m06-q224 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/69084 | PASS — IEC 61000-3-12:2011+A1:2021 covers limits for harmonic currents injected into public low-voltage systems |
 | m06-q225 | 6 | Power sizing | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact kW/kVA planning proposition is not exposed |

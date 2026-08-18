@@ -1076,6 +1076,25 @@ requirements.
 
 No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 241 — IEC power-distribution and conducted-disturbance scopes
+
+**Review date:** 2026-08-18. The current IEC catalog for ISO/IEC 22237-3:2021
+lists power supplies, power distribution to data-centre equipment,
+telecommunications bonding, lightning protection, and measurement of power
+consumption/power quality with management-tool integration. The current IEC
+catalog for IEC 61000-2-4:2024 lists voltage deviations, dips and short
+interruptions, voltage imbalance, frequency variation, harmonics,
+interharmonics, DC component, and transient overvoltages. The items are
+bounded to these public catalog lists; no floor-PDU role or UPS trip outcome is
+inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q222 | PDU form factors | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **PASS** — the published power-distribution and measurement topics are explicit |
+| m06-q219 | Single phase and three phase power | IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717 | **PASS** — the listed low-frequency conducted-disturbance phenomena are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies
