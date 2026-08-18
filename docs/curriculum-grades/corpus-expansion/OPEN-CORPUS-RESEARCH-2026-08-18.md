@@ -1044,6 +1044,34 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 42 — CDCP standards-landscape continuation
+
+**Review date:** 2026-08-18. Thirteen additional M02 rows now carry official
+NFPA 1, ISO/IEC 22237-1:2021, or IEC ISO/IEC 22237-2:2024 catalog receipts.
+They remain BLOCKED because the public pages do not expose the exact owner
+specification, AHJ, EN-series, local-requirements, or component-marking
+propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m02-q081 | Standards and guidelines landscape | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact guidelines-versus-code distinction not exposed |
+| m02-q082 | Standards for sub-components | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact fire-detection subcomponent proposition not exposed |
+| m02-q084 | AHJ/code vs voluntary standard | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **BLOCKED** — exact “AHJ wins” shorthand proposition not exposed |
+| m02-q086 | Standards and guidelines landscape | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact owner-specification position not exposed |
+| m02-q089 | International vs national standards | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact international-standards-development aims not exposed |
+| m02-q090 | Standards for sub-components | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact cabling/firestop subcomponent proposition not exposed |
+| m02-q091 | AHJ/code vs voluntary standard | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **BLOCKED** — exact local-code-silent professional approach not exposed |
+| m02-q200 | AHJ/code vs voluntary standard | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **BLOCKED** — exact adopted-code conflict principle not exposed |
+| m02-q203 | EN 50600 series awareness | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact EN 50600 series description not exposed |
+| m02-q204 | International vs national standards | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact international/local requirements tension not exposed |
+| m02-q205 | Standards for sub-components | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact cabling/firestop/equipment-mark proposition not exposed |
+| m02-q207 | AHJ/code vs voluntary standard | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **BLOCKED** — exact guideline/code distinction not exposed |
+| m02-q209 | AHJ/code vs voluntary standard | NFPA 1, 2024 — https://link.nfpa.org/all-publications/1/2024 | **BLOCKED** — exact insurer/customer questionnaire response not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 41 — CDCP standards-landscape legal receipts
 
 **Review date:** 2026-08-18. Ten M02 standards-awareness rows now carry
