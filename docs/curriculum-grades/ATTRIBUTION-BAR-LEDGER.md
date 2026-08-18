@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 519 PASS; 438 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 520 PASS; 437 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -865,7 +865,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m14-q206 | 14 | Notification | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.rfc-editor.org/rfc/rfc5424.html | PASS |
 | m14-q207 | 14 | Monitoring requirements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | PASS |
 | m14-q208 | 14 | Auxiliary systems best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | PASS — ISO/IEC TS 22237-7:2018 public abstract names its operational-process focus areas |
-| m14-q209 | 14 | Building Management System (BMS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |
+| m14-q209 | 14 | Building Management System (BMS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 public abstract explicitly lists physical security of environmental-control systems |
 | m14-q210 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | BLOCKED — IEC 62682:2022 catalog receipt; exact hysteresis/seasonality and chattering proposition is not exposed |
 | m14-q211 | 14 | Water leak detection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |
 | m14-q212 | 14 | Water leak detection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |

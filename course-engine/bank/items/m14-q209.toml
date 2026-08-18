@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Building Management System (BMS)
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current official receipt does not expose the exact item-level building management system (bms) proposition. No paid body or PDF was fetched.
+# PASS: the current public abstract explicitly lists physical security of
+# environmental control systems.
 id = "m14-q209"
 kind = "single-select"
 module = 14
-stem = "Correlating BMS alarms with EMS temperature spikes helps operators because:"
+stem = "Which security domain is explicitly listed in the ISO/IEC 22237-4:2021 public abstract?"
 choices = [
-  "Correlation always proves the network team is at fault",
-  "Cross-domain correlation speeds root-cause isolation when cooling plant and room environment interact",
-  "Systems should never share timestamps",
-  "It replaces mechanical expertise entirely"
+  "Physical security of environmental control systems",
+  "Only cloud application security",
+  "Only generator fuel security",
+  "Only rack-label security",
 ]
-correct = "B"
-explanation = "Facility incidents cross subsystems; correlation beats siloed dashboards."
+correct = "A"
+explanation = "The ISO public abstract explicitly lists physical security of environmental control systems among the covered domains."
 topic_ids = ["m14-bms", "m14-ems", "m14-monitoring-challenges"]
 objective_ids = []
 bloom = "analyze"

@@ -870,6 +870,21 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 321 — ISO/IEC 22237-4 environmental-control security claim
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform page for
+ISO/IEC 22237-4:2021, Edition 1, was checked without opening or fetching a PDF.
+Its public abstract explicitly lists physical security of environmental control
+systems among the covered environmental-control domains.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m14-q209 | Building Management System (BMS) | ISO/IEC 22237-4:2021, Edition 1 — https://www.iso.org/standard/78552.html?browse=tc | **PASS** — asks only for the listed physical-security domain |
+
+BMS/EMS alarm correlation, water-leak placement, liquid-cooling monitoring,
+and other item-level operations claims remain BLOCKED where the public abstract
+does not expose them. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 320 — ISO/IEC 22237-2 building-construction catalog claims
 
 **Review date:** 2026-08-18. The current IEC Webstore page for ISO/IEC
