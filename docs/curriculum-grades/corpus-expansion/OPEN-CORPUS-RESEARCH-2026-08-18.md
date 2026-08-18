@@ -1126,6 +1126,27 @@ seven remain BLOCKED. No question stem, answer, syllabus heading, topic,
 credential state, bead, gate, oracle, or manifest value changed. No standard
 body or PDF was fetched.
 
+## Breadth pass 138 — notification receipt refresh
+
+**Date:** 2026-08-18
+**Scope:** Four additional M14 `Notification` items were checked against the
+same current [IEC 62682:2022 catalog](https://webstore.iec.ch/en/publication/65543).
+The official page covers alarm notification, operator response, event logs,
+and alarm-management processes, but not each exact data-centre notification
+workflow.
+
+| Items | Exact proposition tested | Disposition |
+|---|---|---|
+| m14-q113 | Email-only critical-alarm routing and missed-event risk | **BLOCKED** — exact channel-failure proposition not exposed |
+| m14-q114 | Severity tiers, response urgency, and role routing | **BLOCKED** — exact tier/routing proposition not exposed |
+| m14-q124 | Runbook links embedded in actionable alerts | **BLOCKED** — exact runbook-link proposition not exposed |
+| m14-q125 | Cross-system alarm correlation before notification fan-out | **BLOCKED** — exact correlation proposition not exposed |
+
+**Bounded result:** These four bank comments and ledger receipts now use the
+more direct current IEC catalog while remaining BLOCKED. Stems, answers,
+syllabus headings, topics, manifest, beads, gate, oracle, and credential state
+were unchanged. No standard body or PDF was fetched.
+
 ## Breadth pass 135 — environmental control, security systems, cabling, and resilience KPIs
 
 **Date:** 2026-08-18
