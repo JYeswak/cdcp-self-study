@@ -656,10 +656,10 @@ fn repr_quoting_in_status_errors_matches() {
     s2.replace(
         "README.md",
         "| M8 | learn v2 | **done** |",
-        "| M8 | learn v2 | it's \u{0378} \"murky\" |",
+        "| M8 | learn v2 | it's \u{0380} \"murky\" |",
     );
     let out2 = assert_byte_exact("repr-both-quotes", Some(s2.path()));
-    assert!(out2.contains("'it\\'s \\u0378 \"murky\"'"), "{out2}");
+    assert!(out2.contains("'it\\'s \\u0380 \"murky\"'"), "{out2}");
 }
 
 /// DONE and OPEN in one cell is a contradiction, not a coin flip.
