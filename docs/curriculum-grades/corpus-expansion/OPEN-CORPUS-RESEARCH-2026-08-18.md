@@ -1044,6 +1044,76 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 125 — management protocols, telemetry schemas, and control authority
+
+**Date:** 2026-08-18
+**Scope:** M10, M11, M14, and M15 questions about network/device management,
+SNMP security, NETCONF/YANG configuration, event and metric transport,
+telemetry schema versioning, control-plane observability, alert meaning, and
+safe separation of monitoring from command authority. Existing public EPI/CDCS/
+CDFOS/CDFOM headings are retained; no protocol or OLA taxonomy is invented.
+
+**Official open/public receipts:**
+
+- [RFC 3414](https://www.rfc-editor.org/rfc/rfc3414.html), **User-based
+  Security Model (USM) for version 3 of the Simple Network Management Protocol
+  (SNMPv3)**, is an IETF Standards Track HTML specification. It defines
+  message-level security, authentication, privacy, timeliness, and management
+  of the USM configuration MIB. Its security model does not magically provide
+  availability, traffic-analysis protection, or protection from every form of
+  message suppression; those limits remain part of the operational question.
+- [RFC 6241](https://www.rfc-editor.org/rfc/rfc6241.html), **Network
+  Configuration Protocol (NETCONF)**, is the IETF HTML specification for
+  network configuration operations and protocol behavior. It is used to
+  distinguish configuration transaction evidence, authorization, and device
+  response from a dashboard’s claim that a change succeeded.
+- [RFC 7950](https://www.rfc-editor.org/rfc/rfc7950.html), **The YANG 1.1 Data
+  Modeling Language**, is the IETF HTML specification for modeling
+  configuration, state, actions, notifications, and data constraints. It is an
+  open protocol/model receipt, not a guarantee that a vendor’s model is
+  complete, safe, or semantically interchangeable with another device.
+- [OpenTelemetry Specification 1.59.0](https://opentelemetry.io/docs/specs/otel/)
+  is the project’s public openly licensed specification page for traces,
+  metrics, logs, resources, protocol, compatibility, and schema behavior.
+  [OpenTelemetry semantic conventions 1.43.0](https://opentelemetry.io/docs/specs/semconv/)
+  provides current public names and meanings for signals, including hardware,
+  system, event, log, metric, resource, and trace conventions. The pages are
+  used as open specification/version pins, not as EPI headings or a promise of
+  backend interoperability.
+- [OpenTelemetry telemetry schemas](https://opentelemetry.io/docs/specs/otel/schemas/)
+  publicly documents versioned schemas and transformations between telemetry
+  producers and consumers. This supports evidence questions about schema URLs,
+  dashboard compatibility, and alert/query breakage during instrumentation
+  changes.
+
+**Adversarial boundary:** A secure management protocol is not proof that a
+device accepted the intended configuration, that the configuration is safe,
+or that a command should have been issued. A notification is not an observed
+physical state. A metric with a familiar name is not comparable unless its
+resource identity, units, timestamps, sampling, boundary, and schema are
+known. OpenTelemetry schema compatibility protects interpretation across
+versions; it does not repair missing sensors, bad clocks, stale values,
+unowned alerts, or unsafe command paths.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M10 | Correlate event/metric/log/resource identity, timestamps, units, schema version, source, and acknowledged physical/operational state | Telemetry presence is not truth of the underlying asset state |
+| M11 | Separate SNMPv3 authentication/privacy/timeliness, NETCONF transaction semantics, YANG model constraints, and command authorization | Protocol support is not proof of secure segmentation or safe control |
+| M14 | Preserve config revision, actor, request/response, notification, state observation, schema URL, and rollback/reconciliation evidence | A dashboard green state does not prove a successful change or recovery |
+| M15 | Assign monitoring ownership, alert triage, escalation, maintenance windows, schema-change review, and lessons learned without inventing a vendor taxonomy | Open specifications do not create an OLA or handover program |
+
+**Currency boundary:** RFC HTML pages are the open primary sources; search
+results pointing to PDF renderings were not opened. OpenTelemetry pages are
+version-pinned to the public specification index, while development-status
+semantic conventions are not silently treated as stable guarantees. No PDF,
+vendor blog, or shadow archive was used.
+
+**Bounded result:** This pass adds open protocol and telemetry evidence for
+full-tilt operations while preserving the distinction between observability,
+configuration authority, physical state, and recovery proof. No bank rows,
+ledger dispositions, manifest, topics, beads, gate, oracle, or credential
+state changed.
+
 ## Breadth pass 124 — virtualization, containers, and cloud responsibility evidence
 
 **Date:** 2026-08-18
