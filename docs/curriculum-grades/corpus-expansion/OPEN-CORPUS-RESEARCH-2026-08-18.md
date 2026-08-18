@@ -869,6 +869,25 @@ ASD, agent selection, pre-action, cable-firestop, and other rows remain
 BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
+
+## Breadth pass 216 — ISO/IEC 22237-1 common aspects and classification criteria
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform preview
+for ISO/IEC 22237-1:2021 identifies common data-centre terminology, parameters,
+reference models, facility and infrastructure aspects, classification, business
+risk/operating-cost analysis, and a reference to operation and management. It
+also explicitly names availability, security, and energy-efficiency as the key
+classification criteria over the planned lifetime. These receipts support only
+those bounded statements; they do not establish a project-specific equipment
+list or a redundancy topology from a single efficiency metric.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m01-q045 | Elements of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — common aspects, facilities/infrastructure, classification, risk/cost analysis, and operation/management reference are explicit |
+| m06-q101 | Power sustainability | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — availability, security, and energy-efficiency are explicit classification criteria |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
 ## Breadth pass 154 — IEC public-vocabulary definitions
 
 **Review date:** 2026-08-18. Three previously blocked definitional items were

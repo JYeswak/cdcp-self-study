@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: Power sustainability
 # Official catalog/preview receipt: ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the official catalog exposes availability and energy-efficiency classification, but not the exact PUE-versus-single-path proposition.
+# PASS: the current ISO preview explicitly names the classification criteria.
+# No paid body or PDF was fetched.
 id = "m06-q101"
 kind = "single-select"
 module = 6
-stem = "A site can have excellent PUE and still be:"
+stem = "ISO/IEC 22237-1:2021 bases its data-centre classification system on which key criteria?"
 choices = [
-  "Single-path N with weak availability design",
-  "Automatically 2N fault tolerant",
-  "Immune to utility failures without UPS",
-  "Free of all transformers",
+  "Availability, security, and energy-efficiency over the planned lifetime",
+  "Only the number of UPS modules installed",
+  "Only the number of carrier contracts signed",
+  "Only the facility's floor area and rack count",
 ]
 correct = "A"
-explanation = "Efficiency metrics do not create dual paths or concurrent maintainability."
+explanation = "The ISO preview says its classification system is based on availability, security, and energy-efficiency over the planned lifetime of the data centre. It does not expose a claim that one efficiency metric proves a particular redundancy topology."
 topic_ids = ["m06-sustainability", "m06-redundancy"]
 objective_ids = []
 bloom = "analyze"
