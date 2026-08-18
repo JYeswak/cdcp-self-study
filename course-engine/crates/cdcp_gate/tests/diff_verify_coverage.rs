@@ -1146,6 +1146,50 @@ fn a_domain_min_row_for_an_undeclared_module_is_an_error() {
     );
 }
 
+/// Unicode-16 `Nd` blocks are part of Python's `int(str)` contract. The
+/// known-bad mutant removes any one of the nine newly-added block starts from
+/// the coverage port: Python still names the module-1 shortfall, while Rust
+/// emits a different invalid-literal finding and the byte comparison REDs.
+#[test]
+fn unicode_nd_blocks_for_domain_min_are_byte_identical_and_known_bad_is_red() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(&[1, 2]));
+    let bank = td.path().join("bank");
+    plant_bank(&bank, &[("a", 1), ("b", 2)]);
+    let digits: String = [
+        '\u{10d40}', '\u{116d0}', '\u{11bf0}', '\u{11f50}', '\u{16130}',
+        '\u{16d70}', '\u{1ccf0}', '\u{1e4f0}', '\u{1e5f2}',
+    ]
+    .into_iter()
+    .collect();
+    let policy = td.path().join("policy_unicode.toml");
+    write(
+        &policy,
+        &format!("[[domain_min]]\nmodule = \"{digits}\"\nmin_items = 4\n"),
+    );
+    let rs = assert_byte_identical(
+        "unicode Nd domain_min coercion",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            policy.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out()
+            .contains("module 1: 1 approved < min 4 (1 scanned, 0 not approved)"),
+        "{}",
+        rs.out()
+    );
+}
+
 // ── (g) anti-vacuous: an empty input set is an ERROR, never a pass ────────
 
 #[test]
