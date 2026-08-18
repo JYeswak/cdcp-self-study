@@ -3,20 +3,21 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
 # https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog lists building/support spaces, but not this
-# exact fuel/water/telecom/perimeter evaluation proposition.
+# PASS: the current IEC catalog explicitly lists location/site selection,
+# environmental risks, site/building configuration, access, intrusion/fire/
+# water protection, and quality construction measures.
 id = "m03-q203"
 kind = "single-select"
 module = 3
-stem = "Supporting facilities (e.g., fuel storage, water, telecom points of entry, security perimeter) should be evaluated because:"
+stem = "ISO/IEC 22237-2:2024 specifies requirements and recommendations for:"
 choices = [
-  "They are optional aesthetics with no availability impact",
-  "Only IT racks determine site risk",
-  "They never need maintenance access",
-  "Critical IT availability depends on these external and campus support systems remaining functional"
+  "Location/site selection, environmental risks, site and building configuration, access, intrusion/fire/water protection, and quality construction",
+  "Only fuel storage, municipal water rights, and telecom carrier contracts",
+  "Only IT racks, software, and network-configuration choices",
+  "Only a universal energy-efficiency target and equipment warranty"
 ]
-correct = "D"
-explanation = "The white space fails if fuel, water, connectivity, or security support fails."
+correct = "A"
+explanation = "The current IEC catalog explicitly lists the bounded site/building topics in choice A. It does not expose project-specific fuel, water-rights, telecom-carrier, or IT-equipment requirements."
 topic_ids = ["m03-supporting-facilities", "m03-facility-criteria"]
 objective_ids = []
 bloom = "remember"

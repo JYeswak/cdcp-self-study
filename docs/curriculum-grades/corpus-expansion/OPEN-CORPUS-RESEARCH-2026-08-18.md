@@ -1060,6 +1060,22 @@ scopes.
 
 No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 240 — ISO/IEC 22237-2 complete building/site topic list
+
+**Review date:** 2026-08-18. The current IEC catalog for ISO/IEC 22237-2:2024
+explicitly lists location and site selection, protection from environmental
+risks, site and building configuration, provision of access, physical intrusion
+and fire protection, protection against water damage, and quality construction
+measures. The item was rewritten to that published list; it does not infer
+project-specific fuel storage, water rights, telecom-carrier, or IT-equipment
+requirements.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m03-q203 | Supporting facilities and function | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **PASS** — the complete named site/building topic list is explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies
