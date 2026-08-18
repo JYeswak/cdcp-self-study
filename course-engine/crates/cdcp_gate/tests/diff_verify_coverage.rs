@@ -1228,6 +1228,44 @@ fn unicode_isdigit_conflicting_floor_and_exemption_are_byte_identical_and_known_
     );
 }
 
+/// Python's `str.isprintable()` rejects the unassigned U+0378/U+0379 range,
+/// so `repr()` escapes it in a malformed bank-module diagnostic. The
+/// known-bad mutant leaves that range printable and emits the raw scalar;
+/// this byte comparison REDs that mutant.
+#[test]
+fn unicode_unassigned_module_repr_is_byte_identical_and_known_bad_is_red() {
+    let root = engine_root();
+    let td = tempfile::tempdir().unwrap();
+    let reg = td.path().join("domains.toml");
+    write(&reg, &domains_registry(&[1, 2]));
+    let bank = td.path().join("bank");
+    plant_bank(&bank, &[("a", 1), ("b", 2)]);
+    write(
+        &bank.join("zz-badmod.toml"),
+        "id = \"zz-badmod\"\nmodule = \"nope\u{0378}\"\n",
+    );
+    let policy = td.path().join("empty_policy.toml");
+    write_empty_policy(&policy);
+    let rs = assert_byte_identical(
+        "unicode unassigned module repr",
+        &root,
+        &[
+            "--domains",
+            reg.to_str().unwrap(),
+            "--bank",
+            bank.to_str().unwrap(),
+            "--policy",
+            policy.to_str().unwrap(),
+        ],
+    );
+    assert_ne!(rs.code, 0, "{}", rs.out());
+    assert!(
+        rs.out().contains("zz-badmod: bad module 'nope\\u0378'"),
+        "{}",
+        rs.out()
+    );
+}
+
 // ── (g) anti-vacuous: an empty input set is an ERROR, never a pass ────────
 
 #[test]
