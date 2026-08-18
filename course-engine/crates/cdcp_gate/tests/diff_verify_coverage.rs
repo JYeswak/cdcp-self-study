@@ -1228,7 +1228,7 @@ fn unicode_isdigit_conflicting_floor_and_exemption_are_byte_identical_and_known_
     );
 }
 
-/// Python's `str.isprintable()` rejects the unassigned U+0378/U+0379 range,
+/// Python's `str.isprintable()` rejects the adjacent unassigned U+0380 range,
 /// so `repr()` escapes it in a malformed bank-module diagnostic. The
 /// known-bad mutant leaves that range printable and emits the raw scalar;
 /// this byte comparison REDs that mutant.
@@ -1242,7 +1242,7 @@ fn unicode_unassigned_module_repr_is_byte_identical_and_known_bad_is_red() {
     plant_bank(&bank, &[("a", 1), ("b", 2)]);
     write(
         &bank.join("zz-badmod.toml"),
-        "id = \"zz-badmod\"\nmodule = \"nope\u{0378}\"\n",
+        "id = \"zz-badmod\"\nmodule = \"nope\u{0380}\"\n",
     );
     let policy = td.path().join("empty_policy.toml");
     write_empty_policy(&policy);
@@ -1260,7 +1260,7 @@ fn unicode_unassigned_module_repr_is_byte_identical_and_known_bad_is_red() {
     );
     assert_ne!(rs.code, 0, "{}", rs.out());
     assert!(
-        rs.out().contains("zz-badmod: bad module 'nope\\u0378'"),
+        rs.out().contains("zz-badmod: bad module 'nope\\u0380'"),
         "{}",
         rs.out()
     );
