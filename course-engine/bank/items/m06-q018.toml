@@ -21,19 +21,20 @@
 # bank/IMPORT-POLICY.md.
 # Public syllabus heading: UPS systems
 # Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
-# BLOCKED: the official catalog does not expose the exact double-conversion isolation teaching proposition.
+# PASS: the IEC catalog explicitly states that covered UPS have a primary
+# function of ensuring continuity of load power. No paid body or PDF was fetched.
 id = "mock40-q18"
 kind = "single-select"
 module = 6
-stem = "Double-conversion (online/VFI) UPS primarily:"
+stem = "Under the IEC 62040-3:2021 catalog scope, the primary function of a covered UPS is to:"
 choices = [
-  "Passes utility straight through with no battery ever",
-  "Continuously regenerates AC via rectifier/inverter path for high isolation from many disturbances",
-  "Only works on single-phase sites",
-  "Replaces chillers",
+  "Ensure continuity of load power",
+  "Provide only chilled-water flow control",
+  "Replace every facility distribution board",
+  "Provide only physical access control",
 ]
-correct = "B"
-explanation = "Online/VFI double-conversion continuously regenerates AC (AC-DC-AC) for isolation from many disturbances."
+correct = "A"
+explanation = "The IEC catalog states that the primary function of covered electronic UPS is to ensure continuity of load power; it does not expose a universal double-conversion isolation claim."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "understand"

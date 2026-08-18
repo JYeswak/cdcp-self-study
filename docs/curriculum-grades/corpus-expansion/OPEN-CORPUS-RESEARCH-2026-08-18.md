@@ -1072,6 +1072,28 @@ The pass does not infer leak-sensor placement, zone sizing, retest procedure,
 alarm timing, response authority, or environmental-control conformance. This
 pass does not certify a learner or close ms4j.
 
+## Breadth pass 363 — IEC 62040-3 UPS scope and exclusions
+
+**Review date:** 2026-08-18. Four module-6 UPS items were narrowed to the
+official IEC catalog for IEC 62040-3:2021. The catalog states that covered UPS
+have a primary function of ensuring continuity of load power, incorporate an
+energy-storage device not exceeding 1 500 V DC, and are subject to performance
+and test requirements for complete UPS and applicable functional units. It
+also explicitly excludes conventional AC/DC distribution boards and their
+associated switches. No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| mock40-q18 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **PASS** — continuity-of-load-power primary function is explicit |
+| m06-q240 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **PASS** — 1 500 V DC energy-storage boundary is explicit |
+| m06-q241 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **PASS** — conventional AC/DC distribution-board exclusion is explicit |
+| m06-q252 | Power quality parameters | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **PASS** — complete UPS/functional-unit performance-test scope is explicit |
+
+The pass does not infer double-conversion isolation, line-interactive or
+standby topology behavior, flywheel duration, redundancy math, load-growth
+capacity, or a facility UPS design approval. This pass does not certify a
+learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

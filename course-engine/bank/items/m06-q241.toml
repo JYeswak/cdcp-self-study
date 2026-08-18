@@ -1,19 +1,21 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: UPS systems
 # Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
-# BLOCKED: the official catalog does not expose the exact line-interactive topology comparison.
+# PASS: the IEC catalog explicitly identifies excluded equipment classes,
+# including stand-alone static transfer systems and conventional distribution
+# boards. No paid body or PDF was fetched.
 id = "m06-q241"
 kind = "single-select"
 module = 6
-stem = "Line-interactive UPS designs are most often associated with:"
+stem = "Which equipment is explicitly outside the IEC 62040-3:2021 scope?"
 choices = [
-  "Always pure double-conversion with zero efficiency difference",
-  "Voltage regulation with battery engagement for deeper disturbances, intermediate to standby and double-conversion",
-  "Generator paralleling only",
-  "Busway only"
+  "Conventional AC/DC distribution boards and their associated switches",
+  "Complete electronic UPS with continuity-of-load-power function",
+  "Applicable UPS functional units",
+  "UPS switches that interact with UPS functional units",
 ]
-correct = "B"
-explanation = "Line-interactive sits between offline and online in topology behavior."
+correct = "A"
+explanation = "The IEC catalog excludes conventional AC/DC distribution boards and associated switches from this UPS performance/test document; it also lists other exclusions such as stand-alone static transfer systems."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "understand"
