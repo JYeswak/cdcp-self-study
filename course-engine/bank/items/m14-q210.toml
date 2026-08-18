@@ -1,7 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Alarm panels
-# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current official receipt does not expose the exact item-level alarm panels proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543
+# BLOCKED: the current alarm-management catalog covers alarm processes and performance metrics, but not this exact hysteresis/seasonality and chattering proposition. No paid body or PDF was fetched.
 id = "m14-q210"
 kind = "single-select"
 module = 14
