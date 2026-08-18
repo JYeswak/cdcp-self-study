@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Power redundancy levels and techniques
-# Official catalog/preview receipt: ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the official catalog exposes availability classification, but not the exact shared-upstream-gear redundancy proposition.
+# Official catalog/preview receipt: ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc
+# PASS: the current ISO preview explicitly covers resilience KPIs for power
+# distribution and supply and environmental control. No paid body or PDF was fetched.
 id = "m06-q206"
 kind = "single-select"
 module = 6
-stem = "A design claims 2N to the rack, but A and B busways share one upstream switchboard. The teaching takeaway is:"
+stem = "ISO/IEC TS 22237-31:2026 covers resilience KPIs for which data-centre infrastructure?"
 choices = [
-  "Downstream dual cords always guarantee site-wide fault tolerance",
-  "Shared switchboards improve isolation",
-  "Redundancy must be traced through the entire path; shared upstream gear can collapse 2N claims",
-  "Only battery chemistry determines redundancy"
+  "Power distribution and supply and environmental control",
+  "Only application software and cloud services",
+  "Only office furniture and tenant billing",
+  "Only telecommunications policy, with power and cooling excluded"
 ]
-correct = "C"
-explanation = "Path diversity fails if independent-looking feeds share a common upstream device."
+correct = "A"
+explanation = "The ISO preview states that the document covers data-centre infrastructure for power distribution and supply and environmental control."
 topic_ids = ["m06-redundancy", "m06-distribution"]
 objective_ids = []
 bloom = "apply"

@@ -889,6 +889,23 @@ list or a redundancy topology from a single efficiency metric.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 229 — ISO resilience-KPI infrastructure scope
+
+**Review date:** 2026-08-18. The current ISO catalog lists ISO/IEC TS
+22237-31:2026, Edition 2, published in February 2026. Its public abstract
+defines resilience, dependability, fault-tolerance, and availability-tolerance
+KPIs and explicitly covers data-centre infrastructure for power distribution and
+supply and environmental control. The item below was narrowed to that exposed
+scope; the catalog does not prove a particular 2N topology or shared-upstream
+failure-domain conclusion.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q206 | Power redundancy levels and techniques | ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc | **PASS** — power distribution/supply and environmental-control KPI scope is explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
+
 ## Breadth pass 228 — RFC SNMP and syslog monitoring primitives
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 3411 describes
