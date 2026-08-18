@@ -5157,3 +5157,22 @@ public descriptions directly support the two bounded operations questions.
 Bypass coordination, battery autonomy, thermal-life curves, and site-specific
 electrical design remain outside these receipts. This pass does not certify a
 learner or close ms4j.
+
+## Breadth pass 199 — DOE FEMP cooling-water chemistry and tradeoffs
+
+**Review date:** 2026-08-18. The current DOE FEMP cooling-water page traces
+water-dependent heat rejection and explains that evaporation concentrates
+dissolved minerals, while blowdown, filtration, and treatment address fouling,
+microbiological growth, scaling, and corrosion. It also describes air-side and
+water-side economizing and the water/energy tradeoffs of cooling strategies,
+along with humidity-control impacts.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m10-q112 | Importance of water | DOE FEMP Cooling Water Efficiency Opportunities for Federal Data Centers — https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers | **PASS** — water-saving heat-rejection strategies and energy/water tradeoffs are explicit |
+| m10-q115 | Importance of water | DOE FEMP Cooling Water Efficiency Opportunities for Federal Data Centers — https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers | **PASS** — water-dependent heat rejection and humidity-control impacts are explicit |
+| m10-q200 | Importance of water | DOE FEMP Cooling Water Efficiency Opportunities for Federal Data Centers — https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers | **PASS** — dissolved-mineral concentration, blowdown, fouling, microbiological growth, scaling, and corrosion are explicit |
+
+Site-specific water rights, emergency delivery logistics, backup storage sizing,
+and chemistry limits remain outside this public process receipt. This pass does
+not certify a learner or close ms4j.

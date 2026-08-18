@@ -1,11 +1,11 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: Importance of water
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact water-versus-energy heat-rejection tradeoff proposition. No PDF body was fetched.
+# Official public process receipt: DOE FEMP Cooling Water Efficiency Opportunities for Federal Data Centers — https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers
+# The current DOE page describes air-side and water-side economizing and water-saving cooling options with operating tradeoffs.
 id = "m10-q112"
 kind = "single-select"
 module = 10
-stem = "Why might a site choose dry coolers or adiabatic-limited designs despite higher peak energy?"
+stem = "Why might a site choose a water-saving heat-rejection strategy despite possible energy tradeoffs?"
 choices = [
   "To reduce water dependency where water is scarce, restricted, or costly",
   "To maximize unrestricted water consumption",
@@ -13,7 +13,7 @@ choices = [
   "To eliminate heat rejection entirely"
 ]
 correct = "A"
-explanation = "Water-constrained regions often trade energy for lower WUE and less makeup risk."
+explanation = "The current DOE FEMP page describes air-side and water-side economizing, water-saving retrofits, and the tradeoffs among heat rejection, energy, and water use. Reducing water dependency can therefore be a design objective even when operating energy changes. This is a bounded planning receipt, not a technology-selection approval."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "analyze"

@@ -1,7 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Importance of water
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact tower-water chemistry failure proposition. No PDF body was fetched.
+# Official public process receipt: DOE FEMP Cooling Water Efficiency Opportunities for Federal Data Centers — https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers
+# The current DOE page describes dissolved-mineral concentration, blowdown, fouling, microbiological growth, scaling, and corrosion in cooling-tower loops.
 id = "m10-q200"
 kind = "single-select"
 module = 10
@@ -13,7 +13,7 @@ choices = [
   "Lower fan energy always without tradeoffs"
 ]
 correct = "B"
-explanation = "Water chemistry is a reliability issue for evaporative heat rejection, not a janitorial footnote."
+explanation = "The current DOE FEMP page explains that evaporation concentrates dissolved minerals, blowdown controls the recirculating loop, and fouling, microbiological growth, scaling, and corrosion can impair heat transfer. This is a bounded cooling-water operations receipt, not a site chemistry specification."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "understand"

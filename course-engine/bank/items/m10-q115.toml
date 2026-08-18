@@ -1,7 +1,7 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: Importance of water
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact combined water-service criticality proposition. No PDF body was fetched.
+# Official public process receipt: DOE FEMP Cooling Water Efficiency Opportunities for Federal Data Centers — https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers
+# The current DOE page traces water-dependent heat rejection and discusses humidity-control water/energy use.
 id = "m10-q115"
 kind = "single-select"
 module = 10
@@ -10,10 +10,10 @@ choices = [
   "IT servers run on water pressure alone",
   "Water replaces electrical grounding",
   "Network latency is determined by water hardness",
-  "Heat rejection, humidification, and sometimes fire systems depend on reliable water services"
+  "Heat rejection and humidity-control strategies can depend on reliable water services"
 ]
 correct = "D"
-explanation = "Water underpins cooling and other systems; treating it as non-critical is an availability mistake for water-dependent plants."
+explanation = "The current DOE FEMP page traces heat removal through water loops and cooling towers and explains that humidity-control choices affect water and energy use. Reliable water services therefore matter to water-dependent cooling and humidity strategies. This is a bounded utility-operations receipt, not a site-specific availability determination."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "remember"
