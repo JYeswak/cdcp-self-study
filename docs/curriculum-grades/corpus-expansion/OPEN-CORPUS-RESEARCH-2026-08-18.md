@@ -906,6 +906,25 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 253 — OSHA fixed-suppression receipts
+
+**Review date:** 2026-08-18. Current OSHA public 29 CFR 1910.160 text
+requires fixed-system components and agents to be designed and approved for
+the specific fire hazards they are expected to control or extinguish. For
+hazardous total-flooding systems it requires a pre-discharge employee alarm
+that gives time to exit safely and automatic actuation by an approved fire
+detection device interconnected with that alarm. Three module-12 items are
+bounded to those exact clauses; room-specific HVAC/hold-time and abort-switch
+claims remain blocked.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q050 | Gas-based fire suppression | 29 CFR 1910.160 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160 | **PASS** — hazard-specific component/agent design requirement is explicit |
+| bank-m12-q075 | Fire Protection | 29 CFR 1910.160 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160 | **PASS** — hazardous total-flooding pre-discharge alarm requirement is explicit |
+| m12-q216 | Fire Protection | 29 CFR 1910.160 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160 | **PASS** — detection/alarm interconnection for automatic actuation is explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 252 — OSHA fire-definition and hot-work receipts
 
 **Review date:** 2026-08-18. Current OSHA public standards define Class C fires

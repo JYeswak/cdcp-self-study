@@ -1,22 +1,21 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: CDCP "Fire Protection" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: NFPA 2001 (2025) —
-# https://link.nfpa.org/all-publications/2001/2025
-# BLOCKED: the public preview does not expose the exact HVAC-interlock and
-# hold-time claim needed to promote this item without inventing design logic.
+# Official catalog/preview receipt: 29 CFR 1910.160 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160
+# PASS: the current OSHA public standard requires approved detection
+# interconnection with the pre-discharge alarm for hazardous total-flooding systems.
 id = "m12-q216"
 kind = "single-select"
 module = 12
-stem = "Before gaseous agent discharge, interlocking with HVAC is often considered so that:"
+stem = "Under 29 CFR 1910.160(c)(4), automatic actuation of a hazardous total-flooding system must use:"
 choices = [
-  "CRAHs run at maximum always during discharge",
-  "Airflow does not defeat concentration hold times or spread smoke inappropriately",
-  "Generators start for cooling only",
-  "All doors lock without egress planning"
+  "An approved fire-detection device installed and interconnected with a pre-discharge employee alarm that gives employees time to exit safely",
+  "Only a manual operator button with no approved detection device",
+  "A cooling-control alarm with no employee warning",
+  "An automatic door lock that removes the need for evacuation"
 ]
-correct = "B"
-explanation = "Uncontrolled airflow can dilute agent or move smoke against the design intent."
+correct = "A"
+explanation = "The current OSHA public standard requires automatic actuation by an approved fire-detection device interconnected with a pre-discharge employee alarm that gives employees time to safely exit."
 topic_ids = ["m12-gas-suppression", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "apply"

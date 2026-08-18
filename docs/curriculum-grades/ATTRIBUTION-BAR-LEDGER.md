@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 326 PASS; 631 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 329 PASS; 628 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -718,7 +718,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m12-q047 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | BLOCKED — NFPA 13, 2025 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q048 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | BLOCKED — NFPA 13, 2025 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q049 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | BLOCKED — NFPA 13, 2025 official preview receipt; exact item-level proposition is not exposed |
-| bank-m12-q050 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | BLOCKED — NFPA 2001, 2025 official preview receipt; exact item-level proposition is not exposed |
+| bank-m12-q050 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160 | PASS |
 | bank-m12-q051 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR7a02737a205fd22/section-1910.160 | PASS |
 | bank-m12-q052 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.162; https://www.cdc.gov/niosh/idlh/124389.html | PASS — OSHA toxic-exposure/pre-discharge requirements and NIOSH CO₂ IDLH support the life-safety proposition |
 | bank-m12-q053 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160 | PASS — OSHA requires pre-discharge warning and time for safe exit from total-flooding areas |
@@ -743,7 +743,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m12-q072 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSBC2025P1/chapter-9-fire-protection-and-life-safety-systems | PASS — 2025 New York State Building Code requires pending-agent warning signs/signals and evacuation warning when delay is needed |
 | bank-m12-q073 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSBC2025P1/chapter-9-fire-protection-and-life-safety-systems | PASS — 2025 New York State Building Code places manual fire-alarm boxes near exit entrances and limits travel distance |
 | bank-m12-q074 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSFC2025P1/chapter-7-fire-and-smoke-protection-features | PASS — 2025 New York State Fire Code prohibits blocking, obstructing, or making fire doors inoperable |
-| bank-m12-q075 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | BLOCKED — NFPA 2001 preview receipt; exact abort-switch control clause is not exposed |
+| bank-m12-q075 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160 | PASS |
 | m12-q200 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/921/2024 | BLOCKED — NFPA 921 preview receipt; historical data-centre cause mix is not exposed publicly |
 | m12-q201 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | PASS |
 | m12-q202 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | PASS |
@@ -760,7 +760,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m12-q213 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | PASS |
 | m12-q214 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/1/2024 | BLOCKED — NFPA 1 preview receipt; exact room strategy and adopted-AHJ decision are not exposed publicly |
 | m12-q215 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | PASS |
-| m12-q216 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | BLOCKED — NFPA 2001 preview receipt; exact HVAC-interlock/hold-time clause is not exposed publicly |
+| m12-q216 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160 | PASS |
 | m12-q217 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | BLOCKED — retired item; NFPA 2001 preview does not expose the exact abort-switch control clause |
 | m12-q218 | 12 | 1.12 Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/section-1910.155 | PASS |
 | m12-q219 | 12 | Handheld fire extinguishers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/10/2026 | BLOCKED — NFPA 10, 2026 official preview receipt; exact item-level proposition is not exposed |
