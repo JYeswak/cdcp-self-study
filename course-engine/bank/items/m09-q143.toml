@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Non-raised floor cooling
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact high-density perimeter-cooling limitation proposition.
+# Official catalog/preview receipt: ISO/IEC 30134-7:2023 — https://www.iso.org/standard/80493.html?browse=tc
+# Claim is limited to the public CER KPI scope.
 id = "m09-q143"
 kind = "single-select"
 module = 9
-stem = "A reason some high-density rooms move away from pure raised-floor perimeter cooling is:"
+stem = "ISO/IEC 30134-7:2023 specifies CER as a key performance indicator for:"
 choices = [
-  "Raised floors always provide infinite airflow capacity",
-  "Slab floors cannot support racks ever",
-  "CRAH units cannot run on chilled water",
-  "Air delivery limits and mixing make perimeter-only approaches struggle at high kW per rack"
+  "Quantifying the efficient use of energy to control the temperature of spaces within a data centre",
+  "Determining a universal high-density rack limit for raised floors",
+  "Replacing all cooling-plant controls with a single temperature number",
+  "Measuring only water consumption during the use phase"
 ]
-correct = "D"
-explanation = "High density often needs closer coupling, liquid assist, or better containment than classic low-density underfloor alone."
+correct = "A"
+explanation = "The current ISO abstract defines CER as a KPI for quantifying the efficient use of energy to control the temperature of data-centre spaces. It does not establish the former high-density perimeter-cooling limitation."
 topic_ids = ["m09-non-raised", "m09-supplemental"]
 objective_ids = []
 bloom = "analyze"

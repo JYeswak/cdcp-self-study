@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 619 PASS; 338 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 621 PASS; 336 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -510,10 +510,10 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m09-q140 | 9 | Raised floor cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact rack-blanking airflow proposition is not exposed |
 | m09-q141 | 9 | Raised floor cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact underfloor-static-pressure proposition is not exposed |
 | m09-q142 | 9 | Non-raised floor cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact slab-layout supply-method proposition is not exposed |
-| m09-q143 | 9 | Non-raised floor cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact high-density perimeter-cooling limitation is not exposed |
+| m09-q143 | 9 | Non-raised floor cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/80493.html?browse=tc | PASS — ISO/IEC 30134-7:2023 abstract defines CER for efficient energy use to control data-centre space temperature |
 | m09-q144 | 9 | Supplemental cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact supplemental-capacity proposition is not exposed |
 | m09-q145 | 9 | Non-raised floor cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact overhead-clearance proposition is not exposed |
-| m09-q146 | 9 | Supplemental cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact emergency-spot-cooler limitation is not exposed |
+| m09-q146 | 9 | Supplemental cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/80493.html?browse=tc | PASS — ISO/IEC 30134-7:2023 abstract defines CER measurement, calculation, reporting, and interpretation |
 | m09-q147 | 9 | Non-raised floor cooling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact ducted-return/chimney proposition is not exposed |
 | m09-q148 | 9 | Containment | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards | PASS |
 | m09-q149 | 9 | Containment | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact cold-aisle-containment proposition is not exposed |

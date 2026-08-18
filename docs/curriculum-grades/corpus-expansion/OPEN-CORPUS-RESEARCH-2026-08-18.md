@@ -1284,6 +1284,27 @@ emissions factors, carbon-accounting boundaries beyond the catalog abstract,
 or a facility sustainability certification. This pass does not certify a
 learner or close ms4j.
 
+## Breadth pass 373 — ISO/IEC 30134-7:2023 cooling-efficiency KPI scope
+
+**Review date:** 2026-08-18. Two module-9 items were narrowed to the current
+ISO Online Browsing Platform abstract for ISO/IEC 30134-7:2023. The published
+edition specifies cooling efficiency ratio (CER) as a KPI for quantifying the
+efficient use of energy to control the temperature of spaces within a data
+centre. It defines CER and its measurement, calculation, reporting, and
+correct interpretation, and describes its relationship to data-centre
+infrastructure, IT equipment, and IT operations. The abstract excludes cooling
+systems not powered by electricity. No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m09-q143 | Non-raised floor cooling | ISO/IEC 30134-7:2023 — https://www.iso.org/standard/80493.html?browse=tc | **PASS** — CER's temperature-control energy-efficiency scope is explicit |
+| m09-q146 | Supplemental cooling | ISO/IEC 30134-7:2023 — https://www.iso.org/standard/80493.html?browse=tc | **PASS** — CER measurement, calculation, reporting and interpretation are explicit |
+
+The pass does not infer high-density rack limits, raised-floor or spot-cooler
+selection, heat-rejection mechanics, non-electric cooling performance, or a
+cooling-plant design approval. This pass does not certify a learner or close
+ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
