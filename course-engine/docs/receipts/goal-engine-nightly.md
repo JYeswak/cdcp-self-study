@@ -7,7 +7,7 @@ math_lever: Unicode-domain closure with executable falsification
 proof_gate: differential stdout/exit parity plus focused Rust tests
 claim_marker: [[claim:claim-grade-byte-exact]]
 ceiling_lines: 37283
-status: IN_PROGRESS
+status: BLOCKED_WITH_RECEIPT
 
 ## Scope and invariants
 
@@ -178,12 +178,212 @@ status: IN_PROGRESS
 - CI for `6550001`: no GitHub run exists, so CI line count is unavailable; no
   same-SHA CI GREEN receipt exists and no ceiling change was made.
 
-Each further slice will record its bead, SHA, local line count, CI line count or
-explicit unavailable status, focused-test result, fixture reference, and the
-known-bad RED condition it falsifies.
+## Slice 8 — `verify_orphans` Unicode format-repr parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `7230f8f` (`fix(orphans): escape Unicode format repr`)
+- Change: classify U+0890/U+0891 as non-printable in the orphan gate's Python
+  `repr(str)` emulation; the Python oracle remains present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_verify_orphans.rs`,
+  `unicode_format_topic_repr_is_byte_identical_and_known_bad_is_red`.
+- Known-bad RED: the printable mutant emits the Arabic format mark literally,
+  while Python emits `\\u0890`; the byte-exact differential assertion catches
+  the mismatch.
+- Focused proof: `cargo test --locked -p cdcp_gate --test diff_verify_orphans
+  unicode_format_topic_repr_is_byte_identical_and_known_bad_is_red --
+  --exact` — 1 passed.
+- Local `gate_shrink`: 37146 lines / 47 files; digest
+  `fnv1a64:81c3e0a7eedc6c25`; 137 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `7230f8f`: no GitHub run exists, so CI line count is unavailable; no
+  same-SHA CI GREEN receipt exists and no ceiling change was made.
+
+## Fixture correction — Python runtime Unicode version
+
+- The original Unicode-16 code-point fixtures in Slices 1, 2, 3, and 5 were
+  not valid differential inputs for the installed Python 3.11 oracle: that
+  runtime does not classify those future code points as `Nd`. The Rust source
+  tables remain unchanged; `dd8049d` replaces only the affected fixtures with
+  Python-known non-ASCII `Nd` cases so the RED-mutant proofs are executable.
+- Post-correction focused proofs are green: `diff_verify_bank` 1/1,
+  `diff_verify_coverage unicode_` 2/2, `diff_validate_grounding unicode_`
+  3/3, and `diff_verify_doc_consistency` 36/36. This correction does not add a
+  gate slice or certify a person or product.
+
+## Slice 9 — `verify_doc_consistency` Unicode `str.strip` parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `3697c1c` (`fix(doc-consistency): match Python Unicode strip`)
+- Change: use Python's Unicode `str.strip()`/`str.lstrip()` whitespace,
+  including U+001C–U+001F, across markdown row/header parsing and publication
+  rendering; the Python oracle remains present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_verify_doc_consistency.rs`,
+  `unicode_strip_whitespace_in_milestone_headers_is_byte_identical_and_known_bad_is_red`.
+- Known-bad RED: default Rust trim leaves U+001F around `Status`, misses the
+  status column, and diverges from Python; the byte-exact assertion catches
+  that mutant.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_verify_doc_consistency` — 36 passed, including 4 Unicode cases.
+- Local `gate_shrink`: 37168 lines / 47 files; digest
+  `fnv1a64:6f8d2467aaf825e4`; 115 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `3697c1c`: `gh run list --commit 3697c1c` returned no runs, so CI
+  line count is unavailable; no same-SHA CI GREEN receipt exists and no
+  ceiling change was made.
+
+## Fixture correction commit — `dd8049d`
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `dd8049d` (`test(cdcp-gate): align Unicode fixtures with Python`)
+- Scope: test-only correction in the bank, coverage, and grounding
+  differential fixtures; no gate source, Python oracle, corpus, README, or
+  ceiling file changed. The corrected fixtures retain known-bad RED assertions
+  while using code points Python 3.11 actually recognizes.
+- Focused proof: bank 1/1, coverage Unicode 2/2, grounding Unicode 3/3.
+- Local `gate_shrink`: 37168 lines / 47 files; digest
+  `fnv1a64:5a826c7a8c635db9`; 115 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `dd8049d`: `gh run list --commit dd8049d` returned no runs, so CI
+  line count is unavailable; no same-SHA CI GREEN receipt exists and no
+  ceiling change was made.
+
+## Slice 10 — `verify_doc_consistency` publication-regex whitespace parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `0affc77` (`fix(doc-consistency): match Unicode publication whitespace`)
+- Change: use the Python `\s` predicate, including U+001C–U+001F, in both
+  whitespace runs of the publication `public repo:\s*\**\s*no` pattern; the
+  Python oracle remains present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_verify_doc_consistency.rs`,
+  `unicode_regex_whitespace_in_publication_pattern_is_byte_identical_and_known_bad_is_red`.
+- Known-bad RED: the narrower Rust predicate misses `public repo:` followed by
+  U+001F and therefore misses Python's audit finding; the byte-exact assertion
+  catches that mutant.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_verify_doc_consistency` — 37 passed, including 5 Unicode cases.
+- Local `gate_shrink`: 37183 lines / 47 files; digest
+  `fnv1a64:514d4655ad2db867`; 100 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `0affc77`: no GitHub run exists, so CI line count is unavailable; no
+  same-SHA CI GREEN receipt exists and no ceiling change was made.
+
+## Slice 11 — `validate_grounding` Unicode negative-number parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `7b65335` (`fix(grounding): classify Unicode negative numbers`)
+- Change: match Python argparse's Unicode-digit negative-number classification
+  before parsing `float()`/`int()` values; `scripts/validate_grounding.py`
+  remains present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_validate_grounding.rs`,
+  `unicode_nd_cli_numbers_are_byte_identical_and_known_bad_is_red`, now passes
+  `--min-overlap -١.٠ --sample-report ٢`.
+- Known-bad RED: an ASCII-only negative-number matcher treats `-١.٠` as an
+  unknown option while Python accepts it; the byte-exact differential assertion
+  catches that parser mismatch.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_validate_grounding unicode_ -- --nocapture` — 3 passed.
+- Local `gate_shrink`: 37183 lines / 47 files; digest
+  `fnv1a64:514d4655ad2db867`; 100 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `7b65335`: no GitHub run exists, so CI line count is unavailable; no
+  same-SHA CI GREEN receipt exists and no ceiling change was made.
+
+## Slice 12 — `verify_orphans` unassigned Unicode repr parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `f61a4c1` (`fix(orphans): escape unassigned Unicode repr`)
+- Change: classify the Python-3.11-unassigned U+0378/U+0379 range as
+  non-printable in the orphan gate's `repr(str)` emulation; the Python oracle
+  remains present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_verify_orphans.rs`,
+  `non_ascii_non_printable_status_repr_is_byte_identical` with U+0378.
+- Known-bad RED: the approximation mutant emits U+0378 literally while Python
+  emits `\\u0378`; the byte-exact differential assertion catches the drift.
+- Focused proof: `cargo test --locked -p cdcp_gate --test diff_verify_orphans
+  non_ascii_non_printable_status_repr_is_byte_identical -- --exact` — 1
+  passed.
+- Local `gate_shrink`: 37185 lines / 47 files; digest
+  `fnv1a64:0ce5f1c5478668c1`; 98 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `f61a4c1`: no GitHub run exists, so CI line count is unavailable; no
+  same-SHA CI GREEN receipt exists and no ceiling change was made.
+
+## Slice 13 — `verify_bank` Unicode `repr(str)` parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `d0f60d6` (`fix(bank): escape Unicode format repr`)
+- Change: mirror Python's non-printable Unicode escaping for the bank gate's
+  `repr(str)` path, including U+200B and the related format/private-use ranges;
+  `scripts/verify_bank.py` remains present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_verify_bank.rs`,
+  `an_unmodelled_status_is_a_named_finding_in_both` with a U+200B suffix.
+- Known-bad RED: the prior ASCII-only repr emits U+200B literally while Python
+  emits `\\u200b`; the byte-exact differential assertion catches the mutant.
+- Focused proof: `cargo test --locked -p cdcp_gate --test diff_verify_bank
+  an_unmodelled_status_is_a_named_finding_in_both -- --exact` — 1 passed.
+- Local `gate_shrink`: 37188 lines / 47 files; digest
+  `fnv1a64:632ca00a4483e9e1`; 95 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `d0f60d6`: no GitHub run exists, so CI line count is unavailable; no
+  same-SHA CI GREEN receipt exists and no ceiling change was made.
+
+## Slice 14 — `verify_coverage` Unicode `repr(str)` parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `1d51cef` (`fix(coverage): escape Unicode format repr`)
+- Change: mirror Python's non-printable Unicode escaping for coverage error
+  values, including U+200B and the related format/private-use ranges;
+  `scripts/verify_coverage.py` remains present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_verify_coverage.rs`,
+  `malformed_registry_rows_and_bank_files_are_byte_identical` with U+200B in
+  the malformed module value.
+- Known-bad RED: the prior ASCII-only repr emits U+200B literally while Python
+  emits `\\u200b`; the byte-exact differential assertion catches the mutant.
+- Focused proof: `cargo test --locked -p cdcp_gate --test diff_verify_coverage
+  malformed_registry_rows_and_bank_files_are_byte_identical -- --exact` — 1
+  passed.
+- Local `gate_shrink`: 37188 lines / 47 files; digest
+  `fnv1a64:632ca00a4483e9e1`; 95 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `1d51cef`: no GitHub run exists, so CI line count is unavailable; no
+  same-SHA CI GREEN receipt exists and no ceiling change was made.
+
+## Slice 15 — `validate_grounding` Unicode `repr(str)` parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `7570ec4` (`fix(grounding): escape Unicode format repr`)
+- Change: mirror Python's non-printable Unicode escaping for grounding
+  argument-error values, including U+200B and the related format/private-use
+  ranges; `scripts/validate_grounding.py` remains present and unchanged.
+- Fixture: `crates/cdcp_gate/tests/diff_validate_grounding.rs`,
+  `the_argument_parser_matches_byte_for_byte` with `--min-overlap` U+200B.
+- Known-bad RED: the prior ASCII-only repr emits U+200B literally while Python
+  emits `\\u200b`; the byte-exact differential assertion catches the mutant.
+- Focused proof: `cargo test --locked -p cdcp_gate --test diff_validate_grounding
+  the_argument_parser_matches_byte_for_byte -- --exact` — 1 passed.
+- Local `gate_shrink`: 37189 lines / 47 files; digest
+  `fnv1a64:5bdb84d6803b75a4`; 94 lines below ceiling 37283; registry check
+  GREEN.
+- CI for `7570ec4`: no GitHub run exists, so CI line count is unavailable; no
+  same-SHA CI GREEN receipt exists and no ceiling change was made.
 
 ## Ship-test
 
-Not yet true: the local count is below the ceiling, but CI has not been GREEN on
-the eventual SHA at ceiling 37283. No ceiling reduction is authorized without
-that same-SHA CI receipt.
+BLOCKED_WITH_RECEIPT: the local and proof conditions are satisfied, but the
+external CI leg cannot be observed on the current code SHA.
+
+- Code SHA: `7570ec4`; `gh run list --commit 7570ec4` returned no runs.
+- Local `gate_shrink`: 37189 lines / 47 files; digest
+  `fnv1a64:5bdb84d6803b75a4`; ceiling remains exactly 37283.
+- Exact historical CI discrepancy retained for `bd-engine-not-gate-ar39.15`:
+  run context `5f178d2` measured 37472 against the 37283 ceiling; the named
+  CI-only deltas were `crates/cdcp_gate/src/gates/substrate_guard.rs` (+128
+  lines) and `crates/cdcp_gate/src/vcs.rs` (+61 lines), +189 total. Those are
+  pane-owned files and were not touched here.
+- No claim is made that the historical mismatch is a same-SHA result; it is the
+  exact blocker evidence, not a CI GREEN receipt. No ceiling raise or lowering
+  was performed.
+- All 7 Python oracles are present; `bd-2m9` remains OPEN. The open beads are
+  not READY and no epics were marked shipped.
+- Workflow evidence: `br dep cycles` reports no cycles; `bv --robot-next`
+  selects `bd-installability-sm4g.22` (CI has never completed a run).
