@@ -1044,6 +1044,27 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 60 — CDCP ATS/STS and redundancy receipts
+
+**Review date:** 2026-08-18. Six additional M06 power rows now carry official
+IEC 62310-3:2008, IEC 60947-6-1:2026, or ISO/IEC 22237-3:2021
+catalog/preview receipts. They remain BLOCKED because the public pages do not
+expose the exact transfer-selection, single-cord, break-before-make,
+preferential-source, N, or N+1 teaching propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q047 | ATS and STS | IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803 | **BLOCKED** — exact sub-cycle transfer selection not exposed |
+| m06-q048 | ATS and STS | IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803 | **BLOCKED** — exact single-cord mitigation not exposed |
+| m06-q049 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494 | **BLOCKED** — exact break-before-make behavior not exposed |
+| m06-q050 | ATS and STS | IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803 | **BLOCKED** — exact preferential-source selection not exposed |
+| m06-q051 | Power redundancy levels and techniques | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **BLOCKED** — exact N definition not exposed |
+| m06-q052 | Power redundancy levels and techniques | ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc | **BLOCKED** — exact N+1 definition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 59 — CDCP power-distribution hierarchy receipts
 
 **Review date:** 2026-08-18. Six additional M06 power rows now carry official

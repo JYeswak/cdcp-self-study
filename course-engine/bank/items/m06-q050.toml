@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: ATS and STS
+# Official catalog/preview receipt: IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803
+# BLOCKED: the official catalog does not expose the exact preferential-dual-source STS selection proposition.
 id = "m06-q050"
 kind = "single-select"
 module = 6
