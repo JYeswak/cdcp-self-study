@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# RUST MIGRATION: differential oracle for cdcp_gate verify-orphans (bd-substrate-python-gates-viu)
+# Retire when Rust gate passes all differential tests and L4 selftest coverage is proven.
 """verify_orphans.py — topic <-> bank referential integrity ("orphan item").
 
 ORACLE-GAUNTLET.md lists "orphan item" among the known-bads that MUST trip.

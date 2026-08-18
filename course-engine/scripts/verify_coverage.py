@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# RUST MIGRATION: differential oracle for cdcp_gate verify-coverage (bd-substrate-python-gates-viu)
+# Retire when Rust gate passes all differential tests and L4 selftest coverage is proven.
 """verify_coverage.py — L6 domain coverage oracle.
 
 # CLAIM: FLOOR-RAISE

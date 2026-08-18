@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# RUST MIGRATION: differential oracle for cdcp_gate validate-grounding (bd-substrate-python-gates-viu)
+# Retire when Rust gate passes all differential tests and L4 selftest coverage is proven.
 """validate_grounding.py — anti-hallucination heuristics + corpus overlap.
 
 Fail-closed on high-severity patterns. Soft-fail (WARN) on low module overlap

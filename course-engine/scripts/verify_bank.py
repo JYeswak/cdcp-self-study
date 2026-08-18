@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# RUST MIGRATION: differential oracle for cdcp_gate verify-bank (bd-substrate-python-gates-viu)
+# Retire when Rust gate passes all differential tests and L4 selftest coverage is proven.
 """verify_bank.py — fail-closed checks for course-engine bank items.
 
 Library mode: pool must be ≥ pool_min_items (default 10× exam size).

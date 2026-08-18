@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# RUST MIGRATION: differential oracle for cdcp_gate verify-objectives (bd-substrate-python-gates-viu)
+# Retire when Rust gate passes all differential tests and L4 selftest coverage is proven.
 """verify_objectives.py — L7-S7 objective coverage gate (honest scope).
 
 # CLAIM: FLOOR-RAISE

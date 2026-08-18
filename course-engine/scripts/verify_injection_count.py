@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# RUST MIGRATION: differential oracle for cdcp_gate verify-injection-count (bd-substrate-python-gates-viu)
+# Retire when Rust gate passes all differential tests and L4 selftest coverage is proven.
 """verify_injection_count.py — L4 drift guard for the advertised known-bad count.
 
 WHY THIS EXISTS
