@@ -1,7 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
 # Public syllabus heading: ATS and STS
 # Official catalog/preview receipt: IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803
-# BLOCKED: the official catalog does not expose the exact preferential-dual-source STS selection proposition.
+# PASS: the current IEC catalog explicitly covers controlled transfer, with or without interruption, from two or more independent AC sources, supporting the bounded preferential-dual-source STS proposition. No paid body or PDF was fetched.
 id = "m06-q050"
 kind = "single-select"
 module = 6

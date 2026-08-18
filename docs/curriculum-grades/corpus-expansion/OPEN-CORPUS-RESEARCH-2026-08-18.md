@@ -4699,3 +4699,17 @@ polarity, attenuation, length, and optical return loss.
 Exact project limits, test records, and vendor-specific remediation remain
 outside these catalog receipts. No standard body or PDF was fetched. This pass
 does not certify a learner or close ms4j.
+## Breadth pass 172 — IEC static transfer source-selection scope
+
+**Review date:** 2026-08-18. One Module 6 ATS/STS row was checked against the
+official IEC Webstore catalog page for IEC 62310-3:2008. The catalog covers
+stand-alone AC static transfer systems providing controlled transfer, with or
+without interruption, from two or more independent AC sources.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q050 | ATS and STS | IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803 | **PASS** — preferential dual-source STS transfer is within the catalog scope |
+
+Sub-cycle timing, source qualification, single-cord mitigation, and UPS/generator
+sequencing remain BLOCKED. No standard body or PDF was fetched. This pass does
+not certify a learner or close ms4j.
