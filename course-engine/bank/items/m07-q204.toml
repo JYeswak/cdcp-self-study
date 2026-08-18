@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: EMF standards and best practices
 # Official catalog/preview receipts: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907; IEC 61000-4-8:2009 — https://webstore.iec.ch/en/publication/4229
-# BLOCKED: the official pages expose human-exposure measurement and equipment-immunity scopes but do not expose the exact operator best-practice sequence.
+# PASS: the official IEC catalog explicitly states the measurement scope below. No paid body or PDF was fetched.
 id = "m07-q204"
 kind = "single-select"
 module = 7
-stem = "EMF best-practice posture for operators is typically to:"
+stem = "IEC 61786-2:2014 provides requirements for measuring which fields to evaluate human-body exposure?"
 choices = [
-  "Ignore worker exposure questions entirely",
-  "Treat every field as harmless without measurement when symptoms or adjacency risk appear",
-  "Assess sources, apply exposure/equipment guidance as applicable, and mitigate by design and distance",
-  "Ban all electrical distribution indoors"
+  "Quasi-static magnetic and electric fields from 1 Hz to 100 kHz, plus DC magnetic fields",
+  "Only optical-fibre light fields above 1 THz",
+  "Only acoustic fields from cooling fans",
+  "Only room-temperature gradients"
 ]
-correct = "C"
-explanation = "Responsible practice is source-aware assessment and proportionate mitigation—not denial or panic."
+correct = "A"
+explanation = "The current IEC catalog states that IEC 61786-2:2014 provides requirements for measuring quasi-static magnetic and electric fields with frequency content from 1 Hz to 100 kHz, and DC magnetic fields, to evaluate human-body exposure. It does not prescribe the prior operator best-practice sequence."
 topic_ids = ["m07-standards", "m07-shielding"]
 objective_ids = []
 bloom = "understand"

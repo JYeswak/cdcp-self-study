@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 528 PASS; 429 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 532 PASS; 425 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -411,12 +411,12 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m07-q201 | 7 | Units of measurements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.electropedia.org/iev/iev.nsf/display?ievref=121-11-56&openform= | PASS — IEC Electropedia distinguishes magnetic field strength H from magnetic flux density B and states their vacuum relationship |
 | m07-q202 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 identifies power-frequency and harmonic-producing devices as field sources |
 | m07-q203 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact distance/orientation/routing mitigation proposition is not exposed |
-| m07-q204 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact operator best-practice sequence is not exposed |
-| m07-q205 | 7 | Types of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact modern-IT/human-policy proposition is not exposed |
+| m07-q204 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 public scope covers quasi-static electric/magnetic field measurement from 1 Hz to 100 kHz and DC magnetic fields for human-exposure evaluation |
+| m07-q205 | 7 | Types of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 public scope is a basic measurement standard with regard to human exposure |
 | m07-q206 | 7 | Shielding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/26074 | PASS — current IEC catalog says specific test-level requirements are not provided |
 | m07-q207 | 7 | Types of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 official abstract names frequency content as an environmental difference |
-| m07-q208 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact transformer-room adjacency proposition is not exposed |
-| m07-q209 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact external-site source list is not exposed |
+| m07-q208 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 public scope lists power-frequency devices including power lines and electric appliances as measurable field sources |
+| m07-q209 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 public scope lists electric railway, induction-heater, electric-vehicle, DC-line, and DC-welding examples |
 | m07-q210 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact anomaly-investigation trigger is not exposed |
 | m07-q211 | 7 | Sources of EMF | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | BLOCKED — IEC 61786-2:2014 catalog receipt; exact tray-geometry cancellation proposition is not exposed |
 | m07-q212 | 7 | EMF standards and best practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/5907 | PASS — IEC 61786-2:2014 official abstract names uncertainty sources and total-uncertainty guidance |

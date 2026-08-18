@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Sources of EMF
 # Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
-# BLOCKED: the official catalog identifies field sources but does not expose the exact external-site source list.
+# PASS: the official IEC catalog explicitly lists source examples below. No paid body or PDF was fetched.
 id = "m07-q209"
 kind = "single-select"
 module = 7
-stem = "External EMF sources relevant to site/building planning can include:"
+stem = "The public IEC 61786-2:2014 source examples include:"
 choices = [
-  "Only the break-room microwave permanently off",
-  "Only LED desk lamps",
-  "Only fibre splice trays",
-  "Nearby rail electrification, high-voltage lines, broadcast transmitters, and large industrial loads"
+  "Electric railways, induction heaters, electric vehicles, DC power lines, and DC welding",
+  "Only fibre splice trays and patch panels",
+  "Only room paint and ceiling tiles",
+  "Only chilled-water pipe insulation"
 ]
-correct = "D"
-explanation = "External high-power electrical and RF sources can couple into a campus environment."
+correct = "A"
+explanation = "The current IEC catalog lists electric railway sources, induction heaters, electric vehicles, DC power lines, and DC welding among examples of fields measurable under IEC 61786-2:2014. It does not establish the broader external-site source list in the prior item."
 topic_ids = ["m07-sources"]
 objective_ids = []
 bloom = "remember"

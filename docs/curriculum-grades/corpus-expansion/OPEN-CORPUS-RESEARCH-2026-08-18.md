@@ -7422,3 +7422,24 @@ those public statements; no gas-agent tradeoff or STS timing claim is inferred.
 STS transfer timing, synchronized-source conditions, agent selection, water
 damage, cost, and detection tradeoffs remain outside these catalog/preview
 receipts. This pass does not certify a learner or close ms4j.
+
+## Breadth pass 326 — IEC 61786-2:2014 EMF measurement and source examples
+
+**Review date:** 2026-08-18. The current IEC Webstore catalog for IEC
+61786-2:2014 identifies requirements for measuring quasi-static magnetic and
+electric fields from 1 Hz to 100 kHz and DC magnetic fields to evaluate human
+exposure. Its public description also identifies uncertainty/calibration context
+and source examples including power-frequency devices, power lines, electric
+appliances, electric railways, induction heaters, electric vehicles, DC power
+lines, and DC welding. The item stems were narrowed to those catalog statements.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m07-q204 | EMF standards and best practices | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — field-measurement and human-exposure scope is explicit |
+| m07-q205 | Types of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — basic measurement-standard purpose is explicit |
+| m07-q208 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — power-frequency source examples are explicit |
+| m07-q209 | Sources of EMF | IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907 | **PASS** — additional electrical source examples are explicit |
+
+Operator mitigation order, shielding design, modern-IT robustness, transformer
+room adjacency, and a broader external-site source inventory remain outside this
+catalog receipt. This pass does not certify a learner or close ms4j.
