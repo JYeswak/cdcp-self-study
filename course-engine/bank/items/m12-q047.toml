@@ -1,19 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Water-based fire suppression
-# Official catalog/preview receipt: NFPA 13, 2025 — https://link.nfpa.org/all-publications/13/2025
-# BLOCKED: the current official preview does not expose the exact item-level water-based fire suppression proposition. No paid body or PDF was fetched.
+# Official public-code receipt: 29 CFR 1910.159 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.159
+# Claim is limited to the public OSHA scope for automatic sprinkler-system design, installation, and maintenance.
 id = "bank-m12-q047"
 kind = "single-select"
 module = 12
-stem = "Pre-action sprinkler systems are often preferred over wet pipe above white space mainly because they:"
+stem = "Under 29 CFR 1910.159, automatic sprinkler-system requirements cover which scope?"
 choices = [
-  "Always use twice as much water as deluge",
-  "Eliminate the need for any detection",
-  "Keep pipes dry (or supervised) until detection logic admits water, lowering accidental discharge risk",
-  "Are the only systems allowed on generators"
+  "Minimum design, installation, and maintenance requirements for systems needed for employee safety",
+  "Only the choice between wet-pipe and pre-action arrangements in server halls",
+  "A universal water-volume target for every occupancy",
+  "A guarantee that sprinkler systems replace all fire detection"
 ]
-correct = "C"
-explanation = "Pre-action admits water only after detection (and often head operation), reducing random leak dumps on IT gear."
+correct = "A"
+explanation = "The public OSHA text for 29 CFR 1910.159 identifies minimum requirements for the design, installation, and maintenance of automatic sprinkler systems needed for employee safety. It does not establish a universal pre-action preference, water-volume target, or replacement for fire detection."
 topic_ids = ["m12-water-suppression"]
 objective_ids = []
 bloom = "understand"

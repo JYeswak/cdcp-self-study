@@ -870,6 +870,21 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 353 — public automatic-sprinkler system scope
+
+**Review date:** 2026-08-18. `bank-m12-q047` was narrowed from an unsupported
+pre-action-versus-wet-pipe preference to the public OSHA scope for 29 CFR
+1910.159: minimum requirements for automatic sprinkler-system design,
+installation, and maintenance needed for employee safety. The exact public CDCP
+heading remains **Water-based fire suppression**. No PDF or NFPA body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q047 | Water-based fire suppression | 29 CFR 1910.159 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.159 | **PASS** — sprinkler design, installation, and maintenance scope is explicit |
+
+No pre-action preference, universal water-volume target, or fire-detection
+replacement claim is inferred. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 352 — public fire-extinguisher accessibility and condition
 
 **Review date:** 2026-08-18. `bank-m12-q060` was narrowed from an unsupported
