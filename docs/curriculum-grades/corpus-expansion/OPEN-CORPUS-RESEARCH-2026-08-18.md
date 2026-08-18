@@ -4301,3 +4301,20 @@ The other M15 labelling, cleaning, SLA, documentation, and maintenance-process
 claims remain BLOCKED because the reviewed official pages do not expose their
 specific operational proposition. No standard body or PDF was fetched.
 This pass does not certify a learner or close ms4j.
+## Breadth pass 149 — alarm-management boundary
+
+**Review date:** 2026-08-18. The M14 alarm and notification frontier was
+checked against the current IEC Webstore page for IEC 62682:2022, edition 2.
+Its public description names alarm notification to operators, HMI/annunciator
+communication, alarm and event logs, alarm historians, performance metrics,
+and external-system data use. Those public statements do not establish the
+bank's narrower email-only failure, severity-to-channel mapping, listed
+fire-panel ownership, point-naming, runbook-link, cross-system-correlation, or
+hysteresis/seasonality claims; those rows remain BLOCKED.
+
+| Frontier | Public syllabus heading | Official catalog receipt | Bounded result |
+|---|---|---|---|
+| M14 alarms | Alarm panels; Notification | IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543 | Current edition 2.0 retained; no item promotion because the public description does not expose the narrower propositions |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
