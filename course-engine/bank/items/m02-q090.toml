@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
 # https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog does not expose the exact cabling/firestop
-# subcomponent standards proposition.
+# PASS: the official catalog explicitly lists protection against damage from
+# water.
 id = "m02-q090"
 kind = "single-select"
 module = 2
-stem = "Cabling performance categories and firestop product listings are examples of:"
+stem = "Which protection topic is explicitly listed in the ISO/IEC 22237-2:2024 catalog scope?"
 choices = [
-  "Uptime Tier certificates",
-  "Sub-component / product-system standards and listings supporting the facility",
-  "ISO 22237 entire-series replacements",
-  "AHJ organizational charts",
+  "Protection against damage from water",
+  "Only application failover and database replication",
+  "Only generator fuel quality",
+  "Only rack-unit numbering",
 ]
-correct = "B"
-explanation = "They illustrate product and subsystem standards that feed the whole facility outcome."
+correct = "A"
+explanation = "The IEC catalog explicitly lists protection against damage from water among the construction domains."
 topic_ids = ["m02-subcomponent-standards"]
 objective_ids = []
 bloom = "remember"

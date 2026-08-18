@@ -870,6 +870,28 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 320 — ISO/IEC 22237-2 building-construction catalog claims
+
+**Review date:** 2026-08-18. The current IEC Webstore page for ISO/IEC
+22237-2:2024, Edition 1.0, was checked without opening or fetching a PDF. Its
+public catalog lists location/site selection, building construction and
+configuration, physical fire protection, and protection against water damage;
+it also states that safety and EMC requirements are outside its scope and are
+covered by other standards and regulations.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m02-q071 | Standards for sub-components | ISO/IEC 22237-2:2024, Edition 1.0 — https://webstore.iec.ch/en/publication/92577 | **PASS** — asks only for the listed site-selection domain |
+| m02-q079 | Standards for sub-components | ISO/IEC 22237-2:2024, Edition 1.0 — https://webstore.iec.ch/en/publication/92577 | **PASS** — asks only for the listed construction/configuration pair |
+| m02-q082 | Standards for sub-components | ISO/IEC 22237-2:2024, Edition 1.0 — https://webstore.iec.ch/en/publication/92577 | **PASS** — asks only for the listed physical-fire-protection domain |
+| m02-q090 | Standards for sub-components | ISO/IEC 22237-2:2024, Edition 1.0 — https://webstore.iec.ch/en/publication/92577 | **PASS** — asks only for the listed water-damage protection domain |
+| m02-q205 | Standards for sub-components | ISO/IEC 22237-2:2024, Edition 1.0 — https://webstore.iec.ch/en/publication/92577 | **PASS** — asks only for the stated safety/EMC boundary |
+
+Raised-floor hardware, ramps, ceilings, product listings, cabling/firestop
+details, and other item-level construction propositions remain BLOCKED where
+the public catalog does not expose them. This pass does not certify a learner
+or close ms4j.
+
 ## Breadth pass 319 — TIA-942-C infrastructure and revision-scope claims
 
 **Review date:** 2026-08-18. The current TIA page for TIA-942-C, Version C,

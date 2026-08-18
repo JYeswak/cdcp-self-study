@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
 # https://webstore.iec.ch/en/publication/92577
-# BLOCKED: the official IEC catalog covers building construction and related
-# infrastructure, but not the exact sub-component standards proposition.
+# PASS: the official catalog explicitly lists building construction and building
+# configuration among the covered domains.
 id = "m02-q079"
 kind = "single-select"
 module = 2
-stem = "Product listing/marking expectations for electrical equipment typically come from:"
+stem = "Which pair is explicitly listed in the ISO/IEC 22237-2:2024 catalog scope?"
 choices = [
-  "Only internal runbooks",
-  "Product safety standards and AHJ/listing requirements—not from a facilities “tier” label alone",
-  "PUE contests",
-  "Hot-aisle poster guidelines only",
+  "Building construction and building configuration",
+  "Only software licensing and cloud tenancy",
+  "Only generator fuel chemistry and engine oil",
+  "Only rack-label colors and office furniture",
 ]
-correct = "B"
-explanation = "Equipment listing and product standards are distinct from facility rating marketing language."
+correct = "A"
+explanation = "The IEC catalog explicitly lists building construction and building configuration among the requirements and recommendations."
 topic_ids = ["m02-subcomponent-standards", "m02-code-vs-standard"]
 objective_ids = []
 bloom = "understand"
