@@ -2038,7 +2038,7 @@ fn prove_wired(ctx: &GateCtx) -> Result<(), GateError> {
     std::fs::create_dir_all(&tree)
         .map_err(|e| GateError::error(format!("create {}: {e}", tree.display())))?;
 
-    let engine = vcs::materialise_index(root, &tree).map_err(GateError::error)?;
+    let engine = vcs::materialise_probe_index(root, &tree).map_err(GateError::error)?;
     let check_sh = engine.join(CHECK_SH_PATH);
     if !check_sh.is_file() {
         return Err(GateError::error(format!(

@@ -244,6 +244,48 @@ pub fn materialise_index(root: &Path, dest: &Path) -> Result<PathBuf, String> {
     }
 }
 
+/// Make an index snapshot buildable without borrowing the caller's
+/// working-tree lockfile.
+///
+/// The probe deliberately checks the index, while `Cargo.toml` and
+/// `Cargo.lock` can be briefly out of sync during a commit wave. A nested
+/// `check.sh` otherwise dies in its first `cargo build --locked`, before the
+/// planted file reaches `cdcp_registry_check`. Regenerate only the throwaway
+/// lock in the materialised tree; never read or write the caller's lock.
+pub fn prepare_probe_lockfile(engine: &Path) -> Result<(), String> {
+    if !engine.join("Cargo.toml").is_file() {
+        return Ok(());
+    }
+    let output = Command::new("cargo")
+        .args(["generate-lockfile", "--offline"])
+        .current_dir(engine)
+        .output()
+        .map_err(|e| format!(
+            "prepare prove-wired scratch lockfile: cannot run cargo generate-lockfile --offline: {e}"
+        ))?;
+    if output.status.success() {
+        return Ok(());
+    }
+    Err(format!(
+        "prepare prove-wired scratch lockfile: cargo generate-lockfile --offline failed (status {:?}): {}{}",
+        output.status.code(),
+        String::from_utf8_lossy(&output.stderr).trim(),
+        if output.stdout.is_empty() {
+            String::new()
+        } else {
+            format!("; stdout: {}", String::from_utf8_lossy(&output.stdout).trim())
+        }
+    ))
+}
+
+/// Materialise the index and bootstrap only the scratch lock needed by a
+/// behavioural probe. The ordinary materialiser remains an exact snapshot.
+pub fn materialise_probe_index(root: &Path, dest: &Path) -> Result<PathBuf, String> {
+    let engine = materialise_index(root, dest)?;
+    prepare_probe_lockfile(&engine)?;
+    Ok(engine)
+}
+
 /// Make `dir` a self-contained git repo whose index holds everything under it.
 ///
 /// Isolated on purpose: an inherited `GIT_DIR`/`GIT_INDEX_FILE` would point these
@@ -369,5 +411,24 @@ mod tests {
             std::fs::read_to_string(engine.join("a.txt")).unwrap(),
             "engine-file\n"
         );
+    }
+
+    #[test]
+    fn probe_lockfile_is_generated_in_the_scratch_tree() {
+        let td = tempfile::tempdir().unwrap();
+        let engine = td.path().join("course-engine");
+        std::fs::create_dir_all(&engine).unwrap();
+        std::fs::create_dir_all(engine.join("src")).unwrap();
+        std::fs::write(
+            engine.join("Cargo.toml"),
+            "[package]\nname = \"probe-lock\"\nversion = \"0.1.0\"\nedition = \"2021\"\n",
+        )
+        .unwrap();
+        std::fs::write(engine.join("src/main.rs"), "fn main() {}\n").unwrap();
+        std::fs::write(engine.join("Cargo.lock"), "version = 3\n").unwrap();
+
+        prepare_probe_lockfile(&engine).unwrap();
+        let lock = std::fs::read_to_string(engine.join("Cargo.lock")).unwrap();
+        assert!(lock.contains("name = \"probe-lock\""), "{lock}");
     }
 }
