@@ -906,6 +906,25 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 250 — eCFR labelling and outside-servicing receipts
+
+**Review date:** 2026-08-18. Current public eCFR text at 29 CFR 1910.303(f)(2)
+requires purpose marking for services, feeders, and branch circuits at their
+disconnecting means or overcurrent devices. Current 29 CFR 1910.147 also
+requires outside servicing employers to exchange lockout/tagout procedures and
+requires standardized lockout/tagout devices by color, shape, or size (with
+standardized tag print/format). Three module-15 items are bounded to those
+exact statements; generic asset-labeling and vendor-access claims remain out
+of scope.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q200 | Labelling | 29 CFR 1910.303 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.303 | **PASS** — circuit-purpose marking requirement is explicit |
+| m15-q205 | Operational security and safety practices | 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | **PASS** — outside-servicing lockout/tagout coordination is explicit |
+| m15-q215 | Labelling | 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147 | **PASS** — lockout/tagout device standardization is explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 249 — eCFR hazardous-energy documentation receipts
 
 **Review date:** 2026-08-18. Current public eCFR text at 29 CFR 1910.147
