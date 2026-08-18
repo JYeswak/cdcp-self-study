@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 564 PASS; 393 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 565 PASS; 392 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -829,7 +829,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m14-q104 | 14 | Building Management System (BMS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/37205.html?browse=ics | PASS — ISO 16484-3:2005 catalog covers plant/project-specific applications and engineering functions for building controls and operations |
 | bank-m14-q105 | 14 | Environmental Monitoring System (EMS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | PASS — ISO/IEC 22237-4:2021 covers temperature, fluid movement, relative humidity, particulate, vibration, and environmental-control-system security |
 | bank-m14-q106 | 14 | Data Centre Infrastructure Management (DCIM) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/64801.html?browse=tc | PASS — ISO/IEC 19395:2015 covers messages exchanged between a management function and resources |
-| bank-m14-q107 | 14 | Building Management System (BMS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |
+| bank-m14-q107 | 14 | Building Management System (BMS) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/85751.html | PASS — ISO 16484-4:2025 covers integrated BACS control applications for lighting, solar protection, and HVAC |
 | bank-m14-q108 | 14 | Monitoring challenges | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/64801.html?browse=tc | PASS — ISO/IEC 19395:2015 models resource components in IT, power, and fluid domains |
 | bank-m14-q109 | 14 | Water leak detection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |
 | bank-m14-q110 | 14 | Water leak detection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |

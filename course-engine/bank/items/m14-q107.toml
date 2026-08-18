@@ -1,19 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Building Management System (BMS)
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current official receipt does not expose the exact item-level building management system (bms) proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: ISO 16484-4:2025 — https://www.iso.org/standard/85751.html
+# PASS: the current ISO catalog explicitly covers BACS control applications for lighting, solar protection, and HVAC, translating energy, comfort, and operational requirements into integrated plant and room control.
 id = "bank-m14-q107"
 kind = "single-select"
 module = 14
-stem = "A practical BMS vs DCIM distinction is that BMS focuses on plant control/monitoring while DCIM focuses on:"
+stem = "ISO 16484-4:2025 describes BACS control applications focused on:"
 choices = [
-  "Only diesel fuel valve control",
+  "Lighting, solar protection, and HVAC applications",
   "Replacing all network monitoring tools",
-  "Data-centre IT/facilities inventory, power, environment overlays, and capacity views",
-  "Being always the identical product with one logo"
+  "Data-centre asset inventory and procurement approval only",
+  "A rule that every BACS and DCIM product must be identical"
 ]
-correct = "C"
-explanation = "BMS = building plant; DCIM = DC capacity/assets/ops picture (integrations vary)."
+correct = "A"
+explanation = "The current ISO abstract identifies lighting, solar protection, and HVAC control applications and explains that energy performance, comfort, and operational requirements are translated into functional specifications for integrated plant and room control. It does not define a universal BMS-versus-DCIM product boundary."
 topic_ids = ["m14-bms", "m14-dcim"]
 objective_ids = []
 bloom = "understand"

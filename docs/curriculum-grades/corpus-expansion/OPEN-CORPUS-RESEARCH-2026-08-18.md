@@ -870,6 +870,22 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 342 — BACS integrated control applications
+
+**Review date:** 2026-08-18. The current ISO catalog identifies ISO
+16484-4:2025 as a published edition for BACS control applications. Its public
+abstract focuses on lighting, solar protection, and HVAC applications and says
+that energy performance, comfort, and operational requirements are translated
+into functional specifications for integrated plant and room control. The BMS
+item was narrowed to those explicit applications; no BMS/DCIM product boundary
+was inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q107 | Building Management System (BMS) | ISO 16484-4:2025 — https://www.iso.org/standard/85751.html | **PASS** — integrated BACS control-application scope is explicit |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 341 — BACS project completion and as-built documentation
 
 **Review date:** 2026-08-18. The current ISO catalog identifies ISO
