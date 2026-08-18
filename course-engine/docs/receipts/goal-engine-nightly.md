@@ -622,18 +622,43 @@ status: BLOCKED_WITH_RECEIPT
   70d1b69b2bab1204ba9c1637d9fe0bfddc663267` has no run). The historical
   37472-line result is a different SHA and does not authorize a ceiling change.
 
+## Slice 26 — adjacent unassigned Unicode U+038B/U+038D repr parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `157683151953944f0be499c691e64c747d80e8fd`
+- Change: add Python 3.11 `str.isprintable()` parity for U+038B and U+038D
+  to the five permitted Rust `repr(str)` helpers in `verify_bank`,
+  `verify_coverage`, `validate_grounding`, `verify_doc_consistency`, and
+  `verify_orphans`. All seven Python oracle files remain on disk.
+- Known-bad RED: before the range additions, each existing differential
+  fixture emitted raw U+038B/U+038D from Rust while Python emitted
+  `\\u038b\\u038d`; all five byte-exact assertions failed.
+- Focused GREEN proofs: the five named differential fixtures each passed
+  once after the implementation change.
+- Full differential proofs: bank 47/48 with only the forbidden live
+  `MANIFEST item_count 904 != loaded 957` drift; coverage 28/28;
+  grounding 25/25; doc consistency 37/37; orphans 10/10.
+- Unit proofs: verify_bank 35, verify_coverage 10, validate_grounding 40,
+  and orphans 38 passed.
+- Local `gate_shrink`: 37254 lines / 47 files; digest
+  `fnv1a64:655fdc555966b6d8`; 29 lines below ceiling 37283; registry check
+  GREEN. The ceiling was not edited.
+- CI for this SHA: unavailable (`gh run list --commit
+  157683151953944f0be499c691e64c747d80e8fd` has no run); no same-SHA CI
+  GREEN receipt exists and no ceiling change was made.
+
 ## Blocker audit — audited code tree
 
-- Audited code SHA: `70d1b69b2bab1204ba9c1637d9fe0bfddc663267`; the receipt
+- Audited code SHA: `157683151953944f0be499c691e64c747d80e8fd`; the receipt
   update below changes no gate source.
-- The live worktree measures 37251 lines / 47 files, digest
-  `fnv1a64:65647a7c5cbe8ffc`. Pane-owned dirty files were preserved and are not
+- The live worktree measures 37254 lines / 47 files, digest
+  `fnv1a64:655fdc555966b6d8`. Pane-owned dirty files were preserved and are not
   used as a CI claim.
 - `origin/main` is still `5f178d2a7730a82d212d8ec2e96244bae5c99050`, measuring
   37472 / 47, digest `fnv1a64:67f95ea56dbda888`. Its latest completed check run
   (`32095229956`) failed at that old SHA's gate-shrink count; it is not a
   same-SHA result for this branch.
-- `gh run list --commit 70d1b69b2bab1204ba9c1637d9fe0bfddc663267` returns no
+- `gh run list --commit 157683151953944f0be499c691e64c747d80e8fd` returns no
   run. Local proof includes the seven-oracle coverage inventory detector,
   coverage differential 28/28, and a GREEN registry-check.
 - This audit adds no parity slice and makes no certification claim. The
@@ -646,10 +671,10 @@ status: BLOCKED_WITH_RECEIPT
 BLOCKED_WITH_RECEIPT: the local and proof conditions are satisfied, but the
 external CI leg cannot be observed on the current code SHA.
 
-- Code SHA: `70d1b69b2bab1204ba9c1637d9fe0bfddc663267`; `gh run list --commit
-  70d1b69b2bab1204ba9c1637d9fe0bfddc663267` returned no runs.
-- Local `gate_shrink`: 37252 lines / 47 files; digest
-  `fnv1a64:e119332a48d14afa`; ceiling remains exactly 37283.
+- Code SHA: `157683151953944f0be499c691e64c747d80e8fd`; `gh run list --commit
+  157683151953944f0be499c691e64c747d80e8fd` returned no runs.
+- Local `gate_shrink`: 37254 lines / 47 files; digest
+  `fnv1a64:655fdc555966b6d8`; ceiling remains exactly 37283.
 - Exact historical CI discrepancy retained for `bd-engine-not-gate-ar39.15`:
   run context `5f178d2` measured 37472 against the 37283 ceiling; the named
   CI-only deltas were `crates/cdcp_gate/src/gates/substrate_guard.rs` (+128
@@ -669,7 +694,7 @@ external CI leg cannot be observed on the current code SHA.
   `verify_bank`, `verify_coverage`, `validate_grounding`, `verify_orphans`, and
   `verify_doc_consistency` implementations; `verify_bank`, `verify_coverage`,
   `validate_grounding`, `verify_doc_consistency`, and `verify_orphans` now also
-  cover adjacent U+0380–U+0383. Their differential fixtures remain backed by
+  cover adjacent U+0380–U+0383 and U+038B/U+038D. Their differential fixtures remain backed by
   the Python files on disk.
 - The only remaining matching omission is in
   `crates/cdcp_gate/src/gates/verify_injection_count.rs`'s `py_is_printable`
@@ -681,10 +706,10 @@ external CI leg cannot be observed on the current code SHA.
   without edits or staging.
 - Current read-only pane proofs are green: `diff_verify_objectives` 20/20 and
   `diff_verify_injection_count` 33/33. Those suites do not cover the residual
-  U+0380 classification gaps, so their green status is not treated as parity
+  pane-owned U+0380 classification gaps, so their green status is not treated as parity
   closure.
-- Receipt-only commits follow code SHA `70d1b69b2bab1204ba9c1637d9fe0bfddc663267`;
-  no gate source changed after the measured code SHA.
+- Receipt-only commits follow code SHA `157683151953944f0be499c691e64c747d80e8fd`;
+ no gate source changed after the measured code SHA.
 - `gh run list --commit 7298fb3571fdc607b01c9011dbac7111e8d2af06` returned no
   runs, so same-SHA CI line count and GREEN status remain unavailable. The historical 37472-line remote-main
   result is a different SHA and is not used as a same-SHA claim.
