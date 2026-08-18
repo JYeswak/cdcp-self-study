@@ -1101,6 +1101,31 @@ functional-safety requirements are excluded.
 control-security anchors without changing bank rows, ledger dispositions,
 manifest, topics, beads, gate, oracle, or credential state.
 
+## Breadth pass 137 — alarm-panel receipt refresh and adversarial disposition
+
+**Date:** 2026-08-18
+**Search path:** The M14 `Alarm panels` rows were cross-checked against the
+current official [IEC 62682:2022 catalog page](https://webstore.iec.ch/en/publication/65543)
+after the earlier ISO/IEC TS 22237-7:2018 receipt review. The current catalog
+exposes alarm principles and processes, abnormal-condition notification,
+operator response, event logs, alarm historians, and performance metrics.
+
+| Items | Exact proposition tested | Disposition |
+|---|---|---|
+| m14-q116 | Listed fire-system logic versus supervisory DCIM integration | **BLOCKED** — the public catalog does not expose the listed-system integration boundary |
+| m14-q117 | Human-readable point naming and mis-isolation reduction | **BLOCKED** — the public catalog does not expose this exact human-factors proposition |
+| m14-q118 | Maintenance bypass timeout and silent-failure prevention | **BLOCKED** — the public catalog does not expose this exact timeout proposition |
+| m14-q127 | EPMS versus BMS panel-family distinction | **BLOCKED** — the public catalog does not expose this exact panel distinction |
+| m14-q128 | Local annunciation during network loss | **BLOCKED** — the public catalog does not expose this exact failover proposition |
+| m14-q205 | Prioritized actionable alerts, ownership, and alarm-flood avoidance | **BLOCKED** — the public catalog does not expose this exact prioritization/ownership proposition |
+| m14-q210 | Hysteresis, seasonality, chattering, and operator desensitization | **BLOCKED** — the public catalog does not expose this exact threshold proposition |
+
+**Bounded result:** All seven bank comments and ledger receipts now point to
+IEC 62682:2022 as the more direct current official catalog anchor, while all
+seven remain BLOCKED. No question stem, answer, syllabus heading, topic,
+credential state, bead, gate, oracle, or manifest value changed. No standard
+body or PDF was fetched.
+
 ## Breadth pass 135 — environmental control, security systems, cabling, and resilience KPIs
 
 **Date:** 2026-08-18
