@@ -1,19 +1,21 @@
 # Original CDCP educational MCQ — ebrr.31 leftover: document-management lifecycle
 # Public syllabus heading: Documentation
 # Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current management-and-operations catalog does not expose the exact item-level documentation proposition. No paid body or PDF was fetched.
+# PASS: the current ISO page explicitly states that this document specifies
+# processes for management and operation of data centres. No paid body or PDF
+# was fetched.
 id = "m15-q226"
 kind = "single-select"
 module = 15
-stem = "Close-out of a live-plant change issues a new as-built. The previous revision is still unmarked in the UPS-room binder and as a share-drive PDF titled “final.” The document-management decision is:"
+stem = "The management-and-operation scope of ISO/IEC TS 22237-7:2018 covers:"
 choices = [
-  "Leave both live until the annual catch-up; two revs are extra assurance",
-  "Treat the share-drive PDF as issued because it is the newest filename",
-  "Supersede: mark and pull the old rev from the point of use. Two live revs is the trusted-wrong case — a drawing that shows a disconnect where none exists makes you act. Archive is retention with a retrieval path, not fourteen unmarked copies",
-  "Skip review and approve because the author of the new as-built already validated their own work",
+  "Management and operation of data centres",
+  "Only design of rack cabinets",
+  "Only procurement of utility interconnections",
+  "Only fire-suppression agent selection",
 ]
-correct = "C"
-explanation = "The six-step document-management lifecycle is create, review, approve, issue, supersede, archive. The change that altered the plant issues the new as-built; the previous rev is marked and pulled. Annual catch-up is not a step. No invented outage percent."
+correct = "A"
+explanation = "The ISO abstract states that the technical specification specifies processes for the management and operation of data centres; it does not expose a document-revision lifecycle or as-built-control procedure."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "apply"

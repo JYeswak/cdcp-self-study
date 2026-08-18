@@ -1011,6 +1011,28 @@ The pass does not infer zero-U mounting, A/B outlet diversity, switched-outlet
 control, hot/cold rack orientation, an open-frame trade-off, or a site
 security approval. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 360 — ISO/IEC TS 22237-7 management/operations scope
+
+**Review date:** 2026-08-18. Three CDFOM module-15 items were narrowed to
+claims exposed by the current ISO Online Browsing Platform page for ISO/IEC TS
+22237-7:2018. The page says the technical specification specifies processes
+for management and operation of data centres; its primary operational focus
+includes resilience, availability, risk management and mitigation, capacity
+planning, security, and energy efficiency; and its secondary focus is
+management processes that align actual and future user demands. The page says
+the 2018 edition remains current while a DIS revision is under development.
+No PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q219 | Operational security and safety practices | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — primary operational focus is explicit |
+| m15-q220 | Operational security and safety practices | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — secondary user-demand alignment focus is explicit |
+| m15-q226 | Documentation | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — management/operation process scope is explicit |
+
+The pass does not infer an organizational chart, training programme, document
+revision lifecycle, SLA/OLA/underpinning-contract taxonomy, or certification
+claim. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
