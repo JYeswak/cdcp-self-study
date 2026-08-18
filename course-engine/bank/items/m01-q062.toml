@@ -1,10 +1,8 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: CDCP "Business organization / DC in the business" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
-# https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog references business-risk analysis and operating cost,
-# but not this exact capacity-planning linkage.
+# Official catalog/preview receipt: ISO/IEC TS 8236-2:2025 — https://www.iso.org/standard/86677.html
+# PASS: the current ISO catalog covers facility provisioning KPIs, forecasting methods, and capability assessment across the infrastructure lifecycle, supporting the bounded linkage from IT demand to facility headroom and lead times. No paid body or PDF was fetched.
 id = "m01-q062"
 kind = "single-select"
 module = 1
