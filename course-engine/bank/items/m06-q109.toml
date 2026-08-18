@@ -1,4 +1,7 @@
 # Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: ATS and STS
+# Official catalog/preview receipts: IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494; IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803
+# BLOCKED: the official catalogs identify transfer-switch and static-transfer equipment, but do not expose the exact ATS-versus-STS teaching comparison.
 id = "m06-q109"
 kind = "single-select"
 module = 6

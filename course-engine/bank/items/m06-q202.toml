@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: ATS and STS
+# Official catalog/preview receipt: IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803
+# BLOCKED: the official catalog identifies static-transfer-system performance, but does not expose the exact near-seamless-transfer scenario.
 id = "m06-q202"
 kind = "single-select"
 module = 6

@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: UPS parallel configurations
+# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
+# BLOCKED: the official catalog covers complete UPS performance and functional units, but does not expose the exact shared-battery/shared-bus redundancy critique.
 id = "m06-q204"
 kind = "single-select"
 module = 6

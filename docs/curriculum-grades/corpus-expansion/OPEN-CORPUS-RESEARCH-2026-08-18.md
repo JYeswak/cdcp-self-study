@@ -1044,6 +1044,30 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 69 — CDCP generator, transfer, UPS, and redundancy receipts
+
+**Review date:** 2026-08-18. Ten additional M06 rows now carry current
+official NFPA, IEC, or ISO catalog/preview receipts. They remain BLOCKED because
+the public pages do not expose the exact wet-stacking, ATS/STS, autonomy,
+parallel-UPS, or end-to-end redundancy propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q108 | Generators | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact wet-stacking proposition not exposed |
+| m06-q109 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494; IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803 | **BLOCKED** — exact ATS-versus-STS teaching comparison not exposed |
+| m06-q110 | Batteries | IEC TR 62060:2001 — https://webstore.iec.ch/en/publication/6423 | **BLOCKED** — exact UPS-load-growth/autonomy proposition not exposed |
+| m06-q200 | Power redundancy levels and techniques | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact shared-rack-PDU failure proposition not exposed |
+| m06-q201 | Power redundancy levels and techniques | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact concurrent-maintenance teaching proposition not exposed |
+| m06-q202 | ATS and STS | IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803 | **BLOCKED** — exact near-seamless-transfer scenario not exposed |
+| m06-q203 | ATS and STS | IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494 | **BLOCKED** — exact ATS-failure/UPS-autonomy scenario not exposed |
+| m06-q204 | UPS parallel configurations | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact shared-battery/shared-bus redundancy critique not exposed |
+| m06-q205 | UPS parallel configurations | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact capacity-parallel load-growth scenario not exposed |
+| m06-q206 | Power redundancy levels and techniques | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact shared-upstream-gear redundancy proposition not exposed |
+
+The ledger remains 161 PASS / 796 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 68 — CDCP PUE, microgrid, and power-distribution receipts
 
 **Review date:** 2026-08-18. Eight additional M06 rows now carry current
