@@ -1044,6 +1044,27 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 51 — CDCP lighting foundations receipts
+
+**Review date:** 2026-08-18. Six M05 lighting rows now carry official
+ISO/CIE 8995-1:2025, ISO/TS 21274:2020, or ISO 30061:2007 catalog/preview
+receipts. They remain BLOCKED because the public pages do not expose the exact
+measurement, fixture-placement, or data-centre emergency-lighting propositions.
+No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| mock40-q12 | Emergency light | ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc | **BLOCKED** — exact data-centre egress diagnostic not exposed |
+| m05-q135 | Measurements of light | ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **BLOCKED** — exact illuminance teaching proposition not exposed |
+| m05-q136 | Measurements of light | ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **BLOCKED** — exact luminance distinction not exposed |
+| m05-q137 | Lighting standards | ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **BLOCKED** — exact data-hall trade-off not exposed |
+| m05-q138 | Connecting and positioning light fixtures | ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc | **BLOCKED** — exact aisle/containment placement not exposed |
+| m05-q139 | Emergency light | ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc | **BLOCKED** — exact data-centre emergency-lighting proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 50 — CDCP raised-floor standards diagnostic remainder
 
 **Review date:** 2026-08-18. Three remaining M04 raised-floor diagnostic rows

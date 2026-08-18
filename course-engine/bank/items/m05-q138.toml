@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: Connecting and positioning light fixtures
+# Official catalog/preview receipt: ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc
+# BLOCKED: the official catalog does not expose the exact aisle/containment fixture-placement proposition.
 id = "m05-q138"
 kind = "single-select"
 module = 5
