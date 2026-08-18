@@ -887,6 +887,23 @@ catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
 
+## Breadth pass 208 — OSHA electrical re-energization boundary
+
+**Review date:** 2026-08-18. The current OSHA 29 CFR 1910.334 text says that
+equipment and circuits de-energized by a protective device must not be manually
+re-energized until safe energization has been determined, and it prohibits
+repetitive manual reclosing. This supports a bounded electrical fire-risk
+operating question without asserting a complete fire-cause ranking or a
+thermography/torque program.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q067 | Common causes of fire | OSHA 29 CFR 1910.334 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.334 | **PASS** — safe re-energization after protective-device operation and the no-repetitive-reclosing rule are explicit |
+
+Connection torque, thermographic scanning, and site-specific fire-protection
+programs remain outside this receipt. No PDF was fetched. This pass does not
+certify a learner or close ms4j.
+
 ## Breadth pass 207 — OSHA hazardous-energy control boundary
 
 **Review date:** 2026-08-18. The current OSHA 29 CFR 1910.147 text covers
