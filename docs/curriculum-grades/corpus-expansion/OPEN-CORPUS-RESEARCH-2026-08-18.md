@@ -1044,6 +1044,21 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 43 — CDCP KPI terminology receipt
+
+**Review date:** 2026-08-18. M02 item `m02-q217` now has the official
+ISO/IEC 30134-6:2021 catalog receipt. It remains BLOCKED because the public
+catalog pins Energy Reuse Factor (ERF) but does not expose the item’s exact
+ERF-versus-ERE distinction. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m02-q217 | Standards and guidelines landscape | ISO/IEC 30134-6:2021 — https://www.iso.org/standard/71717.html | **BLOCKED** — exact ERF-versus-ERE distinction not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 42 — CDCP standards-landscape continuation
 
 **Review date:** 2026-08-18. Thirteen additional M02 rows now carry official
