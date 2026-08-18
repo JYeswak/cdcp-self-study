@@ -1,22 +1,22 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: CDCP "Site location selection criteria" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: TIA-942-C (May 2024) —
-# https://tiaonline.org/standard/tia-942/
-# BLOCKED: the public abstract covers cooling infrastructure, but not this
-# exact water-availability proposition.
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://www.iso.org/standard/82248.html?browse=tc
+# PASS: the current ISO preview explicitly includes protection from
+# environmental risks and protection against damage from water.
 id = "m03-q102"
 kind = "single-select"
 module = 3
-stem = "Water availability for cooling (where water-cooled plant is planned) is a site factor because:"
+stem = "ISO/IEC 22237-2:2024 explicitly includes which site/building concern?"
 choices = [
-  "UPS batteries require city water flow continuously",
-  "Servers drink municipal water directly",
-  "Cooling towers and some plants depend on reliable makeup water quantity and quality",
-  "Fibre optics need daily washing",
+  "Protection from environmental risks and protection against damage from water",
+  "A universal municipal-water allocation for every data centre",
+  "A required cooling-tower chemistry limit for every jurisdiction",
+  "A rule that fibre optics need daily washing",
 ]
-correct = "C"
-explanation = "Water-cooled designs depend on sustainable makeup water—both volume and chemistry/quality."
+correct = "A"
+explanation = "The current ISO preview explicitly lists protection from environmental risks and protection against damage from water. It does not expose a universal water allocation, cooling-tower chemistry limit, or water-availability design value."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

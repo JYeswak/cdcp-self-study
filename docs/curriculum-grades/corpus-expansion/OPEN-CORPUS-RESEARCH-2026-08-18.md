@@ -940,6 +940,22 @@ video-bookmark policy, or replacement of life-safety logic.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 233 — ISO/IEC 22237-2 site-selection and access topics
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform preview
+for ISO/IEC 22237-2:2024 explicitly lists location and site selection,
+protection from environmental risks, provision of access, and protection
+against damage from water. Two items were narrowed to those named public
+topics. They do not infer road-distance service levels, staffing models,
+municipal water allocations, or cooling-plant chemistry limits.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m03-q102 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html?browse=tc | **PASS** — environmental-risk and water-damage protection topics are explicit |
+| m03-q211 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html?browse=tc | **PASS** — location/site selection and provision-of-access topics are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies

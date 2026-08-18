@@ -1,22 +1,22 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: CDCP "Site location selection criteria" —
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
-# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
-# https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog references operation and management, but not this exact
-# staffing/emergency-response access proposition.
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://www.iso.org/standard/82248.html?browse=tc
+# PASS: the current ISO preview explicitly includes location/site selection and
+# provision of access among its building/site topics.
 id = "m03-q211"
 kind = "single-select"
 module = 3
-stem = "Staffing and emergency response access (roads, distance to services) matter for site selection because:"
+stem = "ISO/IEC 22237-2:2024's public scope explicitly includes:"
 choices = [
-  "Only automated sites with zero humans ever exist",
-  "Emergency services never interact with data centres",
-  "Road access only affects cafeteria catering",
-  "Remote sites with poor access can lengthen recovery and complicate 24×7 operations"
+  "Only a rule for emergency-service response time",
+  "Only a rule for cafeteria and delivery access",
+  "No access or site-selection topics",
+  "Location and site selection, together with provision of access"
 ]
 correct = "D"
-explanation = "Operations and incident response depend on people and external services reaching the site."
+explanation = "The current ISO preview explicitly lists location and site selection and provision of access. It does not expose a particular road, distance-to-services, staffing, or emergency-response time requirement."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "apply"
