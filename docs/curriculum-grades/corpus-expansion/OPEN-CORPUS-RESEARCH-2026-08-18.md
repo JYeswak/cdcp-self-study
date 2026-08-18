@@ -73,3 +73,71 @@ These are deliberately operational prompts: each asks the learner to inspect evi
 | 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
 
 The objective remains open after pass 01. A pass is only complete when its source claims are recorded, its question frontier is explicit, and the next pass has a narrower unresolved frontier rather than a generic “research more” note.
+
+## Breadth pass 02 — site, grid, climate, and resilience
+
+**Search date:** 2026-08-18. This pass used official FEMA, USGS, NOAA/NCEI, FERC, DOE, LBNL, CISA, and Ready.gov HTML pages. PDF links surfaced by those pages were not opened or copied.
+
+### Sources retained
+
+| Source | What it can safely support | Boundaries |
+|---|---|---|
+| FEMA Flood Map Service Center — https://msc.fema.gov/portal/home | Locate official NFIP flood-hazard products for a site-screening workflow; require map date, effective product, datum, and local review record | A flood-map lookup is not a complete geotechnical, drainage, insurance, or permitting conclusion |
+| USGS Earthquake Hazards — https://www.usgs.gov/programs/earthquake-hazards/hazards | Use current national seismic hazard models, faults, hazard tools, and site-specific-data pathways in a preliminary site-risk review | USGS explicitly distinguishes hazard from risk; local geology can amplify shaking, and design values must follow the applicable code workflow |
+| NOAA/NCEI U.S. Climate Normals — https://www.ncei.noaa.gov/products/land-based-station/us-climate-normals | Use the current 1991–2020 normals and supplemental recent-period data to frame temperature, precipitation, degree-day, and seasonal energy-load assumptions | Normals characterize climate; they are not a forecast, design guarantee, or substitute for extreme-event analysis |
+| NOAA Sea Level Calculator — https://coast.noaa.gov/sealevelcalculator/ | Build a coastal screening question using observed trends, scenarios, flooding frequency, datum, and vertical-land-motion assumptions | NOAA labels it a planning/screening tool, not navigation, permitting, or a legal determination |
+| LBNL Queued Up 2024 — https://emp.lbl.gov/publications/queued-2024-edition-characteristics | Teach what an interconnection queue is, why studies and upgrades affect dates, and why queue evidence needs a project status and study phase | This publication is about generation/storage queues; do not silently convert its statistics into data-center-load timelines |
+| FERC RM26-4 — https://www.ferc.gov/rm26-4 | Frame current large-load interconnection issues: study process, upgrade cost allocation, co-location, flexible load, and readiness evidence | The page describes an ANOPR/docket and stakeholder input; it is not a final universal tariff or permission to bypass local rules |
+| FERC large-load action — https://www.ferc.gov/news-events/news/ferc-launches-aggressive-targeted-action-speed-large-load-integration | Track current regulatory movement around RTO/ISO tariffs, co-location, behind-the-meter generation, flexible transmission service, and speculative requests | Treat as current commission action and docket context, not as a settled design standard |
+| DOE microgrids and large loads — https://www.energy.gov/oe/articles/microgrids-large-electric-loads-grid-support-how-leverage-microgrids-support-utilities | Ask how microgrids may interact with utility capacity, reliability, affordability, and large-load deployment | DOE describes a promising approach; it does not guarantee islanding, interconnection approval, or fuel availability |
+| DOE i2X interconnection roadmap — https://www.energy.gov/cmei/i2x/doe-distributed-energy-resource-interconnection-roadmap | Require better technical data, clearer study inputs, and process evidence for DER/storage/hybrid facilities and large-load interfaces | A roadmap is guidance, not an adopted tariff or AHJ approval |
+| CISA dependency primer — https://www.cisa.gov/topics/critical-infrastructure-security-and-resilience/resilience-services/infrastructure-dependency-primer/implement | Map bidirectional dependencies, redundant substations, water/wastewater, communications, transport, and maintenance responsibilities; test mitigation actions | CISA’s framework is voluntary resilience guidance; do not label a dependency map a certification |
+| CISA critical-infrastructure resilience — https://www.cisa.gov/topics/critical-infrastructure-security-and-resilience | Frame facility importance, essential workers, sector interdependence, risk assessment, and exercise planning | CISA guidance supports planning and assessment; it does not replace an owner’s emergency plan, code, or regulator |
+| CISA Regional Resiliency Assessment Program — https://www.cisa.gov/resources-tools/programs/regional-resiliency-assessment-program | Ask what a regional assessment can reveal about utilities, transport, emergency response, public/private partners, and investment choices | RRAP is voluntary and assessment-oriented; it does not issue a facility rating |
+| Ready Business — https://www.ready.gov/business | Add continuity questions covering communications, IT recovery, employee safety, and essential functions | General preparedness guidance; no invented data-center-specific recovery objective |
+
+### Pass-02 question frontier
+
+| Module | New question families |
+|---|---|
+| M01 Mission Critical | Build a dependency graph from a customer service to utility, substation, fuel/water, carrier, controls, people, and emergency response; distinguish “critical service” from “critical facility” and identify the missing external dependency. |
+| M02 Standards | Given an ISO/TIA reference, a FEMA/USGS/NOAA screening tool, and a local adopted code, classify each as catalog, hazard data, guidance, or binding local requirement; reject a stale edition or a map used outside its stated purpose. |
+| M03 Site / Building | Compare two candidate sites using flood-map product/effective date, seismic model/site class, climate normals, coastal scenario, utility study phase, water dependency, emergency access, and commissioning evidence; identify what must be escalated to local engineers/AHJ. |
+| M04 Floor / Ceiling | Translate flood and seismic site findings into questions about elevation, equipment placement, structural anchorage, access paths, and inspection evidence without pretending a screening map supplies the structural design. |
+| M05 Light | Use climate and hazard conditions to review emergency egress visibility, ice/water intrusion response, outage lighting, and operator access during a severe-weather event; separate life-safety code evidence from comfort lighting. |
+| M06 Power | Evaluate a large-load request for site control, forecast maturity, study phase, upgrade responsibility, flexible-load capability, co-location claims, microgrid boundaries, and black-start/islanding evidence; reject “MW available” as a complete interconnection commitment. |
+| M07 EMF | Ask whether a site EMF claim has a defined source, frequency, measurement location, instrument method, exposure boundary, and responsible authority; keep seismic/electrical hazard data from being confused with an EMF safety conclusion. |
+| M08 Racks | Use hazard maps and dependency records to inspect rack/campus placement, flood elevation, anchorage, water path, access, and recovery priority; distinguish rack-level protection from site-level resilience. |
+| M09 Cooling | Compare climate-normal assumptions with extreme-event and water-availability assumptions; identify when an economizer, cooling tower, dry cooler, CDU, or heat-reuse loop loses its expected operating envelope; require a control and fallback sequence. |
+| M10 Water | Review a site water-risk package: source, treatment, cooling-tower blowdown, alternative water, drought/flood exposure, wastewater dependency, and emergency supply; identify which data is screening-level and which needs utility/AHJ confirmation. |
+| M11 Network | Map bidirectional dependencies between carriers, utility controls, BMS/DCIM, emergency communications, remote operations, and alternate sites; test whether a proposed “diverse” path shares a regional hazard, provider, duct bank, or power dependency. |
+| M12 Fire | Convert flood, wildfire, wind, freeze, and seismic exposure into an emergency/fire protection evidence review: alarm availability, suppression water, generator/fuel access, egress, AHJ coordination, and return-to-service criteria. |
+| M13 Security | Combine physical threat, cyber exposure, utility dependency, and regional partner data; ask which risks are reduced by access controls, segmentation, exercises, relocation, redundant services, or maintenance rather than by a single perimeter control. |
+| M14 Auxiliary | Design a monitoring board that distinguishes hazard feeds, utility telemetry, BMS control, alarm acknowledgement, external notifications, and operator decisions; require source, timestamp, owner, escalation, and fallback when a feed is unavailable. |
+| M15 Operations | Run a tabletop from forecasted flood/heat/ice/seismic risk through staffing, fuel/water/carrier constraints, load curtailment, vendor access, communications, recovery, and lessons learned; identify which dependencies need an owner and an exercise rather than a prose promise. |
+
+### Pass-02 factual boundaries
+
+- LBNL’s queue publication and FERC’s large-load docket address different populations and processes. A generation/storage queue is not proof of a data-center energization date.
+- FERC RM26-4 and the June 2026 FERC action are live regulatory matters. They are useful current context, but they must not be rendered as a final universal interconnection rule.
+- USGS hazard maps are public-domain planning inputs. USGS states that hazard is not risk and that local geology may amplify motion; a question must preserve that distinction.
+- NCEI’s current U.S. normals are 1991–2020, with a recent 15-year supplemental set. A normal is a baseline characterization, not an extreme-weather design value.
+- NOAA’s Sea Level Calculator is explicitly a screening/planning tool and not for permitting or legal use. Do not turn a scenario output into a site approval.
+- CISA dependency and resilience tools support assessment, coordination, mitigation, and exercises. They do not certify a facility, replace an AHJ, or create an invented availability class.
+
+### Updated pass tracker
+
+| Pass | Focus | Status |
+|---:|---|---|
+| 01 | DOE/FEMP/NREL energy, cooling, water, commissioning; CISA/NIST OT and exposure; eCFR safety; ISO/TIA/IEEE edition anchors | COMPLETE |
+| 02 | Site risk, utility interconnection, resilience, climate/flood/seismic, public AHJ/code sources | COMPLETE — this section |
+| 03 | Electrical distribution, switching, protection, UPS/generator/BESS, maintenance testing | OPEN |
+| 04 | Cooling controls, liquid cooling, heat reuse, economization, thermal/water measurement | OPEN |
+| 05 | Cabling, outside plant, network management, BMS/DCIM segmentation, remote access | OPEN |
+| 06 | Fire/life safety, emergency power, permits, PPE, incident command, return-to-service | OPEN |
+| 07 | Physical security, personnel/vendor/visitor controls, asset lifecycle, media disposition | OPEN |
+| 08 | People systems: skills matrices, shift turnover, training, fatigue, contractor governance, succession | OPEN |
+| 09 | Commissioning, change control, MOP/SOP/EOP, alarms, metrics, reliability-centered maintenance | OPEN |
+| 10 | Cross-module adversarial review: stale editions, unsupported numbers, false equivalences, and uncovered operational decisions | OPEN |
+
+The objective remains open after pass 02. The next unresolved frontier is electrical distribution and maintenance testing, not another site-risk summary.
