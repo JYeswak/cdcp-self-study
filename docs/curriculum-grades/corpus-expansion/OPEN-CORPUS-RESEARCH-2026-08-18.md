@@ -4278,3 +4278,26 @@ Harmonics, thermography, IP grades, and metering rows remain BLOCKED because
 the reviewed official pages did not expose a qualifying public claim. The
 ledger is now 131 PASS / 826 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
+## Breadth pass 148 — physical-security and reliability vocabulary boundary
+
+**Review date:** 2026-08-18. The M13 physical-security frontier was checked
+against current official NFPA 730/731 preview/catalog pages and the final NIST
+SP 800-82 Rev. 3 page. NFPA 730 exposes public headings for security planning,
+administrative controls, security perimeters, and security systems; the NFPA
+731 catalog identifies the 2026 installation standard. NIST's final abstract
+explicitly covers building automation, physical access control, and physical
+environment monitoring. Those receipts do not expose the bank's narrower
+mantrap, anti-tailgating, badge-factor, CCTV-retention, failover, or
+least-privilege propositions, so those rows remain BLOCKED.
+
+| Frontier | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| M13 physical security | Components for physical security | NFPA 730:2026 — https://link.nfpa.org/all-publications/730/2026 | Existing heading and current preview receipt retained; narrower controls remain BLOCKED |
+| M13 physical security systems | Components for physical security | NFPA 731:2026 — https://link.nfpa.org/all-publications/731/2026 | Current catalog receipt retained; exact installation/control propositions remain BLOCKED |
+| M13 cyber-physical boundary | Components for physical security; Building Management System (BMS) | NIST SP 800-82 Rev. 3 — https://csrc.nist.gov/pubs/sp/800/82/r3/final | Existing broad OT/BAS scope is supported; item-specific security semantics remain BLOCKED |
+| M15 reliability | MTBF / MTTR | IEC 60050 IEV 192-05-13 — https://www.electropedia.org/iev/iev.nsf/display?ievref=192-05-13&openform=; IEC 60050 IEV 192-07-23 — https://www.electropedia.org/iev/iev.nsf/display?ievref=192-07-23&openform= | **PASS** — official IEC vocabulary directly supports the two definitional items bank-m15-q143 and bank-m15-q144 |
+
+The other M15 labelling, cleaning, SLA, documentation, and maintenance-process
+claims remain BLOCKED because the reviewed official pages do not expose their
+specific operational proposition. No standard body or PDF was fetched.
+This pass does not certify a learner or close ms4j.

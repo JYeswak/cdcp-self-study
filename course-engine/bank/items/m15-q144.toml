@@ -1,7 +1,7 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: MTBF / MTTR
-# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current management-and-operations catalog does not expose the exact item-level mtbf / mttr proposition. No paid body or PDF was fetched.
+# Official IEC vocabulary receipt: IEC 60050 IEV 192-07-23 — https://www.electropedia.org/iev/iev.nsf/display?ievref=192-07-23&openform=
+# PASS: the official IEC entry identifies MTTR as the deprecated abbreviation for mean time to repair and defines mean time to restoration.
 id = "bank-m15-q144"
 kind = "single-select"
 module = 15
