@@ -4337,3 +4337,20 @@ Ownership-model, wholesale-colocation, hyperscale, AI-factory, behind-the-meter,
 RTO/RPO, and outage-cause propositions remain BLOCKED where the public official
 pages do not expose the full claim. No standard body or PDF was fetched.
 This pass does not certify a learner or close ms4j.
+## Breadth pass 151 — lighting-quantity boundary
+
+**Review date:** 2026-08-18. Module 05 lighting claims were checked against
+the current ISO/CIE 8995-1:2025 catalog and the official IEC 60050 lighting
+vocabulary. The ISO/CIE catalog covers indoor-workplace lighting requirements;
+the IEC entries expose the two underlying quantity definitions without using
+the paid standard body.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m05-q135 | Measurements of light | IEC 60050 IEV 845-21-060 — https://www.electropedia.org/iev/iev.nsf/display?ievref=845-21-060&openform= | **PASS** — illuminance is incident luminous flux divided by surface area and is expressed in lux |
+| m05-q136 | Measurements of light | IEC 60050 IEV 845-21-050 — https://electropedia.org/iev/iev.nsf/IEVref_xref/en%3A845-21-050 | **PASS** — luminance is directional luminous intensity per projected area, supporting the surface-appearance distinction |
+
+Emergency-lighting behavior, fixture placement, circuit segregation, glare,
+colour rendering, and data-hall tradeoffs remain BLOCKED because the reviewed
+catalog pages do not expose those exact operational propositions. No standard
+body or PDF was fetched. This pass does not certify a learner or close ms4j.

@@ -1,7 +1,7 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: Measurements of light
-# Official catalog/preview receipt: ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html
-# BLOCKED: the official catalog does not expose the exact luminance-versus-illuminance teaching distinction.
+# Official IEC vocabulary receipt: IEC 60050 IEV 845-21-050 — https://electropedia.org/iev/iev.nsf/IEVref_xref/en%3A845-21-050
+# PASS: the official IEC entry defines luminance using luminous intensity and projected surface area, supporting the surface-appearance distinction.
 id = "m05-q136"
 kind = "single-select"
 module = 5
