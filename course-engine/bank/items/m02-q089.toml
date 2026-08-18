@@ -3,20 +3,19 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
 # https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog does not expose the exact aims of international
-# standards development.
+# Claim is limited to the public abstract's data-centre classification scope.
 id = "m02-q089"
 kind = "single-select"
 module = 2
-stem = "International standards development typically aims to:"
+stem = "Which criteria does the ISO/IEC 22237-1:2021 classification system use over the planned lifetime of a data centre?"
 choices = [
-  "Replace every national electrical code automatically",
-  "Provide broadly usable technical documents that countries and markets may adopt or reference differently",
-  "Ban national standards bodies",
-  "Apply only to non-technical marketing",
+  "Availability, security, and energy efficiency",
+  "Only the retail price of electricity and land",
+  "Only the number of servers and network ports",
+  "Only national permit timelines and vendor warranties",
 ]
-correct = "B"
-explanation = "International standards are tools for alignment; adoption remains a national/project decision."
+correct = "A"
+explanation = "The current ISO abstract says ISO/IEC 22237-1:2021 specifies a classification system based on availability, security, and energy-efficiency criteria over the planned lifetime of the data centre."
 topic_ids = ["m02-intl-vs-national"]
 objective_ids = []
 bloom = "understand"

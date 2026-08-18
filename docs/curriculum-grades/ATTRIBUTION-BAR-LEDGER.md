@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 624 PASS; 333 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 627 PASS; 330 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -88,10 +88,10 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m02-q083 | 2 | TIA-942 Rated vs Uptime Tier (naming discipline) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/ | PASS |
 | m02-q084 | 2 | AHJ/code vs voluntary standard | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/1/2024 | BLOCKED — NFPA 1 catalog receipt; exact “AHJ wins” shorthand proposition is not exposed |
 | m02-q085 | 2 | EN 50600 series awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.iso.org/standard/78550.html | PASS |
-| m02-q086 | 2 | Standards and guidelines landscape | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact owner-specification position is not exposed |
+| m02-q086 | 2 | Standards and guidelines landscape | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS — ISO/IEC 22237-1:2021 abstract defines terminology, parameters, and reference models for functional elements and accommodation |
 | m02-q087 | 2 | Standards and guidelines landscape | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/ | PASS |
 | m02-q088 | 2 | TIA-942 Rated vs Uptime Tier (naming discipline) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/ | PASS |
-| m02-q089 | 2 | International vs national standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact international-standards-development aims are not exposed |
+| m02-q089 | 2 | International vs national standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS — ISO/IEC 22237-1:2021 abstract bases classification on availability, security, and energy efficiency over the planned lifetime |
 | m02-q090 | 2 | Standards for sub-components | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | PASS — ISO/IEC 22237-2:2024 public catalog explicitly lists protection against water damage |
 | m02-q091 | 2 | AHJ/code vs voluntary standard | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/1/2024 | BLOCKED — NFPA 1 catalog receipt; exact local-code-silent professional approach is not exposed |
 | m02-q092 | 2 | Standards and guidelines landscape | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/ | PASS |
@@ -99,7 +99,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m02-q201 | 2 | TIA-942 Rated vs Uptime Tier (naming discipline) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/ | PASS |
 | m02-q202 | 2 | ISO/IEC 22237 series awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.iso.org/standard/78550.html | PASS |
 | m02-q203 | 2 | EN 50600 series awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact EN 50600 series description is not exposed |
-| m02-q204 | 2 | International vs national standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact international/local requirements tension is not exposed |
+| m02-q204 | 2 | International vs national standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS — ISO/IEC 22237-1:2021 abstract excludes selection of IT/network equipment, software, and associated configuration issues |
 | m02-q205 | 2 | Standards for sub-components | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | PASS — ISO/IEC 22237-2:2024 public catalog states the safety/EMC scope boundary |
 | m02-q206 | 2 | TIA-942 Rated vs Uptime Tier (naming discipline) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/ | PASS |
 | m02-q207 | 2 | AHJ/code vs voluntary standard | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/1/2024 | BLOCKED — NFPA 1 catalog receipt; exact guideline/code distinction is not exposed |

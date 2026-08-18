@@ -1327,6 +1327,29 @@ PTW/floor-management procedure, SLA/OLA/underpinning-contract taxonomy,
 organizational chart, or a management-process certification. This pass does
 not certify a learner or close ms4j.
 
+## Breadth pass 375 — ISO/IEC 22237-1:2021 general-concepts scope
+
+**Review date:** 2026-08-18. Three module-2 items were narrowed to the
+current ISO Online Browsing Platform abstract for ISO/IEC 22237-1:2021. The
+published edition describes general principles for the ISO/IEC 22237 series,
+defines common terminology, parameters and reference models for functional
+elements and their accommodation, and specifies a classification system based
+on availability, security and energy efficiency over the planned lifetime. The
+abstract explicitly excludes selection of IT/network telecommunications
+equipment, software, and associated configuration issues. No PDF or standard
+body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m02-q086 | Standards and guidelines landscape | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — common terminology, parameters and reference-model scope is explicit |
+| m02-q089 | International vs national standards | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — availability/security/energy-efficiency classification criteria are explicit |
+| m02-q204 | International vs national standards | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — IT/network equipment, software and configuration exclusion is explicit |
+
+The pass does not infer owner specifications, AHJ/code precedence, national
+adoption practice, software architecture, multi-site service-availability
+math, safety/EMC compliance, or a data-centre classification certification.
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
