@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Cleaning
-# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current management-and-operations catalog does not expose the exact item-level cleaning proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: 29 CFR 1910.22 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-D/section-1910.22
+# PASS: the current public eCFR text requires workplaces and walking-working
+# surfaces to be kept clean, orderly, and sanitary and free of listed hazards.
 id = "m15-q204"
 kind = "single-select"
 module = 15
-stem = "Data centre cleaning programs should emphasize:"
+stem = "Under 29 CFR 1910.22, an employer must ensure that places of employment and walking-working surfaces are:"
 choices = [
-  "Wet mopping every PDU interior weekly with unknown chemicals",
-  "Using compressed air to blow debris into equipment intakes as routine",
-  "Never cleaning under raised floors",
-  "Methods and materials that control dust/contaminants without damaging equipment or creating electrical hazards"
+  "Kept in a clean, orderly, and sanitary condition and maintained free of hazards such as leaks and spills",
+  "Used for storage whenever a walkway is convenient",
+  "Left wet after cleaning without regard to drainage",
+  "Inspected only after an injury occurs"
 ]
-correct = "D"
-explanation = "Cleaning is controlled work near electronics—technique matters."
+correct = "A"
+explanation = "The current public eCFR text requires places of employment and walking-working surfaces to be clean, orderly, and sanitary and free of hazards such as leaks and spills."
 topic_ids = ["m15-cleaning", "m15-ops-security"]
 objective_ids = []
 bloom = "apply"

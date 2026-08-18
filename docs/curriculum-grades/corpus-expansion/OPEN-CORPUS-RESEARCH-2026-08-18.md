@@ -906,6 +906,20 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 248 — eCFR housekeeping receipt
+
+**Review date:** 2026-08-18. Current public eCFR text at 29 CFR 1910.22
+requires places of employment, passageways, storerooms, service rooms, and
+walking-working surfaces to be clean, orderly, and sanitary; it also requires
+walking-working surfaces to be free of hazards such as leaks and spills. The
+module-15 cleaning item is rewritten to that bounded public-code statement.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m15-q204 | Cleaning | 29 CFR 1910.22 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-D/section-1910.22 | **PASS** — clean/orderly/sanitary and hazard-free surface requirements are explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 247 — eCFR electrical labelling receipts
 
 **Review date:** 2026-08-18. Current public eCFR text at 29 CFR 1910.303(f)
