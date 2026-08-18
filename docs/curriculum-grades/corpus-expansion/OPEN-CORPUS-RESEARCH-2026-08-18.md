@@ -1044,6 +1044,22 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 47 — CDCP industrial-adjacency receipt
+
+**Review date:** 2026-08-18. M03 item `m03-q208` now carries the official
+ISO/IEC 22237-2:2024 catalog receipt for building construction, environmental
+risks, and site configuration. It remains BLOCKED because the public catalog
+does not expose the exact industrial-neighbor hazard proposition. No PDF was
+fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m03-q208 | Site location selection criteria | ISO/IEC 22237-2:2024 — https://webstore.iec.ch/en/publication/92577 | **BLOCKED** — exact industrial-neighbor hazard proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 46 — CDCP grid, growth, and emerging-site receipts
 
 **Review date:** 2026-08-18. Thirteen remaining M03 rows now carry official
