@@ -901,6 +901,21 @@ No extinguishing-agent preference, white-space residue rule, travel distance, or
 AHJ adoption decision is inferred. This pass does not certify a learner or close
 ms4j.
 
+## Breadth pass 354 — ISO 16484-4 BMS control-application scope
+
+**Review date:** 2026-08-18. `bank-m14-q129` was narrowed from unsupported BMS
+setpoint change-control advice to the public preview of ISO 16484-4:2025, which
+names HVAC and integrated plant/room control among BACS control applications.
+The exact public CDCP heading remains **Building Management System (BMS)**. No
+PDF or standard body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q129 | Building Management System (BMS) | ISO 16484-4:2025 — https://www.iso.org/standard/85751.html | **PASS** — HVAC and integrated plant/room control are explicit |
+
+No setpoint value, change-control workflow, commissioning test, or operating
+sequence is inferred. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported
