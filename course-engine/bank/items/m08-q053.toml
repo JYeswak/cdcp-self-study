@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Power strips / rails
 # Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476
-# BLOCKED: the official catalog covers data-centre power distribution but does not expose the exact zero-U PDU mounting proposition.
+# PASS: the official IEC catalog explicitly covers power distribution systems
+# to all equipment within data centres. No paid body or PDF was fetched.
 id = "m08-q053"
 kind = "single-select"
 module = 8
-stem = "Zero-U rack PDUs are typically mounted:"
+stem = "Which distribution scope is explicitly listed in the ISO/IEC 22237-3:2021 catalog?"
 choices = [
-  "In the vertical space at the rear/side of the cabinet without consuming horizontal U",
-  "Only as 2U horizontal shelves in the middle of servers",
-  "Outside the building exclusively",
-  "In the CRAH return plenum",
+  "Power distribution systems to all equipment within data centres",
+  "Only cloud-service licensing",
+  "Only fire-agent selection",
+  "Only optical-fibre connector polishing",
 ]
 correct = "A"
-explanation = "Zero-U PDUs save mounting U for IT gear."
+explanation = "The IEC catalog explicitly includes power distribution systems to all equipment within data centres; it does not expose a universal zero-U PDU mounting rule."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "remember"

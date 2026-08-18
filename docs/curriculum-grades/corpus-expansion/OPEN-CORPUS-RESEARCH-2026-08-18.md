@@ -990,6 +990,27 @@ The pass does not infer a universal blanking-panel rule, brush-strip design,
 cabinet perforation percentage, vendor thermal rating, or facility cooling
 performance. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 359 — IEC power distribution, containment, and cabinet security scopes
+
+**Review date:** 2026-08-18. Three module-8 items were narrowed to official
+catalog claims. `m08-q053` now uses ISO/IEC 22237-3:2021 for power-distribution
+systems to all data-centre equipment. `m08-q062` uses IEC 62966-2:2020 for
+aisle-containment air flow, air separation, air cooling, and leakage
+measurement/classification. `m08-q202` uses IEC 61587-6:2021 for security
+aspects and security-performance levels of indoor-cabinet mechanical
+construction in the IEC 60917/60297 series. No PDF or standard body was
+fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m08-q053 | Power strips / rails | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **PASS** — power-distribution systems to all data-centre equipment are explicit |
+| m08-q062 | Types of racks | IEC 62966-2:2020 — https://webstore.iec.ch/en/publication/29770 | **PASS** — containment air-flow/separation/cooling and leakage measurement/classification are explicit |
+| m08-q202 | Types of racks | IEC 61587-6:2021 — https://webstore.iec.ch/en/publication/65980 | **PASS** — indoor-cabinet security aspects/performance levels are explicit |
+
+The pass does not infer zero-U mounting, A/B outlet diversity, switched-outlet
+control, hot/cold rack orientation, an open-frame trade-off, or a site
+security approval. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 351 — ISO/IEC 22237-6 physical-security scope
 
 **Review date:** 2026-08-18. `m13-q215` was narrowed from an unsupported

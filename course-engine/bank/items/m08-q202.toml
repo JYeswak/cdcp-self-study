@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Types of racks
-# Official catalog/preview receipt: TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the official TIA catalog identifies the current data-centre standard but does not expose this open-frame-versus-enclosed-cabinet trade-off.
+# Official catalog/preview receipt: IEC 61587-6:2021 — https://webstore.iec.ch/en/publication/65980
+# PASS: the current IEC catalog explicitly covers security aspects and security
+# performance levels of the mechanical construction of indoor cabinets.
 id = "m08-q202"
 kind = "single-select"
 module = 8
-stem = "Open-frame racks versus enclosed cabinets trade off:"
+stem = "IEC 61587-6:2021 specifies security aspects and security performance levels for:"
 choices = [
-  "Zero need for grounding on open frames",
-  "Service access and airflow openness against physical security, exhaust control, and aesthetics/containment interfaces",
-  "Automatic higher fire resistance always for open frames",
-  "Enclosed cabinets never needing cable management"
+  "The mechanical construction of indoor cabinets in the IEC 60917 and IEC 60297 series",
+  "Only cloud-software service containers",
+  "Only generator-fuel storage tanks",
+  "Only utility interconnection agreements"
 ]
-correct = "B"
-explanation = "Frame vs cabinet is an access/security/airflow trade, not a free lunch."
+correct = "A"
+explanation = "The IEC catalog covers security aspects and security-performance levels for the mechanical construction of indoor cabinets in the IEC 60917 and IEC 60297 series; it does not define a universal open-frame/enclosed-cabinet trade-off."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "understand"
