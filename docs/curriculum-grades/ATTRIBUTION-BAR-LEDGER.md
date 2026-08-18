@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 459 PASS; 498 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 460 PASS; 497 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -74,7 +74,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m02-q069 | 2 | ISO/IEC 22237 series awareness | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.iso.org/standard/78550.html | PASS |
 | m02-q070 | 2 | International vs national standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact international-versus-national distinction is not exposed |
 | m02-q071 | 2 | Standards for sub-components | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/92577 | BLOCKED — ISO/IEC 22237-2 catalog receipt; exact sub-component standards proposition is not exposed |
-| m02-q072 | 2 | Standards and guidelines landscape | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | BLOCKED — ISO/IEC 22237-1 catalog receipt; exact standards-and-guidelines landscape proposition is not exposed |
+| m02-q072 | 2 | Standards and guidelines landscape | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78550.html?browse=tc | PASS — current ISO preview defines common terminology, parameters, and reference models for data centres |
 | m02-q073 | 2 | TIA-942 Rated vs Uptime Tier (naming discipline) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/ | PASS |
 | m02-q074 | 2 | TIA-942 Rated vs Uptime Tier (naming discipline) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/ | PASS |
 | m02-q075 | 2 | AHJ/code vs voluntary standard | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/1/2024 | BLOCKED — NFPA 1 catalog receipt; exact AHJ-versus-voluntary-guidance proposition is not exposed |

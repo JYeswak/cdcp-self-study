@@ -870,6 +870,20 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 298 — ISO general-concepts terminology preview claim
+
+**Review date:** 2026-08-18. The current official ISO catalog/preview for
+ISO/IEC 22237-1:2021 was checked without opening or fetching a PDF. Its public
+abstract says that Part 1 defines common aspects of data centres including
+terminology, parameters, and reference models, addressing the size and
+complexity of their intended purpose.
+
+| Items | Public CDCP heading | Current official catalog/preview | Bounded result |
+|---|---|---|---|
+| m02-q072 | Standards and guidelines landscape | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — asks only for the abstract's common-aspects definition; no jurisdictional code hierarchy is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 297 — TIA topology-size applicability preview claim
 
 **Review date:** 2026-08-18. The current official TIA-942-C page was checked

@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
 # https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog exposes a data-centre standards family, but not this
-# exact standards-and-guidelines landscape proposition.
+# PASS: the current ISO preview explicitly says that Part 1 defines common
+# aspects including terminology, parameters, and reference models.
 id = "m02-q072"
 kind = "single-select"
 module = 2
-stem = "Which is the most accurate “landscape” view of data-centre guidance?"
+stem = "What common aspects does ISO/IEC 22237-1:2021 explicitly define?"
 choices = [
-  "One global document covers every jurisdiction and product",
-  "A mix of codes, facility series (TIA/ISO/EN), product standards, and owner specs—with AHJ as the legal floor",
-  "Only blog posts are authoritative",
-  "Only PUE marketing scores are required",
+  "Terminology, parameters, and reference models for data centres",
+  "Only product marketing scores",
+  "Only one jurisdiction's building permits",
+  "Only network software configuration files",
 ]
-correct = "B"
-explanation = "Practitioners navigate codes, facility standards series, product standards, and contracts under AHJ authority."
+correct = "A"
+explanation = "The current ISO preview explicitly says Part 1 defines common aspects including terminology, parameters, and reference models; it does not establish the broader code-and-guideline landscape proposition."
 topic_ids = ["m02-standards-guidelines", "m02-code-vs-standard"]
 objective_ids = []
 bloom = "understand"
