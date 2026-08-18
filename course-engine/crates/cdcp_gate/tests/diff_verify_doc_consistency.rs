@@ -779,6 +779,21 @@ fn unicode_nd_milestone_digits_are_byte_identical_and_known_bad_is_red() {
     assert!(out.contains("    M9: DONE ("), "{out}");
 }
 
+/// Python's `_RANGE` uses `\s*` between the captured numbers and the dash.
+/// The known-bad mutant uses Rust's narrower whitespace predicate, so the
+/// information-separator fixture parses in Python but not Rust and REDs the
+/// differential comparison.
+#[test]
+fn unicode_regex_whitespace_in_milestone_ranges_is_byte_identical_and_known_bad_is_red() {
+    let s = Spec::clean();
+    let separator = '\u{1f}';
+    s.replace("CHARTER.md", "M0–M2", &format!("M1{separator}–M2"));
+    s.replace("README.md", "M0–M2", &format!("M1{separator}–M2"));
+    let out = assert_byte_exact("unicode regex whitespace", Some(s.path()));
+    assert!(out.contains("    M1: DONE ("), "{out}");
+    assert!(out.contains("    M2: DONE ("), "{out}");
+}
+
 /// The heading of a status-bearing section supplies the status for a table with
 /// no Status column — the PHASE-NEXT shape.
 #[test]

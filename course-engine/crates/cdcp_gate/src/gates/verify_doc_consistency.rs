@@ -203,6 +203,12 @@ const BRIDGE: usize = 60;
 
 // ═══════════════════════════ Python primitives ═════════════════════════════
 
+/// Python's Unicode `\s`/`str.strip()` whitespace, including the four ASCII
+/// information separators that Rust's `char::is_whitespace` omits.
+fn py_space(c: char) -> bool {
+    c.is_whitespace() || ('\u{1c}'..='\u{1f}').contains(&c)
+}
+
 /// Python's `\w` for `str` patterns: alphanumeric plus underscore.
 fn is_word_char(c: char) -> bool {
     c.is_alphanumeric() || c == '_'
@@ -382,7 +388,7 @@ fn digits_at(cs: &[char], mut i: usize) -> (usize, String) {
 }
 
 fn skip_ws(cs: &[char], mut i: usize) -> usize {
-    while i < cs.len() && cs[i].is_whitespace() {
+    while i < cs.len() && py_space(cs[i]) {
         i += 1;
     }
     i
