@@ -1044,6 +1044,79 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 119 — power continuity, UPS, and stored-energy boundaries
+
+**Date:** 2026-08-18
+**Scope:** M06, M08, M09, M11, M12, M14, and M15 questions about emergency
+and standby power, UPS continuity, stored-energy systems, transfer/protection,
+maintenance/testing, power quality, battery or converter hazards, and
+return-to-service evidence. Existing public EPI/CDCS/CDFOS/CDFOM headings are
+retained; these receipts do not create a new heading or taxonomy.
+
+**Official public receipts:**
+
+- [NFPA 110, 2025](https://link.nfpa.org/all-publications/110/2025), **Standard
+  for Emergency and Standby Power Systems**, is the current NFPA preview entry
+  used for emergency/standby-system boundaries. The public preview identifies
+  the edition and title; no paid body or PDF was fetched.
+- [NFPA 111, 2025](https://link.nfpa.org/all-publications/111/2025), **Standard
+  on Stored Electrical Energy Emergency and Standby Power Systems**, is the
+  current NFPA preview entry for stored-energy emergency power. NFPA’s public
+  preview/index exposes the system classification, energy source/converter,
+  transfer/protection, installation/environment, and routine maintenance and
+  operational-testing chapter structure; exact paid clauses remain BLOCKED.
+- [IEC 62040-1:2017+AMD1:2021+AMD2:2022 CSV](https://webstore.iec.ch/en/publication/80573)
+  is IEC’s current valid consolidated catalog entry for **Uninterruptible
+  power systems (UPS) — Part 1: Safety requirements**, Edition 2.2. Its public
+  abstract bounds movable, stationary, fixed, or built-in UPS with an energy
+  storage device and safety risks including fire, electric shock, thermal,
+  energy, and mechanical hazards during operation and service.
+- [IEC 62040-3:2021](https://webstore.iec.ch/en/publication/60140), **UPS —
+  Part 3: Method of specifying the performance and test requirements**, is the
+  current IEC catalog entry for UPS performance/test boundaries and continuity
+  of load power. It is used for test-evidence vocabulary, not as proof that a
+  local UPS passed a test.
+- [IEEE SA 3000 Standards Collection](https://standards.ieee.org/products-programs/ieee-3000/)
+  is the official public IEEE index for industrial and commercial power
+  systems. It places power analysis, grounding, protection/coordination,
+  energy/standby power, reliability, and maintenance/operations/safety in the
+  3000 collection and lists the public titles **IEEE 3007.1-2010 Recommended
+  Practice for the Operation and Management of Industrial and Commercial Power
+  Systems**, **IEEE 3007.2-2010 Recommended Practice for the Maintenance of
+  Industrial and Commercial Power Systems**, and **IEEE 3007.3-2012 Recommended
+  Practice for Electrical Safety in Industrial and Commercial Power Systems**.
+  The official index is the edition/title pin; the paid standards remain
+  catalog-only.
+
+**Currency boundary:** The older [IEC 62040-1:2008 catalog page](https://webstore.iec.ch/en/publication/6339)
+is explicitly withdrawn and points to the valid 2017 consolidated edition;
+it is not used for a current-edition pass. The IEC page also shows Edition 3
+under development, so that future edition is not substituted for the current
+valid Edition 2.2. NFPA preview pages are catalog/preview receipts only.
+
+**Adversarial boundary:** A standby rating, UPS nameplate, stored-energy
+classification, or supplier test report does not prove that the installed
+system carried the intended load, transferred safely, maintained required
+power quality, or returned to service under local approval. A maintenance or
+exercise record must identify the asset/configuration, test conditions,
+observed result, responsible authority, exceptions, and recovery decision.
+No universal ride-through time, generator capacity, fuel duration, battery
+replacement interval, transfer time, or power-quality limit is invented.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M06 | Link emergency/standby sources, transfer/protection, UPS/stored energy, maintenance tests, and return-to-service evidence to the named electrical asset | NFPA/IEC/IEEE receipts do not prove local AHJ acceptance or a successful transfer |
+| M08 | Preserve UPS/power-distribution asset identity, firmware/configuration baseline, battery/converter compatibility, test evidence, and spares traceability | A UPS product standard is not an installed-system commissioning certificate |
+| M09 | Treat cooling controls and water/thermal equipment as load and recovery dependencies during power loss, transfer, bypass, and restart | Power continuity does not imply a safe BMS command or stable thermal conditions |
+| M11/M14 | Keep power-control communications, logs, protection settings, maintenance access, and safe fallback tied to the approved change/test window | IEEE maintenance/operations titles do not create an OLA or handover taxonomy |
+| M12 | Coordinate emergency power with alarm, suppression, egress, notification, impairment, and AHJ evidence | Emergency power availability is not fire/life-safety approval |
+| M15 | Capture competence, supplier obligations, test findings, exceptions, replacement planning, and lessons learned for emergency/UPS assets | Completing a test or track does not certify a learner or facility |
+
+**Bounded result:** This pass adds official current catalog/preview anchors for
+power continuity and stored-energy questions, records stale-edition handling,
+and keeps paid exact clauses BLOCKED. No bank rows, ledger dispositions,
+manifest, topics, beads, gate, oracle, or credential state changed.
+
 ## Breadth pass 118 — supply-chain, firmware, spares, and vendor-access evidence
 
 **Date:** 2026-08-18
