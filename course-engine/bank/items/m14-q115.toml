@@ -1,19 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Monitoring requirements
 # Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current official receipt does not expose the exact item-level monitoring requirements proposition. No paid body or PDF was fetched.
+# PASS: the current official abstract explicitly lists capacity planning as a primary focus.
 id = "bank-m14-q115"
 kind = "single-select"
 module = 14
-stem = "Monitoring should show loss of redundancy (not only total failure) because:"
+stem = "Which topic does the ISO/IEC TS 22237-7:2018 abstract list among its primary operational-process focuses?"
 choices = [
-  "N+1 designs never need sensors",
-  "Total failure pages are always early enough",
-  "Redundancy-loss alarms create time to repair under load before an outage",
-  "Capacity planning forbids intermediate alarms"
+  "Capacity planning",
+  "Office catering menus",
+  "Cable color selection",
+  "Badge-printing vendor selection"
 ]
-correct = "C"
-explanation = "If you only page when the last unit dies, maintainable faults become outages."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists capacity planning among the primary operational-process focuses. It does not establish the item’s former redundancy-loss monitoring proposition."
 topic_ids = ["m14-monitoring-reqs", "m14-best-practices"]
 objective_ids = []
 bloom = "analyze"

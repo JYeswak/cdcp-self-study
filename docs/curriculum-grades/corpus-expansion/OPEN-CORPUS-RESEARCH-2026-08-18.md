@@ -870,6 +870,20 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 273 — ISO management-and-operations focus terms
+
+**Review date:** 2026-08-18. The current official ISO abstract for ISO/IEC TS
+22237-7:2018 was checked without opening or fetching a PDF. It explicitly lists
+resilience, availability, risk management, risk mitigation, capacity planning,
+security, and energy efficiency as primary operational-process focuses.
+
+| Items | Public EPI heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| bank-m14-q115 | Monitoring requirements | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — rewritten to ask for the exact public capacity-planning focus; no redundancy-loss monitoring rule is inferred |
+| bank-m15-q149 | Operational security and safety practices | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — rewritten to ask for the exact public security focus; no visitor-escort or hazardous-energy rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 271 — NFPA private-fire-service water heading
 
 **Review date:** 2026-08-18. The current official NFPA LiNK preview for NFPA

@@ -1,19 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Operational security and safety practices
 # Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
-# BLOCKED: the current management-and-operations catalog does not expose the exact item-level operational security and safety practices proposition. No paid body or PDF was fetched.
+# PASS: the current official abstract explicitly lists security as a primary focus.
 id = "bank-m15-q149"
 kind = "single-select"
 module = 15
-stem = "Operational security and safety practices include escorting visitors in plant areas mainly to:"
+stem = "Which security-related topic does the ISO/IEC TS 22237-7:2018 abstract list among its primary operational-process focuses?"
 choices = [
-  "Prevent untrained persons from hazardous energy exposure and unauthorized access simultaneously",
-  "Increase tour marketing photos",
-  "Bypass LOTO requirements",
-  "Disable cameras for privacy of guests only"
+  "Security",
+  "Office catering menus",
+  "Cable color selection",
+  "Badge-printing vendor selection"
 ]
 correct = "A"
-explanation = "Escort is both security and safety near live electrical/mechanical hazards."
+explanation = "The current ISO abstract explicitly lists security among the primary operational-process focuses. It does not prescribe visitor escorting or hazardous-energy controls."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "understand"

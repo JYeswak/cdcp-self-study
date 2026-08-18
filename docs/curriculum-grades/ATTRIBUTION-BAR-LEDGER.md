@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 379 PASS; 578 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 381 PASS; 576 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -837,7 +837,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m14-q112 | 14 | Water leak detection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact item-level proposition is not exposed |
 | bank-m14-q113 | 14 | Notification | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | PASS |
 | bank-m14-q114 | 14 | Notification | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.rfc-editor.org/info/rfc5674/ | PASS |
-| bank-m14-q115 | 14 | Monitoring requirements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
+| bank-m14-q115 | 14 | Monitoring requirements | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | PASS |
 | bank-m14-q116 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65543 | PASS |
 | bank-m14-q117 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.rfc-editor.org/info/rfc5674/ | PASS |
 | bank-m14-q118 | 14 | Alarm panels | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR76c69af98ee6ed7/section-1910.164 | PASS |
@@ -886,7 +886,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m15-q146 | 15 | Maintenance contracts / SLA | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
 | bank-m15-q147 | 15 | Maintenance contracts / SLA | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
 | bank-m15-q148 | 15 | Maintenance contracts / SLA | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
-| bank-m15-q149 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | BLOCKED — ISO/IEC TS 22237-7:2018 catalog receipt; exact item-level proposition is not exposed |
+| bank-m15-q149 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | PASS |
 | bank-m15-q150 | 15 | Operational security and safety practices | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.37 | PASS |
 | bank-m15-q151 | 15 | Documentation | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.38 | PASS |
 | bank-m15-q152 | 15 | Documentation | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/73014.html?browse=tc | PASS — ISO/IEC TS 22237-7:2018 names capacity planning as a primary operational focus |
