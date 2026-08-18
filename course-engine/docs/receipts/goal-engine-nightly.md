@@ -527,9 +527,35 @@ status: BLOCKED_WITH_RECEIPT
   15c8909a5472911e9c1f609ef4d13238a4b7207e` has no run). The historical
   37472-line result is a different SHA and does not authorize a ceiling change.
 
+## Slice 22 — `validate_grounding` adjacent unassigned Unicode `repr(str)` parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `91c3af3858d36090baa7b8be5852939afff0f917`
+- Change: mirror Python 3.11's non-printable `repr(str)` treatment of the
+  adjacent unassigned U+0380–U+0383 range in `cdcp_bank::validate_grounding`;
+  the Python oracle remains present and unchanged.
+- Fixture: the existing `the_argument_parser_matches_byte_for_byte`
+  differential in `crates/cdcp_gate/tests/diff_validate_grounding.rs`, switched
+  its invalid `--min-overlap` value to U+0380.
+- Known-bad RED: before the range was added, Python's argparse diagnostic
+  emitted `invalid float value: '\\u0380'` while Rust emitted raw U+0380; the
+  byte-exact assertion failed.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_validate_grounding the_argument_parser_matches_byte_for_byte -- --exact`
+  — 1 passed after the fix.
+- Full grounding differential: 25/25 passed.
+- Grounding unit proof: `cargo test --locked -p cdcp_bank validate_grounding` —
+  40 passed.
+- Local `gate_shrink`: 37251 lines / 47 files; digest
+  `fnv1a64:65647a7c5cbe8ffc`; 32 lines below ceiling 37283; registry check
+  GREEN. The ceiling was not edited.
+- CI for this SHA: unavailable (`gh run list --commit
+  91c3af3858d36090baa7b8be5852939afff0f917` has no run). The historical
+  37472-line result is a different SHA and does not authorize a ceiling change.
+
 ## Blocker audit — audited code tree
 
-- Audited code SHA: `15c8909a5472911e9c1f609ef4d13238a4b7207e`; the receipt
+- Audited code SHA: `91c3af3858d36090baa7b8be5852939afff0f917`; the receipt
   update below changes no gate source.
 - The live worktree measures 37251 lines / 47 files, digest
   `fnv1a64:65647a7c5cbe8ffc`. Pane-owned dirty files were preserved and are not
@@ -538,9 +564,9 @@ status: BLOCKED_WITH_RECEIPT
   37472 / 47, digest `fnv1a64:67f95ea56dbda888`. Its latest completed check run
   (`32095229956`) failed at that old SHA's gate-shrink count; it is not a
   same-SHA result for this branch.
-- `gh run list --commit 15c8909a5472911e9c1f609ef4d13238a4b7207e` returns no
-  run. Local proof includes the new coverage known-bad differential (1/1),
-  coverage units (10/10), and a GREEN registry-check.
+- `gh run list --commit 91c3af3858d36090baa7b8be5852939afff0f917` returns no
+  run. Local proof includes the new grounding known-bad differential (1/1),
+  grounding units (40/40), and a GREEN registry-check.
 - This audit adds no parity slice and makes no certification claim. The
   remaining blocker is external: a CI run on the current SHA is required.
   `check.sh`/workflow changes and publishing the shared branch are outside
@@ -551,8 +577,8 @@ status: BLOCKED_WITH_RECEIPT
 BLOCKED_WITH_RECEIPT: the local and proof conditions are satisfied, but the
 external CI leg cannot be observed on the current code SHA.
 
-- Code SHA: `15c8909a5472911e9c1f609ef4d13238a4b7207e`; `gh run list --commit
-  15c8909a5472911e9c1f609ef4d13238a4b7207e` returned no runs.
+- Code SHA: `91c3af3858d36090baa7b8be5852939afff0f917`; `gh run list --commit
+  91c3af3858d36090baa7b8be5852939afff0f917` returned no runs.
 - Local `gate_shrink`: 37251 lines / 47 files; digest
   `fnv1a64:65647a7c5cbe8ffc`; ceiling remains exactly 37283.
 - Exact historical CI discrepancy retained for `bd-engine-not-gate-ar39.15`:
@@ -570,16 +596,16 @@ external CI leg cannot be observed on the current code SHA.
 
 ## Final parity sweep and blockers
 
-- The read-only Unicode sweep found the U+0378–U+0379 `repr(str)` range present
-  in the edited `verify_bank`, `verify_coverage`, `validate_grounding`,
-  `verify_orphans`, and `verify_doc_consistency` implementations; `verify_bank`
-  now also covers adjacent U+0380–U+0383. Their differential fixtures remain
-  backed by the Python files on disk.
+- The read-only Unicode sweep found U+0378–U+0379 present in the edited
+  `verify_bank`, `verify_coverage`, `validate_grounding`, `verify_orphans`, and
+  `verify_doc_consistency` implementations; `verify_bank`, `verify_coverage`,
+  and `validate_grounding` now also cover adjacent U+0380–U+0383. Their
+  differential fixtures remain backed by the Python files on disk.
 - The only remaining matching omission is in
   `crates/cdcp_gate/src/gates/verify_injection_count.rs`'s `py_is_printable`
   helper. That file is pane-owned and explicitly excluded from this work; it
   was not edited, and no extraction was taken from it.
-- `gh run list --commit dc745442d2f48fc6ab62c3297e6d30f285b51597` returned no
+- `gh run list --commit 91c3af3858d36090baa7b8be5852939afff0f917` returned no
   runs, so same-SHA CI line count and GREEN status remain unavailable. The historical 37472-line remote-main
   result is a different SHA and is not used as a same-SHA claim.
 - Socraticode was unavailable in this environment; the local fallback anchor
