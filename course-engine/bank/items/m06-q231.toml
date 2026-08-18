@@ -1,19 +1,21 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Batteries
-# Official catalog/preview receipt: IEC 62485-5:2020 — https://webstore.iec.ch/en/publication/29086
-# BLOCKED: the official catalog does not expose the exact lithium-versus-VRLA footprint/lifecycle proposition.
+# Official catalog/preview receipt: IEC 62619:2022 — https://webstore.iec.ch/en/publication/64073
+# PASS: the current IEC catalog explicitly includes industrial secondary lithium
+# batteries in stationary UPS and energy-storage applications. No paid body or
+# PDF was fetched.
 id = "m06-q231"
 kind = "single-select"
 module = 6
-stem = "Lithium-ion UPS battery systems are often attractive versus traditional VRLA because of:"
+stem = "IEC 62619:2022 specifies requirements and tests for safe operation of secondary lithium cells and batteries used in industrial applications, including:"
 choices = [
-  "Zero need for any battery management",
-  "Immunity from all fire and thermal concerns",
-  "Automatic 2N topology",
-  "Higher energy density and different footprint and lifecycle trade-offs that remain design-specific"
+  "Stationary applications such as telecom, UPS, electrical energy storage, utility switching, and emergency power",
+  "Only consumer toys and portable phones, excluding stationary systems",
+  "Only software licenses, with no battery or cell scope",
+  "No industrial applications; the standard covers only vehicle batteries"
 ]
-correct = "D"
-explanation = "Li-ion offers density and lifecycle trade-offs, not magic immunity from engineering."
+correct = "A"
+explanation = "The IEC catalog lists stationary telecom, UPS, electrical energy storage, utility switching, emergency power, and similar applications within the industrial scope. It does not establish an energy-density, footprint, lifecycle, or VRLA comparison."
 topic_ids = ["m06-batteries", "m06-ups"]
 objective_ids = []
 bloom = "understand"

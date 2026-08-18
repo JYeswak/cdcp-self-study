@@ -906,6 +906,21 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 231 — IEC 62619 industrial lithium-battery application scope
+
+**Review date:** 2026-08-18. The current IEC catalog for IEC 62619:2022
+specifies requirements and tests for safe operation of secondary lithium cells
+and batteries used in industrial applications. Its examples include stationary
+telecom, UPS, electrical energy storage, utility switching, emergency power,
+and similar applications. The item is bounded to that application scope; no
+energy-density, footprint, lifecycle, thermal, or VRLA comparison is inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q231 | Batteries | IEC 62619:2022 — https://webstore.iec.ch/en/publication/64073 | **PASS** — industrial/stationary lithium-battery applications are explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies
