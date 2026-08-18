@@ -1124,6 +1124,23 @@ security of environmental-control systems.
 BMS/DCIM product boundaries, data-hygiene workflows, protocol integration, and
 alarm prioritization remain BLOCKED. No standard body or PDF was fetched. This
 pass does not certify a learner or close ms4j.
+
+## Breadth pass 202 — IEC harmonic-current boundary
+
+**Review date:** 2026-08-18. The current consolidated IEC 61000-3-12 page
+describes limits for harmonic currents produced by equipment connected to public
+low-voltage systems, including the applicable input-current range. That receipt
+supports a bounded power-quality review question about checking injected
+harmonic current and its limits. Transformer heating, generator de-rating,
+neutral-conductor stress, and site-specific compliance remain outside this
+receipt.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m06-q224 | Power quality parameters | IEC 61000-3-12:2011+A1:2021 CSV — https://webstore.iec.ch/en/publication/69084 | **PASS** — harmonic-current injection into public low-voltage systems and applicable limits are explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or
+close ms4j.
 ## Breadth pass 176 — current facility provisioning and growth forecasting
 
 **Review date:** 2026-08-18. ISO/IEC TS 8236-2:2025, Edition 1, is a current
