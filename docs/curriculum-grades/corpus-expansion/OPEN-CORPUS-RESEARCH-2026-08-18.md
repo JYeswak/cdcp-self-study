@@ -870,6 +870,25 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 309 — ISO/IEC 22237-1 classification and facility-scope claims
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform preview
+for ISO/IEC 22237-1:2021, Edition 1, was checked without opening or fetching a
+PDF. Its public abstract names availability, security, and energy-efficiency
+enablement as classification criteria; describes the facilities and
+infrastructures required to support data centres; and identifies business risk
+and operating cost analysis as enabling application of the classification.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m01-q060 | Importance of a data centre | ISO/IEC 22237-1:2021, Edition 1 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — asks only for the three named classification criteria |
+| m01-q212 | Importance of a data centre | ISO/IEC 22237-1:2021, Edition 1 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — asks only for the named risk/operating-cost analysis |
+| m03-q114 | Facility criteria | ISO/IEC 22237-1:2021, Edition 1 — https://www.iso.org/standard/78550.html?browse=tc | **PASS** — asks only for the public facility/infrastructure support scope |
+
+Outage-cause taxonomies, redundancy labels, EN 50600 comparisons, and
+interconnection propositions remain BLOCKED because this preview does not
+expose those exact claims. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 308 — TIA-942-C and ISO/IEC 22237-4 public abstract claims
 
 **Review date:** 2026-08-18. Official HTML catalog/abstract pages were checked

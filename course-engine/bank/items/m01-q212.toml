@@ -3,20 +3,20 @@
 # https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
 # Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
 # https://www.iso.org/standard/78550.html?browse=tc
-# BLOCKED: the catalog exposes classification and risk analysis, but not this
-# exact vendor-availability-claim pinning proposition.
+# PASS: the public abstract explicitly names business risk and operating cost
+# analysis as enabling application of the classification.
 id = "m01-q212"
 kind = "single-select"
 module = 1
-stem = "A vendor says “we are 99.99%.” What do you pin before you treat the number as a claim?"
+stem = "What analysis does ISO/IEC 22237-1:2021 identify as enabling application of its data-centre classification?"
 choices = [
-  "The Tier plaque on the wall — four nines is Tier III",
-  "Scope (per service vs per site vs per component), whether planned work counts, and whose clock (IT telemetry vs hall/EPMS vs public tracker); four nines on a continuous year is ~52.6 minutes, not a sticker",
-  "Convert 99.99% into 52.6 minutes and stop — scope is marketing",
-  "Whether they used the 9 hours / 1 hour memory aid",
+  "Business risk and operating cost analysis",
+  "A marketing comparison of uptime stickers only",
+  "A rack-colour and cable-label survey",
+  "A software feature inventory with no facility or business context",
 ]
-correct = "B"
-explanation = "A nines number without scope is marketing. Pin per-what, planned vs unplanned, and whose clock. Lead with 52.6 minutes, not the slogan, and do not crosswalk nines onto a plaque."
+correct = "A"
+explanation = "The ISO/IEC 22237-1:2021 public abstract says business risk and operating cost analysis enable application of the classification."
 topic_ids = ["m01-importance"]
 objective_ids = ["obj-m01-nines-scope"]
 bloom = "apply"
