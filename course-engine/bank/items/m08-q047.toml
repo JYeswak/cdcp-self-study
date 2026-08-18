@@ -1,19 +1,20 @@
 # Original CDCP educational item — bank expansion (module 8)
 # Public syllabus heading: Types of racks
-# Official catalog/preview receipt: ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html?browse=tc
-# BLOCKED: the official catalog covers data-centre physical security but does not expose the exact open-frame security comparison.
+# Official catalog/preview receipt: IEC 61587-6:2021 — https://webstore.iec.ch/en/publication/65980
+# PASS: the current IEC catalog explicitly covers security aspects and security
+# performance levels for the mechanical construction of indoor cabinets.
 id = "m08-q047"
 kind = "single-select"
 module = 8
-stem = "Four-post open frames offer excellent airflow/access but typically provide:"
+stem = "IEC 61587-6:2021 specifies:"
 choices = [
-  "Better locks than any enclosure",
-  "Minimal physical security compared with locked cabinets",
-  "No need for floor loading checks",
-  "Built-in fire suppression only",
+  "Security aspects and security performance levels for the mechanical construction of indoor cabinets",
+  "Only cooling-water chemistry and fire-agent selection",
+  "Only software authentication and network segmentation",
+  "A universal ranking of open frames over all locked cabinets"
 ]
-correct = "B"
-explanation = "Open frames need perimeter/cage security if the room is multi-access."
+correct = "A"
+explanation = "The current IEC catalog states that IEC 61587-6 specifies security aspects and security performance levels of indoor-cabinet mechanical construction in accordance with IEC 60917 and IEC 60297. It does not establish a universal open-frame-versus-cabinet ranking."
 topic_ids = ["m08-types", "m08-security"]
 objective_ids = []
 bloom = "understand"

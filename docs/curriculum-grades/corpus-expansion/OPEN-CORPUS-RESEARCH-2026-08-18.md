@@ -906,6 +906,20 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 244 — IEC 61587-6 indoor-cabinet security scope
+
+**Review date:** 2026-08-18. The current IEC catalog for IEC 61587-6:2021
+specifies security aspects and security performance levels for the mechanical
+construction of indoor cabinets, in accordance with IEC 60917 and IEC 60297.
+The item is bounded to that catalog scope and does not invent a universal
+open-frame-versus-locked-cabinet ranking.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m08-q047 | Types of racks | IEC 61587-6:2021 — https://webstore.iec.ch/en/publication/65980 | **PASS** — indoor-cabinet mechanical-construction security aspects and performance-level scope is explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 231 — IEC 62619 industrial lithium-battery application scope
 
 **Review date:** 2026-08-18. The current IEC catalog for IEC 62619:2022

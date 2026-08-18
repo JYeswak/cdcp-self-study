@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 304 PASS; 653 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 305 PASS; 652 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -431,7 +431,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m08-q044 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | BLOCKED — IEC 60297-3-105:2008 catalog receipt; exact U-numbering convention is not exposed |
 | m08-q045 | 8 | Rack dimensions | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact 600 mm versus 800 mm cabinet-width proposition is not exposed |
 | m08-q046 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/1288 | BLOCKED — IEC 60297-3-105:2008 catalog receipt; exact two-post relay-rack use case is not exposed |
-| m08-q047 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82250.html?browse=tc | BLOCKED — ISO/IEC 22237-6:2024 catalog receipt; exact open-frame security comparison is not exposed |
+| m08-q047 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/65980 | PASS |
 | m08-q048 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact perforated-door airflow proposition is not exposed |
 | m08-q049 | 8 | Types of racks | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C catalog receipt; exact blanking-panel airflow proposition is not exposed |
 | m08-q050 | 8 | Rack security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/82250.html | PASS — ISO/IEC 22237-6:2024 covers physical-security systems for spaces against unauthorized access and intrusion |
