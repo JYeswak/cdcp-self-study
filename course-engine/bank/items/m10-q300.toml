@@ -1,4 +1,7 @@
 # Original runbook vignette — operational scenario (not an exam dump)
+# Public syllabus heading: Importance of water
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# BLOCKED: the current official receipt does not expose the exact leak-alarm response sequence. No paid body, draft, or PDF was fetched.
 id = "m10-q300"
 kind = "single-select"
 module = 10

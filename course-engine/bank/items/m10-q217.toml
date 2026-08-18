@@ -4,6 +4,9 @@
 # citation_ids = ["src-epi-cdcp-page", "src-iso-iec-30134-9-2022", "src-doe-femp-cooling-water-2019", "src-nrel-esif-thermosyphon-2018", "src-epa-quincy-water-reuse"]
 # claim = A closed-loop water-reuse case cannot be treated as proof that a separate non-evaporative dry-rejection design needs no makeup, rights, or permits.
 # M03 cross-reference: site water availability and local permissions remain site-specific.
+# Public syllabus heading: Importance of water
+# Official catalog/preview receipt: ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html
+# BLOCKED: the current official receipt does not expose the exact transfer-of-permission and dry-loop siting proposition. No paid body, draft, or PDF was fetched.
 id = "m10-q217"
 kind = "single-select"
 module = 10

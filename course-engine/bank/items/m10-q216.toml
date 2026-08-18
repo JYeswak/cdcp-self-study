@@ -4,6 +4,9 @@
 # citation_ids = ["src-epi-cdcp-page", "src-iso-iec-30134-9-2022", "src-doe-femp-cooling-water-2019", "src-nrel-esif-thermosyphon-2018", "src-epa-quincy-water-reuse"]
 # claim = A non-evaporative closed-loop rejection design may reduce evaporative makeup dependence, but it does not itself grant a permit or prove zero site water.
 # M03 cross-reference: site water availability, water rights, and local siting permissions.
+# Public syllabus heading: Importance of water
+# Official catalog/preview receipt: ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html
+# BLOCKED: the current official receipt does not expose the exact closed-loop siting, permitting, and water-boundary proposition. No paid body, draft, or PDF was fetched.
 id = "m10-q216"
 kind = "single-select"
 module = 10

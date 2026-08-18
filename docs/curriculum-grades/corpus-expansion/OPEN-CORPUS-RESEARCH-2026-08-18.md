@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 105 — CDCP mixed rack, cooling, and water receipts
+
+**Date:** 2026-08-18
+**Scope:** M08 retired rack/containment duplicates; M09 retired cooling duplicates and airflow recirculation; M10 water alarms, water dependency, WUE siting boundaries, and leak response.
+**Official receipts:** [TIA-942-C, May 2024](https://tiaonline.org/standard/tia-942/); [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html); [ISO/IEC AWI TS 22237-44, Edition 1, under development](https://www.iso.org/standard/93846.html?browse=tc); [ISO/IEC 30134-9:2022](https://www.iso.org/standard/77692.html).
+
+**Bounded result:** mock40-q24–q29, m09-q109, and m10-q214–q217/q300 now carry official catalog receipts and remain BLOCKED because the public pages do not expose the exact item-level propositions. No paid standard body, draft, or PDF was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 104 — CDCP cabling redundancy and topology receipts
 
 **Date:** 2026-08-18
