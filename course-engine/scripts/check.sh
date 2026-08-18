@@ -238,6 +238,11 @@ cleanup() {
   if [ -n "$STEP_LOG" ]; then rm -f "$STEP_LOG"; fi
   if [ "$LOCK_HELD" = "1" ]; then rm -rf "$LOCK_DIR"; fi
   if [ -n "${_SNAP_CLEAN:-}" ]; then rm -rf "$_SNAP_CLEAN"; fi
+  # bd-installability-sm4g.23: never leave L4 plants in a production scan path,
+  # including fail()/signal. Do not replace this trap — fold into it.
+  if [ -n "${_fmt_selftest_root:-}" ]; then rm -rf "$_fmt_selftest_root"; fi
+  rm -f "${ROOT}/scripts/__cdcp_probe_unlisted__.py"
+  rm -f "${ROOT}/crates/cdcp_gate/src/gates/__cdcp_fmt_plant__.rs"
   return 0
 }
 trap 'cleanup' EXIT INT TERM HUP
@@ -686,9 +691,47 @@ ok "external oracle (computed vs published refs; no network)"
 # S0 substrate floor. Placed next to the L1 registry gate because it is the same
 # kind of thing — a registry constitution over what may exist in the tree — and it
 # fails fast (only serde+toml compile).
+#
+# bd-installability-sm4g.23: the L4 plant lives only in the prove-wired scratch
+# tree. If it is in THIS scan root it is a leftover, not a new unlisted .py.
+# Skip inside CDCP_SUBSTRATE_PROBE=1 — there the plant is the intentional
+# known-bad that must reach `cdcp_gate substrate-guard` so --prove-wired can
+# attribute the RED to the binary, not to this wrapper.
+SUBSTRATE_STALE_PLANT="scripts/__cdcp_probe_unlisted__.py"
+reject_stale_substrate_plant() {
+  if [ -n "${CDCP_SUBSTRATE_PROBE:-}" ]; then
+    return 0
+  fi
+  if [ -e "$SUBSTRATE_STALE_PLANT" ]; then
+    echo "substrate-guard: STALE PLANT: $SUBSTRATE_STALE_PLANT is in the production scan root; this is a selftest-cleanup failure, not an ordinary unlisted-file violation" >&2
+    return 2
+  fi
+  return 0
+}
+
+# The known-bad is production-only. Inside --prove-wired the detector is
+# a no-op so the intentional plant can reach the binary; running this
+# block there would "stay GREEN" and fail the probe for the wrong reason.
+if [ -z "${CDCP_SUBSTRATE_PROBE:-}" ]; then
+  echo "==> L4 stale-plant detector (substrate scan path)"
+  printf '%s\n' 'print("stale substrate plant")' > "$SUBSTRATE_STALE_PLANT"
+  _stale_sub_diag=""
+  if _stale_sub_diag="$(reject_stale_substrate_plant 2>&1)"; then
+    fail "substrate stale-plant detector stayed GREEN with $SUBSTRATE_STALE_PLANT in the scan path"
+  fi
+  printf '%s\n' "$_stale_sub_diag" | grep -F "STALE PLANT" >/dev/null \
+    || fail "substrate leftover plant must be named STALE PLANT, not an ordinary unlisted-file violation"
+  printf '%s\n' "$_stale_sub_diag" | grep -F "not an ordinary unlisted-file violation" >/dev/null \
+    || fail "substrate stale plant must be distinguished from a real unlisted-file violation"
+  printf '%s\n' "$_stale_sub_diag" | grep -F "no row in registries/substrate_allowlist.toml" >/dev/null \
+    && fail "substrate stale plant was misreported as a real unlisted-file violation"
+  rm -f "$SUBSTRATE_STALE_PLANT"
+fi
+
 echo "==> cdcp_gate substrate-guard (S0 substrate floor)"
+reject_stale_substrate_plant || fail "stale L4 substrate plant in the production scan path"
 run_cdcp_gate substrate-guard || fail "substrate guard (unreasoned .py/.sh)"
-ok "S0 substrate floor (no unreasoned py/sh-family file, shebang script, symlink or submodule anywhere in the engine tree)"
+ok "S0 substrate floor (no unreasoned py/sh-family file, shebang script, symlink or submodule anywhere in the engine tree · stale plant STALE PLANT)"
 
 # L4 for the wiring claim ITSELF. Nothing read out of this file can establish that
 # the line above executes (bd-bo6i): `: "cargo run ..."` is a no-op, `true # ...`
@@ -1021,6 +1064,13 @@ rustfmt_gate_modules() {
     echo "rustfmt_gate_modules: not a directory: $_rgm_dir" >&2
     return 2
   fi
+  # Unique L4 plant name. If it is in THIS scan dir, the selftest leaked.
+  # Distinct from "rustfmt --check failed" so a leftover plant is not a
+  # formatting defect. Isolation is the scan root, not a filename allowlist.
+  if [ -e "$_rgm_dir/__cdcp_fmt_plant__.rs" ]; then
+    echo "rustfmt_gate_modules: STALE PLANT: $_rgm_dir/__cdcp_fmt_plant__.rs is in the scan path; this is a selftest-cleanup failure, not a rustfmt defect" >&2
+    return 2
+  fi
   _rgm_n=0
   for _rgm_f in "$_rgm_dir"/*.rs; do
     [ -f "$_rgm_f" ] || continue
@@ -1048,45 +1098,83 @@ _gate_fmt_n="$(rustfmt_gate_modules crates/cdcp_gate/src/gates)" \
 # Three known-bads must RED; one formatted specimen must GREEN.
 # A function that always fails would pass the plants; the green control
 # is what makes a crash distinguishable from a pass.
-_fmt_plant="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_gate_fmt_plant.XXXXXX")"
-_fmt_empty="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_gate_fmt_empty.XXXXXX")"
-_fmt_modonly="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_gate_fmt_modonly.XXXXXX")"
-_fmt_green="$(mktemp -d "${TMPDIR:-/tmp}/cdcp_gate_fmt_green.XXXXXX")"
+#
+# The fixtures live under target/, beside (not below) the production
+# `crates/cdcp_gate/src/gates` root passed above. That separation is by the
+# scan's root, not by a filename exclusion. A leftover root is a stale plant,
+# not a reason to silently reuse or delete someone else's fixture.
+_fmt_selftest_root="$ROOT/target/cdcp-gate-rustfmt-selftest"
+if [ -e "$_fmt_selftest_root" ]; then
+  fail "rustfmt_gate_modules: STALE PLANT: $_fmt_selftest_root remains from an interrupted selftest"
+fi
+mkdir -p "$_fmt_selftest_root" \
+  || fail "rustfmt_gate_modules: cannot create selftest root $_fmt_selftest_root"
+_fmt_plant="$_fmt_selftest_root/plant"
+_fmt_empty="$_fmt_selftest_root/empty"
+_fmt_modonly="$_fmt_selftest_root/modonly"
+_fmt_green="$_fmt_selftest_root/green"
+mkdir -p "$_fmt_plant" "$_fmt_empty" "$_fmt_modonly" "$_fmt_green" \
+  || fail "rustfmt_gate_modules: cannot create isolated selftest fixtures"
 _fmt_selftest_cleanup() {
-  rm -rf "$_fmt_plant" "$_fmt_empty" "$_fmt_modonly" "$_fmt_green"
+  rm -rf "$_fmt_selftest_root"
 }
 
 # (a) planted space/indent in a gate-shaped file
 printf '%s\n' 'fn plant( ){let     x=1 ;}' > "$_fmt_plant/plant.rs"
-if rustfmt_gate_modules "$_fmt_plant" >/dev/null; then
+_fmt_plant_diag=""
+if _fmt_plant_diag="$(rustfmt_gate_modules "$_fmt_plant" 2>&1 >/dev/null)"; then
   _fmt_selftest_cleanup
   fail "rustfmt_gate_modules stayed GREEN on a planted space/indent in a gate file"
 fi
+printf '%s\n' "$_fmt_plant_diag" | grep -F "$_fmt_plant/plant.rs" >/dev/null \
+  || { _fmt_selftest_cleanup; fail "rustfmt_gate_modules did not report the planted file as RED"; }
 
 # (b) empty glob
-if rustfmt_gate_modules "$_fmt_empty" >/dev/null; then
+_fmt_empty_diag=""
+if _fmt_empty_diag="$(rustfmt_gate_modules "$_fmt_empty" 2>&1 >/dev/null)"; then
   _fmt_selftest_cleanup
   fail "rustfmt_gate_modules stayed GREEN on an empty glob — vacuous scan must be ERROR"
 fi
+printf '%s\n' "$_fmt_empty_diag" | grep -F "scanned 0" >/dev/null \
+  || { _fmt_selftest_cleanup; fail "rustfmt_gate_modules did not report the empty plant surface as ERROR"; }
 
 # (c) only mod.rs (the one file cargo fmt can see) is still vacuous
 printf '%s\n' '//! decoy' > "$_fmt_modonly/mod.rs"
 rustfmt --edition 2021 "$_fmt_modonly/mod.rs"
-if rustfmt_gate_modules "$_fmt_modonly" >/dev/null; then
+_fmt_modonly_diag=""
+if _fmt_modonly_diag="$(rustfmt_gate_modules "$_fmt_modonly" 2>&1 >/dev/null)"; then
   _fmt_selftest_cleanup
   fail "rustfmt_gate_modules stayed GREEN on only-mod.rs — that is the file cargo fmt already sees"
 fi
+printf '%s\n' "$_fmt_modonly_diag" | grep -F "scanned 0" >/dev/null \
+  || { _fmt_selftest_cleanup; fail "rustfmt_gate_modules did not report only-mod.rs as a vacuous ERROR"; }
 
 # (d) green control: a formatted non-mod.rs file must pass
 printf '%s\n' 'pub fn plant() {}' > "$_fmt_green/ok.rs"
 rustfmt --edition 2021 "$_fmt_green/ok.rs"
-if ! rustfmt_gate_modules "$_fmt_green" >/dev/null; then
+if ! rustfmt_gate_modules "$_fmt_green" >/dev/null 2>&1; then
   _fmt_selftest_cleanup
   fail "rustfmt_gate_modules went RED on a formatted gate-shaped file (always-fail would spoof the plants)"
 fi
 
+# (e) known-bad: leftover plant IN the production scan path. Must be
+# STALE PLANT, not "rustfmt --check failed". cleanup() removes it on every
+# exit; this block also removes it so a later cargo fmt cannot see it.
+_fmt_stale_plant="crates/cdcp_gate/src/gates/__cdcp_fmt_plant__.rs"
+printf '%s\n' 'fn plant( ){let     x=1 ;}' > "$_fmt_stale_plant"
+_fmt_stale_diag=""
+if _fmt_stale_diag="$(rustfmt_gate_modules crates/cdcp_gate/src/gates 2>&1 >/dev/null)"; then
+  rm -f "$_fmt_stale_plant"
+  fail "rustfmt_gate_modules stayed GREEN with a stale plant in crates/cdcp_gate/src/gates"
+fi
+printf '%s\n' "$_fmt_stale_diag" | grep -F "STALE PLANT" >/dev/null \
+  || { rm -f "$_fmt_stale_plant"; fail "stale rustfmt plant must be named STALE PLANT, not a rustfmt --check failure"; }
+printf '%s\n' "$_fmt_stale_diag" | grep -F "rustfmt --check failed" >/dev/null \
+  && { rm -f "$_fmt_stale_plant"; fail "stale rustfmt plant was misreported as a rustfmt --check failure"; }
+rm -f "$_fmt_stale_plant"
+
 _fmt_selftest_cleanup
-ok "rustfmt over $_gate_fmt_n #[path] gate module(s) cargo fmt cannot reach (L4 plant RED · empty glob ERROR · only-mod.rs ERROR · formatted GREEN)"
+ok "rustfmt over $_gate_fmt_n #[path] gate module(s) cargo fmt cannot reach (L4 plant RED · empty glob ERROR · only-mod.rs ERROR · formatted GREEN · stale plant STALE PLANT)"
 # --all-targets is load-bearing, not cosmetic. Without it clippy never compiles
 # test targets, so a deleted assertion leaves an unused binding that nothing
 # complains about — measured 2026-08-14: the golden-sampler meta-test went RED

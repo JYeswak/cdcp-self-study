@@ -520,11 +520,6 @@ fn unreasoned_path_guards_are_a_defect() {
         "path guards that neither record an error nor carry an `ABSENT-OK:` reason:\n  {}",
         flagged.join("\n  ")
     );
-    // Measured 41 on 9f0f8a4 after verify_coverage (and earlier) extracts
-    // turned impl files into 0-site dispatchers. Floor tracks the live scan,
-    // not the pre-extract 50. A drop below 41 means a guard vanished or the
-    // scanner broke — still ERROR. Raising this number is autonomous after
-    // a measured increase; do not invent headroom that hides a vanished walk.
     assert!(
         total >= 41,
         "the scan covered only {total} guards — empty (or near-empty) scan set is ERROR"
