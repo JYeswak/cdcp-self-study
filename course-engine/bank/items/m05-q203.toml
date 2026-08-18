@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Types of emergency light
 # Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact local-versus-central emergency-lighting comparison.
+# PASS: the current ISO OBP abstract explicitly states the emergency-lighting scope below. No standard body or PDF was fetched.
 id = "m05-q203"
 kind = "single-select"
 module = 5
-stem = "Self-contained emergency luminaires differ conceptually from centrally supplied emergency lighting in that:"
+stem = "ISO 30061:2007 specifies which subject?"
 choices = [
-  "They never need testing",
-  "They always use outdoor solar only",
-  "They replace all normal lighting permanently",
-  "Battery/inverter function is local to the fixture versus a central emergency power source feeding remote heads"
+  "Luminous requirements for emergency lighting systems installed where such systems are required",
+  "Only outdoor solar lighting systems",
+  "Permanent replacement of all normal lighting",
+  "Only data-centre UPS battery testing",
 ]
-correct = "D"
-explanation = "Architecture differs: local battery units vs central emergency supply—both need maintenance and testing."
+correct = "A"
+explanation = "The current ISO OBP abstract states that ISO 30061:2007 specifies the luminous requirements for emergency lighting systems installed in premises or locations where such systems are required. It does not expose the local-versus-central architecture comparison."
 topic_ids = ["m05-emergency-types", "m05-emergency"]
 objective_ids = []
 bloom = "understand"

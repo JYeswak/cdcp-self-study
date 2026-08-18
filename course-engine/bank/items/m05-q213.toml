@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Emergency light
 # Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact emergency-lighting test-records failure proposition.
+# PASS: the current ISO OBP abstract explicitly states the required-system applicability below. No standard body or PDF was fetched.
 id = "m05-q213"
 kind = "single-select"
 module = 5
-stem = "Battery-backed emergency lighting that is past test intervals without records is a problem because:"
+stem = "Under the public scope of ISO 30061:2007, the document applies to:"
 choices = [
-  "Records are optional for life-safety systems always",
-  "Failed lamps or batteries may only be discovered during a real outage",
-  "Emergency lights improve with age without maintenance",
-  "Codes forbid any testing"
+  "Emergency lighting systems installed in premises or locations where such systems are required",
+  "Only ordinary decorative lighting",
+  "Only generator fuel systems",
+  "Only network-cabling test records",
 ]
-correct = "B"
-explanation = "Unverified emergency lighting is a latent life-safety failure."
+correct = "A"
+explanation = "The current ISO OBP abstract states that ISO 30061:2007 covers emergency lighting systems installed in premises or locations where such systems are required. It does not expose the prior test-records failure proposition."
 topic_ids = ["m05-emergency", "m05-standards"]
 objective_ids = []
 bloom = "apply"

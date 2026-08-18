@@ -7562,3 +7562,22 @@ data-centre power-distribution claims.
 N/2N/N+1 definitions, dual-cord failure independence, generator/UPS timing,
 busway tap-off flexibility, and site-specific redundancy design remain outside
 this abstract. This pass does not certify a learner or close ms4j.
+
+## Breadth pass 333 — ISO 30061:2007 emergency-lighting scope confirmation
+
+**Review date:** 2026-08-18. The current ISO OBP page identifies ISO 30061:2007
+as a current, confirmed edition after its 2023 review. Its public abstract
+specifies luminous requirements for emergency lighting systems installed in
+premises or locations where such systems are required, and says it is
+principally applicable where the public or workers have access. Three items were
+narrowed to those exact claims.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m05-q203 | Types of emergency light | ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc | **PASS** — luminous-requirement scope is explicit |
+| m05-q207 | Connecting and positioning light fixtures | ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc | **PASS** — public/worker access context is explicit |
+| m05-q213 | Emergency light | ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc | **PASS** — required-system applicability is explicit |
+
+Local-versus-central architecture, circuit coordination, testing intervals,
+records, maintenance, and project-specific egress design remain outside this
+public abstract. This pass does not certify a learner or close ms4j.
