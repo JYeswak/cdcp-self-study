@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 532 PASS; 425 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 533 PASS; 424 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -589,7 +589,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m09-q254 | 9 | 1.9 Cooling Infrastructure | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ashrae.org/technical-resources/bookstore/datacom-series | PASS |
 | m09-q300 | 9 | Containment | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards | PASS |
 | m09-q301 | 9 | Cooling | https://www.epi-ap.com/services/1/3/5/Certified_Data_Centre_Specialist_(CDCS) | https://www.ashrae.org/technical-resources/bookstore/datacom-series | BLOCKED — official catalog/preview receipt only; body not fetched |
-| mock40-q22 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/77692.html | BLOCKED — ISO/IEC 30134-9:2022 catalog receipt; exact retired-duplicate proposition is not exposed |
+| mock40-q22 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/77692.html | PASS — ISO/IEC 30134-9:2022 OBP abstract defines WUE as a data-centre KPI for quantifying water consumption during the use phase |
 | mock40-q31 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact process-water quality/availability proposition is not exposed |
 | m10-q100 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact process-water quality/availability proposition is not exposed |
 | m10-q101 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/77692.html | PASS — ISO/IEC 30134-9:2022 defines WUE as a data-centre water-consumption KPI and covers measurement/calculation/reporting |

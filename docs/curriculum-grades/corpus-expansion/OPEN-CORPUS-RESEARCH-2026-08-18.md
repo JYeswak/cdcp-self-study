@@ -7443,3 +7443,21 @@ lines, and DC welding. The item stems were narrowed to those catalog statements.
 Operator mitigation order, shielding design, modern-IT robustness, transformer
 room adjacency, and a broader external-site source inventory remain outside this
 catalog receipt. This pass does not certify a learner or close ms4j.
+
+## Breadth pass 327 — ISO/IEC 30134-9:2022 WUE KPI definition
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform page for
+ISO/IEC 30134-9:2022 identifies Water Usage Effectiveness (WUE) as a key
+performance indicator for quantifying data-centre water consumption during the
+use phase. Its public abstract also names WUE measurement categories and the
+measurement, calculation, reporting, and interpretation of the parameter. The
+retired item was narrowed to that public definition; no formula or paid standard
+body was fetched.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| mock40-q22 | Importance of water | ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html | **PASS** — WUE KPI purpose and use-phase water-consumption scope are explicit |
+
+Exact WUE formula inputs, measurement boundaries, category selection, and
+project-specific reporting remain outside this public abstract. This pass does
+not certify a learner or close ms4j.
