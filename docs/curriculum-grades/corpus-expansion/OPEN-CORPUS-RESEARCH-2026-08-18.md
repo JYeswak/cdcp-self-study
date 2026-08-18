@@ -991,6 +991,21 @@ colocation-specific badge zoning or tenant-lease policy is inferred.
 
 No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 236 — TIA-942-C topology applicability boundary
+
+**Review date:** 2026-08-18. The current TIA-942-C catalog identifies the
+Telecommunications Infrastructure Standard for Data Centers, gives a May 2024
+Revision C publication, and explicitly states that the topology specified in
+the document is intended to be applicable to any size data centre. The item was
+narrowed to that public catalog statement; the catalog does not expose an MDA
+definition, vendor topology, or size threshold.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q103 | TIA-942 cabling system topology | TIA-942-C — https://tiaonline.org/standard/tia-942/ | **PASS** — topology applicability to any size data centre is explicit |
+
+No standard body or PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies

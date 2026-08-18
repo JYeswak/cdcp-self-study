@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: TIA-942 cabling system topology
 # Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the current TIA-942-C abstract confirms topology scope but does not expose the exact MDA proposition. No paid body or PDF was fetched.
+# PASS: the current TIA catalog says the topology specified in TIA-942-C is
+# intended to apply to any size data centre.
 id = "m11-q103"
 kind = "single-select"
 module = 11
-stem = "In TIA-style data centre cabling topology awareness, the MDA is best described as:"
+stem = "The topology specified in TIA-942-C is intended to be applicable to:"
 choices = [
-  "Only the outdoor diesel yard",
-  "A battery string naming convention",
-  "The raised-floor tile free-area map",
-  "The main distribution area where core networking and main cross-connect functions concentrate"
+  "Any size data centre",
+  "Only hyperscale campuses above a fixed megawatt threshold",
+  "Only residential structured-cabling installations",
+  "Only one vendor's proprietary switching platform"
 ]
-correct = "D"
-explanation = "MDA (Main Distribution Area) is the central hub concept in TIA data centre cabling topology education."
+correct = "A"
+explanation = "The current TIA-942-C catalog explicitly states that its data-centre topology is intended to be applicable to any size data centre. It does not expose a public MDA definition here, so no MDA-specific claim is retained."
 topic_ids = ["m11-tia942-topology"]
 objective_ids = []
 bloom = "remember"
