@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Cooling principles
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact bypass-versus-recirculation airflow distinction.
+# PASS: the current official abstract explicitly lists fluid movement control.
 id = "m09-q110"
 kind = "single-select"
 module = 9
-stem = "Air bypass (as opposed to recirculation) typically means:"
+stem = "Which ISO/IEC 22237-4:2021 requirement category explicitly names fluid movement control?"
 choices = [
-  "Hot exhaust re-entering server inlets",
-  "Complete liquid immersion of servers",
-  "Cold supply air returning to cooling units without passing through IT loads",
-  "Loss of utility power only"
+  "Fluid movement control",
+  "Fuel inventory control",
+  "Visitor credential control",
+  "Seismic anchorage control"
 ]
-correct = "C"
-explanation = "Bypass wastes cold air around IT (open tiles, gaps); recirculation is hot air contamination of intakes."
+correct = "A"
+explanation = "The current ISO abstract explicitly lists fluid movement control. It does not establish the item’s former bypass-versus-recirculation distinction."
 topic_ids = ["m09-principles", "m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "understand"

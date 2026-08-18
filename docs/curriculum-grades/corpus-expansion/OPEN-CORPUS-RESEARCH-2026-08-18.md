@@ -884,6 +884,22 @@ NFPA 13 system-behavior items remain BLOCKED because the currently evidenced
 public preview does not support their detailed pre-action, wet-pipe, deluge, or
 water-mist propositions. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 272 — ISO environmental-control requirement categories
+
+**Review date:** 2026-08-18. The current official ISO abstract for ISO/IEC
+22237-4:2021 was checked without opening or fetching a PDF. It explicitly lists
+temperature control, fluid movement control, relative humidity control,
+particulate control, vibration, and physical security of environmental control
+systems.
+
+| Items | Public EPI heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m09-q100 | Cooling principles | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — rewritten to ask for the exact public temperature-control category; no sensible/latent heat claim is inferred |
+| m09-q106 | Cooling principles | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — rewritten to ask for the exact public relative-humidity-control category; no psychrometric detail is inferred |
+| m09-q110 | Cooling principles | ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html | **PASS** — rewritten to ask for the exact public fluid-movement-control category; no bypass/recirculation rule is inferred |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 270 — NFPA premises-security preview headings
 
 **Review date:** 2026-08-18. The current official NFPA LiNK preview for NFPA

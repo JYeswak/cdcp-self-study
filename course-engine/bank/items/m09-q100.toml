@@ -1,19 +1,19 @@
 # Original CDCP educational item — bank expansion
 # Public syllabus heading: Cooling principles
 # Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
-# BLOCKED: the current environmental-control catalog does not expose the exact sensible-heat characterization in this item.
+# PASS: the current official abstract explicitly lists temperature control.
 id = "m09-q100"
 kind = "single-select"
 module = 9
-stem = "In a typical data hall, the dominant thermal load from IT equipment is best characterized as:"
+stem = "Which ISO/IEC 22237-4:2021 requirement category explicitly names temperature control?"
 choices = [
-  "Sensible heat from electrical energy converted to heat",
-  "Latent heat from moisture generation inside servers",
-  "Nuclear decay heat from chip dopants",
-  "Only radiative heat into deep space"
+  "Temperature control",
+  "Fuel quality control",
+  "Cable-polish control",
+  "Badge-credential control"
 ]
 correct = "A"
-explanation = "IT gear converts nearly all electrical input to dry (sensible) heat; latent moisture load is minor compared with server heat."
+explanation = "The current ISO abstract explicitly lists temperature control among the environmental-control requirements. It does not establish the item’s former sensible-versus-latent heat characterization."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "remember"
