@@ -1176,6 +1176,30 @@ published-versus-project distinction to the research trail. No bank row,
 ledger receipt, syllabus heading, topic, manifest, bead, gate, oracle, or
 credential state changed. No standard body or PDF was fetched.
 
+## Breadth pass 140 — UPS, static-transfer, and power-quality edition audit
+
+**Date:** 2026-08-18
+**Search path:** M06 UPS, ATS/STS, and power-quality rows were checked against
+current IEC Webstore pages. The edition pins and public scopes are:
+
+- [IEC 62040-1:2017 + AMD1:2021 + AMD2:2022 consolidated](https://webstore.iec.ch/en/publication/31983), **UPS — Part 1: Safety requirements**; the public page covers UPS with energy storage and safety hazards during use, service, and maintenance.
+- [IEC 62040-3:2021](https://webstore.iec.ch/en/publication/60140), **UPS — Part 3: Method of specifying performance and test requirements**; the public page covers complete-UPS performance/testing and UPS switches that interact with functional units to maintain continuity, while excluding stand-alone STS.
+- [IEC 62040-2:2016](https://webstore.iec.ch/en/publication/33696), **UPS — Part 2: EMC requirements**; the public page covers UPS EMC type testing and immunity/emission scope.
+- [IEC 62310-3:2008](https://webstore.iec.ch/en/publication/6803), **Static transfer systems — Part 3: Method for specifying performance and test requirements**; the official page identifies controlled transfer between two or more independent AC sources and records a 2026 stability date.
+
+**Adversarial boundary:** A UPS safety or performance scope is not a
+double-conversion/topology lesson; a UPS performance test is not a site outage
+sequence; an STS transfer scope is not a sub-cycle or preferential-source
+selection rule; and an EMC product standard is not a site power-quality
+diagnosis. The current pages do not expose the exact autonomy, catcher,
+shared-bus, generator-gap, phase, or outage-sequence propositions in the M06
+items reviewed.
+
+**Bounded result:** Existing M06 receipt URLs are current and appropriately
+scoped, so no bank or ledger change was justified. This audit adds no new
+claim, draft edition, standard body, PDF, topic, bead, gate, oracle, or
+credential state.
+
 ## Breadth pass 135 — environmental control, security systems, cabling, and resilience KPIs
 
 **Date:** 2026-08-18
