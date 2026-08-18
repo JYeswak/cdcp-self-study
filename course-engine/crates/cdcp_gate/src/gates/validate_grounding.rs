@@ -13,11 +13,11 @@ pub const SUMMARY: &str = validate_grounding::SUMMARY;
 
 pub use validate_grounding::{
     corpus_root_errors, corpus_roots, evaluate, format_help, format_usage, load_corpus_text,
-    overlap_score, parse_args, py_digit, py_float, py_float_repr, py_int, py_repr, py_space, py_str,
-    py_truthy, py_word, search, tokenize, topic_labels, universal_newlines, word_runs, Args, Node,
-    Outcome, CORPUS_PUBLIC_MARKER, CORPUS_PUBLIC_REL, CORPUS_SUFFIXES, FREE_EVIDENCE, ITEMS_REL,
-    KNOWLEDGE_REL, MAX_REPORT, MIN_CORPUS_CHARS, MIN_SCANNED_ITEMS, PROG, SIBLING_CORPUS_DIRS, STOP,
-    TOPICS_REL,
+    overlap_score, parse_args, py_digit, py_float, py_float_repr, py_int, py_repr, py_space,
+    py_str, py_truthy, py_word, search, tokenize, topic_labels, universal_newlines, word_runs,
+    Args, Node, Outcome, CORPUS_PUBLIC_MARKER, CORPUS_PUBLIC_REL, CORPUS_SUFFIXES, FREE_EVIDENCE,
+    ITEMS_REL, KNOWLEDGE_REL, MAX_REPORT, MIN_CORPUS_CHARS, MIN_SCANNED_ITEMS, PROG,
+    SIBLING_CORPUS_DIRS, STOP, TOPICS_REL,
 };
 
 pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
