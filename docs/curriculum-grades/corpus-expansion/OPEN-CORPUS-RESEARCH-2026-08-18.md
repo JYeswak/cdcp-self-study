@@ -1044,6 +1044,76 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 126 — environmental, energy, and water-management evidence
+
+**Date:** 2026-08-18
+**Scope:** M06, M09, M10, M12, M14, and M15 questions about energy and water
+use, cooling-resource management, environmental aspects, waste and emissions,
+resource measurement, procurement/design choices, legal obligations, and
+continuous improvement. Existing public EPI/CDCS/CDFOS/CDFOM headings are
+retained; no universal sustainability target or certification claim is added.
+
+**Official public receipts:**
+
+- [ISO 14001:2026](https://www.iso.org/standard/14001), **Environmental
+  management systems — Requirements with guidance for use**, is the current
+  published Edition 4 (2026-04). ISO’s public page covers environmental
+  aspects, resource use, waste, legal requirements, monitoring, stakeholder
+  commitments, and continual improvement. ISO identifies ISO 14001:2015 and
+  its amendment as withdrawn; the 2026 edition is the current receipt.
+- [ISO 50001:2018](https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/06/94/69426.html),
+  **Energy management systems — Requirements with guidance for use**, remains
+  published and was confirmed current in 2024. Its public OBP preview covers
+  establishing, implementing, maintaining, and improving an Energy Management
+  System and energy performance. [Amendment 1:2024](https://www.iso.org/standard/88430.html)
+  is recorded with it; neither the requirements body nor a PDF was fetched.
+- [ISO 46001:2019](https://www.iso.org/standard/68286.html), **Water efficiency
+  management systems — Requirements with guidance for use**, remains published
+  with [Amendment 1:2024](https://www.iso.org/standard/88429.html?browse=tc),
+  although ISO marks the base standard to be revised. Its public abstract
+  covers reduce/replace/reuse decisions, monitoring, measurement,
+  documentation, reporting, design, procurement, leak detection, and training.
+  The under-development replacement is not treated as current.
+- [ISO 14046:2014](https://www.iso.org/standard/43263.html), **Environmental
+  management — Water footprint — Principles, requirements and guidelines**, is
+  the published edition confirmed current after review. Its public abstract
+  covers life-cycle water-footprint assessment and reporting; it does not turn
+  a single water-footprint number into an operating permit or water-quality
+  result.
+- [ISO 50100:2026](https://www.iso.org/standard/87925.html), **Energy
+  management systems and energy savings — Decarbonization — Requirements with
+  guidance for use**, is a current published Edition 1 receipt for
+  energy-related emissions reduction planning. It is used as a separate
+  decarbonization-planning anchor, not merged into ISO 50001 or used to infer a
+  data-centre performance target.
+
+**Adversarial boundary:** An environmental-management system, energy plan,
+water-efficiency program, or footprint calculation does not prove a safe
+cooling loop, legal discharge, reliable utility supply, or efficient operating
+state. Resource metrics require boundaries, instruments, time period, data
+quality, normalization, exclusions, and accountable review. A certification or
+management-system claim is not a substitute for permits, AHJ approval,
+commissioning, maintenance records, alarms, or observed facility performance.
+
+| Module | Question frontier | Boundary |
+|---|---|---|
+| M06 | Connect utility, generator, UPS, on-site generation, energy measurement, emissions, and change decisions without inventing a target | ISO 50001/50100 do not establish a universal PUE, availability, or carbon value |
+| M09 | Track water source, treatment, reuse, leak detection, thermal impact, discharge, and safe return-to-service evidence | Water efficiency or WUE does not prove water quality or cooling safety |
+| M10/M14 | Preserve metric boundary, meter identity, calibration/quality, timestamps, data lineage, exclusions, and corrective action | A dashboard or footprint value is not an audit conclusion by itself |
+| M12 | Coordinate environmental emergency response, spill/leak controls, fire/life-safety interfaces, and legal reporting | An EMS does not replace AHJ or environmental permits |
+| M15 | Assign resource owners, procurement/design reviewers, operators, auditors, exceptions, and improvement actions | Completing a sustainability track does not certify a learner or facility |
+
+**Currency boundary:** ISO 14001:2015 is not current after the 2026 edition;
+ISO 46001:2019 remains current but is marked for revision; ISO 14046:2014 is
+published/confirmed; ISO 50001:2018 remains current with Amendment 1:2024.
+ISO-hosted brochures, news PDFs, vendor sustainability pages, and shadow
+archives are excluded. No PDF was fetched.
+
+**Bounded result:** This pass adds current official resource-management anchors
+and makes measurement/permit/operational boundaries explicit. No bank rows,
+ledger dispositions, manifest, topics, beads, gate, oracle, or credential
+state changed.
+
 ## Breadth pass 125 — management protocols, telemetry schemas, and control authority
 
 **Date:** 2026-08-18
