@@ -1044,6 +1044,30 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 73 — CDCP critical-path, UPS topology, and generator receipts
+
+**Review date:** 2026-08-18. Nine additional M06 rows now carry current ISO,
+IEC, or NFPA catalog/preview receipts. They remain BLOCKED because the public
+pages do not expose the exact critical-path, flywheel, UPS-topology,
+transfer-speed, common-path, outage-sequence, or generator-fuel propositions.
+No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m06-q239 | Power distribution / busbar trunking | ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476 | **BLOCKED** — exact critical-path sequence not exposed |
+| m06-q240 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact flywheel-duration proposition not exposed |
+| m06-q241 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact line-interactive topology comparison not exposed |
+| m06-q242 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact standby/offline transfer proposition not exposed |
+| m06-q243 | ATS and STS | IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803 | **BLOCKED** — exact synchronized-source speed comparison not exposed |
+| m06-q244 | Power redundancy levels and techniques | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact common-path diversity proposition not exposed |
+| m06-q245 | UPS parallel configurations | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact N+1 module-maintenance proposition not exposed |
+| m06-q246 | UPS systems | IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140 | **BLOCKED** — exact UPS/generator/ATS outage sequence not exposed |
+| m06-q247 | Generators | NFPA 110, 2025 — https://link.nfpa.org/all-publications/110/2025 | **BLOCKED** — exact natural-gas-versus-diesel trade-off proposition not exposed |
+
+The ledger remains 162 PASS / 795 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 72 — CDCP thermography, BESS, microgrid, and transformer receipts
 
 **Review date:** 2026-08-18. Ten additional M06 rows now carry current NFPA,

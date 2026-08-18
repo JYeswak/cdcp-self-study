@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Power distribution / busbar trunking
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476
+# BLOCKED: the official catalog covers data-centre power supplies and distribution but does not expose the exact critical-path sequence.
 id = "m06-q239"
 kind = "single-select"
 module = 6

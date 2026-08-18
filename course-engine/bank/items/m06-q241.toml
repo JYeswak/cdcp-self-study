@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: UPS systems
+# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
+# BLOCKED: the official catalog does not expose the exact line-interactive topology comparison.
 id = "m06-q241"
 kind = "single-select"
 module = 6
