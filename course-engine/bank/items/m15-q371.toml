@@ -1,0 +1,26 @@
+# Original CDFOS daily-operations MCQ — ms4j.2 delivery and holding area.
+# Public heading: CDFOS "Physical Security — Delivery of goods / holding area" —
+# https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
+# Cite: NIST SP 800-53 Rev. 5, Release 5.2.0 (2025-08-27), PE-16(a)-(b) —
+# https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ;
+# clause text: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
+# Claim: system components entering or leaving are authorized/controlled and recorded.
+# Options are length-balanced; teaching lives in explanation.
+id = "m15-q371"
+kind = "single-select"
+module = 15
+stem = "A receiving area accepts system components into the facility and sends them out with no authorization record. Which control fits?"
+choices = [
+  "Authorize entry and record components",
+  "Accept deliveries when the courier is known to staff",
+  "Log only visitor totals at the receiving desk",
+  "Track exits but leave incoming components unrecorded",
+]
+correct = "A"
+explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, PE-16(a) requires authorization and control of defined types of system components entering and exiting the facility, and PE-16(b) requires records of those components. The discussion notes that delivery areas may need restricted access; it does not prescribe a particular holding-area layout or vendor scorecard."
+topic_ids = ["m15-ops-security", "m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

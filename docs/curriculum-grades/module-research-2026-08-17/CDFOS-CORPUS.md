@@ -11,7 +11,7 @@ Completing this file **does not certify anyone** and does not grant an EPI® / E
 **Official CDFOS cut is 42/60** (EPI page, FETCHED this pass: 90 min, 60 MCQ, minimum 42 correct). That number is **theirs, not ours.**
 
 No proprietary DCOS / EPI / EXIN body. No dump sites. The initial ledger pass had no bank
-items; the follow-up receipt in §6 records only the new, clause-backed items m15-q352–q362.
+items; the follow-up receipts in §6 record only the new, clause-backed items m15-q352–q377.
 If a heading has no public clause that can be re-derived from a current edition+URL, the row says **no item**.
 
 ---
@@ -268,7 +268,7 @@ Parents `bd-epi-ecosystem-ms4j` and `bd-epi-ecosystem-ms4j.2` stay **open**. Chi
 
 *Corpus only. Completing this program does not certify anyone. 27/40 is a study signal.*
 
-## 6. Follow-up source receipts — m15-q352–m15-q362
+## 6. Follow-up source receipts — m15-q352–m15-q377
 
 The initial rows above record the first fetch and remain useful as a dated audit trail. This
 follow-up searched additional public primary/government sources. The rows below supersede a
@@ -282,9 +282,10 @@ the six undocumented document sub-processes, or a vendor-lifecycle taxonomy cita
 |---|---|---|---|
 | C-DFE-SM | UK Department for Education, **Service Management standard, Version 1**, last updated **2025-01-22** | https://apply-the-service-standard.education.gov.uk/standards/service-management | Service Catalogue Management, Service Level Management, Continual Improvement, central service list/availability, and trend-analysis improvement opportunities |
 | C-DDAT-ITSM | UK Government Digital and Data Profession Capability Framework, **IT service manager**, last updated **2025-08-29** | https://ddat-capability-framework.service.gov.uk/role/it-service-manager | Defining SLAs and OLAs across relevant business functions |
-| C-NE-422.1 | U.S. Department of Energy, **NE O 422.1 Conduct of Operations**, approved **August 2025**, Attachment 2 / Appendix A | https://id.energy.gov/Home/DownloadDocument/5643 | Computer-center operations scope, shift turnover, and controlled technical-procedure revision/review/testing |
+| C-NE-422.1 | U.S. Department of Energy, **NE O 422.1 Conduct of Operations**, approved **August 2025**, Attachment 2 / Appendix A | https://id.energy.gov/Home/DownloadDocument/5643 | Operations roles, hazard controls, walk-around duties, computer-center operations scope, shift turnover, and controlled technical-procedure revision/review/testing |
 | C-1910.38 | **29 CFR 1910.38**, eCFR current display **2026-08-17**, (b), (c)(1)-(6), (f) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.38 | Written emergency action plan, minimum elements, and review triggers |
-| C-80053-OPS | NIST **SP 800-53 Rev. 5, Release 5.2.0**, issued **2025-08-27**, SA-5, SA-9, CA-7, PE-3, PE-6, MA-4 | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ; https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf | Service-level outcomes/remedies/response, monitoring strategy, physical access procedures, floor monitoring, documentation, and nonlocal maintenance |
+| C-80053-OPS | NIST **SP 800-53 Rev. 5, Release 5.2.0**, issued **2025-08-27**, SA-5, SA-9, CA-7, PE-3, PE-6, PE-16, IR-6, CM-8, MA-3, MA-4 | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final ; https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf | Service-level outcomes/remedies/response, monitoring strategy, physical access procedures, floor monitoring, delivery/removal records, incident reporting, bounded asset recording, maintenance tools, documentation, and nonlocal maintenance |
+| C-1910.1200 | **29 CFR 1910.1200**, eCFR current display **2026-08-13**, (g)(8), (h)(1)-(3) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/section-1910.1200 | Accessible safety data sheets and written hazard-communication program information/training; no required document title is inferred |
 
 ### 6.2 New item map and bounded claims
 
@@ -301,6 +302,15 @@ the six undocumented document sub-processes, or a vendor-lifecycle taxonomy cita
 | m15-q360 | Monitoring / Reporting / Control — Facilities monitoring matrix | NIST CA-7(a)-(g) | A matrix used as the facilities monitoring strategy needs metrics, cadence, assessment, analysis, response, and reporting fields. CA-7 does not prescribe a vendor matrix format. |
 | m15-q361 | Governance and Compliance — The importance of document management | NIST SA-5(a)-(d) | Administrator/user documentation covers secure operation, maintenance, and responsibilities; unavailable documentation receives an action; documentation is distributed to defined roles. |
 | m15-q362 | Facilities Maintenance — Service reports | NIST MA-4(a)-(e) | Nonlocal maintenance is approved/monitored, recorded, and terminated at completion; authentication does not replace records or session close-out. |
+| m15-q369 | Safety and Crisis Management — The roles and responsibilities of appointed safety staff | NE O 422.1 Attachment 2 ¶2.a.(1), (3), (5), p. 2-2 | The bounded conduct-of-operations model defines organizational roles/accountability, safe-work accountability, and hazard-analysis/control methods. |
+| m15-q370 | Facilities Maintenance — Tools | NIST MA-3(a)-(b), (1)-(2) | Maintenance tools are approved/controlled/monitored and reviewed at a defined frequency; tools and diagnostic media are inspected before use. |
+| m15-q371 | Physical Security — Delivery of goods / holding area | NIST PE-16(a)-(b) | Defined system components entering/exiting the facility are authorized/controlled and recorded. |
+| m15-q372 | Physical Security — Security incident reporting | NIST IR-6(a)-(b) | Suspected incidents reach the incident-response capability within an organization-defined period and incident information reaches defined authorities. |
+| m15-q373 | Governance and Compliance — Requirements or asset recording | NIST CM-8(a)-(b), (1) | A bounded component inventory covers all components/accountability, is reviewed on a defined cadence, and is updated at installation/removal/system updates; this is not ISO 55000. |
+| m15-q374 | Data Centre Operations — Walk around duties | NE O 422.1 Attachment 2 ¶2.b.(1), (3), (4), p. 2-2 | Rounds notify staff of status/abnormalities, check equipment/work areas, and use reviewed round sheets or inspection logs. This is not a general shift-handover programme. |
+| m15-q375 | Safety and Crisis Management — The importance of the OH&S or WHS manual | 29 CFR 1910.1200(g)(8), (h)(1)-(3) | Workers receive hazard-communication information/training and can access the written program and safety data sheets during the shift; no OH&S-manual title is inferred. |
+| m15-q376 | Service Level Management — Reporting | DfE Service Management standard, Version 1, Why this standard is important | Service-management reporting provides visibility of support requirements for decision making and demand management. |
+| m15-q377 | Service Level Management — Customer satisfaction | DfE Service Management standard, Version 1, Why this standard is important | The standard links user satisfaction with a single point of entry into service support. |
 
 ### 6.3 Still blocked-on-sourcing
 
