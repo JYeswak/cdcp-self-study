@@ -1,16 +1,24 @@
 # Original CDCP educational MCQ — not an exam dump
+# Public heading: CDCP "Cooling principles" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# Current official preview pin: ASHRAE Standard 90.4-2025 —
+# https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards
+# Public claim source: ASHRAE AI Data Center Energy Performance Framework —
+# https://www.ashrae.org/technical-resources/ai-data-center-framework/energy-and-thermal-efficiency
+# Claim boundary: economization reduces compressor/mechanical demand; no
+# universal climate, setpoint, or availability result is inferred.
 id = "m09-q108"
 kind = "single-select"
 module = 9
 stem = "Free cooling / economization concepts aim to:"
 choices = [
-  "Use favorable outdoor conditions to reduce mechanical refrigeration work",
+  "Integrate favorable airside, waterside, or refrigerant pathways to reduce compressor hours and mechanical cooling demand",
   "Always run compressors at maximum load",
   "Replace all redundancy with a single fan",
   "Eliminate the need for any heat rejection path"
 ]
 correct = "A"
-explanation = "Economizers leverage cool outdoor air or water conditions to cut compressor energy while still rejecting IT heat."
+explanation = "The current ASHRAE framework describes airside, waterside, and refrigerant economizers as pathways to reduce compressor hours and mechanical cooling demand. It does not set a universal economizer mode, climate limit, or facility-availability claim."
 topic_ids = ["m09-principles", "m09-system-types"]
 objective_ids = []
 bloom = "understand"

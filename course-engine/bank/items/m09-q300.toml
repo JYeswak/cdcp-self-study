@@ -1,4 +1,12 @@
 # Original runbook vignette — operational scenario (not an exam dump)
+# Public heading: CDCP "Containment" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# Current official preview pin: ASHRAE Standard 90.4-2025 —
+# https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards
+# Public claim source: ASHRAE AI Data Center Energy Performance Framework —
+# https://www.ashrae.org/technical-resources/ai-data-center-framework/energy-and-thermal-efficiency
+# Claim boundary: restore airflow/containment and verify inlet conditions before
+# a setpoint change; no universal control sequence is prescribed.
 id = "m09-q300"
 kind = "single-select"
 module = 9
@@ -10,7 +18,7 @@ choices = [
   "Flood the hot aisle with outdoor air without filtration to equalize temperatures quickly"
 ]
 correct = "A"
-explanation = "Open containment mixes supply and return and can create hot spots even when plant capacity is fine. Runbooks should restore the air path first; setpoint thrashing masks the root cause and can stress the plant."
+explanation = "The current ASHRAE framework identifies containment and precise airflow control as measures that stabilize equipment inlet temperatures. With the disturbance identified at doors and blanking panels, restore the intended airflow path and verify inlet conditions before changing plant setpoints; this is not a universal control sequence."
 topic_ids = ["m09-containment", "m09-principles"]
 objective_ids = []
 bloom = "apply"

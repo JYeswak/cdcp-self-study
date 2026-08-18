@@ -870,6 +870,24 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 21 — CDCP cooling controls, containment, and liquid-cooling boundaries
+
+**Review date:** 2026-08-18. Four Module 09 rows were narrowed to claims
+exposed by the current official ASHRAE preview and public ASHRAE AI Data
+Center Energy Performance Framework. The preview page lists Standard 90.4-2025;
+no standard body or PDF was fetched.
+
+| Item | Public CDCP heading | Official preview/public receipt | Bounded result |
+|---|---|---|---|
+| m09-q108 | Cooling principles | ASHRAE Standard 90.4-2025 preview — https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards; public framework — https://www.ashrae.org/technical-resources/ai-data-center-framework/energy-and-thermal-efficiency | **PASS** — economizer pathways reduce compressor hours and mechanical cooling demand |
+| m09-q148 | Containment | ASHRAE Standard 90.4-2025 preview — https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards; public framework — https://www.ashrae.org/technical-resources/ai-data-center-framework/energy-and-thermal-efficiency | **PASS** — containment and precise airflow control reduce fan energy and stabilize equipment inlet temperatures |
+| m09-q161 | Liquid cooling | ASHRAE Standard 90.4-2025 preview — https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards; public framework — https://www.ashrae.org/technical-resources/ai-data-center-framework/energy-and-thermal-efficiency | **PASS** — direct-to-chip and rear-door approaches support high-density heat removal without inventing a rack class or setpoint |
+| m09-q300 | Containment | ASHRAE Standard 90.4-2025 preview — https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards; public framework — https://www.ashrae.org/technical-resources/ai-data-center-framework/energy-and-thermal-efficiency | **PASS** — restore the disturbed airflow path and verify inlet conditions before setpoint changes |
+
+W-class taxonomy, universal temperature/setpoint claims, and thermal ride-through
+remain BLOCKED. The ledger is now 135 PASS / 822 BLOCKED across 957 rows, with
+zero bare FAIL. This pass does not certify a learner or close ms4j.
+
 ### Module 12 follow-up
 
 | Item | Public CDCP heading | Official public-code receipt | Bounded result |
