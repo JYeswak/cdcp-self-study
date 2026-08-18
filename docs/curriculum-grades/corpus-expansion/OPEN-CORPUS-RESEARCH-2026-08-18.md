@@ -906,6 +906,23 @@ vendor-specific implementations remain outside the receipts.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 229 — RFC 5674 alarm fields and severity mapping
+
+**Review date:** 2026-08-18. The open RFC Editor text for RFC 5674 describes
+alarm information in syslog, maps ITU perceived severities into syslog fields,
+and defines alarm structured-data fields including resource, probable cause,
+perceived severity, event type, trend indication, and resource URI. It also
+identifies required versus optional fields. These items are bounded to that
+protocol receipt; point-naming human factors, paging tiers, runbooks, and
+facility escalation policy remain outside it.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m14-q114 | Notification | RFC 5674 — https://www.rfc-editor.org/info/rfc5674/ | **PASS** — explicit ITU-to-syslog severity mapping is exposed |
+| bank-m14-q117 | Alarm panels | RFC 5674 — https://www.rfc-editor.org/info/rfc5674/ | **PASS** — alarm structured-data fields and required/optional status are exposed |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 227 — IEC 62040-3 UPS performance scope
 
 **Review date:** 2026-08-18. The current IEC catalog for IEC 62040-3:2021

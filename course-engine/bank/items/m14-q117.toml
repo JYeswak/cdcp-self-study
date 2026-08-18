@@ -1,19 +1,20 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Alarm panels
-# Official catalog/preview receipt: IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543
-# BLOCKED: the current alarm-management catalog covers alarm presentation and response, but not this exact point-naming/human-factors proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: RFC 5674 — https://www.rfc-editor.org/info/rfc5674/
+# PASS: the open RFC explicitly defines alarm structured-data fields. No PDF
+# was fetched.
 id = "bank-m14-q117"
 kind = "single-select"
 module = 14
-stem = "Point naming like CHW-VALVE-ROW12-LEAK instead of DI_047 mainly improves:"
+stem = "RFC 5674 defines alarm structured data with fields including:"
 choices = [
-  "Human response speed and reduces mis-isolation errors",
-  "Modbus baud rate",
-  "Camera megapixels",
-  "Copper Category rating"
+  "Resource, probable cause, perceived severity, and optional event/trend/resource-URI information",
+  "Only camera resolution and rack-paint color",
+  "Only Modbus baud rate and copper category",
+  "No alarm fields; RFC 5674 only defines email routing"
 ]
 correct = "A"
-explanation = "Human-readable points turn alarms into action; cryptic DIs waste incident time."
+explanation = "RFC 5674 defines alarm structured-data elements for resource, probableCause, perceivedSeverity, eventType, trendIndication, and resourceURI, with required/optional status specified in the RFC. It does not establish point-naming human-factors rules."
 topic_ids = ["m14-alarms", "m14-best-practices"]
 objective_ids = []
 bloom = "apply"
