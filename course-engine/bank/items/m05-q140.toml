@@ -1,19 +1,20 @@
 # Original CDCP educational MCQ — study bank (not an exam dump)
 # Public syllabus heading: Types of emergency light
 # Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
-# BLOCKED: the official catalog does not expose the exact unit-equipment battery/duration proposition.
+# PASS: the public abstract explicitly states that ISO 30061 specifies
+# luminous requirements for emergency lighting systems.
 id = "m05-q140"
 kind = "single-select"
 module = 5
-stem = "Self-contained emergency luminaires typically:"
+stem = "What does ISO 30061:2007 explicitly specify?"
 choices = [
-  "Rely only on the normal lighting branch with no backup",
-  "Meter rack kW",
-  "Cool servers with forced air",
-  "Include local battery/inverter provisions to remain lit for a required duration after normal power loss",
+  "Luminous requirements for emergency lighting systems installed where such systems are required",
+  "Rack-PDU measurement requirements",
+  "Cooling-water treatment requirements",
+  "Generator fuel-quality requirements",
 ]
-correct = "D"
-explanation = "Unit equipment carries local emergency power for required egress lighting duration."
+correct = "A"
+explanation = "The ISO public abstract says ISO 30061:2007 specifies luminous requirements for emergency lighting systems installed where such systems are required."
 topic_ids = ["m05-emergency-types"]
 objective_ids = []
 bloom = "understand"

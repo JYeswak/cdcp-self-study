@@ -870,6 +870,25 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 316 — ISO 30061 emergency-lighting preview claims
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform page for
+ISO 30061:2007, Edition 1, was checked without opening or fetching a PDF. The
+page says the edition was last reviewed and confirmed in 2023 and remains
+current. Its public abstract specifies luminous requirements for emergency
+lighting systems where required and says it is principally applicable where the
+public or workers have access.
+
+| Items | Public CDCP heading | Current official catalog | Bounded result |
+|---|---|---|---|
+| m05-q140 | Types of emergency light | ISO 30061:2007, current confirmed Edition 1 — https://www.iso.org/standard/45801.html?browse=tc | **PASS** — asks only for the stated luminous-requirements scope |
+| m05-q141 | Types of emergency light | ISO 30061:2007, current confirmed Edition 1 — https://www.iso.org/standard/45801.html?browse=tc | **PASS** — asks only for the stated public/worker access context |
+| m05-q146 | Emergency light | ISO 30061:2007, current confirmed Edition 1 — https://www.iso.org/standard/45801.html?browse=tc | **PASS** — asks only for the catalog's current-status statement |
+
+Battery architecture, duration, inspection/testing procedures, test records, and
+circuit coordination remain BLOCKED because the public abstract does not expose
+those exact propositions. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 315 — ISO/IEC TS 22237-7 operational-process scope claims
 
 **Review date:** 2026-08-18. The current ISO Online Browsing Platform page for

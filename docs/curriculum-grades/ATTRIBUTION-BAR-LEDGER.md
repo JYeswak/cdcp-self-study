@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 501 PASS; 456 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 504 PASS; 453 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -215,13 +215,13 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m05-q137 | 5 | Lighting standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | BLOCKED — ISO/CIE 8995-1:2025 catalog receipt; exact data-hall trade-off is not exposed |
 | m05-q138 | 5 | Connecting and positioning light fixtures | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/70361.html?browse=tc | BLOCKED — ISO/TS 21274:2020 catalog receipt; exact aisle/containment placement is not exposed |
 | m05-q139 | 5 | Emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/45801.html?browse=tc | PASS — current ISO preview specifies luminous requirements for emergency lighting systems where required |
-| m05-q140 | 5 | Types of emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/45801.html?browse=tc | BLOCKED — ISO 30061:2007 catalog receipt; exact unit-equipment battery/duration proposition is not exposed |
-| m05-q141 | 5 | Types of emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/45801.html?browse=tc | BLOCKED — ISO 30061:2007 catalog receipt; exact central-battery comparison is not exposed |
+| m05-q140 | 5 | Types of emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/45801.html?browse=tc | PASS — ISO 30061:2007 public abstract explicitly states the luminous emergency-lighting requirements scope |
+| m05-q141 | 5 | Types of emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/45801.html?browse=tc | PASS — ISO 30061:2007 public abstract names locations where the public or workers have access |
 | m05-q142 | 5 | Emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | PASS — 2025 New York State Fire Code requires exit signs to identify egress paths and remain illuminated under power-loss conditions |
 | m05-q143 | 5 | Lighting standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | BLOCKED — ISO/CIE 8995-1:2025 catalog receipt; no universal minimum is not exposed |
 | m05-q144 | 5 | Connecting and positioning light fixtures | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/70361.html?browse=tc | BLOCKED — ISO/TS 21274:2020 catalog receipt; exact live-hall maintenance method is not exposed |
 | m05-q145 | 5 | Connecting and positioning light fixtures | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/66620 | BLOCKED — IEC 60598-1:2024 catalog receipt; exact high-bay fixture-selection trade-off is not exposed |
-| m05-q146 | 5 | Emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/45801.html?browse=tc | BLOCKED — ISO 30061:2007 catalog receipt; exact inspection/testing failure mode is not exposed |
+| m05-q146 | 5 | Emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/45801.html?browse=tc | PASS — ISO 30061:2007 catalog page states it was reviewed and confirmed in 2023 and remains current |
 | m05-q147 | 5 | Measurements of light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | BLOCKED — ISO/CIE 8995-1:2025 catalog receipt; exact glare/colour-rendering proposition is not exposed |
 | m05-q148 | 5 | Emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | PASS — 2025 New York State Fire Code distinguishes normal premises supply from emergency illumination on power failure |
 | m05-q149 | 5 | Connecting and positioning light fixtures | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/66620 | BLOCKED — IEC 60598-1:2024 catalog receipt; exact seismic-restraint proposition is not exposed |
