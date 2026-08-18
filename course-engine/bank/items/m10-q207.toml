@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
 # Public syllabus heading: Importance of water
 # Official catalog/preview receipt: NFPA 24, 2025 — https://link.nfpa.org/all-publications/24/2025
-# BLOCKED: the current NFPA preview exposes private fire-service mains and water-supply chapter headings but not the exact AHJ water-reliability proposition. No paid body or PDF was fetched.
+# PASS: the current official preview exposes Chapter 5 — Water Supplies.
 id = "m10-q207"
 kind = "single-select"
 module = 10
-stem = "Fire water supply reliability is a life-safety and property-protection concern that also intersects DC design because:"
+stem = "Which NFPA 24:2025 chapter heading names the water-supplies topic?"
 choices = [
-  "AHJ-required fire protection depends on adequate water supply and pressure where water-based systems are used",
-  "Fire water is optional if UPS is present",
-  "Sprinklers replace all electrical codes",
-  "Only gas systems ever need water"
+  "Chapter 4 — General Requirements",
+  "Chapter 5 — Water Supplies",
+  "Chapter 8 — Hose Houses and Equipment",
+  "Chapter 14 — System Inspection, Testing, and Maintenance"
 ]
-correct = "A"
-explanation = "Where water-based fire protection is used, water supply is a compliance and safety dependency."
+correct = "B"
+explanation = "The current NFPA 24 preview names Chapter 5 as Water Supplies. The heading does not establish an AHJ-specific pressure requirement or a data-centre fire-water design."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "remember"

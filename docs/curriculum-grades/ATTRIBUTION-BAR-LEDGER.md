@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 375 PASS; 582 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 376 PASS; 581 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -614,7 +614,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m10-q204 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact humidification-treatment continuity proposition is not exposed |
 | m10-q205 | 10 | Backup water supply | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact diversified-water conservation strategy proposition is not exposed |
 | m10-q206 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact leak-detection and backup-water hazard proposition is not exposed |
-| m10-q207 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/24/2025 | BLOCKED — NFPA 24, 2025 preview receipt; exact AHJ water-reliability proposition is not exposed |
+| m10-q207 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/24/2025 | PASS |
 | m10-q208 | 10 | Backup water supply | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact drought-restriction operating-mode proposition is not exposed |
 | m10-q209 | 10 | Importance of water | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact cooling-tower basin-level and makeup-control proposition is not exposed |
 | m10-q210 | 10 | Backup water supply | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78552.html | BLOCKED — ISO/IEC 22237-4:2021 catalog receipt; exact emergency water-delivery logistics proposition is not exposed |

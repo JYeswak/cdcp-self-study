@@ -870,6 +870,20 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 271 — NFPA private-fire-service water heading
+
+**Review date:** 2026-08-18. The current official NFPA LiNK preview for NFPA
+24:2025 was checked without opening or fetching a PDF. It exposes Chapter 5 —
+Water Supplies, alongside the standard’s private-fire-service-main scope.
+
+| Item | Public EPI heading | Current official preview | Bounded result |
+|---|---|---|---|
+| m10-q207 | Importance of water | NFPA 24:2025 — https://link.nfpa.org/all-publications/24/2025 | **PASS** — rewritten to ask for the exact public Water Supplies chapter heading; no AHJ-specific pressure or fire-water design claim is inferred |
+
+NFPA 13 system-behavior items remain BLOCKED because the currently evidenced
+public preview does not support their detailed pre-action, wet-pipe, deluge, or
+water-mist propositions. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 270 — NFPA premises-security preview headings
 
 **Review date:** 2026-08-18. The current official NFPA LiNK preview for NFPA
