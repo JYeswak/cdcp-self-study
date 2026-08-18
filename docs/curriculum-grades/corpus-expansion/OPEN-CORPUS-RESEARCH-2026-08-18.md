@@ -1044,6 +1044,22 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 111 — CDCP residual M04 catalog receipt
+
+**Date:** 2026-08-18
+**Scope:** M04 raised-floor understructure boundary with paid class/deflection tables explicitly left blocked.
+**Official receipt:** [ISO/IEC 22237-2:2024](https://www.iso.org/standard/82248.html).
+
+**Bounded result:** m04-q215 now carries the current ISO building-construction catalog receipt and remains BLOCKED; no paid class table or PDF body was fetched.
+
+## Breadth pass 110 — CDCP legacy PASS source normalization
+
+**Date:** 2026-08-18
+**Scope:** Normalize the current-source field for 12 pre-existing PASS rows to their existing official catalog/preview anchors; no PASS/BLOCKED disposition changed.
+**Official receipts:** [ISO/IEC 22237-2:2024](https://www.iso.org/standard/82248.html); [NFPA 70, 2026](https://link.nfpa.org/all-publications/70/2026); [NFPA 101, 2024](https://link.nfpa.org/all-publications/101/2024); [TIA-942-C, May 2024](https://tiaonline.org/standard/tia-942/); [IEC 62040-1 catalog](https://webstore.iec.ch/en/publication/31983); [ASHRAE Datacom Series](https://www.ashrae.org/technical-resources/bookstore/datacom-series); [NFPA 72, 2025](https://link.nfpa.org/all-publications/72/2025).
+
+**Bounded result:** m04-q214, m05-q214–q215, m06-q302–q304, m09-q254, m11-q236–q238, and m14-q213–q214 now point at official catalog/preview receipts in the ledger. No standard body or PDF was fetched.
+
 ## Breadth pass 109 — CDCP final TIA cabling receipts
 
 **Date:** 2026-08-18

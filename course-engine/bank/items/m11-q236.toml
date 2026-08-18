@@ -2,6 +2,8 @@
 # syllabus_heading = "1.11 Designing a Scalable Network Infrastructure"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
 # claim = dual building laterals are the Q2 building oral and do not protect a single-path east-west fabric; one in-hall tray cut is still one training job
+# Public syllabus heading: 1.11 Designing a Scalable Network Infrastructure
+# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
 id = "m11-q236"
 kind = "single-select"
 module = 11

@@ -7,6 +7,8 @@
 #   "src-ocp-ll-cdu",              # https://www.opencompute.org/documents/ocp-wp-l-lcdu-test-methodology-performance-rating-r1-pdf
 # ]
 # claim = "W-class bounds upper FWS supply, not chip/cold-plate temperature; the CDU keeps FWS and TCS physically separate and approach temperature sits between those supplies."
+# Public syllabus heading: 1.9 Cooling Infrastructure
+# Official catalog/preview receipt: ASHRAE Datacom Series — https://www.ashrae.org/technical-resources/bookstore/datacom-series
 id = "m09-q254"
 kind = "single-select"
 module = 9

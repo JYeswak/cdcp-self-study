@@ -5,6 +5,9 @@
 # source = "USACE/NAVFAC/AFCEC UFGS-09 69 13 and UFGS-09 69 19, November 2024, §2.1 System Description — https://legacy.wbdg.org/FFC/DOD/UFGS/UFGS%2009%2069%2013.pdf ; https://legacy.wbdg.org/FFC/DOD/UFGS/UFGS%2009%2069%2019.pdf"
 # claim = "Understructure type is stringered versus free-standing/stringerless; floor product class and deflection claims remain outside this public type distinction."
 # blocked_on_sourcing = "EN 12825, ISO 22496, and CISCA class tables remain paywalled or membership-restricted; no class, deflection, or loading value is asserted here."
+# Public syllabus heading: 1.4 Raised Access Flooring and Suspended Ceiling
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 — https://www.iso.org/standard/82248.html
+# BLOCKED: the current building-construction catalog does not expose the exact stringered-versus-stringerless proposition; paid class tables remain out of scope. No PDF body was fetched.
 id = "m04-q215"
 kind = "single-select"
 module = 4

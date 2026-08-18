@@ -2,6 +2,8 @@
 # syllabus_heading = "1.11 Designing a Scalable Network Infrastructure"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
 # claim = physical diversity is mapped, not purchased; two logos on one duct bank are one lateral; a spine-leaf plant on one tray is one east-west cut = one training job
+# Public syllabus heading: 1.11 Designing a Scalable Network Infrastructure
+# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
 id = "m11-q238"
 kind = "single-select"
 module = 11

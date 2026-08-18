@@ -2,6 +2,8 @@
 # syllabus_heading = "1.11 Designing a Scalable Network Infrastructure"
 # syllabus_url = "https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)"
 # claim = two carrier logos do not establish physical diversity; a shared duct bank or manhole is one cut, and even two real laterals do not protect a single-path east-west fabric
+# Public syllabus heading: 1.11 Designing a Scalable Network Infrastructure
+# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
 id = "m11-q237"
 kind = "single-select"
 module = 11
