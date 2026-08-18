@@ -1,19 +1,21 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Gas-based fire suppression
-# Official catalog/preview receipt: NFPA 2001, 2025 — https://link.nfpa.org/all-publications/2001/2025
-# BLOCKED: the current official preview does not expose the exact item-level gas-based fire suppression proposition. No paid body or PDF was fetched.
+# Official public-code receipt: 29 CFR 1910.160 —
+# https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR7a02737a205fd22/section-1910.160
+# PASS: current eCFR text requires pre-discharge employee alarms and time for
+# safe exit for hazardous total-flooding systems.
 id = "bank-m12-q051"
 kind = "single-select"
 module = 12
-stem = "Compared with water sprinklers, gaseous clean-agent systems typically trade reduced water damage for:"
+stem = "For a hazardous total-flooding fixed extinguishing system, 29 CFR 1910.160 requires:"
 choices = [
-  "No need for any life-safety egress planning",
-  "Elimination of all AHJ involvement",
-  "Room sealability, pre-discharge alarms/delays, HVAC interlock, and costly refill after discharge",
-  "Free unlimited discharges with zero downtime"
+  "A pre-discharge employee alarm capable of giving employees time to safely exit before discharge",
+  "Immediate discharge with no employee warning or egress provision",
+  "Only a water-flow alarm and no fixed-system safeguards",
+  "A universal refill interval and room-seal test value for every facility"
 ]
-correct = "C"
-explanation = "Gas systems need integrity, egress timing, HVAC/damper interlocks, and agent logistics after use."
+correct = "A"
+explanation = "Current 29 CFR 1910.160 requires a pre-discharge employee alarm for hazardous total-flooding systems, capable of giving employees time to safely exit before discharge. It does not establish clean-agent room-seal, HVAC-interlock, or refill values in this bounded item."
 topic_ids = ["m12-gas-suppression", "m12-water-suppression"]
 objective_ids = []
 bloom = "analyze"

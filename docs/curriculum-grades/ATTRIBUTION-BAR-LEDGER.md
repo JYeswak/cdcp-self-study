@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 294 PASS; 663 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 296 PASS; 661 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -719,7 +719,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m12-q048 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | BLOCKED — NFPA 13, 2025 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q049 | 12 | Water-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/13/2025 | BLOCKED — NFPA 13, 2025 official preview receipt; exact item-level proposition is not exposed |
 | bank-m12-q050 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | BLOCKED — NFPA 2001, 2025 official preview receipt; exact item-level proposition is not exposed |
-| bank-m12-q051 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | BLOCKED — NFPA 2001, 2025 official preview receipt; exact item-level proposition is not exposed |
+| bank-m12-q051 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR7a02737a205fd22/section-1910.160 | PASS |
 | bank-m12-q052 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.162; https://www.cdc.gov/niosh/idlh/124389.html | PASS — OSHA toxic-exposure/pre-discharge requirements and NIOSH CO₂ IDLH support the life-safety proposition |
 | bank-m12-q053 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160 | PASS — OSHA requires pre-discharge warning and time for safe exit from total-flooding areas |
 | bank-m12-q054 | 12 | Gas-based fire suppression | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSBC2025P1/chapter-9-fire-protection-and-life-safety-systems | PASS — 2025 New York State Building Code requires ventilation-control interlocks necessary for extinguishing-system operation |
@@ -739,7 +739,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | bank-m12-q068 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSFC2025P1/chapter-1-scope-and-administration | PASS — 2025 New York State Fire Code assigns enforcement to the AHJ and provides the approval/variance path |
 | bank-m12-q069 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | PASS |
 | bank-m12-q070 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/2001/2025 | PASS |
-| bank-m12-q071 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/72/2025 | BLOCKED — NFPA 72 preview receipt; exact impairment-control procedure is not exposed |
+| bank-m12-q071 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR7a02737a205fd22/section-1910.160 | PASS |
 | bank-m12-q072 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSBC2025P1/chapter-9-fire-protection-and-life-safety-systems | PASS — 2025 New York State Building Code requires pending-agent warning signs/signals and evacuation warning when delay is needed |
 | bank-m12-q073 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSBC2025P1/chapter-9-fire-protection-and-life-safety-systems | PASS — 2025 New York State Building Code places manual fire-alarm boxes near exit entrances and limits travel distance |
 | bank-m12-q074 | 12 | Fire Protection | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSFC2025P1/chapter-7-fire-and-smoke-protection-features | PASS — 2025 New York State Fire Code prohibits blocking, obstructing, or making fire doors inoperable |

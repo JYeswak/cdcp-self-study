@@ -1024,6 +1024,24 @@ out-of-band physical-path design, emergency runbooks, or cable-labeling rules.
 
 No PDF was fetched. This pass does not certify a learner or close ms4j.
 
+## Breadth pass 238 — current eCFR fixed-extinguishing-system safeguards
+
+**Review date:** 2026-08-18. The current eCFR HTML for 29 CFR 1910.160 says
+that when a fixed extinguishing system becomes inoperable, employees must be
+notified and necessary temporary precautions taken until restoration, with
+defects corrected by trained personnel. For hazardous total-flooding systems,
+it requires a pre-discharge employee alarm that gives employees time to safely
+exit before discharge. These are public legal-text receipts; the items do not
+invent a fire-watch format, clean-agent room-seal value, HVAC interlock, or
+refill interval.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q071 | Fire Protection | 29 CFR 1910.160 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR7a02737a205fd22/section-1910.160 | **PASS** — impairment notification, temporary precautions, trained correction, and restoration are explicit |
+| bank-m12-q051 | Gas-based fire suppression | 29 CFR 1910.160 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR7a02737a205fd22/section-1910.160 | **PASS** — pre-discharge alarm and safe-exit time for hazardous total-flooding systems are explicit |
+
+No PDF was fetched. This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 230 — RFC 8633 NTP operations and time-source diversity
 
 **Review date:** 2026-08-18. The open RFC Editor text for RFC 8633 identifies
