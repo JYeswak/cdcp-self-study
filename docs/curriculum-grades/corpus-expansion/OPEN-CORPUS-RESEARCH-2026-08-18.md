@@ -1139,6 +1139,36 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 38 — CDCP data-centre foundations receipts
+
+**Review date:** 2026-08-18. Fifteen Module 1 rows now carry official
+ISO/IEC 22237-1:2021, ISO 22301:2019/Amd 1:2024, or TIA-942-C catalog/preview
+receipts. They remain BLOCKED because the public pages do not expose the exact
+mission-critical, MTBF/MTTR, ownership, taxonomy, or change-control
+propositions. No PDF or paid standard body was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| mock40-q01 | Importance of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact mission-critical test not exposed |
+| mock40-q02 | MTBF / MTTR | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact MTBF/MTTR proposition not exposed |
+| mock40-q03 | Types of data centres | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact retail-colocation ownership proposition not exposed |
+| mock40-q04 | Causes of unavailability | ISO 22301:2019/Amd 1:2024 — https://www.iso.org/standard/88412.html | **BLOCKED** — exact causes proposition not exposed |
+| m01-q041 | Business organization / DC in the business | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact IT/facilities-silo proposition not exposed |
+| m01-q042 | Types of data centres | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact ownership-model proposition not exposed |
+| m01-q043 | Types of data centres | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact wholesale-colocation characterization not exposed |
+| m01-q044 | Importance of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact mission-critical framing not exposed |
+| m01-q045 | Elements of a data centre | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact combined element set not exposed |
+| m01-q046 | Types of data centres | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact latency/backhaul proposition not exposed |
+| m01-q047 | Causes of unavailability | ISO/IEC 22237-1:2021 — https://www.iso.org/standard/78550.html?browse=tc | **BLOCKED** — exact SPOF/change-error proposition not exposed |
+| m01-q048 | Types of data centres | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact hyperscale characterization not exposed |
+| m01-q049 | Business organization / DC in the business | ISO 22301:2019/Amd 1:2024 — https://www.iso.org/standard/88412.html | **BLOCKED** — exact BIA-to-RTO/RPO proposition not exposed |
+| m01-q050 | Types of data centres | TIA-942-C (May 2024) — https://tiaonline.org/standard/tia-942/ | **BLOCKED** — exact governance/SLA-boundary comparison not exposed |
+| m01-q051 | Causes of unavailability | ISO 22301:2019/Amd 1:2024 — https://www.iso.org/standard/88412.html | **BLOCKED** — exact maintenance-change-control proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 24 — CDCP BMS and environmental-monitoring OT boundary
 
 **Review date:** 2026-08-18. Two Module 14 rows were narrowed to the current
