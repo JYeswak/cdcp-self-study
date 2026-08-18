@@ -58,8 +58,12 @@
 # check_sh_invocation_set, is_inventoried_oracle_script, discover_oracle_scripts,
 # check_rust_migration_headers, ORACLE_DISPOSITIONS, RUST_MIGRATION_HEADER_MARKER.
 # Gate uses the extracted module; prove_wired and inventory_findings stay (gate types).
-# CEILING STAYS 37283 until CI confirms (ar39.15: CI counts 18 more than local).
-ceiling_lines = 37283
+# ar39.15's CI-count reconciliation was completed by the sanctioned extraction
+# below; this ratchet now records the lower local ceiling.
+# 37283 -> 37275: EXTRACT-THEN-DELETE answer-key-skew implementation and tests
+# into crates/cdcp_bank; cdcp_gate retains the 21-line dispatcher
+# (bd-engine-not-gate-ar39.16).
+ceiling_lines = 37275
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
@@ -97,6 +101,10 @@ lines = 131
 [[file]]
 path = "src/exit.rs"
 lines = 22
+
+[[file]]
+path = "src/gates/answer_key_skew.rs"
+lines = 21
 
 [[file]]
 path = "src/gates/capability_maturity.rs"

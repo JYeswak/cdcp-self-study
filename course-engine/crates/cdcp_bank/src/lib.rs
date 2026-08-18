@@ -16,6 +16,7 @@
 //! statuses are well-formed or that a bank file carries no unmodelled content.
 #![forbid(unsafe_code)]
 
+pub mod answer_key_skew;
 pub mod leftover_honesty;
 pub mod mock40_module;
 pub mod near_duplicate;

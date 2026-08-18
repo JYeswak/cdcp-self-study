@@ -1,0 +1,12 @@
+id = "retired-only"
+module = 1
+stem = "A valid synthetic answer-key fixture item"
+choices = ["one", "two", "three", "four"]
+correct = "A"
+explanation = "because this is a valid fixture"
+topic_ids = ["m01-importance"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "retired"
+kind = "single-select"
