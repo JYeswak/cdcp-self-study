@@ -500,9 +500,36 @@ status: BLOCKED_WITH_RECEIPT
   dc745442d2f48fc6ab62c3297e6d30f285b51597` has no run). The historical
   37472-line result is a different SHA and does not authorize a ceiling change.
 
+## Slice 21 — `verify_coverage` adjacent unassigned Unicode `repr(str)` parity
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `15c8909a5472911e9c1f609ef4d13238a4b7207e`
+- Change: mirror Python 3.11's non-printable `repr(str)` treatment of the
+  adjacent unassigned U+0380–U+0383 range in `cdcp_bank::verify_coverage`; the
+  Python oracle remains present and unchanged.
+- Fixture: `unicode_unassigned_module_repr_is_byte_identical_and_known_bad_is_red`
+  in `crates/cdcp_gate/tests/diff_verify_coverage.rs`, switched to U+0380.
+- Known-bad RED: before the range was added, Python emitted
+  `nope\\u0380` while Rust emitted raw `nope΀`; the byte-exact differential
+  assertion failed.
+- Focused proof: `cargo test --locked -p cdcp_gate --test
+  diff_verify_coverage unicode_unassigned_module_repr_is_byte_identical_and_known_bad_is_red
+  -- --exact` — 1 passed after the fix.
+- Coverage unit proof: `cargo test --locked -p cdcp_bank verify_coverage` — 10
+  passed.
+- Full coverage differential: 27/28 passed; the sole failure remains the
+  pre-existing anti-vacuity inventory assertion (`scanned only 7 Python
+  sources`). No corpus or bank files were changed.
+- Local `gate_shrink`: 37251 lines / 47 files; digest
+  `fnv1a64:65647a7c5cbe8ffc`; 32 lines below ceiling 37283; registry check
+  GREEN. The ceiling was not edited.
+- CI for this SHA: unavailable (`gh run list --commit
+  15c8909a5472911e9c1f609ef4d13238a4b7207e` has no run). The historical
+  37472-line result is a different SHA and does not authorize a ceiling change.
+
 ## Blocker audit — audited code tree
 
-- Audited code SHA: `dc745442d2f48fc6ab62c3297e6d30f285b51597`; the receipt
+- Audited code SHA: `15c8909a5472911e9c1f609ef4d13238a4b7207e`; the receipt
   update below changes no gate source.
 - The live worktree measures 37251 lines / 47 files, digest
   `fnv1a64:65647a7c5cbe8ffc`. Pane-owned dirty files were preserved and are not
@@ -511,9 +538,9 @@ status: BLOCKED_WITH_RECEIPT
   37472 / 47, digest `fnv1a64:67f95ea56dbda888`. Its latest completed check run
   (`32095229956`) failed at that old SHA's gate-shrink count; it is not a
   same-SHA result for this branch.
-- `gh run list --commit dc745442d2f48fc6ab62c3297e6d30f285b51597` returns no
-  run. Local proof includes the new bank known-bad differential (1/1), bank
-  units (35/35), and a GREEN registry-check.
+- `gh run list --commit 15c8909a5472911e9c1f609ef4d13238a4b7207e` returns no
+  run. Local proof includes the new coverage known-bad differential (1/1),
+  coverage units (10/10), and a GREEN registry-check.
 - This audit adds no parity slice and makes no certification claim. The
   remaining blocker is external: a CI run on the current SHA is required.
   `check.sh`/workflow changes and publishing the shared branch are outside
@@ -524,8 +551,8 @@ status: BLOCKED_WITH_RECEIPT
 BLOCKED_WITH_RECEIPT: the local and proof conditions are satisfied, but the
 external CI leg cannot be observed on the current code SHA.
 
-- Code SHA: `dc745442d2f48fc6ab62c3297e6d30f285b51597`; `gh run list --commit
-  dc745442d2f48fc6ab62c3297e6d30f285b51597` returned no runs.
+- Code SHA: `15c8909a5472911e9c1f609ef4d13238a4b7207e`; `gh run list --commit
+  15c8909a5472911e9c1f609ef4d13238a4b7207e` returned no runs.
 - Local `gate_shrink`: 37251 lines / 47 files; digest
   `fnv1a64:65647a7c5cbe8ffc`; ceiling remains exactly 37283.
 - Exact historical CI discrepancy retained for `bd-engine-not-gate-ar39.15`:
