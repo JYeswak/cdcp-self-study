@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 539 PASS; 418 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 541 PASS; 416 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -250,7 +250,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | mock40-q18 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | BLOCKED — IEC 62040-3:2021 catalog receipt; exact double-conversion isolation is not exposed |
 | mock40-q19 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact generator/UPS bridge is not exposed |
 | mock40-q20 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html?browse=tc | BLOCKED — ISO/IEC 22237-3:2021 catalog receipt; exact busway tap-off flexibility is not exposed |
-| mock40-q21 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/30134-2?browse=ics | BLOCKED — ISO/IEC 30134-2:2026 catalog receipt; exact simplified PUE teaching proposition is not exposed |
+| mock40-q21 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/30134-2?browse=ics | PASS — ISO/IEC 30134-2:2026 Edition 2 OBP page defines PUE as a data-centre energy-efficiency KPI |
 | m06-q041 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html | PASS — ISO/IEC 22237-3:2021 official abstract names power distribution to all equipment |
 | m06-q042 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/60140 | PASS — current IEC catalog states covered UPS incorporate an energy storage device not exceeding 1 500 V DC |
 | m06-q043 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/78551.html | PASS — ISO/IEC 22237-3:2021 official abstract names power supplies to data centres |
@@ -356,7 +356,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q232 | 6 | Batteries | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/7091 | PASS — IEC 62485-2:2010 public page covers stationary-battery hazards and the erection/use/inspection/maintenance lifecycle |
 | m06-q233 | 6 | Microgrid | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/61960 | PASS |
 | m06-q234 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://link.nfpa.org/all-publications/110/2025 | BLOCKED — NFPA 110:2025 catalog/preview receipt; exact test-interval/start-reliability proposition is not exposed |
-| m06-q235 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/30134-2?browse=ics | BLOCKED — ISO/IEC 30134-2:2026 catalog receipt; exact redundancy/availability trade-off proposition is not exposed |
+| m06-q235 | 6 | Power sustainability | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/30134-2?browse=ics | PASS — ISO/IEC 30134-2:2026 Edition 2 OBP page supports energy-efficiency tracking, benchmarking, and supporting-infrastructure waste identification |
 | m06-q236 | 6 | Ingress Protection (IP) grades | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/2452 | BLOCKED — IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV catalog receipt; exact outdoor-enclosure selection proposition is not exposed |
 | m06-q237 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | BLOCKED — IEC 60076-1:2011 catalog receipt; exact facility step-down proposition is not exposed |
 | m06-q238 | 6 | Transformers | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/588 | BLOCKED — IEC 60076-1:2011 catalog receipt; exact transformer-loss/heat-load proposition is not exposed |

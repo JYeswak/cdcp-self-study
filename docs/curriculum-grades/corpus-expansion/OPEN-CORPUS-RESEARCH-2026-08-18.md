@@ -7501,3 +7501,23 @@ high-bay efficiency, maintenance, or seismic-restraint conclusion is inferred.
 High-bay selection, LED efficiency, maintainability, seismic restraint, and
 egress-lighting design remain outside this catalog receipt. This pass does not
 certify a learner or close ms4j.
+
+## Breadth pass 330 — ISO/IEC 30134-2:2026 current PUE edition
+
+**Review date:** 2026-08-18. The current ISO Online Browsing Platform page now
+identifies ISO/IEC 30134-2:2026 as Edition 2, published in January 2026. Its
+public preview defines Power Usage Effectiveness (PUE) as a key performance
+indicator for quantifying how efficiently a data centre uses energy. It also
+describes standardized measurement/calculation/reporting, measurement
+categories, mixed-use mPUE, on-site generation, unmeasured energy, benchmarking,
+and identification of supporting-infrastructure energy waste. The two item stems
+were narrowed to those current public claims.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| mock40-q21 | Power sustainability | ISO/IEC 30134-2:2026 — https://www.iso.org/standard/30134-2?browse=ics | **PASS** — current Edition 2 PUE KPI purpose is explicit |
+| m06-q235 | Power sustainability | ISO/IEC 30134-2:2026 — https://www.iso.org/standard/30134-2?browse=ics | **PASS** — current preview supports energy-efficiency tracking/benchmarking and waste identification |
+
+Exact PUE formula inputs, availability-class effects, redundancy decisions, and
+site-specific measurement boundaries remain outside this public preview. This
+pass does not certify a learner or close ms4j.
