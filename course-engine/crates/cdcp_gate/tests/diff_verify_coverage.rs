@@ -1146,10 +1146,9 @@ fn a_domain_min_row_for_an_undeclared_module_is_an_error() {
     );
 }
 
-/// Unicode-16 `Nd` blocks are part of Python's `int(str)` contract. The
-/// known-bad mutant removes any one of the nine newly-added block starts from
-/// the coverage port: Python still names the module-1 shortfall, while Rust
-/// emits a different invalid-literal finding and the byte comparison REDs.
+/// Python's `int(str)` accepts Unicode `Nd` digits. The known-bad mutant keeps
+/// module parsing ASCII-only, so Python names the module-2 shortfall while the
+/// Rust port emits a different result and the byte comparison REDs.
 #[test]
 fn unicode_nd_blocks_for_domain_min_are_byte_identical_and_known_bad_is_red() {
     let root = engine_root();
@@ -1158,12 +1157,7 @@ fn unicode_nd_blocks_for_domain_min_are_byte_identical_and_known_bad_is_red() {
     write(&reg, &domains_registry(&[1, 2]));
     let bank = td.path().join("bank");
     plant_bank(&bank, &[("a", 1), ("b", 2)]);
-    let digits: String = [
-        '\u{10d40}', '\u{116d0}', '\u{11bf0}', '\u{11f50}', '\u{16130}',
-        '\u{16d70}', '\u{1ccf0}', '\u{1e4f0}', '\u{1e5f2}',
-    ]
-    .into_iter()
-    .collect();
+    let digits = '\u{0662}';
     let policy = td.path().join("policy_unicode.toml");
     write(
         &policy,
@@ -1184,7 +1178,7 @@ fn unicode_nd_blocks_for_domain_min_are_byte_identical_and_known_bad_is_red() {
     assert_ne!(rs.code, 0, "{}", rs.out());
     assert!(
         rs.out()
-            .contains("module 1: 1 approved < min 4 (1 scanned, 0 not approved)"),
+            .contains("module 2: 1 approved < min 4 (1 scanned, 0 not approved)"),
         "{}",
         rs.out()
     );

@@ -804,19 +804,20 @@ fn module_coercion_matches_python_int_identically() {
     );
 }
 
-/// Unicode-16 `Nd` blocks are part of Python's `int(str)` contract. The
-/// known-bad mutant removes any one of the nine newly-added block starts from
-/// `unicode_decimal_digit`: Python still passes this fixture, while Rust emits
-/// an invalid-literal finding and exits RED, so this differential test catches
-/// the narrowing instead of certifying it.
+/// Python's `int(str)` accepts Unicode `Nd` digits. The known-bad mutant
+/// removes Unicode support from `unicode_decimal_digit`, while Python still
+/// passes this mixed-script fixture; the differential test then REDs instead
+/// of certifying the narrowing.
 #[test]
 fn unicode_nd_blocks_are_byte_identical_and_known_bad_is_red() {
-    let digits: String = [
-        '\u{10d40}', '\u{116d0}', '\u{11bf0}', '\u{11f50}', '\u{16130}',
-        '\u{16d70}', '\u{1ccf0}', '\u{1e4f0}', '\u{1e5f2}',
-    ]
-    .into_iter()
-    .collect();
+    let starts = [
+        0x0660, 0x06f0, 0x0966, 0x09e6, 0x0a66, 0x0ae6, 0x0b66, 0x0be6, 0x0c66,
+    ];
+    let digits: String = starts
+        .into_iter()
+        .enumerate()
+        .map(|(n, start)| char::from_u32(start + n as u32 + 1).unwrap())
+        .collect();
     let f = Fixture::new();
     f.write(
         "knowledge/bank_policy.toml",
@@ -828,7 +829,11 @@ fn unicode_nd_blocks_are_byte_identical_and_known_bad_is_red() {
     f.write("bank/items/pool.toml", &pool(2, &["A", "B"]));
     let run = f.check("unicode-nd-blocks");
     assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
-    assert!(run.stdout.contains("pool_min=1 exam_n=1"), "{}", run.stdout);
+    assert!(
+        run.stdout.contains("pool_min=1 exam_n=123456789"),
+        "{}",
+        run.stdout
+    );
 }
 
 // The test that used to sit here — `a_falsy_pool_minimum_falls_back_to_the_

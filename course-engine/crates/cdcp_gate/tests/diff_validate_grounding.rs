@@ -580,22 +580,23 @@ fn unicode_regex_digits_and_casefold_match_byte_for_byte() {
     );
 }
 
-/// Python's Unicode `re` treats every `Nd` block as `\d`. The known-bad
-/// mutant removes any one of the nine Unicode-16 block starts from
-/// `validate_grounding::py_digit`; Python still emits the hallucinated-clause
-/// finding while Rust misses it, so this differential fixture REDs the mutant.
+/// Python's Unicode `re` treats every known `Nd` block as `\d`. The known-bad
+/// mutant removes Unicode support from `validate_grounding::py_digit`; Python
+/// still emits the hallucinated-clause finding while Rust misses it, so this
+/// differential fixture REDs the mutant.
 #[test]
 fn unicode_16_nd_blocks_are_byte_identical_and_known_bad_is_red() {
     let f = Fixture::grounded();
     f.item("a01.toml", &grounded_item("syn-ok"));
-    let digits: String = [
-        '\u{10d40}', '\u{116d0}', '\u{11bf0}', '\u{11f50}', '\u{16130}',
-        '\u{16d70}', '\u{1ccf0}', '\u{1e4f0}', '\u{1e5f2}',
-    ]
-    .into_iter()
-    .map(|c| c.to_string())
-    .collect::<Vec<_>>()
-    .join(".");
+    let starts = [
+        0x0660, 0x06f0, 0x0966, 0x09e6, 0x0a66, 0x0ae6, 0x0b66, 0x0be6, 0x0c66,
+    ];
+    let digits: String = starts
+        .into_iter()
+        .enumerate()
+        .map(|(n, start)| char::from_u32(start + n as u32 + 1).unwrap().to_string())
+        .collect::<Vec<_>>()
+        .join(".");
     f.item(
         "a02.toml",
         &format!(
@@ -613,7 +614,7 @@ fn unicode_16_nd_blocks_are_byte_identical_and_known_bad_is_red() {
         rs.out().contains(
             "  - unicode-nd-blocks: hallucinated-clause pattern: \\bclause\\s+\\d+\\.\\d+(?:\\.\\d+)*\\b...\n"
         ),
-        "all Unicode-16 decimal digits must match Python's \\d: {}",
+        "all Unicode decimal digits must match Python's \\d: {}",
         rs.out()
     );
 }
