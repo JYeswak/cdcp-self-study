@@ -601,9 +601,30 @@ status: BLOCKED_WITH_RECEIPT
   7298fb3571fdc607b01c9011dbac7111e8d2af06` has no run). The historical
   37472-line result is a different SHA and does not authorize a ceiling change.
 
+## Slice 25 — coverage inventory floor matches seven retained Python oracles
+
+- Bead: `bd-substrate-python-gates-viu`
+- SHA: `70d1b69b2bab1204ba9c1637d9fe0bfddc663267`
+- Change: correct the anti-vacuity inventory assertion in
+  `diff_verify_coverage.rs` from eight sources to the authoritative seven
+  retained Python oracles. No oracle was deleted or added.
+- Known-bad RED: before the correction,
+  `no_bank_loader_iterates_items_without_a_zero_yield_guard` REDed with
+  `scanned only 7 python sources`; the existing
+  `the_zero_yield_scan_fires_on_the_known_bad_and_stays_quiet_on_the_known_good`
+  detector remained the falsification fixture and passed after the correction.
+- Focused proofs: both of those tests — 1 passed each after the fix.
+- Full coverage differential: 28/28 passed.
+- Local `gate_shrink`: 37252 lines / 47 files; digest
+  `fnv1a64:e119332a48d14afa`; 31 lines below ceiling 37283; registry check
+  GREEN. The ceiling was not edited.
+- CI for this SHA: unavailable (`gh run list --commit
+  70d1b69b2bab1204ba9c1637d9fe0bfddc663267` has no run). The historical
+  37472-line result is a different SHA and does not authorize a ceiling change.
+
 ## Blocker audit — audited code tree
 
-- Audited code SHA: `7298fb3571fdc607b01c9011dbac7111e8d2af06`; the receipt
+- Audited code SHA: `70d1b69b2bab1204ba9c1637d9fe0bfddc663267`; the receipt
   update below changes no gate source.
 - The live worktree measures 37251 lines / 47 files, digest
   `fnv1a64:65647a7c5cbe8ffc`. Pane-owned dirty files were preserved and are not
@@ -612,9 +633,9 @@ status: BLOCKED_WITH_RECEIPT
   37472 / 47, digest `fnv1a64:67f95ea56dbda888`. Its latest completed check run
   (`32095229956`) failed at that old SHA's gate-shrink count; it is not a
   same-SHA result for this branch.
-- `gh run list --commit 7298fb3571fdc607b01c9011dbac7111e8d2af06` returns no
-  run. Local proof includes the new orphan known-bad differential (1/1), the
-  full orphan differential (10/10), and a GREEN registry-check.
+- `gh run list --commit 70d1b69b2bab1204ba9c1637d9fe0bfddc663267` returns no
+  run. Local proof includes the seven-oracle coverage inventory detector,
+  coverage differential 28/28, and a GREEN registry-check.
 - This audit adds no parity slice and makes no certification claim. The
   remaining blocker is external: a CI run on the current SHA is required.
   `check.sh`/workflow changes and publishing the shared branch are outside
@@ -625,8 +646,8 @@ status: BLOCKED_WITH_RECEIPT
 BLOCKED_WITH_RECEIPT: the local and proof conditions are satisfied, but the
 external CI leg cannot be observed on the current code SHA.
 
-- Code SHA: `7298fb3571fdc607b01c9011dbac7111e8d2af06`; `gh run list --commit
-  7298fb3571fdc607b01c9011dbac7111e8d2af06` returned no runs.
+- Code SHA: `70d1b69b2bab1204ba9c1637d9fe0bfddc663267`; `gh run list --commit
+  70d1b69b2bab1204ba9c1637d9fe0bfddc663267` returned no runs.
 - Local `gate_shrink`: 37252 lines / 47 files; digest
   `fnv1a64:e119332a48d14afa`; ceiling remains exactly 37283.
 - Exact historical CI discrepancy retained for `bd-engine-not-gate-ar39.15`:
