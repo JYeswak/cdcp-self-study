@@ -1,0 +1,26 @@
+# Original CDRP educational MCQ — ms4j.5: BIA outputs.
+# Public heading: CDRP "Business Impact Analysis" —
+# https://www.epi-ap.com/services/1/3/81/Certified_Data_Centre_Risk_Professional_(CDRP)
+# Cites: ISO 22301:2019 §8.2.2 "Business impact analysis" —
+# https://www.iso.org/standard/75106.html
+# BIA produces RTO, RPO, dependencies — not just "impact is high."
+# Decides BIA OUTPUT STRUCTURE, not a nines sticker. bloom = understand.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m01-q218"
+kind = "single-select"
+module = 1
+stem = "A business impact analysis (BIA) is complete. According to ISO 22301, the primary deliverables are:"
+choices = [
+  "Recovery time objectives, recovery point objectives, and resource dependencies for each process",
+  "A single availability percentage that applies uniformly to all business processes",
+  "A list of vendors ranked by contract value to prioritize renewal negotiations",
+  "The headcount reduction possible after automating manual recovery procedures",
+]
+correct = "A"
+explanation = "ISO 22301:2019 §8.2.2 requires a BIA to determine: (a) impact over time of disruption, (b) minimum resources for recovery, (c) prioritized timeframes (RTO) and data-loss tolerances (RPO), (d) dependencies. A BIA that outputs only 'impact is high' or a single percentage misses the structure — different processes have different RTOs, and recovery depends on upstream resources. The deliverable is a prioritized list with per-process targets, not a single number."
+topic_ids = ["m01-risk", "m01-bia"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

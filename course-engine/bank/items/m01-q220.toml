@@ -1,0 +1,26 @@
+# Original CDRP educational MCQ — ms4j.5: infrastructure assessment scope.
+# Public heading: CDRP "Infrastructure Risk Assessment" —
+# https://www.epi-ap.com/services/1/3/81/Certified_Data_Centre_Risk_Professional_(CDRP)
+# Cites: NIST SP 800-30 Rev 1 §3.1 "Threat sources" —
+# https://csrc.nist.gov/publications/detail/sp/800-30/rev-1/final
+# Infrastructure assessment identifies SPOFs and dependencies, not just capacity.
+# Decides ASSESSMENT SCOPE, not a nines sticker. bloom = analyze.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m01-q220"
+kind = "single-select"
+module = 1
+stem = "An infrastructure risk assessment finds that both UPS strings share a single battery-room HVAC unit. The correct classification is:"
+choices = [
+  "Single point of failure — loss of the shared HVAC threatens both UPS strings simultaneously",
+  "Acceptable — HVAC is not a power component, so it does not affect UPS availability",
+  "Out of scope — infrastructure assessment covers IT equipment, not mechanical plant",
+  "Informational — note the shared unit but do not escalate since batteries tolerate heat",
+]
+correct = "A"
+explanation = "NIST SP 800-30 Rev 1 §3.1 directs assessors to identify threat sources that can affect multiple assets. A shared HVAC unit that cools both UPS battery rooms is a common-cause failure: its loss raises battery temperature in both strings, shortening runtime or triggering thermal shutdown. Infrastructure assessment must include supporting plant (HVAC, fire suppression, fuel) — not just IT or power distribution — because dependencies create SPOFs that design reviews miss when scoped too narrowly."
+topic_ids = ["m01-risk", "m01-infrastructure", "m01-spof"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

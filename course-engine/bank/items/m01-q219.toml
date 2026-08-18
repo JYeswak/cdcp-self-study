@@ -1,0 +1,26 @@
+# Original CDRP educational MCQ — ms4j.5: risk treatment options.
+# Public heading: CDRP "Risk Assessment & Management" —
+# https://www.epi-ap.com/services/1/3/81/Certified_Data_Centre_Risk_Professional_(CDRP)
+# Cites: ISO 31000:2018 §6.5 "Risk treatment" —
+# https://www.iso.org/standard/65694.html
+# Treatment is avoid/modify/share/retain — not just "mitigate everything."
+# Decides TREATMENT TAXONOMY, not a nines sticker. bloom = apply.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m01-q219"
+kind = "single-select"
+module = 1
+stem = "A risk register shows a low-probability, high-impact threat with no cost-effective control. According to ISO 31000, the treatment option that formally accepts the risk without spending is:"
+choices = [
+  "Retain — document the acceptance decision and monitor the risk",
+  "Avoid — discontinue the activity that creates the exposure",
+  "Share — transfer the risk to a third party via contract or insurance",
+  "Modify — implement controls to reduce likelihood or consequence",
+]
+correct = "A"
+explanation = "ISO 31000:2018 §6.5 lists treatment options: avoid (stop the activity), modify (controls), share (insurance, contract), retain (accept). Retention is a valid choice when treatment cost exceeds expected loss or no control is feasible — but it must be a documented decision, not a default. The defect is treating 'no action' as 'no decision.' A retained risk still requires monitoring and periodic reassessment."
+topic_ids = ["m01-risk", "m01-treatment"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

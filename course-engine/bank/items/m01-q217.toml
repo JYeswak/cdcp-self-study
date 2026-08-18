@@ -1,0 +1,26 @@
+# Original CDRP educational MCQ — ms4j.5: risk process steps.
+# Public heading: CDRP "Risk Assessment & Management" —
+# https://www.epi-ap.com/services/1/3/81/Certified_Data_Centre_Risk_Professional_(CDRP)
+# Cites: NIST SP 800-30 Rev 1 "Guide for Conducting Risk Assessments" §2.1 —
+# https://csrc.nist.gov/publications/detail/sp/800-30/rev-1/final
+# Risk assessment is identify→analyze→evaluate, not a single "do assessment" step.
+# Decides PROCESS STRUCTURE, not a nines percentage. bloom = understand.
+# Options length-balanced; teaching lives in `explanation`.
+id = "m01-q217"
+kind = "single-select"
+module = 1
+stem = "A risk professional says 'we completed the risk assessment.' According to NIST SP 800-30, that phrase covers which steps?"
+choices = [
+  "Identify threats, analyze likelihood and impact, evaluate against risk criteria",
+  "Install redundant equipment to lower risk to an acceptable level",
+  "Calculate the availability percentage and compare it to the SLA target",
+  "Purchase insurance to transfer all identified risks to a third party",
+]
+correct = "A"
+explanation = "NIST SP 800-30 Rev 1 §2.1 defines risk assessment as a three-step process: (1) identify threats and vulnerabilities, (2) analyze likelihood and impact, (3) evaluate results against organizational risk criteria. Assessment is the analysis phase — it produces a ranked list of risks. Treatment (installing equipment, buying insurance) is a separate phase that consumes assessment output. Confusing assessment with treatment leads to 'we did a risk assessment' meaning 'we bought something' without knowing what risk it addressed."
+topic_ids = ["m01-risk", "m01-process"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
