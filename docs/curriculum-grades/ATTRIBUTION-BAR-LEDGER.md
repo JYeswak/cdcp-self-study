@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 126 PASS; 831 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 127 PASS; 830 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -812,7 +812,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m13-q206 | 13 | Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m13-q207 | 13 | Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m13-q208 | 13 | Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m13-q209 | 13 | Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
+| m13-q209 | 13 | Physical Security and Safety — Components for physical safety | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.37 | PASS |
 | m13-q210 | 13 | Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m13-q211 | 13 | Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m13-q212 | 13 | Components for physical security | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |

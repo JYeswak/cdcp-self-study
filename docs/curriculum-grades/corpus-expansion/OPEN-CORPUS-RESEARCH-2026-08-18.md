@@ -878,3 +878,16 @@ This pass does not certify a learner or close ms4j.
 
 The follow-up does not promote room-integrity testing, a universal recovery
 procedure, or any unexposed agent-selection claim.
+
+## Breadth pass 19 — CDCP physical-safety egress boundary
+
+**Review date:** 2026-08-18. One Module 13 row was narrowed to current public
+eCFR exit-route requirements. Badge, mantrap, CCTV, and access-review claims
+remain BLOCKED where no qualifying public code clause was exposed.
+
+| Item | Public CDCP heading | Official public-code receipt | Bounded result |
+|---|---|---|---|
+| m13-q209 | Physical Security and Safety — Components for physical safety | 29 CFR 1910.37 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.37 | **PASS** — access hardware must not obstruct usable emergency egress, and required safeguards must remain operable |
+
+The ledger is now 127 PASS / 830 BLOCKED across 957 rows, with zero bare FAIL.
+No physical-security taxonomy, credential claim, or ms4j closure was added.

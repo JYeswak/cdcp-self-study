@@ -1,4 +1,10 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public heading: CDCP "Physical Security and Safety — Components for physical safety" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: current eCFR 29 CFR 1910.36-37, exit-route design and maintenance —
+# https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.37
+# Claim boundary: unobstructed, usable exit routes and operable safeguards;
+# no jurisdiction-specific lock hardware exception is inferred.
 id = "m13-q209"
 kind = "single-select"
 module = 13
@@ -10,7 +16,7 @@ choices = [
   "Never unlocks under any life-safety condition"
 ]
 correct = "A"
-explanation = "Life safety egress requirements constrain how security locks may behave in emergencies."
+explanation = "The current eCFR requires exit routes to remain free and unobstructed and emergency safeguards to remain operable. The item therefore tests the life-safety boundary on access control; it does not prescribe a particular lock or local code exception."
 topic_ids = ["m13-safety-components", "m13-security-components"]
 objective_ids = []
 bloom = "analyze"
