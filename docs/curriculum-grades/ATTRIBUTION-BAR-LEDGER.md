@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 520 PASS; 437 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 522 PASS; 435 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -637,7 +637,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m11-q106 | 11 | TIA-942 cabling system topology | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact ZDA proposition is not exposed |
 | m11-q107 | 11 | TIA-942 cabling system topology | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact entrance-room/demarcation proposition is not exposed |
 | m11-q108 | 11 | Copper cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/33649 | PASS — IEC 61156-5:2020 catalog describes horizontal balanced cables by transmission characteristics and frequency range |
-| m11-q109 | 11 | Copper cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/33649 | BLOCKED — IEC 61156-5:2020 catalog receipt; exact short-copper selection tradeoff proposition is not exposed |
+| m11-q109 | 11 | Copper cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/33649 | PASS — IEC 61156-5:2020 public scope identifies symmetrical pair/quad cables intended primarily for horizontal floor wiring as defined in ISO/IEC 11801 |
 | m11-q110 | 11 | Fibre cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact single-mode reach proposition is not exposed |
 | m11-q111 | 11 | Fibre cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact multimode-link selection proposition is not exposed |
 | m11-q112 | 11 | Fibre cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C May 2024 catalog receipt; exact duplex/MPO polarity proposition is not exposed |
@@ -674,7 +674,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m11-q203 | 11 | Cabling redundancy | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
 | m11-q204 | 11 | Site-to-site connectivity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
 | m11-q205 | 11 | Site-to-site connectivity | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
-| m11-q206 | 11 | Copper cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
+| m11-q206 | 11 | Copper cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/33649 | PASS — IEC 61156-5:2020 public scope identifies transmission characteristics and frequency range at 20 °C for the covered cable designs |
 | m11-q207 | 11 | Fibre cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
 | m11-q208 | 11 | Fibre cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://tiaonline.org/standard/tia-942/ | BLOCKED — TIA-942-C, May 2024 catalog receipt; exact item-level proposition is not exposed |
 | m11-q209 | 11 | Fibre cabling | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/34000 | PASS — IEC TR 61282-15:2017 explicitly covers MPO testing and polarity |

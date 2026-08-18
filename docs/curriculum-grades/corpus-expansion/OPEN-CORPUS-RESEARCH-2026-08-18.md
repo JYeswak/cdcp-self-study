@@ -7343,3 +7343,24 @@ generator sequencing, and site-specific enclosure or battery design remain
 BLOCKED where these catalog pages do not expose the exact proposition. No
 standard body or PDF was fetched. This pass does not certify a learner or close
 ms4j.
+
+## Breadth pass 322 — IEC 61156-5:2020 horizontal copper-cable scope
+
+**Review date:** 2026-08-18. The current IEC Webstore catalog for IEC
+61156-5:2020 identifies the document as a sectional specification for
+symmetrical pair/quad cables intended primarily for horizontal floor wiring as
+defined in ISO/IEC 11801. Its public description also states that the covered
+cable designs are specified by transmission characteristics and frequency range
+at 20 °C, and identifies low-voltage remote-powering applications in
+communication systems. The item stems were narrowed to those exposed catalog
+claims; no universal copper-versus-fibre cost, distance, or noise rule is
+inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q109 | Copper cabling | IEC 61156-5:2020 — https://webstore.iec.ch/en/publication/33649 | **PASS** — horizontal floor-wiring purpose is explicit |
+| m11-q206 | Copper cabling | IEC 61156-5:2020 — https://webstore.iec.ch/en/publication/33649 | **PASS** — transmission-characteristic and frequency-range scope at 20 °C is explicit |
+
+Short-run cost tradeoffs, campus distance, alien-crosstalk limits, and
+project-specific media selection remain outside this catalog receipt. This pass
+does not certify a learner or close ms4j.

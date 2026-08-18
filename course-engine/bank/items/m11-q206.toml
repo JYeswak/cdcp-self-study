@@ -1,19 +1,19 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
 # Public syllabus heading: Copper cabling
-# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
-# BLOCKED: the current TIA-942-C abstract does not expose the exact item-level copper cabling proposition. No paid body or PDF was fetched.
+# Official catalog/preview receipt: IEC 61156-5:2020 — https://webstore.iec.ch/en/publication/33649
+# PASS: the current IEC catalog explicitly identifies transmission characteristics and frequency range for the covered horizontal-wiring cable designs. No paid body or PDF was fetched.
 id = "m11-q206"
 kind = "single-select"
 module = 11
-stem = "Copper cabling category or class selection is driven mainly by:"
+stem = "In the public scope of IEC 61156-5:2020, the covered horizontal-wiring cables are specified by their:"
 choices = [
-  "Only rack paint color",
-  "Only generator fuel type",
-  "Only fire agent type",
-  "Required application bandwidth, distance, and alien crosstalk or noise environment"
+  "Transmission characteristics and frequency range at 20 °C",
+  "Rack paint color and cabinet branding",
+  "Generator fuel type and fire-agent selection",
+  "A universal distance limit independent of cable characteristics"
 ]
-correct = "D"
-explanation = "Media grade follows application needs and environment, not cosmetics."
+correct = "A"
+explanation = "The current IEC catalog states that IEC 61156-5:2020 specifies the transmission characteristics and frequency range of the covered cable designs at 20 °C. It does not expose a universal distance rule or the broader site-specific selection tradeoff asserted by the prior item."
 topic_ids = ["m11-copper", "m11-planning"]
 objective_ids = []
 bloom = "understand"
