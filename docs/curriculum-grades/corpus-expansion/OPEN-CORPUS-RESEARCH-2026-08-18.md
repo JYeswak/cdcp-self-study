@@ -4567,3 +4567,21 @@ unlock on qualifying alarm conditions or loss of power.
 Broader EPO, eyewash, security-operations, and project-specific acceptance
 claims remain BLOCKED. No standard body or PDF was fetched. This pass does not
 certify a learner or close ms4j.
+## Breadth pass 164 — fire-alarm access and clean-agent warnings
+
+**Review date:** 2026-08-18. Two Module 12 rows were checked against the
+2025 Building Code of New York State public Chapter 9 HTML. Section 904.3.4
+requires distinctive audible/visible alarms and warning signs for pending
+agent discharge, with a separate warning signal when delay is needed for
+occupant evacuation. Section 907.4.2.1 places manual fire-alarm boxes within
+5 feet of each exit entrance and limits additional travel distance where the
+code requires it.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q072 | CDCP "Fire Protection" | 2025 Building Code of New York State, Chapter 9 — https://codes.iccsafe.org/content/NYSBC2025P1/chapter-9-fire-protection-and-life-safety-systems | **PASS** — pending-agent warnings and evacuation signaling are explicit |
+| bank-m12-q073 | CDCP "Fire Protection" | 2025 Building Code of New York State, Chapter 9 — https://codes.iccsafe.org/content/NYSBC2025P1/chapter-9-fire-protection-and-life-safety-systems | **PASS** — manual fire-alarm box location is explicit |
+
+Impairment-management, abort-switch, HVAC-interlock, and other project-
+specific fire-system claims remain BLOCKED. No standard body or PDF was
+fetched. This pass does not certify a learner or close ms4j.
