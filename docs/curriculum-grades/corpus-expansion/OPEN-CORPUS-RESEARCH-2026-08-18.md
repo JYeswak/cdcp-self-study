@@ -886,6 +886,23 @@ The M03 site/building and M08 rack frontiers remain BLOCKED where the public
 catalog does not expose the bank's narrower operational or dimensional claim.
 No standard body or PDF was fetched. This pass does not certify a learner or
 close ms4j.
+
+## Breadth pass 193 — public CO₂ life-safety and gaseous-agent egress receipts
+
+**Review date:** 2026-08-18. Current OSHA HTML rules for fixed and gaseous
+extinguishing systems require controls against toxic agent exposure and
+pre-discharge warning that gives employees time to safely exit total-flooding
+areas. The current NIOSH CO₂ IDLH page records a revised 40,000 ppm IDLH and
+lethal-concentration data. These public official sources directly support the
+bounded safety propositions without reproducing NFPA 2001 or using a PDF.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| bank-m12-q052 | Gas-based fire suppression | OSHA 29 CFR 1910.162 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.162; NIOSH CO₂ IDLH — https://www.cdc.gov/niosh/idlh/124389.html | **PASS** — toxic-exposure controls, CO₂ IDLH, and lethal-concentration evidence support avoiding occupant exposure |
+| bank-m12-q053 | Gas-based fire suppression | OSHA 29 CFR 1910.160 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160 | **PASS** — pre-discharge warning and safe exit before total-flooding discharge are explicit |
+
+Exact agent-selection, concentration, interlock, and AHJ design decisions remain
+outside these receipts. This pass does not certify a learner or close ms4j.
 ## Breadth pass 180 — ISO cabling-infrastructure identifiers
 
 **Review date:** 2026-08-18. The current ISO catalog was checked for

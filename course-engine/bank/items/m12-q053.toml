@@ -1,19 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
 # Public syllabus heading: Gas-based fire suppression
-# Official catalog/preview receipt: NFPA 2001, 2025 — https://link.nfpa.org/all-publications/2001/2025
-# BLOCKED: the current official preview does not expose the exact item-level gas-based fire suppression proposition. No paid body or PDF was fetched.
+# Official public-code receipt: OSHA 29 CFR 1910.160 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160
+# OSHA requires a pre-discharge alarm that gives employees time to safely exit total-flooding discharge areas.
 id = "bank-m12-q053"
 kind = "single-select"
 module = 12
-stem = "On gas discharge countdown, maglocks on egress paths should:"
+stem = "On a gas-discharge countdown, egress paths should:"
 choices = [
-  "Release or free-exit as designed so life safety is not blocked",
+  "Permit safe exit before discharge; access control must not block the required path",
   "Stay locked to protect servers at all costs",
   "Require a second biometric only after agent dump",
   "Randomly unlock only after refill completes"
 ]
 correct = "A"
-explanation = "Life safety overrides asset security; fire/gas interfaces free egress doors."
+explanation = "OSHA 29 CFR 1910.160 requires a pre-discharge employee alarm that gives employees time to safely exit before total-flooding discharge. Access control on the egress path must therefore preserve that safe exit. This is a bounded life-safety receipt, not a credential claim."
 topic_ids = ["m12-gas-suppression", "m12-signage", "m12-best-practices"]
 objective_ids = []
 bloom = "apply"
