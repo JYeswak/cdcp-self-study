@@ -1044,6 +1044,27 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 54 — CDCP lighting operations expansion
+
+**Review date:** 2026-08-18. Six additional M05 lighting rows now carry
+official ISO 30061:2007, ISO/TS 21274:2020, or ISO/CIE 8995-1:2025
+catalog/preview receipts. They remain BLOCKED because the public pages do not
+expose the exact egress, fixture-placement, local/central, testing, visibility,
+or high-bay propositions. No PDF was fetched.
+
+| Item | Public CDCP heading | Official catalog/preview receipt | Bounded result |
+|---|---|---|---|
+| m05-q201 | Emergency light | ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc | **BLOCKED** — exact data-centre egress operation not exposed |
+| m05-q202 | Connecting and positioning light fixtures | ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc | **BLOCKED** — exact cold/hot-aisle placement not exposed |
+| m05-q203 | Types of emergency light | ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc | **BLOCKED** — exact local/central comparison not exposed |
+| m05-q204 | Lighting standards | ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **BLOCKED** — exact data-centre visibility proposition not exposed |
+| m05-q205 | Emergency light | ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc | **BLOCKED** — exact periodic-testing allocation not exposed |
+| m05-q206 | Connecting and positioning light fixtures | ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | **BLOCKED** — exact high-bay/aisle proposition not exposed |
+
+The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
+or oracle scope.
+
 ## Breadth pass 53 — CDCP lighting operations continuation
 
 **Review date:** 2026-08-18. Six M05 lighting rows now carry official

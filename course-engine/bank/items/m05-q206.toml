@@ -1,4 +1,7 @@
 # Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Connecting and positioning light fixtures
+# Official catalog/preview receipt: ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html
+# BLOCKED: the official catalog does not expose the exact high-bay/aisle glare and wasted-light proposition.
 id = "m05-q206"
 kind = "single-select"
 module = 5
