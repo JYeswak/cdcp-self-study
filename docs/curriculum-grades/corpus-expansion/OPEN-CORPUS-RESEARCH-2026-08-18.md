@@ -1044,6 +1044,14 @@ The ledger remains 159 PASS / 798 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner, close any ms4j bead, or alter gate-shrink
 or oracle scope.
 
+## Breadth pass 100 — CDCP water-dependency depth receipts
+
+**Date:** 2026-08-18
+**Scope:** M10 tower-water chemistry, backup storage, heat-rejection criticality, water delivery, humidification treatment, and diversified-water conservation.
+**Official receipt:** [ISO/IEC 22237-4:2021](https://www.iso.org/standard/78552.html).
+
+**Bounded result:** m10-q200–q205 now carry the current official environmental-control catalog and remain BLOCKED because the public abstract does not expose the exact chemistry, backup-storage, heat-rejection, water-delivery, humidification-treatment, or diversified-water propositions. No PDF or standard body was fetched. This is attribution work only: no certification, no ms4j/ebrr closure, and no gate-shrink or oracle-port work.
+
 ## Breadth pass 99 — CDCP water-operations receipts
 
 **Date:** 2026-08-18
