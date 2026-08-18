@@ -7483,3 +7483,21 @@ tests. The item stems were narrowed to these catalog statements.
 Full-height usable-U ranges, U-numbering conventions, cable bends, PDU
 protrusion, door clearance, and site-specific service planning remain outside
 these catalog receipts. This pass does not certify a learner or close ms4j.
+
+## Breadth pass 329 — IEC 60598-1:2024 luminaire safety scope
+
+**Review date:** 2026-08-18. The current IEC Webstore catalog for IEC
+60598-1:2024 specifies general safety requirements for luminaires incorporating
+electric light sources for operation from supply voltages up to 1,000 V. The
+public description also states that requirements for semi-luminaires are
+included. Two lighting items were narrowed to those exact catalog claims; no
+high-bay efficiency, maintenance, or seismic-restraint conclusion is inferred.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m05-q145 | Connecting and positioning light fixtures | IEC 60598-1:2024 — https://webstore.iec.ch/en/publication/66620 | **PASS** — luminaire safety and voltage scope is explicit |
+| m05-q149 | Connecting and positioning light fixtures | IEC 60598-1:2024 — https://webstore.iec.ch/en/publication/66620 | **PASS** — luminaires and semi-luminaires are explicitly included |
+
+High-bay selection, LED efficiency, maintainability, seismic restraint, and
+egress-lighting design remain outside this catalog receipt. This pass does not
+certify a learner or close ms4j.

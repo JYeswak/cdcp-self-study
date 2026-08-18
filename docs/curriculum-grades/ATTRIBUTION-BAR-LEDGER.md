@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 537 PASS; 420 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 539 PASS; 418 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -220,11 +220,11 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m05-q142 | 5 | Emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | PASS — 2025 New York State Fire Code requires exit signs to identify egress paths and remain illuminated under power-loss conditions |
 | m05-q143 | 5 | Lighting standards | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | PASS — ISO/CIE 8995-1:2025 public abstract states illumination quantity/quality and daylight/electric sources |
 | m05-q144 | 5 | Connecting and positioning light fixtures | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/70361.html?browse=tc | PASS — ISO/TS 21274:2020 public abstract says commissioning does not focus on specific component characteristics |
-| m05-q145 | 5 | Connecting and positioning light fixtures | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/66620 | BLOCKED — IEC 60598-1:2024 catalog receipt; exact high-bay fixture-selection trade-off is not exposed |
+| m05-q145 | 5 | Connecting and positioning light fixtures | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/66620 | PASS — IEC 60598-1:2024 public scope covers general requirements/tests for luminaires with electric light sources up to 1,000 V |
 | m05-q146 | 5 | Emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/45801.html?browse=tc | PASS — ISO 30061:2007 catalog page states it was reviewed and confirmed in 2023 and remains current |
 | m05-q147 | 5 | Measurements of light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html | PASS — ISO/CIE 8995-1:2025 public abstract states its human indoor-workplace lighting requirements |
 | m05-q148 | 5 | Emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | PASS — 2025 New York State Fire Code distinguishes normal premises supply from emergency illumination on power failure |
-| m05-q149 | 5 | Connecting and positioning light fixtures | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/66620 | BLOCKED — IEC 60598-1:2024 catalog receipt; exact seismic-restraint proposition is not exposed |
+| m05-q149 | 5 | Connecting and positioning light fixtures | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://webstore.iec.ch/en/publication/66620 | PASS — IEC 60598-1:2024 public scope includes luminaires and semi-luminaires |
 | m05-q150 | 5 | Connecting and positioning light fixtures | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.iso.org/standard/70361.html?browse=tc | PASS — current ISO preview explicitly excludes commissioning emergency lighting from ISO/TS 21274 scope |
 | m05-q200 | 5 | Measurements of light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://www.electropedia.org/iev/iev.nsf/display?ievref=845-21-060&openform= | PASS — IEC 60050 IEV entry defines illuminance as incident luminous-flux density per unit area and gives lux as the unit |
 | m05-q201 | 5 | Emergency light | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29 | https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress | PASS — 2025 New York State Fire Code requires emergency illumination for designated egress areas when power fails |
