@@ -870,6 +870,22 @@ BLOCKED where the reviewed public receipt did not expose the exact claim. The
 ledger is now 126 PASS / 831 BLOCKED across 957 rows, with zero bare FAIL.
 This pass does not certify a learner or close ms4j.
 
+## Breadth pass 292 — ISO data-centre management and operations preview claims
+
+**Review date:** 2026-08-18. The current official ISO catalog/preview for
+ISO/IEC TS 22237-7:2018 was checked without opening or fetching a PDF. Its
+public abstract identifies operational processes for resilience, availability,
+risk management, risk mitigation, capacity planning, security, and energy
+efficiency as the primary focus, with management processes aligning actual and
+future user demands as the secondary focus.
+
+| Items | Public CDCP heading | Current official catalog/preview | Bounded result |
+|---|---|---|---|
+| bank-m14-q133 | Monitoring requirements | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — asks only for the preview's primary operational-process focus |
+| m14-q203 | Data Centre Infrastructure Management (DCIM) | ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc | **PASS** — asks only for the preview's secondary management-process focus |
+
+This pass does not certify a learner or close ms4j.
+
 ## Breadth pass 291 — IEC UPS scope and performance preview claims
 
 **Review date:** 2026-08-18. The current official IEC catalog for IEC
