@@ -891,3 +891,22 @@ remain BLOCKED where no qualifying public code clause was exposed.
 
 The ledger is now 127 PASS / 830 BLOCKED across 957 rows, with zero bare FAIL.
 No physical-security taxonomy, credential claim, or ms4j closure was added.
+
+## Breadth pass 20 — CDCP grounding and power-sizing public-code boundaries
+
+**Review date:** 2026-08-18. Four Module 06 rows were narrowed to claims
+directly exposed by the current public OSHA electrical rules. The public EPI
+syllabus supplies the exact headings “Grounding and bonding” and “Power sizing.”
+No standard body or PDF was fetched.
+
+| Item | Public CDCP heading | Official public-code receipt | Bounded result |
+|---|---|---|---|
+| m06-q217 | Grounding and bonding | OSHA 1910.304 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304 | **PASS** — grounding-connection location is tested without inferring a universal downstream N-G topology |
+| m06-q218 | Grounding and bonding | OSHA 1910.304 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304 | **PASS** — metal cable trays, raceways, and conductor enclosures are bounded to the public grounding requirement |
+| m06-q248 | Grounding and bonding | OSHA 1910.303 and 1910.304 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.303 and https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304 | **PASS** — grounding-path and overcurrent-protection duties remain distinct; no setting or coordination result is invented |
+| m06-q253 | Power sizing | OSHA 1910.304 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304 | **PASS** — conductors and equipment are protected from overcurrent according to their safe current-carrying ability; no universal continuous-load percentage is claimed |
+
+Harmonics, thermography, IP grades, and metering rows remain BLOCKED because
+the reviewed official pages did not expose a qualifying public claim. The
+ledger is now 131 PASS / 826 BLOCKED across 957 rows, with zero bare FAIL.
+This pass does not certify a learner or close ms4j.

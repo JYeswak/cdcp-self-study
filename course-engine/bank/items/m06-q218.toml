@@ -1,16 +1,22 @@
 # Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public heading: CDCP "Grounding and bonding" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# Source: current OSHA 1910.304(g)(6)(i), supports and enclosures to be grounded —
+# https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304
+# Claim boundary: metal tray/raceway grounding is tested; no EMI performance
+# or universal rack-bonding arrangement is inferred.
 id = "m06-q218"
 kind = "single-select"
 module = 6
-stem = "Equipotential bonding of racks and trays is intended to:"
+stem = "Under OSHA's grounding rules, metal cable trays, metal raceways, and metal enclosures for conductors generally must be:"
 choices = [
-  "Replace the need for circuit breakers",
-  "Store UPS energy",
-  "Keep exposed conductive parts near the same potential and support safety and EMI control",
-  "Define generator fuel type"
+  "Grounded, subject to the exceptions stated in the rule",
+  "Left ungrounded whenever they carry IT cabling",
+  "Connected only to a downstream neutral bond",
+  "Treated as optional if the equipment has a UPS"
 ]
-correct = "C"
-explanation = "Bonding reduces touch potential differences and supports a controlled reference."
+correct = "A"
+explanation = "The current rule requires metal cable trays, metal raceways, and metal enclosures for conductors to be grounded, subject to its stated exceptions. This item does not claim an EMI result or prescribe a universal rack-bonding layout."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "understand"

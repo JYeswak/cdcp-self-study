@@ -14,7 +14,7 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 
 | Slice | Items | Result |
 |---|---:|---|
-| M01–M15 | 957 | 127 PASS; 830 BLOCKED; zero bare FAIL |
+| M01–M15 | 957 | 131 PASS; 826 BLOCKED; zero bare FAIL |
 
 ## Item ledger
 
@@ -338,8 +338,8 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q214 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m06-q215 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m06-q216 | 6 | Isolation transformer | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m06-q217 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m06-q218 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
+| m06-q217 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304 | PASS |
+| m06-q218 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304 | PASS |
 | m06-q219 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m06-q220 | 6 | Single phase and three phase power | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m06-q221 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
@@ -369,12 +369,12 @@ The bank contains 957 rows. Rows are grouped by item module; retired items remai
 | m06-q245 | 6 | UPS parallel configurations | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m06-q246 | 6 | UPS systems | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m06-q247 | 6 | Generators | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m06-q248 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
+| m06-q248 | 6 | Grounding and bonding | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.303 | PASS |
 | m06-q249 | 6 | PDU form factors | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m06-q250 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m06-q251 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m06-q252 | 6 | Power quality parameters | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
-| m06-q253 | 6 | Power sizing | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
+| m06-q253 | 6 | Power sizing | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304 | PASS |
 | m06-q254 | 6 | Power distribution / busbar trunking | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m06-q255 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
 | m06-q256 | 6 | Power redundancy levels and techniques | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP) | BLOCKED — no qualifying official non-PDF edition receipt |
