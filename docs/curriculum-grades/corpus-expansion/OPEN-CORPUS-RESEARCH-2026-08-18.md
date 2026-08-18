@@ -4632,3 +4632,20 @@ specific conduit, carrier, or fiber-polarity design.
 Carrier diversity, MPO polarity, pathway capacity, and detailed outside-plant
 claims remain BLOCKED. No standard body or PDF was fetched. This pass does not
 certify a learner or close ms4j.
+## Breadth pass 168 — IEC installed-fibre testing and current OTDR guidance
+
+**Review date:** 2026-08-18. One Module 11 testing row was checked against
+current IEC Webstore catalog pages. ISO/IEC 14763-3:2024, Edition 3, specifies
+inspection and testing systems for installed optical-fibre cabling and lists
+end-to-end LSPM testing and connector-attenuation changes. IEC TR 62316:2026,
+Edition 4, provides current guidance for interpreting OTDR backscattering
+traces. Together they support the item’s bounded loss-testing and OTDR-
+diagnostics proposition without using a standard body.
+
+| Item | Public syllabus heading | Official receipt | Bounded result |
+|---|---|---|---|
+| m11-q116 | Testing and verification of cabling system | ISO/IEC 14763-3:2024 — https://webstore.iec.ch/en/publication/67723; IEC TR 62316:2026 — https://webstore.iec.ch/en/publication/95334 | **PASS** — installed-fibre attenuation/LSPM testing and OTDR trace interpretation are explicit |
+
+The broader continuity/workmanship proposition in `m11-q212` remains
+BLOCKED. No standard body or PDF was fetched. This pass does not certify a
+learner or close ms4j.

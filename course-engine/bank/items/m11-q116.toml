@@ -1,7 +1,8 @@
 # Original CDCP educational MCQ — not an exam dump
 # Public syllabus heading: Testing and verification of cabling system
 # Official catalog/preview receipt: ISO/IEC 14763-3:2024 — https://webstore.iec.ch/en/publication/67723
-# BLOCKED: the current IEC catalog covers installed optical-fibre inspection/testing and connector-attenuation limits but does not expose the exact insertion-loss/OTDR proposition. No paid body or PDF was fetched.
+# Official OTDR catalog receipt: IEC TR 62316:2026 — https://webstore.iec.ch/en/publication/95334
+# PASS: the current IEC pages cover installed optical-fibre testing, end-to-end LSPM/attenuation work, and OTDR backscattering-trace interpretation for diagnostics.
 id = "m11-q116"
 kind = "single-select"
 module = 11
