@@ -263,3 +263,62 @@ The failing dispatcher is the existing three-line compressed `answer_key_skew` g
 ## Run 4 option status
 
 The chain now reaches 66.50 seconds before a formatting correctness failure, but still does not complete. This remains a warm-cache floor, not a CI runtime. The throughput premise is still unmeasured; the earlier option (b)—a fast PR subset plus the full scheduled chain—remains a provisional feedback-flow recommendation, not an evidenced throughput fix. No CI configuration was changed.
+
+## Run 5 — ratchet held at zero slack
+
+- Tree: `c57ef03`
+- Command: `PATH=/Users/josh/.cargo/bin:$PATH /usr/bin/time -p ./scripts/check.sh`
+- Environment: local warm Cargo registry/target cache
+- Result: no successful full-chain completion; the invocation reached step 36 and exited 2
+- Wall time: `51.26` seconds (`0.85` minutes)
+- Interpretation: this is a measured warm-cache floor to the same formatting failure, not a complete-run time or CI duration estimate
+
+The requested `ceiling_lines = 35620` change was not made: it would raise the committed monotone-decreasing ratchet from `35579`, which is prohibited by the gate policy. The honest temporary-line probe confirmed the current state instead: adding one comment to the dispatcher made the measured gate count `35581`, and `cdcp_registry_check` rejected it with `cdcp_gate 35581 > ceiling 35579`. Removing the probe restored `35579/35579` and registry-check GREEN. There is therefore no spendable slack under the current ratchet; obtaining slack requires another real extraction or an authorized ratchet policy change.
+
+## Run 5 ordered steps and verdicts
+
+1. `check.sh lock selftest` — PASS
+2. `cdcp-course check` / knowledge scaffold — PASS
+3. `cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked` — PASS
+4. `check.sh snapshot selftest` — PASS
+5. `cdcp_registry_check` / registry-check — PASS (`35579/35579`)
+6. `cdcp check-licence` / licence split — PASS
+7. `cargo test -p cdcp_data --test corpus_rights` — PASS
+8. `cdcp corpus-rights` — PASS
+9. `cdcp load-snapshots` — PASS
+10. `cdcp check-osha` — PASS
+11. `cdcp verify-data-lock` — PASS
+12. `cdcp verify-data-lock --selftest` — PASS
+13. `cdcp oracle-check` — PASS
+14. stale-plant detector — PASS
+15. `cdcp_gate substrate-guard` — PASS
+16. `cdcp_gate substrate-guard --prove-wired` — PASS
+17. `cdcp_gate install-hooks` — PASS
+18. `cdcp_gate install-hooks --check` — PASS
+19. `cdcp_gate capability-maturity` — PASS
+20. `cdcp_gate goldens-couplings` — PASS
+21. `cdcp_gate doc-facts` — PASS
+22. exam-form public CDCP format pins — PASS
+23. honesty string smoke — PASS
+24. standards crosswalk — PASS
+25. `topics.toml` count — PASS
+26. source `fetch_date` presence — PASS
+27. `cdcp_gate verify-bank` — PASS
+28. `cdcp_gate answer-key-skew` — PASS
+29. `cdcp_gate validate-grounding` — PASS
+30. `cdcp_gate grounding-wave` — PASS
+31. `cdcp_gate verify-orphans` — PASS
+32. `selftest_orphan.sh` — PASS
+33. `cdcp_gate near-duplicate-items` — PASS
+34. near-duplicate-items selftest — PASS
+35. `cdcp verify-paraphrase-pairs` — PASS
+36. `cargo fmt/clippy/test` — FAIL at the custom gate-module rustfmt check
+
+## Run 5 first failure
+
+```text
+rustfmt_gate_modules: rustfmt --check failed: crates/cdcp_gate/src/gates/answer_key_skew.rs
+check.sh: FAIL: rustfmt over crates/cdcp_gate/src/gates (cargo fmt cannot see these)
+```
+
+The step remains unresolved because formatting that existing compressed dispatcher adds lines above the exact `35579` ceiling. No pane-2 test invocation or `required_tests` registry was changed.
