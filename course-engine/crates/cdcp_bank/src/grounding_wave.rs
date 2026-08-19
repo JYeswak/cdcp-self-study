@@ -4,6 +4,10 @@
 //! keeps the public cdcp_gate grounding-wave command stable while this module
 //! owns the two fingerprints that the grounding wave made visible:
 //! near-identical template stems and document-index recall stems.
+//!
+//! A detector finding may be adjudicated only by a per-item, per-detector
+//! exclusion in `registries/grounding_wave.toml`. Exclusions require a reason,
+//! stale rows are errors, and an all-excluded scan reports that fact loudly.
 
 use crate::near_duplicate::{self, Sim};
 use crate::{Bank, BankItem};
@@ -28,6 +32,8 @@ pub enum Eval {
 #[derive(Debug, Deserialize)]
 struct Registry {
     detector: Vec<DetectorRow>,
+    #[serde(default)]
+    exclude: Vec<ExcludeRow>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -47,6 +53,16 @@ struct DetectorRow {
     document_tokens: Vec<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+struct ExcludeRow {
+    #[serde(default)]
+    id: String,
+    #[serde(default)]
+    detector: String,
+    #[serde(default)]
+    reason: String,
+}
+
 #[derive(Debug)]
 struct Policy {
     template_similarity_pct: u32,
@@ -55,6 +71,7 @@ struct Policy {
     recall_questions: BTreeSet<String>,
     recall_actions: BTreeSet<String>,
     recall_documents: BTreeSet<String>,
+    exclusions: Vec<ExcludeRow>,
 }
 
 fn row<'a>(registry: &'a Registry, name: &str) -> Result<&'a DetectorRow, String> {
@@ -76,6 +93,53 @@ fn words(values: &[String], field: &str) -> Result<BTreeSet<String>, String> {
         .collect::<BTreeSet<_>>();
     if out.is_empty() {
         return Err(format!("{POLICY}: {field} must not be empty"));
+    }
+    Ok(out)
+}
+
+fn known_detector(name: &str) -> bool {
+    matches!(name, TEMPLATE_NAME | RECALL_NAME)
+}
+
+fn exclusions(registry: &Registry) -> Result<Vec<ExcludeRow>, String> {
+    let mut seen = BTreeSet::new();
+    let mut out = Vec::with_capacity(registry.exclude.len());
+    for (index, row) in registry.exclude.iter().enumerate() {
+        let id = row.id.trim();
+        if id.is_empty() {
+            return Err(format!(
+                "{POLICY}: [[exclude]] #{} is missing an id",
+                index + 1
+            ));
+        }
+        let detector = row.detector.trim();
+        if detector.is_empty() {
+            return Err(format!(
+                "{POLICY}: [[exclude]] {id:?} is missing a detector"
+            ));
+        }
+        if !known_detector(detector) {
+            return Err(format!(
+                "{POLICY}: [[exclude]] {id:?} names unknown detector {detector:?}"
+            ));
+        }
+        let reason = row.reason.trim();
+        if reason.is_empty() {
+            return Err(format!(
+                "{POLICY}: [[exclude]] {id:?} for {detector:?} has a missing or empty reason — SCHEMA ERROR, not permission"
+            ));
+        }
+        let key = (id.to_string(), detector.to_string());
+        if !seen.insert(key) {
+            return Err(format!(
+                "{POLICY}: duplicate [[exclude]] for id {id:?} and detector {detector:?}"
+            ));
+        }
+        out.push(ExcludeRow {
+            id: id.to_string(),
+            detector: detector.to_string(),
+            reason: reason.to_string(),
+        });
     }
     Ok(out)
 }
@@ -111,6 +175,7 @@ fn policy(root: &Path) -> Result<Policy, String> {
         recall_questions: words(&recall.question_tokens, "recall-only-stem.question_tokens")?,
         recall_actions: words(&recall.action_tokens, "recall-only-stem.action_tokens")?,
         recall_documents: words(&recall.document_tokens, "recall-only-stem.document_tokens")?,
+        exclusions: exclusions(&registry)?,
     })
 }
 
@@ -166,6 +231,47 @@ fn ids(values: &[String]) -> String {
     values.join(",")
 }
 
+fn filtered_ids(flagged: &[String], detector: &str, exclusions: &[ExcludeRow]) -> Vec<String> {
+    flagged
+        .iter()
+        .filter(|id| {
+            !exclusions
+                .iter()
+                .any(|row| row.detector == detector && row.id.as_str() == id.as_str())
+        })
+        .cloned()
+        .collect()
+}
+
+fn exclusion_receipt(exclusions: &[ExcludeRow]) -> String {
+    exclusions
+        .iter()
+        .map(|row| format!("{}:{} reason={:?}", row.detector, row.id, row.reason))
+        .collect::<Vec<_>>()
+        .join("; ")
+}
+
+fn reject_stale_exclusions(
+    exclusions: &[ExcludeRow],
+    template: &[String],
+    recall: &[String],
+) -> Result<(), String> {
+    for row in exclusions {
+        let flagged = match row.detector.as_str() {
+            TEMPLATE_NAME => template,
+            RECALL_NAME => recall,
+            _ => unreachable!("validated detector name"),
+        };
+        if !flagged.iter().any(|id| id == &row.id) {
+            return Err(format!(
+                "{POLICY}: stale [[exclude]] id {:?} is not currently flagged by detector {:?} — remove the exception or fix the item",
+                row.id, row.detector
+            ));
+        }
+    }
+    Ok(())
+}
+
 /// Evaluate both grounding-wave fingerprints over approved items.
 pub fn evaluate(root: &Path) -> Eval {
     let policy = match policy(root) {
@@ -186,18 +292,34 @@ pub fn evaluate(root: &Path) -> Eval {
     }
     let template = template_ids(&approved, &policy);
     let recall = recall_ids(&approved, &policy);
+    if let Err(message) = reject_stale_exclusions(&policy.exclusions, &template, &recall) {
+        return Eval::Error(message);
+    }
+    let template_unexcepted = filtered_ids(&template, TEMPLATE_NAME, &policy.exclusions);
+    let recall_unexcepted = filtered_ids(&recall, RECALL_NAME, &policy.exclusions);
     let report = format!(
-        "approved={}; template-stem(similarity>={}% peers>={})={} ids=[{}]; recall-only-stem={} ids=[{}]",
+        "approved={}; template-stem(similarity>={}% peers>={})={} ids=[{}] unexcepted={} ids=[{}]; recall-only-stem={} ids=[{}] unexcepted={} ids=[{}]; adjudicated-exceptions={} [{}]",
         approved.len(),
         policy.template_similarity_pct,
         policy.template_min_peers,
         template.len(),
         ids(&template),
+        template_unexcepted.len(),
+        ids(&template_unexcepted),
         recall.len(),
         ids(&recall),
+        recall_unexcepted.len(),
+        ids(&recall_unexcepted),
+        policy.exclusions.len(),
+        exclusion_receipt(&policy.exclusions),
     );
-    if template.is_empty() && recall.is_empty() {
-        Eval::Ok(format!("{NAME}: PASS: {report}"))
+    if template_unexcepted.is_empty() && recall_unexcepted.is_empty() {
+        let suffix = if template.is_empty() && recall.is_empty() {
+            "no detector findings"
+        } else {
+            "all currently flagged ids are adjudicated exceptions"
+        };
+        Eval::Ok(format!("{NAME}: PASS: {report}; {suffix}"))
     } else {
         Eval::Violation(vec![report])
     }
@@ -206,6 +328,7 @@ pub fn evaluate(root: &Path) -> Eval {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
     use std::path::PathBuf;
 
     fn fixture(name: &str) -> PathBuf {
@@ -213,6 +336,36 @@ mod tests {
             .join("tests/fixtures/grounding_wave")
             .join(name)
     }
+
+    fn copy_tree(source: &Path, target: &Path) {
+        fs::create_dir_all(target).unwrap();
+        for entry in fs::read_dir(source).unwrap() {
+            let entry = entry.unwrap();
+            let from = entry.path();
+            let to = target.join(entry.file_name());
+            if from.is_dir() {
+                copy_tree(&from, &to);
+            } else {
+                fs::copy(from, to).unwrap();
+            }
+        }
+    }
+
+    fn fixture_with_policy(name: &str, suffix: &str) -> (tempfile::TempDir, PathBuf) {
+        let temp = tempfile::tempdir().unwrap();
+        copy_tree(&fixture(name), temp.path());
+        if !suffix.is_empty() {
+            let policy_path = temp.path().join(POLICY);
+            let mut policy = fs::read_to_string(&policy_path).unwrap();
+            policy.push_str(suffix);
+            fs::write(policy_path, policy).unwrap();
+        }
+        let root = temp.path().to_path_buf();
+        (temp, root)
+    }
+
+    const REASON: &str =
+        "Reviewed containment teaching family; this item is pre-wave and substantively sound.";
 
     #[test]
     fn known_bad_table_of_contents_fixture_is_red() {
@@ -231,6 +384,106 @@ mod tests {
         match evaluate(&fixture("good")) {
             Eval::Ok(text) => assert!(text.contains("approved=2")),
             other => panic!("substantive fixture did not pass: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn empty_exception_reason_is_a_schema_error() {
+        let (_temp, root) = fixture_with_policy(
+            "bad",
+            "\n[[exclude]]\nid = \"toc-a\"\ndetector = \"template-stem\"\nreason = \"\"\n",
+        );
+        match evaluate(&root) {
+            Eval::Error(message) => {
+                assert!(message.contains("missing or empty reason"));
+                assert!(message.contains("SCHEMA ERROR"));
+            }
+            other => panic!("empty reason was not a schema error: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn missing_exception_reason_is_a_schema_error() {
+        let (_temp, root) = fixture_with_policy(
+            "bad",
+            "\n[[exclude]]\nid = \"toc-a\"\ndetector = \"template-stem\"\n",
+        );
+        match evaluate(&root) {
+            Eval::Error(message) => {
+                assert!(message.contains("missing or empty reason"));
+                assert!(message.contains("SCHEMA ERROR"));
+            }
+            other => panic!("missing reason was not a schema error: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn stale_exception_is_an_error() {
+        let (_temp, root) = fixture_with_policy(
+            "bad",
+            &format!(
+                "\n[[exclude]]\nid = \"not-flagged\"\ndetector = \"template-stem\"\nreason = {REASON:?}\n"
+            ),
+        );
+        match evaluate(&root) {
+            Eval::Error(message) => assert!(message.contains("stale [[exclude]]")),
+            other => panic!("stale exception was not an error: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn an_exception_is_scoped_to_its_detector() {
+        let (_temp, root) = fixture_with_policy(
+            "bad",
+            &format!(
+                "\n[[exclude]]\nid = \"toc-a\"\ndetector = \"template-stem\"\nreason = {REASON:?}\n"
+            ),
+        );
+        match evaluate(&root) {
+            Eval::Violation(items) => {
+                assert!(items[0].contains("adjudicated-exceptions=1"));
+                assert!(items[0].contains("recall-only-stem=3"));
+                assert!(items[0].contains("unexcepted=3 ids=[toc-a,toc-b,toc-c]"));
+            }
+            other => panic!("detector-scoped exception silenced too much: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn planted_toc_items_remain_red_when_another_item_is_excepted() {
+        let (_temp, root) = fixture_with_policy(
+            "bad",
+            &format!(
+                "\n[[exclude]]\nid = \"toc-a\"\ndetector = \"template-stem\"\nreason = {REASON:?}\n"
+            ),
+        );
+        match evaluate(&root) {
+            Eval::Violation(items) => {
+                assert!(items[0].contains("unexcepted=2 ids=[toc-b,toc-c]"));
+                assert!(items[0].contains("recall-only-stem"));
+            }
+            other => panic!("one exception blanketed the planted TOC fixture: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn all_flagged_items_excepted_is_a_loud_pass() {
+        let mut suffix = String::new();
+        for detector in [TEMPLATE_NAME, RECALL_NAME] {
+            for id in ["toc-a", "toc-b", "toc-c"] {
+                suffix.push_str(&format!(
+                    "\n[[exclude]]\nid = {id:?}\ndetector = {detector:?}\nreason = {REASON:?}\n"
+                ));
+            }
+        }
+        let (_temp, root) = fixture_with_policy("bad", &suffix);
+        match evaluate(&root) {
+            Eval::Ok(text) => {
+                assert!(text.contains("adjudicated-exceptions=6"));
+                assert!(text.contains("all currently flagged ids are adjudicated exceptions"));
+                assert!(text.contains("reason="));
+            }
+            other => panic!("all-excepted scan was not a loud pass: {other:?}"),
         }
     }
 
