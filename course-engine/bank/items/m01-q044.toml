@@ -10,7 +10,7 @@ kind = "single-select"
 module = 1
 stem = "Why is a data centre often called “mission-critical” rather than merely “important IT space”?"
 choices = [
-  "Security",
+  "Because outage consequences can include severe financial, legal, safety, or reputational harm",
   "Because it always has a raised floor",
   "Because PUE is published quarterly",
   "Because it uses three-phase power only",

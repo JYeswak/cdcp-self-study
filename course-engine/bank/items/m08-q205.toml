@@ -7,10 +7,10 @@ kind = "single-select"
 module = 8
 stem = "When planning rack depth, a common mistake is forgetting:"
 choices = [
-  "Detail dimensions for specific equipment parts, using the basic dimensions as an interface to associated parts",
-  "Only a universal cable-bend and service-clearance rule",
-  "Only generator sequencing requirements",
-  "Only optical-fibre test limits",
+  "Cable bend radius, PDU placement, rail adjustability, and rear clearance for service",
+  "That servers have zero depth",
+  "That doors never need to open",
+  "That nameplates never list dimensions"
 ]
 correct = "A"
 explanation = "Depth planning fails when cables, PDUs, and service clearances are ignored."

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "A dual-corded server on A-B feeds is intended so that:"
 choices = [
-  "Telecommunications infrastructure bonding and lightning protection",
-  "Only generator fuel storage and staffing",
-  "Only chilled-water chemistry",
-  "Only optical-fibre polarity",
+  "Both cords must fail together to lose the server (assuming healthy PSUs and independent paths)",
+  "Power draw doubles for free cooling",
+  "STS is never needed anywhere",
+  "Grounding is unnecessary",
 ]
 correct = "A"
 explanation = "Independent A-B paths protect dual-PSU gear so both sides must fail to lose the server."

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 7
 stem = "When unexplained equipment anomalies cluster near electrical plant, a reasoned next step is:"
 choices = [
-  "Sources of measurement uncertainty and guidance on combining them to determine total measurement uncertainty",
-  "A guarantee that every equipment anomaly is caused by EMF",
-  "A requirement to replace all servers without investigation",
-  "A floor-paint specification",
+  "Consider EMF and power-quality investigation among other root-cause paths",
+  "Ignore location correlation forever",
+  "Immediately replace all servers without investigation",
+  "Paint the floor a different color"
 ]
 correct = "A"
 explanation = "Spatial clustering near plant suggests environmental/electrical investigation—not superstition."

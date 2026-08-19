@@ -9,10 +9,10 @@ kind = "single-select"
 module = 1
 stem = "A government or regulated industry data centre often elevates facility requirements mainly due to:"
 choices = [
-  "Availability, security, and energy-efficiency enablement",
-  "Retail price, brand popularity, and staffing headcount",
-  "Rack colour, cable-label format, and office occupancy",
-  "Only peak IT load, excluding security and energy considerations",
+  "Statutory, audit, and continuity obligations beyond ordinary convenience IT",
+  "Preference for a single non-redundant path",
+  "A ban on any monitoring systems",
+  "Mandatory use of only wireless power",
 ]
 correct = "A"
 explanation = "Regulatory and audit obligations commonly raise continuity and control expectations for facility design and ops."

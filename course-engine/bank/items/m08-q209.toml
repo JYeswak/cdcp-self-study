@@ -8,10 +8,10 @@ kind = "single-select"
 module = 8
 stem = "Cabinet perforation percentage and door design can affect cooling because:"
 choices = [
-  "Cooling capacity, mainly for air-convection cooling of empty indoor cabinets",
-  "Only cloud-service availability classes",
-  "Only cable-shielding attenuation",
-  "Only generator fuel autonomy"
+  "Restricted doors can impede airflow into or out of equipment even if room supply is adequate",
+  "Doors never interact with airflow",
+  "Solid doors always improve inlet temperatures for front-to-back gear",
+  "Perforation only matters for security cameras"
 ]
 correct = "A"
 explanation = "Door open area is part of the thermal path for air-cooled equipment."

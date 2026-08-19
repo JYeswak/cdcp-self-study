@@ -8,7 +8,7 @@ kind = "single-select"
 module = 6
 stem = "UPS autonomy time is primarily sized to:"
 choices = [
-  "Ensure continuity of load power",
+  "Cover generator start, transfer, and policy margin at design load",
   "Run IT for weeks without generators or fuel",
   "Eliminate the need for power quality monitoring",
   "Heat the battery room intentionally",

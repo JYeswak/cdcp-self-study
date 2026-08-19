@@ -12,7 +12,7 @@ stem = "Which statement about site security perimeter planning is most accurate?
 choices = [
   "Security starts and ends at the rack door only",
   "Fencing is always illegal",
-  "Site configuration, provision of access, and physical intrusion protection are site-level concerns",
+  "Site selection and layout should support controlled approach, vehicle management, and layered access",
   "Cameras replace structural setbacks always",
 ]
 correct = "C"

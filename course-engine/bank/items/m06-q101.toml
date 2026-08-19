@@ -8,10 +8,10 @@ kind = "single-select"
 module = 6
 stem = "A site can have excellent PUE and still be:"
 choices = [
-  "Availability, security, and energy-efficiency over the planned lifetime",
-  "Only the number of UPS modules installed",
-  "Only the number of carrier contracts signed",
-  "Only the facility's floor area and rack count",
+  "Single-path N with weak availability design",
+  "Automatically 2N fault tolerant",
+  "Immune to utility failures without UPS",
+  "Free of all transformers",
 ]
 correct = "A"
 explanation = "Efficiency metrics do not create dual paths or concurrent maintainability."

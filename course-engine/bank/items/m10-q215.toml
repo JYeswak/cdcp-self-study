@@ -7,10 +7,10 @@ kind = "single-select"
 module = 10
 stem = "Which statement best captures water’s role in many modern data centres?"
 choices = [
-  "Quantifying a data centre's water consumption during the use phase of its life cycle",
-  "Granting a water-use permit to a non-evaporative cooling plant",
-  "Replacing all environmental-control requirements with one water number",
-  "Quantifying only domestic water use outside the data-centre life cycle"
+  "Water can be a critical dependency for heat rejection, humidity control, and fire protection alongside electrical power",
+  "Water is irrelevant if the utility power feed is dual-path",
+  "Water is only a janitorial concern",
+  "Water quality never affects mechanical reliability"
 ]
 correct = "A"
 explanation = "For water-dependent designs, water is a first-class availability input like power."

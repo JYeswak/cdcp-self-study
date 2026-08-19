@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "A classic field defect is creating extra neutral-ground bonds downstream of the designated point because:"
 choices = [
-  "Earthing arrangements and protective conductors, including protective bonding conductors, for installation safety",
-  "A universal requirement for a neutral-ground bond at every rack PDU",
-  "Power-usage effectiveness measurement",
-  "Removal of all harmonic currents",
+  "It can create circulating currents and nuisance issues",
+  "It always improves PUE",
+  "Codes require a bond at every rack PDU",
+  "It removes all harmonics",
 ]
 correct = "A"
 explanation = "Neutral-ground bonding belongs only at designated points; extras cause circulating currents."

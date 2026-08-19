@@ -10,7 +10,7 @@ kind = "single-select"
 module = 1
 stem = "Business continuity planning for the data centre should primarily align with:"
 choices = [
-  "Continually improving a documented management system",
+  "Recovery time and recovery point objectives derived from business impact",
   "Maximum rack U available regardless of service impact",
   "Lobby aesthetics only",
   "The cheapest diesel grade available",

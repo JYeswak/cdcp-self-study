@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "Aligning facility investment with business criticality means:"
 choices = [
-  "A lobby-traffic analysis",
-  "A vendor-color analysis",
-  "A catering-capacity analysis",
-  "A business-risk and operating-cost analysis",
+  "Spending the same capital on every closet regardless of impact",
+  "Ignoring RTO/RPO when siting and designing",
+  "Using marketing slogans as the only design input",
+  "Matching redundancy and operating discipline to the impact of loss for the served services"
 ]
 correct = "D"
 explanation = "Resilience spend should track business impact of outage, not one-size-fits-all prestige design."

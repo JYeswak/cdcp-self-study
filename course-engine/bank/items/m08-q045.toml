@@ -8,10 +8,10 @@ kind = "single-select"
 module = 8
 stem = "Cabinet outer widths of about 600 mm vs 800 mm are often chosen because:"
 choices = [
-  "IEC 60297-3-100 compliant racks or cabinets",
-  "Only residential furniture cabinets",
-  "Only generator enclosures with no rack interface",
-  "Only cloud-software service containers",
+  "600 mm is common; 800 mm adds side space for cable managers and dense copper/vertical PDUs",
+  "800 mm never fits any row",
+  "Width equals mounting depth always",
+  "IP rating forces 600 mm only",
 ]
 correct = "A"
 explanation = "800 mm helps cable volume and side management; 600 mm is denser footprint."

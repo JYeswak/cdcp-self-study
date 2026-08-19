@@ -6,10 +6,10 @@ kind = "single-select"
 module = 7
 stem = "For ELF magnetic-field problems in white space, the first mitigation tool is usually:"
 choices = [
-  "A standalone equipment/apparatus application outside the document's scope",
-  "External electromagnetic influences impinging upon a facility or installation",
-  "Only human exposure to static magnetic fields",
-  "Only emissions from software and business applications",
+  "Painting walls with RF copper paint only",
+  "Separation (distance) and layout so high-current gear is not adjacent to sensitive copper-dense rows",
+  "Removing all bonding conductors",
+  "Switching every circuit to single-phase lighting",
 ]
 correct = "B"
 explanation = "Distance is the strongest cheap tool for power-frequency magnetic fields."

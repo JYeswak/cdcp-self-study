@@ -8,10 +8,10 @@ kind = "single-select"
 module = 9
 stem = "Relative humidity control in white space is important partly because extremes can contribute to:"
 choices = [
-  "Temperature, fluid movement, relative humidity, particulates, vibration, and physical security of environmental-control systems",
-  "Only brighter lighting and decorative room finishes",
-  "Only generator synchronization and fuel transfer",
-  "No environmental controls; only application software is in scope"
+  "Electrostatic risk when too dry, and condensation/corrosion risk when too wet",
+  "Only brighter lighting",
+  "Faster copper oxidation exclusively when RH is perfect",
+  "Automatic generator start"
 ]
 correct = "A"
 explanation = "Very low RH favors ESD risk; high RH raises condensation and corrosion concerns—hence humidity is managed with temperature."

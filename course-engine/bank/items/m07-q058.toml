@@ -6,10 +6,10 @@ kind = "single-select"
 module = 7
 stem = "The mitigation hierarchy that prioritizes cheap geometry first is best ordered as:"
 choices = [
-  "Only software defects, application latency, and database errors",
-  "Only static discharge and audible mechanical vibration",
-  "Only human exposure from portable consumer devices",
-  "Lightning, RF transmitters, power-line and telecom transients, HEMP, and other high-power electromagnetic transients including IEMI",
+  "Exotic mu-metal rooms first, then maybe move the transformer",
+  "Ignore distance and only buy RF paint",
+  "Disable grounding to reduce loops always",
+  "Separation → orientation/routing/current geometry → bonding/shielding integrity → specialty shielding when still needed",
 ]
 correct = "D"
 explanation = "Prefer distance and geometry before expensive magnetic shielding."

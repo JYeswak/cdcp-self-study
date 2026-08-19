@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Separating storage, network, and out-of-band management cabling conceptually helps by:"
 choices = [
-  "Installation planning, documentation, administration, testing, operation, maintenance, and repair",
-  "Only wireless spectrum allocation and radio propagation",
-  "Only power-supply cabling and protective-device coordination",
-  "Only logical routing protocols after the cabling is installed"
+  "Reducing operational risk and clarifying pathways, though design must still prevent congestion",
+  "Increasing accidental mispatch blast radius always",
+  "Eliminating all need for redundancy",
+  "Making testing impossible"
 ]
 correct = "A"
 explanation = "Functional separation improves operability; still requires pathway capacity and clear administration."

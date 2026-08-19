@@ -6,10 +6,10 @@ kind = "single-select"
 module = 7
 stem = "Placing a network core against a UPS/transformer room wall is often discouraged because of:"
 choices = [
-  "Installers, manufacturers, and users of sensitive electrical or electronic installations or systems",
-  "Only software developers of business applications",
-  "Only telecom subscribers with no facility role",
-  "Only emergency responders after an incident",
+  "Magnetic field, heat, and access/traffic risks adjacent to plant",
+  "Improved dual-path power automatically",
+  "Lower latency to batteries",
+  "Mandatory code requirement to co-locate always",
 ]
 correct = "A"
 explanation = "Adjacency to plant brings B-field, thermal, and operational traffic issues."

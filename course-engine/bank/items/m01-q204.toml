@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "Why might a board care about facility resilience metrics, not only application uptime dashboards?"
 choices = [
-  "Availability, security, and energy-efficiency classification plus business risk and operating-cost analysis",
-  "Only application software selection and multi-site service-availability calculations",
-  "Only a universal PUE target and a stock-price model",
-  "Only raised-floor construction with no operation or management reference"
+  "Because facility events can simultaneously take down many systems and create regulatory/reputational exposure",
+  "Because boards never care about risk",
+  "Because PUE alone determines stock price daily",
+  "Because raised floors replace business continuity plans"
 ]
 correct = "A"
 explanation = "Infrastructure failures are correlated across workloads; governance cares about systemic facility risk."

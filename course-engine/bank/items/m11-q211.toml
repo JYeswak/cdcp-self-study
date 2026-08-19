@@ -7,8 +7,8 @@ kind = "single-select"
 module = 11
 stem = "After moves, adds, and changes, failing to retest altered copper links most risks:"
 choices = [
-  "Reference measurement procedures for cabling parameters and requirements for field-tester accuracy",
-  "Automatic improvement of the cabling category rating",
+  "Undetected performance defects that only appear under production traffic",
+  "Automatic improvement of category rating",
   "Higher underfloor static pressure",
   "Longer UPS runtime"
 ]

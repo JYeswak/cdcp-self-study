@@ -10,10 +10,10 @@ kind = "single-select"
 module = 3
 stem = "Staffing and emergency response access (roads, distance to services) matter for site selection because:"
 choices = [
-  "Only a rule for emergency-service response time",
-  "Only a rule for cafeteria and delivery access",
-  "No access or site-selection topics",
-  "Location and site selection, together with provision of access"
+  "Only automated sites with zero humans ever exist",
+  "Emergency services never interact with data centres",
+  "Road access only affects cafeteria catering",
+  "Remote sites with poor access can lengthen recovery and complicate 24×7 operations"
 ]
 correct = "D"
 explanation = "Operations and incident response depend on people and external services reaching the site."

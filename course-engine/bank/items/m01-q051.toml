@@ -10,8 +10,8 @@ kind = "single-select"
 module = 1
 stem = "Which human/process factor most often elevates outage risk during maintenance?"
 choices = [
-  "Improved risk-management processes",
   "Working without a change window, peer check, or clear isolation boundaries",
+  "Following a validated MOP with back-out steps",
   "Tagging circuits before work",
   "Pre-staging spares",
 ]

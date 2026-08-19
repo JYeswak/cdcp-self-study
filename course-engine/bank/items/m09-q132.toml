@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Evaporative cooling towers improve heat rejection efficiency primarily by:"
 choices = [
-  "Relative humidity control",
-  "A universal evaporative-tower wet-bulb performance rule",
-  "A replacement for water-treatment operations",
-  "Network-fabric congestion control"
+  "Using evaporation so leaving water can approach wet-bulb-limited conditions",
+  "Eliminating all water use forever",
+  "Replacing chillers with fiber switches",
+  "Heating the condenser water intentionally always"
 ]
 correct = "A"
 explanation = "Towers exploit evaporation; performance relates to wet-bulb, with water consumption and treatment as operational costs."

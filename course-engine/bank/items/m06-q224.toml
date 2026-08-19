@@ -10,7 +10,7 @@ kind = "single-select"
 module = 6
 stem = "Harmonic-rich nonlinear IT loads raise concern for transformers and generators because they can:"
 choices = [
-  "Harmonic currents injected into the public supply and the applicable limits",
+  "Increase heating, de-rate capacity, and stress neutral conductors",
   "Always reduce losses to zero",
   "Convert the site to DC distribution automatically",
   "Improve wet stacking"

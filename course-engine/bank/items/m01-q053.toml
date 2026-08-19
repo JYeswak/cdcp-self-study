@@ -10,7 +10,7 @@ kind = "single-select"
 module = 1
 stem = "For a payment or trading workload, facility design priority is most driven by:"
 choices = [
-  "Energy efficiency",
+  "Tolerance for service interruption relative to regulatory and financial exposure",
   "Paint brand in the break room",
   "Whether tiles are 600 mm or 24 in only as a fashion choice",
   "The number of visitor badges printed",

@@ -8,10 +8,10 @@ kind = "single-select"
 module = 9
 stem = "Delta-T across a server (or aisle) is useful operationally because it relates:"
 choices = [
-  "Vibration",
+  "Airflow volume and heat removed for a given cooling capacity",
+  "Only to humidity, never temperature",
   "Only generator fuel quality",
-  "Only fibre attenuation",
-  "Only tenant billing rules",
+  "Fiber attenuation exclusively"
 ]
 correct = "A"
 explanation = "For a given heat load, larger temperature rise implies lower required airflow; delta-T is a core airflow/heat balance indicator."

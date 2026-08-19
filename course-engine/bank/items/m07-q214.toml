@@ -8,10 +8,10 @@ kind = "single-select"
 module = 7
 stem = "A provider says a commercial site is ‘HEMP hardened’ because it installed surge-protective devices. Before making a MIL-STD-188-125-1 Revision A protection claim, what evidence is needed?"
 choices = [
-  "Guidelines to protect commercial facilities from HEMP and IEMI",
-  "A guarantee that every commercial facility is HEMP hardened",
-  "A universal field value for every site",
-  "A fibre run that by itself proves HEMP protection",
+  "A site-specific performance basis, required verification testing, and hardness-maintenance/surveillance records",
+  "A newer ICNIRP RF guideline and a statement that all power-frequency fields are harmless",
+  "A vendor brochure naming one shield material, with no test or maintenance record",
+  "A fibre run to the white space, which by itself proves the facility is HEMP hardened",
 ]
 correct = "A"
 explanation = "The public DLA ASSIST record describes minimum performance requirements, testing, and a hardness-maintenance/surveillance program, and says the standard does not mandate one design solution. A surge-protection product alone does not establish the claim."

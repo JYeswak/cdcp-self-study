@@ -11,10 +11,10 @@ kind = "single-select"
 module = 1
 stem = "The “elements of a data centre” concept emphasizes that IT equipment alone is insufficient because:"
 choices = [
-  "Selection of information-technology and network-telecommunications equipment, software, and associated configuration issues",
-  "General data-centre terminology and reference models",
-  "Classification using availability, security, and energy-efficiency criteria",
-  "General facilities and infrastructure aspects supporting data centres",
+  "IT depends on concurrent power, cooling, connectivity, and life-safety support systems",
+  "Software never fails",
+  "Racks do not need grounding",
+  "Cabling is optional in modern designs",
 ]
 correct = "A"
 explanation = "IT loads require simultaneous supporting systems; failure of any critical support can take services offline."

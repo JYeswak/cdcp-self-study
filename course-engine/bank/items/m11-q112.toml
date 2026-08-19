@@ -8,10 +8,10 @@ kind = "single-select"
 module = 11
 stem = "Polarity management for duplex and MPO fiber systems matters because incorrect polarity:"
 choices = [
-  "Testing of MPO cabling",
-  "Only testing of diesel-fuel quality",
-  "Only testing of rack grounding resistance",
-  "Only testing of chilled-water flow",
+  "Can prevent links from coming up even when loss budgets are fine",
+  "Always increases electrical UPS capacity",
+  "Only affects cable jacket printing",
+  "Is irrelevant for data centres"
 ]
 correct = "A"
 explanation = "Transmit must land on receive. Polarity schemes and labeling prevent silent connectivity failures."
