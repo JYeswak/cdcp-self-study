@@ -1,0 +1,13 @@
+schema = "cdcp.key-contradiction.v1"
+
+[[detector]]
+name = "numeric"
+stem_similarity_pct = 70
+anchor_similarity_pct = 70
+units = ["v"]
+
+[[detector]]
+name = "explicit-negation"
+stem_similarity_pct = 70
+answer_similarity_pct = 60
+negation_tokens = ["not"]

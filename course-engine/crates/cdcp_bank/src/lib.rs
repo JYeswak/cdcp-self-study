@@ -19,6 +19,7 @@
 pub mod answer_key_skew;
 pub mod construction_faults;
 pub mod grounding_wave;
+pub mod key_contradiction;
 pub mod leftover_honesty;
 pub mod mock40_module;
 pub mod near_duplicate;

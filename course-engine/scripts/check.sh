@@ -958,6 +958,10 @@ echo "==> cdcp_gate answer-key-skew (approved answer-key position distribution)"
 run_cdcp_gate answer-key-skew || fail "answer-key skew"
 ok "answer-key distribution"
 
+echo "==> cdcp_gate key-contradiction (bank-internal numeric and negation floor)"
+run_cdcp_gate key-contradiction || fail "key contradiction"
+ok "bank-internal contradiction floor"
+
 echo "==> cdcp_gate construction-faults (option-set construction cues; live/damaged delta)"
 run_cdcp_gate construction-faults || fail "construction faults"
 ok "construction-fault scan"

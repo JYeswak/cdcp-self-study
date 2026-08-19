@@ -1,0 +1,13 @@
+id = "retired-only"
+kind = "single-select"
+module = 1
+stem = "A valid retired contradiction fixture item"
+choices = ["one", "two", "three", "four"]
+correct = "A"
+explanation = "This item is retired so the scan has no approved pool."
+topic_ids = ["fixture-empty"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "retired"

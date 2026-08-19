@@ -1,0 +1,18 @@
+id = "neg-b"
+kind = "single-select"
+module = 1
+stem = "Does the bypass preserve the critical load during transfer?"
+choices = [
+  "It does not preserve the critical load during transfer.",
+  "It changes the room humidity.",
+  "It labels the network cable.",
+  "It measures floor loading.",
+]
+correct = "A"
+explanation = "This fixture asserts the explicit negation of the first fixture key."
+topic_ids = ["fixture-negation"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

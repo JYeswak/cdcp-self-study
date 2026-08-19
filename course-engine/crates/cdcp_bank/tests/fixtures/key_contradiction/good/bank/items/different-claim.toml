@@ -1,0 +1,18 @@
+id = "different-claim"
+kind = "single-select"
+module = 1
+stem = "What does the bypass do during transfer?"
+choices = [
+  "It preserves the critical load during transfer.",
+  "It changes the room humidity.",
+  "It labels the network cable.",
+  "It measures floor loading.",
+]
+correct = "A"
+explanation = "This fixture has no opposite keyed proposition."
+topic_ids = ["fixture-good"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

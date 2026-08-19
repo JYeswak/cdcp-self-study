@@ -1,0 +1,18 @@
+id = "other-quantity"
+kind = "single-select"
+module = 1
+stem = "What maximum current may the battery circuit use?"
+choices = [
+  "The battery circuit must not exceed 500 A DC.",
+  "The battery circuit has no current boundary.",
+  "The battery circuit is a cooling loop.",
+  "The battery circuit is a network path.",
+]
+correct = "A"
+explanation = "The 500 A limit is a different quantity from voltage."
+topic_ids = ["fixture-good"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

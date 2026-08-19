@@ -1,0 +1,18 @@
+id = "quantity"
+kind = "single-select"
+module = 1
+stem = "What maximum voltage may the battery circuit use?"
+choices = [
+  "The battery circuit must not exceed 500 V DC.",
+  "The battery circuit has no voltage boundary.",
+  "The battery circuit is a cooling loop.",
+  "The battery circuit is a network path.",
+]
+correct = "A"
+explanation = "The 500 V limit is the keyed threshold in this fixture."
+topic_ids = ["fixture-good"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

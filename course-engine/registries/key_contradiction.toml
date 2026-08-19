@@ -1,0 +1,17 @@
+# bd-key-contradiction-tblp: bank-internal correctness floor.
+# These rows describe evidence cuts, not a truth oracle. A passing scan only
+# means that the approved pool did not contradict itself in these two shapes.
+
+schema = "cdcp.key-contradiction.v1"
+
+[[detector]]
+name = "numeric"
+stem_similarity_pct = 70
+anchor_similarity_pct = 70
+units = ["mm", "kw", "mw", "gw", "v", "kv", "c", "k", "s", "sec", "hz", "u"]
+
+[[detector]]
+name = "explicit-negation"
+stem_similarity_pct = 70
+answer_similarity_pct = 60
+negation_tokens = ["not", "never", "without", "cannot", "neither", "none"]
