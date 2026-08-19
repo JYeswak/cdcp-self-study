@@ -609,7 +609,12 @@ fn unicode_16_nd_blocks_are_byte_identical_and_known_bad_is_red() {
         ),
     );
     let rs = compare("unicode-16 Nd blocks", &f.engine(), &[]);
-    assert_eq!(rs.code, 1, "the Unicode Nd pattern must be RED: {}", rs.out());
+    assert_eq!(
+        rs.code,
+        1,
+        "the Unicode Nd pattern must be RED: {}",
+        rs.out()
+    );
     assert!(
         rs.out().contains(
             "  - unicode-nd-blocks: hallucinated-clause pattern: \\bclause\\s+\\d+\\.\\d+(?:\\.\\d+)*\\b...\n"

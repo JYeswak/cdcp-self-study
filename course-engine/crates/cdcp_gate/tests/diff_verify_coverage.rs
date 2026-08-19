@@ -1216,7 +1216,8 @@ fn unicode_isdigit_conflicting_floor_and_exemption_are_byte_identical_and_known_
     );
     assert_ne!(rs.code, 0, "{}", rs.out());
     assert!(
-        rs.out().contains("module 2 is both coverage_exempt and has a"),
+        rs.out()
+            .contains("module 2 is both coverage_exempt and has a"),
         "{}",
         rs.out()
     );
@@ -1260,7 +1261,8 @@ fn unicode_unassigned_module_repr_is_byte_identical_and_known_bad_is_red() {
     );
     assert_ne!(rs.code, 0, "{}", rs.out());
     assert!(
-        rs.out().contains("zz-badmod: bad module 'nope\\u038b\\u038d'"),
+        rs.out()
+            .contains("zz-badmod: bad module 'nope\\u038b\\u038d'"),
         "{}",
         rs.out()
     );

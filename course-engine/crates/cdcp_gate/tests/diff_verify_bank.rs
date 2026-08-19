@@ -1282,8 +1282,10 @@ fn an_unmodelled_status_is_a_named_finding_in_both() {
 fn unassigned_unicode_status_repr_is_byte_identical_and_known_bad_is_red() {
     let f = Fixture::new();
     let mut body = pool(2, &["A", "B"]);
-    let odd = item_with_status("i-unassigned", 1, "C", "t-one", "published")
-        .replace("status = \"published\"", "status = \"published\\u038b\\u038d\"");
+    let odd = item_with_status("i-unassigned", 1, "C", "t-one", "published").replace(
+        "status = \"published\"",
+        "status = \"published\\u038b\\u038d\"",
+    );
     body.push_str(&odd);
     f.write("bank/items/pool.toml", &body);
     let run = f.check("unknown-status-unassigned-unicode");
