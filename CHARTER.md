@@ -205,7 +205,7 @@ do not control. Disagreement beyond a pre-declared tolerance is RED and names lo
 computed, reference, and delta. That is the first check in this repo that can be wrong in
 a way we do not author.
 
-**Still unguarded:** the 904 bank item files (879 approved; a pool size, not a distinct-proposition count) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]]
+**Still unguarded:** the 957 bank item files (929 approved; a pool size, not a distinct-proposition count) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]]
 are not checked for factual truth about data centres. A wrong answer key remains invisible
 to every step of `check.sh`. The site-quantity oracle does not close that hole.
 

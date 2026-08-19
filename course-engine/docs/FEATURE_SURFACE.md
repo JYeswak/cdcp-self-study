@@ -6,7 +6,7 @@
 | Knowledge pack | **present** | exam_form, domains, topics, standards_* |
 | Standards crosswalk | **present** | 01–15 |
 | Franken rigor extract | **present** | [`research/FRANKEN-EXTRACT.md`](./research/FRANKEN-EXTRACT.md) — Assessment-System map (not ML ULP/CER) |
-| Item bank library | **present** | 867 files / 842 approved / 25 retired (~20.9× exam on the approved pool) — **pool size, not a distinct-proposition count** (see `registries/paraphrase_pairs.toml`) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] [[fact:fact-approved-pool-multiplier-19-5=yes]]. Sampler is `cdcp_assemble` (`cdcp goldens fixture`). |
+| Item bank library | **present** | 957 files / 929 approved / 25 retired (~23.2× exam on the approved pool) — **pool size, not a distinct-proposition count** (see `registries/paraphrase_pairs.toml`) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] [[fact:fact-approved-pool-multiplier-19-5=yes]]. Sampler is `cdcp_assemble` (`cdcp goldens fixture`). |
 | Mock sampling | **present** | seeded stratified without replacement (`ChaCha12Rng` [[fact:fact-assemble-rng-is-chacha12=yes]] [[fact:fact-assemble-uses-stdrng=no]], rand_chacha 0.3.1) |
 | Rust grade oracle | **present** | L3 GradeExact: `cdcp_grade` + goldens + `check.sh` wire |
 | CLI grade/goldens | **present** | `cdcp bank-hash` · `grade` · `goldens check|generate` |

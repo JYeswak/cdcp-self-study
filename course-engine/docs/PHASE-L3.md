@@ -13,7 +13,7 @@
 ## Preconditions (already done)
 
 - W0 knowledge pack + standards graph
-- L2 bank library 867 files / 842 approved / 25 retired (~20.9× exam on the approved pool) + `cdcp_gate verify-bank` + `validate_grounding` [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] [[fact:fact-approved-pool-multiplier-19-5=yes]]
+- L2 bank library 957 files / 929 approved / 25 retired (~23.2× exam on the approved pool) + `cdcp_gate verify-bank` + `validate_grounding` [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] [[fact:fact-approved-pool-multiplier-19-5=yes]]
 - `cdcp_assemble` / `cdcp goldens fixture` assembly
 
 ## OQs to resolve before/with L3

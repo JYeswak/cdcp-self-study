@@ -83,7 +83,7 @@
 #
 # REGISTERED (row exists; marker at the site or the site is a second
 # occurrence of a claim already marked in the same file):
-#   - 957 / 931 / ~23.3× pool size — fact-bank-item-count-804,
+#   - 957 / 929 / ~23.2× pool size — fact-bank-item-count-804,
 #     fact-bank-approved-count-779, fact-approved-pool-multiplier-19-5
 #     (IDs are stable names; needles track the live units_index)
 #   - CHECK_STEPS= / INJECTIONS= — fact-check-steps-enforced,
@@ -171,15 +171,15 @@ class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
 question = "Does the generated units index report `bank_item_count` 957 (file-set size, retired included)?"
 probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": 957' }
-trigger = "867 files / 842"
+trigger = "957 files / 929"
 
 [[fact]]
 id = "fact-bank-approved-count-779"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `approved_item_count` 931?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 931' }
-trigger = "842 approved / 25 retired"
+question = "Does the generated units index report `approved_item_count` 929?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 929' }
+trigger = "929 approved / 25 retired"
 
 [[fact]]
 id = "fact-learn-unit-count-134"
@@ -190,7 +190,7 @@ probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '
 trigger = "134 Learn units"
 
 # Sampling claims must quote the approved pool (bd-docs-advertise-file-count-as-pool-99sw).
-# 931/40 = 23.275, advertised as ~23.3×. The file set is 957 (23.925×) and is
+# 929/40 = 23.225, advertised as ~23.2×. The file set is 957 (23.925×) and is
 # not the drawable pool. A site that writes "~20× exam" without this marker
 # is quoting the file set; the trigger is the approved-pool multiplier so a
 # stale ~20× cannot satisfy it.
@@ -199,9 +199,9 @@ trigger = "134 Learn units"
 id = "fact-approved-pool-multiplier-19-5"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `approved_item_count` 931, i.e. the drawable pool whose exam multiplier is ~23.3× (931/40)?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 931' }
-trigger = "20.9× exam"
+question = "Does the generated units index report `approved_item_count` 929, i.e. the drawable pool whose exam multiplier is ~23.2× (929/40)?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 929' }
+trigger = "23.2× exam"
 
 [[fact]]
 id = "fact-assemble-rng-is-chacha12"
