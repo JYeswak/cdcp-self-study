@@ -555,10 +555,14 @@ mod tests {
         match evaluate(&fixture("bad")) {
             Eval::Violation(items) => {
                 let report = items.join("\n");
-                assert!(report.contains("numeric-contradictions=2"));
+                // 2 -> 3: the fixture SET grew. bare-degree-a/b was added as a fixture
+                // after an independent plant proved the prefix matcher blind to
+                // "27 degrees C" and "27°C". Behaviour did not regress.
+                assert!(report.contains("numeric-contradictions=3"));
                 assert!(report.contains("explicit-negation-pairs=1"));
                 assert!(report.contains("numeric-a<> numeric-b"));
                 assert!(report.contains("degree-a<> degree-b"));
+                assert!(report.contains("bare-degree-a<> bare-degree-b"));
                 assert!(report.contains("neg-a<> neg-b"));
             }
             other => panic!("known-bad contradiction fixture did not go RED: {other:?}"),
@@ -600,7 +604,9 @@ mod tests {
         match evaluate(&root) {
             Eval::Ok(text) => {
                 assert!(text.contains("approved single-select=440"));
-                assert!(text.contains("numeric-claims=24"));
+                // 24 -> 131: extraction moved from configured prefix phrases to
+                // (value, unit) parsing of any choice text. Same corpus, better reach.
+                assert!(text.contains("numeric-claims=131"));
                 assert!(text.contains("compared topic-pairs=3387"));
                 assert!(text.contains("numeric-contradictions=0"));
                 assert!(text.contains("explicit-negation-pairs=0"));
