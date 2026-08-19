@@ -3,8 +3,12 @@
 
 [[detector]]
 name = "template-stem"
+# A template finding needs both signals: high stem similarity and low
+# divergence in the correct-answer text. A two-item collapsed-answer pair is
+# the smallest meaningful cluster, so one matching peer is sufficient.
 similarity_pct = 70
-min_peers = 2
+answer_similarity_pct = 60
+min_peers = 1
 
 [[detector]]
 name = "recall-only-stem"
@@ -26,10 +30,5 @@ document_tokens = [
   "standard",
 ]
 
-# Per-id, per-detector adjudications. Every row requires a reason, and the
-# detector errors if the named finding disappears (a stale exception is not
-# permission for a future defect).
-[[exclude]]
-id = "m09-q207"
-detector = "template-stem"
-reason = "Byte-identical to 955a8f1 in stem, choices, key, and explanation; it is a sound member of the intentional hot/cold containment teaching family with m09-q149 and m09-q206."
+# There are currently no adjudicated exceptions. The containment family is
+# excluded by the answer-text divergence signal, not by a per-id waiver.

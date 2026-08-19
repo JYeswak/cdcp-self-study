@@ -1,0 +1,17 @@
+id = "m09-q206"
+module = 9
+stem = "Hot-aisle containment primarily aims to:"
+choices = [
+  "Flood cold aisles with hot air",
+  "Capture and isolate hot exhaust so return temperatures rise cleanly and cold aisles stay cooler",
+  "Replace all CRAHs with open windows",
+  "Eliminate blanking panels as a concept",
+]
+correct = "B"
+explanation = "Hot-aisle containment encloses the hot path to strengthen separation of air streams."
+topic_ids = ["m09-containment"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
+kind = "single-select"

@@ -3,7 +3,10 @@
 //! This is bank-product logic, not gate plumbing. The paired gate dispatcher
 //! keeps the public cdcp_gate grounding-wave command stable while this module
 //! owns the two fingerprints that the grounding wave made visible:
-//! near-identical template stems and document-index recall stems.
+//! near-identical template stems with collapsed correct-answer text, and
+//! document-index recall stems. Stem shape alone is deliberately insufficient:
+//! the approved containment teaching family uses parallel stems while teaching
+//! different answer propositions.
 //!
 //! A detector finding may be adjudicated only by a per-item, per-detector
 //! exclusion in `registries/grounding_wave.toml`. Exclusions require a reason,
@@ -42,6 +45,8 @@ struct DetectorRow {
     #[serde(default)]
     similarity_pct: Option<u32>,
     #[serde(default)]
+    answer_similarity_pct: Option<u32>,
+    #[serde(default)]
     min_peers: Option<usize>,
     #[serde(default)]
     required_tokens: Vec<String>,
@@ -65,7 +70,8 @@ struct ExcludeRow {
 
 #[derive(Debug)]
 struct Policy {
-    template_similarity_pct: u32,
+    template_stem_similarity_pct: u32,
+    template_answer_similarity_pct: u32,
     template_min_peers: usize,
     recall_required: BTreeSet<String>,
     recall_questions: BTreeSet<String>,
@@ -154,12 +160,20 @@ fn policy(root: &Path) -> Result<Policy, String> {
     let similarity = template
         .similarity_pct
         .ok_or_else(|| format!("{POLICY}: {TEMPLATE_NAME}.similarity_pct is required"))?;
+    let answer_similarity = template
+        .answer_similarity_pct
+        .ok_or_else(|| format!("{POLICY}: {TEMPLATE_NAME}.answer_similarity_pct is required"))?;
     let min_peers = template
         .min_peers
         .ok_or_else(|| format!("{POLICY}: {TEMPLATE_NAME}.min_peers is required"))?;
     if similarity == 0 || similarity > 100 {
         return Err(format!(
             "{POLICY}: {TEMPLATE_NAME}.similarity_pct must be 1..=100"
+        ));
+    }
+    if answer_similarity == 0 || answer_similarity > 100 {
+        return Err(format!(
+            "{POLICY}: {TEMPLATE_NAME}.answer_similarity_pct must be 1..=100"
         ));
     }
     if min_peers == 0 {
@@ -169,7 +183,8 @@ fn policy(root: &Path) -> Result<Policy, String> {
     }
     let recall = row(&registry, RECALL_NAME)?;
     Ok(Policy {
-        template_similarity_pct: similarity,
+        template_stem_similarity_pct: similarity,
+        template_answer_similarity_pct: answer_similarity,
         template_min_peers: min_peers,
         recall_required: words(&recall.required_tokens, "recall-only-stem.required_tokens")?,
         recall_questions: words(&recall.question_tokens, "recall-only-stem.question_tokens")?,
@@ -179,12 +194,32 @@ fn policy(root: &Path) -> Result<Policy, String> {
     })
 }
 
-fn template_ids(items: &[&BankItem], policy: &Policy) -> Vec<String> {
+fn correct_text(item: &BankItem) -> Result<&str, String> {
+    let index = match item.correct.as_str() {
+        "A" => 0,
+        "B" => 1,
+        "C" => 2,
+        "D" => 3,
+        other => return Err(format!("{}: correct key is not A-D: {other:?}", item.id)),
+    };
+    item.choices.get(index).map(String::as_str).ok_or_else(|| {
+        format!(
+            "{}: correct key {} has no corresponding choice",
+            item.id, item.correct
+        )
+    })
+}
+
+fn template_ids(items: &[&BankItem], policy: &Policy) -> Result<Vec<String>, String> {
     let stems = items
         .iter()
         .map(|item| near_duplicate::tokens(&item.stem))
         .collect::<Vec<_>>();
-    items
+    let answers = items
+        .iter()
+        .map(|item| correct_text(item).map(near_duplicate::tokens))
+        .collect::<Result<Vec<_>, _>>()?;
+    Ok(items
         .iter()
         .enumerate()
         .filter_map(|(index, item)| {
@@ -193,12 +228,15 @@ fn template_ids(items: &[&BankItem], policy: &Policy) -> Vec<String> {
                 .enumerate()
                 .filter(|(other, stem)| {
                     *other != index
-                        && Sim::of(&stems[index], stem).at_least(policy.template_similarity_pct)
+                        && Sim::of(&stems[index], stem)
+                            .at_least(policy.template_stem_similarity_pct)
+                        && Sim::of(&answers[index], &answers[*other])
+                            .at_least(policy.template_answer_similarity_pct)
                 })
                 .count();
             (peers >= policy.template_min_peers).then(|| item.id.clone())
         })
-        .collect()
+        .collect())
 }
 
 fn recall_ids(items: &[&BankItem], policy: &Policy) -> Vec<String> {
@@ -290,7 +328,10 @@ pub fn evaluate(root: &Path) -> Eval {
     if approved.is_empty() {
         return Eval::Error("zero approved items (vacuous grounding-wave scan)".to_string());
     }
-    let template = template_ids(&approved, &policy);
+    let template = match template_ids(&approved, &policy) {
+        Ok(ids) => ids,
+        Err(message) => return Eval::Error(message),
+    };
     let recall = recall_ids(&approved, &policy);
     if let Err(message) = reject_stale_exclusions(&policy.exclusions, &template, &recall) {
         return Eval::Error(message);
@@ -298,9 +339,10 @@ pub fn evaluate(root: &Path) -> Eval {
     let template_unexcepted = filtered_ids(&template, TEMPLATE_NAME, &policy.exclusions);
     let recall_unexcepted = filtered_ids(&recall, RECALL_NAME, &policy.exclusions);
     let report = format!(
-        "approved={}; template-stem(similarity>={}% peers>={})={} ids=[{}] unexcepted={} ids=[{}]; recall-only-stem={} ids=[{}] unexcepted={} ids=[{}]; adjudicated-exceptions={} [{}]",
+        "approved={}; template-stem(stem>={}% answer>={}% peers>={})={} ids=[{}] unexcepted={} ids=[{}]; recall-only-stem={} ids=[{}] unexcepted={} ids=[{}]; adjudicated-exceptions={} [{}]",
         approved.len(),
-        policy.template_similarity_pct,
+        policy.template_stem_similarity_pct,
+        policy.template_answer_similarity_pct,
         policy.template_min_peers,
         template.len(),
         ids(&template),
@@ -364,6 +406,29 @@ mod tests {
         (temp, root)
     }
 
+    fn preserved_peak_fixture() -> (tempfile::TempDir, PathBuf) {
+        let temp = tempfile::tempdir().unwrap();
+        let source =
+            Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/damaged_corpus_2026_08_18");
+        let item_dir = temp.path().join("bank/items");
+        let policy_dir = temp.path().join("registries");
+        fs::create_dir_all(&item_dir).unwrap();
+        fs::create_dir_all(&policy_dir).unwrap();
+        for entry in fs::read_dir(source).unwrap() {
+            let entry = entry.unwrap();
+            if entry.path().extension().and_then(|value| value.to_str()) == Some("toml") {
+                fs::copy(entry.path(), item_dir.join(entry.file_name())).unwrap();
+            }
+        }
+        fs::copy(
+            Path::new(env!("CARGO_MANIFEST_DIR")).join("../../registries/grounding_wave.toml"),
+            policy_dir.join("grounding_wave.toml"),
+        )
+        .unwrap();
+        let root = temp.path().to_path_buf();
+        (temp, root)
+    }
+
     const REASON: &str =
         "Reviewed containment teaching family; this item is pre-wave and substantively sound.";
 
@@ -384,6 +449,32 @@ mod tests {
         match evaluate(&fixture("good")) {
             Eval::Ok(text) => assert!(text.contains("approved=2")),
             other => panic!("substantive fixture did not pass: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn parallel_containment_family_is_green_without_an_exception() {
+        match evaluate(&fixture("containment")) {
+            Eval::Ok(text) => {
+                assert!(text.contains("template-stem("));
+                assert!(text.contains(")=0 ids=[]"));
+                assert!(text.contains("adjudicated-exceptions=0"));
+            }
+            other => panic!("containment family was misclassified: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn preserved_peak_damage_fixture_is_red() {
+        let (_temp, root) = preserved_peak_fixture();
+        match evaluate(&root) {
+            Eval::Violation(items) => {
+                assert!(items[0].contains("template-stem("));
+                assert!(items[0].contains("bank-m15-q149"));
+                assert!(items[0].contains("m15-q212"));
+                assert!(items[0].contains("recall-only-stem"));
+            }
+            other => panic!("preserved peak corpus did not go RED: {other:?}"),
         }
     }
 

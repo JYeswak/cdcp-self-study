@@ -1,7 +1,8 @@
 [[detector]]
 name = "template-stem"
 similarity_pct = 70
-min_peers = 2
+answer_similarity_pct = 60
+min_peers = 1
 
 [[detector]]
 name = "recall-only-stem"

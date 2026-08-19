@@ -1,0 +1,17 @@
+id = "m09-q149"
+module = 9
+stem = "Cold-aisle containment primarily aims to:"
+choices = [
+  "Flood the entire room with uncontrolled hot air",
+  "Keep cold supply air in the cold aisle and prevent mixing with room air",
+  "Replace humidity sensors with pressure only",
+  "Cool only generators",
+]
+correct = "B"
+explanation = "Cold-aisle containment keeps supply air focused on IT intakes and reduces mixing with room air."
+topic_ids = ["m09-containment"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
+kind = "single-select"

@@ -1,0 +1,17 @@
+id = "m09-q207"
+module = 9
+stem = "Cold-aisle containment (CAC) primarily aims to:"
+choices = [
+  "Dump all cold air into the plenum return only",
+  "Heat the cold aisle deliberately",
+  "Keep supply air focused on IT intakes and reduce mixing with room air",
+  "Disable humidity control",
+]
+correct = "C"
+explanation = "Cold-aisle containment protects the cold stream so servers receive intended supply air."
+topic_ids = ["m09-containment"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
+kind = "single-select"
