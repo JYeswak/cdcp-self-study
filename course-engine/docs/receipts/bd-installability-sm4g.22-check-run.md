@@ -364,3 +364,81 @@ These are the subsequent walks after the `verify_doc_consistency` extraction and
 - Exact core errors: golden all-correct digest `got c38c5c894c362e7cdf501f4e85b029ed90f2297dcf54a511eb7246868c402418` versus `expected cc4c4611208bf20a7489478336a054966977715d1b3ede7267add2d45452d64a`; all-correct JSON expected `40/40` but got `34/40`.
 
 The run-9 failure is recorded, not fixed here: it is existing pane-2-owned golden/fixture drift, outside the extraction and formatting changes in this tick. The chain now proves the ratchet and formatting legs can complete, but it still does not complete end to end.
+
+## Run 10 — full continuation after required-tests landed
+
+- Tree: `60d8564` (worktree; pane 2's uncommitted `scripts/check.sh` and required-tests files were present and were not changed here)
+- Command: `PATH=/Users/josh/.cargo/bin:$PATH /usr/bin/time -p ./scripts/check.sh`
+- Environment: local warm Cargo registry/target cache
+- Result: no successful full-chain completion; the run reached the workspace test stage and exited 2
+- Wall time: `194.02` seconds (`3.23` minutes; `3:14.02`)
+- Interpretation: this is a warm-cache floor to a correctness failure, not a complete-run time or a cold-CI duration estimate
+
+An initial 0.18-second launch was not counted as a chain run: the non-login subprocess lacked `/Users/josh/.cargo/bin` and stopped at the build step with `cargo: command not found`. Run 10 is the corrected, end-to-end invocation with the toolchain path supplied.
+
+## Run 10 ordered steps and verdicts
+
+1. `check.sh lock selftest` — PASS
+2. `cdcp-course check` / knowledge scaffold — PASS
+3. `cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked` — PASS
+4. `cdcp_gate required-tests` — PASS (`required test identities ran unfiltered in the worktree`)
+5. `check.sh snapshot selftest` — PASS
+6. `cdcp_registry_check` / registry-check — PASS
+7. `cdcp check-licence` / licence split — PASS
+8. `cargo test -p cdcp_data --test corpus_rights` — PASS
+9. `cdcp corpus-rights` — PASS
+10. `cdcp load-snapshots` — PASS
+11. `cdcp check-osha` — PASS
+12. `cdcp verify-data-lock` — PASS
+13. `cdcp verify-data-lock --selftest` — PASS
+14. `cdcp oracle-check` — PASS
+15. stale-plant detector — PASS
+16. `cdcp_gate substrate-guard` — PASS
+17. `cdcp_gate substrate-guard --prove-wired` — PASS
+18. `cdcp_gate install-hooks` — PASS
+19. `cdcp_gate install-hooks --check` — PASS
+20. `cdcp_gate capability-maturity` — PASS
+21. `cdcp_gate goldens-couplings` — PASS
+22. `cdcp_gate doc-facts` — PASS
+23. exam-form public CDCP format pins — PASS
+24. honesty string smoke — PASS
+25. standards crosswalk — PASS
+26. `topics.toml` count — PASS
+27. source `fetch_date` presence — PASS
+28. `cdcp_gate verify-bank` — PASS
+29. `cdcp_gate answer-key-skew` — PASS
+30. `cdcp_gate validate-grounding` — PASS
+31. `cdcp_gate grounding-wave` — PASS
+32. `cdcp_gate verify-orphans` — PASS
+33. `selftest_orphan.sh` — PASS
+34. `cdcp_gate near-duplicate-items` — PASS
+35. near-duplicate-items selftest — PASS
+36. `cdcp verify-paraphrase-pairs` — PASS
+37. `cargo fmt` — PASS; gate-module rustfmt selftest — PASS; `cargo clippy --locked --workspace --all-targets -- -D warnings` — PASS; workspace `cargo test --locked --workspace` — FAIL
+
+## Run 10 first failure and blocker
+
+The first failing leg is the workspace test portion of step 37. The exact command failure was:
+
+```text
+test result: FAILED. 29 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out
+error: test failed, to rerun pass `-p cdcp_cli --test cli`
+check.sh: FAIL: cargo test
+```
+
+The six failing tests are:
+
+- `golden_fixture_is_the_rust_sampler_output`
+- `goldens_check_errors_on_a_zero_byte_pin`
+- `goldens_check_exit_0`
+- `goldens_check_ignores_prose_alongside_the_artifacts`
+- `goldens_check_passes_on_a_faithful_copy_and_reports_its_coverage`
+- `grade_json_all_correct_from_fixture_answers`
+
+Their exact substantive errors remain the pane-2-owned fixture drift: the sampler expected item IDs differ from `goldens/fixtures/mock40_seed42.json`; golden all-correct got `c38c5c894c362e7cdf501f4e85b029ed90f2297dcf54a511eb7246868c402418` versus expected `cc4c4611208bf20a7489478336a054966977715d1b3ede7267add2d45452d64`; and fixture all-correct grading returned `34/40` instead of `40/40` (digest `f798f7acac1d6c0a173dd62400f61ea103b7bef8877f8443557ee81df5936dac`).
+
+This cannot be fixed in this tick: the relevant golden/fixture and `cdcp_cli` surfaces are outside the requested scope and are being handled by pane 2. No step was skipped, weakened, or reordered, and `required-tests` was not bypassed or edited.
+
+## Run 10 option status
+
+The chain now reaches the full workspace test stage in `194.02` seconds with a warm cache, but it still fails on correctness before the downstream golden/WASM legs. That number is a floor for this machine and cache, not a cold-CI estimate. The measured evidence still does not support a throughput fix as the primary action; correctness must be repaired before caching, splitting, batching, or queue-draining can be evaluated as the bottleneck. No CI configuration was changed.
