@@ -1,0 +1,34 @@
+# Required test identities are a process/observability floor. The gate measures
+# the current worktree through unfiltered Cargo suites, not the Git index. A
+# reason is mandatory because each row is a human decision about why a test is
+# load-bearing; blank or missing reasons are schema errors.
+
+[[test]]
+name = "live_export_is_approved_and_ships_no_retired"
+suite = "cdcp_anki-export"
+reason = "Pins the learner-facing export to the approved pool and prevents retired items from shipping."
+
+[[test]]
+name = "check_plants_clock_leak_then_asserts_live_identity"
+suite = "cdcp_anki-export"
+reason = "Proves the export check exercises its clock-leak known-bad and the live identity assertion."
+
+[[test]]
+name = "answer_key_skew::tests::known_bad_fixture_is_red"
+suite = "cdcp_bank-lib"
+reason = "Keeps the answer-key gate's deliberately skewed fixture RED rather than accepting a vacuous scan."
+
+[[test]]
+name = "answer_key_skew::tests::uniform_fixture_is_green"
+suite = "cdcp_bank-lib"
+reason = "Keeps the answer-key gate's uniform fixture GREEN so the tolerance is not simply always RED."
+
+[[test]]
+name = "grounding_wave::tests::known_bad_table_of_contents_fixture_is_red"
+suite = "cdcp_bank-lib"
+reason = "Keeps the grounding-wave table-of-contents fixture RED and preserves the detector's bite."
+
+[[test]]
+name = "grounding_wave::tests::known_good_substantive_fixture_is_green"
+suite = "cdcp_bank-lib"
+reason = "Keeps a substantive grounded fixture GREEN so the grounding-wave detector remains calibrated."

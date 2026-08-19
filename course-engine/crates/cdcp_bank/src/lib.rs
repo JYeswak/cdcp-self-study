@@ -23,6 +23,7 @@ pub mod mock40_module;
 pub mod near_duplicate;
 pub mod orphans;
 pub mod paraphrase;
+pub mod required_tests;
 pub mod tick_emitter;
 pub mod validate_grounding;
 pub mod verify_bank;
@@ -204,6 +205,12 @@ pub const SANCTIONED_RETIRED: &[(&str, &str)] = &[
         "bd-tetz pair 18/24: duplicate of m09-q156 (answer 66%) with the keys on DIFFERENT \
          letters (A vs B) — the subclass a reviewer scanning answer keys cannot see. q2xx \
          expansion copy withdrawn. bank/items/m09-q226.toml.",
+    ),
+    (
+        "m09-q301",
+        "bd-epi-ecosystem-ms4j.12: ASHRAE TC 9.9 W-class body is not in the supportable \
+         source pack; the item is retired pending sourcing, as recorded by its \
+         blocked_on_sourcing header. bank/items/m09-q301.toml.",
     ),
     (
         "mock40-q29",

@@ -486,6 +486,15 @@ fi
 require_cdcp_bins
 ok "cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked (debug binaries in $CDCP_BIN_DIR)"
 
+# Process/observability floor: unfiltered suites must still contain every
+# load-bearing test named by registries/required_tests.toml. This measures the
+# current checkout (tree=worktree), not the Git index; a suite-level green with
+# a filtered-out test is an ERROR, not proof. The gate also cannot certify that
+# the named tests assert anything non-trivial — only that they ran and passed.
+echo "==> cdcp_gate required-tests (named load-bearing tests; tree=worktree)"
+run_cdcp_gate required-tests || fail "required test identities"
+ok "required test identities ran unfiltered in the worktree"
+
 # ── L4: snapshot re-exec is proven to isolate [bd-o4bc] ─────────────────
 # Plants run against a PRIVATE tree that contains only scripts/check.sh.
 # The live scripts/check.sh is never sheared. CHARTER pair: (1) skip exec
