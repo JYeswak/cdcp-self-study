@@ -1,0 +1,20 @@
+# Construction-fault thresholds. These are cues for review, not judgments of
+# truth, currency, cognitive level, or discrimination.
+
+[longest_option_correct]
+# Key must clear both cuts: at least 25% longer and at least three words longer.
+min_ratio_pct = 125
+min_extra_words = 3
+
+[grammatical_disagreement]
+# Scope is deliberately conservative: explicit article or auxiliary cues at
+# the end of a stem, with explicit opposite forms at the start of choices.
+min_disagreeing_distractors = 1
+
+[absolute_language_distractors]
+absolute_words = ["always", "never", "all", "none", "only"]
+hedge_words = ["can", "could", "generally", "may", "might", "often", "usually", "typically", "tends", "sometimes"]
+min_absolute_distractors = 1
+
+[all_none_of_the_above]
+min_matches = 1
