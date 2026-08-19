@@ -15,7 +15,9 @@ Recent landed work relevant to this state:
   929-approved bank and refreshed the golden pins.
 - `2a6d870` added `watchdog-escalate.sh` and a cron reader for stalled loops.
   It observes and escalates; it does not emit ticks or dispatch work.
-- `bd-engine-not-gate-ar39.17` is open for the missing local tick emitter.
+- `bd-engine-not-gate-ar39.17` adds the local Rust tick emitter and its
+  fail-closed tests; the bead remains open until the real install receipt is
+  emitted and the scoped checks are complete.
 
 ## Grounding-wave non-bank audit (`bd-0cjy.1`)
 
@@ -72,7 +74,11 @@ wrapper appends `STALL` observations to `ALERT` and writes `URGENT_JOSH.md`.
 Neither writes a `zs.tick-receipt` ledger row. A tidy `STATE.md` is therefore
 not a running loop.
 
-The missing-emitter bead is `bd-engine-not-gate-ar39.17`. Its acceptance must
-prove a directly invokable local writer, an isolated known-good emission, a
-known-bad refusal without live-ledger mutation, and observer-only watchdog
-behavior. Until that bead lands, the ledger remains intentionally frozen.
+The local writer is now directly invokable as `cdcp_gate emit-tick`. It computes
+product movement from the named commit, applies the Charter denylist, rejects
+fabricated classes and forbidden status prose, and refuses a missing ledger
+instead of creating one. A live receipt for the prior audit commit is still
+required to prove installation. Nothing currently invokes this command
+automatically per tick: the watchdog remains an observer/escalator, and cron
+does not dispatch the emitter. A running loop still needs its tick controller
+to call `cdcp_gate emit-tick` once per completed tick.

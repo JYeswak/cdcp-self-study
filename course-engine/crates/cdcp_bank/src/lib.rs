@@ -23,6 +23,7 @@ pub mod mock40_module;
 pub mod near_duplicate;
 pub mod orphans;
 pub mod paraphrase;
+pub mod tick_emitter;
 pub mod validate_grounding;
 pub mod verify_bank;
 pub mod verify_content_lock;
