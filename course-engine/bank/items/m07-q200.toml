@@ -6,15 +6,15 @@
 id = "m07-q200"
 kind = "single-select"
 module = 7
-stem = "Which field categories does IEC 61786-2:2014 explicitly cover?"
+stem = "In data centre facility context, EMF concerns commonly include both:"
 choices = [
-  "Quasi-static magnetic/electric fields and DC magnetic fields",
   "Only cosmic rays outside the solar system",
   "Only visible light wavelengths used for signage",
+  "Electric and magnetic fields associated with power frequency and other sources that may affect equipment or people",
   "Only Wi-Fi SSIDs"
 ]
-correct = "A"
-explanation = "The current IEC abstract explicitly covers quasi-static magnetic/electric fields and DC magnetic fields; it does not establish a facility-specific source taxonomy."
+correct = "C"
+explanation = "Facility EMF discussion centres on power-frequency and related fields from electrical plant and other sources."
 topic_ids = ["m07-types", "m07-sources"]
 objective_ids = []
 bloom = "remember"

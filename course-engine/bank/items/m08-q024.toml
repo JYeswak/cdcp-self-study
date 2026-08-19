@@ -26,15 +26,15 @@
 id = "mock40-q24"
 kind = "single-select"
 module = 8
-stem = "IEC 60297-3-105:2008 is specifically scoped to dimensions and design aspects for:"
+stem = "One RU equals:"
 choices = [
-  "1U-high chassis mounted into compliant racks or cabinets",
-  "Only cloud-software service containers",
-  "Only generator-fuel tanks",
-  "Only optical-fibre test instruments",
+  "1 meter",
+  "1.75 inches (44.45 mm) of vertical mounting space",
+  "19 kW",
+  "One PDU phase",
 ]
-correct = "A"
-explanation = "The IEC catalog title and scope identify dimensions and design aspects for 1U-high chassis mounted in IEC 60297-3-100-compliant racks/cabinets; it does not expose the exact RU-to-millimetre conversion here."
+correct = "B"
+explanation = "One rack unit (RU) is 1.75 inches (44.45 mm) of vertical mounting space."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "remember"

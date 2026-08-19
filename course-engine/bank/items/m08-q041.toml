@@ -6,15 +6,15 @@
 id = "m08-q041"
 kind = "single-select"
 module = 8
-stem = "IEC 60297-3-100:2008 specifies basic dimensions for:"
+stem = "The “19-inch” rack standard primarily specifies:"
 choices = [
-  "Front panels, subracks, chassis, racks, and cabinets in the 482.6 mm (19 in) series",
+  "The horizontal mounting flange spacing for equipment ears—not the cabinet’s outer width",
   "The outer width of every cabinet footprint worldwide",
   "Exactly 19 kW per rack",
   "Only two-post telecom frames",
 ]
 correct = "A"
-explanation = "The current IEC catalog states that IEC 60297-3-100 specifies basic dimensions for front panels, subracks, chassis, racks, and cabinets of the 482.6 mm (19 in) series. It does not establish a universal cabinet outer width or power rating."
+explanation = "19″ is mounting rail spacing (EIA-310 / IEC 60297 family), not outer cabinet width."
 topic_ids = ["m08-standards", "m08-dimensions"]
 objective_ids = []
 bloom = "remember"

@@ -75,3 +75,73 @@
 | m06-q236 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
 | m06-q237 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
 | m06-q239 | approved | approved | **KEEP** | D→D | The pair is unchanged; the critical-path sequence remains intact. |
+
+## Batch 2 — items 66–130
+
+| id | baseline status | status before review | verdict | key before→current | independent reason |
+|---|---|---|---|---|---|
+| m06-q240 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m06-q241 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m06-q252 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m06-q261 | approved | approved | **MISCLASS** | A→C | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q041 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q043 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q044 | approved | approved | **MISCLASS** | C→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q052 | approved | approved | **MISCLASS** | C→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q053 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q054 | approved | approved | **MISCLASS** | D→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q055 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q200 | approved | approved | **MISCLASS** | C→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q201 | approved | approved | **KEEP** | D→A | The H/B distinction is a valid substantive EMF-terminology question, not document-heading recall or a mechanical downgrade. |
+| m07-q202 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q206 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q207 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q209 | approved | approved | **MISCLASS** | D→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m07-q213 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q024 | retired | retired | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q025 | retired | retired | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q041 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q042 | approved | approved | **MISCLASS** | C→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q043 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q044 | approved | approved | **MISCLASS** | D→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q047 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q049 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q051 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q052 | approved | approved | **MISCLASS** | D→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q059 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q060 | approved | approved | **MISCLASS** | D→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q061 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q062 | approved | approved | **MISCLASS** | C→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q201 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m08-q206 | approved | approved | **KEEP** | B→A | The bonding-network question remains a substantive safety/EMI application question, not document-heading recall. |
+| m08-q207 | approved | approved | **MISCLASS** | C→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m09-q028 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m09-q100 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m09-q101 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m09-q103 | approved | approved | **MISCLASS** | D→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m09-q110 | approved | approved | **MISCLASS** | C→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m09-q119 | approved | approved | **MISCLASS** | D→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m09-q121 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m09-q122 | approved | approved | **KEEP** | C→C | The pair is unchanged; the CRAC/CRAH dehumidification question remains intact. |
+| m09-q124 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m09-q126 | approved | approved | **MISCLASS** | C→C | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m10-q022 | retired | retired | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m11-q101 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m11-q102 | approved | approved | **MISCLASS** | C→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m11-q103 | approved | approved | **MISCLASS** | D→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m11-q128 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m11-q201 | approved | approved | **MISCLASS** | C→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m11-q223 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m12-q049 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m12-q061 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m12-q062 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m12-q064 | approved | approved | **MISCLASS** | D→D | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m12-q075 | approved | approved | **MISCLASS** | C→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m12-q212 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m13-q077 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m13-q082 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m13-q083 | approved | approved | **MISCLASS** | C→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m13-q098 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m13-q099 | approved | approved | **MISCLASS** | C→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m14-q109 | approved | approved | **MISCLASS** | A→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |
+| m15-q138 | approved | approved | **MISCLASS** | B→A | The new stem is direct standard/code-scope, definition, catalog, or heading recall; it replaces the baseline applied/conceptual question. |

@@ -6,15 +6,15 @@
 id = "m08-q201"
 kind = "single-select"
 module = 8
-stem = "Which series is explicitly identified by IEC 60297-3-100:2008?"
+stem = "Rack unit (U) height is used to:"
 choices = [
-  "The 482.6 mm (19 in) series",
-  "Only a residential plumbing-pipe series",
-  "Only a generator-fuel measurement series",
-  "Only a cloud-software licensing series",
+  "Express vertical equipment height in standardized increments for planning density",
+  "Measure only cable AWG",
+  "Replace nameplate amperage",
+  "Indicate fire rating of the room"
 ]
 correct = "A"
-explanation = "The IEC catalog identifies basic dimensions for the 482.6 mm (19 in) series."
+explanation = "U-space planning is how operators inventory vertical capacity."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "remember"

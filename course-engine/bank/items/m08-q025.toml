@@ -27,15 +27,15 @@
 id = "mock40-q25"
 kind = "single-select"
 module = 8
-stem = "IEC 62966-1:2019 addresses aisle containment for IT cabinets by defining:"
+stem = "Blanking unused rack U-space mainly:"
 choices = [
-  "Dimensions and mechanical requirements for containment in data centres and server rooms",
-  "Only generator synchronization settings",
-  "Only fire-agent concentration limits",
-  "Only cloud-service availability targets",
+  "Increases random mixing for comfort",
+  "Prevents bypass airflow and improves containment effectiveness",
+  "Removes need for CRAC filters",
+  "Grounds the cabinet automatically",
 ]
-correct = "A"
-explanation = "The IEC catalog defines aisle-containment dimensions and mechanical requirements for IT cabinets and states an objective of energy-efficient, user-friendly operation; it does not expose a universal blanking-panel airflow rule."
+correct = "B"
+explanation = "Blanking panels stop bypass airflow and improve containment effectiveness."
 topic_ids = ["m09-containment", "m08-types"]
 objective_ids = []
 bloom = "understand"

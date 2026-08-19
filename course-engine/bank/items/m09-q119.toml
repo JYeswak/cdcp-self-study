@@ -6,15 +6,15 @@
 id = "m09-q119"
 kind = "single-select"
 module = 9
-stem = "Which physical environmental-control category does ISO/IEC 22237-4:2021 explicitly include?"
+stem = "A hot spot in a data hall typically means:"
 choices = [
-  "Vibration",
   "A deliberately heated cold aisle",
   "Only an outdoor weather station reading",
-  "A battery room at float voltage"
+  "A battery room at float voltage",
+  "Localized elevated inlet temperatures from poor airflow management"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists vibration; it does not expose a localized hot-spot airflow proposition."
+correct = "D"
+explanation = "Hot spots are local thermal problems—often recirculation, blocked tiles, or uneven loads—not necessarily whole-room average failure."
 topic_ids = ["m09-temp-humidity", "m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "remember"

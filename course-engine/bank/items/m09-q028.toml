@@ -6,15 +6,15 @@
 id = "mock40-q28"
 kind = "single-select"
 module = 9
-stem = "Which thermal environmental-control domain does ISO/IEC 22237-4:2021 explicitly specify?"
+stem = "IT equipment heat is primarily:"
 choices = [
-  "Temperature control",
-  "Only nuclear shielding",
-  "Only fibre-path attenuation",
-  "Only generator fuel quality",
+  "Latent",
+  "Sensible",
+  "Nuclear",
+  "Only radiative into space vacuum",
 ]
-correct = "A"
-explanation = "The current ISO preview explicitly lists temperature control among the environmental-control requirements and recommendations for data centres; it does not establish the sensible-versus-latent heat proposition."
+correct = "B"
+explanation = "Servers produce primarily dry (sensible) heat, not latent moisture load."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "remember"

@@ -6,15 +6,15 @@
 id = "m06-q240"
 kind = "single-select"
 module = 6
-stem = "Which energy-storage boundary is explicitly stated in the IEC 62040-3:2021 UPS scope?"
+stem = "Flywheel energy storage paired with UPS-class systems is typically characterized by:"
 choices = [
-  "An energy-storage device not exceeding 1 500 V DC",
-  "A mandatory multi-day fuel autonomy",
-  "Only a chilled-water storage device",
-  "Only an optical-fibre battery monitor",
+  "Short-duration kinetic energy bridging, often alongside generators rather than long battery banks",
+  "Multi-day autonomy as a default",
+  "Replacement for all grounding",
+  "Only outdoor evaporative cooling"
 ]
 correct = "A"
-explanation = "The IEC catalog states that covered UPS incorporate an energy-storage device not exceeding 1 500 V DC; it does not expose a flywheel-duration rule."
+explanation = "Flywheels bridge short gaps; they are not multi-day energy stores by default."
 topic_ids = ["m06-ups", "m06-batteries"]
 objective_ids = []
 bloom = "understand"

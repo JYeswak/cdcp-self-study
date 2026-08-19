@@ -6,15 +6,15 @@
 id = "m07-q052"
 kind = "single-select"
 module = 7
-stem = "Which field scope is explicitly stated for IEC 61786-2:2014 measurements?"
+stem = "Time-varying magnetic fields can induce noise on copper primarily via:"
 choices = [
-  "Quasi-static magnetic and electric fields from 1 Hz to 100 kHz, plus DC magnetic fields",
-  "Only optical fields above 1 GHz",
-  "Only acoustic vibration below 1 Hz",
-  "Only thermal gradients in cooling coils",
+  "Optical absorption in multimode fibre cores",
+  "DNS cache poisoning",
+  "Faraday induction in loops—large cable loops and poor power/data separation worsen pick-up",
+  "CRAH humidification cycles alone",
 ]
-correct = "A"
-explanation = "The IEC catalog states that IEC 61786-2:2014 provides measurement requirements for quasi-static magnetic and electric fields from 1 Hz to 100 kHz and DC magnetic fields."
+correct = "C"
+explanation = "Induced voltage in loops is the classic copper EMI mechanism at ELF."
 topic_ids = ["m07-types", "m07-sources"]
 objective_ids = []
 bloom = "understand"

@@ -6,15 +6,15 @@
 id = "m08-q049"
 kind = "single-select"
 module = 8
-stem = "IEC 62966-2:2020 provides methods to measure and classify:"
+stem = "Blanking unused U-space mainly:"
 choices = [
-  "Aisle-containment air leakage",
-  "Only generator synchronization time",
-  "Only rack mounting-hole pitch",
-  "Only fire-agent discharge concentration",
+  "Prevents bypass airflow and improves containment effectiveness",
+  "Increases random mixing for comfort cooling",
+  "Removes need for CRAC filters",
+  "Grounds the cabinet automatically",
 ]
 correct = "A"
-explanation = "The IEC catalog describes methods for measuring aisle-containment air leakage and a classification system; it does not expose a universal blanking-panel rule."
+explanation = "Blanking stops air bypass around IT equipment."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "understand"

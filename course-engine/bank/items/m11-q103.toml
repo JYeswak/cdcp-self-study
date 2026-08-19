@@ -6,15 +6,15 @@
 id = "m11-q103"
 kind = "single-select"
 module = 11
-stem = "The topology specified in TIA-942-C is intended to be applicable to:"
+stem = "In TIA-style data centre cabling topology awareness, the MDA is best described as:"
 choices = [
-  "Any size data centre",
-  "Only hyperscale campuses above a fixed megawatt threshold",
-  "Only residential structured-cabling installations",
-  "Only one vendor's proprietary switching platform"
+  "Only the outdoor diesel yard",
+  "A battery string naming convention",
+  "The raised-floor tile free-area map",
+  "The main distribution area where core networking and main cross-connect functions concentrate"
 ]
-correct = "A"
-explanation = "The current TIA-942-C catalog explicitly states that its data-centre topology is intended to be applicable to any size data centre. It does not expose a public MDA definition here, so no MDA-specific claim is retained."
+correct = "D"
+explanation = "MDA (Main Distribution Area) is the central hub concept in TIA data centre cabling topology education."
 topic_ids = ["m11-tia942-topology"]
 objective_ids = []
 bloom = "remember"

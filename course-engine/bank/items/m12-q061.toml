@@ -6,15 +6,15 @@
 id = "bank-m12-q061"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.157(a), the portable-fire-extinguisher requirements apply to:"
+stem = "Portable extinguishers are intended for:"
 choices = [
-  "The placement, use, maintenance, and testing of portable extinguishers provided for employee use",
-  "Replacing automatic detection and alarm systems",
-  "Fighting fully developed fires without evacuation planning",
-  "Permanent impairment of fixed suppression systems"
+  "Incipient (just-started) fires by trained personnel only",
+  "Fully developed room fires instead of the fire department",
+  "Replacing automatic detection systems",
+  "Permanent impairment of gas systems"
 ]
 correct = "A"
-explanation = "The current OSHA public standard states that its requirements apply to the placement, use, maintenance, and testing of portable fire extinguishers provided for employee use."
+explanation = "Hand extinguishers are first-aid for small fires; evacuate and use automatic systems/FD for growth beyond that."
 topic_ids = ["m12-extinguishers"]
 objective_ids = []
 bloom = "remember"

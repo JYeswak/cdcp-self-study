@@ -5,15 +5,15 @@
 id = "m11-q128"
 kind = "single-select"
 module = 11
-stem = "The public scope of IEC 60364-5-54:2011 includes protective bonding conductors in order to satisfy:"
+stem = "Bonding and grounding awareness for telecommunications pathways exists to:"
 choices = [
-  "The safety of the electrical installation",
-  "A requirement to ignore electrical safety near racks",
-  "Intentional increase of static discharge",
-  "Cooling of telecommunications rooms with earth current",
+  "Support personnel safety and reduce differences of potential that can affect equipment and shielding strategies",
+  "Ignore electrical safety near racks",
+  "Increase static discharge intentionally",
+  "Cool the MDA with earth current"
 ]
 correct = "A"
-explanation = "The current IEC catalog states that IEC 60364-5-54:2011 addresses earthing arrangements and protective conductors, including protective bonding conductors, in order to satisfy the safety of the electrical installation. It does not expose the prior telecommunications reference-integrity proposition."
+explanation = "Telecom bonding and grounding practices coordinate with electrical systems—safety and reference integrity."
 topic_ids = ["m11-planning", "m11-importance"]
 objective_ids = []
 bloom = "understand"

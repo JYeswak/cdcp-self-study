@@ -6,15 +6,15 @@
 id = "m08-q059"
 kind = "single-select"
 module = 8
-stem = "Which equipment set is explicitly included in IEC 60297-3-100:2008's basic-dimensions scope?"
+stem = "Wall-mount cabinets are typically limited by:"
 choices = [
-  "Front panels, subracks, chassis, racks, and cabinets of the 482.6 mm (19 in) series",
-  "Only cooling towers and chilled-water pumps",
-  "Only generator enclosures and fuel tanks",
-  "Only network software and cloud tenancy records",
+  "Unlimited U and weight for full GPU trains",
+  "U capacity, weight, wall structure, and swing clearance—edge/IDF use cases",
+  "Mandatory use in all hyperscale halls",
+  "Replacing row containment",
 ]
-correct = "A"
-explanation = "The IEC catalog explicitly names front panels, subracks, chassis, racks, and cabinets of the 482.6 mm (19 in) series."
+correct = "B"
+explanation = "Wall-mount is for small edge/IDF deployments with real weight limits."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "understand"

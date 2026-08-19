@@ -6,15 +6,15 @@
 id = "m11-q101"
 kind = "single-select"
 module = 11
-stem = "ISO/IEC 11801-1:2017 defines a generic cabling system that is:"
+stem = "A meet-me room (MMR) is primarily used for:"
 choices = [
-  "Multi-vendor and implementable with material from single or multiple sources",
-  "Restricted to one vendor's proprietary material",
-  "Only a wireless access-point configuration",
-  "Only a generator control network",
+  "Battery watering",
+  "Carrier and customer interconnection / cross-connects",
+  "Diesel fuel polishing",
+  "CRAH filter storage only"
 ]
-correct = "A"
-explanation = "The ISO page says the generic cabling system may use material from single or multiple sources and defines requirements common to the ISO/IEC 11801 series; it does not expose a meet-me-room layout rule."
+correct = "B"
+explanation = "MMRs concentrate carrier handoffs and cross-connects—interconnection, not mechanical plant storage."
 topic_ids = ["m11-planning", "m11-site-to-site"]
 objective_ids = []
 bloom = "remember"

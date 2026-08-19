@@ -6,15 +6,15 @@
 id = "m08-q207"
 kind = "single-select"
 module = 8
-stem = "IEC 62610-6:2020 provides compatible measurement methods for cabinet-air:"
+stem = "Vertical blanking panels and brush strip openings matter at the rack because they:"
 choices = [
-  "Recirculation and bypass ratios",
-  "Only rack-unit height conversions",
-  "Only fire-door access ratings",
-  "Only utility interconnection capacity"
+  "Only improve brand aesthetics",
+  "Always increase bypass airflow intentionally",
+  "Help control airflow through equipment rather than through empty U-spaces and large cable holes",
+  "Have no interaction with cooling"
 ]
-correct = "A"
-explanation = "The IEC catalog defines recirculation and bypass flow rates and associated measurement methods for forced-air-cooled indoor cabinets; it does not expose a particular blanking-panel or brush-strip design rule."
+correct = "C"
+explanation = "Rack sealing is part of aisle containment and inlet temperature control."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "apply"

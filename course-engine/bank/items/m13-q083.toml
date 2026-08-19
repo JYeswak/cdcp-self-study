@@ -7,15 +7,15 @@
 id = "bank-m13-q083"
 kind = "single-select"
 module = 13
-stem = "ISO/IEC 22237-6:2024 describes unauthorized-access protection in terms of:"
+stem = "Multi-factor physical access on high zones commonly combines:"
 choices = [
-  "Organizational and technological solutions",
-  "A single mandatory badge-plus-biometric combination for every site",
-  "Only a camera placement rule with no organizational control",
-  "Only logical network authentication, excluding physical access"
+  "Two cameras facing each other only",
+  "Shared generic contractor PIN posted on the door",
+  "Badge plus PIN or badge plus biometric",
+  "Unlocked doors during business hours only"
 ]
-correct = "A"
-explanation = "The current ISO abstract describes unauthorized-access protection using organizational and technological solutions. It does not prescribe one universal multi-factor combination."
+correct = "C"
+explanation = "Something you have + know/are raises assurance on white-space and critical plant."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"

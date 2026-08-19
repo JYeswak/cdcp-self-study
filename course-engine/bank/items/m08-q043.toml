@@ -5,15 +5,15 @@
 id = "m08-q043"
 kind = "single-select"
 module = 8
-stem = "IEC 60297-3-105:2008 specifies dimensions for:"
+stem = "Common full-height enclosure usable heights are often marketed around:"
 choices = [
-  "1U-high chassis mounted into IEC 60297-3-100-compliant racks or cabinets",
-  "Only full-height building rooms",
-  "Only generator enclosures",
-  "Only fibre-optic patch cords",
+  "5U only for all server halls",
+  "42U to roughly 45U–48U usable—always confirm usable U after accessories",
+  "200U as the industry default",
+  "U counts that ignore rail and door hardware",
 ]
-correct = "A"
-explanation = "The current IEC catalog identifies IEC 60297-3-105:2008 as specifying dimensions for 1U chassis mounted into IEC 60297-3-100-compliant racks or cabinets. It does not expose a universal full-height usable-U range."
+correct = "B"
+explanation = "42U/45–48U class is common; verify usable U on the BOM."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "remember"

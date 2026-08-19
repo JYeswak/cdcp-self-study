@@ -6,15 +6,15 @@
 id = "m09-q121"
 kind = "single-select"
 module = 9
-stem = "Which security-related environmental-control category does ISO/IEC 22237-4:2021 explicitly include?"
+stem = "Humidification may be required in a data centre when:"
 choices = [
-  "Physical security of environmental-control systems",
   "UPS batteries always need 100% RH",
+  "Outdoor conditions or cooling processes drive indoor moisture too low for the site humidity strategy",
   "Fiber only works when fog is present",
   "Raised floors must be flooded"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists physical security of environmental-control systems; it does not expose a humidification trigger."
+correct = "B"
+explanation = "Dry outdoor air or dehumidifying coils can drop indoor moisture; humidification restores the site humidity control band."
 topic_ids = ["m09-temp-humidity"]
 objective_ids = []
 bloom = "apply"

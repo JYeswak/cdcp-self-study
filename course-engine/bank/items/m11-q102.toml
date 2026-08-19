@@ -8,15 +8,15 @@
 id = "m11-q102"
 kind = "single-select"
 module = 11
-stem = "In the public TIA-942-C abstract, the stated scope of the data-center topology is:"
+stem = "Scalable network cabling design emphasizes:"
 choices = [
-  "Applicable to data centers of any size",
-  "Limited to residential wireless installations",
-  "Limited to generator yards",
-  "Defined only for one fixed rack vendor"
+  "Random patching with no pathways",
+  "Copper only forever with no fiber",
+  "Planned pathways, media, and topologies that support growth without chaos",
+  "No labeling ever"
 ]
-correct = "A"
-explanation = "The current TIA abstract states that the topology specified by TIA-942-C is intended to be applicable to any size data center. It does not expose the paid body’s detailed pathway or media rules."
+correct = "C"
+explanation = "Growth without pathway and media planning creates congestion, risk, and unmanageable MACs."
 topic_ids = ["m11-planning", "m11-importance"]
 objective_ids = []
 bloom = "understand"

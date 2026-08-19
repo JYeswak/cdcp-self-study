@@ -7,15 +7,15 @@
 id = "m06-q252"
 kind = "single-select"
 module = 6
-stem = "What equipment scope does the IEC 62040-3:2021 catalog assign performance and test requirements to?"
+stem = "Power quality events that double-conversion UPS is meant to mitigate include:"
 choices = [
-  "A complete UPS and, where applicable, individual UPS functional units",
-  "Only fire-smoke density sensors",
-  "Only underfloor static-pressure tiles",
-  "Only copper near-end-crosstalk testers",
+  "Sags, swells, and many input disturbances by regenerating output from the DC link",
+  "Only fire smoke density",
+  "Only underfloor static pressure",
+  "Only copper near-end crosstalk"
 ]
 correct = "A"
-explanation = "The IEC catalog states that the document specifies performance and test requirements for a complete UPS and, where applicable, individual UPS functional units; it does not expose a specific double-conversion disturbance list."
+explanation = "Double-conversion isolates the load from many upstream disturbances."
 topic_ids = ["m06-power-quality", "m06-ups"]
 objective_ids = []
 bloom = "understand"

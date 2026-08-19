@@ -7,15 +7,15 @@
 id = "m07-q202"
 kind = "single-select"
 module = 7
-stem = "IEC 61786-2:2014 identifies which category as a source of measured fields?"
+stem = "High-current busbars, transformers, and UPS/switchgear rooms are notable EMF sources because:"
 choices = [
-  "Devices operating at power frequencies that produce power-frequency and power-frequency harmonic fields",
-  "Only software applications with no physical equipment",
-  "Only optical fibres with no electrical conductors",
-  "Only room lighting labels, regardless of electrical operation"
+  "They handle large currents and magnetic fields fall off with distance but can be significant nearby",
+  "They produce no fields when loaded",
+  "Fields only exist inside fibre cables",
+  "They are always farther from IT than any risk threshold by physics alone"
 ]
 correct = "A"
-explanation = "The IEC catalog lists devices operating at power frequencies and producing power-frequency or harmonic fields among the measurable sources."
+explanation = "Current-carrying plant is a primary near-field magnetic source; distance and geometry matter."
 topic_ids = ["m07-sources"]
 objective_ids = []
 bloom = "understand"

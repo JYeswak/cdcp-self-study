@@ -7,15 +7,15 @@
 id = "m12-q212"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.165(d)(2), a non-supervised employee alarm system must have its reliability and adequacy tested:"
+stem = "Cross-zoning or multi-criteria release logic is used mainly to:"
 choices = [
-  "Every two months, using a different actuation device for each test when the system has multiple actuation devices",
-  "Only after an alarm event and never during normal operation",
-  "Once every ten years with the same actuation device each time",
-  "Only when a vendor changes the alarm panel"
+  "Speed discharge on any single dirty sensor always without review",
+  "Reduce accidental discharge by requiring confirmatory detection conditions",
+  "Disable alarms permanently",
+  "Open all doors on first beep"
 ]
-correct = "A"
-explanation = "The current OSHA public standard requires reliability and adequacy testing of non-supervised employee alarm systems every two months, with a different actuation device used in each test of a multi-actuation system so no individual device is used for two consecutive tests."
+correct = "B"
+explanation = "Confirming detectors reduces false release while preserving protection intent."
 topic_ids = ["m12-detection", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "apply"

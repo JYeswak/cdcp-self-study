@@ -5,15 +5,15 @@
 id = "m08-q044"
 kind = "single-select"
 module = 8
-stem = "The public scope of IEC 60297-3-105:2008 provides guidance for:"
+stem = "Industry practice for numbering U positions is typically:"
 choices = [
-  "Cooling, EMC, seismic, and climatic/mechanical requirements and tests for the 1U chassis context",
-  "A universal legal U-numbering convention for every site",
-  "Generator fuel-quality testing",
-  "Fibre polarity labeling",
+  "Random per rack with no labels",
+  "Only even U numbers exist",
+  "Top-down is the only legal method worldwide",
+  "Bottom-up with U1 at the bottom (confirm and standardize site labels)",
 ]
-correct = "A"
-explanation = "The current IEC catalog says IEC 60297-3-105:2008 provides guidance for cooling and reference for EMC, seismic, and climatic/mechanical requirements and tests, as defined in the IEC 61587 series. It does not expose a universal U-numbering convention."
+correct = "D"
+explanation = "Bottom-up is common; pick one convention and keep DCIM/labels consistent."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "understand"

@@ -10,15 +10,15 @@
 id = "bank-m13-q098"
 kind = "single-select"
 module = 13
-stem = "The NFPA 730:2026 preview lists which premises-security chapter topics?"
+stem = "Deterrence, delay, detection, response, recovery describes:"
 choices = [
-  "Security planning, administrative controls, security perimeters, crime prevention through environmental design, and security systems",
-  "Only network QoS classes and cloud billing",
-  "Only UPS battery chemistries and generator synchronization",
-  "Only ASHRAE thermal envelopes and water chemistry"
+  "Only network QoS classes",
+  "A classic physical-security control sequence",
+  "UPS battery chemistries",
+  "ASHRAE thermal envelopes"
 ]
-correct = "A"
-explanation = "The official NFPA preview exposes those premises-security chapter headings."
+correct = "B"
+explanation = "Physical security programs stack deter→delay→detect→respond→recover functions."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"

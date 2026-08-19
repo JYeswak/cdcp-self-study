@@ -4,15 +4,15 @@
 id = "m09-q126"
 kind = "single-select"
 module = 9
-stem = "ISO/IEC 22237-4:2021 specifies requirements and recommendations for which set of data-centre environmental-control areas?"
+stem = "A DX CRAC unit characteristically:"
 choices = [
-  "Only generator fuel quality, switchgear arc flash, and cable tray fill",
-  "Only software patching, identity management, and application latency",
-  "Temperature, fluid movement, relative humidity, particulate, vibration, and physical security of environmental-control systems",
-  "Only floor loading, roof drainage, and site-selection zoning"
+  "Never has fans",
+  "Can only cool using pure nitrogen",
+  "Uses a refrigeration circuit with compressor and refrigerant at the unit (or close-coupled DX)",
+  "Eliminates all need for outdoor heat rejection"
 ]
 correct = "C"
-explanation = "The current ISO abstract explicitly lists temperature control, fluid movement control, relative humidity control, particulate control, vibration, and physical security of environmental-control systems."
+explanation = "DX systems refrigerate at the unit/remote condenser; heat still rejects outdoors via the condenser path."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "remember"

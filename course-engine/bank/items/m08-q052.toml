@@ -6,15 +6,15 @@
 id = "m08-q052"
 kind = "single-select"
 module = 8
-stem = "ISO/IEC 22237-6:2024 specifies physical-security requirements and recommendations for:"
+stem = "Electronic rack handles integrated with badge/DCIM systems primarily add:"
 choices = [
-  "Data-centre spaces and the systems employed within those spaces",
-  "Only application source code and cloud software",
-  "Only utility generation equipment outside the data centre",
-  "No physical spaces; the document covers logical identity only",
+  "Higher PUE always",
+  "Automatic 2N power",
+  "Free cooling",
+  "Audit trails and controlled access events at the cabinet",
 ]
-correct = "A"
-explanation = "The ISO preview says the document specifies requirements and recommendations for data-centre spaces and the systems employed within those spaces, including protection against unauthorized access and other listed events. It does not expose electronic rack-handle audit-trail behavior."
+correct = "D"
+explanation = "Electronic locks support accountability and policy enforcement."
 topic_ids = ["m08-security"]
 objective_ids = []
 bloom = "understand"

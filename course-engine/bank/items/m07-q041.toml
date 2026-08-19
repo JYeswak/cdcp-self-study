@@ -7,15 +7,15 @@
 id = "m07-q041"
 kind = "single-select"
 module = 7
-stem = "IEC 61786-2:2014 provides measurement requirements for which field range?"
+stem = "At power frequency inside a building, the dominant practical EMF concern for IT adjacency is usually:"
 choices = [
-  "Quasi-static magnetic and electric fields from 1 Hz to 100 kHz, plus DC magnetic fields",
-  "Only ionizing radiation from cooling equipment",
-  "Only optical laser emissions from fibre",
-  "Only Wi-Fi spectrum above 1 GHz"
+  "Far-field RF radiation behaving like Wi-Fi multipath only",
+  "Quasi-static magnetic fields driven by high current in plant gear",
+  "Ionizing nuclear radiation from CRAC units",
+  "Optical laser safety from fibre only",
 ]
-correct = "A"
-explanation = "The IEC catalog states that IEC 61786-2 provides requirements for quasi-static magnetic/electric fields from 1 Hz to 100 kHz and DC magnetic fields."
+correct = "B"
+explanation = "50/60 Hz problems are quasi-static B-fields from current—not room-scale far-field radiation."
 topic_ids = ["m07-types"]
 objective_ids = []
 bloom = "understand"

@@ -6,15 +6,15 @@
 id = "m07-q213"
 kind = "single-select"
 module = 7
-stem = "What AC magnetic-field magnitude range does the current IEC 61786-2 catalog identify?"
+stem = "For a first-pass density check, use the long straight-conductor approximation B = μ₀I/(2πr). A 2026 GPU-hall scenario has one idealized 12 kA bus conductor and an observation point 2.0 m away. What field magnitude follows before return-conductor cancellation and bus geometry are considered?"
 choices = [
-  "0.1 microtesla to 200 millitesla",
-  "1 volt per metre to 50 kilovolts per metre",
-  "1 microtesla to 10 tesla",
-  "200 millitesla to 50 tesla",
+  "1.2 × 10^-3 T (1.2 mT)",
+  "1.2 × 10^-6 T (1.2 µT)",
+  "1.2 × 10^-2 T (12 mT)",
+  "1.2 × 10^0 T (1.2 T)",
 ]
 correct = "A"
-explanation = "The current IEC catalog identifies 0.1 microtesla to 200 millitesla for AC magnetic fields. This is a measurement-range statement, not an exposure limit or compliance result."
+explanation = "B = (4π×10^-7 H/m)(12,000 A)/(2π×2.0 m) = 1.2×10^-3 T. Density does not change the physics; it scales MAGNITUDE with current. This is an idealized field magnitude, not an ICNIRP 2010 limit or a compliance result; phase/return geometry and a site survey can materially change the measured field."
 topic_ids = ["m07-sources", "m07-units"]
 objective_ids = []
 bloom = "apply"

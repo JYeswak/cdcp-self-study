@@ -7,15 +7,15 @@
 id = "bank-m13-q077"
 kind = "single-select"
 module = 13
-stem = "Which protection goal is explicitly in scope for ISO/IEC 22237-6:2024?"
+stem = "A mantrap (security vestibule) is best described as:"
 choices = [
-  "Protection against unauthorized access using organizational and technological solutions",
-  "A universal mantrap/interlock geometry for every data-centre entrance",
-  "A cooling-plant control sequence for CRAC and CRAH equipment",
-  "A replacement for all local building-code adoption processes"
+  "Interlocking doors forming a controlled chamber so two doors are not open as a free path",
+  "A camera blind spot behind a rack",
+  "An emergency power-off station type",
+  "A raised-floor pedestal style"
 ]
 correct = "A"
-explanation = "The current ISO abstract explicitly addresses protection against unauthorized access using organizational and technological solutions. It does not expose a particular mantrap geometry or interlock sequence."
+explanation = "Mantraps interlock outer/inner doors to reduce tailgating and enable high-assurance checks."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"

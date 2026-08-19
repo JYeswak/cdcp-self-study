@@ -6,15 +6,15 @@
 id = "m07-q043"
 kind = "single-select"
 module = 7
-stem = "Which field-measurement scope does IEC 61786-2:2014 explicitly cover?"
+stem = "Magnetic flux density is commonly discussed in data-centre EMF work using:"
 choices = [
-  "DC magnetic, AC magnetic, and AC electric fields",
+  "Tesla/microtesla (and sometimes milligauss, where 1 µT = 10 mG)",
   "Only dBm on fibre OTDR",
   "Lux and foot-candles",
   "CFM only",
 ]
 correct = "A"
-explanation = "The current IEC abstract explicitly covers DC magnetic, AC magnetic, and AC electric field measurement; it does not expose a unit-conversion rule."
+explanation = "B-field uses T/µT; older literature uses mG (1 µT = 10 mG)."
 topic_ids = ["m07-units"]
 objective_ids = []
 bloom = "remember"

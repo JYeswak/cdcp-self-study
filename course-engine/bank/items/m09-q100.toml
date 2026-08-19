@@ -5,15 +5,15 @@
 id = "m09-q100"
 kind = "single-select"
 module = 9
-stem = "Which ISO/IEC 22237-4:2021 requirement category explicitly names temperature control?"
+stem = "In a typical data hall, the dominant thermal load from IT equipment is best characterized as:"
 choices = [
-  "Temperature control",
-  "Fuel quality control",
-  "Cable-polish control",
-  "Badge-credential control"
+  "Sensible heat from electrical energy converted to heat",
+  "Latent heat from moisture generation inside servers",
+  "Nuclear decay heat from chip dopants",
+  "Only radiative heat into deep space"
 ]
 correct = "A"
-explanation = "The current ISO abstract explicitly lists temperature control among the environmental-control requirements. It does not establish the item’s former sensible-versus-latent heat characterization."
+explanation = "IT gear converts nearly all electrical input to dry (sensible) heat; latent moisture load is minor compared with server heat."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "remember"

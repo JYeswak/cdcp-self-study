@@ -8,15 +8,15 @@
 id = "bank-m13-q082"
 kind = "single-select"
 module = 13
-stem = "IEC 60839-11-1:2013 covers electronic access-control systems used for:"
+stem = "Authentication differs from authorization in access control because authentication:"
 choices = [
-  "Physical access entry and exit in and around buildings and protected areas, including logging and identification",
-  "Only chilled-water control and cooling alarms",
-  "Only mechanical keys with no electronic components or records",
-  "Only visitor catering and delivery scheduling"
+  "Assigns door schedules while authorization checks biometrics only",
+  "Proves identity, whereas authorization decides which doors/zones that identity may open",
+  "Is a synonym of authorization in all ACS designs",
+  "Only applies to mechanical keys"
 ]
-correct = "A"
-explanation = "The current IEC catalog describes electronic access control for physical entry and exit in and around buildings and protected areas, including logging, identification, and control of information. It does not establish a universal anti-passback or joiner/mover/leaver workflow."
+correct = "B"
+explanation = "AuthN = who you are; AuthZ = what you may open; accounting logs the attempt."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

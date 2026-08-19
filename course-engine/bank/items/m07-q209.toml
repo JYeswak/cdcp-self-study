@@ -5,15 +5,15 @@
 id = "m07-q209"
 kind = "single-select"
 module = 7
-stem = "The public IEC 61786-2:2014 source examples include:"
+stem = "External EMF sources relevant to site/building planning can include:"
 choices = [
-  "Electric railways, induction heaters, electric vehicles, DC power lines, and DC welding",
-  "Only fibre splice trays and patch panels",
-  "Only room paint and ceiling tiles",
-  "Only chilled-water pipe insulation"
+  "Only the break-room microwave permanently off",
+  "Only LED desk lamps",
+  "Only fibre splice trays",
+  "Nearby rail electrification, high-voltage lines, broadcast transmitters, and large industrial loads"
 ]
-correct = "A"
-explanation = "The current IEC catalog lists electric railway sources, induction heaters, electric vehicles, DC power lines, and DC welding among examples of fields measurable under IEC 61786-2:2014. It does not establish the broader external-site source list in the prior item."
+correct = "D"
+explanation = "External high-power electrical and RF sources can couple into a campus environment."
 topic_ids = ["m07-sources"]
 objective_ids = []
 bloom = "remember"

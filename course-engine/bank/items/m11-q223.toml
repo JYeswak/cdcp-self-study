@@ -5,15 +5,15 @@
 id = "m11-q223"
 kind = "single-select"
 module = 11
-stem = "What does IEC 61935-1:2019 specify for installed balanced information-technology cabling?"
+stem = "Alien crosstalk concerns rise in dense copper bundles at high categories because:"
 choices = [
-  "Reference measurement procedures for cabling parameters and field-tester accuracy for parameters identified in ISO/IEC 11801",
-  "A universal data-centre topology with mandatory HDA and EDA spaces",
-  "Cooling-water quality limits for telecommunications rooms",
-  "A replacement for all cable installation and documentation practices"
+  "Noise from neighboring cables can impair high-speed channels",
+  "Alien crosstalk only affects fiber",
+  "It only happens outdoors",
+  "It improves insertion loss"
 ]
 correct = "A"
-explanation = "The current IEC catalog states that IEC 61935-1:2019 specifies reference measurement procedures and field-tester accuracy requirements for cabling parameters identified in ISO/IEC 11801."
+explanation = "High-speed copper is sensitive to noise from adjacent cables."
 topic_ids = ["m11-copper"]
 objective_ids = []
 bloom = "understand"

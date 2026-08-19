@@ -5,15 +5,15 @@
 id = "m09-q110"
 kind = "single-select"
 module = 9
-stem = "Which ISO/IEC 22237-4:2021 requirement category explicitly names fluid movement control?"
+stem = "Air bypass (as opposed to recirculation) typically means:"
 choices = [
-  "Fluid movement control",
-  "Fuel inventory control",
-  "Visitor credential control",
-  "Seismic anchorage control"
+  "Hot exhaust re-entering server inlets",
+  "Complete liquid immersion of servers",
+  "Cold supply air returning to cooling units without passing through IT loads",
+  "Loss of utility power only"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists fluid movement control. It does not establish the item’s former bypass-versus-recirculation distinction."
+correct = "C"
+explanation = "Bypass wastes cold air around IT (open tiles, gaps); recirculation is hot air contamination of intakes."
 topic_ids = ["m09-principles", "m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "understand"

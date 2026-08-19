@@ -7,15 +7,15 @@
 id = "m06-q241"
 kind = "single-select"
 module = 6
-stem = "Which equipment is explicitly outside the IEC 62040-3:2021 scope?"
+stem = "Line-interactive UPS designs are most often associated with:"
 choices = [
-  "Conventional AC/DC distribution boards and their associated switches",
-  "Complete electronic UPS with continuity-of-load-power function",
-  "Applicable UPS functional units",
-  "UPS switches that interact with UPS functional units",
+  "Always pure double-conversion with zero efficiency difference",
+  "Voltage regulation with battery engagement for deeper disturbances, intermediate to standby and double-conversion",
+  "Generator paralleling only",
+  "Busway only"
 ]
-correct = "A"
-explanation = "The IEC catalog excludes conventional AC/DC distribution boards and associated switches from this UPS performance/test document; it also lists other exclusions such as stand-alone static transfer systems."
+correct = "B"
+explanation = "Line-interactive sits between offline and online in topology behavior."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "understand"

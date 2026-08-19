@@ -6,15 +6,15 @@
 id = "m08-q062"
 kind = "single-select"
 module = 8
-stem = "IEC 62966-2:2020 is dedicated to aisle-containment techniques and addresses:"
+stem = "Hot-aisle/cold-aisle rack orientation places equipment so that:"
 choices = [
-  "Air flow, air separation, air cooling, and measurement/classification of containment leakage",
-  "Only generator fuel transfer controls",
-  "Only rack-unit height conversion",
-  "Only cloud-service response-time targets",
+  "All exhausts blow into the cold aisle intentionally",
+  "Side-breathing gear is preferred without design review",
+  "Front intakes face the cold supply aisle and exhausts face the hot return aisle",
+  "Racks face randomly for aesthetics",
 ]
-correct = "A"
-explanation = "The IEC catalog names air-flow, air-separation, and air-cooling requirements and provides methods/classification for aisle-containment leakage; it does not expose a universal rack-orientation rule."
+correct = "C"
+explanation = "Front-to-rear gear faces cold aisle; exhausts feed the hot aisle."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "understand"

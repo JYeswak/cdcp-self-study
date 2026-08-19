@@ -24,15 +24,15 @@
 id = "mock40-q22"
 kind = "single-select"
 module = 10
-stem = "ISO/IEC 30134-9:2022 defines WUE as a key performance indicator for:"
+stem = "WUE primarily tracks:"
 choices = [
-  "Quantifying a data centre's water consumption during its use phase",
-  "Measuring copper utilization in network cabling",
-  "Reporting Wi-Fi efficiency only",
-  "Measuring window thermal transmittance only",
+  "Copper utilization",
+  "Site water use relative to IT energy",
+  "Wi-Fi efficiency",
+  "Window U-factor only",
 ]
-correct = "A"
-explanation = "The current ISO OBP page identifies ISO/IEC 30134-9:2022 as the data-centre WUE KPI standard and states that it quantifies water consumption during the use phase. It also describes WUE measurement categories, calculation, reporting, and interpretation; this item does not infer a formula beyond that public scope."
+correct = "B"
+explanation = "WUE is a water-intensity metric relating site water use to IT energy."
 topic_ids = ["m10-importance", "m06-sustainability"]
 objective_ids = []
 bloom = "remember"
