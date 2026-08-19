@@ -6,7 +6,7 @@
 id = "m06-q109"
 kind = "single-select"
 module = 6
-stem = "Which pairing correctly matches the two IEC catalog scopes?"
+stem = "When interviewing, a strong answer to “ATS vs STS?” is:"
 choices = [
   "IEC 60947-6-1:2026 covers transfer switching equipment; IEC 62310-3:2008 covers stand-alone AC static transfer systems",
   "IEC 60947-6-1:2026 covers enclosure IP ratings; IEC 62310-3:2008 covers VRLA batteries",
@@ -14,10 +14,10 @@ choices = [
   "IEC 60947-6-1:2026 covers DC UPS only; IEC 62310-3:2008 covers building earthing",
 ]
 correct = "A"
-explanation = "The current IEC catalog identifies IEC 60947-6-1:2026 as transfer switching equipment and IEC 62310-3:2008 as stand-alone AC static transfer systems."
+explanation = "Classic distinction: genset/source ATS vs solid-state dual-live STS."
 topic_ids = ["m06-ats-sts"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

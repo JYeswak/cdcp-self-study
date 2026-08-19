@@ -5,7 +5,7 @@
 id = "m06-q081"
 kind = "single-select"
 module = 6
-stem = "IEC 60364-5-54:2011 addresses which subject in low-voltage electrical installations?"
+stem = "A classic field defect is creating extra neutral-ground bonds downstream of the designated point because:"
 choices = [
   "Earthing arrangements and protective conductors, including protective bonding conductors, for installation safety",
   "A universal requirement for a neutral-ground bond at every rack PDU",
@@ -13,10 +13,10 @@ choices = [
   "Removal of all harmonic currents",
 ]
 correct = "A"
-explanation = "The current IEC catalog states that IEC 60364-5-54 addresses earthing arrangements and protective conductors, including protective bonding conductors, in order to satisfy electrical-installation safety. It does not expose the prior downstream neutral-ground-bond defect proposition."
+explanation = "Neutral-ground bonding belongs only at designated points; extras cause circulating currents."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

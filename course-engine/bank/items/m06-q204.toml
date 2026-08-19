@@ -7,7 +7,7 @@
 id = "m06-q204"
 kind = "single-select"
 module = 6
-stem = "IEC 62040-3:2021 specifies performance and test requirements for:"
+stem = "N+1 UPS modules share a single common battery string and a single output bus with no alternate path. A fair critique is:"
 choices = [
   "A complete UPS and, where applicable, individual UPS functional units",
   "Only IP ratings for cabinets",
@@ -15,10 +15,10 @@ choices = [
   "Only data-centre room fire barriers",
 ]
 correct = "A"
-explanation = "The current IEC catalog explicitly states that IEC 62040-3 specifies performance and test requirements for a complete UPS and, where applicable, individual UPS functional units."
+explanation = "Redundancy must be evaluated end-to-end; shared batteries or buses can dominate risk."
 topic_ids = ["m06-ups-parallel", "m06-redundancy"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

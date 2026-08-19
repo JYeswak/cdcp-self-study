@@ -8,7 +8,7 @@
 id = "m01-q044"
 kind = "single-select"
 module = 1
-stem = "Which classification criterion does ISO/IEC 22237-1:2021 explicitly name?"
+stem = "Why is a data centre often called “mission-critical” rather than merely “important IT space”?"
 choices = [
   "Security",
   "Because it always has a raised floor",
@@ -16,10 +16,10 @@ choices = [
   "Because it uses three-phase power only",
 ]
 correct = "A"
-explanation = "The current ISO abstract explicitly names security as a classification criterion; it does not expose a mission-critical impact test."
+explanation = "Mission-critical status is driven by impact of loss, not by a particular construction feature."
 topic_ids = ["m01-importance"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

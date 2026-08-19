@@ -5,7 +5,7 @@
 id = "m11-q211"
 kind = "single-select"
 module = 11
-stem = "IEC 61935-1:2019 specifies for installed balanced cabling:"
+stem = "After moves, adds, and changes, failing to retest altered copper links most risks:"
 choices = [
   "Reference measurement procedures for cabling parameters and requirements for field-tester accuracy",
   "Automatic improvement of the cabling category rating",
@@ -13,10 +13,10 @@ choices = [
   "Longer UPS runtime"
 ]
 correct = "A"
-explanation = "IEC 61935-1:2019 specifies reference measurement procedures for cabling parameters and field-tester accuracy for installed balanced cabling. This item does not infer a retest interval or a site-specific acceptance threshold."
+explanation = "Changed links need verification; assumptions age poorly."
 topic_ids = ["m11-testing", "m11-copper"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

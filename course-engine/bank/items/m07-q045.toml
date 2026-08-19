@@ -4,7 +4,7 @@
 id = "m07-q045"
 kind = "single-select"
 module = 7
-stem = "Under IEC 61000-5-6:2024, the primary mitigation target is:"
+stem = "For ELF magnetic-field problems in white space, the first mitigation tool is usually:"
 choices = [
   "A standalone equipment/apparatus application outside the document's scope",
   "External electromagnetic influences impinging upon a facility or installation",
@@ -12,10 +12,10 @@ choices = [
   "Only emissions from software and business applications",
 ]
 correct = "B"
-explanation = "The current IEC catalog scopes the guidance to external electromagnetic influences affecting a facility or installation; standalone equipment application is expressly outside its scope."
+explanation = "Distance is the strongest cheap tool for power-frequency magnetic fields."
 topic_ids = ["m07-shielding", "m07-sources"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

@@ -6,7 +6,7 @@
 id = "m08-q209"
 kind = "single-select"
 module = 8
-stem = "IEC 62610-5:2016 provides a method for evaluating:"
+stem = "Cabinet perforation percentage and door design can affect cooling because:"
 choices = [
   "Cooling capacity, mainly for air-convection cooling of empty indoor cabinets",
   "Only cloud-service availability classes",
@@ -14,10 +14,10 @@ choices = [
   "Only generator fuel autonomy"
 ]
 correct = "A"
-explanation = "The IEC catalog describes cooling-capacity evaluation and classification for indoor cabinets in the IEC 60297 and IEC 60917 series; it does not expose a universal cabinet-perforation percentage."
+explanation = "Door open area is part of the thermal path for air-cooled equipment."
 topic_ids = ["m08-types", "m08-dimensions"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

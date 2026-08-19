@@ -5,7 +5,7 @@
 id = "m06-q216"
 kind = "single-select"
 module = 6
-stem = "IEC 60076-1:2011 applies to which transformer categories?"
+stem = "An isolation transformer is specified ahead of a sensitive bus mainly to:"
 choices = [
   "Three-phase and single-phase power transformers, including autotransformers, subject to stated exceptions",
   "Only UPS battery strings",
@@ -13,10 +13,10 @@ choices = [
   "Only chilled-water cooling coils",
 ]
 correct = "A"
-explanation = "The current IEC catalog states that IEC 60076-1:2011 applies to three-phase and single-phase power transformers, including autotransformers, with exceptions for certain small and special transformers. It does not expose the prior isolation/noise/grounding proposition."
+explanation = "Isolation transformers separate circuits and support power quality/grounding design."
 topic_ids = ["m06-isolation-xfmr", "m06-grounding-bonding"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

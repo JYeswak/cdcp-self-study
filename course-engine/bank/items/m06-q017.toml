@@ -5,7 +5,7 @@
 id = "mock40-q17"
 kind = "single-select"
 module = 6
-stem = "Which subjects does ISO/IEC 22237-3:2021 explicitly include in its data-centre power-distribution scope?"
+stem = "A dual-corded server on A-B feeds is intended so that:"
 choices = [
   "Telecommunications infrastructure bonding and lightning protection",
   "Only generator fuel storage and staffing",
@@ -13,10 +13,10 @@ choices = [
   "Only optical-fibre polarity",
 ]
 correct = "A"
-explanation = "The current ISO OBP abstract for ISO/IEC 22237-3:2021 explicitly lists telecommunications infrastructure bonding and lightning protection among the covered power-distribution subjects. It does not expose the prior dual-cord failure-independence proposition."
+explanation = "Independent A-B paths protect dual-PSU gear so both sides must fail to lose the server."
 topic_ids = ["m06-redundancy"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

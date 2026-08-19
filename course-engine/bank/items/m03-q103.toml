@@ -8,7 +8,7 @@
 id = "m03-q103"
 kind = "single-select"
 module = 3
-stem = "Which statement best bounds site security perimeter planning under the public ISO preview?"
+stem = "Which statement about site security perimeter planning is most accurate?"
 choices = [
   "Security starts and ends at the rack door only",
   "Fencing is always illegal",
@@ -16,10 +16,10 @@ choices = [
   "Cameras replace structural setbacks always",
 ]
 correct = "C"
-explanation = "The public ISO preview names site configuration, provision of access, and physical intrusion protection; detailed perimeter, vehicle, and camera controls are outside this receipt."
+explanation = "Physical security is a site and campus layout problem, not only a rack lock problem."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

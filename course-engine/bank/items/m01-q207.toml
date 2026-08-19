@@ -8,7 +8,7 @@
 id = "m01-q207"
 kind = "single-select"
 module = 1
-stem = "Which analysis does ISO/IEC 22237-1:2021 explicitly identify as enabling application of the data-centre classification?"
+stem = "Aligning facility investment with business criticality means:"
 choices = [
   "A lobby-traffic analysis",
   "A vendor-color analysis",
@@ -16,10 +16,10 @@ choices = [
   "A business-risk and operating-cost analysis",
 ]
 correct = "D"
-explanation = "The current ISO abstract explicitly identifies business-risk and operating-cost analysis as an input to applying the data-centre classification."
+explanation = "Resilience spend should track business impact of outage, not one-size-fits-all prestige design."
 topic_ids = ["m01-importance", "m01-business-org"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

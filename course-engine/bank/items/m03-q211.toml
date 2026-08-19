@@ -8,7 +8,7 @@
 id = "m03-q211"
 kind = "single-select"
 module = 3
-stem = "ISO/IEC 22237-2:2024's public scope explicitly includes:"
+stem = "Staffing and emergency response access (roads, distance to services) matter for site selection because:"
 choices = [
   "Only a rule for emergency-service response time",
   "Only a rule for cafeteria and delivery access",
@@ -16,10 +16,10 @@ choices = [
   "Location and site selection, together with provision of access"
 ]
 correct = "D"
-explanation = "The current ISO preview explicitly lists location and site selection and provision of access. It does not expose a particular road, distance-to-services, staffing, or emergency-response time requirement."
+explanation = "Operations and incident response depend on people and external services reaching the site."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

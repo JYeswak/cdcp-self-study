@@ -6,7 +6,7 @@
 id = "m11-q112"
 kind = "single-select"
 module = 11
-stem = "Which cabling test scope was added in ISO/IEC 14763-3:2024?"
+stem = "Polarity management for duplex and MPO fiber systems matters because incorrect polarity:"
 choices = [
   "Testing of MPO cabling",
   "Only testing of diesel-fuel quality",
@@ -14,10 +14,10 @@ choices = [
   "Only testing of chilled-water flow",
 ]
 correct = "A"
-explanation = "The IEC catalog lists addition of testing of MPO cabling in the 2024 edition; it does not expose a particular MPO polarity scheme or labeling rule."
+explanation = "Transmit must land on receive. Polarity schemes and labeling prevent silent connectivity failures."
 topic_ids = ["m11-fibre", "m11-testing"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

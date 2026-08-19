@@ -8,7 +8,7 @@
 id = "m01-q053"
 kind = "single-select"
 module = 1
-stem = "Which energy-related classification criterion does ISO/IEC 22237-1:2021 explicitly name?"
+stem = "For a payment or trading workload, facility design priority is most driven by:"
 choices = [
   "Energy efficiency",
   "Paint brand in the break room",
@@ -16,10 +16,10 @@ choices = [
   "The number of visitor badges printed",
 ]
 correct = "A"
-explanation = "The current ISO abstract explicitly names energy efficiency as a classification criterion; it does not expose a payment/trading priority rule."
+explanation = "Risk appetite and interruption cost (including legal/financial exposure) drive mission-critical design choices."
 topic_ids = ["m01-importance", "m01-business-org"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

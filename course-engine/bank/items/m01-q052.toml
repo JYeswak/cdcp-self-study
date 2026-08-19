@@ -9,7 +9,7 @@
 id = "m01-q052"
 kind = "single-select"
 module = 1
-stem = "Under ISO/IEC 22237-1:2021, which topic is outside this International Standard's scope?"
+stem = "The “elements of a data centre” concept emphasizes that IT equipment alone is insufficient because:"
 choices = [
   "Selection of information-technology and network-telecommunications equipment, software, and associated configuration issues",
   "General data-centre terminology and reference models",
@@ -17,10 +17,10 @@ choices = [
   "General facilities and infrastructure aspects supporting data centres",
 ]
 correct = "A"
-explanation = "The ISO preview explicitly says selection of IT and network telecommunications equipment, software, and associated configuration issues are outside the scope of ISO/IEC 22237-1:2021."
+explanation = "IT loads require simultaneous supporting systems; failure of any critical support can take services offline."
 topic_ids = ["m01-elements"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

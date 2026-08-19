@@ -5,7 +5,7 @@
 id = "m09-q132"
 kind = "single-select"
 module = 9
-stem = "Which moisture-related environmental-control topic is explicitly listed by ISO/IEC 22237-4:2021?"
+stem = "Evaporative cooling towers improve heat rejection efficiency primarily by:"
 choices = [
   "Relative humidity control",
   "A universal evaporative-tower wet-bulb performance rule",
@@ -13,10 +13,10 @@ choices = [
   "Network-fabric congestion control"
 ]
 correct = "A"
-explanation = "The current ISO abstract explicitly lists relative humidity control among the environmental-control requirements and recommendations. It does not expose the former evaporative-tower or wet-bulb proposition."
+explanation = "Towers exploit evaporation; performance relates to wet-bulb, with water consumption and treatment as operational costs."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

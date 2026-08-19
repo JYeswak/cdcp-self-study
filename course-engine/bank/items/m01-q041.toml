@@ -8,7 +8,7 @@
 id = "m01-q041"
 kind = "single-select"
 module = 1
-stem = "Which common data-centre aspect does ISO/IEC 22237-1:2021 explicitly define?"
+stem = "From a business-organization view, treating the data centre only as a facilities silo most often leads to:"
 choices = [
   "Terminology, parameters, and reference models",
   "A mandatory vendor staffing ratio",
@@ -16,10 +16,10 @@ choices = [
   "A single global electricity tariff",
 ]
 correct = "A"
-explanation = "The current ISO abstract explicitly defines common aspects of data centres including terminology, parameters, and reference models."
+explanation = "Siloed facilities vs IT ownership commonly misaligns capacity planning, change control, and risk appetite."
 topic_ids = ["m01-business-org"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

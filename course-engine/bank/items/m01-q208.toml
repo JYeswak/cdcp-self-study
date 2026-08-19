@@ -7,7 +7,7 @@
 id = "m01-q208"
 kind = "single-select"
 module = 1
-stem = "Which infrastructure does ISO/IEC TS 22237-31:2026 explicitly cover in its KPI scope?"
+stem = "Which statement about causes of unavailability is most balanced?"
 choices = [
   "Data-centre power distribution and supply, and environmental control",
   "Only cloud applications and business software",
@@ -15,10 +15,10 @@ choices = [
   "Only telecommunications carrier contracts"
 ]
 correct = "A"
-explanation = "The current ISO catalog says ISO/IEC TS 22237-31:2026 covers data-centre infrastructure for power distribution and supply and environmental control. It does not expose a universal outage-cause taxonomy."
+explanation = "Real portfolios see mixed root causes—power, cooling, people, and environment—site by site."
 topic_ids = ["m01-unavailability"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

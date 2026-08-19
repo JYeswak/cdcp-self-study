@@ -8,7 +8,7 @@
 id = "m01-q200"
 kind = "single-select"
 module = 1
-stem = "Which general-concepts topic does ISO/IEC 22237-1:2021 explicitly cover?"
+stem = "From a business perspective, the data centre is best described as:"
 choices = [
   "Common terminology, parameters, and reference models",
   "A pure cost centre that never affects revenue",
@@ -16,10 +16,10 @@ choices = [
   "A marketing brand unrelated to IT service levels"
 ]
 correct = "A"
-explanation = "The current ISO abstract explicitly covers common terminology, parameters, and reference models; it does not expose a business-organization proposition."
+explanation = "The DC is an enabler of digital business outcomes; outages and capacity constraints map directly to risk and service."
 topic_ids = ["m01-business-org", "m01-importance"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

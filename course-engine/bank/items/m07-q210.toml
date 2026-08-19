@@ -5,7 +5,7 @@
 id = "m07-q210"
 kind = "single-select"
 module = 7
-stem = "IEC 61786-2:2014 identifies which issue in field measurements?"
+stem = "When unexplained equipment anomalies cluster near electrical plant, a reasoned next step is:"
 choices = [
   "Sources of measurement uncertainty and guidance on combining them to determine total measurement uncertainty",
   "A guarantee that every equipment anomaly is caused by EMF",
@@ -13,10 +13,10 @@ choices = [
   "A floor-paint specification",
 ]
 correct = "A"
-explanation = "The current IEC catalog states that sources of uncertainty during measurements are identified and guidance is provided on how they should be combined to determine total measurement uncertainty. It does not expose the prior anomaly-investigation trigger."
+explanation = "Spatial clustering near plant suggests environmental/electrical investigation—not superstition."
 topic_ids = ["m07-sources", "m07-standards"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

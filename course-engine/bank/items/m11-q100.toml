@@ -8,7 +8,7 @@
 id = "m11-q100"
 kind = "single-select"
 module = 11
-stem = "The current TIA-942-C public abstract describes the standard as specifying requirements for:"
+stem = "Structured cabling infrastructure matters in a data centre primarily because:"
 choices = [
   "Data-center and computer-room infrastructure, including a topology applicable to any size data center",
   "Only residential wireless access points",
@@ -16,10 +16,10 @@ choices = [
   "Only decorative rack finishes"
 ]
 correct = "A"
-explanation = "TIA’s current public abstract says TIA-942-C specifies data-center and computer-room infrastructure requirements and that its topology is intended for any size data center. The item does not claim a facility rating or reproduce paid standard text."
+explanation = "Poor cabling becomes an operational bottleneck and failure domain; planned infrastructure scales cleanly."
 topic_ids = ["m11-importance"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

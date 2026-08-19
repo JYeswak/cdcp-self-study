@@ -6,7 +6,7 @@
 id = "m07-q214"
 kind = "single-select"
 module = 7
-stem = "What does IEC TS 61000-5-10:2017 explicitly provide?"
+stem = "A provider says a commercial site is ‘HEMP hardened’ because it installed surge-protective devices. Before making a MIL-STD-188-125-1 Revision A protection claim, what evidence is needed?"
 choices = [
   "Guidelines to protect commercial facilities from HEMP and IEMI",
   "A guarantee that every commercial facility is HEMP hardened",
@@ -14,10 +14,10 @@ choices = [
   "A fibre run that by itself proves HEMP protection",
 ]
 correct = "A"
-explanation = "The current IEC catalog explicitly says IEC TS 61000-5-10 provides guidelines to protect commercial facilities from HEMP and IEMI; it does not establish a MIL-STD evidence proposition."
+explanation = "The public DLA ASSIST record describes minimum performance requirements, testing, and a hardness-maintenance/surveillance program, and says the standard does not mandate one design solution. A surge-protection product alone does not establish the claim."
 topic_ids = ["m07-standards", "m07-sources"]
 objective_ids = []
 bloom = "analyze"
 source_class = "original"
 quantity_evidence = "free_url"
-status = "approved"
+status = "draft"

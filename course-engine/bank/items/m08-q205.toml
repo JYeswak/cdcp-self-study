@@ -5,7 +5,7 @@
 id = "m08-q205"
 kind = "single-select"
 module = 8
-stem = "In the IEC 60297-3-100:2008 catalog description, subsequent IEC 60297-3 standards provide:"
+stem = "When planning rack depth, a common mistake is forgetting:"
 choices = [
   "Detail dimensions for specific equipment parts, using the basic dimensions as an interface to associated parts",
   "Only a universal cable-bend and service-clearance rule",
@@ -13,10 +13,10 @@ choices = [
   "Only optical-fibre test limits",
 ]
 correct = "A"
-explanation = "The current IEC catalog says subsequent standards in the IEC 60297-3 series provide detail dimensions for specific equipment parts, while the basic dimensions serve as an interface to associated parts. It does not expose the prior cable-bend, PDU, or service-clearance claim."
+explanation = "Depth planning fails when cables, PDUs, and service clearances are ignored."
 topic_ids = ["m08-dimensions", "m08-types"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

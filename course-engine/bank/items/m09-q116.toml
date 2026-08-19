@@ -6,7 +6,7 @@
 id = "m09-q116"
 kind = "single-select"
 module = 9
-stem = "ISO/IEC 22237-4:2021 specifies requirements and recommendations for which environmental-control topics?"
+stem = "Relative humidity control in white space is important partly because extremes can contribute to:"
 choices = [
   "Temperature, fluid movement, relative humidity, particulates, vibration, and physical security of environmental-control systems",
   "Only brighter lighting and decorative room finishes",
@@ -14,10 +14,10 @@ choices = [
   "No environmental controls; only application software is in scope"
 ]
 correct = "A"
-explanation = "The ISO preview explicitly lists temperature control, fluid movement control, relative humidity control, particulate control, vibration, and physical security of environmental-control systems. It does not expose specific low-RH or high-RH failure thresholds."
+explanation = "Very low RH favors ESD risk; high RH raises condensation and corrosion concerns—hence humidity is managed with temperature."
 topic_ids = ["m09-temp-humidity"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

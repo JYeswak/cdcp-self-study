@@ -10,7 +10,7 @@
 id = "m06-q248"
 kind = "single-select"
 module = 6
-stem = "Which pairing reflects OSHA's separate grounding and overcurrent requirements?"
+stem = "Bonding is not a substitute for overcurrent protection because:"
 choices = [
   "Provide a permanent, continuous, effective grounding path and select overcurrent protection for the conductors and equipment it protects",
   "Use bonding alone to clear every fault without overcurrent protection",
@@ -18,7 +18,7 @@ choices = [
   "Treat grounding and overcurrent protection as identical mechanisms"
 ]
 correct = "A"
-explanation = "The current rules separately address a permanent, continuous, effective grounding path and overcurrent protection selected for the circuit's ability to safely conduct current and clear faults."
+explanation = "Equipotential bonding and overcurrent clearing solve different parts of electrical safety."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "apply"

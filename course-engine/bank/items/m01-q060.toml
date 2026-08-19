@@ -7,7 +7,7 @@
 id = "m01-q060"
 kind = "single-select"
 module = 1
-stem = "Which key criteria does ISO/IEC 22237-1:2021 name as the basis of its data-centre classification system?"
+stem = "A government or regulated industry data centre often elevates facility requirements mainly due to:"
 choices = [
   "Availability, security, and energy-efficiency enablement",
   "Retail price, brand popularity, and staffing headcount",
@@ -15,10 +15,10 @@ choices = [
   "Only peak IT load, excluding security and energy considerations",
 ]
 correct = "A"
-explanation = "The ISO/IEC 22237-1:2021 public abstract names availability, security, and energy-efficiency enablement as the classification criteria."
+explanation = "Regulatory and audit obligations commonly raise continuity and control expectations for facility design and ops."
 topic_ids = ["m01-importance", "m01-business-org"]
 objective_ids = []
 bloom = "remember"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

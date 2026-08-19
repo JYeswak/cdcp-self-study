@@ -6,7 +6,7 @@
 id = "m06-q101"
 kind = "single-select"
 module = 6
-stem = "ISO/IEC 22237-1:2021 bases its data-centre classification system on which key criteria?"
+stem = "A site can have excellent PUE and still be:"
 choices = [
   "Availability, security, and energy-efficiency over the planned lifetime",
   "Only the number of UPS modules installed",
@@ -14,10 +14,10 @@ choices = [
   "Only the facility's floor area and rack count",
 ]
 correct = "A"
-explanation = "The ISO preview says its classification system is based on availability, security, and energy-efficiency over the planned lifetime of the data centre. It does not expose a claim that one efficiency metric proves a particular redundancy topology."
+explanation = "Efficiency metrics do not create dual paths or concurrent maintainability."
 topic_ids = ["m06-sustainability", "m06-redundancy"]
 objective_ids = []
 bloom = "analyze"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

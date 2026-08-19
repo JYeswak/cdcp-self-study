@@ -7,7 +7,7 @@
 id = "m07-q215"
 kind = "single-select"
 module = 7
-stem = "When does IEC TS 61000-5-10:2017 say its HEMP/IEMI guidance is applicable?"
+stem = "A design review asks for one HEMP field value that proves every commercial colocation facility is protected. What is the technically honest correction?"
 choices = [
   "To existing facilities and new buildings when protection of critical electronics from HEMP and IEMI is important to the facility's function",
   "Only to residential buildings regardless of customer need",
@@ -15,10 +15,10 @@ choices = [
   "To every site automatically, without a protection decision",
 ]
 correct = "A"
-explanation = "The current IEC catalog explicitly states that the document applies to existing facilities and new buildings when the customer has decided that protecting critical electronics from HEMP and IEMI is important to the facility's function."
+explanation = "The public DLA record describes minimum performance requirements and testing for its stated fixed-facility scope, without prescribing a single design solution. It does not support a universal HEMP field threshold or an automatic commercial-site claim."
 topic_ids = ["m07-standards", "m07-types"]
 objective_ids = []
 bloom = "analyze"
 source_class = "original"
 quantity_evidence = "free_url"
-status = "approved"
+status = "draft"

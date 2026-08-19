@@ -5,7 +5,7 @@
 id = "m06-q208"
 kind = "single-select"
 module = 6
-stem = "The primary function of a UPS in a critical power path is to:"
+stem = "An operator sees UPS on bypass for an extended period. The most important availability concern is:"
 choices = [
   "Maintain continuity of load power during input power failure",
   "Bypass always improves double-conversion filtering",
@@ -13,10 +13,10 @@ choices = [
   "Bypass raises battery state of charge forever"
 ]
 correct = "A"
-explanation = "The current DOE UPS page defines an uninterruptible power supply as a power system for maintaining continuity of load power in case of input power failure. Bypass operating details and site-specific protection remain engineering decisions outside this bounded receipt."
+explanation = "Static/maintenance bypass can leave IT exposed to raw input quality issues."
 topic_ids = ["m06-ups", "m06-power-quality"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

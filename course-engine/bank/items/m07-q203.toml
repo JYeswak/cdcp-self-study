@@ -4,7 +4,7 @@
 id = "m07-q203"
 kind = "single-select"
 module = 7
-stem = "IEC 61000-5-6:2024 applies primarily to:"
+stem = "A practical mitigation that often helps before exotic shielding is:"
 choices = [
   "Only unchanged legacy facilities, never extensions or modifications",
   "New installations and, where economically feasible, extensions or modifications to existing facilities",
@@ -12,10 +12,10 @@ choices = [
   "Only residential wireless devices with no facility context"
 ]
 correct = "B"
-explanation = "The official IEC catalog says the guidance applies primarily to new installations and, where economically feasible, to extensions or modifications of existing facilities; individual equipment application is not included in scope."
+explanation = "Separation and geometry are first-line mitigations; shielding is costlier and application-specific."
 topic_ids = ["m07-shielding", "m07-sources"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

@@ -8,7 +8,7 @@
 id = "m06-q224"
 kind = "single-select"
 module = 6
-stem = "A power-quality review of harmonic-rich nonlinear IT loads should explicitly check for:"
+stem = "Harmonic-rich nonlinear IT loads raise concern for transformers and generators because they can:"
 choices = [
   "Harmonic currents injected into the public supply and the applicable limits",
   "Always reduce losses to zero",
@@ -16,10 +16,10 @@ choices = [
   "Improve wet stacking"
 ]
 correct = "A"
-explanation = "The public IEC catalog addresses limitation of harmonic currents injected into public low-voltage systems; equipment heating, de-rating, and generator-specific effects require additional evidence."
+explanation = "Harmonics create extra heating and may force de-rating of magnetics and gensets."
 topic_ids = ["m06-power-quality", "m06-transformers", "m06-sizing"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

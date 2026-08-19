@@ -6,7 +6,7 @@
 id = "m06-q061"
 kind = "single-select"
 module = 6
-stem = "What primary UPS function does IEC 62040-3:2021 explicitly identify?"
+stem = "UPS autonomy time is primarily sized to:"
 choices = [
   "Ensure continuity of load power",
   "Run IT for weeks without generators or fuel",
@@ -14,10 +14,10 @@ choices = [
   "Heat the battery room intentionally",
 ]
 correct = "A"
-explanation = "The current IEC abstract explicitly identifies ensuring continuity of load power as the primary UPS function; it does not expose an autonomy-sizing policy."
+explanation = "Minutes-class runtime bridges genset start/transfer (plus margin); load growth shortens real autonomy."
 topic_ids = ["m06-ups", "m06-batteries"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

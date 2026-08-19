@@ -5,7 +5,7 @@
 id = "m10-q215"
 kind = "single-select"
 module = 10
-stem = "ISO/IEC 30134-9:2022 specifies WUE as a key performance indicator for:"
+stem = "Which statement best captures water’s role in many modern data centres?"
 choices = [
   "Quantifying a data centre's water consumption during the use phase of its life cycle",
   "Granting a water-use permit to a non-evaporative cooling plant",
@@ -13,10 +13,10 @@ choices = [
   "Quantifying only domestic water use outside the data-centre life cycle"
 ]
 correct = "A"
-explanation = "The current ISO abstract defines WUE as a KPI for quantifying data-centre water consumption during the use phase. It does not grant permits or replace environmental-control requirements."
+explanation = "For water-dependent designs, water is a first-class availability input like power."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "remember"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

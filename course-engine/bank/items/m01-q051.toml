@@ -8,7 +8,7 @@
 id = "m01-q051"
 kind = "single-select"
 module = 1
-stem = "Which risk-related benefit does the current ISO 22301 preview explicitly list?"
+stem = "Which human/process factor most often elevates outage risk during maintenance?"
 choices = [
   "Improved risk-management processes",
   "Working without a change window, peer check, or clear isolation boundaries",
@@ -16,10 +16,10 @@ choices = [
   "Pre-staging spares",
 ]
 correct = "A"
-explanation = "The current ISO preview explicitly lists improved risk-management processes; it does not expose a maintenance-change-control rule."
+explanation = "Uncontrolled change without isolation discipline is a frequent root of avoidable downtime."
 topic_ids = ["m01-unavailability"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

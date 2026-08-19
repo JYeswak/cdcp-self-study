@@ -8,7 +8,7 @@
 id = "m01-q049"
 kind = "single-select"
 module = 1
-stem = "Which business-continuity management-system activity does the current ISO 22301 preview explicitly include?"
+stem = "Business continuity planning for the data centre should primarily align with:"
 choices = [
   "Continually improving a documented management system",
   "Maximum rack U available regardless of service impact",
@@ -16,10 +16,10 @@ choices = [
   "The cheapest diesel grade available",
 ]
 correct = "A"
-explanation = "The current ISO preview explicitly includes continual improvement of a documented BCMS; it does not expose a BIA-to-RTO/RPO rule."
+explanation = "RTO/RPO driven by business impact analysis should shape continuity design, not cosmetics or pure cost."
 topic_ids = ["m01-business-org", "m01-importance"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

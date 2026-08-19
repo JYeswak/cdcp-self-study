@@ -5,7 +5,7 @@
 id = "m06-q073"
 kind = "single-select"
 module = 6
-stem = "IEEE C57.110-2018 is relevant when a transformer is expected to supply:"
+stem = "Harmonic-rated or K-factor transformer discussions arise mainly because:"
 choices = [
   "A load containing nonsinusoidal currents",
   "A fibre link that creates magnetic saturation",
@@ -13,10 +13,10 @@ choices = [
   "A battery that never produces heat",
 ]
 correct = "A"
-explanation = "IEEE C57.110-2018 provides methods for evaluating an existing liquid-immersed or dry-type transformer and application information for specifying a new transformer when part of the load is nonsinusoidal. The item does not prescribe a K-factor value or a site-specific transformer selection."
+explanation = "Non-linear loads and harmonics historically drove K-factor/harmonic transformer specs; still seen in legacy contexts."
 topic_ids = ["m06-transformers", "m06-power-quality"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

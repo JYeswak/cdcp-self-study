@@ -8,7 +8,7 @@
 id = "m01-q056"
 kind = "single-select"
 module = 1
-stem = "Which criteria does ISO/IEC 22237-1:2021 explicitly use for its data-centre classification system?"
+stem = "When executives ask “why invest in redundancy,” the strongest CDCP-framed answer is:"
 choices = [
   "Availability, security, and energy-efficiency over the planned lifetime",
   "Only office aesthetics",
@@ -16,10 +16,10 @@ choices = [
   "Only rack-label color and cable length",
 ]
 correct = "A"
-explanation = "The current ISO preview explicitly names availability, security, and energy-efficiency as the key criteria for its classification system over the planned lifetime; it does not establish an executive redundancy-investment rule."
+explanation = "Redundancy is a risk-reduction investment sized to criticality and downtime cost, not a guarantee against all failures."
 topic_ids = ["m01-importance", "m01-elements"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

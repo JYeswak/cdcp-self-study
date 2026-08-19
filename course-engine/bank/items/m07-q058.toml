@@ -4,7 +4,7 @@
 id = "m07-q058"
 kind = "single-select"
 module = 7
-stem = "Which set of external electromagnetic influences is explicitly named by IEC 61000-5-6:2024?"
+stem = "The mitigation hierarchy that prioritizes cheap geometry first is best ordered as:"
 choices = [
   "Only software defects, application latency, and database errors",
   "Only static discharge and audible mechanical vibration",
@@ -12,10 +12,10 @@ choices = [
   "Lightning, RF transmitters, power-line and telecom transients, HEMP, and other high-power electromagnetic transients including IEMI",
 ]
 correct = "D"
-explanation = "The current IEC catalog explicitly lists lightning, RF transmitters, power-line and telecom transients, HEMP, and other high-power electromagnetic transients such as IEMI."
+explanation = "Prefer distance and geometry before expensive magnetic shielding."
 topic_ids = ["m07-shielding"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"
