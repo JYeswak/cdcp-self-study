@@ -1,0 +1,12 @@
+id = "substantive-a"
+module = 1
+stem = "When restricted airflow raises inlet temperature, which control best preserves thermal margin under load?"
+choices = ["Increase airflow and verify the alarm threshold", "Ignore the trend", "Disable the sensor", "Remove the enclosure"]
+correct = "A"
+explanation = "The control addresses the causal thermal condition and verifies the resulting boundary."
+topic_ids = ["m01-importance"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
+kind = "single-select"

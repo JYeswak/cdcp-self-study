@@ -17,6 +17,7 @@
 #![forbid(unsafe_code)]
 
 pub mod answer_key_skew;
+pub mod grounding_wave;
 pub mod leftover_honesty;
 pub mod mock40_module;
 pub mod near_duplicate;

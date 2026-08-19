@@ -63,6 +63,9 @@
 # 37283 -> 37275: EXTRACT-THEN-DELETE answer-key-skew implementation and tests
 # into crates/cdcp_bank; cdcp_gate retains the 21-line dispatcher
 # (bd-engine-not-gate-ar39.16).
+# 37275 -> 37275: grounding-wave detector and tests stay in cdcp_bank;
+# its 6-line dispatcher is paid for by compressing answer-key-skew 21 -> 15
+# (bd-0cjy).
 ceiling_lines = 37275
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
@@ -104,7 +107,7 @@ lines = 22
 
 [[file]]
 path = "src/gates/answer_key_skew.rs"
-lines = 21
+lines = 15
 
 [[file]]
 path = "src/gates/capability_maturity.rs"
@@ -117,6 +120,10 @@ lines = 1728
 [[file]]
 path = "src/gates/goldens_couplings.rs"
 lines = 1870
+
+[[file]]
+path = "src/gates/grounding_wave.rs"
+lines = 6
 
 [[file]]
 path = "src/gates/install_hooks.rs"

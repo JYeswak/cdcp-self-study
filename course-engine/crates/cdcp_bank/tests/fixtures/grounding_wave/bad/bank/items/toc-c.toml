@@ -1,0 +1,12 @@
+id = "toc-c"
+module = 1
+stem = "Which site topic is explicitly listed in the ISO/IEC 22237-2:2024 catalog scope?"
+choices = ["cooling", "security", "power", "operations"]
+correct = "A"
+explanation = "Synthetic table-of-contents recall fixture."
+topic_ids = ["m01-importance"]
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
+kind = "single-select"

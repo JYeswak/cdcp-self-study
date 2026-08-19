@@ -1,0 +1,11 @@
+[[detector]]
+name = "template-stem"
+similarity_pct = 70
+min_peers = 2
+
+[[detector]]
+name = "recall-only-stem"
+required_tokens = ["explicitly"]
+question_tokens = ["which", "what"]
+action_tokens = ["listed", "stated", "named", "includes", "included"]
+document_tokens = ["catalog", "iec", "iso", "scope"]

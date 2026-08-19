@@ -964,6 +964,10 @@ echo "==> cdcp_gate validate-grounding (anti-hallucination heuristics + corpus o
 run_cdcp_gate validate-grounding || fail "grounding"
 ok "grounding heuristics"
 
+echo "==> cdcp_gate grounding-wave (template and recall-only stems)"
+run_cdcp_gate grounding-wave || fail "grounding-wave"
+ok "grounding-wave stem regression detector"
+
 # Orphan referential integrity (topics <-> bank) — ORACLE-GAUNTLET "orphan item".
 # Hard-required: an absent checker is a fooled certificate, not a skip.
 [ -f scripts/verify_orphans.py ] || fail "missing scripts/verify_orphans.py (orphan gate required)"

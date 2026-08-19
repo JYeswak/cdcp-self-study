@@ -1,0 +1,27 @@
+# bd-0cjy: grounding-wave stem regressions. Thresholds and lexical markers are
+# policy rows so calibration is visible and cannot hide in Rust literals.
+
+[[detector]]
+name = "template-stem"
+similarity_pct = 70
+min_peers = 2
+
+[[detector]]
+name = "recall-only-stem"
+required_tokens = ["explicitly"]
+question_tokens = ["which", "what"]
+action_tokens = ["listed", "stated", "named", "includes", "included"]
+document_tokens = [
+  "abstract",
+  "catalog",
+  "document",
+  "iec",
+  "iso",
+  "nfpa",
+  "preview",
+  "public",
+  "rfc",
+  "scope",
+  "source",
+  "standard",
+]

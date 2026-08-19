@@ -1,0 +1,12 @@
+id = "substantive-b"
+module = 1
+stem = "During an access review, which action preserves independent approval when the requester also administers the system?"
+choices = ["Assign approval to a separate role", "Approve the request automatically", "Remove the audit trail", "Share the administrator account"]
+correct = "A"
+explanation = "Separating the approval role prevents the requester from authorising their own access."
+topic_ids = ["m01-importance"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
+kind = "single-select"
