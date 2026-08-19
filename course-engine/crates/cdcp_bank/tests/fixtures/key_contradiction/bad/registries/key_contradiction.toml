@@ -4,7 +4,8 @@ schema = "cdcp.key-contradiction.v1"
 name = "numeric"
 stem_similarity_pct = 70
 anchor_similarity_pct = 70
-units = ["v"]
+units = ["v", "c"]
+unit_prefixes = ["degree", "degrees"]
 
 [[detector]]
 name = "explicit-negation"

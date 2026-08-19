@@ -1,0 +1,18 @@
+id = "plain-b"
+kind = "single-select"
+module = 1
+stem = "What does this fixture describe?"
+choices = [
+  "It describes a cooling loop.",
+  "It describes a network path.",
+  "It describes a transfer switch.",
+  "It describes a battery.",
+]
+correct = "A"
+explanation = "This fixture intentionally contains no numeric claim."
+topic_ids = ["fixture-no-numeric"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

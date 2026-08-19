@@ -5,6 +5,7 @@ name = "numeric"
 stem_similarity_pct = 70
 anchor_similarity_pct = 70
 units = ["v"]
+unit_prefixes = ["degree", "degrees"]
 
 [[detector]]
 name = "explicit-negation"

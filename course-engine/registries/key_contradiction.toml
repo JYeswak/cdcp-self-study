@@ -9,6 +9,7 @@ name = "numeric"
 stem_similarity_pct = 70
 anchor_similarity_pct = 70
 units = ["mm", "kw", "mw", "gw", "v", "kv", "c", "k", "s", "sec", "hz", "u"]
+unit_prefixes = ["degree", "degrees"]
 
 [[detector]]
 name = "explicit-negation"

@@ -49,6 +49,8 @@ struct DetectorRow {
     #[serde(default)]
     units: Vec<String>,
     #[serde(default)]
+    unit_prefixes: Vec<String>,
+    #[serde(default)]
     negation_tokens: Vec<String>,
 }
 
@@ -57,6 +59,7 @@ struct Policy {
     numeric_stem_similarity_pct: u32,
     numeric_anchor_similarity_pct: u32,
     numeric_units: BTreeSet<String>,
+    numeric_unit_prefixes: BTreeSet<String>,
     negation_stem_similarity_pct: u32,
     negation_answer_similarity_pct: u32,
     negation_tokens: BTreeSet<String>,
@@ -82,15 +85,20 @@ fn percentage(value: Option<u32>, field: &str) -> Result<u32, String> {
 }
 
 fn words(values: &[String], field: &str) -> Result<BTreeSet<String>, String> {
+    let out = optional_words(values);
+    if out.is_empty() {
+        return Err(format!("{POLICY}: {field} must not be empty"));
+    }
+    Ok(out)
+}
+
+fn optional_words(values: &[String]) -> BTreeSet<String> {
     let out = values
         .iter()
         .flat_map(|value| near_duplicate::tokens(value))
         .filter(|value| !value.is_empty())
         .collect::<BTreeSet<_>>();
-    if out.is_empty() {
-        return Err(format!("{POLICY}: {field} must not be empty"));
-    }
-    Ok(out)
+    out
 }
 
 fn policy(root: &Path) -> Result<Policy, String> {
@@ -119,6 +127,7 @@ fn policy(root: &Path) -> Result<Policy, String> {
             "numeric.anchor_similarity_pct",
         )?,
         numeric_units: units,
+        numeric_unit_prefixes: optional_words(&numeric.unit_prefixes),
         negation_stem_similarity_pct: percentage(
             negation.stem_similarity_pct,
             "explicit-negation.stem_similarity_pct",
@@ -160,7 +169,38 @@ fn ordered_tokens(text: &str) -> Vec<String> {
         .collect()
 }
 
-fn numeric_claims(text: &str, units: &BTreeSet<String>) -> Vec<NumericClaim> {
+fn separated_number_unit(
+    tokens: &[String],
+    index: usize,
+    units: &BTreeSet<String>,
+    unit_prefixes: &BTreeSet<String>,
+) -> Option<(String, String, usize)> {
+    if !is_digits(&tokens[index]) {
+        return None;
+    }
+    let mut number_end = index + 1;
+    while number_end < tokens.len() && is_digits(&tokens[number_end]) {
+        number_end += 1;
+    }
+    let mut unit_index = number_end;
+    if unit_index < tokens.len() && unit_prefixes.contains(&tokens[unit_index]) {
+        unit_index += 1;
+    }
+    let unit = tokens.get(unit_index)?;
+    units.contains(unit).then(|| {
+        (
+            tokens[index..number_end].concat(),
+            unit.clone(),
+            unit_index + 1,
+        )
+    })
+}
+
+fn numeric_claims(
+    text: &str,
+    units: &BTreeSet<String>,
+    unit_prefixes: &BTreeSet<String>,
+) -> Vec<NumericClaim> {
     let tokens = ordered_tokens(text);
     let mut claims = Vec::new();
     let mut index = 0;
@@ -168,22 +208,10 @@ fn numeric_claims(text: &str, units: &BTreeSet<String>) -> Vec<NumericClaim> {
         let (value, unit, end) =
             if let Some((value, unit)) = inline_number_unit(&tokens[index], units) {
                 (value, unit, index + 1)
-            } else if is_digits(&tokens[index])
-                && index + 2 < tokens.len()
-                && is_digits(&tokens[index + 1])
-                && tokens[index].len() == 1
-                && units.contains(&tokens[index + 2])
+            } else if let Some((value, unit, end)) =
+                separated_number_unit(&tokens, index, units, unit_prefixes)
             {
-                (
-                    format!("{}{}", tokens[index], tokens[index + 1]),
-                    tokens[index + 2].clone(),
-                    index + 3,
-                )
-            } else if is_digits(&tokens[index])
-                && index + 1 < tokens.len()
-                && units.contains(&tokens[index + 1])
-            {
-                (tokens[index].clone(), tokens[index + 1].clone(), index + 2)
+                (value, unit, end)
             } else {
                 index += 1;
                 continue;
@@ -244,7 +272,7 @@ fn view<'a>(item: &'a BankItem, policy: &Policy) -> Result<ItemView<'a>, String>
         stem: near_duplicate::tokens(&item.stem),
         answer: answer_tokens,
         answer_without_negation,
-        numeric: numeric_claims(answer, &policy.numeric_units),
+        numeric: numeric_claims(answer, &policy.numeric_units, &policy.numeric_unit_prefixes),
     })
 }
 
@@ -323,6 +351,16 @@ pub fn evaluate(root: &Path) -> Eval {
             "fewer than two approved single-select items (zero comparisons)".into(),
         );
     }
+    let numeric_claims = approved
+        .iter()
+        .map(|item| item.numeric.len())
+        .sum::<usize>();
+    if numeric_claims == 0 {
+        return Eval::Error(
+            "zero numeric claims extracted from approved single-select items (vacuous numeric contradiction scan)"
+                .into(),
+        );
+    }
 
     let mut comparisons = 0usize;
     let mut numeric_count = 0usize;
@@ -369,8 +407,8 @@ pub fn evaluate(root: &Path) -> Eval {
     }
     findings.sort();
     let report = format!(
-        "approved single-select={}; compared topic-pairs={}; numeric-contradictions={}; explicit-negation-pairs={}",
-        approved.len(), comparisons, numeric_count, negation_count
+        "approved single-select={}; numeric-claims={}; compared topic-pairs={}; numeric-contradictions={}; explicit-negation-pairs={}",
+        approved.len(), numeric_claims, comparisons, numeric_count, negation_count
     );
     if findings.is_empty() {
         Eval::Ok(format!(
@@ -384,6 +422,7 @@ pub fn evaluate(root: &Path) -> Eval {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
     use std::path::{Path, PathBuf};
 
     fn fixture(name: &str) -> PathBuf {
@@ -392,14 +431,38 @@ mod tests {
             .join(name)
     }
 
+    fn preserved_peak_fixture() -> (tempfile::TempDir, PathBuf) {
+        let temp = tempfile::tempdir().unwrap();
+        let item_dir = temp.path().join("bank/items");
+        let policy_dir = temp.path().join("registries");
+        fs::create_dir_all(&item_dir).unwrap();
+        fs::create_dir_all(&policy_dir).unwrap();
+        let source =
+            Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/damaged_corpus_2026_08_18");
+        for entry in fs::read_dir(source).unwrap() {
+            let entry = entry.unwrap();
+            if entry.path().extension().and_then(|value| value.to_str()) == Some("toml") {
+                fs::copy(entry.path(), item_dir.join(entry.file_name())).unwrap();
+            }
+        }
+        fs::copy(
+            Path::new(env!("CARGO_MANIFEST_DIR")).join("../../registries/key_contradiction.toml"),
+            policy_dir.join("key_contradiction.toml"),
+        )
+        .unwrap();
+        let root = temp.path().to_path_buf();
+        (temp, root)
+    }
+
     #[test]
     fn known_bad_fixture_finds_both_contradiction_shapes() {
         match evaluate(&fixture("bad")) {
             Eval::Violation(items) => {
                 let report = items.join("\n");
-                assert!(report.contains("numeric-contradictions=1"));
+                assert!(report.contains("numeric-contradictions=2"));
                 assert!(report.contains("explicit-negation-pairs=1"));
                 assert!(report.contains("numeric-a<> numeric-b"));
+                assert!(report.contains("degree-a<> degree-b"));
                 assert!(report.contains("neg-a<> neg-b"));
             }
             other => panic!("known-bad contradiction fixture did not go RED: {other:?}"),
@@ -411,6 +474,7 @@ mod tests {
         match evaluate(&fixture("good")) {
             Eval::Ok(text) => {
                 assert!(text.contains("approved single-select=3"));
+                assert!(text.contains("numeric-claims=1"));
                 assert!(text.contains("numeric-contradictions=0"));
                 assert!(text.contains("explicit-negation-pairs=0"));
             }
@@ -423,6 +487,29 @@ mod tests {
         match evaluate(&fixture("empty")) {
             Eval::Error(message) => assert!(message.contains("zero approved single-select")),
             other => panic!("empty contradiction scan was not an ERROR: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn zero_numeric_claims_are_an_error() {
+        match evaluate(&fixture("no_numeric")) {
+            Eval::Error(message) => assert!(message.contains("zero numeric claims")),
+            other => panic!("zero numeric claims were not an ERROR: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn preserved_peak_corpus_reports_both_population_measurement_inputs() {
+        let (_temp, root) = preserved_peak_fixture();
+        match evaluate(&root) {
+            Eval::Ok(text) => {
+                assert!(text.contains("approved single-select=440"));
+                assert!(text.contains("numeric-claims=24"));
+                assert!(text.contains("compared topic-pairs=3387"));
+                assert!(text.contains("numeric-contradictions=0"));
+                assert!(text.contains("explicit-negation-pairs=0"));
+            }
+            other => panic!("preserved peak corpus was not measured cleanly: {other:?}"),
         }
     }
 }
