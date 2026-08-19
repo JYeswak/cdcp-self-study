@@ -7,15 +7,15 @@
 id = "m09-q123"
 kind = "single-select"
 module = 9
-stem = "ISO/IEC 30134-7:2023 defines Cooling Efficiency Ratio (CER) as a KPI for:"
+stem = "A qualitative reason operators trend both temperature and humidity is that:"
 choices = [
-  "Quantifying the efficient use of energy to control the temperature of spaces within a data centre",
-  "Replacing all fire detection and suppression metrics",
-  "Measuring only copper-cable attenuation",
-  "Assigning a universal availability class to a cooling plant"
+  "Humidity never affects electronics",
+  "Only temperature meters are ever installed",
+  "Humidity replaces the need for fire detection",
+  "Thermal and moisture conditions jointly affect reliability, condensation risk, and cooling efficiency"
 ]
-correct = "A"
-explanation = "The ISO abstract defines CER as a KPI for quantifying the efficient use of energy to control data-centre space temperature."
+correct = "D"
+explanation = "Environment is multi-parameter; temperature alone misses moisture-driven risks and control interactions."
 topic_ids = ["m09-temp-humidity"]
 objective_ids = []
 bloom = "understand"

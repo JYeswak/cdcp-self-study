@@ -7,15 +7,15 @@
 id = "bank-m12-q044"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.164(e)(3), an alarm or device initiated by a fire detector must not be delayed more than:"
+stem = "Many ASD systems support staged thresholds (e.g., alert then action then fire) so that operators can:"
 choices = [
-  "30 seconds, unless the delay is necessary for immediate employee safety and addressed in an emergency action plan",
-  "30 minutes under every condition",
-  "One full shift without an emergency-plan entry",
-  "Any duration selected by a vendor without safety justification"
+  "Skip annual testing forever",
+  "Use heat only and ignore smoke",
+  "Replace fire doors with cardboard",
+  "Investigate early smoke indications before full evacuation or discharge logic"
 ]
-correct = "A"
-explanation = "The current OSHA public standard prohibits delaying detector-initiated alarms or devices more than 30 seconds unless the delay is necessary for immediate employee safety and addressed in an emergency action plan."
+correct = "D"
+explanation = "Staged ASD thresholds create time to investigate dilute smoke before full fire alarm/suppression actions."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"

@@ -5,15 +5,15 @@
 id = "bank-m12-q047"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.159, automatic sprinkler-system requirements cover which scope?"
+stem = "Pre-action sprinkler systems are often preferred over wet pipe above white space mainly because they:"
 choices = [
-  "Minimum design, installation, and maintenance requirements for systems needed for employee safety",
-  "Only the choice between wet-pipe and pre-action arrangements in server halls",
-  "A universal water-volume target for every occupancy",
-  "A guarantee that sprinkler systems replace all fire detection"
+  "Always use twice as much water as deluge",
+  "Eliminate the need for any detection",
+  "Keep pipes dry (or supervised) until detection logic admits water, lowering accidental discharge risk",
+  "Are the only systems allowed on generators"
 ]
-correct = "A"
-explanation = "The public OSHA text for 29 CFR 1910.159 identifies minimum requirements for the design, installation, and maintenance of automatic sprinkler systems needed for employee safety. It does not establish a universal pre-action preference, water-volume target, or replacement for fire detection."
+correct = "C"
+explanation = "Pre-action admits water only after detection (and often head operation), reducing random leak dumps on IT gear."
 topic_ids = ["m12-water-suppression"]
 objective_ids = []
 bloom = "understand"

@@ -6,15 +6,15 @@
 id = "m06-q250"
 kind = "single-select"
 module = 6
-stem = "ISO/IEC TS 22237-31:2026 names which target alongside maintainability and recoverability?"
+stem = "A single common-mode failure in the control system that trips both UPS trains simultaneously would show that:"
 choices = [
-  "Vulnerability",
-  "Cloud billing accuracy",
-  "Office occupancy",
-  "Universal generator fuel quality"
+  "Hardware 2N makes software faults impossible",
+  "Only battery chemistry matters",
+  "Electrical 2N hardware can still share control and logic vulnerabilities",
+  "PUE prevents control faults"
 ]
-correct = "A"
-explanation = "The ISO preview says the resilience KPI document targets maintainability, recoverability, and vulnerability."
+correct = "C"
+explanation = "True resilience requires diversity in controls, not only power hardware copies."
 topic_ids = ["m06-redundancy", "m06-ups"]
 objective_ids = []
 bloom = "apply"

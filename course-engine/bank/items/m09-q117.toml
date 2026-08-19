@@ -6,15 +6,15 @@
 id = "m09-q117"
 kind = "single-select"
 module = 9
-stem = "Which moisture-control domain does ISO/IEC 22237-4:2021 explicitly include?"
+stem = "Dew point is often a more useful moisture metric than RH alone because:"
 choices = [
-  "Relative humidity control",
-  "Only raised-floor height measurement",
-  "Only wet-bulb conversion for every climate",
-  "Only generator fuel quality",
+  "Dew point ignores moisture completely",
+  "It indicates absolute moisture content related to condensation risk independent of dry-bulb alone",
+  "It only measures raised-floor height",
+  "It is identical to wet-bulb always in every climate"
 ]
-correct = "A"
-explanation = "The current ISO preview explicitly lists relative humidity control among the environmental-control requirements and recommendations for data centres; it does not expose the former dew-point-versus-relative-humidity proposition."
+correct = "B"
+explanation = "Dew point reflects moisture amount; RH depends on temperature, so dew point better tracks condensation risk as air moves and cools."
 topic_ids = ["m09-temp-humidity"]
 objective_ids = []
 bloom = "understand"

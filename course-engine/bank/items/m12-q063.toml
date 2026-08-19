@@ -5,15 +5,15 @@
 id = "bank-m12-q063"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.157(d)(5), portable extinguishers for Class C hazards are distributed based on:"
+stem = "CO2 portables near live electrical equipment are often favored over water because they:"
 choices = [
-  "The appropriate distribution pattern for the existing Class A or Class B hazards",
-  "A universal CO₂-only rule for all energized equipment",
-  "The room's gaseous-agent concentration alone",
-  "A fixed 75-foot travel distance in every case"
+  "Provide long continuous stream range like a hose",
+  "Are ideal as the only protection for kitchen Class K fires",
+  "Leave little residue and are suitable for many energized electrical uses when listed",
+  "Automatically restore room integrity"
 ]
-correct = "A"
-explanation = "The public OSHA text bases Class C extinguisher distribution on the appropriate pattern for the existing Class A or Class B hazards. It does not create a universal CO₂-only rule or a fixed distance for every Class C situation."
+correct = "C"
+explanation = "CO2 is common for electrical/B hazards with low residue; still short range and asphyxiation risk in pits."
 topic_ids = ["m12-extinguishers", "m12-classes"]
 objective_ids = []
 bloom = "understand"

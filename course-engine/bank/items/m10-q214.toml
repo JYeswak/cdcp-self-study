@@ -5,15 +5,15 @@
 id = "m10-q214"
 kind = "single-select"
 module = 10
-stem = "Which activity does ISO/IEC 30134-9:2022 explicitly address for the WUE parameter?"
+stem = "Integrating water alarms (level, leak, pressure) into the monitoring stack helps because:"
 choices = [
-  "Measurement, calculation, and reporting",
-  "A universal leak-alarm response sequence for every data centre",
-  "Local water-rights permitting and discharge approval",
-  "Replacement of environmental-control instrumentation"
+  "Alarms replace the need for any water system",
+  "Only energy meters matter",
+  "Silent failures are desirable",
+  "Operators can respond before thermal or water-damage incidents fully develop"
 ]
-correct = "A"
-explanation = "The current ISO abstract says ISO/IEC 30134-9:2022 defines measurement, calculation, and reporting of the WUE parameter. It does not expose a water-alarm response sequence or permit rule."
+correct = "D"
+explanation = "Early warning converts latent water risk into actionable ops response."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "apply"

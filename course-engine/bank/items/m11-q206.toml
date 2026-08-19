@@ -5,15 +5,15 @@
 id = "m11-q206"
 kind = "single-select"
 module = 11
-stem = "In the public scope of IEC 61156-5:2020, the covered horizontal-wiring cables are specified by their:"
+stem = "Copper cabling category or class selection is driven mainly by:"
 choices = [
-  "Transmission characteristics and frequency range at 20 °C",
-  "Rack paint color and cabinet branding",
-  "Generator fuel type and fire-agent selection",
-  "A universal distance limit independent of cable characteristics"
+  "Only rack paint color",
+  "Only generator fuel type",
+  "Only fire agent type",
+  "Required application bandwidth, distance, and alien crosstalk or noise environment"
 ]
-correct = "A"
-explanation = "The current IEC catalog states that IEC 61156-5:2020 specifies the transmission characteristics and frequency range of the covered cable designs at 20 °C. It does not expose a universal distance rule or the broader site-specific selection tradeoff asserted by the prior item."
+correct = "D"
+explanation = "Media grade follows application needs and environment, not cosmetics."
 topic_ids = ["m11-copper", "m11-planning"]
 objective_ids = []
 bloom = "understand"

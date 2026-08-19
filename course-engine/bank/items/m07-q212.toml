@@ -6,15 +6,15 @@
 id = "m07-q212"
 kind = "single-select"
 module = 7
-stem = "Which measurement-quality topic does IEC 61786-2:2014 explicitly address?"
+stem = "Documentation of EMF survey methods and results supports operations by:"
 choices = [
-  "Sources of uncertainty and how to combine them into total uncertainty",
   "Replacing all electrical single-line diagrams",
   "Eliminating the need for PPE policies",
+  "Providing a baseline and evidence trail if complaints, changes, or adjacent construction occur later",
   "Guaranteeing zero fields forever"
 ]
-correct = "A"
-explanation = "The current IEC abstract explicitly addresses uncertainty sources and combining them to determine total measurement uncertainty; it does not expose a survey-record retention rule."
+correct = "C"
+explanation = "Surveys are snapshots; records enable comparison after plant or layout changes."
 topic_ids = ["m07-standards"]
 objective_ids = []
 bloom = "understand"

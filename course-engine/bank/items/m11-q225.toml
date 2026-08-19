@@ -5,15 +5,15 @@
 id = "m11-q225"
 kind = "single-select"
 module = 11
-stem = "Which activity is explicitly addressed by ISO/IEC 14763-2:2019 for telecommunications cabling infrastructure?"
+stem = "Documentation of as-built pathways and panel schedules is critical because:"
 choices = [
-  "Documentation of the installation and infrastructure",
-  "Replacing all active-network configuration management",
-  "Setting universal cooling temperatures for every computer room",
-  "Defining fire-alarm evacuation distances"
+  "Networks self-document under load",
+  "Only logical configs matter",
+  "Physical infrastructure is unmanageable at scale without accurate records",
+  "Photos of blanking panels suffice"
 ]
-correct = "A"
-explanation = "The public ISO catalog explicitly lists documentation among the aspects addressed by ISO/IEC 14763-2:2019 for telecommunications cabling and cabling infrastructures."
+correct = "C"
+explanation = "As-builts are the map operators use during incidents and changes."
 topic_ids = ["m11-importance", "m11-planning"]
 objective_ids = []
 bloom = "apply"

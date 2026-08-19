@@ -8,15 +8,15 @@
 id = "m09-q220"
 kind = "single-select"
 module = 9
-stem = "Which statement correctly defines relative humidity in the public IEC vocabulary?"
+stem = "Dew point is often preferred over relative humidity alone because:"
 choices = [
-  "It is the ratio of water-vapour partial pressure to saturation partial pressure at the same temperature",
-  "It is a measure of amperage through a humidifier",
-  "It is defined only for outdoor weather stations",
-  "It is identical to dew-point temperature in every condition"
+  "Relative humidity never changes",
+  "Dew point only applies outdoors",
+  "Dew point measures amperage",
+  "It better represents absolute moisture content independent of local temperature swings"
 ]
-correct = "A"
-explanation = "IEC Electropedia defines relative humidity using the water-vapour partial pressure and saturation partial pressure at the same temperature; dew-point comparisons are outside this receipt."
+correct = "D"
+explanation = "RH moves with temperature; dew point tracks moisture content more cleanly."
 topic_ids = ["m09-temp-humidity"]
 objective_ids = []
 bloom = "understand"

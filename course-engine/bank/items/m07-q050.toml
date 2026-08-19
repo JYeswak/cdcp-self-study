@@ -6,15 +6,15 @@
 id = "m07-q050"
 kind = "single-select"
 module = 7
-stem = "What does IEC 61786-2:2014 explicitly require measurement procedures to achieve?"
+stem = "A practical trigger to commission an EMF survey includes:"
 choices = [
-  "Defined goals pertaining to human exposure",
   "Every time a fibre connector is cleaned",
   "Only when PUE exceeds 2.0",
   "Whenever blanking panels are installed",
+  "Unexplained I/O errors clustered near electrical plant, exposure complaints, or white space next to high-current gear/rail/substation",
 ]
-correct = "A"
-explanation = "The current IEC abstract explicitly ties measurement procedures to defined human-exposure goals; it does not expose a facility survey-trigger rule."
+correct = "D"
+explanation = "Surveys follow symptoms, adjacency risk, or due diligence—not random ritual."
 topic_ids = ["m07-sources", "m07-standards"]
 objective_ids = []
 bloom = "apply"

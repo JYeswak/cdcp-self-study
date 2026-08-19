@@ -4,15 +4,15 @@
 id = "m09-q218"
 kind = "single-select"
 module = 9
-stem = "ISO/IEC 22237-4:2021 bases data-centre environmental control on which ISO/IEC 22237-1 criteria and classifications?"
+stem = "Sensible cooling capacity matters for IT rooms because IT load is mostly:"
 choices = [
-  "Availability, security, and energy-efficiency enablement",
-  "Only retail lease cost, staffing count, and customer churn",
-  "Only software release velocity, API latency, and storage capacity",
-  "Only fire-resistance rating, seismic zone, and vehicle access"
+  "Only latent humidity load always",
+  "Sensible heat as temperature rise rather than latent moisture load",
+  "Only radiative heat from the sun indoors",
+  "Zero heat if PUE is low"
 ]
-correct = "A"
-explanation = "The current ISO abstract says environmental control is based upon the availability, security, and energy-efficiency-enablement criteria and classifications in ISO/IEC 22237-1."
+correct = "B"
+explanation = "Electronics dissipate mainly sensible heat; latent is usually secondary."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "understand"

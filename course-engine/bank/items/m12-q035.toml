@@ -5,15 +5,15 @@
 id = "mock40-q35"
 kind = "single-select"
 module = 12
-stem = "The current NFPA 2001 preview identifies NFPA 2001 as the:"
+stem = "Clean-agent (gaseous) suppression is often discussed for white space because:"
 choices = [
-  "Standard on Clean Agent Fire Extinguishing Systems",
-  "Standard on Emergency and Standby Power Systems",
-  "National Electrical Code for premises wiring",
-  "Standard for the Installation of Stationary Pumps for Fire Protection",
+  "It is always cheaper than any other option",
+  "It can extinguish without the water damage profile of wet systems (with design trade-offs)",
+  "It increases PUE deliberately",
+  "It eliminates detection needs",
 ]
-correct = "A"
-explanation = "The current NFPA LiNK preview labels NFPA 2001:2025 as the Standard on Clean Agent Fire Extinguishing Systems. The preview title does not establish relative water-damage, cost, or detection-system tradeoffs."
+correct = "B"
+explanation = "Gaseous agents can extinguish without wet-system water damage, with design-specific trade-offs."
 topic_ids = ["m12-gas-suppression"]
 objective_ids = []
 bloom = "understand"

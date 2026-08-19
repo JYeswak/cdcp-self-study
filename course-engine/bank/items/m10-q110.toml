@@ -8,15 +8,15 @@
 id = "m10-q110"
 kind = "single-select"
 module = 10
-stem = "Cooling-tower water treatment and biological-control programs should address:"
+stem = "Legionella and biological control programs for tower water exist primarily to:"
 choices = [
-  "Fouling and microbiological growth, alongside other water-chemistry risks",
-  "Increase scale formation intentionally",
-  "Cool servers by cultivating bacteria",
+  "Increase scale formation",
+  "Cool servers by bacteria",
+  "Manage health and operational risks from biological growth in water systems",
   "Replace physical security"
 ]
-correct = "A"
-explanation = "The DOE FEMP page identifies microbiological growth, fouling, scaling, and corrosion as cooling-water treatment concerns; pathogen-specific health programs and site chemistry limits require additional evidence."
+correct = "C"
+explanation = "Water systems need microbiological control for safety and to limit fouling—treatment and maintenance discipline."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "understand"

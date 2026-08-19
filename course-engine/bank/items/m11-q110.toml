@@ -6,15 +6,15 @@
 id = "m11-q110"
 kind = "single-select"
 module = 11
-stem = "Which single-mode testing capability is explicitly named by ISO/IEC 14763-3:2024?"
+stem = "Compared with multimode fiber, single-mode fiber is generally chosen when:"
 choices = [
-  "Testing support for single-mode ranges up to 10 km",
-  "Testing only plastic fibre under 1 m",
-  "Testing only copper pair resistance",
-  "Testing only generator-control links",
+  "Only very short rack jumpers under 1 m are needed always",
+  "The goal is maximum modal dispersion deliberately",
+  "Longer reach and higher bandwidth headroom for backbone or campus links are required",
+  "No connectors are allowed ever"
 ]
-correct = "A"
-explanation = "The IEC catalog lists support for single-mode ranges up to 10 km among the 2024 edition changes; it does not prescribe a universal site fibre-selection rule."
+correct = "C"
+explanation = "Single-mode supports long reach and high capacity backbone roles; multimode is common for shorter structured runs depending on design."
 topic_ids = ["m11-fibre"]
 objective_ids = []
 bloom = "understand"

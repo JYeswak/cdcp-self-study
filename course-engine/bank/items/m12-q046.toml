@@ -6,15 +6,15 @@
 id = "bank-m12-q046"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.164(d)(2), fire-detection equipment must be located or otherwise protected so it is protected from:"
+stem = "Flame detectors (IR/UV optical) are more typical in which data-centre-related spaces?"
 choices = [
-  "Mechanical or physical impact that might render it inoperable",
-  "Only changes in network traffic",
-  "All routine visual inspections",
-  "A requirement to use one detector technology in every room"
+  "Over every server aisle as the only white-space detector",
+  "Generator rooms and fuel-hazard areas rather than typical server aisles",
+  "Inside every copper patch panel",
+  "Only above raised-floor ramps"
 ]
-correct = "A"
-explanation = "The current OSHA public standard requires fire-detection equipment to be located or protected against mechanical or physical impact that might render it inoperable."
+correct = "B"
+explanation = "Optical flame detection suits open flame/fuel hazards; server aisles usually rely on smoke (often ASD)."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "remember"

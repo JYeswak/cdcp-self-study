@@ -6,15 +6,15 @@
 id = "bank-m12-q050"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.160(b)(1), fixed extinguishing-system components and agents shall be:"
+stem = "Clean-agent or inert gas total flooding depends critically on:"
 choices = [
-  "Designed and approved for use on the specific fire hazards they are expected to control or extinguish",
-  "Selected only by cylinder paint color",
-  "Used without regard to the fire hazard",
-  "Approved only by a marketing label"
+  "Matching cylinder paint color to brand guidelines only",
+  "Enclosure integrity and designed agent hold time",
+  "Using cardboard to seal cable penetrations temporarily",
+  "Disabling EXIT signs to save power"
 ]
-correct = "A"
-explanation = "The current OSHA public standard requires fixed extinguishing-system components and agents to be designed and approved for the specific fire hazards they are expected to control or extinguish."
+correct = "B"
+explanation = "Leakage paths defeat gaseous systems; room integrity testing and hold time are non-negotiable."
 topic_ids = ["m12-gas-suppression", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "understand"

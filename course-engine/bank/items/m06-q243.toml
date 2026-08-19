@@ -6,15 +6,15 @@
 id = "m06-q243"
 kind = "single-select"
 module = 6
-stem = "How many independent AC sources does the IEC 62310-3:2008 abstract identify for covered STS transfer?"
+stem = "Why might an engineer prefer STS at the load over relying solely on a mechanical ATS for IT?"
 choices = [
-  "Two or more independent AC sources",
-  "One source only",
-  "Only DC battery sources",
-  "No source is required",
+  "STS always starts diesel engines",
+  "ATS cannot feed generators ever",
+  "STS replaces batteries entirely",
+  "STS can transfer between synchronized sources much faster for sensitive IT loads"
 ]
-correct = "A"
-explanation = "The current IEC catalog explicitly describes controlled transfer from two or more independent AC sources; it does not establish a synchronized-source speed comparison."
+correct = "D"
+explanation = "Solid-state transfer is about milliseconds-class source switching for IT."
 topic_ids = ["m06-ats-sts"]
 objective_ids = []
 bloom = "apply"

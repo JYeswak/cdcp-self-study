@@ -8,15 +8,15 @@
 id = "m06-q253"
 kind = "single-select"
 module = 6
-stem = "When sizing branch-circuit conductors and overcurrent protection for IT loads, which public-code boundary applies?"
+stem = "When planning continuous IT loads on branch circuits, design discipline requires:"
 choices = [
-  "Protecting conductors and equipment from overcurrent according to their ability to safely conduct current",
-  "Loading every breaker to its absolute trip point continuously",
-  "Ignoring conductor ratings and installation conditions",
+  "Always loading every breaker to its absolute trip point continuously",
+  "Respecting continuous-load and sizing rules so conductors and breakers are not chronically overloaded",
+  "Ignoring temperature ratings of conductors",
   "Sizing only for lighting loads"
 ]
-correct = "A"
-explanation = "The current rule requires conductors and equipment to be protected from overcurrent in accordance with their ability to safely conduct current. It does not supply a universal continuous-load percentage or replace a site-specific calculation."
+correct = "B"
+explanation = "Continuous IT loads demand proper continuous ratings and thermal design of circuits."
 topic_ids = ["m06-sizing", "m06-distribution"]
 objective_ids = []
 bloom = "apply"

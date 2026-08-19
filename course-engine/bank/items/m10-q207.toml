@@ -5,15 +5,15 @@
 id = "m10-q207"
 kind = "single-select"
 module = 10
-stem = "Which NFPA 24:2025 chapter heading names the water-supplies topic?"
+stem = "Fire water supply reliability is a life-safety and property-protection concern that also intersects DC design because:"
 choices = [
-  "Chapter 4 — General Requirements",
-  "Chapter 5 — Water Supplies",
-  "Chapter 8 — Hose Houses and Equipment",
-  "Chapter 14 — System Inspection, Testing, and Maintenance"
+  "AHJ-required fire protection depends on adequate water supply and pressure where water-based systems are used",
+  "Fire water is optional if UPS is present",
+  "Sprinklers replace all electrical codes",
+  "Only gas systems ever need water"
 ]
-correct = "B"
-explanation = "The current NFPA 24 preview names Chapter 5 as Water Supplies. The heading does not establish an AHJ-specific pressure requirement or a data-centre fire-water design."
+correct = "A"
+explanation = "Where water-based fire protection is used, water supply is a compliance and safety dependency."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "remember"

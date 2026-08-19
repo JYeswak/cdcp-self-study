@@ -5,15 +5,15 @@
 id = "m07-q208"
 kind = "single-select"
 module = 7
-stem = "Which source is explicitly listed in the public source examples for IEC 61786-2:2014 field measurements?"
+stem = "Placing a network operations desk directly against a large transformer room wall without assessment is risky because:"
 choices = [
-  "Devices operating at power frequencies, including power lines and electric appliances",
-  "Only fibre splice trays",
-  "Only room paint and ceiling tiles",
-  "Only chilled-water pipe insulation"
+  "Transformers never produce fields",
+  "It always improves comfort heating in winter only",
+  "Occupants and any sensitive equipment may sit in a high-field region unnecessarily",
+  "It guarantees lower PUE"
 ]
-correct = "A"
-explanation = "The current IEC catalog gives devices operating at power frequencies, including power lines and electric appliances, as examples of field sources measurable under IEC 61786-2:2014. It does not expose the prior transformer-room adjacency conclusion."
+correct = "C"
+explanation = "Adjacency without assessment can expose people and equipment to avoidable fields."
 topic_ids = ["m07-sources", "m07-standards"]
 objective_ids = []
 bloom = "apply"

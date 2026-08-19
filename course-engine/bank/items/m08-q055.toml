@@ -6,15 +6,15 @@
 id = "m08-q055"
 kind = "single-select"
 module = 8
-stem = "What measurement function is explicitly included in the ISO/IEC 22237-3:2021 catalog scope?"
+stem = "Metered rack PDUs help operations mainly by:"
 choices = [
-  "Measurement of power-consumption and power-quality characteristics and integration within management tools",
-  "Removal of all upstream branch protection",
-  "Elimination of phase balance and grounding requirements",
-  "Replacement of data-centre power distribution with software settings",
+  "Removing branch circuit breakers upstream",
+  "Providing load visibility for capacity management and avoiding silent overload",
+  "Eliminating phase balance concerns",
+  "Making grounding optional",
 ]
-correct = "A"
-explanation = "The IEC catalog explicitly includes measuring power consumption and power-quality characteristics along the distribution system and integrating them within management tools."
+correct = "B"
+explanation = "Metering supports capacity and change control at the rack."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "understand"

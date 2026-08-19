@@ -6,15 +6,15 @@
 id = "m09-q102"
 kind = "single-select"
 module = 9
-stem = "Which moisture-related environmental-control category does ISO/IEC 22237-4:2021 explicitly include?"
+stem = "Why does a high sensible heat ratio (SHR) matter when selecting room cooling for IT?"
 choices = [
-  "Relative humidity control",
   "IT rooms need mostly dehumidification, not temperature control",
   "SHR is only used for kitchen design",
+  "IT loads are mostly dry heat, so oversizing latent capacity can over-dry the space",
   "Higher SHR always means worse PUE"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists relative humidity control; it does not expose a sensible-heat-ratio selection rule."
+correct = "C"
+explanation = "Servers produce primarily sensible heat; cooling with excess latent capacity can over-cool coils and over-dehumidify."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "understand"

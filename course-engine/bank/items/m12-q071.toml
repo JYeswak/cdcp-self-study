@@ -8,15 +8,15 @@
 id = "bank-m12-q071"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.160, when a fixed extinguishing system becomes inoperable, the employer must:"
+stem = "When a fire protection system is offline for maintenance, best practice includes:"
 choices = [
-  "Notify employees, take necessary temporary precautions, and restore the system with defects corrected by trained personnel",
-  "Leave the system impaired indefinitely without notification or temporary precautions",
-  "Disable all employee alarms until the next annual inspection",
-  "Replace the fire system with a cooling-control alarm"
+  "Leaving it impaired indefinitely with no tags",
+  "Propping all fire doors open for convenience",
+  "Impairment tags, logging, and compensatory measures such as fire watch per policy/code",
+  "Muting EXIT signs"
 ]
-correct = "A"
-explanation = "Current 29 CFR 1910.160 requires employee notification and necessary temporary precautions until restoration, with defects corrected by trained personnel. It does not prescribe a universal tag or fire-watch format in this bounded item."
+correct = "C"
+explanation = "Impairments elevate risk and require formal controls and compensatory measures."
 topic_ids = ["m12-best-practices", "m12-regulatory", "m12-signage"]
 objective_ids = []
 bloom = "apply"

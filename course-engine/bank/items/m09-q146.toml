@@ -5,15 +5,15 @@
 id = "m09-q146"
 kind = "single-select"
 module = 9
-stem = "Which activities does ISO/IEC 30134-7:2023 explicitly define for the CER parameter?"
+stem = "Spot coolers as emergency supplemental devices are best viewed as:"
 choices = [
-  "Measurement, calculation, reporting, and correct interpretation",
-  "A universal spot-cooler emergency response sequence",
-  "Local building-code approval of supplemental cooling devices",
-  "Replacement of all cooling-system maintenance procedures"
+  "A permanent substitute for engineered plant in high-availability facility design philosophy",
+  "Devices that create cooling without electricity",
+  "Temporary mitigation that still needs heat rejection and does not replace proper capacity planning",
+  "Replacements for fire suppression"
 ]
-correct = "A"
-explanation = "The current ISO abstract says ISO/IEC 30134-7:2023 defines CER measurement, calculation, reporting, and correct interpretation. It does not expose the former spot-cooler limitation."
+correct = "C"
+explanation = "Portable spot coolers can buy time but reject heat locally and are not a design-basis replacement for engineered systems."
 topic_ids = ["m09-supplemental"]
 objective_ids = []
 bloom = "evaluate"

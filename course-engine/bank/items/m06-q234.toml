@@ -5,15 +5,15 @@
 id = "m06-q234"
 kind = "single-select"
 module = 6
-stem = "ISO/IEC 30134-8:2022 specifies CUE as a key performance indicator for:"
+stem = "A sustainability program that lengthens generator test intervals without engineering review may:"
 choices = [
-  "Quantifying a data centre's CO₂ emissions during the use phase of its life cycle",
-  "Determining a universal generator-test interval for every site",
-  "Replacing maintenance and reliability measurements with one emissions number",
-  "Quantifying only network traffic and application latency"
+  "Always improve availability with no trade-offs",
+  "Convert diesel to free cooling",
+  "Improve short-term emissions metrics while risking start reliability if maintenance discipline erodes",
+  "Replace grounding systems"
 ]
-correct = "A"
-explanation = "The current ISO abstract defines CUE as a KPI for quantifying data-centre CO₂ emissions during the use phase. It does not establish generator-test intervals or replace maintenance and reliability controls."
+correct = "C"
+explanation = "Emissions goals must not silently weaken proven readiness testing."
 topic_ids = ["m06-sustainability", "m06-generators"]
 objective_ids = []
 bloom = "apply"

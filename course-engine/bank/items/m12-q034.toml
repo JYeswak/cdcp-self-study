@@ -6,15 +6,15 @@
 id = "mock40-q34"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.164(b)(1), fire-detection devices and equipment installed to comply with the standard must be:"
+stem = "Aspirating / very early smoke detection is valued because it:"
 choices = [
-  "Approved for the purpose for which they are intended",
-  "Selected only by airflow rating",
-  "Used without an intended-purpose approval",
-  "Installed only after a fire occurs",
+  "Suppresses fire with water immediately",
+  "Can detect smoke at very low concentrations before conventional detectors",
+  "Replaces EPO",
+  "Cools the room",
 ]
-correct = "A"
-explanation = "The current OSHA public standard requires all devices and equipment constructed and installed to comply with the fire-detection standard to be approved for their intended purpose."
+correct = "B"
+explanation = "Aspirating/VESDA-style systems can detect smoke at very low concentrations via continuous sampling."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"

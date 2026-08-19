@@ -5,15 +5,15 @@
 id = "bank-m12-q060"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.157(c), portable extinguishers provided for employees must be:"
+stem = "Dry chemical ABC extinguishers are often discouraged as first choice inside white space because:"
 choices = [
-  "Mounted, located, and identified for ready access, and maintained charged and operable",
-  "Stored out of sight until a fire alarm is confirmed",
-  "Chosen only by room name, without considering accessibility",
-  "Removed from designated places whenever not being used"
+  "They are too quiet to hear",
+  "They only work on combustible metals",
+  "They increase humidity setpoints",
+  "Residue can severely damage electronics"
 ]
-correct = "A"
-explanation = "29 CFR 1910.157(c)(1) requires portable extinguishers to be mounted, located, and identified so they are readily accessible without exposing employees to possible injury. Section (c)(4) requires them to remain fully charged, operable, and in designated places except during use. The public rule does not establish a data-centre agent preference."
+correct = "D"
+explanation = "Particulate/corrosive residue can destroy IT equipment; CO2 or clean-agent portables are often preferred in IT areas per policy."
 topic_ids = ["m12-extinguishers", "m12-best-practices"]
 objective_ids = []
 bloom = "understand"

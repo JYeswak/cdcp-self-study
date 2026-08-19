@@ -5,15 +5,15 @@
 id = "m06-q235"
 kind = "single-select"
 module = 6
-stem = "The current ISO/IEC 30134-2:2026 page says PUE can help organizations to:"
+stem = "PUE improvement that comes from turning off redundant cooling or power plant without redesign is risky because:"
 choices = [
-  "Track and benchmark data-centre energy efficiency and identify energy waste in supporting infrastructure",
-  "Assign a formal availability class to the facility",
-  "Measure only network utilization",
-  "Guarantee that removing redundant plant preserves availability"
+  "PUE equals a formal availability class",
+  "Redundant plant never consumes energy",
+  "PUE only measures network utilization",
+  "Energy metrics can look better while availability and concurrent maintainability degrade"
 ]
-correct = "A"
-explanation = "The current ISO OBP page says PUE supports tracking and benchmarking data-centre energy efficiency and identifying energy waste in cooling, power distribution, and other supporting infrastructure. It does not expose a redundancy or availability guarantee."
+correct = "D"
+explanation = "Killing redundancy to chase PUE trades availability for a prettier ratio."
 topic_ids = ["m06-sustainability", "m06-redundancy"]
 objective_ids = []
 bloom = "apply"

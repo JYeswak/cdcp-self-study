@@ -7,15 +7,15 @@
 id = "m08-q046"
 kind = "single-select"
 module = 8
-stem = "IEC 60297-3-105:2008 addresses which rack-hardware scope?"
+stem = "A two-post open relay rack is most appropriate for:"
 choices = [
-  "Dimensions and design aspects for 1U chassis mounted in compliant racks/cabinets where loaded weight and accessibility affect assembly methods",
-  "Only cloud-software licensing and application latency",
-  "Only fire-agent selection for rooms without equipment racks",
-  "A universal rack power or cooling capacity rating"
+  "Deep heavy GPU servers without rear support",
+  "Maximum physical security without a cage",
+  "Shallow network/patch gear in telecom/IDF contexts",
+  "Replacing all four-post cabinets in AI halls",
 ]
-correct = "A"
-explanation = "The IEC catalog describes 1U chassis dimensions and design aspects for compliant racks/cabinets, including loaded-weight and accessibility considerations."
+correct = "C"
+explanation = "Two-post suits shallow gear; deep/heavy servers need four-post support."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "apply"

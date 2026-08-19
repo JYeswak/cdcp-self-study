@@ -6,15 +6,15 @@
 id = "m11-q131"
 kind = "single-select"
 module = 11
-stem = "According to the ANSI/TIA-942-C abstract, the specified data-centre topology is intended to apply to:"
+stem = "Which is a sound educational statement about TIA-942 topology learning for CDCP?"
 choices = [
-  "Only hyperscale facilities above a fixed rack count",
-  "Only multi-tenant facilities",
-  "Any size data centre",
-  "Only edge facilities with wireless backhaul",
+  "Memorize fabricated numeric SHALLs as if quoting sealed standards text",
+  "Ignore topology and only memorize RJ45 colors",
+  "Treat TIA topology as identical to UPS Tier naming",
+  "Learn the named spaces (MDA/HDA/EDA/ZDA/ER concepts) and hierarchical intent without inventing clause mandates"
 ]
-correct = "C"
-explanation = "The current TIA-942-C abstract says the specified topology is intended to be applicable to any size data centre. It does not expose the named-space hierarchy or clause mandates."
+correct = "D"
+explanation = "Awareness-level learning: spaces and hierarchy—avoid fabricating standard clause text."
 topic_ids = ["m11-tia942-topology"]
 objective_ids = []
 bloom = "understand"

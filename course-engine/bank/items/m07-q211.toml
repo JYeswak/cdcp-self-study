@@ -5,15 +5,15 @@
 id = "m07-q211"
 kind = "single-select"
 module = 7
-stem = "According to the public scope of IEC 61786-2:2014, measurement procedures differ between environments because field sources can differ in:"
+stem = "Cable tray geometry and phase arrangement can influence magnetic fields because:"
 choices = [
-  "Frequency content, temporal and spatial variations, polarization, and magnitude",
-  "Only tray color and room paint",
-  "Only optical-fibre connector type",
-  "No characteristics at all",
+  "Tray color sets field strength",
+  "Conductor spacing and current phasing affect net field cancellation or reinforcement",
+  "Fields ignore geometry completely",
+  "Only fibre in the tray produces 50/60 Hz magnetic fields"
 ]
-correct = "A"
-explanation = "The current IEC catalog states that field-source characteristics differ by frequency content, temporal and spatial variations, polarization, and magnitude, and that specific measurement procedures therefore differ between environments. It does not expose the prior tray-geometry cancellation proposition."
+correct = "B"
+explanation = "Layout and phase geometry are design levers for field reduction."
 topic_ids = ["m07-sources", "m07-shielding"]
 objective_ids = []
 bloom = "analyze"

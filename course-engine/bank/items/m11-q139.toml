@@ -7,15 +7,15 @@
 id = "m11-q139"
 kind = "single-select"
 module = 11
-stem = "RFC 9940 describes network fault and problem management as including:"
+stem = "Which practice best reduces human error during emergency network isolation?"
 choices = [
-  "Detection, reporting, inspection, isolation, correlation, and management of network events",
-  "Only battery-string impedance testing",
-  "Only visitor credential issuance",
-  "Only cooling-tower water chemistry"
+  "Unlabeled bundles and tribal knowledge only",
+  "Random recabling each shift",
+  "Disabling all monitoring",
+  "Clear labeling, accurate records, and pre-planned separation of critical paths"
 ]
-correct = "A"
-explanation = "RFC 9940 frames network fault/problem management around detection, reporting, inspection, isolation, correlation, and management of events. It does not prescribe cable labels, an emergency isolation runbook, or a physical-path design."
+correct = "D"
+explanation = "Administration and documentation turn physical infrastructure into an operable system under stress."
 topic_ids = ["m11-importance", "m11-planning"]
 objective_ids = []
 bloom = "evaluate"

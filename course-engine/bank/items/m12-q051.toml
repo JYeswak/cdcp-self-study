@@ -7,15 +7,15 @@
 id = "bank-m12-q051"
 kind = "single-select"
 module = 12
-stem = "For a hazardous total-flooding fixed extinguishing system, 29 CFR 1910.160 requires:"
+stem = "Compared with water sprinklers, gaseous clean-agent systems typically trade reduced water damage for:"
 choices = [
-  "A pre-discharge employee alarm capable of giving employees time to safely exit before discharge",
-  "Immediate discharge with no employee warning or egress provision",
-  "Only a water-flow alarm and no fixed-system safeguards",
-  "A universal refill interval and room-seal test value for every facility"
+  "No need for any life-safety egress planning",
+  "Elimination of all AHJ involvement",
+  "Room sealability, pre-discharge alarms/delays, HVAC interlock, and costly refill after discharge",
+  "Free unlimited discharges with zero downtime"
 ]
-correct = "A"
-explanation = "Current 29 CFR 1910.160 requires a pre-discharge employee alarm for hazardous total-flooding systems, capable of giving employees time to safely exit before discharge. It does not establish clean-agent room-seal, HVAC-interlock, or refill values in this bounded item."
+correct = "C"
+explanation = "Gas systems need integrity, egress timing, HVAC/damper interlocks, and agent logistics after use."
 topic_ids = ["m12-gas-suppression", "m12-water-suppression"]
 objective_ids = []
 bloom = "analyze"

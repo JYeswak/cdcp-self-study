@@ -6,15 +6,15 @@
 id = "m08-q202"
 kind = "single-select"
 module = 8
-stem = "IEC 61587-6:2021 specifies security aspects and security performance levels for:"
+stem = "Open-frame racks versus enclosed cabinets trade off:"
 choices = [
-  "The mechanical construction of indoor cabinets in the IEC 60917 and IEC 60297 series",
-  "Only cloud-software service containers",
-  "Only generator-fuel storage tanks",
-  "Only utility interconnection agreements"
+  "Zero need for grounding on open frames",
+  "Service access and airflow openness against physical security, exhaust control, and aesthetics/containment interfaces",
+  "Automatic higher fire resistance always for open frames",
+  "Enclosed cabinets never needing cable management"
 ]
-correct = "A"
-explanation = "The IEC catalog covers security aspects and security-performance levels for the mechanical construction of indoor cabinets in the IEC 60917 and IEC 60297 series; it does not define a universal open-frame/enclosed-cabinet trade-off."
+correct = "B"
+explanation = "Frame vs cabinet is an access/security/airflow trade, not a free lunch."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "understand"

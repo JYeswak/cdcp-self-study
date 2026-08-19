@@ -6,15 +6,15 @@
 id = "m08-q208"
 kind = "single-select"
 module = 8
-stem = "Which power-distribution scope does ISO/IEC 22237-3:2021 explicitly name?"
+stem = "Dual-corded IT equipment in a rack is of limited value if:"
 choices = [
-  "Only generator fuel chemistry",
-  "Power distribution systems to all equipment within data centres",
-  "Only office lighting controls",
-  "Only wireless access-point configuration",
+  "Cords land on diverse power paths as designed",
+  "PDUs are labeled and load-balanced thoughtfully",
+  "Upstream A/B diversity is maintained through maintenance",
+  "Both cords land on PDUs fed from the same single upstream failure domain without diversity"
 ]
-correct = "B"
-explanation = "The current ISO abstract explicitly names power distribution systems to all equipment within data centres. It does not establish rack dual-cord or upstream-failure-domain behavior."
+correct = "D"
+explanation = "Rack dual-cording must map to true upstream diversity or it is cosmetic."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "analyze"

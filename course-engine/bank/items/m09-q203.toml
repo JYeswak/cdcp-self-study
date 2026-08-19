@@ -5,15 +5,15 @@
 id = "m09-q203"
 kind = "single-select"
 module = 9
-stem = "Which environmental-control categories are explicitly listed in the public preview of ISO/IEC 22237-4:2021?"
+stem = "Server inlet temperature is preferred over return-air temperature as a primary IT health metric because:"
 choices = [
-  "Temperature and relative humidity",
-  "Only generator loading and fuel quality",
-  "Only rack power density and network latency",
-  "Only badge access and visitor retention"
+  "Return air never correlates with anything",
+  "Inlet sensors only measure humidity",
+  "IT equipment cares about the air entering its intakes, not only bulk room return",
+  "Return temperature equals generator load"
 ]
-correct = "A"
-explanation = "The ISO/IEC 22237-4:2021 public preview lists temperature and relative humidity among the environmental-control subjects for data-centre facilities and infrastructures. It does not expose an inlet-versus-return metric rule, so no such rule is claimed here."
+correct = "C"
+explanation = "Equipment thermal limits are driven by inlet conditions at the hardware."
 topic_ids = ["m09-temp-humidity", "m09-principles"]
 objective_ids = []
 bloom = "apply"

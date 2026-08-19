@@ -7,15 +7,15 @@
 id = "bank-m12-q043"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.164(e)(1), a fire detection system installed to actuate fire extinguishment or suppression must be designed to:"
+stem = "Cross-zoning or double-knock before automatic suppression primarily aims to:"
 choices = [
-  "Operate in time to control or extinguish a fire",
-  "Delay operation until after all fire growth is complete",
-  "Replace the required suppression system with a network alarm",
-  "Operate only when a room is unoccupied"
+  "Speed agent refill after discharge",
+  "Disable abort switches permanently",
+  "Reduce accidental discharge from a single dirty or failed detector",
+  "Increase cardboard storage in white space"
 ]
-correct = "A"
-explanation = "The current OSHA public standard requires detection systems used to actuate extinguishment or suppression to operate in time to control or extinguish a fire."
+correct = "C"
+explanation = "Requiring two independent detectors/zones reduces false automatic release risk."
 topic_ids = ["m12-detection", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "understand"

@@ -7,15 +7,15 @@
 id = "m08-q204"
 kind = "single-select"
 module = 8
-stem = "ISO/IEC 22237-3:2021 explicitly includes devices for measuring:"
+stem = "Intelligent or metered rack PDUs help operations mainly by:"
 choices = [
-  "Power consumption and power-quality characteristics at points along the power-distribution system, with integration into management tools",
-  "Only decorative rack lighting and room branding",
-  "Only application latency and cloud billing",
-  "No measurements; the document excludes management-tool integration"
+  "Removing the need for any upstream UPS",
+  "Replacing all fire detection",
+  "Cooling servers with airflow from the PDU plastic",
+  "Providing outlet-level or strip-level power visibility and sometimes remote control for capacity and recovery"
 ]
-correct = "A"
-explanation = "The ISO preview explicitly lists devices for measuring power consumption and power-quality characteristics at points along the power-distribution system and their integration within management tools. Outlet-level remote switching and recovery behavior are not exposed by this catalog receipt."
+correct = "D"
+explanation = "Rack PDUs add distribution, measurement, and management at the rack edge."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "understand"

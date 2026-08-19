@@ -7,15 +7,15 @@
 id = "bank-m12-q067"
 kind = "single-select"
 module = 12
-stem = "After an electrical protective device de-energizes a circuit, a fire-safe operating practice is to:"
+stem = "Electrical ignition risk is reduced operationally by practices such as:"
 choices = [
-  "Determine that the equipment and circuit can be safely energized before re-energizing, and avoid repetitive manual reclosing",
-  "Repeatedly reclose the breaker until the circuit stays on",
-  "Bypass the protective device without inspection",
-  "Disable smoke detection during the investigation"
+  "Ignoring thermal imaging of panels",
+  "Propping fire doors for cable pulls permanently",
+  "Torque discipline, load management, and thermographic scanning of critical connections",
+  "Disabling smoke detection overnight"
 ]
-correct = "A"
-explanation = "OSHA requires a safety determination before re-energizing after protective-device operation and prohibits repetitive manual reclosing; detailed connection torque and thermography programs require additional evidence."
+correct = "C"
+explanation = "Loose lugs, overload, and arc faults remain leading electrical fire causes; maintenance culture matters."
 topic_ids = ["m12-causes", "m12-best-practices"]
 objective_ids = []
 bloom = "apply"

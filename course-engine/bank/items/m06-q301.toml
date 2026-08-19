@@ -6,15 +6,15 @@
 id = "m06-q301"
 kind = "single-select"
 module = 6
-stem = "Which transfer-switching category does IEC 60947-6-1:2026 explicitly identify for specific requirements?"
+stem = "Runbook vignette: Utility voltage sags; generators start and the ATS transfers the critical bus as designed. After utility stabilizes, a junior tech wants to force an immediate retransfer to utility without checking sync/return timers or load state. What should the runbook emphasize?"
 choices = [
-  "ATSE having closed transition capability",
-  "Always retransfer instantly on any utility voltage recovery",
+  "Always retransfer instantly on any utility voltage recovery to minimize generator fuel use, ignoring manufacturer timers",
+  "Follow designed retransfer logic (stability timers, sync/permissive checks, orderly return) rather than manual slam-back that can re-expose the load to an unstable utility",
   "Shut down the UPS static bypass permanently during every generator event",
   "Open the EPO so all paths de-energize before any retransfer decision"
 ]
-correct = "A"
-explanation = "The current IEC abstract explicitly identifies ATSE having closed transition capability; it does not expose a sync/timer/retransfer runbook."
+correct = "B"
+explanation = "Premature retransfer to a still-unstable utility is a classic human-error outage mode. Runbooks defer to designed return-to-utility sequencing and permissives, not ad-hoc speed."
 topic_ids = ["m06-ats-sts", "m06-generators"]
 objective_ids = []
 bloom = "apply"

@@ -7,15 +7,15 @@
 id = "m11-q117"
 kind = "single-select"
 module = 11
-stem = "ISO/IEC 14763-2:2019 explicitly includes which cabling-operation activities?"
+stem = "Labeling and administration of cabling are critical because:"
 choices = [
-  "Documentation and administration, along with planning, testing, inspection, maintenance, and repair",
-  "Only decorative color selection and room artwork",
-  "Only wireless spectrum allocation",
-  "No operation or maintenance after installation"
+  "Unlabeled plants speed emergency isolation",
+  "Accurate identification reduces human error during MACs and incident response",
+  "Labels replace the need for testing",
+  "Only aesthetics improve with labels"
 ]
-correct = "A"
-explanation = "The current ISO preview lists documentation, administration, testing, inspection, operation, maintenance, and repair among the cabling-infrastructure aspects addressed; detailed label formats and human-error rates require additional evidence."
+correct = "B"
+explanation = "Administration systems (labels, records) are operational safety nets for complex physical layers."
 topic_ids = ["m11-planning", "m11-importance"]
 objective_ids = []
 bloom = "apply"

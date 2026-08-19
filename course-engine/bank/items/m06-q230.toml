@@ -5,15 +5,15 @@
 id = "m06-q230"
 kind = "single-select"
 module = 6
-stem = "In NFPA 855:2026, which chapter heading names the system-interconnection topic?"
+stem = "BESS proposed for both UPS ride-through and grid services should be treated as:"
 choices = [
-  "Chapter 6 — Commissioning",
-  "Chapter 8 — Decommissioning",
-  "Chapter 9 — Electrochemical Energy Storage Systems",
-  "Chapter 5 — System Interconnections"
+  "A free replacement for all generators without study",
+  "Only a lighting inverter",
+  "A multi-use energy asset needing clear priority rules so critical ride-through is not compromised",
+  "Irrelevant to power path design"
 ]
-correct = "D"
-explanation = "The current NFPA 855 preview names Chapter 5 as System Interconnections. The item does not infer how a multi-use asset should prioritize ride-through or grid services."
+correct = "C"
+explanation = "Shared storage must reserve critical autonomy; market services cannot starve ride-through."
 topic_ids = ["m06-bess", "m06-ups"]
 objective_ids = []
 bloom = "apply"

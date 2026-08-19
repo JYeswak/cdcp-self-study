@@ -6,15 +6,15 @@
 id = "m09-q107"
 kind = "single-select"
 module = 9
-stem = "Which air-quality environmental-control category does ISO/IEC 22237-4:2021 explicitly include?"
+stem = "If supply air is colder than the dew point of local air near cold surfaces, a practical risk is:"
 choices = [
-  "Particulate control",
   "Faster fiber splicing",
   "Automatic increase of UPS kVA rating",
-  "Elimination of need for filters"
+  "Elimination of need for filters",
+  "Condensation on coils, pipes, or poorly insulated surfaces"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists particulate control; it does not expose a dew-point condensation rule."
+correct = "D"
+explanation = "Surfaces below dew point collect condensate—a moisture and equipment risk if insulation, controls, or setpoints are wrong."
 topic_ids = ["m09-principles", "m09-temp-humidity"]
 objective_ids = []
 bloom = "apply"

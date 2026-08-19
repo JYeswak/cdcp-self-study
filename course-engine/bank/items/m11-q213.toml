@@ -7,15 +7,15 @@
 id = "m11-q213"
 kind = "single-select"
 module = 11
-stem = "The TIA-942-C Revision C abstract says its changes impact:"
+stem = "In planning horizontal cabling to cabinets, a key consideration is:"
 choices = [
-  "Telecommunications, power, cooling, architecture, fire protection, safety, physical security, sustainability, and industry best practices",
   "Only matching the UPS brand",
-  "Only residential wireless access points and office furniture",
-  "Only generator fuel systems"
+  "Ignoring EMI near busway",
+  "Pathway capacity, bend radius, separation from power, and growth spares",
+  "Maximum random slack balls in cold aisles"
 ]
-correct = "A"
-explanation = "TIA's current public abstract says Revision C includes changes impacting telecommunications, power, cooling, architecture, fire protection, safety, physical security, sustainability, and industry best practices."
+correct = "C"
+explanation = "Horizontal design is pathway, protection, and growth—not only port counts."
 topic_ids = ["m11-planning", "m11-copper", "m11-fibre"]
 objective_ids = []
 bloom = "apply"

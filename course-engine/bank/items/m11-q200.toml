@@ -5,15 +5,15 @@
 id = "m11-q200"
 kind = "single-select"
 module = 11
-stem = "ISO/IEC 11801-1:2017 describes a generic cabling system as one that:"
+stem = "Structured cabling matters in a data centre primarily because:"
 choices = [
-  "May be implemented with material from single or multiple sources and supports services such as voice, data, and video",
-  "Replaces all logical routing protocols and network equipment",
-  "Applies only to wireless links between data-centre buildings",
-  "Defines cooling-plant controls instead of cabling requirements"
+  "It replaces all logical routing protocols",
+  "It provides a planned, manageable, testable physical layer that supports moves, adds, and reliability",
+  "It eliminates the need for dual power",
+  "It cools the hot aisle"
 ]
-correct = "A"
-explanation = "The public ISO catalog describes a multi-vendor generic cabling system that may use material from single or multiple sources and supports voice, data, and video services; it does not replace active networking or cooling controls."
+correct = "B"
+explanation = "The physical layer must be engineered and operable, not ad hoc wiring."
 topic_ids = ["m11-importance", "m11-planning"]
 objective_ids = []
 bloom = "understand"

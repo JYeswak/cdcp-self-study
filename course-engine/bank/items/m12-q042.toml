@@ -7,15 +7,15 @@
 id = "bank-m12-q042"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.164(e)(2), fire detection systems installed for employee alarm and evacuation must be designed and installed to:"
+stem = "Which detection technology is generally too late as the primary protection strategy for electronics white space?"
 choices = [
-  "Provide a warning for emergency action and safe escape of employees",
-  "Delay every alarm until after evacuation is impossible",
-  "Replace all emergency-action-plan procedures",
-  "Operate only after the fire has reached a fully developed stage"
+  "Aspirating early-warning smoke detection",
+  "Heat detection as the sole primary method",
+  "Photoelectric spot smoke as part of a layered design",
+  "Multi-threshold ASD alert stages"
 ]
-correct = "A"
-explanation = "The current OSHA public standard requires detection systems used for employee alarm and evacuation to provide a warning for emergency action and safe escape."
+correct = "B"
+explanation = "Heat detectors typically respond after significant fire growth; they are backup or specialty uses, not primary IT-space protection."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"
