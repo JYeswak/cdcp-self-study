@@ -26,3 +26,4 @@ beads_compliance_audit/
 # operation and prunes old ones, so tracking it made 133 git entries of pure
 # churn per session. The canonical, git-tracked record is .beads/issues.jsonl.
 .beads/.br_history/
+.beads/.br_recovery/
