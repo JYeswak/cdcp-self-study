@@ -322,3 +322,45 @@ check.sh: FAIL: rustfmt over crates/cdcp_gate/src/gates (cargo fmt cannot see th
 ```
 
 The step remains unresolved because formatting that existing compressed dispatcher adds lines above the exact `35579` ceiling. No pane-2 test invocation or `required_tests` registry was changed.
+
+## Post-extraction continuation walks
+
+These are the subsequent walks after the `verify_doc_consistency` extraction and the formatting-only dispatcher fixes. The earlier run-5 section above is retained; these entries make the later first-failure movement explicit.
+
+### Run 5 (post-extraction retry)
+
+- Tree: `d4a87b7`
+- Wall time: `52.75` seconds
+- Verdict: steps 1–35 PASS; step 36 failed at custom gate-module rustfmt on `crates/cdcp_gate/src/gates/emit_tick.rs`.
+- Exact error: `rustfmt_gate_modules: rustfmt --check failed: crates/cdcp_gate/src/gates/emit_tick.rs`; `check.sh: FAIL: rustfmt over crates/cdcp_gate/src/gates (cargo fmt cannot see these)`.
+
+### Run 6
+
+- Tree: `e5e510c`
+- Wall time: `51.81` seconds
+- Verdict: steps 1–35 PASS; step 36 failed at custom gate-module rustfmt on `crates/cdcp_gate/src/gates/grounding_wave.rs`.
+- Exact error: `rustfmt_gate_modules: rustfmt --check failed: crates/cdcp_gate/src/gates/grounding_wave.rs`; `check.sh: FAIL: rustfmt over crates/cdcp_gate/src/gates (cargo fmt cannot see these)`.
+
+### Run 7
+
+- Tree: `092982f`
+- Wall time: `64.23` seconds
+- Verdict: steps 1–35 PASS; step 36 failed at custom gate-module rustfmt on `crates/cdcp_gate/src/gates/substrate_guard.rs`.
+- Exact error: `rustfmt_gate_modules: rustfmt --check failed: crates/cdcp_gate/src/gates/substrate_guard.rs`; `check.sh: FAIL: rustfmt over crates/cdcp_gate/src/gates (cargo fmt cannot see these)`.
+
+### Run 8 — refused by the active pane-2 run
+
+- Wall time: `0.03` seconds
+- Verdict: no chain steps executed.
+- Exact error: `check.sh: REFUSING TO START: scripts/check.sh is already running`, held by PID `51833`; overlapping runs are forbidden because the chain mutates tracked fixtures.
+
+### Run 9
+
+- Tree: `63d9cf5`
+- Wall time: `133.85` seconds
+- Verdict: steps 1–35 PASS; step 36 gate-module rustfmt subleg PASS; workspace `cargo test --locked --workspace` failed.
+- Test result: `29 passed; 6 failed; 0 ignored` in `cdcp_cli`.
+- Failed tests: `golden_fixture_is_the_rust_sampler_output`, `goldens_check_errors_on_a_zero_byte_pin`, `goldens_check_exit_0`, `goldens_check_ignores_prose_alongside_the_artifacts`, `goldens_check_passes_on_a_faithful_copy_and_reports_its_coverage`, and `grade_json_all_correct_from_fixture_answers`.
+- Exact core errors: golden all-correct digest `got c38c5c894c362e7cdf501f4e85b029ed90f2297dcf54a511eb7246868c402418` versus `expected cc4c4611208bf20a7489478336a054966977715d1b3ede7267add2d45452d64a`; all-correct JSON expected `40/40` but got `34/40`.
+
+The run-9 failure is recorded, not fixed here: it is existing pane-2-owned golden/fixture drift, outside the extraction and formatting changes in this tick. The chain now proves the ratchet and formatting legs can complete, but it still does not complete end to end.
