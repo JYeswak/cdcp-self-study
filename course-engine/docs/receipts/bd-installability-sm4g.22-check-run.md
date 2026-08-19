@@ -196,3 +196,70 @@ The nested index snapshot contains the pre-existing committed `crates/cdcp_gate/
 ## Run 3 option status
 
 Run 3 is another correctness/index failure at 19.34 seconds, so there is still no successful complete-run time and the throughput question remains unanswered. Option (b) remains a provisional feedback-flow recommendation; no evidence now supports elevating caching, batching, queue draining, or any option as the highest-leverage throughput fix. No CI configuration was changed.
+
+## Run 4 — after doc-facts extraction
+
+- Tree: `fb040bb`
+- Command: `PATH=/Users/josh/.cargo/bin:$PATH /usr/bin/time -p ./scripts/check.sh`
+- Environment: local warm Cargo registry/target cache
+- Result: no successful full-chain completion; the invocation reached step 36 and exited 2
+- Wall time: `66.50` seconds (`1.11` minutes)
+- Interpretation: this is a measured warm-cache floor to the next correctness/formatting failure, not a complete-run time or CI duration estimate
+
+This run includes the committed `doc_facts` extraction. `cdcp_registry_check` and its nested gate-shrink receipt agree at `35579/35579`, and `cdcp_gate doc-facts` passed through the stable subcommand. The run passed the bank, answer-key-skew, grounding, orphan, near-duplicate, and paraphrase legs before the formatting chain.
+
+## Run 4 ordered steps and verdicts
+
+1. `check.sh lock selftest` — PASS
+2. `cdcp-course check` / knowledge scaffold — PASS
+3. `cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked` — PASS
+4. `check.sh snapshot selftest` — PASS
+5. `cdcp_registry_check` / registry-check — PASS (`35579/35579`)
+6. `cdcp check-licence` / licence split — PASS
+7. `cargo test -p cdcp_data --test corpus_rights` — PASS
+8. `cdcp corpus-rights` — PASS
+9. `cdcp load-snapshots` — PASS
+10. `cdcp check-osha` — PASS
+11. `cdcp verify-data-lock` — PASS
+12. `cdcp verify-data-lock --selftest` — PASS
+13. `cdcp oracle-check` — PASS
+14. stale-plant detector — PASS
+15. `cdcp_gate substrate-guard` — PASS
+16. `cdcp_gate substrate-guard --prove-wired` — PASS
+17. `cdcp_gate install-hooks` — PASS
+18. `cdcp_gate install-hooks --check` — PASS
+19. `cdcp_gate capability-maturity` — PASS
+20. `cdcp_gate goldens-couplings` — PASS
+21. `cdcp_gate doc-facts` — PASS
+22. exam-form public CDCP format pins — PASS
+23. honesty string smoke — PASS
+24. standards crosswalk — PASS
+25. `topics.toml` count — PASS
+26. source `fetch_date` presence — PASS
+27. `cdcp_gate verify-bank` — PASS
+28. `cdcp_gate answer-key-skew` — PASS
+29. `cdcp_gate validate-grounding` — PASS
+30. `cdcp_gate grounding-wave` — PASS
+31. `cdcp_gate verify-orphans` — PASS
+32. `selftest_orphan.sh` — PASS
+33. `cdcp_gate near-duplicate-items` — PASS
+34. near-duplicate-items selftest — PASS
+35. `cdcp verify-paraphrase-pairs` — PASS
+36. `cargo fmt/clippy/test` — FAIL at the custom gate-module rustfmt check
+
+Steps after 36 were not executed because `check.sh` fails closed at the formatting step.
+
+## Run 4 first failure and blocker
+
+Exact error:
+
+```text
+rustfmt_gate_modules: rustfmt --check failed: crates/cdcp_gate/src/gates/answer_key_skew.rs
+check.sh: FAIL: rustfmt over crates/cdcp_gate/src/gates (cargo fmt cannot see these)
+```
+
+The failing dispatcher is the existing three-line compressed `answer_key_skew` gate file, with its one-line `#[rustfmt::skip]` runner. Formatting its first two lines would add two gate lines, taking the committed `35579` count over the ratcheted `ceiling_lines = 35579`; raising the ceiling is forbidden, and shortening prose or renaming locals to compensate would be gate-count golf. It was therefore recorded as the next blocker rather than changed in this extraction tick.
+
+## Run 4 option status
+
+The chain now reaches 66.50 seconds before a formatting correctness failure, but still does not complete. This remains a warm-cache floor, not a CI runtime. The throughput premise is still unmeasured; the earlier option (b)—a fast PR subset plus the full scheduled chain—remains a provisional feedback-flow recommendation, not an evidenced throughput fix. No CI configuration was changed.
