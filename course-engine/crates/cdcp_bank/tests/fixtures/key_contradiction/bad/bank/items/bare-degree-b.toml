@@ -1,0 +1,18 @@
+id = "bare-degree-b"
+kind = "single-select"
+module = 9
+stem = "What is the maximum operating temperature for this fixture?"
+choices = [
+  "32 degrees C",
+  "10 degrees C",
+  "45 degrees C",
+  "60 degrees C",
+]
+correct = "A"
+explanation = "This independent fixture keys a bare 32 degrees C threshold."
+topic_ids = ["m09-principles"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
