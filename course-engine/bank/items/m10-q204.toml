@@ -7,10 +7,10 @@ kind = "single-select"
 module = 10
 stem = "Humidification systems may depend on water infrastructure; operators should recognize that:"
 choices = [
-  "Humidifiers never need water",
+  "Humidifiers never need water because room humidity follows outdoor conditions automatically",
   "Humidity control can fail if RO/DI or feedwater systems are offline or contaminated",
-  "Humidity is unrelated to electrostatic and equipment environment concerns",
-  "Only outdoor relative humidity matters indoors always"
+  "Humidity is unrelated to electrostatic or equipment-environment concerns in a data centre",
+  "Only outdoor relative humidity matters indoors, even when feedwater treatment is offline"
 ]
 correct = "B"
 explanation = "Water treatment trains are part of environmental control continuity."

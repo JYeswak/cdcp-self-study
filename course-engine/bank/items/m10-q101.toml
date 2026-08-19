@@ -7,10 +7,10 @@ kind = "single-select"
 module = 10
 stem = "WUE as a sustainability-oriented metric primarily tracks:"
 choices = [
-  "Copper pair utilization",
-  "Site water use relative to IT energy",
-  "Wi-Fi spectral efficiency",
-  "Window U-factor only"
+  "Copper-pair utilization relative to installed network capacity",
+  "Site water use per unit of IT energy consumed",
+  "Wi-Fi spectral efficiency relative to available channel bandwidth",
+  "Window U-factor considered without any water or energy term"
 ]
 correct = "B"
 explanation = "WUE relates water consumption to IT energy—an intensity metric for water-aware operations."

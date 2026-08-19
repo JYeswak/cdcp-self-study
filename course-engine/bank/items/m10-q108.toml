@@ -8,9 +8,9 @@ module = 10
 stem = "Humidification water quality matters because mineral-laden water can:"
 choices = [
   "Foul humidifiers and deposit minerals that affect equipment and air quality",
-  "Improve server corrosion resistance always",
-  "Increase UPS runtime",
-  "Replace the need for filtration on CRAHs"
+  "Improve server corrosion resistance regardless of mineral concentration or treatment",
+  "Increase UPS runtime by changing humidifier water chemistry rather than battery operation",
+  "Replace CRAH filtration because mineral content cannot affect air equipment"
 ]
 correct = "A"
 explanation = "Hard water and contaminants cause scale and white-dust issues; treatment or RO is common practice."

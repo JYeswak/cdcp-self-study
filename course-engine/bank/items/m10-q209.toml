@@ -7,10 +7,10 @@ kind = "single-select"
 module = 10
 stem = "Cooling tower basin level and makeup controls are operationally important because:"
 choices = [
-  "Basin level only affects paint color",
-  "Makeup valves never fail",
+  "Basin level only affects paint color and has no relationship to tower operation or heat transfer",
+  "Makeup valves never fail because automatic controls eliminate mechanical and instrument risk",
   "Loss of makeup control can force tower trip or poor thermal performance",
-  "Towers run indefinitely with zero water"
+  "Towers run indefinitely with zero water once fans and pumps remain energized"
 ]
 correct = "C"
 explanation = "Basin inventory is a real-time constraint on evaporative rejection."

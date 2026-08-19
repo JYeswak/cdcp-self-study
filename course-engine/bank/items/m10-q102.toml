@@ -7,10 +7,10 @@ kind = "single-select"
 module = 10
 stem = "A backup water supply for a water-dependent cooling plant is intended to:"
 choices = [
-  "Decorate the landscape only",
-  "Replace all chillers with tanks alone",
+  "Decorate the landscape without supporting any cooling or resilience function",
+  "Replace every chiller with storage tanks alone, eliminating mechanical heat rejection and any need to manage plant capacity",
   "Bridge utility water interruptions so heat rejection can continue within design intent",
-  "Feed only fire sprinklers and never cooling"
+  "Feed fire sprinklers only, with no connection to cooling-plant operation"
 ]
 correct = "C"
 explanation = "Stored or alternate water sources support cooling continuity when municipal supply is interrupted."

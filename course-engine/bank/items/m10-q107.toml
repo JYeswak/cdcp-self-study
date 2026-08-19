@@ -7,10 +7,10 @@ kind = "single-select"
 module = 10
 stem = "A qualitative tradeoff of evaporative cooling versus dry heat rejection is often:"
 choices = [
-  "Evaporative methods use no water and always use more energy",
-  "Dry coolers always use more water than towers",
-  "There is never an energy/water tradeoff",
-  "Evaporative methods can be more energy-efficient but consume water; dry methods save water but may use more energy in heat"
+  "Evaporative methods use no water and always consume more energy, so they trade neither resource",
+  "Dry coolers always use more water than towers, but eliminate the energy penalty of heat rejection",
+  "There is never an energy/water tradeoff because both approaches consume the same resources in every climate",
+  "Evaporative cooling can save energy but uses water; dry cooling saves water but may use more energy"
 ]
 correct = "D"
 explanation = "Water versus energy is a classic plant design tension—site climate and policy drive choices."

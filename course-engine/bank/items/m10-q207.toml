@@ -8,9 +8,9 @@ module = 10
 stem = "Fire water supply reliability is a life-safety and property-protection concern that also intersects DC design because:"
 choices = [
   "AHJ-required fire protection depends on adequate water supply and pressure where water-based systems are used",
-  "Fire water is optional if UPS is present",
-  "Sprinklers replace all electrical codes",
-  "Only gas systems ever need water"
+  "Fire water is optional whenever a UPS is present, because electrical resilience substitutes for life safety",
+  "Sprinklers replace every electrical code because water-based protection removes arc-flash and bonding obligations",
+  "Only gas systems ever need water, so water-based fire protection can be excluded from the site review"
 ]
 correct = "A"
 explanation = "Where water-based fire protection is used, water supply is a compliance and safety dependency."

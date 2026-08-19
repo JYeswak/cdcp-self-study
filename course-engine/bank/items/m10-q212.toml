@@ -7,10 +7,10 @@ kind = "single-select"
 module = 10
 stem = "Shared campus water infrastructure with other tenants or buildings introduces risk when:"
 choices = [
-  "Isolation valves and metering are well designed",
+  "Isolation valves and metering are well designed, so shared infrastructure creates no correlated outage risk",
   "Failures or maintenance on shared mains correlate outages across users without clear isolation",
-  "Emergency procedures define coordination",
-  "Capacity is reserved contractually"
+  "Emergency procedures define coordination, but shared-main failures remain impossible by definition",
+  "Capacity is reserved contractually, which removes all maintenance and common-main risk"
 ]
 correct = "B"
 explanation = "Shared utilities need isolation and governance or they become correlated SPOFs."

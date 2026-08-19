@@ -10,10 +10,10 @@ kind = "single-select"
 module = 10
 stem = "Legionella and biological control programs for tower water exist primarily to:"
 choices = [
-  "Increase scale formation",
-  "Cool servers by bacteria",
+  "Increase scale formation as a deliberate way to stabilize water chemistry in the tower",
+  "Cool servers by introducing beneficial bacteria into the condenser-water loop",
   "Manage health and operational risks from biological growth in water systems",
-  "Replace physical security"
+  "Replace physical security controls because biological risk is the only operational concern"
 ]
 correct = "C"
 explanation = "Water systems need microbiological control for safety and to limit fouling—treatment and maintenance discipline."

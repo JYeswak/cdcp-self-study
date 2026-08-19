@@ -7,9 +7,9 @@ kind = "single-select"
 module = 10
 stem = "Leak detection and water system maintenance relate to availability because:"
 choices = [
-  "Leaks always improve grounding",
-  "Water on the floor cools servers optimally",
-  "Maintenance of water systems is purely cosmetic",
+  "Leaks always improve grounding and therefore create a beneficial electrical path through the floor",
+  "Water on the floor cools servers optimally and is safer than isolating a hydronic connection",
+  "Maintenance of water systems is purely cosmetic and cannot affect IT or electrical plant",
   "Undetected leaks can damage IT and electrical plant and waste limited backup water"
 ]
 correct = "D"

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 10
 stem = "Seasonal drought or municipal restriction plans for water-dependent plants should be:"
 choices = [
-  "Written after the first forced shutdown only",
+  "Written after the first forced shutdown, when the team has enough evidence to choose a response",
   "Predefined with operational modes, communication paths, and any alternate cooling strategies",
-  "Ignored if last year was rainy",
-  "Left solely to the landscaping contractor"
+  "Ignored if last year was rainy, because drought and municipal restrictions are not design inputs",
+  "Left solely to the landscaping contractor, who owns all process-water and cooling decisions"
 ]
 correct = "B"
 explanation = "Water contingency is an ops plan, not an improvisation during crisis."

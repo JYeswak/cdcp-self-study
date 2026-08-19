@@ -12,10 +12,10 @@ kind = "single-select"
 module = 10
 stem = "A proposed data-centre site is under a local water-supply constraint. The design team replaces evaporative tower heat rejection with a non-evaporative closed loop and says, ‘The site is now automatically permitted and has no water obligations.’ What should the M10 review catch?"
 choices = [
-  "Accept the claim: a closed loop self-permits and removes every water use",
-  "Reject the absolute claim: the design may reduce evaporative makeup dependence, but the review must verify fill or makeup, humidification, fire and domestic water, discharge, chemistry, and local approvals, then hand site water-rights questions to M03",
-  "Use the EPA Quincy case-study volumes as universal permit thresholds",
-  "Treat WUE as PUE and omit the site-water measurement boundary",
+  "Accept the claim: a closed loop self-permits and removes every water use, so no fill, fire, domestic, discharge, chemistry, or site-approval review is needed",
+  "Reject the absolute claim: verify fill, humidification, fire/domestic water, discharge, chemistry, approvals, and M03 water-rights interfaces",
+  "Use EPA Quincy case-study volumes as universal permit thresholds and treat them as sufficient for every closed-loop site, regardless of design and jurisdiction",
+  "Treat WUE as PUE and omit the site-water measurement boundary because non-evaporative heat rejection makes all water obligations disappear"
 ]
 correct = "B"
 explanation = "DOE FEMP distinguishes evaporative tower losses from a closed loop on the IT side, while NREL’s 2018 ESIF report documents a project-specific dry-cooling design. ISO/IEC 30134-9:2022 makes WUE a defined site-water KPI, not a permit. The EPA Quincy case shows that a closed-loop water-reuse design still had makeup-water, water-rights, discharge, and permit interfaces. Those sources support a bounded siting review, not a universal permission or zero-water claim."

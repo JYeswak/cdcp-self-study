@@ -7,9 +7,9 @@ kind = "single-select"
 module = 10
 stem = "Truck-delivered water as an emergency measure requires advance planning for:"
 choices = [
-  "No site access roads",
-  "Using any roadside puddle without checks",
-  "Disconnecting all level sensors permanently",
+  "No site-access roads are needed because a tanker can deliver water from any public shoulder",
+  "Any roadside puddle may be used without quality checks, permits, or connection planning",
+  "Disconnect all level sensors permanently so truck filling cannot trip an alarm",
   "Access routes, fill connections, water quality acceptance, and time-to-deploy logistics"
 ]
 correct = "D"

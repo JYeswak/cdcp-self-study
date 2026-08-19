@@ -7,9 +7,9 @@ kind = "single-select"
 module = 10
 stem = "Integrating water alarms (level, leak, pressure) into the monitoring stack helps because:"
 choices = [
-  "Alarms replace the need for any water system",
-  "Only energy meters matter",
-  "Silent failures are desirable",
+  "Alarms replace the need for any water system because operators can respond without storage or makeup",
+  "Only energy meters matter; water level, leak, and pressure signals add no availability information",
+  "Silent failures are desirable because they prevent nuisance notifications during thermal events",
   "Operators can respond before thermal or water-damage incidents fully develop"
 ]
 correct = "D"

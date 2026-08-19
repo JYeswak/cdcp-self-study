@@ -8,9 +8,9 @@ module = 10
 stem = "Process water for cooling towers and humidification matters to uptime because:"
 choices = [
   "Quality, availability, or treatment failures can force cooling derates or shutdowns",
-  "It is unrelated to facility availability",
-  "It powers the UPS inverter directly",
-  "It replaces fire suppression in all designs"
+  "It is unrelated to facility availability because process water never affects cooling equipment",
+  "It supplies the UPS inverter directly rather than supporting heat rejection or humidity control",
+  "It replaces fire suppression in every design, so separate fire-water planning is unnecessary"
 ]
 correct = "A"
 explanation = "Cooling plant often depends on water; loss or poor quality can reduce heat rejection capacity."

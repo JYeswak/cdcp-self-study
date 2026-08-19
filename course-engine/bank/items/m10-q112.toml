@@ -8,9 +8,9 @@ module = 10
 stem = "Why might a site choose a water-saving heat-rejection strategy despite possible energy tradeoffs?"
 choices = [
   "To reduce water dependency where water is scarce, restricted, or costly",
-  "To maximize unrestricted water consumption",
-  "Because dry coolers never need electricity",
-  "To eliminate heat rejection entirely"
+  "Maximize unrestricted water consumption even when drought restrictions or water costs are rising",
+  "Because dry coolers never need electricity or maintenance under any operating condition",
+  "Eliminate heat rejection entirely by accepting a permanent reduction in IT load"
 ]
 correct = "A"
 explanation = "The current DOE FEMP page describes air-side and water-side economizing, water-saving retrofits, and the tradeoffs among heat rejection, energy, and water use. Reducing water dependency can therefore be a design objective even when operating energy changes. This is a bounded planning receipt, not a technology-selection approval."

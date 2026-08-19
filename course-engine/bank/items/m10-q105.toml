@@ -10,10 +10,10 @@ kind = "single-select"
 module = 10
 stem = "Poor water treatment in condenser or tower systems can lead to:"
 choices = [
-  "Improved heat transfer forever",
+  "Improve heat transfer indefinitely by preventing all deposits in the condenser loop",
   "Scale, corrosion, or biological fouling that reduces heat-rejection capacity",
-  "Automatic free fiber upgrades",
-  "Higher battery amp-hour ratings"
+  "Provide automatic fiber upgrades without changing the water or heat-rejection system",
+  "Increase battery amp-hour ratings by improving storage-cell chemistry"
 ]
 correct = "B"
 explanation = "Fouled exchangers and towers lose effectiveness—risking IT thermal margins."

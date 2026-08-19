@@ -7,10 +7,10 @@ kind = "single-select"
 module = 10
 stem = "A dual municipal water service (two feeds) for a critical plant is best described as:"
 choices = [
-  "A guarantee that chemistry will never need control",
-  "A replacement for on-site storage in all cases",
+  "Guarantees chemistry will never need control because two municipal feeds are always clean and independent",
+  "Replaces on-site storage in every case, even when both feeds share the same upstream failure",
   "A form of supply redundancy reducing single-path water outage risk",
-  "Only a landscaping irrigation feature"
+  "Is only a landscaping-irrigation feature with no effect on critical cooling resilience"
 ]
 correct = "C"
 explanation = "Two utility feeds improve availability but local storage and treatment may still be required."

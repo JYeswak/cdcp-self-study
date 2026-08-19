@@ -7,10 +7,10 @@ kind = "single-select"
 module = 10
 stem = "If municipal water is lost and no backup exists for a tower-dependent plant, a likely operational impact is:"
 choices = [
-  "Unlimited continued full-capacity evaporative rejection",
+  "Unlimited continued full-capacity evaporative rejection despite loss of makeup water",
   "Progressive loss of tower capability as basin levels drop, threatening cooling capacity",
-  "Immediate increase in fiber bandwidth",
-  "Automatic switch to infinite dry capacity with no design change"
+  "Immediate increase in fiber bandwidth while the cooling tower remains at design capacity",
+  "Automatic switch to infinite dry capacity with no design change, controls, or electrical cost"
 ]
 correct = "B"
 explanation = "Without makeup, evaporative systems cannot sustain operation—hence backup water planning."
