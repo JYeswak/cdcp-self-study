@@ -7,15 +7,15 @@
 id = "m03-q105"
 kind = "single-select"
 module = 3
-stem = "Which construction/site topic is explicitly listed by ISO/IEC 22237-2:2024?"
+stem = "Climate and free-cooling potential influence site selection mainly through:"
 choices = [
-  "Protection from environmental risks",
-  "A mandatory free-cooling operating mode for every site",
-  "A universal outdoor design temperature for all climates",
-  "A replacement for local environmental permitting",
+  "Only tax incentives for murals",
+  "USB cable lengths",
+  "HVAC energy, plant type options, and outdoor design conditions for capacity",
+  "Badge colours",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists protection from environmental risks among the building-construction requirements and recommendations. It does not expose a universal free-cooling or climate-design rule."
+correct = "C"
+explanation = "Climate and free-cooling potential affect HVAC energy, plant options, and outdoor design conditions used for capacity; the syllabus places this reasoning under site location selection criteria."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

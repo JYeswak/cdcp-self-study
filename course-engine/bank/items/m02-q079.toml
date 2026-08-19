@@ -8,15 +8,15 @@
 id = "m02-q079"
 kind = "single-select"
 module = 2
-stem = "Which pair is explicitly listed in the ISO/IEC 22237-2:2024 catalog scope?"
+stem = "Product listing/marking expectations for electrical equipment typically come from:"
 choices = [
-  "Building construction and building configuration",
-  "Only software licensing and cloud tenancy",
-  "Only generator fuel chemistry and engine oil",
-  "Only rack-label colors and office furniture",
+  "Only internal runbooks",
+  "Product safety standards and AHJ/listing requirements—not from a facilities “tier” label alone",
+  "PUE contests",
+  "Hot-aisle poster guidelines only",
 ]
-correct = "A"
-explanation = "The IEC catalog explicitly lists building construction and building configuration among the requirements and recommendations."
+correct = "B"
+explanation = "Product safety standards and AHJ/listing requirements govern equipment marking; a facilities tier label does not replace those product-level requirements."
 topic_ids = ["m02-subcomponent-standards", "m02-code-vs-standard"]
 objective_ids = []
 bloom = "understand"

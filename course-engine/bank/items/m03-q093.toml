@@ -7,15 +7,15 @@
 id = "m03-q093"
 kind = "single-select"
 module = 3
-stem = "Which topic is explicitly listed by ISO/IEC 22237-2:2024?"
+stem = "Which site-selection factor most directly affects multi-path electrical utility diversity?"
 choices = [
-  "Location and site selection, taking account of the natural environment and adjacencies",
-  "A universal dual-utility independence design for every parcel",
-  "A fixed utility-interconnection queue position for every jurisdiction",
-  "Only interior data-hall rack layout",
+  "Lobby artwork style",
+  "Proximity and independence of utility substations/feeds and right-of-way constraints",
+  "Colour of exterior cladding only",
+  "Number of conference rooms",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists location and site selection, taking account of the natural environment and adjacencies. It does not expose a universal utility-diversity design rule."
+correct = "B"
+explanation = "Utility diversity depends on independent substations/feeds and workable rights-of-way; those site constraints determine whether supposedly separate paths are actually separate within the site-selection topic."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "apply"

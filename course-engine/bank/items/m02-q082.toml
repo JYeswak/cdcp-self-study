@@ -7,15 +7,15 @@
 id = "m02-q082"
 kind = "single-select"
 module = 2
-stem = "Which protection domain is explicitly listed in the ISO/IEC 22237-2:2024 catalog scope?"
+stem = "A sub-component standard for fire detection devices would most likely influence:"
 choices = [
-  "Physical fire protection",
-  "Only cloud application security",
-  "Only generator fuel transfer",
-  "Only cable-label typography",
+  "Only the brand of coffee in the NOC",
+  "Device performance, listing, and installation expectations feeding the facility fire strategy",
+  "Generator fuel chemistry exclusively",
+  "IP address planning",
 ]
-correct = "A"
-explanation = "The IEC catalog explicitly lists physical fire protection among the building-construction domains."
+correct = "B"
+explanation = "A fire-detection device standard affects device performance, listing, and installation expectations that feed the facility fire strategy; this is the sub-component standards role named by the syllabus."
 topic_ids = ["m02-subcomponent-standards"]
 objective_ids = []
 bloom = "remember"

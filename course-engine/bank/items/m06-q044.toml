@@ -6,15 +6,15 @@
 id = "m06-q044"
 kind = "single-select"
 module = 6
-stem = "Which topic is explicitly included in the ISO/IEC 22237-3:2021 catalog scope?"
+stem = "In the utility-to-rack teaching path, which order is most representative after the utility feed?"
 choices = [
-  "Power distribution systems to all equipment within data centres",
-  "Application software release sequencing",
-  "Cloud-provider billing and tenancy policy",
-  "Office furniture procurement",
+  "Rack PDU → generator → transformer → UPS",
+  "IT PSU → busway → utility meter → generator",
+  "BESS only → fibre MMRs → CRAH → rack",
+  "Main switchgear/transformers → transfer → UPS → distribution/PDU → rack",
 ]
-correct = "A"
-explanation = "The IEC catalog for ISO/IEC 22237-3:2021 explicitly lists power distribution systems to all equipment within data centres."
+correct = "D"
+explanation = "After the utility feed, power follows main switchgear/transformers, transfer, UPS, distribution/PDU, then the rack; that is the utility-to-rack teaching path for power distribution."
 topic_ids = ["m06-distribution", "m06-ups"]
 objective_ids = []
 bloom = "understand"

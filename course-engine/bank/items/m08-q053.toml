@@ -6,15 +6,15 @@
 id = "m08-q053"
 kind = "single-select"
 module = 8
-stem = "Which distribution scope is explicitly listed in the ISO/IEC 22237-3:2021 catalog?"
+stem = "Zero-U rack PDUs are typically mounted:"
 choices = [
-  "Power distribution systems to all equipment within data centres",
-  "Only cloud-service licensing",
-  "Only fire-agent selection",
-  "Only optical-fibre connector polishing",
+  "In the vertical space at the rear/side of the cabinet without consuming horizontal U",
+  "Only as 2U horizontal shelves in the middle of servers",
+  "Outside the building exclusively",
+  "In the CRAH return plenum",
 ]
 correct = "A"
-explanation = "The IEC catalog explicitly includes power distribution systems to all equipment within data centres; it does not expose a universal zero-U PDU mounting rule."
+explanation = "A zero-U PDU mounts vertically at the rear or side of the cabinet, preserving horizontal rack U for IT equipment."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "remember"

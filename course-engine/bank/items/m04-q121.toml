@@ -7,15 +7,15 @@
 id = "m04-q121"
 kind = "single-select"
 module = 4
-stem = "Which access-related topic is explicitly listed by ISO/IEC 22237-2:2024?"
+stem = "Access-floor ramps and landings are provided primarily to:"
 choices = [
-  "Provision of access",
-  "GPU scheduling and east-west fabric design",
-  "Universal cooling-water chemistry limits",
-  "Replacement of all local fire-code adoption processes",
+  "Increase PUE",
+  "Store batteries under the ramp always",
+  "Allow safe wheeled and pedestrian transition between floor elevations",
+  "Replace stair egress requirements automatically",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists provision of access among the building-construction requirements and recommendations. It does not expose a ramp geometry, egress substitution, or data-hall equipment claim."
+correct = "C"
+explanation = "Ramps and landings provide a safe wheeled and pedestrian transition between floor elevations; this is the access purpose named by the CDCP ramp-and-landing topic."
 topic_ids = ["m04-ramp"]
 objective_ids = []
 bloom = "remember"

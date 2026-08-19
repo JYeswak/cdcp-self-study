@@ -6,15 +6,15 @@
 id = "m06-q239"
 kind = "single-select"
 module = 6
-stem = "Which pair is explicitly listed in the ISO/IEC 22237-3:2021 catalog scope?"
+stem = "In a typical critical path teaching model after utility, which order is most representative?"
 choices = [
-  "Telecommunications infrastructure bonding and lightning protection",
-  "Application failover and database replication",
-  "Cooling-tower chemistry and humidifier water treatment",
-  "Visitor escort and badge anti-passback",
+  "Rack PDU, then generator, then fiber patch, then utility only",
+  "Batteries, then cooling tower, then copper only",
+  "Fire panel, then STS, then lighting only",
+  "Service entrance and switchgear, then UPS with generator and ATS path, then PDU or RPP, then rack PDU, then IT",
 ]
-correct = "A"
-explanation = "The IEC catalog for ISO/IEC 22237-3:2021 explicitly lists telecommunications infrastructure bonding and lightning protection."
+correct = "D"
+explanation = "A critical path carries service-entrance power through switchgear and the UPS/generator/ATS path, then PDU/RPP and rack PDU to IT; each stage preserves the distribution chain."
 topic_ids = ["m06-distribution", "m06-ups", "m06-ats-sts"]
 objective_ids = []
 bloom = "apply"

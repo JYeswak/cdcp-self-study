@@ -7,15 +7,15 @@
 id = "m04-q128"
 kind = "single-select"
 module = 4
-stem = "Which environmental-risk topic is explicitly listed by ISO/IEC 22237-2:2024?"
+stem = "Which is a general raised-floor guideline for day-2 operations?"
 choices = [
-  "Protection from environmental risks",
-  "A universal raised-floor tile-opening schedule",
-  "A mandatory GPU rack density for every data centre",
-  "A replacement for the local building code",
+  "Remove tiles freely without airflow review",
+  "Never bond metallic structures",
+  "Ignore concentrated loads if uniform rating is high",
+  "Control openings, manage cable bulk, and respect load ratings during moves",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists protection from environmental risks among the building-construction requirements and recommendations. It does not expose the former day-2 access-floor operating rule."
+correct = "D"
+explanation = "Day-2 raised-floor work must control openings, manage cable bulk, and respect load ratings so airflow and structural design intent survive changes."
 topic_ids = ["m04-guidelines", "m04-loading"]
 objective_ids = []
 bloom = "apply"

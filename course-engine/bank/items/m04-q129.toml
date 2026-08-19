@@ -7,15 +7,15 @@
 id = "m04-q129"
 kind = "single-select"
 module = 4
-stem = "Which quality-related topic is explicitly listed by ISO/IEC 22237-2:2024?"
+stem = "Floor panel materials and finishes are chosen with attention to:"
 choices = [
-  "Quality construction measures",
-  "A universal panel-finish color standard",
-  "BGP policies for rack uplinks",
-  "A substitute for electrical-installation safety requirements",
+  "Only marketing gloss",
+  "Diesel sulphur content",
+  "BGP policies",
+  "Structural performance, conductivity/static control needs, and cleanliness for the environment",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists quality construction measures. It does not expose the former floor-panel materials, finishes, conductivity, or cleanliness proposition."
+correct = "D"
+explanation = "Floor panels must meet structural performance, conductivity/static-control, and cleanliness needs of the IT environment; material and finish choices serve those requirements."
 topic_ids = ["m04-floor-types", "m04-floor-standards"]
 objective_ids = []
 bloom = "understand"

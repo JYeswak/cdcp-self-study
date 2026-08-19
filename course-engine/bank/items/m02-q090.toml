@@ -8,15 +8,15 @@
 id = "m02-q090"
 kind = "single-select"
 module = 2
-stem = "Which protection topic is explicitly listed in the ISO/IEC 22237-2:2024 catalog scope?"
+stem = "Cabling performance categories and firestop product listings are examples of:"
 choices = [
-  "Protection against damage from water",
-  "Only application failover and database replication",
-  "Only generator fuel quality",
-  "Only rack-unit numbering",
+  "Uptime Tier certificates",
+  "Sub-component / product-system standards and listings supporting the facility",
+  "ISO 22237 entire-series replacements",
+  "AHJ organizational charts",
 ]
-correct = "A"
-explanation = "The IEC catalog explicitly lists protection against damage from water among the construction domains."
+correct = "B"
+explanation = "Cabling categories and firestop listings are product/system standards supporting the facility, rather than a facility rating or organizational chart."
 topic_ids = ["m02-subcomponent-standards"]
 objective_ids = []
 bloom = "remember"

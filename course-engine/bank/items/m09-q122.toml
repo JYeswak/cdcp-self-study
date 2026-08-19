@@ -6,15 +6,15 @@
 id = "m09-q122"
 kind = "single-select"
 module = 9
-stem = "Which humidity-related domain is explicitly listed in the ISO/IEC 22237-4:2021 public abstract?"
+stem = "Dehumidification in a CRAC/CRAH often occurs when:"
 choices = [
-  "Relative humidity control",
-  "Wholesale-colocation ownership control",
-  "Generator fuel-transfer control",
-  "Fibre-route diversity control"
+  "Fans are turned off permanently",
+  "Only when free cooling is disabled by law",
+  "Coil surface temperature is below the dew point of the airstream",
+  "Servers produce large amounts of steam",
 ]
-correct = "A"
-explanation = "ISO/IEC 22237-4:2021's public abstract explicitly lists relative humidity control."
+correct = "C"
+explanation = "Dehumidification occurs when the coil surface is below the airstream dew point, causing moisture to condense and removing latent load."
 topic_ids = ["m09-temp-humidity", "m09-system-types"]
 objective_ids = []
 bloom = "understand"

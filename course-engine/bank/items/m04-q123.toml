@@ -7,15 +7,15 @@
 id = "m04-q123"
 kind = "single-select"
 module = 4
-stem = "Which spatial-configuration topic is explicitly listed by ISO/IEC 22237-2:2024?"
+stem = "Suspended ceilings in data halls may be used to:"
 choices = [
-  "Building configuration",
-  "Replacement of all fire suppression systems",
-  "Network-fabric routing policy",
-  "Generator fuel specification only",
+  "Act as a UPS",
+  "Replace all fire suppression",
+  "Hide return-air paths, lighting, and some services—or be omitted in open designs",
+  "Store diesel",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists building configuration among the topics covered. It does not expose the exact use of a suspended ceiling as a return-air path or service zone."
+correct = "C"
+explanation = "A suspended ceiling may hide return-air paths, lighting, and services, while open designs omit it; the choice is a building-configuration decision."
 topic_ids = ["m04-suspended-ceiling"]
 objective_ids = []
 bloom = "remember"
