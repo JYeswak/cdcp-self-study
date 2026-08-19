@@ -172,3 +172,74 @@ returned to the original D and B positions rather than selected for answer-key
 balance. The 22-item adjudication closes only this choices residual at the
 audited snapshot; it does not clear retired items or fields outside the
 choices/correct/explanation comparison.
+
+## Full-tree reconciliation: 18 reported residuals
+
+The full-tree reconciliation reported 792 approved items differing from
+`955a8f1` in comments only, 44 differing in explanation only, and 18 named
+items with a reported stem/choices body difference. The 18 reconcile as
+follows. This section does not reopen the 22-item adjudication; it records
+which prior decisions stand and closes the earlier-restore serialization gap.
+
+### (a) Prior KEEP/UNSURE decisions stand
+
+These 13 items are intentional under the decisions above; no bank edit was
+needed:
+
+- `m09-q105` — KEEP: the less-quantified answer still tests IT power becoming
+  cooling heat load.
+- `m09-q108` — KEEP: the expanded airside/waterside/refrigerant wording keeps
+  the economization-to-lower-mechanical-work proposition.
+- `m09-q148` — KEEP: the broader full-containment wording preserves the
+  inlet-stability and fan-energy purpose of HAC.
+- `m09-q161` — KEEP: direct-to-chip/rear-door architectures still answer the
+  high-density liquid-cooling rationale.
+- `m10-q115` — UNSURE: the current answer preserves water-dependent
+  cooling/humidity reasoning but omits the optional fire-system dependency;
+  its legitimacy remains unresolved.
+- `m12-q053` — KEEP: explicit safe exit before discharge is equivalent to
+  release/free-egress.
+- `m12-q057` — KEEP: the added nonconductive-media condition is the precise
+  Class C definition.
+- `m12-q059` — KEEP: the explicit OSHA stem makes the one-letter Class A/B/C/D
+  options coherent and preserves the Class A test.
+- `m12-q208` — KEEP: impairment notification and restoration/verification
+  preserve the post-discharge readiness test.
+- `m12-q221` — KEEP: marked unobstructed exits and operable safeguards make the
+  same egress/life-safety rationale concrete.
+- `m12-q224` — KEEP: restoration after alarms/repairs and operability strengthen
+  the same fire-maintenance proposition.
+- `m13-q208` — UNSURE: lost/stolen-credential mitigation and authentication
+  assurance are related but not identical MFA rationales; it remains open for
+  human review.
+- `m14-q116` — KEEP: the current wording still separates life-safety alarm
+  generation from operations-tool supervision.
+
+### (b) Earlier restores are complete
+
+`m06-q239`, `m09-q118`, `m09-q122`, and `m14-q209` already have the same
+parsed stem, choices, and correct key as `955a8f1`. Their remaining content
+difference is the deliberately rewritten explanation; their citation comments
+are retained. The only raw choice-text discrepancy was a trailing comma on the
+last TOML choice line, so this reconciliation normalizes that serialization to
+the pre-wave form without changing any choice value or key.
+
+### (c) Unlisted item: `m10-q112`
+
+`m10-q112` is a legitimate unrelated edit, not an omitted restore. Its stem
+change originated in commit `5408ccf` (`docs(curriculum): ground cooling water
+operations receipts`), not in the grounding-wave restore sets. The choices and
+key are unchanged. The current stem broadens “dry coolers or adiabatic-limited
+designs” to the general water-saving heat-rejection strategy, while preserving
+the same water-dependency versus energy-tradeoff question; its current DOE
+receipt and explanation explicitly support that broader framing. It remains
+unchanged.
+
+### Reconciliation boundary
+
+The four group-(b) choice serializations were normalized; no answer key moved,
+so the approved distribution is unchanged. The 26 retired items remain an open,
+out-of-scope finding: neither this choices audit nor the earlier body audit
+compared them against `955a8f1`. The approved-pool reconciliation is not a
+quality certificate for the pre-wave baseline, and it says nothing about fields
+outside the audited body fields.

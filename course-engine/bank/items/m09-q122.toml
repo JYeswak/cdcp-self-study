@@ -11,7 +11,7 @@ choices = [
   "Fans are turned off permanently",
   "Only when free cooling is disabled by law",
   "Coil surface temperature is below the dew point of the airstream",
-  "Servers produce large amounts of steam",
+  "Servers produce large amounts of steam"
 ]
 correct = "C"
 explanation = "Dehumidification occurs when the coil surface is below the airstream dew point, causing moisture to condense and removing latent load."

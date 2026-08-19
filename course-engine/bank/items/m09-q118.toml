@@ -11,7 +11,7 @@ choices = [
   "Return temperature is always higher than outdoor wet-bulb",
   "Inlet sensors are illegal",
   "IT reliability depends on air entering the equipment, not only on CRAH return mixed air",
-  "Return air never contains heat",
+  "Return air never contains heat"
 ]
 correct = "C"
 explanation = "Equipment reliability depends on the air entering the server; mixed CRAH return air can hide an inlet hot spot, so inlet temperature is the more actionable health metric."

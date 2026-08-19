@@ -11,7 +11,7 @@ choices = [
   "Rack PDU, then generator, then fiber patch, then utility only",
   "Batteries, then cooling tower, then copper only",
   "Fire panel, then STS, then lighting only",
-  "Service entrance and switchgear, then UPS with generator and ATS path, then PDU or RPP, then rack PDU, then IT",
+  "Service entrance and switchgear, then UPS with generator and ATS path, then PDU or RPP, then rack PDU, then IT"
 ]
 correct = "D"
 explanation = "A critical path carries service-entrance power through switchgear and the UPS/generator/ATS path, then PDU/RPP and rack PDU to IT; each stage preserves the distribution chain."

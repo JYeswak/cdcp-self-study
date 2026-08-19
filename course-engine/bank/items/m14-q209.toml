@@ -11,7 +11,7 @@ choices = [
   "Correlation always proves the network team is at fault",
   "Cross-domain correlation speeds root-cause isolation when cooling plant and room environment interact",
   "Systems should never share timestamps",
-  "It replaces mechanical expertise entirely",
+  "It replaces mechanical expertise entirely"
 ]
 correct = "B"
 explanation = "Cross-domain correlation speeds root-cause isolation when cooling plant behavior and room environment interact; shared timestamps let operators connect BMS and EMS evidence."
