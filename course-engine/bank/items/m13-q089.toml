@@ -11,10 +11,10 @@ kind = "single-select"
 module = 13
 stem = "ACS and VMS clocks must be time-synchronized primarily so that:"
 choices = [
-  "Stable, accurate, and secure operation of NTP infrastructure, including time-source diversity and monitoring",
-  "Automatic PUE reduction and cooling-plant optimization",
-  "Biometric enrollment without any time source",
-  "Mechanical strengthening of mantrap doors"
+  "Access events and video can be correlated during investigations",
+  "PUE decreases automatically",
+  "Biometrics enroll faster",
+  "Mantraps mechanically close harder"
 ]
 correct = "A"
 explanation = "NTP alignment across ACS/VMS/syslog is foundational for incident reconstruction."

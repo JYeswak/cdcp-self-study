@@ -11,10 +11,10 @@ kind = "single-select"
 module = 15
 stem = "A service-improvement process has a monthly report but no way to turn observed trends into changes. What supported next step is missing?"
 choices = [
-  "Continually improve the planning, delivery, and improvement of services",
-  "Freeze service processes after the first successful delivery",
-  "Replace service management with a one-time satisfaction survey",
-  "Measure purchase cost without reviewing service performance",
+  "Use trends to identify improvement opportunities",
+  "Freeze the process until a new service catalogue is approved",
+  "Count dashboard points and call the largest count the improvement",
+  "Replace trend review with a one-time satisfaction survey",
 ]
 correct = "A"
 explanation = "The UK Department for Education's Service Management standard, Version 1, includes Continual Improvement as a practice and identifies opportunities for continuous improvements through trend analysis. A report that never informs an improvement decision has not closed that loop."

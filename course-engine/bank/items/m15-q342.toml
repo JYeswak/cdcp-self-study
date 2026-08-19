@@ -9,10 +9,10 @@ kind = "single-select"
 module = 15
 stem = "A BIA says a primary cooling loop can be lost during a contingency. The draft plan lists an alternate site and an RTO but no degraded-capacity check. What management gap remains?"
 choices = [
-  "Prepare for, respond to, and recover from disruptive incidents",
-  "Replace continuity planning with a service-catalogue label",
-  "Replace recovery planning with a vendor invoice",
-  "Treat alternate-site visitor badges as the whole continuity system",
+  "Plan environmental-support capacity for the contingency",
+  "Add a service-catalogue label for the cooling loop",
+  "Add a second vendor invoice to the asset register",
+  "Add a badge review for alternate-site visitors during contingency",
 ]
 correct = "A"
 explanation = "NIST SP 800-53 Rev. 5 CP-2 requires contingency requirements for essential functions, recovery objectives and priorities, roles, and continuity. CP-2(2) adds capacity planning so necessary information-processing, telecommunications, and environmental-support capacity exists during contingency operations. An alternate-site label or badge review does not test whether the degraded cooling service can support the mission."

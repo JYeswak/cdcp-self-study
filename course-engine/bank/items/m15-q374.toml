@@ -12,13 +12,13 @@ kind = "single-select"
 module = 15
 stem = "A walk-around sheet records ‘normal’ but has no equipment-status checks, abnormal-condition response, or supervisory review. What action matches the conduct-of-operations model?"
 choices = [
-  "Perform and certify the periodic inspection with the required identifiers and correct any deviations",
-  "Count the rounds and omit the equipment, employees, inspector, and date",
-  "Replace the inspection with a monthly vendor invoice",
-  "Wait for an alarm before reviewing the energy-control procedure",
+  "Record status, abnormalities, and round review",
+  "Count the rounds and omit abnormal-condition notes",
+  "Replace tours with a monthly vendor invoice",
+  "Wait for an alarm before inspecting work areas",
 ]
 correct = "A"
-explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the walk-around clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
+explanation = "NE O 422.1 Attachment 2 paragraph 2.b.(1) addresses prompt notification of facility-status changes and abnormalities; 2.b.(3) addresses equipment awareness through inspections, checks, and tours; and 2.b.(4) addresses round sheets or inspection logs, abnormal-condition response, and periodic supervisory review. This is a walk-around-duty item, not a claim about a universal shift-handover program."
 topic_ids = ["m15-ops-security", "m15-monitoring"]
 objective_ids = []
 bloom = "analyze"

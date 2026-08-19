@@ -7,10 +7,10 @@ kind = "single-select"
 module = 15
 stem = "Operational security and safety practices include escorting visitors in plant areas mainly to:"
 choices = [
-  "Security",
-  "Office catering menus",
-  "Cable color selection",
-  "Badge-printing vendor selection"
+  "Prevent untrained persons from hazardous energy exposure and unauthorized access simultaneously",
+  "Increase tour marketing photos",
+  "Bypass LOTO requirements",
+  "Disable cameras for privacy of guests only"
 ]
 correct = "A"
 explanation = "Escort is both security and safety near live electrical/mechanical hazards."

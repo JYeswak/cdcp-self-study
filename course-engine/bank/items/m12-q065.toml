@@ -8,10 +8,10 @@ kind = "single-select"
 module = 12
 stem = "Hot work (welding, cutting) during fit-out increases fire risk mainly through:"
 choices = [
-  "A fire other than a minor fire might develop, including specified conditions involving appreciable or readily ignitable combustibles",
-  "Only the network cable category is being changed",
-  "No combustible material exists and no fire could develop",
-  "The sprinkler system is impaired and no authorization is required"
+  "Open ignition sources near combustibles—managed by permit-to-work, fire watch, and impairment controls",
+  "Improved cable Category ratings",
+  "Automatic improvement of gas integrity",
+  "Elimination of cardboard fuels"
 ]
 correct = "A"
 explanation = "Hot work needs permits, watches, and controlled impairments—classic prevention culture."

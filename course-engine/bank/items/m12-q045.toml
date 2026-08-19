@@ -8,10 +8,10 @@ kind = "single-select"
 module = 12
 stem = "Under a raised floor in white space, smoke detection is relevant because the plenum often contains:"
 choices = [
-  "Design data from field experience or tests, engineering surveys, manufacturer recommendations, or a recognized testing-laboratory listing",
-  "Only the number of network racks in the room",
-  "A vendor's marketing color scheme without design data",
-  "Public-lobby seating capacity only"
+  "Power and data cabling that can be both a fuel path and a smoke path",
+  "Only clean empty air with no cables",
+  "Nothing but chilled-water inert gas cylinders",
+  "Public lobby seating"
 ]
 correct = "A"
 explanation = "Raised-floor voids carry cable fuel loads and smoke movement; designs often place detection underfloor."

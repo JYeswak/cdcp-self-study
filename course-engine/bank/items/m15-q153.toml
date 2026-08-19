@@ -8,7 +8,7 @@ kind = "single-select"
 module = 15
 stem = "When vendor SLA response time is four hours but your MTTR target is one hour, operations should:"
 choices = [
-  "Availability",
+  "Recognize contractual response may not meet internal restore goals—plan spares, skills, and bridging procedures",
   "Ignore the mismatch",
   "Assume the vendor teleports parts instantly",
   "Delete the internal target"

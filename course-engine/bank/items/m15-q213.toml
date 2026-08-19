@@ -7,10 +7,10 @@ kind = "single-select"
 module = 15
 stem = "Documented single lines, rack elevations, and cable schedules should be updated:"
 choices = [
-  "Data centres",
-  "Only cloud applications and business software",
-  "Only electrical installation wiring rules",
-  "Only physical-access hardware, excluding operations"
+  "As part of the change process when the field changes—not months later if ever",
+  "Only when an auditor is parking outside",
+  "Never, once the first PDF is printed",
+  "By memory during the next outage"
 ]
 correct = "A"
 explanation = "Documentation is a controlled product of change, not an annual archaeology project."

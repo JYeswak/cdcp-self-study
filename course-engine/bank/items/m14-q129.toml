@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "Setpoint changes on BMS for CHW supply or CRAC temperatures should be treated as:"
 choices = [
-  "HVAC and integrated plant/room control",
-  "Only cable certification and fibre polarity",
-  "Only employee credential revocation",
-  "Only fuel-quality laboratory testing"
+  "Production configuration changes under change control due to thermal/availability risk",
+  "Casual personal preference with no risk",
+  "Automatically safe if DCIM maps look pretty",
+  "Forbidden forever in all sites"
 ]
 correct = "A"
 explanation = "Plant setpoints are operational config—change-controlled like other production systems."

@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Correlation of related points (utility fail + ATS transfer + UPS on battery) before fan-out helps:"
 choices = [
-  "Basic process control systems, annunciators, packaged systems, and safety instrumented systems",
-  "Only visitor badge printers and door controllers",
-  "Only chilled-water leak ropes and fire extinguishers",
-  "Only software authentication and network segmentation"
+  "Present one coherent incident instead of alarm storms",
+  "Maximize duplicate texts for the same incident",
+  "Disable escalation ladders",
+  "Remove all P1 severity"
 ]
 correct = "A"
 explanation = "Correlate related telemetry into incidents to protect on-call attention."

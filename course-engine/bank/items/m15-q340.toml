@@ -9,10 +9,10 @@ kind = "single-select"
 module = 15
 stem = "The skills matrix for a data-center facilities team lists HVAC, power, and fire-detection roles. A control-system change is approved, but no role-based training update is planned. What manager action is directly supported?"
 choices = [
-  "Personnel involvement and competence",
-  "Replacing all asset records with a vendor brochure",
-  "Eliminating development plans and team dependencies",
-  "Treating asset management as unrelated to people and culture",
+  "Update role training before the changed duty begins",
+  "Keep the matrix because the vendor sent a change notice",
+  "Replace the matrix with one annual attendance total",
+  "Wait for an incident, then train only the person who changed it",
 ]
 correct = "A"
 explanation = "NIST SP 800-53 Rev. 5 AT-3 requires role-based training before assigned duties, when system changes require it, and at an organization-defined frequency; AT-3(c) incorporates lessons from incidents. AT-3(1) specifically includes environmental controls such as fire detection, temperature, HVAC, and power. A vendor notice is not the affected role's training record, and waiting for an incident reverses the control's timing."

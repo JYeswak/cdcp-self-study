@@ -11,10 +11,10 @@ kind = "single-select"
 module = 13
 stem = "Colo multi-tenant zoning typically means a customer badge may open their cage but:"
 choices = [
-  "Unauthorized access, intrusion, and internal or external environmental events that affect the defined protection level",
-  "Only customer-cage lease pricing and tenant billing",
-  "Only mechanical-key duplication without any physical-security system",
-  "Only cooling-plant efficiency and water-consumption metrics"
+  "Does not open provider-critical plant or other tenants’ cages under shared responsibility",
+  "Always opens the provider UPS room and all neighbor cages",
+  "Disables all cameras by design",
+  "Grants roof hatch master keys automatically"
 ]
 correct = "A"
 explanation = "Physical shared responsibility: customer zones vs provider common plant separation."

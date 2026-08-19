@@ -10,13 +10,13 @@ kind = "single-select"
 module = 15
 stem = "The outgoing shift records equipment status but omits planned work and the incoming operator's transferred responsibilities. What shift-management gap remains?"
 choices = [
-  "Ensure an orderly transfer of lockout/tagout protection between off-going and oncoming employees",
-  "Leave the protection transfer for the next weekly meeting",
+  "Complete turnover with status, duties, and planned work",
+  "Leave the missing work for the next weekly meeting",
   "Transfer only the access badge and radio",
-  "Remove all lockout devices at turnover regardless of work status",
+  "Close all in-progress work before every turnover",
 ]
 correct = "A"
-explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the shift-management clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
+explanation = "Under the bounded DOE NE O 422.1 turnover model, shift relief includes equipment and facility status, duties and responsibilities, in-progress and planned work, and relief of the oncoming operator. It is a conduct-of-operations model, not a claim that every private data center is governed by this Order."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "apply"

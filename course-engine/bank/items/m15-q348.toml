@@ -9,13 +9,13 @@ kind = "single-select"
 module = 15
 stem = "A commissioning lead leaves before hand-off. The project has no training record or O&M documentation package. What succession risk is directly visible?"
 choices = [
-  "Knowledge and awareness, competence, development plans, and team dependencies",
-  "Vendor manuals as a substitute for personnel involvement",
-  "A single exit interview with no development planning",
-  "Delaying all competence work until the next maintenance review",
+  "Document knowledge for succeeding staff",
+  "Trust vendor manuals to transfer all local knowledge",
+  "Replace succession planning with one exit interview",
+  "Delay hand-off until the next maintenance review",
 ]
 correct = "A"
-explanation = "The visible succession risk is an undocumented knowledge-transfer gap. Current public OPM career-development guidance treats the IDP as a record of career goals and development objectives, identifies mentoring as a knowledge-sharing mechanism, and says career paths can inform succession planning. The item is a qualitative curriculum grounding receipt, not a credential or certification claim."
+explanation = "DOE FEMP's 2006 commissioning guide treats O&M training and documentation as part of the hand-off, and says the knowledge base must be passed to succeeding O&M staff. A vendor manual may be an input, but it does not document the site's operating knowledge; an exit interview or delayed review leaves the succession gap open."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = ["obj-m15-training-program"]
 bloom = "evaluate"

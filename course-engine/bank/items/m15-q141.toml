@@ -7,10 +7,10 @@ kind = "single-select"
 module = 15
 stem = "White-space cleaning programs matter because dust and debris can:"
 choices = [
-  "Particulate control",
-  "Automatic copper Category-rating changes",
-  "Elimination of leak detection",
-  "Camera-retention policy"
+  "Impair cooling airflow, contaminate equipment, and increase fire fuel/ignition risk",
+  "Only improve aesthetics with no operational impact",
+  "Raise copper Category ratings",
+  "Eliminate the need for leak detection"
 ]
 correct = "A"
 explanation = "Controlled cleaning is availability and fire hygiene, not hotel housekeeping alone."

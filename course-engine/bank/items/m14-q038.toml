@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "A practical distinction between BMS and DCIM is:"
 choices = [
-  "Handover, acceptance, and project finalization",
-  "Automatic replacement of all network monitoring",
-  "A rule that DCIM controls only diesel fuel valves",
-  "A requirement that BACS and DCIM always be the same product",
+  "BMS focuses on building plant control/monitoring; DCIM focuses on data-centre IT/facilities inventory, power, environment, and capacity views",
+  "They are always the same product with one logo",
+  "DCIM only controls diesel fuel valves",
+  "BMS replaces all network monitoring",
 ]
 correct = "A"
 explanation = "BMS emphasizes building plant control; DCIM emphasizes DC inventory, power, environment, and capacity."

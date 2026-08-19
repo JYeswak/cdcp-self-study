@@ -12,13 +12,13 @@ kind = "single-select"
 module = 15
 stem = "A night-shift turnover says 'all normal' but lists neither equipment status nor in-progress work, and the oncoming operator cannot identify relief duties. What gap does the public conduct-of-operations model expose?"
 choices = [
-  "Use a specific procedure for orderly transfer of lockout/tagout protection between off-going and oncoming employees",
-  "Treat an 'all normal' shift note as sufficient without transferring protection",
-  "Transfer the vendor invoice and leave the energy-control responsibility implicit",
-  "Remove the lockout devices at shift change so the next operator can restart the plant",
+  "Transfer equipment status, duties, and active or planned work",
+  "Add a service-level percentage and leave the turnover record unchanged",
+  "Replace it with a vendor invoice and a maintenance calendar only",
+  "Limit it to badge counts because equipment status is an engineering matter",
 ]
 correct = "A"
-explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the turnover clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
+explanation = "NE O 422.1 Attachment 2 paragraph 2.l requires practices for thorough, accurate transfer of information and responsibilities at shift or operator relief. Appendix A 2.l.(1)-(3) covers formal turnover positions, equipment/facility status, duties and responsibilities, in-progress or planned activities, and reliefs. The order says operations includes computer centers; this item applies that framework rather than declaring a universal legal requirement."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "apply"

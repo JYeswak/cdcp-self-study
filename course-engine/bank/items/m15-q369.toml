@@ -11,13 +11,13 @@ kind = "single-select"
 module = 15
 stem = "A data-centre operations program names a safety lead but never states who has safety authority, who is accountable, or how hazards are controlled. What action matches the public conduct-of-operations model?"
 choices = [
-  "Assign an authorized employee primary responsibility and define crew coordination and continuity of protection",
-  "Add a logo to the roster and leave lockout responsibility implicit",
+  "Define safety roles, authority, and hazard controls",
+  "Add a logo to the roster and leave authority implicit",
   "Replace the role map with a vendor contact list",
-  "Wait for an incident before assigning the group-lockout responsibility",
+  "Wait for an incident before assigning responsibilities",
 ]
 correct = "A"
-explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the organization and hazard-control clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
+explanation = "NE O 422.1 Attachment 2 paragraph 2.a.(1) calls for organizational roles, responsibilities, authority, and accountability; 2.a.(3) addresses monitoring and worker accountability for safe work; and 2.a.(5) addresses hazard analysis and hazard controls. This item applies that public conduct-of-operations model as a benchmark and does not turn it into a universal data-centre regulation."
 topic_ids = ["m15-ops-security", "m15-eop"]
 objective_ids = []
 bloom = "apply"

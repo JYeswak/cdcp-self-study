@@ -10,10 +10,10 @@ kind = "single-select"
 module = 15
 stem = "A retired storage device will be reused by another tenant. Which manager control best matches NIST SP 800-88 Rev. 2?"
 choices = [
-  "Devices and media during their lifetime and after end of use or end of life",
-  "Only building access badges during a tenant move",
-  "Only network links while storage hardware is powered off",
-  "Only the purchase contract for newly acquired storage",
+  "Record sanitization and its destination",
+  "Transfer it after confirming the hardware still boots",
+  "Rely on the previous tenant's confidentiality label",
+  "Keep only a recycler invoice after the hand-off",
 ]
 correct = "A"
 explanation = "NIST SP 800-88 Rev. 2 §4.3.1 places sanitization decisions before the disposal phase; §4.3.6 says to record the decision and provide the process and resources; §§4.5.1-4.5.2 require verification and validation; and §4.6 plus Appendix C support records tied to the asset and its destination. A device that powers on is not evidence that its prior data was sanitized."

@@ -9,10 +9,10 @@ kind = "single-select"
 module = 13
 stem = "Visitor management in restricted zones should typically include:"
 choices = [
-  "Chapter 4 — General",
-  "Chapter 6 — Administrative Controls",
-  "Chapter 8 — Crime Prevention Through Environmental Design",
-  "Chapter 10 — Accessory Property"
+  "Permanent full white-space badges for all guests",
+  "ID check, temporary distinct badge, escort policy, and sign-in/out with badge return",
+  "Unlimited unescorted roaming after lobby coffee",
+  "Shared use of an employee’s badge"
 ]
 correct = "B"
 explanation = "Visitors need controlled credentials and escort; shared badges destroy audit."

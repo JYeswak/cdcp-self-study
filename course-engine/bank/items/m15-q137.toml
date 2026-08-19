@@ -7,10 +7,10 @@ kind = "single-select"
 module = 15
 stem = "As-built documentation for a data centre is valuable because it:"
 choices = [
-  "As-built documentation and training",
-  "Replacing all monitoring systems with a sales brochure",
-  "Eliminating the need for acceptance or handover",
-  "Keeping project records permanently detached from the installed system"
+  "Records how the facility actually is after construction/changes, not only the original design intent",
+  "Replaces the need for monitoring",
+  "Is identical to a sales brochure always",
+  "Should never be updated after day one"
 ]
 correct = "A"
 explanation = "As-builts and living diagrams prevent operating from fiction."

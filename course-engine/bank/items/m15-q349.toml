@@ -10,10 +10,10 @@ kind = "single-select"
 module = 15
 stem = "A facilities manager retires one control-system gateway while the monitoring service remains online. Which asset-management action fits NIST's disposal process?"
 choices = [
-  "Balance asset lifecycle performance, risk, and expenditure against organizational goals",
-  "Optimize purchase price while ignoring lifecycle risk and performance",
-  "Manage only the disposal step after operations have ended",
-  "Use a vendor invoice as the asset-management system",
+  "Define a secure disposal strategy first",
+  "Remove it and review the remaining service later",
+  "Send it to recycling before recording the state",
+  "Treat the vendor invoice as the disposal plan",
 ]
 correct = "A"
 explanation = "NIST SP 800-160 Vol. 1 Rev. 1, H.14 and DS-1.1, calls for a disposal strategy that securely terminates functions, reaches an acceptable secure state, and addresses future use while preserving the security posture of remaining functions. DS-2.1-DS-2.4 then sequence secure deactivation, removal, and disassembly. This is a system-element disposition claim, not a claim about demolishing an entire facility."

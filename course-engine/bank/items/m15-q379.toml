@@ -10,10 +10,10 @@ kind = "single-select"
 module = 15
 stem = "A facilities risk register lists threats but has no likelihood/impact analysis, documented review frequency, or change trigger. What action is supported by NIST RA-3?"
 choices = [
-  "Identify, analyze, evaluate, treat, monitor, and communicate risks",
-  "List threats and stop before evaluating or treating them",
-  "Treat every risk without analysis or monitoring",
-  "Use a vendor score instead of communicating risk",
+  "Assess, document, and update the risk",
+  "List more threats without analyzing impact",
+  "Freeze the register until the project closes",
+  "Use a vendor score instead of risk analysis",
 ]
 correct = "A"
 explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, RA-3(a)-(b) calls for identifying threats and vulnerabilities, determining likelihood and magnitude or impact, and integrating organization-level and system-level risk results. RA-3(c)-(e) covers documenting and disseminating results and reviewing them at an organization-defined frequency; RA-3(f) calls for updates at an organization-defined frequency or when relevant changes occur. The source supplies no universal review interval, so the item does not invent one."

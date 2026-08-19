@@ -9,7 +9,7 @@ kind = "single-select"
 module = 13
 stem = "Grey space (UPS, generators, switchgear, chillers) should receive access rigor comparable to white space because:"
 choices = [
-  "Security Perimeters",
+  "Plant compromise can take down IT without touching a server",
   "It only stores cardboard",
   "It is always public parking",
   "Cameras are illegal there"

@@ -9,10 +9,10 @@ kind = "single-select"
 module = 14
 stem = "A best practice for auxiliary systems is to treat monitoring infrastructure as:"
 choices = [
-  "Operational processes necessary to deliver resilience, availability, risk management and mitigation, capacity planning, security, and energy efficiency",
-  "Only rack cosmetics and office-furniture selection",
-  "Only cloud application feature development",
-  "Only procurement pricing for generator fuel",
+  "Critical enough to need appropriate power protection, network path, and maintenance like other production systems",
+  "Non-critical and unpowered during utility loss",
+  "Optional decoration",
+  "Something that can share one overloaded unmonitored switch under a desk forever"
 ]
 correct = "A"
 explanation = "Blindness during outages is a common design failure—monitor the monitors."

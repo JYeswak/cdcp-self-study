@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Water leak detection should be placed with priority near:"
 choices = [
-  "Physical security of environmental-control systems",
-  "Only customer billing workflows",
-  "Only fibre-connector cleaning",
-  "Only generator fuel polishing",
+  "Areas where leaks threaten electrical/IT assets: CRAH lines, humidifiers, above racks, and pipe routes",
+  "Only the executive kitchen",
+  "Random outdoor landscaping only",
+  "Only inside sealed transformer tanks"
 ]
 correct = "A"
 explanation = "Sensors belong on credible leak paths that can damage critical plant."

@@ -9,10 +9,10 @@ kind = "single-select"
 module = 14
 stem = "A minimum mental monitoring checklist for mission-critical sites includes power chain, cooling path, environment, leaks, and:"
 choices = [
-  "Operational processes needed for resilience, availability, risk management, risk mitigation, capacity planning, security, and energy efficiency",
-  "Only social-media uptime",
+  "Fire/security supervisory points, capacity views, and health of the monitors themselves",
+  "Only social media uptime",
   "Desktop wallpaper colors",
-  "Marketing campaign metrics only",
+  "Marketing campaign metrics only"
 ]
 correct = "A"
 explanation = "Monitor the chains and the monitors—blind spots include dead sensors and capacity blindness."

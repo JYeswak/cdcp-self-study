@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Point naming like CHW-VALVE-ROW12-LEAK instead of DI_047 mainly improves:"
 choices = [
-  "Resource, probable cause, perceived severity, and optional event/trend/resource-URI information",
-  "Only camera resolution and rack-paint color",
-  "Only Modbus baud rate and copper category",
-  "No alarm fields; RFC 5674 only defines email routing"
+  "Human response speed and reduces mis-isolation errors",
+  "Modbus baud rate",
+  "Camera megapixels",
+  "Copper Category rating"
 ]
 correct = "A"
 explanation = "Human-readable points turn alarms into action; cryptic DIs waste incident time."

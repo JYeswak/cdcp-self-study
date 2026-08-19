@@ -11,10 +11,10 @@ kind = "single-select"
 module = 15
 stem = "A service report lists ticket totals but gives no visibility into support requirements for demand decisions. What supported improvement fits?"
 choices = [
-  "Monitor, measure, and review the service management system and services",
-  "Publish a fixed uptime percentage without measuring services",
+  "Expose support needs for decisions",
+  "Add ticket categories without reviewing demand",
   "Replace service reporting with a project closeout",
-  "Record invoices without reviewing service performance",
+  "Publish a satisfaction score without service context",
 ]
 correct = "A"
 explanation = "The UK Department for Education's Service Management standard, Version 1, says its practices provide visibility and awareness of support requirements to enable better decision making and improved demand management. A ticket count without that operational visibility does not satisfy the bounded reporting claim; the item does not invent a KPI or service-level percentage."

@@ -8,10 +8,10 @@ kind = "single-select"
 module = 15
 stem = "Operational security for vendors performing work includes:"
 choices = [
-  "Inform each other of their respective lockout/tagout procedures, with the on-site employer ensuring its employees understand and comply with the outside employer's restrictions",
-  "Share employee badges and omit energy-control coordination",
-  "Allow the contractor to bypass all site procedures",
-  "Use only a vendor invoice as the energy-control record"
+  "Identity verification, scoped access, escorts as required, and work windows with change control",
+  "Permanent full access cards for all contractors forever",
+  "No logging of entry",
+  "Sharing employee badges to save time"
 ]
 correct = "A"
 explanation = "Vendor access is a high-risk path; control it like production change."

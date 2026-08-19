@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "A core monitoring challenge in data centres is:"
 choices = [
-  "The management and operation of data centres",
-  "Classifying only electrical-enclosure ingress protection",
-  "Replacing all operational procedures with a single sensor",
-  "Defining Internet routing protocols"
+  "Integrating diverse systems (power, cooling, security, IT) without drowning operators in noise",
+  "Too few signals to ever cause alert fatigue",
+  "That nothing ever fails",
+  "That SNMP is illegal"
 ]
 correct = "A"
 explanation = "Heterogeneous telemetry plus alert quality is the hard problem—not sensor scarcity alone."

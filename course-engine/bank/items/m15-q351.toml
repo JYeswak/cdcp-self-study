@@ -10,13 +10,13 @@ kind = "single-select"
 module = 15
 stem = "A public-building project is selecting its Total Building Commissioning provider. Which arrangement matches GSA PBS P100 2024?"
 choices = [
-  "Use a qualified commissioning team, contracted or in-house, with documented hand-off",
+  "Use an independent commissioning provider",
   "Let the construction contractor alone review acceptance",
   "Wait for the first maintenance failure to appoint a reviewer",
   "Treat operator preparation as optional after startup",
 ]
 correct = "A"
-explanation = "BLOCKED — the current GSA facilities-standards page identifies 2024 P100 but does not expose the independent commissioning-provider clause needed here. The linked body was not fetched; do not treat this row as grounded."
+explanation = "GSA PBS P100 2024 §1.8.4 defines Total Building Commissioning as verification and documentation of interactive facility-system performance from design through at least one year after construction, including preparation of operations personnel. It requires an independent commissioning provider and says the provider cannot be solely the construction contractor. Sections 1.8.5 and A.1.9.1 connect maintainability and operator hand-off to the same management boundary."
 topic_ids = ["m15-maintenance-sla", "m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "evaluate"
