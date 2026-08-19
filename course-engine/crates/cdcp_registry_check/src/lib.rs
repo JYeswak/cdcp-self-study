@@ -12,6 +12,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use thiserror::Error;
 
+pub mod doc_facts;
 mod gate_shrink;
 pub mod shell_walk;
 pub mod track;

@@ -66,7 +66,10 @@
 # 37275 -> 37275: grounding-wave detector and tests stay in cdcp_bank;
 # its 6-line dispatcher is paid for by compressing answer-key-skew 21 -> 15
 # (bd-0cjy).
-ceiling_lines = 37275
+# 37277 -> 35579: EXTRACT-THEN-DELETE doc_facts implementation into
+# crates/cdcp_registry_check; cdcp_gate retains a thin dispatcher and its
+# public test-facing re-exports (bd-engine-not-gate-ar39.15).
+ceiling_lines = 35579
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
