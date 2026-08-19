@@ -6,15 +6,15 @@
 id = "m06-q059"
 kind = "single-select"
 module = 6
-stem = "What primary function does IEC 62040-3:2021 identify for covered UPS systems?"
+stem = "A standby (offline/VFD-class) UPS typically:"
 choices = [
-  "Ensures continuity of load power",
-  "Replaces all conventional distribution boards",
-  "Provides only cooling-water continuity",
-  "Applies only to software failover",
+  "Is the universal gold standard for hyperscale IT halls",
+  "Keeps the load on utility and transfers to inverter/battery on failure",
+  "Eliminates transfer notches by design",
+  "Cannot use batteries",
 ]
-correct = "A"
-explanation = "The IEC catalog identifies ensuring continuity of load power as the primary function of covered UPS systems."
+correct = "B"
+explanation = "Offline/standby leaves the load on utility until a failure forces transfer—cheap but not preferred for critical core IT."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "remember"

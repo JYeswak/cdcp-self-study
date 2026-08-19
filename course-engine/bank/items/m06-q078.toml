@@ -6,15 +6,15 @@
 id = "m06-q078"
 kind = "single-select"
 module = 6
-stem = "Which cable-proximity topic does the IEC 60364-5-52 catalog explicitly mention?"
+stem = "Single-phase utilization circuits in a DC typically appear as:"
 choices = [
-  "Proximity of underground power and telecommunication cables",
-  "A rule that three-phase power is banned",
-  "Elimination of all neutral conductors",
-  "A requirement to ignore pathway proximity",
+  "The only plant medium-voltage feed",
+  "Proof that three-phase is banned",
+  "Branch outlets/rack strips for lower-power gear, while plant remains three-phase",
+  "A replacement for neutral conductors always",
 ]
-correct = "A"
-explanation = "The current IEC catalog explicitly mentions additional requirements concerning the proximity of underground power and telecommunication cables; it does not establish the former plant-versus-utilization phase proposition."
+correct = "C"
+explanation = "Plant is almost always three-phase; single-phase shows up at utilization edges."
 topic_ids = ["m06-phase"]
 objective_ids = []
 bloom = "remember"

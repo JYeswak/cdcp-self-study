@@ -8,15 +8,15 @@
 id = "m01-q203"
 kind = "single-select"
 module = 1
-stem = "What general support aspect does ISO/IEC 22237-1:2021 explicitly describe for data centres?"
+stem = "Core facility elements that typically define a data centre (beyond the IT load itself) include:"
 choices = [
-  "A mandatory choice of IT software vendor",
-  "A fixed number of racks for every facility",
-  "A universal staffing roster",
-  "Facilities and infrastructures required to support data centres",
+  "Only decorative lobby finishes",
+  "Only the CRM software stack",
+  "Only outdoor landscaping",
+  "Power, cooling, space/structure, connectivity, and supporting life-safety systems"
 ]
 correct = "D"
-explanation = "The current ISO abstract explicitly describes the general aspects of facilities and infrastructures required to support data centres."
+explanation = "Mission-critical space is defined by power, cooling, structure, connectivity, and life-safety support—not aesthetics alone."
 topic_ids = ["m01-elements"]
 objective_ids = []
 bloom = "remember"

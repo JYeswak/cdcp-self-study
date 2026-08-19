@@ -5,15 +5,15 @@
 id = "m06-q095"
 kind = "single-select"
 module = 6
-stem = "Which topic does IEC 60364-4-43:2023 explicitly address?"
+stem = "A continuous-load branch-circuit planning rule of thumb widely taught in US practice is:"
 choices = [
-  "Protection of live, PEN, PEM, and PEL conductors against harmful overcurrent effects and coordination of overcurrent protection",
-  "A universal 80% branch-circuit rule for every jurisdiction",
-  "Data-centre cooling-water treatment and storage",
-  "Fibre-cabling insertion-loss measurement",
+  "Load a breaker to 100% continuously without review",
+  "Plan continuous IT load with headroom (often discussed as ~80% of breaker rating)—confirm local code/AHJ",
+  "Ignore nameplate currents",
+  "Size only for lighting",
 ]
-correct = "A"
-explanation = "The current IEC catalog states that IEC 60364-4-43:2023 provides requirements for protecting listed conductors against harmful overcurrent effects and coordinating overcurrent-protection measures. It does not expose the former jurisdiction-specific continuous-load rule of thumb."
+correct = "B"
+explanation = "Continuous-load derating concepts (commonly 80% discussion in US) drive circuit selection—always verify local code."
 topic_ids = ["m06-sizing", "m06-pdu"]
 objective_ids = []
 bloom = "apply"

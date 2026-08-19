@@ -7,15 +7,15 @@
 id = "m06-q070"
 kind = "single-select"
 module = 6
-stem = "IEC 60076-1:2011 applies to which transformer scope?"
+stem = "A step-down transformer at a data centre service entrance commonly:"
 choices = [
-  "Three-phase and single-phase power transformers, including auto-transformers, subject to the catalog's stated scope",
-  "Only fibre-optic signal converters",
-  "Only chilled-water free-cooling equipment",
-  "Only humidity meters",
+  "Converts fibre optic signals to copper",
+  "Provides chilled water free cooling",
+  "Changes voltage level (e.g. MV to LV plant voltage) for site use",
+  "Meters only humidity",
 ]
-correct = "A"
-explanation = "The current IEC catalog explicitly states that IEC 60076-1 applies to three-phase and single-phase power transformers, including auto-transformers, with stated exceptions and cross-reference boundaries. It does not expose a data-centre service-entrance design rule."
+correct = "C"
+explanation = "Transformers change voltage via magnetic coupling; MV→LV is the classic site role."
 topic_ids = ["m06-transformers"]
 objective_ids = []
 bloom = "remember"

@@ -6,15 +6,15 @@
 id = "mock40-q15"
 kind = "single-select"
 module = 6
-stem = "Which power topic does ISO/IEC 22237-3:2021 explicitly cover?"
+stem = "N+1 at a UPS module layer means:"
 choices = [
-  "Power supplies to data centres",
   "Exactly one UPS total",
+  "Capacity for full load plus one spare module so one can fail/maintain",
   "Two full independent sites",
   "No batteries required",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly covers power supplies to data centres; it does not expose an N+1 UPS sizing rule."
+correct = "B"
+explanation = "N+1 means N capacity for the load plus one spare unit/module at that layer."
 topic_ids = ["m06-redundancy"]
 objective_ids = []
 bloom = "remember"

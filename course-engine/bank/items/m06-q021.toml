@@ -24,15 +24,15 @@
 id = "mock40-q21"
 kind = "single-select"
 module = 6
-stem = "ISO/IEC 30134-2:2026 defines PUE as the key performance indicator for:"
+stem = "PUE is defined as:"
 choices = [
-  "Quantifying how efficiently a data centre uses energy",
-  "Quantifying only water consumption during the use phase",
-  "Measuring staff headcount per generator kilowatt",
-  "Measuring optical-fibre utilization only",
+  "IT energy ÷ total facility energy",
+  "Total facility energy ÷ IT equipment energy",
+  "Water liters ÷ staff headcount",
+  "Generator kW ÷ rack count",
 ]
-correct = "A"
-explanation = "The current ISO OBP page identifies PUE as the globally recognized KPI for quantifying how efficiently a data centre uses energy. The public page also describes standardized measurement, calculation, reporting, and measurement categories, but this item does not infer the exact formula beyond that published scope."
+correct = "B"
+explanation = "PUE = total facility energy ÷ IT equipment energy; lower overhead is better."
 topic_ids = ["m06-sustainability"]
 objective_ids = []
 bloom = "remember"

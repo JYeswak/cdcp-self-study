@@ -5,15 +5,15 @@
 id = "m06-q105"
 kind = "single-select"
 module = 6
-stem = "Which equipment category does IEC 61439-2:2020 define specific requirements for?"
+stem = "Remote Power Panels (RPPs) are typically:"
 choices = [
-  "Power switchgear and controlgear assemblies",
-  "Only remote power panels in data-centre white space",
+  "Breaker panels closer to the load, fed from upstream distribution",
   "Only outdoor pad-mounted generators",
+  "Software-defined networking controllers",
   "Battery monitoring-only devices",
 ]
 correct = "A"
-explanation = "The current IEC catalog identifies IEC 61439-2:2020 as defining specific requirements for power switchgear and controlgear assemblies. It does not establish a universal remote-power-panel form-factor definition."
+explanation = "RPPs move branch breakers nearer white-space loads."
 topic_ids = ["m06-pdu", "m06-distribution"]
 objective_ids = []
 bloom = "remember"

@@ -9,15 +9,15 @@
 id = "m01-q045"
 kind = "single-select"
 module = 1
-stem = "ISO/IEC 22237-1:2021 describes data centres through which set of common aspects?"
+stem = "Which set best represents core physical elements of a data centre facility?"
 choices = [
-  "Terminology, parameters, reference models, facility and infrastructure aspects, classification, business risk/cost analysis, and a reference to operation and management",
-  "Only application source code repositories and software configuration",
-  "Only office furniture, parking, and corporate branding",
-  "Only marketing dashboards and service-desk statistics",
+  "Power, cooling, space, cabling, fire protection, and security layers supporting IT loads",
+  "Only application source code repositories",
+  "Only office furniture and parking",
+  "Only marketing dashboards",
 ]
 correct = "A"
-explanation = "The ISO preview lists common terminology, parameters and reference models; facility and infrastructure aspects; classification; business-risk and operating-cost analysis; and a reference to data-centre operation and management. It does not enumerate a complete project-specific equipment bill of materials."
+explanation = "Facility elements centre on power, cooling, space, connectivity, life safety, and security that enable IT operation."
 topic_ids = ["m01-elements"]
 objective_ids = []
 bloom = "remember"

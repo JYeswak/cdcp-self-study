@@ -5,15 +5,15 @@
 id = "m06-q237"
 kind = "single-select"
 module = 6
-stem = "The public scope of IEC 60076-1:2011 covers:"
+stem = "Step-down service transformers commonly:"
 choices = [
-  "General requirements for three-phase and single-phase power transformers, including autotransformers, subject to stated exceptions",
-  "Kinetic-energy storage in flywheels",
-  "Stand-alone static-transfer-system measurement only",
-  "Hot-aisle containment design",
+  "Store kinetic energy like flywheels",
+  "Convert utility medium voltage to facility utilization voltages for plant and IT distribution",
+  "Act as STS devices",
+  "Provide containment for hot aisles"
 ]
-correct = "A"
-explanation = "The current IEC catalog identifies IEC 60076-1:2011 as Power transformers — Part 1: General and states its applicability to three-phase and single-phase power transformers, including autotransformers, with stated exceptions. It does not expose the prior facility step-down proposition."
+correct = "B"
+explanation = "Service transformers step voltage down for facility use."
 topic_ids = ["m06-transformers"]
 objective_ids = []
 bloom = "understand"

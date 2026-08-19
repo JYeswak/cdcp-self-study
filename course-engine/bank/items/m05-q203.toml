@@ -5,15 +5,15 @@
 id = "m05-q203"
 kind = "single-select"
 module = 5
-stem = "ISO 30061:2007 specifies which subject?"
+stem = "Self-contained emergency luminaires differ conceptually from centrally supplied emergency lighting in that:"
 choices = [
-  "Luminous requirements for emergency lighting systems installed where such systems are required",
-  "Only outdoor solar lighting systems",
-  "Permanent replacement of all normal lighting",
-  "Only data-centre UPS battery testing",
+  "They never need testing",
+  "They always use outdoor solar only",
+  "They replace all normal lighting permanently",
+  "Battery/inverter function is local to the fixture versus a central emergency power source feeding remote heads"
 ]
-correct = "A"
-explanation = "The current ISO OBP abstract states that ISO 30061:2007 specifies the luminous requirements for emergency lighting systems installed in premises or locations where such systems are required. It does not expose the local-versus-central architecture comparison."
+correct = "D"
+explanation = "Architecture differs: local battery units vs central emergency supply—both need maintenance and testing."
 topic_ids = ["m05-emergency-types", "m05-emergency"]
 objective_ids = []
 bloom = "understand"

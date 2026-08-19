@@ -26,15 +26,15 @@
 id = "mock40-q18"
 kind = "single-select"
 module = 6
-stem = "Under the IEC 62040-3:2021 catalog scope, the primary function of a covered UPS is to:"
+stem = "Double-conversion (online/VFI) UPS primarily:"
 choices = [
-  "Ensure continuity of load power",
-  "Provide only chilled-water flow control",
-  "Replace every facility distribution board",
-  "Provide only physical access control",
+  "Passes utility straight through with no battery ever",
+  "Continuously regenerates AC via rectifier/inverter path for high isolation from many disturbances",
+  "Only works on single-phase sites",
+  "Replaces chillers",
 ]
-correct = "A"
-explanation = "The IEC catalog states that the primary function of covered electronic UPS is to ensure continuity of load power; it does not expose a universal double-conversion isolation claim."
+correct = "B"
+explanation = "Online/VFI double-conversion continuously regenerates AC (AC-DC-AC) for isolation from many disturbances."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "understand"

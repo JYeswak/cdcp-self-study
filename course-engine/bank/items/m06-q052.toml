@@ -5,15 +5,15 @@
 id = "m06-q052"
 kind = "single-select"
 module = 6
-stem = "Which measurement capability is explicitly included in ISO/IEC 22237-3:2021?"
+stem = "N+1 at a UPS module layer implies:"
 choices = [
-  "Devices measuring power consumption and power-quality characteristics at points along the distribution system, with integration into management tools",
-  "Only room-temperature measurements",
-  "Only fibre-attenuation measurements",
-  "Only fuel-tank level measurements",
+  "Two complete geographically separate data centres",
+  "No maintenance is ever allowed",
+  "Batteries are optional",
+  "Capacity for the load plus one spare module so one unit can fail or be maintained",
 ]
-correct = "A"
-explanation = "The current ISO OBP abstract explicitly includes devices for measuring power consumption and power-quality characteristics at points along the data-centre power-distribution system and their integration within management tools. It does not expose the prior N+1 module-layer definition."
+correct = "D"
+explanation = "N+1 = N needed capacity + one redundant unit/module at that layer."
 topic_ids = ["m06-redundancy", "m06-ups-parallel"]
 objective_ids = []
 bloom = "remember"

@@ -6,15 +6,15 @@
 id = "m06-q042"
 kind = "single-select"
 module = 6
-stem = "Which energy-storage boundary does IEC 62040-3:2021 state for covered UPS?"
+stem = "Which component typically bridges the multi-second gap while a standby generator starts and transfers?"
 choices = [
-  "An energy storage device not exceeding 1 500 V DC",
-  "A CRAH unit humidity tray",
-  "A fire pre-action compressor only",
+  "CRAH unit humidity tray",
+  "Fire pre-action compressor only",
+  "UPS energy storage (batteries or equivalent ride-through)",
   "Overhead cable tray grounding",
 ]
-correct = "A"
-explanation = "The current IEC catalog states that IEC 62040-3 applies to UPS incorporating an energy storage device not exceeding 1 500 V DC; it does not expose a generator-start or transfer-time rule."
+correct = "C"
+explanation = "UPS storage supplies the load during generator start and ATS/transfer, which are not instantaneous."
 topic_ids = ["m06-ups", "m06-generators"]
 objective_ids = []
 bloom = "understand"

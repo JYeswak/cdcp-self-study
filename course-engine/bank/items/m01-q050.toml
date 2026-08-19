@@ -8,15 +8,15 @@
 id = "m01-q050"
 kind = "single-select"
 module = 1
-stem = "Which facility types does the current TIA-942-C abstract explicitly include?"
+stem = "Which statement about enterprise vs multi-tenant facilities is most accurate?"
 choices = [
-  "Single-tenant enterprise data centres and multi-tenant data centres",
-  "Only residential buildings",
-  "Only outdoor telecommunications towers",
-  "Only one fixed data-centre size",
+  "Governance, shared risk, and SLA boundaries differ; both still need robust facility design",
+  "Only multi-tenant sites need fire detection",
+  "Enterprise sites never need redundant power",
+  "Multi-tenant sites never meter power",
 ]
 correct = "A"
-explanation = "The current TIA-942-C abstract explicitly includes single-tenant enterprise data centres and multi-tenant data centres; it does not establish the governance or SLA comparison in the former item."
+explanation = "Ownership and SLA boundaries differ by model, but both require engineered facility resilience."
 topic_ids = ["m01-dc-types", "m01-business-org"]
 objective_ids = []
 bloom = "understand"

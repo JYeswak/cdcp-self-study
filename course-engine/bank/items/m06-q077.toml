@@ -6,15 +6,15 @@
 id = "m06-q077"
 kind = "single-select"
 module = 6
-stem = "In IEC 61000-2-4:2024, voltage imbalance is treated as:"
+stem = "Severe phase imbalance on a three-phase feeder can cause:"
 choices = [
-  "A low-frequency conducted disturbance considered when setting compatibility levels in industrial power systems",
+  "Wasted capacity and earlier tripping on the overloaded phase",
   "Free extra capacity on all phases",
   "Automatic dual-path creation",
-  "A phenomenon excluded from industrial power-quality assessment",
+  "Zero impact on breakers",
 ]
 correct = "A"
-explanation = "The IEC catalog places voltage imbalance among the low-frequency conducted disturbances considered for compatibility levels at industrial points of coupling."
+explanation = "Unbalanced phases waste headroom and trip the loaded leg first."
 topic_ids = ["m06-phase", "m06-sizing"]
 objective_ids = []
 bloom = "apply"

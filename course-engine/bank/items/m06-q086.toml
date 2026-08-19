@@ -7,15 +7,15 @@
 id = "m06-q086"
 kind = "single-select"
 module = 6
-stem = "IEC 60896-22 applies to stationary valve-regulated lead-acid cells and monobloc batteries used for:"
+stem = "VRLA batteries in UPS rooms are commonly chosen historically for:"
 choices = [
-  "Float-charge applications in stationary equipment or battery rooms, including UPS and emergency power",
-  "Zero-maintenance operation without inspection or monitoring",
-  "Unlimited cycle life regardless of operating conditions",
-  "Portable equipment that is routinely moved between sites",
+  "Zero maintenance forever with no monitoring",
+  "Unlimited cycle life equal to lithium always",
+  "Sealed/recombinant design trade-offs versus flooded cells (footprint, maintenance model)",
+  "Operating best at freezing temperatures only",
 ]
-correct = "A"
-explanation = "The IEC catalog scopes IEC 60896-22 to stationary VRLA cells and monobloc batteries for float-charge applications, including UPS, utility switching, emergency power, and similar uses."
+correct = "C"
+explanation = "VRLA vs flooded is a maintenance, space, and lifecycle trade-off—not magic."
 topic_ids = ["m06-batteries"]
 objective_ids = []
 bloom = "understand"

@@ -8,15 +8,15 @@
 id = "m06-q218"
 kind = "single-select"
 module = 6
-stem = "Under OSHA's grounding rules, metal cable trays, metal raceways, and metal enclosures for conductors generally must be:"
+stem = "Equipotential bonding of racks and trays is intended to:"
 choices = [
-  "Grounded, subject to the exceptions stated in the rule",
-  "Left ungrounded whenever they carry IT cabling",
-  "Connected only to a downstream neutral bond",
-  "Treated as optional if the equipment has a UPS"
+  "Replace the need for circuit breakers",
+  "Store UPS energy",
+  "Keep exposed conductive parts near the same potential and support safety and EMI control",
+  "Define generator fuel type"
 ]
-correct = "A"
-explanation = "The current rule requires metal cable trays, metal raceways, and metal enclosures for conductors to be grounded, subject to its stated exceptions. This item does not claim an EMI result or prescribe a universal rack-bonding layout."
+correct = "C"
+explanation = "Bonding reduces touch potential differences and supports a controlled reference."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "understand"

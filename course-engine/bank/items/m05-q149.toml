@@ -5,15 +5,15 @@
 id = "m05-q149"
 kind = "single-select"
 module = 5
-stem = "Which equipment is within the public scope of IEC 60598-1:2024?"
+stem = "Fixture support and seismic restraint (where required) exist to:"
 choices = [
-  "Luminaires and semi-luminaires with electric light sources",
-  "Only firestop assemblies",
-  "Only underfloor air systems",
-  "Only grounding electrodes",
+  "Improve PUE only",
+  "Replace firestops",
+  "Increase underfloor static pressure",
+  "Keep luminaires from becoming falling hazards during events and maintain egress lighting integrity",
 ]
-correct = "A"
-explanation = "The current IEC catalog states that IEC 60598-1:2024 specifies general safety requirements for luminaires and includes requirements for semi-luminaires. It does not expose the prior data-hall seismic-restraint proposition."
+correct = "D"
+explanation = "Supports/restraints are life-safety and property-protection measures for overhead equipment."
 topic_ids = ["m05-fixtures", "m05-standards"]
 objective_ids = []
 bloom = "remember"

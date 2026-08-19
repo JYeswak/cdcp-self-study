@@ -7,15 +7,15 @@
 id = "m06-q080"
 kind = "single-select"
 module = 6
-stem = "IEC 60364-5-54 addresses earthing arrangements and protective conductors, including protective bonding conductors, in order to:"
+stem = "Bonding of conductive parts is intended to:"
 choices = [
-  "Satisfy the safety requirements of the electrical installation",
   "Maximize touch voltage during faults",
   "Create multiple neutral-ground bonds randomly",
   "Eliminate the need for overcurrent protection",
+  "Keep metalwork at essentially the same potential to reduce shock/arc risk",
 ]
-correct = "A"
-explanation = "The IEC catalog states that IEC 60364-5-54 addresses earthing arrangements and protective conductors, including protective bonding conductors, to satisfy electrical-installation safety."
+correct = "D"
+explanation = "Bonding equalizes potential among exposed conductive parts."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "understand"

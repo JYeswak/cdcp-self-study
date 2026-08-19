@@ -7,15 +7,15 @@
 id = "m06-q058"
 kind = "single-select"
 module = 6
-stem = "IEC 62040-3:2021 specifies performance and test requirements for UPS that:"
+stem = "Double-conversion (online/VFI) UPS operation primarily:"
 choices = [
-  "Incorporate an energy-storage device and have a primary function of ensuring continuity of load power, including applicable functional units and switches",
-  "Only operate as conventional AC distribution boards with no energy storage",
-  "Only cover rotary UPS and exclude electronic UPS functional units",
-  "Replace cooling plants rather than providing electrical continuity",
+  "Passes utility straight through with no inverter in normal mode",
+  "Only works on single-phase edge sites",
+  "Continuously regenerates AC via rectifier/inverter for high isolation from many disturbances",
+  "Replaces chilled-water plants",
 ]
-correct = "A"
-explanation = "The IEC catalog says IEC 62040-3:2021 applies to electronic UPS incorporating an energy-storage device whose primary function is continuity of load power, and specifies complete-UPS and applicable functional-unit/switch performance and tests. It does not expose a double-conversion isolation claim."
+correct = "C"
+explanation = "VFI/online continuously AC→DC→AC, isolating the load from many upstream issues."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "understand"

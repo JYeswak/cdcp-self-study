@@ -6,15 +6,15 @@
 id = "m06-q210"
 kind = "single-select"
 module = 6
-stem = "What does IEC TR 62060:2001 provide for interpreting stationary-battery measurements?"
+stem = "Battery autonomy is sized for a short design window at design load, but present load is substantially higher. Qualitatively, autonomy will:"
 choices = [
-  "Methods for interpreting the measured data",
-  "A guarantee that autonomy becomes infinite",
-  "Only PUE accounting with no battery interpretation",
-  "A rule that load growth cannot affect operation",
+  "Increase proportionally with load",
+  "Become infinite",
+  "Decrease, risking load drop before generator readiness",
+  "Only affect PUE, not runtime"
 ]
-correct = "A"
-explanation = "The current IEC catalog says the guide provides methods for interpreting measured data, while its abstract does not expose the former autonomy/load-growth proposition."
+correct = "C"
+explanation = "Higher kW against fixed stored energy shortens runtime."
 topic_ids = ["m06-batteries", "m06-sizing", "m06-ups"]
 objective_ids = []
 bloom = "apply"

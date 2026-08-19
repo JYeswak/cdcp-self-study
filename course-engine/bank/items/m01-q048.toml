@@ -8,15 +8,15 @@
 id = "m01-q048"
 kind = "single-select"
 module = 1
-stem = "What applicability does the current TIA-942-C abstract state for its specified topology?"
+stem = "Hyperscale facilities are best described as:"
 choices = [
-  "It is intended to apply to any size data centre",
-  "It applies only to a single-rack lab bench",
-  "It applies only to residential buildings",
-  "It forbids generators in every facility",
+  "Very large, purpose-built campuses optimized for massive multi-tenant or owner cloud-scale workloads",
+  "Always smaller than a wiring closet",
+  "Forbidden to use generators",
+  "Identical to a single-rack lab bench",
 ]
 correct = "A"
-explanation = "The current TIA abstract states that the topology specified in TIA-942-C is intended to be applicable to any size data centre; it does not define hyperscale characterization."
+explanation = "Hyperscale refers to very large, highly optimized campuses built for cloud-scale capacity."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "remember"

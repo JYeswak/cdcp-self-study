@@ -5,15 +5,15 @@
 id = "m06-q064"
 kind = "single-select"
 module = 6
-stem = "Which NFPA 855:2026 chapter heading names flywheel energy storage systems?"
+stem = "Flywheel energy storage on UPS-class systems is typically associated with:"
 choices = [
-  "Chapter 4 — General",
-  "Chapter 7 — Operation and Maintenance",
-  "Chapter 11 — Fuel Cell Energy Storage Systems",
-  "Chapter 13 — Flywheel Energy Storage Systems (FESSs)",
+  "Multi-day islanded operation alone",
+  "Replacing all transformers",
+  "Only RF shielding",
+  "Short ride-through paired with generators, as an alternative or complement to chemical batteries",
 ]
 correct = "D"
-explanation = "The current NFPA 855 preview names Chapter 13 as Flywheel Energy Storage Systems (FESSs). The heading does not by itself establish a ride-through duration or a UPS design choice."
+explanation = "Flywheels cover short gaps; long outages still need generators (or large BESS by design)."
 topic_ids = ["m06-ups", "m06-batteries"]
 objective_ids = []
 bloom = "understand"

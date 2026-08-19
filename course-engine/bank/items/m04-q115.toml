@@ -8,15 +8,15 @@
 id = "m04-q115"
 kind = "single-select"
 module = 4
-stem = "Which construction topic does ISO/IEC 22237-2:2024 explicitly address?"
+stem = "Raised-access floors in data centres are commonly used to:"
 choices = [
-  "Provision of access",
-  "Storage of bulk diesel under every tile",
-  "Elimination of all grounding requirements",
-  "Replacement of fire detection",
+  "Store bulk diesel under every tile",
+  "Eliminate all need for grounding",
+  "Create a service space for airflow and/or cable distribution beneath the IT floor",
+  "Replace fire detection",
 ]
-correct = "A"
-explanation = "The current IEC catalog explicitly lists provision of access among the topics covered by ISO/IEC 22237-2:2024; it does not expose the former raised-floor airflow or cable-distribution proposition."
+correct = "C"
+explanation = "Access floors provide underfloor pathways for air and/or services."
 topic_ids = ["m04-guidelines", "m04-floor-types"]
 objective_ids = []
 bloom = "remember"

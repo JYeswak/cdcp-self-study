@@ -8,15 +8,15 @@
 id = "m01-q061"
 kind = "single-select"
 module = 1
-stem = "Which data-centre types does the ANSI/TIA-942-C abstract explicitly include within its infrastructure scope?"
+stem = "Which statement about data-centre types is most careful?"
 choices = [
-  "Single-tenant enterprise and multi-tenant data centres",
-  "Only residential server closets",
-  "Only public-cloud software regions",
-  "Only carrier exchange buildings",
+  "Enterprise, colo, cloud, and edge share physics needs but differ in ownership, scale, and service boundaries",
+  "All types have identical risk profiles and SLAs",
+  "Only cloud sites need cooling",
+  "Edge sites never need physical security",
 ]
 correct = "A"
-explanation = "The current TIA-942-C abstract explicitly includes single-tenant enterprise and multi-tenant data centres within its infrastructure scope."
+explanation = "Physics (power/cooling/space) is shared; business model, scale, and responsibility boundaries differ by type."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "understand"

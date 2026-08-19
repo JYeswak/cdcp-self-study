@@ -6,15 +6,15 @@
 id = "m06-q203"
 kind = "single-select"
 module = 6
-stem = "What function does IEC 60947-6-1:2026 explicitly associate with transfer-switching equipment?"
+stem = "If an ATS fails to transfer during a utility outage while UPS batteries deplete, the next failure mode is typically:"
 choices = [
-  "Transferring a load between power supply sources",
   "Automatic free upgrade to 2N generators",
   "PUE improves indefinitely",
-  "Transformers reverse polarity"
+  "Transformers reverse polarity",
+  "Load drop when battery autonomy is exhausted"
 ]
-correct = "A"
-explanation = "The current IEC abstract explicitly describes transferring a load between power supply sources; it does not expose an ATS-failure/autonomy scenario."
+correct = "D"
+explanation = "UPS bridges the gap; without generator path and with empty batteries, the load falls."
 topic_ids = ["m06-ats-sts", "m06-ups", "m06-generators"]
 objective_ids = []
 bloom = "apply"

@@ -6,15 +6,15 @@
 id = "m05-q140"
 kind = "single-select"
 module = 5
-stem = "What does ISO 30061:2007 explicitly specify?"
+stem = "Self-contained emergency luminaires typically:"
 choices = [
-  "Luminous requirements for emergency lighting systems installed where such systems are required",
-  "Rack-PDU measurement requirements",
-  "Cooling-water treatment requirements",
-  "Generator fuel-quality requirements",
+  "Rely only on the normal lighting branch with no backup",
+  "Meter rack kW",
+  "Cool servers with forced air",
+  "Include local battery/inverter provisions to remain lit for a required duration after normal power loss",
 ]
-correct = "A"
-explanation = "The ISO public abstract says ISO 30061:2007 specifies luminous requirements for emergency lighting systems installed where such systems are required."
+correct = "D"
+explanation = "Unit equipment carries local emergency power for required egress lighting duration."
 topic_ids = ["m05-emergency-types"]
 objective_ids = []
 bloom = "understand"

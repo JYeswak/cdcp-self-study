@@ -6,15 +6,15 @@
 id = "m06-q083"
 kind = "single-select"
 module = 6
-stem = "IEC 60529 classifies the degrees of protection provided by enclosures for:"
+stem = "Ingress Protection (IP) grades on electrical enclosures describe:"
 choices = [
-  "Electrical equipment, including protection against specified solid-object and liquid ingress conditions",
   "UPS runtime in minutes",
-  "Internet Protocol routing versions only",
+  "Resistance to solid-object and liquid ingress (dust/water), not cyber IP addressing",
+  "Internet Protocol version only",
   "Generator fuel octane",
 ]
-correct = "A"
-explanation = "The IEC catalog identifies IEC 60529 as the standard for classifying enclosure protection for electrical equipment; the IP Code is not an Internet Protocol version."
+correct = "B"
+explanation = "IP codes rate enclosure protection against solids/liquids."
 topic_ids = ["m06-ip-grades"]
 objective_ids = []
 bloom = "remember"

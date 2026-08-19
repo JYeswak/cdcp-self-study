@@ -5,15 +5,15 @@
 id = "m06-q236"
 kind = "single-select"
 module = 6
-stem = "The public title of IEC 60529 identifies the subject as:"
+stem = "IP rating selection for outdoor switchgear or generator enclosures primarily addresses:"
 choices = [
-  "Degrees of protection provided by enclosures (IP Code)",
+  "Protection against solid object and water ingress appropriate to the environment",
   "UPS topology class",
-  "Fibre polarity",
-  "Fire class of materials only",
+  "Fiber polarity",
+  "Fire class of materials only"
 ]
 correct = "A"
-explanation = "The current IEC consolidated catalog titles IEC 60529 as Degrees of protection provided by enclosures (IP Code) and states its enclosure-classification scope. It does not expose the prior outdoor-enclosure selection proposition."
+explanation = "IP codes rate enclosure ingress protection, not electrical topology."
 topic_ids = ["m06-ip-grades"]
 objective_ids = []
 bloom = "understand"

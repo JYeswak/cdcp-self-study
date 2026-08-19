@@ -8,15 +8,15 @@
 id = "m01-q042"
 kind = "single-select"
 module = 1
-stem = "Which facility contexts does the TIA-942-C public abstract explicitly include?"
+stem = "Which data-centre delivery model typically means the enterprise owns both the building systems and the IT estate?"
 choices = [
-  "Single-tenant enterprise data centres and multi-tenant data centres",
-  "Only residential server rooms and home offices",
-  "Only utility substations with no data-centre equipment",
-  "Only cloud applications, excluding physical data-centre facilities",
+  "Enterprise-owned (on-premises) data centre",
+  "Public SaaS multi-tenant application platform",
+  "Retail colocation cage only",
+  "Content delivery edge POP leased by the hour",
 ]
 correct = "A"
-explanation = "TIA-942-C's public abstract explicitly includes both single-tenant enterprise and multi-tenant data centres."
+explanation = "In an enterprise-owned facility, the organization owns facility systems and usually the IT gear as well."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "remember"

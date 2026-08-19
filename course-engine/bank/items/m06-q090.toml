@@ -7,15 +7,15 @@
 id = "m06-q090"
 kind = "single-select"
 module = 6
-stem = "What does IEC TR 62060:2001 help users obtain for operating stationary lead-acid batteries?"
+stem = "Battery conductance/impedance testing programs for lead-acid fleets mainly support:"
 choices = [
-  "Information indicating the batteries' state of health",
-  "An intentional increase in PUE",
-  "Removal of the need for any UPS",
+  "Increasing PUE intentionally",
+  "Removing need for any UPS",
+  "Predictive replacement and health trending before hard failures",
   "Permanent open-circuit operation",
 ]
-correct = "A"
-explanation = "The current IEC catalog says the guide assists users in selecting methods to obtain sufficient information indicating the state of health of operating stationary lead-acid batteries; it does not expose a conductance/impedance trending program."
+correct = "C"
+explanation = "Scheduled battery health testing is core opex discipline for lead-acid plants."
 topic_ids = ["m06-batteries"]
 objective_ids = []
 bloom = "apply"

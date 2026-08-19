@@ -5,15 +5,15 @@
 id = "m06-q103"
 kind = "single-select"
 module = 6
-stem = "IEC TS 62898-3-2:2024 lists which function for a microgrid energy-management system (MEMS)?"
+stem = "Renewables in critical-facility energy strategy typically:"
 choices = [
-  "Economic and environmental optimization",
-  "Automatic removal of all backup-capacity requirements",
-  "Elimination of grounding and protection requirements",
-  "A fixed data-centre availability topology",
+  "Automatically replace firm capacity with no storage or risk analysis",
+  "Complement firm capacity (genset/contracts/storage) rather than magically erase 24×7 backup needs",
+  "Remove code requirements for grounding",
+  "Force N topology only",
 ]
-correct = "A"
-explanation = "The current IEC catalog for IEC TS 62898-3-2:2024 explicitly lists economic and environmental optimization among MEMS functions, alongside power/energy management, forecasting, balancing, and reporting. The catalog does not establish a universal renewables-versus-firm-capacity rule."
+correct = "B"
+explanation = "Firm capacity and risk analysis remain; renewables integrate—they do not wish away availability engineering."
 topic_ids = ["m06-sustainability", "m06-microgrid"]
 objective_ids = []
 bloom = "analyze"

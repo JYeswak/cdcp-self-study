@@ -6,15 +6,15 @@
 id = "m06-q092"
 kind = "single-select"
 module = 6
-stem = "What does IEC 62040-3:2021 explicitly specify for UPS equipment?"
+stem = "Double-conversion UPS helps power quality mainly by:"
 choices = [
-  "Performance and test requirements for a complete UPS and, where applicable, individual units",
   "Removing all downstream loose connections automatically",
   "Eliminating the need for any monitoring",
   "Cooling batteries with refrigerant always",
+  "Regenerating a controlled output and buffering many upstream disturbances",
 ]
-correct = "A"
-explanation = "The current IEC abstract explicitly specifies performance and test requirements for complete UPS and applicable individual functional units; it does not expose a double-conversion power-quality mechanism."
+correct = "D"
+explanation = "Online UPS isolates the load from many utility issues; downstream defects still matter."
 topic_ids = ["m06-power-quality", "m06-ups"]
 objective_ids = []
 bloom = "understand"

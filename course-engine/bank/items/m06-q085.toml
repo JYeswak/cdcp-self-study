@@ -6,15 +6,15 @@
 id = "m06-q085"
 kind = "single-select"
 module = 6
-stem = "IEC 62485-2:2010 applies to stationary secondary batteries and addresses:"
+stem = "UPS batteries are primarily:"
 choices = [
-  "Protection against electricity, gas emission, and electrolyte hazards, with safety activities for erection, use, inspection, maintenance, and disposal",
-  "Only multi-day grid services, with no installation or maintenance scope",
-  "Only CRAH humidification, with no battery hazards",
-  "A substitute for grounding and all other electrical protections",
+  "Short-duration, high-reliability storage tightly coupled to the UPS DC bus",
+  "Multi-day grid services assets by default",
+  "Used only for CRAH humidifiers",
+  "A substitute for all grounding",
 ]
 correct = "A"
-explanation = "The IEC catalog applies IEC 62485-2:2010 to stationary secondary batteries and lists protections against electricity, gas emission, and electrolyte hazards, along with erection, use, inspection, maintenance, and disposal. It does not define UPS autonomy or a UPS-versus-BESS duration distinction."
+explanation = "UPS strings bridge minutes-class events; BESS is a different plant-scale concept."
 topic_ids = ["m06-batteries", "m06-ups"]
 objective_ids = []
 bloom = "remember"

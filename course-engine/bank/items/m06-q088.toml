@@ -5,15 +5,15 @@
 id = "m06-q088"
 kind = "single-select"
 module = 6
-stem = "Which NFPA 855:2026 chapter heading covers operation and maintenance of stationary energy storage systems?"
+stem = "BESS (Battery Energy Storage System) differs from classic UPS batteries in that BESS often:"
 choices = [
-  "Chapter 3 — Definitions",
-  "Chapter 5 — System Interconnections",
-  "Chapter 7 — Operation and Maintenance",
-  "Chapter 14 — Storage of Lithium Metal or Lithium-ion Batteries",
+  "Is only a 30-second flywheel",
+  "Replaces generators with no interconnection study",
+  "Is banned from microgrids",
+  "Serves plant-scale roles such as peak shaving, demand response, or extended backup—not automatically identical to UPS ride-through",
 ]
-correct = "C"
-explanation = "The current NFPA 855 preview names Chapter 7 as Operation and Maintenance. The heading is a syllabus-grounded topic receipt, not a claim that BESS and UPS systems have identical roles."
+correct = "D"
+explanation = "BESS is plant-scale storage with multiple possible roles; do not assume it equals UPS batteries."
 topic_ids = ["m06-bess"]
 objective_ids = []
 bloom = "understand"

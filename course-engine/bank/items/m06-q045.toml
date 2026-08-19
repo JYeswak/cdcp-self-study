@@ -6,15 +6,15 @@
 id = "m06-q045"
 kind = "single-select"
 module = 6
-stem = "Which equipment-facing distribution scope does ISO/IEC 22237-3:2021 explicitly cover?"
+stem = "Floor/room PDUs, RPPs, and rack PDUs differ mainly by:"
 choices = [
-  "Power distribution systems to all equipment within data centres",
+  "Distribution hierarchy and form factor—room/row vs rack-level delivery",
   "Whether they use three-phase power (only floor PDUs can)",
   "Whether grounding is required",
   "Whether they can feed dual-corded gear",
 ]
 correct = "A"
-explanation = "The current ISO abstract explicitly covers distribution systems to all equipment; it does not expose a PDU hierarchy proposition."
+explanation = "PDU is an overloaded term: clarify floor/room, RPP, or rack PDU (rPDU) by role and location."
 topic_ids = ["m06-pdu"]
 objective_ids = []
 bloom = "understand"

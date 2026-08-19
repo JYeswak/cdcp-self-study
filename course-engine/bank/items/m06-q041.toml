@@ -6,15 +6,15 @@
 id = "m06-q041"
 kind = "single-select"
 module = 6
-stem = "Which distribution topic does ISO/IEC 22237-3:2021 explicitly cover?"
+stem = "Grey space in a data centre power context primarily refers to:"
 choices = [
-  "Power distribution systems to all equipment within data centres",
+  "Mechanical and electrical plant areas (UPS rooms, switchgear, generators)",
   "IT white space with server racks only",
   "Public lobby and visitor parking",
   "Only the raised-floor plenum under cold aisles",
 ]
 correct = "A"
-explanation = "The current ISO abstract explicitly covers power-distribution systems to all equipment; it does not expose grey-space terminology."
+explanation = "Grey space hosts plant—generators, UPS, switchgear—while white space is the IT floor."
 topic_ids = ["m06-distribution"]
 objective_ids = []
 bloom = "remember"

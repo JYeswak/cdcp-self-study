@@ -7,15 +7,15 @@
 id = "m02-q086"
 kind = "single-select"
 module = 2
-stem = "Which common data-centre elements does ISO/IEC 22237-1:2021 define?"
+stem = "Owner’s project specifications sit in the standards landscape as:"
 choices = [
-  "Terminology, parameters, and reference models including functional elements and their accommodation",
-  "Owner-specific contract terms that replace adopted codes",
-  "Only national permit procedures and AHJ enforcement rules",
-  "Only vendor product specifications and software configurations",
+  "Irrelevant if any ISO number is mentioned",
+  "Contractual requirements that may exceed code minimums but cannot lawfully undercut adopted code",
+  "Automatic replacements for building permits",
+  "Only decorative appendices",
 ]
-correct = "A"
-explanation = "The current ISO abstract says ISO/IEC 22237-1:2021 defines common aspects including terminology, parameters, and reference models for functional elements and their accommodation. It does not establish owner contract terms or permit enforcement."
+correct = "B"
+explanation = "Owner specs can raise the bar contractually but cannot legalize noncompliance with adopted code."
 topic_ids = ["m02-standards-guidelines", "m02-code-vs-standard"]
 objective_ids = []
 bloom = "understand"

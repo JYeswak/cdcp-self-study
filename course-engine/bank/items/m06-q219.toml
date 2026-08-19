@@ -6,15 +6,15 @@
 id = "m06-q219"
 kind = "single-select"
 module = 6
-stem = "IEC 61000-2-4:2024 considers which low-frequency conducted-disturbance phenomena?"
+stem = "Severe phase imbalance on a three-phase UPS output feeding mixed single-phase rack loads most often risks:"
 choices = [
-  "Voltage deviations, dips and short interruptions, voltage imbalance, frequency variation, harmonics/interharmonics, DC, and transient overvoltages",
-  "Only battery autonomy and generator fuel consumption",
-  "Only fibre polarity and cable insertion loss",
-  "Only fire alarm audibility and egress lighting"
+  "Automatic perfect balancing by the generator only",
+  "Higher battery amp-hours",
+  "Lower heat in transformers always",
+  "Overloaded phases, nuisance trips, or degraded UPS behavior"
 ]
-correct = "A"
-explanation = "The current IEC catalog lists voltage deviations, dips and short interruptions, voltage imbalance, power-frequency variations, harmonics/interharmonics, DC component, and transient overvoltages among the phenomena considered. It does not establish a UPS trip outcome or rack-loading rule."
+correct = "D"
+explanation = "Unbalanced phase loading concentrates current and can trip protection or stress the UPS."
 topic_ids = ["m06-phase", "m06-ups", "m06-sizing"]
 objective_ids = []
 bloom = "apply"

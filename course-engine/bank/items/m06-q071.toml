@@ -8,15 +8,15 @@
 id = "m06-q071"
 kind = "single-select"
 module = 6
-stem = "IEC 61558-2-4:2021 is a standard for:"
+stem = "An isolation transformer provides:"
 choices = [
-  "Safety requirements and tests for isolating transformers and power supplies incorporating them for general applications",
-  "Unlimited fault current and automatic generator starting",
-  "A replacement for all UPS energy storage",
-  "A guaranteed PUE value below 0.5"
+  "Unlimited fault current always",
+  "Galvanic isolation between circuits and can help certain noise/ground issues—not a UPS substitute",
+  "Automatic generator start",
+  "PUE below 0.5 by definition",
 ]
-correct = "A"
-explanation = "The current IEC catalog identifies IEC 61558-2-4 as covering safety requirements and tests for isolating transformers and related power supplies for general applications; noise, grounding, and UPS substitution are separate design questions."
+correct = "B"
+explanation = "Isolation is galvanic separation; still need proper UPS, grounding, and distribution design."
 topic_ids = ["m06-isolation-xfmr", "m06-transformers"]
 objective_ids = []
 bloom = "understand"

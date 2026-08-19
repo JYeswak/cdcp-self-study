@@ -7,15 +7,15 @@
 id = "m06-q222"
 kind = "single-select"
 module = 6
-stem = "ISO/IEC 22237-3:2021 specifies requirements and recommendations for:"
+stem = "A floor PDU or RPP sits between the UPS output and rack PDUs. Its role is best described as:"
 choices = [
-  "Power supplies, power distribution, telecommunications bonding, lightning protection, and measurement of power consumption/power quality with management-tool integration",
-  "Only battery energy storage and generator starting chargers",
-  "Only fire-suppression panels and physical access controls",
-  "Only IT software configuration and network-application selection"
+  "Battery energy storage only",
+  "Generator starting battery charger only",
+  "Distribution and protection or monitoring at room or zone scale before rack-level strips",
+  "Fire suppression control panel"
 ]
-correct = "A"
-explanation = "The current IEC catalog lists the bounded power-distribution topics in choice A. It does not expose a floor-PDU or RPP form-factor role, so that unsupported detail is not retained."
+correct = "C"
+explanation = "PDUs/RPPs intermediate distribute and protect between UPS plant and racks."
 topic_ids = ["m06-pdu", "m06-distribution"]
 objective_ids = []
 bloom = "understand"

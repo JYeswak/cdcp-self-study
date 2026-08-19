@@ -6,15 +6,15 @@
 id = "m06-q049"
 kind = "single-select"
 module = 6
-stem = "IEC 60947-6-1:2026 applies to transfer switching equipment used to:"
+stem = "Break-before-make transfer behaviour on a genset ATS means:"
 choices = [
-  "Transfer a load between power supply sources to ensure continuity of supply and permit energy management of the installation",
-  "Classify the degrees of protection provided by electrical enclosures",
-  "Specify stationary valve-regulated lead-acid battery requirements only",
-  "Measure only stand-alone static-transfer-system performance",
+  "The load is briefly disconnected from one source before connecting to the other (design-dependent timing)",
+  "Both sources are paralleled indefinitely for free capacity",
+  "UPS batteries are permanently removed",
+  "Neutral-ground bonds are created at every rack",
 ]
 correct = "A"
-explanation = "The IEC catalog says IEC 60947-6-1:2026 applies to transfer switching equipment used to transfer a load between power supply sources for continuity of supply and energy management."
+explanation = "Genset ATS designs are often break-before-make; seamless dual-live transfer is more an STS/online-UPS story."
 topic_ids = ["m06-ats-sts"]
 objective_ids = []
 bloom = "understand"

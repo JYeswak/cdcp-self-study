@@ -23,15 +23,15 @@
 id = "mock40-q19"
 kind = "single-select"
 module = 6
-stem = "ISO/IEC 22237-3:2021 addresses power supplies to:"
+stem = "Standby generators typically:"
 choices = [
-  "Data centres",
-  "Only residential lighting circuits",
-  "Only optical-fibre links",
-  "Only building water systems",
+  "Provide instantaneous power with zero transfer gap",
+  "Provide long-duration power after start/transfer; UPS covers the gap",
+  "Eliminate the need for fuel contracts",
+  "Are only used for lighting",
 ]
-correct = "A"
-explanation = "The current ISO OBP abstract states that ISO/IEC 22237-3:2021 addresses power supplies to, and power distribution within, data centres. It does not expose the prior generator-start or UPS-bridge timing proposition."
+correct = "B"
+explanation = "Generators supply long-duration power after start/transfer; the UPS bridges the seconds-class gap."
 topic_ids = ["m06-generators", "m06-ups"]
 objective_ids = []
 bloom = "understand"
