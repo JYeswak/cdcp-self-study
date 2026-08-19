@@ -256,30 +256,22 @@ pub fn prepare_probe_lockfile(engine: &Path) -> Result<(), String> {
     if !engine.join("Cargo.toml").is_file() {
         return Ok(());
     }
-    let output = Command::new("cargo")
+    let out = Command::new("cargo")
         .args(["generate-lockfile", "--offline"])
         .current_dir(engine)
         .output()
-        .map_err(|e| format!(
-            "prepare prove-wired scratch lockfile: cannot run cargo generate-lockfile --offline: {e}"
-        ))?;
-    if output.status.success() {
+        .map_err(|e| format!("scratch lockfile: {e}"))?;
+    if out.status.success() {
         return Ok(());
     }
     Err(format!(
-        "prepare prove-wired scratch lockfile: cargo generate-lockfile --offline failed (status {:?}): {}{}",
-        output.status.code(),
-        String::from_utf8_lossy(&output.stderr).trim(),
-        if output.stdout.is_empty() {
-            String::new()
-        } else {
-            format!("; stdout: {}", String::from_utf8_lossy(&output.stdout).trim())
-        }
+        "scratch lockfile failed ({:?}): {}",
+        out.status.code(),
+        String::from_utf8_lossy(&out.stderr).trim()
     ))
 }
 
-/// Materialise the index and bootstrap only the scratch lock needed by a
-/// behavioural probe. The ordinary materialiser remains an exact snapshot.
+/// Materialise the index and bootstrap its scratch lock for a behavioural probe.
 pub fn materialise_probe_index(root: &Path, dest: &Path) -> Result<PathBuf, String> {
     let engine = materialise_index(root, dest)?;
     prepare_probe_lockfile(&engine)?;

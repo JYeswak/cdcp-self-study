@@ -744,7 +744,7 @@ fn the_two_drift_shapes_are_byte_identical() {
     // The known-GOOD leg: a floor keyed to a DECLARED module is not drift. This
     // gate applies its own floor of one item, so an aligned row changes nothing.
     let aligned = td.path().join("policy_aligned.toml");
-    write(&aligned, "[[domain_min]]\nmodule = 1\nmin_items = 4\n");
+    write(&aligned, "[[domain_min]]\nmodule = \"١\"\nmin_items = 4\n");
     let args = suite_args(
         reg.to_str().unwrap(),
         topics_ok.to_str().unwrap(),

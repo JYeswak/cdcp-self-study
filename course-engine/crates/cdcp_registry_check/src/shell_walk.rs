@@ -658,7 +658,12 @@ pub fn describe_exit(code: Option<i32>) -> String {
 /// attribution is a heuristic and is worded as one: the only PASS (`Propagates`)
 /// additionally requires check.sh to have exited non-zero, and everything the
 /// text leaves open lands in `Unattributable`, which is an ERROR rather than a pass.
-pub fn classify_probe(log: &str, exit_code: Option<i32>, plant: &str, gate_name: &str) -> ProbeVerdict {
+pub fn classify_probe(
+    log: &str,
+    exit_code: Option<i32>,
+    plant: &str,
+    gate_name: &str,
+) -> ProbeVerdict {
     let lines: Vec<&str> = log.lines().collect();
     let verdict_at = lines
         .iter()
@@ -740,30 +745,50 @@ mod tests {
 
     #[test]
     fn walk_finds_cargo_run() {
-        let walk = walk_invocations("#!/bin/sh\ncargo run -p cdcp_gate -- substrate-guard\n", |_| None).expect("walk");
-        assert!(walk.cargo.contains("cargo run -p cdcp_gate -- substrate-guard"));
+        let walk = walk_invocations(
+            "#!/bin/sh\ncargo run -p cdcp_gate -- substrate-guard\n",
+            |_| None,
+        )
+        .expect("walk");
+        assert!(walk
+            .cargo
+            .contains("cargo run -p cdcp_gate -- substrate-guard"));
     }
 
     #[test]
     fn presence_test_recognized() {
-        let walk = walk_invocations("#!/bin/sh\n[ -f scripts/check.py ] && echo exists\n", |_| None).expect("walk");
+        let walk = walk_invocations(
+            "#!/bin/sh\n[ -f scripts/check.py ] && echo exists\n",
+            |_| None,
+        )
+        .expect("walk");
         assert!(walk.presence.contains("scripts/check.py"));
     }
 
     #[test]
     fn script_still_invokes_py_direct() {
-        assert!(script_still_invokes_py("#!/bin/sh\npython3 scripts/foo.py\n", "scripts/foo.py"));
-        assert!(!script_still_invokes_py("#!/bin/sh\npython3 scripts/bar.py\n", "scripts/foo.py"));
+        assert!(script_still_invokes_py(
+            "#!/bin/sh\npython3 scripts/foo.py\n",
+            "scripts/foo.py"
+        ));
+        assert!(!script_still_invokes_py(
+            "#!/bin/sh\npython3 scripts/bar.py\n",
+            "scripts/foo.py"
+        ));
     }
 
     #[test]
     fn reason_claims_check_sh_invoke_matches() {
         assert!(reason_claims_check_sh_invoke("Load-bearing check.sh gate"));
         assert!(reason_claims_check_sh_invoke("check.sh invokes this"));
-        assert!(reason_claims_check_sh_invoke("check.sh hard-fails if missing"));
+        assert!(reason_claims_check_sh_invoke(
+            "check.sh hard-fails if missing"
+        ));
         assert!(reason_claims_check_sh_invoke("byte-exact oracle"));
         assert!(reason_claims_check_sh_invoke("oracle required for test"));
-        assert!(!reason_claims_check_sh_invoke("Differential oracle. Not a check.sh step."));
+        assert!(!reason_claims_check_sh_invoke(
+            "Differential oracle. Not a check.sh step."
+        ));
         assert!(!reason_claims_check_sh_invoke("authoring helper"));
     }
 
@@ -793,7 +818,9 @@ mod tests {
     #[test]
     fn is_inventoried_oracle_script_accepts_valid() {
         assert!(is_inventoried_oracle_script("scripts/verify_bank.py"));
-        assert!(is_inventoried_oracle_script("scripts/validate_grounding.py"));
+        assert!(is_inventoried_oracle_script(
+            "scripts/validate_grounding.py"
+        ));
         assert!(is_inventoried_oracle_script("scripts/smoke_test.py"));
         assert!(is_inventoried_oracle_script("scripts/VERIFY_BANK.PY"));
     }
@@ -803,7 +830,9 @@ mod tests {
         assert!(!is_inventoried_oracle_script("scripts/helper.py"));
         assert!(!is_inventoried_oracle_script("scripts/verify_bank.sh"));
         assert!(!is_inventoried_oracle_script("other/verify_bank.py"));
-        assert!(!is_inventoried_oracle_script("scripts/subdir/verify_bank.py"));
+        assert!(!is_inventoried_oracle_script(
+            "scripts/subdir/verify_bank.py"
+        ));
     }
 
     #[test]
@@ -811,13 +840,22 @@ mod tests {
         let plant = "scripts/__probe__.py";
         let gate = "substrate-guard";
         let ok = "==> substrate-guard\nFAIL scripts/__probe__.py\n";
-        assert_eq!(classify_probe(ok, Some(2), plant, gate), ProbeVerdict::Propagates);
+        assert_eq!(
+            classify_probe(ok, Some(2), plant, gate),
+            ProbeVerdict::Propagates
+        );
 
         let swallowed = "==> substrate-guard\nFAIL scripts/__probe__.py\ncheck.sh: ok: next-step\n";
-        assert!(matches!(classify_probe(swallowed, Some(0), plant, gate), ProbeVerdict::Swallowed(_)));
+        assert!(matches!(
+            classify_probe(swallowed, Some(0), plant, gate),
+            ProbeVerdict::Swallowed(_)
+        ));
 
         let never_ran = "==> substrate-guard\ncheck.sh: ok: substrate-guard\n";
-        assert_eq!(classify_probe(never_ran, Some(0), plant, gate), ProbeVerdict::NeverRan);
+        assert_eq!(
+            classify_probe(never_ran, Some(0), plant, gate),
+            ProbeVerdict::NeverRan
+        );
     }
 
     #[test]

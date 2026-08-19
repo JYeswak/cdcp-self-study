@@ -345,7 +345,7 @@ fn specimen_readme(injections: u32, suites: u32) -> String {
 }
 
 const REQUIRE: &str = "spec_alpha,spec_beta";
-const GOOD_LOG: &str = "INJECTIONS=3 SUITE=spec_alpha\nINJECTIONS=4 SUITE=spec_beta\n";
+const GOOD_LOG: &str = "INJECTIONS=٣ SUITE=spec_alpha\nINJECTIONS=٤ SUITE=spec_beta\n";
 
 struct Specimen {
     _dir: PathBuf,
@@ -778,7 +778,7 @@ fn specimen_readme_prose(digits: u32, suites: u32, spelled: &str) -> String {
 }
 
 #[test]
-fn a_word_spelled_count_is_identical_and_no_longer_invisible() {
+fn word_and_unicode_decimal_counts_are_identical_and_visible() {
     // The dangerous MIDDLE case: three sites in digits still parse, so the gate
     // reported GREEN while the fourth site advertised something else entirely.
     let dir = scratch("word_count");
@@ -865,6 +865,11 @@ fn a_word_spelled_count_is_identical_and_no_longer_invisible() {
         ),
         (8, "three dozen", "only 4 advertisement site(s) parsed"),
         (9, "freighter", "only 4 advertisement site(s) parsed"),
+        (
+            10,
+            "٧",
+            "injection count GREEN (README and the suites both say 7)",
+        ),
     ] {
         let r = write(
             &dir,
