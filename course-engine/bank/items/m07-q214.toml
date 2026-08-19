@@ -20,4 +20,4 @@ objective_ids = []
 bloom = "analyze"
 source_class = "original"
 quantity_evidence = "free_url"
-status = "draft"
+status = "approved"
