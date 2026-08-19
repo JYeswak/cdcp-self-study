@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Facility criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# PASS: the public abstract describes the general facility and infrastructure
+# aspects required to support data centres.
+id = "m03-q114"
+kind = "single-select"
+module = 3
+stem = "What does ISO/IEC 22237-1:2021 describe among the general aspects of data-centre facilities and infrastructures?"
+choices = [
+  "The facilities and infrastructures required to support data centres",
+  "Only software licensing and application deployment",
+  "Consumer device specifications unrelated to facilities",
+  "A replacement for selecting information-technology equipment",
+]
+correct = "A"
+explanation = "The ISO/IEC 22237-1:2021 public abstract says it describes general aspects of the facilities and infrastructures required to support data centres."
+topic_ids = ["m03-facility-criteria"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

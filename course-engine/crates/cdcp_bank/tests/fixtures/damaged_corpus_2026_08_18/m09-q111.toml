@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Cooling principles
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# PASS: the current ISO preview explicitly includes fluid movement control within
+# environmental control for data centres.
+id = "m09-q111"
+kind = "single-select"
+module = 9
+stem = "Which flow-related environmental-control domain does ISO/IEC 22237-4:2021 explicitly specify?"
+choices = [
+  "Fluid movement control",
+  "Only lighting contributes to environmental control",
+  "Only battery-float current is addressed",
+  "Only cable-path attenuation is addressed",
+]
+correct = "A"
+explanation = "The current ISO preview explicitly lists fluid movement control among the environmental-control requirements and recommendations for data centres; it does not establish the former IT-electricity-to-room-heat proposition."
+topic_ids = ["m09-principles"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

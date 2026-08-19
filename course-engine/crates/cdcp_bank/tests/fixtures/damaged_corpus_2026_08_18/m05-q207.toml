@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Connecting and positioning light fixtures
+# Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
+# PASS: the current ISO OBP abstract explicitly states the public/worker access context below. No standard body or PDF was fetched.
+id = "m05-q207"
+kind = "single-select"
+module = 5
+stem = "ISO 30061:2007 is principally applicable to emergency-lighting locations where:"
+choices = [
+  "The public or workers have access",
+  "Only outdoor solar panels have access",
+  "Only generator fuel tanks have access",
+  "No person can ever enter",
+]
+correct = "A"
+explanation = "The current ISO OBP abstract says ISO 30061:2007 is principally applicable to locations where the public or workers have access. It does not expose the prior normal/emergency circuit-coordination proposition."
+topic_ids = ["m05-fixtures", "m05-emergency"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

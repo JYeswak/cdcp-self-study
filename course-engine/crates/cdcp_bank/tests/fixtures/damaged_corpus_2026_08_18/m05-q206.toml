@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Connecting and positioning light fixtures
+# Official catalog/preview receipt: ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html
+# PASS: the public abstract explicitly states that emergency-lighting
+# commissioning is outside the scope of this document.
+id = "m05-q206"
+kind = "single-select"
+module = 5
+stem = "What lighting topic does ISO/CIE 8995-1:2025 explicitly say is not applicable to this document?"
+choices = [
+  "Emergency lighting",
+  "Indoor workplace lighting",
+  "Visual comfort and safety needs",
+  "Daylight and electric-light combinations",
+]
+correct = "A"
+explanation = "The ISO/CIE 8995-1:2025 public abstract says the document is not applicable for emergency lighting and points to ISO 30061."
+topic_ids = ["m05-fixtures", "m05-measurements"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

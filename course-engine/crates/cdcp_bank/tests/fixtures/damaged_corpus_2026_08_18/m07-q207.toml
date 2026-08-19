@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Types of EMF
+# PASS: IEC 61786-2:2014 official abstract explicitly names frequency content,
+# temporal/spatial variations, polarization, and magnitude as field differences.
+# https://webstore.iec.ch/en/publication/5907
+id = "m07-q207"
+kind = "single-select"
+module = 7
+stem = "Which factor does IEC 61786-2:2014 explicitly identify as varying among field-source environments?"
+choices = [
+  "Frequency content",
+  "Only voltage with zero current always",
+  "Only humidity percentage",
+  "Only the color of insulation"
+]
+correct = "A"
+explanation = "The current IEC abstract explicitly names frequency content among environmental differences; it does not expose a current-versus-voltage teaching rule."
+topic_ids = ["m07-types", "m07-units"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

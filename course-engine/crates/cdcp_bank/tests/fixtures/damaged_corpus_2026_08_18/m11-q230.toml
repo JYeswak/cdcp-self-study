@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — ebrr.25 leftover: one fabric cut = one job
+# Public syllabus heading: Cabling redundancy
+# Official catalog/preview receipt: ISO/IEC TS 22237-5:2018 — https://www.iso.org/standard/73012.html
+# PASS: the current ISO catalog explicitly includes telecommunications cabling
+# used to monitor and control power distribution, environmental control, and
+# physical security. No paid body or PDF was fetched.
+id = "m11-q230"
+kind = "single-select"
+module = 11
+stem = "ISO/IEC TS 22237-5:2018 includes telecommunications cabling used to monitor and control:"
+choices = [
+  "Power distribution, environmental control, and physical security of the data centre",
+  "Only application software and cloud billing",
+  "Only office access badges, with power and cooling excluded",
+  "Only the public internet, with no facility systems involved",
+]
+correct = "A"
+explanation = "The ISO abstract lists cabling to monitor and control power distribution, environmental control, and physical security."
+topic_ids = ["m11-redundancy"]
+objective_ids = ["obj-m11-gpu-fabric-availability"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

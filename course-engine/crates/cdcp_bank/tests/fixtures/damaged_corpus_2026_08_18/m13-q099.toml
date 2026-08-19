@@ -1,0 +1,25 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-6:2024 —
+# https://www.iso.org/standard/82250.html
+# PASS: the current official abstract explicitly names intrusion as a
+# physical-security protection concern.
+id = "bank-m13-q099"
+kind = "single-select"
+module = 13
+stem = "Which physical-security protection concern does ISO/IEC 22237-6:2024 explicitly name?"
+choices = [
+  "Intrusion",
+  "Office catering capacity",
+  "Rack paint selection",
+  "Fuel-delivery pricing",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly names intrusion as a physical-security protection concern. It does not establish the former lock-versus-detection proposition."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

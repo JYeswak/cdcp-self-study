@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Maintenance contracts / SLA
+# PASS: ISO/IEC TS 22237-7:2018 official abstract explicitly names
+# availability as a primary management-and-operations focus.
+# https://www.iso.org/standard/73014.html?browse=tc
+id = "bank-m15-q153"
+kind = "single-select"
+module = 15
+stem = "Which availability-related primary focus does ISO/IEC TS 22237-7:2018 explicitly name?"
+choices = [
+  "Availability",
+  "Ignore the mismatch",
+  "Assume the vendor teleports parts instantly",
+  "Delete the internal target"
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly names availability as a primary focus; it does not expose an SLA-versus-MTTR policy."
+topic_ids = ["m15-maintenance-sla", "m15-mtbf-mttr"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

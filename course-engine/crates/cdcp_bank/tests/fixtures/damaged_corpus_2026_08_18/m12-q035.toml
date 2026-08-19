@@ -1,0 +1,22 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+# Public syllabus heading: Gas-based fire suppression
+# Official catalog/preview receipt: NFPA 2001, 2025 — https://link.nfpa.org/all-publications/2001/2025
+# PASS: the current official preview identifies NFPA 2001 as the Standard on Clean Agent Fire Extinguishing Systems. No paid body or PDF was fetched.
+id = "mock40-q35"
+kind = "single-select"
+module = 12
+stem = "The current NFPA 2001 preview identifies NFPA 2001 as the:"
+choices = [
+  "Standard on Clean Agent Fire Extinguishing Systems",
+  "Standard on Emergency and Standby Power Systems",
+  "National Electrical Code for premises wiring",
+  "Standard for the Installation of Stationary Pumps for Fire Protection",
+]
+correct = "A"
+explanation = "The current NFPA LiNK preview labels NFPA 2001:2025 as the Standard on Clean Agent Fire Extinguishing Systems. The preview title does not establish relative water-damage, cost, or detection-system tradeoffs."
+topic_ids = ["m12-gas-suppression"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

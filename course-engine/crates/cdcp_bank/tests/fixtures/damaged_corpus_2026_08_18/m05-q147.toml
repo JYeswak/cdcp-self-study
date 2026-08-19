@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: Measurements of light
+# Official catalog/preview receipt: ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html
+# PASS: the public abstract explicitly states that the standard specifies
+# lighting requirements for humans in indoor workplaces.
+id = "m05-q147"
+kind = "single-select"
+module = 5
+stem = "What does ISO/CIE 8995-1:2025 specify for indoor workplaces?"
+choices = [
+  "Lighting requirements intended to meet visual comfort, performance, and safety needs of people",
+  "Only network-cable testing requirements",
+  "Only chiller approach-temperature requirements",
+  "Only data-centre classification ratings",
+]
+correct = "A"
+explanation = "The ISO/CIE 8995-1:2025 public abstract says it specifies lighting requirements for visual comfort, performance, and safety of people in indoor workplaces."
+topic_ids = ["m05-measurements", "m05-fixtures"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

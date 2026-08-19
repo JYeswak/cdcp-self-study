@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: current NFPA 2001 (2025) public NFPA LiNK catalog/preview URL —
+# https://link.nfpa.org/all-publications/2001/2025
+# Boundary: NFPA 2001 is the clean-agent fire-extinguishing-systems receipt;
+# it does not replace detection, room-specific design, maintenance, or egress.
+id = "m12-q203"
+kind = "single-select"
+module = 12
+stem = "Clean-agent / gas suppression systems are chosen in some IT spaces primarily to:"
+choices = [
+  "Provide fire extinguishing with less residual water damage when properly designed and maintained",
+  "Increase oxygen concentration during fire",
+  "Replace detection entirely",
+  "Heat the room faster"
+]
+correct = "A"
+explanation = "The current NFPA 2001 catalog identifies the clean-agent fire-extinguishing-systems standard. That supports the distinction from water damage, while the item remains bounded: detection, enclosure/design controls, maintenance, and life safety are not removed."
+topic_ids = ["m12-gas-suppression"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,24 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288
+# PASS: the current IEC catalog explicitly covers dimensions and design aspects
+# for 1U chassis mounted in compliant racks/cabinets where loaded weight and
+# accessibility affect assembly methods. No paid body or PDF was fetched.
+id = "m08-q046"
+kind = "single-select"
+module = 8
+stem = "IEC 60297-3-105:2008 addresses which rack-hardware scope?"
+choices = [
+  "Dimensions and design aspects for 1U chassis mounted in compliant racks/cabinets where loaded weight and accessibility affect assembly methods",
+  "Only cloud-software licensing and application latency",
+  "Only fire-agent selection for rooms without equipment racks",
+  "A universal rack power or cooling capacity rating"
+]
+correct = "A"
+explanation = "The IEC catalog describes 1U chassis dimensions and design aspects for compliant racks/cabinets, including loaded-weight and accessibility considerations."
+topic_ids = ["m08-types"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

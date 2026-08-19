@@ -1,0 +1,27 @@
+# Original CDCP educational MCQ — public heading: 1.12 Fire Protection.
+# Syllabus: https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Sources: NFPA 855, 2026 edition, public NFPA LiNK preview —
+# https://link.nfpa.org/all-publications/855/2026 ; UL 9540A, Edition 6,
+# active UL Standards catalog — https://www.shopulstandards.com/ProductDetail.aspx?UniqueKey=49792 ;
+# UL 9540, Edition 3, active UL Standards catalog —
+# https://www.shopulstandards.com/ProductDetail.aspx?productId=UL9540_3_S_20230628
+# Boundaries: installation standard, test method, and product/system safety standard
+# remain distinct; no site-specific fire response or listing is inferred.
+id = "m12-q226"
+kind = "single-select"
+module = 12
+stem = "Reviewer is handed a Li-ion ESS packet: “UL 9540A is the product listing; NFPA 855 is automatically the law everywhere; and a test report settles the AHJ review.” You should:"
+choices = [
+  "Approve: sealed-room gas dump plus a fire percent is the 2026 playbook",
+  "Convert the packet into the Module 06 interconnect oral so the fire question goes away",
+  "Invent an agent mass and a travel-distance number to sound precise",
+  "Reject the packet: NFPA 855 is the installation standard, UL 9540A is test data/method, and UL 9540 is the ESS product/system safety standard; verify adopted editions and AHJ requirements instead of treating a test report as a listing or universal fire response",
+]
+correct = "D"
+explanation = "The packet collapses three distinct document roles. NFPA 855 is an installation standard, UL 9540A is a thermal-runaway/fire-propagation test method, and UL 9540 is the ESS product/system safety standard. Adoption and AHJ requirements must be checked for the installation; the item does not turn a test report into a listing or invent a site fire response."
+topic_ids = ["m12-standards", "m12-suppression-reqs", "m12-regulatory"]
+objective_ids = ["obj-m12-liion-855"]
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Power strips / rails
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476
+# PASS: the official IEC catalog explicitly covers power distribution systems
+# to all equipment within data centres. No paid body or PDF was fetched.
+id = "m08-q053"
+kind = "single-select"
+module = 8
+stem = "Which distribution scope is explicitly listed in the ISO/IEC 22237-3:2021 catalog?"
+choices = [
+  "Power distribution systems to all equipment within data centres",
+  "Only cloud-service licensing",
+  "Only fire-agent selection",
+  "Only optical-fibre connector polishing",
+]
+correct = "A"
+explanation = "The IEC catalog explicitly includes power distribution systems to all equipment within data centres; it does not expose a universal zero-U PDU mounting rule."
+topic_ids = ["m08-power-strips"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

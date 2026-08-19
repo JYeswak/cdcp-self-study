@@ -1,0 +1,23 @@
+# Original CDCP educational item — M07 HEMP evidence boundary.
+# Public syllabus heading: EMF standards and best practices
+# Official catalog/preview receipt: IEC TS 61000-5-10:2017 — https://webstore.iec.ch/en/publication/30054
+# PASS: the current IEC catalog explicitly provides guidelines to protect
+# commercial facilities from HEMP and IEMI.
+id = "m07-q214"
+kind = "single-select"
+module = 7
+stem = "What does IEC TS 61000-5-10:2017 explicitly provide?"
+choices = [
+  "Guidelines to protect commercial facilities from HEMP and IEMI",
+  "A guarantee that every commercial facility is HEMP hardened",
+  "A universal field value for every site",
+  "A fibre run that by itself proves HEMP protection",
+]
+correct = "A"
+explanation = "The current IEC catalog explicitly says IEC TS 61000-5-10 provides guidelines to protect commercial facilities from HEMP and IEMI; it does not establish a MIL-STD evidence proposition."
+topic_ids = ["m07-standards", "m07-sources"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "free_url"
+status = "approved"

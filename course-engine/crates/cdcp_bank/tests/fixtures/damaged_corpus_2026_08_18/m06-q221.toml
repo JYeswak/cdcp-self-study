@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Power distribution / busbar trunking
+# Official catalog/preview receipt: IEC 61439-6:2012 — https://webstore.iec.ch/en/publication/5463
+# PASS: the current IEC catalog lays down definitions, service conditions,
+# construction requirements, technical characteristics, and verification
+# requirements for low-voltage busbar trunking systems (busways).
+id = "m06-q221"
+kind = "single-select"
+module = 6
+stem = "IEC 61439-6:2012 lays down requirements for:"
+choices = [
+  "Low-voltage busbar trunking systems (busways), including their definitions, construction, technical characteristics, and verification",
+  "Replace all UPS systems",
+  "Eliminate fire detection needs",
+  "Provide humidification"
+]
+correct = "A"
+explanation = "The IEC catalog scopes IEC 61439-6 to low-voltage busbar trunking systems and lists definitions, service conditions, construction, technical characteristics, and verification requirements."
+topic_ids = ["m06-distribution"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

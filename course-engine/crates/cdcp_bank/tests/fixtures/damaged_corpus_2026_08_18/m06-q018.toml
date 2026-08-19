@@ -1,0 +1,43 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 9 of 24).
+# Duplicate of m06-q058 (bank/items/m06-q058.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 92% · distractors 54% · stem 85%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT m06-q058:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — m06-q058 names the mechanism (AC->DC->AC) rather than repeating the key, and its
+#      first distractor ("Passes utility straight through with no inverter in normal
+#      mode") is a real VFD/line-interactive misconception; this copy's "with no battery
+#      ever" is answerable by absurdity.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
+# Public syllabus heading: UPS systems
+# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
+# PASS: the IEC catalog explicitly states that covered UPS have a primary
+# function of ensuring continuity of load power. No paid body or PDF was fetched.
+id = "mock40-q18"
+kind = "single-select"
+module = 6
+stem = "Under the IEC 62040-3:2021 catalog scope, the primary function of a covered UPS is to:"
+choices = [
+  "Ensure continuity of load power",
+  "Provide only chilled-water flow control",
+  "Replace every facility distribution board",
+  "Provide only physical access control",
+]
+correct = "A"
+explanation = "The IEC catalog states that the primary function of covered electronic UPS is to ensure continuity of load power; it does not expose a universal double-conversion isolation claim."
+topic_ids = ["m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "retired"

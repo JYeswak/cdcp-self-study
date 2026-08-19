@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Power distribution / busbar trunking
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476
+# PASS: the official catalog explicitly lists telecommunications bonding and
+# lightning protection among its requirements and recommendations.
+id = "m06-q239"
+kind = "single-select"
+module = 6
+stem = "Which pair is explicitly listed in the ISO/IEC 22237-3:2021 catalog scope?"
+choices = [
+  "Telecommunications infrastructure bonding and lightning protection",
+  "Application failover and database replication",
+  "Cooling-tower chemistry and humidifier water treatment",
+  "Visitor escort and badge anti-passback",
+]
+correct = "A"
+explanation = "The IEC catalog for ISO/IEC 22237-3:2021 explicitly lists telecommunications infrastructure bonding and lightning protection."
+topic_ids = ["m06-distribution", "m06-ups", "m06-ats-sts"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

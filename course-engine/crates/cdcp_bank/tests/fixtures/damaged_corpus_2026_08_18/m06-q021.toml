@@ -1,0 +1,41 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 12 of 24).
+# Duplicate of m06-q100 (bank/items/m06-q100.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 100% · distractors 100% · stem 57%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT m06-q100:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — m06-q100 adds the correction the item exists for ("It is not an availability
+#      design") on top of the formula; this copy stops at the formula. The two carry
+#      IDENTICAL distractor sets (100%) with the key moved D -> B.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
+# Public syllabus heading: Power sustainability
+# Official catalog/preview receipt: ISO/IEC 30134-2:2026 — https://www.iso.org/standard/30134-2?browse=ics
+# PASS: the current ISO OBP page explicitly defines PUE as a data-centre energy-efficiency KPI. No standard body or PDF was fetched.
+id = "mock40-q21"
+kind = "single-select"
+module = 6
+stem = "ISO/IEC 30134-2:2026 defines PUE as the key performance indicator for:"
+choices = [
+  "Quantifying how efficiently a data centre uses energy",
+  "Quantifying only water consumption during the use phase",
+  "Measuring staff headcount per generator kilowatt",
+  "Measuring optical-fibre utilization only",
+]
+correct = "A"
+explanation = "The current ISO OBP page identifies PUE as the globally recognized KPI for quantifying how efficiently a data centre uses energy. The public page also describes standardized measurement, calculation, reporting, and measurement categories, but this item does not infer the exact formula beyond that published scope."
+topic_ids = ["m06-sustainability"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "retired"

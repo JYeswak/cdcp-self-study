@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: Emergency light
+# Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
+# PASS: the current ISO catalog states that ISO 30061:2007 was reviewed and
+# confirmed in 2023 and remains current.
+id = "m05-q146"
+kind = "single-select"
+module = 5
+stem = "What current-status statement appears on the ISO 30061:2007 catalog page?"
+choices = [
+  "The edition was reviewed and confirmed in 2023 and remains current",
+  "The edition was withdrawn before publication",
+  "The page identifies only an under-development draft",
+  "The standard is current only if its PDF body is fetched",
+]
+correct = "A"
+explanation = "The ISO catalog page states that ISO 30061:2007 was last reviewed and confirmed in 2023 and therefore remains current."
+topic_ids = ["m05-emergency"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Maintenance contracts / SLA
+# PASS: ISO/IEC TS 22237-7:2018 official abstract explicitly names risk
+# mitigation as a primary management-and-operations focus.
+# https://www.iso.org/standard/73014.html?browse=tc
+id = "bank-m15-q148"
+kind = "single-select"
+module = 15
+stem = "Which risk-related primary focus does ISO/IEC TS 22237-7:2018 explicitly name?"
+choices = [
+  "Risk mitigation",
+  "Maintenance never affects production",
+  "Vendors prefer no documentation",
+  "SLAs forbid all maintenance"
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly names risk mitigation as a primary focus; it does not expose a preventive-maintenance change-control procedure."
+topic_ids = ["m15-maintenance-sla", "m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

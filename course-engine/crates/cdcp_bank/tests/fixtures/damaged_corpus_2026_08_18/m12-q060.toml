@@ -1,0 +1,22 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Handheld fire extinguishers
+# Official public-code receipt: 29 CFR 1910.157 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157
+# Claim is limited to the public OSHA requirements for accessibility and operable condition; no agent-selection rule is inferred.
+id = "bank-m12-q060"
+kind = "single-select"
+module = 12
+stem = "Under 29 CFR 1910.157(c), portable extinguishers provided for employees must be:"
+choices = [
+  "Mounted, located, and identified for ready access, and maintained charged and operable",
+  "Stored out of sight until a fire alarm is confirmed",
+  "Chosen only by room name, without considering accessibility",
+  "Removed from designated places whenever not being used"
+]
+correct = "A"
+explanation = "29 CFR 1910.157(c)(1) requires portable extinguishers to be mounted, located, and identified so they are readily accessible without exposing employees to possible injury. Section (c)(4) requires them to remain fully charged, operable, and in designated places except during use. The public rule does not establish a data-centre agent preference."
+topic_ids = ["m12-extinguishers", "m12-best-practices"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

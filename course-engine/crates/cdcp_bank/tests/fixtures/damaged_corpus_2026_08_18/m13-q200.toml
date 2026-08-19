@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: current NFPA 730 (2026) public NFPA LiNK preview —
+# https://link.nfpa.org/all-publications/730/2026
+# Boundary: planning, administrative controls, perimeters, and security
+# systems support layered security; no site-specific architecture is inferred.
+id = "m13-q200"
+kind = "single-select"
+module = 13
+stem = "Layered physical security for a data centre typically includes:"
+choices = [
+  "Only a polite sign asking visitors to leave",
+  "Only CCTV without access control",
+  "Only a shared PIN written on the door",
+  "Perimeter, building, suite/room, and cabinet controls with audit trails—not a single lock"
+]
+correct = "D"
+explanation = "The current NFPA 730 preview exposes security planning, administrative controls, security perimeters, and security systems. That supports layered physical security; the item does not prescribe a site-specific architecture or logging design."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

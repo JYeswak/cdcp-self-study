@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power redundancy levels and techniques
+# PASS: ISO/IEC 22237-3:2021 official abstract explicitly covers power supplies
+# to data centres.
+# https://www.iso.org/standard/78551.html
+id = "m06-q043"
+kind = "single-select"
+module = 6
+stem = "Which supply-related topic does ISO/IEC 22237-3:2021 explicitly cover?"
+choices = [
+  "Power supplies to data centres",
+  "The same rack PDU outlet strip for neat cabling",
+  "A single UPS module through a Y-splitter",
+  "Lighting circuits to free IT breakers",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly covers power supplies to data centres; it does not expose a dual-cord A/B feed proposition."
+topic_ids = ["m06-redundancy", "m06-pdu"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

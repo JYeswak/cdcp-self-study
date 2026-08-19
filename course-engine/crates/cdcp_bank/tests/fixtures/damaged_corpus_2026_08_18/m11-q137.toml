@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — not an exam dump
+# Public syllabus heading: Copper cabling
+# Official catalog/preview receipt: IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201
+# Claim is limited to the public IEC catalog's installed balanced-cabling measurement and field-tester scope.
+id = "m11-q137"
+kind = "single-select"
+module = 11
+stem = "Before a copper cabling installation is accepted, which practice matches IEC 61935-1:2019's public catalog scope?"
+choices = [
+  "Use reference measurement procedures and appropriate field-tester accuracy",
+  "Skip measurement when the patch field looks orderly",
+  "Treat a successful ping as the complete cabling certification",
+  "Increase the cable category rating through software"
+]
+correct = "A"
+explanation = "The IEC 61935-1:2019 public catalog specifies reference measurement procedures for installed balanced cabling and requirements for field-tester accuracy. It does not make visual inspection, a single ping, or software a substitute for measurement."
+topic_ids = ["m11-copper", "m11-testing", "m11-planning"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

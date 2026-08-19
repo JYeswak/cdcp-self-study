@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: PDU form factors
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476
+# PASS: the current IEC catalog explicitly covers data-centre power supplies,
+# power distribution, bonding, lightning protection, and power measurement/
+# quality integration with management tools.
+id = "m06-q222"
+kind = "single-select"
+module = 6
+stem = "ISO/IEC 22237-3:2021 specifies requirements and recommendations for:"
+choices = [
+  "Power supplies, power distribution, telecommunications bonding, lightning protection, and measurement of power consumption/power quality with management-tool integration",
+  "Only battery energy storage and generator starting chargers",
+  "Only fire-suppression panels and physical access controls",
+  "Only IT software configuration and network-application selection"
+]
+correct = "A"
+explanation = "The current IEC catalog lists the bounded power-distribution topics in choice A. It does not expose a floor-PDU or RPP form-factor role, so that unsupported detail is not retained."
+topic_ids = ["m06-pdu", "m06-distribution"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

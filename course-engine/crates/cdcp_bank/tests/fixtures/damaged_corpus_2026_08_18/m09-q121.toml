@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Temperature and humidity
+# PASS: ISO/IEC 22237-4:2021 official abstract explicitly includes physical
+# security of environmental-control systems among its topics.
+# https://www.iso.org/standard/78552.html
+id = "m09-q121"
+kind = "single-select"
+module = 9
+stem = "Which security-related environmental-control category does ISO/IEC 22237-4:2021 explicitly include?"
+choices = [
+  "Physical security of environmental-control systems",
+  "UPS batteries always need 100% RH",
+  "Fiber only works when fog is present",
+  "Raised floors must be flooded"
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly lists physical security of environmental-control systems; it does not expose a humidification trigger."
+topic_ids = ["m09-temp-humidity"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

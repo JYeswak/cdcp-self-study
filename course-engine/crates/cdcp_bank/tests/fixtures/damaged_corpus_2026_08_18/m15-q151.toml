@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Documentation
+# Official catalog/preview receipt: 29 CFR 1910.38 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-E/section-1910.38
+# PASS: the current public eCFR text lists the minimum elements of a written
+# emergency action plan.
+id = "bank-m15-q151"
+kind = "single-select"
+module = 15
+stem = "Under 29 CFR 1910.38, a written emergency action plan must include at minimum:"
+choices = [
+  "Procedures for reporting emergencies, evacuation and exit-route assignments, and accounting for employees after evacuation",
+  "Only a list of vendor telephone numbers",
+  "Only a diagram of the electrical one-line",
+  "Only an unreviewed calendar of maintenance windows"
+]
+correct = "A"
+explanation = "The current public eCFR text requires written emergency-action-plan procedures for reporting emergencies, evacuation including exit-route assignments, and accounting for employees after evacuation."
+topic_ids = ["m15-documentation", "m15-ops-security"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

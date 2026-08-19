@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Business organization / DC in the business" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# PASS: the current official abstract explicitly names terminology,
+# parameters, and reference models among common data-centre aspects.
+id = "m01-q041"
+kind = "single-select"
+module = 1
+stem = "Which common data-centre aspect does ISO/IEC 22237-1:2021 explicitly define?"
+choices = [
+  "Terminology, parameters, and reference models",
+  "A mandatory vendor staffing ratio",
+  "A universal PUE target",
+  "A single global electricity tariff",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly defines common aspects of data centres including terminology, parameters, and reference models."
+topic_ids = ["m01-business-org"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

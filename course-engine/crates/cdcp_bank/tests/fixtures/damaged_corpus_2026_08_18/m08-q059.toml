@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283
+# PASS: the official catalog explicitly names the covered 19-inch-series
+# front-panel, subrack, chassis, rack, and cabinet dimensions.
+id = "m08-q059"
+kind = "single-select"
+module = 8
+stem = "Which equipment set is explicitly included in IEC 60297-3-100:2008's basic-dimensions scope?"
+choices = [
+  "Front panels, subracks, chassis, racks, and cabinets of the 482.6 mm (19 in) series",
+  "Only cooling towers and chilled-water pumps",
+  "Only generator enclosures and fuel tanks",
+  "Only network software and cloud tenancy records",
+]
+correct = "A"
+explanation = "The IEC catalog explicitly names front panels, subracks, chassis, racks, and cabinets of the 482.6 mm (19 in) series."
+topic_ids = ["m08-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,24 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Batteries
+# Official catalog/preview receipt: IEC 60896-22:2004 — https://webstore.iec.ch/en/publication/3851
+# PASS: the current IEC catalog states that this part applies to stationary
+# valve-regulated lead-acid cells and monobloc batteries for float-charge use,
+# including UPS and emergency-power applications.
+id = "m06-q086"
+kind = "single-select"
+module = 6
+stem = "IEC 60896-22 applies to stationary valve-regulated lead-acid cells and monobloc batteries used for:"
+choices = [
+  "Float-charge applications in stationary equipment or battery rooms, including UPS and emergency power",
+  "Zero-maintenance operation without inspection or monitoring",
+  "Unlimited cycle life regardless of operating conditions",
+  "Portable equipment that is routinely moved between sites",
+]
+correct = "A"
+explanation = "The IEC catalog scopes IEC 60896-22 to stationary VRLA cells and monobloc batteries for float-charge applications, including UPS, utility switching, emergency power, and similar uses."
+topic_ids = ["m06-batteries"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — ebrr.28 leftover: 2.1 training-program requirements
+# Public syllabus heading: Operational security and safety practices
+# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
+# PASS: the current ISO page explicitly identifies management processes that
+# align actual and future user demands as the secondary focus. No paid body or
+# PDF was fetched.
+id = "m15-q220"
+kind = "single-select"
+module = 15
+stem = "The secondary focus named by ISO/IEC TS 22237-7:2018 is:"
+choices = [
+  "Management processes that align actual and future demands of users",
+  "Only a generator fuel-quality procedure",
+  "Only an electrical protective-device coordination study",
+  "Only a physical badge enrollment workflow",
+]
+correct = "A"
+explanation = "The ISO abstract names management processes aligning actual and future user demands as the secondary focus; it does not prescribe a vendor class, certification hour-count, or training interval."
+topic_ids = ["m15-ops-security", "m15-documentation"]
+objective_ids = ["obj-m15-training-program"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

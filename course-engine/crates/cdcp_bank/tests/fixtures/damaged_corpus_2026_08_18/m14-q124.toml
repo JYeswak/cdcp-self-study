@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Notification
+# Official catalog/preview receipt: IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543
+# PASS: the current IEC catalog explicitly lists alarm/event logs, alarm
+# historians, and alarm-system performance metrics as additional functions.
+id = "bank-m14-q124"
+kind = "single-select"
+module = 14
+stem = "IEC 62682:2022 identifies which additional alarm-system functions?"
+choices = [
+  "An alarm and event log, an alarm historian, and alarm-system performance metrics",
+  "Only cooling-water chemistry and fire-agent selection",
+  "Only software authentication and network segmentation",
+  "A universal ranking of open frames over all locked cabinets"
+]
+correct = "A"
+explanation = "The current IEC catalog identifies an alarm and event log, an alarm historian, and generation of alarm-system performance metrics as additional alarm-system functions."
+topic_ids = ["m14-notification", "m14-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

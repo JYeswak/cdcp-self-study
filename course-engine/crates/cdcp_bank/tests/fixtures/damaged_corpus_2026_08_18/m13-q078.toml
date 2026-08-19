@@ -1,0 +1,24 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-6:2024 —
+# https://www.iso.org/standard/82250.html
+# Claim is limited to the public abstract's intrusion-protection scope.
+id = "bank-m13-q078"
+kind = "single-select"
+module = 13
+stem = "Which threat is explicitly listed in the physical-security scope of ISO/IEC 22237-6:2024?"
+choices = [
+  "Intrusion",
+  "A mandatory anti-tailgating mantrap design",
+  "Fiber macrobend loss",
+  "Cooling-tower water chemistry drift"
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly lists intrusion among the threats addressed by ISO/IEC 22237-6:2024. It does not prescribe the former mantrap or tailgating proposition."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

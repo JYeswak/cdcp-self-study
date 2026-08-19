@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 7)
+# Public syllabus heading: Sources of EMF
+# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
+# PASS: the current IEC catalog names power lines and electric appliances as
+# examples of devices operating at power frequencies that produce fields.
+id = "m07-q044"
+kind = "single-select"
+module = 7
+stem = "Which source example does the current IEC 61786-2 catalog identify for power-frequency fields?"
+choices = [
+  "Power lines and electric appliances",
+  "Plastic blanking panels and fibre patch cords",
+  "LED exit signs only",
+  "Empty cable trays with no current",
+]
+correct = "A"
+explanation = "The current IEC catalog lists devices operating at power frequencies, including power lines and electric appliances, as field sources; it does not establish a transformer/busbar/UPS ranking."
+topic_ids = ["m07-sources"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

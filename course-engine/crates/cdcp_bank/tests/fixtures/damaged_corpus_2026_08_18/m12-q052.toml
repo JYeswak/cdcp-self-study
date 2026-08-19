@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Gas-based fire suppression
+# Official public-code receipts: OSHA 29 CFR 1910.162 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.162
+# and NIOSH Carbon dioxide IDLH — https://www.cdc.gov/niosh/idlh/124389.html
+# OSHA requires protection from toxic gaseous-agent exposure and pre-discharge warning for CO2 systems; NIOSH records a revised CO2 IDLH of 40,000 ppm and lethal-concentration data.
+id = "bank-m12-q052"
+kind = "single-select"
+module = 12
+stem = "CO2 total flooding at design concentrations for occupied white space is generally:"
+choices = [
+  "The default preferred agent for all server rooms",
+  "Required by every network cabling standard",
+  "Used only to cool CRAC coils",
+  "Avoided because concentrations effective for fire can be lethal to people"
+]
+correct = "D"
+explanation = "CO2 total flooding must not expose occupants to toxic concentrations: OSHA requires controls against toxic gaseous-agent exposure and pre-discharge warning for qualifying CO2 systems, while NIOSH lists a 40,000 ppm IDLH and lethal-concentration data. The item is a bounded life-safety receipt, not a design approval or credential claim."
+topic_ids = ["m12-gas-suppression"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

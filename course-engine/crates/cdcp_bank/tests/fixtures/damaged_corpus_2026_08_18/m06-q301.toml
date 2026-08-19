@@ -1,0 +1,24 @@
+# Original runbook vignette — operational scenario (not an exam dump)
+# Public syllabus heading: ATS and STS
+# Official catalog/preview receipt: IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494
+# PASS: IEC 60947-6-1:2026 official abstract explicitly gives specific
+# requirements for ATSE having closed transition capability.
+id = "m06-q301"
+kind = "single-select"
+module = 6
+stem = "Which transfer-switching category does IEC 60947-6-1:2026 explicitly identify for specific requirements?"
+choices = [
+  "ATSE having closed transition capability",
+  "Always retransfer instantly on any utility voltage recovery",
+  "Shut down the UPS static bypass permanently during every generator event",
+  "Open the EPO so all paths de-energize before any retransfer decision"
+]
+correct = "A"
+explanation = "The current IEC abstract explicitly identifies ATSE having closed transition capability; it does not expose a sync/timer/retransfer runbook."
+topic_ids = ["m06-ats-sts", "m06-generators"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
+tags = ["runbook", "vignette"]

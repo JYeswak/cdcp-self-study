@@ -1,0 +1,24 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Common causes of fire
+# Official public regulation: OSHA 29 CFR 1910.334 —
+# https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.334
+# PASS: the current OSHA text covers safe re-energization after protective-device
+# operation and prohibits repetitive manual reclosing. No PDF was fetched.
+id = "bank-m12-q067"
+kind = "single-select"
+module = 12
+stem = "After an electrical protective device de-energizes a circuit, a fire-safe operating practice is to:"
+choices = [
+  "Determine that the equipment and circuit can be safely energized before re-energizing, and avoid repetitive manual reclosing",
+  "Repeatedly reclose the breaker until the circuit stays on",
+  "Bypass the protective device without inspection",
+  "Disable smoke detection during the investigation"
+]
+correct = "A"
+explanation = "OSHA requires a safety determination before re-energizing after protective-device operation and prohibits repetitive manual reclosing; detailed connection torque and thermography programs require additional evidence."
+topic_ids = ["m12-causes", "m12-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

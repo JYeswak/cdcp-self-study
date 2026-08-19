@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Causes of unavailability" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC TS 22237-31:2026 —
+# https://www.iso.org/standard/88711.html?browse=tc
+# Claim is limited to the current public abstract's infrastructure scope.
+id = "m01-q208"
+kind = "single-select"
+module = 1
+stem = "Which infrastructure does ISO/IEC TS 22237-31:2026 explicitly cover in its KPI scope?"
+choices = [
+  "Data-centre power distribution and supply, and environmental control",
+  "Only cloud applications and business software",
+  "Only physical security doors and visitor systems",
+  "Only telecommunications carrier contracts"
+]
+correct = "A"
+explanation = "The current ISO catalog says ISO/IEC TS 22237-31:2026 covers data-centre infrastructure for power distribution and supply and environmental control. It does not expose a universal outage-cause taxonomy."
+topic_ids = ["m01-unavailability"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

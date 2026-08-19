@@ -1,0 +1,27 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public heading: CDCP "Grounding and bonding" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# Source: current OSHA 1910.303(b)(5) and 1910.304(f)(1)(i), fault clearing and
+# overcurrent protection —
+# https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.303
+# https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304
+# Claim boundary: the public text supports distinct grounding and overcurrent
+# requirements; no breaker setting or coordination result is invented.
+id = "m06-q248"
+kind = "single-select"
+module = 6
+stem = "Which pairing reflects OSHA's separate grounding and overcurrent requirements?"
+choices = [
+  "Provide a permanent, continuous, effective grounding path and select overcurrent protection for the conductors and equipment it protects",
+  "Use bonding alone to clear every fault without overcurrent protection",
+  "Use overcurrent protection only for fiber pathways",
+  "Treat grounding and overcurrent protection as identical mechanisms"
+]
+correct = "A"
+explanation = "The current rules separately address a permanent, continuous, effective grounding path and overcurrent protection selected for the circuit's ability to safely conduct current and clear faults."
+topic_ids = ["m06-grounding-bonding"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

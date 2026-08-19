@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Ingress Protection (IP) grades
+# Official catalog/preview receipt: IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV — https://webstore.iec.ch/en/publication/2452
+# PASS: the current IEC catalog defines the IP Code as classification of the
+# degrees of protection provided by enclosures for electrical equipment.
+id = "m06-q083"
+kind = "single-select"
+module = 6
+stem = "IEC 60529 classifies the degrees of protection provided by enclosures for:"
+choices = [
+  "Electrical equipment, including protection against specified solid-object and liquid ingress conditions",
+  "UPS runtime in minutes",
+  "Internet Protocol routing versions only",
+  "Generator fuel octane",
+]
+correct = "A"
+explanation = "The IEC catalog identifies IEC 60529 as the standard for classifying enclosure protection for electrical equipment; the IP Code is not an Internet Protocol version."
+topic_ids = ["m06-ip-grades"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

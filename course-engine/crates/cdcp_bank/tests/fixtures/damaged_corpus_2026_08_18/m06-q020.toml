@@ -1,0 +1,40 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 11 of 24).
+# Duplicate of m06-q074 (bank/items/m06-q074.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 73% · distractors 46% · stem 80%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT m06-q074:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — m06-q074 names the operational benefit in the vocabulary a candidate is tested on
+#      ("reconfiguration agility for row power"); this copy restates its own key.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
+# Public syllabus heading: Power distribution / busbar trunking
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
+# PASS: the current ISO OBP abstract explicitly covers power distribution systems to all equipment within data centres. No standard body or PDF was fetched.
+id = "mock40-q20"
+kind = "single-select"
+module = 6
+stem = "Within ISO/IEC 22237-3:2021, the power-distribution requirement applies to:"
+choices = [
+  "Power distribution systems to all equipment within data centres",
+  "Replacing fire-detection systems",
+  "Directly cooling compute chips",
+  "Only optical-fibre test methods",
+]
+correct = "A"
+explanation = "The current ISO OBP abstract explicitly states that ISO/IEC 22237-3:2021 specifies requirements and recommendations for power distribution systems to all equipment within data centres. It does not expose the prior overhead-busway tap-off flexibility proposition."
+topic_ids = ["m06-distribution"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "retired"

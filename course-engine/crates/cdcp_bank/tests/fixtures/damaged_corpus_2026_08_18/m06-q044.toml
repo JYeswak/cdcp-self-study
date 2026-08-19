@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power distribution / busbar trunking
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
+# PASS: the official catalog explicitly includes power distribution systems to
+# all equipment within data centres.
+id = "m06-q044"
+kind = "single-select"
+module = 6
+stem = "Which topic is explicitly included in the ISO/IEC 22237-3:2021 catalog scope?"
+choices = [
+  "Power distribution systems to all equipment within data centres",
+  "Application software release sequencing",
+  "Cloud-provider billing and tenancy policy",
+  "Office furniture procurement",
+]
+correct = "A"
+explanation = "The IEC catalog for ISO/IEC 22237-3:2021 explicitly lists power distribution systems to all equipment within data centres."
+topic_ids = ["m06-distribution", "m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

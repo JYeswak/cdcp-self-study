@@ -1,0 +1,27 @@
+# Original CDCP educational MCQ — not an exam dump
+# Public heading: CDCP "Liquid cooling" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# Current official preview pin: ASHRAE Standard 90.4-2025 —
+# https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards
+# Public claim source: ASHRAE AI Data Center Energy Performance Framework —
+# https://www.ashrae.org/technical-resources/ai-data-center-framework/energy-and-thermal-efficiency
+# Claim boundary: direct-to-chip and rear-door approaches are bounded to
+# high-density heat removal; no rack class, temperature, or cooling guarantee.
+id = "m09-q161"
+kind = "single-select"
+module = 9
+stem = "Liquid cooling is increasingly discussed for high-density AI/HPC racks because:"
+choices = [
+  "Air has infinite heat-carrying capacity at any density",
+  "Direct-to-chip or rear-door approaches can support high-density racks while reducing mechanical load and improving heat removal",
+  "Liquids eliminate all electrical power draw",
+  "Only lighting needs liquid assist"
+]
+correct = "B"
+explanation = "The current ASHRAE framework identifies direct-to-chip and rear-door heat exchangers as liquid-cooling architectures for high-density racks, with potential reductions in mechanical load and improved heat removal. It does not establish a universal rack class or operating setpoint."
+topic_ids = ["m09-liquid", "m09-supplemental"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

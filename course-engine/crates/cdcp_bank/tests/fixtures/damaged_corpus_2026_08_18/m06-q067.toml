@@ -1,0 +1,24 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Generators
+# Official catalog/preview receipt: IEC 60364-5-55:2011+AMD1:2012+AMD2:2016 CSV —
+# https://webstore.iec.ch/en/publication/25534
+# PASS: the current consolidated IEC catalog covers selection and erection of
+# low-voltage generating sets. No paid body or PDF was fetched.
+id = "m06-q067"
+kind = "single-select"
+module = 6
+stem = "IEC 60364-5-55:2011 is scoped to requirements for:"
+choices = [
+  "Selection and erection of low-voltage generating sets in fixed installations",
+  "Eliminating all switchgear and transfer equipment",
+  "Replacing every UPS battery by definition",
+  "Operating engines without any installation or safety requirements"
+]
+correct = "A"
+explanation = "The public IEC catalog identifies selection and erection of low-voltage generating sets as the exposed scope; paralleling, load-sharing, redundancy, and site-specific controls require additional evidence."
+topic_ids = ["m06-generators", "m06-redundancy"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

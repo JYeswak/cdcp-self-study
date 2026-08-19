@@ -1,0 +1,22 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Monitoring requirements
+# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
+# PASS: the current official abstract explicitly lists capacity planning as a primary focus.
+id = "bank-m14-q115"
+kind = "single-select"
+module = 14
+stem = "Which topic does the ISO/IEC TS 22237-7:2018 abstract list among its primary operational-process focuses?"
+choices = [
+  "Capacity planning",
+  "Office catering menus",
+  "Cable color selection",
+  "Badge-printing vendor selection"
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly lists capacity planning among the primary operational-process focuses. It does not establish the item’s former redundancy-loss monitoring proposition."
+topic_ids = ["m14-monitoring-reqs", "m14-best-practices"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

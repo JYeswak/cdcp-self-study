@@ -1,0 +1,25 @@
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Temperature and humidity
+# Official IEC vocabulary receipt: IEC 60050 IEV 113-04-65 (relative humidity) —
+# https://www.electropedia.org/iev/iev.nsf/display?ievref=113-04-65&openform=
+# PASS: the current public IEC vocabulary defines relative humidity as the ratio
+# of water-vapour partial pressure to saturation partial pressure at the same
+# temperature. No paid body or PDF was fetched.
+id = "m09-q220"
+kind = "single-select"
+module = 9
+stem = "Which statement correctly defines relative humidity in the public IEC vocabulary?"
+choices = [
+  "It is the ratio of water-vapour partial pressure to saturation partial pressure at the same temperature",
+  "It is a measure of amperage through a humidifier",
+  "It is defined only for outdoor weather stations",
+  "It is identical to dew-point temperature in every condition"
+]
+correct = "A"
+explanation = "IEC Electropedia defines relative humidity using the water-vapour partial pressure and saturation partial pressure at the same temperature; dew-point comparisons are outside this receipt."
+topic_ids = ["m09-temp-humidity"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

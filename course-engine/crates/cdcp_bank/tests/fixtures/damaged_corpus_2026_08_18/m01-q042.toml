@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Types of data centres" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: TIA-942-C (May 2024) —
+# https://tiaonline.org/standard/tia-942/
+# PASS: the public abstract explicitly names single-tenant enterprise and
+# multi-tenant data centres.
+id = "m01-q042"
+kind = "single-select"
+module = 1
+stem = "Which facility contexts does the TIA-942-C public abstract explicitly include?"
+choices = [
+  "Single-tenant enterprise data centres and multi-tenant data centres",
+  "Only residential server rooms and home offices",
+  "Only utility substations with no data-centre equipment",
+  "Only cloud applications, excluding physical data-centre facilities",
+]
+correct = "A"
+explanation = "TIA-942-C's public abstract explicitly includes both single-tenant enterprise and multi-tenant data centres."
+topic_ids = ["m01-dc-types"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: PDU form factors
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476
+# PASS: the current IEC catalog explicitly includes devices for measuring power
+# consumption and power-quality characteristics and their integration within
+# management tools.
+id = "m06-q223"
+kind = "single-select"
+module = 6
+stem = "What measurement capability does ISO/IEC 22237-3:2021 explicitly include?"
+choices = [
+  "Devices for measuring power consumption and power-quality characteristics, integrated within management tools",
+  "Bypassing grounding codes",
+  "Disabling generator testing forever",
+  "Replacing STS devices in all cases",
+]
+correct = "A"
+explanation = "The current IEC catalog explicitly includes devices for measuring power consumption and power-quality characteristics at points along the distribution system and their integration within management tools; it does not define switched-rack-PDU operations."
+topic_ids = ["m06-pdu"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

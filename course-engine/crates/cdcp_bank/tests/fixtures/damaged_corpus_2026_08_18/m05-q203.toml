@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Types of emergency light
+# Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
+# PASS: the current ISO OBP abstract explicitly states the emergency-lighting scope below. No standard body or PDF was fetched.
+id = "m05-q203"
+kind = "single-select"
+module = 5
+stem = "ISO 30061:2007 specifies which subject?"
+choices = [
+  "Luminous requirements for emergency lighting systems installed where such systems are required",
+  "Only outdoor solar lighting systems",
+  "Permanent replacement of all normal lighting",
+  "Only data-centre UPS battery testing",
+]
+correct = "A"
+explanation = "The current ISO OBP abstract states that ISO 30061:2007 specifies the luminous requirements for emergency lighting systems installed in premises or locations where such systems are required. It does not expose the local-versus-central architecture comparison."
+topic_ids = ["m05-emergency-types", "m05-emergency"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,24 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: UPS systems
+# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
+# PASS: the current IEC catalog explicitly covers UPS performance/test
+# requirements, energy storage, continuity of load power, and UPS functional
+# units/switches. No paid body or PDF was fetched.
+id = "m06-q058"
+kind = "single-select"
+module = 6
+stem = "IEC 62040-3:2021 specifies performance and test requirements for UPS that:"
+choices = [
+  "Incorporate an energy-storage device and have a primary function of ensuring continuity of load power, including applicable functional units and switches",
+  "Only operate as conventional AC distribution boards with no energy storage",
+  "Only cover rotary UPS and exclude electronic UPS functional units",
+  "Replace cooling plants rather than providing electrical continuity",
+]
+correct = "A"
+explanation = "The IEC catalog says IEC 62040-3:2021 applies to electronic UPS incorporating an energy-storage device whose primary function is continuity of load power, and specifies complete-UPS and applicable functional-unit/switch performance and tests. It does not expose a double-conversion isolation claim."
+topic_ids = ["m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

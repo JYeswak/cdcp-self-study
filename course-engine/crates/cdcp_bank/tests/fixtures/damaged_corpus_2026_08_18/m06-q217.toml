@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public heading: CDCP "Grounding and bonding" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# Source: current OSHA 1910.304(g)(4)(i), grounding connections —
+# https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.304
+# Claim boundary: this pins the public grounding-connection location; it does
+# not infer a universal site topology or a jurisdiction-specific exception.
+id = "m06-q217"
+kind = "single-select"
+module = 6
+stem = "For a grounded premises-wiring system, where does OSHA place the connection of the equipment grounding conductor and grounded circuit conductor to the grounding electrode?"
+choices = [
+  "On the supply side of the service or system disconnecting means, with the separately derived-system exception stated in the rule",
+  "At every downstream panel without regard to the system configuration",
+  "Only at the farthest IT rack",
+  "Nowhere; the grounding electrode connection is optional"
+]
+correct = "A"
+explanation = "The current rule places both conductors at the grounded circuit conductor on the supply side of the service disconnecting means, or the corresponding point for a separately derived system. The item does not turn that public boundary into a universal N-G topology rule."
+topic_ids = ["m06-grounding-bonding"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

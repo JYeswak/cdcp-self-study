@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Lighting standards
+# Official catalog/preview receipt: ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc
+# PASS: the current ISO catalog says that this commissioning document presents
+# details without focusing on the technical characteristics of specific components.
+id = "m05-q210"
+kind = "single-select"
+module = 5
+stem = "ISO/TS 21274:2020 presents commissioning details without focusing on:"
+choices = [
+  "The technical characteristics of specific lighting components",
+  "Meeting design specifications for a lighting system",
+  "Commissioning lighting systems in non-residential buildings",
+  "Commissioning lighting systems in public spaces of multi-residence buildings",
+]
+correct = "A"
+explanation = "The current ISO preview says ISO/TS 21274 presents commissioning details without focusing on the technical characteristics of specific components."
+topic_ids = ["m05-standards", "m05-fixtures"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

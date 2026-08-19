@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Importance of a data centre" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# PASS: the current ISO preview explicitly names availability, security, and
+# energy-efficiency as the key criteria for its data-centre classification system.
+id = "m01-q056"
+kind = "single-select"
+module = 1
+stem = "Which criteria does ISO/IEC 22237-1:2021 explicitly use for its data-centre classification system?"
+choices = [
+  "Availability, security, and energy-efficiency over the planned lifetime",
+  "Only office aesthetics",
+  "Only human-error counts with no facility criteria",
+  "Only rack-label color and cable length",
+]
+correct = "A"
+explanation = "The current ISO preview explicitly names availability, security, and energy-efficiency as the key criteria for its classification system over the planned lifetime; it does not establish an executive redundancy-investment rule."
+topic_ids = ["m01-importance", "m01-elements"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

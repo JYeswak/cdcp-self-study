@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Types of raised floors" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://www.iso.org/standard/82248.html
+# Claim is limited to the public abstract's quality-construction category.
+id = "m04-q129"
+kind = "single-select"
+module = 4
+stem = "Which quality-related topic is explicitly listed by ISO/IEC 22237-2:2024?"
+choices = [
+  "Quality construction measures",
+  "A universal panel-finish color standard",
+  "BGP policies for rack uplinks",
+  "A substitute for electrical-installation safety requirements",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly lists quality construction measures. It does not expose the former floor-panel materials, finishes, conductivity, or cleanliness proposition."
+topic_ids = ["m04-floor-types", "m04-floor-standards"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

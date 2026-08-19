@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Facility criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# PASS: ISO/IEC 22237-2:2024 official catalog names building construction as a
+# data-centre accommodation topic; the item is limited to that public abstract.
+# https://www.iso.org/standard/82248.html
+id = "m03-q096"
+kind = "single-select"
+module = 3
+stem = "Which topic does ISO/IEC 22237-2:2024 explicitly include in its scope for data-centre accommodation?"
+choices = [
+  "Building construction",
+  "Only exterior signage fonts",
+  "Diesel cetane rating",
+  "Badge printer toner choice",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly lists building construction for data-centre accommodation; it does not expose a clear-height engineering rule."
+topic_ids = ["m03-facility-criteria"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

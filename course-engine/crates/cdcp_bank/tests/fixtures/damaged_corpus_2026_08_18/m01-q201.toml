@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Causes of unavailability" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# PASS: the current official ISO 22301:2019 catalog preview explicitly lists a
+# systematic response to crises; it lists Amd 1:2024.
+# https://www.iso.org/standard/75106.html?browse=tc
+id = "m01-q201"
+kind = "single-select"
+module = 1
+stem = "Which crisis-management outcome does the current ISO 22301 preview explicitly list?"
+choices = [
+  "A systematic response to crises",
+  "A single UPS component failure with no human factor",
+  "Lightning strike with no process involvement",
+  "Utility feeder short circuit alone"
+]
+correct = "A"
+explanation = "The current ISO preview explicitly lists a systematic response to crises; it does not expose an organizational-cause taxonomy."
+topic_ids = ["m01-unavailability"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

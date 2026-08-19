@@ -1,0 +1,22 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power sustainability
+# Official catalog/preview receipt: IEC TS 62898-3-2:2024 — https://webstore.iec.ch/en/publication/61960
+# PASS: the official catalog explicitly lists microgrid energy-management functions below. No paid body or PDF was fetched.
+id = "m06-q103"
+kind = "single-select"
+module = 6
+stem = "IEC TS 62898-3-2:2024 lists which function for a microgrid energy-management system (MEMS)?"
+choices = [
+  "Economic and environmental optimization",
+  "Automatic removal of all backup-capacity requirements",
+  "Elimination of grounding and protection requirements",
+  "A fixed data-centre availability topology",
+]
+correct = "A"
+explanation = "The current IEC catalog for IEC TS 62898-3-2:2024 explicitly lists economic and environmental optimization among MEMS functions, alongside power/energy management, forecasting, balancing, and reporting. The catalog does not establish a universal renewables-versus-firm-capacity rule."
+topic_ids = ["m06-sustainability", "m06-microgrid"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

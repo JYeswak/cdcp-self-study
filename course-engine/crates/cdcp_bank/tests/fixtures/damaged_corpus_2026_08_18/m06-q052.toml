@@ -1,0 +1,22 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power redundancy levels and techniques
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
+# PASS: the current ISO OBP abstract explicitly covers power-consumption and power-quality measurement integrated with management tools. No standard body or PDF was fetched.
+id = "m06-q052"
+kind = "single-select"
+module = 6
+stem = "Which measurement capability is explicitly included in ISO/IEC 22237-3:2021?"
+choices = [
+  "Devices measuring power consumption and power-quality characteristics at points along the distribution system, with integration into management tools",
+  "Only room-temperature measurements",
+  "Only fibre-attenuation measurements",
+  "Only fuel-tank level measurements",
+]
+correct = "A"
+explanation = "The current ISO OBP abstract explicitly includes devices for measuring power consumption and power-quality characteristics at points along the data-centre power-distribution system and their integration within management tools. It does not expose the prior N+1 module-layer definition."
+topic_ids = ["m06-redundancy", "m06-ups-parallel"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

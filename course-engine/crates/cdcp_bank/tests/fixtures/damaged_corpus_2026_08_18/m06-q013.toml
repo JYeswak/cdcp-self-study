@@ -1,0 +1,23 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+# Public syllabus heading: Power distribution / busbar trunking
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
+# PASS: the current official abstract explicitly includes power supplies to
+# data centres in its requirements and recommendations.
+id = "mock40-q13"
+kind = "single-select"
+module = 6
+stem = "Which power topic does ISO/IEC 22237-3:2021 explicitly include in its requirements and recommendations?"
+choices = [
+  "Power supplies to data centres",
+  "Office catering workflows",
+  "Rack-label color palettes",
+  "Visitor-badge issuance",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly includes power supplies to data centres. It does not establish the item’s former utility/generator-to-rack sequence."
+topic_ids = ["m06-distribution", "m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

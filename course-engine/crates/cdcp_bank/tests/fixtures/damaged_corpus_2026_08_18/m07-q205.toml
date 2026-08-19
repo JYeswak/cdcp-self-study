@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Types of EMF
+# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
+# PASS: the official IEC catalog explicitly identifies the field-measurement and human-exposure scope below. No paid body or PDF was fetched.
+id = "m07-q205"
+kind = "single-select"
+module = 7
+stem = "The public scope of IEC 61786-2:2014 is concerned with:"
+choices = [
+  "Measurement of specified electric and magnetic fields to evaluate human-body exposure",
+  "A guarantee that magnetic fields destroy fibre-optic links",
+  "A prohibition on every current above 1 A",
+  "A universal packet-loss limit for all information technology"
+]
+correct = "A"
+explanation = "The current IEC catalog defines IEC 61786-2:2014 as a basic standard for measuring DC magnetic, AC magnetic, and AC electric fields from 1 Hz to 100 kHz with regard to human exposure. It does not establish the prior modern-IT or policy proposition."
+topic_ids = ["m07-types", "m07-standards"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

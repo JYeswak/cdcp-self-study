@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — ebrr.20 leftover (b) BTM walk-away
+# Public syllabus heading: CDCP "Site location selection criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# PASS: ISO/IEC 22237-2:2024 official abstract explicitly includes environmental
+# risks in its location/site-selection scope.
+# https://www.iso.org/standard/82248.html
+id = "m03-q217"
+kind = "single-select"
+module = 3
+stem = "Which site-selection topic does ISO/IEC 22237-2:2024 explicitly include?"
+choices = [
+  "Environmental risks",
+  "Every BTM pitch is a walk; on-site generation is never a legitimate site type",
+  "Flood plus a raised floor is the missing control",
+  "A site-selection review is limited to the marketing claim",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly includes environmental risks in location/site selection; it does not expose a behind-the-meter interconnection or permitting rule."
+topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
+objective_ids = ["obj-m03-btm-campus"]
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: MTBF / MTTR
+# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
+# PASS: the public abstract explicitly identifies risk management and risk
+# mitigation among the operational-process focus areas.
+id = "m15-q206"
+kind = "single-select"
+module = 15
+stem = "Which pair is explicitly included in the primary operational-process focus of ISO/IEC TS 22237-7:2018?"
+choices = [
+  "Risk management and risk mitigation",
+  "Office decoration and cafeteria planning",
+  "Cloud billing and application feature release cadence",
+  "Only fuel purchasing and vehicle dispatch",
+]
+correct = "A"
+explanation = "The public abstract explicitly names risk management and risk mitigation among the operational processes in primary focus."
+topic_ids = ["m15-mtbf-mttr", "m15-documentation", "m15-labelling"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

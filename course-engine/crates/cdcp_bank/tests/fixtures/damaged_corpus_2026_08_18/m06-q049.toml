@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: ATS and STS
+# Official catalog/preview receipt: IEC 60947-6-1:2026 — https://webstore.iec.ch/en/publication/90494
+# PASS: the current IEC catalog states that transfer switching equipment transfers
+# a load between power supply sources to ensure continuity of supply.
+id = "m06-q049"
+kind = "single-select"
+module = 6
+stem = "IEC 60947-6-1:2026 applies to transfer switching equipment used to:"
+choices = [
+  "Transfer a load between power supply sources to ensure continuity of supply and permit energy management of the installation",
+  "Classify the degrees of protection provided by electrical enclosures",
+  "Specify stationary valve-regulated lead-acid battery requirements only",
+  "Measure only stand-alone static-transfer-system performance",
+]
+correct = "A"
+explanation = "The IEC catalog says IEC 60947-6-1:2026 applies to transfer switching equipment used to transfer a load between power supply sources for continuity of supply and energy management."
+topic_ids = ["m06-ats-sts"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

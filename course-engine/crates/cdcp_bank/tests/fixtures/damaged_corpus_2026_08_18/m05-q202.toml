@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Connecting and positioning light fixtures
+# Official catalog/preview receipt: ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc
+# PASS: the public abstract explicitly states the building types to which the
+# document can be applied.
+id = "m05-q202"
+kind = "single-select"
+module = 5
+stem = "To which installations can ISO/TS 21274:2020 be applied according to its public abstract?"
+choices = [
+  "New installations of non-residential buildings and public spaces of multi-residence buildings",
+  "Only emergency-lighting commissioning in occupied data halls",
+  "Only software-controlled lighting in cloud applications",
+  "Only fuel-storage enclosures and generator rooms",
+]
+correct = "A"
+explanation = "The ISO public abstract says the document can be applied to new installations of non-residential buildings and public spaces of multi-residence buildings."
+topic_ids = ["m05-fixtures"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

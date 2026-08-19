@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: IEC 62966-2:2020 — https://webstore.iec.ch/en/publication/29770
+# PASS: the IEC catalog explicitly covers aisle-containment air leakage
+# measurement and classification for IT equipment typically used in data centres.
+id = "m08-q049"
+kind = "single-select"
+module = 8
+stem = "IEC 62966-2:2020 provides methods to measure and classify:"
+choices = [
+  "Aisle-containment air leakage",
+  "Only generator synchronization time",
+  "Only rack mounting-hole pitch",
+  "Only fire-agent discharge concentration",
+]
+correct = "A"
+explanation = "The IEC catalog describes methods for measuring aisle-containment air leakage and a classification system; it does not expose a universal blanking-panel rule."
+topic_ids = ["m08-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,24 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Gas-based fire suppression
+# Official public-code receipt: 29 CFR 1910.160 —
+# https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR7a02737a205fd22/section-1910.160
+# PASS: current eCFR text requires pre-discharge employee alarms and time for
+# safe exit for hazardous total-flooding systems.
+id = "bank-m12-q051"
+kind = "single-select"
+module = 12
+stem = "For a hazardous total-flooding fixed extinguishing system, 29 CFR 1910.160 requires:"
+choices = [
+  "A pre-discharge employee alarm capable of giving employees time to safely exit before discharge",
+  "Immediate discharge with no employee warning or egress provision",
+  "Only a water-flow alarm and no fixed-system safeguards",
+  "A universal refill interval and room-seal test value for every facility"
+]
+correct = "A"
+explanation = "Current 29 CFR 1910.160 requires a pre-discharge employee alarm for hazardous total-flooding systems, capable of giving employees time to safely exit before discharge. It does not establish clean-agent room-seal, HVAC-interlock, or refill values in this bounded item."
+topic_ids = ["m12-gas-suppression", "m12-water-suppression"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

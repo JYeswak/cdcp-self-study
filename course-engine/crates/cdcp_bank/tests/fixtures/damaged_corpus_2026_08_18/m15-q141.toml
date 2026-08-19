@@ -1,0 +1,22 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Cleaning
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html?browse=tc
+# PASS: the current ISO catalog explicitly lists particulate control as an environmental-control concern in data centres.
+id = "bank-m15-q141"
+kind = "single-select"
+module = 15
+stem = "ISO/IEC 22237-4:2021 explicitly includes which concern within data-centre environmental control?"
+choices = [
+  "Particulate control",
+  "Automatic copper Category-rating changes",
+  "Elimination of leak detection",
+  "Camera-retention policy"
+]
+correct = "A"
+explanation = "The ISO catalog for ISO/IEC 22237-4:2021 lists particulate control among the environmental-control requirements and recommendations for data centres. The item does not prescribe a cleaning method, vacuum type, or fire-risk calculation."
+topic_ids = ["m15-cleaning"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

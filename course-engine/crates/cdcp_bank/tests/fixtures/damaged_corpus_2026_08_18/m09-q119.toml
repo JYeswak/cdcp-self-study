@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Temperature and humidity
+# PASS: ISO/IEC 22237-4:2021 official abstract explicitly includes vibration
+# among environmental-control topics.
+# https://www.iso.org/standard/78552.html
+id = "m09-q119"
+kind = "single-select"
+module = 9
+stem = "Which physical environmental-control category does ISO/IEC 22237-4:2021 explicitly include?"
+choices = [
+  "Vibration",
+  "A deliberately heated cold aisle",
+  "Only an outdoor weather station reading",
+  "A battery room at float voltage"
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly lists vibration; it does not expose a localized hot-spot airflow proposition."
+topic_ids = ["m09-temp-humidity", "m09-raised-floor-cooling"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

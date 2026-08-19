@@ -1,0 +1,22 @@
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Types of cooling systems
+# Official public process receipt: DOE FEMP Cooling Water Efficiency Opportunities for Federal Data Centers — https://www.energy.gov/cmei/femp/cooling-water-efficiency-opportunities-federal-data-centers
+# The current DOE page traces IT heat from CRAH to chilled water, chiller, condenser-water loop, and cooling tower.
+id = "m09-q125"
+kind = "single-select"
+module = 9
+stem = "A chilled-water CRAH typically depends on which upstream plant element to reject heat?"
+choices = [
+  "Only a local DX compressor inside each server",
+  "Chillers and heat-rejection equipment (for example towers or dry coolers) serving the chilled-water loop",
+  "Only UPS battery chemistry",
+  "Only fiber patch panels"
+]
+correct = "B"
+explanation = "The current DOE FEMP schematic traces heat from air-cooled IT racks into the CRAH, then through the chilled-water system, chiller, condenser-water loop, and cooling tower. That directly supports the upstream plant chain in this bounded question."
+topic_ids = ["m09-system-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

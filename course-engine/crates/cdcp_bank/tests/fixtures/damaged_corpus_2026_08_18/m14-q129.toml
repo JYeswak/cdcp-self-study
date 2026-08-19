@@ -1,0 +1,22 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Building Management System (BMS)
+# Official catalog/preview receipt: ISO 16484-4:2025 — https://www.iso.org/standard/85751.html
+# Claim is limited to the public preview's BACS control-application scope; no change-control workflow is inferred.
+id = "bank-m14-q129"
+kind = "single-select"
+module = 14
+stem = "Which application domain is explicitly included in the public preview of ISO 16484-4:2025 for BACS control applications?"
+choices = [
+  "HVAC and integrated plant/room control",
+  "Only cable certification and fibre polarity",
+  "Only employee credential revocation",
+  "Only fuel-quality laboratory testing"
+]
+correct = "A"
+explanation = "The ISO 16484-4:2025 public preview covers BACS control applications including lighting, solar protection, and HVAC, with integrated plant and room control. It does not expose a universal BMS change-control workflow or setpoint value."
+topic_ids = ["m14-bms", "m14-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

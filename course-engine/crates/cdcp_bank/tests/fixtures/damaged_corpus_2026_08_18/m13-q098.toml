@@ -1,0 +1,27 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: NFPA 730 (2026) —
+# https://link.nfpa.org/all-publications/730/2026
+# PASS: the current NFPA preview explicitly lists Security Planning,
+# Administrative Controls, Security Perimeters, Crime Prevention Through
+# Environmental Design, and Security Systems as chapter headings. No paid body
+# or PDF was fetched.
+id = "bank-m13-q098"
+kind = "single-select"
+module = 13
+stem = "The NFPA 730:2026 preview lists which premises-security chapter topics?"
+choices = [
+  "Security planning, administrative controls, security perimeters, crime prevention through environmental design, and security systems",
+  "Only network QoS classes and cloud billing",
+  "Only UPS battery chemistries and generator synchronization",
+  "Only ASHRAE thermal envelopes and water chemistry"
+]
+correct = "A"
+explanation = "The official NFPA preview exposes those premises-security chapter headings."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

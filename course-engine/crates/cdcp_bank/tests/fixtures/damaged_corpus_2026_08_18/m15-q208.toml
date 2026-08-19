@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Labelling
+# Official catalog/preview receipt: 29 CFR 1910.303 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.303
+# PASS: the current public eCFR text requires the markings for disconnecting
+# means and circuits to be durable for the environment involved.
+id = "m15-q208"
+kind = "single-select"
+module = 15
+stem = "Under 29 CFR 1910.303(f)(3), markings required for disconnecting means and circuits shall be:"
+choices = [
+  "Of sufficient durability to withstand the environment involved",
+  "Temporary paper notes that may fade during normal operation",
+  "Required only on the floor plan and not on equipment",
+  "Optional whenever a circuit is part of a data centre"
+]
+correct = "A"
+explanation = "The current public eCFR text requires the markings under 1910.303(f)(1) and (f)(2) to be of sufficient durability to withstand the environment involved."
+topic_ids = ["m15-labelling"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

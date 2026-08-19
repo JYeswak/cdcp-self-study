@@ -1,0 +1,22 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Battery Energy Storage System (BESS)
+# Official catalog/preview receipt: NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026
+# PASS: the current official preview exposes Chapter 5 — System Interconnections.
+id = "m06-q089"
+kind = "single-select"
+module = 6
+stem = "Which NFPA 855:2026 chapter heading covers system interconnections?"
+choices = [
+  "Chapter 4 — General",
+  "Chapter 5 — System Interconnections",
+  "Chapter 7 — Operation and Maintenance",
+  "Chapter 13 — Flywheel Energy Storage Systems (FESSs)",
+]
+correct = "B"
+explanation = "The current NFPA 855 preview names Chapter 5 as System Interconnections. The heading does not establish a dual-use BESS control priority or utility agreement."
+topic_ids = ["m06-bess", "m06-ups"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

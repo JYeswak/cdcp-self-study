@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack security
+# Official catalog/preview receipt: ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html?browse=tc
+# PASS: the current ISO preview explicitly covers data-centre spaces and the
+# systems employed within those spaces. No paid body or PDF was fetched.
+id = "m08-q052"
+kind = "single-select"
+module = 8
+stem = "ISO/IEC 22237-6:2024 specifies physical-security requirements and recommendations for:"
+choices = [
+  "Data-centre spaces and the systems employed within those spaces",
+  "Only application source code and cloud software",
+  "Only utility generation equipment outside the data centre",
+  "No physical spaces; the document covers logical identity only",
+]
+correct = "A"
+explanation = "The ISO preview says the document specifies requirements and recommendations for data-centre spaces and the systems employed within those spaces, including protection against unauthorized access and other listed events. It does not expose electronic rack-handle audit-trail behavior."
+topic_ids = ["m08-security"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

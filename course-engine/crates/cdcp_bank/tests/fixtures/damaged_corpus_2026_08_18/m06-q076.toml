@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Single phase and three phase power
+# Official catalog/preview receipt: IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878
+# PASS: the current IEC catalog lists changes concerning cable sizing where
+# harmonic currents are present.
+id = "m06-q076"
+kind = "single-select"
+module = 6
+stem = "Which cable-sizing topic does the IEC 60364-5-52 catalog explicitly mention?"
+choices = [
+  "Sizing cables where harmonic currents are present",
+  "Eliminating all neutral conductors",
+  "Making grounding optional",
+  "Defining PUE only for single-phase systems",
+]
+correct = "A"
+explanation = "The current IEC catalog explicitly lists changes concerning cable sizing where harmonic currents are present; it does not establish the former three-phase utilization proposition."
+topic_ids = ["m06-phase", "m06-hpc"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Facility criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# PASS: ISO/IEC 22237-2:2024 official abstract explicitly includes building
+# configuration in its data-centre building-construction scope.
+# https://www.iso.org/standard/82248.html
+id = "m03-q100"
+kind = "single-select"
+module = 3
+stem = "Which building-related topic does ISO/IEC 22237-2:2024 explicitly include in its scope?"
+choices = [
+  "Building configuration",
+  "Software license counts",
+  "DNS TTL values",
+  "Emergency light colour only",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly lists building configuration; it does not expose a slab-loading limit."
+topic_ids = ["m03-facility-criteria"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,22 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack dimensions
+# Official catalog/preview receipt: IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288
+# PASS: the current IEC catalog explicitly identifies the associated design-guidance scope below. No paid body or PDF was fetched.
+id = "m08-q044"
+kind = "single-select"
+module = 8
+stem = "The public scope of IEC 60297-3-105:2008 provides guidance for:"
+choices = [
+  "Cooling, EMC, seismic, and climatic/mechanical requirements and tests for the 1U chassis context",
+  "A universal legal U-numbering convention for every site",
+  "Generator fuel-quality testing",
+  "Fibre polarity labeling",
+]
+correct = "A"
+explanation = "The current IEC catalog says IEC 60297-3-105:2008 provides guidance for cooling and reference for EMC, seismic, and climatic/mechanical requirements and tests, as defined in the IEC 61587 series. It does not expose a universal U-numbering convention."
+topic_ids = ["m08-dimensions"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

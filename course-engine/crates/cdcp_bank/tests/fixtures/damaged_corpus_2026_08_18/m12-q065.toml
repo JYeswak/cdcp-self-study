@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Common causes of fire
+# Official catalog/preview receipt: 29 CFR 1910.252 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.252
+# PASS: the current OSHA public standard specifies fire-watch triggers for
+# welding and cutting near appreciable or readily ignitable combustibles.
+id = "bank-m12-q065"
+kind = "single-select"
+module = 12
+stem = "Under 29 CFR 1910.252(a)(2)(iii)(A), fire watchers are required when welding or cutting occurs where:"
+choices = [
+  "A fire other than a minor fire might develop, including specified conditions involving appreciable or readily ignitable combustibles",
+  "Only the network cable category is being changed",
+  "No combustible material exists and no fire could develop",
+  "The sprinkler system is impaired and no authorization is required"
+]
+correct = "A"
+explanation = "The current OSHA public standard requires fire watchers when welding or cutting is performed where other than a minor fire might develop or listed combustible conditions exist."
+topic_ids = ["m12-causes", "m12-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

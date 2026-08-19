@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Temperature and humidity
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# PASS: the current public abstract explicitly lists relative humidity control
+# among the environmental-control domains.
+id = "m09-q122"
+kind = "single-select"
+module = 9
+stem = "Which humidity-related domain is explicitly listed in the ISO/IEC 22237-4:2021 public abstract?"
+choices = [
+  "Relative humidity control",
+  "Wholesale-colocation ownership control",
+  "Generator fuel-transfer control",
+  "Fibre-route diversity control"
+]
+correct = "A"
+explanation = "ISO/IEC 22237-4:2021's public abstract explicitly lists relative humidity control."
+topic_ids = ["m09-temp-humidity", "m09-system-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

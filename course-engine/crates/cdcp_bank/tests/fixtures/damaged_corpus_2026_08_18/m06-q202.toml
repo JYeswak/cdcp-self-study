@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: ATS and STS
+# Official catalog/preview receipt: IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803
+# PASS: the current IEC catalog explicitly covers controlled transfer, with or
+# without interruption, between two or more independent AC sources.
+id = "m06-q202"
+kind = "single-select"
+module = 6
+stem = "Which transfer behavior does IEC 62310-3:2008 explicitly include?"
+choices = [
+  "Controlled transfer with or without interruption",
+  "Permanent blackout of the load after every transfer",
+  "Automatic conversion of a single-corded load to dual-corded hardware",
+  "Only multi-second open-gap transfer with no other mode",
+]
+correct = "A"
+explanation = "The current IEC catalog explicitly says the covered STS can ensure continuity through controlled transfer with or without interruption; it does not expose the former single-cord outage scenario."
+topic_ids = ["m06-ats-sts", "m06-redundancy"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

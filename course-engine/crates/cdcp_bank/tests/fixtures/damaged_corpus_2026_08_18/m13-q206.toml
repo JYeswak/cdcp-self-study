@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Physical Security and Safety — Components for physical safety" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: 29 CFR 1910.335 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.335
+# PASS: the current public eCFR text states when safety signs, symbols, or
+# accident-prevention tags are required for electrical hazards.
+id = "m13-q206"
+kind = "single-select"
+module = 13
+stem = "Under 29 CFR 1910.335(b)(1), safety signs, safety symbols, or accident-prevention tags shall be used:"
+choices = [
+  "Where necessary to warn employees about electrical hazards that may endanger them",
+  "Only to replace all lockout/tagout procedures",
+  "Only for visitor-badge instructions",
+  "Only after an electrical injury has occurred"
+]
+correct = "A"
+explanation = "The current public eCFR text requires safety signs, safety symbols, or accident-prevention tags where necessary to warn employees about electrical hazards that may endanger them."
+topic_ids = ["m13-safety-components"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

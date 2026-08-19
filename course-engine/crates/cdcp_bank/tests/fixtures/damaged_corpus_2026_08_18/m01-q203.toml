@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Elements of a data centre" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# PASS: the current official abstract explicitly describes facilities and
+# infrastructures required to support data centres.
+id = "m01-q203"
+kind = "single-select"
+module = 1
+stem = "What general support aspect does ISO/IEC 22237-1:2021 explicitly describe for data centres?"
+choices = [
+  "A mandatory choice of IT software vendor",
+  "A fixed number of racks for every facility",
+  "A universal staffing roster",
+  "Facilities and infrastructures required to support data centres",
+]
+correct = "D"
+explanation = "The current ISO abstract explicitly describes the general aspects of facilities and infrastructures required to support data centres."
+topic_ids = ["m01-elements"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

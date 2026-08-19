@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: Connecting and positioning light fixtures
+# Official catalog/preview receipt: ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc
+# PASS: the public abstract explicitly covers commissioning lighting systems in
+# buildings to meet design specifications.
+id = "m05-q138"
+kind = "single-select"
+module = 5
+stem = "What is the stated purpose of commissioning covered by ISO/TS 21274:2020?"
+choices = [
+  "Meeting the design specifications for lighting systems in buildings",
+  "Replacing all electrical legislation for power connections",
+  "Selecting data-centre servers and network equipment",
+  "Commissioning only emergency lighting systems",
+]
+correct = "A"
+explanation = "The ISO public abstract says the document specifies requirements for commissioning lighting systems in buildings to meet design specifications."
+topic_ids = ["m05-fixtures"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

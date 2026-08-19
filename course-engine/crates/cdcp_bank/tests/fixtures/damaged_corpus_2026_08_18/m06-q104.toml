@@ -1,0 +1,22 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power sustainability
+# Official catalog/preview receipt: ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc
+# Claim is limited to the current public abstract's resilience-KPI scope.
+id = "m06-q104"
+kind = "single-select"
+module = 6
+stem = "ISO/IEC TS 22237-31:2026 defines key performance indicators for:"
+choices = [
+  "Resilience, dependability, fault tolerance, and availability tolerance",
+  "Only generator fuel consumption, excluding resilience and availability",
+  "Only IT software response time and cloud-application latency",
+  "A universal replacement for site-specific operational measurements"
+]
+correct = "A"
+explanation = "The current ISO catalog says ISO/IEC TS 22237-31:2026 defines KPIs for resilience, dependability, fault tolerance, and availability tolerance. It does not establish the former generator-testing or sustainability-risk proposition."
+topic_ids = ["m06-sustainability", "m06-generators"]
+objective_ids = []
+bloom = "evaluate"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

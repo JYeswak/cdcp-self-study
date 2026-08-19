@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: UPS systems
+# Official public receipt: DOE Uninterruptible Power Supplies — https://www.energy.gov/cmei/buildings/uninterruptible-power-supplies
+# The current DOE page defines UPSs as power systems for maintaining continuity of load power during input power failure.
+id = "m06-q208"
+kind = "single-select"
+module = 6
+stem = "The primary function of a UPS in a critical power path is to:"
+choices = [
+  "Maintain continuity of load power during input power failure",
+  "Bypass always improves double-conversion filtering",
+  "Bypass automatically starts the generator",
+  "Bypass raises battery state of charge forever"
+]
+correct = "A"
+explanation = "The current DOE UPS page defines an uninterruptible power supply as a power system for maintaining continuity of load power in case of input power failure. Bypass operating details and site-specific protection remain engineering decisions outside this bounded receipt."
+topic_ids = ["m06-ups", "m06-power-quality"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

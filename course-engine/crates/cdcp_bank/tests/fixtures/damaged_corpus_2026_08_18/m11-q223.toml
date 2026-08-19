@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Copper cabling
+# Official catalog/preview receipt: IEC 61935-1:2019 — https://webstore.iec.ch/en/publication/31201
+# Claim is limited to the current IEC catalog's installed-balanced-cabling test scope.
+id = "m11-q223"
+kind = "single-select"
+module = 11
+stem = "What does IEC 61935-1:2019 specify for installed balanced information-technology cabling?"
+choices = [
+  "Reference measurement procedures for cabling parameters and field-tester accuracy for parameters identified in ISO/IEC 11801",
+  "A universal data-centre topology with mandatory HDA and EDA spaces",
+  "Cooling-water quality limits for telecommunications rooms",
+  "A replacement for all cable installation and documentation practices"
+]
+correct = "A"
+explanation = "The current IEC catalog states that IEC 61935-1:2019 specifies reference measurement procedures and field-tester accuracy requirements for cabling parameters identified in ISO/IEC 11801."
+topic_ids = ["m11-copper"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

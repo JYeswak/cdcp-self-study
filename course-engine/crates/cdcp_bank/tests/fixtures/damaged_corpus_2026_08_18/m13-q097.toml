@@ -1,0 +1,26 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-6:2024 —
+# https://www.iso.org/standard/82250.html
+# PASS: the current ISO preview covers physical-security protection for data-
+# centre spaces and systems against unauthorized access, intrusion, and named
+# internal/external environmental events.
+id = "bank-m13-q097"
+kind = "single-select"
+module = 13
+stem = "ISO/IEC 22237-6:2024 specifies physical-security topics for data-centre spaces and systems including:"
+choices = [
+  "Unauthorized access, intrusion, and internal or external environmental events that affect the defined protection level",
+  "Only customer-cage lease pricing and tenant billing",
+  "Only mechanical-key duplication without any physical-security system",
+  "Only cooling-plant efficiency and water-consumption metrics"
+]
+correct = "A"
+explanation = "The current ISO preview covers physical-security requirements and recommendations for data-centre spaces and systems addressing unauthorized access, intrusion, internal fire, and internal or external environmental events affecting the defined protection level. It does not establish a colocation badge-zoning or tenant-lease policy."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

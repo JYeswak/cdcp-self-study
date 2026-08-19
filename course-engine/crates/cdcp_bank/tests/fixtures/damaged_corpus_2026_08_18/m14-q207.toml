@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Monitoring requirements
+# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
+# PASS: the current ISO catalog states that the secondary focus is management
+# processes aligning actual and future user demands.
+id = "m14-q207"
+kind = "single-select"
+module = 14
+stem = "The secondary focus of ISO/IEC TS 22237-7:2018 is to:"
+choices = [
+  "Align actual and future user demands through management processes",
+  "Ignore future user demand once a facility is commissioned",
+  "Measure only PUE once a year",
+  "Replace all operational processes with a marketing dashboard"
+]
+correct = "A"
+explanation = "The current ISO catalog identifies alignment of actual and future user demands as the secondary focus of ISO/IEC TS 22237-7:2018."
+topic_ids = ["m14-monitoring-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

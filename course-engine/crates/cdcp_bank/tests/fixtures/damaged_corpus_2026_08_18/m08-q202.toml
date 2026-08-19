@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: IEC 61587-6:2021 — https://webstore.iec.ch/en/publication/65980
+# PASS: the current IEC catalog explicitly covers security aspects and security
+# performance levels of the mechanical construction of indoor cabinets.
+id = "m08-q202"
+kind = "single-select"
+module = 8
+stem = "IEC 61587-6:2021 specifies security aspects and security performance levels for:"
+choices = [
+  "The mechanical construction of indoor cabinets in the IEC 60917 and IEC 60297 series",
+  "Only cloud-software service containers",
+  "Only generator-fuel storage tanks",
+  "Only utility interconnection agreements"
+]
+correct = "A"
+explanation = "The IEC catalog covers security aspects and security-performance levels for the mechanical construction of indoor cabinets in the IEC 60917 and IEC 60297 series; it does not define a universal open-frame/enclosed-cabinet trade-off."
+topic_ids = ["m08-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

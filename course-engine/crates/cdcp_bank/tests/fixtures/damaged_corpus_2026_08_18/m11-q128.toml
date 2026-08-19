@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — not an exam dump
+# Public syllabus heading: Planning considerations
+# Official catalog/preview receipt: IEC 60364-5-54:2011+AMD1:2021 — https://webstore.iec.ch/en/publication/1882
+# PASS: the current IEC catalog explicitly covers earthing arrangements and protective bonding conductors for electrical-installation safety. No paid body or PDF was fetched.
+id = "m11-q128"
+kind = "single-select"
+module = 11
+stem = "The public scope of IEC 60364-5-54:2011 includes protective bonding conductors in order to satisfy:"
+choices = [
+  "The safety of the electrical installation",
+  "A requirement to ignore electrical safety near racks",
+  "Intentional increase of static discharge",
+  "Cooling of telecommunications rooms with earth current",
+]
+correct = "A"
+explanation = "The current IEC catalog states that IEC 60364-5-54:2011 addresses earthing arrangements and protective conductors, including protective bonding conductors, in order to satisfy the safety of the electrical installation. It does not expose the prior telecommunications reference-integrity proposition."
+topic_ids = ["m11-planning", "m11-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,25 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: ATS and STS
+# Official catalog/preview receipt: IEC 62310-3:2008 —
+# https://webstore.iec.ch/en/publication/6803
+# PASS: the current IEC catalog explicitly covers controlled transfer of load
+# supply between two or more independent AC sources. No paid body or PDF was
+# fetched.
+id = "m06-q048"
+kind = "single-select"
+module = 6
+stem = "A stand-alone static transfer system (STS) is intended to:"
+choices = [
+  "Ensure continuity of load supply through controlled transfer, with or without interruption, from two or more independent AC sources",
+  "Provide unlimited stored-energy ride-through without any source",
+  "Replace all generators and UPS systems by definition",
+  "Eliminate the need for protective or switching elements"
+]
+correct = "A"
+explanation = "The public IEC catalog defines the STS function as controlled transfer of load supply between two or more independent AC sources; single-corded load mitigation is a separate design question."
+topic_ids = ["m06-ats-sts", "m06-redundancy"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

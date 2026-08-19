@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: UPS systems
+# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
+# PASS: the public catalog explicitly lists conventional AC/DC distribution
+# boards and associated switches among the exclusions.
+id = "m06-q107"
+kind = "single-select"
+module = 6
+stem = "Which equipment category does IEC 62040-3:2021 explicitly say it does not cover?"
+choices = [
+  "Conventional AC and DC distribution boards and their associated switches",
+  "Complete UPS systems",
+  "Applicable UPS functional units",
+  "UPS switches that interact with functional units to maintain load continuity",
+]
+correct = "A"
+explanation = "The IEC catalog explicitly excludes conventional AC and DC distribution boards and their associated switches."
+topic_ids = ["m06-ups", "m06-generators", "m06-ats-sts"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

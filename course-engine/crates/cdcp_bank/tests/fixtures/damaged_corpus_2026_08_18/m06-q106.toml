@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: PDU form factors
+# PASS: ISO/IEC 22237-3:2021 official abstract explicitly covers measurement
+# of power consumption and power quality and integration into management tools.
+# https://www.iso.org/standard/78551.html
+id = "m06-q106"
+kind = "single-select"
+module = 6
+stem = "Which measurement topic does ISO/IEC 22237-3:2021 explicitly cover?"
+choices = [
+  "Measurement of power consumption and power quality with management-tool integration",
+  "Eliminating A/B dual feeds always",
+  "Replacing upstream UPS",
+  "Removing need for labeling",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly covers power-consumption and power-quality measurement with management-tool integration; it does not expose a switched-rPDU control rule."
+topic_ids = ["m06-pdu"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Isolation transformer
+# Official catalog/preview receipt: IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588
+# PASS: the current IEC catalog explicitly states the transformer applicability scope below. No paid body or PDF was fetched.
+id = "m06-q216"
+kind = "single-select"
+module = 6
+stem = "IEC 60076-1:2011 applies to which transformer categories?"
+choices = [
+  "Three-phase and single-phase power transformers, including autotransformers, subject to stated exceptions",
+  "Only UPS battery strings",
+  "Only automatic transfer switches",
+  "Only chilled-water cooling coils",
+]
+correct = "A"
+explanation = "The current IEC catalog states that IEC 60076-1:2011 applies to three-phase and single-phase power transformers, including autotransformers, with exceptions for certain small and special transformers. It does not expose the prior isolation/noise/grounding proposition."
+topic_ids = ["m06-isolation-xfmr", "m06-grounding-bonding"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

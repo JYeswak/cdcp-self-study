@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Power strips / rails
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://webstore.iec.ch/en/publication/71476
+# PASS: the official catalog explicitly lists measurement of power-consumption
+# and power-quality characteristics and integration within management tools.
+id = "m08-q055"
+kind = "single-select"
+module = 8
+stem = "What measurement function is explicitly included in the ISO/IEC 22237-3:2021 catalog scope?"
+choices = [
+  "Measurement of power-consumption and power-quality characteristics and integration within management tools",
+  "Removal of all upstream branch protection",
+  "Elimination of phase balance and grounding requirements",
+  "Replacement of data-centre power distribution with software settings",
+]
+correct = "A"
+explanation = "The IEC catalog explicitly includes measuring power consumption and power-quality characteristics along the distribution system and integrating them within management tools."
+topic_ids = ["m08-power-strips"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

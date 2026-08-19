@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Labelling
+# Official catalog/preview receipt: 29 CFR 1910.303 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.303
+# PASS: the current public eCFR text requires electric-equipment markings to
+# be durable enough to withstand the environment involved.
+id = "m15-q200"
+kind = "single-select"
+module = 15
+stem = "Under 29 CFR 1910.303(e)(2), electric-equipment markings shall be:"
+choices = [
+  "Of sufficient durability to withstand the environment involved",
+  "Temporary paper notes regardless of the environment",
+  "Required only in a network diagram and not on equipment",
+  "Removed after the first maintenance task"
+]
+correct = "A"
+explanation = "The current public eCFR text requires electric-equipment markings to be of sufficient durability to withstand the environment involved."
+topic_ids = ["m15-labelling"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

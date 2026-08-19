@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Supporting facilities and function" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# PASS: ISO/IEC 22237-2:2024 official abstract explicitly includes site
+# configuration in its data-centre building-construction scope.
+# https://www.iso.org/standard/82248.html
+id = "m03-q097"
+kind = "single-select"
+module = 3
+stem = "Which site/building topic does ISO/IEC 22237-2:2024 explicitly include in its scope?"
+choices = [
+  "Site configuration",
+  "Only the CEO office artwork",
+  "Only hot-aisle posters",
+  "A single shared restroom with no other spaces",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly lists site configuration; it does not expose a complete supporting-facilities inventory."
+topic_ids = ["m03-supporting-facilities"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

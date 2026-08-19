@@ -1,0 +1,25 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: IEC 62676-1-1:2013 —
+# https://webstore.iec.ch/en/publication/7347
+# PASS: the current IEC catalog covers VSS/CCTV sharing detection, triggering,
+# interconnection, control, and communication with other applications.
+id = "bank-m13-q088"
+kind = "single-select"
+module = 13
+stem = "Surveillance (CCTV/VMS) is most valuable when integrated so that a physical-security event can:"
+choices = [
+  "Only record offline tapes with no timestamps",
+  "Replace all mechanical locks",
+  "Increase chilled-water flow",
+  "Share detection, triggering, interconnection, control, or communication with the VSS for coordinated security handling"
+]
+correct = "D"
+explanation = "IEC 62676-1-1 covers VSS/CCTV sharing detection, triggering, interconnection, control, and communication with other applications. It does not establish a particular SOC workflow, video-bookmark rule, or NTP policy."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

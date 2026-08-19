@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — not an exam dump
+# Public syllabus heading: Planning considerations
+# Official catalog/preview receipt: ISO/IEC 14763-2:2019 — https://www.iso.org/standard/73337.html
+# Claim is limited to the current ISO catalog's listed planning and operation aspects.
+id = "m11-q124"
+kind = "single-select"
+module = 11
+stem = "Which set of activities does the public scope of ISO/IEC 14763-2:2019 explicitly address for telecommunications cabling?"
+choices = [
+  "Installation planning, documentation, administration, testing, operation, maintenance, and repair",
+  "Only wireless spectrum allocation and radio propagation",
+  "Only power-supply cabling and protective-device coordination",
+  "Only logical routing protocols after the cabling is installed"
+]
+correct = "A"
+explanation = "The public ISO catalog lists installation planning, documentation, administration, testing, operation, maintenance, and repair among the aspects addressed by ISO/IEC 14763-2:2019."
+topic_ids = ["m11-planning"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

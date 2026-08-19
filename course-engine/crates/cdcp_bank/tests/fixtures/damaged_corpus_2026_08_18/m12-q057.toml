@@ -1,0 +1,22 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Classes of fire
+# Official catalog/preview receipt: 29 CFR 1910.155 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.155
+# PASS: the current OSHA public standard defines a Class C fire as involving energized electrical equipment where electrically nonconductive media are required for employee safety.
+id = "bank-m12-q057"
+kind = "single-select"
+module = 12
+stem = "Under 29 CFR 1910.155(c)(10), a Class C fire involves:"
+choices = [
+  "Energized electrical equipment where employee safety requires electrically nonconductive extinguishing media",
+  "Only combustible metals such as magnesium and lithium",
+  "Only ordinary paper and wood",
+  "Only flammable liquids and gases"
+]
+correct = "A"
+explanation = "The current OSHA public standard defines Class C as a fire involving energized electrical equipment where employee safety requires electrically nonconductive extinguishing media."
+topic_ids = ["m12-classes"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

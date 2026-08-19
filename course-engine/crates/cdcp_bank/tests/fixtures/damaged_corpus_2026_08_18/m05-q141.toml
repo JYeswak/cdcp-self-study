@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: Types of emergency light
+# Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
+# PASS: the public abstract explicitly states the principal access context for
+# locations covered by the emergency-lighting requirements.
+id = "m05-q141"
+kind = "single-select"
+module = 5
+stem = "ISO 30061:2007 is principally applicable to locations where:"
+choices = [
+  "The public or workers have access",
+  "Only unoccupied equipment cabinets are stored",
+  "Only software services are hosted",
+  "Only generator fuel is transferred",
+]
+correct = "A"
+explanation = "The ISO public abstract says the standard is principally applicable to locations where the public or workers have access."
+topic_ids = ["m05-emergency-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

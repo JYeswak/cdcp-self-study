@@ -1,0 +1,24 @@
+# Original CDCP educational item — bd-curriculum-truth-ebrr.42.
+# syllabus_heading = "1.10 Water Supply"
+# syllabus_url = https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_(CDCP)
+# Public syllabus heading: Importance of water
+# Official catalog/preview receipt: ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html
+# Claim is limited to the public WUE KPI and measurement/reporting scope; no permit or site-water conclusion is inferred.
+id = "m10-q217"
+kind = "single-select"
+module = 10
+stem = "Which statement matches the public preview of ISO/IEC 30134-9:2022?"
+choices = [
+  "It defines WUE as a KPI for quantifying data-centre water consumption during the use phase and provides measurement/reporting categories",
+  "It grants a universal permit for non-evaporative cooling designs",
+  "It makes WUE zero whenever a loop is described as closed",
+  "It requires every data centre to use an evaporative cooling tower",
+]
+correct = "A"
+explanation = "The ISO/IEC 30134-9:2022 public preview specifies WUE as a key performance indicator for quantifying data-centre water consumption during the use phase, and introduces measurement categories plus measurement, calculation, and reporting information. It does not grant permits, define a zero-water condition, or require one cooling architecture."
+topic_ids = ["m10-importance", "m10-backup"]
+objective_ids = ["obj-m10-closed-loop-siting"]
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "free_url"
+status = "approved"

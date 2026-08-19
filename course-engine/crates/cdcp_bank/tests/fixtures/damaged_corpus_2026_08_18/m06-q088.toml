@@ -1,0 +1,22 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Battery Energy Storage System (BESS)
+# Official catalog/preview receipt: NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026
+# PASS: the current official preview exposes Chapter 7 — Operation and Maintenance.
+id = "m06-q088"
+kind = "single-select"
+module = 6
+stem = "Which NFPA 855:2026 chapter heading covers operation and maintenance of stationary energy storage systems?"
+choices = [
+  "Chapter 3 — Definitions",
+  "Chapter 5 — System Interconnections",
+  "Chapter 7 — Operation and Maintenance",
+  "Chapter 14 — Storage of Lithium Metal or Lithium-ion Batteries",
+]
+correct = "C"
+explanation = "The current NFPA 855 preview names Chapter 7 as Operation and Maintenance. The heading is a syllabus-grounded topic receipt, not a claim that BESS and UPS systems have identical roles."
+topic_ids = ["m06-bess"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

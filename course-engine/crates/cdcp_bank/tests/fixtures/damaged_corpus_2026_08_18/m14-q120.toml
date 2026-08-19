@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Environmental Monitoring System (EMS)
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# PASS: the current ISO preview explicitly names temperature, fluid movement,
+# relative humidity, particulate, vibration, and physical security control.
+id = "bank-m14-q120"
+kind = "single-select"
+module = 14
+stem = "ISO/IEC 22237-4:2021 explicitly includes which environmental-control topics?"
+choices = [
+  "Temperature, fluid movement, relative humidity, particulate, vibration, and physical security of environmental control systems",
+  "Only outdoor wet-bulb temperature and generator jacket-water temperature",
+  "Only UPS battery-room ambient and fuel quality",
+  "Only visitor identity proofing and camera retention"
+]
+correct = "A"
+explanation = "The current ISO preview explicitly lists temperature control, fluid movement control, relative humidity control, particulate control, vibration, and physical security of environmental control systems. It does not establish a rack instrumentation layout or a particular sensor setpoint."
+topic_ids = ["m14-ems", "m14-monitoring-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

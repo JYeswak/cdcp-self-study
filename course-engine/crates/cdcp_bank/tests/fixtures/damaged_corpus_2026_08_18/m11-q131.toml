@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — not an exam dump
+# Public syllabus heading: TIA-942 cabling system topology
+# Official catalog/preview receipt: TIA-942-C, May 2024 — https://tiaonline.org/standard/tia-942/
+# PASS: the current official abstract explicitly says the specified topology is
+# intended to be applicable to any size data centre.
+id = "m11-q131"
+kind = "single-select"
+module = 11
+stem = "According to the ANSI/TIA-942-C abstract, the specified data-centre topology is intended to apply to:"
+choices = [
+  "Only hyperscale facilities above a fixed rack count",
+  "Only multi-tenant facilities",
+  "Any size data centre",
+  "Only edge facilities with wireless backhaul",
+]
+correct = "C"
+explanation = "The current TIA-942-C abstract says the specified topology is intended to be applicable to any size data centre. It does not expose the named-space hierarchy or clause mandates."
+topic_ids = ["m11-tia942-topology"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

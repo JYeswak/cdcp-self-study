@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: Types of emergency light
+# Official catalog/preview receipt: ISO 30061:2007 — https://www.iso.org/standard/45801.html?browse=tc
+# PASS: the public abstract explicitly states that ISO 30061 specifies
+# luminous requirements for emergency lighting systems.
+id = "m05-q140"
+kind = "single-select"
+module = 5
+stem = "What does ISO 30061:2007 explicitly specify?"
+choices = [
+  "Luminous requirements for emergency lighting systems installed where such systems are required",
+  "Rack-PDU measurement requirements",
+  "Cooling-water treatment requirements",
+  "Generator fuel-quality requirements",
+]
+correct = "A"
+explanation = "The ISO public abstract says ISO 30061:2007 specifies luminous requirements for emergency lighting systems installed where such systems are required."
+topic_ids = ["m05-emergency-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

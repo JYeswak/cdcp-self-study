@@ -1,0 +1,27 @@
+# Original CDCP educational MCQ — public heading: 1.12 Fire Protection.
+# Syllabus: https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Sources: NFPA 855, 2026 edition, public NFPA LiNK preview —
+# https://link.nfpa.org/all-publications/855/2026 ; UL 9540A, Edition 6,
+# active UL Standards catalog — https://www.shopulstandards.com/ProductDetail.aspx?UniqueKey=49792 ;
+# UL 9540, Edition 3, active UL Standards catalog —
+# https://www.shopulstandards.com/ProductDetail.aspx?productId=UL9540_3_S_20230628
+# Boundaries: NFPA 855 is the installation standard; UL 9540A is test data/method;
+# UL 9540 is the ESS product/system safety standard. Confirm adopted edition and AHJ.
+id = "m12-q225"
+kind = "single-select"
+module = 12
+stem = "A 2026 interviewer asks which document roles must be distinguished when reviewing a stationary Li-ion ESS installation. The source-backed answer is:"
+choices = [
+  "Recite the Module 06 interconnect hop (UPS strings on the DC bus versus AC-interconnected yard BESS) so this file owns electrical",
+  "NFPA 855 is the stationary-ESS installation standard; UL 9540A is the thermal-runaway fire-propagation test method; UL 9540 is the ESS product/system safety standard; confirm the adopted editions and AHJ rather than infer a site fire response",
+  "Treat both as a Class A trash-can fire: dump clean agent, keep the room sealed, stay and watch",
+  "Quote an industry fire percentage that proves water always extinguishes Li-ion",
+]
+correct = "B"
+explanation = "The public NFPA preview and UL catalogs support a document-role distinction: NFPA 855 addresses stationary ESS installation, UL 9540A is a test method that produces thermal-runaway/fire-propagation data, and UL 9540 is the ESS product/system safety standard. The item does not infer an indoor/outdoor fire design, listing, adopted edition, agent quantity, or AHJ decision from those receipts."
+topic_ids = ["m12-standards", "m12-causes"]
+objective_ids = ["obj-m12-liion-855"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

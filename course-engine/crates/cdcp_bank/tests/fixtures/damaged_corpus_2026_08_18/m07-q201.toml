@@ -1,0 +1,26 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Units of measurements
+# Official IEC vocabulary receipts: IEC 60050 IEV 121-11-56 (magnetic field
+# strength) — https://www.electropedia.org/iev/iev.nsf/display?ievref=121-11-56&openform=
+# and IEV 121-11-19 (magnetic flux density) —
+# https://www.electropedia.org/iev/iev.nsf/display?ievref=121-11-19&openform=
+# PASS: the current public IEC vocabulary distinguishes the two quantities and
+# gives their vacuum relationship. No paid body or PDF was fetched.
+id = "m07-q201"
+kind = "single-select"
+module = 7
+stem = "Which statement correctly bounds IEC magnetic-field terminology?"
+choices = [
+  "Magnetic field strength H and magnetic flux density B are distinct quantities; in vacuum H = B/μ₀",
+  "Magnetic field strength is the same quantity as illuminance",
+  "Magnetic flux density is measured only in pascals",
+  "The IEC vocabulary treats H and B as interchangeable in every medium"
+]
+correct = "A"
+explanation = "IEC Electropedia distinguishes magnetic field strength H from magnetic flux density B and states their vacuum relationship; unit conversions and exposure limits are outside this receipt."
+topic_ids = ["m07-units"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

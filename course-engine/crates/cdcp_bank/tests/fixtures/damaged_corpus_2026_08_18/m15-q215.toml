@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Labelling
+# Official catalog/preview receipt: 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147
+# PASS: the current public eCFR text requires lockout/tagout devices to be
+# standardized within a facility by color, shape, or size; tag print/format
+# must also be standardized.
+id = "m15-q215"
+kind = "single-select"
+module = 15
+stem = "Under 29 CFR 1910.147(c)(5)(B), lockout/tagout devices shall be standardized within the facility by at least one of:"
+choices = [
+  "Color, shape, or size; tag print and format must also be standardized",
+  "A different undocumented style for every contractor",
+  "Only the purchase price of the device",
+  "A marketing logo with no consistent visual criterion"
+]
+correct = "A"
+explanation = "The current public eCFR text requires lockout/tagout devices to be standardized within the facility by color, shape, or size, and requires tag print and format to be standardized."
+topic_ids = ["m15-labelling", "m15-documentation"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

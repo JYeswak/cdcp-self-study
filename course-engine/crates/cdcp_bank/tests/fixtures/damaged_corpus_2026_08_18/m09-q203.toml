@@ -1,0 +1,22 @@
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Temperature and humidity
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html?browse=tc
+# Claim is limited to the public abstract's listed environmental-control categories; no IT-health metric is inferred.
+id = "m09-q203"
+kind = "single-select"
+module = 9
+stem = "Which environmental-control categories are explicitly listed in the public preview of ISO/IEC 22237-4:2021?"
+choices = [
+  "Temperature and relative humidity",
+  "Only generator loading and fuel quality",
+  "Only rack power density and network latency",
+  "Only badge access and visitor retention"
+]
+correct = "A"
+explanation = "The ISO/IEC 22237-4:2021 public preview lists temperature and relative humidity among the environmental-control subjects for data-centre facilities and infrastructures. It does not expose an inlet-versus-return metric rule, so no such rule is claimed here."
+topic_ids = ["m09-temp-humidity", "m09-principles"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

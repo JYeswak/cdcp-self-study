@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Supporting facilities and function" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# PASS: ISO/IEC 22237-2:2024 official abstract explicitly includes quality
+# construction measures among the data-centre building-construction topics.
+# https://www.iso.org/standard/82248.html
+id = "m03-q209"
+kind = "single-select"
+module = 3
+stem = "Which construction-quality category does ISO/IEC 22237-2:2024 explicitly include?"
+choices = [
+  "Quality construction measures",
+  "Generators never need fuel",
+  "Yards are only for employee barbecues",
+  "Fuel logistics are purely a marketing concern"
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly lists quality construction measures; it does not expose a generator-yard or fuel-logistics rule."
+topic_ids = ["m03-supporting-facilities", "m03-facility-criteria"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,40 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 10 of 24).
+# Duplicate of m06-q065 (bank/items/m06-q065.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 71% · distractors 35% · stem 25%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT m06-q065:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — m06-q065 states the causal reason for the pairing ("Gensets need start/transfer
+#      time; UPS bridges that interval"); this copy restates its own key.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
+# Public syllabus heading: Generators
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
+# PASS: the current ISO OBP abstract explicitly addresses power supplies to data centres. No standard body or PDF was fetched.
+id = "mock40-q19"
+kind = "single-select"
+module = 6
+stem = "ISO/IEC 22237-3:2021 addresses power supplies to:"
+choices = [
+  "Data centres",
+  "Only residential lighting circuits",
+  "Only optical-fibre links",
+  "Only building water systems",
+]
+correct = "A"
+explanation = "The current ISO OBP abstract states that ISO/IEC 22237-3:2021 addresses power supplies to, and power distribution within, data centres. It does not expose the prior generator-start or UPS-bridge timing proposition."
+topic_ids = ["m06-generators", "m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "retired"

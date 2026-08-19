@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Power strips / rails
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
+# PASS: the current official abstract explicitly includes power distribution
+# systems to all equipment within data centres.
+id = "m08-q208"
+kind = "single-select"
+module = 8
+stem = "Which power-distribution scope does ISO/IEC 22237-3:2021 explicitly name?"
+choices = [
+  "Only generator fuel chemistry",
+  "Power distribution systems to all equipment within data centres",
+  "Only office lighting controls",
+  "Only wireless access-point configuration",
+]
+correct = "B"
+explanation = "The current ISO abstract explicitly names power distribution systems to all equipment within data centres. It does not establish rack dual-cord or upstream-failure-domain behavior."
+topic_ids = ["m08-power-strips"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

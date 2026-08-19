@@ -1,0 +1,27 @@
+# Original CDFOS daily-operations MCQ — ms4j.2 walk-around duties.
+# Public heading: CDFOS "Data Centre Operations — Walk around duties" —
+# https://www.epi-ap.com/services/1/3/136/Certified_Data_Centre_Facilities_Operations_Specialist_(CDFOS)
+# Cite: 29 CFR 1910.147(c)(6)(i)-(ii), eCFR current 2026-08-14 —
+# https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147
+# Claim: a periodic inspection of an energy-control procedure is performed at least annually,
+# corrects deviations, and is certified with the equipment, date, employees, and inspector identified.
+# The item is bounded to this LOTO inspection walk-around, not a universal patrol schedule.
+# Options are length-balanced; teaching lives in explanation.
+id = "m15-q374"
+kind = "single-select"
+module = 15
+stem = "During a periodic inspection of a lockout/tagout procedure, a walk-around sheet says ‘normal’ but lacks the equipment identity, date, employees included, inspector, and deviation corrections. What record action is supported?"
+choices = [
+  "Perform and certify the periodic inspection with the required identifiers and correct any deviations",
+  "Count the rounds and omit the equipment, employees, inspector, and date",
+  "Replace the inspection with a monthly vendor invoice",
+  "Wait for an alarm before reviewing the energy-control procedure",
+]
+correct = "A"
+explanation = "29 CFR 1910.147(c)(6)(i) requires an at-least-annual periodic inspection of the energy-control procedure and correction of deviations. Paragraph (c)(6)(ii) requires certification identifying the machine or equipment, inspection date, employees included, and inspector. The source supports this bounded LOTO inspection record, not a universal data-centre walk-around interval."
+topic_ids = ["m15-ops-security", "m15-monitoring"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

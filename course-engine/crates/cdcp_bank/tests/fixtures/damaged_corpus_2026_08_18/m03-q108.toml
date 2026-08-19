@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Site location selection criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://www.iso.org/standard/82248.html
+# PASS: the current ISO preview explicitly lists access among the site and
+# building topics addressed. No paid body or PDF was fetched.
+id = "m03-q108"
+kind = "single-select"
+module = 3
+stem = "ISO/IEC 22237-2:2024 explicitly lists which topic among its site and building subjects?"
+choices = [
+  "Access",
+  "Application software licensing",
+  "Cloud billing reconciliation",
+  "Server instruction-set selection",
+]
+correct = "A"
+explanation = "The ISO abstract lists access as one of the site and building topics addressed by the document."
+topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

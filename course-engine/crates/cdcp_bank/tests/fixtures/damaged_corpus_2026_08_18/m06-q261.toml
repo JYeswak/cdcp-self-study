@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — ebrr.22 leftover: 855 electrical not M12 fire
+# Public syllabus heading: Batteries
+# Official catalog/preview receipt: NFPA 855, 2026 — https://link.nfpa.org/all-publications/855/2026
+# PASS: the current official preview exposes Chapter 9 — Electrochemical Energy Storage Systems.
+id = "m06-q261"
+kind = "single-select"
+module = 6
+stem = "Which NFPA 855:2026 chapter heading identifies electrochemical energy storage systems?"
+choices = [
+  "Chapter 7 — Operation and Maintenance",
+  "Chapter 8 — Decommissioning",
+  "Chapter 9 — Electrochemical Energy Storage Systems",
+  "Chapter 16 — Flow Batteries",
+]
+correct = "C"
+explanation = "The current NFPA 855 preview names Chapter 9 as Electrochemical Energy Storage Systems. The heading does not establish UPS bus topology, BESS AC interconnection, UL 9540A status, or fire performance."
+topic_ids = ["m06-batteries", "m06-bess"]
+objective_ids = ["obj-m06-liion-electrical"]
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

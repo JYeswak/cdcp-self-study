@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: ATS and STS
+# Official catalog/preview receipt: IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803
+# PASS: the current IEC catalog explicitly covers stand-alone AC static transfer
+# systems intended to ensure continuity of load supply through controlled transfer.
+id = "m06-q047"
+kind = "single-select"
+module = 6
+stem = "What purpose does IEC 62310-3:2008 explicitly identify for stand-alone AC static transfer systems?"
+choices = [
+  "Ensuring continuity of load supply through controlled transfer",
+  "Cheaper fuel contracts",
+  "Slower weekly manual exercise only",
+  "DC-only operation without AC sources",
+]
+correct = "A"
+explanation = "The current IEC catalog explicitly identifies continuity of load supply through controlled transfer as the purpose of covered stand-alone AC static transfer systems; it does not expose a sub-cycle selection rule."
+topic_ids = ["m06-ats-sts"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Gas-based fire suppression
+# Official catalog/preview receipt: 29 CFR 1910.160 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160
+# PASS: the current OSHA public standard requires fixed-system components and
+# agents to be designed and approved for the specific fire hazards expected.
+id = "bank-m12-q050"
+kind = "single-select"
+module = 12
+stem = "Under 29 CFR 1910.160(b)(1), fixed extinguishing-system components and agents shall be:"
+choices = [
+  "Designed and approved for use on the specific fire hazards they are expected to control or extinguish",
+  "Selected only by cylinder paint color",
+  "Used without regard to the fire hazard",
+  "Approved only by a marketing label"
+]
+correct = "A"
+explanation = "The current OSHA public standard requires fixed extinguishing-system components and agents to be designed and approved for the specific fire hazards they are expected to control or extinguish."
+topic_ids = ["m12-gas-suppression", "m12-suppression-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

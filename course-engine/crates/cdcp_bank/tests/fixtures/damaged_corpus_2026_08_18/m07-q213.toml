@@ -1,0 +1,23 @@
+# Original CDCP educational item — M07 density-scaled field calculation.
+# Public syllabus heading: Sources of EMF
+# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
+# PASS: the current IEC catalog exposes measurement ranges, including 0.1
+# microtesla to 200 millitesla for AC magnetic fields.
+id = "m07-q213"
+kind = "single-select"
+module = 7
+stem = "What AC magnetic-field magnitude range does the current IEC 61786-2 catalog identify?"
+choices = [
+  "0.1 microtesla to 200 millitesla",
+  "1 volt per metre to 50 kilovolts per metre",
+  "1 microtesla to 10 tesla",
+  "200 millitesla to 50 tesla",
+]
+correct = "A"
+explanation = "The current IEC catalog identifies 0.1 microtesla to 200 millitesla for AC magnetic fields. This is a measurement-range statement, not an exposure limit or compliance result."
+topic_ids = ["m07-sources", "m07-units"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "free_url"
+status = "approved"

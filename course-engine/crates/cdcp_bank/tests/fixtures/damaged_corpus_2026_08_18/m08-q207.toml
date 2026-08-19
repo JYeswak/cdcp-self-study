@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: IEC 62610-6:2020 — https://webstore.iec.ch/en/publication/62312
+# PASS: the IEC catalog explicitly covers compatible measurement methods for
+# cabinet-air recirculation and bypass ratios in forced-air cooling.
+id = "m08-q207"
+kind = "single-select"
+module = 8
+stem = "IEC 62610-6:2020 provides compatible measurement methods for cabinet-air:"
+choices = [
+  "Recirculation and bypass ratios",
+  "Only rack-unit height conversions",
+  "Only fire-door access ratings",
+  "Only utility interconnection capacity"
+]
+correct = "A"
+explanation = "The IEC catalog defines recirculation and bypass flow rates and associated measurement methods for forced-air-cooled indoor cabinets; it does not expose a particular blanking-panel or brush-strip design rule."
+topic_ids = ["m08-types"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

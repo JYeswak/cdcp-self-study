@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Suspended ceiling" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://www.iso.org/standard/82248.html
+# Claim is limited to the public abstract's building-configuration category.
+id = "m04-q123"
+kind = "single-select"
+module = 4
+stem = "Which spatial-configuration topic is explicitly listed by ISO/IEC 22237-2:2024?"
+choices = [
+  "Building configuration",
+  "Replacement of all fire suppression systems",
+  "Network-fabric routing policy",
+  "Generator fuel specification only",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly lists building configuration among the topics covered. It does not expose the exact use of a suspended ceiling as a return-air path or service zone."
+topic_ids = ["m04-suspended-ceiling"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

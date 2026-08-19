@@ -1,0 +1,44 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 15 of 24).
+# Duplicate of m08-q049 (bank/items/m08-q049.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 100% · distractors 92% · stem 83%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT m08-q049:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — parity — both explanations state the same mechanism in one line. Provenance
+#      decides. Recorded loss: this copy also carried topic m09-containment, which the
+#      survivor does not; m09-containment keeps 24 other approved items, so no topic is
+#      orphaned by the retirement.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
+# Public syllabus heading: Containment
+# Official catalog/preview receipt: IEC 62966-1:2019 — https://webstore.iec.ch/en/publication/34275
+# PASS: the IEC catalog explicitly defines dimensions and mechanical requirements
+# for aisle containment for IT cabinets in data centres and server rooms. No paid
+# body, draft, or PDF was fetched.
+id = "mock40-q25"
+kind = "single-select"
+module = 8
+stem = "IEC 62966-1:2019 addresses aisle containment for IT cabinets by defining:"
+choices = [
+  "Dimensions and mechanical requirements for containment in data centres and server rooms",
+  "Only generator synchronization settings",
+  "Only fire-agent concentration limits",
+  "Only cloud-service availability targets",
+]
+correct = "A"
+explanation = "The IEC catalog defines aisle-containment dimensions and mechanical requirements for IT cabinets and states an objective of energy-efficient, user-friendly operation; it does not expose a universal blanking-panel airflow rule."
+topic_ids = ["m09-containment", "m08-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "retired"

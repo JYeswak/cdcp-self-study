@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Fire detection systems
+# Official catalog/preview receipt: 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164
+# PASS: the current OSHA public standard requires fire-detection equipment to
+# be located or protected against mechanical or physical impact.
+id = "bank-m12-q046"
+kind = "single-select"
+module = 12
+stem = "Under 29 CFR 1910.164(d)(2), fire-detection equipment must be located or otherwise protected so it is protected from:"
+choices = [
+  "Mechanical or physical impact that might render it inoperable",
+  "Only changes in network traffic",
+  "All routine visual inspections",
+  "A requirement to use one detector technology in every room"
+]
+correct = "A"
+explanation = "The current OSHA public standard requires fire-detection equipment to be located or protected against mechanical or physical impact that might render it inoperable."
+topic_ids = ["m12-detection"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

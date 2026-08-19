@@ -1,0 +1,22 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack dimensions
+# Official catalog/preview receipt: IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283
+# PASS: the current IEC catalog explicitly identifies the relationship between basic and later detail dimensions. No paid body or PDF was fetched.
+id = "m08-q205"
+kind = "single-select"
+module = 8
+stem = "In the IEC 60297-3-100:2008 catalog description, subsequent IEC 60297-3 standards provide:"
+choices = [
+  "Detail dimensions for specific equipment parts, using the basic dimensions as an interface to associated parts",
+  "Only a universal cable-bend and service-clearance rule",
+  "Only generator sequencing requirements",
+  "Only optical-fibre test limits",
+]
+correct = "A"
+explanation = "The current IEC catalog says subsequent standards in the IEC 60297-3 series provide detail dimensions for specific equipment parts, while the basic dimensions serve as an interface to associated parts. It does not expose the prior cable-bend, PDU, or service-clearance claim."
+topic_ids = ["m08-dimensions", "m08-types"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

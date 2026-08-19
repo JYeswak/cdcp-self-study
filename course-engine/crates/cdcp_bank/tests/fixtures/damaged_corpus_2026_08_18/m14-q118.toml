@@ -1,0 +1,24 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Alarm panels
+# Official public-code receipt: 29 CFR 1910.164 —
+# https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-L/subject-group-ECFR76c69af98ee6ed7/section-1910.164
+# PASS: current eCFR text requires prompt restoration after tests/alarms and
+# operability except during repairs or maintenance.
+id = "bank-m14-q118"
+kind = "single-select"
+module = 14
+stem = "Under 29 CFR 1910.164, fire-detection systems after a test or alarm should be:"
+choices = [
+  "Restored to normal operating condition promptly and maintained operable except during repairs or maintenance",
+  "Left in bypass until the next annual inspection regardless of condition",
+  "Disabled permanently after any alarm",
+  "Replaced by a cooling-control trend with no fire detection"
+]
+correct = "A"
+explanation = "Current 29 CFR 1910.164 requires prompt restoration after each test or alarm and maintenance of fire-detection systems in operable condition except during repairs or maintenance. This item does not invent an alarm-bypass timeout or generalize the rule to every alarm system."
+topic_ids = ["m14-alarms", "m14-monitoring-challenges"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

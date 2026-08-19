@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: PDU form factors
+# PASS: ISO/IEC 22237-3:2021 official abstract explicitly covers power
+# distribution systems to all equipment within data centres.
+# https://www.iso.org/standard/78551.html
+id = "m06-q045"
+kind = "single-select"
+module = 6
+stem = "Which equipment-facing distribution scope does ISO/IEC 22237-3:2021 explicitly cover?"
+choices = [
+  "Power distribution systems to all equipment within data centres",
+  "Whether they use three-phase power (only floor PDUs can)",
+  "Whether grounding is required",
+  "Whether they can feed dual-corded gear",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly covers distribution systems to all equipment; it does not expose a PDU hierarchy proposition."
+topic_ids = ["m06-pdu"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

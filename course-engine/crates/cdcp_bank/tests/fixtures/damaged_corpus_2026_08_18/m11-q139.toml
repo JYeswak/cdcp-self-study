@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — not an exam dump
+# Public syllabus heading: Importance of network cabling infrastructure
+# Official catalog/preview receipt: RFC 9940 — https://www.rfc-editor.org/info/rfc9940/
+# PASS: the current open RFC Editor text describes network fault/problem
+# management activities including detection, reporting, inspection, isolation,
+# correlation, and management of events.
+id = "m11-q139"
+kind = "single-select"
+module = 11
+stem = "RFC 9940 describes network fault and problem management as including:"
+choices = [
+  "Detection, reporting, inspection, isolation, correlation, and management of network events",
+  "Only battery-string impedance testing",
+  "Only visitor credential issuance",
+  "Only cooling-tower water chemistry"
+]
+correct = "A"
+explanation = "RFC 9940 frames network fault/problem management around detection, reporting, inspection, isolation, correlation, and management of events. It does not prescribe cable labels, an emergency isolation runbook, or a physical-path design."
+topic_ids = ["m11-importance", "m11-planning"]
+objective_ids = []
+bloom = "evaluate"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

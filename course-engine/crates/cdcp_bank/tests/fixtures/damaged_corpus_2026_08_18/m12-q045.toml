@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Fire detection systems
+# Official catalog/preview receipt: 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164
+# PASS: the current OSHA public standard states the design-data basis for
+# detector number, spacing, and location.
+id = "bank-m12-q045"
+kind = "single-select"
+module = 12
+stem = "Under 29 CFR 1910.164(f), the number, spacing, and location of fire detectors must be based upon:"
+choices = [
+  "Design data from field experience or tests, engineering surveys, manufacturer recommendations, or a recognized testing-laboratory listing",
+  "Only the number of network racks in the room",
+  "A vendor's marketing color scheme without design data",
+  "Public-lobby seating capacity only"
+]
+correct = "A"
+explanation = "The current OSHA public standard bases detector number, spacing, and location on field experience or tests, engineering surveys, manufacturer recommendations, or a recognized testing-laboratory listing."
+topic_ids = ["m12-detection", "m12-best-practices"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

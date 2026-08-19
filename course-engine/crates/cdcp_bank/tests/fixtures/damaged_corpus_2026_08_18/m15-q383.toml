@@ -1,0 +1,25 @@
+# Original CDFOM educational MCQ — ms4j.3 shift management.
+# syllabus_heading = "The Data Center Organization — Shift management"
+# syllabus_url = "https://www.epi-ap.com/services/1/3/8/Certified_Data_Centre_Facilities_Operations_Manager_%28CDFOM%29"
+# source_ids = ["src-epi-cdfom-page", "src-ecfr-1910-147-2026-08-14"]
+# source = "29 CFR 1910.147(f)(4), eCFR current 2026-08-14 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147"
+# claim = "During a shift or personnel change, a specific procedure maintains lockout/tagout continuity through orderly transfer between off-going and oncoming employees."
+# Options are length-balanced; the key is not the longest choice.
+id = "m15-q383"
+kind = "single-select"
+module = 15
+stem = "A shift or personnel change occurs while lockout/tagout protection remains active. What must the shift-management procedure ensure?"
+choices = [
+  "Ensure an orderly transfer of lockout/tagout protection between off-going and oncoming employees",
+  "Leave the protection transfer for the next weekly meeting",
+  "Transfer only the access badge and radio",
+  "Remove all lockout devices at turnover regardless of work status",
+]
+correct = "A"
+explanation = "29 CFR 1910.147(f)(4) requires specific procedures during shift or personnel changes to ensure continuity of lockout/tagout protection, including orderly transfer between off-going and oncoming employees. The item stays within that legal maintenance boundary and does not invent a general shift-management program."
+topic_ids = ["m15-ops-security", "m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

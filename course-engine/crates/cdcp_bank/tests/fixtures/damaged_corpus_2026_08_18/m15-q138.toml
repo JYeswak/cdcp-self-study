@@ -1,0 +1,22 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Documentation
+# Official catalog/preview receipt: 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147
+# PASS: the current public eCFR text requires documented and utilized energy-control procedures for covered servicing and maintenance.
+id = "bank-m15-q138"
+kind = "single-select"
+module = 15
+stem = "Under 29 CFR 1910.147(c)(4)(i), covered hazardous-energy procedures must be:"
+choices = [
+  "Developed, documented, and utilized",
+  "Kept oral and discarded after each maintenance task",
+  "Used only for software deployments",
+  "Replaced by a vendor invoice"
+]
+correct = "A"
+explanation = "The current public eCFR text requires procedures to be developed, documented, and utilized for control of potentially hazardous energy during covered activities."
+topic_ids = ["m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Types of data centres" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: TIA-942-C (May 2024) —
+# https://tiaonline.org/standard/tia-942/
+# PASS: the public abstract states that the specified topology is intended to
+# apply to any size data centre.
+id = "m01-q043"
+kind = "single-select"
+module = 1
+stem = "The topology specified by TIA-942-C is intended to be applicable to:"
+choices = [
+  "Any size data centre",
+  "Only facilities above one fixed power threshold",
+  "Only single-tenant enterprise facilities",
+  "Only multi-tenant facilities with no enterprise sites",
+]
+correct = "A"
+explanation = "The TIA-942-C public abstract says its specified topology is intended to be applicable to any size data centre."
+topic_ids = ["m01-dc-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

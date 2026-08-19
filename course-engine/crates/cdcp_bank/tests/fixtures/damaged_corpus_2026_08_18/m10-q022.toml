@@ -1,0 +1,41 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+#
+# RETIRED 2026-08-14 — bd-tetz (near-duplicate adjudication, pair 21 of 24).
+# Duplicate of m10-q101 (bank/items/m10-q101.toml). Measured by
+# `cdcp_gate near-duplicate-items`: answer 100% · distractors 81% · stem 37%.
+# Both were approved, so one mock form could draw both and assess the same
+# proposition twice.
+#
+# WHY THIS COPY AND NOT m10-q101:
+#   1. FORM — neither copy is drawn by the seed-42 published form, so the form does not
+#      decide this pair; legs 2 and 3 do.
+#   2. EXPLANATION — m10-q101 says what KIND of metric WUE is ("an intensity metric for water-aware
+#      operations"); this copy restates its key. Recorded loss: this copy also carried
+#      topic m06-sustainability, which keeps 7 other approved items.
+#   3. PROVENANCE — imported from practice/PRACTICE-EXAM.md.
+#
+# Retired, never deleted: the bank is content-addressed and deleting the file would
+# lose the provenance of the duplication. The rule that made this mechanical rather
+# than case-by-case, and what stops the next import regrowing the class:
+# bank/IMPORT-POLICY.md.
+# Public syllabus heading: Importance of water
+# Official catalog/preview receipt: ISO/IEC 30134-9:2022 — https://www.iso.org/standard/77692.html
+# PASS: the current ISO OBP page explicitly defines WUE as a data-centre KPI for quantifying water consumption during the use phase. No standard body or PDF was fetched.
+id = "mock40-q22"
+kind = "single-select"
+module = 10
+stem = "ISO/IEC 30134-9:2022 defines WUE as a key performance indicator for:"
+choices = [
+  "Quantifying a data centre's water consumption during its use phase",
+  "Measuring copper utilization in network cabling",
+  "Reporting Wi-Fi efficiency only",
+  "Measuring window thermal transmittance only",
+]
+correct = "A"
+explanation = "The current ISO OBP page identifies ISO/IEC 30134-9:2022 as the data-centre WUE KPI standard and states that it quantifies water consumption during the use phase. It also describes WUE measurement categories, calculation, reporting, and interpretation; this item does not infer a formula beyond that public scope."
+topic_ids = ["m10-importance", "m06-sustainability"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "retired"

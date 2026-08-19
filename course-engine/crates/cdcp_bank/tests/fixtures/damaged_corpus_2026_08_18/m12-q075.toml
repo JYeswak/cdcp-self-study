@@ -1,0 +1,24 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: 29 CFR 1910.160 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.160
+# PASS: the current OSHA public standard requires a pre-discharge employee
+# alarm for hazardous total-flooding systems.
+id = "bank-m12-q075"
+kind = "single-select"
+module = 12
+stem = "Under 29 CFR 1910.160(c)(3), a hazardous total-flooding system must provide:"
+choices = [
+  "A pre-discharge employee alarm perceived above ambient light or noise before discharge, giving employees time to exit safely",
+  "A permanent alarm mute that removes evacuation time",
+  "A bypass of all employee-warning requirements",
+  "An automatic wet-pipe discharge in every adjacent room"
+]
+correct = "A"
+explanation = "The current OSHA public standard requires a pre-discharge employee alarm that can be perceived above ambient light or noise before discharge and gives employees time to exit safely."
+topic_ids = ["m12-gas-suppression", "m12-suppression-reqs", "m12-signage"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

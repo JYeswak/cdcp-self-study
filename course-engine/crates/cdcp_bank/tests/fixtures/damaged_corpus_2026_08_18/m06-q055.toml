@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power redundancy levels and techniques
+# Official catalog/preview receipt: ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc
+# PASS: the current ISO preview explicitly defines resilience-related KPI
+# coverage. No paid body or PDF was fetched.
+id = "m06-q055"
+kind = "single-select"
+module = 6
+stem = "ISO/IEC TS 22237-31:2026 defines key performance indicators for data-centre:"
+choices = [
+  "Resilience, dependability, fault tolerance, and availability tolerance",
+  "Only application software latency and cloud billing",
+  "Only rack paint, room branding, and office utilization",
+  "No measurable properties; the document is only a procurement template",
+]
+correct = "A"
+explanation = "The ISO preview says the document defines KPIs for resilience, dependability, fault tolerance, and availability tolerance for data centres. It also covers power/environmental infrastructure and targets maintainability, recoverability, and vulnerability; it does not expose a particular UPS shared-failure-domain rule."
+topic_ids = ["m06-redundancy"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

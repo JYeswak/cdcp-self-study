@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Cooling principles
+# PASS: ISO/IEC 22237-4:2021 official abstract explicitly includes particulate
+# control among environmental-control topics.
+# https://www.iso.org/standard/78552.html
+id = "m09-q107"
+kind = "single-select"
+module = 9
+stem = "Which air-quality environmental-control category does ISO/IEC 22237-4:2021 explicitly include?"
+choices = [
+  "Particulate control",
+  "Faster fiber splicing",
+  "Automatic increase of UPS kVA rating",
+  "Elimination of need for filters"
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly lists particulate control; it does not expose a dew-point condensation rule."
+topic_ids = ["m09-principles", "m09-temp-humidity"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

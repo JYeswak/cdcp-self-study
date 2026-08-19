@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: current NFPA 10 (2026) public NFPA LiNK catalog/preview URL —
+# https://link.nfpa.org/all-publications/10/2026
+# Boundary: NFPA 10 is the portable-fire-extinguisher standard receipt; it does
+# not authorize untrained intervention or select equipment for every site.
+id = "m12-q204"
+kind = "single-select"
+module = 12
+stem = "Portable extinguisher class selection near electrical equipment should prioritize:"
+choices = [
+  "Only water extinguishers on live switchgear",
+  "Agents suitable for energized electrical fires as required by policy and applicable standards, with trained use",
+  "Any random extinguisher regardless of class label",
+  "No extinguishers if a gas system exists anywhere on campus"
+]
+correct = "B"
+explanation = "The current NFPA 10 catalog identifies the portable-fire-extinguisher standard. The item therefore keeps selection tied to the hazard, applicable site policy, and trained use; it does not authorize a universal agent choice or untrained intervention."
+topic_ids = ["m12-extinguishers", "m12-classes"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Alarm panels
+# Official catalog/preview receipt: RFC 5674 — https://www.rfc-editor.org/info/rfc5674/
+# PASS: the open RFC explicitly defines alarm structured-data fields. No PDF
+# was fetched.
+id = "bank-m14-q117"
+kind = "single-select"
+module = 14
+stem = "RFC 5674 defines alarm structured data with fields including:"
+choices = [
+  "Resource, probable cause, perceived severity, and optional event/trend/resource-URI information",
+  "Only camera resolution and rack-paint color",
+  "Only Modbus baud rate and copper category",
+  "No alarm fields; RFC 5674 only defines email routing"
+]
+correct = "A"
+explanation = "RFC 5674 defines alarm structured-data elements for resource, probableCause, perceivedSeverity, eventType, trendIndication, and resourceURI, with required/optional status specified in the RFC. It does not establish point-naming human-factors rules."
+topic_ids = ["m14-alarms", "m14-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

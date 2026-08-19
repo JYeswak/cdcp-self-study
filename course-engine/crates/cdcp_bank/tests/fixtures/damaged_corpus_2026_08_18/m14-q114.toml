@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Notification
+# Official catalog/preview receipt: RFC 5674 — https://www.rfc-editor.org/info/rfc5674/
+# PASS: the open RFC explicitly maps ITU perceived severities to syslog
+# severity names. No PDF was fetched.
+id = "bank-m14-q114"
+kind = "single-select"
+module = 14
+stem = "RFC 5674 maps ITU perceived alarm severities to syslog severity names. Which pairing is explicitly listed?"
+choices = [
+  "Critical → Alert; Major → Critical; Minor → Error; Warning → Warning",
+  "Critical → Debug; Major → Informational; Minor → Emergency; Warning → None",
+  "All perceived severities → one universal legal priority",
+  "The RFC does not define any severity mapping"
+]
+correct = "A"
+explanation = "RFC 5674 lists the mapping Critical to Alert, Major to Critical, Minor to Error, and Warning to Warning; it also lists Indeterminate and Cleared to Notice. This is a protocol mapping, not a facility-specific paging policy."
+topic_ids = ["m14-notification", "m14-alarms"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

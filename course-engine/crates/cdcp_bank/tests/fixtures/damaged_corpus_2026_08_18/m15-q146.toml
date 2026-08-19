@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Maintenance contracts / SLA
+# PASS: ISO/IEC TS 22237-7:2018 official abstract explicitly names risk
+# management as a primary management-and-operations focus.
+# https://www.iso.org/standard/73014.html?browse=tc
+id = "bank-m15-q146"
+kind = "single-select"
+module = 15
+stem = "Which primary management-and-operations focus does ISO/IEC TS 22237-7:2018 explicitly name?"
+choices = [
+  "Risk management",
+  "Vague best effort with no response definitions",
+  "Only the vendor logo color",
+  "Unlimited silent impairments"
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly names risk management as a primary focus; it does not expose an SLA clause template."
+topic_ids = ["m15-maintenance-sla"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

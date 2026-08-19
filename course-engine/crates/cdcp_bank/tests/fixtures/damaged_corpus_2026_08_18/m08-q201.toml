@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack dimensions
+# Official catalog/preview receipt: IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283
+# PASS: the official catalog explicitly identifies the 482.6 mm (19 in) series
+# and its basic dimensions for racks and cabinets.
+id = "m08-q201"
+kind = "single-select"
+module = 8
+stem = "Which series is explicitly identified by IEC 60297-3-100:2008?"
+choices = [
+  "The 482.6 mm (19 in) series",
+  "Only a residential plumbing-pipe series",
+  "Only a generator-fuel measurement series",
+  "Only a cloud-software licensing series",
+]
+correct = "A"
+explanation = "The IEC catalog identifies basic dimensions for the 482.6 mm (19 in) series."
+topic_ids = ["m08-dimensions"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

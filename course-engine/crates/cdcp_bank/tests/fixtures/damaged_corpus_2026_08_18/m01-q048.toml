@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Types of data centres" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: TIA-942-C (May 2024) —
+# https://tiaonline.org/standard/tia-942/
+# PASS: the current TIA abstract states that the topology specified in the
+# standard is intended to be applicable to any size data centre.
+id = "m01-q048"
+kind = "single-select"
+module = 1
+stem = "What applicability does the current TIA-942-C abstract state for its specified topology?"
+choices = [
+  "It is intended to apply to any size data centre",
+  "It applies only to a single-rack lab bench",
+  "It applies only to residential buildings",
+  "It forbids generators in every facility",
+]
+correct = "A"
+explanation = "The current TIA abstract states that the topology specified in TIA-942-C is intended to be applicable to any size data centre; it does not define hyperscale characterization."
+topic_ids = ["m01-dc-types"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

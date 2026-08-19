@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: current NFPA 1 (2024) public NFPA LiNK preview —
+# https://link.nfpa.org/all-publications/1/2024
+# Boundary: the Fire Code receipt supports fire-protection/compartmentation
+# scope; it does not provide a project-specific penetration detail or AHJ ruling.
+id = "m12-q206"
+kind = "single-select"
+module = 12
+stem = "Fire compartmentation and cable penetrations matter because:"
+choices = [
+  "Firestops only exist for acoustic reasons",
+  "Openings always improve suppression concentration",
+  "Compartmentation is purely aesthetic",
+  "Unsealed penetrations can defeat fire-rated barriers and allow smoke/fire spread between zones"
+]
+correct = "D"
+explanation = "The current NFPA 1 preview supports treating fire protection and compartmentation as code-governed concerns. An unsealed penetration can compromise a rated barrier and permit smoke or fire spread; the item does not prescribe a project-specific firestop detail or AHJ ruling."
+topic_ids = ["m12-best-practices", "m12-suppression-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Supporting facilities and function" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# PASS: ISO/IEC 22237-2:2024 official abstract explicitly includes physical
+# fire protection among the data-centre building-construction topics.
+# https://www.iso.org/standard/82248.html
+id = "m03-q101"
+kind = "single-select"
+module = 3
+stem = "Which building-construction protection category does ISO/IEC 22237-2:2024 explicitly include?"
+choices = [
+  "Physical fire protection",
+  "Generators never need outdoor or dedicated plant space",
+  "Yards only store marketing banners",
+  "AHJs ban all generators everywhere",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly names physical fire protection; it does not expose a generator-yard or fuel-clearance rule."
+topic_ids = ["m03-supporting-facilities", "m03-site-selection"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

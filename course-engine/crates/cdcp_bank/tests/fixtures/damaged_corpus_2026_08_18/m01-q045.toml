@@ -1,0 +1,26 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Elements of a data centre" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# PASS: the current ISO preview exposes the common data-centre aspects and
+# facility/infrastructure framing used by this bounded item. No paid body or
+# PDF was fetched.
+id = "m01-q045"
+kind = "single-select"
+module = 1
+stem = "ISO/IEC 22237-1:2021 describes data centres through which set of common aspects?"
+choices = [
+  "Terminology, parameters, reference models, facility and infrastructure aspects, classification, business risk/cost analysis, and a reference to operation and management",
+  "Only application source code repositories and software configuration",
+  "Only office furniture, parking, and corporate branding",
+  "Only marketing dashboards and service-desk statistics",
+]
+correct = "A"
+explanation = "The ISO preview lists common terminology, parameters and reference models; facility and infrastructure aspects; classification; business-risk and operating-cost analysis; and a reference to data-centre operation and management. It does not enumerate a complete project-specific equipment bill of materials."
+topic_ids = ["m01-elements"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

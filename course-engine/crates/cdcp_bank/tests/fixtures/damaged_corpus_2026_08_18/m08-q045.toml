@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack dimensions
+# Official catalog/preview receipt: IEC 60297-3-105:2008 — https://webstore.iec.ch/en/publication/1288
+# PASS: the current IEC catalog explicitly covers dimensions and design aspects
+# for 1U chassis mounted in compliant racks/cabinets. No paid body or PDF was fetched.
+id = "m08-q045"
+kind = "single-select"
+module = 8
+stem = "According to the IEC 60297-3-105:2008 catalog description, 1U chassis are mounted into:"
+choices = [
+  "IEC 60297-3-100 compliant racks or cabinets",
+  "Only residential furniture cabinets",
+  "Only generator enclosures with no rack interface",
+  "Only cloud-software service containers",
+]
+correct = "A"
+explanation = "The IEC catalog describes 1U chassis mounted into IEC 60297-3-100 compliant racks/cabinets; it does not expose a universal 600 mm or 800 mm external-width rule."
+topic_ids = ["m08-dimensions"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

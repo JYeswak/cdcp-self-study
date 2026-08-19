@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Site location selection criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://webstore.iec.ch/en/publication/92577
+# PASS: the current ISO preview explicitly covers site configuration, provision
+# of access, and physical intrusion protection. No paid body or PDF was fetched.
+id = "m03-q103"
+kind = "single-select"
+module = 3
+stem = "Which statement best bounds site security perimeter planning under the public ISO preview?"
+choices = [
+  "Security starts and ends at the rack door only",
+  "Fencing is always illegal",
+  "Site configuration, provision of access, and physical intrusion protection are site-level concerns",
+  "Cameras replace structural setbacks always",
+]
+correct = "C"
+explanation = "The public ISO preview names site configuration, provision of access, and physical intrusion protection; detailed perimeter, vehicle, and camera controls are outside this receipt."
+topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

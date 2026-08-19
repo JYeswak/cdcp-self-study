@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Supporting facilities and function" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://www.iso.org/standard/82248.html?browse=tc
+# PASS: the current ISO preview explicitly lists access and physical-protection
+# topics. No paid body or PDF was fetched.
+id = "m03-q107"
+kind = "single-select"
+module = 3
+stem = "ISO/IEC 22237-2:2024 explicitly includes which access and protection topics?"
+choices = [
+  "Provision of access, physical intrusion protection, physical fire protection, and protection against damage from water",
+  "Only hypervisor license selection and CPU clock speed",
+  "Only BGP numbering and application failover policy",
+  "No access or protection topics; the document is software-only",
+]
+correct = "A"
+explanation = "The ISO preview explicitly lists provision of access, physical intrusion protection, physical fire protection, and protection against damage from water. It does not expose requirements for a particular NOC, storage room, or maintenance-space layout."
+topic_ids = ["m03-supporting-facilities", "m03-facility-criteria"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

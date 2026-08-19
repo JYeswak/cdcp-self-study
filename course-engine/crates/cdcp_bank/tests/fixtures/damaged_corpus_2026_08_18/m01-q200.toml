@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Business organization / DC in the business" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# PASS: ISO/IEC 22237-1:2021 official abstract explicitly covers common
+# terminology, parameters, and reference models.
+id = "m01-q200"
+kind = "single-select"
+module = 1
+stem = "Which general-concepts topic does ISO/IEC 22237-1:2021 explicitly cover?"
+choices = [
+  "Common terminology, parameters, and reference models",
+  "A pure cost centre that never affects revenue",
+  "Only a real-estate asset with no operational role",
+  "A marketing brand unrelated to IT service levels"
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly covers common terminology, parameters, and reference models; it does not expose a business-organization proposition."
+topic_ids = ["m01-business-org", "m01-importance"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

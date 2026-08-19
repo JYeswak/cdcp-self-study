@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: TIA-942 cabling system topology
+# Official catalog/preview receipt: ISO/IEC 11801-5:2017 — https://www.iso.org/standard/62247.html
+# Claim is limited to the current ISO data-centre generic-cabling scope.
+id = "m11-q201"
+kind = "single-select"
+module = 11
+stem = "ISO/IEC 11801-5:2017 specifies generic cabling within and to:"
+choices = [
+  "Computer room spaces of data-centre premises, or computer room spaces within other types of building",
+  "Only outdoor carrier ducts and wireless towers",
+  "Only generator and battery rooms, with no computer-room scope",
+  "Only office spaces, excluding data-centre computer rooms"
+]
+correct = "A"
+explanation = "The public ISO abstract defines ISO/IEC 11801-5:2017 around generic cabling within and to computer-room spaces of data-centre premises, including such spaces in other building types."
+topic_ids = ["m11-tia942-topology"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,24 @@
+# Original CDCP educational item — bank expansion (module 7)
+# Public syllabus heading: Types of EMF
+# Official catalog/preview receipt: IEC 61786-2:2014 — https://webstore.iec.ch/en/publication/5907
+# PASS: the current IEC catalog explicitly covers quasi-static magnetic and
+# electric fields from 1 Hz to 100 kHz and DC magnetic fields. No paid body or
+# PDF was fetched.
+id = "m07-q041"
+kind = "single-select"
+module = 7
+stem = "IEC 61786-2:2014 provides measurement requirements for which field range?"
+choices = [
+  "Quasi-static magnetic and electric fields from 1 Hz to 100 kHz, plus DC magnetic fields",
+  "Only ionizing radiation from cooling equipment",
+  "Only optical laser emissions from fibre",
+  "Only Wi-Fi spectrum above 1 GHz"
+]
+correct = "A"
+explanation = "The IEC catalog states that IEC 61786-2 provides requirements for quasi-static magnetic/electric fields from 1 Hz to 100 kHz and DC magnetic fields."
+topic_ids = ["m07-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

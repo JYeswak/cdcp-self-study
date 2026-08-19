@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Single phase and three phase power
+# Official catalog/preview receipt: IEC 61000-2-4:2024 — https://webstore.iec.ch/en/publication/65717
+# PASS: the current IEC catalog explicitly lists voltage imbalance and other
+# low-frequency conducted-disturbance phenomena in industrial power systems.
+id = "m06-q219"
+kind = "single-select"
+module = 6
+stem = "IEC 61000-2-4:2024 considers which low-frequency conducted-disturbance phenomena?"
+choices = [
+  "Voltage deviations, dips and short interruptions, voltage imbalance, frequency variation, harmonics/interharmonics, DC, and transient overvoltages",
+  "Only battery autonomy and generator fuel consumption",
+  "Only fibre polarity and cable insertion loss",
+  "Only fire alarm audibility and egress lighting"
+]
+correct = "A"
+explanation = "The current IEC catalog lists voltage deviations, dips and short interruptions, voltage imbalance, power-frequency variations, harmonics/interharmonics, DC component, and transient overvoltages among the phenomena considered. It does not establish a UPS trip outcome or rack-loading rule."
+topic_ids = ["m06-phase", "m06-ups", "m06-sizing"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Temperature and humidity
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# PASS: the current ISO preview explicitly includes relative humidity control
+# within environmental control for data centres.
+id = "m09-q117"
+kind = "single-select"
+module = 9
+stem = "Which moisture-control domain does ISO/IEC 22237-4:2021 explicitly include?"
+choices = [
+  "Relative humidity control",
+  "Only raised-floor height measurement",
+  "Only wet-bulb conversion for every climate",
+  "Only generator fuel quality",
+]
+correct = "A"
+explanation = "The current ISO preview explicitly lists relative humidity control among the environmental-control requirements and recommendations for data centres; it does not expose the former dew-point-versus-relative-humidity proposition."
+topic_ids = ["m09-temp-humidity"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Cleaning
+# Official catalog/preview receipt: 29 CFR 1910.22 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-D/section-1910.22
+# PASS: the current public eCFR text requires workplaces and walking-working
+# surfaces to be kept clean, orderly, and sanitary and free of listed hazards.
+id = "m15-q204"
+kind = "single-select"
+module = 15
+stem = "Under 29 CFR 1910.22, an employer must ensure that places of employment and walking-working surfaces are:"
+choices = [
+  "Kept in a clean, orderly, and sanitary condition and maintained free of hazards such as leaks and spills",
+  "Used for storage whenever a walkway is convenient",
+  "Left wet after cleaning without regard to drainage",
+  "Inspected only after an injury occurs"
+]
+correct = "A"
+explanation = "The current public eCFR text requires places of employment and walking-working surfaces to be clean, orderly, and sanitary and free of hazards such as leaks and spills."
+topic_ids = ["m15-cleaning", "m15-ops-security"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

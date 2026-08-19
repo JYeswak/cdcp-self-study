@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: IEC 62676-4:2025 —
+# https://webstore.iec.ch/en/publication/83425
+# PASS: the current IEC catalog explicitly covers planning, design,
+# installation, testing, commissioning, and maintenance of VSS.
+id = "m13-q204"
+kind = "single-select"
+module = 13
+stem = "IEC 62676-4:2025 covers which VSS lifecycle activities?"
+choices = [
+  "Planning, design, installation, testing, commissioning, and maintenance",
+  "Only camera manufacturing and lens polishing",
+  "Only data-centre power-distribution acceptance tests",
+  "Only visitor-credential revocation and escort policy"
+]
+correct = "A"
+explanation = "The current IEC catalog explicitly lists planning, design, installation, testing, commissioning, and maintenance of video-surveillance systems. It does not establish retention periods, lighting levels, time synchronization, or visitor-credential policy."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

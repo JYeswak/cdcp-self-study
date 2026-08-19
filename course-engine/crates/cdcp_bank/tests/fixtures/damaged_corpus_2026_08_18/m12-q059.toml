@@ -1,0 +1,22 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Classes of fire
+# Official catalog/preview receipt: 29 CFR 1910.155 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.155
+# PASS: the current OSHA public standard defines a Class A fire as involving ordinary combustible materials such as paper, wood, cloth, and some rubber and plastics.
+id = "bank-m12-q059"
+kind = "single-select"
+module = 12
+stem = "Under 29 CFR 1910.155(c)(8), a fire involving paper, wood, cloth, and some rubber or plastic materials is Class:"
+choices = [
+  "D",
+  "K",
+  "A",
+  "C"
+]
+correct = "C"
+explanation = "The current OSHA public standard defines Class A as a fire involving ordinary combustible materials such as paper, wood, cloth, and some rubber and plastic materials."
+topic_ids = ["m12-classes", "m12-causes"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Power quality parameters
+# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
+# PASS: the IEC catalog explicitly covers complete UPS and, where applicable,
+# individual UPS functional-unit performance and test requirements. No paid
+# body or PDF was fetched.
+id = "m06-q252"
+kind = "single-select"
+module = 6
+stem = "What equipment scope does the IEC 62040-3:2021 catalog assign performance and test requirements to?"
+choices = [
+  "A complete UPS and, where applicable, individual UPS functional units",
+  "Only fire-smoke density sensors",
+  "Only underfloor static-pressure tiles",
+  "Only copper near-end-crosstalk testers",
+]
+correct = "A"
+explanation = "The IEC catalog states that the document specifies performance and test requirements for a complete UPS and, where applicable, individual UPS functional units; it does not expose a specific double-conversion disturbance list."
+topic_ids = ["m06-power-quality", "m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

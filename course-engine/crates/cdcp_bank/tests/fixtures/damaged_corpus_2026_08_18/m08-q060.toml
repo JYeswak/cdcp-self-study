@@ -1,0 +1,22 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack dimensions
+# Official catalog/preview receipt: IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283
+# PASS: the current IEC catalog explicitly identifies the basic-dimension scope below. No paid body or PDF was fetched.
+id = "m08-q060"
+kind = "single-select"
+module = 8
+stem = "IEC 60297-3-100:2008 specifies the basic dimensions of:"
+choices = [
+  "Front panels, subracks, chassis, racks, and cabinets in the 482.6 mm (19 in) series",
+  "Only cable bend radii and rear service clearances",
+  "Only generator rooms and fuel systems",
+  "Only optical-fibre attenuation limits",
+]
+correct = "A"
+explanation = "The current IEC catalog states that IEC 60297-3-100:2008 specifies basic dimensions of front panels, subracks, chassis, racks, and cabinets of the 482.6 mm (19 in) series. It does not expose the prior service-clearance or cable-bend planning proposition."
+topic_ids = ["m08-dimensions"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

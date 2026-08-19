@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: ATS and STS
+# Official catalog/preview receipt: IEC 62310-3:2008 — https://webstore.iec.ch/en/publication/6803
+# PASS: the current IEC catalog explicitly describes transfer from two or more
+# independent AC sources.
+id = "m06-q243"
+kind = "single-select"
+module = 6
+stem = "How many independent AC sources does the IEC 62310-3:2008 abstract identify for covered STS transfer?"
+choices = [
+  "Two or more independent AC sources",
+  "One source only",
+  "Only DC battery sources",
+  "No source is required",
+]
+correct = "A"
+explanation = "The current IEC catalog explicitly describes controlled transfer from two or more independent AC sources; it does not establish a synchronized-source speed comparison."
+topic_ids = ["m06-ats-sts"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

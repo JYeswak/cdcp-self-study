@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Importance of a data centre" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# PASS: the current official abstract explicitly names business-risk and
+# operating-cost analysis in applying the data-centre classification.
+id = "m01-q207"
+kind = "single-select"
+module = 1
+stem = "Which analysis does ISO/IEC 22237-1:2021 explicitly identify as enabling application of the data-centre classification?"
+choices = [
+  "A lobby-traffic analysis",
+  "A vendor-color analysis",
+  "A catering-capacity analysis",
+  "A business-risk and operating-cost analysis",
+]
+correct = "D"
+explanation = "The current ISO abstract explicitly identifies business-risk and operating-cost analysis as an input to applying the data-centre classification."
+topic_ids = ["m01-importance", "m01-business-org"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

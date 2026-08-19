@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Importance of network cabling infrastructure
+# Official catalog/preview receipt: ISO/IEC 14763-2:2019 — https://www.iso.org/standard/73337.html
+# Claim is limited to the current ISO catalog's explicit documentation scope.
+id = "m11-q225"
+kind = "single-select"
+module = 11
+stem = "Which activity is explicitly addressed by ISO/IEC 14763-2:2019 for telecommunications cabling infrastructure?"
+choices = [
+  "Documentation of the installation and infrastructure",
+  "Replacing all active-network configuration management",
+  "Setting universal cooling temperatures for every computer room",
+  "Defining fire-alarm evacuation distances"
+]
+correct = "A"
+explanation = "The public ISO catalog explicitly lists documentation among the aspects addressed by ISO/IEC 14763-2:2019 for telecommunications cabling and cabling infrastructures."
+topic_ids = ["m11-importance", "m11-planning"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

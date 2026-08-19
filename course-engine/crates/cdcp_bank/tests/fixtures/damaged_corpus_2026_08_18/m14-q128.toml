@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Alarm panels
+# Official catalog/preview receipt: IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543
+# PASS: the current IEC catalog explicitly identifies HMI communication,
+# including a computer screen or annunciator. No paid body or PDF was fetched.
+id = "bank-m14-q128"
+kind = "single-select"
+module = 14
+stem = "IEC 62682:2022 says alarm information is communicated to the operator via:"
+choices = [
+  "A human-machine interface, usually a computer screen or an annunciator",
+  "Only a cloud dashboard with no operator-facing interface",
+  "Only a maintenance spreadsheet",
+  "No interface; the standard excludes operator response"
+]
+correct = "A"
+explanation = "The IEC catalog states that the alarm system communicates alarm information to the operator via an HMI, usually a computer screen or an annunciator. Local failover behavior and facility-specific life-safety policy require additional evidence."
+topic_ids = ["m14-alarms", "m14-best-practices"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

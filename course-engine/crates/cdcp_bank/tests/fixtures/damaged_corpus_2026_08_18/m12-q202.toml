@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: current NFPA 13 (2025) public NFPA LiNK catalog/preview URL —
+# https://link.nfpa.org/all-publications/13/2025
+# Boundary: NFPA 13 is the sprinkler-installation receipt; it does not select
+# a data-centre room strategy, waive AHJ review, or promise zero equipment damage.
+id = "m12-q202"
+kind = "single-select"
+module = 12
+stem = "Water-based suppression in IT environments requires careful design because:"
+choices = [
+  "Water never interacts with electronics",
+  "Sprinklers always improve server MTBF",
+  "AHJs never allow any water systems near IT",
+  "Water can damage equipment even while controlling fire; pre-action and zoning strategies are often considered"
+]
+correct = "D"
+explanation = "The current NFPA 13 catalog identifies the sprinkler-installation standard. That supports treating water-based protection as an engineered installation subject to design and review; it does not promise zero equipment impact or establish a universal IT-space arrangement."
+topic_ids = ["m12-water-suppression", "m12-suppression-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

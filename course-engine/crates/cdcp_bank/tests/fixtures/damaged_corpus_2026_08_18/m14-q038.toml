@@ -1,0 +1,22 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+# Public syllabus heading: Building Management System (BMS)
+# Official catalog/preview receipt: ISO 16484-1:2024 — https://www.iso.org/standard/84890.html
+# PASS: the current ISO catalog explicitly covers BACS design, engineering, installation, commissioning, completion, handover, acceptance, and project finalization.
+id = "mock40-q38"
+kind = "single-select"
+module = 14
+stem = "ISO 16484-1:2024 identifies which activity as part of BACS project completion?"
+choices = [
+  "Handover, acceptance, and project finalization",
+  "Automatic replacement of all network monitoring",
+  "A rule that DCIM controls only diesel fuel valves",
+  "A requirement that BACS and DCIM always be the same product",
+]
+correct = "A"
+explanation = "ISO 16484-1:2024 lists completion activities including handover, acceptance, and project finalization in the BACS project. It does not define a universal BMS-versus-DCIM product boundary."
+topic_ids = ["m14-bms", "m14-dcim"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

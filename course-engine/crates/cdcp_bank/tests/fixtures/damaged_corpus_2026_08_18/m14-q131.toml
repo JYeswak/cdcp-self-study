@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Water leak detection
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# PASS: the current ISO abstract explicitly lists particulate control as an
+# environmental-control category. No paid body or PDF was fetched.
+id = "bank-m14-q131"
+kind = "single-select"
+module = 14
+stem = "Which air-quality-related category is explicitly listed by ISO/IEC 22237-4:2021?"
+choices = [
+  "Particulate control",
+  "Only cloud-service latency control",
+  "Only optical-fibre attenuation control",
+  "Only diesel fuel-temperature control",
+]
+correct = "A"
+explanation = "The ISO abstract explicitly lists particulate control among the environmental-control categories; it does not expose a raised-floor leak-rope retest procedure."
+topic_ids = ["m14-leak", "m14-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

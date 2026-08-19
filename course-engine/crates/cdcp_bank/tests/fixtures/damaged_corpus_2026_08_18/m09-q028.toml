@@ -1,0 +1,23 @@
+# Bank item imported from practice/PRACTICE-EXAM.md — original educational content
+# Public syllabus heading: Cooling principles
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# PASS: the current ISO preview explicitly includes temperature control within
+# environmental control for data centres.
+id = "mock40-q28"
+kind = "single-select"
+module = 9
+stem = "Which thermal environmental-control domain does ISO/IEC 22237-4:2021 explicitly specify?"
+choices = [
+  "Temperature control",
+  "Only nuclear shielding",
+  "Only fibre-path attenuation",
+  "Only generator fuel quality",
+]
+correct = "A"
+explanation = "The current ISO preview explicitly lists temperature control among the environmental-control requirements and recommendations for data centres; it does not establish the sensible-versus-latent heat proposition."
+topic_ids = ["m09-principles"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

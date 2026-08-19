@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "General raised-floor guidelines" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://webstore.iec.ch/en/publication/92577
+# PASS: the current IEC catalog explicitly lists provision of access among the
+# construction topics addressed by ISO/IEC 22237-2:2024.
+id = "m04-q115"
+kind = "single-select"
+module = 4
+stem = "Which construction topic does ISO/IEC 22237-2:2024 explicitly address?"
+choices = [
+  "Provision of access",
+  "Storage of bulk diesel under every tile",
+  "Elimination of all grounding requirements",
+  "Replacement of fire detection",
+]
+correct = "A"
+explanation = "The current IEC catalog explicitly lists provision of access among the topics covered by ISO/IEC 22237-2:2024; it does not expose the former raised-floor airflow or cable-distribution proposition."
+topic_ids = ["m04-guidelines", "m04-floor-types"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

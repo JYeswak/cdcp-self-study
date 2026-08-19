@@ -1,0 +1,22 @@
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Cooling principles
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# PASS: the current official abstract explicitly lists fluid movement control.
+id = "m09-q110"
+kind = "single-select"
+module = 9
+stem = "Which ISO/IEC 22237-4:2021 requirement category explicitly names fluid movement control?"
+choices = [
+  "Fluid movement control",
+  "Fuel inventory control",
+  "Visitor credential control",
+  "Seismic anchorage control"
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly lists fluid movement control. It does not establish the item’s former bypass-versus-recirculation distinction."
+topic_ids = ["m09-principles", "m09-raised-floor-cooling"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Rack security
+# Official catalog/preview receipt: ISO/IEC 22237-6:2024 — https://www.iso.org/standard/82250.html?browse=tc
+# PASS: the current ISO preview explicitly addresses unauthorized access through
+# organizational and technological solutions. No paid body or PDF was fetched.
+id = "m08-q051"
+kind = "single-select"
+module = 8
+stem = "ISO/IEC 22237-6:2024 addresses unauthorized access to data-centre spaces through:"
+choices = [
+  "Organizational and technological solutions",
+  "Only a shared aisle lighting circuit",
+  "Only a public lobby Wi-Fi password",
+  "No controls; physical security is outside the document",
+]
+correct = "A"
+explanation = "The ISO preview lists protection against unauthorized access addressing organizational and technological solutions. It does not establish a universal colocation cage boundary or a particular cabinet-lock policy."
+topic_ids = ["m08-security"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

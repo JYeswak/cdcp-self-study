@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Documentation
+# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
+# PASS: the current ISO catalog explicitly names capacity planning as one of
+# the primary operational focuses. No paid body or PDF was fetched.
+id = "bank-m15-q152"
+kind = "single-select"
+module = 15
+stem = "ISO/IEC TS 22237-7:2018 names which topic among its primary operational focuses?"
+choices = [
+  "Capacity planning",
+  "Office furniture procurement",
+  "Application source-code licensing",
+  "Consumer product marketing"
+]
+correct = "A"
+explanation = "The ISO abstract lists capacity planning among the primary operational processes needed to deliver the expected level of data-centre performance."
+topic_ids = ["m15-documentation", "m15-labelling"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

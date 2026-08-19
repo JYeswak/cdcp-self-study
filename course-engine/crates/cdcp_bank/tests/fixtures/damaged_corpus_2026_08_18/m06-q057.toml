@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: UPS parallel configurations
+# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
+# PASS: the public catalog states that requirements apply to a complete UPS,
+# applicable individual functional units, and interacting UPS switches.
+id = "m06-q057"
+kind = "single-select"
+module = 6
+stem = "To what does IEC 62040-3:2021 apply its UPS performance and test requirements?"
+choices = [
+  "Only the battery chemistry, excluding the UPS itself",
+  "A complete UPS and, where applicable, individual UPS functional units and interacting UPS switches",
+  "Only conventional distribution boards and their associated switches",
+  "Only DC UPS systems",
+]
+correct = "B"
+explanation = "The IEC catalog says the document specifies performance and test requirements for a complete UPS and, where applicable, individual UPS functional units and interacting UPS switches."
+topic_ids = ["m06-ups-parallel", "m06-redundancy"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

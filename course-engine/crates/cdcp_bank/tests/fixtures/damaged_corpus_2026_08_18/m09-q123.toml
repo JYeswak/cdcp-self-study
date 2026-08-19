@@ -1,0 +1,24 @@
+# Original CDCP educational item — bank expansion
+# Public syllabus heading: Temperature and humidity
+# Official catalog/preview receipt: ISO/IEC 30134-7:2023 — https://www.iso.org/standard/80493.html?browse=tc
+# PASS: the current ISO catalog defines Cooling Efficiency Ratio (CER) as a
+# KPI for quantifying the efficient use of energy to control data-centre space
+# temperature. No paid body or PDF was fetched.
+id = "m09-q123"
+kind = "single-select"
+module = 9
+stem = "ISO/IEC 30134-7:2023 defines Cooling Efficiency Ratio (CER) as a KPI for:"
+choices = [
+  "Quantifying the efficient use of energy to control the temperature of spaces within a data centre",
+  "Replacing all fire detection and suppression metrics",
+  "Measuring only copper-cable attenuation",
+  "Assigning a universal availability class to a cooling plant"
+]
+correct = "A"
+explanation = "The ISO abstract defines CER as a KPI for quantifying the efficient use of energy to control data-centre space temperature."
+topic_ids = ["m09-temp-humidity"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: Lighting standards
+# Official catalog/preview receipt: ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html
+# PASS: the public abstract explicitly describes lighting solutions in terms of
+# quantity and quality of illumination and identifies daylight/electric sources.
+id = "m05-q143"
+kind = "single-select"
+module = 5
+stem = "Which statement matches the ISO/CIE 8995-1:2025 public abstract?"
+choices = [
+  "Lighting solutions are described in terms of illumination quantity and quality, using daylight, electric sources, or both",
+  "One universal lux number replaces all project context worldwide",
+  "The document applies only to emergency-lighting batteries",
+  "The document excludes all indoor workplaces and public spaces",
+]
+correct = "A"
+explanation = "The ISO/CIE 8995-1:2025 public abstract describes lighting solutions by quantity and quality of illumination and permits daylight, electric light, or a combination."
+topic_ids = ["m05-standards"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

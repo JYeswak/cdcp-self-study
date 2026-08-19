@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: current NFPA 2001 (2025) public NFPA LiNK catalog/preview URL —
+# https://link.nfpa.org/all-publications/2001/2025
+# Boundary: NFPA 2001 identifies clean-agent extinguishing-system scope; it does
+# not remove detection, enclosure/design, maintenance, or life-safety controls.
+id = "m12-q215"
+kind = "single-select"
+module = 12
+stem = "Clean-agent or gaseous suppression is chosen in many IT rooms primarily to:"
+choices = [
+  "Extinguish or control fire with less residue than many water or dry-chemical approaches",
+  "Increase particulate contamination intentionally",
+  "Replace all detection forever",
+  "Provide dual power paths"
+]
+correct = "A"
+explanation = "The current NFPA 2001 catalog identifies the clean-agent fire-extinguishing-systems standard. That supports the lower-residue distinction in the item; detection, enclosure/design controls, maintenance, and life safety remain required boundaries."
+topic_ids = ["m12-gas-suppression"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power distribution / busbar trunking
+# PASS: ISO/IEC 22237-3:2021 official abstract explicitly covers power
+# distribution systems to all equipment within data centres.
+# https://www.iso.org/standard/78551.html
+id = "m06-q041"
+kind = "single-select"
+module = 6
+stem = "Which distribution topic does ISO/IEC 22237-3:2021 explicitly cover?"
+choices = [
+  "Power distribution systems to all equipment within data centres",
+  "IT white space with server racks only",
+  "Public lobby and visitor parking",
+  "Only the raised-floor plenum under cold aisles",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly covers power-distribution systems to all equipment; it does not expose grey-space terminology."
+topic_ids = ["m06-distribution"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

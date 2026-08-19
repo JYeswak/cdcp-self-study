@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: current NFPA 921 (2024) public NFPA LiNK preview —
+# https://link.nfpa.org/all-publications/921/2024
+# Boundary: NFPA 921 exposes electricity-and-fire investigation scope; the item
+# keeps its causes qualitative and does not claim a universal incident ranking.
+id = "m12-q210"
+kind = "single-select"
+module = 12
+stem = "Common electrical causes of data centre fires include:"
+choices = [
+  "Only fiber polarity errors",
+  "Only low humidity always",
+  "Only empty cable trays",
+  "Overloaded connections, failed components, and poor workmanship creating ignition sources"
+]
+correct = "D"
+explanation = "The current NFPA 921 preview includes electricity-and-fire investigation scope. That supports treating overloaded connections, failed components, and workmanship defects as qualitative electrical ignition hazards; it does not establish a universal frequency ranking or site finding."
+topic_ids = ["m12-causes", "m12-best-practices"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

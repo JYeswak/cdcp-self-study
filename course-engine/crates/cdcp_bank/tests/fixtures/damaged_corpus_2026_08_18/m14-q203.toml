@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Data Centre Infrastructure Management (DCIM)
+# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
+# PASS: the current ISO preview identifies alignment of actual and future user
+# demands as the secondary focus of management processes.
+id = "m14-q203"
+kind = "single-select"
+module = 14
+stem = "What secondary management focus does ISO/IEC TS 22237-7:2018 identify?"
+choices = [
+  "Aligning actual and future user demands",
+  "Entering asset data once and never updating it",
+  "Storing management data only on paper under a random desk",
+  "Replacing operational processes with marketing metrics",
+]
+correct = "A"
+explanation = "The current ISO preview states that the secondary focus is on management processes to align the actual and future demands of users."
+topic_ids = ["m14-dcim", "m14-monitoring-challenges"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

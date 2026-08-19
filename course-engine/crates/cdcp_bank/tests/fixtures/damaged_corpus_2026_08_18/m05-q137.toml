@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: Lighting standards
+# Official catalog/preview receipt: ISO/CIE 8995-1:2025 — https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/data/standard/07/63/76342.html
+# PASS: the public abstract explicitly states the human visual comfort,
+# performance, and safety needs addressed by the standard.
+id = "m05-q137"
+kind = "single-select"
+module = 5
+stem = "Which human needs are explicitly named in the ISO/CIE 8995-1:2025 public abstract?"
+choices = [
+  "Visual comfort, performance, and safety for people in indoor workplaces",
+  "Only rack-power density and generator fuel economy",
+  "Only emergency-lighting battery duration",
+  "Only architectural aesthetics without human visual needs",
+]
+correct = "A"
+explanation = "The ISO/CIE 8995-1:2025 public abstract names visual comfort, performance, and safety of people in indoor workplaces."
+topic_ids = ["m05-standards", "m05-fixtures"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

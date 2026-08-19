@@ -1,0 +1,22 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Auxiliary systems best practices
+# Official catalog/preview receipt: ISO 16484-1:2024 — https://www.iso.org/standard/84890.html
+# PASS: the current ISO catalog explicitly lists BACS project phases including design, engineering, installation and commissioning, and completion.
+id = "bank-m14-q121"
+kind = "single-select"
+module = 14
+stem = "ISO 16484-1:2024 lists which set of phases for a BACS project?"
+choices = [
+  "Design, engineering, installation and commissioning, and completion",
+  "Only a breaker-nameplate inspection with no project design",
+  "Daily VM backups instead of BACS project phases",
+  "Marketing review with no engineering, installation, or completion phase"
+]
+correct = "A"
+explanation = "The ISO catalog for ISO 16484-1:2024 lists BACS project phases including design, engineering, installation and commissioning, and completion. The item does not claim a universal functional-test plan, deficiency workflow, or retest interval."
+topic_ids = ["m14-best-practices"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

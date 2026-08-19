@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: MTBF / MTTR
+# PASS: ISO/IEC TS 22237-7:2018 official abstract explicitly names energy
+# efficiency as a primary management-and-operations focus.
+# https://www.iso.org/standard/73014.html?browse=tc
+id = "m15-q202"
+kind = "single-select"
+module = 15
+stem = "Which energy-related primary focus does ISO/IEC TS 22237-7:2018 explicitly name?"
+choices = [
+  "Energy efficiency",
+  "MTBF promises zero failures in that period",
+  "MTTR is unrelated to spare parts and procedures",
+  "Only software uses these terms"
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly names energy efficiency as a primary focus; it does not expose an MTBF/MTTR interpretation."
+topic_ids = ["m15-mtbf-mttr"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

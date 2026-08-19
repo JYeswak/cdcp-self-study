@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — ebrr.31 leftover: document-management lifecycle
+# Public syllabus heading: Documentation
+# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
+# PASS: the current ISO page explicitly states that this document specifies
+# processes for management and operation of data centres. No paid body or PDF
+# was fetched.
+id = "m15-q226"
+kind = "single-select"
+module = 15
+stem = "The management-and-operation scope of ISO/IEC TS 22237-7:2018 covers:"
+choices = [
+  "Management and operation of data centres",
+  "Only design of rack cabinets",
+  "Only procurement of utility interconnections",
+  "Only fire-suppression agent selection",
+]
+correct = "A"
+explanation = "The ISO abstract states that the technical specification specifies processes for the management and operation of data centres; it does not expose a document-revision lifecycle or as-built-control procedure."
+topic_ids = ["m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

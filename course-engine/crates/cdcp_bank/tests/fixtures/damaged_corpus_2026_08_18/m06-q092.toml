@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power quality parameters
+# PASS: IEC 62040-3:2021 official abstract explicitly covers performance and
+# test requirements for complete UPS and, where applicable, individual units.
+# https://webstore.iec.ch/en/publication/60140
+id = "m06-q092"
+kind = "single-select"
+module = 6
+stem = "What does IEC 62040-3:2021 explicitly specify for UPS equipment?"
+choices = [
+  "Performance and test requirements for a complete UPS and, where applicable, individual units",
+  "Removing all downstream loose connections automatically",
+  "Eliminating the need for any monitoring",
+  "Cooling batteries with refrigerant always",
+]
+correct = "A"
+explanation = "The current IEC abstract explicitly specifies performance and test requirements for complete UPS and applicable individual functional units; it does not expose a double-conversion power-quality mechanism."
+topic_ids = ["m06-power-quality", "m06-ups"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,24 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Power strips / rails
+# Official catalog/preview receipt: ISO/IEC 22237-3:2021 — https://www.iso.org/standard/78551.html?browse=tc
+# PASS: the current ISO preview explicitly covers measurement of power
+# consumption and power-quality characteristics and integration with management
+# tools. No paid body or PDF was fetched.
+id = "m08-q204"
+kind = "single-select"
+module = 8
+stem = "ISO/IEC 22237-3:2021 explicitly includes devices for measuring:"
+choices = [
+  "Power consumption and power-quality characteristics at points along the power-distribution system, with integration into management tools",
+  "Only decorative rack lighting and room branding",
+  "Only application latency and cloud billing",
+  "No measurements; the document excludes management-tool integration"
+]
+correct = "A"
+explanation = "The ISO preview explicitly lists devices for measuring power consumption and power-quality characteristics at points along the power-distribution system and their integration within management tools. Outlet-level remote switching and recovery behavior are not exposed by this catalog receipt."
+topic_ids = ["m08-power-strips"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

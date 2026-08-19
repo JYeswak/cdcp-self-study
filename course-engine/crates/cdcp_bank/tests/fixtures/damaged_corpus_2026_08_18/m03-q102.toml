@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Site location selection criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-2:2024 —
+# https://www.iso.org/standard/82248.html?browse=tc
+# PASS: the current ISO preview explicitly includes protection from
+# environmental risks and protection against damage from water.
+id = "m03-q102"
+kind = "single-select"
+module = 3
+stem = "ISO/IEC 22237-2:2024 explicitly includes which site/building concern?"
+choices = [
+  "Protection from environmental risks and protection against damage from water",
+  "A universal municipal-water allocation for every data centre",
+  "A required cooling-tower chemistry limit for every jurisdiction",
+  "A rule that fibre optics need daily washing",
+]
+correct = "A"
+explanation = "The current ISO preview explicitly lists protection from environmental risks and protection against damage from water. It does not expose a universal water allocation, cooling-tower chemistry limit, or water-availability design value."
+topic_ids = ["m03-site-selection", "m03-facility-criteria"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

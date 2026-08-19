@@ -1,0 +1,24 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Batteries
+# Official catalog/preview receipt: IEC TR 62060:2001 — https://webstore.iec.ch/en/publication/6423
+# PASS: the current IEC catalog says the guide assists users in selecting methods
+# that provide information indicating the state of health of operating stationary
+# lead-acid batteries.
+id = "m06-q090"
+kind = "single-select"
+module = 6
+stem = "What does IEC TR 62060:2001 help users obtain for operating stationary lead-acid batteries?"
+choices = [
+  "Information indicating the batteries' state of health",
+  "An intentional increase in PUE",
+  "Removal of the need for any UPS",
+  "Permanent open-circuit operation",
+]
+correct = "A"
+explanation = "The current IEC catalog says the guide assists users in selecting methods to obtain sufficient information indicating the state of health of operating stationary lead-acid batteries; it does not expose a conductance/impedance trending program."
+topic_ids = ["m06-batteries"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

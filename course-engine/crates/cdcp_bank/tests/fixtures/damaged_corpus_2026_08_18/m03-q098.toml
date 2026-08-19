@@ -1,0 +1,26 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Site location selection criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC TS 22237-30:2022 —
+# https://www.iso.org/standard/80622.html
+# PASS: the current ISO catalog explicitly covers data-centre seismic/earthquake
+# risk assessment and mitigation concepts in construction and design, supporting
+# this bounded seismic-design proposition. No paid body or PDF was fetched.
+id = "m03-q098"
+kind = "single-select"
+module = 3
+stem = "Seismic and geotechnical risk assessment for a candidate site should influence:"
+choices = [
+  "Only furniture catalogues",
+  "Nothing if dual UPS exists",
+  "Structural design and equipment anchorage",
+  "Only paint shear strength",
+]
+correct = "C"
+explanation = "The public ISO catalog supports using seismic and geotechnical risk assessment to inform construction and design; site-specific rejection decisions are outside this receipt."
+topic_ids = ["m03-site-selection", "m03-facility-criteria"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

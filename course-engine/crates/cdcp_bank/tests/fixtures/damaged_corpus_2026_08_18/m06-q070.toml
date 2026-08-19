@@ -1,0 +1,24 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Transformers
+# Official catalog/preview receipt: IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588
+# PASS: the current IEC catalog states that this part applies to three-phase
+# and single-phase power transformers, including auto-transformers, subject to
+# its stated exceptions and cross-references.
+id = "m06-q070"
+kind = "single-select"
+module = 6
+stem = "IEC 60076-1:2011 applies to which transformer scope?"
+choices = [
+  "Three-phase and single-phase power transformers, including auto-transformers, subject to the catalog's stated scope",
+  "Only fibre-optic signal converters",
+  "Only chilled-water free-cooling equipment",
+  "Only humidity meters",
+]
+correct = "A"
+explanation = "The current IEC catalog explicitly states that IEC 60076-1 applies to three-phase and single-phase power transformers, including auto-transformers, with stated exceptions and cross-reference boundaries. It does not expose a data-centre service-entrance design rule."
+topic_ids = ["m06-transformers"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

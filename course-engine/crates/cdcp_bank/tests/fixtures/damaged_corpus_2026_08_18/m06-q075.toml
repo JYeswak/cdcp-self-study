@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Power distribution / busbar trunking
+# Official catalog/preview receipt: IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878
+# PASS: the current IEC catalog explicitly deals with the selection and erection
+# of wiring systems.
+id = "m06-q075"
+kind = "single-select"
+module = 6
+stem = "What does IEC 60364-5-52:2009 address?"
+choices = [
+  "Selection and erection of wiring systems",
+  "A universal claim that busway is always better than cable",
+  "Eliminating all circuit labeling",
+  "Removing all overcurrent protection",
+]
+correct = "A"
+explanation = "The current IEC catalog explicitly describes IEC 60364-5-52 as addressing the selection and erection of wiring systems; it does not expose the former tray-versus-busway trade-off."
+topic_ids = ["m06-distribution"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

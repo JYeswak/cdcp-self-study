@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: current NFPA 10 (2026) public NFPA LiNK catalog/preview URL —
+# https://link.nfpa.org/all-publications/10/2026
+# Boundary: NFPA 10 is the portable-fire-extinguisher standard receipt; it does
+# not authorize untrained intervention or select a universal agent for every site.
+id = "m12-q220"
+kind = "single-select"
+module = 12
+stem = "CO2 or clean-agent portables may be preferred in IT areas per policy and training because:"
+choices = [
+  "They leave heavy corrosive powder always",
+  "They can be more suitable around electronics when used correctly, with oxygen-displacement and safety caveats for CO2",
+  "They replace building suppression entirely",
+  "They require no training"
+]
+correct = "B"
+explanation = "The current NFPA 10 catalog identifies the portable-fire-extinguisher standard. The item keeps agent choice tied to hazard, site policy, and trained use, with CO2 personnel-safety caveats; it does not replace building suppression or authorize untrained intervention."
+topic_ids = ["m12-extinguishers", "m12-classes"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

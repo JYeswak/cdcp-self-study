@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Power redundancy levels and techniques
+# Official catalog/preview receipt: ISO/IEC TS 22237-31:2026 — https://www.iso.org/standard/88711.html?browse=tc
+# PASS: the current ISO preview explicitly says its resilience KPIs target
+# maintainability, recoverability, and vulnerability. No paid body or PDF was fetched.
+id = "m06-q250"
+kind = "single-select"
+module = 6
+stem = "ISO/IEC TS 22237-31:2026 names which target alongside maintainability and recoverability?"
+choices = [
+  "Vulnerability",
+  "Cloud billing accuracy",
+  "Office occupancy",
+  "Universal generator fuel quality"
+]
+correct = "A"
+explanation = "The ISO preview says the resilience KPI document targets maintainability, recoverability, and vulnerability."
+topic_ids = ["m06-redundancy", "m06-ups"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

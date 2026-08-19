@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: ISO/IEC TS 22237-30:2022 — https://www.iso.org/standard/80622.html?browse=tc
+# PASS: the current ISO catalog covers data-centre seismic/earthquake risk
+# assessment and mitigation concepts in construction and design.
+id = "m08-q058"
+kind = "single-select"
+module = 8
+stem = "ISO/IEC TS 22237-30:2022 addresses which data-centre topic?"
+choices = [
+  "Seismic and earthquake risk assessment with mitigation concepts in construction and design",
+  "Only coastal humidity and salt-fog exposure",
+  "A universal PUE target below 1.1",
+  "Fibre-count planning without structural or site analysis",
+]
+correct = "A"
+explanation = "The current ISO catalog states that ISO/IEC TS 22237-30:2022 addresses seismic/earthquake risk assessment for data centres and design concepts used as mitigation in construction and other design elements. It does not expose a rack anchorage detail or local structural value."
+topic_ids = ["m08-types", "m08-standards"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

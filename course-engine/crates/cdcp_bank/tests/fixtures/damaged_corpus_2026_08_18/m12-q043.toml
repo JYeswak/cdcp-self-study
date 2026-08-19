@@ -1,0 +1,24 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164
+# PASS: the current OSHA public standard states the response-time requirement
+# for detection systems that actuate extinguishment or suppression.
+id = "bank-m12-q043"
+kind = "single-select"
+module = 12
+stem = "Under 29 CFR 1910.164(e)(1), a fire detection system installed to actuate fire extinguishment or suppression must be designed to:"
+choices = [
+  "Operate in time to control or extinguish a fire",
+  "Delay operation until after all fire growth is complete",
+  "Replace the required suppression system with a network alarm",
+  "Operate only when a room is unoccupied"
+]
+correct = "A"
+explanation = "The current OSHA public standard requires detection systems used to actuate extinguishment or suppression to operate in time to control or extinguish a fire."
+topic_ids = ["m12-detection", "m12-suppression-reqs"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

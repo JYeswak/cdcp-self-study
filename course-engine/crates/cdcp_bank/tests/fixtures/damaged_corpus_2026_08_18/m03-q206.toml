@@ -1,0 +1,26 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Facility criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC TS 8236-2:2025 —
+# https://www.iso.org/standard/86677.html
+# PASS: the current ISO preview covers KPI-based facility provisioning,
+# forecasting, and capability assessment across the infrastructure lifecycle.
+# No paid body or PDF was fetched.
+id = "m03-q206"
+kind = "single-select"
+module = 3
+stem = "A facility-infrastructure forecast should use:"
+choices = [
+  "Facility profiles built from system/platform KPIs, forecasting methods, and lifecycle capability assessment",
+  "Only the day-one rack count with no lifecycle review",
+  "Only interior finishes and marketing labels",
+  "A vendor SKU list without facility indicators"
+]
+correct = "A"
+explanation = "The public ISO preview describes facility profiles, provisioning benchmarks/trends, forecasting, and capability assessment through preparation, commissioning, expansion/contraction, and retirement."
+topic_ids = ["m03-facility-criteria"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

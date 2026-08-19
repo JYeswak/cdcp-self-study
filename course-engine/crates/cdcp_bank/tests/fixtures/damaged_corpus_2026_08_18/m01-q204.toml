@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: CDCP "Importance of a data centre" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: ISO/IEC 22237-1:2021 —
+# https://www.iso.org/standard/78550.html?browse=tc
+# PASS: the current ISO preview explicitly covers availability, security,
+# energy-efficiency classification, and business risk/operating-cost analysis.
+id = "m01-q204"
+kind = "single-select"
+module = 1
+stem = "ISO/IEC 22237-1:2021 explicitly covers which foundational data-centre topics?"
+choices = [
+  "Availability, security, and energy-efficiency classification plus business risk and operating-cost analysis",
+  "Only application software selection and multi-site service-availability calculations",
+  "Only a universal PUE target and a stock-price model",
+  "Only raised-floor construction with no operation or management reference"
+]
+correct = "A"
+explanation = "The current ISO preview lists classification based on availability, security, and energy-efficiency and details business risk and operating-cost analysis. It also provides a reference to operation and management; it does not cover IT/software selection or define a universal KPI target."
+topic_ids = ["m01-importance", "m01-business-org"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

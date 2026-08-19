@@ -1,0 +1,24 @@
+# Original CDCP educational item — bank expansion (module 7)
+# Public syllabus heading: EMF standards and best practices
+# Official catalog/preview receipt: IEC 61000-5-6:2024 — https://webstore.iec.ch/en/publication/69097
+# PASS: the current IEC catalog explicitly covers facility-level mitigation of
+# lightning, RF, power-line and telecom transients, HEMP, and IEMI. No paid body
+# or PDF was fetched.
+id = "m07-q054"
+kind = "single-select"
+module = 7
+stem = "IEC 61000-5-6:2024 covers mitigation of which external electromagnetic influences at facilities or installations?"
+choices = [
+  "Lightning, RF transmitters, power-line and telecom transients, HEMP, and IEMI",
+  "Only chilled-water temperature excursions",
+  "Only application software faults and cloud outages",
+  "Only optical-fibre attenuation and connector cleanliness",
+]
+correct = "A"
+explanation = "The IEC catalog lists those external electromagnetic influences in its facility-level mitigation scope."
+topic_ids = ["m07-standards", "m07-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — not an exam dump
+# Public syllabus heading: Planning considerations
+# Official catalog/preview receipt: ISO/IEC 14763-2:2019 —
+# https://www.iso.org/standard/73337.html
+# PASS: the current ISO preview explicitly covers planning and installation of
+# cabling, pathways, spaces, and telecommunications bonds. No paid body or PDF
+# was fetched.
+id = "m11-q118"
+kind = "single-select"
+module = 11
+stem = "ISO/IEC 14763-2:2019 covers planning and installation of:"
+choices = [
+  "Telecommunications cabling, pathways, spaces, and telecommunications bonds",
+  "Only wireless links and antenna free-space paths",
+  "Only electrical utility generation equipment",
+  "No documentation, testing, or maintenance activities"
+]
+correct = "A"
+explanation = "The current ISO preview names telecommunications cabling, pathways, spaces, and telecommunications bonds in its planning and installation scope; detailed fill, bend-radius, and firestopping values require additional evidence."
+topic_ids = ["m11-planning", "m11-copper", "m11-fibre"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

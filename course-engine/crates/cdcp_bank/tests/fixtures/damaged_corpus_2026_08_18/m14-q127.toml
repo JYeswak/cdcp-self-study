@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Alarm panels
+# Official catalog/preview receipt: IEC 62682:2022 — https://webstore.iec.ch/en/publication/65543
+# PASS: the current IEC catalog states that external systems can use data from
+# the alarm system.
+id = "bank-m14-q127"
+kind = "single-select"
+module = 14
+stem = "According to IEC 62682:2022, alarm-system data may be used by:"
+choices = [
+  "External systems",
+  "Only visitor badge printers",
+  "Only underfloor rope leak zones",
+  "No system outside the alarm HMI"
+]
+correct = "A"
+explanation = "The current IEC catalog states that external systems can use data from the alarm system; it does not limit alarm data to the HMI or to one facility subsystem."
+topic_ids = ["m14-alarms", "m14-monitoring-reqs"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

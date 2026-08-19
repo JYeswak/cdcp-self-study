@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — not an exam dump
+# Public syllabus heading: Planning considerations
+# Official catalog/preview receipt: ISO/IEC 14763-2:2019 —
+# https://www.iso.org/standard/73337.html
+# PASS: the current ISO preview explicitly covers cabling documentation and
+# administration. No paid body or PDF was fetched.
+id = "m11-q117"
+kind = "single-select"
+module = 11
+stem = "ISO/IEC 14763-2:2019 explicitly includes which cabling-operation activities?"
+choices = [
+  "Documentation and administration, along with planning, testing, inspection, maintenance, and repair",
+  "Only decorative color selection and room artwork",
+  "Only wireless spectrum allocation",
+  "No operation or maintenance after installation"
+]
+correct = "A"
+explanation = "The current ISO preview lists documentation, administration, testing, inspection, operation, maintenance, and repair among the cabling-infrastructure aspects addressed; detailed label formats and human-error rates require additional evidence."
+topic_ids = ["m11-planning", "m11-importance"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

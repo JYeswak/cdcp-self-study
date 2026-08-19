@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — public heading: Physical Security and Safety — Components for physical safety.
+# Syllabus: https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Source: 29 CFR 1910.333, eCFR current 2026-08-14 —
+# https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.333
+# Boundary: electrical-utilization work practice is distinct from machine hazardous-energy LOTO;
+# a badge is access control, not electrical authorization.
+id = "m13-q217"
+kind = "single-select"
+module = 13
+stem = "A vendor badges into grey space to isolate a UPS module. Their briefing cites 29 CFR 1910.147 as the whole energy-control programme and treats the badge as the lock. The taught reading is:"
+choices = [
+  "Accept: 1910.147 already covers electric-utilization switchgear, so a second citation is decoration, and a grey-space badge is the lock",
+  "Refuse: isolating a UPS or switchgear is Subpart S (1910.331–.335, principally 1910.333). 1910.147 is the machine-LOTO regime (chillers, pumps, CRAH fans). A badge opens the room; it is not isolation",
+  "Convert the missing isolation into an invented outage percentage so the packet can be scored",
+  "Send the crew to an EPI / certification class; a credential hour-count substitutes for naming the regime",
+]
+correct = "B"
+explanation = "For the bounded electrical-utilization scenario, 29 CFR 1910.333 is the relevant electrical-work-practice receipt; 1910.147 is the machine hazardous-energy regime. A badge controls facility access but is not electrical-work authorization or an energy-isolating device. The item does not supply a qualification, PPE calculation, or site procedure."
+topic_ids = ["m13-safety-components"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

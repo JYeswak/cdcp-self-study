@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Single phase and three phase power
+# Official catalog/preview receipt: IEC 60364-5-52:2009 + AMD1:2024 — https://webstore.iec.ch/en/publication/1878
+# PASS: the current IEC catalog lists additional requirements concerning the
+# proximity of underground power and telecommunication cables.
+id = "m06-q078"
+kind = "single-select"
+module = 6
+stem = "Which cable-proximity topic does the IEC 60364-5-52 catalog explicitly mention?"
+choices = [
+  "Proximity of underground power and telecommunication cables",
+  "A rule that three-phase power is banned",
+  "Elimination of all neutral conductors",
+  "A requirement to ignore pathway proximity",
+]
+correct = "A"
+explanation = "The current IEC catalog explicitly mentions additional requirements concerning the proximity of underground power and telecommunication cables; it does not establish the former plant-versus-utilization phase proposition."
+topic_ids = ["m06-phase"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Transformers
+# Official catalog/preview receipt: IEC 60076-1:2011 — https://webstore.iec.ch/en/publication/588
+# PASS: the current IEC catalog explicitly lists the technical additions below. No paid body or PDF was fetched.
+id = "m06-q238"
+kind = "single-select"
+module = 6
+stem = "Which subject is explicitly identified as a technical addition in the IEC 60076-1:2011 catalog description?"
+choices = [
+  "Definition of harmonic content",
+  "A guarantee that transformers never produce heat",
+  "Fibre-attenuation testing only",
+  "Automatic cancellation of UPS heat",
+]
+correct = "A"
+explanation = "The current IEC catalog lists a definition of harmonic content among IEC 60076-1:2011's significant technical additions. It does not expose the prior transformer-loss or facility-heat-load proposition."
+topic_ids = ["m06-transformers", "m06-sizing"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

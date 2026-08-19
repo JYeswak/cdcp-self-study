@@ -1,0 +1,24 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: CDCP "Fire Protection" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: 29 CFR 1910.164 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.164
+# PASS: the current OSHA public standard requires periodic cleaning of
+# detectors whose operation depends on removal of dirt, dust, or particulates.
+id = "bank-m12-q041"
+kind = "single-select"
+module = 12
+stem = "Under 29 CFR 1910.164(c)(5), fire detectors that need cleaning of dirt, dust, or other particulates to be fully operational must be:"
+choices = [
+  "Cleaned at regular periodic intervals",
+  "Left uncleaned until after a fire",
+  "Cleaned only when the vendor changes the detector model",
+  "Removed from service permanently"
+]
+correct = "A"
+explanation = "The current OSHA public standard requires fire detectors that need cleaning to be fully operational to be cleaned at regular periodic intervals."
+topic_ids = ["m12-detection"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

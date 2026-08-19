@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: Ingress Protection (IP) grades
+# Official catalog/preview receipt: IEC 60529:1989 + AMD1:1999 + AMD2:2013 CSV — https://webstore.iec.ch/en/publication/2452
+# PASS: the current IEC consolidated catalog explicitly states the IP Code scope below. No paid body or PDF was fetched.
+id = "m06-q236"
+kind = "single-select"
+module = 6
+stem = "The public title of IEC 60529 identifies the subject as:"
+choices = [
+  "Degrees of protection provided by enclosures (IP Code)",
+  "UPS topology class",
+  "Fibre polarity",
+  "Fire class of materials only",
+]
+correct = "A"
+explanation = "The current IEC consolidated catalog titles IEC 60529 as Degrees of protection provided by enclosures (IP Code) and states its enclosure-classification scope. It does not expose the prior outdoor-enclosure selection proposition."
+topic_ids = ["m06-ip-grades"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

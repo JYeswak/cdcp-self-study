@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Types of EMF
+# PASS: IEC 61786-2:2014 official abstract explicitly covers quasi-static
+# magnetic/electric fields and DC magnetic fields.
+# https://webstore.iec.ch/en/publication/5907
+id = "m07-q200"
+kind = "single-select"
+module = 7
+stem = "Which field categories does IEC 61786-2:2014 explicitly cover?"
+choices = [
+  "Quasi-static magnetic/electric fields and DC magnetic fields",
+  "Only cosmic rays outside the solar system",
+  "Only visible light wavelengths used for signage",
+  "Only Wi-Fi SSIDs"
+]
+correct = "A"
+explanation = "The current IEC abstract explicitly covers quasi-static magnetic/electric fields and DC magnetic fields; it does not establish a facility-specific source taxonomy."
+topic_ids = ["m07-types", "m07-sources"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

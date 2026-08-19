@@ -1,0 +1,24 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Supporting facilities and function" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# PASS: ISO/IEC 22237-2:2024 official abstract explicitly lists physical fire
+# protection as a data-centre building-construction topic.
+# https://www.iso.org/standard/82248.html
+id = "m03-q112"
+kind = "single-select"
+module = 3
+stem = "Which protection category does ISO/IEC 22237-2:2024 explicitly list for data-centre building construction?"
+choices = [
+  "Physical fire protection",
+  "Documented MOPs",
+  "Presence of dual power paths",
+  "Adequate clear height",
+]
+correct = "A"
+explanation = "The current ISO abstract explicitly names physical fire protection; it does not expose a detailed white-space support-facility gap."
+topic_ids = ["m03-supporting-facilities"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

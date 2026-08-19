@@ -1,0 +1,22 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: PDU form factors
+# Official catalog/preview receipt: IEC 61439-2:2020 — https://webstore.iec.ch/en/publication/30043
+# Claim is limited to the current IEC catalog's power-switchgear/controlgear assembly scope.
+id = "m06-q105"
+kind = "single-select"
+module = 6
+stem = "Which equipment category does IEC 61439-2:2020 define specific requirements for?"
+choices = [
+  "Power switchgear and controlgear assemblies",
+  "Only remote power panels in data-centre white space",
+  "Only outdoor pad-mounted generators",
+  "Battery monitoring-only devices",
+]
+correct = "A"
+explanation = "The current IEC catalog identifies IEC 61439-2:2020 as defining specific requirements for power switchgear and controlgear assemblies. It does not establish a universal remote-power-panel form-factor definition."
+topic_ids = ["m06-pdu", "m06-distribution"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

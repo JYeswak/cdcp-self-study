@@ -1,0 +1,22 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Water-based fire suppression
+# Official public-code receipt: 29 CFR 1910.159 — https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.159
+# Claim is limited to OSHA's public automatic-sprinkler design coverage requirement.
+id = "bank-m12-q049"
+kind = "single-select"
+module = 12
+stem = "Under 29 CFR 1910.159(c)(1)(i), an automatic sprinkler design used to comply with the standard must provide:"
+choices = [
+  "The necessary discharge patterns, densities, and water-flow characteristics for complete coverage of the workplace or zoned subdivision",
+  "Only a fixed water volume, regardless of the workplace or zone",
+  "Automatic replacement of fire detection and alarm systems",
+  "A room-integrity seal for gaseous extinguishing systems"
+]
+correct = "A"
+explanation = "The public OSHA text requires the design characteristics needed for complete coverage in the particular workplace or zoned subdivision. It does not establish the former wet-pipe leak proposition or imply replacement of detection or gaseous-system functions."
+topic_ids = ["m12-water-suppression"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

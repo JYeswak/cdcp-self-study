@@ -1,0 +1,24 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Data Centre Infrastructure Management (DCIM)
+# Official catalog/preview receipt: ISO/IEC 19395:2015 — https://www.iso.org/standard/64801.html?browse=tc
+# PASS: the current ISO catalog explicitly recognizes that resources may be
+# composed of other resources, including a rack containing servers and
+# ventilators. No paid body or PDF was fetched.
+id = "bank-m14-q130"
+kind = "single-select"
+module = 14
+stem = "ISO/IEC 19395:2015 gives which example of a resource composed of other resources?"
+choices = [
+  "A rack containing servers and ventilators",
+  "A fire permit containing a utility transformer",
+  "A cloud invoice containing a generator room",
+  "A floor tile containing a cooling tower"
+]
+correct = "A"
+explanation = "The ISO abstract says resources may be composed of other resources and gives a rack containing servers and ventilators as an example."
+topic_ids = ["m14-dcim", "m14-monitoring-challenges"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

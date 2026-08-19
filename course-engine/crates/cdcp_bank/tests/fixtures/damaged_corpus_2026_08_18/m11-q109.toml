@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — not an exam dump
+# Public syllabus heading: Copper cabling
+# Official catalog/preview receipt: IEC 61156-5:2020 — https://webstore.iec.ch/en/publication/33649
+# PASS: the current IEC catalog explicitly describes the cable scope below. No paid body or PDF was fetched.
+id = "m11-q109"
+kind = "single-select"
+module = 11
+stem = "IEC 61156-5:2020 describes symmetrical pair/quad cables primarily intended for:"
+choices = [
+  "Horizontal floor wiring as defined in ISO/IEC 11801",
+  "Only submarine telecommunications cables",
+  "Only mains-voltage power distribution",
+  "Only wireless access-point radio links"
+]
+correct = "A"
+explanation = "The current IEC catalog defines IEC 61156-5:2020 as a sectional specification for symmetrical pair/quad cables intended primarily for horizontal floor wiring as defined in ISO/IEC 11801. Its catalog scope also identifies communication-system voltages and low-voltage remote-powering applications; it does not establish a universal copper-versus-fiber cost or distance rule."
+topic_ids = ["m11-copper", "m11-planning"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

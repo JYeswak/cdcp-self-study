@@ -1,0 +1,24 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: CDCP "Physical Security and Safety — Components for physical security" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: NFPA 730 (2026) —
+# https://link.nfpa.org/all-publications/730/2026
+# PASS: the current official preview exposes Chapter 5 — Security Planning.
+id = "bank-m13-q103"
+kind = "single-select"
+module = 13
+stem = "Which NFPA 730:2026 chapter heading names the security-planning topic?"
+choices = [
+  "Chapter 5 — Security Planning",
+  "Chapter 6 — Administrative Controls",
+  "Chapter 8 — Crime Prevention Through Environmental Design",
+  "Chapter 9 — Security Systems"
+]
+correct = "A"
+explanation = "The current NFPA 730 preview names Chapter 5 as Security Planning. The heading does not establish a data-centre security-theatre or rear-layer proposition."
+topic_ids = ["m13-security-components"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

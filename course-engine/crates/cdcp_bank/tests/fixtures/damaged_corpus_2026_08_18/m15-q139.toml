@@ -1,0 +1,22 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Documentation
+# Official catalog/preview receipt: 29 CFR 1910.147 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147
+# PASS: the current public eCFR text requires at least annual inspection of the energy-control procedure and correction of deviations.
+id = "bank-m15-q139"
+kind = "single-select"
+module = 15
+stem = "Under 29 CFR 1910.147(c)(6), the energy-control procedure must be periodically inspected:"
+choices = [
+  "At least annually, with deviations or inadequacies corrected",
+  "Only after an injury occurs",
+  "Once at commissioning and never again",
+  "Only when a vendor changes its invoice"
+]
+correct = "A"
+explanation = "The current public eCFR text requires a periodic inspection at least annually to ensure the procedure and standard are followed, with deviations or inadequacies corrected."
+topic_ids = ["m15-documentation"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

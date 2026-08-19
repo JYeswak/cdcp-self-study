@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 8)
+# Public syllabus heading: Types of racks
+# Official catalog/preview receipt: IEC 62966-2:2020 — https://webstore.iec.ch/en/publication/29770
+# PASS: the IEC catalog explicitly covers aisle-containment air flow, air
+# separation, air cooling, leakage measurement, and leakage classification.
+id = "m08-q062"
+kind = "single-select"
+module = 8
+stem = "IEC 62966-2:2020 is dedicated to aisle-containment techniques and addresses:"
+choices = [
+  "Air flow, air separation, air cooling, and measurement/classification of containment leakage",
+  "Only generator fuel transfer controls",
+  "Only rack-unit height conversion",
+  "Only cloud-service response-time targets",
+]
+correct = "A"
+explanation = "The IEC catalog names air-flow, air-separation, and air-cooling requirements and provides methods/classification for aisle-containment leakage; it does not expose a universal rack-orientation rule."
+topic_ids = ["m08-types"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,25 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: CDCP "Facility criteria" —
+# https://www.epi-ap.com/services/1/3/4/Certified_Data_Centre_Professional_%28CDCP%29
+# Official catalog/preview receipt: TIA-942-C (May 2024) —
+# https://tiaonline.org/standard/tia-942/
+# PASS: the public abstract explicitly states that the standard specifies
+# infrastructure requirements for data centres and computer rooms.
+id = "m03-q106"
+kind = "single-select"
+module = 3
+stem = "What does the TIA-942-C public abstract say the standard specifies requirements for?"
+choices = [
+  "Infrastructure of data centres and computer rooms",
+  "Only application software deployment",
+  "Only residential kitchen appliances",
+  "Only cloud billing and tenancy contracts",
+]
+correct = "A"
+explanation = "The TIA-942-C public abstract says the standard specifies requirements for infrastructure of data centres and computer rooms."
+topic_ids = ["m03-facility-criteria", "m03-supporting-facilities"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

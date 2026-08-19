@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 6)
+# Public syllabus heading: Batteries
+# Official catalog/preview receipt: IEC TR 62060:2001 — https://webstore.iec.ch/en/publication/6423
+# PASS: the current IEC catalog says the guide describes characteristics that
+# can be electrically measured and remotely interrogated regularly.
+id = "m06-q110"
+kind = "single-select"
+module = 6
+stem = "What measurement approach does IEC TR 62060:2001 explicitly describe for stationary batteries?"
+choices = [
+  "Characteristics that can be electrically measured and remotely interrogated regularly",
+  "Only IT software telemetry with no battery measurements",
+  "Automatic free 2N upgrade",
+  "Permanent open-circuit operation",
+]
+correct = "A"
+explanation = "The current IEC catalog says the guide describes characteristics that can be electrically measured and remotely interrogated regularly; it does not expose the former IT-load-growth/autonomy proposition."
+topic_ids = ["m06-batteries", "m06-sizing", "m06-ups"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Monitoring challenges
+# Official catalog/preview receipt: ISO/IEC TS 22237-7:2018 — https://www.iso.org/standard/73014.html?browse=tc
+# PASS: the current ISO catalog states that this specification covers processes
+# for the management and operation of data centres.
+id = "m14-q200"
+kind = "single-select"
+module = 14
+stem = "ISO/IEC TS 22237-7:2018 specifies processes for:"
+choices = [
+  "The management and operation of data centres",
+  "Classifying only electrical-enclosure ingress protection",
+  "Replacing all operational procedures with a single sensor",
+  "Defining Internet routing protocols"
+]
+correct = "A"
+explanation = "The current ISO catalog states that ISO/IEC TS 22237-7:2018 specifies processes for the management and operation of data centres."
+topic_ids = ["m14-monitoring-challenges"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

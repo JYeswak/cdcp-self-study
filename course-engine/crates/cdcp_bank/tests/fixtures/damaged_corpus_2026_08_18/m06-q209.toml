@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (depth/apply)
+# Public syllabus heading: UPS systems
+# Official catalog/preview receipt: IEC 62040-3:2021 — https://webstore.iec.ch/en/publication/60140
+# PASS: the current IEC catalog explicitly identifies continuity of load power
+# as the primary function of covered UPS.
+id = "m06-q209"
+kind = "single-select"
+module = 6
+stem = "What primary function does IEC 62040-3:2021 identify for covered UPS?"
+choices = [
+  "Ensures continuity of load power",
+  "Eliminates all heat so cooling is unnecessary",
+  "Removes the need for any grounding",
+  "Converts three-phase to single-phase only",
+]
+correct = "A"
+explanation = "The current IEC catalog explicitly states that covered UPS have the primary function of ensuring continuity of load power; it does not establish a double-conversion preference."
+topic_ids = ["m06-ups", "m06-power-quality"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

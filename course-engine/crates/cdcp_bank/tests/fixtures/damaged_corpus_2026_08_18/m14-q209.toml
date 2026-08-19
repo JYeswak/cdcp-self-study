@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Building Management System (BMS)
+# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# PASS: the current public abstract explicitly lists physical security of
+# environmental control systems.
+id = "m14-q209"
+kind = "single-select"
+module = 14
+stem = "Which security domain is explicitly listed in the ISO/IEC 22237-4:2021 public abstract?"
+choices = [
+  "Physical security of environmental control systems",
+  "Only cloud application security",
+  "Only generator fuel security",
+  "Only rack-label security",
+]
+correct = "A"
+explanation = "The ISO public abstract explicitly lists physical security of environmental control systems among the covered domains."
+topic_ids = ["m14-bms", "m14-ems", "m14-monitoring-challenges"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

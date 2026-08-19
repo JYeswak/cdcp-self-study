@@ -1,0 +1,23 @@
+# Original educational bank item — modules expansion (not mock40)
+# Public syllabus heading: Labelling
+# Official catalog/preview receipt: 29 CFR 1910.303 — https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-S/section-1910.303
+# PASS: the current public eCFR text requires service, feeder, and branch
+# circuits to be legibly marked to indicate purpose unless evident.
+id = "bank-m15-q136"
+kind = "single-select"
+module = 15
+stem = "Under 29 CFR 1910.303(f)(2), each service, feeder, and branch circuit at its disconnecting means or overcurrent device shall be:"
+choices = [
+  "Legibly marked to indicate its purpose, unless the purpose is evident from the location and arrangement",
+  "Left unmarked if the panel has a lock",
+  "Identified only in a marketing floor plan",
+  "Marked only after an incident"
+]
+correct = "A"
+explanation = "The current public eCFR text requires each service, feeder, and branch circuit at its disconnecting means or overcurrent device to be legibly marked to indicate its purpose unless the purpose is evident."
+topic_ids = ["m15-labelling", "m15-documentation"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

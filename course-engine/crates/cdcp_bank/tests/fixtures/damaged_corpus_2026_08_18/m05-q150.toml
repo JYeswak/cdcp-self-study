@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — study bank (not an exam dump)
+# Public syllabus heading: Connecting and positioning light fixtures
+# Official catalog/preview receipt: ISO/TS 21274:2020 — https://www.iso.org/standard/70361.html?browse=tc
+# PASS: the current ISO catalog explicitly says that ISO/TS 21274 is not
+# applicable to commissioning emergency lighting.
+id = "m05-q150"
+kind = "single-select"
+module = 5
+stem = "Which activity is explicitly outside the scope of ISO/TS 21274:2020?"
+choices = [
+  "Commissioning lighting systems in non-residential buildings",
+  "Commissioning emergency lighting",
+  "Commissioning lighting systems to meet design specifications",
+  "Commissioning lighting systems in public spaces of multi-residence buildings",
+]
+correct = "B"
+explanation = "The current ISO preview says ISO/TS 21274 covers commissioning lighting systems in buildings but is not applicable to commissioning emergency lighting."
+topic_ids = ["m05-fixtures", "m05-emergency", "m05-standards"]
+objective_ids = []
+bloom = "apply"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

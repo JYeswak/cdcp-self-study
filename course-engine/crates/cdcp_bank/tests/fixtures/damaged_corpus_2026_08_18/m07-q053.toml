@@ -1,0 +1,23 @@
+# Original CDCP educational item — bank expansion (module 7)
+# Public syllabus heading: Shielding
+# Official catalog/preview receipt: IEC 61000-4-23:2016 + AMD1:2025 CSV — https://webstore.iec.ch/en/publication/26074
+# PASS: the current IEC catalog describes shielding-element test concepts,
+# set-up, equipment, procedures, and data processing.
+id = "m07-q053"
+kind = "single-select"
+module = 7
+stem = "What test information does IEC 61000-4-23:2016 explicitly provide for shielding elements?"
+choices = [
+  "Test concepts, test set-up, required equipment, test procedures, and data processing",
+  "Only the colour of paint",
+  "Only the number of rack U available",
+  "Only generator fuel type",
+]
+correct = "A"
+explanation = "The current IEC catalog lists the theoretical foundation of each test, set-up, equipment, procedures, and data processing; it does not expose the former aperture/seam/cable-entry proposition."
+topic_ids = ["m07-shielding"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

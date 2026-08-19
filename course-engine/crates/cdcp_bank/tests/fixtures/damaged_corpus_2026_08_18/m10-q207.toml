@@ -1,0 +1,22 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Importance of water
+# Official catalog/preview receipt: NFPA 24, 2025 — https://link.nfpa.org/all-publications/24/2025
+# PASS: the current official preview exposes Chapter 5 — Water Supplies.
+id = "m10-q207"
+kind = "single-select"
+module = 10
+stem = "Which NFPA 24:2025 chapter heading names the water-supplies topic?"
+choices = [
+  "Chapter 4 — General Requirements",
+  "Chapter 5 — Water Supplies",
+  "Chapter 8 — Hose Houses and Equipment",
+  "Chapter 14 — System Inspection, Testing, and Maintenance"
+]
+correct = "B"
+explanation = "The current NFPA 24 preview names Chapter 5 as Water Supplies. The heading does not establish an AHJ-specific pressure requirement or a data-centre fire-water design."
+topic_ids = ["m10-importance"]
+objective_ids = []
+bloom = "remember"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

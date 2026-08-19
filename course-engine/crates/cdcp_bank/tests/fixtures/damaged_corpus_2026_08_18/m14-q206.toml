@@ -1,0 +1,23 @@
+# Original CDCP educational MCQ — bank expansion (not an exam dump)
+# Public syllabus heading: Notification
+# Official catalog/preview receipt: RFC 5424 — https://www.rfc-editor.org/rfc/rfc5424.html
+# PASS: the open RFC explicitly separates syslog content, application, and
+# transport layers and defines structured data. No PDF was fetched.
+id = "m14-q206"
+kind = "single-select"
+module = 14
+stem = "RFC 5424 separates syslog into which conceptual layers?"
+choices = [
+  "Syslog content, the syslog application layer, and the syslog transport layer",
+  "Only SMS, voice calls, and ticket queues, with no message or transport model",
+  "Only a database layer and a rack-power layer",
+  "No layers; every implementation must use one vendor-specific format"
+]
+correct = "A"
+explanation = "RFC 5424 defines syslog content as management information, a syslog application layer for generation/interpreting/routing/storage, and a transport layer that puts messages on and takes them off the wire. It does not prescribe SMS, call-tree, or facility-escalation policy."
+topic_ids = ["m14-notification", "m14-best-practices"]
+objective_ids = []
+bloom = "analyze"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
