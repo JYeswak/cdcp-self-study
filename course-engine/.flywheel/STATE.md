@@ -15,9 +15,9 @@ Recent landed work relevant to this state:
   929-approved bank and refreshed the golden pins.
 - `2a6d870` added `watchdog-escalate.sh` and a cron reader for stalled loops.
   It observes and escalates; it does not emit ticks or dispatch work.
-- `bd-engine-not-gate-ar39.17` adds the local Rust tick emitter and its
-  fail-closed tests; the bead remains open until the real install receipt is
-  emitted and the scoped checks are complete.
+- `4b07321` adds the local Rust tick emitter and its fail-closed tests;
+  `T9` was emitted by that command for the prior audit commit `8286885`.
+  The bead remains open until the final scoped checks are complete.
 
 ## Grounding-wave non-bank audit (`bd-0cjy.1`)
 
@@ -61,11 +61,13 @@ was contested or overwritten.
 
 ## Tick-loop truth
 
-The ledger has exactly 9 rows, `T0` through `T8`; the last row is `T8` from
-`d94e10a`, written 2026-08-14 11:51. There are 824 commits after that row.
-No retroactive ticks were emitted. Product-move rate, RED ratio, and value
-density derived from this ledger are stale-by-design and describe only the
-closed T0–T8 window.
+The ledger now has exactly 10 rows, `T0` through `T9`; the last row is `T9`
+from the emitter, recording commit `8286885`. That commit changed only
+`.flywheel/STATE.md`, so the receipt correctly computes
+`product_moved=false` and records the caller's contrary claim as a
+disagreement. The row is a real emitter output, not a hand-written repair.
+Product-move rate, RED ratio, and value density derived from this ledger still
+need a live controller to become a current per-tick series.
 
 This repository cannot emit a tick today. There is no local `emit_tick`
 function, command, loop-kit script, or reachable writer for
@@ -74,11 +76,11 @@ wrapper appends `STALL` observations to `ALERT` and writes `URGENT_JOSH.md`.
 Neither writes a `zs.tick-receipt` ledger row. A tidy `STATE.md` is therefore
 not a running loop.
 
-The local writer is now directly invokable as `cdcp_gate emit-tick`. It computes
+The local writer is directly invokable as `cdcp_gate emit-tick`. It computes
 product movement from the named commit, applies the Charter denylist, rejects
 fabricated classes and forbidden status prose, and refuses a missing ledger
 instead of creating one. A live receipt for the prior audit commit is still
-required to prove installation. Nothing currently invokes this command
+present, proving installation. Nothing currently invokes this command
 automatically per tick: the watchdog remains an observer/escalator, and cron
 does not dispatch the emitter. A running loop still needs its tick controller
 to call `cdcp_gate emit-tick` once per completed tick.
