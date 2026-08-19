@@ -1,18 +1,16 @@
-# Original CDCP educational item — bank expansion
-# Public syllabus heading: Supplemental cooling
-# Official catalog/preview receipt: ISO/IEC 22237-4:2021 — https://www.iso.org/standard/78552.html
+# Original CDCP educational MCQ — not an exam dump
 id = "m09-q144"
 kind = "single-select"
 module = 9
-stem = "Which security scope is explicitly named by ISO/IEC 22237-4:2021?"
+stem = "Supplemental cooling generally means:"
 choices = [
-  "Physical security of environmental-control systems",
-  "Security of business applications and source code",
-  "Security of customer billing records only",
-  "Security of public-road traffic controls"
+  "Adding local capacity (in-row, rear-door, liquid, and similar) where room systems are insufficient",
+  "Removing all primary plant and relying on outdoor air only with no design",
+  "Only painting CRAHs a different color",
+  "Disabling monitoring to save energy"
 ]
 correct = "A"
-explanation = "The current ISO abstract includes physical security of environmental-control systems among the specified environmental-control areas; it does not establish a broader application-security taxonomy."
+explanation = "Supplemental cooling targets hot spots or dense zones that the base system cannot serve adequately alone."
 topic_ids = ["m09-supplemental"]
 objective_ids = []
 bloom = "remember"

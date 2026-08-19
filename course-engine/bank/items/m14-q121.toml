@@ -1,22 +1,19 @@
 # Original educational bank item — modules expansion (not mock40)
-# Public syllabus heading: Auxiliary systems best practices
-# Official catalog/preview receipt: ISO 16484-1:2024 — https://www.iso.org/standard/84890.html
-# PASS: the current ISO catalog explicitly lists BACS project phases including design, engineering, installation and commissioning, and completion.
 id = "bank-m14-q121"
 kind = "single-select"
 module = 14
-stem = "Commissioning functional testing and monitoring plans are valuable because they:"
+stem = "Integrated Systems Testing (IST) is valuable primarily because it:"
 choices = [
-  "Design, engineering, installation and commissioning, and completion",
-  "Only a breaker-nameplate inspection with no project design",
-  "Daily VM backups instead of BACS project phases",
-  "Marketing review with no engineering, installation, or completion phase"
+  "Validates power, cooling, and controls failovers as a combined system under planned scenarios",
+  "Only tests a single breaker nameplate in isolation forever",
+  "Replaces daily VM backups",
+  "Is optional marketing text with no technical meaning"
 ]
 correct = "A"
-explanation = "The DOE FEMP public commissioning process includes functional test and monitoring plans, analysis of test results, a master deficiency list, implementation of accepted improvements, and retesting/remonitoring. This is a bounded commissioning receipt, not a credential claim."
+explanation = "IST proves coupled system behavior—not just component bench tests."
 topic_ids = ["m14-best-practices"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "draft"
+status = "approved"
