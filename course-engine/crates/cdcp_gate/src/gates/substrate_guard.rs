@@ -267,8 +267,8 @@ use crate::date::{self, Ymd};
 use crate::registry::{GateCtx, GateError};
 use crate::vcs;
 use cdcp_registry_check::shell_walk::{
-    check_rust_migration_headers, check_sh_invocation_set, classify_probe, code_part, describe_exit,
-    discover_oracle_scripts, is_inventoried_oracle_script, probe_can_stop_early,
+    check_rust_migration_headers, check_sh_invocation_set, classify_probe, code_part,
+    describe_exit, discover_oracle_scripts, is_inventoried_oracle_script, probe_can_stop_early,
     reason_claims_check_sh_invoke, reason_claims_not_on_check_sh, require_nonempty_inventory,
     require_tree_derived_floor, walk_invocations, ProbeVerdict, ORACLE_DISPOSITIONS,
 };
@@ -1061,7 +1061,6 @@ pub fn check_sh_wires_guard(text: &str) -> bool {
 // authoring-helper reason that is lying about being an authoring helper is
 // still prose.
 
-
 /// Anti-vacuous errors and lying-reason violations from one snapshot's rows
 /// and that snapshot's check.sh text.
 #[derive(Debug, Clone, PartialEq, Eq, Default)]
@@ -1765,9 +1764,8 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     // RUST MIGRATION header stating its disposition. Blank is ERROR, not permission.
     // Only run when the registry claims to inventory oracles (fixtures omit it).
     if wt_al.oracle_inventory.is_some() && !wt_disc.is_empty() {
-        let header_errs = check_rust_migration_headers(&wt_disc, |path| {
-            std::fs::read_to_string(root.join(path))
-        });
+        let header_errs =
+            check_rust_migration_headers(&wt_disc, |path| std::fs::read_to_string(root.join(path)));
         if !header_errs.is_empty() {
             return Err(GateError::error(format!(
                 "{} RUST MIGRATION header error(s): {}",
@@ -2858,7 +2856,10 @@ expires = "2099-01-01"
             classify_probe(&never, Some(0), plant, NAME),
             ProbeVerdict::NeverRan
         );
-        assert_eq!(classify_probe(&never, None, plant, NAME), ProbeVerdict::NeverRan);
+        assert_eq!(
+            classify_probe(&never, None, plant, NAME),
+            ProbeVerdict::NeverRan
+        );
 
         // A failure that is not this gate's must never be read as this gate's.
         let elsewhere = format!("{banner}\ncheck.sh: FAIL: missing docs/ORACLE-GAUNTLET.md\n");
@@ -3406,9 +3407,8 @@ python3 "$_anki_plant/scripts/export_anki.py"
             // All oracles retired; this test is no longer applicable
             return;
         }
-        let errs = check_rust_migration_headers(&disc, |path| {
-            std::fs::read_to_string(root.join(path))
-        });
+        let errs =
+            check_rust_migration_headers(&disc, |path| std::fs::read_to_string(root.join(path)));
         assert!(
             errs.is_empty(),
             "every remaining Python oracle must have a RUST MIGRATION header: {errs:?}"
@@ -3479,7 +3479,8 @@ python3 "$_anki_plant/scripts/export_anki.py"
     fn plant_gzvb_behind_a_variable_in_a_temp_copy_must_appear() {
         // TEMP copy — not the live tree. Hide python3 scripts/plant_gzvb.py
         // behind $HIDDEN so a grep of the entry file cannot see the path.
-        let mut files: std::collections::BTreeMap<String, String> = std::collections::BTreeMap::new();
+        let mut files: std::collections::BTreeMap<String, String> =
+            std::collections::BTreeMap::new();
         files.insert(
             "scripts/check.sh".to_string(),
             "#!/bin/sh\nHIDDEN=\"scripts/plant_gzvb.py\"\npython3 \"$HIDDEN\"\nsh scripts/child_gzvb.sh\n"
@@ -3605,7 +3606,8 @@ python3 "$_anki_plant/scripts/export_anki.py"
         // no git apply.
         let mut r = row("scripts/oracle_only.py");
         r.reason = "Retained as oracle-only. Not on the check.sh path.".into();
-        let mut files: std::collections::BTreeMap<String, String> = std::collections::BTreeMap::new();
+        let mut files: std::collections::BTreeMap<String, String> =
+            std::collections::BTreeMap::new();
         files.insert(
             "scripts/check.sh".into(),
             "#!/bin/sh\nsh scripts/nested_lcfj.sh\n".into(),
