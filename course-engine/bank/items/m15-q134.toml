@@ -5,15 +5,15 @@
 id = "bank-m15-q134"
 kind = "single-select"
 module = 15
-stem = "ISO/IEC TR 14763-2-1:2011 provides requirements and recommendations for:"
+stem = "Clear labelling of power circuits, breakers, and cables primarily reduces:"
 choices = [
-  "Identifying cabling infrastructure elements within administration systems",
-  "Eliminating the need for any cabling documentation",
-  "Changing chilled-water approach temperature by physics",
-  "Setting camera-retention requirements"
+  "The need for any documentation forever",
+  "Human error during isolation, restoration, and incident response",
+  "Chilled-water approach temperature by physics",
+  "Camera retention requirements"
 ]
-correct = "A"
-explanation = "The ISO catalog describes requirements and recommendations for identifying cabling infrastructure elements to support cabling administration. It does not establish a power-breaker labelling taxonomy or eliminate the need for broader plant documentation."
+correct = "B"
+explanation = "Labels make the physical plant operable under stress; unlabeled gear invites wrong-breaker mistakes."
 topic_ids = ["m15-labelling"]
 objective_ids = []
 bloom = "understand"

@@ -6,15 +6,15 @@
 id = "bank-m15-q155"
 kind = "single-select"
 module = 15
-stem = "Under 29 CFR 1910.1200, a workplace hazard-communication program includes:"
+stem = "Mixing cleaning chemicals or using conductive liquids carelessly near IT and electrical gear is hazardous because it can:"
 choices = [
-  "Container labeling and other warnings, safety data sheets, and employee training",
-  "Only an unlabeled chemical cabinet",
-  "Only a vendor invoice for cleaning supplies",
-  "Only a one-time verbal warning with no workplace program"
+  "Only improve PUE",
+  "Automatically improve labels",
+  "Cause equipment damage, residues, and electrical safety incidents",
+  "Raise MTBF by definition"
 ]
-correct = "A"
-explanation = "The current public eCFR text says hazard-communication programs include container labeling and other warnings, safety data sheets, and employee training."
+correct = "C"
+explanation = "Cleaning is controlled work near energized systems—methods and chemistry matter."
 topic_ids = ["m15-cleaning", "m15-ops-security"]
 objective_ids = []
 bloom = "apply"

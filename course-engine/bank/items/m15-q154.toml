@@ -8,15 +8,15 @@
 id = "bank-m15-q154"
 kind = "single-select"
 module = 15
-stem = "Which resilience-related primary focus does ISO/IEC TS 22237-7:2018 explicitly name?"
+stem = "Post-incident documentation (timeline, contributing factors, corrective actions) is valuable because it:"
 choices = [
-  "Resilience",
   "Only blames individuals without system learning",
+  "Converts experience into prevention—procedure, design, and monitoring improvements",
   "Is optional if the outage was short",
   "Replaces the need for MOPs on future similar work"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly names resilience as a primary focus; it does not expose a post-incident documentation procedure."
+correct = "B"
+explanation = "Learning loops turn incidents into durable ops improvements. Record contributing factors, plural — never a single root cause."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "understand"

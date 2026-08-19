@@ -6,15 +6,15 @@
 id = "m15-q208"
 kind = "single-select"
 module = 15
-stem = "Under 29 CFR 1910.303(f)(3), markings required for disconnecting means and circuits shall be:"
+stem = "Labelling that includes circuit ID, source panel, and destination helps most during:"
 choices = [
-  "Of sufficient durability to withstand the environment involved",
-  "Temporary paper notes that may fade during normal operation",
-  "Required only on the floor plan and not on equipment",
-  "Optional whenever a circuit is part of a data centre"
+  "Only annual photo contests",
+  "Choosing paint colors",
+  "Marketing tours exclusively",
+  "Emergency isolation and load migration when time pressure is high"
 ]
-correct = "A"
-explanation = "The current public eCFR text requires the markings under 1910.303(f)(1) and (f)(2) to be of sufficient durability to withstand the environment involved."
+correct = "D"
+explanation = "Crisis performance depends on instant physical identity of paths."
 topic_ids = ["m15-labelling"]
 objective_ids = []
 bloom = "apply"

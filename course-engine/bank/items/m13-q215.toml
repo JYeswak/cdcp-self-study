@@ -8,15 +8,15 @@
 id = "m13-q215"
 kind = "single-select"
 module = 13
-stem = "Which objective is explicitly within ISO/IEC 22237-6:2024's public physical-security scope?"
+stem = "Periodic access rights reviews are important because:"
 choices = [
-  "Protect data-centre spaces against unauthorized access and intrusion",
-  "Specify one universal credential-review interval for every site",
-  "Replace physical security with software-admin review only",
-  "Define a mantrap or anti-passback taxonomy for every facility"
+  "Access lists never go stale",
+  "Contractors never leave projects",
+  "Role changes and terminations leave residual access if never recertified",
+  "Reviews only matter for software admin rights, never doors"
 ]
-correct = "A"
-explanation = "The ISO/IEC 22237-6:2024 public preview covers physical security of data centres, including protection against unauthorized access and intrusion using organizational and technological solutions. It does not expose a universal credential-review interval or a mantrap taxonomy."
+correct = "C"
+explanation = "Joiner-mover-leaver hygiene applies to physical credentials too."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

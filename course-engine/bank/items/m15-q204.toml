@@ -6,15 +6,15 @@
 id = "m15-q204"
 kind = "single-select"
 module = 15
-stem = "Under 29 CFR 1910.22, an employer must ensure that places of employment and walking-working surfaces are:"
+stem = "Data centre cleaning programs should emphasize:"
 choices = [
-  "Kept in a clean, orderly, and sanitary condition and maintained free of hazards such as leaks and spills",
-  "Used for storage whenever a walkway is convenient",
-  "Left wet after cleaning without regard to drainage",
-  "Inspected only after an injury occurs"
+  "Wet mopping every PDU interior weekly with unknown chemicals",
+  "Using compressed air to blow debris into equipment intakes as routine",
+  "Never cleaning under raised floors",
+  "Methods and materials that control dust/contaminants without damaging equipment or creating electrical hazards"
 ]
-correct = "A"
-explanation = "The current public eCFR text requires places of employment and walking-working surfaces to be clean, orderly, and sanitary and free of hazards such as leaks and spills."
+correct = "D"
+explanation = "Cleaning is controlled work near electronics—technique matters."
 topic_ids = ["m15-cleaning", "m15-ops-security"]
 objective_ids = []
 bloom = "apply"

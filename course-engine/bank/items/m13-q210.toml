@@ -8,15 +8,15 @@
 id = "m13-q210"
 kind = "single-select"
 module = 13
-stem = "Which design-related chapter heading does the NFPA 730:2026 public preview expose?"
+stem = "Asset cages or demarcated customer spaces in colocation improve security by:"
 choices = [
-  "Crime Prevention Through Environmental Design",
   "Removing the need for building perimeter controls",
+  "Providing tenant separation and controlled access within a shared building",
   "Allowing unlimited shared keys across tenants",
   "Eliminating CCTV needs"
 ]
-correct = "A"
-explanation = "The current NFPA preview explicitly exposes the Crime Prevention Through Environmental Design chapter heading; it does not expose a colocation separation rule."
+correct = "B"
+explanation = "Colo security is multi-tenant compartmentalization on top of site controls."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

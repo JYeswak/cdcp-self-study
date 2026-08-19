@@ -6,15 +6,15 @@
 id = "m14-q207"
 kind = "single-select"
 module = 14
-stem = "The secondary focus of ISO/IEC TS 22237-7:2018 is to:"
+stem = "Monitoring requirements should be derived from:"
 choices = [
-  "Align actual and future user demands through management processes",
-  "Ignore future user demand once a facility is commissioned",
-  "Measure only PUE once a year",
-  "Replace all operational processes with a marketing dashboard"
+  "Only whichever free sensor was in a marketing kit",
+  "Ignoring mechanical systems entirely",
+  "Measuring only PUE once a year",
+  "What operators need to detect degradation and failures in time to protect SLAs and safety"
 ]
-correct = "A"
-explanation = "The current ISO catalog identifies alignment of actual and future user demands as the secondary focus of ISO/IEC TS 22237-7:2018."
+correct = "D"
+explanation = "Requirements trace to failure modes and response time needs."
 topic_ids = ["m14-monitoring-reqs"]
 objective_ids = []
 bloom = "understand"

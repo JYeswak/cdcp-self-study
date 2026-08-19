@@ -5,15 +5,15 @@
 id = "m14-q210"
 kind = "single-select"
 module = 14
-stem = "Under IEC 62682:2022, the primary function of an alarm system is to:"
+stem = "Thresholds set without hysteresis or seasonality awareness often cause:"
 choices = [
-  "Notify operators of abnormal process conditions or equipment malfunctions and support the response",
-  "Guarantee perfect silence during all operating conditions",
-  "Automatically determine every root cause without operator response",
-  "Increase equipment MTBF by definition"
+  "Perfect silence forever",
+  "Automatic root-cause analysis",
+  "Chattering alarms and operator desensitization",
+  "Higher MTBF by definition"
 ]
-correct = "A"
-explanation = "The current IEC catalog states that the primary function within the alarm system is to notify operators of abnormal process conditions or equipment malfunctions and support the response. It also identifies alarm/event logs, alarm historians, and performance metrics as additional functions; it does not expose the prior hysteresis, seasonality, or chattering proposition."
+correct = "C"
+explanation = "Poor threshold design creates alarm fatigue and missed real events."
 topic_ids = ["m14-alarms", "m14-monitoring-reqs"]
 objective_ids = []
 bloom = "apply"

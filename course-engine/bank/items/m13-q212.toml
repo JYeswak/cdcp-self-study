@@ -8,15 +8,15 @@
 id = "m13-q212"
 kind = "single-select"
 module = 13
-stem = "Which perimeter-focused chapter appears in the NFPA 730 (2026) public preview?"
+stem = "Raised-floor and ceiling spaces can be security-relevant pathways because:"
 choices = [
-  "Security Perimeters",
-  "Battery Room Chemistry",
-  "Power Quality Measurement",
-  "Cooling-Tower Water Treatment",
+  "Plenums never connect rooms",
+  "Only network packets move above ceilings",
+  "Tiles cannot be lifted by design of physics",
+  "They may allow bypass of door controls if not physically secured or monitored as needed"
 ]
-correct = "A"
-explanation = "The NFPA 730 (2026) public preview explicitly lists Chapter 7 — Security Perimeters."
+correct = "D"
+explanation = "Physical pathway security includes vertical and plenum paths, not only doors."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "analyze"

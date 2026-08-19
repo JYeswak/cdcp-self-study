@@ -7,15 +7,15 @@
 id = "bank-m13-q095"
 kind = "single-select"
 module = 13
-stem = "Under the public abstract for ISO/IEC 22237-6:2024, safety and electromagnetic-compatibility requirements are:"
+stem = "EPO stations must balance security and safety by:"
 choices = [
-  "Outside the document's scope and covered by other standards and regulations",
-  "Fully defined by the security-systems document for every jurisdiction",
-  "Replaced by physical-access controls",
-  "Limited to data-centre visitor-escort procedures"
+  "Being completely inaccessible even to trained staff",
+  "Being pressed daily as a health check without procedure",
+  "Limiting casual/public access while remaining reachable to trained personnel under procedure",
+  "Controlling only decorative lighting"
 ]
-correct = "A"
-explanation = "The current ISO abstract states that safety and EMC requirements are outside the scope of ISO/IEC 22237-6:2024 and are covered by other standards and regulations. It does not establish EPO access rules."
+correct = "C"
+explanation = "Accidental EPO is a major outage cause; over-locking can also block emergency response."
 topic_ids = ["m13-safety-components", "m13-security-components"]
 objective_ids = []
 bloom = "analyze"

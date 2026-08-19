@@ -7,15 +7,15 @@
 id = "m13-q206"
 kind = "single-select"
 module = 13
-stem = "Under 29 CFR 1910.335(b)(1), safety signs, safety symbols, or accident-prevention tags shall be used:"
+stem = "Physical safety signage (high voltage, confined space, hearing protection) complements security by:"
 choices = [
-  "Where necessary to warn employees about electrical hazards that may endanger them",
-  "Only to replace all lockout/tagout procedures",
-  "Only for visitor-badge instructions",
-  "Only after an electrical injury has occurred"
+  "Replacing lockout/tagout procedures entirely",
+  "Warning authorized workers about hazards they may legally access",
+  "Granting visitors unrestricted plant access",
+  "Disabling emergency lighting"
 ]
-correct = "A"
-explanation = "The current public eCFR text requires safety signs, safety symbols, or accident-prevention tags where necessary to warn employees about electrical hazards that may endanger them."
+correct = "B"
+explanation = "Security grants entry; safety communications reduce harm to those who enter."
 topic_ids = ["m13-safety-components"]
 objective_ids = []
 bloom = "remember"

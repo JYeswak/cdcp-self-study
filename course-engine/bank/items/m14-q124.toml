@@ -6,15 +6,15 @@
 id = "bank-m14-q124"
 kind = "single-select"
 module = 14
-stem = "IEC 62682:2022 identifies which additional alarm-system functions?"
+stem = "Notification best practice includes putting runbook links in alerts so that:"
 choices = [
-  "An alarm and event log, an alarm historian, and alarm-system performance metrics",
-  "Only cooling-water chemistry and fire-agent selection",
-  "Only software authentication and network segmentation",
-  "A universal ranking of open frames over all locked cabinets"
+  "Operators must memorize every valve tag without aids",
+  "All informational logs page the CEO",
+  "Sensors stop needing calibration",
+  "The page names the next human action and procedure under stress"
 ]
-correct = "A"
-explanation = "The current IEC catalog identifies an alarm and event log, an alarm historian, and generation of alarm-system performance metrics as additional alarm-system functions."
+correct = "D"
+explanation = "Actionable alerts beat naked point names during incidents."
 topic_ids = ["m14-notification", "m14-best-practices"]
 objective_ids = []
 bloom = "apply"

@@ -6,15 +6,15 @@
 id = "bank-m14-q120"
 kind = "single-select"
 module = 14
-stem = "ISO/IEC 22237-4:2021 explicitly includes which environmental-control topics?"
+stem = "Best first instrumentation for IT thermal risk at the rack is typically:"
 choices = [
-  "Temperature, fluid movement, relative humidity, particulate, vibration, and physical security of environmental control systems",
-  "Only outdoor wet-bulb temperature and generator jacket-water temperature",
-  "Only UPS battery-room ambient and fuel quality",
-  "Only visitor identity proofing and camera retention"
+  "Only outdoor wet-bulb temperature",
+  "Only generator jacket water temperature",
+  "Only UPS battery room ambient",
+  "Cold-aisle / equipment inlet temperature aligned to thermal guideline practice"
 ]
-correct = "A"
-explanation = "The current ISO preview explicitly lists temperature control, fluid movement control, relative humidity control, particulate control, vibration, and physical security of environmental control systems. It does not establish a rack instrumentation layout or a particular sensor setpoint."
+correct = "D"
+explanation = "Inlet conditions drive equipment risk; plant-only metrics can miss local hotspots."
 topic_ids = ["m14-ems", "m14-monitoring-reqs"]
 objective_ids = []
 bloom = "understand"

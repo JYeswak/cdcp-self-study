@@ -6,15 +6,15 @@
 id = "m15-q200"
 kind = "single-select"
 module = 15
-stem = "Under 29 CFR 1910.303(e)(2), electric-equipment markings shall be:"
+stem = "Consistent labelling of power circuits, network ports, and assets primarily reduces:"
 choices = [
-  "Of sufficient durability to withstand the environment involved",
-  "Temporary paper notes regardless of the environment",
-  "Required only in a network diagram and not on equipment",
-  "Removed after the first maintenance task"
+  "The need for any documentation",
+  "Fire detection coverage needs",
+  "Utility entrance diversity",
+  "Mean time to identify and correct wiring/connectivity mistakes during incidents and changes"
 ]
-correct = "A"
-explanation = "The current public eCFR text requires electric-equipment markings to be of sufficient durability to withstand the environment involved."
+correct = "D"
+explanation = "Labels cut human latency and error in live systems."
 topic_ids = ["m15-labelling"]
 objective_ids = []
 bloom = "understand"

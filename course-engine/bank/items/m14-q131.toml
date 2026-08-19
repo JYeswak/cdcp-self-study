@@ -6,15 +6,15 @@
 id = "bank-m14-q131"
 kind = "single-select"
 module = 14
-stem = "Which air-quality-related category is explicitly listed by ISO/IEC 22237-4:2021?"
+stem = "After raised-floor work, leak ropes should be:"
 choices = [
-  "Particulate control",
-  "Only cloud-service latency control",
-  "Only optical-fibre attenuation control",
-  "Only diesel fuel-temperature control",
+  "Assumed intact without testing",
+  "Removed permanently to speed airflow",
+  "Verified reconnected and tested to avoid false negatives from cable breaks",
+  "Replaced with cardboard dams only"
 ]
-correct = "A"
-explanation = "The ISO abstract explicitly lists particulate control among the environmental-control categories; it does not expose a raised-floor leak-rope retest procedure."
+correct = "C"
+explanation = "Floor work commonly breaks or disconnects sensing cable—retest is mandatory ops hygiene."
 topic_ids = ["m14-leak", "m14-best-practices"]
 objective_ids = []
 bloom = "apply"

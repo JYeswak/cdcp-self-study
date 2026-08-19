@@ -6,15 +6,15 @@
 id = "m14-q203"
 kind = "single-select"
 module = 14
-stem = "What secondary management focus does ISO/IEC TS 22237-7:2018 identify?"
+stem = "DCIM tools add most value when asset, power, and capacity data are:"
 choices = [
-  "Aligning actual and future user demands",
-  "Entering asset data once and never updating it",
-  "Storing management data only on paper under a random desk",
-  "Replacing operational processes with marketing metrics",
+  "Entered once and never updated",
+  "Invented by marketing",
+  "Stored only on paper under a random desk",
+  "Kept accurate through process so decisions use real inventory and load information"
 ]
-correct = "A"
-explanation = "The current ISO preview states that the secondary focus is on management processes to align the actual and future demands of users."
+correct = "D"
+explanation = "DCIM quality equals data hygiene plus workflow, not the logo on the UI."
 topic_ids = ["m14-dcim", "m14-monitoring-challenges"]
 objective_ids = []
 bloom = "apply"

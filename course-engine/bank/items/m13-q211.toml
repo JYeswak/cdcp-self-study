@@ -8,15 +8,15 @@
 id = "m13-q211"
 kind = "single-select"
 module = 13
-stem = "Which security-systems chapter appears in the NFPA 730 (2026) public preview?"
+stem = "Guard force or remote monitoring procedures add value when they include:"
 choices = [
-  "Security Systems",
-  "Generator Fuel Testing",
-  "Raised-Floor Airflow",
-  "UPS Performance Classification",
+  "Only informal chats without records",
+  "Sleeping through door forced alarms",
+  "Documented escalation paths, patrols/verification, and incident reporting discipline",
+  "Disabling alarms to reduce noise without investigation"
 ]
-correct = "A"
-explanation = "The NFPA 730 (2026) public preview explicitly lists Chapter 9 — Security Systems."
+correct = "C"
+explanation = "Human security layers need procedure and documentation to be real controls."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

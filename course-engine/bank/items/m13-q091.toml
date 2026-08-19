@@ -8,15 +8,15 @@
 id = "bank-m13-q091"
 kind = "single-select"
 module = 13
-stem = "Which physical-security concern does ISO/IEC 22237-6:2024 explicitly name?"
+stem = "The most common casual bypass of badge control on live sites is:"
 choices = [
-  "Unauthorized access",
-  "Office catering capacity",
-  "Rack paint selection",
-  "Fuel-delivery pricing",
+  "Quantum computing attacks on card crypto",
+  "EMF interference nullifying all cards simultaneously",
+  "Tailgating / piggybacking and propped doors",
+  "Incorrect PDU firmware versions"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly names unauthorized access, including organizational and technological solutions, as a physical-security protection concern."
+correct = "C"
+explanation = "Social/process failures dominate real physical breaches more than exotic attacks."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"

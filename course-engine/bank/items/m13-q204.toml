@@ -8,15 +8,15 @@
 id = "m13-q204"
 kind = "single-select"
 module = 13
-stem = "IEC 62676-4:2025 covers which VSS lifecycle activities?"
+stem = "CCTV coverage is most effective when it is:"
 choices = [
-  "Planning, design, installation, testing, commissioning, and maintenance",
-  "Only camera manufacturing and lens polishing",
-  "Only data-centre power-distribution acceptance tests",
-  "Only visitor-credential revocation and escort policy"
+  "Pointed only at the floor permanently",
+  "Recorded without time sync",
+  "Unmonitored with full storage forever and no retention policy",
+  "Designed for critical portals and sensitive areas with usable retention, lighting, and time sync"
 ]
-correct = "A"
-explanation = "The current IEC catalog explicitly lists planning, design, installation, testing, commissioning, and maintenance of video-surveillance systems. It does not establish retention periods, lighting levels, time synchronization, or visitor-credential policy."
+correct = "D"
+explanation = "Cameras need design for usable evidence—not mere presence of a lens."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

@@ -7,15 +7,15 @@
 id = "m13-q202"
 kind = "single-select"
 module = 13
-stem = "Under 29 CFR 1910.151(c), where eyes or body may be exposed to injurious corrosive materials, an employer must provide:"
+stem = "Safety components such as emergency power-off (EPO) interfaces, clear egress, and eye-wash where required differ from security locks because they primarily protect:"
 choices = [
-  "Suitable facilities for quick drenching or flushing of the eyes and body within the work area for immediate emergency use",
-  "Only a locked cabinet outside the work area",
-  "Only a written warning with no emergency facility",
-  "Only a security badge reader at the entrance"
+  "Marketing secrets only",
+  "People from injury and enable emergency response, even when that conflicts with convenience",
+  "Only package delivery SLAs",
+  "Shareholder branding colors"
 ]
-correct = "A"
-explanation = "The current public eCFR text requires suitable facilities for quick drenching or flushing of eyes and body within the work area for immediate emergency use when corrosive exposure is possible."
+correct = "B"
+explanation = "Safety systems prioritize human life and emergency response over access convenience."
 topic_ids = ["m13-safety-components"]
 objective_ids = []
 bloom = "understand"

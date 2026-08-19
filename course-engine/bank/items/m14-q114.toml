@@ -6,15 +6,15 @@
 id = "bank-m14-q114"
 kind = "single-select"
 module = 14
-stem = "RFC 5674 maps ITU perceived alarm severities to syslog severity names. Which pairing is explicitly listed?"
+stem = "Alarm severity tiers are useful because they:"
 choices = [
-  "Critical → Alert; Major → Critical; Minor → Error; Warning → Warning",
-  "Critical → Debug; Major → Informational; Minor → Emergency; Warning → None",
-  "All perceived severities → one universal legal priority",
-  "The RFC does not define any severity mapping"
+  "Force every informational state change to page executives",
+  "Map response urgency (e.g., P1 multi-channel page vs P3 ticket) to human capacity",
+  "Eliminate the need for runbooks",
+  "Replace sensor calibration"
 ]
-correct = "A"
-explanation = "RFC 5674 lists the mapping Critical to Alert, Major to Critical, Minor to Error, and Warning to Warning; it also lists Indeterminate and Cleared to Notice. This is a protocol mapping, not a facility-specific paging policy."
+correct = "B"
+explanation = "Tiered severity, escalation, and role routing combat fatigue and clarify action."
 topic_ids = ["m14-notification", "m14-alarms"]
 objective_ids = []
 bloom = "understand"

@@ -7,15 +7,15 @@
 id = "bank-m13-q096"
 kind = "single-select"
 module = 13
-stem = "Which planning-related chapter heading does the NFPA 730:2026 public preview expose?"
+stem = "Loading dock material flow should ideally:"
 choices = [
-  "Security Planning",
   "Open dock doors directly onto the data floor without staging",
   "Skip ID checks for large shipments",
-  "Store unattended gear in public corridors overnight as normal"
+  "Store unattended gear in public corridors overnight as normal",
+  "Use dock → staging/inspect → secure corridor → white space chain of custody"
 ]
-correct = "A"
-explanation = "The current NFPA preview explicitly exposes the Security Planning chapter heading; it does not expose a loading-dock chain-of-custody rule."
+correct = "D"
+explanation = "Separate goods paths and inspection reduce theft, contraband, and uncontrolled access."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

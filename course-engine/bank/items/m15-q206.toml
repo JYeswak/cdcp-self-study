@@ -6,15 +6,15 @@
 id = "m15-q206"
 kind = "single-select"
 module = 15
-stem = "Which pair is explicitly included in the primary operational-process focus of ISO/IEC TS 22237-7:2018?"
+stem = "Reducing MTTR in facility operations is often less about buying new gear and more about:"
 choices = [
-  "Risk management and risk mitigation",
-  "Office decoration and cafeteria planning",
-  "Cloud billing and application feature release cadence",
-  "Only fuel purchasing and vehicle dispatch",
+  "Deleting runbooks to encourage creativity",
+  "Procedures, spares, training, labels, and remote visibility that shrink diagnosis and repair time",
+  "Hiding spare parts offsite without inventory",
+  "Disabling monitoring to avoid alarms"
 ]
-correct = "A"
-explanation = "The public abstract explicitly names risk management and risk mitigation among the operational processes in primary focus."
+correct = "B"
+explanation = "Maintainability is process and preparedness, not only capital equipment."
 topic_ids = ["m15-mtbf-mttr", "m15-documentation", "m15-labelling"]
 objective_ids = []
 bloom = "analyze"

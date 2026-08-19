@@ -6,15 +6,15 @@
 id = "m15-q207"
 kind = "single-select"
 module = 15
-stem = "Under 29 CFR 1910.147(c)(4)(ii), an energy-control procedure must clearly and specifically outline:"
+stem = "Change records and method-of-procedure (MOP) discipline matter because:"
 choices = [
-  "Its scope, purpose, authorization, rules, and techniques, including shutdown/isolation, device placement/removal, and verification",
-  "Only a list of affected software licenses",
-  "Only the maintenance vendor's response-time promise",
-  "Only a verbal approval with no isolation or testing steps"
+  "Changes never affect availability",
+  "Verbal hallway agreements are sufficient for dual-cord cutovers",
+  "Many outages are self-inflicted during poorly planned work",
+  "Only software needs change control"
 ]
-correct = "A"
-explanation = "The current public eCFR text requires the procedure to outline scope, purpose, authorization, rules, techniques, shutdown/isolation, lockout or tagout placement/removal/transfer, and testing to verify effectiveness."
+correct = "C"
+explanation = "Facility changes are high-energy events; MOPs and records reduce self-harm."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "understand"

@@ -8,15 +8,15 @@
 id = "bank-m14-q126"
 kind = "single-select"
 module = 14
-stem = "In NIST's OT framing, BMS and environmental monitoring units require special security attention because they:"
+stem = "OT/IT security for BMS and environmental units matters because:"
 choices = [
-  "Interact with the physical environment and must account for performance, reliability, and safety",
-  "Are outside the scope of physical processes",
-  "Are immune to misuse by design",
-  "Can be secured without considering operational consequences"
+  "Facilities networks never connect to anything",
+  "Default passwords and flat networks are recurring lateral-movement risks",
+  "BACnet is immune to misuse by design always",
+  "Only IT servers need patching"
 ]
-correct = "A"
-explanation = "NIST’s current abstract describes building automation and physical-environment monitoring systems as OT and says OT security must address unique performance, reliability, and safety requirements. It does not prescribe a specific network, protocol, or product control."
+correct = "B"
+explanation = "Auxiliary systems are cyber-physical; segment and harden the control plane."
 topic_ids = ["m14-monitoring-challenges", "m14-best-practices"]
 objective_ids = []
 bloom = "understand"

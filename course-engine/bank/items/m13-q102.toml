@@ -7,15 +7,15 @@
 id = "bank-m13-q102"
 kind = "single-select"
 module = 13
-stem = "Which NFPA 730:2026 chapter heading names the security-systems topic?"
+stem = "Camera coverage priorities commonly include perimeter, mantraps, docks, and:"
 choices = [
-  "Chapter 5 — Security Planning",
-  "Chapter 7 — Security Perimeters",
-  "Chapter 8 — Crime Prevention Through Environmental Design",
-  "Chapter 9 — Security Systems"
+  "Only under-desk office trash cans",
+  "Critical plant rooms and zone transitions where incidents and forced-door events occur",
+  "The inside of every sealed hard drive",
+  "Outdoor landscaping only with no doors"
 ]
-correct = "D"
-explanation = "The current NFPA 730 preview names Chapter 9 as Security Systems. The heading does not specify CCTV coverage priorities."
+correct = "B"
+explanation = "Surveillance concentrates on approach paths, portals, docks, plant, and sensitive transitions."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"

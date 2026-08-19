@@ -7,15 +7,15 @@
 id = "bank-m13-q078"
 kind = "single-select"
 module = 13
-stem = "Which threat is explicitly listed in the physical-security scope of ISO/IEC 22237-6:2024?"
+stem = "Mantraps primarily reduce which casual security bypass?"
 choices = [
-  "Intrusion",
-  "A mandatory anti-tailgating mantrap design",
+  "UPS firmware exploits",
+  "Tailgating / piggybacking through a single open portal",
   "Fiber macrobend loss",
-  "Cooling-tower water chemistry drift"
+  "PUE calculation errors"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists intrusion among the threats addressed by ISO/IEC 22237-6:2024. It does not prescribe the former mantrap or tailgating proposition."
+correct = "B"
+explanation = "Interlocked chambers stop unauthorized persons following authorized staff through one door."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

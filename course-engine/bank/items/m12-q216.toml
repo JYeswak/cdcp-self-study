@@ -7,15 +7,15 @@
 id = "m12-q216"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.160(c)(4), automatic actuation of a hazardous total-flooding system must use:"
+stem = "Before gaseous agent discharge, interlocking with HVAC is often considered so that:"
 choices = [
-  "An approved fire-detection device installed and interconnected with a pre-discharge employee alarm that gives employees time to exit safely",
-  "Only a manual operator button with no approved detection device",
-  "A cooling-control alarm with no employee warning",
-  "An automatic door lock that removes the need for evacuation"
+  "CRAHs run at maximum always during discharge",
+  "Airflow does not defeat concentration hold times or spread smoke inappropriately",
+  "Generators start for cooling only",
+  "All doors lock without egress planning"
 ]
-correct = "A"
-explanation = "The current OSHA public standard requires automatic actuation by an approved fire-detection device interconnected with a pre-discharge employee alarm that gives employees time to safely exit."
+correct = "B"
+explanation = "Uncontrolled airflow can dilute agent or move smoke against the design intent."
 topic_ids = ["m12-gas-suppression", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "apply"

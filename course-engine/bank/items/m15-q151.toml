@@ -6,15 +6,15 @@
 id = "bank-m15-q151"
 kind = "single-select"
 module = 15
-stem = "Under 29 CFR 1910.38, a written emergency action plan must include at minimum:"
+stem = "Documenting who is on-call and how to escalate is operationally important because:"
 choices = [
-  "Procedures for reporting emergencies, evacuation and exit-route assignments, and accounting for employees after evacuation",
-  "Only a list of vendor telephone numbers",
-  "Only a diagram of the electrical one-line",
-  "Only an unreviewed calendar of maintenance windows"
+  "Incidents wait politely until morning always",
+  "Monitoring replaces people entirely",
+  "Clear ownership reduces delayed response when multi-system failures occur",
+  "SLAs forbid human contacts"
 ]
-correct = "A"
-explanation = "The current public eCFR text requires written emergency-action-plan procedures for reporting emergencies, evacuation including exit-route assignments, and accounting for employees after evacuation."
+correct = "C"
+explanation = "Human response paths are part of the availability design."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "understand"

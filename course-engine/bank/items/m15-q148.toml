@@ -6,15 +6,15 @@
 id = "bank-m15-q148"
 kind = "single-select"
 module = 15
-stem = "Which risk-related primary focus does ISO/IEC TS 22237-7:2018 explicitly name?"
+stem = "Preventive maintenance windows should be managed with change control because:"
 choices = [
-  "Risk mitigation",
   "Maintenance never affects production",
   "Vendors prefer no documentation",
-  "SLAs forbid all maintenance"
+  "SLAs forbid all maintenance",
+  "Work on live critical systems can cause outages if steps, isolation, and backout are uncontrolled"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly names risk mitigation as a primary focus; it does not expose a preventive-maintenance change-control procedure."
+correct = "D"
+explanation = "PM is necessary risk—controlled via MOP/change process, not ad-hoc tinkering."
 topic_ids = ["m15-maintenance-sla", "m15-documentation"]
 objective_ids = []
 bloom = "apply"

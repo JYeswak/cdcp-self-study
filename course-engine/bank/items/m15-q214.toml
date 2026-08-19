@@ -6,15 +6,15 @@
 id = "m15-q214"
 kind = "single-select"
 module = 15
-stem = "Which planning-related primary focus does ISO/IEC TS 22237-7:2018 explicitly name?"
+stem = "An SLA that promises four-hour onsite response but stocks no critical spares may still yield long outages because:"
 choices = [
-  "Capacity planning",
   "Onsite presence always equals immediate repair",
+  "Response time ≠ restore time without parts, tools, and access readiness",
   "MTTR ignores logistics",
   "Vendors can fabricate breakers from scrap instantly always"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly names capacity planning as a primary focus; it does not expose an SLA response-versus-restore rule."
+correct = "B"
+explanation = "Response clocks and restore clocks are different; design both."
 topic_ids = ["m15-maintenance-sla", "m15-mtbf-mttr"]
 objective_ids = []
 bloom = "analyze"

@@ -6,15 +6,15 @@
 id = "m15-q202"
 kind = "single-select"
 module = 15
-stem = "Which energy-related primary focus does ISO/IEC TS 22237-7:2018 explicitly name?"
+stem = "MTBF and MTTR are most useful when teams remember that:"
 choices = [
-  "Energy efficiency",
   "MTBF promises zero failures in that period",
+  "They are statistical reliability/maintainability concepts—not guarantees for a single asset this week",
   "MTTR is unrelated to spare parts and procedures",
   "Only software uses these terms"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly names energy efficiency as a primary focus; it does not expose an MTBF/MTTR interpretation."
+correct = "B"
+explanation = "MTBF/MTTR guide design and process; they are not talismans against failure."
 topic_ids = ["m15-mtbf-mttr"]
 objective_ids = []
 bloom = "understand"

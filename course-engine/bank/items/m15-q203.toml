@@ -5,15 +5,15 @@
 id = "m15-q203"
 kind = "single-select"
 module = 15
-stem = "ISO/IEC 20000-1:2018 describes service-management requirements that include:"
+stem = "A maintenance contract SLA should clearly define:"
 choices = [
-  "Planning, design, transition, delivery, and improvement of services to meet service requirements and deliver value",
   "Only the vendor logo color",
-  "A rule that no one may ever touch equipment",
+  "That no one may ever touch equipment",
+  "Response/restore times, coverage hours, included assets, and escalation—not only a monthly price",
   "Unlimited scope with zero measurement"
 ]
-correct = "A"
-explanation = "The current ISO abstract describes a service management system whose requirements include planning, design, transition, delivery, and improvement of services to meet service requirements and deliver value. It does not prescribe contract response times, coverage hours, or an OLA taxonomy."
+correct = "C"
+explanation = "SLAs without measurable service levels are procurement theatre."
 topic_ids = ["m15-maintenance-sla"]
 objective_ids = []
 bloom = "apply"

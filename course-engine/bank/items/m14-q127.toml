@@ -6,15 +6,15 @@
 id = "bank-m14-q127"
 kind = "single-select"
 module = 14
-stem = "According to IEC 62682:2022, alarm-system data may be used by:"
+stem = "Electrical Power Monitoring System (EPMS) is most associated with:"
 choices = [
-  "External systems",
-  "Only visitor badge printers",
   "Only underfloor rope leak zones",
-  "No system outside the alarm HMI"
+  "Visitor badge printing",
+  "Meters, power quality events, and electrical distribution status—often separate from pure BMS",
+  "Fiber OTDR only"
 ]
-correct = "A"
-explanation = "The current IEC catalog states that external systems can use data from the alarm system; it does not limit alarm data to the HMI or to one facility subsystem."
+correct = "C"
+explanation = "EPMS focuses on electrical telemetry; may integrate to DCIM/BMS but is a distinct panel family."
 topic_ids = ["m14-alarms", "m14-monitoring-reqs"]
 objective_ids = []
 bloom = "remember"

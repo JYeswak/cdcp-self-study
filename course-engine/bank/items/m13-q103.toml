@@ -7,15 +7,15 @@
 id = "bank-m13-q103"
 kind = "single-select"
 module = 13
-stem = "Which NFPA 730:2026 chapter heading names the security-planning topic?"
+stem = "Security theatre in a data centre might look like impressive lobby scanners while:"
 choices = [
-  "Chapter 5 — Security Planning",
-  "Chapter 6 — Administrative Controls",
-  "Chapter 8 — Crime Prevention Through Environmental Design",
-  "Chapter 9 — Security Systems"
+  "Every layer is equally strong",
+  "Anti-passback and CCTV are perfectly integrated",
+  "Roof hatches, generator yards, or process controls remain soft",
+  "LOTO is rigorously enforced in plant"
 ]
-correct = "A"
-explanation = "The current NFPA 730 preview names Chapter 5 as Security Planning. The heading does not establish a data-centre security-theatre or rear-layer proposition."
+correct = "C"
+explanation = "Visible controls that hide soft rear/process layers are security theatre."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "analyze"

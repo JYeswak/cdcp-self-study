@@ -7,15 +7,15 @@
 id = "m15-q215"
 kind = "single-select"
 module = 15
-stem = "Under 29 CFR 1910.147(c)(5)(B), lockout/tagout devices shall be standardized within the facility by at least one of:"
+stem = "Color-coding and standardized label templates across a campus help because they:"
 choices = [
-  "Color, shape, or size; tag print and format must also be standardized",
-  "A different undocumented style for every contractor",
-  "Only the purchase price of the device",
-  "A marketing logo with no consistent visual criterion"
+  "Are purely decorative with no ops effect",
+  "Replace the need for unique circuit IDs",
+  "Reduce cognitive load and misinterpretation when multiple teams and shifts work the plant",
+  "Allow deleting panel schedules"
 ]
-correct = "A"
-explanation = "The current public eCFR text requires lockout/tagout devices to be standardized within the facility by color, shape, or size, and requires tag print and format to be standardized."
+correct = "C"
+explanation = "Standard visual language speeds correct action under stress."
 topic_ids = ["m15-labelling", "m15-documentation"]
 objective_ids = []
 bloom = "understand"

@@ -5,15 +5,15 @@
 id = "bank-m14-q115"
 kind = "single-select"
 module = 14
-stem = "Which topic does the ISO/IEC TS 22237-7:2018 abstract list among its primary operational-process focuses?"
+stem = "Monitoring should show loss of redundancy (not only total failure) because:"
 choices = [
-  "Capacity planning",
-  "Office catering menus",
-  "Cable color selection",
-  "Badge-printing vendor selection"
+  "N+1 designs never need sensors",
+  "Total failure pages are always early enough",
+  "Redundancy-loss alarms create time to repair under load before an outage",
+  "Capacity planning forbids intermediate alarms"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists capacity planning among the primary operational-process focuses. It does not establish the item’s former redundancy-loss monitoring proposition."
+correct = "C"
+explanation = "If you only page when the last unit dies, maintainable faults become outages."
 topic_ids = ["m14-monitoring-reqs", "m14-best-practices"]
 objective_ids = []
 bloom = "analyze"

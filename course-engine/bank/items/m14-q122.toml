@@ -6,15 +6,15 @@
 id = "bank-m14-q122"
 kind = "single-select"
 module = 14
-stem = "RFC 3411 describes an SNMP management system as containing:"
+stem = "Heterogeneous protocols (BACnet, Modbus, SNMP, dry contacts) contribute to monitoring challenges by:"
 choices = [
-  "Managed nodes with SNMP entities, management applications such as command/notification roles, and a management protocol",
-  "Only a single cloud dashboard with no managed nodes",
-  "Only a database schema, with no management applications or protocol",
-  "No notification functions; SNMP is limited to file transfer"
+  "Guaranteeing a single vendor forever",
+  "Creating integration and multi-truth-source complexity across plant and IT tools",
+  "Eliminating the need for time sync",
+  "Making alarm fatigue impossible"
 ]
-correct = "A"
-explanation = "RFC 3411 describes managed nodes with SNMP entities, SNMP entities with command and notification applications, and a management protocol conveying management information. The RFC does not describe BACnet/Modbus integration or a data-centre-specific multi-truth policy."
+correct = "B"
+explanation = "Multiple protocols/owners produce conflicting truths and integration debt."
 topic_ids = ["m14-monitoring-challenges"]
 objective_ids = []
 bloom = "understand"

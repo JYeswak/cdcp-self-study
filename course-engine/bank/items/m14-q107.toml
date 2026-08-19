@@ -5,15 +5,15 @@
 id = "bank-m14-q107"
 kind = "single-select"
 module = 14
-stem = "ISO 16484-4:2025 describes BACS control applications focused on:"
+stem = "A practical BMS vs DCIM distinction is that BMS focuses on plant control/monitoring while DCIM focuses on:"
 choices = [
-  "Lighting, solar protection, and HVAC applications",
+  "Only diesel fuel valve control",
   "Replacing all network monitoring tools",
-  "Data-centre asset inventory and procurement approval only",
-  "A rule that every BACS and DCIM product must be identical"
+  "Data-centre IT/facilities inventory, power, environment overlays, and capacity views",
+  "Being always the identical product with one logo"
 ]
-correct = "A"
-explanation = "The current ISO abstract identifies lighting, solar protection, and HVAC control applications and explains that energy performance, comfort, and operational requirements are translated into functional specifications for integrated plant and room control. It does not define a universal BMS-versus-DCIM product boundary."
+correct = "C"
+explanation = "BMS = building plant; DCIM = DC capacity/assets/ops picture (integrations vary)."
 topic_ids = ["m14-bms", "m14-dcim"]
 objective_ids = []
 bloom = "understand"

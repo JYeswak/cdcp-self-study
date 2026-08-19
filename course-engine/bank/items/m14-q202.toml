@@ -6,15 +6,15 @@
 id = "m14-q202"
 kind = "single-select"
 module = 14
-stem = "ISO 16484-2:2025 lists which examples as BACS hardware?"
+stem = "Building Management Systems (BMS) are primarily used to:"
 choices = [
-  "Operator panels, servers, automation stations, sensors, and actuators",
-  "Only DCIM asset databases and procurement workflows",
-  "BGP routers with no building-control devices",
-  "Visitor badges with no sensors or control stations"
+  "Replace all DCIM asset databases automatically without configuration",
+  "Route BGP sessions",
+  "Supervise and control building mechanical/electrical plant such as HVAC and related equipment",
+  "Issue visitor badges only"
 ]
-correct = "A"
-explanation = "The current ISO catalog lists physical BACS devices including management stations or operator panels, data-storage and analysis devices such as edge or cloud servers, automation stations, and sensors and actuators. The item does not define a vendor-specific BMS/DCIM boundary."
+correct = "C"
+explanation = "BMS is plant-centric control/monitoring of building systems."
 topic_ids = ["m14-bms"]
 objective_ids = []
 bloom = "remember"

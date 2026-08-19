@@ -6,15 +6,15 @@
 id = "bank-m15-q136"
 kind = "single-select"
 module = 15
-stem = "Under 29 CFR 1910.303(f)(2), each service, feeder, and branch circuit at its disconnecting means or overcurrent device shall be:"
+stem = "Labels should remain accurate after changes because stale labels:"
 choices = [
-  "Legibly marked to indicate its purpose, unless the purpose is evident from the location and arrangement",
-  "Left unmarked if the panel has a lock",
-  "Identified only in a marketing floor plan",
-  "Marked only after an incident"
+  "Are harmless decoration",
+  "Automatically update via magnetism",
+  "Only matter for marketing tours",
+  "Are worse than no labels when they create false confidence"
 ]
-correct = "A"
-explanation = "The current public eCFR text requires each service, feeder, and branch circuit at its disconnecting means or overcurrent device to be legibly marked to indicate its purpose unless the purpose is evident."
+correct = "D"
+explanation = "Wrong labels drive incorrect isolations; label hygiene is part of change close-out."
 topic_ids = ["m15-labelling", "m15-documentation"]
 objective_ids = []
 bloom = "apply"

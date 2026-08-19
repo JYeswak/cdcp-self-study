@@ -6,15 +6,15 @@
 id = "bank-m14-q106"
 kind = "single-select"
 module = 14
-stem = "In ISO/IEC 19395:2015, the Messages are exchanged between:"
+stem = "DCIM’s strongest differentiator versus pure EMS is usually:"
 choices = [
-  "A management function and the resources it monitors or controls",
-  "Only the utility and the fire marshal",
-  "Only application users and cloud billing systems",
-  "Unconnected rack labels with no management function"
+  "Listed fire suppression release authority",
+  "Asset/capacity/workflow context tied to infrastructure telemetry",
+  "Replacing the automatic transfer switch",
+  "Providing utility medium-voltage protection relays"
 ]
-correct = "A"
-explanation = "The ISO abstract says the standard provides messages exchanged between the Management Function and Resources."
+correct = "B"
+explanation = "DCIM ties inventory, power capacity, and change workflows to facilities data—not just environment sensing."
 topic_ids = ["m14-dcim", "m14-ems"]
 objective_ids = []
 bloom = "understand"

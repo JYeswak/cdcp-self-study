@@ -8,15 +8,15 @@
 id = "m13-q207"
 kind = "single-select"
 module = 13
-stem = "Which chapter is explicitly named in the NFPA 730 (2026) public preview?"
+stem = "Loading dock and delivery procedures are security-relevant because:"
 choices = [
-  "Security Planning",
-  "UPS Battery Chemistry",
-  "Data-Centre Cooling Water",
-  "Rack Power Distribution",
+  "Docks never connect to technical space pathways",
+  "All deliveries are pre-trusted without inspection forever",
+  "Threats and contraband can enter with legitimate freight if materials and people are not controlled",
+  "Only digital threats matter"
 ]
-correct = "A"
-explanation = "The NFPA 730 (2026) public preview explicitly lists Chapter 5 — Security Planning."
+correct = "C"
+explanation = "Supply chain and dock control are part of physical security, not only logistics."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

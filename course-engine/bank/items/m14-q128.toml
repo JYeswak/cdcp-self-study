@@ -6,15 +6,15 @@
 id = "bank-m14-q128"
 kind = "single-select"
 module = 14
-stem = "IEC 62682:2022 says alarm information is communicated to the operator via:"
+stem = "Local annunciation at plant panels still matters because:"
 choices = [
-  "A human-machine interface, usually a computer screen or an annunciator",
-  "Only a cloud dashboard with no operator-facing interface",
-  "Only a maintenance spreadsheet",
-  "No interface; the standard excludes operator response"
+  "Cloud dashboards always work without power",
+  "FACP logic should move entirely to email",
+  "NTP is unnecessary if LEDs exist",
+  "Network outages must not silence critical local alarms"
 ]
-correct = "A"
-explanation = "The IEC catalog states that the alarm system communicates alarm information to the operator via an HMI, usually a computer screen or an annunciator. Local failover behavior and facility-specific life-safety policy require additional evidence."
+correct = "D"
+explanation = "Life/availability critical spaces need local indication when northbound links fail."
 topic_ids = ["m14-alarms", "m14-best-practices"]
 objective_ids = []
 bloom = "understand"

@@ -7,15 +7,15 @@
 id = "bank-m13-q080"
 kind = "single-select"
 module = 13
-stem = "Which NFPA 730:2026 chapter heading names the security-perimeters topic?"
+stem = "Progressive zoning means access should generally:"
 choices = [
-  "Chapter 5 — Security Planning",
-  "Chapter 6 — Administrative Controls",
-  "Chapter 7 — Security Perimeters",
-  "Chapter 9 — Security Systems"
+  "Jump from parking lot to white space with one uncontrolled door whenever convenient",
+  "Ignore grey-space plant rooms as low value",
+  "Use the same master key under every doormat",
+  "Increase restriction through successive checkpoints (public → controlled → restricted → highly restricted)"
 ]
-correct = "C"
-explanation = "The current NFPA 730 preview names Chapter 7 as Security Perimeters. The heading does not establish a progressive-zoning or least-privilege rule."
+correct = "D"
+explanation = "Least privilege by space uses staged zones rather than single-door deep access."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"
