@@ -292,7 +292,8 @@ block above, with a new row here.
 
 The tracked learner-facing seed-42 export was stale: `web/data/bank_items_seed42.json` contained
 904 records and 879 approved items. After the concurrent restoration batches settled, the final
-bank snapshot contained 957 records, 929 approved items, 2 draft items, and 26 retired items.
+bank snapshot contained 957 records, 929 approved items [[fact:fact-bank-approved-count-779=yes]],
+2 draft items, and 26 retired items.
 This tick did not edit `bank/items`; it refreshed the generated learner surfaces and
 `units_index.json` against that snapshot. The measured defect was freshness of the shipped
 artifact, not a claim that the remaining grounding findings are resolved.

@@ -83,7 +83,7 @@
 #
 # REGISTERED (row exists; marker at the site or the site is a second
 # occurrence of a claim already marked in the same file):
-#   - 957 / 929 / ~23.2× pool size — fact-bank-item-count-804,
+#   - 957 / 931 source; 929 indexed / ~23.2× pool size — fact-bank-item-count-804,
 #     fact-bank-approved-count-779, fact-approved-pool-multiplier-19-5
 #     (IDs are stable names; needles track the live units_index)
 #   - CHECK_STEPS= / INJECTIONS= — fact-check-steps-enforced,
@@ -171,7 +171,7 @@ class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
 question = "Does the generated units index report `bank_item_count` 957 (file-set size, retired included)?"
 probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": 957' }
-trigger = "957 files / 929"
+trigger = "957 files / 931"
 
 [[fact]]
 id = "fact-bank-approved-count-779"
@@ -179,7 +179,7 @@ class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
 question = "Does the generated units index report `approved_item_count` 929?"
 probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 929' }
-trigger = "929 approved / 25 retired"
+trigger = "929 approved"
 
 [[fact]]
 id = "fact-learn-unit-count-134"
