@@ -6,15 +6,15 @@
 id = "m05-q150"
 kind = "single-select"
 module = 5
-stem = "Which activity is explicitly outside the scope of ISO/TS 21274:2020?"
+stem = "Selecting lighting controls (zoning/occupancy) in a data hall should avoid:"
 choices = [
-  "Commissioning lighting systems in non-residential buildings",
-  "Commissioning emergency lighting",
-  "Commissioning lighting systems to meet design specifications",
-  "Commissioning lighting systems in public spaces of multi-residence buildings",
+  "Thoughtful energy savings in low-occupancy support areas",
+  "Documenting control intent",
+  "Coordinating with emergency lighting design",
+  "Darkening egress paths or creating unsafe work conditions on live equipment aisles without a safety review",
 ]
-correct = "B"
-explanation = "The current ISO preview says ISO/TS 21274 covers commissioning lighting systems in buildings but is not applicable to commissioning emergency lighting."
+correct = "D"
+explanation = "Controls must not compromise safe working light or life-safety egress illumination design."
 topic_ids = ["m05-fixtures", "m05-emergency", "m05-standards"]
 objective_ids = []
 bloom = "apply"

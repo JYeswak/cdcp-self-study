@@ -6,15 +6,15 @@
 id = "m05-q138"
 kind = "single-select"
 module = 5
-stem = "What is the stated purpose of commissioning covered by ISO/TS 21274:2020?"
+stem = "Fixture placement above cold/hot aisles should consider:"
 choices = [
-  "Meeting the design specifications for lighting systems in buildings",
-  "Replacing all electrical legislation for power connections",
-  "Selecting data-centre servers and network equipment",
-  "Commissioning only emergency lighting systems",
+  "Only symmetry on a floor plan CAD layer",
+  "Powering fixtures from IT PDUs exclusively always",
+  "Hiding emergency lights behind solid walls only",
+  "Maintenance access, glare on work surfaces, and not blocking containment or airflow paths",
 ]
-correct = "A"
-explanation = "The ISO public abstract says the document specifies requirements for commissioning lighting systems in buildings to meet design specifications."
+correct = "D"
+explanation = "Placement is an operations and airflow coordination problem, not pure geometry."
 topic_ids = ["m05-fixtures"]
 objective_ids = []
 bloom = "apply"

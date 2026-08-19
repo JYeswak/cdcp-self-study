@@ -6,15 +6,15 @@
 id = "m06-q076"
 kind = "single-select"
 module = 6
-stem = "Which cable-sizing topic does the IEC 60364-5-52 catalog explicitly mention?"
+stem = "Three-phase distribution is preferred in plant and high-density racks mainly because:"
 choices = [
-  "Sizing cables where harmonic currents are present",
-  "Eliminating all neutral conductors",
-  "Making grounding optional",
-  "Defining PUE only for single-phase systems",
+  "IT equipment never uses single-phase branches",
+  "Grounding becomes optional",
+  "PUE is defined only for single-phase",
+  "It delivers more power efficiently and supports balanced loading versus single-phase alone",
 ]
-correct = "A"
-explanation = "The current IEC catalog explicitly lists changes concerning cable sizing where harmonic currents are present; it does not establish the former three-phase utilization proposition."
+correct = "D"
+explanation = "Three-phase is the backbone of facility power; rack PDUs may still present single-phase outlets."
 topic_ids = ["m06-phase", "m06-hpc"]
 objective_ids = []
 bloom = "understand"

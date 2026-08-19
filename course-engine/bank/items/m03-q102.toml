@@ -8,15 +8,15 @@
 id = "m03-q102"
 kind = "single-select"
 module = 3
-stem = "ISO/IEC 22237-2:2024 explicitly includes which site/building concern?"
+stem = "Water availability for cooling (where water-cooled plant is planned) is a site factor because:"
 choices = [
-  "Protection from environmental risks and protection against damage from water",
-  "A universal municipal-water allocation for every data centre",
-  "A required cooling-tower chemistry limit for every jurisdiction",
-  "A rule that fibre optics need daily washing",
+  "UPS batteries require city water flow continuously",
+  "Servers drink municipal water directly",
+  "Cooling towers and some plants depend on reliable makeup water quantity and quality",
+  "Fibre optics need daily washing",
 ]
-correct = "A"
-explanation = "The current ISO preview explicitly lists protection from environmental risks and protection against damage from water. It does not expose a universal water allocation, cooling-tower chemistry limit, or water-availability design value."
+correct = "C"
+explanation = "Water-cooled designs depend on sustainable makeup water—both volume and chemistry/quality."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

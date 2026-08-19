@@ -5,15 +5,15 @@
 id = "m06-q084"
 kind = "single-select"
 module = 6
-stem = "IEC 60529 applies to the classification of degrees of protection provided by enclosures for:"
+stem = "Selecting a higher IP rating for outdoor generator or switchgear enclosures mainly addresses:"
 choices = [
-  "Electrical equipment with a rated voltage not exceeding 72.5 kV",
-  "Only UPS transfer controls",
-  "Only battery impedance measurements",
-  "Only fibre-polarity labels",
+  "Faster STS transfer times",
+  "Automatic 2N redundancy",
+  "Lower battery impedance always",
+  "Environmental dust/water exposure durability of the enclosure",
 ]
-correct = "A"
-explanation = "The current IEC consolidated catalog states that IEC 60529 applies to classifying degrees of protection provided by enclosures for electrical equipment with a rated voltage not exceeding 72.5 kV. It does not expose the prior outdoor-enclosure selection trade-off."
+correct = "D"
+explanation = "Higher IP helps enclosure survival in harsher environments; it does not create electrical redundancy."
 topic_ids = ["m06-ip-grades", "m06-generators"]
 objective_ids = []
 bloom = "apply"

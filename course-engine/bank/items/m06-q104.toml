@@ -5,15 +5,15 @@
 id = "m06-q104"
 kind = "single-select"
 module = 6
-stem = "ISO/IEC TS 22237-31:2026 defines key performance indicators for:"
+stem = "A sustainability initiative that reduces generator testing or disables redundant plant without redesign is a risk because:"
 choices = [
-  "Resilience, dependability, fault tolerance, and availability tolerance",
-  "Only generator fuel consumption, excluding resilience and availability",
-  "Only IT software response time and cloud-application latency",
-  "A universal replacement for site-specific operational measurements"
+  "It always increases fault tolerance",
+  "UPS modules become unnecessary",
+  "PUE is undefined afterward",
+  "It can harm availability even if it improves a short-term green metric",
 ]
-correct = "A"
-explanation = "The current ISO catalog says ISO/IEC TS 22237-31:2026 defines KPIs for resilience, dependability, fault tolerance, and availability tolerance. It does not establish the former generator-testing or sustainability-risk proposition."
+correct = "D"
+explanation = "Never greenwash by weakening MOPs, tests, or redundant capacity without engineered alternatives."
 topic_ids = ["m06-sustainability", "m06-generators"]
 objective_ids = []
 bloom = "evaluate"

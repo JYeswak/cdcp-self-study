@@ -23,15 +23,15 @@
 id = "mock40-q20"
 kind = "single-select"
 module = 6
-stem = "Within ISO/IEC 22237-3:2021, the power-distribution requirement applies to:"
+stem = "Overhead busway in white space is often chosen to:"
 choices = [
-  "Power distribution systems to all equipment within data centres",
-  "Replacing fire-detection systems",
-  "Directly cooling compute chips",
-  "Only optical-fibre test methods",
+  "Increase EMF intentionally",
+  "Enable flexible tap-off power distribution along a row without full recabling",
+  "Replace fire detection",
+  "Cool chips directly",
 ]
-correct = "A"
-explanation = "The current ISO OBP abstract explicitly states that ISO/IEC 22237-3:2021 specifies requirements and recommendations for power distribution systems to all equipment within data centres. It does not expose the prior overhead-busway tap-off flexibility proposition."
+correct = "B"
+explanation = "Overhead busway enables flexible tap-off distribution along a row without full recabling."
 topic_ids = ["m06-distribution"]
 objective_ids = []
 bloom = "understand"

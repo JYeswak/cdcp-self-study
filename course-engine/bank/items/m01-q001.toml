@@ -8,15 +8,15 @@
 id = "mock40-q01"
 kind = "single-select"
 module = 1
-stem = "Which key criterion does ISO/IEC 22237-1:2021 explicitly use in its data-centre classification system?"
+stem = "A payment processor defines a site as mission-critical mainly because:"
 choices = [
-  "Availability",
-  "Lobby-finish quality",
-  "Vendor logo count",
-  "Catering capacity",
+  "All racks exceed 10 kW",
+  "Sustained outage would cause severe business, legal, or safety impact",
+  "The building has a raised floor",
+  "PUE is below 1.4",
 ]
-correct = "A"
-explanation = "The current ISO abstract names availability, security, and energy efficiency as classification criteria over the planned lifetime of the data centre."
+correct = "B"
+explanation = "Mission-critical is defined by impact of loss, not a single tech feature such as density or PUE."
 topic_ids = ["m01-importance"]
 objective_ids = []
 bloom = "understand"

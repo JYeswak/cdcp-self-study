@@ -7,15 +7,15 @@
 id = "m03-q097"
 kind = "single-select"
 module = 3
-stem = "Which site/building topic does ISO/IEC 22237-2:2024 explicitly include in its scope?"
+stem = "Supporting facilities that enable operations typically include:"
 choices = [
-  "Site configuration",
   "Only the CEO office artwork",
   "Only hot-aisle posters",
+  "Security/NOC spaces, loading/staging, generator/fuel yard, and utility intake areas",
   "A single shared restroom with no other spaces",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists site configuration; it does not expose a complete supporting-facilities inventory."
+correct = "C"
+explanation = "Operable sites need yards, logistics, and ops spaces—not just white space aesthetics."
 topic_ids = ["m03-supporting-facilities"]
 objective_ids = []
 bloom = "remember"

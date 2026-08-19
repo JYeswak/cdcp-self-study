@@ -6,15 +6,15 @@
 id = "m05-q202"
 kind = "single-select"
 module = 5
-stem = "To which installations can ISO/TS 21274:2020 be applied according to its public abstract?"
+stem = "Positioning light fixtures in cold/hot aisle layouts should consider:"
 choices = [
-  "New installations of non-residential buildings and public spaces of multi-residence buildings",
-  "Only emergency-lighting commissioning in occupied data halls",
-  "Only software-controlled lighting in cloud applications",
-  "Only fuel-storage enclosures and generator rooms",
+  "Only mounting as many fixtures as possible on the floor",
+  "Only matching the UPS brand",
+  "Glare, maintenance access, cable pathways, and interference with containment or airflow devices",
+  "Hiding all labels in shadow permanently"
 ]
-correct = "A"
-explanation = "The ISO public abstract says the document can be applied to new installations of non-residential buildings and public spaces of multi-residence buildings."
+correct = "C"
+explanation = "Lighting must support safe work without fighting cooling containment or blocking maintenance."
 topic_ids = ["m05-fixtures"]
 objective_ids = []
 bloom = "apply"

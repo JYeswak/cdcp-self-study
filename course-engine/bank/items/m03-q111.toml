@@ -9,15 +9,15 @@
 id = "m03-q111"
 kind = "single-select"
 module = 3
-stem = "ISO/IEC 22237-2:2024 explicitly includes which building/site topics?"
+stem = "Which combination best summarizes early site short-listing criteria?"
 choices = [
-  "Location and site selection, environmental risks, site/building configuration, access, intrusion/fire/water protection, and construction quality",
-  "Only number of vending machines and interior finishes",
-  "Only application architecture and software licensing",
-  "Only social media check-ins and corporate branding",
+  "Only number of vending machines",
+  "Only carpet colour and logo walls",
+  "Utility, network, hazards, climate, logistics, and legal rights—before interior finishes",
+  "Only social media check-ins",
 ]
-correct = "A"
-explanation = "The ISO preview lists location and site selection, protection from environmental risks, site and building configuration, access, physical intrusion and fire protection, water-damage protection, and quality construction measures. Utility interconnection rights, water availability, and carrier contracts require additional evidence."
+correct = "C"
+explanation = "Short-listing is driven by infrastructure rights and hazards, not finishes."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "remember"

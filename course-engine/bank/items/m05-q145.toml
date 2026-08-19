@@ -5,15 +5,15 @@
 id = "m05-q145"
 kind = "single-select"
 module = 5
-stem = "IEC 60598-1:2024 specifies general requirements and tests for:"
+stem = "Why might high-bay or carefully selected LED industrial fixtures be used in open-ceiling halls?"
 choices = [
-  "Luminaires incorporating electric light sources for operation from supply voltages up to 1,000 V",
-  "Only cooling-tower water-storage equipment",
-  "Only grounding-electrode systems",
-  "Only data-centre floor-loading systems",
+  "To store water for cooling towers",
+  "To increase rolling load ratings of the floor",
+  "To replace grounding electrode systems",
+  "To provide efficient, maintainable illumination suited to tall spaces",
 ]
-correct = "A"
-explanation = "The current IEC catalog identifies IEC 60598-1:2024 as specifying general safety requirements for luminaires incorporating electric light sources for operation from supply voltages up to 1,000 V. It also includes semi-luminaires; it does not establish the prior high-bay selection trade-off."
+correct = "D"
+explanation = "Fixture type follows room geometry and maintenance model—LEDs are common for efficiency and life."
 topic_ids = ["m05-fixtures", "m05-standards"]
 objective_ids = []
 bloom = "understand"

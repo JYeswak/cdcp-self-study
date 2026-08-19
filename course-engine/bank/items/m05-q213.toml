@@ -5,15 +5,15 @@
 id = "m05-q213"
 kind = "single-select"
 module = 5
-stem = "Under the public scope of ISO 30061:2007, the document applies to:"
+stem = "Battery-backed emergency lighting that is past test intervals without records is a problem because:"
 choices = [
-  "Emergency lighting systems installed in premises or locations where such systems are required",
-  "Only ordinary decorative lighting",
-  "Only generator fuel systems",
-  "Only network-cabling test records",
+  "Records are optional for life-safety systems always",
+  "Failed lamps or batteries may only be discovered during a real outage",
+  "Emergency lights improve with age without maintenance",
+  "Codes forbid any testing"
 ]
-correct = "A"
-explanation = "The current ISO OBP abstract states that ISO 30061:2007 covers emergency lighting systems installed in premises or locations where such systems are required. It does not expose the prior test-records failure proposition."
+correct = "B"
+explanation = "Unverified emergency lighting is a latent life-safety failure."
 topic_ids = ["m05-emergency", "m05-standards"]
 objective_ids = []
 bloom = "apply"

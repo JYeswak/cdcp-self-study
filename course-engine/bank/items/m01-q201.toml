@@ -7,15 +7,15 @@
 id = "m01-q201"
 kind = "single-select"
 module = 1
-stem = "Which crisis-management outcome does the current ISO 22301 preview explicitly list?"
+stem = "Which unavailability cause is most often organizational rather than purely technical?"
 choices = [
-  "A systematic response to crises",
   "A single UPS component failure with no human factor",
+  "Change errors, incomplete procedures, or weak maintenance discipline",
   "Lightning strike with no process involvement",
   "Utility feeder short circuit alone"
 ]
-correct = "A"
-explanation = "The current ISO preview explicitly lists a systematic response to crises; it does not expose an organizational-cause taxonomy."
+correct = "B"
+explanation = "Process and people failures (changes, procedures, maintenance) are major drivers of facility downtime."
 topic_ids = ["m01-unavailability"]
 objective_ids = []
 bloom = "understand"

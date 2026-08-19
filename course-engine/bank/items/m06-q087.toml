@@ -6,15 +6,15 @@
 id = "m06-q087"
 kind = "single-select"
 module = 6
-stem = "IEC 62485-5:2020 provides safety requirements for stationary lithium-ion batteries covering:"
+stem = "Lithium-ion UPS/BESS chemistries often attract interest because of:"
 choices = [
-  "Installation, use, inspection, maintenance, and disposal, with protection against electrical, short-circuit, electrolyte, gas, fire, and explosion hazards",
-  "Only rack-space optimization, with no safety activities",
-  "Elimination of all electrical and fire requirements",
-  "Only software monitoring, with no installation or maintenance scope",
+  "Zero fire design considerations",
+  "Footprint, weight, and runtime/density advantages—with distinct thermal/fire design needs",
+  "Elimination of all electrical codes",
+  "No need for monitoring",
 ]
-correct = "A"
-explanation = "The IEC catalog states that IEC 62485-5:2020 covers stationary lithium-ion battery installation, use, inspection, maintenance, and disposal, with protections against electricity, short-circuits, electrolyte, gas emission, fire, and explosion hazards. It does not establish footprint, runtime-density, or VRLA trade-offs."
+correct = "B"
+explanation = "Li-ion can shrink footprint/runtime density but drives thermal runaway and FP design attention."
 topic_ids = ["m06-batteries", "m06-bess"]
 objective_ids = []
 bloom = "understand"

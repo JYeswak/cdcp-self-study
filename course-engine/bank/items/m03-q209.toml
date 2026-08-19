@@ -7,15 +7,15 @@
 id = "m03-q209"
 kind = "single-select"
 module = 3
-stem = "Which construction-quality category does ISO/IEC 22237-2:2024 explicitly include?"
+stem = "Adequate generator yard and fuel logistics planning is part of supporting facilities because:"
 choices = [
-  "Quality construction measures",
   "Generators never need fuel",
+  "Long-duration utility loss requires space, access, and resupply paths for on-site generation",
   "Yards are only for employee barbecues",
   "Fuel logistics are purely a marketing concern"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists quality construction measures; it does not expose a generator-yard or fuel-logistics rule."
+correct = "B"
+explanation = "On-site generation is only useful if space, fuel, and access logistics are designed in."
 topic_ids = ["m03-supporting-facilities", "m03-facility-criteria"]
 objective_ids = []
 bloom = "apply"

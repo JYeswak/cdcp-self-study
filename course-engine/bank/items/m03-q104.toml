@@ -7,15 +7,15 @@
 id = "m03-q104"
 kind = "single-select"
 module = 3
-stem = "Which topic does ISO/IEC 22237-2:2024 explicitly include among data-centre building-configuration concerns?"
+stem = "Inadequate staging and loading docks most often hurt operations by:"
 choices = [
-  "Access",
   "Improving change success rates",
   "Increasing dual-utility diversity",
+  "Creating unsafe equipment moves, delayed installs, and blocked emergency paths during receiving",
   "Raising ceiling clear height automatically",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists access as a building-construction and configuration topic; it does not expose a loading-dock operations rule."
+correct = "C"
+explanation = "Poor logistics spaces create handling risk and operational friction for installs and maintenance."
 topic_ids = ["m03-supporting-facilities"]
 objective_ids = []
 bloom = "apply"

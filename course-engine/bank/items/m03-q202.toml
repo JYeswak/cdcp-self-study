@@ -7,15 +7,15 @@
 id = "m03-q202"
 kind = "single-select"
 module = 3
-stem = "Which building-construction risk category does ISO/IEC 22237-2:2024 explicitly include?"
+stem = "Which facility criterion most directly affects whether heavy power and cooling plant can be installed and maintained?"
 choices = [
-  "Water damage",
   "Only the color of exterior cladding",
   "Only the brand of lobby coffee",
+  "Structural loading, clearances, delivery paths, and service access for large equipment",
   "Only the number of visitor parking stickers"
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists water damage; it does not expose a heavy-plant installation or maintenance rule."
+correct = "C"
+explanation = "Plant installability and maintainability hinge on structure, access, and clearances."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

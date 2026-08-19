@@ -8,15 +8,15 @@
 id = "m03-q107"
 kind = "single-select"
 module = 3
-stem = "ISO/IEC 22237-2:2024 explicitly includes which access and protection topics?"
+stem = "Which is a facility criterion related to human operations, not only equipment?"
 choices = [
-  "Provision of access, physical intrusion protection, physical fire protection, and protection against damage from water",
-  "Only hypervisor license selection and CPU clock speed",
-  "Only BGP numbering and application failover policy",
-  "No access or protection topics; the document is software-only",
+  "Hypervisor license SKU",
+  "CPU clock speed only",
+  "Presence of suitable NOC, security, storage, and maintenance access spaces",
+  "BGP AS number",
 ]
-correct = "A"
-explanation = "The ISO preview explicitly lists provision of access, physical intrusion protection, physical fire protection, and protection against damage from water. It does not expose requirements for a particular NOC, storage room, or maintenance-space layout."
+correct = "C"
+explanation = "People need operable spaces for monitoring, security, spares, and maintenance."
 topic_ids = ["m03-supporting-facilities", "m03-facility-criteria"]
 objective_ids = []
 bloom = "remember"

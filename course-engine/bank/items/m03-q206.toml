@@ -9,15 +9,15 @@
 id = "m03-q206"
 kind = "single-select"
 module = 3
-stem = "A facility-infrastructure forecast should use:"
+stem = "When comparing a greenfield build to retrofitting an existing building, a key facility-criteria difference is often:"
 choices = [
-  "Facility profiles built from system/platform KPIs, forecasting methods, and lifecycle capability assessment",
-  "Only the day-one rack count with no lifecycle review",
-  "Only interior finishes and marketing labels",
-  "A vendor SKU list without facility indicators"
+  "Retrofits always have unlimited floor-to-floor height and plant space",
+  "Greenfield never needs permits",
+  "Existing buildings may constrain floor loading, slab-to-slab height, risers, and plant yard space",
+  "Neither needs life-safety systems"
 ]
-correct = "A"
-explanation = "The public ISO preview describes facility profiles, provisioning benchmarks/trends, forecasting, and capability assessment through preparation, commissioning, expansion/contraction, and retirement."
+correct = "C"
+explanation = "Brownfield constraints on structure and plant space frequently dominate retrofit feasibility."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "analyze"

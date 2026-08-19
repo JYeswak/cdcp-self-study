@@ -6,15 +6,15 @@
 id = "m06-q106"
 kind = "single-select"
 module = 6
-stem = "Which measurement topic does ISO/IEC 22237-3:2021 explicitly cover?"
+stem = "Metered or switched rack PDUs add operational value by:"
 choices = [
-  "Measurement of power consumption and power quality with management-tool integration",
   "Eliminating A/B dual feeds always",
   "Replacing upstream UPS",
+  "Providing outlet/branch visibility and controlled power actions for capacity and remote ops",
   "Removing need for labeling",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly covers power-consumption and power-quality measurement with management-tool integration; it does not expose a switched-rPDU control rule."
+correct = "C"
+explanation = "Intelligent rPDUs support capacity management and remote power control—still respect dual-path design."
 topic_ids = ["m06-pdu"]
 objective_ids = []
 bloom = "understand"

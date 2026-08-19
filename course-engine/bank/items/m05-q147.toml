@@ -6,15 +6,15 @@
 id = "m05-q147"
 kind = "single-select"
 module = 5
-stem = "What does ISO/CIE 8995-1:2025 specify for indoor workplaces?"
+stem = "Colour rendering and glare control matter in technical spaces because:"
 choices = [
-  "Lighting requirements intended to meet visual comfort, performance, and safety needs of people",
-  "Only network-cable testing requirements",
-  "Only chiller approach-temperature requirements",
-  "Only data-centre classification ratings",
+  "They replace cable testing",
+  "They set chiller approach temperature",
+  "They determine Tier rating",
+  "Technicians need to read labels, ports, and indicators without visual discomfort",
 ]
-correct = "A"
-explanation = "The ISO/CIE 8995-1:2025 public abstract says it specifies lighting requirements for visual comfort, performance, and safety of people in indoor workplaces."
+correct = "D"
+explanation = "Visual quality affects safe, accurate technical work on equipment."
 topic_ids = ["m05-measurements", "m05-fixtures"]
 objective_ids = []
 bloom = "understand"

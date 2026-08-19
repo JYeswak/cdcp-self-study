@@ -6,15 +6,15 @@
 id = "m05-q137"
 kind = "single-select"
 module = 5
-stem = "Which human needs are explicitly named in the ISO/CIE 8995-1:2025 public abstract?"
+stem = "Data-hall lighting design should balance:"
 choices = [
-  "Visual comfort, performance, and safety for people in indoor workplaces",
-  "Only rack-power density and generator fuel economy",
-  "Only emergency-lighting battery duration",
-  "Only architectural aesthetics without human visual needs",
+  "Maximum glare and minimum maintenance access",
+  "Turning all lights off permanently to save energy regardless of safety",
+  "Only the reddest possible colour forever",
+  "Adequate task visibility, energy use, maintenance access, and minimal interference with airflow/cabling",
 ]
-correct = "A"
-explanation = "The ISO/CIE 8995-1:2025 public abstract names visual comfort, performance, and safety of people in indoor workplaces."
+correct = "D"
+explanation = "Good design meets visual task needs without defeating cooling, cabling, or maintainability."
 topic_ids = ["m05-standards", "m05-fixtures"]
 objective_ids = []
 bloom = "understand"

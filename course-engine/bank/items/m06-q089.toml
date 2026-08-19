@@ -5,15 +5,15 @@
 id = "m06-q089"
 kind = "single-select"
 module = 6
-stem = "Which NFPA 855:2026 chapter heading covers system interconnections?"
+stem = "If BESS is proposed for both UPS-class ride-through and grid services, the safe design stance is:"
 choices = [
-  "Chapter 4 — General",
-  "Chapter 5 — System Interconnections",
-  "Chapter 7 — Operation and Maintenance",
-  "Chapter 13 — Flywheel Energy Storage Systems (FESSs)",
+  "Roles must be engineered and coordinated—not assumed interchangeable by marketing",
+  "One string always does everything without controls",
+  "Disable all UPS modules immediately",
+  "Ignore utility interconnection agreements",
 ]
-correct = "B"
-explanation = "The current NFPA 855 preview names Chapter 5 as System Interconnections. The heading does not establish a dual-use BESS control priority or utility agreement."
+correct = "A"
+explanation = "Dual-purpose storage requires deliberate controls, protection, and contractual design."
 topic_ids = ["m06-bess", "m06-ups"]
 objective_ids = []
 bloom = "analyze"

@@ -7,15 +7,15 @@
 id = "m03-q113"
 kind = "single-select"
 module = 3
-stem = "Which security-related category does ISO/IEC 22237-2:2024 explicitly list for data-centre building construction?"
+stem = "Future expansion land or floor plate options are site criteria because:"
 choices = [
-  "Physical intrusion protection",
   "Data centres never grow",
   "Expansion only needs software licenses",
+  "Power, cooling, and space upgrades have long lead times; growth without room forces costly relocation",
   "AHJs forbid expansion always",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly names physical intrusion protection; it does not expose a future-expansion planning rule."
+correct = "C"
+explanation = "Growth rights and spare capacity envelopes prevent premature site obsolescence."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "apply"

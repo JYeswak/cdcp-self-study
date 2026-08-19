@@ -7,15 +7,15 @@
 id = "m06-q221"
 kind = "single-select"
 module = 6
-stem = "IEC 61439-6:2012 lays down requirements for:"
+stem = "Overhead busway is selected in a dense hall primarily to:"
 choices = [
-  "Low-voltage busbar trunking systems (busways), including their definitions, construction, technical characteristics, and verification",
   "Replace all UPS systems",
+  "Support flexible, reconfigurable power delivery with reduced underfloor congestion",
   "Eliminate fire detection needs",
   "Provide humidification"
 ]
-correct = "A"
-explanation = "The IEC catalog scopes IEC 61439-6 to low-voltage busbar trunking systems and lists definitions, service conditions, construction, technical characteristics, and verification requirements."
+correct = "B"
+explanation = "Busway enables modular taps and keeps high-amp distribution out of crowded floor plenums."
 topic_ids = ["m06-distribution"]
 objective_ids = []
 bloom = "understand"

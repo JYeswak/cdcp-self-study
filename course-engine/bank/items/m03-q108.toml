@@ -8,15 +8,15 @@
 id = "m03-q108"
 kind = "single-select"
 module = 3
-stem = "ISO/IEC 22237-2:2024 explicitly lists which topic among its site and building subjects?"
+stem = "Transportation access matters for site selection primarily because:"
 choices = [
-  "Access",
-  "Application software licensing",
-  "Cloud billing reconciliation",
-  "Server instruction-set selection",
+  "It determines IP subnet size",
+  "Routers require daily physical commuting by packets",
+  "Fuel, equipment deliveries, and emergency response depend on reliable road access",
+  "It sets lux levels",
 ]
-correct = "A"
-explanation = "The ISO abstract lists access as one of the site and building topics addressed by the document."
+correct = "C"
+explanation = "Logistics and emergency access are site-level operability factors."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "understand"

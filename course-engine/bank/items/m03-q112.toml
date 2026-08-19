@@ -7,15 +7,15 @@
 id = "m03-q112"
 kind = "single-select"
 module = 3
-stem = "Which protection category does ISO/IEC 22237-2:2024 explicitly list for data-centre building construction?"
+stem = "A “supporting facility” gap that can undermine a well-designed white space is:"
 choices = [
-  "Physical fire protection",
   "Documented MOPs",
   "Presence of dual power paths",
+  "Lack of secure, maintainable space for electrical and mechanical plant and ops staff",
   "Adequate clear height",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly names physical fire protection; it does not expose a detailed white-space support-facility gap."
+correct = "C"
+explanation = "Without plant and ops support spaces, white-space design is not operationally complete."
 topic_ids = ["m03-supporting-facilities"]
 objective_ids = []
 bloom = "understand"

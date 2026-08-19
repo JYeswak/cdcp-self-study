@@ -6,15 +6,15 @@
 id = "m06-q047"
 kind = "single-select"
 module = 6
-stem = "What purpose does IEC 62310-3:2008 explicitly identify for stand-alone AC static transfer systems?"
+stem = "Compared with a mechanical ATS, an STS is chosen primarily for:"
 choices = [
-  "Ensuring continuity of load supply through controlled transfer",
   "Cheaper fuel contracts",
+  "Very fast transfer between two live, suitable AC sources",
   "Slower weekly manual exercise only",
-  "DC-only operation without AC sources",
+  "DC-only plants without AC",
 ]
-correct = "A"
-explanation = "The current IEC catalog explicitly identifies continuity of load supply through controlled transfer as the purpose of covered stand-alone AC static transfer systems; it does not expose a sub-cycle selection rule."
+correct = "B"
+explanation = "STS uses solid-state switching for sub-cycle/few-ms class transfer when sources are live and in tolerance."
 topic_ids = ["m06-ats-sts"]
 objective_ids = []
 bloom = "understand"

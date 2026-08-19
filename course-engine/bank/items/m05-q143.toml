@@ -6,15 +6,15 @@
 id = "m05-q143"
 kind = "single-select"
 module = 5
-stem = "Which statement matches the ISO/CIE 8995-1:2025 public abstract?"
+stem = "Which statement about lighting “standards” in a CDCP awareness sense is most careful?"
 choices = [
-  "Lighting solutions are described in terms of illumination quantity and quality, using daylight, electric sources, or both",
-  "One universal lux number replaces all project context worldwide",
-  "The document applies only to emergency-lighting batteries",
-  "The document excludes all indoor workplaces and public spaces",
+  "One global lux number always applies to every space type worldwide without project context",
+  "Only Uptime Tier sets lux",
+  "Lighting is never regulated",
+  "Applicable codes and referenced lighting guidance set minimums that vary by jurisdiction and space function",
 ]
-correct = "A"
-explanation = "The ISO/CIE 8995-1:2025 public abstract describes lighting solutions by quantity and quality of illumination and permits daylight, electric light, or a combination."
+correct = "D"
+explanation = "Lighting requirements come from codes/guidance for space type and jurisdiction—not a single universal meme number."
 topic_ids = ["m05-standards"]
 objective_ids = []
 bloom = "understand"

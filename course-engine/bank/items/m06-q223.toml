@@ -7,15 +7,15 @@
 id = "m06-q223"
 kind = "single-select"
 module = 6
-stem = "What measurement capability does ISO/IEC 22237-3:2021 explicitly include?"
+stem = "Switched or metered rack PDUs add most value when operators need to:"
 choices = [
-  "Devices for measuring power consumption and power-quality characteristics, integrated within management tools",
-  "Bypassing grounding codes",
-  "Disabling generator testing forever",
-  "Replacing STS devices in all cases",
+  "Bypass grounding codes",
+  "Disable generator testing forever",
+  "Replace STS devices in all cases",
+  "See branch utilization and remotely manage outlets for capacity and recovery tasks"
 ]
-correct = "A"
-explanation = "The current IEC catalog explicitly includes devices for measuring power consumption and power-quality characteristics at points along the distribution system and their integration within management tools; it does not define switched-rack-PDU operations."
+correct = "D"
+explanation = "Metering and switching improve visibility and controlled recovery at the rack edge."
 topic_ids = ["m06-pdu"]
 objective_ids = []
 bloom = "apply"

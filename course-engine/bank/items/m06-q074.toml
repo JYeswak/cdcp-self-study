@@ -6,15 +6,15 @@
 id = "m06-q074"
 kind = "single-select"
 module = 6
-stem = "IEC 60364-5-52:2009 + AMD1:2024 deals with:"
+stem = "Overhead busway in white space is often selected to:"
 choices = [
-  "The selection and erection of wiring systems, including busbar-trunking and powertrack-system considerations",
   "Increase intentional EMF exposure",
   "Replace fire detection systems",
+  "Enable flexible tap-off power along a row without full recabling of every change",
   "Cool GPU cold plates directly",
 ]
-correct = "A"
-explanation = "The IEC catalog identifies IEC 60364-5-52 as covering selection and erection of wiring systems and notes changes related to busbar trunking and powertrack systems."
+correct = "C"
+explanation = "Busway/tap-offs support reconfiguration agility for row power."
 topic_ids = ["m06-distribution"]
 objective_ids = []
 bloom = "understand"

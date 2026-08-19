@@ -7,15 +7,15 @@
 id = "m03-q096"
 kind = "single-select"
 module = 3
-stem = "Which topic does ISO/IEC 22237-2:2024 explicitly include in its scope for data-centre accommodation?"
+stem = "A facility criterion for floor-to-floor height / clear height is important mainly because it affects:"
 choices = [
-  "Building construction",
   "Only exterior signage fonts",
+  "Air distribution, cable pathways, and equipment clearances in white space",
   "Diesel cetane rating",
   "Badge printer toner choice",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists building construction for data-centre accommodation; it does not expose a clear-height engineering rule."
+correct = "B"
+explanation = "Vertical clearances constrain cooling architecture, cable plant, and equipment handling."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

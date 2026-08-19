@@ -24,15 +24,15 @@
 id = "mock40-q14"
 kind = "single-select"
 module = 6
-stem = "According to the current IEC 60947-6-1:2026 catalog, transfer switching equipment is used to:"
+stem = "An STS is preferred over a mechanical ATS when the design need is:"
 choices = [
-  "Transfer a load between power supply sources to ensure continuity of supply and permit energy management of the installation",
-  "Classify the degrees of protection provided by electrical enclosures",
-  "Specify stationary valve-regulated lead-acid battery requirements only",
-  "Measure only stand-alone static-transfer-system performance",
+  "Slow generator start only",
+  "Very fast transfer between two synchronized/toleranced live AC sources",
+  "Manual weekly switching with a wrench",
+  "Only DC bus switching",
 ]
-correct = "A"
-explanation = "The current IEC catalog states that IEC 60947-6-1:2026 applies to transfer switching equipment used to transfer a load between power supply sources to ensure continuity of supply and permit energy management of the installation. It does not expose the prior STS-versus-mechanical-ATS timing proposition."
+correct = "B"
+explanation = "An STS provides very fast solid-state transfer between two live, synchronized AC sources."
 topic_ids = ["m06-ats-sts"]
 objective_ids = []
 bloom = "understand"

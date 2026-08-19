@@ -8,15 +8,15 @@
 id = "m06-q217"
 kind = "single-select"
 module = 6
-stem = "For a grounded premises-wiring system, where does OSHA place the connection of the equipment grounding conductor and grounded circuit conductor to the grounding electrode?"
+stem = "Multiple neutral-ground bonds downstream of the designated bonding point are a problem because they can:"
 choices = [
-  "On the supply side of the service or system disconnecting means, with the separately derived-system exception stated in the rule",
-  "At every downstream panel without regard to the system configuration",
-  "Only at the farthest IT rack",
-  "Nowhere; the grounding electrode connection is optional"
+  "Improve isolation of every circuit automatically",
+  "Create unintended neutral current paths and ground loops",
+  "Raise IP ratings",
+  "Eliminate harmonics"
 ]
-correct = "A"
-explanation = "The current rule places both conductors at the grounded circuit conductor on the supply side of the service disconnecting means, or the corresponding point for a separately derived system. The item does not turn that public boundary into a universal N-G topology rule."
+correct = "B"
+explanation = "Extra N-G bonds parallel the neutral return and disturb equipotential design."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "apply"

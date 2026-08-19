@@ -9,15 +9,15 @@
 id = "m03-q201"
 kind = "single-select"
 module = 3
-stem = "A site-selection review under ISO/IEC 22237-1 should explicitly consider:"
+stem = "Proximity to high-quality dual utility feeds is a site criterion mainly to support:"
 choices = [
-  "Availability, security, energy-efficiency, business risk, and operating cost over the planned lifetime",
-  "Only decorative fountains and exterior finishes",
-  "Only CPU clock speed and hypervisor licensing",
-  "Elimination of all continuity systems by regulation"
+  "Decorative fountains only",
+  "Independent power paths and reduced correlated utility risk where available",
+  "Lower ceiling heights",
+  "Elimination of all UPS systems by regulation"
 ]
-correct = "A"
-explanation = "The public ISO preview names availability, security, and energy-efficiency classification over the planned lifetime and business-risk/operating-cost analysis; dual-feed design remains a separate engineering question."
+correct = "B"
+explanation = "Utility diversity reduces correlated power risk; it does not remove the need for on-site continuity design."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "apply"

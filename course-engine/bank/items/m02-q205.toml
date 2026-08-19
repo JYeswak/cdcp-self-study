@@ -9,15 +9,15 @@
 id = "m02-q205"
 kind = "single-select"
 module = 2
-stem = "What boundary does the ISO/IEC 22237-2:2024 catalog description state about safety and EMC requirements?"
+stem = "Sub-component standards (e.g., cabling performance, firestop listings, equipment safety marks) matter because:"
 choices = [
-  "They are outside this document's scope and are covered by other standards and regulations",
-  "They are the only requirements covered by the document",
-  "They are replaced by a facility rating label",
-  "They apply only to cloud software configuration",
+  "They replace the need for any system-level design",
+  "They only apply to furniture",
+  "They forbid all redundant paths",
+  "They help ensure assemblies and products meet defined performance/safety criteria used in the facility"
 ]
-correct = "A"
-explanation = "The IEC catalog says safety and electromagnetic compatibility requirements are outside the document's scope and are covered by other standards and regulations."
+correct = "D"
+explanation = "System reliability depends on listed/qualified products and installation practices, not only topology sketches."
 topic_ids = ["m02-subcomponent-standards"]
 objective_ids = []
 bloom = "understand"

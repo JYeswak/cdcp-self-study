@@ -9,15 +9,15 @@
 id = "m03-q203"
 kind = "single-select"
 module = 3
-stem = "ISO/IEC 22237-2:2024 specifies requirements and recommendations for:"
+stem = "Supporting facilities (e.g., fuel storage, water, telecom points of entry, security perimeter) should be evaluated because:"
 choices = [
-  "Location/site selection, environmental risks, site and building configuration, access, intrusion/fire/water protection, and quality construction",
-  "Only fuel storage, municipal water rights, and telecom carrier contracts",
-  "Only IT racks, software, and network-configuration choices",
-  "Only a universal energy-efficiency target and equipment warranty"
+  "They are optional aesthetics with no availability impact",
+  "Only IT racks determine site risk",
+  "They never need maintenance access",
+  "Critical IT availability depends on these external and campus support systems remaining functional"
 ]
-correct = "A"
-explanation = "The current IEC catalog explicitly lists the bounded site/building topics in choice A. It does not expose project-specific fuel, water-rights, telecom-carrier, or IT-equipment requirements."
+correct = "D"
+explanation = "The white space fails if fuel, water, connectivity, or security support fails."
 topic_ids = ["m03-supporting-facilities", "m03-facility-criteria"]
 objective_ids = []
 bloom = "remember"

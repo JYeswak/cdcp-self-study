@@ -6,15 +6,15 @@
 id = "m06-q055"
 kind = "single-select"
 module = 6
-stem = "ISO/IEC TS 22237-31:2026 defines key performance indicators for data-centre:"
+stem = "UPS module N+1 is of limited value if all modules share:"
 choices = [
-  "Resilience, dependability, fault tolerance, and availability tolerance",
-  "Only application software latency and cloud billing",
-  "Only rack paint, room branding, and office utilization",
-  "No measurable properties; the document is only a procurement template",
+  "Separate battery strings and dual outputs",
+  "A single upstream feed, ATS, or downstream bus that is a single point of failure",
+  "Independent utility feeds and dual downstream buses",
+  "Diverse A and B rack PDUs",
 ]
-correct = "A"
-explanation = "The ISO preview says the document defines KPIs for resilience, dependability, fault tolerance, and availability tolerance for data centres. It also covers power/environmental infrastructure and targets maintainability, recoverability, and vulnerability; it does not expose a particular UPS shared-failure-domain rule."
+correct = "B"
+explanation = "Redundancy only helps if failure domains are actually independent end-to-end."
 topic_ids = ["m06-redundancy"]
 objective_ids = []
 bloom = "analyze"

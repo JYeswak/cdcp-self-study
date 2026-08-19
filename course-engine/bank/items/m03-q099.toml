@@ -7,15 +7,15 @@
 id = "m03-q099"
 kind = "single-select"
 module = 3
-stem = "Which topic does ISO/IEC 22237-2:2024 explicitly identify in its site-selection scope?"
+stem = "Which environmental adjacency is often a site-selection red flag?"
 choices = [
-  "Location/site selection, including environmental risks",
-  "Only a data-centre logo design",
-  "Diesel cetane rating",
-  "Badge printer toner choice",
+  "Quiet commercial campus with dual utility corridors",
+  "Multiple diverse fibre providers on campus",
+  "High external contamination, vibration, or explosion risk from neighbouring industrial hazards",
+  "Adequate truck turning radii",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly includes location/site selection and environmental risks; it does not expose a particular adjacency threshold."
+correct = "C"
+explanation = "Neighbouring hazards can impose contamination, vibration, or blast risks on continuous operations."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "understand"

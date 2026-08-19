@@ -8,15 +8,15 @@
 id = "m01-q202"
 kind = "single-select"
 module = 1
-stem = "Which domains does the TIA-942-C public abstract say Revision C affects?"
+stem = "Colocation, enterprise, and hyperscale facilities primarily differ in:"
 choices = [
-  "Telecommunications, power, cooling, architecture, fire protection, safety, and physical security",
-  "Only application software and cloud billing",
-  "Only rack cosmetics and office furniture",
-  "Only fuel chemistry and generator lubrication",
+  "Whether fire detection is ever required",
+  "Whether electricity is used at all",
+  "Ownership model, multi-tenancy, scale economics, and governance boundaries",
+  "Whether racks can be grounded"
 ]
-correct = "A"
-explanation = "The TIA-942-C public abstract lists telecommunications, power, cooling, architecture, fire protection, safety, and physical security among Revision C's affected domains."
+correct = "C"
+explanation = "DC types share many engineering needs but differ in ownership, tenancy, scale, and who controls what."
 topic_ids = ["m01-dc-types", "m01-business-org"]
 objective_ids = []
 bloom = "remember"

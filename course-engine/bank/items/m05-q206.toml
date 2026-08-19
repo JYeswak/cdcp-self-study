@@ -6,15 +6,15 @@
 id = "m05-q206"
 kind = "single-select"
 module = 5
-stem = "What lighting topic does ISO/CIE 8995-1:2025 explicitly say is not applicable to this document?"
+stem = "High-bay or aisle-oriented lighting in tall white space is often preferred because it can:"
 choices = [
-  "Emergency lighting",
-  "Indoor workplace lighting",
-  "Visual comfort and safety needs",
-  "Daylight and electric-light combinations",
+  "Heat the cold aisle intentionally as the primary cooling method",
+  "Replace all emergency egress lighting automatically",
+  "Deliver useful illuminance along equipment aisles while reducing glare and wasted light on blank ceilings",
+  "Eliminate the need for any task lighting at panels"
 ]
-correct = "A"
-explanation = "The ISO/CIE 8995-1:2025 public abstract says the document is not applicable for emergency lighting and points to ISO 30061."
+correct = "C"
+explanation = "Fixture type and aim should serve vertical equipment faces and aisle tasks efficiently."
 topic_ids = ["m05-fixtures", "m05-measurements"]
 objective_ids = []
 bloom = "understand"

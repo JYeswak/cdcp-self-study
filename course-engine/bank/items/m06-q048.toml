@@ -8,15 +8,15 @@
 id = "m06-q048"
 kind = "single-select"
 module = 6
-stem = "A stand-alone static transfer system (STS) is intended to:"
+stem = "A single-corded critical device in a dual-path hall often needs an STS (or transfer PDU) because:"
 choices = [
-  "Ensure continuity of load supply through controlled transfer, with or without interruption, from two or more independent AC sources",
-  "Provide unlimited stored-energy ride-through without any source",
-  "Replace all generators and UPS systems by definition",
-  "Eliminate the need for protective or switching elements"
+  "It draws zero current on path B by design",
+  "Fibre uplinks eliminate power SPOFs",
+  "Generators cannot start without STS",
+  "It cannot natively take two independent AC feeds like dual-PSU gear",
 ]
-correct = "A"
-explanation = "The public IEC catalog defines the STS function as controlled transfer of load supply between two or more independent AC sources; single-corded load mitigation is a separate design question."
+correct = "D"
+explanation = "Single-corded gear remains a SPOF unless an automatic transfer device selects a healthy source."
 topic_ids = ["m06-ats-sts", "m06-redundancy"]
 objective_ids = []
 bloom = "apply"

@@ -7,15 +7,15 @@
 id = "m03-q100"
 kind = "single-select"
 module = 3
-stem = "Which building-related topic does ISO/IEC 22237-2:2024 explicitly include in its scope?"
+stem = "Slab loading capacity as a facility criterion primarily limits:"
 choices = [
-  "Building configuration",
   "Software license counts",
   "DNS TTL values",
+  "Heavy IT, battery, and cooling equipment placement without structural reinforcement",
   "Emergency light colour only",
 ]
-correct = "A"
-explanation = "The current ISO abstract explicitly lists building configuration; it does not expose a slab-loading limit."
+correct = "C"
+explanation = "Structural floor capacity constrains where dense/heavy equipment can sit."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "remember"

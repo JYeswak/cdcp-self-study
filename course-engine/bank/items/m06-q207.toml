@@ -6,15 +6,15 @@
 id = "m06-q207"
 kind = "single-select"
 module = 6
-stem = "Which equipment category does IEC 60947-6-1:2026 explicitly cover?"
+stem = "Why is break-before-make on a genset ATS usually acceptable for UPS-protected IT, but less ideal for unprotected mechanical loads?"
 choices = [
-  "Automatic transfer switching equipment, including the controller",
   "Generators never need transfer switches",
   "Break-before-make removes the need for fuel",
-  "Open transition only affects fiber cabling"
+  "Open transition only affects fiber cabling",
+  "UPS covers the brief gap for IT; unprotected loads may drop during the open transition"
 ]
-correct = "A"
-explanation = "The current IEC abstract explicitly covers automatic transfer switching equipment and its controller; it does not expose a break-before-make/UPS-bridging proposition."
+correct = "D"
+explanation = "Open transition gaps are bridged by UPS energy for IT, not for all plant loads."
 topic_ids = ["m06-ats-sts", "m06-ups", "m06-generators"]
 objective_ids = []
 bloom = "apply"

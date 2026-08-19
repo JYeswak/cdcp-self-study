@@ -8,15 +8,15 @@
 id = "m03-q106"
 kind = "single-select"
 module = 3
-stem = "What does the TIA-942-C public abstract say the standard specifies requirements for?"
+stem = "A building with limited roof/yard space for heat rejection may force:"
 choices = [
-  "Infrastructure of data centres and computer rooms",
-  "Only application software deployment",
-  "Only residential kitchen appliances",
-  "Only cloud billing and tenancy contracts",
+  "Unlimited chiller capacity with no trade-offs",
+  "Automatic dual utility feeds",
+  "Design compromises on cooling plant placement, capacity, or even site rejection",
+  "Elimination of fire detection",
 ]
-correct = "A"
-explanation = "The TIA-942-C public abstract says the standard specifies requirements for infrastructure of data centres and computer rooms."
+correct = "C"
+explanation = "Heat rejection real estate is a hard facility constraint on cooling architecture."
 topic_ids = ["m03-facility-criteria", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "apply"

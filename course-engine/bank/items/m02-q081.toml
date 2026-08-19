@@ -9,15 +9,15 @@
 id = "m02-q081"
 kind = "single-select"
 module = 2
-stem = "What does the current ISO/IEC 22237-1 preview place outside the series' scope?"
+stem = "Guidelines and best-practice documents differ from codes in that they usually:"
 choices = [
-  "Selection of IT and network telecommunications equipment, software, and associated configuration issues",
-  "General principles for data-centre facilities and infrastructure",
-  "Common terminology, parameters, and reference models",
-  "A classification system based on availability, security, and energy efficiency",
+  "Carry criminal penalties by themselves in all cities",
+  "Offer recommended practice that becomes binding only if adopted by code, contract, or policy",
+  "Always override the AHJ",
+  "Are illegal to read",
 ]
-correct = "A"
-explanation = "The current ISO preview explicitly places selection of IT and network telecommunications equipment, software, and associated configuration issues outside the ISO/IEC 22237 series; it does not establish the former guidelines-versus-code distinction."
+correct = "B"
+explanation = "Guides recommend practice; binding force comes from adoption into law, contract, or policy."
 topic_ids = ["m02-standards-guidelines", "m02-code-vs-standard"]
 objective_ids = []
 bloom = "understand"
