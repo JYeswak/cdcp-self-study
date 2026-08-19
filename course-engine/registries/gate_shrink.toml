@@ -69,7 +69,11 @@
 # 37277 -> 35579: EXTRACT-THEN-DELETE doc_facts implementation into
 # crates/cdcp_registry_check; cdcp_gate retains a thin dispatcher and its
 # public test-facing re-exports (bd-engine-not-gate-ar39.15).
-ceiling_lines = 35579
+# 35579 -> 34040: EXTRACT-THEN-DELETE verify_doc_consistency implementation
+# into crates/cdcp_registry_check; the measured gate count is 33993 and the
+# 47-line gap is deliberate slack for incidental growth. The ratchet remains
+# monotone-decreasing; lower it again after a later extraction.
+ceiling_lines = 34040
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
