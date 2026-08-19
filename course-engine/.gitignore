@@ -11,3 +11,13 @@ beads_compliance_audit/
 /target/
 **/*.rs.bk
 .DS_Store
+
+# Loop watchdog runtime state (bd-engine-not-gate-ar39.15 wiring, 2026-08-19).
+# These are produced by .flywheel/watchdog-escalate.sh on every cron tick. They
+# are OBSERVATIONS, not source: committing them makes every watchdog run a diff.
+# ALERT itself stays tracked — it is the durable stall record.
+.flywheel/.stall-streak
+.flywheel/watchdog.cron.log
+.flywheel/URGENT_JOSH.md
+.flywheel/URGENT_JOSH.resolved-*
+.flywheel/.crontab.backup-*
