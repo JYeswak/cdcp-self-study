@@ -8,8 +8,9 @@ schema = "cdcp.key-contradiction.v1"
 name = "numeric"
 stem_similarity_pct = 70
 anchor_similarity_pct = 70
-units = ["mm", "kw", "mw", "gw", "v", "kv", "c", "k", "s", "sec", "hz", "u"]
-unit_prefixes = ["degree", "degrees"]
+units = ["mm", "cm", "m", "km", "in", "ft", "w", "kw", "mw", "gw", "v", "kv", "mv", "a", "ka", "ma", "hz", "khz", "mhz", "ghz", "thz", "c", "f", "k", "t", "mt", "ut", "mg", "s", "min", "h", "day", "pct", "psf", "lbf", "pa", "kpa", "mpa", "rh", "u"]
+coverage_units = ["mm", "cm", "m", "km", "in", "ft", "w", "kw", "mw", "gw", "v", "kv", "mv", "a", "ka", "ma", "hz", "khz", "mhz", "ghz", "thz", "c", "f", "k", "t", "mt", "ut", "mg", "s", "min", "h", "day", "pct", "psf", "lbf", "pa", "kpa", "mpa", "rh", "u", "year", "edition", "chapter", "article", "class", "tier"]
+minimum_domain_coverage_pct = 5
 
 [[detector]]
 name = "explicit-negation"

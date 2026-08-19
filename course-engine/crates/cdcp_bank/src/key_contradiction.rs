@@ -49,7 +49,9 @@ struct DetectorRow {
     #[serde(default)]
     units: Vec<String>,
     #[serde(default)]
-    unit_prefixes: Vec<String>,
+    coverage_units: Vec<String>,
+    #[serde(default)]
+    minimum_domain_coverage_pct: Option<u32>,
     #[serde(default)]
     negation_tokens: Vec<String>,
 }
@@ -59,7 +61,8 @@ struct Policy {
     numeric_stem_similarity_pct: u32,
     numeric_anchor_similarity_pct: u32,
     numeric_units: BTreeSet<String>,
-    numeric_unit_prefixes: BTreeSet<String>,
+    numeric_coverage_units: BTreeSet<String>,
+    numeric_domain_coverage_pct: u32,
     negation_stem_similarity_pct: u32,
     negation_answer_similarity_pct: u32,
     negation_tokens: BTreeSet<String>,
@@ -85,20 +88,15 @@ fn percentage(value: Option<u32>, field: &str) -> Result<u32, String> {
 }
 
 fn words(values: &[String], field: &str) -> Result<BTreeSet<String>, String> {
-    let out = optional_words(values);
-    if out.is_empty() {
-        return Err(format!("{POLICY}: {field} must not be empty"));
-    }
-    Ok(out)
-}
-
-fn optional_words(values: &[String]) -> BTreeSet<String> {
     let out = values
         .iter()
         .flat_map(|value| near_duplicate::tokens(value))
         .filter(|value| !value.is_empty())
         .collect::<BTreeSet<_>>();
-    out
+    if out.is_empty() {
+        return Err(format!("{POLICY}: {field} must not be empty"));
+    }
+    Ok(out)
 }
 
 fn policy(root: &Path) -> Result<Policy, String> {
@@ -113,6 +111,11 @@ fn policy(root: &Path) -> Result<Policy, String> {
     let numeric = detector(&registry, NUMERIC_NAME)?;
     let negation = detector(&registry, NEGATION_NAME)?;
     let units = words(&numeric.units, "numeric.units")?;
+    let coverage_units = if numeric.coverage_units.is_empty() {
+        units.clone()
+    } else {
+        words(&numeric.coverage_units, "numeric.coverage_units")?
+    };
     let negation_tokens = words(
         &negation.negation_tokens,
         "explicit-negation.negation_tokens",
@@ -127,7 +130,11 @@ fn policy(root: &Path) -> Result<Policy, String> {
             "numeric.anchor_similarity_pct",
         )?,
         numeric_units: units,
-        numeric_unit_prefixes: optional_words(&numeric.unit_prefixes),
+        numeric_coverage_units: coverage_units,
+        numeric_domain_coverage_pct: percentage(
+            numeric.minimum_domain_coverage_pct,
+            "numeric.minimum_domain_coverage_pct",
+        )?,
         negation_stem_similarity_pct: percentage(
             negation.stem_similarity_pct,
             "explicit-negation.stem_similarity_pct",
@@ -151,29 +158,95 @@ fn is_digits(token: &str) -> bool {
     !token.is_empty() && token.bytes().all(|byte| byte.is_ascii_digit())
 }
 
+fn canonical_unit(token: &str) -> Option<&'static str> {
+    Some(match token {
+        "mm" => "mm",
+        "cm" => "cm",
+        "m" | "meter" | "meters" | "metre" | "metres" => "m",
+        "km" => "km",
+        "in" | "inch" | "inches" => "in",
+        "ft" | "foot" | "feet" => "ft",
+        "w" | "watt" | "watts" => "w",
+        "kw" => "kw",
+        "mw" => "mw",
+        "gw" => "gw",
+        "v" | "volt" | "volts" => "v",
+        "kv" | "kilovolt" | "kilovolts" => "kv",
+        "mv" => "mv",
+        "a" | "amp" | "amps" | "ampere" | "amperes" => "a",
+        "ka" => "ka",
+        "ma" => "ma",
+        "hz" | "hertz" => "hz",
+        "khz" => "khz",
+        "mhz" => "mhz",
+        "ghz" => "ghz",
+        "thz" => "thz",
+        "c" | "celsius" => "c",
+        "f" | "fahrenheit" => "f",
+        "k" => "k",
+        "t" | "tesla" => "t",
+        "mt" | "millitesla" => "mt",
+        "ut" | "microtesla" => "ut",
+        "mg" | "milligauss" => "mg",
+        "s" | "sec" | "second" | "seconds" => "s",
+        "min" | "minute" | "minutes" => "min",
+        "h" | "hour" | "hours" => "h",
+        "day" | "days" => "day",
+        "percent" | "percentage" | "pct" => "pct",
+        "psf" => "psf",
+        "lbf" => "lbf",
+        "pa" => "pa",
+        "kpa" => "kpa",
+        "mpa" => "mpa",
+        "rh" => "rh",
+        "u" => "u",
+        "year" | "years" => "year",
+        "edition" | "editions" => "edition",
+        "chapter" | "chapters" => "chapter",
+        "article" | "articles" => "article",
+        "class" => "class",
+        "tier" => "tier",
+        _ => return None,
+    })
+}
+
 fn inline_number_unit(token: &str, units: &BTreeSet<String>) -> Option<(String, String)> {
     let split = token
         .char_indices()
         .find(|(_, character)| !character.is_ascii_digit())
         .map(|(index, _)| index)?;
     let (value, unit) = token.split_at(split);
+    let unit = canonical_unit(unit)?;
     units
         .contains(unit)
         .then(|| (value.to_string(), unit.to_string()))
 }
 
 fn ordered_tokens(text: &str) -> Vec<String> {
-    near_duplicate::normalize(text)
+    near_duplicate::normalize(&text.replace('%', " percent "))
         .split_whitespace()
         .map(ToOwned::to_owned)
         .collect()
+}
+
+fn unit_at(tokens: &[String], index: usize, units: &BTreeSet<String>) -> Option<(String, usize)> {
+    let mut unit_index = index;
+    if matches!(
+        tokens.get(unit_index).map(String::as_str),
+        Some("degree" | "degrees")
+    ) {
+        unit_index += 1;
+    }
+    let unit = canonical_unit(tokens.get(unit_index)?)?;
+    units
+        .contains(unit)
+        .then(|| (unit.to_string(), unit_index + 1))
 }
 
 fn separated_number_unit(
     tokens: &[String],
     index: usize,
     units: &BTreeSet<String>,
-    unit_prefixes: &BTreeSet<String>,
 ) -> Option<(String, String, usize)> {
     if !is_digits(&tokens[index]) {
         return None;
@@ -182,25 +255,11 @@ fn separated_number_unit(
     while number_end < tokens.len() && is_digits(&tokens[number_end]) {
         number_end += 1;
     }
-    let mut unit_index = number_end;
-    if unit_index < tokens.len() && unit_prefixes.contains(&tokens[unit_index]) {
-        unit_index += 1;
-    }
-    let unit = tokens.get(unit_index)?;
-    units.contains(unit).then(|| {
-        (
-            tokens[index..number_end].concat(),
-            unit.clone(),
-            unit_index + 1,
-        )
-    })
+    let (unit, end) = unit_at(tokens, number_end, units)?;
+    Some((tokens[index..number_end].concat(), unit, end))
 }
 
-fn numeric_claims(
-    text: &str,
-    units: &BTreeSet<String>,
-    unit_prefixes: &BTreeSet<String>,
-) -> Vec<NumericClaim> {
+fn numeric_claims(text: &str, units: &BTreeSet<String>) -> Vec<NumericClaim> {
     let tokens = ordered_tokens(text);
     let mut claims = Vec::new();
     let mut index = 0;
@@ -208,9 +267,7 @@ fn numeric_claims(
         let (value, unit, end) =
             if let Some((value, unit)) = inline_number_unit(&tokens[index], units) {
                 (value, unit, index + 1)
-            } else if let Some((value, unit, end)) =
-                separated_number_unit(&tokens, index, units, unit_prefixes)
-            {
+            } else if let Some((value, unit, end)) = separated_number_unit(&tokens, index, units) {
                 (value, unit, end)
             } else {
                 index += 1;
@@ -220,16 +277,14 @@ fn numeric_claims(
         let start = index.saturating_sub(5);
         let anchor = tokens[start..index]
             .iter()
-            .filter(|token| !is_digits(token) && !units.contains(*token))
+            .filter(|token| !is_digits(token) && canonical_unit(token).is_none())
             .cloned()
             .collect::<BTreeSet<_>>();
-        if !anchor.is_empty() {
-            claims.push(NumericClaim {
-                value,
-                unit,
-                anchor,
-            });
-        }
+        claims.push(NumericClaim {
+            value,
+            unit,
+            anchor,
+        });
         index = end;
     }
     claims
@@ -256,6 +311,7 @@ struct ItemView<'a> {
     answer: BTreeSet<String>,
     answer_without_negation: BTreeSet<String>,
     numeric: Vec<NumericClaim>,
+    numeric_domain_claims: usize,
 }
 
 fn view<'a>(item: &'a BankItem, policy: &Policy) -> Result<ItemView<'a>, String> {
@@ -266,13 +322,19 @@ fn view<'a>(item: &'a BankItem, policy: &Policy) -> Result<ItemView<'a>, String>
         .filter(|token| !policy.negation_tokens.contains(*token))
         .cloned()
         .collect();
+    let numeric_domain_claims = item
+        .choices
+        .iter()
+        .map(|choice| numeric_claims(choice, &policy.numeric_coverage_units).len())
+        .sum();
     Ok(ItemView {
         item,
         topics: item.topic_ids.iter().cloned().collect(),
         stem: near_duplicate::tokens(&item.stem),
         answer: answer_tokens,
         answer_without_negation,
-        numeric: numeric_claims(answer, &policy.numeric_units, &policy.numeric_unit_prefixes),
+        numeric: numeric_claims(answer, &policy.numeric_units),
+        numeric_domain_claims,
     })
 }
 
@@ -298,12 +360,18 @@ fn numeric_conflict(
     left.numeric.iter().find_map(|left_claim| {
         right.numeric.iter().find_map(|right_claim| {
             let anchor_similarity = Sim::of(&left_claim.anchor, &right_claim.anchor);
+            let anchor_matches = (left_claim.anchor.is_empty() && right_claim.anchor.is_empty())
+                || anchor_similarity.at_least(policy.numeric_anchor_similarity_pct);
             (left_claim.unit == right_claim.unit
                 && left_claim.value != right_claim.value
-                && anchor_similarity.at_least(policy.numeric_anchor_similarity_pct))
-            .then(|| (left_claim.clone(), right_claim.clone(), anchor_similarity))
+                && anchor_matches)
+                .then(|| (left_claim.clone(), right_claim.clone(), anchor_similarity))
         })
     })
+}
+
+fn percent_tenths(numerator: usize, denominator: usize) -> usize {
+    (numerator * 1000 + denominator / 2) / denominator
 }
 
 fn negation_conflict(
@@ -361,6 +429,24 @@ pub fn evaluate(root: &Path) -> Eval {
                 .into(),
         );
     }
+    let numeric_domain_items = approved
+        .iter()
+        .filter(|item| item.numeric_domain_claims > 0)
+        .count();
+    if numeric_domain_items * 100 < policy.numeric_domain_coverage_pct as usize * approved.len() {
+        let coverage = percent_tenths(numeric_domain_items, approved.len());
+        return Eval::Error(format!(
+            "numeric domain coverage {numeric_domain_items}/{} = {}.{}% is below configured floor {}% (ERROR/UNRUN)",
+            approved.len(),
+            coverage / 10,
+            coverage % 10,
+            policy.numeric_domain_coverage_pct,
+        ));
+    }
+    let numeric_domain_claims = approved
+        .iter()
+        .map(|item| item.numeric_domain_claims)
+        .sum::<usize>();
 
     let mut comparisons = 0usize;
     let mut numeric_count = 0usize;
@@ -407,8 +493,18 @@ pub fn evaluate(root: &Path) -> Eval {
     }
     findings.sort();
     let report = format!(
-        "approved single-select={}; numeric-claims={}; compared topic-pairs={}; numeric-contradictions={}; explicit-negation-pairs={}",
-        approved.len(), numeric_claims, comparisons, numeric_count, negation_count
+        "approved single-select={}; numeric-domain-items={}/{} ({}.{}%; floor={}%); numeric-domain-claims={}; numeric-claims={}; compared topic-pairs={}; numeric-contradictions={}; explicit-negation-pairs={}",
+        approved.len(),
+        numeric_domain_items,
+        approved.len(),
+        percent_tenths(numeric_domain_items, approved.len()) / 10,
+        percent_tenths(numeric_domain_items, approved.len()) % 10,
+        policy.numeric_domain_coverage_pct,
+        numeric_domain_claims,
+        numeric_claims,
+        comparisons,
+        numeric_count,
+        negation_count,
     );
     if findings.is_empty() {
         Eval::Ok(format!(
