@@ -422,9 +422,9 @@ digest = "a796fce9e69cb4ffc8cf30fe2710091d05eb2678f7f3451cdd7df0106c43275f"
 [[golden]]
 id = "fixture.mock40-seed42"
 file = "goldens/fixtures/mock40_seed42.json"
-frozen = "c7f77bbf6ff24d0d354de1c76a378ee8f8f0f4a21c06cd0a280bfa1a04581479"
+frozen = "72ba4474e692146388dbbf34bfffaa75cdd2a6b2bd50cf652c99254eb9e451ca"
 affirmed = "2026-08-18"
-justification = "The seed-42 assembly record: forty ids in presentation order, plus an embedded six-field projection of each item and the bank_hash they were drawn under. Every other golden here is computed FROM this file, so it is re-frozen first and re-affirmed first. RE-FROZEN 2026-08-18 (bd-epi-ecosystem-ms4j.9/.10): leftover items m03-q232..q239 entered the committed pool (896→904 files, 871→879 approved). Domain stayed cdcp-bank-v3; no hashed field was added. The DRAW moved 2 ids (2 left / 2 entered; m03-q238 drawn). bank_hash 365b0761…→990c5974…. Surfaces named here did not move."
+justification = "The seed-42 assembly record: forty ids in presentation order, plus an embedded six-field projection of each item and the bank_hash they were drawn under. Every other golden here is computed FROM this file, so it is re-frozen first and re-affirmed first. RE-FROZEN 2026-08-18 (bd-0cjy): the tracked learner export was stale at 904 records/879 approved; after the concurrent restoration batches settled, the current bank is 957 records/929 approved, with 2 draft and 26 retired. The DRAW moved 24 ids out and 24 in; all 40 positions changed; bank_hash 990c5974…→c330628a…. This is an artifact-freshness correction, not a claim that the remaining grounding findings are resolved. Domain stayed cdcp-bank-v3; no hashed field was added."
 depends_on = [
   { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
@@ -436,9 +436,9 @@ depends_on = [
 [[golden]]
 id = "grade.all-correct"
 file = "goldens/mock40_seed42_all_correct.sha256"
-frozen = "633d4df4ae4a0d9e4342150ea94b0477de0df7d4d6ff2f9bcab98f56802cfc26"
+frozen = "04cebb9994b6c09363f7b883be8947e64cbe501fd8999b42488cec737e373707"
 affirmed = "2026-08-18"
-justification = "hex(SHA-256(canonical_json(GradeReport))) for an attempt answering every fixture item with its correct letter. RE-FROZEN 2026-08-18 (bd-epi-ecosystem-ms4j.9/.10): the fixture moved 2 ids and bank_hash entered the report body (990c5974…). Report shape, canonical JSON, scoring, and schema version did not move. all-correct remains 40/40."
+justification = "hex(SHA-256(canonical_json(GradeReport))) for an attempt answering every fixture item with its correct letter. RE-FROZEN 2026-08-18 (bd-0cjy): the fixture moved 24 ids out and 24 in, and bank_hash entered the report body (c330628a…). Report shape, canonical JSON, scoring, and schema version did not move. all-correct remains 40/40."
 depends_on = [
   { surface = "core.schema-version", version = "ve1cc74b2e52b" },
   { surface = "core.grade-report-shape", version = "v0e105134e087" },
@@ -452,9 +452,9 @@ depends_on = [
 [[golden]]
 id = "grade.all-wrong"
 file = "goldens/mock40_seed42_all_wrong.sha256"
-frozen = "433e821bf27ba474fbf133a17e8be4c7f03a513ddb34e5ad7f5c20064be4bfce"
+frozen = "767cdb53fada055bb06aa8d60cef5b9cb523dd6709c65fe146517a6ab4604496"
 affirmed = "2026-08-18"
-justification = "The all-correct golden's counterpart, answering correct.wrong_letter() for all forty items. RE-FROZEN 2026-08-18 (bd-epi-ecosystem-ms4j.9/.10): same 2-id draw move and bank_hash move as grade.all-correct. The wrong-letter cycle itself did not move."
+justification = "The all-correct golden's counterpart, answering correct.wrong_letter() for all forty items. RE-FROZEN 2026-08-18 (bd-0cjy): same 24-out/24-in draw move and bank_hash move as grade.all-correct. The wrong-letter cycle itself did not move."
 depends_on = [
   { surface = "core.schema-version", version = "ve1cc74b2e52b" },
   { surface = "core.grade-report-shape", version = "v0e105134e087" },
@@ -470,9 +470,9 @@ depends_on = [
 id = "bank.hash-pin"
 file = "goldens/bank_hash.txt"
 const = "crates/cdcp_gate/src/gates/verify_content_lock.rs::GOLDEN_REL"
-frozen = "d3e2ffd7f6b2d53ccc0499ee6d2a05cfbbf03b96f95f973080948cd9ab2a65b0"
+frozen = "04ab4820cbf872af494c3a041641137b799eb29a1534fa8ad5640d9bfc13b059"
 affirmed = "2026-08-18"
-justification = "The bank content address for this snapshot, and the fallback verify-content-lock reads when it cannot recompute one. RE-FROZEN 2026-08-18 (bd-epi-ecosystem-ms4j.9/.10): leftover items m03-q232..q239 entered hash_payload. Address 365b0761…→990c5974…. BANK_HASH_DOMAIN stayed cdcp-bank-v3; bank.hash-payload / bank.item-schema surfaces did not move. The address now names a bank of 904 files of which 879 are drawable."
+justification = "The bank content address for this snapshot, and the fallback verify-content-lock reads when it cannot recompute one. RE-FROZEN 2026-08-18 (bd-0cjy): the current bank is 957 files with 929 approved, 2 draft, and 26 retired, replacing the stale 904/879-derived address 990c5974… with c330628a…. This tick did not edit bank/items. BANK_HASH_DOMAIN stayed cdcp-bank-v3; bank.hash-payload / bank.item-schema surfaces did not move."
 depends_on = [
   { surface = "bank.hash-payload", version = "vcf11098efb54" },
   { surface = "bank.item-schema", version = "v9e6e70394dd4" },
@@ -482,9 +482,9 @@ depends_on = [
 [[golden]]
 id = "web.learner-pack"
 file = "web/data/mock40_seed42.json"
-frozen = "1e04d52f99a85a3765bea3c20692a3895fa03397d41801fad8ae39c24755ea43"
+frozen = "4fffa0055619ac499dcb8ffb670a4223fc8cbb36326419a36316f3a9bf42b811"
 affirmed = "2026-08-18"
-justification = "The learner exam pack the browser loads, cmp'd byte-for-byte by check.sh L6 against a fresh export-web at seed 42. RE-FROZEN 2026-08-18 (bd-epi-ecosystem-ms4j.9/.10): the published form moved 2 ids (see fixture.mock40-seed42). Pack still carries the new bank_hash 990c5974…. Pack shape and sampler surfaces did not move."
+justification = "The learner exam pack the browser loads, cmp'd byte-for-byte by check.sh L6 against a fresh export-web at seed 42. RE-FROZEN 2026-08-18 (bd-0cjy): the tracked pack was stale at 904 records/879 approved while the current export is 957 records/929 approved; its seed-42 draw moved 24 ids out and 24 in. Pack carries bank_hash c330628a…. Pack shape and sampler surfaces did not move. This is a freshness correction, not a grounding-quality claim."
 depends_on = [
   { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
@@ -495,9 +495,9 @@ depends_on = [
 [[golden]]
 id = "web.keys-pack"
 file = "web/data/keys_seed42.json"
-frozen = "22ebe6ad15c93298641ba173e08086623d1b41d5ea79e6fe7f06cd8360e3e103"
+frozen = "7d3a9ce35efe3827458bf2a415339af8b89cf9e319d09cfeeecede4c41624eba"
 affirmed = "2026-08-18"
-justification = "The answer keys and explanations for the same forty items, held apart from the learner pack on purpose. RE-FROZEN 2026-08-18 (bd-epi-ecosystem-ms4j.9/.10): keys follow the same 2-id draw move as the learner pack. Pack shape did not move. bank_hash 990c5974…."
+justification = "The answer keys and explanations for the same forty items, held apart from the learner pack on purpose. RE-FROZEN 2026-08-18 (bd-0cjy): keys follow the same 24-out/24-in draw move as the learner pack and carry bank_hash c330628a…. Pack shape did not move. This is a freshness correction, not a grounding-quality claim."
 depends_on = [
   { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
@@ -508,9 +508,9 @@ depends_on = [
 [[golden]]
 id = "web.bank-items-pack"
 file = "web/data/bank_items_seed42.json"
-frozen = "b272c5313d596fd63eb4c81f42450df2db5ed8a617f33d0aa2b4f52522c511d1"
+frozen = "5755900b5ba124eb476942b357946b7a3538676f105c4f0e71f6ce61a6e101cc"
 affirmed = "2026-08-18"
-justification = "The full bank array the WASM grade path needs, serialised straight off BankItem. RE-FROZEN 2026-08-18 (bd-epi-ecosystem-ms4j.9/.10): array length 896→904; leftover bodies m03-q232..q239. 25 remain retired; drawable pool is 879. Element shape / bank.item-schema did not move."
+justification = "The full bank array the WASM grade path needs, serialised straight off BankItem. RE-FROZEN 2026-08-18 (bd-0cjy): array length 904→957 and approved drawable pool 879→929; 2 are draft and 26 are retired. Element shape / bank.item-schema did not move. This refresh fixes learner-facing export staleness and does not claim the remaining grounding findings are resolved."
 depends_on = [
   { surface = "bank.item-schema", version = "v9e6e70394dd4" },
   { surface = "bank.hash-payload", version = "vcf11098efb54" },

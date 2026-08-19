@@ -1,307 +1,77 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "990c597426aaba761487b7e0e1c13ff85cea104fd2586d7c147200aad718d80d",
+  "bank_hash": "c330628adb38f07f9c40bd5d43cf223da12cbb5043308589a6a8025fe253bd0a",
   "exam_id": "mock40",
   "items": [
     {
       "choices": [
-        "Listed fire suppression release authority",
-        "Asset/capacity/workflow context tied to infrastructure telemetry",
-        "Replacing the automatic transfer switch",
-        "Providing utility medium-voltage protection relays"
+        "A single UPS component failure with no human factor",
+        "Change errors, incomplete procedures, or weak maintenance discipline",
+        "Lightning strike with no process involvement",
+        "Utility feeder short circuit alone"
       ],
-      "id": "bank-m14-q106",
-      "stem": "DCIM’s strongest differentiator versus pure EMS is usually:"
+      "id": "m01-q201",
+      "stem": "Which unavailability cause is most often organizational rather than purely technical?"
     },
     {
       "choices": [
-        "Agree: Energy Reuse Factor and Energy Reuse Effectiveness are one KPI with two spellings",
-        "ISO/IEC 30134-6 is Energy Reuse Factor (ERF). Green Grid ERE (Energy Reuse Effectiveness) is a different metric. Do not collapse the letters, and do not turn this module into an energy course",
-        "ERF is the 2024 rename of Availability Class; ERE is the TIA Rated letter",
-        "Either letter converts to a single PUE target that is now law"
+        "Removing the need for building perimeter controls",
+        "Providing tenant separation and controlled access within a shared building",
+        "Allowing unlimited shared keys across tenants",
+        "Eliminating CCTV needs"
       ],
-      "id": "m02-q217",
-      "stem": "A slide writes “ERF = ERE” and files both as the same ISO/IEC 30134 letter. The correction is:"
+      "id": "m13-q210",
+      "stem": "Asset cages or demarcated customer spaces in colocation improve security by:"
     },
     {
       "choices": [
-        "Blow dust freely into CRAH intakes with unfiltered air movers always",
-        "Control particulates (appropriate vacuums/procedures) so contamination is not redistributed onto IT gear",
-        "Soak tiles with unlimited free water under live busways",
-        "Ignore manufacturer and site ESD/particulate rules"
+        "They leave heavy corrosive powder always",
+        "They can be more suitable around electronics when used correctly, with oxygen-displacement and safety caveats for CO2",
+        "They replace building suppression entirely",
+        "They require no training"
       ],
-      "id": "bank-m15-q142",
-      "stem": "Cleaning in raised-floor environments should use methods that:"
+      "id": "m12-q220",
+      "stem": "CO2 or clean-agent portables may be preferred in IT areas per policy and training because:"
     },
     {
       "choices": [
-        "Carry criminal penalties by themselves in all cities",
-        "Offer recommended practice that becomes binding only if adopted by code, contract, or policy",
-        "Always override the AHJ",
-        "Are illegal to read"
+        "Prepare for, respond to, and recover from disruptions through a business continuity management system",
+        "Specify one universal recovery-time objective for every organization",
+        "Replace continuity planning with a vendor contract",
+        "Certify a facility solely from its business-impact analysis"
       ],
-      "id": "m02-q081",
-      "stem": "Guidelines and best-practice documents differ from codes in that they usually:"
+      "id": "m15-q364",
+      "stem": "A BIA-backed business-continuity plan is never exercised; results are not reviewed, and related plans are tested separately. What manager action is supported?"
     },
     {
       "choices": [
-        "Is the universal gold standard for hyperscale IT halls",
-        "Keeps the load on utility and transfers to inverter/battery on failure",
-        "Eliminates transfer notches by design",
-        "Cannot use batteries"
+        "Sparks improve fibre polish",
+        "Hot work never needs permits in technical spaces",
+        "It introduces ignition sources near cables, packaging, and dust; permits and fire watch practices are essential",
+        "Smoke from hot work is always harmless to detection systems"
       ],
-      "id": "m06-q059",
-      "stem": "A standby (offline/VFD-class) UPS typically:"
+      "id": "m12-q209",
+      "stem": "Hot work (welding, cutting, brazing) in or near a data centre is high risk mainly because:"
     },
     {
       "choices": [
-        "Replacing all electrical single-line diagrams",
-        "Eliminating the need for PPE policies",
-        "Providing a baseline and evidence trail if complaints, changes, or adjacent construction occur later",
-        "Guaranteeing zero fields forever"
+        "Power lines and electric appliances",
+        "Plastic blanking panels and fibre patch cords",
+        "LED exit signs only",
+        "Empty cable trays with no current"
       ],
-      "id": "m07-q212",
-      "stem": "Documentation of EMF survey methods and results supports operations by:"
+      "id": "m07-q044",
+      "stem": "Which source example does the current IEC 61786-2 catalog identify for power-frequency fields?"
     },
     {
       "choices": [
-        "Only very short rack jumpers under 1 m are needed always",
-        "The goal is maximum modal dispersion deliberately",
-        "Longer reach and higher bandwidth headroom for backbone or campus links are required",
-        "No connectors are allowed ever"
-      ],
-      "id": "m11-q110",
-      "stem": "Compared with multimode fiber, single-mode fiber is generally chosen when:"
-    },
-    {
-      "choices": [
-        "Generator yard, staging, NOC/security ops, and utility intake space",
-        "Only decorative suspended ceiling",
-        "Hot-aisle posters",
-        "Non-metered PDUs"
-      ],
-      "id": "mock40-q08",
-      "stem": "A white-space design can still fail operationally if the site lacks adequate:"
-    },
-    {
-      "choices": [
-        "It extinguishes fires by vacuuming oxygen from the room completely",
-        "It replaces all suppression systems always",
-        "It can detect dilute smoke before large flaming fires develop, enabling investigation and staged response",
-        "It only monitors outdoor air pollution indexes"
-      ],
-      "id": "m12-q201",
-      "stem": "Very early smoke detection (e.g., aspirating systems) is valued in IT spaces because:"
-    },
-    {
-      "choices": [
-        "Fire/security supervisory points, capacity views, and health of the monitors themselves",
-        "Only social media uptime",
-        "Desktop wallpaper colors",
-        "Marketing campaign metrics only"
-      ],
-      "id": "bank-m14-q133",
-      "stem": "A minimum mental monitoring checklist for mission-critical sites includes power chain, cooling path, environment, leaks, and:"
-    },
-    {
-      "choices": [
-        "Using the single strongest door possible and nothing else",
-        "Relying only on CCTV recording without locks",
-        "Outsourcing all responsibility to visitors",
-        "Stacking independent layers so compromise of one layer is not total facility compromise"
-      ],
-      "id": "bank-m13-q076",
-      "stem": "Defense-in-depth for physical security primarily means:"
-    },
-    {
-      "choices": [
-        "Operators must memorize every valve tag without aids",
-        "All informational logs page the CEO",
-        "Sensors stop needing calibration",
-        "The page names the next human action and procedure under stress"
-      ],
-      "id": "bank-m14-q124",
-      "stem": "Notification best practice includes putting runbook links in alerts so that:"
-    },
-    {
-      "choices": [
-        "Approve: two carrier logos mint physical diversity, so the training job already has two paths",
-        "Approve if both logos appear on the BGP dashboard — logical dual-home beats a manhole",
-        "Refuse: two carrier logos do not establish physical diversity — a shared duct bank or manhole is one cut. Map the laterals. Separately, even two real laterals do not protect a single-path east-west fabric inside the hall",
-        "Treat the manhole as a Module 01 outage-clock problem so the plant question goes away"
-      ],
-      "id": "m11-q237",
-      "stem": "A colo sales deck for a GPU hall stamps Carrier A and Carrier B logos and writes “the east-west training job is dual-path.” The as-built shows both laterals in one duct bank through one manhole. The apply move is:"
-    },
-    {
-      "choices": [
-        "Being completely inaccessible even to trained staff",
-        "Being pressed daily as a health check without procedure",
-        "Limiting casual/public access while remaining reachable to trained personnel under procedure",
-        "Controlling only decorative lighting"
-      ],
-      "id": "bank-m13-q095",
-      "stem": "EPO stations must balance security and safety by:"
-    },
-    {
-      "choices": [
-        "Records are optional for life-safety systems always",
-        "Failed lamps or batteries may only be discovered during a real outage",
-        "Emergency lights improve with age without maintenance",
-        "Codes forbid any testing"
-      ],
-      "id": "m05-q213",
-      "stem": "Battery-backed emergency lighting that is past test intervals without records is a problem because:"
-    },
-    {
-      "choices": [
-        "Replace fire detection",
-        "Measure PUE",
-        "Provide sole illumination for detailed circuit board rework",
-        "Indicate egress path identification under normal and emergency conditions as required"
-      ],
-      "id": "m05-q142",
-      "stem": "Exit signage lighting is intended to:"
-    },
-    {
-      "choices": [
-        "Only improve PUE",
-        "Automatically improve labels",
-        "Cause equipment damage, residues, and electrical safety incidents",
-        "Raise MTBF by definition"
-      ],
-      "id": "bank-m15-q155",
-      "stem": "Mixing cleaning chemicals or using conductive liquids carelessly near IT and electrical gear is hazardous because it can:"
-    },
-    {
-      "choices": [
-        "Reading public lobby magazines",
-        "Choosing rack paint colors",
-        "Daily coffee machine cleaning only",
-        "High-impact actions such as certain plant tasks, dual custody of master keys, or sensitive procedures"
-      ],
-      "id": "bank-m13-q100",
-      "stem": "Two-person rules (where policy requires) are most often applied to:"
-    },
-    {
-      "choices": [
-        "Cools only the room air with no liquid near IT",
-        "Replaces all electrical grounding",
-        "Brings coolant close to high-heat components via cold plates or loops",
-        "Is identical to hot-aisle containment only"
-      ],
-      "id": "m09-q227",
-      "stem": "Direct-to-chip liquid cooling generally involves:"
-    },
-    {
-      "choices": [
-        "Improve intentional separation always",
-        "Increase UPS battery capacity",
-        "Replace CRAH redundancy",
-        "Allow leakage that reintroduces mixing and undermines the containment benefit"
-      ],
-      "id": "m09-q151",
-      "stem": "When implementing containment, doors and blanking are important because gaps can:"
-    },
-    {
-      "choices": [
-        "Pin the edition before fieldwork — audit findings depend on which edition's requirements apply",
-        "No correction needed — the auditor selects the edition based on what the site can pass",
-        "No correction needed — all TIA-942 editions have identical audit criteria",
-        "Pin the edition after fieldwork so the report can reference the most favorable requirements"
-      ],
-      "id": "m03-q238",
-      "stem": "An audit plan lists 'TIA-942 compliance' as the criterion without specifying an edition. The internal auditor correction is:"
-    },
-    {
-      "choices": [
-        "Taping over strobes to reduce noise permanently",
-        "Keeping detection and suppression systems inspected, tested, and free of unauthorized disabled zones",
-        "Blocking egress with storage",
-        "Leaving agent cylinders empty until an emergency"
-      ],
-      "id": "m12-q224",
-      "stem": "A maintenance practice that improves fire readiness is:"
-    },
-    {
-      "choices": [
-        "Approve 600 mm: 19″ rails make every cabinet liquid-ready regardless of width or structure",
-        "Refuse the 600 mm air SKU — a liquid-ready / GPU-hall cabinet is its own product: typically 800 mm for hose and manifold volume, RDHx as a rear-door rack product, drip pans, a planned CDU landing, and 40–100 kW structure/weight; Module 09 owns the liquid families",
-        "Treat width as a TIA-942 Rated=Tier chart so 600 mm becomes Tier IV when adopted",
-        "Keep the air cabinet and freeze a recommended inlet °C pair as law instead of changing the SKU"
-      ],
-      "id": "m08-q210",
-      "stem": "A GPU hall is specified as “the same 600 mm air cabinet as the colo row, just more kW.” The cabinet SKU call is:"
-    },
-    {
-      "choices": [
-        "Replace every national electrical code automatically",
-        "Provide broadly usable technical documents that countries and markets may adopt or reference differently",
-        "Ban national standards bodies",
-        "Apply only to non-technical marketing"
+        "Availability, security, and energy efficiency",
+        "Only the retail price of electricity and land",
+        "Only the number of servers and network ports",
+        "Only national permit timelines and vendor warranties"
       ],
       "id": "m02-q089",
-      "stem": "International standards development typically aims to:"
-    },
-    {
-      "choices": [
-        "Approve the schedule: cold-plate compute retires both the air cabinet and blanking, and TIA-942 Rated equals the site Tier",
-        "Convert the review into a Module 09 plant-family pick and ignore the frame",
-        "Reject the air SKU and the blanking skip: mark 800 mm hose/manifold volume, RDHx as a rack product, drip, a reserved CDU landing, and 40–100 kW structure; keep blanking because network stays air-cooled; an immersion tank would be a different SKU, not a deep 42U",
-        "Keep 600 mm and raise a frozen ASHRAE recommended °C pair so the air cabinet becomes liquid-ready"
-      ],
-      "id": "m08-q211",
-      "stem": "Reviewer is handed a GPU-hall cabinet schedule: 42U 600 mm air cabinets, no drip path, RDHx door marked “later,” CDU landing “TBD in the plant,” and a note “skip blanking — compute is liquid.” You should:"
-    },
-    {
-      "choices": [
-        "Speed installation and improve consistency when factory-tested assemblies fit the design",
-        "Slow deployment and maximize field polishing always",
-        "Eliminate all need for polarity planning",
-        "Avoid any pathway design"
-      ],
-      "id": "m11-q132",
-      "stem": "Pre-terminated trunk cables are often used in DCs to:"
-    },
-    {
-      "choices": [
-        "Name the understructure: stringered or free-standing/stringerless",
-        "Use a panel finish as the understructure type",
-        "Use the site's Tier plaque as the floor type",
-        "Insert a numeric floor class from a vendor summary without the product standard"
-      ],
-      "id": "m04-q215",
-      "stem": "The project specification leaves the raised-floor understructure blank. The next review question should be:"
-    },
-    {
-      "choices": [
-        "Only uniform load rating",
-        "Rolling load (and concentrated load) ratings of the floor system",
-        "PUE only",
-        "Lux level"
-      ],
-      "id": "mock40-q10",
-      "stem": "Which loading concept matters when rolling a heavy UPS battery cart across tiles?"
-    },
-    {
-      "choices": [
-        "A provider operates infrastructure or applications under contract SLAs for the customer",
-        "The customer always owns generators on their balance sheet",
-        "There is never a shared responsibility model",
-        "Fire codes do not apply"
-      ],
-      "id": "m01-q055",
-      "stem": "A managed services / hosted model typically means:"
-    },
-    {
-      "choices": [
-        "Zero need for any battery management",
-        "Immunity from all fire and thermal concerns",
-        "Automatic 2N topology",
-        "Higher energy density and different footprint and lifecycle trade-offs that remain design-specific"
-      ],
-      "id": "m06-q231",
-      "stem": "Lithium-ion UPS battery systems are often attractive versus traditional VRLA because of:"
+      "stem": "Which criteria does the ISO/IEC 22237-1:2021 classification system use over the planned lifetime of a data centre?"
     },
     {
       "choices": [
@@ -315,6 +85,106 @@
     },
     {
       "choices": [
+        "Zero need for any battery management",
+        "Immunity from all fire and thermal concerns",
+        "Automatic 2N topology",
+        "Higher energy density and different footprint and lifecycle trade-offs that remain design-specific"
+      ],
+      "id": "m06-q231",
+      "stem": "Lithium-ion UPS battery systems are often attractive versus traditional VRLA because of:"
+    },
+    {
+      "choices": [
+        "Replace fire detection",
+        "Measure PUE",
+        "Provide sole illumination for detailed circuit board rework",
+        "Indicate egress path identification under normal and emergency conditions as required"
+      ],
+      "id": "m05-q142",
+      "stem": "Exit signage lighting is intended to:"
+    },
+    {
+      "choices": [
+        "Recirculation and bypass ratios",
+        "Only rack-unit height conversions",
+        "Only fire-door access ratings",
+        "Only utility interconnection capacity"
+      ],
+      "id": "m08-q207",
+      "stem": "IEC 62610-6:2020 provides compatible measurement methods for cabinet-air:"
+    },
+    {
+      "choices": [
+        "Cools only the room air with no liquid near IT",
+        "Replaces all electrical grounding",
+        "Brings coolant close to high-heat components via cold plates or loops",
+        "Is identical to hot-aisle containment only"
+      ],
+      "id": "m09-q227",
+      "stem": "Direct-to-chip liquid cooling generally involves:"
+    },
+    {
+      "choices": [
+        "Only very short rack jumpers under 1 m are needed always",
+        "The goal is maximum modal dispersion deliberately",
+        "Longer reach and higher bandwidth headroom for backbone or campus links are required",
+        "No connectors are allowed ever"
+      ],
+      "id": "m11-q110",
+      "stem": "Compared with multimode fiber, single-mode fiber is generally chosen when:"
+    },
+    {
+      "choices": [
+        "Any dual-path system by definition",
+        "Any redundant UPS string",
+        "A component or path whose failure alone can interrupt the critical load",
+        "Any sensor that reports humidity"
+      ],
+      "id": "m01-q206",
+      "stem": "A single point of failure in facility design is best characterized as:"
+    },
+    {
+      "choices": [
+        "Speed installation and improve consistency when factory-tested assemblies fit the design",
+        "Slow deployment and maximize field polishing always",
+        "Eliminate all need for polarity planning",
+        "Avoid any pathway design"
+      ],
+      "id": "m11-q132",
+      "stem": "Pre-terminated trunk cables are often used in DCs to:"
+    },
+    {
+      "choices": [
+        "Only tracks rainfall for landscaping",
+        "Detects abnormal water loss (leaks, excessive blowdown, supply issues) before cooling is compromised",
+        "Replaces temperature sensors at rack inlets",
+        "Measures only copper resistance"
+      ],
+      "id": "m10-q113",
+      "stem": "Monitoring basin level and makeup flow is operationally useful because it:"
+    },
+    {
+      "choices": [
+        "In the vertical space at the rear/side of the cabinet without consuming horizontal U",
+        "Only as 2U horizontal shelves in the middle of servers",
+        "Outside the building exclusively",
+        "In the CRAH return plenum"
+      ],
+      "id": "m08-q053",
+      "stem": "Zero-U rack PDUs are typically mounted:"
+    },
+    {
+      "choices": [
+        "The management and operation of data centres",
+        "Classifying only electrical-enclosure ingress protection",
+        "Replacing all operational procedures with a single sensor",
+        "Defining Internet routing protocols"
+      ],
+      "id": "m14-q200",
+      "stem": "A core monitoring challenge in data centres is:"
+    },
+    {
+      "choices": [
         "Cold supply short-circuits back to CRAH without cooling IT",
         "Only liquid loops recirculate",
         "Air never moves",
@@ -325,83 +195,213 @@
     },
     {
       "choices": [
-        "A high-priority alarm so it is never missed, and more points always mean better monitoring",
-        "Evidence the floor is healthy whenever the point stays silent — absence of alarm is health",
-        "A status indicator, not an alarm. HSE: process status indicators should not be designated as alarms; delete or downgrade, do not acknowledge forever. Point count and operator-actionable alarms per hour move in opposite directions",
-        "A reason to raise the integrator’s invoice until every status bit is an alarm"
-      ],
-      "id": "m15-q224",
-      "stem": "A BMS/DCIM point with no defined operator response, and a procurement that prices the job by monitored-point count, should be read as:"
-    },
-    {
-      "choices": [
-        "N+1 on the plaque means the window is free — redundancy removes the need for a freeze",
-        "Temporary N-0: concurrent maintenance on the spare while the primary is already hurt; change freezes exist to prevent this (path-trace depth is Module 06)",
-        "This is a cooling cascade, so start at the chiller",
-        "Dual server PSUs make the window N-0-proof"
-      ],
-      "id": "m01-q215",
-      "stem": "Path A is already degraded. A tech opens Path B for “redundant” work in the same window. The mission-level diagnosis is:"
-    },
-    {
-      "choices": [
-        "Identical interchangeable number sets for every design",
-        "Irrelevant to data centres",
-        "Separate concerns—people protection vs equipment immunity—both can drive layout",
-        "Replaced entirely by PUE targets"
-      ],
-      "id": "m07-q048",
-      "stem": "Human exposure guidance (e.g. ICNIRP-class discussions) and product EMC immunity limits should be treated as:"
-    },
-    {
-      "choices": [
-        "Stay and watch discharge for training value",
-        "Disable strobes to reduce noise",
-        "Open all dampers manually",
-        "Evacuate on alarm and understand agent/system warnings"
-      ],
-      "id": "bank-m12-q072",
-      "stem": "Suppression warning signage for clean-agent rooms typically communicates that occupants should:"
-    },
-    {
-      "choices": [
-        "IT drops until generators finish a multi-hour warm-up with no UPS",
-        "UPS carries load; generators start; ATS transfers; UPS remains on conditioned path as designed",
-        "Fire system discharges immediately as the power path",
-        "Only lighting remains on generator forever"
+        "Conventional AC and DC distribution boards and their associated switches",
+        "Complete UPS systems",
+        "Applicable UPS functional units",
+        "UPS switches that interact with functional units to maintain load continuity"
       ],
       "id": "m06-q107",
-      "stem": "During a utility outage with healthy design, the expected sequence is closest to:"
+      "stem": "Which equipment category does IEC 62040-3:2021 explicitly say it does not cover?"
     },
     {
       "choices": [
-        "Basin level only affects paint color",
-        "Makeup valves never fail",
-        "Loss of makeup control can force tower trip or poor thermal performance",
-        "Towers run indefinitely with zero water"
+        "Improve intentional separation always",
+        "Increase UPS battery capacity",
+        "Replace CRAH redundancy",
+        "Allow leakage that reintroduces mixing and undermines the containment benefit"
       ],
-      "id": "m10-q209",
-      "stem": "Cooling tower basin level and makeup controls are operationally important because:"
+      "id": "m09-q151",
+      "stem": "When implementing containment, doors and blanking are important because gaps can:"
     },
     {
       "choices": [
-        "Control concentration of dissolved solids and chemistry by removing concentrated water",
-        "Increase dissolved solids without limit",
-        "Eliminate the need for any water treatment chemicals always",
-        "Cool the UPS room directly"
+        "Painting aisle stripes",
+        "Measuring only whole-room average kW",
+        "A heavy point load from equipment feet or pedestals bears on a small contact area",
+        "Choosing DNS providers"
       ],
-      "id": "m10-q104",
-      "stem": "Blowdown (bleed) from a cooling tower loop is performed mainly to:"
+      "id": "m04-q117",
+      "stem": "Concentrated load rating matters most when:"
     },
     {
       "choices": [
-        "Faster automatic compliance with all building codes",
-        "Gaps in change control, maintenance ownership, and incident response across trades",
-        "Guaranteed lower energy cost forever",
-        "Elimination of all physical security needs"
+        "Listed fire suppression release authority",
+        "Asset/capacity/workflow context tied to infrastructure telemetry",
+        "Replacing the automatic transfer switch",
+        "Providing utility medium-voltage protection relays"
       ],
-      "id": "m01-q209",
-      "stem": "Treating the data centre as only an IT department concern (with no facilities/ops partnership) risks:"
+      "id": "bank-m14-q106",
+      "stem": "DCIM’s strongest differentiator versus pure EMS is usually:"
+    },
+    {
+      "choices": [
+        "Carry criminal penalties by themselves in all cities",
+        "Offer recommended practice that becomes binding only if adopted by code, contract, or policy",
+        "Always override the AHJ",
+        "Are illegal to read"
+      ],
+      "id": "m02-q081",
+      "stem": "Guidelines and best-practice documents differ from codes in that they usually:"
+    },
+    {
+      "choices": [
+        "The cases are identical, so the EPA example proves that no makeup water, water rights, or permits need review",
+        "Do not transfer the permission: the Quincy case is a site-specific water-reuse system with documented makeup, water-rights, discharge, and permit interfaces; confirm the dry-loop boundary and local approvals for this design, then report WUE using ISO/IEC 30134-9:2022 categories",
+        "Closed loop always means WUE is zero, regardless of humidification or other site water",
+        "Reject dry coolers because every data-centre cooling design must use an evaporative tower"
+      ],
+      "id": "m10-q217",
+      "stem": "An owner cites the EPA’s Quincy closed-loop water-reuse case to approve a different design: a sealed liquid loop rejecting heat to dry coolers with no evaporative tower. Which is the defensible M10 answer?"
+    },
+    {
+      "choices": [
+        "'Designed to' is a self-declaration — it does not imply third-party assessment of compliance",
+        "No distinction — TIA issues compliance certificates for every design that follows the standard",
+        "'Designed to' requires a registered TIA assessor signature before the claim can be published",
+        "No distinction — the phrase 'Designed to' is legally equivalent to 'Certified by TIA'"
+      ],
+      "id": "m03-q235",
+      "stem": "A marketing sheet says 'Designed to TIA-942-B Rated-3.' A due-diligence reviewer asks for the assessment report. The distinction is:"
+    },
+    {
+      "choices": [
+        "Chapter 4 — General",
+        "Chapter 6 — Administrative Controls",
+        "Chapter 8 — Crime Prevention Through Environmental Design",
+        "Chapter 10 — Accessory Property"
+      ],
+      "id": "bank-m13-q090",
+      "stem": "Visitor management in restricted zones should typically include:"
+    },
+    {
+      "choices": [
+        "Diverse carriers and utilities are available",
+        "Floor loading is adequate",
+        "Deed restrictions, easements, or landlord constraints block generator fuel or antenna rights needed for resilience",
+        "Security screening exists"
+      ],
+      "id": "m03-q109",
+      "stem": "Shared multi-tenant campuses can still fail a “good site” test if:"
+    },
+    {
+      "choices": [
+        "Identical forces applied the same way",
+        "Only aesthetic tile patterns",
+        "Distributed area loads vs point loads vs loads from wheeled equipment movement",
+        "Only underfloor cable weight"
+      ],
+      "id": "m04-q200",
+      "stem": "Uniform, concentrated, and rolling load ratings for access floors differ because they describe:"
+    },
+    {
+      "choices": [
+        "A standalone equipment/apparatus application outside the document's scope",
+        "External electromagnetic influences impinging upon a facility or installation",
+        "Only human exposure to static magnetic fields",
+        "Only emissions from software and business applications"
+      ],
+      "id": "m07-q045",
+      "stem": "For ELF magnetic-field problems in white space, the first mitigation tool is usually:"
+    },
+    {
+      "choices": [
+        "Approve: two carrier logos mint physical diversity, so the training job already has two paths",
+        "Approve if both logos appear on the BGP dashboard — logical dual-home beats a manhole",
+        "Refuse: two carrier logos do not establish physical diversity — a shared duct bank or manhole is one cut. Map the laterals. Separately, even two real laterals do not protect a single-path east-west fabric inside the hall",
+        "Treat the manhole as a Module 01 outage-clock problem so the plant question goes away"
+      ],
+      "id": "m11-q237",
+      "stem": "A colo sales deck for a GPU hall stamps Carrier A and Carrier B logos and writes “the east-west training job is dual-path.” The as-built shows both laterals in one duct bank through one manhole. The apply move is:"
+    },
+    {
+      "choices": [
+        "Allow both through to save time because the primary vendor is known and the work is urgent",
+        "Disable the mantrap interlock for the rest of the outage window",
+        "Stop the tailgate, challenge/verify identity for the second person, and only grant access per policy (escort or reject) — urgency does not authorize piggybacking",
+        "Confiscate tools and leave both vendors unsupervised in grey space while calling the NOC later"
+      ],
+      "id": "m13-q300",
+      "stem": "Runbook vignette: A vendor arrives for emergency breaker work. Their escort badge is valid, but a second person without credentials tries to tailgate through the mantrap behind them carrying tools. Security cameras are recording. What should the escort/runbook response be?"
+    },
+    {
+      "choices": [
+        "Provide worker access to the program and SDS",
+        "Store the manual with the vendor and review it monthly",
+        "Use container labels but omit the program location",
+        "Wait for a new chemical before offering training"
+      ],
+      "id": "m15-q375",
+      "stem": "A safety manual is on a locked drive; workers cannot find the written hazard-communication program or safety data sheets during their shift. What correction is supported?"
+    },
+    {
+      "choices": [
+        "Basic process control systems, annunciators, packaged systems, and safety instrumented systems",
+        "Only visitor badge printers and door controllers",
+        "Only chilled-water leak ropes and fire extinguishers",
+        "Only software authentication and network segmentation"
+      ],
+      "id": "bank-m14-q125",
+      "stem": "Correlation of related points (utility fail + ATS transfer + UPS on battery) before fan-out helps:"
+    },
+    {
+      "choices": [
+        "1910.147 already covers every electric-utilization installation, so a second citation is decoration",
+        "1910.147(a)(1)(ii)(D) excludes electrical-hazard exposure on electric-utilization installations and points to Subpart S (1910.331–.335, principally 1910.333). Putting a UPS into maintenance bypass from its HMI is not isolation — physical disconnect, lock, stored energy released, absence of voltage verified including backfeed",
+        "The only applicable rule is the utility’s own tariff, because the campus takes a medium-voltage feed",
+        "Subpart S applies only to the utility’s exclusive-control substation — that regime is 1910.269, not this work"
+      ],
+      "id": "m15-q223",
+      "stem": "An energy-control programme that cites only 29 CFR 1910.147 for work on UPS, switchgear, PDU, and busway is mis-scoped because:"
+    },
+    {
+      "choices": [
+        "CRAC loss raises inlet temperatures until servers thermally throttle or trip, taking applications offline",
+        "A UPS fails over cleanly to generator with no load drop",
+        "A blanking panel is installed correctly",
+        "A dual-corded server remains powered from two live diverse sources"
+      ],
+      "id": "m01-q057",
+      "stem": "Which scenario best illustrates cascading unavailability?"
+    },
+    {
+      "choices": [
+        "Firestops only exist for acoustic reasons",
+        "Openings always improve suppression concentration",
+        "Compartmentation is purely aesthetic",
+        "Unsealed penetrations can defeat fire-rated barriers and allow smoke/fire spread between zones"
+      ],
+      "id": "m12-q206",
+      "stem": "Fire compartmentation and cable penetrations matter because:"
+    },
+    {
+      "choices": [
+        "Records are optional for life-safety systems always",
+        "Failed lamps or batteries may only be discovered during a real outage",
+        "Emergency lights improve with age without maintenance",
+        "Codes forbid any testing"
+      ],
+      "id": "m05-q213",
+      "stem": "Battery-backed emergency lighting that is past test intervals without records is a problem because:"
+    },
+    {
+      "choices": [
+        "A KPI that quantifies reused energy, defined as reused energy divided by the sum of all energy consumed in a data centre",
+        "A KPI for availability class, physical security, and site access control",
+        "A synonym for PUE with no energy-reuse boundary",
+        "A legal requirement imposing one universal energy-reuse target"
+      ],
+      "id": "m02-q217",
+      "stem": "ISO/IEC 30134-6:2021 defines Energy Reuse Factor (ERF) as:"
+    },
+    {
+      "choices": [
+        "Ensures continuity of load power",
+        "Replaces all conventional distribution boards",
+        "Provides only cooling-water continuity",
+        "Applies only to software failover"
+      ],
+      "id": "m06-q059",
+      "stem": "What primary function does IEC 62040-3:2021 identify for covered UPS systems?"
     }
   ],
   "n_items": 40,

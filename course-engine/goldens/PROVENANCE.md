@@ -287,3 +287,36 @@ the first `u64`).
 **No four-command re-freeze was required for C4.** A future algorithm change
 would move `item_ids` and then this fixture is re-frozen once, through the
 block above, with a new row here.
+
+## Learner export freshness re-freeze — `bd-0cjy`, 2026-08-18
+
+The tracked learner-facing seed-42 export was stale: `web/data/bank_items_seed42.json` contained
+904 records and 879 approved items. After the concurrent restoration batches settled, the final
+bank snapshot contained 957 records, 929 approved items, 2 draft items, and 26 retired items.
+This tick did not edit `bank/items`; it refreshed the generated learner surfaces and
+`units_index.json` against that snapshot. The measured defect was freshness of the shipped
+artifact, not a claim that the remaining grounding findings are resolved.
+
+The seed-42 fixture draw changed 24 ids out and 24 ids in (48 ids in the symmetric difference),
+and all 40 presentation positions changed. The bank address moved from `990c5974…` to
+`c330628a…`.
+
+The following were regenerated together through the documented Rust path (`goldens fixture`,
+`goldens generate`, `export-web`, `build-units`, then `content-lock`):
+
+| Pin | Before | After |
+|-----|--------|-------|
+| `goldens/fixtures/mock40_seed42.json` | `c7f77bbf…` | `72ba4474…` |
+| `goldens/mock40_seed42_all_correct.sha256` | `633d4df4…` | `04cebb99…` |
+| `goldens/mock40_seed42_all_wrong.sha256` | `433e821b…` | `767cdb53…` |
+| `goldens/bank_hash.txt` | `d3e2ffd7…` | `04ab4820…` |
+| `web/data/mock40_seed42.json` | `1e04d52f…` | `4fffa005…` |
+| `web/data/keys_seed42.json` | `22ebe6ad…` | `7d3a9ce3…` |
+| `web/data/bank_items_seed42.json` | `b272c531…` | `5755900b…` |
+| `web/data/units_index.json` | `931/957` | `929/957` |
+
+The corresponding rows in `registries/goldens-couplings.toml` were re-stated in this change.
+`cdcp goldens check`, `goldens-couplings`, `verify-bank`, `verify-content-lock`, and a fresh
+byte-comparison of all three export packs are the verification receipts for the regenerated
+surfaces. `grounding-wave` remains intentionally RED; this export refresh does not cover the
+residual bucket-(c) or stem-only findings.
