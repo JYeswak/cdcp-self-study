@@ -17,7 +17,7 @@ Recent landed work relevant to this state:
   It observes and escalates; it does not emit ticks or dispatch work.
 - `4b07321` adds the local Rust tick emitter and its fail-closed tests;
   `T9` was emitted by that command for the prior audit commit `8286885`.
-  The bead remains open until the final scoped checks are complete.
+  The bead closed after the final scoped checks passed.
 
 ## Grounding-wave non-bank audit (`bd-0cjy.1`)
 
