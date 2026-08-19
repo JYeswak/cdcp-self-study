@@ -142,3 +142,57 @@ check.sh: FAIL: cargo fmt
 ## Run 2 option revisit
 
 The new measurement is `51.23` seconds to a later correctness failure, versus `30.45` seconds to the earlier near-duplicate failure. There is still no successful complete run, so the throughput question remains unanswered and this number must not be treated as a full-chain runtime. The earlier option (b)—a fast PR subset plus the full scheduled chain—remains a provisional feedback-flow recommendation, not a measured throughput fix. There is not enough evidence to elevate option (a) caching, or any other option, as the highest-leverage throughput fix until the chain completes successfully. No CI configuration was changed.
+
+## Run 3 — after formatter fix
+
+- Tree: `9954b37`
+- Command: `PATH=/Users/josh/.cargo/bin:$PATH /usr/bin/time -p ./scripts/check.sh`
+- Environment: local warm Cargo registry/target cache
+- Result: no successful full-chain completion; the invocation reached step 16 and exited 2
+- Wall time: `19.34` seconds (`0.32` minutes)
+- Interpretation: this is a measured warm-cache floor to an index/probe correctness failure, not a complete-run time or CI duration estimate
+
+The six-file formatter fix was committed and `cargo fmt --all -- --check` passed. Run 3 passed the ordinary substrate scan, but its nested prove-wired check materialised the committed index snapshot and failed the gate-shrink ceiling before the planted substrate file could be evaluated. The top-level worktree registry check was green at `37272/37275`; the nested index snapshot measured `cdcp_gate=37280/37275`.
+
+## Run 3 ordered steps and verdicts
+
+1. `check.sh lock selftest` — PASS
+2. `cdcp-course check` / knowledge scaffold — PASS
+3. `cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked` — PASS
+4. `check.sh snapshot selftest` — PASS
+5. `cdcp_registry_check` / registry-check — PASS (`37272/37275` in the worktree)
+6. `cdcp check-licence` / licence split — PASS
+7. `cargo test -p cdcp_data --test corpus_rights` — PASS
+8. `cdcp corpus-rights` — PASS
+9. `cdcp load-snapshots` — PASS
+10. `cdcp check-osha` — PASS
+11. `cdcp verify-data-lock` — PASS
+12. `cdcp verify-data-lock --selftest` — PASS
+13. `cdcp oracle-check` — PASS
+14. stale-plant detector — PASS
+15. `cdcp_gate substrate-guard` — PASS
+16. `cdcp_gate substrate-guard --prove-wired` — FAIL
+
+Steps after 16 were not executed because `check.sh` fails closed at the prove-wired step.
+
+## Run 3 first failure and blocker
+
+The top-level wrapper reported:
+
+```text
+substrate-guard: ERROR: the behavioural wiring leg could not be evaluated — check.sh ended with exit 2 without the guard ever reporting on scripts/__cdcp_probe_unlisted__.py; the failure cannot be attributed to the substrate step. ERROR, not a pass.
+check.sh: FAIL: substrate-guard wiring does not stop check.sh
+```
+
+The nested transcript gives the exact underlying error:
+
+```text
+cdcp_registry_check: gate-shrink: cdcp_gate 37280 > ceiling 37275 — the crate GREW. Raising ceiling_lines is weakening a gate (escalation-only). Extract or delete; do not transcribe.
+check.sh: FAIL: registry-check
+```
+
+The nested index snapshot contains the pre-existing committed `crates/cdcp_gate/src/vcs.rs` at 434 lines. The live worktree has an uncommitted pane-2 change to that file at 421 lines, but committing or otherwise taking that pane-2 change is outside this tick. The ceiling was not raised.
+
+## Run 3 option status
+
+Run 3 is another correctness/index failure at 19.34 seconds, so there is still no successful complete-run time and the throughput question remains unanswered. Option (b) remains a provisional feedback-flow recommendation; no evidence now supports elevating caching, batching, queue draining, or any option as the highest-leverage throughput fix. No CI configuration was changed.
