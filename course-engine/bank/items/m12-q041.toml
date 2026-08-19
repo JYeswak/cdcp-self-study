@@ -7,7 +7,7 @@
 id = "bank-m12-q041"
 kind = "single-select"
 module = 12
-stem = "Under 29 CFR 1910.164(c)(5), fire detectors that need cleaning of dirt, dust, or other particulates to be fully operational must be:"
+stem = "Aspirating smoke detection (ASD) is especially useful in data halls because high airflow tends to:"
 choices = [
   "Cleaned at regular periodic intervals",
   "Left uncleaned until after a fire",
@@ -15,10 +15,10 @@ choices = [
   "Removed from service permanently"
 ]
 correct = "A"
-explanation = "The current OSHA public standard requires fire detectors that need cleaning to be fully operational to be cleaned at regular periodic intervals."
+explanation = "High air-change rates dilute smoke; ASD samples continuously at very low concentrations for earlier warning."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

@@ -9,7 +9,7 @@
 id = "m15-q357"
 kind = "single-select"
 module = 15
-stem = "A maintenance-operations procedure (MOP) for a pump's hazardous-energy control is documented, but it has not been used to verify isolation effectiveness and has no periodic-inspection record. What control is missing?"
+stem = "An MOP was approved once, but its revision was never tested and an obsolete procedure copy remains at the operator console. What control is missing?"
 choices = [
   "Use the documented energy-control procedure, verify its effectiveness, and perform and certify the required periodic inspection",
   "Treat the approval signature as proof that isolation was verified and inspected",
@@ -17,10 +17,10 @@ choices = [
   "Keep the test and inspection evidence optional because the MOP is already approved",
 ]
 correct = "A"
-explanation = "29 CFR 1910.147(c)(4) requires covered energy-control procedures to be developed, documented, and used, including specific steps for testing effectiveness. Paragraph (c)(6) requires at least annual periodic inspection and certification of the inspection record. The item applies those legal controls to the MOP's hazardous-energy scope and does not invent a general MOP revision cadence."
+explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the procedure-control clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
 topic_ids = ["m15-documentation", "m15-maintenance-sla"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

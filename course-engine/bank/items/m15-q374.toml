@@ -10,7 +10,7 @@
 id = "m15-q374"
 kind = "single-select"
 module = 15
-stem = "During a periodic inspection of a lockout/tagout procedure, a walk-around sheet says ‘normal’ but lacks the equipment identity, date, employees included, inspector, and deviation corrections. What record action is supported?"
+stem = "A walk-around sheet records ‘normal’ but has no equipment-status checks, abnormal-condition response, or supervisory review. What action matches the conduct-of-operations model?"
 choices = [
   "Perform and certify the periodic inspection with the required identifiers and correct any deviations",
   "Count the rounds and omit the equipment, employees, inspector, and date",
@@ -18,10 +18,10 @@ choices = [
   "Wait for an alarm before reviewing the energy-control procedure",
 ]
 correct = "A"
-explanation = "29 CFR 1910.147(c)(6)(i) requires an at-least-annual periodic inspection of the energy-control procedure and correction of deviations. Paragraph (c)(6)(ii) requires certification identifying the machine or equipment, inspection date, employees included, and inspector. The source supports this bounded LOTO inspection record, not a universal data-centre walk-around interval."
+explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the walk-around clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
 topic_ids = ["m15-ops-security", "m15-monitoring"]
 objective_ids = []
 bloom = "analyze"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

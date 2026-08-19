@@ -71,3 +71,19 @@ m15-q376
 m15-q379
 m15-q382
 m15-q383
+
+## Batch 2
+
+IDs: m12-q041, m12-q045, m12-q065, m13-q081, m13-q089, m13-q090, m13-q097, m13-q101, m14-q038, m14-q113, m14-q117, m14-q121, m14-q125, m14-q129, m14-q133, m14-q200, m14-q204, m14-q208, m15-q137, m15-q141, m15-q149, m15-q153, m15-q205, m15-q213, m15-q219, m15-q340, m15-q342, m15-q345, m15-q347, m15-q348, m15-q349, m15-q350, m15-q351, m15-q353, m15-q354, m15-q356, m15-q357, m15-q358, m15-q364, m15-q369, m15-q374, m15-q376, m15-q379, m15-q382, m15-q383
+
+Needs-review findings: m12-q041, m12-q045, m12-q065, m13-q081, m13-q089, m13-q090, m13-q097, m13-q101, m14-q038, m14-q113, m14-q117, m14-q121, m14-q125, m14-q129, m14-q133, m14-q200, m14-q204, m14-q208, m15-q137, m15-q141, m15-q149, m15-q153, m15-q205, m15-q213, m15-q219, m15-q340, m15-q342, m15-q345, m15-q347, m15-q348, m15-q349, m15-q350, m15-q351, m15-q353, m15-q354, m15-q356, m15-q357, m15-q358, m15-q364, m15-q369, m15-q374, m15-q376, m15-q379, m15-q382, m15-q383
+
+Key moves: none.
+
+Measured before → after:
+- grounding-wave template-stem: 7 → 7
+- grounding-wave recall-only-stem: 16 → 8
+- answer-key A share: 35.1% → 31.7% (311 → 267 approved items)
+- verify-bank: PASS (957 scanned, 842 approved)
+
+Residual after both batches: the stem-only `REPLACED` restore list is empty. 130 NARROWED, 13 GENUINE, and 2 UNSURE items remain untouched and require separate review. grounding-wave remains RED.

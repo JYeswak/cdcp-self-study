@@ -5,7 +5,7 @@
 id = "bank-m14-q121"
 kind = "single-select"
 module = 14
-stem = "ISO 16484-1:2024 lists which set of phases for a BACS project?"
+stem = "Commissioning functional testing and monitoring plans are valuable because they:"
 choices = [
   "Design, engineering, installation and commissioning, and completion",
   "Only a breaker-nameplate inspection with no project design",
@@ -13,10 +13,10 @@ choices = [
   "Marketing review with no engineering, installation, or completion phase"
 ]
 correct = "A"
-explanation = "The ISO catalog for ISO 16484-1:2024 lists BACS project phases including design, engineering, installation and commissioning, and completion. The item does not claim a universal functional-test plan, deficiency workflow, or retest interval."
+explanation = "The DOE FEMP public commissioning process includes functional test and monitoring plans, analysis of test results, a master deficiency list, implementation of accepted improvements, and retesting/remonitoring. This is a bounded commissioning receipt, not a credential claim."
 topic_ids = ["m14-best-practices"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

@@ -5,7 +5,7 @@
 id = "bank-m15-q149"
 kind = "single-select"
 module = 15
-stem = "Which security-related topic does the ISO/IEC TS 22237-7:2018 abstract list among its primary operational-process focuses?"
+stem = "Operational security and safety practices include escorting visitors in plant areas mainly to:"
 choices = [
   "Security",
   "Office catering menus",
@@ -13,10 +13,10 @@ choices = [
   "Badge-printing vendor selection"
 ]
 correct = "A"
-explanation = "The current ISO abstract explicitly lists security among the primary operational-process focuses. It does not prescribe visitor escorting or hazardous-energy controls."
+explanation = "Escort is both security and safety near live electrical/mechanical hazards."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

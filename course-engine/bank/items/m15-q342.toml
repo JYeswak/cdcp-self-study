@@ -7,7 +7,7 @@
 id = "m15-q342"
 kind = "single-select"
 module = 15
-stem = "ISO 22301:2019 provides a business-continuity management-system framework to:"
+stem = "A BIA says a primary cooling loop can be lost during a contingency. The draft plan lists an alternate site and an RTO but no degraded-capacity check. What management gap remains?"
 choices = [
   "Prepare for, respond to, and recover from disruptive incidents",
   "Replace continuity planning with a service-catalogue label",
@@ -15,10 +15,10 @@ choices = [
   "Treat alternate-site visitor badges as the whole continuity system",
 ]
 correct = "A"
-explanation = "The current ISO catalog describes ISO 22301:2019 as a framework to plan, establish, operate, monitor, review, maintain, and continually improve a business-continuity management system that protects against disruptions and supports recovery. It does not prescribe a data-centre cooling-capacity value or RTO."
+explanation = "NIST SP 800-53 Rev. 5 CP-2 requires contingency requirements for essential functions, recovery objectives and priorities, roles, and continuity. CP-2(2) adds capacity planning so necessary information-processing, telecommunications, and environmental-support capacity exists during contingency operations. An alternate-site label or badge review does not test whether the degraded cooling service can support the mission."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "analyze"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

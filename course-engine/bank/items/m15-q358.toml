@@ -10,7 +10,7 @@
 id = "m15-q358"
 kind = "single-select"
 module = 15
-stem = "Which objective is explicitly within ISO/IEC 22237-6:2024 physical-security scope for a data centre?"
+stem = "A physical-security SOP verifies a badge at entry but never keeps access logs or changes keys when a holder transfers. What gap remains?"
 choices = [
   "Protect against unauthorized access and intrusion using organizational and technological solutions",
   "Specify a universal badge-retention interval for every facility",
@@ -18,10 +18,10 @@ choices = [
   "Define a vendor's firmware report as the sole access record",
 ]
 correct = "A"
-explanation = "The ISO/IEC 22237-6:2024 public preview says the document specifies requirements and recommendations for data-centre physical security, including protection against unauthorized access and intrusion through organizational and technological solutions. It does not expose a universal badge-retention interval or a vendor-report rule."
+explanation = "NIST SP 800-53 Rev. 5 PE-3 requires verification of individual access authorizations and controlled ingress/egress, maintenance of physical-access audit logs, and changes to combinations or keys at the defined frequency and when keys are lost, compromised, or their holders transfer or terminate. A reader or vendor report does not replace those procedure controls."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

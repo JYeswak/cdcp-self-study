@@ -9,7 +9,7 @@
 id = "m15-q376"
 kind = "single-select"
 module = 15
-stem = "Which reporting activity is explicitly included in the public preview of ISO/IEC 20000-1:2018?"
+stem = "A service report lists ticket totals but gives no visibility into support requirements for demand decisions. What supported improvement fits?"
 choices = [
   "Monitor, measure, and review the service management system and services",
   "Publish a fixed uptime percentage without measuring services",
@@ -17,10 +17,10 @@ choices = [
   "Record invoices without reviewing service performance",
 ]
 correct = "A"
-explanation = "The ISO/IEC 20000-1:2018 public preview identifies monitoring, measuring, and reviewing the service management system and the services among the uses of the standard. It does not prescribe a fixed uptime percentage or an invoice-only reporting model."
+explanation = "The UK Department for Education's Service Management standard, Version 1, says its practices provide visibility and awareness of support requirements to enable better decision making and improved demand management. A ticket count without that operational visibility does not satisfy the bounded reporting claim; the item does not invent a KPI or service-level percentage."
 topic_ids = ["m15-maintenance-sla", "m15-monitoring"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

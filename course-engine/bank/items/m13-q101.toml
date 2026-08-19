@@ -7,7 +7,7 @@
 id = "bank-m13-q101"
 kind = "single-select"
 module = 13
-stem = "Which systems-related chapter heading does the NFPA 730:2026 public preview expose?"
+stem = "Propping a secure door open for a maintenance window is risky because:"
 choices = [
   "Security Systems",
   "It always improves anti-passback",
@@ -15,10 +15,10 @@ choices = [
   "It is required by life-safety codes at all times"
 ]
 correct = "A"
-explanation = "The current NFPA preview explicitly exposes the Security Systems chapter heading; it does not expose a propped-door change-window rule."
+explanation = "Door-held and propped-door culture collapses layered security."
 topic_ids = ["m13-security-components", "m13-safety-components"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

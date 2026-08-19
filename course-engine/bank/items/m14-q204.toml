@@ -6,7 +6,7 @@
 id = "m14-q204"
 kind = "single-select"
 module = 14
-stem = "Which security-related environmental-control category is explicitly named by ISO/IEC 22237-4:2021?"
+stem = "Water leak detection should be placed with priority near:"
 choices = [
   "Physical security of environmental-control systems",
   "Only customer billing workflows",
@@ -14,10 +14,10 @@ choices = [
   "Only generator fuel polishing",
 ]
 correct = "A"
-explanation = "The ISO abstract explicitly lists physical security of environmental-control systems; it does not expose a specific water-leak sensor-placement or response rule."
+explanation = "Sensors belong on credible leak paths that can damage critical plant."
 topic_ids = ["m14-leak"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

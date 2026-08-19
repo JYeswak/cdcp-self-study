@@ -6,7 +6,7 @@
 id = "bank-m14-q117"
 kind = "single-select"
 module = 14
-stem = "RFC 5674 defines alarm structured data with fields including:"
+stem = "Point naming like CHW-VALVE-ROW12-LEAK instead of DI_047 mainly improves:"
 choices = [
   "Resource, probable cause, perceived severity, and optional event/trend/resource-URI information",
   "Only camera resolution and rack-paint color",
@@ -14,10 +14,10 @@ choices = [
   "No alarm fields; RFC 5674 only defines email routing"
 ]
 correct = "A"
-explanation = "RFC 5674 defines alarm structured-data elements for resource, probableCause, perceivedSeverity, eventType, trendIndication, and resourceURI, with required/optional status specified in the RFC. It does not establish point-naming human-factors rules."
+explanation = "Human-readable points turn alarms into action; cryptic DIs waste incident time."
 topic_ids = ["m14-alarms", "m14-best-practices"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

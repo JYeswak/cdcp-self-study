@@ -7,7 +7,7 @@
 id = "m15-q340"
 kind = "single-select"
 module = 15
-stem = "ISO 55012:2024 gives guidance on improving which aspect of an asset management system?"
+stem = "The skills matrix for a data-center facilities team lists HVAC, power, and fire-detection roles. A control-system change is approved, but no role-based training update is planned. What manager action is directly supported?"
 choices = [
   "Personnel involvement and competence",
   "Replacing all asset records with a vendor brochure",
@@ -15,10 +15,10 @@ choices = [
   "Treating asset management as unrelated to people and culture",
 ]
 correct = "A"
-explanation = "The current ISO abstract describes guidance on enhancing personnel involvement and competence within an asset management system, including knowledge and awareness, competence, development plans, and mutual dependencies in teams. It does not prescribe a data-centre training interval or certification claim."
+explanation = "NIST SP 800-53 Rev. 5 AT-3 requires role-based training before assigned duties, when system changes require it, and at an organization-defined frequency; AT-3(c) incorporates lessons from incidents. AT-3(1) specifically includes environmental controls such as fire detection, temperature, HVAC, and power. A vendor notice is not the affected role's training record, and waiting for an incident reverses the control's timing."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = ["obj-m15-training-program"]
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

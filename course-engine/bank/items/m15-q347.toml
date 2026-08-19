@@ -7,7 +7,7 @@
 id = "m15-q347"
 kind = "single-select"
 module = 15
-stem = "ISO 16484-1:2024 explicitly includes which project-completion items for BACS?"
+stem = "A new chilled-water plant passes the contractor's startup checklist, but the project file has no integrated functional tests, O&M training record, or final system documentation. What review should flag this?"
 choices = [
   "Completion, handover, acceptance, project finalization, as-built documentation, and training",
   "A contractor startup checklist as proof that every subsystem will interact correctly",
@@ -15,10 +15,10 @@ choices = [
   "Postponing completion until the maintenance contract expires",
 ]
 correct = "A"
-explanation = "The current ISO catalog lists completion, handover, acceptance, and project finalization for BACS projects, and explicitly includes requirements for as-built documentation and training. It does not prescribe a particular integrated-test script or O&M hand-off template."
+explanation = "DOE FEMP's public commissioning process calls for functional-test and monitoring plans, deficiency analysis, retesting, and final hand-off documentation. A contractor startup checklist can be one input, but it does not prove integrated performance or supply the missing hand-off record."
 topic_ids = ["m15-documentation", "m15-maintenance-sla", "m15-ops-security"]
 objective_ids = []
 bloom = "evaluate"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

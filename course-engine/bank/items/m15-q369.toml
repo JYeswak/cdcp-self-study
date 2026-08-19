@@ -9,7 +9,7 @@
 id = "m15-q369"
 kind = "single-select"
 module = 15
-stem = "During group lockout/tagout on a shared cooling plant, the safety roster names a coordinator but does not assign primary responsibility or continuity of protection between crews. What role correction is supported?"
+stem = "A data-centre operations program names a safety lead but never states who has safety authority, who is accountable, or how hazards are controlled. What action matches the public conduct-of-operations model?"
 choices = [
   "Assign an authorized employee primary responsibility and define crew coordination and continuity of protection",
   "Add a logo to the roster and leave lockout responsibility implicit",
@@ -17,10 +17,10 @@ choices = [
   "Wait for an incident before assigning the group-lockout responsibility",
 ]
 correct = "A"
-explanation = "29 CFR 1910.147(f)(3) requires a group lockout/tagout procedure to vest primary responsibility in an authorized employee, provide a way to ascertain each group member's exposure status, and assign overall control responsibility when multiple crews or departments are involved. The item is limited to those legal energy-control roles; it does not create a general safety-staff taxonomy."
+explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the organization and hazard-control clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
 topic_ids = ["m15-ops-security", "m15-eop"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

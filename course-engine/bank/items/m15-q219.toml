@@ -7,7 +7,7 @@
 id = "m15-q219"
 kind = "single-select"
 module = 15
-stem = "The primary operational focus named by ISO/IEC TS 22237-7:2018 includes:"
+stem = "This file owns the 2.1 organizational-structure heading — the staffed path, not Module 01’s four seats. A site that leaves switchgear isolation with the NOC alone, and parks the Safety Officer under the manager whose bonus is uptime, is failing that heading because:"
 choices = [
   "Operational processes for expected resilience, availability, risk management and mitigation, capacity planning, security, and energy efficiency",
   "Only a vendor-training attendance register",
@@ -15,10 +15,10 @@ choices = [
   "Only a customer-facing service-credit table",
 ]
 correct = "A"
-explanation = "The ISO abstract identifies these resilience, availability, risk, capacity, security, and energy-efficiency concerns as the primary operational focus; it does not define a site organization chart or an isolation authority."
+explanation = "Name the functions and the split. Isolation authority is not a NOC screen. A Safety Officer under the uptime bonus is not an independent veto. Do not grow this back into Module 01’s four-seat lesson. Do not invent an exam-weight percentage."
 topic_ids = ["m15-ops-security"]
 objective_ids = ["obj-m15-org-structure"]
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

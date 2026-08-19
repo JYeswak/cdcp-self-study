@@ -7,7 +7,7 @@
 id = "m14-q208"
 kind = "single-select"
 module = 14
-stem = "What does the ISO/IEC TS 22237-7:2018 public abstract identify as the primary focus of the document?"
+stem = "A best practice for auxiliary systems is to treat monitoring infrastructure as:"
 choices = [
   "Operational processes necessary to deliver resilience, availability, risk management and mitigation, capacity planning, security, and energy efficiency",
   "Only rack cosmetics and office-furniture selection",
@@ -15,10 +15,10 @@ choices = [
   "Only procurement pricing for generator fuel",
 ]
 correct = "A"
-explanation = "The public abstract identifies operational processes for resilience, availability, risk, capacity, security, and energy efficiency as the document's primary focus."
+explanation = "Blindness during outages is a common design failure—monitor the monitors."
 topic_ids = ["m14-best-practices", "m14-monitoring-challenges"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

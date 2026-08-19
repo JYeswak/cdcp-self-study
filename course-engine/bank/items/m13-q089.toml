@@ -9,7 +9,7 @@
 id = "bank-m13-q089"
 kind = "single-select"
 module = 13
-stem = "RFC 8633 is an IETF Best Current Practice for:"
+stem = "ACS and VMS clocks must be time-synchronized primarily so that:"
 choices = [
   "Stable, accurate, and secure operation of NTP infrastructure, including time-source diversity and monitoring",
   "Automatic PUE reduction and cooling-plant optimization",
@@ -17,10 +17,10 @@ choices = [
   "Mechanical strengthening of mantrap doors"
 ]
 correct = "A"
-explanation = "RFC 8633 describes best practices for stable, accurate, secure NTP servers and clients, including enough time sources, diverse reference clocks, and monitoring. It does not specify ACS/VMS correlation or a physical-security control."
+explanation = "NTP alignment across ACS/VMS/syslog is foundational for incident reconstruction."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

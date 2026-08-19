@@ -7,7 +7,7 @@
 id = "bank-m13-q081"
 kind = "single-select"
 module = 13
-stem = "Which perimeter-related chapter heading does the NFPA 730:2026 public preview expose?"
+stem = "Grey space (UPS, generators, switchgear, chillers) should receive access rigor comparable to white space because:"
 choices = [
   "Security Perimeters",
   "It only stores cardboard",
@@ -15,10 +15,10 @@ choices = [
   "Cameras are illegal there"
 ]
 correct = "A"
-explanation = "The current NFPA preview explicitly exposes the Security Perimeters chapter heading; it does not expose a grey-space zoning rule."
+explanation = "MEP sabotage or error is availability-critical; treat grey space as highly sensitive."
 topic_ids = ["m13-security-components", "m13-safety-components"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

@@ -5,7 +5,7 @@
 id = "bank-m15-q137"
 kind = "single-select"
 module = 15
-stem = "ISO 16484-1:2024 explicitly includes requirements for which project-completion artifacts?"
+stem = "As-built documentation for a data centre is valuable because it:"
 choices = [
   "As-built documentation and training",
   "Replacing all monitoring systems with a sales brochure",
@@ -13,10 +13,10 @@ choices = [
   "Keeping project records permanently detached from the installed system"
 ]
 correct = "A"
-explanation = "The ISO catalog for ISO 16484-1:2024 explicitly states that the BACS project specification includes requirements for as-built documentation and training. The item does not define a data-centre document-control procedure or a revision interval."
+explanation = "As-builts and living diagrams prevent operating from fiction."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

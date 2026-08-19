@@ -6,7 +6,7 @@
 id = "m14-q200"
 kind = "single-select"
 module = 14
-stem = "ISO/IEC TS 22237-7:2018 specifies processes for:"
+stem = "A core monitoring challenge in data centres is:"
 choices = [
   "The management and operation of data centres",
   "Classifying only electrical-enclosure ingress protection",
@@ -14,10 +14,10 @@ choices = [
   "Defining Internet routing protocols"
 ]
 correct = "A"
-explanation = "The current ISO catalog states that ISO/IEC TS 22237-7:2018 specifies processes for the management and operation of data centres."
+explanation = "Heterogeneous telemetry plus alert quality is the hard problem—not sensor scarcity alone."
 topic_ids = ["m14-monitoring-challenges"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

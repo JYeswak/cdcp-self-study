@@ -8,7 +8,7 @@
 id = "m15-q351"
 kind = "single-select"
 module = 15
-stem = "A federal-facilities project is planning commissioning. Which arrangement matches the public FEMP process?"
+stem = "A public-building project is selecting its Total Building Commissioning provider. Which arrangement matches GSA PBS P100 2024?"
 choices = [
   "Use a qualified commissioning team, contracted or in-house, with documented hand-off",
   "Let the construction contractor alone review acceptance",
@@ -16,10 +16,10 @@ choices = [
   "Treat operator preparation as optional after startup",
 ]
 correct = "A"
-explanation = "The public DOE FEMP process calls for assembling a commissioning team with appropriate qualifications and allows contracted or in-house staff; its hand-off step presents final commissioning documentation. This is a bounded curriculum grounding receipt, not a credential or certification claim."
+explanation = "BLOCKED — the current GSA facilities-standards page identifies 2024 P100 but does not expose the independent commissioning-provider clause needed here. The linked body was not fetched; do not treat this row as grounded."
 topic_ids = ["m15-maintenance-sla", "m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "evaluate"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

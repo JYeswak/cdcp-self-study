@@ -5,7 +5,7 @@
 id = "m15-q213"
 kind = "single-select"
 module = 15
-stem = "ISO/IEC TS 22237-7:2018 specifies processes for the management and operation of:"
+stem = "Documented single lines, rack elevations, and cable schedules should be updated:"
 choices = [
   "Data centres",
   "Only cloud applications and business software",
@@ -13,10 +13,10 @@ choices = [
   "Only physical-access hardware, excluding operations"
 ]
 correct = "A"
-explanation = "The current ISO catalog states that ISO/IEC TS 22237-7:2018 specifies processes for the management and operation of data centres. It does not expose the former as-built-document update rule."
+explanation = "Documentation is a controlled product of change, not an annual archaeology project."
 topic_ids = ["m15-documentation", "m15-labelling"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

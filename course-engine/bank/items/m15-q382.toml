@@ -8,7 +8,7 @@
 id = "m15-q382"
 kind = "single-select"
 module = 15
-stem = "An organization chart for group lockout/tagout lists job titles but not the authorized employee with primary responsibility or the person coordinating affected workforces. What manager correction is supported?"
+stem = "A data-center organization chart lists job titles but does not show who owns safe-work accountability or hazard controls. What manager correction is source-supported?"
 choices = [
   "Map primary responsibility, exposure-status accountability, and overall coordination to the group-lockout roles",
   "Keep titles only because a general procedure makes every role self-evident",
@@ -16,10 +16,10 @@ choices = [
   "Replace the role map with a vendor contact list",
 ]
 correct = "A"
-explanation = "29 CFR 1910.147(f)(3) requires primary responsibility to be vested in an authorized employee, requires the authorized employee to ascertain group-member exposure status, and assigns overall coordination responsibility when more than one crew, craft, or department is involved. The item applies those bounded roles to an organization-chart review and does not create a general facilities org-chart taxonomy."
+explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the organization clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

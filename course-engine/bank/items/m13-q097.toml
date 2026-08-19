@@ -9,7 +9,7 @@
 id = "bank-m13-q097"
 kind = "single-select"
 module = 13
-stem = "ISO/IEC 22237-6:2024 specifies physical-security topics for data-centre spaces and systems including:"
+stem = "Colo multi-tenant zoning typically means a customer badge may open their cage but:"
 choices = [
   "Unauthorized access, intrusion, and internal or external environmental events that affect the defined protection level",
   "Only customer-cage lease pricing and tenant billing",
@@ -17,10 +17,10 @@ choices = [
   "Only cooling-plant efficiency and water-consumption metrics"
 ]
 correct = "A"
-explanation = "The current ISO preview covers physical-security requirements and recommendations for data-centre spaces and systems addressing unauthorized access, intrusion, internal fire, and internal or external environmental events affecting the defined protection level. It does not establish a colocation badge-zoning or tenant-lease policy."
+explanation = "Physical shared responsibility: customer zones vs provider common plant separation."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

@@ -5,7 +5,7 @@
 id = "bank-m14-q129"
 kind = "single-select"
 module = 14
-stem = "Which application domain is explicitly included in the public preview of ISO 16484-4:2025 for BACS control applications?"
+stem = "Setpoint changes on BMS for CHW supply or CRAC temperatures should be treated as:"
 choices = [
   "HVAC and integrated plant/room control",
   "Only cable certification and fibre polarity",
@@ -13,10 +13,10 @@ choices = [
   "Only fuel-quality laboratory testing"
 ]
 correct = "A"
-explanation = "The ISO 16484-4:2025 public preview covers BACS control applications including lighting, solar protection, and HVAC, with integrated plant and room control. It does not expose a universal BMS change-control workflow or setpoint value."
+explanation = "Plant setpoints are operational config—change-controlled like other production systems."
 topic_ids = ["m14-bms", "m14-best-practices"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

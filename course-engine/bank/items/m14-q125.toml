@@ -6,7 +6,7 @@
 id = "bank-m14-q125"
 kind = "single-select"
 module = 14
-stem = "IEC 62682:2022 covers alarms presented through the control system, including alarms from:"
+stem = "Correlation of related points (utility fail + ATS transfer + UPS on battery) before fan-out helps:"
 choices = [
   "Basic process control systems, annunciators, packaged systems, and safety instrumented systems",
   "Only visitor badge printers and door controllers",
@@ -14,10 +14,10 @@ choices = [
   "Only software authentication and network segmentation"
 ]
 correct = "A"
-explanation = "The current IEC catalog says IEC 62682 covers alarms presented to the operator through the control system, including alarms from basic process control systems, annunciators, packaged systems, and safety instrumented systems."
+explanation = "Correlate related telemetry into incidents to protect on-call attention."
 topic_ids = ["m14-notification", "m14-alarms"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

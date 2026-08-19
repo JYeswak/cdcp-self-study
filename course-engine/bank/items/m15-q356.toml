@@ -10,7 +10,7 @@
 id = "m15-q356"
 kind = "single-select"
 module = 15
-stem = "During a shift change while a cooling plant remains under a group lockout/tagout procedure, what handover action is required?"
+stem = "A night-shift turnover says 'all normal' but lists neither equipment status nor in-progress work, and the oncoming operator cannot identify relief duties. What gap does the public conduct-of-operations model expose?"
 choices = [
   "Use a specific procedure for orderly transfer of lockout/tagout protection between off-going and oncoming employees",
   "Treat an 'all normal' shift note as sufficient without transferring protection",
@@ -18,10 +18,10 @@ choices = [
   "Remove the lockout devices at shift change so the next operator can restart the plant",
 ]
 correct = "A"
-explanation = "29 CFR 1910.147(f)(4) requires specific procedures during shift or personnel changes so lockout/tagout protection continues, including orderly transfer of protection between off-going and oncoming employees. The rule supports this bounded maintenance-handover decision; it does not create a universal operations shift-log or handover taxonomy."
+explanation = "BLOCKED — the official DOE NE Directives catalog receipt does not expose the turnover clauses needed to ground this question. No directive body or PDF was fetched; do not treat this row as a grounded item until a qualifying public source is found."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

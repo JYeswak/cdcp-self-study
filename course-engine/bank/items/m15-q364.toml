@@ -8,7 +8,7 @@
 id = "m15-q364"
 kind = "single-select"
 module = 15
-stem = "Which purpose is explicitly covered by the public preview of ISO 22301:2019?"
+stem = "A BIA-backed business-continuity plan is never exercised; results are not reviewed, and related plans are tested separately. What manager action is supported?"
 choices = [
   "Prepare for, respond to, and recover from disruptions through a business continuity management system",
   "Specify one universal recovery-time objective for every organization",
@@ -16,10 +16,10 @@ choices = [
   "Certify a facility solely from its business-impact analysis",
 ]
 correct = "A"
-explanation = "The ISO 22301:2019 public preview describes a business continuity management system that helps organizations prepare for, respond to, and recover from disruptions. It does not expose a universal recovery-time objective or certify a facility from a BIA alone."
+explanation = "NIST SP 800-53 Rev. 5 CP-4(a)-(c) requires testing the contingency plan at an organization-defined frequency, reviewing test results, and initiating corrective actions when needed. CP-4(1) adds coordination with organizational elements responsible for related plans, including business-continuity and emergency-related plans. The control does not prescribe a numeric cadence here."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "evaluate"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

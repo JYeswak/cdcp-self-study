@@ -11,7 +11,7 @@
 id = "m15-q353"
 kind = "single-select"
 module = 15
-stem = "A facilities provider's SLA review asks whether its service lifecycle is consistent across providers and the supply chain. Which ISO/IEC 20000-1:2018 scope fits?"
+stem = "A facilities provider's SLA names a price and a phone number; internal facilities and NOC commitments are absent. Which review action is supported?"
 choices = [
   "Plan, design, transition, deliver, and improve the services consistently",
   "Limit the review to the supplier's purchase price",
@@ -19,10 +19,10 @@ choices = [
   "Publish an uptime percentage without reviewing service delivery",
 ]
 correct = "A"
-explanation = "The ISO/IEC 20000-1:2018 public preview includes planning, design, transition, delivery, and improvement of services, and says a customer may require a consistent approach to the service lifecycle by all service providers, including those in a supply chain. It does not establish an OLA taxonomy or an uptime value."
+explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, SA-9 requires oversight and roles for external services and ongoing compliance monitoring; its discussion says service-level agreements define measurable outcomes, remedies, and response requirements. The UK Government Digital and Data Profession Capability Framework says an IT service manager defines SLAs and OLAs across relevant business functions. No uptime percentage is invented here."
 topic_ids = ["m15-maintenance-sla"]
 objective_ids = []
 bloom = "evaluate"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

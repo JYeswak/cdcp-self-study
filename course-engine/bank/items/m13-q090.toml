@@ -7,7 +7,7 @@
 id = "bank-m13-q090"
 kind = "single-select"
 module = 13
-stem = "Which NFPA 730:2026 chapter heading names the administrative-controls topic?"
+stem = "Visitor management in restricted zones should typically include:"
 choices = [
   "Chapter 4 — General",
   "Chapter 6 — Administrative Controls",
@@ -15,10 +15,10 @@ choices = [
   "Chapter 10 — Accessory Property"
 ]
 correct = "B"
-explanation = "The current NFPA 730 preview names Chapter 6 as Administrative Controls. The heading does not prescribe visitor credentials, escorting, or badge-return procedures."
+explanation = "Visitors need controlled credentials and escort; shared badges destroy audit."
 topic_ids = ["m13-security-components", "m13-safety-components"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

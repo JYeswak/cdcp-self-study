@@ -7,7 +7,7 @@
 id = "bank-m14-q133"
 kind = "single-select"
 module = 14
-stem = "What does ISO/IEC TS 22237-7:2018 identify as its primary focus?"
+stem = "A minimum mental monitoring checklist for mission-critical sites includes power chain, cooling path, environment, leaks, and:"
 choices = [
   "Operational processes needed for resilience, availability, risk management, risk mitigation, capacity planning, security, and energy efficiency",
   "Only social-media uptime",
@@ -15,10 +15,10 @@ choices = [
   "Marketing campaign metrics only",
 ]
 correct = "A"
-explanation = "The current ISO preview identifies operational processes necessary to deliver expected levels of resilience, availability, risk management, risk mitigation, capacity planning, security, and energy efficiency as the primary focus."
+explanation = "Monitor the chains and the monitors—blind spots include dead sensors and capacity blindness."
 topic_ids = ["m14-monitoring-reqs"]
 objective_ids = []
 bloom = "remember"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

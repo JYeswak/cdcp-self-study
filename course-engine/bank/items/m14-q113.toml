@@ -6,7 +6,7 @@
 id = "bank-m14-q113"
 kind = "single-select"
 module = 14
-stem = "IEC 62682:2022 identifies which additional alarm-system functions beyond operator notification?"
+stem = "A primary risk of routing every critical facility alarm only by email is:"
 choices = [
   "An alarm and event log, an alarm historian, and performance metrics",
   "Only decorative dashboards with no alarm records",
@@ -14,10 +14,10 @@ choices = [
   "Removal of all operator-facing alarm communication"
 ]
 correct = "A"
-explanation = "The IEC catalog says the alarm system includes an alarm and event log, an alarm historian, and generation of performance metrics. It does not establish an email-only failure mode or a data-centre-specific routing policy."
+explanation = "Email is not a reliable on-call system; noise trains people to ignore pages."
 topic_ids = ["m14-notification", "m14-alarms"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

@@ -9,7 +9,7 @@
 id = "m15-q354"
 kind = "single-select"
 module = 15
-stem = "Which objective is explicitly included in the public preview of ISO/IEC 20000-1:2018 for a service management system?"
+stem = "A service-improvement process has a monthly report but no way to turn observed trends into changes. What supported next step is missing?"
 choices = [
   "Continually improve the planning, delivery, and improvement of services",
   "Freeze service processes after the first successful delivery",
@@ -17,10 +17,10 @@ choices = [
   "Measure purchase cost without reviewing service performance",
 ]
 correct = "A"
-explanation = "The ISO/IEC 20000-1:2018 public preview says the requirements include planning, design, transition, delivery, and improvement of services, and that an organization can improve those activities through effective implementation and operation of a service management system. It does not prescribe a trend threshold or service-catalogue sequence."
+explanation = "The UK Department for Education's Service Management standard, Version 1, includes Continual Improvement as a practice and identifies opportunities for continuous improvements through trend analysis. A report that never informs an improvement decision has not closed that loop."
 topic_ids = ["m15-maintenance-sla", "m15-monitoring"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

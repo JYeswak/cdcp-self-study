@@ -7,7 +7,7 @@
 id = "m15-q345"
 kind = "single-select"
 module = 15
-stem = "ISO/IEC 20000-1:2018 can be used by a customer requiring:"
+stem = "A monitoring vendor's contract states only a monthly price and response phone number. Which addition is directly supported for an external service?"
 choices = [
   "A consistent service lifecycle approach across service providers, including those in a supply chain",
   "A uniform design instead of service requirements",
@@ -15,10 +15,10 @@ choices = [
   "Invoice accuracy without planning, delivery, or service review",
 ]
 correct = "A"
-explanation = "The current ISO abstract says ISO/IEC 20000-1:2018 can be used by a customer requiring a consistent approach to the service lifecycle by all service providers, including those in a supply chain. It does not prescribe contract response times, remedies, or an OLA taxonomy."
+explanation = "NIST SP 800-53 Rev. 5 SA-9 requires external providers to meet defined organizational security and privacy requirements, documents organizational oversight and user roles, and uses ongoing processes to monitor compliance. The discussion also describes service-level agreements as defining measurable outcomes, remedies, and response requirements. Price, uniforms, and an informal promise do not establish that oversight chain."
 topic_ids = ["m15-maintenance-sla", "m15-ops-security"]
 objective_ids = []
 bloom = "evaluate"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

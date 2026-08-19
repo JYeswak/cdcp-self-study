@@ -7,7 +7,7 @@
 id = "m15-q348"
 kind = "single-select"
 module = 15
-stem = "ISO 55012:2024 identifies which personnel-development elements as relevant to an asset management system?"
+stem = "A commissioning lead leaves before hand-off. The project has no training record or O&M documentation package. What succession risk is directly visible?"
 choices = [
   "Knowledge and awareness, competence, development plans, and team dependencies",
   "Vendor manuals as a substitute for personnel involvement",
@@ -15,10 +15,10 @@ choices = [
   "Delaying all competence work until the next maintenance review",
 ]
 correct = "A"
-explanation = "The current ISO abstract identifies personnel knowledge and awareness, competence, development plans, and mutual dependencies in teams as relevant to asset management. It does not prescribe a succession-plan format or a commissioning hand-off package."
+explanation = "The visible succession risk is an undocumented knowledge-transfer gap. Current public OPM career-development guidance treats the IDP as a record of career goals and development objectives, identifies mentoring as a knowledge-sharing mechanism, and says career paths can inform succession planning. The item is a qualitative curriculum grounding receipt, not a credential or certification claim."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = ["obj-m15-training-program"]
 bloom = "evaluate"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

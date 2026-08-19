@@ -6,7 +6,7 @@
 id = "m15-q205"
 kind = "single-select"
 module = 15
-stem = "Under 29 CFR 1910.147(f)(2), when outside servicing personnel perform covered work, the on-site and outside employers must:"
+stem = "Operational security for vendors performing work includes:"
 choices = [
   "Inform each other of their respective lockout/tagout procedures, with the on-site employer ensuring its employees understand and comply with the outside employer's restrictions",
   "Share employee badges and omit energy-control coordination",
@@ -14,10 +14,10 @@ choices = [
   "Use only a vendor invoice as the energy-control record"
 ]
 correct = "A"
-explanation = "The current public eCFR text requires the on-site and outside employers to inform each other of their respective lockout/tagout procedures, and requires the on-site employer to ensure its employees understand and comply with the outside employer's restrictions and prohibitions."
+explanation = "Vendor access is a high-risk path; control it like production change."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

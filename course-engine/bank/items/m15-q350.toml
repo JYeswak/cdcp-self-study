@@ -8,7 +8,7 @@
 id = "m15-q350"
 kind = "single-select"
 module = 15
-stem = "Which scope is explicitly included in ISO/IEC 27040:2024 storage security?"
+stem = "A retired storage device will be reused by another tenant. Which manager control best matches NIST SP 800-88 Rev. 2?"
 choices = [
   "Devices and media during their lifetime and after end of use or end of life",
   "Only building access badges during a tenant move",
@@ -16,10 +16,10 @@ choices = [
   "Only the purchase contract for newly acquired storage",
 ]
 correct = "A"
-explanation = "The ISO/IEC 27040:2024 public preview includes security of devices and media, management activities related to them, and control or monitoring of user activities during their lifetime and after end of use or end of life. It does not limit storage security to badges, powered-off links, or purchase contracts."
+explanation = "NIST SP 800-88 Rev. 2 §4.3.1 places sanitization decisions before the disposal phase; §4.3.6 says to record the decision and provide the process and resources; §§4.5.1-4.5.2 require verification and validation; and §4.6 plus Appendix C support records tied to the asset and its destination. A device that powers on is not evidence that its prior data was sanitized."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "evaluate"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"

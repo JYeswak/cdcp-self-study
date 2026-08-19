@@ -5,7 +5,7 @@
 id = "mock40-q38"
 kind = "single-select"
 module = 14
-stem = "ISO 16484-1:2024 identifies which activity as part of BACS project completion?"
+stem = "A practical distinction between BMS and DCIM is:"
 choices = [
   "Handover, acceptance, and project finalization",
   "Automatic replacement of all network monitoring",
@@ -13,10 +13,10 @@ choices = [
   "A requirement that BACS and DCIM always be the same product",
 ]
 correct = "A"
-explanation = "ISO 16484-1:2024 lists completion activities including handover, acceptance, and project finalization in the BACS project. It does not define a universal BMS-versus-DCIM product boundary."
+explanation = "BMS emphasizes building plant control; DCIM emphasizes DC inventory, power, environment, and capacity."
 topic_ids = ["m14-bms", "m14-dcim"]
 objective_ids = []
 bloom = "understand"
 source_class = "original"
 quantity_evidence = "qualitative_only"
-status = "approved"
+status = "draft"
