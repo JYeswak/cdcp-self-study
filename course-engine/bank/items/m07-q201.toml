@@ -9,15 +9,15 @@
 id = "m07-q201"
 kind = "single-select"
 module = 7
-stem = "Which statement correctly bounds IEC magnetic-field terminology?"
+stem = "Magnetic field strength is often discussed in units such as:"
 choices = [
-  "Magnetic field strength H and magnetic flux density B are distinct quantities; in vacuum H = B/μ₀",
-  "Magnetic field strength is the same quantity as illuminance",
-  "Magnetic flux density is measured only in pascals",
-  "The IEC vocabulary treats H and B as interchangeable in every medium"
+  "Lux and foot-candles only",
+  "Only dBm for sound",
+  "Only Pascals for air pressure",
+  "Teslas or gauss (and related A/m field quantities depending on quantity reported)"
 ]
-correct = "A"
-explanation = "IEC Electropedia distinguishes magnetic field strength H from magnetic flux density B and states their vacuum relationship; unit conversions and exposure limits are outside this receipt."
+correct = "D"
+explanation = "Magnetic fields use T/gauss (or related field units); do not confuse with photometric units."
 topic_ids = ["m07-units"]
 objective_ids = []
 bloom = "remember"

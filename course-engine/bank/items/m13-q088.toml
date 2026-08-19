@@ -8,15 +8,15 @@
 id = "bank-m13-q088"
 kind = "single-select"
 module = 13
-stem = "Surveillance (CCTV/VMS) is most valuable when integrated so that a physical-security event can:"
+stem = "Surveillance (CCTV/VMS) is most valuable when integrated so that a door-forced alarm can:"
 choices = [
   "Only record offline tapes with no timestamps",
   "Replace all mechanical locks",
   "Increase chilled-water flow",
-  "Share detection, triggering, interconnection, control, or communication with the VSS for coordinated security handling"
+  "Bookmark video, alert the SOC/guard, and support investigation with synchronized logs"
 ]
 correct = "D"
-explanation = "IEC 62676-1-1 covers VSS/CCTV sharing detection, triggering, interconnection, control, and communication with other applications. It does not establish a particular SOC workflow, video-bookmark rule, or NTP policy."
+explanation = "Cameras without response/integration are weak; alarm-linked video + NTP-aligned logs enable forensics."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

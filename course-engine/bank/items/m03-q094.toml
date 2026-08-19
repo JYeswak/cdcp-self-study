@@ -9,15 +9,15 @@
 id = "m03-q094"
 kind = "single-select"
 module = 3
-stem = "Flood-plain and storm-surge exposure should be treated in site selection as:"
+stem = "Flood plain and storm-surge exposure primarily threaten:"
 choices = [
   "Only aesthetic landscaping",
-  "An environmental risk requiring protection against damage from water",
+  "Long-term operability of plant yards, fuel systems, and building envelopes under water events",
   "Nothing if the site has a raised floor indoors",
   "Only wireless signal strength",
 ]
 correct = "B"
-explanation = "The public ISO preview explicitly includes protection from environmental risks and protection against damage from water; project-specific flood levels and equipment impacts are outside this receipt."
+explanation = "Water events can disable yards, fuel, switchgear, and building integrity—critical site criteria."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

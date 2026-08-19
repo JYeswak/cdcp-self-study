@@ -9,15 +9,15 @@
 id = "m03-q098"
 kind = "single-select"
 module = 3
-stem = "Seismic and geotechnical risk assessment for a candidate site should influence:"
+stem = "Seismic and structural site risks should influence:"
 choices = [
   "Only furniture catalogues",
   "Nothing if dual UPS exists",
-  "Structural design and equipment anchorage",
+  "Structural design, anchorage, and sometimes geographic site rejection",
   "Only paint shear strength",
 ]
 correct = "C"
-explanation = "The public ISO catalog supports using seismic and geotechnical risk assessment to inform construction and design; site-specific rejection decisions are outside this receipt."
+explanation = "Seismic/geotech risk drives structure and anchorage and can eliminate a candidate site."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "apply"

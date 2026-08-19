@@ -5,15 +5,15 @@
 id = "m14-q205"
 kind = "single-select"
 module = 14
-stem = "Alarm panels and annunciation design should aim to:"
+stem = "Alarm panels and annunciation design should aim for:"
 choices = [
   "Maximum page storms for every warning bit",
-  "Present operator-facing alarms for abnormal conditions or malfunctions and support response",
+  "Actionable, prioritized alerts with clear ownership rather than undifferentiated floods of equal-severity noise",
   "Silent failures with no local indication",
   "Identical response for informational and critical events always"
 ]
 correct = "B"
-explanation = "IEC 62682:2022's official public description says the alarm system notifies operators of abnormal process conditions or equipment malfunctions, supports response, and communicates through an HMI; it also covers event logs, historians, and performance metrics. This is a bounded monitoring receipt, not a credential claim."
+explanation = "Alarm philosophy is part of reliability—noise hides real emergencies."
 topic_ids = ["m14-alarms", "m14-notification"]
 objective_ids = []
 bloom = "understand"

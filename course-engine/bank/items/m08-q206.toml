@@ -8,15 +8,15 @@
 id = "m08-q206"
 kind = "single-select"
 module = 8
-stem = "Telecommunications bonding networks for racks and cabinet assemblies support:"
+stem = "Bonding racks and cabinet assemblies into the facility grounding system supports:"
 choices = [
-  "Reducing electrical hazards to IT equipment and cabling and providing a reliable signal reference that may improve EMI immunity",
-  "Intentionally increasing touch potentials",
-  "Eliminating every equipment grounding conductor by itself",
+  "Higher touch potentials intentionally",
+  "Safety and noise-control goals by reducing floating metal structures",
+  "Elimination of equipment grounding conductors inside every power cord by myth",
   "Automatic seismic certification"
 ]
-correct = "A"
-explanation = "The current consolidated ISO/IEC 30129 catalog describes bonding conductive elements to reduce electrical hazards and provide a reliable signal reference; it does not replace all protective conductors or certify seismic performance."
+correct = "B"
+explanation = "Rack bonding is part of the protective/equipotential strategy—not optional décor."
 topic_ids = ["m08-standards", "m08-types"]
 objective_ids = []
 bloom = "understand"

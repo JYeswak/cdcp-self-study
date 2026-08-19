@@ -127,3 +127,48 @@ adjudication; none matches the short-heading fingerprint in this snapshot:
 This cleanly identifies the blind spot: the duplicate/near-duplicate gate is
 not needed to find the 14 heading collapses, and the other 95 choice changes
 do not become safe merely because they did not collapse onto a shared word.
+
+## Residual adjudication: 22 IDs
+
+Adjudication was performed after pane 3's 87-item restore. RESTORE means the
+stem, choices, correct key, and explanation were returned to `955a8f1`; the
+wave's citation/source comments and unchanged metadata were retained. KEEP and
+UNSURE items were not edited.
+
+| Module | ID | Verdict | Reason |
+| --- | --- | --- | --- |
+| M03 | `m03-q094` | RESTORE | The wave changed a question about which plant assets and operability flood exposure threatens into a generic site-risk classification, losing the material consequence being tested. |
+| M03 | `m03-q098` | RESTORE | The current answer drops geographic site rejection from a site-selection question; that is a material consequence of seismic/geotechnical risk, not a harmless paraphrase. |
+| M06 | `m06-q248` | RESTORE | The replacement is an OSHA-style grounding/overcurrent requirement and does not answer the “because” stem's distinction between equipotential bonding and fault clearing. |
+| M07 | `m07-q201` | RESTORE | The D→A move is answer-text replacement, not a position move: the units question became an H/B terminology question. Original key D restored. |
+| M08 | `m08-q206` | RESTORE | The B→A move is answer-text replacement, changing facility grounding/noise-control benefits into a different telecom-bonding formulation. Original key B restored. |
+| M09 | `m09-q105` | KEEP | The current answer is a direct, less quantified paraphrase of the same IT-power-to-cooling-heat proposition; the key and tested concept remain unchanged. |
+| M09 | `m09-q108` | KEEP | The current answer legitimately broadens economization from outdoor conditions to airside, waterside, and refrigerant paths while preserving the compressor/mechanical-work reduction. |
+| M09 | `m09-q148` | KEEP | The current wording broadens HAC to full containment and precise airflow control but retains the same inlet-stability/fan-energy purpose; it is a technically coherent improvement. |
+| M09 | `m09-q161` | KEEP | Direct-to-chip and rear-door architectures are concrete ways to answer why liquid cooling is discussed for high-density racks; the high-density heat-removal target remains. |
+| M10 | `m10-q115` | UNSURE | The current answer drops the optional fire-system dependency but preserves water-dependent cooling/humidity reasoning; I cannot establish whether that omission is a legitimate scope boundary or a material loss. |
+| M12 | `m12-q053` | KEEP | “Permit safe exit before discharge” is equivalent to release/free-egress while making the life-safety timing explicit. |
+| M12 | `m12-q057` | KEEP | The added nonconductive-media condition is the precise Class C definition and preserves the energized-electrical-equipment concept. |
+| M12 | `m12-q059` | KEEP | The explicit OSHA definition in the stem makes one-letter class options coherent; the item still tests that ordinary combustibles are Class A, with key C unchanged. |
+| M12 | `m12-q208` | KEEP | The replacement preserves restoration/verification after impairment and adds notification and temporary precautions; the tested readiness concept remains. |
+| M12 | `m12-q221` | KEEP | The current answer makes the same egress/life-safety rationale concrete through marked, unobstructed exits and operable safeguards. |
+| M12 | `m12-q224` | KEEP | The current answer is a more operational version of the same maintenance test, adding restoration after alarms/repairs and operability. |
+| M12 | `m12-q225` | RESTORE | The current question removes the UPS-room versus BESS-yard fire-playbook split and reduces a scenario judgment to document-role recall. |
+| M12 | `m12-q226` | RESTORE | The current question removes chemistry, EOP, interconnect, and evacuation analysis, materially narrowing an analyze-level packet judgment into document-role recall. |
+| M13 | `m13-q088` | RESTORE | The wave replaced door-forced operational response and synchronized forensics with generic VSS integration vocabulary, changing the learning target. |
+| M13 | `m13-q208` | UNSURE | Lost/stolen-credential mitigation and authentication assurance are related but not identical MFA rationales; the item alone cannot prove improvement versus loss. |
+| M14 | `m14-q116` | KEEP | The current wording preserves separation of life-safety alarm generation from operations-tool supervision while making the interface boundary explicit. |
+| M14 | `m14-q205` | RESTORE | The replacement drops prioritization, ownership, and alarm-noise control—the alarm-philosophy target—and leaves only generic operator notification. |
+
+### Adjudication totals
+
+- RESTORE: 9 (`m03-q094`, `m03-q098`, `m06-q248`, `m07-q201`,
+  `m08-q206`, `m12-q225`, `m12-q226`, `m13-q088`, `m14-q205`).
+- KEEP: 11.
+- UNSURE: 2 (`m10-q115`, `m13-q208`); both remain unchanged for human review.
+
+The two correct-letter changes were both RESTORE decisions, so their keys were
+returned to the original D and B positions rather than selected for answer-key
+balance. The 22-item adjudication closes only this choices residual at the
+audited snapshot; it does not clear retired items or fields outside the
+choices/correct/explanation comparison.
