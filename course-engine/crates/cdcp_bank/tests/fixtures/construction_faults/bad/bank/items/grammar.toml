@@ -1,0 +1,18 @@
+id = "construction-bad-grammar"
+kind = "single-select"
+module = 1
+stem = "The correct verb form is:"
+choices = [
+  "is stable",
+  "are stable",
+  "were stable",
+  "do stable",
+]
+correct = "A"
+explanation = "The explicit singular and plural verb forms make this a grammar-cue fixture."
+topic_ids = ["fixture-construction"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

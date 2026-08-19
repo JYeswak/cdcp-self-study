@@ -1,0 +1,18 @@
+id = "construction-bad-all-none"
+kind = "single-select"
+module = 1
+stem = "The documented inspection response is:"
+choices = [
+  "All of the above",
+  "The documented inspection sequence",
+  "A documented inspection checklist",
+  "A documented inspection record",
+]
+correct = "B"
+explanation = "The all-of-the-above shortcut is intentionally present for the construction gate."
+topic_ids = ["fixture-construction"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

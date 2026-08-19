@@ -20,9 +20,6 @@ const GRAMMAR: &str = "grammatical-disagreement";
 const ABSOLUTE: &str = "absolute-language-distractor";
 const ALL_NONE: &str = "all-none-of-the-above";
 
-const SINGULAR_VERBS: &[&str] = &["is", "was", "has", "does"];
-const PLURAL_VERBS: &[&str] = &["are", "were", "have", "do"];
-
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Eval {
     Ok(String),
@@ -129,8 +126,8 @@ fn load_policy(root: &Path) -> Result<Policy, String> {
     let path = root.join(POLICY);
     let text = std::fs::read_to_string(&path)
         .map_err(|error| format!("read {}: {error}", path.display()))?;
-    let raw: Registry = toml::from_str(&text)
-        .map_err(|error| format!("parse {}: {error}", path.display()))?;
+    let raw: Registry =
+        toml::from_str(&text).map_err(|error| format!("parse {}: {error}", path.display()))?;
     if !(101..=500).contains(&raw.longest_option_correct.min_ratio_pct) {
         return Err(format!(
             "{POLICY}: longest_option_correct.min_ratio_pct must be 101..=500"
@@ -220,16 +217,20 @@ fn longest_option_correct(item: &BankItem, policy: &LongestPolicy) -> Result<boo
 enum GrammarCue {
     ArticleA,
     ArticleAn,
-    SingularVerb,
-    PluralVerb,
+    SingularPresent,
+    SingularPast,
+    PluralPresent,
+    PluralPast,
 }
 
 fn grammar_cue(stem: &str) -> Option<GrammarCue> {
     match words(stem).last()?.as_str() {
         "a" => Some(GrammarCue::ArticleA),
         "an" => Some(GrammarCue::ArticleAn),
-        word if SINGULAR_VERBS.contains(&word) => Some(GrammarCue::SingularVerb),
-        word if PLURAL_VERBS.contains(&word) => Some(GrammarCue::PluralVerb),
+        "is" | "has" | "does" => Some(GrammarCue::SingularPresent),
+        "was" => Some(GrammarCue::SingularPast),
+        "are" | "have" | "do" => Some(GrammarCue::PluralPresent),
+        "were" => Some(GrammarCue::PluralPast),
         _ => None,
     }
 }
@@ -240,8 +241,14 @@ fn agrees_with_cue(choice: &str, cue: GrammarCue) -> bool {
     match cue {
         GrammarCue::ArticleA => first == Some("a"),
         GrammarCue::ArticleAn => first == Some("an"),
-        GrammarCue::SingularVerb => first.is_some_and(|word| SINGULAR_VERBS.contains(&word)),
-        GrammarCue::PluralVerb => first.is_some_and(|word| PLURAL_VERBS.contains(&word)),
+        GrammarCue::SingularPresent => {
+            first == Some("is") || first == Some("has") || first == Some("does")
+        }
+        GrammarCue::SingularPast => first == Some("was"),
+        GrammarCue::PluralPresent => {
+            first == Some("are") || first == Some("have") || first == Some("do")
+        }
+        GrammarCue::PluralPast => first == Some("were"),
     }
 }
 
@@ -299,16 +306,37 @@ fn all_none_of_the_above(item: &BankItem, policy: &AllNonePolicy) -> bool {
     matches >= policy.min_matches
 }
 
-fn analyze_dir(dir: &Path, policy: &Policy, label: &str) -> Result<Findings, String> {
-    let bank = Bank::load_dir(dir)
-        .map_err(|error| format!("load {label} {}: {error}", dir.display()))?;
+fn analyze_dir(
+    dir: &Path,
+    policy: &Policy,
+    label: &str,
+    approved_only: bool,
+) -> Result<Findings, String> {
+    let mut toml_files = 0;
+    for entry in std::fs::read_dir(dir)
+        .map_err(|error| format!("read {label} {}: {error}", dir.display()))?
+    {
+        let entry = entry.map_err(|error| format!("read {label} {}: {error}", dir.display()))?;
+        if entry.path().extension().and_then(|ext| ext.to_str()) == Some("toml") {
+            toml_files += 1;
+        }
+    }
+    if toml_files == 0 {
+        return Err(format!(
+            "{label}: zero approved single-select items (vacuous scan)"
+        ));
+    }
+    let bank =
+        Bank::load_dir(dir).map_err(|error| format!("load {label} {}: {error}", dir.display()))?;
     let items = bank
         .items
         .values()
-        .filter(|item| item.is_approved() && item.kind.is_letter_form())
+        .filter(|item| (!approved_only || item.is_approved()) && item.kind.is_letter_form())
         .collect::<Vec<_>>();
     if items.is_empty() {
-        return Err(format!("{label}: zero approved single-select items (vacuous scan)"));
+        return Err(format!(
+            "{label}: zero approved single-select items (vacuous scan)"
+        ));
     }
     let mut findings = Findings::new();
     findings.counts.items_scanned = items.len();
@@ -383,13 +411,12 @@ fn sample_lines(label: &str, findings: &Findings) -> Vec<String> {
     names
         .iter()
         .enumerate()
-        .filter_map(|(index, name)| {
-            (!findings.samples[index].is_empty()).then(|| {
-                format!(
-                    "{label} sample {name}: {}",
-                    findings.samples[index].join(", ")
-                )
-            })
+        .filter(|(index, _)| !findings.samples[*index].is_empty())
+        .map(|(index, name)| {
+            format!(
+                "{label} sample {name}: {}",
+                findings.samples[index].join(", ")
+            )
         })
         .collect()
 }
@@ -399,13 +426,13 @@ fn evaluate_pair(root: &Path, require_damaged: bool) -> Eval {
         Ok(policy) => policy,
         Err(message) => return Eval::Error(message),
     };
-    let live = match analyze_dir(&root.join("bank/items"), &policy, "live-approved") {
+    let live = match analyze_dir(&root.join("bank/items"), &policy, "live-approved", true) {
         Ok(findings) => findings,
         Err(message) => return Eval::Error(message),
     };
     let damaged_path = root.join(DAMAGED_REL);
     let damaged = if damaged_path.is_dir() {
-        match analyze_dir(&damaged_path, &policy, "damaged-corpus") {
+        match analyze_dir(&damaged_path, &policy, "damaged-corpus", false) {
             Ok(findings) => Some(findings),
             Err(message) => return Eval::Error(message),
         }
@@ -490,8 +517,7 @@ mod tests {
         std::fs::create_dir_all(root.path().join("bank/items")).unwrap();
         std::fs::create_dir_all(root.path().join("registries")).unwrap();
         std::fs::copy(
-            Path::new(env!("CARGO_MANIFEST_DIR"))
-                .join("../../registries/construction_faults.toml"),
+            Path::new(env!("CARGO_MANIFEST_DIR")).join("../../registries/construction_faults.toml"),
             root.path().join(POLICY),
         )
         .unwrap();
@@ -504,7 +530,7 @@ mod tests {
     fn detector_rules_are_individually_exercised() {
         let root = fixture("bad");
         let policy = load_policy(&root).unwrap();
-        let findings = analyze_dir(&root.join("bank/items"), &policy, "bad").unwrap();
+        let findings = analyze_dir(&root.join("bank/items"), &policy, "bad", true).unwrap();
         assert_eq!(findings.counts.longest_option_correct, 1);
         assert_eq!(findings.counts.grammatical_disagreement, 1);
         assert_eq!(findings.counts.absolute_language_distractor, 1);

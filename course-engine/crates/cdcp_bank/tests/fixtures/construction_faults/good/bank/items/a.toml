@@ -1,0 +1,18 @@
+id = "construction-good-a"
+kind = "single-select"
+module = 1
+stem = "A facility review should consider:"
+choices = [
+  "facility load profile",
+  "facility cooling profile",
+  "facility security profile",
+  "facility maintenance profile",
+]
+correct = "A"
+explanation = "Each option has parallel wording and none carries an option-set shortcut."
+topic_ids = ["fixture-construction"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

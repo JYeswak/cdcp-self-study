@@ -1,0 +1,16 @@
+# Fixture-local copy of the production policy.
+
+[longest_option_correct]
+min_ratio_pct = 125
+min_extra_words = 3
+
+[grammatical_disagreement]
+min_disagreeing_distractors = 1
+
+[absolute_language_distractors]
+absolute_words = ["always", "never", "all", "none", "only"]
+hedge_words = ["can", "could", "generally", "may", "might", "often", "usually", "typically", "tends", "sometimes"]
+min_absolute_distractors = 1
+
+[all_none_of_the_above]
+min_matches = 1

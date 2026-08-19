@@ -1,0 +1,18 @@
+id = "construction-bad-absolute"
+kind = "single-select"
+module = 1
+stem = "A resilient operating practice:"
+choices = [
+  "usually permits planned maintenance",
+  "always prevents every outage",
+  "never requires review",
+  "only works in ideal conditions",
+]
+correct = "A"
+explanation = "The hedged key and absolute distractors make this an absolute-language fixture."
+topic_ids = ["fixture-construction"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

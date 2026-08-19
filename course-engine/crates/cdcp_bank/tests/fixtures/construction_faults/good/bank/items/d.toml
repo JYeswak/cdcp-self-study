@@ -1,0 +1,18 @@
+id = "construction-good-d"
+kind = "single-select"
+module = 1
+stem = "The design team evaluates:"
+choices = [
+  "design load register",
+  "design risk register",
+  "design access register",
+  "design review register",
+]
+correct = "D"
+explanation = "The item keeps all options structurally parallel without a test-wise shortcut."
+topic_ids = ["fixture-construction"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

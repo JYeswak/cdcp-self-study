@@ -1,0 +1,18 @@
+id = "construction-good-c"
+kind = "single-select"
+module = 1
+stem = "A response plan can improve:"
+choices = [
+  "response risk register",
+  "response access register",
+  "response readiness register",
+  "response review register",
+]
+correct = "C"
+explanation = "The choices are parallel and require the subject matter rather than a form cue."
+topic_ids = ["fixture-construction"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

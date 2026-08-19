@@ -1,0 +1,18 @@
+id = "construction-bad-longest"
+kind = "single-select"
+module = 1
+stem = "The selected response is:"
+choices = [
+  "A complete and technically justified response for the operating condition",
+  "Short",
+  "No",
+  "Later",
+]
+correct = "A"
+explanation = "The long keyed response is intentionally a construction-fault fixture."
+topic_ids = ["fixture-construction"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
