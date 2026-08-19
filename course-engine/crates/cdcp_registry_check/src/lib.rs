@@ -431,6 +431,107 @@ pub fn extract_markers(text: &str, prefix: &str, suffix: &str) -> Vec<String> {
     ids
 }
 
+fn markdown_table_row(line: &str) -> bool {
+    let trimmed = line.trim();
+    trimmed.matches('|').count() >= 2 && (trimmed.starts_with('|') || trimmed.ends_with('|'))
+}
+
+fn markdown_table_separator(line: &str) -> bool {
+    let cells = line
+        .split('|')
+        .map(str::trim)
+        .filter(|cell| !cell.is_empty())
+        .collect::<Vec<_>>();
+    cells.len() >= 2
+        && cells.iter().all(|cell| {
+            let cell = cell.trim_matches(':').trim();
+            cell.len() >= 3 && cell.chars().all(|ch| ch == '-' || ch.is_whitespace())
+        })
+}
+
+fn strip_inline_quoted_content(line: &str) -> String {
+    let mut out = String::with_capacity(line.len());
+    let mut closing_quote = None;
+    let mut escaped = false;
+    for ch in line.chars() {
+        if let Some(closing) = closing_quote {
+            if escaped {
+                escaped = false;
+            } else if ch == '\\' {
+                escaped = true;
+            } else if ch == closing {
+                closing_quote = None;
+            }
+            continue;
+        }
+
+        let opening = match ch {
+            '"' | '`' => Some(ch),
+            '“' => Some('”'),
+            '‘' => Some('’'),
+            '\'' if out
+                .chars()
+                .last()
+                .is_none_or(|previous| !previous.is_alphanumeric()) =>
+            {
+                Some('\'')
+            }
+            _ => None,
+        };
+        if let Some(closing) = opening {
+            closing_quote = Some(closing);
+        } else {
+            out.push(ch);
+        }
+    }
+    out
+}
+
+/// Return the authored-prose view used for load-bearing phrase matching.
+///
+/// Markdown tables, block quotes, fenced code, and inline quoted/code spans
+/// commonly carry copied curriculum data rather than claims made by the
+/// receipt author. Markers still scan the original text; only phrase-class
+/// matching uses this narrower view.
+pub fn authored_prose(text: &str) -> String {
+    let mut out = String::with_capacity(text.len());
+    let mut fenced = false;
+    let lines = text.lines().collect::<Vec<_>>();
+    let mut index = 0;
+    while index < lines.len() {
+        let line = lines[index];
+        let trimmed = line.trim_start();
+        if trimmed.starts_with("```") || trimmed.starts_with("~~~") {
+            fenced = !fenced;
+            index += 1;
+            continue;
+        }
+        if !fenced
+            && index + 1 < lines.len()
+            && line.contains('|')
+            && markdown_table_separator(lines[index + 1])
+        {
+            index += 2;
+            while index < lines.len() && lines[index].contains('|') {
+                index += 1;
+            }
+            continue;
+        }
+        if fenced
+            || trimmed.starts_with('>')
+            || markdown_table_row(line)
+            || markdown_table_separator(line)
+        {
+            index += 1;
+            continue;
+        }
+        out.push_str(&strip_inline_quoted_content(line));
+        out.push('\n');
+        index += 1;
+    }
+    out
+}
+
 pub fn validate_claims_lint(
     root: &Path,
     lint: &ClaimsLintFile,
@@ -522,8 +623,9 @@ pub fn validate_claims_lint(
         // Direction 2: load-bearing phrases need a must_cite marker in the same file
         let file_markers: BTreeSet<String> =
             extract_markers(&text, prefix, suffix).into_iter().collect();
+        let prose = authored_prose(&text);
         for (lb, re) in &patterns {
-            if re.is_match(&text) {
+            if re.is_match(&prose) {
                 let ok = lb.must_cite.iter().any(|c| file_markers.contains(c));
                 if !ok {
                     v.push(Violation::new(
@@ -809,6 +911,72 @@ mod tests {
                 "claim-domain-covered".to_string()
             ]
         );
+    }
+
+    fn grade_exact_lint(roots: Vec<String>) -> ClaimsLintFile {
+        ClaimsLintFile {
+            schema_version: 1,
+            scan: ScanConfig {
+                marker_prefix: "[[claim:".into(),
+                marker_suffix: "]]".into(),
+                roots,
+                extensions: vec![".md".into()],
+            },
+            exclude: vec![],
+            load_bearing: vec![LoadBearing {
+                id: "grade-exact".into(),
+                pattern: "(?i)byte-exact|GradeExact|grade digest|dual-path".into(),
+                must_cite: vec!["claim-grade-byte-exact".into()],
+            }],
+        }
+    }
+
+    fn grade_claim_ids() -> BTreeSet<String> {
+        ["claim-grade-byte-exact".to_string()].into_iter().collect()
+    }
+
+    #[test]
+    fn quoted_stem_in_markdown_table_is_not_a_grade_exact_claim() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        fs::write(
+            root.join("receipt.md"),
+            "id | stem\n--- | ---\nm06-q048 | \"A single-corded critical device in a dual-path hall often needs an STS because:\"\n",
+        )
+        .unwrap();
+        let lint = grade_exact_lint(vec!["receipt.md".into()]);
+        let violations = validate_claims_lint(root, &lint, &grade_claim_ids()).unwrap();
+        assert!(
+            violations.is_empty(),
+            "quoted table data was treated as authored prose: {violations:?}"
+        );
+    }
+
+    #[test]
+    fn authored_grade_exact_claim_without_marker_still_goes_red() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        fs::write(
+            root.join("README.md"),
+            "The grader emits byte-exact native and WASM output.\n",
+        )
+        .unwrap();
+        let lint = grade_exact_lint(vec!["README.md".into()]);
+        let violations = validate_claims_lint(root, &lint, &grade_claim_ids()).unwrap();
+        assert!(
+            violations.iter().any(|v| v.code == "load_bearing_uncited"),
+            "authored grade claim was not caught: {violations:?}"
+        );
+    }
+
+    #[test]
+    fn claims_lint_empty_scan_is_an_error() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        fs::create_dir(root.join("empty")).unwrap();
+        let lint = grade_exact_lint(vec!["empty".into()]);
+        let error = validate_claims_lint(root, &lint, &grade_claim_ids()).unwrap_err();
+        assert!(error.to_string().contains("0 files"), "{error}");
     }
 
     #[test]

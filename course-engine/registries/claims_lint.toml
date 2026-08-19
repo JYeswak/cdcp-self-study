@@ -73,34 +73,6 @@ reason = "Citation graph doctrine; domain_covered claimed in ORACLE-GAUNTLET"
 path = "docs/PLAN-N-INSTALLABILITY.md"
 reason = "Installability planning notes; quotes dual-path while reporting on the epic, not making a product honesty claim (bd-readme-public-rigor-8y0r)"
 
-[[exclude]]
-path = "docs/receipts/grounding-wave-classification.md"
-reason = "Quotes ~290 item stems verbatim while reporting ON a curriculum incident; makes no product claim. Tripped grade-exact on the phrase 'dual-path' inside a quoted stem about DUAL-PATH POWER TOPOLOGY (m06-q048), which is unrelated to the grader's native/WASM dual path. Adding claim-grade-byte-exact here would launder a grading claim into a curriculum receipt. Same rationale as docs/research/*."
-
-[[exclude]]
-path = "docs/receipts/grounding-wave-stemonly-classification.md"
-reason = "Quotes 142 item stems verbatim while reporting ON the incident; makes no product claim. Same quoted-stem false-positive class as the classification receipt."
-
-[[exclude]]
-path = "docs/receipts/grounding-wave-narrowed-review.md"
-reason = "Independent review quoting 130 item stems verbatim; reports ON classifications rather than making a product claim."
-
-[[exclude]]
-path = "docs/receipts/grounding-wave-inventory.md"
-reason = "Machine-generated inventory of rewritten stems; quotes stem text and asserts nothing about the grader."
-
-[[exclude]]
-path = "docs/receipts/grounding-wave-restore.md"
-reason = "Restoration log quoting original and replaced stems; reports ON repair work, makes no product claim."
-
-[[exclude]]
-path = "docs/receipts/grounding-wave-stemonly-restore.md"
-reason = "Restoration log for the stem-only batch; quotes stems, makes no product claim."
-
-[[exclude]]
-path = "docs/receipts/grounding-wave-residue-adjudication.md"
-reason = "Adjudication of residual flagged ids; quotes stems, makes no product claim."
-
 # Load-bearing phrase classes. If a non-excluded scanned file matches the
 # pattern, it must also contain at least one of must_cite markers.
 
