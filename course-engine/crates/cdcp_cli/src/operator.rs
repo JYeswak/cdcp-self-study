@@ -330,7 +330,7 @@ fn doctor_run(root: Option<&Path>, bind: &str, json: bool) -> Result<(), String>
                 .into(),
         );
     }
-    let root = resolve_root(root)?;
+    let root = resolve_doctor_root(root, authoring, json)?;
     let mut names: Vec<&'static str> = DOCTOR_CHECKS.to_vec();
     if authoring {
         names.extend_from_slice(DOCTOR_AUTHORING_CHECKS);
@@ -412,6 +412,32 @@ fn doctor_run(root: Option<&Path>, bind: &str, json: bool) -> Result<(), String>
         println!("doctor: {ran} check(s) passed");
     }
     Ok(())
+}
+
+/// Learner doctor must certify the installed layer, never a nearby source
+/// checkout discovered by the cwd walk. Authoring mode is the explicit escape
+/// hatch for source-tree probes; an implicit source fallback would turn a
+/// missing installed bundle into a confident green result.
+fn resolve_doctor_root(
+    explicit: Option<&Path>,
+    authoring: bool,
+    json: bool,
+) -> Result<PathBuf, String> {
+    let Some(_) = explicit else {
+        let resolved = cdcp_root::resolve_from_env(None).map_err(|e| e.to_string())?;
+        if !json {
+            println!("cdcp doctor: {}", resolved.announce());
+        }
+        if resolved.kind == cdcp_root::RootKind::SourceCheckout && !authoring {
+            return Err(format!(
+                "doctor resolved source-checkout root {} via {}; installed bundle root was not found",
+                resolved.path.display(),
+                resolved.via.as_str()
+            ));
+        }
+        return Ok(resolved.path);
+    };
+    Ok(explicit.expect("explicit root checked above").to_path_buf())
 }
 
 fn run_probe(name: &str, root: &Path, bind: &str) -> Result<String, String> {

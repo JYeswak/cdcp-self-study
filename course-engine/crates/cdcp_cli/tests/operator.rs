@@ -338,6 +338,49 @@ fn doctor_on_an_empty_tree_is_error_naming_what_is_missing() {
     let _ = fs::remove_dir_all(&empty);
 }
 
+/// KNOWN-BAD: an installed bundle missing from a source-tree cwd must not let
+/// learner doctor certify the source checkout instead.
+#[test]
+fn doctor_rejects_implicit_source_checkout_fallback() {
+    let home = uniq("source-fallback-home");
+    let xdg = uniq("source-fallback-xdg");
+    fs::create_dir_all(&home).expect("mkdir home");
+    fs::create_dir_all(&xdg).expect("mkdir xdg");
+
+    let assert = cdcp()
+        .env("HOME", &home)
+        .env("XDG_DATA_HOME", &xdg)
+        .env_remove("CDCP_HOME")
+        .env_remove("CDCP_DEV")
+        .args(["doctor", "--bind", "127.0.0.1:0"])
+        .assert()
+        .failure();
+    let combined = format!(
+        "{}\n{}",
+        String::from_utf8_lossy(&assert.get_output().stdout),
+        String::from_utf8_lossy(&assert.get_output().stderr)
+    );
+    assert!(
+        combined.contains("source-checkout"),
+        "must name found kind: {combined}"
+    );
+    assert!(
+        combined.contains("cwd-walk"),
+        "must name resolution reason: {combined}"
+    );
+    assert!(
+        combined.contains(&workspace_root().display().to_string()),
+        "must name found source root: {combined}"
+    );
+    assert!(
+        combined.contains("installed bundle root was not found"),
+        "must name the missing installed layer: {combined}"
+    );
+
+    let _ = fs::remove_dir_all(&home);
+    let _ = fs::remove_dir_all(&xdg);
+}
+
 /// KNOWN-BAD: delete the wasm artifact → doctor RED naming the absolute path.
 #[test]
 fn doctor_red_when_wasm_artifact_is_deleted() {
