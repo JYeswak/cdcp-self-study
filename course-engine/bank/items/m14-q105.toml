@@ -5,7 +5,7 @@
 id = "bank-m14-q105"
 kind = "single-select"
 module = 14
-stem = "In data-centre auxiliary-system usage, EMS most nearly means:"
+stem = "In this course's data-centre auxiliary-monitoring taxonomy, EMS most nearly means:"
 choices = [
   "Environmental monitoring of IT space temperature, humidity, and leaks",
   "Energy market settlement and utility tariff reconciliation for the site",

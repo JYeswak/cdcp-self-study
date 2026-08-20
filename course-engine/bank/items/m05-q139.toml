@@ -12,7 +12,7 @@ choices = [
   "An energy-management feature that dims the hall during unoccupied hours",
   "A means of deferring the monthly generator load test when records are current",
   "Life-safety provision for egress when normal lighting fails",
-  "A supplementary source that raises average illuminance during maintenance windows",
+  "A general task-lighting source that replaces normal lighting during maintenance windows",
 ]
 correct = "C"
 explanation = "Emergency lighting provides egress life safety when normal lighting fails; it is not an energy-management mode, generator-test substitute, or general maintenance illumination."
