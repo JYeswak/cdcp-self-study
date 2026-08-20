@@ -813,7 +813,7 @@
     "choices": [
       "A camera may approve an open door when the operations team documents the reason and monitors it",
       "Defeats fire compartmentation and is a serious life-safety/security failure mode",
-      "Improves ASD sampling automatically when the door is propped during operations near the protected zone",
+      "Can improve ASD sampling automatically when the door is propped during operations near the protected zone",
       "Supports mantrap interlocks during access"
     ],
     "citation_ids": [],
@@ -3408,7 +3408,7 @@
     "bloom": "remember",
     "choices": [
       "Whether racks are grounded",
-      "Whether electricity is used, since the facility model is defined by business ownership rather than physical services",
+      "Whether electricity can be used, since the facility model is defined by business ownership rather than physical services",
       "Whether fire detection follows ownership and tenancy rather than facility requirements",
       "Ownership models can differ in multi-tenancy, scale economics, and governance boundaries"
     ],
@@ -4103,7 +4103,7 @@
       "Practitioners must check which document is adopted or specified in that jurisdiction and project",
       "Only U.S. documents exist",
       "National always means weaker, so a practitioner can select the international document without checking adoption, jurisdiction, or project specification",
-      "International always voids local law"
+      "International standards may replace local law without an adoption decision"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -4767,7 +4767,7 @@
     "bloom": "understand",
     "choices": [
       "Keep Availability Class, TIA Rated, and Uptime Tier distinct; there is no Class 3 = Rated-3 = Tier III conversion",
-      "Protection Class is the converter between Rated and Tier, because protection and topology are one rating lattice",
+      "Protection Class may be the converter between Rated and Tier, because protection and topology are one rating lattice",
       "Class 3 is TIA’s new name for Uptime Tier III after the 942-C rename, so the newer label makes the frameworks equivalent",
       "Finish the conversion: Availability Class is the official translator that makes Rated-3 equal Tier III, so the labels can be swapped in the contract"
     ],
@@ -5969,7 +5969,7 @@
       "BTM is a site type; walk away if land, fuel or gas, or permits cannot host the plant",
       "A later generator add-on you specify in this module (ATS sequence, UPS ride-through, islanding)",
       "Proof the site has no grid risk, so interconnect can be ignored even when the proposed plant needs export, backup, or black-start capability",
-      "Another name for two utility laterals landed on opposite corners of the hall"
+      "Another name for two utility laterals that can be landed on opposite corners of the hall"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -9786,7 +9786,7 @@
   {
     "bloom": "apply",
     "choices": [
-      "Both trains must be powered down together during planned work",
+      "Both trains can be powered down together during planned work",
       "Load can continue on an independent path",
       "Battery impedance testing is required instead of path maintenance",
       "PUE must drop below 1.0 before maintenance proceeds"
@@ -12579,7 +12579,7 @@
     "choices": [
       "Rear/side vertical space without using horizontal U",
       "Only as 2U horizontal shelves in the middle of servers",
-      "In a separate plant-side enclosure because rack PDUs cannot share cabinet space",
+      "In a separate plant-side enclosure because rack PDUs can serve the plant rather than the rack",
       "In the return-air path so the PDU can use the plenum instead of a rack channel"
     ],
     "citation_ids": [],
@@ -13834,7 +13834,7 @@
       "Has no fans, even when the unit must move air",
       "Cools using pure nitrogen rather than a refrigerant circuit",
       "Can use a compressor and refrigerant circuit",
-      "Eliminates the need for outdoor heat rejection"
+      "May eliminate the need for outdoor heat rejection"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -13980,7 +13980,7 @@
     "bloom": "understand",
     "choices": [
       "Using evaporation so leaving water can approach wet-bulb-limited conditions",
-      "Using evaporation to eliminate makeup-water and treatment planning",
+      "Using evaporation may eliminate makeup-water and treatment planning",
       "Replacing chillers with fiber switches, not heat-rejection equipment",
       "Heating the condenser water as a deliberate efficiency strategy"
     ],
@@ -16195,7 +16195,7 @@
       "Quality, availability, or treatment failures can force cooling derates or shutdowns",
       "Treat tower makeup as a domestic-service concern because the recirculating loop is closed",
       "Treat process water as an electrical input to the UPS rather than a heat-rejection or humidity-control input",
-      "Treat cooling-water planning as a substitute for separate fire-water planning"
+      "Treat cooling-water planning as something that can substitute for separate fire-water planning"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -16240,7 +16240,7 @@
   {
     "bloom": "understand",
     "choices": [
-      "Count stored volume as resilience even when it cannot reach the cooling process",
+      "Stored volume can count as resilience even when it cannot reach the cooling process",
       "Treat stored water as a replacement for chillers and plant-capacity planning",
       "Bridge utility water interruptions so heat rejection can continue within design intent",
       "Use cooling backup water as fire-water without checking separation, quality, or demand"
@@ -19039,7 +19039,7 @@
     "choices": [
       "Fibre dust can ignite in a controlled enclosure without an electrical source",
       "Electrical faults, hot work, and combustible storage/materials in technical spaces",
-      "Low-temperature LED lighting causes most technical-space fire incidents when electrical protection is properly maintained",
+      "Low-temperature LED lighting may cause most technical-space fire incidents when electrical protection is properly maintained",
       "Empty cable trays provide the primary combustible load"
     ],
     "citation_ids": [],

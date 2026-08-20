@@ -276,6 +276,7 @@ dependencies = [
  "cdcp_evidence",
  "hex",
  "sha2",
+ "tempfile",
  "thiserror 1.0.69",
  "toml",
 ]
@@ -298,6 +299,7 @@ version = "0.1.0"
 dependencies = [
  "cdcp_anki",
  "cdcp_bank",
+ "cdcp_data",
  "cdcp_learn",
  "cdcp_registry_check",
  "cdcp_root",

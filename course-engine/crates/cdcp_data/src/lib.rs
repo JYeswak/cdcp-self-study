@@ -32,6 +32,7 @@ mod data_lock;
 mod gen_lock;
 mod oracle;
 mod osha;
+mod pack_freshness;
 mod quantities;
 pub use corpus::{
     dry_run_request, fetch_corpus, load_sources, parse_sources, plan_sources, today_utc_ymd,
@@ -67,6 +68,7 @@ pub use osha::{
     OshaFault, OshaReport, BACKFEED_TEST, CONTROL_DEVICES_NOT_ISOLATION, DEENERGIZE_FIRST,
     EXCLUSION_147, ISOLATION_CONSTRAINTS, SNAP_147, SNAP_269, SNAP_333,
 };
+pub use pack_freshness::{evaluate_pack_freshness, PackFreshnessReport, REQUIRED_PACKS};
 pub use quantities::{
     degree_days, free_cooling_hours, grid_co2_lb_per_mwh, interpolate_seismic, QuantityError,
     Seismic, DEGREE_DAY_BASE_C, FREE_COOLING_THRESHOLD_C, LB_PER_SHORT_TON,

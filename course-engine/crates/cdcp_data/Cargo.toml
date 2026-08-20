@@ -15,3 +15,4 @@ toml = { workspace = true }
 
 [dev-dependencies]
 cdcp_evidence = { workspace = true }
+tempfile = "3"

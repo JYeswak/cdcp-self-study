@@ -1,6 +1,6 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "890e1c7407e606b3a141a48015e0f746bce48f0344b21f598e5592e88fb43938",
+  "bank_hash": "4320c3fb89a2000b4aae09406db63eb2a6f5f82034a4e868e0c6a705a39c5f60",
   "exam_id": "mock40",
   "items": [
     {
@@ -167,7 +167,7 @@
       "choices": [
         "Rear/side vertical space without using horizontal U",
         "Only as 2U horizontal shelves in the middle of servers",
-        "In a separate plant-side enclosure because rack PDUs cannot share cabinet space",
+        "In a separate plant-side enclosure because rack PDUs can serve the plant rather than the rack",
         "In the return-air path so the PDU can use the plenum instead of a rack channel"
       ],
       "id": "m08-q053",
