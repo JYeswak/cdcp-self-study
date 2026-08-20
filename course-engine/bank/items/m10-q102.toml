@@ -10,7 +10,7 @@ choices = [
   "Decorate the landscape without supporting any cooling or resilience function",
   "Replace every chiller with storage tanks alone, eliminating mechanical heat rejection and any need to manage plant capacity",
   "Bridge utility water interruptions so heat rejection can continue within design intent",
-  "Feed fire sprinklers only, with no connection to cooling-plant operation"
+  "Feed the fire sprinkler risers, which share no connection with the cooling plant",
 ]
 correct = "C"
 explanation = "Stored or alternate water sources support cooling continuity when municipal supply is interrupted."
