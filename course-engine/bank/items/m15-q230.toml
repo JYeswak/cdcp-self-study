@@ -25,7 +25,7 @@ choices = [
   "The permit originator declares the equipment ready for normal use, so return to service is authorised by the permit"
 ]
 correct = "D"
-explanation = "HSE's permits-to-work guidance states that before equipment or machinery is put back into service, it will require a declaration from the permit originator that it is ready for normal use. That is the hand-back step, and it is a property of the permit, not of the work being finished: 'the job is done' and 'the plant may be returned to service' are two different authorisations. An escort signature (A) records site access, not plant condition — an escort never replaces a permit. A contractor sign-off (C) is the party carrying out the work declaring their own completion, which is not the originator's declaration. A verbal all-clear (D) leaves no documented declaration at all, and the permit is a documented procedure by definition."
+explanation = "Before return to service, the permit originator must declare the equipment ready for normal use; finishing the job, an escort's visitor record, or the contractor's own completion does not authorize plant hand-back, and a verbal all-clear leaves no documented declaration. HSE permits-to-work guidance supports this separation."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "apply"

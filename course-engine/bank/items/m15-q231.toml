@@ -25,7 +25,7 @@ choices = [
   "Re-issue of a fresh permit to the oncoming parties, because the original permit lapses with the shift that raised it"
 ]
 correct = "A"
-explanation = "HSE's permits-to-work guidance states that the permit requires declarations from the people authorising the work and the people carrying it out, and that where necessary it requires a declaration from those involved in shift handover procedures or extensions to the work. So the handover is recorded on the permit, by declaration, from both sides — the permit is the artefact that spans the boundary. A verbal briefing (B) is an operations practice and leaves the permit unchanged; the general handover log is not the permit. Re-issuing a fresh permit (C) treats the permit as expiring with the shift, which the guidance does not require and which would break continuity of the precautions. An extension (D) is a real instrument in the same clause, but it addresses the time window, not the change of parties — here the people are changing, not merely the duration. Note the scope: this clause covers a permit that spans a shift. It does not certify a general shift-handover programme."
+explanation = "At shift change, the people authorizing and carrying out the work must declare the handover on the existing permit; a verbal briefing or general log leaves the permit unchanged, a fresh permit breaks continuity, and an extension changes duration rather than parties. HSE permits-to-work guidance supports this boundary."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "apply"

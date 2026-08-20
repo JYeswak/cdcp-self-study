@@ -13,7 +13,7 @@ choices = [
   "Should never be updated after day one"
 ]
 correct = "C"
-explanation = "As-builts and living diagrams prevent operating from fiction."
+explanation = "As-builts record the facility after changes and must stay living; treating the original brochure as permanent or never updating the record leaves responders and maintainers with false paths."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "understand"

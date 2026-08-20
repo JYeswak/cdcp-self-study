@@ -13,7 +13,7 @@ choices = [
   "Blow dust freely into CRAH intakes with unfiltered air movers always"
 ]
 correct = "B"
-explanation = "Wrong cleaning methods can create the contamination problem they aim to solve."
+explanation = "Particulate-controlled vacuums and procedures keep dust from redistributing onto IT gear; blowing it into CRAH intakes or ignoring ESD rules turns cleaning into contamination."
 topic_ids = ["m15-cleaning"]
 objective_ids = []
 bloom = "apply"
