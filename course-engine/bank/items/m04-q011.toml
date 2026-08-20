@@ -10,7 +10,7 @@ kind = "single-select"
 module = 4
 stem = "Removing floor tiles in a cold-aisle supply design without a plan often:"
 choices = [
-  "Improves global pressure balance always",
+  "Improves global pressure balance in the affected zone",
   "Can short-circuit supply air and starve distant racks",
   "Increases battery autonomy",
   "Disables the BMS",

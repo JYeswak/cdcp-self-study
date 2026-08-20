@@ -7,7 +7,7 @@ kind = "single-select"
 module = 4
 stem = "Row 18 is in cooling alarm. The walkdown finds one pulled tile two aisles away in an underfloor-supply hall. The diagnostic is:"
 choices = [
-  "The alarm can only be local; a missing tile cannot starve a row that is not next to the hole",
+  "The alarm is local; a missing tile cannot starve a distant row",
   "Raise the CRAH setpoint here; Module 04 owns the plant and containment",
   "Diagnose the leak: the missing tile dumps plenum static so distant perforated tiles deliver less air — monitoring can alarm on a row that is not even next to the opening",
   "The hall failed a universal 250 psf statute; raise the number and the alarm clears",
