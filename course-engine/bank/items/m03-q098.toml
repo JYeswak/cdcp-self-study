@@ -17,7 +17,7 @@ choices = [
   "Paint shear strength determines structural site risk",
 ]
 correct = "C"
-explanation = "Seismic/geotech risk drives structure and anchorage and can eliminate a candidate site."
+explanation = "Seismic and geotechnical risk drives structural design, equipment anchorage, and sometimes rejection of the parcel; furniture catalogues, paint strength, and dual UPS do not resolve ground motion."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "apply"

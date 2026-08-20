@@ -15,7 +15,7 @@ choices = [
   "Number of conference rooms",
 ]
 correct = "B"
-explanation = "Utility diversity depends on independent substations/feeds and workable rights-of-way; those site constraints determine whether supposedly separate paths are actually separate within the site-selection topic."
+explanation = "Electrical diversity depends on independent substations or feeds plus rights-of-way that can reach the site; cladding, artwork, and conference-room count do not make two utility paths independent."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "apply"

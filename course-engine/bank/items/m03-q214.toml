@@ -16,7 +16,7 @@ choices = [
   "This year’s published gigawatt request-book total decides the site without a project-specific queue position, study, or security posting",
 ]
 correct = "B"
-explanation = "Dual-feed lead times stay real. They do not answer whether the large-load interconnection happens. Ask position, studies, security, and years. Do not memorize a request-book figure."
+explanation = "The feeder lead-time quote does not prove energization; queue position, study phases, security, and a realistic date determine the interconnection path, not a generic request-book total or a signed slab."
 topic_ids = ["m03-site-selection"]
 objective_ids = ["obj-m03-interconnect-queue"]
 bloom = "understand"

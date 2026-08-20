@@ -15,7 +15,7 @@ choices = [
   "Security screening exists",
 ]
 correct = "C"
-explanation = "A site can have carriers and utilities yet fail resilience if deed restrictions, easements, or landlord constraints block fuel or antenna rights; those are site-selection constraints."
+explanation = "The campus can have diverse carriers and adequate loading yet fail if easements, deed restrictions, or landlord rules block fuel or antenna rights; utility access alone does not remove those legal constraints."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "apply"

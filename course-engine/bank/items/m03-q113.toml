@@ -15,7 +15,7 @@ choices = [
   "AHJs forbid expansion always",
 ]
 correct = "C"
-explanation = "Growth rights and spare capacity envelopes prevent premature site obsolescence."
+explanation = "Future land or floor-plate options preserve room for long-lead power, cooling, and space upgrades; software licences, a no-growth assumption, or an AHJ prohibition do not solve physical expansion."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "apply"

@@ -15,7 +15,7 @@ choices = [
   "Adequate clear height",
 ]
 correct = "C"
-explanation = "Without plant and ops support spaces, white-space design is not operationally complete."
+explanation = "The facility is incomplete without secure, maintainable space for mechanical and electrical plant and operating staff; documented procedures and dual paths help but cannot substitute for the missing physical support envelope."
 topic_ids = ["m03-supporting-facilities"]
 objective_ids = []
 bloom = "understand"

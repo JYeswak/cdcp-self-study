@@ -15,7 +15,7 @@ choices = [
   "Fuel logistics are purely a marketing concern"
 ]
 correct = "B"
-explanation = "On-site generation is only useful if space, fuel, and access logistics are designed in."
+explanation = "Long utility loss makes generator space, fuel storage, delivery access, and resupply paths part of supporting-facility design; a generator does need fuel, and the yard is not a marketing or barbecue area."
 topic_ids = ["m03-supporting-facilities", "m03-facility-criteria"]
 objective_ids = []
 bloom = "apply"

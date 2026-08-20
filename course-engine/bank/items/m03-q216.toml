@@ -16,7 +16,7 @@ choices = [
   "Another name for two utility laterals landed on opposite corners of the hall",
 ]
 correct = "A"
-explanation = "BTM is how the hall energizes, not a genset you tack on later. Point at Module 01 for the noun and Module 06 for the path. Do not steal UPS/ATS/generator internals."
+explanation = "Behind-the-meter describes the site’s energization model, so the parcel must host land, fuel or gas, and permits; it is not a later ATS detail, proof of no grid risk, or a synonym for two utility laterals."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = ["obj-m03-btm-campus"]
 bloom = "understand"

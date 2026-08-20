@@ -16,7 +16,7 @@ choices = [
   "Dual-cord servers, which replace water rights and queue position because endpoint redundancy resolves every campus-level constraint",
 ]
 correct = "B"
-explanation = "Speak power + water rights + fiber + queue. Type nouns live in Module 01. Do not invent a psf statute or treat PUE as a site score."
+explanation = "AI-campus site review must score power, water rights, fibre, and queue evidence; brochure labels, endpoint dual cords, and an invented floor statute or PUE target do not resolve campus constraints."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = ["obj-m03-aifactory-site-criteria"]
 bloom = "understand"

@@ -16,7 +16,7 @@ choices = [
   "It sets lux levels",
 ]
 correct = "C"
-explanation = "Logistics and emergency access are site-level operability factors."
+explanation = "Road access supports fuel and equipment deliveries and emergency response; IP subnet size, packet travel, and lux levels are not transportation criteria."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "understand"

@@ -17,7 +17,7 @@ choices = [
   "Only wireless signal strength",
 ]
 correct = "B"
-explanation = "Water events can disable yards, fuel, switchgear, and building integrity—critical site criteria."
+explanation = "Flooding and storm surge can disable plant yards, fuel systems, switchgear, access, and the building envelope; an indoor raised floor cannot protect outdoor plant, and the risk is not merely landscaping or wireless signal."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

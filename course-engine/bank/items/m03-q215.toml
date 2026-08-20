@@ -16,7 +16,7 @@ choices = [
   "Specify a larger UPS/ATS/generator string here",
 ]
 correct = "A"
-explanation = "Utility A and B on the building is not dual path and is not an interconnection agreement. Diagnose the missing queue. Do not steal Module 06’s UPS/ATS/gen lesson."
+explanation = "Two utility labels and a feeder lead-time SKU do not prove independent energization; the missing queue position, interconnection study, and financial security are the site decision, not a larger UPS or a wall of laterals."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = ["obj-m03-interconnect-queue"]
 bloom = "analyze"

@@ -16,7 +16,7 @@ choices = [
   "Indoor problems a raised floor converts into non-events, including flood and long fiber cuts, so external site constraints need no review",
 ]
 correct = "A"
-explanation = "The grid got worse as an input; fiber cuts are long-duration IT-service events. Do not invent an outage percentage. Walk OSP (Module 11). Raised floor is not flood control."
+explanation = "Marketing megawatts and carrier logos are not interconnection or path evidence, so water rights, physical OSP diversity, and queue position remain open; an invented outage percentage or raised floor does not close those site risks."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = ["obj-m03-aifactory-site-criteria"]
 bloom = "apply"

@@ -15,7 +15,7 @@ choices = [
   "Raising ceiling clear height automatically",
 ]
 correct = "C"
-explanation = "Poor logistics spaces create handling risk and operational friction for installs and maintenance."
+explanation = "Weak loading and staging create unsafe moves, delayed installation, and blocked emergency routes; they do not improve change success, utility diversity, or clear height."
 topic_ids = ["m03-supporting-facilities"]
 objective_ids = []
 bloom = "apply"

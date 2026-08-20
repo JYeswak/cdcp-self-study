@@ -15,7 +15,7 @@ choices = [
   "Emergency light colour only",
 ]
 correct = "C"
-explanation = "Structural floor capacity constrains where dense/heavy equipment can sit."
+explanation = "Slab loading limits where heavy IT, batteries, and cooling equipment can be installed without reinforcement; software licences, DNS settings, and light colour do not carry structural load."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "remember"

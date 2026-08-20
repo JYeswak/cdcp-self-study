@@ -16,7 +16,7 @@ choices = [
   "Design compromises on cooling plant placement, capacity, or even site rejection",
 ]
 correct = "D"
-explanation = "Heat rejection real estate is a hard facility constraint on cooling architecture."
+explanation = "Limited roof or yard area can constrain cooling-plant placement, capacity, and maintenance access enough to reject the site; it cannot create unlimited chillers, utility feeds, or a fire-detection exemption."
 topic_ids = ["m03-facility-criteria", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "apply"

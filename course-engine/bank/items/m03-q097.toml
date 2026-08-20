@@ -15,7 +15,7 @@ choices = [
   "A single shared restroom with no other spaces",
 ]
 correct = "C"
-explanation = "Operable sites need yards, logistics, and ops spaces—not just white space aesthetics."
+explanation = "Supporting facilities include generator and fuel yards, loading or staging, utility intake, and security or NOC spaces; executive artwork, posters, and a lone restroom do not make a site operable."
 topic_ids = ["m03-supporting-facilities"]
 objective_ids = []
 bloom = "remember"

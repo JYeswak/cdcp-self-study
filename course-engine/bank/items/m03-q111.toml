@@ -17,7 +17,7 @@ choices = [
   "Only social media check-ins",
 ]
 correct = "A"
-explanation = "Short-listing is driven by infrastructure rights and hazards, not finishes."
+explanation = "Early short-listing weighs utility and network rights, hazards, climate, logistics, and legal constraints before finishes; carpet, vending machines, and social-media activity do not establish site feasibility."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "remember"

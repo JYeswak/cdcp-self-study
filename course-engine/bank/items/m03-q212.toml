@@ -14,7 +14,7 @@ choices = [
   "Modular expansion provisions"
 ]
 correct = "A"
-explanation = "Growth is gated by expandable utilities and space, not only initial rack count."
+explanation = "Expandable power, cooling, white-space, and plant real estate preserve growth; extra conduits and modular provisions help rather than limit it, while initial rack count alone is not the future constraint."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "analyze"

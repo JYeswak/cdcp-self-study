@@ -15,7 +15,7 @@ choices = [
   "Adequate truck turning radii",
 ]
 correct = "C"
-explanation = "Neighbouring hazards can impose contamination, vibration, or blast risks on continuous operations."
+explanation = "Industrial adjacency can introduce contamination, vibration, or explosion risk that requires mitigation or site rejection; diverse carriers, utility corridors, and truck access are positive site attributes rather than that hazard."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "understand"

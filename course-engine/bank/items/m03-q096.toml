@@ -15,7 +15,7 @@ choices = [
   "Badge printer toner choice",
 ]
 correct = "B"
-explanation = "Vertical clearances constrain cooling architecture, cable plant, and equipment handling."
+explanation = "Floor-to-floor and clear height constrain air distribution, cable pathways, and equipment handling; diesel chemistry and badge-printer supplies do not determine that structural envelope."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

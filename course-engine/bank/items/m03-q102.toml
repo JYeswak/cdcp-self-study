@@ -16,7 +16,7 @@ choices = [
   "Fibre optics need daily washing",
 ]
 correct = "C"
-explanation = "Water-cooled designs depend on sustainable makeup water—both volume and chemistry/quality."
+explanation = "Water-cooled plant needs reliable makeup-water quantity and quality; UPS batteries, fibre optics, and direct server consumption are not the cooling-tower site dependency."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

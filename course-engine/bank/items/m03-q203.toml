@@ -17,7 +17,7 @@ choices = [
   "Critical IT availability can depend on these external and campus support systems remaining functional"
 ]
 correct = "D"
-explanation = "The white space fails if fuel, water, connectivity, or security support fails."
+explanation = "Fuel, water, telecom entry, and security perimeter are supporting systems whose failure can remove IT availability; they are not optional landscaping, rack-only risk, or maintenance-free details."
 topic_ids = ["m03-supporting-facilities", "m03-facility-criteria"]
 objective_ids = []
 bloom = "remember"

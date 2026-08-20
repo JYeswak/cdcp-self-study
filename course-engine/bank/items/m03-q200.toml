@@ -14,7 +14,7 @@ choices = [
   "Raised floors make flooding irrelevant everywhere"
 ]
 correct = "A"
-explanation = "Site hydrology risk threatens multi-system availability and recovery time."
+explanation = "Flood history can disable power, cooling, access, and life-safety systems together, extending recovery; water is not protective insulation, insurance is not automatically unaffected, and a raised floor is not universal flood control."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "understand"

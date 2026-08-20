@@ -19,7 +19,7 @@ choices = [
   "Calculate UPS/ATS autonomy in M03; the site module owns the power-path response and no curtailment procedure is needed",
 ]
 correct = "B"
-explanation = "ERCOT’s April 2026 interconnection update is a queue/process snapshot, while its April 2026 System Operations Update describes a Large Load Curtailment Manager for specified categories and says the example triggers were not finalized. Surface the site-specific constraint; M15 EOP 4 owns the operating response. Do not generalize it to every BTM site or ISO."
+explanation = "The qualifying BTM arrangement can still carry category-specific curtailment, so reject an unrestricted-dispatch claim and hand the action to the operating procedure; a queue statistic or UPS sizing exercise does not define this site’s trigger."
 topic_ids = ["m03-site-selection"]
 objective_ids = ["obj-m03-interconnect-queue"]
 citation_ids = ["src-epi-cdcp-page", "src-ercot-interconnection-grid-analysis-2026-04-20", "src-ercot-system-operations-large-load-curtailment-2026-04-20"]

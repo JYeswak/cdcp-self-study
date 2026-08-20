@@ -14,7 +14,7 @@ choices = [
   "Zero electromagnetic environment"
 ]
 correct = "B"
-explanation = "Transportation corridors bring external incident and environmental risk factors."
+explanation = "Airports, rail, and highways can introduce accident, vibration, pollution, and emergency-access interference; a nearby corridor does not guarantee fibre, a facility rating, or a clean electromagnetic environment."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "apply"

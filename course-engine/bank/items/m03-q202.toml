@@ -15,7 +15,7 @@ choices = [
   "Structural loading, clearances, delivery paths, and service access for large equipment",
 ]
 correct = "D"
-explanation = "Plant installability and maintainability hinge on structure, access, and clearances."
+explanation = "Heavy plant needs structural capacity, clearances, delivery routes, and service access for installation and maintenance; cladding, coffee, and parking stickers do not carry or service that equipment."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

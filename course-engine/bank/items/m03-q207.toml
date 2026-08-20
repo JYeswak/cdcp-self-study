@@ -16,7 +16,7 @@ choices = [
   "Reducing correlated communications failure risk for the campus"
 ]
 correct = "D"
-explanation = "Diverse carrier entrances reduce single-path connectivity risk into the facility."
+explanation = "Multiple telecom paths and diverse Points of Entry reduce correlated communications failure into the campus; they do not remove internal network design, physical security, or cooling requirements."
 topic_ids = ["m03-supporting-facilities", "m03-site-selection"]
 objective_ids = []
 bloom = "understand"

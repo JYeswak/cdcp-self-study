@@ -16,7 +16,7 @@ choices = [
   "Remote sites with poor access can lengthen recovery and complicate 24×7 operations"
 ]
 correct = "D"
-explanation = "Operations and incident response depend on people and external services reaching the site."
+explanation = "Remote sites with poor roads or distant services can lengthen recovery and complicate 24×7 staffing; automation does not make emergency response, catering, or road access irrelevant."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "apply"

@@ -16,7 +16,7 @@ choices = [
   "Using 19-inch racks",
 ]
 correct = "B"
-explanation = "True dual utility needs independent upstream paths, not two cables on one geographic feed."
+explanation = "Dual-utility feasibility depends on genuinely independent upstream paths and workable geography; lobby colour, meeting rooms, and rack format do not create a second utility feed."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "apply"

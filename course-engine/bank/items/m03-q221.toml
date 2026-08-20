@@ -19,7 +19,7 @@ choices = [
   "Quote the regional interconnection queue volume as the site's guaranteed curtailment exposure, instead of confirming the site's category and agreement",
 ]
 correct = "A"
-explanation = "ERCOT’s April 2026 operations update describes curtailment instructions for specified large-load categories, including net-metering/co-located arrangements, but does not establish one universal trigger or exposure for every BTM site. M03 surfaces the site and agreement constraint; M15 EOP 4 owns the response sequence."
+explanation = "The site review records any agreement-specific curtailment trigger and hands the action sequence to M15 EOP 4; it does not treat curtailment as proof the queue failed, assume automatic islanding, or substitute regional queue volume for the site agreement."
 topic_ids = ["m03-site-selection"]
 objective_ids = ["obj-m03-btm-campus"]
 citation_ids = ["src-epi-cdcp-page", "src-ercot-interconnection-grid-analysis-2026-04-20", "src-ercot-system-operations-large-load-curtailment-2026-04-20"]

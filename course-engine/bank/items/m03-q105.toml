@@ -15,7 +15,7 @@ choices = [
   "Badge colours",
 ]
 correct = "C"
-explanation = "Climate and free-cooling potential affect HVAC energy, plant options, and outdoor design conditions used for capacity; the syllabus places this reasoning under site location selection criteria."
+explanation = "Climate and free-cooling potential shape HVAC energy, plant options, and outdoor design conditions; murals, USB lengths, and badge colours do not determine the cooling envelope."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

@@ -16,7 +16,7 @@ choices = [
   "Envelope, cooling plant sizing envelopes, and outdoor equipment survival requirements",
 ]
 correct = "D"
-explanation = "Outdoor design conditions shape envelope and heat-rejection plant design."
+explanation = "Temperature, humidity, snow, and wind set envelope, cooling-plant sizing, and outdoor-equipment survival requirements; they are not only paint choices, code exemptions, or an indoor copper-versus-fibre decision."
 topic_ids = ["m03-facility-criteria", "m03-site-selection"]
 objective_ids = []
 bloom = "remember"

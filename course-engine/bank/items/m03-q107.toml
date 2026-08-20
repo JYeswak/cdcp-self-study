@@ -16,7 +16,7 @@ choices = [
   "BGP AS number",
 ]
 correct = "C"
-explanation = "People need operable spaces for monitoring, security, spares, and maintenance."
+explanation = "Human operations require suitable NOC, security, storage, and maintenance spaces; a hypervisor SKU, CPU speed, or BGP number describes IT rather than the staff environment."
 topic_ids = ["m03-supporting-facilities", "m03-facility-criteria"]
 objective_ids = []
 bloom = "remember"

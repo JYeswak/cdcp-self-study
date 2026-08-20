@@ -15,7 +15,7 @@ choices = [
   "The site cannot host the plant, so BTM is not a credible energization story",
 ]
 correct = "D"
-explanation = "Walk when the plant has no land/fuel/permit path, or when BTM is sold as immunity. Interconnect often remains. Module 06 for the path; flood is not cured by a raised floor."
+explanation = "Without land, fuel or gas, and permits the BTM plant cannot be hosted, and BTM does not mean immunity from grid or interconnection constraints; a raised floor and a UPS one-line do not cure that missing site path."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = ["obj-m03-btm-campus"]
 bloom = "apply"

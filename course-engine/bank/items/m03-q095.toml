@@ -16,7 +16,7 @@ choices = [
   "Carriers use cafeteria Wi-Fi instead of physical entrance rooms",
 ]
 correct = "B"
-explanation = "External connectivity diversity is a site-level availability factor parallel to power/cooling design."
+explanation = "Diverse carriers and meet-me paths reduce correlated external network failure alongside power and cooling resilience; they do not replace power redundancy or describe cafeteria Wi-Fi."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "understand"

@@ -16,7 +16,7 @@ choices = [
   "Non-metered PDUs",
 ]
 correct = "A"
-explanation = "Supporting facilities (yard, staging, ops spaces, utility intake) are part of operability, not cosmetics."
+explanation = "Operability needs generator and utility-intake space, staging, and NOC/security operations; a decorative ceiling, poster, or unmetered PDU does not provide those supporting facilities."
 topic_ids = ["m03-supporting-facilities"]
 objective_ids = []
 bloom = "understand"

@@ -16,7 +16,7 @@ choices = [
   "RF environment affects cafeteria microwaves rather than sensitive equipment",
 ]
 correct = "C"
-explanation = "Strong external EMF/RF can disrupt equipment; siting must account for it."
+explanation = "Nearby high-power transmitters can interfere with sensitive equipment and require mitigation or site rejection; a clean RF environment does not replace grounding or improve PUE, and the concern is not cafeteria equipment."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ choices = [
   "Never affect cooling intake design"
 ]
 correct = "A"
-explanation = "Adjacent industrial hazards affect air quality, safety setbacks, and emergency planning."
+explanation = "Industrial neighbours can introduce contamination, explosion, and emergency-response risks affecting plant and staff; they do not reliably improve air quality, lower insurance, or leave cooling intakes untouched."
 topic_ids = ["m03-site-selection"]
 objective_ids = []
 bloom = "understand"

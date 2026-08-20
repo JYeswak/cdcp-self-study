@@ -16,7 +16,7 @@ choices = [
   "Cameras replace structural setbacks always",
 ]
 correct = "C"
-explanation = "Physical security is a site and campus layout problem, not only a rack lock problem."
+explanation = "Site security needs controlled approach, vehicle management, and layered access from the campus inward; a rack-only lock, a blanket fence ban, or cameras alone cannot provide that perimeter strategy."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "understand"

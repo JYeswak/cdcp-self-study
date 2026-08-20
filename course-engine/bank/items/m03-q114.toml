@@ -16,7 +16,7 @@ choices = [
   "Network diagrams set flood elevations",
 ]
 correct = "A"
-explanation = "Building and site physics set hard bounds on deployable IT density and resilience."
+explanation = "Structure, utilities, envelopes, and plant space bound what IT can deploy reliably; software, network diagrams, and IT architecture cannot override floor loading or site physics."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

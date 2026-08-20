@@ -16,7 +16,7 @@ choices = [
   "The site is purely a dry storage warehouse with no IT"
 ]
 correct = "B"
-explanation = "Water-dependent cooling and fire protection make water rights and infrastructure first-class site criteria."
+explanation = "Evaporative or water-dependent heat rejection and fire-water supply make quantity, quality, and discharge rights first-class site criteria; passive cooling, zero IT, or a dry warehouse would not create that dependency."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "understand"

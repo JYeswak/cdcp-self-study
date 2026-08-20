@@ -15,7 +15,7 @@ choices = [
   "Geotech reports only serve landscaping"
 ]
 correct = "A"
-explanation = "Structure and equipment survival under ground motion depend on site geotech and seismic design."
+explanation = "Ground motion and soil conditions affect structural design, equipment anchorage, and outage risk; seismic conditions are not irrelevant to data centres, limited to networking, or a landscaping-only concern."
 topic_ids = ["m03-site-selection", "m03-facility-criteria"]
 objective_ids = []
 bloom = "understand"

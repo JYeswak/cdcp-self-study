@@ -15,7 +15,7 @@ choices = [
   "Fuel storage, clearances, acoustics, and maintenance access require real estate that a tight urban parcel may lack",
 ]
 correct = "D"
-explanation = "Plant yards need area, clearances, and access—often a go/no-go for dense sites."
+explanation = "Generator yards need real estate for fuel storage, clearances, acoustics, and maintenance access; a tight urban parcel can therefore fail before equipment selection, and marketing storage or a blanket prohibition is not the criterion."
 topic_ids = ["m03-supporting-facilities", "m03-site-selection"]
 objective_ids = []
 bloom = "apply"

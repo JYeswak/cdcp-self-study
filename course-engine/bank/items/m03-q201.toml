@@ -17,7 +17,7 @@ choices = [
   "Elimination of all UPS systems by regulation"
 ]
 correct = "B"
-explanation = "Utility diversity reduces correlated power risk; it does not remove the need for on-site continuity design."
+explanation = "Independent utility paths reduce correlated power risk where available, but they do not lower ceiling height, remove UPS requirements, or turn proximity into a decorative feature."
 topic_ids = ["m03-site-selection", "m03-supporting-facilities"]
 objective_ids = []
 bloom = "apply"

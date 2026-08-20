@@ -17,7 +17,7 @@ choices = [
   "Existing buildings may constrain floor loading, slab-to-slab height, risers, and plant yard space",
 ]
 correct = "D"
-explanation = "Brownfield constraints on structure and plant space frequently dominate retrofit feasibility."
+explanation = "Existing buildings can constrain floor loading, slab-to-slab height, risers, and plant yards, making retrofit feasibility difficult; greenfield does not bypass approvals and neither approach removes life-safety obligations."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []
 bloom = "analyze"
