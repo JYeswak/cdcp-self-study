@@ -32,6 +32,7 @@ pub const Q04_OLD_KEY: &str = "Human error during change/maintenance";
 pub const Q04_CARTOON_MARKER: &str = "classic major outage driver";
 
 pub const Q210_ID: &str = "m01-q210";
+pub const Q210_ANTI_CARTOON_MARKER: &str = "power path often leads facility events";
 
 /// Audit one item. Draft/retired copies of the old text are out of the
 /// drawable pool (C1) and are not this check's job.
@@ -153,10 +154,10 @@ where
             "{Q210_ID} must still present the three-bucket cartoon as the wrong proposition"
         ));
     }
-    if q210.correct != "B" {
+    let q210_key = correct_text(q210);
+    if !contains_ci(&q210_key, Q210_ANTI_CARTOON_MARKER) {
         return Err(format!(
-            "{Q210_ID} correct letter moved (expected B, the anti-cartoon reading); got {}",
-            q210.correct
+            "{Q210_ID} keyed proposition moved away from the anti-cartoon reading; key={q210_key:?}"
         ));
     }
 
