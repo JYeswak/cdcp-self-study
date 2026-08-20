@@ -10,12 +10,12 @@ kind = "single-select"
 module = 1
 stem = "In retail colocation, the customer typically:"
 choices = [
-  "Owns the chillers and generators",
   "Owns IT gear in cages/cabinets while the provider owns shared hall power/cooling",
   "Must use only provider-owned servers",
   "Cannot use dual-corded equipment",
+  "Owns the chillers and generators",
 ]
-correct = "B"
+correct = "A"
 explanation = "Retail colo: the customer owns IT in cages/cabinets; the provider owns shared hall power and cooling."
 topic_ids = ["m01-dc-types"]
 objective_ids = []

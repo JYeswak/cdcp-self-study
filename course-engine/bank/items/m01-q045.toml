@@ -11,12 +11,12 @@ kind = "single-select"
 module = 1
 stem = "Which set best represents core physical elements of a data centre facility?"
 choices = [
-  "Power, cooling, space, cabling, fire protection, and security layers supporting IT loads",
-  "Only application source code repositories",
   "Only office furniture and parking",
   "Only marketing dashboards",
+  "Power, cooling, space, cabling, fire protection, and security layers supporting IT loads",
+  "Only application source code repositories",
 ]
-correct = "A"
+correct = "C"
 explanation = "Facility elements centre on power, cooling, space, connectivity, life safety, and security that enable IT operation."
 topic_ids = ["m01-elements"]
 objective_ids = []

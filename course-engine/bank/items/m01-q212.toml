@@ -10,12 +10,12 @@ kind = "single-select"
 module = 1
 stem = "A vendor says “we are 99.99%.” What do you pin before you treat the number as a claim?"
 choices = [
-  "The Tier plaque on the wall — four nines is Tier III, so service scope and the measurement clock need no further review",
   "Pin the scope, planned-work treatment, measurement clock, and the fact that 99.99% is about 52.6 minutes per year",
+  "The Tier plaque on the wall — four nines is Tier III, so service scope and the measurement clock need no further review",
   "Convert 99.99% into 52.6 minutes and stop, because a percentage has the same meaning per service, site, and component",
   "Whether they used the 9 hours / 1 hour memory aid, without checking the service boundary or whose clock produced the number",
 ]
-correct = "B"
+correct = "A"
 explanation = "A nines number without scope is marketing. Pin per-what, planned vs unplanned, and whose clock. Lead with 52.6 minutes, not the slogan, and do not crosswalk nines onto a plaque."
 topic_ids = ["m01-importance"]
 objective_ids = ["obj-m01-nines-scope"]

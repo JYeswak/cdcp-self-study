@@ -10,12 +10,12 @@ kind = "single-select"
 module = 1
 stem = "Which statement is most accurate?"
 choices = [
+  "Five-nines identifies an availability target, not a utility-feed arrangement",
   "Availability and reliability are identical metrics",
   "Reliability is about how often failures occur; availability includes uptime fraction considering repair",
-  "Five-nines identifies an availability target, not a utility-feed arrangement",
   "Availability applies to network links but not power systems",
 ]
-correct = "B"
+correct = "C"
 explanation = "Reliability concerns failure frequency; availability also accounts for downtime and repair (MTTR) effects."
 topic_ids = ["m15-mtbf-mttr", "m01-unavailability"]
 objective_ids = []

@@ -9,10 +9,10 @@ kind = "single-select"
 module = 1
 stem = "Which unavailability cause is most often organizational rather than purely technical?"
 choices = [
-  "A single UPS component failure with no human factor and no change, maintenance, or operating decision involved",
+  "Utility feeder short circuit alone",
   "Change errors, incomplete procedures, or weak maintenance discipline",
   "Lightning strike with no process involvement, no equipment configuration error, and no organizational contribution",
-  "Utility feeder short circuit alone"
+  "A single UPS component failure with no human factor and no change, maintenance, or operating decision involved"
 ]
 correct = "B"
 explanation = "Process and people failures (changes, procedures, maintenance) are major drivers of facility downtime."

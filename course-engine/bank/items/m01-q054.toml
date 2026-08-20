@@ -10,12 +10,12 @@ kind = "single-select"
 module = 1
 stem = "Which is least likely to be a root cause category for data-centre unavailability?"
 choices = [
-  "Choosing LED fixtures instead of fluorescent solely for colour temperature",
-  "Cooling loss leading to thermal shutdown remains a root-cause category even when the incident begins outside the white space",
-  "Network path diversity failure",
   "Utility disturbance propagating through inadequate ride-through",
+  "Network path diversity failure",
+  "Cooling loss leading to thermal shutdown remains a root-cause category even when the incident begins outside the white space",
+  "Choosing LED fixtures instead of fluorescent solely for colour temperature",
 ]
-correct = "A"
+correct = "D"
 explanation = "Lighting technology choice is rarely an availability root cause compared with power, cooling, network, and process error."
 topic_ids = ["m01-unavailability"]
 objective_ids = []

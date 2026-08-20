@@ -10,12 +10,12 @@ kind = "single-select"
 module = 1
 stem = "Wholesale colocation is most accurately characterized as:"
 choices = [
-  "Customer rents substantial private space (e.g., suite/hall) while the landlord provides shell and shared plant",
   "Customer must use only provider-managed hypervisors",
   "Identical to public cloud IaaS billing by the second",
   "A model that forbids dual power cords",
+  "Customer rents substantial private space (e.g., suite/hall) while the landlord provides shell and shared plant",
 ]
-correct = "A"
+correct = "D"
 explanation = "Wholesale colo typically leases larger private footprints with landlord-supplied building services and power/cooling plant."
 topic_ids = ["m01-dc-types"]
 objective_ids = []

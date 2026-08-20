@@ -10,12 +10,12 @@ kind = "single-select"
 module = 1
 stem = "Which human/process factor most often elevates outage risk during maintenance?"
 choices = [
+  "Pre-staging spares",
   "Working without a change window, peer check, or clear isolation boundaries",
   "Following a validated MOP with back-out steps, a peer check, and clearly marked isolation boundaries",
   "Tagging circuits before work",
-  "Pre-staging spares",
 ]
-correct = "A"
+correct = "B"
 explanation = "Uncontrolled change without isolation discipline is a frequent root of avoidable downtime."
 topic_ids = ["m01-unavailability"]
 objective_ids = []

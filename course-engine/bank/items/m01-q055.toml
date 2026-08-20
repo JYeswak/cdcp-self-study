@@ -10,12 +10,12 @@ kind = "single-select"
 module = 1
 stem = "A managed services / hosted model typically means:"
 choices = [
-  "A provider operates infrastructure or applications under contract SLAs for the customer",
-  "The customer always owns generators on their balance sheet and directly controls every facility maintenance decision",
   "There is never a shared responsibility model",
   "Fire codes do not apply",
+  "The customer always owns generators on their balance sheet and directly controls every facility maintenance decision",
+  "A provider operates infrastructure or applications under contract SLAs for the customer",
 ]
-correct = "A"
+correct = "D"
 explanation = "Managed/hosted models shift operational responsibility to a provider under contractual SLAs, with shared-responsibility nuances."
 topic_ids = ["m01-dc-types", "m01-business-org"]
 objective_ids = []

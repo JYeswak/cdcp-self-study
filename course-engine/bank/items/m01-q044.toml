@@ -12,8 +12,8 @@ stem = "Why is a data centre often called “mission-critical” rather than mer
 choices = [
   "Because outage consequences can include severe financial, legal, safety, or reputational harm",
   "Because it has a raised floor in the standard layout",
-  "Because PUE is published quarterly",
   "Because it uses a three-phase service regardless of facility design",
+  "Because PUE is published quarterly",
 ]
 correct = "A"
 explanation = "Mission-critical status is driven by impact of loss, not by a particular construction feature."

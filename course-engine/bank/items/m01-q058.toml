@@ -10,12 +10,12 @@ kind = "single-select"
 module = 1
 stem = "Colocation customers should still understand facility design because:"
 choices = [
-  "Contractual SLAs, power/cooling limits, and concurrent maintainability affect their own availability",
-  "They never share risk with the landlord because the customer contract transfers every facility dependency and operating decision",
   "AHJ rules never apply in colo",
   "Customers never own any IT risk",
+  "Contractual SLAs, power/cooling limits, and concurrent maintainability affect their own availability",
+  "They never share risk with the landlord because the customer contract transfers every facility dependency and operating decision",
 ]
-correct = "A"
+correct = "C"
 explanation = "Customer availability still depends on hall design limits, SLAs, and maintainability even when plant is landlord-owned."
 topic_ids = ["m01-dc-types", "m01-business-org"]
 objective_ids = []

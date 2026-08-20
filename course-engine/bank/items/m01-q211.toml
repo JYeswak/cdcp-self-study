@@ -10,8 +10,8 @@ kind = "single-select"
 module = 1
 stem = "A neocloud, a GPU colo, an AI factory, and a behind-the-meter campus walk into an oral. Kept beside the six classic types, the taught distinctions are:"
 choices = [
-  "Four new names for retail colo cages, with no meaningful distinction in ownership, density, energization, or operating model",
   "GPU colo is just retail colo with more kW; the rest are Tier names with no separate market or facility meaning",
+  "Four new names for retail colo cages, with no meaningful distinction in ownership, density, energization, or operating model",
   "All four are Uptime plaques that describe a rating level rather than a product, ownership model, or energization path",
   "Neocloud rents GPU capacity; GPU colo offers dense colocation; AI factory is owner-operated; BTM is an energization path",
 ]

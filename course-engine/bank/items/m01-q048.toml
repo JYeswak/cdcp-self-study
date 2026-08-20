@@ -10,12 +10,12 @@ kind = "single-select"
 module = 1
 stem = "Hyperscale facilities are best described as:"
 choices = [
-  "Very large, purpose-built campuses optimized for massive multi-tenant or owner cloud-scale workloads",
-  "Always smaller than a wiring closet",
-  "Forbidden to use generators",
   "Identical to a single-rack lab bench",
+  "Forbidden to use generators",
+  "Always smaller than a wiring closet",
+  "Very large, purpose-built campuses optimized for massive multi-tenant or owner cloud-scale workloads",
 ]
-correct = "A"
+correct = "D"
 explanation = "Hyperscale refers to very large, highly optimized campuses built for cloud-scale capacity."
 topic_ids = ["m01-dc-types"]
 objective_ids = []

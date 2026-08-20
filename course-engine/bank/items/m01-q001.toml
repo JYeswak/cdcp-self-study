@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "A payment processor defines a site as mission-critical mainly because:"
 choices = [
-  "All racks exceed 10 kW",
+  "PUE is below 1.4",
   "Sustained outage would cause severe business, legal, or safety impact",
   "The building has a raised floor",
-  "PUE is below 1.4",
+  "All racks exceed 10 kW",
 ]
 correct = "B"
 explanation = "Mission-critical is defined by impact of loss, not a single tech feature such as density or PUE."

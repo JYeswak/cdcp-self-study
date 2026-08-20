@@ -8,12 +8,12 @@ kind = "single-select"
 module = 1
 stem = "Capacity planning as a business function should connect:"
 choices = [
+  "Diesel colour coding only, because fuel presentation matters more than plant capacity or lead times",
   "Forecast IT demand against power, cooling, space, and network headroom",
   "Only marketing headcount, because facilities can add power and cooling immediately when demand appears",
-  "Diesel colour coding only, because fuel presentation matters more than plant capacity or lead times",
   "Ceiling tile patterns exclusively",
 ]
-correct = "A"
+correct = "B"
 explanation = "Business demand forecasts must map to facility headroom and long-lead plant, not just IT SKUs."
 topic_ids = ["m01-business-org", "m01-elements"]
 objective_ids = []

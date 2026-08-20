@@ -10,12 +10,12 @@ kind = "single-select"
 module = 1
 stem = "Which data-centre delivery model typically means the enterprise owns both the building systems and the IT estate?"
 choices = [
+  "Retail colocation cage only, where the provider owns the building systems and the customer leases a limited IT area",
   "Enterprise-owned (on-premises) data centre",
   "Public SaaS multi-tenant application platform",
-  "Retail colocation cage only, where the provider owns the building systems and the customer leases a limited IT area",
   "Content delivery edge POP leased by the hour, with no enterprise ownership of building systems or the IT estate",
 ]
-correct = "A"
+correct = "B"
 explanation = "In an enterprise-owned facility, the organization owns facility systems and usually the IT gear as well."
 topic_ids = ["m01-dc-types"]
 objective_ids = []

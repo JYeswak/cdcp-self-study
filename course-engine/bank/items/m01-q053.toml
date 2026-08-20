@@ -12,8 +12,8 @@ stem = "For a payment or trading workload, facility design priority is most driv
 choices = [
   "Tolerance for service interruption relative to regulatory and financial exposure",
   "Paint brand in the break room",
-  "Whether tiles are 600 mm or 24 in only as a fashion choice, independent of load, airflow, or service risk",
   "The number of visitor badges printed",
+  "Whether tiles are 600 mm or 24 in only as a fashion choice, independent of load, airflow, or service risk",
 ]
 correct = "A"
 explanation = "Risk appetite and interruption cost (including legal/financial exposure) drive mission-critical design choices."

@@ -10,12 +10,12 @@ kind = "single-select"
 module = 1
 stem = "Aligning facility investment with business criticality means:"
 choices = [
-  "Spending the same capital on every closet regardless of impact, service dependency, or the cost of an outage",
-  "Ignoring RTO/RPO when siting and designing, because business continuity belongs only to application owners",
+  "Matching redundancy and operating discipline to the impact of loss for the served services",
   "Using marketing slogans as the only design input, without connecting facility controls to the impact of service loss",
-  "Matching redundancy and operating discipline to the impact of loss for the served services"
+  "Ignoring RTO/RPO when siting and designing, because business continuity belongs only to application owners",
+  "Spending the same capital on every closet regardless of impact, service dependency, or the cost of an outage"
 ]
-correct = "D"
+correct = "A"
 explanation = "Resilience spend should track business impact of outage, not one-size-fits-all prestige design."
 topic_ids = ["m01-importance", "m01-business-org"]
 objective_ids = []

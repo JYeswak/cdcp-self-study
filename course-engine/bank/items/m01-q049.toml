@@ -11,9 +11,9 @@ module = 1
 stem = "Business continuity planning for the data centre should primarily align with:"
 choices = [
   "Recovery time and recovery point objectives derived from business impact",
-  "Maximum rack U available regardless of service impact, because capacity planning is a facilities-only exercise",
   "Lobby aesthetics only, because customer-facing finishes determine whether the facility meets business continuity needs",
   "The cheapest diesel grade available",
+  "Maximum rack U available regardless of service impact, because capacity planning is a facilities-only exercise",
 ]
 correct = "A"
 explanation = "RTO/RPO driven by business impact analysis should shape continuity design, not cosmetics or pure cost."

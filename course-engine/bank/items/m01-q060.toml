@@ -9,12 +9,12 @@ kind = "single-select"
 module = 1
 stem = "A government or regulated industry data centre often elevates facility requirements mainly due to:"
 choices = [
-  "Statutory, audit, and continuity obligations beyond ordinary convenience IT",
-  "Preference for a single non-redundant path because regulated operators prioritize simplicity over continuity",
   "A ban on any monitoring systems, since audit obligations are treated as unrelated to facility operations",
   "Mandatory use of only wireless power",
+  "Statutory, audit, and continuity obligations beyond ordinary convenience IT",
+  "Preference for a single non-redundant path because regulated operators prioritize simplicity over continuity",
 ]
-correct = "A"
+correct = "C"
 explanation = "Regulatory and audit obligations commonly raise continuity and control expectations for facility design and ops."
 topic_ids = ["m01-importance", "m01-business-org"]
 objective_ids = []

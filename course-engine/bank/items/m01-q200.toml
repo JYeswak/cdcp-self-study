@@ -10,12 +10,12 @@ kind = "single-select"
 module = 1
 stem = "From a business perspective, the data centre is best described as:"
 choices = [
-  "An enabling facility whose availability and capacity shape digital products and risk",
   "A pure cost centre that never affects revenue, service commitments, or the risk carried by digital products",
-  "Only a real-estate asset with no operational role, because applications are independent of facility availability and capacity",
-  "A marketing brand unrelated to IT service levels"
+  "A marketing brand unrelated to IT service levels",
+  "An enabling facility whose availability and capacity shape digital products and risk",
+  "Only a real-estate asset with no operational role, because applications are independent of facility availability and capacity"
 ]
-correct = "A"
+correct = "C"
 explanation = "The DC is an enabler of digital business outcomes; outages and capacity constraints map directly to risk and service."
 topic_ids = ["m01-business-org", "m01-importance"]
 objective_ids = []

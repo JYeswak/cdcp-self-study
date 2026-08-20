@@ -11,9 +11,9 @@ module = 1
 stem = "Which best distinguishes reliability culture from pure hardware spend?"
 choices = [
   "Documented change control, training, and tested recovery procedures complement engineered redundancy",
-  "Buying more kW always fixes process gaps, because additional electrical capacity removes the need for training and controlled recovery work",
-  "Ignoring MOPs if dual path exists",
   "Skipping incident reviews after near-misses",
+  "Ignoring MOPs if dual path exists",
+  "Buying more kW always fixes process gaps, because additional electrical capacity removes the need for training and controlled recovery work",
 ]
 correct = "A"
 explanation = "People and process maturity complement hardware redundancy; spend alone does not create reliability."

@@ -11,8 +11,8 @@ module = 1
 stem = "Which is a common systemic cause of unavailability beyond pure equipment MTBF?"
 choices = [
   "Single points of failure in path design combined with change error",
-  "Documented method-of-procedure with peer review",
   "Redundant dual-corded servers on diverse UPS buses",
+  "Documented method-of-procedure with peer review",
   "Routine preventive maintenance performed under change control",
 ]
 correct = "A"
