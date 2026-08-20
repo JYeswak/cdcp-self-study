@@ -433,9 +433,9 @@ digest = "a796fce9e69cb4ffc8cf30fe2710091d05eb2678f7f3451cdd7df0106c43275f"
 [[golden]]
 id = "fixture.mock40-seed42"
 file = "goldens/fixtures/mock40_seed42.json"
-frozen = "6b8f4a8b73290e800d4f96fe36da5342289a4375f51ad2c4ad75a334849ff989"
-affirmed = "2026-08-19"
-justification = "The seed-42 assembly record: forty ids in presentation order, plus an embedded six-field projection of each item and the bank_hash they were drawn under. Every other golden here is computed FROM this file, so it is re-frozen first and re-affirmed first. RE-FROZEN 2026-08-19 (bd-0cjy/bd-2qvn): ac65c94 (2026-08-18 19:36) froze an intermediate 37.4%-A bank while grounding-wave restoration was still running; that pin was never an intended baseline and is explicitly invalid. The current bank is 957 records/931 approved, with 0 draft and 26 retired, after 407 grounding-wave restorations and 35 m10 rank-uniformity choice-text edits. The DRAW moved 7 ids at 7 positions; bank_hash c330628a…→50fec2eb…. This is an artifact-freshness correction, not a claim that the bank is correct. Domain stayed cdcp-bank-v3; no hashed field was added."
+frozen = "0a5b46816ced2e6b04c99944869fc5ef9fc1cbd99c4b4ada1b7f0601848d0afa"
+affirmed = "2026-08-20"
+justification = "The seed-42 assembly record: forty ids in presentation order, plus an embedded six-field projection of each item and the bank_hash they were drawn under. Every other golden here is computed FROM this file, so it is re-frozen first and re-affirmed first. RE-FROZEN 2026-08-20 (bd-q6gl, 3b715be0) after pane 3's committed m15 explanation/reclassification batch; the quiescent bank is 957 records/931 approved/26 retired and bank_hash is ee9eb030…. This is an artifact-freshness correction, not a claim that the bank is correct."
 depends_on = [
   { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
@@ -447,9 +447,9 @@ depends_on = [
 [[golden]]
 id = "grade.all-correct"
 file = "goldens/mock40_seed42_all_correct.sha256"
-frozen = "9b859b3f5f086b125707585fea38a5db6b0fa2b27911945b403a9b42f904d39f"
-affirmed = "2026-08-19"
-justification = "hex(SHA-256(canonical_json(GradeReport))) for an attempt answering every fixture item with its correct letter. RE-FROZEN 2026-08-19 (bd-0cjy/bd-2qvn): ac65c94 (2026-08-18 19:36) froze an intermediate 37.4%-A bank during, not after, grounding-wave restoration and was never an intended baseline. The current re-freeze follows 407 grounding-wave restorations and 35 m10 rank-uniformity choice-text edits; bank_hash is now 50fec2eb…. Report shape, canonical JSON, scoring, and schema version did not move. all-correct remains 40/40."
+frozen = "7c7b6a6660d3fc7662f48807b413e2a2c18e9ef0666fd5d54b8ce4a42a546e70"
+affirmed = "2026-08-20"
+justification = "hex(SHA-256(canonical_json(GradeReport))) for an attempt answering every fixture item with its correct letter. RE-FROZEN 2026-08-20 (bd-q6gl, 3b715be0) after the committed m15 explanation/reclassification batch; report shape, canonical JSON, scoring, and schema version did not move, and all-correct remains 40/40. The bank_hash is ee9eb030…."
 depends_on = [
   { surface = "core.schema-version", version = "ve1cc74b2e52b" },
   { surface = "core.grade-report-shape", version = "v0e105134e087" },
@@ -463,9 +463,9 @@ depends_on = [
 [[golden]]
 id = "grade.all-wrong"
 file = "goldens/mock40_seed42_all_wrong.sha256"
-frozen = "b183645371753342dbde426cd2e3a1ef3d664095ee51715b7cfd95067bd2c3e8"
-affirmed = "2026-08-19"
-justification = "The all-correct golden's counterpart, answering correct.wrong_letter() for all forty items. RE-FROZEN 2026-08-19 (bd-0cjy/bd-2qvn): ac65c94 (2026-08-18 19:36) froze an intermediate 37.4%-A bank during restoration and was never an intended baseline. The current re-freeze follows 407 grounding-wave restorations and 35 m10 rank-uniformity choice-text edits; bank_hash is now 50fec2eb…. The wrong-letter cycle itself did not move."
+frozen = "7ec2b5b803a5e5380aecc062319294fe67351ab86a7c47c2fea0359dba146069"
+affirmed = "2026-08-20"
+justification = "The all-correct golden's counterpart, answering correct.wrong_letter() for all forty items. RE-FROZEN 2026-08-20 (bd-q6gl, 3b715be0) after the committed m15 explanation/reclassification batch; the wrong-letter cycle itself did not move and bank_hash is ee9eb030…."
 depends_on = [
   { surface = "core.schema-version", version = "ve1cc74b2e52b" },
   { surface = "core.grade-report-shape", version = "v0e105134e087" },
@@ -481,9 +481,9 @@ depends_on = [
 id = "bank.hash-pin"
 file = "goldens/bank_hash.txt"
 const = "crates/cdcp_gate/src/gates/verify_content_lock.rs::GOLDEN_REL"
-frozen = "05abedf90f160077b42e6f8605d6fecb51c7b97732b62d76b89554dcd63e8ece"
-affirmed = "2026-08-19"
-justification = "The bank content address for this snapshot, and the fallback verify-content-lock reads when it cannot recompute one. RE-FROZEN 2026-08-19 (bd-0cjy/bd-2qvn): ac65c94 (2026-08-18 19:36) pinned an intermediate 37.4%-A bank while restoration was in flight; that was never an intended baseline. The current bank is 957 files with 931 approved, 0 draft, and 26 retired, after 407 grounding-wave restorations and 35 m10 rank-uniformity choice-text edits, replacing c330628a… with 50fec2eb…. BANK_HASH_DOMAIN stayed cdcp-bank-v3; bank.hash-payload / bank.item-schema surfaces did not move."
+frozen = "763e6a5220a3d7808140bb0ee660295cd61dec14ebcb7265f2815f52f6b6bbf5"
+affirmed = "2026-08-20"
+justification = "The bank content address for this snapshot, and the fallback verify-content-lock reads when it cannot recompute one. RE-FROZEN 2026-08-20 (bd-q6gl, 3b715be0) after the committed m15 explanation/reclassification batch; the bank is 957 files with 931 approved and 26 retired, and the derived bank_hash is ee9eb030…. BANK_HASH_DOMAIN and the bank hash-payload surfaces did not move."
 depends_on = [
   { surface = "bank.hash-payload", version = "vcf11098efb54" },
   { surface = "bank.item-schema", version = "v9e6e70394dd4" },
@@ -493,9 +493,9 @@ depends_on = [
 [[golden]]
 id = "web.learner-pack"
 file = "web/data/mock40_seed42.json"
-frozen = "0da62f08baa26d67416df8c702e05849a7bdc20d7b856b6d19802c2b1a73b17a"
-affirmed = "2026-08-19"
-justification = "The learner exam pack the browser loads, cmp'd byte-for-byte by check.sh L6 against a fresh export-web at seed 42. RE-FROZEN 2026-08-19 (bd-0cjy/bd-2qvn): ac65c94 (2026-08-18 19:36) exported an intermediate 37.4%-A bank while grounding-wave restoration was still running; that was never an intended baseline. The current export follows 407 grounding-wave restorations and 35 m10 rank-uniformity choice-text edits, with 957 records/931 approved, 0 draft, 26 retired, and bank_hash 50fec2eb…. The seed-42 draw moved 7 ids at 7 positions. Pack shape and sampler surfaces did not move. This is a freshness correction, not a grounding-quality claim."
+frozen = "d7a9f27ca6863adb3e727d06ade4e515269cd48ab5d6960fa10f2970b4001501"
+affirmed = "2026-08-20"
+justification = "The learner exam pack the browser loads, cmp'd byte-for-byte by check.sh L6 against a fresh export-web at seed 42. RE-FROZEN 2026-08-20 (bd-q6gl, 3b715be0) after the committed m15 explanation/reclassification batch; the export has 957 records/931 approved and bank_hash ee9eb030…. This is a freshness correction, not a grounding-quality claim."
 depends_on = [
   { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
@@ -506,9 +506,9 @@ depends_on = [
 [[golden]]
 id = "web.keys-pack"
 file = "web/data/keys_seed42.json"
-frozen = "54794426cb41e7a49b0130cd41ea27bf9704f75a5b7b4f377d7bd7590c906254"
-affirmed = "2026-08-19"
-justification = "The answer keys and explanations for the same forty items, held apart from the learner pack on purpose. RE-FROZEN 2026-08-19 (bd-0cjy/bd-2qvn): ac65c94 (2026-08-18 19:36) froze an intermediate 37.4%-A bank during grounding-wave restoration and was never an intended baseline. The current export follows 407 grounding-wave restorations and 35 m10 rank-uniformity choice-text edits, with bank_hash 50fec2eb…. The keys follow the same 7-id/7-position draw change as the learner pack. Pack shape did not move. This is a freshness correction, not a grounding-quality claim."
+frozen = "9bd455f0d6429eaa51f33dfa3bc01f4d4881c8a045561ce19a2368f33b77adb7"
+affirmed = "2026-08-20"
+justification = "The answer keys and explanations for the same forty items, held apart from the learner pack on purpose. RE-FROZEN 2026-08-20 (bd-q6gl, 3b715be0) after the committed m15 explanation/reclassification batch; the export has bank_hash ee9eb030…. This is a freshness correction, not a grounding-quality claim."
 depends_on = [
   { surface = "assemble.sampler", version = "vef6cfbeb255f" },
   { surface = "assemble.prng-crate", version = "vf320dd197520" },
@@ -519,9 +519,9 @@ depends_on = [
 [[golden]]
 id = "web.bank-items-pack"
 file = "web/data/bank_items_seed42.json"
-frozen = "fac40f67afcc70b48f4c638dd16f64f0bb62ff11eacadf02fa0cf0ccfb58b836"
-affirmed = "2026-08-19"
-justification = "The full bank array the WASM grade path needs, serialised straight off BankItem. RE-FROZEN 2026-08-19 (bd-0cjy/bd-2qvn): ac65c94 (2026-08-18 19:36) froze an intermediate 37.4%-A bank while grounding-wave restoration was still running and was never an intended baseline. The current export reflects 407 grounding-wave restorations and 35 m10 rank-uniformity choice-text edits: 957 records, 931 approved, 0 draft, and 26 retired, with bank_hash 50fec2eb…. Element shape / bank.item-schema did not move. This refresh fixes learner-facing export staleness and does not claim the current bank is correct."
+frozen = "4963b99d2322811883bd8546222bca1d4f9550d93620593bb13d9f15d738a6da"
+affirmed = "2026-08-20"
+justification = "The full bank array the WASM grade path needs, serialised straight off BankItem. RE-FROZEN 2026-08-20 (bd-q6gl, 3b715be0) after the committed m15 explanation/reclassification batch: 957 records, 931 approved, 26 retired, and bank_hash ee9eb030…. This refresh fixes learner-facing export staleness and does not claim the current bank is correct."
 depends_on = [
   { surface = "bank.item-schema", version = "v9e6e70394dd4" },
   { surface = "bank.hash-payload", version = "vcf11098efb54" },

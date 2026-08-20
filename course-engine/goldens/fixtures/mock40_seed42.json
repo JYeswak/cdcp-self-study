@@ -1,5 +1,5 @@
 {
-  "bank_hash": "50fec2eb822295b274a6d14fabd10a92d070dac1dfe612003c434f20f4f6c24c",
+  "bank_hash": "ee9eb030b90ac5560df6dc78f5de7e8d7ededa6c520c79c58b1fa2793c176df4",
   "exam_id": "mock40",
   "item_ids": [
     "m01-q201",
@@ -46,10 +46,10 @@
   "items": [
     {
       "choices": [
-        "A single UPS component failure with no human factor",
+        "Utility feeder short circuit alone",
         "Change errors, incomplete procedures, or weak maintenance discipline",
-        "Lightning strike with no process involvement",
-        "Utility feeder short circuit alone"
+        "Lightning strike with no process involvement, no equipment configuration error, and no organizational contribution",
+        "A single UPS component failure with no human factor and no change, maintenance, or operating decision involved"
       ],
       "correct": "B",
       "id": "m01-q201",
@@ -61,9 +61,9 @@
     },
     {
       "choices": [
-        "Plenums never connect rooms",
-        "Only network packets move above ceilings",
-        "Tiles cannot be lifted by design of physics",
+        "Plenums can connect rooms when a separate door is propped open, rather than through the overhead space",
+        "Network packets are the relevant concern, while physical movement through ceiling spaces is not a security path",
+        "Ceiling tiles are secured by the access-control system, so physical inspection is unnecessary",
         "They may allow bypass of door controls if not physically secured or monitored as needed"
       ],
       "correct": "D",
@@ -76,10 +76,10 @@
     },
     {
       "choices": [
-        "They leave heavy corrosive powder always",
+        "Leave heavy corrosive powder after discharge, so electronics protection requires a water-damage assessment and trained cleanup before return to service",
         "They can be more suitable around electronics when used correctly, with oxygen-displacement and safety caveats for CO2",
-        "They replace building suppression entirely",
-        "They require no training"
+        "Can replace building suppression when a portable agent has a suitable listing and a trained operator is nearby for the first response",
+        "Require no training for portable-agent use"
       ],
       "correct": "B",
       "id": "m12-q220",
@@ -92,10 +92,10 @@
     },
     {
       "choices": [
-        "Keep the badge active until the next quarterly security review",
+        "Leave the vendor badge active because a signed contract is the access authorization",
         "Remove the vendor from the access list when access is no longer required",
-        "Move the badge to a shared visitor account so the audit trail stays short",
-        "Leave it active because a signed contract is the access authorization"
+        "Keep the badge active until the next quarterly security review",
+        "Move the badge to a shared visitor account so the audit trail stays short"
       ],
       "correct": "B",
       "id": "m15-q341",
@@ -107,10 +107,10 @@
     },
     {
       "choices": [
-        "Sparks improve fibre polish",
-        "Hot work never needs permits in technical spaces",
+        "Sparks improve fibre polish and therefore reduce the need for cable inspection after hot work near the enclosure and adjacent packaging",
+        "Hot work can proceed without permits in technical spaces when a supervisor is nearby and the work area appears clean for the shift",
         "It introduces ignition sources near cables, packaging, and dust; permits and fire watch practices are essential",
-        "Smoke from hot work is always harmless to detection systems"
+        "Smoke from hot work is harmless to detection systems"
       ],
       "correct": "C",
       "id": "m12-q209",
@@ -124,9 +124,9 @@
     {
       "choices": [
         "Plastic blanking panels and fibre patch cords",
-        "LED exit signs only",
-        "Large transformers, busbars, and UPS/plant electrical gear",
-        "Empty cable trays with no current"
+        "Illuminated exit signage on the egress path",
+        "Transformers, busbars, and UPS plant gear",
+        "Empty cable trays carrying no current"
       ],
       "correct": "C",
       "id": "m07-q044",
@@ -138,12 +138,12 @@
     },
     {
       "choices": [
-        "Replace every national electrical code automatically",
-        "Provide broadly usable technical documents that countries and markets may adopt or reference differently",
-        "Ban national standards bodies",
-        "Apply only to non-technical marketing"
+        "International standards typically replace every national electrical code automatically, so adoption and local interpretation no longer matter",
+        "Ban national standards bodies, because international technical documents cannot coexist with national adoption or reference practices",
+        "Apply to marketing material rather than technical design",
+        "Provide broadly usable technical documents that countries and markets may adopt or reference differently"
       ],
-      "correct": "B",
+      "correct": "D",
       "id": "m02-q089",
       "module": 2,
       "stem": "International standards development typically aims to:",
@@ -153,12 +153,12 @@
     },
     {
       "choices": [
-        "Treat IT ride-through as sufficient",
         "Verify the emergency source and lighting circuit",
+        "Treat IT ride-through as sufficient",
         "Use the rack UPS without a code review",
         "Require a generator for every emergency luminaire"
       ],
-      "correct": "B",
+      "correct": "A",
       "id": "m05-q214",
       "module": 5,
       "stem": "A data-hall packet says, “The IT UPS keeps the servers online, so Article 700 emergency lighting is covered.” The reviewer should:",
@@ -169,10 +169,10 @@
     },
     {
       "choices": [
-        "Zero need for any battery management",
-        "Immunity from all fire and thermal concerns",
-        "Automatic 2N topology",
-        "Higher energy density and different footprint and lifecycle trade-offs that remain design-specific"
+        "Zero need for any battery management or monitoring systems",
+        "Immunity from all fire and thermal concerns in any installation",
+        "Automatic 2N topology without path or capacity review",
+        "Higher density with design trade-offs"
       ],
       "correct": "D",
       "id": "m06-q231",
@@ -185,10 +185,10 @@
     },
     {
       "choices": [
-        "Replace fire detection",
-        "Measure PUE",
-        "Provide sole illumination for detailed circuit board rework",
-        "Indicate egress path identification under normal and emergency conditions as required"
+        "Provide the primary illumination for detailed component-level rework benches",
+        "Serve as the notification appliance required by the fire alarm system",
+        "Replace directional floor markings where aisles change direction",
+        "Identify the egress path under both normal and emergency conditions as required"
       ],
       "correct": "D",
       "id": "m05-q142",
@@ -201,9 +201,9 @@
     },
     {
       "choices": [
-        "Only improve brand aesthetics",
+        "Only improve brand aesthetics at the rack, without affecting airflow",
         "Always increase bypass airflow intentionally",
-        "Help control airflow through equipment rather than through empty U-spaces and large cable holes",
+        "Control airflow",
         "Have no interaction with cooling"
       ],
       "correct": "C",
@@ -233,7 +233,7 @@
       "choices": [
         "Only very short rack jumpers under 1 m are needed always",
         "The goal is maximum modal dispersion deliberately",
-        "Longer reach and higher bandwidth headroom for backbone or campus links are required",
+        "Longer reach and bandwidth headroom for backbone links",
         "No connectors are allowed ever"
       ],
       "correct": "C",
@@ -246,12 +246,12 @@
     },
     {
       "choices": [
-        "Any dual-path system by definition",
-        "Any redundant UPS string",
+        "Any sensor that reports humidity, because a measurement point is itself a single point of failure",
         "A component or path whose failure alone can interrupt the critical load",
-        "Any sensor that reports humidity"
+        "Any dual-path system by definition, even when one path cannot carry the critical load during maintenance",
+        "Any redundant UPS string is typically a single point of failure, regardless of whether another independent path reaches the critical load"
       ],
-      "correct": "C",
+      "correct": "B",
       "id": "m01-q206",
       "module": 1,
       "stem": "A single point of failure in facility design is best characterized as:",
@@ -262,10 +262,10 @@
     },
     {
       "choices": [
-        "Speed installation and improve consistency when factory-tested assemblies fit the design",
+        "Speed installation with factory-tested fit",
         "Slow deployment and maximize field polishing always",
-        "Eliminate all need for polarity planning",
-        "Avoid any pathway design"
+        "Eliminate all polarity planning and testing for pre-terminated trunks",
+        "Avoid any pathway design and rely on the trunk manufacturer"
       ],
       "correct": "A",
       "id": "m11-q132",
@@ -295,7 +295,7 @@
     },
     {
       "choices": [
-        "In the vertical space at the rear/side of the cabinet without consuming horizontal U",
+        "Rear/side vertical space without using horizontal U",
         "Only as 2U horizontal shelves in the middle of servers",
         "Outside the building exclusively",
         "In the CRAH return plenum"
@@ -310,10 +310,10 @@
     },
     {
       "choices": [
-        "Fire/security supervisory points, capacity views, and health of the monitors themselves",
-        "Only social media uptime",
-        "Desktop wallpaper colors",
-        "Marketing campaign metrics only"
+        "Fire and security supervisory points, and monitor health",
+        "Uptime as reported on the company's own social media accounts",
+        "The desktop wallpaper standard applied to operator consoles",
+        "Marketing campaign metrics gathered by the commercial team"
       ],
       "correct": "A",
       "id": "bank-m14-q133",
@@ -326,9 +326,9 @@
     {
       "choices": [
         "Cold supply short-circuits back to CRAH without cooling IT",
-        "Only liquid loops recirculate",
+        "Liquid loops",
         "Air never moves",
-        "Hot exhaust re-enters IT intakes, elevating inlet temperatures"
+        "Hot exhaust re-enters intakes"
       ],
       "correct": "D",
       "id": "m09-q204",
@@ -342,9 +342,9 @@
     {
       "choices": [
         "IT drops until generators finish a multi-hour warm-up with no UPS",
-        "UPS carries load; generators start; ATS transfers; UPS remains on conditioned path as designed",
+        "UPS carries load through generator transfer",
         "Fire system discharges immediately as the power path",
-        "Only lighting remains on generator forever"
+        "Only lighting remains"
       ],
       "correct": "B",
       "id": "m06-q107",
@@ -359,9 +359,9 @@
     {
       "choices": [
         "Improve intentional separation always",
-        "Increase UPS battery capacity",
+        "Increase UPS battery capacity and maintenance autonomy",
         "Replace CRAH redundancy",
-        "Allow leakage that reintroduces mixing and undermines the containment benefit"
+        "Prevent leakage and mixing"
       ],
       "correct": "D",
       "id": "m09-q151",
@@ -388,10 +388,10 @@
     },
     {
       "choices": [
-        "Listed fire suppression release authority",
-        "Asset/capacity/workflow context tied to infrastructure telemetry",
-        "Replacing the automatic transfer switch",
-        "Providing utility medium-voltage protection relays"
+        "Authority to release the listed fire suppression system",
+        "Asset, capacity, and workflow context tied to infrastructure telemetry",
+        "Direct control of the automatic transfer switch during a utility failure",
+        "Protection relaying on the utility medium-voltage service entrance"
       ],
       "correct": "B",
       "id": "bank-m14-q106",
@@ -404,12 +404,12 @@
     },
     {
       "choices": [
-        "Carry criminal penalties by themselves in all cities",
-        "Offer recommended practice that becomes binding only if adopted by code, contract, or policy",
         "Always override the AHJ",
-        "Are illegal to read"
+        "Are illegal to read",
+        "Offer recommended practice that becomes binding only if adopted by code, contract, or policy",
+        "Carry criminal penalties by themselves in all cities, even when the document has not been adopted by code, contract, or organizational policy"
       ],
-      "correct": "B",
+      "correct": "C",
       "id": "m02-q081",
       "module": 2,
       "stem": "Guidelines and best-practice documents differ from codes in that they usually:",
@@ -436,12 +436,12 @@
     },
     {
       "choices": [
-        "'Designed to' is a self-declaration — it does not imply third-party assessment of compliance",
+        "No distinction — the phrase 'Designed to' is legally equivalent to 'Certified by TIA'",
         "No distinction — TIA issues compliance certificates for every design that follows the standard",
         "'Designed to' requires a registered TIA assessor signature before the claim can be published",
-        "No distinction — the phrase 'Designed to' is legally equivalent to 'Certified by TIA'"
+        "'Designed to' is a self-declaration — it does not imply third-party assessment of compliance"
       ],
-      "correct": "A",
+      "correct": "D",
       "id": "m03-q235",
       "module": 3,
       "stem": "A marketing sheet says 'Designed to TIA-942-B Rated-3.' A due-diligence reviewer asks for the assessment report. The distinction is:",
@@ -452,8 +452,8 @@
     },
     {
       "choices": [
-        "Permanent full white-space badges for all guests",
-        "ID check, temporary distinct badge, escort policy, and sign-in/out with badge return",
+        "Permanent full white-space badges for all guests without zone limits",
+        "ID check, temporary badge, escort, sign-in/out",
         "Unlimited unescorted roaming after lobby coffee",
         "Shared use of an employee’s badge"
       ],
@@ -469,7 +469,7 @@
     {
       "choices": [
         "Diverse carriers and utilities are available",
-        "Floor loading is adequate",
+        "Floor loading is adequate, so deed restrictions and easements cannot constrain fuel, antenna rights, or other resilience infrastructure",
         "Deed restrictions, easements, or landlord constraints block generator fuel or antenna rights needed for resilience",
         "Security screening exists"
       ],
@@ -484,9 +484,9 @@
     },
     {
       "choices": [
-        "Identical forces applied the same way",
-        "Only aesthetic tile patterns",
-        "Distributed area loads vs point loads vs loads from wheeled equipment movement",
+        "Identical forces applied the same way, regardless of load distribution",
+        "Only aesthetic tile patterns, not structural load behavior",
+        "Area, point, and wheeled-equipment loads differ",
         "Only underfloor cable weight"
       ],
       "correct": "C",
@@ -499,10 +499,10 @@
     },
     {
       "choices": [
-        "Painting walls with RF copper paint only",
-        "Separation (distance) and layout so high-current gear is not adjacent to sensitive copper-dense rows",
-        "Removing all bonding conductors",
-        "Switching every circuit to single-phase lighting"
+        "Applying RF-absorbing paint to the perimeter walls",
+        "Distance and layout away from high-current gear",
+        "Removing bonding conductors so induced loops are broken",
+        "Converting the affected rows to single-phase distribution"
       ],
       "correct": "B",
       "id": "m07-q045",
@@ -531,9 +531,9 @@
     },
     {
       "choices": [
-        "Every layer is equally strong",
-        "Anti-passback and CCTV are perfectly integrated",
-        "Roof hatches, generator yards, or process controls remain soft",
+        "Every layer is equally strong, regardless of roof or yard exposure",
+        "Anti-passback and CCTV are perfectly integrated in every location",
+        "Soft layers remain at roofs, yards, or controls",
         "LOTO is rigorously enforced in plant"
       ],
       "correct": "C",
@@ -547,8 +547,8 @@
     {
       "choices": [
         "Use job-based IDPs with competency goals",
-        "Use one annual attendance total detached from job duties",
         "Reserve career development for employees after promotion",
+        "Use one annual attendance total detached from job duties",
         "Treat a vendor completion badge as the succession plan"
       ],
       "correct": "A",
@@ -562,10 +562,10 @@
     },
     {
       "choices": [
-        "Operators must memorize every valve tag without aids",
-        "All informational logs page the CEO",
-        "Sensors stop needing calibration",
-        "The page names the next human action and procedure under stress"
+        "Operators memorise every valve tag without any written aid",
+        "Every informational log entry pages the executive on call",
+        "Calibration of the field sensors is no longer required",
+        "The page names the next action"
       ],
       "correct": "D",
       "id": "bank-m14-q124",
@@ -578,12 +578,12 @@
     },
     {
       "choices": [
+        "Count survey replies without changing the support route",
         "Provide a single entry point for service support",
         "Keep channels separate and compare logos quarterly",
-        "Replace support access with a maintenance inventory",
-        "Count survey replies without changing the support route"
+        "Replace support access with a maintenance inventory"
       ],
-      "correct": "A",
+      "correct": "B",
       "id": "m15-q377",
       "module": 15,
       "stem": "A support process surveys users but forces them to search across unrelated channels for help. What service-management improvement is supported?",
@@ -593,12 +593,12 @@
     },
     {
       "choices": [
+        "A blanking panel is installed correctly and the resulting airflow remains within the design operating envelope",
         "CRAC loss raises inlet temperatures until servers thermally throttle or trip, taking applications offline",
-        "A UPS fails over cleanly to generator with no load drop",
-        "A blanking panel is installed correctly",
+        "A UPS fails over cleanly to generator with no load drop, while the cooling plant continues to hold the required inlet conditions",
         "A dual-corded server remains powered from two live diverse sources"
       ],
-      "correct": "A",
+      "correct": "B",
       "id": "m01-q057",
       "module": 1,
       "stem": "Which scenario best illustrates cascading unavailability?",
@@ -609,9 +609,9 @@
     },
     {
       "choices": [
-        "Firestops only exist for acoustic reasons",
-        "Openings always improve suppression concentration",
-        "Compartmentation is purely aesthetic",
+        "Firestops primarily serve an acoustic purpose, so an opening can remain untreated when a cable bundle is complete",
+        "Openings improve suppression concentration by connecting adjacent zones and balancing pressure during a discharge",
+        "Compartmentation is a visual design choice that can be set aside during cable installation if the panel is supervised",
         "Unsealed penetrations can defeat fire-rated barriers and allow smoke/fire spread between zones"
       ],
       "correct": "D",
@@ -625,10 +625,10 @@
     },
     {
       "choices": [
-        "Records are optional for life-safety systems always",
-        "Failed lamps or batteries may only be discovered during a real outage",
-        "Emergency lights improve with age without maintenance",
-        "Codes forbid any testing"
+        "Test records are optional for life-safety systems in most jurisdictions",
+        "Failed lamps or batteries may only be found during a real outage",
+        "Emergency luminaires can improve in output as their batteries age",
+        "Codes prohibit functional testing of battery-backed luminaires"
       ],
       "correct": "B",
       "id": "m05-q213",
@@ -641,12 +641,12 @@
     },
     {
       "choices": [
-        "Agree: Energy Reuse Factor and Energy Reuse Effectiveness are one KPI with two spellings",
-        "ISO/IEC 30134-6 is Energy Reuse Factor (ERF). Green Grid ERE (Energy Reuse Effectiveness) is a different metric. Do not collapse the letters, and do not turn this module into an energy course",
-        "ERF is the 2024 rename of Availability Class; ERE is the TIA Rated letter",
-        "Either letter converts to a single PUE target that is now law"
+        "ERF and ERE are different metrics; do not collapse the letters",
+        "ERF is the 2024 rename of Availability Class; ERE is the TIA Rated letter, so energy reuse terminology maps to facility ratings",
+        "Either letter converts to a single PUE target that is now law, regardless of the metric's definition or boundary",
+        "Agree: Energy Reuse Factor and Energy Reuse Effectiveness are one KPI with two spellings, so the source and denominator need not be checked"
       ],
-      "correct": "B",
+      "correct": "A",
       "id": "m02-q217",
       "module": 2,
       "stem": "A slide writes “ERF = ERE” and files both as the same ISO/IEC 30134 letter. The correction is:",

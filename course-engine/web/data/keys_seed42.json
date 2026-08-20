@@ -1,125 +1,125 @@
 {
-  "bank_hash": "50fec2eb822295b274a6d14fabd10a92d070dac1dfe612003c434f20f4f6c24c",
+  "bank_hash": "ee9eb030b90ac5560df6dc78f5de7e8d7ededa6c520c79c58b1fa2793c176df4",
   "exam_id": "mock40",
   "keys": [
     {
       "correct": "B",
-      "explanation": "Process and people failures (changes, procedures, maintenance) are major drivers of facility downtime.",
+      "explanation": "Change errors, incomplete procedures, and weak maintenance discipline are organizational contributors to downtime; a feeder short, lightning strike, or isolated UPS component is a technical or environmental event rather than this organizational category.",
       "item_id": "m01-q201"
     },
     {
       "correct": "D",
-      "explanation": "Physical pathway security includes vertical and plenum paths, not only doors.",
+      "explanation": "Plenums and ceiling spaces can bypass door controls unless secured or monitored; a propped door, network-only view, or access-system assumption does not secure the vertical path.",
       "item_id": "m13-q212"
     },
     {
       "correct": "B",
-      "explanation": "The current NFPA 10 catalog identifies the portable-fire-extinguisher standard. The item keeps agent choice tied to hazard, site policy, and trained use, with CO2 personnel-safety caveats; it does not replace building suppression or authorize untrained intervention.",
+      "explanation": "Low-residue agents can suit electronics when correctly selected and used, but CO2 has oxygen-displacement hazards; corrosive powder, replacing building suppression, and untrained use are not equivalent benefits. The current NFPA 10 catalog supports the trained-use boundary.",
       "item_id": "m12-q220"
     },
     {
       "correct": "B",
-      "explanation": "NIST SP 800-53 Rev. 5 PE-2 requires the organization to maintain the authorized-access list, issue credentials, review the list at an organization-defined frequency, and remove individuals when access is no longer required. PE-2(1) also supports role-based facility access. A contract, visitor account, or future review does not preserve least-privilege access after the business need ends.",
+      "explanation": "Remove a vendor from the authorized-access list when the contract need ends; a signed contract is not a continuing badge authorization, and a shared visitor account or quarterly review leaves least privilege stale. NIST SP 800-53 Rev. 5 PE-2 supports the control.",
       "item_id": "m15-q341"
     },
     {
       "correct": "C",
-      "explanation": "The current eCFR hot-work rule requires controlling nearby fire hazards, authorization, suitable extinguishing equipment, and fire-watch conditions. This item stays at that control boundary and does not invent a site-specific permit form or universal stand-off.",
+      "explanation": "Hot work adds ignition near cables, packaging, and dust, so authorization, controls, extinguishing equipment, and fire watch matter; sparks do not polish fiber, a supervisor alone does not waive permits, and smoke is not harmless to detection. The current eCFR supports this control boundary.",
       "item_id": "m12-q209"
     },
     {
       "correct": "C",
-      "explanation": "High current plant—transformers, bus, UPS—are classic strong B sources.",
+      "explanation": "Strong power-frequency magnetic fields come from high current, so transformers, busbars and UPS plant are the sources worth mapping. The other options fail the same test from different directions: plastic panels and fibre carry no current at all, exit signage draws milliamps, and an empty tray is only a source when something energised is lying in it.",
       "item_id": "m07-q044"
     },
     {
-      "correct": "B",
-      "explanation": "International standards are tools for alignment; adoption remains a national/project decision.",
+      "correct": "D",
+      "explanation": "International standards provide broadly usable technical alignment that countries and projects may adopt or reference differently; they do not replace national codes, ban standards bodies, or turn marketing into design criteria.",
       "item_id": "m02-q089"
     },
     {
-      "correct": "B",
-      "explanation": "NFPA 70 (2026) §§700.12 and 700.17 tie emergency lighting to an Article 700 source and an emergency-lighting branch-circuit path when normal lighting fails. IT continuity alone does not prove that life-safety path; an UPS belongs in the answer only after the Article 700 design is verified.",
+      "correct": "A",
+      "explanation": "Article 700 emergency lighting needs its own verified emergency source and branch-circuit path; IT UPS ride-through does not prove compliance, and neither a rack UPS nor a generator for every luminaire is automatic.",
       "item_id": "m05-q214"
     },
     {
       "correct": "D",
-      "explanation": "Li-ion offers density and lifecycle trade-offs, not magic immunity from engineering.",
+      "explanation": "Li-ion offers density and lifecycle trade-offs, but still needs battery management, monitoring, and fire design; it does not create 2N automatically or remove thermal concerns.",
       "item_id": "m06-q231"
     },
     {
       "correct": "D",
-      "explanation": "Exit signs mark the means of egress; they are life-safety devices.",
+      "explanation": "Exit signs identify the egress route; they are not fire-alarm notification appliances or a replacement for route markings, and they do not provide detailed task lighting.",
       "item_id": "m05-q142"
     },
     {
       "correct": "C",
-      "explanation": "Rack sealing is part of aisle containment and inlet temperature control.",
+      "explanation": "Blanking panels and brush strips seal the leakage paths that would otherwise let supply air bypass the equipment or exhaust recirculate to the intakes, so they are part of the inlet temperature story rather than trim. Calling the effect aesthetic is the tempting reading because they are visible cosmetic-looking parts, and the whole reason they are fitted is the air they stop.",
       "item_id": "m08-q207"
     },
     {
       "correct": "C",
-      "explanation": "Cold plates remove heat at the component rather than only via room air.",
+      "explanation": "Direct-to-chip cooling brings liquid through cold plates or loops to high-heat components; it is not room-air-only, a grounding replacement, or merely hot-aisle containment.",
       "item_id": "m09-q227"
     },
     {
       "correct": "C",
-      "explanation": "Single-mode supports long reach and high capacity backbone roles; multimode is common for shorter structured runs depending on design.",
+      "explanation": "Single-mode provides longer-reach and bandwidth headroom for backbones; deliberate modal dispersion, forbidden connectors, and sub-metre-only assumptions are not selection goals.",
       "item_id": "m11-q110"
     },
     {
-      "correct": "C",
-      "explanation": "SPOFs are failure points without concurrent path diversity for the protected load.",
+      "correct": "B",
+      "explanation": "The single point of failure is a component or path whose lone failure can interrupt the protected load; a sensor, a dual-path system with inadequate capacity, or a redundant UPS string is not automatically such a point.",
       "item_id": "m01-q206"
     },
     {
       "correct": "A",
-      "explanation": "Factory trunks reduce field termination variability—still require correct design, pathways, and acceptance tests.",
+      "explanation": "Pre-terminated trunks speed installation with factory-controlled fit and terminations; they do not remove polarity planning, pathway design, or acceptance testing.",
       "item_id": "m11-q132"
     },
     {
       "correct": "B",
-      "explanation": "Water balance anomalies are early warnings for plant risk—instrumentation supports response.",
+      "explanation": "Basin level and makeup flow are a water balance: an unexplained rise in makeup means loss somewhere -- a leak, excessive blowdown, or a supply problem -- and it shows up before thermal performance degrades. It does not replace rack-inlet sensing, though: it is an upstream plant signal, and inferring hall conditions from it would miss anything downstream of the loop.",
       "item_id": "m10-q113"
     },
     {
       "correct": "A",
-      "explanation": "A zero-U PDU mounts vertically at the rear or side of the cabinet, preserving horizontal rack U for IT equipment.",
+      "explanation": "Zero-U means the PDU mounts in the vertical rear or side channel, consuming none of the horizontal U that IT equipment needs -- which is the whole point of the form factor and why 800 mm cabinets are chosen for dense power. Describing it as a horizontal shelf is the near-miss, since 1U and 2U rack PDUs do exist and are the thing zero-U was designed to avoid.",
       "item_id": "m08-q053"
     },
     {
       "correct": "A",
-      "explanation": "Monitor the chains and the monitors—blind spots include dead sensors and capacity blindness.",
+      "explanation": "The checklist has to include the supervisory points for fire and security AND the health of the monitoring itself, because a dead sensor and a silent collector both read as calm. Monitoring the monitors is the part most often missed. The other options are business and cosmetic metrics with no operational state behind them.",
       "item_id": "bank-m14-q133"
     },
     {
       "correct": "D",
-      "explanation": "Recirculation is hot air returning to intakes instead of the cooling return path.",
+      "explanation": "Recirculation is hot exhaust returning to intakes instead of a clean return; cold supply short-circuiting is bypass, while liquid loops and stationary air are different cases.",
       "item_id": "m09-q204"
     },
     {
       "correct": "B",
-      "explanation": "UPS ride-through → genset start → transfer is the textbook sequence.",
+      "explanation": "UPS ride-through carries IT through genset start and transfer; the fire system does not become the power path, and an unprotected load would not simply wait through a multi-hour start.",
       "item_id": "m06-q107"
     },
     {
       "correct": "D",
-      "explanation": "Containment integrity matters—open doors, missing panels, and cable gaps re-create recirculation paths.",
+      "explanation": "Containment integrity matters because doors, blanks, and seals prevent leakage and mixing; gaps do not improve separation, battery autonomy, or CRAH redundancy.",
       "item_id": "m09-q151"
     },
     {
       "correct": "C",
-      "explanation": "Concentrated loads are point/small-area forces that can govern panel and pedestal design.",
+      "explanation": "Concentrated load is a heavy force applied through a small contact area such as equipment feet; aisle paint, room-average kW, and DNS selection do not test panel or pedestal loading.",
       "item_id": "m04-q117"
     },
     {
       "correct": "B",
-      "explanation": "DCIM ties inventory, power capacity, and change workflows to facilities data—not just environment sensing.",
+      "explanation": "DCIM ties inventory, power capacity, and change workflows to facilities data—not just environment sensing; fire release, transfer-switch control, and protection relaying remain distinct functions.",
       "item_id": "bank-m14-q106"
     },
     {
-      "correct": "B",
-      "explanation": "Guides recommend practice; binding force comes from adoption into law, contract, or policy.",
+      "correct": "C",
+      "explanation": "The guideline recommends practice and becomes binding only through code, contract, or policy adoption; it does not automatically override the AHJ or carry criminal penalties by itself.",
       "item_id": "m02-q081"
     },
     {
@@ -128,28 +128,28 @@
       "item_id": "m10-q217"
     },
     {
-      "correct": "A",
+      "correct": "D",
       "explanation": "TIA-942-B §1.2 defines requirements but does not mandate or provide an assessment program. 'Designed to TIA-942-B Rated-3' is a self-declaration by the designer or owner — it may or may not have been verified by a third party. A due-diligence reviewer should ask whether an independent assessor validated the claim and, if so, request the assessment report. Self-declaration and third-party assessment are distinct; the marketing phrase does not prove either.",
       "item_id": "m03-q235"
     },
     {
       "correct": "B",
-      "explanation": "Visitors need controlled credentials and escort; shared badges destroy audit.",
+      "explanation": "Restricted-zone visitors need identity checks, temporary credentials, escort, and sign-in/out; permanent unrestricted or shared badges destroy zone control and audit.",
       "item_id": "bank-m13-q090"
     },
     {
       "correct": "C",
-      "explanation": "A site can have carriers and utilities yet fail resilience if deed restrictions, easements, or landlord constraints block fuel or antenna rights; those are site-selection constraints.",
+      "explanation": "The campus can have diverse carriers and adequate loading yet fail if easements, deed restrictions, or landlord rules block fuel or antenna rights; utility access alone does not remove those legal constraints.",
       "item_id": "m03-q109"
     },
     {
       "correct": "C",
-      "explanation": "Loading categories match different force patterns: area, point, and rolling traffic.",
+      "explanation": "Uniform, concentrated, and rolling ratings describe area, point, and wheeled-equipment forces respectively; they are not identical aesthetic categories or merely cable weight.",
       "item_id": "m04-q200"
     },
     {
       "correct": "B",
-      "explanation": "Distance is the strongest cheap tool for power-frequency magnetic fields.",
+      "explanation": "Distance and layout are the strongest cheap tools for power-frequency magnetic fields; RF paint, removing bonding, or changing phase supply are different or unsafe responses.",
       "item_id": "m07-q045"
     },
     {
@@ -159,7 +159,7 @@
     },
     {
       "correct": "C",
-      "explanation": "Visible controls that hide soft rear/process layers are security theatre.",
+      "explanation": "Security theatre is impressive visible control while roofs, yards, or processes remain weak; integrated anti-passback, CCTV, and LOTO are real layers rather than theatre.",
       "item_id": "bank-m13-q103"
     },
     {
@@ -169,37 +169,37 @@
     },
     {
       "correct": "D",
-      "explanation": "Actionable alerts beat naked point names during incidents.",
+      "explanation": "Actionable alerts beat naked point names during incidents; runbook links guide the next action without eliminating calibration or turning every log entry into an executive page.",
       "item_id": "bank-m14-q124"
     },
     {
-      "correct": "A",
+      "correct": "B",
       "explanation": "The UK Department for Education's Service Management standard, Version 1, identifies user satisfaction through a single point of entry into service support. The item applies that specific public statement to the CDFOS customer-satisfaction heading; it does not prescribe a particular portal or satisfaction score.",
       "item_id": "m15-q377"
     },
     {
-      "correct": "A",
-      "explanation": "Cooling failure can cascade into thermal IT failure even when power is still present.",
+      "correct": "B",
+      "explanation": "Loss of cooling can raise inlet temperature until servers throttle or trip, cascading into application loss while power remains available; a healthy blanking panel, clean UPS transfer, or dual live source is not a cascade.",
       "item_id": "m01-q057"
     },
     {
       "correct": "D",
-      "explanation": "The current NFPA 1 preview supports treating fire protection and compartmentation as code-governed concerns. An unsealed penetration can compromise a rated barrier and permit smoke or fire spread; the item does not prescribe a project-specific firestop detail or AHJ ruling.",
+      "explanation": "Unsealed penetrations defeat rated barriers and let smoke or fire spread; openings do not improve suppression, and supervision or visual preference cannot waive firestopping. The current NFPA 1 preview supports the code-governed compartmentation boundary.",
       "item_id": "m12-q206"
     },
     {
       "correct": "B",
-      "explanation": "Unverified emergency lighting is a latent life-safety failure.",
+      "explanation": "Without test records, failed lamps or batteries may remain hidden until an outage; codes and manufacturers generally require functional testing, not prohibit it.",
       "item_id": "m05-q213"
     },
     {
-      "correct": "B",
+      "correct": "A",
       "explanation": "30134-6 is ERF (Energy Reuse Factor). ERE is not that part. The series has more than three letters; this course names the distinction and stops. No single PUE target as law. Sustainability-track depth is not this leftover.",
       "item_id": "m02-q217"
     },
     {
       "correct": "B",
-      "explanation": "Offline/standby leaves the load on utility until a failure forces transfer—cheap but not preferred for critical core IT.",
+      "explanation": "Offline or standby leaves the load on utility until a failure forces transfer—cheap but not preferred for critical core IT; it is not universal, notch-free, or battery-free.",
       "item_id": "m06-q059"
     }
   ],
