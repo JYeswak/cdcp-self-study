@@ -14,7 +14,7 @@ choices = [
   "Lifting floor tiles wherever convenient and reviewing airflow only if a problem appears",
 ]
 correct = "A"
-explanation = "Service methods must preserve safety and cooling/containment discipline."
+explanation = "Use safe access while preserving containment and aisle integrity; ladders or casually lifting tiles can create access, fall, and airflow hazards, and emergency circuits should not be casually isolated."
 topic_ids = ["m05-fixtures"]
 objective_ids = []
 bloom = "apply"

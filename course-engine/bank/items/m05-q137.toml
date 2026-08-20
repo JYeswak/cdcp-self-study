@@ -14,7 +14,7 @@ choices = [
   "Adequate task visibility, energy use, maintenance access, and minimal interference with airflow/cabling",
 ]
 correct = "D"
-explanation = "Good design meets visual task needs without defeating cooling, cabling, or maintainability."
+explanation = "Good design balances task visibility with energy, access, cooling, and cabling; maximizing floor lux or minimizing watts alone trades away the other requirement."
 topic_ids = ["m05-standards", "m05-fixtures"]
 objective_ids = []
 bloom = "understand"

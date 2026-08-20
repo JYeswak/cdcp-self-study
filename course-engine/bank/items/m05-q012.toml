@@ -13,7 +13,7 @@ choices = [
   "Satisfy the monthly generator load-test requirement for the site",
 ]
 correct = "B"
-explanation = "Emergency lighting is a life-safety egress function, not an efficiency feature."
+explanation = "Emergency lighting supports safe egress when normal power fails; it is not a substitute for IT task lighting or a generator load-test control."
 topic_ids = ["m05-emergency"]
 objective_ids = []
 bloom = "remember"

@@ -14,7 +14,7 @@ choices = [
   "One central emergency source feeds multiple emergency luminaires",
 ]
 correct = "D"
-explanation = "Central systems feed many fixtures from shared emergency power rather than per-fixture batteries."
+explanation = "A central battery or inverter supplies multiple emergency luminaires; central monitoring does not remove testing, and local batteries describe unit equipment instead."
 topic_ids = ["m05-emergency-types"]
 objective_ids = []
 bloom = "understand"

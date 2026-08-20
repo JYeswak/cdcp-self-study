@@ -13,7 +13,7 @@ choices = [
   "That only a single lamp technology is legally permitted across jurisdictions",
 ]
 correct = "A"
-explanation = "Standards target task visibility and safety; energy goals are balanced against that duty."
+explanation = "Workplace lighting guidance protects visibility for operation, inspection, and maintenance; maximizing glare, demanding zero energy, or imposing one lamp technology defeats that purpose."
 topic_ids = ["m05-standards", "m05-measurements"]
 objective_ids = []
 bloom = "remember"

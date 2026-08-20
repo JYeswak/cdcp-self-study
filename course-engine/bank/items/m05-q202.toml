@@ -14,7 +14,7 @@ choices = [
   "Positioning fixtures so equipment labels sit in shadow to cut screen glare",
 ]
 correct = "C"
-explanation = "Lighting must support safe work without fighting cooling containment or blocking maintenance."
+explanation = "Place fixtures for glare control, maintenance access, cable paths, and containment; ceiling-grid capacity or intentionally shadowing labels is not a lighting objective."
 topic_ids = ["m05-fixtures"]
 objective_ids = []
 bloom = "apply"

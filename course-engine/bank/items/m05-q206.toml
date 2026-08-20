@@ -14,7 +14,7 @@ choices = [
   "Remove the need for any task lighting at panels and termination fields",
 ]
 correct = "C"
-explanation = "Fixture type and aim should serve vertical equipment faces and aisle tasks efficiently."
+explanation = "Aisle lighting should deliver useful, low-glare task light; it does not provide emergency coverage by itself or eliminate task lighting at panels and terminations."
 topic_ids = ["m05-fixtures", "m05-measurements"]
 objective_ids = []
 bloom = "understand"

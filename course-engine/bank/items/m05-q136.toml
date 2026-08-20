@@ -13,7 +13,7 @@ choices = [
   "Light leaving a surface toward the observer",
 ]
 correct = "D"
-explanation = "Luminance characterizes light from a surface toward the eye; illuminance is incident light."
+explanation = "Luminance is light leaving a surface toward the observer; illuminance is what arrives at the work plane, lumens are total flux, and candela is directional intensity."
 topic_ids = ["m05-measurements"]
 objective_ids = []
 bloom = "understand"

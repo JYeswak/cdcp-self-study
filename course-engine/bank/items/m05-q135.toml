@@ -13,7 +13,7 @@ choices = [
   "Luminous flux arriving on a surface per unit area",
 ]
 correct = "D"
-explanation = "Illuminance is luminous flux density on a surface—the usual work-plane light level metric."
+explanation = "Illuminance is luminous flux arriving per unit area at a surface—the work-plane light level; lumens are total emitted flux, candela is directional intensity, and luminance is the surface brightness seen by the observer."
 topic_ids = ["m05-measurements"]
 objective_ids = []
 bloom = "remember"

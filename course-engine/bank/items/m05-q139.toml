@@ -15,7 +15,7 @@ choices = [
   "A supplementary source that raises average illuminance during maintenance windows",
 ]
 correct = "C"
-explanation = "Emergency lighting is for life safety and egress visibility under power loss."
+explanation = "Emergency lighting provides egress life safety when normal lighting fails; it is not an energy-management mode, generator-test substitute, or general maintenance illumination."
 topic_ids = ["m05-emergency"]
 objective_ids = []
 bloom = "remember"

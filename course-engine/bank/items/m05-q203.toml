@@ -13,7 +13,7 @@ choices = [
   "Self-contained units need no periodic testing once commissioned",
 ]
 correct = "A"
-explanation = "Architecture differs: local battery units vs central emergency supply—both need maintenance and testing."
+explanation = "Self-contained units keep the battery or inverter at the fixture, unlike central supply; they still require periodic testing and do not replace normal lighting."
 topic_ids = ["m05-emergency-types", "m05-emergency"]
 objective_ids = []
 bloom = "understand"

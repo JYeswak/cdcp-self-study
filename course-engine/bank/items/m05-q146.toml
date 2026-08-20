@@ -14,7 +14,7 @@ choices = [
   "Testing units monthly and recording the results in the maintenance log",
 ]
 correct = "A"
-explanation = "Unmaintained or obstructed emergency lighting fails when it is needed most."
+explanation = "The failure is blocking fixtures or skipping their own tests; a generator exercise or an unobstructed sign does not prove each emergency luminaire works."
 topic_ids = ["m05-emergency"]
 objective_ids = []
 bloom = "apply"

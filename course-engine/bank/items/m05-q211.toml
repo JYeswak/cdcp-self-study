@@ -13,7 +13,7 @@ choices = [
   "That periodic emergency-lighting testing is no longer necessary",
 ]
 correct = "C"
-explanation = "Commissioning checks actual illuminance against design intent."
+explanation = "A lux reading verifies as-built illuminance for the intended task; it does not replace broader commissioning or periodic emergency-lighting tests."
 topic_ids = ["m05-measurements", "m05-standards"]
 objective_ids = []
 bloom = "apply"

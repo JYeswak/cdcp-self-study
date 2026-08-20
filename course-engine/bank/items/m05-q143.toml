@@ -14,7 +14,7 @@ choices = [
   "Applicable codes set minimums that vary by jurisdiction and space use",
 ]
 correct = "D"
-explanation = "Lighting requirements come from codes/guidance for space type and jurisdiction—not a single universal meme number."
+explanation = "Lighting minima depend on the applicable code or guidance, jurisdiction, and space use; a Tier label or operator preference does not create one global lux value."
 topic_ids = ["m05-standards"]
 objective_ids = []
 bloom = "understand"

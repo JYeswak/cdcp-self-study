@@ -17,7 +17,7 @@ choices = [
   "Check only normal rack task lighting",
 ]
 correct = "C"
-explanation = "NFPA 101 (2024) §7.9.1.1 addresses emergency-lighting facilities for the means of egress in the conditions listed by the Code. An illuminated EXIT sign supports wayfinding, but it does not by itself demonstrate that the required egress emergency-lighting facilities are installed, powered, and ready."
+explanation = "An EXIT sign proves wayfinding, not the separate egress-lighting requirement; check the emergency luminaires and source independently rather than relying on IT UPS health or normal task lighting."
 topic_ids = ["m05-emergency", "m05-emergency-types"]
 objective_ids = []
 bloom = "apply"

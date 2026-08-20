@@ -13,7 +13,7 @@ choices = [
   "Identify the egress path under both normal and emergency conditions as required",
 ]
 correct = "D"
-explanation = "Exit signs mark the means of egress; they are life-safety devices."
+explanation = "Exit signs identify the egress route; they are not fire-alarm notification appliances or a replacement for route markings, and they do not provide detailed task lighting."
 topic_ids = ["m05-emergency", "m05-emergency-types"]
 objective_ids = []
 bloom = "remember"

@@ -13,7 +13,7 @@ choices = [
   "So the fire detection system may be omitted from the egress corridors entirely",
 ]
 correct = "B"
-explanation = "Emergency lighting is a life-safety function for egress and emergency operations—not IT performance."
+explanation = "Emergency lighting keeps egress usable during power loss; it does not maintain IT task illumination or replace fire detection."
 topic_ids = ["m05-emergency", "m05-emergency-types"]
 objective_ids = []
 bloom = "understand"

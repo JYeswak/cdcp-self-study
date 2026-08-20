@@ -13,7 +13,7 @@ choices = [
   "Codes prohibit functional testing of battery-backed luminaires",
 ]
 correct = "B"
-explanation = "Unverified emergency lighting is a latent life-safety failure."
+explanation = "Without test records, failed lamps or batteries may remain hidden until an outage; codes and manufacturers generally require functional testing, not prohibit it."
 topic_ids = ["m05-emergency", "m05-standards"]
 objective_ids = []
 bloom = "apply"

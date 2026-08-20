@@ -14,7 +14,7 @@ choices = [
   "Include a local battery or inverter to stay lit for a required duration",
 ]
 correct = "D"
-explanation = "Unit equipment carries local emergency power for required egress lighting duration."
+explanation = "Self-contained luminaires carry their own local battery or inverter for the required duration; a shared IT UPS or a central inverter describes a different supply architecture."
 topic_ids = ["m05-emergency-types"]
 objective_ids = []
 bloom = "understand"

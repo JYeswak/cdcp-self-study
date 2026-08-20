@@ -13,7 +13,7 @@ choices = [
   "Floor-level lux can be the measure that matters for equipment faces",
 ]
 correct = "A"
-explanation = "Task surfaces are often vertical; aisle-center readings can mislead."
+explanation = "Vertical equipment faces and lower U positions can be dark even when aisle-center lux looks good; floor-level or camera-oriented readings do not replace task-surface checks."
 topic_ids = ["m05-fixtures", "m05-measurements"]
 objective_ids = []
 bloom = "analyze"

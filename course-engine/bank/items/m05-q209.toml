@@ -13,7 +13,7 @@ choices = [
   "Emergency luminaires take the place of fire alarm notification devices",
 ]
 correct = "B"
-explanation = "Wayfinding (exit marking) and illumination are related but distinct life-safety functions."
+explanation = "Exit signs mark the route and emergency luminaires illuminate it; neither provides rack task lighting or replaces fire-alarm notification."
 topic_ids = ["m05-emergency", "m05-emergency-types"]
 objective_ids = []
 bloom = "remember"

@@ -13,7 +13,7 @@ choices = [
   "They share one branch circuit with no segregation between the two paths",
 ]
 correct = "A"
-explanation = "Emergency lighting is a life-safety system with dedicated design expectations."
+explanation = "Emergency lighting has distinct power-path and performance requirements for life safety; leaving it permanently on or sharing an unsegregated branch is not the design principle."
 topic_ids = ["m05-emergency", "m05-standards"]
 objective_ids = []
 bloom = "understand"

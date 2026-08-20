@@ -13,7 +13,7 @@ choices = [
   "So emergency luminaires operate only when the building is fully powered",
 ]
 correct = "B"
-explanation = "Circuiting and emergency transfer must match the life-safety design, not ad-hoc plug strips."
+explanation = "Circuiting must preserve the designed normal and emergency paths for egress; a shared non-backed receptacle, omitted single-line, or fully-powered-only trigger does not establish that."
 topic_ids = ["m05-fixtures", "m05-emergency"]
 objective_ids = []
 bloom = "apply"

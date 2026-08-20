@@ -17,7 +17,7 @@ choices = [
   "Require a generator for every emergency luminaire",
 ]
 correct = "A"
-explanation = "NFPA 70 (2026) §§700.12 and 700.17 tie emergency lighting to an Article 700 source and an emergency-lighting branch-circuit path when normal lighting fails. IT continuity alone does not prove that life-safety path; an UPS belongs in the answer only after the Article 700 design is verified."
+explanation = "Article 700 emergency lighting needs its own verified emergency source and branch-circuit path; IT UPS ride-through does not prove compliance, and neither a rack UPS nor a generator for every luminaire is automatic."
 topic_ids = ["m05-emergency", "m05-standards"]
 objective_ids = []
 bloom = "apply"

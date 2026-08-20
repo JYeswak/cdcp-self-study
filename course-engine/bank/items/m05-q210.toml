@@ -14,7 +14,7 @@ choices = [
   "Sensors disable emergency lighting first"
 ]
 correct = "C"
-explanation = "Energy controls must not undercut required illuminance or life-safety behavior."
+explanation = "Controls may save energy only without darkening occupied or service aisles or disabling emergency functions; manual override and emergency priority remain necessary."
 topic_ids = ["m05-standards", "m05-fixtures"]
 objective_ids = []
 bloom = "analyze"

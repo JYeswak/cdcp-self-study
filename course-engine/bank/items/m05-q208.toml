@@ -14,7 +14,7 @@ choices = [
   "Work by flashlight so ambient lighting stays at minimum output",
 ]
 correct = "A"
-explanation = "Quality of light affects error rates in maintenance and operations—not only raw lux numbers."
+explanation = "Good colour rendering and glare control support readable labels and workmanship; seeing colours across the hall or relying on a flashlight is not a substitute for suitable task lighting."
 topic_ids = ["m05-measurements", "m05-standards"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ choices = [
   "Maintenance access, glare on work surfaces, and clearance from containment and airflow paths",
 ]
 correct = "D"
-explanation = "Placement is an operations and airflow coordination problem, not pure geometry."
+explanation = "Fixture placement must coordinate glare, maintenance access, containment, and airflow; a neat ceiling grid or shortest cable drop is not the design objective."
 topic_ids = ["m05-fixtures"]
 objective_ids = []
 bloom = "apply"

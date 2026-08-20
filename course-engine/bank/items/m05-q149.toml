@@ -13,7 +13,7 @@ choices = [
   "To let luminaires substitute for firestopping at ceiling penetrations",
 ]
 correct = "B"
-explanation = "Supports/restraints are life-safety and property-protection measures for overhead equipment."
+explanation = "Supports and seismic restraints keep overhead luminaires from falling and preserve egress; they do not alter floor rolling-load ratings or replace firestopping."
 topic_ids = ["m05-fixtures", "m05-standards"]
 objective_ids = []
 bloom = "remember"

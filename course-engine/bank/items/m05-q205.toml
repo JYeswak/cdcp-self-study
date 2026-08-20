@@ -13,7 +13,7 @@ choices = [
   "Disconnect emergency circuits during occupied hours",
 ]
 correct = "B"
-explanation = "Life-safety lighting requires ongoing verification—install-and-forget is noncompliant and unsafe."
+explanation = "Emergency lighting needs periodic testing and inspection; an installation is not proven by age, and disconnecting its circuit during occupancy defeats the life-safety function."
 topic_ids = ["m05-emergency", "m05-standards"]
 objective_ids = []
 bloom = "apply"
