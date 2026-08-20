@@ -37,6 +37,9 @@ Grade the controller on two numbers, recorded per tick:
 | 13 | 19:08 | 3 | Redirect off Q17 (collision) | I dispatched pane 3 to an item pane 2 had already claimed | Redirected to pack/goldens lane |
 | 14 | 19:11 | 2 | Quiescence request | Pane 3 needed a consistent tree to regenerate | Tree measured already clean; released pane 3 in ~3 min |
 | 15 | 19:12 | 3 | RESUME regeneration + coupling gate | Unblocked | In flight |
+| 16 | 19:48 | 2 | Q5 + Q7 + release hoarded claims | Pane 2 concluded "no work" while Q5/Q7 sat unclaimed in its own lane | 3 Python oracles retired (`dac197a3`, `0336d5e4`, `0106e317`) |
+| 17 | 19:52 | 3 | Q20 conversion candidates | 56% recall was the largest unmeasured gap | **Done** (`3c060643`) — 396 convertible / 118 not / 20 uncertain, with a reversed judgement and a limits section |
+| 18 | 20:24 | 2+3 | RESUME both after provider disconnect | **Both panes idle 27 min — worst gap of the day** | Both resumed |
 
 ## Controller misses
 
@@ -48,6 +51,7 @@ Grade the controller on two numbers, recorded per tick:
 | 19:08 | Pane 3 blocked on me ~10 min | It paused before regenerating and asked for quiescence — exactly as instructed — and I did not answer. `fleet-tick.sh` reported it as "idle", which is the **wrong label**: blocked-on-controller and out-of-work are different failures needing opposite responses, and the check cannot tell them apart. | Ran the quiescence protocol; tree was already clean, so the 10 minutes bought nothing. Open gap: fleet-tick cannot distinguish the two states. |
 | 19:10 | Q14 human-only marker silently failed to apply | My `str.replace` did not match because a pane had already rewritten that line, and my script **printed "marked human-only" unconditionally** without verifying the replacement happened. I reported a success I had not checked. | Re-applied against the real current text and verified with `git show HEAD:` — 1 occurrence — rather than trusting the edit |
 | — | Collision: two panes on Q17 | I dispatched pane 3 to an item pane 2 had claimed minutes earlier. I was not reading the queue's claim state before dispatching. | Redirected pane 3; pane 2 keeps the inventory |
+| 19:56–20:23 | **Both panes idle 27 minutes.** The longest gap today. | TWO causes stacked. (1) Upstream: both codex streams died with `stream disconnected before completion — chatgpt.com/backend-api/codex/responses`. Not our defect, but it left both panes idle simultaneously. (2) **Mine, and the real one: autofeed is EDGE-triggered.** It acts only on a `working→idle` transition. Both panes went idle inside a 180s cooldown, were skipped — and because they were *already* idle, no further edge ever occurred. `skip … inside cooldown` at 13:56, then 27 minutes of silence. Edge detection is right for responsiveness and wrong for *guaranteeing* a property. | Added a LEVEL-triggered sweeper thread: polls real state every 45s and feeds anything idle-and-unfed for >180s regardless of transitions. `unknown`/`degraded` count as idle; zero agents logs rather than reading as all-busy. Cron respawn updated to pass the same tunables so a restart cannot silently revert to different timings. |
 
 The second miss is the more instructive one: I wrote a gate, tested it against a fixture I
 made up, and reported it as armed. That is the same defect this project has been cataloguing
