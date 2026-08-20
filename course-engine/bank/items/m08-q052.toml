@@ -14,7 +14,7 @@ choices = [
   "Audit trails and controlled cabinet access",
 ]
 correct = "D"
-explanation = "Badge-integrated handles produce an audit trail: who opened which cabinet, when, and under what authorisation. The electronics draw a trivial load and change nothing about redundancy topology or the cooling path, so neither PUE nor 2N nor free cooling is created by fitting them."
+explanation = "Badge-integrated handles produce an audit trail: who opened which cabinet, when, and under what authorisation. The electronics draw a trivial load and change nothing about redundancy topology or the cooling path, so neither PUE nor 2N nor a cooling interface is created by fitting them."
 topic_ids = ["m08-security"]
 objective_ids = []
 bloom = "understand"
