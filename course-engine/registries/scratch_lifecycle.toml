@@ -1,0 +1,8 @@
+# Scratch lifecycle policy for local CI probes.
+# New materialised trees belong below target/cdcp-scratch/ and are owned by the
+# probe that created them.  The reaper removes only disposable target children;
+# these build trees remain warm and are never reaped.
+schema_version = 1
+root = "target/cdcp-scratch"
+max_bytes = 53687091200 # 50 GiB: warn before scratch can consume the disk
+preserve_target_dirs = ["debug", "release", "wasm32-unknown-unknown"]

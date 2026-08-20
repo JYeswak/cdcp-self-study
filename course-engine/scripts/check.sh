@@ -45,7 +45,7 @@ case "$_chk_self" in
   */scripts/check.sh)
     ROOT="$(CDPATH= cd -- "$_chk_dir/.." && pwd)" \
       || snapshot_error "cannot resolve engine root from $_chk_dir"
-    _snap_dir="$ROOT/target/check.snap.$$"
+    _snap_dir="$ROOT/target/cdcp-scratch/check-snap-$$"
     if [ "${CDCP_CHECK_SNAPSHOT_PROBE:-0}" = "1" ] && [ -n "${CDCP_CHECK_SNAP_DIR:-}" ]; then
       _snap_dir="$CDCP_CHECK_SNAP_DIR"
     fi
@@ -69,7 +69,7 @@ case "$_chk_self" in
       || snapshot_error "running from $_chk_self without CDCP_CHECK_ROOT (refusing to guess ROOT from a snapshot path)"
     ROOT="$CDCP_CHECK_ROOT"
     case "$_chk_self" in
-      */target/check.snap.$$/check.sh)
+      */target/cdcp-scratch/check-snap-$$/check.sh)
         # Probe children leave the copy for the parent to inspect; the
         # private-tree selftest rm -rf's the whole scratch dir.
         if [ "${CDCP_CHECK_SNAPSHOT_PROBE:-0}" != "1" ]; then
@@ -80,10 +80,23 @@ case "$_chk_self" in
     ;;
 esac
 
+# The running snapshot is itself below target/cdcp-scratch.  The preflight
+# reaper must not remove the directory containing the script currently
+# executing; its EXIT trap will remove it after the run.
+if [ -n "${_SNAP_CLEAN:-}" ]; then
+  CDCP_SCRATCH_KEEP="${CDCP_SCRATCH_KEEP:-}:$_SNAP_CLEAN"
+  export CDCP_SCRATCH_KEEP
+fi
+
 # Early trap so a probe child that exits before the main cleanup is installed
 # still removes its private copy.
 _snap_early_cleanup() {
   if [ -n "${_SNAP_CLEAN:-}" ]; then rm -rf "$_SNAP_CLEAN"; fi
+  for _scratch_path in "${_lk_scratch:-}" "${_ss:-}" "${_fmt_selftest_root:-}"; do
+    case "$_scratch_path" in
+      "$ROOT/target/cdcp-scratch"/*) rm -rf "$_scratch_path" 2>/dev/null || true ;;
+    esac
+  done
   return 0
 }
 trap '_snap_early_cleanup' EXIT INT TERM HUP
@@ -110,8 +123,20 @@ fi
 
 cd "$ROOT"
 
+# Scratch lifecycle is a preflight, before the warm build and before any gate
+# can fail early.  It removes the legacy target/* probe trees, proves the
+# planted-tree and zero-find legs, warns on the configured size floor, and never
+# touches target/debug, target/release, or the wasm build target.
+CDCP_LIFECYCLE_KEEP="$ROOT/target/check.lock"
+export CDCP_LIFECYCLE_KEEP
+echo "==> scratch lifecycle reaper (bd-qlxp)"
+sh scripts/reap_scratch.sh --selftest \
+  || snapshot_error "scratch lifecycle reaper failed; refusing to run CI with an unmeasured scratch namespace"
+echo "check.sh: scratch lifecycle: named root and exit-path cleanup are active"
+
 fail() { echo "check.sh: FAIL: $*" >&2; exit 2; }
 GAPS=""
+SUBSTRATE_NESTED_OK=0
 # Step counter [bd-1sd.13]. The advertised chain length is OK + SKIPPED, so a
 # machine that honestly cannot run a leg (no wasm32, nested reconstructed run)
 # still advertises the same number as one that ran every leg. A transcript
@@ -137,7 +162,7 @@ assert_generator_fresh() {
 # IN THE WORKING TREE and restored it afterwards. The second run read the
 # mutated state and reported a product defect that did not exist.
 # bd-791t (2026-08-15): reconstructed now injects in a private tree under
-# target/cdcp-recon-*/ — live tracked files, including crates/cdcp_cli/src/main.rs,
+# target/cdcp-scratch/reconstructed-*/ — live tracked files, including crates/cdcp_cli/src/main.rs,
 # are not written. The lock remains because other steps below still mutate live.
 #
 # The cost is not the failed run, it is the FALSE VERDICT. A red from a
@@ -157,7 +182,7 @@ assert_generator_fresh() {
 #                              flips a TEMP copy of the wasm; plant 2 uses
 #                              isolated CARGO_TARGET_DIR + RUSTFLAGS cfg
 #   selftest_l5.sh             web/_selftest_l5_honesty_planted.html    [S] planted/removed
-#   selftest_reconstructed.sh  (bd-791t) private tree under target/cdcp-recon-*/
+#   selftest_reconstructed.sh  (bd-791t) private tree under target/cdcp-scratch/reconstructed-*/
 #                              live tracked files are not written
 #   cdcp build-learn               web/data/modules_index.json          [M] regenerated
 #                                  web/data/topic_anchors.json          [M] regenerated
@@ -186,7 +211,7 @@ assert_generator_fresh() {
 #
 # Re-entrancy: selftest_reconstructed.sh used to re-enter this script in the
 # SAME root, five times (and then from a private tree). As of bd-791t it
-# mutates a private snapshot under target/cdcp-recon-*/snap and runs the
+# mutates a private snapshot under target/cdcp-scratch/reconstructed-*/snap and runs the
 # same per-stage predicates; it does not re-enter this script. Live tracked
 # files, including crates/cdcp_cli/src/main.rs, are not written.
 # CDCP_CHECK_LOCK_HELD still exists for any same-root descendant.
@@ -337,9 +362,11 @@ fi
 if [ "$LOCK_HELD" = "1" ]; then
   echo "==> check.sh lock selftest (L4: second run refused · stale lock reclaimed · unwritable path ERRORs)"
   _lk_self="$ROOT/scripts/check.sh"
-  _lk_scratch="$ROOT/target/cdcp-lock-selftest"
+  _lk_scratch="$ROOT/target/cdcp-scratch/lock-selftest-$$"
   rm -rf "$_lk_scratch"
   mkdir -p "$_lk_scratch" || fail "lock selftest: cannot create $_lk_scratch"
+  CDCP_SCRATCH_KEEP="${CDCP_SCRATCH_KEEP:-}:$_lk_scratch"
+  export CDCP_SCRATCH_KEEP
 
   _lk_rc=0
   _lk_out="$(CDCP_CHECK_LOCK_PROBE=1 sh "$_lk_self" 2>&1)" || _lk_rc=$?
@@ -375,6 +402,7 @@ if [ "$LOCK_HELD" = "1" ]; then
     || fail "lock selftest: the unwritable lock path failed without naming the lock as the reason: $_lk_out"
 
   rm -rf "$_lk_scratch"
+  _lk_scratch=""
   # Snapshot CHARTER rewrites call `cdcp snap-rewrite`. That binary exists
   # only after compile-once; the L4 isolation suite (and the combined
   # lock+snapshot ok) runs there so this stays one advertised step.
@@ -504,9 +532,11 @@ ok "required test identities ran unfiltered in the worktree"
 # calls `cdcp snap-rewrite`. Putting python3 back on this path is RED.
 if [ "$LOCK_HELD" = "1" ]; then
   echo "==> check.sh snapshot selftest (L4: shear isolated · empty copy ERRORs · CHARTER pair · env guard)"
-  _ss="$ROOT/target/cdcp-snap-selftest"
+  _ss="$ROOT/target/cdcp-scratch/snapshot-selftest-$$"
   rm -rf "$_ss"
   mkdir -p "$_ss/tree/scripts" "$_ss/tree/target" || fail "snapshot selftest: cannot create $_ss"
+  CDCP_SCRATCH_KEEP="${CDCP_SCRATCH_KEEP:-}:$_ss"
+  export CDCP_SCRATCH_KEEP
   cp "$ROOT/scripts/check.sh" "$_ss/tree/scripts/check.sh" \
     || fail "snapshot selftest: cannot copy check.sh into the private tree"
 
@@ -591,7 +621,7 @@ if [ "$LOCK_HELD" = "1" ]; then
   fi
   _ss_env_run="$(cat "$_ss/hs-env/running")"
   case "$_ss_env_run" in
-    */target/check.snap.*/check.sh) ;;
+    */target/cdcp-scratch/check-snap-*/check.sh) ;;
     *)
       kill "$_ss_env_pid" 2>/dev/null || true
       wait "$_ss_env_pid" 2>/dev/null || true
@@ -611,7 +641,7 @@ if [ "$LOCK_HELD" = "1" ]; then
     || fail "snapshot selftest: known-good isolation went RED (rc=$_ISO_RC): $(cat "$_ss/hs-good/out" 2>/dev/null)"
   _ss_good_run="$(cat "$_ss/hs-good/running")"
   case "$_ss_good_run" in
-    */target/check.snap.*/check.sh) ;;
+    */target/cdcp-scratch/check-snap-*/check.sh) ;;
     *) fail "snapshot selftest: known-good did not re-exec a snapshot (running=$_ss_good_run)" ;;
   esac
   grep -q "$_SNAP_INTACT" "$_ss_good_run" \
@@ -642,6 +672,7 @@ if [ "$LOCK_HELD" = "1" ]; then
     || fail "ANTI-VACUOUS: CHARTER pair ran $_sp_pair legs, want 2 (a suite that only runs leg 1 is the defect)"
 
   rm -rf "$_ss"
+  _ss=""
   ok "concurrency lock proven (second run refused naming pid $$ · dead holder reclaimed · unwritable lock path ERRORs) · snapshot re-exec proven (shear isolated · empty copy ERRORs · CHARTER pair 2/2 · env guard)"
 fi
 
@@ -753,8 +784,17 @@ ok "S0 substrate floor (no unreasoned py/sh-family file, shebang script, symlink
 # NOT via run_selftest — it emits no INJECTIONS= receipt and must not move the
 # advertised known-bad count.
 echo "==> cdcp_gate substrate-guard --prove-wired (L4: the wiring is proven to trip)"
-run_cdcp_gate substrate-guard --prove-wired \
-  || fail "substrate-guard wiring does not stop check.sh"
+_substrate_probe_out=""
+_substrate_probe_rc=0
+_substrate_probe_out="$(run_cdcp_gate substrate-guard --prove-wired 2>&1)" \
+  || _substrate_probe_rc=$?
+printf '%s\n' "$_substrate_probe_out"
+[ "$_substrate_probe_rc" -eq 0 ] \
+  || fail "substrate-guard wiring does not stop check.sh: $_substrate_probe_out"
+SUBSTRATE_NESTED_OK="$(printf '%s\n' "$_substrate_probe_out" \
+  | sed -n 's/.*nested-ok-receipts=\([0-9][0-9]*\).*/\1/p' | tail -n 1)"
+[ -n "$SUBSTRATE_NESTED_OK" ] \
+  || fail "substrate-guard wiring proof emitted no nested-ok-receipts measurement"
 ok "S0 wiring proven behaviourally (a planted unlisted .py stops check.sh)"
 
 # bd-m67m: a FRESH CLONE HAS NO HOOK, and CI is a fresh clone — so the --check
@@ -1128,7 +1168,7 @@ _gate_fmt_n="$(rustfmt_gate_modules crates/cdcp_gate/src/gates)" \
 # `crates/cdcp_gate/src/gates` root passed above. That separation is by the
 # scan's root, not by a filename exclusion. A leftover root is a stale plant,
 # not a reason to silently reuse or delete someone else's fixture.
-_fmt_selftest_root="$ROOT/target/cdcp-gate-rustfmt-selftest"
+_fmt_selftest_root="$ROOT/target/cdcp-scratch/rustfmt-selftest-$$"
 if [ -e "$_fmt_selftest_root" ]; then
   fail "rustfmt_gate_modules: STALE PLANT: $_fmt_selftest_root remains from an interrupted selftest"
 fi
@@ -1142,6 +1182,7 @@ mkdir -p "$_fmt_plant" "$_fmt_empty" "$_fmt_modonly" "$_fmt_green" \
   || fail "rustfmt_gate_modules: cannot create isolated selftest fixtures"
 _fmt_selftest_cleanup() {
   rm -rf "$_fmt_selftest_root"
+  _fmt_selftest_root=""
 }
 
 # (a) planted space/indent in a gate-shaped file
@@ -1671,11 +1712,7 @@ if [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then
   [ -n "$STEP_LOG" ] || fail "step receipt log was never created"
   [ -f crates/cdcp_gate/src/gates/verify_step_count.rs ] \
     || fail "missing crates/cdcp_gate/src/gates/verify_step_count.rs (step-count drift guard required)"
-  _nested_ok=0
-  _probe_log="$ROOT/target/cdcp-substrate-probe/check_sh.log"
-  if [ -f "$_probe_log" ]; then
-    _nested_ok="$(grep -c 'check.sh: ok:' "$_probe_log" || true)"
-  fi
+  _nested_ok="${SUBSTRATE_NESTED_OK:-0}"
   _step_total=$((STEP_OK + STEP_SKIPPED))
   _step_receipt="CHECK_STEPS=${_step_total} OK=${STEP_OK} SKIPPED=${STEP_SKIPPED} NESTED_OK=${_nested_ok} DEPTH=0 RUN=pid$$"
   printf '%s\n' "$_step_receipt" >"$STEP_LOG"

@@ -9,7 +9,7 @@
 #
 # PRIVATE TREE [bd-791t]
 #   Mutations run against an isolated snapshot under
-#   $LIVE/target/cdcp-recon-<pid>/snap/course-engine — NEVER against the live
+#   $LIVE/target/cdcp-scratch/reconstructed-<pid>/snap/course-engine — NEVER against the live
 #   crate. gl4j's check.sh lock does not serialise a sibling `cargo build`;
 #   injecting crates/cdcp_cli/src/main.rs (or the S0/C1/C2 CHARTER sources)
 #   into the live worktree lets that sibling compile injected source. The
@@ -139,7 +139,7 @@ assert_live_git_unmoved() {
 safe_rm_private() {
   [ -n "${PRIVATE_BASE:-}" ] || return 0
   case "$PRIVATE_BASE" in
-    "$LIVE_ROOT/target/cdcp-recon-"*) ;;
+    "$LIVE_ROOT/target/cdcp-scratch/reconstructed-"*) ;;
     *) echo "selftest_reconstructed: refusing to rm unexpected PRIVATE_BASE=$PRIVATE_BASE" >&2; return 0 ;;
   esac
   [ -d "$PRIVATE_BASE" ] && rm -rf "$PRIVATE_BASE"
@@ -196,7 +196,7 @@ unstash() {
 materialise_private_tree() {
   GIT_TOP="$(git -C "$LIVE_ROOT" rev-parse --show-toplevel)" \
     || fail "live engine is not inside a git work tree"
-  PRIVATE_BASE="$LIVE_ROOT/target/cdcp-recon-$$"
+  PRIVATE_BASE="$LIVE_ROOT/target/cdcp-scratch/reconstructed-$$"
   SNAP="$PRIVATE_BASE/snap"
   mkdir -p "$SNAP" || fail "cannot create $SNAP"
   # HEAD, not the live worktree. Mid-wave the desk has uncommitted

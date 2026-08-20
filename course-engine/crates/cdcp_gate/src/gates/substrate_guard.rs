@@ -266,6 +266,7 @@
 use crate::date::{self, Ymd};
 use crate::registry::{GateCtx, GateError};
 use crate::vcs;
+use cdcp_registry_check::scratch::ScratchDir;
 use cdcp_registry_check::shell_walk::{
     check_rust_migration_headers, check_sh_invocation_set, classify_probe, code_part,
     describe_exit, discover_oracle_scripts, is_inventoried_oracle_script, probe_can_stop_early,
@@ -325,10 +326,6 @@ pub const PROBE_ENV: &str = "CDCP_SUBSTRATE_PROBE";
 pub const PROBE_PLANT: &str = "scripts/__cdcp_probe_unlisted__.py";
 const PROBE_TIMEOUT_ENV: &str = "CDCP_SUBSTRATE_PROBE_TIMEOUT_SECS";
 const PROBE_DEFAULT_TIMEOUT_SECS: u64 = 600;
-/// Scratch root for the probe, under `target/` so it is git-ignored and
-/// `cargo clean` disposes of it.
-const PROBE_DIR: &str = "target/cdcp-substrate-probe";
-
 const KNOWN_FLAGS: &[&str] = &["--staged", "--verify-wired", "--prove-wired", "--quiet"];
 
 // ── registry schema ────────────────────────────────────────────────────────
@@ -1323,9 +1320,10 @@ fn prove_wired(ctx: &GateCtx) -> Result<(), GateError> {
         )));
     }
 
-    let base = root.join(PROBE_DIR);
+    let scratch = ScratchDir::new(root, "substrate-guard")
+        .map_err(|e| GateError::error(format!("create owned substrate scratch tree: {e}")))?;
+    let base = scratch.path().to_path_buf();
     let tree = base.join("tree");
-    let _ = std::fs::remove_dir_all(&tree);
     std::fs::create_dir_all(&tree)
         .map_err(|e| GateError::error(format!("create {}: {e}", tree.display())))?;
 
@@ -1406,8 +1404,19 @@ fn prove_wired(ctx: &GateCtx) -> Result<(), GateError> {
     let log_text = std::fs::read_to_string(&log_path).unwrap_or_default();
     let code = status.and_then(|s| s.code());
     let verdict = classify_probe(&log_text, code, PROBE_PLANT, NAME);
+    let nested_ok = log_text.matches("check.sh: ok:").count();
+    let transcript_tail = log_text
+        .lines()
+        .rev()
+        .filter(|line| !line.trim().is_empty())
+        .take(6)
+        .collect::<Vec<_>>()
+        .into_iter()
+        .rev()
+        .collect::<Vec<_>>()
+        .join(" | ");
     let evidence = format!(
-        "planted {PROBE_PLANT} in scratch tree {}; check.sh ended {}; transcript {}",
+        "planted {PROBE_PLANT} in scratch tree {}; check.sh ended {}; transcript {}; tail={transcript_tail:?}",
         engine.display(),
         describe_exit(code),
         log_path.display()
@@ -1423,6 +1432,7 @@ fn prove_wired(ctx: &GateCtx) -> Result<(), GateError> {
                 println!(
                     "{NAME}: this leg establishes one thing: a RED verdict from this gate stops check.sh. It says nothing about the other steps in check.sh, and nothing about files outside the index."
                 );
+                println!("{NAME}: nested-ok-receipts={nested_ok} (captured before owned scratch cleanup)");
                 println!("{NAME}: {evidence}");
             }
             Ok(())

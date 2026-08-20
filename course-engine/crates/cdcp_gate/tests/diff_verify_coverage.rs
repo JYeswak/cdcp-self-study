@@ -1694,12 +1694,18 @@ fn path_and_option_shapes_are_byte_identical() {
     // floors), and each must still reach it, and must report the item count of
     // THAT bank rather than of some default it silently fell back to.
     //
-    // The specimen lives under `target/`, which is build output, because a
+    // The specimen lives under the owned scratch namespace, which is build
+    // output, because a
     // *relative* --bank/--domains/--policy has to resolve under the engine root
     // to be exercised at all. The live content tree is still never written to.
-    let rel_dir = format!("target/zz-diff-coverage-{}", std::process::id());
-    let scratch = root.join(&rel_dir);
-    let _ = std::fs::remove_dir_all(&scratch);
+    let owned_scratch = cdcp_registry_check::scratch::ScratchDir::new(&root, "diff-coverage")
+        .expect("owned differential scratch tree");
+    let scratch = owned_scratch.path().to_path_buf();
+    let rel_dir = scratch
+        .strip_prefix(&root)
+        .expect("scratch is under engine root")
+        .to_string_lossy()
+        .into_owned();
     let bank_abs = scratch.join("items");
     let planted_items = plant_bank(&bank_abs, &[("only", 1)]);
     assert!(
@@ -1857,7 +1863,7 @@ fn path_and_option_shapes_are_byte_identical() {
         "the ledger must name the planted module: {ledger}"
     );
 
-    let _ = std::fs::remove_dir_all(&scratch);
+    drop(owned_scratch);
     assert!(
         !scratch.exists(),
         "the specimen bank leaked at {}",

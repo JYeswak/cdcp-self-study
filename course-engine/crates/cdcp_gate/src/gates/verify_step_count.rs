@@ -18,7 +18,7 @@
 //!   legitimately emits fewer receipts than the script contains sites for.
 //! * **`grep -c 'check.sh: ok:'` over a transcript OVER-COUNTS.** `check.sh` runs
 //!   nested copies of itself: `substrate-guard --prove-wired` executes a full
-//!   `check.sh` inside `target/cdcp-substrate-probe/`, and the evidence block that
+//!   `check.sh` inside an owned `target/cdcp-scratch/substrate-guard-*/` tree, and the evidence block that
 //!   probe prints on success carries the tail of that child's transcript — five
 //!   `check.sh: ok:` lines — straight into the parent's stdout. The advertised
 //!   `76` that this bead was filed against is exactly that: 71 real receipts plus

@@ -453,6 +453,12 @@ migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-06-30"
 
 [[allow]]
+path = "scripts/reap_scratch.sh"
+reason = "Load-bearing local-CI lifecycle guard: check.sh invokes this fail-closed reaper before the gate chain to remove probe trees, warn at the configured size floor, and preserve warm build directories (bd-qlxp)."
+migration_bead = "bd-qlxp"
+expires = "2026-10-31"
+
+[[allow]]
 path = "scripts/e2e_l5_digest.sh"
 reason = "Thin driver: runs the native and browser grade paths and compares digests. The comparison itself is the Rust CLI's; this sequences the two invocations. Ports when the L5 e2e path moves into cdcp_gate."
 migration_bead = "bd-substrate-rust-migration-jhd"

@@ -92,9 +92,15 @@ SUITE_NAME="wasm-freshness"
 inject_counted() { INJ=$((INJ + 1)); }
 
 TMP_ROOT=""
+PLANT_TARGET=""
 restore_all() {
   if [ -n "${TMP_ROOT:-}" ] && [ -d "${TMP_ROOT}" ]; then
     rm -rf "${TMP_ROOT}" 2>/dev/null || true
+  fi
+  if [ -n "${PLANT_TARGET:-}" ]; then
+    case "$PLANT_TARGET" in
+      "$ROOT/target/cdcp-scratch"/*) rm -rf "$PLANT_TARGET" 2>/dev/null || true ;;
+    esac
   fi
 }
 trap restore_all EXIT INT TERM HUP
@@ -156,7 +162,7 @@ ok "plant 1 named the wasm (not a golden/digest pin)"
 echo "==> (2) --cfg cdcp_plant_weak, native only → dual-path mismatch"
 # Isolated target so the cfg cannot poison the workspace target/ used by
 # concurrent agents. Live sources are not written.
-PLANT_TARGET="$ROOT/target/cdcp-wasm-freshness"
+PLANT_TARGET="$ROOT/target/cdcp-scratch/wasm-freshness-$$"
 mkdir -p "$PLANT_TARGET"
 _before="$(wasm_sha256 "$SHIPPED")"
 # Append, do not clobber a caller RUSTFLAGS.

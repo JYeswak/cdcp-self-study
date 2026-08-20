@@ -15,6 +15,7 @@ use thiserror::Error;
 pub mod anti_vacuous;
 pub mod doc_facts;
 mod gate_shrink;
+pub mod scratch;
 pub mod shell_walk;
 pub mod track;
 pub mod verify_doc_consistency;
