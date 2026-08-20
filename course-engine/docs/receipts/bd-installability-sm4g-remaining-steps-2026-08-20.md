@@ -118,8 +118,8 @@ on the committed blob and fresh release build.
   mutation leg. The live tracked tree remained untouched. This is the same
   known private-copy/selftest issue recorded in the earlier inventory.
 - Step 87: `bd-readme-public-rigor-8y0r.2`; `verify-doc-consistency` finds
-  attribution-ledger rows whose ordinary URL/table prose matches its
-  publication-pending false-positive pattern.
+  attribution-ledger rows where citation-receipt `BLOCKED` cells were
+  misclassified by the detector.
 - Step 97: downstream of the missing step-85 suite receipt, under the known
   injection-count drift mechanism `bd-1sd.4`; it is blocked, not a new clean
   result.

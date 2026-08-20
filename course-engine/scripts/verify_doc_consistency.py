@@ -485,10 +485,6 @@ def _is_citation_result(cell: str) -> bool:
     return first in {"PASS", "BLOCKED"}
 
 
-def _has_item_id(cell: str) -> bool:
-    return re.search(r"(?:m|mock)\d+-q\d+", cell.lower()) is not None
-
-
 def _has_standards_receipt(cells: list[str]) -> bool:
     row = " | ".join(cells).lower()
     has_url = "https://" in row or "http://" in row
@@ -513,7 +509,6 @@ def _citation_table_scan_line(line: str) -> str:
         return line
     if (
         len(cells) < 3
-        or not any(_has_item_id(cell) for cell in cells)
         or not _has_standards_receipt(cells)
         or not any(_is_citation_result(cell) for cell in cells)
     ):

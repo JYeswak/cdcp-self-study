@@ -421,8 +421,8 @@ fn e_publication_pending_is_red_in_both() {
 }
 
 /// Citation rows are identified by shape, not by a filename or self-declared
-/// schema. Both known citation documents go green while ordinary prose in each
-/// remains covered and must catch a real publication defect.
+/// schema. All three known citation documents go green while ordinary prose in
+/// each remains covered and must catch a real publication defect.
 #[test]
 fn citation_table_blocked_is_citation_status_but_prose_is_red() {
     let s = Spec::clean();
@@ -439,6 +439,12 @@ fn citation_table_blocked_is_citation_status_but_prose_is_red() {
         "# Open corpus research\n\n\
          | m08-q053 | Power strips / rails | ISO/IEC 22237-3:2021 —\
            https://webstore.iec.ch/en/publication/92578 | **BLOCKED** — exact claim not exposed |\n",
+    );
+    s.write(
+        "docs/curriculum-grades/module-research-2026-08-17/CDFOS-CORPUS.md",
+        "# CDFOS corpus\n\n\
+         | NFPA 70E:2027, Standard for Electrical Safety in the Workplace |\
+           https://link.nfpa.org/all-publications/70E/2027 | **BLOCKED** — catalog only |\n",
     );
     let out = assert_byte_exact("citation-table-blocked", Some(s.path()));
     assert!(out.starts_with("PASS\n"), "{out}");
@@ -457,6 +463,14 @@ fn citation_table_blocked_is_citation_status_but_prose_is_red() {
     );
     let out = assert_byte_exact("corpus-publication-defect", Some(s.path()));
     assert!(out.contains("OPEN-CORPUS-RESEARCH-2026-08-18.md"), "{out}");
+    assert!(out.contains("publication described as not done"), "{out}");
+
+    s.append(
+        "docs/curriculum-grades/module-research-2026-08-17/CDFOS-CORPUS.md",
+        "\nThe publication is blocked pending a human decision.\n",
+    );
+    let out = assert_byte_exact("cdfos-publication-defect", Some(s.path()));
+    assert!(out.contains("CDFOS-CORPUS.md"), "{out}");
     assert!(out.contains("publication described as not done"), "{out}");
 }
 

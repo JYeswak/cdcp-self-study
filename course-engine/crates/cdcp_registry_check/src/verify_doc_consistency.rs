@@ -34,9 +34,9 @@
 //! - Any claim in a doc it never read: a markdown file that is not valid UTF-8
 //!   is reported as unreadable and refused, never silently skipped.
 //! - In a citation table row, `PASS` and `BLOCKED` verdict cells are citation
-//!   outcomes, not publication claims. A row is recognized structurally by an
-//!   item id, a standards-like citation URL, and that verdict; only verdict
-//!   cells are masked. Other cells and prose remain in scope.
+//!   outcomes, not publication claims. A row is recognized structurally by a
+//!   standards-like citation URL and that verdict; only verdict cells are
+//!   masked. Other cells and prose remain in scope.
 //!
 //! # DECISION (bd-hw3, 2026-08-14): a row shorter than its Status column is RED
 //!
@@ -1252,35 +1252,6 @@ fn is_citation_result(cell: &str) -> bool {
     first == "PASS" || first == "BLOCKED"
 }
 
-fn has_item_id(cell: &str) -> bool {
-    let chars: Vec<char> = cell.to_ascii_lowercase().chars().collect();
-    for i in 0..chars.len() {
-        if chars[i] != 'm' {
-            continue;
-        }
-        let mut p = i + 1;
-        if p + 2 < chars.len() && chars[p..p + 3] == ['o', 'c', 'k'] {
-            p += 3;
-        }
-        let digits_start = p;
-        while p < chars.len() && chars[p].is_ascii_digit() {
-            p += 1;
-        }
-        if p == digits_start || p + 2 > chars.len() || chars[p] != '-' || chars[p + 1] != 'q' {
-            continue;
-        }
-        p += 2;
-        let question_start = p;
-        while p < chars.len() && chars[p].is_ascii_digit() {
-            p += 1;
-        }
-        if p > question_start {
-            return true;
-        }
-    }
-    false
-}
-
 fn has_standards_receipt(cells: &[&str]) -> bool {
     let row = cells.join(" | ").to_ascii_lowercase();
     let has_url = row.contains("https://") || row.contains("http://");
@@ -1300,7 +1271,6 @@ fn citation_table_scan_line(line: &str) -> String {
         return line.to_string();
     };
     if cells.len() < 3
-        || !cells.iter().any(|cell| has_item_id(cell))
         || !has_standards_receipt(&cells)
         || !cells.iter().any(|cell| is_citation_result(cell))
     {
