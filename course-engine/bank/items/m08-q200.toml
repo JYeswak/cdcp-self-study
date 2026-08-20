@@ -5,15 +5,15 @@
 id = "m08-q200"
 kind = "single-select"
 module = 8
-stem = "The common 19-inch rack standard refers primarily to:"
+stem = "Because the 19-inch standard fixes only the flange spacing, cabinets from different vendors still vary in:"
 choices = [
-  "The guaranteed external cabinet width of every brand being identical including doors",
-  "The height of every rack being exactly 19 inches",
-  "The depth of PDUs only",
-  "The width of the mounting space for equipment flanges between rails"
+  "The spacing between mounting flanges, which each vendor sets independently",
+  "The height of one rack unit, which varies with the cabinet class",
+  "Equipment ear dimensions, which follow the cabinet rather than the standard",
+  "Outer width, mounting depth, and usable U after rails and doors",
 ]
 correct = "D"
-explanation = "“19-inch” denotes the mounting aperture/flange standard—not every external dimension."
+explanation = "The standard fixes the flange spacing and the 1.75 inch rack unit, so those are the two things that do NOT vary between vendors -- which is why equipment from any manufacturer mounts in any compliant rack, and why ear dimensions follow the standard rather than the cabinet. What is left free is the enclosure around that fixed opening: outer width chosen for cable and PDU volume, mounting depth for chassis length plus service clearance, and usable U once rails and door hardware take their share."
 topic_ids = ["m08-standards", "m08-dimensions"]
 objective_ids = []
 bloom = "remember"
