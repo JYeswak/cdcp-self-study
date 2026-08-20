@@ -146,10 +146,13 @@
 //! when nothing names the gate, INERT when every occurrence matches a compiled-in
 //! disqualifier, and otherwise UNPROVEN — never "wired". The behavioural leg is
 //! `--prove-wired`, which materialises the index, plants an unlisted `.py`, runs
-//! `scripts/check.sh` for real and requires check.sh ITSELF to exit non-zero. An
-//! inert line cannot satisfy that. What `--prove-wired` still cannot decide: that
-//! every OTHER step in check.sh propagates its own failures, and that the tree
-//! outside the index (unstaged edits, untracked files) is clean.
+//! `scripts/check.sh` for real and requires check.sh ITSELF to exit non-zero. The
+//! child enters a scoped substrate slice immediately after its binaries build;
+//! it does not replay unrelated upstream gates whose failures would make this
+//! wiring claim unattributable. An inert line cannot satisfy that. What
+//! `--prove-wired` still cannot decide: that every OTHER step in check.sh
+//! propagates its own failures, and that the tree outside the index (unstaged
+//! edits, untracked files) is clean.
 //!
 //! `--prove-wired` first asks whether planting the known-bad is still meaningful
 //! against the registry the snapshot carries — see `probe_plant_vacuity`. That

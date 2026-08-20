@@ -6,6 +6,18 @@
 # asserts RED, restores. Never leave goldens/bank dirty.
 set -eu
 
+# `--diagnostic` is deliberately opt-in and is never exported.  The snapshot
+# re-exec receives the argument, while selftests and other child processes do
+# not accidentally turn their own check.sh invocations into a non-fail-fast
+# run.  The default path below remains the CI verdict path.
+CHECK_DIAGNOSTIC=0
+if [ "${1:-}" = "--diagnostic" ]; then
+  CHECK_DIAGNOSTIC=1
+fi
+DIAG_ANY_FAILED=0
+DIAG_PENDING_FAILURE=0
+DIAG_LAST_FAILURE=""
+
 # ── Snapshot re-exec [bd-o4bc] ─────────────────────────────────────────────
 # sh reads a script INCREMENTALLY. Editing scripts/check.sh while a run is in
 # flight splices the file. Measured 2026-08-14: exit 127, `line 418: en:
@@ -123,6 +135,14 @@ fi
 
 cd "$ROOT"
 
+# Once the isolated snapshot and root are established, diagnostic mode must
+# collect ordinary command failures instead of inheriting shell fail-fast.  The
+# early lifecycle/lock setup remains fail-closed; those are prerequisites for a
+# trustworthy inventory, not steps that can be meaningfully continued past.
+if [ "$CHECK_DIAGNOSTIC" = "1" ]; then
+  set +e
+fi
+
 # Scratch lifecycle is a preflight, before the warm build and before any gate
 # can fail early.  It removes the legacy target/* probe trees, proves the
 # planted-tree and zero-find legs, warns on the configured size floor, and never
@@ -134,7 +154,17 @@ sh scripts/reap_scratch.sh --selftest \
   || snapshot_error "scratch lifecycle reaper failed; refusing to run CI with an unmeasured scratch namespace"
 echo "check.sh: scratch lifecycle: named root and exit-path cleanup are active"
 
-fail() { echo "check.sh: FAIL: $*" >&2; exit 2; }
+fail() {
+  echo "check.sh: FAIL: $*" >&2
+  if [ "$CHECK_DIAGNOSTIC" = "1" ]; then
+    DIAG_ANY_FAILED=1
+    DIAG_PENDING_FAILURE=1
+    DIAG_LAST_FAILURE="$*"
+    echo "check.sh: diagnostic-failure: exit=2 reason=$*" >&2
+    return 0
+  fi
+  exit 2
+}
 GAPS=""
 SUBSTRATE_NESTED_OK=0
 # Step counter [bd-1sd.13]. The advertised chain length is OK + SKIPPED, so a
@@ -145,8 +175,35 @@ SUBSTRATE_NESTED_OK=0
 # THIS process, after the sealed boundary, and is what the drift guard reads.
 STEP_OK=0
 STEP_SKIPPED=0
-ok() { STEP_OK=$((STEP_OK + 1)); echo "check.sh: ok: $*"; }
-skipped_step() { STEP_SKIPPED=$((STEP_SKIPPED + 1)); echo "check.sh: skip: $*"; }
+ok() {
+  if [ "$CHECK_DIAGNOSTIC" = "1" ]; then
+    if [ "$DIAG_PENDING_FAILURE" = "1" ]; then
+      printf 'check.sh: diagnostic-step: exit=2 name=%s reason=%s\n' "$*" "$DIAG_LAST_FAILURE"
+      DIAG_PENDING_FAILURE=0
+      DIAG_LAST_FAILURE=""
+    else
+      STEP_OK=$((STEP_OK + 1))
+      printf 'check.sh: diagnostic-step: exit=0 name=%s\n' "$*"
+    fi
+    return 0
+  fi
+  STEP_OK=$((STEP_OK + 1))
+  echo "check.sh: ok: $*"
+}
+skipped_step() {
+  if [ "$CHECK_DIAGNOSTIC" = "1" ]; then
+    if [ "$DIAG_PENDING_FAILURE" = "1" ]; then
+      printf 'check.sh: diagnostic-step: exit=2 name=%s reason=%s\n' "$*" "$DIAG_LAST_FAILURE"
+      DIAG_PENDING_FAILURE=0
+      DIAG_LAST_FAILURE=""
+    else
+      printf 'check.sh: diagnostic-step: exit=SKIPPED name=%s\n' "$*"
+    fi
+    return 0
+  fi
+  STEP_SKIPPED=$((STEP_SKIPPED + 1))
+  echo "check.sh: skip: $*"
+}
 
 # After each generator, owned paths must be clean. [bd-installability-sm4g.10]
 # A successful run that leaves dirt is stale committed artifacts — RED.
@@ -503,6 +560,29 @@ run_cdcp_registry_check() {
   "$CDCP_BIN_DIR/cdcp_registry_check" "$@"
 }
 
+# S0 substrate floor and its scoped behavioural probe.  The probe intentionally
+# enters here, immediately after the binaries exist, rather than replaying all
+# upstream checks.  Its claim is only that this check.sh dispatch reaches the
+# substrate gate and propagates its RED verdict.
+SUBSTRATE_STALE_PLANT="scripts/__cdcp_probe_unlisted__.py"
+reject_stale_substrate_plant() {
+  if [ -n "${CDCP_SUBSTRATE_PROBE:-}" ]; then
+    return 0
+  fi
+  if [ -e "$SUBSTRATE_STALE_PLANT" ]; then
+    echo "substrate-guard: STALE PLANT: $SUBSTRATE_STALE_PLANT is in the production scan root; this is a selftest-cleanup failure, not an ordinary unlisted-file violation" >&2
+    return 2
+  fi
+  return 0
+}
+
+run_substrate_floor_step() {
+  echo "==> cdcp_gate substrate-guard (S0 substrate floor)"
+  reject_stale_substrate_plant || fail "stale L4 substrate plant in the production scan path"
+  run_cdcp_gate substrate-guard || fail "substrate guard (unreasoned .py/.sh)"
+  ok "S0 substrate floor (no unreasoned py/sh-family file, shebang script, symlink or submodule anywhere in the engine tree · stale plant STALE PLANT)"
+}
+
 echo "==> cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked (once; later steps run the binary)"
 cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked \
   || fail "cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked (compile failure is this step's, not a later gate's)"
@@ -512,6 +592,23 @@ else
   CDCP_BIN_DIR="$ROOT/target/debug"
 fi
 require_cdcp_bins
+
+if [ -n "${CDCP_SUBSTRATE_PROBE:-}" ]; then
+  # This is a scoped proof path, not a second production verdict.  The planted
+  # file is already in this tree's index; the real run_substrate_floor_step
+  # below must therefore stop check.sh through the same run_cdcp_gate helper
+  # used by the ordinary chain.  A clean invocation is also useful as a
+  # positive control for the proof harness.
+  if [ "${CDCP_SUBSTRATE_PROBE_FORCE_EARLY_RED:-0}" = "1" ]; then
+    _probe_early_rc=0
+    sh -c 'exit 7' || _probe_early_rc=$?
+    [ "$_probe_early_rc" -ne 0 ] || fail "probe early-red control unexpectedly passed"
+    echo "check.sh: substrate probe: unrelated earlier step RED rc=$_probe_early_rc; scoped proof continues"
+  fi
+  run_substrate_floor_step
+  echo "check.sh: substrate probe: clean scope GREEN (no planted unlisted file)"
+  exit 0
+fi
 
 # Count pins run immediately after the binaries exist and BEFORE any downstream
 # suite can assert on a hardcoded population.  A source change is reported as
@@ -737,27 +834,6 @@ echo "==> cdcp oracle-check (F3 external oracle)"
 run_cdcp_cli oracle-check || fail "oracle-check"
 ok "external oracle (computed vs published refs; no network)"
 
-# S0 substrate floor. Placed next to the L1 registry gate because it is the same
-# kind of thing — a registry constitution over what may exist in the tree — and it
-# fails fast (only serde+toml compile).
-#
-# bd-installability-sm4g.23: the L4 plant lives only in the prove-wired scratch
-# tree. If it is in THIS scan root it is a leftover, not a new unlisted .py.
-# Skip inside CDCP_SUBSTRATE_PROBE=1 — there the plant is the intentional
-# known-bad that must reach `cdcp_gate substrate-guard` so --prove-wired can
-# attribute the RED to the binary, not to this wrapper.
-SUBSTRATE_STALE_PLANT="scripts/__cdcp_probe_unlisted__.py"
-reject_stale_substrate_plant() {
-  if [ -n "${CDCP_SUBSTRATE_PROBE:-}" ]; then
-    return 0
-  fi
-  if [ -e "$SUBSTRATE_STALE_PLANT" ]; then
-    echo "substrate-guard: STALE PLANT: $SUBSTRATE_STALE_PLANT is in the production scan root; this is a selftest-cleanup failure, not an ordinary unlisted-file violation" >&2
-    return 2
-  fi
-  return 0
-}
-
 # The known-bad is production-only. Inside --prove-wired the detector is
 # a no-op so the intentional plant can reach the binary; running this
 # block there would "stay GREEN" and fail the probe for the wrong reason.
@@ -777,19 +853,19 @@ if [ -z "${CDCP_SUBSTRATE_PROBE:-}" ]; then
   rm -f "$SUBSTRATE_STALE_PLANT"
 fi
 
-echo "==> cdcp_gate substrate-guard (S0 substrate floor)"
-reject_stale_substrate_plant || fail "stale L4 substrate plant in the production scan path"
-run_cdcp_gate substrate-guard || fail "substrate guard (unreasoned .py/.sh)"
-ok "S0 substrate floor (no unreasoned py/sh-family file, shebang script, symlink or submodule anywhere in the engine tree · stale plant STALE PLANT)"
+run_substrate_floor_step
 
 # L4 for the wiring claim ITSELF. Nothing read out of this file can establish that
 # the line above executes (bd-bo6i): `: "cargo run ..."` is a no-op, `true # ...`
 # is a comment, and `cargo run ... || true` runs the gate and throws the verdict
 # away — all three read as an invocation. --prove-wired materialises the INDEX,
 # plants an unlisted .py, runs this script for real, and requires it to exit
-# non-zero. An inert line cannot satisfy that. Measured cost: ~16s.
-# Terminates at depth 1: the copy dies on the plant above this line, and
-# CDCP_SUBSTRATE_PROBE=1 in the child makes a nested probe an ERROR.
+# non-zero. The child enters the scoped substrate slice immediately after its
+# binaries build; unrelated upstream checks cannot hide whether this dispatch
+# trips. An inert line cannot satisfy that. Measured cost: the build plus one
+# substrate scan, not the entire chain.
+# The child never re-enters --prove-wired: CDCP_SUBSTRATE_PROBE=1 selects the
+# scoped slice, while the child invokes the ordinary substrate command below.
 # NOT via run_selftest — it emits no INJECTIONS= receipt and must not move the
 # advertised known-bad count.
 echo "==> cdcp_gate substrate-guard --prove-wired (L4: the wiring is proven to trip)"
@@ -1511,7 +1587,7 @@ require_cdcp_bins
 set +e
 "$CDCP_BIN_DIR/cdcp" study --no-open --bind 127.0.0.1:0 >"$_study_log" 2>&1 &
 _study_pid=$!
-set -e
+if [ "$CHECK_DIAGNOSTIC" = "1" ]; then set +e; else set -e; fi
 _study_url=""
 _study_i=0
 while [ "$_study_i" -lt 50 ]; do
@@ -1645,7 +1721,7 @@ printf '%s\n' \
 set +e
 _anki_plant_out=$(run_cdcp_cli export-anki --root "$_anki_plant" --format tsv --out "$_anki_plant/dist/anki" 2>&1)
 _anki_plant_rc=$?
-set -e
+if [ "$CHECK_DIAGNOSTIC" = "1" ]; then set +e; else set -e; fi
 printf '%s\n' "$_anki_plant_out"
 if [ "$_anki_plant_rc" -eq 0 ]; then
   rm -rf "$_anki_plant"
@@ -1734,6 +1810,15 @@ if [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then
     run_cdcp_gate verify-step-count --log "$STEP_LOG" \
       || fail "advertised check.sh step count drift (README vs this run)"
   fi
+fi
+
+if [ "$CHECK_DIAGNOSTIC" = "1" ]; then
+  if [ "$DIAG_ANY_FAILED" -ne 0 ]; then
+    echo "check.sh: DIAGNOSTIC ONLY: verdict=RED; one or more recorded steps failed; this mode never changes the CI verdict" >&2
+    exit 2
+  fi
+  echo "check.sh: DIAGNOSTIC ONLY: verdict=GREEN; every recorded step passed; this mode is not the CI invocation"
+  exit 0
 fi
 
 if [ -n "$GAPS" ]; then
