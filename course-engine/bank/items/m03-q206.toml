@@ -11,8 +11,8 @@ kind = "single-select"
 module = 3
 stem = "When comparing a greenfield build to retrofitting an existing building, a key facility-criteria difference is often:"
 choices = [
-  "Retrofits always have unlimited floor-to-floor height and plant space",
-  "Greenfield never needs permits",
+  "Retrofits always have unlimited floor-to-floor height and plant space, so existing-building constraints never affect the design",
+  "Greenfield never needs permits, because a new site has no life-safety, planning, or utility approvals to obtain",
   "Existing buildings may constrain floor loading, slab-to-slab height, risers, and plant yard space",
   "Neither needs life-safety systems"
 ]

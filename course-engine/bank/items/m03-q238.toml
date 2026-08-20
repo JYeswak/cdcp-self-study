@@ -12,9 +12,9 @@ module = 3
 stem = "An audit plan lists 'TIA-942 compliance' as the criterion without specifying an edition. The internal auditor correction is:"
 choices = [
   "Pin the edition before fieldwork — audit findings depend on which edition's requirements apply",
-  "No correction needed — the auditor selects the edition based on what the site can pass",
-  "No correction needed — all TIA-942 editions have identical audit criteria",
-  "Pin the edition after fieldwork so the report can reference the most favorable requirements",
+  "No correction needed — the auditor selects the edition based on what the site can pass, rather than the requirements in force for the engagement",
+  "No correction needed — all TIA-942 editions have identical audit criteria, so an edition pin would add no usable information",
+  "Pin the edition after fieldwork so the report can reference the most favorable requirements, even though the applicable criteria should govern the fieldwork",
 ]
 correct = "A"
 explanation = "ISO 19011:2018 §5.2 requires audit objectives and criteria to be defined before the audit begins. TIA-942-B and TIA-942-C have different requirement sets; an unpinned criterion leaves ambiguity about which requirements the auditor is checking. Selecting or switching editions mid-audit — or after fieldwork — compromises objectivity. The audit plan must state 'TIA-942-B Rated-3' or equivalent before the first site visit."

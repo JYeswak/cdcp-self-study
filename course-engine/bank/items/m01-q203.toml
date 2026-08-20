@@ -10,8 +10,8 @@ kind = "single-select"
 module = 1
 stem = "Core facility elements that typically define a data centre (beyond the IT load itself) include:"
 choices = [
-  "Only decorative lobby finishes",
-  "Only the CRM software stack",
+  "Only decorative lobby finishes, because the IT load is the sole physical feature that defines a data centre",
+  "Only the CRM software stack, because facility systems are outside the definition of the data-centre environment",
   "Only outdoor landscaping",
   "Power, cooling, space/structure, connectivity, and supporting life-safety systems"
 ]

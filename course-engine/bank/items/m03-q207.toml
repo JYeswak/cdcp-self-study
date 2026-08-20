@@ -10,8 +10,8 @@ kind = "single-select"
 module = 3
 stem = "Multi-path fibre and diverse telecom Points of Entry support site selection goals by:"
 choices = [
-  "Removing all need for on-site network design",
-  "Eliminating physical security",
+  "Removing all need for on-site network design, because diverse carriers and entries make internal path planning unnecessary",
+  "Eliminating physical security, because a second telecom path prevents physical access and perimeter failures",
   "Cooling the white space automatically",
   "Reducing correlated communications failure risk for the campus"
 ]

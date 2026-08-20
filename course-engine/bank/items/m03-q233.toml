@@ -12,9 +12,9 @@ module = 3
 stem = "A design claims Rated-3 because it has 2N UPS capacity. According to TIA-942-B, the claim is:"
 choices = [
   "Incomplete — Rated-3 requires concurrent maintainability of the entire path, not just UPS redundancy",
-  "Valid — 2N UPS capacity is the sole requirement for Rated-3 classification",
-  "Valid if the UPS units are from different manufacturers for supply-chain diversity",
-  "Incomplete only if the cooling system is less than N+1 redundant",
+  "Valid — 2N UPS capacity is the sole requirement for Rated-3 classification, so the rest of the distribution and maintenance path need no assessment",
+  "Valid if the UPS units are from different manufacturers for supply-chain diversity, even when the complete critical path is not concurrently maintainable",
+  "Incomplete only if the cooling system is less than N+1 redundant, because Rated-3 does not require maintainability of other facility paths",
 ]
 correct = "A"
 explanation = "TIA-942-B §5.3.4 defines Rated-3 as 'Concurrently Maintainable' — any single component in the power or cooling path can be removed for maintenance without interrupting IT load. 2N UPS capacity addresses one component but says nothing about distribution paths, transfer switches, cooling, or fire suppression. Rated-3 is a topology claim about the entire infrastructure, not a capacity claim about one subsystem."

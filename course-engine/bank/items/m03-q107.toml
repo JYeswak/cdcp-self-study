@@ -11,7 +11,7 @@ module = 3
 stem = "Which is a facility criterion related to human operations, not only equipment?"
 choices = [
   "Hypervisor license SKU",
-  "CPU clock speed only",
+  "CPU clock speed only, because human operations are determined by workload rather than NOC, security, storage, or maintenance space",
   "Presence of suitable NOC, security, storage, and maintenance access spaces",
   "BGP AS number",
 ]

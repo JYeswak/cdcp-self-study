@@ -11,9 +11,9 @@ module = 1
 stem = "Which statement about enterprise vs multi-tenant facilities is most accurate?"
 choices = [
   "Governance, shared risk, and SLA boundaries differ; both still need robust facility design",
-  "Only multi-tenant sites need fire detection",
-  "Enterprise sites never need redundant power",
-  "Multi-tenant sites never meter power",
+  "Only multi-tenant sites need fire detection because enterprise operators control their own facility hazards",
+  "Enterprise sites never need redundant power because internal ownership removes the consequences of a facility interruption",
+  "Multi-tenant sites never meter power because shared infrastructure makes power accountability impossible to define",
 ]
 correct = "A"
 explanation = "Ownership and SLA boundaries differ by model, but both require engineered facility resilience."

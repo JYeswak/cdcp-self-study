@@ -9,7 +9,7 @@ kind = "single-select"
 module = 3
 stem = "Which facility criterion most directly affects whether heavy power and cooling plant can be installed and maintained?"
 choices = [
-  "Only the color of exterior cladding",
+  "Only the color of exterior cladding, because structural loading, clearances, delivery paths, and service access do not constrain plant",
   "Only the brand of lobby coffee",
   "Structural loading, clearances, delivery paths, and service access for large equipment",
   "Only the number of visitor parking stickers"

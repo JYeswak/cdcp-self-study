@@ -11,7 +11,7 @@ kind = "single-select"
 module = 3
 stem = "Which combination best summarizes early site short-listing criteria?"
 choices = [
-  "Only number of vending machines",
+  "Only number of vending machines, because utility, network, hazard, climate, logistics, and legal-rights checks belong after the shortlist",
   "Only carpet colour and logo walls",
   "Utility, network, hazards, climate, logistics, and legal rights—before interior finishes",
   "Only social media check-ins",

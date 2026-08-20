@@ -10,8 +10,8 @@ kind = "single-select"
 module = 3
 stem = "Climate extremes (temperature, humidity, snow load, wind) influence site and facility criteria mainly by driving:"
 choices = [
-  "Only interior paint selection",
-  "Automatic exemption from standards",
+  "Only interior paint selection, because temperature, humidity, snow, and wind do not affect envelope or outdoor plant survival",
+  "Automatic exemption from standards, because climate extremes remove rather than add requirements for cooling, envelopes, and equipment survival",
   "Envelope, cooling plant sizing envelopes, and outdoor equipment survival requirements",
   "Whether copper or fibre may be used indoors"
 ]

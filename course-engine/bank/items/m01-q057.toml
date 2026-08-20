@@ -11,8 +11,8 @@ module = 1
 stem = "Which scenario best illustrates cascading unavailability?"
 choices = [
   "CRAC loss raises inlet temperatures until servers thermally throttle or trip, taking applications offline",
-  "A UPS fails over cleanly to generator with no load drop",
-  "A blanking panel is installed correctly",
+  "A UPS fails over cleanly to generator with no load drop, while the cooling plant continues to hold the required inlet conditions",
+  "A blanking panel is installed correctly and the resulting airflow remains within the design operating envelope",
   "A dual-corded server remains powered from two live diverse sources",
 ]
 correct = "A"

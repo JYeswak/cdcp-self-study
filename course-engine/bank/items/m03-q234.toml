@@ -12,9 +12,9 @@ module = 3
 stem = "A contract references 'TIA-942 compliance' without specifying an edition. The design-consultant correction is:"
 choices = [
   "Pin the edition (942-B or 942-C) — requirements differ between editions and 'TIA-942' alone is ambiguous",
-  "No correction needed — TIA-942 editions are backward-compatible, so any edition satisfies the reference",
-  "Default to the newest edition since older editions are automatically superseded on publication",
-  "No correction needed — the assessor will select the appropriate edition during the audit",
+  "No correction needed — TIA-942 editions are backward-compatible, so any edition satisfies the reference and the contract needs no edition pin",
+  "Default to the newest edition since older editions are automatically superseded on publication, even when the contract or design was prepared under an earlier edition",
+  "No correction needed — the assessor will select the appropriate edition during the audit, after the ambiguous contract has already shaped the assessment",
 ]
 correct = "A"
 explanation = "TIA-942-B (2017) and TIA-942-C (2024) have different requirement sets — topology definitions, electrical criteria, and cabling standards evolved between editions. A contract that says only 'TIA-942 compliance' is ambiguous: the designer may build to 942-B while the owner expects 942-C. Edition pinning (e.g., 'TIA-942-B Rated-3') removes the ambiguity. Standards are not auto-superseded in contracts; each party may assume a different edition."

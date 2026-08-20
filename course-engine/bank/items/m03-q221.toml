@@ -13,10 +13,10 @@ kind = "single-select"
 module = 3
 stem = "During a site review, a behind-the-meter campus is told it may need to reduce load under its qualifying ERCOT arrangement during tight conditions. What is the correct M03-to-M15 handoff?"
 choices = [
-  "Record curtailment as an operating consequence of the energization arrangement, confirm the agreement/category and trigger with the responsible utility or ISO, and hand the action sequence to M15 EOP 4",
-  "Treat the instruction as proof that the interconnection queue failed and discard the BTM site plan",
-  "Assume behind-the-meter islanding is automatic, so no load-reduction procedure is needed",
-  "Quote the regional interconnection queue volume as the site’s guaranteed curtailment exposure",
+  "Record curtailment and hand the trigger and action sequence to M15 EOP 4",
+  "Treat the instruction as proof that the interconnection queue failed and discard the BTM site plan, without checking the agreement or operating category",
+  "Assume behind-the-meter islanding is automatic, so no load-reduction procedure or utility trigger needs to be documented",
+  "Quote the regional interconnection queue volume as the site's guaranteed curtailment exposure, instead of confirming the site's category and agreement",
 ]
 correct = "A"
 explanation = "ERCOT’s April 2026 operations update describes curtailment instructions for specified large-load categories, including net-metering/co-located arrangements, but does not establish one universal trigger or exposure for every BTM site. M03 surfaces the site and agreement constraint; M15 EOP 4 owns the response sequence."

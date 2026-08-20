@@ -11,7 +11,7 @@ module = 1
 stem = "Which human/process factor most often elevates outage risk during maintenance?"
 choices = [
   "Working without a change window, peer check, or clear isolation boundaries",
-  "Following a validated MOP with back-out steps",
+  "Following a validated MOP with back-out steps, a peer check, and clearly marked isolation boundaries",
   "Tagging circuits before work",
   "Pre-staging spares",
 ]

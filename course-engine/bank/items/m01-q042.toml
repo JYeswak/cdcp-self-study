@@ -12,8 +12,8 @@ stem = "Which data-centre delivery model typically means the enterprise owns bot
 choices = [
   "Enterprise-owned (on-premises) data centre",
   "Public SaaS multi-tenant application platform",
-  "Retail colocation cage only",
-  "Content delivery edge POP leased by the hour",
+  "Retail colocation cage only, where the provider owns the building systems and the customer leases a limited IT area",
+  "Content delivery edge POP leased by the hour, with no enterprise ownership of building systems or the IT estate",
 ]
 correct = "A"
 explanation = "In an enterprise-owned facility, the organization owns facility systems and usually the IT gear as well."

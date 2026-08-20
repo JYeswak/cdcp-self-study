@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "Facilities’ UPS screen is green and IT’s dual PSUs are lit, but checkout is down. In a colo the same sentence is “I thought they owned that breaker.” The first organizational move is:"
 choices = [
-  "Name which of the four seats (facilities / IT / finance / TPM) owns the path — not just its object — and know the demarc; two green objects are an org-split until proven otherwise (Module 15 for the 2.1 heading)",
-  "Recite a survey percentage and buy a bigger generator",
-  "Declare the hall white space and close the ticket",
-  "Treat dual PSUs as proof of dual utility",
+  "Name the accountable seat and demarc for the path, not just the green object; two green screens can still hide an ownership split",
+  "Recite a survey percentage and buy a bigger generator, without identifying the failed service boundary or who can restore it",
+  "Declare the hall white space and close the ticket, because a green UPS display proves the checkout service has no facility dependency",
+  "Treat dual PSUs as proof of dual utility, even when both supplies share a breaker, path, or upstream source",
 ]
 correct = "A"
 explanation = "Two green dashboards are not one owned path. Name the seats, name the demarc, then trace. Module 15 owns the 2.1 org heading; this item only makes you ask who owns the breaker."

@@ -9,7 +9,7 @@ kind = "single-select"
 module = 3
 stem = "A “supporting facility” gap that can undermine a well-designed white space is:"
 choices = [
-  "Documented MOPs",
+  "Documented MOPs, because procedures alone provide the secure, maintainable plant and staff space that supporting facilities require",
   "Presence of dual power paths",
   "Lack of secure, maintainable space for electrical and mechanical plant and ops staff",
   "Adequate clear height",

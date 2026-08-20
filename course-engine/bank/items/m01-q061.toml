@@ -11,8 +11,8 @@ module = 1
 stem = "Which statement about data-centre types is most careful?"
 choices = [
   "Enterprise, colo, cloud, and edge share physics needs but differ in ownership, scale, and service boundaries",
-  "All types have identical risk profiles and SLAs",
-  "Only cloud sites need cooling",
+  "All types have identical risk profiles and SLAs, because ownership and service boundaries do not change facility obligations",
+  "Only cloud sites need cooling, while enterprise, colo, and edge facilities can rely on the IT architecture for heat removal",
   "Edge sites never need physical security",
 ]
 correct = "A"

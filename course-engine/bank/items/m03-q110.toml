@@ -10,7 +10,7 @@ kind = "single-select"
 module = 3
 stem = "Electromagnetic or RF environment near high-power transmitters is a site concern because:"
 choices = [
-  "It replaces grounding systems",
+  "It replaces grounding systems, shielding, and equipment mitigation because a clean RF environment removes every electrical interference concern",
   "It always improves PUE",
   "It may interfere with sensitive equipment and require mitigation or site rejection",
   "It only affects cafeteria microwaves",

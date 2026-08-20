@@ -9,10 +9,10 @@ kind = "single-select"
 module = 1
 stem = "Which statement about causes of unavailability is most balanced?"
 choices = [
-  "Utility events, equipment failures, human error, and environmental hazards all contribute; dominance varies by site",
-  "Only utility events ever matter",
-  "Only cyber attacks cause facility downtime",
-  "Cooling never contributes to outages"
+  "Utility, equipment, human, and environmental events all contribute; the dominant cause varies by site",
+  "Only utility events ever matter, because equipment, people, and environmental conditions cannot create facility downtime",
+  "Only cyber attacks cause facility downtime, while physical plant failures are merely application symptoms",
+  "Cooling never contributes to outages, because electrical and network systems remain independent of thermal conditions"
 ]
 correct = "A"
 explanation = "Real portfolios see mixed root causes—power, cooling, people, and environment—site by site."

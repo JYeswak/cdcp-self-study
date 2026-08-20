@@ -10,8 +10,8 @@ module = 1
 stem = "A government or regulated industry data centre often elevates facility requirements mainly due to:"
 choices = [
   "Statutory, audit, and continuity obligations beyond ordinary convenience IT",
-  "Preference for a single non-redundant path",
-  "A ban on any monitoring systems",
+  "Preference for a single non-redundant path because regulated operators prioritize simplicity over continuity",
+  "A ban on any monitoring systems, since audit obligations are treated as unrelated to facility operations",
   "Mandatory use of only wireless power",
 ]
 correct = "A"

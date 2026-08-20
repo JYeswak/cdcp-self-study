@@ -9,9 +9,9 @@ kind = "single-select"
 module = 1
 stem = "Which unavailability cause is most often organizational rather than purely technical?"
 choices = [
-  "A single UPS component failure with no human factor",
+  "A single UPS component failure with no human factor and no change, maintenance, or operating decision involved",
   "Change errors, incomplete procedures, or weak maintenance discipline",
-  "Lightning strike with no process involvement",
+  "Lightning strike with no process involvement, no equipment configuration error, and no organizational contribution",
   "Utility feeder short circuit alone"
 ]
 correct = "B"

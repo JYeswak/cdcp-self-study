@@ -11,9 +11,9 @@ module = 1
 stem = "From a business-organization view, treating the data centre only as a facilities silo most often leads to:"
 choices = [
   "Misaligned capacity, change windows, and risk decisions between IT and operations",
-  "Clearer SLA ownership between IT and facilities",
-  "Automatic compliance with every international standard",
-  "Elimination of the need for a recovery strategy",
+  "Clearer SLA ownership between IT and facilities, because a facilities silo naturally gives each team an unambiguous service boundary",
+  "Automatic compliance with every international standard, because separating facilities from IT removes conflicting governance decisions",
+  "Elimination of the need for a recovery strategy, because facilities ownership prevents digital service failures",
 ]
 correct = "A"
 explanation = "Siloed facilities vs IT ownership commonly misaligns capacity planning, change control, and risk appetite."

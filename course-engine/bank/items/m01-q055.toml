@@ -11,7 +11,7 @@ module = 1
 stem = "A managed services / hosted model typically means:"
 choices = [
   "A provider operates infrastructure or applications under contract SLAs for the customer",
-  "The customer always owns generators on their balance sheet",
+  "The customer always owns generators on their balance sheet and directly controls every facility maintenance decision",
   "There is never a shared responsibility model",
   "Fire codes do not apply",
 ]

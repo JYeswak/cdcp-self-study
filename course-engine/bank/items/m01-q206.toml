@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "A single point of failure in facility design is best characterized as:"
 choices = [
-  "Any dual-path system by definition",
-  "Any redundant UPS string",
+  "Any dual-path system by definition, even when one path cannot carry the critical load during maintenance",
+  "Any redundant UPS string, regardless of whether another independent path reaches the critical load",
   "A component or path whose failure alone can interrupt the critical load",
-  "Any sensor that reports humidity"
+  "Any sensor that reports humidity, because a measurement point is itself a single point of failure"
 ]
 correct = "C"
 explanation = "SPOFs are failure points without concurrent path diversity for the protected load."

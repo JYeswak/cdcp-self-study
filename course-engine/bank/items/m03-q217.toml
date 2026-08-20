@@ -9,10 +9,10 @@ kind = "single-select"
 module = 3
 stem = "The tour says “BTM campus — no grid risk.” There is no plant land, no fuel or gas path, and no emissions permit. Walk because:"
 choices = [
-  "Every BTM pitch is a walk; on-site generation is never a legitimate site type",
-  "Flood plus a raised floor is the missing control",
-  "You must first draw the Module 06 UPS/ATS/generator one-line before any site decision",
-  "The only energization story is a plant this site cannot host, and “no grid risk” is false — BTM is a new plant failure mode; interconnect often remains a go/no-go for export, backup, or black-start",
+  "Every BTM pitch is a walk; on-site generation is never a legitimate site type, regardless of land, fuel, permits, or operating model",
+  "Flood plus a raised floor is the missing control, so plant hosting, interconnect, and fuel or gas paths do not matter",
+  "You must first draw the Module 06 UPS/ATS/generator one-line before any site decision, rather than checking whether the site can host the plant",
+  "The site cannot host the plant, so BTM is not a credible energization story",
 ]
 correct = "D"
 explanation = "Walk when the plant has no land/fuel/permit path, or when BTM is sold as immunity. Interconnect often remains. Module 06 for the path; flood is not cured by a raised floor."

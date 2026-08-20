@@ -10,7 +10,7 @@ module = 3
 stem = "Shared multi-tenant campuses can still fail a “good site” test if:"
 choices = [
   "Diverse carriers and utilities are available",
-  "Floor loading is adequate",
+  "Floor loading is adequate, so deed restrictions and easements cannot constrain fuel, antenna rights, or other resilience infrastructure",
   "Deed restrictions, easements, or landlord constraints block generator fuel or antenna rights needed for resilience",
   "Security screening exists",
 ]

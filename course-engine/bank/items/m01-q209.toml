@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "Treating the data centre as only an IT department concern (with no facilities/ops partnership) risks:"
 choices = [
-  "Faster automatic compliance with all building codes",
+  "Faster automatic compliance with all building codes, because facilities and operations do not need to participate in change decisions",
   "Gaps in change control, maintenance ownership, and incident response across trades",
-  "Guaranteed lower energy cost forever",
-  "Elimination of all physical security needs"
+  "Guaranteed lower energy cost forever, even when maintenance ownership and operational boundaries are left undefined",
+  "Elimination of all physical security needs because an IT-only organization has no facility-facing responsibilities"
 ]
 correct = "B"
 explanation = "Facility outcomes require cross-functional ownership among IT, facilities, security, and vendors."

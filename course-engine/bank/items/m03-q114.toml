@@ -10,7 +10,7 @@ kind = "single-select"
 module = 3
 stem = "Which statement is most accurate about facility criteria vs pure IT architecture?"
 choices = [
-  "Only software defines floor loading",
+  "Only software defines floor loading, utilities, envelopes, and plant space, because IT architecture overrides the building's physical limits",
   "IT architecture always overrides physics of the building",
   "Facility criteria (structure, utilities, envelopes, plant space) bound what IT architectures can reliably deploy",
   "Network diagrams set flood elevations",

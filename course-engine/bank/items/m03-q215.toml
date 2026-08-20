@@ -10,10 +10,10 @@ kind = "single-select"
 module = 3
 stem = "Sales: “Utility A and Utility B are on the building; dual-feed lead time is booked.” There is no queue position, no interconnection study, and no financial security. The diagnostic move is:"
 choices = [
-  "Accept the pair of laterals as dual path; the remaining risk is only the quoted lead time",
-  "Treat two nameplates on one wall as proof the second independent feed will be studied",
-  "Refuse the energization story: two laterals and a lead-time SKU are not a queue; without studies and security the hall can stay dark for years — that queue is the go/no-go",
-  "Specify a larger UPS/ATS/generator string here; Module 03 owns the power-path one-line",
+  "Accept the pair of laterals as dual path; the remaining risk is only the quoted lead time, not queue position, studies, or security",
+  "Treat two nameplates on one wall as proof the second independent feed will be studied, even without a queue position or posted security",
+  "Refuse the story: two laterals and a lead-time SKU do not prove energization",
+  "Specify a larger UPS/ATS/generator string here",
 ]
 correct = "C"
 explanation = "Utility A and B on the building is not dual path and is not an interconnection agreement. Diagnose the missing queue. Do not steal Module 06’s UPS/ATS/gen lesson."

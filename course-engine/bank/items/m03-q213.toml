@@ -10,9 +10,9 @@ kind = "single-select"
 module = 3
 stem = "Water availability and wastewater discharge rights can be decisive site factors when:"
 choices = [
-  "The facility uses only passive cooling with no outdoor plant ever",
+  "The facility uses only passive cooling with no outdoor plant ever, so water rights and discharge planning cannot affect the site decision",
   "Evaporative or water-dependent heat rejection and fire water supplies are part of the design concept",
-  "IT load is zero",
+  "IT load is zero, so water availability and wastewater rights remain irrelevant even if the proposed site includes water-dependent plant",
   "The site is purely a dry storage warehouse with no IT"
 ]
 correct = "B"

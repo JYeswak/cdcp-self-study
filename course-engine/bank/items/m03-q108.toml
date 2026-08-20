@@ -11,7 +11,7 @@ module = 3
 stem = "Transportation access matters for site selection primarily because:"
 choices = [
   "It determines IP subnet size",
-  "Routers require daily physical commuting by packets",
+  "Routers require daily physical commuting by packets, so transportation access has no bearing on fuel, equipment, or emergency response",
   "Fuel, equipment deliveries, and emergency response depend on reliable road access",
   "It sets lux levels",
 ]

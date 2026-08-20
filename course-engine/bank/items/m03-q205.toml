@@ -8,9 +8,9 @@ kind = "single-select"
 module = 3
 stem = "Airport flight paths, rail lines, and major highways near a site raise concerns about:"
 choices = [
-  "Guaranteed free dark fibre",
+  "Guaranteed free dark fibre, because transport corridors cannot affect contamination, vibration, pollution, or emergency access",
   "Accident, vibration, pollution, and emergency-access interference risks",
-  "Automatic Tier certification",
+  "Automatic Tier certification, because nearby transport hazards are converted into a facility rating rather than a site risk",
   "Zero electromagnetic environment"
 ]
 correct = "B"

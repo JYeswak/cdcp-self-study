@@ -10,9 +10,9 @@ kind = "single-select"
 module = 1
 stem = "Aligning facility investment with business criticality means:"
 choices = [
-  "Spending the same capital on every closet regardless of impact",
-  "Ignoring RTO/RPO when siting and designing",
-  "Using marketing slogans as the only design input",
+  "Spending the same capital on every closet regardless of impact, service dependency, or the cost of an outage",
+  "Ignoring RTO/RPO when siting and designing, because business continuity belongs only to application owners",
+  "Using marketing slogans as the only design input, without connecting facility controls to the impact of service loss",
   "Matching redundancy and operating discipline to the impact of loss for the served services"
 ]
 correct = "D"

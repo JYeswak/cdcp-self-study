@@ -10,10 +10,10 @@ kind = "single-select"
 module = 3
 stem = "A neocloud pitch quotes marketing megawatts and two carrier logos. Water rights are “TBD.” Nobody can name a queue position. Treat grid and fiber as:"
 choices = [
-  "Siting footnotes only; two logos equal diverse OSP and marketing MW equals interconnected power",
-  "Last year’s published fiber-cut percentage, which you must memorize as law",
-  "2026 outage paths: score interconnected (or BTM) power + water rights + walked fiber (Module 11) + queue — a logo pair is not diversity and a dark hall is an outage, not a delay",
-  "Indoor problems a raised floor converts into non-events, including flood and long fiber cuts",
+  "Siting footnotes only; two logos equal diverse OSP and marketing MW equals interconnected power, so no site evidence is needed",
+  "Last year’s published fiber-cut percentage, which you must memorize as law rather than walk the physical paths and confirm water or queue evidence",
+  "Score power, water rights, fiber, and queue; logos are not diversity",
+  "Indoor problems a raised floor converts into non-events, including flood and long fiber cuts, so external site constraints need no review",
 ]
 correct = "C"
 explanation = "The grid got worse as an input; fiber cuts are long-duration IT-service events. Do not invent an outage percentage. Walk OSP (Module 11). Raised floor is not flood control."

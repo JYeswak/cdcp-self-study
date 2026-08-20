@@ -12,8 +12,8 @@ module = 1
 stem = "The “elements of a data centre” concept emphasizes that IT equipment alone is insufficient because:"
 choices = [
   "IT depends on concurrent power, cooling, connectivity, and life-safety support systems",
-  "Software never fails",
-  "Racks do not need grounding",
+  "Software never fails, so facility support systems are only needed during building maintenance",
+  "Racks do not need grounding when the servers have redundant power supplies and network paths",
   "Cabling is optional in modern designs",
 ]
 correct = "A"

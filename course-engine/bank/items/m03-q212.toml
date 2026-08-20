@@ -9,8 +9,8 @@ module = 3
 stem = "A facility criterion that often limits future growth more than day-one IT load is:"
 choices = [
   "Insufficient expandable power, cooling, and white-space/plant real estate",
-  "Having too many spare conduits",
-  "Documented spare capacity pathways",
+  "Having too many spare conduits, because extra pathways consume growth space without helping future power, cooling, or white-space capacity",
+  "Documented spare capacity pathways, because planning for expansion creates a larger constraint than the physical power, cooling, or plant envelope",
   "Modular expansion provisions"
 ]
 correct = "A"

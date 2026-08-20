@@ -13,10 +13,10 @@ kind = "single-select"
 module = 3
 stem = "A site has completed its large-load interconnection path and uses a qualifying net-metering / behind-the-meter arrangement. The owner says, ‘That means unrestricted dispatch.’ What should the M03 site review catch?"
 choices = [
-  "Accept the claim: once the queue and BTM arrangement are cleared, curtailment is only a utility-failure issue",
-  "Reject the absolute claim: ERCOT’s April 2026 operations update describes curtailment instructions for specified large-load categories, including net-metering/co-located arrangements; verify this site’s category and hand the response to M15 EOP 4",
-  "Use the April 2026 interconnection request total as a universal curtailment frequency",
-  "Calculate UPS/ATS autonomy in M03; the site module owns the power-path response",
+  "Accept the claim: once the queue and BTM arrangement are cleared, curtailment is only a utility-failure issue and needs no operating handoff",
+  "Reject the absolute claim; confirm category and hand curtailment actions to M15 EOP 4",
+  "Use the April 2026 interconnection request total as a universal curtailment frequency, instead of checking this site's category and operating agreement",
+  "Calculate UPS/ATS autonomy in M03; the site module owns the power-path response and no curtailment procedure is needed",
 ]
 correct = "B"
 explanation = "ERCOT’s April 2026 interconnection update is a queue/process snapshot, while its April 2026 System Operations Update describes a Large Load Curtailment Manager for specified categories and says the example triggers were not finalized. Surface the site-specific constraint; M15 EOP 4 owns the operating response. Do not generalize it to every BTM site or ISO."

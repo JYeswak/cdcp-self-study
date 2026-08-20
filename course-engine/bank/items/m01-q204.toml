@@ -10,9 +10,9 @@ kind = "single-select"
 module = 1
 stem = "Why might a board care about facility resilience metrics, not only application uptime dashboards?"
 choices = [
-  "Because facility events can simultaneously take down many systems and create regulatory/reputational exposure",
-  "Because boards never care about risk",
-  "Because PUE alone determines stock price daily",
+  "Facility events can take down many systems at once and create regulatory or reputational exposure",
+  "Because boards never care about risk, so facility resilience metrics have no decision value beyond application dashboards",
+  "Because PUE alone determines stock price daily, regardless of service continuity, regulatory exposure, or customer impact",
   "Because raised floors replace business continuity plans"
 ]
 correct = "A"

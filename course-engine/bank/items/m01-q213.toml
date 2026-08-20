@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "At 40–100 kW/rack, a UPS that holds the IT load after cooling stops is:"
 choices = [
-  "A cooling plan — batteries reject heat",
-  "Enough for the same minutes of thermal inertia a 5–10 kW hall had",
-  "Not a cooling plan: thermal ride-through collapses toward seconds (inlet or cold-plate is the clock); point at Module 09 for the plant",
-  "Proof the hall can skip Module 09 if the UPS sticker says 10 minutes",
+  "A cooling plan, because batteries reject heat and therefore replace the plant design for a dense rack",
+  "Enough for the same minutes of thermal inertia a 5–10 kW hall had, because rack density does not change the thermal clock",
+  "Not a cooling plan: thermal ride-through collapses toward seconds, with inlet or cold-plate conditions setting the clock",
+  "Proof the hall can skip Module 09 if the UPS sticker says 10 minutes, regardless of rack density or cooling response",
 ]
 correct = "C"
 explanation = "Watts in the silicon are not heat rejected. Density collapses the window from minutes to seconds. This file only makes the availability point; the plant is Module 09."

@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "Path A is already degraded. A tech opens Path B for “redundant” work in the same window. The mission-level diagnosis is:"
 choices = [
-  "N+1 on the plaque means the window is free — redundancy removes the need for a freeze",
-  "Temporary N-0: concurrent maintenance on the spare while the primary is already hurt; change freezes exist to prevent this (path-trace depth is Module 06)",
-  "This is a cooling cascade, so start at the chiller",
-  "Dual server PSUs make the window N-0-proof",
+  "N+1 on the plaque means the window is free, so redundancy removes the need for a freeze or a path-trace review",
+  "Temporary N-0: work on the spare while the primary path is degraded; freeze or re-plan the change",
+  "This is a cooling cascade, so start at the chiller even though the scenario concerns concurrent work on an electrical path",
+  "Dual server PSUs make the window N-0-proof, because endpoint power supplies eliminate shared upstream maintenance risk",
 ]
 correct = "B"
 explanation = "Redundancy enables maintenance; it does not survive working the last path. Call the window N-0. Do not steal Module 06’s path grammar — this is the mission concept only."

@@ -11,8 +11,8 @@ module = 1
 stem = "From a business perspective, the data centre is best described as:"
 choices = [
   "An enabling facility whose availability and capacity shape digital products and risk",
-  "A pure cost centre that never affects revenue",
-  "Only a real-estate asset with no operational role",
+  "A pure cost centre that never affects revenue, service commitments, or the risk carried by digital products",
+  "Only a real-estate asset with no operational role, because applications are independent of facility availability and capacity",
   "A marketing brand unrelated to IT service levels"
 ]
 correct = "A"

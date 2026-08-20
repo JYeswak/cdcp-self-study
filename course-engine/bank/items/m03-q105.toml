@@ -9,7 +9,7 @@ kind = "single-select"
 module = 3
 stem = "Climate and free-cooling potential influence site selection mainly through:"
 choices = [
-  "Only tax incentives for murals",
+  "Only tax incentives for murals and public-facing finishes, with no relationship to climate, heat rejection, or outdoor design conditions",
   "USB cable lengths",
   "HVAC energy, plant type options, and outdoor design conditions for capacity",
   "Badge colours",

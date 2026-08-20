@@ -9,7 +9,7 @@ kind = "single-select"
 module = 3
 stem = "Future expansion land or floor plate options are site criteria because:"
 choices = [
-  "Data centres never grow",
+  "Data centres never grow, so future power, cooling, and floor-plate options cannot affect the initial site decision or relocation risk",
   "Expansion only needs software licenses",
   "Power, cooling, and space upgrades have long lead times; growth without room forces costly relocation",
   "AHJs forbid expansion always",

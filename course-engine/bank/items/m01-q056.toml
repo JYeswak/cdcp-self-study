@@ -11,7 +11,7 @@ module = 1
 stem = "When executives ask “why invest in redundancy,” the strongest CDCP-framed answer is:"
 choices = [
   "Redundancy reduces the business impact of single failures aligned to criticality and cost of downtime",
-  "Redundancy is only aesthetic",
+  "Redundancy is only aesthetic and has no relationship to criticality, downtime cost, or the consequences of a single failure",
   "Redundancy always eliminates human error completely",
   "Redundancy is required only for offices, not IT",
 ]

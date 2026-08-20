@@ -10,10 +10,10 @@ kind = "single-select"
 module = 3
 stem = "An “AI factory / neocloud” deck offers GPU colo, dedicated hall, and AI campus as the site answer. The speakable criteria are:"
 choices = [
-  "Recite the brochure type list; Module 03 owns the 2026 type nouns",
-  "Power that can be interconnected or generated BTM, plus water rights, plus fiber, plus the interconnect queue — not a type list (Module 01 owns the nouns)",
-  "A PUE dashboard plus a universal 250 psf floor statute",
-  "Dual-cord servers, which replace water rights and queue position",
+  "Recite the brochure type list; Module 03 owns the 2026 type nouns and the facility need not test power, water, fiber, or queue risk",
+  "Score power, water rights, fiber, and queue—not brochure type labels",
+  "A PUE dashboard plus a universal 250 psf floor statute, because metrics replace site-specific utility and water analysis",
+  "Dual-cord servers, which replace water rights and queue position because endpoint redundancy resolves every campus-level constraint",
 ]
 correct = "B"
 explanation = "Speak power + water rights + fiber + queue. Type nouns live in Module 01. Do not invent a psf statute or treat PUE as a site score."

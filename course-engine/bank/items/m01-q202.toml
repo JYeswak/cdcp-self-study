@@ -10,8 +10,8 @@ kind = "single-select"
 module = 1
 stem = "Colocation, enterprise, and hyperscale facilities primarily differ in:"
 choices = [
-  "Whether fire detection is ever required",
-  "Whether electricity is used at all",
+  "Whether fire detection is ever required, because ownership and tenancy determine all facility obligations",
+  "Whether electricity is used at all, since the facility model is defined by business ownership rather than physical services",
   "Ownership model, multi-tenancy, scale economics, and governance boundaries",
   "Whether racks can be grounded"
 ]

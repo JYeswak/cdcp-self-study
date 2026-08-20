@@ -10,7 +10,7 @@ kind = "single-select"
 module = 3
 stem = "A building with limited roof/yard space for heat rejection may force:"
 choices = [
-  "Unlimited chiller capacity with no trade-offs",
+  "Unlimited chiller capacity with no trade-offs, because roof and yard constraints do not limit plant placement or service access",
   "Automatic dual utility feeds",
   "Design compromises on cooling plant placement, capacity, or even site rejection",
   "Elimination of fire detection",

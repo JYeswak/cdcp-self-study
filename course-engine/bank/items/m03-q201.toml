@@ -11,7 +11,7 @@ kind = "single-select"
 module = 3
 stem = "Proximity to high-quality dual utility feeds is a site criterion mainly to support:"
 choices = [
-  "Decorative fountains only",
+  "Decorative fountains only, because utility proximity has no relationship to independent power paths or correlated utility risk",
   "Independent power paths and reduced correlated utility risk where available",
   "Lower ceiling heights",
   "Elimination of all UPS systems by regulation"

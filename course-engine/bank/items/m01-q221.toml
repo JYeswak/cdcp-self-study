@@ -11,10 +11,10 @@ kind = "single-select"
 module = 1
 stem = "A job posting asks for 'neocloud and GPU-colo experience.' The correct framing is:"
 choices = [
-  "Neocloud and GPU colo are market terms for high-density AI/ML facilities — they are not formal standards or rating systems",
-  "Neocloud is an official TIA-942 classification added in the 2024 edition for AI workloads",
-  "GPU colo is a formal Uptime Institute tier for facilities exceeding 50 kW per rack",
-  "Both terms are deprecated — the industry has standardized on 'AI factory' as the only valid label",
+  "They are market terms for high-density AI facilities, not formal standards or rating systems",
+  "Neocloud is an official TIA-942 classification added for AI workloads, so the label is a standards designation rather than a market term",
+  "GPU colo is a formal Uptime Institute tier for facilities exceeding 50 kW per rack, with the rack threshold defining the rating",
+  "Both terms are deprecated because the industry standardized on AI factory as the only valid label for high-density computing",
 ]
 correct = "A"
 explanation = "Neocloud, GPU colo, and AI factory are market vocabulary describing high-density, GPU-heavy facilities built for AI/ML workloads. They appear in IEA reports, industry press, and job postings but are not formal classifications in TIA-942, Uptime Institute tiers, or ISO standards. Interview fluency requires recognizing these terms as descriptive market language, not confusing them with rated or certified classifications."

@@ -8,9 +8,9 @@ kind = "single-select"
 module = 1
 stem = "Capacity planning as a business function should connect:"
 choices = [
-  "Forecast IT demand to power, cooling, space, and network headroom with lead times for plant",
-  "Only marketing headcount",
-  "Diesel colour coding only",
+  "Forecast IT demand against power, cooling, space, and network headroom",
+  "Only marketing headcount, because facilities can add power and cooling immediately when demand appears",
+  "Diesel colour coding only, because fuel presentation matters more than plant capacity or lead times",
   "Ceiling tile patterns exclusively",
 ]
 correct = "A"

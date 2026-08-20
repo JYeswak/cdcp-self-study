@@ -10,9 +10,9 @@ kind = "single-select"
 module = 3
 stem = "A brochure labels the parcel a behind-the-meter / on-site generation campus. In this module that phrase is:"
 choices = [
-  "A site type, and a walk-away if the plant cannot be hosted (land, fuel or gas path, permits); Module 01 owns the type noun and Module 06 owns the power path — do not size UPS, ATS, or generators here",
+  "BTM is a site type; walk away if land, fuel or gas, or permits cannot host the plant",
   "A later generator add-on you specify in this module (ATS sequence, UPS ride-through, islanding)",
-  "Proof the site has no grid risk, so interconnect can be ignored",
+  "Proof the site has no grid risk, so interconnect can be ignored even when the proposed plant needs export, backup, or black-start capability",
   "Another name for two utility laterals landed on opposite corners of the hall",
 ]
 correct = "A"
