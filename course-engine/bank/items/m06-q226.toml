@@ -5,15 +5,15 @@
 id = "m06-q226"
 kind = "single-select"
 module = 6
-stem = "Stranded power capacity in a hall usually means:"
+stem = "A hall shows 400 kW of unused UPS capacity, but the operator cannot install another GPU rack row. Which finding best explains this?"
 choices = [
-  "Power that is stored only in flywheels",
-  "Unlimited free capacity regardless of cooling, space, or distribution",
-  "Capacity blocked by cooling or distribution",
-  "Only generator fuel reserves, not electrical infrastructure"
+  "The flywheel ride-through is rated for fewer seconds than the racks require",
+  "The generator day tank holds less fuel than the runtime target",
+  "Cooling and branch distribution in that row are already at their limits",
+  "The UPS modules are configured for N rather than N+1 redundancy",
 ]
 correct = "C"
-explanation = "Stranding is unused power headroom blocked by another resource limit."
+explanation = "Stranded capacity is headroom in one resource that another binding constraint -- here cooling and branch distribution -- makes unusable."
 topic_ids = ["m06-sizing", "m06-hpc"]
 objective_ids = []
 bloom = "apply"

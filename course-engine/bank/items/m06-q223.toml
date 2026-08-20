@@ -7,15 +7,15 @@
 id = "m06-q223"
 kind = "single-select"
 module = 6
-stem = "Switched or metered rack PDUs add most value when operators need to:"
+stem = "An operator must power-cycle two specific servers in a rack 40 km away, then show which branch circuit was overloaded. Which rack PDU capability covers both needs?"
 choices = [
-  "Bypass grounding codes whenever remote control is available",
-  "Disable generator testing forever",
-  "Replace STS devices in all cases, regardless of source behavior",
-  "Branch visibility and remote outlet control"
+  "A basic PDU with locking outlets and no network interface",
+  "An automatic transfer switch feeding the rack from two independent sources",
+  "A metered-inlet PDU reporting only total rack current",
+  "A switched PDU with per-outlet control and branch-level metering",
 ]
 correct = "D"
-explanation = "Metering and switching improve visibility and controlled recovery at the rack edge."
+explanation = "Per-outlet switching covers the remote power cycle; branch-level metering covers the overload attribution. A metered inlet reports only the total, and an ATS addresses source loss rather than either need."
 topic_ids = ["m06-pdu"]
 objective_ids = []
 bloom = "apply"
