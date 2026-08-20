@@ -9,8 +9,8 @@ set -eu
 # ── Local CI driver [bd-installability-sm4g.22 / bd-engine-not-gate-ar39.15]
 #
 # This branch is deliberately part of the already-allowlisted check.sh rather
-# than a new shell file: substrate-guard must see every new non-Rust program,
-# and adding an allowlist row is outside this tick. It is not the default CI
+# than a second driver implementation. The thin .flywheel wrapper is itself
+# allowlisted as process glue; it is not the default CI
 # path. `./scripts/check.sh --local-ci` creates one detached worktree at one
 # SHA, hashes the declared consumed scopes, runs the diagnostic inventory when
 # a scope changed, and preserves its exit code. Individual stateful slots are
@@ -125,15 +125,22 @@ if [ "${1:-}" = "--local-ci" ]; then
   fi
   [ "$_lci_force" -eq 1 ] && _lci_changed=1
   _lci_mode=executed; _lci_rc=0; _lci_start="$(date +%s)"
+  _lci_engine="$_lci_root"
   if [ "$_lci_changed" -eq 1 ]; then
     git -C "$_lci_root" worktree add --detach "$_lci_run" "$_lci_sha" >/dev/null \
       || { echo "local-ci: cannot materialise pinned worktree $_lci_sha" >&2; exit 2; }
+    _lci_git_root="$(git -C "$_lci_root" rev-parse --show-toplevel)"
+    if [ "$_lci_root" = "$_lci_git_root" ]; then
+      _lci_engine="$_lci_run"
+    else
+      _lci_engine="$_lci_run/${_lci_root#$_lci_git_root/}"
+    fi
     for _lci_scope in bank registry rust artifact docs all; do
-      printf 'pinned\t%s\t%s\n' "$_lci_scope" "$(_lci_hash "$_lci_run" "$_lci_scope")" >>"$_lci_cache"
+      printf 'pinned\t%s\t%s\n' "$_lci_scope" "$(_lci_hash "$_lci_engine" "$_lci_scope")" >>"$_lci_cache"
     done
-    _lci_path="$_lci_run/scripts/check.sh"
+    _lci_path="$_lci_engine/scripts/check.sh"
     set +e
-    (CDPATH= cd -- "$_lci_run" && PATH="${PATH}:/Users/josh/.cargo/bin" CDCP_CI_SHA="$_lci_sha" "$_lci_path" --diagnostic >"$_lci_log" 2>&1)
+    (CDPATH= cd -- "$_lci_engine" && PATH="${PATH}:/Users/josh/.cargo/bin" CDCP_CI_SHA="$_lci_sha" sh "$_lci_path" --diagnostic >"$_lci_log" 2>&1)
     _lci_rc=$?
     set -e
   else
@@ -147,6 +154,9 @@ if [ "${1:-}" = "--local-ci" ]; then
   _lci_end="$(date +%s)"; _lci_wall=$((_lci_end - _lci_start))
   [ -f "$_lci_log" ] && sed -n 's/^check\.sh: diagnostic-step: exit=//p' "$_lci_log" >"$_lci_rows" || : >"$_lci_rows"
   _lci_exec=0; _lci_skip=0; _lci_first=""
+  if [ ! -s "$_lci_rows" ] && [ "$_lci_rc" -ne 0 ]; then
+    _lci_first="driver invocation failed before diagnostic transcript: exit=$_lci_rc"
+  fi
   if [ "$_lci_mode" = "skipped-unchanged-inputs" ]; then
     sed -n 's/^[[:space:]]*ok "\([^"]*\)".*$/0 name=\1/p' "$_lci_root/scripts/check.sh" >"$_lci_rows"
   fi
@@ -162,6 +172,8 @@ if [ "${1:-}" = "--local-ci" ]; then
   mkdir -p "$(dirname "$_lci_receipt")" || { echo "local-ci: cannot create receipt directory" >&2; exit 2; }
   {
     echo '# Local CI consumed-input receipt'; echo; echo "- sha: $_lci_sha"; echo '- tree: detached worktree at that SHA (check.sh tree=worktree)'; echo "- mode: $_lci_mode"; echo "- exit: $_lci_rc"; echo "- wall_seconds: $_lci_wall"; echo "- source_slots: $(sed -n 's/^[[:space:]]*ok "\([^"]*\)".*$/x/p' "$_lci_root/scripts/check.sh" | wc -l | tr -d ' ')"; echo "- executed_slots: $_lci_exec"; echo "- skipped_slots: $_lci_skip"; echo '- diagnostic_note: --diagnostic is inventory-only; its non-zero verdict is preserved and it never replaces default fail-fast CI.'; echo '- quality_boundary: completion proves termination and attribution, not that every assertion is substantive.'; echo; echo '## Scope hashes'; echo; echo '```text'; cat "$_lci_cache"; echo '```'; echo; echo '## Steps'; echo; echo '| # | result | name | consumed scope | pinned hash | reason |'; echo '|---:|---|---|---|---|---|';
+    echo '- slot_count_definition: source_slots counts literal ok call sites; executed_slots counts diagnostic runtime emissions, including conditional and selftest rows.'
+    echo '- worktree_layout: Git worktree root is the outer repository; the engine checkout is its course-engine/ child.'
     _lci_i=0
     while IFS= read -r _lci_row; do
       _lci_i=$((_lci_i + 1)); _lci_outcome="${_lci_row%% name=*}"; _lci_rest="${_lci_row#* name=}"; _lci_name="$_lci_rest"; _lci_reason=""
@@ -184,10 +196,16 @@ if [ "${1:-}" = "--local-ci" ]; then
   mv "$_lci_tmp" "$_lci_receipt"
   if [ "$_lci_bank_selftest" -eq 1 ]; then
     git -C "$_lci_root" worktree add --detach "$_lci_plant" "$_lci_sha" >/dev/null || exit 2
-    _lci_item="$(find "$_lci_plant/bank/items" -type f -name '*.toml' -print | LC_ALL=C sort | head -n 1)"; [ -n "$_lci_item" ] || exit 2
-    _lci_before="$(_lci_hash "$_lci_plant" bank)"; printf '\n# local-ci bank-input selftest\n' >>"$_lci_item"; _lci_after="$(_lci_hash "$_lci_plant" bank)"; [ "$_lci_before" != "$_lci_after" ] || exit 2
-    _lci_bin="$_lci_run/target/debug/cdcp_gate"; [ -x "$_lci_bin" ] || _lci_bin="$_lci_root/target/debug/cdcp_gate"; [ -x "$_lci_bin" ] || exit 2
-    set +e; (CDPATH= cd -- "$_lci_plant" && "$_lci_bin" verify-bank >/dev/null 2>&1); _lci_bank_rc=$?; set -e
+    _lci_git_root="$(git -C "$_lci_root" rev-parse --show-toplevel)"
+    if [ "$_lci_root" = "$_lci_git_root" ]; then
+      _lci_plant_engine="$_lci_plant"
+    else
+      _lci_plant_engine="$_lci_plant/${_lci_root#$_lci_git_root/}"
+    fi
+    _lci_item="$(find "$_lci_plant_engine/bank/items" -type f -name '*.toml' -print | LC_ALL=C sort | head -n 1)"; [ -n "$_lci_item" ] || exit 2
+    _lci_before="$(_lci_hash "$_lci_plant_engine" bank)"; printf '\n# local-ci bank-input selftest\n' >>"$_lci_item"; _lci_after="$(_lci_hash "$_lci_plant_engine" bank)"; [ "$_lci_before" != "$_lci_after" ] || exit 2
+    _lci_bin="$_lci_engine/target/debug/cdcp_gate"; [ -x "$_lci_bin" ] || _lci_bin="$_lci_root/target/debug/cdcp_gate"; [ -x "$_lci_bin" ] || exit 2
+    set +e; (CDPATH= cd -- "$_lci_plant_engine" && "$_lci_bin" verify-bank >/dev/null 2>&1); _lci_bank_rc=$?; set -e
     printf '%s\n' "- bank selftest: byte plant changed bank scope $_lci_before -> $_lci_after; scheduler=RUN; direct verify-bank exit=$_lci_bank_rc; plant removed by trap." >>"$_lci_receipt"
   fi
   exit "$_lci_rc"

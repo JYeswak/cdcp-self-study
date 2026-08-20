@@ -23,6 +23,7 @@ registry	registries
 registry	crates/cdcp_registry_check
 registry	crates/cdcp_gate/src
 registry	scripts/check.sh
+registry	.flywheel/scripts
 registry	.flywheel/tick-ledger.jsonl
 
 rust	Cargo.toml
