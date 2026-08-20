@@ -10,12 +10,12 @@ module = 8
 stem = "Cage nuts and matching screws matter because:"
 choices = [
   "Matching fasteners prevent unreliable rail mounts",
-  "Any screw size works in every rail without checking thread or engagement",
-  "Tool-less rails forbid all fasteners forever, even for accessories",
-  "Grounding is achieved only by paint",
+  "A screw with the right diameter is interchangeable without checking thread or engagement",
+  "A tool-less rail means accessories must also use a tool-less attachment",
+  "Paint continuity through the rail is sufficient bonding for the cabinet assembly",
 ]
 correct = "A"
-explanation = "Square-hole rails need cage nuts matched to the screw; threaded rails need the right thread. A partly-engaged screw carries the load until it does not, and the failure appears under service loading rather than at install. Assuming any screw works is the error, and tool-less rails do not remove fasteners -- accessories still mount conventionally."
+explanation = "Square-hole rails need cage nuts matched to the screw; threaded rails need the right thread. A partly-engaged screw carries the load until it does not, tool-less rails still use fasteners for accessories, and paint continuity is not a substitute for a bonded cabinet assembly."
 topic_ids = ["m08-standards", "m08-dimensions"]
 objective_ids = []
 bloom = "apply"

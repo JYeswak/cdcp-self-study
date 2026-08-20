@@ -7,13 +7,13 @@ kind = "single-select"
 module = 8
 stem = "A hybrid GPU hall puts cold-plate compute next to air-cooled ToR/spine. Ops wants to drop blanking panels “because the hall is liquid.” The call is:"
 choices = [
-  "Drop blanking: liquid compute retires the air seal and unused U no longer recirculates",
-  "Keep blanking only if the site adopted TIA-942 as a Rated=Tier statute",
-  "Replace blanking with an official EPI® blanking certificate",
+  "Drop blanking throughout the hall because cold plates remove every rack exhaust path",
+  "Keep blanking only where a site has converted a code or rating label into an air-control rule",
+  "Treat a liquid-ready cabinet label as evidence that air bypass is controlled for network gear",
   "Keep blanking for air-cooled network gear",
 ]
 correct = "D"
-explanation = "Hybrid halls keep air-cooled networking. Blanking remains required. Liquid-ready is the cabinet SKU, not a waiver of the air seal."
+explanation = "Hybrid halls keep air-cooled networking, so blanking remains required; cold plates do not remove every rack exhaust path, a rating label does not define airflow control, and a liquid-ready SKU is not a waiver of the air seal."
 topic_ids = ["m08-types"]
 objective_ids = ["obj-m08-liquid-ready-cabinet"]
 bloom = "understand"

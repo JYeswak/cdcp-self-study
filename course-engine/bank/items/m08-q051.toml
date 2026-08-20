@@ -8,13 +8,13 @@ kind = "single-select"
 module = 8
 stem = "In colocation, the primary tenant security boundary is often the:"
 choices = [
-  "A shared aisle lighting circuit and its tenant boundary controls",
+  "A shared aisle boundary created by lighting and circuit segregation rather than access controls",
   "A cage, with cabinets locked for regulated workloads",
-  "Public lobby Wi-Fi password",
-  "Only the UPS room door",
+  "A lobby credential without a tenant-zone partition",
+  "A single UPS-room door, even when the tenant's cabinets share the hall",
 ]
 correct = "B"
-explanation = "Cage is the tenant boundary; cabinets may still lock inside."
+explanation = "A cage commonly defines the tenant boundary, with cabinet locks adding control for sensitive workloads; lighting, a lobby credential, or one equipment-room door does not partition tenants in the shared hall."
 topic_ids = ["m08-security"]
 objective_ids = []
 bloom = "apply"

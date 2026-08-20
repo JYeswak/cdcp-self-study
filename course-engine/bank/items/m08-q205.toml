@@ -8,12 +8,12 @@ module = 8
 stem = "When planning rack depth, a common mistake is forgetting:"
 choices = [
   "Cable bend radius, PDU placement, rails, and clearance",
-  "That servers have zero depth, regardless of chassis or service clearance",
-  "That doors never need to open, even when service access is required",
-  "That nameplates never list dimensions"
+  "That the chassis nameplate depth is the complete rack-depth requirement without a service loop",
+  "That rail adjustment absorbs door, cable, and rear-service clearance",
+  "That nominal cabinet depth is also the clearance to the wall or adjacent row"
 ]
 correct = "A"
-explanation = "Depth planning fails when cables, PDUs, and service clearances are ignored."
+explanation = "Depth planning includes chassis, bend radius, PDU placement, rails, doors, and service clearance; a nameplate alone, rail adjustment, or nominal cabinet depth does not provide the usable installation envelope."
 topic_ids = ["m08-dimensions", "m08-types"]
 objective_ids = []
 bloom = "apply"

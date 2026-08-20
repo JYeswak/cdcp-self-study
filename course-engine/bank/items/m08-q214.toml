@@ -13,13 +13,13 @@ kind = "single-select"
 module = 8
 stem = "A GPU-hall rack walk is conducted only in 19-inch EIA-310 plus cabinet width. The liquid row is “the 800 mm ones.” Hoses are “later.” No one names ORv3. You should:"
 choices = [
-  "Accept the EIA-only frame: 2026 GPU halls are still 19-inch plus width; Open Compute is a vendor brochure",
-  "Freeze a connector millimetre from memory so the EIA cabinet becomes an open rack without a published spec",
+  "Approve the rack after checking EIA-310 spacing and width, leaving the liquid coupling for later submittal",
+  "Freeze a remembered connector dimension before a published coupling specification is selected",
   "Use OCP ORv3 terms and published coupling",
-  "Move the whole question to Module 09 plant families and ignore the rack interface",
+  "Leave the rack interface to the plant team without naming an owner or coupling specification",
 ]
 correct = "C"
-explanation = "2026 GPU-hall rack talk is OCP vocabulary: ORv3 is the open rack. Coupling sizes and revisions live in the published spec — do not invent them. Blanking stays because network gear remains air-cooled."
+explanation = "A GPU-hall rack review needs OCP ORv3 vocabulary and a published coupling owner; EIA spacing alone, a remembered dimension, or deferring the interface to the plant team leaves the rack-to-liquid boundary undefined. Blanking stays because network gear remains air-cooled."
 topic_ids = ["m08-standards", "m08-types"]
 objective_ids = ["obj-m08-liquid-ready-cabinet"]
 bloom = "analyze"

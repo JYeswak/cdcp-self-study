@@ -9,13 +9,13 @@ kind = "single-select"
 module = 8
 stem = "A two-post open relay rack is most appropriate for:"
 choices = [
-  "Deep heavy GPU servers without rear support",
-  "Maximum physical security without a cage",
+  "Deep GPU servers whose chassis extends beyond the two-post support plane",
+  "Mixed-tenant equipment that needs a locked cabinet as its primary boundary",
   "Shallow network/patch gear in telecom/IDF contexts",
-  "Replacing all four-post cabinets in AI halls",
+  "A mixed hall where deep compute and shallow patch gear share one rack standard",
 ]
 correct = "C"
-explanation = "Two-post suits shallow gear; deep/heavy servers need four-post support."
+explanation = "Two-post racks suit shallow network and patch gear; a deep chassis extending beyond its support plane needs four-post support, and an open frame cannot supply a locked tenant boundary."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "apply"

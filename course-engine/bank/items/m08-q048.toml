@@ -7,13 +7,13 @@ kind = "single-select"
 module = 8
 stem = "Highly perforated front/rear doors on air-cooled IT cabinets support:"
 choices = [
-  "Blocking all airflow intentionally in every design",
-  "Chimney exhaust when solid doors are mandatory always",
-  "Elimination of blanking panels",
+  "Using a solid door on a standard front-to-rear air path without a designed exhaust path",
+  "Treating a chimney or contained-air arrangement as mandatory for every air-cooled cabinet",
+  "Treating perforation as a substitute for blanking unused rack space",
   "Front-to-rear airflow designs in classic hot/cold aisle layouts",
 ]
 correct = "D"
-explanation = "Perforated doors pass supply/exhaust air; solid doors belong with contained/chimney designs."
+explanation = "Perforated doors support the standard front-to-rear path; a solid door needs a designed airflow arrangement, and neither a containment choice nor door perforation removes the need to close bypass gaps with blanking."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "understand"

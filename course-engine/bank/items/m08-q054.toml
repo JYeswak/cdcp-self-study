@@ -7,13 +7,13 @@ kind = "single-select"
 module = 8
 stem = "A/B rack PDU discipline means:"
 choices = [
-  "Both strips feed from the same single upstream breaker by design",
-  "Only path A is ever energized",
+  "Separate strips whose upstream feeds converge on one breaker",
+  "Keep path B de-energized as a spare during normal operation",
   "Separate PDUs on independent paths preserve diversity",
-  "PDUs replace STS and UPS when power paths are designed",
+  "Use the rack PDUs as the transfer and ride-through layer instead of upstream switching or UPS equipment",
 ]
 correct = "C"
-explanation = "A/B strips preserve dual-path design at the rack."
+explanation = "A/B discipline preserves diversity only when both strips have genuinely independent upstream paths; a common breaker, a permanently idle path, or treating a PDU as transfer and ride-through equipment defeats that design."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "apply"

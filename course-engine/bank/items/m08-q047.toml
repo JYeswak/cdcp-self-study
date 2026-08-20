@@ -8,13 +8,13 @@ kind = "single-select"
 module = 8
 stem = "Four-post open frames offer excellent airflow/access but typically provide:"
 choices = [
-  "Better locks than any enclosure",
+  "The same compartment security as a locked cabinet because the frame is easier to inspect",
   "Minimal physical security compared with locked cabinets",
-  "No need for floor loading checks",
-  "Built-in fire suppression only",
+  "A reason to omit floor-loading review because the frame itself is light",
+  "A reason to omit room or cage fire-protection controls because the frame is open",
 ]
 correct = "B"
-explanation = "An open frame gives up the locked enclosure, so the compartment control has to come from the room or the cage instead. The trade is real in the other direction too -- frames give better airflow and service access -- but nothing about removing panels improves locks, and floor loading still applies because the load is the equipment, not the enclosure."
+explanation = "An open frame gives up cabinet-level physical security, so room or cage controls still matter; its lower enclosure weight does not remove equipment floor loading, and an open frame does not replace fire-protection controls."
 topic_ids = ["m08-types", "m08-security"]
 objective_ids = []
 bloom = "understand"
