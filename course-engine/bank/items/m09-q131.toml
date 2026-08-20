@@ -7,9 +7,9 @@ kind = "single-select"
 module = 9
 stem = "A dry cooler typically rejects heat by:"
 choices = [
-  "Evaporating large amounts of process water as the primary mechanism always",
+  "Evaporating process water is the primary mechanism for this dry cooler",
   "Absorbing heat into UPS batteries",
-  "Only using geothermal wells underground always",
+  "Geothermal wells underground are the sole heat-rejection method for this dry cooler",
   "Sensible heat transfer from fluid coils to outdoor air (often with fans)"
 ]
 correct = "D"

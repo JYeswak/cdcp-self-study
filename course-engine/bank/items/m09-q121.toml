@@ -8,9 +8,9 @@ kind = "single-select"
 module = 9
 stem = "Humidification may be required in a data centre when:"
 choices = [
-  "UPS batteries always need 100% RH, regardless of equipment guidance",
+  "UPS batteries require 100% RH under this equipment guidance",
   "Outdoor or process conditions can drive moisture low",
-  "Fiber only works when fog is present, making humidity control unnecessary",
+  "Fiber works when fog is present, so humidity control is unnecessary",
   "Raised floors must be flooded"
 ]
 correct = "B"

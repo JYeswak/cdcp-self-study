@@ -7,9 +7,9 @@ kind = "single-select"
 module = 9
 stem = "Delta-T across servers or coils is operationally useful because it relates:"
 choices = [
-  "Only to fiber polarity",
-  "Only to battery amp-hours",
-  "Only to IP rating",
+  "Fiber polarity sets the delta-T",
+  "Battery amp-hours determine delta-T",
+  "IP rating determines delta-T",
   "Heat removed to airflow or fluid flow—low delta-T can signal bypass or excess flow"
 ]
 correct = "D"

@@ -9,9 +9,9 @@ module = 9
 stem = "Why does a high sensible heat ratio (SHR) matter when selecting room cooling for IT?"
 choices = [
   "IT rooms need mostly dehumidification, not temperature control",
-  "SHR is only used for kitchen design",
+  "SHR is used for kitchen design rather than IT cooling",
   "IT loads are mostly dry heat, so oversizing latent capacity can over-dry the space",
-  "Higher SHR always means worse PUE"
+  "Higher SHR makes PUE worse in this room"
 ]
 correct = "C"
 explanation = "Servers produce primarily sensible heat; cooling with excess latent capacity can over-cool coils and over-dehumidify."

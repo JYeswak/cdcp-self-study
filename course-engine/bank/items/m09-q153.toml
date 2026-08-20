@@ -10,7 +10,7 @@ choices = [
   "Inlet air remaining perfectly uniform forever",
   "Recirculation can drive thermal stress",
   "Complete elimination of sensible heat from dense racks",
-  "Automatic free cooling in all climates"
+  "Automatic free cooling in this climate"
 ]
 correct = "B"
 explanation = "Total tons can look fine while local recirculation still overheats inlets—management quality matters."

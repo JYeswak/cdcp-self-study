@@ -4,7 +4,7 @@ kind = "single-select"
 module = 9
 stem = "An operator raises cold-aisle supply temperature modestly within an accepted envelope. A primary efficiency reason is:"
 choices = [
-  "Higher temperature always voids all hardware warranties without study",
+  "Higher temperature voids hardware warranties without a study",
   "Cooling plant capacity becomes infinite",
   "Containment is no longer needed",
   "Higher temperatures can improve plant efficiency"
