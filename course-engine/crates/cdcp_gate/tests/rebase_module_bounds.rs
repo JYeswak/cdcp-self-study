@@ -357,15 +357,6 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
     // the constant is not evasion: NumericBound no longer has a literal to
     // match, which is the point of naming the floor.
     (
-        "crates/cdcp_anki/src/lib.rs",
-        "let ext_attr: u32 = 0o644 << 16;",
-        Shape::NumericBound,
-        Verdict::NotAModuleBound,
-        "ZIP central-directory external attributes: Unix mode shifted into the \
-         high word. Matched because the shift contains a comparison glyph next \
-         to the bit width. Not a module bound.",
-    ),
-    (
         "crates/cdcp_learn/tests/chrome_smoke.rs",
         "assert!(MIN_CHECKS >= 15);",
         Shape::NumericBound,
@@ -441,25 +432,71 @@ const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
         "a minutes floor on a reading-time estimate",
     ),
     (
-        "web/assets/js/quiz.js",
-        "let r = Math.imul(t ^ (t >>> 15), 1 | t);",
-        Shape::NumericBound,
-        Verdict::NotAModuleBound,
-        "mulberry32 PRNG: a bit shift, matched because `>>>15` contains `>15`",
-    ),
-    (
-        "web/assets/js/quiz.js",
-        "return ((r ^ (r >>> 14)) >>> 0) / 4294967296;",
-        Shape::NumericBound,
-        Verdict::NotAModuleBound,
-        "mulberry32 PRNG: a bit shift, matched because `>>>14` contains `>14`",
-    ),
-    (
         "web/assets/js/results.js",
         "return h.length > 16 ? h.slice(0, 12) + \"…\" : h;",
         Shape::NumericBound,
         Verdict::NotAModuleBound,
         "hash string truncation for display",
+    ),
+    // ── residual hits adjudicated by bd-rebase-module-bounds-residual-vihc ─
+    (
+        "crates/cdcp_bank/src/leftover_honesty.rs",
+        "it.module = 15;",
+        Shape::NamedBound,
+        Verdict::NotAModuleBound,
+        "test-only rewritten-q154 specimen is assigned to module 15 so the \
+         leftover-honesty audit can exercise its approved-item path; fixture \
+         data, not a production module ceiling",
+    ),
+    (
+        "crates/cdcp_bank/src/mock40_module.rs",
+        "if q37.status != ItemStatus::Retired || q37.module != 13 || ledger[\"mock40-q37\"] != 15 {",
+        Shape::NumericBound,
+        Verdict::NotAModuleBound,
+        "mock40-q37's retired-misfile contract compares filed module 13 with \
+         ledger content module 15; it is a cross-field negative specimen, not \
+         a module-set bound",
+    ),
+    (
+        "crates/cdcp_bank/src/mock40_module.rs",
+        "it.module = 15;",
+        Shape::NamedBound,
+        Verdict::NotAModuleBound,
+        "the approved-misfile test deliberately moves mock40-q01 to filed \
+         module 15 to prove the audit rejects it; test setup data, not a \
+         module-set limit",
+    ),
+    (
+        "crates/cdcp_cli/src/docs.rs",
+        "assert!(mods.iter().all(|h| h.value == 15));",
+        Shape::NumericBound,
+        Verdict::NotAModuleBound,
+        "docs-ledger unit test checks that its synthetic sample has 15 \
+         module-count hits; fixture cardinality, not an iteration ceiling",
+    ),
+    (
+        "crates/cdcp_cli/src/http_serve.rs",
+        "const FALLBACK_SPAN: u16 = 16;",
+        Shape::NamedBound,
+        Verdict::NotAModuleBound,
+        "listen-server retry window counts ports above the preferred address; \
+         sixteen is a networking span, not a module bound",
+    ),
+    (
+        "crates/cdcp_cli/tests/selfdoc.rs",
+        "PROOFS.len() >= 13,",
+        Shape::NumericBound,
+        Verdict::NotAModuleBound,
+        "self-documentation test requires thirteen named proof checks; it \
+         guards proof-list coverage, not the number of course modules",
+    ),
+    (
+        "crates/cdcp_learn/src/build.rs",
+        "if order == 13 || mod_id == \"13-security\" {",
+        Shape::NumericBound,
+        Verdict::NotAModuleBound,
+        "learner CTA routing selects the specific security page at order 13; \
+         it is a product case, not a bound on module iteration",
     ),
     // RETIRED 2026-08-15 with bd-we5a: web/assets/js/results.js no longer
     // holds a hand-frozen MODULE_LEARN_SLUGS table. The map is generated
@@ -506,7 +543,7 @@ fn bound_hits(line: &str) -> bool {
     let l = line.replace(' ', "");
     for n in ["13", "14", "15", "16"] {
         for op in ["<=", ">=", "===", "!==", "==", "!=", "<", ">"] {
-            if let Some(rest) = find_after(&l, &format!("{op}{n}")) {
+            if let Some(rest) = find_comparison_after(&l, &format!("{op}{n}")) {
                 if !rest.starts_with(|c: char| c.is_ascii_digit()) {
                     return true;
                 }
@@ -519,8 +556,28 @@ fn bound_hits(line: &str) -> bool {
     false
 }
 
-fn find_after<'a>(hay: &'a str, needle: &str) -> Option<&'a str> {
-    hay.find(needle).map(|i| &hay[i + needle.len()..])
+/// Find a comparison operand without treating a bit-shift operand as a bound.
+///
+/// The old substring scan saw the second `<` in `x << 13` as `<13` (and the
+/// second `>` in `x >> 14` as `>14`). Shift widths are not module ceilings, but
+/// a real comparison such as `module <= 13` remains visible. Keep this at the
+/// token boundary rather than dropping every line containing a shift: a line
+/// can contain both an unrelated shift and a genuine module comparison.
+fn find_comparison_after<'a>(hay: &'a str, needle: &str) -> Option<&'a str> {
+    let mut from = 0usize;
+    while let Some(relative) = hay[from..].find(needle) {
+        let i = from + relative;
+        let shift_operand = match needle.as_bytes().first() {
+            Some(b'<') => hay.as_bytes().get(i.wrapping_sub(1)) == Some(&b'<'),
+            Some(b'>') => hay.as_bytes().get(i.wrapping_sub(1)) == Some(&b'>'),
+            _ => false,
+        };
+        if !shift_operand {
+            return Some(&hay[i + needle.len()..]);
+        }
+        from = i + 1;
+    }
+    None
 }
 
 // ── the third detector: a bound BOUND TO A NAME (bd-8mjs) ──────────────────
@@ -1258,6 +1315,12 @@ fn the_numeric_bound_detector_still_trips_and_still_discriminates() {
     assert!(bound_hits("PRIMARY_MODULES = range(1, 15)"));
     assert!(bound_hits("if int(m[:2]) <= 14:"));
     assert!(bound_hits("MODULE_CATALOG.length === 14"));
+    assert!(bound_hits("if module <= 13 {"));
+    // Shift widths are not bounds. This was the residual false positive in
+    // cdcp_cli/src/docs.rs; the detector must not read an xorshift PRNG step
+    // as a module ceiling.
+    assert!(!bound_hits("x ^= x << 13;"));
+    assert!(!bound_hits("x ^= x >> 14;"));
     // A longer number that merely starts with one of the four is not a hit.
     assert!(!bound_hits("if x > 150:"));
     assert!(!bound_hits("total < 1400"));
