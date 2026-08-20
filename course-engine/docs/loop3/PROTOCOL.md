@@ -6,6 +6,11 @@
 
 Loop #3 is the signal **outside** `./scripts/check.sh` that the product changed interview-ready fluency [[claim:claim-interview-ready]]. Internal green gates are Loop #1 only.
 
+For the pending real-person mock, use [`EXTERNAL-HUMAN-MOCK.md`](EXTERNAL-HUMAN-MOCK.md).
+It is deliberately separate from the T1 self-log: an agent or maintainer may
+produce a T1 diagnostic, but neither may be reported as Q14's external-human
+signal.
+
 ## Hybrid design
 
 | Tier | What | When | Loop #3 weight |
