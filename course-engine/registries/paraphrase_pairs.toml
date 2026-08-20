@@ -71,6 +71,203 @@ id = "pp-m09-blanking-panels"
 a = "m09-q140"
 b = "m09-q209"
 proposition = "blanking panels block empty rack openings so cold air goes through IT, not open U"
-status = "open"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m09-q140 remains the understand-level definition of blanking-panel function; m09-q209 is an apply scenario about unused rack U-spaces causing cold-air short-circuiting and asks for the corrective action."
 measured_answer_overlap_pct = 7
 found = "by hand 2026-08-14; C3-invisible"
+
+# -----------------------------------------------------------------------------
+# bd-ionf (2026-08-20): thirteen human-found clusters, all differentiated.
+# Multi-item clusters are represented by pairwise edges so every member stays
+# in the machine-checked ledger; the repeated adjudication reason records the
+# shared cluster resolution. These are human resolutions, not a semantic gate.
+# -----------------------------------------------------------------------------
+
+[[pair]]
+id = "pp-m08-rack-standard"
+a = "m08-q041"
+b = "m08-q200"
+proposition = "what the 19-inch standard specifies and what follows from that requirement"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m08-q041 remains the definition of what the 19-inch standard specifies; m08-q200 now tests the operational consequence of that requirement."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m06-utility-sequence-q013-q044"
+a = "m06-q013"
+b = "m06-q044"
+proposition = "the normal utility-to-rack sequence"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m06-q013 is the understand-level sequence definition; m06-q044 is an apply question about the stage that bridges a utility-transfer interruption."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m06-utility-sequence-q013-q239"
+a = "m06-q013"
+b = "m06-q239"
+proposition = "the normal utility-to-rack sequence"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m06-q013 is the understand-level sequence definition; m06-q239 is an apply maintenance-review scenario diagnosing a proposed path that bypasses transfer, UPS, and distribution."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m06-utility-sequence-q044-q239"
+a = "m06-q044"
+b = "m06-q239"
+proposition = "the normal utility-to-rack sequence"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m06-q044 tests transfer-event reasoning; m06-q239 tests diagram-review diagnosis of a proposed utility-to-rack-PDU path."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m09-allowable-envelope-review"
+a = "m09-q112"
+b = "m09-q201"
+proposition = "recommended versus allowable ASHRAE envelopes"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m09-q112 remains the understand-level definition; m09-q201 is an apply scenario requiring explicit risk and duration review for operation outside recommended but inside allowable limits."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m09-cold-aisle-application"
+a = "m09-q149"
+b = "m09-q207"
+proposition = "cold-aisle containment and high-density-row airflow control"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m09-q149 remains the understand-level definition of cold-aisle containment; m09-q207 is an apply high-density-row scenario about bypass, hot/cold mixing, and focusing supply at IT intakes."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m09-heat-exchanger-application"
+a = "m09-q160"
+b = "m09-q229"
+proposition = "heat-exchanger isolation between facility and IT loops"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m09-q160 remains the understand-level definition of heat-exchanger isolation; m09-q229 is an apply liquid-cooling design review involving separate chemistry and pressure domains."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m15-labels-q134-q200"
+a = "m15-q134"
+b = "m15-q200"
+proposition = "labels and current records reduce isolation and tracing errors"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m15-q134 is the understand-level definition of why labels reduce human error; m15-q200 is an apply rack-move troubleshooting scenario requiring labels tied to current records."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m15-labels-q134-q208"
+a = "m15-q134"
+b = "m15-q208"
+proposition = "labels and current records reduce isolation and tracing errors"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m15-q134 is the understand-level definition; m15-q208 is an apply question about using labels during emergency isolation and load migration."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m15-labels-q200-q208"
+a = "m15-q200"
+b = "m15-q208"
+proposition = "labels and current records reduce isolation and tracing errors"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m15-q200 applies current labels to a rack-move tracing dispute; m15-q208 applies the same control during emergency isolation and load migration."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m15-as-built-consequence"
+a = "m15-q137"
+b = "m15-q201"
+proposition = "as-built records and the consequence of stale records"
+status = "adjudicated"
+adjudication_reason = "DISTINCT in bd-ionf: m15-q137 tests what an as-built record represents; m15-q201 tests the operational consequence that stale records can mislead responders about paths and isolation points."
+found = "human review recorded in bd-ionf-cluster-review; distinct 2026-08-20"
+
+[[pair]]
+id = "pp-m15-cleaning-application"
+a = "m15-q142"
+b = "m15-q204"
+proposition = "controlled cleaning that limits particulates without equipment or electrical harm"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m15-q142 is the understand-level cleaning principle; m15-q204 is an apply live-hall scenario selecting a particulate-controlled method and rejecting unsafe shortcuts."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m15-mtbf-mttr"
+a = "m15-q143"
+b = "m15-q202"
+proposition = "MTBF and MTTR as reliability and maintainability measures"
+status = "adjudicated"
+adjudication_reason = "DISTINCT in bd-ionf: m15-q143 tests the remember-level definition of MTBF; m15-q202 tests how MTBF and MTTR work together as reliability and maintainability measures."
+found = "human review recorded in bd-ionf-cluster-review; distinct 2026-08-20"
+
+[[pair]]
+id = "pp-m15-sla-application"
+a = "m15-q146"
+b = "m15-q203"
+proposition = "measurable maintenance SLA fields and incident-contract terms"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m15-q146 is the understand-level definition of measurable maintenance SLA fields; m15-q203 is an apply incident-contract scenario requiring response, restore, coverage, and escalation clauses."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m15-vendor-access"
+a = "m15-q149"
+b = "m15-q205"
+proposition = "visitor escort purpose and the operational vendor-access control set"
+status = "adjudicated"
+adjudication_reason = "DISTINCT in bd-ionf: m15-q149 tests the general safety and security purpose of escorting visitors; m15-q205 applies that principle to scoped vendor access, identity checks, and escorts."
+found = "human review recorded in bd-ionf-cluster-review; distinct 2026-08-20"
+
+[[pair]]
+id = "pp-m15-mop-q138-q139"
+a = "m15-q138"
+b = "m15-q139"
+proposition = "MOP structure, verification, backout, and rollback"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m15-q138 is the procedure structure; m15-q139 is its verification and backout rationale. The related m15-q207 and m15-q209 scenarios test the failure mode and review decision."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m15-mop-q138-q207"
+a = "m15-q138"
+b = "m15-q207"
+proposition = "MOP structure, verification, backout, and rollback"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m15-q138 is the procedure structure; m15-q207 is an apply scenario about the risk of a dual-cord cutover without a controlled record or MOP."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m15-mop-q138-q209"
+a = "m15-q138"
+b = "m15-q209"
+proposition = "MOP structure, verification, backout, and rollback"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m15-q138 is the procedure structure; m15-q209 is an analyze scenario about rollback criteria and restoring a known-good state."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m15-mop-q139-q207"
+a = "m15-q139"
+b = "m15-q207"
+proposition = "MOP structure, verification, backout, and rollback"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m15-q139 tests verification and backout rationale; m15-q207 applies the failure risk of a dual-cord cutover without a controlled record or MOP."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m15-mop-q139-q209"
+a = "m15-q139"
+b = "m15-q209"
+proposition = "MOP structure, verification, backout, and rollback"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m15-q139 tests verification and backout rationale; m15-q209 analyzes rollback criteria and restoration of a known-good state."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
+
+[[pair]]
+id = "pp-m15-mop-q207-q209"
+a = "m15-q207"
+b = "m15-q209"
+proposition = "MOP structure, verification, backout, and rollback"
+status = "adjudicated"
+adjudication_reason = "Differentiated in bd-ionf: m15-q207 tests the cutover failure mode; m15-q209 tests the review decision about rollback criteria and restoring a known-good state."
+found = "human review recorded in bd-ionf-cluster-review; differentiated 2026-08-20"
