@@ -2285,13 +2285,13 @@
     "bloom": "understand",
     "choices": [
       "Human error during isolation, restoration, and incident response",
-      "Camera retention requirements",
-      "The need for any documentation forever",
-      "Chilled-water approach temperature by physics"
+      "Camera-retention policy, which is a separate security-record control",
+      "Treat complete documentation as a substitute for field verification",
+      "Treat chilled-water approach temperature as a labeling result rather than a cooling-design result"
     ],
     "citation_ids": [],
     "correct": "A",
-    "explanation": "Labels make the physical plant operable under stress; unlabeled gear invites wrong-breaker mistakes.",
+    "explanation": "Labels make the physical plant operable under stress and reduce wrong-breaker mistakes; camera retention, field verification, and chilled-water performance are separate controls or engineering results.",
     "id": "bank-m15-q134",
     "kind": "single-select",
     "module": 15,
@@ -2332,14 +2332,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "Automatically update labels via magnetism",
-      "Are harmless decoration",
-      "Only matter for marketing tours",
+      "Assume a label remains current when equipment moves but the label stays in place",
+      "Treat stale labels as harmless when the drawing set is current",
+      "Update labels only when an external tour or photograph needs them",
       "Are worse than no labels when they create false confidence"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "Wrong labels drive incorrect isolations; label hygiene is part of change close-out.",
+    "explanation": "A moved asset can leave a trusted-wrong label; current drawings do not make a stale field label harmless, and tour timing is not a change-control trigger.",
     "id": "bank-m15-q136",
     "kind": "single-select",
     "module": 15,
@@ -2381,14 +2381,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Replace staff training forever",
+      "Use the MOP as a substitute for staff qualification and role training",
       "Execute high-risk changes with sequenced steps, roles, verification, and backout",
-      "Calculate PUE only",
-      "Market the colo facility"
+      "Use the MOP review to calculate PUE without sequencing the work",
+      "Execute from a hallway agreement while keeping the MOP as a record of intent"
     ],
     "citation_ids": [],
     "correct": "B",
-    "explanation": "MOPs structure risky work: prerequisites, steps, checks, ownership, and recovery.",
+    "explanation": "An MOP structures risky work with prerequisites, steps, checks, ownership, and recovery; it does not replace qualification, turn into a PUE worksheet, or excuse executing from an informal agreement.",
     "id": "bank-m15-q138",
     "kind": "single-select",
     "module": 15,
@@ -2721,14 +2721,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Generator exercise tests, not circuit documentation",
-      "All cyber attacks, unauthorized access, and physical security incidents",
+      "Track generator exercise results instead of rack-to-circuit assignments",
+      "Treat rack and circuit records as a complete cyber and physical-security control",
       "Overloaded circuits, stranded capacity mistakes, and blind changes",
-      "The need for any EMS sensors"
+      "Treat an inventory snapshot as a substitute for live EMS measurements"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Accurate inventory is an ops control for power and change safety.",
+    "explanation": "Accurate rack and circuit inventory prevents overload, stranded-capacity, and blind-change errors; generator tests, broad security control, and live EMS sensing answer different questions.",
     "id": "bank-m15-q152",
     "kind": "single-select",
     "module": 15,
@@ -2796,13 +2796,13 @@
     "bloom": "apply",
     "choices": [
       "Cause equipment damage and electrical incidents",
-      "Raise MTBF by applying cleaning chemicals",
-      "Automatically improve labels and housekeeping records",
-      "Only improve PUE and never create residues or safety controls"
+      "Assume more cleaner improves reliability regardless of chemistry or compatibility",
+      "Treat a cleaning log as proof that chemical compatibility and ESD controls were checked",
+      "Treat residue or conductive liquid as a PUE concern rather than an equipment and safety hazard"
     ],
     "citation_ids": [],
     "correct": "A",
-    "explanation": "Cleaning is controlled work near energized systems—methods and chemistry matter.",
+    "explanation": "Cleaning near energized systems requires compatible methods and chemistry; extra cleaner, a log without a compatibility check, or a PUE-only view does not control equipment damage and electrical risk.",
     "id": "bank-m15-q155",
     "kind": "single-select",
     "module": 15,
@@ -12408,14 +12408,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "Deep heavy GPU servers without rear support",
-      "Maximum physical security without a cage",
+      "Deep GPU servers whose chassis extends beyond the two-post support plane",
+      "Mixed-tenant equipment that needs a locked cabinet as its primary boundary",
       "Shallow network/patch gear in telecom/IDF contexts",
-      "Replacing all four-post cabinets in AI halls"
+      "A mixed hall where deep compute and shallow patch gear share one rack standard"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Two-post suits shallow gear; deep/heavy servers need four-post support.",
+    "explanation": "Two-post racks suit shallow network and patch gear; a deep chassis extending beyond its support plane needs four-post support, and an open frame cannot supply a locked tenant boundary.",
     "id": "m08-q046",
     "kind": "single-select",
     "module": 8,
@@ -12432,14 +12432,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Better locks than any enclosure",
+      "The same compartment security as a locked cabinet because the frame is easier to inspect",
       "Minimal physical security compared with locked cabinets",
-      "No need for floor loading checks",
-      "Built-in fire suppression only"
+      "A reason to omit floor-loading review because the frame itself is light",
+      "A reason to omit room or cage fire-protection controls because the frame is open"
     ],
     "citation_ids": [],
     "correct": "B",
-    "explanation": "An open frame gives up the locked enclosure, so the compartment control has to come from the room or the cage instead. The trade is real in the other direction too -- frames give better airflow and service access -- but nothing about removing panels improves locks, and floor loading still applies because the load is the equipment, not the enclosure.",
+    "explanation": "An open frame gives up cabinet-level physical security, so room or cage controls still matter; its lower enclosure weight does not remove equipment floor loading, and an open frame does not replace fire-protection controls.",
     "id": "m08-q047",
     "kind": "single-select",
     "module": 8,
@@ -12457,14 +12457,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Blocking all airflow intentionally in every design",
-      "Chimney exhaust when solid doors are mandatory always",
-      "Elimination of blanking panels",
+      "Using a solid door on a standard front-to-rear air path without a designed exhaust path",
+      "Treating a chimney or contained-air arrangement as mandatory for every air-cooled cabinet",
+      "Treating perforation as a substitute for blanking unused rack space",
       "Front-to-rear airflow designs in classic hot/cold aisle layouts"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "Perforated doors pass supply/exhaust air; solid doors belong with contained/chimney designs.",
+    "explanation": "Perforated doors support the standard front-to-rear path; a solid door needs a designed airflow arrangement, and neither a containment choice nor door perforation removes the need to close bypass gaps with blanking.",
     "id": "m08-q048",
     "kind": "single-select",
     "module": 8,
@@ -12484,11 +12484,11 @@
       "Prevents bypass airflow and improves containment effectiveness",
       "Increases random mixing for comfort cooling",
       "Removes need for CRAC filters",
-      "Grounds the cabinet automatically"
+      "Provides cabinet bonding without a separate grounding path"
     ],
     "citation_ids": [],
     "correct": "A",
-    "explanation": "A blanking panel closes the path that lets hot exhaust curl back to the intakes through empty U space, so containment only performs as designed once the gaps are filled. Framing that mixing as beneficial is the inversion: recirculation raises inlet temperature rather than evening it out. Blanking is sheet metal or plastic in a rail, so it neither filters air nor bonds the cabinet.",
+    "explanation": "A blanking panel closes the path that lets hot exhaust curl back to the intakes through empty U space, so containment only performs as designed once the gaps are filled. Framing that mixing as beneficial is the inversion: recirculation raises inlet temperature rather than evening it out. Blanking is sheet metal or plastic in a rail, so it neither filters air nor provides cabinet bonding.",
     "id": "m08-q049",
     "kind": "single-select",
     "module": 8,
@@ -12508,11 +12508,11 @@
       "A complete substitute for room access control and tenant security",
       "Unnecessary in multi-tenant colo",
       "A last-resort zone and compliance control within layered security",
-      "Only cosmetic"
+      "Adds appearance without changing the access-control boundary"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Cabinet locks are the innermost layer, useful for compliance evidence and for the last few feet of access -- they sit on top of room and cage controls rather than replacing them. Treating them as a substitute is the attractive answer because they are the control closest to the equipment, and it is wrong for exactly that reason: anyone already in the room has defeated every layer outside it.",
+    "explanation": "Cabinet locks are the innermost layer, useful for compliance evidence and for the last few feet of access -- they sit on top of room and cage controls rather than replacing them. Treating them as a substitute or as mere appearance misses their bounded access-control role: anyone already in the room has defeated every layer outside it, but a rack control still changes who can reach the equipment.",
     "id": "m08-q050",
     "kind": "single-select",
     "module": 8,
@@ -12529,14 +12529,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "A shared aisle lighting circuit and its tenant boundary controls",
+      "A shared aisle boundary created by lighting and circuit segregation rather than access controls",
       "A cage, with cabinets locked for regulated workloads",
-      "Public lobby Wi-Fi password",
-      "Only the UPS room door"
+      "A lobby credential without a tenant-zone partition",
+      "A single UPS-room door, even when the tenant's cabinets share the hall"
     ],
     "citation_ids": [],
     "correct": "B",
-    "explanation": "Cage is the tenant boundary; cabinets may still lock inside.",
+    "explanation": "A cage commonly defines the tenant boundary, with cabinet locks adding control for sensitive workloads; lighting, a lobby credential, or one equipment-room door does not partition tenants in the shared hall.",
     "id": "m08-q051",
     "kind": "single-select",
     "module": 8,
@@ -12555,12 +12555,12 @@
     "choices": [
       "Higher PUE from extra electronics and access controls",
       "Automatic 2N power",
-      "Free cooling",
+      "Changes the cooling path without an airflow or plant interface",
       "Audit trails and controlled cabinet access"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "Badge-integrated handles produce an audit trail: who opened which cabinet, when, and under what authorisation. The power argument is the confusable one -- the electronics draw a trivial load and change nothing about redundancy topology, so neither PUE nor 2N is affected by fitting them.",
+    "explanation": "Badge-integrated handles produce an audit trail: who opened which cabinet, when, and under what authorisation. The electronics draw a trivial load and change nothing about redundancy topology or the cooling path, so neither PUE nor 2N nor a cooling interface is created by fitting them.",
     "id": "m08-q052",
     "kind": "single-select",
     "module": 8,
@@ -12579,12 +12579,12 @@
     "choices": [
       "Rear/side vertical space without using horizontal U",
       "Only as 2U horizontal shelves in the middle of servers",
-      "Outside the building exclusively",
-      "In the CRAH return plenum"
+      "In a separate plant-side enclosure because rack PDUs cannot share cabinet space",
+      "In the return-air path so the PDU can use the plenum instead of a rack channel"
     ],
     "citation_ids": [],
     "correct": "A",
-    "explanation": "Zero-U means the PDU mounts in the vertical rear or side channel, consuming none of the horizontal U that IT equipment needs -- which is the whole point of the form factor and why 800 mm cabinets are chosen for dense power. Describing it as a horizontal shelf is the near-miss, since 1U and 2U rack PDUs do exist and are the thing zero-U was designed to avoid.",
+    "explanation": "Zero-U means the PDU mounts in the vertical rear or side channel, consuming none of the horizontal U that IT equipment needs -- which is the whole point of the form factor and why 800 mm cabinets are chosen for dense power. A horizontal shelf, plant-side enclosure, or return-air plenum is a different installation, not the rack's vertical zero-U channel.",
     "id": "m08-q053",
     "kind": "single-select",
     "module": 8,
@@ -12601,14 +12601,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "Both strips feed from the same single upstream breaker by design",
-      "Only path A is ever energized",
+      "Separate strips whose upstream feeds converge on one breaker",
+      "Keep path B de-energized as a spare during normal operation",
       "Separate PDUs on independent paths preserve diversity",
-      "PDUs replace STS and UPS when power paths are designed"
+      "Use the rack PDUs as the transfer and ride-through layer instead of upstream switching or UPS equipment"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "A/B strips preserve dual-path design at the rack.",
+    "explanation": "A/B discipline preserves diversity only when both strips have genuinely independent upstream paths; a common breaker, a permanently idle path, or treating a PDU as transfer and ride-through equipment defeats that design.",
     "id": "m08-q054",
     "kind": "single-select",
     "module": 8,
@@ -12628,11 +12628,11 @@
       "Removing branch circuit breakers upstream",
       "Load visibility for capacity management",
       "Eliminating phase balance concerns",
-      "Making grounding optional"
+      "Makes grounding unnecessary once the PDU reports current"
     ],
     "citation_ids": [],
     "correct": "B",
-    "explanation": "Metering turns rack capacity from an estimate into a measurement, which is what makes change control and capacity planning possible at the cabinet. It is instrumentation and nothing more: upstream branch breakers, phase balance and grounding are all unchanged by the ability to read a number.",
+    "explanation": "Metering turns rack capacity from an estimate into a measurement, which is what makes change control and capacity planning possible at the cabinet. It is instrumentation and nothing more: upstream branch breakers, phase balance, and grounding are all unchanged by the ability to read a number.",
     "id": "m08-q055",
     "kind": "single-select",
     "module": 8,
@@ -12699,13 +12699,13 @@
     "bloom": "understand",
     "choices": [
       "Only coastal humidity and corrosion, regardless of structural need",
-      "PUE must be below 1.1",
+      "A PUE target determines whether seismic anchoring is required",
       "Earthquake zones and anchoring requirements",
-      "Fibre counts exceed copper"
+      "The fibre-to-copper mix sets the rack anchoring class"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Seismic frames and floor anchoring follow the structural engineer and the local code for the zone the site is in. Corrosion is the near-miss: coastal humidity is a real materials concern, but it drives finish and coating specification, not the anchoring and bracing that seismic rating covers.",
+    "explanation": "Seismic frames and floor anchoring follow the structural engineer and the local code for the zone the site is in. Coastal humidity may drive finish and coating, but PUE targets and fibre mix do not determine anchoring or bracing.",
     "id": "m08-q058",
     "kind": "single-select",
     "module": 8,
@@ -12772,13 +12772,13 @@
     "bloom": "apply",
     "choices": [
       "Matching fasteners prevent unreliable rail mounts",
-      "Any screw size works in every rail without checking thread or engagement",
-      "Tool-less rails forbid all fasteners forever, even for accessories",
-      "Grounding is achieved only by paint"
+      "A screw with the right diameter is interchangeable without checking thread or engagement",
+      "A tool-less rail means accessories must also use a tool-less attachment",
+      "Paint continuity through the rail is sufficient bonding for the cabinet assembly"
     ],
     "citation_ids": [],
     "correct": "A",
-    "explanation": "Square-hole rails need cage nuts matched to the screw; threaded rails need the right thread. A partly-engaged screw carries the load until it does not, and the failure appears under service loading rather than at install. Assuming any screw works is the error, and tool-less rails do not remove fasteners -- accessories still mount conventionally.",
+    "explanation": "Square-hole rails need cage nuts matched to the screw; threaded rails need the right thread. A partly-engaged screw carries the load until it does not, tool-less rails still use fasteners for accessories, and paint continuity is not a substitute for a bonded cabinet assembly.",
     "id": "m08-q061",
     "kind": "single-select",
     "module": 8,
@@ -12919,12 +12919,12 @@
     "choices": [
       "Removing any need for upstream UPS capacity or operational planning",
       "Replacing all fire detection",
-      "Cooling servers with airflow from the PDU plastic",
+      "Changes server cooling by adding airflow through the PDU housing",
       "Outlet or strip power visibility and remote control"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "Intelligent PDUs add measurement and remote control at the rack edge, which is where per-cabinet load and per-outlet state actually become visible. They are a distribution and instrumentation layer: they do not create upstream capacity, and nothing about metering reduces the UPS or generator sizing the load still requires.",
+    "explanation": "Intelligent PDUs add measurement and remote control at the rack edge, which is where per-cabinet load and per-outlet state actually become visible. They are a distribution and instrumentation layer: they do not create upstream capacity, change fire detection, or provide an airflow path through the PDU housing.",
     "id": "m08-q204",
     "kind": "single-select",
     "module": 8,
@@ -12942,13 +12942,13 @@
     "bloom": "apply",
     "choices": [
       "Cable bend radius, PDU placement, rails, and clearance",
-      "That servers have zero depth, regardless of chassis or service clearance",
-      "That doors never need to open, even when service access is required",
-      "That nameplates never list dimensions"
+      "That the chassis nameplate depth is the complete rack-depth requirement without a service loop",
+      "That rail adjustment absorbs door, cable, and rear-service clearance",
+      "That nominal cabinet depth is also the clearance to the wall or adjacent row"
     ],
     "citation_ids": [],
     "correct": "A",
-    "explanation": "Depth planning fails when cables, PDUs, and service clearances are ignored.",
+    "explanation": "Depth planning includes chassis, bend radius, PDU placement, rails, doors, and service clearance; a nameplate alone, rail adjustment, or nominal cabinet depth does not provide the usable installation envelope.",
     "id": "m08-q205",
     "kind": "single-select",
     "module": 8,
@@ -12991,14 +12991,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "Only improve brand aesthetics at the rack, without affecting airflow",
-      "Always increase bypass airflow intentionally",
+      "Serve as visible rack trim while leaving leakage paths unchanged",
+      "Are selected to increase bypass airflow when a hall needs more mixing",
       "Control airflow",
-      "Have no interaction with cooling"
+      "Matter only for liquid-cooled racks, not air-cooled equipment"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Blanking panels and brush strips seal the leakage paths that would otherwise let supply air bypass the equipment or exhaust recirculate to the intakes, so they are part of the inlet temperature story rather than trim. Calling the effect aesthetic is the tempting reading because they are visible cosmetic-looking parts, and the whole reason they are fitted is the air they stop.",
+    "explanation": "Blanking panels and brush strips seal leakage paths that would otherwise let supply air bypass equipment or exhaust recirculate to intakes, so they affect air-cooled inlet temperature rather than serving as trim, promoting mixing, or applying only to liquid racks.",
     "id": "m08-q207",
     "kind": "single-select",
     "module": 8,
@@ -13118,14 +13118,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Drop blanking: liquid compute retires the air seal and unused U no longer recirculates",
-      "Keep blanking only if the site adopted TIA-942 as a Rated=Tier statute",
-      "Replace blanking with an official EPI® blanking certificate",
+      "Drop blanking throughout the hall because cold plates remove every rack exhaust path",
+      "Keep blanking only where a site has converted a code or rating label into an air-control rule",
+      "Treat a liquid-ready cabinet label as evidence that air bypass is controlled for network gear",
       "Keep blanking for air-cooled network gear"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "Hybrid halls keep air-cooled networking. Blanking remains required. Liquid-ready is the cabinet SKU, not a waiver of the air seal.",
+    "explanation": "Hybrid halls keep air-cooled networking, so blanking remains required; cold plates do not remove every rack exhaust path, a rating label does not define airflow control, and a liquid-ready SKU is not a waiver of the air seal.",
     "id": "m08-q212",
     "kind": "single-select",
     "module": 8,
@@ -13171,14 +13171,14 @@
   {
     "bloom": "analyze",
     "choices": [
-      "Accept the EIA-only frame: 2026 GPU halls are still 19-inch plus width; Open Compute is a vendor brochure",
-      "Freeze a connector millimetre from memory so the EIA cabinet becomes an open rack without a published spec",
+      "Approve the rack after checking EIA-310 spacing and width, leaving the liquid coupling for later submittal",
+      "Freeze a remembered connector dimension before a published coupling specification is selected",
       "Use OCP ORv3 terms and published coupling",
-      "Move the whole question to Module 09 plant families and ignore the rack interface"
+      "Leave the rack interface to the plant team without naming an owner or coupling specification"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "2026 GPU-hall rack talk is OCP vocabulary: ORv3 is the open rack. Coupling sizes and revisions live in the published spec — do not invent them. Blanking stays because network gear remains air-cooled.",
+    "explanation": "A GPU-hall rack review needs OCP ORv3 vocabulary and a published coupling owner; EIA spacing alone, a remembered dimension, or deferring the interface to the plant team leaves the rack-to-liquid boundary undefined. Blanking stays because network gear remains air-cooled.",
     "id": "m08-q214",
     "kind": "single-select",
     "module": 8,
@@ -16193,13 +16193,13 @@
     "bloom": "understand",
     "choices": [
       "Quality, availability, or treatment failures can force cooling derates or shutdowns",
-      "It can affect domestic plumbing rather than cooling, since towers run a closed circuit",
-      "It supplies the UPS inverter directly rather than supporting heat rejection or humidity control",
-      "It replaces fire suppression in every design, so separate fire-water planning is unnecessary"
+      "Treat tower makeup as a domestic-service concern because the recirculating loop is closed",
+      "Treat process water as an electrical input to the UPS rather than a heat-rejection or humidity-control input",
+      "Treat cooling-water planning as a substitute for separate fire-water planning"
     ],
     "citation_ids": [],
     "correct": "A",
-    "explanation": "Cooling plant often depends on water; loss or poor quality can reduce heat rejection capacity.",
+    "explanation": "Cooling and humidity systems depend on usable, treated water; a closed recirculating loop still needs makeup, water is not an electrical UPS input, and fire-water planning remains a separate design question.",
     "id": "m10-q100",
     "kind": "single-select",
     "module": 10,
@@ -16240,14 +16240,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "A backup supply can decorate the landscape without supporting any cooling or resilience function",
-      "Replace every chiller with storage tanks alone, eliminating mechanical heat rejection and any need to manage plant capacity",
+      "Count stored volume as resilience even when it cannot reach the cooling process",
+      "Treat stored water as a replacement for chillers and plant-capacity planning",
       "Bridge utility water interruptions so heat rejection can continue within design intent",
-      "Feed the fire sprinkler risers, which share no connection with the cooling plant"
+      "Use cooling backup water as fire-water without checking separation, quality, or demand"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Stored or alternate water sources support cooling continuity when municipal supply is interrupted.",
+    "explanation": "Backup water bridges a utility interruption only when its pumps, piping, quality, and usable volume can support the cooling process; storage does not replace heat-rejection equipment or automatically satisfy fire-water needs.",
     "id": "m10-q102",
     "kind": "single-select",
     "module": 10,
@@ -16264,14 +16264,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Towers create water from air continuously during normal operation, so makeup is unnecessary",
-      "Servers consume tower water through the IT network",
-      "Makeup water powers CRAH fans rather than heat rejection",
+      "Assume condensate returns and evaporation create no net basin loss",
+      "Treat makeup demand as an IT-network consumption rather than a cooling-plant loss",
+      "Treat makeup as fan power rather than replacement for evaporation, drift, and blowdown",
       "Evaporation, drift, and blowdown remove water that must be replaced"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "Evaporative rejection consumes water; blowdown controls chemistry—makeup restores the basin inventory.",
+    "explanation": "Evaporation, drift, and blowdown remove water from the tower loop, so makeup restores basin inventory; it is not an IT-network load, fan power, or a loss that condensate assumptions erase.",
     "id": "m10-q103",
     "kind": "single-select",
     "module": 10,
@@ -16289,13 +16289,13 @@
     "bloom": "understand",
     "choices": [
       "Control concentration of dissolved solids and chemistry by removing concentrated water",
-      "Increase dissolved solids without limit as long as the tower remains online",
-      "Eliminate water-treatment chemicals in every tower design after one blowdown cycle",
-      "Cool the UPS room through the condenser-water loop without managing dissolved solids"
+      "Increase blowdown until concentration is zero, without considering water use or treatment",
+      "Use one blowdown cycle as a substitute for the ongoing treatment program",
+      "Treat blowdown as a room-cooling control rather than a dissolved-solids control"
     ],
     "citation_ids": [],
     "correct": "A",
-    "explanation": "As water evaporates, minerals concentrate; blowdown limits scale and corrosion risk when paired with treatment.",
+    "explanation": "Evaporation concentrates minerals; controlled blowdown limits dissolved-solids concentration but does not make treatment unnecessary, eliminate water-use tradeoffs, or serve as a room-cooling control.",
     "id": "m10-q104",
     "kind": "single-select",
     "module": 10,
@@ -16337,13 +16337,13 @@
     "bloom": "apply",
     "choices": [
       "Only the number of network racks, without considering water demand or outage duration",
-      "Only indoor lighting and occupancy, regardless of cooling mode",
+      "Only the facility's electrical peak, without considering water demand or outage duration",
       "Expected outage duration, makeup rates, and which plant modes need water",
-      "Only fiber counts; water storage is independent"
+      "Only the occupied floor area, without considering water demand or outage duration"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Storage is sized against the scenario: how long supply could be out, how fast the plant consumes makeup, and which operating modes actually need water. Rack counts and fibre counts describe IT density, not water demand, so none of them constrains tank volume.",
+    "explanation": "Storage is sized against the scenario: outage duration, makeup rate, usable volume, and the plant modes that need water. Rack count, electrical peak, and floor area are not substitutes for the water-demand calculation.",
     "id": "m10-q106",
     "kind": "single-select",
     "module": 10,
@@ -16408,14 +16408,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "Unlimited continued full-capacity evaporative rejection despite loss of makeup water",
+      "Assume full tower capacity continues until an abrupt empty-basin trip, with no progressive derate",
       "Progressive loss of tower capability as basin levels drop, threatening cooling capacity",
-      "Immediate increase in fiber bandwidth while the cooling tower remains at design capacity",
-      "Automatic switch to infinite dry capacity with no design change, controls, or electrical cost"
+      "Treat the water-loss signal as a network event and defer the cooling response",
+      "Assume dry operation appears automatically without installed capacity, controls, or electrical provision"
     ],
     "citation_ids": [],
     "correct": "B",
-    "explanation": "Without makeup, evaporative systems cannot sustain operation—hence backup water planning.",
+    "explanation": "Without makeup, an evaporative plant loses basin inventory and cooling capability progressively; the loss is a cooling response, not a network event, and dry operation needs designed capacity and controls.",
     "id": "m10-q109",
     "kind": "single-select",
     "module": 10,
@@ -16433,14 +16433,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Increase scale formation as a deliberate way to stabilize water chemistry in the tower",
-      "Cool servers by introducing beneficial bacteria into the condenser-water loop",
+      "Use deliberate scale formation as a way to stabilize the tower loop",
+      "Treat biological control as a heat-transfer optimization rather than a health and fouling control",
       "Manage health and operational risks from biological growth in water systems",
-      "Replace physical security controls because biological risk is the only operational concern"
+      "Hand the program to physical security because biological risk is unrelated to plant operations"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Warm, aerated, recirculating tower water is a favourable environment for Legionella, so the control programme exists for occupant health first and fouling second. The remaining options treat biological growth as either useful or as a substitute for unrelated controls, when the programme is specifically about suppressing it.",
+    "explanation": "Biological control protects health and limits operational fouling; promoting scale, treating it as an efficiency-only exercise, or handing it to physical security misses the water-system hazard the program controls.",
     "id": "m10-q110",
     "kind": "single-select",
     "module": 10,
@@ -16457,14 +16457,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Ignore water availability risk because alternate sources are never needed at a critical site",
-      "Eliminate all water-chemistry control because a second source guarantees clean makeup water",
-      "Power generators directly through the water feeds instead of supporting cooling or fire systems",
+      "Rely on an alternate source only after failure, without checking its treatment or delivery path",
+      "Treat source diversity as eliminating chemistry and quality controls",
+      "Treat an alternate feed as a substitute for storage in every outage scenario",
       "Improve resilience and/or sustainability of water-dependent cooling strategies"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "Diverse sources can reduce single-supplier risk and support water stewardship goals when properly treated.",
+    "explanation": "Alternate sources can reduce single-supplier risk or support stewardship, but each still needs treatment, delivery checks, and a continuity plan; diversity does not remove chemistry controls or guarantee storage-equivalent duration.",
     "id": "m10-q111",
     "kind": "single-select",
     "module": 10,
@@ -16531,14 +16531,14 @@
   {
     "bloom": "remember",
     "choices": [
-      "Guarantees chemistry will never need control because two municipal feeds are always clean and independent",
-      "Replaces on-site storage in every case, even when both feeds share the same upstream failure",
+      "Assumes two municipal feeds guarantee clean water and independent upstream paths",
+      "Counts two feeds as equivalent to on-site storage even when both share an upstream failure",
       "A form of supply redundancy reducing single-path water outage risk",
-      "Is only a landscaping-irrigation feature with no effect on critical cooling resilience"
+      "Treats the arrangement as a landscaping service rather than a cooling-continuity control"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Two utility feeds improve availability but local storage and treatment may still be required.",
+    "explanation": "Two feeds reduce single-path water risk, but they do not guarantee chemistry, independence, or multi-day storage; the redundancy matters because it supports critical cooling continuity rather than landscaping alone.",
     "id": "m10-q114",
     "kind": "single-select",
     "module": 10,
@@ -20657,14 +20657,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "It is always more accurate than field inspection and verification",
-      "It only affects interior design magazines and room appearance",
+      "Treat the latest drawing as authoritative when field verification disagrees",
+      "Treat as-built accuracy as a presentation concern once construction photos exist",
       "Wrong paths and isolation points mislead responders",
-      "Version control is illegal for facilities"
+      "Avoid version control so one informal copy can stay in circulation"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Stale drawings create false confidence during emergencies and maintenance.",
+    "explanation": "Stale drawings create false confidence during emergencies and maintenance; field verification, controlled records, and version history remain necessary after construction photos exist.",
     "id": "m15-q201",
     "kind": "single-select",
     "module": 15,
@@ -20829,14 +20829,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "Only annual photo contests and facility photography",
-      "Choosing paint colors and cabinet finishes",
-      "Marketing tours exclusively, without operational purpose",
+      "Use circuit labels mainly to index annual photos and facilities records",
+      "Treat consistent label colors as sufficient without circuit, source, and destination identifiers",
+      "Use labels for visitor wayfinding while keeping emergency paths in operator memory",
       "Emergency isolation and load migration"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "Crisis performance depends on instant physical identity of paths.",
+    "explanation": "Circuit, source, and destination labels let operators identify paths during isolation and load migration; photo indexing, color alone, or visitor wayfinding does not provide emergency path identity.",
     "id": "m15-q208",
     "kind": "single-select",
     "module": 15,
@@ -21033,7 +21033,7 @@
     ],
     "citation_ids": [],
     "correct": "A",
-    "explanation": "LOTO, PPE, training, and energized boundaries control the hazards; working alone on unfamiliar gear, using water near electrical faults, or disabling interlocks removes rather than supplies those protections. The public eCFR anchors this bounded safety decision.",
+    "explanation": "LOTO, PPE, training and defined energized-work boundaries are the controls; working alone on unfamiliar gear, using water near an electrical fault, or defeating an interlock each remove a control rather than supply one. Mind the boundary between the two standards: 1910.147 governs hazardous-energy control generally and does not cover work on electric utilization equipment such as switchgear, which falls under Subpart S -- so the electrical safe-work-practice authority is 1910.333, not 147.",
     "id": "m15-q216",
     "kind": "single-select",
     "module": 15,

@@ -1,6 +1,6 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "ee9eb030b90ac5560df6dc78f5de7e8d7ededa6c520c79c58b1fa2793c176df4",
+  "bank_hash": "890e1c7407e606b3a141a48015e0f746bce48f0344b21f598e5592e88fb43938",
   "exam_id": "mock40",
   "items": [
     {
@@ -105,10 +105,10 @@
     },
     {
       "choices": [
-        "Only improve brand aesthetics at the rack, without affecting airflow",
-        "Always increase bypass airflow intentionally",
+        "Serve as visible rack trim while leaving leakage paths unchanged",
+        "Are selected to increase bypass airflow when a hall needs more mixing",
         "Control airflow",
-        "Have no interaction with cooling"
+        "Matter only for liquid-cooled racks, not air-cooled equipment"
       ],
       "id": "m08-q207",
       "stem": "Vertical blanking panels and brush strip openings matter at the rack because they:"
@@ -167,8 +167,8 @@
       "choices": [
         "Rear/side vertical space without using horizontal U",
         "Only as 2U horizontal shelves in the middle of servers",
-        "Outside the building exclusively",
-        "In the CRAH return plenum"
+        "In a separate plant-side enclosure because rack PDUs cannot share cabinet space",
+        "In the return-air path so the PDU can use the plenum instead of a rack channel"
       ],
       "id": "m08-q053",
       "stem": "Zero-U rack PDUs are typically mounted:"

@@ -1,5 +1,5 @@
 {
-  "bank_hash": "ee9eb030b90ac5560df6dc78f5de7e8d7ededa6c520c79c58b1fa2793c176df4",
+  "bank_hash": "890e1c7407e606b3a141a48015e0f746bce48f0344b21f598e5592e88fb43938",
   "exam_id": "mock40",
   "keys": [
     {
@@ -54,7 +54,7 @@
     },
     {
       "correct": "C",
-      "explanation": "Blanking panels and brush strips seal the leakage paths that would otherwise let supply air bypass the equipment or exhaust recirculate to the intakes, so they are part of the inlet temperature story rather than trim. Calling the effect aesthetic is the tempting reading because they are visible cosmetic-looking parts, and the whole reason they are fitted is the air they stop.",
+      "explanation": "Blanking panels and brush strips seal leakage paths that would otherwise let supply air bypass equipment or exhaust recirculate to intakes, so they affect air-cooled inlet temperature rather than serving as trim, promoting mixing, or applying only to liquid racks.",
       "item_id": "m08-q207"
     },
     {
@@ -84,7 +84,7 @@
     },
     {
       "correct": "A",
-      "explanation": "Zero-U means the PDU mounts in the vertical rear or side channel, consuming none of the horizontal U that IT equipment needs -- which is the whole point of the form factor and why 800 mm cabinets are chosen for dense power. Describing it as a horizontal shelf is the near-miss, since 1U and 2U rack PDUs do exist and are the thing zero-U was designed to avoid.",
+      "explanation": "Zero-U means the PDU mounts in the vertical rear or side channel, consuming none of the horizontal U that IT equipment needs -- which is the whole point of the form factor and why 800 mm cabinets are chosen for dense power. A horizontal shelf, plant-side enclosure, or return-air plenum is a different installation, not the rack's vertical zero-U channel.",
       "item_id": "m08-q053"
     },
     {
