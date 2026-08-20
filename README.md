@@ -47,7 +47,7 @@ cargo build --manifest-path course-engine/Cargo.toml -p cdcp_cli --locked
 | **What it is not** | A certification, an exam dump, a paid course, an LLM tutor |
 | **Study bar** | Mock exam 40 questions / 60 minutes / **27 correct is a study signal, not a pass mark** |
 | **Bank** | 957 source item files / 931 approved · 26 retired; indexed learner export: 957 items / 931 approved (pool size, not distinct propositions) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] · 15 modules · 106 topics |
-| **Engine** | `#![forbid(unsafe_code)]` · 518 KiB WASM |
+| **Engine** | `#![forbid(unsafe_code)]` · 513 KiB WASM |
 | **Gate** | 90 ordered steps; 10 selftest suites (registered; two more emit receipts but are deliberately unregistered); 72 known-bad injections that must all go RED |
 | **Runtime deps** | None. Rust toolchain to build; a browser to use |
 

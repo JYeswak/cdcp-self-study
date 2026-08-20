@@ -36,7 +36,7 @@ use serde::Deserialize;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-/// KiB conversion for the committed WASM blob. 530_385 B rounds to 518.
+/// KiB conversion for the committed WASM blob. 524_997 B rounds to 513.
 pub const WASM_REL: &str = "web/assets/wasm/cdcp_wasm.wasm";
 pub const UNITS_INDEX_REL: &str = "web/data/units_index.json";
 
