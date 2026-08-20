@@ -1,5 +1,7 @@
 # bd-2qvn product-level guessing measurement
 
+[[claim:claim-study-signal-27]]
+
 Measured 2026-08-20 through the shipped `cdcp_assemble::assemble` path. The
 harness loads `bank/items`, calls the real approved-only stratified sampler and
 choice-shuffle/remap path, and scores the resulting `AssembledExam`. It does
