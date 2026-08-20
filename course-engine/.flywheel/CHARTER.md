@@ -92,6 +92,45 @@ gauntlet:       L1 claims constitution (registry-check, WIRED) · L2 slo.toml ·
                 defect.
                 ANCHORING: >=1 verification command per close must touch something outside our
                 own gate stack (a product test, a real dataset, a published reference value).
+                DETECTOR-SHAPED COVERAGE HOLES (added 2026-08-20, bd-2qvn). Remediation driven by
+                a detector reaches exactly the items the detector fires on, and the remainder
+                looks finished because the metric is green. bd-2qvn rewrote distractors via the
+                length-rank and absolute-language cues; every item tripping NEITHER kept its
+                original options, so m08 and m10 ended with good explanations attached to
+                distractors nobody would pick. When a pass is detector-driven, state the shape of
+                the hole it leaves and schedule the remainder, or the green is scoped to the
+                detector rather than to the corpus.
+                PLAUSIBILITY PASSES OVERSHOOT (added 2026-08-20, bd-6pxr). Every pass that makes
+                a wrong option more plausible moves it TOWARD the truth, and the last step before
+                the truth is still false. Overshoot by one and the item has two correct answers.
+                Four times in one day: m12-q047 reached three defensible answers, m06-q226 four.
+                Length rank, key position, hedging and stem overlap were all CLEAN on every one.
+                The rule for any option rewrite: state in one sentence why the option is still
+                wrong. If you cannot write that sentence, you overshot. The linguistic tell is
+                reaching for "the best of these".
+                NOT EVERYTHING IS MECHANICALLY DETECTABLE, AND A GREEN GATE THERE IS WORSE THAN
+                NONE (added 2026-08-20). Before building a detector for a defect class, MEASURE
+                whether it can separate signal from legitimate content. For distractors that
+                paraphrase the key, a lexical scan flagged 17 items of which most were correct
+                deliberate negations, while two known-bad items did not flag at all. bd-6pxr and
+                bd-ionf therefore both carry an explicit DO NOT BUILD THIS DETECTOR with the
+                measurement attached. Reading is the instrument for those classes; say so rather
+                than shipping a checker that reports green over them.
+                DETECTOR FALSE POSITIVES ARE A COST, NOT A NUISANCE (added 2026-08-20). Five in
+                one day: a subcommand argument read as a root path, an xorshift operand read as a
+                module bound, a scope caveat read as a violation, a citation status read as a
+                publication status, an item stem read as author prose. Each produced a confident,
+                plausible, WRONG message; one cost an hour and a wasted agent dispatch. Fix on the
+                STRUCTURAL property, never on the examples in hand — a fix keyed to the file that
+                declares its schema breaks on the next file that does not. Never fix by excluding
+                a path: a detector that cannot fire on the largest instance of what it checks is
+                worse than none.
+                COUPLED FIELDS INVALIDATE EACH OTHER SILENTLY (added 2026-08-20). Three times in
+                one day a fix in one field broke a property established in another: distractor
+                rewrites orphaned explanations, an explanation rewrite dropped a standards
+                exclusion that shipped, and option replacement moved the hedge distribution back
+                out of band. Nothing enforces these couplings. After ANY option-set change,
+                re-measure the whole property set rather than the one thing you were aiming at.
 
 budgets:        Per tick: one bead, <=5 files, agent budget <=250k tokens. Escalate if a single
                 bead exceeds two ticks.
@@ -158,6 +197,24 @@ decalogue:      1. Determinism is a contract: same inputs => byte-identical cano
                 9. Repetition is not corroboration — two sources circulating one unsourced claim
                    raise no confidence.
                10. BUILT != WIRED: no bead closes until the mechanism fires without a human.
+               11. A GATE THAT CANNOT GO GREEN CANNOT CATCH ANYTHING. Every gate is proven in
+                   BOTH directions — it goes red on a known-bad AND green on a known-good tree.
+                   Measured 2026-08-20: construction-faults printed FAIL on its own scope caveat,
+                   its report lines, and the damaged fixture that exists to fail, so it exited 2
+                   unconditionally. A clean bank and a broken one printed identically for months.
+                   A permanently-red gate is not conservative, it is mute.
+               12. FAIL-FAST REPORTS THE FIRST PROBLEM, NEVER THE WORST. A chain that halts at
+                   the first red hides every step behind it. Measured 2026-08-20: check.sh ran
+                   16 of 90 steps; the 74 it never reached were concealing a wrong OSHA authority
+                   in an item ALREADY SHIPPED to learners, and a grading engine built from
+                   three-day-old source. Every wall opened that day had a real defect behind it.
+                   The chain keeps fail-fast for its VERDICT; a separate diagnostic mode walks
+                   the whole chain and reports every exit code, and must never be the CI path.
+               13. VERIFY THE SHIPPED ARTEFACT, NOT THE WORKING TREE. `git show HEAD:<path>`
+                   proves a thing shipped; reading the worktree proves only that an export ran.
+                   Those diverged for a whole session on 2026-08-20 while every gate was green.
+                   Pick an unfakeable acceptance string and grep the committed file for it — the
+                   string "Diesel tank volume" found a defect that no metric could express.
 
 danger_list:    spend (incl. OQ-10) · publishing/pushing to the public remote · deleting or
                 overwriting another agent's work · git history rewrite · weakening or bypassing
