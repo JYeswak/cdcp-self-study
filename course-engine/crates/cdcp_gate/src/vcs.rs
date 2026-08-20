@@ -278,13 +278,31 @@ pub fn materialise_probe_index(root: &Path, dest: &Path) -> Result<PathBuf, Stri
     Ok(engine)
 }
 
-/// Make `dir` a self-contained git repo whose index holds everything under it.
+/// Make `dir` a self-contained git repo whose index and `HEAD` hold everything
+/// under it.
 ///
 /// Isolated on purpose: an inherited `GIT_DIR`/`GIT_INDEX_FILE` would point these
-/// writes at the caller's real repository.
+/// writes at the caller's real repository. The commit is intentional: probe
+/// children such as local-ci resolve one pinned revision with `git rev-parse
+/// HEAD`; a staged-but-uncommitted scratch tree has no revision to pin and
+/// fails before the behavioural wiring leg can run.
 pub fn init_and_stage_all(dir: &Path) -> Result<(), String> {
     run_isolated(dir, &["init", "-q"])?;
     run_isolated(dir, &["add", "-A", "-f", "--", "."])?;
+    run_isolated(
+        dir,
+        &[
+            "-c",
+            "user.email=cdcp-probe@example.invalid",
+            "-c",
+            "user.name=cdcp substrate probe",
+            "commit",
+            "-q",
+            "--no-verify",
+            "-m",
+            "cdcp substrate probe snapshot",
+        ],
+    )?;
     Ok(())
 }
 
@@ -422,5 +440,27 @@ mod tests {
         prepare_probe_lockfile(&engine).unwrap();
         let lock = std::fs::read_to_string(engine.join("Cargo.lock")).unwrap();
         assert!(lock.contains("name = \"probe-lock\""), "{lock}");
+    }
+
+    #[test]
+    fn probe_snapshot_has_a_head_for_consumed_sha_resolution() {
+        let td = tempfile::tempdir().unwrap();
+        let root = td.path().canonicalize().unwrap();
+        std::fs::write(root.join("scripts-check.sh"), "#!/bin/sh\n").unwrap();
+
+        init_and_stage_all(&root).unwrap();
+
+        assert!(has_head(&root), "the probe child must have one pinned HEAD");
+        let sha = run_isolated(&root, &["rev-parse", "--verify", "HEAD^{commit}"]).unwrap();
+        assert_eq!(
+            sha.trim().len(),
+            40,
+            "HEAD must resolve to a full commit: {sha:?}"
+        );
+        assert_eq!(
+            run_isolated(&root, &["status", "--porcelain"]).unwrap(),
+            "",
+            "the committed probe snapshot must not have an uncommitted remainder"
+        );
     }
 }
