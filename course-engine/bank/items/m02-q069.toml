@@ -4,10 +4,10 @@ kind = "single-select"
 module = 2
 stem = "Why might a multi-national operator track both ISO/IEC 22237 and EN 50600 awareness?"
 choices = [
-  "Because they are identical word-for-word always",
+  "Because their clauses use identical wording across editions",
   "Because international and regional series may both appear in RFPs, audits, or local practice even if not identical",
   "Because neither ever relates to facilities",
-  "Because AHJs ban all standards",
+  "Because an AHJ may reject standards outside its adopted code",
 ]
 correct = "B"
 explanation = "RFP and regional practice may cite different series; operators track both without treating them as clones."

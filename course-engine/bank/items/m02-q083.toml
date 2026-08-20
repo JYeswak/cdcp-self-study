@@ -4,10 +4,10 @@ kind = "single-select"
 module = 2
 stem = "If an RFP requires “Uptime Tier III certification,” substituting “TIA Rated-3 design intent” without agreement is:"
 choices = [
-  "Always automatically accepted as identical, because a design-intent phrase carries the same contractual and assessment meaning as a named Uptime certification",
+  "Accepted as identical under the bid's terminology, despite different assessment meanings",
   "A naming and contractual mismatch that can fail bid evaluation or audit expectations",
   "Required by ISO 22237",
-  "Preferred by all AHJs as code",
+  "Preferred by a project AHJ as code",
 ]
 correct = "B"
 explanation = "Different frameworks and certification claims are not freely substitutable in contracts."

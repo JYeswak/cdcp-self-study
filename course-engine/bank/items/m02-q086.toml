@@ -9,10 +9,10 @@ kind = "single-select"
 module = 2
 stem = "Owner’s project specifications sit in the standards landscape as:"
 choices = [
-  "Irrelevant if any ISO number is mentioned, because a named international series automatically replaces the owner's contract and adopted code",
+  "Irrelevant when an ISO number is mentioned because the international series replaces local project controls",
   "Contractual requirements that may exceed code minimums but cannot lawfully undercut adopted code",
-  "Automatic replacements for building permits, because owner specifications and international documents remove the need for jurisdictional approvals",
-  "Only decorative appendices",
+  "Replacements for building permits because project documents remove jurisdictional approvals",
+  "Decorative appendices rather than contractual requirements",
 ]
 correct = "B"
 explanation = "Owner specs can raise the bar contractually but cannot legalize noncompliance with adopted code."

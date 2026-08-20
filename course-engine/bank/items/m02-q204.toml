@@ -9,10 +9,10 @@ kind = "single-select"
 module = 2
 stem = "International standards versus national/local requirements often create tension because:"
 choices = [
-  "National documents never exist, so local codes, climate, grid practice, and AHJ interpretation cannot change what may be built",
-  "International documents are always less detailed, making local adoption and project requirements the only sources worth consulting",
+  "National documents are archival and do not affect local construction choices",
+  "International documents are less detailed than local project requirements, making local sources the primary references",
   "Local codes, climate, grid practice, and AHJ interpretation still govern what may be built and operated",
-  "Only vendors write national rules"
+  "Vendors write national rules instead of standards bodies"
 ]
 correct = "C"
 explanation = "Global frameworks inform design, but local mandatory rules and practice still control compliance."
