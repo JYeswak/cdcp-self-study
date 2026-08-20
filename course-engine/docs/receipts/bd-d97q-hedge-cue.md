@@ -1,5 +1,8 @@
 # bd-d97q hedge-cue audit
 
+[[claim:claim-study-signal-27]]
+[[claim:claim-interview-study-signal]]
+
 Status: product-level cue closed; the literal post-edit exactly-one denominator is recorded as a measurement finding below.
 
 ## Intervention

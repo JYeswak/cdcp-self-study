@@ -81,7 +81,20 @@ fn live_q210_stays_approved_and_kills_the_cartoon() {
     let bank = live_bank();
     let item = bank.get(Q210_ID).expect("m01-q210 must stay");
     assert!(item.is_approved(), "m01-q210 must stay approved");
-    assert_eq!(item.correct, "B");
+    let key_index = match item.correct.as_str() {
+        "A" => 0,
+        "B" => 1,
+        "C" => 2,
+        "D" => 3,
+        other => panic!("q210 has an invalid correct letter: {other}"),
+    };
+    let key = item.choices[key_index].to_ascii_lowercase();
+    for marker in ["power path", "cooling", "human"] {
+        assert!(
+            key.contains(marker),
+            "q210 keyed text must retain the anti-cartoon marker {marker:?}: {key}"
+        );
+    }
     assert!(
         item.choices[0]
             .to_ascii_lowercase()
