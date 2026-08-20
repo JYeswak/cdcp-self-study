@@ -8,9 +8,9 @@ kind = "single-select"
 module = 15
 stem = "Security-aware operations include controlling photographs and publicly posted rack layouts because:"
 choices = [
-  "Photos never have information value or security impact",
-  "All layouts must be posted on social media for transparency of breakers",
-  "Only cyber teams care about physical layouts and access",
+  "Photos have no information value or security impact",
+  "Project layouts should be posted on social media to document breaker transparency",
+  "Cyber teams care about physical layouts and access rather than operations",
   "Detailed internals can aid attacks if leaked"
 ]
 correct = "D"
