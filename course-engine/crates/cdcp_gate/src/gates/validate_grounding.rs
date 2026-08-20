@@ -1,8 +1,8 @@
 //! Thin dispatcher. Implementation lives in `cdcp_bank::validate_grounding`
 //! (EXTRACT-THEN-DELETE, bd-engine-not-gate-ar39.13). `check.sh` still runs
 //! `cdcp_gate validate-grounding`; this file must stay so the globbed
-//! registry keeps the subcommand. Dual-path oracle `scripts/validate_grounding.py`
-//! stays.
+//! registry keeps the subcommand. The former Python differential oracle is
+//! retired; the product module's unit suite retains the known-bad legs.
 
 use crate::registry::{GateCtx, GateError};
 use cdcp_bank::validate_grounding;

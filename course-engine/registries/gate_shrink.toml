@@ -75,7 +75,9 @@
 # monotone-decreasing; lower it again after a later extraction.
 # 34040 -> 33202: retire the verify_orphans Python differential oracle and its
 # 868-line harness; the current cdcp_gate measurement is 33202.
-ceiling_lines = 33202
+# 33202 -> 32014: retire the validate_grounding Python differential oracle and
+# its harness; the current cdcp_gate measurement is 32014.
+ceiling_lines = 32014
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
@@ -221,10 +223,6 @@ lines = 673
 [[file]]
 path = "tests/census_charter_pair.rs"
 lines = 404
-
-[[file]]
-path = "tests/diff_validate_grounding.rs"
-lines = 1094
 
 [[file]]
 path = "tests/diff_verify_bank.rs"

@@ -93,15 +93,20 @@
 //! bank. Its DISAPPEARANCE is still an error, because a walk over a directory
 //! that is not there contributes zero characters in silence.
 //!
-//! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
+//! # RETIREMENT BOUNDARY
 //!
-//! `scripts/validate_grounding.py` stays in the tree as the differential oracle;
-//! `tests/diff_validate_grounding.rs` runs both on every case and asserts
-//! stdout, stderr, and exit code match byte for byte. That contract is why this
-//! module carries hand-written emulations of `re`, `str.lower()`, `repr(float)`,
-//! `argparse`, and `pathlib.rglob` rather than the idiomatic Rust
-//! nearest-neighbour, and why the report is written to **stdout with exit status
-//! 1** instead of going through `GateError`: the dispatcher's `report()` writes
+//! The former Python oracle and differential harness have been retired. This
+//! module's unit suite owns the anti-vacuous and known-bad shape coverage. The
+//! hand-written emulations of `re`, `str.lower()`, `repr(float)`, `argparse`,
+//! and `pathlib.rglob` remain because they define the established report
+//! contract, not because a second implementation remains on the gate path.
+//! That contract keeps the module on stdout with exit status 1 rather than
+//! routing RED cases through `GateError`.
+//!
+//! The original byte-exact port carried these emulations rather than the
+//! idiomatic Rust nearest-neighbour, and the report is written to **stdout with
+//! exit status 1** instead of going through `GateError`: the dispatcher's
+//! `report()` writes
 //! to stderr and maps to exit 2 or 4, which the oracle never produces, so
 //! routing through it would make the two sides differ on every RED case. The
 //! exit-code mapping in the gate crate is therefore deliberately NOT used by this

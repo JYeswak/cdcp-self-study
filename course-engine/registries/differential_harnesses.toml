@@ -52,7 +52,7 @@ schema_version = 1
 #   verify_bank.py              YES (2)   check.sh:719  -> smoke_slo.sh
 #   verify_doc_consistency.py   YES (1)   check.sh:767  -> selftest_doc_consistency.sh, as $CHECKER
 #   verify_injection_count.py   YES (1)   check.sh:802  -> selftest_injection_count.sh, as $CHECKER
-#   validate_grounding.py       no        check.sh:493 is a `-f` PRESENCE check, never a run
+#   validate_grounding.py       RETIRED   Rust unit suite owns the gate
 #   verify_content_lock.py      no        not referenced by any script
 #   verify_knowledge_paths.py   RETIRED   file deleted (jhd.33); rust is CI
 #   build_glossary_json.py      RETIRED   file deleted; no surviving invocation
@@ -60,9 +60,10 @@ schema_version = 1
 #
 # READING THE TWO TOGETHER — verify_content_lock.py and
 # verify_knowledge_paths.py are RETIRED (never invoked; rust is CI).
-# verify_orphans.py is now retired too: the Rust unit/selftest suite owns all
-# of its wired known-bad legs. verify_bank.py remains blocked on invocation;
-# everything else is blocked on both invocation and its differential consumer.
+# verify_orphans.py and validate_grounding.py are now retired: their Rust unit
+# suites own the wired known-bad legs. verify_bank.py remains blocked on
+# invocation; everything else is blocked on both invocation and its
+# differential consumer.
 # ─────────────────────────────────────────────────────────────────────────────
 
 [census]
@@ -162,15 +163,6 @@ comparators = ["compare"]
 cases = 0
 agreement_only = 0
 owner_bead = "bd-7big/bd-qqwc"
-
-[[harness]]
-file = "diff_validate_grounding.rs"
-gate = "validate-grounding"
-comparators = ["compare_env", "compare"]
-cases = 35
-agreement_only = 0
-verdict_shape_leg = false
-verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"
 
 [[harness]]
 file = "diff_verify_bank.rs"

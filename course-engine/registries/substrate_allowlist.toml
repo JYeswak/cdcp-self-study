@@ -147,11 +147,6 @@ disposition = "cargo_test_differential"
 why = "check.sh/smoke_slo no longer invoke python3; cargo test still diffs vs tests/diff_verify_bank.rs (bd-verify-bank-oracle-retirement-blocked-f5i4)"
 
 [[oracle_inventory.file]]
-path = "scripts/validate_grounding.py"
-disposition = "cargo_test_differential"
-why = "check.sh only presence-checks; cargo test still diffs vs tests/diff_validate_grounding.rs"
-
-[[oracle_inventory.file]]
 path = "scripts/verify_objectives.py"
 disposition = "cargo_test_differential"
 why = "check.sh/selftest_l7_objectives.sh no longer invoke python3; cargo test still diffs vs tests/diff_verify_objectives.rs (bd-substrate-rust-migration-jhd.24)"
@@ -206,12 +201,6 @@ expires = "2026-11-30"
 # `cdcp_gate verify-content-lock` plus CDCP_CONTENT_LOCK_SELFTEST=1.
 # Known-bad lives on the Rust module (empty lock, unpinned file, tampered
 # hash). Do NOT re-add a row for it.
-
-[[allow]]
-path = "scripts/validate_grounding.py"
-reason = "Differential oracle for `cdcp_gate validate-grounding` (bd-substrate-rust-migration-jhd.9, ported 2026-08-14). Retained so tests/diff_validate_grounding.rs can compare both implementations. check.sh presence-checks only; cargo test still diffs."
-migration_bead = "bd-substrate-rust-migration-jhd.9"
-expires = "2026-11-30"
 
 [[allow]]
 path = "scripts/verify_objectives.py"

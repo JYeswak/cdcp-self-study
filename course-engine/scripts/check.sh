@@ -1341,14 +1341,12 @@ ok "construction-fault scan"
 
 
 # Anti-hallucination heuristics + corpus overlap
-# PORTED (bd-substrate-rust-migration-jhd.9). scripts/validate_grounding.py stays
-# as the differential oracle for tests/diff_validate_grounding.rs; an absent
-# checker is a fooled certificate, not a skip.
+# PORTED (bd-substrate-rust-migration-jhd.9). The Rust product module owns this
+# gate; its unit suite retains the anti-vacuous and known-bad shape coverage.
 # Anti-vacuous (bd-yje7, closed 2026-08-14): zero items, a sub-floor corpus, and a
 # missing corpus root are each RED and named. Floors are 40 items (one exam form)
 # and 20000 corpus chars (one median module), recorded with their reasons in the
 # oracle and mirrored in the port.
-[ -f scripts/validate_grounding.py ] || fail "missing scripts/validate_grounding.py (differential oracle for validate-grounding)"
 [ -d bank/items ] || fail "missing bank/items (grounding gate required)"
 echo "==> cdcp_gate validate-grounding (anti-hallucination heuristics + corpus overlap)"
 run_cdcp_gate validate-grounding || fail "grounding"
