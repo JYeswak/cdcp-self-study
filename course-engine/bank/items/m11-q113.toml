@@ -13,7 +13,7 @@ choices = [
   "Meter chilled water flow"
 ]
 correct = "B"
-explanation = "MPO connectors enable dense multi-fiber trunks and cassettes common in modern DC backbones."
+explanation = "MPO/MTP terminates multiple fibers in a dense connector for trunks and cassettes; a single copper pair, grounding point, or water meter is a different component."
 topic_ids = ["m11-fibre"]
 objective_ids = []
 bloom = "remember"

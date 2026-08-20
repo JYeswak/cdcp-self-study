@@ -13,7 +13,7 @@ choices = [
   "Avoid any pathway design and rely on the trunk manufacturer"
 ]
 correct = "A"
-explanation = "Factory trunks reduce field termination variability—still require correct design, pathways, and acceptance tests."
+explanation = "Pre-terminated trunks speed installation with factory-controlled fit and terminations; they do not remove polarity planning, pathway design, or acceptance testing."
 topic_ids = ["m11-fibre", "m11-planning", "m11-testing"]
 objective_ids = []
 bloom = "apply"

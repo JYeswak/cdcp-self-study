@@ -13,7 +13,7 @@ choices = [
   "Protect barriers and keep pathways usable"
 ]
 correct = "D"
-explanation = "Cabling pathways cross rated barriers; proper firestopping is life-safety practice alongside connectivity goals."
+explanation = "Firestopping preserves rated barriers while keeping cable penetrations usable; it is not installer friction, an insertion-loss technique, or a substitute for route redundancy."
 topic_ids = ["m11-planning", "m11-importance"]
 objective_ids = []
 bloom = "understand"

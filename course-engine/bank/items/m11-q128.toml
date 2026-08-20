@@ -13,7 +13,7 @@ choices = [
   "Cool the MDA with earth current and static discharge control"
 ]
 correct = "A"
-explanation = "Telecom bonding and grounding practices coordinate with electrical systems—safety and reference integrity."
+explanation = "Bonding and grounding coordinate telecom pathways with electrical safety and reference integrity; they do not intentionally increase static or cool a distribution area."
 topic_ids = ["m11-planning", "m11-importance"]
 objective_ids = []
 bloom = "understand"

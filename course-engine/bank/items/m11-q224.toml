@@ -13,7 +13,7 @@ choices = [
   "UPS topology changes weekly"
 ]
 correct = "B"
-explanation = "Media conversion is a planned boundary, not random adapters everywhere."
+explanation = "Media conversion bridges deliberately different segments at a structured boundary; it does not require removing all copper, ban indoor wired links, or alter UPS topology."
 topic_ids = ["m11-planning", "m11-fibre", "m11-copper"]
 objective_ids = []
 bloom = "apply"

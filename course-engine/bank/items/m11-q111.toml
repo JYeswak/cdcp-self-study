@@ -13,7 +13,7 @@ choices = [
   "Shorter-reach DC and building links with optics"
 ]
 correct = "D"
-explanation = "MMF serves many intra-facility links; selection depends on distance, speed, and optics strategy."
+explanation = "Multimode is common for shorter data-centre and building links; it is not an ocean cable, a power medium, or a mandate to remove every copper run."
 topic_ids = ["m11-fibre"]
 objective_ids = []
 bloom = "remember"

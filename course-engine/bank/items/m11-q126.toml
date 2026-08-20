@@ -13,7 +13,7 @@ choices = [
   "Only apply to outdoor plant"
 ]
 correct = "C"
-explanation = "Row-based switching concentrates more horizontal runs to a row location versus per-rack ToR switches."
+explanation = "EoR/MoR concentrates more horizontal copper toward row switches, with fiber uplinks still possible; it does not abolish patching or apply only outdoors."
 topic_ids = ["m11-planning"]
 objective_ids = []
 bloom = "understand"

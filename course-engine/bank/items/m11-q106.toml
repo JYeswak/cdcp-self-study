@@ -13,7 +13,7 @@ choices = [
   "Meter only chilled water"
 ]
 correct = "C"
-explanation = "Zone distribution points support flexible horizontal connectivity without restretching all permanent links for every change."
+explanation = "A ZDA provides an intermediate consolidation point for flexible horizontal changes; it preserves patching flexibility rather than eliminating it, and it is not fire-extinguisher storage or a chilled-water meter."
 topic_ids = ["m11-tia942-topology", "m11-planning"]
 objective_ids = []
 bloom = "understand"

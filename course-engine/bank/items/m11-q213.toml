@@ -15,7 +15,7 @@ choices = [
   "Maximum random slack balls in cold aisles and pathways without design review"
 ]
 correct = "C"
-explanation = "Horizontal design is pathway, protection, and growth—not only port counts."
+explanation = "Horizontal planning covers pathway capacity, bend radius, separation, and spares; UPS branding, ignored EMI and grounding, or random slack do not make a sound run."
 topic_ids = ["m11-planning", "m11-copper", "m11-fibre"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Patch circuits between parties or systems"
 ]
 correct = "D"
-explanation = "MMR and operations language uses cross-connect/interconnect patterns for how parties join circuits—planning implications follow."
+explanation = "Cross-connect and interconnect describe patching circuits between parties or systems; treating them as identical in every design, wireless-only, or power-busway language misses the cabling function."
 topic_ids = ["m11-planning", "m11-site-to-site"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Fiber replaces grounding"
 ]
 correct = "A"
-explanation = "Fiber wins long high-bandwidth EMI-prone backbones in many designs."
+explanation = "Fiber suits longer, high-bandwidth, EMI-prone backbones; it still needs testing, costs installation effort, and does not replace grounding."
 topic_ids = ["m11-fibre", "m11-copper"]
 objective_ids = []
 bloom = "understand"

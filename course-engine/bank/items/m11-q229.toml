@@ -13,7 +13,7 @@ choices = [
   "Cold-aisle temperature setpoints only"
 ]
 correct = "C"
-explanation = "Jacket rating is a fire/smoke code issue for where the cable is installed."
+explanation = "Plenum versus riser jackets address the installation environment's fire and smoke requirements; latency, battery chemistry, and cold-aisle setpoints do not choose the rating."
 topic_ids = ["m11-planning", "m11-importance"]
 objective_ids = []
 bloom = "understand"

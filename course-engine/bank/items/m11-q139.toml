@@ -15,7 +15,7 @@ choices = [
   "Labeling, records, and planned path separation"
 ]
 correct = "D"
-explanation = "Administration and documentation turn physical infrastructure into an operable system under stress."
+explanation = "Labels, records, and planned separation let operators isolate circuits correctly under stress; unlabeled bundles, random recabling, and disabled monitoring remove that operational control."
 topic_ids = ["m11-importance", "m11-planning"]
 objective_ids = []
 bloom = "evaluate"

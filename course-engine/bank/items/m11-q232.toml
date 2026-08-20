@@ -24,7 +24,7 @@ choices = [
   "Diverse, provided the two conduits carry different fibre counts, because separate strand plans show the paths were engineered apart",
 ]
 correct = "A"
-explanation = "The governing test is the physical route. UFC 3-580-01 carries NFPA 1221 8.4.3.2: two circuits with diverse routes, arranged so that no singular incident interrupts both routes. A shared duct bank and a shared manhole are that singular incident, so the count of carriers, contracts and conduits is irrelevant — B and the two conditional answers all buy diversity with something that is not physical separation. A maintenance window (C) governs planned work, not a backhoe. Strand counts (D) describe capacity, not route. Note the scope: this is the building lateral question. The east-west cluster fabric inside the hall is a separate availability path and is not fixed by re-routing a lateral."
+explanation = "The governing test is the physical route. UFC 3-580-01 carries NFPA 1221 8.4.3.2: two circuits with diverse routes, arranged so that no singular incident interrupts both routes. A shared duct bank and shared manhole are that singular incident, so carrier count, contract count, and conduit count do not create diversity. A maintenance window governs planned work, not a backhoe, and strand counts describe capacity rather than route. This is the building-lateral question; the east-west cluster fabric inside the hall is a separate availability path and is not fixed by rerouting a lateral."
 topic_ids = ["m11-site-to-site", "m11-planning"]
 objective_ids = []
 citation_ids = ["src-epi-cdcp-page", "src-ufc-3-580-01-2024"]

@@ -13,7 +13,7 @@ choices = [
   "Making testing impossible"
 ]
 correct = "A"
-explanation = "Functional separation improves operability; still requires pathway capacity and clear administration."
+explanation = "Separating storage, network, and OOB cabling clarifies pathways and reduces operational risk; it does not increase mispatches, abolish redundancy review, or make testing impossible."
 topic_ids = ["m11-planning"]
 objective_ids = []
 bloom = "analyze"

@@ -13,7 +13,7 @@ choices = [
   "External dew-point averaging"
 ]
 correct = "B"
-explanation = "EDA is where IT equipment resides and connects into the structured cabling hierarchy."
+explanation = "The EDA is the rack or cabinet area where IT equipment connects to the cabling hierarchy; a utility substation, diesel system, or dew-point value is not an equipment distribution area."
 topic_ids = ["m11-tia942-topology"]
 objective_ids = []
 bloom = "remember"

@@ -13,7 +13,7 @@ choices = [
   "Eliminating MDA/HDA planning concepts entirely in every standard"
 ]
 correct = "B"
-explanation = "ToR shifts copper to short rack runs and pushes uplink media into the structured backbone hierarchy."
+explanation = "ToR shortens rack copper while structured uplinks carry traffic onward; it does not eliminate horizontal design, force wireless, or erase MDA/HDA planning."
 topic_ids = ["m11-planning", "m11-fibre", "m11-copper"]
 objective_ids = []
 bloom = "analyze"

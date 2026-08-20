@@ -13,7 +13,7 @@ choices = [
   "Length, insertion loss, and crosstalk limits"
 ]
 correct = "D"
-explanation = "Certification verifies the installed copper meets the category performance limits—not just continuity."
+explanation = "Copper certification checks length, insertion loss, crosstalk, and related category limits; color, CPU temperature, and fuel quality do not establish cable performance."
 topic_ids = ["m11-testing", "m11-copper"]
 objective_ids = []
 bloom = "remember"

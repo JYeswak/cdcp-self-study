@@ -13,7 +13,7 @@ choices = [
   "Bandwidth, distance, and noise environment"
 ]
 correct = "D"
-explanation = "Media grade follows application needs and environment, not cosmetics."
+explanation = "Copper category follows bandwidth, distance, and noise environment; paint, generator fuel, and fire-agent choices do not select the cable class."
 topic_ids = ["m11-copper", "m11-planning"]
 objective_ids = []
 bloom = "understand"

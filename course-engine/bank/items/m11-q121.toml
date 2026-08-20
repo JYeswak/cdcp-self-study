@@ -13,7 +13,7 @@ choices = [
   "Only out-of-band serial with no data plane or redundant attachment"
 ]
 correct = "B"
-explanation = "Dual-homing provides alternate physical or logical attachments—complementing cabling redundancy."
+explanation = "Dual-homing gives a device multiple attachments to redundant infrastructure; one NIC, no upstream, or a lone serial path cannot provide that alternate connection."
 topic_ids = ["m11-redundancy"]
 objective_ids = []
 bloom = "remember"

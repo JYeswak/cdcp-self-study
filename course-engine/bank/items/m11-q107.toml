@@ -13,7 +13,7 @@ choices = [
   "Where external service provider pathways enter and are demised for the facility"
 ]
 correct = "D"
-explanation = "Service provider entrance spaces handle incoming pathways and demarcation—upstream of internal distribution areas."
+explanation = "An entrance space receives external provider pathways and demarcation before internal distribution; cold-aisle doors, battery charging, and pedestal torque are unrelated controls."
 topic_ids = ["m11-tia942-topology", "m11-site-to-site"]
 objective_ids = []
 bloom = "understand"

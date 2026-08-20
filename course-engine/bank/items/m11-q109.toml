@@ -13,7 +13,7 @@ choices = [
   "Copper never needs testing"
 ]
 correct = "B"
-explanation = "Short horizontal copper remains common for NICs and some power-over-ethernet use cases; fiber dominates longer and high-bandwidth spines."
+explanation = "Short copper remains practical for cost, PoE, and rack interfaces, while longer spines favor fiber; copper is not universally faster or interference-proof and still needs testing."
 topic_ids = ["m11-copper", "m11-planning"]
 objective_ids = []
 bloom = "analyze"

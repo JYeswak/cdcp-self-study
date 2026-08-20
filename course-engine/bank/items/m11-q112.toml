@@ -14,7 +14,7 @@ choices = [
   "Is irrelevant for data centres"
 ]
 correct = "A"
-explanation = "Transmit must land on receive. Polarity schemes and labeling prevent silent connectivity failures."
+explanation = "Polarity maps transmit to receive so links come up; it does not add UPS capacity, change jacket printing, or become irrelevant when loss is acceptable."
 topic_ids = ["m11-fibre", "m11-testing"]
 objective_ids = []
 bloom = "apply"

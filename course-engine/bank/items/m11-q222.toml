@@ -13,7 +13,7 @@ choices = [
   "Keep channels within application standards so performance limits are met"
 ]
 correct = "D"
-explanation = "Length budgets are part of meeting channel performance limits."
+explanation = "Permanent-link length limits keep the complete channel within application performance standards; they do not set generator size, aesthetics, or heat load."
 topic_ids = ["m11-copper", "m11-testing"]
 objective_ids = []
 bloom = "understand"

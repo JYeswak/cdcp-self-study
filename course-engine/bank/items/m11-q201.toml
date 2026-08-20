@@ -13,7 +13,7 @@ choices = [
   "Generators as network hubs"
 ]
 correct = "C"
-explanation = "Structured DC cabling uses hierarchical spaces, not random home-runs only."
+explanation = "TIA-style topology uses a hierarchy of entrance, distribution, and outlet spaces; one giant patch field, power rooms, and generators do not define the cabling hierarchy."
 topic_ids = ["m11-tia942-topology"]
 objective_ids = []
 bloom = "understand"

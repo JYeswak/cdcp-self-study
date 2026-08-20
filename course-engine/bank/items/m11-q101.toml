@@ -14,7 +14,7 @@ choices = [
   "CRAH filter storage only"
 ]
 correct = "B"
-explanation = "MMRs concentrate carrier handoffs and cross-connects—interconnection, not mechanical plant storage."
+explanation = "An MMR concentrates carrier handoffs and customer cross-connects; battery watering, diesel polishing, and CRAH storage belong to plant operations, not interconnection."
 topic_ids = ["m11-planning", "m11-site-to-site"]
 objective_ids = []
 bloom = "remember"

@@ -16,7 +16,7 @@ choices = [
   "No labeling ever"
 ]
 correct = "C"
-explanation = "Growth without pathway and media planning creates congestion, risk, and unmanageable MACs."
+explanation = "Planned pathways, media, labels, and topology let growth remain serviceable; random patching, copper-only assumptions, or missing labels create congestion and MAC errors."
 topic_ids = ["m11-planning", "m11-importance"]
 objective_ids = []
 bloom = "understand"

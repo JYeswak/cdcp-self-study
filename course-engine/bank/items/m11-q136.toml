@@ -13,7 +13,7 @@ choices = [
   "Satellite only"
 ]
 correct = "A"
-explanation = "Provider and path diversity reduce correlated failure—paper redundancy is not physical diversity."
+explanation = "Independent providers and diverse entrances reduce correlated failure; two circuits on one lateral, one provider, or satellite-only service does not provide the same physical diversity."
 topic_ids = ["m11-site-to-site", "m11-redundancy"]
 objective_ids = []
 bloom = "analyze"

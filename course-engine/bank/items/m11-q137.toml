@@ -13,7 +13,7 @@ choices = [
   "Replace permanent link testing forever"
 ]
 correct = "B"
-explanation = "Channels include cords; poor or excessive patching degrades margins and operability."
+explanation = "Patch cords consume channel budget and can make fields hard to isolate; they do not raise a category automatically or replace permanent-link testing."
 topic_ids = ["m11-copper", "m11-testing", "m11-planning"]
 objective_ids = []
 bloom = "apply"

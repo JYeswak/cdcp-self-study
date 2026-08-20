@@ -13,7 +13,7 @@ choices = [
   "It replaces pathway diversity and physical route review"
 ]
 correct = "B"
-explanation = "Prove the optical path before it becomes production-critical."
+explanation = "Fiber verification confirms loss, continuity, and workmanship before service; it does not measure PUE or replace route-diversity review."
 topic_ids = ["m11-testing", "m11-fibre"]
 objective_ids = []
 bloom = "apply"

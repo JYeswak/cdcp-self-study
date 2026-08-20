@@ -13,7 +13,7 @@ choices = [
   "It cools the hot aisle"
 ]
 correct = "B"
-explanation = "The physical layer must be engineered and operable, not ad hoc wiring."
+explanation = "A planned, testable physical layer supports reliable moves and changes; it does not replace logical routing, dual power, or cooling."
 topic_ids = ["m11-importance", "m11-planning"]
 objective_ids = []
 bloom = "understand"

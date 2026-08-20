@@ -13,7 +13,7 @@ choices = [
   "Cooling the rack and improving its inlet temperature"
 ]
 correct = "B"
-explanation = "Labels turn physical plant into something humans can operate under pressure."
+explanation = "Labels at both ends speed correct isolation and repair; they do not replace test records, cool a rack, or intentionally create crosstalk."
 topic_ids = ["m11-importance", "m11-planning"]
 objective_ids = []
 bloom = "apply"

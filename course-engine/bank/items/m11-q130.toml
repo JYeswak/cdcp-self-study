@@ -13,7 +13,7 @@ choices = [
   "Only temporary jumpers, never documented in any topology"
 ]
 correct = "C"
-explanation = "Horizontal segments serve the equipment zone from HDA or ZDA-type distribution points."
+explanation = "Horizontal cabling runs from distribution areas to served racks; distant-campus, outdoor-aerial, and undocumented temporary-jumper descriptions are different scopes."
 topic_ids = ["m11-tia942-topology"]
 objective_ids = []
 bloom = "remember"

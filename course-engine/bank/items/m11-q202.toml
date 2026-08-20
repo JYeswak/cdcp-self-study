@@ -13,7 +13,7 @@ choices = [
   "A shared conduit can let one cut remove both nominally redundant paths"
 ]
 correct = "D"
-explanation = "A shared conduit leaves both nominal paths in one physical failure domain; one cut can remove both fibers."
+explanation = "A shared conduit leaves both fibers in one physical failure domain, so one cut removes both nominal paths; color, optical power, or VLANs cannot create route diversity."
 topic_ids = ["m11-redundancy", "m11-planning"]
 objective_ids = []
 bloom = "apply"

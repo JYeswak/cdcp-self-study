@@ -13,7 +13,7 @@ choices = [
   "Extend hierarchical distribution into halls"
 ]
 correct = "D"
-explanation = "Intermediate points scale hierarchy across large white space."
+explanation = "Zone or intermediate points extend the cabling hierarchy into large halls; they do not bypass testing, replace entrance demarcs, or distribute chilled water."
 topic_ids = ["m11-tia942-topology", "m11-planning"]
 objective_ids = []
 bloom = "understand"

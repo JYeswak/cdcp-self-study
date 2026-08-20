@@ -13,7 +13,7 @@ choices = [
   "Battery aging"
 ]
 correct = "C"
-explanation = "Separate entrances reduce single-point isolation at the building edge."
+explanation = "Diverse entrances reduce the chance one entrance incident isolates the facility; they do not prevent every internal packet loss or fix cooling and battery failures."
 topic_ids = ["m11-site-to-site", "m11-redundancy"]
 objective_ids = []
 bloom = "apply"

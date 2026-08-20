@@ -13,7 +13,7 @@ choices = [
   "Higher optical power budgets magically across every link"
 ]
 correct = "B"
-explanation = "Overloaded trays threaten media integrity and maintainability—capacity planning is part of cabling design."
+explanation = "Tray overload creates fill, heat, and mechanical-stress risk; it does not improve bend radius, upgrade categories automatically, or change an optical budget."
 topic_ids = ["m11-planning"]
 objective_ids = []
 bloom = "apply"

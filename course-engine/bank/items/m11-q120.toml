@@ -14,7 +14,7 @@ choices = [
   "Paths must always be wireless"
 ]
 correct = "A"
-explanation = "True path diversity separates failure domains; shared conduits defeat physical redundancy."
+explanation = "Separated routes reduce a common cut; one conduit, one VLAN, or a wireless-only assumption does not create diverse physical paths."
 topic_ids = ["m11-redundancy", "m11-planning"]
 objective_ids = []
 bloom = "apply"

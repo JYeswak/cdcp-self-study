@@ -13,7 +13,7 @@ choices = [
   "Longer UPS runtime"
 ]
 correct = "A"
-explanation = "Changed links need verification; assumptions age poorly."
+explanation = "Retesting altered links catches defects under production traffic; it does not improve category ratings automatically or change airflow or UPS runtime."
 topic_ids = ["m11-testing", "m11-copper"]
 objective_ids = []
 bloom = "apply"

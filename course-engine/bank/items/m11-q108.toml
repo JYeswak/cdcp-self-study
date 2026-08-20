@@ -13,7 +13,7 @@ choices = [
   "Fire suppression agent types"
 ]
 correct = "A"
-explanation = "Category ratings indicate supported performance envelopes when installed and tested as a system—not magic regardless of workmanship."
+explanation = "Copper categories express tested channel-performance classes; jacket color, switch ASIC generation, and suppression agent do not define the cabling category."
 topic_ids = ["m11-copper"]
 objective_ids = []
 bloom = "understand"

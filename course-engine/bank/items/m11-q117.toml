@@ -15,7 +15,7 @@ choices = [
   "Only aesthetics improve with labels"
 ]
 correct = "B"
-explanation = "Administration systems (labels, records) are operational safety nets for complex physical layers."
+explanation = "Accurate labels and records reduce MAC and incident errors; they do not replace cable tests, and unlabeled plant is not faster or merely a cosmetic issue."
 topic_ids = ["m11-planning", "m11-importance"]
 objective_ids = []
 bloom = "apply"

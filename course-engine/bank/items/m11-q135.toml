@@ -13,7 +13,7 @@ choices = [
   "Standards-appropriate certification before production"
 ]
 correct = "D"
-explanation = "Field certification catches workmanship and component issues before they become intermittent production faults."
+explanation = "Certification finds workmanship and component faults before turn-up; a physical snap-in, a public ping, or heating the cable is not copper acceptance testing."
 topic_ids = ["m11-testing"]
 objective_ids = []
 bloom = "apply"

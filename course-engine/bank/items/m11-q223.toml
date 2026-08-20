@@ -13,7 +13,7 @@ choices = [
   "It improves insertion loss"
 ]
 correct = "A"
-explanation = "High-speed copper is sensitive to noise from adjacent cables."
+explanation = "Alien crosstalk is noise from neighboring dense copper cables that can impair high-speed channels; it is not a fiber-only effect and does not improve insertion loss."
 topic_ids = ["m11-copper"]
 objective_ids = []
 bloom = "understand"

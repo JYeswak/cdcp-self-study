@@ -13,7 +13,7 @@ choices = [
   "Only CRAH condensate lines and other non-telecom services"
 ]
 correct = "B"
-explanation = "Backbone links hierarchical spaces (for example MDA to HDA concepts); horizontal serves equipment outlets."
+explanation = "Backbone cabling connects distribution spaces such as MDA and HDA; a rack patch cord, wireless link, or condensate line is not that hierarchy."
 topic_ids = ["m11-tia942-topology", "m11-planning"]
 objective_ids = []
 bloom = "remember"

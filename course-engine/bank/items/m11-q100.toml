@@ -16,7 +16,7 @@ choices = [
   "It is only decorative"
 ]
 correct = "A"
-explanation = "Poor cabling becomes an operational bottleneck and failure domain; planned infrastructure scales cleanly."
+explanation = "Structured cabling gives connectivity a planned physical foundation for growth and MACs; it does not supply power or exist as decoration, and ignoring it creates availability and change risk."
 topic_ids = ["m11-importance"]
 objective_ids = []
 bloom = "understand"

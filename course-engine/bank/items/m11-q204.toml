@@ -13,7 +13,7 @@ choices = [
   "UPS brand"
 ]
 correct = "B"
-explanation = "External connectivity risk is as much pathway and carrier as interface speed."
+explanation = "Site-to-site resilience depends on carrier diversity, physical separation, and pathway risk; patch color, indoor copper length, and UPS brand do not establish it."
 topic_ids = ["m11-site-to-site", "m11-planning"]
 objective_ids = []
 bloom = "apply"

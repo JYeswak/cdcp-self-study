@@ -13,7 +13,7 @@ choices = [
   "Only raised floor pedestal spacing"
 ]
 correct = "C"
-explanation = "Inter-site links are availability and performance critical—physical diversity and provider strategy matter."
+explanation = "Inter-site planning weighs diverse entrances, risks, latency, providers, and failover; patch colors, CRAH filters, and pedestal spacing do not make sites resilient."
 topic_ids = ["m11-site-to-site", "m11-redundancy"]
 objective_ids = []
 bloom = "apply"

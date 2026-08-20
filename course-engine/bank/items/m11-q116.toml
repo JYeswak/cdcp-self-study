@@ -14,7 +14,7 @@ choices = [
   "Calibrate CRAH humidifiers"
 ]
 correct = "A"
-explanation = "Optical loss and OTDR traces validate and troubleshoot fiber plants against design budgets."
+explanation = "Insertion-loss measurements and OTDR diagnostics verify the optical budget and locate faults; rack height, PoE, and humidification are not optical acceptance measures."
 topic_ids = ["m11-testing", "m11-fibre"]
 objective_ids = []
 bloom = "understand"

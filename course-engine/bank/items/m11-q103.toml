@@ -14,7 +14,7 @@ choices = [
   "The main distribution area where core networking and main cross-connect functions concentrate"
 ]
 correct = "D"
-explanation = "MDA (Main Distribution Area) is the central hub concept in TIA data centre cabling topology education."
+explanation = "The MDA is the main cabling distribution hub for core networking and cross-connects; a diesel yard, battery naming scheme, or floor map is not a distribution space."
 topic_ids = ["m11-tia942-topology"]
 objective_ids = []
 bloom = "remember"

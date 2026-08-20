@@ -14,7 +14,7 @@ choices = [
   "Learn named spaces and hierarchy without invented mandates"
 ]
 correct = "D"
-explanation = "Awareness-level learning: spaces and hierarchy—avoid fabricating standard clause text."
+explanation = "The useful TIA learning target is named spaces and their hierarchy; fabricated SHALLs, connector-color trivia, and UPS Tier equivalence are not topology knowledge."
 topic_ids = ["m11-tia942-topology"]
 objective_ids = []
 bloom = "understand"

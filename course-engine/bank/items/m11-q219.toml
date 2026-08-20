@@ -13,7 +13,7 @@ choices = [
   "Act as PDUs and provide rack-level power distribution"
 ]
 correct = "A"
-explanation = "Cross-connects are the operable patch layer over permanent infrastructure."
+explanation = "Cross-connect fields provide structured interconnection and controlled changes; they do not remove documentation, replace dual-homing, or distribute rack power."
 topic_ids = ["m11-tia942-topology", "m11-planning"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Testing is unnecessary after install"
 ]
 correct = "A"
-explanation = "Two cables in one crush zone are not independent paths."
+explanation = "A common crushed pathway defeats cable redundancy; logical bonding, category rating, and post-install testing cannot prevent the same physical cut."
 topic_ids = ["m11-redundancy"]
 objective_ids = []
 bloom = "apply"

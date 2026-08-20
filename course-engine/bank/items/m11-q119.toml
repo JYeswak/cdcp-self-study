@@ -13,7 +13,7 @@ choices = [
   "Alternate paths prevent critical isolation"
 ]
 correct = "D"
-explanation = "Diverse routes and redundant distribution reduce shared fate from construction accidents and hardware faults."
+explanation = "Alternate physical paths reduce shared-fate isolation; redundancy is not a deliberate single failure, a replacement for routing protocols, or duplicate patch colors."
 topic_ids = ["m11-redundancy"]
 objective_ids = []
 bloom = "understand"

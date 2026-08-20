@@ -13,7 +13,7 @@ choices = [
   "CRAC refrigerants"
 ]
 correct = "B"
-explanation = "OM is multimode family; OS is single-mode family in common shorthand."
+explanation = "OM denotes the multimode family and OS the single-mode family; jacket color, conductor ampacity, and refrigerant are not what the designations distinguish."
 topic_ids = ["m11-fibre"]
 objective_ids = []
 bloom = "understand"

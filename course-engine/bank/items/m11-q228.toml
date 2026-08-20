@@ -13,7 +13,7 @@ choices = [
   "Fire agent concentration"
 ]
 correct = "B"
-explanation = "Pathway bonding is electrical safety and EMI hygiene, separate from cable tests."
+explanation = "Bonded metallic pathways support electrical safety and EMI control, but do not upgrade categories, establish optical budgets, or replace structured cable testing."
 topic_ids = ["m11-planning", "m11-copper"]
 objective_ids = []
 bloom = "understand"

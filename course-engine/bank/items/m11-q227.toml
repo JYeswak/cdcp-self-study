@@ -13,7 +13,7 @@ choices = [
   "Spares replace testing"
 ]
 correct = "A"
-explanation = "Spare pathway capacity is how facilities absorb growth safely."
+explanation = "Growth spares absorb future additions without congestion or risky workarounds; they do not replace testing, violate standards by definition, or cool a sealed pathway."
 topic_ids = ["m11-planning"]
 objective_ids = []
 bloom = "apply"

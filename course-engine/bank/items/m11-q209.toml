@@ -13,7 +13,7 @@ choices = [
   "Polarity controls humidity"
 ]
 correct = "C"
-explanation = "MPO ecosystems fail closed on polarity mistakes despite good fiber."
+explanation = "MPO polarity mismatch leaves otherwise good fibers dark; copper crosstalk, UPS autonomy, and humidity are separate concerns."
 topic_ids = ["m11-fibre", "m11-testing"]
 objective_ids = []
 bloom = "apply"

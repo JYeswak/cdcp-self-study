@@ -13,7 +13,7 @@ choices = [
   "EMI coupling and physical congestion"
 ]
 correct = "D"
-explanation = "Physical separation improves EMI control and serviceability."
+explanation = "Separate power and data paths reduce EMI coupling and physical congestion; they do not solve routing loops, fuel quality, or every thermal violation."
 topic_ids = ["m11-planning"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "A generator paralleling switchgear lineup"
 ]
 correct = "A"
-explanation = "HDA (Horizontal Distribution Area) distributes connectivity outward from the main distribution concept to equipment zones."
+explanation = "The HDA distributes connectivity to an equipment zone or hall segment; carrier entrances, immersion tanks, and generator switchgear serve different functions."
 topic_ids = ["m11-tia942-topology"]
 objective_ids = []
 bloom = "remember"

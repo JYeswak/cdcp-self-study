@@ -14,7 +14,7 @@ choices = [
   "Only wireless guest Wi-Fi is used for BMC access and recovery"
 ]
 correct = "C"
-explanation = "OOB paths support rescue operations when production networks are impaired—physical planning should respect that goal."
+explanation = "OOB management preserves access during production-network failure; it is not a ban on serial recovery, a single shared cable, or guest Wi-Fi-only access."
 topic_ids = ["m11-planning", "m11-redundancy"]
 objective_ids = []
 bloom = "understand"

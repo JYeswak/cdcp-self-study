@@ -13,7 +13,7 @@ choices = [
   "CRAH filter differential pressure alarm only, not demarcation"
 ]
 correct = "C"
-explanation = "Demarc defines operational and contractual handoff for circuits—critical in MMR and entrance planning."
+explanation = "A demarc marks the provider-to-facility responsibility handoff; temperature, battery float, and CRAH alarms are plant values, not circuit ownership boundaries."
 topic_ids = ["m11-site-to-site", "m11-planning"]
 objective_ids = []
 bloom = "remember"

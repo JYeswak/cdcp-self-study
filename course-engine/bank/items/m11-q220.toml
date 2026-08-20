@@ -13,7 +13,7 @@ choices = [
   "Testing alone creates path separation and eliminates shared risk"
 ]
 correct = "B"
-explanation = "Logical dual-home does not fix a shared physical choke point."
+explanation = "A shared meet-me rack and pathway remain one physical failure domain despite dual fabrics; logical labels, high-category copper, or testing alone cannot separate that fate."
 topic_ids = ["m11-redundancy", "m11-site-to-site"]
 objective_ids = []
 bloom = "apply"

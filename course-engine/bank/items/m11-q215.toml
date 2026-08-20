@@ -13,7 +13,7 @@ choices = [
   "Lower optical loss and improved transceiver margins"
 ]
 correct = "A"
-explanation = "Uplink design is a topology capacity issue, not a media-category fix."
+explanation = "An over-subscribed ToR uplink creates edge capacity and failure-domain risk; cable crosstalk, outdoor route diversity, and optical loss are different failure mechanisms."
 topic_ids = ["m11-planning", "m11-importance"]
 objective_ids = []
 bloom = "apply"

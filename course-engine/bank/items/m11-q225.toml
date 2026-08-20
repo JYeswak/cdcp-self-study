@@ -13,7 +13,7 @@ choices = [
   "Photos of blanking panels suffice"
 ]
 correct = "C"
-explanation = "As-builts are the map operators use during incidents and changes."
+explanation = "As-builts and panel schedules make physical infrastructure operable at scale; logical configurations, blanking-panel photos, or a self-documenting network cannot replace those records."
 topic_ids = ["m11-importance", "m11-planning"]
 objective_ids = []
 bloom = "apply"

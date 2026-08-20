@@ -13,7 +13,7 @@ choices = [
   "Replace backbone design rules"
 ]
 correct = "C"
-explanation = "Factory trunks help quality and speed but still need field validation."
+explanation = "Pre-terminated trunks speed deployment with factory-controlled quality, but still require polarity planning, labeling, and field verification; they do not replace backbone design."
 topic_ids = ["m11-fibre", "m11-planning", "m11-testing"]
 objective_ids = []
 bloom = "apply"

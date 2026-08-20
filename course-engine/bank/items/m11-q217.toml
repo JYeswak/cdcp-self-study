@@ -13,7 +13,7 @@ choices = [
   "Only the fire riser and sprinkler distribution point"
 ]
 correct = "C"
-explanation = "The MDA is the primary structured cabling distribution hub."
+explanation = "The MDA is the central structured-cabling distribution hub; generator gear, cold-aisle containment, and fire risers are different plant systems."
 topic_ids = ["m11-tia942-topology"]
 objective_ids = []
 bloom = "understand"

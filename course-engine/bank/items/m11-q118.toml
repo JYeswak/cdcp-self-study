@@ -16,7 +16,7 @@ choices = [
   "Eliminate need for firestopping"
 ]
 correct = "C"
-explanation = "Overstuffed pathways and tight bends damage performance and reliability of copper and fiber."
+explanation = "Fill and bend-radius limits protect copper and fiber integrity; crushing, heating, or skipping firestopping trades density for damage and life-safety risk."
 topic_ids = ["m11-planning", "m11-copper", "m11-fibre"]
 objective_ids = []
 bloom = "understand"

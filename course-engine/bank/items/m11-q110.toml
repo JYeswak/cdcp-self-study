@@ -14,7 +14,7 @@ choices = [
   "No connectors are allowed ever"
 ]
 correct = "C"
-explanation = "Single-mode supports long reach and high capacity backbone roles; multimode is common for shorter structured runs depending on design."
+explanation = "Single-mode provides longer-reach and bandwidth headroom for backbones; deliberate modal dispersion, forbidden connectors, and sub-metre-only assumptions are not selection goals."
 topic_ids = ["m11-fibre"]
 objective_ids = []
 bloom = "understand"
