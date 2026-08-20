@@ -11,9 +11,9 @@ module = 1
 stem = "Why is a data centre often called “mission-critical” rather than merely “important IT space”?"
 choices = [
   "Because outage consequences can include severe financial, legal, safety, or reputational harm",
-  "Because it always has a raised floor",
+  "Because it has a raised floor in the standard layout",
   "Because PUE is published quarterly",
-  "Because it uses three-phase power only",
+  "Because it uses a three-phase service regardless of facility design",
 ]
 correct = "A"
 explanation = "Mission-critical status is driven by impact of loss, not by a particular construction feature."

@@ -12,8 +12,8 @@ stem = "Which statement is most accurate?"
 choices = [
   "Availability and reliability are identical metrics",
   "Reliability is about how often failures occur; availability includes uptime fraction considering repair",
-  "Five-nines always means dual utility feeds",
-  "Availability only applies to network links, not power",
+  "Five-nines identifies an availability target, not a utility-feed arrangement",
+  "Availability applies to network links but not power systems",
 ]
 correct = "B"
 explanation = "Reliability concerns failure frequency; availability also accounts for downtime and repair (MTTR) effects."
