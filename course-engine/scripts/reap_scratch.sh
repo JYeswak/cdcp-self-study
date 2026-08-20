@@ -80,6 +80,10 @@ reap_once() {
       continue
     fi
     if is_kept_scratch_path "$_d"; then
+      [ -d "$_d" ] && [ ! -L "$_d" ] \
+        || fail "kept scratch path is not a real directory: $_d"
+      _n="$(dir_bytes "$_d")" || fail "cannot measure kept scratch tree $_d"
+      _bytes_before=$((_bytes_before + _n))
       continue
     fi
     _observed=$((_observed + 1))
