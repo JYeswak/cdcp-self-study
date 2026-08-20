@@ -2,7 +2,7 @@
 
 The hub is a **local HTTP** product. It is **not** a `file://` page.
 
-- **Supported:** `cargo build -p cdcp_cli --locked` then `./target/debug/cdcp serve` (default `http://127.0.0.1:8766/`). No public network required.
+- **Supported:** from `course-engine/`, run `cargo run -p cdcp_cli -- serve` (or build with `cargo build -p cdcp_cli --locked` and run `./target/debug/cdcp serve`); the default is `http://127.0.0.1:8766/`. No public network required.
 - **Unsupported:** double-clicking `index.html`. That origin fails closed as **`CDCP_FILE_ORIGIN`** — browsers block ES modules, `fetch()`, and WASM from `file://`.
 
 Static HTML + CSS + vanilla JS (+ WASM grade). **No** React / Next / Tailwind / CDN.
