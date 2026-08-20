@@ -10,7 +10,7 @@ choices = [
   "Create a single point of failure on purpose",
   "Remove the need for logical routing protocols ever",
   "Only duplicate patch cord colors",
-  "Provide alternate physical paths or media so a cut or failure does not isolate critical connectivity"
+  "Alternate paths prevent critical isolation"
 ]
 correct = "D"
 explanation = "Diverse routes and redundant distribution reduce shared fate from construction accidents and hardware faults."

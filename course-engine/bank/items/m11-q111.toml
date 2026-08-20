@@ -10,7 +10,7 @@ choices = [
   "Only submarine cables across oceans",
   "Exclusive use for power distribution",
   "Replacing all copper permanently in every closet",
-  "Shorter-reach data centre and building links with cost-effective transceivers in many designs"
+  "Shorter-reach DC and building links with optics"
 ]
 correct = "D"
 explanation = "MMF serves many intra-facility links; selection depends on distance, speed, and optics strategy."

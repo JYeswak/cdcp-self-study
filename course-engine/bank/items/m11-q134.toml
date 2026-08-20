@@ -8,10 +8,10 @@ kind = "single-select"
 module = 11
 stem = "Out-of-band management networks are separated conceptually so that:"
 choices = [
-  "Management always shares the exact same single physical cable with no diversity",
-  "Serial consoles are banned",
-  "Production traffic failures still allow device management access when designed that way",
-  "Only wireless guest Wi-Fi is used for BMC access"
+  "Management always shares the exact same single physical cable with no diversity or recovery path",
+  "Serial consoles are banned, even when they are the recovery path",
+  "Management access during production failures",
+  "Only wireless guest Wi-Fi is used for BMC access and recovery"
 ]
 correct = "C"
 explanation = "OOB paths support rescue operations when production networks are impaired—physical planning should respect that goal."

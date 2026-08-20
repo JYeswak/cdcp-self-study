@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Horizontal cabling in data centre topology education generally runs:"
 choices = [
-  "Only between distant campuses over 80 km always",
-  "Exclusively as outdoor aerial plant",
-  "From distribution areas to equipment outlets or racks in the served zone",
-  "Only as temporary jumpers never documented"
+  "Only between distant campuses over 80 km always, regardless of topology",
+  "Exclusively as outdoor aerial plant across the campus",
+  "Run from distribution areas to served racks",
+  "Only temporary jumpers, never documented in any topology"
 ]
 correct = "C"
 explanation = "Horizontal segments serve the equipment zone from HDA or ZDA-type distribution points."

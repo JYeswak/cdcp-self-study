@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Pre-terminated trunk cables are often used in DCs to:"
 choices = [
-  "Speed installation and improve consistency when factory-tested assemblies fit the design",
+  "Speed installation with factory-tested fit",
   "Slow deployment and maximize field polishing always",
-  "Eliminate all need for polarity planning",
-  "Avoid any pathway design"
+  "Eliminate all polarity planning and testing for pre-terminated trunks",
+  "Avoid any pathway design and rely on the trunk manufacturer"
 ]
 correct = "A"
 explanation = "Factory trunks reduce field termination variability—still require correct design, pathways, and acceptance tests."

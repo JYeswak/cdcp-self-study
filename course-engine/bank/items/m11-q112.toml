@@ -8,8 +8,8 @@ kind = "single-select"
 module = 11
 stem = "Polarity management for duplex and MPO fiber systems matters because incorrect polarity:"
 choices = [
-  "Can prevent links from coming up even when loss budgets are fine",
-  "Always increases electrical UPS capacity",
+  "Prevent links from coming up despite acceptable loss",
+  "Always increases electrical UPS capacity and power planning",
   "Only affects cable jacket printing",
   "Is irrelevant for data centres"
 ]

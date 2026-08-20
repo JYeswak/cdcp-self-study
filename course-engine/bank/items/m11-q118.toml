@@ -11,8 +11,8 @@ module = 11
 stem = "Pathway fill and bend-radius discipline exist to:"
 choices = [
   "Maximize crushing of cables for density at any cost",
-  "Heat cables to reduce attenuation always",
-  "Protect transmission performance and mechanical integrity of installed media",
+  "Heat cables to reduce attenuation always, regardless of installation conditions",
+  "Protect media performance and integrity",
   "Eliminate need for firestopping"
 ]
 correct = "C"

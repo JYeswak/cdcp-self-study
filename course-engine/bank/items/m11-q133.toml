@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "A cable tray overload risk includes:"
 choices = [
-  "Improved bend radius always",
-  "Mechanical stress, heat buildup for copper bundles, and violation of fill or design assumptions",
-  "Automatic category upgrades",
-  "Higher optical power budgets magically"
+  "Improved bend radius always, regardless of tray loading",
+  "Mechanical stress, heat, and fill violations",
+  "Automatic category upgrades without testing or design review",
+  "Higher optical power budgets magically across every link"
 ]
 correct = "B"
 explanation = "Overloaded trays threaten media integrity and maintainability—capacity planning is part of cabling design."

@@ -9,8 +9,8 @@ kind = "single-select"
 module = 11
 stem = "Labeling and administration of cabling are critical because:"
 choices = [
-  "Unlabeled plants speed emergency isolation",
-  "Accurate identification reduces human error during MACs and incident response",
+  "Unlabeled plants speed emergency isolation and reduce documentation work",
+  "Accurate identification reduces MAC and incident errors",
   "Labels replace the need for testing",
   "Only aesthetics improve with labels"
 ]

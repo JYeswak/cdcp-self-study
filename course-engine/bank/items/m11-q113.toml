@@ -7,8 +7,8 @@ kind = "single-select"
 module = 11
 stem = "An MPO/MTP multi-fiber connector is primarily used to:"
 choices = [
-  "Terminate a single copper pair only",
-  "Terminate multiple fiber strands in a high-density connector for backbone or array cabling",
+  "Terminate a single copper pair only in a one-fiber connector",
+  "Multiple fibers in a high-density connector",
   "Ground only raised floor pedestals",
   "Meter chilled water flow"
 ]

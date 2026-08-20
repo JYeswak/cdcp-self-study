@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Cross-connect versus interconnect concepts (educational) distinguish:"
 choices = [
-  "Identical terms with no operational difference ever",
-  "Only wireless mesh modes",
+  "Identical terms with no operational difference ever in all designs and implementations",
+  "Only wireless mesh modes with no wired distribution or patching",
   "Only power busway taps",
-  "How circuits are patched between parties or systems—cross-connect often via intermediate frames versus direct interconnect patterns"
+  "Patch circuits between parties or systems"
 ]
 correct = "D"
 explanation = "MMR and operations language uses cross-connect/interconnect patterns for how parties join circuits—planning implications follow."

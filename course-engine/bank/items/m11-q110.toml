@@ -10,7 +10,7 @@ stem = "Compared with multimode fiber, single-mode fiber is generally chosen whe
 choices = [
   "Only very short rack jumpers under 1 m are needed always",
   "The goal is maximum modal dispersion deliberately",
-  "Longer reach and higher bandwidth headroom for backbone or campus links are required",
+  "Longer reach and bandwidth headroom for backbone links",
   "No connectors are allowed ever"
 ]
 correct = "C"

@@ -8,7 +8,7 @@ kind = "single-select"
 module = 11
 stem = "Diverse pathway routing for redundant fiber or copper means:"
 choices = [
-  "Paths are separated so a single incident is less likely to cut all copies",
+  "Separated paths reduce common cuts",
   "Both redundant cables share one conduit the entire route",
   "Redundancy is only logical VLANs with one physical cable",
   "Paths must always be wireless"

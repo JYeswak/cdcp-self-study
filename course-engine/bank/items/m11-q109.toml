@@ -7,8 +7,8 @@ kind = "single-select"
 module = 11
 stem = "A practical reason many designs still use copper to the rack edge is:"
 choices = [
-  "Copper always outruns single-mode fiber at campus distances",
-  "Cost, power delivery options (PoE contexts), and equipment interfaces often favor short copper runs",
+  "Copper always outruns single-mode fiber at campus distances and backbone links",
+  "Cost, PoE options, and interfaces favor short copper",
   "Copper is immune to all interference always",
   "Copper never needs testing"
 ]

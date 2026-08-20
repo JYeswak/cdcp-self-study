@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Firestopping and pathway penetration controls matter for cabling because:"
 choices = [
-  "They only slow installers with no life-safety role",
+  "They only slow installers with no life-safety role or barrier purpose",
   "Firestopping increases insertion loss deliberately as a goal",
   "They replace the need for redundant routes",
-  "Unsealed penetrations can compromise fire or smoke barriers while pathways still must remain usable"
+  "Protect barriers and keep pathways usable"
 ]
 correct = "D"
 explanation = "Cabling pathways cross rated barriers; proper firestopping is life-safety practice alongside connectivity goals."

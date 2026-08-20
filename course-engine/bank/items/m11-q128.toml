@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Bonding and grounding awareness for telecommunications pathways exists to:"
 choices = [
-  "Support personnel safety and reduce differences of potential that can affect equipment and shielding strategies",
-  "Ignore electrical safety near racks",
+  "Support safety and bonding strategy",
+  "Ignore electrical safety near racks and bonding requirements in every pathway",
   "Increase static discharge intentionally",
-  "Cool the MDA with earth current"
+  "Cool the MDA with earth current and static discharge control"
 ]
 correct = "A"
 explanation = "Telecom bonding and grounding practices coordinate with electrical systems—safety and reference integrity."

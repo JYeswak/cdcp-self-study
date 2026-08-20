@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Dual-homing a critical server or network device typically implies:"
 choices = [
-  "A single NIC and single upstream switch only",
-  "Multiple network attachments toward redundant upstream infrastructure",
+  "A single NIC and single upstream switch only, without a redundant attachment",
+  "Multiple attachments to redundant infrastructure",
   "No upstream connectivity",
-  "Only out-of-band serial with no data plane"
+  "Only out-of-band serial with no data plane or redundant attachment"
 ]
 correct = "B"
 explanation = "Dual-homing provides alternate physical or logical attachments—complementing cabling redundancy."

@@ -7,9 +7,9 @@ kind = "single-select"
 module = 11
 stem = "Site-to-site connectivity planning for multi-building or multi-site DCs should consider:"
 choices = [
-  "Only indoor patch colors",
-  "Only CRAH filter MERV ratings",
-  "Diverse carrier entrances, pathway risks, latency, and failover behavior",
+  "Only indoor patch colors and documented labeling schemes",
+  "Only CRAH filter MERV ratings and maintenance intervals",
+  "Diverse entrances, risks, latency, and failover",
   "Only raised floor pedestal spacing"
 ]
 correct = "C"

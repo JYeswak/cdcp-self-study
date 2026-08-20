@@ -7,9 +7,9 @@ kind = "single-select"
 module = 11
 stem = "Separating storage, network, and out-of-band management cabling conceptually helps by:"
 choices = [
-  "Reducing operational risk and clarifying pathways, though design must still prevent congestion",
+  "Reduce operational risk and clarify pathways",
   "Increasing accidental mispatch blast radius always",
-  "Eliminating all need for redundancy",
+  "Eliminating all need for redundancy, congestion review, or capacity planning",
   "Making testing impossible"
 ]
 correct = "A"

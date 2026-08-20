@@ -8,10 +8,10 @@ kind = "single-select"
 module = 11
 stem = "Which is a sound educational statement about TIA-942 topology learning for CDCP?"
 choices = [
-  "Memorize fabricated numeric SHALLs as if quoting sealed standards text",
-  "Ignore topology and only memorize RJ45 colors",
-  "Treat TIA topology as identical to UPS Tier naming",
-  "Learn the named spaces (MDA/HDA/EDA/ZDA/ER concepts) and hierarchical intent without inventing clause mandates"
+  "Memorize fabricated numeric SHALLs as if quoting sealed standards text verbatim",
+  "Ignore topology and only memorize RJ45 colors, pinouts, and connector types",
+  "Treat TIA topology as identical to UPS Tier naming and availability",
+  "Learn named spaces and hierarchy without invented mandates"
 ]
 correct = "D"
 explanation = "Awareness-level learning: spaces and hierarchy—avoid fabricating standard clause text."
