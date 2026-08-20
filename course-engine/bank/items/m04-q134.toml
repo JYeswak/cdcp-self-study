@@ -16,7 +16,7 @@ choices = [
   "Grounding and bonding support electrical safety and noise control",
 ]
 correct = "D"
-explanation = "Metallic floor systems are included in bonding strategies for safety and reference integrity."
+explanation = "Bonding metallic floor components supports electrical safety and a stable reference; it does not deliberately increase leakage, eliminate AHJ review, or replace UPS capacity."
 topic_ids = ["m04-grounding"]
 objective_ids = []
 bloom = "understand"

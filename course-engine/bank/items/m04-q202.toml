@@ -16,7 +16,7 @@ choices = [
   "Eliminate the need for equipment grounding conductors"
 ]
 correct = "A"
-explanation = "Floor bonding/SRG concepts support equipotential referencing—not a substitute for protective grounding rules."
+explanation = "SRG and floor bonding support a low-impedance equipotential reference; they do not replace circuit breakers or protective grounding conductors and should not increase static charge."
 topic_ids = ["m04-grounding"]
 objective_ids = []
 bloom = "understand"

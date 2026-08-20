@@ -16,7 +16,7 @@ choices = [
   "Deliver designed airflow to IT inlets",
 ]
 correct = "D"
-explanation = "Perforated tiles are airflow devices positioned per the cooling design."
+explanation = "Perforated or grille tiles deliver designed supply air to IT inlets at selected locations; they are not decoration, a CRAC replacement, or an infinite load-rating upgrade."
 topic_ids = ["m04-guidelines", "m04-cooling-impact"]
 objective_ids = []
 bloom = "understand"

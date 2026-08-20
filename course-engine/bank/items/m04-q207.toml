@@ -16,7 +16,7 @@ choices = [
   "Lower concentrated stress by magic, without engineering review"
 ]
 correct = "B"
-explanation = "Heavy plant needs verified floor capacity or solid-floor placement—guessing is unsafe."
+explanation = "The heavy UPS or battery cabinet needs verified floor capacity or solid-floor placement; tiles do not self-reinforce, and guessing cannot improve rolling performance or reduce concentrated stress."
 topic_ids = ["m04-loading", "m04-floor-standards"]
 objective_ids = []
 bloom = "analyze"

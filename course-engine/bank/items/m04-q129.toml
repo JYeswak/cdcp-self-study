@@ -15,7 +15,7 @@ choices = [
   "Structural performance, conductivity, and cleanliness",
 ]
 correct = "D"
-explanation = "Floor panels must meet structural performance, conductivity/static-control, and cleanliness needs of the IT environment; material and finish choices serve those requirements."
+explanation = "Panel materials and finishes are selected for structural performance, conductivity or static control, and cleanliness; gloss, diesel chemistry, and network policy do not determine floor suitability."
 topic_ids = ["m04-floor-types", "m04-floor-standards"]
 objective_ids = []
 bloom = "understand"

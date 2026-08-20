@@ -16,7 +16,7 @@ choices = [
   "Choosing DNS providers",
 ]
 correct = "C"
-explanation = "Concentrated loads are point/small-area forces that can govern panel and pedestal design."
+explanation = "Concentrated load is a heavy force applied through a small contact area such as equipment feet; aisle paint, room-average kW, and DNS selection do not test panel or pedestal loading."
 topic_ids = ["m04-loading"]
 objective_ids = []
 bloom = "understand"

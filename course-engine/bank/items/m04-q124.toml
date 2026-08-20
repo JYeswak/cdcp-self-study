@@ -16,7 +16,7 @@ choices = [
   "Plenum integrity and openings affect air paths",
 ]
 correct = "D"
-explanation = "Air path integrity of floor and ceiling systems is central to cooling performance."
+explanation = "Floor and ceiling choices affect plenum integrity, leakage, and return paths, so they can change cooling performance; grounding bonds and paint colour do not set airflow."
 topic_ids = ["m04-cooling-impact"]
 objective_ids = []
 bloom = "apply"

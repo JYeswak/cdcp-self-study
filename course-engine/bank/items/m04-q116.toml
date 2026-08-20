@@ -16,7 +16,7 @@ choices = [
   "Generator kVA",
 ]
 correct = "C"
-explanation = "Uniform load is distributed loading over area—distinct from concentrated or rolling loads."
+explanation = "Uniform load describes force spread over a broad floor area; a caster point load, generator kVA, and work-plane lux describe different engineering questions."
 topic_ids = ["m04-loading"]
 objective_ids = []
 bloom = "remember"

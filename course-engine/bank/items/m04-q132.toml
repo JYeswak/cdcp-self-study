@@ -16,7 +16,7 @@ choices = [
   "Fire separations, leakage, cleanliness, and coordination",
 ]
 correct = "D"
-explanation = "Return plenums interact with fire and contamination controls—not just airflow convenience."
+explanation = "The ceiling return plenum requires coordination of fire separations, leakage, cleanliness, and services; paint sheen, stored cardboard, and ignored mechanical coordination create fire or contamination risk."
 topic_ids = ["m04-suspended-ceiling", "m04-cooling-impact"]
 objective_ids = []
 bloom = "apply"

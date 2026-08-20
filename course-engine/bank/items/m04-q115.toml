@@ -16,7 +16,7 @@ choices = [
   "Replace fire detection",
 ]
 correct = "C"
-explanation = "Access floors provide underfloor pathways for air and/or services."
+explanation = "An access floor creates service space for underfloor airflow and/or cable distribution; it is not bulk-fuel storage, a grounding substitute, or fire detection."
 topic_ids = ["m04-guidelines", "m04-floor-types"]
 objective_ids = []
 bloom = "remember"

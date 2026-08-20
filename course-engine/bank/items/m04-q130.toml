@@ -16,7 +16,7 @@ choices = [
   "Load and system performance are product-specific",
 ]
 correct = "D"
-explanation = "Ratings depend on the specific floor system; use published data and applicable specs."
+explanation = "Load and system performance are product-specific, so manufacturer data and applicable standards must support the rating; ramps, PUE, and AHJ slogans cannot replace the product evidence."
 topic_ids = ["m04-floor-standards", "m04-loading"]
 objective_ids = []
 bloom = "remember"

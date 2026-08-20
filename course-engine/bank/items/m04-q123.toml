@@ -15,7 +15,7 @@ choices = [
   "Store diesel",
 ]
 correct = "C"
-explanation = "A suspended ceiling may hide return-air paths, lighting, and services, while open designs omit it; the choice is a building-configuration decision."
+explanation = "The suspended ceiling can conceal return-air paths and services as part of the building configuration; it is not a UPS, fire-suppression replacement, or diesel store."
 topic_ids = ["m04-suspended-ceiling"]
 objective_ids = []
 bloom = "remember"

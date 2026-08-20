@@ -16,7 +16,7 @@ choices = [
   "Light foot traffic with correct ratings, even for concentrated cabinets",
 ]
 correct = "A"
-explanation = "Heavy wheeled moves stress rolling and concentrated load limits."
+explanation = "Heavy battery cabinets impose rolling and concentrated stresses that can exceed an underspecified floor; ordinary rated foot traffic, planned tile closure, and blanking panels do not create that load case."
 topic_ids = ["m04-loading"]
 objective_ids = []
 bloom = "apply"

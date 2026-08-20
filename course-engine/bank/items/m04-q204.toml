@@ -16,7 +16,7 @@ choices = [
   "Eliminate all cable trays forever"
 ]
 correct = "C"
-explanation = "Ceilings can organize services and airflow return—but plenum use must match listing and design intent."
+explanation = "Suspended ceilings can conceal services and organize return air when the plenum is listed and coordinated; they do not permanently hide defects, replace fire detection, or eliminate cable trays."
 topic_ids = ["m04-suspended-ceiling", "m04-cooling-impact"]
 objective_ids = []
 bloom = "understand"

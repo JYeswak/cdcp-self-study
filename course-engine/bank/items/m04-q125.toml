@@ -16,7 +16,7 @@ choices = [
   "Bleed pressure and short-circuit cold air",
 ]
 correct = "D"
-explanation = "Uncontrolled openings dump pressure and waste supply air near the hole."
+explanation = "An unnecessary opening bleeds pressure and short-circuits supply air near the hole, reducing delivery elsewhere; it does not reliably improve distant cooling, cable rating, or battery charging."
 topic_ids = ["m04-cooling-impact", "m04-guidelines"]
 objective_ids = []
 bloom = "apply"

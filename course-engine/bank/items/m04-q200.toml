@@ -16,7 +16,7 @@ choices = [
   "Only underfloor cable weight"
 ]
 correct = "C"
-explanation = "Loading categories match different force patterns: area, point, and rolling traffic."
+explanation = "Uniform, concentrated, and rolling ratings describe area, point, and wheeled-equipment forces respectively; they are not identical aesthetic categories or merely cable weight."
 topic_ids = ["m04-loading"]
 objective_ids = []
 bloom = "remember"

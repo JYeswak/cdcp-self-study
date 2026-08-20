@@ -16,7 +16,7 @@ choices = [
   "Loose pedestals threaten safety and load path",
 ]
 correct = "D"
-explanation = "Understructure integrity is foundational to access-floor safety and performance."
+explanation = "Pedestal attachment and understructure stability preserve the floor’s load path and safety; they do not replace fire dampers, control Wi-Fi, or set generator frequency."
 topic_ids = ["m04-floor-types", "m04-guidelines"]
 objective_ids = []
 bloom = "understand"

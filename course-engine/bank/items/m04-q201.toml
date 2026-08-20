@@ -16,7 +16,7 @@ choices = [
   "Air movement under a raised floor is absent in this supply design",
 ]
 correct = "B"
-explanation = "Underfloor supply paths need free volume and sealed openings; clutter defeats airflow design."
+explanation = "Underfloor supply needs open volume and controlled openings, so cable and debris blockage can create hot spots; a flooded floor, any pile of junk, or an assumption of no air movement does not improve cooling."
 topic_ids = ["m04-cooling-impact", "m04-guidelines"]
 objective_ids = []
 bloom = "apply"

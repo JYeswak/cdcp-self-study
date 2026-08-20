@@ -16,7 +16,7 @@ choices = [
   "Eliminate grounding",
 ]
 correct = "B"
-explanation = "A raised-floor plenum classically delivers supply air and/or routes cabling under the IT floor."
+explanation = "The raised-floor plenum can deliver supply air and route cabling beneath the IT floor; it is not diesel storage, a UPS replacement, or a way to remove grounding."
 topic_ids = ["m04-guidelines", "m04-cooling-impact"]
 objective_ids = []
 bloom = "remember"

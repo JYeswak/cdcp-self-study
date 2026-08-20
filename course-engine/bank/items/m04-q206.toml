@@ -16,7 +16,7 @@ choices = [
   "Cable cutouts are unnecessary anywhere, even when bypass leakage matters"
 ]
 correct = "A"
-explanation = "Airflow tiles are part of the cooling distribution design, not decoration."
+explanation = "Perforated or grille tiles are placed so designed supply air reaches equipment inlets; flooding hot aisles, forcing return air under the floor, or omitting cable-cutout planning defeats that distribution design."
 topic_ids = ["m04-cooling-impact", "m04-guidelines"]
 objective_ids = []
 bloom = "apply"

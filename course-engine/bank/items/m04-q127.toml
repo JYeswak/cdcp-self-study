@@ -16,7 +16,7 @@ choices = [
   "Blocks underfloor air and complicates maintenance",
 ]
 correct = "D"
-explanation = "Underfloor cable dams obstruct air and service access."
+explanation = "Cable congestion blocks underfloor airflow and makes inspection or maintenance harder; it does not raise clear height or automatically bond every rack."
 topic_ids = ["m04-guidelines", "m04-cooling-impact"]
 objective_ids = []
 bloom = "understand"

@@ -16,7 +16,7 @@ choices = [
   "Cut openings only after equipment is powered with no planning",
 ]
 correct = "A"
-explanation = "Opening control protects both airflow performance and personnel/cable safety."
+explanation = "Planned cutouts control bypass leakage, cable snags, and personnel hazards; maximizing or leaving openings unsealed and cutting after energization defeats that control."
 topic_ids = ["m04-guidelines", "m04-cooling-impact"]
 objective_ids = []
 bloom = "understand"

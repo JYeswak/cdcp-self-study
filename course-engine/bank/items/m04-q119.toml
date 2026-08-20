@@ -16,7 +16,7 @@ choices = [
   "How panels are laterally supported and how the understructure behaves under load and access",
 ]
 correct = "D"
-explanation = "Understructure type changes lateral stability, access patterns, and structural behaviour."
+explanation = "Stringers or corner-lock support change panel support, lateral stability, access, and load behaviour; the distinction is not an UPS brand, a cable-medium rule, or an emergency-light colour."
 topic_ids = ["m04-floor-types"]
 objective_ids = []
 bloom = "understand"

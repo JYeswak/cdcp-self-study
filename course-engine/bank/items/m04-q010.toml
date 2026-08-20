@@ -16,7 +16,7 @@ choices = [
   "Lux level",
 ]
 correct = "B"
-explanation = "Rolling and concentrated load ratings govern cart and equipment moves on access floors."
+explanation = "The battery cart imposes rolling and concentrated loads, so both ratings matter; a uniform floor rating, PUE, or lux value alone does not describe the moving point load."
 topic_ids = ["m04-loading"]
 objective_ids = []
 bloom = "apply"

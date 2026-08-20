@@ -16,7 +16,7 @@ choices = [
   "Can disable the BMS",
 ]
 correct = "B"
-explanation = "Unplanned openings dump plenum pressure and can short-circuit supply, creating hot spots elsewhere."
+explanation = "An unplanned tile opening leaks pressurized supply air and can starve distant racks; it does not improve pressure globally, increase battery autonomy, or by itself disable the BMS."
 topic_ids = ["m04-cooling-impact", "m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "apply"

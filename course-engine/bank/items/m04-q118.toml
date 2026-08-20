@@ -16,7 +16,7 @@ choices = [
   "Cloud egress fees",
 ]
 correct = "C"
-explanation = "Rolling loads cover carts, dollies, and wheeled gear moving over the access floor."
+explanation = "Rolling load covers the dynamic force of carts, dollies, and wheeled equipment crossing the floor; an empty static room or seismic bearing is a different load condition."
 topic_ids = ["m04-loading"]
 objective_ids = []
 bloom = "understand"

@@ -16,7 +16,7 @@ choices = [
   "Fibre bend radius exclusively",
 ]
 correct = "C"
-explanation = "SRG addresses bonding/reference practices; safety grounding still follows electrical code."
+explanation = "Signal-reference grounding concerns bonding and a low-noise reference plane, while protective earthing still follows electrical code; it does not bypass the AHJ, treat chemical cooling, or set fibre bend radius."
 topic_ids = ["m04-grounding"]
 objective_ids = []
 bloom = "understand"

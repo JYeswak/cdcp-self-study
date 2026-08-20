@@ -15,7 +15,7 @@ choices = [
   "Remove tiles freely without airflow review",
 ]
 correct = "A"
-explanation = "Day-2 raised-floor work must control openings, manage cable bulk, and respect load ratings so airflow and structural design intent survive changes."
+explanation = "Day-two work controls openings, cable bulk, and load ratings so airflow and structure keep their design intent; unplanned tile removal, ignoring concentrated loads, or refusing bonding review creates the opposite condition."
 topic_ids = ["m04-guidelines", "m04-loading"]
 objective_ids = []
 bloom = "apply"

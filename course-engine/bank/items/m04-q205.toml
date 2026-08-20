@@ -16,7 +16,7 @@ choices = [
   "Only the cheapest tile without load data, regardless of structural need",
 ]
 correct = "A"
-explanation = "Floor selection is an engineered choice: strength, understructure, and operational use."
+explanation = "Access-floor selection weighs load, understructure, airflow, and maintenance ratings; logo colour, refusing to publish test data, or buying the cheapest tile cannot establish suitability."
 topic_ids = ["m04-floor-types", "m04-loading", "m04-floor-standards"]
 objective_ids = []
 bloom = "apply"

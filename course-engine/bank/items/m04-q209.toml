@@ -16,7 +16,7 @@ choices = [
   "Avoiding all bonding of metal parts, regardless of safety design",
 ]
 correct = "B"
-explanation = "The plenum and understructure are living systems needing inspection and housekeeping."
+explanation = "Raised-floor operations require attention to the plenum, tile condition, understructure, and airflow; refusing housekeeping, load review, or metal bonding ignores the systems that slab-on-grade spaces do not share."
 topic_ids = ["m04-guidelines", "m04-floor-types"]
 objective_ids = []
 bloom = "remember"

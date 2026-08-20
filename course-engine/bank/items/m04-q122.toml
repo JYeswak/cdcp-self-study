@@ -16,7 +16,7 @@ choices = [
   "Automatic code approval",
 ]
 correct = "C"
-explanation = "Steep or abrupt transitions create handling and injury hazards."
+explanation = "The steep or abrupt ramp transition can tip equipment, damage tiles, and injure people; it does not improve maintainability, electrical diversity, or code approval automatically."
 topic_ids = ["m04-ramp", "m04-loading"]
 objective_ids = []
 bloom = "apply"

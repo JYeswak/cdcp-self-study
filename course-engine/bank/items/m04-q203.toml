@@ -16,7 +16,7 @@ choices = [
   "Store fuel for generators"
 ]
 correct = "B"
-explanation = "Ramps/landings manage the elevation change safely for people and rolling loads."
+explanation = "Ramps and landings make floor-height changes safe for people and rolling loads; they are not the cooling plenum, a campus-wide freight lift, or fuel storage."
 topic_ids = ["m04-ramp", "m04-guidelines"]
 objective_ids = []
 bloom = "remember"
