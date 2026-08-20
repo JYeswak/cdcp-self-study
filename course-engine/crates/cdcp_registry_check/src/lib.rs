@@ -487,11 +487,6 @@ pub fn extract_markers(text: &str, prefix: &str, suffix: &str) -> Vec<String> {
     ids
 }
 
-fn markdown_table_row(line: &str) -> bool {
-    let trimmed = line.trim();
-    trimmed.matches('|').count() >= 2 && (trimmed.starts_with('|') || trimmed.ends_with('|'))
-}
-
 fn markdown_table_separator(line: &str) -> bool {
     let cells = line
         .split('|')
@@ -505,50 +500,104 @@ fn markdown_table_separator(line: &str) -> bool {
         })
 }
 
-fn strip_inline_quoted_content(line: &str) -> String {
-    let mut out = String::with_capacity(line.len());
-    let mut closing_quote = None;
-    let mut escaped = false;
-    for ch in line.chars() {
-        if let Some(closing) = closing_quote {
-            if escaped {
-                escaped = false;
-            } else if ch == '\\' {
-                escaped = true;
-            } else if ch == closing {
-                closing_quote = None;
-            }
-            continue;
-        }
-
-        let opening = match ch {
-            '"' | '`' => Some(ch),
-            '“' => Some('”'),
-            '‘' => Some('’'),
-            '\'' if out
-                .chars()
-                .last()
-                .is_none_or(|previous| !previous.is_alphanumeric()) =>
-            {
-                Some('\'')
-            }
-            _ => None,
-        };
-        if let Some(closing) = opening {
-            closing_quote = Some(closing);
-        } else {
-            out.push(ch);
-        }
+fn markdown_table_cells(line: &str) -> Option<Vec<&str>> {
+    let trimmed = line.trim();
+    if trimmed.matches('|').count() < 1 {
+        return None;
     }
-    out
+    let trimmed = trimmed.strip_prefix('|').unwrap_or(trimmed);
+    let trimmed = trimmed.strip_suffix('|').unwrap_or(trimmed);
+    Some(trimmed.split('|').map(str::trim).collect())
+}
+
+fn normalise_table_header(cell: &str) -> String {
+    cell.trim()
+        .trim_matches(|ch: char| matches!(ch, '`' | '*' | '_'))
+        .to_ascii_lowercase()
+}
+
+fn is_item_identifier_header(cell: &str) -> bool {
+    matches!(
+        normalise_table_header(cell).as_str(),
+        "id" | "item" | "item id" | "item_id" | "question id" | "question_id"
+    )
+}
+
+fn is_item_text_header(cell: &str) -> bool {
+    normalise_table_header(cell)
+        .split_whitespace()
+        .any(|word| matches!(word, "stem" | "question" | "prompt"))
+}
+
+fn looks_like_item_id(cell: &str) -> bool {
+    let cell = cell.trim().trim_matches('`');
+    let cell = cell.strip_prefix("bank-").unwrap_or(cell);
+    let Some((module, question)) = cell.split_once("-q") else {
+        return false;
+    };
+    module.len() > 1
+        && module.starts_with('m')
+        && module[1..].bytes().all(|byte| byte.is_ascii_digit())
+        && !question.is_empty()
+        && question.bytes().all(|byte| byte.is_ascii_digit())
+}
+
+/// An item-record table is copied curriculum data, not authored claim prose.
+/// The shape is deliberately semantic rather than tied to one receipt:
+/// an identifier column, a stem/question/prompt column, and an item-shaped
+/// identifier in the first data row. A generic prose table does not satisfy
+/// all three and remains visible to the phrase classes.
+fn is_item_record_table(header: &str, first_data: Option<&str>) -> bool {
+    let Some(headers) = markdown_table_cells(header) else {
+        return false;
+    };
+    let has_id = headers.iter().any(|cell| is_item_identifier_header(cell));
+    let has_item_text = headers.iter().any(|cell| is_item_text_header(cell));
+    let has_item_row = first_data
+        .and_then(markdown_table_cells)
+        .is_some_and(|cells| cells.iter().any(|cell| looks_like_item_id(cell)));
+    has_id && has_item_text && has_item_row
+}
+
+fn is_machine_report_table(header: &str, first_data: Option<&str>) -> bool {
+    let Some(headers) = markdown_table_cells(header) else {
+        return false;
+    };
+    let has_outcome = headers.iter().any(|cell| {
+        normalise_table_header(cell)
+            .split_whitespace()
+            .any(|word| matches!(word, "exit" | "result" | "status" | "verdict"))
+    });
+    let has_measurement_context = headers.iter().any(|cell| {
+        normalise_table_header(cell).split_whitespace().any(|word| {
+            matches!(
+                word,
+                "step" | "surface" | "verifier" | "wall" | "time" | "triage"
+            )
+        })
+    });
+    let has_report_key = first_data
+        .and_then(markdown_table_cells)
+        .and_then(|cells| cells.first().copied())
+        .map(str::trim)
+        .is_some_and(|cell| {
+            cell.parse::<u64>().is_ok() || (cell.starts_with('`') && cell.ends_with('`'))
+        });
+    has_outcome && has_measurement_context && has_report_key
 }
 
 /// Return the authored-prose view used for load-bearing phrase matching.
 ///
-/// Markdown tables, block quotes, fenced code, and inline quoted/code spans
-/// commonly carry copied curriculum data rather than claims made by the
-/// receipt author. Markers still scan the original text; only phrase-class
-/// matching uses this narrower view.
+/// Item-record and machine-report Markdown tables, block quotes, and fenced
+/// code commonly carry copied curriculum data rather than claims made by the
+/// receipt author. Generic tables remain visible: a claims table is still
+/// authored prose.
+/// Inline quotation marks also remain visible because punctuation alone cannot
+/// distinguish an author quoting a stem from an author making a quoted claim.
+/// A claim-shaped sentence inside a recognized data/report table, fence, or
+/// block quote is therefore an explicit boundary this gate cannot adjudicate.
+/// Markers still scan the original text; only phrase-class matching uses this
+/// narrower structural view.
 pub fn authored_prose(text: &str) -> String {
     let mut out = String::with_capacity(text.len());
     let mut fenced = false;
@@ -562,26 +611,21 @@ pub fn authored_prose(text: &str) -> String {
             index += 1;
             continue;
         }
-        if !fenced
-            && index + 1 < lines.len()
-            && line.contains('|')
-            && markdown_table_separator(lines[index + 1])
-        {
-            index += 2;
-            while index < lines.len() && lines[index].contains('|') {
-                index += 1;
+        if !fenced && index + 1 < lines.len() && markdown_table_separator(lines[index + 1]) {
+            let first_data = lines.get(index + 2).copied();
+            if is_item_record_table(line, first_data) || is_machine_report_table(line, first_data) {
+                index += 2;
+                while index < lines.len() && lines[index].contains('|') {
+                    index += 1;
+                }
+                continue;
             }
-            continue;
         }
-        if fenced
-            || trimmed.starts_with('>')
-            || markdown_table_row(line)
-            || markdown_table_separator(line)
-        {
+        if fenced || trimmed.starts_with('>') {
             index += 1;
             continue;
         }
-        out.push_str(&strip_inline_quoted_content(line));
+        out.push_str(line);
         out.push('\n');
         index += 1;
     }
@@ -1005,6 +1049,91 @@ mod tests {
         assert!(
             violations.is_empty(),
             "quoted table data was treated as authored prose: {violations:?}"
+        );
+    }
+
+    #[test]
+    fn quoted_stem_in_fenced_item_fixture_is_not_a_grade_exact_claim() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        fs::write(
+            root.join("receipt.md"),
+            "```toml\nid = \"m06-q048\"\nstem = \"A single-corded critical device in a dual-path hall often needs an STS because:\"\n```\n",
+        )
+        .unwrap();
+        let lint = grade_exact_lint(vec!["receipt.md".into()]);
+        let violations = validate_claims_lint(root, &lint, &grade_claim_ids()).unwrap();
+        assert!(
+            violations.is_empty(),
+            "fenced item data was treated as authored prose: {violations:?}"
+        );
+    }
+
+    #[test]
+    fn item_record_detection_uses_table_shape_not_one_header_spelling() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        fs::write(
+            root.join("receipt.md"),
+            "question_id | prompt | source\n--- | --- | ---\nbank-m06-q048 | \"A single-corded critical device in a dual-path hall often needs an STS because:\" | source\n",
+        )
+        .unwrap();
+        let lint = grade_exact_lint(vec!["receipt.md".into()]);
+        let violations = validate_claims_lint(root, &lint, &grade_claim_ids()).unwrap();
+        assert!(
+            violations.is_empty(),
+            "item-shaped table data was treated as authored prose: {violations:?}"
+        );
+    }
+
+    #[test]
+    fn an_authored_claim_in_an_unrelated_markdown_table_still_goes_red() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        fs::write(
+            root.join("README.md"),
+            "Topic | Claim | Status\n--- | --- | ---\nGrading | The grader is byte-exact across native and WASM paths. | current\n",
+        )
+        .unwrap();
+        let lint = grade_exact_lint(vec!["README.md".into()]);
+        let violations = validate_claims_lint(root, &lint, &grade_claim_ids()).unwrap();
+        assert!(
+            violations.iter().any(|v| v.code == "load_bearing_uncited"),
+            "a generic author-claim table was treated as copied item data: {violations:?}"
+        );
+    }
+
+    #[test]
+    fn a_machine_report_table_is_not_a_grade_exact_claim() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        fs::write(
+            root.join("receipt.md"),
+            "Step | Surface | Result | Wall\n--- | --- | --- | ---\n42 | GradeExact goldens | 0 | 0.270s\n",
+        )
+        .unwrap();
+        let lint = grade_exact_lint(vec!["receipt.md".into()]);
+        let violations = validate_claims_lint(root, &lint, &grade_claim_ids()).unwrap();
+        assert!(
+            violations.is_empty(),
+            "machine report data was treated as authored prose: {violations:?}"
+        );
+    }
+
+    #[test]
+    fn an_authored_claim_inside_inline_quotes_still_goes_red() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        fs::write(
+            root.join("README.md"),
+            "The product promise is: \"The grader is byte-exact across native and WASM paths.\"\n",
+        )
+        .unwrap();
+        let lint = grade_exact_lint(vec!["README.md".into()]);
+        let violations = validate_claims_lint(root, &lint, &grade_claim_ids()).unwrap();
+        assert!(
+            violations.iter().any(|v| v.code == "load_bearing_uncited"),
+            "an authored quoted claim was treated as copied data: {violations:?}"
         );
     }
 
