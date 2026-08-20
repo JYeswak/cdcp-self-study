@@ -8,13 +8,13 @@ kind = "single-select"
 module = 15
 stem = "Capacity and asset documentation (what is in which rack/U and on which circuit) primarily prevents:"
 choices = [
-  "Generator exercise tests, not circuit documentation",
-  "All cyber attacks, unauthorized access, and physical security incidents",
+  "Track generator exercise results instead of rack-to-circuit assignments",
+  "Treat rack and circuit records as a complete cyber and physical-security control",
   "Overloaded circuits, stranded capacity mistakes, and blind changes",
-  "The need for any EMS sensors"
+  "Treat an inventory snapshot as a substitute for live EMS measurements"
 ]
 correct = "C"
-explanation = "Accurate inventory is an ops control for power and change safety."
+explanation = "Accurate rack and circuit inventory prevents overload, stranded-capacity, and blind-change errors; generator tests, broad security control, and live EMS sensing answer different questions."
 topic_ids = ["m15-documentation", "m15-labelling"]
 objective_ids = []
 bloom = "understand"

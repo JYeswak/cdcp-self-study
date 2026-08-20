@@ -8,13 +8,13 @@ kind = "single-select"
 module = 15
 stem = "Labelling that includes circuit ID, source panel, and destination helps most during:"
 choices = [
-  "Only annual photo contests and facility photography",
-  "Choosing paint colors and cabinet finishes",
-  "Marketing tours exclusively, without operational purpose",
+  "Use circuit labels mainly to index annual photos and facilities records",
+  "Treat consistent label colors as sufficient without circuit, source, and destination identifiers",
+  "Use labels for visitor wayfinding while keeping emergency paths in operator memory",
   "Emergency isolation and load migration"
 ]
 correct = "D"
-explanation = "Crisis performance depends on instant physical identity of paths."
+explanation = "Circuit, source, and destination labels let operators identify paths during isolation and load migration; photo indexing, color alone, or visitor wayfinding does not provide emergency path identity."
 topic_ids = ["m15-labelling"]
 objective_ids = []
 bloom = "apply"

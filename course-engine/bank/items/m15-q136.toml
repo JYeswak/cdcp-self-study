@@ -8,13 +8,13 @@ kind = "single-select"
 module = 15
 stem = "Labels should remain accurate after changes because stale labels:"
 choices = [
-  "Automatically update labels via magnetism",
-  "Are harmless decoration",
-  "Only matter for marketing tours",
+  "Assume a label remains current when equipment moves but the label stays in place",
+  "Treat stale labels as harmless when the drawing set is current",
+  "Update labels only when an external tour or photograph needs them",
   "Are worse than no labels when they create false confidence"
 ]
 correct = "D"
-explanation = "Wrong labels drive incorrect isolations; label hygiene is part of change close-out."
+explanation = "A moved asset can leave a trusted-wrong label; current drawings do not make a stale field label harmless, and tour timing is not a change-control trigger."
 topic_ids = ["m15-labelling", "m15-documentation"]
 objective_ids = []
 bloom = "apply"

@@ -8,12 +8,12 @@ module = 15
 stem = "Clear labelling of power circuits, breakers, and cables primarily reduces:"
 choices = [
   "Human error during isolation, restoration, and incident response",
-  "Camera retention requirements",
-  "The need for any documentation forever",
-  "Chilled-water approach temperature by physics"
+  "Camera-retention policy, which is a separate security-record control",
+  "Treat complete documentation as a substitute for field verification",
+  "Treat chilled-water approach temperature as a labeling result rather than a cooling-design result"
 ]
 correct = "A"
-explanation = "Labels make the physical plant operable under stress; unlabeled gear invites wrong-breaker mistakes."
+explanation = "Labels make the physical plant operable under stress and reduce wrong-breaker mistakes; camera retention, field verification, and chilled-water performance are separate controls or engineering results."
 topic_ids = ["m15-labelling"]
 objective_ids = []
 bloom = "understand"

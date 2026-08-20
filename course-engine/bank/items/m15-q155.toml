@@ -9,12 +9,12 @@ module = 15
 stem = "Mixing cleaning chemicals or using conductive liquids carelessly near IT and electrical gear is hazardous because it can:"
 choices = [
   "Cause equipment damage and electrical incidents",
-  "Raise MTBF by applying cleaning chemicals",
-  "Automatically improve labels and housekeeping records",
-  "Only improve PUE and never create residues or safety controls"
+  "Assume more cleaner improves reliability regardless of chemistry or compatibility",
+  "Treat a cleaning log as proof that chemical compatibility and ESD controls were checked",
+  "Treat residue or conductive liquid as a PUE concern rather than an equipment and safety hazard"
 ]
 correct = "A"
-explanation = "Cleaning is controlled work near energized systems—methods and chemistry matter."
+explanation = "Cleaning near energized systems requires compatible methods and chemistry; extra cleaner, a log without a compatibility check, or a PUE-only view does not control equipment damage and electrical risk."
 topic_ids = ["m15-cleaning", "m15-ops-security"]
 objective_ids = []
 bloom = "apply"

@@ -7,13 +7,13 @@ kind = "single-select"
 module = 15
 stem = "An MOP (Method of Procedure) is primarily used to:"
 choices = [
-  "Replace staff training forever",
+  "Use the MOP as a substitute for staff qualification and role training",
   "Execute high-risk changes with sequenced steps, roles, verification, and backout",
-  "Calculate PUE only",
-  "Market the colo facility"
+  "Use the MOP review to calculate PUE without sequencing the work",
+  "Execute from a hallway agreement while keeping the MOP as a record of intent"
 ]
 correct = "B"
-explanation = "MOPs structure risky work: prerequisites, steps, checks, ownership, and recovery."
+explanation = "An MOP structures risky work with prerequisites, steps, checks, ownership, and recovery; it does not replace qualification, turn into a PUE worksheet, or excuse executing from an informal agreement."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "understand"

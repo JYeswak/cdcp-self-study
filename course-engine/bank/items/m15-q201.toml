@@ -7,13 +7,13 @@ kind = "single-select"
 module = 15
 stem = "As-built documentation that diverges from reality is dangerous because:"
 choices = [
-  "It is always more accurate than field inspection and verification",
-  "It only affects interior design magazines and room appearance",
+  "Treat the latest drawing as authoritative when field verification disagrees",
+  "Treat as-built accuracy as a presentation concern once construction photos exist",
   "Wrong paths and isolation points mislead responders",
-  "Version control is illegal for facilities"
+  "Avoid version control so one informal copy can stay in circulation"
 ]
 correct = "C"
-explanation = "Stale drawings create false confidence during emergencies and maintenance."
+explanation = "Stale drawings create false confidence during emergencies and maintenance; field verification, controlled records, and version history remain necessary after construction photos exist."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "apply"
