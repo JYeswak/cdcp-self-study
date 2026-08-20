@@ -5,15 +5,15 @@
 id = "m11-q202"
 kind = "single-select"
 module = 11
-stem = "Diverse pathway routing for redundant fiber means:"
+stem = "A fiber pair is routed through one shared conduit. The reliability concern is:"
 choices = [
-  "Both fibers in one conduit the entire way for neatness only",
-  "Logical VLANs with one physical strand and no route diversity",
-  "Wireless only",
-  "Physically separated routes reduce common cuts"
+  "Different fiber colors make the route diverse",
+  "Optical power eliminates a common physical cut",
+  "VLAN configuration creates a second physical path",
+  "A shared conduit can let one cut remove both nominally redundant paths"
 ]
 correct = "D"
-explanation = "True diversity is physical separation of failure domains."
+explanation = "A shared conduit leaves both nominal paths in one physical failure domain; one cut can remove both fibers."
 topic_ids = ["m11-redundancy", "m11-planning"]
 objective_ids = []
 bloom = "apply"

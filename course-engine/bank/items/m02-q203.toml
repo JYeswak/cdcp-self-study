@@ -8,15 +8,15 @@
 id = "m02-q203"
 kind = "single-select"
 module = 2
-stem = "EN 50600 series is best described at awareness level as:"
+stem = "During a facilities review, a project team uses EN 50600 references. What does the series provide?"
 choices = [
   "An appliance energy label for home refrigerators",
-  "A European data centre facilities and infrastructure standards series",
-  "A sole source for battery chemistry formulas, because a data-centre series defines products rather than facility design and operations",
-  "A North American residential wiring code only, because European facility and infrastructure guidance cannot apply outside home wiring"
+  "A European framework of data-centre facilities and infrastructure standards",
+  "A battery chemistry formula manual for UPS vendors",
+  "A North American residential wiring code"
 ]
 correct = "B"
-explanation = "EN 50600 is the European series covering data centre facilities and infrastructures."
+explanation = "The references provide a European framework for data-centre facilities and infrastructure topics used during design and operations reviews."
 topic_ids = ["m02-en50600-series"]
 objective_ids = []
 bloom = "remember"

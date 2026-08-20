@@ -5,18 +5,18 @@
 id = "m09-q242"
 kind = "single-select"
 module = 9
-stem = "IT electrical power is treated as a heat load for cooling design because:"
+stem = "A rack row draws 100 kW of IT power, but the cooling model counts only 70 kW as room heat. What is the modeling error?"
 choices = [
-  "IT power disappears without heat",
-  "Nearly all consumed IT energy becomes heat that must be removed",
-  "Only lighting creates heat",
-  "UPS heat cancels IT heat exactly always"
+  "It treats electrical power and heat as unrelated quantities",
+  "It understates the heat load and risks insufficient cooling capacity",
+  "It assumes only battery float current becomes room heat",
+  "It assumes UPS heat cancels IT heat exactly"
 ]
 correct = "B"
-explanation = "Energy conservation: IT watts become thermal watts in the room."
+explanation = "For cooling capacity, the rack's consumed electrical energy is heat that must be removed; omitting 30 kW understates the load."
 topic_ids = ["m09-principles"]
 objective_ids = []
-bloom = "understand"
+bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
 status = "approved"

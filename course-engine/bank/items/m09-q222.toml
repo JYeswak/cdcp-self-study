@@ -5,15 +5,15 @@
 id = "m09-q222"
 kind = "single-select"
 module = 9
-stem = "Non-raised-floor halls typically rely more on:"
+stem = "A slab-hall retrofit lacks an underfloor plenum. Which design response best preserves serviceability?"
 choices = [
-  "Only underfloor perforated tiles, regardless of room construction",
-  "Overhead or close-coupled air strategies",
-  "No airflow management at all, even for high-density racks",
-  "Generators for cooling and air delivery"
+  "Install perforated tiles as the only supply method",
+  "Route supply above or beside the racks and preserve equipment and service clearances",
+  "Remove airflow management for high-density racks",
+  "Use generators as the primary cooling air source"
 ]
 correct = "B"
-explanation = "Slab designs move air management above or beside the racks, not underfloor."
+explanation = "Without a plenum, overhead or close-coupled delivery can serve the racks while preserving clear paths for equipment access and maintenance."
 topic_ids = ["m09-non-raised"]
 objective_ids = []
 bloom = "understand"

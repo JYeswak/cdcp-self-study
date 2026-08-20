@@ -5,15 +5,15 @@
 id = "m09-q208"
 kind = "single-select"
 module = 9
-stem = "Gaps in containment doors, brushes, or missing blanking panels typically cause:"
+stem = "A containment survey finds missing blanking panels and door gaps. What is the appropriate operational response?"
 choices = [
-  "Automatic environmental compliance",
-  "Higher free cooling without any downside",
-  "Network latency reduction",
-  "Leakage reintroduces mixing"
+  "Accept the gaps because cooling capacity is installed",
+  "Add CRAH units without restoring the airflow boundary",
+  "Treat the gaps as a network-latency issue",
+  "Seal the openings, then confirm supply and return separation with airflow checks"
 ]
 correct = "D"
-explanation = "Containment performance depends on sealing the intended airflow boundaries."
+explanation = "The corrective action is to restore the physical boundary and verify that the intended supply and return paths are separated."
 topic_ids = ["m09-containment"]
 objective_ids = []
 bloom = "apply"

@@ -5,15 +5,15 @@
 id = "m09-q246"
 kind = "single-select"
 module = 9
-stem = "Overhead cooling and overhead busway can coexist if planners:"
+stem = "An overhead busway is proposed above a contained aisle. Before approval, planners should verify:"
 choices = [
-  "Always place busway inside CRAH coils",
-  "Coordinate spatial clearances, service access, and airflow so neither system blocks the other",
-  "Ignore structural loads",
-  "Remove all cable trays"
+  "Busway can occupy a CRAH discharge path if it is energized",
+  "The installation sequence preserves safe access and the specified airflow envelope",
+  "Structural and fire coordination can be deferred",
+  "All cable trays are removed"
 ]
 correct = "B"
-explanation = "Multi-trade overhead design requires coordinated geometry and access."
+explanation = "Approval should confirm that installation and maintenance preserve the airflow envelope and safe service clearances around both systems."
 topic_ids = ["m09-non-raised", "m09-supplemental"]
 objective_ids = []
 bloom = "apply"

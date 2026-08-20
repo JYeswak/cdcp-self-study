@@ -5,18 +5,18 @@
 id = "m09-q205"
 kind = "single-select"
 module = 9
-stem = "Bypass airflow typically means:"
+stem = "A perforated tile delivers less cold air while nearby open floor tiles discharge conditioned air into the plenum. The first operational interpretation is:"
 choices = [
-  "Cold supply returns without serving IT",
+  "A bypass path is diverting conditioned air away from the IT intake",
   "Hot exhaust always enters every inlet",
-  "Only underfloor cables bypass grounding",
-  "Liquid CDUs are offline"
+  "Only the cable tray has lost bonding",
+  "The UPS has lost its battery autonomy"
 ]
 correct = "A"
-explanation = "Bypass wastes conditioned air by short-circuiting past the IT load."
+explanation = "The observation points to bypass: conditioned air short-circuits through an unintended opening instead of serving the load; verify tile openings and plenum pressure."
 topic_ids = ["m09-principles", "m09-raised-floor-cooling"]
 objective_ids = []
-bloom = "understand"
+bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
 status = "approved"

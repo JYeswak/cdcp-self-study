@@ -5,15 +5,15 @@
 id = "m06-q052"
 kind = "single-select"
 module = 6
-stem = "N+1 at a UPS module layer implies:"
+stem = "A UPS plant needs 800 kW and one module may be unavailable for maintenance. Which arrangement meets N+1 at that layer?"
 choices = [
-  "Two complete geographically separate data centres",
-  "No maintenance is ever allowed",
-  "Batteries are optional",
-  "Load plus one spare module",
+  "Install one UPS module rated for the entire plant and no spare",
+  "Install two complete geographically separate data centres",
+  "Allow maintenance only after the batteries are removed",
+  "Install enough modules for the 800 kW load plus one spare module",
 ]
 correct = "D"
-explanation = "N+1 = N needed capacity + one redundant unit/module at that layer."
+explanation = "At the module layer, N+1 means enough installed modules for the required 800 kW plus one additional module that can be unavailable."
 topic_ids = ["m06-redundancy", "m06-ups-parallel"]
 objective_ids = []
 bloom = "remember"
