@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "Standby diesel generators are best characterized as:"
 choices = [
-  "Long-duration on-site power after start and transfer; UPS covers the gap",
+  "Long-duration power after start and transfer",
   "Instantaneous zero-gap power with no transfer delay",
   "A full substitute for UPS batteries in all designs",
-  "Used only for decorative lighting",
+  "Used only for decorative lighting, not critical facility backup",
 ]
 correct = "A"
 explanation = "Gensets need start/transfer time; UPS bridges that interval."

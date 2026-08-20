@@ -10,7 +10,7 @@ choices = [
   "Two complete geographically separate data centres",
   "No maintenance is ever allowed",
   "Batteries are optional",
-  "Capacity for the load plus one spare module so one unit can fail or be maintained",
+  "Load plus one spare module",
 ]
 correct = "D"
 explanation = "N+1 = N needed capacity + one redundant unit/module at that layer."

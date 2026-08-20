@@ -13,7 +13,7 @@ choices = [
   "It draws zero current on path B by design",
   "Fibre uplinks eliminate power SPOFs",
   "Generators cannot start without STS",
-  "It cannot natively take two independent AC feeds like dual-PSU gear",
+  "Single-cord load cannot take two AC feeds",
 ]
 correct = "D"
 explanation = "Single-corded gear remains a SPOF unless an automatic transfer device selects a healthy source."

@@ -8,9 +8,9 @@ module = 6
 stem = "Capacity-parallel UPS modules without redundancy means:"
 choices = [
   "One spare is always present by definition",
-  "2N is automatically achieved",
-  "Module outputs sum toward N, so a module failure can drop available capacity below need",
-  "Batteries are shared with CRAH units",
+  "2N is automatically achieved from module count alone, without path separation",
+  "Failure can reduce capacity below need",
+  "Batteries are shared with CRAH units, regardless of electrical architecture",
 ]
 correct = "C"
 explanation = "Capacity parallel adds modules to meet N; without spare, loss of a module can overload the rest."

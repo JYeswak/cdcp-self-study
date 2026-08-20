@@ -9,9 +9,9 @@ module = 6
 stem = "In the utility-to-rack teaching path, which order is most representative after the utility feed?"
 choices = [
   "Rack PDU → generator → transformer → UPS",
-  "IT PSU → busway → utility meter → generator",
+  "IT PSU → busway → generator",
   "BESS only → fibre MMRs → CRAH → rack",
-  "Main switchgear/transformers → transfer → UPS → distribution/PDU → rack",
+  "Switchgear → transfer → UPS → PDU → rack",
 ]
 correct = "D"
 explanation = "After the utility feed, power follows main switchgear/transformers, transfer, UPS, distribution/PDU, then the rack; that is the utility-to-rack teaching path for power distribution."

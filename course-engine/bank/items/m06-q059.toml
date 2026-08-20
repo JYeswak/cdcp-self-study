@@ -9,9 +9,9 @@ module = 6
 stem = "A standby (offline/VFD-class) UPS typically:"
 choices = [
   "Is the universal gold standard for hyperscale IT halls",
-  "Keeps the load on utility and transfers to inverter/battery on failure",
-  "Eliminates transfer notches by design",
-  "Cannot use batteries",
+  "Utility normally; inverter/battery on failure",
+  "Eliminates transfer notches by design, without conditioning or ride-through limits",
+  "Cannot use batteries in any standby UPS design",
 ]
 correct = "B"
 explanation = "Offline/standby leaves the load on utility until a failure forces transfer—cheap but not preferred for critical core IT."

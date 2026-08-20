@@ -8,7 +8,7 @@ kind = "single-select"
 module = 6
 stem = "A catcher or isolated-redundant UPS arrangement is best described as:"
 choices = [
-  "A primary capacity path with a shared reserve UPS that can catch load if a primary fails",
+  "Primary path with shared reserve UPS",
   "Removing all batteries to improve PUE",
   "Only for lighting inverters",
   "Identical to a single non-redundant UPS",

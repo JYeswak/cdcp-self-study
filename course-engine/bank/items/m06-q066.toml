@@ -9,7 +9,7 @@ stem = "Load-bank testing of generators is valued because:"
 choices = [
   "It permanently disables emissions controls",
   "It removes the need for fuel contracts",
-  "It proves the set under real load conditions that no-load runs can miss",
+  "Proves the set under real load",
   "It replaces weekly UPS battery checks entirely",
 ]
 correct = "C"

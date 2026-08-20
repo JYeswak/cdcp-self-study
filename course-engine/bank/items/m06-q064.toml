@@ -8,9 +8,9 @@ module = 6
 stem = "Flywheel energy storage on UPS-class systems is typically associated with:"
 choices = [
   "Multi-day islanded operation alone",
-  "Replacing all transformers",
-  "Only RF shielding",
-  "Short ride-through paired with generators, as an alternative or complement to chemical batteries",
+  "Replacing all transformers, rather than providing energy storage",
+  "Only RF shielding, with no electrical ride-through function",
+  "Short ride-through with generators",
 ]
 correct = "D"
 explanation = "Flywheels cover short gaps; long outages still need generators (or large BESS by design)."

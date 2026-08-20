@@ -7,9 +7,9 @@ kind = "single-select"
 module = 6
 stem = "Concurrent maintainability as a design intent means:"
 choices = [
-  "All maintenance is forbidden forever",
-  "Only software can be patched",
-  "Any single capacity component can be maintained without interrupting the critical load (if procedures match design)",
+  "All maintenance is forbidden forever, even for planned service",
+  "Only software can be patched, never electrical capacity",
+  "Maintain one capacity component without interruption",
   "Fuel deliveries never require planning",
 ]
 correct = "C"

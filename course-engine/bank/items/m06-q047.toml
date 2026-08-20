@@ -9,8 +9,8 @@ module = 6
 stem = "Compared with a mechanical ATS, an STS is chosen primarily for:"
 choices = [
   "Cheaper fuel contracts",
-  "Very fast transfer between two live, suitable AC sources",
-  "Slower weekly manual exercise only",
+  "Fast transfer between live AC sources",
+  "Slower weekly manual exercise, not a transfer function",
   "DC-only plants without AC",
 ]
 correct = "B"

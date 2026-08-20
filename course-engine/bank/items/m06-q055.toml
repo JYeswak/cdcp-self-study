@@ -8,8 +8,8 @@ kind = "single-select"
 module = 6
 stem = "UPS module N+1 is of limited value if all modules share:"
 choices = [
-  "Separate battery strings and dual outputs",
-  "A single upstream feed, ATS, or downstream bus that is a single point of failure",
+  "Separate battery strings and dual outputs, without common upstream dependencies",
+  "A single upstream feed, ATS, or downstream bus",
   "Independent utility feeds and dual downstream buses",
   "Diverse A and B rack PDUs",
 ]

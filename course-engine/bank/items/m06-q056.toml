@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "Fault tolerance is generally a stronger claim than concurrent maintainability alone because it emphasizes:"
 choices = [
-  "Cheaper CAPEX only",
-  "Ignoring human procedures",
+  "Cheaper CAPEX only, with no claim about surviving a defined failure",
+  "Ignoring human procedures, maintenance state, and operator response",
   "Using N topology exclusively",
-  "Surviving a defined worst-case single failure without interrupting the load",
+  "Survive one defined failure without interrupting load",
 ]
 correct = "D"
 explanation = "Fault tolerance targets uninterrupted service through a worst-case single failure, not only planned maintenance windows."

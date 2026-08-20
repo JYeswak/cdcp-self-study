@@ -8,10 +8,10 @@ kind = "single-select"
 module = 6
 stem = "Line-interactive (VI) UPS designs are most often associated with:"
 choices = [
-  "Only nuclear EMP hardening",
-  "Replacing generators entirely",
-  "Three-phase only mega-plants exclusively",
-  "SMB/edge regulation with battery support on deeper events, more than core mission-critical halls",
+  "Only nuclear EMP hardening, not ordinary power-quality or outage protection",
+  "Replacing generators entirely, with no fuel or transfer planning",
+  "Three-phase-only mega-plants exclusively, regardless of facility size or load",
+  "Battery support for deeper events in SMB/edge settings",
 ]
 correct = "D"
 explanation = "VI/line-interactive is common at edge/SMB; core DC IT usually prefers online double-conversion."

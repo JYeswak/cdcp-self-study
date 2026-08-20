@@ -10,8 +10,8 @@ module = 6
 stem = "Double-conversion (online/VFI) UPS operation primarily:"
 choices = [
   "Passes utility straight through with no inverter in normal mode",
-  "Only works on single-phase edge sites",
-  "Continuously regenerates AC via rectifier/inverter for high isolation from many disturbances",
+  "Only works on single-phase edge sites, not three-phase critical facilities",
+  "Regenerates AC through rectifier and inverter",
   "Replaces chilled-water plants",
 ]
 correct = "C"

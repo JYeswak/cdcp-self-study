@@ -7,8 +7,8 @@ kind = "single-select"
 module = 6
 stem = "In redundancy language, N means:"
 choices = [
-  "Twice the required capacity on every feeder",
-  "Exactly the capacity needed to serve the design critical load (no spare)",
+  "Twice the required capacity on every feeder, regardless of load profile or redundancy goal",
+  "Capacity needed for the design critical load, with no spare",
   "One spare module always running unloaded",
   "Network-only dual-homing",
 ]

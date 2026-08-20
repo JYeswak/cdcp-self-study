@@ -8,7 +8,7 @@ kind = "single-select"
 module = 6
 stem = "Floor/room PDUs, RPPs, and rack PDUs differ mainly by:"
 choices = [
-  "Distribution hierarchy and form factor—room/row vs rack-level delivery",
+  "Room/row distribution versus rack-level delivery",
   "Whether they use three-phase power (only floor PDUs can)",
   "Whether grounding is required",
   "Whether they can feed dual-corded gear",

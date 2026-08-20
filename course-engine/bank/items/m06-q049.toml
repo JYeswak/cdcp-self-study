@@ -8,7 +8,7 @@ kind = "single-select"
 module = 6
 stem = "Break-before-make transfer behaviour on a genset ATS means:"
 choices = [
-  "The load is briefly disconnected from one source before connecting to the other (design-dependent timing)",
+  "Briefly disconnects before connecting the other source",
   "Both sources are paralleled indefinitely for free capacity",
   "UPS batteries are permanently removed",
   "Neutral-ground bonds are created at every rack",

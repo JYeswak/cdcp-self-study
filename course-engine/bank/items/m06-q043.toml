@@ -9,7 +9,7 @@ module = 6
 stem = "A dual-corded server should ideally receive its two cords from:"
 choices = [
   "The same rack PDU outlet strip for neat cabling",
-  "Two independent power paths (commonly labeled A and B)",
+  "Two independent A/B power paths",
   "A single UPS module through a Y-splitter",
   "Lighting circuits to free IT breakers",
 ]

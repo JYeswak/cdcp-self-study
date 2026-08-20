@@ -7,9 +7,9 @@ kind = "single-select"
 module = 6
 stem = "In conceptual terms, a 2N power architecture provides:"
 choices = [
-  "Two complete independent capacity paths each able to carry the full load",
-  "A single path with thicker cable only",
-  "N capacity with no path diversity",
+  "Two independent paths for the full load",
+  "A single path with thicker cable only, with no independent source or bus",
+  "N capacity with no path diversity, regardless of maintenance claim",
   "Generator redundancy without any UPS",
 ]
 correct = "A"

@@ -7,9 +7,9 @@ kind = "single-select"
 module = 6
 stem = "Preferential dual-source feed to a sensitive bus with near-seamless switching points to:"
 choices = [
-  "A manual knife switch only",
+  "A manual knife switch only, with no automatic transfer logic",
   "Removing the UPS entirely",
-  "A static transfer switch (STS) between two independent AC sources",
+  "STS between two AC sources",
   "Using lighting contactors as the critical path",
 ]
 correct = "C"
