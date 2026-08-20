@@ -10,7 +10,7 @@ kind = "single-select"
 module = 1
 stem = "Which statement is most accurate?"
 choices = [
-  "Five-nines identifies an availability target, not a utility-feed arrangement",
+  "Five-nines specifies the required utility-feed topology for a facility",
   "Availability and reliability are identical metrics",
   "Reliability is about how often failures occur; availability includes uptime fraction considering repair",
   "Availability typically applies to network links but not power systems",
