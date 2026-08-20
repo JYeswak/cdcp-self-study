@@ -15,7 +15,7 @@ choices = [
   "Physics alone places them safely farther from IT equipment than risk thresholds",
 ]
 correct = "A"
-explanation = "Current-carrying plant is a primary near-field magnetic source; distance and geometry matter."
+explanation = "Current-carrying plant is a primary near-field magnetic source; loading does not eliminate external fields, and fibre jackets are not the source."
 topic_ids = ["m07-sources"]
 objective_ids = []
 bloom = "understand"

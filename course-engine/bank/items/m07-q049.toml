@@ -13,7 +13,7 @@ choices = [
   "The same certification scope as intentional EMP hardening",
 ]
 correct = "B"
-explanation = "EMI is interference; EMC is the compatibility discipline."
+explanation = "EMI is unwanted interference and EMC is the compatibility discipline; inventory categories and intentional EMP hardening describe different scopes."
 topic_ids = ["m07-types"]
 objective_ids = []
 bloom = "remember"

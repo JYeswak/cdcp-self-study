@@ -15,7 +15,7 @@ choices = [
   "HEMP hardening is specialist scope; ordinary designs should not claim it",
 ]
 correct = "D"
-explanation = "Recognize EMP vocabulary and do not over-claim hardening without a real program."
+explanation = "Recognize EMP vocabulary and do not over-claim hardening without a real program; a commercial design or all-fibre plant does not establish HEMP protection."
 topic_ids = ["m07-standards", "m07-types"]
 objective_ids = []
 bloom = "understand"

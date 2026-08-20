@@ -13,7 +13,7 @@ choices = [
   "Fibre raises the ELF magnetic field in the tray",
 ]
 correct = "C"
-explanation = "Media choice is part of the mitigation hierarchy for noisy environments."
+explanation = "Media choice is part of the mitigation hierarchy for noisy environments; fibre removes conductive signal coupling, not pathway planning or equipment bonding requirements."
 topic_ids = ["m07-shielding"]
 objective_ids = []
 bloom = "apply"

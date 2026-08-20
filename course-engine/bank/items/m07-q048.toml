@@ -13,7 +13,7 @@ choices = [
   "Superseded by the facility's published efficiency targets",
 ]
 correct = "C"
-explanation = "Keep health exposure language separate from IEC 61000-class equipment immunity."
+explanation = "Keep health-exposure guidance separate from IEC 61000-class equipment immunity; neither concern disappears because efficiency targets are met or a commercial building is involved."
 topic_ids = ["m07-standards"]
 objective_ids = []
 bloom = "analyze"

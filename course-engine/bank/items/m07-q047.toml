@@ -13,7 +13,7 @@ choices = [
   "Bonding of the enclosure is no longer required",
 ]
 correct = "A"
-explanation = "Tight geometry reduces net loop area and residual field."
+explanation = "Tight geometry reduces net loop area and residual field; deliberately enlarging the loop, assuming every data cable is affected, or abandoning bonding reverses the mitigation logic."
 topic_ids = ["m07-shielding", "m07-sources"]
 objective_ids = []
 bloom = "understand"

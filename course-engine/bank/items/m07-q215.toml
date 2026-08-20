@@ -15,7 +15,7 @@ choices = [
   "Treat a site as protected whenever its commercial design has no reported outage",
 ]
 correct = "A"
-explanation = "The public DLA record describes minimum performance requirements and testing for its stated fixed-facility scope, without prescribing a single design solution. It does not support a universal HEMP field threshold or an automatic commercial-site claim."
+explanation = "The public DLA record describes minimum performance requirements and testing for its stated fixed-facility scope, without prescribing a single design solution. RF guidance, UPS current, or an outage-free history is not a universal HEMP verification value."
 topic_ids = ["m07-standards", "m07-types"]
 objective_ids = []
 bloom = "analyze"

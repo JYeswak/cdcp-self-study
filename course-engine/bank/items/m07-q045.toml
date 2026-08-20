@@ -12,7 +12,7 @@ choices = [
   "Converting the affected rows to single-phase distribution",
 ]
 correct = "B"
-explanation = "Distance is the strongest cheap tool for power-frequency magnetic fields."
+explanation = "Distance and layout are the strongest cheap tools for power-frequency magnetic fields; RF paint, removing bonding, or changing phase supply are different or unsafe responses."
 topic_ids = ["m07-shielding", "m07-sources"]
 objective_ids = []
 bloom = "apply"

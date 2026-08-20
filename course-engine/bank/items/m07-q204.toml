@@ -13,7 +13,7 @@ choices = [
   "Prohibit electrical distribution inside the occupied building",
 ]
 correct = "C"
-explanation = "Responsible practice is source-aware assessment and proportionate mitigation—not denial or panic."
+explanation = "Responsible practice is source-aware assessment and proportionate mitigation, not leaving exposure to a tenant, waiting for complaints, or banning all electrical distribution."
 topic_ids = ["m07-standards", "m07-shielding"]
 objective_ids = []
 bloom = "understand"

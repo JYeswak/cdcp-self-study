@@ -17,7 +17,7 @@ choices = [
   "Teslas or gauss, with A/m for field strength",
 ]
 correct = "D"
-explanation = "Magnetic fields use T/gauss (or related field units); do not confuse with photometric units."
+explanation = "Magnetic fields use T or gauss, with A/m for field strength; lux, dBm, and pressure are photometric, RF-power, and mechanical units instead."
 topic_ids = ["m07-units"]
 objective_ids = []
 bloom = "remember"

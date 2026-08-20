@@ -14,7 +14,7 @@ choices = [
   "A fibre run to the white space, which by itself proves the facility is hardened",
 ]
 correct = "A"
-explanation = "The public DLA ASSIST record describes minimum performance requirements, testing, and a hardness-maintenance/surveillance program, and says the standard does not mandate one design solution. A surge-protection product alone does not establish the claim."
+explanation = "The public DLA ASSIST record describes minimum performance requirements, testing, and a hardness-maintenance/surveillance program, and says the standard does not mandate one design solution. A generic guideline, vendor brochure, or fibre run is not site-specific verification."
 topic_ids = ["m07-standards", "m07-sources"]
 objective_ids = []
 bloom = "analyze"

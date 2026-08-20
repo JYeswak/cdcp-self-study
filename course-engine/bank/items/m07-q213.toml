@@ -14,7 +14,7 @@ choices = [
   "1.2 × 10^0 T (1.2 T)",
 ]
 correct = "A"
-explanation = "B = (4π×10^-7 H/m)(12,000 A)/(2π×2.0 m) = 1.2×10^-3 T. Density does not change the physics; it scales MAGNITUDE with current. This is an idealized field magnitude, not an ICNIRP 2010 limit or a compliance result; phase/return geometry and a site survey can materially change the measured field."
+explanation = "B = (4π×10^-7 H/m)(12,000 A)/(2π×2.0 m) = 1.2×10^-3 T. The microtesla, 12 mT, and 1.2 T alternatives misplace the scale; this idealized magnitude is not an ICNIRP limit or compliance result, and return geometry can change the measured field."
 topic_ids = ["m07-sources", "m07-units"]
 objective_ids = []
 bloom = "apply"

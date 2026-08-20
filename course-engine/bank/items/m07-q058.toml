@@ -12,7 +12,7 @@ choices = [
   "Separation, then routing and current geometry, then bonding and shielding integrity, then specialty shielding",
 ]
 correct = "D"
-explanation = "Prefer distance and geometry before expensive magnetic shielding."
+explanation = "Prefer distance and current geometry before expensive magnetic shielding; specialty enclosures, RF paint, and removing bonding are not the first safe steps."
 topic_ids = ["m07-shielding"]
 objective_ids = []
 bloom = "understand"

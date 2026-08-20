@@ -14,7 +14,7 @@ choices = [
   "Achieved by painting the rack enclosures a bright reflective white",
 ]
 correct = "A"
-explanation = "Low-frequency magnetic shielding is engineering-heavy; separation is often the practical first step."
+explanation = "Low-frequency magnetic shielding is engineering-heavy; plastic, thin RF foil, or reflective paint do not provide the same power-frequency magnetic protection, so separation is often first."
 topic_ids = ["m07-shielding"]
 objective_ids = []
 bloom = "analyze"

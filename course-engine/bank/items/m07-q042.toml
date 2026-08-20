@@ -13,7 +13,7 @@ choices = [
   "Volts per metre (V/m)",
 ]
 correct = "D"
-explanation = "E-field unit is V/m; strong near high voltage relative to local ground."
+explanation = "Electric field strength is V/m; A/m describes magnetic field strength and VAr is reactive power, not an electric-field unit."
 topic_ids = ["m07-units"]
 objective_ids = []
 bloom = "remember"

@@ -13,7 +13,7 @@ choices = [
   "It lowers the facility's measured PUE figure",
 ]
 correct = "C"
-explanation = "Adjacency without assessment can expose people and equipment to avoidable fields."
+explanation = "Adjacency without assessment can expose people and equipment to avoidable fields; transformer proximity is not a heating benefit or a reason to assume fields are absent."
 topic_ids = ["m07-sources", "m07-standards"]
 objective_ids = []
 bloom = "apply"

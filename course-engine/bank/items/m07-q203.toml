@@ -12,7 +12,7 @@ choices = [
   "Removing the bonding network from the affected room",
 ]
 correct = "B"
-explanation = "Separation and geometry are first-line mitigations; shielding is costlier and application-specific."
+explanation = "Separation, orientation, and geometry are first-line mitigations; stacking servers by the transformer, raising feeder current, or removing bonding increases rather than controls risk."
 topic_ids = ["m07-shielding", "m07-sources"]
 objective_ids = []
 bloom = "apply"

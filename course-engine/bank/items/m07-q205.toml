@@ -13,7 +13,7 @@ choices = [
   "Some equipment and exposure policies still respond",
 ]
 correct = "D"
-explanation = "Legacy myths fade, but strong local fields can still matter for certain gear, analog paths, and people."
+explanation = "Legacy myths fade, but strong local fields can still matter for certain gear, analog paths, and people; fibre cores, packet-loss figures, and a one-amp rule are not the rationale."
 topic_ids = ["m07-types", "m07-standards"]
 objective_ids = []
 bloom = "understand"

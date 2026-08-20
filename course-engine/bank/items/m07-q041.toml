@@ -15,7 +15,7 @@ choices = [
   "Optical power density at fibre connector end faces",
 ]
 correct = "B"
-explanation = "50/60 Hz problems are quasi-static B-fields from current—not room-scale far-field radiation."
+explanation = "50/60 Hz problems are quasi-static B-fields from current, not room-scale far-field RF propagation."
 topic_ids = ["m07-types"]
 objective_ids = []
 bloom = "understand"

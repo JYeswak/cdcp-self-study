@@ -12,7 +12,7 @@ choices = [
   "Code requires network cores to adjoin the transformer room",
 ]
 correct = "A"
-explanation = "Adjacency to plant brings B-field, thermal, and operational traffic issues."
+explanation = "Adjacency to plant brings B-field, thermal, and operational-traffic issues; proximity does not create dual-path power, shorten a safe DC path, or satisfy a special adjacency code."
 topic_ids = ["m07-sources"]
 objective_ids = []
 bloom = "apply"

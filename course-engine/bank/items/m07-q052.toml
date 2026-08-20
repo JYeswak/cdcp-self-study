@@ -14,7 +14,7 @@ choices = [
   "Humidification cycles in the CRAH units",
 ]
 correct = "C"
-explanation = "Induced voltage in loops is the classic copper EMI mechanism at ELF."
+explanation = "Induced voltage in cable loops is the classic copper EMI mechanism at ELF; optical absorption, software faults, and humidification cycles are not that coupling path."
 topic_ids = ["m07-types", "m07-sources"]
 objective_ids = []
 bloom = "understand"
