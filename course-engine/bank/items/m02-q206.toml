@@ -5,8 +5,8 @@ module = 2
 stem = "Using “Tier III” casually in a sales document when only an informal self-assessment was done is problematic mainly because:"
 choices = [
   "Uptime Tier terminology implies a defined program; misuse creates false assurance",
-  "Self-assessment always equals formal certification",
-  "Tier labels never influence buyer risk perception",
+  "Self-assessment always equals formal certification, because a site's own checklist has the same program controls and assurance as an independent award",
+  "Tier labels never influence buyer risk perception, contractual interpretation, or the assurance communicated by a sales document",
   "Standards forbid writing the word tier in any language"
 ]
 correct = "A"

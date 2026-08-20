@@ -10,9 +10,9 @@ kind = "single-select"
 module = 2
 stem = "EN 50600 series is best described at awareness level as:"
 choices = [
-  "A North American residential wiring code only",
+  "A North American residential wiring code only, because European facility and infrastructure guidance cannot apply outside home wiring",
   "A European data centre facilities and infrastructure standards series",
-  "A sole source for battery chemistry formulas",
+  "A sole source for battery chemistry formulas, because a data-centre series defines products rather than facility design and operations",
   "An appliance energy label for home refrigerators"
 ]
 correct = "B"

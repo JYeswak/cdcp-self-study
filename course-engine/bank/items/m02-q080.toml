@@ -4,7 +4,7 @@ kind = "single-select"
 module = 2
 stem = "Which is a responsible comparison of TIA-942 and Uptime approaches?"
 choices = [
-  "Always pick the one with the higher Roman numeral in marketing",
+  "Always pick the one with the higher Roman numeral in marketing, because a larger label proves stronger topology, process, and contractual meaning",
   "Compare criteria, assessment process, and contractual meaning—then use the framework the owner actually requires",
   "Assume both are enforced as law everywhere",
   "Treat both as identical to ISO 27001",

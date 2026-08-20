@@ -10,9 +10,9 @@ kind = "single-select"
 module = 2
 stem = "Cabling performance categories and firestop product listings are examples of:"
 choices = [
-  "Uptime Tier certificates",
+  "Uptime Tier certificates, because a site-level rating defines the performance and listing of every cabling and firestop product",
   "Sub-component / product-system standards and listings supporting the facility",
-  "ISO 22237 entire-series replacements",
+  "ISO 22237 entire-series replacements, because a facility series makes product listings and component categories unnecessary",
   "AHJ organizational charts",
 ]
 correct = "B"

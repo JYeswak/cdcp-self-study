@@ -10,10 +10,10 @@ kind = "single-select"
 module = 2
 stem = "A slide writes “ERF = ERE” and files both as the same ISO/IEC 30134 letter. The correction is:"
 choices = [
-  "Agree: Energy Reuse Factor and Energy Reuse Effectiveness are one KPI with two spellings",
-  "ISO/IEC 30134-6 is Energy Reuse Factor (ERF). Green Grid ERE (Energy Reuse Effectiveness) is a different metric. Do not collapse the letters, and do not turn this module into an energy course",
-  "ERF is the 2024 rename of Availability Class; ERE is the TIA Rated letter",
-  "Either letter converts to a single PUE target that is now law",
+  "Agree: Energy Reuse Factor and Energy Reuse Effectiveness are one KPI with two spellings, so the source and denominator need not be checked",
+  "ERF and ERE are different metrics; do not collapse the letters",
+  "ERF is the 2024 rename of Availability Class; ERE is the TIA Rated letter, so energy reuse terminology maps to facility ratings",
+  "Either letter converts to a single PUE target that is now law, regardless of the metric's definition or boundary",
 ]
 correct = "B"
 explanation = "30134-6 is ERF (Energy Reuse Factor). ERE is not that part. The series has more than three letters; this course names the distinction and stops. No single PUE target as law. Sustainability-track depth is not this leftover."

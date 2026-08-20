@@ -10,7 +10,7 @@ kind = "single-select"
 module = 2
 stem = "A design specification that says “comply with applicable codes and referenced standards” implies:"
 choices = [
-  "Only the cheapest standard applies",
+  "Only the cheapest standard applies, because a project may ignore adopted code, referenced standards, and the AHJ once a low-cost option is found",
   "Legal codes plus any standards the project or jurisdiction incorporates must be identified and followed",
   "Standards never need listing",
   "AHJ review is optional forever",

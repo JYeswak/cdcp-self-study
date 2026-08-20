@@ -4,10 +4,10 @@ kind = "single-select"
 module = 2
 stem = "An RFP annex lists “PUE / WUE / CUE” under “topology class” and treats a 1.2 PUE as Rated-3. The taught reading is:"
 choices = [
-  "Accept the annex — a good PUE is concurrent maintainability, and 1.2 is the law",
-  "Convert the PUE into 99.982% so the KPI becomes the missing Class/Tier crosswalk",
-  "Name ISO/IEC 30134: PUE, WUE, and CUE are KPI parts of that series — meters and ratios, not a topology class, not Rated, not Tier, not Availability Class. Ask for the one-line. Do not invent a single PUE target as law",
-  "Treat the PUE dashboard as TCOS and the WUE plot as TCCF",
+  "Accept the annex — a good PUE is concurrent maintainability, and 1.2 is the law because a KPI determines topology and rating",
+  "Convert the PUE into 99.982% so the KPI becomes the missing Class/Tier crosswalk, rather than identify the facility path",
+  "PUE, WUE, and CUE are KPI ratios, not topology classes; ask for the one-line",
+  "Treat the PUE dashboard as TCOS and the WUE plot as TCCF, because efficiency ratios prove both construction and operations",
 ]
 correct = "C"
 explanation = "ISO/IEC 30134 is the KPI series. PUE / WUE / CUE are meters, not a topology class. A good PUE does not make a hall concurrently maintainable. WUE depth is Module 10. No nines-to-Tier crosswalk. No invented PUE target."

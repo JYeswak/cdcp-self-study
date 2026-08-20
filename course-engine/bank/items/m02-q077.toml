@@ -4,7 +4,7 @@ kind = "single-select"
 module = 2
 stem = "ISO/IEC 22237 awareness for CDCP learners mainly helps them:"
 choices = [
-  "Memorize every normative clause number without context",
+  "Memorize every normative clause number without context, because awareness of the series and its relationship to codes has no practical value",
   "Recognize an international facility/infrastructure series exists alongside other frameworks",
   "Ignore EN 50600 entirely always",
   "Replace electrical code inspections",

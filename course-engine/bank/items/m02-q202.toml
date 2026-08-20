@@ -5,8 +5,8 @@ module = 2
 stem = "ISO/IEC 22237 series awareness for CDCP-level study mainly means recognizing that:"
 choices = [
   "It is a multi-part international framework addressing data centre facilities and infrastructures",
-  "It replaces every national electrical code worldwide",
-  "It only covers office lighting aesthetics",
+  "It replaces every national electrical code worldwide, so local adoption, AHJ enforcement, and project specifications no longer matter",
+  "It only covers office lighting aesthetics, because the series has no relationship to data-centre facilities or infrastructure",
   "It is a proprietary single-vendor product manual"
 ]
 correct = "A"

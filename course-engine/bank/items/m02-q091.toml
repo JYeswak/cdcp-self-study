@@ -10,9 +10,9 @@ kind = "single-select"
 module = 2
 stem = "If local code is silent on a data-centre-specific topic, a common professional approach is to:"
 choices = [
-  "Ignore all voluntary standards",
+  "Ignore all voluntary standards, because code silence means an owner cannot adopt good engineering practice or referenced guidance",
   "Apply owner-approved voluntary standards and good engineering practice while still meeting all code minimums that do apply",
-  "Assume no requirements exist for life safety",
+  "Assume no requirements exist for life safety, because an unlisted data-centre topic cannot affect the AHJ's adopted fire and electrical obligations",
   "Copy a blog’s PUE number into the permit set",
 ]
 correct = "B"

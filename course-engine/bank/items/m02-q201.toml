@@ -4,8 +4,8 @@ kind = "single-select"
 module = 2
 stem = "TIA-942 “Rated” language versus Uptime Institute “Tier” language should be treated as:"
 choices = [
-  "Identical trademark-free synonyms usable interchangeably in contracts without care",
-  "Irrelevant to any design conversation",
+  "Identical trademark-free synonyms usable interchangeably in contracts without care, because the labels carry the same criteria and assessment process",
+  "Irrelevant to any design conversation, because topology, assessment, and contractual meaning do not depend on the framework named",
   "Only about cabling colors",
   "Related resilience concepts that must not be mixed as if they were the same certification scheme"
 ]

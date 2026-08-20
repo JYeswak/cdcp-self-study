@@ -4,10 +4,10 @@ kind = "single-select"
 module = 2
 stem = "Procurement hands you a 2017 TIA-942-B drawing set and says it is current Rated-3 under today’s edition. The edition-pin is:"
 choices = [
-  "Accept B: later editions did not replace it, so 2017 is still the Rated document",
-  "Convert the B numeral into 99.982% and treat the conversion as the edition",
-  "Swap B for Availability Class 3 — that is the 2024 rename of TIA",
-  "Pin ANSI/TIA-942-C (2024): C replaced B. Rated lives in C. A 2017 B set is a named older edition, not “today’s TIA-942,” unless the contract still cites B",
+  "Accept B: later editions did not replace it, so 2017 is still the Rated document and no edition pin is needed",
+  "Convert the B numeral into 99.982% and treat the conversion as the edition, rather than name the document and publication year",
+  "Swap B for Availability Class 3 — that is the 2024 rename of TIA, so the standards can be treated as one lattice",
+  "Pin ANSI/TIA-942-C (2024); the 2017 B set is an older edition unless the contract still cites B",
 ]
 correct = "D"
 explanation = "Cite ANSI/TIA-942-C (2024) unless the contract names an older edition. B is superseded as the current Rated document. This is not a nines table and not a Class/Tier crosswalk."

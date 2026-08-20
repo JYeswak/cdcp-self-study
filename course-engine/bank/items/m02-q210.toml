@@ -4,10 +4,10 @@ kind = "single-select"
 module = 2
 stem = "An RFP writes “Class 3 / Rated-3 / Tier III equivalent” as one bullet. The taught reading is:"
 choices = [
-  "Finish the conversion: Availability Class is the official translator that makes Rated-3 equal Tier III",
-  "Availability Class is the third noun in the lattice — used alongside TIA Rated and Uptime Tier, never Class 3 = Rated-3 = Tier III",
-  "Class 3 is TIA’s new name for Uptime Tier III after the 942-C rename",
-  "Protection Class is the converter between Rated and Tier",
+  "Finish the conversion: Availability Class is the official translator that makes Rated-3 equal Tier III, so the labels can be swapped in the contract",
+  "Keep Availability Class, TIA Rated, and Uptime Tier distinct; there is no Class 3 = Rated-3 = Tier III conversion",
+  "Class 3 is TIA’s new name for Uptime Tier III after the 942-C rename, so the newer label makes the frameworks equivalent",
+  "Protection Class is the converter between Rated and Tier, because protection and topology are one rating lattice",
 ]
 correct = "B"
 explanation = "Rated lives in TIA-942-C, Tier in Uptime, Availability Class in EN 50600 / ISO/IEC 22237. The numbers rhyme on purpose; collapsing them is the trap."

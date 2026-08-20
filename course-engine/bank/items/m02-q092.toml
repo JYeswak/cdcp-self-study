@@ -4,9 +4,9 @@ kind = "single-select"
 module = 2
 stem = "Which statement best reflects CDCP-level awareness of multiple facility series?"
 choices = [
-  "Only one series exists worldwide",
+  "Only one series exists worldwide, so TIA, ISO/IEC 22237, EN 50600, and Uptime terminology can be treated as one document",
   "TIA, ISO/IEC 22237, and EN 50600 are among the named series learners should not conflate with Uptime Tier branding",
-  "EN 50600 is a type of UPS battery",
+  "EN 50600 is a type of UPS battery, because the series name describes equipment chemistry rather than facility guidance",
   "ISO 22237 is a lux meter brand",
 ]
 correct = "B"

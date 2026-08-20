@@ -4,10 +4,10 @@ kind = "single-select"
 module = 2
 stem = "A designer says ISO/IEC 22237 is already on the shelf, so EN 50600 is just “European lineage” with no number to learn. The correction is:"
 choices = [
-  "EN 50600 is Uptime’s third plaque and does not need a number",
-  "EN 50600 is a fire code that overrides the local AHJ",
-  "EN 50600 is informal flavour text; only 22237 is a real series",
-  "EN 50600 is the European data-centre facilities series — first-class twin of ISO/IEC 22237 — carrying Availability Class and separate Protection Classes",
+  "EN 50600 is Uptime’s third plaque and does not need a number, because the European series is merely branding for a certification",
+  "EN 50600 is a fire code that overrides the local AHJ, so its facility requirements replace adopted jurisdictional law",
+  "EN 50600 is informal flavour text; only 22237 is a real series, so European projects need not identify the document",
+  "EN 50600 is the European data-centre facilities series alongside ISO/IEC 22237; it carries Availability Class and separate Protection Classes",
 ]
 correct = "D"
 explanation = "Write the number. EN 50600 is the European twin of 22237, not a vibe and not a fire code. Availability Class and Protection Classes live in that family as separate axes."

@@ -10,7 +10,7 @@ kind = "single-select"
 module = 2
 stem = "The phrase “AHJ wins” in CDCP study shorthand means:"
 choices = [
-  "Architects ignore inspectors",
+  "Architects ignore inspectors, because an adopted code and voluntary preference have equal legal force once the design team chooses a framework",
   "Where adopted code and voluntary preferences diverge, enforcement authority of the AHJ controls the legal outcome",
   "Standards bodies fine the AHJ",
   "Only international standards matter",

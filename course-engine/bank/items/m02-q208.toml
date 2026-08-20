@@ -4,10 +4,10 @@ kind = "single-select"
 module = 2
 stem = "A practical CDCP takeaway on the standards landscape is to:"
 choices = [
-  "Memorize every clause number of every series before day one on site",
-  "Ignore all documents outside one country",
+  "Memorize every clause number of every series before day one on site, rather than recognize which family applies to the question",
+  "Ignore all documents outside one country, because TIA, ISO/IEC 22237, EN 50600, and local codes cannot coexist in one project",
   "Know major families (TIA/Uptime naming, ISO/IEC 22237, EN 50600, codes) and when each applies",
-  "Assume one brochure covers power, cooling, fire, and security completely"
+  "Assume one brochure covers power, cooling, fire, and security completely, so no framework or AHJ boundary needs to be checked"
 ]
 correct = "C"
 explanation = "Operators need map-level literacy of which framework applies—not clause memorization of all series."

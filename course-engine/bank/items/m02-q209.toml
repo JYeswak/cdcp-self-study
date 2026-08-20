@@ -10,9 +10,9 @@ kind = "single-select"
 module = 2
 stem = "If an insurer or customer questionnaire asks whether the site is “code compliant,” the honest answer depends on:"
 choices = [
-  "Whether the logo wall looks modern",
-  "Whether any international standard PDF is on a shelf",
-  "Whether average rack density exceeds an arbitrary marketing number",
+  "Whether the logo wall looks modern, because appearance is a sufficient proxy for adopted code compliance and AHJ acceptance",
+  "Whether any international standard PDF is on a shelf, because possession of a document proves the site's legal requirements are met",
+  "Whether average rack density exceeds an arbitrary marketing number, because density determines code compliance without jurisdictional review",
   "Whether applicable adopted codes and AHJ requirements for the jurisdiction have been met"
 ]
 correct = "D"

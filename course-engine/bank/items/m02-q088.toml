@@ -4,9 +4,9 @@ kind = "single-select"
 module = 2
 stem = "Which is NOT a sound practice when citing facility resilience frameworks?"
 choices = [
-  "State which framework and assessment path the owner actually requires",
+  "State which framework and assessment path the owner actually requires, after confirming the contract and jurisdictional context",
   "Invent a hybrid “Tier-Rated-5” label to impress auditors without defined criteria",
-  "Keep TIA Rated and Uptime Tier labels distinct",
+  "Keep TIA Rated and Uptime Tier labels distinct, because their criteria, owners, and assessment processes are not interchangeable",
   "Map design features to the chosen framework’s concepts carefully",
 ]
 correct = "B"

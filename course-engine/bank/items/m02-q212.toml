@@ -4,10 +4,10 @@ kind = "single-select"
 module = 2
 stem = "A colo brochure says “Tier III facility” and produces only a TCCD letter. What question is still open?"
 choices = [
-  "None — TCCD is the single sticker that covers drawings, the building, and operations forever",
-  "Whether PUE is below 1.3, which converts TCCD into constructed-facility proof",
-  "Constructed Facility (TCCF) and Operational Sustainability (TCOS) are different plaques; a design-documents review is not the as-built plant or how the site is run",
-  "Whether Uptime also issued an Availability Class sticker for the same hall",
+  "None — TCCD is the single sticker that covers drawings, the building, and operations forever, so no constructed or operational evidence is needed",
+  "Whether PUE is below 1.3, which converts TCCD into constructed-facility proof and establishes operational sustainability automatically",
+  "TCCF and TCOS remain open: a design review is not the constructed plant or its operational practice",
+  "Whether Uptime also issued an Availability Class sticker for the same hall, because the plaque names are interchangeable evidence",
 ]
 correct = "C"
 explanation = "Uptime issues three certificates — TCCD, TCCF, TCOS — not one plaque. Paper can be right while the built plant or the operating regime is not."

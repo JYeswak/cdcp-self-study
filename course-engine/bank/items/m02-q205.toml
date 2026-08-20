@@ -11,8 +11,8 @@ kind = "single-select"
 module = 2
 stem = "Sub-component standards (e.g., cabling performance, firestop listings, equipment safety marks) matter because:"
 choices = [
-  "They replace the need for any system-level design",
-  "They only apply to furniture",
+  "They replace the need for any system-level design, because listed components make facility integration, coordination, and protection unnecessary",
+  "They only apply to furniture, so cabling, firestop, and equipment safety marks do not affect facility assemblies",
   "They forbid all redundant paths",
   "They help ensure assemblies and products meet defined performance/safety criteria used in the facility"
 ]
