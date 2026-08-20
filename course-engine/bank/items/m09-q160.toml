@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Facility water and IT coolant loops are often isolated via heat exchangers mainly to:"
 choices = [
-  "Protect IT loops from facility water quality issues while transferring heat",
+  "Protect IT loops while transferring heat",
   "Maximize uncontrolled mixing of dirty tower water into servers",
-  "Increase latent load only",
-  "Replace network redundancy"
+  "Increase latent load only throughout the conditioned room",
+  "Replace network redundancy and facility water treatment"
 ]
 correct = "A"
 explanation = "Isolation protects clean secondary loops and equipment from primary loop contamination and pressure regimes."

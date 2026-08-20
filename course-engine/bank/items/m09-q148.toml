@@ -12,9 +12,9 @@ kind = "single-select"
 module = 9
 stem = "Full containment and precise airflow control primarily aim to:"
 choices = [
-  "Reduce fan energy and stabilize equipment inlet temperatures while preserving the intended airflow path",
-  "Heat the cold aisle on purpose with exhaust",
-  "Eliminate all cooling-fan operation",
+  "Reduce fan energy and stabilize inlet temperatures",
+  "Heat the cold aisle on purpose with exhaust and recirculation",
+  "Eliminate all cooling-fan operation regardless of heat load",
   "Store condensate under the floor"
 ]
 correct = "A"

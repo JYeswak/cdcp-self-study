@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Cable management at the rack rear affects containment because messy cabling can:"
 choices = [
-  "Always improve exhaust sealing",
+  "Always improve exhaust sealing and containment performance",
   "Increase plenum height automatically",
   "Eliminate the need for blanking panels",
-  "Obstruct exhaust paths and force leakage or uneven airflow that defeats containment intent"
+  "Obstruct exhaust and force leakage"
 ]
 correct = "D"
 explanation = "Blocked exhaust and forced open pathways create leakage and hot spots even with doors installed."

@@ -8,8 +8,8 @@ module = 9
 stem = "A risk of poor containment with high-density racks is:"
 choices = [
   "Inlet air remaining perfectly uniform forever",
-  "Recirculation driving thermal throttling or equipment stress despite adequate total room capacity",
-  "Complete elimination of sensible heat",
+  "Recirculation can drive thermal stress",
+  "Complete elimination of sensible heat from dense racks",
   "Automatic free cooling in all climates"
 ]
 correct = "B"

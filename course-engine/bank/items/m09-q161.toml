@@ -12,10 +12,10 @@ kind = "single-select"
 module = 9
 stem = "Liquid cooling is increasingly discussed for high-density AI/HPC racks because:"
 choices = [
-  "Air has infinite heat-carrying capacity at any density",
-  "Direct-to-chip or rear-door approaches can support high-density racks while reducing mechanical load and improving heat removal",
-  "Liquids eliminate all electrical power draw",
-  "Only lighting needs liquid assist"
+  "Air has infinite heat-carrying capacity at any density or rack power",
+  "Direct-to-chip or rear-door cooling supports high density",
+  "Liquids eliminate all electrical power draw and distribution constraints",
+  "Only lighting needs liquid assist in high-density facilities"
 ]
 correct = "B"
 explanation = "The current ASHRAE framework identifies direct-to-chip and rear-door heat exchangers as liquid-cooling architectures for high-density racks, with potential reductions in mechanical load and improved heat removal. It does not establish a universal rack class or operating setpoint."

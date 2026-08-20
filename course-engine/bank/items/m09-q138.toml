@@ -9,7 +9,7 @@ stem = "A practical raised-floor airflow management practice is to:"
 choices = [
   "Open every tile to maximum free area everywhere",
   "Block all cold aisles permanently",
-  "Match perforated tile placement and open area to the IT load and aisle layout",
+  "Match tile open area to IT load and layout",
   "Remove all CRAH filters forever"
 ]
 correct = "C"

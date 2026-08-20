@@ -8,7 +8,7 @@ module = 9
 stem = "Overhead busway power and overhead cooling can coexist, but planners must still:"
 choices = [
   "Ignore airflow because power always wins",
-  "Coordinate clearances, airflow paths, and service access so infrastructure does not defeat cooling",
+  "Coordinate clearances, airflow, and service access",
   "Place all cables as underfloor blockages intentionally",
   "Eliminate aisle containment always when busway is used"
 ]

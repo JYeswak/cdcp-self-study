@@ -8,7 +8,7 @@ module = 9
 stem = "Direct-to-chip liquid cooling generally:"
 choices = [
   "Immerses entire servers in dielectric fluid always",
-  "Uses cold plates on high-heat components with liquid loops removing heat at the source",
+  "Use cold plates and liquid loops",
   "Cools only the raised-floor plenum air",
   "Eliminates all facility heat rejection needs"
 ]

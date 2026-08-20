@@ -9,8 +9,8 @@ stem = "Comparing HAC and CAC at a conceptual level, both are tools to:"
 choices = [
   "Increase uncontrolled bypass deliberately",
   "Replace liquid cooling loops entirely in every design",
-  "Enforce aisle-based separation of cold supply and hot return",
-  "Cool only outdoor transformers"
+  "Enforce aisle separation",
+  "Cool only outdoor transformers and their enclosures"
 ]
 correct = "C"
 explanation = "They choose different enclosures (hot versus cold) but share the separation principle for airflow discipline."

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Immersion cooling places IT hardware:"
 choices = [
-  "Only in outdoor weather without any fluid",
-  "Inside diesel day tanks",
-  "In a dielectric fluid bath that absorbs heat for transfer out of the tank",
-  "Above the ceiling tiles dry always"
+  "Only in outdoor weather without any fluid or heat-transfer medium",
+  "Inside diesel day tanks and fuel systems with fuel polishing",
+  "Use a dielectric fluid bath",
+  "Above ceiling tiles dry always, regardless of heat transfer"
 ]
 correct = "C"
 explanation = "Immersion uses dielectric fluid contact for heat capture; heat still leaves via heat exchangers to facility loops."

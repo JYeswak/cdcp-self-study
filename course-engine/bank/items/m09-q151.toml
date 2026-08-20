@@ -8,9 +8,9 @@ module = 9
 stem = "When implementing containment, doors and blanking are important because gaps can:"
 choices = [
   "Improve intentional separation always",
-  "Increase UPS battery capacity",
+  "Increase UPS battery capacity and maintenance autonomy",
   "Replace CRAH redundancy",
-  "Allow leakage that reintroduces mixing and undermines the containment benefit"
+  "Prevent leakage and mixing"
 ]
 correct = "D"
 explanation = "Containment integrity matters—open doors, missing panels, and cable gaps re-create recirculation paths."

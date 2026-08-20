@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Return-air path design matters because CRAH performance depends on:"
 choices = [
-  "Only supply temperature ignoring return",
+  "Only supply temperature, ignoring return-air behavior",
   "Only outdoor wind speed",
   "Only diesel fuel polishing intervals",
-  "Capturing warm air back to the units without excessive short-circuiting or harmful stratification"
+  "Capture warm air without short-circuiting"
 ]
 correct = "D"
 explanation = "Units need a coherent return path; poor return design causes mixing, short-circuiting, and control instability."

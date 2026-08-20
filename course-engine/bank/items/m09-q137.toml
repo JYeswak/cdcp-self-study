@@ -8,7 +8,7 @@ module = 9
 stem = "Brush grommets and cable cutout sealing in raised floors primarily help by:"
 choices = [
   "Increasing uncontrolled leakage of cold air into random openings",
-  "Reducing unwanted bypass leakage so more air reaches intended tiles",
+  "Reduce bypass leakage to intended tiles",
   "Heating the plenum deliberately",
   "Grounding only fiber cables"
 ]

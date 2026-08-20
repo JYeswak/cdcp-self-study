@@ -9,7 +9,7 @@ stem = "Spot coolers as emergency supplemental devices are best viewed as:"
 choices = [
   "A permanent substitute for engineered plant in high-availability facility design philosophy",
   "Devices that create cooling without electricity",
-  "Temporary mitigation that still needs heat rejection and does not replace proper capacity planning",
+  "Temporary mitigation needing heat rejection",
   "Replacements for fire suppression"
 ]
 correct = "C"

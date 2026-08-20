@@ -4,9 +4,9 @@ kind = "single-select"
 module = 9
 stem = "Supplemental cooling generally means:"
 choices = [
-  "Adding local capacity (in-row, rear-door, liquid, and similar) where room systems are insufficient",
+  "Add local capacity where room systems are insufficient",
   "Removing all primary plant and relying on outdoor air only with no design",
-  "Only painting CRAHs a different color",
+  "Only painting CRAHs a different color and disabling monitoring",
   "Disabling monitoring to save energy"
 ]
 correct = "A"

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "A shared benefit of well-executed containment strategies is:"
 choices = [
-  "Higher mixing and more random inlet temperatures",
+  "Higher mixing and more random inlet temperatures across the room",
   "Elimination of the need for any filters",
-  "Better separation of supply and return streams, enabling higher return temperatures and efficiency",
-  "Automatic compliance with all network standards"
+  "Separate supply and return streams for efficiency",
+  "Automatic compliance with all network standards and codes"
 ]
 correct = "C"
 explanation = "Separation reduces recirculation/bypass and supports higher delta-T and economizer/plant efficiency."

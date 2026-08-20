@@ -7,7 +7,7 @@ kind = "single-select"
 module = 9
 stem = "Chimney racks (vertical exhaust ducts) are a form of airflow management that:"
 choices = [
-  "Direct rack exhaust upward into a ceiling plenum or return path",
+  "Direct rack exhaust upward",
   "Dump hot air randomly at floor level into cold aisles",
   "Only cool network core switches with water immersion always",
   "Remove the need for any temperature monitoring"

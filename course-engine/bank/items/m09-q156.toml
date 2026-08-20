@@ -7,9 +7,9 @@ kind = "single-select"
 module = 9
 stem = "A Coolant Distribution Unit (CDU) in liquid-cooled designs typically:"
 choices = [
-  "Circulates and conditions coolant and exchanges heat between facility and IT loops",
+  "Circulate and condition coolant",
   "Routes only carrier fiber cross-connects",
-  "Replaces physical access control",
+  "Replace physical access control and leak detection",
   "Measures only illuminance in lux"
 ]
 correct = "A"

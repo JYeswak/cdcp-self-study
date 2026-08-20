@@ -7,7 +7,7 @@ kind = "single-select"
 module = 9
 stem = "Excessive cable congestion under a raised floor can degrade cooling by:"
 choices = [
-  "Obstructing airflow and creating uneven tile pressures and hot spots",
+  "Obstructing airflow and creating hot spots",
   "Improving plenum pressure uniformity always",
   "Increasing UPS efficiency only",
   "Eliminating the need for CRAHs"

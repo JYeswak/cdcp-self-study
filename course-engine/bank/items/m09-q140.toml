@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Blanking panels in racks support cooling mainly by:"
 choices = [
-  "Blocking empty rack openings so cold air is forced through equipment, not open chassis paths",
+  "Block empty rack openings",
   "Increasing hot exhaust recirculation through empty U-spaces",
   "Storing spare hard drives",
-  "Acting as fire suppression nozzles"
+  "Fire suppression"
 ]
 correct = "A"
 explanation = "Blanking panels stop internal rack recirculation and help maintain front-to-back airflow discipline."

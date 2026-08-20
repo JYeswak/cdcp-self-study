@@ -10,7 +10,7 @@ choices = [
   "Ideal for maximum cooling efficiency always",
   "Required by every electrical code",
   "The only way to cool batteries",
-  "Counterproductive because cold supply then feeds the hot stream and wastes capacity"
+  "Counterproductive in classic aisle layouts"
 ]
 correct = "D"
 explanation = "Cold supply belongs in cold aisles; tiles in hot aisles promote bypass and mixing rather than serving intakes."

@@ -10,7 +10,7 @@ choices = [
   "Raised floors always provide infinite airflow capacity",
   "Slab floors cannot support racks ever",
   "CRAH units cannot run on chilled water",
-  "Air delivery limits and mixing make perimeter-only approaches struggle at high kW per rack"
+  "Air delivery limits challenge perimeter-only cooling"
 ]
 correct = "D"
 explanation = "High density often needs closer coupling, liquid assist, or better containment than classic low-density underfloor alone."

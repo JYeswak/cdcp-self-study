@@ -8,9 +8,9 @@ module = 9
 stem = "A key facility concern when introducing liquid cooling is:"
 choices = [
   "There are never leak, water quality, or material compatibility considerations",
-  "Liquid cooling removes all need for electrical safety",
-  "Only copper cabling is affected",
-  "Leak detection, fluid chemistry, isolation, and maintainability of liquid loops near IT"
+  "Liquid cooling removes all need for electrical safety and isolation",
+  "Only copper cabling is affected, never fluid components or safety controls",
+  "Leak detection, chemistry, isolation, and maintainability"
 ]
 correct = "D"
 explanation = "Liquids near electronics demand engineering controls: detection, materials, filtration, and procedures."

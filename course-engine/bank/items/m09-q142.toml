@@ -9,7 +9,7 @@ stem = "Non-raised-floor (slab) cooling designs typically rely more on:"
 choices = [
   "Underfloor plenums as the only supply method",
   "Flooding the slab with water weekly",
-  "Overhead supply, ducting, or close-coupled units rather than an underfloor plenum",
+  "Use overhead supply or close-coupled units",
   "Eliminating all airflow management"
 ]
 correct = "C"
