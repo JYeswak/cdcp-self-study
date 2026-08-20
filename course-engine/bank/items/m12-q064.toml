@@ -7,9 +7,9 @@ kind = "single-select"
 module = 12
 stem = "Which ignition category is especially associated with UPS rooms and modern energy storage?"
 choices = [
-  "LED color temperature only",
-  "Raised-floor tile static alone",
-  "Fiber bend radius exclusively",
+  "LED colour temperature has no bearing on ignition category selection",
+  "Raised-floor static can contribute to an assessment of ignition sources",
+  "Fiber bend radius is unrelated",
   "Battery thermal events / energy storage hazards"
 ]
 correct = "D"

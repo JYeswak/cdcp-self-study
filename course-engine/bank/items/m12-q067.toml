@@ -9,10 +9,10 @@ kind = "single-select"
 module = 12
 stem = "Electrical ignition risk is reduced operationally by practices such as:"
 choices = [
-  "Ignoring thermal imaging of panels",
-  "Propping fire doors for cable pulls permanently",
+  "Ignore thermal imaging when panels are cool during inspection",
+  "Prop fire doors while cable work is underway",
   "Torque discipline, load management, and thermographic scanning of critical connections",
-  "Disabling smoke detection overnight"
+  "Disable smoke detection overnight during maintenance"
 ]
 correct = "C"
 explanation = "Loose lugs, overload, and arc faults remain leading electrical fire causes; maintenance culture matters."

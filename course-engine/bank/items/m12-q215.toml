@@ -11,9 +11,9 @@ module = 12
 stem = "Clean-agent or gaseous suppression is chosen in many IT rooms primarily to:"
 choices = [
   "Extinguish or control fire with less residue than many water or dry-chemical approaches",
-  "Increase particulate contamination intentionally",
-  "Replace all detection forever",
-  "Provide dual power paths"
+  "Increase particulate contamination intentionally by using dry chemical near sensitive electronics, then schedule cleanup after the incident",
+  "Replace detection when clean-agent cylinders have enough capacity for one engineered discharge",
+  "Provide dual power paths by routing agent release controls through independent electrical feeders and separate batteries"
 ]
 correct = "A"
 explanation = "The current NFPA 2001 catalog identifies the clean-agent fire-extinguishing-systems standard. That supports the lower-residue distinction in the item; detection, enclosure/design controls, maintenance, and life safety remain required boundaries."

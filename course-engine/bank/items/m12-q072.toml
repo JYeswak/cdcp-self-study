@@ -8,9 +8,9 @@ kind = "single-select"
 module = 12
 stem = "Suppression warning signage for clean-agent rooms typically communicates that occupants should:"
 choices = [
-  "Stay and watch discharge for training value",
-  "Disable strobes to reduce noise",
-  "Open all dampers manually",
+  "Stay near the discharge room to observe the release and learn the system response",
+  "Disable warning strobes when they distract occupants during a test",
+  "Open dampers for ventilation",
   "Evacuate on alarm and understand agent/system warnings"
 ]
 correct = "D"

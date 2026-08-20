@@ -7,10 +7,10 @@ kind = "single-select"
 module = 12
 stem = "Clean-agent (gaseous) suppression is often discussed for white space because:"
 choices = [
-  "It is always cheaper than any other option",
+  "It costs less than wet systems when installation conditions are identical",
   "It can extinguish without the water damage profile of wet systems (with design trade-offs)",
-  "It increases PUE deliberately",
-  "It eliminates detection needs",
+  "It reduces the need for enclosure integrity because the agent remains effective while room doors are open",
+  "It removes detection requirements when the release panel is supervised",
 ]
 correct = "B"
 explanation = "Gaseous agents can extinguish without wet-system water damage, with design-specific trade-offs."

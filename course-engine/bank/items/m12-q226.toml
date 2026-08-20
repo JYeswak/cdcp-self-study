@@ -12,9 +12,9 @@ kind = "single-select"
 module = 12
 stem = "Reviewer is handed a Li-ion fire packet: “Treat the UPS battery room like white space — dump clean agent, keep the room sealed, stay and watch; 9540A is the product listing; 855 is automatically the law; BESS yard is extra UPS batteries on the same DC bus; cite a fire percent so the AHJ will sign.” You should:"
 choices = [
-  "Approve: sealed-room gas dump plus a fire percent is the 2026 playbook",
-  "Convert the packet into the Module 06 interconnect oral so the fire question goes away",
-  "Invent an agent mass and a travel-distance number to sound precise",
+  "Approve the packet after confirming the gas cylinders are full: a sealed UPS battery room can receive clean agent, occupants can remain behind the door to observe the event, and a cited fire percentage supplies the design basis; the BESS yard can follow the same response because a larger enclosure does not change the underlying battery hazard, authority review, responder controls, or re-ignition planning.",
+  "Convert the packet into the Module 06 interconnect oral so the fire question disappears: explain DC bus and AC yard topology, then accept the packet as an electrical-architecture exercise; the fire team can use a generic clean-agent response after confirming enclosure size, without a separate chemistry, gas, setback, re-ignition, or AHJ review.",
+  "Invent an agent mass and a travel-distance number to sound precise, attach it to the 9540A report, and use that number to approve the room; once a vendor supplies a calculation, the remaining packet language can be treated as a conservative operating procedure for both the UPS room and yard during emergency response.",
   "Reject the packet: chemistry changes the playbook — indoor room is off-gas / deflagration (detect gas, explosion control, ask what the EOP says); yard is setbacks and the next enclosure; NFPA 855 is installation (confirm adopted edition); UL 9540A is test data, not a listing; LSFT is system-level evidence, not a number from memory; water-on-Li-ion is controversy, not always-water law; interconnect stays in Module 06; EOP craft is Module 15; do not invent a fire percent or an agent mass",
 ]
 correct = "D"

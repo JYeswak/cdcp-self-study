@@ -12,10 +12,10 @@ kind = "single-select"
 module = 12
 stem = "A discharge of clean agent without investigating cause and restoring readiness is incomplete because:"
 choices = [
-  "Systems automatically self-refill forever without service",
+  "A system automatically restores itself after discharge, so operators can defer notification and temporary precautions until the next shift",
   "The system may be impaired or depleted, so employees need notification and temporary precautions while trained personnel restore and verify it",
-  "One discharge means fire can never recur",
-  "Post-discharge actions are optional if PUE is low"
+  "A single discharge confirms the cause and prevents recurrence after the panel resets, so service review can wait",
+  "Post-discharge actions may wait when power availability is high because low PUE suggests the system remains ready"
 ]
 correct = "B"
 explanation = "The current eCFR requires notification and temporary precautions when a fixed system is inoperable, correction by trained personnel, annual inspection, and readiness checks for refillable containers. A discharge is therefore not complete until the protection system is restored and verified."

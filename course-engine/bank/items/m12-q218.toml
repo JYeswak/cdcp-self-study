@@ -10,9 +10,9 @@ kind = "single-select"
 module = 12
 stem = "Class C fire concerns in IT spaces relate primarily to:"
 choices = [
-  "Only cooking oils",
-  "Only combustible metals",
-  "Only ordinary paper in offices always",
+  "Cooking oils remain the main concern in an IT room when portable extinguishers are selected for a kitchen",
+  "Combustible metals define the primary hazard near servers when battery cabinets are present in the room",
+  "Ordinary paper in offices supplies the relevant electrical hazard classification after a server-room alarm",
   "Energized electrical equipment as a fire class consideration"
 ]
 correct = "D"

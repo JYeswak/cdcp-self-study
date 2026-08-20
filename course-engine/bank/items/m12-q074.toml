@@ -8,10 +8,10 @@ kind = "single-select"
 module = 12
 stem = "Fire doors and rated barriers protect compartmentation; propping them open during ops:"
 choices = [
-  "Is always acceptable if cameras watch the door",
+  "A camera may approve an open door when the operations team documents the reason and monitors it",
   "Defeats fire compartmentation and is a serious life-safety/security failure mode",
-  "Improves ASD sampling automatically",
-  "Is required for mantrap interlocks"
+  "Improves ASD sampling automatically when the door is propped during operations near the protected zone",
+  "Supports mantrap interlocks during access"
 ]
 correct = "B"
 explanation = "Rated doors must remain functional; propping is a classic fire and security defect."

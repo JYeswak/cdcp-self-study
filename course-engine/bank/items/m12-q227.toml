@@ -12,10 +12,10 @@ kind = "single-select"
 module = 12
 stem = "A vendor packet for a Li-ion UPS cabinet says “UL 9540A results attached — the ESS is therefore Listed.” The apply move is:"
 choices = [
-  "Accept: UL 9540A results are the listing; UL 9540 is only the catalog name for the same test method",
+  "Accept the result as the listing because the test data came from the recognized family; file UL 9540A as the product-safety record, use NFPA 855 as a supplemental label, and tell the owner that an acceptable thermal-runaway report is sufficient evidence for the cabinet, installation, and final listing decision.",
   "Refuse: UL 9540A results are test data and do not establish a listing. UL 9540 is the product-safety standard that yields a Listed ESS. Acceptable 9540A data can be required for portions of 9540 and still leave the ESS unlisted. NFPA 855 is the installation standard (confirm adopted edition), not a substitute listing",
-  "File the 9540A report as the adopted edition of NFPA 855 — the installation standard is then the listing",
-  "Accept: because UL 9540 references UL 9540A, acceptable 9540A results automatically mean the ESS is UL 9540 Listed",
+  "File the 9540A report as the adopted edition of NFPA 855: the installation standard then becomes the listing record, while UL 9540 is treated as a laboratory appendix; the distinction between product safety, installation, and test evidence can be resolved during commissioning.",
+  "Accept because UL 9540 references UL 9540A: acceptable test results automatically establish the product listing, and the reviewer may treat NFPA 855 as an optional installation note once the vendor confirms the enclosure and battery chemistry.",
 ]
 correct = "B"
 explanation = "9540A is a test method: the packet is data, not a listing. UL 9540 is the listing path. 9540 pointing at 9540A does not make a 9540A report a listing. NFPA 855 is installation (confirm adopted edition), not the product listing. No invented fire percent."

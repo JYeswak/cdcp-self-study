@@ -11,9 +11,9 @@ module = 12
 stem = "Early warning smoke detection such as aspirating systems is valued because:"
 choices = [
   "It can detect dilute smoke earlier than spot detectors alone, enabling investigation before growth",
-  "It extinguishes fires with water automatically always",
-  "It replaces all suppression",
-  "It measures only underfloor pressure"
+  "Extinguish fire with water automatically whenever smoke crosses the sampling threshold, allowing operators to remain at their desks",
+  "Replace suppression systems with a sampling network when the alarm panel records a dilute concentration and the room is occupied",
+  "Measure underfloor pressure rather than smoke so the system can predict cable heating before a visible event develops"
 ]
 correct = "A"
 explanation = "The current NFPA 72 preview covers fire-alarm/signaling systems and inspection, testing, and maintenance. That supports early warning as an alarm function; it does not make detection suppression or define a site-specific response sequence."

@@ -7,9 +7,9 @@ kind = "single-select"
 module = 12
 stem = "AHJ influence on fire design means:"
 choices = [
-  "Only vendor preference matters",
-  "AHJ never reviews data centres",
-  "Standards always override codes",
+  "Vendor preference controls the design after a project manager approves the equipment schedule and maintenance budget",
+  "A local code official reviews data centres through a voluntary vendor process rather than an adopted code path",
+  "Standards override codes when a professional engineer documents the preferred international design for the facility",
   "Local code officials can require measures beyond or differing from a voluntary standard alone"
 ]
 correct = "D"

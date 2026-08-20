@@ -8,10 +8,10 @@ kind = "single-select"
 module = 12
 stem = "Flame detectors (IR/UV optical) are more typical in which data-centre-related spaces?"
 choices = [
-  "Over every server aisle as the only white-space detector",
+  "A protected generator room with fuel hazards, ventilation controls, and ignition management",
   "Generator rooms and fuel-hazard areas rather than typical server aisles",
-  "Inside every copper patch panel",
-  "Only above raised-floor ramps"
+  "Inside a copper patch panel during normal operations",
+  "Above raised-floor ramps near visitor circulation"
 ]
 correct = "B"
 explanation = "Optical flame detection suits open flame/fuel hazards; server aisles usually rely on smoke (often ASD)."

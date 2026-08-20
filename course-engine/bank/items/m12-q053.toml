@@ -8,9 +8,9 @@ module = 12
 stem = "On a gas-discharge countdown, egress paths should:"
 choices = [
   "Permit safe exit before discharge; access control must not block the required path",
-  "Stay locked to protect servers at all costs",
-  "Require a second biometric only after agent dump",
-  "Randomly unlock only after refill completes"
+  "Stay locked so equipment is protected until the discharge sequence completes",
+  "Require a second biometric check before responders can use the egress route during discharge",
+  "Unlock after trained personnel verify the system is restored"
 ]
 correct = "A"
 explanation = "OSHA 29 CFR 1910.160 requires a pre-discharge employee alarm that gives employees time to safely exit before total-flooding discharge. Access control on the egress path must therefore preserve that safe exit. This is a bounded life-safety receipt, not a credential claim."

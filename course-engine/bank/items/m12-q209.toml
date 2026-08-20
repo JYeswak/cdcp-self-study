@@ -10,10 +10,10 @@ kind = "single-select"
 module = 12
 stem = "Hot work (welding, cutting, brazing) in or near a data centre is high risk mainly because:"
 choices = [
-  "Sparks improve fibre polish",
-  "Hot work never needs permits in technical spaces",
+  "Sparks improve fibre polish and therefore reduce the need for cable inspection after hot work near the enclosure and adjacent packaging",
+  "Hot work can proceed without permits in technical spaces when a supervisor is nearby and the work area appears clean for the shift",
   "It introduces ignition sources near cables, packaging, and dust; permits and fire watch practices are essential",
-  "Smoke from hot work is always harmless to detection systems"
+  "Smoke from hot work is harmless to detection systems"
 ]
 correct = "C"
 explanation = "The current eCFR hot-work rule requires controlling nearby fire hazards, authorization, suitable extinguishing equipment, and fire-watch conditions. This item stays at that control boundary and does not invent a site-specific permit form or universal stand-off."

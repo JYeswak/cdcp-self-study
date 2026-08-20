@@ -11,9 +11,9 @@ module = 12
 stem = "Clean-agent / gas suppression systems are chosen in some IT spaces primarily to:"
 choices = [
   "Provide fire extinguishing with less residual water damage when properly designed and maintained",
-  "Increase oxygen concentration during fire",
-  "Replace detection entirely",
-  "Heat the room faster"
+  "Increase oxygen concentration during a fire so occupants can remain in the room while responders assess the panel",
+  "Replace detection entirely when a gas system has sufficient cylinder capacity and a supervised release panel",
+  "Heat the room faster to improve airflow, then use a water system after the gas concentration stabilizes"
 ]
 correct = "A"
 explanation = "The current NFPA 2001 catalog identifies the clean-agent fire-extinguishing-systems standard. That supports the distinction from water damage, while the item remains bounded: detection, enclosure/design controls, maintenance, and life safety are not removed."

@@ -11,9 +11,9 @@ module = 12
 stem = "Signage for extinguishers, exits, and agent discharge warnings supports safety by:"
 choices = [
   "Guiding occupants and responders under stress and meeting typical life-safety expectations",
-  "Replacing training completely",
-  "Increasing confusion intentionally",
-  "Only decorating for customer tours"
+  "Replace training with signage because an occupant who sees the symbol can infer the response without practice",
+  "Increase confusion intentionally during a tour so responders learn to separate genuine alarms from demonstrations",
+  "Decorate customer areas with branded signs that identify equipment zones and improve visitor orientation during normal operations"
 ]
 correct = "A"
 explanation = "The current NFPA 101 catalog identifies the Life Safety Code and its means-of-egress/fire-protection scope. Clear signage supports usable life-safety systems, but it does not replace training or determine local adoption."

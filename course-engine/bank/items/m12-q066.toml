@@ -7,10 +7,10 @@ kind = "single-select"
 module = 12
 stem = "Bulk cardboard and wooden pallets stored in white space are a fire control problem primarily because they:"
 choices = [
-  "Improve airflow containment",
+  "Improve airflow containment around stored materials",
   "Add ordinary combustible fuel load near high-value IT",
-  "Reduce the need for detection",
-  "Are required by TIA cabling topology"
+  "Reduce the need for smoke detection near pallets",
+  "Are required by cabling topology when technical rooms share an access path"
 ]
 correct = "B"
 explanation = "Housekeeping and staging discipline are fire engineering controls, not mere tidiness."

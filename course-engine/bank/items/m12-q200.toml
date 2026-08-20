@@ -10,10 +10,10 @@ kind = "single-select"
 module = 12
 stem = "A common cause of data centre fire incidents historically includes:"
 choices = [
-  "Only fibre dust spontaneously igniting without oxygen",
+  "Fibre dust can ignite in a controlled enclosure without an electrical source",
   "Electrical faults, hot work, and combustible storage/materials in technical spaces",
-  "Only LED lighting at low temperature",
-  "Only empty cable trays"
+  "Low-temperature LED lighting causes most technical-space fire incidents when electrical protection is properly maintained",
+  "Empty cable trays provide the primary combustible load"
 ]
 correct = "B"
 explanation = "Electrical energy, ignition sources, and fuel load drive fire risk in technical facilities."

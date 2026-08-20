@@ -9,10 +9,10 @@ kind = "single-select"
 module = 12
 stem = "Abort switches on gaseous systems, where provided by design/code, are intended to:"
 choices = [
-  "Permanently mute the fire alarm forever",
-  "Bypass AHJ inspections",
+  "Permanently mute the alarm while the investigation team decides whether discharge was necessary and records the impairment",
+  "Bypass the AHJ inspection when the agent cylinder shows a normal pressure reading during routine service",
   "Provide a supervised means to delay discharge during investigation—not a casual disable",
-  "Open all wet-pipe heads immediately"
+  "Open wet-pipe heads immediately after a gas alarm so water and agent response overlap in the protected room"
 ]
 correct = "C"
 explanation = "Abort is a controlled investigation window tool, not unauthorized system disablement."

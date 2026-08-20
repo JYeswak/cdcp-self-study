@@ -7,10 +7,10 @@ kind = "single-select"
 module = 12
 stem = "The PASS method for portable extinguishers stands for the operational sequence that includes:"
 choices = [
-  "Power off all UPS units first always",
+  "Power isolation is required before using portable extinguishers near equipment",
   "Pull, Aim, Squeeze, Sweep (at the base of the fire)",
-  "Page, Announce, Silence, Suppress only via BMS",
-  "Prop doors, Abort forever, Seal exits, Stay put"
+  "Page the BMS and silence the alarm before aiming at the fire",
+  "Prop doors open during an alarm response"
 ]
 correct = "B"
 explanation = "PASS is the standard portable technique: pull pin, aim at base, squeeze, sweep."

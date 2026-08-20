@@ -7,10 +7,10 @@ kind = "single-select"
 module = 12
 stem = "European EN 2 fire classes notably differ from North American labeling because EN:"
 choices = [
-  "Uses a separate Class C only for energized electrical equipment",
+  "Uses a separate electrical Class C category for energized equipment under North American labeling",
   "Has no separate electrical class; electrical risk is handled via agent suitability and isolation guidance",
-  "Eliminates Class A ordinary combustibles",
-  "Requires dry chemical on every server"
+  "Eliminates ordinary-combustible Class A categories from its fire classification system entirely",
+  "Requires dry chemical agents for server rooms regardless of site design or agent listing"
 ]
 correct = "B"
 explanation = "EN classes focus on fuel types; electrical safety is agent selection and de-energization, not a separate class letter."

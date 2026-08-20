@@ -10,9 +10,9 @@ module = 12
 stem = "Aspirating smoke detection (ASD) is especially useful in data halls because high airflow tends to:"
 choices = [
   "Dilute smoke so spot detectors may alarm later than desired",
-  "Concentrate smoke into one ceiling corner only",
-  "Eliminate all electrical ignition sources",
-  "Replace the need for egress signage"
+  "Concentrate smoke above one ceiling zone before a spot detector can respond",
+  "Eliminate electrical ignition sources in the rack zone",
+  "Replace egress signage with an alarm panel"
 ]
 correct = "A"
 explanation = "High air-change rates dilute smoke; ASD samples continuously at very low concentrations for earlier warning."

@@ -12,10 +12,10 @@ kind = "single-select"
 module = 12
 stem = "A maintenance practice that improves fire readiness is:"
 choices = [
-  "Taping over strobes to reduce noise permanently",
+  "Tape over strobes to reduce noise permanently, then document the impairment after the next scheduled fire inspection and return visit",
   "Keeping detection and fixed suppression systems inspected, tested, restored after alarms or repairs, and operable",
-  "Blocking egress with storage",
-  "Leaving agent cylinders empty until an emergency"
+  "Block egress with storage during a maintenance window so replacement parts remain near the equipment room and reduce travel time",
+  "Leave agent cylinders empty until an emergency because inspection records can verify readiness after a discharge begins and the alarm panel confirms the release"
 ]
 correct = "B"
 explanation = "The current eCFR requires fire detection systems to remain operable, be tested and maintained by knowledgeable personnel, and be restored promptly after testing or alarm; fixed extinguishing systems must also be inspected and restored when impaired."

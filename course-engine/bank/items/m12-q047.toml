@@ -7,10 +7,10 @@ kind = "single-select"
 module = 12
 stem = "Pre-action sprinkler systems are often preferred over wet pipe above white space mainly because they:"
 choices = [
-  "Always use twice as much water as deluge",
-  "Eliminate the need for any detection",
+  "Use a supervised pre-action valve to prevent accidental routine water release",
+  "Coordinate detection and valve operation through a supervised release sequence",
   "Keep pipes dry (or supervised) until detection logic admits water, lowering accidental discharge risk",
-  "Are the only systems allowed on generators"
+  "Reserve pre-action systems for generator rooms and fuel-hazard protection"
 ]
 correct = "C"
 explanation = "Pre-action admits water only after detection (and often head operation), reducing random leak dumps on IT gear."

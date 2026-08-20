@@ -10,10 +10,10 @@ kind = "single-select"
 module = 12
 stem = "When a fire protection system is offline for maintenance, best practice includes:"
 choices = [
-  "Leaving it impaired indefinitely with no tags",
-  "Propping all fire doors open for convenience",
+  "Leave an impaired system in service while the maintenance log is updated at the next review",
+  "Prop fire doors during the impairment so staff can move equipment through the protected compartment",
   "Impairment tags, logging, and compensatory measures such as fire watch per policy/code",
-  "Muting EXIT signs"
+  "Mute exit signs while the watch team checks the alarm panel and waits for a replacement part"
 ]
 correct = "C"
 explanation = "Impairments elevate risk and require formal controls and compensatory measures."

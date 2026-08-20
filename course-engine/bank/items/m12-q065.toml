@@ -9,9 +9,9 @@ module = 12
 stem = "Hot work (welding, cutting) during fit-out increases fire risk mainly through:"
 choices = [
   "Open ignition sources near combustibles—managed by permit-to-work, fire watch, and impairment controls",
-  "Improved cable Category ratings",
-  "Automatic improvement of gas integrity",
-  "Elimination of cardboard fuels"
+  "Improved cable performance removes the need for a hot-work permit during the fit-out phase",
+  "Gas-system integrity improves automatically when welding occurs near equipment",
+  "Cardboard fuel loads disappear when the fit-out team stages materials carefully"
 ]
 correct = "A"
 explanation = "Hot work needs permits, watches, and controlled impairments—classic prevention culture."

@@ -10,9 +10,9 @@ kind = "single-select"
 module = 12
 stem = "Water-based suppression in IT environments requires careful design because:"
 choices = [
-  "Water never interacts with electronics",
-  "Sprinklers always improve server MTBF",
-  "AHJs never allow any water systems near IT",
+  "Water cannot interact with electronics, so suppression choice is unrelated to equipment protection or recovery planning",
+  "Sprinklers improve server MTBF because water removes heat, so pre-action design is unnecessary for electronic rooms during an incident",
+  "AHJ review can define a room's water strategy",
   "Water can damage equipment even while controlling fire; pre-action and zoning strategies are often considered"
 ]
 correct = "D"

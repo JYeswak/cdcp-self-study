@@ -9,9 +9,9 @@ module = 12
 stem = "Manual pull stations are typically located so that:"
 choices = [
   "Occupants can initiate alarm along egress paths as designed",
-  "Only security can reach them after biometric delay",
-  "They replace all automatic detection",
-  "They control only PDU branch breakers"
+  "Security can reach the station after a biometric delay and incident review",
+  "Replace automatic detection in the protected room",
+  "Control PDU branch breakers during a power event"
 ]
 correct = "A"
 explanation = "Pull stations are life-safety interfaces placed for occupant use on egress, not security bottlenecks."

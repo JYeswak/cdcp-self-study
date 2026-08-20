@@ -10,9 +10,9 @@ kind = "single-select"
 module = 12
 stem = "Common electrical causes of data centre fires include:"
 choices = [
-  "Only fiber polarity errors",
-  "Only low humidity always",
-  "Only empty cable trays",
+  "Fiber polarity errors create a fire cause when a patch cable is routed near an energized branch circuit",
+  "Low humidity raises the ignition risk by itself, even when connections are torqued and thermographic checks are current",
+  "Empty cable trays become the primary ignition source when data density is low and the room has no stored packaging",
   "Overloaded connections, failed components, and poor workmanship creating ignition sources"
 ]
 correct = "D"

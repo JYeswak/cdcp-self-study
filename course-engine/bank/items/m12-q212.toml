@@ -9,10 +9,10 @@ kind = "single-select"
 module = 12
 stem = "Cross-zoning or multi-criteria release logic is used mainly to:"
 choices = [
-  "Speed discharge on any single dirty sensor always without review",
+  "Speed discharge on a single dirty sensor after the panel accepts the first signal",
   "Reduce accidental discharge by requiring confirmatory detection conditions",
-  "Disable alarms permanently",
-  "Open all doors on first beep"
+  "Disable alarms permanently during maintenance so release logic never receives a second signal",
+  "Open doors on the first beep"
 ]
 correct = "B"
 explanation = "Confirming detectors reduces false release while preserving protection intent."

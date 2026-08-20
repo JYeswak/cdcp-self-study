@@ -8,9 +8,9 @@ kind = "single-select"
 module = 12
 stem = "Who typically has final acceptance authority over fire protection design and variances in a jurisdiction?"
 choices = [
-  "The social media marketing team",
-  "Only the network vendor systems engineer",
-  "The cabling contractor alone",
+  "The social media marketing team approves variances after reviewing customer messaging for public tours",
+  "The network vendor systems engineer decides the design without a local code review or fire marshal",
+  "The cabling contractor accepts the variance after documenting the cable route and project schedule",
   "The Authority Having Jurisdiction (AHJ), e.g. fire marshal, with applicable codes"
 ]
 correct = "D"

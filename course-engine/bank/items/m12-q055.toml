@@ -7,10 +7,10 @@ kind = "single-select"
 module = 12
 stem = "Water mist systems aim to suppress fire with fine droplets that:"
 choices = [
-  "Always replace detection entirely",
-  "Are identical to wet-pipe accidental leaks",
+  "Treat water mist as a detection substitute when early alarms create nuisance work",
+  "Treat fine droplets as an accidental wet-pipe leak with the same control profile",
   "Cool and help control fire with less total water volume than traditional sprinklers (engineered specialty)",
-  "Only work on Class D metal fires"
+  "Use water mist primarily for metal fires without engineering the enclosure"
 ]
 correct = "C"
 explanation = "Water mist is a growing engineered option with less water mass; still requires proper listing/design."

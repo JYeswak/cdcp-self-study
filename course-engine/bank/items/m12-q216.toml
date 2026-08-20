@@ -9,10 +9,10 @@ kind = "single-select"
 module = 12
 stem = "Before gaseous agent discharge, interlocking with HVAC is often considered so that:"
 choices = [
-  "CRAHs run at maximum always during discharge",
+  "Run CRAHs at maximum during discharge so airflow carries agent through the room faster",
   "Airflow does not defeat concentration hold times or spread smoke inappropriately",
-  "Generators start for cooling only",
-  "All doors lock without egress planning"
+  "Start generators to provide cooling power while gaseous suppression is releasing during a facility alarm",
+  "Lock doors without egress planning"
 ]
 correct = "B"
 explanation = "Uncontrolled airflow can dilute agent or move smoke against the design intent."

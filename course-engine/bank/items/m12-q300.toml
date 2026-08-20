@@ -10,9 +10,9 @@ kind = "single-select"
 module = 12
 stem = "Runbook vignette: ASD indicates a low-level alert in a dense white-space zone. Spot detectors have not reached alarm; no visible smoke. The night operator is alone. Per a layered-detection runbook mindset, what is the preferred next step?"
 choices = [
-  "Immediately release clean-agent suppression without investigation because any ASD alert equals confirmed fire",
-  "Disable all detection for the rest of the shift to stop nuisance alerts",
-  "Open emergency exit doors and portable fans to dilute any possible smoke before calling anyone",
+  "Immediately release clean-agent suppression on an ASD alert, because detected smoke should trigger discharge before an operator can inspect the panel, walk the zone, or confirm recent hot work",
+  "Disable detection for the rest of the shift to prevent nuisance alarms, then ask security to record the event after the next maintenance window and resume normal monitoring",
+  "Open emergency exits and run portable fans to dilute possible smoke before contacting the response team; airflow and an open door provide a faster way to protect the room",
   "Investigate per staged thresholds (verify panel zone, walk-down, smell/visual, check recent work/hot spots) while preparing to escalate if conditions worsen — do not skip human verification when the design provides investigation time"
 ]
 correct = "D"

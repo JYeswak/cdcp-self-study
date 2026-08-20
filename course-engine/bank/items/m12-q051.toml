@@ -9,10 +9,10 @@ kind = "single-select"
 module = 12
 stem = "Compared with water sprinklers, gaseous clean-agent systems typically trade reduced water damage for:"
 choices = [
-  "No need for any life-safety egress planning",
-  "Elimination of all AHJ involvement",
+  "Low residue removes the need for life-safety planning during discharge",
+  "An installed gas system permits AHJ review to be deferred during design",
   "Room sealability, pre-discharge alarms/delays, HVAC interlock, and costly refill after discharge",
-  "Free unlimited discharges with zero downtime"
+  "Clean agent provides unlimited releases without a restoration plan"
 ]
 correct = "C"
 explanation = "Gas systems need integrity, egress timing, HVAC/damper interlocks, and agent logistics after use."

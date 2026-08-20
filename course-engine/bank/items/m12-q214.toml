@@ -10,9 +10,9 @@ kind = "single-select"
 module = 12
 stem = "Wet-pipe sprinklers in some support areas may be acceptable while white space uses different protection because:"
 choices = [
-  "All rooms must use identical agents always",
-  "IT rooms never need any detection",
-  "Sprinklers set humidity setpoints",
+  "Require identical agents in each room so one training procedure covers the entire campus regardless of risk profile",
+  "Treat IT rooms as unsuitable for detection because electronics cannot coexist with sprinkler protection under any design",
+  "Set humidity from sprinkler flow",
   "Risk profiles and water sensitivity differ by space—design is space-specific under AHJ and standards"
 ]
 correct = "D"

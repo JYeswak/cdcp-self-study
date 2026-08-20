@@ -9,10 +9,10 @@ kind = "single-select"
 module = 12
 stem = "Cross-zoning or double-knock before automatic suppression primarily aims to:"
 choices = [
-  "Speed agent refill after discharge",
-  "Disable abort switches permanently",
+  "Reduce accidental release after a single detector signal",
+  "Permit a supervised release during routine testing",
   "Reduce accidental discharge from a single dirty or failed detector",
-  "Increase cardboard storage in white space"
+  "Keep release logic active while operators investigate each alarm"
 ]
 correct = "C"
 explanation = "Requiring two independent detectors/zones reduces false automatic release risk."

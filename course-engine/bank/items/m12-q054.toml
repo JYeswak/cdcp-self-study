@@ -7,10 +7,10 @@ kind = "single-select"
 module = 12
 stem = "HVAC/CRAH interlock on fire alarm is important for gaseous systems mainly to:"
 choices = [
-  "Increase free cooling hours during a fire",
+  "Increase free cooling during an alarm by keeping air handlers at normal operating settings",
   "Avoid venting agent into returns and avoid feeding the fire with continued air movement as designed",
-  "Charge wet-pipe sprinklers with air",
-  "Disable all temperature sensors permanently"
+  "Charge wet-pipe systems with air while the gaseous sequence is completing",
+  "Disable temperature sensors during maintenance so the panel focuses on smoke signals"
 ]
 correct = "B"
 explanation = "Fan stop/smoke-control modes and dampers preserve agent concentration and limit smoke spread per design."

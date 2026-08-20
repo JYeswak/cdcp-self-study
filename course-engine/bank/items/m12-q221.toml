@@ -10,10 +10,10 @@ kind = "single-select"
 module = 12
 stem = "Fire safety signage and egress paths matter because:"
 choices = [
-  "Signage cools hot aisles",
-  "Signs replace detection",
+  "Signage cools hot aisles by directing airflow toward the nearest marked exit during a fire response route",
+  "Signs replace detection when occupants can see the symbol and know which portable extinguisher to fetch",
   "They help people find and use marked, unobstructed exits while fire safeguards remain operable",
-  "Only exterior monument signs matter"
+  "Exterior monument signs provide the main life-safety information while interior egress markings are being updated"
 ]
 correct = "C"
 explanation = "The current eCFR requires exit routes to be unobstructed, exits to be clearly marked and adequately lighted, and emergency safeguards such as alarms, sprinklers, fire doors, and exit lighting to remain operable."

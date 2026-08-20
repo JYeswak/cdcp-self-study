@@ -10,9 +10,9 @@ kind = "single-select"
 module = 12
 stem = "Fire compartmentation and cable penetrations matter because:"
 choices = [
-  "Firestops only exist for acoustic reasons",
-  "Openings always improve suppression concentration",
-  "Compartmentation is purely aesthetic",
+  "Firestops primarily serve an acoustic purpose, so an opening can remain untreated when a cable bundle is complete",
+  "Openings improve suppression concentration by connecting adjacent zones and balancing pressure during a discharge",
+  "Compartmentation is a visual design choice that can be set aside during cable installation if the panel is supervised",
   "Unsealed penetrations can defeat fire-rated barriers and allow smoke/fire spread between zones"
 ]
 correct = "D"

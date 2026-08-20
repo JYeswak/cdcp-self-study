@@ -9,9 +9,9 @@ kind = "single-select"
 module = 12
 stem = "Many ASD systems support staged thresholds (e.g., alert then action then fire) so that operators can:"
 choices = [
-  "Skip annual testing forever",
-  "Use heat only and ignore smoke",
-  "Replace fire doors with cardboard",
+  "Treat an early alert as a maintenance scheduling signal for later review",
+  "Wait for heat detection before inspecting the affected room",
+  "Use a manual release to bypass staged investigation steps",
   "Investigate early smoke indications before full evacuation or discharge logic"
 ]
 correct = "D"

@@ -11,9 +11,9 @@ module = 12
 stem = "Cable selection and firestopping at penetrations support fire strategy by:"
 choices = [
   "Limiting flame and smoke spread and maintaining compartmentation",
-  "Increasing alien crosstalk only",
-  "Raising UPS load",
-  "Disabling detection zones"
+  "Increase alien crosstalk as the primary fire strategy when cable bundles are installed",
+  "Raise UPS load by routing penetrations through the battery room without a firestop detail",
+  "Disable detection zones during cable work so the contractor can finish the penetration before testing"
 ]
 correct = "A"
 explanation = "Compartmentation fails when penetrations and combustibles are uncontrolled."

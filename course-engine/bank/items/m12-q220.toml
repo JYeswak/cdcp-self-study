@@ -10,10 +10,10 @@ kind = "single-select"
 module = 12
 stem = "CO2 or clean-agent portables may be preferred in IT areas per policy and training because:"
 choices = [
-  "They leave heavy corrosive powder always",
+  "Leave heavy corrosive powder after discharge, so electronics protection requires a water-damage assessment and trained cleanup before return to service",
   "They can be more suitable around electronics when used correctly, with oxygen-displacement and safety caveats for CO2",
-  "They replace building suppression entirely",
-  "They require no training"
+  "Replace building suppression when a portable agent has a suitable listing and a trained operator is nearby for the first response",
+  "Require no training for portable-agent use"
 ]
 correct = "B"
 explanation = "The current NFPA 10 catalog identifies the portable-fire-extinguisher standard. The item keeps agent choice tied to hazard, site policy, and trained use, with CO2 personnel-safety caveats; it does not replace building suppression or authorize untrained intervention."

@@ -8,10 +8,10 @@ kind = "single-select"
 module = 12
 stem = "Aspirating / very early smoke detection is valued because it:"
 choices = [
-  "Suppresses fire with water immediately",
+  "Detect heat after flames develop in the protected space",
   "Can detect smoke at very low concentrations before conventional detectors",
-  "Replaces EPO",
-  "Cools the room",
+  "Identify smoke concentration after a conventional spot detector reaches its alarm threshold",
+  "Cool the room after a confirmed suppression discharge",
 ]
 correct = "B"
 explanation = "Aspirating/VESDA-style systems can detect smoke at very low concentrations via continuous sampling."

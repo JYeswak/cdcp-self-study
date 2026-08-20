@@ -7,9 +7,9 @@ kind = "single-select"
 module = 12
 stem = "Deluge sprinkler systems with open heads delivering large water volumes are:"
 choices = [
-  "Typical over every IT white-space aisle",
-  "Required under every raised floor tile",
-  "The only AHJ-accepted system worldwide",
+  "Common over a server aisle in a low-hazard room",
+  "Required in industrial process spaces where a large water flow is expected",
+  "Accepted under codes for raised-floor spaces with ordinary risk",
   "High-hazard industrial solutions, not typical server-hall protection"
 ]
 correct = "D"

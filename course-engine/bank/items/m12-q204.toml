@@ -10,10 +10,10 @@ kind = "single-select"
 module = 12
 stem = "Portable extinguisher class selection near electrical equipment should prioritize:"
 choices = [
-  "Only water extinguishers on live switchgear",
+  "Use water extinguishers on live switchgear after checking that the room has a discharge path and the operator has a face shield",
   "Agents suitable for energized electrical fires as required by policy and applicable standards, with trained use",
-  "Any random extinguisher regardless of class label",
-  "No extinguishers if a gas system exists anywhere on campus"
+  "Use any random extinguisher regardless of class label when a fire is small and a nearby employee can carry it without reviewing the equipment hazard",
+  "Skip extinguishers when a gas system exists in the protected building"
 ]
 correct = "B"
 explanation = "The current NFPA 10 catalog identifies the portable-fire-extinguisher standard. The item therefore keeps selection tied to the hazard, applicable site policy, and trained use; it does not authorize a universal agent choice or untrained intervention."

@@ -7,9 +7,9 @@ kind = "single-select"
 module = 12
 stem = "A double-interlock pre-action arrangement conceptually requires:"
 choices = [
-  "Water continuously in every branch at all times",
-  "Gas cylinders only under the floor",
-  "Manual pull with no automatic detection ever",
+  "Keep water in each branch while detection waits for confirmation",
+  "Use gas cylinders to provide the detection signal before heads operate",
+  "Use manual release to replace automatic detection in the arrangement",
   "Detection and sprinkler-head operation logic before water fills/discharges as designed"
 ]
 correct = "D"

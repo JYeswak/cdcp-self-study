@@ -8,9 +8,9 @@ module = 12
 stem = "Under 29 CFR 1910.155(c)(10), a Class C fire involves:"
 choices = [
   "Energized electrical equipment where employee safety requires electrically nonconductive extinguishing media",
-  "Only combustible metals such as magnesium and lithium",
-  "Only ordinary paper and wood",
-  "Only flammable liquids and gases"
+  "Combustible metals such as magnesium and lithium in a storage area",
+  "Ordinary paper and wood in an office fire",
+  "Flammable liquids and gases near the equipment"
 ]
 correct = "A"
 explanation = "The current OSHA public standard defines Class C as a fire involving energized electrical equipment where employee safety requires electrically nonconductive extinguishing media."

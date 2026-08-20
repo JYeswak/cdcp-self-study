@@ -10,10 +10,10 @@ kind = "single-select"
 module = 12
 stem = "NFPA 2001 is associated at awareness level with:"
 choices = [
-  "Portable extinguisher placement only",
+  "Portable extinguisher placement follows local risk assessment and travel paths",
   "Clean-agent fire extinguishing systems",
-  "Generator fuel sulfur content",
-  "Fiber polarity methods"
+  "Generator fuel sulfur content belongs to an equipment compliance review",
+  "Fiber polarity is a cabling test"
 ]
 correct = "B"
 explanation = "NFPA 2001 is the named standard family for clean-agent systems in US practice awareness."

@@ -7,9 +7,9 @@ kind = "single-select"
 module = 12
 stem = "Dry chemical ABC extinguishers are often discouraged as first choice inside white space because:"
 choices = [
-  "They are too quiet to hear",
-  "They only work on combustible metals",
-  "They increase humidity setpoints",
+  "They can be quiet during a small incipient fire, so hearing is difficult",
+  "They are intended for combustible-metal incidents and require a matching agent",
+  "They alter smoke-colour readings",
   "Residue can severely damage electronics"
 ]
 correct = "D"

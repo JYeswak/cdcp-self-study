@@ -7,10 +7,10 @@ kind = "single-select"
 module = 12
 stem = "CO2 portables near live electrical equipment are often favored over water because they:"
 choices = [
-  "Provide long continuous stream range like a hose",
-  "Are ideal as the only protection for kitchen Class K fires",
+  "Provide a long continuous stream like a hose",
+  "Are ideal for kitchen Class K incidents when selected for that hazard and used by trained staff",
   "Leave little residue and are suitable for many energized electrical uses when listed",
-  "Automatically restore room integrity"
+  "Automatically restore room integrity after discharge"
 ]
 correct = "C"
 explanation = "CO2 is common for electrical/B hazards with low residue; still short range and asphyxiation risk in pits."

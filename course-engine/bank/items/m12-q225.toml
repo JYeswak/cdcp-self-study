@@ -12,10 +12,10 @@ kind = "single-select"
 module = 12
 stem = "A 2026 interviewer asks which documents and which split apply to Li-ion fire — UPS room versus BESS yard. The taught answer is:"
 choices = [
-  "Recite the Module 06 interconnect hop (UPS strings on the DC bus versus AC-interconnected yard BESS) so this file owns electrical",
+  "Use the Module 06 interconnect distinction as the answer: UPS strings sit on the DC bus while a yard BESS is AC-interconnected; then treat NFPA 855 as a product listing and UL 9540A as the installation rule for indoor and outdoor fire response, without separating chemistry, enclosure, or authority review.",
   "NFPA 855 is the stationary-ESS installation standard (confirm adopted edition; not a product listing); UL 9540A is the thermal-runaway fire-propagation test method, not a certification; indoor UPS room is off-gas accumulating in a box (deflagration); outdoor BESS yard is one enclosure taking the next — chemistry changes the playbook; do not invent a fire percent or an agent mass",
-  "Treat both as a Class A trash-can fire: dump clean agent, keep the room sealed, stay and watch",
-  "Quote an industry fire percentage that proves water always extinguishes Li-ion",
+  "Treat both locations as ordinary Class A trash fires: apply a clean agent, keep the room sealed, allow occupants to remain for observation, and use the same response for a UPS room and a BESS yard because battery chemistry does not alter suppression planning, gas behavior, setbacks, or responder controls.",
+  "Quote a published fire percentage to support the AHJ package, assume water will extinguish every lithium-ion event, and treat the BESS yard as a second UPS room with identical setbacks, agent selection, and interconnect assumptions; a single fire number then supplies the missing design basis for both locations.",
 ]
 correct = "B"
 explanation = "This file owns the fire playbook. 855 is installation; 9540A is test data, not a listing. Room vs yard is off-gas/deflagration vs next-enclosure. Interconnect stays in Module 06. No invented fire percent or agent mass."
