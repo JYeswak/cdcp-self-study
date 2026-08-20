@@ -7,10 +7,10 @@ kind = "single-select"
 module = 5
 stem = "Exit signs and emergency luminaires are complementary because:"
 choices = [
-  "Only one or the other is ever used in any building",
-  "Exit signs mark egress routes while emergency luminaires provide usable light along those paths",
-  "Exit signs provide full task lighting for rack installs",
-  "Emergency luminaires replace fire alarm notification"
+  "Only one of the two is used in any given building, never both together",
+  "Signs mark the route while luminaires light it",
+  "Exit signs supply the task lighting needed for rack installation work",
+  "Emergency luminaires take the place of fire alarm notification devices",
 ]
 correct = "B"
 explanation = "Wayfinding (exit marking) and illumination are related but distinct life-safety functions."

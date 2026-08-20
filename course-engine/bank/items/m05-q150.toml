@@ -8,12 +8,12 @@ kind = "single-select"
 module = 5
 stem = "Selecting lighting controls (zoning/occupancy) in a data hall should avoid:"
 choices = [
-  "Thoughtful energy savings in low-occupancy support areas",
-  "Documenting control intent",
-  "Coordinating with emergency lighting design",
-  "Darkening egress paths or creating unsafe work conditions on live equipment aisles without a safety review",
+  "Occupancy-based dimming in low-use support areas outside the white space",
+  "Recording the control intent so future operators understand the zoning",
+  "Darkening egress paths or live aisles without a safety review",
+  "Coordinating zones with the emergency lighting design",
 ]
-correct = "D"
+correct = "C"
 explanation = "Controls must not compromise safe working light or life-safety egress illumination design."
 topic_ids = ["m05-fixtures", "m05-emergency", "m05-standards"]
 objective_ids = []

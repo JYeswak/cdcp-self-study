@@ -7,10 +7,10 @@ kind = "single-select"
 module = 5
 stem = "Emergency/egress lighting is primarily intended to:"
 choices = [
-  "Reduce PUE",
-  "Support safe evacuation and life safety when normal power/light fails",
-  "Cool the hot aisle",
-  "Replace generator testing",
+  "Reduce the lighting share of facility energy use",
+  "Support safe evacuation and life safety when normal power fails",
+  "Provide continuous task illumination for rack work during an outage",
+  "Satisfy the monthly generator load-test requirement for the site",
 ]
 correct = "B"
 explanation = "Emergency lighting is a life-safety egress function, not an efficiency feature."

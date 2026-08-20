@@ -7,10 +7,10 @@ kind = "single-select"
 module = 5
 stem = "Battery-backed emergency lighting that is past test intervals without records is a problem because:"
 choices = [
-  "Records are optional for life-safety systems always",
-  "Failed lamps or batteries may only be discovered during a real outage",
-  "Emergency lights improve with age without maintenance",
-  "Codes forbid any testing"
+  "Test records are optional for life-safety systems in most jurisdictions",
+  "Failed lamps or batteries may only be found during a real outage",
+  "Emergency luminaires improve in output as their batteries age",
+  "Codes prohibit functional testing of battery-backed luminaires",
 ]
 correct = "B"
 explanation = "Unverified emergency lighting is a latent life-safety failure."

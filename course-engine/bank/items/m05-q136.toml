@@ -7,10 +7,10 @@ kind = "single-select"
 module = 5
 stem = "Luminance differs from illuminance in that luminance relates more to:"
 choices = [
-  "Floor uniform load",
-  "Only the amperage of the lighting circuit",
-  "Diesel tank volume",
-  "How bright a surface appears (light leaving/reflecting from it) rather than only light arriving",
+  "Total luminous flux emitted by the source, measured in lumens",
+  "Luminous flux arriving on the work plane, measured in lux",
+  "Luminous intensity in a given direction, measured in candela",
+  "Light leaving a surface toward the observer",
 ]
 correct = "D"
 explanation = "Luminance characterizes light from a surface toward the eye; illuminance is incident light."

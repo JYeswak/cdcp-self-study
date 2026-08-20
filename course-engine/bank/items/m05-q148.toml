@@ -7,12 +7,12 @@ kind = "single-select"
 module = 5
 stem = "Which is true about normal vs emergency lighting circuits?"
 choices = [
-  "They are always identical with no segregation",
-  "Normal lighting never needs switching",
-  "Emergency lighting is only decorative",
   "Emergency lighting has distinct power-path and performance expectations for life safety",
+  "Normal lighting is switched while emergency lighting is left permanently on",
+  "Emergency lighting is decorative and carries no performance requirement",
+  "They share one branch circuit with no segregation between the two paths",
 ]
-correct = "D"
+correct = "A"
 explanation = "Emergency lighting is a life-safety system with dedicated design expectations."
 topic_ids = ["m05-emergency", "m05-standards"]
 objective_ids = []

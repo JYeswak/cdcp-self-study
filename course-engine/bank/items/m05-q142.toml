@@ -7,10 +7,10 @@ kind = "single-select"
 module = 5
 stem = "Exit signage lighting is intended to:"
 choices = [
-  "Replace fire detection",
-  "Measure PUE",
-  "Provide sole illumination for detailed circuit board rework",
-  "Indicate egress path identification under normal and emergency conditions as required",
+  "Provide the primary illumination for detailed component-level rework benches",
+  "Serve as the notification appliance required by the fire alarm system",
+  "Replace directional floor markings where aisles change direction",
+  "Identify the egress path under both normal and emergency conditions as required",
 ]
 correct = "D"
 explanation = "Exit signs mark the means of egress; they are life-safety devices."

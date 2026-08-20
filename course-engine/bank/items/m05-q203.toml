@@ -7,12 +7,12 @@ kind = "single-select"
 module = 5
 stem = "Self-contained emergency luminaires differ conceptually from centrally supplied emergency lighting in that:"
 choices = [
-  "They never need testing",
-  "They always use outdoor solar only",
-  "They replace all normal lighting permanently",
-  "Battery/inverter function is local to the fixture versus a central emergency power source feeding remote heads"
+  "The battery or inverter is local to the fixture rather than central",
+  "Central systems are limited to outdoor solar-charged luminaires",
+  "Self-contained units are intended to replace the normal lighting entirely",
+  "Self-contained units need no periodic testing once commissioned",
 ]
-correct = "D"
+correct = "A"
 explanation = "Architecture differs: local battery units vs central emergency supply—both need maintenance and testing."
 topic_ids = ["m05-emergency-types", "m05-emergency"]
 objective_ids = []

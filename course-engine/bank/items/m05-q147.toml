@@ -8,12 +8,12 @@ kind = "single-select"
 module = 5
 stem = "Colour rendering and glare control matter in technical spaces because:"
 choices = [
-  "They replace cable testing",
-  "They set chiller approach temperature",
-  "They determine Tier rating",
-  "Technicians need to read labels, ports, and indicators without visual discomfort",
+  "Because correlated colour temperature sets the chiller approach temperature",
+  "Technicians must read labels and indicators without visual discomfort",
+  "Because rendering index determines the cable test result on fibre links",
+  "Because glare ratings feed directly into the facility availability tier",
 ]
-correct = "D"
+correct = "B"
 explanation = "Visual quality affects safe, accurate technical work on equipment."
 topic_ids = ["m05-measurements", "m05-fixtures"]
 objective_ids = []

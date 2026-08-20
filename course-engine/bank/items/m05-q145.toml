@@ -7,12 +7,12 @@ kind = "single-select"
 module = 5
 stem = "Why might high-bay or carefully selected LED industrial fixtures be used in open-ceiling halls?"
 choices = [
-  "To store water for cooling towers",
-  "To increase rolling load ratings of the floor",
-  "To replace grounding electrode systems",
-  "To provide efficient, maintainable illumination suited to tall spaces",
+  "To raise the rolling-load rating of the raised floor beneath the aisle",
+  "To give the overhead grounding busbar a convenient mounting point",
+  "To provide efficient, maintainable illumination suited to tall open-ceiling spaces",
+  "To distribute cooling air more evenly across an open-ceiling hall",
 ]
-correct = "D"
+correct = "C"
 explanation = "Fixture type follows room geometry and maintenance model—LEDs are common for efficiency and life."
 topic_ids = ["m05-fixtures", "m05-standards"]
 objective_ids = []

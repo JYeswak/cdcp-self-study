@@ -7,10 +7,10 @@ kind = "single-select"
 module = 5
 stem = "Maintaining emergency lighting means more than installing it once; operators should also:"
 choices = [
-  "Never test batteries or transfer function",
-  "Perform periodic tests/inspections per applicable code and manufacturer guidance",
-  "Paint over exit luminaires to reduce distractions",
-  "Disconnect emergency circuits to save energy during occupancy"
+  "Leave batteries and transfer function untested between refurbishments",
+  "Test and inspect periodically per code and manufacturer guidance",
+  "Paint over exit luminaires wherever they distract from wall displays",
+  "Disconnect emergency circuits during occupied hours",
 ]
 correct = "B"
 explanation = "Life-safety lighting requires ongoing verification—install-and-forget is noncompliant and unsafe."

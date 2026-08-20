@@ -7,12 +7,12 @@ kind = "single-select"
 module = 5
 stem = "Fixture support and seismic restraint (where required) exist to:"
 choices = [
-  "Improve PUE only",
-  "Replace firestops",
-  "Increase underfloor static pressure",
-  "Keep luminaires from becoming falling hazards during events and maintain egress lighting integrity",
+  "To raise static pressure in the underfloor plenum by reducing obstructions",
+  "To keep luminaires from becoming falling hazards and to preserve egress lighting",
+  "To keep the fixture's own weight from counting against the floor's rolling load rating",
+  "To let luminaires substitute for firestopping at ceiling penetrations",
 ]
-correct = "D"
+correct = "B"
 explanation = "Supports/restraints are life-safety and property-protection measures for overhead equipment."
 topic_ids = ["m05-fixtures", "m05-standards"]
 objective_ids = []

@@ -8,10 +8,10 @@ kind = "single-select"
 module = 5
 stem = "Positioning light fixtures in cold/hot aisle layouts should consider:"
 choices = [
-  "Only mounting as many fixtures as possible on the floor",
-  "Only matching the UPS brand",
-  "Glare, maintenance access, cable pathways, and interference with containment or airflow devices",
-  "Hiding all labels in shadow permanently"
+  "Fitting the maximum number of fixtures the ceiling grid will physically hold",
+  "Matching the luminaire manufacturer to the UPS manufacturer for support",
+  "Glare, maintenance access, cable pathways, and containment interference",
+  "Positioning fixtures so equipment labels sit in shadow to cut screen glare",
 ]
 correct = "C"
 explanation = "Lighting must support safe work without fighting cooling containment or blocking maintenance."

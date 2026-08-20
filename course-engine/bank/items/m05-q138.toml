@@ -8,10 +8,10 @@ kind = "single-select"
 module = 5
 stem = "Fixture placement above cold/hot aisles should consider:"
 choices = [
-  "Only symmetry on a floor plan CAD layer",
-  "Powering fixtures from IT PDUs exclusively always",
-  "Hiding emergency lights behind solid walls only",
-  "Maintenance access, glare on work surfaces, and not blocking containment or airflow paths",
+  "Symmetry on the ceiling grid so fixtures land on uniform CAD spacing",
+  "Feeding every fixture from the nearest rack PDU to shorten cable runs",
+  "Mounting luminaires directly above the containment panels so each fixture takes the shortest possible drop",
+  "Maintenance access, glare on work surfaces, and clearance from containment and airflow paths",
 ]
 correct = "D"
 explanation = "Placement is an operations and airflow coordination problem, not pure geometry."

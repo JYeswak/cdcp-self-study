@@ -8,12 +8,12 @@ kind = "single-select"
 module = 5
 stem = "Maintenance of lighting in a live data hall should prefer methods that:"
 choices = [
-  "Require removing random floor tiles without airflow review every time",
-  "Disable all emergency lights permanently during work",
-  "Ignore lockout of lighting circuits",
-  "Allow safe access (lifts/walkways) while respecting hot/cold aisle and containment integrity",
+  "Safe access by lift or walkway while respecting containment and aisle integrity",
+  "Isolating emergency lighting circuits for the work window",
+  "Working from ladders so containment panels are never removed",
+  "Lifting floor tiles wherever convenient and reviewing airflow only if a problem appears",
 ]
-correct = "D"
+correct = "A"
 explanation = "Service methods must preserve safety and cooling/containment discipline."
 topic_ids = ["m05-fixtures"]
 objective_ids = []

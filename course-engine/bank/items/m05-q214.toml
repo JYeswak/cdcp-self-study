@@ -11,12 +11,12 @@ kind = "single-select"
 module = 5
 stem = "A data-hall packet says, “The IT UPS keeps the servers online, so Article 700 emergency lighting is covered.” The reviewer should:"
 choices = [
-  "Treat IT ride-through as sufficient",
   "Verify the emergency source and lighting circuit",
+  "Treat IT ride-through as sufficient",
   "Use the rack UPS without a code review",
   "Require a generator for every emergency luminaire",
 ]
-correct = "B"
+correct = "A"
 explanation = "NFPA 70 (2026) §§700.12 and 700.17 tie emergency lighting to an Article 700 source and an emergency-lighting branch-circuit path when normal lighting fails. IT continuity alone does not prove that life-safety path; an UPS belongs in the answer only after the Article 700 design is verified."
 topic_ids = ["m05-emergency", "m05-standards"]
 objective_ids = []

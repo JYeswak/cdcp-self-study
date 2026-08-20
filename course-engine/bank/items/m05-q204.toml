@@ -7,10 +7,10 @@ kind = "single-select"
 module = 5
 stem = "Lighting standards and guidance for workplaces exist to help ensure:"
 choices = [
-  "Adequate visibility for safe operations, inspection, and maintenance tasks",
-  "Maximum glare on every screen always",
-  "Zero energy use regardless of safety",
-  "That only one lamp type is legal worldwide"
+  "Adequate visibility for safe operation, inspection, and maintenance",
+  "That glare is maximised on every display",
+  "That the site reaches zero lighting energy consumption regardless of task needs",
+  "That only a single lamp technology is legally permitted across jurisdictions",
 ]
 correct = "A"
 explanation = "Standards target task visibility and safety; energy goals are balanced against that duty."

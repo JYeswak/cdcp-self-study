@@ -9,12 +9,12 @@ kind = "single-select"
 module = 5
 stem = "Emergency lighting is primarily a:"
 choices = [
-  "PUE optimization feature",
-  "Substitute for generator monthly tests",
-  "Hot-aisle cooling method",
-  "Life-safety provision to support egress and critical visibility when normal lighting is lost",
+  "An energy-management feature that dims the hall during unoccupied hours",
+  "A means of deferring the monthly generator load test when records are current",
+  "Life-safety provision for egress when normal lighting fails",
+  "A supplementary source that raises average illuminance during maintenance windows",
 ]
-correct = "D"
+correct = "C"
 explanation = "Emergency lighting is for life safety and egress visibility under power loss."
 topic_ids = ["m05-emergency"]
 objective_ids = []

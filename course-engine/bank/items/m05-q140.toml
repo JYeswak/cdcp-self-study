@@ -8,10 +8,10 @@ kind = "single-select"
 module = 5
 stem = "Self-contained emergency luminaires typically:"
 choices = [
-  "Rely only on the normal lighting branch with no backup",
-  "Meter rack kW",
-  "Cool servers with forced air",
-  "Include local battery/inverter provisions to remain lit for a required duration after normal power loss",
+  "Draw from the normal lighting branch only, with no independent power source",
+  "Share the UPS output that serves the IT load, so their runtime matches the racks",
+  "Depend on a central inverter located in the electrical room",
+  "Include a local battery or inverter to stay lit for a required duration",
 ]
 correct = "D"
 explanation = "Unit equipment carries local emergency power for required egress lighting duration."

@@ -7,12 +7,12 @@ kind = "single-select"
 module = 5
 stem = "Measuring light levels after installation verifies that:"
 choices = [
-  "Only that LEDs are cheaper than fluorescents",
-  "That lux meters replace all other commissioning",
-  "That emergency testing is unnecessary",
-  "As-built illuminance meets the intended design for tasks and safety, not just that fixtures powered on"
+  "Only that the installed LED fixtures cost less than fluorescent equivalents",
+  "That a lux meter reading can stand in for the rest of commissioning",
+  "That as-built illuminance meets the intended design for tasks and safety, not merely that fixtures powered on",
+  "That periodic emergency-lighting testing is no longer necessary",
 ]
-correct = "D"
+correct = "C"
 explanation = "Commissioning checks actual illuminance against design intent."
 topic_ids = ["m05-measurements", "m05-standards"]
 objective_ids = []

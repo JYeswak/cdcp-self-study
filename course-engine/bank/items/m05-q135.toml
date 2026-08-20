@@ -7,10 +7,10 @@ kind = "single-select"
 module = 5
 stem = "Illuminance (often discussed in lux or foot-candles) primarily measures:"
 choices = [
-  "Network throughput",
-  "Sound pressure in the generator yard",
-  "UPS battery state of charge",
-  "How much luminous flux falls on a surface per unit area",
+  "The total luminous flux a lamp emits, expressed in lumens",
+  "The luminous intensity in one direction, expressed in candela",
+  "The brightness of a surface as seen by the eye, in cd/m2",
+  "Luminous flux arriving on a surface per unit area",
 ]
 correct = "D"
 explanation = "Illuminance is luminous flux density on a surface—the usual work-plane light level metric."

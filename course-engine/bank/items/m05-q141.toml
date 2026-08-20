@@ -8,10 +8,10 @@ kind = "single-select"
 module = 5
 stem = "Central battery or inverter emergency systems differ from unit equipment mainly by:"
 choices = [
-  "Replacing all normal lighting permanently",
-  "Never needing maintenance",
-  "Being used only outdoors on poles",
-  "Serving multiple emergency luminaires from a centralized emergency power source",
+  "They require no periodic testing because the source is monitored centrally",
+  "They are limited to outdoor pole luminaires and site roadway lighting",
+  "Each luminaire holds its own battery and charger",
+  "One central emergency source feeds multiple emergency luminaires",
 ]
 correct = "D"
 explanation = "Central systems feed many fixtures from shared emergency power rather than per-fixture batteries."
