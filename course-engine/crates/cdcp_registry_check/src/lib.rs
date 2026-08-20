@@ -576,6 +576,24 @@ fn is_machine_report_table(header: &str, first_data: Option<&str>) -> bool {
             )
         })
     });
+    // Receipts may use a consumed-input ledger instead of a conventional
+    // step/surface/wall table.  The combination of consumed scope, pinned
+    // hash, and a reason column is still a machine-report shape; requiring
+    // all three keeps ordinary prose tables (for example Topic/Claim/Status)
+    // in the authored-prose view.
+    let has_consumed_input_ledger = headers.iter().any(|cell| {
+        normalise_table_header(cell)
+            .split_whitespace()
+            .any(|word| matches!(word, "consumed" | "scope"))
+    }) && headers.iter().any(|cell| {
+        normalise_table_header(cell)
+            .split_whitespace()
+            .any(|word| matches!(word, "pinned" | "hash"))
+    }) && headers.iter().any(|cell| {
+        normalise_table_header(cell)
+            .split_whitespace()
+            .any(|word| word == "reason")
+    });
     let has_report_key = first_data
         .and_then(markdown_table_cells)
         .and_then(|cells| cells.first().copied())
@@ -583,7 +601,7 @@ fn is_machine_report_table(header: &str, first_data: Option<&str>) -> bool {
         .is_some_and(|cell| {
             cell.parse::<u64>().is_ok() || (cell.starts_with('`') && cell.ends_with('`'))
         });
-    has_outcome && has_measurement_context && has_report_key
+    has_outcome && (has_measurement_context || has_consumed_input_ledger) && has_report_key
 }
 
 /// Return the authored-prose view used for load-bearing phrase matching.
@@ -612,11 +630,31 @@ pub fn authored_prose(text: &str) -> String {
             continue;
         }
         if !fenced && index + 1 < lines.len() && markdown_table_separator(lines[index + 1]) {
-            let first_data = lines.get(index + 2).copied();
+            let mut first_data = None;
+            let mut cursor = index + 2;
+            while let Some(candidate) = lines.get(cursor).copied() {
+                let trimmed = candidate.trim();
+                if trimmed.is_empty() || trimmed.starts_with("<!--") {
+                    cursor += 1;
+                    continue;
+                }
+                if candidate.contains('|') {
+                    first_data = Some(candidate);
+                }
+                break;
+            }
             if is_item_record_table(line, first_data) || is_machine_report_table(line, first_data) {
-                index += 2;
-                while index < lines.len() && lines[index].contains('|') {
-                    index += 1;
+                index = cursor;
+                while index < lines.len() {
+                    let trimmed = lines[index].trim();
+                    if trimmed.is_empty()
+                        || trimmed.starts_with("<!--")
+                        || lines[index].contains('|')
+                    {
+                        index += 1;
+                    } else {
+                        break;
+                    }
                 }
                 continue;
             }
@@ -1117,6 +1155,23 @@ mod tests {
         assert!(
             violations.is_empty(),
             "machine report data was treated as authored prose: {violations:?}"
+        );
+    }
+
+    #[test]
+    fn a_consumed_input_receipt_table_is_not_a_grade_exact_claim() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        fs::write(
+            root.join("receipt.md"),
+            "# | result | name | consumed scope | pinned hash | reason\n--- | --- | --- | --- | --- | ---\n<!-- generated receipt metadata -->\n<!-- this comment sits between the header and first row -->\n43 | 2 | GradeExact goldens | registry,artifact | deadbeef | goldens check\n",
+        )
+        .unwrap();
+        let lint = grade_exact_lint(vec!["receipt.md".into()]);
+        let violations = validate_claims_lint(root, &lint, &grade_claim_ids()).unwrap();
+        assert!(
+            violations.is_empty(),
+            "consumed-input receipt data was treated as authored prose: {violations:?}"
         );
     }
 

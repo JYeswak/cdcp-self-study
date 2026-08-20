@@ -1,5 +1,7 @@
 # Q9 consolidated construction-fault receipt — 2026-08-20
 
+[[claim:claim-study-signal-27]]
+
 This is the consolidated Q9 measurement of option-set construction cues. It
 does not measure answer-key truth, currency, grounding, cognitive level,
 redundancy, or candidate discrimination. Discrimination requires response data
