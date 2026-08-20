@@ -540,3 +540,64 @@ agreement_only = 0
 [[gate]]
 name = "smoke-diagrams"
 success_token = "smoke_diagrams: PASS"
+
+# ── Gates added 2026-08-18/19 during the grounding-wave incident ──────────────
+# All five were wired into check.sh and dispatched without a row here. The
+# census leg caught that omission; it is the reason this file exists.
+#
+# None has a Python oracle: they were authored in Rust, so there is no second
+# implementation to differ against. That is recorded per-row rather than left
+# implicit — a gate with no oracle is NOT covered by the agreement legs above,
+# and its correctness rests entirely on its own known-bad fixtures.
+
+[[gate]]
+name = "answer-key-skew"
+success_token = "answer-key-skew: PASS"
+live_probe = true
+# No oracle. Regression-proved against history instead: GREEN at pre-wave
+# 955a8f1, RED at measured peak f2a55eb (57.9% A). See gate-regression-proof.md.
+
+[[gate]]
+name = "grounding-wave"
+success_token = "grounding-wave: PASS"
+live_probe = true
+# No oracle. Regression-proved: GREEN at 955a8f1 with zero exceptions, RED at
+# peak (template=41, recall=52). Its first form was FALSIFIED — it fired on the
+# known-good tree — and was re-specified to require stem similarity AND answer
+# collapse together.
+
+[[gate]]
+name = "key-contradiction"
+success_token = "key-contradiction: PASS"
+live_probe = true
+# No oracle. Shipped VACUOUSLY GREEN twice: it matched only configured prefix
+# phrases, so an independent plant ("27 degrees C", "27°C") passed while its own
+# fixture went red. Domain coverage is now a gated first-class number
+# (4.9% -> 51.9%) precisely so "parsed almost nothing" cannot read as "clean".
+
+[[gate]]
+name = "construction-faults"
+success_token = "construction-faults: PASS"
+live_probe = true
+# No oracle. Currently RED on the live bank and correctly so: 838/931 approved
+# items key the strictly-longest option. Rank-uniformity checks BOTH tails, so
+# neither 100% nor 0% can pass.
+
+[[gate]]
+name = "required-tests"
+success_token = "required-tests: PASS"
+live_probe = true
+# No oracle. Asserts every load-bearing test named in registries/required_tests.toml
+# appears as `test <name> ... ok` and that every suite reports `0 filtered out`.
+# Exists because `cargo test -p cdcp_gate answer_key_skew` once reported
+# "ok. 0 passed; 232 filtered out" — zero tests run, reported as a pass.
+
+[[gate]]
+name = "emit-tick"
+success_token = "emit-tick: PASS"
+live_probe = false
+live_probe_skip_reason = "appends a row to .flywheel/tick-ledger.jsonl; a probe must never mutate a tracked artifact"
+green_unprobed_reason = "Observed GREEN in production use, not by probe: T10 (commit 75e78e8, product_moved computed true from bank/items) and T11 (e05c172). Both rows are in .flywheel/tick-ledger.jsonl. An automated GREEN probe would have to append a real row, so the green side is evidenced by the ledger rather than by the harness."
+# No oracle. Computes product_moved from the commit diff against the CHARTER's
+# product_paths rather than accepting the caller's claim, and records a
+# claimed-vs-computed disagreement rather than silently overriding it.

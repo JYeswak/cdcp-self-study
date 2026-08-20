@@ -195,14 +195,17 @@ fn live_repo_tree_is_byte_identical() {
     // only the file count is exactly what let bd-8exw hide for a day.
     assert!(
         py.stdout
-            .contains("  items=804 scanned, 779 approved (floors count the approved pool only)\n"),
+            // 804/779 -> 957/931: the MANIFEST was corrected to the real file set
+            // (fd4d6d8). Python and Rust AGREE at 957/931; only this pin was stale.
+            .contains("  items=957 scanned, 931 approved (floors count the approved pool only)\n"),
         "{}",
         py.stdout
     );
-    // m14 carries 44 files and 42 approved — the pair the old single map
-    // collapsed into one number.
-    assert!(py.stdout.contains("14: 42, 15: 39}"), "{}", py.stdout);
-    assert!(py.stdout.contains("14: 44, 15: 39}"), "{}", py.stdout);
+    // m14 carries 48 files and 46 approved — the pair the old single map
+    // collapsed into one number. 42/44 and m15 39 were the pre-manifest-fix
+    // counts; m15 grew to 106 with the CDFOS/CDFOM track.
+    assert!(py.stdout.contains("14: 46, 15: 106}"), "{}", py.stdout);
+    assert!(py.stdout.contains("14: 48, 15: 106}"), "{}", py.stdout);
     assert!(
         py.stdout
             .contains("  domain_floors=15 checked (approved pool)\n"),

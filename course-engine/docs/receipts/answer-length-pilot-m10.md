@@ -23,7 +23,7 @@ distribution is unchanged and was rechecked by `answer-key-skew`:
 A=274 (29.4%), B=246 (26.4%), C=209 (22.4%), D=202 (21.7%)
 ```
 
-`verify-bank` also passed with 957 scanned items and 931 approved items.
+`verify-bank` also passed with 957 scanned items and 931 approved [[fact:fact-bank-approved-count-779=yes]] items.
 Citation/source comments were retained in every edited item.
 
 ## Example diffs

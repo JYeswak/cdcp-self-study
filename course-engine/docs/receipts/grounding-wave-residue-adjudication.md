@@ -26,7 +26,7 @@ Both drafts were `approved` at `955a8f1`, both use `source_class = "original"`, 
 | `m14-q121` | `Integrated Systems Testing (IST) is valuable primarily because it:` | Restore the pre-wave stem, choices, key, explanation, and baseline item record. | `approved` |
 | `m15-q357` | `An MOP was approved once, but its revision was never tested and an obsolete PDF remains at the operator console. What control is missing?` | Restore the pre-wave stem, choices, key, explanation, and NE O 422.1 source record. | `approved` |
 
-The live result is `verify-bank: PASS`, with 957 items scanned and 931 approved. There are zero remaining `status = "draft"` items.
+The live result is `verify-bank: PASS`, with 957 items scanned and 931 approved [[fact:fact-bank-approved-count-779=yes]]. There are zero remaining `status = "draft"` items.
 
 ## Answer-key bead decision (`bd-opyi`)
 
