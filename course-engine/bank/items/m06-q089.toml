@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "If BESS is proposed for both UPS-class ride-through and grid services, the safe design stance is:"
 choices = [
-  "Roles must be engineered and coordinated—not assumed interchangeable by marketing",
+  "Engineer and coordinate both roles",
   "One string always does everything without controls",
   "Disable all UPS modules immediately",
-  "Ignore utility interconnection agreements",
+  "Ignore interconnection agreements",
 ]
 correct = "A"
 explanation = "Dual-purpose storage requires deliberate controls, protection, and contractual design."

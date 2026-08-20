@@ -9,9 +9,9 @@ kind = "single-select"
 module = 6
 stem = "VRLA batteries in UPS rooms are commonly chosen historically for:"
 choices = [
-  "Zero maintenance forever with no monitoring",
-  "Unlimited cycle life equal to lithium always",
-  "Sealed/recombinant design trade-offs versus flooded cells (footprint, maintenance model)",
+  "Zero maintenance forever with no monitoring or inspection",
+  "Unlimited cycle life equal to lithium, regardless of chemistry",
+  "Sealed/recombinant trade-offs versus flooded cells",
   "Operating best at freezing temperatures only",
 ]
 correct = "C"

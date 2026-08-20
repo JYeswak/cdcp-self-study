@@ -8,7 +8,7 @@ module = 6
 stem = "Power quality concerns relevant to IT loads include:"
 choices = [
   "Only the colour of busway housings",
-  "Sags/swells, interruptions, frequency variation, harmonics, transients, and phase imbalance",
+  "Power quality events",
   "Whether blanking panels are plastic or metal only",
   "DNS TTL values",
 ]

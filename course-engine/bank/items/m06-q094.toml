@@ -9,8 +9,8 @@ stem = "The relationship kW = kVA × power factor means:"
 choices = [
   "kVA and kW are always identical with no exceptions",
   "PF is always zero in data centres",
-  "Real power is apparent power scaled by PF; UPS/distribution ratings often speak in kVA",
-  "Generators rate only in lux",
+  "Real power = apparent power × PF",
+  "Generators rate only in lux, not electrical power",
 ]
 correct = "C"
 explanation = "Designers track both kW (real) and kVA (apparent) with PF."

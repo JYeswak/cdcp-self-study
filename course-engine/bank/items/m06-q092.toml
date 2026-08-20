@@ -11,7 +11,7 @@ choices = [
   "Removing all downstream loose connections automatically",
   "Eliminating the need for any monitoring",
   "Cooling batteries with refrigerant always",
-  "Regenerating a controlled output and buffering many upstream disturbances",
+  "Regenerates output and buffers disturbances",
 ]
 correct = "D"
 explanation = "Online UPS isolates the load from many utility issues; downstream defects still matter."

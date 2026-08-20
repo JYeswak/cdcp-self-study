@@ -7,9 +7,9 @@ kind = "single-select"
 module = 6
 stem = "High-density / HPC and AI racks change power planning because:"
 choices = [
-  "Dual-path power is never required",
+  "Dual-path power is never required for dense AI racks",
   "Cooling can be ignored if power is abundant",
-  "Diversity assumptions shrink—gear may run near nameplate—and three-phase PDUs/bus ratings dominate",
+  "High-density racks shrink diversity",
   "Single-phase 15 A strips always suffice",
 ]
 correct = "C"

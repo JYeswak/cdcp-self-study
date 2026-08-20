@@ -8,9 +8,9 @@ kind = "single-select"
 module = 6
 stem = "UPS batteries are primarily:"
 choices = [
-  "Short-duration, high-reliability storage tightly coupled to the UPS DC bus",
+  "UPS-coupled short-duration storage",
   "Multi-day grid services assets by default",
-  "Used only for CRAH humidifiers",
+  "Used only for CRAH humidifiers, never for UPS ride-through",
   "A substitute for all grounding",
 ]
 correct = "A"

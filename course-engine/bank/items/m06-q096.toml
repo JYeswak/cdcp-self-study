@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "Infrared thermographic scanning of electrical gear under load is used to:"
 choices = [
-  "Measure optical fibre loss",
+  "Measure optical fibre loss, not electrical thermal conditions",
   "Replace generator fuel testing completely",
   "Calibrate humidity sensors only",
-  "Find hot connections, overloaded phases, and failing components before failure",
+  "Find hot connections under load",
 ]
 correct = "D"
 explanation = "IR under representative load is predictive maintenance for switchgear, UPS, PDUs, and joints."

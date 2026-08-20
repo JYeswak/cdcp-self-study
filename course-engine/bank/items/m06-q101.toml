@@ -9,9 +9,9 @@ module = 6
 stem = "A site can have excellent PUE and still be:"
 choices = [
   "Single-path N with weak availability design",
-  "Automatically 2N fault tolerant",
-  "Immune to utility failures without UPS",
-  "Free of all transformers",
+  "Automatically 2N fault tolerant despite one path",
+  "Immune to utility failures without UPS or alternate supply",
+  "Free of all transformers, regardless of voltage conversion needs",
 ]
 correct = "A"
 explanation = "Efficiency metrics do not create dual paths or concurrent maintainability."

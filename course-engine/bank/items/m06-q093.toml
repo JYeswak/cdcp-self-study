@@ -7,9 +7,9 @@ kind = "single-select"
 module = 6
 stem = "Harmonic distortion in facility power discussions is often linked to:"
 choices = [
-  "Non-linear loads and the need for monitoring/mitigation per design practice",
-  "Fibre attenuation only",
-  "Raised-floor tile thickness only",
+  "Nonlinear loads and harmonic mitigation",
+  "Fibre attenuation only, not electrical harmonics",
+  "Raised-floor tile thickness only, unrelated to harmonic distortion",
   "Emergency lighting lux levels",
 ]
 correct = "A"

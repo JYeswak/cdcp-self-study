@@ -8,8 +8,8 @@ kind = "single-select"
 module = 6
 stem = "Ingress Protection (IP) grades on electrical enclosures describe:"
 choices = [
-  "UPS runtime in minutes",
-  "Resistance to solid-object and liquid ingress (dust/water), not cyber IP addressing",
+  "UPS runtime in minutes, regardless of enclosure protection",
+  "Resistance to dust and water ingress",
   "Internet Protocol version only",
   "Generator fuel octane",
 ]

@@ -8,9 +8,9 @@ module = 6
 stem = "A continuous-load branch-circuit planning rule of thumb widely taught in US practice is:"
 choices = [
   "Load a breaker to 100% continuously without review",
-  "Plan continuous IT load with headroom (often discussed as ~80% of breaker rating)—confirm local code/AHJ",
-  "Ignore nameplate currents",
-  "Size only for lighting",
+  "Use headroom for continuous IT load",
+  "Ignore nameplate currents when sizing branch conductors",
+  "Size only for lighting, not continuous IT load",
 ]
 correct = "B"
 explanation = "Continuous-load derating concepts (commonly 80% discussion in US) drive circuit selection—always verify local code."

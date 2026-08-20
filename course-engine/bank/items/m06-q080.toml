@@ -10,9 +10,9 @@ module = 6
 stem = "Bonding of conductive parts is intended to:"
 choices = [
   "Maximize touch voltage during faults",
-  "Create multiple neutral-ground bonds randomly",
+  "Create multiple neutral-ground bonds randomly, defeating equipotential control",
   "Eliminate the need for overcurrent protection",
-  "Keep metalwork at essentially the same potential to reduce shock/arc risk",
+  "Keep metalwork at essentially the same potential",
 ]
 correct = "D"
 explanation = "Bonding equalizes potential among exposed conductive parts."

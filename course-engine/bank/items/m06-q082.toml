@@ -9,7 +9,7 @@ stem = "Equipotential bonding of racks and cable tray supports:"
 choices = [
   "Floating every chassis with no ground path",
   "Disabling SPD devices permanently",
-  "Safer fault/ transient behaviour and cleaner reference practice when designed to code",
+  "Safer fault and transient behaviour when bonded",
   "Using water pipes as the only earthing electrode always",
 ]
 correct = "C"

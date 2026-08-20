@@ -7,9 +7,9 @@ kind = "single-select"
 module = 6
 stem = "A classic field defect is creating extra neutral-ground bonds downstream of the designated point because:"
 choices = [
-  "It can create circulating currents and nuisance issues",
+  "Circulating currents and nuisance issues",
   "It always improves PUE",
-  "Codes require a bond at every rack PDU",
+  "Codes require a bond at every rack PDU, regardless of bonding point",
   "It removes all harmonics",
 ]
 correct = "A"

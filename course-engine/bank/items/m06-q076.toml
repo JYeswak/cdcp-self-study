@@ -11,7 +11,7 @@ choices = [
   "IT equipment never uses single-phase branches",
   "Grounding becomes optional",
   "PUE is defined only for single-phase",
-  "It delivers more power efficiently and supports balanced loading versus single-phase alone",
+  "Efficient, balanced three-phase loading",
 ]
 correct = "D"
 explanation = "Three-phase is the backbone of facility power; rack PDUs may still present single-phase outlets."

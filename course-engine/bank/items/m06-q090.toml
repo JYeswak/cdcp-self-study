@@ -9,9 +9,9 @@ kind = "single-select"
 module = 6
 stem = "Battery conductance/impedance testing programs for lead-acid fleets mainly support:"
 choices = [
-  "Increasing PUE intentionally",
-  "Removing need for any UPS",
-  "Predictive replacement and health trending before hard failures",
+  "Increasing PUE intentionally, regardless of reliability effects",
+  "Removing need for any UPS because batteries can be tested",
+  "Predict replacement and health trends",
   "Permanent open-circuit operation",
 ]
 correct = "C"

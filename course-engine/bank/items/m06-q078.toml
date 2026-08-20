@@ -10,7 +10,7 @@ stem = "Single-phase utilization circuits in a DC typically appear as:"
 choices = [
   "The only plant medium-voltage feed",
   "Proof that three-phase is banned",
-  "Branch outlets/rack strips for lower-power gear, while plant remains three-phase",
+  "Branch outlets for lower-power gear",
   "A replacement for neutral conductors always",
 ]
 correct = "C"

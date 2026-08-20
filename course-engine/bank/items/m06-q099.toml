@@ -8,8 +8,8 @@ module = 6
 stem = "Stranded power in capacity planning means:"
 choices = [
   "Extra free UPS modules with no cost",
-  "Power capacity that cannot be used because cooling, space, or distribution cannot support it",
-  "Only renewable PPAs",
+  "Capacity blocked by cooling",
+  "Only renewable PPAs, regardless of available electrical capacity",
   "Ground conductors that are oversized",
 ]
 correct = "B"

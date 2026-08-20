@@ -7,7 +7,7 @@ kind = "single-select"
 module = 6
 stem = "A good IR thermography program includes:"
 choices = [
-  "Scheduled scans under load, trained techs, anomaly work orders, and trend comparison",
+  "Scan under load and trend anomalies",
   "One photo after an outage with no trending",
   "Scanning only de-energized empty gear forever",
   "Deleting historical images monthly without review",

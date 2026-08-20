@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "PUE (Power Usage Effectiveness) is defined as:"
 choices = [
-  "IT energy ÷ total facility energy",
-  "Water liters ÷ staff headcount",
-  "Generator kW ÷ rack count",
-  "Total facility energy ÷ IT equipment energy",
+  "IT energy divided by total facility energy, the inverse metric",
+  "Water liters divided by staff headcount as a facility efficiency measure",
+  "Generator kW divided by rack count as an efficiency metric",
+  "Facility energy divided by IT energy",
 ]
 correct = "D"
 explanation = "PUE = total facility energy / IT energy; lower overhead is better. It is not an availability design."

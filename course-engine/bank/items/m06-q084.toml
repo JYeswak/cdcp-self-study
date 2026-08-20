@@ -9,8 +9,8 @@ stem = "Selecting a higher IP rating for outdoor generator or switchgear enclosu
 choices = [
   "Faster STS transfer times",
   "Automatic 2N redundancy",
-  "Lower battery impedance always",
-  "Environmental dust/water exposure durability of the enclosure",
+  "Lower battery impedance always, regardless of ambient exposure",
+  "Outdoor dust and water durability",
 ]
 correct = "D"
 explanation = "Higher IP helps enclosure survival in harsher environments; it does not create electrical redundancy."
