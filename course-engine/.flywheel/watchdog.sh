@@ -9,9 +9,9 @@
 # Exit 0 = healthy or idle-by-design. Exit 3 = STALLED (alert).
 set -euo pipefail
 REPO="${1:-$HOME/cdcp-self-study/course-engine}"
-STALL_MIN="${STALL_MIN:-45}"
 LEDGER="$REPO/.flywheel/tick-ledger.jsonl"
 STATE="$REPO/.flywheel/STATE.md"
+TICK_RECONCILE="${CDCP_TICK_RECONCILE:-$REPO/target/debug/cdcp_gate}"
 
 fail() { echo "watchdog: STALLED: $*" >&2; exit 3; }
 
@@ -22,20 +22,26 @@ if [ -f "$REPO/.flywheel/PAUSE" ]; then
   echo "watchdog: PAUSED by .flywheel/PAUSE — not a stall."; exit 0
 fi
 
-# 2. Is there anything to do at all? An empty ready queue is a refill point, not a stall.
+# 2. A closed bead without a receipt is the condition that indicates a bypassed
+# loop. Do not use elapsed ledger age: legitimate work can take longer than any
+# guessed threshold. The command is injectable for the isolated healthy-leg test,
+# but the default is the repo's built gate binary.
+if [ ! -x "$TICK_RECONCILE" ]; then
+  fail "tick-reconcile unavailable at $TICK_RECONCILE"
+fi
+reconcile_output=""
+if ! reconcile_output=$("$TICK_RECONCILE" --root "$REPO" tick-reconcile 2>&1); then
+  fail "tick-reconcile RED: ${reconcile_output}"
+fi
+
+# 3. Is there anything to do at all? An empty ready queue is a refill point, not a stall.
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/opt/homebrew/bin:$PATH"
 ready=$(cd "$REPO" && br ready --json 2>/dev/null | python3 -c 'import json,sys
 try:
     d=json.load(sys.stdin); r=d["issues"] if isinstance(d,dict) else d; print(len(r))
 except Exception: print(-1)' 2>/dev/null || echo -1)
 if [ "$ready" = "0" ]; then
-  echo "watchdog: ready queue empty — refill point, not a stall."; exit 0
-fi
-
-# 3. Staleness: how long since the last ledger row changed?
-age_min=$(( ( $(date +%s) - $(stat -f %m "$LEDGER") ) / 60 ))
-if [ "$age_min" -gt "$STALL_MIN" ]; then
-  fail "no tick recorded in ${age_min}m (threshold ${STALL_MIN}m) while ${ready} bead(s) are ready"
+  echo "watchdog: ready queue empty — tick-reconcile green; refill point, not a stall."; exit 0
 fi
 
 # 4. RED streak — the charter's own pause condition, observed not enforced.
@@ -44,6 +50,6 @@ if [ "$red" -ge 3 ]; then
   fail "RED streak: ${red} of the last 5 ticks are RED (charter red_streak_pause = 3)"
 fi
 
-echo "watchdog: healthy — last tick ${age_min}m ago, ${ready} ready, ${red}/5 RED"
+echo "watchdog: healthy — tick-reconcile green, ${ready} ready, ${red}/5 RED"
 [ -f "$STATE" ] || echo "watchdog: WARN missing STATE.md" >&2
 exit 0
