@@ -7,13 +7,13 @@ kind = "single-select"
 module = 12
 stem = "Pre-action sprinkler systems are often preferred over wet pipe above white space mainly because they:"
 choices = [
-  "Use a supervised pre-action valve to prevent accidental routine water release",
-  "Coordinate detection and valve operation through a supervised release sequence",
+  "Discharge a clean agent rather than water once detection confirms",
+  "Reduce the pipe sizing required in the ceiling above the white space",
   "Keep pipes dry (or supervised) until detection logic admits water, lowering accidental discharge risk",
-  "Reserve pre-action systems for generator rooms and fuel-hazard protection"
+  "Reserve pre-action systems for generator rooms and fuel-hazard protection",
 ]
 correct = "C"
-explanation = "Pre-action admits water only after detection (and often head operation), reducing random leak dumps on IT gear."
+explanation = "A pre-action system keeps the pipe dry or supervised until detection logic admits water, so a struck sprinkler head or a damaged pipe does not put water over live equipment on its own. The clean-agent answer is the closest wrong one -- gaseous suppression is a different system that also protects electronics, and pre-action is still a water system. Pipe sizing follows hydraulic design and is unchanged by keeping the pipe dry, and pre-action is chosen for white space rather than reserved for fuel-hazard rooms."
 topic_ids = ["m12-water-suppression"]
 objective_ids = []
 bloom = "understand"

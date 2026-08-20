@@ -8,13 +8,13 @@ kind = "single-select"
 module = 12
 stem = "Flame detectors (IR/UV optical) are more typical in which data-centre-related spaces?"
 choices = [
-  "A protected generator room with fuel hazards, ventilation controls, and ignition management",
+  "Sealed battery rooms, where hydrogen accumulation is the primary hazard",
   "Generator rooms and fuel-hazard areas rather than typical server aisles",
   "Inside a copper patch panel during normal operations",
-  "Above raised-floor ramps near visitor circulation"
+  "Above raised-floor ramps near visitor circulation",
 ]
 correct = "B"
-explanation = "Optical flame detection suits open flame/fuel hazards; server aisles usually rely on smoke (often ASD)."
+explanation = "Optical flame detection suits spaces with an open-flame fuel hazard and enough sightline to see it -- generator rooms and fuel handling areas -- rather than server aisles, where smoke detection responds far earlier to the failure modes that actually occur. A battery room is the near-miss: it is a genuine hazard space, but the hazard is hydrogen accumulation, which needs gas detection rather than an optical flame sensor. Inside a patch panel there is nothing for an optical detector to see, and a circulation ramp has no fuel hazard to justify one."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "remember"

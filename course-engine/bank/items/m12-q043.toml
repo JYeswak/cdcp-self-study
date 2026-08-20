@@ -9,13 +9,13 @@ kind = "single-select"
 module = 12
 stem = "Cross-zoning or double-knock before automatic suppression primarily aims to:"
 choices = [
-  "Reduce accidental release after a single detector signal",
+  "Require two operators to concur at the panel before a release command is accepted",
   "Permit a supervised release during routine testing",
   "Reduce accidental discharge from a single dirty or failed detector",
-  "Keep release logic active while operators investigate each alarm"
+  "Keep release logic active while operators investigate each alarm",
 ]
 correct = "C"
-explanation = "Requiring two independent detectors/zones reduces false automatic release risk."
+explanation = "Cross-zoning holds the release until two independent detectors agree, so one dirty, drifting or failed head cannot discharge the system by itself. It is a detection-logic control, not a human-authorisation one -- operator concurrence and abort switches are separate mechanisms -- and it does not exist to enable releases during testing, which is handled by taking the release circuit out of service."
 topic_ids = ["m12-detection", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "understand"
