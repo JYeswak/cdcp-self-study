@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "A visitor register has names and departure times, but no retention period, review cadence, or anomaly recipient. What audit finding is supported?"
 choices = [
-  "Set retention, review timing, and anomaly routing",
-  "Keep names and let door logs supply all context",
   "Use a contract checkpoint instead of visitor review",
   "Review only after a formal incident is declared",
+  "Set retention, review timing, and anomaly routing",
+  "Keep names and let door logs supply all context"
 ]
-correct = "A"
+correct = "C"
 explanation = "NIST SP 800-53 Rev. 5 PE-8(a)-(c) requires maintaining visitor access records for an organization-defined time period, reviewing them at an organization-defined frequency, and reporting anomalies to organization-defined personnel. The discussion identifies records such as names, organizations, identification, entry and departure times, purpose, and host; a visitor register without retention, review, and routing controls is incomplete."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []

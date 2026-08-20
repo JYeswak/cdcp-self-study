@@ -12,12 +12,12 @@ kind = "single-select"
 module = 15
 stem = "A support process surveys users but forces them to search across unrelated channels for help. What service-management improvement is supported?"
 choices = [
+  "Count survey replies without changing the support route",
   "Provide a single entry point for service support",
   "Keep channels separate and compare logos quarterly",
-  "Replace support access with a maintenance inventory",
-  "Count survey replies without changing the support route",
+  "Replace support access with a maintenance inventory"
 ]
-correct = "A"
+correct = "B"
 explanation = "The UK Department for Education's Service Management standard, Version 1, identifies user satisfaction through a single point of entry into service support. The item applies that specific public statement to the CDFOS customer-satisfaction heading; it does not prescribe a particular portal or satisfaction score."
 topic_ids = ["m15-maintenance-sla"]
 objective_ids = []

@@ -7,12 +7,12 @@ kind = "single-select"
 module = 15
 stem = "Housekeeping rounds that check clear egress, unblocked extinguishers, and closed fire doors support:"
 choices = [
+  "Higher rack density automatically",
   "Only aesthetics for executive visits and housekeeping appearance",
   "Life safety, fire readiness, and security",
-  "Higher rack density automatically",
   "Elimination of detection systems"
 ]
-correct = "B"
+correct = "C"
 explanation = "Ops rounds catch propped doors, blocked exits, and fuel loads—cheap high-value controls."
 topic_ids = ["m15-ops-security", "m15-cleaning"]
 objective_ids = []

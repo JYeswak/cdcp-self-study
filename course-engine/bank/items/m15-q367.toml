@@ -11,9 +11,9 @@ module = 15
 stem = "A manager labels a cooling valve high risk but never sets the time for obtaining support or spare parts after failure. What finding is supported?"
 choices = [
   "Set a post-failure time for support or spares",
-  "Wait for failure before choosing a response window",
-  "Record purchase cost and omit response timing",
   "Treat preventive work as proof a spare is available",
+  "Record purchase cost and omit response timing",
+  "Wait for failure before choosing a response window"
 ]
 correct = "A"
 explanation = "NIST SP 800-53 Rev. 5 MA-6 requires obtaining maintenance support or spare parts for organization-defined system components within an organization-defined time period of failure. The control leaves the component set and time period to the organization; it does not justify inventing a numeric service level or treating preventive maintenance as evidence that a spare is available."

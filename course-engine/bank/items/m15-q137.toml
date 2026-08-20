@@ -7,12 +7,12 @@ kind = "single-select"
 module = 15
 stem = "As-built documentation for a data centre is valuable because it:"
 choices = [
-  "Records how the facility actually is after construction/changes, not only the original design intent",
-  "Replaces the need for monitoring",
   "Is identical to a sales brochure always",
+  "Replaces the need for monitoring",
+  "Records how the facility actually is after construction/changes, not only the original design intent",
   "Should never be updated after day one"
 ]
-correct = "A"
+correct = "C"
 explanation = "As-builts and living diagrams prevent operating from fiction."
 topic_ids = ["m15-documentation"]
 objective_ids = []

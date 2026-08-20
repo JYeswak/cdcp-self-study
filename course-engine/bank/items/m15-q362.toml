@@ -14,7 +14,7 @@ choices = [
   "Keep a maintenance record and terminate the session when work ends",
   "Accept it because approval and strong authentication remove the record need",
   "Replace the report with a purchase order and leave the connection available",
-  "Require a marketing summary before the next maintenance window",
+  "Require a marketing summary before the next maintenance window"
 ]
 correct = "A"
 explanation = "NIST SP 800-53 Rev. 5 MA-4(a)-(e) requires approval and monitoring of nonlocal maintenance, policy-consistent tools, strong authentication, records of the activity, and termination of the session and network connections when maintenance is complete. Approval and authentication are complementary controls, not substitutes for the service report or close-out."

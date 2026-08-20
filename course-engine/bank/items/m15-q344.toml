@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "A replacement power module comes from a single supplier. The lifecycle review reaches disposal but has no documented process for supply-chain weaknesses. What is missing?"
 choices = [
-  "Document a process for supply-chain weaknesses",
   "Add a rack elevation for the replacement module",
+  "Document a process for supply-chain weaknesses",
   "Add a customer survey of the module's appearance",
-  "Add a warranty extension instead of a risk review",
+  "Add a warranty extension instead of a risk review"
 ]
-correct = "A"
+correct = "B"
 explanation = "NIST SP 800-53 Rev. 5 SR-3 requires a process to identify and address weaknesses or deficiencies, selected controls to protect against supply-chain risks, and documentation of those processes and controls. Its discussion expressly spans acquisition, delivery, integration, operations, maintenance, and disposal. The control is a lifecycle risk process, not a rack drawing, appearance survey, or warranty substitute."
 topic_ids = ["m15-maintenance-sla", "m15-documentation", "m15-ops-security"]
 objective_ids = []

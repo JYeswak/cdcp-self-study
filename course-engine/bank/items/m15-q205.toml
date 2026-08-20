@@ -8,12 +8,12 @@ kind = "single-select"
 module = 15
 stem = "Operational security for vendors performing work includes:"
 choices = [
-  "Scoped vendor access with identity checks and escorts",
-  "Permanent full access cards for all contractors forever",
+  "Sharing employee badges to save time and bypass logging",
   "No logging of entry",
-  "Sharing employee badges to save time and bypass logging"
+  "Permanent full access cards for all contractors forever",
+  "Scoped vendor access with identity checks and escorts"
 ]
-correct = "A"
+correct = "D"
 explanation = "Vendor access is a high-risk path; control it like production change."
 topic_ids = ["m15-ops-security"]
 objective_ids = []

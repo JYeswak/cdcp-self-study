@@ -11,12 +11,12 @@ kind = "single-select"
 module = 15
 stem = "A service catalogue for data-centre operations contains logos and project names but no supported-service list or availability view. What correction fits the public service-management standard?"
 choices = [
-  "Provide a central list of supported services and availability",
   "Add a logo index and omit operating availability",
+  "Provide a central list of supported services and availability",
   "Replace it with a spare-parts export",
-  "Publish a project list without service ownership or availability",
+  "Publish a project list without service ownership or availability"
 ]
-correct = "A"
+correct = "B"
 explanation = "The UK Department for Education's Service Management standard, Version 1, lists Service Catalogue Management among its practices and says the standard provides a central list and availability of supported services. A logo slide, project list, or spare-parts export is not that service view."
 topic_ids = ["m15-maintenance-sla", "m15-documentation"]
 objective_ids = []

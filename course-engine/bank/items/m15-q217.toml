@@ -8,11 +8,11 @@ module = 15
 stem = "A slide of logos titled “service catalog,” with no SKU, no owner, no SLO pointer, and no OLA or underpinning contract underneath, is:"
 choices = [
   "The exam-weight section of the public 2.1 heading — invent a percentage so the brochure can be scored",
-  "A brochure, not a catalog. The catalog is the owned list of delivered services (SKU, owner, SLO pointer, OLA or UC underneath); a 40 kW liquid SKU sitting on a 10 kW air-hall OLA is how the org-split starts",
   "The CMMS asset register under another name, so facilities can skip owners",
   "Sufficient if sales published it this quarter and the logos are current",
+  "A brochure, not a catalog. The catalog is the owned list of delivered services (SKU, owner, SLO pointer, OLA or UC underneath); a 40 kW liquid SKU sitting on a 10 kW air-hall OLA is how the org-split starts"
 ]
-correct = "B"
+correct = "D"
 explanation = "A catalog without owners is a brochure. Each entry names the service, who provides it, the SLO it points at, and the OLA or UC that makes that SLO possible. Do not invent an exam-weight percentage for this heading."
 topic_ids = ["m15-maintenance-sla", "m15-documentation"]
 objective_ids = ["obj-m15-service-catalog"]

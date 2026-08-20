@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "Users submit service requests through unrelated channels and the operations team cannot measure their support experience. What service-management improvement is supported?"
 choices = [
-  "Use a single support entry point and measure satisfaction",
   "Close requests without recording the user's experience",
   "Measure satisfaction only after a major outage",
-  "Send users to whichever supplier answered last",
+  "Use a single support entry point and measure satisfaction",
+  "Send users to whichever supplier answered last"
 ]
-correct = "A"
+correct = "C"
 explanation = "The DfE Service Management standard, Version 1, links user satisfaction with providing a single point of entry into service support. The item remains bounded to the public standard's service-management statement and does not invent a satisfaction score or survey instrument."
 topic_ids = ["m15-maintenance-sla", "m15-documentation"]
 objective_ids = []

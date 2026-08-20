@@ -11,12 +11,12 @@ kind = "single-select"
 module = 15
 stem = "A data-centre emergency plan names a contact but omits evacuation routes, critical operations before evacuation, employee accounting, and review after changes. What finding is supported?"
 choices = [
+  "Wait for an evacuation drill before documenting any of the missing plan steps",
   "Add evacuation, accounting, critical-operations, contact, and review steps",
   "Keep the contact-only plan if the alarm test passes",
-  "Move every emergency-plan detail into a vendor SLA and close the gap",
-  "Wait for an evacuation drill before documenting any of the missing plan steps",
+  "Move every emergency-plan detail into a vendor SLA and close the gap"
 ]
-correct = "A"
+correct = "B"
 explanation = "29 CFR 1910.38(b) requires a written emergency action plan kept in the workplace, and (c)(1)-(6) lists reporting, evacuation, critical-operations, accountability, rescue/medical, and contact elements. Paragraph (f) requires review when the plan is developed, responsibilities change, or the plan changes. An alarm test or vendor SLA does not replace those plan elements."
 topic_ids = ["m15-eop", "m15-ops-security"]
 objective_ids = []

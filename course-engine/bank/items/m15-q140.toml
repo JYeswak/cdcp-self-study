@@ -8,11 +8,11 @@ module = 15
 stem = "Runbooks differ from one-off MOPs in that runbooks typically:"
 choices = [
   "Are never tested",
-  "Only exist as verbal tribal knowledge",
+  "Capture repeatable incident/response procedures for recurring classes of events",
   "Replace all engineering design docs",
-  "Capture repeatable incident/response procedures for recurring classes of events"
+  "Only exist as verbal tribal knowledge"
 ]
-correct = "D"
+correct = "B"
 explanation = "Runbooks codify known responses; MOPs plan specific high-risk changes."
 topic_ids = ["m15-documentation"]
 objective_ids = []

@@ -7,12 +7,12 @@ kind = "single-select"
 module = 15
 stem = "A good MOP includes verification steps and backout because:"
 choices = [
-  "Failure is impossible if steps exist on paper",
   "Backout is only for software, never facilities",
   "You must detect incomplete success and reverse safely when the change goes wrong",
-  "Verification is optional if two people watch"
+  "Verification is optional if two people watch",
+  "Failure is impossible if steps exist on paper"
 ]
-correct = "C"
+correct = "B"
 explanation = "MOPs are operational safety nets, not just task lists."
 topic_ids = ["m15-documentation"]
 objective_ids = []

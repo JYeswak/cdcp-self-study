@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "A physical-security induction occurs once; policy changes and incidents never trigger awareness updates. Which action is supported by NIST AT-2?"
 choices = [
-  "Refresh awareness on events and cadence",
   "Keep the induction unchanged after incidents",
+  "Refresh awareness on events and cadence",
   "Replace awareness with a badge inventory",
-  "Wait for an audit before updating content",
+  "Wait for an audit before updating content"
 ]
-correct = "A"
+correct = "B"
 explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, AT-2(a) requires initial awareness training and organization-defined recurring or event-triggered training. AT-2(c) requires updating content at an organization-defined frequency or when events occur, and AT-2(d) calls for incorporating lessons learned from security incidents or breaches. This is distinct from AT-3 role-based training: the item addresses general awareness, not a job-specific curriculum."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []

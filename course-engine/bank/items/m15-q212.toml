@@ -9,11 +9,11 @@ module = 15
 stem = "Security-aware operations include controlling photographs and publicly posted rack layouts because:"
 choices = [
   "Photos have no information value or security impact",
+  "Detailed internals can aid attacks if leaked",
   "Project layouts should be posted on social media to document breaker transparency",
-  "Cyber teams care about physical layouts and access rather than operations",
-  "Detailed internals can aid attacks if leaked"
+  "Cyber teams care about physical layouts and access rather than operations"
 ]
-correct = "D"
+correct = "B"
 explanation = "Information control is part of physical security hygiene."
 topic_ids = ["m15-ops-security"]
 objective_ids = []

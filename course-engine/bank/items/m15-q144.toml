@@ -7,12 +7,12 @@ kind = "single-select"
 module = 15
 stem = "MTTR (Mean Time To Repair/Restore) focuses on:"
 choices = [
-  "How rarely a component fails",
   "Marketing",
-  "Fuel",
-  "Recovery time after failure"
+  "How rarely a component fails",
+  "Recovery time after failure",
+  "Fuel"
 ]
-correct = "D"
+correct = "C"
 explanation = "MTTR is maintainability/ops speed; spares and MOPs often dominate more than the part itself."
 topic_ids = ["m15-mtbf-mttr"]
 objective_ids = []

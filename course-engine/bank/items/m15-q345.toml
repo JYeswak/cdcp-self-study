@@ -9,12 +9,12 @@ kind = "single-select"
 module = 15
 stem = "A monitoring vendor's contract states only a monthly price and response phone number. Which addition is directly supported for an external service?"
 choices = [
-  "Document oversight roles and monitor compliance",
-  "Match the provider's uniform to site operations",
-  "Use an informal promise from the account lead",
   "Measure only invoice accuracy in the provider review",
+  "Document oversight roles and monitor compliance",
+  "Use an informal promise from the account lead",
+  "Match the provider's uniform to site operations"
 ]
-correct = "A"
+correct = "B"
 explanation = "NIST SP 800-53 Rev. 5 SA-9 requires external providers to meet defined organizational security and privacy requirements, documents organizational oversight and user roles, and uses ongoing processes to monitor compliance. The discussion also describes service-level agreements as defining measurable outcomes, remedies, and response requirements. Price, uniforms, and an informal promise do not establish that oversight chain."
 topic_ids = ["m15-maintenance-sla", "m15-ops-security"]
 objective_ids = []

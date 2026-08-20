@@ -8,12 +8,12 @@ kind = "single-select"
 module = 15
 stem = "An SLA that promises four-hour onsite response but stocks no critical spares may still yield long outages because:"
 choices = [
-  "Onsite presence always equals immediate repair and restoration",
-  "Response time does not equal restore time",
   "MTTR ignores logistics, spares, tools, and access readiness",
-  "Vendors can fabricate breakers from scrap instantly always and restore power"
+  "Onsite presence always equals immediate repair and restoration",
+  "Vendors can fabricate breakers from scrap instantly always and restore power",
+  "Response time does not equal restore time"
 ]
-correct = "B"
+correct = "D"
 explanation = "Response clocks and restore clocks are different; design both."
 topic_ids = ["m15-maintenance-sla", "m15-mtbf-mttr"]
 objective_ids = []

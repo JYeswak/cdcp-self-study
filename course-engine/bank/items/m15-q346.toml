@@ -11,9 +11,9 @@ module = 15
 stem = "A site's LOTO file has a procedure and training roster, but no record of the annual independent inspection. Which management action is required?"
 choices = [
   "Inspect annually, correct gaps, and record details",
-  "Wait for an incident before inspecting the procedure",
   "Ask the vendor to approve the employer's internal inspection",
-  "Replace the inspection with a monthly availability report",
+  "Wait for an incident before inspecting the procedure",
+  "Replace the inspection with a monthly availability report"
 ]
 correct = "A"
 explanation = "29 CFR 1910.147(c)(6)(i) requires a periodic inspection at least annually, performed by an authorized employee other than the people using the procedure, with deviations corrected. Paragraph (c)(6)(ii) requires the employer's record to identify the machine or equipment, inspection date, employees included, and inspector. Paragraph (c)(7)(iv) separately requires current training records; a roster does not replace the inspection."

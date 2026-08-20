@@ -9,12 +9,12 @@ kind = "single-select"
 module = 15
 stem = "Operational safety near live electrical and mechanical plant requires:"
 choices = [
-  "Disabling safety interlocks for speed",
+  "LOTO where applicable, PPE, training, and respect for energized boundaries—not heroics",
   "Working alone on unfamiliar switchgear without briefing",
   "Using water freely on electrical faults",
-  "LOTO where applicable, PPE, training, and respect for energized boundaries—not heroics"
+  "Disabling safety interlocks for speed"
 ]
-correct = "D"
+correct = "A"
 explanation = "The public eCFR anchors the bounded safety decision: hazardous-energy servicing requires an energy-control program and procedures where unexpected energization or stored-energy release can injure workers; PPE requires a hazard-based control; and electrical-hazard work on utilization installations belongs to Subpart S per 1910.147(a)(1)(ii)(D) exclusion. The item does not replace site risk assessment, an AHJ rule, or a task-specific procedure."
 topic_ids = ["m15-ops-security"]
 objective_ids = []

@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "The outgoing shift records equipment status but omits planned work and the incoming operator's transferred responsibilities. What shift-management gap remains?"
 choices = [
-  "Complete turnover with status, duties, and planned work",
-  "Leave the missing work for the next weekly meeting",
   "Transfer only the access badge and radio",
   "Close all in-progress work before every turnover",
+  "Complete turnover with status, duties, and planned work",
+  "Leave the missing work for the next weekly meeting"
 ]
-correct = "A"
+correct = "C"
 explanation = "Under the bounded DOE NE O 422.1 turnover model, shift relief includes equipment and facility status, duties and responsibilities, in-progress and planned work, and relief of the oncoming operator. It is a conduct-of-operations model, not a claim that every private data center is governed by this Order."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []

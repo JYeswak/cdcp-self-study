@@ -12,12 +12,12 @@ kind = "single-select"
 module = 15
 stem = "An equipment register lists some rack assets but omits components, accountability, and an update cadence. What source-backed correction fits?"
 choices = [
-  "Keep a complete, current component inventory",
   "List only new hardware until the next audit",
-  "Track serial numbers only after a failure",
   "Replace the inventory with a procurement forecast",
+  "Keep a complete, current component inventory",
+  "Track serial numbers only after a failure"
 ]
-correct = "A"
+correct = "C"
 explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, CM-8(a) requires an inventory that accurately reflects the system, includes all components, has needed tracking granularity, and includes information for component accountability; CM-8(b) requires review and update at an organization-defined frequency. CM-8(1) adds updates during component installation, removal, and system updates. This item stays at asset recording and does not claim ISO 55000 or a complete asset-management lifecycle."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []

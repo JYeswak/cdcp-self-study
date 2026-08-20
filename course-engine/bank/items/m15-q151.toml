@@ -8,12 +8,12 @@ kind = "single-select"
 module = 15
 stem = "Documenting who is on-call and how to escalate is operationally important because:"
 choices = [
-  "Incidents wait politely until morning always",
-  "Monitoring replaces people entirely",
   "Clear ownership speeds incident response",
-  "SLAs forbid human contacts"
+  "Incidents wait politely until morning always",
+  "SLAs forbid human contacts",
+  "Monitoring replaces people entirely"
 ]
-correct = "C"
+correct = "A"
 explanation = "Human response paths are part of the availability design."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []

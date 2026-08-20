@@ -13,12 +13,12 @@ kind = "single-select"
 module = 15
 stem = "A facilities provider's SLA names a price and a phone number; internal facilities and NOC commitments are absent. Which review action is supported?"
 choices = [
-  "Define cross-team OLA duties and measurable SLA outcomes",
-  "Treat the phone number as the OLA and stop reviewing performance",
   "Replace the SLA with a facilities asset register",
+  "Treat the phone number as the OLA and stop reviewing performance",
   "Publish an uptime percentage without owners or remedy terms",
+  "Define cross-team OLA duties and measurable SLA outcomes"
 ]
-correct = "A"
+correct = "D"
 explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, SA-9 requires oversight and roles for external services and ongoing compliance monitoring; its discussion says service-level agreements define measurable outcomes, remedies, and response requirements. The UK Government Digital and Data Profession Capability Framework says an IT service manager defines SLAs and OLAs across relevant business functions. No uptime percentage is invented here."
 topic_ids = ["m15-maintenance-sla"]
 objective_ids = []

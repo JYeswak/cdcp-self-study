@@ -7,12 +7,12 @@ kind = "single-select"
 module = 15
 stem = "Cleaning under raised floors and inside perforated tiles should be coordinated with cooling operations because:"
 choices = [
-  "Floor cleaning has no effect on cooling, airflow, or contamination",
   "Disturbing dust and opening tiles can alter airflow",
+  "Floor cleaning has no effect on cooling, airflow, or contamination",
   "CRAH units improve when clogged with dust and filters",
   "Containment doors should be removed permanently for cleaning access"
 ]
-correct = "B"
+correct = "A"
 explanation = "Housekeeping is an operational event with thermal side effects."
 topic_ids = ["m15-cleaning"]
 objective_ids = []

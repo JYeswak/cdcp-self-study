@@ -13,11 +13,11 @@ module = 15
 stem = "A BMS vendor delivers a 'facilities monitoring matrix' that lists sensor tag, setpoint, and alarm priority. What gap should the review catch before sign-off?"
 choices = [
   "The matrix is complete — sensor, setpoint and priority are the three required columns for operational sign-off",
-  "Add a point-count column so future procurement can be priced by total sensor quantity across the floor",
   "Add owner and next action — without a named responder and defined response, the matrix cannot drive operations",
-  "Delete priority since all alarms on a critical floor carry equal weight and require the same response time",
+  "Add a point-count column so future procurement can be priced by total sensor quantity across the floor",
+  "Delete priority since all alarms on a critical floor carry equal weight and require the same response time"
 ]
-correct = "C"
+correct = "B"
 explanation = "HSE's 'Better alarm handling' gives the design rule: an alarm requires operator action, and priority is set by the consequence of the operator failing to respond. A matrix that lists sensors and setpoints but omits who responds and what they do cannot be used operationally — the midnight call reaches a point name, not a person or a procedure. Adding point-count inverts the metric: alarm quality is measured in operator-actionable alarms per hour, not sensor quantity, and the two move in opposite directions."
 topic_ids = ["m15-monitoring", "m15-alarms"]
 objective_ids = []

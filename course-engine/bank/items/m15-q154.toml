@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "Post-incident documentation (timeline, contributing factors, corrective actions) is valuable because it:"
 choices = [
+  "Is optional if the outage was short",
   "Only blames individuals without system learning",
   "Turn experience into prevention improvements",
-  "Is optional if the outage was short",
   "Replaces the need for MOPs on future similar work"
 ]
-correct = "B"
+correct = "C"
 explanation = "Learning loops turn incidents into durable ops improvements. Record contributing factors, plural — never a single root cause."
 topic_ids = ["m15-documentation"]
 objective_ids = []

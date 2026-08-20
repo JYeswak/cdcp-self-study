@@ -12,8 +12,8 @@ stem = "A facilities operations dashboard shows recurring support spikes, but th
 choices = [
   "Use trend analysis to identify improvements",
   "Delete old totals after each monthly meeting",
-  "Replace the dashboard with a vendor brochure",
   "Treat every spike as proof of a failed service",
+  "Replace the dashboard with a vendor brochure"
 ]
 correct = "A"
 explanation = "The DfE Service Management standard, Version 1, identifies opportunities for continuous improvement through trend analysis. The item applies that bounded reporting practice to the CDFOM trend-analysis heading without inventing a threshold, cadence, or vendor taxonomy."

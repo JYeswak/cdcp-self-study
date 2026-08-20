@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "A data-center organization chart lists job titles but does not show who owns safe-work accountability or hazard controls. What manager correction is source-supported?"
 choices = [
+  "Replace the chart with a vendor contact list",
   "Map accountable roles and control responsibilities",
   "Keep titles only because procedures define every duty",
-  "Assign all safety decisions to the newest technician",
-  "Replace the chart with a vendor contact list",
+  "Assign all safety decisions to the newest technician"
 ]
-correct = "A"
+correct = "B"
 explanation = "DOE NE O 422.1's conduct-of-operations model assigns organizational roles and accountability, safe-work accountability, and hazard-analysis/control responsibilities. The bounded lesson is to make those assignments visible in the organization chart; it does not invent a universal staffing ratio or a proprietary data-center taxonomy."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []

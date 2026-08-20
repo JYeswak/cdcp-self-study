@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "A facilities service team has equipment names but no central list of supported services or their availability. What catalogue correction fits the cited standard?"
 choices = [
-  "Maintain a central catalogue of supported services",
   "List only assets that failed during the last quarter",
-  "Replace service entries with supplier contact cards",
   "Keep availability details only in individual shift notes",
+  "Maintain a central catalogue of supported services",
+  "Replace service entries with supplier contact cards"
 ]
-correct = "A"
+correct = "C"
 explanation = "The DfE Service Management standard, Version 1, includes Service Catalogue Management and identifies a central list and availability of supported services as a benefit. The item stays at the CDFOM Service catalogue heading and does not invent a data-center catalogue schema."
 topic_ids = ["m15-maintenance-sla", "m15-documentation"]
 objective_ids = []

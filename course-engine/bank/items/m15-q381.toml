@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "A security incident process detects events but lacks a containment/recovery sequence, contingency coordination, and lessons-learned update. What gap is clearest under NIST IR-4?"
 choices = [
-  "Add lifecycle and lessons-learned feedback",
+  "Keep contingency planning separate from response",
   "Close the record after detection",
   "Wait for another incident before testing",
-  "Keep contingency planning separate from response",
+  "Add lifecycle and lessons-learned feedback"
 ]
-correct = "A"
+correct = "D"
 explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, IR-4(a) defines incident handling across preparation, detection and analysis, containment, eradication, and recovery. IR-4(b) requires coordination with contingency planning, and IR-4(c) requires using lessons learned to improve incident procedures, training, and testing. The item tests the control's lifecycle and feedback loop without asserting an invented response time or staffing model."
 topic_ids = ["m15-ops-security", "m15-eop"]
 objective_ids = []

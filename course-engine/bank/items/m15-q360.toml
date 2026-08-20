@@ -11,12 +11,12 @@ kind = "single-select"
 module = 15
 stem = "A facilities monitoring matrix lists points but not monitoring or assessment cadence, correlation, response owner, or reporting frequency. What source-backed gap remains?"
 choices = [
-  "Define metrics, cadence, assessment, analysis, response, and status reporting",
   "Add a point-count column and keep response and reporting unspecified",
-  "Treat a silent point as evidence that the monitored service is healthy",
   "Wait for a failed component before setting any monitoring or reporting frequency",
+  "Treat a silent point as evidence that the monitored service is healthy",
+  "Define metrics, cadence, assessment, analysis, response, and status reporting"
 ]
-correct = "A"
+correct = "D"
 explanation = "NIST SP 800-53 Rev. 5 CA-7(a)-(g) requires a continuous-monitoring strategy with defined metrics, monitoring and assessment frequencies, ongoing assessments and monitoring, correlation and analysis, response actions, and status reporting to defined personnel or roles at a defined frequency. The item applies those control fields to the facilities-matrix artifact named by the CDFOS heading; it does not claim that CA-7 prescribes a particular vendor matrix format."
 topic_ids = ["m15-monitoring", "m15-alarms"]
 objective_ids = []

@@ -14,7 +14,7 @@ choices = [
   "Expose support needs for decisions",
   "Add ticket categories without reviewing demand",
   "Replace service reporting with a project closeout",
-  "Publish a satisfaction score without service context",
+  "Publish a satisfaction score without service context"
 ]
 correct = "A"
 explanation = "The UK Department for Education's Service Management standard, Version 1, says its practices provide visibility and awareness of support requirements to enable better decision making and improved demand management. A ticket count without that operational visibility does not satisfy the bounded reporting claim; the item does not invent a KPI or service-level percentage."

@@ -13,7 +13,7 @@ choices = [
   "Report it to OSHA within the applicable 24-hour period",
   "Wait for the monthly meeting because the log is sufficient",
   "Report only if the equipment vendor confirms causation",
-  "Record it internally and omit external reporting",
+  "Record it internally and omit external reporting"
 ]
 correct = "A"
 explanation = "29 CFR 1904.39 requires reporting a qualifying work-related fatality within 8 hours and a qualifying inpatient hospitalization, amputation, or loss of an eye within 24 hours, using an allowed OSHA reporting channel. The item is bounded to the rule's covered employer and event conditions; it does not create a universal incident-reporting rule."

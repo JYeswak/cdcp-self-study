@@ -9,11 +9,11 @@ module = 15
 stem = "Change records and method-of-procedure (MOP) discipline matter because:"
 choices = [
   "Changes never affect availability",
+  "Only software needs change control",
   "Verbal hallway agreements are sufficient for dual-cord cutovers",
-  "Many outages are self-inflicted during poorly planned work",
-  "Only software needs change control"
+  "Many outages are self-inflicted during poorly planned work"
 ]
-correct = "C"
+correct = "D"
 explanation = "Facility changes are high-energy events; MOPs and records reduce self-harm."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []

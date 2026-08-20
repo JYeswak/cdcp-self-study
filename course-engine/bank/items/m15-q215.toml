@@ -9,10 +9,10 @@ kind = "single-select"
 module = 15
 stem = "Color-coding and standardized label templates across a campus help because they:"
 choices = [
-  "Are purely decorative with no ops effect",
   "Replace the need for unique circuit IDs",
+  "Allow deleting panel schedules",
   "Reduce cognitive load and misinterpretation when multiple teams and shifts work the plant",
-  "Allow deleting panel schedules"
+  "Are purely decorative with no ops effect"
 ]
 correct = "C"
 explanation = "Standard visual language speeds correct action under stress."

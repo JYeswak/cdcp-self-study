@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "A PPE program review finds no written hazard-assessment certification and no evidence that affected workers can demonstrate proper use. What manager action is supported?"
 choices = [
-  "Certify the assessment and verify PPE training",
-  "Keep the briefing and skip written assessment",
-  "Wait for an injury before reviewing the program",
   "Use a vendor talk without an employer record",
+  "Wait for an injury before reviewing the program",
+  "Certify the assessment and verify PPE training",
+  "Keep the briefing and skip written assessment"
 ]
-correct = "A"
+correct = "C"
 explanation = "Under 29 CFR 1910.132(d)(1)-(2), the employer assesses workplace hazards, selects and provides suitable PPE, and keeps a written certification identifying the workplace, certifier, and assessment date. Paragraphs (f)(1)-(3) require training on PPE use and limitations, employee demonstration of understanding and ability, and retraining when changes or deficiencies make prior training obsolete or inadequate. The cited rule is bounded to its OSHA-covered context; it does not create a universal private-sector training interval."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []

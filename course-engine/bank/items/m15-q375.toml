@@ -12,9 +12,9 @@ module = 15
 stem = "A safety manual is on a locked drive; workers cannot find the written hazard-communication program or safety data sheets during their shift. What correction is supported?"
 choices = [
   "Provide worker access to the program and SDS",
-  "Store the manual with the vendor and review it monthly",
   "Use container labels but omit the program location",
-  "Wait for a new chemical before offering training",
+  "Store the manual with the vendor and review it monthly",
+  "Wait for a new chemical before offering training"
 ]
 correct = "A"
 explanation = "29 CFR 1910.1200(g)(8) requires required safety data sheets to be readily accessible during each work shift. Paragraph (h)(2)(iii) requires employees to be informed of the location and availability of the written hazard-communication program, hazardous-chemical lists, and safety data sheets; (h)(1) and (h)(3) cover initial/new-hazard information and training content. This is a bounded documentation claim, not a claim that the regulation requires a document titled an OH&S manual."

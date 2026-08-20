@@ -7,10 +7,10 @@ kind = "single-select"
 module = 15
 stem = "Cleaning in raised-floor environments should use methods that:"
 choices = [
-  "Blow dust freely into CRAH intakes with unfiltered air movers always",
-  "Control particulates (appropriate vacuums/procedures) so contamination is not redistributed onto IT gear",
   "Soak tiles with unlimited free water under live busways",
-  "Ignore manufacturer and site ESD/particulate rules"
+  "Control particulates (appropriate vacuums/procedures) so contamination is not redistributed onto IT gear",
+  "Ignore manufacturer and site ESD/particulate rules",
+  "Blow dust freely into CRAH intakes with unfiltered air movers always"
 ]
 correct = "B"
 explanation = "Wrong cleaning methods can create the contamination problem they aim to solve."

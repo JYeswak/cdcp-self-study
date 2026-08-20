@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "A selected alternate site has a contract but no equipment, supplies, or equivalent controls prepared. What resilience gap remains?"
 choices = [
-  "Prepare the alternate site with resources",
-  "Rely on the contract until a transfer begins",
-  "Treat primary-site controls as proof for the alternate",
   "List the site in the BIA without readiness checks",
+  "Treat primary-site controls as proof for the alternate",
+  "Rely on the contract until a transfer begins",
+  "Prepare the alternate site with resources"
 ]
-correct = "A"
+correct = "D"
 explanation = "NIST SP 800-53 Rev. 5 CP-7(a)-(c) requires arrangements for transfer and resumption, equipment and supplies or contracts supporting delivery, and controls equivalent to those at the primary site. CP-7(4) requires preparing the alternate site so it can serve as the operational site, including consistent configuration settings and essential supplies and logistics. A contract or BIA entry alone is not readiness evidence."
 topic_ids = ["m15-ops-security", "m15-maintenance-sla"]
 objective_ids = []

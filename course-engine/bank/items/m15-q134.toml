@@ -7,12 +7,12 @@ kind = "single-select"
 module = 15
 stem = "Clear labelling of power circuits, breakers, and cables primarily reduces:"
 choices = [
-  "The need for any documentation forever",
   "Human error during isolation, restoration, and incident response",
-  "Chilled-water approach temperature by physics",
-  "Camera retention requirements"
+  "Camera retention requirements",
+  "The need for any documentation forever",
+  "Chilled-water approach temperature by physics"
 ]
-correct = "B"
+correct = "A"
 explanation = "Labels make the physical plant operable under stress; unlabeled gear invites wrong-breaker mistakes."
 topic_ids = ["m15-labelling"]
 objective_ids = []

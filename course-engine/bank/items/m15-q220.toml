@@ -9,12 +9,12 @@ kind = "single-select"
 module = 15
 stem = "A site whose training programme is “we sent people to a vendor class” is missing the 2.1 control because:"
 choices = [
-  "Vendor classes are forbidden and only in-house authors may teach",
-  "A signed attendance sheet plus an EPI / certification hour-count substitutes for competence records",
-  "The programme is a role-based matrix with initial qualification, a named recurrent interval, procedure-change training, drills, and competence records — and DOE-HDBK-1028 still holds: no amount of training alters fallibility",
   "Enough training produces infallible night-shift operators, so the matrix is optional once the class is complete",
+  "A signed attendance sheet plus an EPI / certification hour-count substitutes for competence records",
+  "Vendor classes are forbidden and only in-house authors may teach",
+  "The programme is a role-based matrix with initial qualification, a named recurrent interval, procedure-change training, drills, and competence records — and DOE-HDBK-1028 still holds: no amount of training alters fallibility"
 ]
-correct = "C"
+correct = "D"
 explanation = "Training is a role-based control with records, not a vendor-class receipt. DOE-HDBK-1028: no amount of counseling, training, or motivation alters a person's fallibility. No EPI / certification language as a substitute."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = ["obj-m15-training-program"]

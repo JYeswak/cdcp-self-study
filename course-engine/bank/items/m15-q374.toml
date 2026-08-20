@@ -13,9 +13,9 @@ module = 15
 stem = "A walk-around sheet records ‘normal’ but has no equipment-status checks, abnormal-condition response, or supervisory review. What action matches the conduct-of-operations model?"
 choices = [
   "Record status, abnormalities, and round review",
-  "Count the rounds and omit abnormal-condition notes",
   "Replace tours with a monthly vendor invoice",
   "Wait for an alarm before inspecting work areas",
+  "Count the rounds and omit abnormal-condition notes"
 ]
 correct = "A"
 explanation = "NE O 422.1 Attachment 2 paragraph 2.b.(1) addresses prompt notification of facility-status changes and abnormalities; 2.b.(3) addresses equipment awareness through inspections, checks, and tours; and 2.b.(4) addresses round sheets or inspection logs, abnormal-condition response, and periodic supervisory review. This is a walk-around-duty item, not a claim about a universal shift-handover program."

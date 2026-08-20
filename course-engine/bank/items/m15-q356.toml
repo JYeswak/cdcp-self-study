@@ -12,12 +12,12 @@ kind = "single-select"
 module = 15
 stem = "A night-shift turnover says 'all normal' but lists neither equipment status nor in-progress work, and the oncoming operator cannot identify relief duties. What gap does the public conduct-of-operations model expose?"
 choices = [
-  "Transfer equipment status, duties, and active or planned work",
-  "Add a service-level percentage and leave the turnover record unchanged",
   "Replace it with a vendor invoice and a maintenance calendar only",
   "Limit it to badge counts because equipment status is an engineering matter",
+  "Transfer equipment status, duties, and active or planned work",
+  "Add a service-level percentage and leave the turnover record unchanged"
 ]
-correct = "A"
+correct = "C"
 explanation = "NE O 422.1 Attachment 2 paragraph 2.l requires practices for thorough, accurate transfer of information and responsibilities at shift or operator relief. Appendix A 2.l.(1)-(3) covers formal turnover positions, equipment/facility status, duties and responsibilities, in-progress or planned activities, and reliefs. The order says operations includes computer centers; this item applies that framework rather than declaring a universal legal requirement."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []

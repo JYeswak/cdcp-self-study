@@ -14,7 +14,7 @@ choices = [
   "Use defined incident-reporting channels",
   "Wait until the monthly security report is issued",
   "Send every alert to all staff without an owner",
-  "Record only incidents affecting service uptime",
+  "Record only incidents affecting service uptime"
 ]
 correct = "A"
 explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, IR-6(a) requires personnel to report suspected incidents to the organizational incident-response capability within an organization-defined time period, and IR-6(b) requires incident information to reach organization-defined authorities. The item does not invent a universal reporting interval or recipient list."

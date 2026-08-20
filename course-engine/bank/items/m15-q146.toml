@@ -10,8 +10,8 @@ stem = "A maintenance contract SLA should specify measurable outcomes such as:"
 choices = [
   "Vague best effort with no response definitions or coverage",
   "Response/restore targets, coverage, escalation, and spares",
-  "Only the vendor logo color",
-  "Unlimited silent impairments"
+  "Unlimited silent impairments",
+  "Only the vendor logo color"
 ]
 correct = "B"
 explanation = "SLAs make vendor support testable; vague contracts fail during incidents."

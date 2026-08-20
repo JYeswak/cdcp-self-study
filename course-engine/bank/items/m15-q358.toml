@@ -12,12 +12,12 @@ kind = "single-select"
 module = 15
 stem = "A physical-security SOP verifies a badge at entry but never keeps access logs or changes keys when a holder transfers. What gap remains?"
 choices = [
-  "Keep access logs and change keys on the defined triggers",
   "Add a second badge reader while leaving records and keys unchanged",
   "Replace the SOP with a visitor survey and a monthly door count",
-  "Trust the badge vendor's firmware report as the facility access record",
+  "Keep access logs and change keys on the defined triggers",
+  "Trust the badge vendor's firmware report as the facility access record"
 ]
-correct = "A"
+correct = "C"
 explanation = "NIST SP 800-53 Rev. 5 PE-3 requires verification of individual access authorizations and controlled ingress/egress, maintenance of physical-access audit logs, and changes to combinations or keys at the defined frequency and when keys are lost, compromised, or their holders transfer or terminate. A reader or vendor report does not replace those procedure controls."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []

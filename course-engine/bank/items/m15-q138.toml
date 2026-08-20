@@ -7,10 +7,10 @@ kind = "single-select"
 module = 15
 stem = "An MOP (Method of Procedure) is primarily used to:"
 choices = [
-  "Market the colo facility",
+  "Replace staff training forever",
   "Execute high-risk changes with sequenced steps, roles, verification, and backout",
   "Calculate PUE only",
-  "Replace staff training forever"
+  "Market the colo facility"
 ]
 correct = "B"
 explanation = "MOPs structure risky work: prerequisites, steps, checks, ownership, and recovery."

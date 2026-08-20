@@ -7,12 +7,12 @@ kind = "single-select"
 module = 15
 stem = "As-built documentation that diverges from reality is dangerous because:"
 choices = [
-  "Wrong paths and isolation points mislead responders",
   "It is always more accurate than field inspection and verification",
   "It only affects interior design magazines and room appearance",
+  "Wrong paths and isolation points mislead responders",
   "Version control is illegal for facilities"
 ]
-correct = "A"
+correct = "C"
 explanation = "Stale drawings create false confidence during emergencies and maintenance."
 topic_ids = ["m15-documentation"]
 objective_ids = []

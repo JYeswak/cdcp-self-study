@@ -8,10 +8,10 @@ kind = "single-select"
 module = 15
 stem = "A BMS/DCIM point with no defined operator response, and a procurement that prices the job by monitored-point count, should be read as:"
 choices = [
-  "A high-priority alarm so it is never missed, and more points always mean better monitoring",
   "Evidence the floor is healthy whenever the point stays silent — absence of alarm is health",
-  "A status indicator, not an alarm. HSE: process status indicators should not be designated as alarms; delete or downgrade, do not acknowledge forever. Point count and operator-actionable alarms per hour move in opposite directions",
   "A reason to raise the integrator’s invoice until every status bit is an alarm",
+  "A status indicator, not an alarm. HSE: process status indicators should not be designated as alarms; delete or downgrade, do not acknowledge forever. Point count and operator-actionable alarms per hour move in opposite directions",
+  "A high-priority alarm so it is never missed, and more points always mean better monitoring"
 ]
 correct = "C"
 explanation = "HSE's alarm-handling guidance distinguishes an alarm that requires operator action from a process-status indication, and sets priority by the consequence of failing to respond. The official 2003 blackout report supplies the bounded failure lesson that a silent alarm path is not evidence of system health. Point count is not a substitute for an actionable response design; no universal alarm threshold or outage percentage is inferred."

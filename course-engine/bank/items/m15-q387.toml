@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "A service report lists incidents but gives management no view of support requirements or demand. What reporting purpose is missing?"
 choices = [
-  "Provide visibility for decisions and demand management",
   "Replace service reporting with invoice totals",
   "Hide demand patterns until a contract renewal",
   "Report only events that caused an outage",
+  "Provide visibility for decisions and demand management"
 ]
-correct = "A"
+correct = "D"
 explanation = "The DfE Service Management standard, Version 1, states that visibility and awareness of support requirements enable better decision making and improved demand management. The item tests that public standard statement under the exact CDFOM Service reporting heading, without asserting a particular dashboard format."
 topic_ids = ["m15-monitoring", "m15-maintenance-sla"]
 objective_ids = []

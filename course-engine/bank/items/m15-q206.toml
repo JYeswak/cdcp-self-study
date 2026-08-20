@@ -8,12 +8,12 @@ kind = "single-select"
 module = 15
 stem = "Reducing MTTR in facility operations is often less about buying new gear and more about:"
 choices = [
-  "Deleting runbooks to encourage creativity",
-  "Procedures, spares, training, labels",
   "Hiding spare parts offsite without inventory",
-  "Disabling monitoring to avoid alarms and notifications"
+  "Disabling monitoring to avoid alarms and notifications",
+  "Deleting runbooks to encourage creativity",
+  "Procedures, spares, training, labels"
 ]
-correct = "B"
+correct = "D"
 explanation = "Maintainability is process and preparedness, not only capital equipment."
 topic_ids = ["m15-mtbf-mttr", "m15-documentation", "m15-labelling"]
 objective_ids = []

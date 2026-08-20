@@ -11,12 +11,12 @@ kind = "single-select"
 module = 15
 stem = "An operations documentation pack has no administrator instructions for secure operation or maintenance, no user responsibilities, and no distribution list. What action is supported?"
 choices = [
-  "Develop and distribute administrator and user documentation",
-  "Keep the pack local to the author because operators can request it later",
-  "Replace system documentation with a vendor invoice and an asset count",
   "Publish only a user quick-start and omit the administrator maintenance detail",
+  "Replace system documentation with a vendor invoice and an asset count",
+  "Keep the pack local to the author because operators can request it later",
+  "Develop and distribute administrator and user documentation"
 ]
-correct = "A"
+correct = "D"
 explanation = "NIST SP 800-53 Rev. 5 SA-5(a) requires administrator documentation for secure configuration, installation, operation, maintenance, and known vulnerabilities. SA-5(b) covers user functions, secure interaction, and user responsibilities; SA-5(c) addresses unavailable documentation; and SA-5(d) requires distribution to defined personnel or roles. This item does not assert the six undocumented sub-processes from the CDFOS syllabus."
 topic_ids = ["m15-documentation"]
 objective_ids = []

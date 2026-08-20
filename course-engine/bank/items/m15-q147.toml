@@ -7,12 +7,12 @@ kind = "single-select"
 module = 15
 stem = "Spare parts strategy ties to MTTR because:"
 choices = [
-  "Spares never affect restore time",
   "All parts should be ordered only after multi-day approvals during outages always",
-  "On-site or rapidly available critical spares shorten waiting time after failure",
-  "MTBF eliminates any need for spares"
+  "MTBF eliminates any need for spares",
+  "Spares never affect restore time",
+  "On-site or rapidly available critical spares shorten waiting time after failure"
 ]
-correct = "C"
+correct = "D"
 explanation = "Logistics delay often dominates MTTR more than swap labor."
 topic_ids = ["m15-maintenance-sla", "m15-mtbf-mttr"]
 objective_ids = []

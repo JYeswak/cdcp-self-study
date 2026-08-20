@@ -11,10 +11,10 @@ kind = "single-select"
 module = 15
 stem = "An energy-control programme that cites only 29 CFR 1910.147 for work on UPS, switchgear, PDU, and busway is mis-scoped because:"
 choices = [
-  "1910.147 already covers every electric-utilization installation, so a second citation is decoration",
+  "Subpart S applies only to the utility’s exclusive-control substation — that regime is 1910.269, not this work",
   "1910.147(a)(1)(ii)(D) excludes electrical-hazard exposure on electric-utilization installations and points to Subpart S (1910.331–.335, principally 1910.333). Putting a UPS into maintenance bypass from its HMI is not isolation — physical disconnect, lock, stored energy released, absence of voltage verified including backfeed",
   "The only applicable rule is the utility’s own tariff, because the campus takes a medium-voltage feed",
-  "Subpart S applies only to the utility’s exclusive-control substation — that regime is 1910.269, not this work",
+  "1910.147 already covers every electric-utilization installation, so a second citation is decoration"
 ]
 correct = "B"
 explanation = "OSHA 1910.147 excludes electrical-hazard exposure in electric-utilization installations, while 1910.333 requires electrical work practices including physical disconnection, stored-energy control, lockout/tagging, verification, and safe re-energization."

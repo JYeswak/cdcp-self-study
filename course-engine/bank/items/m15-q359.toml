@@ -13,8 +13,8 @@ stem = "During a floor review, access logs are examined only after a security in
 choices = [
   "Set review timing/events and coordinate findings with response",
   "Add more cameras but leave review timing and escalation undefined",
-  "Replace access-log review with a cleaning rota and occupancy estimate",
   "Wait for a second incident before connecting the logs to response",
+  "Replace access-log review with a cleaning rota and occupancy estimate"
 ]
 correct = "A"
 explanation = "NIST SP 800-53 Rev. 5 PE-6(a)-(c) requires monitoring physical access, reviewing logs at an organization-defined frequency and when defined events or indications occur, and coordinating review and investigation results with incident response. More cameras do not supply the missing review and coordination process."

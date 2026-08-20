@@ -9,10 +9,10 @@ stem = "A tenant restore-in-four-hours SLA is said to be “covered” by a vend
 choices = [
   "Accept the filing: any written response time is an operational level agreement, and the vendor is an internal team",
   "The operational level agreement is the customer credit schedule under another name, so the vendor clause is the SLA",
-  "The operational level agreement is an internal team-to-team hand-off (facilities ↔ NOC ↔ security ↔ floor) that makes the customer SLA possible; the vendor clause is an underpinning contract, not the operational level agreement and not the tenant SLA",
   "Collapse the operational level agreement into the SLA and invent a new nines table so SLM owns availability",
+  "The operational level agreement is an internal team-to-team hand-off (facilities ↔ NOC ↔ security ↔ floor) that makes the customer SLA possible; the vendor clause is an underpinning contract, not the operational level agreement and not the tenant SLA"
 ]
-correct = "C"
+correct = "D"
 explanation = "Spell it: operational level agreement is internal. SLA is the customer instrument. UC is the vendor. A four-hour onsite response is a UC term. SLM does not invent a nines table. Contributing factors stay plural. No invented outage percent."
 topic_ids = ["m15-maintenance-sla"]
 objective_ids = ["obj-m15-slm-ola-uc"]

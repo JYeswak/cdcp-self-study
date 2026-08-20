@@ -13,7 +13,7 @@ choices = [
   "Make the plan available and add required response elements",
   "Keep it private so responders cannot change it",
   "Replace employee accounting with a vendor notification",
-  "Review it only after an emergency occurs",
+  "Review it only after an emergency occurs"
 ]
 correct = "A"
 explanation = "29 CFR 1910.38 requires a written workplace-available plan when the rule applies, including emergency reporting, evacuation, critical-operations procedures, employee accounting, rescue or medical duties, and responsible contacts. It also requires trained evacuation assistance and review when the plan or responsibilities change. The item is bounded to the OSHA-covered context."

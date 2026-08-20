@@ -13,12 +13,12 @@ kind = "single-select"
 module = 15
 stem = "A notification matrix says 'page on loss of redundancy' for the chiller plant. One of two chillers trips; the floor stays cool. What should the escalation path do?"
 choices = [
-  "No page — cooling is still available, so the redundancy-loss event is informational only and needs no escalation",
   "Page operations — one unit lost means escalate now, because the next failure is an outage with no warning",
-  "Page only if the remaining chiller shows a warning alarm, since a healthy standby unit needs no attention",
   "Wait for the BMS to confirm the trip for ten minutes before escalating, to filter nuisance pages from real events",
+  "Page only if the remaining chiller shows a warning alarm, since a healthy standby unit needs no attention",
+  "No page — cooling is still available, so the redundancy-loss event is informational only and needs no escalation"
 ]
-correct = "B"
+correct = "A"
 explanation = "The 2003 blackout report names the failure mode: 'absence of alarm was read as evidence of health' while the alarm system itself was down. The counter-rule is to escalate when redundancy is lost, not when the service fails. A single-chiller plant with no fault indication is still a single point of failure — the next trip is an outage. Waiting for a warning alarm or a confirmation window delays the page past the point where intervention can restore redundancy before the second failure."
 topic_ids = ["m15-monitoring", "m15-alarms", "m15-eop"]
 objective_ids = []

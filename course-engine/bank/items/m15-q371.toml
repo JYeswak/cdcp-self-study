@@ -11,9 +11,9 @@ module = 15
 stem = "A receiving area accepts system components into the facility and sends them out with no authorization record. Which control fits?"
 choices = [
   "Authorize entry and record components",
-  "Accept deliveries when the courier is known to staff",
   "Log only visitor totals at the receiving desk",
-  "Track exits but leave incoming components unrecorded",
+  "Accept deliveries when the courier is known to staff",
+  "Track exits but leave incoming components unrecorded"
 ]
 correct = "A"
 explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, PE-16(a) requires authorization and control of defined types of system components entering and exiting the facility, and PE-16(b) requires records of those components. The discussion notes that delivery areas may need restricted access; it does not prescribe a particular holding-area layout or vendor scorecard."

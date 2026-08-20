@@ -7,12 +7,12 @@ kind = "single-select"
 module = 15
 stem = "A maintenance contract SLA should clearly define:"
 choices = [
-  "Only the vendor logo color and marketing identity",
-  "That no one may ever touch equipment",
   "Define response/restore times and escalation",
-  "Unlimited scope with zero measurement or service boundaries"
+  "That no one may ever touch equipment",
+  "Unlimited scope with zero measurement or service boundaries",
+  "Only the vendor logo color and marketing identity"
 ]
-correct = "C"
+correct = "A"
 explanation = "SLAs without measurable service levels are procurement theatre."
 topic_ids = ["m15-maintenance-sla"]
 objective_ids = []

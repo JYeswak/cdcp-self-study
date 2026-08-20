@@ -11,9 +11,9 @@ module = 15
 stem = "A DOE facilities department is planning development for shift leads. Which manager artifact matches DOE O 360.1D?"
 choices = [
   "Use job-based IDPs with competency goals",
-  "Use one annual attendance total detached from job duties",
   "Reserve career development for employees after promotion",
-  "Treat a vendor completion badge as the succession plan",
+  "Use one annual attendance total detached from job duties",
+  "Treat a vendor completion badge as the succession plan"
 ]
 correct = "A"
 explanation = "A job-based IDP with competency goals is the grounded manager artifact: the current public OPM career-development guidance describes IDPs as records of career goals, development objectives, and training opportunities such as rotational assignments, and ties them to learning objectives and competencies. This is a curriculum grounding receipt, not a credential or certification claim."

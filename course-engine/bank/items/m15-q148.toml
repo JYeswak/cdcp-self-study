@@ -9,11 +9,11 @@ module = 15
 stem = "Preventive maintenance windows should be managed with change control because:"
 choices = [
   "Maintenance has no effect on production, isolation, or service risk",
-  "Vendors prefer no documentation",
   "SLAs prohibit facility maintenance in the governed system",
-  "Uncontrolled live-system work can cause outages"
+  "Uncontrolled live-system work can cause outages",
+  "Vendors prefer no documentation"
 ]
-correct = "D"
+correct = "C"
 explanation = "PM is necessary risk—controlled via MOP/change process, not ad-hoc tinkering."
 topic_ids = ["m15-maintenance-sla", "m15-documentation"]
 objective_ids = []

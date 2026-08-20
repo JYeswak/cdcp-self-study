@@ -9,12 +9,12 @@ kind = "single-select"
 module = 15
 stem = "A new chilled-water plant passes the contractor's startup checklist, but the project file has no integrated functional tests, O&M training record, or final system documentation. What review should flag this?"
 choices = [
-  "Flag missing integrated tests, training, and records",
-  "Accept startup as proof that every subsystem will interact correctly",
   "Accept the manuals as a substitute for operator training",
-  "Postpone commissioning until the maintenance contract expires",
+  "Accept startup as proof that every subsystem will interact correctly",
+  "Flag missing integrated tests, training, and records",
+  "Postpone commissioning until the maintenance contract expires"
 ]
-correct = "A"
+correct = "C"
 explanation = "DOE FEMP's 2006 Commissioning for Federal Facilities guide describes commissioning as verification and documentation of interactive facility performance, with O&M staff orientation and training; it follows the project from planning and design through acceptance and post-occupancy. A contractor startup checklist can be one input, but it does not prove integrated performance or supply the missing hand-off record."
 topic_ids = ["m15-documentation", "m15-maintenance-sla", "m15-ops-security"]
 objective_ids = []

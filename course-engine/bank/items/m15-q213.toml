@@ -7,12 +7,12 @@ kind = "single-select"
 module = 15
 stem = "Documented single lines, rack elevations, and cable schedules should be updated:"
 choices = [
+  "Never, once the first PDF is printed",
   "Update when the field changes",
   "Only when an auditor is parking outside",
-  "Never, once the first PDF is printed",
   "By memory during the next outage"
 ]
-correct = "A"
+correct = "B"
 explanation = "Documentation is a controlled product of change, not an annual archaeology project."
 topic_ids = ["m15-documentation", "m15-labelling"]
 objective_ids = []

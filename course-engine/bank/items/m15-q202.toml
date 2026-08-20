@@ -8,10 +8,10 @@ kind = "single-select"
 module = 15
 stem = "MTBF and MTTR are most useful when teams remember that:"
 choices = [
-  "MTBF promises zero failures in that period for every asset",
-  "Statistical reliability and maintainability concepts",
   "MTTR is unrelated to spare parts and procedures in facilities",
-  "Only software uses these terms"
+  "Statistical reliability and maintainability concepts",
+  "Only software uses these terms",
+  "MTBF promises zero failures in that period for every asset"
 ]
 correct = "B"
 explanation = "MTBF/MTTR guide design and process; they are not talismans against failure."

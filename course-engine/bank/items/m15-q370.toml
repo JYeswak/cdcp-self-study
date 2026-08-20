@@ -11,12 +11,12 @@ kind = "single-select"
 module = 15
 stem = "A facilities maintenance tool is approved once, but there is no review cadence and diagnostic media are used without inspection. What source-backed gap remains?"
 choices = [
-  "Review tools and inspect diagnostic media",
-  "Keep one approval and skip future reviews",
-  "Use vendor packaging instead of inspection",
   "Allow any technician to bring tools inside",
+  "Review tools and inspect diagnostic media",
+  "Use vendor packaging instead of inspection",
+  "Keep one approval and skip future reviews"
 ]
-correct = "A"
+correct = "B"
 explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, MA-3(a)-(b) requires approval, control, monitoring, and organization-defined review of system maintenance tools. MA-3(1) calls for inspecting tools for improper or unauthorized modification, and MA-3(2) calls for checking media containing diagnostic or test programs for malicious code before use. No review interval is invented here."
 topic_ids = ["m15-maintenance-sla", "m15-ops-security"]
 objective_ids = []

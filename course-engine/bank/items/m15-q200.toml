@@ -9,8 +9,8 @@ module = 15
 stem = "Consistent labelling of power circuits, network ports, and assets primarily reduces:"
 choices = [
   "The need for any documentation and circuit records",
-  "Fire detection coverage needs and alarm zoning",
   "Utility entrance diversity",
+  "Fire detection coverage needs and alarm zoning",
   "Find and correct wiring mistakes quickly"
 ]
 correct = "D"

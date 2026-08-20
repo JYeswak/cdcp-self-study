@@ -9,12 +9,12 @@ kind = "single-select"
 module = 15
 stem = "A commissioning lead leaves before hand-off. The project has no training record or O&M documentation package. What succession risk is directly visible?"
 choices = [
-  "Document knowledge for succeeding staff",
-  "Trust vendor manuals to transfer all local knowledge",
-  "Replace succession planning with one exit interview",
   "Delay hand-off until the next maintenance review",
+  "Replace succession planning with one exit interview",
+  "Trust vendor manuals to transfer all local knowledge",
+  "Document knowledge for succeeding staff"
 ]
-correct = "A"
+correct = "D"
 explanation = "DOE FEMP's 2006 commissioning guide treats O&M training and documentation as part of the hand-off, and says the knowledge base must be passed to succeeding O&M staff. A vendor manual may be an input, but it does not document the site's operating knowledge; an exit interview or delayed review leaves the succession gap open."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = ["obj-m15-training-program"]

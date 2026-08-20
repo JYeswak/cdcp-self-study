@@ -8,11 +8,11 @@ module = 15
 stem = "MTBF (Mean Time Between Failures) is best described as:"
 choices = [
   "How long repair takes after a failure and diagnosis",
+  "The same as SLA credits always",
   "A contractual penalty fee only",
-  "Reliability metric for average operating time",
-  "The same as SLA credits always"
+  "Reliability metric for average operating time"
 ]
-correct = "C"
+correct = "D"
 explanation = "MTBF speaks to failure frequency/reliability; do not confuse with repair speed."
 topic_ids = ["m15-mtbf-mttr"]
 objective_ids = []

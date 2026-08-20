@@ -19,12 +19,12 @@ kind = "single-select"
 module = 15
 stem = "A contractor has finished replacing a valve actuator on a chilled-water branch. The work is done, the area is tidy and the escort is ready to sign the visitor log. Under a permit-to-work system, what has to happen before that branch is returned to normal service?"
 choices = [
-  "The escort countersigns the visitor log on leaving, which closes the work and releases the plant back to operations",
-  "The permit originator declares the equipment ready for normal use, so return to service is authorised by the permit",
   "The contractor's own supervisor signs the job sheet, since the contractor performed the work and is closest to its condition",
   "The shift engineer gives a verbal all-clear on the bridge once the contractor confirms the actuator is operating correctly",
+  "The escort countersigns the visitor log on leaving, which closes the work and releases the plant back to operations",
+  "The permit originator declares the equipment ready for normal use, so return to service is authorised by the permit"
 ]
-correct = "B"
+correct = "D"
 explanation = "HSE's permits-to-work guidance states that before equipment or machinery is put back into service, it will require a declaration from the permit originator that it is ready for normal use. That is the hand-back step, and it is a property of the permit, not of the work being finished: 'the job is done' and 'the plant may be returned to service' are two different authorisations. An escort signature (A) records site access, not plant condition — an escort never replaces a permit. A contractor sign-off (C) is the party carrying out the work declaring their own completion, which is not the originator's declaration. A verbal all-clear (D) leaves no documented declaration at all, and the permit is a documented procedure by definition."
 topic_ids = ["m15-ops-security"]
 objective_ids = []

@@ -7,12 +7,12 @@ kind = "single-select"
 module = 15
 stem = "Availability is improved not only by higher MTBF but also by:"
 choices = [
+  "Deleting monitoring to avoid pages",
   "Reduce MTTR with diagnostics, spares, and procedures",
   "Ignoring failures until total outage and recovery planning",
-  "Deleting monitoring to avoid pages",
   "Removing all redundancy"
 ]
-correct = "A"
+correct = "B"
 explanation = "Conceptual availability relates to uptime fraction—faster restore recovers lost minutes."
 topic_ids = ["m15-mtbf-mttr"]
 objective_ids = []

@@ -10,12 +10,12 @@ kind = "single-select"
 module = 15
 stem = "A BIA-backed business-continuity plan is never exercised; results are not reviewed, and related plans are tested separately. What manager action is supported?"
 choices = [
-  "Test, review, and correct",
-  "Wait for an outage before testing the plan",
-  "Name an alternate site and skip joint exercises",
   "Let each plan owner exercise alone",
+  "Name an alternate site and skip joint exercises",
+  "Test, review, and correct",
+  "Wait for an outage before testing the plan"
 ]
-correct = "A"
+correct = "C"
 explanation = "NIST SP 800-53 Rev. 5 CP-4(a)-(c) requires testing the contingency plan at an organization-defined frequency, reviewing test results, and initiating corrective actions when needed. CP-4(1) adds coordination with organizational elements responsible for related plans, including business-continuity and emergency-related plans. The control does not prescribe a numeric cadence here."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
