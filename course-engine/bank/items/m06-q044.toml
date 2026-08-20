@@ -6,18 +6,18 @@
 id = "m06-q044"
 kind = "single-select"
 module = 6
-stem = "In the utility-to-rack teaching path, which order is most representative after the utility feed?"
+stem = "During a utility-transfer event, which stage should bridge the interruption before protected power reaches downstream distribution and rack PDUs?"
 choices = [
-  "Rack PDU → generator → transformer → UPS",
-  "IT PSU → busway → generator",
-  "BESS only → fibre MMRs → CRAH → rack",
-  "Switchgear → transfer → UPS → PDU → rack",
+  "The rack PDU, because it can stabilize upstream utility changes",
+  "The IT PSU, because it replaces the facility transfer sequence",
+  "The CRAH, because cooling equipment carries the electrical load during transfer",
+  "The UPS after transfer equipment and before downstream distribution to the rack",
 ]
 correct = "D"
-explanation = "After the utility feed, power follows switchgear, transfer, UPS, distribution/PDU, then the rack; rack-first, fibre, cooling, and lighting sequences mix unrelated systems into the power path."
+explanation = "The UPS bridges the transfer event after the upstream transfer equipment and before protected distribution reaches rack PDUs; rack PDUs, IT PSUs, and CRAHs do not replace that facility-level sequence."
 topic_ids = ["m06-distribution", "m06-ups"]
 objective_ids = []
-bloom = "understand"
+bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
 status = "approved"

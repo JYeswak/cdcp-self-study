@@ -2,18 +2,18 @@
 id = "m09-q201"
 kind = "single-select"
 module = 9
-stem = "ASHRAE recommended versus allowable envelopes are best taught as:"
+stem = "An operator proposes running a rack outside the recommended ASHRAE range but within the allowable range during a constrained period. What should the review conclude?"
 choices = [
-  "Recommended targets; allowable is wider and not permanent",
-  "Allowable is always colder than recommended and safer under every hardware load",
-  "Recommended and allowable are identical forever",
-  "Only humidity has envelopes, never temperature"
+  "It may be within the allowable envelope but outside the preferred target, so operating risk and duration need explicit review",
+  "It is automatically a code violation because operation outside the recommended range is prohibited",
+  "Allowable conditions are inherently safer than recommended conditions for the hardware load",
+  "Recommended and allowable ranges are interchangeable once a rack has redundant power"
 ]
 correct = "A"
-explanation = "Recommended is the preferred region while allowable is wider with a different risk posture; the ranges are not identical forever, and allowable is not automatically colder or code-equivalent."
+explanation = "Allowable conditions can be wider than the preferred recommended region, but operation there needs an explicit risk and duration decision; allowable is neither automatically prohibited nor automatically safer, and power redundancy does not make the envelopes interchangeable."
 topic_ids = ["m09-ashrae-envelopes"]
 objective_ids = []
-bloom = "understand"
+bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
 status = "approved"

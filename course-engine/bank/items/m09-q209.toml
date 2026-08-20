@@ -5,15 +5,15 @@
 id = "m09-q209"
 kind = "single-select"
 module = 9
-stem = "Blanking panels support cooling mainly by:"
+stem = "A row has unused rack U-spaces, and cold air is short-circuiting through them instead of reaching server intakes. Which action most directly addresses the problem?"
 choices = [
-  "Block rack airflow shortcuts",
-  "Increasing copper attenuation",
-  "Storing chilled water",
-  "Acting as fire dampers only, with no airflow purpose"
+  "Install blanking panels in the unused rack openings",
+  "Increase copper attenuation in the rack cabling",
+  "Store chilled water inside the rack enclosure",
+  "Use fire dampers only, without addressing rack airflow"
 ]
 correct = "A"
-explanation = "Blanking panels block rack-airflow shortcuts through empty U spaces; they do not attenuate copper, store chilled water, or function only as fire dampers."
+explanation = "Blanking panels close unused U-space so supply air reaches equipment intakes instead of bypassing through the rack; copper attenuation, chilled-water storage, and fire dampers do not solve this rack-airflow shortcut."
 topic_ids = ["m09-containment", "m09-principles"]
 objective_ids = []
 bloom = "apply"

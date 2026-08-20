@@ -5,18 +5,18 @@
 id = "m09-q207"
 kind = "single-select"
 module = 9
-stem = "Cold-aisle containment primarily aims to:"
+stem = "After a high-density row is installed, operators find cold air bypassing the racks and hot air mixing into server intakes. Which containment response best addresses the problem?"
 choices = [
   "Dump all cold air into the plenum return only, bypassing equipment",
-  "Heat the cold aisle deliberately",
-  "Focus supply on IT intakes and reduce mixing",
+  "Heat the cold aisle deliberately to match the return temperature",
+  "Use cold-aisle containment to focus supply on IT intakes and reduce mixing",
   "Disable humidity control and air balancing entirely"
 ]
 correct = "C"
-explanation = "CAC keeps supply focused on IT intakes and reduces mixing; it does not dump cold air into returns, heat the aisle, or disable humidity and balancing controls."
+explanation = "The containment response should keep supply air at the IT intakes and limit hot/cold mixing; dumping supply into the return, heating the aisle, or disabling humidity and balancing controls would worsen the operating condition."
 topic_ids = ["m09-containment"]
 objective_ids = []
-bloom = "understand"
+bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
 status = "approved"

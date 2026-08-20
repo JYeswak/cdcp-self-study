@@ -6,15 +6,15 @@
 id = "m06-q239"
 kind = "single-select"
 module = 6
-stem = "In a typical critical path teaching model after utility, which order is most representative?"
+stem = "A maintenance review finds a proposed critical path that sends utility power directly to a rack PDU before transfer or UPS equipment. What is the most important finding?"
 choices = [
-  "Rack PDU, then generator, then fiber patch, then utility only",
-  "Batteries, then cooling tower, then copper only",
-  "Fire panel, then STS, then lighting only",
-  "Service entrance and switchgear, then UPS with generator and ATS path, then PDU or RPP, then rack PDU, then IT"
+  "Accept it because rack PDUs normally feed upstream transfer equipment",
+  "Accept it because bypassing the UPS removes a possible maintenance failure",
+  "Reject it only because cooling is not shown in the electrical diagram",
+  "Reject it because the protected path should pass through transfer, UPS, and distribution before rack-level delivery"
 ]
 correct = "D"
-explanation = "The critical path carries service-entrance power through switchgear and the UPS/generator/ATS path, then PDU/RPP and rack PDU to IT; the alternatives mix in fibre, cooling, batteries, fire, or lighting."
+explanation = "The proposed route bypasses the transfer, UPS, and distribution stages that protect and deliver critical power before the rack PDU; cooling is a separate supporting system, not the reason to accept a rack-first electrical path."
 topic_ids = ["m06-distribution", "m06-ups", "m06-ats-sts"]
 objective_ids = []
 bloom = "apply"

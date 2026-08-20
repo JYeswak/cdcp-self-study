@@ -5,15 +5,15 @@
 id = "m09-q229"
 kind = "single-select"
 module = 9
-stem = "Facility water and IT coolant loops are often isolated via heat exchangers mainly so as to:"
+stem = "A liquid-cooling design uses facility water with different chemistry and pressure from the IT loop. What response best limits contamination and leak-domain transfer while still rejecting heat?"
 choices = [
-  "Protect IT loops from facility water quality issues and control leak domains",
-  "Increase copper near-end crosstalk",
-  "Eliminate all sensors",
-  "Disable CDUs"
+  "Use a heat exchanger to isolate the loops while transferring heat",
+  "Connect the loops directly so both sides share the same chemistry and pressure",
+  "Eliminate leak detection and rely on the facility loop pressure alarm",
+  "Disable the coolant distribution unit so the two domains cannot exchange heat"
 ]
 correct = "A"
-explanation = "Isolation heat exchangers separate water chemistry, pressure, and contamination domains while transferring heat; they do not create crosstalk, eliminate sensors, or disable CDUs."
+explanation = "A heat exchanger keeps the facility and IT loops separate in chemistry, pressure, and leak domains while transferring heat; direct connection, removing leak detection, or disabling the CDU would undermine the cooling design."
 topic_ids = ["m09-liquid"]
 objective_ids = []
 bloom = "apply"
