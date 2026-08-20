@@ -8,10 +8,10 @@ kind = "single-select"
 module = 15
 stem = "When vendor SLA response time is four hours but your MTTR target is one hour, operations should:"
 choices = [
-  "Recognize contractual response may not meet internal restore goals—plan spares, skills, and bridging procedures",
+  "Bridge contractual response and internal restore goals",
   "Ignore the mismatch",
-  "Assume the vendor teleports parts instantly",
-  "Delete the internal target"
+  "Assume the vendor teleports parts instantly and repairs immediately",
+  "Delete internal target and all restore planning during incidents"
 ]
 correct = "A"
 explanation = "SLA ≠ automatic achievement of site MTTR; design around the gap."

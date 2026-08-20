@@ -8,10 +8,10 @@ kind = "single-select"
 module = 15
 stem = "Labelling that includes circuit ID, source panel, and destination helps most during:"
 choices = [
-  "Only annual photo contests",
-  "Choosing paint colors",
-  "Marketing tours exclusively",
-  "Emergency isolation and load migration when time pressure is high"
+  "Only annual photo contests and facility photography",
+  "Choosing paint colors and cabinet finishes",
+  "Marketing tours exclusively, without operational purpose",
+  "Emergency isolation and load migration"
 ]
 correct = "D"
 explanation = "Crisis performance depends on instant physical identity of paths."

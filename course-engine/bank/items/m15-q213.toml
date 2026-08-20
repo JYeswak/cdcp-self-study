@@ -7,7 +7,7 @@ kind = "single-select"
 module = 15
 stem = "Documented single lines, rack elevations, and cable schedules should be updated:"
 choices = [
-  "As part of the change process when the field changes—not months later if ever",
+  "Update when the field changes",
   "Only when an auditor is parking outside",
   "Never, once the first PDF is printed",
   "By memory during the next outage"

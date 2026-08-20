@@ -8,10 +8,10 @@ kind = "single-select"
 module = 15
 stem = "An SLA that promises four-hour onsite response but stocks no critical spares may still yield long outages because:"
 choices = [
-  "Onsite presence always equals immediate repair",
-  "Response time ≠ restore time without parts, tools, and access readiness",
-  "MTTR ignores logistics",
-  "Vendors can fabricate breakers from scrap instantly always"
+  "Onsite presence always equals immediate repair and restoration",
+  "Response time does not equal restore time",
+  "MTTR ignores logistics, spares, tools, and access readiness",
+  "Vendors can fabricate breakers from scrap instantly always and restore power"
 ]
 correct = "B"
 explanation = "Response clocks and restore clocks are different; design both."

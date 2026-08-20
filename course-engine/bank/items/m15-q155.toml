@@ -8,9 +8,9 @@ kind = "single-select"
 module = 15
 stem = "Mixing cleaning chemicals or using conductive liquids carelessly near IT and electrical gear is hazardous because it can:"
 choices = [
-  "Only improve PUE",
-  "Automatically improve labels",
-  "Cause equipment damage, residues, and electrical safety incidents",
+  "Only improve PUE and never create residues or safety controls",
+  "Automatically improve labels and housekeeping records",
+  "Cause equipment damage and electrical incidents",
   "Raise MTBF by definition"
 ]
 correct = "C"

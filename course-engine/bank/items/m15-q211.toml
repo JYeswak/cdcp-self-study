@@ -7,10 +7,10 @@ kind = "single-select"
 module = 15
 stem = "Spare-parts strategy linked to MTTR targets should prioritize:"
 choices = [
-  "Only cosmetic bezels",
-  "Random consumer parts with no BOM match",
-  "Long-lead critical components whose failure would strand the site without a plan",
-  "Zero inventory to maximize accounting metrics only"
+  "Only cosmetic bezels and noncritical appearance parts",
+  "Random consumer parts with no BOM match or compatibility",
+  "Long-lead critical components prevent site stranding",
+  "Zero inventory to maximize accounting metrics only and accept delays"
 ]
 correct = "C"
 explanation = "Spares are insurance matched to failure impact and lead time."

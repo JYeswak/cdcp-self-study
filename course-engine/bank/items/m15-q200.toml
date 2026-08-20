@@ -8,10 +8,10 @@ kind = "single-select"
 module = 15
 stem = "Consistent labelling of power circuits, network ports, and assets primarily reduces:"
 choices = [
-  "The need for any documentation",
-  "Fire detection coverage needs",
+  "The need for any documentation and circuit records",
+  "Fire detection coverage needs and alarm zoning",
   "Utility entrance diversity",
-  "Mean time to identify and correct wiring/connectivity mistakes during incidents and changes"
+  "Find and correct wiring mistakes quickly"
 ]
 correct = "D"
 explanation = "Labels cut human latency and error in live systems."

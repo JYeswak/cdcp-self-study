@@ -8,10 +8,10 @@ kind = "single-select"
 module = 15
 stem = "Security-aware operations include controlling photographs and publicly posted rack layouts because:"
 choices = [
-  "Photos never have information value",
+  "Photos never have information value or security impact",
   "All layouts must be posted on social media for transparency of breakers",
-  "Only cyber teams care about physical layouts",
-  "Detailed internals can aid physical or social-engineering attacks if leaked"
+  "Only cyber teams care about physical layouts and access",
+  "Detailed internals can aid attacks if leaked"
 ]
 correct = "D"
 explanation = "Information control is part of physical security hygiene."

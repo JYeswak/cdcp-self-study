@@ -8,9 +8,9 @@ module = 15
 stem = "MTTR (Mean Time To Repair/Restore) focuses on:"
 choices = [
   "How rarely a component fails",
-  "Only marketing uptime claims",
-  "Generator fuel energy content",
-  "How long recovery takes after a failure—process, spares, access, and skill dependent"
+  "Marketing",
+  "Fuel",
+  "Recovery time after failure"
 ]
 correct = "D"
 explanation = "MTTR is maintainability/ops speed; spares and MOPs often dominate more than the part itself."

@@ -7,8 +7,8 @@ kind = "single-select"
 module = 15
 stem = "Housekeeping rounds that check clear egress, unblocked extinguishers, and closed fire doors support:"
 choices = [
-  "Only aesthetics for executive visits",
-  "Combined life safety, fire readiness, and security posture",
+  "Only aesthetics for executive visits and housekeeping appearance",
+  "Life safety, fire readiness, and security",
   "Higher rack density automatically",
   "Elimination of detection systems"
 ]

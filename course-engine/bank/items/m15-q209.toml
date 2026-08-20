@@ -7,8 +7,8 @@ kind = "single-select"
 module = 15
 stem = "Preventive maintenance windows scheduled without rollback criteria are weak because:"
 choices = [
-  "Teams may not know when to abort and restore a known-good state if the procedure goes wrong",
-  "Rollback is never useful",
+  "Abort and restore a known-good state",
+  "Rollback is never useful in any maintenance change",
   "Maintenance always succeeds on first try",
   "Monitoring should be off during all maintenance"
 ]

@@ -11,7 +11,7 @@ module = 15
 stem = "Post-incident documentation (timeline, contributing factors, corrective actions) is valuable because it:"
 choices = [
   "Only blames individuals without system learning",
-  "Converts experience into prevention—procedure, design, and monitoring improvements",
+  "Turn experience into prevention improvements",
   "Is optional if the outage was short",
   "Replaces the need for MOPs on future similar work"
 ]

@@ -9,9 +9,9 @@ module = 15
 stem = "Reducing MTTR in facility operations is often less about buying new gear and more about:"
 choices = [
   "Deleting runbooks to encourage creativity",
-  "Procedures, spares, training, labels, and remote visibility that shrink diagnosis and repair time",
+  "Procedures, spares, training, labels",
   "Hiding spare parts offsite without inventory",
-  "Disabling monitoring to avoid alarms"
+  "Disabling monitoring to avoid alarms and notifications"
 ]
 correct = "B"
 explanation = "Maintainability is process and preparedness, not only capital equipment."

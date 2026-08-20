@@ -8,7 +8,7 @@ kind = "single-select"
 module = 15
 stem = "Capacity and asset documentation (what is in which rack/U and on which circuit) primarily prevents:"
 choices = [
-  "All cyber attacks",
+  "All cyber attacks, unauthorized access, and physical security incidents",
   "The need for any EMS sensors",
   "Generator exercise tests",
   "Overloaded circuits, stranded capacity mistakes, and blind changes"

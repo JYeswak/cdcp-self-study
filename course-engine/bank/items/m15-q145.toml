@@ -7,8 +7,8 @@ kind = "single-select"
 module = 15
 stem = "Availability is improved not only by higher MTBF but also by:"
 choices = [
-  "Reducing MTTR through better diagnostics, spares, access, and procedures",
-  "Ignoring failures until total outage",
+  "Reduce MTTR with diagnostics, spares, and procedures",
+  "Ignoring failures until total outage and recovery planning",
   "Deleting monitoring to avoid pages",
   "Removing all redundancy"
 ]

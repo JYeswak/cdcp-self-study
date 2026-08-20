@@ -8,10 +8,10 @@ kind = "single-select"
 module = 15
 stem = "Preventive maintenance windows should be managed with change control because:"
 choices = [
-  "Maintenance never affects production",
+  "Maintenance never affects production, isolation, or service risk",
   "Vendors prefer no documentation",
   "SLAs forbid all maintenance",
-  "Work on live critical systems can cause outages if steps, isolation, and backout are uncontrolled"
+  "Uncontrolled live-system work can cause outages"
 ]
 correct = "D"
 explanation = "PM is necessary risk—controlled via MOP/change process, not ad-hoc tinkering."

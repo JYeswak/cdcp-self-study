@@ -8,8 +8,8 @@ kind = "single-select"
 module = 15
 stem = "A maintenance contract SLA should specify measurable outcomes such as:"
 choices = [
-  "Vague best effort with no response definitions",
-  "Response/restore targets, coverage hours, escalation, and spare commitments as applicable",
+  "Vague best effort with no response definitions or coverage",
+  "Response/restore targets, coverage, escalation, and spares",
   "Only the vendor logo color",
   "Unlimited silent impairments"
 ]

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 15
 stem = "A maintenance contract SLA should clearly define:"
 choices = [
-  "Only the vendor logo color",
+  "Only the vendor logo color and marketing identity",
   "That no one may ever touch equipment",
-  "Response/restore times, coverage hours, included assets, and escalation—not only a monthly price",
-  "Unlimited scope with zero measurement"
+  "Define response/restore times and escalation",
+  "Unlimited scope with zero measurement or service boundaries"
 ]
 correct = "C"
 explanation = "SLAs without measurable service levels are procurement theatre."

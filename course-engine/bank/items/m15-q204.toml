@@ -11,7 +11,7 @@ choices = [
   "Wet mopping every PDU interior weekly with unknown chemicals",
   "Using compressed air to blow debris into equipment intakes as routine",
   "Never cleaning under raised floors",
-  "Methods and materials that control dust/contaminants without damaging equipment or creating electrical hazards"
+  "Control dust without equipment damage or electrical hazards"
 ]
 correct = "D"
 explanation = "Cleaning is controlled work near electronics—technique matters."
