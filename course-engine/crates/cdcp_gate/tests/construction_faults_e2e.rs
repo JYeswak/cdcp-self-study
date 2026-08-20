@@ -23,6 +23,7 @@ fn the_gate_is_registered_and_reports_both_populations() {
             && output.contains("damaged-corpus verdict=EXPECTED-RED"),
         "{output}"
     );
+    assert!(output.contains("construction-faults: PASS"), "{output}");
     assert!(
         output.contains(
             "GREEN-DOES-NOT-PROVE: exit 0 here means four named option-set cues are absent."

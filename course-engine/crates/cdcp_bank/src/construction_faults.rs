@@ -632,6 +632,9 @@ fn evaluate_pair(root: &Path, require_damaged: bool) -> Eval {
     if gate_verdict_is_red(&live, damaged.as_ref()) {
         Eval::Violation(report)
     } else {
+        report.push(format!(
+            "{NAME}: PASS: live-approved option-set cues are clean; damaged corpus fired as expected"
+        ));
         Eval::Ok(report.join("\n"))
     }
 }
