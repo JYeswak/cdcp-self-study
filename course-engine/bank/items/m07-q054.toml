@@ -9,10 +9,10 @@ kind = "single-select"
 module = 7
 stem = "HEMP awareness at CDCP level correctly includes that:"
 choices = [
-  "Standard commercial colo designs are automatically HEMP-hardened",
-  "E1/E2/E3 are cooling set points",
-  "Fibre eliminates all EMP coupling concerns always",
-  "True HEMP/IEMI hardening is specialist scope; ordinary designs should not claim military-grade protection",
+  "Standard commercial colocation designs are HEMP-hardened by default",
+  "E1, E2, and E3 name the cooling set points for the hall",
+  "An all-fibre plant removes every EMP coupling path from the building",
+  "HEMP hardening is specialist scope; ordinary designs should not claim it",
 ]
 correct = "D"
 explanation = "Recognize EMP vocabulary and do not over-claim hardening without a real program."

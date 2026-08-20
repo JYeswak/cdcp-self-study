@@ -7,10 +7,10 @@ kind = "single-select"
 module = 7
 stem = "Placing a network operations desk directly against a large transformer room wall without assessment is risky because:"
 choices = [
-  "Transformers never produce fields",
-  "It always improves comfort heating in winter only",
-  "Occupants and any sensitive equipment may sit in a high-field region unnecessarily",
-  "It guarantees lower PUE"
+  "Transformers do not produce external fields",
+  "It improves comfort heating during the winter months",
+  "Occupants may sit in a high-field region",
+  "It lowers the facility's measured PUE figure",
 ]
 correct = "C"
 explanation = "Adjacency without assessment can expose people and equipment to avoidable fields."

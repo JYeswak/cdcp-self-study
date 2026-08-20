@@ -8,10 +8,10 @@ kind = "single-select"
 module = 7
 stem = "A practical trigger to commission an EMF survey includes:"
 choices = [
-  "Every time a fibre connector is cleaned",
-  "Only when PUE exceeds 2.0",
-  "Whenever blanking panels are installed",
-  "Unexplained I/O errors clustered near electrical plant, exposure complaints, or white space next to high-current gear/rail/substation",
+  "Each time a fibre connector is inspected and cleaned",
+  "Whenever the facility PUE rises above its annual target",
+  "After blanking panels are installed in a partially filled rack",
+  "Unexplained I/O errors clustered near electrical plant, exposure complaints, or white space adjacent to high-current gear",
 ]
 correct = "D"
 explanation = "Surveys follow symptoms, adjacency risk, or due diligence—not random ritual."

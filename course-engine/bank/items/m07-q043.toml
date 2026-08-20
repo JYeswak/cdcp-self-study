@@ -8,10 +8,10 @@ kind = "single-select"
 module = 7
 stem = "Magnetic flux density is commonly discussed in data-centre EMF work using:"
 choices = [
-  "Tesla/microtesla (and sometimes milligauss, where 1 µT = 10 mG)",
-  "Only dBm on fibre OTDR",
-  "Lux and foot-candles",
-  "CFM only",
+  "Tesla or microtesla (1 uT = 10 mG)",
+  "Decibel-milliwatts measured on an OTDR trace",
+  "Foot-candles at the work plane",
+  "Cubic feet per minute",
 ]
 correct = "A"
 explanation = "B-field uses T/µT; older literature uses mG (1 µT = 10 mG)."

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 7
 stem = "EMF best-practice posture for operators is typically to:"
 choices = [
-  "Ignore worker exposure questions entirely",
-  "Treat every field as harmless without measurement when symptoms or adjacency risk appear",
-  "Assess sources, apply exposure/equipment guidance as applicable, and mitigate by design and distance",
-  "Ban all electrical distribution indoors"
+  "Leave worker exposure questions to the tenant entirely",
+  "Treat every field as harmless until a complaint is filed",
+  "Assess sources, apply exposure and equipment guidance as applicable, and mitigate by design and distance",
+  "Prohibit electrical distribution inside the occupied building",
 ]
 correct = "C"
 explanation = "Responsible practice is source-aware assessment and proportionate mitigation—not denial or panic."

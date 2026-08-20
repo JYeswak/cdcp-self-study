@@ -7,9 +7,9 @@ kind = "single-select"
 module = 7
 stem = "Ordinary aluminium sheet is a poor choice when the goal is:"
 choices = [
-  "Some RF/E-field related shielding applications with proper design",
-  "Thermal reflection in some architectural uses",
-  "Cosmetic covers with no field claim",
+  "Some RF and E-field shielding applications, with proper design",
+  "Thermal reflection in certain architectural assemblies",
+  "Cosmetic covers where no field performance is claimed",
   "Low-frequency (50/60 Hz) magnetic-field shielding",
 ]
 correct = "D"

@@ -8,10 +8,10 @@ kind = "single-select"
 module = 7
 stem = "External site-adjacency EMF sources can include:"
 choices = [
-  "Utility substations, rail traction systems, broadcast/radar, and lightning-related LEMP",
-  "Only plastic cable combs",
-  "Blanking panels exclusively",
-  "Hot-aisle containment curtains only",
+  "Utility substations, rail traction systems, broadcast and radar transmitters, and lightning-related LEMP",
+  "Plastic cable-management combs fitted at the rack rear",
+  "Blanking panels fitted across all the unused rack units",
+  "Containment curtains hung above the hot aisle",
 ]
 correct = "A"
 explanation = "Look outside the fence: substation, rail, RF, lightning."

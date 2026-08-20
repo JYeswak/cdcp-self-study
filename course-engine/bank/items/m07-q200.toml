@@ -8,10 +8,10 @@ kind = "single-select"
 module = 7
 stem = "In data centre facility context, EMF concerns commonly include both:"
 choices = [
-  "Only cosmic rays outside the solar system",
-  "Only visible light wavelengths used for signage",
-  "Electric and magnetic fields associated with power frequency and other sources that may affect equipment or people",
-  "Only Wi-Fi SSIDs"
+  "Cosmic radiation originating outside the solar system, measured at roof level",
+  "The visible-light wavelengths used in signage only",
+  "Power-frequency electric and magnetic fields affecting equipment or people",
+  "The Wi-Fi SSIDs broadcast inside the building",
 ]
 correct = "C"
 explanation = "Facility EMF discussion centres on power-frequency and related fields from electrical plant and other sources."

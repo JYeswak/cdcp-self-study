@@ -11,10 +11,10 @@ kind = "single-select"
 module = 7
 stem = "Magnetic field strength is often discussed in units such as:"
 choices = [
-  "Lux and foot-candles only",
-  "Only dBm for sound",
-  "Only Pascals for air pressure",
-  "Teslas or gauss (and related A/m field quantities depending on quantity reported)"
+  "Lux and foot-candles at the work plane",
+  "Decibel-milliwatts referenced to one milliwatt",
+  "Pascals of differential pressure across the floor",
+  "Teslas or gauss, with A/m for field strength",
 ]
 correct = "D"
 explanation = "Magnetic fields use T/gauss (or related field units); do not confuse with photometric units."

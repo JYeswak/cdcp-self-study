@@ -9,10 +9,10 @@ kind = "single-select"
 module = 7
 stem = "High-current busbars, transformers, and UPS/switchgear rooms are notable EMF sources because:"
 choices = [
-  "They handle large currents and magnetic fields fall off with distance but can be significant nearby",
-  "They produce no fields when loaded",
-  "Fields only exist inside fibre cables",
-  "They are always farther from IT than any risk threshold by physics alone"
+  "They carry large currents; the field falls with distance but is significant nearby",
+  "They produce no external field once fully loaded",
+  "Fields exist only inside the fibre cable jacket",
+  "Physics alone places them farther from IT equipment than any risk threshold could reach",
 ]
 correct = "A"
 explanation = "Current-carrying plant is a primary near-field magnetic source; distance and geometry matter."

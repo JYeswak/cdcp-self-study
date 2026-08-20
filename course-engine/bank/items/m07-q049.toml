@@ -7,10 +7,10 @@ kind = "single-select"
 module = 7
 stem = "EMI means:"
 choices = [
-  "A type of raised floor pedestal",
-  "Unwanted electromagnetic energy that degrades a victim circuit’s performance",
-  "Emergency management inventory only",
-  "Exactly the same as intentional EMP hardening certification",
+  "A raised-floor pedestal type used under heavy racks",
+  "Unwanted electromagnetic energy that degrades a victim circuit's performance",
+  "An inventory category used in emergency management planning",
+  "The same certification scope as intentional EMP hardening",
 ]
 correct = "B"
 explanation = "EMI is interference; EMC is the compatibility discipline."

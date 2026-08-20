@@ -7,10 +7,10 @@ kind = "single-select"
 module = 7
 stem = "Running supply and return conductors close together helps magnetically because:"
 choices = [
-  "Fields partially cancel when opposite currents are tightly coupled geometrically",
-  "It maximizes large loop area intentionally",
-  "It increases induced noise in all data cables always",
-  "It removes need for any grounding",
+  "Opposite currents partly cancel when tightly coupled",
+  "The enclosed loop area is deliberately maximised for measurement",
+  "Induced noise rises on every data cable in the same tray",
+  "Bonding of the enclosure is no longer required",
 ]
 correct = "A"
 explanation = "Tight geometry reduces net loop area and residual field."

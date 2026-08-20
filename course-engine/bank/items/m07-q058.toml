@@ -6,10 +6,10 @@ kind = "single-select"
 module = 7
 stem = "The mitigation hierarchy that prioritizes cheap geometry first is best ordered as:"
 choices = [
-  "Exotic mu-metal rooms first, then maybe move the transformer",
-  "Ignore distance and only buy RF paint",
-  "Disable grounding to reduce loops always",
-  "Separation → orientation/routing/current geometry → bonding/shielding integrity → specialty shielding when still needed",
+  "Mu-metal enclosures first, then consider relocating the transformer",
+  "Skip distance entirely and specify RF-absorbing paint",
+  "Remove bonding to eliminate induced loops before anything else",
+  "Separation, then routing and current geometry, then bonding and shielding integrity, then specialty shielding",
 ]
 correct = "D"
 explanation = "Prefer distance and geometry before expensive magnetic shielding."

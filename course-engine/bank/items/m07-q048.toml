@@ -7,10 +7,10 @@ kind = "single-select"
 module = 7
 stem = "Human exposure guidance (e.g. ICNIRP-class discussions) and product EMC immunity limits should be treated as:"
 choices = [
-  "Identical interchangeable number sets for every design",
-  "Irrelevant to data centres",
-  "Separate concerns—people protection vs equipment immunity—both can drive layout",
-  "Replaced entirely by PUE targets",
+  "Interchangeable number sets that apply to every design",
+  "Of no relevance to a commercial data centre building",
+  "Two separate concerns that can both drive layout",
+  "Superseded by the facility's published efficiency targets",
 ]
 correct = "C"
 explanation = "Keep health exposure language separate from IEC 61000-class equipment immunity."

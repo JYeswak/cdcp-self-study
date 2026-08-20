@@ -9,10 +9,10 @@ kind = "single-select"
 module = 7
 stem = "At power frequency inside a building, the dominant practical EMF concern for IT adjacency is usually:"
 choices = [
-  "Far-field RF radiation behaving like Wi-Fi multipath only",
+  "Far-field RF propagation behaving like Wi-Fi multipath in the hall",
   "Quasi-static magnetic fields driven by high current in plant gear",
-  "Ionizing nuclear radiation from CRAC units",
-  "Optical laser safety from fibre only",
+  "Ionizing radiation from isotopes in smoke-detection heads",
+  "Optical power density at fibre connector end faces",
 ]
 correct = "B"
 explanation = "50/60 Hz problems are quasi-static B-fields from current—not room-scale far-field radiation."

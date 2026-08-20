@@ -7,10 +7,10 @@ kind = "single-select"
 module = 7
 stem = "A myth to reject in modern halls is:"
 choices = [
-  "Sustained high B near plant can still matter for some equipment and copper noise",
-  "Any phone magnet walking past a rack will wipe enterprise SAN storage",
-  "Product manuals may list environmental magnetic limits",
-  "Surveys can inform layout",
+  "Sustained high B near plant can still matter for copper noise",
+  "A phone magnet carried past a rack wipes SAN storage",
+  "Product manuals may state environmental magnetic limits",
+  "Surveys can usefully inform the white-space layout",
 ]
 correct = "B"
 explanation = "Cinema magnet myths ≠ real risk model; focus on plant-scale fields, surge, and RF IEMI where relevant."

@@ -8,10 +8,10 @@ kind = "single-select"
 module = 7
 stem = "Electric fields and magnetic fields differ in that magnetic fields are particularly associated with:"
 choices = [
-  "Only voltage with zero current always",
+  "Voltage alone",
   "Current flow in conductors",
-  "Only humidity percentage",
-  "Only the color of insulation"
+  "The relative humidity held in the supply air",
+  "The colour coding of the conductor insulation",
 ]
 correct = "B"
 explanation = "Magnetic fields couple to current; electric fields relate more to voltage/charge separation."

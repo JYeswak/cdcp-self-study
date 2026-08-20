@@ -7,10 +7,10 @@ kind = "single-select"
 module = 7
 stem = "CRT-era displays were famously field-sensitive; modern IT is generally more robust, yet facility designers still care about EMF because:"
 choices = [
-  "Magnetic fields always destroy fibre optics",
-  "EMF always improves packet loss",
-  "Standards forbid any current above 1 A",
-  "Some equipment, cabling, and human-exposure policies can still be affected by strong local fields"
+  "Magnetic fields degrade the optical fibre core",
+  "Field exposure measurably reduces packet loss figures",
+  "Standards prohibit any feeder current above one amp",
+  "Some equipment and exposure policies still respond",
 ]
 correct = "D"
 explanation = "Legacy myths fade, but strong local fields can still matter for certain gear, analog paths, and people."

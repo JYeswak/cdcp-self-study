@@ -7,10 +7,10 @@ kind = "single-select"
 module = 7
 stem = "Cable tray geometry and phase arrangement can influence magnetic fields because:"
 choices = [
-  "Tray color sets field strength",
-  "Conductor spacing and current phasing affect net field cancellation or reinforcement",
-  "Fields ignore geometry completely",
-  "Only fibre in the tray produces 50/60 Hz magnetic fields"
+  "Tray finish colour changes the measured field strength",
+  "Spacing and phasing affect net cancellation",
+  "Magnetic fields are unaffected by conductor geometry",
+  "Only the fibre in the tray produces 50/60 Hz fields",
 ]
 correct = "B"
 explanation = "Layout and phase geometry are design levers for field reduction."

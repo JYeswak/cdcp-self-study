@@ -7,9 +7,9 @@ kind = "single-select"
 module = 7
 stem = "Electric field strength is measured in:"
 choices = [
-  "Amperes only",
-  "Rack units (U)",
-  "PUE dimensionless only",
+  "Amperes (A)",
+  "Amperes per metre (A/m)",
+  "Volt-amperes reactive (VAr)",
   "Volts per metre (V/m)",
 ]
 correct = "D"

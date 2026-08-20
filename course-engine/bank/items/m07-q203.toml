@@ -6,10 +6,10 @@ kind = "single-select"
 module = 7
 stem = "A practical mitigation that often helps before exotic shielding is:"
 choices = [
-  "Stacking servers against the transformer wall for shorter power cords always",
-  "Distance, orientation, and routing high-current paths away from sensitive equipment and occupied zones",
-  "Increasing current deliberately on all feeders",
-  "Removing all bonding"
+  "Stacking servers against the transformer wall for shorter cords",
+  "Distance, orientation, and routing",
+  "Deliberately raising the current carried on every feeder",
+  "Removing the bonding network from the affected room",
 ]
 correct = "B"
 explanation = "Separation and geometry are first-line mitigations; shielding is costlier and application-specific."

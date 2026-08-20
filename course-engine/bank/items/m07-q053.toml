@@ -8,10 +8,10 @@ kind = "single-select"
 module = 7
 stem = "For RF/E-field style shielding effectiveness, performance is often limited by:"
 choices = [
-  "Only the colour of paint",
+  "The finish colour applied to the shielding surface",
   "Apertures, seams, doors, and cable entries more than bulk wall thickness once conductivity is adequate",
-  "The number of rack U available",
-  "Generator fuel type exclusively",
+  "The number of rack units the shielded room can hold",
+  "The fuel type selected for the standby generators",
 ]
 correct = "B"
 explanation = "Shielded rooms fail at penetrations and seams—not just material thickness slogans."

@@ -8,10 +8,10 @@ kind = "single-select"
 module = 7
 stem = "Time-varying magnetic fields can induce noise on copper primarily via:"
 choices = [
-  "Optical absorption in multimode fibre cores",
-  "DNS cache poisoning",
-  "Faraday induction in loops—large cable loops and poor power/data separation worsen pick-up",
-  "CRAH humidification cycles alone",
+  "Optical absorption in the multimode fibre core",
+  "Resolver cache poisoning on the out-of-band management network segment",
+  "Faraday induction in cable loops where power and data run together",
+  "Humidification cycles in the CRAH units",
 ]
 correct = "C"
 explanation = "Induced voltage in loops is the classic copper EMI mechanism at ELF."

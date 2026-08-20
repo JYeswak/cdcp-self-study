@@ -7,10 +7,10 @@ kind = "single-select"
 module = 7
 stem = "When unexplained equipment anomalies cluster near electrical plant, a reasoned next step is:"
 choices = [
-  "Consider EMF and power-quality investigation among other root-cause paths",
-  "Ignore location correlation forever",
-  "Immediately replace all servers without investigation",
-  "Paint the floor a different color"
+  "Consider EMF and power quality among other causes",
+  "Treat the location correlation as coincidence and move on",
+  "Replace every affected server before investigating further",
+  "Repaint the floor tiles in the affected aisle",
 ]
 correct = "A"
 explanation = "Spatial clustering near plant suggests environmental/electrical investigation—not superstition."

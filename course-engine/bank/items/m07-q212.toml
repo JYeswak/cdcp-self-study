@@ -8,10 +8,10 @@ kind = "single-select"
 module = 7
 stem = "Documentation of EMF survey methods and results supports operations by:"
 choices = [
-  "Replacing all electrical single-line diagrams",
-  "Eliminating the need for PPE policies",
-  "Providing a baseline and evidence trail if complaints, changes, or adjacent construction occur later",
-  "Guaranteeing zero fields forever"
+  "It replaces the electrical single-line diagrams",
+  "It removes the PPE policy",
+  "Providing a baseline and an evidence trail if complaints, changes, or adjacent construction occur later",
+  "It guarantees the field level will not change",
 ]
 correct = "C"
 explanation = "Surveys are snapshots; records enable comparison after plant or layout changes."

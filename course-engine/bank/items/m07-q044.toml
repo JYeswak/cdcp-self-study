@@ -9,9 +9,9 @@ module = 7
 stem = "Which set is a common strong magnetic-field source near IT?"
 choices = [
   "Plastic blanking panels and fibre patch cords",
-  "LED exit signs only",
-  "Large transformers, busbars, and UPS/plant electrical gear",
-  "Empty cable trays with no current",
+  "Illuminated exit signage on the egress path",
+  "Transformers, busbars, and UPS plant gear",
+  "Empty cable trays carrying no current",
 ]
 correct = "C"
 explanation = "High current plant—transformers, bus, UPS—are classic strong B sources."

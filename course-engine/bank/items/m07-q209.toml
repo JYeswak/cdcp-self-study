@@ -7,10 +7,10 @@ kind = "single-select"
 module = 7
 stem = "External EMF sources relevant to site/building planning can include:"
 choices = [
-  "Only the break-room microwave permanently off",
-  "Only LED desk lamps",
-  "Only fibre splice trays",
-  "Nearby rail electrification, high-voltage lines, broadcast transmitters, and large industrial loads"
+  "The break-room microwave oven while switched off at the wall",
+  "The LED desk lamps used at the operator console",
+  "The fibre splice trays in the building entrance room",
+  "Rail electrification, HV lines, and broadcast transmitters",
 ]
 correct = "D"
 explanation = "External high-power electrical and RF sources can couple into a campus environment."
