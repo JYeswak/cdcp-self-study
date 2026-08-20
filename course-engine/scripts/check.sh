@@ -343,14 +343,26 @@ cd "$ROOT"
 # A local CI run is a single-revision claim.  The driver supplies the commit
 # SHA after creating a detached worktree; this assertion prevents a caller
 # from resolving HEAD again after the run has started or from accidentally
-# mixing a snapshot with a different checkout.  Direct invocations still
-# report the revision they actually opened.
-_check_sha="$(git -C "$ROOT" rev-parse --verify HEAD^{commit} 2>/dev/null)" \
-  || snapshot_error "cannot resolve the committed SHA for $ROOT; refusing an unpinned run"
+# mixing a snapshot with a different checkout.  The behavioural substrate
+# probe is the one deliberate exception: it is an index-only scratch repo with
+# no commit, so it identifies the staged tree with `git write-tree` and labels
+# the receipt accordingly. Every other uncommitted or unidentifiable tree is an
+# ERROR, never an implicit pass.
+_check_tree_label=worktree
+_check_sha="$(git -C "$ROOT" rev-parse --verify HEAD^{commit} 2>/dev/null)" || _check_sha=""
+if [ -z "$_check_sha" ]; then
+  if [ "${CDCP_SUBSTRATE_PROBE:-0}" = "1" ]; then
+    _check_sha="$(git -C "$ROOT" write-tree 2>/dev/null)" \
+      || snapshot_error "cannot resolve the staged tree for substrate probe $ROOT; refusing an unpinned probe"
+    _check_tree_label=probe-index
+  else
+    snapshot_error "cannot resolve the committed SHA for $ROOT; refusing an unpinned run"
+  fi
+fi
 if [ -n "${CDCP_CI_SHA:-}" ] && [ "$CDCP_CI_SHA" != "$_check_sha" ]; then
   snapshot_error "pinned SHA $CDCP_CI_SHA does not match the checkout SHA $_check_sha"
 fi
-echo "check.sh: tree=worktree sha=$_check_sha"
+echo "check.sh: tree=$_check_tree_label sha=$_check_sha"
 
 # Once the isolated snapshot and root are established, diagnostic mode must
 # collect ordinary command failures instead of inheriting shell fail-fast.  The
