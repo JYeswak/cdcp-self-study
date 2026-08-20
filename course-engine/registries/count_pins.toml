@@ -115,8 +115,8 @@ id = "key-contradiction.numeric-claims"
 source = "bank/items"
 metric = "key_contradiction_numeric_claims"
 kind = "floor"
-min = 1
-reason = "Anti-vacuity: prevents zero numeric claims from certifying an unrun contradiction scan; min=1 proves only that the scan domain did not collapse, not that the observed 345 claims is the correct number."
+min = 114
+reason = "Anti-vacuity: the committed tree derives 343 numeric claims, so this floor is one-third rounded down (114). That leaves 229 claims of headroom for legitimate option edits while staying above the largest observed one-module slice (57); it proves the scan domain did not collapse to a partial scan, not that 343 is the correct number."
 
 [[derived]]
 id = "key-contradiction.numeric-contradictions"
