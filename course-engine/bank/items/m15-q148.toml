@@ -14,7 +14,7 @@ choices = [
   "Vendors prefer no documentation"
 ]
 correct = "C"
-explanation = "PM is necessary risk—controlled via MOP/change process, not ad-hoc tinkering."
+explanation = "Preventive maintenance can affect production, isolation, and service risk, so it needs change control; calling it harmless or vendor-preferred does not remove that operational risk."
 topic_ids = ["m15-maintenance-sla", "m15-documentation"]
 objective_ids = []
 bloom = "apply"

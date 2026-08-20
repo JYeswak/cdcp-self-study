@@ -13,7 +13,7 @@ choices = [
   "Only exist as verbal tribal knowledge"
 ]
 correct = "B"
-explanation = "Runbooks codify known responses; MOPs plan specific high-risk changes."
+explanation = "Runbooks capture repeatable responses for recurring events and should be tested; they do not replace engineering design documents or live only as tribal knowledge."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "understand"

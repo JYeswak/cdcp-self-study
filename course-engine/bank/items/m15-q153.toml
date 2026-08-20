@@ -14,7 +14,7 @@ choices = [
   "Assume the vendor teleports parts instantly and repairs immediately"
 ]
 correct = "B"
-explanation = "SLA ≠ automatic achievement of site MTTR; design around the gap."
+explanation = "Operations must bridge the vendor response commitment and the internal one-hour restore goal; ignoring the mismatch or assuming instant parts leaves the restore gap unmanaged."
 topic_ids = ["m15-maintenance-sla", "m15-mtbf-mttr"]
 objective_ids = []
 bloom = "analyze"

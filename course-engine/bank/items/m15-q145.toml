@@ -13,7 +13,7 @@ choices = [
   "Removing all redundancy"
 ]
 correct = "B"
-explanation = "Conceptual availability relates to uptime fraction—faster restore recovers lost minutes."
+explanation = "Availability improves through both reliability and faster recovery, so diagnostics, spares, and procedures reduce MTTR; deleting monitoring, ignoring failures, or removing redundancy moves in the opposite direction."
 topic_ids = ["m15-mtbf-mttr"]
 objective_ids = []
 bloom = "understand"
