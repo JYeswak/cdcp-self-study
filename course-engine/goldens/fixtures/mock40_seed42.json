@@ -1,11 +1,11 @@
 {
-  "bank_hash": "c330628adb38f07f9c40bd5d43cf223da12cbb5043308589a6a8025fe253bd0a",
+  "bank_hash": "50fec2eb822295b274a6d14fabd10a92d070dac1dfe612003c434f20f4f6c24c",
   "exam_id": "mock40",
   "item_ids": [
     "m01-q201",
-    "m13-q210",
+    "m13-q212",
     "m12-q220",
-    "m15-q364",
+    "m15-q341",
     "m12-q209",
     "m07-q044",
     "m02-q089",
@@ -19,7 +19,7 @@
     "m11-q132",
     "m10-q113",
     "m08-q053",
-    "m14-q200",
+    "bank-m14-q133",
     "m09-q204",
     "m06-q107",
     "m09-q151",
@@ -33,10 +33,10 @@
     "m04-q200",
     "m07-q045",
     "m11-q237",
-    "m13-q300",
-    "m15-q375",
-    "bank-m14-q125",
-    "m15-q223",
+    "bank-m13-q103",
+    "m15-q363",
+    "bank-m14-q124",
+    "m15-q377",
     "m01-q057",
     "m12-q206",
     "m05-q213",
@@ -61,15 +61,15 @@
     },
     {
       "choices": [
-        "Removing the need for building perimeter controls",
-        "Providing tenant separation and controlled access within a shared building",
-        "Allowing unlimited shared keys across tenants",
-        "Eliminating CCTV needs"
+        "Plenums never connect rooms",
+        "Only network packets move above ceilings",
+        "Tiles cannot be lifted by design of physics",
+        "They may allow bypass of door controls if not physically secured or monitored as needed"
       ],
-      "correct": "B",
-      "id": "m13-q210",
+      "correct": "D",
+      "id": "m13-q212",
       "module": 13,
-      "stem": "Asset cages or demarcated customer spaces in colocation improve security by:",
+      "stem": "Raised-floor and ceiling spaces can be security-relevant pathways because:",
       "topic_ids": [
         "m13-security-components"
       ]
@@ -92,18 +92,17 @@
     },
     {
       "choices": [
-        "Prepare for, respond to, and recover from disruptions through a business continuity management system",
-        "Specify one universal recovery-time objective for every organization",
-        "Replace continuity planning with a vendor contract",
-        "Certify a facility solely from its business-impact analysis"
+        "Keep the badge active until the next quarterly security review",
+        "Remove the vendor from the access list when access is no longer required",
+        "Move the badge to a shared visitor account so the audit trail stays short",
+        "Leave it active because a signed contract is the access authorization"
       ],
-      "correct": "A",
-      "id": "m15-q364",
+      "correct": "B",
+      "id": "m15-q341",
       "module": 15,
-      "stem": "A BIA-backed business-continuity plan is never exercised; results are not reviewed, and related plans are tested separately. What manager action is supported?",
+      "stem": "A maintenance vendor's contract ended Friday, but its badge still appears on the facility access list Monday. What control action should the CDFOM manager take?",
       "topic_ids": [
-        "m15-ops-security",
-        "m15-documentation"
+        "m15-ops-security"
       ]
     },
     {
@@ -124,30 +123,30 @@
     },
     {
       "choices": [
-        "Power lines and electric appliances",
         "Plastic blanking panels and fibre patch cords",
         "LED exit signs only",
+        "Large transformers, busbars, and UPS/plant electrical gear",
         "Empty cable trays with no current"
       ],
-      "correct": "A",
+      "correct": "C",
       "id": "m07-q044",
       "module": 7,
-      "stem": "Which source example does the current IEC 61786-2 catalog identify for power-frequency fields?",
+      "stem": "Which set is a common strong magnetic-field source near IT?",
       "topic_ids": [
         "m07-sources"
       ]
     },
     {
       "choices": [
-        "Availability, security, and energy efficiency",
-        "Only the retail price of electricity and land",
-        "Only the number of servers and network ports",
-        "Only national permit timelines and vendor warranties"
+        "Replace every national electrical code automatically",
+        "Provide broadly usable technical documents that countries and markets may adopt or reference differently",
+        "Ban national standards bodies",
+        "Apply only to non-technical marketing"
       ],
-      "correct": "A",
+      "correct": "B",
       "id": "m02-q089",
       "module": 2,
-      "stem": "Which criteria does the ISO/IEC 22237-1:2021 classification system use over the planned lifetime of a data centre?",
+      "stem": "International standards development typically aims to:",
       "topic_ids": [
         "m02-intl-vs-national"
       ]
@@ -202,15 +201,15 @@
     },
     {
       "choices": [
-        "Recirculation and bypass ratios",
-        "Only rack-unit height conversions",
-        "Only fire-door access ratings",
-        "Only utility interconnection capacity"
+        "Only improve brand aesthetics",
+        "Always increase bypass airflow intentionally",
+        "Help control airflow through equipment rather than through empty U-spaces and large cable holes",
+        "Have no interaction with cooling"
       ],
-      "correct": "A",
+      "correct": "C",
       "id": "m08-q207",
       "module": 8,
-      "stem": "IEC 62610-6:2020 provides compatible measurement methods for cabinet-air:",
+      "stem": "Vertical blanking panels and brush strip openings matter at the rack because they:",
       "topic_ids": [
         "m08-types"
       ]
@@ -280,10 +279,10 @@
     },
     {
       "choices": [
-        "Only tracks rainfall for landscaping",
+        "Tracks rainfall for landscaping only, not makeup, leaks, blowdown, or supply problems",
         "Detects abnormal water loss (leaks, excessive blowdown, supply issues) before cooling is compromised",
-        "Replaces temperature sensors at rack inlets",
-        "Measures only copper resistance"
+        "Replaces rack-inlet temperature sensors by inferring all thermal conditions from basin data alone",
+        "Measures only copper resistance in electrical conductors and cannot describe water-system behavior"
       ],
       "correct": "B",
       "id": "m10-q113",
@@ -311,17 +310,17 @@
     },
     {
       "choices": [
-        "The management and operation of data centres",
-        "Classifying only electrical-enclosure ingress protection",
-        "Replacing all operational procedures with a single sensor",
-        "Defining Internet routing protocols"
+        "Fire/security supervisory points, capacity views, and health of the monitors themselves",
+        "Only social media uptime",
+        "Desktop wallpaper colors",
+        "Marketing campaign metrics only"
       ],
       "correct": "A",
-      "id": "m14-q200",
+      "id": "bank-m14-q133",
       "module": 14,
-      "stem": "A core monitoring challenge in data centres is:",
+      "stem": "A minimum mental monitoring checklist for mission-critical sites includes power chain, cooling path, environment, leaks, and:",
       "topic_ids": [
-        "m14-monitoring-challenges"
+        "m14-monitoring-reqs"
       ]
     },
     {
@@ -342,15 +341,15 @@
     },
     {
       "choices": [
-        "Conventional AC and DC distribution boards and their associated switches",
-        "Complete UPS systems",
-        "Applicable UPS functional units",
-        "UPS switches that interact with functional units to maintain load continuity"
+        "IT drops until generators finish a multi-hour warm-up with no UPS",
+        "UPS carries load; generators start; ATS transfers; UPS remains on conditioned path as designed",
+        "Fire system discharges immediately as the power path",
+        "Only lighting remains on generator forever"
       ],
-      "correct": "A",
+      "correct": "B",
       "id": "m06-q107",
       "module": 6,
-      "stem": "Which equipment category does IEC 62040-3:2021 explicitly say it does not cover?",
+      "stem": "During a utility outage with healthy design, the expected sequence is closest to:",
       "topic_ids": [
         "m06-ups",
         "m06-generators",
@@ -421,10 +420,10 @@
     },
     {
       "choices": [
-        "The cases are identical, so the EPA example proves that no makeup water, water rights, or permits need review",
-        "Do not transfer the permission: the Quincy case is a site-specific water-reuse system with documented makeup, water-rights, discharge, and permit interfaces; confirm the dry-loop boundary and local approvals for this design, then report WUE using ISO/IEC 30134-9:2022 categories",
-        "Closed loop always means WUE is zero, regardless of humidification or other site water",
-        "Reject dry coolers because every data-centre cooling design must use an evaporative tower"
+        "Treat the cases as identical and conclude no makeup water, water rights, or permit review is needed for the dry-cooler design, regardless of site or jurisdiction",
+        "Reject the transfer: verify site-specific makeup, water rights, discharge, approvals, dry-loop boundary, and WUE under ISO/IEC 30134-9:2022",
+        "Assume every closed loop makes WUE zero and removes humidification, domestic, fire, and other site-water obligations",
+        "Reject dry coolers because every data centre must use evaporative towers and cannot use a different heat-rejection design"
       ],
       "correct": "B",
       "id": "m10-q217",
@@ -453,10 +452,10 @@
     },
     {
       "choices": [
-        "Chapter 4 — General",
-        "Chapter 6 — Administrative Controls",
-        "Chapter 8 — Crime Prevention Through Environmental Design",
-        "Chapter 10 — Accessory Property"
+        "Permanent full white-space badges for all guests",
+        "ID check, temporary distinct badge, escort policy, and sign-in/out with badge return",
+        "Unlimited unescorted roaming after lobby coffee",
+        "Shared use of an employee’s badge"
       ],
       "correct": "B",
       "id": "bank-m13-q090",
@@ -500,10 +499,10 @@
     },
     {
       "choices": [
-        "A standalone equipment/apparatus application outside the document's scope",
-        "External electromagnetic influences impinging upon a facility or installation",
-        "Only human exposure to static magnetic fields",
-        "Only emissions from software and business applications"
+        "Painting walls with RF copper paint only",
+        "Separation (distance) and layout so high-current gear is not adjacent to sensitive copper-dense rows",
+        "Removing all bonding conductors",
+        "Switching every circuit to single-phase lighting"
       ],
       "correct": "B",
       "id": "m07-q045",
@@ -532,65 +531,64 @@
     },
     {
       "choices": [
-        "Allow both through to save time because the primary vendor is known and the work is urgent",
-        "Disable the mantrap interlock for the rest of the outage window",
-        "Stop the tailgate, challenge/verify identity for the second person, and only grant access per policy (escort or reject) — urgency does not authorize piggybacking",
-        "Confiscate tools and leave both vendors unsupervised in grey space while calling the NOC later"
+        "Every layer is equally strong",
+        "Anti-passback and CCTV are perfectly integrated",
+        "Roof hatches, generator yards, or process controls remain soft",
+        "LOTO is rigorously enforced in plant"
       ],
       "correct": "C",
-      "id": "m13-q300",
+      "id": "bank-m13-q103",
       "module": 13,
-      "stem": "Runbook vignette: A vendor arrives for emergency breaker work. Their escort badge is valid, but a second person without credentials tries to tailgate through the mantrap behind them carrying tools. Security cameras are recording. What should the escort/runbook response be?",
+      "stem": "Security theatre in a data centre might look like impressive lobby scanners while:",
       "topic_ids": [
-        "m13-security-components",
-        "m13-safety-components"
+        "m13-security-components"
       ]
     },
     {
       "choices": [
-        "Provide worker access to the program and SDS",
-        "Store the manual with the vendor and review it monthly",
-        "Use container labels but omit the program location",
-        "Wait for a new chemical before offering training"
+        "Use job-based IDPs with competency goals",
+        "Use one annual attendance total detached from job duties",
+        "Reserve career development for employees after promotion",
+        "Treat a vendor completion badge as the succession plan"
       ],
       "correct": "A",
-      "id": "m15-q375",
+      "id": "m15-q363",
       "module": 15,
-      "stem": "A safety manual is on a locked drive; workers cannot find the written hazard-communication program or safety data sheets during their shift. What correction is supported?",
+      "stem": "A DOE facilities department is planning development for shift leads. Which manager artifact matches DOE O 360.1D?",
       "topic_ids": [
-        "m15-eop",
+        "m15-ops-security",
         "m15-documentation"
       ]
     },
     {
       "choices": [
-        "Basic process control systems, annunciators, packaged systems, and safety instrumented systems",
-        "Only visitor badge printers and door controllers",
-        "Only chilled-water leak ropes and fire extinguishers",
-        "Only software authentication and network segmentation"
+        "Operators must memorize every valve tag without aids",
+        "All informational logs page the CEO",
+        "Sensors stop needing calibration",
+        "The page names the next human action and procedure under stress"
       ],
-      "correct": "A",
-      "id": "bank-m14-q125",
+      "correct": "D",
+      "id": "bank-m14-q124",
       "module": 14,
-      "stem": "Correlation of related points (utility fail + ATS transfer + UPS on battery) before fan-out helps:",
+      "stem": "Notification best practice includes putting runbook links in alerts so that:",
       "topic_ids": [
         "m14-notification",
-        "m14-alarms"
+        "m14-best-practices"
       ]
     },
     {
       "choices": [
-        "1910.147 already covers every electric-utilization installation, so a second citation is decoration",
-        "1910.147(a)(1)(ii)(D) excludes electrical-hazard exposure on electric-utilization installations and points to Subpart S (1910.331–.335, principally 1910.333). Putting a UPS into maintenance bypass from its HMI is not isolation — physical disconnect, lock, stored energy released, absence of voltage verified including backfeed",
-        "The only applicable rule is the utility’s own tariff, because the campus takes a medium-voltage feed",
-        "Subpart S applies only to the utility’s exclusive-control substation — that regime is 1910.269, not this work"
+        "Provide a single entry point for service support",
+        "Keep channels separate and compare logos quarterly",
+        "Replace support access with a maintenance inventory",
+        "Count survey replies without changing the support route"
       ],
-      "correct": "B",
-      "id": "m15-q223",
+      "correct": "A",
+      "id": "m15-q377",
       "module": 15,
-      "stem": "An energy-control programme that cites only 29 CFR 1910.147 for work on UPS, switchgear, PDU, and busway is mis-scoped because:",
+      "stem": "A support process surveys users but forces them to search across unrelated channels for help. What service-management improvement is supported?",
       "topic_ids": [
-        "m15-ops-security"
+        "m15-maintenance-sla"
       ]
     },
     {
@@ -643,30 +641,30 @@
     },
     {
       "choices": [
-        "A KPI that quantifies reused energy, defined as reused energy divided by the sum of all energy consumed in a data centre",
-        "A KPI for availability class, physical security, and site access control",
-        "A synonym for PUE with no energy-reuse boundary",
-        "A legal requirement imposing one universal energy-reuse target"
+        "Agree: Energy Reuse Factor and Energy Reuse Effectiveness are one KPI with two spellings",
+        "ISO/IEC 30134-6 is Energy Reuse Factor (ERF). Green Grid ERE (Energy Reuse Effectiveness) is a different metric. Do not collapse the letters, and do not turn this module into an energy course",
+        "ERF is the 2024 rename of Availability Class; ERE is the TIA Rated letter",
+        "Either letter converts to a single PUE target that is now law"
       ],
-      "correct": "A",
+      "correct": "B",
       "id": "m02-q217",
       "module": 2,
-      "stem": "ISO/IEC 30134-6:2021 defines Energy Reuse Factor (ERF) as:",
+      "stem": "A slide writes “ERF = ERE” and files both as the same ISO/IEC 30134 letter. The correction is:",
       "topic_ids": [
         "m02-standards-guidelines"
       ]
     },
     {
       "choices": [
-        "Ensures continuity of load power",
-        "Replaces all conventional distribution boards",
-        "Provides only cooling-water continuity",
-        "Applies only to software failover"
+        "Is the universal gold standard for hyperscale IT halls",
+        "Keeps the load on utility and transfers to inverter/battery on failure",
+        "Eliminates transfer notches by design",
+        "Cannot use batteries"
       ],
-      "correct": "A",
+      "correct": "B",
       "id": "m06-q059",
       "module": 6,
-      "stem": "What primary function does IEC 62040-3:2021 identify for covered UPS systems?",
+      "stem": "A standby (offline/VFD-class) UPS typically:",
       "topic_ids": [
         "m06-ups"
       ]
