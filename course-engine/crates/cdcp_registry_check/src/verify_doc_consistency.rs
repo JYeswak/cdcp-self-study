@@ -33,10 +33,10 @@
 //!   stale, or contradictory narrative text is out of scope by construction.
 //! - Any claim in a doc it never read: a markdown file that is not valid UTF-8
 //!   is reported as unreadable and refused, never silently skipped.
-//! - In the attribution ledger, `PASS` and `BLOCKED` in the declared `Result`
-//!   column are citation outcomes, not publication claims. The ledger schema
-//!   is recognized by its exact header; only those result cells are masked.
-//!   Other cells and prose in the same file remain in scope.
+//! - In a citation table row, `PASS` and `BLOCKED` verdict cells are citation
+//!   outcomes, not publication claims. A row is recognized structurally by an
+//!   item id, a standards-like citation URL, and that verdict; only verdict
+//!   cells are masked. Other cells and prose remain in scope.
 //!
 //! # DECISION (bd-hw3, 2026-08-14): a row shorter than its Status column is RED
 //!
@@ -1229,15 +1229,6 @@ fn describes_detector(line: &str) -> bool {
     DETECTOR_NAMES.iter().copied().any(|n| has_word(&low, n))
 }
 
-const ATTRIBUTION_HEADER: [&str; 6] = [
-    "ID",
-    "Module",
-    "Public syllabus heading",
-    "Syllabus URL",
-    "Current source URL",
-    "Result",
-];
-
 fn markdown_table_cells(line: &str) -> Option<Vec<&str>> {
     let trimmed = line.trim();
     if !trimmed.starts_with('|') || !trimmed.ends_with('|') {
@@ -1251,55 +1242,76 @@ fn markdown_table_cells(line: &str) -> Option<Vec<&str>> {
     )
 }
 
-fn is_attribution_header(cells: &[&str]) -> bool {
-    cells == ATTRIBUTION_HEADER
-}
-
-fn is_table_separator(cells: &[&str]) -> bool {
-    !cells.is_empty()
-        && cells.iter().all(|cell| {
-            !cell.is_empty()
-                && cell.contains('-')
-                && cell.chars().all(|ch| ch == '-' || ch == ':' || ch == ' ')
-        })
-}
-
 fn is_citation_result(cell: &str) -> bool {
     let first = cell
         .trim()
         .split(|ch: char| ch.is_whitespace() || ch == '-' || ch == ':' || ch == '—')
         .next()
-        .unwrap_or_default();
+        .unwrap_or_default()
+        .trim_matches(|ch: char| ch == '*' || ch == '`' || ch == '_');
     first == "PASS" || first == "BLOCKED"
 }
 
-/// Return a scan-only copy with the attribution ledger's citation Result cell
-/// blanked. This is schema discrimination, not a path exclusion: a publication
-/// claim in another cell or in prose still reaches `publication_hit`.
-fn attribution_scan_line(line: &str, in_table: &mut bool) -> String {
+fn has_item_id(cell: &str) -> bool {
+    let chars: Vec<char> = cell.to_ascii_lowercase().chars().collect();
+    for i in 0..chars.len() {
+        if chars[i] != 'm' {
+            continue;
+        }
+        let mut p = i + 1;
+        if p + 2 < chars.len() && chars[p..p + 3] == ['o', 'c', 'k'] {
+            p += 3;
+        }
+        let digits_start = p;
+        while p < chars.len() && chars[p].is_ascii_digit() {
+            p += 1;
+        }
+        if p == digits_start || p + 2 > chars.len() || chars[p] != '-' || chars[p + 1] != 'q' {
+            continue;
+        }
+        p += 2;
+        let question_start = p;
+        while p < chars.len() && chars[p].is_ascii_digit() {
+            p += 1;
+        }
+        if p > question_start {
+            return true;
+        }
+    }
+    false
+}
+
+fn has_standards_receipt(cells: &[&str]) -> bool {
+    let row = cells.join(" | ").to_ascii_lowercase();
+    let has_url = row.contains("https://") || row.contains("http://");
+    let standard_marker = [
+        "iso/", "iso ", "iec ", "ieee", "nfpa", "tia-", "ansi", "ashrae", "nist", "cfr ",
+    ]
+    .iter()
+    .any(|marker| row.contains(marker));
+    has_url && standard_marker
+}
+
+/// Return a scan-only copy with citation verdict cells blanked. This is row
+/// shape discrimination, not a path exclusion: a publication claim in another
+/// cell or in prose still reaches `publication_hit`.
+fn citation_table_scan_line(line: &str) -> String {
     let Some(cells) = markdown_table_cells(line) else {
-        *in_table = false;
         return line.to_string();
     };
-    if is_attribution_header(&cells) {
-        *in_table = true;
-        return line.to_string();
-    }
-    if !*in_table {
-        return line.to_string();
-    }
-    if is_table_separator(&cells) {
-        return line.to_string();
-    }
-    if cells.len() != ATTRIBUTION_HEADER.len() {
-        *in_table = false;
-        return line.to_string();
-    }
-    if !is_citation_result(cells[5]) {
+    if cells.len() < 3
+        || !cells.iter().any(|cell| has_item_id(cell))
+        || !has_standards_receipt(&cells)
+        || !cells.iter().any(|cell| is_citation_result(cell))
+    {
         return line.to_string();
     }
     let mut masked = cells;
-    masked[5] = "";
+    for cell in &mut masked {
+        if is_citation_result(cell) {
+            *cell = "";
+        }
+    }
     format!("| {} |", masked.join(" | "))
 }
 
@@ -1342,12 +1354,11 @@ fn scan_publication(root: &Path) -> (usize, Vec<Finding>) {
         let rel = path.strip_prefix(root).unwrap_or(path);
         let lines = py_splitlines(&text);
         let fenced = closed_fence_mask(&lines);
-        let mut in_attribution_table = false;
         for (idx, line) in lines.into_iter().enumerate() {
             if fenced[idx] {
                 continue;
             }
-            let scan_line = attribution_scan_line(line, &mut in_attribution_table);
+            let scan_line = citation_table_scan_line(line);
             if describes_detector(line) {
                 continue;
             }

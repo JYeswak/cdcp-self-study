@@ -420,22 +420,27 @@ fn e_publication_pending_is_red_in_both() {
     assert!(out.contains("publication described as not done"), "{out}");
 }
 
-/// The attribution ledger's Result column declares citation status, so its
-/// catalog `BLOCKED` receipts are not publication claims. The same file's
-/// ordinary prose remains covered and must still catch a real publication
-/// defect.
+/// Citation rows are identified by shape, not by a filename or self-declared
+/// schema. Both known citation documents go green while ordinary prose in each
+/// remains covered and must catch a real publication defect.
 #[test]
-fn attribution_result_blocked_is_citation_status_but_prose_is_red() {
+fn citation_table_blocked_is_citation_status_but_prose_is_red() {
     let s = Spec::clean();
     s.write(
         "docs/curriculum-grades/ATTRIBUTION-BAR-LEDGER.md",
         "# Attribution ledger\n\n\
          | ID | Module | Public syllabus heading | Syllabus URL | Current source URL | Result |\n\
          |---|---:|---|---|---|---|\n\
-         | m01-q001 | 1 | Types of data centres | https://epi.example/syllabus |\
-           https://example.test/publication/942 | BLOCKED — catalog receipt |\n",
+         | mock40-q01 | 1 | Types of data centres | ISO/IEC 22237-1:2021 —\
+           https://www.iso.org/standard/78550.html | BLOCKED — catalog receipt |\n",
     );
-    let out = assert_byte_exact("attribution-blocked-citation", Some(s.path()));
+    s.write(
+        "docs/curriculum-grades/corpus-expansion/OPEN-CORPUS-RESEARCH-2026-08-18.md",
+        "# Open corpus research\n\n\
+         | m08-q053 | Power strips / rails | ISO/IEC 22237-3:2021 —\
+           https://webstore.iec.ch/en/publication/92578 | **BLOCKED** — exact claim not exposed |\n",
+    );
+    let out = assert_byte_exact("citation-table-blocked", Some(s.path()));
     assert!(out.starts_with("PASS\n"), "{out}");
 
     s.append(
@@ -443,6 +448,15 @@ fn attribution_result_blocked_is_citation_status_but_prose_is_red() {
         "\nThe publication is blocked pending a human decision.\n",
     );
     let out = assert_byte_exact("attribution-publication-defect", Some(s.path()));
+    assert!(out.contains("ATTRIBUTION-BAR-LEDGER.md"), "{out}");
+    assert!(out.contains("publication described as not done"), "{out}");
+
+    s.append(
+        "docs/curriculum-grades/corpus-expansion/OPEN-CORPUS-RESEARCH-2026-08-18.md",
+        "\nThe publication is blocked pending a human decision.\n",
+    );
+    let out = assert_byte_exact("corpus-publication-defect", Some(s.path()));
+    assert!(out.contains("OPEN-CORPUS-RESEARCH-2026-08-18.md"), "{out}");
     assert!(out.contains("publication described as not done"), "{out}");
 }
 

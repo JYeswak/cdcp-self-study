@@ -473,16 +473,6 @@ def describes_detector(line: str) -> bool:
     return any(_has_word(low, name) for name in _DETECTOR_NAMES)
 
 
-_ATTRIBUTION_HEADER = (
-    "ID",
-    "Module",
-    "Public syllabus heading",
-    "Syllabus URL",
-    "Current source URL",
-    "Result",
-)
-
-
 def _markdown_table_cells(line: str) -> list[str] | None:
     stripped = line.strip()
     if not (stripped.startswith("|") and stripped.endswith("|")):
@@ -490,33 +480,45 @@ def _markdown_table_cells(line: str) -> list[str] | None:
     return [cell.strip() for cell in stripped[1:-1].split("|")]
 
 
-def _is_table_separator(cells: list[str]) -> bool:
-    return bool(cells) and all(
-        cell and "-" in cell and all(ch in "-: " for ch in cell) for cell in cells
-    )
-
-
 def _is_citation_result(cell: str) -> bool:
-    first = re.split(r"[\s\-:—]", cell.strip(), maxsplit=1)[0]
+    first = re.split(r"[\s\-:—]", cell.strip(), maxsplit=1)[0].strip("*`_")
     return first in {"PASS", "BLOCKED"}
 
 
-def _attribution_scan_line(line: str, in_table: list[bool]) -> str:
+def _has_item_id(cell: str) -> bool:
+    return re.search(r"(?:m|mock)\d+-q\d+", cell.lower()) is not None
+
+
+def _has_standards_receipt(cells: list[str]) -> bool:
+    row = " | ".join(cells).lower()
+    has_url = "https://" in row or "http://" in row
+    standard_markers = (
+        "iso/",
+        "iso ",
+        "iec ",
+        "ieee",
+        "nfpa",
+        "tia-",
+        "ansi",
+        "ashrae",
+        "nist",
+        "cfr ",
+    )
+    return has_url and any(marker in row for marker in standard_markers)
+
+
+def _citation_table_scan_line(line: str) -> str:
     cells = _markdown_table_cells(line)
     if cells is None:
-        in_table[0] = False
         return line
-    if tuple(cells) == _ATTRIBUTION_HEADER:
-        in_table[0] = True
+    if (
+        len(cells) < 3
+        or not any(_has_item_id(cell) for cell in cells)
+        or not _has_standards_receipt(cells)
+        or not any(_is_citation_result(cell) for cell in cells)
+    ):
         return line
-    if not in_table[0] or _is_table_separator(cells):
-        return line
-    if len(cells) != len(_ATTRIBUTION_HEADER):
-        in_table[0] = False
-        return line
-    if not _is_citation_result(cells[5]):
-        return line
-    cells[5] = ""
+    cells = ["" if _is_citation_result(cell) else cell for cell in cells]
     return "| " + " | ".join(cells) + " |"
 
 
@@ -540,11 +542,10 @@ def scan_publication(root: Path) -> tuple[int, list[str]]:
         rel = path.relative_to(root)
         lines = text.splitlines()
         fenced = closed_fence_mask(lines)
-        in_attribution_table = [False]
         for lineno, line in enumerate(lines, 1):
             if fenced[lineno - 1]:
                 continue
-            scan_line = _attribution_scan_line(line, in_attribution_table)
+            scan_line = _citation_table_scan_line(line)
             if describes_detector(line):
                 continue
             for rx, why in compiled:
