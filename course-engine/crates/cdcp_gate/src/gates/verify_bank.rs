@@ -65,12 +65,15 @@ mod tests {
         assert!(pass.contains("  source_class=original\n"));
         assert!(
             pass.contains(
-                "  items=904 scanned, 879 approved (floors count the approved pool only)\n"
+                // 904/879 -> 957/931: the MANIFEST was corrected to the real file set in
+                // fd4d6d8; the old pin predated that and had been red since.
+                "  items=957 scanned, 931 approved (floors count the approved pool only)\n"
             ),
             "{pass}"
         );
         assert!(
-            pass.contains("14: 46, 15: 56}") && pass.contains("14: 48, 15: 56}"),
+            // m15 56 -> 106: module 15 grew with the CDFOS/CDFOM track.
+            pass.contains("14: 46, 15: 106}") && pass.contains("14: 48, 15: 106}"),
             "{pass}"
         );
         assert!(
