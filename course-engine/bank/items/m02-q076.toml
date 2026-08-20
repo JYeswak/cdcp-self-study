@@ -13,7 +13,7 @@ choices = [
   "Practitioners must check which document is adopted or specified in that jurisdiction and project",
   "Only U.S. documents exist",
   "National always means weaker, so a practitioner can select the international document without checking adoption, jurisdiction, or project specification",
-  "International always voids local law",
+  "International standards may replace local law without an adoption decision",
 ]
 correct = "A"
 explanation = "The governing document is the one adopted or specified for the jurisdiction and project; national is not automatically weaker, and an international series cannot void local law by prestige."

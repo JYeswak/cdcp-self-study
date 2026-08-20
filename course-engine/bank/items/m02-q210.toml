@@ -5,7 +5,7 @@ module = 2
 stem = "An RFP writes “Class 3 / Rated-3 / Tier III equivalent” as one bullet. The taught reading is:"
 choices = [
   "Keep Availability Class, TIA Rated, and Uptime Tier distinct; there is no Class 3 = Rated-3 = Tier III conversion",
-  "Protection Class is the converter between Rated and Tier, because protection and topology are one rating lattice",
+  "Protection Class may be the converter between Rated and Tier, because protection and topology are one rating lattice",
   "Class 3 is TIA’s new name for Uptime Tier III after the 942-C rename, so the newer label makes the frameworks equivalent",
   "Finish the conversion: Availability Class is the official translator that makes Rated-3 equal Tier III, so the labels can be swapped in the contract",
 ]
