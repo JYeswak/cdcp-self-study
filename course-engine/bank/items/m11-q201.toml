@@ -7,9 +7,9 @@ kind = "single-select"
 module = 11
 stem = "TIA-942-style topology concepts emphasize spaces such as:"
 choices = [
-  "Only a single giant patch field with no hierarchy",
+  "Only a single giant patch field with no hierarchy or administration",
   "Power-only rooms without cabling spaces",
-  "Entrance rooms, main distribution areas, intermediate or horizontal distribution, and zone or equipment outlets as a hierarchy",
+  "A hierarchy of entrance, distribution, and outlet spaces",
   "Generators as network hubs"
 ]
 correct = "C"

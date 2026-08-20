@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "A point of demarcation (demarc) with a carrier is best understood as:"
 choices = [
-  "The hot aisle temperature setpoint",
+  "The hot aisle temperature setpoint and thermal operating limit",
   "The UPS battery float voltage",
-  "The boundary where provider responsibility transitions toward customer or facility responsibility",
-  "The CRAH filter differential pressure alarm only"
+  "Boundary where provider responsibility transitions",
+  "CRAH filter differential pressure alarm only, not demarcation"
 ]
 correct = "C"
 explanation = "Demarc defines operational and contractual handoff for circuits—critical in MMR and entrance planning."

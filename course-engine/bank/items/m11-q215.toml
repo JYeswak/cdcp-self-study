@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Over-subscribing a single top-of-rack uplink without fabric redesign primarily creates:"
 choices = [
-  "A capacity and failure domain problem at the network edge, independent of cable category",
-  "Better copper near-end crosstalk",
-  "Automatic path diversity outdoors",
-  "Lower optical loss"
+  "Capacity and failure-domain risk at the edge",
+  "Better copper near-end crosstalk and category performance",
+  "Automatic path diversity outdoors and in the building",
+  "Lower optical loss and improved transceiver margins"
 ]
 correct = "A"
 explanation = "Uplink design is a topology capacity issue, not a media-category fix."

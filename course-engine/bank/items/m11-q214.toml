@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Separating power and data pathways reduces risk of:"
 choices = [
-  "All logical routing loops",
-  "Generator wet stacking",
-  "Thermal envelope violations only",
-  "EMI coupling and physical congestion that complicates both trades"
+  "All logical routing loops and protocol convergence problems",
+  "Generator wet stacking and fuel quality problems",
+  "Thermal envelope violations across the room and equipment",
+  "EMI coupling and physical congestion"
 ]
 correct = "D"
 explanation = "Physical separation improves EMI control and serviceability."

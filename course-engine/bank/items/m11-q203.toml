@@ -8,7 +8,7 @@ module = 11
 stem = "If redundant fibers share a single conduit crushed by construction, the lesson is:"
 choices = [
   "Common pathways can nullify cable redundancy",
-  "Logical bonding prevents physical cuts",
+  "Logical bonding prevents physical cuts and shared-path failures",
   "Category rating alone ensures diversity",
   "Testing is unnecessary after install"
 ]

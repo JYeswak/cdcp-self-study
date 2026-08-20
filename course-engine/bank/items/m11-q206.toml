@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Copper cabling category or class selection is driven mainly by:"
 choices = [
-  "Only rack paint color",
-  "Only generator fuel type",
+  "Only rack paint color and cabinet finish",
+  "Only generator fuel type and day-tank capacity",
   "Only fire agent type",
-  "Required application bandwidth, distance, and alien crosstalk or noise environment"
+  "Bandwidth, distance, and noise environment"
 ]
 correct = "D"
 explanation = "Media grade follows application needs and environment, not cosmetics."

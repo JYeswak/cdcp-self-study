@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "A reason to prefer fiber for longer backbone runs is:"
 choices = [
-  "Distance and bandwidth capability with immunity to many EMI issues versus copper limits",
-  "Fiber cannot be tested",
-  "Fiber always costs nothing",
-  "Fiber replaces grounding entirely"
+  "Distance, bandwidth, and EMI immunity",
+  "Fiber cannot be tested or certified in the field",
+  "Fiber always costs nothing and has no installation burden",
+  "Fiber replaces grounding"
 ]
 correct = "A"
 explanation = "Fiber wins long high-bandwidth EMI-prone backbones in many designs."

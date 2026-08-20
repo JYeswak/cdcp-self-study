@@ -9,10 +9,10 @@ kind = "single-select"
 module = 11
 stem = "Which practice best reduces human error during emergency network isolation?"
 choices = [
-  "Unlabeled bundles and tribal knowledge only",
-  "Random recabling each shift",
+  "Unlabeled bundles and tribal knowledge only during emergencies",
+  "Random recabling each shift without records or separation planning",
   "Disabling all monitoring",
-  "Clear labeling, accurate records, and pre-planned separation of critical paths"
+  "Labeling, records, and planned path separation"
 ]
 correct = "D"
 explanation = "Administration and documentation turn physical infrastructure into an operable system under stress."

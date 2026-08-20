@@ -8,9 +8,9 @@ module = 11
 stem = "Diverse pathway routing for redundant fiber means:"
 choices = [
   "Both fibers in one conduit the entire way for neatness only",
-  "Logical VLANs with one physical strand",
+  "Logical VLANs with one physical strand and no route diversity",
   "Wireless only",
-  "Physically separated routes so one incident is less likely to cut all copies"
+  "Physically separated routes reduce common cuts"
 ]
 correct = "D"
 explanation = "True diversity is physical separation of failure domains."

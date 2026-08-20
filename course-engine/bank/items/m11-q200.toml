@@ -7,8 +7,8 @@ kind = "single-select"
 module = 11
 stem = "Structured cabling matters in a data centre primarily because:"
 choices = [
-  "It replaces all logical routing protocols",
-  "It provides a planned, manageable, testable physical layer that supports moves, adds, and reliability",
+  "It replaces all logical routing protocols and network design",
+  "Planned, testable physical layer for moves and reliability",
   "It eliminates the need for dual power",
   "It cools the hot aisle"
 ]

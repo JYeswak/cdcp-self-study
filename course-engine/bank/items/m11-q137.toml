@@ -7,8 +7,8 @@ kind = "single-select"
 module = 11
 stem = "Patch cord quality and length discipline matter because excess patching can:"
 choices = [
-  "Never affect channel performance",
-  "Consume channel budget (loss and crosstalk margins) and create messy failure-prone fields",
+  "Never affect channel performance or failure isolation",
+  "Consume channel budget and create messy fields",
   "Increase category rating automatically",
   "Replace permanent link testing forever"
 ]

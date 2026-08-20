@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Fiber verification after installation is valued because:"
 choices = [
-  "Fiber never needs testing",
-  "It confirms loss, continuity, and workmanship before services depend on the path",
+  "Fiber never needs testing or documented acceptance",
+  "Confirms loss, continuity, and workmanship",
   "It measures only PUE",
-  "It replaces pathway diversity"
+  "It replaces pathway diversity and physical route review"
 ]
 correct = "B"
 explanation = "Prove the optical path before it becomes production-critical."

@@ -8,8 +8,8 @@ module = 11
 stem = "Polarity management in multi-fiber MPO systems is critical because:"
 choices = [
   "Polarity only affects copper near-end crosstalk",
-  "Polarity sets UPS autonomy",
-  "Mismatched polarity yields dark links even when fibers are intact",
+  "Polarity sets UPS autonomy and battery runtime",
+  "Mismatched polarity creates dark links",
   "Polarity controls humidity"
 ]
 correct = "C"

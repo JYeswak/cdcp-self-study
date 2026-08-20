@@ -8,10 +8,10 @@ kind = "single-select"
 module = 11
 stem = "Permanent link versus channel testing concepts matter because:"
 choices = [
-  "They are identical to generator load tests",
-  "They only apply to wireless",
+  "They are identical to generator load tests and commissioning",
+  "They only apply to wireless links and radio systems",
   "They replace labeling",
-  "They define what portion of the cabling system is measured and against which limits"
+  "Defines the measured cabling portion and limits"
 ]
 correct = "D"
 explanation = "The IEC installed-cabling measurement procedure must be applied to the intended cabling model; the current ISO/IEC TS 11801-9903 catalog explicitly models link and channel transmission parameters. The tested portion and limits must therefore be identified rather than assumed. This is a bounded testing receipt, not a credential claim."

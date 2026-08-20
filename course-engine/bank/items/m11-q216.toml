@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Labeling both ends of every critical circuit supports operations by:"
 choices = [
-  "Increasing alien crosstalk intentionally",
-  "Enabling fast, correct isolation and repair under stress",
-  "Replacing test results",
-  "Cooling the rack"
+  "Increasing alien crosstalk intentionally in every bundle",
+  "Fast, correct isolation and repair under stress",
+  "Replacing test results and formal acceptance records",
+  "Cooling the rack and improving its inlet temperature"
 ]
 correct = "B"
 explanation = "Labels turn physical plant into something humans can operate under pressure."

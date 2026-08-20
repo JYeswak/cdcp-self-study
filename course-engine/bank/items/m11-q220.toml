@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "When both network fabrics are dual-homed but share one meet-me rack with one pathway, risk remains because:"
 choices = [
-  "Logical dual-homing always equals geographic diversity",
-  "Physical concentration can still create a common failure domain",
-  "High category copper prevents building fires",
-  "Testing alone creates path separation"
+  "Logical dual-homing always equals geographic diversity and route separation",
+  "Physical concentration creates common failure domain",
+  "High-category copper prevents building fires and pathway damage",
+  "Testing alone creates path separation and eliminates shared risk"
 ]
 correct = "B"
 explanation = "Logical dual-home does not fix a shared physical choke point."

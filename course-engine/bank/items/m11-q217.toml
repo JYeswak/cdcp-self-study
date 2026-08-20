@@ -8,9 +8,9 @@ module = 11
 stem = "A main distribution area concept is best described as:"
 choices = [
   "Only the generator paralleling gear",
-  "Only the cold aisle",
-  "A central cross-connect or distribution hub in the structured cabling hierarchy",
-  "Only the fire riser"
+  "Only the cold aisle and its containment doors",
+  "Central cabling distribution hub",
+  "Only the fire riser and sprinkler distribution point"
 ]
 correct = "C"
 explanation = "The MDA is the primary structured cabling distribution hub."

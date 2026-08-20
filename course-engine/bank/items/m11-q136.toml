@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Carrier diversity for site connectivity ideally includes:"
 choices = [
-  "Independent providers and physically diverse laterals or entrances where feasible",
+  "Independent providers and diverse entrances",
   "Two circuits that share one lateral and one POP risk",
   "A single provider with one fiber only",
-  "Only satellite with no terrestrial path ever"
+  "Satellite only"
 ]
 correct = "A"
 explanation = "Provider and path diversity reduce correlated failure—paper redundancy is not physical diversity."

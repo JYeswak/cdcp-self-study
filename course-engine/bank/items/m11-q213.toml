@@ -9,10 +9,10 @@ kind = "single-select"
 module = 11
 stem = "In planning horizontal cabling to cabinets, a key consideration is:"
 choices = [
-  "Only matching the UPS brand",
-  "Ignoring EMI near busway",
-  "Pathway capacity, bend radius, separation from power, and growth spares",
-  "Maximum random slack balls in cold aisles"
+  "Only matching the UPS brand, warranty, and service contract",
+  "Ignoring EMI near busway, grounding, separation, and bonding",
+  "Pathway capacity, bend radius, power separation, and spares",
+  "Maximum random slack balls in cold aisles and pathways without design review"
 ]
 correct = "C"
 explanation = "Horizontal design is pathway, protection, and growth—not only port counts."

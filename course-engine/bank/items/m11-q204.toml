@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Site-to-site connectivity planning should consider:"
 choices = [
-  "Only the color of patch cords",
-  "Carrier diversity, entrance facility separation, and pathway risk—not only port speed",
+  "Only the color of patch cords and facility labeling rules",
+  "Carrier diversity, separation, and pathway risk",
   "Only indoor copper length",
-  "Only UPS brand"
+  "UPS brand"
 ]
 correct = "B"
 explanation = "External connectivity risk is as much pathway and carrier as interface speed."

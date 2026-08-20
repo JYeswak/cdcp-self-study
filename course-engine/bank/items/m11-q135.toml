@@ -10,7 +10,7 @@ choices = [
   "Skip tests if the cable snapped into place",
   "Only ping a public DNS address as the sole copper test",
   "Heat the cable until soft",
-  "Perform standards-appropriate certification or verification and remediate failures before production use"
+  "Standards-appropriate certification before production"
 ]
 correct = "D"
 explanation = "Field certification catches workmanship and component issues before they become intermittent production faults."

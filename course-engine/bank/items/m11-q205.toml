@@ -7,9 +7,9 @@ kind = "single-select"
 module = 11
 stem = "Two diverse building entrances for carriers primarily reduce risk of:"
 choices = [
-  "All internal packet loss forever",
+  "All internal packet loss forever, regardless of routing",
   "Cooling failure",
-  "A single outside-plant or entrance incident isolating the facility",
+  "Entrance incidents isolate facilities",
   "Battery aging"
 ]
 correct = "C"

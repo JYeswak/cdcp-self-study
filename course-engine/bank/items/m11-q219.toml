@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Cross-connect fields improve operability because they:"
 choices = [
-  "Allow structured interconnection and changes without constantly reterminating permanent links",
-  "Remove the need for any documentation",
-  "Replace dual homing of devices",
-  "Act as PDUs"
+  "Structured interconnection and changes",
+  "Remove the need for any documentation or circuit records",
+  "Replace dual homing of devices and logical redundancy",
+  "Act as PDUs and provide rack-level power distribution"
 ]
 correct = "A"
 explanation = "Cross-connects are the operable patch layer over permanent infrastructure."

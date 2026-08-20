@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "Zone distribution or intermediate points are used to:"
 choices = [
-  "Bypass all testing",
-  "Eliminate entrance rooms",
-  "Provide chilled water",
-  "Extend hierarchical distribution efficiently into large halls without only chaotic home-runs"
+  "Bypass all testing and acceptance documentation",
+  "Eliminate entrance rooms and carrier demarcations",
+  "Provide chilled water and coolant distribution",
+  "Extend hierarchical distribution into halls"
 ]
 correct = "D"
 explanation = "Intermediate points scale hierarchy across large white space."
