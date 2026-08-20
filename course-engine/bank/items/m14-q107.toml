@@ -13,7 +13,7 @@ choices = [
   "Being the identical product to BMS under a different vendor logo",
 ]
 correct = "C"
-explanation = "BMS = building plant; DCIM = DC capacity/assets/ops picture (integrations vary)."
+explanation = "BMS focuses on building plant, while DCIM provides the IT and facilities capacity/assets view; neither is simply the other system or a generator-valve controller."
 topic_ids = ["m14-bms", "m14-dcim"]
 objective_ids = []
 bloom = "understand"

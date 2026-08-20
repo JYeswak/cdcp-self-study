@@ -13,7 +13,7 @@ choices = [
   "A higher mean time between failures for the plant",
 ]
 correct = "C"
-explanation = "Poor threshold design creates alarm fatigue and missed real events."
+explanation = "Poor threshold design creates chattering, alarm fatigue, and missed real events; it does not produce silence in every condition, automatic diagnosis, or better plant reliability."
 topic_ids = ["m14-alarms", "m14-monitoring-reqs"]
 objective_ids = []
 bloom = "apply"

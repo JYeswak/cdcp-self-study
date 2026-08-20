@@ -13,7 +13,7 @@ choices = [
   "BMS supersedes every network monitoring tool once it has been commissioned and tuned properly",
 ]
 correct = "A"
-explanation = "BMS emphasizes building plant control; DCIM emphasizes DC inventory, power, environment, and capacity."
+explanation = "BMS emphasizes building plant control; DCIM emphasizes DC inventory, power, environment, and capacity. Integrations do not make them identical or transfer plant sequences and all network monitoring to one system."
 topic_ids = ["m14-bms", "m14-dcim"]
 objective_ids = []
 bloom = "understand"

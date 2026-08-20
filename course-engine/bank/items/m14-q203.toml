@@ -14,7 +14,7 @@ choices = [
   "Kept accurate through process, so decisions use real load data",
 ]
 correct = "D"
-explanation = "DCIM quality equals data hygiene plus workflow, not the logo on the UI."
+explanation = "DCIM quality equals accurate data maintained through workflow, not a one-time handover, marketing-owned records, or paper held outside the operating process."
 topic_ids = ["m14-dcim", "m14-monitoring-challenges"]
 objective_ids = []
 bloom = "apply"

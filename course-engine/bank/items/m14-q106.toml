@@ -14,7 +14,7 @@ choices = [
   "Protection relaying on the utility medium-voltage service entrance",
 ]
 correct = "B"
-explanation = "DCIM ties inventory, power capacity, and change workflows to facilities data—not just environment sensing."
+explanation = "DCIM ties inventory, power capacity, and change workflows to facilities data—not just environment sensing; fire release, transfer-switch control, and protection relaying remain distinct functions."
 topic_ids = ["m14-dcim", "m14-ems"]
 objective_ids = []
 bloom = "understand"

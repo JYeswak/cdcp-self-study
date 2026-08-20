@@ -14,7 +14,7 @@ choices = [
   "A network outage must not silence local alarms",
 ]
 correct = "D"
-explanation = "Life/availability critical spaces need local indication when northbound links fail."
+explanation = "Life- and availability-critical spaces need local indication when northbound links fail; cloud dashboards, email, or time synchronisation cannot substitute for local alarms."
 topic_ids = ["m14-alarms", "m14-best-practices"]
 objective_ids = []
 bloom = "understand"

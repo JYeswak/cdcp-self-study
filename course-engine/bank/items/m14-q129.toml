@@ -13,7 +13,7 @@ choices = [
   "Permanently prohibited at every site regardless of the operating context",
 ]
 correct = "A"
-explanation = "Plant setpoints are operational config—change-controlled like other production systems."
+explanation = "Plant setpoints are operational configuration and need change control; a green dashboard does not make them risk-free, and blanket prohibition ignores operating context."
 topic_ids = ["m14-bms", "m14-best-practices"]
 objective_ids = []
 bloom = "apply"

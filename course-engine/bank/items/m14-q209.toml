@@ -14,7 +14,7 @@ choices = [
   "It replaces mechanical expertise entirely"
 ]
 correct = "B"
-explanation = "Cross-domain correlation speeds root-cause isolation when cooling plant behavior and room environment interact; shared timestamps let operators connect BMS and EMS evidence."
+explanation = "Cross-domain correlation speeds root-cause isolation when cooling plant and room environment interact; it does not prove one team is at fault, eliminate timestamps, or replace mechanical expertise."
 topic_ids = ["m14-bms", "m14-ems", "m14-monitoring-challenges"]
 objective_ids = []
 bloom = "analyze"

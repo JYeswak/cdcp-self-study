@@ -14,7 +14,7 @@ choices = [
   "The measurement closest to the IT inlet, then reconcile the systems",
 ]
 correct = "D"
-explanation = "Local airflow/containment faults can overheat racks while plant still looks normal—verify near the load."
+explanation = "Local airflow or containment faults can overheat racks while plant still looks normal—verify near the load before shutting the campus plant or disabling a disagreeing system."
 topic_ids = ["m14-monitoring-challenges", "m14-ems", "m14-bms"]
 objective_ids = []
 bloom = "apply"

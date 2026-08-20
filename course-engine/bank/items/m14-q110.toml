@@ -13,7 +13,7 @@ choices = [
   "It never has to be retested after raised-floor work is complete",
 ]
 correct = "B"
-explanation = "Granular zones let techs locate wet areas quickly; reconnect/test after tile work."
+explanation = "Granular zones let technicians locate wet areas quickly; a campus-wide zone loses response precision, and floor work requires reconnection and testing rather than permanent removal."
 topic_ids = ["m14-leak", "m14-best-practices"]
 objective_ids = []
 bloom = "apply"

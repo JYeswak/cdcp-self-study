@@ -14,7 +14,7 @@ choices = [
   "Equipment inlet temperature in the cold aisle",
 ]
 correct = "D"
-explanation = "Inlet conditions drive equipment risk; plant-only metrics can miss local hotspots."
+explanation = "Inlet conditions drive equipment risk; outdoor, generator, or battery-room metrics can all look normal while a rack inlet is hot."
 topic_ids = ["m14-ems", "m14-monitoring-reqs"]
 objective_ids = []
 bloom = "understand"

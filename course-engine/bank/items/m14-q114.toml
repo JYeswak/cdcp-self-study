@@ -14,7 +14,7 @@ choices = [
   "Substitute for periodic sensor calibration on critical points",
 ]
 correct = "B"
-explanation = "Tiered severity, escalation, and role routing combat fatigue and clarify action."
+explanation = "Tiered severity, escalation, and role routing combat fatigue and clarify action; paging executives for every state, deleting runbooks, or skipping calibration defeats that purpose."
 topic_ids = ["m14-notification", "m14-alarms"]
 objective_ids = []
 bloom = "understand"

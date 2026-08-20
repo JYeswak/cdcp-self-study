@@ -13,7 +13,7 @@ choices = [
   "Grounds for disabling alarms site-wide",
 ]
 correct = "C"
-explanation = "Blindness is itself a fault mode; dead sensors create false confidence."
+explanation = "Blindness is itself a fault mode; a last normal value does not prove health, and disabling alarms site-wide makes the loss worse."
 topic_ids = ["m14-monitoring-challenges", "m14-ems"]
 objective_ids = []
 bloom = "apply"

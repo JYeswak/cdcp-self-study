@@ -15,7 +15,7 @@ choices = [
   "It is required indefinitely by the applicable building code",
 ]
 correct = "B"
-explanation = "Bypass must time out and be logged; sticky inhibits hide faults."
+explanation = "Bypass must time out and be logged; sticky inhibits hide real events rather than improving trends, recalibrating sensors, or becoming an indefinite code requirement."
 topic_ids = ["m14-alarms", "m14-monitoring-challenges"]
 objective_ids = []
 bloom = "apply"

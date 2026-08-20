@@ -13,7 +13,7 @@ choices = [
   "Fuel-level gauging for the standby generator day tanks",
 ]
 correct = "A"
-explanation = "EMS here is environmental monitoring; clarify vs energy-management naming collision in interviews."
+explanation = "EMS here is environmental monitoring; energy-market settlement, fire detection, and generator fuel gauging are different functions despite the naming collision."
 topic_ids = ["m14-ems"]
 objective_ids = []
 bloom = "remember"

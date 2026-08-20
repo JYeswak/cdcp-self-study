@@ -14,7 +14,7 @@ choices = [
   "The page names the next action",
 ]
 correct = "D"
-explanation = "Actionable alerts beat naked point names during incidents."
+explanation = "Actionable alerts beat naked point names during incidents; runbook links guide the next action without eliminating calibration or turning every log entry into an executive page."
 topic_ids = ["m14-notification", "m14-best-practices"]
 objective_ids = []
 bloom = "apply"

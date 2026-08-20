@@ -17,7 +17,7 @@ choices = [
   "Publish one EMS threshold as the universal fire-code setting for every GPU row",
 ]
 correct = "B"
-explanation = "NFPA 72 (2025) §§3.3.70.10 and 26.6.3.2.2.2 keep rate-of-temperature-rise detection and listed fire-alarm signaling in their proper boundaries. A fast EMS/DCIM page can support operations and correlation, but it does not automatically replace the listed FACU path or justify one universal row threshold."
+explanation = "NFPA 72 (2025) §§3.3.70.10 and 26.6.3.2.2.2 keep rate-of-temperature-rise detection and listed fire-alarm signaling in their proper boundaries. Faster EMS sampling does not replace the FACU, disabling threshold protection removes a safeguard, and one universal row threshold overclaims."
 topic_ids = ["m14-ems", "m14-monitoring-reqs", "m14-alarms"]
 objective_ids = []
 bloom = "evaluate"

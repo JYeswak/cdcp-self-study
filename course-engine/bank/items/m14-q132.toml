@@ -13,7 +13,7 @@ choices = [
   "Bound secondary on-call response when the primary does not acknowledge",
 ]
 correct = "D"
-explanation = "Escalation is human reliability engineering for critical pages."
+explanation = "Escalation is human-reliability engineering for critical pages; it is not merely a reminder about email, deletion of event history, or automatic severity reduction."
 topic_ids = ["m14-notification"]
 objective_ids = []
 bloom = "understand"

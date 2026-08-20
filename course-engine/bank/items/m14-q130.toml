@@ -15,7 +15,7 @@ choices = [
   "Correct dashboards guaranteed without keeping the inventory updated",
 ]
 correct = "B"
-explanation = "Bought DCIM without clean data and live feeds is a pretty CMDB."
+explanation = "DCIM quality needs clean data, live integrations, and process discipline; a marketing brochure, one-time handover, or static dashboard cannot supply trustworthy operational context."
 topic_ids = ["m14-dcim", "m14-monitoring-challenges"]
 objective_ids = []
 bloom = "understand"

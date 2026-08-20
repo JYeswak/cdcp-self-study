@@ -17,7 +17,7 @@ choices = [
   "Set one universal degrees-per-minute value for every row",
 ]
 correct = "A"
-explanation = "NFPA 72 (2025) §3.3.70.10 recognizes heat detection by abnormally high temperature, rate-of-temperature rise, or both. A dense row can use a fast rate-of-rise signal as an early operational layer while retaining threshold protection; the site and equipment response must be validated rather than replaced with a universal rate figure."
+explanation = "NFPA 72 (2025) §3.3.70.10 recognizes rate-of-temperature rise alongside threshold detection. A fast rate-of-rise signal adds an early operational layer; waiting for the threshold misses the slope, moving life-safety logic into DCIM crosses a boundary, and one universal rate overclaims."
 topic_ids = ["m14-ems", "m14-monitoring-reqs", "m14-alarms"]
 objective_ids = []
 bloom = "analyze"

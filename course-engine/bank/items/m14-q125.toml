@@ -14,7 +14,7 @@ choices = [
   "The P1 severity tier is removed from the notification policy",
 ]
 correct = "A"
-explanation = "Correlate related telemetry into incidents to protect on-call attention."
+explanation = "Correlate related telemetry into one incident to protect on-call attention; correlation removes duplicate noise, not the escalation policy or severity tier."
 topic_ids = ["m14-notification", "m14-alarms"]
 objective_ids = []
 bloom = "understand"

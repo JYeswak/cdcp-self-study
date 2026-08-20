@@ -14,7 +14,7 @@ choices = [
   "They make alarm fatigue impossible by spreading the load across protocols",
 ]
 correct = "B"
-explanation = "Multiple protocols/owners produce conflicting truths and integration debt."
+explanation = "Multiple protocols and owners produce conflicting truths and integration debt; they do not guarantee one vendor, remove time synchronisation, or prevent alarm fatigue."
 topic_ids = ["m14-monitoring-challenges"]
 objective_ids = []
 bloom = "understand"

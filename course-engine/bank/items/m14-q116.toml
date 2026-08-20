@@ -14,7 +14,7 @@ choices = [
   "Stay in the alarm system, with operations tools consuming the information",
 ]
 correct = "D"
-explanation = "IEC 62682 covers alarms from basic control, annunciator, packaged, and safety-instrumented systems, with operator notification/response and external systems able to use alarm data. This bounded item does not claim a fire-code listing or authorize replacing life-safety logic."
+explanation = "IEC 62682 covers alarm notification and response with external systems able to consume alarm data; life-safety logic is not rewritten in DCIM, exposed as unauthenticated traps, or muted without a controlled process."
 topic_ids = ["m14-alarms", "m14-monitoring-reqs"]
 objective_ids = []
 bloom = "understand"

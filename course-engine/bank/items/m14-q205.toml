@@ -13,7 +13,7 @@ choices = [
   "Identical response for informational and critical events always"
 ]
 correct = "B"
-explanation = "Alarm philosophy is part of reliability—noise hides real emergencies."
+explanation = "Alarm philosophy is part of reliability—page storms, silent failure, or treating every informational event as critical hides real emergencies."
 topic_ids = ["m14-alarms", "m14-notification"]
 objective_ids = []
 bloom = "understand"

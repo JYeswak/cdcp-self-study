@@ -14,7 +14,7 @@ choices = [
   "Replaced with cardboard dams at the row boundaries",
 ]
 correct = "C"
-explanation = "Floor work commonly breaks or disconnects sensing cable—retest is mandatory ops hygiene."
+explanation = "Floor work commonly breaks or disconnects sensing cable, so reconnect and test it; assuming it is intact, removing it, or using cardboard dams does not verify leak coverage."
 topic_ids = ["m14-leak", "m14-best-practices"]
 objective_ids = []
 bloom = "apply"

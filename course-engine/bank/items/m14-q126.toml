@@ -16,7 +16,7 @@ choices = [
   "Only the IT server estate requires a patching programme",
 ]
 correct = "B"
-explanation = "Auxiliary systems are cyber-physical; segment and harden the control plane."
+explanation = "Auxiliary systems are cyber-physical; default passwords and flat networks create lateral-movement risk, so physical isolation or BACnet alone is not a security control."
 topic_ids = ["m14-monitoring-challenges", "m14-best-practices"]
 objective_ids = []
 bloom = "understand"

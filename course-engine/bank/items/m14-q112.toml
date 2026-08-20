@@ -13,7 +13,7 @@ choices = [
   "Sensing must pair with who isolates",
 ]
 correct = "D"
-explanation = "Response design (authority, labeled valves, runbooks) is as important as sensors."
+explanation = "Response design—authority, labeled valves, and runbooks—is as important as sensors; detection does not close a valve automatically or replace an isolation drill."
 topic_ids = ["m14-leak", "m14-notification", "m14-best-practices"]
 objective_ids = []
 bloom = "analyze"

@@ -13,7 +13,7 @@ choices = [
   "BMS/BAS plant control",
 ]
 correct = "D"
-explanation = "BMS/BAS owns building plant sequences and setpoints; EMS senses space; DCIM manages capacity/assets."
+explanation = "BMS/BAS owns building plant sequences and setpoints; environmental probes sense space, DCIM manages capacity/assets, and fire-alarm logic has a separate life-safety role."
 topic_ids = ["m14-bms"]
 objective_ids = []
 bloom = "understand"
