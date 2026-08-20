@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "Perforated or grillage tiles are placed with intent in cooling design so that:"
 choices = [
-  "Supply air is delivered where cold aisles and equipment inlets need it, not randomly for looks",
+  "Supply air reaches equipment inlets",
   "Every hot aisle is flooded with cold air preferentially",
   "Return air is forced under the floor always",
-  "Cable cutouts are unnecessary anywhere"
+  "Cable cutouts are unnecessary anywhere, even when bypass leakage matters"
 ]
 correct = "A"
 explanation = "Airflow tiles are part of the cooling distribution design, not decoration."

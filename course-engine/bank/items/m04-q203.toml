@@ -10,8 +10,8 @@ kind = "single-select"
 module = 4
 stem = "Ramps and landing platforms for raised floors exist primarily to:"
 choices = [
-  "Act as the main cooling supply plenum",
-  "Provide code-conscious, safe equipment and personnel access across the floor height change",
+  "Act as the main cooling supply plenum rather than providing access",
+  "Safe access across floor height changes",
   "Replace all freight elevators campus-wide",
   "Store fuel for generators"
 ]

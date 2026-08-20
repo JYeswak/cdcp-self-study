@@ -12,7 +12,7 @@ stem = "A general raised-floor guideline for cutouts and cable openings is to:"
 choices = [
   "Leave all openings unsealed to maximize leakage always",
   "Maximize uncontrolled bypass airflow for higher inlet temperatures",
-  "Manage openings with grommets/brushes and planning so leakage and snag hazards are controlled",
+  "Manage openings to control leakage and snags",
   "Cut openings only after equipment is powered with no planning"
 ]
 correct = "C"

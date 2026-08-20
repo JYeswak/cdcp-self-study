@@ -10,9 +10,9 @@ kind = "single-select"
 module = 4
 stem = "A poorly designed ramp transition most increases risk of:"
 choices = [
-  "Improved concurrent maintainability",
-  "Higher dual-utility diversity",
-  "Equipment tip-over, tile damage, and personnel injury during moves",
+  "Improved concurrent maintainability, regardless of movement safety",
+  "Increase electrical-path diversity regardless of movement safety",
+  "Tip-over, tile damage, and injury during moves",
   "Automatic code approval",
 ]
 correct = "C"

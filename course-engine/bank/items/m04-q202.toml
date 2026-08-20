@@ -10,7 +10,7 @@ kind = "single-select"
 module = 4
 stem = "Signal Reference Grid (SRG) / floor grounding practices are intended to help:"
 choices = [
-  "Provide a low-impedance reference plane and bonding path for equipment and floor systems",
+  "Low-impedance equipment bonding reference",
   "Replace all circuit breakers",
   "Increase electrostatic charge on every tile",
   "Eliminate the need for equipment grounding conductors"

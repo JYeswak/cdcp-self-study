@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "Leaving unnecessary open tiles in a pressurized underfloor supply can:"
 choices = [
-  "Always improve distant rack cooling",
+  "Always improve distant rack cooling, regardless of opening location",
   "Increase copper category rating",
   "Charge batteries faster",
-  "Bleed plenum pressure and short-circuit cold air near the opening",
+  "Bleed pressure and short-circuit cold air",
 ]
 correct = "D"
 explanation = "Uncontrolled openings dump pressure and waste supply air near the hole."

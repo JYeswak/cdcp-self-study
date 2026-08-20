@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "Using the ceiling plenum as a return path requires attention to:"
 choices = [
-  "Only paint sheen",
-  "Storing cardboard above tiles routinely",
+  "Only paint sheen, regardless of fire, air, and detection coordination",
+  "Storing cardboard above tiles routinely, even near fire-detection equipment",
   "Ignoring all mechanical coordination",
-  "Fire separations, leakage, cleanliness, and coordination with detection/suppression design",
+  "Fire separations, leakage, cleanliness, and coordination",
 ]
 correct = "D"
 explanation = "Return plenums interact with fire and contamination controls—not just airflow convenience."

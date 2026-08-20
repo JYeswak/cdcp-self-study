@@ -8,7 +8,7 @@ module = 4
 stem = "Ops says “the floor is rated 250.” The diagnostic move is:"
 choices = [
   "Accept 250 psf as the data-centre floor statute and stop asking",
-  "Ask which rating (uniform vs concentrated vs rolling), per which test (CISCA is recommended methodology, not a Tier body), and quote the sheet in front of you — 250 is not a statute",
+  "Ask which rating, test, and quoted sheet applies",
   "Treat CISCA as the Uptime plaque that certifies the floor’s Tier",
   "Convert 250 into a Module 06 UPS kVA; this file does not own load types",
 ]

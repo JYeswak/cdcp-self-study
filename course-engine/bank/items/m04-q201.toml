@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "A primary cooling-related reason to manage underfloor obstructions is that:"
 choices = [
-  "Obstructions always increase cooling efficiency",
-  "Air never moves under a raised floor",
+  "Obstructions always increase cooling efficiency, even in a flooded floor",
+  "Air never moves under a raised floor, regardless of supply design",
   "Tiles seal perfectly with any pile of junk",
-  "Cables and debris can block airflow and create hot spots in a flooded-floor supply design"
+  "Cables and debris can block airflow and create hot spots"
 ]
 correct = "D"
 explanation = "Underfloor supply paths need free volume and sealed openings; clutter defeats airflow design."

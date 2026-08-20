@@ -11,8 +11,8 @@ stem = "Access-floor ramps and landings are provided primarily to:"
 choices = [
   "Increase PUE",
   "Store batteries under the ramp always",
-  "Allow safe wheeled and pedestrian transition between floor elevations",
-  "Replace stair egress requirements automatically",
+  "Provide safe wheeled transitions",
+  "Replace stair egress requirements automatically, regardless of life-safety code",
 ]
 correct = "C"
 explanation = "Ramps and landings provide a safe wheeled and pedestrian transition between floor elevations; this is the access purpose named by the CDCP ramp-and-landing topic."

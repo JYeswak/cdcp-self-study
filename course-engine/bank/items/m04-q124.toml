@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "How can floor/ceiling choices impact cooling effectiveness?"
 choices = [
-  "They never interact with airflow",
+  "They never interact with airflow, leakage, or return paths",
   "Grounding bonds set CRAC setpoints",
   "Only paint colour changes CFM",
-  "Plenum integrity, leakage, and tile/ceiling openings strongly affect supply/return air paths",
+  "Plenum integrity and openings affect air paths",
 ]
 correct = "D"
 explanation = "Air path integrity of floor and ceiling systems is central to cooling performance."

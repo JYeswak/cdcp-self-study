@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "Compared with slab-on-grade white space, raised-floor environments uniquely require ongoing attention to:"
 choices = [
-  "Never cleaning under equipment",
-  "Avoiding all bonding of metal parts",
-  "Eliminating load ratings from design reviews",
-  "Understructure integrity, tile condition, and plenum cleanliness/airflow management"
+  "Never cleaning under equipment, regardless of debris or airflow",
+  "Avoiding all bonding of metal parts, regardless of safety design",
+  "Eliminating load ratings from design reviews, even for rolling equipment",
+  "Understructure, tile condition, and plenum airflow"
 ]
 correct = "D"
 explanation = "The plenum and understructure are living systems needing inspection and housekeeping."

@@ -12,7 +12,7 @@ choices = [
   "Remove tiles freely without airflow review",
   "Never bond metallic structures",
   "Ignore concentrated loads if uniform rating is high",
-  "Control openings, manage cable bulk, and respect load ratings during moves",
+  "Control openings and cable bulk during moves",
 ]
 correct = "D"
 explanation = "Day-2 raised-floor work must control openings, manage cable bulk, and respect load ratings so airflow and structural design intent survive changes."

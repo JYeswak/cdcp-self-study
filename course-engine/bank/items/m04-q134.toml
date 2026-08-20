@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "Bonding of access-floor metallic components is generally intended to:"
 choices = [
-  "Increase air leakage deliberately",
-  "Eliminate AHJ inspections",
+  "Increase air leakage deliberately, regardless of electrical or airflow design",
+  "Eliminate AHJ inspections, grounding, and bonding review",
   "Replace the need for UPS",
-  "Support electrical safety and noise-control practices as part of the grounding/bonding design",
+  "Grounding and bonding support electrical safety and noise control",
 ]
 correct = "D"
 explanation = "Metallic floor systems are included in bonding strategies for safety and reference integrity."

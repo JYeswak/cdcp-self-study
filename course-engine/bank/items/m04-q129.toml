@@ -9,10 +9,10 @@ kind = "single-select"
 module = 4
 stem = "Floor panel materials and finishes are chosen with attention to:"
 choices = [
-  "Only marketing gloss",
+  "Only marketing gloss, with no structural or static-control meaning",
   "Diesel sulphur content",
   "BGP policies",
-  "Structural performance, conductivity/static control needs, and cleanliness for the environment",
+  "Structural performance, conductivity, and cleanliness",
 ]
 correct = "D"
 explanation = "Floor panels must meet structural performance, conductivity/static-control, and cleanliness needs of the IT environment; material and finish choices serve those requirements."

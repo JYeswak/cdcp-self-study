@@ -9,9 +9,9 @@ kind = "single-select"
 module = 4
 stem = "Suspended ceilings in data halls may be used to:"
 choices = [
-  "Act as a UPS",
+  "Act as a UPS for equipment during power failures",
   "Replace all fire suppression",
-  "Hide return-air paths, lighting, and some services—or be omitted in open designs",
+  "Hide return-air paths and services",
   "Store diesel",
 ]
 correct = "C"

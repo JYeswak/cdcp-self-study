@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "Pedestal adhesion/attachment and understructure stability matter because:"
 choices = [
-  "They replace fire dampers",
-  "They only affect Wi-Fi channels",
+  "They replace fire dampers, even where fire protection requires them",
+  "They only affect Wi-Fi channels, never structure or access",
   "They set generator frequency",
-  "Loose pedestals can cause panel rock, safety hazards, and load-path failure",
+  "Loose pedestals threaten safety and load path",
 ]
 correct = "D"
 explanation = "Understructure integrity is foundational to access-floor safety and performance."

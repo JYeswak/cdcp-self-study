@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "Choosing among access-floor stringer systems and tile types should consider:"
 choices = [
-  "Only the cheapest tile without load data",
-  "Only color matching the logo",
-  "Whether the vendor refuses to publish ratings",
-  "Load ratings, understructure stability, airflow/cutout needs, and maintenance practices"
+  "Only the cheapest tile without load data, regardless of structural need",
+  "Only color matching the logo, with no engineering significance",
+  "Whether the vendor refuses to publish ratings and test basis",
+  "Load, understructure, airflow, and maintenance ratings"
 ]
 correct = "D"
 explanation = "Floor selection is an engineered choice: strength, understructure, and operational use."

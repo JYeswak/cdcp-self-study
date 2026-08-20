@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "Cable congestion under a raised floor can harm operations by:"
 choices = [
-  "Improving every airflow path",
+  "Improving every airflow path, including blocked underfloor routes",
   "Raising clear height",
   "Automatically bonding all racks",
-  "Blocking underfloor air, impeding tile removal, and complicating maintenance",
+  "Blocks underfloor air and complicates maintenance",
 ]
 correct = "D"
 explanation = "Underfloor cable dams obstruct air and service access."

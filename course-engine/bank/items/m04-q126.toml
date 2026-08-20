@@ -11,9 +11,9 @@ module = 4
 stem = "Perforated or grilles tiles are selected and placed primarily to:"
 choices = [
   "Decorate the aisle without airflow intent",
-  "Eliminate the need for CRAC units",
+  "Eliminate CRAC units",
   "Increase rolling load infinitely",
-  "Deliver designed airflow where cold supply is needed for IT inlets",
+  "Deliver designed airflow to IT inlets",
 ]
 correct = "D"
 explanation = "Perforated tiles are airflow devices positioned per the cooling design."

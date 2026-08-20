@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "Ignoring manufacturer load data when placing a heavy UPS or battery cabinet on an access floor can result in:"
 choices = [
-  "Automatic structural reinforcement by the tiles themselves",
-  "Structural tile/understructure failure and safety/equipment risk",
-  "Improved rolling load performance",
-  "Lower concentrated stress by magic"
+  "Automatic structural reinforcement by the tiles themselves, without understructure design",
+  "Structural tile/understructure failure creates safety risk",
+  "Improved rolling load performance, regardless of tile rating",
+  "Lower concentrated stress by magic, without engineering review"
 ]
 correct = "B"
 explanation = "Heavy plant needs verified floor capacity or solid-floor placement—guessing is unsafe."
