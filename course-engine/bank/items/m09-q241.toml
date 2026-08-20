@@ -13,7 +13,7 @@ choices = [
   "Excess generator fuel"
 ]
 correct = "A"
-explanation = "Hot spots are local thermal failures of air or capacity delivery."
+explanation = "A hotspot is a local inlet or equipment temperature rise from airflow or capacity issues; it is not uniform cooling, a naming error, or generator fuel."
 topic_ids = ["m09-temp-humidity", "m09-principles"]
 objective_ids = []
 bloom = "apply"

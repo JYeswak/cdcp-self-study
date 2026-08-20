@@ -12,7 +12,7 @@ choices = [
   "Eliminates the need for outdoor heat rejection"
 ]
 correct = "C"
-explanation = "DX systems refrigerate at the unit/remote condenser; heat still rejects outdoors via the condenser path."
+explanation = "DX CRAC uses a compressor and refrigerant circuit, with heat rejected through a condenser path; it still has fans and does not eliminate outdoor heat rejection."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "remember"

@@ -13,7 +13,7 @@ choices = [
   "Heat removed to airflow or fluid flow—low delta-T can signal bypass or excess flow"
 ]
 correct = "D"
-explanation = "Delta-T is a quick diagnostic of whether flow is doing useful thermal work."
+explanation = "Delta-T diagnoses heat removed by airflow or fluid flow; fibre polarity, battery amp-hours, and IP rating do not set the thermal relationship."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "apply"

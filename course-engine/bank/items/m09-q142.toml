@@ -13,7 +13,7 @@ choices = [
   "Eliminating all airflow management"
 ]
 correct = "C"
-explanation = "Without a floor plenum, supply is usually overhead or local/close-coupled—containment and aisle design still matter."
+explanation = "Without a floor plenum, supply is usually overhead or close-coupled while clearances and containment remain; perforated tiles alone, flooding, and no airflow management do not solve slab serviceability."
 topic_ids = ["m09-non-raised"]
 objective_ids = []
 bloom = "understand"

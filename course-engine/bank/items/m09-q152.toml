@@ -13,7 +13,7 @@ choices = [
   "Remove the need for any temperature monitoring"
 ]
 correct = "A"
-explanation = "Chimneys duct exhaust up, reducing room mixing—functionally related to hot-aisle capture strategies."
+explanation = "Chimneys direct rack exhaust upward and reduce room mixing; they do not dump hot air into cold aisles, cool switches by immersion, or replace temperature monitoring."
 topic_ids = ["m09-containment", "m09-non-raised"]
 objective_ids = []
 bloom = "remember"

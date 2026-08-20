@@ -13,7 +13,7 @@ choices = [
   "Guarantee zero energy use through cooling redundancy"
 ]
 correct = "C"
-explanation = "Cooling redundancy keeps heat removal available when equipment is offline or failed—aligned to availability goals."
+explanation = "Cooling redundancy keeps heat removal available during maintenance or failure; it does not remove monitoring, guarantee zero energy, or create fire tolerance."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "understand"

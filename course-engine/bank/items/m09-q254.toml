@@ -20,7 +20,7 @@ choices = [
   "Collapse W32 into the air recommended 18–27 °C envelope so the plate question goes away",
 ]
 correct = "B"
-explanation = "W-class names FWS supply, not the chip. The CDU is the liquid-to-liquid interface that keeps FWS and TCS physically separate; approach temperature is that gap, not a chip-inlet class. Vendor ~2–4 K figures are illustrative, not law. No CDCS calc in this item."
+explanation = "W-class names facility-water supply, not chip temperature; the CDU separates FWS and TCS, and approach is their supply-temperature gap, not a universal chip setpoint or formula."
 topic_ids = ["m09-liquid"]
 objective_ids = ["obj-m09-w-classes"]
 bloom = "apply"

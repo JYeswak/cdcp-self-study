@@ -13,7 +13,7 @@ choices = [
   "CRAC and CRAH are identical acronyms with no difference"
 ]
 correct = "A"
-explanation = "Industry shorthand: CRAC is typically a computer room air conditioner (often DX); CRAH is typically a computer room air handler (often chilled water)."
+explanation = "CRAC typically uses DX refrigeration while CRAH typically uses chilled-water coils; they are not identical acronyms, and neither is defined by a generator or network-room-only role."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "remember"

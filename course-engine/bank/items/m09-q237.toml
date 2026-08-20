@@ -13,7 +13,7 @@ choices = [
   "Eliminate environmental monitoring"
 ]
 correct = "A"
-explanation = "Cooling redundancy is about continuity of heat removal under failure or maintenance."
+explanation = "Cooling redundancy preserves required heat removal through failure or maintenance; it does not merely improve PUE, replace network paths, or eliminate monitoring."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "apply"

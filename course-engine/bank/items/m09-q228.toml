@@ -13,7 +13,7 @@ choices = [
   "In dielectric fluid that absorbs heat from components"
 ]
 correct = "D"
-explanation = "Immersion submerges electronics in a non-conductive heat transfer fluid."
+explanation = "Immersion places electronics in a dielectric heat-transfer fluid; outdoor air, generator fuel, and a dry ceiling do not provide the immersion medium."
 topic_ids = ["m09-liquid"]
 objective_ids = []
 bloom = "understand"

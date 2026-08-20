@@ -13,7 +13,7 @@ choices = [
   "Bonding racks"
 ]
 correct = "C"
-explanation = "Evaporation enhances heat rejection compared with dry rejection alone."
+explanation = "Evaporation enhances heat rejection when water and climate allow; cooling towers do not compress raised-floor air, store kinetic energy, or bond racks."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "understand"

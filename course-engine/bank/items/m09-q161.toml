@@ -18,7 +18,7 @@ choices = [
   "Only lighting needs liquid assist in high-density facilities"
 ]
 correct = "B"
-explanation = "The current ASHRAE framework identifies direct-to-chip and rear-door heat exchangers as liquid-cooling architectures for high-density racks, with potential reductions in mechanical load and improved heat removal. It does not establish a universal rack class or operating setpoint."
+explanation = "Direct-to-chip and rear-door cooling support high density where air delivery is limiting; liquids do not eliminate electrical power, constrain cooling to lighting, or define a universal rack class."
 topic_ids = ["m09-liquid", "m09-supplemental"]
 objective_ids = []
 bloom = "analyze"

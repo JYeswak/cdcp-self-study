@@ -13,7 +13,7 @@ choices = [
   "Replace network redundancy and facility water treatment"
 ]
 correct = "A"
-explanation = "Isolation protects clean secondary loops and equipment from primary loop contamination and pressure regimes."
+explanation = "Heat-exchanger isolation protects clean IT loops while transferring heat across separate chemistry and pressure domains; it does not mix dirty tower water, replace sensors, or replace network redundancy."
 topic_ids = ["m09-liquid", "m09-system-types"]
 objective_ids = []
 bloom = "understand"

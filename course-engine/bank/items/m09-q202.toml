@@ -10,7 +10,7 @@ choices = [
   "No impact on fans or component stress"
 ]
 correct = "B"
-explanation = "Living at the edge leaves little margin when conditions drift."
+explanation = "Living at the allowable edge leaves less reliability headroom when conditions drift; it does not guarantee higher reliability, eliminate hotspots, or remove fan and component stress."
 topic_ids = ["m09-ashrae-envelopes", "m09-temp-humidity"]
 objective_ids = []
 bloom = "apply"

@@ -10,7 +10,7 @@ choices = [
   "Improve cooling efficiency and economizer hours"
 ]
 correct = "D"
-explanation = "Higher supply/inlet temperatures (within guidance) can cut mechanical cooling energy and extend free cooling—balanced against reliability."
+explanation = "Raising cold-aisle temperature within guidance can reduce mechanical cooling and extend economizer hours; it does not force dehumidification, erase IT power, or dry batteries."
 topic_ids = ["m09-ashrae-envelopes", "m09-temp-humidity"]
 objective_ids = []
 bloom = "apply"

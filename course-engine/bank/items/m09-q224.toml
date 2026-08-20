@@ -13,7 +13,7 @@ choices = [
   "Additional localized cooling capacity beyond the base room system for hot spots or dense zones"
 ]
 correct = "D"
-explanation = "Supplemental capacity targets local deficits the base system cannot cover."
+explanation = "Supplemental cooling adds localized capacity for hot spots or dense zones beyond the base system; it does not turn off CRAHs, replace UPSs, or mean seasonal ice only."
 topic_ids = ["m09-supplemental"]
 objective_ids = []
 bloom = "understand"

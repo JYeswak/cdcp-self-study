@@ -13,7 +13,7 @@ choices = [
   "Remove generators only"
 ]
 correct = "B"
-explanation = "Liquid moves heat; outdoor rejection still closes the energy balance."
+explanation = "Liquid moves heat but outdoor rejection still closes the energy balance; liquid cooling cannot stop heat rejection, cool network packets, or remove generators from the plant."
 topic_ids = ["m09-liquid", "m09-principles"]
 objective_ids = []
 bloom = "apply"

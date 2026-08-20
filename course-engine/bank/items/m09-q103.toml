@@ -14,7 +14,7 @@ choices = [
   "Moving IT heat to an outdoor sink (air, water, or ground loop)"
 ]
 correct = "D"
-explanation = "Cooling moves heat; it does not destroy it. Heat must be rejected to ambient air, water, or another sink."
+explanation = "Cooling moves heat to an outdoor air, water, or ground sink; it cannot destroy energy, store all heat in a floor, or turn heat into UPS runtime."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "understand"

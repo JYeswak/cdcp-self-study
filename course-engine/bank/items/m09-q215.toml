@@ -13,7 +13,7 @@ choices = [
   "Store seasonal network capacity for later operations"
 ]
 correct = "C"
-explanation = "CRAH coils need a plant that makes and rejects chilled-water heat."
+explanation = "CRAH coils need chilled water and a plant that rejects heat outdoors; IT power, fibre termination, and seasonal network capacity are not cooling supply."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "understand"

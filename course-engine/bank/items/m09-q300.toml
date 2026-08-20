@@ -18,7 +18,7 @@ choices = [
   "Flood the hot aisle with outdoor air without filtration to equalize temperatures quickly"
 ]
 correct = "A"
-explanation = "The current ASHRAE framework identifies containment and precise airflow control as measures that stabilize equipment inlet temperatures. With the disturbance identified at doors and blanking panels, restore the intended airflow path and verify inlet conditions before changing plant setpoints; this is not a universal control sequence."
+explanation = "Restore containment integrity and verify inlet airflow before changing plant setpoints; a large setpoint change, shutting CRAHs, or unfiltered outdoor air treats the symptom while worsening control or contamination risk."
 topic_ids = ["m09-containment", "m09-principles"]
 objective_ids = []
 bloom = "apply"

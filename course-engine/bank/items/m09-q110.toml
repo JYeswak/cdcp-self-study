@@ -13,7 +13,7 @@ choices = [
   "Loss of utility power only"
 ]
 correct = "C"
-explanation = "Bypass wastes cold air around IT (open tiles, gaps); recirculation is hot air contamination of intakes."
+explanation = "Bypass wastes cold supply around IT through open tiles or gaps; recirculation sends hot exhaust into intakes, while immersion and utility loss are unrelated."
 topic_ids = ["m09-principles", "m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "understand"

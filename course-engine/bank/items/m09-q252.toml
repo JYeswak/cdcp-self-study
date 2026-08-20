@@ -10,7 +10,7 @@ choices = [
   "Reject the packet: W27 is an upper supply-water bound (floor 2 °C), not a hall setpoint; do not quote 18–27 °C as statute — recommended ⊂ allowable, inlet not room, class-dependent; 20–40% is not a law; pick the liquid plant (W17 / W27 vs warmer W32 / W40 / W45 / W+)",
 ]
 correct = "D"
-explanation = "Analyze the collapse. W-class is water, not a CRAH setpoint. Air recommended ⊂ allowable and moves with edition and class — 18–27 °C is not statute. DOE/LBNL/Energy Star do not agree on one cooling-energy band. Plant selection is the W-class."
+explanation = "Reject the collapse: W27 is a water bound, not a hall setpoint; recommended is a subset of allowable, and a cooling-energy range is not statute. W-class selects the liquid plant."
 topic_ids = ["m09-liquid", "m09-ashrae-envelopes"]
 objective_ids = ["obj-m09-w-classes"]
 bloom = "analyze"

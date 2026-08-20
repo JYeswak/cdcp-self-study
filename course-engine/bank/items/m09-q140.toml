@@ -13,7 +13,7 @@ choices = [
   "Fire suppression"
 ]
 correct = "A"
-explanation = "Blanking panels stop internal rack recirculation and help maintain front-to-back airflow discipline."
+explanation = "Blanking panels block empty rack openings and stop internal recirculation; they do not increase exhaust mixing, store equipment, or serve as fire suppression."
 topic_ids = ["m09-raised-floor-cooling", "m09-containment"]
 objective_ids = []
 bloom = "apply"

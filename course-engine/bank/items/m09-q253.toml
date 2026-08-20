@@ -13,7 +13,7 @@ choices = [
   "Unlimited if cooling is recited as 20–40% of site energy",
 ]
 correct = "A"
-explanation = "At 40–100 kW, once IT is on UPS and the plant is dark, the clock is seconds. A charged header is not CRAH-plenum mass, and it is not a ride-through plan. No invented cooling-share pie."
+explanation = "With IT on UPS and the cooling plant dark at 40–100 kW, the thermal clock is seconds; water in a header is not CRAH-plenum inertia, and energy-share percentages are not ride-through."
 topic_ids = ["m09-liquid", "m09-principles"]
 objective_ids = ["obj-m09-ridethrough-seconds"]
 bloom = "understand"

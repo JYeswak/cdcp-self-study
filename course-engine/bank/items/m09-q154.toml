@@ -13,7 +13,7 @@ choices = [
   "Cool only outdoor transformers and their enclosures"
 ]
 correct = "C"
-explanation = "They choose different enclosures (hot versus cold) but share the separation principle for airflow discipline."
+explanation = "HAC and CAC use different hot or cold enclosures but share aisle separation; they do not deliberately increase bypass, replace every liquid loop, or cool outdoor transformers."
 topic_ids = ["m09-containment"]
 objective_ids = []
 bloom = "understand"

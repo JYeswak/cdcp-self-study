@@ -14,7 +14,7 @@ choices = [
   "Condensation on coils, pipes, or poorly insulated surfaces"
 ]
 correct = "D"
-explanation = "Surfaces below dew point collect condensate—a moisture and equipment risk if insulation, controls, or setpoints are wrong."
+explanation = "Surfaces below dew point collect condensate, creating moisture and equipment risk; cold surfaces do not improve fibre splicing, UPS kVA, or eliminate filters."
 topic_ids = ["m09-principles", "m09-temp-humidity"]
 objective_ids = []
 bloom = "apply"

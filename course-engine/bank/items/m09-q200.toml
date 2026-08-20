@@ -10,7 +10,7 @@ choices = [
   "Higher temperatures can improve plant efficiency"
 ]
 correct = "D"
-explanation = "Warmer operation within guidance can expand economizer opportunity and plant efficiency."
+explanation = "Warmer operation within guidance can improve plant efficiency and economizer opportunity; it does not make capacity infinite, remove containment, or automatically void warranties."
 topic_ids = ["m09-temp-humidity", "m09-ashrae-envelopes"]
 objective_ids = []
 bloom = "apply"

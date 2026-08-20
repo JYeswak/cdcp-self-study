@@ -14,7 +14,7 @@ choices = [
   "It is identical to wet-bulb always in every climate"
 ]
 correct = "B"
-explanation = "Dew point reflects moisture amount; RH depends on temperature, so dew point better tracks condensation risk as air moves and cools."
+explanation = "Dew point reflects moisture amount while RH depends on temperature, so dew point tracks condensation risk; it is not floor height or universally identical to wet-bulb."
 topic_ids = ["m09-temp-humidity"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ choices = [
   "Automatic generator start"
 ]
 correct = "A"
-explanation = "Very low RH favors ESD risk; high RH raises condensation and corrosion concerns—hence humidity is managed with temperature."
+explanation = "Very low RH favors ESD risk while high RH raises condensation and corrosion concerns; humidity control is not a lighting or automatic-generator function."
 topic_ids = ["m09-temp-humidity"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Use generators as the primary cooling air source"
 ]
 correct = "B"
-explanation = "Without a plenum, overhead or close-coupled delivery can serve the racks while preserving clear paths for equipment access and maintenance."
+explanation = "Without a plenum, overhead or close-coupled delivery can serve racks while preserving clearances; perforated tiles alone, no airflow management, and generator air do not solve serviceability."
 topic_ids = ["m09-non-raised"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Charging UPS batteries"
 ]
 correct = "B"
-explanation = "Dry coolers are sensible air-cooled heat exchangers."
+explanation = "Dry coolers reject heat sensibly to outdoor air without primary evaporation; they do not boil IT coolant, require geothermal-only rejection, or charge UPS batteries."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "understand"

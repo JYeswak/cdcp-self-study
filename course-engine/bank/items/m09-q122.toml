@@ -14,7 +14,7 @@ choices = [
   "Servers produce large amounts of steam"
 ]
 correct = "C"
-explanation = "Dehumidification occurs when the coil surface is below the airstream dew point, causing moisture to condense and removing latent load."
+explanation = "Dehumidification occurs when the coil is below airstream dew point and condenses moisture; it does not require permanent fan shutdown, a legal trigger, or steam from servers."
 topic_ids = ["m09-temp-humidity", "m09-system-types"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Replacing leak detection"
 ]
 correct = "C"
-explanation = "Chimneys are a directed form of exhaust containment."
+explanation = "Chimneys direct hot exhaust into a return path and reduce room mixing; they do not cool batteries, provide power cords, or replace leak detection."
 topic_ids = ["m09-containment", "m09-non-raised"]
 objective_ids = []
 bloom = "understand"

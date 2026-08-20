@@ -13,7 +13,7 @@ choices = [
   "Grounding only fiber cables"
 ]
 correct = "B"
-explanation = "Sealing cutouts reduces bypass leaks that steal cold air from the intended delivery path."
+explanation = "Sealing cutouts reduces bypass leakage so cold air reaches intended tiles; grommets do not increase random leakage, heat the plenum, or ground fibre as their primary purpose."
 topic_ids = ["m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "apply"

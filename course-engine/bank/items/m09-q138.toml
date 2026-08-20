@@ -13,7 +13,7 @@ choices = [
   "Remove all CRAH filters forever"
 ]
 correct = "C"
-explanation = "Tile maps should follow load and cold-aisle design; random openings create bypass and starve other areas."
+explanation = "Tile open area should match IT load and layout; random openings, permanently blocked cold aisles, and removed filters create bypass or starve equipment."
 topic_ids = ["m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "apply"

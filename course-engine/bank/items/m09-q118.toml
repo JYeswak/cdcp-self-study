@@ -14,7 +14,7 @@ choices = [
   "Return air never contains heat, regardless of airflow"
 ]
 correct = "C"
-explanation = "Equipment reliability depends on the air entering the server; mixed CRAH return air can hide an inlet hot spot, so inlet temperature is the more actionable health metric."
+explanation = "Equipment reliability depends on air entering the server; mixed return can hide an inlet hotspot, while return air is not defined by outdoor wet-bulb or a universal prohibition on inlet sensors."
 topic_ids = ["m09-temp-humidity", "m09-principles"]
 objective_ids = []
 bloom = "apply"

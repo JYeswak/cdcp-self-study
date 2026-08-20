@@ -13,7 +13,7 @@ choices = [
   "Automatic dual utility feeds"
 ]
 correct = "A"
-explanation = "Cleaner, hotter returns improve thermodynamic efficiency of many plants."
+explanation = "Cleaner, hotter returns can improve delta-T and plant or economizer efficiency; containment does not inherently lower coil effectiveness, remove filters, or create utility feeds."
 topic_ids = ["m09-containment", "m09-system-types"]
 objective_ids = []
 bloom = "apply"

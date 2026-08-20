@@ -13,7 +13,7 @@ choices = [
   "Counterproductive in classic aisle layouts"
 ]
 correct = "D"
-explanation = "Cold supply belongs in cold aisles; tiles in hot aisles promote bypass and mixing rather than serving intakes."
+explanation = "Cold supply belongs in cold aisles; hot-aisle tiles promote bypass and mixing, not maximum efficiency, universal code compliance, or battery cooling."
 topic_ids = ["m09-raised-floor-cooling", "m09-containment"]
 objective_ids = []
 bloom = "apply"

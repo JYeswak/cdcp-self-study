@@ -13,7 +13,7 @@ choices = [
   "Recite 20–40% cooling energy as the reason the floor exists",
 ]
 correct = "C"
-explanation = "The shared floor is 2 °C. Below that is outside the class (condensation / CDU-approach), not extra margin. 2026 language is W17…W+. W40 filled a gap and has no W1–W5 ancestor."
+explanation = "Every W-class shares a 2 °C floor, so colder is outside the class rather than extra margin; W17 through W+ are current names, not W1–W5 or an energy-share law."
 topic_ids = ["m09-liquid"]
 objective_ids = ["obj-m09-w-classes"]
 bloom = "understand"

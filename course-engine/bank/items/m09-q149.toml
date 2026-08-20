@@ -13,7 +13,7 @@ choices = [
   "Cool only generators and ignore all IT equipment in the room"
 ]
 correct = "B"
-explanation = "CAC encloses cold supply so IT intakes see intended air; the room becomes more like a warm-air return volume."
+explanation = "CAC keeps cold supply in the aisle so IT intakes receive intended air; it does not increase mixing, replace humidity sensors, or cool generators instead of IT."
 topic_ids = ["m09-containment"]
 objective_ids = []
 bloom = "understand"

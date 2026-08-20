@@ -12,7 +12,7 @@ choices = [
   "Zero heat if PUE is low and cooling is efficient"
 ]
 correct = "B"
-explanation = "Electronics dissipate mainly sensible heat; latent is usually secondary."
+explanation = "Electronics dissipate mainly sensible heat as temperature rise; latent humidity, solar radiation, and low PUE do not make the IT heat load disappear."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Liquid cooling is forbidden even where air delivery is limited"
 ]
 correct = "C"
-explanation = "Extreme density outruns long-path perimeter air delivery."
+explanation = "Extreme density can outrun long-path perimeter air delivery; perimeter pressure is not infinite, raised floors can support designed loads, and liquid cooling is not forbidden."
 topic_ids = ["m09-raised-floor-cooling", "m09-non-raised", "m09-supplemental"]
 objective_ids = []
 bloom = "apply"

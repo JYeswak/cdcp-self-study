@@ -10,7 +10,7 @@ choices = [
   "Elimination of humidity control forever"
 ]
 correct = "B"
-explanation = "Allowable is wider; long-term operation at extremes can trade reliability/life against energy—guidance awareness, not a fixed law."
+explanation = "Allowable is wider, but long-term operation at its edge can trade reliability and life against energy; it does not guarantee free cooling, code compliance, or permanent humidity control."
 topic_ids = ["m09-ashrae-envelopes"]
 objective_ids = []
 bloom = "analyze"

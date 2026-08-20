@@ -13,7 +13,7 @@ choices = [
   "Used only for network racks with special cooling"
 ]
 correct = "B"
-explanation = "Supply openings belong where cold air is needed—typically cold aisles."
+explanation = "Supply openings belong where cold air is needed, typically cold aisles; hot-aisle tiles are not universally required, uniquely correct, or limited to network racks."
 topic_ids = ["m09-raised-floor-cooling", "m09-containment"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Eliminating filters and monitoring"
 ]
 correct = "A"
-explanation = "Shorter paths improve capture efficiency at high density."
+explanation = "Close-coupled cooling shortens the path between heat source and removal; it does not maximize mixing, cool offices only, or eliminate filters and monitoring."
 topic_ids = ["m09-system-types", "m09-supplemental"]
 objective_ids = []
 bloom = "understand"

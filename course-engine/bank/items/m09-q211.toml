@@ -13,7 +13,7 @@ choices = [
   "Raising UPS autonomy"
 ]
 correct = "C"
-explanation = "Cable dams choke plenum distribution and create hot/cold imbalance."
+explanation = "Cable dams obstruct plenum distribution and create hot/cold imbalance; they do not improve delta-T, cool transformers, or raise UPS autonomy."
 topic_ids = ["m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "apply"

@@ -14,7 +14,7 @@ choices = [
   "Raised floors must be flooded"
 ]
 correct = "B"
-explanation = "Dry outdoor air or dehumidifying coils can drop indoor moisture; humidification restores the site humidity control band."
+explanation = "Dry outdoor air or dehumidifying coils can lower indoor moisture, so humidification restores the control band; batteries do not require 100% RH and flooding is not humidity control."
 topic_ids = ["m09-temp-humidity"]
 objective_ids = []
 bloom = "apply"

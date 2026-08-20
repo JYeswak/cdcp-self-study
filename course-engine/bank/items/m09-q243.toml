@@ -13,7 +13,7 @@ choices = [
   "STS transfer time only"
 ]
 correct = "C"
-explanation = "Units need a proper return stream to operate as designed."
+explanation = "CRAH or CRAC units need a proper warm return stream for expected temperatures and flow; grille colour, fibre category, and STS timing do not set return performance."
 topic_ids = ["m09-principles", "m09-system-types"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Is identical to hot-aisle containment only"
 ]
 correct = "C"
-explanation = "Cold plates remove heat at the component rather than only via room air."
+explanation = "Direct-to-chip cooling brings liquid through cold plates or loops to high-heat components; it is not room-air-only, a grounding replacement, or merely hot-aisle containment."
 topic_ids = ["m09-liquid"]
 objective_ids = []
 bloom = "understand"

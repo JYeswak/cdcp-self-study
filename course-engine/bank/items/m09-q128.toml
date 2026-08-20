@@ -13,7 +13,7 @@ choices = [
   "Route carrier fiber rather than rack exhaust"
 ]
 correct = "A"
-explanation = "Rear-door heat exchangers capture rack exhaust heat before it enters the room air volume."
+explanation = "Rear-door heat exchangers capture rack exhaust heat before it enters room air; they do not generate power, replace fire coordination, or act as rack PDUs."
 topic_ids = ["m09-system-types", "m09-supplemental", "m09-liquid"]
 objective_ids = []
 bloom = "remember"

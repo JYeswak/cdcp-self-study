@@ -13,7 +13,7 @@ choices = [
   "Network redundancy"
 ]
 correct = "A"
-explanation = "Portable spot cooling buys time; it is not the long-term architecture."
+explanation = "Portable spot cooling buys temporary time but is not engineered capacity, an availability-class upgrade, fire suppression, or network redundancy."
 topic_ids = ["m09-supplemental"]
 objective_ids = []
 bloom = "apply"

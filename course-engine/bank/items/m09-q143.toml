@@ -13,7 +13,7 @@ choices = [
   "Air delivery limits challenge perimeter-only cooling"
 ]
 correct = "D"
-explanation = "High density often needs closer coupling, liquid assist, or better containment than classic low-density underfloor alone."
+explanation = "High density can exceed the airflow limits of perimeter-only delivery, so closer coupling, liquid assist, or better containment may be needed; perimeter air is not infinite and chilled-water CRAHs remain possible."
 topic_ids = ["m09-non-raised", "m09-supplemental"]
 objective_ids = []
 bloom = "analyze"

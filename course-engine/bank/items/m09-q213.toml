@@ -13,7 +13,7 @@ choices = [
   "Replace inlet temperature sensors entirely"
 ]
 correct = "A"
-explanation = "Static pressure is a practical proxy for underfloor air delivery health."
+explanation = "Underfloor static pressure helps assess balanced plenum supply delivery; it does not measure copper resistance, set fuel quality, or replace inlet-temperature sensors."
 topic_ids = ["m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "apply"

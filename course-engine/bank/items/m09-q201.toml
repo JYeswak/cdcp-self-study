@@ -10,7 +10,7 @@ choices = [
   "Only humidity has envelopes, never temperature"
 ]
 correct = "A"
-explanation = "Recommended is the preferred operating region; allowable is wider with different risk posture."
+explanation = "Recommended is the preferred region while allowable is wider with a different risk posture; the ranges are not identical forever, and allowable is not automatically colder or code-equivalent."
 topic_ids = ["m09-ashrae-envelopes"]
 objective_ids = []
 bloom = "understand"

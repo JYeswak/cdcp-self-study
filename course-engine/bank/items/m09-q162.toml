@@ -13,7 +13,7 @@ choices = [
   "Power the network core"
 ]
 correct = "C"
-explanation = "Liquid moves heat more effectively but does not delete it—outdoor rejection and plant design remain essential."
+explanation = "Liquid moves heat but does not delete it; the plant still needs an ultimate sink, so heat cannot be stored forever, used only for humidification, or diverted to the network core."
 topic_ids = ["m09-liquid", "m09-principles"]
 objective_ids = []
 bloom = "understand"

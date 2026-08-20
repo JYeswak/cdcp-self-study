@@ -14,7 +14,7 @@ choices = [
   "Higher SHR makes PUE worse in this room"
 ]
 correct = "C"
-explanation = "Servers produce primarily sensible heat; cooling with excess latent capacity can over-cool coils and over-dehumidify."
+explanation = "Servers produce primarily sensible heat, so excess latent capacity can over-cool coils and over-dehumidify; IT rooms do not primarily need moisture removal and SHR is not a PUE metric."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Above ceiling tiles dry always, regardless of heat transfer"
 ]
 correct = "C"
-explanation = "Immersion uses dielectric fluid contact for heat capture; heat still leaves via heat exchangers to facility loops."
+explanation = "Immersion places hardware in a dielectric fluid bath for heat capture; outdoor weather, generator fuel tanks, and dry ceiling storage are not immersion media."
 topic_ids = ["m09-liquid"]
 objective_ids = []
 bloom = "remember"

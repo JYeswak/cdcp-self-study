@@ -14,7 +14,7 @@ choices = [
   "Is always equal to latent capacity"
 ]
 correct = "B"
-explanation = "Sensible capacity removes heat at constant moisture; latent capacity addresses moisture. IT loads are mostly sensible."
+explanation = "Sensible capacity removes heat without changing moisture, while latent capacity addresses moisture; it is not only dehumidification, heating, or automatically equal to latent capacity."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "understand"

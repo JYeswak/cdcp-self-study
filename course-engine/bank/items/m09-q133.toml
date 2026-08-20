@@ -13,7 +13,7 @@ choices = [
   "Using only natural convection with zero design"
 ]
 correct = "B"
-explanation = "Close-coupled designs shorten airflow paths and target high-density heat more effectively than distant perimeter-only cooling."
+explanation = "Close-coupled designs move cooling near IT heat and shorten airflow paths; they do not cool parking lots, remove all fans, or rely on zero-design natural convection."
 topic_ids = ["m09-system-types", "m09-supplemental"]
 objective_ids = []
 bloom = "understand"

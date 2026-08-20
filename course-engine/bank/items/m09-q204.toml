@@ -13,7 +13,7 @@ choices = [
   "Hot exhaust re-enters intakes"
 ]
 correct = "D"
-explanation = "Recirculation is hot air returning to intakes instead of the cooling return path."
+explanation = "Recirculation is hot exhaust returning to intakes instead of a clean return; cold supply short-circuiting is bypass, while liquid loops and stationary air are different cases."
 topic_ids = ["m09-principles", "m09-containment"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Disable CDUs"
 ]
 correct = "A"
-explanation = "Isolation HX separates chemistries, pressures, and contamination domains."
+explanation = "Isolation heat exchangers separate water chemistry, pressure, and contamination domains while transferring heat; they do not create crosstalk, eliminate sensors, or disable CDUs."
 topic_ids = ["m09-liquid"]
 objective_ids = []
 bloom = "apply"

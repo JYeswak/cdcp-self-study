@@ -13,7 +13,7 @@ choices = [
   "Measures only illuminance in lux"
 ]
 correct = "A"
-explanation = "CDUs manage secondary coolant loops, isolation, and heat exchange to the facility water or glycol plant."
+explanation = "A CDU circulates and conditions secondary coolant and provides isolation and heat exchange; it is not fibre cross-connect, physical access control, or illuminance measurement."
 topic_ids = ["m09-liquid"]
 objective_ids = []
 bloom = "remember"

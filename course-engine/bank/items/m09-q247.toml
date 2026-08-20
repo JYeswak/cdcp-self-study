@@ -13,7 +13,7 @@ choices = [
   "Replacing humidity sensors"
 ]
 correct = "C"
-explanation = "Defined returns reduce uncontrolled mixing in non-raised rooms."
+explanation = "Defined returns guide hot air back to cooling units and reduce mixing in slab facilities; they do not increase underfloor leakage, cool UPS rooms without plant, or replace humidity sensors."
 topic_ids = ["m09-non-raised"]
 objective_ids = []
 bloom = "apply"

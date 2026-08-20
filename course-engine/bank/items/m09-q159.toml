@@ -13,7 +13,7 @@ choices = [
   "Leak detection, chemistry, isolation, and maintainability"
 ]
 correct = "D"
-explanation = "Liquids near electronics demand engineering controls: detection, materials, filtration, and procedures."
+explanation = "Liquid near electronics demands leak detection, chemistry, isolation, material compatibility, filtration, and maintainability; it does not remove electrical safety or make copper the only concern."
 topic_ids = ["m09-liquid"]
 objective_ids = []
 bloom = "apply"

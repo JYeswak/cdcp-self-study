@@ -13,7 +13,7 @@ choices = [
   "Obstruct exhaust and force leakage"
 ]
 correct = "D"
-explanation = "Blocked exhaust and forced open pathways create leakage and hot spots even with doors installed."
+explanation = "Messy rear cabling can obstruct exhaust and force leakage or recirculation; it does not improve sealing, raise plenum height, or eliminate blanking panels."
 topic_ids = ["m09-containment"]
 objective_ids = []
 bloom = "apply"

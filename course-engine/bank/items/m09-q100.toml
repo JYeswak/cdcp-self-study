@@ -13,7 +13,7 @@ choices = [
   "Only radiative heat into deep space"
 ]
 correct = "A"
-explanation = "IT gear converts nearly all electrical input to dry (sensible) heat; latent moisture load is minor compared with server heat."
+explanation = "IT gear converts nearly all electrical input to dry sensible heat; latent moisture, nuclear decay, and deep-space radiation are not the dominant hall load."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "remember"

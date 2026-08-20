@@ -13,7 +13,7 @@ choices = [
   "Replacements for fire suppression"
 ]
 correct = "C"
-explanation = "Portable spot coolers can buy time but reject heat locally and are not a design-basis replacement for engineered systems."
+explanation = "Portable spot coolers can buy time but need electricity and heat rejection; they are not permanent plant, fire suppression, or an availability upgrade."
 topic_ids = ["m09-supplemental"]
 objective_ids = []
 bloom = "evaluate"

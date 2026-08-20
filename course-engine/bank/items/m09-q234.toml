@@ -13,7 +13,7 @@ choices = [
   "Only fiber is installed"
 ]
 correct = "B"
-explanation = "Cold coils can condense moisture while providing sensible cooling."
+explanation = "Cold coils can condense moisture while cooling; fan polarity, UPS transfer, and fibre installation are not dehumidification mechanisms."
 topic_ids = ["m09-temp-humidity", "m09-system-types"]
 objective_ids = []
 bloom = "understand"

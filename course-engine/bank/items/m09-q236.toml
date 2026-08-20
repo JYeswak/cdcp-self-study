@@ -13,7 +13,7 @@ choices = [
   "Block exhaust paths and force leakage or recirculation around the intended airflow"
 ]
 correct = "D"
-explanation = "Blocked exhaust forces air to escape through the wrong openings."
+explanation = "Blocked exhaust forces leakage or recirculation around the intended path; cable mess does not improve blanking, lower dew point, or increase busway ampacity."
 topic_ids = ["m09-containment"]
 objective_ids = []
 bloom = "apply"

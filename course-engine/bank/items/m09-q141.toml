@@ -13,7 +13,7 @@ choices = [
   "Size only generator day tanks"
 ]
 correct = "B"
-explanation = "Plenum pressure indicates how hard the floor is pushing; low or uneven pressure signals leaks, congestion, or fan issues."
+explanation = "Plenum pressure helps tune delivery consistency and expose leaks, congestion, or fan issues; it does not replace humidity sensors, fibre certification, or fuel sizing."
 topic_ids = ["m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Store seasonal thermal energy"
 ]
 correct = "D"
-explanation = "STER stores cold or heat seasonally (for example winter cold) to reduce peak mechanical cooling later—specialized plant strategy."
+explanation = "STER stores cold or heat seasonally to shift cooling energy; it is not network storage, ice-only by definition, or a way to eliminate pumps."
 topic_ids = ["m09-ster"]
 objective_ids = []
 bloom = "remember"

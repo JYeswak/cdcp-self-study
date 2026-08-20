@@ -13,7 +13,7 @@ choices = [
   "Prevent leakage and mixing"
 ]
 correct = "D"
-explanation = "Containment integrity matters—open doors, missing panels, and cable gaps re-create recirculation paths."
+explanation = "Containment integrity matters because doors, blanks, and seals prevent leakage and mixing; gaps do not improve separation, battery autonomy, or CRAH redundancy."
 topic_ids = ["m09-containment"]
 objective_ids = []
 bloom = "apply"

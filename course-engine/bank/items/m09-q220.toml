@@ -16,7 +16,7 @@ choices = [
   "Dew point reflects absolute moisture"
 ]
 correct = "D"
-explanation = "RH moves with temperature; dew point tracks moisture content more cleanly."
+explanation = "RH moves with temperature while dew point tracks moisture content more directly; dew point is not amperage, an outdoor-only metric, or universally unchanged with conditions."
 topic_ids = ["m09-temp-humidity"]
 objective_ids = []
 bloom = "understand"

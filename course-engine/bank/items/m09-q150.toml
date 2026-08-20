@@ -13,7 +13,7 @@ choices = [
   "Automatic compliance with all network standards and codes"
 ]
 correct = "C"
-explanation = "Separation reduces recirculation/bypass and supports higher delta-T and economizer/plant efficiency."
+explanation = "Containment separates supply and return streams, reducing bypass and recirculation for better delta-T and plant efficiency; it does not remove filters or guarantee unrelated network compliance."
 topic_ids = ["m09-containment"]
 objective_ids = []
 bloom = "understand"

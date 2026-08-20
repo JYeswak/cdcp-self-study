@@ -13,7 +13,7 @@ choices = [
   "Acting as fire dampers only, with no airflow purpose"
 ]
 correct = "A"
-explanation = "Open U spaces let cold air skip equipment and mix inefficiently."
+explanation = "Blanking panels block rack-airflow shortcuts through empty U spaces; they do not attenuate copper, store chilled water, or function only as fire dampers."
 topic_ids = ["m09-containment", "m09-principles"]
 objective_ids = []
 bloom = "apply"

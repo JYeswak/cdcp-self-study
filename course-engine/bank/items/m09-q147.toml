@@ -13,7 +13,7 @@ choices = [
   "Guiding hot exhaust back to cooling units more directly"
 ]
 correct = "D"
-explanation = "Directed returns and chimneys reduce mixing and improve capture of hot air for the cooling units."
+explanation = "Directed returns and chimneys guide hot exhaust to cooling units and reduce mixing; random room discharge, UPS-room-only cooling, and underfloor bypass do not provide that return path."
 topic_ids = ["m09-non-raised", "m09-containment"]
 objective_ids = []
 bloom = "understand"

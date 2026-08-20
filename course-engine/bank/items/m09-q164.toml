@@ -13,7 +13,7 @@ choices = [
   "Replacing all IT with ice blocks"
 ]
 correct = "A"
-explanation = "When climate and design allow, stored winter cold can offset summer cooling energy—site-specific engineering, not universal."
+explanation = "Seasonal cold storage can shift mechanical cooling energy when climate and design allow; it does not guarantee zero capital cost, remove heat rejection, or replace IT with ice."
 topic_ids = ["m09-ster"]
 objective_ids = []
 bloom = "understand"

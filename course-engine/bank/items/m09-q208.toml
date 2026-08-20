@@ -13,7 +13,7 @@ choices = [
   "Seal the openings, then confirm supply and return separation with airflow checks"
 ]
 correct = "D"
-explanation = "The corrective action is to restore the physical boundary and verify that the intended supply and return paths are separated."
+explanation = "Restore the physical boundary and verify separated supply and return paths; extra CRAHs, network explanations, and installed capacity do not repair leakage."
 topic_ids = ["m09-containment"]
 objective_ids = []
 bloom = "apply"

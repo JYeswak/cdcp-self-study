@@ -18,7 +18,7 @@ choices = [
   "Store condensate under the floor"
 ]
 correct = "A"
-explanation = "The current ASHRAE framework ties full containment and precise airflow control to reduced fan energy and stabilized inlet temperatures. The item does not prescribe HAC hardware or a universal aisle layout."
+explanation = "Containment and precise airflow reduce fan energy and stabilize inlet temperatures; they do not heat cold aisles, eliminate fans under load, or store condensate."
 topic_ids = ["m09-containment"]
 objective_ids = []
 bloom = "understand"

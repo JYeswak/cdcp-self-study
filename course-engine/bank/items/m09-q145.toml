@@ -13,7 +13,7 @@ choices = [
   "Eliminate aisle containment always when busway is used"
 ]
 correct = "B"
-explanation = "Mechanical and electrical overhead systems compete for space; coordination protects airflow and maintainability."
+explanation = "Overhead power and cooling need coordinated clearances, airflow, and service access; energizing busway does not justify blocking discharge paths, deferring fire coordination, or removing containment."
 topic_ids = ["m09-non-raised", "m09-supplemental"]
 objective_ids = []
 bloom = "apply"

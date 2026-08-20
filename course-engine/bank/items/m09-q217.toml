@@ -13,7 +13,7 @@ choices = [
   "Act as PDUs and provide outlet-level power"
 ]
 correct = "A"
-explanation = "Rear-door HX captures exhaust heat at the rack boundary."
+explanation = "A rear-door heat exchanger removes rack exhaust heat at the rack boundary; it does not generate power, replace fire coordination, or act as a PDU."
 topic_ids = ["m09-supplemental", "m09-system-types"]
 objective_ids = []
 bloom = "understand"

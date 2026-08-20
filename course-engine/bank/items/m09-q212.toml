@@ -13,7 +13,7 @@ choices = [
   "Reducing uncontrolled leakage of supply air outside the cold aisle path"
 ]
 correct = "D"
-explanation = "Sealed cutouts keep pressurized supply air from dumping randomly."
+explanation = "Sealed cutouts keep pressurized supply air from dumping randomly; grommets do not intentionally recirculate, bond fibre, or humidify the plenum."
 topic_ids = ["m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "apply"

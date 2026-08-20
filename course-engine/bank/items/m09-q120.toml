@@ -10,7 +10,7 @@ choices = [
   "Classes only define rack U-height"
 ]
 correct = "A"
-explanation = "ASHRAE-style guidance is class-aware; do not assume one envelope fits every device type."
+explanation = "ASHRAE-style guidance is class-aware, so equipment envelopes differ; one worldwide envelope, a tape-library-only rule, and rack U-height are not thermal classes."
 topic_ids = ["m09-ashrae-envelopes"]
 objective_ids = []
 bloom = "understand"

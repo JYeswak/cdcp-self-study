@@ -13,7 +13,7 @@ choices = [
   "Sensible heat transfer from fluid coils to outdoor air (often with fans)"
 ]
 correct = "D"
-explanation = "Dry coolers are air-cooled heat exchangers; cooling towers use evaporative heat rejection with water."
+explanation = "Dry coolers reject heat sensibly to outdoor air without primary evaporation; process-water boiling, geothermal-only designs, and UPS charging are different mechanisms."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ choices = [
   "Electrical energy consumed by IT becomes heat"
 ]
 correct = "D"
-explanation = "Conservation of energy: IT power draw becomes thermal load the HVAC plant must remove (plus other room loads)."
+explanation = "Conservation of energy makes consumed IT electrical energy a thermal load for HVAC removal; power and heat are not unrelated, and lighting or battery float alone do not define the rack load."
 topic_ids = ["m09-principles"]
 objective_ids = []
 bloom = "remember"

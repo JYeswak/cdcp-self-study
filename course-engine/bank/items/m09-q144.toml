@@ -10,7 +10,7 @@ choices = [
   "Disabling monitoring to save energy"
 ]
 correct = "A"
-explanation = "Supplemental cooling targets hot spots or dense zones that the base system cannot serve adequately alone."
+explanation = "Supplemental cooling adds local capacity where the base room system is insufficient; it is not removal of primary plant, paint, or disabled monitoring."
 topic_ids = ["m09-supplemental"]
 objective_ids = []
 bloom = "remember"

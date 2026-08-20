@@ -13,7 +13,7 @@ choices = [
   "Place supply openings to serve cold aisles and seal unnecessary leakage paths"
 ]
 correct = "D"
-explanation = "Supply where cold is needed; stop dumping air elsewhere."
+explanation = "Place supply openings at cold aisles and seal unnecessary leakage; random tiles, blocked aisles, and generator exhaust are not airflow management."
 topic_ids = ["m09-raised-floor-cooling", "m09-containment"]
 objective_ids = []
 bloom = "apply"

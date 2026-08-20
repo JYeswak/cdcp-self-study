@@ -13,7 +13,7 @@ choices = [
   "CDUs replace fire codes"
 ]
 correct = "C"
-explanation = "Extreme watts per rack push beyond practical air-only removal."
+explanation = "Extreme watts per rack can exceed practical air-only removal; liquid does not eliminate electrical power, make PUE zero, or replace fire codes."
 topic_ids = ["m09-liquid", "m09-system-types"]
 objective_ids = []
 bloom = "apply"

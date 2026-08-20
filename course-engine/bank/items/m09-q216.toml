@@ -13,7 +13,7 @@ choices = [
   "Close-coupled cooling for high heat density"
 ]
 correct = "D"
-explanation = "Close-coupled in-row units target dense rows more directly than distant perimeter units."
+explanation = "Close-coupled in-row units target dense rows directly; they are not office-only cooling, a response to no IT heat, or generator humidification."
 topic_ids = ["m09-system-types", "m09-supplemental"]
 objective_ids = []
 bloom = "apply"

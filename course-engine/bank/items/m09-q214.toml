@@ -13,7 +13,7 @@ choices = [
   "They differ only in paint color and equipment branding"
 ]
 correct = "B"
-explanation = "The crisp distinction is DX on board versus chilled-water air handlers."
+explanation = "CRAC typically uses DX refrigeration while CRAH uses chilled-water coils; they are not immersion tanks, paint variants, or units that never cool air."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "understand"

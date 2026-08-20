@@ -18,7 +18,7 @@ choices = [
   "Eliminate the need for any heat rejection path, regardless of cooling mode"
 ]
 correct = "A"
-explanation = "The current ASHRAE framework describes airside, waterside, and refrigerant economizers as pathways to reduce compressor hours and mechanical cooling demand. It does not set a universal economizer mode, climate limit, or facility-availability claim."
+explanation = "Economizers use favorable airside, waterside, or refrigerant conditions to reduce compressor work; they do not require maximum compressors, remove redundancy, or eliminate ultimate heat rejection."
 topic_ids = ["m09-principles", "m09-system-types"]
 objective_ids = []
 bloom = "understand"

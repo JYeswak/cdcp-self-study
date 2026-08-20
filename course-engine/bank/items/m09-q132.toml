@@ -13,7 +13,7 @@ choices = [
   "Heating the condenser water intentionally always"
 ]
 correct = "A"
-explanation = "Towers exploit evaporation; performance relates to wet-bulb, with water consumption and treatment as operational costs."
+explanation = "Cooling towers exploit evaporation toward wet-bulb conditions, with water use and treatment costs; they do not eliminate water, replace chillers with fibre, or deliberately heat condenser water."
 topic_ids = ["m09-system-types"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "A substitute for grounding and electrical bonding"
 ]
 correct = "C"
-explanation = "Cold air is pushed into the plenum and delivered through controlled openings; cable congestion and leaks hurt performance."
+explanation = "The raised-floor plenum distributes supply air through controlled openings; it is not a fuel vault, an automatic hot-air return, or an electrical bonding substitute."
 topic_ids = ["m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "remember"

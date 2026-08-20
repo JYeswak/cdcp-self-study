@@ -13,7 +13,7 @@ choices = [
   "All cable trays are removed"
 ]
 correct = "B"
-explanation = "Approval should confirm that installation and maintenance preserve the airflow envelope and safe service clearances around both systems."
+explanation = "Approval should confirm airflow envelope and safe service clearances for both systems; energized busway does not justify blocking discharge, deferring structural/fire coordination, or removing all trays."
 topic_ids = ["m09-non-raised", "m09-supplemental"]
 objective_ids = []
 bloom = "apply"

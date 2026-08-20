@@ -13,7 +13,7 @@ choices = [
   "The UPS has lost its battery autonomy"
 ]
 correct = "A"
-explanation = "The observation points to bypass: conditioned air short-circuits through an unintended opening instead of serving the load; verify tile openings and plenum pressure."
+explanation = "The observation points to bypass: conditioned air short-circuits through an unintended opening instead of serving the load; hot exhaust recirculation, bonding, and UPS autonomy are different failure modes."
 topic_ids = ["m09-principles", "m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "apply"

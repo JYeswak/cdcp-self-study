@@ -13,7 +13,7 @@ choices = [
   "Eliminates all facility heat rejection needs"
 ]
 correct = "B"
-explanation = "Cold plates target CPUs/GPUs and similar devices; residual heat may still need air, and plant still rejects heat outdoors."
+explanation = "Direct-to-chip cooling uses cold plates and liquid loops near high-heat devices; it is not whole-server immersion, room-air-only cooling, or a way to delete outdoor heat rejection."
 topic_ids = ["m09-liquid"]
 objective_ids = []
 bloom = "understand"

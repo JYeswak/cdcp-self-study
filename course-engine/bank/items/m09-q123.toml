@@ -15,7 +15,7 @@ choices = [
   "Temperature and moisture jointly affect reliability"
 ]
 correct = "D"
-explanation = "Environment is multi-parameter; temperature alone misses moisture-driven risks and control interactions."
+explanation = "Temperature and moisture jointly affect reliability, so temperature-only monitoring misses condensation, corrosion, and control interactions; humidity does not replace fire detection."
 topic_ids = ["m09-temp-humidity"]
 objective_ids = []
 bloom = "understand"

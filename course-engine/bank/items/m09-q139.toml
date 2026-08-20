@@ -13,7 +13,7 @@ choices = [
   "Capture warm air without short-circuiting"
 ]
 correct = "D"
-explanation = "Units need a coherent return path; poor return design causes mixing, short-circuiting, and control instability."
+explanation = "CRAHs need a coherent return path that captures warm air; supply temperature alone, outdoor wind, and fuel maintenance do not replace return-path design."
 topic_ids = ["m09-raised-floor-cooling", "m09-non-raised"]
 objective_ids = []
 bloom = "understand"

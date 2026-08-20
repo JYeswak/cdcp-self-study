@@ -13,7 +13,7 @@ choices = [
   "Storing cold or heat across seasons to shift cooling energy use when climate and design allow"
 ]
 correct = "D"
-explanation = "STER stores seasonal thermal capacity; it is site-specific engineering."
+explanation = "STER stores cold or heat across seasons to shift cooling energy; disk packets, batteries-only chiller replacement, and network records are not thermal storage."
 topic_ids = ["m09-ster"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Disable humidity control and air balancing entirely"
 ]
 correct = "C"
-explanation = "CAC protects the cold stream so servers receive intended supply air."
+explanation = "CAC keeps supply focused on IT intakes and reduces mixing; it does not dump cold air into returns, heat the aisle, or disable humidity and balancing controls."
 topic_ids = ["m09-containment"]
 objective_ids = []
 bloom = "understand"

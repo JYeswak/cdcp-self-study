@@ -13,7 +13,7 @@ choices = [
   "The cooling share of site energy, frozen at 20–40%",
 ]
 correct = "B"
-explanation = "W-class is plant-selection language. The number is the upper supply-water bound; the shared floor is 2 °C. It is not a hall setpoint, an air envelope, or an energy pie. Module 02 owns the lattice; this module applies it."
+explanation = "W-class names the upper facility-water supply bound with a shared floor, not a hall setpoint, air envelope, or energy share; those distractors confuse plant selection with room guidance."
 topic_ids = ["m09-liquid"]
 objective_ids = ["obj-m09-w-classes"]
 bloom = "understand"

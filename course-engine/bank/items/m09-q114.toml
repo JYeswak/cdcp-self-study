@@ -10,7 +10,7 @@ choices = [
   "Only humidity is specified; temperature is ignored"
 ]
 correct = "C"
-explanation = "Recommended sits as a preferred band relative to broader allowable envelopes by equipment class—awareness level, not memorizing clause text."
+explanation = "Recommended is preferred and allowable is broader by equipment class; they are not legally identical fire codes, and humidity is not the only controlled variable."
 topic_ids = ["m09-ashrae-envelopes"]
 objective_ids = []
 bloom = "remember"

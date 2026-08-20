@@ -13,7 +13,7 @@ choices = [
   "Only through battery rooms, not through the raised-floor plenum"
 ]
 correct = "B"
-explanation = "Classic underfloor supply: CRAH discharges to plenum; perforated tiles deliver cold air to cold aisles."
+explanation = "Classic raised-floor supply sends CRAH air into the plenum and through tiles to cold aisles; it does not feed diesel tanks or restrict supply to battery rooms."
 topic_ids = ["m09-system-types", "m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "remember"

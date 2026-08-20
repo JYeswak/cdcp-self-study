@@ -13,7 +13,7 @@ choices = [
   "Storing water under floor",
 ]
 correct = "A"
-explanation = "HAC captures and isolates hot exhaust so it can return cleanly to the cooling units."
+explanation = "HAC captures and isolates hot exhaust so it can return cleanly to cooling units; it does not heat cold aisles, remove fans, or store water."
 topic_ids = ["m09-containment"]
 objective_ids = []
 bloom = "understand"

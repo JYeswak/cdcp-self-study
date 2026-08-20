@@ -13,7 +13,7 @@ choices = [
   "Eliminate blanking panels as a concept and seal every opening"
 ]
 correct = "B"
-explanation = "HAC encloses the hot path to strengthen separation of streams."
+explanation = "HAC captures hot exhaust and keeps cold aisles cooler; it does not flood cold aisles, replace CRAHs with windows, or make blanking panels unnecessary."
 topic_ids = ["m09-containment"]
 objective_ids = []
 bloom = "understand"

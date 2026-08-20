@@ -13,7 +13,7 @@ choices = [
   "High heat density needs cooling near the load"
 ]
 correct = "D"
-explanation = "In-row units sit near racks to handle higher density and shorter airflow paths than room-only perimeter cooling."
+explanation = "In-row units sit near racks to handle higher density and shorten airflow paths; they do not imply no electrical load, no cabling design, or outdoor-only cooling."
 topic_ids = ["m09-system-types", "m09-supplemental"]
 objective_ids = []
 bloom = "apply"

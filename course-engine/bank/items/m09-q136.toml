@@ -13,7 +13,7 @@ choices = [
   "Eliminating the need for CRAHs"
 ]
 correct = "A"
-explanation = "Underfloor blockages act like dams—pressure and airflow become uneven, harming tile performance."
+explanation = "Underfloor cable blockages act like dams, making pressure and airflow uneven; congestion does not improve uniformity, UPS efficiency, or remove the need for CRAHs."
 topic_ids = ["m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "understand"

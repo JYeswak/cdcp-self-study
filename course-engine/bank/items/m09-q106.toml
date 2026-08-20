@@ -13,7 +13,7 @@ choices = [
   "Fire panel zoning only"
 ]
 correct = "C"
-explanation = "Psychrometrics links dry-bulb, humidity, dew point, and wet-bulb—critical for economizers, condensation risk, and envelopes."
+explanation = "Psychrometrics links temperature, humidity, dew point, and wet-bulb for economizers and condensation risk; diesel ratings, copper counts, and fire zoning are separate domains."
 topic_ids = ["m09-principles", "m09-temp-humidity"]
 objective_ids = []
 bloom = "understand"

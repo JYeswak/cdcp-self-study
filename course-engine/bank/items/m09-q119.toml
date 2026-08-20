@@ -14,7 +14,7 @@ choices = [
   "Localized inlet hot spot"
 ]
 correct = "D"
-explanation = "Hot spots are local thermal problems—often recirculation, blocked tiles, or uneven loads—not necessarily whole-room average failure."
+explanation = "A hotspot is a localized inlet problem, often from recirculation, blocked tiles, or uneven loads; it is not an outdoor reading, battery-room condition, or intentionally heated aisle."
 topic_ids = ["m09-temp-humidity", "m09-raised-floor-cooling"]
 objective_ids = []
 bloom = "remember"

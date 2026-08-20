@@ -10,7 +10,7 @@ choices = [
   "Cabling color codes",
 ]
 correct = "B"
-explanation = "ASHRAE gives recommended/allowable environmental envelopes by class—guidance, not a code substitute."
+explanation = "ASHRAE gives recommended and allowable environmental envelopes by equipment class—guidance, not a universal law, generator specification, or cabling convention."
 topic_ids = ["m09-ashrae-envelopes"]
 objective_ids = []
 bloom = "understand"

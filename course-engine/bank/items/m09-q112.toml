@@ -10,7 +10,7 @@ choices = [
   "Mandate a single global setpoint for every facility"
 ]
 correct = "A"
-explanation = "Recommended ranges are preferred for reliability/energy balance; allowable ranges are wider but not the everyday target."
+explanation = "Recommended ranges are preferred for reliability and energy balance, while allowable ranges are wider; neither replaces local codes, defines generator temperatures, or mandates one global setpoint."
 topic_ids = ["m09-ashrae-envelopes"]
 objective_ids = []
 bloom = "understand"
