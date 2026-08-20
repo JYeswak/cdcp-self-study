@@ -10,7 +10,7 @@ stem = "Zero-U rack PDUs are typically mounted:"
 choices = [
   "Rear/side vertical space without using horizontal U",
   "Only as 2U horizontal shelves in the middle of servers",
-  "In a separate plant-side enclosure because rack PDUs cannot share cabinet space",
+  "In a separate plant-side enclosure because rack PDUs can serve the plant rather than the rack",
   "In the return-air path so the PDU can use the plenum instead of a rack channel",
 ]
 correct = "A"

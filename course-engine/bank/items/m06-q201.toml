@@ -7,7 +7,7 @@ kind = "single-select"
 module = 6
 stem = "During concurrent maintenance of UPS train A, what must remain true for concurrent maintainability claims to hold?"
 choices = [
-  "Both trains must be powered down together during planned work",
+  "Both trains can be powered down together during planned work",
   "Load can continue on an independent path",
   "Battery impedance testing is required instead of path maintenance",
   "PUE must drop below 1.0 before maintenance proceeds"

@@ -9,7 +9,7 @@ choices = [
   "Has no fans, even when the unit must move air",
   "Cools using pure nitrogen rather than a refrigerant circuit",
   "Can use a compressor and refrigerant circuit",
-  "Eliminates the need for outdoor heat rejection"
+  "May eliminate the need for outdoor heat rejection"
 ]
 correct = "C"
 explanation = "DX CRAC uses a compressor and refrigerant circuit, with heat rejected through a condenser path; it still has fans and does not eliminate outdoor heat rejection."

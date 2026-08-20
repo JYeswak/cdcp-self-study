@@ -7,7 +7,7 @@ kind = "single-select"
 module = 10
 stem = "A backup water supply for a water-dependent cooling plant is intended to:"
 choices = [
-  "Count stored volume as resilience even when it cannot reach the cooling process",
+  "Stored volume can count as resilience even when it cannot reach the cooling process",
   "Treat stored water as a replacement for chillers and plant-capacity planning",
   "Bridge utility water interruptions so heat rejection can continue within design intent",
   "Use cooling backup water as fire-water without checking separation, quality, or demand",

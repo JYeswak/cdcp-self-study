@@ -13,7 +13,7 @@ choices = [
   "BTM is a site type; walk away if land, fuel or gas, or permits cannot host the plant",
   "A later generator add-on you specify in this module (ATS sequence, UPS ride-through, islanding)",
   "Proof the site has no grid risk, so interconnect can be ignored even when the proposed plant needs export, backup, or black-start capability",
-  "Another name for two utility laterals landed on opposite corners of the hall",
+  "Another name for two utility laterals that can be landed on opposite corners of the hall",
 ]
 correct = "A"
 explanation = "Behind-the-meter describes the site’s energization model, so the parcel must host land, fuel or gas, and permits; it is not a later ATS detail, proof of no grid risk, or a synonym for two utility laterals."

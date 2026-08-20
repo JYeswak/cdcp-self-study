@@ -10,7 +10,7 @@ choices = [
   "Quality, availability, or treatment failures can force cooling derates or shutdowns",
   "Treat tower makeup as a domestic-service concern because the recirculating loop is closed",
   "Treat process water as an electrical input to the UPS rather than a heat-rejection or humidity-control input",
-  "Treat cooling-water planning as a substitute for separate fire-water planning",
+  "Treat cooling-water planning as something that can substitute for separate fire-water planning",
 ]
 correct = "A"
 explanation = "Cooling and humidity systems depend on usable, treated water; a closed recirculating loop still needs makeup, water is not an electrical UPS input, and fire-water planning remains a separate design question."
