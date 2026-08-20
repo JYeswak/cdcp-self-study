@@ -327,11 +327,36 @@ fn the_live_repo_tree_has_no_unlisted_non_rust_file() {
         "claimed to scan mjs but found {} — empty js/mjs scan is ERROR: {mjs:?}",
         mjs.len()
     );
+    // The floor is DERIVED from the allowlist, never pinned to a literal.
+    //
+    // It used to read `>= 42`, and that number was in direct contradiction with
+    // this same gate's other leg, which reports "N exemption(s) outstanding;
+    // target is 0". One leg demanded at least 42 non-Rust files exist while the
+    // other's stated goal was zero of them — so every successful Python-to-Rust
+    // port walked the gate closer to RED, and the gate was guaranteed to fail on
+    // the day the Substrate Law finally succeeded. A gate that reds on success is
+    // measuring the wrong thing (bd-substrate-floor-after-retirements-mfz9).
+    //
+    // Every allowlisted row names a non-Rust file that the scan MUST therefore
+    // identify. Deriving the floor keeps the invariant exact at every count,
+    // including zero: retiring a script deletes its row and its file together, so
+    // both sides fall in lockstep and the gate cannot be quietly satisfied by a
+    // scan that stopped looking.
+    //
+    // ANTI-VACUITY DOES NOT REST ON THIS COUNT. It rests on the planted-bad legs
+    // (an unlisted .py planted in this tree is RED), which hold at any count. This
+    // assertion catches a DIFFERENT failure: the scan silently narrowing — an
+    // extension dropped from scan.extensions, a probe that stopped firing — while
+    // the registry still claims those files are being judged.
+    let declared = al.allow.len();
     assert!(
-        identified.len() >= 42,
-        "only {} entries identified as non-Rust — the scan found nothing to judge; \
+        identified.len() >= declared,
+        "scan identified {} non-Rust files but the allowlist declares {} exempted — \
+         the scan is judging LESS than the registry claims exists, which is how a \
+         narrowed scan reports like a clean tree; \
          root={} tracked={} scan.exts={:?} mjs={mjs:?} identified={:?}",
         identified.len(),
+        declared,
         root.display(),
         entries.len(),
         al.scan.extensions,
