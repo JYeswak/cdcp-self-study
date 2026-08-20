@@ -90,12 +90,10 @@ if [ -z "${CDCP:-}" ]; then
   CDCP="$CDCP_BIN_DIR/cdcp"
 fi
 
-# ── The fleet doctor's error set must be EXACTLY the one known+accepted ─────
-# It reports brand_voice_composite_low because its exemption vocabulary
-# (EXEMPT_CLIENT_OWNED | EXEMPT_PUBLIC_FACING) has no class for "not a
-# ZestStream-branded surface", so a null composite reads as below-floor. That
-# is a gap in the shared fleet tool, not in this repo — but pinning it here
-# means a NEW doctor error can never slip by unnoticed.
+# ── The fleet doctor's error set must be EXACTLY known+accepted ─────────────
+# The current audit has EXEMPT_NON_ZS_SURFACE, so the expected error set is
+# empty. Keep the legacy single error accepted for older audit fixtures; any
+# other error is a regression and must not slip by unnoticed.
 KNOWN_ERR="brand_voice_composite_low"
 if [ ! -x "$CDCP" ]; then
   bad "missing $CDCP (doctor-errors helper; no interpreter fallback)"

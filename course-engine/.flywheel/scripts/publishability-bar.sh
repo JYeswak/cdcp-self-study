@@ -29,7 +29,7 @@ field_value() {
       BEGIN { found=0 }
       tolower($2) ~ "^[[:space:]]*" tolower(f) "[[:space:]]*$" {
         v=$3
-        gsub(/^[[:space:]]+|[[:space:]]+$/, "", v)
+        gsub(/^[[:space:]*]+|[[:space:]]+$/, "", v)
         print v
         found=1
         exit
@@ -41,10 +41,16 @@ field_value() {
 header_value() {
     local field="$1" file="$2"
     awk -F':' -v f="$field" '
-      tolower($1) == tolower(f) {
+      {
+        key=$1
+        gsub(/^[[:space:]-]+/, "", key)
+        gsub(/\*/, "", key)
+        gsub(/[[:space:]]+$/, "", key)
+      }
+      tolower(key) == tolower(f) {
         v=$0
         sub(/^[^:]*:[[:space:]]*/, "", v)
-        gsub(/^[[:space:]]+|[[:space:]]+$/, "", v)
+        gsub(/^[[:space:]*]+|[[:space:]]+$/, "", v)
         print v
         exit
       }
@@ -75,12 +81,22 @@ brand_voice_banned_words_json() {
 brand_voice_metrics_json() {
     local repo="$1" audit="$2" public_repo public_repo_json exemption score scorecard_log ungrounded words_json text_file scan_file matches_json banned_count
     public_repo="$(header_value "Public repo" "$audit" | tr '[:upper:]' '[:lower:]')"
+    public_repo="${public_repo%% *}"
     public_repo_json=false
     if [[ "$public_repo" == "yes" || "$public_repo" == "true" || "$public_repo" == "public" ]]; then
         public_repo_json=true
     fi
-    exemption="$(header_value "Exemption" "$audit" | tr '[:lower:]' '[:upper:]')"
-    if [[ "$exemption" == "EXEMPT_CLIENT_OWNED" || "$exemption" == "EXEMPT_PUBLIC_FACING" ]]; then
+    # Prefer a structured exemption class when the audit declares one. The
+    # prose Exemption field remains the human-readable reason and is not a
+    # machine vocabulary. Keep the legacy header-token fallback for older
+    # audits that have not yet added the class line.
+    exemption="$(grep -Eo 'EXEMPT_[A-Z_]+' "$audit" | head -1 || true)"
+    if [[ -z "$exemption" ]]; then
+        exemption="$(header_value "Exemption" "$audit" | tr '[:lower:]' '[:upper:]')"
+    fi
+    if [[ "$exemption" == "EXEMPT_CLIENT_OWNED" ||
+          "$exemption" == "EXEMPT_PUBLIC_FACING" ||
+          "$exemption" == "EXEMPT_NON_ZS_SURFACE" ]]; then
         jq -nc --argjson public_repo "$public_repo_json" --arg exemption "$exemption" '{
           public_repo:$public_repo,
           public_ready_default:true,

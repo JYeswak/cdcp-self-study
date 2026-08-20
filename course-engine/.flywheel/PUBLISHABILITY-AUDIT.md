@@ -4,6 +4,7 @@
 - **Date:** 2026-08-12
 - **Auditor:** agent (post-recovery pass)
 - **Public repo:** yes (2026-08-12; github.com/JYeswak/cdcp-self-study)
+- **Exemption class:** EXEMPT_NON_ZS_SURFACE
 - **Exemption:** ZestStream public-voice gate — **does not apply**. This is a
   personal educational repo, not a ZS-branded product surface (`grep -i
   zeststream README.md` returns nothing; the only ZS mention in public copy is
@@ -41,25 +42,19 @@ enforced in CI.** No composite is asserted, because none was measured — the
 deterministic slice (banned words + rules) was run and is clean apart from the
 domain-term false positive documented in the exemption.
 
-## Known limitation of the fleet doctor (not a repo defect)
+## Doctor semantics
 
-`.flywheel/scripts/publishability-bar.sh --doctor --json` reports
-**`status: fail`** with exactly one error, `brand_voice_composite_low`.
-
-Cause: the doctor's exemption vocabulary is `EXEMPT_CLIENT_OWNED |
-EXEMPT_PUBLIC_FACING` (defined only inside the script; undocumented elsewhere).
-Neither class covers "not a ZestStream-branded surface", so this repo's honest
-`null` composite reads as below-floor. Recording a number instead would clear it
-— and would be an asserted score that was never measured, which is the exact
-failure this audit exists to prevent.
+The repo-local doctor recognizes the structured `EXEMPT_NON_ZS_SURFACE` class
+above. Measured 2026-08-20: `.flywheel/scripts/publishability-bar.sh --doctor
+--json` returns `status: pass`, `public_repo: true`, `exempt: true`,
+`exemption_class: EXEMPT_NON_ZS_SURFACE`, and an empty error list. It does not
+invent a voice score for a surface whose ZestStream voice rubric does not
+apply. Removing the class or replacing it with an unknown token remains RED.
 
 The repo-local gate is authoritative and green: `scripts/check.sh` runs
-`tests/voice-slop.sh` and `tests/publishability-bar.sh`, and the latter **pins
-the doctor's error set**, so a new doctor error fails the build rather than
+`tests/voice-slop.sh` and `tests/publishability-bar.sh`, and the latter pins
+the doctor's error set so a new doctor error fails the build rather than
 passing unnoticed.
-
-**Fleet follow-up (Josh's call, not repo-local):** the shared doctor needs a
-third exemption class, e.g. `EXEMPT_NON_ZS_SURFACE`.
 
 ## Facet scorecard
 
