@@ -14,7 +14,7 @@ choices = [
   "Duplicates are deduplicated thoughtfully"
 ]
 correct = "C"
-explanation = "Notification resilience needs diversity, testing, and escalation—not hope."
+explanation = "Notification fails on single points: one person, a call list nobody has tested, or a channel that depends on the same infrastructure the outage took down. The distractors describe the controls that FIX those failures -- testing, documented escalation, thoughtful deduplication -- which is why they are the wrong answer to a question about failure."
 topic_ids = ["m14-notification", "m14-best-practices"]
 objective_ids = []
 bloom = "analyze"

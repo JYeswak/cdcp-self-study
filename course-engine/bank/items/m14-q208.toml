@@ -15,7 +15,7 @@ choices = [
   "Something that shares one overloaded unmonitored switch under a desk forever"
 ]
 correct = "A"
-explanation = "Blindness during outages is a common design failure—monitor the monitors."
+explanation = "Monitoring is production infrastructure: it needs protected power, a network path that survives, and a maintenance regime, because going blind during an outage is precisely when it is needed. Leaving it unpowered during utility loss is the specific failure -- the monitoring dies at the moment its data becomes decisive."
 topic_ids = ["m14-best-practices", "m14-monitoring-challenges"]
 objective_ids = []
 bloom = "apply"

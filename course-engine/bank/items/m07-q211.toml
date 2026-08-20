@@ -13,7 +13,7 @@ choices = [
   "Only the fibre in the tray produces 50/60 Hz fields",
 ]
 correct = "B"
-explanation = "Layout and phase geometry are design levers for field reduction."
+explanation = "Conductor spacing and phase arrangement determine how much the fields from each conductor cancel or reinforce, which makes tray layout a field-reduction lever rather than just a cable-management one. Claiming geometry is irrelevant contradicts that directly, and fibre carries no current, so it cannot produce a 50/60 Hz field regardless of where it sits."
 topic_ids = ["m07-sources", "m07-shielding"]
 objective_ids = []
 bloom = "analyze"

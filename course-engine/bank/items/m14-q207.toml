@@ -14,7 +14,7 @@ choices = [
   "What operators need to detect degradation in time",
 ]
 correct = "D"
-explanation = "Requirements trace to failure modes and response time needs."
+explanation = "Requirements come from what operators must detect, and how quickly, to protect the SLA and keep people safe -- so they trace back to failure modes and response times. Letting a vendor kit define the sensor set is the realistic wrong answer: it produces coverage shaped by what was free rather than by what fails, which is how mechanical systems end up unmonitored."
 topic_ids = ["m14-monitoring-reqs"]
 objective_ids = []
 bloom = "understand"

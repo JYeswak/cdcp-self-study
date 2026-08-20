@@ -14,7 +14,7 @@ choices = [
   "The category rating of the copper cable feeding the panel",
 ]
 correct = "A"
-explanation = "Human-readable points turn alarms into action; cryptic DIs waste incident time."
+explanation = "A point named CHW-VALVE-ROW12-LEAK tells an operator what and where under stress; DI_047 requires a lookup at the worst moment, and lookups are where mis-isolation happens. Naming is a human-factors control, so it has no bearing on bus baud rate, camera resolution or cable category."
 topic_ids = ["m14-alarms", "m14-best-practices"]
 objective_ids = []
 bloom = "apply"

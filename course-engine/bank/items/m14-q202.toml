@@ -14,7 +14,7 @@ choices = [
   "Issue and track visitor badges at the reception desk",
 ]
 correct = "C"
-explanation = "BMS is plant-centric control/monitoring of building systems."
+explanation = "BMS supervises and controls building mechanical and electrical plant, HVAC most of all. It is plant-centric by design, which is why it does not maintain an asset database, route network sessions or issue badges -- those belong to DCIM, the network, and physical security, and conflating them is how a monitoring scope ends up with no owner."
 topic_ids = ["m14-bms"]
 objective_ids = []
 bloom = "remember"

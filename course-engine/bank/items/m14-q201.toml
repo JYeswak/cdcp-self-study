@@ -13,7 +13,7 @@ choices = [
   "Outdoor traffic camera feeds around the site perimeter fence line",
 ]
 correct = "B"
-explanation = "EMS watches the physical environment that makes IT survivable."
+explanation = "EMS watches the physical conditions that keep IT alive: temperature, humidity, leaks and related facility points. The alternatives are all real data feeds owned by other functions -- market data, deployment pipelines and perimeter cameras -- and none of them reports a condition that threatens the equipment."
 topic_ids = ["m14-ems"]
 objective_ids = []
 bloom = "remember"

@@ -13,7 +13,7 @@ choices = [
   "A BMS is physically incapable of sampling faster than once per hour",
 ]
 correct = "C"
-explanation = "Sampling and latency choices can mask brief but damaging events; an average is not a peak, and neither BMS nor EMS is inherently limited to the distractor intervals."
+explanation = "A fifteen-minute average smooths away the short excursions that actually stress equipment, so the trend can look flat across an event that mattered. Claiming an average equals its peak is the direct inversion. The sampling-limit answers are the other trap: both BMS and EMS sample far faster than daily or hourly, so the limitation is the averaging window chosen, not the instrument."
 topic_ids = ["m14-monitoring-challenges"]
 objective_ids = []
 bloom = "analyze"

@@ -14,7 +14,7 @@ choices = [
   "The fuel type selected for the standby generators",
 ]
 correct = "B"
-explanation = "Shielded rooms fail at penetrations and seams—not just material thickness slogans."
+explanation = "Once the wall material is conductive enough, shielding effectiveness is set by what breaks the envelope: apertures, seams, door gaskets and cable entries. That is why a shielded room is commissioned at its penetrations rather than specified by thickness. Surface finish, rack capacity and generator fuel are all real specifications that have no path into the electromagnetic envelope."
 topic_ids = ["m07-shielding"]
 objective_ids = []
 bloom = "understand"

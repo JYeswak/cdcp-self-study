@@ -14,7 +14,7 @@ choices = [
   "It guarantees the field level will not change",
 ]
 correct = "C"
-explanation = "Surveys are snapshots; records enable comparison after plant or layout changes."
+explanation = "A survey is a snapshot, so its value is the baseline it leaves behind: something to compare against when a complaint arrives, plant changes, or construction starts next door. It does not replace the single-line diagram, which describes distribution rather than fields, and it cannot guarantee a level will hold -- that is precisely why the record exists."
 topic_ids = ["m07-standards"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ choices = [
   "The colour coding of the conductor insulation",
 ]
 correct = "B"
-explanation = "Magnetic fields couple to current; electric fields relate more to voltage/charge separation."
+explanation = "Magnetic fields are produced by current flow, which is why conductor geometry and phase arrangement are the design levers for reducing them. Voltage alone is the near-miss and it is the ELECTRIC field term: a charged conductor carrying no current still has an electric field around it. Humidity and insulation colour have no field term at all."
 topic_ids = ["m07-types", "m07-units"]
 objective_ids = []
 bloom = "remember"

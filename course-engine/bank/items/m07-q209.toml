@@ -13,7 +13,7 @@ choices = [
   "Rail electrification, HV lines, and broadcast transmitters",
 ]
 correct = "D"
-explanation = "External high-power electrical and RF sources can couple into a campus environment."
+explanation = "Rail electrification, high-voltage lines and broadcast transmitters are high-power sources outside the site that can still couple into it. The microwave is the instructive wrong answer: it is a genuine RF source, but switched off at the wall it emits nothing, and its emissions when running are contained and local. Desk lamps and splice trays are neither high-power nor external."
 topic_ids = ["m07-sources"]
 objective_ids = []
 bloom = "remember"

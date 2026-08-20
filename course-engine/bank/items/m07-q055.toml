@@ -14,7 +14,7 @@ choices = [
   "Containment curtains hung above the hot aisle",
 ]
 correct = "A"
-explanation = "Look outside the fence: substation, rail, RF, lightning."
+explanation = "Look outside the fence: substations, rail traction, broadcast and radar transmitters, and lightning-related LEMP all couple into a site from beyond its boundary. The other options are inside-the-rack accessories, which is the point -- combs, blanking panels and containment curtains are passive plastic and metal with no source term."
 topic_ids = ["m07-sources"]
 objective_ids = []
 bloom = "remember"

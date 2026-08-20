@@ -14,7 +14,7 @@ choices = [
   "Physical access state of the security cages on the row",
 ]
 correct = "A"
-explanation = "Leak sensing buys response time before water reaches critical gear."
+explanation = "Underfloor rope and spot detection exist to find water near energised plant before it reaches it, which is what buys response time. The alternatives are all real measurements taken by other systems -- field strength, plenum humidity and cage access state -- and none of them changes when a pipe starts weeping."
 topic_ids = ["m14-leak"]
 objective_ids = []
 bloom = "remember"

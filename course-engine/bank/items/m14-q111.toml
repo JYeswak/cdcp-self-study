@@ -13,7 +13,7 @@ choices = [
   "As a complete replacement for every rope zone on the floor",
 ]
 correct = "C"
-explanation = "Spots catch known drip points; ropes cover distributed underfloor paths."
+explanation = "Spot sensors go where a leak is predictable and localised: under CRAH bases, in drip pans, at valve manifolds. That is complementary to rope, which covers distributed paths a spot would miss. Treating spots as a replacement for every rope zone is the near-miss and it inverts the geometry -- a point sensor cannot cover a floor."
 topic_ids = ["m14-leak"]
 objective_ids = []
 bloom = "remember"

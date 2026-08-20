@@ -13,7 +13,7 @@ choices = [
   "Surveys can usefully inform the white-space layout",
 ]
 correct = "B"
-explanation = "Cinema magnet myths ≠ real risk model; focus on plant-scale fields, surge, and RF IEMI where relevant."
+explanation = "The myth is the cinema one: a pocket magnet carried down an aisle does not erase enterprise storage, because field strength falls off steeply with distance and modern drives are not exposed the way tape was. The other three statements are all TRUE and are the reason the myth is worth correcting rather than laughed at -- sustained plant-scale fields can matter for copper noise, manuals do state environmental magnetic limits, and surveys do inform layout."
 topic_ids = ["m07-types", "m07-sources"]
 objective_ids = []
 bloom = "evaluate"

@@ -14,7 +14,7 @@ choices = [
   "Empty cable trays carrying no current",
 ]
 correct = "C"
-explanation = "High current plant—transformers, bus, UPS—are classic strong B sources."
+explanation = "Strong power-frequency magnetic fields come from high current, so transformers, busbars and UPS plant are the sources worth mapping. The other options fail the same test from different directions: plastic panels and fibre carry no current at all, exit signage draws milliamps, and an empty tray is only a source when something energised is lying in it."
 topic_ids = ["m07-sources"]
 objective_ids = []
 bloom = "remember"

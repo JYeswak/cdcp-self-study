@@ -13,7 +13,7 @@ choices = [
   "Capacity planning prohibits intermediate alarm states entirely",
 ]
 correct = "C"
-explanation = "If you only page when the last unit dies, maintainable faults become outages."
+explanation = "Paging on redundancy loss gives a repair window while the load is still carried; paging only on total failure means the first notification IS the outage. The N+1 argument is the confusable one because redundancy really does tolerate a fault -- it tolerates ONE, and without an alarm nobody knows the margin was spent."
 topic_ids = ["m14-monitoring-reqs", "m14-best-practices"]
 objective_ids = []
 bloom = "analyze"

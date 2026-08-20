@@ -14,7 +14,7 @@ choices = [
   "SNMP is prohibited on facilities networks",
 ]
 correct = "A"
-explanation = "Heterogeneous telemetry plus alert quality is the hard problem—not sensor scarcity alone."
+explanation = "The hard problem is integration plus signal quality: many heterogeneous systems, each generating alarms, and no operator able to read all of them. The distractors deny one half each -- there is no shortage of signals, infrastructure does fail, and SNMP is widely used on facilities networks rather than prohibited."
 topic_ids = ["m14-monitoring-challenges"]
 objective_ids = []
 bloom = "understand"

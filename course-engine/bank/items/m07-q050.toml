@@ -14,7 +14,7 @@ choices = [
   "Unexplained I/O errors clustered near electrical plant, exposure complaints, or white space adjacent to high-current gear",
 ]
 correct = "D"
-explanation = "Surveys follow symptoms, adjacency risk, or due diligence—not random ritual."
+explanation = "A survey is triggered by evidence or by adjacency: unexplained I/O errors clustering near plant, an exposure complaint, or white space planned next to high-current gear. The alternatives are all routine maintenance events with no field implication -- connector cleaning, a PUE excursion and blanking installation change nothing about the magnetic environment, which is what makes them rituals rather than triggers."
 topic_ids = ["m07-sources", "m07-standards"]
 objective_ids = []
 bloom = "apply"

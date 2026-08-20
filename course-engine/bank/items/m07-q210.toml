@@ -13,7 +13,7 @@ choices = [
   "Repaint the floor tiles in the affected aisle",
 ]
 correct = "A"
-explanation = "Spatial clustering near plant suggests environmental/electrical investigation—not superstition."
+explanation = "Spatial clustering near plant is evidence, so EMF and power quality join the list of candidate causes rather than replacing it. Dismissing the correlation is the tempting answer because location coincidences are common -- but the cluster is the only signal available, and discarding it leaves nothing to investigate. Replacing servers before investigating destroys the evidence, and repainting tests nothing."
 topic_ids = ["m07-sources", "m07-standards"]
 objective_ids = []
 bloom = "apply"

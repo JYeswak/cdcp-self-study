@@ -14,7 +14,7 @@ choices = [
   "Fibre OTDR traces taken during link commissioning",
 ]
 correct = "C"
-explanation = "EPMS focuses on electrical telemetry; may integrate to DCIM/BMS but is a distinct panel family."
+explanation = "EPMS is the electrical telemetry family -- meters, power quality events, distribution status -- and it commonly sits on its own panels while integrating upward to BMS or DCIM. Rope leak zones are environmental points, not electrical ones, so they cannot stand in for metering. Badge printing and OTDR traces belong to security and fibre commissioning respectively."
 topic_ids = ["m14-alarms", "m14-monitoring-reqs"]
 objective_ids = []
 bloom = "remember"

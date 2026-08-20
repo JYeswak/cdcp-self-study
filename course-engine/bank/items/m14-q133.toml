@@ -15,7 +15,7 @@ choices = [
   "Marketing campaign metrics gathered by the commercial team",
 ]
 correct = "A"
-explanation = "Monitor the chains and the monitors—blind spots include dead sensors and capacity blindness."
+explanation = "The checklist has to include the supervisory points for fire and security AND the health of the monitoring itself, because a dead sensor and a silent collector both read as calm. Monitoring the monitors is the part most often missed. The other options are business and cosmetic metrics with no operational state behind them."
 topic_ids = ["m14-monitoring-reqs"]
 objective_ids = []
 bloom = "remember"

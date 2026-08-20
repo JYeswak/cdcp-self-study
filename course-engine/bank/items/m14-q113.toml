@@ -14,7 +14,7 @@ choices = [
   "Automatic isolation of the correct valve",
 ]
 correct = "A"
-explanation = "Email is not a reliable on-call system; noise trains people to ignore pages."
+explanation = "Email has no acknowledgement path and no escalation, so a critical alarm competes with everything else in an inbox and volume trains people to skim. That is alarm fatigue, and it is the opposite of faster acknowledgement. Notification routing also changes nothing about efficiency or valve state -- it is a delivery mechanism, not a control."
 topic_ids = ["m14-notification", "m14-alarms"]
 objective_ids = []
 bloom = "understand"

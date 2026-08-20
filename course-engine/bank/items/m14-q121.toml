@@ -10,7 +10,7 @@ choices = [
   "Is marketing language with no defined technical scope",
 ]
 correct = "A"
-explanation = "IST proves coupled system behavior—not just component bench tests."
+explanation = "IST proves the coupled behaviour that component tests cannot reach: whether power, cooling and controls hand over correctly together under a planned scenario. A single breaker verified against its nameplate is the plausible substitute and it is exactly what IST exists beyond -- components passing individually is what makes an integration failure surprising."
 topic_ids = ["m14-best-practices"]
 objective_ids = []
 bloom = "apply"

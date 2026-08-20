@@ -15,7 +15,7 @@ choices = [
   "It is required indefinitely by the applicable building code",
 ]
 correct = "B"
-explanation = "Bypass must time out and be logged; sticky inhibits hide real events rather than improving trends, recalibrating sensors, or becoming an indefinite code requirement."
+explanation = "An alarm left in bypass is a silent failure path: the point looks healthy, the panel is quiet, and a real event pages nobody. That is why bypass must time out and be logged. It does not improve trend data -- it removes data -- and nothing about an inhibit recalibrates a sensor or is required indefinitely by code."
 topic_ids = ["m14-alarms", "m14-monitoring-challenges"]
 objective_ids = []
 bloom = "apply"
