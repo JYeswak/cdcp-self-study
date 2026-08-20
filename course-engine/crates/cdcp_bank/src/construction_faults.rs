@@ -8,6 +8,13 @@
 //! GREEN-DOES-NOT-PROVE: uniform length rank removes length as a signal. It
 //! says nothing about whether distractors are plausible to someone who knows
 //! the material; that still needs response data.
+//!
+//! The verdict-bearing cues are length-rank-uniformity,
+//! grammatical-disagreement, absolute-language-distractor, and
+//! all-none-of-the-above. `longest-option-correct` remains observational: its
+//! bare count has no independent threshold because four-option chance is
+//! approximately 25%, and the rank-uniformity check is the defensible length
+//! signal.
 
 use crate::{Bank, BankItem};
 use serde::Deserialize;
@@ -18,6 +25,9 @@ pub const NAME: &str = "construction-faults";
 pub const SUMMARY: &str = "detect option-set construction cues in live and damaged pools";
 pub const POLICY: &str = "registries/construction_faults.toml";
 pub const DAMAGED_REL: &str = "crates/cdcp_bank/tests/fixtures/damaged_corpus_2026_08_18";
+
+const SCOPE_CAVEAT: &str = "construction faults are option-set cues, not discrimination or truth";
+const GREEN_LIMIT: &str = "GREEN-DOES-NOT-PROVE: exit 0 here means four named option-set cues are absent. It says nothing about whether an item is true, well-grounded, or discriminating.";
 
 const LONGEST: &str = "longest-option-correct";
 const RANK_UNIFORMITY: &str = "length-rank-uniformity";
@@ -447,6 +457,25 @@ fn pct(count: usize, total: usize) -> f64 {
     count as f64 * 100.0 / total as f64
 }
 
+fn verdict_cue_count(findings: &Findings) -> usize {
+    let c = &findings.counts;
+    usize::from(findings.rank_uniformity_violation)
+        + usize::from(c.grammatical_disagreement > 0)
+        + usize::from(c.absolute_language_distractor > 0)
+        + usize::from(c.all_none_of_the_above > 0)
+}
+
+fn has_verdict_violation(findings: &Findings) -> bool {
+    verdict_cue_count(findings) > 0
+}
+
+fn gate_verdict_is_red(live: &Findings, damaged: Option<&Findings>) -> bool {
+    has_verdict_violation(live)
+        || damaged
+            .map(|findings| !has_verdict_violation(findings))
+            .unwrap_or(false)
+}
+
 fn population_line(label: &str, findings: &Findings, policy: &RankUniformityPolicy) -> String {
     let c = &findings.counts;
     let rank_shares = findings
@@ -456,7 +485,7 @@ fn population_line(label: &str, findings: &Findings, policy: &RankUniformityPoli
         .collect::<Vec<_>>()
         .join(",");
     format!(
-        "{label}: items={}; {LONGEST}={} ({:.1}%); {GRAMMAR}={} ({:.1}%); {ABSOLUTE}={} ({:.1}%); {ALL_NONE}={} ({:.1}%); detector-hits={}; {RANK_UNIFORMITY}={} counts=[{},{},{},{}] shares=[{}] expected=25.0%±{}pp",
+        "{label}: items={}; {LONGEST}={} ({:.1}%); {GRAMMAR}={} ({:.1}%); {ABSOLUTE}={} ({:.1}%); {ALL_NONE}={} ({:.1}%); detector-hits={}; verdict-cues={}; {RANK_UNIFORMITY}={} counts=[{},{},{},{}] shares=[{}] expected=25.0%±{}pp",
         c.items_scanned,
         c.longest_option_correct,
         pct(c.longest_option_correct, c.items_scanned),
@@ -467,6 +496,7 @@ fn population_line(label: &str, findings: &Findings, policy: &RankUniformityPoli
         c.all_none_of_the_above,
         pct(c.all_none_of_the_above, c.items_scanned),
         c.total(),
+        verdict_cue_count(findings),
         if findings.rank_uniformity_violation {
             "FAIL"
         } else {
@@ -478,6 +508,31 @@ fn population_line(label: &str, findings: &Findings, policy: &RankUniformityPoli
         findings.rank_counts[3],
         rank_shares,
         policy.max_deviation_pct,
+    )
+}
+
+fn longest_observation_line(live: &Findings, damaged: Option<&Findings>) -> String {
+    let damaged_text = damaged
+        .map(|findings| {
+            format!(
+                "damaged={}/{} ({:.1}%)",
+                findings.counts.longest_option_correct,
+                findings.counts.items_scanned,
+                pct(
+                    findings.counts.longest_option_correct,
+                    findings.counts.items_scanned
+                )
+            )
+        })
+        .unwrap_or_else(|| "damaged=not-scanned".to_string());
+    format!(
+        "longest-option-correct is observational only: live={}/{} ({:.1}%); {damaged_text}; four-option chance≈25.0%; no independent threshold is asserted; length-rank-uniformity is the verdict-bearing length check",
+        live.counts.longest_option_correct,
+        live.counts.items_scanned,
+        pct(
+            live.counts.longest_option_correct,
+            live.counts.items_scanned
+        )
     )
 }
 
@@ -544,19 +599,37 @@ fn evaluate_pair(root: &Path, require_damaged: bool) -> Eval {
         None
     };
 
-    let mut report = vec![format!(
-        "{NAME}: construction faults are option-set cues, not discrimination or truth"
-    )];
+    let live_red = has_verdict_violation(&live);
+    let damaged_passes = damaged
+        .as_ref()
+        .map(|findings| !has_verdict_violation(findings))
+        .unwrap_or(false);
+    let mut report = vec![format!("{NAME}: {SCOPE_CAVEAT}")];
     report.push(population_line("live-approved", &live, &policy.rank));
     if let Some(damaged) = &damaged {
         report.push(population_line("damaged-corpus", damaged, &policy.rank));
         report.push(delta_line(&live, damaged));
     }
+    report.push(longest_observation_line(&live, damaged.as_ref()));
+    report.push(if live_red {
+        "live-approved verdict=RED: a verdict-bearing option-set cue fired".to_string()
+    } else {
+        "live-approved verdict=PASS: no verdict-bearing option-set cue fired".to_string()
+    });
+    if damaged.is_some() {
+        report.push(if damaged_passes {
+            "damaged-corpus verdict=UNEXPECTED-PASS: the known-bad leg did not fire".to_string()
+        } else {
+            "damaged-corpus verdict=EXPECTED-RED: the known-bad leg fired; this is healthy"
+                .to_string()
+        });
+    }
     report.extend(sample_lines("live-approved", &live));
     if let Some(damaged) = &damaged {
         report.extend(sample_lines("damaged-corpus", damaged));
     }
-    if live.counts.total() > 0 || live.rank_uniformity_violation {
+    report.push(GREEN_LIMIT.to_string());
+    if gate_verdict_is_red(&live, damaged.as_ref()) {
         Eval::Violation(report)
     } else {
         Eval::Ok(report.join("\n"))
@@ -577,12 +650,30 @@ pub fn evaluate_live_only(root: &Path) -> Eval {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
     use std::path::PathBuf;
 
     fn fixture(name: &str) -> PathBuf {
         Path::new(env!("CARGO_MANIFEST_DIR"))
             .join("tests/fixtures/construction_faults")
             .join(name)
+    }
+
+    fn fixture_root(name: &str) -> tempfile::TempDir {
+        let root = tempfile::tempdir().unwrap();
+        let source = fixture(name);
+        copy_items(&source.join("bank/items"), &root.path().join("bank/items"));
+        fs::create_dir_all(root.path().join("registries")).unwrap();
+        fs::copy(source.join(POLICY), root.path().join(POLICY)).unwrap();
+        root
+    }
+
+    fn copy_items(source: &Path, target: &Path) {
+        fs::create_dir_all(target).unwrap();
+        for entry in fs::read_dir(source).unwrap() {
+            let entry = entry.unwrap();
+            fs::copy(entry.path(), target.join(entry.file_name())).unwrap();
+        }
     }
 
     #[test]
@@ -633,6 +724,58 @@ mod tests {
             }
             other => panic!("all-shortest rank fixture did not go RED: {other:?}"),
         }
+    }
+
+    #[test]
+    fn one_longest_item_pushes_rank_share_red() {
+        let root = fixture_root("good");
+        fs::copy(
+            fixture("rank_longest").join("bank/items/a.toml"),
+            root.path().join("bank/items/plant.toml"),
+        )
+        .unwrap();
+        match evaluate_live_only(root.path()) {
+            Eval::Violation(lines) => {
+                assert!(lines.join("\n").contains("counts=[2,1,1,1]"));
+            }
+            other => panic!("one longest-option plant did not go RED: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn damaged_pass_is_red_and_neutered_rank_stays_fail_closed() {
+        let root = fixture_root("good");
+        let damaged_dir = root.path().join(DAMAGED_REL);
+        copy_items(&fixture("good").join("bank/items"), &damaged_dir);
+        match evaluate(root.path()) {
+            Eval::Violation(lines) => {
+                assert!(lines
+                    .join("\n")
+                    .contains("damaged-corpus verdict=UNEXPECTED-PASS"));
+            }
+            other => panic!("a passing damaged leg did not go RED: {other:?}"),
+        }
+
+        let policy = load_policy(root.path()).unwrap();
+        let live = analyze_dir(
+            &root.path().join("bank/items"),
+            &policy,
+            "live-approved",
+            true,
+        )
+        .unwrap();
+        let mut neutered = analyze_dir(
+            &fixture("rank_longest").join("bank/items"),
+            &policy,
+            "neutered-damaged",
+            false,
+        )
+        .unwrap();
+        assert!(has_verdict_violation(&neutered));
+        neutered.rank_uniformity_violation = false;
+        assert!(gate_verdict_is_red(&live, Some(&neutered)));
+        neutered.rank_uniformity_violation = true;
+        assert!(!gate_verdict_is_red(&live, Some(&neutered)));
     }
 
     #[test]
