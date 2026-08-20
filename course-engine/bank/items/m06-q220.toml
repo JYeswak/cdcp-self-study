@@ -13,7 +13,7 @@ choices = [
   "Converts AC heat into network bandwidth"
 ]
 correct = "A"
-explanation = "Three-phase distribution supports high kW delivery more effectively than single-phase alone."
+explanation = "Three-phase distribution supports efficient, balanced high-kW delivery; it does not eliminate PDUs or grounding or convert electrical heat into data."
 topic_ids = ["m06-phase", "m06-hpc"]
 objective_ids = []
 bloom = "understand"

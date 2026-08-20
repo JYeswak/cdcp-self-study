@@ -15,7 +15,7 @@ choices = [
   "IP rating of the cabinet defines Tier level"
 ]
 correct = "A"
-explanation = "Redundancy must be evaluated end-to-end; shared batteries or buses can dominate risk."
+explanation = "Redundancy must be evaluated end-to-end; shared batteries or buses can dominate risk, so N+1 modules do not automatically become fault-tolerant or a Tier label."
 topic_ids = ["m06-ups-parallel", "m06-redundancy"]
 objective_ids = []
 bloom = "apply"

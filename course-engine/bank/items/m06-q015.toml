@@ -14,7 +14,7 @@ choices = [
   "No batteries required",
 ]
 correct = "B"
-explanation = "N+1 means N capacity for the load plus one spare unit/module at that layer."
+explanation = "N+1 means N capacity for the load plus one spare unit or module at that layer; it does not mean two sites, a single total UPS, or the absence of batteries."
 topic_ids = ["m06-redundancy"]
 objective_ids = []
 bloom = "remember"

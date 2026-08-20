@@ -14,7 +14,7 @@ choices = [
   "Generator fuel octane",
 ]
 correct = "B"
-explanation = "IP codes rate enclosure protection against solids/liquids."
+explanation = "IP codes rate enclosure protection against solids and liquids; they do not state UPS runtime, Internet Protocol version, or generator fuel octane."
 topic_ids = ["m06-ip-grades"]
 objective_ids = []
 bloom = "remember"

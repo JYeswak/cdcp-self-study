@@ -14,7 +14,7 @@ choices = [
   "Overhead cable tray grounding",
 ]
 correct = "C"
-explanation = "UPS storage supplies the load during generator start and ATS/transfer, which are not instantaneous."
+explanation = "UPS storage supplies the load during generator start and ATS transfer, which are not instantaneous; a humidity tray, fire compressor, or grounding tray cannot provide that electrical ride-through."
 topic_ids = ["m06-ups", "m06-generators"]
 objective_ids = []
 bloom = "understand"

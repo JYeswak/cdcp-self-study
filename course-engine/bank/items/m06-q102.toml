@@ -13,7 +13,7 @@ choices = [
   "Ignoring utility interconnection agreements",
 ]
 correct = "C"
-explanation = "Microgrids actively manage multi-source energy and may island; backup gens+UPS alone are continuity, not full microgrid controls."
+explanation = "A microgrid orchestrates utility, generators, renewables, and BESS and may island; deleting generators, using Wi-Fi as the power control, or ignoring interconnection is not microgrid design."
 topic_ids = ["m06-microgrid"]
 objective_ids = []
 bloom = "understand"

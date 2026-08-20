@@ -13,7 +13,7 @@ choices = [
   "Bonding neutrals at every receptacle intentionally",
 ]
 correct = "B"
-explanation = "Grounding ties systems to earth for safety/reference per code design."
+explanation = "Grounding ties systems to earth for a safety reference under the design; it does not isolate racks, remove equipment grounding conductors, or create a neutral-ground bond at every receptacle."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "remember"

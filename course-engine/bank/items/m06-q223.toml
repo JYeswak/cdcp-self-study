@@ -15,7 +15,7 @@ choices = [
   "A switched PDU with per-outlet control and branch-level metering",
 ]
 correct = "D"
-explanation = "Per-outlet switching covers the remote power cycle; branch-level metering covers the overload attribution. A metered inlet reports only the total, and an ATS addresses source loss rather than either need."
+explanation = "Per-outlet switching covers the remote power cycle and branch-level metering attributes overload; total-inlet metering lacks branch detail, while an ATS addresses source loss rather than either need."
 topic_ids = ["m06-pdu"]
 objective_ids = []
 bloom = "apply"

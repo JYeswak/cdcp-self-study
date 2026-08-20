@@ -13,7 +13,7 @@ choices = [
   "Bonding becoming unnecessary because spare capacity is gone"
 ]
 correct = "B"
-explanation = "Without spare capacity, load growth consumes headroom and can overload the plant."
+explanation = "Without spare capacity, load growth consumes headroom and can overload the plant; it does not improve fuel quality, remove harmonics, or make bonding unnecessary."
 topic_ids = ["m06-ups-parallel", "m06-sizing"]
 objective_ids = []
 bloom = "apply"

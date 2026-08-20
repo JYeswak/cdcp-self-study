@@ -14,7 +14,7 @@ choices = [
   "No need for monitoring, ventilation, or fire controls",
 ]
 correct = "B"
-explanation = "Li-ion can shrink footprint/runtime density but drives thermal runaway and FP design attention."
+explanation = "Li-ion can improve footprint and runtime density, but thermal runaway, monitoring, ventilation, and fire controls remain design obligations; density does not remove codes or fire risk."
 topic_ids = ["m06-batteries", "m06-bess"]
 objective_ids = []
 bloom = "understand"

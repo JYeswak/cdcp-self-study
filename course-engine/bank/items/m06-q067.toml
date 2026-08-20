@@ -15,7 +15,7 @@ choices = [
   "Running without any cooling for the engines",
 ]
 correct = "B"
-explanation = "Paralleling gear lets multiple sets share load and support redundancy/capacity."
+explanation = "Paralleling gear lets multiple sets share load and support redundancy or capacity growth; it does not eliminate switchgear or ATSs and does not remove engine cooling needs."
 topic_ids = ["m06-generators", "m06-redundancy"]
 objective_ids = []
 bloom = "understand"

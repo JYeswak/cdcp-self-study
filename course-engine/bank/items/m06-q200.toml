@@ -13,7 +13,7 @@ choices = [
   "Generator wet stacking risk is eliminated"
 ]
 correct = "A"
-explanation = "Dual cords only help if they land on independent sources; same PDU is a shared failure point."
+explanation = "Dual cords help only when they land on independent sources; one rack PDU remains a shared failure point, so it does not create 2N, double autonomy, or remove generator risk."
 topic_ids = ["m06-redundancy", "m06-pdu"]
 objective_ids = []
 bloom = "apply"

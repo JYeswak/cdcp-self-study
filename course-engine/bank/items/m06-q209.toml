@@ -14,7 +14,7 @@ choices = [
   "Converts three-phase to single-phase only, regardless of load design"
 ]
 correct = "B"
-explanation = "Online double-conversion rebuilds output from the DC link for high power quality."
+explanation = "Online double-conversion rebuilds conditioned output from the DC link; it does not remove heat, grounding, or all load-design decisions."
 topic_ids = ["m06-ups", "m06-power-quality"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Only affect humidity"
 ]
 correct = "A"
-explanation = "Physical concentration creates common-mode failure even with dual cords."
+explanation = "Physical concentration creates a common-mode failure even with dual cords; shared routing cannot guarantee maintainability or improve isolation, and humidity is not the path failure."
 topic_ids = ["m06-redundancy", "m06-distribution"]
 objective_ids = []
 bloom = "apply"

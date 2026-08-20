@@ -14,7 +14,7 @@ choices = [
   "Busway removes all need for breakers",
 ]
 correct = "B"
-explanation = "Neither is always superior; density, AHJ, maintainability, and change rate drive the choice."
+explanation = "Neither cable-in-tray nor busway is universally superior; density, AHJ, maintainability, and change rate drive the choice, and neither removes labeling or breakers."
 topic_ids = ["m06-distribution"]
 objective_ids = []
 bloom = "analyze"

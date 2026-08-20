@@ -13,7 +13,7 @@ choices = [
   "Ignore interconnection agreements",
 ]
 correct = "A"
-explanation = "Dual-purpose storage requires deliberate controls, protection, and contractual design."
+explanation = "Dual-purpose storage requires deliberate controls, protection, and contractual design; one uncontrolled string, immediate UPS removal, or ignored interconnection terms cannot safely serve both roles."
 topic_ids = ["m06-bess", "m06-ups"]
 objective_ids = []
 bloom = "analyze"

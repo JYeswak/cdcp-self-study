@@ -14,7 +14,7 @@ choices = [
   "Overloaded phases and nuisance trips"
 ]
 correct = "D"
-explanation = "Unbalanced phase loading concentrates current and can trip protection or stress the UPS."
+explanation = "Unbalanced phase loading concentrates current and can trip protection or stress the UPS; it does not self-balance, increase battery capacity, or guarantee lower transformer heat."
 topic_ids = ["m06-phase", "m06-ups", "m06-sizing"]
 objective_ids = []
 bloom = "apply"

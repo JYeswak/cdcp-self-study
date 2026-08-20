@@ -14,7 +14,7 @@ choices = [
   "Removing need for labeling",
 ]
 correct = "C"
-explanation = "Intelligent rPDUs support capacity management and remote power control—still respect dual-path design."
+explanation = "Intelligent rack PDUs add outlet visibility and control for capacity management; they do not replace UPS plant, eliminate A/B feeds, or remove labeling."
 topic_ids = ["m06-pdu"]
 objective_ids = []
 bloom = "understand"

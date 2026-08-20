@@ -13,7 +13,7 @@ choices = [
   "Only CRAH units transfer automatically"
 ]
 correct = "C"
-explanation = "Storage bridges start/transfer time; generators then sustain the plant."
+explanation = "UPS storage bridges generator start and transfer, after which generators sustain the plant and the UPS recharges; IT does not wait for a manual restart and CRAH alone is not the transfer sequence."
 topic_ids = ["m06-ups", "m06-generators", "m06-ats-sts"]
 objective_ids = []
 bloom = "apply"

@@ -14,7 +14,7 @@ choices = [
   "Cool GPU cold plates directly from busway",
 ]
 correct = "C"
-explanation = "Busway/tap-offs support reconfiguration agility for row power."
+explanation = "Busway and tap-offs support flexible row-power reconfiguration; they do not create EMF exposure as a purpose, replace fire detection, or cool cold plates."
 topic_ids = ["m06-distribution"]
 objective_ids = []
 bloom = "understand"

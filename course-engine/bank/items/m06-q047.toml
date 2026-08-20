@@ -14,7 +14,7 @@ choices = [
   "DC-only plants without AC",
 ]
 correct = "B"
-explanation = "STS uses solid-state switching for sub-cycle/few-ms class transfer when sources are live and in tolerance."
+explanation = "An STS uses solid-state switching for sub-cycle or few-millisecond transfer when live sources are in tolerance; fuel contracts, manual exercise, and DC-only plants are different concerns."
 topic_ids = ["m06-ats-sts"]
 objective_ids = []
 bloom = "understand"

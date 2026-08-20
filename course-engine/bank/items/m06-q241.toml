@@ -15,7 +15,7 @@ choices = [
   "Busway only"
 ]
 correct = "B"
-explanation = "Line-interactive sits between offline and online in topology behavior."
+explanation = "Line-interactive provides voltage regulation with battery engagement for deeper disturbances, between standby and online behavior; it is not always double-conversion, generator paralleling, or busway."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "understand"

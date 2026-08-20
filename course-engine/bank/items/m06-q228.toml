@@ -13,7 +13,7 @@ choices = [
   "Sets humidity automatically without electrical inspection"
 ]
 correct = "A"
-explanation = "IR scanning finds thermal anomalies on energized gear as early warning."
+explanation = "IR scanning finds thermal anomalies on energized gear as early warning; it is not packet-loss measurement, fibre certification, or automatic humidity control."
 topic_ids = ["m06-thermo"]
 objective_ids = []
 bloom = "understand"

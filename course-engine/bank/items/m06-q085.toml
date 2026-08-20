@@ -14,7 +14,7 @@ choices = [
   "A substitute for all grounding",
 ]
 correct = "A"
-explanation = "UPS strings bridge minutes-class events; BESS is a different plant-scale concept."
+explanation = "UPS strings provide short-duration ride-through; BESS is a different plant-scale concept, not a default multi-day grid asset, humidifier supply, or grounding substitute."
 topic_ids = ["m06-batteries", "m06-ups"]
 objective_ids = []
 bloom = "remember"

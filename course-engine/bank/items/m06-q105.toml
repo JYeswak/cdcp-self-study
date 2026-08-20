@@ -13,7 +13,7 @@ choices = [
   "Battery monitoring-only devices",
 ]
 correct = "A"
-explanation = "RPPs move branch breakers nearer white-space loads."
+explanation = "RPPs are distribution panels near the load; they are not generators, software controllers, or battery-monitoring-only devices."
 topic_ids = ["m06-pdu", "m06-distribution"]
 objective_ids = []
 bloom = "remember"

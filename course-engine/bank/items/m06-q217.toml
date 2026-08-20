@@ -16,7 +16,7 @@ choices = [
   "Eliminate harmonics"
 ]
 correct = "B"
-explanation = "Extra N-G bonds parallel the neutral return and disturb equipotential design."
+explanation = "Extra neutral-ground bonds parallel the neutral return and create unintended currents and loops; they do not improve isolation, IP rating, or eliminate harmonics."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "apply"

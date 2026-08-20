@@ -14,7 +14,7 @@ choices = [
   "BMS → DCIM → EMS → fuel",
 ]
 correct = "B"
-explanation = "Teaching path: utility/generator → transfer → UPS → distribution/PDU → rack."
+explanation = "The teaching path is utility or generator → transfer → UPS → distribution/PDU → rack; cooling, management systems, and fuel are supporting systems, not electrical handoff stages."
 topic_ids = ["m06-distribution", "m06-ups"]
 objective_ids = []
 bloom = "understand"

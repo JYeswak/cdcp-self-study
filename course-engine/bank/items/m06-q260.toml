@@ -13,7 +13,7 @@ choices = [
   "N is a plaque you stick on the door once any layer is N+2",
 ]
 correct = "B"
-explanation = "N+2 is two spare units at the named layer. A hall can be N+2 at UPS modules and N at the ATS. N is capacity, not a sticker."
+explanation = "N+2 is two spare units at the named layer; a hall can be N+2 at UPS modules and N at the ATS, so it does not duplicate the ATS, utilities, or create a site plaque."
 topic_ids = ["m06-redundancy", "m06-ups-parallel"]
 objective_ids = ["obj-m06-n-plus-2"]
 bloom = "apply"

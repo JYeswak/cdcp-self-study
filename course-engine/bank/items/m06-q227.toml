@@ -13,7 +13,7 @@ choices = [
   "High kW per rack stresses distribution and cooling"
 ]
 correct = "D"
-explanation = "Extreme rack densities push feeder design, redundancy, and cooling together."
+explanation = "Extreme rack densities push feeder design, redundancy, phase balance, and cooling together; high kW does not remove dual cords or make UPSs unnecessary."
 topic_ids = ["m06-hpc", "m06-sizing", "m06-distribution"]
 objective_ids = []
 bloom = "apply"

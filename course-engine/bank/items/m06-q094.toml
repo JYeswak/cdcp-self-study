@@ -13,7 +13,7 @@ choices = [
   "Generators rate only in lux, not electrical power",
 ]
 correct = "C"
-explanation = "Designers track both kW (real) and kVA (apparent) with PF."
+explanation = "Real power equals apparent power multiplied by power factor; kW and kVA are not always identical, PF is not always zero, and generators are not rated in lux."
 topic_ids = ["m06-sizing"]
 objective_ids = []
 bloom = "remember"

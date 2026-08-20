@@ -14,7 +14,7 @@ choices = [
   "Identical to a single non-redundant UPS",
 ]
 correct = "A"
-explanation = "Isolated-redundant/catcher designs reserve capacity that can support another system’s load on failure."
+explanation = "Isolated-redundant or catcher designs reserve capacity that can support another system’s load on failure; removing batteries, limiting it to lighting, or calling it an ordinary single UPS misses the topology."
 topic_ids = ["m06-ups-parallel", "m06-redundancy"]
 objective_ids = []
 bloom = "understand"

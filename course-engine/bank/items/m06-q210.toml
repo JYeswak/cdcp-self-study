@@ -14,7 +14,7 @@ choices = [
   "Only affect PUE, not runtime"
 ]
 correct = "C"
-explanation = "Higher kW against fixed stored energy shortens runtime."
+explanation = "Higher kW against fixed stored energy shortens runtime; autonomy does not increase, become infinite, or affect only PUE."
 topic_ids = ["m06-batteries", "m06-sizing", "m06-ups"]
 objective_ids = []
 bloom = "apply"

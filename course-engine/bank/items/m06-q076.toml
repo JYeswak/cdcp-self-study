@@ -14,7 +14,7 @@ choices = [
   "Efficient, balanced three-phase loading",
 ]
 correct = "D"
-explanation = "Three-phase is the backbone of facility power; rack PDUs may still present single-phase outlets."
+explanation = "Three-phase supports efficient, balanced loading while rack PDUs may still present single-phase outlets; grounding remains required and PUE is not defined by phase count."
 topic_ids = ["m06-phase", "m06-hpc"]
 objective_ids = []
 bloom = "understand"

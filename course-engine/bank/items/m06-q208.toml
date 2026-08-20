@@ -13,7 +13,7 @@ choices = [
   "Bypass raises battery state of charge forever",
 ]
 correct = "A"
-explanation = "Static/maintenance bypass can leave IT exposed to raw input quality issues."
+explanation = "Static or maintenance bypass can leave IT exposed to raw input quality and removes double-conversion protection; it does not improve filtering, start the generator, or charge batteries forever."
 topic_ids = ["m06-ups", "m06-power-quality"]
 objective_ids = []
 bloom = "apply"

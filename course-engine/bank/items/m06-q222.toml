@@ -15,7 +15,7 @@ choices = [
   "Fire suppression control panel, not power distribution"
 ]
 correct = "C"
-explanation = "PDUs/RPPs intermediate distribute and protect between UPS plant and racks."
+explanation = "PDUs and RPPs provide room-scale distribution, protection, and monitoring between UPS plant and racks; they are not storage, generator chargers, or fire panels."
 topic_ids = ["m06-pdu", "m06-distribution"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Provide containment for hot aisles"
 ]
 correct = "B"
-explanation = "Service transformers step voltage down for facility use."
+explanation = "Service transformers step utility medium voltage down for facility use; they do not store kinetic energy, act as STSs, or provide containment."
 topic_ids = ["m06-transformers"]
 objective_ids = []
 bloom = "understand"

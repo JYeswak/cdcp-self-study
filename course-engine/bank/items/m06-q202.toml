@@ -14,7 +14,7 @@ choices = [
   "A multi-second open gap every transfer with no ride-through"
 ]
 correct = "C"
-explanation = "STS exists to switch preferred sources quickly for single-cord loads."
+explanation = "An STS switches a single-cord load quickly to the alternate source; it does not make the appliance dual-corded or create a multi-second gap."
 topic_ids = ["m06-ats-sts", "m06-redundancy"]
 objective_ids = []
 bloom = "apply"

@@ -15,7 +15,7 @@ choices = [
   "Heat in facility thermal budget",
 ]
 correct = "D"
-explanation = "Transformer inefficiency becomes heat—plan electrical room cooling and overall energy."
+explanation = "Transformer inefficiency becomes heat in the facility thermal budget; it is not negative power, network latency, or zero heat that can be omitted from room cooling."
 topic_ids = ["m06-transformers", "m06-sizing"]
 objective_ids = []
 bloom = "understand"

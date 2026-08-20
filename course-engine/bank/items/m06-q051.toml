@@ -13,7 +13,7 @@ choices = [
   "Network-only dual-homing",
 ]
 correct = "B"
-explanation = "N is the capacity required for the full design load; spares and dual paths are expressed as +1, 2N, etc."
+explanation = "N is the capacity required for the full design load; spares and dual paths are expressed as +1 or 2N, not as a universal two-times feeder rule, a spare module alone, or network dual-homing."
 topic_ids = ["m06-redundancy"]
 objective_ids = []
 bloom = "remember"

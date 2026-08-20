@@ -14,7 +14,7 @@ choices = [
   "Heat the battery room intentionally",
 ]
 correct = "A"
-explanation = "Minutes-class runtime bridges genset start/transfer (plus margin); load growth shortens real autonomy."
+explanation = "Minutes-class runtime bridges genset start and transfer with margin; it is not weeks of fuel-free operation, a substitute for monitoring, or a battery-room heating strategy."
 topic_ids = ["m06-ups", "m06-batteries"]
 objective_ids = []
 bloom = "apply"

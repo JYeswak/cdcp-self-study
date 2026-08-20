@@ -13,7 +13,7 @@ choices = [
   "Only charges generators"
 ]
 correct = "C"
-explanation = "Standby units transfer to inverter when the utility is unacceptable."
+explanation = "A standby unit feeds utility until a disturbance causes transfer to inverter and battery; it does not continuously regenerate output, equal an STS, or charge generators."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "understand"

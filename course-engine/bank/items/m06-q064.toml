@@ -13,7 +13,7 @@ choices = [
   "Short ride-through with generators",
 ]
 correct = "D"
-explanation = "Flywheels cover short gaps; long outages still need generators (or large BESS by design)."
+explanation = "Flywheels cover short gaps while generators start; they are not multi-day islands, transformer replacements, or RF shields."
 topic_ids = ["m06-ups", "m06-batteries"]
 objective_ids = []
 bloom = "understand"

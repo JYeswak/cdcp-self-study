@@ -13,7 +13,7 @@ choices = [
   "Facility energy divided by IT energy",
 ]
 correct = "D"
-explanation = "PUE = total facility energy / IT energy; lower overhead is better. It is not an availability design."
+explanation = "PUE is total facility energy divided by IT energy; it is not the inverse, a water or rack metric, or an availability design."
 topic_ids = ["m06-sustainability"]
 objective_ids = []
 bloom = "remember"

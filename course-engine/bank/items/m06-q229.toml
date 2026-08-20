@@ -13,7 +13,7 @@ choices = [
   "Thermograph only after catastrophic failure, not preventively"
 ]
 correct = "B"
-explanation = "Comparable loaded baselines turn IR from snapshots into a maintenance program."
+explanation = "Comparable loaded baselines and follow-up turn IR into a maintenance program; empty panels, ignored trends, and post-catastrophe-only scans lose its preventive value."
 topic_ids = ["m06-thermo"]
 objective_ids = []
 bloom = "apply"

@@ -15,7 +15,7 @@ choices = [
   "Provide humidification throughout the white space"
 ]
 correct = "B"
-explanation = "Busway enables modular taps and keeps high-amp distribution out of crowded floor plenums."
+explanation = "Busway enables modular taps and reconfigurable power delivery; it does not replace UPSs or fire detection or provide humidification."
 topic_ids = ["m06-distribution"]
 objective_ids = []
 bloom = "understand"

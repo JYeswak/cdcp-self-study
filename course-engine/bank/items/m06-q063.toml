@@ -13,7 +13,7 @@ choices = [
   "Parallel operation equals 2N dual path even with a single source",
 ]
 correct = "B"
-explanation = "N+1 parallel keeps spare capacity in the parallel set; it is not automatically full dual-path 2N."
+explanation = "N+1 parallel keeps spare capacity in the set so one module can leave while load remains supported; it does not prohibit parallel operation, remove utility feeds, or become 2N by itself."
 topic_ids = ["m06-ups-parallel", "m06-redundancy"]
 objective_ids = []
 bloom = "understand"

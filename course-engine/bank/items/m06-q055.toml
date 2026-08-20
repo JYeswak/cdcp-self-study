@@ -14,7 +14,7 @@ choices = [
   "Diverse A and B rack PDUs",
 ]
 correct = "B"
-explanation = "Redundancy only helps if failure domains are actually independent end-to-end."
+explanation = "Redundancy only helps if failure domains are independent end-to-end; one upstream feed, ATS, or downstream bus can defeat otherwise separate strings, outputs, and rack paths."
 topic_ids = ["m06-redundancy"]
 objective_ids = []
 bloom = "analyze"

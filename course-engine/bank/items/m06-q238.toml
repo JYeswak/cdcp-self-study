@@ -13,7 +13,7 @@ choices = [
   "Cancel UPS heat exactly"
 ]
 correct = "C"
-explanation = "I2R and core losses appear as heat the facility must handle."
+explanation = "I²R and core losses appear as heat the facility must handle; they are not zero, fibre attenuation, or a cancellation of UPS heat."
 topic_ids = ["m06-transformers", "m06-sizing"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Using lighting contactors as the critical path",
 ]
 correct = "C"
-explanation = "STS is the classic answer for fast preference switching between two live AC sources."
+explanation = "An STS is the classic answer for fast preference switching between two live AC sources; a manual switch, removed UPS, or lighting contactor cannot provide that critical-load transfer."
 topic_ids = ["m06-ats-sts"]
 objective_ids = []
 bloom = "remember"

@@ -13,7 +13,7 @@ choices = [
   "PUE must drop below 1.0 before maintenance proceeds"
 ]
 correct = "B"
-explanation = "Concurrent maintainability means work on one path while the load stays up on another."
+explanation = "Concurrent maintainability means work on one path while load stays up on an independent path; powering both down, battery testing, or a PUE target does not prove that claim."
 topic_ids = ["m06-redundancy"]
 objective_ids = []
 bloom = "apply"

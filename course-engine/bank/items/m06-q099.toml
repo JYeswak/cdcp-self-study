@@ -13,7 +13,7 @@ choices = [
   "Ground conductors that are oversized",
 ]
 correct = "B"
-explanation = "Power without matching cooling/distribution/space is stranded capital."
+explanation = "Power without matching cooling, distribution, or space is stranded capital; it is not free UPS capacity, a renewable contract, or an oversized ground conductor."
 topic_ids = ["m06-hpc", "m06-sizing"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Fuel storage, delivery logistics, and hours at design load",
 ]
 correct = "D"
-explanation = "Fuel and logistics determine real endurance; kW alone does not."
+explanation = "Fuel storage, delivery logistics, and hours at design load determine real endurance; rack blanks, patch-panel count, and enclosure paint do not set generator runtime."
 topic_ids = ["m06-generators"]
 objective_ids = []
 bloom = "apply"

@@ -14,7 +14,7 @@ choices = [
   "Neutral-ground bonds are created at every rack",
 ]
 correct = "A"
-explanation = "Genset ATS designs are often break-before-make; seamless dual-live transfer is more an STS/online-UPS story."
+explanation = "Genset ATS designs are often break-before-make, briefly opening before the alternate source connects; indefinite paralleling, battery removal, and rack bonding are not transfer behavior."
 topic_ids = ["m06-ats-sts"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Deleting historical images monthly without review",
 ]
 correct = "A"
-explanation = "Value is in load-representative, skilled, trended programs—not a one-off photo op."
+explanation = "Value is in load-representative, skilled, trended scans; a single post-outage photo, permanently de-energized gear, or deleted history cannot establish an anomaly trend."
 topic_ids = ["m06-thermo"]
 objective_ids = []
 bloom = "understand"

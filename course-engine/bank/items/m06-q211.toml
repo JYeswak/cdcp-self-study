@@ -13,7 +13,7 @@ choices = [
   "Shared UPS reserve can backstop primary systems",
 ]
 correct = "D"
-explanation = "Isolated-redundant/catcher designs provide a shared spare UPS resource."
+explanation = "An isolated-redundant or catcher arrangement provides shared spare UPS capacity for primary systems; it does not make every rack single-cord safe or remove generators."
 topic_ids = ["m06-ups-parallel", "m06-redundancy"]
 objective_ids = []
 bloom = "understand"

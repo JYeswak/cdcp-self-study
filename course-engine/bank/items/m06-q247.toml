@@ -13,7 +13,7 @@ choices = [
   "Fuel supply reliability, emissions, runtime continuity, and infrastructure constraints"
 ]
 correct = "D"
-explanation = "Fuel choice is a multi-factor reliability and compliance trade-off."
+explanation = "Fuel choice is a multi-factor reliability, emissions, runtime, and infrastructure trade-off; enclosure colour, fibre media, and IT thermal envelopes do not select generator fuel."
 topic_ids = ["m06-generators"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ choices = [
   "UPS covers the IT transfer gap"
 ]
 correct = "D"
-explanation = "Open transition gaps are bridged by UPS energy for IT, not for all plant loads."
+explanation = "Open-transition gaps are bridged by UPS energy for IT; generators still need transfer switches and fuel, while fibre cabling is not the affected load."
 topic_ids = ["m06-ats-sts", "m06-ups", "m06-generators"]
 objective_ids = []
 bloom = "apply"

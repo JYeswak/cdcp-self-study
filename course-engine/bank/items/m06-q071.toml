@@ -16,7 +16,7 @@ choices = [
   "PUE below 0.5 by definition",
 ]
 correct = "B"
-explanation = "Isolation is galvanic separation; still need proper UPS, grounding, and distribution design."
+explanation = "An isolation transformer provides galvanic separation while still requiring UPS, grounding, and distribution design; it does not guarantee fault current, start a generator, or define PUE."
 topic_ids = ["m06-isolation-xfmr", "m06-transformers"]
 objective_ids = []
 bloom = "understand"

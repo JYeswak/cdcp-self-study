@@ -13,7 +13,7 @@ choices = [
   "Call the sketch N+2 because three sources are named",
 ]
 correct = "C"
-explanation = "Draw A/B through the last common point. Meeting at one ATS → one UPS is the SPOF. Independent paths may meet at the dual-corded load. Do not steal Module 03 siting."
+explanation = "Trace A and B through the last common point: one ATS and one UPS are the SPOF, while independent paths may meet at the dual-corded load; source names do not create N+2 or a siting decision."
 topic_ids = ["m06-redundancy", "m06-ats-sts"]
 objective_ids = ["obj-m06-path-independence"]
 bloom = "analyze"

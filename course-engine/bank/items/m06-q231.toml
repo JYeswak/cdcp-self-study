@@ -15,7 +15,7 @@ choices = [
   "Higher density with design trade-offs"
 ]
 correct = "D"
-explanation = "Li-ion offers density and lifecycle trade-offs, not magic immunity from engineering."
+explanation = "Li-ion offers density and lifecycle trade-offs, but still needs battery management, monitoring, and fire design; it does not create 2N automatically or remove thermal concerns."
 topic_ids = ["m06-batteries", "m06-ups"]
 objective_ids = []
 bloom = "understand"

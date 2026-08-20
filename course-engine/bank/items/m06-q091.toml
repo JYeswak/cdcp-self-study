@@ -13,7 +13,7 @@ choices = [
   "DNS TTL values",
 ]
 correct = "B"
-explanation = "PQ is about voltage/frequency quality, distortion, and events that stress IT PSUs and plant."
+explanation = "Power quality is voltage and frequency quality, distortion, and events that stress IT PSUs and plant; busway colour, blanking-panel material, and DNS settings are unrelated."
 topic_ids = ["m06-power-quality"]
 objective_ids = []
 bloom = "remember"

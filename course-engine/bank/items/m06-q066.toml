@@ -13,7 +13,7 @@ choices = [
   "It replaces weekly UPS battery checks entirely",
 ]
 correct = "C"
-explanation = "Loaded tests reveal problems (including light-load issues like wet stacking risk) that no-load tests miss."
+explanation = "Loaded tests reveal problems, including light-load wet-stacking risk, that no-load tests miss; they do not disable emissions controls, replace fuel contracts, or replace UPS battery checks."
 topic_ids = ["m06-generators"]
 objective_ids = []
 bloom = "apply"

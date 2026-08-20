@@ -13,7 +13,7 @@ choices = [
   "Survive one defined failure without interrupting load",
 ]
 correct = "D"
-explanation = "Fault tolerance targets uninterrupted service through a worst-case single failure, not only planned maintenance windows."
+explanation = "Fault tolerance targets uninterrupted service through a defined failure, not only planned maintenance; cheaper CAPEX, ignoring procedures, or naming N alone does not prove that survival."
 topic_ids = ["m06-redundancy"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ choices = [
   "Service entrance and switchgear, then UPS with generator and ATS path, then PDU or RPP, then rack PDU, then IT"
 ]
 correct = "D"
-explanation = "A critical path carries service-entrance power through switchgear and the UPS/generator/ATS path, then PDU/RPP and rack PDU to IT; each stage preserves the distribution chain."
+explanation = "The critical path carries service-entrance power through switchgear and the UPS/generator/ATS path, then PDU/RPP and rack PDU to IT; the alternatives mix in fibre, cooling, batteries, fire, or lighting."
 topic_ids = ["m06-distribution", "m06-ups", "m06-ats-sts"]
 objective_ids = []
 bloom = "apply"

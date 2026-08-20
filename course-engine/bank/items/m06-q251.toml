@@ -13,7 +13,7 @@ choices = [
   "Independent A and B sources through separate distribution paths to the two cords"
 ]
 correct = "D"
-explanation = "Independent paths to each cord are what make dual-cord topology meaningful."
+explanation = "Independent A and B sources through separate paths make dual-cord topology meaningful; one strip, a decorative second cord, or generator-only unconditioned power does not."
 topic_ids = ["m06-redundancy", "m06-pdu"]
 objective_ids = []
 bloom = "apply"

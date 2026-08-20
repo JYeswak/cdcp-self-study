@@ -16,7 +16,7 @@ choices = [
   "Single-cord load cannot take two AC feeds",
 ]
 correct = "D"
-explanation = "Single-corded gear remains a SPOF unless an automatic transfer device selects a healthy source."
+explanation = "Single-corded gear remains a single failure point unless an automatic transfer device selects a healthy source; fibre does not power the load and an STS is not what starts a generator."
 topic_ids = ["m06-ats-sts", "m06-redundancy"]
 objective_ids = []
 bloom = "apply"

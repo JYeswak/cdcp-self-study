@@ -13,7 +13,7 @@ choices = [
   "Runs at light load without loaded exercise",
 ]
 correct = "D"
-explanation = "Chronic light load can foul diesel exhaust systems—loaded testing/exercise disciplines matter."
+explanation = "Chronic light load can foul diesel exhaust systems, so loaded testing matters; full-nameplate operation, natural gas, and missing-exhaust claims describe different conditions."
 topic_ids = ["m06-generators"]
 objective_ids = []
 bloom = "understand"

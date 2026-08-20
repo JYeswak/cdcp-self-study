@@ -14,7 +14,7 @@ choices = [
   "Switchgear → transfer → UPS → PDU → rack",
 ]
 correct = "D"
-explanation = "After the utility feed, power follows main switchgear/transformers, transfer, UPS, distribution/PDU, then the rack; that is the utility-to-rack teaching path for power distribution."
+explanation = "After the utility feed, power follows switchgear, transfer, UPS, distribution/PDU, then the rack; rack-first, fibre, cooling, and lighting sequences mix unrelated systems into the power path."
 topic_ids = ["m06-distribution", "m06-ups"]
 objective_ids = []
 bloom = "understand"

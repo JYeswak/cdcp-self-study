@@ -14,7 +14,7 @@ choices = [
   "PUE prevents control faults",
 ]
 correct = "C"
-explanation = "True resilience requires diversity in controls, not only power hardware copies."
+explanation = "True resilience requires diversity in controls, not only duplicated power hardware; chemistry and PUE cannot prevent a shared control-logic fault."
 topic_ids = ["m06-redundancy", "m06-ups"]
 objective_ids = []
 bloom = "apply"

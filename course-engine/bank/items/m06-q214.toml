@@ -13,7 +13,7 @@ choices = [
   "Converting harmonics to DC automatically, regardless of power topology"
 ]
 correct = "C"
-explanation = "Multiple paralleled sets create capacity and maintenance flexibility."
+explanation = "Multiple paralleled sets create capacity and maintenance flexibility; they do not eliminate fuel storage, ATSs, or convert harmonics automatically."
 topic_ids = ["m06-generators", "m06-redundancy"]
 objective_ids = []
 bloom = "apply"

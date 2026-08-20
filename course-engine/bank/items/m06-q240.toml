@@ -14,7 +14,7 @@ choices = [
   "A form of outdoor evaporative cooling",
 ]
 correct = "A"
-explanation = "Flywheels bridge short gaps; they are not multi-day energy stores by default."
+explanation = "Flywheels provide short-duration kinetic bridging alongside generators; they are not default multi-day autonomy, grounding electrodes, or evaporative cooling."
 topic_ids = ["m06-ups", "m06-batteries"]
 objective_ids = []
 bloom = "understand"

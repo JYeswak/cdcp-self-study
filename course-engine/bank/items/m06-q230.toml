@@ -13,7 +13,7 @@ choices = [
   "Irrelevant to power path design or critical ride-through"
 ]
 correct = "C"
-explanation = "Shared storage must reserve critical autonomy; market services cannot starve ride-through."
+explanation = "Shared storage must reserve critical autonomy; market services cannot starve ride-through, and BESS is not a free generator replacement or lighting-only device."
 topic_ids = ["m06-bess", "m06-ups"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Fire class of materials only"
 ]
 correct = "A"
-explanation = "IP codes rate enclosure ingress protection, not electrical topology."
+explanation = "IP codes rate enclosure protection against solids and water for the environment; they do not specify UPS topology, fibre polarity, or material fire class."
 topic_ids = ["m06-ip-grades"]
 objective_ids = []
 bloom = "understand"

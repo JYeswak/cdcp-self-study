@@ -15,7 +15,7 @@ choices = [
   "Only copper near-end crosstalk"
 ]
 correct = "A"
-explanation = "Double-conversion isolates the load from many upstream disturbances."
+explanation = "Double-conversion regenerates output from the DC link to mitigate sags, swells, and other input disturbances; smoke, underfloor pressure, and fibre crosstalk are different signals."
 topic_ids = ["m06-power-quality", "m06-ups"]
 objective_ids = []
 bloom = "understand"

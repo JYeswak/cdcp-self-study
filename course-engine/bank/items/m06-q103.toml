@@ -13,7 +13,7 @@ choices = [
   "Force N topology only",
 ]
 correct = "B"
-explanation = "Firm capacity and risk analysis remain; renewables integrate—they do not wish away availability engineering."
+explanation = "Renewables complement firm capacity and require risk analysis; they do not automatically replace dispatchable supply, remove grounding codes, or force one redundancy topology."
 topic_ids = ["m06-sustainability", "m06-microgrid"]
 objective_ids = []
 bloom = "analyze"

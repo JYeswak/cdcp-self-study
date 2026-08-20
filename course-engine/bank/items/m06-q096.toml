@@ -13,7 +13,7 @@ choices = [
   "Find hot connections under load",
 ]
 correct = "D"
-explanation = "IR under representative load is predictive maintenance for switchgear, UPS, PDUs, and joints."
+explanation = "IR under representative load is predictive maintenance for switchgear, UPS, PDUs, and joints; it finds electrical hotspots, not fibre loss, fuel-test completion, or humidity calibration."
 topic_ids = ["m06-thermo"]
 objective_ids = []
 bloom = "apply"

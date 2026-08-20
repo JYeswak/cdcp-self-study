@@ -13,7 +13,7 @@ choices = [
   "Install enough modules for the 800 kW load plus one spare module",
 ]
 correct = "D"
-explanation = "At the module layer, N+1 means enough installed modules for the required 800 kW plus one additional module that can be unavailable."
+explanation = "At the module layer, N+1 means enough installed modules for 800 kW plus one additional module that can be unavailable; one full-size module without a spare and two distant sites answer different questions."
 topic_ids = ["m06-redundancy", "m06-ups-parallel"]
 objective_ids = []
 bloom = "remember"

@@ -13,7 +13,7 @@ choices = [
   "Size only for lighting, not continuous IT load",
 ]
 correct = "B"
-explanation = "Continuous-load derating concepts (commonly 80% discussion in US) drive circuit selection—always verify local code."
+explanation = "Continuous-load headroom and local code drive circuit selection; loading a breaker to its limit, ignoring nameplates, or sizing only for lighting is unsafe for continuous IT load."
 topic_ids = ["m06-sizing", "m06-pdu"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Replace bonding jumpers with fiber"
 ]
 correct = "A"
-explanation = "Load banks prove the generator can carry meaningful load, not just start and idle."
+explanation = "Load banks prove the generator can carry meaningful thermal and electrical load, not just start and idle; they do not intentionally drain batteries, disable ATSs, or replace bonding."
 topic_ids = ["m06-generators"]
 objective_ids = []
 bloom = "understand"

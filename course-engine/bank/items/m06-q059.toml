@@ -14,7 +14,7 @@ choices = [
   "Cannot use batteries",
 ]
 correct = "B"
-explanation = "Offline/standby leaves the load on utility until a failure forces transfer—cheap but not preferred for critical core IT."
+explanation = "Offline or standby leaves the load on utility until a failure forces transfer—cheap but not preferred for critical core IT; it is not universal, notch-free, or battery-free."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "remember"

@@ -13,7 +13,7 @@ choices = [
   "No need for transfer switches",
 ]
 correct = "A"
-explanation = "Fuel type choices are constrained by utility gas reliability, emissions, noise, and permitting."
+explanation = "Fuel type choices are constrained by gas reliability, emissions, noise, and permitting; changing fuel does not eliminate UPS, transfer equipment, or fuel planning."
 topic_ids = ["m06-generators"]
 objective_ids = []
 bloom = "analyze"

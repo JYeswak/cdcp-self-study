@@ -13,7 +13,7 @@ choices = [
   "Refuse the shared catcher bus for this hall: dual-corded IT wants A/B independence to the rack; catcher is capital-efficient for similar enterprise/colo N-blocks with one spare, not a transfer bus across a high-density row — pay for 2N (or 2N-like dual path)",
 ]
 correct = "D"
-explanation = "Catcher vs 2N is a drawing choice. An AI hall at 80–120 kW rack-feed usually pays for dual path because a shared catcher bus is another transfer plus a common mode."
+explanation = "An AI hall at 80–120 kW rack-feed usually needs dual paths because a shared catcher bus adds a transfer and common mode; it is not automatically cheaper, N+2, or a fire-playbook question."
 topic_ids = ["m06-ups-parallel", "m06-redundancy", "m06-hpc"]
 objective_ids = ["obj-m06-catcher-topology"]
 bloom = "analyze"

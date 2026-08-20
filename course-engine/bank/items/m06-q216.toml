@@ -13,7 +13,7 @@ choices = [
   "Provide free cooling"
 ]
 correct = "A"
-explanation = "Isolation transformers separate circuits and support power quality/grounding design."
+explanation = "Isolation transformers separate circuits and support power-quality or grounding design; they do not add battery energy, act as an ATS, or provide cooling."
 topic_ids = ["m06-isolation-xfmr", "m06-grounding-bonding"]
 objective_ids = []
 bloom = "understand"

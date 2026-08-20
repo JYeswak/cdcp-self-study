@@ -13,7 +13,7 @@ choices = [
   "The generators, not the UPS, carry the N+1",
 ]
 correct = "B"
-explanation = "N+1 means one spare relative to required module count."
+explanation = "N+1 means one spare relative to required module count so one module can fail or be maintained; it does not assume modules fail together or transfer the N+1 claim to generators."
 topic_ids = ["m06-ups-parallel", "m06-redundancy"]
 objective_ids = []
 bloom = "understand"

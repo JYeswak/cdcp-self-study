@@ -13,7 +13,7 @@ choices = [
   "Only office space"
 ]
 correct = "C"
-explanation = "Grey space hosts critical plant; white space hosts IT equipment."
+explanation = "Grey space hosts critical electrical and mechanical plant while white space hosts IT; a hot aisle, meet-me room, or office is not the power-plant support definition."
 topic_ids = ["m06-distribution", "m06-ups"]
 objective_ids = []
 bloom = "understand"

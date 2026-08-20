@@ -13,7 +13,7 @@ choices = [
   "Single-phase 15 A strips suffice for dense AI racks",
 ]
 correct = "C"
-explanation = "GPU/HPC loads break old diversity; co-design power, connectors, and cooling."
+explanation = "GPU/HPC loads can shrink diversity margin, so power, connectors, and cooling must be co-designed; density does not remove dual paths or make cooling optional."
 topic_ids = ["m06-hpc", "m06-sizing"]
 objective_ids = []
 bloom = "analyze"

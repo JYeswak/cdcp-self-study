@@ -14,7 +14,7 @@ choices = [
   "Load drops at battery exhaustion"
 ]
 correct = "D"
-explanation = "UPS bridges the gap; without generator path and with empty batteries, the load falls."
+explanation = "UPS bridges the gap; when ATS transfer fails and stored energy is exhausted, the load drops—not a free 2N upgrade, PUE improvement, or transformer polarity event."
 topic_ids = ["m06-ats-sts", "m06-ups", "m06-generators"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Energy metrics can look better while availability and concurrent maintainability degrade",
 ]
 correct = "D"
-explanation = "Killing redundancy to chase PUE trades availability for a prettier ratio."
+explanation = "Killing redundancy to chase PUE trades availability and concurrent maintainability for a prettier ratio; PUE is not an availability class, and standby plant is not zero-cost by definition."
 topic_ids = ["m06-sustainability", "m06-redundancy"]
 objective_ids = []
 bloom = "apply"

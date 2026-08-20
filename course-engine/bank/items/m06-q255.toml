@@ -13,7 +13,7 @@ choices = [
   "Catcher topology, because one UPS can pick up both utilities",
 ]
 correct = "B"
-explanation = "If both utilities and the generator meet at one ATS → one UPS, that is the labeled SPOF figure. Downstream dual cords do not repair a shared transfer."
+explanation = "If both utilities and the generator meet at one ATS and one UPS, that is the shared SPOF figure; downstream dual cords do not create 2N, N+2, or catcher topology."
 topic_ids = ["m06-redundancy", "m06-ats-sts"]
 objective_ids = ["obj-m06-path-independence"]
 bloom = "understand"

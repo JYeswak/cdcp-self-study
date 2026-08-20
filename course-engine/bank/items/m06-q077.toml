@@ -14,7 +14,7 @@ choices = [
   "Zero impact on breakers",
 ]
 correct = "A"
-explanation = "Unbalanced phases waste headroom and trip the loaded leg first."
+explanation = "Unbalanced phases waste headroom and can trip the loaded leg first; imbalance creates no free capacity, dual path, or zero breaker impact."
 topic_ids = ["m06-phase", "m06-sizing"]
 objective_ids = []
 bloom = "apply"

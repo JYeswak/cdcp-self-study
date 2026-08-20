@@ -14,7 +14,7 @@ choices = [
   "Battery support for deeper events in SMB/edge settings",
 ]
 correct = "D"
-explanation = "VI/line-interactive is common at edge/SMB; core DC IT usually prefers online double-conversion."
+explanation = "VI or line-interactive is common at edge/SMB for battery support during deeper events; it is not nuclear hardening, a generator replacement, or an exclusively three-phase topology."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "understand"

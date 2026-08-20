@@ -13,7 +13,7 @@ choices = [
   "The battery plant is shared with the mechanical loads",
 ]
 correct = "C"
-explanation = "Capacity parallel adds modules to meet N; without spare, loss of a module can overload the rest."
+explanation = "Capacity parallel adds modules to meet N; without a spare, loss of one can overload the rest, and module count alone does not create 2N paths or share a mechanical battery plant."
 topic_ids = ["m06-ups-parallel"]
 objective_ids = []
 bloom = "understand"

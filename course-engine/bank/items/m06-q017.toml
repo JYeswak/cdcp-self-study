@@ -13,7 +13,7 @@ choices = [
   "Grounding is unnecessary",
 ]
 correct = "A"
-explanation = "Independent A-B paths protect dual-PSU gear so both sides must fail to lose the server."
+explanation = "Independent A-B paths protect dual-PSU gear so both sides must fail to lose the server; dual cords do not provide free cooling, eliminate every transfer device, or remove grounding."
 topic_ids = ["m06-redundancy"]
 objective_ids = []
 bloom = "apply"

@@ -14,7 +14,7 @@ choices = [
   "Only lighting remains",
 ]
 correct = "B"
-explanation = "UPS ride-through → genset start → transfer is the textbook sequence."
+explanation = "UPS ride-through carries IT through genset start and transfer; the fire system does not become the power path, and an unprotected load would not simply wait through a multi-hour start."
 topic_ids = ["m06-ups", "m06-generators", "m06-ats-sts"]
 objective_ids = []
 bloom = "apply"

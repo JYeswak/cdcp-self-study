@@ -13,7 +13,7 @@ choices = [
   "Only outdoor IP rating matters, not room conditions or ventilation"
 ]
 correct = "A"
-explanation = "Battery life and reliability are strongly environment-dependent."
+explanation = "Battery life and reliability are environment-dependent; network latency, an aging-free claim, and outdoor IP rating do not replace room thermal, ventilation, and maintenance controls."
 topic_ids = ["m06-batteries"]
 objective_ids = []
 bloom = "apply"

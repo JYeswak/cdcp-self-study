@@ -13,7 +13,7 @@ choices = [
   "Batteries never produce heat",
 ]
 correct = "A"
-explanation = "Non-linear loads and harmonics historically drove K-factor/harmonic transformer specs; still seen in legacy contexts."
+explanation = "Nonlinear load current distortion drives harmonic and K-factor discussions; fibre, CRAH phase capability, and battery heat are different mechanisms."
 topic_ids = ["m06-transformers", "m06-power-quality"]
 objective_ids = []
 bloom = "understand"

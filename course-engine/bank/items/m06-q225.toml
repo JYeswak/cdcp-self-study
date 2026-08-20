@@ -13,7 +13,7 @@ choices = [
   "kW only applies to cooling towers"
 ]
 correct = "B"
-explanation = "Power factor links kW and kVA; designs must respect both limits."
+explanation = "Power factor links kW and kVA, so designs must respect both limits; they are not always identical, kVA is not the only universal nameplate value, and kW is not limited to cooling towers."
 topic_ids = ["m06-sizing", "m06-power-quality"]
 objective_ids = []
 bloom = "understand"

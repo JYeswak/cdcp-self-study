@@ -15,7 +15,7 @@ choices = [
   "Replaces chilled-water plants",
 ]
 correct = "C"
-explanation = "VFI/online continuously AC→DC→AC, isolating the load from many upstream issues."
+explanation = "VFI/online continuously converts AC to DC and back to AC, isolating the load from many upstream issues; utility pass-through, single-phase-only limits, and chilled-water replacement describe other systems."
 topic_ids = ["m06-ups"]
 objective_ids = []
 bloom = "understand"

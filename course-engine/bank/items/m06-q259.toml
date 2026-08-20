@@ -13,7 +13,7 @@ choices = [
   "N+2 means two utilities through one ATS, which is the dual-utility concept",
 ]
 correct = "C"
-explanation = "N+2 names two spares at the layer you just said. It is not a plaque and not Tier IV. Confirm what N is."
+explanation = "N+2 names two spare units at the named layer; it is not a Tier plaque, Availability Class, or two utilities through one ATS. Confirm what N is."
 topic_ids = ["m06-redundancy"]
 objective_ids = ["obj-m06-n-plus-2"]
 bloom = "understand"

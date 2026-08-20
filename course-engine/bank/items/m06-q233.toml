@@ -13,7 +13,7 @@ choices = [
   "Exclusive reliance on wireless power for facility loads"
 ]
 correct = "B"
-explanation = "Microgrids coordinate distributed energy resources with facility loads."
+explanation = "Microgrids coordinate generation, storage, loads, and islanding; a single uncontrolled utility feed, removal of UPSs, or wireless-only power is not that architecture."
 topic_ids = ["m06-microgrid", "m06-sustainability"]
 objective_ids = []
 bloom = "understand"

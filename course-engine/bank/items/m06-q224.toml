@@ -16,7 +16,7 @@ choices = [
   "Improve wet stacking"
 ]
 correct = "A"
-explanation = "Harmonics create extra heating and may force de-rating of magnetics and gensets."
+explanation = "Harmonics create extra heating and may force derating of transformers and generators; they do not reduce losses to zero, create DC distribution, or improve wet stacking."
 topic_ids = ["m06-power-quality", "m06-transformers", "m06-sizing"]
 objective_ids = []
 bloom = "apply"

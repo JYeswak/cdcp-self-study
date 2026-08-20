@@ -14,7 +14,7 @@ choices = [
   "Lighting circuits to free IT breakers",
 ]
 correct = "B"
-explanation = "A+B independent paths preserve availability if one path is lost or maintained."
+explanation = "A+B independent paths preserve availability if one path is lost or maintained; a shared strip or Y-splitter preserves a common failure point, and lighting circuits are not an IT path."
 topic_ids = ["m06-redundancy", "m06-pdu"]
 objective_ids = []
 bloom = "apply"

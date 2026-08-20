@@ -13,7 +13,7 @@ choices = [
   "Plant-scale roles beyond UPS ride-through",
 ]
 correct = "D"
-explanation = "BESS is plant-scale storage with multiple possible roles; do not assume it equals UPS batteries."
+explanation = "BESS is plant-scale storage with multiple roles beyond UPS ride-through; it is not merely a flywheel, an automatic generator replacement, or banned from microgrids."
 topic_ids = ["m06-bess"]
 objective_ids = []
 bloom = "understand"

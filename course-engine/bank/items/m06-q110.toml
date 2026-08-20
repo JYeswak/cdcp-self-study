@@ -14,7 +14,7 @@ choices = [
   "PUE becoming an availability Tier",
 ]
 correct = "C"
-explanation = "Autonomy collapses as kW rises against fixed storage energy."
+explanation = "Autonomy shortens as kW rises against fixed stored energy; it does not increase, become infinite, or turn into a PUE or availability label."
 topic_ids = ["m06-batteries", "m06-sizing", "m06-ups"]
 objective_ids = []
 bloom = "apply"

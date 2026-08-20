@@ -18,7 +18,7 @@ choices = [
   "They are identical mechanisms"
 ]
 correct = "A"
-explanation = "Equipotential bonding and overcurrent clearing solve different parts of electrical safety."
+explanation = "Bonding equalizes potential while breakers and fuses clear faults; bonding does not trip protection, protect fibre, or become identical to overcurrent clearing."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "apply"

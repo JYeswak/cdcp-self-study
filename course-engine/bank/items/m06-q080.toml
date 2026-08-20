@@ -15,7 +15,7 @@ choices = [
   "Keep metalwork at essentially the same potential",
 ]
 correct = "D"
-explanation = "Bonding equalizes potential among exposed conductive parts."
+explanation = "Bonding equalizes potential among exposed conductive parts; maximizing touch voltage, random neutral-ground bonds, and eliminating overcurrent protection are the opposite of the safety purpose."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "understand"

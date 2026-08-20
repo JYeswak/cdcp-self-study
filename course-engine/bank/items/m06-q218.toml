@@ -16,7 +16,7 @@ choices = [
   "Define generator fuel type and operating reserve"
 ]
 correct = "C"
-explanation = "Bonding reduces touch potential differences and supports a controlled reference."
+explanation = "Bonding keeps exposed conductive parts near one potential and supports a controlled reference; it does not replace breakers, store UPS energy, or set fuel type."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "understand"

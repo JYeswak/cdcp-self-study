@@ -13,7 +13,7 @@ choices = [
   "Can harm availability despite PUE gains",
 ]
 correct = "D"
-explanation = "Never greenwash by weakening MOPs, tests, or redundant capacity without engineered alternatives."
+explanation = "Reducing tests or redundant plant can harm availability despite PUE gains; efficiency does not create fault tolerance, remove UPS modules, or make PUE undefined."
 topic_ids = ["m06-sustainability", "m06-generators"]
 objective_ids = []
 bloom = "evaluate"

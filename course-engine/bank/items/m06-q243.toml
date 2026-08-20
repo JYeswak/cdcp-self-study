@@ -14,7 +14,7 @@ choices = [
   "STS can transfer between synchronized sources much faster for sensitive IT loads",
 ]
 correct = "D"
-explanation = "Solid-state transfer is about milliseconds-class source switching for IT."
+explanation = "Solid-state transfer provides millisecond-class switching between synchronized sources for sensitive IT; it does not start generators, replace batteries, or make an ATS impossible to feed from a generator."
 topic_ids = ["m06-ats-sts"]
 objective_ids = []
 bloom = "apply"

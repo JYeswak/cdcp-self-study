@@ -13,7 +13,7 @@ choices = [
   "Using water pipes as the only earthing electrode always",
 ]
 correct = "C"
-explanation = "Bonded infrastructure supports safety and EMC practice; freestyle grounds are not acceptable."
+explanation = "Bonded infrastructure supports safer fault and transient behavior plus EMC; floating chassis, disabling SPDs, or relying on water pipes alone are not controlled bonding designs."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "understand"

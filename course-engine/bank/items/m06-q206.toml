@@ -14,7 +14,7 @@ choices = [
   "Only battery chemistry determines redundancy"
 ]
 correct = "C"
-explanation = "Path diversity fails if independent-looking feeds share a common upstream device."
+explanation = "Path diversity fails if independent-looking feeds share a common upstream device; downstream dual cords cannot repair a shared switchboard, and battery chemistry is not the path test."
 topic_ids = ["m06-redundancy", "m06-distribution"]
 objective_ids = []
 bloom = "apply"

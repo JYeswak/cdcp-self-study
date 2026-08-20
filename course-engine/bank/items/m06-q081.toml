@@ -13,7 +13,7 @@ choices = [
   "It removes all harmonics",
 ]
 correct = "A"
-explanation = "Neutral-ground bonding belongs only at designated points; extras cause circulating currents."
+explanation = "Neutral-ground bonding belongs only at designated points; extra bonds cause circulating currents and nuisance issues, rather than improving PUE, removing harmonics, or being required at every PDU."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "apply"

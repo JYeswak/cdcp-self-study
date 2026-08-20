@@ -13,7 +13,7 @@ choices = [
   "Emergency lighting lux levels",
 ]
 correct = "A"
-explanation = "Non-linear currents create harmonics; IEEE 519-type discussions appear in design/ops conversations."
+explanation = "Nonlinear load currents create harmonics, which drive mitigation and IEEE 519-type discussions; fibre loss, floor tiles, and lighting lux are different domains."
 topic_ids = ["m06-power-quality"]
 objective_ids = []
 bloom = "understand"

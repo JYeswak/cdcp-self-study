@@ -13,7 +13,7 @@ choices = [
   "Outdoor dust and water durability",
 ]
 correct = "D"
-explanation = "Higher IP helps enclosure survival in harsher environments; it does not create electrical redundancy."
+explanation = "Higher IP helps outdoor enclosures resist dust and water; it does not create faster STS transfer, 2N redundancy, or a guaranteed battery-impedance benefit."
 topic_ids = ["m06-ip-grades", "m06-generators"]
 objective_ids = []
 bloom = "apply"

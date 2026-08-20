@@ -13,7 +13,7 @@ choices = [
   "Replace equipotential bonding",
 ]
 correct = "C"
-explanation = "ATS = automatic transfer between sources (classic: utility ↔ generator)."
+explanation = "An ATS automatically transfers a load between AC sources, classically utility and generator; it does not rectify AC, measure PUE, or replace equipotential bonding."
 topic_ids = ["m06-ats-sts"]
 objective_ids = []
 bloom = "remember"

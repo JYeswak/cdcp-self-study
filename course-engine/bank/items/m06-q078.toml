@@ -14,7 +14,7 @@ choices = [
   "A replacement for neutral conductors always",
 ]
 correct = "C"
-explanation = "Plant is almost always three-phase; single-phase shows up at utilization edges."
+explanation = "Plant is usually three-phase, while single-phase appears at utilization edges as branch outlets; it does not replace the medium-voltage feed, ban three-phase, or remove neutral conductors."
 topic_ids = ["m06-phase"]
 objective_ids = []
 bloom = "remember"

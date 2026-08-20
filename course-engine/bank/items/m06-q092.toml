@@ -14,7 +14,7 @@ choices = [
   "Regenerates output and buffers disturbances",
 ]
 correct = "D"
-explanation = "Online UPS isolates the load from many utility issues; downstream defects still matter."
+explanation = "Online UPS regenerates output and buffers many utility disturbances; it cannot repair loose downstream connections, replace monitoring, or cool batteries by definition."
 topic_ids = ["m06-power-quality", "m06-ups"]
 objective_ids = []
 bloom = "understand"

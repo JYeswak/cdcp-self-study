@@ -13,7 +13,7 @@ choices = [
   "Catcher replaces the utility-to-rack path grammar with a single shared ATS",
 ]
 correct = "A"
-explanation = "Three drawings. Catcher has the bus. Isolated-redundant has a reserve without that spine. Distributed-redundant has no dedicated idle catcher. Isolate is Module 15."
+explanation = "Catcher has the transfer bus, isolated-redundant has reserve capacity without that spine, and distributed-redundant spreads spare across active blocks; a spare UPS alone is not every topology or a Tier label."
 topic_ids = ["m06-ups-parallel", "m06-redundancy"]
 objective_ids = ["obj-m06-catcher-topology"]
 bloom = "understand"

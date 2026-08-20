@@ -15,7 +15,7 @@ choices = [
   "Meters only humidity",
 ]
 correct = "C"
-explanation = "Transformers change voltage via magnetic coupling; MV→LV is the classic site role."
+explanation = "Transformers change voltage by magnetic coupling, with MV-to-LV the classic site role; fibre conversion, chilled-water delivery, and humidity metering are separate functions."
 topic_ids = ["m06-transformers"]
 objective_ids = []
 bloom = "remember"

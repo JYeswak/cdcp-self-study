@@ -14,7 +14,7 @@ choices = [
   "Only the raised-floor plenum under cold aisles",
 ]
 correct = "A"
-explanation = "Grey space hosts plant—generators, UPS, switchgear—while white space is the IT floor."
+explanation = "Grey space hosts plant—generators, UPS, and switchgear—while white space is the IT floor; a plenum is an airflow space, not the definition of grey space, and a lobby is not plant."
 topic_ids = ["m06-distribution"]
 objective_ids = []
 bloom = "remember"

@@ -14,7 +14,7 @@ choices = [
   "ATS is only for DC plants",
 ]
 correct = "A"
-explanation = "Classic distinction: genset/source ATS vs solid-state dual-live STS."
+explanation = "An ATS transfers between sources, while an STS transfers quickly between live sources; they are not identical, an STS does not merely start engines, and ATSs are not DC-only devices."
 topic_ids = ["m06-ats-sts"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Quote an industry outage percentage that proves Li-ion is safer than VRLA",
 ]
 correct = "A"
-explanation = "This file owns one-line hop and interconnect. 855 is installation; 9540A is test data. Fire playbook is Module 12. No invented fire or outage percent."
+explanation = "This file owns the one-line hop and interconnect: UPS strings sit on the UPS DC bus while yard BESS is usually AC-interconnected; installation, fire playbooks, and invented outage percentages are separate claims."
 topic_ids = ["m06-batteries", "m06-bess"]
 objective_ids = ["obj-m06-liion-electrical"]
 bloom = "understand"

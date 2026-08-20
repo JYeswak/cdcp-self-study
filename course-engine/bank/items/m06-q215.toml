@@ -13,7 +13,7 @@ choices = [
   "Fuel delivery and quality can stop support",
 ]
 correct = "D"
-explanation = "Runtime depends on the entire fuel chain, not only the engine nameplate."
+explanation = "Runtime depends on fuel quality, day tanks, transfer pumps, and delivery—not only engine kW; those systems do not set UPS topology, alternator voltage, or IT thermal limits."
 topic_ids = ["m06-generators", "m06-sizing"]
 objective_ids = []
 bloom = "apply"

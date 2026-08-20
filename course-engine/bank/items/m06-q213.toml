@@ -13,7 +13,7 @@ choices = [
   "Feed only lighting panels"
 ]
 correct = "B"
-explanation = "Chronic light load can foul exhaust paths; loaded exercise mitigates the risk."
+explanation = "Chronic light load can foul diesel exhaust paths, so loaded exercise mitigates the risk; overload, natural gas, and lighting-only operation are different conditions."
 topic_ids = ["m06-generators"]
 objective_ids = []
 bloom = "understand"

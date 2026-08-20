@@ -14,7 +14,7 @@ choices = [
   "Free of all transformers, regardless of voltage conversion needs",
 ]
 correct = "A"
-explanation = "Efficiency metrics do not create dual paths or concurrent maintainability."
+explanation = "Efficiency metrics do not create dual paths or concurrent maintainability; a low-PUE site can still be single-path, non-fault-tolerant, and utility-dependent."
 topic_ids = ["m06-sustainability", "m06-redundancy"]
 objective_ids = []
 bloom = "analyze"

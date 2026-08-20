@@ -15,7 +15,7 @@ choices = [
   "Operating best at freezing temperatures only",
 ]
 correct = "C"
-explanation = "VRLA vs flooded is a maintenance, space, and lifecycle trade-off—not magic."
+explanation = "VRLA versus flooded cells is a sealed or recombinant maintenance, space, and lifecycle trade-off; neither offers zero maintenance, unlimited cycles, or freezing-temperature superiority."
 topic_ids = ["m06-batteries"]
 objective_ids = []
 bloom = "understand"

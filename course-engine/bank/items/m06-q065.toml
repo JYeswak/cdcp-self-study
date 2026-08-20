@@ -13,7 +13,7 @@ choices = [
   "Used only for decorative lighting, not critical facility backup",
 ]
 correct = "A"
-explanation = "Gensets need start/transfer time; UPS bridges that interval."
+explanation = "Gensets provide long-duration power after start and transfer; they are not zero-gap sources or universal substitutes for UPS batteries, and they are not decorative-only equipment."
 topic_ids = ["m06-generators", "m06-ups"]
 objective_ids = []
 bloom = "understand"

@@ -13,7 +13,7 @@ choices = [
   "Replace grounding systems as a sustainability measure",
 ]
 correct = "C"
-explanation = "Emissions goals must not silently weaken proven readiness testing."
+explanation = "Emissions goals must not silently weaken readiness testing because start reliability can erode; reduced wear does not automatically improve availability, and diesel does not become free cooling."
 topic_ids = ["m06-sustainability", "m06-generators"]
 objective_ids = []
 bloom = "apply"
