@@ -10,7 +10,7 @@ choices = [
   "EN 50600 → commonly European context; ISO/IEC 22237 → international series awareness",
 ]
 correct = "D"
-explanation = "EN 50600 is European-series awareness; ISO/IEC 22237 is the international facilities series awareness."
+explanation = "EN 50600 is associated with European data-centre practice, while ISO/IEC 22237 is the international facilities series; neither is a residential rule, a U.S. NEC article, or a fuel grade."
 topic_ids = ["m02-en50600-series", "m02-iso22237-series", "m02-intl-vs-national"]
 objective_ids = []
 bloom = "remember"

@@ -16,7 +16,7 @@ choices = [
   "Codes are always free PDF white papers",
 ]
 correct = "A"
-explanation = "AHJ-adopted codes are enforceable; voluntary standards bind only when adopted by contract, policy, or code reference."
+explanation = "The code is enforceable when adopted by the AHJ, while a standard is normally voluntary until code, contract, or policy references it; a white paper or free document is not automatically law."
 topic_ids = ["m02-code-vs-standard"]
 objective_ids = []
 bloom = "understand"

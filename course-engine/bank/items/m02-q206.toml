@@ -10,7 +10,7 @@ choices = [
   "Standards forbid writing the word tier in any language"
 ]
 correct = "C"
-explanation = "Resilience labels carry buyer expectations; informal claims create false assurance and contract risk."
+explanation = "Uptime Tier terminology implies a defined program, so an informal self-assessment can create false assurance and contract risk; it is not meaningless, self-certifying, or forbidden vocabulary."
 topic_ids = ["m02-tia-vs-uptime", "m02-standards-guidelines"]
 objective_ids = []
 bloom = "apply"

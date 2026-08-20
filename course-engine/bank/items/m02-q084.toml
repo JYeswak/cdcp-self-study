@@ -16,7 +16,7 @@ choices = [
   "Where adopted code and voluntary preferences diverge, enforcement authority of the AHJ controls the legal outcome",
 ]
 correct = "D"
-explanation = "Legal compliance is judged by the AHJ against adopted codes, not by voluntary wish lists."
+explanation = "“AHJ wins” means the enforcing authority applies adopted code when voluntary preferences diverge; international documents and standards bodies do not replace that local legal decision."
 topic_ids = ["m02-code-vs-standard"]
 objective_ids = []
 bloom = "remember"

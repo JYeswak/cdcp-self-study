@@ -16,7 +16,7 @@ choices = [
   "ISO 22237 entire-series replacements, because a facility series makes product listings and component categories unnecessary",
 ]
 correct = "C"
-explanation = "Cabling categories and firestop listings are product/system standards supporting the facility, rather than a facility rating or organizational chart."
+explanation = "Cabling categories and firestop listings are product or system requirements that support facility performance; they are not an AHJ chart, a site Tier certificate, or a replacement for the ISO facility series."
 topic_ids = ["m02-subcomponent-standards"]
 objective_ids = []
 bloom = "remember"

@@ -10,7 +10,7 @@ choices = [
   "Memorize clause numbers for trivia, rather than communicate which framework, requirement, and assessment path actually applies",
 ]
 correct = "A"
-explanation = "Precise naming and framework literacy prevent costly contractual and design confusion."
+explanation = "Standards literacy lets a team name the applicable framework and requirement precisely; it does not replace engineers, local inspectors, or the reasoning needed to apply a clause."
 topic_ids = ["m02-standards-guidelines", "m02-tia-vs-uptime"]
 objective_ids = []
 bloom = "understand"

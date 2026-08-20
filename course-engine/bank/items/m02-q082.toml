@@ -15,7 +15,7 @@ choices = [
   "Device performance, listing, and installation expectations feeding the facility fire strategy",
 ]
 correct = "D"
-explanation = "A fire-detection device standard affects device performance, listing, and installation expectations that feed the facility fire strategy; this is the sub-component standards role named by the syllabus."
+explanation = "The fire-detection device standard shapes device performance, listing, and installation within the facility fire strategy; it does not set IP planning, generator chemistry, or unrelated office choices."
 topic_ids = ["m02-subcomponent-standards"]
 objective_ids = []
 bloom = "remember"

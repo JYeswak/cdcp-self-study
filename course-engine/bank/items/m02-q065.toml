@@ -10,7 +10,7 @@ choices = [
   "Both issued exclusively by ASHRAE",
 ]
 correct = "A"
-explanation = "TIA-942 Rated and Uptime Tier are separate frameworks; careful practitioners keep naming discipline."
+explanation = "TIA-942 Rated and Uptime Tier have distinct criteria, processes, and owners; they are not interchangeable brand names, ISO 9001 registrations, or ASHRAE certificates."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = []
 bloom = "understand"

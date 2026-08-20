@@ -10,7 +10,7 @@ choices = [
   "Equivalence is automatically granted by TIA",
 ]
 correct = "C"
-explanation = "Loose “Tier equivalent” marketing confuses distinct frameworks and certification processes."
+explanation = "Uptime Tier terminology names a defined framework and process, so an informal “equivalent” claim can create false assurance; ISO, TIA, and a slide deck do not automatically award that certification."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = []
 bloom = "apply"

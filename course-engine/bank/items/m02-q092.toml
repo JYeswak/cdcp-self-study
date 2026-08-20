@@ -10,7 +10,7 @@ choices = [
   "ISO 22237 is a lux meter brand",
 ]
 correct = "A"
-explanation = "Multiple facility-oriented series exist; none should be casually equated to Uptime Tier branding."
+explanation = "TIA, ISO/IEC 22237, and EN 50600 are distinct facility-oriented series that learners should map without equating them to Uptime Tier branding; they are not a battery, a single worldwide document, or a lux-meter brand."
 topic_ids = ["m02-standards-guidelines", "m02-tia-vs-uptime", "m02-iso22237-series", "m02-en50600-series"]
 objective_ids = []
 bloom = "understand"

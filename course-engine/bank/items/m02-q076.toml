@@ -16,7 +16,7 @@ choices = [
   "International always voids local law",
 ]
 correct = "A"
-explanation = "What binds is what is adopted or specified locally for that project—not brand prestige of a series name."
+explanation = "The governing document is the one adopted or specified for the jurisdiction and project; national is not automatically weaker, and an international series cannot void local law by prestige."
 topic_ids = ["m02-intl-vs-national"]
 objective_ids = []
 bloom = "apply"

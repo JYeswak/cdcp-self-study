@@ -16,7 +16,7 @@ choices = [
   "An internal runbook preference",
 ]
 correct = "B"
-explanation = "AHJ-enforced electrical and fire codes are binding; voluntary guides and white papers are not code."
+explanation = "An Authority Having Jurisdiction enforces adopted electrical and fire code; a PUE blog, vendor white paper, or internal runbook becomes guidance or policy rather than code by itself."
 topic_ids = ["m02-code-vs-standard"]
 objective_ids = []
 bloom = "understand"

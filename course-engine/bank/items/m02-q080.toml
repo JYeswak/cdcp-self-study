@@ -10,7 +10,7 @@ choices = [
   "Compare criteria, assessment process, and contractual meaning—then use the framework the owner actually requires",
 ]
 correct = "D"
-explanation = "Owners should compare substance and required process, not conflate logos or numerals."
+explanation = "The owner should compare each framework’s criteria, assessment process, and contractual meaning before selecting the required one; law, ISO 27001 branding, and a larger marketing numeral are not substitutes for that comparison."
 topic_ids = ["m02-tia-vs-uptime", "m02-standards-guidelines"]
 objective_ids = []
 bloom = "apply"

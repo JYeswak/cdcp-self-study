@@ -10,7 +10,7 @@ choices = [
   "A diesel fuel chemical formula",
 ]
 correct = "A"
-explanation = "ISO/IEC 22237 is the international series for data centre facilities and infrastructures (awareness-level)."
+explanation = "ISO/IEC 22237 is an international series for data-centre facilities and infrastructure; it is not a Uptime certificate, a national fire-code article, or a fuel formula."
 topic_ids = ["m02-iso22237-series"]
 objective_ids = []
 bloom = "remember"

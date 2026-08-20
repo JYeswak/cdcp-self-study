@@ -16,7 +16,7 @@ choices = [
   "National bodies can automatically void international standards",
 ]
 correct = "B"
-explanation = "National bodies may adopt or adapt international material; alignment varies by country and topic."
+explanation = "National standards bodies may adopt, adapt, or reference international work, with alignment varying by country and topic; they do not forbid IEC use, regulate cafeteria menus, or automatically void international documents."
 topic_ids = ["m02-intl-vs-national"]
 objective_ids = []
 bloom = "understand"

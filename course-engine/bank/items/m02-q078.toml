@@ -16,7 +16,7 @@ choices = [
   "Working only with purely North American code questions and no EU touchpoints, suppliers, customers, or project documents referencing European practice",
 ]
 correct = "C"
-explanation = "EN 50600 commonly appears in European project and procurement contexts."
+explanation = "EN 50600 matters when European projects, suppliers, or customers reference that regional series; residential lighting, office ergonomics, and a purely North American project without an EU touchpoint do not create that trigger."
 topic_ids = ["m02-en50600-series"]
 objective_ids = []
 bloom = "understand"

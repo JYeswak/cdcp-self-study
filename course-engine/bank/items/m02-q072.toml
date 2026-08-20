@@ -16,7 +16,7 @@ choices = [
   "A mix of codes, facility series (TIA/ISO/EN), product standards, and owner specs—with AHJ as the legal floor",
 ]
 correct = "D"
-explanation = "Practitioners navigate codes, facility standards series, product standards, and contracts under AHJ authority."
+explanation = "The practitioner maps codes, facility series, product standards, and owner specifications under the AHJ’s legal floor; one global document, a blog, or a PUE score cannot cover every jurisdiction and product."
 topic_ids = ["m02-standards-guidelines", "m02-code-vs-standard"]
 objective_ids = []
 bloom = "understand"

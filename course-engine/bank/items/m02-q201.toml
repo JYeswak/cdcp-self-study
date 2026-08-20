@@ -10,7 +10,7 @@ choices = [
   "Related resilience concepts that must not be mixed as if they were the same certification scheme"
 ]
 correct = "D"
-explanation = "Both address resilience classes, but they are distinct programs/terminology—do not conflate them."
+explanation = "TIA Rated and Uptime Tier both discuss resilience but remain distinct programs with different terminology and assessment; calling them synonyms or ignoring the framework makes the design and contract claim ambiguous."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = []
 bloom = "understand"

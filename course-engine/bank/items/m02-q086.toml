@@ -15,7 +15,7 @@ choices = [
   "Irrelevant when an ISO number is mentioned because the international series replaces local project controls",
 ]
 correct = "C"
-explanation = "Owner specs can raise the bar contractually but cannot legalize noncompliance with adopted code."
+explanation = "Owner specifications are contractual requirements that may exceed code minimums but cannot undercut adopted code; they are not decorative, permits, or irrelevant once an ISO number appears."
 topic_ids = ["m02-standards-guidelines", "m02-code-vs-standard"]
 objective_ids = []
 bloom = "understand"

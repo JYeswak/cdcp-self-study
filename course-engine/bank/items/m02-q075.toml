@@ -16,7 +16,7 @@ choices = [
   "Standards never need listing",
 ]
 correct = "A"
-explanation = "Projects must identify adopted codes and which standards are contractually or legally referenced."
+explanation = "The project must identify adopted codes and every standard incorporated by jurisdiction or contract; the cheapest document, optional AHJ review, or an unlisted reference cannot define compliance."
 topic_ids = ["m02-code-vs-standard", "m02-standards-guidelines"]
 objective_ids = []
 bloom = "apply"

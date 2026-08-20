@@ -15,7 +15,7 @@ choices = [
   "Vendors typically write national rules instead of standards bodies"
 ]
 correct = "B"
-explanation = "Global frameworks inform design, but local mandatory rules and practice still control compliance."
+explanation = "International guidance can inform design, but local codes, climate, grid practice, and AHJ interpretation govern what may be built and operated; national documents are not archival and vendor preference is not law."
 topic_ids = ["m02-intl-vs-national", "m02-code-vs-standard"]
 objective_ids = []
 bloom = "understand"

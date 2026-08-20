@@ -10,7 +10,7 @@ choices = [
   "ASHRAE issues Tier certificates",
 ]
 correct = "C"
-explanation = "TIA-942 Rated and Uptime Institute Tier are separate frameworks; brand names are not interchangeable."
+explanation = "TIA-942 Rated concepts and Uptime Institute Tier are separate frameworks with different owners and processes; ISO, ASHRAE, and a shared brand word do not turn them into one certificate."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = []
 bloom = "understand"

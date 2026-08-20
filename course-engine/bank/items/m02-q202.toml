@@ -10,7 +10,7 @@ choices = [
   "It replaces every national electrical code worldwide, so local adoption, AHJ enforcement, and project specifications no longer matter"
 ]
 correct = "C"
-explanation = "22237 is an international series on DC facilities/infrastructures; it does not erase local codes."
+explanation = "ISO/IEC 22237 is a multi-part international framework for data-centre facilities and infrastructure; it is not a vendor manual, an office-lighting document, or a replacement for national code."
 topic_ids = ["m02-iso22237-series", "m02-standards-guidelines"]
 objective_ids = []
 bloom = "remember"

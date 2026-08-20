@@ -16,7 +16,7 @@ choices = [
   "A North American residential wiring code"
 ]
 correct = "B"
-explanation = "The references provide a European framework for data-centre facilities and infrastructure topics used during design and operations reviews."
+explanation = "EN 50600 provides a European framework for data-centre facilities and infrastructure review; it is not a home-appliance label, battery formula, or North American residential wiring code."
 topic_ids = ["m02-en50600-series"]
 objective_ids = []
 bloom = "remember"

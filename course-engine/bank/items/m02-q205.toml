@@ -17,7 +17,7 @@ choices = [
   "They help ensure assemblies and products meet defined performance/safety criteria used in the facility"
 ]
 correct = "D"
-explanation = "System reliability depends on listed/qualified products and installation practices, not only topology sketches."
+explanation = "Sub-component standards help products and assemblies meet defined safety and performance criteria used by the facility; listed parts do not eliminate system coordination, furniture is not the scope, and they do not forbid redundancy."
 topic_ids = ["m02-subcomponent-standards"]
 objective_ids = []
 bloom = "understand"

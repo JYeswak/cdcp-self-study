@@ -10,7 +10,7 @@ choices = [
   "Memorize every clause number of every series before day one on site, rather than recognize which family applies to the question"
 ]
 correct = "B"
-explanation = "Operators need map-level literacy of which framework applies—not clause memorization of all series."
+explanation = "CDCP awareness means recognizing when codes, TIA/Uptime terminology, ISO/IEC 22237, or EN 50600 applies; one brochure, one country’s documents, or memorizing every clause is not the operational skill."
 topic_ids = ["m02-standards-guidelines", "m02-iso22237-series", "m02-en50600-series"]
 objective_ids = []
 bloom = "understand"

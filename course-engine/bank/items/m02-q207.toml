@@ -16,7 +16,7 @@ choices = [
   "Carry criminal penalties when a voluntary guideline is cited"
 ]
 correct = "C"
-explanation = "Guidelines advise; codes (when adopted) compel. Many good practices start as guidelines."
+explanation = "The guideline supplies recommended practice that may be adopted or referenced but is not law by itself; it cannot supersede an AHJ or acquire criminal penalties merely by being cited."
 topic_ids = ["m02-code-vs-standard", "m02-standards-guidelines"]
 objective_ids = []
 bloom = "remember"

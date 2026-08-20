@@ -16,7 +16,7 @@ choices = [
   "PUE contests",
 ]
 correct = "C"
-explanation = "Product safety standards and AHJ/listing requirements govern equipment marking; a facilities tier label does not replace those product-level requirements."
+explanation = "Equipment marking follows product-safety standards and AHJ or listing requirements; an internal poster, a PUE contest, or a facility Tier label does not provide product acceptance."
 topic_ids = ["m02-subcomponent-standards", "m02-code-vs-standard"]
 objective_ids = []
 bloom = "understand"

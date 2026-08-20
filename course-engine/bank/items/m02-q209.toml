@@ -16,7 +16,7 @@ choices = [
   "Whether applicable adopted codes and AHJ requirements for the jurisdiction have been met"
 ]
 correct = "D"
-explanation = "Code compliance is jurisdictional and AHJ-defined, not a substitute slogan from a voluntary standard."
+explanation = "The code-compliance answer depends on the applicable adopted codes and AHJ requirements for that jurisdiction; a density number, modern logo wall, or stored international PDF cannot prove compliance."
 topic_ids = ["m02-code-vs-standard", "m02-intl-vs-national"]
 objective_ids = []
 bloom = "apply"

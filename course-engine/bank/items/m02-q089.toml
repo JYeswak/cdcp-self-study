@@ -15,7 +15,7 @@ choices = [
   "Provide broadly usable technical documents that countries and markets may adopt or reference differently",
 ]
 correct = "D"
-explanation = "International standards are tools for alignment; adoption remains a national/project decision."
+explanation = "International standards provide broadly usable technical alignment that countries and projects may adopt or reference differently; they do not replace national codes, ban standards bodies, or turn marketing into design criteria."
 topic_ids = ["m02-intl-vs-national"]
 objective_ids = []
 bloom = "understand"

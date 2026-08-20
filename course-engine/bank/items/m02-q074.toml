@@ -10,7 +10,7 @@ choices = [
   "Related to data centre infrastructure topics",
 ]
 correct = "B"
-explanation = "TIA-942 Rated is not automatically the same as an Uptime Tier certification."
+explanation = "TIA-942 Rated is its own telecommunications-facility framework, not an Uptime Tier certificate by default; it can still appear in specifications and address related infrastructure topics without becoming the other program."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = []
 bloom = "understand"

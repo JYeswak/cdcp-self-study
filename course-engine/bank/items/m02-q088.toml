@@ -10,7 +10,7 @@ choices = [
   "Invent a hybrid “Tier-Rated-5” label to impress auditors without defined criteria",
 ]
 correct = "D"
-explanation = "Hybrid marketing labels without defined criteria create confusion and false assurance."
+explanation = "The made-up hybrid label has no defined criteria or assessment meaning; keeping TIA and Uptime labels distinct, naming the owner-required process, and mapping features to that framework avoids false assurance."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = []
 bloom = "apply"

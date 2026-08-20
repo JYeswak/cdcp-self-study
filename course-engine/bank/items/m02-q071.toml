@@ -16,7 +16,7 @@ choices = [
   "Facility performance depends on equipment and systems that are themselves covered by product/system standards",
 ]
 correct = "D"
-explanation = "Sub-component standards cover the products and systems whose performance contributes to the facility outcome; the public CDCP syllabus places this under Standards for sub-components."
+explanation = "Product and system standards define performance for devices such as cabling, fire detection, and electrical equipment that feed the facility outcome; the facility standard cannot name every model, replace the AHJ, or limit the topic to kitchens."
 topic_ids = ["m02-subcomponent-standards"]
 objective_ids = []
 bloom = "understand"

@@ -16,7 +16,7 @@ choices = [
   "A North American only telecom cabling colour chart",
 ]
 correct = "B"
-explanation = "EN 50600 is the European series commonly referenced for data centre facilities topics."
+explanation = "EN 50600 is a European data-centre facilities and infrastructure series; it is not an OEM manual, a permit replacement, or a North American wiring colour chart."
 topic_ids = ["m02-en50600-series"]
 objective_ids = []
 bloom = "remember"

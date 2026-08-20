@@ -10,7 +10,7 @@ choices = [
   "Because neither ever relates to facilities",
 ]
 correct = "A"
-explanation = "RFP and regional practice may cite different series; operators track both without treating them as clones."
+explanation = "International and regional series can both appear in RFPs, audits, and local practice without identical wording; tracking both is useful, while treating them as clones or as irrelevant misses the project context."
 topic_ids = ["m02-iso22237-series", "m02-en50600-series", "m02-intl-vs-national"]
 objective_ids = []
 bloom = "understand"

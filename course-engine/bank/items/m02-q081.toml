@@ -17,7 +17,7 @@ choices = [
   "Carry criminal penalties by themselves in all cities, even when the document has not been adopted by code, contract, or organizational policy",
 ]
 correct = "C"
-explanation = "Guides recommend practice; binding force comes from adoption into law, contract, or policy."
+explanation = "The guideline recommends practice and becomes binding only through code, contract, or policy adoption; it does not automatically override the AHJ or carry criminal penalties by itself."
 topic_ids = ["m02-standards-guidelines", "m02-code-vs-standard"]
 objective_ids = []
 bloom = "understand"

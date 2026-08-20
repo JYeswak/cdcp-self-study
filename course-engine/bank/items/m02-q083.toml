@@ -10,7 +10,7 @@ choices = [
   "Accepted as identical under the bid's terminology, despite different assessment meanings",
 ]
 correct = "B"
-explanation = "Different frameworks and certification claims are not freely substitutable in contracts."
+explanation = "An RFP’s Uptime Tier certification requirement is not met by an unagreed TIA Rated design-intent phrase; the frameworks, assessment meanings, and bid obligations differ."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = []
 bloom = "apply"

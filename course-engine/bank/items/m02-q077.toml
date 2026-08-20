@@ -10,7 +10,7 @@ choices = [
   "Ignore EN 50600 entirely always",
 ]
 correct = "A"
-explanation = "Awareness-level learning recognizes the series’ place in the landscape without treating it as a code dump."
+explanation = "Awareness lets learners recognize ISO/IEC 22237’s place among facility and infrastructure frameworks without memorizing every clause; it does not replace electrical inspections or justify ignoring EN 50600."
 topic_ids = ["m02-iso22237-series"]
 objective_ids = []
 bloom = "remember"

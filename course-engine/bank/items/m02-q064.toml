@@ -16,7 +16,7 @@ choices = [
   "The marketing brochure",
 ]
 correct = "A"
-explanation = "AHJ-enforced adopted code takes precedence over voluntary guidance when they conflict."
+explanation = "The AHJ’s adopted code controls the legal outcome when it conflicts with voluntary guidance; an email, blog, or brochure cannot displace that jurisdictional requirement."
 topic_ids = ["m02-code-vs-standard"]
 objective_ids = []
 bloom = "apply"

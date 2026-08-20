@@ -10,7 +10,7 @@ choices = [
   "Only lighting lux levels",
 ]
 correct = "B"
-explanation = "Tier thinking focuses on facility infrastructure topology and concurrent maintainability concepts, not software quality."
+explanation = "Uptime Tier concepts focus on facility-infrastructure topology and concurrent maintainability; patch-panel colour, application code, and lighting lux do not establish that resilience property."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = []
 bloom = "understand"

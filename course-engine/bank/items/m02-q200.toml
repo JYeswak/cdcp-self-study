@@ -16,7 +16,7 @@ choices = [
   "The AHJ-enforced code requirements prevail for compliance"
 ]
 correct = "D"
-explanation = "Codes enforced by the Authority Having Jurisdiction are mandatory; voluntary standards do not override them."
+explanation = "The AHJ-enforced adopted code governs legal compliance; a low PUE, marketing brochure, or international standard cannot void that jurisdictional requirement."
 topic_ids = ["m02-code-vs-standard"]
 objective_ids = []
 bloom = "apply"

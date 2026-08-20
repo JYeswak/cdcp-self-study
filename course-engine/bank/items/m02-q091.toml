@@ -16,7 +16,7 @@ choices = [
   "Apply owner-approved voluntary standards and good engineering practice while still meeting all code minimums that do apply",
 ]
 correct = "D"
-explanation = "Where code is silent, voluntary standards and engineering practice guide design—without undercutting applicable code."
+explanation = "When code is silent on a data-centre-specific issue, owner-approved voluntary standards and good engineering practice can guide design while applicable code still controls; a blog number, blanket code silence, or refusal to use guidance is not a professional method."
 topic_ids = ["m02-code-vs-standard", "m02-standards-guidelines"]
 objective_ids = []
 bloom = "apply"
