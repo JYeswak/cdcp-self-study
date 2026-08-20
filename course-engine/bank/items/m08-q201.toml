@@ -8,9 +8,9 @@ kind = "single-select"
 module = 8
 stem = "Rack unit (U) height is used to:"
 choices = [
-  "Express vertical equipment height in standardized increments for planning density",
-  "Measure only cable AWG",
-  "Replace nameplate amperage",
+  "Standardized vertical increments for equipment height",
+  "Measure only cable AWG and its associated conductor sizing",
+  "Replace nameplate amperage and electrical load data",
   "Indicate fire rating of the room"
 ]
 correct = "A"

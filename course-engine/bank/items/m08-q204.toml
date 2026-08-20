@@ -9,10 +9,10 @@ kind = "single-select"
 module = 8
 stem = "Intelligent or metered rack PDUs help operations mainly by:"
 choices = [
-  "Removing the need for any upstream UPS",
+  "Removing any need for upstream UPS capacity or operational planning",
   "Replacing all fire detection",
   "Cooling servers with airflow from the PDU plastic",
-  "Providing outlet-level or strip-level power visibility and sometimes remote control for capacity and recovery"
+  "Outlet or strip power visibility and remote control"
 ]
 correct = "D"
 explanation = "Rack PDUs add distribution, measurement, and management at the rack edge."

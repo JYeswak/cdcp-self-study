@@ -8,10 +8,10 @@ kind = "single-select"
 module = 8
 stem = "Electronic rack handles integrated with badge/DCIM systems primarily add:"
 choices = [
-  "Higher PUE always",
+  "Higher PUE from extra electronics and access controls",
   "Automatic 2N power",
   "Free cooling",
-  "Audit trails and controlled access events at the cabinet",
+  "Audit trails and controlled cabinet access",
 ]
 correct = "D"
 explanation = "Electronic locks support accountability and policy enforcement."

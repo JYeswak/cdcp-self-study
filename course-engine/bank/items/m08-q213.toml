@@ -14,7 +14,7 @@ module = 8
 stem = "A GPU-hall BOM is stamped “liquid-ready” because every cabinet is 800 mm EIA-310. There is no UQD landing, no blind-mate coupler, and no manifold interface. The apply call is:"
 choices = [
   "Approve the stamp: 800 mm width is the liquid-ready definition; OCP ORv3 and UQD are optional brand names",
-  "Refuse the width stamp: liquid-ready is the coupling and manifold interface, not 800 mm. Name UQD and blind-mate as that landing; an EIA box with no coupler is a wide air cabinet",
+  "Name UQD and blind-mate landing",
   "Convert 800 mm into a TIA-942 Rated=Tier chart so width becomes Tier IV when adopted",
   "Drop blanking: an 800 mm frame retires the air seal even when network stays air-cooled",
 ]

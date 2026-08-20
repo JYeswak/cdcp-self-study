@@ -15,7 +15,7 @@ stem = "A GPU-hall rack walk is conducted only in 19-inch EIA-310 plus cabinet w
 choices = [
   "Accept the EIA-only frame: 2026 GPU halls are still 19-inch plus width; Open Compute is a vendor brochure",
   "Freeze a connector millimetre from memory so the EIA cabinet becomes an open rack without a published spec",
-  "Reframe the conversation in OCP terms — Open Rack v3 (ORv3) is the 2026 open rack — and demand a published-spec coupling (do not invent a millimetre or revision). Keep blanking: network remains air-cooled",
+  "Use OCP ORv3 terms and published coupling",
   "Move the whole question to Module 09 plant families and ignore the rack interface",
 ]
 correct = "C"

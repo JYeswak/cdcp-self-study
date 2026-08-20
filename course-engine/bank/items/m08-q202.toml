@@ -9,9 +9,9 @@ module = 8
 stem = "Open-frame racks versus enclosed cabinets trade off:"
 choices = [
   "Zero need for grounding on open frames",
-  "Service access and airflow openness against physical security, exhaust control, and aesthetics/containment interfaces",
+  "Service access and airflow versus physical security",
   "Automatic higher fire resistance always for open frames",
-  "Enclosed cabinets never needing cable management"
+  "Enclosed cabinets never need cable management or containment interfaces"
 ]
 correct = "B"
 explanation = "Frame vs cabinet is an access/security/airflow trade, not a free lunch."

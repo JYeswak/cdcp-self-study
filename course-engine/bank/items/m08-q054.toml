@@ -9,8 +9,8 @@ stem = "A/B rack PDU discipline means:"
 choices = [
   "Both strips feed from the same single upstream breaker by design",
   "Only path A is ever energized",
-  "Separate PDUs fed from independent paths so dual-corded gear keeps diversity to the outlet",
-  "PDUs replace STS and UPS",
+  "Separate PDUs on independent paths preserve diversity",
+  "PDUs replace STS and UPS when power paths are designed",
 ]
 correct = "C"
 explanation = "A/B strips preserve dual-path design at the rack."

@@ -9,9 +9,9 @@ kind = "single-select"
 module = 8
 stem = "Cage nuts and matching screws matter because:"
 choices = [
-  "Random partial-thread fasteners strip rails and create unreliable mounts",
-  "Any screw size works in every rail",
-  "Tool-less rails forbid all fasteners forever",
+  "Matching fasteners prevent unreliable rail mounts",
+  "Any screw size works in every rail without checking thread or engagement",
+  "Tool-less rails forbid all fasteners forever, even for accessories",
   "Grounding is achieved only by paint",
 ]
 correct = "A"

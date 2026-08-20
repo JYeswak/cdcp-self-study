@@ -8,8 +8,8 @@ kind = "single-select"
 module = 8
 stem = "In colocation, the primary tenant security boundary is often the:"
 choices = [
-  "Shared aisle lighting circuit",
-  "Cage (with cabinets possibly locked for dual-control or regulated workloads)",
+  "A shared aisle lighting circuit and its tenant boundary controls",
+  "A cage, with cabinets locked for regulated workloads",
   "Public lobby Wi-Fi password",
   "Only the UPS room door",
 ]

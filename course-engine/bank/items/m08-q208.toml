@@ -11,7 +11,7 @@ choices = [
   "Cords land on diverse power paths as designed",
   "PDUs are labeled and load-balanced thoughtfully",
   "Upstream A/B diversity is maintained through maintenance",
-  "Both cords land on PDUs fed from the same single upstream failure domain without diversity"
+  "Shared upstream failure domain"
 ]
 correct = "D"
 explanation = "Rack dual-cording must map to true upstream diversity or it is cosmetic."

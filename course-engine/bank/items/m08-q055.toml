@@ -9,7 +9,7 @@ module = 8
 stem = "Metered rack PDUs help operations mainly by:"
 choices = [
   "Removing branch circuit breakers upstream",
-  "Providing load visibility for capacity management and avoiding silent overload",
+  "Load visibility for capacity management",
   "Eliminating phase balance concerns",
   "Making grounding optional",
 ]

@@ -8,7 +8,7 @@ module = 8
 stem = "A GPU hall is specified as “the same 600 mm air cabinet as the colo row, just more kW.” The cabinet SKU call is:"
 choices = [
   "Approve 600 mm: 19″ rails make every cabinet liquid-ready regardless of width or structure",
-  "Refuse the 600 mm air SKU — a liquid-ready / GPU-hall cabinet is its own product: typically 800 mm for hose and manifold volume, RDHx as a rear-door rack product, drip pans, a planned CDU landing, and 40–100 kW structure/weight; Module 09 owns the liquid families",
+  "A separate liquid-ready GPU cabinet product",
   "Treat width as a TIA-942 Rated=Tier chart so 600 mm becomes Tier IV when adopted",
   "Keep the air cabinet and freeze a recommended inlet °C pair as law instead of changing the SKU",
 ]

@@ -8,9 +8,9 @@ kind = "single-select"
 module = 8
 stem = "Hot-aisle/cold-aisle rack orientation places equipment so that:"
 choices = [
-  "All exhausts blow into the cold aisle intentionally",
-  "Side-breathing gear is preferred without design review",
-  "Front intakes face the cold supply aisle and exhausts face the hot return aisle",
+  "All exhausts blow into the cold aisle intentionally, regardless of airflow design",
+  "Side-breathing gear is preferred without design review or airflow separation",
+  "Front intakes face cold supply; exhausts face hot return",
   "Racks face randomly for aesthetics",
 ]
 correct = "C"

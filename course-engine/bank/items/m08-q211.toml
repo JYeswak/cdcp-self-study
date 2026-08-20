@@ -9,7 +9,7 @@ stem = "Reviewer is handed a GPU-hall cabinet schedule: 42U 600 mm air cabinets,
 choices = [
   "Approve the schedule: cold-plate compute retires both the air cabinet and blanking, and TIA-942 Rated equals the site Tier",
   "Convert the review into a Module 09 plant-family pick and ignore the frame",
-  "Reject the air SKU and the blanking skip: mark 800 mm hose/manifold volume, RDHx as a rack product, drip, a reserved CDU landing, and 40–100 kW structure; keep blanking because network stays air-cooled; an immersion tank would be a different SKU, not a deep 42U",
+  "Reject the air SKU and blanking skip",
   "Keep 600 mm and raise a frozen ASHRAE recommended °C pair so the air cabinet becomes liquid-ready",
 ]
 correct = "C"

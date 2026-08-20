@@ -8,9 +8,9 @@ kind = "single-select"
 module = 8
 stem = "Wall-mount cabinets are typically limited by:"
 choices = [
-  "Unlimited U and weight for full GPU trains",
-  "U capacity, weight, wall structure, and swing clearance—edge/IDF use cases",
-  "Mandatory use in all hyperscale halls",
+  "Unlimited U and weight for full GPU trains mounted on any wall",
+  "U capacity, weight, wall structure, and clearance",
+  "Mandatory in all hyperscale halls regardless of structure",
   "Replacing row containment",
 ]
 correct = "B"

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 8
 stem = "When selecting plug types and branch circuits for rack PDUs, the binding constraint is:"
 choices = [
-  "Local electrical code, receptacle ratings, and continuous-load planning—not marketing alone",
+  "Code, receptacle ratings, and continuous-load planning",
   "Brochure aesthetics only",
   "Only the colour of the cord",
-  "Whether the cabinet is 600 or 800 mm exclusively",
+  "Whether the cabinet is 600 or 800 mm, regardless of electrical design",
 ]
 correct = "A"
 explanation = "Code and circuit ratings govern; match plug, whip, and breaker design."

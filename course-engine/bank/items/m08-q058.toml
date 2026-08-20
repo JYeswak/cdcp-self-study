@@ -8,9 +8,9 @@ kind = "single-select"
 module = 8
 stem = "Seismic-rated racks are relevant when:"
 choices = [
-  "Only coastal humidity is high",
+  "Only coastal humidity and corrosion, regardless of structural need",
   "PUE must be below 1.1",
-  "Earthquake zones and structural/anchoring requirements apply",
+  "Earthquake zones and anchoring requirements",
   "Fibre counts exceed copper",
 ]
 correct = "C"

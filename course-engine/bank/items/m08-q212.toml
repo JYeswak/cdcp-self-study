@@ -10,7 +10,7 @@ choices = [
   "Drop blanking: liquid compute retires the air seal and unused U no longer recirculates",
   "Keep blanking only if the site adopted TIA-942 as a Rated=Tier statute",
   "Replace blanking with an official EPI® blanking certificate",
-  "Keep blanking: network gear stays air-cooled, so unused U and cable openings still recirculate; liquid-ready does not retire the air seal",
+  "Keep blanking for air-cooled network gear",
 ]
 correct = "D"
 explanation = "Hybrid halls keep air-cooled networking. Blanking remains required. Liquid-ready is the cabinet SKU, not a waiver of the air seal."

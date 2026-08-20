@@ -8,7 +8,7 @@ kind = "single-select"
 module = 8
 stem = "Zero-U rack PDUs are typically mounted:"
 choices = [
-  "In the vertical space at the rear/side of the cabinet without consuming horizontal U",
+  "Rear/side vertical space without using horizontal U",
   "Only as 2U horizontal shelves in the middle of servers",
   "Outside the building exclusively",
   "In the CRAH return plenum",

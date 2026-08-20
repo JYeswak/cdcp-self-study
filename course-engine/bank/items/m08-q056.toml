@@ -10,7 +10,7 @@ choices = [
   "You want to defeat dual-path redundancy silently",
   "Utility generators should not be tested",
   "Blanking panels are unavailable",
-  "Remote power cycling of outlets is an approved operational need",
+  "Approved remote outlet power cycling",
 ]
 correct = "D"
 explanation = "Switched PDUs enable remote outlet control under change control—use carefully."

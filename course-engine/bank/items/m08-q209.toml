@@ -8,8 +8,8 @@ kind = "single-select"
 module = 8
 stem = "Cabinet perforation percentage and door design can affect cooling because:"
 choices = [
-  "Restricted doors can impede airflow into or out of equipment even if room supply is adequate",
-  "Doors never interact with airflow",
+  "Doors can impede equipment airflow",
+  "Doors never interact with airflow or equipment service conditions",
   "Solid doors always improve inlet temperatures for front-to-back gear",
   "Perforation only matters for security cameras"
 ]

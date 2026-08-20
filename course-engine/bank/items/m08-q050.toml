@@ -7,9 +7,9 @@ kind = "single-select"
 module = 8
 stem = "Rack-level security (locks, side panels, door contacts) should be understood as:"
 choices = [
-  "A complete substitute for room access control",
+  "A complete substitute for room access control and tenant security",
   "Unnecessary in multi-tenant colo",
-  "A last-resort zone and compliance control within layered facility security",
+  "A last-resort zone and compliance control within layered security",
   "Only cosmetic",
 ]
 correct = "C"
