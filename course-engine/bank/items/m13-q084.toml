@@ -10,9 +10,9 @@ kind = "single-select"
 module = 13
 stem = "Anti-passback rules are intended to:"
 choices = [
-  "Cool the hot aisle automatically",
-  "Replace fire extinguishers",
-  "Increase UPS runtime",
+  "Cool the hot aisle automatically through the access-control panel",
+  "Replace portable extinguishers with anti-passback",
+  "Increase UPS runtime by sequencing badge reads",
   "Reduce badge sharing and enforce enter/exit sequencing"
 ]
 correct = "D"

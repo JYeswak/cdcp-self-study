@@ -10,9 +10,9 @@ module = 13
 stem = "A mantrap (security vestibule) is best described as:"
 choices = [
   "Interlocking doors forming a controlled chamber so two doors are not open as a free path",
-  "A camera blind spot behind a rack",
-  "An emergency power-off station type",
-  "A raised-floor pedestal style"
+  "A camera blind spot behind a rack that records visitors but provides no interlocking door control",
+  "An emergency power-off station used to disconnect equipment, not a controlled passage",
+  "A raised-floor pedestal style that supports cabinets but does not regulate person movement"
 ]
 correct = "A"
 explanation = "Mantraps interlock outer/inner doors to reduce tailgating and enable high-assurance checks."

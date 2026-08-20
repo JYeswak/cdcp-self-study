@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "Periodic access rights reviews are important because:"
 choices = [
-  "Access lists never go stale",
-  "Contractors never leave projects",
+  "Access lists never go stale when managers approve the original role and the directory remains connected",
+  "Contractors never leave projects when a work order remains open and the sponsor has not closed it",
   "Role changes and terminations leave residual access if never recertified",
-  "Reviews only matter for software admin rights, never doors"
+  "Reviews matter for software administration but not doors when the access team owns physical badges"
 ]
 correct = "C"
 explanation = "Joiner-mover-leaver hygiene applies to physical credentials too."

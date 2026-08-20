@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "Guard force or remote monitoring procedures add value when they include:"
 choices = [
-  "Only informal chats without records",
-  "Sleeping through door forced alarms",
+  "Informal chats with guards can substitute for written patrol records when the shift is quiet",
+  "Sleeping through door-forced alarms while the monitoring console records them for later review",
   "Documented escalation paths, patrols/verification, and incident reporting discipline",
-  "Disabling alarms to reduce noise without investigation"
+  "Disabling alarms to reduce noise while a supervisor assumes the incident has another cause"
 ]
 correct = "C"
 explanation = "Human security layers need procedure and documentation to be real controls."

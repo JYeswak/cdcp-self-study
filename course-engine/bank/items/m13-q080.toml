@@ -9,9 +9,9 @@ kind = "single-select"
 module = 13
 stem = "Progressive zoning means access should generally:"
 choices = [
-  "Jump from parking lot to white space with one uncontrolled door whenever convenient",
-  "Ignore grey-space plant rooms as low value",
-  "Use the same master key under every doormat",
+  "Jump from parking lot to white space with one uncontrolled door whenever convenient, relying on a checkpoint label rather than successive access decisions",
+  "Treat grey-space plant rooms as lower risk and skip their checkpoint",
+  "Use a shared key across zones after the first identity check",
   "Increase restriction through successive checkpoints (public → controlled → restricted → highly restricted)"
 ]
 correct = "D"

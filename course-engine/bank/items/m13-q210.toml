@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "Asset cages or demarcated customer spaces in colocation improve security by:"
 choices = [
-  "Removing the need for building perimeter controls",
+  "Removing the need for building perimeter controls when a tenant cage has its own lock and audit trail",
   "Providing tenant separation and controlled access within a shared building",
-  "Allowing unlimited shared keys across tenants",
-  "Eliminating CCTV needs"
+  "Allowing shared keys across tenants after a facilities manager approves the key cabinet and records the handoff",
+  "Eliminating CCTV needs when the cage door has a badge reader and the tenant provides its own camera"
 ]
 correct = "B"
 explanation = "Colo security is multi-tenant compartmentalization on top of site controls."

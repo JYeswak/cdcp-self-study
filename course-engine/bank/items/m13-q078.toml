@@ -9,10 +9,10 @@ kind = "single-select"
 module = 13
 stem = "Mantraps primarily reduce which casual security bypass?"
 choices = [
-  "UPS firmware exploits",
+  "Count UPS firmware exploits as a casual portal bypass after a credential is presented",
   "Tailgating / piggybacking through a single open portal",
-  "Fiber macrobend loss",
-  "PUE calculation errors"
+  "Treat fiber macrobend loss as a physical access problem during a badge check",
+  "Reduce PUE through cooling controls"
 ]
 correct = "B"
 explanation = "Interlocked chambers stop unauthorized persons following authorized staff through one door."
