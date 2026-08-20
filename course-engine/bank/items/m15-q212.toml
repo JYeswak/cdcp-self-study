@@ -14,7 +14,7 @@ choices = [
   "Cyber teams can care about physical layouts and access rather than operations"
 ]
 correct = "B"
-explanation = "Information control is part of physical security hygiene."
+explanation = "Detailed layouts can reveal physical attack paths; treating photos as harmless or posting them as transparency exposes information, and physical layout is relevant to security as well as cyber operations."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "understand"

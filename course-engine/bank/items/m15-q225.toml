@@ -13,7 +13,7 @@ choices = [
   "Send everyone to an EPI / certification class; a credential hour-count substitutes for the PTW board"
 ]
 correct = "A"
-explanation = "Floor management is who is on the floor, what work is live, and whether the change still leaves N+1. Cleaning is one control inside that set, not the heading. No invented outage percent. No EPI / certification substitute."
+explanation = "Floor management controls who is present, live work, permits, and remaining capacity; a cleaning rota, an invented outage percentage, or an EPI hour-count does not replace the PTW board and N+1 check."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "analyze"

@@ -15,7 +15,7 @@ choices = [
   "Are purely decorative with no ops effect"
 ]
 correct = "C"
-explanation = "Standard visual language speeds correct action under stress."
+explanation = "Standard visual language reduces misinterpretation under stress but does not replace unique circuit IDs, panel schedules, or the operational meaning of labels."
 topic_ids = ["m15-labelling", "m15-documentation"]
 objective_ids = []
 bloom = "understand"

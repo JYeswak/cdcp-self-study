@@ -15,7 +15,7 @@ choices = [
   "Disabling safety interlocks for speed"
 ]
 correct = "A"
-explanation = "The public eCFR anchors the bounded safety decision: hazardous-energy servicing requires an energy-control program and procedures where unexpected energization or stored-energy release can injure workers; PPE requires a hazard-based control; and electrical-hazard work on utilization installations belongs to Subpart S per 1910.147(a)(1)(ii)(D) exclusion. The item does not replace site risk assessment, an AHJ rule, or a task-specific procedure."
+explanation = "LOTO, PPE, training, and energized boundaries control the hazards; working alone on unfamiliar gear, using water near electrical faults, or disabling interlocks removes rather than supplies those protections. The public eCFR anchors this bounded safety decision."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "remember"

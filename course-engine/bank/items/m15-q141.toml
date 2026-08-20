@@ -13,7 +13,7 @@ choices = [
   "Impair cooling airflow, contaminate equipment, and increase fire fuel/ignition risk"
 ]
 correct = "D"
-explanation = "Controlled cleaning is availability and fire hygiene, not hotel housekeeping alone."
+explanation = "Controlled cleaning protects airflow, equipment, and fire hygiene; treating it as appearance-only misses contamination and fuel-load risk."
 topic_ids = ["m15-cleaning"]
 objective_ids = []
 bloom = "understand"

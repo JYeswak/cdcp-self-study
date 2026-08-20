@@ -13,7 +13,7 @@ choices = [
   "Still a procedure if the approval signatures are wet-ink and the font of the warnings is large"
 ]
 correct = "A"
-explanation = "DOE O 422.1 requires specified procedure-use requirements (reader-worker, reference, use-each-time, emergency response). An undeclared level of use is how a competent engineer skips a step and still says they followed the procedure."
+explanation = "DOE O 422.1 requires a declared procedure-use level; sole-author validation, an assumed emergency shortcut, or wet signatures cannot replace the use requirement that keeps the worker at the step."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "understand"

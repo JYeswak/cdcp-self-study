@@ -16,7 +16,7 @@ choices = [
   "Assign all safety decisions to the newest technician"
 ]
 correct = "B"
-explanation = "DOE NE O 422.1's conduct-of-operations model assigns organizational roles and accountability, safe-work accountability, and hazard-analysis/control responsibilities. The bounded lesson is to make those assignments visible in the organization chart; it does not invent a universal staffing ratio or a proprietary data-center taxonomy."
+explanation = "The chart must show accountability and control ownership; a vendor contact list, titles without assignments, or handing safety to the newest technician does not establish the safe-work path. DOE NE O 422.1 supplies the bounded model."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "apply"

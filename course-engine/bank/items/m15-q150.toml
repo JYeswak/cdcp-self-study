@@ -13,7 +13,7 @@ choices = [
   "Elimination of detection systems"
 ]
 correct = "C"
-explanation = "Ops rounds catch propped doors, blocked exits, and fuel loads—cheap high-value controls."
+explanation = "Rounds catch propped doors, blocked exits, and fuel loads; they support life safety and security, not executive appearance, rack-density gains, or removal of detection systems."
 topic_ids = ["m15-ops-security", "m15-cleaning"]
 objective_ids = []
 bloom = "apply"

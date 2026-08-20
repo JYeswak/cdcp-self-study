@@ -13,7 +13,7 @@ choices = [
   "By memory during the next outage"
 ]
 correct = "B"
-explanation = "Documentation is a controlled product of change, not an annual archaeology project."
+explanation = "Update controlled drawings when the field changes; waiting for an auditor or relying on memory during an outage leaves operators with a trusted-wrong path."
 topic_ids = ["m15-documentation", "m15-labelling"]
 objective_ids = []
 bloom = "apply"

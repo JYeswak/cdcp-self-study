@@ -17,7 +17,7 @@ choices = [
   "1910.147 already covers every electric-utilization installation, so a second citation is decoration"
 ]
 correct = "B"
-explanation = "OSHA 1910.147 excludes electrical-hazard exposure in electric-utilization installations, while 1910.333 requires electrical work practices including physical disconnection, stored-energy control, lockout/tagging, verification, and safe re-energization."
+explanation = "Subpart S covers electrical-hazard work on utilization installations, and HMI bypass or a utility tariff does not provide physical isolation; 1910.147 alone is not a blanket substitute for disconnecting, locking, releasing, and verifying absence of voltage."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "understand"

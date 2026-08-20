@@ -13,7 +13,7 @@ choices = [
   "Increase tour marketing photos and visitor engagement"
 ]
 correct = "A"
-explanation = "Escort is both security and safety near live electrical/mechanical hazards."
+explanation = "Escort controls unauthorized access and exposure near live plant; it does not waive LOTO, disable security cameras, or turn a safety control into a marketing tour."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "understand"

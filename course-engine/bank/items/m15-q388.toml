@@ -16,7 +16,7 @@ choices = [
   "Replace service entries with supplier contact cards"
 ]
 correct = "C"
-explanation = "The DfE Service Management standard, Version 1, includes Service Catalogue Management and identifies a central list and availability of supported services as a benefit. The item stays at the CDFOM Service catalogue heading and does not invent a data-center catalogue schema."
+explanation = "A service catalogue is a central list of supported services and availability; failed assets, shift notes, and supplier contact cards are fragments, not a service view. The DfE Service Management standard, Version 1, supports that distinction."
 topic_ids = ["m15-maintenance-sla", "m15-documentation"]
 objective_ids = []
 bloom = "apply"
