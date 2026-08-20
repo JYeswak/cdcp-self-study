@@ -73,6 +73,11 @@ Usage: install.sh [--prefix DIR] [--version [VER]] [--from-source] [--no-modify-
                   [--release-json FILE] [--help]
 One-liner:
   curl -fsSL https://raw.githubusercontent.com/JYeswak/cdcp-self-study/main/course-engine/install.sh | bash
+
+Source fallback prerequisite: Cargo and a usable Rust toolchain. This installer
+does not install Rust. If Cargo has no configured default, it will try the
+installed stable toolchain (`cargo +stable`); otherwise configure one first,
+for example with `rustup default stable`.
 EOF
 }
 
@@ -507,9 +512,7 @@ maybe_path() {
 }
 
 need_cargo() {
-  have cargo && return 0
-  # Never rustup-init (D1). A (y/N) here would use ask_tty, never stdin.
-  die "cargo not on PATH — refusing to install a toolchain (this is not rustup-init). Install Rust, then re-run --from-source."
+  have cargo || die "cargo not on PATH — source fallback requires Cargo and a Rust toolchain; refusing to install a toolchain (this is not rustup-init). Install Rust, then re-run --from-source."
 }
 
 maybe_copy_web_from_checkout() {

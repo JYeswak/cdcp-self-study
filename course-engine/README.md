@@ -14,6 +14,12 @@ Local-first **HTML course + browser grading** for the CDCP self-study corpus.
 curl -fsSL https://raw.githubusercontent.com/JYeswak/cdcp-self-study/main/course-engine/install.sh | bash
 ```
 
+If no GitHub release is available, the installer falls back to building from
+source. That path requires Cargo and a usable Rust toolchain; the installer
+does not install Rust. Install stable with rustup first (for example,
+`rustup default stable`). If stable is installed but no default is configured,
+the installer will try `cargo +stable`.
+
 Then `cdcp study`. `--prefix DIR` · `--from-source` · `--verify` · `--uninstall` (keeps `var/attempts`).
 
 1. Constitution: [`docs/ORACLE-GAUNTLET.md`](./docs/ORACLE-GAUNTLET.md)
