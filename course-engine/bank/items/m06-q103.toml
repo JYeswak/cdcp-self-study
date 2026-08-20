@@ -8,7 +8,7 @@ module = 6
 stem = "Renewables in critical-facility energy strategy typically:"
 choices = [
   "Automatically replace firm capacity with no storage or risk analysis",
-  "Complement firm capacity (genset/contracts/storage) rather than magically erase 24×7 backup needs",
+  "Complement firm capacity",
   "Remove code requirements for grounding",
   "Force N topology only",
 ]

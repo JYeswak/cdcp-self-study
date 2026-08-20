@@ -10,8 +10,8 @@ stem = "Overhead busway in white space is often selected to:"
 choices = [
   "Increase intentional EMF exposure",
   "Replace fire detection systems",
-  "Enable flexible tap-off power along a row without full recabling of every change",
-  "Cool GPU cold plates directly",
+  "Flexible tap-off power along a row",
+  "Cool GPU cold plates directly from busway",
 ]
 correct = "C"
 explanation = "Busway/tap-offs support reconfiguration agility for row power."

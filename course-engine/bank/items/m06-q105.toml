@@ -7,9 +7,9 @@ kind = "single-select"
 module = 6
 stem = "Remote Power Panels (RPPs) are typically:"
 choices = [
-  "Breaker panels closer to the load, fed from upstream distribution",
+  "Distribution panels near the load",
   "Only outdoor pad-mounted generators",
-  "Software-defined networking controllers",
+  "Software-defined networking controllers for power distribution",
   "Battery monitoring-only devices",
 ]
 correct = "A"

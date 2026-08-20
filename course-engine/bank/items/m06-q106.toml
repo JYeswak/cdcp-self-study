@@ -9,8 +9,8 @@ module = 6
 stem = "Metered or switched rack PDUs add operational value by:"
 choices = [
   "Eliminating A/B dual feeds always",
-  "Replacing upstream UPS",
-  "Providing outlet/branch visibility and controlled power actions for capacity and remote ops",
+  "Replacing upstream UPS rather than managing rack load",
+  "Outlet visibility and control",
   "Removing need for labeling",
 ]
 correct = "C"

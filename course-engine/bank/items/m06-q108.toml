@@ -8,9 +8,9 @@ module = 6
 stem = "Wet stacking risk is associated with diesel generators that:"
 choices = [
   "Always operate at full nameplate with load banks daily",
-  "Use only natural gas",
+  "Use only natural gas, regardless of fuel availability",
   "Have no exhaust system",
-  "Run extended periods at very light load without proper loaded exercise",
+  "Runs at light load without loaded exercise",
 ]
 correct = "D"
 explanation = "Chronic light load can foul diesel exhaust systems—loaded testing/exercise disciplines matter."

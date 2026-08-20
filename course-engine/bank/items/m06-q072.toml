@@ -12,7 +12,7 @@ choices = [
   "Zero heat in electrical rooms",
   "Negative kW that reduces cooling load",
   "Only network latency",
-  "Heat that must be managed as part of the facility thermal budget",
+  "Heat in facility thermal budget",
 ]
 correct = "D"
 explanation = "Transformer inefficiency becomes heat—plan electrical room cooling and overall energy."

@@ -8,7 +8,7 @@ module = 6
 stem = "Grounding (earthing) in electrical safety terms primarily means:"
 choices = [
   "Isolating every rack from any conductive path",
-  "Connect systems to earth for safety and fault reference",
+  "Connect systems to earth for a safety reference",
   "Removing equipment grounding conductors",
   "Bonding neutrals at every receptacle intentionally",
 ]

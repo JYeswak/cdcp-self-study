@@ -9,7 +9,7 @@ kind = "single-select"
 module = 6
 stem = "N+1 UPS modules share a single common battery string and a single output bus with no alternate path. A fair critique is:"
 choices = [
-  "Module redundancy may be undermined by shared single points of failure",
+  "Shared points undermine redundancy",
   "Shared batteries always double autonomy",
   "The topology is automatically fault-tolerant for any failure",
   "IP rating of the cabinet defines Tier level"

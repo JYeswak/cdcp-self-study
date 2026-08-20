@@ -11,7 +11,7 @@ stem = "A step-down transformer at a data centre service entrance commonly:"
 choices = [
   "Converts fibre optic signals to copper",
   "Provides chilled water free cooling",
-  "Changes voltage level (e.g. MV to LV plant voltage) for site use",
+  "Changes MV to LV plant voltage",
   "Meters only humidity",
 ]
 correct = "C"

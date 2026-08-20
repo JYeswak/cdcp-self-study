@@ -7,7 +7,7 @@ kind = "single-select"
 module = 6
 stem = "An operator sees UPS on bypass for an extended period. The most important availability concern is:"
 choices = [
-  "Critical load may sit unprotected from utility disturbances while bypassed",
+  "Bypass can leave the load unprotected",
   "Bypass always improves double-conversion filtering",
   "Bypass automatically starts the generator",
   "Bypass raises battery state of charge forever"

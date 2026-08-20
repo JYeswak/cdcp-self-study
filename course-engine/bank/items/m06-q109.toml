@@ -8,9 +8,9 @@ kind = "single-select"
 module = 6
 stem = "When interviewing, a strong answer to “ATS vs STS?” is:"
 choices = [
-  "ATS handles source transfer (e.g. utility/generator); STS provides very fast transfer between two live AC sources",
-  "They are identical devices with different stickers",
-  "STS only starts engines",
+  "ATS source transfer; STS fast live-source transfer",
+  "They are identical devices with different stickers and transfer characteristics",
+  "STS only starts engines and never transfers an electrical load",
   "ATS is only for DC plants",
 ]
 correct = "A"

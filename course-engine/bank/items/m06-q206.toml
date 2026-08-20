@@ -10,7 +10,7 @@ stem = "A design claims 2N to the rack, but A and B busways share one upstream s
 choices = [
   "Downstream dual cords always guarantee site-wide fault tolerance",
   "Shared switchboards improve isolation",
-  "Redundancy must be traced through the entire path; shared upstream gear can collapse 2N claims",
+  "Trace redundancy through the full path",
   "Only battery chemistry determines redundancy"
 ]
 correct = "C"

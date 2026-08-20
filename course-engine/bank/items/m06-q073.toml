@@ -7,7 +7,7 @@ kind = "single-select"
 module = 6
 stem = "Harmonic-rated or K-factor transformer discussions arise mainly because:"
 choices = [
-  "IT/non-linear loads can distort current; older plants may still need harmonic-capable gear",
+  "Nonlinear load current distortion",
   "Fibre links create magnetic saturation",
   "CRAH fans cannot run on three-phase",
   "Batteries never produce heat",

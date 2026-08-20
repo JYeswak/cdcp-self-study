@@ -8,9 +8,9 @@ module = 6
 stem = "A sustainability initiative that reduces generator testing or disables redundant plant without redesign is a risk because:"
 choices = [
   "It always increases fault tolerance",
-  "UPS modules become unnecessary",
+  "UPS modules become unnecessary when efficiency improves",
   "PUE is undefined afterward",
-  "It can harm availability even if it improves a short-term green metric",
+  "Can harm availability despite PUE gains",
 ]
 correct = "D"
 explanation = "Never greenwash by weakening MOPs, tests, or redundant capacity without engineered alternatives."

@@ -10,8 +10,8 @@ kind = "single-select"
 module = 6
 stem = "An isolation transformer provides:"
 choices = [
-  "Unlimited fault current always",
-  "Galvanic isolation between circuits and can help certain noise/ground issues—not a UPS substitute",
+  "Unlimited fault current always, regardless of transformer impedance or protection design",
+  "Galvanic isolation between circuits",
   "Automatic generator start",
   "PUE below 0.5 by definition",
 ]

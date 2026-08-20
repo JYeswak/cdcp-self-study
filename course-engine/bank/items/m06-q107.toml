@@ -9,9 +9,9 @@ module = 6
 stem = "During a utility outage with healthy design, the expected sequence is closest to:"
 choices = [
   "IT drops until generators finish a multi-hour warm-up with no UPS",
-  "UPS carries load; generators start; ATS transfers; UPS remains on conditioned path as designed",
+  "UPS carries load through generator transfer",
   "Fire system discharges immediately as the power path",
-  "Only lighting remains on generator forever",
+  "Only lighting remains",
 ]
 correct = "B"
 explanation = "UPS ride-through → genset start → transfer is the textbook sequence."

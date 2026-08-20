@@ -10,7 +10,7 @@ stem = "If IT load grows without refreshing UPS battery capacity, a likely resul
 choices = [
   "Longer measured autonomy at design load",
   "Automatic free 2N upgrade",
-  "Shorter real autonomy and risk of load drop before generator is online",
+  "Shorter real autonomy; load-drop risk",
   "PUE becoming an availability Tier",
 ]
 correct = "C"

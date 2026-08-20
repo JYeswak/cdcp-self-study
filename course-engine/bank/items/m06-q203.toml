@@ -9,9 +9,9 @@ module = 6
 stem = "If an ATS fails to transfer during a utility outage while UPS batteries deplete, the next failure mode is typically:"
 choices = [
   "Automatic free upgrade to 2N generators",
-  "PUE improves indefinitely",
-  "Transformers reverse polarity",
-  "Load drop when battery autonomy is exhausted"
+  "PUE improves indefinitely, even as batteries deplete",
+  "Transformers reverse polarity during an outage",
+  "Load drops at battery exhaustion"
 ]
 correct = "D"
 explanation = "UPS bridges the gap; without generator path and with empty batteries, the load falls."

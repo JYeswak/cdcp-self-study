@@ -7,8 +7,8 @@ kind = "single-select"
 module = 6
 stem = "Natural-gas or dual-fuel generators vs diesel is primarily a trade-off involving:"
 choices = [
-  "Fuel supply continuity, emissions/permitting, and site constraints—not a free lunch",
-  "Complete elimination of UPS systems",
+  "Fuel, emissions, and site constraints",
+  "Complete elimination of UPS systems, fuel planning, and transfer equipment",
   "Guaranteed higher UPS efficiency only",
   "No need for transfer switches",
 ]

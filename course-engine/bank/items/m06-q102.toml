@@ -7,9 +7,9 @@ kind = "single-select"
 module = 6
 stem = "A microgrid concept for data centres emphasizes:"
 choices = [
-  "Deleting all generators permanently",
+  "Deleting all generators permanently, regardless of resilience requirements",
   "Using only public Wi-Fi for controls",
-  "Local orchestration of multiple sources (utility, gens, renewables, BESS) with possible islanding under defined rules",
+  "Orchestrate utility, generators, renewables, and BESS",
   "Ignoring utility interconnection agreements",
 ]
 correct = "C"

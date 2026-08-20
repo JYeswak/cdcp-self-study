@@ -8,9 +8,9 @@ module = 6
 stem = "Capacity-parallel UPS without a spare module is running near full load. Adding one more IT rack without capacity review most risks:"
 choices = [
   "Automatic increase of generator fuel quality",
-  "Overload of the UPS plant and loss of any assumed redundancy margin",
-  "Elimination of harmonics",
-  "Bonding becoming unnecessary"
+  "UPS overload and lost redundancy margin",
+  "Elimination of harmonics, regardless of UPS capacity",
+  "Bonding becoming unnecessary because spare capacity is gone"
 ]
 correct = "B"
 explanation = "Without spare capacity, load growth consumes headroom and can overload the plant."

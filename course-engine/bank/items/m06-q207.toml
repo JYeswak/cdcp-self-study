@@ -11,7 +11,7 @@ choices = [
   "Generators never need transfer switches",
   "Break-before-make removes the need for fuel",
   "Open transition only affects fiber cabling",
-  "UPS covers the brief gap for IT; unprotected loads may drop during the open transition"
+  "UPS covers the IT transfer gap"
 ]
 correct = "D"
 explanation = "Open transition gaps are bridged by UPS energy for IT, not for all plant loads."
