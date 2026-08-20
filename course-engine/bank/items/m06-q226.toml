@@ -7,13 +7,13 @@ kind = "single-select"
 module = 6
 stem = "A hall shows 400 kW of unused UPS capacity, but the operator cannot install another GPU rack row. Which finding best explains this?"
 choices = [
-  "The flywheel ride-through is rated for fewer seconds than the racks require",
-  "The generator day tank holds less fuel than the runtime target",
+  "The UPS is loaded to 42%, below its best efficiency point",
+  "The utility service entrance is rated comfortably above the present total draw",
   "Cooling and branch distribution in that row are already at their limits",
-  "The UPS modules are configured for N rather than N+1 redundancy",
+  "The hall's PUE has risen slightly since commissioning",
 ]
 correct = "C"
-explanation = "Stranded capacity is headroom in one resource that another binding constraint -- here cooling and branch distribution -- makes unusable."
+explanation = "Stranded capacity is headroom in one resource that a constraint elsewhere makes unusable, so the finding has to name the binding constraint. Cooling and branch distribution do. Part-load UPS efficiency and a small PUE drift are real observations that cost money without limiting what can be installed, and an oversized service entrance says the opposite -- it reports headroom rather than a limit."
 topic_ids = ["m06-sizing", "m06-hpc"]
 objective_ids = []
 bloom = "apply"
