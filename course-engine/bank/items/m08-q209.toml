@@ -9,9 +9,9 @@ module = 8
 stem = "Cabinet perforation percentage and door design can affect cooling because:"
 choices = [
   "Doors can impede equipment airflow",
-  "Doors never interact with airflow or equipment service conditions",
-  "Solid doors always improve inlet temperatures for front-to-back gear",
-  "Perforation only matters for security cameras"
+  "Door design is decided by aesthetics rather than airflow",
+  "Solid doors improve inlet temperatures for front-to-back gear",
+  "Perforation percentage is a security specification",
 ]
 correct = "A"
 explanation = "Door open area is part of the thermal path for air-cooled equipment."

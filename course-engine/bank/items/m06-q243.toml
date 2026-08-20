@@ -8,10 +8,10 @@ kind = "single-select"
 module = 6
 stem = "Why might an engineer prefer STS at the load over relying solely on a mechanical ATS for IT?"
 choices = [
-  "STS always starts diesel engines",
-  "ATS cannot feed generators ever",
+  "An STS initiates the generator start sequence",
+  "An ATS cannot be fed from a generator",
   "STS replaces batteries entirely",
-  "STS can transfer between synchronized sources much faster for sensitive IT loads"
+  "STS can transfer between synchronized sources much faster for sensitive IT loads",
 ]
 correct = "D"
 explanation = "Solid-state transfer is about milliseconds-class source switching for IT."

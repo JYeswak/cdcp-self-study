@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "A catcher UPS arrangement is best applied when:"
 choices = [
-  "Every rack must share one cord only, regardless of dual-path design",
+  "Every rack must share a single cord regardless of dual-path design",
   "Generators are removed from the design",
   "Thermography is not performed",
-  "Shared UPS reserve can backstop primary systems"
+  "Shared UPS reserve can backstop primary systems",
 ]
 correct = "D"
 explanation = "Isolated-redundant/catcher designs provide a shared spare UPS resource."

@@ -8,9 +8,9 @@ module = 6
 stem = "PUE improvement that comes from turning off redundant cooling or power plant without redesign is risky because:"
 choices = [
   "PUE equals a formal availability class",
-  "Redundant plant never consumes energy",
-  "PUE only measures network utilization",
-  "Energy metrics can look better while availability and concurrent maintainability degrade"
+  "Redundant plant draws no energy while on standby",
+  "PUE measures IT utilisation rather than facility overhead",
+  "Energy metrics can look better while availability and concurrent maintainability degrade",
 ]
 correct = "D"
 explanation = "Killing redundancy to chase PUE trades availability for a prettier ratio."

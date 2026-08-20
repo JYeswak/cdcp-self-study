@@ -7,10 +7,10 @@ kind = "single-select"
 module = 5
 stem = "Shadowing between tall racks is a lighting design issue because:"
 choices = [
-  "Vertical surfaces and lower U-spaces can be under-lit even if the aisle center reads “bright”",
-  "Shadows always improve camera contrast for security only and never affect work",
-  "Racks never block light",
-  "Only floor lux matters; equipment faces never need light"
+  "Vertical surfaces and lower U positions can be under-lit even when the aisle centre reads bright",
+  "Shadow contrast improves security camera images without affecting work",
+  "Racks are open enough that they do not block light from above",
+  "Floor-level lux is the measure that matters for equipment faces",
 ]
 correct = "A"
 explanation = "Task surfaces are often vertical; aisle-center readings can mislead."

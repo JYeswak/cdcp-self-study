@@ -8,9 +8,9 @@ module = 6
 stem = "An operator sees UPS on bypass for an extended period. The most important availability concern is:"
 choices = [
   "Bypass can leave the load unprotected",
-  "Bypass always improves double-conversion filtering",
+  "Bypass improves double-conversion filtering",
   "Bypass automatically starts the generator",
-  "Bypass raises battery state of charge forever"
+  "Bypass raises battery state of charge forever",
 ]
 correct = "A"
 explanation = "Static/maintenance bypass can leave IT exposed to raw input quality issues."

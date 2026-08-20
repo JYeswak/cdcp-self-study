@@ -10,8 +10,8 @@ stem = "Flywheel energy storage paired with UPS-class systems is typically chara
 choices = [
   "Short-duration kinetic energy bridging, often alongside generators rather than long battery banks",
   "Multi-day autonomy as a default",
-  "Replacement for all grounding",
-  "Only outdoor evaporative cooling"
+  "A substitute for the grounding electrode system",
+  "A form of outdoor evaporative cooling",
 ]
 correct = "A"
 explanation = "Flywheels bridge short gaps; they are not multi-day energy stores by default."

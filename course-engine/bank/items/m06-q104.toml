@@ -7,9 +7,9 @@ kind = "single-select"
 module = 6
 stem = "A sustainability initiative that reduces generator testing or disables redundant plant without redesign is a risk because:"
 choices = [
-  "It always increases fault tolerance",
+  "It increases fault tolerance by reducing wear on the plant",
   "UPS modules become unnecessary when efficiency improves",
-  "PUE is undefined afterward",
+  "PUE becomes undefined once plant is disabled",
   "Can harm availability despite PUE gains",
 ]
 correct = "D"
