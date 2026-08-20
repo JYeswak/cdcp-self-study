@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "Layered physical security for a data centre typically includes:"
 choices = [
-  "Only a polite sign asking visitors to leave",
-  "Only CCTV without access control",
-  "Only a shared PIN written on the door",
-  "Perimeter, building, suite/room, and cabinet controls with audit trails—not a single lock"
+  "Only a polite sign asking visitors to leave, without a barrier",
+  "Only CCTV without access control, identity, or audit trails",
+  "Only a shared PIN written on the door, with no accountability",
+  "Layered perimeter, room, cabinet, and audit controls"
 ]
 correct = "D"
 explanation = "The current NFPA 730 preview exposes security planning, administrative controls, security perimeters, and security systems. That supports layered physical security; the item does not prescribe a site-specific architecture or logging design."

@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "Surveillance (CCTV/VMS) is most valuable when integrated so that a door-forced alarm can:"
 choices = [
-  "Only record offline tapes with no timestamps",
+  "Only record offline tapes with no timestamps, so investigations cannot correlate events",
   "Replace all mechanical locks",
   "Increase chilled-water flow",
-  "Bookmark video, alert the SOC/guard, and support investigation with synchronized logs"
+  "Bookmarks video, alerts security, and supports investigation"
 ]
 correct = "D"
 explanation = "Cameras without response/integration are weak; alarm-linked video + NTP-aligned logs enable forensics."

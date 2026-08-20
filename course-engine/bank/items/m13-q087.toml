@@ -12,8 +12,8 @@ stem = "Fail-secure locking on power loss means the lock:"
 choices = [
   "Always unlocks for convenience",
   "Turns off all CCTV",
-  "Remains locked (often used to protect entry from the unsecured side) while listed free egress from the secure side must still exist",
-  "Requires no mechanical exit path ever"
+  "Remains locked from unsecured side, with free egress",
+  "Requires no mechanical exit path ever, regardless of life safety"
 ]
 correct = "C"
 explanation = "Fail-secure protects perimeter entry on power loss; egress side still needs free-exit design."

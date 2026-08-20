@@ -9,9 +9,9 @@ kind = "single-select"
 module = 13
 stem = "EPO stations must balance security and safety by:"
 choices = [
-  "Being completely inaccessible even to trained staff",
-  "Being pressed daily as a health check without procedure",
-  "Limiting casual/public access while remaining reachable to trained personnel under procedure",
+  "Being completely inaccessible even to trained staff, with no emergency procedure",
+  "Pressed daily as a health check without authorization",
+  "Limit casual access while trained staff remain reachable",
   "Controlling only decorative lighting"
 ]
 correct = "C"

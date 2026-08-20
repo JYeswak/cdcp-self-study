@@ -9,9 +9,9 @@ kind = "single-select"
 module = 13
 stem = "Security theatre in a data centre might look like impressive lobby scanners while:"
 choices = [
-  "Every layer is equally strong",
-  "Anti-passback and CCTV are perfectly integrated",
-  "Roof hatches, generator yards, or process controls remain soft",
+  "Every layer is equally strong, regardless of roof or yard exposure",
+  "Anti-passback and CCTV are perfectly integrated in every location",
+  "Soft layers remain at roofs, yards, or controls",
   "LOTO is rigorously enforced in plant"
 ]
 correct = "C"

@@ -9,10 +9,10 @@ kind = "single-select"
 module = 13
 stem = "Safety components such as emergency power-off (EPO) interfaces, clear egress, and eye-wash where required differ from security locks because they primarily protect:"
 choices = [
-  "Marketing secrets only",
-  "People from injury and enable emergency response, even when that conflicts with convenience",
-  "Only package delivery SLAs",
-  "Shareholder branding colors"
+  "Marketing secrets only, without any safety or emergency implication",
+  "Protect people and enable emergency response",
+  "Only package delivery SLAs, not life safety or response",
+  "Shareholder branding colors, unrelated to emergency operations"
 ]
 correct = "B"
 explanation = "Safety systems prioritize human life and emergency response over access convenience."

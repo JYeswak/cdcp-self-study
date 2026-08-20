@@ -10,9 +10,9 @@ kind = "single-select"
 module = 13
 stem = "A lock without detection mainly provides:"
 choices = [
-  "Guaranteed real-time response",
-  "Automatic badge revocation",
-  "Delay only—without alarms/monitoring, compromise may go unnoticed until after the fact",
+  "Guaranteed real-time response even without an alarm or monitoring path",
+  "Automatic badge revocation without an identity or access system",
+  "Delay without alarms may hide compromise",
   "Fire suppression release"
 ]
 correct = "C"

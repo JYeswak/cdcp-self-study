@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "A second physical-access factor such as a PIN or biometric is used to:"
 choices = [
-  "Slow only visitors but never staff",
+  "Slow only visitors but never staff, regardless of portal design",
   "Eliminate the need for camera coverage at all portals",
-  "Replace visitor escort policies always",
-  "Increase confidence in the asserted identity and the authentication assurance"
+  "Replace visitor escort policies always, even in sensitive zones",
+  "Stronger asserted identity and authentication assurance"
 ]
 correct = "D"
 explanation = "NIST FIPS 201-3 describes PIN and biometric mechanisms for physical access and assigns them differing assurance levels, including higher confidence in the asserted identity. It also separates authentication from authorization decisions. This is a bounded physical-access receipt, not a credential claim."

@@ -9,7 +9,7 @@ module = 13
 stem = "Fail-safe locking hardware on power loss typically:"
 choices = [
   "Remains locked to block all movement",
-  "Unlocks (common on maglocked egress paths so people are not trapped)",
+  "Unlocks for emergency egress",
   "Deletes all access logs",
   "Disables emergency lighting"
 ]

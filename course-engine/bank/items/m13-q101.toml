@@ -9,7 +9,7 @@ kind = "single-select"
 module = 13
 stem = "Propping a secure door open for a maintenance window is risky because:"
 choices = [
-  "Temporary exceptions become permanent habits and create alarm fatigue or silent bypass",
+  "Exceptions create habits, fatigue, and bypass",
   "It always improves anti-passback",
   "It increases mantrap throughput safely forever",
   "It is required by life-safety codes at all times"

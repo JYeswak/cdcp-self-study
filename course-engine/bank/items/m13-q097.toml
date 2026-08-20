@@ -11,9 +11,9 @@ kind = "single-select"
 module = 13
 stem = "Colo multi-tenant zoning typically means a customer badge may open their cage but:"
 choices = [
-  "Does not open provider-critical plant or other tenants’ cages under shared responsibility",
+  "Does not open other tenants' cages or critical plant",
   "Always opens the provider UPS room and all neighbor cages",
-  "Disables all cameras by design",
+  "Disables all cameras by design, including shared-area coverage",
   "Grants roof hatch master keys automatically"
 ]
 correct = "A"

@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "CCTV coverage is most effective when it is:"
 choices = [
-  "Pointed only at the floor permanently",
-  "Recorded without time sync",
+  "Pointed only at the floor permanently, so portals are not visible",
+  "Recorded without time sync, making event correlation unreliable",
   "Unmonitored with full storage forever and no retention policy",
-  "Designed for critical portals and sensitive areas with usable retention, lighting, and time sync"
+  "Critical portals need retention, lighting, and time sync"
 ]
 correct = "D"
 explanation = "Cameras need design for usable evidence—not mere presence of a lens."

@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "Mantraps / interlocks are used primarily to:"
 choices = [
-  "Control single-person entry and reduce tailgating into sensitive zones",
-  "Speed unlimited group entry",
-  "Cool the lobby air",
-  "Replace all identity proofing"
+  "Control single-person entry and tailgating",
+  "Speed unlimited group entry into sensitive zones without verification",
+  "Cool the lobby air while providing no security control",
+  "Replace all identity proofing with a door sensor"
 ]
 correct = "A"
 explanation = "Anti-passback/mantrap patterns mitigate tailgating into critical spaces."

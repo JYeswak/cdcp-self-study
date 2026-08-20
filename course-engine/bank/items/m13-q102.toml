@@ -9,9 +9,9 @@ kind = "single-select"
 module = 13
 stem = "Camera coverage priorities commonly include perimeter, mantraps, docks, and:"
 choices = [
-  "Only under-desk office trash cans",
-  "Critical plant rooms and zone transitions where incidents and forced-door events occur",
-  "The inside of every sealed hard drive",
+  "Only under-desk office trash cans, not controlled zones",
+  "Critical plant rooms and zone transitions",
+  "The inside of every sealed hard drive, rather than a facility zone",
   "Outdoor landscaping only with no doors"
 ]
 correct = "B"

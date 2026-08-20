@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "Shared or loaned badges primarily destroy:"
 choices = [
-  "Chilled-water delta-T",
+  "Chilled-water delta-T, without identity or audit significance",
   "Fiber connector polish quality",
   "Emergency lighting lux levels",
-  "Non-repudiation and the value of anti-passback/audit logs"
+  "Non-repudiation and anti-passback audit value"
 ]
 correct = "D"
 explanation = "One human ↔ one credential is required for meaningful access accounting."

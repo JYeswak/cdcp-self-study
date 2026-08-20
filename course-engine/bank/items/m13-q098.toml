@@ -12,10 +12,10 @@ kind = "single-select"
 module = 13
 stem = "Deterrence, delay, detection, response, recovery describes:"
 choices = [
-  "Only network QoS classes",
-  "A classic physical-security control sequence",
+  "Only network QoS classes, not a physical security sequence",
+  "Physical-security control sequence",
   "UPS battery chemistries",
-  "ASHRAE thermal envelopes"
+  "ASHRAE thermal envelopes rather than access-control layers"
 ]
 correct = "B"
 explanation = "Physical security programs stack deter→delay→detect→respond→recover functions."

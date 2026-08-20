@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "On employee termination, badge access should ideally be:"
 choices = [
-  "Revoked the same day (or immediately) via joiner/mover/leaver process",
+  "Revoke promptly through joiner/mover/leaver process",
   "Left active until the next annual audit",
   "Transferred to the next contractor without logging",
-  "Printed on a sticky note at reception"
+  "Printed on a sticky note at reception, with no revocation control"
 ]
 correct = "A"
 explanation = "Ghost badges of leavers are a classic process failure; HR-ACS integration matters."

@@ -10,9 +10,9 @@ module = 13
 stem = "Physical safety signage (high voltage, confined space, hearing protection) complements security by:"
 choices = [
   "Replacing lockout/tagout procedures entirely",
-  "Warning authorized workers about hazards they may legally access",
+  "Warn authorized workers about hazards",
   "Granting visitors unrestricted plant access",
-  "Disabling emergency lighting"
+  "Disabling emergency lighting in controlled work areas"
 ]
 correct = "B"
 explanation = "Security grants entry; safety communications reduce harm to those who enter."

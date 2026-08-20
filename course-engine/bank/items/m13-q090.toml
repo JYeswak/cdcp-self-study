@@ -9,8 +9,8 @@ kind = "single-select"
 module = 13
 stem = "Visitor management in restricted zones should typically include:"
 choices = [
-  "Permanent full white-space badges for all guests",
-  "ID check, temporary distinct badge, escort policy, and sign-in/out with badge return",
+  "Permanent full white-space badges for all guests without zone limits",
+  "ID check, temporary badge, escort, sign-in/out",
   "Unlimited unescorted roaming after lobby coffee",
   "Shared use of an employee’s badge"
 ]

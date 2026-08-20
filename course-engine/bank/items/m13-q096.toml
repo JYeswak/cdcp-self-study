@@ -12,7 +12,7 @@ choices = [
   "Open dock doors directly onto the data floor without staging",
   "Skip ID checks for large shipments",
   "Store unattended gear in public corridors overnight as normal",
-  "Use dock → staging/inspect → secure corridor → white space chain of custody"
+  "Dock to staging to secure space chain of custody"
 ]
 correct = "D"
 explanation = "Separate goods paths and inspection reduce theft, contraband, and uncontrolled access."

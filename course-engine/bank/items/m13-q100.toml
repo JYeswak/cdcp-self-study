@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "Two-person rules (where policy requires) are most often applied to:"
 choices = [
-  "Reading public lobby magazines",
+  "Reading public lobby magazines, regardless of plant access",
   "Choosing rack paint colors",
-  "Daily coffee machine cleaning only",
-  "High-impact actions such as certain plant tasks, dual custody of master keys, or sensitive procedures"
+  "Daily coffee machine cleaning only, never a sensitive procedure",
+  "High-impact plant, key, or sensitive procedures"
 ]
 correct = "D"
 explanation = "Dual control reduces single-person error and insider risk on high-consequence actions."

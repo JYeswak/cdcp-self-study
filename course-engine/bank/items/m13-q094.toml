@@ -10,8 +10,8 @@ kind = "single-select"
 module = 13
 stem = "Lockout/Tagout (LOTO) is primarily a safety practice to:"
 choices = [
-  "Badge-share during maintenance",
-  "De-energize equipment and apply physical locks/tags before work so energy cannot be restored unexpectedly",
+  "Badge-share during maintenance, without controlling hazardous energy",
+  "De-energize, lock, and tag before work",
   "Replace all CCTV with mirrors",
   "Increase mantrap throughput"
 ]
