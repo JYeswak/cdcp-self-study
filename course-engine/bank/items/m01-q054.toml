@@ -16,7 +16,7 @@ choices = [
   "Choosing LED fixtures instead of fluorescent solely for colour temperature",
 ]
 correct = "D"
-explanation = "Lighting technology choice is rarely an availability root cause compared with power, cooling, network, and process error."
+explanation = "The lighting-fixture colour-temperature choice is not normally an availability root cause; utility ride-through, network diversity, and cooling loss can affect service even when the initiating event is elsewhere."
 topic_ids = ["m01-unavailability"]
 objective_ids = []
 bloom = "understand"

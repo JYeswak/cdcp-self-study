@@ -16,7 +16,7 @@ choices = [
   "Maximum rack U available regardless of service impact, because capacity planning is a facilities-only exercise",
 ]
 correct = "A"
-explanation = "RTO/RPO driven by business impact analysis should shape continuity design, not cosmetics or pure cost."
+explanation = "Continuity design should follow business-impact-derived recovery time and recovery point objectives; lobby finishes, diesel price, and raw rack capacity do not define how service loss must be recovered."
 topic_ids = ["m01-business-org", "m01-importance"]
 objective_ids = []
 bloom = "apply"

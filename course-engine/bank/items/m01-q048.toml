@@ -16,7 +16,7 @@ choices = [
   "Very large, purpose-built campuses optimized for massive multi-tenant or owner cloud-scale workloads",
 ]
 correct = "D"
-explanation = "Hyperscale refers to very large, highly optimized campuses built for cloud-scale capacity."
+explanation = "Hyperscale describes very large, purpose-built campuses optimized for cloud-scale capacity; a single-rack lab, a generator ban, or a wiring-closet footprint is the opposite scale or an unrelated constraint."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "remember"

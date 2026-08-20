@@ -15,7 +15,7 @@ choices = [
   "Only utility events ever matter, because equipment, people, and environmental conditions cannot create facility downtime"
 ]
 correct = "C"
-explanation = "Real portfolios see mixed root causes—power, cooling, people, and environment—site by site."
+explanation = "Availability failures can arise from utility, equipment, people, cooling, and environmental conditions, with the mix varying by site; treating only cyber, utility, or cooling as universal misses the actual causal spread."
 topic_ids = ["m01-unavailability"]
 objective_ids = []
 bloom = "understand"

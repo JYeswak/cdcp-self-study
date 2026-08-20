@@ -16,7 +16,7 @@ choices = [
   "Whether tiles are 600 mm or 24 in only as a fashion choice, independent of load, airflow, or service risk",
 ]
 correct = "A"
-explanation = "Risk appetite and interruption cost (including legal/financial exposure) drive mission-critical design choices."
+explanation = "Payment and trading facilities are sized around tolerance for interruption and its regulatory or financial exposure; paint, visitor badges, and an isolated tile-fashion choice do not set that risk appetite."
 topic_ids = ["m01-importance", "m01-business-org"]
 objective_ids = []
 bloom = "apply"

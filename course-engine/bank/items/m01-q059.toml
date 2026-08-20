@@ -16,7 +16,7 @@ choices = [
   "Buying more kW always fixes process gaps, because additional electrical capacity removes the need for training and controlled recovery work",
 ]
 correct = "A"
-explanation = "People and process maturity complement hardware redundancy; spend alone does not create reliability."
+explanation = "Reliability culture combines controlled change, training, incident learning, and tested recovery with engineered redundancy; skipping reviews, ignoring MOPs, or buying more capacity cannot replace those practices."
 topic_ids = ["m01-unavailability", "m01-business-org"]
 objective_ids = []
 bloom = "understand"

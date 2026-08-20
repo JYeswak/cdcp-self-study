@@ -15,7 +15,7 @@ choices = [
   "A single UPS component failure with no human factor and no change, maintenance, or operating decision involved"
 ]
 correct = "B"
-explanation = "Process and people failures (changes, procedures, maintenance) are major drivers of facility downtime."
+explanation = "Change errors, incomplete procedures, and weak maintenance discipline are organizational contributors to downtime; a feeder short, lightning strike, or isolated UPS component is a technical or environmental event rather than this organizational category."
 topic_ids = ["m01-unavailability"]
 objective_ids = []
 bloom = "understand"

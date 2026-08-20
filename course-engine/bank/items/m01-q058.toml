@@ -16,7 +16,7 @@ choices = [
   "They never share risk with the landlord because the customer contract transfers every facility dependency and operating decision",
 ]
 correct = "C"
-explanation = "Customer availability still depends on hall design limits, SLAs, and maintainability even when plant is landlord-owned."
+explanation = "The colo customer still depends on contracted limits, SLA boundaries, and maintainability of landlord plant; AHJ rules still apply and transferring facility ownership does not transfer every service risk."
 topic_ids = ["m01-dc-types", "m01-business-org"]
 objective_ids = []
 bloom = "understand"

@@ -16,7 +16,7 @@ choices = [
   "Customer rents substantial private space (e.g., suite/hall) while the landlord provides shell and shared plant",
 ]
 correct = "D"
-explanation = "Wholesale colo typically leases larger private footprints with landlord-supplied building services and power/cooling plant."
+explanation = "Wholesale colocation supplies a substantial private footprint while the landlord supplies shell and shared plant; hypervisor policy, per-second cloud billing, and power-cord rules are not the delivery-model definition."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "understand"

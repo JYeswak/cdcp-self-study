@@ -16,7 +16,7 @@ choices = [
   "Only decorative lobby finishes, because the IT load is the sole physical feature that defines a data centre"
 ]
 correct = "C"
-explanation = "Mission-critical space is defined by power, cooling, structure, connectivity, and life-safety support—not aesthetics alone."
+explanation = "The facility’s defining support set is power, cooling, structure, connectivity, and life safety around the IT load; CRM software, landscaping, and lobby finishes do not substitute for those systems."
 topic_ids = ["m01-elements"]
 objective_ids = []
 bloom = "remember"

@@ -15,7 +15,7 @@ choices = [
   "Preference for a single non-redundant path because regulated operators prioritize simplicity over continuity",
 ]
 correct = "C"
-explanation = "Regulatory and audit obligations commonly raise continuity and control expectations for facility design and ops."
+explanation = "Regulated operators face statutory, audit, and continuity obligations that raise facility-control expectations; banning monitoring, using wireless power, or accepting one non-redundant path would undermine rather than satisfy them."
 topic_ids = ["m01-importance", "m01-business-org"]
 objective_ids = []
 bloom = "remember"

@@ -16,7 +16,7 @@ choices = [
   "Because PUE is published quarterly",
 ]
 correct = "A"
-explanation = "Mission-critical status is driven by impact of loss, not by a particular construction feature."
+explanation = "Mission-critical status is driven by the financial, legal, safety, or reputational consequence of interruption; a raised floor, a three-phase service, or quarterly PUE reporting is not that consequence test."
 topic_ids = ["m01-importance"]
 objective_ids = []
 bloom = "understand"

@@ -16,7 +16,7 @@ choices = [
   "Ownership models can differ in multi-tenancy, scale economics, and governance boundaries"
 ]
 correct = "D"
-explanation = "DC types share many engineering needs but differ in ownership, tenancy, scale, and who controls what."
+explanation = "Colocation, enterprise, and hyperscale models share facility physics but differ in ownership, tenancy, scale economics, and governance; grounding, electricity use, and fire protection remain facility requirements across models."
 topic_ids = ["m01-dc-types", "m01-business-org"]
 objective_ids = []
 bloom = "remember"

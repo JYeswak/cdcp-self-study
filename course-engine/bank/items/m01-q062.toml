@@ -14,7 +14,7 @@ choices = [
   "Ceiling tile patterns exclusively",
 ]
 correct = "B"
-explanation = "Business demand forecasts must map to facility headroom and long-lead plant, not just IT SKUs."
+explanation = "Capacity planning maps business demand to power, cooling, space, network headroom, and long-lead plant; marketing headcount, tile patterns, or instantly available capacity are not the facility forecast."
 topic_ids = ["m01-business-org", "m01-elements"]
 objective_ids = []
 bloom = "apply"

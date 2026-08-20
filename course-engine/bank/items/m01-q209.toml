@@ -16,7 +16,7 @@ choices = [
   "Gaps in change control, maintenance ownership, and incident response across trades"
 ]
 correct = "D"
-explanation = "Facility outcomes require cross-functional ownership among IT, facilities, security, and vendors."
+explanation = "Reliable facilities require clear ownership across IT, facilities, security, and vendors; leaving maintenance, change control, and incident response at an IT-only boundary creates gaps rather than eliminating physical risk."
 topic_ids = ["m01-business-org", "m01-elements"]
 objective_ids = []
 bloom = "analyze"

@@ -16,7 +16,7 @@ choices = [
   "A dual-corded server remains powered from two live diverse sources",
 ]
 correct = "B"
-explanation = "Cooling failure can cascade into thermal IT failure even when power is still present."
+explanation = "Loss of cooling can raise inlet temperature until servers throttle or trip, cascading into application loss while power remains available; a healthy blanking panel, clean UPS transfer, or dual live source is not a cascade."
 topic_ids = ["m01-unavailability", "m01-elements"]
 objective_ids = []
 bloom = "apply"

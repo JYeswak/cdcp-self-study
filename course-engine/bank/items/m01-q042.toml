@@ -16,7 +16,7 @@ choices = [
   "Content delivery edge POP leased by the hour, with no enterprise ownership of building systems or the IT estate",
 ]
 correct = "B"
-explanation = "In an enterprise-owned facility, the organization owns facility systems and usually the IT gear as well."
+explanation = "An enterprise-owned facility places both building systems and normally the IT estate under the organization’s control; retail colocation, SaaS, and a leased edge POP place those responsibilities elsewhere."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "remember"

@@ -16,7 +16,7 @@ choices = [
   "Because boards evaluate application dashboards and disregard facility risk metrics"
 ]
 correct = "A"
-explanation = "Infrastructure failures are correlated across workloads; governance cares about systemic facility risk."
+explanation = "The facility event can remove many digital services together, creating regulatory and reputational exposure; a PUE number, raised floor, or application-only dashboard cannot replace systemic resilience governance."
 topic_ids = ["m01-importance", "m01-business-org"]
 objective_ids = []
 bloom = "analyze"

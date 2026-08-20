@@ -16,7 +16,7 @@ choices = [
   "Eliminate the need for any cooling",
 ]
 correct = "C"
-explanation = "Edge/micro sites bring compute nearer to demand to reduce latency and network backhaul."
+explanation = "Edge or micro sites place compute near users or devices to reduce latency and backhaul; they are not diesel yards, a replacement for every central region, or a way to remove cooling."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "understand"

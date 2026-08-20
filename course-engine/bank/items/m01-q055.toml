@@ -16,7 +16,7 @@ choices = [
   "A provider operates infrastructure or applications under contract SLAs for the customer",
 ]
 correct = "D"
-explanation = "Managed/hosted models shift operational responsibility to a provider under contractual SLAs, with shared-responsibility nuances."
+explanation = "Managed or hosted service puts agreed infrastructure or application operation with a provider under contract SLAs; responsibility is still shared, fire codes still apply, and the customer does not automatically own every generator decision."
 topic_ids = ["m01-dc-types", "m01-business-org"]
 objective_ids = []
 bloom = "remember"

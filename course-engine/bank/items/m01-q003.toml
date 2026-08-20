@@ -16,7 +16,7 @@ choices = [
   "Owns the chillers and generators",
 ]
 correct = "A"
-explanation = "Retail colo: the customer owns IT in cages/cabinets; the provider owns shared hall power and cooling."
+explanation = "Retail colocation normally leaves the customer responsible for its IT gear while the provider operates shared hall plant; provider-owned servers, customer-owned chillers, and a ban on dual cords describe different arrangements."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "remember"

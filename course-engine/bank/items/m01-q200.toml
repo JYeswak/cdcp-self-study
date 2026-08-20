@@ -16,7 +16,7 @@ choices = [
   "Only a real-estate asset with no operational role, because applications are independent of facility availability and capacity"
 ]
 correct = "C"
-explanation = "The DC is an enabler of digital business outcomes; outages and capacity constraints map directly to risk and service."
+explanation = "The data centre enables digital products, so its availability and capacity shape service and risk; it is not merely a cost centre, a marketing label, or passive real estate detached from operations."
 topic_ids = ["m01-business-org", "m01-importance"]
 objective_ids = []
 bloom = "understand"

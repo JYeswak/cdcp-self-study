@@ -18,7 +18,7 @@ choices = [
   "A third peer root-cause bucket next to power and cooling",
 ]
 correct = "C"
-explanation = "People and process contribute; they are not a peer root-cause bucket. Cite surveys as surveys. Refuse a fake percentage."
+explanation = "Human and process conditions contribute to failures in a power, cooling, or network path; lighting and MOP paperwork are not the classification, and the factor is not a peer bucket with a made-up survey share."
 topic_ids = ["m01-unavailability"]
 objective_ids = ["obj-m01-cause-framing-2026"]
 bloom = "understand"

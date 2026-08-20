@@ -16,7 +16,7 @@ choices = [
   "Automatic exemption from fire codes because micro sites are too small to require facility life-safety controls"
 ]
 correct = "C"
-explanation = "Edge deployments optimize locality/latency but inherit tighter physical, power, and operational constraints."
+explanation = "Edge and micro sites trade latency and local processing for smaller physical plant, staffing, and expansion margins; they do not receive automatic utility capacity, power protection, or fire-code exemptions."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "understand"

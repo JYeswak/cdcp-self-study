@@ -16,7 +16,7 @@ choices = [
   "Any redundant UPS string is typically a single point of failure, regardless of whether another independent path reaches the critical load"
 ]
 correct = "B"
-explanation = "SPOFs are failure points without concurrent path diversity for the protected load."
+explanation = "The single point of failure is a component or path whose lone failure can interrupt the protected load; a sensor, a dual-path system with inadequate capacity, or a redundant UPS string is not automatically such a point."
 topic_ids = ["m01-unavailability", "m01-elements"]
 objective_ids = []
 bloom = "apply"

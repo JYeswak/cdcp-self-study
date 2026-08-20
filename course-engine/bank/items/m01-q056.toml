@@ -16,7 +16,7 @@ choices = [
   "Redundancy always eliminates human error completely",
 ]
 correct = "B"
-explanation = "Redundancy is a risk-reduction investment sized to criticality and downtime cost, not a guarantee against all failures."
+explanation = "Redundancy reduces the business impact of selected failures in proportion to criticality and downtime cost; it is not office-only decoration, a substitute for process, or a guarantee that human error disappears."
 topic_ids = ["m01-importance", "m01-elements"]
 objective_ids = []
 bloom = "understand"

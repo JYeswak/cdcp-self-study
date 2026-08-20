@@ -16,7 +16,7 @@ choices = [
   "Tagging circuits before work",
 ]
 correct = "B"
-explanation = "Uncontrolled change without isolation discipline is a frequent root of avoidable downtime."
+explanation = "Maintenance risk rises when a change lacks a controlled window, peer check, or isolation boundary; pre-staging, circuit tags, and a validated MOP are controls that reduce that risk."
 topic_ids = ["m01-unavailability"]
 objective_ids = []
 bloom = "apply"

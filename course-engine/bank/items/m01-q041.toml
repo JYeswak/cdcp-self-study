@@ -16,7 +16,7 @@ choices = [
   "Elimination of the need for a recovery strategy, because facilities ownership prevents digital service failures",
 ]
 correct = "A"
-explanation = "Siloed facilities vs IT ownership commonly misaligns capacity planning, change control, and risk appetite."
+explanation = "The facilities silo separates capacity, change, and risk decisions from the IT services they protect; it does not create automatic standards compliance, eliminate recovery planning, or make SLA ownership clearer."
 topic_ids = ["m01-business-org"]
 objective_ids = []
 bloom = "understand"

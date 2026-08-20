@@ -16,7 +16,7 @@ choices = [
   "Routine preventive maintenance performed under change control",
 ]
 correct = "A"
-explanation = "Path SPOFs plus human/process error during change are classic availability killers beyond component life."
+explanation = "The single point in the path combined with uncontrolled change can interrupt service without a component reaching its wear-out limit; diverse UPS paths, peer-reviewed MOPs, and controlled maintenance are mitigations rather than causes."
 topic_ids = ["m01-unavailability"]
 objective_ids = []
 bloom = "apply"

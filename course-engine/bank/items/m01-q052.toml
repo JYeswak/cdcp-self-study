@@ -17,7 +17,7 @@ choices = [
   "IT depends on concurrent power, cooling, connectivity, and life-safety support systems",
 ]
 correct = "D"
-explanation = "IT loads require simultaneous supporting systems; failure of any critical support can take services offline."
+explanation = "IT depends on concurrent power, cooling, connectivity, and life-safety support; redundant servers cannot remove grounding or facility needs, and cabling remains part of the operating system."
 topic_ids = ["m01-elements"]
 objective_ids = []
 bloom = "understand"

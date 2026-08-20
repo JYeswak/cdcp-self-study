@@ -16,7 +16,7 @@ choices = [
   "All racks exceed 10 kW",
 ]
 correct = "B"
-explanation = "Mission-critical is defined by impact of loss, not a single tech feature such as density or PUE."
+explanation = "Mission-critical status follows the consequences of interruption; a low PUE, a raised floor, or a rack-density threshold is a facility feature or metric, not the business-impact definition."
 topic_ids = ["m01-importance"]
 objective_ids = []
 bloom = "understand"

@@ -16,7 +16,7 @@ choices = [
   "All types have identical risk profiles and SLAs, because ownership and service boundaries do not change facility obligations",
 ]
 correct = "A"
-explanation = "Physics (power/cooling/space) is shared; business model, scale, and responsibility boundaries differ by type."
+explanation = "Enterprise, colocation, cloud, and edge share power, cooling, and space physics but differ in ownership, scale, and service boundaries; edge still needs security, and identical risk or SLA assumptions are unsafe."
 topic_ids = ["m01-dc-types"]
 objective_ids = []
 bloom = "understand"

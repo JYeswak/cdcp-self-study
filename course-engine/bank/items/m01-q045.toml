@@ -17,7 +17,7 @@ choices = [
   "Only application source code repositories",
 ]
 correct = "C"
-explanation = "Facility elements centre on power, cooling, space, connectivity, life safety, and security that enable IT operation."
+explanation = "The data-centre facility combines power, cooling, space, connectivity, life safety, and security around the IT load; office furniture, dashboards, and application repositories do not provide those operating dependencies."
 topic_ids = ["m01-elements"]
 objective_ids = []
 bloom = "remember"

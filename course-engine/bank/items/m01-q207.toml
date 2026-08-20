@@ -16,7 +16,7 @@ choices = [
   "Spending the same capital on every closet regardless of impact, service dependency, or the cost of an outage"
 ]
 correct = "A"
-explanation = "Resilience spend should track business impact of outage, not one-size-fits-all prestige design."
+explanation = "Facility investment should match the impact of losing the served service, including redundancy and operating discipline; slogans, ignoring recovery objectives, and equal spending on every closet discard that business context."
 topic_ids = ["m01-importance", "m01-business-org"]
 objective_ids = []
 bloom = "apply"
