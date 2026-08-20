@@ -30,6 +30,8 @@ Grade the controller on two numbers, recorded per tick:
 | 6 | ~17:45 | 3 | Redirect off curriculum → the three new P0s | My dispatch predated the beads they filed | `.26`, `.27` **done** (`6b21e0d8`) |
 | 7 | 17:58 | 3 | Standing never-idle order + `.28` | Pane idle; doctor source-checkout fallback outranks | In flight |
 | 8 | 18:10 | 2 | Standing never-idle order + close the two P0s + `--prove-wired` exit 4 | **Pane idle ~10 min — controller miss #2** | In flight |
+| 9 | 18:29 | 3 | autofeed `FED rc=0` (automatic) | Pane idled after `.26`/`.27`; **automation caught it, not me** | Self-served: read queue, found it dry, correctly refused to steal pane 2's beads, resumed `bd-readme-public-rigor-8y0r` |
+| 10 | 18:36 | 3 | Queue refill (Q15–Q19) + claim hygiene | **Queue went functionally dry — controller miss #3.** Pane 3 held 6 claims; only unclaimed items were gate-chain work fenced off from it | In flight |
 
 ## Controller misses
 
@@ -37,6 +39,7 @@ Grade the controller on two numbers, recorded per tick:
 |-----|------|-------|-----|
 | ~17:50 | Pane 3 idle, operator had to say so | Watcher printed `IDLE` into a log with no consumer — BUILT ≠ WIRED | Built `ntm-autofeed.py` to consume the events |
 | 18:05 | Pane 2 idle ~10 min, operator had to say so again | **My autofeed regex could never match.** It required `pane=0.2(pid…)`; the watcher emits `pane=2(pid…)` because it formats from `--robot-activity`, whose `pane` is a bare index. I "verified" it against samples I invented from the *snapshot* schema instead of a real watcher line. | Regex accepts both forms, re-verified against live `--robot-activity` data. Fired for real at 12:08:17 local, `FED cdcp pane=2 rc=0` |
+| 18:31 | Queue functionally dry for pane 3 | I stocked 14 items and then stopped restocking. One pane claimed six of them; the two genuinely unclaimed were gate-chain work I had fenced off from that pane. Not an idle pane — a pane with nowhere to go next. | Refilled with Q15–Q19 (`17480b25`) and told pane 3 to hold one claim at a time. **Keeping the queue stocked is a standing controller duty, not a one-time setup task.** |
 
 The second miss is the more instructive one: I wrote a gate, tested it against a fixture I
 made up, and reported it as armed. That is the same defect this project has been cataloguing
