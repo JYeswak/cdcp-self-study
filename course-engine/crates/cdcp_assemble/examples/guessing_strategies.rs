@@ -1,0 +1,225 @@
+//! Product-level guessing-strategy measurement.
+//!
+//! This example deliberately scores the `AssembledExam` returned by the real
+//! `cdcp_assemble::assemble` path. It does not resample `bank/items` itself.
+//! Seeds 0 through 99 are the predeclared denominator; seed 42 is included.
+
+use cdcp_assemble::{assemble, rng_from_seed, AssembleConfig, AssembledExam};
+use cdcp_bank::Bank;
+use rand::Rng;
+use std::collections::HashSet;
+use std::path::PathBuf;
+
+const SEED_FIRST: u64 = 0;
+const SEED_COUNT: u64 = 100;
+const PASS_BAR: u32 = 27;
+const HEDGES: &[&str] = &[
+    "can",
+    "could",
+    "generally",
+    "may",
+    "might",
+    "often",
+    "usually",
+    "typically",
+    "tends",
+    "sometimes",
+];
+const STOP_WORDS: &[&str] = &[
+    "a", "an", "and", "are", "as", "at", "be", "because", "by", "can", "for", "from", "how", "if",
+    "in", "into", "is", "it", "its", "more", "of", "on", "or", "should", "that", "the", "their",
+    "then", "this", "to", "under", "was", "what", "when", "which", "with",
+];
+
+#[derive(Clone, Copy)]
+enum Strategy {
+    Longest,
+    Letter(usize),
+    Hedged,
+    StemOverlap,
+    UniformRandom,
+}
+
+impl Strategy {
+    fn name(self) -> &'static str {
+        match self {
+            Self::Longest => "longest",
+            Self::Letter(0) => "always-A",
+            Self::Letter(1) => "always-B",
+            Self::Letter(2) => "always-C",
+            Self::Letter(3) => "always-D",
+            Self::Letter(_) => unreachable!(),
+            Self::Hedged => "hedged",
+            Self::StemOverlap => "stem-overlap",
+            Self::UniformRandom => "uniform-random",
+        }
+    }
+}
+
+fn tokens(text: &str) -> Vec<String> {
+    text.split(|c: char| !c.is_ascii_alphabetic())
+        .filter(|word| !word.is_empty())
+        .map(|word| word.to_ascii_lowercase())
+        .collect()
+}
+
+fn content_words(text: &str) -> HashSet<String> {
+    tokens(text)
+        .into_iter()
+        .filter(|word| !STOP_WORDS.contains(&word.as_str()))
+        .collect()
+}
+
+fn longest(item: &cdcp_assemble::AssembledItem) -> usize {
+    // Ties go to the first occurrence. This is fixed for every seed.
+    item.choices
+        .iter()
+        .enumerate()
+        .max_by_key(|(index, choice)| (choice.chars().count(), std::cmp::Reverse(*index)))
+        .map(|(index, _)| index)
+        .expect("assembled item has choices")
+}
+
+fn hedged(item: &cdcp_assemble::AssembledItem) -> usize {
+    item.choices
+        .iter()
+        .position(|choice| {
+            tokens(choice)
+                .iter()
+                .any(|word| HEDGES.contains(&word.as_str()))
+        })
+        .unwrap_or(0)
+}
+
+fn stem_overlap(item: &cdcp_assemble::AssembledItem) -> usize {
+    let stem = content_words(&item.stem);
+    item.choices
+        .iter()
+        .enumerate()
+        .max_by_key(|(index, choice)| {
+            let overlap = content_words(choice).intersection(&stem).count();
+            (overlap, std::cmp::Reverse(*index))
+        })
+        .map(|(index, _)| index)
+        .expect("assembled item has choices")
+}
+
+fn choice(strategy: Strategy, item: &cdcp_assemble::AssembledItem, rng: &mut impl Rng) -> usize {
+    match strategy {
+        Strategy::Longest => longest(item),
+        Strategy::Letter(index) => index,
+        Strategy::Hedged => hedged(item),
+        Strategy::StemOverlap => stem_overlap(item),
+        Strategy::UniformRandom => rng.gen_range(0..4),
+    }
+}
+
+fn correct_index(item: &cdcp_assemble::AssembledItem) -> usize {
+    match item.correct.as_str() {
+        "A" => 0,
+        "B" => 1,
+        "C" => 2,
+        "D" => 3,
+        other => panic!("assembled item {} has invalid correct={other:?}", item.id),
+    }
+}
+
+fn score(exam: &AssembledExam, strategy: Strategy, seed: u64) -> (u32, Vec<usize>) {
+    let mut rng = rng_from_seed(seed ^ 0xBADC_0FFE);
+    let mut score = 0;
+    let mut right = Vec::new();
+    for (index, item) in exam.items.iter().enumerate() {
+        if choice(strategy, item, &mut rng) == correct_index(item) {
+            score += 1;
+            right.push(index);
+        }
+    }
+    (score, right)
+}
+
+fn main() {
+    let bank_path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../bank/items");
+    let bank = Bank::load_dir(&bank_path).expect("load live approved bank");
+    let cfg = AssembleConfig::default();
+    let strategies = [
+        Strategy::Longest,
+        Strategy::Letter(0),
+        Strategy::Letter(1),
+        Strategy::Letter(2),
+        Strategy::Letter(3),
+        Strategy::Hedged,
+        Strategy::StemOverlap,
+        Strategy::UniformRandom,
+    ];
+    let mut scores = vec![Vec::<u32>::new(); strategies.len()];
+    let mut failures = Vec::new();
+
+    println!(
+        "PREDECLARED_SEEDS first={SEED_FIRST} count={SEED_COUNT} inclusive_end={} pass_bar={PASS_BAR}",
+        SEED_FIRST + SEED_COUNT - 1
+    );
+    println!("RULE longest=tie-first; hedged=no-match=A; overlap=tie-first; random=ChaCha12(seed^0xBADC0FFE)");
+
+    for seed in SEED_FIRST..SEED_FIRST + SEED_COUNT {
+        let exam = match assemble(&bank, seed, cfg) {
+            Ok(exam) => exam,
+            Err(error) => {
+                failures.push((seed, error.to_string()));
+                for row in &mut scores {
+                    row.push(0);
+                }
+                continue;
+            }
+        };
+        assert_eq!(
+            exam.items.len(),
+            cfg.n_items,
+            "assembly returned non-40 form"
+        );
+        for (index, strategy) in strategies.iter().copied().enumerate() {
+            let (value, right) = score(&exam, strategy, seed);
+            scores[index].push(value);
+            if value >= PASS_BAR {
+                println!(
+                    "RESIDUAL seed={seed} strategy={} score={value}",
+                    strategy.name()
+                );
+                for item_index in right {
+                    let item = &exam.items[item_index];
+                    println!(
+                        "  id={} correct={} stem={:?} chosen={:?}",
+                        item.id,
+                        item.correct,
+                        item.stem,
+                        item.choices[correct_index(item)]
+                    );
+                }
+            }
+        }
+    }
+
+    if !failures.is_empty() {
+        for (seed, error) in &failures {
+            println!("ASSEMBLY_FAILURE seed={seed} reason={error}");
+        }
+    }
+    for (index, strategy) in strategies.iter().copied().enumerate() {
+        let values = &scores[index];
+        let sum: u32 = values.iter().sum();
+        let passes = values.iter().filter(|&&value| value >= PASS_BAR).count();
+        let min = values.iter().copied().min().expect("seed denominator");
+        let max = values.iter().copied().max().expect("seed denominator");
+        println!(
+            "TABLE strategy={} mean={:.2} min={} max={} pass_count={} pass_share={:.1}% denominator={} assembled={} failures={}",
+            strategy.name(),
+            sum as f64 / values.len() as f64,
+            min,
+            max,
+            passes,
+            passes as f64 * 100.0 / values.len() as f64,
+            values.len(),
+            values.len() - failures.len(),
+            failures.len()
+        );
+    }
+}
