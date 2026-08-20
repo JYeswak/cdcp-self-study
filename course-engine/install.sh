@@ -20,6 +20,7 @@ TARBALL= EXPECT_SHA= RELEASE_JSON=
 STAGED= WORK= LOCK= FILELIST= CONFIG_TOUCHED=
 ARTIFACT_URL= ARTIFACT_SHA= SOURCE_BUILD=false
 VERIFY_SERVE_PID= VERIFY_SERVE_URL=
+CARGO_CMD=(cargo)
 
 die() { echo "cdcp-install: ERROR: $*" >&2; exit 1; }
 log() { echo "cdcp-install: $*"; }
@@ -513,6 +514,17 @@ maybe_path() {
 
 need_cargo() {
   have cargo || die "cargo not on PATH — source fallback requires Cargo and a Rust toolchain; refusing to install a toolchain (this is not rustup-init). Install Rust, then re-run --from-source."
+  if cargo --version >/dev/null 2>&1; then
+    CARGO_CMD=(cargo)
+    return 0
+  fi
+  if cargo +stable --version >/dev/null 2>&1; then
+    CARGO_CMD=(cargo +stable)
+    log "cargo has no default toolchain; using installed stable toolchain"
+    return 0
+  fi
+  # Never rustup-init (D1). A (y/N) here would use ask_tty, never stdin.
+  die "cargo is on PATH but no usable default or stable toolchain is configured — refusing to install a toolchain (this is not rustup-init). Run rustup default stable, then re-run --from-source."
 }
 
 maybe_copy_web_from_checkout() {
@@ -554,7 +566,7 @@ source_build() {
   # embeds no /Users/ or /home/runner paths.
   (CDPATH= cd -- "$engine" && \
     RUSTFLAGS="${RUSTFLAGS:+$RUSTFLAGS }--remap-path-prefix=${PWD}= --remap-path-prefix=${HOME}=" \
-    cargo build --release --locked -p cdcp_cli) || \
+    "${CARGO_CMD[@]}" build --release --locked -p cdcp_cli) || \
     die "cargo --release --locked -p cdcp_cli failed"
   target=${CARGO_TARGET_DIR:-$engine/target}
   built=$target/release/cdcp
