@@ -7,9 +7,9 @@ kind = "single-select"
 module = 6
 stem = "Three-phase power is favored for high-density racks mainly because it:"
 choices = [
-  "Delivers higher power efficiently with better phase utilization than single-phase alone",
+  "Efficient high-power balanced loading",
   "Eliminates the need for PDUs",
-  "Removes grounding requirements",
+  "Removes grounding requirements from the distribution system",
   "Converts AC heat into network bandwidth"
 ]
 correct = "A"

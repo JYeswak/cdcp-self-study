@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "High-density AI and HPC racks change power design most by:"
 choices = [
-  "Eliminating dual-cord needs always",
-  "Making UPS unnecessary",
-  "Removing phase balance concerns",
-  "Concentrating very high kW per rack and stressing distribution, redundancy, and thermal coupling"
+  "Eliminating dual-cord needs always, even for high-density racks",
+  "Making UPS unnecessary when rack power is high",
+  "Removing phase balance concerns from high-density loads",
+  "High kW per rack stresses distribution and cooling"
 ]
 correct = "D"
 explanation = "Extreme rack densities push feeder design, redundancy, and cooling together."

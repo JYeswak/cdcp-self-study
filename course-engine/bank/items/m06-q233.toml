@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "A microgrid concept around a data centre emphasizes:"
 choices = [
-  "Only a single utility feed with no controls",
-  "Coordinated local generation, storage, and loads that can island or optimize with the grid",
-  "Removing all UPS devices",
-  "Exclusive reliance on wireless power"
+  "Only a single utility feed with no controls or local generation",
+  "Coordinate generation, storage, loads, and islanding",
+  "Removing all UPS devices from a critical facility",
+  "Exclusive reliance on wireless power for facility loads"
 ]
 correct = "B"
 explanation = "Microgrids coordinate distributed energy resources with facility loads."

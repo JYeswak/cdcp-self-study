@@ -9,10 +9,10 @@ kind = "single-select"
 module = 6
 stem = "Switched or metered rack PDUs add most value when operators need to:"
 choices = [
-  "Bypass grounding codes",
+  "Bypass grounding codes whenever remote control is available",
   "Disable generator testing forever",
-  "Replace STS devices in all cases",
-  "See branch utilization and remotely manage outlets for capacity and recovery tasks"
+  "Replace STS devices in all cases, regardless of source behavior",
+  "Branch visibility and remote outlet control"
 ]
 correct = "D"
 explanation = "Metering and switching improve visibility and controlled recovery at the rack edge."

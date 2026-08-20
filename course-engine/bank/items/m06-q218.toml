@@ -10,10 +10,10 @@ kind = "single-select"
 module = 6
 stem = "Equipotential bonding of racks and trays is intended to:"
 choices = [
-  "Replace the need for circuit breakers",
+  "Replace the need for circuit breakers in every distribution path",
   "Store UPS energy",
-  "Keep exposed conductive parts near the same potential and support safety and EMI control",
-  "Define generator fuel type"
+  "Keep exposed conductive parts near one potential",
+  "Define generator fuel type and operating reserve"
 ]
 correct = "C"
 explanation = "Bonding reduces touch potential differences and supports a controlled reference."

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "BESS proposed for both UPS ride-through and grid services should be treated as:"
 choices = [
-  "A free replacement for all generators without study",
-  "Only a lighting inverter",
-  "A multi-use energy asset needing clear priority rules so critical ride-through is not compromised",
-  "Irrelevant to power path design"
+  "Free replacement for all generators without study or priority rules",
+  "Only a lighting inverter, regardless of storage application",
+  "Multi-use asset with priority rules for ride-through",
+  "Irrelevant to power path design or critical ride-through"
 ]
 correct = "C"
 explanation = "Shared storage must reserve critical autonomy; market services cannot starve ride-through."

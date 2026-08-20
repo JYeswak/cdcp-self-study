@@ -7,8 +7,8 @@ kind = "single-select"
 module = 6
 stem = "An isolation transformer is specified ahead of a sensitive bus mainly to:"
 choices = [
-  "Galvanically separate circuits and help manage noise and grounding relationships",
-  "Increase UPS battery amp-hours without batteries",
+  "Galvanic separation and noise/ground management",
+  "Increase UPS battery amp-hours without batteries or added storage",
   "Act as an ATS",
   "Provide free cooling"
 ]

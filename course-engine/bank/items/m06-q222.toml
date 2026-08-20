@@ -10,9 +10,9 @@ module = 6
 stem = "A floor PDU or RPP sits between the UPS output and rack PDUs. Its role is best described as:"
 choices = [
   "Battery energy storage only",
-  "Generator starting battery charger only",
-  "Distribution and protection or monitoring at room or zone scale before rack-level strips",
-  "Fire suppression control panel"
+  "Generator starting battery charger only, not room distribution",
+  "Room-scale distribution, protection, and monitoring",
+  "Fire suppression control panel, not power distribution"
 ]
 correct = "C"
 explanation = "PDUs/RPPs intermediate distribute and protect between UPS plant and racks."

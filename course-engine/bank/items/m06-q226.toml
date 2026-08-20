@@ -8,9 +8,9 @@ module = 6
 stem = "Stranded power capacity in a hall usually means:"
 choices = [
   "Power that is stored only in flywheels",
-  "Unlimited free capacity",
-  "Electrical capacity exists that cannot be used due to cooling, space, or distribution constraints",
-  "Only generator fuel reserves"
+  "Unlimited free capacity regardless of cooling, space, or distribution",
+  "Capacity blocked by cooling or distribution",
+  "Only generator fuel reserves, not electrical infrastructure"
 ]
 correct = "C"
 explanation = "Stranding is unused power headroom blocked by another resource limit."

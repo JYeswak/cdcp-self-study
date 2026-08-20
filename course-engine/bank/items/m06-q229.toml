@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "A useful thermography program practice is to:"
 choices = [
-  "Scan only de-energized empty panels",
-  "Scan under representative load with baselines and follow-up on anomalies",
-  "Ignore trend history",
-  "Thermograph only after catastrophic failure"
+  "Scan only de-energized empty panels, never operating gear",
+  "Scan under load with baselines and anomaly follow-up",
+  "Ignore trend history even when repeated anomalies appear",
+  "Thermograph only after catastrophic failure, not preventively"
 ]
 correct = "B"
 explanation = "Comparable loaded baselines turn IR from snapshots into a maintenance program."

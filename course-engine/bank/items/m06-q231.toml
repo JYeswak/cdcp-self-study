@@ -9,10 +9,10 @@ kind = "single-select"
 module = 6
 stem = "Lithium-ion UPS battery systems are often attractive versus traditional VRLA because of:"
 choices = [
-  "Zero need for any battery management",
-  "Immunity from all fire and thermal concerns",
-  "Automatic 2N topology",
-  "Higher energy density and different footprint and lifecycle trade-offs that remain design-specific"
+  "Zero need for any battery management or monitoring systems",
+  "Immunity from all fire and thermal concerns in any installation",
+  "Automatic 2N topology without path or capacity review",
+  "Higher density with design trade-offs"
 ]
 correct = "D"
 explanation = "Li-ion offers density and lifecycle trade-offs, not magic immunity from engineering."

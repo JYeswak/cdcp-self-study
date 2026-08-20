@@ -7,8 +7,8 @@ kind = "single-select"
 module = 6
 stem = "During generator load-bank testing, the operational goal is mainly to:"
 choices = [
-  "Exercise the set under real thermal and electrical load and verify performance",
-  "Drain UPS batteries to zero intentionally",
+  "Exercise the set under real thermal and electrical load",
+  "Drain UPS batteries to zero intentionally, regardless of battery care",
   "Disable all ATS transfers permanently",
   "Replace bonding jumpers with fiber"
 ]

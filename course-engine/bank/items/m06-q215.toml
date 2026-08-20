@@ -10,7 +10,7 @@ choices = [
   "Fuel systems set the UPS inverter topology",
   "Fuel only affects network latency",
   "Day tanks define thermal envelopes for IT",
-  "A generator cannot support the facility if fuel delivery or quality fails"
+  "Fuel delivery and quality can stop support"
 ]
 correct = "D"
 explanation = "Runtime depends on the entire fuel chain, not only the engine nameplate."

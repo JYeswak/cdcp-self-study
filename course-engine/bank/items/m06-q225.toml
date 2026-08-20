@@ -7,8 +7,8 @@ kind = "single-select"
 module = 6
 stem = "kW versus kVA planning matters because:"
 choices = [
-  "They are always identical numbers",
-  "Real power and apparent power differ by power factor; equipment may be limited on either",
+  "They are always identical numbers, regardless of power factor",
+  "Power and apparent power differ by PF",
   "Only kVA appears on every nameplate worldwide",
   "kW only applies to cooling towers"
 ]

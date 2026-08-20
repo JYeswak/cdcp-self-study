@@ -9,9 +9,9 @@ module = 6
 stem = "Severe phase imbalance on a three-phase UPS output feeding mixed single-phase rack loads most often risks:"
 choices = [
   "Automatic perfect balancing by the generator only",
-  "Higher battery amp-hours",
-  "Lower heat in transformers always",
-  "Overloaded phases, nuisance trips, or degraded UPS behavior"
+  "Higher battery amp-hours, regardless of phase loading",
+  "Lower heat in transformers always, regardless of loading",
+  "Overloaded phases and nuisance trips"
 ]
 correct = "D"
 explanation = "Unbalanced phase loading concentrates current and can trip protection or stress the UPS."

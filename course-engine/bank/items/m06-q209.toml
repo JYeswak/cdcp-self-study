@@ -9,9 +9,9 @@ module = 6
 stem = "Double-conversion UPS is preferred for a sensitive hall mainly because it:"
 choices = [
   "Eliminates all heat so cooling is unnecessary",
-  "Regenerates a conditioned output largely independent of input disturbances",
+  "Regenerates conditioned output",
   "Removes the need for any grounding",
-  "Converts three-phase to single-phase only"
+  "Converts three-phase to single-phase only, regardless of load design"
 ]
 correct = "B"
 explanation = "Online double-conversion rebuilds output from the DC link for high power quality."

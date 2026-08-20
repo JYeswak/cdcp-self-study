@@ -11,7 +11,7 @@ module = 6
 stem = "Multiple neutral-ground bonds downstream of the designated bonding point are a problem because they can:"
 choices = [
   "Improve isolation of every circuit automatically",
-  "Create unintended neutral current paths and ground loops",
+  "Unintended neutral currents and ground loops",
   "Raise IP ratings",
   "Eliminate harmonics"
 ]

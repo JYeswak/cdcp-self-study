@@ -9,10 +9,10 @@ kind = "single-select"
 module = 6
 stem = "Overhead busway is selected in a dense hall primarily to:"
 choices = [
-  "Replace all UPS systems",
-  "Support flexible, reconfigurable power delivery with reduced underfloor congestion",
+  "Replace all UPS systems with busway distribution",
+  "Flexible reconfigurable power delivery",
   "Eliminate fire detection needs",
-  "Provide humidification"
+  "Provide humidification throughout the white space"
 ]
 correct = "B"
 explanation = "Busway enables modular taps and keeps high-amp distribution out of crowded floor plenums."
