@@ -8,12 +8,12 @@ module = 10
 stem = "On-site water storage tanks for cooling support are sized conceptually against:"
 choices = [
   "Only the number of network racks, without considering water demand or outage duration",
-  "Only indoor lighting and occupancy, regardless of cooling mode",
+  "Only the facility's electrical peak, without considering water demand or outage duration",
   "Expected outage duration, makeup rates, and which plant modes need water",
-  "Only fiber counts; water storage is independent"
+  "Only the occupied floor area, without considering water demand or outage duration"
 ]
 correct = "C"
-explanation = "Storage is sized against the scenario: how long supply could be out, how fast the plant consumes makeup, and which operating modes actually need water. Rack counts and fibre counts describe IT density, not water demand, so none of them constrains tank volume."
+explanation = "Storage is sized against the scenario: outage duration, makeup rate, usable volume, and the plant modes that need water. Rack count, electrical peak, and floor area are not substitutes for the water-demand calculation."
 topic_ids = ["m10-backup"]
 objective_ids = []
 bloom = "apply"

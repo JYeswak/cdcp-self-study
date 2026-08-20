@@ -10,13 +10,13 @@ kind = "single-select"
 module = 10
 stem = "Cooling tower makeup water is needed primarily because:"
 choices = [
-  "Towers create water from air continuously during normal operation, so makeup is unnecessary",
-  "Servers consume tower water through the IT network",
-  "Makeup water powers CRAH fans rather than heat rejection",
+  "Assume condensate returns and evaporation create no net basin loss",
+  "Treat makeup demand as an IT-network consumption rather than a cooling-plant loss",
+  "Treat makeup as fan power rather than replacement for evaporation, drift, and blowdown",
   "Evaporation, drift, and blowdown remove water that must be replaced"
 ]
 correct = "D"
-explanation = "Evaporative rejection consumes water; blowdown controls chemistry—makeup restores the basin inventory."
+explanation = "Evaporation, drift, and blowdown remove water from the tower loop, so makeup restores basin inventory; it is not an IT-network load, fan power, or a loss that condensate assumptions erase."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "understand"

@@ -8,12 +8,12 @@ module = 10
 stem = "Process water for cooling towers and humidification matters to uptime because:"
 choices = [
   "Quality, availability, or treatment failures can force cooling derates or shutdowns",
-  "It can affect domestic plumbing rather than cooling, since towers run a closed circuit",
-  "It supplies the UPS inverter directly rather than supporting heat rejection or humidity control",
-  "It replaces fire suppression in every design, so separate fire-water planning is unnecessary",
+  "Treat tower makeup as a domestic-service concern because the recirculating loop is closed",
+  "Treat process water as an electrical input to the UPS rather than a heat-rejection or humidity-control input",
+  "Treat cooling-water planning as a substitute for separate fire-water planning",
 ]
 correct = "A"
-explanation = "Cooling plant often depends on water; loss or poor quality can reduce heat rejection capacity."
+explanation = "Cooling and humidity systems depend on usable, treated water; a closed recirculating loop still needs makeup, water is not an electrical UPS input, and fire-water planning remains a separate design question."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "understand"

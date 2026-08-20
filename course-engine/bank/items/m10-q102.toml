@@ -7,13 +7,13 @@ kind = "single-select"
 module = 10
 stem = "A backup water supply for a water-dependent cooling plant is intended to:"
 choices = [
-  "A backup supply can decorate the landscape without supporting any cooling or resilience function",
-  "Replace every chiller with storage tanks alone, eliminating mechanical heat rejection and any need to manage plant capacity",
+  "Count stored volume as resilience even when it cannot reach the cooling process",
+  "Treat stored water as a replacement for chillers and plant-capacity planning",
   "Bridge utility water interruptions so heat rejection can continue within design intent",
-  "Feed the fire sprinkler risers, which share no connection with the cooling plant",
+  "Use cooling backup water as fire-water without checking separation, quality, or demand",
 ]
 correct = "C"
-explanation = "Stored or alternate water sources support cooling continuity when municipal supply is interrupted."
+explanation = "Backup water bridges a utility interruption only when its pumps, piping, quality, and usable volume can support the cooling process; storage does not replace heat-rejection equipment or automatically satisfy fire-water needs."
 topic_ids = ["m10-backup"]
 objective_ids = []
 bloom = "understand"

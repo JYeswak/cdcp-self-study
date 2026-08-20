@@ -7,13 +7,13 @@ kind = "single-select"
 module = 10
 stem = "Alternate water sources (wells, reclaimed water, dual feeds) are considered in design to:"
 choices = [
-  "Ignore water availability risk because alternate sources are never needed at a critical site",
-  "Eliminate all water-chemistry control because a second source guarantees clean makeup water",
-  "Power generators directly through the water feeds instead of supporting cooling or fire systems",
+  "Rely on an alternate source only after failure, without checking its treatment or delivery path",
+  "Treat source diversity as eliminating chemistry and quality controls",
+  "Treat an alternate feed as a substitute for storage in every outage scenario",
   "Improve resilience and/or sustainability of water-dependent cooling strategies"
 ]
 correct = "D"
-explanation = "Diverse sources can reduce single-supplier risk and support water stewardship goals when properly treated."
+explanation = "Alternate sources can reduce single-supplier risk or support stewardship, but each still needs treatment, delivery checks, and a continuity plan; diversity does not remove chemistry controls or guarantee storage-equivalent duration."
 topic_ids = ["m10-backup", "m10-importance"]
 objective_ids = []
 bloom = "understand"

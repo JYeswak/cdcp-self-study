@@ -11,12 +11,12 @@ module = 10
 stem = "Blowdown (bleed) from a cooling tower loop is performed mainly to:"
 choices = [
   "Control concentration of dissolved solids and chemistry by removing concentrated water",
-  "Increase dissolved solids without limit as long as the tower remains online",
-  "Eliminate water-treatment chemicals in every tower design after one blowdown cycle",
-  "Cool the UPS room through the condenser-water loop without managing dissolved solids"
+  "Increase blowdown until concentration is zero, without considering water use or treatment",
+  "Use one blowdown cycle as a substitute for the ongoing treatment program",
+  "Treat blowdown as a room-cooling control rather than a dissolved-solids control"
 ]
 correct = "A"
-explanation = "As water evaporates, minerals concentrate; blowdown limits scale and corrosion risk when paired with treatment."
+explanation = "Evaporation concentrates minerals; controlled blowdown limits dissolved-solids concentration but does not make treatment unnecessary, eliminate water-use tradeoffs, or serve as a room-cooling control."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "understand"

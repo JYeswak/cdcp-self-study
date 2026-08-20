@@ -10,13 +10,13 @@ kind = "single-select"
 module = 10
 stem = "Legionella and biological control programs for tower water exist primarily to:"
 choices = [
-  "Increase scale formation as a deliberate way to stabilize water chemistry in the tower",
-  "Cool servers by introducing beneficial bacteria into the condenser-water loop",
+  "Use deliberate scale formation as a way to stabilize the tower loop",
+  "Treat biological control as a heat-transfer optimization rather than a health and fouling control",
   "Manage health and operational risks from biological growth in water systems",
-  "Replace physical security controls because biological risk is the only operational concern"
+  "Hand the program to physical security because biological risk is unrelated to plant operations"
 ]
 correct = "C"
-explanation = "Warm, aerated, recirculating tower water is a favourable environment for Legionella, so the control programme exists for occupant health first and fouling second. The remaining options treat biological growth as either useful or as a substitute for unrelated controls, when the programme is specifically about suppressing it."
+explanation = "Biological control protects health and limits operational fouling; promoting scale, treating it as an efficiency-only exercise, or handing it to physical security misses the water-system hazard the program controls."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "understand"
