@@ -8,8 +8,8 @@ module = 10
 stem = "From a CDCP perspective, water is a critical utility for many data centres because:"
 choices = [
   "IT servers run on water pressure alone, so electrical reliability is secondary to the water service",
-  "Water replaces electrical grounding and therefore removes the need for bonding or earthing",
-  "Network latency is determined by water hardness rather than topology, routing, or load",
+  "Water replaces grounding, so bonding is unnecessary",
+  "Network latency follows water hardness, not topology",
   "Heat rejection and humidity-control strategies can depend on reliable water services"
 ]
 correct = "D"

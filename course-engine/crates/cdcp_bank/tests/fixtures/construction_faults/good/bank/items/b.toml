@@ -3,7 +3,7 @@ kind = "single-select"
 module = 1
 stem = "A maintenance plan should include:"
 choices = [
-  "maintenance task register",
+  "maintenance task list",
   "maintenance risk register",
   "maintenance access register",
   "maintenance review register",

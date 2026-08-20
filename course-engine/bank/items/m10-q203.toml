@@ -8,7 +8,7 @@ module = 10
 stem = "Backup water planning should consider not only volume but also:"
 choices = [
   "How water is delivered to the process (pumps, piping, power to transfer pumps, and usable storage quality)",
-  "Only the color of the tank, because visibility is the main determinant of emergency water readiness rather than pump, piping, power, or volume",
+  "Only the tank's visible condition matters, not its pump, piping, power, or usable volume",
   "Only whether the tank is visible from the highway, not its pump, piping, power, or usable volume",
   "Whether staff prefer bottled-water brands, since process delivery is independent of operations"
 ]

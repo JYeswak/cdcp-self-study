@@ -1,0 +1,18 @@
+id = "construction-rank-longest-d"
+kind = "single-select"
+module = 1
+stem = "The correct option is:"
+choices = [
+  "A short alternative",
+  "A brief alternative",
+  "Another brief alternative",
+  "A complete and technically justified response"
+]
+correct = "D"
+explanation = "The key is deliberately longest for the rank-uniformity fixture."
+topic_ids = ["fixture-construction"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"

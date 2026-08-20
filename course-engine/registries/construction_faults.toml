@@ -6,6 +6,12 @@
 min_ratio_pct = 125
 min_extra_words = 3
 
+[rank_uniformity]
+# Across a population, each keyed length rank should stay near the 25% target.
+# This catches both "always longest" and "never longest" construction cues.
+max_deviation_pct = 10
+min_items = 4
+
 [grammatical_disagreement]
 # Scope is deliberately conservative: explicit article or auxiliary cues at
 # the end of a stem, with explicit opposite forms at the start of choices.

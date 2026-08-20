@@ -4,6 +4,10 @@
 //! This is deliberately narrower than item-quality or discrimination. It can
 //! find option-set construction signals; it cannot tell whether the keyed
 //! answer is true, current, well grounded, or discriminating.
+//!
+//! GREEN-DOES-NOT-PROVE: uniform length rank removes length as a signal. It
+//! says nothing about whether distractors are plausible to someone who knows
+//! the material; that still needs response data.
 
 use crate::{Bank, BankItem};
 use serde::Deserialize;
@@ -16,6 +20,7 @@ pub const POLICY: &str = "registries/construction_faults.toml";
 pub const DAMAGED_REL: &str = "crates/cdcp_bank/tests/fixtures/damaged_corpus_2026_08_18";
 
 const LONGEST: &str = "longest-option-correct";
+const RANK_UNIFORMITY: &str = "length-rank-uniformity";
 const GRAMMAR: &str = "grammatical-disagreement";
 const ABSOLUTE: &str = "absolute-language-distractor";
 const ALL_NONE: &str = "all-none-of-the-above";
@@ -59,6 +64,8 @@ impl Counts {
 struct Findings {
     counts: Counts,
     samples: [Vec<String>; 4],
+    rank_counts: [usize; 4],
+    rank_uniformity_violation: bool,
 }
 
 impl Findings {
@@ -66,6 +73,8 @@ impl Findings {
         Self {
             counts: Counts::default(),
             samples: std::array::from_fn(|_| Vec::new()),
+            rank_counts: [0; 4],
+            rank_uniformity_violation: false,
         }
     }
 
@@ -80,6 +89,7 @@ impl Findings {
 #[serde(deny_unknown_fields)]
 struct Registry {
     longest_option_correct: LongestPolicy,
+    rank_uniformity: RankUniformityPolicy,
     grammatical_disagreement: GrammarPolicy,
     absolute_language_distractors: AbsolutePolicy,
     all_none_of_the_above: AllNonePolicy,
@@ -90,6 +100,13 @@ struct Registry {
 struct LongestPolicy {
     min_ratio_pct: u32,
     min_extra_words: usize,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct RankUniformityPolicy {
+    max_deviation_pct: u32,
+    min_items: usize,
 }
 
 #[derive(Debug, Deserialize)]
@@ -115,6 +132,7 @@ struct AllNonePolicy {
 #[derive(Debug)]
 struct Policy {
     longest: LongestPolicy,
+    rank: RankUniformityPolicy,
     grammar: GrammarPolicy,
     absolute_words: BTreeSet<String>,
     hedge_words: BTreeSet<String>,
@@ -138,6 +156,16 @@ fn load_policy(root: &Path) -> Result<Policy, String> {
             "{POLICY}: longest_option_correct.min_extra_words must be positive"
         ));
     }
+    if raw.rank_uniformity.max_deviation_pct >= 25 {
+        return Err(format!(
+            "{POLICY}: rank_uniformity.max_deviation_pct must be 0..=24"
+        ));
+    }
+    if raw.rank_uniformity.min_items < 4 {
+        return Err(format!(
+            "{POLICY}: rank_uniformity.min_items must be at least 4"
+        ));
+    }
     if raw.grammatical_disagreement.min_disagreeing_distractors == 0
         || raw.absolute_language_distractors.min_absolute_distractors == 0
         || raw.all_none_of_the_above.min_matches == 0
@@ -154,6 +182,7 @@ fn load_policy(root: &Path) -> Result<Policy, String> {
     )?;
     Ok(Policy {
         longest: raw.longest_option_correct,
+        rank: raw.rank_uniformity,
         grammar: raw.grammatical_disagreement,
         absolute_words,
         hedge_words,
@@ -197,6 +226,24 @@ fn choice_index(item: &BankItem) -> Result<usize, String> {
         "D" => Ok(3),
         other => Err(format!("{}: correct key is not A-D: {other:?}", item.id)),
     }
+}
+
+fn length_rank(item: &BankItem) -> Result<usize, String> {
+    let key = choice_index(item)?;
+    let key_length = item.choices[key].chars().count();
+    // Equal-length options break in A-D order, making the rank a permutation
+    // instead of silently assigning two options the same position.
+    let rank = 1 + item
+        .choices
+        .iter()
+        .enumerate()
+        .filter(|(index, choice)| {
+            *index != key
+                && (choice.chars().count() > key_length
+                    || (choice.chars().count() == key_length && *index < key))
+        })
+        .count();
+    Ok(rank)
 }
 
 fn longest_option_correct(item: &BankItem, policy: &LongestPolicy) -> Result<bool, String> {
@@ -306,6 +353,17 @@ fn all_none_of_the_above(item: &BankItem, policy: &AllNonePolicy) -> bool {
     matches >= policy.min_matches
 }
 
+fn rank_uniformity_violation(
+    rank_counts: &[usize; 4],
+    items_scanned: usize,
+    policy: &RankUniformityPolicy,
+) -> bool {
+    rank_counts.iter().any(|count| {
+        let share = pct(*count, items_scanned);
+        (share - 25.0).abs() > policy.max_deviation_pct as f64
+    })
+}
+
 fn analyze_dir(
     dir: &Path,
     policy: &Policy,
@@ -338,9 +396,18 @@ fn analyze_dir(
             "{label}: zero approved single-select items (vacuous scan)"
         ));
     }
+    if items.len() < policy.rank.min_items {
+        return Err(format!(
+            "{label}: only {} approved single-select items; rank-uniformity requires at least {}",
+            items.len(),
+            policy.rank.min_items
+        ));
+    }
     let mut findings = Findings::new();
     findings.counts.items_scanned = items.len();
     for item in items {
+        let rank = length_rank(item)?;
+        findings.rank_counts[rank - 1] += 1;
         let checks = [
             longest_option_correct(item, &policy.longest)?,
             grammatical_disagreement(item, &policy.grammar)?,
@@ -368,6 +435,11 @@ fn analyze_dir(
             findings.add(index, &item.id);
         }
     }
+    findings.rank_uniformity_violation = rank_uniformity_violation(
+        &findings.rank_counts,
+        findings.counts.items_scanned,
+        &policy.rank,
+    );
     Ok(findings)
 }
 
@@ -375,10 +447,16 @@ fn pct(count: usize, total: usize) -> f64 {
     count as f64 * 100.0 / total as f64
 }
 
-fn population_line(label: &str, findings: &Findings) -> String {
+fn population_line(label: &str, findings: &Findings, policy: &RankUniformityPolicy) -> String {
     let c = &findings.counts;
+    let rank_shares = findings
+        .rank_counts
+        .iter()
+        .map(|count| format!("{:.1}%", pct(*count, c.items_scanned)))
+        .collect::<Vec<_>>()
+        .join(",");
     format!(
-        "{label}: items={}; {LONGEST}={} ({:.1}%); {GRAMMAR}={} ({:.1}%); {ABSOLUTE}={} ({:.1}%); {ALL_NONE}={} ({:.1}%); detector-hits={}",
+        "{label}: items={}; {LONGEST}={} ({:.1}%); {GRAMMAR}={} ({:.1}%); {ABSOLUTE}={} ({:.1}%); {ALL_NONE}={} ({:.1}%); detector-hits={}; {RANK_UNIFORMITY}={} counts=[{},{},{},{}] shares=[{}] expected=25.0%±{}pp",
         c.items_scanned,
         c.longest_option_correct,
         pct(c.longest_option_correct, c.items_scanned),
@@ -389,6 +467,17 @@ fn population_line(label: &str, findings: &Findings) -> String {
         c.all_none_of_the_above,
         pct(c.all_none_of_the_above, c.items_scanned),
         c.total(),
+        if findings.rank_uniformity_violation {
+            "FAIL"
+        } else {
+            "PASS"
+        },
+        findings.rank_counts[0],
+        findings.rank_counts[1],
+        findings.rank_counts[2],
+        findings.rank_counts[3],
+        rank_shares,
+        policy.max_deviation_pct,
     )
 }
 
@@ -403,7 +492,17 @@ fn delta_line(live: &Findings, damaged: &Findings) -> String {
             format!("{name} count_delta={count_delta:+}; rate_delta={rate_delta:+.1}pp")
         })
         .collect::<Vec<_>>();
-    format!("delta damaged-minus-live: {}", deltas.join("; "))
+    let rank_deltas = damaged
+        .rank_counts
+        .iter()
+        .zip(live.rank_counts.iter())
+        .map(|(damaged, live)| format!("{:+}", *damaged as isize - *live as isize))
+        .collect::<Vec<_>>()
+        .join(",");
+    format!(
+        "delta damaged-minus-live: {}; {RANK_UNIFORMITY} count_delta=[{rank_deltas}]",
+        deltas.join("; ")
+    )
 }
 
 fn sample_lines(label: &str, findings: &Findings) -> Vec<String> {
@@ -448,16 +547,16 @@ fn evaluate_pair(root: &Path, require_damaged: bool) -> Eval {
     let mut report = vec![format!(
         "{NAME}: construction faults are option-set cues, not discrimination or truth"
     )];
-    report.push(population_line("live-approved", &live));
+    report.push(population_line("live-approved", &live, &policy.rank));
     if let Some(damaged) = &damaged {
-        report.push(population_line("damaged-corpus", damaged));
+        report.push(population_line("damaged-corpus", damaged, &policy.rank));
         report.push(delta_line(&live, damaged));
     }
     report.extend(sample_lines("live-approved", &live));
     if let Some(damaged) = &damaged {
         report.extend(sample_lines("damaged-corpus", damaged));
     }
-    if live.counts.total() > 0 {
+    if live.counts.total() > 0 || live.rank_uniformity_violation {
         Eval::Violation(report)
     } else {
         Eval::Ok(report.join("\n"))
@@ -506,8 +605,33 @@ mod tests {
             Eval::Ok(report) => {
                 assert!(report.contains("items=4"));
                 assert!(report.contains("detector-hits=0"));
+                assert!(report.contains("length-rank-uniformity=PASS counts=[1,1,1,1]"));
             }
             other => panic!("known-good construction fixture did not pass: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn all_longest_rank_fixture_is_red() {
+        match evaluate_live_only(&fixture("rank_longest")) {
+            Eval::Violation(lines) => {
+                let report = lines.join("\n");
+                assert!(report.contains("length-rank-uniformity=FAIL"));
+                assert!(report.contains("counts=[4,0,0,0]"));
+            }
+            other => panic!("all-longest rank fixture did not go RED: {other:?}"),
+        }
+    }
+
+    #[test]
+    fn all_shortest_rank_fixture_is_red() {
+        match evaluate_live_only(&fixture("rank_shortest")) {
+            Eval::Violation(lines) => {
+                let report = lines.join("\n");
+                assert!(report.contains("length-rank-uniformity=FAIL"));
+                assert!(report.contains("counts=[0,0,0,4]"));
+            }
+            other => panic!("all-shortest rank fixture did not go RED: {other:?}"),
         }
     }
 

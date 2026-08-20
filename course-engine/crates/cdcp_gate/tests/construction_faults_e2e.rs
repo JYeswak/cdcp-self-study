@@ -12,6 +12,7 @@ fn the_gate_is_registered_and_reports_both_populations() {
     assert_eq!(code, 2, "{output}");
     assert!(output.contains("live-approved: items=931"), "{output}");
     assert!(output.contains("damaged-corpus: items=448"), "{output}");
+    assert!(output.contains("length-rank-uniformity"), "{output}");
 }
 
 #[test]

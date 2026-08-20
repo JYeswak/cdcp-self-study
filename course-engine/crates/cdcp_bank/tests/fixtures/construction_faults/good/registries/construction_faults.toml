@@ -4,6 +4,10 @@
 min_ratio_pct = 125
 min_extra_words = 3
 
+[rank_uniformity]
+max_deviation_pct = 10
+min_items = 4
+
 [grammatical_disagreement]
 min_disagreeing_distractors = 1
 

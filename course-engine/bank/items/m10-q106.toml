@@ -8,9 +8,9 @@ module = 10
 stem = "On-site water storage tanks for cooling support are sized conceptually against:"
 choices = [
   "Only the number of network racks, without considering water demand or outage duration",
-  "Only indoor lighting levels and occupancy, regardless of cooling-plant operating mode",
+  "Only indoor lighting and occupancy, regardless of cooling mode",
   "Expected outage duration, makeup rates, and which plant modes need water",
-  "Only fiber strand counts, because water storage is independent of the facility"
+  "Only fiber counts; water storage is independent"
 ]
 correct = "C"
 explanation = "Backup water duration must match risk scenarios and plant water demand profiles."

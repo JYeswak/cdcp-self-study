@@ -9,7 +9,7 @@ stem = "Seasonal drought or municipal restriction plans for water-dependent plan
 choices = [
   "Written after the first forced shutdown, when the team has enough evidence to choose a response",
   "Predefined with operational modes, communication paths, and any alternate cooling strategies",
-  "Ignored if last year was rainy, because drought and municipal restrictions are not design inputs",
+  "Ignore drought restrictions because a rainy prior year proves supply is secure",
   "Left solely to the landscaping contractor, who owns all process-water and cooling decisions"
 ]
 correct = "B"

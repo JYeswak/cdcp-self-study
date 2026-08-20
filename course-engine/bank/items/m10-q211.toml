@@ -11,7 +11,7 @@ module = 10
 stem = "Water usage effectiveness (WUE) style thinking is useful operationally because it:"
 choices = [
   "Encourages measuring and managing water consumed relative to IT work done, alongside energy metrics",
-  "Replaces all electrical metering by treating water as the only meaningful efficiency measure and making energy data unnecessary",
+  "Replace electrical metering entirely and treat water as the only meaningful efficiency measure",
   "Proves water is unnecessary for every plant, including evaporative cooling and fire protection",
   "Is only a marketing acronym with no operational use or connection to measured IT work"
 ]

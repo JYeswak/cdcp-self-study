@@ -1,4 +1,4 @@
-# Fixture-local copy of the production policy.
+# Fixture-local construction policy for the all-longest rank leg.
 
 [longest_option_correct]
 min_ratio_pct = 125

@@ -9,7 +9,7 @@ stem = "A qualitative tradeoff of evaporative cooling versus dry heat rejection 
 choices = [
   "Evaporative methods use no water and always consume more energy, so they trade neither resource",
   "Dry coolers always use more water than towers, but eliminate the energy penalty of heat rejection",
-  "There is never an energy/water tradeoff because both approaches consume the same resources in every climate",
+  "There is no energy/water tradeoff because both cooling methods use the same resources",
   "Evaporative cooling can save energy but uses water; dry cooling saves water but may use more energy"
 ]
 correct = "D"

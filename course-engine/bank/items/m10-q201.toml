@@ -8,7 +8,7 @@ module = 10
 stem = "On-site backup water storage is most valuable when:"
 choices = [
   "The facility has zero water-dependent systems, so storage has no resilience value",
-  "Municipal supply is guaranteed never to fail, even during drought, maintenance, contamination, or upstream outage",
+  "Municipal supply is guaranteed never to fail, even during drought or upstream outage",
   "Utility water interruption would force derate or shutdown of water-dependent cooling or fire protection",
   "IT load runs solely on battery chemistry and does not require heat rejection or fire protection"
 ]

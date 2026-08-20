@@ -9,7 +9,7 @@ stem = "Fire water supply reliability is a life-safety and property-protection c
 choices = [
   "AHJ-required fire protection depends on adequate water supply and pressure where water-based systems are used",
   "Fire water is optional whenever a UPS is present, because electrical resilience substitutes for life safety",
-  "Sprinklers replace every electrical code because water-based protection removes arc-flash and bonding obligations",
+  "Sprinklers replace electrical-code controls because water protection addresses every site hazard",
   "Only gas systems ever need water, so water-based fire protection can be excluded from the site review"
 ]
 correct = "A"

@@ -11,8 +11,8 @@ module = 10
 stem = "Cooling tower makeup water is needed primarily because:"
 choices = [
   "Towers create water from air continuously during normal operation, so makeup is unnecessary",
-  "Servers consume tower water directly through the IT network and determine makeup demand",
-  "Makeup water powers CRAH fans and is separate from evaporative heat rejection",
+  "Servers consume tower water through the IT network",
+  "Makeup water powers CRAH fans rather than heat rejection",
   "Evaporation, drift, and blowdown remove water that must be replaced"
 ]
 correct = "D"

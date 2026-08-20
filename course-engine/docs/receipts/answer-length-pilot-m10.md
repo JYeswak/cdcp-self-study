@@ -51,3 +51,39 @@ discrimination. The remaining 803 longest-key items are outside this pilot and
 were intentionally not edited.
 
 GREEN-DOES-NOT-PROVE: removing the length cue does not make an item good. An item can be length-neutral and still fail to discriminate — that needs response data we do not have. This removes one mechanical cue, nothing more.
+
+## Follow-up: rank-uniformity repair
+
+The first pilot overcorrected: the keyed length-rank distribution was
+`[0,12,9,14]` for ranks 1 through 4 (0.0%, 34.3%, 25.7%, 40.0%). The
+follow-up changes only substantive M10 distractor/key wording and leaves every
+`correct` field unchanged. Using character length with A-D order as the
+deterministic tie-break, the distribution is now:
+
+```text
+rank 1 (longest): 9/35 (25.7%)
+rank 2:           9/35 (25.7%)
+rank 3:           8/35 (22.9%)
+rank 4 (shortest):9/35 (25.7%)
+```
+
+The key letters before and after are identical, and the approved distribution
+remains `A=274, B=246, C=209, D=202`.
+
+`registries/construction_faults.toml` now has `[rank_uniformity]` with
+`max_deviation_pct = 10` and `min_items = 4`. Each population must keep all
+four keyed rank shares within 10 percentage points of the 25% target; both
+all-longest and all-shortest fixture populations therefore go RED. The gate
+reports rank counts and shares for live and damaged populations.
+
+Known-bad fixtures:
+
+- `crates/cdcp_bank/tests/fixtures/construction_faults/rank_longest/`
+- `crates/cdcp_bank/tests/fixtures/construction_faults/rank_shortest/`
+
+Known-good `construction_faults/good` now has one item at each rank. The full
+`cdcp_bank` suite passed (253 unit tests plus integration suites), and the
+construction-faults dispatcher e2e passed both tests. The live gate remains
+RED, as expected, with `length-rank-uniformity` reported.
+
+GREEN-DOES-NOT-PROVE: uniform length rank removes length as a signal. It says nothing about whether the distractors are plausible to someone who knows the material; that still needs response data.

@@ -10,7 +10,7 @@ kind = "single-select"
 module = 10
 stem = "Monitoring basin level and makeup flow is operationally useful because it:"
 choices = [
-  "Only tracks rainfall for landscaping and cannot reveal makeup, leakage, or supply abnormalities in the cooling plant",
+  "Tracks rainfall for landscaping only, not makeup, leaks, blowdown, or supply problems",
   "Detects abnormal water loss (leaks, excessive blowdown, supply issues) before cooling is compromised",
   "Replaces rack-inlet temperature sensors by inferring all thermal conditions from basin data alone",
   "Measures only copper resistance in electrical conductors and cannot describe water-system behavior"

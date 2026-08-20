@@ -7,7 +7,7 @@ kind = "single-select"
 module = 10
 stem = "Treating water as a non-critical utility in a tower-cooled site is a mistake because:"
 choices = [
-  "Water only affects landscaping and cannot reduce heat-rejection capacity at a tower-cooled site, even when makeup is unavailable",
+  "Water only affects landscaping and cannot reduce heat rejection when makeup is unavailable",
   "Servers drink water directly through Ethernet, so water reliability is an IT-network property",
   "Fire codes forbid any water storage, making backup tanks a compliance defect in every jurisdiction",
   "Heat rejection capacity can collapse without adequate water even if electrical power remains available"

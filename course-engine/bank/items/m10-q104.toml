@@ -13,7 +13,7 @@ choices = [
   "Control concentration of dissolved solids and chemistry by removing concentrated water",
   "Increase dissolved solids without limit as long as the tower remains online",
   "Eliminate water-treatment chemicals in every tower design after one blowdown cycle",
-  "Cool the UPS room directly through the condenser-water loop without a heat exchanger or separate air-side conditioning"
+  "Cool the UPS room through the condenser-water loop without managing dissolved solids"
 ]
 correct = "A"
 explanation = "As water evaporates, minerals concentrate; blowdown limits scale and corrosion risk when paired with treatment."

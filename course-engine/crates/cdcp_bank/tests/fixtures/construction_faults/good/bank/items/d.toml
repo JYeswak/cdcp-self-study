@@ -5,7 +5,7 @@ stem = "The design team evaluates:"
 choices = [
   "design load register",
   "design risk register",
-  "design access register",
+  "design access register for critical systems",
   "design review register",
 ]
 correct = "D"

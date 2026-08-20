@@ -1,0 +1,18 @@
+id = "construction-rank-shortest-a"
+kind = "single-select"
+module = 1
+stem = "The correct option is:"
+choices = [
+  "No",
+  "A longer operational response",
+  "A more detailed technical response",
+  "The most complete response in the set"
+]
+correct = "A"
+explanation = "The key is deliberately shortest for the rank-uniformity fixture."
+topic_ids = ["fixture-construction"]
+objective_ids = []
+bloom = "understand"
+source_class = "original"
+quantity_evidence = "qualitative_only"
+status = "approved"
