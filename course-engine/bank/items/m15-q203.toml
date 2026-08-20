@@ -5,15 +5,15 @@
 id = "m15-q203"
 kind = "single-select"
 module = 15
-stem = "A maintenance contract SLA should clearly define:"
+stem = "A vendor SLA says “best effort,” but a critical cooling alarm requires a timed response. Which clause should the owner require before signing?"
 choices = [
-  "Define response/restore times and escalation",
-  "That no one may ever touch equipment under the SLA",
-  "Unlimited scope with zero measurement or service boundaries",
-  "Only the vendor logo color and marketing identity"
+  "Define response and restore times, coverage, and escalation for the service",
+  "Prohibit all vendor contact with the equipment under the SLA",
+  "Allow unlimited scope without measurable service boundaries",
+  "Specify only the vendor logo color and marketing identity"
 ]
 correct = "A"
-explanation = "SLAs without measurable service levels are procurement theatre."
+explanation = "The owner needs measurable response and restore times plus coverage and escalation for the critical service; prohibiting contact, removing boundaries, or specifying branding does not make the alarm response accountable."
 topic_ids = ["m15-maintenance-sla"]
 objective_ids = []
 bloom = "apply"

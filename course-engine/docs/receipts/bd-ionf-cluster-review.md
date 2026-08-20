@@ -62,3 +62,87 @@ unchanged.
 The first application rewrite briefly introduced an `always` absolute in
 `m09-q201`; construction-faults caught it before commit, and the distractor
 was rewritten to a specific false claim without weakening the item.
+
+## Final m15 slice — seven clusters
+
+The seven m15 clusters recorded by pane 3 were adjudicated side by side. No
+item was retired or had its key changed; the approved pool remains 931 and
+`web/data` remains untouched.
+
+### m15-q134 / m15-q200 / m15-q208 — DIFFERENTIATE
+
+`m15-q134` remains an `understand` definition of why clear circuit and asset
+labels reduce human error. `m15-q208` remains an `apply` question about using
+those labels during emergency isolation and load migration. `m15-q200` was
+the overlapping definition, so it is now an `apply` rack-move troubleshooting
+scenario requiring labels tied to current records to trace a disputed path.
+
+### m15-q137 / m15-q201 — DISTINCT
+
+`m15-q137` tests what an as-built record represents: the facility as actually
+constructed and changed. `m15-q201` tests the consequence of stale records:
+responders can be misled about paths and isolation points. The definition and
+operational consequence are different propositions, so neither was changed.
+
+### m15-q142 / m15-q204 — DIFFERENTIATE
+
+`m15-q142` is the `understand` principle that cleaning must control
+particulates without damaging equipment or creating electrical hazards; its
+stale `apply` tag was corrected. `m15-q204` is now an `apply` live-hall
+scenario in which the supervisor must choose a particulate-controlled method
+instead of blowing debris into intakes, skipping documented contamination, or
+using an unverified chemical.
+
+### m15-q143 / m15-q202 — DISTINCT
+
+`m15-q143` is a `remember` definition of MTBF. `m15-q202` is an `understand`
+question about using MTBF and MTTR together as reliability and maintainability
+measures. The terms overlap because the relationship requires the definition,
+but the propositions and cognitive tasks differ; neither was changed.
+
+### m15-q146 / m15-q203 — DIFFERENTIATE
+
+`m15-q146` is the `understand` definition of the measurable fields a
+maintenance SLA should contain; its stale `apply` tag was corrected. `m15-q203`
+is now an `apply` incident-contract scenario: a critical cooling alarm under
+“best effort” requires response, restore, coverage, and escalation clauses.
+
+### m15-q149 / m15-q205 — DISTINCT
+
+`m15-q149` tests the general safety and security purpose of escorting visitors
+through a plant. `m15-q205` applies that principle to vendor access controls,
+including scoped access, identity checks, and escorts. The general purpose and
+the operational control set are distinct propositions; neither was changed.
+
+### m15-q138 / m15-q139 / m15-q207 / m15-q209 — DIFFERENTIATE
+
+`m15-q138` remains an `understand` definition of MOP structure; its stale
+`apply` tag was corrected. `m15-q139` remains an `understand` rationale for
+verification and backout. `m15-q207` is now an `apply` scenario about the risk
+of a dual-cord cutover with no controlled record or MOP. `m15-q209` remains an
+`analyze` scenario about rollback criteria and restoring a known-good state.
+Those roles separate the procedure, its rationale, its failure mode, and its
+review decision.
+
+## Closing bound
+
+This completes 13 human-found paraphrase clusters: six previously resolved
+clusters plus these seven m15 clusters. The lists contain 30 item memberships
+(17 new m15 members and 13 earlier members), which is the scale described as
+“roughly 28” in the dispatch. Differentiation makes the affected items test
+different propositions going forward, but it does not turn this partial read
+into evidence that the original pool contained 931 distinct propositions.
+
+The honest bound is: 13 clusters were found in the portion we read; the whole
+931-item approved pool was not scanned for paraphrase duplicates, and
+`near-duplicate-items` cannot establish their absence because these pairs score
+below its lexical thresholds. Therefore the advertised 23.3x 40-question
+multiplier is a count ratio, not a verified count of 931 distinct propositions;
+the effective pool is smaller by at least the overlap found here, with the
+remaining amount unknown.
+
+Final m15 verification: `verify-bank`, `answer-key-skew`,
+`construction-faults`, `near-duplicate-items`, `key-contradiction`,
+`verify-orphans`, and `validate-grounding` all exited 0. The one draft
+absolute-language cue in m15-q207 was caught by `construction-faults` and
+removed before commit.

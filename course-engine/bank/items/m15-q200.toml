@@ -6,18 +6,18 @@
 id = "m15-q200"
 kind = "single-select"
 module = 15
-stem = "Consistent labelling of power circuits, network ports, and assets primarily reduces:"
+stem = "After a rack move leaves a power circuit and network port disputed, which labelling practice most quickly supports troubleshooting?"
 choices = [
-  "The need for any documentation and circuit records",
-  "Utility entrance diversity",
-  "Fire detection coverage needs and alarm zoning",
-  "Find and correct wiring mistakes quickly"
+  "Rely on a technician's memory of the original rack layout",
+  "Change the utility entrance arrangement before tracing the physical path",
+  "Remove labels during the move so the new assignment can be decided later",
+  "Use consistent circuit, port, and asset labels tied to current records so the physical path can be traced"
 ]
 correct = "D"
-explanation = "Labels cut human latency and error in live systems."
+explanation = "Consistent labels tied to current records let the operator trace the disputed power and network path after a move; memory, utility redesign, or removing labels does not resolve the physical identity question."
 topic_ids = ["m15-labelling"]
 objective_ids = []
-bloom = "understand"
+bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
 status = "approved"

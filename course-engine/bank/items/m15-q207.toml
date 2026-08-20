@@ -6,18 +6,18 @@
 id = "m15-q207"
 kind = "single-select"
 module = 15
-stem = "Change records and method-of-procedure (MOP) discipline matter because:"
+stem = "A planned dual-cord cutover has no written change record and relies on a hallway agreement. What risk should the review flag?"
 choices = [
-  "Changes never affect availability",
-  "Only software needs change control",
-  "Verbal hallway agreements are sufficient for dual-cord cutovers",
-  "Many outages are self-inflicted during poorly planned work"
+  "Facility changes cannot affect availability when the servers have two cords",
+  "A software-change record is sufficient even when facility work is unrecorded",
+  "A hallway agreement is sufficient if an experienced technician is present",
+  "Without a controlled record and MOP, facility work can become a self-inflicted outage"
 ]
 correct = "D"
-explanation = "MOPs and change records reduce self-inflicted outages because facility work affects availability; verbal hallway agreement is not a controlled dual-cord cutover."
+explanation = "The missing record and MOP leave a dual-cord cutover vulnerable to a self-inflicted outage; redundant cords do not remove facility-change risk, and experience or software-only records are not substitutes for controlled work."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []
-bloom = "understand"
+bloom = "apply"
 source_class = "original"
 quantity_evidence = "qualitative_only"
 status = "approved"
