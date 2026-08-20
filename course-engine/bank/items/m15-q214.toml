@@ -8,13 +8,13 @@ kind = "single-select"
 module = 15
 stem = "An SLA that promises four-hour onsite response but stocks no critical spares may still yield long outages because:"
 choices = [
-  "MTTR ignores logistics, spares, tools, and access readiness",
-  "Onsite presence does not equal immediate repair and restoration",
-  "Vendors fabricate breakers from scrap and restore power immediately",
-  "Response time can differ from restore time"
+  "A four-hour response commitment obliges the vendor to stock spares for covered equipment",
+  "Holding critical spares on site would void the equipment manufacturers warranty",
+  "Mean time to repair has a statutory definition that overrides the contract",
+  "Response time can differ from restore time",
 ]
 correct = "D"
-explanation = "Response clocks and restore clocks are different; design both."
+explanation = "An SLA that commits to a response clock says when someone arrives, not when service returns -- the two are separate measures and only the second is what the business experiences. That is why a four-hour response can sit in front of a multi-day outage when the part is not on the shelf. The tempting reading is that a response commitment implies a spares commitment; it does not, which is exactly the gap the question is about, and stocking spares locally is a normal practice rather than a warranty risk. Repair-time definitions are contractual terms too, negotiated between the parties rather than fixed by statute."
 topic_ids = ["m15-maintenance-sla", "m15-mtbf-mttr"]
 objective_ids = []
 bloom = "analyze"
