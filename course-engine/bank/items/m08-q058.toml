@@ -9,12 +9,12 @@ module = 8
 stem = "Seismic-rated racks are relevant when:"
 choices = [
   "Only coastal humidity and corrosion, regardless of structural need",
-  "PUE must be below 1.1",
+  "A PUE target determines whether seismic anchoring is required",
   "Earthquake zones and anchoring requirements",
-  "Fibre counts exceed copper",
+  "The fibre-to-copper mix sets the rack anchoring class",
 ]
 correct = "C"
-explanation = "Seismic frames and floor anchoring follow the structural engineer and the local code for the zone the site is in. Corrosion is the near-miss: coastal humidity is a real materials concern, but it drives finish and coating specification, not the anchoring and bracing that seismic rating covers."
+explanation = "Seismic frames and floor anchoring follow the structural engineer and the local code for the zone the site is in. Coastal humidity may drive finish and coating, but PUE targets and fibre mix do not determine anchoring or bracing."
 topic_ids = ["m08-types", "m08-standards"]
 objective_ids = []
 bloom = "understand"

@@ -8,13 +8,13 @@ kind = "single-select"
 module = 8
 stem = "Vertical blanking panels and brush strip openings matter at the rack because they:"
 choices = [
-  "Only improve brand aesthetics at the rack, without affecting airflow",
-  "Always increase bypass airflow intentionally",
+  "Serve as visible rack trim while leaving leakage paths unchanged",
+  "Are selected to increase bypass airflow when a hall needs more mixing",
   "Control airflow",
-  "Have no interaction with cooling"
+  "Matter only for liquid-cooled racks, not air-cooled equipment"
 ]
 correct = "C"
-explanation = "Blanking panels and brush strips seal the leakage paths that would otherwise let supply air bypass the equipment or exhaust recirculate to the intakes, so they are part of the inlet temperature story rather than trim. Calling the effect aesthetic is the tempting reading because they are visible cosmetic-looking parts, and the whole reason they are fitted is the air they stop."
+explanation = "Blanking panels and brush strips seal leakage paths that would otherwise let supply air bypass equipment or exhaust recirculate to intakes, so they affect air-cooled inlet temperature rather than serving as trim, promoting mixing, or applying only to liquid racks."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "apply"

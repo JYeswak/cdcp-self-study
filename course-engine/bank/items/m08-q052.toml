@@ -10,11 +10,11 @@ stem = "Electronic rack handles integrated with badge/DCIM systems primarily add
 choices = [
   "Higher PUE from extra electronics and access controls",
   "Automatic 2N power",
-  "Free cooling",
+  "Changes the cooling path without an airflow or plant interface",
   "Audit trails and controlled cabinet access",
 ]
 correct = "D"
-explanation = "Badge-integrated handles produce an audit trail: who opened which cabinet, when, and under what authorisation. The power argument is the confusable one -- the electronics draw a trivial load and change nothing about redundancy topology, so neither PUE nor 2N is affected by fitting them."
+explanation = "Badge-integrated handles produce an audit trail: who opened which cabinet, when, and under what authorisation. The electronics draw a trivial load and change nothing about redundancy topology or the cooling path, so neither PUE nor 2N nor free cooling is created by fitting them."
 topic_ids = ["m08-security"]
 objective_ids = []
 bloom = "understand"

@@ -10,11 +10,11 @@ stem = "Zero-U rack PDUs are typically mounted:"
 choices = [
   "Rear/side vertical space without using horizontal U",
   "Only as 2U horizontal shelves in the middle of servers",
-  "Outside the building exclusively",
-  "In the CRAH return plenum",
+  "In a separate plant-side enclosure because rack PDUs cannot share cabinet space",
+  "In the return-air path so the PDU can use the plenum instead of a rack channel",
 ]
 correct = "A"
-explanation = "Zero-U means the PDU mounts in the vertical rear or side channel, consuming none of the horizontal U that IT equipment needs -- which is the whole point of the form factor and why 800 mm cabinets are chosen for dense power. Describing it as a horizontal shelf is the near-miss, since 1U and 2U rack PDUs do exist and are the thing zero-U was designed to avoid."
+explanation = "Zero-U means the PDU mounts in the vertical rear or side channel, consuming none of the horizontal U that IT equipment needs -- which is the whole point of the form factor and why 800 mm cabinets are chosen for dense power. A horizontal shelf, plant-side enclosure, or return-air plenum is a different installation, not the rack's vertical zero-U channel."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "remember"

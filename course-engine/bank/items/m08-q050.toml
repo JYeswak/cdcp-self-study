@@ -10,10 +10,10 @@ choices = [
   "A complete substitute for room access control and tenant security",
   "Unnecessary in multi-tenant colo",
   "A last-resort zone and compliance control within layered security",
-  "Only cosmetic",
+  "Adds appearance without changing the access-control boundary",
 ]
 correct = "C"
-explanation = "Cabinet locks are the innermost layer, useful for compliance evidence and for the last few feet of access -- they sit on top of room and cage controls rather than replacing them. Treating them as a substitute is the attractive answer because they are the control closest to the equipment, and it is wrong for exactly that reason: anyone already in the room has defeated every layer outside it."
+explanation = "Cabinet locks are the innermost layer, useful for compliance evidence and for the last few feet of access -- they sit on top of room and cage controls rather than replacing them. Treating them as a substitute or as mere appearance misses their bounded access-control role: anyone already in the room has defeated every layer outside it, but a rack control still changes who can reach the equipment."
 topic_ids = ["m08-security"]
 objective_ids = []
 bloom = "understand"

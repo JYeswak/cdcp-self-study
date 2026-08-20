@@ -11,11 +11,11 @@ stem = "Intelligent or metered rack PDUs help operations mainly by:"
 choices = [
   "Removing any need for upstream UPS capacity or operational planning",
   "Replacing all fire detection",
-  "Cooling servers with airflow from the PDU plastic",
+  "Changes server cooling by adding airflow through the PDU housing",
   "Outlet or strip power visibility and remote control"
 ]
 correct = "D"
-explanation = "Intelligent PDUs add measurement and remote control at the rack edge, which is where per-cabinet load and per-outlet state actually become visible. They are a distribution and instrumentation layer: they do not create upstream capacity, and nothing about metering reduces the UPS or generator sizing the load still requires."
+explanation = "Intelligent PDUs add measurement and remote control at the rack edge, which is where per-cabinet load and per-outlet state actually become visible. They are a distribution and instrumentation layer: they do not create upstream capacity, change fire detection, or provide an airflow path through the PDU housing."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "understand"

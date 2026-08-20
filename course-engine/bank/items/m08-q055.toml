@@ -11,10 +11,10 @@ choices = [
   "Removing branch circuit breakers upstream",
   "Load visibility for capacity management",
   "Eliminating phase balance concerns",
-  "Making grounding optional",
+  "Makes grounding unnecessary once the PDU reports current",
 ]
 correct = "B"
-explanation = "Metering turns rack capacity from an estimate into a measurement, which is what makes change control and capacity planning possible at the cabinet. It is instrumentation and nothing more: upstream branch breakers, phase balance and grounding are all unchanged by the ability to read a number."
+explanation = "Metering turns rack capacity from an estimate into a measurement, which is what makes change control and capacity planning possible at the cabinet. It is instrumentation and nothing more: upstream branch breakers, phase balance, and grounding are all unchanged by the ability to read a number."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "understand"
