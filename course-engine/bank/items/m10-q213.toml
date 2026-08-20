@@ -13,7 +13,7 @@ choices = [
   "Water expands when frozen in a helpful way, strengthening storage tanks and keeping basins available",
 ]
 correct = "C"
-explanation = "Winterization is part of water-dependent availability in cold climates."
+explanation = "Freezing disables the water path itself: makeup lines, basins, and fire water can all be lost while the electrical plant is untouched. The insulating-ice argument sounds thermally reasonable and misses that water expands as it freezes, so the ice that supposedly protects the pipe is what splits it."
 topic_ids = ["m10-importance", "m10-backup"]
 objective_ids = []
 bloom = "remember"

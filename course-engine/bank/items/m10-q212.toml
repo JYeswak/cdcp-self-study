@@ -13,7 +13,7 @@ choices = [
   "Capacity is reserved contractually, which removes all maintenance and common-main risk"
 ]
 correct = "B"
-explanation = "Shared utilities need isolation and governance or they become correlated SPOFs."
+explanation = "Shared mains correlate outages: one failure or one maintenance window reaches every tenant at once unless isolation and governance are explicit. Well-designed valves and metering is the near-miss -- good isolation reduces the blast radius but does not remove the shared failure point, and contractual capacity reserves allocate water rather than protecting the pipe."
 topic_ids = ["m10-importance", "m10-backup"]
 objective_ids = []
 bloom = "analyze"

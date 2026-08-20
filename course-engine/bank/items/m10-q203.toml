@@ -13,7 +13,7 @@ choices = [
   "Whether staff prefer bottled-water brands, since process delivery is independent of operations"
 ]
 correct = "A"
-explanation = "Unusable or undeliverable stored water is false capacity."
+explanation = "Stored volume only counts if it can reach the process: pumps, piping, power to those pumps, and water still fit for use. Judging a tank by its visible condition is the near-miss -- an intact tank with no powered transfer path is false capacity, and the failure shows up only when it is needed."
 topic_ids = ["m10-backup"]
 objective_ids = []
 bloom = "apply"

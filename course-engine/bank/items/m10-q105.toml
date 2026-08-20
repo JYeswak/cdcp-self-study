@@ -16,7 +16,7 @@ choices = [
   "Increase battery amp-hour ratings by improving storage-cell chemistry"
 ]
 correct = "B"
-explanation = "Fouled exchangers and towers lose effectiveness—risking IT thermal margins."
+explanation = "Untreated condenser and tower water deposits scale, drives corrosion, and grows biofilm, all of which insulate the heat-transfer surface and cost rejection capacity. The inversion is tempting because deposits do coat the surface -- but a coating is thermal resistance, not protection, so heat transfer degrades rather than improves."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Water quality affects efficiency but not mechanical reliability of the plant",
 ]
 correct = "A"
-explanation = "For water-dependent designs, water is a first-class availability input like power."
+explanation = "For a water-dependent design, water sits alongside power as a first-class availability input across heat rejection, humidity control, and fire protection. The efficiency-only framing is the closest wrong answer -- poor water quality does not merely cost efficiency, it scales exchangers and fouls humidifiers, which is mechanical reliability."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "remember"

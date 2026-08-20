@@ -13,7 +13,7 @@ choices = [
   "Window U-factor considered without any water or energy term"
 ]
 correct = "B"
-explanation = "WUE relates water consumption to IT energy—an intensity metric for water-aware operations."
+explanation = "WUE is an intensity ratio: site water use over IT energy, which is why it pairs with PUE rather than describing anything on the network side. The other options name utilisation and efficiency ratios from unrelated domains -- none carries both a water term and an energy term, which is what makes a water-intensity metric."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "remember"

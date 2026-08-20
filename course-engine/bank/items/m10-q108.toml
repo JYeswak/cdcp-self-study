@@ -13,7 +13,7 @@ choices = [
   "Replace CRAH filtration because mineral content cannot affect air equipment"
 ]
 correct = "A"
-explanation = "Hard water and contaminants cause scale and white-dust issues; treatment or RO is common practice."
+explanation = "Mineral-laden feedwater scales the humidifier and carries solids into the airstream as white dust, which settles on boards and into filters. The corrosion-resistance inversion is the plausible one: dissolved minerals are not a protective coating, and the deposits they leave are the problem rather than a defence against it."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "understand"

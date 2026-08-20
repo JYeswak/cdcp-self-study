@@ -13,7 +13,7 @@ choices = [
   "Towers run indefinitely with zero water once fans and pumps remain energized",
 ]
 correct = "C"
-explanation = "Basin inventory is a real-time constraint on evaporative rejection."
+explanation = "Basin inventory is a live constraint on evaporative rejection: lose makeup control and the tower trips or runs at degraded approach. The passive-float argument is the plausible one, and it is backwards -- a mechanical float is exactly the component that sticks, which is why basin level is instrumented rather than assumed."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "understand"

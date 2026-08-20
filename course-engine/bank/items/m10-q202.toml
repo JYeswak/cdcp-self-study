@@ -13,7 +13,7 @@ choices = [
   "Heat rejection capacity can collapse without adequate water even if electrical power remains available",
 ]
 correct = "D"
-explanation = "Power without heat rejection still yields thermal shutdown risk."
+explanation = "Power without heat rejection still ends in thermal shutdown, so a tower-cooled hall depends on water for capacity, not just for amenity. Confining water to landscaping and domestic service is the plausible reading, and it is wrong precisely because an evaporative tower consumes makeup as part of how it rejects heat."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "analyze"

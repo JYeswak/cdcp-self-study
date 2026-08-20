@@ -16,7 +16,7 @@ choices = [
   "Replace physical security controls because biological risk is the only operational concern"
 ]
 correct = "C"
-explanation = "Water systems need microbiological control for safety and to limit fouling—treatment and maintenance discipline."
+explanation = "Warm, aerated, recirculating tower water is a favourable environment for Legionella, so the control programme exists for occupant health first and fouling second. The remaining options treat biological growth as either useful or as a substitute for unrelated controls, when the programme is specifically about suppressing it."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "understand"

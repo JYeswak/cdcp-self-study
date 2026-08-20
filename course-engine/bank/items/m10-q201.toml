@@ -13,7 +13,7 @@ choices = [
   "IT load runs solely on battery chemistry and does not require heat rejection or fire protection"
 ]
 correct = "C"
-explanation = "Stored water bridges utility interruptions for water-dependent mission systems."
+explanation = "Stored water earns its cost exactly where a supply interruption would force a derate or shutdown of something water-dependent -- cooling or water-based fire protection. Assuming municipal supply cannot fail is the attractive error: it is reliable, not guaranteed, and drought restrictions and upstream failures both reach a site with a perfect service record."
 topic_ids = ["m10-backup", "m10-importance"]
 objective_ids = []
 bloom = "apply"

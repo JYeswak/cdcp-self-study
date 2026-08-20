@@ -13,7 +13,7 @@ choices = [
   "Access routes, fill connections, water quality acceptance, and time-to-deploy logistics"
 ]
 correct = "D"
-explanation = "Emergency water logistics fail without engineered connections and quality rules."
+explanation = "Tanker water only helps if the truck can reach a fill point, the connection exists, the water is acceptable for the loop, and the whole sequence fits inside the outage. Each alternative removes one of those and treats the remainder as sufficient, which is how emergency water plans fail on the day."
 topic_ids = ["m10-backup"]
 objective_ids = []
 bloom = "apply"

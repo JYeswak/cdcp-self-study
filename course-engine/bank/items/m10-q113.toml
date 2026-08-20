@@ -16,7 +16,7 @@ choices = [
   "Measures only copper resistance in electrical conductors and cannot describe water-system behavior"
 ]
 correct = "B"
-explanation = "Water balance anomalies are early warnings for plant risk—instrumentation supports response."
+explanation = "Basin level and makeup flow are a water balance: an unexplained rise in makeup means loss somewhere -- a leak, excessive blowdown, or a supply problem -- and it shows up before thermal performance degrades. It does not replace rack-inlet sensing, though: it is an upstream plant signal, and inferring hall conditions from it would miss anything downstream of the loop."
 topic_ids = ["m10-importance", "m10-backup"]
 objective_ids = []
 bloom = "apply"

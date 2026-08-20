@@ -13,7 +13,7 @@ choices = [
   "Operators can respond before thermal or water-damage incidents fully develop",
 ]
 correct = "D"
-explanation = "Early warning converts latent water risk into actionable ops response."
+explanation = "Level, leak, and pressure alarms buy response time before a thermal excursion or water damage develops. Inferring water state from energy metering is the credible-sounding shortcut: energy tells you the plant is working harder, not that a basin is emptying, and by the time the two correlate the margin is already spent."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "apply"

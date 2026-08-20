@@ -13,7 +13,7 @@ choices = [
   "Draining all storage every day to maximize truck traffic and keep tanks visibly empty"
 ]
 correct = "C"
-explanation = "Resilience combines storage, alternate supply where feasible, and load/process flexibility."
+explanation = "Diversification means more than one way to keep water reaching the process: stored volume, an alternate feed where the site can get one, and defined conservation modes to stretch what is available. Treating conservation as a comfort-only measure is the subtle error -- conservation modes change how the plant runs, which is why they belong in the plan rather than in an improvised response."
 topic_ids = ["m10-backup", "m10-importance"]
 objective_ids = []
 bloom = "understand"

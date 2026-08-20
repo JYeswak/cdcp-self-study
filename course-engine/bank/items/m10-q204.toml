@@ -13,7 +13,7 @@ choices = [
   "Outdoor humidity sets the indoor setpoint regardless of feedwater state",
 ]
 correct = "B"
-explanation = "Water treatment trains are part of environmental control continuity."
+explanation = "Humidity control runs through a treatment train, so contaminated or offline RO/DI feedwater takes the humidifier with it. The return-air option is the genuinely confusable one: some systems do recover moisture from return air, but a humidifier adds moisture and needs a feedwater source to do it, so feedwater quality remains a dependency."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "understand"

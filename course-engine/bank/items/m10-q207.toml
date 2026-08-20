@@ -13,7 +13,7 @@ choices = [
   "Gas systems need water, so water-based fire protection is excluded from the site review"
 ]
 correct = "A"
-explanation = "Where water-based fire protection is used, water supply is a compliance and safety dependency."
+explanation = "Where fire protection is water-based, the AHJ-required flow and pressure make water supply a compliance dependency, not just an operational one. Electrical resilience does not substitute: a UPS keeps the load up and delivers nothing to a sprinkler head."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "remember"

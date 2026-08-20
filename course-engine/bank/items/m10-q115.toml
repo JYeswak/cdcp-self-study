@@ -13,7 +13,7 @@ choices = [
   "Heat rejection and humidity-control strategies can depend on reliable water services"
 ]
 correct = "D"
-explanation = "The current DOE FEMP page traces heat removal through water loops and cooling towers and explains that humidity-control choices affect water and energy use. Reliable water services therefore matter to water-dependent cooling and humidity strategies. This is a bounded utility-operations receipt, not a site-specific availability determination."
+explanation = "Where a design rejects heat through cooling towers or controls humidity with water, the water service is an availability input on the same footing as power. The alternatives invert the dependency direction -- water pressure does not power servers, and neither bonding nor network topology has a water term."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "remember"

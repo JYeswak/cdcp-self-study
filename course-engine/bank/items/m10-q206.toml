@@ -13,7 +13,7 @@ choices = [
   "Undetected leaks can damage IT and electrical plant and waste limited backup water",
 ]
 correct = "D"
-explanation = "Water is both a resource and a hazard; control both scarcity and unintended release."
+explanation = "An undetected leak is two problems at once: water reaching electrical and IT plant, and depletion of a backup supply that was sized for something else. Relying on floor drains is the attractive answer because drains do exist -- but they catch water that has already travelled across the floor, which is after it has passed whatever it damaged."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "apply"

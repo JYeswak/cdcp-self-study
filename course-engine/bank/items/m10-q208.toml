@@ -13,7 +13,7 @@ choices = [
   "Left solely to the landscaping contractor, who owns all process-water and cooling decisions"
 ]
 correct = "B"
-explanation = "Water contingency is an ops plan, not an improvisation during crisis."
+explanation = "Drought and restriction responses are predefined because they involve operating-mode changes, external communication, and possibly alternate cooling -- none of which can be designed while the plant is derating. Waiting for the first forced shutdown to gather evidence is the reasonable-sounding version, and it trades the one asset a contingency plan has, which is being ready before the event."
 topic_ids = ["m10-backup", "m10-importance"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Only fiber counts; water storage is independent"
 ]
 correct = "C"
-explanation = "Backup water duration must match risk scenarios and plant water demand profiles."
+explanation = "Storage is sized against the scenario: how long supply could be out, how fast the plant consumes makeup, and which operating modes actually need water. Rack counts and fibre counts describe IT density, not water demand, so none of them constrains tank volume."
 topic_ids = ["m10-backup"]
 objective_ids = []
 bloom = "apply"

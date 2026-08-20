@@ -13,7 +13,7 @@ choices = [
   "Discharge fire pre-action water to wash the drip to floor drains, using life-safety equipment as a general cleanup path"
 ]
 correct = "B"
-explanation = "Small hydronic leaks escalate into electrical and slip hazards. A runbook prioritizes contain/isolate, protect critical equipment, notify, and record — waiting for a rupture is not an ops strategy."
+explanation = "Small hydronic leaks near electrical and IT plant escalate, so the sequence is contain and isolate, protect what is nearby, notify, and record. Deferring to Monday is the realistic wrong choice rather than a cartoon one, and it is wrong because packing leaks worsen unattended and the hazard is electrical, not volumetric. Using CRAH airflow to evaporate it leaves the source in service, and discharging pre-action water uses a life-safety system as a cleanup tool."
 topic_ids = ["m10-importance", "m10-backup"]
 objective_ids = []
 bloom = "apply"

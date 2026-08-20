@@ -13,7 +13,7 @@ choices = [
   "Evaporative cooling can save energy but uses water; dry cooling saves water but may use more energy",
 ]
 correct = "D"
-explanation = "Water versus energy is a classic plant design tension—site climate and policy drive choices."
+explanation = "The tension is water against energy. Evaporative rejection spends water to move heat cheaply; dry rejection spends fan energy to avoid spending water. The inverted versions are attractive because each names a real resource -- but they assign the saving to the wrong method, and claiming no tradeoff exists denies the reason both technologies are still built."
 topic_ids = ["m10-importance"]
 objective_ids = []
 bloom = "analyze"
