@@ -10,7 +10,7 @@ stem = "Cabinet perforation percentage and door design can affect cooling becaus
 choices = [
   "Doors can impede equipment airflow",
   "Door design is decided by aesthetics rather than airflow",
-  "Solid doors improve inlet temperatures for front-to-back gear",
+  "Solid doors can improve inlet temperatures for front-to-back gear",
   "Perforation percentage is a security specification",
 ]
 correct = "A"

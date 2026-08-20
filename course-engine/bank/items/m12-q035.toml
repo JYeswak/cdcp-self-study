@@ -9,7 +9,7 @@ stem = "Clean-agent (gaseous) suppression is often discussed for white space bec
 choices = [
   "It costs less than wet systems when installation conditions are identical",
   "It can extinguish without the water damage profile of wet systems (with design trade-offs)",
-  "It reduces the need for enclosure integrity because the agent remains effective while room doors are open",
+  "It can reduce the need for enclosure integrity because the agent remains effective while room doors are open",
   "It removes detection requirements when the release panel is supervised",
 ]
 correct = "B"

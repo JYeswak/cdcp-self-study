@@ -10,7 +10,7 @@ kind = "single-select"
 module = 13
 stem = "Raised-floor and ceiling spaces can be security-relevant pathways because:"
 choices = [
-  "Plenums connect rooms when a separate door is propped open, rather than through the overhead space",
+  "Plenums can connect rooms when a separate door is propped open, rather than through the overhead space",
   "Network packets are the relevant concern, while physical movement through ceiling spaces is not a security path",
   "Ceiling tiles are secured by the access-control system, so physical inspection is unnecessary",
   "They may allow bypass of door controls if not physically secured or monitored as needed"

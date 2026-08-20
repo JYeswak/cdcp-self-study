@@ -7,7 +7,7 @@ kind = "single-select"
 module = 10
 stem = "Humidification systems may depend on water infrastructure; operators should recognize that:"
 choices = [
-  "Humidifiers draw moisture from return air, so feedwater quality is not a factor",
+  "Humidifiers can draw moisture from return air, so feedwater quality is not a factor",
   "Humidity control can fail if RO/DI or feedwater systems are offline or contaminated",
   "Humidity does not affect electrostatic or equipment concerns",
   "Outdoor humidity sets the indoor setpoint regardless of feedwater state",

@@ -8,7 +8,7 @@ module = 11
 stem = "Alien crosstalk concerns rise in dense copper bundles at high categories because:"
 choices = [
   "Noise from neighboring cables can impair high-speed channels",
-  "Alien crosstalk affects fiber channels rather than dense copper",
+  "Alien crosstalk can affect fiber channels rather than dense copper",
   "It occurs outdoors rather than in dense copper bundles",
   "It improves insertion loss"
 ]

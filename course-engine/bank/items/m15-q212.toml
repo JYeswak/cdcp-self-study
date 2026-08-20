@@ -11,7 +11,7 @@ choices = [
   "Photos have no information value or security impact",
   "Detailed internals can aid attacks if leaked",
   "Project layouts should be posted on social media to document breaker transparency",
-  "Cyber teams care about physical layouts and access rather than operations"
+  "Cyber teams can care about physical layouts and access rather than operations"
 ]
 correct = "B"
 explanation = "Information control is part of physical security hygiene."

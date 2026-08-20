@@ -8,7 +8,7 @@ kind = "single-select"
 module = 6
 stem = "Why might an engineer prefer STS at the load over relying solely on a mechanical ATS for IT?"
 choices = [
-  "An STS initiates the generator start sequence",
+  "An STS can initiate the generator start sequence",
   "An ATS cannot be fed from a generator",
   "STS replaces batteries entirely",
   "STS can transfer between synchronized sources much faster for sensitive IT loads",

@@ -12,7 +12,7 @@ stem = "Staffing and emergency response access (roads, distance to services) mat
 choices = [
   "Automated sites with no on-site staff cannot be affected by roads or response distance",
   "Emergency services do not interact with data centres, so road distance is irrelevant",
-  "Road access affects cafeteria catering rather than recovery",
+  "Road access can affect cafeteria catering rather than recovery",
   "Remote sites with poor access can lengthen recovery and complicate 24×7 operations"
 ]
 correct = "D"

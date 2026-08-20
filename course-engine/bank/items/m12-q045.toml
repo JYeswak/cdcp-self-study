@@ -10,7 +10,7 @@ stem = "Under a raised floor in white space, smoke detection is relevant because
 choices = [
   "Power and data cabling that can be both a fuel path and a smoke path",
   "Clean air and chilled-water piping rather than energized cabling or smoke paths",
-  "Nothing but inert gas cylinders for suppression service",
+  "Nothing but inert gas cylinders can be below the floor for suppression service",
   "Public seating and visitor storage below the floor"
 ]
 correct = "A"

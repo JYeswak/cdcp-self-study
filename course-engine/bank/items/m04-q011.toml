@@ -13,7 +13,7 @@ choices = [
   "Improves global pressure balance in the affected zone",
   "Can short-circuit supply air and starve distant racks",
   "Increases battery autonomy",
-  "Disables the BMS",
+  "Can disable the BMS",
 ]
 correct = "B"
 explanation = "Unplanned openings dump plenum pressure and can short-circuit supply, creating hot spots elsewhere."

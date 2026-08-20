@@ -7,7 +7,7 @@ kind = "single-select"
 module = 6
 stem = "Redundant parallel (N+1) UPS modules mean:"
 choices = [
-  "Modules must run one at a time; parallel operation is prohibited",
+  "Modules can run one at a time; parallel operation is prohibited",
   "One module can leave while remaining capacity meets load",
   "Utility feeds are optional when modules are paralleled",
   "Parallel operation equals 2N dual path even with a single source",

@@ -13,6 +13,10 @@ use std::path::PathBuf;
 const SEED_FIRST: u64 = 0;
 const SEED_COUNT: u64 = 100;
 const PASS_BAR: u32 = 27;
+const HEDGED_MEAN_MIN: f64 = 9.0;
+const HEDGED_MEAN_MAX: f64 = 11.0;
+const HEDGED_APPLICABLE_HIT_MIN: f64 = 0.20;
+const HEDGED_APPLICABLE_HIT_MAX: f64 = 0.30;
 const HEDGES: &[&str] = &[
     "can",
     "could",
@@ -91,6 +95,33 @@ fn hedged(item: &cdcp_assemble::AssembledItem) -> usize {
         .unwrap_or(0)
 }
 
+fn first_hedge_option(item: &cdcp_assemble::AssembledItem) -> Option<usize> {
+    item.choices.iter().position(|choice| {
+        tokens(choice)
+            .iter()
+            .any(|word| HEDGES.contains(&word.as_str()))
+    })
+}
+
+fn hedge_option_index(item: &cdcp_assemble::AssembledItem) -> Option<usize> {
+    let matches: Vec<_> = item
+        .choices
+        .iter()
+        .enumerate()
+        .filter(|(_, choice)| {
+            tokens(choice)
+                .iter()
+                .any(|word| HEDGES.contains(&word.as_str()))
+        })
+        .map(|(index, _)| index)
+        .collect();
+    if matches.len() == 1 {
+        Some(matches[0])
+    } else {
+        None
+    }
+}
+
 fn stem_overlap(item: &cdcp_assemble::AssembledItem) -> usize {
     let stem = content_words(&item.stem);
     item.choices
@@ -153,6 +184,10 @@ fn main() {
     ];
     let mut scores = vec![Vec::<u32>::new(); strategies.len()];
     let mut failures = Vec::new();
+    let mut any_hedged_total = 0;
+    let mut any_hedged_hits = 0;
+    let mut exact_hedged_total = 0;
+    let mut exact_hedged_hits = 0;
 
     println!(
         "PREDECLARED_SEEDS first={SEED_FIRST} count={SEED_COUNT} inclusive_end={} pass_bar={PASS_BAR}",
@@ -176,6 +211,20 @@ fn main() {
             cfg.n_items,
             "assembly returned non-40 form"
         );
+        for item in &exam.items {
+            if let Some(index) = first_hedge_option(item) {
+                any_hedged_total += 1;
+                if index == correct_index(item) {
+                    any_hedged_hits += 1;
+                }
+            }
+            if let Some(index) = hedge_option_index(item) {
+                exact_hedged_total += 1;
+                if index == correct_index(item) {
+                    exact_hedged_hits += 1;
+                }
+            }
+        }
         for (index, strategy) in strategies.iter().copied().enumerate() {
             let (value, right) = score(&exam, strategy, seed);
             scores[index].push(value);
@@ -222,4 +271,25 @@ fn main() {
             failures.len()
         );
     }
+
+    assert!(failures.is_empty(), "all predeclared seeds must assemble");
+    let hedged_values = &scores[5];
+    let hedged_mean = hedged_values.iter().sum::<u32>() as f64 / hedged_values.len() as f64;
+    let any_hedged_rate = any_hedged_hits as f64 / any_hedged_total as f64;
+    assert!(
+        (HEDGED_MEAN_MIN..=HEDGED_MEAN_MAX).contains(&hedged_mean),
+        "hedged mean {hedged_mean:.2} is outside control band {HEDGED_MEAN_MIN:.1}..={HEDGED_MEAN_MAX:.1}"
+    );
+    assert!(
+        (HEDGED_APPLICABLE_HIT_MIN..=HEDGED_APPLICABLE_HIT_MAX).contains(&any_hedged_rate),
+        "hedged applicable hit rate {any_hedged_rate:.1}% is outside {HEDGED_APPLICABLE_HIT_MIN:.0}%..={HEDGED_APPLICABLE_HIT_MAX:.0}%"
+    );
+    println!(
+        "HEDGED_APPLICABLE_ANY total={any_hedged_total} key_hits={any_hedged_hits} hit_rate={:.1}% target=20-30%",
+        any_hedged_rate * 100.0
+    );
+    println!(
+        "HEDGED_APPLICABLE_EXACTLY_ONE total={exact_hedged_total} key_hits={exact_hedged_hits} hit_rate={:.1}% diagnostic_after_distribution",
+        exact_hedged_hits as f64 * 100.0 / exact_hedged_total as f64
+    );
 }

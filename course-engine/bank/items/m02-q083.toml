@@ -6,7 +6,7 @@ stem = "If an RFP requires “Uptime Tier III certification,” substituting “
 choices = [
   "Preferred by a project AHJ as code",
   "A naming and contractual mismatch that can fail bid evaluation or audit expectations",
-  "Required by ISO 22237",
+  "ISO 22237 can require the Uptime/TIA substitution",
   "Accepted as identical under the bid's terminology, despite different assessment meanings",
 ]
 correct = "B"

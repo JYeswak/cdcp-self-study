@@ -13,7 +13,7 @@ choices = [
   "Any sensor that reports humidity, because a measurement point is itself a single point of failure",
   "A component or path whose failure alone can interrupt the critical load",
   "Any dual-path system by definition, even when one path cannot carry the critical load during maintenance",
-  "Any redundant UPS string, regardless of whether another independent path reaches the critical load"
+  "Any redundant UPS string is typically a single point of failure, regardless of whether another independent path reaches the critical load"
 ]
 correct = "B"
 explanation = "SPOFs are failure points without concurrent path diversity for the protected load."

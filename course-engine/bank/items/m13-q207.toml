@@ -10,7 +10,7 @@ kind = "single-select"
 module = 13
 stem = "Loading dock and delivery procedures are security-relevant because:"
 choices = [
-  "Docks connect to technical pathways after a camera is installed, so layout need not be reviewed",
+  "Docks can connect to technical pathways after a camera is installed, so layout need not be reviewed",
   "Deliveries are trusted after a vendor is recognized, so inspection adds no security value",
   "Legitimate freight can carry threats if uncontrolled",
   "Digital threats are the primary concern, while freight and physical contraband are outside delivery controls"

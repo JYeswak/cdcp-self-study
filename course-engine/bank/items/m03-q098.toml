@@ -11,7 +11,7 @@ kind = "single-select"
 module = 3
 stem = "Seismic and structural site risks should influence:"
 choices = [
-  "Furniture catalogues determine seismic anchorage requirements",
+  "Furniture catalogues can determine seismic anchorage requirements",
   "Nothing if dual UPS exists",
   "Structural design, anchorage, and sometimes geographic site rejection",
   "Paint shear strength determines structural site risk",

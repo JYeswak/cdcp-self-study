@@ -8,7 +8,7 @@ module = 6
 stem = "A sustainability program that lengthens generator test intervals without engineering review may:"
 choices = [
   "Improves availability by reducing engine wear",
-  "Convert diesel to free cooling without maintenance review",
+  "It may convert diesel to free cooling without maintenance review",
   "Emissions gains can erode start reliability",
   "Replace grounding systems as a sustainability measure",
 ]

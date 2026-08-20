@@ -7,7 +7,7 @@ kind = "single-select"
 module = 9
 stem = "Liquid cooling interest for AI and HPC density grows because:"
 choices = [
-  "Liquids eliminate electrical power need",
+  "Liquids can eliminate electrical power need",
   "Immersion raises PUE definitionally to zero",
   "Air delivery alone may not remove extreme heat fluxes economically or reliably",
   "CDUs replace fire codes"

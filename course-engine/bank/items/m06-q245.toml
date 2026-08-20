@@ -7,7 +7,7 @@ kind = "single-select"
 module = 6
 stem = "UPS module N+1 is valuable mainly when:"
 choices = [
-  "Modules are expected to fail together",
+  "Modules typically are expected to fail together",
   "Any one module can fail or be maintained while remaining modules carry the load",
   "Batteries are removed",
   "The generators, not the UPS, carry the N+1",

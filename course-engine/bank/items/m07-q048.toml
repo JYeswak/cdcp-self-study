@@ -7,7 +7,7 @@ kind = "single-select"
 module = 7
 stem = "Human exposure guidance (e.g. ICNIRP-class discussions) and product EMC immunity limits should be treated as:"
 choices = [
-  "Interchangeable number sets that apply to every design",
+  "Interchangeable number sets can apply to every design",
   "Of no relevance to a commercial data centre building",
   "Two separate concerns that can both drive layout",
   "Superseded by the facility's published efficiency targets",

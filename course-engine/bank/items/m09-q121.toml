@@ -10,7 +10,7 @@ stem = "Humidification may be required in a data centre when:"
 choices = [
   "UPS batteries require 100% RH under this equipment guidance",
   "Outdoor or process conditions can drive moisture low",
-  "Fiber works when fog is present, so humidity control is unnecessary",
+  "Fiber can work when fog is present, so humidity control is unnecessary",
   "Raised floors must be flooded"
 ]
 correct = "B"

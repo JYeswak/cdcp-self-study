@@ -9,7 +9,7 @@ stem = "Cleaning under raised floors and inside perforated tiles should be coord
 choices = [
   "Disturbing dust and opening tiles can alter airflow",
   "Floor cleaning has no effect on cooling, airflow, or contamination",
-  "CRAH units improve when clogged with dust and filters",
+  "CRAH units can improve when clogged with dust and filters",
   "Containment doors should be removed permanently for cleaning access"
 ]
 correct = "A"

@@ -8,7 +8,7 @@ module = 14
 stem = "A 15-minute averaged temperature trend can hide risk because:"
 choices = [
   "An average is equal to the peak inlet temperature it contains",
-  "An EMS cannot sample any faster than once per day",
+  "An EMS can sample no faster than once per day",
   "Short thermal spikes may not appear in a long average",
   "A BMS is physically incapable of sampling faster than once per hour",
 ]

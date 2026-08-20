@@ -12,7 +12,7 @@ stem = "A primary cooling-related reason to manage underfloor obstructions is th
 choices = [
   "Obstructions improve cooling efficiency in a flooded floor",
   "Cables and debris can block airflow and create hot spots",
-  "Tiles seal perfectly with any pile of junk",
+  "Tiles can seal perfectly with any pile of junk",
   "Air movement under a raised floor is absent in this supply design",
 ]
 correct = "B"

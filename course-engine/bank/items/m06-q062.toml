@@ -8,7 +8,7 @@ module = 6
 stem = "Capacity-parallel UPS modules without redundancy means:"
 choices = [
   "Module count is sized above the load, leaving one spare",
-  "2N is automatically achieved from module count alone, without path separation",
+  "2N can be automatically achieved from module count alone, without path separation",
   "Failure can reduce capacity below need",
   "The battery plant is shared with the mechanical loads",
 ]

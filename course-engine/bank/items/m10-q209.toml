@@ -7,7 +7,7 @@ kind = "single-select"
 module = 10
 stem = "Cooling tower basin level and makeup controls are operationally important because:"
 choices = [
-  "Basin level is a water-treatment metric with no bearing on heat transfer",
+  "Basin level can be a water-treatment metric with no bearing on heat transfer",
   "Makeup valves are self-correcting because the float assembly is passive",
   "Loss of makeup control can force tower trip or poor thermal performance",
   "Towers run indefinitely with zero water once fans and pumps remain energized",

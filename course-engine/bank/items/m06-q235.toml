@@ -7,7 +7,7 @@ kind = "single-select"
 module = 6
 stem = "PUE improvement that comes from turning off redundant cooling or power plant without redesign is risky because:"
 choices = [
-  "PUE equals a formal availability class",
+  "PUE can equal a formal availability class",
   "Redundant plant draws no energy while on standby",
   "PUE measures IT utilisation rather than facility overhead",
   "Energy metrics can look better while availability and concurrent maintainability degrade",

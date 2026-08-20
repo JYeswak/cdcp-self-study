@@ -8,7 +8,7 @@ module = 6
 stem = "Li-ion is specified both as UPS-room strings and as a yard BESS. The electrical / interconnect conversation this module owns is:"
 choices = [
   "Same chemistry, different hop: UPS strings sit on the UPS DC bus (ride-through); a BESS yard is usually AC-interconnected. Name NFPA 855 (installation standard — confirm adopted edition; not a product listing) and UL 9540A (thermal-runaway test method, not a certification). Point at Module 12 for the fire playbook; do not invent a fire percentage",
-  "Treat BESS as extra UPS batteries on the same DC bus and skip interconnect",
+  "BESS can be treated as extra UPS batteries on the same DC bus and skip interconnect",
   "Recite the Module 12 fire playbook (off-gas, water-on-Li-ion, suppression) here so this file owns fire",
   "Quote an industry outage percentage that proves Li-ion is safer than VRLA",
 ]

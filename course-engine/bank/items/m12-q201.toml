@@ -10,7 +10,7 @@ kind = "single-select"
 module = 12
 stem = "Very early smoke detection (e.g., aspirating systems) is valued in IT spaces because:"
 choices = [
-  "It extinguishes fires by vacuuming oxygen from the room completely",
+  "It can extinguish fires by vacuuming oxygen from the room completely",
   "It replaces suppression equipment whenever early smoke concentration remains below the alarm threshold during occupied operations",
   "It can detect dilute smoke before large flaming fires develop, enabling investigation and staged response",
   "It monitors outdoor air pollution rather than indoor smoke"

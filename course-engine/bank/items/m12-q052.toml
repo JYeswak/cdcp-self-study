@@ -8,7 +8,7 @@ kind = "single-select"
 module = 12
 stem = "CO2 total flooding at design concentrations for occupied white space is generally:"
 choices = [
-  "The default agent for server-room protection",
+  "Can be the default agent for server-room protection",
   "Required by every network cabling standard in an occupied electronics room",
   "Used to cool CRAC coils during routine maintenance",
   "Avoided because concentrations effective for fire can be lethal to people"

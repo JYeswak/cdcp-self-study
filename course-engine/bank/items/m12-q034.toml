@@ -11,7 +11,7 @@ choices = [
   "Detect heat after flames develop in the protected space",
   "Can detect smoke at very low concentrations before conventional detectors",
   "Identify smoke concentration after a conventional spot detector reaches its alarm threshold",
-  "Cool the room after a confirmed suppression discharge",
+  "Can cool the room after a confirmed suppression discharge",
 ]
 correct = "B"
 explanation = "Aspirating/VESDA-style systems can detect smoke at very low concentrations via continuous sampling."

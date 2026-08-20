@@ -13,7 +13,7 @@ choices = [
   "Five-nines identifies an availability target, not a utility-feed arrangement",
   "Availability and reliability are identical metrics",
   "Reliability is about how often failures occur; availability includes uptime fraction considering repair",
-  "Availability applies to network links but not power systems",
+  "Availability typically applies to network links but not power systems",
 ]
 correct = "C"
 explanation = "Reliability concerns failure frequency; availability also accounts for downtime and repair (MTTR) effects."

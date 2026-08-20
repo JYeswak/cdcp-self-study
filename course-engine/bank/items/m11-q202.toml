@@ -7,7 +7,7 @@ kind = "single-select"
 module = 11
 stem = "A fiber pair is routed through one shared conduit. The reliability concern is:"
 choices = [
-  "Different fiber colors make the route diverse",
+  "Different fiber colors can make the route diverse",
   "Optical power eliminates a common physical cut",
   "VLAN configuration creates a second physical path",
   "A shared conduit can let one cut remove both nominally redundant paths"

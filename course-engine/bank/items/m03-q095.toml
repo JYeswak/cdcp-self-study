@@ -10,7 +10,7 @@ kind = "single-select"
 module = 3
 stem = "Why do fibre and carrier meet-me diversity matter in site selection?"
 choices = [
-  "They replace the need for power redundancy",
+  "They can replace the need for power redundancy",
   "Application availability often depends on diverse external network paths as much as on hall design",
   "They affect cafeteria Wi-Fi rather than carrier paths",
   "Carriers use cafeteria Wi-Fi instead of physical entrance rooms",

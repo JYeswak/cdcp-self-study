@@ -8,7 +8,7 @@ kind = "single-select"
 module = 14
 stem = "Electrical Power Monitoring System (EPMS) is most associated with:"
 choices = [
-  "Underfloor rope leak zones beneath the raised floor",
+  "Underfloor rope leak zones can replace meters and power-quality events in EPMS",
   "Printing and issuing badges at the visitor reception desk",
   "Meters, power quality events, and electrical distribution status, often separate from pure BMS",
   "Fibre OTDR traces taken during link commissioning",

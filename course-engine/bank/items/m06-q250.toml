@@ -8,7 +8,7 @@ kind = "single-select"
 module = 6
 stem = "A single common-mode failure in the control system that trips both UPS trains simultaneously would show that:"
 choices = [
-  "Hardware 2N makes software faults impossible",
+  "Hardware 2N can make software faults impossible",
   "Battery chemistry is the deciding factor",
   "Electrical 2N hardware can still share control and logic vulnerabilities",
   "PUE prevents control faults",

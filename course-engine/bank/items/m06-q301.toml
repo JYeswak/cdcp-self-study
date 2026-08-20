@@ -8,7 +8,7 @@ kind = "single-select"
 module = 6
 stem = "Runbook vignette: Utility voltage sags; generators start and the ATS transfers the critical bus as designed. After utility stabilizes, a junior tech wants to force an immediate retransfer to utility without checking sync/return timers or load state. What should the runbook emphasize?"
 choices = [
-  "Retransfer instantly on utility voltage recovery to minimise generator fuel use, ignoring manufacturer timers",
+  "Retransfer can happen instantly on utility voltage recovery to minimise generator fuel use, ignoring manufacturer timers",
   "Follow designed retransfer logic (stability timers, sync/permissive checks, orderly return) rather than manual slam-back that can re-expose the load to an unstable utility",
   "Shut down the UPS static bypass permanently during every generator event",
   "Open the EPO to de-energise every path before the retransfer decision",

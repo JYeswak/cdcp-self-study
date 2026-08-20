@@ -8,7 +8,7 @@ module = 10
 stem = "Which statement best captures water’s role in many modern data centres?"
 choices = [
   "Water can be a critical dependency for heat rejection, humidity control, and fire protection alongside electrical power",
-  "Water is irrelevant whenever dual utility feeds make cooling and fire systems electrically redundant",
+  "Water can be irrelevant whenever dual utility feeds make cooling and fire systems electrically redundant",
   "Water is a facilities-services concern separate from heat rejection and life safety",
   "Water quality affects efficiency but not mechanical reliability of the plant",
 ]

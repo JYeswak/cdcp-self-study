@@ -10,7 +10,7 @@ choices = [
   "Vertical surfaces and lower U positions can be under-lit even when the aisle centre reads bright",
   "Shadow contrast improves security camera images without affecting work",
   "Racks are open enough that they do not block light from above",
-  "Floor-level lux is the measure that matters for equipment faces",
+  "Floor-level lux can be the measure that matters for equipment faces",
 ]
 correct = "A"
 explanation = "Task surfaces are often vertical; aisle-center readings can mislead."

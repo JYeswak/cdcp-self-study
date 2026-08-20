@@ -11,7 +11,7 @@ module = 1
 stem = "A slide still lists power, cooling, and human error as three equal root-cause buckets and asks you to memorize this year’s survey share. The taught 2026 reading is:"
 choices = [
   "Recite the three buckets and treat the largest published percentage as law, even when the source does not support a stable share",
-  "Cooling contributes a fixed one-third share, so start at the chiller for this site",
+  "Cooling can contribute a fixed one-third share, so start at the chiller for this site",
   "Human error is the unverifiable majority, so train harder and stop investigating power, cooling, and site-specific evidence",
   "Power path often leads facility events; cooling can cascade; human and process factors contribute — do not invent a fixed pie",
 ]

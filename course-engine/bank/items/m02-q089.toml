@@ -9,7 +9,7 @@ kind = "single-select"
 module = 2
 stem = "International standards development typically aims to:"
 choices = [
-  "Replace every national electrical code automatically, so adoption and local interpretation no longer matter",
+  "International standards typically replace every national electrical code automatically, so adoption and local interpretation no longer matter",
   "Ban national standards bodies, because international technical documents cannot coexist with national adoption or reference practices",
   "Apply to marketing material rather than technical design",
   "Provide broadly usable technical documents that countries and markets may adopt or reference differently",

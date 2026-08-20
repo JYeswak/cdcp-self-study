@@ -8,7 +8,7 @@ kind = "single-select"
 module = 15
 stem = "Preventive maintenance windows should be managed with change control because:"
 choices = [
-  "Maintenance has no effect on production, isolation, or service risk",
+  "Maintenance can have no effect on production, isolation, or service risk",
   "SLAs prohibit facility maintenance in the governed system",
   "Uncontrolled live-system work can cause outages",
   "Vendors prefer no documentation"

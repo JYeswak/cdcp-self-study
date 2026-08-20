@@ -9,7 +9,7 @@ stem = "Battery-backed emergency lighting that is past test intervals without re
 choices = [
   "Test records are optional for life-safety systems in most jurisdictions",
   "Failed lamps or batteries may only be found during a real outage",
-  "Emergency luminaires improve in output as their batteries age",
+  "Emergency luminaires can improve in output as their batteries age",
   "Codes prohibit functional testing of battery-backed luminaires",
 ]
 correct = "B"

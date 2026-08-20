@@ -11,7 +11,7 @@ module = 3
 stem = "Which statement is most accurate about facility criteria vs pure IT architecture?"
 choices = [
   "Facility criteria (structure, utilities, envelopes, plant space) bound what IT architectures can reliably deploy",
-  "IT architecture overrides building physics in this project",
+  "IT architecture can override building physics in this project",
   "Software defines floor loading while building limits follow IT architecture",
   "Network diagrams set flood elevations",
 ]

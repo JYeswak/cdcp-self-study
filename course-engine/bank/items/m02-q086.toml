@@ -10,7 +10,7 @@ module = 2
 stem = "Owner’s project specifications sit in the standards landscape as:"
 choices = [
   "Decorative appendices rather than contractual requirements",
-  "Replacements for building permits because project documents remove jurisdictional approvals",
+  "Project documents typically replace building permits because they remove jurisdictional approvals",
   "Contractual requirements that may exceed code minimums but cannot lawfully undercut adopted code",
   "Irrelevant when an ISO number is mentioned because the international series replaces local project controls",
 ]

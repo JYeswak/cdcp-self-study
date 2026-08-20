@@ -8,7 +8,7 @@ module = 6
 stem = "Someone slashes “isolated-redundant / catcher” and “distributed-redundant / catcher” as one topology. The drawable distinction is:"
 choices = [
   "Catcher is a dedicated reserve plus a catcher bus that can pick up an isolated primary; isolated-redundant is a reserve UPS without that bus spine; distributed-redundant spreads spare across active blocks with no idle catcher — isolate lives in Module 15",
-  "They are one slash: any spare UPS is a catcher whether or not a bus exists",
+  "They can be one slash: any spare UPS is a catcher whether or not a bus exists",
   "Catcher is the Uptime Tier name for 2N",
   "Catcher replaces the utility-to-rack path grammar with a single shared ATS",
 ]

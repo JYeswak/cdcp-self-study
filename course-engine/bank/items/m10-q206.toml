@@ -8,7 +8,7 @@ module = 10
 stem = "Leak detection and water system maintenance relate to availability because:"
 choices = [
   "Leaks are caught by the floor drains before reaching electrical plant",
-  "Water on the floor cools servers and is safer than isolation",
+  "Water on the floor can cool servers and be safer than isolation",
   "Water-system maintenance is cosmetic and cannot affect IT",
   "Undetected leaks can damage IT and electrical plant and waste limited backup water",
 ]

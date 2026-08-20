@@ -12,7 +12,7 @@ stem = "Why might a board care about facility resilience metrics, not only appli
 choices = [
   "Facility events can take down many systems at once and create regulatory or reputational exposure",
   "Because PUE alone determines stock price daily, regardless of service continuity, regulatory exposure, or customer impact",
-  "Because raised floors replace business continuity plans",
+  "Because raised floors can replace business continuity plans",
   "Because boards evaluate application dashboards and disregard facility risk metrics"
 ]
 correct = "A"

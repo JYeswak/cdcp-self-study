@@ -13,7 +13,7 @@ choices = [
   "Forbid any use of IEC documents",
   "Adopt, adapt, or publish national documents that may reference or align with international work",
   "Regulate cafeteria menus rather than technical facilities",
-  "Automatically void international standards",
+  "National bodies can automatically void international standards",
 ]
 correct = "B"
 explanation = "National bodies may adopt or adapt international material; alignment varies by country and topic."

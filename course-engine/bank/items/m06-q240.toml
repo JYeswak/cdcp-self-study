@@ -9,7 +9,7 @@ module = 6
 stem = "Flywheel energy storage paired with UPS-class systems is typically characterized by:"
 choices = [
   "Short-duration kinetic energy bridging, often alongside generators rather than long battery banks",
-  "Multi-day autonomy as a default",
+  "Multi-day autonomy can be a default",
   "A substitute for the grounding electrode system",
   "A form of outdoor evaporative cooling",
 ]

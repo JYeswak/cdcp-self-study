@@ -8,7 +8,7 @@ kind = "single-select"
 module = 6
 stem = "N+1 at a UPS module layer means:"
 choices = [
-  "Exactly one UPS total",
+  "Exactly one UPS total can satisfy N+1 at a module layer",
   "Capacity for full load plus one spare module so one can fail/maintain",
   "Two full independent sites",
   "No batteries required",
