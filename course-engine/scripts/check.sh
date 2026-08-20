@@ -1359,8 +1359,8 @@ run_cdcp_gate grounding-wave || fail "grounding-wave"
 ok "grounding-wave stem regression detector"
 
 # Orphan referential integrity (topics <-> bank) — ORACLE-GAUNTLET "orphan item".
-# Hard-required: an absent checker is a fooled certificate, not a skip.
-[ -f scripts/verify_orphans.py ] || fail "missing scripts/verify_orphans.py (orphan gate required)"
+# Rust owns the assertion logic; the former Python differential oracle was
+# retired after the Rust unit and known-bad selftest legs were proven.
 echo "==> cdcp_gate verify-orphans (topic<->item referential integrity)"
 run_cdcp_gate verify-orphans || fail "orphan referential integrity"
 ok "no orphan topics · no orphan item refs · no unanchored items"

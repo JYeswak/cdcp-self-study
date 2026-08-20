@@ -2877,7 +2877,7 @@ fn no_bank_loader_iterates_items_without_a_zero_yield_guard() {
     // to check, reports exactly like one that checked everything and found it
     // sound — which is the defect this whole bead is about, one level up.
     assert!(
-        sources.len() >= 7,
+        sources.len() >= 6,
         "scanned only {} python sources under {}; a scan that read almost \
          nothing must not report like one that read everything",
         sources.len(),
@@ -2893,7 +2893,6 @@ fn no_bank_loader_iterates_items_without_a_zero_yield_guard() {
         "verify_bank.py",
         "verify_coverage.py",
         "verify_objectives.py",
-        "verify_orphans.py",
     ] {
         assert!(
             branches.iter().any(|b| b.file == expected),
@@ -2902,9 +2901,12 @@ fn no_bank_loader_iterates_items_without_a_zero_yield_guard() {
              scan — or the file moved. Silence here is not evidence."
         );
     }
+    // `verify_orphans.py` was intentionally retired in the current Rust
+    // migration slice; the remaining Python loaders are bank, coverage, and
+    // objectives. Keep a nonzero explicit floor so an empty scan cannot pass.
     assert!(
-        branches.len() >= 4,
-        "expected at least the four bank loaders, found {}",
+        branches.len() >= 3,
+        "expected at least the three remaining bank loaders, found {}",
         branches.len()
     );
 

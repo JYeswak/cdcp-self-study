@@ -1,7 +1,8 @@
 //! Thin dispatcher. Implementation lives in `cdcp_bank::orphans`
 //! (EXTRACT-THEN-DELETE, bd-engine-not-gate-ar39.9). `check.sh` still runs
 //! `cdcp_gate verify-orphans`; this file must stay so the globbed registry
-//! keeps the subcommand. Dual-path oracle `scripts/verify_orphans.py` stays.
+//! keeps the subcommand. The former Python differential oracle is retired;
+//! Rust unit tests and `scripts/selftest_orphan.sh` retain the known-bad legs.
 
 use crate::registry::{GateCtx, GateError};
 use cdcp_bank::orphans::{self, Outcome};

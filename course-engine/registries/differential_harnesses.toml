@@ -46,7 +46,7 @@ schema_version = 1
 # `run_selftest`/`sh scripts/*.sh` calls into each script:
 #
 #   oracle                      invoked?  via
-#   verify_orphans.py           YES (8)   check.sh:508  -> selftest_orphan.sh
+#   verify_orphans.py           RETIRED   Rust unit/selftest owns the gate
 #   verify_objectives.py        YES (6)   check.sh:714  -> selftest_l7_objectives.sh
 #   verify_coverage.py          YES (3)   check.sh:683  -> selftest_l6_coverage.sh
 #   verify_bank.py              YES (2)   check.sh:719  -> smoke_slo.sh
@@ -60,8 +60,9 @@ schema_version = 1
 #
 # READING THE TWO TOGETHER — verify_content_lock.py and
 # verify_knowledge_paths.py are RETIRED (never invoked; rust is CI).
-# verify_bank.py and verify_orphans.py are blocked on the INVOCATION only —
-# their harnesses would lose nothing. Everything else is blocked on both.
+# verify_orphans.py is now retired too: the Rust unit/selftest suite owns all
+# of its wired known-bad legs. verify_bank.py remains blocked on invocation;
+# everything else is blocked on both invocation and its differential consumer.
 # ─────────────────────────────────────────────────────────────────────────────
 
 [census]
@@ -253,23 +254,6 @@ comparators = ["assert_byte_identical"]
 # names — they are semantic cases, not spellings. The 4qje min=0 pin is
 # untouched.
 cases = 54
-agreement_only = 0
-verdict_shape_leg = false
-verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"
-
-[[harness]]
-file = "diff_verify_orphans.rs"
-gate = "verify-orphans"
-comparators = ["assert_byte_identical"]
-# CONVERTED 2026-08-14 (bd-differential-shared-blindspot-4qje): 26 cases / 7
-# agreement-only became 23 cases / 0. The six option-spelling cases were not
-# merely given assertions — they were repointed at a bank holding a KNOWN
-# planted orphan, because asserting "this spelling still passes" against the
-# green live tree is worth nothing. Each now asserts that the spelling
-# normalises to the one resolved path, that the run scanned THAT tree (the item
-# count, which is what catches a silent fallback to a default), and that it
-# still reaches the planted finding and goes RED for it.
-cases = 25
 agreement_only = 0
 verdict_shape_leg = false
 verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"

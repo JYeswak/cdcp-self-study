@@ -127,11 +127,6 @@ bead = "bd-substrate-rust-migration-jhd.1"
 [oracle_inventory]
 
 [[oracle_inventory.file]]
-path = "scripts/verify_orphans.py"
-disposition = "cargo_test_differential"
-why = "check.sh/selftest_orphan.sh no longer invoke python3; cargo test still diffs vs tests/diff_verify_orphans.rs (bd-substrate-rust-migration-jhd.22)"
-
-[[oracle_inventory.file]]
 path = "scripts/verify_injection_count.py"
 disposition = "cargo_test_differential"
 why = "check.sh/selftest_injection_count.sh no longer invoke python3; cargo test still diffs vs tests/diff_verify_injection_count.rs (bd-substrate-rust-migration-jhd.25)"
@@ -169,12 +164,6 @@ why = "check.sh/selftest_l7_objectives.sh no longer invoke python3; cargo test s
 # =============================================================================
 # WAVE 1 — ported; retained as differential oracles (bd-…jhd.2 … .4)
 # =============================================================================
-
-[[allow]]
-path = "scripts/verify_orphans.py"
-reason = "Differential oracle for `cdcp_gate verify-orphans` (bd-substrate-rust-migration-jhd.2, ported 2026-08-14). Topic<->item referential integrity. Retained so tests/diff_verify_orphans.rs can compare both implementations. check.sh presence-checks only; cargo test still diffs. Known-bad plants run via $CDCP_BIN_DIR/cdcp_gate verify-orphans (bd-substrate-rust-migration-jhd.22)."
-migration_bead = "bd-substrate-rust-migration-jhd.2"
-expires = "2026-10-31"
 
 [[allow]]
 path = "scripts/verify_injection_count.py"

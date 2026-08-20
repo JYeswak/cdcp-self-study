@@ -10,7 +10,8 @@
 #   applied to the working tree.
 #
 # Plants run the Rust binary (same helper contract as check.sh).
-# scripts/verify_orphans.py is the cargo-test differential oracle only.
+# The Rust implementation is the sole gate-path implementation; its unit
+# tests retain the former differential's edge-shape coverage.
 #
 # Cases:
 #   a) empty bank dir                  → ERROR (anti-vacuous)

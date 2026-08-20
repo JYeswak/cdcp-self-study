@@ -5,7 +5,9 @@
 //! not a gate file: a learner is scored against topics, so an orphan topic
 //! (zero approved refs) or an unanchored item is a product defect. The
 //! `cdcp_gate verify-orphans` subcommand is a thin dispatcher so `check.sh`
-//! does not change. Dual-path oracle `scripts/verify_orphans.py` stays.
+//! does not change. The former Python differential oracle was retired after
+//! the Rust unit tests and the wired known-bad selftest became the source of
+//! truth for this gate.
 //!
 //! # CLAIM: FLOOR-RAISE
 //!
@@ -22,11 +24,11 @@
 //! It cannot tell whether a topic is assessed well, or whether a resolving
 //! `topic_id` is the right topic. A syllabus that omits a topic is invisible.
 //!
-//! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
+//! # RETIREMENT BOUNDARY
 //!
-//! Oracle: `scripts/verify_orphans.py`. The gate-crate differential still
-//! asserts stdout/stderr/exit byte for byte. RED reports go to stdout with
-//! exit 1, not `GateError`.
+//! This module owns the assertion logic and its anti-vacuous/error-shape
+//! tests. It does not establish that an item is pedagogically well-anchored;
+//! it only checks the bidirectional topic references described above.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
