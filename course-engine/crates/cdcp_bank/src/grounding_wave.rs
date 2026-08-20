@@ -385,6 +385,8 @@ mod tests {
             let entry = entry.unwrap();
             let from = entry.path();
             let to = target.join(entry.file_name());
+            // ABSENT-OK: fixture copier; a non-directory entry is copied as a
+            // file below, and no detector verdict is skipped by this branch.
             if from.is_dir() {
                 copy_tree(&from, &to);
             } else {

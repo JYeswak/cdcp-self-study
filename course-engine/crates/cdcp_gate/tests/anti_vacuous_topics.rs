@@ -34,7 +34,8 @@
 //!
 //! It says nothing about whether a topic tag is the RIGHT tag, nor about exam
 //! outcomes. `unreasoned_path_guards_are_a_defect` is a REGRESSION tripwire over
-//! the live `crates/cdcp_gate/src/gates/*.rs` tree and the remaining
+//! the live gate dispatchers, the extracted assertion modules in
+//! `cdcp_bank`/`cdcp_registry_check`/`cdcp_learn`, and the remaining
 //! `scripts/verify_*.py` / `scripts/validate_*.py` oracles, not a proof that
 //! every helper follows `?` — see its own doc.
 
@@ -441,7 +442,8 @@ fn the_live_tree_is_still_green_and_the_optional_input_is_still_optional() {
 // ── 5) the general detector, scoped and argued ────────────────────────────
 
 /// A REGRESSION TRIPWIRE for the absent-input-reads-as-success class, over the
-/// live gate tree and the remaining Python oracles (bd-absent-ok-widen-m0j2).
+/// live gate dispatchers, extracted product owners, and remaining Python
+/// oracles (bd-absent-ok-widen-m0j2).
 ///
 /// # The rule
 ///
@@ -458,10 +460,10 @@ fn the_live_tree_is_still_green_and_the_optional_input_is_still_optional() {
 ///
 /// # Scope (widened from two files)
 ///
-/// bd-9nyt invented the convention on `verify_objectives`. This wave globs
-/// `crates/cdcp_gate/src/gates/*.rs` and the remaining `scripts/verify_*.py` /
-/// `scripts/validate_*.py` oracles. `build_units.rs` is gone (extracted); it is
-/// not scanned. An empty glob is ERROR.
+/// bd-9nyt invented the convention on `verify_objectives`. The scanner now
+/// follows extracted assertion owners in `cdcp_bank`, `cdcp_registry_check`,
+/// and `cdcp_learn`; each product root and the remaining Python oracle glob
+/// has a nonzero file floor. An empty glob is ERROR.
 ///
 /// # What it cannot decide
 ///
@@ -472,343 +474,29 @@ fn the_live_tree_is_still_green_and_the_optional_input_is_still_optional() {
 /// the per-file reasoned cap below is what keeps the lazy ones visible.
 #[test]
 fn unreasoned_path_guards_are_a_defect() {
-    let root = engine_root();
-    let targets = scan_targets(&root);
-
-    let mut total = 0usize;
-    let mut reasoned = 0usize;
-    let mut flagged: Vec<String> = Vec::new();
-    for (path, rel, python) in &targets {
-        let src = std::fs::read_to_string(path).unwrap_or_else(|e| {
-            panic!("{rel} unreadable: {e} — a scan that read nothing is a FAILURE")
-        });
-        let sites = guard_sites(&src, *python);
-        let min = min_sites(rel);
-        // Anti-vacuous, per file: a scanner that matched nothing reports exactly
-        // like one that matched everything and found it clean. Floors are
-        // retuned per-file (bd-absent-ok-widen-m0j2); a 0-site file is only
-        // legal where the file is known to have no block-opening existence test.
-        assert!(
-            sites.len() >= min,
-            "{rel}: found {} path guards, floor is {min} — a near-empty scan \
-             means the scanner broke or a guard vanished, not that the file is clean",
-            sites.len()
-        );
-        let mut file_reasoned = 0usize;
-        for s in &sites {
-            total += 1;
-            match classify(s) {
-                Verdict::RecordsError => {}
-                Verdict::Reasoned => {
-                    reasoned += 1;
-                    file_reasoned += 1;
-                }
-                Verdict::Unreasoned => flagged.push(format!("{rel}:{}: {}", s.line, s.head)),
-            }
-        }
-        let max = max_reasoned(rel, sites.len());
-        assert!(
-            file_reasoned <= max,
-            "{rel}: {file_reasoned} of {} guards are ABSENT-OK (cap {max}) — \
-             the exemption must stay rare per file, not just in aggregate",
-            sites.len()
-        );
-    }
-
+    let report = cdcp_registry_check::anti_vacuous::scan(&engine_root());
     assert!(
-        flagged.is_empty(),
-        "path guards that neither record an error nor carry an `ABSENT-OK:` reason:\n  {}",
-        flagged.join("\n  ")
+        report.floors.is_empty(),
+        "path-guard floors missing: {:?}",
+        report.floors
     );
     assert!(
-        total >= 41,
-        "the scan covered only {total} guards — empty (or near-empty) scan set is ERROR"
-    );
-    // Global: the marker must stay exercised. The "exemption stays rare"
-    // direction is enforced per-file above (`reasoned * 2 < total` retuned
-    // as `file_reasoned <= max_reasoned`), because a 1-site search helper
-    // cannot express "less than half".
-    assert!(
-        reasoned > 0,
-        "{reasoned} of {total} guards are ABSENT-OK — the marker must stay exercised"
-    );
-
-    // PLANTED KNOWN-BAD: the scanner is itself checked. A detector nobody proved
-    // can trip is a detector that reports clean because it looks at nothing.
-    let bad = "fn f() {\n    if Path::new(&p).is_file() {\n        do_the_check();\n    }\n}\n";
-    assert_eq!(
-        guard_sites(bad, false).len(),
-        1,
-        "the scanner missed a bare guard"
+        report.policy_errors.is_empty(),
+        "path-guard policy errors: {:?}",
+        report.policy_errors
     );
     assert!(
-        matches!(classify(&guard_sites(bad, false)[0]), Verdict::Unreasoned),
-        "a bare guard around a check must be FLAGGED"
+        report.flagged.is_empty(),
+        "unreasoned path guards: {:?}",
+        report.flagged
     );
-    // …and its known-GOOD twin, so the scanner is not simply flagging everything.
-    let ok = "fn f() {\n    // ABSENT-OK: absence removes nothing this gate checks.\n    \
-              if Path::new(&p).is_file() {\n        do_the_check();\n    }\n}\n";
     assert!(
-        matches!(classify(&guard_sites(ok, false)[0]), Verdict::Reasoned),
-        "a guard carrying a written reason must NOT be flagged"
+        report.total >= 41,
+        "scan covered only {} guards",
+        report.total
     );
-    let errs =
-        "fn f() {\n    if Path::new(&p).is_file() {\n        do_it();\n    } else {\n        \
-                errors.push(format!(\"missing: {p}\"));\n    }\n}\n";
-    assert!(
-        matches!(
-            classify(&guard_sites(errs, false)[0]),
-            Verdict::RecordsError
-        ),
-        "a guard whose else records an error must NOT be flagged"
-    );
+    assert!(report.reasoned > 0, "ABSENT-OK marker was never exercised");
     ASSERTED.fetch_add(1, Ordering::SeqCst);
-}
-
-struct Site {
-    line: usize,
-    head: String,
-    /// The whole if/else chain the guard opens.
-    chain: String,
-    /// The twelve lines above it, where a reason naturally sits.
-    preamble: String,
-}
-
-enum Verdict {
-    RecordsError,
-    Reasoned,
-    Unreasoned,
-}
-
-/// Live `src/gates/*.rs` plus remaining `scripts/{verify,validate}_*.py`.
-/// An empty glob is ERROR. `build_units.rs` is extracted and not scanned.
-fn scan_targets(root: &Path) -> Vec<(PathBuf, String, bool)> {
-    let mut out = Vec::new();
-
-    let gates_dir = root.join("crates/cdcp_gate/src/gates");
-    let mut gate_files = 0usize;
-    let rd = std::fs::read_dir(&gates_dir)
-        .unwrap_or_else(|e| panic!("gates dir unreadable: {e} — an empty scan set is an ERROR"));
-    for e in rd.flatten() {
-        let p = e.path();
-        if p.extension().and_then(|s| s.to_str()) != Some("rs") {
-            continue;
-        }
-        let rel = format!(
-            "crates/cdcp_gate/src/gates/{}",
-            e.file_name().to_string_lossy()
-        );
-        out.push((p, rel, false));
-        gate_files += 1;
-    }
-    assert!(
-        gate_files >= 10,
-        "gates glob found {gate_files} .rs files — empty (or near-empty) scan set is ERROR"
-    );
-
-    let scripts = root.join("scripts");
-    let mut oracle_files = 0usize;
-    let rd = std::fs::read_dir(&scripts)
-        .unwrap_or_else(|e| panic!("scripts/ unreadable: {e} — an empty scan set is an ERROR"));
-    for e in rd.flatten() {
-        let name = e.file_name();
-        let name = name.to_string_lossy();
-        let is_oracle =
-            (name.starts_with("verify_") || name.starts_with("validate_")) && name.ends_with(".py");
-        if !is_oracle {
-            continue;
-        }
-        out.push((e.path(), format!("scripts/{name}"), true));
-        oracle_files += 1;
-    }
-    assert!(
-        oracle_files >= 5,
-        "oracle glob found {oracle_files} verify_/validate_ .py files — empty scan set is ERROR"
-    );
-
-    out.sort_by(|a, b| a.1.cmp(&b.1));
-    out
-}
-
-/// Measured floors (2026-08-15). A drop means a guard vanished or the scanner
-/// broke. 0 is reserved for files known to have no block-opening existence test.
-fn min_sites(rel: &str) -> usize {
-    match rel.rsplit('/').next().unwrap_or(rel) {
-        // Dispatchers: the walks live in product crates (near_duplicate,
-        // orphans, verify_bank, knowledge_paths, objectives, validate_grounding,
-        // verify_content_lock, verify_coverage). A 0-site file is legal only here.
-        "mod.rs"
-        | "install_hooks.rs"
-        | "near_duplicate_items.rs"
-        | "verify_orphans.rs"
-        | "verify_bank.rs"
-        | "verify_knowledge_paths.rs"
-        | "verify_objectives.rs"
-        | "validate_grounding.rs"
-        | "verify_content_lock.rs"
-        | "verify_coverage.rs" => 0,
-        "capability_maturity.rs"
-        | "goldens_couplings.rs"
-        | "verify_injection_count.rs"
-        | "verify_step_count.rs"
-        | "verify_doc_consistency.py" => 1,
-        "doc_facts.rs" | "verify_orphans.py" | "verify_paraphrase_pairs.py" => 2,
-        "corpus_redistribution.rs"
-        | "verify_doc_consistency.rs"
-        | "verify_knowledge_paths.py"
-        | "verify_injection_count.py" => 3,
-        "substrate_guard.rs" | "verify_coverage.py" => 4,
-        "verify_bank.py" | "validate_grounding.py" => 5,
-        "verify_objectives.py" => 7,
-        // A newly added target is scanned; give it a floor once measured.
-        _ => 0,
-    }
-}
-
-/// Per-file retune of `reasoned * 2 < total`. A 1- or 2-site search/walk
-/// helper cannot express "less than half"; those files pin an explicit cap
-/// instead of dropping the assertion.
-fn max_reasoned(rel: &str, sites: usize) -> usize {
-    match rel.rsplit('/').next().unwrap_or(rel) {
-        "capability_maturity.rs"
-        | "goldens_couplings.rs"
-        | "verify_injection_count.rs"
-        | "verify_step_count.rs" => 1,
-        "doc_facts.rs" | "corpus_redistribution.rs" | "verify_doc_consistency.rs" => 2,
-        "substrate_guard.rs" | "validate_grounding.py" => 3,
-        _ if sites < 3 => sites,
-        _ => sites.saturating_sub(1) / 2,
-    }
-}
-
-fn classify(s: &Site) -> Verdict {
-    const RECORDS: [&str; 6] = [
-        "errors.push(",
-        "errors.append(",
-        "errors.extend(",
-        "return Err(",
-        "missing",
-        "parse error",
-    ];
-    if RECORDS.iter().any(|t| s.chain.contains(t)) {
-        return Verdict::RecordsError;
-    }
-    if s.chain.contains("ABSENT-OK:") || s.preamble.contains("ABSENT-OK:") {
-        return Verdict::Reasoned;
-    }
-    Verdict::Unreasoned
-}
-
-/// Every block-opening existence test, with the chain it opens. Deliberately
-/// ignores existence tests that are not branches — `format!("policy={}", if
-/// p.is_file() …)` selects a REPORT STRING and no code path, and is commented as
-/// such at its site rather than parsed for here.
-fn guard_sites(src: &str, python: bool) -> Vec<Site> {
-    const TESTS: [&str; 3] = ["is_file()", ".exists()", "is_dir()"];
-    let lines: Vec<&str> = src.lines().collect();
-    let mut out = Vec::new();
-    for (i, raw) in lines.iter().enumerate() {
-        let t = raw.trim_start();
-        let opens = if python {
-            t.starts_with("if ") || t.starts_with("elif ")
-        } else {
-            t.starts_with("if ") || t.starts_with("} else if ") || t.starts_with("else if ")
-        };
-        if !opens || !TESTS.iter().any(|x| t.contains(x)) {
-            continue;
-        }
-        let chain = if python {
-            py_chain(&lines, i)
-        } else {
-            rs_chain(&lines, i)
-        };
-        let from = i.saturating_sub(12);
-        out.push(Site {
-            line: i + 1,
-            head: t.to_string(),
-            chain,
-            preamble: lines[from..i].join("\n"),
-        });
-    }
-    out
-}
-
-/// Brace-match the chain, with string literals stripped so a `{}` in a
-/// `format!` cannot unbalance the count.
-fn rs_chain(lines: &[&str], start: usize) -> String {
-    let mut depth = 0i32;
-    let mut seen = false;
-    let mut out = String::new();
-    for l in &lines[start..] {
-        out.push_str(l);
-        out.push('\n');
-        for c in strip_str_lits(l).chars() {
-            match c {
-                '{' => {
-                    depth += 1;
-                    seen = true;
-                }
-                '}' => depth -= 1,
-                _ => {}
-            }
-        }
-        if seen && depth <= 0 {
-            break;
-        }
-    }
-    out
-}
-
-fn strip_str_lits(l: &str) -> String {
-    let mut o = String::with_capacity(l.len());
-    let mut in_s = false;
-    let mut esc = false;
-    for c in l.chars() {
-        if in_s {
-            if esc {
-                esc = false;
-            } else if c == '\\' {
-                esc = true;
-            } else if c == '"' {
-                in_s = false;
-            }
-            continue;
-        }
-        if c == '"' {
-            in_s = true;
-            continue;
-        }
-        o.push(c);
-    }
-    o
-}
-
-/// The indented suite, plus any `else`/`elif` continuation at the same column.
-fn py_chain(lines: &[&str], start: usize) -> String {
-    let indent = |s: &str| s.len() - s.trim_start().len();
-    let base = indent(lines[start]);
-    let mut out = String::from(lines[start]);
-    out.push('\n');
-    for l in &lines[start + 1..] {
-        if l.trim().is_empty() {
-            out.push('\n');
-            continue;
-        }
-        let ind = indent(l);
-        if ind > base {
-            out.push_str(l);
-            out.push('\n');
-            continue;
-        }
-        let t = l.trim_start();
-        if ind == base && (t.starts_with("else") || t.starts_with("elif ")) {
-            out.push_str(l);
-            out.push('\n');
-            continue;
-        }
-        break;
-    }
-    out
 }
 
 // ── the suite must have asserted something ────────────────────────────────
